@@ -9,7 +9,7 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Generator;
 use InvalidArgumentException;
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
+use Tribe__Cache_Listener as Cache_Listener;
 
 /**
  * Class Builder

@@ -29,6 +29,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date_UTC;
 use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validator;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Timezones as Timezones;
@@ -139,6 +140,71 @@ class Occurrence extends Model {
 		$normalized_id = apply_filters( 'tec_events_custom_tables_v1_normalize_occurrence_id', $occurrence_id );
 
 		return $normalized_id;
+	}
+
+	/**
+	 * Returns whether the occurrence is the Occurrence representing the Event post start and end dates
+	 * or not.
+	 *
+	 * @since TBD
+	 *
+	 * @param Occurrence|null $occurrence The occurrence to check.
+	 *
+	 * @return bool Whether the occurrence is the Occurrence representing the Event post start and end dates or not.
+	 */
+	public static function is_post_occurrence( ?Occurrence $occurrence = null ): bool {
+		if ( $occurrence === null ) {
+			return false;
+		}
+
+		$cache              = tribe_cache();
+		$provisional_id     = $occurrence->provisional_id;
+		$is_post_occurrence = $cache->get( 'is_post_occurrence_' . $provisional_id, Cache_Listener::TRIGGER_SAVE_POST, null );
+
+		if ( $is_post_occurrence !== null ) {
+			return (bool) $is_post_occurrence;
+		}
+
+		$post_id = $occurrence->post_id;
+
+		$event_start_date = get_post_meta( $post_id, '_EventStartDate', true );
+		$event_end_date   = get_post_meta( $post_id, '_EventEndDate', true );
+
+		$is_post_occurrence = $event_start_date === $occurrence->start_date && $event_end_date === $occurrence->end_date;
+
+		$cache->set( 'is_post_occurrence_' . $provisional_id, $is_post_occurrence, Cache_Listener::TRIGGER_SAVE_POST );
+
+		return $is_post_occurrence;
+	}
+
+	public static function get_post_occurrence( int $post_id = null ): ?Occurrence {
+		if ( $post_id === null ) {
+			return null;
+		}
+
+		$cache           = tribe_cache();
+		$post_occurrence = $cache->get( 'post_occurrence_' . $post_id, Cache_Listener::TRIGGER_SAVE_POST, null );
+
+		if ( is_array( $post_occurrence ) ) {
+			return new self( $post_occurrence );
+		}
+
+		$event_start_date = get_post_meta( $post_id, '_EventStartDate', true );
+		$event_end_date   = get_post_meta( $post_id, '_EventEndDate', true );
+
+		$post_occurrence = self::where( 'post_id', '=', $post_id )
+		                       ->where( 'start_date', '=', $event_start_date )
+		                       ->where( 'end_date', '=', $event_end_date )
+		                       ->order_by( 'start_date', 'ASC' )
+		                       ->first();
+
+		if ( $post_occurrence instanceof self ) {
+			$cache->set( 'post_occurrence_' . $post_id, $post_occurrence->to_array(), Cache_Listener::TRIGGER_SAVE_POST );
+
+			return $post_occurrence;
+		}
+
+		return null;
 	}
 
 	/**
