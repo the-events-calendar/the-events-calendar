@@ -1,6 +1,6 @@
 <?php
 /**
- * Class that handles interfacing with tec-common Telemetry.
+ * Class that handles interfacing with TEC\Common\Telemetry.
  *
  * @since   TBD
  *
@@ -89,5 +89,30 @@ class Telemetry {
 		];
 
 		return $fields;
+	}
+
+	/**
+	 * Ensures the admin control reflects the actual opt-in status.
+	 * We save this value in tribe_options but since that could get out of sync,
+	 * we always display the status from TEC\Common\StellarWP\Telemetry\Opt_In\Status directly.
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $value  The value of the attribute.
+	 * @param string $field  The field object id.
+	 *
+	 * @return mixed $value
+	 */
+	public function filter_tribe_field_opt_in_status( $value, $id ) {
+		if ( 'opt-in-status' !== $id ) {
+			return $value;
+		}
+
+		// We don't care what the value stored in tribe_options is - give us the Opt_In\Status value.
+		$status = Config::get_container()->get( Status::class );
+		// Rather than test for STATUS_ACTIVE, we just make sure it's not inactive (as there is also a "mixed" status)
+		$value = $status->get() !== $status::STATUS_INACTIVE;
+
+		return $value;
 	}
 }

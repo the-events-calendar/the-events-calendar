@@ -1,6 +1,6 @@
 <?php
 /**
- * Service Provider for interfacing with tec-common Site Health.
+ * Service Provider for interfacing with TEC\Common\Site Health.
  *
  * @since   TBD
  *
