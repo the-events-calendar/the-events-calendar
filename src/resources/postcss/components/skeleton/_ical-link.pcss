@@ -73,6 +73,16 @@
 			display: none;
 		}
 
+		/* display submenu when button is clicked */
+		.tribe-events-c-subscribe-dropdown__content.tribe-events-c-subscribe-dropdown__content--show {
+			display: block;
+		}
+
+		/* rotate icon when button is active */
+		.tribe-events-c-subscribe-dropdown__button-icon--rotate {
+			transform: rotate(180deg);
+		}
+
 		.tribe-events-c-subscribe-dropdown__list {
 			list-style: none;
 			padding: var(--tec-spacer-1);
@@ -96,13 +106,13 @@
 
 		&:focus,
 		&:focus-within {
-			/* Show the submenu when we are focused anywhere inside. */
-			.tribe-events-c-subscribe-dropdown__content {
+			/* display submenu when button is clicked */
+			.tribe-events-c-subscribe-dropdown__content.tribe-events-c-subscribe-dropdown__content--show {
 				display: block;
 			}
 
-			/* ...and the icon rotate */
-			.tribe-events-c-subscribe-dropdown__button-icon {
+			/* rotate icon when button is active */
+			.tribe-events-c-subscribe-dropdown__button-icon--rotate {
 				transform: rotate(180deg);
 			}
 		}
