@@ -61,7 +61,7 @@
 	};
 
 	/**
-	 * Toggles active class the dropdown container.
+	 * Toggles active class for the dropdown container.
 	 *
 	 * @since TBD
 	 *
@@ -72,7 +72,7 @@
 	};
 
 	/**
-	 * Toggles rotate class the button icon.
+	 * Toggles rotate class for the button icon.
 	 *
 	 * @since TBD
 	 *
