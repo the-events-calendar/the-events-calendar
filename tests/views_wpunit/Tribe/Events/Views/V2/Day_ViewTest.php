@@ -15,7 +15,6 @@ use DateTime;
  * @package Tribe\Events\Views\V2
  */
 class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
-	use With_Post_Remapping;
 
 	/**
 	 * When mocking the `date` function this is the value that will be used to generate the date in place of the real
@@ -80,7 +79,7 @@ class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 			],
 		];
 
-		$events            = array_map(
+		$events = array_map(
 			static function ( $data ) use ( $timezone ) {
 				return tribe_events()->set_args(
 					[
@@ -95,19 +94,6 @@ class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 			},
 			$events_data
 		);
-		$event_ids         = wp_list_pluck( $events, 'ID' );
-		$mock_and_insert   = function ( $template, $id ) {
-			$this->wp_insert_post( $this->get_mock_event( $template, [ 'id' => $id ] ) );
-
-			return $id;
-		};
-
-		$remapped_post_ids = array_combine( $event_ids, [
-			$mock_and_insert( 'events/single/id.template.json', 234234234 ),
-			$mock_and_insert( 'events/single/id.template.json', 2453454355 ),
-			$mock_and_insert( 'events/single/id.template.json', 3094853477 ),
-			$mock_and_insert( 'events/single/id.template.json', 3094855477 ),
-		] );
 
 		/* @var Day_View $day_view */
 		$day_view = View::make( Day_View::class, $this->context );
@@ -147,7 +133,7 @@ class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 			],
 		];
 
-		$events            = array_map(
+		$events = array_map(
 			static function ( $data ) use ( $timezone ) {
 				return tribe_events()->set_args(
 					[
@@ -162,19 +148,6 @@ class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 			},
 			$events_data
 		);
-		$event_ids         = wp_list_pluck( $events, 'ID' );
-		$mock_and_insert   = function ( $template, $id ) {
-			$this->wp_insert_post( $this->get_mock_event( $template, [ 'id' => $id ] ) );
-
-			return $id;
-		};
-
-		$remapped_post_ids = array_combine( $event_ids, [
-			$mock_and_insert( 'events/single/id.template.json', 234234234 ),
-			$mock_and_insert( 'events/single/id.template.json', 2453454355 ),
-			$mock_and_insert( 'events/single/id.template.json', 3094853477 ),
-			$mock_and_insert( 'events/single/id.template.json', 3094855477 ),
-		] );
 
 		/* @var Day_View $day_view */
 		$day_view = View::make( Day_View::class, $this->context );
