@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Views\Month_View;
+use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe__Events__Main as TEC;
 use DateTime;
@@ -14,7 +14,7 @@ use DateTime;
  *
  * @package Tribe\Events\Views\V2
  */
-class Month_ViewTest extends \Codeception\TestCase\WPTestCase {
+class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 	use With_Post_Remapping;
 
 	/**
@@ -23,7 +23,7 @@ class Month_ViewTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @var string
 	 */
-	protected $mock_date_value = '2019-01-05 09:00:00';
+	protected $mock_date_value = '2019-03-10 09:00:00';
 
 	/**
 	 * The mock rendering context.
@@ -59,24 +59,24 @@ class Month_ViewTest extends \Codeception\TestCase\WPTestCase {
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
 
-		$now = new \DateTime( $this->mock_date_value, $timezone );
+		$now = new DateTime( $this->mock_date_value, $timezone );
 
 		$events_data = [
-			[ // Event next month.
-				'start_date' => '2019-02-10 14:00:00',
-				'end_date'   => '2019-02-10 17:00:00',
+			[ // Event Today
+				'start_date' => '2019-03-10 11:00:00',
+				'end_date'   => '2019-03-10 14:00:00',
 			],
-			[ // Event this month but in the future from now.
-				'start_date' => '2019-01-15 14:00:00',
-				'end_date'   => '2019-01-15 17:00:00',
+			[ // Event Today
+				'start_date' => '2019-03-10 14:00:00',
+				'end_date'   => '2019-03-10 17:00:00',
 			],
-			[ // Event far in the future from now.
-				'start_date' => '2019-05-10 14:00:00',
-				'end_date'   => '2019-05-10 17:00:00',
+			[ // Event tomorrow
+				'start_date' => '2019-03-11 14:00:00',
+				'end_date'   => '2019-03-11 17:00:00',
 			],
-			[ // Event before now.
-				'start_date' => '2019-01-01 14:00:00',
-				'end_date'   => '2019-01-01 17:00:00',
+			[ // Event yesterday
+				'start_date' => '2019-03-09 14:00:00',
+				'end_date'   => '2019-03-09 17:00:00',
 			],
 		];
 
@@ -109,14 +109,14 @@ class Month_ViewTest extends \Codeception\TestCase\WPTestCase {
 			$mock_and_insert( 'events/single/id.template.json', 3094855477 ),
 		] );
 
-		$month_view = View::make( Month_View::class, $this->context );
+		/* @var Day_View $day_view */
+		$day_view = View::make( Day_View::class, $this->context );
 
-		$next_event_date = $month_view->get_next_event_date( $now );
+		$next_event_date = $day_view->get_next_event_date( $now );
 
 		$this->assertInstanceOf( DateTime::class, $next_event_date );
-		$this->assertEquals( '2019-02-10', $next_event_date->format( 'Y-m-d' ), 'Expect the only next month event to be the next event date.' );
+		$this->assertEquals( '2019-03-11', $next_event_date->format( 'Y-m-d' ), 'Expect the only next day event to be the next event date.' );
 	}
-
 
 	/**
 	 * @test
@@ -129,21 +129,21 @@ class Month_ViewTest extends \Codeception\TestCase\WPTestCase {
 		$now = new \DateTime( $this->mock_date_value, $timezone );
 
 		$events_data = [
-			[ // Event previous month.
-				'start_date' => '2018-12-01 14:00:00',
-				'end_date'   => '2018-12-01 17:00:00',
+			[ // Event Today
+				'start_date' => '2019-03-10 11:00:00',
+				'end_date'   => '2019-03-10 14:00:00',
 			],
-			[ // Event this month but in the future from now.
-				'start_date' => '2019-01-15 14:00:00',
-				'end_date'   => '2019-01-15 17:00:00',
+			[ // Event Today
+				'start_date' => '2019-03-10 14:00:00',
+				'end_date'   => '2019-03-10 17:00:00',
 			],
-			[ // Event far in the future from now.
-				'start_date' => '2019-05-10 14:00:00',
-				'end_date'   => '2019-05-10 17:00:00',
+			[ // Event tomorrow
+				'start_date' => '2019-03-11 14:00:00',
+				'end_date'   => '2019-03-11 17:00:00',
 			],
-			[ // Event before now.
-				'start_date' => '2019-01-01 14:00:00',
-				'end_date'   => '2019-01-01 17:00:00',
+			[ // Event yesterday
+				'start_date' => '2019-03-09 14:00:00',
+				'end_date'   => '2019-03-09 17:00:00',
 			],
 		];
 
@@ -176,13 +176,13 @@ class Month_ViewTest extends \Codeception\TestCase\WPTestCase {
 			$mock_and_insert( 'events/single/id.template.json', 3094855477 ),
 		] );
 
-		/* @var Month_View $month_view */
-		$month_view = View::make( Month_View::class, $this->context );
+		/* @var Day_View $day_view */
+		$day_view = View::make( Day_View::class, $this->context );
 
-		$previous_event_date = $month_view->get_previous_event_date( $now );
+		$previous_event_date = $day_view->get_previous_event_date( $now );
 
 		$this->assertInstanceOf( DateTime::class, $previous_event_date );
-		$this->assertEquals( '2018-12-01', $previous_event_date->format( 'Y-m-d' ), 'Expect the only previous month event to be the previous event date.' );
+		$this->assertEquals( '2019-03-09', $previous_event_date->format( 'Y-m-d' ), 'Expect the only previous day event to be the previous event date.' );
 	}
 
 }

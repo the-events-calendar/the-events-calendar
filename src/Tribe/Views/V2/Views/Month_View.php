@@ -190,6 +190,7 @@ class Month_View extends By_Day_View {
 	 */
 	public function get_next_event_date( $current_date ) {
 		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
