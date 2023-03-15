@@ -17,11 +17,8 @@
  */
 function tribe_events_get_url( $query = [], $url = null ) {
 	if ( empty( $url ) ) {
-		$cache = tribe_cache();
-		if ( ! isset( $cache['events_base_url'] ) ) {
-			$events_archive_base = tribe_get_option( 'eventsSlug', 'events' );
-			$cache['events_base_url'] = $url = home_url( '/' . $events_archive_base );
-		}
+		$events_archive_base = tribe_get_option( 'eventsSlug', 'events' );
+		$url = home_url( '/' . $events_archive_base );
 	}
 
 	return tribe( 'events.rewrite' )->get_clean_url( add_query_arg( $query, $url ) );
