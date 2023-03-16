@@ -1135,6 +1135,7 @@ class Tribe__Events__Linked_Posts {
 				$options->available['children'][] = $new_child;
 			}
 		}
+
 		// Clean Both Options
 		$options->owned['children']     = array_filter( $options->owned['children'] );
 		$options->available['children'] = array_filter( $options->available['children'] );
