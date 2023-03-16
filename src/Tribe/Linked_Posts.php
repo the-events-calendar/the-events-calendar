@@ -1057,18 +1057,27 @@ class Tribe__Events__Linked_Posts {
 
 		add_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
 
-		$my_linked_posts = $this->get_linked_post_info(
-			$post_type,
-			[
-				'post_status' => [
-					'publish',
-					'draft',
-					'private',
-					'pending',
-				],
-				'author'      => $current_user->ID,
-			]
-		);
+		$available_post_status = [
+				'publish',
+				'draft',
+				'private',
+				'pending',
+		];
+
+		/**
+		 *  Filters the available post statuses that are used to retrieve `my posts` and `all posts`.
+		 *
+		 * @since TBD
+		 *
+		 * @param array  $available_post_status Array of available post status. Example: publish, draft, private, pending
+		 * @param string $post_type Post type of the linked post
+		 */
+		$available_post_status = apply_filters( 'tec_events_linked_posts_available_post_status', $available_post_status, $post_type );
+
+		$my_linked_posts = $this->get_linked_post_info( $post_type, [
+						'post_status' => $available_post_status,
+						'author'      => $current_user->ID,
+				] );
 
 		if ( ! empty( $my_linked_posts ) ) {
 			foreach ( $my_linked_posts as $my_linked_post ) {
@@ -1092,18 +1101,10 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		if ( $can_edit_others_posts ) {
-			$linked_posts = $this->get_linked_post_info(
-				$post_type,
-				[
-					'post_status'  => [
-						'publish',
-						'draft',
-						'private',
-						'pending',
-					],
-					'post__not_in' => $my_linked_post_ids,
-				]
-			);
+			$linked_posts = $this->get_linked_post_info( $post_type, [
+							'post_status'  => $available_post_status,
+							'post__not_in' => $my_linked_post_ids,
+					] );
 		} else {
 			$linked_posts = $this->get_linked_post_info(
 				$post_type,
@@ -1134,7 +1135,6 @@ class Tribe__Events__Linked_Posts {
 				$options->available['children'][] = $new_child;
 			}
 		}
-
 		// Clean Both Options
 		$options->owned['children']     = array_filter( $options->owned['children'] );
 		$options->available['children'] = array_filter( $options->available['children'] );
