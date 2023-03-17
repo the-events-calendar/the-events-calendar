@@ -1065,17 +1065,17 @@ class Tribe__Events__Linked_Posts {
 		];
 
 		/**
-		 *  Filters the available post statuses that are used to retrieve `my posts` and `all posts`.
+		 *  Filters the available post statuses that are used to retrieve `my posts`.
 		 *
 		 * @since TBD
 		 *
 		 * @param array  $available_post_status Array of available post status. Example: publish, draft, private, pending
 		 * @param string $post_type Post type of the linked post
 		 */
-		$available_post_status = apply_filters( 'tec_events_linked_posts_available_post_status', $available_post_status, $post_type );
+		$my_posts_post_status = apply_filters( 'tec_events_linked_posts_my_posts_post_status', $available_post_status, $post_type );
 
 		$my_linked_posts = $this->get_linked_post_info( $post_type, [
-						'post_status' => $available_post_status,
+						'post_status' => $my_posts_post_status,
 						'author'      => $current_user->ID,
 				] );
 
@@ -1101,8 +1101,20 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		if ( $can_edit_others_posts ) {
+
+			/**
+			 *  Filters the available post statuses that are used to retrieve ` posts`.
+			 *
+			 * @since TBD
+			 *
+			 * @param array  $available_post_status Array of available post status. Example: publish, draft, private, pending
+			 * @param string $post_type Post type of the linked post
+			 */
+			$all_posts_post_status = apply_filters( 'tec_events_linked_posts_all_posts_post_status', $available_post_status, $post_type );
+
+
 			$linked_posts = $this->get_linked_post_info( $post_type, [
-							'post_status'  => $available_post_status,
+							'post_status'  => $all_posts_post_status,
 							'post__not_in' => $my_linked_post_ids,
 					] );
 		} else {
