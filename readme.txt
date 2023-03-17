@@ -252,6 +252,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
 * Tweak - Removed actions: `tribe_log`
 * Tweak - Changed views: `single-event`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/widgets/widget-events-list/event/date-tag`
+* Language - 0 new strings added, 24 updated, 2 fuzzied, and 0 obsoleted
 
 = [6.0.10] 2023-02-22 =
 
