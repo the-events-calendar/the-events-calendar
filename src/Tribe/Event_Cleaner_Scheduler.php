@@ -1,5 +1,5 @@
 <?php
-
+// @todo This handles the cleaning AND scheduling...
 /**
  * Class Event_Cleaner_Scheduler
  *
@@ -136,6 +136,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Selects events to be moved to trash or permanently deleted.
 	 *
 	 * @since 4.6.13
+	 * @since TBD Now batches each purge. By default it limits to 100 occurrences.
 	 *
 	 * @param int $month - The value chosen by user to purge all events older than x months
 	 *
@@ -168,6 +169,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 				AND t2.meta_value IS NOT NULL
 				AND t1.post_parent = 0
 				AND t1.ID NOT IN ( $posts_with_parents_sql )
+			LIMIT %d
 		";
 
 		/**
@@ -176,12 +178,14 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 * @param string $sql - The query statement
 		 *
 		 * @since 4.6.13
+		 * @since TBD Added a limit param to the query.
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
 		$args = [
 			'post_type' => $event_post_type,
 			'date'      => $month,
+			'limit'     => 100,
 		];
 
 		/**
@@ -190,6 +194,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 * @param array $args - The array of variables
 		 *
 		 * @since 4.6.13
+		 * @since TBD Added a limit arg, defaulting to 100.
 		 */
 		$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
 
@@ -205,22 +210,26 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Moves to trash events that ended before a date specified by user
 	 *
 	 * @since 4.6.13
+	 * @since TBD Added a return value.
 	 *
-	 * @return mixed
+	 * @return array<string,WP_Post|false|null> An associative array of ID to the result of wp_trash_post().
 	 */
-	public function move_old_events_to_trash() {
-
+	public function move_old_events_to_trash():array {
 		$month = $this->trash_new_date;
-
 		$post_ids = $this->select_events_to_purge( $month );
+		$results = [];
 
 		if ( empty( $post_ids ) ) {
-			return;
+
+			return $results;
 		}
 
 		foreach ( $post_ids as $post_id ) {
-			wp_trash_post( $post_id );
+			// @todo make sure provisional ID's are sent / handled correctly here when ct1 occurrences found
+			$results[$post_id] = wp_trash_post( $post_id );
 		}
+
+		return $results;
 	}
 
 	/**
