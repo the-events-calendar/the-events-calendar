@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
+
 = [6.0.10] 2023-02-22 =
 
 * Version - The Events Calendar 6.0.10 is only compatible with Events Calendar PRO 6.0.9 and higher
