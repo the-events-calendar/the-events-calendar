@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.11] 2023-3-20 =
+= [6.0.11] 2023-03-20 =
 
 * Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
 * Fix - Avoid fatal error in `tribe_events_event_classes` when called on events that aren't assigned to any category. [TEC-4709]
