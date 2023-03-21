@@ -3,7 +3,7 @@
  * An extension of the Events-only modifier to redirect Event queries to the custom tables
  * while rendering ACF fields.
  *
- * @since   TBD
+ * @since   6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations\ACF;
  */
@@ -18,7 +18,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Query_Modifier.
  *
- * @since   TBD
+ * @since   6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations\ACF;
  */
@@ -26,7 +26,7 @@ class Query_Modifier extends Events_Only_Modifier {
 	/**
 	 * ${CARET}
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @var bool
 	 */
@@ -35,7 +35,7 @@ class Query_Modifier extends Events_Only_Modifier {
 	/**
 	 * Whether this query modifier should handle the query or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @param WP_Query|null $query The query object that will be modified.
 	 *
@@ -51,7 +51,7 @@ class Query_Modifier extends Events_Only_Modifier {
 	/**
 	 * Sets whether the query modifier should handle the query or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @param bool $handling Whether the query modifier should handle the query or not.
 	 *
