@@ -2,7 +2,7 @@
 /**
  * Handles the integration of the Custom Tables v1 implementation with the Advanced Custom Fields plugin.
  *
- * @since   TBD
+ * @since   6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations\ACF;
  */
@@ -14,7 +14,7 @@ use tad_DI52_ServiceProvider as Service_Provider;
 /**
  * Class Controller.
  *
- * @since   TBD
+ * @since   6.0.11
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations\ACF;
  */
@@ -22,28 +22,28 @@ class Controller extends Service_Provider {
 	/**
 	 * The priority at which the ACF field handling will start.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 */
 	public const EARLY_PRIORITY = 0;
 
 	/**
 	 * The priority at which the ACF field handling will end.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 */
 	public const LATE_PRIORITY = 1000;
 
 	/**
 	 * The priority at which the ACF field handling will start for AJAX queries.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 */
 	public const AJAX_QUERY_PRIORITY = 10;
 
 	/**
 	 * A flag property indicating whether an ACF field of the supported type is being rendered or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @var bool
 	 */
@@ -52,7 +52,7 @@ class Controller extends Service_Provider {
 	/**
 	 * Returns the list of supported field types.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @return array<string> The list of supported field types.
 	 */
@@ -67,7 +67,7 @@ class Controller extends Service_Provider {
 	 * Registers the implementations, actions and filters required by the Custom Tables implementation to work with
 	 * the Advanced Custom Fields plugin.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @return void
 	 */
@@ -106,7 +106,7 @@ class Controller extends Service_Provider {
 	/**
 	 * Removes the actions and filters added by the provider.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @return void Actions and filters are removed.
 	 */
@@ -138,7 +138,7 @@ class Controller extends Service_Provider {
 	/**
 	 * Raises the flag indicating that an ACF field of the supported type is being rendered.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @return void The method does not return anything, the flag is raised.
 	 */
@@ -149,7 +149,7 @@ class Controller extends Service_Provider {
 	/**
 	 * Lowers the flag indicating that an ACF field of the supported type is being rendered.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @return void The method does not return anything, the flag is lowered.
 	 */
@@ -160,7 +160,7 @@ class Controller extends Service_Provider {
 	/**
 	 * Adds the query modifier implementation to the list of implementations.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @param array<string> $implementations The list of implementations of the `Query_Modifier_Interface`.
 	 *
@@ -184,7 +184,7 @@ class Controller extends Service_Provider {
 	 * The is because there is not action/filter to hook to that is fired when the AJAX query is done,
 	 * and because the request will send the JSON data and die.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @param array<string,mixed> $args  The input query argument, left unmodified.
 	 * @param array<string,mixed> $field The field data.
