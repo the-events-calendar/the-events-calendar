@@ -1114,9 +1114,9 @@ class Tribe__Events__Linked_Posts {
 
 
 			$linked_posts = $this->get_linked_post_info( $post_type, [
-							'post_status'  => $all_posts_post_status,
-							'post__not_in' => $my_linked_post_ids,
-					] );
+				'post_status'  => $all_posts_post_status,
+				'post__not_in' => $my_linked_post_ids,
+			] );
 		} else {
 			$linked_posts = $this->get_linked_post_info(
 				$post_type,
