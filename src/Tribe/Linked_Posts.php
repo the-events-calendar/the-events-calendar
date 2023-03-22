@@ -1058,10 +1058,10 @@ class Tribe__Events__Linked_Posts {
 		add_filter( 'tribe_events_return_all_linked_posts_if_none', '__return_true' );
 
 		$available_post_status = [
-				'publish',
-				'draft',
-				'private',
-				'pending',
+			'publish',
+			'draft',
+			'private',
+			'pending',
 		];
 
 		/**
