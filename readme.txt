@@ -229,6 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
+Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
+
 = [6.0.11] 2023-03-20 =
 
 * Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
