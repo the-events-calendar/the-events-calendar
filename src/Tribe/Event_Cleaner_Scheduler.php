@@ -178,7 +178,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 * @param string $sql - The query statement
 		 *
 		 * @since 4.6.13
-		 * @since TBD Added a limit param to the query.
+		 * @since TBD Added a limit param to the default query.
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
@@ -225,8 +225,8 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		}
 
 		foreach ( $post_ids as $post_id ) {
-			// @todo make sure provisional ID's are sent / handled correctly here when ct1 occurrences found
 			$results[$post_id] = wp_trash_post( $post_id );
+			wp_cache_delete( $post_id, 'posts' );
 		}
 
 		return $results;

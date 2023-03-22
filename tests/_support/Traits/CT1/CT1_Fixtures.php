@@ -187,8 +187,8 @@ trait CT1_Fixtures {
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
 	}
 
-	private function given_a_migrated_single_event(){
-		$post = $this->given_a_non_migrated_single_event();
+	private function given_a_migrated_single_event( $args = [] ) {
+		$post = $this->given_a_non_migrated_single_event( $args );
 		Event::upsert( [ 'post_id' ], Event::data_from_post( $post ) );
 		$event = Event::find( $post->ID, 'post_id' );
 		$this->assertInstanceOf( Event::class, $event );
