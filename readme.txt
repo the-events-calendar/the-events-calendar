@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
+* Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
 
 = [6.0.11] 2023-03-20 =
 
