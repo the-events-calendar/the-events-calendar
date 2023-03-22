@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
+* Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
 
 = [6.0.11] 2023-03-20 =
 
