@@ -65,7 +65,7 @@ trait Query_Monitor {
 	/**
 	 * Whether the implementations have been filtered at least once or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @var bool
 	 */
