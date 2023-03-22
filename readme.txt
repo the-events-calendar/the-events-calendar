@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
+
 = [6.0.11] 2023-03-20 =
 
 * Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
