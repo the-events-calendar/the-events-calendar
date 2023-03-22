@@ -35,6 +35,12 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	protected function load(): void {
-		add_filter( 'tribe_events_should_enqueue_assets', '__return_false' );
+		// Don't load the `tribe-common-gutenberg-vendor` script in the WP customizer.
+		add_filter( 'script_loader_tag', function( $tag, $handle, $src ) {
+			if ( 'tribe-common-gutenberg-vendor' === $handle && is_customize_preview() ) {
+				return;
+			}
+			return $tag;
+		}, 999, 3 );
 	}
 }
