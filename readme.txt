@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 
 = [6.0.11] 2023-03-20 =
