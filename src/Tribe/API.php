@@ -223,7 +223,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$htmlElement = ltrim( $tag, '_' );
 				if ( isset( $data[ $htmlElement ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
 					if ( is_string( $data[ $htmlElement ] ) ) {
-						$data[ $htmlElement ] = filter_var( $data[ $htmlElement ], FILTER_SANITIZE_STRING );
+						$data[ $htmlElement ] = tribe_sanitize_string( $data[ $htmlElement ] );
 					}
 					// Fields with multiple values per key
 					if ( is_array( $data[ $htmlElement ] ) ) {
