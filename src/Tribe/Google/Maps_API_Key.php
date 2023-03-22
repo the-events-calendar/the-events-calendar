@@ -50,7 +50,7 @@ class Tribe__Events__Google__Maps_API_Key {
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
 
 		$tooltip = sprintf(
-			'<p><strong>%1$s</strong></p><p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
+			'<p><strong>%1$s</strong></p> <p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
 			esc_html__( 'You are using a custom Google Maps API key.', 'the-events-calendar' ),
 			esc_html__( 'Click here', 'the-events-calendar' ),
 			esc_html__( 'to learn more about using it with The Events Calendar', 'the-events-calendar' )
