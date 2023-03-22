@@ -1075,9 +1075,9 @@ class Tribe__Events__Linked_Posts {
 		$my_posts_post_status = apply_filters( 'tec_events_linked_posts_my_posts_post_status', $available_post_status, $post_type );
 
 		$my_linked_posts = $this->get_linked_post_info( $post_type, [
-						'post_status' => $my_posts_post_status,
-						'author'      => $current_user->ID,
-				] );
+			'post_status' => $my_posts_post_status,
+			'author'      => $current_user->ID,
+		] );
 
 		if ( ! empty( $my_linked_posts ) ) {
 			foreach ( $my_linked_posts as $my_linked_post ) {
