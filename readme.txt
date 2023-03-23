@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
 * Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
 * Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
 * Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
