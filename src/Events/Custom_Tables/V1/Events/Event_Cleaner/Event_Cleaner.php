@@ -38,7 +38,7 @@ class Event_Cleaner {
 					AND {$occurrence_table}.end_date <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
 				GROUP BY {$occurrence_table}.post_id
 				HAVING COUNT(*) = 1
-				ORDER BY {$occurrence_table}.start_date ASC
+				ORDER BY {$occurrence_table}.start_date ASC, {$occurrence_table}.end_date ASC
 				LIMIT %d";
 	}
 }
