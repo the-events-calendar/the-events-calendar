@@ -231,12 +231,15 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
+* Fix - Resolve the issue of the WP customizer not loading correctly when the Colbri Page Builder plugin is active. [TEC-4735]
+* Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
+* Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
 * Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
 * Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
 * Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
+* Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 * Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
-* Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
-* Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
 
 = [6.0.11] 2023-03-20 =
 
