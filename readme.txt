@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
+* Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 
 = [6.0.11] 2023-03-20 =
