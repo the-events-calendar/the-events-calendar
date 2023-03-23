@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
-* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tribe_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
 * Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
 
 = [6.0.11] 2023-03-20 =
