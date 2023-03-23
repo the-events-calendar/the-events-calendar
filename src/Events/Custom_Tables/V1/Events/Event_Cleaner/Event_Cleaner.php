@@ -35,10 +35,10 @@ class Event_Cleaner {
 				FROM {$wpdb->posts}
 			    	INNER JOIN {$occurrence_table} ON {$wpdb->posts}.ID = {$occurrence_table}.post_id
 				WHERE {$wpdb->posts}.post_type = %s
-					AND {$occurrence_table}.end_date <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
+					AND {$occurrence_table}.end_date_utc <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
 				GROUP BY {$occurrence_table}.post_id
 				HAVING COUNT(*) = 1
-				ORDER BY {$occurrence_table}.start_date ASC, {$occurrence_table}.end_date ASC
+				ORDER BY {$occurrence_table}.start_date_utc ASC, {$occurrence_table}.end_date_utc ASC
 				LIMIT %d";
 	}
 }
