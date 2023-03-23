@@ -42,7 +42,7 @@ class Provider extends Service_Provider {
 		$this->did_register = true;
 
 		$this->remove_old_recurrence_cleaners();
-		add_filter( 'tribe_events_delete_old_events_sql', [ $this, 'filter_tribe_events_delete_old_events_sql' ], 9 );
+		add_filter( 'tribe_events_delete_old_events_sql', [ $this, 'redirect_old_events_sql' ], 9 );
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @return string The modified CT1 query to retrieve expired events.
 	 */
-	public function filter_tribe_events_delete_old_events_sql( string $sql ): string {
-		return tribe( Event_Cleaner::class )->filter_tribe_events_delete_old_events_sql( $sql );
+	public function redirect_old_events_sql( string $sql ): string {
+		return tribe( Event_Cleaner::class )->redirect_old_events_sql( $sql );
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-// @todo This only handles update option actions? Not clear, perhaps naming/refactor a bit.
 /**
  * Class Event_Cleaner
  *

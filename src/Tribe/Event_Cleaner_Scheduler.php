@@ -1,5 +1,4 @@
 <?php
-// @todo This handles the cleaning AND scheduling...
 /**
  * Class Event_Cleaner_Scheduler
  *

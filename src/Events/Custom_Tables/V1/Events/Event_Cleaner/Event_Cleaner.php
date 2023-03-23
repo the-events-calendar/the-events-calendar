@@ -25,7 +25,7 @@ class Event_Cleaner {
 	 *
 	 * @return string The modified CT1 query to retrieve expired events.
 	 */
-	public function filter_tribe_events_delete_old_events_sql( string $sql ): string {
+	public function redirect_old_events_sql( string $sql ): string {
 		global $wpdb;
 		$occurrence_table = Occurrences::table_name();
 
