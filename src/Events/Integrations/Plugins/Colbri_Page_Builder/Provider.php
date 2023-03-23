@@ -24,7 +24,7 @@ class Provider extends Integration_Abstract {
 
 	/**
 	 * @inheritDoc
-	 * 
+	 *
 	 * @return bool Whether or not integrations should load.
 	 */
 	public function load_conditionals(): bool {
@@ -37,9 +37,13 @@ class Provider extends Integration_Abstract {
 	protected function load(): void {
 		// Don't load the `tribe-common-gutenberg-vendor` script in the WP customizer.
 		add_filter( 'script_loader_tag', function( $tag, $handle, $src ) {
-			if ( 'tribe-common-gutenberg-vendor' === $handle && is_customize_preview() ) {
+			if (
+				'tribe-common-gutenberg-vendor' === $handle
+				&& is_customize_preview()
+			) {
 				return;
 			}
+
 			return $tag;
 		}, 999, 3 );
 	}
