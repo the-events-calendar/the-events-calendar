@@ -28,7 +28,7 @@ class Provider extends Integration_Abstract {
 	 * @return bool Whether or not integrations should load.
 	 */
 	public function load_conditionals(): bool {
-		return class_exists( '\ColibriWP\PageBuilder\PageBuilder' );
+		return class_exists( '\ColibriWP\PageBuilder\PageBuilder', false );
 	}
 
 	/**
