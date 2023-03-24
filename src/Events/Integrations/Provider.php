@@ -25,5 +25,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( static::class, $this );
 
 		$this->container->register( Plugins\WordPress_SEO\Provider::class );
+		$this->container->register( Plugins\Rank_Math\Provider::class );
+		$this->container->register( Plugins\Colbri_Page_Builder\Provider::class );
 	}
 }
