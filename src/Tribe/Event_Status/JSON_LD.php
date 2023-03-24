@@ -22,7 +22,7 @@ class JSON_LD {
 	/**
 	 * Schema for EventScheduled event status.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 */
 	const SCHEDULED_SCHEMA = 'https://schema.org/EventScheduled';
 
@@ -52,7 +52,7 @@ class JSON_LD {
 	 * Modifiers to the JSON LD event object.
 	 *
 	 * @since 5.11.0
-	 * @since TBD Adding a default value for eventStatus.
+	 * @since 6.0.11 Adding a default value for eventStatus.
 	 *
 	 * @param object  $data The JSON-LD object.
 	 * @param array   $args The arguments used to get data.

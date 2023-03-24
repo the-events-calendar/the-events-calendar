@@ -145,14 +145,14 @@ class Template_Bootstrap {
 
 		ob_start();
 		if ( 'page' === $setting ) {
-			echo '<main id="tribe-events">';
+			echo '<section id="tribe-events">';
 		} else {
-			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template">';
+			echo '<section id="tribe-events-pg-template" class="tribe-events-pg-template">';
 		}
 		tribe_events_before_html();
 		tribe_get_view( 'single-event' );
 		tribe_events_after_html();
-		echo '</main>';
+		echo '</section>';
 
 		$html = ob_get_clean();
 

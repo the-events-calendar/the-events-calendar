@@ -462,7 +462,7 @@ function tribe_is_past_event( $event = null ) {
  * Returns an array terms `term_id` from the taxonomy `tribe_cat` for a given event.
  *
  * @since 3.0.0
- * @since TBD Type hinting the return to array.
+ * @since 6.0.11 Type hinting the return to array.
  *
  * @uses     wp_get_object_terms()
  *
@@ -506,7 +506,7 @@ function tribe_get_event_cat_slugs( $post_id = 0 ) {
 	 * Returns an empty array on events that aren't assigned
 	 * to any category or when $terms generates an error.
 	 *
-	 * @since TBD
+	 * @since 6.0.11
 	 *
 	 * @return array
 	 */
