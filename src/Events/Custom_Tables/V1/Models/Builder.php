@@ -933,7 +933,7 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return string The compiled ORDER BY clause.
 	 */
 	private function get_order_by_clause(): string {
 		$compiled_order_by = '';
