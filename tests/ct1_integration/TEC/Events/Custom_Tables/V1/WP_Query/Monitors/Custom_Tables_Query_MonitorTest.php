@@ -2,8 +2,10 @@
 
 namespace TEC\Events\Custom_Tables\V1\WP_Query\Monitors;
 
+use Tribe\Tests\Traits\With_Uopz;
 
 class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
 
 	public function setUp() {
 		parent::setUp();
@@ -40,7 +42,7 @@ class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
 	 *
 	 * @test
 	 */
-	public function should_memoize_filter_for_modifier_implementations() {
+	public function should_memoize_filter_for_modifier_implementations(): void {
 		add_filter( 'tec_events_custom_tables_v1_query_modifier_implementations', function ( array $implementations ) {
 			$implementations[] = 'Here';
 
@@ -57,5 +59,90 @@ class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
 		$implementations = tribe( 'ct_query_monitor_test' )->get_implementations();
 		$this->assertTrue( in_array( 'Here', $implementations ) );
 		$this->assertFalse( in_array( 'Not here', $implementations ) );
+	}
+
+	public function run_once_data_provider(): \Generator {
+		yield 'before init, not doing init, never filtered' => [
+			function () {
+				$this->set_fn_return( 'did_action', function ( string $action ) {
+					return $action === 'init' ? 0 : did_action( $action );
+				}, true );
+				$this->set_fn_return( 'doing_action', function ( string $action ) {
+					return $action === 'init' ? false : doing_action( $action );
+				}, true );
+
+				return [ false, true ];
+			}
+		];
+
+		yield 'before init, doing init, already filtered' => [
+			function () {
+				$this->set_fn_return( 'did_action', function ( string $action ) {
+					return $action === 'init' ? 0 : did_action( $action );
+				}, true );
+				$this->set_fn_return( 'doing_action', function ( string $action ) {
+					return $action === 'init' ? false : doing_action( $action );
+				}, true );
+
+
+				return [ true, true ];
+			}
+		];
+
+		yield 'after init, never filtered' => [
+			function () {
+				$this->set_fn_return( 'did_action', function ( string $action ) {
+					return $action === 'init' ? 1 : did_action( $action );
+				}, true );
+				$this->set_fn_return( 'doing_action', function ( string $action ) {
+					return $action === 'init' ? false : doing_action( $action );
+				}, true );
+
+
+				return [ false, true ];
+			}
+		];
+
+		yield 'after init, already filtered' => [
+			function () {
+				$this->set_fn_return( 'did_action', function ( string $action ) {
+					return $action === 'init' ? 1 : did_action( $action );
+				}, true );
+				$this->set_fn_return( 'doing_action', function ( string $action ) {
+					return $action === 'init' ? false : doing_action( $action );
+				}, true );
+
+
+				return [ true, false ];
+			}
+		];
+	}
+
+	/**
+	 * It should filter implementations at least once
+	 *
+	 * @test
+	 * @dataProvider run_once_data_provider
+	 */
+	public function should_filter_implementations_at_least_once( \Closure $fixture ): void {
+		[ $has_filtered, $expected ] = $fixture();
+
+		$monitor = new Custom_Tables_Query_Monitor();
+		if ( $has_filtered ) {
+			$monitor->get_implementations();
+		}
+
+		$did_filter = false;
+		add_filter( 'tec_events_custom_tables_v1_query_modifier_implementations',
+			static function ( array $implementations ) use ( &$did_filter ) {
+				$did_filter = true;
+
+				return $implementations;
+			}
+		);
+
+		$monitor->get_implementations();
+
+		$this->assertEquals( $expected, $did_filter );
 	}
 }
