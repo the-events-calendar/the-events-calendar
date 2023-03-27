@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
 * Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
 * Fix - Fixes situation in block editor where a default organizer would not persist after being saved. [ECP-1061]
 * Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
