@@ -103,6 +103,13 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		return $this->replace_rules_with_translations( $rewrite_rules );
 	}
 
+	/**
+	 * Translates the venue rewrite rules.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return void
+	 */
 	protected function prepare_venue_slug_translations() {
 		$wpml_i18n_strings             = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings(
 			[ $this->venue_slug ]
@@ -112,6 +119,13 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		$this->venue_slug_translations = array_map( 'esc_attr', array_unique( $slug_translations ) );
 	}
 
+	/**
+	 * Translates the organizer rewrite rules.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return void
+	 */
 	protected function prepare_organizer_slug_translations() {
 		$wpml_i18n_strings                 = Tribe__Events__Integrations__WPML__Utils::get_wpml_i18n_strings(
 			[ $this->organizer_slug ]
@@ -307,9 +321,9 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	/**
 	 * Filters the bases used to generate TEC rewrite rules to use WPML managed translations.
 	 *
-	 * @param array  $bases
-	 * @param string $method
-	 * @param array  $domains
+	 * @param array<string,string>  $bases  An array of bases to translate.
+	 * @param string $method The method used to generate the rewrite rules, unused by this method.
+	 * @param array<string>  $domains
 	 *
 	 * @return array An array of bases each with its (optional) WPML managed translations set.
 	 */
