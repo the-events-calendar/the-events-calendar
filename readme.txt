@@ -239,8 +239,8 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolve the issue of the WP customizer not loading correctly when the Colbri Page Builder plugin is active. [TEC-4735]
 * Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
-* Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
 * Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Tweak - Added filter: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts` in our 6.0 query modifier, useful to make changes to the query prior to fetching posts for the selected events.
 
 = [6.0.11] 2023-03-20 =
 
