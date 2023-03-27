@@ -375,6 +375,10 @@ class QueryTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_add_events_to_tag_archives_when_not_looking_at_admin_screen_for_posts(): void {
+		/**
+		 * @var WP_Query $wp_query;
+		 */
+		global $wp_query;
 		// Simulate the fact we're looking at an admin tag archive for posts.
 		$this->set_fn_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
 			public function is_post_type_screen( $post_type = null ) {
@@ -386,7 +390,14 @@ class QueryTest extends Events_TestCase {
 		$tag   = static::factory()->tag->create();
 		$query = new WP_Query( [ 'post_type' => 'post', 'tag_id' => $tag ] );
 
-		$this->assertEquals( [ Main::POSTTYPE, 'post' ], $query->get( 'post_type' ) );
+		$this->assertEquals( 'post', $query->get( 'post_type' ) );
+
+		// This should only affect the global wp_query.
+		$wp_query->set( 'tag_id', $tag );
+		$wp_query->set( 'post_type', 'post' );
+		$wp_query->parse_query_vars();
+
+		$this->assertEquals( [ Main::POSTTYPE, 'post' ], $wp_query->get( 'post_type' ) );
 
 		// Create a query for tag archive for any post (already filtered, probably by a plugin).
 		$tag   = static::factory()->tag->create();
