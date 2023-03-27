@@ -105,9 +105,10 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 
 /**
  * Our Event Organizer blocks container. This is responsible for managing the state passed down to the template.
- * 
- * @param props
- * @returns {JSX.Element}
+ *
+ * @param props The props with the organizer and `setAttributes` function, that will be passed down to the
+ * 				EventOrganizer component.
+ * @returns {JSX.IntrinsicElements} Returns the EventOrganizer component.
  * @constructor
  */
 const StatefulEventOrganizer = ( props ) => {
