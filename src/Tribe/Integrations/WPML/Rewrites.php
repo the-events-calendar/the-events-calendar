@@ -399,20 +399,20 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $localized_slug The matcher localized slug.
-	 * @param string $query_var      The query var the matcher is for.
+	 * @param string|null $localized_slug The matcher localized slug.
+	 * @param string      $base           The query var the matcher is for.
 	 *
 	 * @return string The localized slug.
 	 */
-	public function localize_matcher( $localized_slug, $query_var ) {
-		if ( ! ( is_string( $localized_slug ) && is_string( $query_var ) ) ) {
+	public function localize_matcher( $localized_slug, $base ) {
+		if ( ! is_string( $base ) ) {
 			return $localized_slug;
 		}
 
 		$current_language = get_locale();
 
-		if ( ! empty( $this->bases_by_language[ $current_language ][ $query_var ] ) ) {
-			return end( $this->bases_by_language[ $current_language ][ $query_var ] );
+		if ( ! empty( $this->bases_by_language[ $current_language ][ $base ] ) ) {
+			return end( $this->bases_by_language[ $current_language ][ $base ] );
 		}
 
 		return $localized_slug;
