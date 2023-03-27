@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Fixed a situation where an invalid request header in our pagination would cause some strict security settings to block these AJAX requests. [TEC-4723]
 * Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
 * Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
 * Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
