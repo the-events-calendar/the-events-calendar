@@ -232,6 +232,8 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Fixes an edge case where running get_posts() twice with a taxonomy query, would result in an extra where statement added limiting results in an unexpected way. [TEC-4695]
+* Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
 * Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
 * Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
 * Fix - Resolve the issue of the WP customizer not loading correctly when the Colbri Page Builder plugin is active. [TEC-4735]
