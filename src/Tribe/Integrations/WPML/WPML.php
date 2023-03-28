@@ -54,12 +54,6 @@ class Tribe__Events__Integrations__WPML__WPML {
 	}
 
 	protected function hook_filters() {
-		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
-		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [
-			$filters,
-			'filter_tribe_events_rewrite_i18n_slugs_raw',
-		], 100, 3 );
-
 		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
 		add_filter( 'tribe_events_linked_posts_query', [
 			$linked_posts,
@@ -73,6 +67,16 @@ class Tribe__Events__Integrations__WPML__WPML {
 		$rewrites = Tribe__Events__Integrations__WPML__Rewrites::instance();
 		add_filter( 'rewrite_rules_array', [ $rewrites, 'filter_rewrite_rules_array' ], 20, 1 );
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $rewrites, 'filter_tax_base_slug' ], 10, 2 );
+		add_filter(
+			'tribe_events_rewrite_i18n_slugs_raw',
+			[
+				$rewrites,
+				'filter_tribe_events_rewrite_i18n_slugs_raw',
+			],
+			100,
+			3
+		);
+		add_filter( 'tec_common_rewrite_localize_matcher', [ $rewrites, 'localize_matcher' ], 10, 2 );
 
 		$permalinks = Tribe__Events__Integrations__WPML__Permalinks::instance();
 		add_filter( 'post_type_link', [ $permalinks, 'filter_post_type_link' ], 20, 2 );
