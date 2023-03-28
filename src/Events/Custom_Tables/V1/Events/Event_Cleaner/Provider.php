@@ -30,19 +30,22 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether the Provider did register or not.
+	 * @return bool If successfully registered. Will only register once, if called again will return false to indicate
+	 *              already registered.
 	 */
-	public function register() {
+	public function register(): bool {
 
 		if ( $this->did_register ) {
 			// Let's avoid double filtering by making sure we're registering at most once.
-			return true;
+			return false;
 		}
 
 		$this->did_register = true;
 
 		$this->remove_old_recurrence_cleaners();
 		add_filter( 'tribe_events_delete_old_events_sql', [ $this, 'redirect_old_events_sql' ], 9 );
+
+		return true;
 	}
 
 	/**
@@ -53,14 +56,12 @@ class Provider extends Service_Provider {
 	 */
 	public function remove_old_recurrence_cleaners() {
 		// Hide from settings page.
-		add_filter( 'tribe_settings_tab_fields', function ( $args, $id ) {
-			if ( $id == 'general' ) {
-				$event_cleaner = tribe( 'tec.event-cleaner' );
-				unset( $args[ $event_cleaner->key_delete_events ] );
-			}
+		add_filter( 'tribe_general_settings_tab_fields', function ( $args ) {
+			$event_cleaner = tribe( 'tec.event-cleaner' );
+			unset( $args[ $event_cleaner->key_delete_events ] );
 
 			return $args;
-		}, 99, 2 );
+		}, 99, 1 );
 
 		// Remove scheduled cleaner task.
 		add_action( 'init', function () {
