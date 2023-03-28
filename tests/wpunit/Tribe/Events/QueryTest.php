@@ -586,19 +586,19 @@ class QueryTest extends Events_TestCase {
 				wp_insert_term(
 					ucwords( str_replace( '-', ' ', $show ) ), // the term name
 					'tribe_events_cat', // the taxonomy
-					array(
+					[
 						'slug' => $show // the term slug
-					)
+					]
 				);
 			}
 		}
 
-		$tax_query = array('relation' => 'AND');
-		$tax_query[] = array(
+		$tax_query = [ 'relation' => 'AND' ];
+		$tax_query[] = [
 			'taxonomy' => 'post_tag',
-			'field' => 'slug',
-			'terms' => $show_slugs
-		);
+			'field'     => 'slug',
+			'terms'     => $show_slugs
+		];
 		$args = array(
 			'post_type' => 'post',
 			'orderby' => 'date',
