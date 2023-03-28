@@ -288,7 +288,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 * @dataProvider it_urls_data_provider
 	 */
-	public function should_correctly_handle_translated_rules( $path, $expected_path ) {
+	public function should_correctly_handle_translated_rules( $path, $expected_path ): void {
 		list( $it_rules, $it_bases ) = array_values( include( codecept_data_dir( 'rewrite/it-translated-rules.php' ) ) );
 		update_option('rewrite_rules', $it_rules );
 		$wp_rewrite        = new \WP_Rewrite();

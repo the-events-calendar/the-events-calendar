@@ -246,7 +246,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 *
 	 * @return array<string,array<string>> The translated bases.
 	 */
-	protected function translate_single_slugs( array $bases ) {
+	protected function translate_single_slugs( array $bases ): array {
 		global $sitepress_settings;
 
 		$supported_post_types = [ Tribe__Events__Main::POSTTYPE ];
@@ -289,7 +289,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 *
 	 * @return array<string,array<string>> The translated bases.
 	 */
-	protected function translate_archive_slugs( array $bases ) {
+	protected function translate_archive_slugs( array $bases ): array {
 		$supported_post_types = array( Tribe__Events__Main::POSTTYPE );
 
 		foreach ( $supported_post_types as $post_type ) {
@@ -327,7 +327,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 *
 	 * @return array An array of bases each with its (optional) WPML managed translations set.
 	 */
-	public function filter_tribe_events_rewrite_i18n_slugs_raw( $bases, $method, $domains ) {
+	public function filter_tribe_events_rewrite_i18n_slugs_raw( $bases, $method, $domains ): array {
 		/** @var SitePress $sitepress */
 		global $sitepress, $sitepress_settings;
 
