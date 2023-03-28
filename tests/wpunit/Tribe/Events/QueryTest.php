@@ -376,7 +376,7 @@ class QueryTest extends Events_TestCase {
 	 */
 	public function should_add_events_to_tag_archives_when_not_looking_at_admin_screen_for_posts(): void {
 		/**
-		 * @var WP_Query $wp_query;
+		 * @var WP_Query $wp_query ;
 		 */
 		global $wp_query;
 		// Simulate the fact we're looking at an admin tag archive for posts.
@@ -593,31 +593,31 @@ class QueryTest extends Events_TestCase {
 			}
 		}
 
-		$tax_query = [ 'relation' => 'AND' ];
+		$tax_query   = [ 'relation' => 'AND' ];
 		$tax_query[] = [
 			'taxonomy' => 'post_tag',
-			'field'     => 'slug',
-			'terms'     => $show_slugs
+			'field'    => 'slug',
+			'terms'    => $show_slugs
 		];
-		$args = array(
-			'post_type' => 'post',
-			'orderby' => 'date',
-			'order' => 'DESC',
+		$args        = [
+			'post_type'      => 'post',
+			'orderby'        => 'date',
+			'order'          => 'DESC',
 			'posts_per_page' => 4,
-			'tax_query' => $tax_query
-		);
+			'tax_query'      => $tax_query
+		];
 
 		$tax_query = new WP_Query( $args );
 
 		// We are not on tag page, this should not have our events post type
-		$this->assertNotContains( Main::POSTTYPE, (array)$tax_query->get('post_type'));
+		$this->assertNotContains( Main::POSTTYPE, (array) $tax_query->get( 'post_type' ) );
 
 		// Fake we are on tag archive page
 		$wp_query = clone $tax_query;
 
 		// Try again, it should inject our events post type
 		$tax_query2 = new WP_Query( $args );
-		$this->assertContains( Main::POSTTYPE, (array)$tax_query2->get('post_type'));
+		$this->assertContains( Main::POSTTYPE, (array) $tax_query2->get( 'post_type' ) );
 
 		// Cleanup
 		$wp_query = $old_query;
