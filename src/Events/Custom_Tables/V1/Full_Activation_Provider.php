@@ -153,10 +153,10 @@ class Full_Activation_Provider extends Service_Provider {
 			return;
 		}
 
-		$schema_builder = $this->container->make( Schema_Builder::class );
-		$schema_builder->update_blog_tables( $blog_id );
-
 		// Do not run again on this site for a day.
 		set_transient( Activation::ACTIVATION_TRANSIENT, true, DAY_IN_SECONDS );
+
+		$schema_builder = $this->container->make( Schema_Builder::class );
+		$schema_builder->update_blog_tables( $blog_id );
 	}
 }
