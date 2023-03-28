@@ -311,7 +311,8 @@ class Occurrence extends Model {
 		}
 
 		$first = self::where( 'event_id', '=', $occurrence->event_id )
-		             ->order_by( 'start_date', 'ASC' )
+		             ->order_by( 'start_date_utc', 'ASC' )
+		             ->order_by( 'end_date_utc', 'ASC' )
 		             ->first();
 
 		return $first instanceof self
