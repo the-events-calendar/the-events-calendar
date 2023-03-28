@@ -242,6 +242,8 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 * Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
 * Tweak - Added filter: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts` in our 6.0 query modifier, useful to make changes to the query prior to fetching posts for the selected events.
+* Fix - Build secondary Views navigation links correctly when WPML is active. [TEC-4689]
+* Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
 
 = [6.0.11] 2023-03-20 =
 
