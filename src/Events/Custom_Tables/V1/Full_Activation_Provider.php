@@ -146,7 +146,7 @@ class Full_Activation_Provider extends Service_Provider {
 		}
 
 		// Do not run again on this site for a day.
-		set_transient( Activation::ACTIVATION_TRANSIENT, true, DAY_IN_SECONDS );
+		set_transient( Activation::ACTIVATION_TRANSIENT, time(), DAY_IN_SECONDS );
 
 		$schema_builder = $this->container->make( Schema_Builder::class );
 		$schema_builder->update_blog_tables( $blog_id );
