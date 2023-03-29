@@ -10,6 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email;
 
 use TEC\Tickets\Emails\Email\Ticket as Ticket_Email;
+use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Handler;
 
 /**
  * Class Ticket.
