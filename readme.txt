@@ -250,6 +250,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Build secondary Views navigation links correctly when WPML is active. [TEC-4689]
 * Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
 * Fix - Build the link to the Events page from the Permalinks settings page correctly. [TEC-4689]
+* Tweak - Fire the `tec_events_custom_tables_v1_fully_activated` when the Custom Tables v1 implementation is fully loaded. [ET-1495]
 
 = [6.0.11] 2023-03-20 =
 
