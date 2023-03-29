@@ -110,8 +110,12 @@ class Emails {
 	 */
 	public function tec_tickets_emails_add_event_ics_to_attachments( $attachments, $event_id ) {
 		$ical        = tribe( 'tec.iCal' );
-		$ics_content = $ical->generate_ical_feed( get_post( $post_id ), false );
-		$file        = tempnam( wp_get_upload_dir(), 'invite' );
+		$ics_content = $ical->generate_ical_feed( get_post( $event_id ), false );
+		$file        = tempnam( sys_get_temp_dir(), 'invite' );
+
+		if ( false === $file ) {
+			return $attachments;
+		}
 
 		file_put_contents( $file . '.ics', $ics_content );
 

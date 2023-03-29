@@ -98,6 +98,8 @@ class RSVP {
 			return $attachments;
 		}
 
+		$post_id = $email_class->__get( 'post_id' );
+
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $attachments;
 		}
@@ -108,7 +110,7 @@ class RSVP {
 			return $attachments;
 		}
 
-		$attachments[] = tribe( TEC_Email_Handler::class )->tec_tickets_emails_add_event_ics_to_attachments( $attachments, $post_id );
+		$attachments = tribe( TEC_Email_Handler::class )->tec_tickets_emails_add_event_ics_to_attachments( $attachments, $post_id );
 
 		return $attachments;
 
