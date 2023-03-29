@@ -59,7 +59,7 @@ class Hooks extends tad_DI52_ServiceProvider {
 
 		// RSVP Email.
 		add_filter( 'tec_tickets_emails_rsvp_settings', tribe_callback( Email\RSVP::class, 'filter_tec_tickets_emails_rsvp_email_settings' ), 10 );
-		add_filter( 'tec_tickets_emails_rsvp_attachments', tribe_callback( Email\Ticket::class, 'filter_tec_tickets_emails_rsvp_email_attachments' ), 10, 3 );
+		add_filter( 'tec_tickets_emails_rsvp_attachments', tribe_callback( Email\RSVP::class, 'filter_tec_tickets_emails_rsvp_email_attachments' ), 10, 3 );
 	}
 
 
