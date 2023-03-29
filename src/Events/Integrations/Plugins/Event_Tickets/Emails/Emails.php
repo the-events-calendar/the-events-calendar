@@ -114,6 +114,12 @@ class Emails {
 		$file        = tempnam( sys_get_temp_dir(), 'invite' );
 
 		if ( false === $file ) {
+			/** @var Tribe__Log $logger */
+			$logger = tribe( 'logger' );
+			$logger->log_error(
+				sprintf( "Couldn't generate calendar invite file for Tickets/RSVP email. Event ID: %s", $event_id ),
+				'Event Tickets Emails Integration - ICS'
+			);
 			return $attachments;
 		}
 
