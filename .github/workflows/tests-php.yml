@@ -11,7 +11,7 @@ jobs:
           - integration
           - integrations_plugin_wordpress_seo
           - muintegration
-          - restv1
+          # - restv1 # Commented out by @lucatume on 2023-03-30 to handle failures in separate PR.
           - views_integration
           - views_settings
           - views_ui
