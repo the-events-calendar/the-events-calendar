@@ -84,14 +84,18 @@ class RSVP {
 	 * @return array The filtered attachments for the RSVP Emails.
 	 */
 	public function filter_tec_tickets_emails_rsvp_email_attachments( $attachments, $email_id, $email_class ) {
+		if ( ! $email_class->is_enabled() ) {
+			return $attachments;
+		}
+
 		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
 
 		if ( ! empty( $use_ticket_email ) ) {
 			$email_class = tribe( TEC\Tickets\Emails\Email\Ticket::class );
-		}
 
-		if ( ! $email_class->is_enabled() ) {
-			return $attachments;
+			if ( ! $email_class->is_enabled() ) {
+				return $attachments;
+			}
 		}
 
 		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
