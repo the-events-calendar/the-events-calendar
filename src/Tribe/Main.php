@@ -2484,6 +2484,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$event_url = home_url( '/' );
 			}
 
+			// Ensure the URL ends with a trailing slash.
+			$event_url = trailingslashit( $event_url );
+
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
 			if ( null === $url_query ) {

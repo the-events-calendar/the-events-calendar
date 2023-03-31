@@ -321,9 +321,9 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	/**
 	 * Filters the bases used to generate TEC rewrite rules to use WPML managed translations.
 	 *
-	 * @param array<string,string>  $bases  An array of bases to translate.
-	 * @param string $method The method used to generate the rewrite rules, unused by this method.
-	 * @param array<string>  $domains
+	 * @param array<string,string> $bases  An array of bases to translate.
+	 * @param string               $method The method used to generate the rewrite rules, unused by this method.
+	 * @param array<string>        $domains
 	 *
 	 * @return array An array of bases each with its (optional) WPML managed translations set.
 	 */
@@ -365,7 +365,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		$untranslated_bases = array_combine( array_keys( $bases ), array_column( $bases, 0 ) );
 
 		$i18n        = tribe( 'tec.i18n' );
-		$flags       = I18n::COMPILE_STRTOLOWER | I18n::RETURN_BY_LANGUAGE;
+		$flags       = I18n::COMPILE_STRTOLOWER | I18n::RETURN_BY_LANGUAGE | I18n::COMPILE_SLUG;
 		$by_language = $i18n->get_i18n_strings( $untranslated_bases, $languages, $domains, $current_locale, $flags );
 		// Store this value to use it in the `filter_localized_matchers` method.
 		$this->bases_by_language = $by_language;
@@ -416,5 +416,31 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 		}
 
 		return $localized_slug;
+	}
+
+	/**
+	 * Decodes the bases that have been encoded by default from TEC.
+	 *
+	 * Bases are encoded by default to avoid issues with special characters
+	 * and back-compatibility.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string<array<string>> $bases The bases to decode.
+	 *
+	 * @return array<string<array<string>> The decoded bases.
+	 */
+	public function urldecode_base_slugs( $bases ) {
+		if ( ! is_array( $bases ) ) {
+			return $bases;
+		}
+
+		foreach ( $bases as &$base ) {
+			foreach ( $base as &$slug ) {
+				$slug = urldecode( $slug );
+			}
+		}
+
+		return $bases;
 	}
 }
