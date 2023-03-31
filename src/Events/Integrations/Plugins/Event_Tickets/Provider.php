@@ -42,6 +42,10 @@ class Provider extends Integration_Abstract {
 	 * @since TBD
 	 */
 	public function load_tickets_emails_integration() {
+		if ( ! function_exists( 'tec_tickets_emails_is_enabled' ) ) {
+			return;
+		}
+
 		if ( ! tec_tickets_emails_is_enabled() ) {
 			return;
 		}
