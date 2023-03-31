@@ -57,6 +57,13 @@ class I18n {
 	public const RETURN_BY_LANGUAGE = 8;
 
 	/**
+	 * A flag to require the translations to include the slug version of the translation.
+	 *
+	 * @since TBD
+	 */
+	public const COMPILE_SLUG =  9;
+
+	/**
 	 * An instance of the The Events Calendar main class.
 	 *
 	 * @since 5.1.1
@@ -118,6 +125,7 @@ class I18n {
 	 *
 	 * @since 5.1.1
 	 * @since 5.1.5   Add support for the $flags argument.
+	 * @since TBD     Add support for the `RETURN_BY_LANGUAGE` and `COMPILE_SLUG` flags.
 	 *
 	 * @param array $strings    An array of strings (required).
 	 * @param array $languages Which l10n to fetch the string (required).
@@ -132,8 +140,6 @@ class I18n {
 	 *                         `static::RETURN_BY_LANGUAGE` will return the translations indexed by language.
 	 *
 	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
-	 *
-	 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
 	 */
 	public function get_i18n_strings_for_domains( $strings, $languages, $domains = [ 'default' ], $flags = 7 ) {
 		sort( $languages );
@@ -157,6 +163,12 @@ class I18n {
 		}
 
 		if ( $flags & static::RETURN_BY_LANGUAGE ) {
+			foreach ( $strings_buffer as &$entries ) {
+				foreach ( $entries as &$entry ) {
+					$entry = array_values( $entry );
+				}
+			}
+
 			return $strings_buffer;
 		}
 
@@ -184,6 +196,7 @@ class I18n {
 	 * it uses 'sanitize_title()'.
 	 *
 	 * @since 6.0.2
+	 * @since TBD  Add support for `static::COMPILE_SLUG` flag.
 	 *
 	 * @param array<string> $strings   An array of strings (required).
 	 * @param array<string> $languages Which l10n to fetch the string (required).
@@ -194,6 +207,8 @@ class I18n {
 	 *                                 `static::COMPILE_STRTOLOWER` will compile the translation for the string in its
 	 *                                 lowercase version.
 	 *                                 `static::COMPILE_UCFIRST` will compile the translation for the string in its title
+	 *                                 version.
+	 *                                 `static::COMPILE_SLUG` will compile the translation for the string in its slug
 	 *                                 version.
 	 *
 	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
@@ -291,6 +306,7 @@ class I18n {
 	 *
 	 * @since 5.1.1
 	 * @since 5.1.5   Add support for the $flags argument.
+	 * @since TBD     Add support for the `static::COMPILE_SLUG` flag.
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.
@@ -303,6 +319,8 @@ class I18n {
 	 *                                            string in its lowercase version.
 	 *                                            `static::COMPILE_UCFIRST` will compile the translation for the string
 	 *                                            in its title version.
+	 *                                            `static::COMPILE_SLUG` will compile the translation for the string in
+	 *                                            its slug version.
 	 *
 	 * @return array<string|array> A map of the compiled string translations.
 	 */
@@ -339,6 +357,9 @@ class I18n {
 
 				// Grab the possible strings for default and any other domain.
 				if ( 'default' === $domain ) {
+					if ( $flags & static::COMPILE_SLUG ) {
+						$strings[ $key ][] = sanitize_key( __( $value ) );
+					}
 					if ( $flags & static::COMPILE_INPUT ) {
 						$strings[ $key ][] = __( $value );
 					}
@@ -349,6 +370,9 @@ class I18n {
 						$strings[ $key ][] = __( ucfirst( $value ) );
 					}
 				} else {
+					if ( $flags & static::COMPILE_SLUG ) {
+						$strings[ $key ][] = sanitize_key( __( $value, $domain ) );
+					}
 					if ( $flags & static::COMPILE_INPUT ) {
 						$strings[ $key ][] = __( $value, $domain );
 					}
