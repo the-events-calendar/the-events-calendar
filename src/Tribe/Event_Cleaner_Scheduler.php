@@ -135,7 +135,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Selects events to be moved to trash or permanently deleted.
 	 *
 	 * @since 4.6.13
-	 * @since TBD Now batches each purge. By default it limits to 100 occurrences.
+	 * @since TBD Now batches each purge. By default, it limits to 15 occurrences.
 	 *
 	 * @param int $month - The value chosen by user to purge all events older than x months
 	 *
@@ -184,7 +184,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$args = [
 			'post_type' => $event_post_type,
 			'date'      => $month,
-			'limit'     => 100,
+			'limit'     => 15,
 		];
 
 		/**
@@ -223,10 +223,27 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			return $results;
 		}
 
+		remove_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_update_known_range'
+		] );
+		remove_action( 'delete_post', [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_rebuild_known_range'
+		] );
 		foreach ( $post_ids as $post_id ) {
-			$results[$post_id] = wp_trash_post( $post_id );
+			$results[ $post_id ] = wp_trash_post( $post_id );
 			wp_cache_delete( $post_id, 'posts' );
 		}
+		//Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
+		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_update_known_range'
+		] );
+		add_action( 'delete_post', [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_rebuild_known_range'
+		] );
 
 		return $results;
 	}
