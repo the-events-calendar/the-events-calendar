@@ -50,4 +50,47 @@ class Tribe__Events__MainTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertEquals( [ 'cat_test-category' ], $post_class );
 	}
+
+	public function getLink_dataProvider(): \Generator {
+		yield 'home_url return empty string' => [
+			function () {
+				$this->set_fn_return( 'home_url', '' );
+
+				return [ 'home', '/events/' ];
+			},
+		];
+
+		yield 'home_url returns relative path' => [
+			function () {
+				$this->set_fn_return( 'home_url', '/' );
+
+				return [ 'home', '/events/' ];
+			},
+		];
+
+		yield 'home_url returns URL w/o trailing slash' => [
+			function () {
+				$this->set_fn_return( 'home_url', 'http://example.com' );
+
+				return [ 'home', 'http://example.com/events/' ];
+			},
+		];
+
+		yield 'home_url returns URL w/ trailing slash' => [
+			function () {
+				$this->set_fn_return( 'home_url', 'http://example.com/' );
+
+				return [ 'home', 'http://example.com/events/' ];
+			},
+		];
+	}
+
+	/**
+	 * @dataProvider getLink_dataProvider
+	 */
+	public function test_getLink( Closure $fixture ): void {
+		[ $type, $expected ] = $fixture();
+		$actual = TEC::instance()->getLink( $type );
+		$this->assertEquals( $expected, $actual );
+	}
 }
