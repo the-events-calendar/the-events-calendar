@@ -209,7 +209,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Moves to trash events that ended before a date specified by user
 	 *
 	 * @since 4.6.13
-	 * @since TBD Added a return value.
+	 * @since TBD Added a return value, and suspends Tribe__Events__Dates__Known_Range::rebuild_known_range() until batch is complete.
 	 *
 	 * @return array<string,WP_Post|false|null> An associative array of ID to the result of wp_trash_post().
 	 */
@@ -235,7 +235,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			$results[ $post_id ] = wp_trash_post( $post_id );
 			wp_cache_delete( $post_id, 'posts' );
 		}
-		//Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
+		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
 		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
 			Tribe__Events__Dates__Known_Range::instance(),
 			'maybe_update_known_range'
