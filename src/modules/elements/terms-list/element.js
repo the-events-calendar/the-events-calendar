@@ -87,7 +87,7 @@ const List = ( {
 const Separator = ( { delimiter, isLast } ) => ! isLast ? <span>{ delimiter }</span> : '';
 
 const Item = ( { separator, term, isLast } ) => {
-	var termLink = term.link;
+	let termLink = term.link;
 
 	// Modifies the tag slug for the post_tag taxonomy to include an "events" prefix.
 	if ( 'post_tag' === term.taxonomy ) {
