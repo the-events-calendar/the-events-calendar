@@ -40,7 +40,7 @@ class Ticket {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_invite = 'tec-tickets-emails-ticket-add-event-ics';
+	public static $option_add_event_ics = 'tec-tickets-emails-ticket-add-event-ics';
 
 	/**
 	 * Filter the email settings and add TEC specific settings.
@@ -61,7 +61,7 @@ class Ticket {
 			'validation_type' => 'boolean',
 		];
 
-		$settings[ self::$option_add_event_invite ] = [
+		$settings[ self::$option_add_event_ics ] = [
 			'type'            => 'toggle',
 			'label'           => esc_html__( 'Attach Calendar Invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the ticket email.', 'the-events-calendar' ),
