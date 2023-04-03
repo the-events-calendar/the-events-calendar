@@ -38,7 +38,6 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_filters() {
 		add_filter( 'post_tag_row_actions', [ $this, 'event_tag_actions' ], 10, 2 );
-		add_filter( 'register_taxonomy_args', [ $this, 'modify_tag_taxonomy_args' ], 10, 2 );
 	}
 
 	/**
@@ -53,26 +52,5 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function event_tag_actions( $actions, WP_Term $tag ) {
 		return $this->container->make( Event_Tag::class )->event_tag_actions( $actions, $tag );
-	}
-
-	/**
-	 * Modifies the tag slug for the post_tag taxonomy to include an "events" prefix.
-	 *
-	 * @since TBD
-	 * 
-	 * @param array  $args The taxonomy arguments.
-	 * @param string $taxonomy The name of the taxonomy.
-	 * 
-	 * @return array The modified taxonomy arguments.
-	 */
-	public function modify_tag_taxonomy_args( $args, $taxonomy ) {
-		if ( 'post_tag' === $taxonomy ) {
-			$args['rewrite'] = [
-				'slug'       => 'events/tag',
-				'with_front' => false,
-			];
-		}
-
-		return $args;
 	}
 }
