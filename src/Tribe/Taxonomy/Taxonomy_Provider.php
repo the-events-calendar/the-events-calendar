@@ -29,6 +29,7 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.taxonomy.provider', $this );
 
 		$this->add_filters();
+		$this->add_actions();
 	}
 
 	/**
@@ -38,6 +39,15 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_filters() {
 		add_filter( 'post_tag_row_actions', [ $this, 'event_tag_actions' ], 10, 2 );
+	}
+
+	/**
+	 * Adds the actions required for taxonomies.
+	 *
+	 * @since TBD
+	 */
+	protected function add_actions() {
+		add_action( 'init', [ $this, 'modify_tag_rewrite_rules' ], 10 );
 	}
 
 	/**
@@ -52,5 +62,14 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	public function event_tag_actions( $actions, WP_Term $tag ) {
 		return $this->container->make( Event_Tag::class )->event_tag_actions( $actions, $tag );
+	}
+
+	/**
+	 * Modifies the tag slug for the post_tag taxonomy to include an "events" prefix.
+	 *
+	 * @since TBD
+	 */
+	public function modify_tag_rewrite_rules() {
+		return $this->container->make( Event_Tag::class )->modify_tag_rewrite_rules();
 	}
 }
