@@ -10,7 +10,6 @@
 namespace Tribe\Events\Taxonomy;
 
 use WP_Term;
-use Tribe__Events__Main;
 
 /**
  * Class Event_Tag
