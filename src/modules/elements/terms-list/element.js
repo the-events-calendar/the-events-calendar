@@ -87,10 +87,17 @@ const List = ( {
 const Separator = ( { delimiter, isLast } ) => ! isLast ? <span>{ delimiter }</span> : '';
 
 const Item = ( { separator, term, isLast } ) => {
+	var termLink = term.link;
+
+	// Modifies the tag slug for the post_tag taxonomy to include an "events" prefix.
+	if ( 'post_tag' === term.taxonomy ) {
+		termLink = '/events/tag/' + term.slug;
+	}
+
 	return (
 		<li key={ term.id } className={ getTermListItemClassName( 0 ) }>
 			<a
-				href={ term.link }
+				href={ termLink }
 				target="_blank"
 				rel="noopener noreferrer"
 				className="tribe-editor__terms__list-item-link"
