@@ -29,7 +29,6 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( 'events.taxonomy.provider', $this );
 
 		$this->add_filters();
-		$this->add_actions();
 	}
 
 	/**
@@ -39,15 +38,7 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_filters() {
 		add_filter( 'post_tag_row_actions', [ $this, 'event_tag_actions' ], 10, 2 );
-	}
-
-	/**
-	 * Adds the actions required for taxonomies.
-	 *
-	 * @since TBD
-	 */
-	protected function add_actions() {
-		add_action( 'init', [ $this, 'modify_tag_rewrite_rules' ], 10 );
+		add_filter( 'register_taxonomy_args', [ $this, 'modify_tag_taxonomy_args' ], 10, 2 );
 	}
 
 	/**
@@ -68,8 +59,20 @@ class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
 	 * Modifies the tag slug for the post_tag taxonomy to include an "events" prefix.
 	 *
 	 * @since TBD
+	 * 
+	 * @param array  $args The taxonomy arguments.
+	 * @param string $taxonomy The name of the taxonomy.
+	 * 
+	 * @return array The modified taxonomy arguments.
 	 */
-	public function modify_tag_rewrite_rules() {
-		return $this->container->make( Event_Tag::class )->modify_tag_rewrite_rules();
+	public function modify_tag_taxonomy_args( $args, $taxonomy ) {
+		if ( 'post_tag' === $taxonomy ) {
+			$args['rewrite'] = [
+				'slug'       => 'events/tag',
+				'with_front' => false,
+			];
+		}
+
+		return $args;
 	}
 }

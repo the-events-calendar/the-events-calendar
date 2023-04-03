@@ -55,24 +55,4 @@ class Event_Tag {
 
 		return $actions;
 	}
-
-	/**
-	 * Modifies the tag slug for the post_tag taxonomy to include an "events" prefix.
-	 *
-	 * @since TBD
-	 */
-	public function modify_tag_rewrite_rules() {
-		$tag_args = get_taxonomy( 'post_tag' );
-
-		$tag_args->rewrite = [
-			'slug'       => 'events/tag',
-			'with_front' => false,
-		];
-
-		register_taxonomy(
-			'post_tag',
-			Tribe__Events__Main::POSTTYPE,
-			$tag_args
-		);
-	}
 }
