@@ -223,19 +223,23 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			return $results;
 		}
 
-		remove_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
-			Tribe__Events__Dates__Known_Range::instance(),
-			'maybe_update_known_range'
-		] );
-		remove_action( 'delete_post', [
-			Tribe__Events__Dates__Known_Range::instance(),
-			'maybe_rebuild_known_range'
-		] );
+		$this->unhook_rebuild_known_range();
 		foreach ( $post_ids as $post_id ) {
 			$results[ $post_id ] = wp_trash_post( $post_id );
 			wp_cache_delete( $post_id, 'posts' );
 		}
 		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
+		$this->hook_rebuild_known_range();
+
+		return $results;
+	}
+
+	/**
+	 * Will add the hooks for the Tribe__Events__Dates__Known_Range::rebuild_known_range() callbacks.
+	 *
+	 * @since TBD
+	 */
+	public function hook_rebuild_known_range() {
 		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
 			Tribe__Events__Dates__Known_Range::instance(),
 			'maybe_update_known_range'
@@ -244,8 +248,22 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			Tribe__Events__Dates__Known_Range::instance(),
 			'maybe_rebuild_known_range'
 		] );
+	}
 
-		return $results;
+	/**
+	 * Will remove the hooks for the Tribe__Events__Dates__Known_Range::rebuild_known_range() callbacks.
+	 *
+	 * @since TBD
+	 */
+	public function unhook_rebuild_known_range() {
+		remove_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_update_known_range'
+		] );
+		remove_action( 'delete_post', [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_rebuild_known_range'
+		] );
 	}
 
 	/**
