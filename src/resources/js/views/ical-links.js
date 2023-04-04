@@ -100,7 +100,7 @@
 
 		$( obj.selectors.icalLinksButton ).on(
 			'click focus focus-within',
-			obj.handleIcalLinksListContainerClick,
+			obj.handleIcalLinksListContainerClick
 		);
 
 		$( obj.selectors.icalLinksButton ).on(
