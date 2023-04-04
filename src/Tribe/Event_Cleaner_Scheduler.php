@@ -175,7 +175,6 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 * @param string $sql - The query statement
 		 *
 		 * @since 4.6.13
-		 * @since TBD Added a limit param to the default query.
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
