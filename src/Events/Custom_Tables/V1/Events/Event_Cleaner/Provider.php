@@ -5,7 +5,6 @@ namespace TEC\Events\Custom_Tables\V1\Events\Event_Cleaner;
 use tad_DI52_ServiceProvider as Service_Provider;
 use Tribe__Events__Event_Cleaner_Scheduler;
 use Tribe__Events__Main;
-use Tribe__Main;
 
 /**
  * Class Provider
@@ -56,14 +55,6 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public function remove_old_recurrence_cleaners() {
-		/**
-		 * Triggering the old event cleaner on update of tribe option is causing some conflicts. Something is attempting to clean simultaneously, and
-		 * creating a race condition and failure to do database updates, due the dissecting and trashing of recurring events and Custom Table relationships.
-		 */
-		add_action( 'tribe_common_loaded', function () {
-			remove_action( 'update_option_' . Tribe__Main::OPTIONNAME, tribe_callback( 'tec.event-cleaner', 'move_old_events_to_trash' ), 10 );
-		}, 99 );
-
 		// Hide from settings page.
 		add_filter( 'tribe_general_settings_tab_fields', function ( $args ) {
 			$event_cleaner = tribe( 'tec.event-cleaner' );
