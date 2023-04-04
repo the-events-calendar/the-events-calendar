@@ -128,7 +128,7 @@
 
 		$container
 			.find( obj.selectors.icalLinksButton )
-			.off( 'click', obj.handleIcalLinksIconRotate );
+			.off( 'click', obj.handleIcalLinksIconClick );
 	};
 
 	/**
