@@ -9,6 +9,8 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main;
+use Tribe__Events__Organizer;
+use Tribe__Events__Venue;
 
 /**
  * Class View_Register
@@ -238,7 +240,15 @@ class View_Register {
 			$add_canonical_tag = false;
 		}
 
-		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
+		if (
+			is_singular(
+				[
+					Tribe__Events__Main::POSTTYPE,
+					Tribe__Events__Organizer::POSTTYPE,
+					Tribe__Events__Venue::POSTTYPE,
+				]
+			)
+		) {
 			$add_canonical_tag = false;
 		}
 

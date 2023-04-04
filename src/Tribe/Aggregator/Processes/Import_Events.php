@@ -207,7 +207,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 
 		$record_id             = $this->record_id = $item['record_id'];
 		$data                  = (array) $item['data'];
-		$this->transitional_id = filter_var( $item['transitional_id'], FILTER_SANITIZE_STRING );
+		$this->transitional_id = tec_sanitize_string( $item['transitional_id'] );
 
 		/*
 		 * Make sure the import is happening in the context of the same site that started it.
