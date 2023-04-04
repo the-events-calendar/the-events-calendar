@@ -39,7 +39,7 @@
 	 */
 	obj.selectors = {
 		icalLinks: '.tribe-events-c-subscribe-dropdown',
-		icalLinksButton: '.tribe-events-c-subscribe-dropdown__button',
+		icalLinksButton: '.tribe-events-c-subscribe-dropdown__button-text',
 		icalLinksButtonActiveClass: 'tribe-events-c-subscribe-dropdown__button--active',
 		icalLinksListContainer: 'tribe-events-c-subscribe-dropdown__content',
 	};
