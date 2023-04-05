@@ -248,6 +248,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 * Tweak - Fire the `tec_events_custom_tables_v1_fully_activated` when the Custom Tables v1 implementation is fully loaded. [ET-1495]
 * Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Fix - Correctly handle the creation or update of Custom Tables v1 in multisite context. (thanks @jiadil). [BTRIA-1734]
 
 = [6.0.11] 2023-03-20 =
 
