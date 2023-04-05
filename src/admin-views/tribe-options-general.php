@@ -7,11 +7,6 @@ $tec_events_general_heading_text = tec_should_hide_upsell()
 	? esc_html__( 'Finding your calendar.', 'the-events-calendar' )
 	: esc_html__( 'Finding & extending your calendar.', 'the-events-calendar' );
 
-/**
- * @var Tribe__Events__Event_Cleaner $event_cleaner
- */
-$event_cleaner = tribe( 'tec.event-cleaner' );
-
 $general_tab_fields = [
 	'info-start'                                     => [
 		'type' => 'html',
