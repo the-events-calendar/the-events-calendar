@@ -63,7 +63,6 @@ class Full_Activation_Provider extends Service_Provider {
 			$this->container->register( Updates\Provider::class );
 			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
-			$this->container->register( Events\Event_Cleaner\Provider::class );
 
 			// This default variable is defined in TEC, so we register it here, even though it relates to ECP.
 			$this->container->register( Max_Recurrence_Provider::class );
@@ -154,10 +153,10 @@ class Full_Activation_Provider extends Service_Provider {
 			return;
 		}
 
+		// Do not run again on this site for a day.
+		set_transient( Activation::ACTIVATION_TRANSIENT, time(), DAY_IN_SECONDS );
+
 		$schema_builder = $this->container->make( Schema_Builder::class );
 		$schema_builder->update_blog_tables( $blog_id );
-
-		// Do not run again on this site for a day.
-		set_transient( Activation::ACTIVATION_TRANSIENT, true, DAY_IN_SECONDS );
 	}
 }

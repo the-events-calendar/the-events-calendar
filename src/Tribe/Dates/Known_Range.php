@@ -27,7 +27,7 @@ class Tribe__Events__Dates__Known_Range {
 	 */
 	public function rebuild_known_range() {
 		/**
-		 * Allows third-party code to alter the update process of known range and bail out of
+		 * Allows third-party code to alter the update process of tknown range and bail out of
 		 * this implementation entirely.
 		 *
 		 * @since 4.9
