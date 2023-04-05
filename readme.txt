@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
 * Fix - Fix issue with events post type bleeding in on custom tag queries, instead of only on tag archive page. [TEC-4694]
 * Fix - Fixed a situation where an invalid request header in our pagination would cause some strict security settings to block these AJAX requests. [TEC-4723]
+* Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
 * Fix - Fixes an edge case where running get_posts() twice with a taxonomy query, would result in an extra where statement added limiting results in an unexpected way. [TEC-4695]
 * Fix - Fixes situation in block editor where a default organizer would not persist after being saved. [ECP-1061]
 * Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
@@ -246,12 +247,14 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
 * Tweak - Added filter: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts` in our 6.0 query modifier, useful to make changes to the query prior to fetching posts for the selected events. [TEC-4695]
 * Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
+* Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 * Tweak - Fire the `tec_events_custom_tables_v1_fully_activated` when the Custom Tables v1 implementation is fully loaded. [ET-1495]
 * Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
 * Tweak - Added filters: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts`, `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status`, `tribe_events_add_canonical_tag`
 * Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
 * Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
+* Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
 * Language - 0 new strings added, 82 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.11] 2023-03-20 =
