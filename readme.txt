@@ -252,6 +252,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filters: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts`, `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status`, `tribe_events_add_canonical_tag`
 * Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
 * Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
+* Language - 0 new strings added, 82 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.11] 2023-03-20 =
 
