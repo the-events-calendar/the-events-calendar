@@ -3,31 +3,31 @@
  *
  * @since 5.12.0
  *
- * @type   {PlainObject}
+ * @type  {PlainObject}
  */
- tribe.events = tribe.events || {};
- tribe.events.views = tribe.events.views || {};
+tribe.events = tribe.events || {};
+tribe.events.views = tribe.events.views || {};
 
- /**
-  * Configures Views Object in the Global Tribe variable
-  *
-  * @since 5.12.0
-  *
-  * @type   {PlainObject}
-  */
- tribe.events.views.icalLinks = {};
+/**
+ * Configures Views Object in the Global Tribe variable
+ *
+ * @since 5.12.0
+ *
+ * @type  {PlainObject}
+ */
+tribe.events.views.icalLinks = {};
 
- /**
-  * Initializes in a Strict env the code that manages the Event Views
-  *
-  * @since 5.12.0
-  *
-  * @param  {PlainObject} $   jQuery
-  * @param  {PlainObject} obj tribe.events.views.icalLinks
-  *
-  * @return {void}
-  */
- ( function( $, obj ) {
+/**
+ * Initializes in a Strict env the code that manages the Event Views
+ *
+ * @since 5.12.0
+ *
+ * @param  {PlainObject} $   jQuery
+ * @param  {PlainObject} obj tribe.events.views.icalLinks
+ *
+ * @return {void}
+ */
+( function( $, obj ) {
 	'use strict';
 
 	/**
@@ -120,14 +120,8 @@
 	obj.unbindEvents = function( $container ) {
 		$container
 			.find( obj.selectors.icalLinksButton )
-			.off( 'click', obj.handleIcalLinksButtonClick );
-
-		$container
-			.find( obj.selectors.icalLinksButton )
-			.off( 'click', obj.handleIcalLinksListContainerClick );
-
-		$container
-			.find( obj.selectors.icalLinksButton )
+			.off( 'click', obj.handleIcalLinksButtonClick )
+			.off( 'click', obj.handleIcalLinksListContainerClick )
 			.off( 'click', obj.handleIcalLinksIconClick );
 	};
 
