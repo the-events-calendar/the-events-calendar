@@ -35,8 +35,12 @@ class Provider extends ServiceProvider {
 		if ( ! tribe( Plugin_Settings::class )->is_tec_events_settings() ) {
 			return;
 		}
-
+		$this->add_actions();
 		$this->add_filters();
+	}
+
+	public function add_actions() {
+		add_action( 'tribe_common_loaded', [ $this, 'hook_into_common_telemetry' ], 10 , );
 	}
 
 	public function add_filters() {
@@ -77,5 +81,9 @@ class Provider extends ServiceProvider {
 	 */
 	public function filter_tribe_field_opt_in_status( $value, $id )  {
 		return $this->container->get( Telemetry::class )->filter_tribe_field_opt_in_status( $value, $id );
+	}
+
+	public function hook_into_common_telemetry() {
+		$this->container->get( Telemetry::class )->hook_into_common_telemetry();
 	}
 }

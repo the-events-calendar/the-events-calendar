@@ -115,4 +115,14 @@ class Telemetry {
 
 		return $value;
 	}
+
+	public function hook_into_common_telemetry() {
+		// Check to make sure that the Telemetry library is already instantiated.
+		if ( ! class_exists( Common_Telemetry::class ) ) {
+			return;
+		}
+
+		// Register the current plugin with an already instantiated library.
+		Config::add_stellar_slug( 'tec', 'the-events-calendar/the-events-calendar.php' );
+	}
 }
