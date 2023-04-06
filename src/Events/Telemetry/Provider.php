@@ -40,7 +40,7 @@ class Provider extends ServiceProvider {
 	}
 
 	public function add_actions() {
-		add_action( 'tribe_common_loaded', [ $this, 'hook_into_common_telemetry' ], 10 , );
+		add_action( 'plugins_loaded', [ $this, 'hook_into_common_telemetry' ], 10 , );
 	}
 
 	public function add_filters() {

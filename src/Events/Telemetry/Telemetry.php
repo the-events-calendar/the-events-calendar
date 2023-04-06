@@ -123,6 +123,6 @@ class Telemetry {
 		}
 
 		// Register the current plugin with an already instantiated library.
-		Config::add_stellar_slug( 'tec', 'the-events-calendar/the-events-calendar.php' );
+		Config::add_stellar_slug( 'the-events-calendar', 'the-events-calendar/the-events-calendar.php' );
 	}
 }
