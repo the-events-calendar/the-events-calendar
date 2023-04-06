@@ -280,7 +280,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @param int $post_id The deleted Event post ID.
 	 */
 	public function delete_custom_tables_data( $post_id ) {
-		if ( ! is_int( $post_id ) ) {
+		if ( ! ( is_int( $post_id ) && get_post_type( $post_id ) === TEC::POSTTYPE ) ) {
 			return;
 		}
 
