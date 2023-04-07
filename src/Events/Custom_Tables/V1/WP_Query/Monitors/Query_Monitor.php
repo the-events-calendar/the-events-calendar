@@ -63,6 +63,15 @@ trait Query_Monitor {
 	private $keep_modifiers_reference = false;
 
 	/**
+	 * Whether the implementations have been filtered at least once or not.
+	 *
+	 * @since 6.0.11
+	 *
+	 * @var bool
+	 */
+	private bool $filtered_implementations = false;
+
+	/**
 	 * Monitor constructor.
 	 *
 	 * @since 6.0.0
@@ -87,7 +96,12 @@ trait Query_Monitor {
 	 */
 	public function get_implementations(): array {
 		// Keep running filter until init is finished. Will run one or more times.
-		if ( doing_action( 'init' ) || ! did_action( 'init' ) || $this->implementations === null ) {
+		if (
+			$this->implementations === null // Starting state.
+			|| ! $this->filtered_implementations // The filter was never applied.
+			|| doing_action( 'init' ) // It's initializing.
+			|| ! did_action( 'init' ) // It's not initialized yet.
+		) {
 			/**
 			 * Filters the Query Modifier implementations that will be used in the Query Monitor parsing.
 			 *
@@ -102,6 +116,9 @@ trait Query_Monitor {
 				$this
 			);
 			$this->implementations = array_unique( $this->implementations );
+
+			// The filter has been applied at least once.
+			$this->filtered_implementations = true;
 		}
 
 		return $this->implementations;
