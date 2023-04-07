@@ -4,13 +4,12 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Site_Health
+ * @package TEC\Events\Telemetry
  */
 
 namespace TEC\Events\Telemetry;
 
 use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
-use Tribe\Events\Admin\Settings as Plugin_Settings;
 
  /**
   * Class Provider
@@ -20,33 +19,20 @@ use Tribe\Events\Admin\Settings as Plugin_Settings;
   * @package TEC\Events\Telemetry
   */
 class Provider extends ServiceProvider {
-	/**
-	 * Slug for the section.
-	 *
-	 * @since TBD
-	 *
-	 * @var string $slug
-	 */
-	protected static string $slug = 'the-events-calendar';
-
-
 	public function register() {
-		// wp-admin/admin.php?page=tec-event-settings
-		if ( ! tribe( Plugin_Settings::class )->is_tec_events_settings() ) {
-			return;
-		}
 		$this->add_actions();
 		$this->add_filters();
 	}
 
 	public function add_actions() {
-		add_action( 'plugins_loaded', [ $this, 'hook_into_common_telemetry' ], 10 , );
+		// noop.
 	}
 
 	public function add_filters() {
 		add_filter( 'tec_common_telemetry_optin_args', [ $this, 'filter_tec_common_telemetry_optin_args' ] );
 		add_filter( 'tribe_general_settings_debugging_section',[ $this, 'filter_tribe_general_settings_debugging_section' ] );
 		add_filter( 'tribe_field_value', [ $this, 'filter_tribe_field_opt_in_status' ], 10, 2 );
+		add_filter( 'tec_telemetry_slugs', [ $this, 'filter_tec_telemetry_slugs' ] );
 	}
 
 	public function filter_tec_common_telemetry_optin_args( $optin_args ) {
@@ -83,7 +69,17 @@ class Provider extends ServiceProvider {
 		return $this->container->get( Telemetry::class )->filter_tribe_field_opt_in_status( $value, $id );
 	}
 
-	public function hook_into_common_telemetry() {
-		$this->container->get( Telemetry::class )->hook_into_common_telemetry();
+	/**
+	 * Let The Events Calendar add itself to the list of registered plugins for Telemetry.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,string> $slugs The existing array of slugs.
+	 *
+	 * @return array<string,string> $slugs The modified array of slugs.
+	 */
+	public function filter_tec_telemetry_slugs( $slugs ) {
+		$foo = '';
+		return $this->container->get( Telemetry::class )->filter_tec_telemetry_slugs( $slugs );
 	}
 }

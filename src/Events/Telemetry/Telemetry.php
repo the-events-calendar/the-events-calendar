@@ -12,6 +12,7 @@ namespace TEC\Events\Telemetry;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
+use Tribe__Events__Main;
 
 /**
  * Class Telemetry
@@ -21,6 +22,25 @@ use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
  * @package TEC\Events\Telemetry
  */
 class Telemetry {
+
+	/**
+	 * The Telemetry plugin slug for The Events Calendar.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $plugin_slug = 'the-events-calendar';
+
+	/**
+	 * The "plugin path" for The Events Calendar main file.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static $plugin_path = 'the-events-calendar.php';
+
 	/**
 	 * Filters the modal optin args to be specific to TEC
 	 *
@@ -31,13 +51,21 @@ class Telemetry {
 	 * @return array<string|mixed> The filtered args.
 	 */
 	public function filter_tec_common_telemetry_optin_args( $original_optin_args ): array {
-		$user_name   = esc_html( wp_get_current_user()->display_name );
+		$intro_message = sprintf(
+			/* Translators: %1$s - the user name. */
+			__( 'Hi, %1$s! This is an invitation to help our StellarWP community.', 'the-events-calendar' ),
+			wp_get_current_user()->display_name // escaped after string is assembled, below.
+		);
+
+		$intro_message .= ' ' . __( 'If you opt-in, some data about your usage of The Events Calendar and future StellarWP Products will be shared with our teams (so they can work their butts off to improve).' , 'the-events-calendar');
+		$intro_message .= ' ' . __( 'We will also share some helpful info on WordPress, and our products from time to time.' , 'the-events-calendar');
+		$intro_message .= ' ' . __( 'And if you skip this, that’s okay! Our products still work just fine.', 'the-events-calendar' );
 
 		$tec_optin_args = [
-			'plugin_logo_alt'       => 'The Events Calendar Logo',
-			'plugin_name'           => 'The Events Calendar',
-			'heading'               => __( 'We hope you love The Events Calendar!', 'the-events-calendar' ),
-			'intro'                 => __( "Hi, {$user_name}! This is an invitation to help our StellarWP community. If you opt-in, some data about your usage of The Events Calendar and future StellarWP Products will be shared with our teams (so they can work their butts off to improve). We will also share some helpful info on WordPress, and our products from time to time. And if you skip this, that’s okay! Our products still work just fine.", 'the-events-calendar' ),
+			'plugin_logo_alt' => 'The Events Calendar Logo',
+			'plugin_name'     => 'The Events Calendar',
+			'heading'         => __( 'We hope you love The Events Calendar!', 'the-events-calendar' ),
+			'intro'           => esc_html( $intro_message )
 		];
 
 		return array_merge( $original_optin_args, $tec_optin_args );
@@ -54,7 +82,7 @@ class Telemetry {
 	 */
 	public function filter_tribe_general_settings_debugging_section( $fields ): array {
 		$status = Config::get_container()->get( Status::class );
-		$opted = $status->get();
+		$opted = $status->get( Common_Telemetry::get_plugin_slug() );
 
 		switch( $opted ) {
 			case $status::STATUS_ACTIVE :
@@ -116,13 +144,21 @@ class Telemetry {
 		return $value;
 	}
 
-	public function hook_into_common_telemetry() {
-		// Check to make sure that the Telemetry library is already instantiated.
-		if ( ! class_exists( Common_Telemetry::class ) ) {
-			return;
-		}
-
-		// Register the current plugin with an already instantiated library.
-		Config::add_stellar_slug( 'the-events-calendar', 'the-events-calendar/the-events-calendar.php' );
+	/**
+	 * Adds The Events Calendar to the list of plugins
+	 * to be opted in/out alongside tribe-common.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,string> $slugs The default array of slugs in the format  [ 'plugin_slug' => 'plugin_path' ]
+	 *
+	 * @see \TEC\Common\Telemetry\Telemetry::get_tec_telemetry_slugs()
+	 *
+	 * @return array<string,string> $slugs The same array with The Events Calendar added to it.
+	 */
+	public function filter_tec_telemetry_slugs( $slugs ) {
+		$dir = Tribe__Events__Main::instance()->plugin_dir;
+		$slugs[self::$plugin_slug] =  $dir . self::$plugin_path;
+		return array_unique( $slugs, SORT_STRING );
 	}
 }
