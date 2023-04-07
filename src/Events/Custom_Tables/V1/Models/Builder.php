@@ -9,7 +9,6 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Generator;
 use InvalidArgumentException;
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 
 /**
  * Class Builder
@@ -661,7 +660,6 @@ class Builder {
 	/**
 	 * Checks the value and columns requested for a GET operation on the
 	 * Model to make sure they are coherent and valid.
-	 * @todo Revisit this - it is validating when searching for a valid ID that no longer exists. Which is good on insert, but bad on select
 	 * @since 6.0.0
 	 *
 	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.

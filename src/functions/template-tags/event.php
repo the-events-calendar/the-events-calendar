@@ -7,21 +7,22 @@
 
 use Tribe\Events\Models\Post_Types\Event;
 
-if(!function_exists('tribe_get_event_cache_key')) {
+if ( ! function_exists( 'tribe_get_event_cache_key' ) ) {
 	/**
 	 * Generates the cache key for the `tribe_get_event` function, to store a particular event being fetched.
+	 * This is useful if needing to expire the cache for `tribe_get_event`.
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Cache $cache An instance of the tribe cache.
-	 * @param WP_Post $cache_post The post object that we are looking to cache.
-	 * @param string|null      $output The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
+	 * @param Tribe__Cache $cache      An instance of the tribe cache.
+	 * @param WP_Post      $cache_post The post object that we are looking to cache.
+	 * @param string|null  $output     The required return type. One of `OBJECT`, `ARRAY_A`, or `ARRAY_N`, which
 	 *                                 correspond to a WP_Post object, an associative array, or a numeric array,
 	 *                                 respectively. Defaults to `OBJECT`.
-	 * @param string           $filter Type of filter to apply. Accepts 'raw', a valid date string or
+	 * @param string       $filter     Type of filter to apply. Accepts 'raw', a valid date string or
 	 *                                 object to localize the event in a specific time-frame.
 	 *
-	 * @return string
+	 * @return string The cache ID.
 	 */
 	function tribe_get_event_cache_key( $cache, $cache_post, $output = OBJECT, $filter = 'raw' ): string {
 		if ( ! isset( $cache['option_start_of_week'] ) ) {
@@ -54,6 +55,7 @@ if(!function_exists('tribe_get_event_cache_key')) {
 		return 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
 	}
 }
+
 if ( ! function_exists( 'tribe_get_event' ) ) {
 	/**
 	 * Fetches and returns a decorated post object representing an Event.
@@ -157,8 +159,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$cache_key = tribe_get_event_cache_key( $cache, $cache_post, $output, $filter );
 
 		// Try getting the memoized value.
-		//$post = $cache[ $cache_key ];
-		$post = $cache->get( $cache_key,   Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		$post = $cache[ $cache_key ];
+		//$post = $cache->get( $cache_key,   Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 
 		if ( $post === false ) {
 			// No memoized value, build from properties.
@@ -180,8 +182,8 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
 			// Memoize the value.
-			//$cache[ $cache_key ] = $post;
-			$cache->set( $cache_key, $post, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			$cache[ $cache_key ] = $post;
+			//$cache->set( $cache_key, $post, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		if ( empty( $post ) ) {
