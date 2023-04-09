@@ -179,7 +179,7 @@ class Tribe__Events__Assets {
 			$api_key = tribe_get_option( 'google_maps_js_api_key', Tribe__Events__Google__Maps_API_Key::$default_api_key );
 
 			if ( ! empty( $api_key ) && is_string( $api_key ) ) {
-				$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
+				$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s&callback=Function.prototype', trim( $api_key ) );
 			}
 
 			/**
