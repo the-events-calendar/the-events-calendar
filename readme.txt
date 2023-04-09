@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Pass a NOOP callback function to Google Maps scripts to prevent JS warnings. [TEC-4762]
+
 = [6.0.12] 2023-04-10 =
 
 * Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
