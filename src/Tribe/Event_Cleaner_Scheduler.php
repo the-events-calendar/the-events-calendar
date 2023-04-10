@@ -226,7 +226,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$this->unhook_rebuild_known_range();
 		foreach ( $post_ids as $post_id ) {
 			$results[ $post_id ] = wp_trash_post( $post_id );
-			// @todo do we need now ? clean_post_cache( $post_id );
+			clean_post_cache( $post_id );
 		}
 		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
 		$this->hook_rebuild_known_range();
