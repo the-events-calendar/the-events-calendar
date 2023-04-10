@@ -133,10 +133,12 @@ class Events {
 	 * @return true To indicate the earliest and latest Event dates were updated.
 	 */
 	public function rebuild_known_range() {
-		tribe_update_option( 'earliest_date', $this->get_earliest_date()->format( Dates::DBDATETIMEFORMAT ) );
-		tribe_update_option( 'latest_date', $this->get_latest_date()->format( Dates::DBDATETIMEFORMAT ) );
-		$earliest = Occurrence::order_by( 'start_date_utc', 'ASC' )->first();
-		$latest = Occurrence::order_by( 'end_date_utc', 'DESC' )->first();
+		$earliest_date =  $this->get_earliest_date()->format( Dates::DBDATETIMEFORMAT );
+		$latest_date = $this->get_latest_date()->format( Dates::DBDATETIMEFORMAT );
+		tribe_update_option( 'earliest_date', $earliest_date);
+		tribe_update_option( 'latest_date', $latest_date );
+		$earliest = Occurrence::where('start_date_utc', '>=', $earliest_date)->order_by( 'start_date_utc', 'ASC' )->first();
+		$latest = Occurrence::where('end_date_utc', '<=', $latest_date)->order_by( 'end_date_utc', 'DESC' )->first();
 		tribe_update_option( 'earliest_date_markers', $earliest instanceof Occurrence ? [ $earliest->provisional_id ] : [] );
 		tribe_update_option( 'latest_date_markers', $latest instanceof Occurrence ? [ $latest->provisional_id ] : [] );
 
