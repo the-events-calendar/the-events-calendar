@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Event_Cleaner
  *

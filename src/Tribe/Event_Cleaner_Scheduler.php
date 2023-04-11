@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Event_Cleaner_Scheduler
  *
@@ -205,6 +204,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Moves to trash events that ended before a date specified by user
 	 *
 	 * @since 4.6.13
+	 * @since TBD Added a return value.
 	 *
 	 * @return mixed
 	 */
@@ -245,4 +245,3 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		}
 	}
 }
-
