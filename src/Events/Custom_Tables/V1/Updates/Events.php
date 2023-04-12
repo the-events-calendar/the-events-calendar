@@ -10,6 +10,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
+use DateTimeZone;
 use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
@@ -129,33 +130,35 @@ class Events {
 	 * used to track the earliest Event start date and the latest Event end date.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Fix for "markers" being computed incorrectly, and only fetching provisional IDs.
 	 *
 	 * @return true To indicate the earliest and latest Event dates were updated.
 	 */
 	public function rebuild_known_range() {
-		$earliest_date =  $this->get_earliest_date()->format( Dates::DBDATETIMEFORMAT );
-		$latest_date = $this->get_latest_date()->format( Dates::DBDATETIMEFORMAT );
-		tribe_update_option( 'earliest_date', $earliest_date);
-		tribe_update_option( 'latest_date', $latest_date );
-		$earliest = Occurrence::where('start_date_utc', '>=', $earliest_date)->order_by( 'start_date_utc', 'ASC' )->first();
-		$latest = Occurrence::where('end_date_utc', '<=', $latest_date)->order_by( 'end_date_utc', 'DESC' )->first();
-		tribe_update_option( 'earliest_date_markers', $earliest instanceof Occurrence ? [ $earliest->provisional_id ] : [] );
-		tribe_update_option( 'latest_date_markers', $latest instanceof Occurrence ? [ $latest->provisional_id ] : [] );
+		$earliest = $this->get_earliest_occurrence();
+		$latest   = $this->get_latest_occurrence();
+		if ( $earliest ) {
+			tribe_update_option( 'earliest_date', $earliest->start_date_utc );
+			tribe_update_option( 'earliest_date_markers', [ $earliest->provisional_id ?? $earliest->post_id ] );
+		}
+		if ( $latest ) {
+			tribe_update_option( 'latest_date', $latest->end_date_utc );
+			tribe_update_option( 'latest_date_markers', [ $latest->provisional_id ?? $latest->post_id ] );
+		}
 
 		return true;
 	}
 
 	/**
-	 * Fetches an aggregate date value from the database.
+	 * Get the earliest "valid" occurrence in the database.
 	 *
-	 * @since 6.0.0
-	 * @param string            $aggregate The SQL aggregate function to use, e.g. `MIN` or `MAX`.
-	 * @param string            $column    The column to use the aggregate function on.
-	 * @param array|string|null $stati     An array of post statuses to return the aggregate column for.
+	 * @since TBD
 	 *
-	 * @return \DateTime|false|\Tribe\Utils\Date_I18n
+	 * @param array|string|null $stati An array of post statuses to filter the occurrences for.
+	 *
+	 * @return Occurrence|null
 	 */
-	private function get_boundary_date( $aggregate, $column, $stati = null ) {
+	private function get_earliest_occurrence( $stati = null ): ?Occurrence {
 		global $wpdb;
 		$occurrences = Occurrences::table_name( true );
 		if ( empty( $stati ) ) {
@@ -164,13 +167,50 @@ class Events {
 			 */
 			$stati = apply_filters( 'tribe_events_known_range_stati', [ 'publish', 'private', 'protected' ] );
 		}
-		$statuses = $wpdb->prepare( implode( ',', array_fill( 0, count( (array) $stati ), '%s' ) ), (array) $stati );
-		$date     = $wpdb->get_var( "SELECT {$aggregate}(o.{$column}) FROM $occurrences o
+		$statuses       = $wpdb->prepare( implode( ',', array_fill( 0, count( (array) $stati ), '%s' ) ), (array) $stati );
+		$query          = $wpdb->prepare( "SELECT o.* FROM $occurrences o
 			JOIN $wpdb->posts p ON p.ID = o.post_id
-			WHERE p.post_status IN ($statuses)"
+			WHERE p.post_status IN ($statuses)
+				AND p.post_type = %s
+			ORDER BY start_date_utc ASC
+			LIMIT 1",
+			TEC::POSTTYPE
 		);
+		$occurrence_row = $wpdb->get_row( $query, ARRAY_A );
 
-		return Dates::build_date_object( $date, new \DateTimeZone( 'UTC' ) );
+		return ! empty( $occurrence_row ) ? new Occurrence( (array) $occurrence_row ) : null;
+	}
+
+	/**
+	 * Get the latest "valid" occurrence in the database.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|string|null $stati An array of post statuses to filter the occurrences for.
+	 *
+	 * @return Occurrence|null
+	 */
+	private function get_latest_occurrence( $stati = null ): ?Occurrence {
+		global $wpdb;
+		$occurrences = Occurrences::table_name( true );
+		if ( empty( $stati ) ) {
+			/**
+			 * @see \Tribe__Events__Dates__Known_Range::rebuild_known_range() for documentation.
+			 */
+			$stati = apply_filters( 'tribe_events_known_range_stati', [ 'publish', 'private', 'protected' ] );
+		}
+		$statuses       = $wpdb->prepare( implode( ',', array_fill( 0, count( (array) $stati ), '%s' ) ), (array) $stati );
+		$query          = $wpdb->prepare( "SELECT o.* FROM $occurrences o
+			JOIN $wpdb->posts p ON p.ID = o.post_id
+			WHERE p.post_status IN ($statuses)
+				AND p.post_type = %s
+			ORDER BY end_date_utc DESC
+			LIMIT 1",
+			TEC::POSTTYPE
+		);
+		$occurrence_row = $wpdb->get_row( $query, ARRAY_A );
+
+		return ! empty( $occurrence_row ) ? new Occurrence( (array) $occurrence_row ) : null;
 	}
 
 	/**
@@ -185,7 +225,10 @@ class Events {
 	 * @return \DateTime The earliest start time object, in the site timezone.
 	 */
 	public function get_earliest_date( $stati = null ) {
-		return $this->get_boundary_date( 'MIN', 'start_date_utc', $stati );
+		$occurrence = $this->get_earliest_occurrence( $stati );
+		$date       = $occurrence ? $occurrence->start_date_utc : null;
+
+		return Dates::build_date_object( $date, new DateTimeZone( 'UTC' ) );
 	}
 
 	/**
@@ -200,6 +243,9 @@ class Events {
 	 * @return \DateTime The latest start time object, in the site timezone.
 	 */
 	public function get_latest_date( $stati = null ) {
-		return $this->get_boundary_date( 'MAX', 'end_date_utc', $stati );
+		$occurrence = $this->get_latest_occurrence( $stati );
+		$date       = $occurrence ? $occurrence->end_date_utc : null;
+
+		return Dates::build_date_object( $date, new DateTimeZone( 'UTC' ) );
 	}
 }
