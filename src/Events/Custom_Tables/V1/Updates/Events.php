@@ -137,13 +137,21 @@ class Events {
 	public function rebuild_known_range() {
 		$earliest = $this->get_earliest_occurrence();
 		$latest   = $this->get_latest_occurrence();
+
 		if ( $earliest ) {
 			tribe_update_option( 'earliest_date', $earliest->start_date_utc );
 			tribe_update_option( 'earliest_date_markers', [ $earliest->provisional_id ?? $earliest->post_id ] );
+		} else {
+			tribe_remove_option( 'earliest_date' );
+			tribe_remove_option( 'earliest_date_markers' );
 		}
+
 		if ( $latest ) {
 			tribe_update_option( 'latest_date', $latest->end_date_utc );
 			tribe_update_option( 'latest_date_markers', [ $latest->provisional_id ?? $latest->post_id ] );
+		} else {
+			tribe_remove_option( 'latest_date' );
+			tribe_remove_option( 'latest_date_markers' );
 		}
 
 		return true;
