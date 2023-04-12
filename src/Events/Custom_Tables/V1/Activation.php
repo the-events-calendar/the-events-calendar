@@ -87,6 +87,17 @@ class Activation {
 			return;
 		}
 
+
+		if ( wp_using_ext_object_cache() ) {
+			wp_cache_set( static::ACTIVATION_TRANSIENT, $now, '', DAY_IN_SECONDS );
+			// Clean up.
+			delete_transient( static::ACTIVATION_TRANSIENT );
+		} else {
+			set_transient( static::ACTIVATION_TRANSIENT, $now, DAY_IN_SECONDS );
+			// Clean up.
+			wp_cache_delete( static::ACTIVATION_TRANSIENT );
+		}
+		
 		$schema_builder = $services->make( Schema_Builder::class );
 		$state          = $services->make( State::class );
 		$phase          = $state->get_phase();
@@ -113,16 +124,6 @@ class Activation {
 				 */
 				$services->register( Full_Activation_Provider::class );
 			}
-		}
-
-		if ( wp_using_ext_object_cache() ) {
-			wp_cache_set( static::ACTIVATION_TRANSIENT, $now, '', DAY_IN_SECONDS );
-			// Clean up.
-			delete_transient( static::ACTIVATION_TRANSIENT );
-		} else {
-			set_transient( static::ACTIVATION_TRANSIENT, $now, DAY_IN_SECONDS );
-			// Clean up.
-			wp_cache_delete( static::ACTIVATION_TRANSIENT );
 		}
 	}
 
@@ -189,7 +190,7 @@ class Activation {
 			$issue_reports[] = "`Occurrences` Table Missing";
 		}
 
-		$reports = empty( $issue_reports ) ? 'Good!' : implode( $issue_reports, ' | ' );
+		$reports = empty( $issue_reports ) ? 'Good!' : implode( ' | ', $issue_reports );
 
 		// Add health checks here.
 		$migration_health_check = [

@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.10
-Tested up to: 6.1.1
+Stable tag: 6.0.12
+Tested up to: 6.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -228,6 +228,56 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.0.12] 2023-04-10 =
+
+* Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
+* Fix - Build secondary Views navigation links correctly when WPML is active. [TEC-4689]
+* Fix - Build the link to the Events page from the Permalinks settings page correctly. [TEC-4689]
+* Fix - Correctly handle the creation or update of Custom Tables v1 in multisite context. (thanks @jiadil). [BTRIA-1734]
+* Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
+* Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
+* Fix - Fix issue with events post type bleeding in on custom tag queries, instead of only on tag archive page. [TEC-4694]
+* Fix - Fixed a situation where an invalid request header in our pagination would cause some strict security settings to block these AJAX requests. [TEC-4723]
+* Fix - Fixes an edge case where running get_posts() twice with a taxonomy query, would result in an extra where statement added limiting results in an unexpected way. [TEC-4695]
+* Fix - Fixes situation in block editor where a default organizer would not persist after being saved. [ECP-1061]
+* Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
+* Fix - Resolve the issue of the WP customizer not loading correctly when the Colbri Page Builder plugin is active. [TEC-4735]
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
+* Tweak - Added filter: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts` in our 6.0 query modifier, useful to make changes to the query prior to fetching posts for the selected events. [TEC-4695]
+* Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
+* Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
+* Tweak - Fire the `tec_events_custom_tables_v1_fully_activated` when the Custom Tables v1 implementation is fully loaded. [ET-1495]
+* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Tweak - Added filters: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts`, `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status`, `tribe_events_add_canonical_tag`
+* Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
+* Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
+* Language - 0 new strings added, 82 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.11] 2023-03-20 =
+
+* Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
+* Fix - Avoid fatal error in `tribe_events_event_classes` when called on events that aren't assigned to any category. [TEC-4709]
+* Fix - Avoid PHP errors originating from a missing HTML template when the migration to Custom Tables v1 is not required. [ECP-1472]
+* Fix - Correctly display Recurring Event Venue and Organizer details on the front-end and back-end when using WPML. [ECP-1442, ECP-1455]
+* Fix - Display Venue correctly in List-like views when using WPML. [ECP-1443]
+* Fix - Ensure the date tags for recurring events are displayed correctly in the `Events List` widget. [ECP-1382]
+* Fix - Ensure the Subscribe to Calendar Dropdown opens and closes consistently across all themes. [TEC-4388]
+* Fix - Failures while saving Events from Blocks Editor while using WPML. [ECP-1429]
+* Fix - Fix an issue that stopped the default venue values from populating when submitting a Community Event. [CE-178]
+* Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
+* Fix - Link to the correct Occurrence when using CT1 and WPML. [TEC-4632]
+* Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
+* Fix - Prevent fatal on PHP 8+ during generation of the activation report when issues exist.
+* Fix - Prevent fatal on PHP 8+ for `tribe_get_event_cat_slugs` with bad typing around `array_filter` [TEC-4725]
+* Fix - Prevent PHP 8.0+ fatal around iCal exporting with param not being array [TEC-4726]
+* Tweak - Add empty alt tag to featured images across all views when a user doesn't explicitly define one to improve SEO. [ECP-1454]
+* Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
+* Tweak - Modified single-event.php to use `tribe_get_formatted_cost` instead of `tribe_get_cost` to display the event cost. [TEC-4699]
+* Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `single-event`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/widgets/widget-events-list/event/date-tag`
+* Language - 0 new strings added, 24 updated, 2 fuzzied, and 0 obsoleted
 
 = [6.0.10] 2023-02-22 =
 
