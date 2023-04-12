@@ -162,6 +162,10 @@ class Install_Event_Tickets {
 	 * @return bool True if the install notice should be displayed.
 	 */
 	public function should_display_notice_install(): bool {
+		if ( tec_should_hide_upsell( 'event-tickets-install-notice' ) ) {
+			return false;
+		}
+
 		return ! $this->is_installed()
 			&& empty( tribe_get_request_var( 'welcome-message-the-events-calendar' ) )
 			&& ! $this->is_install_plugin_page();
@@ -175,6 +179,10 @@ class Install_Event_Tickets {
 	 * @return bool True if the activate notice should be displayed.
 	 */
 	public function should_display_notice_activate(): bool {
+		if ( tec_should_hide_upsell( 'event-tickets-activate-notice' ) ) {
+			return false;
+		}
+
 		return $this->is_installed() && ! $this->is_active() && ! $this->is_install_plugin_page();
 	}
 
