@@ -12,7 +12,6 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence as Occurrence_Model;
 use TEC\Events\Custom_Tables\V1\Tables\Events as EventsSchema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as OccurrencesSchema;
-use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
 use Tribe__Events__Main as TEC;
@@ -187,8 +186,8 @@ trait CT1_Fixtures {
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
 	}
 
-	private function given_a_migrated_single_event( $args = [] ) {
-		$post = $this->given_a_non_migrated_single_event( $args );
+	private function given_a_migrated_single_event() {
+		$post = $this->given_a_non_migrated_single_event();
 		Event::upsert( [ 'post_id' ], Event::data_from_post( $post ) );
 		$event = Event::find( $post->ID, 'post_id' );
 		$this->assertInstanceOf( Event::class, $event );

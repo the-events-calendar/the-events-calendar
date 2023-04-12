@@ -1,6 +1,7 @@
 <?php
 
 use Tribe\Events\Integrations\WPML\Views\V2\Filters as Views_V2_Filters;
+use Tribe\Events\Views\V2\Hooks;
 
 /**
  * Class Tribe__Events__Integrations__WPML__WPML
@@ -77,6 +78,8 @@ class Tribe__Events__Integrations__WPML__WPML {
 			3
 		);
 		add_filter( 'tec_common_rewrite_localize_matcher', [ $rewrites, 'localize_matcher' ], 10, 2 );
+		// Ensure the base slugs are urldecoded before they are used to build the rewrite rules, go after all the plugins.
+		add_filter( 'tribe_events_rewrite_base_slugs', [ $rewrites, 'urldecode_base_slugs' ], 100 );
 
 		$permalinks = Tribe__Events__Integrations__WPML__Permalinks::instance();
 		add_filter( 'post_type_link', [ $permalinks, 'filter_post_type_link' ], 20, 2 );
@@ -112,6 +115,11 @@ class Tribe__Events__Integrations__WPML__WPML {
 		add_filter( 'tribe_events_views_v2_request_uri', [ Views_V2_Filters::class, 'translate_view_request_uri' ] );
 
 		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+			// Rewrite bases should not be encoded when using WPML.
+			remove_filter( 'tribe_events_rewrite_i18n_slugs_raw', [
+				tribe( Hooks::class ),
+				'filter_rewrite_i18n_slugs_raw'
+			], 50 );
 			// Handle the translation of the Events permalinks in Views v2 and Custom Tables V1 context.
 			add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_events_permalinks' ] );
 			// Filter the tracked meta keys to trigger the update of the custom tables when duplicating events.
