@@ -10,10 +10,10 @@ class Tribe__Events__Dates__Known_RangeTest extends \Codeception\TestCase\WPTest
 	use CT1_Fixtures;
 
 	protected function given_reset_range_options() {
-		tribe_update_option( 'earliest_date', null );
-		tribe_update_option( 'earliest_date_markers', null );
-		tribe_update_option( 'latest_date', null );
-		tribe_update_option( 'latest_date_markers', null );
+		tribe_remove_option( 'earliest_date' );
+		tribe_remove_option( 'earliest_date_markers' );
+		tribe_remove_option( 'latest_date' );
+		tribe_remove_option( 'latest_date_markers' );
 	}
 
 	/**
