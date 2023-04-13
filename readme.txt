@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Ensure we have the ability to hide the Event Tickets Activation notice using the `defined( 'TRIBE_HIDE_UPSELL' )` constant. [TEC-4767]
+
 = [6.0.12] 2023-04-10 =
 
 * Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
