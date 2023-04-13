@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email;
 
 use TEC\Tickets\Emails\Email\RSVP as RSVP_Email;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Handler;
+use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template as Template;
 
 /**
  * Class RSVP.
@@ -117,6 +118,57 @@ class RSVP {
 		$attachments = tribe( TEC_Email_Handler::class )->tec_tickets_emails_add_event_ics_to_attachments( $attachments, $post_id );
 
 		return $attachments;
+	}
 
+	/**
+	 * Maybe include event links.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Template $et_template Event Tickets template object.
+	 * @return void
+	 */
+	public function maybe_include_event_links( $et_template ) {
+		$email_class = tribe( RSVP_Email::class );
+
+		// Bail early if the email class is not enabled.
+		if ( ! $email_class->is_enabled() ) {
+			return;
+		}
+
+		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
+
+		if ( ! empty( $use_ticket_email ) ) {
+			$email_class = tribe( TEC\Tickets\Emails\Email\Ticket::class );
+
+			if ( ! $email_class->is_enabled() ) {
+				return;
+			}
+		}
+
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
+			return;
+		}
+
+		$args = $et_template->get_local_values();
+
+		if (
+			! empty( $args['email'] )
+			&& $args['email']->get_id() !== $email_class->get_id()
+		) {
+			return;
+		}
+
+		if ( empty( $args['event'] ) && empty( $args['event']->ID ) ) {
+			return;
+		}
+
+		// @todo @juanfra: Get the links and pass them to the template.
+		// tribe_get_gcal_link( $args['event']->ID );
+		// tribe_get_single_ical_link();
+		//tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $post_id );
+		// tribe( \Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export::class )->generate_single_url( $post_id );
+
+		tribe( Template::class )->template( 'template-parts/body/event/links', $args, true );
 	}
 }

@@ -24,6 +24,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$emails = new Emails( $this->container );
 		// Allow Hooks to be removed, by having the them registered to the container.
 		$this->container->singleton( Emails::class, $emails );
+
+		$this->container->singleton( Template::class, Template::class );
 	}
 
 	/**

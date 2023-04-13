@@ -1,0 +1,44 @@
+<?php
+/**
+ * Event Tickets Emails: Main template > Body > Event > Venue > Phone.
+ *
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe/events/v2/emails/template-parts/body/event/venue.php
+ *
+ * See more documentation about our views templating system.
+ *
+ * @link https://evnt.is/tickets-emails-tpl Help article for Tickets Emails template files.
+ *
+ * @version TBD
+ *
+ * @since TBD
+ *
+ * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ *
+ * @see tribe_get_event() For the format of the event object.
+ */
+
+if ( empty( $event ) && ! $event->venues->count() ) {
+	return;
+}
+
+if ( empty( $venue->phone ) ) {
+	return;
+}
+?>
+<table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;margin-bottom:18px">
+	<tr>
+		<td style="display:inline-block;text-align:center;vertical-align:top;" valign="top" align="center">
+			<!-- @todo @juanfra: We need to move this image to TEC/Common folder -->
+			<img
+				width="25"
+				height="24"
+				style="width:25px;height:24px;display:block;"
+				src="<?php echo plugins_url( '/event-tickets/src/resources/icons/phone.svg' ) ?>"
+			/>
+		</td>
+		<td style="padding:0;">
+			<?php echo esc_html( $venue->phone ); ?>
+		</td>
+	</tr>
+</table>
