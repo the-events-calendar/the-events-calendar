@@ -10,6 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 
 use Tribe__Events__Main as Main;
+use Tribe\Utils\Lazy_String;
 
 /**
  * Class Emails.
@@ -130,5 +131,91 @@ class Emails {
 		unlink( $file );
 
 		return $attachments;
+	}
+
+	/**
+	 * Filters the arguments for the Tickets Emails preview.
+	 *
+	 * @since TBD
+	 *
+	 * @param array          $args     The email preview arguments.
+	 * @param string         $id       The email id.
+	 * @param string         $template Template name.
+	 * @param Email_Abstract $email    The email object.
+	 *
+	 * @return array The filtered arguments for the Tickets Emails preview.
+	 */
+	public function filter_tec_tickets_emails_preview_args( $args, $id, $template, $email ): array {
+		if ( empty( $args['is_preview'] ) ) {
+			return $args;
+		}
+
+		$preview_event = [
+			'title'            => esc_html__( 'Rebirth Brass Band', 'the-events-calendar' ),
+			'schedule_details' => new Lazy_String(
+				static function () {
+					return esc_html__( 'September 22 @ 7:00 pm - 11:00 pm', 'the-events-calendar' );
+				}
+			),
+			'dates'            => (object) [],
+			'venues'           => [
+				(object) [
+					'post_title'      => esc_html__( 'Saturn', 'the-events-calendar' ),
+					'address'         => esc_html__( '41st Street', 'the-events-calendar' ),
+					'city'            => esc_html__( 'Birmingham, 35222', 'the-events-calendar' ),
+					'state'           => esc_html__( 'Alabama', 'the-events-calendar' ),
+					'country'         => esc_html__( 'United States', 'the-events-calendar' ),
+					'phone'           => esc_html__( '(987) 654-3210', 'the-events-calendar' ),
+					'website_url'     => esc_url( get_site_url() ),
+					'directions_link' => '#',
+				],
+			],
+			'thumbnail'        => (object) [
+				'exists'    => true,
+				'full'      => (object) [
+					// @todo @juanfra @codingmusician: we need to move this image to the TEC folder.
+					'url' => esc_url( plugins_url( '/event-tickets/src/resources/images/example-event-image.png' ) ),
+				],
+				'thumbnail' => (object) [
+					'alt'   => esc_html__( 'Rebirth Brass Band', 'the-events-calendar' ),
+					'title' => esc_html__( 'Rebirth Brass Band', 'the-events-calendar' ),
+				],
+			],
+		];
+
+
+		$args['event'] = (object) $preview_event;
+
+		return $args;
+	}
+
+	/**
+	 * Filters the arguments for the Tickets Emails, maybe adding the event data.
+	 *
+	 * @since TBD
+	 *
+	 * @param array          $args     The email preview arguments.
+	 * @param string         $id       The email id.
+	 * @param string         $template Template name.
+	 * @param Email_Abstract $email    The email object.
+	 *
+	 * @return array The filtered arguments for the Tickets Emails .
+	 */
+	public function filter_tec_tickets_emails_template_args( $args, $id, $template, $email ): array {
+		$post_id = $email->__get( 'post_id' );
+
+		if ( ! tribe_is_event( $post_id ) ) {
+			return $args;
+		}
+
+		$event = tribe_get_event( $post_id );
+
+		if ( empty( $event ) ) {
+			return $args;
+		}
+
+		$args['event'] = $event;
+
+		return $args;
 	}
 }

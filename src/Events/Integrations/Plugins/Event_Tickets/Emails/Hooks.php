@@ -52,6 +52,8 @@ class Hooks extends tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		// General emails filters.
 		add_filter( 'tec_tickets_emails_placeholders', tribe_callback( Emails::class, 'filter_tec_tickets_emails_placeholders' ), 10, 3 );
+		add_filter( 'tec_tickets_emails_preview_args', tribe_callback( Emails::class, 'filter_tec_tickets_emails_preview_args' ), 10, 4 );
+		add_filter( 'tec_tickets_emails_template_args', tribe_callback( Emails::class, 'filter_tec_tickets_emails_template_args' ), 10, 4 );
 
 		// Ticket Email.
 		add_filter( 'tec_tickets_emails_ticket_settings', tribe_callback( Email\Ticket::class, 'filter_tec_tickets_emails_ticket_email_settings' ), 10 );
