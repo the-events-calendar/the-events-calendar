@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
 Stable tag: 6.0.12
-Tested up to: 6.1.1
+Tested up to: 6.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
 * Fix - Build secondary Views navigation links correctly when WPML is active. [TEC-4689]
 * Fix - Build the link to the Events page from the Permalinks settings page correctly. [TEC-4689]
+* Fix - Correctly handle the creation or update of Custom Tables v1 in multisite context. (thanks @jiadil). [BTRIA-1734]
 * Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
 * Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
 * Fix - Fix issue with events post type bleeding in on custom tag queries, instead of only on tag archive page. [TEC-4694]
@@ -248,7 +249,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
 * Tweak - Fire the `tec_events_custom_tables_v1_fully_activated` when the Custom Tables v1 implementation is fully loaded. [ET-1495]
 * Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
-* Fix - Correctly handle the creation or update of Custom Tables v1 in multisite context. (thanks @jiadil). [BTRIA-1734]
+* Tweak - Added filters: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts`, `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status`, `tribe_events_add_canonical_tag`
+* Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
+* Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
+* Language - 0 new strings added, 82 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.11] 2023-03-20 =
 
