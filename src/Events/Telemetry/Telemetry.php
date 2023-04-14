@@ -12,6 +12,7 @@ namespace TEC\Events\Telemetry;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
+use Tribe\Events\Admin\Settings as Plugin_Settings;
 use Tribe__Events__Main;
 
 /**
@@ -51,6 +52,11 @@ class Telemetry {
 	 * @return array<string|mixed> The filtered args.
 	 */
 	public function filter_tec_common_telemetry_optin_args( $original_optin_args ): array {
+		// wp-admin/admin.php?page=tec-events-settings
+		if ( ! tribe( Plugin_Settings::class )->is_tec_events_settings() ) {
+			return $original_optin_args;
+		}
+
 		$intro_message = sprintf(
 			/* Translators: %1$s - the user name. */
 			__( 'Hi, %1$s! This is an invitation to help our StellarWP community.', 'the-events-calendar' ),
@@ -82,7 +88,7 @@ class Telemetry {
 	 */
 	public function filter_tribe_general_settings_debugging_section( $fields ): array {
 		$status = Config::get_container()->get( Status::class );
-		$opted = $status->get( Common_Telemetry::get_plugin_slug() );
+		$opted = $status->get( self::$plugin_slug );
 
 		switch( $opted ) {
 			case $status::STATUS_ACTIVE :
@@ -136,7 +142,7 @@ class Telemetry {
 			return $value;
 		}
 
-		// We don't care what the value stored in tribe_options is - give us the Opt_In\Status value.
+		// We don't care what the value stored in tribe_options is - give us Telemetry's Opt_In\Status value.
 		$status = Config::get_container()->get( Status::class );
 		// Rather than test for STATUS_ACTIVE, we just make sure it's not inactive (as there is also a "mixed" status)
 		$value = $status->get() !== $status::STATUS_INACTIVE;

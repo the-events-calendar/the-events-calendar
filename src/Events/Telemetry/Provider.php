@@ -10,6 +10,7 @@
 namespace TEC\Events\Telemetry;
 
 use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
+use Tribe\Events\Admin\Settings;
 
  /**
   * Class Provider
@@ -20,12 +21,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
   */
 class Provider extends ServiceProvider {
 	public function register() {
-		$this->add_actions();
 		$this->add_filters();
-	}
-
-	public function add_actions() {
-		// noop.
 	}
 
 	public function add_filters() {
@@ -79,7 +75,6 @@ class Provider extends ServiceProvider {
 	 * @return array<string,string> $slugs The modified array of slugs.
 	 */
 	public function filter_tec_telemetry_slugs( $slugs ) {
-		$foo = '';
 		return $this->container->get( Telemetry::class )->filter_tec_telemetry_slugs( $slugs );
 	}
 }
