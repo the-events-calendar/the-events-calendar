@@ -221,13 +221,12 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @return array<string,WP_Post|false|null> An associative array of ID to the result of wp_trash_post().
 	 */
-	public function move_old_events_to_trash():array {
-		$month = $this->trash_new_date;
+	public function move_old_events_to_trash(): array {
+		$month    = $this->trash_new_date;
 		$post_ids = $this->select_events_to_purge( $month );
-		$results = [];
+		$results  = [];
 
 		if ( empty( $post_ids ) ) {
-
 			return $results;
 		}
 
