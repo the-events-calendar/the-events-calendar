@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
 * Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
 * Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
+* Tweak - Added filter `tec_events_event_cleaner_trash_cron_frequency` to allow customizing the frequency of the trash old event cron. [ECP-1475]
 
 = [6.0.12] 2023-04-10 =
 

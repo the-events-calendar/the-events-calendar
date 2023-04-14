@@ -84,7 +84,15 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 */
 	public function add_hooks() {
 		if ( ! wp_next_scheduled( self::$trash_cron_hook ) && $this->trash_new_date != null ) {
-			wp_schedule_event( time(), 'daily', self::$trash_cron_hook );
+			/**
+			 * Allows adjusting the frequency the trash old events cron will run.
+			 *
+			 * @since TBD
+			 *
+			 * @param string The frequency that the trash old events cleaner will run. Defaults to `twicedaily`.
+			 */
+			$frequency = apply_filters( 'tec_events_event_cleaner_trash_cron_frequency', 'twicedaily' );
+			wp_schedule_event( time(), $frequency, self::$trash_cron_hook );
 		}
 
 		if ( ! wp_next_scheduled( self::$del_cron_hook ) && $this->del_new_date != null ) {
