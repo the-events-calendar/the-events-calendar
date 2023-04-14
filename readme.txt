@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
 * Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
 * Tweak - Added filter `tec_events_event_cleaner_trash_cron_frequency` to allow customizing the frequency of the trash old event cron. [ECP-1475]
+* Fix - For CT1 in markers the occurrence would sometimes not be the same one found as the date field, only one was filtering by post_status. We were only using `provisional_id` for CT1, now we fallback to `post_id`. Now removing options when no occurrences are found, instead of retaining a stale value. [TEC-4768]
 
 = [6.0.12] 2023-04-10 =
 
