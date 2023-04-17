@@ -39,7 +39,7 @@ tribe.events.views.icalLinks = {};
 	 */
 	obj.selectors = {
 		icalLinks: '.tribe-events-c-subscribe-dropdown',
-		icalLinksButton: '.tribe-events-c-subscribe-dropdown__button-text',
+		icalLinksButton: '.tribe-events-c-subscribe-dropdown__button',
 		icalLinksButtonActiveClass: 'tribe-events-c-subscribe-dropdown__button--active',
 		icalLinksListContainer: '.tribe-events-c-subscribe-dropdown__content',
 		icalLinksListContainerShow: 'tribe-events-c-subscribe-dropdown__content--show',
@@ -48,38 +48,53 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Toggles active class on view selector button
+	 * Toggles dropdown content visibility and rotates the icon.
 	 *
 	 * @since 5.12.0
+	 * @since TBD - Added logic to hide dropdown content on click.
 	 *
 	 * @param {Event} event event object for click event
 	 *
 	 * @return {void}
 	 */
 	obj.handleIcalLinksButtonClick = function( event ) {
-		$( event.target ).toggleClass( obj.selectors.icalLinksButtonActiveClass );
+		// Stop event propagation to prevent triggering other click events.
+		event.stopPropagation();
+
+		let $button  = $( event.target ).closest( obj.selectors.icalLinksButton );
+		let $content = $button.siblings( obj.selectors.icalLinksListContainer );
+		let $icon    = $button.find( obj.selectors.icalLinksIcon );
+
+		// Hide all other dropdown content elements.
+		$( obj.selectors.icalLinksListContainer ).not( $content ).hide();
+
+		// Remove the rotate class from all other icon elements.
+		$( obj.selectors.icalLinksIcon).not( $icon ).removeClass( obj.selectors.icalLinksIconRotate );
+		
+		// Toggle the rotate class for the current icon element.
+		$icon.toggleClass( obj.selectors.icalLinksIconRotate );
+
+		// Toggle the visibility of the current content element.
+		$content.toggle();
 	};
 
 	/**
-	 * Toggles active class for the dropdown container.
+	 * Closes dropdown content when clicked outside of the dropdown area.
 	 *
 	 * @since TBD
 	 *
-	 * @return {void}
-	 */
-	obj.handleIcalLinksListContainerClick = function() {
-		$( obj.selectors.icalLinksListContainer ).toggleClass( obj.selectors.icalLinksListContainerShow );
-	};
-
-	/**
-	 * Toggles rotate class for the button icon.
-	 *
-	 * @since TBD
+	 * @param {Event} event event object for click event
 	 *
 	 * @return {void}
 	 */
-	obj.handleIcalLinksIconClick = function() {
-		$( obj.selectors.icalLinksIcon ).toggleClass( obj.selectors.icalLinksIconRotate );
+	obj.handleClickOutside = function( event ) {
+		// Check whether the clicked element is not a part of the dropdown area.
+		if ( ! $( event.target ).closest( obj.selectors.icalLinks ).length ) {
+			// Hide all dropdown content elements.
+			$( obj.selectors.icalLinksListContainer ).hide();
+			// Remove the rotate class from all icon elements.
+			$( obj.selectors.icalLinksIcon ).removeClass( obj.selectors.icalLinksIconRotate );
+		}
 	};
 
 	/**
@@ -98,16 +113,12 @@ tribe.events.views.icalLinks = {};
 			obj.handleIcalLinksButtonClick
 		);
 
-		$( obj.selectors.icalLinksButton ).on(
+		$( document ).on(
 			'click focus focus-within',
-			obj.handleIcalLinksListContainerClick
-		);
-
-		$( obj.selectors.icalLinksButton ).on(
-			'click focus focus-within',
-			obj.handleIcalLinksIconClick
+			obj.handleClickOutside
 		);
 	};
+
 	/**
 	 * Unbinds events for container
 	 *
@@ -120,9 +131,9 @@ tribe.events.views.icalLinks = {};
 	obj.unbindEvents = function( $container ) {
 		$container
 			.find( obj.selectors.icalLinksButton )
-			.off( 'click', obj.handleIcalLinksButtonClick )
-			.off( 'click', obj.handleIcalLinksListContainerClick )
-			.off( 'click', obj.handleIcalLinksIconClick );
+			.off( 'click', obj.handleIcalLinksButtonClick );
+
+		$( document ).off( 'click', obj.handleClickOutside );
 	};
 
 	/**
