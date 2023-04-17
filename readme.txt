@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Tweak - Ensure we have the ability to hide the Event Tickets Activation notice using the `defined( 'TRIBE_HIDE_UPSELL' )` constant. [TEC-4767]
 * Fix - For CT1 in markers the occurrence would sometimes not be the same one found as the date field, only one was filtering by post_status. We were only using `provisional_id` for CT1, now we fallback to `post_id`. Now removing options when no occurrences are found, instead of retaining a stale value. [TEC-4768]
 
 = [6.0.12] 2023-04-10 =
