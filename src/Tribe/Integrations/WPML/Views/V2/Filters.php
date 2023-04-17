@@ -30,7 +30,9 @@ class Filters {
 	 * @return string The translated View URL.
 	 */
 	public static function translate_view_url( $url ) {
-		$lang = static::get_request_lang();
+		global $sitepress;
+		$lang = $sitepress->get_language_from_url( $url );
+
 		if ( false === $lang ) {
 			return $url;
 		}
