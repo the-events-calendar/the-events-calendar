@@ -163,11 +163,8 @@ class RSVP {
 			return;
 		}
 
-		// @todo @juanfra: Get the links and pass them to the template.
-		// tribe_get_gcal_link( $args['event']->ID );
-		// tribe_get_single_ical_link();
-		//tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $post_id );
-		// tribe( \Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export::class )->generate_single_url( $post_id );
+		$args['event_gcal_link'] = tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $args['event']->ID );
+		$args['event_ical_link'] = tribe_get_single_ical_link( $args['event']->ID );
 
 		tribe( Template::class )->template( 'template-parts/body/event/links', $args, true );
 	}
