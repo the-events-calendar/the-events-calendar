@@ -173,8 +173,7 @@ class Emails {
 			'thumbnail'        => (object) [
 				'exists'    => true,
 				'full'      => (object) [
-					// @todo @juanfra @codingmusician: we need to move this image to the TEC folder.
-					'url' => esc_url( plugins_url( '/event-tickets/src/resources/images/example-event-image.png' ) ),
+					'url' => esc_url( plugins_url( '/the-events-calendar/src/resources/images/event-example-image.png' ) ),
 				],
 				'thumbnail' => (object) [
 					'alt'   => esc_html__( 'Rebirth Brass Band', 'the-events-calendar' ),

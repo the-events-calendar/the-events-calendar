@@ -29,12 +29,11 @@ if ( empty( $venue->website_url ) ) {
 <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
 	<tr>
 		<td style="display:inline-block;text-align:center;vertical-align:top;" valign="top" align="center">
-			<!-- @todo @juanfra: We need to move this image to TEC/Common folder -->
 			<img
 				width="24"
 				height="23"
 				style="width:24px;height:23px;display:block;"
-				src="<?php echo plugins_url( '/event-tickets/src/resources/icons/link.svg' ) ?>"
+				src="<?php echo plugins_url( '/the-events-calendar/src/resources/icons/link.svg' ) ?>"
 			/>
 		</td>
 		<td style="padding:0;">

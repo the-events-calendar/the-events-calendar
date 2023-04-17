@@ -29,12 +29,11 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->state_provinc
 <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
 	<tr>
 		<td style="text-align:center;vertical-align:top;display:inline-block;" valign="top" align="center">
-			<!-- @todo @juanfra: We need to move this image to TEC/Common folder -->
 			<img
 				width="20"
 				height="28"
 				style="width:20px;height:28px;display:block;"
-				src="<?php echo plugins_url( '/event-tickets/src/resources/icons/map-pin.svg' ) ?>"
+				src="<?php echo plugins_url( '/the-events-calendar/src/resources/icons/map-pin.svg' ) ?>"
 			/>
 		</td>
 		<td style="padding:0;text-align:left">

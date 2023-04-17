@@ -163,6 +163,4 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->container->make( Email\RSVP::class )->maybe_include_event_links( $et_template );
 		$this->container->make( Email\Ticket::class )->maybe_include_event_links( $et_template );
 	}
-
-
 }
