@@ -48,10 +48,10 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Toggles dropdown content visibility and rotates the icon.
+	 * Toggles active class on view selector button
 	 *
 	 * @since 5.12.0
-	 * @since TBD - Added logic to hide dropdown content on click.
+	 * @since TBD - Added logic to toggle dropdown content visibility and icon rotation.
 	 *
 	 * @param {Event} event event object for click event
 	 *
@@ -61,9 +61,9 @@ tribe.events.views.icalLinks = {};
 		// Stop event propagation to prevent triggering other click events.
 		event.stopPropagation();
 
-		let $button  = $( event.target ).closest( obj.selectors.icalLinksButton );
-		let $content = $button.siblings( obj.selectors.icalLinksListContainer );
-		let $icon    = $button.find( obj.selectors.icalLinksIcon );
+		var $button  = $( event.target ).closest( obj.selectors.icalLinksButton );
+		var $content = $button.siblings( obj.selectors.icalLinksListContainer );
+		var $icon    = $button.find( obj.selectors.icalLinksIcon );
 
 		// Hide all other dropdown content elements.
 		$( obj.selectors.icalLinksListContainer ).not( $content ).hide();
