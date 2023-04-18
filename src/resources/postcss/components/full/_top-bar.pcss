@@ -4,30 +4,52 @@
  *
  * ----------------------------------------------------------------------------- */
 
+.tribe-common.tribe-common--breakpoint-medium button.tribe-events-c-top-bar__datepicker-button {
+	font-size: var(--tec-font-size-8);
+}
+
 .tribe-events {
 
 	button.tribe-events-c-top-bar__nav-link--prev:disabled,
 	button.tribe-events-c-top-bar__nav-link--next:disabled {
 		background-color: transparent;
 		background-image: none;
+		border-radius: 0;
 		border: none;
+		box-shadow: none;
 		color: var(--tec-color-text-disabled);
+		font-size: 1rem;
+		font-style: normal;
 		outline: none;
+		padding: 0;
+		text-decoration: none;
+		text-shadow: none;
 	}
 
 	button.tribe-events-c-top-bar__datepicker-button {
 		background-color: transparent;
 		background-image: none;
+		border-radius: 0;
 		border: none;
+		box-shadow: none;
 		color: var(--tec-color-text-primary);
+		font-size: var(--tec-font-size-6);
+		font-style: normal;
 		outline: none;
+		padding: 0;
+		text-decoration: none;
+		text-shadow: none;
 		transition: var(--tec-transition-opacity);
 
 		&:hover,
 		&:focus {
+			border-radius: 0;
 			border: none;
+			box-shadow: none;
+			color: var(--tec-color-text-primary);
 			opacity: var(--tec-opacity-icon-hover);
 			outline: none;
+			text-shadow: none;
 		}
 
 		&:active {
