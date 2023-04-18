@@ -185,7 +185,7 @@ class Filters {
 				continue;
 			}
 
-			$event->permalink = apply_filters( 'wpml_permalink', $event->permalink );
+			$event->permalink = apply_filters( 'wpml_permalink', (string) $event->permalink );
 		}
 
 		return $template_vars;
