@@ -4,7 +4,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */

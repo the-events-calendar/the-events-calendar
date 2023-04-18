@@ -22,10 +22,6 @@ if ( empty( $event->venues ) ) {
 	return;
 }
 
-if ( ! count( $event->venues ) ) {
-	return;
-}
-
 $venue = $event->venues[0];
 
 ?>

@@ -14,11 +14,12 @@
  * @since TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var WP_Post $venue The venue post object.
  *
  * @see tribe_get_event() For the format of the event object.
  */
 
-if ( empty( $event ) && ! $event->venues->count() ) {
+ if ( empty( $venue ) ) {
 	return;
 }
 
@@ -33,7 +34,7 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->state_provinc
 				width="20"
 				height="28"
 				style="width:20px;height:28px;display:block;"
-				src="<?php echo plugins_url( '/the-events-calendar/src/resources/icons/map-pin.svg' ) ?>"
+				src="<?php echo plugins_url( '/the-events-calendar/src/resources/postcss/utilities/icons/map-pin.svg' ) ?>"
 			/>
 		</td>
 		<td style="padding:0;text-align:left">

@@ -8,7 +8,7 @@
  * To remove an action:
  * remove_action( 'some_action', [ tribe( TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Hooks::class ), 'some_method' ] );
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
@@ -18,7 +18,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 /**
  * Class Hooks.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Tickets_Plus
  */

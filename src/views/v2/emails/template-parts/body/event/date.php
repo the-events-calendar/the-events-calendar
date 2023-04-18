@@ -18,14 +18,16 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-if ( empty( $event ) && empty( $event->dates ) ) {
+$date = $event->schedule_details->value();
+
+if ( empty( $date ) ) {
 	return;
 }
 ?>
 <tr>
 	<td style="padding:0;">
 		<p style="font-size: 14px;font-weight: 400;line-height: 23px;letter-spacing: 0px;text-align: left;">
-			<?php echo $event->schedule_details->value(); ?>
+			<?php echo $date; // phpcs:ignore ?>
 		</p>
 	</td>
 </tr>

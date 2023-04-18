@@ -14,11 +14,12 @@
  * @since TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var WP_Post $venue The venue post object.
  *
  * @see tribe_get_event() For the format of the event object.
  */
 
-if ( empty( $event ) && ! $event->venues->count() ) {
+if ( empty( $venue ) ) {
 	return;
 }
 
@@ -33,7 +34,7 @@ if ( empty( $venue->website_url ) ) {
 				width="24"
 				height="23"
 				style="width:24px;height:23px;display:block;"
-				src="<?php echo plugins_url( '/the-events-calendar/src/resources/icons/link.svg' ) ?>"
+				src="<?php echo plugins_url( '/the-events-calendar/src/resources/postcss/utilities/icons/link.svg' ) ?>"
 			/>
 		</td>
 		<td style="padding:0;">

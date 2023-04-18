@@ -14,13 +14,10 @@
  * @since TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var WP_Post $venue The venue post object.
  *
  * @see tribe_get_event() For the format of the event object.
  */
-
-if ( empty( $event ) && ! $event->venues->count() ) {
-	return;
-}
 
 if ( empty( $venue->phone ) ) {
 	return;
@@ -33,7 +30,7 @@ if ( empty( $venue->phone ) ) {
 				width="25"
 				height="24"
 				style="width:25px;height:24px;display:block;"
-				src="<?php echo plugins_url( '/the-events-calendar/src/resources/icons/phone.svg' ) ?>"
+				src="<?php echo plugins_url( '/the-events-calendar/src/resources/postcss/utilities/icons/phone.svg' ) ?>"
 			/>
 		</td>
 		<td style="padding:0;">

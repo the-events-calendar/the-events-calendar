@@ -2,7 +2,7 @@
 /**
  * Class Ticket.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
@@ -16,7 +16,7 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template as Template;
 /**
  * Class Ticket.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
@@ -48,9 +48,9 @@ class Ticket {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $settings The email settings.
+	 * @param array<array<string,mixed>> $settings The email settings.
 	 *
-	 * @return array $settings The modified email settings.
+	 * @return array<array<string,mixed>> $settings The modified email settings.
 	 */
 	public function filter_tec_tickets_emails_ticket_email_settings( $settings ) {
 
