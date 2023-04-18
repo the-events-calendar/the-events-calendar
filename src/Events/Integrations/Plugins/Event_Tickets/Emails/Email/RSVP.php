@@ -166,6 +166,10 @@ class RSVP {
 		$args['event_gcal_link'] = tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $args['event']->ID );
 		$args['event_ical_link'] = tribe_get_single_ical_link( $args['event']->ID );
 
+		if ( ! empty( $args['preview'] ) ) {
+			$args['event_gcal_link'] = '#';
+		}
+
 		tribe( Template::class )->template( 'template-parts/body/event/links', $args, true );
 	}
 }
