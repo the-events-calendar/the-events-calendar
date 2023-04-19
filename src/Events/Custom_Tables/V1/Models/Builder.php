@@ -660,7 +660,6 @@ class Builder {
 	/**
 	 * Checks the value and columns requested for a GET operation on the
 	 * Model to make sure they are coherent and valid.
-	 *
 	 * @since 6.0.0
 	 *
 	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
@@ -726,10 +725,12 @@ class Builder {
 		$operator = is_array( $value ) ? 'IN' : '=';
 		$compare  = is_array( $value ) ? implode( ',', array_column( $format, $column ) ) : $format[ $column ];
 		$data     = is_array( $value ) ? array_column( $data, $column ) : $data;
-		$orderBy  = ! empty( $this->order ) ? 'ORDER BY `' . $this->order['column'] . '` ' . $this->order['order'] : '';
+
+		// Build our order by string.
+		$order_by = $this->get_order_by_clause();
 
 		global $wpdb;
-		$SQL = "SELECT * FROM {$wpdb->prefix}{$this->model->table_name()} WHERE `{$column}` {$operator} ({$compare}) {$orderBy} LIMIT %d";
+		$SQL = "SELECT * FROM {$wpdb->prefix}{$this->model->table_name()} WHERE `{$column}` {$operator} ({$compare}) {$order_by} LIMIT %d";
 
 		$batch_size    = min( absint( $this->batch_size ), 5000 );
 		$semi_prepared = $wpdb->prepare( $SQL, array_merge( (array) $data, [ $batch_size ] ) );
@@ -926,6 +927,23 @@ class Builder {
 	}
 
 	/**
+	 * Compiles the current order by statements if any exist and returns the entire `ORDER BY` clause.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The compiled ORDER BY clause.
+	 */
+	private function get_order_by_clause(): string {
+		$compiled_order_by = '';
+		foreach ( $this->order as $order ) {
+			$compiled_order_by .= '`' . $order['column'] . '` ' . $order['order'] . ', ';
+		}
+		$compiled_order_by = ! empty( $compiled_order_by ) ? 'ORDER BY ' . trim( $compiled_order_by, ', ' ) : '';
+
+		return $compiled_order_by;
+	}
+
+	/**
 	 * Get all the pieces of the SQL constructed to used against the DB.
 	 *
 	 * @since 6.0.0
@@ -954,8 +972,9 @@ class Builder {
 			$pieces[] = $where;
 		}
 
-		if ( ! empty( $this->order ) ) {
-			$pieces[] = 'ORDER BY `' . $this->order['column'] . '` ' . $this->order['order'];
+		$order_by = $this->get_order_by_clause();
+		if ( $order_by !== '' ) {
+			$pieces[] = $order_by;
 		}
 
 		if ( isset( $this->limit ) ) {
@@ -1076,6 +1095,7 @@ class Builder {
 	 * Allow to define the clause for order by on the Query.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Can accept multiple order by statements. Previously `order_by()` would only use the last statement specified.
 	 *
 	 * @param string|null $column The name of the column to order by, if not provided fallback to the primary key name
 	 * @param string      $order  The type of order for the results.
@@ -1084,7 +1104,7 @@ class Builder {
 	 */
 	public function order_by( $column = null, $order = 'ASC' ) {
 		if ( in_array( strtoupper( $order ), [ 'ASC', 'DESC' ], true ) ) {
-			$this->order = [
+			$this->order[] = [
 				'column' => null === $column ? $this->model->primary_key_name() : $column,
 				'order'  => $order,
 			];
