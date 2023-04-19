@@ -78,11 +78,11 @@ class RSVP {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $attachments  The attachments for the Tickets Emails.
-	 * @param string         $email_id     The email ID.
-	 * @param Email_Abstract $email_class  The email class.
+	 * @param array<string,string> $attachments  The attachments for the Tickets Emails.
+	 * @param string               $email_id     The email ID.
+	 * @param Email_Abstract       $email_class  The email class.
 	 *
-	 * @return array The filtered attachments for the RSVP Emails.
+	 * @return array<string,string> The filtered attachments for the RSVP Emails.
 	 */
 	public function filter_tec_tickets_emails_rsvp_email_attachments( $attachments, $email_id, $email_class ) {
 		if ( ! $email_class->is_enabled() ) {
