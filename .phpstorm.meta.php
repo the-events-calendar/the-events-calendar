@@ -22,7 +22,6 @@ namespace PHPSTORM_META {
 		'events-aggregator.record-items'                => \Tribe__Events__Aggregator__Record__Items::class,
 		'events-aggregator.processes.import-events'     => \Tribe__Events__Aggregator__Processes__Import_Events::class,
 		'events-aggregator.queue-control'               => \Tribe__Events__Aggregator__Processes__Queue_Control::class,
-		'events.integrations.freemius'                  => \Tribe__Events__Integrations__Freemius::class,
 		'tec.integrations.wpml.meta'                    => \Tribe__Events__Integrations__WPML__Meta::class,
 		'events-aggregator.rest-api.v1.endpoints.batch' => \Tribe__Events__Aggregator__REST__V1__Endpoints__Batch::class,
 		'events-aggregator.rest-api.v1.endpoints.state' => \Tribe__Events__Aggregator__REST__V1__Endpoints__State::class,
