@@ -126,14 +126,14 @@ class Info_Section extends Info_Section_Abstract {
 					esc_html__( 'Block Editor enabled for %1$s', 'the-events-calendar' ),
 					tribe_get_event_label_plural_lowercase()
 				),
-				'value' => $this->bool_to_text( tribe_get_option( 'toggle_blocks_editor', false ) ),
+				'value' => tec_bool_to_string( tribe_get_option( 'toggle_blocks_editor', false ) ),
 			],
 			'include_events_in_loop' => [
 				'label' => sprintf(
 					esc_html__( 'Include %1$s in main blog loop', 'the-events-calendar' ),
 					tribe_get_event_label_plural_lowercase()
 				),
-				'value' => $this->bool_to_text( tribe_get_option( 'showEventsInMainLoop', false ) ),
+				'value' => tec_bool_to_string( tribe_get_option( 'showEventsInMainLoop', false ) ),
 			],
 			'enabled_views' => [
 				'label' => esc_html__( 'Enabled views', 'the-events-calendar' ),
@@ -145,7 +145,7 @@ class Info_Section extends Info_Section_Abstract {
 			],
 			'front_page' => [
 				'label' => esc_html__( 'Front page calendar', 'the-events-calendar' ),
-				'value' => $this->bool_to_text( '-10' === get_option( 'page_on_front' ) )
+				'value' => tec_bool_to_string( '-10' === get_option( 'page_on_front' ) )
 			],
 			'previous_versions' => [
 				'label' => esc_html__( 'Previous TEC versions', 'the-events-calendar' ),
@@ -154,35 +154,5 @@ class Info_Section extends Info_Section_Abstract {
 		];
 
 		return $fields;
-	}
-
-	public function bool_to_text( $bool ): string {
-		return tribe_is_truthy( $bool ) ? 'true' : 'false';
-	}
-
-	public function clean_status_counts( $obj ) {
-		$obj = (array) $obj;
-		$stati = [
-			'publish',
-			'future',
-			'draft',
-			'pending',
-		];
-
-		/**
-		 * Allows other plugins to add stati to track.
-		 *
-		 * @param array<string|bool> $stati An array of stati to track.
-		 */
-		apply_filters( 'tec_events_site_heath_event_stati', $stati );
-
-		$keys = array_keys( $obj );
-		foreach( $keys as $key ) {
-			if ( ! in_array( $key, $stati ) ) {
-				unset( $obj[ $key ] );
-			}
-		}
-
-		return $obj;
 	}
 }
