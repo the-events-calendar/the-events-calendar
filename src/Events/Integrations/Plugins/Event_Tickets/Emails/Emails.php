@@ -25,11 +25,11 @@ class Emails {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $placeholders The placeholders for the Tickets Emails.
-	 * @param string         $email_id     The email ID.
-	 * @param Email_Abstract $email_class  The email class.
+	 * @param array<string,mixed> $placeholders The placeholders for the Tickets Emails.
+	 * @param string              $email_id     The email ID.
+	 * @param Email_Abstract      $email_class  The email class.
 	 *
-	 * @return array The filtered placeholders for the Tickets Emails.
+	 * @return array<string,mixed> The filtered placeholders for the Tickets Emails.
 	 */
 	public function filter_tec_tickets_emails_placeholders( $placeholders, $email_id, $email_class ) {
 		$post_id = $email_class->__get( 'post_id' );
@@ -89,7 +89,7 @@ class Emails {
 					'{event_organizer_id}'      => $organizer->ID,
 					'{event_organizer_name}'    => $organizer->post_title,
 					'{event_organizer_url}'     => $organizer->permalink,
-					'{event_organizer_email}'   => ! empty( $organizer->email ) ? $organizer_email : '',
+					'{event_organizer_email}'   => ! empty( $organizer_email ) ? $organizer_email : '',
 					'{event_organizer_website}' => ! empty( $organizer_url ) ? $organizer_url : '',
 					'{event_organizer_phone}'   => ! empty( $organizer->phone ) ? $organizer->phone : '',
 				]
@@ -104,10 +104,10 @@ class Emails {
 	 *
 	 * @since TBD
 	 *
-	 * @param array  $attachments The placeholders for the Tickets Emails.
-	 * @param string $event_id    The event ID.
+	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
+	 * @param string               $event_id    The event ID.
 	 *
-	 * @return array The filtered attachments.
+	 * @return array<string,string> The filtered attachments.
 	 */
 	public function tec_tickets_emails_add_event_ics_to_attachments( $attachments, $event_id ) {
 		$ical        = tribe( 'tec.iCal' );
@@ -138,12 +138,12 @@ class Emails {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $args     The email preview arguments.
-	 * @param string         $id       The email id.
-	 * @param string         $template Template name.
-	 * @param Email_Abstract $email    The email object.
+	 * @param array<string,mixed> $args     The email preview arguments.
+	 * @param string              $id       The email id.
+	 * @param string              $template Template name.
+	 * @param Email_Abstract      $email    The email object.
 	 *
-	 * @return array The filtered arguments for the Tickets Emails preview.
+	 * @return array<string,mixed> The filtered arguments for the Tickets Emails preview.
 	 */
 	public function filter_tec_tickets_emails_preview_args( $args, $id, $template, $email ): array {
 		if ( empty( $args['is_preview'] ) ) {
@@ -151,7 +151,7 @@ class Emails {
 		}
 
 		$preview_event = [
-			'title'            => esc_html__( 'Rebirth Brass Band', 'the-events-calendar' ),
+			'title'            => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
 			'schedule_details' => new Lazy_String(
 				static function () {
 					return esc_html__( 'September 22 @ 7:00 pm - 11:00 pm', 'the-events-calendar' );
@@ -160,12 +160,12 @@ class Emails {
 			'dates'            => (object) [],
 			'venues'           => [
 				(object) [
-					'post_title'      => esc_html__( 'Saturn', 'the-events-calendar' ),
+					'post_title'      => esc_html__( 'Central Park', 'the-events-calendar' ),
 					'address'         => esc_html__( '41st Street', 'the-events-calendar' ),
-					'city'            => esc_html__( 'Birmingham, 35222', 'the-events-calendar' ),
-					'state'           => esc_html__( 'Alabama', 'the-events-calendar' ),
+					'city'            => esc_html__( 'New York', 'the-events-calendar' ),
+					'state'           => esc_html__( 'NY 10001', 'the-events-calendar' ),
 					'country'         => esc_html__( 'United States', 'the-events-calendar' ),
-					'phone'           => esc_html__( '(987) 654-3210', 'the-events-calendar' ),
+					'phone'           => esc_html__( '(555) 555-5555', 'the-events-calendar' ),
 					'website_url'     => esc_url( get_site_url() ),
 					'directions_link' => '#',
 				],
@@ -173,11 +173,11 @@ class Emails {
 			'thumbnail'        => (object) [
 				'exists'    => true,
 				'full'      => (object) [
-					'url' => esc_url( plugins_url( '/the-events-calendar/src/resources/images/event-example-image.png' ) ),
+					'url' => esc_url( plugins_url( '/the-events-calendar/src/resources/images/event-example-image.jpg' ) ),
 				],
 				'thumbnail' => (object) [
-					'alt'   => esc_html__( 'Rebirth Brass Band', 'the-events-calendar' ),
-					'title' => esc_html__( 'Rebirth Brass Band', 'the-events-calendar' ),
+					'alt'   => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
+					'title' => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
 				],
 			],
 		];
@@ -193,12 +193,12 @@ class Emails {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $args     The email preview arguments.
-	 * @param string         $id       The email id.
-	 * @param string         $template Template name.
-	 * @param Email_Abstract $email    The email object.
+	 * @param array<string,mixed> $args     The email preview arguments.
+	 * @param string              $id       The email id.
+	 * @param string              $template Template name.
+	 * @param Email_Abstract      $email    The email object.
 	 *
-	 * @return array The filtered arguments for the Tickets Emails .
+	 * @return array<string,mixed> The filtered arguments for the Tickets Emails .
 	 */
 	public function filter_tec_tickets_emails_template_args( $args, $id, $template, $email ): array {
 		$post_id = $email->__get( 'post_id' );
