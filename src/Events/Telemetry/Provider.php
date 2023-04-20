@@ -10,7 +10,6 @@
 namespace TEC\Events\Telemetry;
 
 use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
-use Tribe\Events\Admin\Settings;
 
  /**
   * Class Provider
