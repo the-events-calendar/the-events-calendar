@@ -28,6 +28,7 @@
     "the-events-calendar/coding-standards": "dev-master",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
+    "PHPStan",
     "scotteh/php-dom-wrapper": "^1.0",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "wp-coding-standards/wpcs": "^2.1",
