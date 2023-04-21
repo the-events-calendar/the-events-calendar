@@ -43,9 +43,6 @@ class Provider extends Integration_Abstract {
 		// Register the Service Provider for Hooks.
 		$this->register_hooks();
 
-		// Register the service provider itself on the container.
-		$this->container->singleton( static::class, $this );
-
 		$this->container->singleton( Emails::class, Emails::class );
 
 		$this->container->singleton( Template::class, Template::class );
