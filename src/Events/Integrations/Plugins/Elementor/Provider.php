@@ -5,7 +5,6 @@ namespace TEC\Events\Integrations\Plugins\Elementor;
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Events\Integrations\Plugins\Plugin_Integration;
 use Tribe__Events__Main;
-use Elementor\Widget_Base;
 
 /**
  * Class Provider
@@ -47,7 +46,7 @@ class Provider extends Integration_Abstract {
 	 *
 	 * @return array The modified Elementor posts widget query arguments.
 	 */
-	public function suppress_query_filters( $query_args ): array {	
+	public function suppress_query_filters( $query_args ): array {
 		// Bail if the selcted post type is not the Events post type.
 		if ( (array) $query_args['post_type'] !== [ Tribe__Events__Main::POSTTYPE ] ) {
 			return $query_args;
