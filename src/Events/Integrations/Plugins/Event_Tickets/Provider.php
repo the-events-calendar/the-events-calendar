@@ -2,8 +2,8 @@
 
 namespace TEC\Events\Integrations\Plugins\Event_Tickets;
 
+use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
-use TEC\Events\Integrations\Plugins\Plugin_Integration;
 
 /**
  * Class Provider
@@ -33,24 +33,7 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	protected function load(): void {
-		$this->load_tickets_emails_integration();
-	}
-
-	/**
-	 * Loads the Tickets Emails integration.
-	 *
-	 * @since TBD
-	 */
-	public function load_tickets_emails_integration() {
-		if ( ! function_exists( 'tec_tickets_emails_is_enabled' ) ) {
-			return;
-		}
-
-		if ( ! tec_tickets_emails_is_enabled() ) {
-			return;
-		}
-
 		// Loads Tickets Emails.
-		$this->container->register( Emails\Provider::class );
+		$this->container->register( \TEC\Events\Integrations\Modules\Ticket_Emails\Provider::class );
 	}
 }

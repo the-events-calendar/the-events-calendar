@@ -3,7 +3,7 @@
 namespace TEC\Events\Integrations\Plugins\Rank_Math;
 
 use TEC\Events\Integrations\Integration_Abstract;
-use TEC\Events\Integrations\Plugins\Plugin_Integration;
+use TEC\Common\Integrations\Traits\Plugin_Integration;
 
 /**
  * Class Provider
@@ -24,7 +24,7 @@ class Provider extends Integration_Abstract {
 
 	/**
 	 * @inheritDoc
-	 * 
+	 *
 	 * @return bool Whether or not integrations should load.
 	 */
 	public function load_conditionals(): bool {

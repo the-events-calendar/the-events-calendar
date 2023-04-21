@@ -10,17 +10,17 @@
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Plugins\Event_Tickets
+ * @package TEC\Events\Integrations\Modules\Ticket_Emails
  */
 
-namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
+namespace TEC\Events\Integrations\Modules\Ticket_Emails;
 
 /**
  * Class Hooks.
  *
  * @since TBD
  *
- * @package TEC\Tickets_Plus
+ * @package TEC\Events\Integrations\Modules\Ticket_Emails
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 
@@ -59,12 +59,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tec_tickets_emails_template_args', tribe_callback( Emails::class, 'filter_tec_tickets_emails_template_args' ), 10, 4 );
 
 		// Ticket Email.
-		add_filter( 'tec_tickets_emails_ticket_settings', tribe_callback( Email\Ticket::class, 'filter_tec_tickets_emails_ticket_email_settings' ), 10 );
-		add_filter( 'tec_tickets_emails_ticket_attachments', tribe_callback( Email\Ticket::class, 'filter_tec_tickets_emails_ticket_email_attachments' ), 10, 3 );
+		add_filter( 'tec_tickets_emails_ticket_settings', tribe_callback( \TEC\Events\Integrations\Modules\Emails\Email\Ticket::class, 'filter_tec_tickets_emails_ticket_email_settings' ), 10 );
+		add_filter( 'tec_tickets_emails_ticket_attachments', tribe_callback( \TEC\Events\Integrations\Modules\Emails\Email\Ticket::class, 'filter_tec_tickets_emails_ticket_email_attachments' ), 10, 3 );
 
 		// RSVP Email.
-		add_filter( 'tec_tickets_emails_rsvp_settings', tribe_callback( Email\RSVP::class, 'filter_tec_tickets_emails_rsvp_email_settings' ), 10 );
-		add_filter( 'tec_tickets_emails_rsvp_attachments', tribe_callback( Email\RSVP::class, 'filter_tec_tickets_emails_rsvp_email_attachments' ), 10, 3 );
+		add_filter( 'tec_tickets_emails_rsvp_settings', tribe_callback( \TEC\Events\Integrations\Modules\Emails\Email\RSVP::class, 'filter_tec_tickets_emails_rsvp_email_settings' ), 10 );
+		add_filter( 'tec_tickets_emails_rsvp_attachments', tribe_callback( \TEC\Events\Integrations\Modules\Emails\Email\RSVP::class, 'filter_tec_tickets_emails_rsvp_email_attachments' ), 10, 3 );
 	}
 
 	/**
@@ -160,7 +160,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		$this->container->make( Email\RSVP::class )->maybe_include_event_links( $et_template );
-		$this->container->make( Email\Ticket::class )->maybe_include_event_links( $et_template );
+		$this->container->make( \TEC\Events\Integrations\Modules\Emails\Email\RSVP::class )->maybe_include_event_links( $et_template );
+		$this->container->make( \TEC\Events\Integrations\Modules\Emails\Email\Ticket::class )->maybe_include_event_links( $et_template );
 	}
 }
