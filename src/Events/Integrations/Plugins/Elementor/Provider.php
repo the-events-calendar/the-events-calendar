@@ -46,7 +46,7 @@ class Provider extends Integration_Abstract {
 	 *
 	 * @return array The modified Elementor posts widget query arguments.
 	 */
-	public function tec_suppress_query_filters( $query_args ) {
+	public function tec_suppress_query_filters( $query_args ): array {
 		// Check if the query is for the events post type.
 		if ( (array) $query_args['post_type'] !== [ Tribe__Events__Main::POSTTYPE ] ) {
 			return $query_args;
