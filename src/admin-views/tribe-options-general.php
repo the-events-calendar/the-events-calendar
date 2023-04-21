@@ -305,9 +305,10 @@ $trash_tooltip = esc_html__( 'This option allows you to automatically move past 
 // Some adjusted functionality with CT1 activated.
 if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
 	$trash_tooltip = sprintf(
-		__( 'Trashed events will permanently be deleted in %d days, you can change that value using <code>%s</code>.', 'the-events-calendar' ),
+		__( 'Trashed events will permanently be deleted in %1$d days, you can change that value using <code>%2$s</code>. <a href="%3$s" target="_blank">Read more.</a>', 'the-events-calendar' ),
 		(int) EMPTY_TRASH_DAYS,
-		'EMPTY_TRASH_DAYS'
+		'EMPTY_TRASH_DAYS',
+		'https://evnt.is/1bcs'
 	);
 }
 
