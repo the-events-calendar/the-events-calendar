@@ -47,8 +47,10 @@ class Provider extends Integration_Abstract {
 	 * @return array The modified Elementor posts widget query arguments.
 	 */
 	public function suppress_query_filters( $query_args ): array {
-		// Checks if the 'tribe_events' post type is present in the query arguments.
-        // If not, it returns the query arguments unmodified.
+		/**
+		 * Checks if the 'tribe_events' post type is present in the query arguments.
+		 * If not, it returns the query arguments unmodified.
+		 */
 		if ( ! in_array( Tribe__Events__Main::POSTTYPE, (array) $query_args['post_type'], true ) ) {
 			return $query_args;
 		}
