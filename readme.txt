@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Ensure Events are displayed correctly on Elementor's `Posts` widget. [TEC-4685]
 * Fix - Pass a NOOP callback function to Google Maps scripts to prevent JS warnings. [TEC-4762]
 * Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
 * Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
