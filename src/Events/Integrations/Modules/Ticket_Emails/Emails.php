@@ -22,7 +22,10 @@ use Tribe\Utils\Lazy_String;
  */
 class Emails {
 	/**
-	 * Filters the placeholders for the Tickets Emails.
+	 * Includes event-related placeholders for emails.
+	 *
+	 * Given a post ID associated with an event, this function adds
+	 * event, venue, and organizer placeholders to the provided placeholders array.
 	 *
 	 * @since TBD
 	 *
@@ -32,8 +35,8 @@ class Emails {
 	 *
 	 * @return array<string,mixed> The filtered placeholders for the Tickets Emails.
 	 */
-	public function filter_tec_tickets_emails_placeholders( $placeholders, $email_id, $email_class ) {
-		$post_id = $email_class->__get( 'post_id' );
+	public function include_placeholders( $placeholders, $email_id, $email_class ) {
+		$post_id = $email_class->post_id;
 
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $placeholders;
@@ -101,41 +104,10 @@ class Emails {
 	}
 
 	/**
-	 * Helper method to add the ics file to the attachments for emails.
+	 * Includes preview arguments for email templates.
 	 *
-	 * @since TBD
-	 *
-	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
-	 * @param string               $event_id    The event ID.
-	 *
-	 * @return array<string,string> The filtered attachments.
-	 */
-	public function tec_tickets_emails_add_event_ics_to_attachments( $attachments, $event_id ) {
-		$ical        = tribe( 'tec.iCal' );
-		$ics_content = $ical->generate_ical_feed( get_post( $event_id ), false );
-		$file        = tempnam( sys_get_temp_dir(), 'invite' );
-
-		if ( false === $file ) {
-			/** @var Tribe__Log $logger */
-			$logger = tribe( 'logger' );
-			$logger->log_error(
-				sprintf( "Couldn't generate calendar invite file for Tickets/RSVP email. Event ID: %s", $event_id ),
-				'Event Tickets Emails Integration - ICS'
-			);
-			return $attachments;
-		}
-
-		file_put_contents( $file . '.ics', $ics_content );
-
-		$attachments[] = $file . '.ics';
-
-		unlink( $file );
-
-		return $attachments;
-	}
-
-	/**
-	 * Filters the arguments for the Tickets Emails preview.
+	 * This function adds preview data to the provided arguments array if the 'is_preview'
+	 * flag is set. The preview data simulates an event with its related information.
 	 *
 	 * @since TBD
 	 *
@@ -146,7 +118,7 @@ class Emails {
 	 *
 	 * @return array<string,mixed> The filtered arguments for the Tickets Emails preview.
 	 */
-	public function filter_tec_tickets_emails_preview_args( $args, $id, $template, $email ): array {
+	public function include_preview_args( $args, $id, $template, $email ): array {
 		if ( empty( $args['is_preview'] ) ) {
 			return $args;
 		}
@@ -183,14 +155,16 @@ class Emails {
 			],
 		];
 
-
 		$args['event'] = (object) $preview_event;
 
 		return $args;
 	}
 
 	/**
-	 * Filters the arguments for the Tickets Emails, maybe adding the event data.
+	 * Includes event-related template arguments for emails.
+	 *
+	 * Given a post ID associated with an event, this function adds
+	 * the event object to the provided arguments array.
 	 *
 	 * @since TBD
 	 *
@@ -201,7 +175,7 @@ class Emails {
 	 *
 	 * @return array<string,mixed> The filtered arguments for the Tickets Emails .
 	 */
-	public function filter_tec_tickets_emails_template_args( $args, $id, $template, $email ): array {
+	public function include_template_args( $args, $id, $template, $email ): array {
 		$post_id = $email->__get( 'post_id' );
 
 		if ( ! tribe_is_event( $post_id ) ) {
@@ -217,5 +191,42 @@ class Emails {
 		$args['event'] = $event;
 
 		return $args;
+	}
+
+	/**
+	 * Adds event ICS file to email attachments for The Events Calendar Tickets.
+	 *
+	 * This function generates an ICS file for the event specified by the provided
+	 * event ID and adds it to the provided attachments array.
+	 *
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
+	 * @param string               $event_id    The event ID.
+	 *
+	 * @return array<string,string> The filtered attachments.
+	 */
+	public function add_event_ics_to_attachments( $attachments, $event_id ) {
+		$ical        = tribe( 'tec.iCal' );
+		$ics_content = $ical->generate_ical_feed( get_post( $event_id ), false );
+		$file        = tempnam( sys_get_temp_dir(), 'invite' );
+
+		if ( false === $file ) {
+			/** @var \Tribe__Log $logger */
+			$logger = tribe( 'logger' );
+			$logger->log_error(
+				sprintf( "Couldn't generate calendar invite file for Tickets/RSVP email. Event ID: %s", $event_id ),
+				'Event Tickets Emails Integration - ICS'
+			);
+			return $attachments;
+		}
+
+		$ics_filname = $file . '.ics';
+		file_put_contents( $ics_filname, $ics_content );
+		$attachments[] = $ics_filname;
+		unlink( $file );
+
+		return $attachments;
 	}
 }

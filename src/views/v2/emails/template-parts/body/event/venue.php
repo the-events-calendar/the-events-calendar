@@ -28,7 +28,7 @@ $venue = $event->venues[0];
 <tr>
 	<td style="padding:54px 0 12px 0">
 		<h3 style="font-size:16px;font-weight:700;background:transparent;padding:0;margin:0;color:#141827">
-			<?php esc_html_e( 'Event Location', 'the-events-calendar' ); ?>
+			<?php echo esc_html_x( 'Event Location', 'Event location on the Ticket Email', 'the-events-calendar' ); ?>
 		</h3>
 	</td>
 </tr>

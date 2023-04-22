@@ -10,9 +10,10 @@
 namespace TEC\Events\Integrations\Modules\Ticket_Emails\Email;
 
 use TEC\Events\Integrations\Modules\Ticket_Emails\Emails as TEC_Email_Handler;
-use TEC\Events\Integrations\Modules\Ticket_Emails\Template as Template;
 use TEC\Tickets\Emails\Email\Ticket as Ticket_Email;
 use TEC\Tickets\Emails\Email_Abstract;
+use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
+use TEC\Events\Integrations\Modules\Ticket_Emails\Template;
 
 /**
  * Class Ticket.
@@ -53,7 +54,7 @@ class Ticket {
 	 *
 	 * @return array<array<string,mixed>> $settings The modified email settings.
 	 */
-	public function filter_tec_tickets_emails_ticket_email_settings( $settings ) {
+	public function include_settings( $settings ): array {
 
 		$settings[ self::$option_add_event_links ] = [
 			'type'            => 'toggle',
@@ -65,7 +66,7 @@ class Ticket {
 
 		$settings[ self::$option_add_event_ics ] = [
 			'type'            => 'toggle',
-			'label'           => esc_html__( 'Attach Calendar Invites', 'the-events-calendar' ),
+			'label'           => esc_html__( 'Attach calendar invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the ticket email.', 'the-events-calendar' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
@@ -85,7 +86,7 @@ class Ticket {
 	 *
 	 * @return array<string,string> The filtered attachments for the Tickets Emails.
 	 */
-	public function filter_tec_tickets_emails_ticket_email_attachments( $attachments, $email_id, $email_class ) {
+	public function include_attachments( $attachments, $email_id, $email_class ) {
 		if ( ! $email_class->is_enabled() ) {
 			return $attachments;
 		}
@@ -106,20 +107,24 @@ class Ticket {
 			return $attachments;
 		}
 
-		$attachments = tribe( TEC_Email_Handler::class )->tec_tickets_emails_add_event_ics_to_attachments( $attachments, $post_id );
+		$attachments = tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
 
 		return $attachments;
 	}
 
 	/**
-	 * Maybe include the event links.
+	 * Includes event links in email body for The Events Calendar Tickets.
+	 *
+	 * This function adds Google Calendar and iCal links to the email body for the
+	 * specified event if the email class is enabled and the option to add event links is true.
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Template $et_template Event Tickets template object.
+	 * @param \Tribe__Template $parent_template Event Tickets template object.
+	 *
 	 * @return void
 	 */
-	public function maybe_include_event_links( $et_template ) {
+	public function include_event_links( $parent_template ): void {
 		$email_class = tribe( Ticket_Email::class );
 
 		// Bail early if the email class is not enabled.
@@ -131,7 +136,7 @@ class Ticket {
 			return;
 		}
 
-		$args = $et_template->get_local_values();
+		$args = $parent_template->get_local_values();
 
 		if (
 			! empty( $args['email'] )
@@ -144,7 +149,7 @@ class Ticket {
 			return;
 		}
 
-		$args['event_gcal_link'] = tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $args['event']->ID );
+		$args['event_gcal_link'] = tribe( Google_Calendar::class )->generate_single_url( $args['event']->ID );
 		$args['event_ical_link'] = tribe_get_single_ical_link( $args['event']->ID );
 
 		if ( ! empty( $args['preview'] ) ) {

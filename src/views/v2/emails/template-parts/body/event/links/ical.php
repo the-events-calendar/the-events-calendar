@@ -29,5 +29,5 @@ if ( empty( $event_ical_link ) ) {
 	href="<?php echo esc_url( $event_ical_link ); ?>"
 	style="padding:0 8px;"
 >
-	<?php esc_html_e( 'Add event to iCal', 'the-events-calendar' ); ?>
+	<?php echo esc_html_x( 'Add event to iCal', 'Button on Ticket Email', 'the-events-calendar' ); ?>
 </a>

@@ -264,7 +264,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Generates the iCal file
 	 *
-	 * @param int|null $post If you want the ical file for a single event
+	 * @param int|null|array $post If you want the ical file for a single event
 	 * @param boolean  $echo Whether the content should be echoed or returned
 	 *
 	 * @return string

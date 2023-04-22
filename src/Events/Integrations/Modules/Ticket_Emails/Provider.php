@@ -1,7 +1,7 @@
 <?php
 namespace TEC\Events\Integrations\Modules\Ticket_Emails;
 
-use TEC\Common\Integrations\Integration_Abstract;
+use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Common\Integrations\Traits\Module_Integration;
 
 /**

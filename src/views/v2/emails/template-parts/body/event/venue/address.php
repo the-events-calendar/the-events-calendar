@@ -61,7 +61,9 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->state_provinc
 			if ( ! empty( $venue->directions_link ) ) :
 				?>
 				<br />
-				<a href="<?php echo esc_url( $venue->directions_link ); ?>"><?php esc_html_e( 'Get Directions', 'the-events-calendar' ); ?></a>
+				<a href="<?php echo esc_url( $venue->directions_link ); ?>">
+					<?php echo esc_html_x( 'Get Directions', 'Link on the Ticket Email', 'the-events-calendar' ); ?>
+				</a>
 			<?php
 			endif;
 			?>

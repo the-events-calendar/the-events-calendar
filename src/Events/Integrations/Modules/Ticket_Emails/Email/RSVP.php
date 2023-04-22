@@ -10,9 +10,11 @@
 namespace TEC\Events\Integrations\Modules\Ticket_Emails\Email;
 
 use TEC\Events\Integrations\Modules\Ticket_Emails\Emails as TEC_Email_Handler;
-use TEC\Events\Integrations\Modules\Ticket_Emails\Template as Template;
+use TEC\Events\Integrations\Modules\Ticket_Emails\Template;
 use TEC\Tickets\Emails\Email\RSVP as RSVP_Email;
 use TEC\Tickets\Emails\Email_Abstract;
+use TEC\Tickets\Emails\Email\Ticket;
+use \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 
 /**
  * Class RSVP.
@@ -53,9 +55,9 @@ class RSVP {
 	 *
 	 * @return array<array<string,mixed>> $settings The modified email settings.
 	 */
-	public function filter_tec_tickets_emails_rsvp_email_settings( $settings ) {
+	public function include_settings( $settings ): array {
 
-		$settings[ self::$option_add_event_links ] = [
+		$settings[ static::$option_add_event_links ] = [
 			'type'            => 'toggle',
 			'label'           => esc_html__( 'Include "Add to calendar" links', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( "Include links to add the event to the user's calendar.", 'the-events-calendar' ),
@@ -63,9 +65,9 @@ class RSVP {
 			'validation_type' => 'boolean',
 		];
 
-		$settings[ self::$option_add_event_ics ] = [
+		$settings[ static::$option_add_event_ics ] = [
 			'type'            => 'toggle',
-			'label'           => esc_html__( 'Attach Calendar Invites', 'the-events-calendar' ),
+			'label'           => esc_html__( 'Attach calendar invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the RSVP email.', 'the-events-calendar' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
@@ -85,7 +87,7 @@ class RSVP {
 	 *
 	 * @return array<string,string> The filtered attachments for the RSVP Emails.
 	 */
-	public function filter_tec_tickets_emails_rsvp_email_attachments( $attachments, $email_id, $email_class ) {
+	public function include_attachments( $attachments, $email_id, $email_class ) {
 		if ( ! $email_class->is_enabled() ) {
 			return $attachments;
 		}
@@ -116,7 +118,7 @@ class RSVP {
 			return $attachments;
 		}
 
-		$attachments = tribe( TEC_Email_Handler::class )->tec_tickets_emails_add_event_ics_to_attachments( $attachments, $post_id );
+		$attachments = tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
 
 		return $attachments;
 	}
@@ -126,10 +128,11 @@ class RSVP {
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Template $et_template Event Tickets template object.
+	 * @param \Tribe__Template $parent_template Event Tickets template object.
+	 *
 	 * @return void
 	 */
-	public function maybe_include_event_links( $et_template ) {
+	public function include_event_links( $parent_template ) {
 		$email_class = tribe( RSVP_Email::class );
 
 		// Bail early if the email class is not enabled.
@@ -140,18 +143,18 @@ class RSVP {
 		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
 
 		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( TEC\Tickets\Emails\Email\Ticket::class );
+			$email_class = tribe( Ticket::class );
 
 			if ( ! $email_class->is_enabled() ) {
 				return;
 			}
 		}
 
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
+		if ( ! tribe_is_truthy( tribe_get_option( static::$option_add_event_links, true ) ) ) {
 			return;
 		}
 
-		$args = $et_template->get_local_values();
+		$args = $parent_template->get_local_values();
 
 		if (
 			! empty( $args['email'] )
@@ -164,7 +167,7 @@ class RSVP {
 			return;
 		}
 
-		$args['event_gcal_link'] = tribe( \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar::class )->generate_single_url( $args['event']->ID );
+		$args['event_gcal_link'] = tribe( Google_Calendar::class )->generate_single_url( $args['event']->ID );
 		$args['event_ical_link'] = tribe_get_single_ical_link( $args['event']->ID );
 
 		if ( ! empty( $args['preview'] ) ) {
