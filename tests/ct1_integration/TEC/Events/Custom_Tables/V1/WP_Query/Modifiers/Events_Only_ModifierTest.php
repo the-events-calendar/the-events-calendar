@@ -38,21 +38,21 @@ class Events_Only_ModifierTest extends \Codeception\TestCase\WPTestCase {
 		$post  = tribe_events()->set_args( [
 			'title'      => ' Faux event 1',
 			'status'     => 'publish',
-			'start_date' => 'next week',
+			'start_date' => 'next week at 3pm',
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'timezone'   => 'America/New_York',
 		] )->create();
 		$post2 = tribe_events()->set_args( [
 			'title'      => ' Faux event 2',
 			'status'     => 'publish',
-			'start_date' => 'tomorrow',
+			'start_date' => 'tomorrow at 3pm',
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'timezone'   => 'America/New_York',
 		] )->create();
 		$post3 = tribe_events()->set_args( [
 			'title'      => ' Faux event 3',
 			'status'     => 'publish',
-			'start_date' => 'next month',
+			'start_date' => 'next month at 3 pm',
 			'duration'   => 2 * HOUR_IN_SECONDS,
 			'timezone'   => 'America/New_York',
 		] )->create();
