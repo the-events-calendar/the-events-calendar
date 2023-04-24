@@ -108,13 +108,13 @@ tribe.events.views.icalLinks = {};
 	 */
 	obj.bindEvents = function( $container ) { // eslint-disable-line no-unused-vars
 		$( document ).on(
-			'click focus focus-within',
+			'click',
 			obj.selectors.icalLinksButton,
 			obj.handleIcalLinksButtonClick
 		);
 
 		$( document ).on(
-			'click focus focus-within',
+			'click',
 			obj.handleClickOutside
 		);
 	};
