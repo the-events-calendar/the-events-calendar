@@ -180,7 +180,8 @@ tribe.events.views.icalLinks = {};
 	 * Handles the initialization of the view selector when Document is ready
 	 *
 	 * @since 5.12.0
-	 * @since TBD - Added logic to initialize the view selector for each view container.
+	 * @since TBD - Added logic to ensure that the 'init' method of the 'obj' object is
+	 *              called when the document is fully loaded and ready for manipulation.
 	 *
 	 * @return {void}
 	 */

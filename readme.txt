@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Ensure the `Subscribe to Calendar` dropdown toggles on and off on click to improve user experience. [TEC-4388]
 * Fix - Ensure Events are displayed correctly on Elementor's `Posts` widget. [TEC-4685]
 * Fix - Pass a NOOP callback function to Google Maps scripts to prevent JS warnings. [TEC-4762]
 * Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
