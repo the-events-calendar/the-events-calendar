@@ -180,15 +180,13 @@ tribe.events.views.icalLinks = {};
 	 * Handles the initialization of the view selector when Document is ready
 	 *
 	 * @since 5.12.0
+	 * @since TBD - Added logic to initialize the view selector for each view container.
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
-		$( document ).on(
-			'afterSetup.tribeEvents',
-			obj.init
-		);
-	};
+	$( document ).ready( function() {
+		obj.init( null, 0, $( 'body' ), {} );
+	});	
 
 	// Configure on document ready
 	$( obj.ready );
