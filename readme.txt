@@ -241,6 +241,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - For CT1 in markers the occurrence would sometimes not be the same one found as the date field, only one was filtering by post_status. We were only using `provisional_id` for CT1, now we fallback to `post_id`. Now removing options when no occurrences are found, instead of retaining a stale value. [TEC-4768]
 * Fix - Fix a `Fatal error: Uncaught TypeError: Illegal offset type in isset or empty in …/wp-content/plugins/sitepress-multilingual-cms/classes/url-handling/converter/class-wpml-url-cached-converter.php:46` fatal with our WPML integration when filtering Event permalinks for Event views. [TEC-4770]
 * Fix - Some button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
+* Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
 
 = [6.0.12] 2023-04-10 =
 
