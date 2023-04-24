@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.12
+Stable tag: 6.0.13
 Tested up to: 6.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,12 +231,16 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Ensure Events are displayed correctly on Elementor's `Posts` widget. [TEC-4685]
+* Fix - Pass a NOOP callback function to Google Maps scripts to prevent JS warnings. [TEC-4762]
 * Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
 * Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
 * Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
 * Tweak - Added filter `tec_events_event_cleaner_trash_cron_frequency` to allow customizing the frequency of the trash old event cron. [ECP-1475]
 * Tweak - Ensure we have the ability to hide the Event Tickets Activation notice using the `defined( 'TRIBE_HIDE_UPSELL' )` constant. [TEC-4767]
 * Fix - For CT1 in markers the occurrence would sometimes not be the same one found as the date field, only one was filtering by post_status. We were only using `provisional_id` for CT1, now we fallback to `post_id`. Now removing options when no occurrences are found, instead of retaining a stale value. [TEC-4768]
+* Fix - Fix a `Fatal error: Uncaught TypeError: Illegal offset type in isset or empty in …/wp-content/plugins/sitepress-multilingual-cms/classes/url-handling/converter/class-wpml-url-cached-converter.php:46` fatal with our WPML integration when filtering Event permalinks for Event views. [TEC-4770]
+* Fix - Some button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
 
 = [6.0.12] 2023-04-10 =
 
