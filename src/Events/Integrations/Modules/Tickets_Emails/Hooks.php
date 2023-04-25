@@ -10,13 +10,13 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Integrations\Modules\Ticket_Emails
+ * @package TEC\Events\Integrations\Modules\Tickets_Emails
  */
 
-namespace TEC\Events\Integrations\Modules\Ticket_Emails;
+namespace TEC\Events\Integrations\Modules\Tickets_Emails;
 
-use TEC\Events\Integrations\Modules\Ticket_Emails\Email\RSVP;
-use TEC\Events\Integrations\Modules\Ticket_Emails\Email\Ticket;
+use TEC\Events\Integrations\Modules\Tickets_Emails\Email\RSVP;
+use TEC\Events\Integrations\Modules\Tickets_Emails\Email\Ticket;
 use TEC\Tickets\Emails\Email_Abstract;
 use \Tribe__Template as Common_Template;
 
@@ -25,7 +25,7 @@ use \Tribe__Template as Common_Template;
  *
  * @since   TBD
  *
- * @package TEC\Events\Integrations\Modules\Ticket_Emails
+ * @package TEC\Events\Integrations\Modules\Tickets_Emails
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 
