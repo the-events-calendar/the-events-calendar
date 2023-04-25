@@ -276,6 +276,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->container->make( Ticket::class )->include_event_links( $template );
 	}
 
+	/**
+	 * Include the Event link styles in the ticket and RSVP emails.
+	 *
+	 * @since TBD
+	 *
+	 * @param string          $file     Template file.
+	 * @param string          $name     Template name.
+	 * @param Common_Template $template Event Tickets template object.
+	 *
+	 * @return void
+	 */
 	public function include_event_ticket_rsvp_styles( $file, $name, $template ) {
 		if ( ! $template instanceof Common_Template ) {
 			return;

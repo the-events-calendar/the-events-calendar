@@ -154,7 +154,7 @@ class Ticket {
 			return;
 		}
 
-		tribe( Template::class )->template( 'template-parts/header/head/tec-style', $args, true );
+		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $args, true );
 	}
 
 	/**
