@@ -127,6 +127,11 @@
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
   },
+  "overrides": {
+    "babel-plugin-lodash": {
+        "@babel/types": "~7.20.0"
+    }
+  },
   "browserslist": [
     "last 2 Chrome versions",
     "last 2 Firefox versions",
