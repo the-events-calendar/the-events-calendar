@@ -125,7 +125,8 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_event_links( $parent_template ): void {
-		if ( ! $this->should_show_links( $parent_template, $email_class, $args ) ) {
+		$args = $parent_template->get_local_values();
+		if ( ! $this->should_show_links( $args ) ) {
 			return;
 		}
 
@@ -150,7 +151,8 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_event_link_styles( $parent_template ): void {
-		if ( ! $this->should_show_links( $parent_template, $email_class, $args ) ) {
+		$args = $parent_template->get_local_values();
+		if ( ! $this->should_show_links( $args ) ) {
 			return;
 		}
 
@@ -162,13 +164,11 @@ class Ticket {
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Template    $parent_template Event Tickets template object.
-	 * @param Email_Abstract|null $email_class     References email class.
-	 * @param array|null          $args            References template context arguments.
+	 * @param array            $args            References template context arguments.
 	 *
 	 * @return bool
 	 */
-	public function should_show_links( $parent_template, &$email_class, &$args ): bool {
+	public function should_show_links( $args ): bool {
 
 		$email_class = tribe( Ticket_Email::class );
 		if ( ! $email_class->is_enabled() ) {
@@ -178,8 +178,6 @@ class Ticket {
 		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
 			return false;
 		}
-
-		$args = $parent_template->get_local_values();
 
 		if (
 			! empty( $args['email'] )

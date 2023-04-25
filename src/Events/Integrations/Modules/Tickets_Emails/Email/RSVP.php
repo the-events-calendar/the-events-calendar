@@ -133,7 +133,8 @@ class RSVP {
 	 * @return void
 	 */
 	public function include_event_links( $parent_template ) {
-		if ( ! $this->should_show_links( $parent_template, $email_class, $args ) ) {
+		$args = $parent_template->get_local_values();
+		if ( ! $this->should_show_links( $args ) ) {
 			return;
 		}
 
@@ -158,7 +159,8 @@ class RSVP {
 	 * @return void
 	 */
 	public function include_event_link_styles( $parent_template ): void {
-		if ( ! $this->should_show_links( $parent_template, $email_class, $args ) ) {
+		$args = $parent_template->get_local_values();
+		if ( ! $this->should_show_links( $args ) ) {
 			return;
 		}
 
@@ -170,14 +172,12 @@ class RSVP {
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Template    $parent_template Event Tickets template object.
-	 * @param Email_Abstract|null $email_class     References email class.
-	 * @param array|null          $args            References template context arguments.
+	 * @param array $args References template context arguments.
 	 *
 	 * @return bool
 	 */
-	public function should_show_links( $parent_template, &$email_class, &$args ): bool {
-		// Double assignment due to the need to reference the original RSVP class later on.
+	public function should_show_links( $args ): bool {
+		// Double assigned due to needing to reference the original RSVP class later on.
 		$rsvp_class = $email_class = tribe( RSVP_Email::class );
 		if ( ! $email_class->is_enabled() ) {
 			return false;
@@ -191,8 +191,6 @@ class RSVP {
 				return false;
 			}
 		}
-
-		$args = $parent_template->get_local_values();
 
 		if (
 			! empty( $args['email'] )
