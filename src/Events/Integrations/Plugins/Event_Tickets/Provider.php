@@ -34,6 +34,6 @@ class Provider extends Integration_Abstract {
 	 */
 	protected function load(): void {
 		// Loads Tickets Emails.
-		$this->container->register( \TEC\Events\Integrations\Modules\Ticket_Emails\Provider::class );
+		$this->container->register( \TEC\Events\Integrations\Modules\Tickets_Emails\Provider::class );
 	}
 }

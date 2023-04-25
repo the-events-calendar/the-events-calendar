@@ -1,5 +1,5 @@
 <?php
-namespace TEC\Events\Integrations\Modules\Ticket_Emails;
+namespace TEC\Events\Integrations\Modules\Tickets_Emails;
 
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Common\Integrations\Traits\Module_Integration;
@@ -9,7 +9,7 @@ use TEC\Common\Integrations\Traits\Module_Integration;
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Modules\Ticket_Emails
+ * @package TEC\Events\Integrations\Modules\Tickets_Emails
  */
 class Provider extends Integration_Abstract {
 	use Module_Integration;

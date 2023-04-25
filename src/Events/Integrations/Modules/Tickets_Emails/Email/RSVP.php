@@ -4,13 +4,13 @@
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Modules\Ticket_Emails
+ * @package TEC\Events\Integrations\Modules\Tickets_Emails
  */
 
-namespace TEC\Events\Integrations\Modules\Ticket_Emails\Email;
+namespace TEC\Events\Integrations\Modules\Tickets_Emails\Email;
 
-use TEC\Events\Integrations\Modules\Ticket_Emails\Emails as TEC_Email_Handler;
-use TEC\Events\Integrations\Modules\Ticket_Emails\Template;
+use TEC\Events\Integrations\Modules\Tickets_Emails\Emails as TEC_Email_Handler;
+use TEC\Events\Integrations\Modules\Tickets_Emails\Template;
 use TEC\Tickets\Emails\Email\RSVP as RSVP_Email;
 use TEC\Tickets\Emails\Email_Abstract;
 use TEC\Tickets\Emails\Email\Ticket;
@@ -21,7 +21,7 @@ use \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Modules\Ticket_Emails
+ * @package TEC\Events\Integrations\Modules\Tickets_Emails
  */
 class RSVP {
 	/**
