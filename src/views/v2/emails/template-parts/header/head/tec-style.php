@@ -1,4 +1,4 @@
-<style>
+<style type="text/css">
 	.tec-tickets__email-table-content-event-title-container,
 	td.tec-tickets__email-table-content-event-title-container,
 	.tec-tickets__email-table-content-event-links-container,

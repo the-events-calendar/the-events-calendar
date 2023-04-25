@@ -150,7 +150,6 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_event_link_styles( $parent_template ): void {
-		error_log('include_event_styles');
 		if ( ! $this->should_show_links( $parent_template, $email_class, $args ) ) {
 			return;
 		}
@@ -163,7 +162,9 @@ class Ticket {
 	 *
 	 * @since TBD
 	 *
-	 * @param \Tribe__Template $parent_template Event Tickets template object.
+	 * @param \Tribe__Template    $parent_template Event Tickets template object.
+	 * @param Email_Abstract|null $email_class     References email class.
+	 * @param array|null          $args            References template context arguments.
 	 *
 	 * @return bool
 	 */
