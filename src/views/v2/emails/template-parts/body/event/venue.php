@@ -26,23 +26,23 @@ $venue = $event->venues[0];
 
 ?>
 <tr>
-	<td style="padding:54px 0 12px 0">
-		<h3 style="font-size:16px;font-weight:700;background:transparent;padding:0;margin:0;color:#141827">
+	<td class="tec-tickets__email-table-content-event-venue-title-container">
+		<h3 class="tec-tickets__email-table-content-event-venue-title">
 			<?php echo esc_html_x( 'Event Location', 'Event location on the Ticket Email', 'the-events-calendar' ); ?>
 		</h3>
 	</td>
 </tr>
 <tr>
-	<td style="border:1px solid #d5d5d5;padding:25px;">
-		<h2 style="font-size: 18px;font-weight: 700;margin:0;padding:0;background:transparent;">
+	<td class="tec-tickets__email-table-content-event-venue-container">
+		<h2 class="tec-tickets__email-table-content-event-venue-name">
 			<?php echo wp_kses_post( $venue->post_title ); ?>
 		</h2>
-		<table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+		<table role="presentation" class="tec-tickets__email-table-content-event-venue-table">
 			<tr>
-				<td style="padding:12px 0 0 0; width: 50%;">
+				<td class="tec-tickets__email-table-content-event-venue-address-table-container">
 					<?php $this->template( 'template-parts/body/event/venue/address', [ 'venue' => $venue ] ); ?>
 				</td>
-				<td style="padding:0; width: 50%;">
+				<td class="tec-tickets__email-table-content-event-venue-phone-website-container">
 
 					<?php $this->template( 'template-parts/body/event/venue/phone', [ 'venue' => $venue ] ); ?>
 

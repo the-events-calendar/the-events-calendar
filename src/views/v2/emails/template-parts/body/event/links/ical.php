@@ -27,7 +27,7 @@ if ( empty( $event_ical_link ) ) {
 	target="_blank"
 	rel="noopener noreferrer"
 	href="<?php echo esc_url( $event_ical_link ); ?>"
-	style="padding:0 8px;"
+	class="tec-tickets__email-table-content-event-links-ical-link"
 >
 	<?php echo esc_html_x( 'Add event to iCal', 'Button on Ticket Email', 'the-events-calendar' ); ?>
 </a>

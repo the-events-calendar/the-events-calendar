@@ -24,7 +24,7 @@ if ( empty( $event ) && empty( (string) $event->excerpt ) ) {
 
 ?>
 <tr>
-	<td style="padding:0;">
+	<td style="padding:0;" class="tec-tickets__email-table-content-event-description-container">
 		<?php echo (string) $event->excerpt; ?>
 	</td>
 </tr>

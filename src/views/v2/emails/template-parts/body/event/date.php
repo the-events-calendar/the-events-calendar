@@ -25,8 +25,8 @@ if ( empty( $date ) ) {
 }
 ?>
 <tr>
-	<td style="padding:0;">
-		<p style="font-size: 14px;font-weight: 400;line-height: 23px;letter-spacing: 0px;text-align: left;">
+	<td class="tec-tickets__email-table-content-event-date-container">
+		<p class="tec-tickets__email-table-content-event-date">
 			<?php echo $date; // phpcs:ignore ?>
 		</p>
 	</td>

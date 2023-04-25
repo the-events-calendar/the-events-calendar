@@ -22,10 +22,10 @@
 
 ?>
 <tr>
-	<td style="padding:0;">
-		<table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+	<td class="tec-tickets__email-table-content-event-links-container">
+		<table role="presentation" class="tec-tickets__email-table-content-event-links-table">
 			<tr>
-				<td style="padding:30px 10px;text-align:center;width:100%" align="center">
+				<td class="tec-tickets__email-table-content-event-links-table-data" align="center">
 
 					<?php $this->template( 'template-parts/body/event/links/ical' ); ?>
 
