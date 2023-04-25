@@ -57,7 +57,32 @@
 
 	.tribe-events-c-view-selector--labels {
 
-		.tribe-events-c-view-selector__button {
+		.tribe-events-c-view-selector__button,
+		button.tribe-events-c-view-selector__button {
+			background-color: inherit;
+			background-image: none;
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			color: inherit;
+			font-size: 1rem;
+			font-style: normal;
+			outline: none;
+			text-decoration: none;
+			text-shadow: none;
+
+			&:focus,
+			&:hover {
+				background-color: inherit;
+				background-image: none;
+				border-radius: 0;
+				box-shadow: none;
+				color: var(--tec-color-text-events-bar-submit-button-hover);
+				font-style: normal;
+				outline: none;
+				text-decoration: none;
+				text-shadow: none;
+			}
 
 			&:before {
 
