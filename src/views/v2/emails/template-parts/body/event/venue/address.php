@@ -27,17 +27,17 @@ $separator            = '<br />';
 $append_after_address = array_filter( array_map( 'trim', [ $venue->state_province, $venue->state, $venue->province ] ) );
 
 ?>
-<table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+<table role="presentation" class="tec-tickets__email-table-content-event-venue-address-table">
 	<tr>
-		<td style="text-align:center;vertical-align:top;display:inline-block;" valign="top" align="center">
+		<td class="tec-tickets__email-table-content-event-venue-address-pin-container" valign="top" align="center">
 			<img
+				class="tec-tickets__email-table-content-event-venue-address-pin"
 				width="20"
 				height="28"
-				style="width:20px;height:28px;display:block;"
 				src="<?php echo plugins_url( '/the-events-calendar/src/resources/postcss/utilities/icons/map-pin.svg' ) ?>"
 			/>
 		</td>
-		<td style="padding:0;text-align:left">
+		<td class="tec-tickets__email-table-content-event-venue-address-container">
 		<?php
 			echo esc_html( $venue->address );
 

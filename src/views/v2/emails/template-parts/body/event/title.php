@@ -23,7 +23,7 @@ if ( empty( $event ) && empty( $event->title ) ) {
 }
 ?>
 <tr>
-	<td style="padding:0;">
+	<td class="tec-tickets__email-table-content-event-title-container">
 		<h3 class="tec-tickets__email-table-content-event-title">
 			<?php
 			// phpcs:ignore

@@ -125,27 +125,8 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_event_links( $parent_template ): void {
-		$email_class = tribe( Ticket_Email::class );
-
-		// Bail early if the email class is not enabled.
-		if ( ! $email_class->is_enabled() ) {
-			return;
-		}
-
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
-			return;
-		}
-
 		$args = $parent_template->get_local_values();
-
-		if (
-			! empty( $args['email'] )
-			&& $args['email']->get_id() !== $email_class->get_id()
-		) {
-			return;
-		}
-
-		if ( empty( $args['event'] ) && empty( $args['event']->ID ) ) {
+		if ( ! $this->should_show_links( $args ) ) {
 			return;
 		}
 
@@ -154,8 +135,61 @@ class Ticket {
 
 		if ( ! empty( $args['preview'] ) ) {
 			$args['event_gcal_link'] = '#';
+			$args['event_ical_link'] = '#';
 		}
 
 		tribe( Template::class )->template( 'template-parts/body/event/links', $args, true );
+	}
+
+	/**
+	 * Includes event link styles in email body for The Events Calendar Tickets.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Template $parent_template Event Tickets template object.
+	 *
+	 * @return void
+	 */
+	public function include_event_link_styles( $parent_template ): void {
+		$args = $parent_template->get_local_values();
+		if ( ! $this->should_show_links( $args ) ) {
+			return;
+		}
+
+		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $args, true );
+	}
+
+	/**
+	 * Determines whether or not Ticket should show calendar links.
+	 *
+	 * @since TBD
+	 *
+	 * @param array            $args            References template context arguments.
+	 *
+	 * @return bool
+	 */
+	public function should_show_links( $args ): bool {
+
+		$email_class = tribe( Ticket_Email::class );
+		if ( ! $email_class->is_enabled() ) {
+			return false;
+		}
+
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
+			return false;
+		}
+
+		if (
+			! empty( $args['email'] )
+			&& $args['email']->get_id() !== $email_class->get_id()
+		) {
+			return false;
+		}
+
+		if ( empty( $args['preview'] ) && empty( $args['event'] ) && empty( $args['event']->ID ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }

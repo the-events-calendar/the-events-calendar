@@ -133,37 +133,8 @@ class RSVP {
 	 * @return void
 	 */
 	public function include_event_links( $parent_template ) {
-		$email_class = tribe( RSVP_Email::class );
-
-		// Bail early if the email class is not enabled.
-		if ( ! $email_class->is_enabled() ) {
-			return;
-		}
-
-		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
-
-		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( Tickets_Email_Ticket::class );
-
-			if ( ! $email_class->is_enabled() ) {
-				return;
-			}
-		}
-
-		if ( ! tribe_is_truthy( tribe_get_option( static::$option_add_event_links, true ) ) ) {
-			return;
-		}
-
 		$args = $parent_template->get_local_values();
-
-		if (
-			! empty( $args['email'] )
-			&& $args['email']->get_id() !== $email_class->get_id()
-		) {
-			return;
-		}
-
-		if ( empty( $args['event'] ) && empty( $args['event']->ID ) ) {
+		if ( ! $this->should_show_links( $args ) ) {
 			return;
 		}
 
@@ -172,8 +143,66 @@ class RSVP {
 
 		if ( ! empty( $args['preview'] ) ) {
 			$args['event_gcal_link'] = '#';
+			$args['event_ical_link'] = '#';
 		}
 
 		tribe( Template::class )->template( 'template-parts/body/event/links', $args, true );
+	}
+
+	/**
+	 * Maybe include event link styles.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Template $parent_template Event Tickets template object.
+	 *
+	 * @return void
+	 */
+	public function include_event_link_styles( $parent_template ): void {
+		$args = $parent_template->get_local_values();
+		if ( ! $this->should_show_links( $args ) ) {
+			return;
+		}
+
+		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $args, true );
+	}
+
+	/**
+	 * Determines whether or not RSVP should show calendar links.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args References template context arguments.
+	 *
+	 * @return bool
+	 */
+	public function should_show_links( $args ): bool {
+		// Double assigned due to needing to reference the original RSVP class later on.
+		$rsvp_class = $email_class = tribe( RSVP_Email::class );
+		if ( ! $email_class->is_enabled() ) {
+			return false;
+		}
+
+		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
+		if ( ! empty( $use_ticket_email ) ) {
+			$email_class = tribe( Tickets_Email_Ticket::class );
+
+			if ( ! $email_class->is_enabled() ) {
+				return false;
+			}
+		}
+
+		if (
+			! empty( $args['email'] )
+			&& $args['email']->get_id() !== $rsvp_class->get_id()
+		) {
+			return false;
+		}
+
+		if ( empty( $args['preview'] ) && empty( $args['event'] ) && empty( $args['event']->ID ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }

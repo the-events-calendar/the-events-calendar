@@ -28,7 +28,7 @@ if ( empty( $event_gcal_link ) ) {
 	target="_blank"
 	rel="noopener noreferrer"
 	href="<?php echo esc_url( $event_gcal_link ); ?>"
-	style="padding:0 8px;"
+	class="tec-tickets__email-table-content-event-links-gcal-link"
 >
 	<?php echo esc_html_x( 'Add event to Google Calendar', 'Button on Ticket Email', 'the-events-calendar' ); ?>
 </a>

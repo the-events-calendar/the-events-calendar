@@ -23,10 +23,10 @@ if ( empty( $event ) && ! $event->thumbnail->exists ) {
 }
 ?>
 <tr>
-	<td style="padding:0;">
+	<td style="padding:0;" class="tec-tickets__email-table-content-event-image-container">
 		<img
+			class="tec-tickets__email-table-content-event-image"
 			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
-			style="display:block;margin:0;width:100%;"
 			<?php if ( ! empty( $event->thumbnail->alt ) ) : ?>
 				alt="<?php echo esc_attr( $event->thumbnail->alt ); ?>"
 			<?php endif; ?>
