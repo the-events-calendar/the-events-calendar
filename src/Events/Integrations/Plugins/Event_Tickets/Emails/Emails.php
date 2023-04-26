@@ -4,13 +4,12 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Integrations\Modules\Tickets_Emails
+ * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
 
-namespace TEC\Events\Integrations\Modules\Tickets_Emails;
+namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 
 use TEC\Tickets\Emails\Email_Abstract;
-use Tribe__Events__Main as Main;
 use Tribe\Utils\Lazy_String;
 
 /**
@@ -18,7 +17,7 @@ use Tribe\Utils\Lazy_String;
  *
  * @since   TBD
  *
- * @package TEC\Events\Integrations\Modules\Tickets_Emails
+ * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
 class Emails {
 	/**

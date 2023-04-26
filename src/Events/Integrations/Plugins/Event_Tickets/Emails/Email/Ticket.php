@@ -1,29 +1,28 @@
 <?php
 /**
- * Class RSVP.
+ * Class Ticket.
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Modules\Tickets_Emails
+ * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
 
-namespace TEC\Events\Integrations\Modules\Tickets_Emails\Email;
+namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email;
 
-use TEC\Events\Integrations\Modules\Tickets_Emails\Emails as TEC_Email_Handler;
-use TEC\Events\Integrations\Modules\Tickets_Emails\Template;
-use TEC\Tickets\Emails\Email\RSVP as RSVP_Email;
+use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Handler;
+use TEC\Tickets\Emails\Email\Ticket as Ticket_Email;
 use TEC\Tickets\Emails\Email_Abstract;
-use TEC\Tickets\Emails\Email\Ticket;
-use \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
+use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
+use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
 
 /**
- * Class RSVP.
+ * Class Ticket.
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Modules\Tickets_Emails
+ * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
-class RSVP {
+class Ticket {
 	/**
 	 * The option key for the Event calendar links.
 	 *
@@ -33,7 +32,7 @@ class RSVP {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_links = 'tec-tickets-emails-rsvp-add-event-links';
+	public static $option_add_event_links = 'tec-tickets-emails-ticket-add-event-links';
 
 	/**
 	 * The option key for the Event calendar invite.
@@ -44,7 +43,7 @@ class RSVP {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_ics = 'tec-tickets-emails-rsvp-add-event-ics';
+	public static $option_add_event_ics = 'tec-tickets-emails-ticket-add-event-ics';
 
 	/**
 	 * Filter the email settings and add TEC specific settings.
@@ -57,7 +56,7 @@ class RSVP {
 	 */
 	public function include_settings( $settings ): array {
 
-		$settings[ static::$option_add_event_links ] = [
+		$settings[ self::$option_add_event_links ] = [
 			'type'            => 'toggle',
 			'label'           => esc_html__( 'Include "Add to calendar" links', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( "Include links to add the event to the user's calendar.", 'the-events-calendar' ),
@@ -65,10 +64,10 @@ class RSVP {
 			'validation_type' => 'boolean',
 		];
 
-		$settings[ static::$option_add_event_ics ] = [
+		$settings[ self::$option_add_event_ics ] = [
 			'type'            => 'toggle',
 			'label'           => esc_html__( 'Attach calendar invites', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the RSVP email.', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the ticket email.', 'the-events-calendar' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
 		];
@@ -77,29 +76,19 @@ class RSVP {
 	}
 
 	/**
-	 * Filters the attachments for the RSVP Emails and maybe add the calendar ics file.
+	 * Filters the attachments for the Tickets Emails and maybe add the calendar ics file.
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,string> $attachments  The attachments for the Tickets Emails.
+	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
 	 * @param string               $email_id     The email ID.
 	 * @param Email_Abstract       $email_class  The email class.
 	 *
-	 * @return array<string,string> The filtered attachments for the RSVP Emails.
+	 * @return array<string,string> The filtered attachments for the Tickets Emails.
 	 */
 	public function include_attachments( $attachments, $email_id, $email_class ) {
 		if ( ! $email_class->is_enabled() ) {
 			return $attachments;
-		}
-
-		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
-
-		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( TEC\Tickets\Emails\Email\Ticket::class );
-
-			if ( ! $email_class->is_enabled() ) {
-				return $attachments;
-			}
 		}
 
 		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
@@ -124,7 +113,10 @@ class RSVP {
 	}
 
 	/**
-	 * Maybe include event links.
+	 * Includes event links in email body for The Events Calendar Tickets.
+	 *
+	 * This function adds Google Calendar and iCal links to the email body for the
+	 * specified event if the email class is enabled and the option to add event links is true.
 	 *
 	 * @since TBD
 	 *
@@ -132,25 +124,15 @@ class RSVP {
 	 *
 	 * @return void
 	 */
-	public function include_event_links( $parent_template ) {
-		$email_class = tribe( RSVP_Email::class );
+	public function include_event_links( $parent_template ): void {
+		$email_class = tribe( Ticket_Email::class );
 
 		// Bail early if the email class is not enabled.
 		if ( ! $email_class->is_enabled() ) {
 			return;
 		}
 
-		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
-
-		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( Ticket::class );
-
-			if ( ! $email_class->is_enabled() ) {
-				return;
-			}
-		}
-
-		if ( ! tribe_is_truthy( tribe_get_option( static::$option_add_event_links, true ) ) ) {
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
 			return;
 		}
 
