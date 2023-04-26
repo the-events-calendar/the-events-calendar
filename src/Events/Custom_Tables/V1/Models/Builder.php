@@ -9,7 +9,6 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Generator;
 use InvalidArgumentException;
-use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 
 /**
  * Class Builder
@@ -119,7 +118,7 @@ class Builder {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var array<string,mixed> order
+	 * @var array<array<string,mixed>> order
 	 */
 	private $order = [];
 
@@ -951,7 +950,6 @@ class Builder {
 		}
 
 		$where = $this->get_where_clause();
-
 		if ( $where !== '' ) {
 			$pieces[] = $where;
 		}

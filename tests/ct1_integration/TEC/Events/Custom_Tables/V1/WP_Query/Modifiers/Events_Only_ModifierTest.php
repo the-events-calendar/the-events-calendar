@@ -6,6 +6,7 @@ use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Main as TEC;
+use WP_Query;
 
 class Events_Only_ModifierTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
@@ -25,6 +26,85 @@ class Events_Only_ModifierTest extends \Codeception\TestCase\WPTestCase {
 		$applies  = $modifier->applies_to( $query );
 
 		$this->assertFalse( $applies );
+	}
+
+	/**
+	 * Tests an edge case defined in TEC-4695.
+	 *
+	 * @test
+	 */
+	public function should_get_posts_with_in_taxonomy_correctly() {
+		// Create 3 events
+		$post  = tribe_events()->set_args( [
+			'title'      => ' Faux event 1',
+			'status'     => 'publish',
+			'start_date' => 'next week',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'timezone'   => 'America/New_York',
+		] )->create();
+		$post2 = tribe_events()->set_args( [
+			'title'      => ' Faux event 2',
+			'status'     => 'publish',
+			'start_date' => 'tomorrow',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'timezone'   => 'America/New_York',
+		] )->create();
+		$post3 = tribe_events()->set_args( [
+			'title'      => ' Faux event 3',
+			'status'     => 'publish',
+			'start_date' => 'next month',
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'timezone'   => 'America/New_York',
+		] )->create();
+
+		// Test terms
+		$show_slugs = [ 'transformers', 'gi-joe', 'he-man' ];
+		foreach ( $show_slugs as $show ) {
+			$term = get_term_by( 'slug', $show, 'tribe_events_cat' );
+			if ( ! $term ) {
+				wp_insert_term(
+					ucwords( str_replace( '-', ' ', $show ) ), // the term name
+					'tribe_events_cat', // the taxonomy
+					array(
+						'slug' => $show // the term slug
+					)
+				);
+			}
+		}
+
+		// Put a post in each category
+		wp_set_object_terms( $post->ID, $show_slugs[0], 'tribe_events_cat' );
+		wp_set_object_terms( $post2->ID, $show_slugs[1], 'tribe_events_cat' );
+		wp_set_object_terms( $post3->ID, $show_slugs[2], 'tribe_events_cat' );
+
+		// Search for all categories, should find these three posts.
+		$query_args = [
+			'post_type'        => 'tribe_events',
+			'post_status'      => 'publish',
+			'tax_query'        => [
+				[
+					'taxonomy' => 'tribe_events_cat',
+					'terms'    => $show_slugs,
+					'operator' => 'IN',
+					'field'    => 'slug',
+				],
+			],
+			'order'            => 'DESC',
+			'orderby'          => 'date',
+			'suppress_filters' => false,
+		];
+
+		/*
+		 * Since our Events_Only_Modifier::filter_posts_pre_query() calls get_posts() (subsequently called a second time),
+		 * an edge case bug occurs. The first run the taxonomy vars have been compiled and some added state added to them.
+		 * Running a second time will use the added term vars, and generate a different query with unintended results.
+		 *
+		 */
+		$query = new WP_Query( $query_args );
+
+		// The `term` would get and additional`AND` on the query,
+		// and result in searching for only one category instead of all categories specified.
+		$this->assertCount( 3, $query->posts );
 	}
 
 	/**

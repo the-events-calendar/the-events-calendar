@@ -46,6 +46,26 @@ class Events_Only_Modifier extends Base_Modifier {
 	 */
 	public function hook() {
 		add_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 100, 2 );
+		add_filter( 'tec_events_custom_tables_v1_events_only_modifier_before_get_posts', [ $this, 'filter_ct_query' ]  );
+	}
+
+	/**
+	 * Applies any necessary alterations on Custom_Tables_Query before it runs get_posts();
+	 *
+	 * @since TBD
+	 *
+	 * @param Custom_Tables_Query $query A reference to the query object used to get_posts() for Custom Table queries.
+	 *
+	 * @return Custom_Tables_Query The modified query object.
+	 */
+	public function filter_ct_query( Custom_Tables_Query $query ): Custom_Tables_Query {
+		// These query vars conflict, and will result in unintended results. See TEC-4695.
+		if ( ! isset( $query->query['term'] )
+		     && isset( $query->query_vars['term'], $query->query['tax_query'] ) ) {
+			unset( $query->query_vars['term'] );
+		}
+
+		return $query;
 	}
 
 	/**
@@ -73,6 +93,17 @@ class Events_Only_Modifier extends Base_Modifier {
 		}
 
 		$query = Custom_Tables_Query::from_wp_query( $wp_query );
+
+		/**
+		 * Filters the Custom_Tables_Query instance after all values have been initialized, prior to a get_posts() call.
+		 * This will give an opportunity to inspect and make any final changes before returning the object.
+		 *
+		 * @since TBD
+		 *
+		 * @param Custom_Tables_Query $query    A reference to the Custom Tables Query object that
+		 *                                      is applying the filter.
+		 */
+		$query = apply_filters( 'tec_events_custom_tables_v1_events_only_modifier_before_get_posts', $query );
 
 		$posts = $query->get_posts();
 

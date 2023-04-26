@@ -37,4 +37,5 @@ modules:
       dbHost: "%WP_DB_HOST%"
       dbUser: "%WP_DB_USER%"
       dbPassword: "%WP_DB_PASSWORD%"
+      domain: "%WP_URL%"
 

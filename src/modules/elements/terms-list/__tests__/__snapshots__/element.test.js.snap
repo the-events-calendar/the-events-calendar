@@ -20,6 +20,7 @@ exports[`Taxonomies Element Should render the list of items 1`] = `
       >
         <a
           className="tribe-editor__terms__list-item-link"
+          href="/events/tag/modern"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -34,6 +35,7 @@ exports[`Taxonomies Element Should render the list of items 1`] = `
       >
         <a
           className="tribe-editor__terms__list-item-link"
+          href="/events/tag/tribe"
           rel="noopener noreferrer"
           target="_blank"
         >
