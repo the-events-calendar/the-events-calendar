@@ -229,6 +229,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.6] =
+Dummy version for telemetry testing.
+
 = [6.0.12] 2023-04-10 =
 
 * Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
