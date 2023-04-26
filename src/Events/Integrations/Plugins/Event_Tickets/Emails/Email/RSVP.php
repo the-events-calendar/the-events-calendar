@@ -13,7 +13,7 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Han
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
 use TEC\Tickets\Emails\Email\RSVP as RSVP_Email;
 use TEC\Tickets\Emails\Email_Abstract;
-use TEC\Tickets\Emails\Email\Ticket;
+use TEC\Tickets\Emails\Email\Ticket as Tickets_Email_Ticket;
 use \Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 
 /**
@@ -95,7 +95,7 @@ class RSVP {
 		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
 
 		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( TEC\Tickets\Emails\Email\Ticket::class );
+			$email_class = tribe( Ticket::class );
 
 			if ( ! $email_class->is_enabled() ) {
 				return $attachments;
@@ -185,7 +185,7 @@ class RSVP {
 
 		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
 		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( Ticket::class );
+			$email_class = tribe( Tickets_Email_Ticket::class );
 
 			if ( ! $email_class->is_enabled() ) {
 				return false;
