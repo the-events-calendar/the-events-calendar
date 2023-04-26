@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Events\Integrations\Modules\Tickets_Emails;
+namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 
 use Tribe__Events__Main as TEC;
 use Tribe__Template;
@@ -10,7 +10,7 @@ use Tribe__Template;
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Modules\Tickets_Emails
+ * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
 class Template extends Tribe__Template {
 	/**
