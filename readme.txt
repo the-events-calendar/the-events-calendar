@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.12
+Stable tag: 6.0.14
 Tested up to: 6.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.13] TBD =
+= [6.0.14] TBD =
 
 * Feature - Include Events data into the Tickets Email for compatibility with Event Tickets [ET-1552] [ET-1553]
 
