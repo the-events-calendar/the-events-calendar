@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.14] TBD =
 
-
+* Feature - Include Events data into the Tickets Email for compatibility with Event Tickets [ET-1552] [ET-1553]
 
 = [6.0.12] 2023-04-10 =
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace TEC\Events\Integrations\Plugins\Rank_Math;
+namespace TEC\Events\Integrations\Plugins\Event_Tickets;
 
-use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
+use TEC\Events\Integrations\Integration_Abstract;
 
 /**
  * Class Provider
  *
  * @since   TBD
  *
- * @package TEC\Events\Integrations\Plugins\Rank_Math
+ * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
 class Provider extends Integration_Abstract {
 	use Plugin_Integration;
@@ -19,22 +19,21 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public static function get_slug(): string {
-		return 'seo-by-rank-math';
+		return 'event-tickets';
 	}
 
 	/**
 	 * @inheritDoc
-	 *
-	 * @return bool Whether or not integrations should load.
 	 */
 	public function load_conditionals(): bool {
-		return defined( 'RANK_MATH_FILE' ) && ! empty( RANK_MATH_FILE );
+		return function_exists( 'tribe_tickets' );
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	protected function load(): void {
-		add_filter( 'tribe_events_add_canonical_tag', '__return_false' );
+		// Loads Tickets Emails.
+		$this->container->register( Emails\Provider::class );
 	}
 }
