@@ -81,7 +81,8 @@ class Tribe__Events__Query {
 		// Refresh the query post types: they might have been modified.
 		$query_post_types = (array) $query->get( 'post_type' );
 		// Add our post type if we are on the tag archive - we need to check our global wp_query for this.
-		$on_tag_archive_page = is_tag();
+		global $wp_query;
+		$on_tag_archive_page = isset( $wp_query ) && is_tag();
 		// Add Events to tag archives when not looking at the admin screen for posts.
 		if (
 			! $any_post_type
