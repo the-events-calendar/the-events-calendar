@@ -95,7 +95,7 @@ class Ticket {
 			return $attachments;
 		}
 
-		$post_id = $email_class->__get( 'post_id' );
+		$post_id = $email_class->get( 'post_id' );
 
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $attachments;
