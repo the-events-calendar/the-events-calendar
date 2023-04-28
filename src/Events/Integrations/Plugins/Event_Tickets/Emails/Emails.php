@@ -64,7 +64,7 @@ class Emails {
 			$venue                = $event->venues[0];
 			$append_after_address = array_filter( array_map( 'trim', [ $venue->state_province, $venue->state, $venue->province ] ) );
 			$event_venue_address  = $venue->address . ( $venue->address && ( $append_after_address || $venue->city ) ? ', ' : '' );
-			$event_venue_address .= $append_after_address;
+			$event_venue_address .= implode( ' ', $append_after_address );
 
 			$tec_placeholders = array_merge(
 				$tec_placeholders,
