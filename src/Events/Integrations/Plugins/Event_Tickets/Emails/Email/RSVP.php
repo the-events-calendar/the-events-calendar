@@ -106,7 +106,7 @@ class RSVP {
 			return $attachments;
 		}
 
-		$post_id = $email_class->__get( 'post_id' );
+		$post_id = $email_class->get( 'post_id' );
 
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $attachments;
@@ -168,7 +168,7 @@ class RSVP {
 	}
 
 	/**
-	 * Determines whether or not RSVP should show calendar links.
+	 * Determines whether RSVP should show calendar links.
 	 *
 	 * @since TBD
 	 *

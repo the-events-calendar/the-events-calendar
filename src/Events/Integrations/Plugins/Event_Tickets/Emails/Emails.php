@@ -35,7 +35,7 @@ class Emails {
 	 * @return array<string,mixed> The filtered placeholders for the Tickets Emails.
 	 */
 	public function include_placeholders( $placeholders, $email_id, $email_class ) {
-		$post_id = $email_class->post_id;
+		$post_id = $email_class->get( 'post_id' );
 
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $placeholders;
@@ -175,7 +175,7 @@ class Emails {
 	 * @return array<string,mixed> The filtered arguments for the Tickets Emails .
 	 */
 	public function include_template_args( $args, $id, $template, $email ): array {
-		$post_id = $email->__get( 'post_id' );
+		$post_id = $email->get( 'post_id' );
 
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $args;
