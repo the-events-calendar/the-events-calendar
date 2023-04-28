@@ -63,6 +63,7 @@ class Full_Activation_Provider extends Service_Provider {
 			$this->container->register( Updates\Provider::class );
 			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
+			$this->container->register( Events\Event_Cleaner\Provider::class );
 
 			// This default variable is defined in TEC, so we register it here, even though it relates to ECP.
 			$this->container->register( Max_Recurrence_Provider::class );
@@ -100,7 +101,7 @@ class Full_Activation_Provider extends Service_Provider {
 		/**
 		 * Fires an action when the Custom Tables v1 implementation is fully activated.
 		 *
-		 * @since TBD
+		 * @since 6.0.13
 		 */
 		do_action( 'tec_events_custom_tables_v1_fully_activated' );
 

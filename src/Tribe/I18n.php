@@ -52,14 +52,14 @@ class I18n {
 	/**
 	 * A flag to require the translations to be returned indexed by language.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 */
 	public const RETURN_BY_LANGUAGE = 8;
 
 	/**
 	 * A flag to require the translations to include the slug version of the translation.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 */
 	public const COMPILE_SLUG =  9;
 
@@ -125,7 +125,7 @@ class I18n {
 	 *
 	 * @since 5.1.1
 	 * @since 5.1.5   Add support for the $flags argument.
-	 * @since TBD     Add support for the `RETURN_BY_LANGUAGE` and `COMPILE_SLUG` flags.
+	 * @since 6.0.13     Add support for the `RETURN_BY_LANGUAGE` and `COMPILE_SLUG` flags.
 	 *
 	 * @param array $strings    An array of strings (required).
 	 * @param array $languages Which l10n to fetch the string (required).
@@ -196,7 +196,7 @@ class I18n {
 	 * it uses 'sanitize_title()'.
 	 *
 	 * @since 6.0.2
-	 * @since TBD  Add support for `static::COMPILE_SLUG` flag.
+	 * @since 6.0.13  Add support for `static::COMPILE_SLUG` flag.
 	 *
 	 * @param array<string> $strings   An array of strings (required).
 	 * @param array<string> $languages Which l10n to fetch the string (required).
@@ -306,7 +306,7 @@ class I18n {
 	 *
 	 * @since 5.1.1
 	 * @since 5.1.5   Add support for the $flags argument.
-	 * @since TBD     Add support for the `static::COMPILE_SLUG` flag.
+	 * @since 6.0.13     Add support for the `static::COMPILE_SLUG` flag.
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.

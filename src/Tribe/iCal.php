@@ -331,6 +331,14 @@ class Tribe__Events__iCal {
 		if ( $list_view_slug === $args['eventDisplay'] ) {
 			// Whe producing a List view iCal feed the `eventDate` is misleading.
 			unset( $args['eventDate'] );
+
+			// If passed a date, only observe it if it's in the future.
+			if ( isset( $args['tribe-bar-date'] ) ) {
+				$set_date = Dates::build_date_object( $args['tribe-bar-date'] );
+				if ( $set_date < Dates::build_date_object() ) {
+					unset( $args['tribe-bar-date'] );
+				}
+			}
 		}
 
 		return $this->get_events_list( $args, $wp_query );

@@ -137,7 +137,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$cache_key = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
 
 		// Try getting the memoized value.
-		$post = $cache[ $cache_key ];
+		$post = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 
 		if ( $post === false ) {
 			// No memoized value, build from properties.
@@ -159,7 +159,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
 			// Memoize the value.
-			$cache[ $cache_key ] = $post;
+			$cache->set( $cache_key, $post, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		if ( empty( $post ) ) {

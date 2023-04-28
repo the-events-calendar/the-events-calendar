@@ -28,5 +28,6 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->container->register( Plugins\Rank_Math\Provider::class );
 		$this->container->register( Plugins\Colbri_Page_Builder\Provider::class );
 		$this->container->register( Plugins\Event_Tickets\Provider::class );
+		$this->container->register( Plugins\Elementor\Provider::class );
 	}
 }

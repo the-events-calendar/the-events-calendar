@@ -8,7 +8,7 @@ use TEC\Common\Integrations\Traits\Plugin_Integration;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.13
  *
  * @package TEC\Events\Integrations\Plugins\Rank_Math
  */
