@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.13] 2023-05-08 =
 
 * Tweak - Ensure the `Subscribe to Calendar` dropdown toggles on and off on click for an improved user experience. [TEC-4388]
 * Fix - Ensure Events are displayed correctly on Elementor's `Posts` widget. [TEC-4685]
