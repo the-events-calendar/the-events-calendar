@@ -929,7 +929,7 @@ class Builder {
 	/**
 	 * Compiles the current order by statements if any exist and returns the entire `ORDER BY` clause.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @return string The compiled ORDER BY clause.
 	 */
@@ -1095,7 +1095,7 @@ class Builder {
 	 * Allow to define the clause for order by on the Query.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Can accept multiple order by statements. Previously `order_by()` would only use the last statement specified.
+	 * @since 6.0.13 Can accept multiple order by statements. Previously `order_by()` would only use the last statement specified.
 	 *
 	 * @param string|null $column The name of the column to order by, if not provided fallback to the primary key name
 	 * @param string      $order  The type of order for the results.

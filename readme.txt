@@ -229,20 +229,24 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.0.13] 2023-05-08 =
 
-* Tweak - Ensure the `Subscribe to Calendar` dropdown toggles on and off on click for an improved user experience. [TEC-4388]
-* Fix - Ensure Events are displayed correctly on Elementor's `Posts` widget. [TEC-4685]
-* Fix - Pass a NOOP callback function to Google Maps scripts to prevent JS warnings. [TEC-4762]
-* Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
-* Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
-* Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
-* Tweak - Added filter `tec_events_event_cleaner_trash_cron_frequency` to allow customizing the frequency of the trash old event cron. [ECP-1475]
-* Tweak - Ensure we have the ability to hide the Event Tickets Activation notice using the `defined( 'TRIBE_HIDE_UPSELL' )` constant. [TEC-4767]
-* Fix - For CT1 in markers the occurrence would sometimes not be the same one found as the date field, only one was filtering by post_status. We were only using `provisional_id` for CT1, now we fallback to `post_id`. Now removing options when no occurrences are found, instead of retaining a stale value. [TEC-4768]
-* Fix - Fix a `Fatal error: Uncaught TypeError: Illegal offset type in isset or empty in …/wp-content/plugins/sitepress-multilingual-cms/classes/url-handling/converter/class-wpml-url-cached-converter.php:46` fatal with our WPML integration when filtering Event permalinks for Event views. [TEC-4770]
-* Fix - Some button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
+* Fix - Ensure Events are displayed correctly on Elementor's `Posts` widget. [TEC-4685]
+* Fix - Fix a `Fatal error: Uncaught TypeError: Illegal offset type in isset or empty in …/wp-content/plugins/sitepress-multilingual-cms/classes/url-handling/converter/class-wpml-url-cached-converter.php:46` fatal with our WPML integration when filtering Event permalinks for Event views. [TEC-4770]
+* Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
+* Fix - For CT1 in markers the occurrence would sometimes not be the same one found as the date field, only one was filtering by post_status. We were only using `provisional_id` for CT1, now we fallback to `post_id`. Now removing options when no occurrences are found, instead of retaining a stale value. [TEC-4768]
+* Fix - Pass a NOOP callback function to Google Maps scripts to prevent JS warnings. [TEC-4762]
+* Fix - Some button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
+* Tweak - Added filter `tec_events_event_cleaner_trash_cron_frequency` to allow customizing the frequency of the trash old event cron. [ECP-1475]
+* Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
+* Tweak - Ensure the `Subscribe to Calendar` dropdown toggles on and off on click for an improved user experience. [TEC-4388]
+* Tweak - Ensure we have the ability to hide the Event Tickets Activation notice using the `defined( 'TRIBE_HIDE_UPSELL' )` constant. [TEC-4767]
+* Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
+* Tweak - Added filters: `tribe_events_known_range_stati`, `tec_events_custom_tables_v1_events_only_modifier_before_get_posts`, `tec_events_event_cleaner_trash_cron_frequency`, `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status`, `tribe_events_add_canonical_tag`
+* Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
+* Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
+* Language - 1 new strings added, 32 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.12] 2023-04-10 =
 

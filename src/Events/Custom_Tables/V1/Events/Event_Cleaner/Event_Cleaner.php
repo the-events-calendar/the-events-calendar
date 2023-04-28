@@ -9,7 +9,7 @@ use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
  *
  * This is the service for our "Old" Event Cleaner system.
  *
- * @since   TBD
+ * @since   6.0.13
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Event_Cleaner
  */
@@ -19,7 +19,7 @@ class Event_Cleaner {
 	 * Hooks into our automated event cleaner service, and modifies the expired events query to handle occurrences for
 	 * recurring events.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param string $sql The original query to retrieve expired events.
 	 *
