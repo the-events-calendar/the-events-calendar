@@ -935,7 +935,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	public function update_venue_title( $new_title, $title, $sep = null ) {
 		if ( is_singular( Tribe__Events__Venue::POSTTYPE ) ) {
 			$venue     = tribe_get_venue();
-			$new_title = $venue_name;
+			$new_title = $venue;
 		}
 
 		return $new_title;

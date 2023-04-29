@@ -821,7 +821,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	public function update_organizer_title( $new_title, $title, $sep = null ) {
 		if ( is_singular( Tribe__Events__Organizer::POSTTYPE ) ) {
 			$organizer = tribe_get_organizer();
-			$new_title = $organizer_name;
+			$new_title = $organizer;
 		}
 
 		return $new_title;
