@@ -156,6 +156,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, [ $this, 'save' ], 10, 4 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', [ $this, 'meta_box_title' ], 5, 2 );
 		add_filter( 'tribe_events_linked_post_default', [ $this, 'linked_post_default' ], 10, 2 );
+		add_filter( 'tribe_events_title_tag', [ $this, 'update_venue_title' ], 10, 3 );
 		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
 		add_action( 'admin_bar_menu', [ $this, 'edit_venue_admin_bar_menu_link' ], 80 );
 	}
@@ -920,5 +921,23 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				'href'  => admin_url( 'post.php?post=' . $wp_query->queried_object->ID . '&action=edit' ),
 			]);
 		}
+	}
+
+	/**
+	 * Updates the page title on the venue archive page to include the venue title.
+	 * 
+	 * @param string      $new_title The modified page title.
+	 * @param string      $title     The original page title.
+	 * @param string|null $sep       The separator character.
+	 * 
+	 * @return string The modified page title.
+	 */
+	public function update_venue_title( $new_title, $title, $sep = null ) {
+		if ( is_singular( Tribe__Events__Venue::POSTTYPE ) ) {
+			$venue     = tribe_get_venue();
+			$new_title = $venue_name;
+		}
+
+		return $new_title;
 	}
 }
