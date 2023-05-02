@@ -87,7 +87,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			/**
 			 * Allows adjusting the frequency the trash old events cron will run.
 			 *
-			 * @since TBD
+			 * @since 6.0.13
 			 *
 			 * @param string The frequency that the trash old events cleaner will run. Defaults to `twicedaily`.
 			 */
@@ -143,7 +143,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Selects events to be moved to trash or permanently deleted.
 	 *
 	 * @since 4.6.13
-	 * @since TBD Now batches each purge. By default, it limits to 15 occurrences.
+	 * @since 6.0.13 Now batches each purge. By default, it limits to 15 occurrences.
 	 *
 	 * @param int $month - The value chosen by user to purge all events older than x months
 	 *
@@ -185,7 +185,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 * @param string $sql - The query statement
 		 *
 		 * @since 4.6.13
-		 * @since TBD Added a limit param to the default query.
+		 * @since 6.0.13 Added a limit param to the default query.
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
@@ -201,7 +201,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 * @param array $args - The array of variables
 		 *
 		 * @since 4.6.13
-		 * @since TBD Added a limit arg, defaulting to 100.
+		 * @since 6.0.13 Added a limit arg, defaulting to 100.
 		 */
 		$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
 
@@ -217,7 +217,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Moves to trash events that ended before a date specified by user
 	 *
 	 * @since 4.6.13
-	 * @since TBD Added a return value, and suspends Tribe__Events__Dates__Known_Range::rebuild_known_range() until batch is complete.
+	 * @since 6.0.13 Added a return value, and suspends Tribe__Events__Dates__Known_Range::rebuild_known_range() until batch is complete.
 	 *
 	 * @return array<string,WP_Post|false|null> An associative array of ID to the result of wp_trash_post().
 	 */
@@ -244,7 +244,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Will add the hooks for the Tribe__Events__Dates__Known_Range::rebuild_known_range() callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 */
 	public function hook_rebuild_known_range() {
 		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
@@ -260,7 +260,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	/**
 	 * Will remove the hooks for the Tribe__Events__Dates__Known_Range::rebuild_known_range() callbacks.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 */
 	public function unhook_rebuild_known_range() {
 		remove_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
@@ -295,4 +295,3 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		}
 	}
 }
-

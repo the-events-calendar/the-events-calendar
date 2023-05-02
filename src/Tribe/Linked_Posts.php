@@ -1067,7 +1067,7 @@ class Tribe__Events__Linked_Posts {
 		/**
 		 *  Filters the available post statuses that are used to retrieve `my posts`.
 		 *
-		 * @since TBD
+		 * @since 6.0.13
 		 *
 		 * @param array  $available_post_status Array of available post status. Example: publish, draft, private, pending
 		 * @param string $post_type Post type of the linked post
@@ -1105,7 +1105,7 @@ class Tribe__Events__Linked_Posts {
 			/**
 			 *  Filters the available post statuses that are used to retrieve ` posts`.
 			 *
-			 * @since TBD
+			 * @since 6.0.13
 			 *
 			 * @param array  $available_post_status Array of available post status. Example: publish, draft, private, pending
 			 * @param string $post_type Post type of the linked post

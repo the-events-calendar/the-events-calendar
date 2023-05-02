@@ -51,7 +51,7 @@ tribe.events.views.icalLinks = {};
 	 * Toggles active class on view selector button
 	 *
 	 * @since 5.12.0
-	 * @since TBD - Added logic to toggle dropdown content visibility and icon rotation.
+	 * @since 6.0.13 - Added logic to toggle dropdown content visibility and icon rotation.
 	 *
 	 * @param {Event} event event object for click event
 	 *
@@ -70,7 +70,7 @@ tribe.events.views.icalLinks = {};
 
 		// Remove the rotate class from all other icon elements.
 		$( obj.selectors.icalLinksIcon).not( $icon ).removeClass( obj.selectors.icalLinksIconRotate );
-		
+
 		// Toggle the rotate class for the current icon element.
 		$icon.toggleClass( obj.selectors.icalLinksIconRotate );
 
@@ -81,7 +81,7 @@ tribe.events.views.icalLinks = {};
 	/**
 	 * Closes dropdown content when clicked outside of the dropdown area.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param {Event} event event object for click event
 	 *
@@ -180,14 +180,14 @@ tribe.events.views.icalLinks = {};
 	 * Handles the initialization of the view selector when Document is ready
 	 *
 	 * @since 5.12.0
-	 * @since TBD - Added logic to ensure that the 'init' method of the 'obj' object is
+	 * @since 6.0.13 - Added logic to ensure that the 'init' method of the 'obj' object is
 	 *              called when the document is fully loaded and ready for manipulation.
 	 *
 	 * @return {void}
 	 */
 	$( document ).ready( function() {
 		obj.init( null, 0, $( 'body' ), {} );
-	});	
+	});
 
 	// Configure on document ready
 	$( obj.ready );
