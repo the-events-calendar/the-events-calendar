@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [TBD]
+
 = [6.0.13] 2023-05-08 =
 
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
