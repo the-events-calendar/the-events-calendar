@@ -18,6 +18,10 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
+if ( ! $event ) {
+	return;
+}
+
 $date = $event->schedule_details->value();
 
 if ( empty( $date ) ) {
