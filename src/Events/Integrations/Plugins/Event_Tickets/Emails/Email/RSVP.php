@@ -83,7 +83,7 @@ class RSVP {
 	 * @since TBD
 	 *
 	 * @param array<string,string> $attachments  The attachments for the Tickets Emails.
-	 * @param Dispatcher           $dispatcher  The email class.
+	 * @param Dispatcher           $dispatcher   The Email dispatcher object.
 	 *
 	 * @return array<string,string> The filtered attachments for the RSVP Emails.
 	 */
