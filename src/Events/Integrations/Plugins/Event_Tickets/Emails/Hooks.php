@@ -66,11 +66,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Ticket Email.
 		add_filter( 'tec_tickets_emails_ticket_settings', [ $this, 'filter_include_ticket_email_settings' ], 10 );
-		add_filter( 'tec_tickets_emails_dispatcher_ticket_attachments', [ $this, 'filter_include_ticket_email_attachments' ], 10, 3 );
+		add_filter( 'tec_tickets_emails_dispatcher_ticket_attachments', [ $this, 'filter_include_ticket_email_attachments' ], 10, 2 );
 
 		// RSVP Email.
 		add_filter( 'tec_tickets_emails_rsvp_settings', [ $this, 'filter_include_rsvp_email_settings' ], 10 );
-		add_filter( 'tec_tickets_emails_dispatcher_rsvp_attachments', [ $this, 'filter_include_rsvp_email_attachments' ], 10, 3 );
+		add_filter( 'tec_tickets_emails_dispatcher_rsvp_attachments', [ $this, 'filter_include_rsvp_email_attachments' ], 10, 2 );
 	}
 
 	/**
