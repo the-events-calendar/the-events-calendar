@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 
 use TEC\Tickets\Emails\Email_Abstract;
 use Tribe\Utils\Lazy_String;
+use Tribe__Events__Main;
 
 /**
  * Class Emails.
@@ -145,7 +146,7 @@ class Emails {
 			'thumbnail'        => (object) [
 				'exists'    => true,
 				'full'      => (object) [
-					'url' => esc_url( plugins_url( '/the-events-calendar/src/resources/images/event-example-image.jpg' ) ),
+					'url' => esc_url( tribe_resource_url( 'images/event-example-image.jpg', false, null, Tribe__Events__Main::instance() ) ),
 				],
 				'thumbnail' => (object) [
 					'alt'   => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
