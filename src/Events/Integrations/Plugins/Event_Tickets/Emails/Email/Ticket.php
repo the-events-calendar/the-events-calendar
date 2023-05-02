@@ -10,6 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email;
 
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Handler;
+use TEC\Tickets\Emails\Dispatcher;
 use TEC\Tickets\Emails\Email\Ticket as Ticket_Email;
 use TEC\Tickets\Emails\Email_Abstract;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
@@ -81,12 +82,12 @@ class Ticket {
 	 * @since TBD
 	 *
 	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
-	 * @param string               $email_id     The email ID.
-	 * @param Email_Abstract       $email_class  The email class.
+	 * @param Dispatcher           $dispatcher   The Email dispatcher object.
 	 *
 	 * @return array<string,string> The filtered attachments for the Tickets Emails.
 	 */
-	public function include_attachments( $attachments, $email_id, $email_class ) {
+	public function include_attachments( $attachments, $dispatcher ) {
+		$email_class = $dispatcher->get_email();
 		if ( ! $email_class->is_enabled() ) {
 			return $attachments;
 		}
