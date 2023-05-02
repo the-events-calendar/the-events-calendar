@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.0.15] TBD =
+
+
+
 = [6.0.13] 2023-05-08 =
 
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
