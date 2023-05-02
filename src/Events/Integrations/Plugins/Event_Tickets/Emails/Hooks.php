@@ -17,6 +17,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\RSVP;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\Ticket;
+use TEC\Tickets\Emails\Dispatcher;
 use TEC\Tickets\Emails\Email_Abstract;
 use \Tribe__Template as Common_Template;
 
@@ -151,13 +152,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $attachments The existing RSVP email attachments.
-	 * @param Email_Abstract $email_class The email class instance.
+	 * @param array      $attachments The existing RSVP email attachments.
+	 * @param Dispatcher $dispatcher  The email class instance.
 	 *
 	 * @return array The modified RSVP email attachments.
 	 */
-	public function filter_include_rsvp_email_attachments( $attachments, $email_class ): array {
-		return $this->container->make( RSVP::class )->include_attachments( $attachments, $email_class );
+	public function filter_include_rsvp_email_attachments( $attachments, $dispatcher ): array {
+		return $this->container->make( RSVP::class )->include_attachments( $attachments, $dispatcher );
 	}
 
 	/**
@@ -165,13 +166,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $attachments The existing ticket email attachments.
-	 * @param Email_Abstract $email_class The email class instance.
+	 * @param array      $attachments The existing ticket email attachments.
+	 * @param Dispatcher $dispatcher  The email class instance.
 	 *
 	 * @return array The modified ticket email attachments.
 	 */
-	public function filter_include_ticket_email_attachments( $attachments, $email_class ): array {
-		return $this->container->make( Ticket::class )->include_attachments( $attachments, $email_class );
+	public function filter_include_ticket_email_attachments( $attachments, $dispatcher ): array {
+		return $this->container->make( Ticket::class )->include_attachments( $attachments, $dispatcher );
 	}
 
 	/**
@@ -179,8 +180,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param string          $file        Template file.
-	 * @param string          $name        Template name.
+	 * @param string          $file     Template file.
+	 * @param string          $name     Template name.
 	 * @param Common_Template $template Event Tickets template object.
 	 *
 	 * @return void
@@ -221,8 +222,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since TBD
 	 *
-	 * @param string          $file        Template file.
-	 * @param string          $name        Template name.
+	 * @param string          $file     Template file.
+	 * @param string          $name     Template name.
 	 * @param Common_Template $template Event Tickets template object.
 	 *
 	 * @return void

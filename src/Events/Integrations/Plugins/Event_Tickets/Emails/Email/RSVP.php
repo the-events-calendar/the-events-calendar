@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email;
 
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Handler;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
+use TEC\Tickets\Emails\Dispatcher;
 use TEC\Tickets\Emails\Email\RSVP as RSVP_Email;
 use TEC\Tickets\Emails\Email_Abstract;
 use TEC\Tickets\Emails\Email\Ticket as Tickets_Email_Ticket;
@@ -82,11 +83,12 @@ class RSVP {
 	 * @since TBD
 	 *
 	 * @param array<string,string> $attachments  The attachments for the Tickets Emails.
-	 * @param Email_Abstract       $email_class  The email class.
+	 * @param Dispatcher           $dispatcher  The email class.
 	 *
 	 * @return array<string,string> The filtered attachments for the RSVP Emails.
 	 */
-	public function include_attachments( $attachments, $email_class ) {
+	public function include_attachments( $attachments, $dispatcher ) {
+		$email_class = $dispatcher->get_email();
 		if ( ! $email_class->is_enabled() ) {
 			return $attachments;
 		}
