@@ -924,7 +924,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	}
 
 	/**
-	 * Updates the page title on the venue archive page to include the venue title.
+	 * Updates the page title on the venue single page to include the venue title.
 	 * 
 	 * @param string      $new_title The modified page title.
 	 * @param string      $title     The original page title.

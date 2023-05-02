@@ -810,7 +810,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	}
 
 	/**
-	 * Updates the page title on the organizer archive page to include the organizer title.
+	 * Updates the page title on the organizer single page to include the organizer title.
 	 * 
 	 * @param string      $new_title The modified page title.
 	 * @param string      $title     The original page title.
