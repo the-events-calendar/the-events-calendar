@@ -25,14 +25,7 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		if ( ! function_exists( 'tec_tickets_emails_is_enabled' ) ) {
-			return false;
-		}
-
-		if ( ! tec_tickets_emails_is_enabled() ) {
-			return false;
-		}
-
+		// We want users to always be able to preview Tickets Emails functionality.
 		return true;
 	}
 
