@@ -152,13 +152,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 *
 	 * @param array          $attachments The existing RSVP email attachments.
-	 * @param string         $email_id    The email identifier.
 	 * @param Email_Abstract $email_class The email class instance.
 	 *
 	 * @return array The modified RSVP email attachments.
 	 */
-	public function filter_include_rsvp_email_attachments( $attachments, $email_id, $email_class ): array {
-		return $this->container->make( RSVP::class )->include_attachments( $attachments, $email_id, $email_class );
+	public function filter_include_rsvp_email_attachments( $attachments, $email_class ): array {
+		return $this->container->make( RSVP::class )->include_attachments( $attachments, $email_class );
 	}
 
 	/**
@@ -167,13 +166,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 *
 	 * @param array          $attachments The existing ticket email attachments.
-	 * @param string         $email_id    The email identifier.
 	 * @param Email_Abstract $email_class The email class instance.
 	 *
 	 * @return array The modified ticket email attachments.
 	 */
-	public function filter_include_ticket_email_attachments( $attachments, $email_id, $email_class ): array {
-		return $this->container->make( Ticket::class )->include_attachments( $attachments, $email_id, $email_class );
+	public function filter_include_ticket_email_attachments( $attachments, $email_class ): array {
+		return $this->container->make( Ticket::class )->include_attachments( $attachments, $email_class );
 	}
 
 	/**

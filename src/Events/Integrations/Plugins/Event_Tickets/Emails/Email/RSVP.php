@@ -82,12 +82,11 @@ class RSVP {
 	 * @since TBD
 	 *
 	 * @param array<string,string> $attachments  The attachments for the Tickets Emails.
-	 * @param string               $email_id     The email ID.
 	 * @param Email_Abstract       $email_class  The email class.
 	 *
 	 * @return array<string,string> The filtered attachments for the RSVP Emails.
 	 */
-	public function include_attachments( $attachments, $email_id, $email_class ) {
+	public function include_attachments( $attachments, $email_class ) {
 		if ( ! $email_class->is_enabled() ) {
 			return $attachments;
 		}
