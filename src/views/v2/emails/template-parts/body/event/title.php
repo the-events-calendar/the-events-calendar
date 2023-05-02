@@ -18,7 +18,10 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
-if ( empty( $event ) && empty( $event->title ) ) {
+if ( empty( $event ) ) {
+	return;
+}
+if ( empty( $event->title ) ) {
 	return;
 }
 ?>
