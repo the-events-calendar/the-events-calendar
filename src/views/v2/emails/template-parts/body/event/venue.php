@@ -18,6 +18,10 @@
  * @see tribe_get_event() For the format of the event object.
  */
 
+if ( empty( $event ) ) {
+	return;
+}
+
 if ( empty( $event->venues ) ) {
 	return;
 }
