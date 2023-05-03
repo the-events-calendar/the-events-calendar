@@ -28,6 +28,10 @@ if ( empty( $event->venues ) ) {
 
 $venue = $event->venues[0];
 
+if ( empty( $venue ) ) {
+	return;
+}
+
 ?>
 <tr>
 	<td class="tec-tickets__email-table-content-event-venue-title-container">
