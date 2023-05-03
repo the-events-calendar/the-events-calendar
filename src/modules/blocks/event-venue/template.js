@@ -71,6 +71,11 @@ class EventVenue extends Component {
 		onCreateNew: PropTypes.func,
 		removeVenue: PropTypes.func,
 		editVenue: PropTypes.func,
+		volatile: PropTypes.any,
+		name: PropTypes.any,
+		store: PropTypes.any,
+		fields: PropTypes.any,
+		setSubmit: PropTypes.any,
 	};
 
 	constructor( props ) {
@@ -90,9 +95,9 @@ class EventVenue extends Component {
 		}
 	}
 
-	componentDidUpdate( prevProps, prevState ) {
+	componentDidUpdate( prevProps ) {
 		const { isSelected, edit, create, setSubmit, details } = this.props;
-		const unSelected = prevProps.isSelected && !isSelected;
+		const unSelected = prevProps.isSelected && ! isSelected;
 		const address = addressToMapString( getAddress( details ) );
 		const { derivedAddressString } = this.state;
 
@@ -318,12 +323,12 @@ class EventVenue extends Component {
 	 *
 	 * @todo  We need to save the data into Meta Fields to avoid redoing the Geocode
 	 * @todo  Move the Maps into Pro
-	 * @param  {String} address Address string for geocode query.
+	 * @param  {string} address Address string for geocode query.
 	 * @return {void}
 	 */
 	setCoordinatesState = ( address ) => {
 		// Clear our state?
-		if ( !address ) {
+		if ( ! address ) {
 			this.setState( { coords: { lat: null, lng: null }, derivedAddressString: '' } );
 			return;
 		}
@@ -338,9 +343,9 @@ class EventVenue extends Component {
 			const { location } = results[ 0 ].geometry;
 			this.setState( {
 				coords: { lat: location.lat(), lng: location.lng() },
-				derivedAddressString: address
+				derivedAddressString: address,
 			} );
-		} )
+		} );
 	}
 }
 
