@@ -170,6 +170,9 @@ class Ticket {
 	 * @return bool
 	 */
 	public function should_show_links( $args ): bool {
+		if ( empty( $args['event'] ) ) {
+			return false;
+		}
 
 		$email_class = tribe( Ticket_Email::class );
 		if ( ! $email_class->is_enabled() ) {

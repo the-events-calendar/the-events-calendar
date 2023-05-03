@@ -24,7 +24,7 @@
 }
 
 $separator            = '<br />';
-$append_after_address = array_filter( array_map( 'trim', [ $venue->state_province, $venue->state, $venue->province ] ) );
+$append_after_address = array_filter( array_map( 'trim', [ $venue->state_province ?? null, $venue->state ?? null, $venue->province ?? null ] ) );
 
 ?>
 <table role="presentation" class="tec-tickets__email-table-content-event-venue-address-table">

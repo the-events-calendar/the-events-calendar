@@ -65,7 +65,7 @@ class Emails {
 			$venue                = $event->venues[0];
 			$append_after_address = array_filter( array_map( 'trim', [ $venue->state_province, $venue->state, $venue->province ] ) );
 			$event_venue_address  = $venue->address . ( $venue->address && ( $append_after_address || $venue->city ) ? ', ' : '' );
-			$event_venue_address .= implode( ' ', $append_after_address );
+			$event_venue_address  .= implode( ' ', $append_after_address );
 
 			$tec_placeholders = array_merge(
 				$tec_placeholders,
@@ -124,6 +124,7 @@ class Emails {
 		}
 
 		$preview_event = [
+			'ID'               => 213123123,
 			'title'            => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
 			'schedule_details' => new Lazy_String(
 				static function () {
@@ -219,6 +220,7 @@ class Emails {
 				sprintf( "Couldn't generate calendar invite file for Tickets/RSVP email. Event ID: %s", $event_id ),
 				'Event Tickets Emails Integration - ICS'
 			);
+
 			return $attachments;
 		}
 

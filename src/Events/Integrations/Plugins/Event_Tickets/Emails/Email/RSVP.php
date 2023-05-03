@@ -178,6 +178,10 @@ class RSVP {
 	 * @return bool
 	 */
 	public function should_show_links( $args ): bool {
+		if ( empty( $args['event'] ) ) {
+			return false;
+		}
+
 		// Double assigned due to needing to reference the original RSVP class later on.
 		$rsvp_class = $email_class = tribe( RSVP_Email::class );
 		if ( ! $email_class->is_enabled() ) {
