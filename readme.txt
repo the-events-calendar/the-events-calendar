@@ -231,6 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.15] TBD =
 
+* Fix - Ensure we add a noindex meta to the Venue and Organizer pages with no upcoming events to improve SEO. [TEC-4717] 
+
 = [6.0.13] 2023-05-08 =
 
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
