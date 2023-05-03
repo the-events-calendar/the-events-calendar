@@ -479,8 +479,7 @@ tribe.events.views.manager = {};
 		var urlObj = new URL( data.url );
 
 		// Check if the 'eventDisplay' query parameter is set to 'month' or 'week'.
-		if ( 'month' === urlObj.searchParams.get( 'eventDisplay' ) ||
-			 'week' === urlObj.searchParams.get( 'eventDisplay' ) ) {
+		if ( 'month' === urlObj.searchParams.get( 'eventDisplay' ) || 'week' === urlObj.searchParams.get( 'eventDisplay' ) ) { // eslint-disable-next-line max-len
 			// Delete the 'paged' parameter since per-day events never paginate.
 			urlObj.searchParams.delete( 'paged' );
 
