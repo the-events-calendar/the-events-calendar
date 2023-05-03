@@ -231,6 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.15] TBD =
 
+* Fix - Fix Fatal error: `Uncaught TypeError: array_search(): Argument #2 ($haystack) must be of type array, string given in /nas/content/live/website/wp-content/plugins/the-events-calendar/src/Tribe/Main.php:3535`. [TEC-4780]
+
 = [6.0.13] 2023-05-08 =
 
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
