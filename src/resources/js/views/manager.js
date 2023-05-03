@@ -465,7 +465,7 @@ tribe.events.views.manager = {};
 	 * we are going to pass the answer to.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Added a check to remove the `paged` parameter in the URL for `month` and `week` views.
+	 * @since TBD Added a check to remove the `paged` parameter from the URL on `month` and `week` views.
 	 *
 	 * @param  {object}         data       DOM Event related to the Click action
 	 * @param  {Element|jQuery} $container Which container we are dealing with
