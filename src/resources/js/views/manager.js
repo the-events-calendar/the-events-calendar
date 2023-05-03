@@ -479,8 +479,9 @@ tribe.events.views.manager = {};
 		var urlObj = new URL( data.url );
 
 		// Check if the 'eventDisplay' query parameter is set to 'month' or 'week'.
-		if ( 'month' === urlObj.searchParams.get( 'eventDisplay' ) || 'week' === urlObj.searchParams.get( 'eventDisplay' ) ) {
-			// If the 'eventDisplay' parameter is set to 'month' or 'week', delete the 'paged' parameter since per-day events never paginate.
+		if ( 'month' === urlObj.searchParams.get( 'eventDisplay' ) ||
+			 'week' === urlObj.searchParams.get( 'eventDisplay' ) ) {
+			// Delete the 'paged' parameter since per-day events never paginate.
 			urlObj.searchParams.delete( 'paged' );
 
 			// Update the data.url string with the modified URL.
