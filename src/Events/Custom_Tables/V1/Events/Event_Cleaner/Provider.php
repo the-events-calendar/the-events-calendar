@@ -12,7 +12,7 @@ use Tribe__Main;
  *
  * This is the provider for our "Old" Event Cleaner system.
  *
- * @since   TBD
+ * @since   6.0.13
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Event_Cleaner
  */
@@ -20,7 +20,7 @@ class Provider extends Service_Provider {
 	/**
 	 * A flag property indicating whether the Service Provide did register or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @var bool
 	 */
@@ -29,7 +29,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Registers the filters and implementations required by the Custom Tables implementation.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @return bool If successfully registered. Will only register once, if called again will return false to indicate
 	 *              already registered.
@@ -53,7 +53,7 @@ class Provider extends Service_Provider {
 	 * Deprecating/removing 'tec.event-cleaner' and the scheduler. This is now being handled by the CT1 Event Cleaner.
 	 * system in CT1.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 */
 	public function remove_old_recurrence_cleaners() {
 		/**
@@ -90,7 +90,7 @@ class Provider extends Service_Provider {
 	 * Hooks into our automated event cleaner service, and modifies the expired events query to handle only single
 	 * occurrences.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param string $sql The original query to retrieve expired events.
 	 *

@@ -407,7 +407,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 * Allows for filtering the embedded Google Maps API URL.
 		 *
 		 * @since 4.7
-		 * @since TBD Added the `$gmaps_api_callback` parameter.
+		 * @since 6.0.13 Added the `$gmaps_api_callback` parameter.
 		 *
 		 * @param string $api_url The Google Maps API URL.
 		 * @param string $gmaps_api_callback The Google Maps API callback.

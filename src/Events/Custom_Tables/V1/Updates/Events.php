@@ -130,7 +130,7 @@ class Events {
 	 * used to track the earliest Event start date and the latest Event end date.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Fix for "markers" being computed incorrectly, and only fetching provisional IDs.
+	 * @since 6.0.13 Fix for "markers" being computed incorrectly, and only fetching provisional IDs.
 	 *
 	 * @return true To indicate the earliest and latest Event dates were updated.
 	 */
@@ -160,7 +160,7 @@ class Events {
 	/**
 	 * Get the earliest "valid" occurrence in the database.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param array|string|null $stati An array of post statuses to filter the occurrences for.
 	 *
@@ -192,7 +192,7 @@ class Events {
 	/**
 	 * Get the latest "valid" occurrence in the database.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param array|string|null $stati An array of post statuses to filter the occurrences for.
 	 *

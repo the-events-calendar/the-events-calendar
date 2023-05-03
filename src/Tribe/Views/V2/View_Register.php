@@ -213,7 +213,7 @@ class View_Register {
 	/**
 	 * The canonical tag that should be added to the page header.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param string $current_url The URL of the page being currently viewed.
 	 */
@@ -229,7 +229,7 @@ class View_Register {
 	 * Add canonical tag to the head of all calendar views.
 	 *
 	 * @since 6.0.7
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param bool $add_canonical_tag Whether or not we should add the canonical tag to the current event view.
 	 */
@@ -255,7 +255,7 @@ class View_Register {
 		/**
 		 * Determines whether or not a canonical tag will be added to the current event view.
 		 *
-		 * @since TBD
+		 * @since 6.0.13
 		 *
 		 * @var bool $add_canonical_tag Whether or not we should add the current event view.
 		 */

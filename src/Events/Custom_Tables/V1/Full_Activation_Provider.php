@@ -101,7 +101,7 @@ class Full_Activation_Provider extends Service_Provider {
 		/**
 		 * Fires an action when the Custom Tables v1 implementation is fully activated.
 		 *
-		 * @since TBD
+		 * @since 6.0.13
 		 */
 		do_action( 'tec_events_custom_tables_v1_fully_activated' );
 
