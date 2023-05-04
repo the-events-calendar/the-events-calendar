@@ -5,6 +5,7 @@ namespace Tribe\Events\Views\V2\Template;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe__Events__Main as TEC;
+use WP_Query;
 
 class TitleTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
@@ -214,5 +215,29 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 		$title->set_context( $context );
 
 		$this->assertMatchesSnapshot( $title->build_title() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_have_correct_title_on_venue_single() {
+		global $wp_query;
+		$old_q   = clone $wp_query;
+		$post_id = static::factory()->post->create( [
+			'post_title' => 'Faux Venue',
+			'post_type'  => \Tribe__Events__Venue::POSTTYPE
+		] );
+
+		$wp_query = new WP_Query( array( 'p' => $post_id, 'post_type' => \Tribe__Events__Venue::POSTTYPE ) );
+		if ( $wp_query->have_posts() ) {
+			$wp_query->the_post();
+		}
+
+		// Now validate our filter works as expected.
+		$title = wp_title( '', false );
+		$this->assertEquals( 'Faux Venue', trim( $title ) );
+
+		// put old query back to avoid state bleed.
+		$wp_query = $old_q;
 	}
 }
