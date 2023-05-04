@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.0.15] TBD =
 
 * Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
+* Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
 
 = [6.0.13] 2023-05-08 =
 
