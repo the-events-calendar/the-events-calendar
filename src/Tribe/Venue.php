@@ -943,12 +943,9 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 			'posts_per_page' => -1,
 		] );
 
-		// If there are no upcoming events for this venue, return true to add noindex meta tag.
-		if ( empty( $upcoming_events ) ) {
-			return true;
-		}
+		// Update the noindex meta tag if there are no upcoming events.
+		$add_noindex = empty( $upcoming_events );
 
-		// Otherwise, return the original $add_noindex value.
 		return $add_noindex;
 	}
 }
