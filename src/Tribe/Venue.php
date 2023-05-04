@@ -932,7 +932,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @return bool Whether to add the noindex meta tag.
 	 */
-	public function add_no_index_meta( $add_noindex ) {
+	public function add_no_index_meta( $add_noindex ):bool {
 		// Get the current venue ID.
 		$venue_id = get_the_ID();
 
