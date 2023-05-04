@@ -818,7 +818,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	 *
 	 * @return bool Whether to add the noindex meta tag.
 	 */
-	function add_no_index_meta( $add_noindex ) {
+	public function add_no_index_meta( $add_noindex ) {
 		// Get the current organizer ID.
 		$organizer_id = get_the_ID();
 
