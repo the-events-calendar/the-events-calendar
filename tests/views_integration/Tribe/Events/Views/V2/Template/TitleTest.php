@@ -240,4 +240,28 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 		// put old query back to avoid state bleed.
 		$wp_query = $old_q;
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_have_correct_title_on_organizer_single() {
+		global $wp_query;
+		$old_q   = clone $wp_query;
+		$post_id = static::factory()->post->create( [
+			'post_title' => 'Marilyn Monroe',
+			'post_type'  => \Tribe__Events__Organizer::POSTTYPE
+		] );
+
+		$wp_query = new WP_Query( array( 'p' => $post_id, 'post_type' => \Tribe__Events__Organizer::POSTTYPE ) );
+		if ( $wp_query->have_posts() ) {
+			$wp_query->the_post();
+		}
+
+		// Now validate our filter works as expected.
+		$title = wp_title( '', false );
+		$this->assertEquals( 'Marilyn Monroe', trim( $title ) );
+
+		// put old query back to avoid state bleed.
+		$wp_query = $old_q;
+	}
 }
