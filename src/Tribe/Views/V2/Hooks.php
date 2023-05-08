@@ -319,7 +319,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		// Verifies and only applies it to the correct queries.
-		if ( tribe( Template_Bootstrap::class )->should_load( $query ) ) {
+		if ( ! tribe( Template_Bootstrap::class )->should_load( $query ) ) {
 			return $posts;
 		}
 

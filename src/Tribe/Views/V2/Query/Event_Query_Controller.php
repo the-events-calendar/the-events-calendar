@@ -112,8 +112,7 @@ class Event_Query_Controller {
 			return $injected_posts;
 		}
 
-		// @todo here build the args via URL -> Context -> orm_args
-		$orm_args = [];
+		$orm_args = tribe_context()->get_orm_args();
 
 		if ( null !== $post__in ) {
 			/*
