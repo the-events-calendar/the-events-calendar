@@ -795,4 +795,14 @@ abstract class By_Day_View extends View {
 		$this->repository->where( 'ends_after', $start_date );
 		$this->repository->where( 'starts_before', $end_date );
 	}
+
+	public function url_for_query_args( $date = null, $query_args = [] ) {
+		if ( ! is_array( $query_args ) ) {
+			parse_str( $query_args, $query_args );
+		}
+
+		unset( $query_args[ 'page' ], $query_args[ 'paged' ] );
+
+		return parent::url_for_query_args( $date, $query_args );
+	}
 }
