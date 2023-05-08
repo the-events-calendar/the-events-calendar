@@ -156,7 +156,6 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_linked_post_create_' . self::POSTTYPE, [ $this, 'save' ], 10, 4 );
 		add_filter( 'tribe_events_linked_post_meta_box_title', [ $this, 'meta_box_title' ], 5, 2 );
 		add_filter( 'tribe_events_linked_post_default', [ $this, 'linked_post_default' ], 10, 2 );
-		add_filter( 'tribe_events_add_no_index_meta', [ $this, 'add_no_index_meta' ] );
 		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
 		add_action( 'admin_bar_menu', [ $this, 'edit_venue_admin_bar_menu_link' ], 80 );
 	}
@@ -921,31 +920,5 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 				'href'  => admin_url( 'post.php?post=' . $wp_query->queried_object->ID . '&action=edit' ),
 			]);
 		}
-	}
-
-	/**
-	 * Add noindex meta tag to venue pages that have no upcoming events.
-	 *
-	 * @since TBD
-	 *
-	 * @param bool $add_noindex Whether to add the noindex meta tag.
-	 *
-	 * @return bool Whether to add the noindex meta tag.
-	 */
-	public function add_no_index_meta( $add_noindex ):bool {
-		// Get the current venue ID.
-		$venue_id = get_the_ID();
-
-		// Get the number of upcoming events for this venue.
-		$upcoming_events = tribe_get_events( [
-			'venue'          => $venue_id,
-			'eventDisplay'   => 'upcoming',
-			'posts_per_page' => -1,
-		] );
-
-		// Update the noindex meta tag if there are no upcoming events.
-		$add_noindex = empty( $upcoming_events );
-
-		return $add_noindex;
 	}
 }
