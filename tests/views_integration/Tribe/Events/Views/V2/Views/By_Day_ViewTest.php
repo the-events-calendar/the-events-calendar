@@ -178,4 +178,64 @@ class By_Day_ViewTest extends ViewTestCase {
 		};
 	}
 
+	/**
+	 * Tests that the `url_for_query_args` method removes pagination parameters from the query arguments.
+	 *
+	 * @test
+	 */
+	public function should_remove_pagination_params_from_query_args() {
+		$view                = $this->make_view();
+		$query_args          = [
+			'foo'   => 'bar',
+			'page'  => 2,
+			'paged' => 3,
+			'baz'   => 'qux',
+		];
+		$expected_query_args = [
+			'foo' => 'bar',
+			'baz' => 'qux',
+		];
+
+		$url = $view->url_for_query_args( '2019-10-28', $query_args );
+		$this->assertStringContainsString( '?foo=bar&baz=qux', $url, 'Expected query args are not present in URL' );
+		$this->assertStringNotContainsString( 'page', $url, 'The "page" query parameter was not removed' );
+		$this->assertStringNotContainsString( 'paged', $url, 'The "paged" query parameter was not removed' );
+	}
+
+	/**
+	 * Tests that the `url_for_query_args` method converts a query string argument to an array of query arguments.
+	 *
+	 * @test
+	 */
+	public function should_convert_string_args_to_array() {
+		$view                = $this->make_view();
+		$query_args          = 'foo=bar&page=2&baz=qux';
+		$expected_query_args = [
+			'foo' => 'bar',
+			'baz' => 'qux',
+		];
+
+		$url = $view->url_for_query_args( '2019-10-28', $query_args );
+		$this->assertStringContainsString( '?foo=bar&baz=qux', $url, 'Expected query args are not present in URL' );
+		$this->assertStringNotContainsString( 'page', $url, 'The "page" query parameter was not removed' );
+		$this->assertStringNotContainsString( 'paged', $url, 'The "paged" query parameter was not removed' );
+	}
+
+	/**
+	 * Tests that the `url_for_query_args` method does not remove non-pagination parameters from the query arguments.
+	 *
+	 * @test
+	 */
+	public function should_not_remove_other_params_from_query_args() {
+		$view       = $this->make_view();
+		$query_args = [
+			'foo' => 'bar',
+			'baz' => 'qux',
+		];
+
+		$url = $view->url_for_query_args( '2019-10-28', $query_args );
+		$this->assertStringContainsString( '?foo=bar&baz=qux', $url, 'Expected query args are not present in URL' );
+		$this->assertStringNotContainsString( 'page', $url, 'The "page" query parameter was removed' );
+		$this->assertStringNotContainsString( 'paged', $url, 'The "paged" query parameter was removed' );
+	}
 }
