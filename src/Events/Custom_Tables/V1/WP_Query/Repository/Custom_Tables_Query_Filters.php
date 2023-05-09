@@ -220,8 +220,12 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			 * table as that is the only way to represent Occurrences.
 			 */
 			global $wpdb;
-			$occurrences                = Occurrences::table_name( true );
-			$this->query_vars['join'][] = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+			$occurrences = Occurrences::table_name( true );
+			$join_clause = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+
+			if ( ! in_array( $join_clause, $this->query_vars['join'], true ) ) {
+				$this->query_vars['join'][] = $join_clause;
+			}
 		} else if ( ! empty( $this->query_vars['join'] ) ) {
 			$join = $this->deduplicate_joins( $join );
 		}
