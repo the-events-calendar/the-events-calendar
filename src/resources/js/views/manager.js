@@ -465,7 +465,6 @@ tribe.events.views.manager = {};
 	 * we are going to pass the answer to.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Added a check to remove the `paged` parameter from the URL on `month` and `week` views.
 	 *
 	 * @param  {object}         data       DOM Event related to the Click action
 	 * @param  {Element|jQuery} $container Which container we are dealing with
@@ -474,19 +473,6 @@ tribe.events.views.manager = {};
 	 */
 	obj.request = function( data, $container ) {
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
-
-		// Create a new URL object from the data.url string.
-		var urlObj = new URL( data.url );
-
-		// Check if the 'eventDisplay' query parameter is set to 'month' or 'week'.
-		// eslint-disable-next-line max-len
-		if ( 'month' === urlObj.searchParams.get( 'eventDisplay' ) || 'week' === urlObj.searchParams.get( 'eventDisplay' ) ) {
-			// Delete the 'paged' parameter since per-day events never paginate.
-			urlObj.searchParams.delete( 'paged' );
-
-			// Update the data.url string with the modified URL.
-			data.url = urlObj.toString();
-		}	
 
 		var settings = obj.getAjaxSettings( $container );
 
