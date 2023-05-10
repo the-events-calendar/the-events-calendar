@@ -407,14 +407,20 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 * Allows for filtering the embedded Google Maps API URL.
 		 *
 		 * @since 4.7
+		 * @since 6.0.13 Added the `$gmaps_api_callback` parameter.
 		 *
 		 * @param string $api_url The Google Maps API URL.
+		 * @param string $gmaps_api_callback The Google Maps API callback.
 		 */
-		$gmaps_api_key = tribe_get_option( 'google_maps_js_api_key' );
-		$gmaps_api_url = 'https://maps.googleapis.com/maps/api/js';
+		$gmaps_api_key      = tribe_get_option( 'google_maps_js_api_key' );
+		$gmaps_api_url      = 'https://maps.googleapis.com/maps/api/js';
+		$gmaps_api_callback = 'Function.prototype';
 
 		if ( ! empty( $gmaps_api_key ) && is_string( $gmaps_api_key ) ) {
-			$gmaps_api_url = add_query_arg( [ 'key' => $gmaps_api_key ], $gmaps_api_url );
+			$gmaps_api_url = add_query_arg( [
+				'key'      => $gmaps_api_key,
+				'callback' => $gmaps_api_callback,
+			], $gmaps_api_url );
 		}
 
 		/**

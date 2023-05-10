@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.11';
+		const VERSION             = '6.0.13';
 
 		/**
 		 * Min Pro Addon
@@ -2483,6 +2483,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			} else {
 				$event_url = home_url( '/' );
 			}
+
+			// Ensure the URL ends with a trailing slash.
+			$event_url = trailingslashit( $event_url );
 
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );

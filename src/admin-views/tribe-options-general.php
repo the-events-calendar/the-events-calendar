@@ -7,6 +7,9 @@ $tec_events_general_heading_text = tec_should_hide_upsell()
 	? esc_html__( 'Finding your calendar.', 'the-events-calendar' )
 	: esc_html__( 'Finding & extending your calendar.', 'the-events-calendar' );
 
+/**
+ * @var Tribe__Events__Event_Cleaner $event_cleaner
+ */
 $event_cleaner = tribe( 'tec.event-cleaner' );
 
 $general_tab_fields = [
@@ -297,16 +300,28 @@ $tec_events_general_editing = [
 
 $general_tab_fields += $tec_events_general_editing;
 
+// Our default tooltip.
+$trash_tooltip = esc_html__( 'This option allows you to automatically move past events to trash.', 'the-events-calendar' );
+// Some adjusted functionality with CT1 activated.
+if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+	$trash_tooltip = sprintf(
+		__( 'Trashed events will permanently be deleted in %1$d days, you can change that value using <code>%2$s</code>. <a href="%3$s" rel="noopener noreferrer" target="_blank">Read more.</a>', 'the-events-calendar' ),
+		(int) EMPTY_TRASH_DAYS,
+		'EMPTY_TRASH_DAYS',
+		'https://evnt.is/1bcs'
+	);
+}
+
 // Add the "Maintenance" section.
 $tec_events_general_maintenance = [
 	'tec-events-settings-general-maintenance-title'      => [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-general-maintenance">' . esc_html_x( 'Maintenance', 'Title for the maintenance section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
-	$event_cleaner->key_trash_events            => [
+	$event_cleaner->key_trash_events => [
 		'type'            => 'dropdown',
 		'label'           => esc_html__( 'Move to trash events older than', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'This option allows you to automatically move past events to trash.', 'the-events-calendar' ),
+		'tooltip'         => $trash_tooltip,
 		'validation_type' => 'options',
 		'size'            => 'small',
 		'default'         => null,
