@@ -448,7 +448,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01%26tribe_events_cat%3Dcat-1%26ical%3D1%26eventDisplay%3Dlist"
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01%2B09%253A00%253A00%26tribe_events_cat%3Dcat-1%26ical%3D1%26eventDisplay%3Dlist"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -459,7 +459,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2019-01-01&#038;tribe_events_cat=cat-1&#038;ical=1&#038;eventDisplay=list"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2019-01-01+09%3A00%3A00&#038;tribe_events_cat=cat-1&#038;ical=1&#038;eventDisplay=list"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -470,7 +470,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.office.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2019-01-01%2526tribe_events_cat%253Dcat-1%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
+		href="https://outlook.office.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2019-01-01%252B09%25253A00%25253A00%2526tribe_events_cat%253Dcat-1%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"
@@ -481,7 +481,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.live.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2019-01-01%2526tribe_events_cat%253Dcat-1%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
+		href="https://outlook.live.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526tribe-bar-date%253D2019-01-01%252B09%25253A00%25253A00%2526tribe_events_cat%253Dcat-1%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		tabindex="0"
 		target="_blank"

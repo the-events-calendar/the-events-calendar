@@ -8,7 +8,7 @@ use TEC\Events\Integrations\Plugins\Plugin_Integration;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.0.13
  *
  * @package TEC\Events\Integrations\Plugins\Colbri_Page_Builder
  */
