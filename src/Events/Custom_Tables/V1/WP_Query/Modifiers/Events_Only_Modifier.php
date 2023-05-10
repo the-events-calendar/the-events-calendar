@@ -52,7 +52,7 @@ class Events_Only_Modifier extends Base_Modifier {
 	/**
 	 * Applies any necessary alterations on Custom_Tables_Query before it runs get_posts();
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param Custom_Tables_Query $query A reference to the query object used to get_posts() for Custom Table queries.
 	 *
@@ -98,7 +98,7 @@ class Events_Only_Modifier extends Base_Modifier {
 		 * Filters the Custom_Tables_Query instance after all values have been initialized, prior to a get_posts() call.
 		 * This will give an opportunity to inspect and make any final changes before returning the object.
 		 *
-		 * @since TBD
+		 * @since 6.0.13
 		 *
 		 * @param Custom_Tables_Query $query    A reference to the Custom Tables Query object that
 		 *                                      is applying the filter.

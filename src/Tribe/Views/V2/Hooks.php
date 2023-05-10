@@ -618,7 +618,7 @@ class Hooks extends ServiceProvider {
 		$is_redirected = ! empty( $parsed['tribe_redirected'] );
 
 		/**
-		 * Filters whether the current request is being redirectedor not.
+		 * Filters whether the current request is being redirected or not.
 		 *
 		 * The initial value is set by looking up the `tribe_redirected` query argument.
 		 *

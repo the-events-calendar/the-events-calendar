@@ -49,7 +49,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	/**
 	 * A map from language codes to the set of translated bases.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @var array<string,array<string,string>>
 	 */
@@ -282,7 +282,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	/**
 	 * Translate the Event archive slugs.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param array<string,array<string>> $bases The bases to translate.
 	 *
@@ -397,7 +397,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	/**
 	 * Filters the localized matcher to use WPML managed translations.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param string|null $localized_slug The matcher localized slug.
 	 * @param string      $base           The query var the matcher is for.
@@ -424,7 +424,7 @@ class Tribe__Events__Integrations__WPML__Rewrites {
 	 * Bases are encoded by default to avoid issues with special characters
 	 * and back-compatibility.
 	 *
-	 * @since TBD
+	 * @since 6.0.13
 	 *
 	 * @param array<string<array<string>> $bases The bases to decode.
 	 *

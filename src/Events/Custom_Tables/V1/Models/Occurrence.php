@@ -282,11 +282,11 @@ class Occurrence extends Model {
 		}
 
 		$last = self::where( 'event_id', '=', $occurrence->event_id )
-					->order_by( 'start_date', 'DESC' )
-					->first();
+		            ->order_by( 'start_date', 'DESC' )
+		            ->first();
 
 		return $last instanceof self
-			   && $last->occurrence_id === $occurrence->occurrence_id;
+		       && $last->occurrence_id === $occurrence->occurrence_id;
 	}
 
 	/**
@@ -311,11 +311,12 @@ class Occurrence extends Model {
 		}
 
 		$first = self::where( 'event_id', '=', $occurrence->event_id )
-					->order_by( 'start_date', 'ASC' )
-					->first();
+		             ->order_by( 'start_date_utc', 'ASC' )
+		             ->order_by( 'end_date_utc', 'ASC' )
+		             ->first();
 
 		return $first instanceof self
-			   && $first->occurrence_id === $occurrence->occurrence_id;
+		       && $first->occurrence_id === $occurrence->occurrence_id;
 	}
 
 	/**
