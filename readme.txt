@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+
 = [6.0.13] 2023-05-08 =
 
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
