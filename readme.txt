@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.0.15] TBD =
 
+* Fix - Ensure the fast forward link in month view is only displayed when there are upcoming events in the context of the current view. [FBAR-292]
 * Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
 * Fix - Prevent administration navigation fatal error with `TypeError: array_search()`. [TEC-4780]
 * Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]

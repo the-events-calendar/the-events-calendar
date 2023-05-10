@@ -700,7 +700,8 @@ class Month_View extends By_Day_View {
 
 		$fast_forward_link = $this->get_fast_forward_link( true );
 
-		if ( ! empty( $fast_forward_link ) ) {
+		// We need to check for the existence of events again to avoid showing the fast forward link when filtering using FBAR.
+		if ( ! empty( $events ) && ! empty( $fast_forward_link ) ) {
 			$this->messages->insert(
 				Messages::TYPE_NOTICE,
 				Messages::for_key( 'month_no_results_found_w_ff_link', $fast_forward_link ),
