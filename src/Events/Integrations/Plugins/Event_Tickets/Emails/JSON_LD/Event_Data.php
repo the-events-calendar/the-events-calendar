@@ -17,12 +17,17 @@ class Event_Data {
 	 * @since TBD
 	 *
 	 * @param array $data The event data.
-	 * @param \WP_Post $event The event object.
+	 * @param array $args The event object.
 	 *
 	 * @return array
 	 */
-	public function filter_event_data( array $data, \WP_Post $event ): array {
-		$event = tribe_get_event( $event->ID );
+	public function filter_event_data( array $data, array $args ): array {
+
+		if ( ! isset( $args['event'] ) || ! tribe_is_event( $args['event'] ) ) {
+			return $data;
+		}
+
+		$event = tribe_get_event( $args['event']->ID );
 
 		$event_details = [
 			'name'        => $event->post_title,
