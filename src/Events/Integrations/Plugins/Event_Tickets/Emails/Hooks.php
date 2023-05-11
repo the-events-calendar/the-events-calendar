@@ -17,6 +17,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\RSVP;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\Ticket;
+use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\JSON_LD\Event_Data;
 use TEC\Tickets\Emails\Dispatcher;
 use TEC\Tickets\Emails\Email_Abstract;
 use \Tribe__Template as Common_Template;
@@ -72,6 +73,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// RSVP Email.
 		add_filter( 'tec_tickets_emails_rsvp_settings', [ $this, 'filter_include_rsvp_email_settings' ], 10 );
 		add_filter( 'tec_tickets_emails_dispatcher_rsvp_attachments', [ $this, 'filter_include_rsvp_email_attachments' ], 10, 2 );
+		add_filter( 'tec_tickets_email_json_ld_event_data', [ $this, 'filter_include_ticket_email_json_ld_event_data' ], 10, 2 );
 	}
 
 	/**
@@ -293,5 +295,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$this->container->make( RSVP::class )->include_event_link_styles( $template );
 		$this->container->make( Ticket::class )->include_event_link_styles( $template );
+	}
+
+	/**
+	 * Include the Event data in the ticket and RSVP emails JSON LD data.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data The existing JSON LD data.
+	 * @param \WP_Post $event The event post object.
+	 *
+	 * @return array
+	 */
+	public function filter_include_ticket_email_json_ld_event_data( $data, $event ): array {
+		return $this->container->make( Event_Data::class )->filter_event_data( $data, $event );
 	}
 }
