@@ -619,6 +619,15 @@ class QueryTest extends Events_TestCase {
 		$tax_query2 = new WP_Query( $args );
 		$this->assertContains( Main::POSTTYPE, (array) $tax_query2->get( 'post_type' ) );
 
+		// Someone calling early, should return gracefully.
+		$wp_query = null;
+		$did_fail = false;
+		add_action( 'doing_it_wrong_run', function ( $function, $message, $version ) use ( &$did_fail ) {
+			$did_fail = true;
+		}, 10, 3 );
+		$tax_query3 = new WP_Query( $args );
+		$this->assertFalse( $did_fail, 'Should not have hit doing it wrong action.' );
+
 		// Cleanup
 		$wp_query = $old_query;
 	}
