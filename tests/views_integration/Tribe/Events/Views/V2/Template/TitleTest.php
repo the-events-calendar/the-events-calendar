@@ -104,6 +104,73 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertMatchesSnapshot( $title->build_title() );
 	}
 
+	public function title_with_views_data_provider() {
+		$events = [
+			[
+				'ID'         => 1,
+				'start_date' => '2018-01-05',
+				'end_date'   => '2018-01-05',
+			],
+			[
+				'ID'         => 2,
+				'start_date' => '2019-02-03',
+				'end_date'   => '2019-02-03',
+			],
+		];
+
+		$event_displays = [
+			'default',
+			'list',
+			'month',
+			null
+		];
+
+		$event_dates = [
+			'2017-02-02', // before
+			'2018-01-05', // first
+			'2018-02-01', // in-between
+			'2019-02-03', // last
+			'2022-06-06', // after
+			null
+		];
+
+		$data = [];
+		foreach ( $event_dates as $event_date ) {
+
+			foreach ( $event_displays as $view_slug ) {
+				$key          = count( $events ) . " events -> event_date '$event_date' -> view '$view_slug'";
+				$data[ $key ] = [
+					$events,
+					[
+						'event_post_type' => true,
+						'event_date'      => $event_date,
+						'event_display'   => $view_slug,
+					]
+				];
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @dataProvider title_with_views_data_provider
+	 * @test
+	 */
+	public function test_title_with_views( $events, $context ) {
+		$context     = tribe_context()->alter( $context );
+		$mock_events = [];
+		foreach ( $events as $event ) {
+			$mock_events[] = $this->get_mock_event( 'events/single/1.template.json', $event );
+		}
+
+		$title = new Title();
+		$title->set_context( $context );
+		$title->set_posts( $mock_events );
+
+		$this->assertMatchesSnapshot( $title->build_title() );
+	}
+
 	public function test_w_past_events() {
 		$context = tribe_context()->alter( [
 			'single'             => false,
