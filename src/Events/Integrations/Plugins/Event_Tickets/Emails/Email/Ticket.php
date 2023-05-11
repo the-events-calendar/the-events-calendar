@@ -59,15 +59,15 @@ class Ticket {
 
 		$settings[ self::$option_add_event_links ] = [
 			'type'            => 'toggle',
-			'label'           => esc_html__( 'Include "Add to calendar" links', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( "Include links to add the event to the user's calendar.", 'the-events-calendar' ),
+			'label'           => esc_html__( 'Calendar links', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Include iCal and Google event links in this email.', 'the-events-calendar' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
 		];
 
 		$settings[ self::$option_add_event_ics ] = [
 			'type'            => 'toggle',
-			'label'           => esc_html__( 'Attach calendar invites', 'the-events-calendar' ),
+			'label'           => esc_html__( 'Calendar invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the ticket email.', 'the-events-calendar' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
