@@ -141,7 +141,7 @@ class Title {
 		} elseif ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
 			// For single events, the event title itself is required
 			$title = get_the_title( $context->get( 'post_id' ) );
-		} else if ( ( $event_date || $view_slug === List_View::get_view_slug() ) && count( $posts ) ) {
+		} else if ( $event_date && count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
 			$title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
 		} else {
