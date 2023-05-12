@@ -73,7 +73,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// RSVP Email.
 		add_filter( 'tec_tickets_emails_rsvp_settings', [ $this, 'filter_include_rsvp_email_settings' ], 10 );
 		add_filter( 'tec_tickets_emails_dispatcher_rsvp_attachments', [ $this, 'filter_include_rsvp_email_attachments' ], 10, 2 );
-		add_filter( 'tec_tickets_email_json_ld_event_schema_data', [ $this, 'filter_include_ticket_email_json_ld_event_data' ], 10, 2 );
+		add_filter( 'tec_tickets_email_json_ld_event_schema_data', [ $this, 'filter_include_json_ld_event_data' ], 10, 2 );
 	}
 
 	/**
@@ -307,7 +307,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array
 	 */
-	public function filter_include_ticket_email_json_ld_event_data( $data, $args ): array {
+	public function filter_include_json_ld_event_data( $data, $args ): array {
 		return $this->container->make( Event_Data::class )->filter_event_data( $data, $args );
 	}
 }
