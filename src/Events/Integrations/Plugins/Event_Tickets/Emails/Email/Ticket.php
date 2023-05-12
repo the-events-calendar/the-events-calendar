@@ -2,7 +2,7 @@
 /**
  * Class Ticket.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -19,7 +19,7 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
 /**
  * Class Ticket.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
@@ -27,7 +27,7 @@ class Ticket {
 	/**
 	 * The option key for the Event calendar links.
 	 *
-	 * @see Email_Abstract::get_option_key() for option key format.
+	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
 	 * @since TBD
 	 *
@@ -38,7 +38,7 @@ class Ticket {
 	/**
 	 * The option key for the Event calendar invite.
 	 *
-	 * @see Email_Abstract::get_option_key() for option key format.
+	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
 	 * @since TBD
 	 *
@@ -82,7 +82,7 @@ class Ticket {
 	 * @since TBD
 	 *
 	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
-	 * @param Dispatcher           $dispatcher   The Email dispatcher object.
+	 * @param Dispatcher           $dispatcher  The Email dispatcher object.
 	 *
 	 * @return array<string,string> The filtered attachments for the Tickets Emails.
 	 */
@@ -152,20 +152,15 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_event_link_styles( $parent_template ): void {
-		$args = $parent_template->get_local_values();
-		if ( ! $this->should_show_links( $args ) ) {
-			return;
-		}
-
-		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $args, true );
+		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
 	}
 
 	/**
-	 * Determines whether or not Ticket should show calendar links.
+	 * Determines whether Ticket should show calendar links.
 	 *
 	 * @since TBD
 	 *
-	 * @param array            $args            References template context arguments.
+	 * @param array $args References template context arguments.
 	 *
 	 * @return bool
 	 */
