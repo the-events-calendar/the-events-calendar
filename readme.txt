@@ -229,11 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
 = [6.0.14] TBD =
 
-* Feature - Include Events data into the Tickets Email for compatibility with Event Tickets [ET-1552] [ET-1553]
-=======
+* Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
+
 = [6.0.13] 2023-05-08 =
 
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
