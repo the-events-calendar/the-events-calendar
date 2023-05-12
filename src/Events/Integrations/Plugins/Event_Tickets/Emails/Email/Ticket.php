@@ -33,7 +33,7 @@ class Ticket {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_links = 'tec-tickets-emails-ticket-add-event-links';
+	public static string $option_add_event_links = 'tec-tickets-emails-ticket-add-event-links';
 
 	/**
 	 * The option key for the Event calendar invite.
@@ -44,7 +44,7 @@ class Ticket {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_ics = 'tec-tickets-emails-ticket-add-event-ics';
+	public static string $option_add_event_ics = 'tec-tickets-emails-ticket-add-event-ics';
 
 	/**
 	 * Filter the email settings and add TEC specific settings.
@@ -57,7 +57,7 @@ class Ticket {
 	 */
 	public function include_settings( $settings ): array {
 
-		$settings[ self::$option_add_event_links ] = [
+		$settings[ static::$option_add_event_links ] = [
 			'type'            => 'toggle',
 			'label'           => esc_html__( 'Calendar links', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Include iCal and Google event links in this email.', 'the-events-calendar' ),
@@ -65,7 +65,7 @@ class Ticket {
 			'validation_type' => 'boolean',
 		];
 
-		$settings[ self::$option_add_event_ics ] = [
+		$settings[ static::$option_add_event_ics ] = [
 			'type'            => 'toggle',
 			'label'           => esc_html__( 'Calendar invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the ticket email.', 'the-events-calendar' ),
@@ -92,7 +92,7 @@ class Ticket {
 			return $attachments;
 		}
 
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
+		if ( ! tribe_is_truthy( tribe_get_option( static::$option_add_event_ics, true ) ) ) {
 			return $attachments;
 		}
 

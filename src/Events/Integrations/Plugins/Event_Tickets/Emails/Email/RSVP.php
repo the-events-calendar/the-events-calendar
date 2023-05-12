@@ -34,7 +34,7 @@ class RSVP {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_links = 'tec-tickets-emails-rsvp-add-event-links';
+	public static string $option_add_event_links = 'tec-tickets-emails-rsvp-add-event-links';
 
 	/**
 	 * The option key for the Event calendar invite.
@@ -45,7 +45,7 @@ class RSVP {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_ics = 'tec-tickets-emails-rsvp-add-event-ics';
+	public static string $option_add_event_ics = 'tec-tickets-emails-rsvp-add-event-ics';
 
 	/**
 	 * Filter the email settings and add TEC specific settings.
