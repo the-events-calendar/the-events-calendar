@@ -166,6 +166,18 @@ class Ticket {
 	 * @return bool
 	 */
 	public function should_show_links( $args ): bool {
+		$email_class = tribe( Ticket_Email::class );
+		if ( ! $email_class->is_enabled() ) {
+			return false;
+		}
+
+		if (
+			! empty( $args['email'] )
+			&& $args['email']->get_id() !== $email_class->get_id()
+		) {
+			return false;
+		}
+
 		if ( ! empty( $args['preview'] ) && ! empty( $args['add_event_links'] ) ) {
 			return tribe_is_truthy( $args['add_event_links'] );
 		}
@@ -174,19 +186,7 @@ class Ticket {
 			return false;
 		}
 
-		$email_class = tribe( Ticket_Email::class );
-		if ( ! $email_class->is_enabled() ) {
-			return false;
-		}
-
 		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
-			return false;
-		}
-
-		if (
-			! empty( $args['email'] )
-			&& $args['email']->get_id() !== $email_class->get_id()
-		) {
 			return false;
 		}
 
