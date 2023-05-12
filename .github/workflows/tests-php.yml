@@ -159,6 +159,7 @@ jobs:
       - name: Install the plugins on this particular Test Suite
         if: steps.skip.outputs.value != 1 && steps.test_suite_plugins_required.outputs.content
         run: |
+          ${SLIC_BIN} wp core update --version=6.1
           ${SLIC_BIN} wp plugin install ${{ steps.test_suite_plugins_required.outputs.content }}
 
       # ------------------------------------------------------------------------------
