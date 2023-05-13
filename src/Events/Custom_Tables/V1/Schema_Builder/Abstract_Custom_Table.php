@@ -55,11 +55,19 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	public function update() {
 		$this->before_update();
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		$results = (array) dbDelta( $this->get_update_sql() );
+		$query = $this->get_update_sql();
+		$this->validate_for_dbDelta($query);
+		$results = (array) dbDelta( $query );
 		$this->sync_stored_version();
 		$results = $this->after_update( $results );
 
 		return $results;
+	}
+
+	public function validate_for_dbDelta( string $query ) {
+		if ( preg_match( '/`.*?` [A-Z]/', $query ) ) {
+			do_action( 'tribe_log', 'error', __METHOD__, ['schema_builder_error' => "Failed dbDelta field validation: $query"] );
+		}
 	}
 
 	/**
