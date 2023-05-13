@@ -303,11 +303,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 *
 	 * @param array $data The existing JSON LD data.
-	 * @param \WP_Post $event The event post object.
+	 * @param \TEC\Tickets\Emails\JSON_LD\Event_Schema $schema The JSON LD schema.
 	 *
 	 * @return array
 	 */
-	public function filter_include_json_ld_event_data( $data, $args ): array {
-		return $this->container->make( Event_Data::class )->filter_event_data( $data, $args );
+	public function filter_include_json_ld_event_data( $data, $schema ): array {
+		return $this->container->make( Event_Data::class )->filter_event_data( $data, $schema );
 	}
 }

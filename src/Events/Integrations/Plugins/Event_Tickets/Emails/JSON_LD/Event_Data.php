@@ -17,11 +17,12 @@ class Event_Data {
 	 * @since TBD
 	 *
 	 * @param array $data The event data.
-	 * @param array $args The event object.
+	 * @param TEC\Tickets\Emails\JSON_LD\Event_Schema $args The event object.
 	 *
 	 * @return array
 	 */
-	public function filter_event_data( array $data, array $args ): array {
+	public function filter_event_data( array $data, $schema ): array {
+		$args = $schema->get_args();
 
 		if ( ! isset( $args['event'] ) || ! tribe_is_event( $args['event'] ) ) {
 			return $data;
