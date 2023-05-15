@@ -1477,6 +1477,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
 		 */
 		public function issue_noindex() {
+			if ( is_home() || is_front_page() ) {
+				return;
+			}
 
 			if ( ! $wp_query = tribe_get_global_query_object() ) {
 				return;
@@ -1488,18 +1491,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			// By default, we add a noindex tag for all month view requests and any other
-			// event views that are devoid of events
-			$add_noindex  = ( ! $wp_query->have_posts() || Month_View::get_view_slug() === $context->get( 'view' ) );
+			$view = $context->get( 'view' );
+
+			// No posts = no index.
+			$add_noindex  = ( ! $wp_query->have_posts() );
 
 			/**
 			 * Determines if a noindex meta tag will be set for the current event view.
 			 *
-			 * @since  ??
+			 * @since  3.12.4
 			 *
 			 * @var bool $add_noindex
+			 * @var Tribe__Context $context The view context.
 			 */
-			$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex );
+			$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex, $context );
+
+			/**
+			 * Determines if a noindex meta tag will be set for a specific event view.
+			 *
+			 * @since TBD
+			 *
+			 * @var bool $add_noindex
+			 * @var Tribe__Context $context The view context.
+			 */
+			$add_noindex = apply_filters( "tec_events_{$view}_add_no_index_meta", $add_noindex, $context );
 
 			if ( $add_noindex ) {
 				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
@@ -1509,11 +1524,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Prints a "noindex,follow" robots tag.
 		 *
-		 * @since ??
+		 * @since TBD
 		 *
 		 */
 		public function print_noindex_meta() {
-			echo ' <meta name="robots" content="noindex,follow" />' . "\n";
+			$noindex_meta = ' <meta name="robots" content="noindex,follow" />' . "\n";
+
+			/**
+			 * Filters the noindex meta tag.
+			 *
+			 * @since TBD
+			 *
+			 * @var string $noindex_meta
+			 */
+			$noindex_meta = apply_filters( 'tec_events_no_index_meta', $noindex_meta );
+
+			echo $noindex_meta;
 		}
 
 		/**
