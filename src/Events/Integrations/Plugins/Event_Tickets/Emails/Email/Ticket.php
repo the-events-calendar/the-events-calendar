@@ -58,7 +58,7 @@ class Ticket {
 	public function include_settings( $settings ): array {
 
 		$settings[ static::$option_add_event_links ] = [
-			'type'            => 'toggle',
+			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Calendar links', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Include iCal and Google event links in this email.', 'the-events-calendar' ),
 			'default'         => true,
@@ -66,7 +66,7 @@ class Ticket {
 		];
 
 		$settings[ static::$option_add_event_ics ] = [
-			'type'            => 'toggle',
+			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Calendar invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the ticket email.', 'the-events-calendar' ),
 			'default'         => true,
@@ -165,16 +165,8 @@ class Ticket {
 	 * @return bool
 	 */
 	public function should_show_links( $args ): bool {
-		if ( empty( $args['event'] ) ) {
-			return false;
-		}
-
 		$email_class = tribe( Ticket_Email::class );
 		if ( ! $email_class->is_enabled() ) {
-			return false;
-		}
-
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
 			return false;
 		}
 
@@ -182,6 +174,18 @@ class Ticket {
 			! empty( $args['email'] )
 			&& $args['email']->get_id() !== $email_class->get_id()
 		) {
+			return false;
+		}
+
+		if ( ! empty( $args['preview'] ) && ! empty( $args['add_event_links'] ) ) {
+			return tribe_is_truthy( $args['add_event_links'] );
+		}
+
+		if ( empty( $args['event'] ) ) {
+			return false;
+		}
+
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
 			return false;
 		}
 
