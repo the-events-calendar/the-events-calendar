@@ -20,7 +20,7 @@ class Template extends Tribe__Template {
 	 */
 	public function __construct() {
 		$this->set_template_origin( TEC::instance() );
-		$this->set_template_folder( 'src/views/v2/emails' );
+		$this->set_template_folder( 'src/views/integrations/event-tickets/emails' );
 
 		// Setup to look for theme files.
 		$this->set_template_folder_lookup( true );

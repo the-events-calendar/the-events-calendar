@@ -3,7 +3,7 @@
  * Event Tickets Emails: Main template > Body > Event > Description.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/emails/template-parts/body/event/description.php
+ * [your-theme]/tribe/events/integrations/event-tickets/emails/template-parts/body/event/description.php
  *
  * See more documentation about our views templating system.
  *

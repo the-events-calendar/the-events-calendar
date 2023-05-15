@@ -3,7 +3,7 @@
  * Event Tickets Emails: Main template > Body > Event > Venue > Phone.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/emails/template-parts/body/event/venue.php
+ * [your-theme]/tribe/events/integrations/event-tickets/emails/template-parts/body/event/venue.php
  *
  * See more documentation about our views templating system.
  *
