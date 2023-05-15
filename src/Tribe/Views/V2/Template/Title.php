@@ -9,10 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Template;
 
-use Tribe\Events\Pro\Views\V2\Views\Photo_View;
-use Tribe\Events\Views\V2\Manager;
 use Tribe\Events\Views\V2\Views\Day_View;
-use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
@@ -125,27 +122,23 @@ class Title {
 		$event_date         = $context->get( 'event_date', false );
 		$event_display_mode = $context->get( 'event_display_mode' );
 
-		// Resolve our view slug.
-		$view_slug = $context->get( 'event_display' );
-		if ( $view_slug === null || $view_slug === 'default' ) {
-			$manager   = tribe( Manager::class );
-			$view_slug = $manager->get_default_view();
-		}
-
 		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
 		} else if ( Day_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_day_title( $event_date );
 		} elseif ( 'past' === $event_display_mode ) {
+			/* translators: %s: Events plural */
 			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
 		} elseif ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
 			// For single events, the event title itself is required
 			$title = get_the_title( $context->get( 'post_id' ) );
 		} else if ( $event_date && count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
+			/* translators: %1$s: First event date %2$s: Last event date */
 			$title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
 		} else {
 			// For all other cases, start with 'upcoming events'
+			/* translators: %s: Events plural */
 			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $this->events_label_plural );
 		}
 
