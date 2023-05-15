@@ -59,7 +59,7 @@ class RSVP {
 	public function include_settings( $settings ): array {
 
 		$settings[ static::$option_add_event_links ] = [
-			'type'            => 'toggle',
+			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Calendar links', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Include iCal and Google event links in this email.', 'the-events-calendar' ),
 			'default'         => true,
@@ -67,7 +67,7 @@ class RSVP {
 		];
 
 		$settings[ static::$option_add_event_ics ] = [
-			'type'            => 'toggle',
+			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Calendar invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the RSVP email.', 'the-events-calendar' ),
 			'default'         => true,
@@ -161,10 +161,6 @@ class RSVP {
 	 */
 	public function include_event_link_styles( $parent_template ): void {
 		$args = $parent_template->get_local_values();
-		if ( ! $this->should_show_links( $args ) ) {
-			return;
-		}
-
 		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $args, true );
 	}
 
@@ -178,10 +174,6 @@ class RSVP {
 	 * @return bool
 	 */
 	public function should_show_links( $args ): bool {
-		if ( empty( $args['event'] ) ) {
-			return false;
-		}
-
 		// Double assigned due to needing to reference the original RSVP class later on.
 		$rsvp_class = $email_class = tribe( RSVP_Email::class );
 		if ( ! $email_class->is_enabled() ) {
@@ -196,11 +188,22 @@ class RSVP {
 				return false;
 			}
 		}
-
 		if (
 			! empty( $args['email'] )
 			&& $args['email']->get_id() !== $rsvp_class->get_id()
 		) {
+			return false;
+		}
+
+		if ( ! empty( $args['preview'] ) && ! empty( $args['add_event_links'] ) ) {
+			return tribe_is_truthy( $args['add_event_links'] );
+		}
+
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
+			return false;
+		}
+
+		if ( empty( $args['event'] ) ) {
 			return false;
 		}
 
