@@ -1,9 +1,9 @@
 <?php
 /**
- * Event Tickets Emails: Main template > Body > Event > Title.
+ * Event Tickets Emails: Main template > Body > Event > Date.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/emails/template-parts/body/event/title.php
+ * [your-theme]/tribe/events/integrations/event-tickets/emails/template-parts/body/event/date.php
  *
  * See more documentation about our views templating system.
  *
@@ -21,17 +21,17 @@
 if ( empty( $event ) ) {
 	return;
 }
-if ( empty( $event->title ) ) {
+
+$date = $event->schedule_details->value();
+
+if ( empty( $date ) ) {
 	return;
 }
 ?>
 <tr>
-	<td class="tec-tickets__email-table-content-event-title-container">
-		<h3 class="tec-tickets__email-table-content-event-title">
-			<?php
-			// phpcs:ignore
-			echo $event->title;
-			?>
-		</h3>
+	<td class="tec-tickets__email-table-content-event-date-container">
+		<p class="tec-tickets__email-table-content-event-date">
+			<?php echo $date; // phpcs:ignore ?>
+		</p>
 	</td>
 </tr>

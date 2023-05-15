@@ -2,7 +2,7 @@
 /**
  * Class Ticket.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -19,7 +19,7 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
 /**
  * Class Ticket.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
@@ -27,24 +27,24 @@ class Ticket {
 	/**
 	 * The option key for the Event calendar links.
 	 *
-	 * @see Email_Abstract::get_option_key() for option key format.
+	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_links = 'tec-tickets-emails-ticket-add-event-links';
+	public static string $option_add_event_links = 'tec-tickets-emails-ticket-add-event-links';
 
 	/**
 	 * The option key for the Event calendar invite.
 	 *
-	 * @see Email_Abstract::get_option_key() for option key format.
+	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_ics = 'tec-tickets-emails-ticket-add-event-ics';
+	public static string $option_add_event_ics = 'tec-tickets-emails-ticket-add-event-ics';
 
 	/**
 	 * Filter the email settings and add TEC specific settings.
@@ -57,7 +57,7 @@ class Ticket {
 	 */
 	public function include_settings( $settings ): array {
 
-		$settings[ self::$option_add_event_links ] = [
+		$settings[ static::$option_add_event_links ] = [
 			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Calendar links', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Include iCal and Google event links in this email.', 'the-events-calendar' ),
@@ -65,7 +65,7 @@ class Ticket {
 			'validation_type' => 'boolean',
 		];
 
-		$settings[ self::$option_add_event_ics ] = [
+		$settings[ static::$option_add_event_ics ] = [
 			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Calendar invites', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the ticket email.', 'the-events-calendar' ),
@@ -82,7 +82,7 @@ class Ticket {
 	 * @since TBD
 	 *
 	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
-	 * @param Dispatcher           $dispatcher   The Email dispatcher object.
+	 * @param Dispatcher           $dispatcher  The Email dispatcher object.
 	 *
 	 * @return array<string,string> The filtered attachments for the Tickets Emails.
 	 */
@@ -92,7 +92,7 @@ class Ticket {
 			return $attachments;
 		}
 
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
+		if ( ! tribe_is_truthy( tribe_get_option( static::$option_add_event_ics, true ) ) ) {
 			return $attachments;
 		}
 
@@ -152,16 +152,15 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_event_link_styles( $parent_template ): void {
-		$args = $parent_template->get_local_values();
-		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $args, true );
+		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
 	}
 
 	/**
-	 * Determines whether or not Ticket should show calendar links.
+	 * Determines whether Ticket should show calendar links.
 	 *
 	 * @since TBD
 	 *
-	 * @param array            $args            References template context arguments.
+	 * @param array $args References template context arguments.
 	 *
 	 * @return bool
 	 */

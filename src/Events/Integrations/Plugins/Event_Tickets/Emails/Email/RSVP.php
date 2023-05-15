@@ -34,7 +34,7 @@ class RSVP {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_links = 'tec-tickets-emails-rsvp-add-event-links';
+	public static string $option_add_event_links = 'tec-tickets-emails-rsvp-add-event-links';
 
 	/**
 	 * The option key for the Event calendar invite.
@@ -45,7 +45,7 @@ class RSVP {
 	 *
 	 * @var string
 	 */
-	public static $option_add_event_ics = 'tec-tickets-emails-rsvp-add-event-ics';
+	public static string $option_add_event_ics = 'tec-tickets-emails-rsvp-add-event-ics';
 
 	/**
 	 * Filter the email settings and add TEC specific settings.
@@ -160,8 +160,7 @@ class RSVP {
 	 * @return void
 	 */
 	public function include_event_link_styles( $parent_template ): void {
-		$args = $parent_template->get_local_values();
-		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $args, true );
+		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
 	}
 
 	/**

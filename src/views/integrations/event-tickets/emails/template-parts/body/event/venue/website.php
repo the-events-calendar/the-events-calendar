@@ -3,7 +3,7 @@
  * Event Tickets Emails: Main template > Body > Event > Venue > Website.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/emails/template-parts/body/event/venue.php
+ * [your-theme]/tribe/events/integrations/event-tickets/emails/template-parts/body/event/venue.php
  *
  * See more documentation about our views templating system.
  *
@@ -23,7 +23,7 @@ if ( empty( $venue ) ) {
 	return;
 }
 
-if ( empty( $venue->website_url ) ) {
+if ( empty( $venue->website ) ) {
 	return;
 }
 ?>
@@ -39,12 +39,12 @@ if ( empty( $venue->website_url ) ) {
 		</td>
 		<td style="padding:0;">
 			<a
-				href="<?php echo esc_url( $venue->website_url ); ?>"
+				href="<?php echo esc_url( $venue->website ); ?>"
 				target="_blank"
 				rel="noopener noreferrer"
 				style="overflow-wrap: anywhere;"
 			>
-				<?php echo esc_url( $venue->website_url ); ?>
+				<?php echo esc_url( $venue->website ); ?>
 			</a>
 		</td>
 	</tr>
