@@ -60,15 +60,15 @@ class Events extends Abstract_Custom_Table {
 
 		// VARCHAR(19) to store YYYY-MM-DD HH:MM:SS values as strings and allow partial compare.
 		return "CREATE TABLE `{$table_name}` (
-			`event_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`post_id` BIGINT(20) UNSIGNED NOT NULL,
-			`start_date` VARCHAR(19) NOT NULL,
-			`end_date` VARCHAR(19) DEFAULT NULL,
-			`timezone` VARCHAR(30) NOT NULL DEFAULT 'UTC',
-			`start_date_utc` VARCHAR(19) NOT NULL,
-			`end_date_utc` VARCHAR(19) DEFAULT NULL,
-			`duration` MEDIUMINT(30) DEFAULT 7200,
-			`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			`event_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			`post_id` bigint(20) unsigned NOT NULL,
+			`start_date` varchar(19) NOT NULL,
+			`end_date` varchar(19) DEFAULT NULL,
+			`timezone` varchar(30) NOT NULL DEFAULT 'UTC',
+			`start_date_utc` varchar(19) NOT NULL,
+			`end_date_utc` varchar(19) DEFAULT NULL,
+			`duration` mediumint(30) DEFAULT 7200,
+			`updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			`hash` varchar(40) NOT NULL,
 			PRIMARY KEY  (`event_id`)
 			) {$charset_collate};";

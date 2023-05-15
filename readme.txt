@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.13.1
+Stable tag: 6.1.0
 Tested up to: 6.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.15] TBD =
+= [TBD] TBD =
 
 * Fix - Fixes database error, caused by the CT1 query parser when attempting rewrite the order by statement. Added logic to reflect on meta query arrays, and not just key/value pairs. [ECP-1495]
 * Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
@@ -238,6 +238,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
 * Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
 * Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
+* Fix - Removing our eager schema updates. This was causing a number of `ALTER` statements being run redundantly. No longer utilizes cache/transient for the last run check as it is not dependable. [TEC-4797]
 
 = [6.0.13.1] 2023-05-15 =
 

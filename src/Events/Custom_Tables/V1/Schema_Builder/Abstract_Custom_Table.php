@@ -55,11 +55,28 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	public function update() {
 		$this->before_update();
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		$results = (array) dbDelta( $this->get_update_sql() );
+		$query = $this->get_update_sql();
+		$this->validate_for_db_delta($query);
+		$results = (array) dbDelta( $query );
 		$this->sync_stored_version();
 		$results = $this->after_update( $results );
 
 		return $results;
+	}
+
+	/**
+	 * Inspects query strings being passed to dbDelta, and logs an error if not ideal.
+	 *
+	 * @since TBD
+	 *
+	 * @see https://developer.wordpress.org/reference/functions/dbdelta/
+	 *
+	 * @param string $query Query string to inspect for case sensitivity before using in dbDelta
+	 */
+	public function validate_for_db_delta( string $query ) {
+		if ( preg_match( '/`.*?` [A-Z]/', $query ) ) {
+			do_action( 'tribe_log', 'error', __METHOD__, [ 'schema_builder_error' => "Failed dbDelta field validation: $query" ] );
+		}
 	}
 
 	/**

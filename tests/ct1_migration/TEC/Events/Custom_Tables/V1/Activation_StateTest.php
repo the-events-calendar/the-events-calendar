@@ -3,6 +3,7 @@
 namespace TEC\Events\Custom_Tables\V1;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use TEC\Events\Custom_Tables\V1\Tables\Events as Events_Schema;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences as Occurrences_Schema;
 use TEC\Events\Custom_Tables\V1\Tables\Provider as Tables;
@@ -163,51 +164,26 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	}
 
 	/**
-	 * It should not rerun the activation early when using object cache
-	 *
-	 * @test
-	 */
-	public function should_not_rerun_the_activation_early_when_using_object_cache(): void {
-		// We're using real object cache.
-		$this->set_fn_return( 'wp_using_ext_object_cache', true );
-		// The cached value is set to 1 hour ago.
-		$last_run_time = time() - HOUR_IN_SECONDS;
-		wp_cache_set( Activation::ACTIVATION_TRANSIENT, $last_run_time );
-		// The transient is not set.
-		delete_transient( Activation::ACTIVATION_TRANSIENT );
-		// The Schema Builder up function should not be called.
-		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', function () {
-			$this->fail( 'The Schema Builder up function should not be called' );
-		} );
-
-		// Activate.
-		Activation::init();
-
-		$this->assertEquals( $last_run_time, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertEquals( '', get_transient( Activation::ACTIVATION_TRANSIENT ) );
-	}
-
-	/**
 	 * It should not rerun the activation early when using transients
 	 *
 	 * @test
 	 */
-	public function should_not_rerun_the_activation_early_when_using_transients(): void {
-		// We're not using real object cache.
-		$this->set_fn_return( 'wp_using_ext_object_cache', false );
+	public function should_not_rerun_the_activation_early(): void {
+
 		// The transient value is set to 1 hour ago.
-		$last_run_time = time() - HOUR_IN_SECONDS;
-		set_transient( Activation::ACTIVATION_TRANSIENT, $last_run_time, DAY_IN_SECONDS );
+		tec_timed_option()->set( Activation::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
+
 		// The Schema Builder up function should not be called.
-		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', function () {
+		$calls = 0;
+		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', static function () use ( &$calls ) {
+			$calls ++;
 			$this->fail( 'The Schema Builder up function should not be called' );
 		} );
 
 		// Activate.
 		Activation::init();
 
-		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertEquals( $last_run_time, get_transient( Activation::ACTIVATION_TRANSIENT ) );
+		$this->assertEquals( 0, $calls );
 	}
 
 	/**
@@ -216,14 +192,7 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 * @test
 	 * @skip
 	 */
-	public function should_use_cached_value_when_using_object_cache_over_transient(): void {
-		// We're using real object cache.
-		$this->set_fn_return( 'wp_using_ext_object_cache', true );
-		// The cached value is set to 26 hours ago.
-		$last_run_time = time() - 26 * HOUR_IN_SECONDS;
-		wp_cache_set( Activation::ACTIVATION_TRANSIENT, $last_run_time );
-		// The transient value is set to 1 hour ago.
-		set_transient( Activation::ACTIVATION_TRANSIENT, time() - HOUR_IN_SECONDS, DAY_IN_SECONDS );
+	public function should_init_once(): void {
 		// The Schema Builder up function should be called.
 		$calls = 0;
 		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', static function () use ( &$calls ) {
@@ -232,101 +201,10 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 
 		// Activate.
 		Activation::init();
-
-		$this->assertEquals( 1, $calls );
-		$this->assertEquals( false, get_transient( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertTrue( is_int( wp_cache_get( Activation::ACTIVATION_TRANSIENT ) ) );
-		$this->assertGreaterThan( $last_run_time, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-	}
-
-	/**
-	 * It should use transient value over cache when using transients
-	 *
-	 * @test
-	 */
-	public function should_use_transient_value_over_cache_when_using_transients(): void {
-		// We're not using real object cache.
-		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		// The transient value is set to 26 hours ago.
-		$last_run_time = time() - 26 * HOUR_IN_SECONDS;
-		set_transient( Activation::ACTIVATION_TRANSIENT, $last_run_time, DAY_IN_SECONDS );
-
-		// The cached value is set to 1 hour ago.
-		wp_cache_set( Activation::ACTIVATION_TRANSIENT, time() - HOUR_IN_SECONDS );
-		// The Schema Builder up function should be called.
-		$calls = 0;
-		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', static function () use ( &$calls ) {
-			$calls ++;
-		} );
-
-		// Activate.
+		tec_timed_option()->delete( Activation::ACTIVATION_TRANSIENT );
 		Activation::init();
 
 		$this->assertEquals( 1, $calls );
-		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertTrue( is_int( get_transient( Activation::ACTIVATION_TRANSIENT ) ) );
-		// Should have updated via the init()
-		$this->assertGreaterThan( $last_run_time, get_transient( Activation::ACTIVATION_TRANSIENT ) );
-	}
-
-	/**
-	 * It should correctly interact with Main clear state when using object cache
-	 *
-	 * @test
-	 */
-	public function should_correctly_interact_with_main_clear_state_when_using_object_cache(): void {
-		// We're using real object cache.
-		$this->set_fn_return( 'wp_using_ext_object_cache', true );
-		// The cached value is set to 1 hour ago.
-		$last_run_time = time() - HOUR_IN_SECONDS;
-		wp_cache_set( Activation::ACTIVATION_TRANSIENT, $last_run_time );
-		// The transient value is set to 1 hour ago.
-		set_transient( Activation::ACTIVATION_TRANSIENT, time() - HOUR_IN_SECONDS, DAY_IN_SECONDS );
-		// The Schema Builder up function should be called.
-		$calls = 0;
-		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', static function () use ( &$calls ) {
-			$calls ++;
-		} );
-
-		// Clear the state from Main, as it would happen on activation or deactivation.
-		TEC::clear_ct1_activation_state();
-		// Activate.
-		Activation::init();
-
-		$this->assertEquals( 1, $calls );
-		$this->assertEquals( false, get_transient( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertTrue( is_int( wp_cache_get( Activation::ACTIVATION_TRANSIENT ) ) );
-		$this->assertGreaterThan( $last_run_time, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-	}
-
-	/**
-	 * It should correctly interact with Main clear state when using transients
-	 *
-	 * @test
-	 */
-	public function should_correctly_interact_with_main_clear_state_when_using_transients(): void {
-		// We're not using real object cache.
-		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		// The transient value is set to 1 hour ago.
-		$last_run_time = time() - HOUR_IN_SECONDS;
-		set_transient( Activation::ACTIVATION_TRANSIENT, $last_run_time, DAY_IN_SECONDS );
-		// The cached value is set to 1 hour ago.
-		wp_cache_set( Activation::ACTIVATION_TRANSIENT, time() - HOUR_IN_SECONDS );
-		// The Schema Builder up function should be called.
-		$calls = 0;
-		add_action( 'tec_events_custom_tables_v1_schema_builder_after_up', static function () use ( &$calls ) {
-			$calls ++;
-		} );
-
-		// Clear the state from Main, as it would happen on activation or deactivation.
-		TEC::clear_ct1_activation_state();
-		// Activate.
-		Activation::init();
-
-		$this->assertEquals( 1, $calls );
-		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertTrue( is_int( get_transient( Activation::ACTIVATION_TRANSIENT ) ) );
-		$this->assertGreaterThan( $last_run_time, get_transient( Activation::ACTIVATION_TRANSIENT ) );
 	}
 
 	/**
@@ -334,12 +212,7 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 	 *
 	 * @test
 	 */
-	public function should_recreate_the_tables_if_removed_after_activation(): void {
-		// We're not using real object cache.
-		$this->set_fn_return( 'wp_using_ext_object_cache', false );
-		// The transient value is set to 26 hours ago.
-		$last_run_time = time() - 26 * HOUR_IN_SECONDS;
-		set_transient( Activation::ACTIVATION_TRANSIENT, $last_run_time, DAY_IN_SECONDS );
+	public function should_recreate_the_tables_if_removed_after_activation_from_schema_up(): void {
 		// The Migration state is set to completed.
 		tribe( State::class )->set( 'phase', State::PHASE_MIGRATION_COMPLETE );
 		// But, in the meantime, the tables have been removed.
@@ -355,12 +228,9 @@ class Activation_StateTest extends \CT1_Migration_Test_Case {
 		} );
 
 		// Activate.
-		Activation::init();
+		tribe( Schema_Builder::class )->up( true );
 
 		$this->assertEquals( 1, $calls );
-		$this->assertEquals( false, wp_cache_get( Activation::ACTIVATION_TRANSIENT ) );
-		$this->assertTrue( is_int( get_transient( Activation::ACTIVATION_TRANSIENT ) ) );
-		$this->assertGreaterThan( $last_run_time, get_transient( Activation::ACTIVATION_TRANSIENT ) );
 
 		// The tables should be there.
 		$this->assertEquals(
