@@ -209,7 +209,7 @@ class Event extends Base {
 				'excerpt'                => (
 					new Lazy_String(
 						static function () use ( $post_id ) {
-							return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) );
+							return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ), true );
 						},
 						false
 					)
