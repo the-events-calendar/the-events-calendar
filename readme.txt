@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
 * Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
 * Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
+* Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
 
 = [6.0.13] 2023-05-08 =
 
