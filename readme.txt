@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.0.13
+Stable tag: 6.0.13.1
 Tested up to: 6.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,7 +231,11 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+
+= [6.0.13.1] 2023-05-15 =
+
 * Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+* Language - 0 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.0.13] 2023-05-08 =
 
