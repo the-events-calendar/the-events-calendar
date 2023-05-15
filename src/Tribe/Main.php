@@ -43,6 +43,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		const VERSION             = '6.1.2';
 
+
 		/**
 		 * Min Pro Addon
 		 *
