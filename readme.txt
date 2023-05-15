@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.15] TBD =
+= [TBD] TBD =
 
 * Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
 * Fix - Prevent administration navigation fatal error with `TypeError: array_search()`. [TEC-4780]
@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
 * Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
 * Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
+* Fix - Removing our eager schema updates. This was causing a number of `ALTER` statements being run redundantly. No longer utilizes cache/transient for the last run check as it is not dependable. [TEC-4797]
 
 = [6.0.13.1] 2023-05-15 =
 
