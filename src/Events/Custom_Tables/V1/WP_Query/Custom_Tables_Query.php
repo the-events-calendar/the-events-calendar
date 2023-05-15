@@ -522,11 +522,11 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		global $wpdb;
-		$str = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+		$join_clause = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
 
-		if ( strpos( $join, $str ) === false ) {
+		if ( strpos( $join, $join_clause ) === false ) {
 			// Let's add the JOIN clause only if we did not already.
-			$join .= ' ' . $str;
+			$join .= ' ' . $join_clause;
 		}
 
 		return $join;

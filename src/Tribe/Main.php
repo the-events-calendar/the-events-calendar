@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.13';
+		const VERSION             = '6.0.13.1';
 
 		/**
 		 * Min Pro Addon
@@ -3531,6 +3531,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$current_hidden_boxes = get_user_option( 'metaboxhidden_nav-menus', $user_id );
+
+			if ( ! is_array( $current_hidden_boxes ) ) {
+				return;
+			}
 
 			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );

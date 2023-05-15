@@ -795,4 +795,22 @@ abstract class By_Day_View extends View {
 		$this->repository->where( 'ends_after', $start_date );
 		$this->repository->where( 'starts_before', $end_date );
 	}
+
+	/**
+	 * Overrides the base View implementation to remove pagination from the URL.
+	 * 
+	 * {@inheritdoc}
+	 */
+	public function url_for_query_args( $date = null, $query_args = [] ) {
+		// If the query arguments are passed as a string, convert them to an array.
+		if ( ! is_array( $query_args ) ) {
+			parse_str( $query_args, $query_args );
+		}
+
+		// Remove the 'page' and 'paged' query parameters from the array of query arguments.
+		unset( $query_args[ 'page' ], $query_args[ 'paged' ] );
+
+		// Call the parent class's 'url_for_query_args' method with the updated query arguments.
+		return parent::url_for_query_args( $date, $query_args );
+	}
 }

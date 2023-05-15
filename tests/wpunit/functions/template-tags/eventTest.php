@@ -44,12 +44,32 @@ class eventTest extends WPTestCase {
 	/**
 	 * Test tribe_get_event returns null for non-existing event
 	 */
-	public
-	function test_tribe_get_event_returns_null_for_non_existing_event() {
+	public function test_tribe_get_event_returns_null_for_non_existing_event() {
 		// Sanity check: let's make sure this does not exist.
 		$this->assertNull( get_post( 23 ) );
 
 		$this->assertNull( tribe_get_event( 23 ) );
+	}
+
+	/**
+	 * Edge case bug where global post was being reset in a loop. This verifies the lazy objects doesn't do that again.
+	 */
+	public function test_tribe_get_event_properties_retains_global_post() {
+		global $wp_query;
+		$global_post     = static::factory()->event->create_and_get();
+		$post            = static::factory()->event->create_and_get();
+		$wp_query->post  = $global_post;
+		$GLOBALS['post'] = $post;
+		setup_postdata( $post );
+		$this->assertEquals( get_post(), $post );
+		$event = tribe_get_event( $post );
+		$props = $event->to_array();
+		foreach ( $props as $value ) {
+			// We have some lazy objects that do magic. Let's make sure it's safe.
+			json_encode( $value );
+		}
+		// Ensure global retains.
+		$this->assertEquals( get_post(), $post );
 	}
 
 	/**
