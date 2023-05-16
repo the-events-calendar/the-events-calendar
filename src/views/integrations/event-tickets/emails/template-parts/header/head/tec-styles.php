@@ -39,6 +39,7 @@
 		font-weight: 400;
 		letter-spacing: 0px;
 		line-height: 23px;
+		padding: 15px 0 0;
 		text-align: left;
 	}
 	.tec-tickets__email-table-content-event-image,
