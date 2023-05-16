@@ -173,45 +173,4 @@ class Ticket {
 	public function include_event_link_styles( $parent_template ): void {
 		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
 	}
-
-	/**
-	 * Determines whether Ticket should show calendar links.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $args References template context arguments.
-	 *
-	 * @return bool
-	 */
-	public function should_show_links( $args ): bool {
-		$email_class = tribe( Ticket_Email::class );
-		if ( ! $email_class->is_enabled() ) {
-			return false;
-		}
-
-		if (
-			! empty( $args['email'] )
-			&& $args['email']->get_id() !== $email_class->get_id()
-		) {
-			return false;
-		}
-
-		if ( ! empty( $args['preview'] ) && ! empty( $args['add_event_links'] ) ) {
-			return tribe_is_truthy( $args['add_event_links'] );
-		}
-
-		if ( empty( $args['event'] ) ) {
-			return false;
-		}
-
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
-			return false;
-		}
-
-		if ( empty( $args['preview'] ) && empty( $args['event'] ) && empty( $args['event']->ID ) ) {
-			return false;
-		}
-
-		return true;
-	}
 }
