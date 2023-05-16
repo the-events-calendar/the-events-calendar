@@ -5,7 +5,7 @@ use Tribe\Events\Admin\Settings;
 use Tribe__Events__Main;
 use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 
@@ -15,7 +15,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  * @since 5.14.0
  *
  */
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 
 
 	/**

@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -19,7 +19,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package TEC\Events\Custom_Tables\V1\Migration\CSV_Report;
  */
-class Download_Report_Provider extends ServiceProvider {
+class Download_Report_Provider extends Service_Provider {
 	/**
 	 * Registers the required implementations and hooks into the required
 	 * actions and filters.

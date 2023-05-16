@@ -4,7 +4,7 @@ namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
 use \Tribe__Events__Main as Events_Main;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -14,7 +14,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package TEC\Events\Editor\Full_Site
  */
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 
 	/**
 	 * Register the provider singletons.

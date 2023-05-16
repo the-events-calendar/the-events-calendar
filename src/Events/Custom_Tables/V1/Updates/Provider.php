@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use Tribe__Events__Main as TEC;
 use WP_Post;
@@ -23,7 +23,7 @@ use WP_REST_Server;
  *
  * @package TEC\Events\Custom_Tables\V1\Updates
  */
-class Provider extends ServiceProvider implements Provider_Contract {
+class Provider extends Service_Provider implements Provider_Contract {
 	public function register() {
 		// Make this provider available in the Service Locator by class and slug.
 		$this->container->singleton( self::class, $this );

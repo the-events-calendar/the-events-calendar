@@ -9,7 +9,7 @@
 namespace Tribe\Events\Taxonomy;
 
 use WP_Term;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -19,7 +19,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Taxonomy
  */
-class Taxonomy_Provider extends ServiceProvider {
+class Taxonomy_Provider extends Service_Provider {
 
 
 	/**

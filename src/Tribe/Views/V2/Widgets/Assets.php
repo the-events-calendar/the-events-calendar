@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe__Events__Main as Plugin;
 use \Tribe\Events\Views\V2\Assets as TEC_Assets;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -23,7 +23,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
-class Assets extends ServiceProvider {
+class Assets extends Service_Provider {
 
 
 	/**

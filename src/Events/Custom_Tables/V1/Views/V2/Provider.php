@@ -13,7 +13,7 @@ use Exception;
 use stdClass;
 use Tribe__Customizer as Customizer;
 use Tribe__Customizer__Section as Customizer_Section;
-use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -23,7 +23,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
  *
  * @package TEC\Events\Custom_Tables\V1\Views\V2
  */
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 
 
 	/**

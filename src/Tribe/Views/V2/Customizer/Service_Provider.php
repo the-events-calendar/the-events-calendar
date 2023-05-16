@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\Customizer\Section\Global_Elements;
 use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
 use Tribe\Events\Views\V2\Customizer\Section\Single_Event;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -22,7 +22,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Views\V2\Customizer
  */
-class Service_Provider extends ServiceProvider {
+class Service_Provider extends Service_Provider {
 
 	public function register() {
 		$this->container->singleton( 'events.views.v2.customizer.provider', $this );

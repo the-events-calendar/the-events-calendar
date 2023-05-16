@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Legacy\Views\V1;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -19,7 +19,7 @@ use Tribe__Utils__Array as Arr;
 
  * @package TEC\Events\Legacy\Views\V1
  */
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 	/**
 	 * Registers the handlers and modifiers for notifying the site
 	 * that Legacy views are removed.

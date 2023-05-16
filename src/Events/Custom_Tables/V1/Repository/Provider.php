@@ -12,7 +12,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Repository;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 
 /** * Class Provider.
@@ -21,7 +21,7 @@ use TEC\Events\Custom_Tables\V1\Provider_Contract;
  *
  * @package TEC\Events\Custom_Tables\V1\Repository
  */
-class Provider extends ServiceProvider implements Provider_Contract {
+class Provider extends Service_Provider implements Provider_Contract {
 	/**
 	 * Hooks on the filters used in the Repository to handle the creation and update of custom
 	 * tables data.

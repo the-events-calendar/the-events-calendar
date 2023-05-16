@@ -1,7 +1,7 @@
 <?php
 
 use Tribe\Events\Aggregator\Processes\Batch_Imports;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -9,7 +9,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @since 4.6.16
  */
-class Tribe__Events__Aggregator__Processes__Service_Provider extends ServiceProvider {
+class Tribe__Events__Aggregator__Processes__Service_Provider extends Service_Provider {
 
 
 	/**

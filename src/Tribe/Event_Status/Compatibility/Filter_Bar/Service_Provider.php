@@ -10,7 +10,7 @@
 namespace Tribe\Events\Event_Status\Compatibility\Filter_Bar;
 
 use Tribe\Events\Event_Status\Status_Labels;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -20,7 +20,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Event_Status\Compatibility\Filter_Bar
  */
-class Service_Provider extends ServiceProvider {
+class Service_Provider extends Service_Provider {
 
 
 	/**

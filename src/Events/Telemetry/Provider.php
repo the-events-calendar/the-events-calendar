@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Telemetry;
 
-use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
  /**
   * Class Provider
@@ -18,7 +18,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider as ServiceProvider;
 
   * @package TEC\Events\Telemetry
   */
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 	public function register() {
 		$this->add_filters();
 	}

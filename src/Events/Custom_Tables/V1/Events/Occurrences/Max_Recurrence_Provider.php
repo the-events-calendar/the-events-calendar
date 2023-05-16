@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Events\Occurrences;
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -21,7 +21,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package TEC\Events\Custom_Tables\V1\Events\Occurrences
  */
-class Max_Recurrence_Provider extends ServiceProvider {
+class Max_Recurrence_Provider extends Service_Provider {
 	/**
 	 * A flag property indicating whether the Service Provide did register or not.
 	 *

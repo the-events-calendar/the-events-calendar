@@ -17,7 +17,7 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_365;
 use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Export;
 use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
 use Tribe\Events\Views\V2\View;
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -27,7 +27,7 @@ use TEC\Common\lucatume\DI52\ServiceProvider;
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
-class iCalendar_Handler extends ServiceProvider {
+class iCalendar_Handler extends Service_Provider {
 
 	/**
 	 * Which classes we will load for links by default.

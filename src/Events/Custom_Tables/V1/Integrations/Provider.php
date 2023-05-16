@@ -10,7 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\Integrations;
 
 
-use TEC\Common\lucatume\DI52\ServiceProvider;
+use TEC\Common\DI\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Integrations\ACF\Controller as ACF_Controller;
 
 /**
@@ -20,7 +20,7 @@ use TEC\Events\Custom_Tables\V1\Integrations\ACF\Controller as ACF_Controller;
  *
  * @package TEC\Events\Custom_Tables\V1\Integrations
  */
-class Provider extends ServiceProvider {
+class Provider extends Service_Provider {
 	/**
 	 * Registers the Service Providers required for the plugin to work with other plugins.
 	 *

@@ -6,7 +6,7 @@
  * @since 4.9
  */
 
- use TEC\Common\lucatume\DI52\ServiceProvider;
+ use TEC\Common\DI\Service_Provider;
 
 
 /**
@@ -14,7 +14,7 @@
  *
  * @since 4.9
  */
-class Tribe__Events__Service_Providers__ORM extends ServiceProvider {
+class Tribe__Events__Service_Providers__ORM extends Service_Provider {
 
 
 	/**
