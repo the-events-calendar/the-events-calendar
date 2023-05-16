@@ -10,7 +10,7 @@
 namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\DI\Service_Provider as DI_Provider;
 
 
 /**
@@ -20,7 +20,7 @@ use TEC\Common\DI\Service_Provider;
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
-class Service_Provider extends Service_Provider {
+class Service_Provider extends DI_Provider {
 
 
 	/**

@@ -9,7 +9,7 @@
 
 namespace Tribe\Events\Integrations\Hello_Elementor;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\DI\Service_Provider as DI_Provider;
 
 
 /**
@@ -19,7 +19,7 @@ use TEC\Common\DI\Service_Provider;
  *
  * @package Tribe\Events\Integrations\Hello_Elementor
  */
-class Service_Provider extends Service_Provider {
+class Service_Provider extends DI_Provider {
 
 	public function register() {
 		if ( 'hello-elementor' !== get_template() ) {
