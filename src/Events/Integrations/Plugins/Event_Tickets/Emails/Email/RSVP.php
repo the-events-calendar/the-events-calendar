@@ -154,6 +154,10 @@ class RSVP {
 			return;
 		}
 
+		if ( ! isset( $args['event'] ) ) {
+			return;
+		}
+
 		$args['event_gcal_link'] = tribe( Google_Calendar::class )->generate_single_url( $args['event']->ID );
 		$args['event_ical_link'] = tribe_get_single_ical_link( $args['event']->ID );
 
