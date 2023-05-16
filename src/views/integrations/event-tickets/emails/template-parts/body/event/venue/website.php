@@ -23,28 +23,28 @@ if ( empty( $venue ) ) {
 	return;
 }
 
-if ( empty( $venue->website ) ) {
+if ( empty( $venue->website_url ) ) {
 	return;
 }
 ?>
-<table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
+<table role="presentation" class="tec-tickets__email-table-content-event-venue-website-table">
 	<tr>
-		<td style="display:inline-block;text-align:center;vertical-align:top;" valign="top" align="center">
+		<td class="tec-tickets__email-table-content-event-venue-website-icon-container" valign="top" align="center">
 			<img
 				width="24"
 				height="23"
-				style="width:24px;height:23px;display:block;"
+				class="tec-tickets__email-table-content-event-venue-website-icon-image"
 				src="<?php echo esc_url( tribe_resource_url( 'images/icons/bitmap/link.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
 			/>
 		</td>
-		<td style="padding:0;">
+		<td class="tec-tickets__email-table-content-event-venue-website-container">
 			<a
-				href="<?php echo esc_url( $venue->website ); ?>"
+				href="<?php echo esc_url( $venue->website_url ); ?>"
 				target="_blank"
 				rel="noopener noreferrer"
 				style="overflow-wrap: anywhere;"
 			>
-				<?php echo esc_url( $venue->website ); ?>
+				<?php echo esc_url( $venue->website_url ); ?>
 			</a>
 		</td>
 	</tr>
