@@ -137,9 +137,20 @@ class RSVP {
 	 *
 	 * @return void
 	 */
-	public function include_event_links( $parent_template ) {
+	public function include_calendar_links( $parent_template ) {
 		$args = $parent_template->get_local_values();
-		if ( ! $this->should_show_links( $args ) ) {
+
+		if ( ! $args['email'] instanceof RSVP_Email ) {
+			return;
+		}
+
+		if ( tribe( RSVP_Email::class )->is_using_ticket_email_settings() ) {
+			tribe( Ticket::class )->render_calendar_links( $args );
+			return;
+		}
+
+		// Bail if the option to add calendar links is false.
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
 			return;
 		}
 
