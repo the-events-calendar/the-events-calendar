@@ -46,10 +46,7 @@ class Tribe__Events__iCal {
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
-		add_action(
-			'tribe_events_single_event_after_the_content',
-			[ $this, 'single_event_links' ]
-		);
+		add_action( 'tribe_events_single_event_after_the_content', [ $this, 'single_event_links' ] );
 		add_action( 'template_redirect', [ $this, 'do_ical_template' ] );
 		add_filter( 'tribe_get_ical_link', [ $this, 'day_view_ical_link' ], 20, 1 );
 		add_action( 'wp_head', [ $this, 'set_feed_link' ], 2, 0 );
@@ -330,6 +327,14 @@ class Tribe__Events__iCal {
 		if ( $list_view_slug === $args['eventDisplay'] ) {
 			// Whe producing a List view iCal feed the `eventDate` is misleading.
 			unset( $args['eventDate'] );
+
+			// If passed a date, only observe it if it's in the future.
+			if ( isset( $args['tribe-bar-date'] ) ) {
+				$set_date = Dates::build_date_object( $args['tribe-bar-date'] );
+				if ( $set_date < Dates::build_date_object() ) {
+					unset( $args['tribe-bar-date'] );
+				}
+			}
 		}
 
 		return $this->get_events_list( $args, $wp_query );
@@ -521,7 +526,7 @@ class Tribe__Events__iCal {
 			}
 
 			$transitions = $timezone->getTransitions( $start, $end );
-			if ( count( $transitions ) === 1 ) {
+			if ( is_array( $transitions ) && count( $transitions ) === 1 ) {
 				$transitions[] = array_values( $transitions )[ 0 ];
 			}
 

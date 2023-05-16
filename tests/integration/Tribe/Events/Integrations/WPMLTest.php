@@ -3,11 +3,13 @@
 namespace Tribe\Events\Integrations;
 
 use Codeception\TestCase\WPTestCase;
+use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Integrations__WPML__Linked_Posts;
 use Tribe__Events__Integrations__WPML__Rewrites;
 use Tribe__Log;
-
+use Tribe\Events\Integrations\WPML\Views\V2\Filters as V2_Filters;
 // WPML functions
 
 
@@ -87,5 +89,42 @@ class WPMLTest extends WPTestCase {
 		$wpml_linked_posts = tribe( Tribe__Events__Integrations__WPML__Linked_Posts::class );
 		$wpml_linked_posts->filter_tribe_events_linked_post_create( $venue_id, [], 'tribe_venue', 'published', $event_id );
 		$this->assertEquals( 0, $track_errors->whoops );
+	}
+
+	/**
+	 * Validate that the WPML filter is being hit with a string cast permalink value.
+	 *
+	 * @test
+	 */
+	public function should_filter_permalinks_as_strings() {
+		// Given some events, and a template view is filtering permalinks on the WPML filter...
+		$event = tribe_events()->set_args( [
+			'title'      => "Fred's Falafels",
+			'start_date' => "2021-01-02 08:00:00",
+			'duration'   => 2 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create();
+		$view  = View::make( List_View::class );
+		$view->set_context( tribe_context()->alter( [
+			'single'          => false,
+			'event_post_type' => true,
+			'featured'        => false,
+			'event_date'      => '2021-01-01'
+		] ) );
+
+		$template_vars = $view->get_template_vars();
+		$did_run       = false;
+		add_filter( 'wpml_permalink', function ( $permalink ) use ( &$did_run ) {
+			// We use Lazy_String, this should have been converted to the string primitive.
+			$this->assertIsString( $permalink );
+			$did_run = true;
+
+			return $permalink;
+		} );
+
+		// Now verify things run correctly.
+		V2_Filters::translate_events_permalinks( $template_vars );
+
+		$this->assertTrue( $did_run, 'Our filter above should have been run at least once.' );
 	}
 }

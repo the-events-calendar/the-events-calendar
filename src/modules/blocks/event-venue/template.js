@@ -35,7 +35,11 @@ import { Venue as VenueIcon } from '@moderntribe/events/icons';
 import { utils } from '@moderntribe/events/data/blocks/venue';
 import { google, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+
 const { InspectorControls } = wpEditor;
+const { getAddress } = utils;
+const { maps } = google();
+const geocoder = new maps.Geocoder();
 
 /**
  * Module Code
@@ -67,6 +71,11 @@ class EventVenue extends Component {
 		onCreateNew: PropTypes.func,
 		removeVenue: PropTypes.func,
 		editVenue: PropTypes.func,
+		volatile: PropTypes.any,
+		name: PropTypes.any,
+		store: PropTypes.any,
+		fields: PropTypes.any,
+		setSubmit: PropTypes.any,
 	};
 
 	constructor( props ) {
@@ -75,14 +84,30 @@ class EventVenue extends Component {
 		/**
 		 * @todo move this into the Store
 		 */
-		this.state = { coords: { lat: null, lng: null } };
+		this.state = { coords: { lat: null, lng: null }, derivedAddressString: '' };
+	}
+
+	componentDidMount() {
+		const { details } = this.props;
+		const address = addressToMapString( getAddress( details ) );
+		if ( address ) {
+			this.setCoordinatesState( address );
+		}
 	}
 
 	componentDidUpdate( prevProps ) {
-		const { isSelected, edit, create, setSubmit } = this.props;
+		const { isSelected, edit, create, setSubmit, details } = this.props;
 		const unSelected = prevProps.isSelected && ! isSelected;
+		const address = addressToMapString( getAddress( details ) );
+		const { derivedAddressString } = this.state;
+
 		if ( unSelected && ( edit || create ) ) {
 			setSubmit();
+		}
+		// Did we change?
+		if ( derivedAddressString !== address ) {
+			// Get coords if we did.
+			this.setCoordinatesState( address );
 		}
 	}
 
@@ -121,7 +146,6 @@ class EventVenue extends Component {
 
 	renderDetails = () => {
 		const { showMapLink, details } = this.props;
-		const { getAddress } = utils;
 
 		return (
 			<VenueDetails
@@ -155,7 +179,6 @@ class EventVenue extends Component {
 
 	renderContainer() {
 		const { isLoading, edit, create, submit } = this.props;
-
 		if ( isLoading || submit ) {
 			return (
 				<Placeholder key="loading">
@@ -173,14 +196,9 @@ class EventVenue extends Component {
 
 	renderMap() {
 		const { details, edit, create, isLoading, submit, showMap } = this.props;
-
 		if ( ! showMap || isEmpty( details ) || edit || create || isLoading || submit ) {
 			return null;
 		}
-
-		const { getAddress } = utils;
-
-		this.getCoordinates( details );
 		const { coords } = this.state;
 		return (
 			<GoogleMap
@@ -305,28 +323,28 @@ class EventVenue extends Component {
 	 *
 	 * @todo  We need to save the data into Meta Fields to avoid redoing the Geocode
 	 * @todo  Move the Maps into Pro
-	 * @param  {object} details Information to pass along to the geocoder
+	 * @param  {string} address Address string for geocode query.
 	 * @return {void}
 	 */
-	getCoordinates = ( details ) => {
-		const { maps } = google();
-		const geocoder = new maps.Geocoder();
-		const { getAddress } = utils;
+	setCoordinatesState = ( address ) => {
+		// Clear our state?
+		if ( ! address ) {
+			this.setState( { coords: { lat: null, lng: null }, derivedAddressString: '' } );
+			return;
+		}
 
-		const address = addressToMapString( getAddress( details ) );
-
-		/**
-		 * @todo Need to move this out of the template
-		 */
+		// Fetch coords.
 		geocoder.geocode( { address: address }, ( results, status ) => {
 			if ( 'OK' !== status ) {
+				this.setState( ( state ) => ( { ...state, derivedAddressString: address } ) );
 				return;
 			}
 
 			const { location } = results[ 0 ].geometry;
-
-			this.setState( { coords: { lat: location.lat(), lng: location.lng() } } );
-			return;
+			this.setState( {
+				coords: { lat: location.lat(), lng: location.lng() },
+				derivedAddressString: address,
+			} );
 		} );
 	}
 }

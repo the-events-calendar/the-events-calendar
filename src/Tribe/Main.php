@@ -41,14 +41,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.10';
+		const VERSION             = '6.1.0';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-dev';
+		const MIN_ADDON_VERSION   = '6.1.0';
 
 		/**
 		 * Min Common
@@ -2484,6 +2484,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$event_url = home_url( '/' );
 			}
 
+			// Ensure the URL ends with a trailing slash.
+			$event_url = trailingslashit( $event_url );
+
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
 			if ( null === $url_query ) {
@@ -3528,6 +3531,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$current_hidden_boxes = get_user_option( 'metaboxhidden_nav-menus', $user_id );
+
+			if ( ! is_array( $current_hidden_boxes ) ) {
+				return;
+			}
 
 			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );

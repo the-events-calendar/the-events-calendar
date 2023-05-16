@@ -25,7 +25,7 @@ if ( $ecp && tribe_is_using_basic_gmaps_api() ) {
 	);
 }
 
-$posts_per_page_tooltip = class_exists( 'Tribe__Events__Pro__Main', false )
+$posts_per_page_tooltip = ! class_exists( 'Tribe__Events__Pro__Main', false )
 	? esc_html__( 'The number of events per page on the List View. Does not affect other views.', 'the-events-calendar' )
 	: esc_html__( 'The number of events per page on the List, Photo, and Map Views. Does not affect other views.', 'the-events-calendar' );
 

@@ -44,31 +44,7 @@ class Activation {
 		$schema_builder->up();
 	}
 
-	/**
-	 * This is reliant on the Activation::init run to refresh this value. If you are inspecting this
-	 * last run value, ensure you are checking after it has a chance to check and refresh cache/transient
-	 * do to their schema sync checks.
-	 *
-	 * @since 6.0.9
-	 *
-	 * @return int|null Last time we attempted activating our tables, null if last run cache
-	 *                  expired or never ran.
-	 */
-	public static function last_run_time(): ?int {
-		/*
-		 * Transients will use the cache when using real object cache, why check both then?
-		 * Transients might be disabled. In that case we'll use the cache and work around that limitation.
-		 * A user seeking to force the Activation to run again can flush the cache when using one, or clear
-		 * the transient when not using one.
-		 */
-		if ( wp_using_ext_object_cache() ) {
-			$last_run = wp_cache_get( static::ACTIVATION_TRANSIENT );
-		} else {
-			$last_run = get_transient( static::ACTIVATION_TRANSIENT );
-		}
 
-		return is_numeric( $last_run ) ? (int) $last_run : null;
-	}
 
 	/**
 	 * Checks the state to determine if whether we should create or update custom tables.
@@ -76,17 +52,17 @@ class Activation {
 	 * This method will run once a day (using transients).
 	 *
 	 * @since 6.0.0
+	 * @since TBD Reworked transient logic to use tec_timed_option instead. More concise. No longer forces schema updates.
 	 */
 	public static function init() {
-		$services = tribe();
-		$last_run = static::last_run_time();
-		$now      = time();
-
 		// If the activation last ran less than 24 hours ago, bail.
-		if ( $last_run && $last_run > ( $now - DAY_IN_SECONDS ) ) {
+		if ( tec_timed_option()->get( static::ACTIVATION_TRANSIENT ) ) {
 			return;
 		}
 
+		tec_timed_option()->set( static::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
+
+		$services       = tribe();
 		$schema_builder = $services->make( Schema_Builder::class );
 		$state          = $services->make( State::class );
 		$phase          = $state->get_phase();
@@ -103,7 +79,7 @@ class Activation {
 
 		// Update the tables if required by the migration phase.
 		if ( $update ) {
-			$schema_builder->up( true );
+			$schema_builder->up();
 
 			// Ensure late activation only after we have the tables.
 			if ( ! $services->getVar( 'ct1_fully_activated' ) ) {
@@ -113,16 +89,6 @@ class Activation {
 				 */
 				$services->register( Full_Activation_Provider::class );
 			}
-		}
-
-		if ( wp_using_ext_object_cache() ) {
-			wp_cache_set( static::ACTIVATION_TRANSIENT, $now, '', DAY_IN_SECONDS );
-			// Clean up.
-			delete_transient( static::ACTIVATION_TRANSIENT );
-		} else {
-			set_transient( static::ACTIVATION_TRANSIENT, $now, DAY_IN_SECONDS );
-			// Clean up.
-			wp_cache_delete( static::ACTIVATION_TRANSIENT );
 		}
 	}
 
@@ -189,7 +155,7 @@ class Activation {
 			$issue_reports[] = "`Occurrences` Table Missing";
 		}
 
-		$reports = empty( $issue_reports ) ? 'Good!' : implode( $issue_reports, ' | ' );
+		$reports = empty( $issue_reports ) ? 'Good!' : implode( ' | ', $issue_reports );
 
 		// Add health checks here.
 		$migration_health_check = [

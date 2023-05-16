@@ -85,8 +85,7 @@ trait CT1_Fixtures {
 		$tables = $wpdb->get_col( $q );
 		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
 		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
-		wp_cache_delete( Activation::ACTIVATION_TRANSIENT );
-		delete_transient( Activation::ACTIVATION_TRANSIENT );
+		tec_timed_option()->delete( Activation::ACTIVATION_TRANSIENT );
 	}
 
 	/**
@@ -187,8 +186,8 @@ trait CT1_Fixtures {
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
 	}
 
-	private function given_a_migrated_single_event(){
-		$post = $this->given_a_non_migrated_single_event();
+	private function given_a_migrated_single_event( $args = [] ) {
+		$post = $this->given_a_non_migrated_single_event( $args );
 		Event::upsert( [ 'post_id' ], Event::data_from_post( $post ) );
 		$event = Event::find( $post->ID, 'post_id' );
 		$this->assertInstanceOf( Event::class, $event );
