@@ -88,29 +88,35 @@ class Ticket {
 	 */
 	public function include_attachments( $attachments, $dispatcher ) {
 		$email_class = $dispatcher->get_email();
-		if ( ! $email_class->is_enabled() ) {
+
+		if ( ! $email_class instanceof Ticket_Email ) {
 			return $attachments;
 		}
 
-		if ( ! tribe_is_truthy( tribe_get_option( static::$option_add_event_ics, true ) ) ) {
+		return $this->get_ics_attachments( $attachments, $email_class->get( 'post_id' ) );
+	}
+
+	/**
+	 * Get Attachments for the Tickets Emails.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $attachments The attachments for the Tickets Emails.
+	 * @param int $post_id The post ID.
+	 *
+	 * @return array<string,string> The filtered attachments for the Tickets Emails.
+	 */
+	public function get_ics_attachments( $attachments, $post_id ) {
+
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
 			return $attachments;
 		}
-
-		$post_id = $email_class->get( 'post_id' );
 
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $attachments;
 		}
 
-		$event = tribe_get_event( $post_id );
-
-		if ( empty( $event ) ) {
-			return $attachments;
-		}
-
-		$attachments = tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
-
-		return $attachments;
+		return tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
 	}
 
 	/**
