@@ -2,7 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Events\Event_Cleaner;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\DI\Service_Provider;
 use Tribe__Events__Event_Cleaner_Scheduler;
 use Tribe__Events__Main;
 use Tribe__Main;

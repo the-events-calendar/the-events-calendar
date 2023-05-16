@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Integrations\ACF;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\DI\Service_Provider;
 
 /**
  * Class Controller.
