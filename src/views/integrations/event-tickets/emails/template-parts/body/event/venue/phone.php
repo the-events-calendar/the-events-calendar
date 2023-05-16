@@ -30,7 +30,7 @@ if ( empty( $venue->phone ) ) {
 				width="25"
 				height="24"
 				style="width:25px;height:24px;display:block;"
-				src="<?php echo esc_url( tribe_resource_url( 'icons/phone.svg', false, null, Tribe__Events__Main::instance() ) ); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/icons/bitmap/phone.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
 			/>
 		</td>
 		<td style="padding:0;">
