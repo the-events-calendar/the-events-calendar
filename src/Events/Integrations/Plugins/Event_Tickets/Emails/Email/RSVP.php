@@ -93,18 +93,14 @@ class RSVP {
 	 */
 	public function include_attachments( $attachments, $dispatcher ) {
 		$email_class = $dispatcher->get_email();
-		if ( ! $email_class->is_enabled() ) {
+
+		if ( ! $email_class instanceof RSVP_Email ) {
 			return $attachments;
 		}
 
-		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
-
-		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( Ticket::class );
-
-			if ( ! $email_class->is_enabled() ) {
-				return $attachments;
-			}
+		// If the ticket email settings are being used, don't add these attachments.
+		if ( tribe( RSVP_Email::class )->is_using_ticket_email_settings() ) {
+			return tribe( Ticket::class )->get_ics_attachments( $attachments, $email_class->get( 'post_id' ) );
 		}
 
 		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
@@ -117,15 +113,7 @@ class RSVP {
 			return $attachments;
 		}
 
-		$event = tribe_get_event( $post_id );
-
-		if ( empty( $event ) ) {
-			return $attachments;
-		}
-
-		$attachments = tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
-
-		return $attachments;
+		return tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
 	}
 
 	/**
