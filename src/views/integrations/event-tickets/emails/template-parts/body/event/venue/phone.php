@@ -23,17 +23,17 @@ if ( empty( $venue->phone ) ) {
 	return;
 }
 ?>
-<table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;margin-bottom:18px">
+<table role="presentation" class="tec-tickets__email-table-content-event-venue-address-table">
 	<tr>
-		<td style="display:inline-block;text-align:center;vertical-align:top;" valign="top" align="center">
+		<td class="tec-tickets__email-table-content-event-venue-phone-icon-container" valign="top" align="center">
 			<img
 				width="25"
 				height="24"
-				style="width:25px;height:24px;display:block;"
+				class="tec-tickets__email-table-content-event-venue-phone-icon-image"
 				src="<?php echo esc_url( tribe_resource_url( 'images/icons/bitmap/phone.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
 			/>
 		</td>
-		<td style="padding:0;">
+		<td class="tec-tickets__email-table-content-event-venue-phone-container">
 			<?php echo esc_html( $venue->phone ); ?>
 		</td>
 	</tr>
