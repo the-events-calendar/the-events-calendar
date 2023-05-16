@@ -33,7 +33,7 @@ if ( empty( $venue->website_url ) ) {
 			<img
 				width="24"
 				height="23"
-				style="width:24px;height:23px;display:block;"
+				class="tec-tickets__email-table-content-event-venue-website-icon-image"
 				src="<?php echo esc_url( tribe_resource_url( 'images/icons/bitmap/link.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
 			/>
 		</td>

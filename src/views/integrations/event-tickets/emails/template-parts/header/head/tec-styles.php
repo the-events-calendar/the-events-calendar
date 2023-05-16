@@ -160,6 +160,12 @@
 		width: 24px;
 	}
 
+	.tec-tickets__email-table-content-event-venue-website-icon-image {
+		display: block;
+		height: 23px;
+		width: 24px;
+	}
+
 	.tec-tickets__email-table-content-event-venue-website-container,
 	td.tec-tickets__email-table-content-event-venue-website-container {
 		padding: 0;
