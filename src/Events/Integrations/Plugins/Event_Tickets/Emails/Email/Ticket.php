@@ -125,9 +125,28 @@ class Ticket {
 	 *
 	 * @return void
 	 */
-	public function include_event_links( $parent_template ): void {
+	public function include_calendar_links( $parent_template ): void {
 		$args = $parent_template->get_local_values();
-		if ( ! $this->should_show_links( $args ) ) {
+
+		if ( ! $args['email'] instanceof Ticket_Email ) {
+			return;
+		}
+
+		$this->render_calendar_links( $args );
+	}
+
+	/**
+	 * Renders the calendar links for the email body.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The email arguments.
+	 *
+	 * @return void
+	 */
+	public function render_calendar_links( array $args): void {
+		// Bail if the option to add calendar links is false.
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
 			return;
 		}
 
