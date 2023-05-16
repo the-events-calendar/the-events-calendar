@@ -34,7 +34,7 @@ if ( empty( $venue->website ) ) {
 				width="24"
 				height="23"
 				style="width:24px;height:23px;display:block;"
-				src="<?php echo esc_url( tribe_resource_url( 'icons/link.svg', false, null, Tribe__Events__Main::instance() ) ); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'icons/bitmap/link.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
 			/>
 		</td>
 		<td style="padding:0;">

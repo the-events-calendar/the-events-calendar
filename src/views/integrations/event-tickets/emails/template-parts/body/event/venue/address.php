@@ -34,7 +34,7 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->state_provinc
 				class="tec-tickets__email-table-content-event-venue-address-pin"
 				width="20"
 				height="28"
-				src="<?php echo esc_url( tribe_resource_url( 'icons/map-pin.svg', false, null, Tribe__Events__Main::instance() ) ); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'icons/bitmap/map-pin.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
 			/>
 		</td>
 		<td class="tec-tickets__email-table-content-event-venue-address-container">
