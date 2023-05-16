@@ -51,10 +51,10 @@ class Emails {
 		// if the context says that there's a post_id and it's a tribe_event, then add the event placeholders.
 		$tec_placeholders = [
 			'{event_id}'         => $post_id,
-			'{event_date}'       => $event->schedule_details->value(),
+			'{event_date}'       => wp_kses( $event->schedule_details->value(), [] ),
 			'{event_start_date}' => $event->start_date,
 			'{event_end_date}'   => $event->end_date,
-			'{event_name}'       => $event->post_title,
+			'{event_name}'       => wp_kses( $event->post_title, [] ),
 			'{event_timezone}'   => $event->timezone,
 			'{event_url}'        => $event->permalink,
 			'{event_image_url}'  => ! empty( $event->thumbnail->exists ) ? $event->thumbnail->full->url : '',
