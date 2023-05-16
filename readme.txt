@@ -233,6 +233,11 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
 
+= [6.0.13.1] 2023-05-15 =
+
+* Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+* Language - 0 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.0.13] 2023-05-08 =
 
 * Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
@@ -251,7 +256,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
 * Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
 * Language - 1 new strings added, 32 updated, 0 fuzzied, and 0 obsoleted
->>>>>>> e476ffc973ad21cfa3c7499888a36f96ea8ef054
 
 = [6.0.12] 2023-04-10 =
 
