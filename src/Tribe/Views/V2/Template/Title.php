@@ -110,6 +110,7 @@ class Title {
 		 * Filter the plural Events label for Views Title.
 		 *
 		 * @since 5.1.5
+		 * @since TBD Adding more scenarios to make unique page titles.
 		 *
 		 * @param string  $events_label_plural The plural events label as it's been generated thus far.
 		 * @param Context $context             The context used to build the title, it could be the global one, or one externally
@@ -117,30 +118,28 @@ class Title {
 		 */
 		$this->events_label_plural = apply_filters( 'tribe_events_filter_views_v2_wp_title_plural_events_label', $this->events_label_plural, $context );
 
-		if ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
-			// For single events, the event title itself is required
-			$title = get_the_title( $context->get( 'post_id' ) );
-		} else {
-			// For all other cases, start with 'upcoming events'
-			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $this->events_label_plural );
-		}
-
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events
-		$event_date = $context->get( 'event_date', false );
-
+		$event_date         = $context->get( 'event_date', false );
 		$event_display_mode = $context->get( 'event_display_mode' );
-		if ( $event_date && count( $posts ) ) {
-			$title = $this->build_post_range_title( $context, $event_date );
-		} elseif ( 'past' === $event_display_mode ) {
-			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
-		}
 
 		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
-		}
-
-		if ( Day_View::get_view_slug() === $event_display_mode ) {
+		} else if ( Day_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_day_title( $event_date );
+		} elseif ( 'past' === $event_display_mode ) {
+			/* translators: %s: Events plural */
+			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
+		} elseif ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
+			// For single events, the event title itself is required
+			$title = get_the_title( $context->get( 'post_id' ) );
+		} else if ( $event_date && count( $posts ) ) {
+			$range = static::build_post_range_title( $context, $event_date, $posts );
+			/* translators: %1$s: First event date %2$s: Last event date */
+			$title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+		} else {
+			// For all other cases, start with 'upcoming events'
+			/* translators: %s: Events plural */
+			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $this->events_label_plural );
 		}
 
 		$taxonomy = TEC::TAXONOMY;
@@ -201,22 +200,23 @@ class Title {
 	 * Builds the title for a range of posts.
 	 *
 	 * @since 4.9.10
+	 * @since TBD Changed function scope, and moved internal var to param.
 	 *
 	 * @param Context $context    The context to use to build the title.
 	 * @param mixed   $event_date The event date object, string or timestamp.
+	 * @param array   $posts      The list of WP_Post objects found for this page.
 	 *
 	 * @return array The built post range title.
 	 */
-	public function build_post_range_title( Context $context, $event_date ) {
+	public static function build_post_range_title( Context $context, $event_date, array $posts ) {
 		$event_date = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
-		$posts      = $this->get_posts();
 
 		$first = reset( $posts );
 		$last  = end( $posts );
 
 		$first_returned_date = tribe_get_start_date( $first, false, Dates::DBDATEFORMAT );
 		$first_event_date    = tribe_get_start_date( $first, false );
-		$last_event_date     = tribe_get_end_date( $last, false );
+		$last_event_date     = tribe_get_start_date( $last, false );
 
 		/*
 		 * If we are on page 1 then we may wish to use the *selected* start date in place of the
@@ -227,9 +227,7 @@ class Title {
 			$first_event_date = tribe_format_date( $event_date, false );
 		}
 
-		$title = sprintf( __( '%1$s for %2$s - %3$s', 'the-events-calendar' ), $this->events_label_plural, $first_event_date, $last_event_date );
-
-		return $title;
+		return "$first_event_date - $last_event_date";
 	}
 
 	/**
