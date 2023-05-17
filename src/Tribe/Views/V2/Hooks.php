@@ -1146,10 +1146,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	public function filter_tec_events_noindex( $events, $start_date, $context ) {
 		$view_class = tribe( Manager::class )->get_view_class_by_slug( $context->get( 'view' ) );
 
-		if ( ! method_exists( $view_class, 'get_noindex_events' ) ) {
-			return $events;
-		}
-
 		return $view_class::get_noindex_events( $events, $start_date );
 	}
 

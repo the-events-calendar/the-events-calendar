@@ -2813,4 +2813,19 @@ class View implements View_Interface {
 		// This translation method relies on the slug being translated elsewhere.
 		return [ static::$view_slug, translate( static::$view_slug, 'the-events-calendar' ) ];
 	}
+
+	/**
+	 * Do a short query (one event) to determine if we should add a noindex meta tag to the page.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository|false $events     The events repository. False by default.
+	 * @param DateTime                $start_date The start date (object) of the query.
+	 * @param Tribe__Context          $context    The current context.
+	 *
+	 * @return Tribe__Repository|false $events     The events repository results.
+	 */
+	public static function get_noindex_events( $events, $start_date ) {
+		return false;
+	}
 }
