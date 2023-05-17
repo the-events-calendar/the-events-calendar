@@ -198,7 +198,7 @@ class RSVP {
 			return false;
 		}
 
-		if ( ! empty( $args['preview'] ) && ! empty( $args['add_event_links'] ) ) {
+		if ( ! empty( $args['preview'] ) && isset( $args['add_event_links'] ) ) {
 			return tribe_is_truthy( $args['add_event_links'] );
 		}
 
