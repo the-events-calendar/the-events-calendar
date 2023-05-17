@@ -93,18 +93,14 @@ class RSVP {
 	 */
 	public function include_attachments( $attachments, $dispatcher ) {
 		$email_class = $dispatcher->get_email();
-		if ( ! $email_class->is_enabled() ) {
+
+		if ( ! $email_class instanceof RSVP_Email ) {
 			return $attachments;
 		}
 
-		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
-
-		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( Ticket::class );
-
-			if ( ! $email_class->is_enabled() ) {
-				return $attachments;
-			}
+		// If the ticket email settings are being used, don't add these attachments.
+		if ( tribe( RSVP_Email::class )->is_using_ticket_email_settings() ) {
+			return tribe( Ticket::class )->get_ics_attachments( $attachments, $email_class->get( 'post_id' ) );
 		}
 
 		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
@@ -117,15 +113,7 @@ class RSVP {
 			return $attachments;
 		}
 
-		$event = tribe_get_event( $post_id );
-
-		if ( empty( $event ) ) {
-			return $attachments;
-		}
-
-		$attachments = tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
-
-		return $attachments;
+		return tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
 	}
 
 	/**
@@ -137,9 +125,24 @@ class RSVP {
 	 *
 	 * @return void
 	 */
-	public function include_event_links( $parent_template ) {
+	public function include_calendar_links( $parent_template ) {
 		$args = $parent_template->get_local_values();
-		if ( ! $this->should_show_links( $args ) ) {
+
+		if ( ! $args['email'] instanceof RSVP_Email ) {
+			return;
+		}
+
+		if ( tribe( RSVP_Email::class )->is_using_ticket_email_settings() ) {
+			tribe( Ticket::class )->render_calendar_links( $args );
+			return;
+		}
+
+		// Bail if the option to add calendar links is false.
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
+			return;
+		}
+
+		if ( ! isset( $args['event'] ) ) {
 			return;
 		}
 
@@ -165,55 +168,5 @@ class RSVP {
 	 */
 	public function include_event_link_styles( $parent_template ): void {
 		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
-	}
-
-	/**
-	 * Determines whether RSVP should show calendar links.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $args References template context arguments.
-	 *
-	 * @return bool
-	 */
-	public function should_show_links( $args ): bool {
-		// Double assigned due to needing to reference the original RSVP class later on.
-		$rsvp_class = $email_class = tribe( RSVP_Email::class );
-		if ( ! $email_class->is_enabled() ) {
-			return false;
-		}
-
-		$use_ticket_email = tribe_get_option( $email_class->get_option_key( 'use-ticket-email' ), false );
-		if ( ! empty( $use_ticket_email ) ) {
-			$email_class = tribe( Tickets_Email_Ticket::class );
-
-			if ( ! $email_class->is_enabled() ) {
-				return false;
-			}
-		}
-		if (
-			! empty( $args['email'] )
-			&& $args['email']->get_id() !== $rsvp_class->get_id()
-		) {
-			return false;
-		}
-
-		if ( ! empty( $args['preview'] ) && isset( $args['add_event_links'] ) ) {
-			return tribe_is_truthy( $args['add_event_links'] );
-		}
-
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
-			return false;
-		}
-
-		if ( empty( $args['event'] ) ) {
-			return false;
-		}
-
-		if ( empty( $args['preview'] ) && empty( $args['event'] ) && empty( $args['event']->ID ) ) {
-			return false;
-		}
-
-		return true;
 	}
 }

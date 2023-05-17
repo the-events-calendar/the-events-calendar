@@ -88,29 +88,35 @@ class Ticket {
 	 */
 	public function include_attachments( $attachments, $dispatcher ) {
 		$email_class = $dispatcher->get_email();
-		if ( ! $email_class->is_enabled() ) {
+
+		if ( ! $email_class instanceof Ticket_Email ) {
 			return $attachments;
 		}
 
-		if ( ! tribe_is_truthy( tribe_get_option( static::$option_add_event_ics, true ) ) ) {
+		return $this->get_ics_attachments( $attachments, $email_class->get( 'post_id' ) );
+	}
+
+	/**
+	 * Get Attachments for the Tickets Emails.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $attachments The attachments for the Tickets Emails.
+	 * @param int $post_id The post ID.
+	 *
+	 * @return array<string,string> The filtered attachments for the Tickets Emails.
+	 */
+	public function get_ics_attachments( $attachments, $post_id ) {
+
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_ics, true ) ) ) {
 			return $attachments;
 		}
-
-		$post_id = $email_class->get( 'post_id' );
 
 		if ( ! tribe_is_event( $post_id ) ) {
 			return $attachments;
 		}
 
-		$event = tribe_get_event( $post_id );
-
-		if ( empty( $event ) ) {
-			return $attachments;
-		}
-
-		$attachments = tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
-
-		return $attachments;
+		return tribe( TEC_Email_Handler::class )->add_event_ics_to_attachments( $attachments, $post_id );
 	}
 
 	/**
@@ -125,9 +131,32 @@ class Ticket {
 	 *
 	 * @return void
 	 */
-	public function include_event_links( $parent_template ): void {
+	public function include_calendar_links( $parent_template ): void {
 		$args = $parent_template->get_local_values();
-		if ( ! $this->should_show_links( $args ) ) {
+
+		if ( ! $args['email'] instanceof Ticket_Email ) {
+			return;
+		}
+
+		$this->render_calendar_links( $args );
+	}
+
+	/**
+	 * Renders the calendar links for the email body.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $args The email arguments.
+	 *
+	 * @return void
+	 */
+	public function render_calendar_links( array $args): void {
+		// Bail if the option to add calendar links is false.
+		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
+			return;
+		}
+
+		if ( ! isset( $args['event'] ) ) {
 			return;
 		}
 
@@ -153,46 +182,5 @@ class Ticket {
 	 */
 	public function include_event_link_styles( $parent_template ): void {
 		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
-	}
-
-	/**
-	 * Determines whether Ticket should show calendar links.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $args References template context arguments.
-	 *
-	 * @return bool
-	 */
-	public function should_show_links( $args ): bool {
-		$email_class = tribe( Ticket_Email::class );
-		if ( ! $email_class->is_enabled() ) {
-			return false;
-		}
-
-		if (
-			! empty( $args['email'] )
-			&& $args['email']->get_id() !== $email_class->get_id()
-		) {
-			return false;
-		}
-
-		if ( ! empty( $args['preview'] ) && isset( $args['add_event_links'] ) ) {
-			return tribe_is_truthy( $args['add_event_links'] );
-		}
-
-		if ( empty( $args['event'] ) ) {
-			return false;
-		}
-
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
-			return false;
-		}
-
-		if ( empty( $args['preview'] ) && empty( $args['event'] ) && empty( $args['event']->ID ) ) {
-			return false;
-		}
-
-		return true;
 	}
 }
