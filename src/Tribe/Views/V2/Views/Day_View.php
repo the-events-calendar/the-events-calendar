@@ -398,4 +398,25 @@ class Day_View extends View {
 			$this->messages->insert( Messages::TYPE_NOTICE, Messages::for_key( $message_key, $date_label ) );
 		}
 	}
+
+	/**
+	 * Do a short query (one event) to determine if we should add a noindex meta tag to the page.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository|false $events     The events repository. False by default.
+	 * @param DateTime                $start_date The start date (object) of the query.
+	 * @param Tribe__Context          $context    The current context.
+	 *
+	 * @return Tribe__Repository|false $events     The events repository results.
+	 */
+	public static function get_noindex_events( $events, $start_date ) {
+		return tribe_events()
+			->per_page( 1 )
+			->where(
+				'date_overlaps',
+				tribe_beginning_of_day( $start_date->format( 'Y-m-d' ) ),
+				tribe_end_of_day( $start_date->format( 'Y-m-d' ) )
+			);
+	}
 }

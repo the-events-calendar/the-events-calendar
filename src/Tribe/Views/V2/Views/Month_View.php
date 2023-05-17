@@ -785,4 +785,27 @@ class Month_View extends By_Day_View {
 		 */
 		return apply_filters( 'tribe_events_views_v2_month_mobile_messages', $mobile_messages, $this );
 	}
+
+	/**
+	 * Do a short query (one event) to determine if we should add a noindex meta tag to the page.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository|false $events     The events repository. False by default.
+	 * @param DateTime                $start_date The start date (object) of the query.
+	 * @param Tribe__Context          $context    The current context.
+	 *
+	 * @return Tribe__Repository|false $events     The events repository results.
+	 */
+	public static function get_noindex_events( $events, $start_date ) {
+		$interval = new \DateInterval( 'P1M' );
+
+		return tribe_events()
+			->per_page( 1 )
+			->where(
+				'ends_after',
+				$start_date->format( \Tribe__Date_Utils::DBDATEFORMAT )
+			)
+			->where( 'starts_before', $start_date->add( $interval ) );
+	}
 }

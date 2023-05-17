@@ -4,6 +4,7 @@
  * Main Tribe Events Calendar class.
  */
 
+use FakerPress\Dates;
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
@@ -1495,8 +1496,29 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$view = $context->get( 'view' );
 
+			$start_date = ! empty( $wp_query->query[ 'eventDate' ] ) ? $wp_query->get( 'eventDate' ) : 'now';
+			$start_date = Tribe__Date_Utils::build_date_object( $start_date );
+
+			/**
+			 * Allow specific views to hook in and add their own calculated events.
+			 *
+			 * @since TBD
+			 *
+			 * @param Tribe__Repository|false $events     The events repository. False if not hooked in to.
+			 * @param DateTime                $start_date The start date (object) of the query.
+			 * @param Tribe__Context          $context    The current context.
+			 *
+			 */
+			$events = apply_filters( 'tec_events_noindex', false, $start_date, $context );
+
+			// If nothing has hooked in ($events is boolean false), we assume a list-style view (no end-date limiter)
+			// and do a quick query for a single event after the start date.
+			if ( false === $events ) {
+				$events = tribe_events()->per_page( 1 )->where( 'starts_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
+			}
+
 			// No posts = no index.
-			$add_noindex = ! $wp_query->have_posts();
+			$add_noindex = empty( $events->found() );
 
 			/**
 			 * Determines if a noindex meta tag will be set for the current event view.

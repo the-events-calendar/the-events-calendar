@@ -169,6 +169,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 
+		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 3 );
+
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
 
 		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
@@ -1128,6 +1130,27 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		);
 
 		return $label;
+	}
+
+	/**
+	 * Allow specific views to hook in and add their own calculated events.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Repository|false $events     The events repository. False by default.
+	 * @param DateTime                $start_date The start date (object) of the query.
+	 * @param Tribe__Context          $context    The current context.
+	 *
+	 * @return Tribe__Repository|false $events     The events repository results.
+	 */
+	public function filter_tec_events_noindex( $events, $start_date, $context ) {
+		$view_class = tribe( Manager::class )->get_view_class_by_slug( $context->get( 'view' ) );
+
+		if ( ! method_exists( $view_class, 'get_noindex_events' ) ) {
+			return $events;
+		}
+
+		return $view_class::get_noindex_events( $events, $start_date );
 	}
 
 	/* DEPRECATED */
