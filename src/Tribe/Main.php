@@ -854,7 +854,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'init', [ $this, 'run_updates' ], 0, 0 );
 
 			// Include a noindex.
-			add_action( 'wp', [ $this, 'issue_noindex' ] );
+			add_action( 'get_header', [ $this, 'issue_noindex' ] );
 
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', [ $this, 'filter_wp_import_data_before' ], 10, 1 );
@@ -1477,6 +1477,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
 		 */
 		public function issue_noindex() {
+			global $wp_query;
+
 			if ( is_home() || is_front_page() ) {
 				return;
 			}
@@ -1494,7 +1496,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$view = $context->get( 'view' );
 
 			// No posts = no index.
-			$add_noindex  = ( ! $wp_query->have_posts() );
+			$add_noindex = ! $wp_query->have_posts();
 
 			/**
 			 * Determines if a noindex meta tag will be set for the current event view.
@@ -1528,7 +1530,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function print_noindex_meta() {
-			$noindex_meta = ' <meta name="robots" content="noindex,follow" />' . "\n";
+			$noindex_meta = ' <meta name="robots" id="tec_noindex" content="noindex,follow" />' . "\n";
 
 			/**
 			 * Filters the noindex meta tag.
