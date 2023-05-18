@@ -181,6 +181,12 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_event_link_styles( $parent_template ): void {
+		$args = $parent_template->get_local_values();
+
+		if ( ! $args['email'] instanceof Ticket_Email ) {
+			return;
+		}
+		
 		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
 	}
 }
