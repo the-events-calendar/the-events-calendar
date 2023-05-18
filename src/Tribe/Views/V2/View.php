@@ -2824,9 +2824,9 @@ class View implements View_Interface {
 	 * @param Tribe__Context          $context    The current context.
 	 *
 	 * @return Tribe__Repository|false $events    The events repository results.
-	 *                                            By default we are just passing the data through unmodified.
 	 */
 	public function get_noindex_events( $events, $start_date ) {
+		// By default we are just passing the data through unmodified.
 		return $events;
 	}
 }

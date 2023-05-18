@@ -1507,26 +1507,45 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$view = $context->get( 'view' );
+			$now = ;
 
-			$start_date = ! empty( $wp_query->query[ 'eventDate' ] ) ? $wp_query->get( 'eventDate' ) : 'now';
+			$start_date = ! empty( $wp_query->query[ 'eventDate' ] ) ? $wp_query->get( 'eventDate' ) : $context->get( 'now' );
 			$start_date = Tribe__Date_Utils::build_date_object( $start_date );
 
 			/**
 			 * Allow specific views to hook in and add their own calculated events.
+			 * This *bypasses* the cached query immediately after it.
 			 *
 			 * @since TBD
 			 *
-			 * @param Tribe__Repository|false $events     The events repository. False if not hooked in to.
+			 * @param ?Tribe__Repository|null $events     The events repository. False if not hooked in to.
 			 * @param DateTime                $start_date The start date (object) of the query.
 			 * @param Tribe__Context          $context    The current context.
 			 *
 			 */
-			$events = apply_filters( 'tec_events_noindex', false, $start_date, $context );
+			$events = apply_filters( 'tec_events_noindex', null, $start_date, $context );
 
 			// If nothing has hooked in ($events is boolean false), we assume a list-style view (no end-date limiter)
 			//  with no params and do a quick query for a single event after the start date.
-			if ( false === $events ) {
-				$events = tribe_events()->per_page( 1 )->where( 'starts_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
+			if ( null === $events ) {
+				$cache     = new Tribe__Cache();
+				$trigger   = Tribe__Cache_Listener::TRIGGER_SAVE_POST;
+				$cache_key = $cache->make_key(
+					[
+						'context' => $context,
+						'view'    => $view,
+						'start'   => $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ),
+					],
+					'tec_noindex_'
+				);
+
+				$events = $cache->get( $cache_key, $trigger );
+
+				if ( ! $events ) {
+					$events = tribe_events()->per_page( 1 )->where( 'starts_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
+
+					$cache->set( $cache_key, $events, 0, $trigger );
+				}
 			}
 
 			// No posts = no index.
