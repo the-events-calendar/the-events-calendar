@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-Fix - Ensure our styles can be easily overriden by themes and page builders. [ECP-1503]
+Fix - Ensure our styles can be easily overridden by themes and page builders. [ECP-1503]
 
 = [TBD] TBD =
 
