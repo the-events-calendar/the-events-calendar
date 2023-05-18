@@ -102,7 +102,7 @@
 		padding-right: 14px;
 		text-align: left;
 		vertical-align: top;
-		width: 20px;
+		width: 34px;
 	}
 	.tec-tickets__email-table-content-event-venue-address-pin,
 	img.tec-tickets__email-table-content-event-venue-address-pin {
@@ -130,7 +130,7 @@
 		padding-right: 14px;
 		text-align: left;
 		vertical-align: top;
-		width: 25px;
+		width: 39px;
 	}
 
 	.tec-tickets__email-table-content-event-venue-phone-icon-image {
@@ -157,7 +157,7 @@
 		padding-right: 14px;
 		text-align: left;
 		vertical-align: top;
-		width: 24px;
+		width: 38px;
 	}
 
 	.tec-tickets__email-table-content-event-venue-website-icon-image {
