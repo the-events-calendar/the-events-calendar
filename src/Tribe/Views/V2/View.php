@@ -2823,9 +2823,10 @@ class View implements View_Interface {
 	 * @param DateTime                $start_date The start date (object) of the query.
 	 * @param Tribe__Context          $context    The current context.
 	 *
-	 * @return Tribe__Repository|false $events     The events repository results.
+	 * @return Tribe__Repository|false $events    The events repository results.
+	 *                                            By default we are just passing the data through unmodified.
 	 */
-	public static function get_noindex_events( $events, $start_date ) {
-		return false;
+	public function get_noindex_events( $events, $start_date ) {
+		return $events;
 	}
 }

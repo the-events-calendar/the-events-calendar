@@ -797,15 +797,7 @@ class Month_View extends By_Day_View {
 	 *
 	 * @return Tribe__Repository|false $events     The events repository results.
 	 */
-	public static function get_noindex_events( $events, $start_date ) {
-		$interval = new \DateInterval( 'P1M' );
-
-		return tribe_events()
-			->per_page( 1 )
-			->where(
-				'ends_after',
-				$start_date->format( \Tribe__Date_Utils::DBDATEFORMAT )
-			)
-			->where( 'starts_before', $start_date->add( $interval ) );
+	public function get_noindex_events( $events, $start_date ) {
+		return tribe_events()->per_page( 1 )->by_args( $this->get_repository_args() );
 	}
 }

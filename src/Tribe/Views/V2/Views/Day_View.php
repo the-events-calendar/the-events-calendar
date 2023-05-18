@@ -410,13 +410,7 @@ class Day_View extends View {
 	 *
 	 * @return Tribe__Repository|false $events     The events repository results.
 	 */
-	public static function get_noindex_events( $events, $start_date ) {
-		return tribe_events()
-			->per_page( 1 )
-			->where(
-				'date_overlaps',
-				tribe_beginning_of_day( $start_date->format( 'Y-m-d' ) ),
-				tribe_end_of_day( $start_date->format( 'Y-m-d' ) )
-			);
+	public function get_noindex_events( $events, $start_date ) {
+		return tribe_events()->per_page( 1 )->by_args( $this->get_repository_args() );
 	}
 }

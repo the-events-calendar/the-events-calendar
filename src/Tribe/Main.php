@@ -1469,16 +1469,28 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since ??
 		 * @since 6.0.0 Relies on √2 code.
 		 *
-		 * Disabling this behavior always is possible with:
+		 * Disabling this behavior completely is possible with:
 		 *
-		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_false' );
+		 *     add_filter( 'tribe_events_add_no_index_meta_tag', '__return_false' );
 		 *
-		 *  Enabling it for all event views is possible with:
+		 *  Always adding the noindex meta tag for all event views is possible with:
 		 *
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
+		 *
+		 *  Always adding the noindex meta tag for a specific event view is possible with:
+		 *
+		 *     add_filter( "tribe_events_{$view}_add_no_index_meta", '__return_true' );
+		 *
+		 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 		 */
 		public function issue_noindex() {
 			global $wp_query;
+
+			$do_noindex_meta = apply_filters( 'tribe_events_add_no_index_meta_tag', true );
+
+			if ( ! tribe_is_truthy( $do_noindex_meta ) ) {
+				return;
+			}
 
 			if ( is_home() || is_front_page() ) {
 				return;
@@ -1512,7 +1524,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$events = apply_filters( 'tec_events_noindex', false, $start_date, $context );
 
 			// If nothing has hooked in ($events is boolean false), we assume a list-style view (no end-date limiter)
-			// and do a quick query for a single event after the start date.
+			//  with no params and do a quick query for a single event after the start date.
 			if ( false === $events ) {
 				$events = tribe_events()->per_page( 1 )->where( 'starts_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
 			}

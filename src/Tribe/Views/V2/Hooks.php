@@ -1139,14 +1139,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param Tribe__Repository|false $events     The events repository. False by default.
 	 * @param DateTime                $start_date The start date (object) of the query.
-	 * @param Tribe__Context          $context    The current context.
+	 * @param \Tribe__Context          $context    The current context.
 	 *
-	 * @return Tribe__Repository|false $events     The events repository results.
+	 * @return \Tribe__Repository|false $events     The events repository results.
 	 */
 	public function filter_tec_events_noindex( $events, $start_date, $context ) {
-		$view_class = tribe( Manager::class )->get_view_class_by_slug( $context->get( 'view' ) );
+		$view_slug = $context->get( 'view' );
+		$view = View::make( tribe( Manager::class )->get_view_class_by_slug( $view_slug ), $context );
 
-		return $view_class::get_noindex_events( $events, $start_date );
+		return $view->get_noindex_events( $events, $start_date );
 	}
 
 	/* DEPRECATED */
