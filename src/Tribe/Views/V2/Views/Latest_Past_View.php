@@ -259,7 +259,28 @@ class Latest_Past_View extends View {
 	 *
 	 * @return Tribe__Repository|false $events     The events repository results.
 	 */
-	public function get_noindex_events( $events, $start_date ) {
-		return tribe_events()->per_page( 1 )->by_args( $this->get_repository_args() );
+	public function get_noindex_events( $events, $start_date, $context ) {
+		if ( null === $events ) {
+			$cache     = new \Tribe__Cache();
+			$trigger   = \Tribe__Cache_Listener::TRIGGER_SAVE_POST;
+			$cache_key = $cache->make_key(
+				[
+					'context' => $context,
+					'view'    => $this->get_view_slug(),
+					'start'   => $start_date->format( \Tribe__Date_Utils::DBDATEFORMAT ),
+				],
+				'tec_noindex_'
+			);
+
+			$events = $cache->get( $cache_key, $trigger );
+
+			if ( ! $events ) {
+				$events = tribe_events()->per_page( 1 )->by_args( $this->get_repository_args() );
+
+				$cache->set( $cache_key, $events, 0, $trigger );
+			}
+		}
+
+		return $events;
 	}
 }

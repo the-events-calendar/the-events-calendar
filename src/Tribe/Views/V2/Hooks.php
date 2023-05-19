@@ -1147,7 +1147,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$view_slug = $context->get( 'view' );
 		$view = View::make( tribe( Manager::class )->get_view_class_by_slug( $view_slug ), $context );
 
-		return $view->get_noindex_events( $events, $start_date );
+		return $view->get_noindex_events( $events, $start_date, $context );
 	}
 
 	/* DEPRECATED */

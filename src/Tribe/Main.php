@@ -1507,7 +1507,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$view = $context->get( 'view' );
-			$now = ;
 
 			$start_date = ! empty( $wp_query->query[ 'eventDate' ] ) ? $wp_query->get( 'eventDate' ) : $context->get( 'now' );
 			$start_date = Tribe__Date_Utils::build_date_object( $start_date );
@@ -1524,6 +1523,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 */
 			$events = apply_filters( 'tec_events_noindex', null, $start_date, $context );
+
+			$foo = null;
 
 			// If nothing has hooked in ($events is boolean false), we assume a list-style view (no end-date limiter)
 			//  with no params and do a quick query for a single event after the start date.
@@ -1549,6 +1550,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			// No posts = no index.
+			$derp = $events->found();
 			$add_noindex = empty( $events->found() );
 
 			/**
