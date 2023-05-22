@@ -24,9 +24,11 @@ $website_title = tribe_events_get_venue_website_title();
 	<dl>
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
+		<dt style="display:none;"><?php // This element is just to make sure we have a valid HTML ?></dt>
 		<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
 
 		<?php if ( tribe_address_exists() ) : ?>
+			<dt style="display:none;"><?php // This element is just to make sure we have a valid HTML ?></dt>
 			<dd class="tribe-venue-location">
 				<address class="tribe-events-address">
 					<?php echo tribe_get_full_address(); ?>
@@ -44,9 +46,7 @@ $website_title = tribe_events_get_venue_website_title();
 		<?php endif ?>
 
 		<?php if ( ! empty( $website ) ): ?>
-			<?php if ( ! empty( $website_title ) ): ?>
-				<dt class="tribe-venue-url-label"> <?php echo esc_html( $website_title ) ?> </dt>
-			<?php endif ?>
+			<dt class="tribe-venue-url-label"> <?php echo esc_html( $website_title ) ?> </dt>
 			<dd class="tribe-venue-url"> <?php echo $website ?> </dd>
 		<?php endif ?>
 
