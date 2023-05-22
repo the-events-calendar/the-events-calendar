@@ -55,7 +55,7 @@ class Outlook_Export extends Link_Abstract {
 	public function get_uri( View $view = null ) {
 		if ( null === $view || is_single( Tribe__Events__Main::POSTTYPE ) ) {
 			// Try to construct it for the event single.
-			return add_query_arg( [ 'ical' => 1 ], get_the_permalink() );
+			return add_query_arg( [ 'outlook-ical' => 1 ], get_the_permalink() );
 		}
 
 		$template_vars = $view->get_template_vars();
