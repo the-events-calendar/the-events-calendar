@@ -64,8 +64,8 @@ class RSVP {
 			'default'         => true,
 			'validation_type' => 'boolean',
 			'fieldset_attributes' => [
-				'data-depends'              => '#' . tribe( RSVP_Email::class )->get_option_key( 'use-ticket-email' ),
-				'data-condition-is-checked' => true,
+				'data-depends'                  => '#' . tribe( RSVP_Email::class )->get_option_key( 'use-ticket-email' ),
+				'data-condition-is-not-checked' => true,
 			],
 		];
 
@@ -76,8 +76,8 @@ class RSVP {
 			'default'         => true,
 			'validation_type' => 'boolean',
 			'fieldset_attributes' => [
-				'data-depends'              => '#' . tribe( RSVP_Email::class )->get_option_key( 'use-ticket-email' ),
-				'data-condition-is-checked' => true,
+				'data-depends'                  => '#' . tribe( RSVP_Email::class )->get_option_key( 'use-ticket-email' ),
+				'data-condition-is-not-checked' => true,
 			],
 		];
 
