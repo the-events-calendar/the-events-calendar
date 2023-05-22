@@ -126,16 +126,21 @@ class Title {
 			$title = $this->build_month_title( $event_date );
 		} else if ( Day_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_day_title( $event_date );
-		} elseif ( 'past' === $event_display_mode ) {
-			/* translators: %s: Events plural */
-			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
 		} elseif ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
 			// For single events, the event title itself is required
 			$title = get_the_title( $context->get( 'post_id' ) );
 		} else if ( count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
-			/* translators: %1$s: First event date %2$s: Last event date */
-			$title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+			if ( 'past' === $event_display_mode ) {
+				/* translators: %1$s: Events plural %2$s: Event date range */
+				$title = sprintf( esc_html__( 'Past %1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+			} else {
+				/* translators: %1$s: Events plural %2$s: Event date range */
+				$title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+			}
+		} elseif ( 'past' === $event_display_mode ) {
+			/* translators: %s: Events plural */
+			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
 		} else {
 			// For all other cases, start with 'upcoming events'
 			/* translators: %s: Events plural */
