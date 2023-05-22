@@ -68,6 +68,10 @@ class RSVP {
 			'tooltip'         => esc_html__( 'Include iCal and Google event links in this email.', 'the-events-calendar' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
+			'fieldset_attributes' => [
+				'data-depends'              => '#' . tribe( RSVP_Email::class )->get_option_key( 'use-ticket-email' ),
+				'data-condition-is-checked' => true,
+			],
 		];
 
 		$settings[ static::$option_add_event_ics ] = [
@@ -76,6 +80,10 @@ class RSVP {
 			'tooltip'         => esc_html__( 'Attach calendar invites (.ics) to the RSVP email.', 'the-events-calendar' ),
 			'default'         => true,
 			'validation_type' => 'boolean',
+			'fieldset_attributes' => [
+				'data-depends'              => '#' . tribe( RSVP_Email::class )->get_option_key( 'use-ticket-email' ),
+				'data-condition-is-checked' => true,
+			],
 		];
 
 		return $settings;
