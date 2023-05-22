@@ -57,11 +57,6 @@ class RSVP {
 	 * @return array<array<string,mixed>> $settings The modified email settings.
 	 */
 	public function include_settings( $settings ): array {
-		// If the ticket email settings are being used, don't add these settings.
-		if ( tribe( RSVP_Email::class )->is_using_ticket_email_settings() ) {
-			return $settings;
-		}
-
 		$settings[ static::$option_add_event_links ] = [
 			'type'            => 'checkbox_bool',
 			'label'           => esc_html__( 'Calendar links', 'the-events-calendar' ),
