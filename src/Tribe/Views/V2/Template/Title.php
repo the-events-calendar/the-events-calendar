@@ -132,7 +132,7 @@ class Title {
 		} elseif ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
 			// For single events, the event title itself is required
 			$title = get_the_title( $context->get( 'post_id' ) );
-		} else if ( $event_date && count( $posts ) ) {
+		} else if ( count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
 			/* translators: %1$s: First event date %2$s: Last event date */
 			$title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
