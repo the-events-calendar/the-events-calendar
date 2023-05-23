@@ -14,7 +14,7 @@ use Tribe\Extensions\EventsControl\Main as Events_Control_Main;
 use Tribe\Extensions\EventsControl\Hooks as Events_Control_Extension_Hooks;
 use Tribe\Events\Virtual\Plugin as Events_Virtual_Plugin;
 use Tribe\Extensions\EventsControl\Metabox;
-use TEC\Common\DI\Service_Provider as DI_Provider;
+use TEC\Common\Contracts\Service_Provider as DI_Provider;
 
 use WP_Post;
 

@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\Customizer\Section\Global_Elements;
 use Tribe\Events\Views\V2\Customizer\Section\Month_View;
 use Tribe\Events\Views\V2\Customizer\Section\Events_Bar;
 use Tribe\Events\Views\V2\Customizer\Section\Single_Event;
-use TEC\Common\DI\Service_Provider as DI_Provider;
+use TEC\Common\Contracts\Service_Provider as DI_Provider;
 
 
 /**

@@ -16,7 +16,7 @@ namespace Tribe\Events\Service_Providers;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

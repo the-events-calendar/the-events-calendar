@@ -18,7 +18,7 @@
 namespace Tribe\Events\Views\V2\Customizer;
 
 use Tribe__Events__Main as TEC;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

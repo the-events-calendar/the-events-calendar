@@ -10,7 +10,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;

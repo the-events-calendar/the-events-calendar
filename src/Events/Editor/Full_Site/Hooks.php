@@ -4,7 +4,7 @@ namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe__Events__Main;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

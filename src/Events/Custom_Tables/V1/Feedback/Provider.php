@@ -8,7 +8,7 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Feedback;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

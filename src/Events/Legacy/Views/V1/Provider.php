@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Legacy\Views\V1;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 use Tribe__Utils__Array as Arr;
 
 /**

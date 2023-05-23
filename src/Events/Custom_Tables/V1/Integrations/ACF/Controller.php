@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Integrations\ACF;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Controller.

@@ -9,7 +9,7 @@
 namespace Tribe\Events\Taxonomy;
 
 use WP_Term;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

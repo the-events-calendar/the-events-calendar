@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Site_Health;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
  /**
   * Class Provider

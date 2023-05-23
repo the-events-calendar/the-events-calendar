@@ -12,9 +12,9 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use TEC\Common\DI\Container;
+use TEC\Common\Contracts\Container;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 use TEC\Events\Custom_Tables\V1\Migration\State;
 

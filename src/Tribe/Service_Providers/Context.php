@@ -25,7 +25,7 @@ use Tribe__Events__Venue as Venue;
  * @package Tribe\Events\Service_Providers
  */
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 class Context extends Service_Provider {

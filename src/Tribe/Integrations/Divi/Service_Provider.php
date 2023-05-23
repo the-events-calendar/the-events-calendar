@@ -9,7 +9,7 @@
 
 namespace Tribe\Events\Integrations\Divi;
 
-use TEC\Common\DI\Service_Provider as DI_Provider;
+use TEC\Common\Contracts\Service_Provider as DI_Provider;
 
 
 /**

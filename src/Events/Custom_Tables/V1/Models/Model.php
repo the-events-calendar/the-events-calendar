@@ -12,7 +12,7 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 use Closure;
 use Generator;
 use Serializable;
-use TEC\Common\DI\Container;
+use TEC\Common\Contracts\Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
 

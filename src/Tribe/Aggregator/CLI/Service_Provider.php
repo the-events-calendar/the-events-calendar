@@ -1,6 +1,6 @@
 <?php
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 class Tribe__Events__Aggregator__CLI__Service_Provider extends Service_Provider {

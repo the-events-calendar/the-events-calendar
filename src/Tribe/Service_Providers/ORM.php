@@ -6,7 +6,7 @@
  * @since 4.9
  */
 
- use TEC\Common\DI\Service_Provider;
+ use TEC\Common\Contracts\Service_Provider;
 
 
 /**

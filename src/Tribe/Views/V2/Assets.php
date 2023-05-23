@@ -13,7 +13,7 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Plugin;
 use Tribe__Events__Templates;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

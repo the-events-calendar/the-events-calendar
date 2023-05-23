@@ -17,7 +17,7 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_365;
 use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Export;
 use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
 use Tribe\Events\Views\V2\View;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

@@ -10,7 +10,7 @@ namespace Tribe\Events\Event_Status;
 
 use Tribe\Extensions\EventsControl\Main as Events_Control_Main;
 use Tribe\Events\Event_Status\Compatibility\Filter_Bar\Detect;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Context as Context;

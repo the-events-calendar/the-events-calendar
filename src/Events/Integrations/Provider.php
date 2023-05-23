@@ -8,7 +8,7 @@
  */
 namespace TEC\Events\Integrations;
 
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

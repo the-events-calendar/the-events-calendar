@@ -3,7 +3,7 @@
 namespace TEC\Events\Installer;
 
 use TEC\Common\StellarWP\Installer\Installer;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 class Provider extends Service_Provider {

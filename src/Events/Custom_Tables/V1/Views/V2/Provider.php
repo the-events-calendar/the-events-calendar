@@ -13,7 +13,7 @@ use Exception;
 use stdClass;
 use Tribe__Customizer as Customizer;
 use Tribe__Customizer__Section as Customizer_Section;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**

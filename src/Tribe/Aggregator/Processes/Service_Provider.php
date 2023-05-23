@@ -1,7 +1,7 @@
 <?php
 
 use Tribe\Events\Aggregator\Processes\Batch_Imports;
-use TEC\Common\DI\Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**
