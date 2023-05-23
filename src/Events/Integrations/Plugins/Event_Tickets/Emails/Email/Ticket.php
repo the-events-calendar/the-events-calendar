@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email;
 
+use \Tribe__Utils__Array as Arr;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Emails as TEC_Email_Handler;
 use TEC\Tickets\Emails\Dispatcher;
 use TEC\Tickets\Emails\Email\Ticket as Ticket_Email;
@@ -132,13 +133,10 @@ class Ticket {
 	 * @return void
 	 */
 	public function include_calendar_links( $parent_template ): void {
-		$args = $parent_template->get_local_values();
-
-		if ( ! $args['email'] instanceof Ticket_Email ) {
+		if ( ! $this->should_show_calendar_links( $parent_template ) ) {
 			return;
 		}
-
-		$this->render_calendar_links( $args );
+		$this->render_calendar_links( $parent_template->get_local_values() );
 	}
 
 	/**
@@ -151,10 +149,6 @@ class Ticket {
 	 * @return void
 	 */
 	public function render_calendar_links( array $args): void {
-		// Bail if the option to add calendar links is false.
-		if ( ! tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) ) ) {
-			return;
-		}
 
 		if ( ! isset( $args['event'] ) ) {
 			return;
@@ -186,7 +180,36 @@ class Ticket {
 		if ( ! $args['email'] instanceof Ticket_Email ) {
 			return;
 		}
-		
+
 		tribe( Template::class )->template( 'template-parts/header/head/tec-styles', $parent_template->get_local_values(), true );
+	}
+
+	/**
+	 * Check if the calendar links should be shown.
+	 *
+	 * @since TBD
+	 *
+	 * @param \Tribe__Template $et_template Event Tickets template object.
+	 *
+	 * @return bool
+	 */
+	public function should_show_calendar_links( $parent_template ) {
+
+		$args = $parent_template->get_local_values();
+
+		if ( ! $args['email'] instanceof Ticket_Email ) {
+			return false;
+		}
+
+		$is_preview         = Arr::get( $args, 'preview', false );
+		$using_ticket_email = Arr::get( $args, 'using_ticket_email', false );
+
+		if ( $is_preview &&
+		     ( $using_ticket_email || ! empty( $args['add_event_links'] ) )
+		) {
+			return true;
+		}
+
+		return tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) );
 	}
 }

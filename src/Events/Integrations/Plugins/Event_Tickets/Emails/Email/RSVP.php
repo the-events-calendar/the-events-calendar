@@ -132,7 +132,7 @@ class RSVP {
 		if ( ! $this->should_show_calendar_links( $parent_template ) ) {
 			return;
 		}
-		
+
 		$args = $parent_template->get_local_values();
 
 		if ( ! isset( $args['event'] ) ) {
@@ -180,9 +180,8 @@ class RSVP {
 	 */
 	public function should_show_calendar_links( $parent_template ): bool {
 		$args  = $parent_template->get_local_values();
-		$email = $args['email'];
 
-		if ( ! $email instanceof RSVP_Email ) {
+		if ( ! $args['email'] instanceof RSVP_Email ) {
 			return false;
 		}
 
