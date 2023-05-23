@@ -167,6 +167,15 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	public function test_title_with_views( $events, $context ) {
 		$context     = tribe_context()->alter( $context );
 		$mock_events = [];
+		$is_past     = $context->get( 'event_display_mode' ) === 'past';
+		usort( $events, function ( $a, $b ) use ( $is_past ) {
+
+			if ( $is_past ) {
+				return strtotime( $a['start_date'] ) > strtotime( $b['start_date'] ) ? - 1 : 1;
+			}
+
+			return strtotime( $a['start_date'] ) > strtotime( $b['start_date'] ) ? 1 : - 1;
+		} );
 		foreach ( $events as $event ) {
 			$mock_events[] = $this->get_mock_event( 'events/single/1.template.json', $event );
 		}
