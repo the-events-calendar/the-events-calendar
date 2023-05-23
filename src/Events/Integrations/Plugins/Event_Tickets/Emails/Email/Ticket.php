@@ -206,6 +206,6 @@ class Ticket {
 			return tribe_is_truthy( $args['add_event_links'] );
 		}
 
-		return tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) );
+		return tribe_is_truthy( tribe_get_option( static::$option_add_event_links, true ) );
 	}
 }
