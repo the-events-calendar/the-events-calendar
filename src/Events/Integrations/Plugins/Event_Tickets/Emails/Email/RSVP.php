@@ -186,8 +186,8 @@ class RSVP {
 		}
 
 		$is_preview = Arr::get( $args, 'preview', false );
-		if ( $is_preview && ! empty( $args['add_event_links'] ) ) {
-			return true;
+		if ( $is_preview && isset( $args['add_event_links'] ) ) {
+			return tribe_is_truthy( $args['add_event_links'] );
 		}
 
 		$option_key = self::$option_add_event_links;
