@@ -201,13 +201,9 @@ class Ticket {
 			return false;
 		}
 
-		$is_preview         = Arr::get( $args, 'preview', false );
-		$using_ticket_email = Arr::get( $args, 'using_ticket_email', false );
-
-		if ( $is_preview &&
-		     ( $using_ticket_email || ! empty( $args['add_event_links'] ) )
-		) {
-			return true;
+		$is_preview = Arr::get( $args, 'preview', false );
+		if ( $is_preview && isset( $args['add_event_links'] ) ) {
+			return tribe_is_truthy( $args['add_event_links'] );
 		}
 
 		return tribe_is_truthy( tribe_get_option( self::$option_add_event_links, true ) );
