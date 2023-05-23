@@ -23,7 +23,8 @@
 	return;
 }
 
-$separator            = '<br />';
+$comma_separator      = ', ';
+$line_separator       = '<br />';
 $append_after_address = array_filter( array_map( 'trim', [ $venue->state_province ?? null, $venue->state ?? null, $venue->province ?? null ] ) );
 
 ?>
@@ -41,12 +42,12 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->state_provinc
 		<?php
 			echo esc_html( $venue->address );
 
-			echo '<br />';
+			echo $line_separator;
 
 			if ( ! empty( $venue->city ) ) :
 				echo esc_html( $venue->city );
 				if ( $append_after_address ) :
-					echo $separator;
+					echo $comma_separator;
 				endif;
 			endif;
 
@@ -55,12 +56,12 @@ $append_after_address = array_filter( array_map( 'trim', [ $venue->state_provinc
 			endif;
 
 			if ( ! empty( $venue->country ) ):
-				echo $separator . esc_html( $venue->country );
+				echo $line_separator . esc_html( $venue->country );
 			endif;
 
 			if ( ! empty( $venue->directions_link ) ) :
+				echo $line_separator;
 				?>
-				<br />
 				<a href="<?php echo esc_url( $venue->directions_link ); ?>">
 					<?php echo esc_html_x( 'Get Directions', 'Link on the Ticket Email', 'the-events-calendar' ); ?>
 				</a>
