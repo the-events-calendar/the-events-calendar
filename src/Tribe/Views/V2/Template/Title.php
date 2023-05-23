@@ -216,8 +216,13 @@ class Title {
 	public static function build_post_range_title( Context $context, $event_date, array $posts ) {
 		$event_date = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
 
-		$first = reset( $posts );
-		$last  = end( $posts );
+		if ( $context->get( 'event_display_mode' ) === 'past' ) {
+			$first = end( $posts );
+			$last  = reset( $posts );
+		} else {
+			$first = reset( $posts );
+			$last  = end( $posts );
+		}
 
 		$first_returned_date = tribe_get_start_date( $first, false, Dates::DBDATEFORMAT );
 		$first_event_date    = tribe_get_start_date( $first, false );
