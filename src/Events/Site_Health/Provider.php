@@ -40,18 +40,13 @@ class Provider extends Service_Provider {
 	}
 
 	public function add_filters() {
-		add_filter( 'tec_debug_info_sections', [ $this, 'add_section' ] );
-		add_filter( "tec_debug_info_section_{$this->slug}_get_fields", [ $this, 'get_section_fields' ], 10 );
+		add_filter( 'tec_debug_info_sections', [ $this, 'filter_include_sections' ] );
 	}
 
-	public function add_section( $sections ) {
+	public function filter_include_sections( $sections ) {
 		$sections[ Info_Section::get_slug() ] = $this->container->make( Info_Section::class );
 
 		return $sections;
-	}
-
-	public function get_section_fields( $value ) {
-		return $this->container->make( Info_Section::class )->add_fields();
 	}
 
 }

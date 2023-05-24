@@ -10,6 +10,8 @@
 namespace TEC\Events\Site_Health;
 
 use TEC\Common\Site_Health\Info_Section_Abstract;
+use TEC\Common\Site_Health\Fields\Generic_Info_Field;
+use TEC\Common\Site_Health\Factory;
 use Tribe__Utils__Array as Arr;
 
 /**
@@ -68,10 +70,11 @@ class Info_Section extends Info_Section_Abstract {
 	public function __construct() {
 		$this->label       = esc_html__( 'The Events Calendar', 'the-events-calendar' );
 		$this->description = esc_html__( 'This section contains information on The Events Calendar Plugin.', 'the-events-calendar' );
+		$this->add_fields();
 	}
 
 	/**
-	 * Adds our default section to the Site Health Info tab.
+	 * Generates and adds our fields to the section.
 	 *
 	 * @since TBD
 	 *
@@ -79,11 +82,76 @@ class Info_Section extends Info_Section_Abstract {
 	 *
 	 * @return array The debug information to be added to the core information page.
 	 */
-	public function add_fields() {
-		$event_counts     = wp_count_posts( \Tribe__Events__Main::POSTTYPE );
-		$organizer_counts = wp_count_posts( \Tribe__Events__Organizer::POSTTYPE );
-		$venue_counts     = wp_count_posts( \Tribe__Events__Venue::POSTTYPE );
+	public function add_fields(): void {
+		$plural_events_label = tribe_get_event_label_plural_lowercase();
+
+		$this->add_field(
+			Factory::generate_post_status_count_field(
+				'event_counts',
+				\Tribe__Events__Main::POSTTYPE,
+				10
+			)
+		);
+
+		$this->add_field(
+			Factory::generate_post_status_count_field(
+				'published_organizers',
+				\Tribe__Events__Organizer::POSTTYPE,
+				20
+			)
+		);
+
+		$this->add_field(
+			Factory::generate_post_status_count_field(
+				'published_venues',
+				\Tribe__Events__Venue::POSTTYPE,
+				30
+			)
+		);
+
+		$this->add_field(
+			Factory::generate_generic_field(
+				'event_block_editor',
+				sprintf(
+					esc_html__( 'Block Editor enabled for %1$s', 'the-events-calendar' ),
+					$plural_events_label
+				),
+				tec_bool_to_string( tribe_get_option( 'toggle_blocks_editor', false ) ),
+				40
+			)
+		);
+
+		$this->add_field(
+			Factory::generate_generic_field(
+				'include_events_in_loop',
+				sprintf(
+					esc_html__( 'Include %1$s in main blog loop', 'the-events-calendar' ),
+					$plural_events_label
+				),
+				tec_bool_to_string( tribe_get_option( 'showEventsInMainLoop', false ) ),
+				50
+			)
+		);
+
 		$view_manager     = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$this->add_field(
+			Factory::generate_generic_field(
+				'enabled_views',
+				esc_html__( 'Views', 'the-events-calendar' ),
+				Arr::to_list( array_flip( $view_manager->get_publicly_visible_views() ), ', ' ),
+				60
+			)
+		);
+
+		$this->add_field(
+			Factory::generate_generic_field(
+				'default_view',
+				esc_html__( 'Default view', 'the-events-calendar' ),
+				$view_manager->get_default_view_slug(),
+				70
+			)
+		);
+
 		$import_query = new \WP_Query(
 			[
 				'post_type' => 'tribe_events',
@@ -92,67 +160,34 @@ class Info_Section extends Info_Section_Abstract {
 			]
 		);
 
-		$fields = [
-			'event_counts' => [
-				'label' => sprintf(
-					esc_html__( '%1$s counts', 'the-events-calendar' ),
-					tribe_get_event_label_plural()
-				),
-				'value' => $this->clean_status_counts( $event_counts ),
-			],
-			'published_organizers' => [
-				'label' => sprintf(
-					esc_html__( '%1$s counts', 'the-events-calendar' ),
-					tribe_get_organizer_label_plural()
-				),
-				'value' => $this->clean_status_counts( $organizer_counts ),
-			],
-			'published_venues' => [
-				'label' => sprintf(
-					esc_html__( '%1$s counts', 'the-events-calendar' ),
-					tribe_get_venue_label_plural()
-				),
-				'value' => $this->clean_status_counts( $venue_counts ),
-			],
-			'imported_events' => [
-				'label' => sprintf(
+		$this->add_field(
+			Factory::generate_generic_field(
+				'imported_events',
+				sprintf(
 					esc_html__( 'Total imported %1$s', 'the-events-calendar' ),
-					tribe_get_event_label_plural_lowercase()
+					$plural_events_label
 				),
-				'value' => $import_query->found_posts,
-			],
-			'event_block_editor' => [
-				'label' => sprintf(
-					esc_html__( 'Block Editor enabled for %1$s', 'the-events-calendar' ),
-					tribe_get_event_label_plural_lowercase()
-				),
-				'value' => tec_bool_to_string( tribe_get_option( 'toggle_blocks_editor', false ) ),
-			],
-			'include_events_in_loop' => [
-				'label' => sprintf(
-					esc_html__( 'Include %1$s in main blog loop', 'the-events-calendar' ),
-					tribe_get_event_label_plural_lowercase()
-				),
-				'value' => tec_bool_to_string( tribe_get_option( 'showEventsInMainLoop', false ) ),
-			],
-			'enabled_views' => [
-				'label' => esc_html__( 'Enabled views', 'the-events-calendar' ),
-				'value' => Arr::to_list( array_flip( $view_manager->get_publicly_visible_views() ), ', ' ),
-			],
-			'default_view' => [
-				'label' => esc_html__( 'Default view', 'the-events-calendar' ),
-				'value' => $view_manager->get_default_view_slug(),
-			],
-			'front_page' => [
-				'label' => esc_html__( 'Front page calendar', 'the-events-calendar' ),
-				'value' => tec_bool_to_string( '-10' === get_option( 'page_on_front' ) )
-			],
-			'previous_versions' => [
-				'label' => esc_html__( 'Previous TEC versions', 'the-events-calendar' ),
-				'value' => Arr::to_list( array_filter( (array) tribe_get_option( 'previous_ecp_versions', [] ) ), ', ' )
-			],
-		];
+				$import_query->found_posts,
+				80
+			)
+		);
 
-		return $fields;
+		$this->add_field(
+			Factory::generate_generic_field(
+				'front_page',
+				esc_html__( 'Front page calendar', 'the-events-calendar' ),
+				tec_bool_to_string( '-10' === get_option( 'page_on_front' ) ),
+				90
+			)
+		);
+
+		$this->add_field(
+			Factory::generate_generic_field(
+				'previous_versions',
+				esc_html__( 'Previous TEC versions', 'the-events-calendar' ),
+				Arr::to_list( array_filter( (array) tribe_get_option( 'previous_ecp_versions', [] ) ), ', ' ),
+				100
+			)
+		);
 	}
 }
