@@ -9,6 +9,9 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Generator;
 use InvalidArgumentException;
+use TEC\Common\Configuration\Configuration;
+use Tribe__Cache;
+use Tribe__Cache_Listener;
 
 /**
  * Class Builder
@@ -544,6 +547,7 @@ class Builder {
 	 * Find an instance of the model in the database using a specific value and column if no column is specified
 	 * the primary key is used.
 	 *
+	 * @since TBD Added memoization behind a feature flag (default on).
 	 * @since 6.0.0
 	 *
 	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
@@ -553,8 +557,23 @@ class Builder {
 	 */
 	public function find( $value, $column = null ) {
 		$column = null === $column ? $this->model->primary_key_name() : $column;
+		$conf   = tribe( Configuration::class );
 
-		return $this->where( $column, $value )->first();
+		// Memoize disabled?
+		if ( $conf->get( 'TEC_NO_MEMOIZE_CT1_MODELS' ) ) {
+			return $this->where( $column, $value )->first();
+		}
+
+		// Check if we memoized this instance.
+		$key    = $value . $column . get_class( $this->model );
+		$result = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+		if ( ! $result ) {
+			// Not memoized, fetch it.
+			$result = $this->where( $column, $value )->first();
+			tribe_cache()->set( $key, $result, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		return $result;
 	}
 
 	/**
@@ -1452,7 +1471,7 @@ class Builder {
 				'table'       => $table,
 				'primary_key' => $primary_key,
 				'expected'    => $expected_count,
-				'deleted'     => $inserted,
+				'deleted'     => $deleted,
 			] );
 		}
 
