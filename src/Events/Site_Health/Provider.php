@@ -35,6 +35,11 @@ class Provider extends Service_Provider {
 		$this->add_filters();
 	}
 
+	/**
+	 * Add the action hooks.
+	 *
+	 * @since TBD
+	 */
 	public function add_actions() {
 
 	}
