@@ -13,6 +13,39 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	use CT1_Fixtures;
 
 	/**
+	 * Ensures cache key generation.
+	 *
+	 * @test
+	 */
+	public function should_generate_cache_key() {
+		foreach ( range( 1, 4 ) as $i ) {
+			$event    = tribe_events()->set_args( [
+				'title'      => 'test',
+				'status'     => 'publish',
+				'start_date' => "2020-01-$i 10:00:00",
+				'end_date'   => "2020-01-$i 12:00:00",
+				'timezone'   => 'Europe/Paris',
+			] )->create();
+			$events[] = $event;
+		}
+
+		foreach ( $events as $post ) {
+			// Will generate a cache key during find().
+			$occurrence = Occurrence::find( $post->ID, 'post_id' );
+			// Should look like this.
+			$key = 'post_id' . $post->ID . get_class( $occurrence );
+
+			// Make sure the cache key is in the expected format.
+			$this->assertEquals( $key, Builder::generate_cache_key( $occurrence, 'post_id', $post->ID ) );
+			// Make sure the key is what this instances is memoized by.
+			$this->assertEquals( $key, $occurrence->cache_key );
+		}
+
+		$empty = new Occurrence();
+		$this->assertNull( $empty->cache_key );
+	}
+
+	/**
 	 * Should validate whether our simple find() memoization works as expected, and is cleared on save.
 	 *
 	 * @throws \Tribe__Repository__Usage_Error

@@ -15,6 +15,7 @@ use Serializable;
 use tad_DI52_Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
+use Tribe__Cache_Listener;
 
 /**
  * Class Model
@@ -193,28 +194,15 @@ abstract class Model implements Serializable {
 		$this->extended_properties = $extended_properties;
 	}
 
-	/**
-	 * Generates a cache key for this particular model instance.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $attributes In cases where this model is not hydrated yet, use search params to see if it can be located.
-	 *
-	 * @return string|null
-	 */
-	public function cache_key( array $attributes = [] ): ?string {
-		$primary_key = $this->primary_key_name();
-		// Sometimes we have an empty model, but we want to generate a cache key for a search.
-		if ( empty( $attributes ) ) {
-			$attributes = $this->to_array();
+
+
+
+	public $cache_key = null;
+	public function flush_cache() {
+		if ( $this->cache_key ) {
+			tribe_cache()->delete( $this->cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			$this->cache_key = null;
 		}
-
-		if ( isset( $attributes[ $primary_key ] ) ) {
-
-			return $attributes[ $primary_key ] . $primary_key . get_class( $this );
-		}
-
-		return null;
 	}
 
 	/**
@@ -417,6 +405,8 @@ abstract class Model implements Serializable {
 		$this->errors             = [];
 		static::$static_errors    = [];
 		$this->single_validations = [];
+		// If we have a cache, let's clear it.
+		$this->flush_cache();
 
 		return $this;
 	}

@@ -285,7 +285,7 @@ class Builder {
 
 		// If no input was provided use the model as input.
 		if ( $data === null ) {
-			$model = $this->set_data_to_model();
+			$model = $this->model;
 			$model->validate();
 		} else {
 			if ( empty( $data ) ) {
@@ -362,10 +362,7 @@ class Builder {
 			}
 
 			// If we have a cache, let's clear it.
-			$key = $model->cache_key();
-			if ( $key ) {
-				tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-			}
+			$model->flush_cache();
 
 			return $result;
 		}
@@ -459,7 +456,7 @@ class Builder {
 		}
 
 		if ( $data === null ) {
-			$model = $this->set_data_to_model();
+			$model = $this->model;
 			$model->validate();
 		} else {
 			if ( empty( $data ) ) {
@@ -516,10 +513,7 @@ class Builder {
 		$this->queries[] = $SQL;
 
 		// If we have a cache, let's clear it.
-		$key = $model->cache_key();
-		if ( $key ) {
-			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-		}
+		$model->flush_cache();
 
 		return $this->execute_queries ? $wpdb->query( $SQL ) : false;
 	}
@@ -552,12 +546,6 @@ class Builder {
 			return 0;
 		}
 
-		// If we have a cache, let's clear it.
-		$key = $this->model->cache_key();
-		if ( $key ) {
-			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-		}
-
 		$this->model->reset();
 
 		return absint( $result );
@@ -585,18 +573,36 @@ class Builder {
 		}
 
 		// Check if we memoized this instance.
-		$key    = $this->model->cache_key( [ $column => $value ] );
-		$result = null;
-		if ( $key ) {
-			$result = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+		$key    = self::generate_cache_key( $this->model, $column, $value );
+		$result = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+
+		if ( $result ) {
+			return $result;
 		}
-		if ( ! $result ) {
-			// Not memoized, fetch it.
-			$result = $this->where( $column, $value )->first();
+
+		// Not memoized, fetch it.
+		$result = $this->where( $column, $value )->first();
+		if ( $result ) {
+			// Store on model so we can use it to cache bust later.
+			$result->cache_key = $key;
+
 			tribe_cache()->set( $key, $result, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Generates a cache key for this particular model instance.
+	 *
+	 * @since TBD
+	 *
+	 * @todo
+	 *
+	 * @return string
+	 */
+	public static function generate_cache_key( Model $model,$field, $value  ):string {
+		return $field.$value.get_class($model);
 	}
 
 	/**
@@ -1334,10 +1340,7 @@ class Builder {
 		}
 
 		// If we have a cache, let's clear it.
-		$key = $this->model->cache_key();
-		if ( $key ) {
-			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-		}
+		$this->model->flush_cache();
 		$model = $this->find( $this->model->{$pk}, $pk );
 
 		if ( $model === null ) {
@@ -1497,10 +1500,7 @@ class Builder {
 			// If we have a cache, let's clear it.
 			foreach ( $models as $model ) {
 				if ( $model instanceof Model ) {
-					$key = $model->cache_key();
-					if ( $key ) {
-						tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
-					}
+					$model->flush_cache();
 				}
 			}
 		} while ( count( $keys ) );
