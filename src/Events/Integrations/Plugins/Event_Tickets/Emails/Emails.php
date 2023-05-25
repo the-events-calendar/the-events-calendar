@@ -125,6 +125,7 @@ class Emails {
 
 		$preview_event = [
 			'ID'               => 213123123,
+			'permalink'        => '#',
 			'title'            => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
 			'schedule_details' => new Lazy_String(
 				static function () {
