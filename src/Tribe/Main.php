@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.13.1';
+		const VERSION             = '6.1.0';
 
 		/**
 		 * Min Pro Addon
@@ -285,8 +285,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $singular_organizer_label;
 		public $plural_organizer_label;
 
+		public $singular_event_label_lowercase;
+		public $plural_event_label_lowercase;
+
 		public $singular_event_label;
 		public $plural_event_label;
+
+		public $currentDay;
+		public $errors;
+		public $registered;
 
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
@@ -483,7 +490,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
-			Tribe__Main::instance();
+			Tribe__Main::instance()->set_parent_plugin_file( TRIBE_EVENTS_FILE );
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
 		}
@@ -654,6 +661,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up the installer.
 			tribe_register_provider( TEC\Events\Installer\Provider::class );
+
+			// Set up Site Health
+			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
+
+			// Set up Telemetry
+			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

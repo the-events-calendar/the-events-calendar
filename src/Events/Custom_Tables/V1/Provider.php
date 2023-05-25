@@ -12,8 +12,10 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use tad_DI52_Container as Container;
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Container;
+
+use TEC\Common\Contracts\Service_Provider;
+
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
