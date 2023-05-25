@@ -170,4 +170,8 @@
 	td.tec-tickets__email-table-content-event-venue-website-container {
 		padding: 0;
 	}
+	
+	h3.tec-tickets__email-table-content-event-title a {
+		text-decoration: none;
+	}
 </style>
