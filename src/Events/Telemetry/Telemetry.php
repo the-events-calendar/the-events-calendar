@@ -164,7 +164,7 @@ class Telemetry {
 	 */
 	public function filter_tec_telemetry_slugs( $slugs ) {
 		$dir = Tribe__Events__Main::instance()->plugin_dir;
-		$slugs[self::$plugin_slug] =  $dir . self::$plugin_path;
+		$slugs[ static::$plugin_slug ] =  $dir . static::$plugin_path;
 		return array_unique( $slugs, SORT_STRING );
 	}
 }
