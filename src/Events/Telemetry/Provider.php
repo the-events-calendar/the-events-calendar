@@ -15,14 +15,23 @@ use TEC\Common\Contracts\Service_Provider;
   * Class Provider
   *
   * @since   TBD
-
   * @package TEC\Events\Telemetry
   */
 class Provider extends Service_Provider {
+	/**
+	 * Handles the registering of the provider.
+	 *
+	 * @since TBD
+	 */
 	public function register() {
 		$this->add_filters();
 	}
 
+	/**
+	 * Handles the inclusion of the Filters for this module.
+	 *
+	 * @since TBD
+	 */
 	public function add_filters() {
 		add_filter( 'tec_common_telemetry_optin_args', [ $this, 'filter_tec_common_telemetry_optin_args' ] );
 		add_filter( 'tribe_general_settings_debugging_section',[ $this, 'filter_tribe_general_settings_debugging_section' ] );
@@ -30,8 +39,17 @@ class Provider extends Service_Provider {
 		add_filter( 'tec_telemetry_slugs', [ $this, 'filter_tec_telemetry_slugs' ] );
 	}
 
+	/**
+	 * Filter the telemetry optin arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $optin_args Previous set of args we are changing.
+	 *
+	 * @return array 
+	 */
 	public function filter_tec_common_telemetry_optin_args( $optin_args ) {
-		return $this->container->get( Telemetry::class )->filter_tec_common_telemetry_optin_args(  $optin_args );
+		return $this->container->get( Telemetry::class )->filter_tec_common_telemetry_optin_args( $optin_args );
 	}
 
 	/**
