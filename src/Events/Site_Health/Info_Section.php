@@ -67,6 +67,11 @@ class Info_Section extends Info_Section_Abstract {
 	 */
 	protected string $description;
 
+	/**
+	 * Sets up the section and internally add the fields.
+	 *
+	 * @since TBD
+	 */
 	public function __construct() {
 		$this->label       = esc_html__( 'The Events Calendar', 'the-events-calendar' );
 		$this->description = esc_html__( 'This section contains information on The Events Calendar Plugin.', 'the-events-calendar' );
