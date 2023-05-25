@@ -270,6 +270,7 @@ class Builder {
 	/**
 	 * Insert a new row or update one if already exists.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
@@ -360,6 +361,12 @@ class Builder {
 				] );
 			}
 
+			// If we have a cache, let's clear it.
+			$key = $model->cache_key();
+			if ( $key ) {
+				tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			}
+
 			return $result;
 		}
 
@@ -436,7 +443,7 @@ class Builder {
 	/**
 	 * Perform updates against a model that already exists on the database.
 	 *
-	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array|null $data    If the data is null the data of the model would be used to set an update, otherwise
@@ -508,6 +515,12 @@ class Builder {
 
 		$this->queries[] = $SQL;
 
+		// If we have a cache, let's clear it.
+		$key = $model->cache_key();
+		if ( $key ) {
+			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
 		return $this->execute_queries ? $wpdb->query( $SQL ) : false;
 	}
 
@@ -515,6 +528,7 @@ class Builder {
 	 * Run a delete operation against an existing model if the model has not been persisted on the DB the operation
 	 * will fail.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @return int The number of affected rows.
@@ -536,6 +550,12 @@ class Builder {
 		// If an error happen or no row was updated by the query above.
 		if ( $result === false || (int) $result === 0 ) {
 			return 0;
+		}
+
+		// If we have a cache, let's clear it.
+		$key = $this->model->cache_key();
+		if ( $key ) {
+			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		$this->model->reset();
@@ -565,8 +585,11 @@ class Builder {
 		}
 
 		// Check if we memoized this instance.
-		$key    = $value . $column . get_class( $this->model );
-		$result = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+		$key    = $this->model->cache_key( [ $column => $value ] );
+		$result = null;
+		if ( $key ) {
+			$result = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+		}
 		if ( ! $result ) {
 			// Not memoized, fetch it.
 			$result = $this->where( $column, $value )->first();
@@ -1299,7 +1322,9 @@ class Builder {
 	/**
 	 * If an instance already exists refresh the values by querying the same value against the DB.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
+	 *
 	 * @return Model
 	 */
 	public function refresh() {
@@ -1308,6 +1333,11 @@ class Builder {
 			return $this->model;
 		}
 
+		// If we have a cache, let's clear it.
+		$key = $this->model->cache_key();
+		if ( $key ) {
+			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
 		$model = $this->find( $this->model->{$pk}, $pk );
 
 		if ( $model === null ) {
@@ -1438,7 +1468,9 @@ class Builder {
 	 * delete the exising model entries and re-insert them, by primary key, using the
 	 * updated data.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
+	 *
 	 * @param array<Model>|array<array<string,mixed>> $models Either a list of Model
 	 *                                                        instances to update, or a
 	 *                                                        set of models in array format.
@@ -1461,6 +1493,16 @@ class Builder {
 			$batch         = array_splice( $keys, 0, $this->batch_size );
 			$keys_interval = implode( ',', array_map( 'absint', $batch ) );
 			$deleted       += $wpdb->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
+
+			// If we have a cache, let's clear it.
+			foreach ( $models as $model ) {
+				if ( $model instanceof Model ) {
+					$key = $model->cache_key();
+					if ( $key ) {
+						tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+					}
+				}
+			}
 		} while ( count( $keys ) );
 
 		if ( $deleted !== $expected_count ) {

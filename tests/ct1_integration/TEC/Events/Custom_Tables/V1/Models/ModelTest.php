@@ -4,10 +4,47 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Codeception\TestCase\WPTestCase;
 use Generator;
+use Spatie\Snapshots\MatchesSnapshots;
 use TEC\Events\Custom_Tables\V1\Tables\Events;
 use WP_Post;
 
 class ModelTest extends WPTestCase {
+	use MatchesSnapshots;
+
+	/**
+	 * Ensures cache key generation.
+	 * 
+	 * @throws \Tribe__Repository__Usage_Error
+	 * @test
+	 */
+	public function should_generate_cache_key() {
+		foreach ( range( 1, 4 ) as $i ) {
+			$event    = tribe_events()->set_args( [
+				'title'      => 'test',
+				'status'     => 'publish',
+				'start_date' => "2020-01-$i 10:00:00",
+				'end_date'   => "2020-01-$i 12:00:00",
+				'timezone'   => 'Europe/Paris',
+			] )->create();
+			$events[] = $event;
+		}
+
+		foreach ( $events as $post ) {
+			$occurrence  = Occurrence::find( $post->ID, 'post_id' );
+			$primary_key = $occurrence->primary_key_name();
+			$attributes  = $occurrence->to_array();
+			$key         = $attributes[ $primary_key ] . $primary_key . get_class( $occurrence );
+
+			$this->assertEquals( $key, $occurrence->cache_key() );
+			$this->assertNotNull( $occurrence->cache_key() );
+		}
+
+		$empty = new Occurrence();
+		$this->assertNull( $empty->cache_key() );
+		$this->assertNotEquals( $empty->cache_key( $occurrence->to_array() ), $empty->cache_key() );
+		$this->assertEquals( $empty->cache_key( $occurrence->to_array() ), $occurrence->cache_key() );
+	}
+
 	/**
 	 * It should allow using raw WHERE clauses for filtering
 	 *

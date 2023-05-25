@@ -192,6 +192,31 @@ abstract class Model implements Serializable {
 		$this->hashed_keys = array_merge( $this->hashed_keys, $extended_hashed_keys );
 		$this->extended_properties = $extended_properties;
 	}
+
+	/**
+	 * Generates a cache key for this particular model instance.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $attributes In cases where this model is not hydrated yet, use search params to see if it can be located.
+	 *
+	 * @return string|null
+	 */
+	public function cache_key( array $attributes = [] ): ?string {
+		$primary_key = $this->primary_key_name();
+		// Sometimes we have an empty model, but we want to generate a cache key for a search.
+		if ( empty( $attributes ) ) {
+			$attributes = $this->to_array();
+		}
+
+		if ( isset( $attributes[ $primary_key ] ) ) {
+
+			return $attributes[ $primary_key ] . $primary_key . get_class( $this );
+		}
+
+		return null;
+	}
+
 	/**
 	 * Get the name of the table that is being affected by this model.
 	 *

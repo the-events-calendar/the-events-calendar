@@ -32,7 +32,7 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 			'status'     => 'publish',
 		] )->create();
 
-		// Sanity checks / Givens
+		// Sanity checks / givens.
 		$this->assertInstanceOf( WP_Post::class, $event1 );
 		$this->assertInstanceOf( WP_Post::class, $event2 );
 		$occurrence1 = Occurrence::where( 'post_id', '=', $event1->ID )->first();
