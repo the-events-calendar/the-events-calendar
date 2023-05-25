@@ -28,10 +28,12 @@ if ( empty( $event->title ) ) {
 <tr>
 	<td class="tec-tickets__email-table-content-event-title-container">
 		<h3 class="tec-tickets__email-table-content-event-title">
-			<?php
-			// phpcs:ignore
-			echo $event->title;
-			?>
+			<a href="<?php echo $event->permalink; ?>" target="_blank">
+				<?php
+				// phpcs:ignore
+				echo $event->title;
+				?>
+			</a>
 		</h3>
 	</td>
 </tr>
