@@ -2,7 +2,7 @@
 /**
  * Class Completed_Order.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -15,7 +15,7 @@ use TEC\Tickets\Emails\Email\Completed_Order as Completed_Order_Email;
 /**
  * Class Completed_Order.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */

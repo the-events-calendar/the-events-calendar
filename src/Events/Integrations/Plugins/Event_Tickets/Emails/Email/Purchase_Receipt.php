@@ -2,7 +2,7 @@
 /**
  * Class Purchase_Receipt.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -15,7 +15,7 @@ use TEC\Tickets\Emails\Email\Purchase_Receipt as Purchase_Receipt_Email;
 /**
  * Class Purchase_Receipt.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */

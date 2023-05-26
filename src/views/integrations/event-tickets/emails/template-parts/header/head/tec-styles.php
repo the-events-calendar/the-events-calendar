@@ -181,4 +181,9 @@
 		font-weight: 700;
 		padding-top:43px;
 	}
+	
+	.tec-tickets__email-table-content-order-event-title a,
+	td.tec-tickets__email-table-content-order-event-title a {
+		text-decoration: none;
+	}
 </style>
