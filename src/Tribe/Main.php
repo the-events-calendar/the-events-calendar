@@ -490,9 +490,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
-			add_filter( 'tec_common_parent_plugin_file', function() {
-				return TRIBE_EVENTS_FILE;
-			});
+			add_filter(
+				'tec_common_parent_plugin_file',
+				function( $paths ) {
+					$paths[] = TRIBE_EVENTS_FILE;
+
+					return $paths;
+				}
+			);
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
 		}
