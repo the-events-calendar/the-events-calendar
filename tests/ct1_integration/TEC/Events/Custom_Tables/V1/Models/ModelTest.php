@@ -8,7 +8,6 @@ use TEC\Events\Custom_Tables\V1\Tables\Events;
 use WP_Post;
 
 class ModelTest extends WPTestCase {
-
 	/**
 	 * It should allow using raw WHERE clauses for filtering
 	 *

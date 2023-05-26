@@ -597,12 +597,14 @@ class Builder {
 	 *
 	 * @since TBD
 	 *
-	 * @todo
+	 * @param Model  $model The instance we are generating a cache key for.
+	 * @param string $field The field we are searching / caching by.
+	 * @param mixed  $value The value we are searching / caching with.
 	 *
 	 * @return string
 	 */
-	public static function generate_cache_key( Model $model,$field, $value  ):string {
-		return $field.$value.get_class($model);
+	public static function generate_cache_key( Model $model, $field, $value ): string {
+		return $field . $value . get_class( $model );
 	}
 
 	/**

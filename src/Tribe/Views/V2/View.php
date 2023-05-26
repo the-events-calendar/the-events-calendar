@@ -684,7 +684,7 @@ class View implements View_Interface {
 		$template_vars = $this->filter_template_vars( $this->setup_template_vars() );
 		$this->template->set_values( $template_vars, false );
 
-		$html = $this->template->render(); // @todo ...s?
+		$html = $this->template->render();
 		$this->restore_the_loop();
 
 		// If HTML_Cache is a class trait, perhaps the markup should be cached.
@@ -1239,7 +1239,7 @@ class View implements View_Interface {
 		 *
 		 * Filters to control the data are available in the `Tribe__JSON_LD__Abstract` object and its extending classes.
 		 */
-		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events ); // @todo ~2s
+		$template_vars['json_ld_data'] = $this->build_json_ld_data( $events );
 		$this->setup_additional_views( (array) $events, $template_vars );
 
 		/**
@@ -1563,21 +1563,17 @@ class View implements View_Interface {
 		// Check if we memoized these vars and if memoize is enabled.
 		$memoize_key = md5( __METHOD__ . json_encode( $this->repository_args ) );
 		$vars        = tribe_cache()->get( $memoize_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
-		if ( ! empty( $vars ) && ! $this->config->get( 'TEC_NO_MEMOIZE_VIEW_VARS' ) ) {
+		if ( ! empty( $vars ) ) {
 			return $vars;
 		}
 
-// @todo 4s
-		$events = (array) $this->repository->all(); // @todo memoize the setupvar by repo args?
+		$events = (array) $this->repository->all();
 		$events = array_filter( $events, static function ( $event ) {
 			return $event instanceof \WP_Post;
 		} );
 
-		// @todo is this used? We prime but are we using it somewhere...?
-		// @todo At the very least, no reason to run this every call to setup_template_vars()
-	 // @todo ~1s
-			Taxonomy::prime_term_cache( $events );
-			Event::prime_cache( $events );
+		Taxonomy::prime_term_cache( $events );
+		Event::prime_cache( $events );
 
 		/**
 		 * Action triggered right after pulling all the Events from the DB, allowing cache to be primed correctly.
@@ -1721,7 +1717,7 @@ class View implements View_Interface {
 			'show_latest_past'     => $this->should_show_latest_past_events_view(),
 		];
 
-		if(!$this->config->get( 'TEC_NO_MEMOIZE_VIEW_VARS' )) {
+		if ( ! $this->config->get( 'TEC_NO_MEMOIZE_VIEW_VARS' ) ) {
 			tribe_cache()->set( $memoize_key, $template_vars, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
@@ -1827,15 +1823,8 @@ class View implements View_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_template_vars() {
-		if(IS_TEC_MEMO && !empty(self::$tvars)) {
-			return self::$tvars;
-		}
-		self::$tvars = $this->filter_template_vars( $this->setup_template_vars() );
-
-		return self::$tvars;
+		return $this->filter_template_vars( $this->setup_template_vars() );
 	}
-
-	static $tvars = [];
 
 	/**
 	 * {@inheritDoc}
