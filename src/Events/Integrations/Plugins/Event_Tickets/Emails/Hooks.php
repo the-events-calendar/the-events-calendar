@@ -15,6 +15,8 @@
 
 namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails;
 
+use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\Completed_Order;
+use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\Purchase_Receipt;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\RSVP;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\Ticket;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\JSON_LD\Event_Data;
@@ -53,6 +55,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_template_before_include:tickets/emails/template-parts/header/head/styles', [ $this, 'include_event_ticket_rsvp_styles' ], 10, 3 );
 		add_action( 'tribe_template_after_include:tickets/emails/template-parts/body/tickets', [ $this, 'include_event_venue_ticket_rsvp_emails' ], 10, 3 );
 		add_action( 'tribe_template_after_include:tickets/emails/template-parts/body/tickets', [ $this, 'include_event_calendar_links' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets/emails/template-parts/body/order/ticket-totals', [ $this, 'include_event_title' ], 10, 3 );
 	}
 
 	/**
@@ -309,5 +312,25 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_include_json_ld_event_data( $data, $schema ): array {
 		return $this->container->make( Event_Data::class )->filter_event_data( $data, $schema );
+	}
+
+	/**
+	 * Include Event title above the ticket totals in order emails.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string          $file     Template file.
+	 * @param string          $name     Template name.
+	 * @param Common_Template $template Event Tickets template object.
+	 * 
+	 * @return void
+	 */
+	public function include_event_title( $file, $name, $template ) {
+		if ( ! $template instanceof Common_Template ) {
+			return;
+		}
+		
+		$this->container->make( Completed_Order::class )->include_event_title( $template );
+		$this->container->make( Purchase_Receipt::class )->include_event_title( $template );
 	}
 }
