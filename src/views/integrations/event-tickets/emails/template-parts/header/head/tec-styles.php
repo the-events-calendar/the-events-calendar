@@ -17,12 +17,13 @@
 		border: 0;
 		border-collapse: collapse;
 		border-spacing: 0;
+		margin-bottom: 30px;
 		width: 100%;
 	}
 
 	.tec-tickets__email-table-content-event-links-table-data,
 	td.tec-tickets__email-table-content-event-links-table-data {
-		padding: 30px 10px;
+		padding: 0 10px;
 		text-align: center;
 		width: 100%;
 	}
@@ -35,6 +36,7 @@
 	}
 
 	.tec-tickets__email-table-content-event-date {
+		color: #141827;
 		font-size: 14px;
 		font-weight: 400;
 		letter-spacing: 0px;
@@ -57,19 +59,22 @@
 		background: transparent;
 		color: #141827;
 		font-size: 16px;
-		font-weight: 700;
+		font-weight: 700 !important;
 		margin: 0;
 		padding: 0;
 	}
 	.tec-tickets__email-table-content-event-venue-container,
 	td.tec-tickets__email-table-content-event-venue-container {
 		border: 1px solid #d5d5d5;
+		display: block;
 		padding: 25px;
+		margin-bottom: 30px;
 	}
 	.tec-tickets__email-table-content-event-venue-name {
 		background: transparent;
+		color: #141827;
 		font-size: 18px;
-		font-weight: 700;
+		font-weight: 700 !important;
 		margin: 0; 
 		padding: 0;
 	}
@@ -112,6 +117,7 @@
 	}
 	.tec-tickets__email-table-content-event-venue-address-container,
 	td.tec-tickets__email-table-content-event-venue-address-container {
+		color: #141827;
 		padding: 0;
 		text-align: left;
 	}
@@ -141,6 +147,7 @@
 
 	.tec-tickets__email-table-content-event-venue-phone-container,
 	td.tec-tickets__email-table-content-event-venue-phone-container {
+		color: #141827;
 		padding: 0;
 	}
 
@@ -168,10 +175,12 @@
 
 	.tec-tickets__email-table-content-event-venue-website-container,
 	td.tec-tickets__email-table-content-event-venue-website-container {
+		color: #141827;
 		padding: 0;
 	}
 	
 	h3.tec-tickets__email-table-content-event-title a {
+		color: #141827;
 		text-decoration: none;
 	}
 </style>
