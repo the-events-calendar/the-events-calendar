@@ -134,19 +134,26 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 			null
 		];
 
+		$event_display_modes = [
+			'past',
+			null
+		];
+
 		$data = [];
 		foreach ( $event_dates as $event_date ) {
-
 			foreach ( $event_displays as $view_slug ) {
-				$key          = count( $events ) . " events -> event_date '$event_date' -> view '$view_slug'";
-				$data[ $key ] = [
-					$events,
-					[
-						'event_post_type' => true,
-						'event_date'      => $event_date,
-						'event_display'   => $view_slug,
-					]
-				];
+				foreach ( $event_display_modes as $event_display_mode ) {
+					$key          = count( $events ) . " events -> event_date '$event_date' -> display mode '$event_display_mode' -> view '$view_slug'";
+					$data[ $key ] = [
+						$events,
+						[
+							'event_post_type'    => true,
+							'event_date'         => $event_date,
+							'event_display'      => $view_slug,
+							'event_display_mode' => $event_display_mode
+						]
+					];
+				}
 			}
 		}
 
@@ -160,6 +167,15 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	public function test_title_with_views( $events, $context ) {
 		$context     = tribe_context()->alter( $context );
 		$mock_events = [];
+		$is_past     = $context->get( 'event_display_mode' ) === 'past';
+		usort( $events, function ( $a, $b ) use ( $is_past ) {
+
+			if ( $is_past ) {
+				return strtotime( $a['start_date'] ) > strtotime( $b['start_date'] ) ? - 1 : 1;
+			}
+
+			return strtotime( $a['start_date'] ) > strtotime( $b['start_date'] ) ? 1 : - 1;
+		} );
 		foreach ( $events as $event ) {
 			$mock_events[] = $this->get_mock_event( 'events/single/1.template.json', $event );
 		}
