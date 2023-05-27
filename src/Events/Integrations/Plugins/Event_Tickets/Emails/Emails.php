@@ -127,6 +127,7 @@ class Emails {
 			'ID'               => 213123123,
 			'permalink'        => '#',
 			'title'            => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
+			'excerpt'          => esc_html__( 'Experience the magic of creativity in nature at "Arts in the Park." Immerse in art, live performances, and interactive activities, celebrating artistic expressions for all ages. Join us for an enchanting day of vibrant installations and captivating music—an unforgettable event that inspires and connects. Save the date and indulge your senses at "Arts in the Park"!' ),
 			'schedule_details' => new Lazy_String(
 				static function () {
 					return esc_html__( 'September 22 @ 7:00 pm - 11:00 pm', 'the-events-calendar' );
