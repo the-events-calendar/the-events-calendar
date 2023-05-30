@@ -25,6 +25,7 @@ class Provider extends Service_Provider {
 	 */
 	public function register() {
 		$this->add_filters();
+		$this->add_actions();
 	}
 
 	/**
@@ -40,13 +41,22 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Filter the telemetry optin arguments.
+	 * Handles the action hooks for this module.
+	 *
+	 * @since TBD
+	 */
+	public function add_actions() {
+		add_action( 'in_admin_footer', tribe_callback( Telemetry::class, 'inject_modal_link' ) );
+	}
+
+	/**
+	 * Filter the telemetry opt-in arguments.
 	 *
 	 * @since TBD
 	 *
 	 * @param array $optin_args Previous set of args we are changing.
 	 *
-	 * @return array 
+	 * @return array
 	 */
 	public function filter_tec_common_telemetry_optin_args( $optin_args ) {
 		return $this->container->get( Telemetry::class )->filter_tec_common_telemetry_optin_args( $optin_args );
