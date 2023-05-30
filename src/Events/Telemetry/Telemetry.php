@@ -123,7 +123,12 @@ class Telemetry {
 		return $fields;
 	}
 
-	public function get_reconciled_telemetry_opt_in() {
+	/**
+	 * Reconcile our option and the Telemetry option to a single value.
+	 *
+	 * @since TBD
+	 */
+	public function get_reconciled_telemetry_opt_in(): bool {
 		$status         = Config::get_container()->get( Status::class );
 		$stellar_option = $status->get_option();
 		$optin          = $stellar_option[ static::$plugin_slug ]['optin'] ?? false;
@@ -231,12 +236,17 @@ class Telemetry {
 		do_action( "stellarwp/telemetry/{$telemetry_slug}/optin" );
 	}
 
-	public function save_opt_in_setting_field( $value ) {
-		// Get an instance of the Status class.
-		$status = Config::get_container()->get( Status::class );
+	/**
+	 * Update our option and the stellar option when the user opts in/out via the TEC admin.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $value The option value
+	 */
+	public function save_opt_in_setting_field( $value ): void {
 
 		// Get the value submitted on the settings page as a boolean.
-		$value = ! empty( filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOLEAN ) );
+		$value = tribe_is_truthy( tribe_get_request_var( 'opt-in-status' ) );
 
 		// Gotta catch them all..
 		tribe( Common_Telemetry::class )->register_tec_telemetry_plugins( $value );
