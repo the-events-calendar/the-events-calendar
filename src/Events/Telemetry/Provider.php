@@ -46,7 +46,7 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public function add_actions() {
-		add_action( 'in_admin_footer', tribe_callback( Telemetry::class, 'inject_modal_link' ) );
+		add_action( 'in_admin_footer', [ $this, 'inject_modal_link' ] );
 	}
 
 	/**
@@ -103,5 +103,14 @@ class Provider extends Service_Provider {
 	 */
 	public function filter_tec_telemetry_slugs( $slugs ) {
 		return $this->container->get( Telemetry::class )->filter_tec_telemetry_slugs( $slugs );
+	}
+
+	/**
+	 * Conditionally injects the hook to trigger the Telemetry modal.
+	 *
+	 * @since TBD
+	 */
+	public function inject_modal_link() {
+		return $this->container->get( Telemetry::class )->inject_modal_link();
 	}
 }

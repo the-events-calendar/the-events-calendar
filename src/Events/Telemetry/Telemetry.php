@@ -209,8 +209,11 @@ class Telemetry {
 		}
 
 		$telemetry_slug = \TEC\Common\Telemetry\Telemetry::get_plugin_slug();
+
 		/**
-		 * Fires when the user is viewing the tab content.
+		 * Fires to trigger the modal content on admin pages.
+		 *
+		 * @since TBD
 		 */
 		do_action( "stellarwp/telemetry/{$telemetry_slug}/optin" );
 	}
