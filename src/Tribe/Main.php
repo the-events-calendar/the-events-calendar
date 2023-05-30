@@ -496,7 +496,24 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return $paths;
 			});
 
+			Tribe__Main::instance();
+
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
+		}
+
+		/**
+		 * Adds our main plugin file to the list of paths.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $paths The paths to TCMN parent plugins.
+		 *
+		 * @return array<string>
+		 */
+		public static function include_parent_plugin_path_to_common( $paths ): array {
+			$paths[] = TRIBE_EVENTS_FILE;
+
+			return $paths;
 		}
 
 		/**

@@ -12,8 +12,7 @@ namespace TEC\Events\Telemetry;
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
-use Tribe\Events\Admin\Settings as Plugin_Settings;
-use Tribe__Events__Main;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Telemetry
@@ -52,8 +51,7 @@ class Telemetry {
 	 * @return array<string|mixed> The filtered args.
 	 */
 	public function filter_tec_common_telemetry_optin_args( $original_optin_args ): array {
-		// wp-admin/admin.php?page=tec-events-settings
-		if ( ! tribe( Plugin_Settings::class )->is_tec_events_settings() ) {
+		if ( ! static::is_tec_admin_page() ) {
 			return $original_optin_args;
 		}
 
@@ -163,8 +161,60 @@ class Telemetry {
 	 * @return array<string,string> $slugs The same array with The Events Calendar added to it.
 	 */
 	public function filter_tec_telemetry_slugs( $slugs ) {
-		$dir = Tribe__Events__Main::instance()->plugin_dir;
+		$dir = TEC::instance()->plugin_dir;
 		$slugs[ static::$plugin_slug ] =  $dir . static::$plugin_path;
 		return array_unique( $slugs, SORT_STRING );
+	}
+
+	/**
+	 * Determines if we are on a TEC admin page except the post edit page.
+	 *
+	 * @since TBD
+	 *
+	 * @return boolean
+	 */
+	public static function is_tec_admin_page(): bool {
+		$helper = \Tribe__Admin__Helpers::instance();
+
+		// Are we on a tec post-type admin screen?
+		if (
+			! $helper->is_post_type_screen( TEC::POSTTYPE )
+			&& ! $helper->is_post_type_screen( TEC::ORGANIZER_POST_TYPE )
+			&& ! $helper->is_post_type_screen( TEC::VENUE_POST_TYPE )
+		) {
+			return false;
+		}
+
+		$screen = get_current_screen();
+		// Don't show on the event edit screen.
+		if (
+			TEC::POSTTYPE === $screen->id
+			|| TEC::ORGANIZER_POST_TYPE === $screen->id
+			|| TEC::VENUE_POST_TYPE === $screen->id
+		) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Outputs the hook that renders the Telemetry action on all TEC admin pages.
+	 *
+	 * @since TBD
+	 */
+	public function inject_modal_link() {
+		if ( ! static::is_tec_admin_page() ) {
+			return;
+		}
+
+		$telemetry_slug = \TEC\Common\Telemetry\Telemetry::get_plugin_slug();
+
+		/**
+		 * Fires to trigger the modal content on admin pages.
+		 *
+		 * @since TBD
+		 */
+		do_action( "stellarwp/telemetry/{$telemetry_slug}/optin" );
 	}
 }
