@@ -123,6 +123,20 @@ class Telemetry {
 		return $fields;
 	}
 
+	public function get_reconciled_telemetry_opt_in() {
+		$status         = Config::get_container()->get( Status::class );
+		$stellar_option = $status->get_option();
+		$optin          = $stellar_option[ static::$plugin_slug ]['optin'] ?? false;
+		$tec_optin      = tribe_get_option( 'opt_in_status', null );
+
+		if ( is_null( $tec_optin ) ) {
+			// If the option is null, we haven't saved it yet, so use the stellar option.
+			return $optin;
+		}
+
+		return $tec_optin;
+	}
+
 	/**
 	 * Ensures the admin control reflects the actual opt-in status.
 	 * We save this value in tribe_options but since that could get out of sync,
@@ -142,8 +156,7 @@ class Telemetry {
 
 		// We don't care what the value stored in tribe_options is - give us Telemetry's Opt_In\Status value.
 		$status = Config::get_container()->get( Status::class );
-		// Rather than test for STATUS_ACTIVE, we just make sure it's not inactive (as there is also a "mixed" status)
-		$value = $status->get() !== $status::STATUS_INACTIVE;
+		$value  = $status->get() === $status::STATUS_ACTIVE;
 
 		return $value;
 	}
@@ -216,5 +229,21 @@ class Telemetry {
 		 * @since TBD
 		 */
 		do_action( "stellarwp/telemetry/{$telemetry_slug}/optin" );
+	}
+
+	public function save_opt_in_setting_field( $value ) {
+		// Get an instance of the Status class.
+		$status = Config::get_container()->get( Status::class );
+
+		// Get the value submitted on the settings page as a boolean.
+		$value = ! empty( filter_input( INPUT_POST, 'opt-in-status', FILTER_VALIDATE_BOOLEAN ) );
+
+		// Gotta catch them all..
+		tribe( Common_Telemetry::class )->register_tec_telemetry_plugins( $value );
+
+		if ( $value ) {
+			// If opting in, blow away the expiration datetime so we send updates on next shutdown.
+			delete_option( 'stellarwp_telemetry_last_send' );
+		}
 	}
 }

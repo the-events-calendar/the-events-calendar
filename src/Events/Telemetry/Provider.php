@@ -46,7 +46,8 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public function add_actions() {
-		add_action( 'in_admin_footer', [ $this, 'inject_modal_link' ] );
+		add_action( 'in_admin_footer', [ $this, 'action_inject_modal_link' ] );
+		add_action( 'tribe_settings_save_field_tec_telemetry_opt_in', [ $this, 'action_save_opt_in_setting_field' ] );
 	}
 
 	/**
@@ -110,7 +111,18 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function inject_modal_link() {
+	public function action_inject_modal_link() {
 		return $this->container->get( Telemetry::class )->inject_modal_link();
+	}
+
+	/**
+	 * Update our option and the stellar option when the user opts in/out via the TEC admin.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $value The optin value.
+	 */
+	public function action_save_opt_in_setting_field( $value ) {
+		return $this->container->get( Telemetry::class )->save_opt_in_setting_field( $value );
 	}
 }
