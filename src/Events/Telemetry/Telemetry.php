@@ -85,11 +85,13 @@ class Telemetry {
 	 * @return array<string|mixed> The fields, with the optin control appended.
 	 */
 	public function filter_tribe_general_settings_debugging_section( $fields ): array {
-		$status = Config::get_container()->get( Status::class );
+		$telemetry = tribe( Common_Telemetry::class );
+		$telemetry->init();
+		$status = $telemetry::get_status_object();
 		$opted = $status->get( self::$plugin_slug );
 
 		switch( $opted ) {
-			case $status::STATUS_ACTIVE :
+			case Status::STATUS_ACTIVE :
 				$label = esc_html_x( 'Opt out of Telemetry', 'Settings label for opting out of Telemetry.', 'the-events-calendar' );
 			default :
 				$label = esc_html_x( 'Opt in to Telemetry', 'the-events-calendar' );
