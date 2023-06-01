@@ -1471,7 +1471,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * Disabling this behavior completely is possible with:
 		 *
-		 *     add_filter( 'tribe_events_add_no_index_meta_tag', '__return_false' );
+		 *     add_filter( 'tec_events_add_no_index_meta_tag', '__return_false' );
 		 *
 		 *  Always adding the noindex meta tag for all event views is possible with:
 		 *
@@ -1592,7 +1592,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 *
 			 * @since TBD
 			 *
-			 * @var string $noindex_meta
+			 * @param string $noindex_meta
 			 */
 			$noindex_meta = apply_filters( 'tec_events_no_index_meta', $noindex_meta );
 

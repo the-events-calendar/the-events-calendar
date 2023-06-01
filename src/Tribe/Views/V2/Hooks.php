@@ -279,7 +279,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_template_include( $template ) {
 		return $this->container->make( Template_Bootstrap::class )
-		                       ->filter_template_include( $template );
+							   ->filter_template_include( $template );
 	}
 
 	/**
@@ -1139,7 +1139,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param Tribe__Repository|false $events     The events repository. False by default.
 	 * @param DateTime                $start_date The start date (object) of the query.
-	 * @param \Tribe__Context          $context    The current context.
+	 * @param \Tribe__Context         $context    The current context.
 	 *
 	 * @return \Tribe__Repository|false $events     The events repository results.
 	 */
