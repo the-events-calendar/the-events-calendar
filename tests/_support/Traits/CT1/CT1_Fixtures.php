@@ -85,8 +85,7 @@ trait CT1_Fixtures {
 		$tables = $wpdb->get_col( $q );
 		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
 		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
-		wp_cache_delete( Activation::ACTIVATION_TRANSIENT );
-		delete_transient( Activation::ACTIVATION_TRANSIENT );
+		tec_timed_option()->delete( Activation::ACTIVATION_TRANSIENT );
 	}
 
 	/**

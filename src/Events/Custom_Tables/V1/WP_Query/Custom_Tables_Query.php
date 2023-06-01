@@ -385,6 +385,10 @@ class Custom_Tables_Query extends WP_Query {
 		if ( $orderby === 'meta_value' ) {
 			// Handle the case where the order is by a meta key and value couple.
 			$meta_query_orderby = $this->get( 'meta_key' );
+			// If we have a list of meta query args.
+			if ( ! $meta_query_orderby && isset( reset( $meta_query_clauses )['original_meta_key'] ) ) {
+				$meta_query_orderby = reset( $meta_query_clauses )['original_meta_key'];
+			}
 		} else if ( isset( $meta_query_clauses[ $orderby ]['original_meta_key'] ) ) {
 			// Handle the case where the order is by the meta query key.
 			$meta_query_orderby = $meta_query_clauses[ $orderby ]['original_meta_key'];
@@ -518,11 +522,11 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		global $wpdb;
-		$str = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+		$join_clause = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
 
-		if ( strpos( $join, $str ) === false ) {
+		if ( strpos( $join, $join_clause ) === false ) {
 			// Let's add the JOIN clause only if we did not already.
-			$join .= ' ' . $str;
+			$join .= ' ' . $join_clause;
 		}
 
 		return $join;

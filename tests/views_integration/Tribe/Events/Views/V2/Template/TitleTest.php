@@ -5,6 +5,7 @@ namespace Tribe\Events\Views\V2\Template;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe__Events__Main as TEC;
+use WP_Query;
 
 class TitleTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
@@ -99,6 +100,89 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 
 		$title->set_context( $context );
 		$title->set_posts( [ $event_1, $event_2 ] );
+
+		$this->assertMatchesSnapshot( $title->build_title() );
+	}
+
+	public function title_with_views_data_provider() {
+		$events = [
+			[
+				'ID'         => 1,
+				'start_date' => '2018-01-05',
+				'end_date'   => '2018-01-05',
+			],
+			[
+				'ID'         => 2,
+				'start_date' => '2019-02-03',
+				'end_date'   => '2019-02-03',
+			],
+		];
+
+		$event_displays = [
+			'default',
+			'list',
+			'month',
+			null
+		];
+
+		$event_dates = [
+			'2017-02-02', // before
+			'2018-01-05', // first
+			'2018-02-01', // in-between
+			'2019-02-03', // last
+			'2022-06-06', // after
+			null
+		];
+
+		$event_display_modes = [
+			'past',
+			null
+		];
+
+		$data = [];
+		foreach ( $event_dates as $event_date ) {
+			foreach ( $event_displays as $view_slug ) {
+				foreach ( $event_display_modes as $event_display_mode ) {
+					$key          = count( $events ) . " events -> event_date '$event_date' -> display mode '$event_display_mode' -> view '$view_slug'";
+					$data[ $key ] = [
+						$events,
+						[
+							'event_post_type'    => true,
+							'event_date'         => $event_date,
+							'event_display'      => $view_slug,
+							'event_display_mode' => $event_display_mode
+						]
+					];
+				}
+			}
+		}
+
+		return $data;
+	}
+
+	/**
+	 * @dataProvider title_with_views_data_provider
+	 * @test
+	 */
+	public function test_title_with_views( $events, $context ) {
+		$context     = tribe_context()->alter( $context );
+		$mock_events = [];
+		$is_past     = $context->get( 'event_display_mode' ) === 'past';
+		usort( $events, function ( $a, $b ) use ( $is_past ) {
+
+			if ( $is_past ) {
+				return strtotime( $a['start_date'] ) > strtotime( $b['start_date'] ) ? - 1 : 1;
+			}
+
+			return strtotime( $a['start_date'] ) > strtotime( $b['start_date'] ) ? 1 : - 1;
+		} );
+		foreach ( $events as $event ) {
+			$mock_events[] = $this->get_mock_event( 'events/single/1.template.json', $event );
+		}
+
+		$title = new Title();
+		$title->set_context( $context );
+		$title->set_posts( $mock_events );
 
 		$this->assertMatchesSnapshot( $title->build_title() );
 	}
@@ -214,5 +298,53 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 		$title->set_context( $context );
 
 		$this->assertMatchesSnapshot( $title->build_title() );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_have_correct_title_on_venue_single() {
+		global $wp_query;
+		$old_q   = clone $wp_query;
+		$post_id = static::factory()->post->create( [
+			'post_title' => 'Faux Venue',
+			'post_type'  => \Tribe__Events__Venue::POSTTYPE
+		] );
+
+		$wp_query = new WP_Query( array( 'p' => $post_id, 'post_type' => \Tribe__Events__Venue::POSTTYPE ) );
+		if ( $wp_query->have_posts() ) {
+			$wp_query->the_post();
+		}
+
+		// Now validate our filter works as expected.
+		$title = wp_title( '', false );
+		$this->assertEquals( 'Faux Venue', trim( $title ) );
+
+		// put old query back to avoid state bleed.
+		$wp_query = $old_q;
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_have_correct_title_on_organizer_single() {
+		global $wp_query;
+		$old_q   = clone $wp_query;
+		$post_id = static::factory()->post->create( [
+			'post_title' => 'Marilyn Monroe',
+			'post_type'  => \Tribe__Events__Organizer::POSTTYPE
+		] );
+
+		$wp_query = new WP_Query( array( 'p' => $post_id, 'post_type' => \Tribe__Events__Organizer::POSTTYPE ) );
+		if ( $wp_query->have_posts() ) {
+			$wp_query->the_post();
+		}
+
+		// Now validate our filter works as expected.
+		$title = wp_title( '', false );
+		$this->assertEquals( 'Marilyn Monroe', trim( $title ) );
+
+		// put old query back to avoid state bleed.
+		$wp_query = $old_q;
 	}
 }

@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-dev';
+		const MIN_ADDON_VERSION   = '6.1.0';
 
 		/**
 		 * Min Common
@@ -3565,6 +3565,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			$current_hidden_boxes = get_user_option( 'metaboxhidden_nav-menus', $user_id );
+
+			if ( ! is_array( $current_hidden_boxes ) ) {
+				return;
+			}
 
 			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );

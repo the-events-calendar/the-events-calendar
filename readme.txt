@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
 Stable tag: 6.1.0
-Tested up to: 6.2
+Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -229,9 +229,21 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [5.1.0] 2023-06-06 =
 
-= [6.1.0] TBD =
-
+* Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
+* Feature - Add architecture for adding our plugins to the Site Health admin page. [TEC-4701]
+* Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
+* Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
+* Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
+* Fix - Fixes database error, caused by the CT1 query parser when attempting rewrite the order by statement. Added logic to reflect on meta query arrays, and not just key/value pairs. [ECP-1495]
+* Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+* Fix - Prevent administration navigation fatal error with `TypeError: array_search()`. [TEC-4780]
+* Fix - Removing our eager schema updates. This was causing a number of `ALTER` statements being run redundantly. No longer utilizes cache/transient for the last run check as it is not dependable. [TEC-4797]
+* Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
+* Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
+* Tweak - Utilize our new container architecture in tribe-common.
+* Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
 
 = [6.0.13.1] 2023-05-15 =
 
