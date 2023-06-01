@@ -47,13 +47,14 @@ class Emails {
 		if ( empty( $event ) ) {
 			return $placeholders;
 		}
+		$datetime_with_year_format    = tribe_get_datetime_format( true );
 
 		// if the context says that there's a post_id and it's a tribe_event, then add the event placeholders.
 		$tec_placeholders = [
 			'{event_id}'         => $post_id,
 			'{event_date}'       => wp_kses( $event->schedule_details->value(), [] ),
-			'{event_start_date}' => $event->start_date,
-			'{event_end_date}'   => $event->end_date,
+			'{event_start_date}' => wp_kses( $event->dates->start->format( $datetime_with_year_format ), [] ),
+			'{event_end_date}'   => wp_kses( $event->dates->end->format( $datetime_with_year_format ), [] ),
 			'{event_name}'       => wp_kses( $event->post_title, [] ),
 			'{event_timezone}'   => $event->timezone,
 			'{event_url}'        => $event->permalink,
@@ -62,42 +63,69 @@ class Emails {
 
 		// If the event has a venue, add the venue placeholders.
 		if ( ! empty( $event->venues->count() ) ) {
-			$venue                = $event->venues[0];
-			$append_after_address = array_filter( array_map( 'trim', [ $venue->state_province, $venue->state, $venue->province ] ) );
-			$event_venue_address  = $venue->address . ( $venue->address && ( $append_after_address || $venue->city ) ? ', ' : '' );
-			$event_venue_address  .= implode( ' ', $append_after_address );
+			$venue = $event->venues[0];
+
+			$state_or_province = $venue->state;
+			if ( $venue->country !== 'US' ) {
+				$state_or_province = $venue->province;
+			}
+			if ( empty( $state_or_province ) ) {
+				$state_or_province = $venue->state_province;
+			}
 
 			$tec_placeholders = array_merge(
 				$tec_placeholders,
 				[
-					'{event_venue_id}'       => $venue->ID,
-					'{event_venue_name}'     => $venue->post_title,
-					'{event_venue_address}'  => $event_venue_address,
-					'{event_venue_city}'     => $venue->city,
-					'{event_venue_state}'    => $venue->state,
-					'{event_venue_province}' => $venue->province,
-					'{event_venue_url}'      => $venue->permalink,
+					'{event_venue_id}'                => $venue->ID,
+					'{event_venue_name}'              => wp_kses( $venue->post_title, [] ),
+					'{event_venue_street_address}'    => $venue->address,
+					'{event_venue_city}'              => $venue->city,
+					'{event_venue_state_or_province}' => $state_or_province,
+					'{event_venue_province}'          => $venue->province,
+					'{event_venue_state}'             => $venue->state,
+					'{event_venue_zip}'               => $venue->zip,
+					'{event_venue_url}'               => $venue->permalink,
 				]
 			);
 		}
 
+		$tec_placeholders['{event_organizers_count}'] = $event->organizers->count();
+		$tec_placeholders['{event_organizers_names}'] = $event->organizers_names;
+
 		// If the event has an organizer, add the organizer placeholders.
 		if ( ! empty( $event->organizers->count() ) ) {
-			$organizer       = $event->organizers[0];
-			$organizer_url   = tribe_get_organizer_website_url( $organizer->ID );
-			$organizer_email = tribe_get_organizer_email( $organizer->ID );
+			$organizer_placeholders = [];
 
-			$tec_placeholders = array_merge(
-				$tec_placeholders,
-				[
-					'{event_organizer_id}'      => $organizer->ID,
-					'{event_organizer_name}'    => $organizer->post_title,
-					'{event_organizer_url}'     => $organizer->permalink,
-					'{event_organizer_email}'   => ! empty( $organizer_email ) ? $organizer_email : '',
-					'{event_organizer_website}' => ! empty( $organizer_url ) ? $organizer_url : '',
-					'{event_organizer_phone}'   => ! empty( $organizer->phone ) ? $organizer->phone : '',
-				]
-			);
+			foreach ( $event->organizers as $index => $organizer ) {
+				$organizer_id         = $organizer->ID;
+				$organizer_post_title = wp_kses( $organizer->post_title, [] );
+				$organizer_permalink  = $organizer->permalink;
+				$organizer_url        = tribe_get_organizer_website_url( $organizer->ID );
+				$organizer_email      = tribe_get_organizer_email( $organizer->ID );
+				$organizer_phone      = $organizer->phone;
+
+				$organizer_placeholders[] = [
+					"{event_organizer:{$index}:id}"      => $organizer_id,
+					"{event_organizer:{$index}:name}"    => $organizer_post_title,
+					"{event_organizer:{$index}:url}"     => $organizer_permalink,
+					"{event_organizer:{$index}:email}"   => $organizer_url,
+					"{event_organizer:{$index}:website}" => $organizer_email,
+					"{event_organizer:{$index}:phone}"   => $organizer_phone,
+				];
+
+				if ( $index === 0 ) {
+					$organizer_placeholders[] = [
+						'{event_organizer_id}'      => $organizer_id,
+						'{event_organizer_name}'    => $organizer_post_title,
+						'{event_organizer_url}'     => $organizer_permalink,
+						'{event_organizer_email}'   => $organizer_url,
+						'{event_organizer_website}' => $organizer_email,
+						'{event_organizer_phone}'   => $organizer_phone,
+					];
+				}
+			}
+
+			$tec_placeholders = array_merge( $tec_placeholders, ...$organizer_placeholders );
 		}
 
 		return array_merge( $placeholders, $tec_placeholders );
