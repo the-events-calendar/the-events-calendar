@@ -49,8 +49,66 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->hook_to_redirect_post_updates();
 		$this->hook_to_commit_post_updates();
 		$this->hook_to_delete_post_data();
+
+		add_action('tec_events_sync_day_cutoff_times', [$this, 'todo']);
 	}
 
+	public function todo($time) {
+		global $wpdb;
+		$events_table = \TEC\Events\Custom_Tables\V1\Tables\Events::table_name();
+		$occurrences_table = \TEC\Events\Custom_Tables\V1\Tables\Occurrences::table_name();
+
+		// Fix events table start dates.
+		$query = "UPDATE $events_table
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $events_table.start_date = CONCAT(DATE($events_table.start_date), ' ', %s)
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+		$wpdb->query($wpdb->prepare($query, $time));
+
+		// Fix events table end dates.
+		$query      =
+			"UPDATE $events_table
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $events_table.end_date = DATE_ADD($events_table.start_date, INTERVAL $events_table.duration SECOND )
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+		$wpdb->query($query);
+
+		// Fix occurrence table start dates.
+		$query = "UPDATE $occurrences_table
+    			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $occurrences_table.start_date = CONCAT(DATE($occurrences_table.start_date), ' ', %s)
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'
+				AND $occurrences_table.is_rdate = 0"; // @todo is_rdate ECP only...
+		$wpdb->query($wpdb->prepare($query, $time));
+
+		// Fix occurrence table end dates.
+		$query = "UPDATE $occurrences_table
+    			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $occurrences_table.end_date = DATE_ADD($occurrences_table.start_date, INTERVAL $occurrences_table.duration SECOND )
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'
+				AND $occurrences_table.is_rdate = 0"; // @todo is_rdate ECP only...
+		$wpdb->query($query);
+
+		// @todo lock TEC > ECP versions because of the is_rdate flag
+		// @todo UTC?
+
+
+
+
+/*		$query = "UPDATE $occurrences_table
+    			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $occurrences_table.end_date = CONCAT(DATE($occurrences_table.end_date), ' ', %s)
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+		$wpdb->query($wpdb->prepare($query, $time));*/
+	}
 	/**
 	 * Before an HTTP request is processed and updates an Event Post, we might need to redirect the update
 	 * to either the real post ID or to a different post ID.

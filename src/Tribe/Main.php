@@ -1595,6 +1595,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				WHERE pm1.meta_key = '_EventEndDate'";
 			$wpdb->query( $fix_start_dates );
 			$wpdb->query( $fix_end_dates );
+
+			// @todo filter - update CT1 occ and event tables.
+			do_action('tec_events_sync_day_cutoff_times', $event_start_time);
 		}
 
 		/**

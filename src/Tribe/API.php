@@ -204,7 +204,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
-				$data['EventDuration'] = null;
+				// @todo why? $data['EventDuration'] = null;
 			}
 
 			/**

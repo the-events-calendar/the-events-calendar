@@ -275,11 +275,9 @@ abstract class By_Day_View extends View {
 				$day_results   = $repository->by_date( $day_string )->get_set();
 				$day_event_ids = [];
 
-				$event_ids = [];
 				if ( $day_results->count() ) {
 					// Sort events by honoring order and direction.
 					$day_results->order_by( $order_by, $order );
-					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
 				}
 
 				$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
@@ -294,7 +292,8 @@ abstract class By_Day_View extends View {
 					static function ( $event ) use ( $start, $end, $use_site_timezone, $site_timezone, $utc ) {
 						// If the timezone setting is set to "manual timezone for each event" then this is correct.
 						if ( ! $use_site_timezone ) {
-							return $event->start_date <= $end && $event->end_date >= $start;
+
+							return $event->start_date <= $end && $event->end_date > $start;
 						}
 
 						// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
@@ -308,7 +307,7 @@ abstract class By_Day_View extends View {
 						                                   ->setTimezone( $site_timezone );
 
 						return $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
-						       && $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) >= $start;
+						       && $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) > $start;
 					}
 				);
 
@@ -798,7 +797,7 @@ abstract class By_Day_View extends View {
 
 	/**
 	 * Overrides the base View implementation to remove pagination from the URL.
-	 * 
+	 *
 	 * {@inheritdoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {
