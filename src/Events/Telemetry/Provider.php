@@ -47,7 +47,7 @@ class Provider extends Service_Provider {
 	 */
 	public function add_actions() {
 		add_action( 'in_admin_footer', [ $this, 'action_inject_modal_link' ] );
-		add_action( 'tribe_settings_save_field_tec_telemetry_opt_in', [ $this, 'action_save_opt_in_setting_field' ] );
+		add_action( 'tribe_settings_save_field_opt-in-status', [ $this, 'action_save_opt_in_setting_field' ] );
 	}
 
 	/**
