@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [5.1.0] 2023-06-06 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
-* Feature - Add architecture for adding our plugins to the Site Health admin page. [TEC-4701]
+* Feature - Add plugin info to Site Health admin page. [TEC-4701]
 * Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
 * Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
 * Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
