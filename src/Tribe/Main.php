@@ -1486,7 +1486,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function issue_noindex() {
 			global $wp_query;
 
-			$do_noindex_meta = apply_filters( 'tribe_events_add_no_index_meta_tag', true );
+			$do_noindex_meta = apply_filters( 'tec_events_add_no_index_meta_tag', true );
 
 			if ( ! tribe_is_truthy( $do_noindex_meta ) ) {
 				return;
@@ -1545,7 +1545,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				if ( ! $events ) {
 					$events = tribe_events()->per_page( 1 )->where( 'starts_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
 
-					$cache->set( $cache_key, $events, 0, $trigger );
+					$cache->set( $cache_key, $events, \Tribe__Cache::NO_EXPIRATION, $trigger );
 				}
 			}
 
