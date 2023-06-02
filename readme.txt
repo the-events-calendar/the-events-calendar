@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [5.1.0] 2023-06-06 =
+= [6.1.0] 2023-06-06 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add plugin info to Site Health admin page. [TEC-4701]
