@@ -48,10 +48,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_actions(): void {
 		add_action( 'tribe_template_before_include:tickets/emails/template-parts/body/tickets', [ $this, 'include_event_date_ticket_rsvp_emails' ], 10, 3 );
-		add_action( 'tribe_template_before_include:tickets/emails/template-parts/body/tickets', [ $this, 'include_event_image_ticket_rsvp_emails' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets/emails/template-parts/body/tickets', [ $this, 'include_event_image_ticket_rsvp_emails' ], 15, 3 );
 		add_action( 'tribe_template_before_include:tickets/emails/template-parts/header/head/styles', [ $this, 'include_event_ticket_rsvp_styles' ], 10, 3 );
-		add_action( 'tribe_template_after_include:tickets/emails/template-parts/body/tickets', [ $this, 'include_event_venue_ticket_rsvp_emails' ], 10, 3 );
-		add_action( 'tribe_template_after_include:tickets/emails/template-parts/body/tickets', [ $this, 'include_event_calendar_links' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets/emails/template-parts/body/additional-content', [ $this, 'include_event_venue_ticket_rsvp_emails' ], 15, 3 );
+		add_action( 'tribe_template_before_include:tickets/emails/template-parts/body/additional-content', [ $this, 'include_event_calendar_links' ], 20, 3 );
 	}
 
 	/**
