@@ -255,7 +255,7 @@ class Telemetry {
 
 		if ( $value ) {
 			// If opting in, blow away the expiration datetime so we send updates on next shutdown.
-			delete_option( 'stellarwp_telemetry_last_send' );
+			update_option( 'stellarwp_telemetry_last_send', "" );
 		}
 	}
 }
