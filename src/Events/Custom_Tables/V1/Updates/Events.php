@@ -15,7 +15,9 @@ use Exception;
 use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Custom_Tables\V1\Tables\Events as Events_Table;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences as Occurrences_Table;
 use Tribe__Events__Main as TEC;
 use Tribe__Date_Utils as Dates;
 
@@ -255,5 +257,76 @@ class Events {
 		$date       = $occurrence ? $occurrence->end_date_utc : null;
 
 		return Dates::build_date_object( $date, new DateTimeZone( 'UTC' ) );
+	}
+
+	/**
+	 * Will run several Custom Table queries to do mass updates in order to sync the
+	 * multiday cutoff times across all multiday events.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $time The time of day the events will sync to.
+	 *
+	 * @return int Rows affected across all updates.
+	 */
+	public function sync_all_day_cutoff_times( string $time ): int {
+		global $wpdb;
+		$events_table      = Events_Table::table_name();
+		$occurrences_table = Occurrences_Table::table_name();
+		$rows_affected     = 0;
+
+		// Fix events table start dates.
+		$query  = "UPDATE $events_table
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $events_table.start_date = CONCAT(DATE($events_table.start_date), ' ', %s)
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_events_start_date_cutoff_times_query', $query );
+		$result = $wpdb->query( $wpdb->prepare( $query, $time ) );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// Fix events table end dates.
+		$query  = "UPDATE $events_table
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $events_table.end_date = DATE_ADD($events_table.start_date, INTERVAL $events_table.duration SECOND )
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_events_end_date_cutoff_times_query', $query );
+		$result = $wpdb->query( $query );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// Fix occurrence table start dates.
+		$query  = "UPDATE $occurrences_table
+    			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $occurrences_table.start_date = CONCAT(DATE($occurrences_table.start_date), ' ', %s)
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_occurrences_start_date_cutoff_times_query', $query );
+		$result = $wpdb->query( $wpdb->prepare( $query, $time ) );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// Fix occurrence table end dates.
+		$query  = "UPDATE $occurrences_table
+    			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
+				INNER JOIN $wpdb->postmeta pm2
+					ON ($events_table.post_id = pm2.post_id )
+				SET $occurrences_table.end_date = DATE_ADD($occurrences_table.start_date, INTERVAL $occurrences_table.duration SECOND )
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_occurrences_end_date_cutoff_times_query', $query );
+		$result = $wpdb->query( $query );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// @todo lock TEC > ECP versions because of the is_rdate flag
+
+		return $rows_affected;
 	}
 }
