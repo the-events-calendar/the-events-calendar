@@ -90,7 +90,7 @@ class Emails {
 		}
 
 		$tec_placeholders['{event_organizers_count}'] = $event->organizers->count();
-		$tec_placeholders['{event_organizers_names}'] = implode( ', ', $event->organizer_names->value() );
+		$tec_placeholders['{event_organizers_names}'] = ! empty( $event->organizer_names ) ? implode( ', ', $event->organizer_names->all() ) : '';
 
 		// If the event has an organizer, add the organizer placeholders.
 		if ( ! empty( $event->organizers->count() ) ) {
