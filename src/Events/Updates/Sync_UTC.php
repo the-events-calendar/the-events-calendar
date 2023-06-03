@@ -9,6 +9,9 @@ class Sync_UTC {
 	 *
 	 * @since TBD Moved from Tribe__Events__Main.
 	 *
+	 * @param string $old_value Old setting value.
+	 * @param string $new_value New setting value.
+	 *
 	 * @see   'update_option_'.Tribe__Main::OPTIONNAME
 	 */
 	public function fix_all_day_events( $old_value, $new_value ) {
