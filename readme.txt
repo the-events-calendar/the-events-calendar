@@ -241,6 +241,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
 * Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
 * Tweak - Added actions: `tribe_log`
+* Language - 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [6.0.13.1] 2023-05-15 =
 
