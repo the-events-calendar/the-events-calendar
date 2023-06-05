@@ -243,7 +243,7 @@ class Telemetry {
 		 *
 		 * @since TBD
 		 */
-		do_action( 'tec-telemetry-modal', $telemetry_slug );
+		do_action( 'tec_telemetry_modal', $telemetry_slug );
 	}
 
 	/**
