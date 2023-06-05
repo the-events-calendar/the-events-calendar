@@ -229,8 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.0.14] 2023-06-06 =
+= [5.1.0] 2023-06-06 =
 
+* Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
+* Feature - Add plugin info to Site Health admin page. [TEC-4701]
+* Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
 * Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
 * Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
 * Fix - Fixes database error, caused by the CT1 query parser when attempting rewrite the order by statement. Added logic to reflect on meta query arrays, and not just key/value pairs. [ECP-1495]
@@ -239,6 +242,8 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Removing our eager schema updates. This was causing a number of `ALTER` statements being run redundantly. No longer utilizes cache/transient for the last run check as it is not dependable. [TEC-4797]
 * Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
 * Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
+* Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
+* Tweak - Utilize our new container architecture in tribe-common.
 * Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
 * Tweak - Added actions: `tribe_log`
 * Language - 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted

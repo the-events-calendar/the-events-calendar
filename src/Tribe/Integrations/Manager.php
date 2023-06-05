@@ -38,7 +38,6 @@ class Tribe__Events__Integrations__Manager {
 	 * supported plugins are activated.
 	 */
 	public function load_integrations() {
-		$this->load_freemius();
 		$this->load_acf_integration();
 		$this->load_twenty_seventeen_integration();
 		$this->load_wpml_integration();
@@ -55,26 +54,13 @@ class Tribe__Events__Integrations__Manager {
 	 * Loads our Events Freemius integration
 	 *
 	 * @since 4.9
+	 * @depreacated TBD
 	 *
 	 * @return bool
 	 */
 	private function load_freemius() {
-		/**
-		 * Allows third-party disabling of The Events Calendar integration
-		 *
-		 * @since  4.9
-		 *
-		 * @param  bool  $should_load
-		 */
-		$should_load = apply_filters( 'tribe_events_integrations_should_load_freemius', true );
-
-		if ( ! $should_load ) {
-			return false;
-		}
-
-		tribe_singleton( 'events.integrations.freemius', new Tribe__Events__Integrations__Freemius );
-
-		return true;
+		_deprecated_function( __METHOD__, 'TBD', 'No direct replacement, we are now using StellarWP Telemetry.' );
+		return false;
 	}
 
 
