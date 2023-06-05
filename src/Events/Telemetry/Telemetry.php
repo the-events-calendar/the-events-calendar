@@ -11,6 +11,8 @@ namespace TEC\Events\Telemetry;
 
 use TEC\Common\StellarWP\Telemetry\Config;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
+use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
+
 use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
 use Tribe__Events__Main as TEC;
 
@@ -228,14 +230,20 @@ class Telemetry {
 			return;
 		}
 
+		// 'the-events-calendar'
 		$telemetry_slug = \TEC\Common\Telemetry\Telemetry::get_plugin_slug();
 
+		$show = get_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $telemetry_slug ) );
+
+		if ( ! $show ) {
+			return;
+		}
 		/**
 		 * Fires to trigger the modal content on admin pages.
 		 *
 		 * @since TBD
 		 */
-		do_action( "stellarwp/telemetry/{$telemetry_slug}/optin" );
+		do_action( 'tec-telemetry-modal', $telemetry_slug );
 	}
 
 	/**
