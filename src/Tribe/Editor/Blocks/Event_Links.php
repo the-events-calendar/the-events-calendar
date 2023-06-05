@@ -37,10 +37,13 @@ extends Tribe__Editor__Blocks__Abstract {
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it
 	 *
 	 * @since 4.7
+	 * @since TBD - Added $classes variable to allow for the addition of custom CSS classes to the block output.
 	 *
 	 * @param  array $attributes
+	 * 
+	 * @var    string $classes The custom CSS classes to be added to the block output.
 	 *
-	 * @return string
+	 * @return string The rendered block output.
 	 */
 	public function render( $attributes = [] ) {
 		$has_filter = function_exists( 'strip_dynamic_blocks' ) && has_filter( 'the_content', 'strip_dynamic_blocks' );
@@ -57,6 +60,14 @@ extends Tribe__Editor__Blocks__Abstract {
 
 		if ( $has_filter ) {
 			remove_filter( 'the_content', 'strip_dynamic_blocks', 1 );
+		}
+
+		// Retrieve custom CSS classes.
+		$classes = isset( $args['attributes']['className'] ) ? $args['attributes']['className'] : '';
+
+		// Conditionally wrap the output in a <div> element when a user includes custom CSS classes in the block settings.
+		if ( $classes ) {
+			$html = '<div class="' . esc_attr( $classes ) . '">' . $html . '</div>';
 		}
 
 		return $html;
