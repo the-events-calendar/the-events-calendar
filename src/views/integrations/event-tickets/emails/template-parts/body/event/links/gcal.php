@@ -9,9 +9,9 @@
  *
  * @link https://evnt.is/tickets-emails-tpl Help article for Tickets Emails template files.
  *
- * @version TBD
+ * @version 6.1.1
  *
- * @since TBD
+ * @since 6.1.1
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var string  $event_gcal_link The event Google Calendar link.
