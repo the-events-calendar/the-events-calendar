@@ -7,7 +7,7 @@ use TEC\Common\Integrations\Traits\Module_Integration;
 /**
  * Class Provider
  *
- * @since TBD
+ * @since 6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -44,7 +44,7 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Registers the provider handling all the 1st level filters and actions for this Service Provider.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	protected function register_hooks(): void {
 		$hooks = new Hooks( $this->container );
