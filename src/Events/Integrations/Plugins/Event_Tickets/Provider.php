@@ -8,7 +8,7 @@ use TEC\Events\Integrations\Integration_Abstract;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
