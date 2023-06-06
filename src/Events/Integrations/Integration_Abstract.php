@@ -8,7 +8,7 @@ use TEC\Common\Integrations\Integration_Abstract as Common_Integration_Abstract;
  * Class Integration_Abstract
  *
  * @since 6.0.4
- * @since TBD Extends the Common Integration
+ * @since 6.1.1 Extends the Common Integration
  *
  * @link  https://docs.theeventscalendar.com/apis/integrations/including-new-integrations/
  *
@@ -27,7 +27,7 @@ abstract class Integration_Abstract extends Common_Integration_Abstract {
 	 * Filters whether the integration should load.
 	 *
 	 * @since 6.0.4
-	 * @depecated TBD uses the Common integration as the base filter and then Events for Legacy compatibility.
+	 * @depecated 6.1.1 uses the Common integration as the base filter and then Events for Legacy compatibility.
 	 *
 	 * @param bool $value Whether the integration should load.
 	 *
@@ -44,33 +44,33 @@ abstract class Integration_Abstract extends Common_Integration_Abstract {
 		 * Filters if integrations should be loaded.
 		 *
 		 * @since 6.0.4
-		 * @deprecated TBD
+		 * @deprecated 6.1.1
 		 *
 		 * @param bool $value   Whether the integration should load.
 		 * @param string $type  Type of integration we are loading.
 		 * @param string $slug  Slug of the integration we are loading.
 		 */
-		$value = apply_filters_deprecated( 'tec_events_integrations_should_load', [ $value, $type, $slug ], 'TBD', "tec_integration:{$parent}/should_load" );
+		$value = apply_filters_deprecated( 'tec_events_integrations_should_load', [ $value, $type, $slug ], '6.1.1', "tec_integration:{$parent}/should_load" );
 
 		/**
 		 * Filters if integrations of the current type should be loaded.
 		 *
 		 * @since 6.0.4
-		 * @deprecated TBD
+		 * @deprecated 6.1.1
 		 *
 		 * @param bool $value   Whether the integration should load.
 		 * @param string $slug  Slug of the integration we are loading.
 		 */
-		$value = apply_filters_deprecated( "tec_events_integrations_{$type}_should_load", [ $value, $slug ], 'TBD', "tec_integration:{$parent}/{$type}/should_load" );
+		$value = apply_filters_deprecated( "tec_events_integrations_{$type}_should_load", [ $value, $slug ], '6.1.1', "tec_integration:{$parent}/{$type}/should_load" );
 
 		/**
 		 * Filters if a specific integration (by type and slug) should be loaded.
 		 *
 		 * @since 6.0.4
-		 * @deprecated TBD
+		 * @deprecated 6.1.1
 		 *
 		 * @param bool $value   Whether the integration should load.
 		 */
-		return (bool) apply_filters_deprecated( "tec_events_integrations_{$type}_{$slug}_should_load", [ $value ], 'TBD', "tec_integration:{$parent}/{$type}/{$slug}/should_load" );
+		return (bool) apply_filters_deprecated( "tec_events_integrations_{$type}_{$slug}_should_load", [ $value ], '6.1.1', "tec_integration:{$parent}/{$type}/{$slug}/should_load" );
 	}
 }
