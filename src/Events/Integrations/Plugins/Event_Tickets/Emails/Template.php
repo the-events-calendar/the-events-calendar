@@ -8,7 +8,7 @@ use Tribe__Template;
 /**
  * Class Template
  *
- * @since TBD
+ * @since 6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -16,7 +16,7 @@ class Template extends Tribe__Template {
 	/**
 	 * Building of the Class template configuration.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	public function __construct() {
 		$this->set_template_origin( TEC::instance() );
