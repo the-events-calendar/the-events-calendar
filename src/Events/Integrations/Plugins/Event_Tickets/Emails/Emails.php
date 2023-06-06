@@ -2,7 +2,7 @@
 /**
  * Class Emails.
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -16,7 +16,7 @@ use Tribe__Events__Main;
 /**
  * Class Emails.
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -27,7 +27,7 @@ class Emails {
 	 * Given a post ID associated with an event, this function adds
 	 * event, venue, and organizer placeholders to the provided placeholders array.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,mixed> $placeholders The placeholders for the Tickets Emails.
 	 * @param string              $email_id     The email ID.
@@ -137,7 +137,7 @@ class Emails {
 	 * This function adds preview data to the provided arguments array if the 'is_preview'
 	 * flag is set. The preview data simulates an event with its related information.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,mixed> $args     The email preview arguments.
 	 * @param string              $id       The email id.
@@ -195,7 +195,7 @@ class Emails {
 	 * Given a post ID associated with an event, this function adds
 	 * the event object to the provided arguments array.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,mixed> $args     The email preview arguments.
 	 * @param string              $id       The email id.
@@ -229,7 +229,7 @@ class Emails {
 	 * event ID and adds it to the provided attachments array.
 	 *
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
 	 * @param string               $event_id    The event ID.
