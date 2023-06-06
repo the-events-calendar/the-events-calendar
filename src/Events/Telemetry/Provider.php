@@ -2,7 +2,7 @@
 /**
  * Service Provider for interfacing with TEC\Common\Telemetry.
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Telemetry
  */
@@ -14,14 +14,14 @@ use TEC\Common\Contracts\Service_Provider;
  /**
   * Class Provider
   *
-  * @since   TBD
+  * @since   6.1.1
   * @package TEC\Events\Telemetry
   */
 class Provider extends Service_Provider {
 	/**
 	 * Handles the registering of the provider.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	public function register() {
 		$this->add_filters();
@@ -31,7 +31,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Handles the inclusion of the Filters for this module.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	public function add_filters() {
 		add_filter( 'tec_common_telemetry_optin_args', [ $this, 'filter_tec_common_telemetry_optin_args' ] );
@@ -43,7 +43,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Handles the action hooks for this module.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	public function add_actions() {
 		add_action( 'in_admin_footer', [ $this, 'action_inject_modal_link' ] );
@@ -53,7 +53,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Filter the telemetry opt-in arguments.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array $optin_args Previous set of args we are changing.
 	 *
@@ -66,7 +66,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Adds the opt in/out control to the general tab debug section.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string|mixed> $fields The fields for the general tab Debugging section.
 	 *
@@ -82,7 +82,7 @@ class Provider extends Service_Provider {
 	 * We take the "low road" - 2 params and test them in the later function
 	 * to ensure we're only changing the thing we expect.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param mixed  $value  The value of the attribute.
 	 * @param string $field  The field object id.
@@ -96,7 +96,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Let The Events Calendar add itself to the list of registered plugins for Telemetry.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,string> $slugs The existing array of slugs.
 	 *
@@ -109,7 +109,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Conditionally injects the hook to trigger the Telemetry modal.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	public function action_inject_modal_link() {
 		return $this->container->get( Telemetry::class )->inject_modal_link();
@@ -118,7 +118,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Update our option and the stellar option when the user opts in/out via the TEC admin.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param bool $value The optin value.
 	 */
