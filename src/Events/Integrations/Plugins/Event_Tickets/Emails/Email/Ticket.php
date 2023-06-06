@@ -2,7 +2,7 @@
 /**
  * Class Ticket.
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -20,7 +20,7 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Template;
 /**
  * Class Ticket.
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets
  */
@@ -30,7 +30,7 @@ class Ticket {
 	 *
 	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Ticket {
 	 *
 	 * @see   Email_Abstract::get_option_key() for option key format.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class Ticket {
 	/**
 	 * Filter the email settings and add TEC specific settings.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<array<string,mixed>> $settings The email settings.
 	 *
@@ -80,7 +80,7 @@ class Ticket {
 	/**
 	 * Filters the attachments for the Tickets Emails and maybe add the calendar ics file.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,string> $attachments The placeholders for the Tickets Emails.
 	 * @param Dispatcher           $dispatcher  The Email dispatcher object.
@@ -100,7 +100,7 @@ class Ticket {
 	/**
 	 * Get Attachments for the Tickets Emails.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array $attachments The attachments for the Tickets Emails.
 	 * @param int $post_id The post ID.
@@ -126,7 +126,7 @@ class Ticket {
 	 * This function adds Google Calendar and iCal links to the email body for the
 	 * specified event if the email class is enabled and the option to add event links is true.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param \Tribe__Template $parent_template Event Tickets template object.
 	 *
@@ -142,7 +142,7 @@ class Ticket {
 	/**
 	 * Renders the calendar links for the email body.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,mixed> $args The email arguments.
 	 *
@@ -168,7 +168,7 @@ class Ticket {
 	/**
 	 * Includes event link styles in email body for The Events Calendar Tickets.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param \Tribe__Template $parent_template Event Tickets template object.
 	 *
@@ -187,7 +187,7 @@ class Ticket {
 	/**
 	 * Check if the calendar links should be shown.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param \Tribe__Template $et_template Event Tickets template object.
 	 *
