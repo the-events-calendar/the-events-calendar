@@ -54,12 +54,12 @@ class Tribe__Events__Integrations__Manager {
 	 * Loads our Events Freemius integration
 	 *
 	 * @since 4.9
-	 * @depreacated TBD
+	 * @depreacated 6.1.0
 	 *
 	 * @return bool
 	 */
 	private function load_freemius() {
-		_deprecated_function( __METHOD__, 'TBD', 'No direct replacement, we are now using StellarWP Telemetry.' );
+		_deprecated_function( __METHOD__, '6.1.0', 'No direct replacement, we are now using StellarWP Telemetry.' );
 		return false;
 	}
 
