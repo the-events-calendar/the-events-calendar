@@ -504,7 +504,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Adds our main plugin file to the list of paths.
 		 *
-		 * @since TBD
+		 * @since 6.1.1
 		 *
 		 * @param array<string> $paths The paths to TCMN parent plugins.
 		 *
