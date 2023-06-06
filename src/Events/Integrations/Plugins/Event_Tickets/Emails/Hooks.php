@@ -8,7 +8,7 @@
  * To remove an action:
  * remove_action( 'some_action', [ tribe( TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Hooks::class ), 'some_method' ] );
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -25,7 +25,7 @@ use \Tribe__Template as Common_Template;
 /**
  * Class Hooks.
  *
- * @since   TBD
+ * @since   6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -34,7 +34,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	public function register(): void {
 		$this->add_actions();
@@ -44,7 +44,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the actions required by each Tickets Emails component.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	protected function add_actions(): void {
 		add_action( 'tribe_template_before_include:tickets/emails/template-parts/body/post-title', [ $this, 'include_event_date_ticket_rsvp_emails' ], 10, 3 );
@@ -57,7 +57,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Adds the filters required by each Tickets Emails component.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 */
 	protected function add_filters(): void {
 		// General emails filters.
@@ -78,7 +78,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the placeholders for the email templates.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array          $placeholders The existing placeholders.
 	 * @param string         $email_id     The email identifier.
@@ -93,7 +93,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the template arguments for the email templates.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array          $args     The existing template arguments.
 	 * @param string         $id       The email identifier.
@@ -109,7 +109,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the preview arguments for the email templates.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array          $args     The existing preview arguments.
 	 * @param string         $id       The email identifier.
@@ -125,7 +125,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the RSVP email settings.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array $settings The existing RSVP email settings.
 	 *
@@ -138,7 +138,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the ticket email settings.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array $settings The existing ticket email settings.
 	 *
@@ -151,7 +151,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the RSVP email attachments.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array      $attachments The existing RSVP email attachments.
 	 * @param Dispatcher $dispatcher  The email class instance.
@@ -165,7 +165,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Filters the ticket email attachments.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array      $attachments The existing ticket email attachments.
 	 * @param Dispatcher $dispatcher  The email class instance.
@@ -179,7 +179,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the Event date in the ticket and RSVP emails.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param string          $file     Template file.
 	 * @param string          $name     Template name.
@@ -198,7 +198,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the Event image in the ticket and RSVP emails.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param string          $file     Template file.
 	 * @param string          $name     Template name.
@@ -217,7 +217,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the Event venue in the ticket and RSVP emails.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param string          $file     Template file.
 	 * @param string          $name     Template name.
@@ -236,7 +236,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the Event links in the ticket and RSVP emails.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param string          $file     Template file.
 	 * @param string          $name     Template name.
@@ -256,7 +256,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the Event link styles in the ticket and RSVP emails.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param string          $file     Template file.
 	 * @param string          $name     Template name.
@@ -276,7 +276,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the Event data in the ticket and RSVP emails JSON LD data.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array $data The existing JSON LD data.
 	 * @param \TEC\Tickets\Emails\JSON_LD\Event_Schema $schema The JSON LD schema.
