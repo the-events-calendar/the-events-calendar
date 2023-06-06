@@ -5,7 +5,7 @@ namespace TEC\Events\Integrations\Plugins\Event_Tickets\Emails\JSON_LD;
 /**
  * Class Event_Schema
  *
- * @since TBD
+ * @since 6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails\JSON_LD
  */
@@ -14,7 +14,7 @@ class Event_Data {
 	/**
 	 * Filter the event data for the JSON-LD schema.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array $data The event data.
 	 * @param TEC\Tickets\Emails\JSON_LD\Event_Schema $args The event object.
@@ -44,7 +44,7 @@ class Event_Data {
 	/**
 	 * Get the location data for the schema.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param \WP_Post $event The event object.
 	 *
