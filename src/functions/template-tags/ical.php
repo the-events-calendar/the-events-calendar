@@ -9,7 +9,7 @@
  *
  * Returns an iCal feed for a single event. Must be used in the loop.
  *
- * @since TBD Added $post_id parameter.
+ * @since 6.1.1 Added $post_id parameter.
  *
  * @param int $post_id (optional) The post ID of the event. If not set, the current post ID will be used.
  *
