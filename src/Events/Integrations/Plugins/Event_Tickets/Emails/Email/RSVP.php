@@ -2,7 +2,7 @@
 /**
  * Class RSVP.
  *
- * @since TBD
+ * @since 6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -20,7 +20,7 @@ use \Tribe__Utils__Array as Arr;
 /**
  * Class RSVP.
  *
- * @since TBD
+ * @since 6.1.1
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
@@ -30,7 +30,7 @@ class RSVP {
 	 *
 	 * @see Email_Abstract::get_option_key() for option key format.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class RSVP {
 	 *
 	 * @see Email_Abstract::get_option_key() for option key format.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class RSVP {
 	/**
 	 * Filter the email settings and add TEC specific settings.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<array<string,mixed>> $settings The email settings.
 	 *
@@ -87,7 +87,7 @@ class RSVP {
 	/**
 	 * Filters the attachments for the RSVP Emails and maybe add the calendar ics file.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param array<string,string> $attachments  The attachments for the Tickets Emails.
 	 * @param Dispatcher           $dispatcher   The Email dispatcher object.
@@ -122,7 +122,7 @@ class RSVP {
 	/**
 	 * Maybe include event links.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param \Tribe__Template $parent_template Event Tickets template object.
 	 *
@@ -153,7 +153,7 @@ class RSVP {
 	/**
 	 * Maybe include event link styles.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param \Tribe__Template $parent_template Event Tickets template object.
 	 *
@@ -172,7 +172,7 @@ class RSVP {
 	/**
 	 * Check if the calendar links should be shown.
 	 *
-	 * @since TBD
+	 * @since 6.1.1
 	 *
 	 * @param \Tribe__Template $et_template Event Tickets template object.
 	 *
