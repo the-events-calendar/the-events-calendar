@@ -1,18 +1,22 @@
 <?php
+_deprecated_file( __FILE__, 'TBD', 'No direct replacement, we now use StellarWP Telemetry' );
 
 use Tribe\Events\Admin\Settings;
 
 /**
  * Facilitates smoother integration with the Freemius.
  *
- * @since 4.9
+ * @depreacated TBD
+ *
+ * @since       4.9
  */
 class Tribe__Events__Integrations__Freemius {
 
 	/**
 	 * Stores the instance for the Freemius.
 	 *
-	 * @since  4.9
+	 * @depreacated TBD
+	 * @since       4.9
 	 *
 	 * @var Freemius
 	 */
@@ -30,7 +34,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the public key for Freemius.
 	 *
-	 * @since 5.0.2
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 *
 	 * @var string
 	 */
@@ -39,7 +44,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the ID for the Freemius application.
 	 *
-	 * @since  4.9
+	 * @depreacated TBD
+	 * @since       4.9
 	 *
 	 * @var string
 	 */
@@ -48,7 +54,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the slug for the Freemius application.
 	 *
-	 * @since  4.9
+	 * @depreacated TBD
+	 * @since       4.9
 	 *
 	 * @var string
 	 */
@@ -57,8 +64,9 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the name for the Freemius application.
 	 *
-	 * @since 5.0.2
+	 * @since       5.0.2
 	 *
+	 * @depreacated TBD
 	 * @var string
 	 */
 	private $name = 'The Events Calendar';
@@ -66,7 +74,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Store the value from the 'page' in the request.
 	 *
-	 * @since 4.9.5
+	 * @depreacated TBD
+	 * @since       4.9.5
 	 *
 	 * @var string
 	 */
@@ -75,7 +84,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Tribe__Tickets__Integrations__Freemius constructor.
 	 *
-	 * @since  5.0.2
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 */
 	public function __construct() {
 		$this->setup();
@@ -84,7 +94,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
-	 * @since 5.0.2
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 */
 	public function setup() {
 		if ( ! is_admin() ) {
@@ -191,9 +202,10 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Prevents the Freemius integration from happening on Update Message redirect pages.
 	 *
-	 * @since 6.0.0
+	 * @depreacated TBD
+	 * @since       6.0.0
 	 *
-	 * @param bool $bypass
+	 * @param bool                          $bypass
 	 * @param Tribe__Admin__Activation_Page $activation_page
 	 *
 	 * @return bool
@@ -217,9 +229,10 @@ class Tribe__Events__Integrations__Freemius {
 	 * For some reason Freemius is redirecting some customers to a page that doesnt exist. So we catch that page and
 	 * redirect them back to the actual page that we are using to setup the plugins integration.
 	 *
-	 * @since  5.0.2
+	 * @link        https://moderntribe.atlassian.net/browse/TEC-3218
 	 *
-	 * @link https://moderntribe.atlassian.net/browse/TEC-3218
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 *
 	 * @return void  Retuning a Redirect header, so nothing gets returned otherwise.
 	 */
@@ -250,7 +263,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the connect page URL.
 	 *
-	 * @since  5.0.2
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 *
 	 * @param string $connect_url Current connect page URL.
 	 *
@@ -274,7 +288,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Settings page URL.
 	 *
-	 * @since  5.0.2
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 *
 	 * @return string The Settings page URL.
 	 */
@@ -285,7 +300,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the plugin icon URL.
 	 *
-	 * @since  5.0.2
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 *
 	 * @return string The plugin icon URL.
 	 */
@@ -298,7 +314,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Settings page path.
 	 *
-	 * @since  5.0.2
+	 * @depreacated TBD
+	 * @since       5.0.2
 	 *
 	 * @return string The Settings page path.
 	 */
@@ -309,7 +326,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @since 5.1.6
+	 * @depreacated TBD
+	 * @since       5.1.6
 	 *
 	 * @return string The welcome page URL.
 	 */
@@ -320,7 +338,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @since 6.0.0
+	 * @depreacated TBD
+	 * @since       6.0.0
 	 *
 	 * @return string The welcome page URL.
 	 */
@@ -331,7 +350,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @since 6.0.0
+	 * @depreacated TBD
+	 * @since       6.0.0
 	 *
 	 * @return string The welcome page URL.
 	 */
@@ -347,7 +367,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Action to skip activation since Freemius code does not skip correctly here.
 	 *
-	 * @since  4.9
+	 * @depreacated TBD
+	 * @since       4.9
 	 *
 	 * @return bool Whether activation was skipped.
 	 */
@@ -376,7 +397,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Filter the content for the Freemius Popup.
 	 *
-	 * @since  4.9
+	 * @depreacated TBD
+	 * @since       4.9
 	 *
 	 * @param string $message         The message content.
 	 * @param string $user_first_name The first name of user.
@@ -417,7 +439,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Returns the instance of Freemius plugin.
 	 *
-	 * @since  4.9
+	 * @depreacated TBD
+	 * @since       4.9
 	 *
 	 * @return Freemius
 	 */
@@ -428,7 +451,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Method to remove the sticky message when the plugin is active for Freemius.
 	 *
-	 * @since  4.9
+	 * @depreacated TBD
+	 * @since       4.9
 	 */
 	public function maybe_remove_activation_complete_notice() {
 		// Bail if the is_pending_activation() method doesn't exist.

@@ -9,7 +9,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Events\Occurrences;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class Max_Recurrence_Provider

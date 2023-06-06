@@ -15,6 +15,7 @@ use TEC\Common\Integrations\Integration_Abstract as Common_Integration_Abstract;
  * @package TEC\Events\Integrations
  */
 abstract class Integration_Abstract extends Common_Integration_Abstract {
+
 	/**
 	 * @inheritDoc
 	 */
