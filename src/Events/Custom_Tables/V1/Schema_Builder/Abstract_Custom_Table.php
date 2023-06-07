@@ -222,7 +222,6 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	public function drop() {
 		$this->clear_stored_version();
 		if ( ! $this->exists() ) {
-
 			return false;
 		}
 
