@@ -199,21 +199,18 @@ class Telemetry {
 		$helper = \Tribe__Admin__Helpers::instance();
 
 		// Are we on a tec post-type admin screen?
-		if (
-			! $helper->is_post_type_screen( TEC::POSTTYPE )
-			&& ! $helper->is_post_type_screen( TEC::ORGANIZER_POST_TYPE )
-			&& ! $helper->is_post_type_screen( TEC::VENUE_POST_TYPE )
-		) {
+		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
 			return false;
 		}
 
 		$screen = get_current_screen();
+		// Don't show on the event list screen.
+		if ( $screen->id === 'edit-tribe_events' ) {
+			return false;
+		}
+
 		// Don't show on the event edit screen.
-		if (
-			TEC::POSTTYPE === $screen->id
-			|| TEC::ORGANIZER_POST_TYPE === $screen->id
-			|| TEC::VENUE_POST_TYPE === $screen->id
-		) {
+		if ( TEC::POSTTYPE === $screen->id ) {
 			return false;
 		}
 
