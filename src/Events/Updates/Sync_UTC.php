@@ -5,7 +5,7 @@ namespace TEC\Events\Updates;
 class Sync_UTC {
 
 	/**
-	 * Updates the start/end time on all day events to match the EOD cutoff
+	 * Settings callback that updates the start/end time on all day events to match the EOD cutoff.
 	 *
 	 * @since TBD Moved from Tribe__Events__Main.
 	 *
@@ -14,7 +14,7 @@ class Sync_UTC {
 	 *
 	 * @see   'update_option_'.Tribe__Main::OPTIONNAME
 	 */
-	public function fix_all_day_events( $old_value, $new_value ) {
+	public function on_cutoff_change_fix_all_day_events( $old_value, $new_value ) {
 		// avoid notices for missing indices
 		$default_value = '00:00';
 		if ( empty( $old_value['multiDayCutoff'] ) ) {
@@ -28,8 +28,20 @@ class Sync_UTC {
 			// we only want to continue if the EOD cutoff was changed
 			return;
 		}
+		// Was changed, now do updates to sync with the new time.
+		$this->fix_all_day_events( $new_value['multiDayCutoff'] . ':00' );
+	}
+
+	/**
+	 * Will fire off a number of all day event updates, to sync their
+	 * start / end times with the new event cut off time.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $event_cutoff_time H:i time, e.g. 08:00
+	 */
+	public function fix_all_day_events( string $event_cutoff_time ) {
 		global $wpdb;
-		$event_cuttoff_time = $new_value['multiDayCutoff'] . ':00';
 
 		// mysql query to set the start times on all day events to the EOD cutoff
 		// this will fix all day events with any start time
@@ -38,7 +50,7 @@ class Sync_UTC {
 					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes')
 				SET pm1.meta_value = CONCAT(DATE(pm1.meta_value), ' ', %s)
 				WHERE pm1.meta_key = '_EventStartDate'
-					AND DATE_FORMAT(pm1.meta_value, '%%H:%%i') <> %s", $event_cuttoff_time, $event_cuttoff_time );
+					AND DATE_FORMAT(pm1.meta_value, '%%H:%%i') <> %s", $event_cutoff_time, $event_cutoff_time );
 
 		// mysql query to set the end time to the start time plus the duration on every all day event
 		$fix_end_dates =
@@ -50,7 +62,7 @@ class Sync_UTC {
 				INNER JOIN $wpdb->postmeta pm4
 					ON (pm1.post_id = pm4.post_id AND pm4.meta_key = '_EventDuration')
 				SET pm1.meta_value = DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND )
-				WHERE pm1.meta_key = '_EventEndDate'";
+				WHERE pm1.meta_key = '_EventEndDate'"; // @todo our wherestatement should only apply to multi + all
 		$wpdb->query( $fix_start_dates );
 		$wpdb->query( $fix_end_dates );
 
@@ -59,9 +71,9 @@ class Sync_UTC {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $event_cuttoff_time The end of day cut off time.
+		 * @param string $event_cutoff_time The end of day cut off time.
 		 */
-		do_action( 'tec_events_end_of_day_cutoff_time_updated', $event_cuttoff_time );
+		do_action( 'tec_events_end_of_day_cutoff_time_updated', $event_cutoff_time );
 
 
 		/**
@@ -100,7 +112,7 @@ class Sync_UTC {
 			wp_schedule_single_event( time() + 5, 'tec_events_sync_utc_dates', [ $repository_args, ++ $iteration ] );
 		}
 		// Bug? We should not hit that many...
-		if ( $iteration === 100 ) {
+		if ( $iteration === 200 ) {
 			do_action( 'tribe_log', 'error', "Sync UTC dates hit max iterations ($iteration).", [
 				'source' => __METHOD__ . ' ' . __LINE__,
 				'args'   => $repository_args,

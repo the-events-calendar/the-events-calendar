@@ -28,6 +28,7 @@ class By_Day_View_Compatibility {
 	 * Returns the day results, prepared as the `By_Day_View` expects them.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Separating UTC date fields.
 	 *
 	 * @param array<int> $ids A list of the Event post IDs to prepare the day results
 	 *                        for.
@@ -38,10 +39,9 @@ class By_Day_View_Compatibility {
 		if ( empty( $ids ) ) {
 			return [];
 		}
-// @todo I think this could throw things off, UTC vs local - the multidaycutoff is timezone agnostic
+
 		$use_site_timezone = Timezones::is_mode( 'site' );
 		$start_date_prop   = $use_site_timezone ? 'start_date_utc' : 'start_date';
-		$end_date_prop     = $use_site_timezone ? 'end_date_utc' : 'end_date';
 
 		$prepared = [];
 
@@ -52,8 +52,10 @@ class By_Day_View_Compatibility {
 		) {
 			$prepared[ $occurrence->post_id ] = (object) [
 				'ID'         => $occurrence->post_id,
-				'start_date' => $occurrence->{$start_date_prop},
-				'end_date'   => $occurrence->{$end_date_prop},
+				'start_date' => $occurrence->start_date,
+				'end_date'   => $occurrence->end_date,
+				'start_date_utc' => $occurrence->start_date_utc,
+				'end_date_utc'   => $occurrence->end_date_utc,
 				'timezone'   => get_post_meta( $occurrence->post_id, '_EventTimezone', true ),
 			];
 		}
