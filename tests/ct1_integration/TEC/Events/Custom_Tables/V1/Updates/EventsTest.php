@@ -165,19 +165,19 @@ class EventsTest extends WPTestCase {
 	}
 
 	/**
-	 * It should not update know range when no Occurrences are found in database
+	 * It should null known range when no Occurrences are found in database
 	 *
 	 * @test
 	 */
-	public function should_not_update_know_range_when_no_occurrences_are_found_in_database() {
+	public function should_null_known_range_when_no_occurrences_are_found_in_database() {
 		Occurrence::where( 'post_id', '!=', 0 )->delete();
 		$this->assertEquals( 0, Occurrence::where( 'post_id', '!=', 0 )->count() );
 
 		$events  = new Events();
 		$updated = $events->rebuild_known_range();
 
-		$this->assertContains( wp_date( 'Y-m-d' ), tribe_get_option( 'earliest_date' ) );
-		$this->assertContains( wp_date( 'Y-m-d' ), tribe_get_option( 'latest_date' ) );
+		$this->assertEquals( null, tribe_get_option( 'earliest_date' ) );
+		$this->assertEquals( null, tribe_get_option( 'latest_date' ) );
 		$this->assertTrue( $updated );
 	}
 

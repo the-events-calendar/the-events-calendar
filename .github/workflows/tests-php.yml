@@ -27,7 +27,7 @@ jobs:
           - wp_json_api
           - ct1_wp_json_api
           - rewrite_functional
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -159,6 +159,7 @@ jobs:
       - name: Install the plugins on this particular Test Suite
         if: steps.skip.outputs.value != 1 && steps.test_suite_plugins_required.outputs.content
         run: |
+          ${SLIC_BIN} wp core update --version=6.1
           ${SLIC_BIN} wp plugin install ${{ steps.test_suite_plugins_required.outputs.content }}
 
       # ------------------------------------------------------------------------------

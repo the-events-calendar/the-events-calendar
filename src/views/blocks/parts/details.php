@@ -173,7 +173,7 @@ $website = tribe_get_event_website_link( $event_id );
 
 		<?php
 		/* Translators: %s: Event (singular) */
-		tribe_meta_event_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true );
+		tribe_meta_event_archive_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true );
 		?>
 
 		<?php

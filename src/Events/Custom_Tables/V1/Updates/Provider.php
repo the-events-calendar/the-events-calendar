@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use Tribe__Events__Main as TEC;
 use WP_Post;
@@ -46,7 +46,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Post_Ops::class, Post_Ops::class );
 
 		$this->hook_to_watch_for_post_updates();
-		$this->hook_to_redirect_post_udpates();
+		$this->hook_to_redirect_post_updates();
 		$this->hook_to_commit_post_updates();
 		$this->hook_to_delete_post_data();
 	}
@@ -57,7 +57,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since 6.0.0
 	 */
-	private function hook_to_redirect_post_udpates() {
+	private function hook_to_redirect_post_updates() {
 		/*
 		 * Classic Editor updates will come through the `wp-admin/post.php` file.
 		 * This includes Trash and Delete requests.

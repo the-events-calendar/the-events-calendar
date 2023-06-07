@@ -551,6 +551,11 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		array_walk(
 			$localized_matchers,
 			static function ( array &$localized_matcher ) {
+				if ( isset( $localized_matcher['localized_slug'] ) ) {
+					// Already set? Bail.
+					return;
+				}
+
 				// The localized version of the slug will be the last one.
 				$localized_matcher['localized_slug'] = end( $localized_matcher['localized_slugs'] ) ?? $localized_matcher['en_slug'];
 			}

@@ -8,7 +8,8 @@
  */
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Abstract class Schema_Provider

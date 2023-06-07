@@ -10,7 +10,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
@@ -71,8 +71,10 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( 'action_scheduler_bulk_cancel_actions', [ $this, 'cancel_async_actions' ] );
 		add_action( 'action_scheduler_canceled_action', [ $this, 'cancel_async_action' ] );
 
-		if ( is_admin() ) {
+		$current_phase = $this->container->make( State::class )->get_phase();
+		if ( $current_phase !== State::PHASE_MIGRATION_NOT_REQUIRED && is_admin() ) {
 			add_action( 'admin_enqueue_scripts', $this->container->callback( Asset_Loader::class, 'enqueue_scripts' ) );
+
 			// Hook into the Upgrade tab to show it and customize its contents.
 			add_filter( 'tec_events_upgrade_tab_has_content', [ $this, 'show_upgrade_tab' ] );
 			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );

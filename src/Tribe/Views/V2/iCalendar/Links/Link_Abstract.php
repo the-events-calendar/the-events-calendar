@@ -302,9 +302,6 @@ abstract class Link_Abstract implements Link_Interface {
 		if ( isset( $view_url_args['eventDate'] ) ) {
 			// Subscribe from the calendar date (pagination, shortcode calendars, etc).
 			$view_url_args['tribe-bar-date'] = $view_url_args['eventDate'];
-		} else {
-			// Subscribe from today (default calendar view).
-			$view_url_args['tribe-bar-date'] = Dates::build_date_object( $view->get_context()->get( 'today' ) )->format( Dates::DBDATEFORMAT );
 		}
 
 

@@ -51,6 +51,7 @@ class Provider extends Integration_Abstract {
 	 */
 	protected function load(): void {
 		add_filter( 'wpseo_schema_graph_pieces', [ $this, 'add_graph_pieces' ], 11, 2 );
+		add_filter( 'tribe_events_add_canonical_tag', '__return_false' );
 
 		if ( ! $this->version_compare( '19.2' ) ) {
 			add_action( 'init', [ $this, 'remove_yoast_legacy_integration' ], 20 );

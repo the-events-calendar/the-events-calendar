@@ -96,7 +96,7 @@ class Health_Check {
 		global $wpdb;
 
 		// No activation / schema attempt ran? We wouldn't have the table yet.
-		if ( Activation::last_run_time() === null ) {
+		if ( tec_timed_option()->get( Activation::ACTIVATION_TRANSIENT ) === null ) {
 			return false;
 		}
 
@@ -120,7 +120,7 @@ class Health_Check {
 		global $wpdb;
 
 		// No activation / schema attempt ran? We wouldn't have the table yet.
-		if ( Activation::last_run_time() === null ) {
+		if ( tec_timed_option()->get( Activation::ACTIVATION_TRANSIENT ) === null ) {
 			return false;
 		}
 

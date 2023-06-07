@@ -13,8 +13,10 @@ class Health_CheckTest extends \CT1_Migration_Test_Case {
 	/**
 	 * @before
 	 */
-	public function register_tables_schema(): void {
+	public function db_state(): void {
 		tribe()->register( Tables::class );
+		// These tests all start with an unmigrated state, ensure the state does not bleed over / mix.
+		$this->given_a_reset_activation();
 	}
 
 	/**

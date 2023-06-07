@@ -5,7 +5,7 @@ $post_id = Tribe__Events__Main::postIdHelper();
 $is_auto_draft = get_post_status( $post_id ) === 'auto-draft';
 
 // If not $_POST and if this is not an auto-draft then get the current values to edit
-if ( ! $_POST && is_admin() ) {
+if ( ! $_POST ) {
 
 	$venue_name             = tribe_get_venue();
 

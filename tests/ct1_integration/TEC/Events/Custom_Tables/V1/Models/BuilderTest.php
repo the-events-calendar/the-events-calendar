@@ -2,9 +2,14 @@
 
 namespace TEC\Events\Custom_Tables\V1\Models;
 
+use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use WP_Post;
 
 class BuilderTest extends \Codeception\TestCase\WPTestCase {
+	use MatchesSnapshots;
+	use CT1_Fixtures;
+
 	/**
 	 * It should correctly upsert sets of models
 	 *
@@ -79,5 +84,22 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	public function should_allow_upserting_an_empty_set() {
 		$upserted = Occurrence::set_batch_size( 2 )->upsert_set( [] );
 		$this->assertEquals(0,$upserted);
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_handle_multiple_order_bys() {
+		// Should see start_date ASC and end_date_utc DESC, in that order.
+		$sql  = Occurrence::order_by( 'start_date' )
+		                  ->order_by( 'end_date_utc', 'DESC' )
+		                  ->get_sql();
+
+		$this->assertMatchesSnapshot( $sql );
+
+		// Should only see end_date_utc DESC.
+		$sql  = Occurrence::order_by( 'end_date_utc', 'DESC' )
+		                  ->get_sql();
+		$this->assertMatchesSnapshot( $sql );
 	}
 }
