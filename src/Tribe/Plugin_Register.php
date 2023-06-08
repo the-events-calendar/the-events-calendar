@@ -4,9 +4,14 @@
 class Tribe__Events__Plugin_Register extends Tribe__Abstract_Plugin_Register {
 
 	protected $main_class   = 'Tribe__Events__Main';
+	/**
+	 * `addon-dependencies` AKA Min plugin versions.
+	 *
+	 * @var string[][]
+	 */
 	protected $dependencies = [
 		'addon-dependencies' => [
-			'Tribe__Events__Pro__Main'                 => '6.0.9-dev',
+			'Tribe__Events__Pro__Main'                 => '6.1.0-dev',
 			'Tribe__Events__Filterbar__View'           => '5.4.3-dev',
 			'Tribe__Events__Community__Main'           => '4.10.4-dev',
 			'Tribe__Events__Community__Tickets__Main'  => '4.8.5-dev',
