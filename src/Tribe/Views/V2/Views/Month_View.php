@@ -55,7 +55,7 @@ class Month_View extends By_Day_View {
 	 *
 	 * @var array
 	 */
-	protected $cached_event_dates = [];
+	protected array $memoized_dates = [];
 
 	/**
 	 * Visibility for this view.
@@ -109,8 +109,8 @@ class Month_View extends By_Day_View {
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
-		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
-			return $this->cached_event_dates[ $cache_key ];
+		if ( isset( $this->memoized_dates[ $cache_key ] ) ) {
+			return $this->memoized_dates[ $cache_key ];
 		}
 
 		// When dealing with previous event date we only fetch one.
@@ -124,7 +124,7 @@ class Month_View extends By_Day_View {
 			->first();
 
 		if ( ! $prev_event instanceof \WP_Post ) {
-			$this->cached_event_dates[ $cache_key ] = false;
+			$this->memoized_dates[ $cache_key ] = false;
 
 			return false;
 		}
@@ -135,7 +135,7 @@ class Month_View extends By_Day_View {
 			$current_date->modify( '-1 month' )
 		);
 
-		$this->cached_event_dates[ $cache_key ] = $prev_date;
+		$this->memoized_dates[ $cache_key ] = $prev_date;
 
 		return $prev_date;
 	}
@@ -194,8 +194,8 @@ class Month_View extends By_Day_View {
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
-		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
-			return $this->cached_event_dates[ $cache_key ];
+		if ( isset( $this->memoized_dates[ $cache_key ] ) ) {
+			return $this->memoized_dates[ $cache_key ];
 		}
 
 		// For the next event date we only care about 1 item.
@@ -209,7 +209,7 @@ class Month_View extends By_Day_View {
 			->first();
 
 		if ( ! $next_event instanceof \WP_Post ) {
-			$this->cached_event_dates[ $cache_key ] = false;
+			$this->memoized_dates[ $cache_key ] = false;
 
 			return false;
 		}
@@ -220,7 +220,7 @@ class Month_View extends By_Day_View {
 			$current_date->modify( '+1 month' )
 		);
 
-		$this->cached_event_dates[ $cache_key ] = $next_date;
+		$this->memoized_dates[ $cache_key ] = $next_date;
 
 		return $next_date;
 	}
