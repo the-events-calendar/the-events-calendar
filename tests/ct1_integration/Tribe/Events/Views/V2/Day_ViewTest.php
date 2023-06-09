@@ -77,21 +77,18 @@ class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 			],
 		];
 
-		$events = array_map(
-			static function ( $data ) use ( $timezone ) {
-				return tribe_events()->set_args(
-					[
-						'start_date' => $data['start_date'],
-						'end_date'   => $data['end_date'],
-						'timezone'   => $timezone,
-						'duration'   => 3 * HOUR_IN_SECONDS,
-						'title'      => 'Test Event - ' . substr( md5( wp_json_encode( $data ) ), 10 ),
-						'status'     => 'publish',
-					]
-				)->create();
-			},
-			$events_data
-		);
+		foreach ( $events_data as $data ) {
+			tribe_events()->set_args(
+				[
+					'start_date' => $data['start_date'],
+					'end_date'   => $data['end_date'],
+					'timezone'   => $timezone,
+					'duration'   => 3 * HOUR_IN_SECONDS,
+					'title'      => 'Test Event - ' . substr( md5( wp_json_encode( $data ) ), 10 ),
+					'status'     => 'publish',
+				]
+			)->create();
+		}
 
 		/* @var Day_View $day_view */
 		$day_view = View::make( Day_View::class, $this->context );
@@ -149,21 +146,18 @@ class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 			],
 		];
 
-		$events = array_map(
-			static function ( $data ) use ( $timezone ) {
-				return tribe_events()->set_args(
-					[
-						'start_date' => $data['start_date'],
-						'end_date'   => $data['end_date'],
-						'timezone'   => $timezone,
-						'duration'   => 3 * HOUR_IN_SECONDS,
-						'title'      => 'Test Event - ' . substr( md5( wp_json_encode( $data ) ), 10 ),
-						'status'     => 'publish',
-					]
-				)->create();
-			},
-			$events_data
-		);
+		foreach ( $events_data as $data ) {
+			tribe_events()->set_args(
+				[
+					'start_date' => $data['start_date'],
+					'end_date'   => $data['end_date'],
+					'timezone'   => $timezone,
+					'duration'   => 3 * HOUR_IN_SECONDS,
+					'title'      => 'Test Event - ' . substr( md5( wp_json_encode( $data ) ), 10 ),
+					'status'     => 'publish',
+				]
+			)->create();
+		}
 
 		/* @var Day_View $day_view */
 		$day_view = View::make( Day_View::class, $this->context );
