@@ -193,7 +193,7 @@ abstract class By_Day_View extends View {
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
 
 		// @todo [BTRIA-599]: Remove this when the Event_Period repository is solid and cleaned up.
-		$using_period_repository = tribe_events_view_v2_use_period_repository();
+		$using_period_repository = tribe_events_view_v2_use_period_repository(); // @todo Can we remove this? Supporting logic forks below here...
 		$use_site_timezone       = Timezones::is_mode( 'site' );
 
 		if ( $using_period_repository ) {
@@ -206,9 +206,9 @@ abstract class By_Day_View extends View {
 			$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
 		} else {
 			$first_grid_day = $days->start;
-			$start          = tribe_beginning_of_day( $first_grid_day->format( Dates::DBDATETIMEFORMAT ) );
+			$start          = $first_grid_day->format( 'Y-m-d 00:00:00' );
 			$last_grid_day  = $days->end;
-			$end            = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
+			$end            = $last_grid_day->format( 'Y-m-d 23:59:59' );
 
 			/*
 			 * Sort events in duration ascending order to make sure events that start on the same date and time
@@ -257,7 +257,7 @@ abstract class By_Day_View extends View {
 			$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
 
 			if ( null === $day_results ) {
-				$day_results = $this->prepare_day_results( $view_event_ids, $use_site_timezone );
+				$day_results = $this->prepare_day_results( $view_event_ids );
 			}
 		}
 
@@ -284,29 +284,31 @@ abstract class By_Day_View extends View {
 			} else {
 				$multiday_start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 				$multiday_end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
-				$utc_day = clone $day;
-				$utc_day->setTimezone(new DateTimeZone('UTC'));
-				$start =  $day->format( Dates::DBDATETIMEFORMAT ) ;
-				$end   =  $day->format( Dates::DBDATETIMEFORMAT ) ;
+				$start =  $day->format( 'Y-m-d 00:00:00' ) ;
+				$end   =  $day->format( 'Y-m-d 23:59:59' ) ;
 // @todo Not confident on below changes... site timezone vs event timezone vs timezones assumed on the month view (should be WP or site tz?) and multiday cut off?
-				// Events overlap a day if Event start date <= Day End AND Event end date >= Day Start.
+				// Events overlap a day if Event start date <= Day End AND Event end date > Day Start.
 				$results_in_day = array_filter(
 					$day_results,
-					static function ( $event ) use ( $multiday_start, $multiday_end, $start, $end, $use_site_timezone, $site_timezone ) {
+					static function ( $event ) use ( $multiday_start, $multiday_end, $start, $end, $use_site_timezone, $site_timezone, $utc ) {
 						// Event span dates (multiday)? If so, we use the multiday cut off values.
 						if ( substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 ) ) {
 							return $event->start_date <= $multiday_end && $event->end_date > $multiday_start;
 						}
 
-						// If same timezone (sitewide) we can safely just look at non-adjusted dates, since events are already at correct timezone.
-						if ( $use_site_timezone ) {
-							return $event->start_date <= $end && $event->end_date > $start;
+						// If the timezone setting is set to "manual timezone for each event" then this is correct.
+						if ( ! $use_site_timezone ) {
+							return $event->start_date <= $end && $event->end_date > $start; // @todo don't care about timezone here?
 						}
-
-						// If the timezone setting is specific to each event, we should compare against the site timezone.
-						$event_localized_start_date = Dates::build_date_object( $event->start_date, $event->timezone )
+// @todo do we want to use utc fields here?
+						// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
+						// What we should do is:
+						// * use the event UTC time
+						// * convert it to the current site timezone
+						// * check if the event fits into the day, given shifted start and end of day
+						$event_localized_start_date = Dates::build_date_object( $event->start_date, $utc ) // @todo but we do here?
 						                                   ->setTimezone( $site_timezone );
-						$event_localized_end_date   = Dates::build_date_object( $event->end_date, $event->timezone )
+						$event_localized_end_date   = Dates::build_date_object( $event->end_date, $utc )
 						                                   ->setTimezone( $site_timezone );
 
 						return $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
@@ -722,7 +724,7 @@ abstract class By_Day_View extends View {
 
 		$start_meta_key = '_EventStartDate';
 		$end_meta_key   = '_EventEndDate';
-
+// @todo add utc fields?
 		$results_buffer = [];
 		$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
 		global $wpdb;

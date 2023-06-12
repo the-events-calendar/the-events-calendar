@@ -39,16 +39,12 @@ class By_Day_View_Compatibility {
 		if ( empty( $ids ) ) {
 			return [];
 		}
-
-		$use_site_timezone = Timezones::is_mode( 'site' );
-		$start_date_prop   = $use_site_timezone ? 'start_date_utc' : 'start_date';
-
+// @todo results using utc vs local??
 		$prepared = [];
 
 		/** @var Occurrence $occurrence */
 		foreach (
-			Occurrence::order_by( $start_date_prop, 'ASC' )
-			          ->find_all( $ids, 'post_id' ) as $occurrence
+			Occurrence::find_all( $ids, 'post_id' ) as $occurrence
 		) {
 			$prepared[ $occurrence->post_id ] = (object) [
 				'ID'         => $occurrence->post_id,
