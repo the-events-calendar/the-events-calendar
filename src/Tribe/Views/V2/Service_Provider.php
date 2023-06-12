@@ -9,6 +9,8 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Event_Status\Event_Status_Provider;
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+
 
 /**
  * Class Service_Provider
@@ -17,7 +19,8 @@ use Tribe\Events\Event_Status\Event_Status_Provider;
  *
  * @package Tribe\Events\Views\V2
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends Provider_Contract {
+
 
 	/**
 	 * Binds and sets up implementations.

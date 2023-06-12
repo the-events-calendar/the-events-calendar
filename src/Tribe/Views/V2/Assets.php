@@ -13,6 +13,8 @@ namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Plugin;
 use Tribe__Events__Templates;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Register
@@ -21,7 +23,8 @@ use Tribe__Events__Templates;
  *
  * @package Tribe\Events\Views\V2
  */
-class Assets extends \tad_DI52_ServiceProvider {
+class Assets extends Service_Provider {
+
 
 	/**
 	 * Key for this group of assets.

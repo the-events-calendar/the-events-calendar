@@ -2,6 +2,9 @@
 
 namespace TEC\Events\Integrations;
 
+use TEC\Common\Contracts\Service_Provider;
+
+
 /**
  * Class Integration_Abstract
  *
@@ -9,7 +12,8 @@ namespace TEC\Events\Integrations;
  *
  * @package TEC\Events\Integrations
  */
-abstract class Integration_Abstract extends \tad_DI52_ServiceProvider {
+abstract class Integration_Abstract extends Service_Provider {
+
 	/**
 	 * Binds and sets up implementations.
 	 *

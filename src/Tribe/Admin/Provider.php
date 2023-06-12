@@ -1,7 +1,11 @@
 <?php
 namespace Tribe\Events\Admin;
 
-class Provider extends \tad_DI52_ServiceProvider {
+use TEC\Common\Contracts\Service_Provider;
+
+
+class Provider extends Service_Provider {
+
 	/**
 	 * Register implementations.
 	 *
