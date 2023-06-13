@@ -231,7 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
+* Release - B23.Goldorak
+* Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
 
 = [6.1.0] 2023-06-06 =
 
