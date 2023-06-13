@@ -52,7 +52,7 @@ class Activation {
 	 * This method will run once a day (using transients).
 	 *
 	 * @since 6.0.0
-	 * @since TBD Reworked transient logic to use tec_timed_option instead. More concise. No longer forces schema updates.
+	 * @since 6.0.14 Reworked transient logic to use tec_timed_option instead. More concise. No longer forces schema updates.
 	 */
 	public static function init() {
 		// If the activation last ran less than 24 hours ago, bail.

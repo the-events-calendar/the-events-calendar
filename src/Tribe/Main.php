@@ -48,7 +48,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.1.0';
+		const MIN_ADDON_VERSION   = '6.1.0-dev';
 
 		/**
 		 * Min Common
@@ -285,8 +285,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $singular_organizer_label;
 		public $plural_organizer_label;
 
+		public $singular_event_label_lowercase;
+		public $plural_event_label_lowercase;
+
 		public $singular_event_label;
 		public $plural_event_label;
+
+		public $currentDay;
+		public $errors;
+		public $registered;
 
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
@@ -483,9 +490,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
+			add_filter( 'tec_common_parent_plugin_file', function( $paths ) {
+				$paths[] = TRIBE_EVENTS_FILE;
+
+				return $paths;
+			});
+
 			Tribe__Main::instance();
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
+		}
+
+		/**
+		 * Adds our main plugin file to the list of paths.
+		 *
+		 * @since 6.1.0
+		 *
+		 * @param array<string> $paths The paths to TCMN parent plugins.
+		 *
+		 * @return array<string>
+		 */
+		public static function include_parent_plugin_path_to_common( $paths ): array {
+			$paths[] = TRIBE_EVENTS_FILE;
+
+			return $paths;
 		}
 
 		/**
@@ -654,6 +682,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up the installer.
 			tribe_register_provider( TEC\Events\Installer\Provider::class );
+
+			// Set up Site Health
+			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
+
+			// Set up Telemetry
+			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

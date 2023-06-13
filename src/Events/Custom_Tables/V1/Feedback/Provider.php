@@ -8,6 +8,8 @@
  */
 
 namespace TEC\Events\Custom_Tables\V1\Feedback;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class ServiceProvider
@@ -16,7 +18,8 @@ namespace TEC\Events\Custom_Tables\V1\Feedback;
  *
  * @package TEC\Events\Custom_Tables\V1\Feedback
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends Service_Provider {
+
 
 	/**
 	 * Register the feedback related implementations and hooks.
