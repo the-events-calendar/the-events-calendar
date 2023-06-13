@@ -231,7 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
+* Release - B23.Goldorak
+* Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
 
 = [6.1.0] 2023-06-06 =
 
