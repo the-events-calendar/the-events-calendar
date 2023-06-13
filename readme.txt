@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Release - B23.Goldorak
 * Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
 
 = [6.1.0] 2023-06-06 =
