@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Release - B23.Goldorak
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
 
 = [6.1.0] 2023-06-06 =
