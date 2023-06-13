@@ -1,13 +1,16 @@
 <?php
 
 use Tribe\Events\Aggregator\Processes\Batch_Imports;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class Tribe__Events__Aggregator__Processes__Service_Provider
  *
  * @since 4.6.16
  */
-class Tribe__Events__Aggregator__Processes__Service_Provider extends tad_DI52_ServiceProvider {
+class Tribe__Events__Aggregator__Processes__Service_Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.
