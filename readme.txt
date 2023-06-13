@@ -231,7 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-Fix - Ensure our styles can be easily overridden by themes and page builders. [ECP-1503]
+* Release - B23.Goldorak
+* Fix - Ensure TEC styles can be easily overridden by themes and page builders. [ECP-1503]
 
 = [6.1.0] 2023-06-06 =
 
