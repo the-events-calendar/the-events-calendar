@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Release - B23.Goldorak
 * Fix - Prevent re-registration of the `core/legacy-widget` block. [TEC-4764]
 
 = [6.1.0] 2023-06-06 =
