@@ -1934,7 +1934,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				}
 			}
 			// If we did meta updates for this event.
-			if($did_update) {
+			if ( $did_update ) {
 				$updated ++;
 			}
 		}

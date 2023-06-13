@@ -270,6 +270,7 @@ class Events {
 	 * @return int Rows affected across all updates.
 	 */
 	public function sync_all_day_cutoff_times( string $time ): int {
+		// @todo Shall we remove these? Waiting for confirmation
 		global $wpdb;
 		$events_table      = Events_Table::table_name();
 		$occurrences_table = Occurrences_Table::table_name();
