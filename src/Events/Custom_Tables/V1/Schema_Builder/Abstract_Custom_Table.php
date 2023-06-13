@@ -67,7 +67,7 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	/**
 	 * Inspects query strings being passed to dbDelta, and logs an error if not ideal.
 	 *
-	 * @since TBD
+	 * @since 6.0.14
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/dbdelta/
 	 *
@@ -222,7 +222,6 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	public function drop() {
 		$this->clear_stored_version();
 		if ( ! $this->exists() ) {
-
 			return false;
 		}
 
