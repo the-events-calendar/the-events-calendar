@@ -1,6 +1,10 @@
 <?php
 
-class Tribe__Events__Aggregator__CLI__Service_Provider extends tad_DI52_ServiceProvider {
+use TEC\Common\Contracts\Service_Provider;
+
+
+class Tribe__Events__Aggregator__CLI__Service_Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.

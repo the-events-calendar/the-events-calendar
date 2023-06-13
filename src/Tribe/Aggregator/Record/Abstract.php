@@ -762,7 +762,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 
 		// create the import on the Event Aggregator service
 		$response = $aggregator->api( 'import' )->create( $args );
-		$foo = '';
+
 		// if the Aggregator API returns a WP_Error, set this record as failed
 		if ( is_wp_error( $response ) ) {
 			// if the error is just a reschedule set this record as pending
