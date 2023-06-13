@@ -5,16 +5,16 @@ namespace TEC\Events\Configuration;
 use TEC\Common\Configuration\Configuration;
 use TEC\Common\Configuration\Configuration_Loader;
 use TEC\Common\Configuration\Constants_Provider;
-use TEC\Common\Provider\Controller;
+use TEC\Common\Contracts\Service_Provider;
 
-class Provider extends Controller {
+class Provider extends Service_Provider {
 
 	/**
 	 * Registers Configuration provider.
 	 *
 	 * @since TBD
 	 */
-	protected function do_register(): void {
+	public function register(): void {
 		tribe( Configuration_Loader::class )->add( new Constants_Provider() );
 	}
 
