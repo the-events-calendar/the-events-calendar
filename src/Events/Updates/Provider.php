@@ -14,7 +14,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @since TBD
 	 */
 	public function register() {
-		add_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'on_cutoff_change_fix_all_day_events' ], 10, 2 );
+		//add_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'on_cutoff_change_fix_all_day_events' ], 10, 2 );
 		add_action( 'tec_events_sync_utc_dates', [ $this, 'async_sync_utc_dates' ], 10, 2 );
 	}
 
@@ -22,7 +22,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * Removes hooks.
 	 */
 	public function unregister() {
-		remove_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'on_cutoff_change_fix_all_day_events' ], 10 );
+		//remove_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'on_cutoff_change_fix_all_day_events' ], 10 );
 		remove_action( 'tec_events_sync_utc_dates', [ $this, 'async_sync_utc_dates' ] );
 	}
 
