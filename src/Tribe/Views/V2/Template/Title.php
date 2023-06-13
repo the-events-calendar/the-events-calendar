@@ -110,7 +110,7 @@ class Title {
 		 * Filter the plural Events label for Views Title.
 		 *
 		 * @since 5.1.5
-		 * @since TBD Adding more scenarios to make unique page titles.
+		 * @since 6.0.14 Adding more scenarios to make unique page titles.
 		 *
 		 * @param string  $events_label_plural The plural events label as it's been generated thus far.
 		 * @param Context $context             The context used to build the title, it could be the global one, or one externally
@@ -205,7 +205,7 @@ class Title {
 	 * Builds the title for a range of posts.
 	 *
 	 * @since 4.9.10
-	 * @since TBD Changed function scope, and moved internal var to param.
+	 * @since 6.0.14 Changed function scope, and moved internal var to param.
 	 *
 	 * @param Context $context    The context to use to build the title.
 	 * @param mixed   $event_date The event date object, string or timestamp.
