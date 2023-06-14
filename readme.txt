@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.1.1] 2023-06-07 =
+= [6.1.1] 2023-06-15 =
 
 * Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
 
