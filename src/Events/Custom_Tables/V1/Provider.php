@@ -13,9 +13,6 @@
 namespace TEC\Events\Custom_Tables\V1;
 
 use TEC\Common\Contracts\Container;
-
-use TEC\Common\Contracts\Service_Provider;
-
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
@@ -25,7 +22,7 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
  *
  * @package TEC\Events\Custom_Tables\V1
  */
-class Provider extends Service_Provider {
+class Provider extends  \tad_DI52_ServiceProvider {
 	const DISABLED = 'TEC_CUSTOM_TABLES_V1_DISABLED';
 
 	/**
