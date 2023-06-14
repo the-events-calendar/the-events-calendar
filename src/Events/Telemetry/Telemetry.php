@@ -2,7 +2,7 @@
 /**
  * Class that handles interfacing with TEC\Common\Telemetry.
  *
- * @since   6.1.1
+ * @since   6.1.0
  *
  * @package TEC\Events\Telemetry
  */
@@ -19,8 +19,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Telemetry
  *
- * @since   6.1.1
-
+ * @since   6.1.0
  * @package TEC\Events\Telemetry
  */
 class Telemetry {
@@ -151,7 +150,7 @@ class Telemetry {
 	 * We save this value in tribe_options but since that could get out of sync,
 	 * we always display the status from TEC\Common\StellarWP\Telemetry\Opt_In\Status directly.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @param mixed  $value  The value of the attribute.
 	 * @param string $field  The field object id.
@@ -174,7 +173,7 @@ class Telemetry {
 	 * Adds The Events Calendar to the list of plugins
 	 * to be opted in/out alongside tribe-common.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @param array<string,string> $slugs The default array of slugs in the format  [ 'plugin_slug' => 'plugin_path' ]
 	 *
@@ -191,7 +190,7 @@ class Telemetry {
 	/**
 	 * Determines if we are on a TEC admin page except the post edit page.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @return boolean
 	 */
@@ -199,21 +198,18 @@ class Telemetry {
 		$helper = \Tribe__Admin__Helpers::instance();
 
 		// Are we on a tec post-type admin screen?
-		if (
-			! $helper->is_post_type_screen( TEC::POSTTYPE )
-			&& ! $helper->is_post_type_screen( TEC::ORGANIZER_POST_TYPE )
-			&& ! $helper->is_post_type_screen( TEC::VENUE_POST_TYPE )
-		) {
+		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
 			return false;
 		}
 
 		$screen = get_current_screen();
+		// Don't show on the event list screen.
+		if ( $screen->id === 'edit-tribe_events' ) {
+			return false;
+		}
+
 		// Don't show on the event edit screen.
-		if (
-			TEC::POSTTYPE === $screen->id
-			|| TEC::ORGANIZER_POST_TYPE === $screen->id
-			|| TEC::VENUE_POST_TYPE === $screen->id
-		) {
+		if ( TEC::POSTTYPE === $screen->id ) {
 			return false;
 		}
 
@@ -223,7 +219,7 @@ class Telemetry {
 	/**
 	 * Outputs the hook that renders the Telemetry action on all TEC admin pages.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 */
 	public function inject_modal_link() {
 		if ( ! static::is_tec_admin_page() ) {
@@ -241,7 +237,8 @@ class Telemetry {
 		/**
 		 * Fires to trigger the modal content on admin pages.
 		 *
-		 * @since 6.1.1
+		 *
+		 * @since 6.1.0
 		 */
 		do_action( 'tec_telemetry_modal', $telemetry_slug );
 	}
@@ -249,7 +246,8 @@ class Telemetry {
 	/**
 	 * Update our option and the stellar option when the user opts in/out via the TEC admin.
 	 *
-	 * @since 6.1.1
+	 *
+	 * @since 6.1.0
 	 *
 	 * @param bool $value The option value
 	 */

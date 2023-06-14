@@ -2,7 +2,7 @@
 /**
  * Class that handles interfacing with core Site Health.
  *
- * @since   6.1.1
+ * @since   6.1.0
  *
  * @package TEC\Events\Site_Health
  */
@@ -17,15 +17,14 @@ use Tribe__Utils__Array as Arr;
 /**
  * Class Site_Health
  *
- * @since   6.1.1
-
+ * @since   6.1.0
  * @package TEC\Events\Site_Health
  */
 class Info_Section extends Info_Section_Abstract {
 	/**
 	 * Slug for the section.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @var string $slug
 	 */
@@ -34,7 +33,7 @@ class Info_Section extends Info_Section_Abstract {
 	/**
 	 * Label for the section.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @var string $label
 	 */
@@ -43,7 +42,7 @@ class Info_Section extends Info_Section_Abstract {
 	/**
 	 * If we should show the count of fields in the site health info page.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @var bool $show_count
 	 */
@@ -52,7 +51,7 @@ class Info_Section extends Info_Section_Abstract {
 	/**
 	 * If this section is private.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @var bool $is_private
 	 */
@@ -61,7 +60,7 @@ class Info_Section extends Info_Section_Abstract {
 	/**
 	 * Description for the section.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @var string $description
 	 */
@@ -70,7 +69,7 @@ class Info_Section extends Info_Section_Abstract {
 	/**
 	 * Sets up the section and internally add the fields.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 */
 	public function __construct() {
 		$this->label       = esc_html__( 'The Events Calendar', 'the-events-calendar' );
@@ -81,7 +80,7 @@ class Info_Section extends Info_Section_Abstract {
 	/**
 	 * Generates and adds our fields to the section.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @param array $info The debug information to be added to the core information page.
 	 *

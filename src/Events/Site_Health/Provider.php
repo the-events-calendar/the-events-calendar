@@ -2,7 +2,7 @@
 /**
  * Service Provider for interfacing with TEC\Common\Site Health.
  *
- * @since   6.1.1
+ * @since   6.1.0
  *
  * @package TEC\Events\Site_Health
  */
@@ -14,8 +14,7 @@ use TEC\Common\Contracts\Service_Provider;
  /**
   * Class Provider
   *
-  * @since   6.1.1
-
+  * @since   6.1.0
   * @package TEC\Events\Site_Health
   */
 class Provider extends Service_Provider {
@@ -23,7 +22,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Internal placeholder to pass around the section slug.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @var string
 	 */
@@ -38,7 +37,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 */
 	public function add_actions() {
 
@@ -48,7 +47,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Add the filter hooks.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 */
 	public function add_filters() {
 		add_filter( 'tec_debug_info_sections', [ $this, 'filter_include_sections' ] );
@@ -58,7 +57,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Includes the Section for The Events Calendar.
 	 *
-	 * @since 6.1.1
+	 * @since 6.1.0
 	 *
 	 * @param array<string, \TEC\Common\Site_Health\Info_Section_Abstract> $sections Existing sections.
 	 *
