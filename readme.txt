@@ -231,7 +231,6 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.0.1] 2023-06-14 =
 
-* Version - The Events Calendar 6.1.0.1 is only compatible with Events Tickets 5.5.12 and higher
 * Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
 
 = [6.1.0] 2023-06-14 =
