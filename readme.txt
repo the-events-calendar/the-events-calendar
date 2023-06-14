@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.1.0
+Stable tag: 6.1.0.1
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -228,6 +228,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.1.0.1] 2023-06-14 =
+
+* Version - The Events Calendar 6.1.0.1 is only compatible with Events Tickets 5.5.12 and higher
+* Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
 
 = [6.1.0] 2023-06-14 =
 
