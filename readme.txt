@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 = [6.1.1] 2023-06-15 =
 
 * Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
+* Tweak - Added filters: `tribe_general_settings_viewing_section`, `tribe_general_settings_editing_section`, `tribe_general_settings_maintenance_section`, `tribe_general_settings_debugging_section`
+* Tweak - Removed filters: `tec_events_integrations_should_load`, `tec_events_integrations_{$type}_should_load`, `tec_events_integrations_{$type}_{$slug}_should_load`, `tribe_events_integrations_should_load_freemius`
+* Tweak - Added actions: `tec_telemetry_modal`
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/date`, `integrations/event-tickets/emails/template-parts/body/event/image`, `integrations/event-tickets/emails/template-parts/body/event/links`, `integrations/event-tickets/emails/template-parts/body/event/links/gcal`, `integrations/event-tickets/emails/template-parts/body/event/links/ical`, `integrations/event-tickets/emails/template-parts/body/event/venue`, `integrations/event-tickets/emails/template-parts/body/event/venue/address`, `integrations/event-tickets/emails/template-parts/body/event/venue/phone`, `integrations/event-tickets/emails/template-parts/body/event/venue/website`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
 * Language - 28 new strings added, 132 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.1.0.1] 2023-06-14 =
