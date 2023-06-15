@@ -38,8 +38,6 @@ import './style.pcss';
 
 const { InspectorControls } = wpEditor;
 const { getAddress } = utils;
-const { maps } = google();
-const geocoder = new maps.Geocoder();
 
 /**
  * Module Code
@@ -327,6 +325,9 @@ class EventVenue extends Component {
 	 * @return {void}
 	 */
 	setCoordinatesState = ( address ) => {
+		const { maps } = google();
+		const geocoder = new maps.Geocoder();
+
 		// Clear our state?
 		if ( ! address ) {
 			this.setState( { coords: { lat: null, lng: null }, derivedAddressString: '' } );
