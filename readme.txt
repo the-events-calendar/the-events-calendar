@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Release - B23.Goldorak
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
 
 = [6.1.0] 2023-06-06 =
 
