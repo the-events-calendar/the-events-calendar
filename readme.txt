@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.1.1] 2023-06-15 =
 
 * Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
+* Language - 28 new strings added, 132 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.1.0.1] 2023-06-14 =
 
