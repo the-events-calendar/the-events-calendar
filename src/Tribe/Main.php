@@ -354,6 +354,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_invalid_wp_or_php' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 0 );
 
+			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
+
 			// Prevents Image Widget Plus from been problematic
 			$this->compatibility_unload_iwplus_v102();
 		}

@@ -233,6 +233,10 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
 
+= [6.1.0.1] 2023-06-14 =
+
+* Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
+
 = [6.1.0] 2023-06-14 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
