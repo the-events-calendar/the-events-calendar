@@ -234,6 +234,9 @@ class Tribe__Events__iCal {
 
 		$event_ids = tribe_get_request_var( 'event_ids', false );
 
+
+
+
 		/**
 		 * Allows filtering the event IDs after the `Tribe__Events__ICal` class
 		 * tried to fetch them from the current request.
@@ -247,10 +250,18 @@ class Tribe__Events__iCal {
 		$event_ids = apply_filters( 'tribe_ical_template_event_ids', $event_ids );
 
 		if ( false !== $event_ids ) {
+			$event_ids = Arr::list_to_array( $event_ids );
+
+			// Filter all events through permissions.
+			$event_ids = array_filter( $event_ids, static function ( $event_id ) {
+				return self::has_access_to_see_event_exists( get_post( $event_id ) );
+			} );
+
+			// Exit or the feed will still generate.
 			if ( empty( $event_ids ) ) {
 				die();
 			}
-			$event_ids = Arr::list_to_array( $event_ids );
+
 			$events = array_map( 'tribe_get_event', $event_ids );
 			$this->generate_ical_feed( $events );
 		} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
@@ -259,6 +270,52 @@ class Tribe__Events__iCal {
 			$this->generate_ical_feed();
 		}
 		die();
+	}
+
+	/**
+	 * Checks access to an event's content, in the context for generating an iCal file.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric|WP_Post $post The post to evaluate our access to.
+	 *
+	 * @return bool
+	 */
+	public static function has_access_to_see_event_content( $post ): bool {
+		// Can we see it at all?
+		if ( ! self::has_access_to_see_event_exists( c ) ) {
+			return false;
+		}
+
+		// If password required, we hide the content from the feed.
+		return ! post_password_required( $post );
+	}
+
+	/**
+	 * Checks access to an event, in the context for generating an iCal file.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric|WP_Post $post The post to evaluate our access to.
+	 *
+	 * @return bool
+	 */
+	public static function has_access_to_see_event_exists( $post ): bool {
+		$post = get_post( $post );
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+		// Most events.
+		if ( $post->post_status === 'publish' ) {
+			return true;
+		}
+		// If private, make sure they have access (and is logged in).
+		if ( $post->post_status === 'private' && current_user_can( 'read_post', $post->ID ) ) {
+			return true;
+		}
+
+		// Fallback to denied access unless explicitly approved above.
+		return false;
 	}
 
 	/**
@@ -720,7 +777,11 @@ class Tribe__Events__iCal {
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
 		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
 
-		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+		if(self::has_access_to_see_event_content($event_post)) {
+			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+		} else {
+			$content = _x('Content is protected.', 'Description in iCal content for events with hidden/protected content.', 'the-events-calendar');
+		}
 
 		$item['DESCRIPTION'] = 'DESCRIPTION:' . $this->replace( wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) ) );
 
