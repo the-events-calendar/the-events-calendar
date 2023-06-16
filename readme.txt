@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Release - B23.Goldorak
 * Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
+* Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
 
 = [6.1.0] 2023-06-06 =
 
