@@ -283,7 +283,7 @@ class Tribe__Events__iCal {
 	 */
 	public static function has_access_to_see_event_content( $post ): bool {
 		// Can we see it at all?
-		if ( ! self::has_access_to_see_event_exists( c ) ) {
+		if ( ! self::has_access_to_see_event_exists( $post ) ) {
 			return false;
 		}
 
