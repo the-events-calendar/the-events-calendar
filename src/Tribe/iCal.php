@@ -234,9 +234,6 @@ class Tribe__Events__iCal {
 
 		$event_ids = tribe_get_request_var( 'event_ids', false );
 
-
-
-
 		/**
 		 * Allows filtering the event IDs after the `Tribe__Events__ICal` class
 		 * tried to fetch them from the current request.
@@ -251,11 +248,6 @@ class Tribe__Events__iCal {
 
 		if ( false !== $event_ids ) {
 			$event_ids = Arr::list_to_array( $event_ids );
-
-			// Filter all events through permissions.
-			$event_ids = array_filter( $event_ids, static function ( $event_id ) {
-				return self::has_access_to_see_event_exists( get_post( $event_id ) );
-			} );
 
 			// Exit or the feed will still generate.
 			if ( empty( $event_ids ) ) {
@@ -309,7 +301,7 @@ class Tribe__Events__iCal {
 		if ( $post->post_status === 'publish' ) {
 			return true;
 		}
-		// If private, make sure they have access (and is logged in).
+		// If private, make sure they have access (and are logged in).
 		if ( $post->post_status === 'private' && current_user_can( 'read_post', $post->ID ) ) {
 			return true;
 		}
@@ -321,14 +313,38 @@ class Tribe__Events__iCal {
 	/**
 	 * Generates the iCal file
 	 *
+	 * @since TBD Adding access checks to the provided posts.
+	 *
 	 * @param int|null $post If you want the ical file for a single event
 	 * @param boolean  $echo Whether the content should be echoed or returned
 	 *
 	 * @return string
 	 */
 	public function generate_ical_feed( $post = null, $echo = true ) {
-		$this->post = $post;
+		// If we are searching via a single numeric/post, turn into an array.
+		if ( ! empty( $post ) && ! is_array( $post ) ) {
+			$post = [ $post ];
+		}
+
+		// Gatekeep any externally handed events through permissions.
+		if ( is_array( $post ) ) {
+			$post = array_filter( $post, static function ( $event_id ) {
+				return self::has_access_to_see_event_exists( get_post( $event_id ) );
+			} );
+			if ( empty( $post ) ) {
+				if ( $echo ) {
+					die();
+				} else {
+					return '';
+				}
+			}
+			$post = array_map( 'get_post', $post );
+		}
+
+		// Now setup to do our search.
+		$this->post   = $post;
 		$this->events = $this->get_event_posts();
+
 		$content = $this->get_content();
 
 		if ( $echo ) {
