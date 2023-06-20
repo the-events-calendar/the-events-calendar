@@ -793,10 +793,18 @@ class Tribe__Events__iCal {
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
 		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
 
-		if(self::has_access_to_see_event_content($event_post)) {
+		if ( self::has_access_to_see_event_content( $event_post ) ) {
 			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
 		} else {
-			$content = _x('Content is protected.', 'Description in iCal content for events with hidden/protected content.', 'the-events-calendar');
+			$content = _x( 'Content is protected.', 'Description in iCal content for events with hidden/protected content.', 'the-events-calendar' );
+			/**
+			 * Filters the password protected description for ical event descriptions that are displayed in the output.
+			 *
+			 * @since TBD
+			 *
+			 * @param string The replaced message that will display in the ical event description.
+			 */
+			$content = apply_filters( 'tec_events_ical_protected_content_description', $content );
 		}
 
 		$item['DESCRIPTION'] = 'DESCRIPTION:' . $this->replace( wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) ) );
