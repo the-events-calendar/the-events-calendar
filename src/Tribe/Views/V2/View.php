@@ -1561,7 +1561,7 @@ class View implements View_Interface {
 		}
 
 		// Check if we memoized these vars and if memoize is enabled.
-		$memoize_key = md5( __METHOD__ . json_encode( $this->repository_args ) );
+		$memoize_key = 'setup_template_vars_' . md5( __METHOD__ . json_encode( $this->repository_args ) );
 		$vars        = tribe_cache()->get( $memoize_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
 		if ( ! empty( $vars ) ) {
 			return $vars;

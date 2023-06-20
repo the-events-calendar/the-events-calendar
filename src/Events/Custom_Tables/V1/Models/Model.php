@@ -170,6 +170,14 @@ abstract class Model implements Serializable {
 	 */
 	protected $extended_properties = [];
 
+	/**
+	 * If this model is memoized, this is the key to retrieve it.
+	 *
+	 * @since TBD
+	 *
+	 * @var null|string
+	 */
+	public $cache_key = null;
 
 	/**
 	 * Model constructor.
@@ -194,10 +202,11 @@ abstract class Model implements Serializable {
 		$this->extended_properties = $extended_properties;
 	}
 
-
-
-
-	public $cache_key = null;
+	/**
+	 * Flush this instances cache if it was cached.
+	 *
+	 * @since TBD
+	 */
 	public function flush_cache() {
 		if ( $this->cache_key ) {
 			tribe_cache()->delete( $this->cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );

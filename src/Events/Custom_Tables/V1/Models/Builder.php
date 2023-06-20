@@ -574,9 +574,13 @@ class Builder {
 
 		// Check if we memoized this instance.
 		$key    = self::generate_cache_key( $this->model, $column, $value );
-		$result = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+		$data = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
 
-		if ( $result ) {
+		if ( $data ) {
+			$model_class = get_class( $this->model );
+			$result = new $model_class( $data );
+			$result->cache_key = $key;
+
 			return $result;
 		}
 
@@ -586,7 +590,7 @@ class Builder {
 			// Store on model so we can use it to cache bust later.
 			$result->cache_key = $key;
 
-			tribe_cache()->set( $key, $result, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			tribe_cache()->set( $key, $result->to_array(), Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		return $result;
