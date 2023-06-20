@@ -2,7 +2,6 @@
 
 namespace Tribe\Events;
 
-use Codeception\Test\Unit;
 use Codeception\TestCase\WPTestCase;
 use Tribe\Events\Test\Factories\Event;
 use Tribe__Events__API;
@@ -376,5 +375,90 @@ multiple lines",
 
 		$this->assertContains( "DTSTART;TZID={$timezone_name}:{$start_timestamp}", $ical );
 		$this->assertContains( "DTEND;TZID={$timezone_name}:{$end_timestamp}", $ical );
+	}
+
+	public function protected_content_data_provider() {
+		return [
+			'should see valid event'                        =>
+				[
+					[
+						'when'     => '2019-01-01',
+						'duration' => DAY_IN_SECONDS,
+					],
+					true, // should see title
+					true, // should see post content
+					false, // should be empty
+				],
+			'should not see a draft'                        =>
+				[
+					[
+						'when'        => '2019-01-01',
+						'duration'    => DAY_IN_SECONDS,
+						'post_status' => 'draft'
+					],
+					false, // should see title
+					false, // should see post content
+					true, // should be empty
+				],
+			'should not see private'                        =>
+				[
+					[
+						'when'        => '2019-01-01',
+						'duration'    => DAY_IN_SECONDS,
+						'post_status' => 'private'
+					],
+					false, // should see title
+					false, // should see post content
+					true, // should be empty
+				],
+			'should not see password protected description' =>
+				[
+					[
+						'when'          => '2019-01-01',
+						'duration'      => DAY_IN_SECONDS,
+						'post_status'   => 'publish',
+						'post_password' => wp_hash_password( "bob" )
+					],
+					true, // should see title
+					false, // should see post content
+					false, // should be empty
+				],
+		];
+	}
+
+	/**
+	 * Should not print events that are hidden for the current user.
+	 *
+	 * @dataProvider protected_content_data_provider
+	 * @test
+	 */
+	public function should_protect_against_event_access_levels( $args, $should_have_title, $should_have_content, $should_be_empty ) {
+		// Ensure no funky cache/memoize stuff.
+		$title   = 'Franks Free Fridders ' . uniqid();
+		$content = 'The best fridders in frankfurt ' . uniqid();
+		// Consistently set our title/content to test against later.
+		$args['post_title']   = $title;
+		$args['post_content'] = $content;
+		$event                = $this->factory()->event->create( $args );
+		$sut                  = $this->make_instance();
+
+		// Now see that our event has been validated properly.
+		$ical = $sut->generate_ical_feed( $event, false );
+
+		if ( $should_have_title ) {
+			$this->assertContains( "SUMMARY:$title", $ical );
+		} else {
+			$this->assertNotContains( "SUMMARY:$title", $ical );
+		}
+		if ( $should_have_content ) {
+			$this->assertContains( "DESCRIPTION:$content", $ical );
+		} else {
+			$this->assertNotContains( "DESCRIPTION:$content", $ical );
+		}
+		if ( $should_be_empty ) {
+			$this->assertEquals( '', $ical );
+		} else {
+			$this->assertNotEquals( '', $ical );
+		}
 	}
 }
