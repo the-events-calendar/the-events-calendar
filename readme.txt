@@ -233,7 +233,9 @@ Remember to always make a backup of your database and files before updating!
 
 * Release - B23.Goldorak
 * Fix - Prevent re-registration of the `core/legacy-widget` block. [TEC-4764]
+* Fix - Ensure TEC styles can be easily overridden by themes and page builders. [ECP-1503]
 * Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
+* Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
 
 = [6.1.0] 2023-06-06 =
 
