@@ -4,7 +4,6 @@
  * Main Tribe Events Calendar class.
  */
 
-use FakerPress\Dates;
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
@@ -1558,16 +1557,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$events = apply_filters( 'tec_events_noindex', null, $start_date, $context );
 
-			$foo = null;
-
 			// If nothing has hooked in ($events is boolean false), we assume a list-style view (no end-date limiter)
 			//  with no params and do a quick query for a single event after the start date.
 			if ( null === $events ) {
-				$cache     = new Tribe__Cache();
+				$cache     = tribe_cache();
 				$trigger   = Tribe__Cache_Listener::TRIGGER_SAVE_POST;
 				$cache_key = $cache->make_key(
 					[
-						'context' => $context,
+						'context' => $context->get( 'view_data' ),
 						'view'    => $view,
 						'start'   => $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ),
 					],
