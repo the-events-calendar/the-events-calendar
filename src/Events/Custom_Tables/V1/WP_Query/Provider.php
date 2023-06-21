@@ -16,6 +16,8 @@ use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\Custom_Tables_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Monitors\WP_Query_Monitor;
 use TEC\Events\Custom_Tables\V1\WP_Query\Repository\Custom_Tables_Query_Filters;
 use Tribe__Repository as Repository;
+use TEC\Common\Contracts\Service_Provider;
+
 use WP_Query;
 
 /**
@@ -25,7 +27,7 @@ use WP_Query;
  *
  * @package TEC\Events\Custom_Tables\V1\WP_Query
  */
-class Provider extends \tad_DI52_ServiceProvider implements Serializable, Provider_Contract {
+class Provider extends Service_Provider implements Serializable, Provider_Contract {
 	/**
 	 * Register the filters and bindings required to integrate the plugin custom tables in the normal
 	 * WP_Query flow.
