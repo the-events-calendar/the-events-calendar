@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.1.2] TBD =
 
 * Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
 * Fix - Prevent re-registration of the `core/legacy-widget` block. [TEC-4764]
