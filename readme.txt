@@ -231,7 +231,12 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.2] 2023-06-22 =
 
-
+* Version - The Events Calendar 6.1.2 is only compatible with Event Tickets 5.6.1 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Filterbar 5.5.0 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community 4.10.8 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community Tickets 4.9.3 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Event Tickets 4.6.14 and higher
+Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
 
 = [6.1.1] 2023-06-15 =
 
