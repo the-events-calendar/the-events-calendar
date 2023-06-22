@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Release - B23.Goldorak
+* Fix - Adding memoizing into the CT1 models to help reduce trips to fetch the same instance. [ECP-1505]
 
 = [6.1.0] 2023-06-06 =
 
