@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Release - B23.Goldorak
+
 = [6.1.0] 2023-06-06 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
