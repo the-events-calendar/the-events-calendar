@@ -22,8 +22,6 @@ jobs:
           - ct1_integration
           - ct1_multisite_integration
           - deprecated
-          # really weird error with RBE changes.
-          # - views_rest
           - wp_json_api
           - ct1_wp_json_api
           - rewrite_functional
