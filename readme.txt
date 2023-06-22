@@ -236,7 +236,7 @@ Remember to always make a backup of your database and files before updating!
 * Version - The Events Calendar 6.1.2 is only compatible with Events Community 4.10.8 and higher
 * Version - The Events Calendar 6.1.2 is only compatible with Events Community Tickets 4.9.3 and higher
 * Version - The Events Calendar 6.1.2 is only compatible with Eventbrite Tickets 4.6.14 and higher
-* Version - The Events Calendar 6.1.2 is only compatible with Virtual Events 1.15.0 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Virtual Events 1.15.1 and higher
 * Version - The Events Calendar 6.1.2 is only compatible with Event Automator 1.3.1 and higher
 Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
 
