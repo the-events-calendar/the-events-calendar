@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.2] TBD =
 
+* Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
 * Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
 * Fix - Prevent re-registration of the `core/legacy-widget` block. [TEC-4764]
 * Fix - Ensure TEC styles can be easily overridden by themes and page builders. [ECP-1503]
