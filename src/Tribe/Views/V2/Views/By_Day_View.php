@@ -292,27 +292,34 @@ abstract class By_Day_View extends View {
 					$day_results,
 					static function ( $event ) use ( $multiday_start, $multiday_end, $start, $end, $use_site_timezone, $site_timezone, $utc ) {
 						// Event span dates (multiday)? If so, we use the multiday cut off values.
-						if ( substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 ) ) {
-							return $event->start_date <= $multiday_end && $event->end_date > $multiday_start;
+						$spans_dates                = substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 );
+						$day_start                  = $start;
+						$day_end                    = $end;
+						$event_localized_start_date = $event->start_date;
+						$event_localized_end_date   = $event->end_date;
+
+						// If the event spans dates, we should do comparison against our multiDayCutoff adjusted value.
+						if ( $spans_dates ) {
+							$day_start = $multiday_start;
+							$day_end   = $multiday_end;
 						}
 
-						// If the timezone setting is set to "manual timezone for each event" then this is correct.
-						if ( ! $use_site_timezone ) {
-							return $event->start_date <= $end && $event->end_date > $start; // @todo don't care about timezone here?
-						}
-// @todo do we want to use utc fields here?
 						// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
-						// What we should do is:
-						// * use the event UTC time
-						// * convert it to the current site timezone
-						// * check if the event fits into the day, given shifted start and end of day
-						$event_localized_start_date = Dates::build_date_object( $event->start_date, $utc ) // @todo but we do here?
-						                                   ->setTimezone( $site_timezone );
-						$event_localized_end_date   = Dates::build_date_object( $event->end_date, $utc )
-						                                   ->setTimezone( $site_timezone );
+						if ( $use_site_timezone ) {
+							// What we should do is:
+							// * convert it to the current site timezone
+							// * check if the event fits into the day, given shifted start and end of day
+							$event_localized_start_date = Dates::build_date_object( $event->start_date, $event->timezone ) // @todo but we do here?
+							                                   ->setTimezone( $site_timezone )
+							                                   ->format( Dates::DBDATETIMEFORMAT );
+							$event_localized_end_date   = Dates::build_date_object( $event->end_date, $event->timezone )
+							                                   ->setTimezone( $site_timezone )
+							                                   ->format( Dates::DBDATETIMEFORMAT );
+						}
 
-						return $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
-						       && $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) > $start;
+						// Does this event show up on this day?
+						return $event_localized_start_date <= $day_end
+						       && $event_localized_end_date > $day_start;
 					}
 				);
 
@@ -724,7 +731,7 @@ abstract class By_Day_View extends View {
 
 		$start_meta_key = '_EventStartDate';
 		$end_meta_key   = '_EventEndDate';
-// @todo add utc fields?
+
 		$results_buffer = [];
 		$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
 		global $wpdb;

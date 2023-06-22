@@ -39,7 +39,7 @@ class By_Day_View_Compatibility {
 		if ( empty( $ids ) ) {
 			return [];
 		}
-// @todo results using utc vs local??
+
 		$prepared = [];
 
 		/** @var Occurrence $occurrence */
@@ -47,12 +47,10 @@ class By_Day_View_Compatibility {
 			Occurrence::find_all( $ids, 'post_id' ) as $occurrence
 		) {
 			$prepared[ $occurrence->post_id ] = (object) [
-				'ID'         => $occurrence->post_id,
-				'start_date' => $occurrence->start_date,
-				'end_date'   => $occurrence->end_date,
-				'start_date_utc' => $occurrence->start_date_utc,
-				'end_date_utc'   => $occurrence->end_date_utc,
-				'timezone'   => get_post_meta( $occurrence->post_id, '_EventTimezone', true ),
+				'ID'             => $occurrence->post_id,
+				'start_date'     => $occurrence->start_date,
+				'end_date'       => $occurrence->end_date,
+				'timezone'       => get_post_meta( $occurrence->post_id, '_EventTimezone', true ),
 			];
 		}
 

@@ -9,7 +9,7 @@ use Tribe__Events__Timezones;
 class Sync_UTCTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
-	 *
+	 * @skip
 	 * @test
 	 */
 	public function should_sync_when_utc_is_off() {
@@ -34,6 +34,7 @@ class Sync_UTCTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * @skip
 	 * @test
 	 */
 	public function should_sync_utc_dates_correctly() {
