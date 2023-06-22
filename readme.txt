@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.1.0
+Stable tag: 6.1.2
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,11 +229,21 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.1.2] TBD =
 
-* Release - B23.Goldorak
+* Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
+* Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
+* Fix - Prevent re-registration of the `core/legacy-widget` block. [TEC-4764]
+* Fix - Ensure TEC styles can be easily overridden by themes and page builders. [ECP-1503]
+* Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
+* Fix - Added some event parsing to ensure only valid events are handled in the iCal file generation. [TEC-4837]
+* Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
 
-= [6.1.0] 2023-06-06 =
+= [6.1.0.1] 2023-06-14 =
+
+* Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
+
+= [6.1.0] 2023-06-14 =
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add plugin info to Site Health admin page. [TEC-4701]
@@ -248,8 +258,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
 * Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
 * Tweak - Utilize our new container architecture in tribe-common.
-* Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
-* Tweak - Added actions: `tribe_log`
 * Language - 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [6.0.13.1] 2023-05-15 =
