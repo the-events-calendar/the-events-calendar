@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
 * Fix - Added some event parsing to ensure only valid events are handled in the iCal file generation. [TEC-4837]
 * Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
+* Fix - Log errors throw in the context of the Custom Tables v1 component. [ET-1486]
 
 = [6.1.0.1] 2023-06-14 =
 
