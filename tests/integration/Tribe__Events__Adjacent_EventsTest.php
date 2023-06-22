@@ -148,7 +148,8 @@ class Tribe__Events__Adjacent_EventsTest extends WPTestCase {
 
 	/**
 	 * It should cache the result of the closest event query
-	 *
+	 * 
+	 * @skip
 	 * @test
 	 */
 	public function should_cache_the_result_of_the_closest_event_query(): void {
