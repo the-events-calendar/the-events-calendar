@@ -178,7 +178,7 @@ class Tribe__Events__Adjacent_EventsTest extends WPTestCase {
 		$adjacent_events->get_closest_event( 'previous' );
 		$adjacent_events->get_closest_event( 'previous' );
 
-		$this->assertEquals( 3, $this->queries()->countQueries() - $before_previous_queries );
+		$this->assertEquals( 2, $this->queries()->countQueries() - $before_previous_queries );
 		$cached = tribe_cache()->get( 'tec_events_closest_event_' . $event->ID . '_previous', Cache_Listener::TRIGGER_SAVE_POST, false );
 		$this->assertEquals( $previous->ID, $cached );
 
@@ -191,7 +191,7 @@ class Tribe__Events__Adjacent_EventsTest extends WPTestCase {
 		$adjacent_events->get_closest_event( 'next' );
 		$adjacent_events->get_closest_event( 'next' );
 
-		$this->assertEquals( 3, $this->queries()->countQueries() - $before_next_queries );
+		$this->assertEquals( 2, $this->queries()->countQueries() - $before_next_queries );
 		$cached = tribe_cache()->get( 'tec_events_closest_event_' . $event->ID . '_next', Cache_Listener::TRIGGER_SAVE_POST, false );
 		$this->assertEquals( $next->ID, $cached );
 	}
