@@ -29,7 +29,7 @@ use \Tribe__Template as Common_Template;
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Emails
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends \TEC\Common\Contracts\Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.
