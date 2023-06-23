@@ -41,14 +41,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.1.0';
+		const VERSION             = '6.1.2.2';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.1.0';
+		const MIN_ADDON_VERSION   = '6.1.0-dev';
 
 		/**
 		 * Min Common
@@ -78,7 +78,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.5.2-dev';
+		protected $min_et_version = '5.6.1-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -285,8 +285,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $singular_organizer_label;
 		public $plural_organizer_label;
 
+		public $singular_event_label_lowercase;
+		public $plural_event_label_lowercase;
+
 		public $singular_event_label;
 		public $plural_event_label;
+
+		public $currentDay;
+		public $errors;
+		public $registered;
 
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
@@ -346,6 +353,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_old_et_is_present' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_invalid_wp_or_php' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 0 );
+
+			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
 
 			// Prevents Image Widget Plus from been problematic
 			$this->compatibility_unload_iwplus_v102();
@@ -483,9 +492,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
+			add_filter( 'tec_common_parent_plugin_file', [ $this, 'include_parent_plugin_path_to_common' ] );
+
 			Tribe__Main::instance();
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
+		}
+
+		/**
+		 * Adds our main plugin file to the list of paths.
+		 *
+		 * @since 6.1.0
+		 *
+		 *
+		 * @param array<string> $paths The paths to TCMN parent plugins.
+		 *
+		 * @return array<string>
+		 */
+		public function include_parent_plugin_path_to_common( $paths ): array {
+			$paths[] = TRIBE_EVENTS_FILE;
+
+			return $paths;
 		}
 
 		/**
@@ -654,6 +681,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up the installer.
 			tribe_register_provider( TEC\Events\Installer\Provider::class );
+
+			// Set up Site Health
+			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
+
+			// Set up Telemetry
+			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

@@ -3,8 +3,11 @@
 namespace TEC\Events\Installer;
 
 use TEC\Common\StellarWP\Installer\Installer;
+use TEC\Common\Contracts\Service_Provider;
 
-class Provider extends \tad_DI52_ServiceProvider {
+
+class Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.

@@ -4,6 +4,8 @@ namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe__Events__Main;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class Hooks
@@ -12,7 +14,8 @@ use Tribe__Events__Main;
  *
  * @package TEC\Events\Editor\Full_Site
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.

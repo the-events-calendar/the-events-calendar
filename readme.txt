@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.1.0
+Stable tag: 6.1.2.2
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,17 +229,54 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.1.2.2] 2023-06-23 =
 
-* Fix - Fixes database error, caused by the CT1 query parser when attempting rewrite the order by statement. Added logic to reflect on meta query arrays, and not just key/value pairs. [ECP-1495]
-* Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
-* Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
-* Fix - Prevent administration navigation fatal error with `TypeError: array_search()`. [TEC-4780]
-* Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+* Fix - Ensure there is backwards compatibility with Extensions and Pods.
+
+= [6.1.2.1] 2023-06-22 =
+
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
+
+= [6.1.2] 2023-06-22 =
+
+* Version - The Events Calendar 6.1.2 is only compatible with Event Tickets 5.6.1 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Filterbar 5.5.0 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community 4.10.8 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community Tickets 4.9.3 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Eventbrite Tickets 4.6.14 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Virtual Events 1.15.1 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Event Automator 1.3.1 and higher
+Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
+= [6.1.1] 2023-06-15 =
+
+* Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
+* Tweak - Added filters: `tribe_general_settings_viewing_section`, `tribe_general_settings_editing_section`, `tribe_general_settings_maintenance_section`, `tribe_general_settings_debugging_section`
+* Tweak - Removed filters: `tec_events_integrations_should_load`, `tec_events_integrations_{$type}_should_load`, `tec_events_integrations_{$type}_{$slug}_should_load`, `tribe_events_integrations_should_load_freemius`
+* Tweak - Added actions: `tec_telemetry_modal`
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/date`, `integrations/event-tickets/emails/template-parts/body/event/image`, `integrations/event-tickets/emails/template-parts/body/event/links`, `integrations/event-tickets/emails/template-parts/body/event/links/gcal`, `integrations/event-tickets/emails/template-parts/body/event/links/ical`, `integrations/event-tickets/emails/template-parts/body/event/venue`, `integrations/event-tickets/emails/template-parts/body/event/venue/address`, `integrations/event-tickets/emails/template-parts/body/event/venue/phone`, `integrations/event-tickets/emails/template-parts/body/event/venue/website`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
+* Language - 28 new strings added, 132 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.1.0.1] 2023-06-14 =
+
+* Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
+
+= [6.1.0] 2023-06-14 =
+
+* Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
+* Feature - Add plugin info to Site Health admin page. [TEC-4701]
+* Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
 * Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
 * Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
-* Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
+* Fix - Fixes database error, caused by the CT1 query parser when attempting rewrite the order by statement. Added logic to reflect on meta query arrays, and not just key/value pairs. [ECP-1495]
+* Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+* Fix - Prevent administration navigation fatal error with `TypeError: array_search()`. [TEC-4780]
 * Fix - Removing our eager schema updates. This was causing a number of `ALTER` statements being run redundantly. No longer utilizes cache/transient for the last run check as it is not dependable. [TEC-4797]
+* Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
+* Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
+* Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
+* Tweak - Utilize our new container architecture in tribe-common.
+* Language - 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
 
 = [6.0.13.1] 2023-05-15 =
 
