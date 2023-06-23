@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.1.2
+Stable tag: 6.1.2.1
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.2.1] 2023-06-22 =
 
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
 
 = [6.1.2] 2023-06-22 =
 
