@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.1.0.1
+Stable tag: 6.1.2.2
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -228,6 +228,34 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.1.2.2] 2023-06-23 =
+
+* Fix - Ensure there is backwards compatibility with Extensions and Pods.
+
+= [6.1.2.1] 2023-06-22 =
+
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
+
+= [6.1.2] 2023-06-22 =
+
+* Version - The Events Calendar 6.1.2 is only compatible with Event Tickets 5.6.1 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Filterbar 5.5.0 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community 4.10.8 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community Tickets 4.9.3 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Eventbrite Tickets 4.6.14 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Virtual Events 1.15.1 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Event Automator 1.3.1 and higher
+Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
+= [6.1.1] 2023-06-15 =
+
+* Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
+* Tweak - Added filters: `tribe_general_settings_viewing_section`, `tribe_general_settings_editing_section`, `tribe_general_settings_maintenance_section`, `tribe_general_settings_debugging_section`
+* Tweak - Removed filters: `tec_events_integrations_should_load`, `tec_events_integrations_{$type}_should_load`, `tec_events_integrations_{$type}_{$slug}_should_load`, `tribe_events_integrations_should_load_freemius`
+* Tweak - Added actions: `tec_telemetry_modal`
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/date`, `integrations/event-tickets/emails/template-parts/body/event/image`, `integrations/event-tickets/emails/template-parts/body/event/links`, `integrations/event-tickets/emails/template-parts/body/event/links/gcal`, `integrations/event-tickets/emails/template-parts/body/event/links/ical`, `integrations/event-tickets/emails/template-parts/body/event/venue`, `integrations/event-tickets/emails/template-parts/body/event/venue/address`, `integrations/event-tickets/emails/template-parts/body/event/venue/phone`, `integrations/event-tickets/emails/template-parts/body/event/venue/website`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
+* Language - 28 new strings added, 132 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.1.0.1] 2023-06-14 =
 
