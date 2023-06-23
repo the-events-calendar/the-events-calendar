@@ -5,9 +5,9 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
 <<<<<<< HEAD
-Stable tag: 6.1.2
+Stable tag: 6.1.3
 =======
-Stable tag: 6.1.2.2
+Stable tag: 6.1.3
 >>>>>>> master
 Tested up to: 6.2.2
 Requires PHP: 7.4
