@@ -229,6 +229,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.1.2.1] 2023-06-22 =
+
+
 = [6.1.2] 2023-06-22 =
 
 * Version - The Events Calendar 6.1.2 is only compatible with Event Tickets 5.6.1 and higher
