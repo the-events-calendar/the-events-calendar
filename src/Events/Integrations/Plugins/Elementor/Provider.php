@@ -3,7 +3,7 @@
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
 use TEC\Events\Integrations\Integration_Abstract;
-use TEC\Events\Integrations\Plugins\Plugin_Integration;
+use TEC\Common\Integrations\Traits\Plugin_Integration;
 use Tribe__Events__Main;
 
 /**

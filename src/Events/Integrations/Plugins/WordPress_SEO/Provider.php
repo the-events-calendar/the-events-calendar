@@ -3,7 +3,7 @@
 namespace TEC\Events\Integrations\Plugins\WordPress_SEO;
 
 use TEC\Events\Integrations\Integration_Abstract;
-use TEC\Events\Integrations\Plugins\Plugin_Integration;
+use TEC\Common\Integrations\Traits\Plugin_Integration;
 
 /**
  * Class Provider
