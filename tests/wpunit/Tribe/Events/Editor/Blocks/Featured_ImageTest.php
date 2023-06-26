@@ -33,7 +33,7 @@ class Featured_ImageTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function test_render_no_classes() {
+	public function test_render_no_custom_classes() {
 		$this->template->method( 'template' )->willReturn( '' );
 
 		$sut = $this->make_instance();
@@ -47,12 +47,12 @@ class Featured_ImageTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function test_render_with_classes() {
+	public function test_render_with_custom_classes() {
 		$this->template->method( 'template' )->willReturn( '' );
 
 		$sut = $this->make_instance();
 
-		$attributes = [ 'className' => 'test-class' ];
+		$attributes = [ 'className' => 'custom-class' ];
 		$result     = $sut->render( $attributes );
 
 		$this->assertContains( 'class="test-class"', $result );
