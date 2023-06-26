@@ -14,7 +14,7 @@ class Event_DatetimeTest extends \Codeception\TestCase\WPTestCase {
 		// set up the request time
 		$this->requestTimeSetUp();
 
-		// This is a mock. Adjust it according to your actual needs.
+		// Set up the template mock.
 		$this->template = $this->getMockBuilder( '\Tribe__Events__Editor__Template' )
 		                       ->setMethods( [ 'add_template_globals', 'template' ] )
 		                       ->getMock();
