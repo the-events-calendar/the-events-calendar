@@ -10,7 +10,6 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use DateTimeInterface;
-use DateTimeZone;
 use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Repository\Event_Period;
@@ -193,7 +192,7 @@ abstract class By_Day_View extends View {
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
 
 		// @todo [BTRIA-599]: Remove this when the Event_Period repository is solid and cleaned up.
-		$using_period_repository = tribe_events_view_v2_use_period_repository(); // @todo Can we remove this? Supporting logic forks below here...
+		$using_period_repository = tribe_events_view_v2_use_period_repository();
 		$use_site_timezone       = Timezones::is_mode( 'site' );
 
 		if ( $using_period_repository ) {
@@ -206,9 +205,9 @@ abstract class By_Day_View extends View {
 			$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
 		} else {
 			$first_grid_day = $days->start;
-			$start          = $first_grid_day->format( 'Y-m-d 00:00:00' );
+			$start          = tribe_beginning_of_day( $first_grid_day->format( Dates::DBDATETIMEFORMAT ) );
 			$last_grid_day  = $days->end;
-			$end            = $last_grid_day->format( 'Y-m-d 23:59:59' );
+			$end            = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
 
 			/*
 			 * Sort events in duration ascending order to make sure events that start on the same date and time
@@ -286,13 +285,14 @@ abstract class By_Day_View extends View {
 				$multiday_end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 				$start =  $day->format( 'Y-m-d 00:00:00' ) ;
 				$end   =  $day->format( 'Y-m-d 23:59:59' ) ;
-// @todo Not confident on below changes... site timezone vs event timezone vs timezones assumed on the month view (should be WP or site tz?) and multiday cut off?
+
 				// Events overlap a day if Event start date <= Day End AND Event end date > Day Start.
 				$results_in_day = array_filter(
 					$day_results,
 					static function ( $event ) use ( $multiday_start, $multiday_end, $start, $end, $use_site_timezone, $site_timezone, $utc ) {
 						// Event span dates (multiday)? If so, we use the multiday cut off values.
-						$spans_dates                = substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 );
+						//$spans_dates                = substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 );
+						$spans_dates                = true; // @todo ....
 						$day_start                  = $start;
 						$day_end                    = $end;
 						$event_localized_start_date = $event->start_date;

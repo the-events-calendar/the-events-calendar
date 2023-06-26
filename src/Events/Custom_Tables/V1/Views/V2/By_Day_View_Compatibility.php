@@ -28,7 +28,6 @@ class By_Day_View_Compatibility {
 	 * Returns the day results, prepared as the `By_Day_View` expects them.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Separating UTC date fields.
 	 *
 	 * @param array<int> $ids A list of the Event post IDs to prepare the day results
 	 *                        for.

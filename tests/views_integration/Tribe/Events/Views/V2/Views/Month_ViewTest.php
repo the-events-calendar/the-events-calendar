@@ -443,4 +443,60 @@ class Month_ViewTest extends ViewTestCase {
 
 		$this->assertMatchesSnapshot( $html_tag );
 	}
+
+	public function multiday_cutoff_grid_data_provider() {
+		return [
+			'event spans cutoff, same date' => [
+				[
+					'start_date' => '2019-01-23 00:00:00',
+					'timezone'   => 'America/Los_Angeles',
+					'duration'   => (24 * HOUR_IN_SECONDS) - 1,
+					'status'     => 'publish',
+					'title' => 'Faux Event',
+					'_EventAllDay' => 'yes',
+				],
+				['2019-01-23'], // Dates we expect this event to show up on
+				'02:00', // Multiday EOD Cut Off
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider multiday_cutoff_grid_data_provider
+	 * @test
+	 */
+	public function test_multiday_cutoff_respected_in_grid($create_args, $expected_dates, $multiday_cut_off) {
+
+
+		$grid_date = new \DateTimeImmutable( $this->mock_date_value  );
+$post = tribe_events()->set_args($create_args			)->create();
+
+		tribe_update_option( 'multiDayCutoff', $multiday_cut_off );
+
+
+		/** @var Month_View $month_view */
+		$month_view      = View::make( Month_View::class, $this->context );
+
+		// Validate the expected event shows on the expected days of the grid. Sometimes multiple days.
+		$match_was_hit = false;
+		foreach ( $month_view->get_grid_days( $grid_date->format( 'Y-m' ) ) as $date => $day_ids ) {
+			$expected_ids = [];
+            if(in_array($date,  $expected_dates)) {
+				$expected_ids = [$post->ID];
+	            $match_was_hit = true;
+            }
+
+			$this->assertEquals(
+				$expected_ids,
+				$day_ids,
+				sprintf(
+					'Day %s event IDs mismatch, expected %s, got %s',
+					$date,
+					json_encode( $expected_ids ),
+					json_encode( $day_ids )
+				)
+			);
+		}
+		$this->assertTrue($match_was_hit, 'Should have matched at least once. Did the test criteria break?');
+	}
 }
