@@ -168,4 +168,4 @@ jobs:
 
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter --debug
+        run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter
