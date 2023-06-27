@@ -6,7 +6,7 @@ use Tribe\Events\Admin\Settings;
 /**
  * Facilitates smoother integration with the Freemius.
  *
- * @depreacated 6.1.0
+ * @deprecated 6.1.0
  *
  * @since       4.9
  */
@@ -15,7 +15,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the instance for the Freemius.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       4.9
 	 *
 	 * @var Freemius
@@ -34,7 +34,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the public key for Freemius.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 *
 	 * @var string
@@ -44,7 +44,8 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the ID for the Freemius application.
 	 *
-	 * @depreacated 6.1.0
+
+	 * @deprecated 6.1.0
 	 * @since       4.9
 	 *
 	 * @var string
@@ -54,7 +55,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Stores the slug for the Freemius application.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       4.9
 	 *
 	 * @var string
@@ -66,7 +67,7 @@ class Tribe__Events__Integrations__Freemius {
 	 *
 	 * @since       5.0.2
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @var string
 	 */
 	private $name = 'The Events Calendar';
@@ -74,7 +75,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Store the value from the 'page' in the request.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       4.9.5
 	 *
 	 * @var string
@@ -84,7 +85,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Tribe__Tickets__Integrations__Freemius constructor.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 */
 	public function __construct() {
@@ -94,7 +95,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Performs setup for the Freemius integration singleton.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 */
 	public function setup() {
@@ -202,7 +203,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Prevents the Freemius integration from happening on Update Message redirect pages.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       6.0.0
 	 *
 	 * @param bool                          $bypass
@@ -231,7 +232,7 @@ class Tribe__Events__Integrations__Freemius {
 	 *
 	 * @link        https://moderntribe.atlassian.net/browse/TEC-3218
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 *
 	 * @return void  Retuning a Redirect header, so nothing gets returned otherwise.
@@ -263,7 +264,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the connect page URL.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 *
 	 * @param string $connect_url Current connect page URL.
@@ -288,7 +289,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Settings page URL.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 *
 	 * @return string The Settings page URL.
@@ -300,7 +301,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the plugin icon URL.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 *
 	 * @return string The plugin icon URL.
@@ -314,7 +315,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Settings page path.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.0.2
 	 *
 	 * @return string The Settings page path.
@@ -326,7 +327,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       5.1.6
 	 *
 	 * @return string The welcome page URL.
@@ -338,7 +339,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       6.0.0
 	 *
 	 * @return string The welcome page URL.
@@ -350,7 +351,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Get the Welcome page URL.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       6.0.0
 	 *
 	 * @return string The welcome page URL.
@@ -367,7 +368,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Action to skip activation since Freemius code does not skip correctly here.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       4.9
 	 *
 	 * @return bool Whether activation was skipped.
@@ -397,7 +398,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Filter the content for the Freemius Popup.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       4.9
 	 *
 	 * @param string $message         The message content.
@@ -439,7 +440,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Returns the instance of Freemius plugin.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       4.9
 	 *
 	 * @return Freemius
@@ -451,7 +452,7 @@ class Tribe__Events__Integrations__Freemius {
 	/**
 	 * Method to remove the sticky message when the plugin is active for Freemius.
 	 *
-	 * @depreacated 6.1.0
+	 * @deprecated 6.1.0
 	 * @since       4.9
 	 */
 	public function maybe_remove_activation_complete_notice() {

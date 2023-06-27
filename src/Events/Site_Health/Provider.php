@@ -15,7 +15,6 @@ use TEC\Common\Contracts\Service_Provider;
   * Class Provider
   *
   * @since   6.1.0
-
   * @package TEC\Events\Site_Health
   */
 class Provider extends Service_Provider {
