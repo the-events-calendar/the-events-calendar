@@ -292,7 +292,10 @@ abstract class By_Day_View extends View {
 					static function ( $event ) use ( $multiday_start, $multiday_end, $start, $end, $use_site_timezone, $site_timezone, $utc ) {
 						// Event span dates (multiday)? If so, we use the multiday cut off values.
 						//$spans_dates                = substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 );
-						$spans_dates                = true; // @todo ....
+						// @todo Still need to fix issue with some all day events having the EOC cut off start/end vs the "fixed" with 00:00:00-23:59:59
+						$spans_dates                = !tribe_is_truthy(get_post_meta( $event->ID, '_EventAllDay',true)); // @todo ....
+						// @todo handle All Day events differently as a quick fix for this MR versus a bigger fix?
+						// @todo Migrate all day event END/BEGIN times - mass updates?
 						$day_start                  = $start;
 						$day_end                    = $end;
 						$event_localized_start_date = $event->start_date;
