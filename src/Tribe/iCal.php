@@ -315,7 +315,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since TBD Adding access checks to the provided posts.
 	 *
-	 * @param int|null $post If you want the ical file for a single event
+	 * @param int|null|array $post If you want the ical file for a single event
 	 * @param boolean  $echo Whether the content should be echoed or returned
 	 *
 	 * @return string
@@ -489,9 +489,9 @@ class Tribe__Events__iCal {
 	 */
 	protected function get_file_name() {
 		$event_ids = wp_list_pluck( $this->events, 'ID' );
-		$site = sanitize_title( get_bloginfo( 'name' ) );
-		$hash = substr( md5( $this->type . implode( $event_ids ) ), 0, 11 );
-		$filename = sprintf( '%s-%s.ics', $site, $hash );
+		$site      = sanitize_title( get_bloginfo( 'name' ) );
+		$hash      = substr( md5( $this->type . implode( $event_ids ) ), 0, 11 );
+		$filename  = sprintf( '%s-%s.ics', $site, $hash );
 
 		/**
 		 * Modifies the filename provided in the Content-Disposition header for iCal feeds.
