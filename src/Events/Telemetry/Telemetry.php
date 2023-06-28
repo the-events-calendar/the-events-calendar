@@ -87,7 +87,8 @@ class Telemetry {
 	 */
 	public function filter_tribe_general_settings_debugging_section( $fields ): array {
 		$telemetry = tribe( Common_Telemetry::class );
-		$telemetry->init();
+		// Ensure we're set up before trying to access the status object.
+		$telemetry->boot();
 		$status = $telemetry::get_status_object();
 		$opted = $status->get( self::$plugin_slug );
 
