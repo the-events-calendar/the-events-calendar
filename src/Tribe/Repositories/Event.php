@@ -1244,9 +1244,8 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$event_start_date = $this->get_from_postarr_or_meta( $postarr, '_EventStartDate', $post_id );
 				$event_end_date   = $this->get_from_postarr_or_meta( $postarr, '_EventEndDate', $post_id );
 
-				$start = new DateTime( tribe_beginning_of_day( $event_start_date ), $timezone );
-				$end   = new DateTime( tribe_end_of_day( $event_end_date ), $timezone );
-
+				$start = Tribe__Date_Utils::build_date_object( $event_start_date, $timezone )->setTime( 0, 0, 0 );
+				$end   = Tribe__Date_Utils::build_date_object( $event_end_date, $timezone )->setTime( 23, 59, 59 );
 				$postarr['meta_input']['_EventStartDate']    = $start->format( $datetime_format );
 				$postarr['meta_input']['_EventStartDateUTC'] = $start->setTimezone( $utc )->format( $datetime_format );
 				$postarr['meta_input']['_EventEndDate']      = $end->format( $datetime_format );

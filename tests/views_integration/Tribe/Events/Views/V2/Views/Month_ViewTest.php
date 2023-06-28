@@ -444,6 +444,10 @@ class Month_ViewTest extends ViewTestCase {
 		$this->assertMatchesSnapshot( $html_tag );
 	}
 
+	/**
+	 * @todo When TEC-4840 is worked on, this should be adjusted to handle proper EOD cut off.
+	 * @return array[]
+	 */
 	public function multiday_cutoff_grid_data_provider() {
 		return [
 			'all day event'                     => [
@@ -456,7 +460,8 @@ class Month_ViewTest extends ViewTestCase {
 					'_EventAllDay' => 'yes',
 				],
 				[ '2019-01-02' ], // Dates we expect this event to show up on
-				'02:00', // Multiday EOD Cut Off
+				'01:00', // Start EOD
+				'02:00', // Changed EOD
 			],
 			'all day multi day event'           => [
 				[
@@ -468,9 +473,10 @@ class Month_ViewTest extends ViewTestCase {
 					'_EventAllDay' => 'yes',
 				],
 				[ '2019-01-02', '2019-01-03' ], // Dates we expect this event to show up on
-				'02:00', // Multiday EOD Cut Off
+				'01:00', // Start EOD
+				'02:00', // Changed EOD
 			],
-			'event spans cutoff, same date'     => [
+			'event spans cutoff, same day'     => [
 				[
 					'start_date' => '2019-01-02 01:00:00',
 					'timezone'   => 'America/Los_Angeles',
@@ -478,21 +484,23 @@ class Month_ViewTest extends ViewTestCase {
 					'status'     => 'publish',
 					'title'      => 'Faux Event',
 				],
-				[ '2019-01-02' ], // Dates we expect this event to show up on
-				'02:00', // Multiday EOD Cut Off
+				[ '2019-01-01', '2019-01-02' ], // Dates we expect this event to show up on
+				'01:00', // Start EOD
+				'02:00', // Changed EOD
 			],
-			'event spans cutoff, diff date'     => [
+			'event spans cutoff, diff days'     => [
 				[
-					'start_date' => '2019-01-01 11:30:00',
+					'start_date' => '2019-01-01 23:30:00',
 					'timezone'   => 'America/Los_Angeles',
 					'duration'   => 4 * HOUR_IN_SECONDS,
 					'status'     => 'publish',
 					'title'      => 'Faux Event',
 				],
-				[ '2019-01-01' ], // Dates we expect this event to show up on
-				'02:00', // Multiday EOD Cut Off
+				[ '2019-01-01','2019-01-02' ], // Dates we expect this event to show up on
+				'01:00', // Start EOD
+				'02:00', // Changed EOD
 			],
-			'event starts on cutoff, same date' => [
+			'event starts on cutoff, same day' => [
 				[
 					'start_date' => '2019-01-01 04:00:00',
 					'timezone'   => 'America/Los_Angeles',
@@ -501,9 +509,10 @@ class Month_ViewTest extends ViewTestCase {
 					'title'      => 'Faux Event',
 				],
 				[ '2019-01-01' ], // Dates we expect this event to show up on
-				'04:00', // Multiday EOD Cut Off
+				'02:00', // Start EOD
+				'04:00', // Changed EOD
 			],
-			'event ends on cutoff, same date'   => [
+			'event ends on cutoff, same day'   => [
 				[
 					'start_date' => '2019-01-01 02:00:00',
 					'timezone'   => 'America/Los_Angeles',
@@ -511,8 +520,9 @@ class Month_ViewTest extends ViewTestCase {
 					'status'     => 'publish',
 					'title'      => 'Faux Event',
 				],
-				[ '2019-01-01' ], // Dates we expect this event to show up on
-				'04:00', // Multiday EOD Cut Off
+				[ '2018-12-31' ], // Dates we expect this event to show up on
+				'02:00', // Start EOD
+				'04:00', // Changed EOD
 			]
 		];
 	}
@@ -521,11 +531,15 @@ class Month_ViewTest extends ViewTestCase {
 	 * @dataProvider multiday_cutoff_grid_data_provider
 	 * @test
 	 */
-	public function test_multiday_cutoff_respected_in_grid( $create_args, $expected_dates, $multiday_cut_off ) {
+	public function test_multiday_cutoff_respected_in_grid( $create_args, $expected_dates,$pre_create_multiday_cut_off, $post_create_multiday_cut_off ) {
+		// To validate any side effects that happens during create().
+		tribe_update_option( 'multiDayCutoff', $pre_create_multiday_cut_off );
+
 		$grid_date = new \DateTimeImmutable( $this->mock_date_value );
 		$post      = tribe_events()->set_args( $create_args )->create();
 
-		tribe_update_option( 'multiDayCutoff', $multiday_cut_off );
+		// To validate any side effects that happen on update.
+		tribe_update_option( 'multiDayCutoff', $post_create_multiday_cut_off );
 
 		/** @var Month_View $month_view */
 		$month_view = View::make( Month_View::class, $this->context );

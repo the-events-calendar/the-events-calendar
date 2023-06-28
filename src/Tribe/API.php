@@ -376,15 +376,15 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			if ( isset( $data['EventEndDate'] ) ) {
-				$data['EventEndDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
+				$data['EventEndDate'] = Dates::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
 			} elseif ( $existing_end_date = get_post_meta( $event_id, '_EventEndDate', true ) ) {
 				$data['EventEndDate'] = $existing_end_date;
 			}
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
-				$date_provided = true;
-				$data['EventStartDate'] = tribe_beginning_of_day( $data['EventStartDate'] );
-				$data['EventEndDate']   = tribe_end_of_day( $data['EventEndDate'] );
+				$date_provided          = true;
+				$data['EventStartDate'] = Dates::build_date_object( $data['EventStartDate'] )->format( 'Y-m-d 00:00:00' );
+				$data['EventEndDate']   = Dates::build_date_object( $data['EventEndDate'] )->format( 'Y-m-d 23:59:59' );
 			} elseif ( isset( $data['EventStartDate'], $data['EventEndDate'] ) ) {
 				$has_start_time      = isset( $data['EventStartTime'] );
 				$has_start_hour_min  = isset( $data['EventStartHour'], $data['EventStartMinute'] );
