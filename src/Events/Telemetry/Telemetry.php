@@ -90,7 +90,7 @@ class Telemetry {
 		// Ensure we're set up before trying to access the status object.
 		$telemetry->boot();
 		$status = $telemetry::get_status_object();
-		$opted = $status->get( self::$plugin_slug );
+		$opted  = $status->get( self::$plugin_slug );
 
 		switch( $opted ) {
 			case Status::STATUS_ACTIVE :
