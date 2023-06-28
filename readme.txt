@@ -4,11 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-<<<<<<< HEAD
 Stable tag: 6.1.3
-=======
-Stable tag: 6.1.3
->>>>>>> master
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -243,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Added some event parsing to ensure only valid events are handled in the iCal file generation. [TEC-4837]
 * Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
 * Fix - Log errors throw in the context of the Custom Tables v1 component. [ET-1486]
+* Security - Various improvements to event creation.
 
 = [6.1.2.2] 2023-06-23 =
 
