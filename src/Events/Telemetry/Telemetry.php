@@ -258,7 +258,9 @@ class Telemetry {
 		$value = tribe_is_truthy( tribe_get_request_var( 'opt-in-status' ) );
 
 		// Gotta catch them all..
-		tribe( Common_Telemetry::class )->register_tec_telemetry_plugins( $value );
+		$telemetry = tribe( Common_Telemetry::class );
+		$telemetry->boot();
+		$telemetry->register_tec_telemetry_plugins( $value );
 
 		if ( $value ) {
 			// If opting in, blow away the expiration datetime so we send updates on next shutdown.
