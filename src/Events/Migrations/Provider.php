@@ -26,30 +26,37 @@ class Provider extends Service_Provider {
 	 */
 	public function register() {
 		$this->add_migration_actions();
+		add_action( 'tec_events_plugin_updater_version_change', [ $this, 'schedule_pending_migrations' ], 10, 1 );
+	}
 
-		add_action( 'tec_events_plugin_updater_version_change', function ( $key ) {
-			// e.g. TEC only
-			if ( $key !== 'schema-version' ) {
-				return;
-			}
+	/**
+	 * Callback that will see if a particular migration is required.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $plugin_schema_key The schema option key.
+	 */
+	public function schedule_pending_migrations( $plugin_schema_key ) {
+		// e.g. TEC only
+		if ( $plugin_schema_key !== 'schema-version' ) {
+			return;
+		}
 
-			// If old version was after our target, we already did update so skip.
-			/**
-			 * Intended to evaluation when a particular migration should run.
-			 * Often this may be as simple as checking if a particular version has been
-			 * passed on this update, like the below.
-			 */
-			// @todo What version? Update with release version.
-			$target_version = '6.1.6';
+		// If old version was after our target, we already did update so skip.
+		/**
+		 * Intended to evaluation when a particular migration should run.
+		 * Often this may be as simple as checking if a particular version has been
+		 * passed on this update, like the below.
+		 */
+		// @todo What version? Update with release version.
+		$target_version = '6.1.3';
 
-			$updater = Tribe__Events__Main::instance()->updater();
-			if ( $updater->is_version_in_db_less_than( $target_version ) ) {
-				// Async this so we don't overload plugin update actions.
-				$timestamp = time() + 1;
-				// @todo Name the version
-				wp_schedule_single_event( $timestamp, 'tec_events_migration_6.1.4' );
-			}
-		}, 10, 1 );
+		$updater = Tribe__Events__Main::instance()->updater();
+		if ( $updater->is_version_in_db_less_than( $target_version ) ) {
+			// Async this so we don't overload plugin update actions.
+			$timestamp = time() + 1;
+			wp_schedule_single_event( $timestamp, 'tec_events_migrate_all_day_eod_times' );
+		}
 	}
 
 	/**
@@ -57,8 +64,7 @@ class Provider extends Service_Provider {
 	 * e.g. for async migrations, can define their specific action callbacks.
 	 */
 	public function add_migration_actions() {
-		// @todo Name version
-		add_action( 'tec_events_migration_6.1.4', [ $this, 'migrate_all_day_eod_times' ] );
+		add_action( 'tec_events_migrate_all_day_eod_times', [ $this, 'migrate_all_day_eod_times' ] );
 	}
 
 	/**
@@ -83,7 +89,7 @@ class Provider extends Service_Provider {
 					ON (pm1.post_id = pm3.post_id AND pm3.meta_key = '_EventStartDate')
 				INNER JOIN $wpdb->postmeta pm4
 					ON (pm1.post_id = pm4.post_id AND pm4.meta_key = '_EventDuration')
-				SET pm1.meta_value = DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND )
+				SET pm1.meta_value = DATE_FORMAT( DATE_ADD( pm3.meta_value, INTERVAL pm4.meta_value SECOND ), '%Y-%m-%d %H:%i:%s' )
 				WHERE pm1.meta_key = '_EventEndDate'";
 		$wpdb->query( $fix_start_dates );
 		$wpdb->query( $fix_end_dates );

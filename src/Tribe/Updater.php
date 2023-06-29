@@ -78,6 +78,17 @@ class Tribe__Events__Updater {
 	}
 
 	/**
+	 * Getter for the version option key being used.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The version option key.
+	 */
+	public function get_version_option_key() {
+		return $this->version_option;
+	}
+
+	/**
 	 * Returns an array of callbacks with version strings as keys.
 	 * Any key higher than the version recorded in the DB
 	 * and lower than $this->current_version will have its
