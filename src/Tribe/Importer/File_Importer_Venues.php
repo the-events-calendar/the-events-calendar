@@ -36,14 +36,14 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	}
 
 	/**
-	 * Build a venue array for creation/update of the current imported venue.
+	 * Build a venue array for the creation/update of the currently imported venue.
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
 	 *
 	 * @param int                   $venue_id The ID of the venue we're currently importing.
 	 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
-	 *                                        Useful if value and key above don't appear to match what's expected.
+	 *                                        Useful if the value and key above don't appear to match what's expected.
 	 *                                        In the format [ mapped_key => value ].
 	 *
 	 * @return array $venue The array of venue data for creation/update.
@@ -83,7 +83,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 
 			/**
 			 * Allows filtering of individual main values before setting.
-			 * Return boolean false to prevent importing that value.
+			 * Return a boolean false to prevent importing that value.
 
 			 * @since 5.1.6
 			 *
@@ -92,7 +92,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			 * @param string                $value  The mapped value we'll be importing.
 			 * @param array                 $venue  The entire array of venue data we're modifying.
 			 * @param array <string,string> $record The event record from the import file. Only contains mapped values.
-			 *                                      Useful if value and key above don't appear to match what's expected.
+			 *                                      Useful if the value and key above don't appear to match what's expected.
 			 *                                      In the format [ mapped_key => value ].
 			 * @param object                $this   The current instance of Tribe__Events__Importer__File_Importer_Venues.
 			 */
@@ -125,7 +125,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		 * @param int                   $venue_id The ID of the venue we're currently importing.
 		 * @param array                 $venue    The array of venue data we're modifying.
 		 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
-		 *                                        Useful if value and key above don't appear to match what's expected.
+		 *                                        Useful if the value and key above don't appear to match what's expected.
 		 *                                        In the format [ mapped_key => value ].
 		 */
 		$set_defaults = apply_filters(
@@ -172,7 +172,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		 *
 		 * @param array                 $venue    The array of venue data we're modifying.
 		 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
-		 *                                        Useful if value and key above don't appear to match what's expected.
+		 *                                        Useful if the value and key above don't appear to match what's expected.
 		 *                                        In the format [ mapped_key => value ].
 		 * @param int                   $venue_id The ID of the venue we're currently importing.
 		 * @param object                $this     The current instance of Tribe__Events__Importer__File_Importer_Venues.
@@ -199,7 +199,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 *
 	 * @param array                 $venue  The array of venue data we're modifying.
 	 * @param array <string,string> $record The event record from the import file. Only contains mapped values.
-	 *                                      Useful if value and key above don't appear to match what's expected.
+	 *                                      Useful if the value and key above don't appear to match what's expected.
 	 *                                      In the format [ mapped_key => value ].
 	 *
 	 * @return array The modified venue data.
@@ -239,7 +239,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			 * @param array                 $venue  The entire array of venue data we're modifying.
 			 *                                      In the format [ $key => $value ].
 			 * @param array <string,string> $record The event record from the import file. Only contains mapped values.
-			 *                                      Useful if value and key above don't appear to match what's expected.
+			 *                                      Useful if the value and key above don't appear to match what's expected.
 			 *                                      In the format [ mapped_key => value ].
 			 */
 			$default_value = apply_filters(
