@@ -37,7 +37,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	}
 
 	/**
-	 * Build a organizer array for creation/update of the current imported organizer.
+	 * Build an organizer array for the creation/update of the currently imported organizer.
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
@@ -68,7 +68,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 
 			/**
 			 * Allows filtering of main values before setting.
-			 * Return boolean false to prevent importing that value.
+			 * Return a boolean false to prevent importing that value.
 			 *
 			 * @since 5.1.6
 			 *
