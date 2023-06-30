@@ -141,6 +141,31 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		}
 
 		/**
+		 * Filter to allow the saving of additional fields for Venues.
+		 * - key: the metakey (postmeta table) or column name (posts table)
+		 * - value: the CSV column ID from the column mapping
+		 *
+		 * @var array $additional_venue_fields
+		 */
+		$additional_venue_fields = apply_filters( 'tribe_events_csv_import_venue_additional_fields', [] );
+
+		if ( ! empty ( $additional_venue_fields ) ) {
+			foreach ( $additional_venue_fields as $key => $csv_column ) {
+				$value = $this->get_value_by_key( $record, $key );
+				/**
+				 * This is needed when adding custom fields to the post type.
+				 * On save the metakey gets the "_Venue" prefix. It should be removed before the import.
+				 */
+				$key = preg_replace( '/' . preg_quote( "_Venue", '/' ) . '/', "", $key, 1 );
+				if ( strpos( $value, '|' ) > -1 ) {
+					$venue[ $key ] = explode( '|', $value );
+				} else {
+					$venue[ $key ] = $value;
+				}
+			}
+		}
+
+		/**
 		 * Allows filtering of values before import.
 		 *
 		 * @since 4.2
