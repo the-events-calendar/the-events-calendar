@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-Stable tag: 6.1.2.2
+Stable tag: 6.1.3
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,14 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.3] TBD =
 
+* Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
+* Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
+* Fix - Prevent re-registration of the `core/legacy-widget` block. [TEC-4764]
+* Fix - Ensure TEC styles can be easily overridden by themes and page builders. [ECP-1503]
+* Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
+* Fix - Added some event parsing to ensure only valid events are handled in the iCal file generation. [TEC-4837]
+* Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
+* Fix - Log errors throw in the context of the Custom Tables v1 component. [ET-1486]
 * Fix - Adding memoizing into the CT1 models to help reduce trips to fetch the same instance. [ECP-1505]
 
 = [6.1.2.2] 2023-06-23 =
@@ -266,7 +274,6 @@ Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-
 * Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
 
 = [6.1.0] 2023-06-14 =
->>>>>>> master
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add plugin info to Site Health admin page. [TEC-4701]

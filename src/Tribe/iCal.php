@@ -247,10 +247,13 @@ class Tribe__Events__iCal {
 		$event_ids = apply_filters( 'tribe_ical_template_event_ids', $event_ids );
 
 		if ( false !== $event_ids ) {
+			$event_ids = Arr::list_to_array( $event_ids );
+
+			// Exit or the feed will still generate.
 			if ( empty( $event_ids ) ) {
 				die();
 			}
-			$event_ids = Arr::list_to_array( $event_ids );
+
 			$events = array_map( 'tribe_get_event', $event_ids );
 			$this->generate_ical_feed( $events );
 		} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
@@ -262,7 +265,55 @@ class Tribe__Events__iCal {
 	}
 
 	/**
+	 * Checks access to an event's content, in the context for generating an iCal file.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric|WP_Post $post The post to evaluate our access to.
+	 *
+	 * @return bool
+	 */
+	public static function has_access_to_see_event_content( $post ): bool {
+		// Can we see it at all?
+		if ( ! self::has_access_to_see_event_exists( $post ) ) {
+			return false;
+		}
+
+		// If password required, we hide the content from the feed.
+		return ! post_password_required( $post );
+	}
+
+	/**
+	 * Checks access to an event, in the context for generating an iCal file.
+	 *
+	 * @since TBD
+	 *
+	 * @param numeric|WP_Post $post The post to evaluate our access to.
+	 *
+	 * @return bool
+	 */
+	public static function has_access_to_see_event_exists( $post ): bool {
+		$post = get_post( $post );
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+		// Most events.
+		if ( $post->post_status === 'publish' ) {
+			return true;
+		}
+		// If private, make sure they have access (and are logged in).
+		if ( $post->post_status === 'private' && current_user_can( 'read_post', $post->ID ) ) {
+			return true;
+		}
+
+		// Fallback to denied access unless explicitly approved above.
+		return false;
+	}
+
+	/**
 	 * Generates the iCal file
+	 *
+	 * @since TBD Adding access checks to the provided posts.
 	 *
 	 * @param int|null|array $post If you want the ical file for a single event
 	 * @param boolean  $echo Whether the content should be echoed or returned
@@ -270,13 +321,31 @@ class Tribe__Events__iCal {
 	 * @return string
 	 */
 	public function generate_ical_feed( $post = null, $echo = true ) {
-		if ( is_numeric( $post ) ) {
-			$post = get_post( (int) $post );
+		// If we are searching via a single numeric/post, turn into an array.
+		if ( ! empty( $post ) && ! is_array( $post ) ) {
+			$post = [ $post ];
 		}
 
+		// Gatekeep any externally handed events through permissions.
+		if ( is_array( $post ) ) {
+			$post = array_filter( $post, static function ( $event_id ) {
+				return self::has_access_to_see_event_exists( get_post( $event_id ) );
+			} );
+			if ( empty( $post ) ) {
+				if ( $echo ) {
+					die();
+				} else {
+					return '';
+				}
+			}
+			$post = array_map( 'get_post', $post );
+		}
+
+		// Now setup to do our search.
 		$this->post   = $post;
 		$this->events = $this->get_event_posts();
-		$content      = $this->get_content();
+
+		$content = $this->get_content();
 
 		if ( $echo ) {
 			$this->set_headers();
@@ -724,7 +793,19 @@ class Tribe__Events__iCal {
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
 		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
 
-		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+		if ( self::has_access_to_see_event_content( $event_post ) ) {
+			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+		} else {
+			$content = _x( 'Content is protected.', 'Description in iCal content for events with hidden/protected content.', 'the-events-calendar' );
+			/**
+			 * Filters the password protected description for ical event descriptions that are displayed in the output.
+			 *
+			 * @since TBD
+			 *
+			 * @param string The replaced message that will display in the ical event description.
+			 */
+			$content = apply_filters( 'tec_events_ical_protected_content_description', $content );
+		}
 
 		$item['DESCRIPTION'] = 'DESCRIPTION:' . $this->replace( wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) ) );
 
