@@ -202,17 +202,6 @@ class Telemetry {
 			return false;
 		}
 
-		$screen = get_current_screen();
-		// Don't show on the event list screen.
-		if ( $screen->id === 'edit-tribe_events' ) {
-			return false;
-		}
-
-		// Don't show on the event edit screen.
-		if ( TEC::POSTTYPE === $screen->id ) {
-			return false;
-		}
-
 		return true;
 	}
 
