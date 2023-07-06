@@ -9,6 +9,9 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Generator;
 use InvalidArgumentException;
+use TEC\Common\Configuration\Configuration;
+use Tribe__Cache;
+use Tribe__Cache_Listener;
 
 /**
  * Class Builder
@@ -267,6 +270,7 @@ class Builder {
 	/**
 	 * Insert a new row or update one if already exists.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
@@ -281,7 +285,7 @@ class Builder {
 
 		// If no input was provided use the model as input.
 		if ( $data === null ) {
-			$model = $this->set_data_to_model();
+			$model = $this->model;
 			$model->validate();
 		} else {
 			if ( empty( $data ) ) {
@@ -356,6 +360,9 @@ class Builder {
 					'trace'  => debug_backtrace( 2, 5 )
 				] );
 			}
+
+			// If we have a cache, let's clear it.
+			$model->flush_cache();
 
 			return $result;
 		}
@@ -433,7 +440,7 @@ class Builder {
 	/**
 	 * Perform updates against a model that already exists on the database.
 	 *
-	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array|null $data    If the data is null the data of the model would be used to set an update, otherwise
@@ -449,7 +456,7 @@ class Builder {
 		}
 
 		if ( $data === null ) {
-			$model = $this->set_data_to_model();
+			$model = $this->model;
 			$model->validate();
 		} else {
 			if ( empty( $data ) ) {
@@ -505,6 +512,9 @@ class Builder {
 
 		$this->queries[] = $SQL;
 
+		// If we have a cache, let's clear it.
+		$model->flush_cache();
+
 		return $this->execute_queries ? $wpdb->query( $SQL ) : false;
 	}
 
@@ -512,6 +522,7 @@ class Builder {
 	 * Run a delete operation against an existing model if the model has not been persisted on the DB the operation
 	 * will fail.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @return int The number of affected rows.
@@ -544,6 +555,7 @@ class Builder {
 	 * Find an instance of the model in the database using a specific value and column if no column is specified
 	 * the primary key is used.
 	 *
+	 * @since TBD Added memoization behind a feature flag (default on).
 	 * @since 6.0.0
 	 *
 	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
@@ -553,8 +565,50 @@ class Builder {
 	 */
 	public function find( $value, $column = null ) {
 		$column = null === $column ? $this->model->primary_key_name() : $column;
+		$conf   = tribe( Configuration::class );
 
-		return $this->where( $column, $value )->first();
+		// Memoize disabled?
+		if ( $conf->get( 'TEC_NO_MEMOIZE_CT1_MODELS' ) ) {
+			return $this->where( $column, $value )->first();
+		}
+
+		// Check if we memoized this instance.
+		$key    = self::generate_cache_key( $this->model, $column, $value );
+		$data = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+
+		if ( $data ) {
+			$model_class = get_class( $this->model );
+			$result = new $model_class( $data );
+			$result->cache_key = $key;
+
+			return $result;
+		}
+
+		// Not memoized, fetch it.
+		$result = $this->where( $column, $value )->first();
+		if ( $result ) {
+			// Store on model so we can use it to cache bust later.
+			$result->cache_key = $key;
+
+			tribe_cache()->set( $key, $result->to_array(), Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Generates a cache key for this particular model instance.
+	 *
+	 * @since TBD
+	 *
+	 * @param Model  $model The instance we are generating a cache key for.
+	 * @param string $field The field we are searching / caching by.
+	 * @param mixed  $value The value we are searching / caching with.
+	 *
+	 * @return string
+	 */
+	public static function generate_cache_key( Model $model, $field, $value ): string {
+		return $field . $value . get_class( $model );
 	}
 
 	/**
@@ -1280,7 +1334,9 @@ class Builder {
 	/**
 	 * If an instance already exists refresh the values by querying the same value against the DB.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
+	 *
 	 * @return Model
 	 */
 	public function refresh() {
@@ -1289,6 +1345,8 @@ class Builder {
 			return $this->model;
 		}
 
+		// If we have a cache, let's clear it.
+		$this->model->flush_cache();
 		$model = $this->find( $this->model->{$pk}, $pk );
 
 		if ( $model === null ) {
@@ -1419,7 +1477,9 @@ class Builder {
 	 * delete the exising model entries and re-insert them, by primary key, using the
 	 * updated data.
 	 *
+	 * @since TBD Integration with memoization.
 	 * @since 6.0.0
+	 *
 	 * @param array<Model>|array<array<string,mixed>> $models Either a list of Model
 	 *                                                        instances to update, or a
 	 *                                                        set of models in array format.
@@ -1442,6 +1502,13 @@ class Builder {
 			$batch         = array_splice( $keys, 0, $this->batch_size );
 			$keys_interval = implode( ',', array_map( 'absint', $batch ) );
 			$deleted       += $wpdb->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
+
+			// If we have a cache, let's clear it.
+			foreach ( $models as $model ) {
+				if ( $model instanceof Model ) {
+					$model->flush_cache();
+				}
+			}
 		} while ( count( $keys ) );
 
 		if ( $deleted !== $expected_count ) {
@@ -1452,7 +1519,7 @@ class Builder {
 				'table'       => $table,
 				'primary_key' => $primary_key,
 				'expected'    => $expected_count,
-				'deleted'     => $inserted,
+				'deleted'     => $deleted,
 			] );
 		}
 
