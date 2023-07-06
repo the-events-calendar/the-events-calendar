@@ -195,10 +195,25 @@ class Telemetry {
 	 * @return boolean
 	 */
 	public static function is_tec_admin_page(): bool {
+		$currentScreen = get_current_screen();
 		$helper = \Tribe__Admin__Helpers::instance();
 
 		// Are we on a tec post-type admin screen?
-		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
+		if (
+			! $helper->is_post_type_screen( TEC::POSTTYPE )
+			&& ! $helper->is_post_type_screen( TEC::VENUE_POST_TYPE )
+			&& ! $helper->is_post_type_screen( TEC::ORGANIZER_POST_TYPE )
+		) {
+			return false;
+		}
+
+		// Are we on a post edit screen?
+		if ( $currentScreen instanceof \WP_Screen && tribe_get_request_var( 'action' ) === 'edit' ) {
+			return false;
+		}
+
+		// Are we on a new post screen?
+		if ( $currentScreen instanceof \WP_Screen && $currentScreen->action === 'add' ) {
 			return false;
 		}
 
