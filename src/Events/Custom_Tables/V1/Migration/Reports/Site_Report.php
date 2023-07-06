@@ -190,9 +190,9 @@ class Site_Report implements JsonSerializable {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @return array<string,mixed>
+	 * @return mixed
 	 */
-	public function jsonSerialize(): mixed {
+	public function jsonSerialize():mixed {
 		return $this->data;
 	}
 }
