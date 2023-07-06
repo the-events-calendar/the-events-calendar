@@ -13,6 +13,35 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	use CT1_Fixtures;
 
 	/**
+	 * Validate static upserts() will invalidate cache.
+	 *
+	 * @test
+	 */
+	public function should_expire_cache_on_upsert() {
+		$start_a = "2020-01-22 10:00:00";
+		$start_b = "2020-01-22 11:00:00";
+		$start_c = "2020-01-22 10:30:00";
+		$post    = tribe_events()->set_args( [
+			'title'      => 'test',
+			'status'     => 'publish',
+			'start_date' => $start_a,
+			'end_date'   => "2020-01-22 12:00:00",
+			'timezone'   => 'Europe/Paris',
+		] )->create();
+		$event   = Event::find( $post->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		$this->assertEquals( $start_a, $event->start_date );
+		Event::upsert( [ 'post_id' ], [ 'start_date' => $start_b, 'post_id' => $post->ID ] );
+		$event = Event::find( $post->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		$this->assertEquals( $start_b, $event->start_date );
+		Event::upsert( [ 'post_id' ], [ 'start_date' => $start_c, 'post_id' => $post->ID ] );
+		$event = Event::find( $post->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		$this->assertEquals( $start_c, $event->start_date );
+	}
+
+	/**
 	 * Ensures cache key generation.
 	 *
 	 * @test
