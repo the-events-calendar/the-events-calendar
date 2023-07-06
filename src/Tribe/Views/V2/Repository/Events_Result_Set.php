@@ -185,7 +185,8 @@ class Events_Result_Set implements Collection_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function jsonSerialize():mixed {
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize() {
 		return wp_json_encode( $this->items );
 	}
 
