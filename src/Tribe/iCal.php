@@ -738,14 +738,13 @@ class Tribe__Events__iCal {
 	 * @return array  An array of iCal output fields.
 	 */
 	public function get_ical_output_for_an_event( $event_post, Tribe__Events__Main $tec ) {
-
 		// Add fields to iCal output.
-		$item = [];
-
-		$full_format = 'Ymd\THis';
-		$utc_format  = 'Ymd\THis\Z';
-		$all_day     = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
-		$time        = (object) [
+		$item              = [];
+		$access_to_content = self::has_access_to_see_event_content( $event_post );
+		$full_format       = 'Ymd\THis';
+		$utc_format        = 'Ymd\THis\Z';
+		$all_day           = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
+		$time              = (object) [
 			'start'    => tribe_get_start_date( $event_post->ID, false, 'U' ),
 			'end'      => tribe_get_end_date( $event_post->ID, false, 'U' ),
 			'modified' => Tribe__Date_Utils::wp_strtotime( $event_post->post_modified ),
@@ -793,7 +792,7 @@ class Tribe__Events__iCal {
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
 		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
 
-		if ( self::has_access_to_see_event_content( $event_post ) ) {
+		if ( $access_to_content ) {
 			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
 		} else {
 			$content = _x( 'Content is protected.', 'Description in iCal content for events with hidden/protected content.', 'the-events-calendar' );
@@ -827,7 +826,7 @@ class Tribe__Events__iCal {
 		}
 
 		// Add featured image if available.
-		if ( has_post_thumbnail( $event_post->ID ) ) {
+		if ( has_post_thumbnail( $event_post->ID ) && $access_to_content ) {
 			$thumbnail_id        = get_post_thumbnail_id( $event_post->ID );
 			$thumbnail_url       = wp_get_attachment_url( $thumbnail_id );
 			$thumbnail_mime_type = get_post_mime_type( $thumbnail_id );
