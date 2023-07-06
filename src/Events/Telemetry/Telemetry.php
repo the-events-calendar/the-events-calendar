@@ -215,6 +215,11 @@ class Telemetry {
 			return;
 		}
 
+		// Don't double-dip on the action.
+		if ( did_action( 'tec_telemetry_modal' ) ) {
+			return;
+		}
+
 		// 'the-events-calendar'
 		$telemetry_slug = \TEC\Common\Telemetry\Telemetry::get_plugin_slug();
 
@@ -223,6 +228,7 @@ class Telemetry {
 		if ( ! $show ) {
 			return;
 		}
+
 		/**
 		 * Fires to trigger the modal content on admin pages.
 		 *
