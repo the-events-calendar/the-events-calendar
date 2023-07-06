@@ -362,7 +362,16 @@ class Builder {
 			}
 
 			// If we have a cache, let's clear it.
-			$model->flush_cache();
+			// It may be either a static call or on an instance, handle both.
+			if ( $data !== null ) {
+				// Attempt to generate a cache key by the upsert key.
+				$field = $unique_by[0] ?: null;
+				$value = $data[ $field ] ?: null;
+				$key   = self::generate_cache_key( $model, $field, $value );
+				tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			} else {
+				$model->flush_cache();
+			}
 
 			return $result;
 		}
