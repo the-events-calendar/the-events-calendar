@@ -199,11 +199,7 @@ class Telemetry {
 		$helper = \Tribe__Admin__Helpers::instance();
 
 		// Are we on a tec post-type admin screen?
-		if (
-			! $helper->is_post_type_screen( TEC::POSTTYPE )
-			//&& ! $helper->is_post_type_screen( TEC::VENUE_POST_TYPE )
-			//&& ! $helper->is_post_type_screen( TEC::ORGANIZER_POST_TYPE )
-		) {
+		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
 			return false;
 		}
 
