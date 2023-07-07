@@ -637,6 +637,8 @@ class Builder {
 	 * @return string
 	 */
 	public static function generate_cache_key( Model $model, $field, $value ): string {
+		$value = ! is_string( $value ) ? serialize( $value ) : $value;
+
 		return $field . $value . get_class( $model );
 	}
 
