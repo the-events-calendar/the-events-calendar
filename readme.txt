@@ -240,6 +240,8 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
 * Fix - Log errors throw in the context of the Custom Tables v1 component. [ET-1486]
 * Security - Various improvements to event creation.
+* Fix - Adding memoizing into the CT1 models to help reduce trips to fetch the same instance. [ECP-1505]
+* Enhancement - Refactored CSS for Tickets Emails to better conform to email client CSS standards. [TEC-4849]
 
 = [6.1.2.2] 2023-06-23 =
 
