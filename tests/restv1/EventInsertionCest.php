@@ -525,6 +525,7 @@ class EventInsertionCest extends BaseRestCest {
 	 * @test
 	 */
 	public function it_should_prevent_setting_the_image_setting_passing_a_valid_url_but_not_authorized( Tester $I ) {
+		// Note: contributor can access the admin (so we don't get a 403) but cannot upload files.
 		$I->generate_nonce_for_role( 'contributor' );
 
 		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
