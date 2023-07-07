@@ -195,6 +195,7 @@ class Telemetry {
 	 * @return boolean
 	 */
 	public static function is_tec_admin_page(): bool {
+		$current_screen = get_current_screen();
 		$helper = \Tribe__Admin__Helpers::instance();
 
 		// Are we on a tec post-type admin screen?
@@ -202,14 +203,13 @@ class Telemetry {
 			return false;
 		}
 
-		$screen = get_current_screen();
-		// Don't show on the event list screen.
-		if ( $screen->id === 'edit-tribe_events' ) {
+		// Are we on a post edit screen?
+		if ( $current_screen instanceof \WP_Screen && tribe_get_request_var( 'action' ) === 'edit' ) {
 			return false;
 		}
 
-		// Don't show on the event edit screen.
-		if ( TEC::POSTTYPE === $screen->id ) {
+		// Are we on a new post screen?
+		if ( $current_screen instanceof \WP_Screen && $current_screen->action === 'add' ) {
 			return false;
 		}
 
@@ -226,6 +226,11 @@ class Telemetry {
 			return;
 		}
 
+		// Don't double-dip on the action.
+		if ( did_action( 'tec_telemetry_modal' ) ) {
+			return;
+		}
+
 		// 'the-events-calendar'
 		$telemetry_slug = \TEC\Common\Telemetry\Telemetry::get_plugin_slug();
 
@@ -234,6 +239,7 @@ class Telemetry {
 		if ( ! $show ) {
 			return;
 		}
+
 		/**
 		 * Fires to trigger the modal content on admin pages.
 		 *
