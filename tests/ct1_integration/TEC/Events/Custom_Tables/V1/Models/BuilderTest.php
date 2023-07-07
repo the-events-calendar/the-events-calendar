@@ -12,6 +12,75 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use CT1_Fixtures;
 
+
+	/**
+	 * Validate chained where clauses that feed into a delete(), will invalidate cache.
+	 *
+	 * @test
+	 */
+	public function should_expire_cache_on_delete() {
+		$post_a = tribe_events()->set_args( [
+			'title'      => 'test',
+			'status'     => 'publish',
+			'start_date' => '2020-01-22 10:00:00',
+			'end_date'   => "2020-01-22 12:00:00",
+			'timezone'   => 'Europe/Paris',
+		] )->create();
+		$post_b = tribe_events()->set_args( [
+			'title'      => 'test',
+			'status'     => 'publish',
+			'start_date' => '2020-01-22 10:00:00',
+			'end_date'   => "2020-01-22 12:00:00",
+			'timezone'   => 'Europe/Paris',
+		] )->create();
+		// Prime internal cache
+		$event = Event::find( $post_a->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		// Validate the internal cache is cleared on delete
+		Event::where( 'post_id', '=', $post_a->ID )->delete();
+		$event = Event::find( $post_a->ID, 'post_id' );
+		$this->assertNull( $event );
+
+		// Prime internal cache
+		$event = Event::find( $post_b->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		// Validate the internal cache is cleared on delete with multiple params.
+		Event::where( 'post_id', '=', $post_b->ID )
+		     ->where( 'start_date', '=', '2020-01-22 10:00:00' )
+		     ->delete();
+		$event = Event::find( $post_b->ID, 'post_id' );
+		$this->assertNull( $event );
+	}
+
+	/**
+	 * Validate static upserts() will invalidate cache.
+	 *
+	 * @test
+	 */
+	public function should_expire_cache_on_upsert() {
+		$start_a = "2020-01-22 10:00:00";
+		$start_b = "2020-01-22 11:00:00";
+		$start_c = "2020-01-22 10:30:00";
+		$post    = tribe_events()->set_args( [
+			'title'      => 'test',
+			'status'     => 'publish',
+			'start_date' => $start_a,
+			'end_date'   => "2020-01-22 12:00:00",
+			'timezone'   => 'Europe/Paris',
+		] )->create();
+		$event   = Event::find( $post->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		$this->assertEquals( $start_a, $event->start_date );
+		Event::upsert( [ 'post_id' ], [ 'start_date' => $start_b, 'post_id' => $post->ID ] );
+		$event = Event::find( $post->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		$this->assertEquals( $start_b, $event->start_date );
+		Event::upsert( [ 'post_id' ], [ 'start_date' => $start_c, 'post_id' => $post->ID ] );
+		$event = Event::find( $post->ID, 'post_id' );
+		$this->assertTrue( $event instanceof Event );
+		$this->assertEquals( $start_c, $event->start_date );
+	}
+
 	/**
 	 * Ensures cache key generation.
 	 *
@@ -33,10 +102,10 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 			// Will generate a cache key during find().
 			$occurrence = Occurrence::find( $post->ID, 'post_id' );
 			// Should look like this.
-			$key = 'post_id' . $post->ID . get_class( $occurrence );
+			$key = 'post_id' . serialize( $post->ID ) . get_class( $occurrence );
 
 			// Make sure the cache key is in the expected format.
-			$this->assertEquals( $key, Builder::generate_cache_key( $occurrence, 'post_id', $post->ID ) );
+			$this->assertEquals( $key, Builder::generate_cache_key( $occurrence, 'post_id', (int) $post->ID ) );
 			// Make sure the key is what this instances is memoized by.
 			$this->assertEquals( $key, $occurrence->cache_key );
 		}
@@ -200,7 +269,7 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_upserting_an_empty_set() {
 		$upserted = Occurrence::set_batch_size( 2 )->upsert_set( [] );
-		$this->assertEquals(0,$upserted);
+		$this->assertEquals( 0, $upserted );
 	}
 
 	/**
@@ -208,15 +277,15 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_handle_multiple_order_bys() {
 		// Should see start_date ASC and end_date_utc DESC, in that order.
-		$sql  = Occurrence::order_by( 'start_date' )
-		                  ->order_by( 'end_date_utc', 'DESC' )
-		                  ->get_sql();
+		$sql = Occurrence::order_by( 'start_date' )
+		                 ->order_by( 'end_date_utc', 'DESC' )
+		                 ->get_sql();
 
 		$this->assertMatchesSnapshot( $sql );
 
 		// Should only see end_date_utc DESC.
-		$sql  = Occurrence::order_by( 'end_date_utc', 'DESC' )
-		                  ->get_sql();
+		$sql = Occurrence::order_by( 'end_date_utc', 'DESC' )
+		                 ->get_sql();
 		$this->assertMatchesSnapshot( $sql );
 	}
 }

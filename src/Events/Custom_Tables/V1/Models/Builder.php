@@ -94,9 +94,18 @@ class Builder {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var string[] wheres
+	 * @var string[] The WHERE clauses.
 	 */
 	private $wheres = [];
+
+	/**
+	 * The list of args in an associative array of the query params for each where clause.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<<string,mixed>>
+	 */
+	private $where_args = [];
 
 	/**
 	 * Variable holding the value used to limit the results from the Query.
@@ -362,7 +371,17 @@ class Builder {
 			}
 
 			// If we have a cache, let's clear it.
-			$model->flush_cache();
+			// It may be either a static call or on an instance, handle both.
+			if ( $data !== null ) {
+				// Attempt to generate a cache key by the upsert key.
+				foreach ( $unique_by as $field ) {
+					$value = $data[ $field ] ?? null;
+					$key   = self::generate_cache_key( $model, $field, $value );
+					tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+				}
+			} else {
+				$model->flush_cache();
+			}
 
 			return $result;
 		}
@@ -546,6 +565,16 @@ class Builder {
 			return 0;
 		}
 
+		foreach ( $this->where_args as $args ) {
+			$field = $args['field'] ?? null;
+			$value = $args['value'] ?? null;
+			// Not a valid item.
+			if ( ! $field || ! $value ) {
+				continue;
+			}
+			$key = self::generate_cache_key( $this->model, $field, $value );
+			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
 		$this->model->reset();
 
 		return absint( $result );
@@ -608,6 +637,8 @@ class Builder {
 	 * @return string
 	 */
 	public static function generate_cache_key( Model $model, $field, $value ): string {
+		$value = ! is_string( $value ) ? serialize( $value ) : $value;
+
 		return $field . $value . get_class( $model );
 	}
 
@@ -635,6 +666,13 @@ class Builder {
 		global $wpdb;
 
 		$placeholders   = implode( ',', $result['placeholders'] );
+		$where_args = [
+			'field'          => $column,
+			'operator'       => 'IN',
+			'prepare_format' => $result['placeholders'],
+			'value'          => $result['values']
+		];
+		$this->where_args[] = $where_args;
 		$this->wheres[] = $wpdb->prepare( "(`{$column}` IN ({$placeholders}))", $result['values'] );
 
 		return $this;
@@ -664,6 +702,13 @@ class Builder {
 		global $wpdb;
 
 		$placeholders   = implode( ',', $result['placeholders'] );
+		$where_args = [
+			'field'          => $column,
+			'operator'       => 'NOT IN',
+			'prepare_format' => $result['placeholders'],
+			'value'          => $result['values']
+		];
+		$this->where_args[] = $where_args;
 		$this->wheres[] = $wpdb->prepare( "(`{$column}` NOT IN ({$placeholders}))", $result['values'] );
 
 		return $this;
@@ -1058,8 +1103,8 @@ class Builder {
 		// Add a where clause with the primary key of the model if no where was specified.
 		$pk = $this->model->primary_key_name();
 		if ( isset( $this->model->{$pk} ) ) {
-			$this->wheres = [];
-
+			$this->wheres     = [];
+			$this->where_args = [];
 			$this->where( $pk, $this->model->{$pk} );
 
 			if ( empty( $this->wheres ) ) {
@@ -1087,6 +1132,7 @@ class Builder {
 	 */
 	public function where( $column, $operator = null, $value = null ) {
 		$this->invalid = false;
+		$where_args = null;
 
 		// If only 2 arguments are provided use the second argument as the value and assume the operator is "="
 		if ( func_num_args() === 2 ) {
@@ -1120,13 +1166,27 @@ class Builder {
 			global $wpdb;
 			$format = $format[ $column ];
 
-			$this->wheres[] = $wpdb->prepare( "(`{$column}` {$operator} {$format})", $data[ $column ] );
+			$where_args = [
+				'field'          => $column,
+				'operator'       => $operator,
+				'prepare_format' => $format,
+				'value'          => $data[ $column ]
+			];
+
+			$this->where_args[] = $where_args;
+			$this->wheres[]     = $wpdb->prepare( "(`{$column}` {$operator} {$format})", $data[ $column ] );
 
 			return $this;
 		}
 
 		if ( $value === null ) {
-			$this->wheres[] = "(`{$column}` {$operator} NULL)";
+			$where_args         = [
+				'field'    => $column,
+				'operator' => $operator,
+				'value'    => null
+			];
+			$this->where_args[] = $where_args;
+			$this->wheres[]     = "(`{$column}` {$operator} NULL)";
 		}
 
 		return $this;
@@ -1412,7 +1472,12 @@ class Builder {
 	 */
 	public function where_raw( $query, ...$args ) {
 		global $wpdb;
-		$this->wheres[] = '(' . $wpdb->prepare( $query, ...$args ) . ')';
+		$where_args         = [
+			'operator' => 'raw',
+			'value'    => $query
+		];
+		$this->where_args[] = $where_args;
+		$this->wheres[]     = '(' . $wpdb->prepare( $query, ...$args ) . ')';
 
 		return $this;
 	}
