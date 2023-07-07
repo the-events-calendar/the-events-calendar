@@ -173,7 +173,7 @@ abstract class Model implements Serializable {
 	/**
 	 * If this model is memoized, this is the key to retrieve it.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 *
 	 * @var null|string
 	 */
@@ -205,7 +205,7 @@ abstract class Model implements Serializable {
 	/**
 	 * Flush this instances cache if it was cached.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 */
 	public function flush_cache() {
 		if ( $this->cache_key ) {

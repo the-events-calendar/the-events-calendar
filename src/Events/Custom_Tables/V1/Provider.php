@@ -236,7 +236,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Logs the error.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 *
 	 * @param \Throwable $error The error to log.
 	 */

@@ -101,7 +101,7 @@ class Builder {
 	/**
 	 * The list of args in an associative array of the query params for each where clause.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 *
 	 * @var array<<string,mixed>>
 	 */
@@ -279,7 +279,7 @@ class Builder {
 	/**
 	 * Insert a new row or update one if already exists.
 	 *
-	 * @since TBD Integration with memoization.
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
@@ -459,7 +459,7 @@ class Builder {
 	/**
 	 * Perform updates against a model that already exists on the database.
 	 *
-	 * @since TBD Integration with memoization.
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array|null $data    If the data is null the data of the model would be used to set an update, otherwise
@@ -541,7 +541,7 @@ class Builder {
 	 * Run a delete operation against an existing model if the model has not been persisted on the DB the operation
 	 * will fail.
 	 *
-	 * @since TBD Integration with memoization.
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @return int The number of affected rows.
@@ -584,7 +584,7 @@ class Builder {
 	 * Find an instance of the model in the database using a specific value and column if no column is specified
 	 * the primary key is used.
 	 *
-	 * @since TBD Added memoization behind a feature flag (default on).
+	 * @since 6.1.3 Added memoization behind a feature flag (default on).
 	 * @since 6.0.0
 	 *
 	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
@@ -628,7 +628,7 @@ class Builder {
 	/**
 	 * Generates a cache key for this particular model instance.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 *
 	 * @param Model  $model The instance we are generating a cache key for.
 	 * @param string $field The field we are searching / caching by.
@@ -1394,7 +1394,7 @@ class Builder {
 	/**
 	 * If an instance already exists refresh the values by querying the same value against the DB.
 	 *
-	 * @since TBD Integration with memoization.
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @return Model
@@ -1542,7 +1542,7 @@ class Builder {
 	 * delete the exising model entries and re-insert them, by primary key, using the
 	 * updated data.
 	 *
-	 * @since TBD Integration with memoization.
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array<Model>|array<array<string,mixed>> $models Either a list of Model

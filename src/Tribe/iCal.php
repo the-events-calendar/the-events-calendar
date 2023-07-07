@@ -267,7 +267,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Checks access to an event's content, in the context for generating an iCal file.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 *
 	 * @param numeric|WP_Post $post The post to evaluate our access to.
 	 *
@@ -286,7 +286,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Checks access to an event, in the context for generating an iCal file.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 *
 	 * @param numeric|WP_Post $post The post to evaluate our access to.
 	 *
@@ -313,7 +313,7 @@ class Tribe__Events__iCal {
 	/**
 	 * Generates the iCal file
 	 *
-	 * @since TBD Adding access checks to the provided posts.
+	 * @since 6.1.3 Adding access checks to the provided posts.
 	 *
 	 * @param int|null|array $post If you want the ical file for a single event
 	 * @param boolean  $echo Whether the content should be echoed or returned
@@ -799,7 +799,7 @@ class Tribe__Events__iCal {
 			/**
 			 * Filters the password protected description for ical event descriptions that are displayed in the output.
 			 *
-			 * @since TBD
+			 * @since 6.1.3
 			 *
 			 * @param string The replaced message that will display in the ical event description.
 			 */

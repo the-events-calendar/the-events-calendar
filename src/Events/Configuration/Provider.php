@@ -12,7 +12,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Registers Configuration provider.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 */
 	public function register(): void {
 		tribe( Configuration_Loader::class )->add( new Constants_Provider() );
@@ -21,7 +21,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Removes provider.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 */
 	public function unregister(): void {
 		tribe()->offsetUnset( Configuration_Loader::class );

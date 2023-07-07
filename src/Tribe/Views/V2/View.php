@@ -255,7 +255,7 @@ class View implements View_Interface {
 	/**
 	 * Configuration instance.
 	 *
-	 * @since TBD
+	 * @since 6.1.3
 	 *
 	 * @var Configuration
 	 */
