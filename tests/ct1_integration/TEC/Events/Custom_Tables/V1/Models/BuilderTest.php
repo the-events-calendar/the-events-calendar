@@ -102,10 +102,10 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 			// Will generate a cache key during find().
 			$occurrence = Occurrence::find( $post->ID, 'post_id' );
 			// Should look like this.
-			$key = 'post_id' . $post->ID . get_class( $occurrence );
+			$key = 'post_id' . serialize( $post->ID ) . get_class( $occurrence );
 
 			// Make sure the cache key is in the expected format.
-			$this->assertEquals( $key, Builder::generate_cache_key( $occurrence, 'post_id', $post->ID ) );
+			$this->assertEquals( $key, Builder::generate_cache_key( $occurrence, 'post_id', (int) $post->ID ) );
 			// Make sure the key is what this instances is memoized by.
 			$this->assertEquals( $key, $occurrence->cache_key );
 		}
