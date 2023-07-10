@@ -29,6 +29,9 @@
 			"common/src/resources/js",
 			"common/src/modules"
 		],
+		"sync_files": [
+			"common/.distfiles"
+		],
 		"versions": [
 			{
 				"file": "src/Tribe/Main.php",
