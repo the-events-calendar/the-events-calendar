@@ -10,9 +10,7 @@
 namespace TEC\Events\Site_Health;
 
 use TEC\Common\Site_Health\Info_Section_Abstract;
-use TEC\Common\Site_Health\Fields\Generic_Info_Field;
 use TEC\Common\Site_Health\Factory;
-use Tribe__Utils__Array as Arr;
 
 /**
  * Class Site_Health
@@ -138,11 +136,30 @@ class Info_Section extends Info_Section_Abstract {
 		);
 
 		$view_manager     = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$views            = array_flip( array_keys( $view_manager->get_registered_views() ) );
+		$active_views     = array_keys( $view_manager->get_publicly_visible_views() );
+		foreach( $views as $view => $value ) {
+			if (
+				'widget-events-list' === $view
+				|| 'latest-past' === $view
+				|| 'reflector' === $view
+			) {
+				unset( $views[ $view ] );
+				continue;
+			}
+
+			if ( in_array( $view, $active_views ) ) {
+				$views[ $view ] = true;
+			} else {
+				$views[ $view ] = false;
+			}
+		}
+
 		$this->add_field(
 			Factory::generate_generic_field(
 				'enabled_views',
 				esc_html__( 'Views', 'the-events-calendar' ),
-				Arr::to_list( array_flip( $view_manager->get_publicly_visible_views() ), ', ' ),
+				$views,
 				60
 			)
 		);
@@ -189,7 +206,7 @@ class Info_Section extends Info_Section_Abstract {
 			Factory::generate_generic_field(
 				'previous_versions',
 				esc_html__( 'Previous TEC versions', 'the-events-calendar' ),
-				Arr::to_list( array_filter( (array) tribe_get_option( 'previous_ecp_versions', [] ) ), ', ' ),
+				array_filter( (array) tribe_get_option( 'previous_ecp_versions', [] ) ),
 				100
 			)
 		);
