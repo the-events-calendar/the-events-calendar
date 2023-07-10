@@ -85,7 +85,8 @@ class Tribe__Events__Query {
 		$on_tag_archive_page = isset( $wp_query ) && is_tag();
 		// Add Events to tag archives when not looking at the admin screen for posts.
 		if (
-			! $any_post_type
+			$query->is_main_query()
+			&& ! $any_post_type
 			&& $on_tag_archive_page
 			&& ! $is_event_query
 			&& ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
