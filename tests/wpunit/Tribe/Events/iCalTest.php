@@ -442,6 +442,18 @@ multiple lines",
 		$event                = $this->factory()->event->create( $args );
 		$sut                  = $this->make_instance();
 
+		// Define the file path and URL of the image you want to create as an attachment
+		$file_path       = '/faux/castle.jpg';
+		$attachment_data = array(
+			'post_mime_type' => 'image/jpeg',
+			'post_title'     => basename( $file_path ),
+			'post_content'   => '',
+			'post_status'    => 'inherit',
+		);
+		// Insert the attachment
+		$attachment_id = wp_insert_attachment( $attachment_data, $file_path );
+		set_post_thumbnail( $event, $attachment_id );
+
 		// Now see that our event has been validated properly.
 		$ical = $sut->generate_ical_feed( $event, false );
 
@@ -452,8 +464,10 @@ multiple lines",
 		}
 		if ( $should_have_content ) {
 			$this->assertContains( "DESCRIPTION:$content", $ical );
+			$this->assertContains( "ATTACH;", $ical );
 		} else {
 			$this->assertNotContains( "DESCRIPTION:$content", $ical );
+			$this->assertNotContains( "ATTACH;", $ical );
 		}
 		if ( $should_be_empty ) {
 			$this->assertEquals( '', $ical );

@@ -124,12 +124,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			// Use the `post_password` field as we show/hide some information depending on that.
 			$cache_post->post_password,
 			// We must include options on cache key, because options influence the hydrated data on the Event object.
-			wp_json_encode( Tribe__Settings_Manager::get_options() ),
-			wp_json_encode( [
-				$cache['option_start_of_week'],
-				$cache['option_timezone_string'],
-				$cache['option_gmt_offset']
-			] ),
+			Tribe__Settings_Manager::get_options(),
+			$cache['option_start_of_week'],
+			$cache['option_timezone_string'],
+			$cache['option_gmt_offset'],
 			$output,
 			$filter,
 		];

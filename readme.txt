@@ -4,11 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.8.6
-<<<<<<< HEAD
 Stable tag: 6.1.3
-=======
-Stable tag: 6.1.3
->>>>>>> master
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -233,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.1.3] TBD =
+= [6.1.3] 2023-07-13 =
 
 * Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
 * Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
@@ -242,6 +238,13 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
 * Fix - Added some event parsing to ensure only valid events are handled in the iCal file generation. [TEC-4837]
 * Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
+* Fix - Log errors throw in the context of the Custom Tables v1 component. [ET-1486]
+* Fix - Adding memoizing into the CT1 models to help reduce trips to fetch the same instance. [ECP-1505]
+* Security - Various improvements to event creation.
+* Tweak - Added filters: `tec_events_ical_protected_content_description`
+* Tweak - Added actions: `tribe_log`
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
+* Enhancement - Refactored CSS for Tickets Emails to better conform to email client CSS standards. [TEC-4849]
 
 = [6.1.2.2] 2023-06-23 =
 
