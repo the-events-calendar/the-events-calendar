@@ -18,7 +18,6 @@ use Tribe__Utils__Array as Arr;
  * Class Site_Health
  *
  * @since   6.1.0
-
  * @package TEC\Events\Site_Health
  */
 class Info_Section extends Info_Section_Abstract {

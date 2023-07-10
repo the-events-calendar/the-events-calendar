@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.1.0';
+		const VERSION             = '6.1.3';
 
 		/**
 		 * Min Pro Addon
@@ -78,7 +78,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.5.2-dev';
+		protected $min_et_version = '5.6.1-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -354,6 +354,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_invalid_wp_or_php' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 0 );
 
+			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
+
 			// Prevents Image Widget Plus from been problematic
 			$this->compatibility_unload_iwplus_v102();
 		}
@@ -490,11 +492,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
-			add_filter( 'tec_common_parent_plugin_file', function( $paths ) {
-				$paths[] = TRIBE_EVENTS_FILE;
-
-				return $paths;
-			});
+			add_filter( 'tec_common_parent_plugin_file', [ $this, 'include_parent_plugin_path_to_common' ] );
 
 			Tribe__Main::instance();
 
@@ -506,11 +504,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 6.1.0
 		 *
+		 *
 		 * @param array<string> $paths The paths to TCMN parent plugins.
 		 *
 		 * @return array<string>
 		 */
-		public static function include_parent_plugin_path_to_common( $paths ): array {
+		public function include_parent_plugin_path_to_common( $paths ): array {
 			$paths[] = TRIBE_EVENTS_FILE;
 
 			return $paths;

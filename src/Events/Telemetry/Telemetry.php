@@ -20,7 +20,6 @@ use Tribe__Events__Main as TEC;
  * Class Telemetry
  *
  * @since   6.1.0
-
  * @package TEC\Events\Telemetry
  */
 class Telemetry {
@@ -28,7 +27,7 @@ class Telemetry {
 	/**
 	 * The Telemetry plugin slug for The Events Calendar.
 	 *
-	 * @since 6.1.0
+	 * @since 6.1.1
 	 *
 	 * @var string
 	 */
@@ -37,7 +36,7 @@ class Telemetry {
 	/**
 	 * The "plugin path" for The Events Calendar main file.
 	 *
-	 * @since 6.1.0
+	 * @since 6.1.1
 	 *
 	 * @var string
 	 */
@@ -46,7 +45,7 @@ class Telemetry {
 	/**
 	 * Filters the modal optin args to be specific to TEC
 	 *
-	 * @since 6.1.0
+	 * @since 6.1.1
 	 *
 	 * @param array<string|mixed> $original_optin_args The original args, provided by Common.
 	 *
@@ -80,7 +79,7 @@ class Telemetry {
 	/**
 	 * Adds the opt in/out control to the general tab debug section.
 	 *
-	 * @since 6.1.0
+	 * @since 6.1.1
 	 *
 	 * @param array<string|mixed> $fields The fields for the general tab Debugging section.
 	 *
@@ -130,7 +129,7 @@ class Telemetry {
 	/**
 	 * Reconcile our option and the Telemetry option to a single value.
 	 *
-	 * @since 6.1.0
+	 * @since 6.1.1
 	 */
 	public function get_reconciled_telemetry_opt_in(): bool {
 		$status         = Config::get_container()->get( Status::class );
@@ -238,6 +237,7 @@ class Telemetry {
 		/**
 		 * Fires to trigger the modal content on admin pages.
 		 *
+		 *
 		 * @since 6.1.0
 		 */
 		do_action( 'tec_telemetry_modal', $telemetry_slug );
@@ -245,6 +245,7 @@ class Telemetry {
 
 	/**
 	 * Update our option and the stellar option when the user opts in/out via the TEC admin.
+	 *
 	 *
 	 * @since 6.1.0
 	 *
