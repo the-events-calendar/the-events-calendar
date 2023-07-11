@@ -15,6 +15,7 @@ bin/ export-ignore
 dev/ export-ignore
 files/ export-ignore
 node_modules/* export-ignore
+node_modules/mt-a11y-dialog/* export-ignore
 src/resources/postcss/ export-ignore
 tests/ export-ignore
 vendor/bootstrap-datepicker/css/* export-ignore

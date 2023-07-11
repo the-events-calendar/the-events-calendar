@@ -1,4 +1,6 @@
 src/modules/icons
+node_modules/mt-a11y-dialog
+node_modules/mt-a11y-dialog/*.min.js
 vendor/autoload.php
 vendor/composer/*
 vendor/tribe-common-libraries
