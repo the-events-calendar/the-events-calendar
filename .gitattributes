@@ -23,7 +23,7 @@ vendor/jquery-resize/examples/ export-ignore
 vendor/jquery-resize/shared/ export-ignore
 vendor/jquery-resize/unit/ export-ignore
 vendor/php-date-formatter/examples/ export-ignore
-src/modules/ export-ignore
+src/modules/* export-ignore
 
 *.md export-ignore
 *.swp export-ignore
