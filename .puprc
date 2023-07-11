@@ -30,7 +30,8 @@
 			"common/src/modules"
 		],
 		"sync_files": [
-			"common/.distfiles"
+			"common/.distinclude",
+			"common/.gitattributes"
 		],
 		"versions": [
 			{
