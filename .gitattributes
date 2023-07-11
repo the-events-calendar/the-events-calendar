@@ -5,15 +5,25 @@ tests/_support/_generated/* linguist-generated=true
 */__snapshots__/* linguist-generated=true
 */__mocks__/* linguist-generated=true
 
-/**/*.swp export-ignore
-/__mocks__/* export-ignore
-/_plugins/* export-ignore
-/_wordpress/* export-ignore
-/.github export-ignore
-/bin export-ignore
-/tests export-ignore
-/vendor/**/*.md export-ignore
-/vendor/**/*.txt export-ignore
+__mocks__/ export-ignore
+__snapshots__/ export-ignore
+__tests__/ export-ignore
+_plugins/ export-ignore
+_wordpress/ export-ignore
+.github/ export-ignore
+bin/ export-ignore
+dev/ export-ignore
+files/ export-ignore
+src/resources/postcss/ export-ignore
+tests/ export-ignore
+vendor/jquery-resize/LICENSE* export-ignore
+vendor/jquery-resize/README* export-ignore
+vendor/jquery-resize/docs/ export-ignore
+vendor/jquery-resize/examples/ export-ignore
+vendor/jquery-resize/shared/ export-ignore
+vendor/jquery-resize/unit/ export-ignore
+vendor/php-date-formatter/examples/ export-ignore
+src/modules/ export-ignore
 
 *.md export-ignore
 *.swp export-ignore
