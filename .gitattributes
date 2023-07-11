@@ -16,7 +16,12 @@ dev/ export-ignore
 files/ export-ignore
 node_modules/* export-ignore
 node_modules/mt-a11y-dialog/* export-ignore
+src/resources/css/*.css export-ignore
+src/resources/css/*/*.css export-ignore
+src/resources/css/app/*/*.css export-ignore
 src/resources/postcss/ export-ignore
+src/resources/js/app/* export-ignore
+src/styles export-ignore
 tests/ export-ignore
 vendor/bootstrap-datepicker/css/* export-ignore
 vendor/bootstrap-datepicker/js/* export-ignore
@@ -24,6 +29,8 @@ vendor/chosen/public/* export-ignore
 vendor/ForceUTF8/* export-ignore
 vendor/jquery-placeholder/* export-ignore
 vendor/jquery-resize/* export-ignore
+vendor/php-date-formatter/* export-ignore
+vendor/php-date-formatter/js/* export-ignore
 vendor/php-date-formatter/examples/ export-ignore
 src/modules/* export-ignore
 
@@ -32,3 +39,4 @@ src/modules/* export-ignore
 *.swp export-ignore
 .stylelintrc export-ignore
 package-safelist.json export-ignore
+the-events-calendar*.zip export-ignore
