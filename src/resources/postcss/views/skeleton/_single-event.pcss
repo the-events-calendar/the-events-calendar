@@ -653,10 +653,22 @@
 }
 
 /* TODO: Move to ET in future. The update is too small to justify an ET release. */
-.event-tickets .tribe-tickets__tickets-item-quantity button {
-	border: none;
+.event-tickets {
+	.tribe-tickets__tickets-item-quantity button {
+		border: none;
+	
+		&:focus {
+			outline: none;
+		}
+	}
 
-	&:focus {
+	.tribe-tickets__rsvp-form-button,
+	.tribe-tickets__rsvp-actions-button-not-going,
+	.tribe-tickets__commerce-checkout-cart-item-details-button--more,
+	.tribe-tickets__tickets-item-quantity button {
+		background-color: transparent;
+		background-image: none;
+		border: none;
 		outline: none;
 	}
 }
