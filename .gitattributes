@@ -16,12 +16,12 @@ dev/ export-ignore
 files/ export-ignore
 src/resources/postcss/ export-ignore
 tests/ export-ignore
-vendor/jquery-resize/LICENSE* export-ignore
-vendor/jquery-resize/README* export-ignore
-vendor/jquery-resize/docs/ export-ignore
-vendor/jquery-resize/examples/ export-ignore
-vendor/jquery-resize/shared/ export-ignore
-vendor/jquery-resize/unit/ export-ignore
+vendor/bootstrap-datepicker/css/* export-ignore
+vendor/bootstrap-datepicker/js/* export-ignore
+vendor/chosen/public/* export-ignore
+vendor/ForceUTF8/* export-ignore
+vendor/jquery-placeholder/* export-ignore
+vendor/jquery-resize/* export-ignore
 vendor/php-date-formatter/examples/ export-ignore
 src/modules/* export-ignore
 

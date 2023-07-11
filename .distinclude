@@ -1,1 +1,16 @@
 src/modules/icons
+vendor/autoload.php
+vendor/composer/*
+vendor/tribe-common-libraries
+vendor/bootstrap-datepicker/css/*.min.css
+vendor/bootstrap-datepicker/js/*.min.js
+vendor/chosen/public/*.min.css
+vendor/chosen/public/*.min.js
+vendor/chosen/public/*.png
+vendor/ForceUTF8/Encoding.php
+vendor/jquery-placeholder/*.js
+vendor/jquery-resize/*.js
+vendor/jquery/*.css
+vendor/jquery/smoothness/*.css
+vendor/jquery/smoothness/images/*.png
+vendor/php-date-formatter/js/*.min.js
