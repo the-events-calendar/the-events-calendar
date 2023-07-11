@@ -14,6 +14,7 @@ _wordpress/ export-ignore
 bin/ export-ignore
 dev/ export-ignore
 files/ export-ignore
+node_modules/* export-ignore
 src/resources/postcss/ export-ignore
 tests/ export-ignore
 vendor/bootstrap-datepicker/css/* export-ignore
@@ -25,7 +26,8 @@ vendor/jquery-resize/* export-ignore
 vendor/php-date-formatter/examples/ export-ignore
 src/modules/* export-ignore
 
+
 *.md export-ignore
 *.swp export-ignore
-.stylelintrc
+.stylelintrc export-ignore
 package-safelist.json export-ignore
