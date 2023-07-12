@@ -33,6 +33,15 @@ tribe.events.views.manager = {};
 	var $window = $( window );
 
 	/**
+	 * If found, will store the nonce from the X-WP-Nonce header from the REST responses.
+	 *
+	 * @since TBD
+	 *
+	 * @type {String|null}
+	 */
+    obj.responseNonce = null;
+
+	/**
 	 * Selectors used for configuration and setup
 	 *
 	 * @since 4.9.2
@@ -311,9 +320,14 @@ tribe.events.views.manager = {};
 		var $link = $( this );
 		var url = $link.attr( 'href' );
 		var prevUrl = containerData.prev_url;
-		var nonce = $link.data( 'view-rest-nonce' );
+		var nonce = obj.responseNonce;
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
+
+		// No nonce header?
+		if ( ! nonce ) {
+			nonce = $link.data( 'view-rest-nonce' );
+		}
 
 		// Fetch nonce from container if the link doesn't have any
 		if ( ! nonce ) {
@@ -472,6 +486,9 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.request = function( data, $container ) {
+		// Clear nonce pending new one from response.
+		obj.responseNonce = null;
+
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
 
 		var settings = obj.getAjaxSettings( $container );
@@ -555,6 +572,8 @@ tribe.events.views.manager = {};
 	obj.ajaxComplete = function( jqXHR, textStatus ) {
 		var $container = this;
 		var $loader = $container.find( obj.selectors.loader );
+		// Update nonce per Wordpress' provided nonce header.
+		obj.responseNonce = jqXHR.getResponseHeader( 'X-Wp-Nonce' ) || null;
 
 		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 
