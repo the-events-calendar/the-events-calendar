@@ -6,6 +6,7 @@ import './style.pcss';
 
 const { registerBlockType } = wp.blocks;
 
+wp.widgets.registerLegacyWidgetBlock();
 
 const blocks = [
 	EventsList,
