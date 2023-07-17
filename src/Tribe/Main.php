@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.1.2.2';
+		const VERSION             = '6.1.3';
 
 		/**
 		 * Min Pro Addon
@@ -600,6 +600,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Aggregator__Processes__Service_Provider' );
 			tribe_register_provider( Tribe\Events\Taxonomy\Taxonomy_Provider::class );
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
+			tribe_register_provider( TEC\Events\Configuration\Provider::class );
 
 			// @todo After version 6.0.0 this needs to move to the Events folder provider.
 			tribe_register_provider( TEC\Events\Legacy\Views\V1\Provider::class );

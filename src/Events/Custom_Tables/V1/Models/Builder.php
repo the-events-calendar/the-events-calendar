@@ -9,6 +9,9 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Generator;
 use InvalidArgumentException;
+use TEC\Common\Configuration\Configuration;
+use Tribe__Cache;
+use Tribe__Cache_Listener;
 
 /**
  * Class Builder
@@ -91,9 +94,18 @@ class Builder {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var string[] wheres
+	 * @var string[] The WHERE clauses.
 	 */
 	private $wheres = [];
+
+	/**
+	 * The list of args in an associative array of the query params for each where clause.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @var array<<string,mixed>>
+	 */
+	private $where_args = [];
 
 	/**
 	 * Variable holding the value used to limit the results from the Query.
@@ -267,6 +279,7 @@ class Builder {
 	/**
 	 * Insert a new row or update one if already exists.
 	 *
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array<string>            $unique_by A list of columns that are marked as UNIQUE on the database.
@@ -281,7 +294,7 @@ class Builder {
 
 		// If no input was provided use the model as input.
 		if ( $data === null ) {
-			$model = $this->set_data_to_model();
+			$model = $this->model;
 			$model->validate();
 		} else {
 			if ( empty( $data ) ) {
@@ -355,6 +368,19 @@ class Builder {
 					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 					'trace'  => debug_backtrace( 2, 5 )
 				] );
+			}
+
+			// If we have a cache, let's clear it.
+			// It may be either a static call or on an instance, handle both.
+			if ( $data !== null ) {
+				// Attempt to generate a cache key by the upsert key.
+				foreach ( $unique_by as $field ) {
+					$value = $data[ $field ] ?? null;
+					$key   = self::generate_cache_key( $model, $field, $value );
+					tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+				}
+			} else {
+				$model->flush_cache();
 			}
 
 			return $result;
@@ -433,7 +459,7 @@ class Builder {
 	/**
 	 * Perform updates against a model that already exists on the database.
 	 *
-	 *
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @param array|null $data    If the data is null the data of the model would be used to set an update, otherwise
@@ -449,7 +475,7 @@ class Builder {
 		}
 
 		if ( $data === null ) {
-			$model = $this->set_data_to_model();
+			$model = $this->model;
 			$model->validate();
 		} else {
 			if ( empty( $data ) ) {
@@ -505,6 +531,9 @@ class Builder {
 
 		$this->queries[] = $SQL;
 
+		// If we have a cache, let's clear it.
+		$model->flush_cache();
+
 		return $this->execute_queries ? $wpdb->query( $SQL ) : false;
 	}
 
@@ -512,6 +541,7 @@ class Builder {
 	 * Run a delete operation against an existing model if the model has not been persisted on the DB the operation
 	 * will fail.
 	 *
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
 	 *
 	 * @return int The number of affected rows.
@@ -535,6 +565,16 @@ class Builder {
 			return 0;
 		}
 
+		foreach ( $this->where_args as $args ) {
+			$field = $args['field'] ?? null;
+			$value = $args['value'] ?? null;
+			// Not a valid item.
+			if ( ! $field || ! $value ) {
+				continue;
+			}
+			$key = self::generate_cache_key( $this->model, $field, $value );
+			tribe_cache()->delete( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
 		$this->model->reset();
 
 		return absint( $result );
@@ -544,6 +584,7 @@ class Builder {
 	 * Find an instance of the model in the database using a specific value and column if no column is specified
 	 * the primary key is used.
 	 *
+	 * @since 6.1.3 Added memoization behind a feature flag (default on).
 	 * @since 6.0.0
 	 *
 	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
@@ -553,8 +594,52 @@ class Builder {
 	 */
 	public function find( $value, $column = null ) {
 		$column = null === $column ? $this->model->primary_key_name() : $column;
+		$conf   = tribe( Configuration::class );
 
-		return $this->where( $column, $value )->first();
+		// Memoize disabled?
+		if ( $conf->get( 'TEC_NO_MEMOIZE_CT1_MODELS' ) ) {
+			return $this->where( $column, $value )->first();
+		}
+
+		// Check if we memoized this instance.
+		$key    = self::generate_cache_key( $this->model, $column, $value );
+		$data = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
+
+		if ( $data ) {
+			$model_class = get_class( $this->model );
+			$result = new $model_class( $data );
+			$result->cache_key = $key;
+
+			return $result;
+		}
+
+		// Not memoized, fetch it.
+		$result = $this->where( $column, $value )->first();
+		if ( $result ) {
+			// Store on model so we can use it to cache bust later.
+			$result->cache_key = $key;
+
+			tribe_cache()->set( $key, $result->to_array(), Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Generates a cache key for this particular model instance.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @param Model  $model The instance we are generating a cache key for.
+	 * @param string $field The field we are searching / caching by.
+	 * @param mixed  $value The value we are searching / caching with.
+	 *
+	 * @return string
+	 */
+	public static function generate_cache_key( Model $model, $field, $value ): string {
+		$value = ! is_string( $value ) ? serialize( $value ) : $value;
+
+		return $field . $value . get_class( $model );
 	}
 
 	/**
@@ -581,6 +666,13 @@ class Builder {
 		global $wpdb;
 
 		$placeholders   = implode( ',', $result['placeholders'] );
+		$where_args = [
+			'field'          => $column,
+			'operator'       => 'IN',
+			'prepare_format' => $result['placeholders'],
+			'value'          => $result['values']
+		];
+		$this->where_args[] = $where_args;
 		$this->wheres[] = $wpdb->prepare( "(`{$column}` IN ({$placeholders}))", $result['values'] );
 
 		return $this;
@@ -610,6 +702,13 @@ class Builder {
 		global $wpdb;
 
 		$placeholders   = implode( ',', $result['placeholders'] );
+		$where_args = [
+			'field'          => $column,
+			'operator'       => 'NOT IN',
+			'prepare_format' => $result['placeholders'],
+			'value'          => $result['values']
+		];
+		$this->where_args[] = $where_args;
 		$this->wheres[] = $wpdb->prepare( "(`{$column}` NOT IN ({$placeholders}))", $result['values'] );
 
 		return $this;
@@ -1004,8 +1103,8 @@ class Builder {
 		// Add a where clause with the primary key of the model if no where was specified.
 		$pk = $this->model->primary_key_name();
 		if ( isset( $this->model->{$pk} ) ) {
-			$this->wheres = [];
-
+			$this->wheres     = [];
+			$this->where_args = [];
 			$this->where( $pk, $this->model->{$pk} );
 
 			if ( empty( $this->wheres ) ) {
@@ -1033,6 +1132,7 @@ class Builder {
 	 */
 	public function where( $column, $operator = null, $value = null ) {
 		$this->invalid = false;
+		$where_args = null;
 
 		// If only 2 arguments are provided use the second argument as the value and assume the operator is "="
 		if ( func_num_args() === 2 ) {
@@ -1066,13 +1166,27 @@ class Builder {
 			global $wpdb;
 			$format = $format[ $column ];
 
-			$this->wheres[] = $wpdb->prepare( "(`{$column}` {$operator} {$format})", $data[ $column ] );
+			$where_args = [
+				'field'          => $column,
+				'operator'       => $operator,
+				'prepare_format' => $format,
+				'value'          => $data[ $column ]
+			];
+
+			$this->where_args[] = $where_args;
+			$this->wheres[]     = $wpdb->prepare( "(`{$column}` {$operator} {$format})", $data[ $column ] );
 
 			return $this;
 		}
 
 		if ( $value === null ) {
-			$this->wheres[] = "(`{$column}` {$operator} NULL)";
+			$where_args         = [
+				'field'    => $column,
+				'operator' => $operator,
+				'value'    => null
+			];
+			$this->where_args[] = $where_args;
+			$this->wheres[]     = "(`{$column}` {$operator} NULL)";
 		}
 
 		return $this;
@@ -1280,7 +1394,9 @@ class Builder {
 	/**
 	 * If an instance already exists refresh the values by querying the same value against the DB.
 	 *
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
+	 *
 	 * @return Model
 	 */
 	public function refresh() {
@@ -1289,6 +1405,8 @@ class Builder {
 			return $this->model;
 		}
 
+		// If we have a cache, let's clear it.
+		$this->model->flush_cache();
 		$model = $this->find( $this->model->{$pk}, $pk );
 
 		if ( $model === null ) {
@@ -1354,7 +1472,12 @@ class Builder {
 	 */
 	public function where_raw( $query, ...$args ) {
 		global $wpdb;
-		$this->wheres[] = '(' . $wpdb->prepare( $query, ...$args ) . ')';
+		$where_args         = [
+			'operator' => 'raw',
+			'value'    => $query
+		];
+		$this->where_args[] = $where_args;
+		$this->wheres[]     = '(' . $wpdb->prepare( $query, ...$args ) . ')';
 
 		return $this;
 	}
@@ -1419,7 +1542,9 @@ class Builder {
 	 * delete the exising model entries and re-insert them, by primary key, using the
 	 * updated data.
 	 *
+	 * @since 6.1.3 Integration with memoization.
 	 * @since 6.0.0
+	 *
 	 * @param array<Model>|array<array<string,mixed>> $models Either a list of Model
 	 *                                                        instances to update, or a
 	 *                                                        set of models in array format.
@@ -1442,6 +1567,13 @@ class Builder {
 			$batch         = array_splice( $keys, 0, $this->batch_size );
 			$keys_interval = implode( ',', array_map( 'absint', $batch ) );
 			$deleted       += $wpdb->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
+
+			// If we have a cache, let's clear it.
+			foreach ( $models as $model ) {
+				if ( $model instanceof Model ) {
+					$model->flush_cache();
+				}
+			}
 		} while ( count( $keys ) );
 
 		if ( $deleted !== $expected_count ) {
@@ -1452,7 +1584,7 @@ class Builder {
 				'table'       => $table,
 				'primary_key' => $primary_key,
 				'expected'    => $expected_count,
-				'deleted'     => $inserted,
+				'deleted'     => $deleted,
 			] );
 		}
 

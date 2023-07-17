@@ -15,6 +15,7 @@ use Serializable;
 use TEC\Common\Contracts\Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
+use Tribe__Cache_Listener;
 
 /**
  * Class Model
@@ -169,6 +170,14 @@ abstract class Model implements Serializable {
 	 */
 	protected $extended_properties = [];
 
+	/**
+	 * If this model is memoized, this is the key to retrieve it.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @var null|string
+	 */
+	public $cache_key = null;
 
 	/**
 	 * Model constructor.
@@ -192,6 +201,19 @@ abstract class Model implements Serializable {
 		$this->hashed_keys = array_merge( $this->hashed_keys, $extended_hashed_keys );
 		$this->extended_properties = $extended_properties;
 	}
+
+	/**
+	 * Flush this instances cache if it was cached.
+	 *
+	 * @since 6.1.3
+	 */
+	public function flush_cache() {
+		if ( $this->cache_key ) {
+			tribe_cache()->delete( $this->cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			$this->cache_key = null;
+		}
+	}
+
 	/**
 	 * Get the name of the table that is being affected by this model.
 	 *
@@ -392,6 +414,8 @@ abstract class Model implements Serializable {
 		$this->errors             = [];
 		static::$static_errors    = [];
 		$this->single_validations = [];
+		// If we have a cache, let's clear it.
+		$this->flush_cache();
 
 		return $this;
 	}
