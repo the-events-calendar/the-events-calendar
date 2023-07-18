@@ -1,4 +1,4 @@
-<?php return '<div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix custom-class custom-class-2">
+<?php return '<div  class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix custom-class custom-class-2" >
 	
 	
 <div class="tribe-events-meta-group tribe-events-meta-group-details">

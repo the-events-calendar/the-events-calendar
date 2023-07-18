@@ -1,4 +1,4 @@
-<?php return '<div class="tribe-events-schedule tribe-clearfix custom-class custom-class-2">
+<?php return '<div  class="tribe-events-schedule tribe-clearfix custom-class custom-class-2" >
 	<h2 class="tribe-events-schedule__datetime">
 		<span class="tribe-events-schedule__date tribe-events-schedule__date--start">
 					</span>
