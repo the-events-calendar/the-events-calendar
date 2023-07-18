@@ -377,7 +377,7 @@ trait HTML_Cache {
 		$nonce_fields = $this->get_view_nonce_fields();
 		$nonce_attrs  = $this->get_view_nonce_attributes();
 		$nonce_props  = $this->get_view_nonce_json_properties();
-
+// @todo
 		foreach ( $nonce_fields as $action => $field ) {
 			$html = preg_replace( '!(<input[^>]+name="' . preg_quote( $field, '!' ) . '"[^>]+value=")[^"]*("[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
 			$html = preg_replace( '!(<input[^>]+value=")[^"]*("[^>]+name="' . preg_quote( $field, '!' ) . '"[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
@@ -410,7 +410,7 @@ trait HTML_Cache {
 
 		$nonce_actions = array_merge( array_keys( $nonce_fields ), array_keys( $nonce_attrs ), array_keys( $nonce_props ) );
 		$nonce_actions = array_unique( $nonce_actions );
-
+// @todo
 		foreach ( $nonce_actions as $nonce_action ) {
 			$nonce = $this->maybe_generate_nonce( $nonce_action );
 			$html  = str_replace( "%%NONCE:{$nonce_action}%%", $nonce, $html );

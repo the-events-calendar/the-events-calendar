@@ -320,25 +320,28 @@ tribe.events.views.manager = {};
 		var $link = $( this );
 		var url = $link.attr( 'href' );
 		var prevUrl = containerData.prev_url;
-		var nonce = obj.responseNonce;
+		var nonce_a = $container.data( 'view-rest-nonce-a' );
+		var nonce_b = $container.data( 'view-rest-nonce-b' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
 
-		// No nonce header?
-		if ( ! nonce ) {
-			nonce = $link.data( 'view-rest-nonce' );
+
+		// Fallback in case our view didn't provide a/b options.
+		if ( ! nonce_a ) {
+			nonce_a = $link.data( 'view-rest-nonce' );
 		}
 
-		// Fetch nonce from container if the link doesn't have any
-		if ( ! nonce ) {
-			nonce = $container.data( 'view-rest-nonce' );
+		// Fetch nonce from container if the link doesn't have any either.
+		if ( ! nonce_a ) {
+			nonce_a = $container.data( 'view-rest-nonce' );
 		}
 
 		var data = {
 			prev_url: encodeURI( decodeURI( prevUrl ) ),
 			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
-			_wpnonce: nonce,
+			_view_rest_nonce_a: nonce_a,
+			_view_rest_nonce_b: nonce_b,
 		};
 
 		if ( shortcodeId ) {
@@ -371,13 +374,13 @@ tribe.events.views.manager = {};
 
 		// The submit event is triggered on the form, not the container.
 		var $form = $( this );
-		var nonce = $container.data( 'view-rest-nonce' );
 
 		var formData = Qs.parse( $form.serialize() );
 
 		var data = {
 			view_data: formData[ 'tribe-events-views' ],
-			_wpnonce: nonce,
+			_view_rest_nonce_a: $container.data( 'view-rest-nonce-a' ),
+			_view_rest_nonce_b: $container.data( 'view-rest-nonce-b' ),
 		};
 
 		// Pass the data to the request reading it from `tribe-events-views`.
@@ -428,11 +431,10 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforePopState.tribeEvents', event );
 
-		var nonce = $container.data( 'view-rest-nonce' );
-
 		var data = {
 			url: url,
-			_wpnonce: nonce,
+			_view_rest_nonce_a: $container.data( 'view-rest-nonce-a' ),
+			_view_rest_nonce_b: $container.data( 'view-rest-nonce-b' ),
 		};
 
 		obj.request( data, $container );

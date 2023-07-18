@@ -20,6 +20,10 @@ use WP_REST_Server as Server;
  */
 class Rest_Endpoint {
 
+	const NONCE_ACTION = '_view_rest';
+	const NONCE_A_KEY = '_view_rest_nonce_a';
+	const NONCE_B_KEY = '_view_rest_nonce_b';
+
 	/**
 	 * Rest Endpoint namespace
 	 *
@@ -179,9 +183,13 @@ class Rest_Endpoint {
 				 */
 				$auth = apply_filters( 'rest_authentication_errors', null );
 
+				// Did either our unauth or authed nonce pass? If neither, something is fishy.
+				$nonce_check = wp_verify_nonce( $request->get_param( static::NONCE_A_KEY ), static::NONCE_ACTION )
+				               || wp_verify_nonce( $request->get_param( static::NONCE_B_KEY ), static::NONCE_ACTION );
+
 				return ( $auth || is_null( $auth ) )
 				       && ! is_wp_error( $auth )
-				       && wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
+				       && $nonce_check;
 			},
 			'callback'            => static function ( Request $request ) {
 				if ( ! headers_sent() ) {

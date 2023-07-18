@@ -31,7 +31,8 @@ if ( empty( $disable_event_search ) ) {
 <div
 	<?php tribe_classes( $container_classes ); ?>
 	data-js="tribe-events-view"
-	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
+    data-view-rest-nonce-a="<?php echo esc_attr( $rest_nonce_a ); ?>"
+    data-view-rest-nonce-b="<?php echo esc_attr( $rest_nonce_b ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 	data-view-rest-method="<?php echo esc_attr( $rest_method ); ?>"
 	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"

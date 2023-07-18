@@ -1653,12 +1653,32 @@ class View implements View_Interface {
 		 *
 		 * @see TEC-3579
 		 */
-		$rest_nonce = tribe_without_filters(
+		$rest_nonce_a = tribe_without_filters(
 			[ 'nonce_user_logged_out' ],
 			static function () {
-				return wp_create_nonce( 'wp_rest' );
+				// Our current users' nonce.
+				return wp_create_nonce( Rest_Endpoint::NONCE_ACTION );
 			}
 		);
+		$rest_nonce_b = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			static function () {
+				// In case nonce A is cached and served for visitors,
+				// provide a valid fallback for visitors in B.
+				$uid = get_current_user_id();
+				// If not logged in, we already created this nonce in A.
+				if ( ! $uid ) {
+					return '';
+				}
+				// We are logged in, now generate an unauthenticated user nonce.
+				wp_set_current_user( 0 );
+				$nonce = wp_create_nonce( Rest_Endpoint::NONCE_ACTION );
+				wp_set_current_user( $uid );
+
+				return $nonce;
+			}
+		);
+
 
 		/** @var Rest_Endpoint $endpoint */
 		$endpoint = tribe( Rest_Endpoint::class );
@@ -1679,7 +1699,8 @@ class View implements View_Interface {
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
 			'rest_url'             => $endpoint->get_url(),
 			'rest_method'          => $endpoint->get_method(),
-			'rest_nonce'           => $rest_nonce,
+			'rest_nonce_a'           => $rest_nonce_a,
+			'rest_nonce_b' => $rest_nonce_b,
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
 			'today_title'          => $today_title,
