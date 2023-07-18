@@ -20,6 +20,6 @@ $default_classes = [ 'tribe-events-single-section', 'tribe-events-section-tags',
 // Add the custom classes from the block attributes.
 $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+<div <?php tribe_classes( $classes ); ?>>
 	<?php echo tribe_meta_event_archive_tags( esc_html__( 'Tags' ), ', ', false ); ?>
 </div>
