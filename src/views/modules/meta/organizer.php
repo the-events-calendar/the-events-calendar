@@ -30,7 +30,9 @@ $website_title = tribe_events_get_organizer_website_title();
 			}
 
 			?>
-			<dt style="display:none;"><?php // This element is just to make sure we have a valid HTML ?></dt>
+			<dt class="tribe-common-a11y-visual-hide">
+				<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
+			</dt>
 			<dd class="tribe-organizer">
 				<?php echo tribe_get_organizer_link( $organizer ) ?>
 			</dd>
