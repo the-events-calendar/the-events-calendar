@@ -602,7 +602,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
 			tribe_register_provider( TEC\Events\Configuration\Provider::class );
 
-			// @todo After version 6.0.0 this needs to move to the Events folder provider.
 			tribe_register_provider( TEC\Events\Legacy\Views\V1\Provider::class );
 
 			// Shortcodes
@@ -675,6 +674,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
+
+			// FSE
 			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
 
 			// Load the new third-party integration system.
@@ -688,6 +689,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up Telemetry
 			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
+
+			// SEO support.
+			tribe_register_provider( TEC\Events\SEO\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -888,7 +892,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'init', [ $this, 'run_updates' ], 0, 0 );
 
 			// Include a noindex.
-			add_action( 'get_header', [ $this, 'issue_noindex' ] );
+			//add_action( 'get_header', [ $this, 'issue_noindex' ] );
 
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', [ $this, 'filter_wp_import_data_before' ], 10, 1 );
@@ -1519,6 +1523,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function issue_noindex() {
 			global $wp_query;
 
+			/**
+			 * Allows filtering of if a noindex meta tag will be set for the current event view.
+			 *
+			 * @since TBD
+			 *
+			 * @var bool $do_noindex_meta Whether to add the noindex meta tag.
+			 */
 			$do_noindex_meta = apply_filters( 'tec_events_add_no_index_meta_tag', true );
 
 			if ( ! tribe_is_truthy( $do_noindex_meta ) ) {
@@ -1574,14 +1585,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$events = $cache->get( $cache_key, $trigger );
 
 				if ( ! $events ) {
-					$events = tribe_events()->per_page( 1 )->where( 'starts_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
-
-					$cache->set( $cache_key, $events, \Tribe__Cache::NO_EXPIRATION, $trigger );
+					$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
 				}
 			}
 
 			// No posts = no index.
-			$derp = $events->found();
 			$add_noindex = empty( $events->found() );
 
 			/**

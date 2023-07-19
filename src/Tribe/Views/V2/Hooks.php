@@ -172,7 +172,7 @@ class Hooks extends Service_Provider {
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 
-		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 3 );
+		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 4 );
 
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
 
@@ -1146,11 +1146,11 @@ class Hooks extends Service_Provider {
 	 *
 	 * @return \Tribe__Repository|false $events     The events repository results.
 	 */
-	public function filter_tec_events_noindex( $events, $start_date, $context ) {
+	public function filter_tec_events_noindex( $events, $start_date, $end_date, $context ) {
 		$view_slug = $context->get( 'view' );
 		$view = View::make( tribe( Manager::class )->get_view_class_by_slug( $view_slug ), $context );
 
-		return $view->get_noindex_events( $events, $start_date, $context );
+		return $view->get_noindex_events( $events, $start_date, $end_date, $context );
 	}
 
 	/* DEPRECATED */
