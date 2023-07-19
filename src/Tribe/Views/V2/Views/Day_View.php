@@ -439,7 +439,7 @@ class Day_View extends View {
 			if ( ! $events ) {
 				$this->repository->where( 'ends_after', $start_date );
 				$this->repository->where( 'starts_before', $end_date );
-				// WE only need one ID to know we have events!
+				// We only need one ID to know we have events!
 				$events = $this->repository->per_page( 1 )->fields( 'ids' );
 
 				$cache->set( $cache_key, $events, 0, $trigger );
