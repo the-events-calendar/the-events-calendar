@@ -15,7 +15,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 ?>
 <div class="tec-ct1-upgrade-events-category-container">
 	<span>
-		<strong><?php echo esc_html( $event_category_label ); ?></strong>
+		<strong><?php echo wp_kses( $event_category_label, [ 'a' => [ 'href' => [], 'target' => [] ] ] ); ?></strong>
 	</span>
 	<div class="tec-ct1-upgrade-events-container tec-ct1-upgrade-events-category-<?php echo esc_attr( $event_category_key ); ?>">
 		<?php
