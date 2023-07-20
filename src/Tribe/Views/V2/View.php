@@ -654,6 +654,10 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
+		// Need our nonces for AJAX requests.
+		$nonces     = Rest_Endpoint::get_rest_nonces();
+		$nonce_html = "<script data-js='tribe-events-view-nonce-data' type='application/json'>" . wp_json_encode( $nonces ) . "</script>";
+
 		/*
 		 * Some Views might need to access this out of this method, let's make the filtered repository arguments
 		 * available.
@@ -666,12 +670,13 @@ class View implements View_Interface {
 			&& $cached_html = $this->maybe_get_cached_html()
 		) {
 			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
-			return $cached_html;
+			return $cached_html . $nonce_html;
 		}
 
 		if ( ! tribe_events_view_v2_use_period_repository() ) {
 			$this->setup_the_loop( $repository_args );
 		}
+
 
 		/**
 		 * Fire new action on the views.
@@ -695,7 +700,7 @@ class View implements View_Interface {
 		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 		remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
-		return $html;
+		return $html . $nonce_html;
 	}
 
 	/**
@@ -1648,38 +1653,6 @@ class View implements View_Interface {
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 
-		/*
-		 * Some plugins, like WooCommerce, will modify the UID of logged out users; avoid that filtering here.
-		 *
-		 * @see TEC-3579
-		 */
-		$rest_nonce_a = tribe_without_filters(
-			[ 'nonce_user_logged_out' ],
-			static function () {
-				// Our current users' nonce.
-				return wp_create_nonce( Rest_Endpoint::NONCE_ACTION );
-			}
-		);
-		$rest_nonce_b = tribe_without_filters(
-			[ 'nonce_user_logged_out' ],
-			static function () {
-				// In case nonce A is cached and served for visitors,
-				// provide a valid fallback for visitors in B.
-				$uid = get_current_user_id();
-				// If not logged in, we already created this nonce in A.
-				if ( ! $uid ) {
-					return '';
-				}
-				// We are logged in, now generate an unauthenticated user nonce.
-				wp_set_current_user( 0 );
-				$nonce = wp_create_nonce( Rest_Endpoint::NONCE_ACTION );
-				wp_set_current_user( $uid );
-
-				return $nonce;
-			}
-		);
-
-
 		/** @var Rest_Endpoint $endpoint */
 		$endpoint = tribe( Rest_Endpoint::class );
 
@@ -1699,8 +1672,7 @@ class View implements View_Interface {
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
 			'rest_url'             => $endpoint->get_url(),
 			'rest_method'          => $endpoint->get_method(),
-			'rest_nonce_a'           => $rest_nonce_a,
-			'rest_nonce_b' => $rest_nonce_b,
+			'rest_nonce'           => '', // For backwards compatibility in views. No longer used.
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
 			'today_title'          => $today_title,

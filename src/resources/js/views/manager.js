@@ -33,13 +33,13 @@ tribe.events.views.manager = {};
 	var $window = $( window );
 
 	/**
-	 * If found, will store the nonce from the X-WP-Nonce header from the REST responses.
+	 * If found, will store the nonce from view responses.
 	 *
 	 * @since TBD
 	 *
 	 * @type {String|null}
 	 */
-    obj.responseNonce = null;
+    obj.nonces = null;
 
 	/**
 	 * Selectors used for configuration and setup
@@ -56,6 +56,7 @@ tribe.events.views.manager = {};
 		loader: '.tribe-events-view-loader',
 		loaderText: '.tribe-events-view-loader__text',
 		hiddenElement: '.tribe-common-a11y-hidden',
+		nonceScript: '[data-js="tribe-events-view-nonce-data"]',
 	};
 
 	/**
@@ -153,10 +154,18 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.setup = function( index, container ) {
+		// Get any potential nonces from page load.
+		var $nonces = $( $.find( obj.selectors.nonceScript ) );
 		var $container = $( container );
 		var $form = $container.find( obj.selectors.form );
 		var $data = $container.find( obj.selectors.dataScript );
-		var data  = {};
+		var data = {};
+
+		// If we have nonces let's update our local nonce vars for future requests.
+		if ( $nonces.length ) {
+			obj.nonces = JSON.parse( $( $nonces[ 0 ] ).text().trim() );
+			$nonces.remove();
+		}
 
 		// If we have data element set it up.
 		if ( $data.length ) {
@@ -164,7 +173,6 @@ tribe.events.views.manager = {};
 		}
 
 		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container, data ] );
-
 		$container.find( obj.selectors.link ).on( 'click.tribeEvents', obj.onLinkClick );
 
 		// Only catch the submit if properly setup on a form
@@ -320,28 +328,13 @@ tribe.events.views.manager = {};
 		var $link = $( this );
 		var url = $link.attr( 'href' );
 		var prevUrl = containerData.prev_url;
-		var nonce_a = $container.data( 'view-rest-nonce-a' );
-		var nonce_b = $container.data( 'view-rest-nonce-b' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
-
-
-		// Fallback in case our view didn't provide a/b options.
-		if ( ! nonce_a ) {
-			nonce_a = $link.data( 'view-rest-nonce' );
-		}
-
-		// Fetch nonce from container if the link doesn't have any either.
-		if ( ! nonce_a ) {
-			nonce_a = $container.data( 'view-rest-nonce' );
-		}
 
 		var data = {
 			prev_url: encodeURI( decodeURI( prevUrl ) ),
 			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
-			_view_rest_nonce_a: nonce_a,
-			_view_rest_nonce_b: nonce_b,
 		};
 
 		if ( shortcodeId ) {
@@ -379,8 +372,6 @@ tribe.events.views.manager = {};
 
 		var data = {
 			view_data: formData[ 'tribe-events-views' ],
-			_view_rest_nonce_a: $container.data( 'view-rest-nonce-a' ),
-			_view_rest_nonce_b: $container.data( 'view-rest-nonce-b' ),
 		};
 
 		// Pass the data to the request reading it from `tribe-events-views`.
@@ -433,8 +424,6 @@ tribe.events.views.manager = {};
 
 		var data = {
 			url: url,
-			_view_rest_nonce_a: $container.data( 'view-rest-nonce-a' ),
-			_view_rest_nonce_b: $container.data( 'view-rest-nonce-b' ),
 		};
 
 		obj.request( data, $container );
@@ -466,6 +455,11 @@ tribe.events.views.manager = {};
 
 		data.should_manage_url = shouldManageUrl;
 
+		// Add our nonces if available.
+		if ( obj.nonces ) {
+			data = $.extend( data, obj.nonces )
+		}
+
 		// Allow other values to be passed to request from container data.
 		var requestData = $container.data( 'tribeRequestData' );
 
@@ -488,9 +482,6 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.request = function( data, $container ) {
-		// Clear nonce pending new one from response.
-		obj.responseNonce = null;
-
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
 
 		var settings = obj.getAjaxSettings( $container );
@@ -574,8 +565,6 @@ tribe.events.views.manager = {};
 	obj.ajaxComplete = function( jqXHR, textStatus ) {
 		var $container = this;
 		var $loader = $container.find( obj.selectors.loader );
-		// Update nonce per Wordpress' provided nonce header.
-		obj.responseNonce = jqXHR.getResponseHeader( 'X-Wp-Nonce' ) || null;
 
 		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 
@@ -612,10 +601,16 @@ tribe.events.views.manager = {};
 	 */
 	obj.ajaxSuccess = function( data, textStatus, jqXHR ) {
 		var $container = this;
-
 		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
 		var $html = $( data );
+
+		// Let's pull out our nonce data.
+		var $nonces = $html.find( obj.selectors.nonceScript );
+		$html = $html.not( obj.selectors.nonceScript )
+		if ( $nonces.length ) {
+			obj.nonces = JSON.parse( $( $nonces[ 0 ] ).text().trim() );
+		}
 
 		// Clean up the container and event listeners
 		obj.cleanup( $container );

@@ -20,9 +20,32 @@ use WP_REST_Server as Server;
  */
 class Rest_Endpoint {
 
+	/**
+	 * The action for this nonce.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
 	const NONCE_ACTION = '_view_rest';
-	const NONCE_A_KEY = '_view_rest_nonce_a';
-	const NONCE_B_KEY = '_view_rest_nonce_b';
+
+	/**
+	 * The field name for nonce A.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const NONCE_A_KEY = '_tec_view_rest_nonce_a';
+
+	/**
+	 * The field name for nonce B.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const NONCE_B_KEY = '_tec_view_rest_nonce_b';
 
 	/**
 	 * Rest Endpoint namespace
@@ -50,6 +73,57 @@ class Rest_Endpoint {
 	 * @var bool
 	 */
 	protected static $did_rest_authentication_errors;
+
+
+	/**
+	 * Get the nonces being passed to the V2 views used for our REST requests.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,string> The field => nonce array.
+	 */
+	public static function get_rest_nonces(): array {
+		$generated_nonces = [];
+		/*
+		 * Some plugins, like WooCommerce, will modify the UID of logged out users; avoid that filtering here.
+		 *
+		 * @see TEC-3579
+		 */
+		$generated_nonces[ static::NONCE_A_KEY ] = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			function () {
+				// Our current users' nonce.
+				return wp_create_nonce( static::NONCE_ACTION );
+			}
+		);
+		$generated_nonces[ static::NONCE_B_KEY ] = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			function () {
+				// In case nonce A is a logged in user and cached and served for visitors,
+				// provide a valid fallback for unauthenticated visitors in B.
+				$uid = get_current_user_id();
+				// If not logged in, we already created this nonce in A.
+				if ( ! $uid ) {
+					return '';
+				}
+				// We are logged in, now generate an unauthenticated user nonce.
+				wp_set_current_user( 0 );
+				$nonce = wp_create_nonce( static::NONCE_ACTION );
+				wp_set_current_user( $uid );
+
+				return $nonce;
+			}
+		);
+
+		/**
+		 * Filter the list of nonces being used on REST requests for V2 views.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,string> The field => nonce array.
+		 */
+		return (array) apply_filters( 'tec_events_views_v2_get_rest_nonces', $generated_nonces );
+	}
 
 	/**
 	 * Returns the URL View will use to fetch their content.
@@ -115,7 +189,16 @@ class Rest_Endpoint {
 					return tec_sanitize_string( $view );
 				},
 			],
-			'_wpnonce' => [
+			static::NONCE_A_KEY => [
+				'required'          => false,
+				'validate_callback' => static function ( $nonce ) {
+					return is_string( $nonce );
+				},
+				'sanitize_callback' => static function ( $nonce ) {
+					return tec_sanitize_string( $nonce );
+				},
+			],
+			static::NONCE_B_KEY => [
 				'required'          => false,
 				'validate_callback' => static function ( $nonce ) {
 					return is_string( $nonce );
