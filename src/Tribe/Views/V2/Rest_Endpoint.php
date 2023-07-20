@@ -30,22 +30,22 @@ class Rest_Endpoint {
 	const NONCE_ACTION = '_view_rest';
 
 	/**
-	 * The field name for nonce A.
+	 * The field name for the primary nonce.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	const NONCE_A_KEY = '_tec_view_rest_nonce_a';
+	const PRIMARY_NONCE_KEY = '_tec_view_rest_nonce_primary';
 
 	/**
-	 * The field name for nonce B.
+	 * The field name for the secondary nonce.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	const NONCE_B_KEY = '_tec_view_rest_nonce_b';
+	const SECONDARY_NONCE_KEY = '_tec_view_rest_nonce_secondary';
 
 	/**
 	 * Rest Endpoint namespace
@@ -89,14 +89,14 @@ class Rest_Endpoint {
 		 *
 		 * @see TEC-3579
 		 */
-		$generated_nonces[ static::NONCE_A_KEY ] = tribe_without_filters(
+		$generated_nonces[ static::PRIMARY_NONCE_KEY ] = tribe_without_filters(
 			[ 'nonce_user_logged_out' ],
 			function () {
 				// Our current users' nonce.
 				return wp_create_nonce( static::NONCE_ACTION );
 			}
 		);
-		$generated_nonces[ static::NONCE_B_KEY ] = tribe_without_filters(
+		$generated_nonces[ static::SECONDARY_NONCE_KEY ] = tribe_without_filters(
 			[ 'nonce_user_logged_out' ],
 			function () {
 				// In case nonce A is a logged in user and cached and served for visitors,
@@ -189,7 +189,7 @@ class Rest_Endpoint {
 					return tec_sanitize_string( $view );
 				},
 			],
-			static::NONCE_A_KEY => [
+			static::PRIMARY_NONCE_KEY => [
 				'required'          => false,
 				'validate_callback' => static function ( $nonce ) {
 					return is_string( $nonce );
@@ -198,7 +198,7 @@ class Rest_Endpoint {
 					return tec_sanitize_string( $nonce );
 				},
 			],
-			static::NONCE_B_KEY => [
+			static::SECONDARY_NONCE_KEY => [
 				'required'          => false,
 				'validate_callback' => static function ( $nonce ) {
 					return is_string( $nonce );
@@ -267,8 +267,8 @@ class Rest_Endpoint {
 				$auth = apply_filters( 'rest_authentication_errors', null );
 
 				// Did either our unauth or authed nonce pass? If neither, something is fishy.
-				$nonce_check = wp_verify_nonce( $request->get_param( static::NONCE_A_KEY ), static::NONCE_ACTION )
-				               || wp_verify_nonce( $request->get_param( static::NONCE_B_KEY ), static::NONCE_ACTION );
+				$nonce_check = wp_verify_nonce( $request->get_param( static::PRIMARY_NONCE_KEY ), static::NONCE_ACTION )
+				               || wp_verify_nonce( $request->get_param( static::SECONDARY_NONCE_KEY ), static::NONCE_ACTION );
 
 				return ( $auth || is_null( $auth ) )
 				       && ! is_wp_error( $auth )
