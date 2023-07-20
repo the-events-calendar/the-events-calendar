@@ -23,13 +23,13 @@ $website_title = tribe_events_get_venue_website_title();
 	<h2 class="tribe-events-single-section-title"> <?php esc_html_e( tribe_get_venue_label_singular(), 'the-events-calendar' ) ?> </h2>
 	<dl>
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
-		<dt class="tribe-common-a11y-visual-hide">
+		<dt class="tribe-common-a11y-visual-hide" aria-label="<?php esc_html_e( 'Venue Title', 'the-events-calendar' ); ?>">
 			<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
 		</dt>
 		<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
 
 		<?php if ( tribe_address_exists() ) : ?>
-			<dt class="tribe-common-a11y-visual-hide">
+			<dt class="tribe-common-a11y-visual-hide" aria-label="<?php esc_html_e( 'Venue Address', 'the-events-calendar' ); ?>">
 				<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
 			</dt>
 			<dd class="tribe-venue-location">

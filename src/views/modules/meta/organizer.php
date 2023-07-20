@@ -30,7 +30,7 @@ $website_title = tribe_events_get_organizer_website_title();
 			}
 
 			?>
-			<dt class="tribe-common-a11y-visual-hide">
+			<dt class="tribe-common-a11y-visual-hide" aria-label="<?php esc_html_e( 'Organizer\'s Title', 'the-events-calendar' ); ?>">
 				<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
 			</dt>
 			<dd class="tribe-organizer">
