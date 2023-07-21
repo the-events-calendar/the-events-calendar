@@ -30,8 +30,13 @@ $post_id = Arr::get( $this->context, 'post_id' );
  * @param string $href   The link URL.
  */
 $target = apply_filters( 'tribe_get_event_website_link_target', '_self', $href, $post_id );
+
+$default_classes = [ 'tribe-block', 'tribe-block__event-website' ];
+
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div class="tribe-block tribe-block__event-website">
+<div <?php tribe_classes( $classes ); ?>>
 	<a
 		href="<?php echo esc_url( $href ); ?>"
 		target="<?php echo esc_attr( $target ); ?>"

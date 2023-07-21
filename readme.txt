@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.4] TBD =
 
-
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
 
 = [6.1.3] 2023-07-13 =
 
