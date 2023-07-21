@@ -231,8 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Enhancement - Added the filter `tribe_events_csv_import_organizer_additional_fields` to allow the saving of additional data for organizers through CSV import.
-* Enhancement - Added the filter `tribe_events_csv_import_venue_additional_fields` to allow the saving of additional data for venues through CSV import.
+* Tweak - Added the filter `tribe_events_csv_import_organizer_additional_fields` to allow the saving of additional data for organizers through CSV import.
+* Tweak - Added the filter `tribe_events_csv_import_venue_additional_fields` to allow the saving of additional data for venues through CSV import.
 
 = [6.1.2.2] 2023-06-23 =
 
