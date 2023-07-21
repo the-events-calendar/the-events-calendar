@@ -110,7 +110,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 				$value = $this->get_value_by_key( $record, $key );
 				/**
 				 * This is needed when adding custom fields to the post type.
-				 * On save the metakey gets the "_Organizer" prefix. It should be removed before the import.
+				 * On save the metakey gets the "_Organizer" prefix added. So it should be removed before the import.
 				 */
 				$key = preg_replace( '/' . preg_quote( "_Organizer", '/' ) . '/', "", $key, 1 );
 				if ( strpos( $value, '|' ) > -1 ) {
