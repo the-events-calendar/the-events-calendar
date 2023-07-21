@@ -14,7 +14,12 @@
  */
 
 $event_id = $this->get( 'post_id' );
+
+$default_classes = [ 'tribe-events-single-section', 'tribe-events-section-tags', 'tribe-clearfix' ];
+
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div class="tribe-events-single-section tribe-events-section-tags tribe-clearfix">
+<div <?php tribe_classes( $classes ); ?>>
 	<?php echo tribe_meta_event_archive_tags( esc_html__( 'Tags' ), ', ', false ); ?>
 </div>

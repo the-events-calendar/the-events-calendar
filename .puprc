@@ -1,0 +1,82 @@
+{
+	"build": [
+		"cd common && rm -rf vendor",
+		"cd common && git checkout -- vendor",
+		"cd common && composer install --no-dev",
+		"cd common && npm run build",
+		"composer install --no-dev",
+		"npm ci",
+		"npm run build"
+	],
+	"build_dev": [
+		"cd common && rm -rf vendor",
+		"cd common && git checkout -- vendor",
+		"cd common && composer install",
+		"cd common && npm run build",
+		"composer install",
+		"npm ci",
+		"npm run build"
+	],
+	"checks": {
+		"tbd": {
+			"dirs": [
+				"src",
+				"common/src"
+			]
+		},
+		"version-conflict": {}
+	},
+	"i18n": [
+		{
+			"textdomain": "the-events-calendar",
+			"url": "https://translate.wordpress.org",
+			"slug": "wp-plugins/the-events-calendar/stable"
+		},
+		{
+			"path": "common/lang",
+			"textdomain": "tribe-common",
+			"url": "https://translations.theeventscalendar.com",
+			"slug": "tribe-common"
+		}
+	],
+	"paths": {
+		"changelog": "readme.txt",
+		"css": [
+			"src/resources/postcss",
+			"common/src/resources/postcss"
+		],
+		"js": [
+			"src/resources/js",
+			"src/modules",
+			"common/src/resources/js",
+			"common/src/modules"
+		],
+		"sync_files": [
+			"common/.distfiles",
+			"common/.gitattributes"
+		],
+		"versions": [
+			{
+				"file": "src/Tribe/Main.php",
+				"regex": "(const VERSION += ')([^']+)"
+			},
+			{
+				"file": "the-events-calendar.php",
+				"regex": "(Version: )(.+)"
+			},
+			{
+				"file": "package.json",
+				"regex": "(\"version\": \")([^\"]+)"
+			},
+			{
+				"file": "readme.txt",
+				"regex": "(Stable tag: )(.+)"
+			}
+		],
+		"views": [
+			"src/views",
+			"common/src/views"
+		]
+	},
+	"zip_name": "the-events-calendar"
+}
