@@ -62,7 +62,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * Validate our REST nonces are generated as expected.
-	 * 
+	 *
 	 * @test
 	 */
 	public function it_should_generate_nonces() {
