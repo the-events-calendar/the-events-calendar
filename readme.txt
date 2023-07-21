@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.1.4] TBD =
 
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
 
 = [6.1.3] 2023-07-13 =
 
