@@ -142,10 +142,10 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 
 		/**
 		 * Filter to allow the saving of additional fields for Venues.
-		 * - key: the metakey (postmeta table) or column name (posts table)
-		 * - value: the CSV column ID from the column mapping
 		 *
-		 * @var array $additional_venue_fields
+		 * @var array $additional_venue_fields An array in the format [ $key => $value ]
+		 * Where $key is the `meta_key` (postmeta table) or column name (posts table)
+		 *   and $value is the CSV column ID from the column mapping.
 		 */
 		$additional_venue_fields = apply_filters( 'tribe_events_csv_import_venue_additional_fields', [] );
 
