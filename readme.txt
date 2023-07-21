@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.1.4] TBD =
 
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Our logic to include `tribe_events` post type on the tag archive page was incorrectly bleeding into other queries happening on the page. This narrows the scope for the `WP_Query` post type overrides and avoids situations where Divi templates were not loading properly. [TEC-4819]
 
 = [6.1.3] 2023-07-13 =
 
