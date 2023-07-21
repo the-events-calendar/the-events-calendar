@@ -39,7 +39,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @type {String|null}
 	 */
-    obj.nonces = null;
+	obj.nonces = null;
 
 	/**
 	 * Selectors used for configuration and setup
