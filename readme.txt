@@ -3,8 +3,8 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 5.8.6
-Stable tag: 6.1.3
+Requires at least: 6.1.0
+Stable tag: 6.1.4
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,11 +229,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.1.4] TBD =
+
+
+
 = [6.1.3] 2023-07-13 =
 
+* Version - The Events Calendar 6.1.3 is only compatible with Events Community 4.10.10 and higher
 * Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
 * Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
-* Fix - Prevent re-registration of the `core/legacy-widget` block. [TEC-4764]
 * Fix - Ensure TEC styles can be easily overridden by themes and page builders. [ECP-1503]
 * Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
 * Fix - Added some event parsing to ensure only valid events are handled in the iCal file generation. [TEC-4837]
