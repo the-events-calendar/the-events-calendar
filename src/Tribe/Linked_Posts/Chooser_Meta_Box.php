@@ -71,8 +71,30 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Render the chooser section for the events meta box
 	 */
 	public function render() {
+
 		$this->render_dropdowns();
+
+		/**
+		 * Fires after the linked post dropdowns and button are rendered.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $post_type The post type of the linked post.
+		 * @param self $this The instance of this class.
+		 */
+		do_action( 'tribe_events_multiple_linked_post_before_button', $this->post_type, $this );
+
 		$this->render_add_post_button();
+
+		/**
+		 * Fires after the linked post dropdowns and button are rendered.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $post_type The post type of the linked post.
+		 * @param self $this The instance of this class.
+		 */
+		do_action( 'tribe_events_multiple_linked_post_after_button', $this->post_type, $this );
 
 		/**
 		 * Make this Template filterable, used for Community Facing templates.

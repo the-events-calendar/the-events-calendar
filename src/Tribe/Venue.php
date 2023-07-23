@@ -159,6 +159,7 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		add_filter( 'tribe_events_title_tag', [ $this, 'update_venue_title' ], 10, 3 );
 		add_action( 'tribe_events_linked_post_new_form', [ $this, 'linked_post_new_form' ] );
 		add_action( 'admin_bar_menu', [ $this, 'edit_venue_admin_bar_menu_link' ], 80 );
+		add_action( 'tribe_events_multiple_linked_post_before_button', [ $this, 'render_map_checkboxes' ], 10, 2 );
 	}
 
 	/**
@@ -925,11 +926,11 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 	/**
 	 * Updates the page title on the venue single page to include the venue title.
-	 * 
+	 *
 	 * @param string      $new_title The modified page title.
 	 * @param string      $title     The original page title.
 	 * @param string|null $sep       The separator character.
-	 * 
+	 *
 	 * @return string The modified page title.
 	 */
 	public function update_venue_title( $new_title, $title, $sep = null ) {
@@ -939,5 +940,16 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 		}
 
 		return $new_title;
+	}
+
+	public function render_map_checkboxes( $post_type, $chooser_meta_box ) {
+		if ( $post_type !== $this->post_type ) {
+			return;
+		}
+
+		$template = apply_filters( 'tribe_events_map_meta_box_template', Tribe__Events__Main::instance()->plugin_path . 'src/admin-views/event-map-fields.php' );
+		if ( ! empty( $template ) ) {
+			include $template;
+		}
 	}
 }
