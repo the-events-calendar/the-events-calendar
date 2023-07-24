@@ -51,7 +51,7 @@ class Provider extends Service_Provider {
 		$updater        = Tribe__Events__Main::instance()->updater();
 		if ( $updater->is_version_in_db_less_than( $target_version ) ) {
 			// Async this so we don't overload plugin update actions.
-			$timestamp = time() + 1;
+			$timestamp = time() + 5;
 			wp_schedule_single_event( $timestamp, 'tec_events_migrate_all_day_eod_times' );
 		}
 	}
@@ -70,6 +70,12 @@ class Provider extends Service_Provider {
 	 */
 	public function migrate_all_day_eod_times() {
 		global $wpdb;
+		// Check if our data might be out of sync.
+		if ( tribe_get_option( 'multiDayCutoff', '00:00' ) === '00:00' ) {
+			// Nothing to do, exit.
+			return;
+		}
+		
 		// This will fix all day events with any start time
 		$fix_start_dates = "UPDATE $wpdb->postmeta AS pm1
 				INNER JOIN $wpdb->postmeta pm2
