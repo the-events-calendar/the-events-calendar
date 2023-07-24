@@ -10,7 +10,7 @@ use DateTime;
 /**
  * Class Month_ViewTest
  *
- * @since   TBD
+ * @since 6.1.3
  *
  * @package Tribe\Events\Views\V2
  */

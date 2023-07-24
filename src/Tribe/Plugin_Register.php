@@ -13,7 +13,7 @@ class Tribe__Events__Plugin_Register extends Tribe__Abstract_Plugin_Register {
 		'addon-dependencies' => [
 			'Tribe__Events__Pro__Main'                 => '6.1.0-dev',
 			'Tribe__Events__Filterbar__View'           => '5.5.0-dev',
-			'Tribe__Events__Community__Main'           => '4.10.8-dev',
+			'Tribe__Events__Community__Main'           => '4.10.10-dev',
 			'Tribe__Events__Community__Tickets__Main'  => '4.9.3-dev',
 			'Tribe__Tickets__Main'                     => '5.6.1-dev',
 			'Tribe__Tickets_Plus__Main'                => '5.7.1-dev',
