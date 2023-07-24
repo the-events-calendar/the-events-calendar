@@ -280,10 +280,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
 
 = [6.1.0] 2023-06-14 =
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add plugin info to Site Health admin page. [TEC-4701]
