@@ -42,7 +42,30 @@ export const allIds = ( state = [], action ) => {
 	}
 };
 
+export const core = ( state = {}, action ) => {
+	switch ( action.type ) {
+		case types.SET_VENUE:
+			return {
+				...state,
+				venue: action.payload.venue,
+			};
+		case types.SET_VENUE_MAP:
+			return {
+				...state,
+				showMap: action.payload.showMap,
+			};
+		case types.SET_VENUE_MAP_LINK:
+			return {
+				...state,
+				showMapLink: action.payload.showMapLink,
+			};
+		default:
+			return state;
+	}
+}
+
 export default combineReducers( {
+	core,
 	byId,
 	allIds,
 } );

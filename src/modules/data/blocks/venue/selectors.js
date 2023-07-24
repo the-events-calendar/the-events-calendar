@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 import { mapsAPI } from '@moderntribe/common/utils/globals';
 
 export const getMapEmbed = () => get( mapsAPI(), 'embed', true );
-export const venueBlockSelector = ( state ) => state.events.blocks.venue;
+export const venueBlockSelector = ( state ) => state.events.blocks.venue.blocks.core;
 
 export const getVenuesInClassic = ( state ) => state.events.blocks.venue.classic;
 

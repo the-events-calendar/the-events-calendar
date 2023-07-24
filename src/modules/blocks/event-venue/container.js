@@ -18,6 +18,7 @@ import { actions as formActions } from '@moderntribe/common/data/forms';
 import { editor } from '@moderntribe/common/data';
 import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
 import {uniq} from "lodash";
+import { wpHooks } from '@moderntribe/common/utils/globals';
 
 /**
  * Module Code
