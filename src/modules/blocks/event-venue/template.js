@@ -45,7 +45,6 @@ const { getAddress } = utils;
 
 class EventVenue extends Component {
 	static propTypes = {
-		venue: PropTypes.number,
 		isSelected: PropTypes.bool,
 		isLoading: PropTypes.bool,
 		submit: PropTypes.bool,
@@ -67,7 +66,7 @@ class EventVenue extends Component {
 		onFormSubmit: PropTypes.func,
 		onItemSelect: PropTypes.func,
 		onCreateNew: PropTypes.func,
-		removeVenue: PropTypes.func,
+		onRemove: PropTypes.func,
 		editVenue: PropTypes.func,
 		volatile: PropTypes.any,
 		name: PropTypes.any,
@@ -215,7 +214,7 @@ class EventVenue extends Component {
 			create,
 			isLoading,
 			submit,
-			removeVenue,
+			onRemove,
 		} = this.props;
 
 		if ( ! this.hasVenue() || ! isSelected || edit || create || isLoading || submit ) {
@@ -226,7 +225,7 @@ class EventVenue extends Component {
 			<div className="tribe-editor__venue__actions">
 				<button
 					className="tribe-editor__venue__actions--close"
-					onClick={ removeVenue }
+					onClick={ onRemove }
 				>
 					{ __( 'Remove venue', 'the-events-calendar' ) }
 				</button>

@@ -46,6 +46,11 @@ export default {
 			source: 'meta',
 			meta: '_EventOrganizerID',
 		},
+		venues: {
+			type: 'array',
+			source: 'meta',
+			meta: '_EventVenueID',
+		},
 		allDay: {
 			type: 'boolean',
 			source: 'meta',

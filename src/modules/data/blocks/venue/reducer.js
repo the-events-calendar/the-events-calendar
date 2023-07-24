@@ -2,31 +2,24 @@
  * Internal dependencies
  */
 import * as types from './types';
+import {
+	classic,
+	classicSetInitialState,
+	blocks,
+} from './reducers';
 import { editorDefaults, mapsAPI } from '@moderntribe/common/utils/globals';
-
-export const DEFAULT_STATE = {
-	venue: editorDefaults().venue ? editorDefaults().venue : 0,
-	showMap: mapsAPI().embed,
-	showMapLink: mapsAPI().embed,
-};
-
-export const defaultStateToMetaMap = {
-	venue: '_EventVenueID',
-	showMap: '_EventShowMap',
-	showMapLink: '_EventShowMapLink',
-};
+import {combineReducers} from "redux";
 
 export const setInitialState = ( data ) => {
-	const { meta } = data;
-
-	Object.keys( defaultStateToMetaMap ).forEach( ( key ) => {
-		const metaKey = defaultStateToMetaMap[ key ];
-		if ( meta.hasOwnProperty( metaKey ) ) {
-			DEFAULT_STATE[ key ] = meta[ metaKey ];
-		}
-	} );
+	classicSetInitialState( data );
 };
 
+export default combineReducers( {
+	blocks,
+	classic,
+} );
+
+/*
 export default ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
 		case types.SET_VENUE:
@@ -48,3 +41,5 @@ export default ( state = DEFAULT_STATE, action ) => {
 			return state;
 	}
 };
+
+ */

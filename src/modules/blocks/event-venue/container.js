@@ -7,27 +7,35 @@ import { compose } from 'redux';
 /**
  * Internal dependencies
  */
+import { globals } from '@moderntribe/common/utils';
 import EventVenue from './template';
 import { toVenue } from '@moderntribe/events/elements';
 import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
+import { actions as detailsActions } from '@moderntribe/events/data/details';
+import { actions as formActions } from '@moderntribe/common/data/forms';
 import { editor } from '@moderntribe/common/data';
+import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
+import {uniq} from "lodash";
 
 /**
  * Module Code
  */
 
-const setVenue = ( dispatch, ownProps ) => ( id ) => {
-	ownProps.setAttributes( { venue: id } );
-	dispatch( actions.setVenue( id ) );
+const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
+	const venues = selectors.getVenuesInClassic( state );
+
+	ownProps.setAttributes( { venue: venueID } );
+	ownProps.setAttributes( { venues: uniq( [ ...venues, venueID ] ) } );
+
+	dispatch( detailsActions.setDetails( venueID, details ) );
+	dispatch( actions.addVenueInClassic( venueID ) );
+	dispatch( actions.addVenueInBlock( ownProps.name, venueID ) );
 };
 
-const onFormComplete = ( dispatch, ownProps ) => ( body ) => {
-	const { setDetails } = ownProps;
-	const { id } = body;
-	setDetails( id, body );
-	setVenue( dispatch, ownProps )( id );
+const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
+	setVenue( { state, dispatch, ownProps, venueID: body.id, details: body } );
 };
 
 const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => (
@@ -42,28 +50,18 @@ const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	},
 } );
 
-// @todo [BTRIA-619]: need to remove the use of "maybe" functions as they hold logic they
-// ultimately should not.
-const removeVenue = ( dispatch, ownProps ) => () => {
-	const { volatile, maybeRemoveEntry, details } = ownProps;
-
-	ownProps.setAttributes( { venue: 0 } );
-	dispatch( actions.removeVenue() );
-	if ( volatile ) {
-		maybeRemoveEntry( details );
-	}
-};
-
 const editVenue = ( ownProps ) => () => {
 	const { details, editEntry } = ownProps;
 	editEntry( details );
 };
 
-const mapStateToProps = ( state ) => ( {
-	venue: selectors.getVenue( state ),
+const mapStateToProps = ( state, ownProps ) => ( {
+	venue: ownProps.attributes.venue,
+	venues: selectors.getVenuesInBlock( state ),
 	showMapLink: selectors.getshowMapLink( state ),
 	showMap: selectors.getshowMap( state ),
 	embedMap: selectors.getMapEmbed(),
+	state,
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
@@ -76,16 +74,50 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 		dispatch( actions.setShowMapLink( value ) );
 	},
 	onCreateNew: onCreateNew( ownProps ),
-	removeVenue: removeVenue( dispatch, ownProps ),
 	editVenue: editVenue( ownProps ),
 	onFormSubmit: onFormSubmit( dispatch, ownProps ),
-	onItemSelect: onItemSelect( dispatch, ownProps ),
+	dispatch,
 } );
+
+const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
+	const {state, ...restStateProps} = stateProps;
+	const {dispatch, ...restDispatchProps} = dispatchProps;
+
+	return {
+		...ownProps,
+		...restStateProps,
+		...restDispatchProps,
+		onItemSelect: ( venueID, details ) => {
+			setVenue( { state, dispatch, ownProps, venueID, details } );
+		},
+		onRemove: () => {
+			const { clientId, venue, details, volatile } = ownProps;
+
+			ownProps.setAttributes( { venue: 0 } );
+			dispatch( actions.removeVenueInBlock( clientId, venue ) );
+
+			const blocks = globals.wpDataSelectCoreEditor().getBlocks();
+			const classicBlock = blocks
+				.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
+
+			if ( ! classicBlock.length || volatile ) {
+				ownProps.maybeRemoveEntry( details );
+
+				const venues = selectors.getVenuesInClassic( state );
+				const newVenues = venues.filter( id => id !== venue );
+
+				ownProps.setAttributes( { venues: newVenues } );
+				dispatch( actions.removeVenueInClassic( venue ) );
+				dispatch( formActions.removeVolatile( venue ) );
+			}
+		},
+	};
+};
 
 export default compose(
 	withStore( { postType: editor.VENUE } ),
 	connect( mapStateToProps ),
 	withDetails( 'venue' ),
 	withForm( ( props ) => props.name ),
-	connect( mapStateToProps, mapDispatchToProps ),
+	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
 )( EventVenue );

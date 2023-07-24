@@ -34,7 +34,11 @@ export default {
 
 	attributes: {
 		venue: {
-			type: 'integer',
+			type: 'html',
+			default: null,
+		},
+		venues: {
+			type: 'array',
 			source: 'meta',
 			meta: '_EventVenueID',
 		},
