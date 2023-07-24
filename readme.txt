@@ -279,16 +279,11 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/date`, `integrations/event-tickets/emails/template-parts/body/event/image`, `integrations/event-tickets/emails/template-parts/body/event/links`, `integrations/event-tickets/emails/template-parts/body/event/links/gcal`, `integrations/event-tickets/emails/template-parts/body/event/links/ical`, `integrations/event-tickets/emails/template-parts/body/event/venue`, `integrations/event-tickets/emails/template-parts/body/event/venue/address`, `integrations/event-tickets/emails/template-parts/body/event/venue/phone`, `integrations/event-tickets/emails/template-parts/body/event/venue/website`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
 * Language - 28 new strings added, 132 updated, 0 fuzzied, and 0 obsoleted
 
->>>>>>> bucket/TEC-4748-multiday-cutoff-month-view
 = [6.1.0.1] 2023-06-14 =
 
 * Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
 
 = [6.1.0] 2023-06-14 =
-<<<<<<< HEAD
-=======
->>>>>>> master
->>>>>>> bucket/TEC-4748-multiday-cutoff-month-view
 
 * Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
 * Feature - Add plugin info to Site Health admin page. [TEC-4701]
