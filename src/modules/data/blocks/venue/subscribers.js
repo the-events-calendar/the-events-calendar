@@ -83,7 +83,7 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 
 	if ( ! classicBlock.length || volatile ) {
 		// remove organizer from classic state
-		dispatch( venueActions.removeVenueInClassic( venue ) );
+		dispatch( venueActions.removeVenueInClassic( block.attributes.venue || 0 ) );
 		dispatch( formActions.removeVolatile( venue ) );
 
 		// set event organizer meta

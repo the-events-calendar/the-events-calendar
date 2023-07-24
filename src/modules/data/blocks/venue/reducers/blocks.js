@@ -10,6 +10,10 @@ import * as types from './../types';
 
 export const byId = ( state = {}, action ) => {
 	switch ( action.type ) {
+		case types.SET_VENUE:
+			return {
+				[ action.payload.id ]: action.payload.venue
+			};
 		case types.ADD_BLOCK_VENUE:
 			return {
 				...state,
@@ -33,6 +37,8 @@ export const byId = ( state = {}, action ) => {
 
 export const allIds = ( state = [], action ) => {
 	switch ( action.type ) {
+		case types.SET_VENUE:
+			return [ action.payload.venue ];
 		case types.ADD_BLOCK_VENUE:
 			return [ ...state, action.payload.venue ];
 		case types.REMOVE_BLOCK_VENUE:

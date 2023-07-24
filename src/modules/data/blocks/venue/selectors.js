@@ -10,7 +10,7 @@ export const venueBlockSelector = ( state ) => state.events.blocks.venue.blocks.
 
 export const getVenuesInClassic = ( state ) => state.events.blocks.venue.classic;
 
-export const getVenueByClientId = ( state, props ) =>	state.events.blocks.organizers.blocks.byId[ props.clientId ];
+export const getVenueByClientId = ( state, props ) =>	state.events.blocks.venue.blocks.byId[ props.clientId ];
 
 export const getVenuesInBlock = ( state ) => state.events.blocks.venue.blocks.allIds;
 

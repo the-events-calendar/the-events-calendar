@@ -30,6 +30,8 @@ const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
 	ownProps.setAttributes( { venue: venueID } );
 	ownProps.setAttributes( { venues: uniq( [ ...venues, venueID ] ) } );
 
+	//dispatch( actions.setVenue( venueID ) );
+
 	dispatch( detailsActions.setDetails( venueID, details ) );
 	dispatch( actions.addVenueInClassic( venueID ) );
 	dispatch( actions.addVenueInBlock( ownProps.name, venueID ) );
@@ -42,8 +44,6 @@ const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
 const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => (
 	ownProps.sendForm( toVenue( fields ), onFormComplete( dispatch, ownProps ) )
 );
-
-const onItemSelect = ( dispatch, ownProps ) => setVenue( dispatch, ownProps );
 
 const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	title: {
