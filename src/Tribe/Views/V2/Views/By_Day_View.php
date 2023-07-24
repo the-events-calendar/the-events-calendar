@@ -265,11 +265,11 @@ abstract class By_Day_View extends View {
 				$day_results,
 				static function ( $event ) use ( $multiday_start, $multiday_end, $start, $end, $use_site_timezone, $site_timezone, $utc ) {
 					// Event span dates (multiday)? If so, we use the multiday cut off values.
+					// @todo TEC-4748 + TEC-4840 will remove need for this, and leverage above code to determine which date to comparse against
+					// @todo handle All Day events differently as a quick fix for this MR versus a bigger fix in TEC-4840
 					//$spans_dates                = substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 );
-					// @todo TEC-4748 will remove need for this, and leverage above code to determine which date to comparse against
 					$spans_dates = ! tribe_is_truthy( get_post_meta( $event->ID, '_EventAllDay', true ) );
-					// @todo handle All Day events differently as a quick fix for this MR versus a bigger fix?
-					// @todo Migrate all day event END/BEGIN times - mass updates?
+
 					$day_start                  = $start;
 					$day_end                    = $end;
 					$event_localized_start_date = $event->start_date;

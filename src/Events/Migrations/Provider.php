@@ -41,17 +41,14 @@ class Provider extends Service_Provider {
 		if ( $plugin_schema_key !== 'schema-version' ) {
 			return;
 		}
-
-		// If old version was after our target, we already did update so skip.
+		
 		/**
 		 * Intended to evaluation when a particular migration should run.
 		 * Often this may be as simple as checking if a particular version has been
 		 * passed on this update, like the below.
 		 */
-		// @todo What version? Update with release version.
-		$target_version = '6.1.3';
-
-		$updater = Tribe__Events__Main::instance()->updater();
+		$target_version = '6.1.4';
+		$updater        = Tribe__Events__Main::instance()->updater();
 		if ( $updater->is_version_in_db_less_than( $target_version ) ) {
 			// Async this so we don't overload plugin update actions.
 			$timestamp = time() + 1;
