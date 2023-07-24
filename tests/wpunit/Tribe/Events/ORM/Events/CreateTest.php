@@ -384,10 +384,10 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 
 		$expected = [
 			'_EventAllDay'       => 'yes',
-			'_EventStartDate'    => '2018-03-04 04:00:00',
-			'_EventEndDate'      => '2018-03-05 03:59:59',
-			'_EventStartDateUTC' => '2018-03-03 18:30:00',
-			'_EventEndDateUTC'   => '2018-03-04 18:29:59',
+			'_EventStartDate'    => '2018-03-04 00:00:00',
+			'_EventEndDate'      => '2018-03-04 23:59:59',
+			'_EventStartDateUTC' => '2018-03-03 14:30:00',
+			'_EventEndDateUTC'   => '2018-03-04 14:29:59',
 		];
 
 		foreach ( $expected as $key => $value ) {
