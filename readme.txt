@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.1.4] TBD =
 
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - There was some data consistency issues after 6.0 regarding all day events and `End of day cutoff` setting updates. This would show up with events spanning incorrectly interpreted cut off times. [TEC-4748]
 
 = [6.1.3] 2023-07-13 =
 
