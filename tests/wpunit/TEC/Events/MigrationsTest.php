@@ -46,6 +46,7 @@ class MigrationsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_migrate_all_day_events() {
+		tribe_update_option( 'multiDayCutoff', '02:00' );
 		$wrong_date        = '2018-01-01 02:00:00';
 		$expected_date     = '2018-01-01 00:00:00';
 		$expected_end_date = '2018-01-01 23:59:59';
@@ -69,6 +70,7 @@ class MigrationsTest extends \Codeception\TestCase\WPTestCase {
 		wp_cache_flush();
 		$this->assertEquals( $expected_date, get_post_meta( $event->ID, '_EventStartDate', true ) );
 		$this->assertEquals( $expected_end_date, get_post_meta( $event->ID, '_EventEndDate', true ) );
+		tribe_update_option( 'multiDayCutoff', '00:00' );
 	}
 
 	protected function get_future_version( $version ) {
