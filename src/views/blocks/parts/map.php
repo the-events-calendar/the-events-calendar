@@ -11,9 +11,13 @@
  *
  * @version 4.7
  *
+ * @var bool $show_map Whether to show the map or not.
+ *
  */
 
-if ( ! tribe_embed_google_map() ) {
+$attributes = $this->get( 'attributes', [] );
+
+if ( ! $show_map ) {
 	return;
 }
 

@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
 import classNames from 'classnames';
 
 /**
@@ -29,6 +28,7 @@ import {
 	GoogleMap,
 	EditLink,
 } from '@moderntribe/events/elements';
+import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
@@ -143,6 +143,8 @@ class EventVenue extends Component {
 
 	renderDetails = () => {
 		const { showMapLink, details } = this.props;
+
+		console.log( details );
 
 		return (
 			<VenueDetails

@@ -2,21 +2,24 @@
  * External dependencies
  */
 import { combineReducers } from 'redux';
+import { uniq } from 'lodash';
 
 /**
  * Internal dependencies
  */
 import * as types from './../types';
+import { store } from '@moderntribe/common/store';
+const { getState, dispatch } = store;
 
 export const byId = ( state = {}, action ) => {
 	switch ( action.type ) {
-		case types.SET_VENUE:
-			return {
-				[ action.payload.id ]: action.payload.venue
-			};
 		case types.ADD_BLOCK_VENUE:
+			const venues = state;
+			Object.keys( venues ).forEach( ( key ) => {
+				state[ key ] = action.payload.venue;
+			} )
 			return {
-				...state,
+				...venues,
 				[ action.payload.id ]: action.payload.venue,
 			};
 		case types.REMOVE_BLOCK_VENUE:
@@ -37,10 +40,10 @@ export const byId = ( state = {}, action ) => {
 
 export const allIds = ( state = [], action ) => {
 	switch ( action.type ) {
-		case types.SET_VENUE:
-			return [ action.payload.venue ];
 		case types.ADD_BLOCK_VENUE:
-			return [ ...state, action.payload.venue ];
+			const venues = [ action.payload.venue ];
+			return venues;
+			//return uniq( [ ...state, action.payload.venue ] );
 		case types.REMOVE_BLOCK_VENUE:
 			return state.filter( venue => venue !== action.payload.venue );
 		default:
@@ -50,11 +53,6 @@ export const allIds = ( state = [], action ) => {
 
 export const core = ( state = {}, action ) => {
 	switch ( action.type ) {
-		case types.SET_VENUE:
-			return {
-				...state,
-				venue: action.payload.venue,
-			};
 		case types.SET_VENUE_MAP:
 			return {
 				...state,

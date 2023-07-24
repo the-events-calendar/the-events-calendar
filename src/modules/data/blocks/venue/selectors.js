@@ -12,6 +12,8 @@ export const getVenuesInClassic = ( state ) => state.events.blocks.venue.classic
 
 export const getVenueByClientId = ( state, props ) =>	state.events.blocks.venue.blocks.byId[ props.clientId ];
 
+export const getVenuesById = ( state ) => state.events.blocks.venue.blocks.byId;
+
 export const getVenuesInBlock = ( state ) => state.events.blocks.venue.blocks.allIds;
 
 export const getMappedVenues = createSelector(

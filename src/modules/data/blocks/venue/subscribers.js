@@ -15,7 +15,7 @@ import {
 	selectors as venueSelectors,
 } from '@moderntribe/events/data/blocks/venue';
 import { selectors as detailSelectors } from '@moderntribe/events/data/details';
-
+import { wpData, wpHooks } from '@moderntribe/common/utils/globals';
 const { getState, dispatch } = store;
 
 /**
@@ -43,12 +43,12 @@ export const isVenueBlock = ( block ) => block.name === 'tribe/event-venue';
  * @param {Object} block Object with block attributes and data.
  */
 export const handleBlockAdded = ( block ) => {
-	// only handle event organizer block addition
+	// only handle event venue block addition
 	if ( ! isVenueBlock( block ) ) {
 		return;
 	}
 
-	// return early if organizer attribute is empty
+	// return early if venue attribute is empty
 	if ( ! block.attributes.venue ) {
 		return;
 	}

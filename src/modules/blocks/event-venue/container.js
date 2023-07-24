@@ -18,7 +18,7 @@ import { actions as formActions } from '@moderntribe/common/data/forms';
 import { editor } from '@moderntribe/common/data';
 import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
 import {uniq} from "lodash";
-import { wpHooks } from '@moderntribe/common/utils/globals';
+import { wpData, wpHooks } from '@moderntribe/common/utils/globals';
 
 /**
  * Module Code
@@ -30,11 +30,9 @@ const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
 	ownProps.setAttributes( { venue: venueID } );
 	ownProps.setAttributes( { venues: uniq( [ ...venues, venueID ] ) } );
 
-	//dispatch( actions.setVenue( venueID ) );
-
 	dispatch( detailsActions.setDetails( venueID, details ) );
 	dispatch( actions.addVenueInClassic( venueID ) );
-	dispatch( actions.addVenueInBlock( ownProps.name, venueID ) );
+	dispatch( actions.addVenueInBlock( ownProps.clientId, venueID ) );
 };
 
 const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
@@ -59,8 +57,8 @@ const editVenue = ( ownProps ) => () => {
 const mapStateToProps = ( state, ownProps ) => ( {
 	venue: ownProps.attributes.venue,
 	venues: selectors.getVenuesInBlock( state ),
-	showMapLink: selectors.getshowMapLink( state ),
-	showMap: selectors.getshowMap( state ),
+	showMapLink: ownProps.attributes.showMapLink === undefined ? true : ownProps.attributes.showMapLink,
+	showMap: ownProps.attributes.showMap === undefined ? true : ownProps.attributes.showMap,
 	embedMap: selectors.getMapEmbed(),
 	state,
 } );

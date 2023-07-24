@@ -11,11 +11,12 @@
  *
  * @version 4.9.14
  *
+ * @var bool $show_map Whether to show the map or not.
  */
 
 $event_id = $this->get( 'post_id' );
 
-$map = tribe_embed_google_map() ? 'tribe-block__venue--has-map' : '';
+$map = $show_map ? 'tribe-block__venue--has-map' : '';
 ?>
 <div class="tribe-block tribe-block__venue <?php echo esc_attr( $map ); ?>">
 	<?php do_action( 'tribe_events_single_event_meta_secondary_section_start' ); ?>

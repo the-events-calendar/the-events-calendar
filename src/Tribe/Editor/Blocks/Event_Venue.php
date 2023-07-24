@@ -25,6 +25,24 @@ extends Tribe__Editor__Blocks__Abstract {
 	public function render( $attributes = [] ) {
 		$args['attributes'] = $this->attributes( $attributes );
 
+		$args['show_map_link'] = true;
+		if ( isset( $args['attributes']['showMapLink'] ) ) {
+			$args['show_map_link'] = (bool) $args['attributes']['showMapLink'];
+		} elseif ( ! tribe_show_google_map_link() ) {
+			$args['show_map_link'] = false;
+		}
+
+		$args['show_map'] = true;
+		if ( isset( $args['attributes']['showMap'] ) ) {
+			$args['show_map'] = (bool) $args['attributes']['showMap'];
+		} elseif ( ! tribe_embed_google_map() ) {
+			$args['show_map'] = false;
+		}
+
+		if ( isset( $args['attributes']['venue'] ) ) {
+			$args['venue_id'] = $args['attributes']['venue'];
+		}
+
 		// Add the rendering attributes into global context
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 

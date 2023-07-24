@@ -21,7 +21,9 @@ export const setInitialState = ( data ) => {
 export default ( state = DEFAULT_STATE, action ) => {
 	switch ( action.type ) {
 		case types.ADD_CLASSIC_VENUES:
-			return uniq( [ ...state, action.payload.venue ] );
+			const venues = [ action.payload.venue ];
+			return venues;
+			//return uniq( [ ...state, action.payload.venue ] );
 		case types.SET_VENUE:
 			return [ action.payload.venue ];
 		case types.REMOVE_CLASSIC_VENUES:
