@@ -30,7 +30,14 @@ $website_title = tribe_events_get_organizer_website_title();
 			}
 
 			?>
-			<dt class="tribe-common-a11y-visual-hide" aria-label="<?php esc_html_e( 'Organizer\'s name', 'the-events-calendar' ); ?>"s>
+			<dt
+				class="tribe-common-a11y-visual-hide"
+				aria-label="<?php sprintf(
+					/* Translators: placeholder is for the customizable organizer term, e.g. "Organizer name" */
+					esc_html_x( '%s name', "The label for the organizer's name.", 'the-events-calendar' ),
+					tribe_get_organizer_label_singular()
+				) ; ?>"
+			>
 				<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
 			</dt>
 			<dd class="tribe-organizer">
@@ -43,7 +50,7 @@ $website_title = tribe_events_get_organizer_website_title();
 			if ( ! empty( $phone ) ) {
 				?>
 				<dt class="tribe-organizer-tel-label">
-					<?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?>
+					<?php esc_html_e( 'Phone', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-tel">
 					<?php echo esc_html( $phone ); ?>
@@ -54,7 +61,7 @@ $website_title = tribe_events_get_organizer_website_title();
 			if ( ! empty( $email ) ) {
 				?>
 				<dt class="tribe-organizer-email-label">
-					<?php esc_html_e( 'Email:', 'the-events-calendar' ) ?>
+					<?php esc_html_e( 'Email', 'the-events-calendar' ) ?>
 				</dt>
 				<dd class="tribe-organizer-email">
 					<?php echo esc_html( $email ); ?>
