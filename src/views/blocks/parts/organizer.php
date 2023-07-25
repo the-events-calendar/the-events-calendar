@@ -46,7 +46,7 @@ $website = tribe_get_organizer_website_link();
 			?>
 			<dt
 				class="tribe-common-a11y-visual-hide"
-				aria-label="<?php sprintf(
+				aria-label="<?php echo sprintf(
 					/* Translators: %1$s is the customizable organizer term, e.g. "Organizer name" */
 					esc_html_x( '%1$s name', "The label for the organizer's name.", 'the-events-calendar' ),
 					tribe_get_organizer_label_singular()

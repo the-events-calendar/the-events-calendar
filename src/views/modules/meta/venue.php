@@ -25,7 +25,7 @@ $website_title = tribe_events_get_venue_website_title();
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 		<dt
 			class="tribe-common-a11y-visual-hide"
-			aria-label="<?php sprintf(
+			aria-label="<?php echo sprintf(
 					/* Translators: %1$s is the customizable venue term, e.g. "Venue name" */
 					esc_html_x( '%1$s name', "The label for the venue's name.", 'the-events-calendar' ),
 					tribe_get_venue_label_singular()
@@ -38,7 +38,7 @@ $website_title = tribe_events_get_venue_website_title();
 		<?php if ( tribe_address_exists() ) : ?>
 			<dt
 				class="tribe-common-a11y-visual-hide"
-				aria-label="<?php sprintf(
+				aria-label="<?php echo sprintf(
 					/* Translators: %1$s is the customizable venue term, e.g. "Venue address" */
 					esc_html_x( '%1$s address', "The label for the venue's address.", 'the-events-calendar' ),
 					tribe_get_venue_label_singular()
