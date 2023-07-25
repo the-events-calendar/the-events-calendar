@@ -269,7 +269,7 @@ function tribe_get_organizer_email( $postId = null, $antispambot = true ) {
 	/**
 	 * Allows for the organizer email to be filtered.
 	 *
-	 * Please note that obfuscation of email is done in subsequent line using the `antispambot` function.
+	 * Please note that obfuscation of email is already done in a previous line using the `antispambot` function.
 	 *
 	 * @param string $filtered_email   The organizer email obfuscated using the `antispambot` function.
 	 * @param string $unfiltered_email The organizer email as stored in the database before any filtering or obfuscation is applied.
@@ -471,7 +471,7 @@ function tribe_events_get_organizer_website_title( $post_id = null ) {
 	 * @param string $title The title of the organizer's website link.
 	 * @param int 	 $post_id The organizer ID.
 	 */
-	return apply_filters( 'tribe_events_get_organizer_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
+	return apply_filters( 'tribe_events_get_organizer_website_title', __( 'Website', 'the-events-calendar' ), $post_id );
 }
 
 /**
@@ -642,6 +642,7 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
+	 * @deprecated TBD
 	 * @since 6.0.3.1
 	 *
 	 * @param WP_Post     $post        The organizer post object to filter and return.
@@ -651,7 +652,23 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string      $filter      The filter, or context of the fetch.
 	 */
-	$post = apply_filters( 'tribe_get_organiser_object_after', $post, $organizer, $output, $filter );
+	$post = apply_filters_deprecated( 'tribe_get_organiser_object_after', [ $post, $organizer, $output, $filter ], 'TBD', 'tribe_get_organizer_object_after', 'Deprecated due to misspelling in filter.');
+
+	/**
+	 * Filters the organizer result after the organizer has been built from the function.
+	 *
+	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post     $post        The organizer post object to filter and return.
+	 * @param int|WP_Post $organizer   The organizer object to fetch.
+	 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+	 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+	 *                                 respectively. Defaults to `OBJECT`.
+	 * @param string      $filter      The filter, or context of the fetch.
+	 */
+	$post = apply_filters( 'tribe_get_organizer_object_after', $post, $organizer, $output, $filter );
 
 	if ( OBJECT !== $output ) {
 		$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );

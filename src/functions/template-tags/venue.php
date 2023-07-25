@@ -882,7 +882,7 @@ function tribe_events_get_venue_website_title( $post_id = null ) {
 	 * @param string $title The title of the venue's website link.
 	 * @param int 	 $post_id The venue ID.
 	 */
-	return apply_filters( 'tribe_events_get_venue_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
+	return apply_filters( 'tribe_events_get_venue_website_title', __( 'Website', 'the-events-calendar' ), $post_id );
 }
 
 /**

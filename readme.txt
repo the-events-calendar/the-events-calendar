@@ -231,8 +231,14 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.4] TBD =
 
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+<<<<<<< HEAD
 * Fix - There was some data consistency issues after 6.0 regarding all day events and `End of day cutoff` setting updates. This would show up with events spanning incorrectly interpreted cut off times. [TEC-4748]
+=======
+* Tweak - Deprecated misspelled `tribe_get_organiser_object_after` filter for one with correct spelling: `tribe_get_organizer_object_after`. Done as part of [TEC-4812]
+* Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
+>>>>>>> release/B23.hal
 
 = [6.1.3] 2023-07-13 =
 
