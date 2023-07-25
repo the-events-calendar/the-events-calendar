@@ -73,14 +73,6 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
 			]
 		);
-
-		$category = \TEC\Events_Pro\Linked_Posts\Venue\Taxonomy\Category::SLUG;
-		$this->add_simple_tax_schema_entry( 'venue_category', $category );
-		$this->add_simple_tax_schema_entry( 'venue_category_not_in', $category, 'term_not_in' );
-		$this->add_simple_tax_schema_entry( 'category', $category );
-		$this->add_simple_tax_schema_entry( 'category_not_in', $category, 'term_not_in' );
-		$this->add_simple_tax_schema_entry( $category, $category );
-		$this->add_simple_tax_schema_entry( $category . '_not_in', $category, 'term_not_in' );
 	}
 
 	/**

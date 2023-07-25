@@ -59,16 +59,6 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
 			]
 		);
-
-
-		$category = \TEC\Events_Pro\Linked_Posts\Organizer\Taxonomy\Category::SLUG;
-		$this->add_simple_tax_schema_entry( 'organizer_category', $category );
-		$this->add_simple_tax_schema_entry( 'organizer_category_not_in', $category, 'term_not_in' );
-		$this->add_simple_tax_schema_entry( 'category', $category );
-		$this->add_simple_tax_schema_entry( 'category_not_in', $category, 'term_not_in' );
-		$this->add_simple_tax_schema_entry( $category, $category );
-		$this->add_simple_tax_schema_entry( $category . '_not_in', $category, 'term_not_in' );
-
 	}
 
 	/**
