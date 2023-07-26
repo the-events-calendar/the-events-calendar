@@ -12,6 +12,7 @@
  * @version 4.7
  *
  * @var bool $show_map Whether to show the map or not.
+ * @var ?int $venue_id The ID of the venue to display.
  *
  */
 
@@ -21,7 +22,7 @@ if ( ! $show_map ) {
 	return;
 }
 
-$map = tribe_get_embedded_map();
+$map = tribe_get_embedded_map( $venue_id );
 
 if ( empty( $map ) ) {
 	return;

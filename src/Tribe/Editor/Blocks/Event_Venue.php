@@ -8,7 +8,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @var ?int
 	 */
-	protected ?int $venue_id = null;
+	public static ?int $venue_id = null;
 
 	/**
 	 * Which is the name/slug of this block
@@ -35,10 +35,7 @@ extends Tribe__Editor__Blocks__Abstract {
 
 		$args['show_map_link'] = $this->should_show_map_link( $args['attributes'] );
 		$args['show_map']      = $this->should_show_map( $args['attributes'] );
-
-		if ( isset( $args['attributes']['venue'] ) ) {
-			$args['venue_id'] = $args['attributes']['venue'];
-		}
+		$args['venue_id']      = $this->get_venue_id( $args['attributes'] );
 
 		// Add the rendering attributes into global context
 		tribe( 'events.editor.template' )->add_template_globals( $args );
@@ -76,7 +73,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	 * @return ?int
 	 */
 	public function get_venue_id( array $attributes ): ?int {
-		$venue_id = $this->venue_id;
+		$venue_id = static::$venue_id;
 
 		if ( $venue_id === null && isset( $attributes['venue'] ) ) {
 			$venue_id = $attributes['venue'];
@@ -91,7 +88,9 @@ extends Tribe__Editor__Blocks__Abstract {
 		 * @param array $attributes Array of attributes for the block.
 		 * @param Tribe__Events__Editor__Blocks__Event_Venue $block The block instance.
 		 */
-		return apply_filters( 'tec_events_blocks_event_venue_venue_id', $venue_id, $attributes, $this );
+		static::$venue_id = apply_filters( 'tec_events_blocks_event_venue_id', $venue_id, $attributes, $this );
+
+		return static::$venue_id;
 	}
 
 	/**
