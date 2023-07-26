@@ -8,6 +8,10 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Tribe__Events__Main;
+use Tribe__Events__Organizer;
+use Tribe__Events__Venue;
+
 /**
  * Class View_Register
  *
@@ -62,7 +66,7 @@ class View_Register {
 	 */
 	public function __construct( $slug, $name, $class, $priority = 40, $route_slug = null ) {
 		$this->slug       = $slug;
-		$this->route_slug = $route_slug ? $route_slug : $slug;
+		$this->route_slug = $route_slug ?: $slug;
 		$this->name       = $name;
 		$this->class      = $class;
 		$this->priority   = $priority;
@@ -81,6 +85,7 @@ class View_Register {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'filter_add_routes' ], 5 );
+		add_action( 'wp', [ $this, 'add_canonical_tag' ] );
 	}
 
 	/**
@@ -92,7 +97,7 @@ class View_Register {
 		add_filter( 'tribe_events_views', [ $this, 'filter_events_views' ] );
 		add_filter( 'tribe-events-bar-views', [ $this, 'filter_tec_bar_views' ], $this->priority );
 		add_filter( 'tribe_events_rewrite_base_slugs', [ $this, 'filter_add_base_slugs' ], $this->priority );
-		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_add_matchers_to_query_vars_map' ], $this->priority, 2 );
+		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_add_matchers_to_query_vars_map' ], $this->priority, 1 );
 	}
 
 	/**
@@ -108,26 +113,26 @@ class View_Register {
 	public function filter_add_routes( $rewrite ) {
 		// Setup base rewrite rules
 		$rewrite
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%1' ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%1' ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1' ] )
-			->archive( [ '{{ ' . $this->route_slug . ' }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1', 'featured' => true ] );
+			->archive( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%1' ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%1' ] )
+			->archive( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '(\d{4}-\d{2}-\d{2})' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1' ] )
+			->archive( [ '{{ ' . $this->slug . ' }}', '(\d{4}-\d{2}-\d{2})', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'eventDate' => '%1', 'featured' => true ] );
 
 		// Setup taxonomy based rewrite rules.
 		$rewrite
-			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
-			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
-			->tax( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->tax( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
+			->tax( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
+			->tax( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
+			->tax( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->tax( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
 
 		// Setup post_tag rewrite rules.
 		$rewrite
-			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
-			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
-			->tag( [ '{{ ' . $this->route_slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
-			->tag( [ '{{ ' . $this->route_slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
+			->tag( [ '{{ ' . $this->slug . ' }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'paged' => '%2' ] )
+			->tag( [ '{{ ' . $this->slug . ' }}', '{{ featured }}', '{{ page }}', '(\d+)' ], [ 'eventDisplay' => $this->slug, 'featured' => true, 'paged' => '%2' ] )
+			->tag( [ '{{ ' . $this->slug . ' }}', '{{ featured }}' ], [ 'eventDisplay' => $this->slug, 'featured' => true ] )
+			->tag( [ '{{ ' . $this->slug . ' }}' ], [ 'eventDisplay' => $this->slug ] );
 	}
 
 	/**
@@ -141,8 +146,12 @@ class View_Register {
 	 * @return array         The modified version of the array of bases
 	 */
 	public function filter_add_base_slugs( $bases = [] ) {
+		/** @var View_Interface $view */
+		$view = tribe( $this->class );
+		[ $en_slug, $localized_slug ] = $view->get_rewrite_slugs();
+
 		// Support the original and translated forms for added robustness
-		$bases[ $this->route_slug ] = [  $this->route_slug , $this->route_slug ];
+		$bases[ $this->slug ] = [ $en_slug, $localized_slug ];
 
 		return $bases;
 	}
@@ -152,13 +161,15 @@ class View_Register {
 	 *
 	 * @since 5.7.0
 	 * @since 5.10.0 Using the decoupled route slug.
+	 * @since 6.0.7 Use the en_US slug as matcher key.
 	 *
-	 * @param array $bases Bases that are already set.
+	 * @param array<string,string> $matchers A map from the matcher name to the query var name.
 	 *
-	 * @return array         The modified version of the array of bases.
+	 * @return array<string,string>         The modified version of the array of bases.
 	 */
-	public function filter_add_matchers_to_query_vars_map( $matchers = [], $rewrite = null ) {
-		$matchers[ $this->route_slug ] = 'eventDisplay';
+	public function filter_add_matchers_to_query_vars_map( array $matchers = [] ) {
+		// Use the en_US slug as the matcher key, the rewrite resolution is based on en_US keys.
+		$matchers[ $this->slug ] = 'eventDisplay';
 
 		return $matchers;
 	}
@@ -197,5 +208,61 @@ class View_Register {
 		];
 
 		return $views;
+	}
+
+	/**
+	 * The canonical tag that should be added to the page header.
+	 *
+	 * @since 6.0.13
+	 *
+	 * @param string $current_url The URL of the page being currently viewed.
+	 */
+	public function set_canonical_tag() {
+		global $wp;
+
+		$current_url = trailingslashit( home_url( $wp->request ) );
+
+		echo "\n" . '<link rel="canonical" id="tec-seo-meta-tag" href="' . esc_url( $current_url ) . '" />' . "\n";
+	}
+
+	/**
+	 * Add canonical tag to the head of all calendar views.
+	 *
+	 * @since 6.0.7
+	 * @since 6.0.13
+	 *
+	 * @param bool $add_canonical_tag Whether or not we should add the canonical tag to the current event view.
+	 */
+	public function add_canonical_tag() {
+		$add_canonical_tag = true;
+
+		if ( ! tribe( Template_Bootstrap::class )->should_load() ) {
+			$add_canonical_tag = false;
+		}
+
+		if (
+			is_singular(
+				[
+					Tribe__Events__Main::POSTTYPE,
+					Tribe__Events__Organizer::POSTTYPE,
+					Tribe__Events__Venue::POSTTYPE,
+				]
+			)
+		) {
+			$add_canonical_tag = false;
+		}
+
+		/**
+		 * Determines whether or not a canonical tag will be added to the current event view.
+		 *
+		 * @since 6.0.13
+		 *
+		 * @var bool $add_canonical_tag Whether or not we should add the current event view.
+		 */
+		$add_canonical_tag = apply_filters( 'tribe_events_add_canonical_tag', $add_canonical_tag );
+
+		if ( $add_canonical_tag ) {
+			add_action( 'wp_head', [ $this, 'set_canonical_tag' ] );
+		}
 	}
 }

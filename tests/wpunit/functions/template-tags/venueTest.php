@@ -211,6 +211,9 @@ class venueTest extends Events_TestCase {
 	 * Test tribe_get_venue_object returns null for non-existing venue
 	 */
 	public function test_tribe_get_venue_object_returns_null_for_non_existing_venue() {
+		add_filter( 'tribe_get_venue_object', function ( \WP_Post $wp_post ) {
+			// We should not be called with a null value, will fatal if we are called.
+		} );
 		// Sanity check: let's make sure this does not exist.
 		$this->assertNull( get_post( 23 ) );
 
@@ -376,5 +379,84 @@ class venueTest extends Events_TestCase {
 			tribe_get_region($venue_two) ,
 			'When a Venue ID is passed the region should be that of the requested Venue.'
 		);
+	}
+
+
+	public function test_tribe_get_full_address() {
+		$address_string        = '%%ADDRESS_TEST%%';
+		$city_string           = '%%CITY_TEST%%';
+		$state_province_string = '%%STATE_PROVINCE_TEST%%';
+		$state_string          = '%%STATE_TEST%%';
+		$province_string       = '%%PROVINCE_TEST%%';
+		$zip_string            = '%%ZIP_TEST%%';
+		$country_string        = '%%COUNTRY_TEST%%';
+
+		$venue_with_state_province_id = static::factory()->venue->create( [
+			'meta_input' => [
+				'_VenueAddress' => $address_string,
+				'_VenueCity' => $city_string,
+				'_VenueStateProvince' => $state_province_string,
+				'_VenueZip' => $zip_string,
+				'_VenueCountry' => $country_string,
+			]
+		] );
+		$venue_in_usa_id             = static::factory()->venue->create( [
+			'meta_input' => [
+				'_VenueAddress' => $address_string,
+				'_VenueCity' => $city_string,
+				'_VenueState' => $state_string,
+				'_VenueStateProvince' => null,
+				'_VenueZip' => $zip_string,
+				'_VenueCountry' => 'United States',
+			]
+		] );
+		$venue_with_province_id     = static::factory()->venue->create( [
+			'meta_input' => [
+				'_VenueAddress' => $address_string,
+				'_VenueCity' => $city_string,
+				'_VenueProvince' => $province_string,
+				'_VenueStateProvince' => null,
+				'_VenueZip' => $zip_string,
+				'_VenueCountry' => $country_string,
+			]
+		] );
+
+		$event_with_state_province_id = static::factory()->event->create( [
+			'meta_input' => [
+				'_EventVenueID' => $venue_with_state_province_id,
+			]
+		] );
+		$event_in_usa_id              = static::factory()->event->create( [
+			'meta_input' => [
+				'_EventVenueID' => $venue_in_usa_id,
+			]
+		] );
+		$event_with_province_id       = static::factory()->event->create( [
+			'meta_input' => [
+				'_EventVenueID' => $venue_with_province_id,
+			]
+		] );
+
+		$full_address_html_with_state_province_id = tribe_get_full_address( $event_with_state_province_id );
+		$full_address_html_in_usa_id              = tribe_get_full_address( $event_in_usa_id );
+		$full_address_html_with_province_id       = tribe_get_full_address( $event_with_province_id );
+
+		$this->assertContains( $address_string, $full_address_html_with_state_province_id, 'Full Address should contain the address' );
+		$this->assertContains( $city_string, $full_address_html_with_state_province_id, 'Full Address should contain the city' );
+		$this->assertContains( $zip_string, $full_address_html_with_state_province_id, 'Full Address should contain the zip' );
+		$this->assertContains( $country_string, $full_address_html_with_state_province_id, 'Full Address should contain the country' );
+
+
+		$this->assertContains( $state_province_string, $full_address_html_with_state_province_id, 'Full Address for a Venue with StateProvince set should contain the the StateProvince value' );
+		$this->assertNotContains( $state_string, $full_address_html_with_state_province_id, 'Full Address for a Venue with StateProvince set should NOT contain the the State value' );
+		$this->assertNotContains( $province_string, $full_address_html_with_state_province_id, 'Full Address for a Venue with StateProvince set should NOT contain the the Province value' );
+
+		$this->assertContains( $state_string, $full_address_html_in_usa_id, 'Full Address for a Venue in the US without StateProvince should contain the State' );
+		$this->assertNotContains( $state_province_string, $full_address_html_in_usa_id, 'Full Address for a Venue in the US without StateProvince should contain the StateProvince' );
+		$this->assertNotContains( $province_string, $full_address_html_in_usa_id, 'Full Address for a Venue in the US without StateProvince should NOT contain the Province' );
+
+		$this->assertContains( $province_string, $full_address_html_with_province_id, 'Full Address for a Venue not the US without StateProvince should contain the Province' );
+		$this->assertNotContains( $state_province_string, $full_address_html_with_province_id, 'Full Address for a Venue not the US without StateProvince should NOT contain the StateProvince' );
+		$this->assertNotContains( $state_string, $full_address_html_with_province_id, 'Full Address for a Venue not the US without StateProvince should NOT contain the State' );
 	}
 }

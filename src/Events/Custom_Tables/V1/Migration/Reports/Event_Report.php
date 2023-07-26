@@ -526,9 +526,8 @@ class Event_Report implements JsonSerializable {
 	 * The JSON serializer logic.
 	 *
 	 * @since 6.0.0
-	 *
-	 * @return array
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return $this->data;
 	}

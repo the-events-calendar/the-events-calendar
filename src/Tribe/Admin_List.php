@@ -348,6 +348,10 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 		public static function custom_columns( $column_id, $post_id ) {
 			switch ( $column_id ) {
 				case 'events-cats':
+					if ( ! taxonomy_exists( Tribe__Events__Main::TAXONOMY ) ) {
+						return [];
+					}
+
 					$event_cats = wp_get_post_terms(
 						$post_id,
 						Tribe__Events__Main::TAXONOMY,
@@ -357,6 +361,10 @@ if ( ! class_exists( 'Tribe__Events__Admin_List' ) ) {
 					);
 					$categories_list = '-';
 					if ( is_array( $event_cats ) ) {
+						$event_cats = array_values( array_filter( $event_cats, static function ( $event_cat ) {
+							return is_string( $event_cat ) && $event_cat !== '';
+						} ) );
+
 						$categories_list = implode( ', ', $event_cats );
 					}
 					echo esc_html( $categories_list );

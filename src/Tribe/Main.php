@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Main Tribe Events Calendar class.
  */
@@ -6,6 +7,9 @@
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
+use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -19,6 +23,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 	 * This is where all the magic happens, the unicorns run wild and the leprechauns use WordPress to schedule events.
 	 */
 	class Tribe__Events__Main {
+		use Tribe__Events__Main_Deprecated;
+
 		/**
 		 * This constant is deprecated (as of 4.0) in favor of Tribe__Main::OPTIONNAME
 		 */
@@ -35,14 +41,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.0.1';
+		const VERSION             = '6.1.3';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-dev';
+		const MIN_ADDON_VERSION   = '6.1.0-dev';
 
 		/**
 		 * Min Common
@@ -72,7 +78,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.5.0-dev';
+		protected $min_et_version = '5.6.1-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -279,8 +285,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $singular_organizer_label;
 		public $plural_organizer_label;
 
+		public $singular_event_label_lowercase;
+		public $plural_event_label_lowercase;
+
 		public $singular_event_label;
 		public $plural_event_label;
+
+		public $currentDay;
+		public $errors;
+		public $registered;
 
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
@@ -340,6 +353,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_old_et_is_present' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_invalid_wp_or_php' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 0 );
+
+			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
 
 			// Prevents Image Widget Plus from been problematic
 			$this->compatibility_unload_iwplus_v102();
@@ -440,14 +455,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Disable older versions of Community Events to prevent fatal Error.
 			remove_action( 'plugins_loaded', 'Tribe_CE_Load', 2 );
-
-			// Third-party compatibility problems.
-			if ( function_exists( 'YoastSEO' ) && defined( 'WPSEO_VERSION' ) ) {
-				add_action( 'init', static function() {
-					$tec_integration = YoastSEO()->classes->get( 'Yoast\\WP\\SEO\\Integrations\\Third_Party\\The_Events_Calendar' );
-					\remove_filter( 'wpseo_schema_graph_pieces', [ $tec_integration, 'add_graph_pieces' ], 11 );
-				} );
-			}
 		}
 
 		/**
@@ -485,9 +492,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
+			add_filter( 'tec_common_parent_plugin_file', [ $this, 'include_parent_plugin_path_to_common' ] );
+
 			Tribe__Main::instance();
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
+		}
+
+		/**
+		 * Adds our main plugin file to the list of paths.
+		 *
+		 * @since 6.1.0
+		 *
+		 *
+		 * @param array<string> $paths The paths to TCMN parent plugins.
+		 *
+		 * @return array<string>
+		 */
+		public function include_parent_plugin_path_to_common( $paths ): array {
+			$paths[] = TRIBE_EVENTS_FILE;
+
+			return $paths;
 		}
 
 		/**
@@ -575,6 +600,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Aggregator__Processes__Service_Provider' );
 			tribe_register_provider( Tribe\Events\Taxonomy\Taxonomy_Provider::class );
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
+			tribe_register_provider( TEC\Events\Configuration\Provider::class );
 
 			// @todo After version 6.0.0 this needs to move to the Events folder provider.
 			tribe_register_provider( TEC\Events\Legacy\Views\V1\Provider::class );
@@ -650,6 +676,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
+
+			// Load the new third-party integration system.
+			tribe_register_provider( TEC\Events\Integrations\Provider::class );
+
+			// Set up the installer.
+			tribe_register_provider( TEC\Events\Installer\Provider::class );
+
+			// Set up Site Health
+			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
+
+			// Set up Telemetry
+			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -870,13 +908,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_is_post_type_screen_post_types', [ $this, 'is_post_type_screen_post_types' ] );
 			add_filter( 'tribe_currency_symbol', [ $this, 'maybe_set_currency_symbol_with_post' ], 10, 2 );
 			add_filter( 'tribe_reverse_currency_position', [ $this, 'maybe_set_currency_position_with_post' ], 10, 2 );
-
-			// Settings page hooks
-			add_action( 'tribe_settings_do_tabs', [ $this, 'do_addons_api_settings_tab' ] );
-			add_filter( 'tribe_general_settings_tab_fields', [ $this, 'general_settings_tab_fields' ] );
-			add_filter( 'tribe_display_settings_tab_fields', [ $this, 'display_settings_tab_fields' ] );
-			add_filter( 'tribe_settings_url', [ $this, 'tribe_settings_url' ] );
-			add_action( 'tribe_settings_do_tabs', [ $this, 'do_upgrade_tab' ] );
 
 			// Setup Help Tab texting
 			add_action( 'tribe_help_pre_get_sections', [ $this, 'add_help_section_feature_box_content' ] );
@@ -1234,126 +1265,39 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Initialize the addons api settings tab.
 		 *
 		 * @since 5.15.0 Added check to see if we are on TEC settings page.
+		 *
+		 * @deprecated 6.0.5
 		 */
 		public function do_addons_api_settings_tab( $admin_page ) {
-			// Bail if we're not on TEC settings.
-			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
-				return;
-			}
-
-			include_once $this->plugin_path . 'src/admin-views/tribe-options-addons-api.php';
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->do_addons_api_settings_tab()' );
+			tribe( Settings::class )->do_addons_api_settings_tab( $admin_page );
 		}
 
 		/**
-		 * should we show the upgrade nags?
+		 * Should we show the upgrade nags?
 		 *
 		 * @since 4.9.12
 		 *
-		 * @return boolean
+		 * @deprecated 6.0.5
+		 *
+		 * @return bool
 		 */
 		public function show_upgrade() {
-			// This allows sub-site admins to utilize this setting when their access to plugins is restricted.
-			$can_show_tab = current_user_can( 'activate_plugins' ) || ( is_multisite() && current_user_can( 'customize' ) );
-
-			/**
-			 * Provides an opportunity to override the decision to show or hide the upgrade tab.
-			 *
-			 * Normally it will only show if the current user has the "activate_plugins" capability
-			 * and there are some currently-activated premium plugins.
-			 *
-			 * @since 4.9.12
-			 * @since 6.0.0 This filter now controls only the capability to show the Upgrade tab.
-			 *
-			 * @param bool $can_show_tab True or False for showing the Upgrade Tab.
-			 */
-			$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
-
-			if ( ! $can_show_tab ) {
-				return false;
-			}
-
-			/**
-			 * Filters whether the Upgrade Tab has actually any content to show or not.
-			 *
-			 * @since 6.0.0
-			 *
-			 * @param bool $has_content Whether the tab has any content to show or not.
-			 */
-			if ( ! apply_filters( 'tec_events_upgrade_tab_has_content', false ) ) {
-				return false;
-			}
-
-			return true;
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->show_upgrade()' );
+			return tribe( Settings::class)->show_upgrade();
 		}
 
 		/**
-		 * Create the upgrade tab
+		 * Create the upgrade tab.
 		 *
 		 * @since 4.9.12
 		 * @since 5.15.0 Added check to see if we are on TEC settings page.
+		 *
+		 * @deprecated 6.0.5
 		 */
 		public function do_upgrade_tab( $admin_page ) {
-			// Bail if we're not on TEC settings.
-			if ( ! empty( $admin_page ) && tribe( Settings::class )::$settings_page_id !== $admin_page ) {
-				return;
-			}
-
-			if ( ! $this->show_upgrade() ) {
-				return;
-			}
-
-			tribe_asset(
-				self::instance(),
-				'tribe-admin-upgrade-page',
-				'admin-upgrade-page.js',
-				[ 'tribe-common' ],
-				'admin_enqueue_scripts',
-				[
-					'localize' => [
-						'name' => 'tribe_upgrade',
-						'data' => [
-							'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
-							'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
-						],
-					],
-				]
-			);
-
-			$upgrade_tab_html = '';
-
-			$upgrade_tab = [
-				'info-box-description' => [
-					'type' => 'html',
-					'html' => $upgrade_tab_html,
-				],
-			];
-
-			/**
-			 * Allows the fields displayed in the upgrade tab to be modified.
-			 *
-			 * @since 4.9.12
-			 *
-			 * @param array $upgrade_tab Array of fields used to setup the Upgrade Tab.
-			 */
-			$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
-
-			new Tribe__Settings_Tab(
-				'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
-				[
-					'priority'      => 100,
-					'fields'        => $upgrade_fields,
-					'network_admin' => is_network_admin(),
-					'show_save'     => true,
-				]
-			);
-
-			add_filter(
-				'tec_events_settings_tabs_ids',
-				function( $tabs ) {
-					$tabs[] = 'upgrade';
-					return $tabs;
-				}
-			);
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->do_upgrade_tab()' );
+			tribe( Settings::class )->do_upgrade_tab( $admin_page );
 		}
 
 		/**
@@ -1580,7 +1524,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// By default, we add a noindex tag for all month view requests and any other
 			// event views that are devoid of events
-			$add_noindex  = ( ! $wp_query->have_posts() || 'month' === $context->get( 'view' ) );
+			$add_noindex  = ( ! $wp_query->have_posts() || Month_View::get_view_slug() === $context->get( 'view' ) );
 
 			/**
 			 * Determines if a noindex meta tag will be set for the current event view.
@@ -1813,10 +1757,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					if ( is_singular( self::POSTTYPE )
 						 || is_singular( Tribe__Events__Venue::POSTTYPE )
 						 || is_tax( self::TAXONOMY )
-						 || ( ( tribe_is_upcoming()
-								|| tribe_is_past()
-								|| tribe_is_month() )
-							  && isset( $wp_query->query_vars['eventDisplay'] ) )
+						 || (
+								(
+									tribe_is_upcoming()
+									|| tribe_is_past()
+									|| tribe_is_month()
+								)
+							  && isset( $wp_query->query_vars['eventDisplay'] )
+							)
 					) {
 						$item->classes[] = 'current-menu-item current_page_item';
 					}
@@ -1924,7 +1872,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public function post_class( $classes ) {
 			global $post;
 			if ( is_object( $post ) && isset( $post->post_type ) && $post->post_type == self::POSTTYPE && $terms = get_the_terms( $post->ID, self::TAXONOMY ) ) {
+				if ( $terms instanceof WP_Error ) {
+					// IF the taxonomy is not registered, we get a WP_Error object.
+					return $classes;
+				}
+
 				foreach ( $terms as $term ) {
+					if ( ! $term instanceof WP_Term ) {
+						continue;
+					}
+
 					$classes[] = 'cat_' . sanitize_html_class( $term->slug, $term->term_taxonomy_id );
 				}
 			}
@@ -1955,35 +1912,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Setup Linked Posts singleton after we've set up the post types that we care about
 			Tribe__Events__Linked_Posts::instance();
 
-			$taxonomy_args = [
-				'hierarchical'          => true,
-				'update_count_callback' => '',
-				'rewrite'               => [
-					'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
-					'with_front'   => false,
-					'hierarchical' => true,
-				],
-				'public'                => true,
-				'show_ui'               => true,
-				'labels'                => $this->taxonomyLabels,
-				'capabilities'          => [
-					'manage_terms' => 'publish_tribe_events',
-					'edit_terms'   => 'publish_tribe_events',
-					'delete_terms' => 'publish_tribe_events',
-					'assign_terms' => 'edit_tribe_events',
-				],
-			];
-
-			/**
-			 * Filter the event category taxonomy arguments used in register_taxonomy.
-			 *
-			 * @param array $taxonomy_args
-			 *
-			 * @since 4.5.5
-			 */
-			$taxonomy_args = apply_filters( 'tribe_events_register_event_cat_type_args', $taxonomy_args );
-
-			register_taxonomy( self::TAXONOMY, self::POSTTYPE, $taxonomy_args );
+			$this->register_taxonomy();
 
 			if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
 				add_post_type_support( self::POSTTYPE, 'comments' );
@@ -2409,7 +2338,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			_deprecated_function( __METHOD__, '6.0.0' );
 		}
 
-				/**
+		/**
 		 * Returns the default view, providing a fallback if the default is no longer available.
 		 *
 		 * This can be useful is for instance a view added by another plugin (such as PRO) is
@@ -2589,6 +2518,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$event_url = home_url( '/' );
 			}
 
+			// Ensure the URL ends with a trailing slash.
+			$event_url = trailingslashit( $event_url );
+
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
 			if ( null === $url_query ) {
@@ -2631,14 +2563,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				case 'home':
 					$event_url = trailingslashit( esc_url_raw( $event_url ) );
 					break;
-				case 'month':
+				case Month_View::get_view_slug():
 					if ( $secondary ) {
 						$event_url = trailingslashit( esc_url_raw( $event_url . $secondary ) );
 					} else {
 						$event_url = trailingslashit( esc_url_raw( $event_url . $this->monthSlug ) );
 					}
 					break;
-				case 'list':
+				case List_View::get_view_slug():
 				case 'upcoming':
 					$event_url = trailingslashit( esc_url_raw( $event_url . $this->listSlug ) );
 					break;
@@ -2651,7 +2583,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					$link      = trailingslashit( get_permalink( $p ) );
 					$event_url = trailingslashit( esc_url_raw( $link ) );
 					break;
-				case 'day':
+				case Day_View::get_view_slug():
 					if ( empty( $secondary ) ) {
 						$secondary = $this->todaySlug;
 					} else {
@@ -2718,14 +2650,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 
 			switch ( $type ) {
-				case 'day':
+				case Day_View::get_view_slug():
 					$eventUrl = add_query_arg( [ 'tribe_event_display' => $type ], $eventUrl );
 					if ( $secondary ) {
 						$eventUrl = add_query_arg( [ 'eventDate' => $secondary ], $eventUrl );
 					}
 					break;
 				case 'week':
-				case 'month':
+				case Month_View::get_view_slug():
 					$eventUrl = add_query_arg( [ 'tribe_event_display' => $type ], $eventUrl );
 					if ( is_string( $secondary ) ) {
 						$eventUrl = add_query_arg( [ 'eventDate' => $secondary ], $eventUrl );
@@ -2733,13 +2665,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						$eventUrl = add_query_arg( $secondary, $eventUrl );
 					}
 					break;
-				case 'list':
+				case List_View::get_view_slug():
 				case 'past':
 				case 'upcoming':
 					$eventUrl = add_query_arg( [ 'tribe_event_display' => $type ], $eventUrl );
 					break;
 				case 'dropdown':
-					$dropdown = add_query_arg( [ 'tribe_event_display' => 'month', 'eventDate' => ' ' ], $eventUrl );
+					$dropdown = add_query_arg( [ 'tribe_event_display' => Month_View::get_view_slug(), 'eventDate' => ' ' ], $eventUrl );
 					$eventUrl = rtrim( $dropdown ); // tricksy
 					break;
 				case 'single':
@@ -2844,6 +2776,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! is_network_admin()  ) {
 				// We set with a string to avoid having to include a file here.
 				set_transient( '_tribe_events_delayed_flush_rewrite_rules', 'yes', 0 );
+
+				self::clear_ct1_activation_state();
 			}
 
 			if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
@@ -2875,6 +2809,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			if ( ! class_exists( 'Tribe__Cache' ) ) {
 				require_once dirname( dirname( __FILE__ ) ) . '/common/src/Tribe/Cache.php';
 			}
+
+			self::clear_ct1_activation_state();
 
 			$hook_name = 'tribe_schedule_transient_purge';
 
@@ -3630,6 +3566,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$current_hidden_boxes = get_user_option( 'metaboxhidden_nav-menus', $user_id );
 
+			if ( ! is_array( $current_hidden_boxes ) ) {
+				return;
+			}
+
 			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );
 			}
@@ -3766,44 +3706,43 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Inject TEC specific setting fields into the general tab
+		 * Inject TEC specific setting fields into the general tab.
 		 *
-		 * @param array $general_tab_fields Fields for the general settings tab
+		 * @param array $general_tab_fields Fields for the general settings tab.
+		 *
+		 * @deprecated 6.0.5
 		 *
 		 * @return array
 		 */
 		public function general_settings_tab_fields( $general_tab_fields ) {
-			require_once $this->plugin_path . 'src/admin-views/tribe-options-general.php';
-
-			return $general_tab_fields;
+			_deprecated_function( __METHOD__, '6.0.5', 'No replacement. Handled by Settings::settings_ui()' );
 		}
 
 		/**
-		 * Inject TEC specific setting fields into the display tab
+		 * Inject TEC specific setting fields into the display tab.
 		 *
-		 * @param array $display_tab_fields Fields for the display settings tab
+		 * @param array $display_tab_fields Fields for the display settings tab.
+		 *
+		 * @deprecated 6.0.5
 		 *
 		 * @return array
 		 */
 		public function display_settings_tab_fields( $display_tab_fields ) {
-			require_once $this->plugin_path . 'src/admin-views/tribe-options-display.php';
-
-			return $display_tab_fields;
+			_deprecated_function( __METHOD__, '6.0.5', 'No replacement. Handled by Settings::settings_ui()' );
 		}
 
 		/**
-		 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it
+		 * When TEC is activated, the Events top level menu item in the dashboard needs the post_type appended to it.
 		 *
-		 * @param string $url Settings URL to filter
+		 * @param string $url Settings URL to filter.
+		 *
+		 * @deprecated 6.0.5
 		 *
 		 * @return string
 		 */
 		public function tribe_settings_url( $url ) {
-			if ( is_network_admin() ) {
-				return $url;
-			}
-
-			return add_query_arg( [ 'post_type' => self::POSTTYPE ], $url );
+			_deprecated_function( __METHOD__, '6.0.5', 'tribe( Settings::class )->filter_url()' );
+			return tribe( Settings::class )->filter_url( $url );
 		}
 
 		/**
@@ -4150,10 +4089,67 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->get_autoloader_instance()->register_prefixes( $prefixes );
 		}
 
-		/************************
-		 *                      *
-		 *  Deprecated Methods  *
-		 *                      *
-		 ************************/
+		/**
+		 * Registers the Events' category taxonomy in WordPress.
+		 *
+		 * @since 6.0.9
+		 *
+		 * @return WP_Taxonomy|WP_Error The registered taxonomy object on success, WP_Error object on failure.
+		 */
+		public function register_taxonomy() {
+			$taxonomy_args = [
+					'hierarchical'          => true,
+					'update_count_callback' => '',
+					'rewrite'               => [
+							'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
+							'with_front'   => false,
+							'hierarchical' => true,
+					],
+					'public'                => true,
+					'show_ui'               => true,
+					'labels'                => $this->taxonomyLabels,
+					'capabilities'          => [
+							'manage_terms' => 'publish_tribe_events',
+							'edit_terms'   => 'publish_tribe_events',
+							'delete_terms' => 'publish_tribe_events',
+							'assign_terms' => 'edit_tribe_events',
+					],
+			];
+
+			/**
+			 * Filter the event category taxonomy arguments used in register_taxonomy.
+			 *
+			 * @since 4.5.5
+			 *
+			 * @param array $taxonomy_args
+			 *
+			 */
+			$taxonomy_args = apply_filters( 'tribe_events_register_event_cat_type_args', $taxonomy_args );
+
+			return register_taxonomy( self::TAXONOMY, self::POSTTYPE, $taxonomy_args );
+		}
+
+		/**
+		 * Idempotent method to clear the state of the Custom Tables v1 activation state.
+		 *
+		 * Note the state might be persisted in the database, as a transient, or in the cache.
+		 * The method will handle both cases.
+		 *
+		 * @since 6.0.8
+		 *
+		 * @return void The method will clear the state of the Custom Tables v1 activation.
+		 */
+		public static function clear_ct1_activation_state(): void {
+			/*
+			 * Value is hard-coded to avoid autoloading the Activation class for the sole purpose of getting the
+			 * transient name.
+			 *
+			 * @see TEC\Events\Custom_Tables\V1\Activation::ACTIVATION_TRANSIENT
+			 */
+			$transient_key = 'tec_custom_tables_v1_initialized';
+
+			delete_transient( $transient_key );
+			wp_cache_delete( $transient_key );
+		}
 	}
 }

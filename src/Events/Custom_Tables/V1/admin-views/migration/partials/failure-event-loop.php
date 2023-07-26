@@ -17,7 +17,7 @@ use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 			} else {
 				?>
 				<a target="_blank"
-				   href="<?php echo get_edit_post_link( $event->source_event_post->ID, false ) ?>"><?php echo esc_html( $event->source_event_post->post_title ); ?></a>
+				   href="<?php echo get_edit_post_link( $event->source_event_post->ID ?? null, false ) ?>"><?php echo esc_html( $event->source_event_post->post_title ?? "[Unknown title]" ); ?></a>
 				—
 				<?php
 				echo $event->get_migration_strategy_text();

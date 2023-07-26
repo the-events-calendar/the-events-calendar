@@ -40,3 +40,6 @@ src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
 files/
+
+# Misc
+bin/strauss.phar

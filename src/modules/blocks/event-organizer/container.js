@@ -1,9 +1,11 @@
 /**
  * External dependencies
  */
+import React, { useEffect } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { uniq } from 'lodash';
+import PropTypes from 'prop-types';
 
 /**
  * Internal dependencies
@@ -18,6 +20,7 @@ import { editor } from '@moderntribe/common/data';
 import { toOrganizer } from '@moderntribe/events/elements/organizer-form/utils';
 import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
 import EventOrganizer from './template';
+import { editorDefaults } from '@moderntribe/common/utils/globals';
 
 /**
  * Module Code
@@ -70,6 +73,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 		...restStateProps,
 		...restDispatchProps,
 		onFormSubmit: ( fields ) => {
+			// Request with cleaned up form fields, callback will dispatch to create new organizer details component.
 			ownProps.sendForm( toOrganizer( fields ), onFormCompleted( state, dispatch, ownProps ) );
 		},
 		onItemSelect: ( organizerID, details ) => {
@@ -99,10 +103,41 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 	};
 };
 
+/**
+ * Our Event Organizer blocks container. This is responsible for managing the state passed down to the template.
+ *
+ * @param props The props with the organizer and `setAttributes` function, that will be passed down to the
+ * 				EventOrganizer component.
+ * @returns {JSX.IntrinsicElements} Returns the EventOrganizer component.
+ * @constructor
+ */
+const StatefulEventOrganizer = ( props ) => {
+	// This hook should only run once, it checks for default values.
+	useEffect( () => {
+		// Manage our initial state for defaults.
+		const defaults = editorDefaults();
+		const { attributes: { organizer } } = props;
+
+		if ( organizer === null && defaults && defaults.organizer ) {
+			props.setAttributes( { organizer: defaults.organizer } );
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [] );
+
+	return (
+		<EventOrganizer { ...props } />
+	);
+};
+
+StatefulEventOrganizer.propTypes = {
+	attributes: PropTypes.object,
+	setAttributes: PropTypes.func,
+};
+
 export default compose(
 	withStore( { isolated: true, postType: editor.ORGANIZER } ),
 	withForm( ( props ) => props.clientId ),
 	connect( mapStateToProps ),
 	withDetails( 'organizer' ),
 	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
-)( EventOrganizer );
+)( StatefulEventOrganizer );

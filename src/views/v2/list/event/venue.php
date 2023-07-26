@@ -42,7 +42,11 @@ $address              = $venue->address . ( $venue->address && ( $append_after_a
 
 		if ( $append_after_address ) : 
 			echo esc_html( reset( $append_after_address ) ); 
-		endif; 
+		endif;
+
+		if ( ! empty( $venue->country ) ):
+			echo $separator . esc_html( $venue->country );
+		endif;
 		?>
 	</span>
 </address>

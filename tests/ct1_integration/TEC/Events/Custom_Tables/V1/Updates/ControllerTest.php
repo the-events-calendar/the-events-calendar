@@ -115,6 +115,6 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		$controller = new Controller( new Meta_Watcher(), $requests, $events );
 		$affected   = $controller->delete_custom_tables_data( $event_id, $requests->from_http_request() );
 
-		$this->assertEquals( 1, $affected );
+		$this->assertEquals( 2, $affected );
 	}
 }

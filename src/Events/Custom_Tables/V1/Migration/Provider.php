@@ -10,7 +10,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\Download_Report_Provider;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report_Categories;
@@ -61,6 +61,8 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( Process_Worker::ACTION_CHECK_PHASE, [ $this, 'check_migration_phase' ], 10, 2 );
 
 		// Hook on the AJAX actions that will start, report about, and cancel the migration.
+		// Before the JSON report is dispatched (and the request exits) migrate some events.
+		add_action( Ajax::ACTION_REPORT, [ $this, 'migrate_events_on_js_poll' ], 9 );
 		add_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
 		add_action( Ajax::ACTION_PAGINATE_EVENTS, [ $this, 'paginate_events' ] );
 		add_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
@@ -69,8 +71,10 @@ class Provider extends Service_Provider implements Provider_Contract {
 		add_action( 'action_scheduler_bulk_cancel_actions', [ $this, 'cancel_async_actions' ] );
 		add_action( 'action_scheduler_canceled_action', [ $this, 'cancel_async_action' ] );
 
-		if ( is_admin() ) {
+		$current_phase = $this->container->make( State::class )->get_phase();
+		if ( $current_phase !== State::PHASE_MIGRATION_NOT_REQUIRED && is_admin() ) {
 			add_action( 'admin_enqueue_scripts', $this->container->callback( Asset_Loader::class, 'enqueue_scripts' ) );
+
 			// Hook into the Upgrade tab to show it and customize its contents.
 			add_filter( 'tec_events_upgrade_tab_has_content', [ $this, 'show_upgrade_tab' ] );
 			add_filter( 'tribe_upgrade_fields', [ $this, 'add_phase_callback' ] );
@@ -94,7 +98,19 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *              effect of unsetting the hooks set in the `register` method.
 	 */
 	public function unregister() {
-		// TODO: Implement unregister() method.
+		remove_action( Process_Worker::ACTION_PROCESS, [ $this, 'migrate_event' ], );
+		remove_action( Process_Worker::ACTION_UNDO, [ $this, 'undo_event_migration' ] );
+		remove_action( Process_Worker::ACTION_CHECK_PHASE, [ $this, 'check_migration_phase' ], );
+		remove_action( Ajax::ACTION_REPORT, [ $this, 'send_report' ] );
+		remove_action( Ajax::ACTION_PAGINATE_EVENTS, [ $this, 'paginate_events' ] );
+		remove_action( Ajax::ACTION_START, [ $this, 'start_migration' ] );
+		remove_action( Ajax::ACTION_CANCEL, [ $this, 'cancel_migration' ] );
+		remove_action( Ajax::ACTION_REVERT, [ $this, 'revert_migration' ] );
+		remove_action( 'action_scheduler_bulk_cancel_actions', [ $this, 'cancel_async_actions' ] );
+		remove_action( 'action_scheduler_canceled_action', [ $this, 'cancel_async_action' ] );
+		remove_action( 'admin_enqueue_scripts', $this->container->callback( Asset_Loader::class, 'enqueue_scripts' ) );
+		remove_filter( 'tec_events_upgrade_tab_has_content', [ $this, 'show_upgrade_tab' ] );
+		remove_filter( 'tribe_upgrade_fields', [ $this, 'remove_phase_callback' ] );
 	}
 
 	/**
@@ -158,7 +174,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @param array $action_id A list of the action scheduler action IDs.
 	 */
-	public function cancel_async_actions( array $action_ids ) {
+	public function cancel_async_actions( $action_ids ) {
+		if ( ! is_array( $action_ids ) ) {
+			return;
+		}
+
 		$this->container->make( Process::class )->cancel_async_actions( $action_ids );
 	}
 
@@ -317,5 +337,37 @@ class Provider extends Service_Provider implements Provider_Contract {
 	public function load_action_scheduler_late() {
 		$action_scheduler_file = TEC::instance()->plugin_path . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
 		require_once $action_scheduler_file;
+	}
+
+	/**
+	 * Piggy-back on the Migration UI JS component polling of the backend to migrate some events, if possible.
+	 *
+	 * @since 6.0.2
+	 *
+	 * @return void Some Events might be migrated.
+	 */
+	public function migrate_events_on_js_poll(): void {
+		if ( ! in_array( $this->container->make( State::class )->get_phase(), [
+			State::PHASE_MIGRATION_IN_PROGRESS,
+			State::PHASE_PREVIEW_IN_PROGRESS
+		] ) ) {
+			return;
+		}
+
+		/**
+		 * Filters how many Events should be migrated in a single AJAX request to the Migration UI backend.
+		 *
+		 * @since 6.0.2
+		 *
+		 * @param int $count The number of Events to migrate on the migration UI JS component polling; returning
+		 *                   `0` will disable the functionality.
+		 */
+		$count = apply_filters( 'tec_events_custom_tables_v1_migration_js_poll_count', 10 );
+
+		if ( ! $count ) {
+			return;
+		}
+
+		$this->container->make( Process_Worker::class )->migrate_many_events( $count );
 	}
 }

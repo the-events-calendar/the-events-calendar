@@ -8,7 +8,7 @@ export const PREFIX_EVENTS_STORE = '@@MT/EVENTS';
 /**
  * Dispatch an action only if the attribute is present inside of the attributes
  *
- * @param {object} attributes Set of attributes associated with the block
+ * @param {Object} attributes Set of attributes associated with the block
  * @param {Function} dispatch Function used to dispatch into the store
  * @returns {Function} Returns a function that dispatch the action if present
  */
@@ -26,7 +26,7 @@ export const maybeDispatch = ( attributes, dispatch ) => ( action, key, defaultV
  * Dispatch a series of actions as an array to decrease verbosity by passing attributes and
  * dispatch to the same set of actions
  *
- * @param {object} attributes Set of attributes associated with the block
+ * @param {Object} attributes Set of attributes associated with the block
  * @param {Function} dispatch Function used to dispatch into the store
  * @returns {Function} Returns the functions that dispatch the actions if present
  */

@@ -51,10 +51,14 @@ class Events {
 		// Batch locking
 		$batch_uid = uniqid( 'tec_ct1_action', true ); // Should be pretty unique.
 
+		// Let's avoid table locks in the following query, this could have Deadlock side effects.
+		// @see https://dev.mysql.com/doc/refman/5.7/en/set-transaction.html to know what this is doing.
+		$wpdb->query("SET SESSION TRANSACTION ISOLATION LEVEL READ UNCOMMITTED");
+
 		// Atomic query.
 		// Fetch only those that were NOT previously touched.
 		$lock_query = "INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value)
-	    SELECT p.ID, %s,%s
+	    SELECT DISTINCT p.ID, %s,%s
 	    FROM {$wpdb->posts} p
 			LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id AND pm.meta_key IN (%s, %s)
 			LEFT JOIN {$wpdb->postmeta} created_by_migration ON p.ID = created_by_migration.post_id
@@ -83,9 +87,19 @@ class Events {
 
 		// The lock operation could fail and that is ok. A deadlock message should not be reported in this case.
 		$suppress_errors_backup = $wpdb->suppress_errors;
-		$wpdb->suppress_errors = true;
+		$wpdb->suppress_errors  = true;
 		$wpdb->query( $lock_query );
 		$wpdb->suppress_errors = $suppress_errors_backup;
+
+		// Get our db object so we can inspect. This isn't always an object, so some type checking is needed.
+		$db = is_object( $wpdb->dbh ) ? $wpdb->dbh : null;
+
+		// Deadlock error no.
+		$deadlock_errno = 1213;
+		if ( $db !== null && $db->errno === $deadlock_errno ) {
+			// Deadlock, lets retry lock query.
+			$wpdb->query( $lock_query );
+		}
 
 		if ( ! $wpdb->rows_affected ) {
 			return [];
@@ -94,8 +108,14 @@ class Events {
 		// Let’s claim the prize.
 		$fetch_query = "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s";
 		$fetch_query = $wpdb->prepare( $fetch_query, Event_Report::META_KEY_MIGRATION_LOCK_HASH, $batch_uid );
+		$results     = $wpdb->get_col( $fetch_query );
 
-		return $wpdb->get_col( $fetch_query );
+		if ( empty( $results ) && $db !== null && $db->errno === $deadlock_errno ) {
+			// Deadlock, lets retry fetch query.
+			$results = $wpdb->get_col( $fetch_query );
+		}
+
+		return $results;
 	}
 
 	/**
@@ -265,7 +285,7 @@ class Events {
 		global $wpdb;
 		$total_events = (int) $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT COUNT(ID) FROM {$wpdb->posts} p
+				"SELECT COUNT(DISTINCT `ID`) FROM {$wpdb->posts} p
 						LEFT JOIN {$wpdb->postmeta} created_by_migration ON p.ID = created_by_migration.post_id
 							AND created_by_migration.meta_key = %s
 						LEFT JOIN {$wpdb->postmeta} pm1 ON p.ID = pm1.post_id AND pm1.meta_key = '_EventStartDate'

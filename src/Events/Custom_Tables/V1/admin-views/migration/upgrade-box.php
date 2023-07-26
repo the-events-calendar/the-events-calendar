@@ -12,7 +12,7 @@
 use TEC\Events\Custom_Tables\V1\Migration\String_Dictionary;
 use TEC\Events\Custom_Tables\V1\Migration\Admin\Upgrade_Tab;
 
-$is_outdated_pro = class_exists( 'Tribe__Events__Pro__Main' ) && version_compare( Tribe__Events__Pro__Main::VERSION, '6.0.0-beta4-dev', '<=' );
+$is_outdated_pro = class_exists( 'Tribe__Events__Pro__Main' ) && version_compare( Tribe__Events__Pro__Main::VERSION, '6.0.0-dev', '<=' );
 ?>
 
 <?php if ( $is_outdated_pro ) : ?>

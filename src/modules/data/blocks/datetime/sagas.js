@@ -35,7 +35,7 @@ const {
  * @export
  * @yields
  * @since 4.7
- * @returns {object} {start, end}
+ * @returns {Object} {start, end}
  */
 export function* deriveMomentsFromDates() {
 	const dates = yield all( {
@@ -55,7 +55,7 @@ export function* deriveMomentsFromDates() {
  * @export
  * @yields
  * @since 4.7
- * @returns {object} {start, end}
+ * @returns {Object} {start, end}
  */
 export function* deriveSecondsFromDates() {
 	const moments = yield call( deriveMomentsFromDates );
@@ -83,7 +83,7 @@ export function* deriveSecondsFromDates() {
  * @export
  * @yields
  * @since 0.3.1-alpha
- * @param {object} dates An object that represents the start / end date
+ * @param {Object} dates An object that represents the start / end date
  */
 export function* setHumanReadableLabel( dates = {} ) {
 	const currentLabel = yield select( selectors.getNaturalLanguageLabel );
@@ -107,7 +107,7 @@ export function* setHumanReadableLabel( dates = {} ) {
  * @export
  * @yields
  * @since 0.3.1-alpha
- * @param {object} action Dispateched by the component and watched by this generator
+ * @param {Object} action Dispateched by the component and watched by this generator
  */
 export function* setHumanReadableFromDate( action ) {
 	const dates = {
@@ -147,7 +147,7 @@ export function* resetNaturalLanguageLabel() {
  * @export
  * @yields
  * @since 0.3.1-alpha
- * @param {object} action Payload with meta to set attributes
+ * @param {Object} action Payload with meta to set attributes
  */
 export function* onHumanReadableChange( action ) {
 	const label = yield select( selectors.getNaturalLanguageLabel );
@@ -204,7 +204,7 @@ export function* onHumanReadableChange( action ) {
  * @export
  * @yields
  * @since 4.7
- * @param {object} action Payload with to and from
+ * @param {Object} action Payload with to and from
  */
 export function* handleDateRangeChange( action ) {
 	const { to, from } = action.payload;
@@ -246,7 +246,7 @@ export function* handleDateRangeChange( action ) {
  * @export
  * @yields
  * @since 4.7
- * @param {object} action Payload with seconds in start or end key (when time change)
+ * @param {Object} action Payload with seconds in start or end key (when time change)
  */
 export function* preventEndTimeBeforeStartTime( action ) {
 	const isMultiDay = yield select( selectors.getMultiDay );
@@ -304,7 +304,7 @@ export function* preventEndTimeBeforeStartTime( action ) {
  * @export
  * @yields
  * @since 4.7
- * @param {object} action Payload with seconds in start or end key (when time change)
+ * @param {Object} action Payload with seconds in start or end key (when time change)
  */
 export function* preventStartTimeAfterEndTime( action ) {
 	const isMultiDay = yield select( selectors.getMultiDay );
@@ -355,7 +355,7 @@ export function* preventStartTimeAfterEndTime( action ) {
  *
  * @export
  * @yields
- * @param {object} action Payload with meta to set attributes.
+ * @param {Object} action Payload with meta to set attributes.
  * @since 4.7
  */
 export function* setAllDay( action ) {
@@ -391,7 +391,7 @@ export function* setAllDay( action ) {
  * @export
  * @yields
  * @since 4.7
- * @param {object} action Payload with multiDay
+ * @param {Object} action Payload with multiDay
  */
 export function* handleMultiDay( action ) {
 	const isMultiDay = action.payload.multiDay;
@@ -432,7 +432,7 @@ export function* handleMultiDay( action ) {
  * @export
  * @yields
  * @since 4.7
- * @param {object} action Payload with start of `all-day` or seconds
+ * @param {Object} action Payload with start of `all-day` or seconds
  */
 export function* handleStartTimeChange( action ) {
 	if ( action.payload.start === 'all-day' ) {
@@ -458,7 +458,7 @@ export function* handleStartTimeChange( action ) {
  * @export
  * @yields
  * @since 4.7
- * @param {object} action Payload with end of `all-day` or seconds
+ * @param {Object} action Payload with end of `all-day` or seconds
  */
 export function* handleEndTimeChange( action ) {
 	if ( action.payload.end === 'all-day' ) {
@@ -510,7 +510,7 @@ export function* setEndTimeInput() {
  * @export
  * @yields
  * @since 4.7
- * @param {object} action Action taken
+ * @param {Object} action Action taken
  */
 export function* handler( action ) {
 	switch ( action.type ) {

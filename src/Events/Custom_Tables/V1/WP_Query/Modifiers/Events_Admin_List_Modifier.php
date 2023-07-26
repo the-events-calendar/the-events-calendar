@@ -41,11 +41,14 @@ class Events_Admin_List_Modifier extends Base_Modifier {
 	 * @since 6.0.0
 	 *
 	 * @param array<string,string> $pieces Query clauses.
-	 * @param WP_Query             $query  Main query object.
 	 *
-	 * @return array<string,string>
+	 * @return array<string,string> The modified WHERE query clauses.
 	 */
-	public function filter_legacy_child_events( array $pieces, WP_Query $query ) {
+	public function filter_legacy_child_events(  $pieces ) {
+		if ( ! is_array( $pieces ) ) {
+			return $pieces;
+		}
+
 		$pieces['where'] .= ' AND post_parent = 0 ';
 		$this->unhook();
 

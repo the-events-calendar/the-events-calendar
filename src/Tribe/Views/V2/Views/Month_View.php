@@ -15,6 +15,8 @@ use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
 
+use DateTime;
+
 class Month_View extends By_Day_View {
 	use With_Fast_Forward_Link;
 
@@ -31,10 +33,20 @@ class Month_View extends By_Day_View {
 	 * Slug for this view.
 	 *
 	 * @since 4.9.3
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
 	protected $slug = 'month';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'month';
 
 	/**
 	 * Cached dates for the prev/next links.
@@ -43,7 +55,7 @@ class Month_View extends By_Day_View {
 	 *
 	 * @var array
 	 */
-	protected $cached_event_dates = [];
+	protected array $memoized_dates = [];
 
 	/**
 	 * Visibility for this view.
@@ -65,6 +77,24 @@ class Month_View extends By_Day_View {
 	protected $grid_days = [];
 
 	/**
+	 * Default untranslated value for the label of this view.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @var string
+	 */
+	protected static $label = 'Month';
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function get_view_label(): string {
+		static::$label = _x( 'Month', 'The text label for the Month View.', 'the-events-calendar' );
+
+		return static::filter_view_label( static::$label );
+	}
+
+	/**
 	 * Get the date of the event immediately previous to the current view date.
 	 *
 	 * @since 5.16.1
@@ -76,13 +106,15 @@ class Month_View extends By_Day_View {
 	public function get_previous_event_date( $current_date ) {
 		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
 
-
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
-		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
-			return $this->cached_event_dates[ $cache_key ];
+		if ( isset( $this->memoized_dates[ $cache_key ] ) ) {
+			return $this->memoized_dates[ $cache_key ];
 		}
+
+		// When dealing with previous event date we only fetch one.
+		$args['posts_per_page'] = 1;
 
 		// Find the first event that starts before the start of this month.
 		$prev_event = tribe_events()
@@ -92,6 +124,8 @@ class Month_View extends By_Day_View {
 			->first();
 
 		if ( ! $prev_event instanceof \WP_Post ) {
+			$this->memoized_dates[ $cache_key ] = false;
+
 			return false;
 		}
 
@@ -101,7 +135,7 @@ class Month_View extends By_Day_View {
 			$current_date->modify( '-1 month' )
 		);
 
-		$this->cached_event_dates[ $cache_key ] = $prev_date;
+		$this->memoized_dates[ $cache_key ] = $prev_date;
 
 		return $prev_date;
 	}
@@ -156,21 +190,27 @@ class Month_View extends By_Day_View {
 	 */
 	public function get_next_event_date( $current_date ) {
 		$args = $this->filter_repository_args( parent::setup_repository_args( $this->context ) );
+
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
-		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
-			return $this->cached_event_dates[ $cache_key ];
+		if ( isset( $this->memoized_dates[ $cache_key ] ) ) {
+			return $this->memoized_dates[ $cache_key ];
 		}
+
+		// For the next event date we only care about 1 item.
+		$args['posts_per_page'] = 1;
 
 		// The first event that ends after the end of the month; it could still begin in this month.
 		$next_event = tribe_events()
-			->by_args( $this->filter_repository_args( $args ) )
+			->by_args( $args )
 			->where( 'starts_after', tribe_end_of_day( $current_date->format( 'Y-m-t' ) ) )
 			->order( 'ASC' )
 			->first();
 
 		if ( ! $next_event instanceof \WP_Post ) {
+			$this->memoized_dates[ $cache_key ] = false;
+
 			return false;
 		}
 
@@ -180,7 +220,7 @@ class Month_View extends By_Day_View {
 			$current_date->modify( '+1 month' )
 		);
 
-		$this->cached_event_dates[ $cache_key ] = $next_date;
+		$this->memoized_dates[ $cache_key ] = $next_date;
 
 		return $next_date;
 	}
@@ -386,7 +426,7 @@ class Month_View extends By_Day_View {
 		// Let's prepare an array of days more digestible by the templates.
 		$days = [];
 
-		$default_day_url_args = array_merge( $this->get_url_args(), [ 'eventDisplay' => 'day' ] );
+		$default_day_url_args = array_merge( $this->get_url_args(), [ 'eventDisplay' => Day_View::get_view_slug() ] );
 
 		/**
 		 * Allows filtering the base URL arguments that will be added to each "View More" link in Month View.

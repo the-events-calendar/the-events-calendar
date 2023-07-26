@@ -575,6 +575,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	public function get_terms( $event_id, $taxonomy ) {
 		$terms = wp_get_post_terms( $event_id, $taxonomy );
 
+		if ( $terms instanceof WP_Error ) {
+			return [];
+		}
+
+		$terms = array_values( array_filter( $terms, static function ( $term ) {
+			return $term instanceof WP_Term;
+		} ) );
+
 		if ( empty( $terms ) || is_wp_error( $terms ) ) {
 			return array();
 		}

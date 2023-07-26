@@ -25,9 +25,11 @@ class Occurrences extends Abstract_Custom_Table {
 	const SCHEMA_VERSION_OPTION = 'tec_ct1_occurrences_table_schema_version';
 
 	/**
+	 * @since 6.0.6 Will now simply create an `event_id` index, removes the foreign key from the previous version.
+	 *
 	 * @inheritDoc
 	 */
-	const SCHEMA_VERSION = '1.0.0';
+	const SCHEMA_VERSION = '1.0.2';
 
 	/**
 	 * @inheritDoc
@@ -58,48 +60,52 @@ class Occurrences extends Abstract_Custom_Table {
 		$table_name      = self::table_name( true );
 		$charset_collate = $wpdb->get_charset_collate();
 
+		// VARCHAR(19) to store YYYY-MM-DD HH:MM:SS values as strings and allow partial compare.
 		return "CREATE TABLE `{$table_name}` (
-			`occurrence_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			`event_id` BIGINT(20) UNSIGNED NOT NULL,
-			`post_id` BIGINT(20) UNSIGNED NOT NULL,
-			`start_date` DATETIME NOT NULL,
-			`start_date_utc` DATETIME NOT NULL,
-			`end_date` DATETIME NOT NULL,
-			`end_date_utc` DATETIME NOT NULL,
-			`duration` MEDIUMINT(30) DEFAULT 7200,
-			`hash` VARCHAR(40) NOT NULL,
-			`updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+			`occurrence_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			`event_id` bigint(20) unsigned NOT NULL,
+			`post_id` bigint(20) unsigned NOT NULL,
+			`start_date` varchar(19) NOT NULL,
+			`start_date_utc` varchar(19) NOT NULL,
+			`end_date` varchar(19) NOT NULL,
+			`end_date_utc` varchar(19) NOT NULL,
+			`duration` mediumint(30) DEFAULT 7200,
+			`hash` varchar(40) NOT NULL,
+			`updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY  (`occurrence_id`)
 			) {$charset_collate};";
 	}
 
 	/**
-	 * Overrides the base method to add `event_id` as foreign key on the Events
-	 * custom table.
+	 * Overrides the base method to add `event_id` as key.
+	 *
+	 * @since 6.0.6 Will now create an `event_id` index, removes the foreign key from the previous version.
 	 *
 	 * {@inheritdoc}
 	 */
 	protected function after_update( array $results ) {
-		$this_table   = self::table_name( true );
-		$events_table = Events::table_name( true );
-
-		$updated = false;
+		global $wpdb;
+		$this_table        = self::table_name( true );
+		$updated           = false;
 		if (
 			$this->exists()
-			&& $this->exists( Events::table_name( true ) )
-			&& ! $this->has_index( 'event_id', $events_table )
+			&& ! $this->has_index( 'event_id', $this_table )
 		) {
-			global $wpdb;
-			$SQL = "ALTER TABLE {$this_table}
-				ADD FOREIGN KEY (event_id) REFERENCES {$events_table} (event_id)
-				ON DELETE CASCADE";
-
+			$SQL     = "ALTER TABLE {$this_table} ADD INDEX (event_id)";
 			$updated = $wpdb->query( $SQL );
+		} else if ( $this->exists()
+		            && $this->has_constraint( 'event_id', $this_table ) ) {
+			// We are moving away from foreign key constraints. If this is our old schema, find the FK name and drop it.
+			$constraint      = $this->get_schema_constraint( 'event_id', $this_table );
+			$foreign_key_name = $constraint->CONSTRAINT_NAME ?? null;
+			if ( $foreign_key_name ) {
+				$updated = $wpdb->query( "ALTER TABLE {$this_table} DROP FOREIGN KEY {$foreign_key_name}" );
+			}
 		}
 
 		$message = $updated
-			? "Added event_id as foreign key from {$events_table}"
-			: "Failed to add event_id as foreign key from {$events_table}";
+			? "Added event_id as key in {$this_table}"
+			: "Failed to add event_id as key in {$this_table}";
 
 		$results[ $this_table . '.event_id' ] = $message;
 

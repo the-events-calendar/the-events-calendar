@@ -3,9 +3,18 @@
  * Controls the main event query.  Allows for recurring events.
  */
 
+use Tribe\Events\Views\V2\Views\Month_View;
+use Tribe\Events\Views\V2\Views\List_View;
 use Tribe__Utils__Array as Arr;
+use Tribe__Date_Utils as Dates;
+use Tribe__Events__Main as TEC;
+use Tribe__Events__Venue as Venue;
+use Tribe__Events__Organizer as Organizer;
+use Tribe__Admin__Helpers as Admin_Helpers;
 
 class Tribe__Events__Query {
+	use Tribe__Events__Query_Deprecated;
+
 	/**
 	 * @since 4.9.4
 	 *
@@ -20,93 +29,125 @@ class Tribe__Events__Query {
 	 * @param WP_Query $query
 	 */
 	public static function parse_query( $query ) {
-		if ( is_admin() ) {
-			return $query;
+		// Do not act on wrong object types or in the context of an Admin request.
+		if ( ! $query instanceof WP_Query || is_admin() ) {
+			return;
 		}
 
 		// If this is set then the class will bail out of any filtering.
 		if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
-			return $query;
+			return;
 		}
 
-		$context = tribe_context();
+		// Work out if this is an Event query or not, do not set the flag yet.
+		$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
+		$any_post_type  = (array) $query->get( 'post_type' ) === [ 'any' ];
+		$is_main_query  = $query->is_main_query();
+		$query_post_types = self::get_query_post_types( $query );
 
-		// These are only required for Main Query stuff.
-		if ( ! $context->is( 'is_main_query' ) ) {
-			return $query;
-		}
+		$tec_post_types   = [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ];
 
-		if ( ! $context->is( 'tec_post_type' ) )  {
-			return $query;
-		}
-
-		// set paged
-		if ( isset( $_GET['tribe_paged'] ) ) {
-			$query->set( 'paged', absint( tribe_get_request_var( 'tribe_paged' ) ) );
-		}
-
-		// Add tribe events post type to tag queries only in tag archives
-		if (
-			$query->is_tag
-			&& (array) $query->get( 'post_type' ) != [ Tribe__Events__Main::POSTTYPE ]
-		) {
-			$types = $query->get( 'post_type' );
-
-			if ( empty( $types ) ) {
-				$types = [ 'post' ];
+		if ( $is_main_query ) {
+			if ( $query->is_single() && count( array_intersect( $query_post_types, $tec_post_types ) ) === 0 ) {
+				// Do not modify a single query for a non-TEC post type.
+				return;
 			}
 
-			if ( is_array( $types ) && $query->is_main_query() ) {
-				$types[] = Tribe__Events__Main::POSTTYPE;
-			} elseif ( $query->is_main_query() ) {
-				if ( is_string( $types ) ) {
-					$types = [ $types, Tribe__Events__Main::POSTTYPE ];
-				} else {
-					if ( $types != 'any' ) {
-						$types = [ 'post', Tribe__Events__Main::POSTTYPE ];
-					}
+			// Commute the `tribe_paged` query var to the `paged` one, if set.
+			$paged = tribe_get_request_var( 'tribe_paged' );
+			if ( $paged !== null ) {
+				$query->set( 'paged', (int) $paged );
+			}
+
+			if ( $query->is_home() ) {
+				/**
+				 * The following filter will remove the virtual page from the option page and return a 0 as it's not
+				 * set when the SQL query is constructed to avoid having a is_page() instead of a is_home().
+				 */
+				add_filter( 'option_page_on_front', [ __CLASS__, 'default_page_on_front' ] );
+
+				// Include Events in the main loop if the option is checked.
+				if ( ! $any_post_type && tribe_get_option( 'showEventsInMainLoop', false ) ) {
+					self::add_post_type_to_query( $query, TEC::POSTTYPE );
 				}
+			} else if ( $is_event_query ) {
+				// Not the main query, but it's an event query: check back later to filter and order by date.
+				add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
 			}
-
-			$query->set( 'post_type', $types );
 		}
 
-		$types = (array) $context->get( 'post_type' );
+		// Refresh the value of the flag: it might have changed in the previous block.
+		$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
+		// Refresh the query post types: they might have been modified.
+		$query_post_types = (array) $query->get( 'post_type' );
+		// Add our post type if we are on the tag archive - we need to check our global wp_query for this.
+		global $wp_query;
+		$on_tag_archive_page = isset( $wp_query ) && is_tag();
+		// Add Events to tag archives when not looking at the admin screen for posts.
+		if (
+			! $any_post_type
+			&& $on_tag_archive_page
+			&& ! $is_event_query
+			&& ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
+		) {
+			self::add_post_type_to_query( $query, TEC::POSTTYPE );
+		}
 
-		// check if any possibility of this being an event query
-		$query->tribe_is_event = $context->is( 'event_post_type' );
+		// Flag the query as one to fetch Events.
+		$query->tribe_is_event = $is_event_query;
 
-		$query->tribe_is_multi_posttype = ( $query->tribe_is_event && count( $types ) >= 2 ) || in_array( 'any', $types );
+		// This query will fetch the Event post type, and others.
+		$query->tribe_is_multi_posttype = $any_post_type
+		                                  || (
+			                                  count( $query_post_types ) > 1
+			                                  && in_array( TEC::POSTTYPE, $query_post_types, true )
+		                                  );
 
 		// check if any possibility of this being an event category
-		$query->tribe_is_event_category = $context->is( 'event_category' );
+		$query->tribe_is_event_category = $query->is_tax( TEC::TAXONOMY );
 
-		$query->tribe_is_event_venue = $context->is( 'venue_post_type' );
+		$query->tribe_is_event_venue = $query_post_types === [ Venue::POSTTYPE ];
 
-		$query->tribe_is_event_organizer = $context->is( 'organizer_post_type' );
+		$query->tribe_is_event_organizer = $query_post_types === [ Organizer::POSTTYPE ];
 
-		$query->tribe_is_event_query = $context->is( 'tec_post_type' );
+		$query->tribe_is_event_query = $query->tribe_is_event
+		                               || $query->tribe_is_event_category
+		                               || $query->tribe_is_event_venue
+		                               || $query->tribe_is_event_organizer;
 
-		$query->tribe_is_past = 'past' === $context->get( 'event_display' );
+		$event_display = $query->get( 'eventDisplay' );
 
-		// never allow 404 on month view
+		$query->tribe_is_past = ( $is_main_query && 'past' === tribe_context()->get( 'event_display' ) )
+		                        || $event_display === 'past';
+
+		// Never allow 404 on month view.
 		if (
-			$query->is_main_query()
-			&& 'month' === $query->get( 'eventDisplay' )
-			&& ! $query->is_tax
-			&& ! $query->tribe_is_event_category
+			! $query->tribe_is_event_category
+			&& $is_main_query
+			&& $event_display === Month_View::get_view_slug()
+			&& ! $query->is_tax()
 		) {
 			$query->is_post_type_archive = true;
-			$query->queried_object       = get_post_type_object( Tribe__Events__Main::POSTTYPE );
+			$query->queried_object       = get_post_type_object( TEC::POSTTYPE );
 			$query->queried_object_id    = 0;
 		}
 
 		if ( tribe_is_events_front_page() ) {
 			$query->is_home = true;
-		} else {
-			$query->is_home = empty( $query->query_vars['is_home'] ) ? false : $query->query_vars['is_home'];
 		}
 
+		// Hook reasonably late on the action that will fire next to filter and order Events by date, if required.
+		add_filter( 'tribe_events_parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
+
+		/**
+		 * Fires after the query has been parsed by The Events Calendar.
+		 * If this action fires, then the query is for the Event post type, is the main
+		 * query, and TEC filters are not suppressed.
+		 *
+		 * @since 3.5.1
+		 *
+		 * @param WP_Query $query The parsed WP_Query object.
+		 */
 		do_action( 'tribe_events_parse_query', $query );
 	}
 
@@ -218,7 +259,13 @@ class Tribe__Events__Query {
 			// Support for `eventDisplay = 'upcoming' || 'list'` for backwards compatibility
 			if (
 				! $has_date_args
-				&& in_array( $display, [ 'upcoming', 'list' ] )
+				&& in_array(
+						$display,
+						[
+							'upcoming',
+							List_View::get_view_slug()
+						]
+					)
 			) {
 				if ( empty( $args['tribe_is_past'] ) ) {
 					$args['start_date'] = 'now';
@@ -414,5 +461,126 @@ class Tribe__Events__Query {
 	 */
 	public static function default_page_on_front( $value ) {
 		return tribe( 'tec.front-page-view' )->is_virtual_page_id( $value ) ? 0 : $value;
+	}
+
+	/**
+	 * Provided a query for Events, the method will set the query variables up to filter
+	 * and order Events by start and end date.
+	 *
+	 * @since 6.0.2
+	 *
+	 * @param WP_Query $query The query object to modify.
+	 *
+	 * @return void The query object is modified by reference.
+	 */
+	public static function filter_and_order_by_date( $query ) {
+		if ( ! $query instanceof WP_Query ) {
+			return;
+		}
+
+		if ( (array) $query->get( 'post_type' ) !== [ TEC::POSTTYPE ] ) {
+			// Not an Event only query.
+			return;
+		}
+
+		if ( $query->get( 'tribe_suppress_query_filters', false ) ) {
+			// Filters were suppressed by others, bail.
+			return;
+		}
+
+		// If this is a query for a single event, we don't need to order it.
+		if ( $query->is_single ) {
+			return;
+		}
+
+		// Work done: stop filtering.
+		remove_filter( current_action(), [ __CLASS__, 'filter_and_order_by_date' ] );
+
+		$query_vars = $query->query_vars ?? [];
+
+		// If a clause on the '_Event(Start|End)Date(UTC)' meta key is present in any query variable, bail.
+		if ( ! empty( $query_vars ) && preg_match( '/_Event(Start|End)Date(UTC)?/', serialize( $query_vars ) ) ) {
+			return;
+		}
+
+		// If the query order is `none` or `rand` we don't need to order it.
+		if ( in_array( $query->get( 'orderby' ), [ 'none', 'rand' ], true ) ) {
+			return;
+		}
+
+		/**
+		 * Filters the value that will be used to indicate the current moment in an
+		 * Event query. The query will return Events ending after the current moment.
+		 *
+		 * @since 6.0.2
+		 *
+		 * @param string|int|DateTimeInterface $current_moment The current moment, defaults to `now`.
+		 * @param WP_Query                     $query          The query object being filtered.
+		 */
+		$current_moment = apply_filters( 'tec_events_query_current_moment', 'now', $query );
+
+		// Only get Events ending after now altering the current meta query.
+		$meta_query = $query_vars['meta_query'] ?? [];
+		$meta_query['tec_event_start_date'] = [
+			'key'     => '_EventStartDate',
+			'compare' => 'EXISTS',
+		];
+		$meta_query['tec_event_end_date'] = [
+			'key'     => '_EventEndDate',
+			'value'   => Dates::immutable( $current_moment )->format( Dates::DBDATETIMEFORMAT ),
+			'compare' => '>=',
+			'type'    => 'DATETIME',
+		];
+		$query->query_vars['meta_query'] = $meta_query;
+
+		// Order the resulting events by start date, then post date.
+		$orderby = $query_vars['orderby'] ?? '';
+		$order = $query_vars['order'] ?? null;
+		$query->query_vars['orderby'] = tribe_normalize_orderby( $orderby, $order );
+		$query->query_vars['orderby']['tec_event_start_date'] = 'ASC';
+		$query->query_vars['orderby']['post_date'] = 'ASC';
+
+		// Duplicate the values on the `query` property of the query.
+		$query->query['meta_query'] = $query->query_vars['meta_query'];
+		$query->query['orderby'] = $query->query_vars['orderby'];
+	}
+
+	/**
+	 * Returns the query post type(s) in array format.
+	 *
+	 * @since 6.0.6
+	 *
+	 * @param WP_Query $query The query object to read the post type entry from.
+	 *
+	 * @return array<string> The post type(s) read from the query.
+	 */
+	protected static function get_query_post_types( WP_Query $query ): array {
+		$query_post_types = (array) $query->get( 'post_type' );
+
+		// A query for the main posts page will not have a `post_type` set: let's correct that now.
+		if ( $query_post_types === [ '' ] ) {
+			$query_post_types = [ 'post' ];
+		}
+
+		return $query_post_types;
+	}
+
+	/**
+	 * Updates the query post count to include the specified ones.
+	 *
+	 * @since 6.0.6
+	 *
+	 * @param WP_Query $query         The query object to modify.
+	 * @param string   ...$post_types The post types to add to the query `post_types` entry.
+	 *
+	 * @return void The query object is modified by reference.
+	 */
+	protected static function add_post_type_to_query( WP_Query $query, string ...$post_types ): void {
+		$query_post_types = self::get_query_post_types( $query );
+
+		$updated_post_types = array_unique( array_merge( $post_types, $query_post_types ) );
+
+		$query->set( 'post_type', $updated_post_types );
+		$query->query['post_type'] = $updated_post_types;
 	}
 }

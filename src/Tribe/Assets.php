@@ -1,4 +1,9 @@
 <?php
+
+use Tribe\Events\Views\V2\Views\Day_View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Month_View;
+
 /**
  * Registers and Enqueues the assets
  *
@@ -170,11 +175,12 @@ class Tribe__Events__Assets {
 		if ( ! tribe_is_using_basic_gmaps_api() ) {
 
 			// FrontEnd
-			$api_url = 'https://maps.google.com/maps/api/js';
-			$api_key = tribe_get_option( 'google_maps_js_api_key', Tribe__Events__Google__Maps_API_Key::$default_api_key );
+			$api_url      = 'https://maps.google.com/maps/api/js';
+			$api_key      = tribe_get_option( 'google_maps_js_api_key', Tribe__Events__Google__Maps_API_Key::$default_api_key );
+			$api_callback = 'Function.prototype';
 
 			if ( ! empty( $api_key ) && is_string( $api_key ) ) {
-				$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s', trim( $api_key ) );
+				$api_url = sprintf( 'https://maps.googleapis.com/maps/api/js?key=%s&callback=%s', trim( $api_key ), urlencode( $api_callback ) );
 			}
 
 			/**
@@ -620,9 +626,9 @@ class Tribe__Events__Assets {
 			'events_base'        => tribe_get_events_link(),
 			'update_urls'        => [
 				'shortcode' => [
-					'list'  => true,
-					'month' => true,
-					'day'   => true,
+					Month_View::get_view_slug() => true,
+					List_View::get_view_slug()  => true,
+					Day_View::get_view_slug()   => true,
 				],
 			],
 		];

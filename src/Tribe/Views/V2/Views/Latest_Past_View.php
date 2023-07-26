@@ -19,10 +19,20 @@ class Latest_Past_View extends View {
 	 * Slug for this view
 	 *
 	 * @since 5.1.0
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
 	protected $slug = 'latest-past';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'latest-past';
 
 	/**
 	 * Visibility for this view.

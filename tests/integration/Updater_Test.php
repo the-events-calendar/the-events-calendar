@@ -1,6 +1,6 @@
 <?php
 
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 /**
  * @group updates
@@ -127,7 +127,7 @@ class Updater_Test extends \Codeception\TestCase\WPTestCase {
 
 		// Level the playing field and set up the expected fixture.
 		$capabilities->delete_needs_init();
-		$this->uopz_set_return( 'is_admin', true );
+		$this->set_fn_return( 'is_admin', true );
 
 		$this->assertEmpty( $capabilities->needs_init() );
 

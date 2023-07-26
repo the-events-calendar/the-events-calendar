@@ -85,12 +85,13 @@ trait CT1_Fixtures {
 		$tables = $wpdb->get_col( $q );
 		$this->assertNotContains( OccurrencesSchema::table_name( true ), $tables );
 		$this->assertNotContains( EventsSchema::table_name( true ), $tables );
+		tec_timed_option()->delete( Activation::ACTIVATION_TRANSIENT );
 	}
 
 	/**
 	 * @return \WP_Post
 	 */
-	private function given_a_non_migrated_single_event( $override_event_args = [] ) {
+	private function given_a_non_migrated_single_event( $override_event_args = [] ): \WP_Post {
 		// Create an Event.
 		$timezone   = new \DateTimeZone( 'Europe/Paris' );
 		$utc        = new \DateTimeZone( 'UTC' );
@@ -185,8 +186,8 @@ trait CT1_Fixtures {
 		delete_transient( Activation::ACTIVATION_TRANSIENT );
 	}
 
-	private function given_a_migrated_single_event(){
-		$post = $this->given_a_non_migrated_single_event();
+	private function given_a_migrated_single_event( $args = [] ) {
+		$post = $this->given_a_non_migrated_single_event( $args );
 		Event::upsert( [ 'post_id' ], Event::data_from_post( $post ) );
 		$event = Event::find( $post->ID, 'post_id' );
 		$this->assertInstanceOf( Event::class, $event );

@@ -78,4 +78,68 @@ class StateTest extends \CT1_Migration_Test_Case {
 
 		$this->assertFalse( $is_required );
 	}
+
+	public function map_phase_to_dry_run(): array {
+		return [
+			'Given Migration Failure In Progress, should not be in dry run.' => [
+				State::PHASE_MIGRATION_FAILURE_IN_PROGRESS,
+				false
+			],
+			'Given Migration Failure Complete, should be in dry run.'        => [
+				State::PHASE_MIGRATION_FAILURE_COMPLETE,
+				true
+			],
+			'Given Migration Not Required, should not be in dry run.'        => [
+				State::PHASE_MIGRATION_NOT_REQUIRED,
+				false
+			],
+			'Given Migration Cancel Complete, should be in dry run.'         => [ State::PHASE_CANCEL_COMPLETE, true ],
+			'Given Migration Revert Complete, should be in dry run.'         => [ State::PHASE_REVERT_COMPLETE, true ],
+			'Given Preview Prompt, should be in dry run.'                    => [ State::PHASE_PREVIEW_PROMPT, true ],
+			'Given Preview In Progress, should be in dry run.'               => [
+				State::PHASE_PREVIEW_IN_PROGRESS,
+				true
+			],
+			'Given Migration Prompt, should not be in dry run.'              => [
+				State::PHASE_MIGRATION_PROMPT,
+				false
+			],
+			'Given Migration In Progress, should not be in dry run.'         => [
+				State::PHASE_MIGRATION_IN_PROGRESS,
+				false
+			],
+			'Given Migration Complete, should not be in dry run.'            => [
+				State::PHASE_MIGRATION_COMPLETE,
+				false
+			],
+			'Given Migration Cancel In Progress, should not be in dry run.'  => [
+				State::PHASE_CANCEL_IN_PROGRESS,
+				false
+			],
+			'Given Migration Revert In Progress, should not be in dry run.'  => [
+				State::PHASE_REVERT_IN_PROGRESS,
+				false
+			],
+		];
+	}
+
+	/**
+	 * It should detect dry run for proper states.
+	 *
+	 * @dataProvider map_phase_to_dry_run
+	 * @test
+	 */
+	public function should_detect_dry_run_from_phase( $phase, $expected_dry_run ) {
+		$this->given_the_current_migration_phase_is( $phase );
+		$this->given_a_migrated_single_event();
+
+		$state   = new State( new Events );
+		$dry_run = $state->is_dry_run();
+
+		$this->assertEquals(
+			$expected_dry_run,
+			$dry_run,
+			"Given $phase our migration strategy should be dry_run: $expected_dry_run"
+		);
+	}
 }

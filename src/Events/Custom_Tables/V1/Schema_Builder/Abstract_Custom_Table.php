@@ -9,6 +9,8 @@
 
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
+use stdClass;
+
 /**
  * Class Base_Custom_Table
  *
@@ -51,12 +53,30 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 * {@inheritdoc}
 	 */
 	public function update() {
+		$this->before_update();
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-		$results = (array) dbDelta( $this->get_update_sql() );
+		$query = $this->get_update_sql();
+		$this->validate_for_db_delta($query);
+		$results = (array) dbDelta( $query );
 		$this->sync_stored_version();
 		$results = $this->after_update( $results );
 
 		return $results;
+	}
+
+	/**
+	 * Inspects query strings being passed to dbDelta, and logs an error if not ideal.
+	 *
+	 * @since 6.0.14
+	 *
+	 * @see https://developer.wordpress.org/reference/functions/dbdelta/
+	 *
+	 * @param string $query Query string to inspect for case sensitivity before using in dbDelta
+	 */
+	public function validate_for_db_delta( string $query ) {
+		if ( preg_match( '/`.*?` [A-Z]/', $query ) ) {
+			do_action( 'tribe_log', 'error', __METHOD__, [ 'schema_builder_error' => "Failed dbDelta field validation: $query" ] );
+		}
 	}
 
 	/**
@@ -69,6 +89,15 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	 *                by the `dbDelta` function.
 	 */
 	abstract protected function get_update_sql();
+
+	/**
+	 * Allows extending classes that require it to run some methods
+	 * immediately before the table creation or update.
+	 *
+	 * @since 6.0.6
+	 */
+	protected function before_update() :void {
+	}
 
 	/**
 	 * Allows extending classes that require it to run some methods
@@ -130,6 +159,49 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	}
 
 	/**
+	 * Checks if a constraint exists for a particular field.
+	 *
+	 * @since 6.0.6
+	 *
+	 * @param string $this_field The field of the table that has the foreign key (not the target of the constraint).
+	 * @param string $this_table The table that has the foreign key (not the target of the constraint).
+	 *
+	 * @return bool Whether this constraint exists.
+	 */
+	public function has_constraint( $this_field, $this_table ): bool {
+		return ! empty( $this->get_schema_constraint( $this_field, $this_table ) );
+	}
+
+	/**
+	 * Fetches the constraint for a particular field.
+	 *
+	 * @since 6.0.6
+	 *
+	 * @param string $this_field The field of the table that has the foreign key (not the target of the constraint).
+	 * @param string $this_table The table that has the foreign key (not the target of the constraint).
+	 *
+	 * @return stdClass|null A stdClass with the INFORMATION_SCHEMA.key_column_usage or null if none found.
+	 */
+	public function get_schema_constraint( $this_field, $this_table ): ?stdClass {
+		global $wpdb;
+
+		$query = $wpdb->prepare(
+			"SELECT *
+		FROM INFORMATION_SCHEMA.key_column_usage
+		WHERE referenced_table_schema = DATABASE()
+			AND referenced_table_name IS NOT NULL
+			AND COLUMN_NAME= %s
+			AND TABLE_NAME = %s",
+			$this_field,
+			$this_table
+		);
+
+		$results = $wpdb->get_results( $query );
+
+		return ! empty( $results ) ? array_pop( $results ) : null;
+	}
+
+	/**
 	 * Returns whether a table exists in the database or not.
 	 *
 	 * @since 6.0.0
@@ -150,7 +222,6 @@ abstract class Abstract_Custom_Table implements Table_Schema_Interface {
 	public function drop() {
 		$this->clear_stored_version();
 		if ( ! $this->exists() ) {
-
 			return false;
 		}
 

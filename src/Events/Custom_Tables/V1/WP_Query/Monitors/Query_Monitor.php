@@ -10,7 +10,7 @@
 namespace TEC\Events\Custom_Tables\V1\WP_Query\Monitors;
 
 use SplObjectStorage;
-use tad_DI52_Container;
+use TEC\Common\Contracts\Container;
 use TEC\Events\Custom_Tables\V1\Traits\With_WP_Query_Introspection;
 use TEC\Events\Custom_Tables\V1\WP_Query\Modifiers\WP_Query_Modifier;
 use WP_Query;
@@ -30,7 +30,7 @@ trait Query_Monitor {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var tad_DI52_Container
+	 * @var Container
 	 */
 	private $container;
 
@@ -63,18 +63,65 @@ trait Query_Monitor {
 	private $keep_modifiers_reference = false;
 
 	/**
+	 * Whether the implementations have been filtered at least once or not.
+	 *
+	 * @since 6.0.11
+	 *
+	 * @var bool
+	 */
+	private bool $filtered_implementations = false;
+
+	/**
 	 * Monitor constructor.
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param tad_DI52_Container|null $container    Either a reference to a specific container, or `null` to use the
+	 * @param Container|null $container    Either a reference to a specific container, or `null` to use the
 	 *                                              global one.
 	 */
-	public function __construct( tad_DI52_Container $container = null ) {
+	public function __construct( Container $container = null ) {
 		$this->modifiers = new SplObjectStorage();
 		$this->container = $container ?: tribe();
 		// By default the monitor will be enabled.
 		$this->enabled = true;
+	}
+
+	/**
+	 * Will filter and retrieve the list of WP_Query_Modifier implementations. Any implementation filters
+	 * must be applied before the init hook is completed.
+	 *
+	 * @since 6.0.5
+	 *
+	 * @return array<WP_Query_Modifier> List of WP_Query_Modifier implementations.
+	 */
+	public function get_implementations(): array {
+		// Keep running filter until init is finished. Will run one or more times.
+		if (
+			$this->implementations === null // Starting state.
+			|| ! $this->filtered_implementations // The filter was never applied.
+			|| doing_action( 'init' ) // It's initializing.
+			|| ! did_action( 'init' ) // It's not initialized yet.
+		) {
+			/**
+			 * Filters the Query Modifier implementations that will be used in the Query Monitor parsing.
+			 *
+			 * @since 6.0.5
+			 *
+			 * @param array<WP_Query_Modifier>  The list of Query Modifier implementations that will be used in the
+			 *                                  query parsing.
+			 * @param Query_monitor This instance of the Query Monitor retrieving implementations.
+			 */
+			$this->implementations = apply_filters( 'tec_events_custom_tables_v1_query_modifier_implementations',
+				$this->implementations ?? [],
+				$this
+			);
+			$this->implementations = array_unique( $this->implementations );
+
+			// The filter has been applied at least once.
+			$this->filtered_implementations = true;
+		}
+
+		return $this->implementations;
 	}
 
 	/**
@@ -114,7 +161,8 @@ trait Query_Monitor {
 		}
 
 		$modifiers = [];
-		foreach ( $this->implementations as $class_name ) {
+
+		foreach ( $this->get_implementations() as $class_name ) {
 			$modifier = $this->container->make( $class_name );
 			if ( $modifier instanceof WP_Query_Modifier && $modifier->applies_to( $query ) ) {
 				$query->set( 'tribe_remove_date_filters', true );

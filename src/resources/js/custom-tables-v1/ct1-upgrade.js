@@ -167,6 +167,11 @@ export const pollForReport = () => {
 export const handleReportData = function (data) {
 	const {nodes, key, html} = data;
 
+	if ( key === 'stop' ) {
+		currentViewState.poll = false;
+		return;
+	}
+
 	// Write our HTML if we are new.
 	if (!currentViewState.key || currentViewState.key !== key) {
 		getUpgradeBoxElement().innerHTML = html;
@@ -388,7 +393,8 @@ export const handleStartMigration = (e) => {
 }
 
 /**
- * Will start either a preview or migration, sending a request to the backend to queue workers.
+ * Will start either a preview or migration, sending a request to the backend
+ * to queue workers.
  *
  * @since 6.0.0
  *

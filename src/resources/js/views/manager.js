@@ -310,7 +310,7 @@ tribe.events.views.manager = {};
 
 		var $link = $( this );
 		var url = $link.attr( 'href' );
-		var currentUrl = containerData.url;
+		var prevUrl = containerData.prev_url;
 		var nonce = $link.data( 'view-rest-nonce' );
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
@@ -321,7 +321,7 @@ tribe.events.views.manager = {};
 		}
 
 		var data = {
-			prev_url: encodeURI( decodeURI( currentUrl ) ),
+			prev_url: encodeURI( decodeURI( prevUrl ) ),
 			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
 			_wpnonce: nonce,
@@ -496,8 +496,6 @@ tribe.events.views.manager = {};
 	obj.getAjaxSettings = function( $container ) {
 		var ajaxSettings = {
 			url: $container.data( 'view-rest-url' ),
-			accepts: 'html',
-			dataType: 'html',
 			method: $container.data( 'view-rest-method' ) || 'POST',
 			'async': true, // async is keyword
 			beforeSend: obj.ajaxBeforeSend,
@@ -608,8 +606,8 @@ tribe.events.views.manager = {};
 		document.dispatchEvent(
 				new CustomEvent(
 						'containerReplaceBefore.tribeEvents',
-						{ detail: $container },
-				),
+						{ detail: $container }
+				)
 		);
 
 		// Replace the current container with the new Data.
@@ -623,8 +621,8 @@ tribe.events.views.manager = {};
 		document.dispatchEvent(
 				new CustomEvent(
 						'containerReplaceAfter.tribeEvents',
-						{ detail: $container },
-				),
+						{ detail: $container }
+				)
 		);
 
 		// Update the global set of containers with all of the manager object.

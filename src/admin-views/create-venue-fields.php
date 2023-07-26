@@ -5,7 +5,7 @@ $post_id = Tribe__Events__Main::postIdHelper();
 $is_auto_draft = get_post_status( $post_id ) === 'auto-draft';
 
 // If not $_POST and if this is not an auto-draft then get the current values to edit
-if ( ! $_POST && is_admin() ) {
+if ( ! $_POST ) {
 
 	$venue_name             = tribe_get_venue();
 
@@ -24,7 +24,7 @@ if ( ! $_POST && is_admin() ) {
 
 	} else {
 		$_VenuePhone            = tribe_get_phone();
-		$_VenueURL              = strip_tags( tribe_get_venue_link( null, false ) );
+		$_VenueURL              = tribe_get_venue_website_url();
 		$_VenueAddress          = tribe_get_address();
 		$_VenueCity             = tribe_get_city();
 		$_VenueProvince         = tribe_get_province();
@@ -200,7 +200,7 @@ if ( ! $_POST && is_admin() ) {
 			id='EventWebsite'
 			name='venue[URL][]'
 			size='14'
-			value='<?php echo isset( $_VenueURL ) ? esc_attr( $_VenueURL ) : ''; ?>'
+			value='<?php echo isset( $_VenueURL ) ? esc_url( $_VenueURL ) : ''; ?>'
 			aria-label="<?php esc_html_e( 'Venue URL', 'the-events-calendar' ); ?>"
 		/>
 	</td>

@@ -14,9 +14,11 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_with_all_links() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'prev_url'  => 'http://test.tri.be',
-			'next_url'  => 'http://test.tri.be',
-			'today_url' => 'http://test.tri.be',
+			'prev_url'    => 'http://test.tri.be',
+			'next_url'    => 'http://test.tri.be',
+			'today_url'   => 'http://test.tri.be',
+			'today_label' => 'Today',
+			'today_title' => 'Click to select today\'s date',
 		] ) );
 	}
 
@@ -25,8 +27,10 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_prev_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'next_url'  => 'http://test.tri.be',
-			'today_url' => 'http://test.tri.be',
+			'next_url'    => 'http://test.tri.be',
+			'today_url'   => 'http://test.tri.be',
+			'today_label' => 'Today',
+			'today_title' => 'Click to select today\'s date',
 		] ) );
 	}
 
@@ -35,8 +39,10 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'prev_url'  => 'http://test.tri.be',
-			'today_url' => 'http://test.tri.be',
+			'prev_url'    => 'http://test.tri.be',
+			'today_url'   => 'http://test.tri.be',
+			'today_label' => 'Today',
+			'today_title' => 'Click to select today\'s date',
 		] ) );
 	}
 
@@ -45,7 +51,9 @@ class NavTest extends HtmlPartialTestCase
 	 */
 	public function test_render_without_prev_and_next_url() {
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
-			'today_url' => 'http://test.tri.be',
+			'today_url'   => 'http://test.tri.be',
+			'today_label' => 'Today',
+			'today_title' => 'Click to select today\'s date',
 		] ) );
 	}
 }

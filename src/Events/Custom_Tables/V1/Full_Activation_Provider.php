@@ -12,7 +12,8 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
+
 use TEC\Events\Custom_Tables\V1\Events\Occurrences\Max_Recurrence_Provider;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
 use WP_CLI;
@@ -63,6 +64,8 @@ class Full_Activation_Provider extends Service_Provider {
 			$this->container->register( Updates\Provider::class );
 			$this->container->register( Repository\Provider::class );
 			$this->container->register( Views\V2\Provider::class );
+			$this->container->register( Events\Event_Cleaner\Provider::class );
+
 			// This default variable is defined in TEC, so we register it here, even though it relates to ECP.
 			$this->container->register( Max_Recurrence_Provider::class );
 
@@ -96,6 +99,13 @@ class Full_Activation_Provider extends Service_Provider {
 			do_action( 'tec_events_custom_tables_v1_error', $e );
 		}
 
+		/**
+		 * Fires an action when the Custom Tables v1 implementation is fully activated.
+		 *
+		 * @since 6.0.13
+		 */
+		do_action( 'tec_events_custom_tables_v1_fully_activated' );
+
 		return true;
 	}
 
@@ -111,9 +121,9 @@ class Full_Activation_Provider extends Service_Provider {
 		$schema_builder->register_custom_tables_names();
 
 		if ( is_multisite() ) {
-			add_action( 'activate_blog', [ $schema_builder, 'update_blog_tables' ] );
+			add_action( 'activate_blog', [ $this, 'update_blog_tables' ] );
 			add_action( 'activate_blog', [ $schema_builder, 'register_custom_tables_names' ] );
-			add_action( 'switch_blog', [ $schema_builder, 'update_blog_tables' ] );
+			add_action( 'switch_blog', [ $this, 'update_blog_tables' ] );
 			add_action( 'switch_blog', [ $schema_builder, 'register_custom_tables_names' ] );
 			add_filter( 'wpmu_drop_tables', [ $schema_builder, 'filter_tables_list' ] );
 		}
@@ -121,5 +131,34 @@ class Full_Activation_Provider extends Service_Provider {
 		if ( defined( 'WP_CLI' ) && method_exists( '\\WP_CLI', 'add_hook' ) ) {
 			WP_CLI::add_hook( 'after_invoke:site empty', [ $schema_builder, 'empty_custom_tables' ] );
 		}
+	}
+
+	/**
+	 * Updates the custom tables for a blog,
+	 *
+	 * @since 6.0.2
+	 *
+	 * @param int $blog_id The blog ID to udpate the tables for.
+	 *
+	 * @return void        Custom tables are updated, if required.
+	 */
+	public function update_blog_tables( $blog_id ): void {
+		$blog_id = (int) $blog_id;
+
+		if ( empty( $blog_id ) ) {
+			// Not a valid blog ID.
+			return;
+		}
+
+		if ( get_transient( Activation::ACTIVATION_TRANSIENT ) ) {
+			// Already activated on this site.
+			return;
+		}
+
+		// Do not run again on this site for a day.
+		set_transient( Activation::ACTIVATION_TRANSIENT, time(), DAY_IN_SECONDS );
+
+		$schema_builder = $this->container->make( Schema_Builder::class );
+		$schema_builder->update_blog_tables( $blog_id );
 	}
 }

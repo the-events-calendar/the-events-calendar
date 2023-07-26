@@ -4,7 +4,7 @@ namespace Tribe\Events\Event_Status;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Factories\Event;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 
 class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
@@ -15,7 +15,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
-		$this->uopz_set_return( 'wp_create_nonce', '123123' );
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 	}
 

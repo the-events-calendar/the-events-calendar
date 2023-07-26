@@ -24,10 +24,20 @@ class Widget_List_View extends Widget_View {
 	 * The slug for this view.
 	 *
 	 * @since 5.2.1
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
 	protected $slug = 'widget-events-list';
+
+	/**
+	 * The slug for this view.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'widget-events-list';
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.

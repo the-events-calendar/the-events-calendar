@@ -53,8 +53,8 @@ class Schema_Builder {
 	 *
 	 * @return string
 	 */
-	public function get_registered_schemas_version_hash() :string {
-		$schemas = array_merge( $this->get_registered_table_schemas(),  $this->get_registered_field_schemas() );
+	public function get_registered_schemas_version_hash(): string {
+		$schemas = array_merge( $this->get_registered_table_schemas(), $this->get_registered_field_schemas() );
 
 		$versions = [];
 		foreach( $schemas as $schema ) {
@@ -88,6 +88,14 @@ class Schema_Builder {
 	 * @return array<Table_Schema_Interface>
 	 */
 	public function get_registered_table_schemas() {
+		/**
+		 * Filters the list of table schemas that will be used to build the database tables.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param array<Table_Schema_Interface> $table_schemas An array of table schema objects;
+		 *                                                     empty by default.
+		 */
 		return apply_filters( 'tec_events_custom_tables_v1_table_schemas', [] );
 	}
 
@@ -99,6 +107,14 @@ class Schema_Builder {
 	 * @return array<Field_Schema_Interface>
 	 */
 	public function get_registered_field_schemas() {
+		/**
+		 * Filters the list of field schemas that will be used to build the database tables.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param array<Field_Schema_Interface> $field_schemas An array of field schema objects;
+		 *                                                     empty by default.
+		 */
 		return apply_filters( 'tec_events_custom_tables_v1_field_schemas', [] );
 	}
 
@@ -198,10 +214,20 @@ class Schema_Builder {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @return array<mixed> A list of each creation or update result.
+	 * @return array<string,mixed> A list of each creation or update result; empty if
+	 *                      the blog tables have already been updated in this request.
 	 */
-	public function update_blog_tables() {
-		return $this->up( false );
+	public function update_blog_tables( int $blog_id ): array {
+		if ( tribe_cache()[ 'ct1_schema_builder_update_blog_tables_' . $blog_id ] ) {
+			// Already up for this site in this request.
+			return [];
+		}
+
+		$result = $this->up( false );
+
+		tribe_cache()[ 'ct1_schema_builder_update_blog_tables_' . $blog_id ] = true;
+
+		return $result;
 	}
 
 	/**
@@ -234,12 +260,23 @@ class Schema_Builder {
 		}
 
 		$field_schemas = $force ? $this->get_registered_field_schemas() : $this->get_field_schemas_that_need_updates();
+
 		// Get all registered table classes.
 		foreach ( $field_schemas as $field_schema ) {
 			/** @var Field_Schema_Interface $field_schema */
 			$custom_table                           = $field_schema->table_schema();
 			$results[ $custom_table::table_name() ] = $field_schema->update();
 		}
+
+		/**
+		 * Runs after the custom tables have been created or updated by The Events Calendar.
+		 *
+		 * @since 6.0.2
+		 *
+		 * @param array<string,bool> $results A map from each table name to whether it was created or updated correctly.
+		 * @param bool               $force   Whether the tables were forced to be created or updated or not.
+		 */
+		do_action( 'tec_events_custom_tables_v1_schema_builder_after_up', $results, $force );
 
 		return count( $results ) ? array_merge( ...array_values( $results ) ) : [];
 	}
@@ -272,7 +309,9 @@ class Schema_Builder {
 		$schemas = $this->get_registered_table_schemas();
 		foreach ( $schemas as $custom_table ) {
 			/** @var Table_Schema_Interface $custom_table */
-			WP_CLI::debug( 'Emptying table ' . $custom_table::table_name(), 'TEC' );
+			if ( class_exists( 'WP_CLI' ) ) {
+				WP_CLI::debug( 'Emptying table ' . $custom_table::table_name(), 'TEC' );
+			}
 			$custom_table->empty_table();
 		}
 	}
@@ -303,7 +342,14 @@ class Schema_Builder {
 			return false;
 		}
 
-		$result        = $wpdb->get_col( 'SHOW TABLES' );
+		$sql_in_statement = array_map( static function( $table_class ) {
+			return $table_class::table_name();
+		}, $table_classes );
+
+		$sql_in_statement = '"' . implode( '", "', $sql_in_statement ) . '"';
+
+		$result        = $wpdb->get_col( "SELECT DISTINCT table_name FROM information_schema.tables
+                           WHERE table_schema = database() AND table_name IN ( {$sql_in_statement} )" );
 		foreach ( $table_classes as $class ) {
 			if ( ! in_array( $class::table_name(), $result, true ) ) {
 

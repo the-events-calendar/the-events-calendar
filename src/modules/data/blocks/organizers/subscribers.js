@@ -22,7 +22,7 @@ const { getState, dispatch } = store;
  * Returns criteria for comparing blocks.
  *
  * @exports
- * @param {object} block Object with block attributes and data.
+ * @param {Object} block Object with block attributes and data.
  * @returns {string} Client ID of the block.
  */
 export const compareBlocks = block => block.clientId;
@@ -31,7 +31,7 @@ export const compareBlocks = block => block.clientId;
  * Checks whether the block is the organizer block.
  *
  * @exports
- * @param {object} block Object with block attributes and data.
+ * @param {Object} block Object with block attributes and data.
  * @returns {boolean} Whether the block is the organizer block or not.
  */
 export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organizer';
@@ -40,7 +40,7 @@ export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organiz
  * Handles the block that was added.
  *
  * @exports
- * @param {object} block Object with block attributes and data.
+ * @param {Object} block Object with block attributes and data.
  */
 export const handleBlockAdded = ( block ) => {
 	// only handle event organizer block addition

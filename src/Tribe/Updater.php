@@ -73,7 +73,7 @@ class Tribe__Events__Updater {
 	 * Getter for the private reset version.
 	 * Mainly for tests.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @return string The reset version number.
 	 */
@@ -338,6 +338,7 @@ class Tribe__Events__Updater {
 
 			// Update reason to central source.
 			update_post_meta( $event_id, Event_Status_Meta::$key_status_reason, $reason );
+			clean_post_cache( $event_id );
 		}
 	}
 }

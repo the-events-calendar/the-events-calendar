@@ -10,7 +10,7 @@
 
 			{}
 			<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"reflector","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Reflector_View","view_slug":"reflector","view_label":"Reflector","events":[],"is_initial_load":true,"rest_url":"https:\\/\\/rest.tri.be\\/","rest_nonce":"1122334455","should_manage_url":false,"container_classes":["tribe-common","tribe-events","tribe-events-widget"],"compatibility_classes":["tribe-compatibility-container"],"container_data":[],"breakpoint_pointer":"aabbccddee","messages":{"notice":["There are no upcoming events."]},"hide_if_no_upcoming_events":false,"view_more_link":"https:\\/\\/test.tri.be\\/","view_more_text":"View More","view_more_title":"View more events.","widget_title":"Upcoming Events"}</script>
+	{"slug":"reflector","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Reflector_View","view_slug":"reflector","view_label":"View","events":[],"is_initial_load":true,"rest_url":"https:\\/\\/rest.tri.be\\/","rest_nonce":"1122334455","should_manage_url":false,"container_classes":["tribe-common","tribe-events","tribe-events-widget"],"compatibility_classes":["tribe-compatibility-container"],"container_data":[],"breakpoint_pointer":"aabbccddee","messages":{"notice":["There are no upcoming events."]},"hide_if_no_upcoming_events":false,"view_more_link":"https:\\/\\/test.tri.be\\/","view_more_text":"View More","view_more_title":"View more events.","widget_title":"Upcoming Events"}</script>
 
 							<header class="tribe-events-widget-events-list__header">
 					<h2 class="tribe-events-widget-events-list__header-title tribe-common-h6 tribe-common-h--alt">

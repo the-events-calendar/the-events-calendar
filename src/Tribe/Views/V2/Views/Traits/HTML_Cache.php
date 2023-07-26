@@ -72,6 +72,8 @@ trait HTML_Cache {
 		 */
 		$cached_html = apply_filters( 'tribe_events_views_v2_view_cached_html', $cached_html, $this );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the cached HTML returned for a View.
 		 *
@@ -80,7 +82,7 @@ trait HTML_Cache {
 		 * @param string $cached_html  Cached HTML for a view.
 		 * @param View_Interface $this This view instance.
 		 */
-		$cached_html = apply_filters( "tribe_events_views_v2_view_{$this->slug}_cached_html", $cached_html, $this );
+		$cached_html = apply_filters( "tribe_events_views_v2_view_{$view_slug}_cached_html", $cached_html, $this );
 
 		return $cached_html;
 	}
@@ -156,11 +158,12 @@ trait HTML_Cache {
 		$context = $this->get_context();
 
 		$cached_views = static::get_cached_views( $this );
+		$view_slug = static::get_view_slug();
 
 		$pre_conditions = 0 === $this->get_password_protected_events_count();
 		$should_cache   = $pre_conditions
-		                  && isset( $cached_views[ $this->get_slug() ] )
-		                  && $cached_views[ $this->get_slug() ]
+		                  && isset( $cached_views[ $view_slug ] )
+		                  && $cached_views[ $view_slug ]
 		                  && $this->should_enable_html_cache( $context );
 
 		/**
@@ -177,8 +180,7 @@ trait HTML_Cache {
 
 	public static function get_cached_views( $view = null ) {
 		$views = [
-			'month' => true,
-			'week'  => true,
+			\Tribe\Events\Views\V2\Views\Month_View::get_view_slug() => true,
 		];
 
 		/**

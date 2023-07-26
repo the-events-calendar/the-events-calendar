@@ -343,10 +343,28 @@ class State {
 	 * @since 6.0.0
 	 */
 	public function save() {
-		do_action( 'tribe_log', 'debug', 'State: save', [
-			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'     => $this->data,
-		] );
+		// This will return `false` on failure to save and if the value is the same, not indicative of a failure.
 		update_option( self::STATE_OPTION_KEY, $this->data );
+	}
+
+	/**
+	 * Returns whether the current phase is a migration dry-run or not.
+	 *
+	 * @since 6.0.2
+	 *
+	 * @return bool Whether the current phase is a migration dry-run or not.
+	 */
+	public function is_dry_run(): bool {
+		$phase = $this->get_phase();
+		switch($phase) {
+			case State::PHASE_REVERT_COMPLETE:
+			case State::PHASE_CANCEL_COMPLETE:
+			case State::PHASE_PREVIEW_PROMPT:
+			case State::PHASE_PREVIEW_IN_PROGRESS:
+			case State::PHASE_MIGRATION_FAILURE_COMPLETE:
+				return true;
+			default:
+				return false;
+		}
 	}
 }

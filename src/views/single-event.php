@@ -22,9 +22,9 @@ $event_id = Tribe__Events__Main::postIdHelper( get_the_ID() );
 
 /**
  * Allows filtering of the event ID.
- * 
- * @since TBD
- * 
+ *
+ * @since 6.0.1
+ *
  * @param int $event_id
  */
 $event_id = apply_filters( 'tec_events_single_event_id', $event_id );
@@ -69,6 +69,7 @@ $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $
  * @param string $event_id The ID of the displayed event.
  */
 $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after, false ), $event_id );
+$cost  = tribe_get_formatted_cost( $event_id );
 
 ?>
 
@@ -85,8 +86,8 @@ $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $befo
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
-		<?php if ( tribe_get_cost() ) : ?>
-			<span class="tribe-events-cost"><?php echo tribe_get_cost( null, true ) ?></span>
+		<?php if ( ! empty( $cost ) ) : ?>
+			<span class="tribe-events-cost"><?php echo esc_html( $cost ) ?></span>
 		<?php endif; ?>
 	</div>
 

@@ -376,6 +376,8 @@ abstract class By_Day_View extends View {
 	protected function get_events_per_day() {
 		$events_per_day = $this->context->get( 'events_per_page', 12 );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the number of events per day to fetch in th View.
 		 *
@@ -384,7 +386,7 @@ abstract class By_Day_View extends View {
 		 * @param int         $events_per_day The default number of events that will be fetched for each day.
 		 * @param By_Day_View $this           The current View instance.
 		 */
-		return apply_filters( "tribe_events_views_v2_{$this->slug}_events_per_day", $events_per_day, $this );
+		return apply_filters( "tribe_events_views_v2_{$view_slug}_events_per_day", $events_per_day, $this );
 	}
 
 	/**
@@ -604,8 +606,8 @@ abstract class By_Day_View extends View {
 					$cache_key             = $event . '_' . $week_start . '_week';
 					$happens_this_week     = true;
 					$event_obj             = tribe_get_event( $event );
-					$event_start           = $event_obj->dates->start_display->format( Dates::DBDATEFORMAT );
-					$event_end             = $event_obj->dates->end_display->format( Dates::DBDATEFORMAT );
+					$event_start           = ! empty( $event_obj->dates->start_display ) ? $event_obj->dates->start_display->format( Dates::DBDATEFORMAT ) : '';
+					$event_end             = ! empty( $event_obj->dates->end_display ) ? $event_obj->dates->end_display->format( Dates::DBDATEFORMAT ) : '';
 					$starts_this_week      = $occurrences['first'][ $event ] >= $week_start && $event_start >= $week_start;
 					$ends_this_week        = $occurrences['last'][ $event ] <= $week_end && $event_end <= $week_end;
 					$displays_on[ $event ] = [];
@@ -685,7 +687,7 @@ abstract class By_Day_View extends View {
 			}
 
 			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+			$input_url = add_query_arg( [ 'eventDisplay' => static::$view_slug ], $input_url );
 
 			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
@@ -792,5 +794,23 @@ abstract class By_Day_View extends View {
 		[ $start_date, $end_date ] = $this->calculate_grid_start_end( $this->context->get( 'event_date', 'now' ) );
 		$this->repository->where( 'ends_after', $start_date );
 		$this->repository->where( 'starts_before', $end_date );
+	}
+
+	/**
+	 * Overrides the base View implementation to remove pagination from the URL.
+	 * 
+	 * {@inheritdoc}
+	 */
+	public function url_for_query_args( $date = null, $query_args = [] ) {
+		// If the query arguments are passed as a string, convert them to an array.
+		if ( ! is_array( $query_args ) ) {
+			parse_str( $query_args, $query_args );
+		}
+
+		// Remove the 'page' and 'paged' query parameters from the array of query arguments.
+		unset( $query_args[ 'page' ], $query_args[ 'paged' ] );
+
+		// Call the parent class's 'url_for_query_args' method with the updated query arguments.
+		return parent::url_for_query_args( $date, $query_args );
 	}
 }

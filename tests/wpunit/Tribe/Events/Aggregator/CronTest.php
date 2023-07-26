@@ -7,6 +7,7 @@ use Tribe\Events\Test\Traits\Aggregator\AggregatorMaker;
 use Tribe\Events\Test\Traits\Aggregator\RecordMaker;
 use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Service;
+use Tribe\Events\Virtual\Tests\Traits\With_Uopz;
 use Tribe__Events__Aggregator__Cron as Cron;
 use Tribe__Events__Aggregator__Records as Records;
 
@@ -481,5 +482,124 @@ class CronTest extends Aggregator_TestCase {
 
 		// your tear down methods here
 		tribe_register( 'events-aggregator.service', $backup );
+	}
+
+	public function test_purging_with_direct_queries_if_off_by_default():void{
+		// Create an expired record.
+		$record = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->success,
+			'post_mime_type' => 'ea/url',
+			'post_date'      => '2018-01-01 00:00:00',
+		] );
+		// Listen in on the pre_delete_post filter to check if the post is deleted.
+		$wp_post_delete_calls = 0;
+		add_action( 'deleted_post', function ( $post_id ) use ( &$wp_post_delete_calls, $record ) {
+			$wp_post_delete_calls++;
+			$this->assertEquals( $record, $post_id );
+		} );
+
+		$cron = $this->make_instance();
+		$cron->purge_expired_records();
+
+		$this->assertEquals( 1, $wp_post_delete_calls );
+	}
+
+	public function test_purging_with_direct_queries_will_delete_the_correct_records(): void {
+		// Create 3 expired records.
+		$expired_records = static::factory()->post->create_many( 3, [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->success,
+			'post_mime_type' => 'ea/url',
+			'post_date'      => '2018-01-01 00:00:00',
+		] );
+		// For each record add some meta and some comments.
+		// Comments are used by EA to track errors, here we add them just to make sure they are deleted with the post.
+		foreach ( $expired_records as $expired_record ) {
+			add_post_meta( $expired_record, 'foo', 'bar' );
+			static::factory()->comment->create_many( 3, [
+				'comment_post_ID' => $expired_record,
+			] );
+		}
+		// Create 3 non expired records.
+		$non_expired_records = static::factory()->post->create_many( 3, [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->success,
+			'post_mime_type' => 'ea/url',
+			'post_date'      => (new \DateTime('now'))->format('Y-m-d H:i:s'),
+		] );
+		// For each record add some meta and some comments.
+		// Comments are used by EA to track errors, here we add them just to make sure they are not deleted.
+		foreach ( $non_expired_records as $non_expired_record ) {
+			add_post_meta( $non_expired_record, 'foo', 'bar' );
+			static::factory()->comment->create_many( 3, [
+				'comment_post_ID' => $non_expired_record,
+			] );
+		}
+		// Filter the `tec_event_aggregator_direct_record_deletion` filter to make sure the direct deletion is used.
+		add_filter( 'tec_event_aggregator_direct_record_deletion', '__return_true' );
+		// Listen in on the `post_deleted` filter to make sure WordPress core functions are not used.
+		$wp_post_delete_calls = 0;
+		add_action( 'deleted_post', function ( $post_id ) use ( &$wp_post_delete_calls, $expired_records ) {
+			$wp_post_delete_calls ++;
+			$this->assertContains( $post_id, $expired_records );
+		} );
+
+		$cron = $this->make_instance();
+		$cron->purge_expired_records();
+
+		$this->assertEmpty( $wp_post_delete_calls );
+		// The expired posts should be gone, with them the meta and comments, caches included.
+		foreach ( $expired_records as $expired_record ) {
+			$this->assertEmpty( get_post_meta( $expired_record ) );
+			$this->assertEmpty( get_comments( [ 'post_id' => $expired_record ] ) );
+			$this->assertEmpty( get_post( $expired_record ) );
+		}
+		// The non expired posts should be still there, with them the meta and comments, caches included.
+		foreach ( $non_expired_records as $non_expired_record ) {
+			$this->assertNotEmpty( get_post_meta( $non_expired_record ) );
+			$this->assertNotEmpty( get_comments( [ 'post_id' => $non_expired_record ] ) );
+			$this->assertInstanceOf( \WP_Post::class, get_post( $non_expired_record ) );
+		}
+	}
+
+	public function purge_expired_records_max_allowed_packet_provider(): array {
+		return [
+			// @see https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_allowed_packet
+			'minimum'     => [ 1024, 24, ],
+			'maximum'     => [ 1073741824, 50000 ],
+			'default'     => [ 67108864, 50000 ],
+			'51k'         => [ 51000, 50000 ],
+			'23k'         => [ 23000, 22000 ],
+			'empty value' => [ '', 100 ],
+		];
+	}
+
+	/**
+	 * @dataProvider purge_expired_records_max_allowed_packet_provider
+	 */
+	public function test_batch_size_used_for_direct_delete_is_related_to_mysql_max_allowed_packet( $max_allowed_packet, int $expected_batch_size ): void {
+		// Filter `query` to return a fixed value for the `max_allowed_packet` variable.
+		add_filter( 'query', static function ( $query ) use ( $max_allowed_packet ) {
+			if ( false !== strpos( $query, 'max_allowed_packet' ) ) {
+				return 'SELECT ' . ( $max_allowed_packet ?: 'NULL' );
+			}
+
+			return $query;
+		} );
+		// Listen in on the `tec_event_aggregator_direct_record_deletion_batch_size` filter to catch the batch size.
+		$batch_size = 0;
+		add_filter( 'tec_event_aggregator_direct_record_deletion_batch_size', function ( $size ) use ( &$batch_size ) {
+			$batch_size = $size;
+
+			return $size;
+		} );
+		// Filter the `tec_event_aggregator_direct_record_deletion` filter to make sure the direct deletion is used.
+		add_filter( 'tec_event_aggregator_direct_record_deletion', '__return_true' );
+
+		$cron = $this->make_instance();
+		$cron->purge_expired_records();
+
+		$this->assertEquals( $expected_batch_size, $batch_size );
 	}
 }

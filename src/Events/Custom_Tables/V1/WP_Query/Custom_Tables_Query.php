@@ -26,6 +26,15 @@ use WP_Query;
  */
 class Custom_Tables_Query extends WP_Query {
 	/**
+	 * The last error string logged by any instance of the class.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @var string
+	 */
+	protected static $last_error = '';
+
+	/**
 	 * A reference to the original `WP_Query` object this Custom Tables Query should use.
 	 *
 	 * @since 6.0.0
@@ -52,8 +61,10 @@ class Custom_Tables_Query extends WP_Query {
 		// Initialize a new instance of the query.
 		$ct_query = new self();
 		$ct_query->init();
-		$ct_query->query      = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
-		$ct_query->query_vars = $ct_query->query;
+		$filtered_query = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query ) );
+		$ct_query->query = $filtered_query;
+		$filtered_query_vars = $ct_query->filter_query_vars( wp_parse_args( (array) $override_args, $wp_query->query_vars ) );
+		$ct_query->query_vars = $filtered_query_vars;
 
 		// Keep a reference to the original `WP_Query` instance.
 		$ct_query->wp_query = $wp_query;
@@ -71,7 +82,6 @@ class Custom_Tables_Query extends WP_Query {
 			 * @var Custom_Tables_Query_Filters $query_filters
 		     */
 			$query_filters = $wp_query->builder->filter_query;
-			$query_filters->set_query_var_mask( 'join', false );
 			$query_filters->set_query( $ct_query );
 		}
 
@@ -106,6 +116,17 @@ class Custom_Tables_Query extends WP_Query {
 	}
 
 	/**
+	 * Returns the last error string logged by any instance of the class.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @return string The last error string logged by any instance of the class.
+	 */
+	public static function get_last_error(): string {
+		return self::$last_error;
+	}
+
+	/**
 	 * Overrides the base method to replace the Meta Query with one that will redirect
 	 * to the plugin custom tables.
 	 *
@@ -127,10 +148,12 @@ class Custom_Tables_Query extends WP_Query {
 		add_filter( 'posts_fields', [ $this, 'redirect_posts_fields' ], 10, 2 );
 		// While not ideal, this is the only way to intervene on `GROUP BY` in the `get_posts()` method.
 		add_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ], 10, 2 );
-		add_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_by_date' ], 10, 2 );
 		add_filter( 'posts_where', [ $this, 'filter_where' ], 10, 2 );
 		add_filter( 'posts_join', [ $this, 'join_occurrences_table' ], 10, 2 );
+		// This is the last filter in the `WP_Query` class: use this as an action to clean up.
+		add_filter( 'the_posts', [ $this, 'remove_late_filters' ], 10, 2 );
+		add_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200, 2 );
 
 		// This "parallel" query should not be manipulated by the WP_Query_Monitor.
 		$monitor_ignore_flag          = WP_Query_Monitor::ignore_flag();
@@ -139,14 +162,15 @@ class Custom_Tables_Query extends WP_Query {
 
 		// This parallel query should be modified by custom tables query modifiers, if any.
 		/** @var Custom_Tables_Query_Monitor $monitor */
-		$monitor = tribe(Custom_Tables_Query_Monitor::class);
+		$monitor = tribe( Custom_Tables_Query_Monitor::class );
 		$monitor->attach( $this );
 
-        // This "parallel" query should not be manipulated from other query managers.
+		// This "parallel" query should not be manipulated from other query managers.
 		$this->set( 'tribe_suppress_query_filters', true );
 		$this->tribe_suppress_query_filters = true;
 		$this->set( 'tribe_include_date_meta', false );
 		$this->tribe_include_date_meta = false;
+		$this->set( 'cache_results', false );
 
 		/**
 		 * Fires before the Custom Tables query runs.
@@ -157,7 +181,27 @@ class Custom_Tables_Query extends WP_Query {
 		 */
 		do_action( 'tec_events_custom_tables_v1_custom_tables_query_pre_get_posts', $this );
 
+		$set_found_rows = empty( $this->get( 'no_found_rows', false ) );
+
+		/*
+		 * Since WordPress 6.1 query results are cached. To cache the results the `get_post` function
+		 * will run too early for the post hydration logic to kick in in the `post_results` filter.
+		 * We try to do the same hydration while fetching found rows; if the request is not to set
+		 * found rows, then we'll do the hydration in the `post_results` filter and prevent query caching.
+		 * This is not ideal, but will do for now as a temporary fix.
+		 */
+		if ( $set_found_rows ) {
+			add_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0, 2 );
+		} else {
+			$this->set( 'cache_results', false );
+		}
+
 		$results = parent::get_posts();
+
+		global $wpdb;
+		self::$last_error = (string) $wpdb->last_error;
+
+		$this->remove_filters();
 
 		/**
 		 * Fires after the Custom Tables Query ran.
@@ -169,15 +213,17 @@ class Custom_Tables_Query extends WP_Query {
 		 */
 		do_action( 'tec_events_custom_tables_v1_custom_tables_query_results', $results, $this );
 
-		if (
-			$this->wp_query instanceof WP_Query
-			&& empty( $this->get( 'no_found_rows', false ) )
-		) {
-			$this->wp_query->found_posts = $this->found_posts;
-		}
+		if ( $this->wp_query instanceof WP_Query ) {
+			if ( $set_found_rows ) {
+				// Avoid `SELECT FOUND_ROWS()` running twice. See #ECP-1360.
+				add_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ], 10, 2 );
+				$this->wp_query->found_posts = $this->found_posts;
+				$this->wp_query->max_num_pages = $this->max_num_pages;
+			}
 
-		// Set the request SQL that actually ran to allow easier debugging of the query.
-		$this->wp_query->request = $this->request;
+			// Set the request SQL that actually ran to allow easier debugging of the query.
+			$this->wp_query->request = $this->request;
+		}
 
 		return $results;
     }
@@ -197,7 +243,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The WHERE clause as produced by the `WP_Query` instance, untouched by the method.
 	 */
-	public function replace_meta_query( $search, WP_Query $wp_query ) {
+	public function replace_meta_query( $search, $wp_query ) {
 		if ( $wp_query !== $this ) {
 			// Only target the class own instance.
 			return $search;
@@ -239,7 +285,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The filtered `SELECT` clause.
 	 */
-	public function redirect_posts_fields( $request_fields, WP_Query $query = null ) {
+	public function redirect_posts_fields( $request_fields, $query = null ) {
 		if ( $this !== $query ) {
 			return $request_fields;
 		}
@@ -270,76 +316,106 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The updated `GROUP BY` SQL clause.
 	 */
-	public function group_posts_by_occurrence_id( $groupby, WP_Query $query = null ) {
+	public function group_posts_by_occurrence_id( $groupby, $query = null ) {
 		if ( $this !== $query ) {
 			return $groupby;
 		}
 
 		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
 
-		return '';
-	}
-
-	/**
-	 * Replace the SQL clause that would order posts by ID to order them by Occurrence ID.
-	 *
-	 * @since 6.0.0
-	 *
-	 * @param string        $order_by          The input `ORDER BY` SQL clause, as produced by the
-	 *                                         `WP_Query` class code.
-	 * @param WP_Query|null $query             A reference to the `WP_Query` instance currently being filtered.
-	 *
-	 * @return string The filtered `ORDER BY` SQL clause, redirecting `wp_posts.ID` to Occurrence ID,
-	 *                if required.
-	 */
-	public function order_by_occurrence_id( $order_by, WP_Query $query = null ) {
-		if ( $this !== $query ) {
-			return $order_by;
-		}
-
-		remove_filter( 'posts_orderby', [ $this, 'order_by_occurrence_id' ] );
-
 		$occurrences = Occurrences::table_name( true );
 		global $wpdb;
 
-		/*
-		 * Replace, implicitly redirecting them, a curated list of order criteria to the Occurrence-table
-		 * based criteria.
-		 *
-		 * @todo is this code eligible for a more general purpose use? Should it be more flexible?
-		 */
-		$order_by = str_replace(
-			[ $wpdb->posts . '.ID', 'event_date', 'event_duration' ],
-			[ $occurrences . '.occurrence_id', $occurrences . '.start_date', $occurrences . '.duration' ],
-			$order_by
-		);
-
-		return $order_by;
+		// Group by the occurrence ID, not the post ID.
+		return str_replace( "$wpdb->posts.ID", "$occurrences.occurrence_id", $groupby );
 	}
 
 	/**
-	 * Intercept appropriate order by fields and map to our new occurrence fields.
+	 * Redirects the the table and fields used in the `ORDER BY` clause of the query to the Custom Tables,
+	 * if required.
 	 *
 	 * @since 6.0.0
 	 *
-	 * @inheritDoc
+	 * @param string $orderby The original `ORDER BY` SQL clause.
 	 *
-	 * @return string The redirected ORDER clause, if required.
+	 * @return string|false The redirected `ORDER BY` field, `false` on failure.
 	 */
-	protected function parse_orderby( $orderby ) {
-		if ( 'meta_value' !== $orderby || ! isset( $this->query['meta_key'] ) ) {
-			return parent::parse_orderby( $orderby );
+	protected function parse_orderby( $orderby ){
+		global $wpdb;
+		$occurrences = Occurrences::table_name( true );
+
+		// Let's try to handle some specific cases first.
+		switch ( $orderby ) {
+			case 'event_date':
+				$parsed = $occurrences . '.start_date';
+				break;
+			case 'event_date_utc':
+				$parsed = $occurrences . '.start_date_utc';
+				break;
+			case 'event_duration':
+				$parsed = $occurrences . '.duration';
+				break;
+			case 'ID':
+			case $wpdb->posts . '.ID':
+				// If the order is by post ID, order by post ID and occurrence ID.
+				$original_order_by = $this->query_vars['orderby'] ?? [];
+				$normalized_order_by = tribe_normalize_orderby( $original_order_by );
+				$occurrences = Occurrences::table_name( true );
+				$order = $normalized_order_by['ID'] ?? $normalized_order_by[ $wpdb->posts . '.ID' ] ?? 'DESC';
+
+				// The second `order` is omitted: it will be added by the following `parse_order` call.
+				$parsed = "ID $order, $occurrences.occurrence_id";
+				break;
+			case 'none':
+			case 'rand':
+				// Fast-track the `none` and `rand` order bys.
+				return parent::parse_orderby( $orderby );
+			default:
+				$parsed = null;
 		}
 
-		$map = Redirection_Schema::get_filtered_meta_key_redirection_map();
-
-		if ( ! isset( $map[ $this->query['meta_key'] ] ) ) {
-			return parent::parse_orderby( $orderby );
+		if ( ! empty( $parsed ) ) {
+			return $parsed;
 		}
 
-		$redirection = $map[ $this->query['meta_key'] ];
+		// Handle order imposed by a meta value.
+		$meta_query_clauses = $this->meta_query->get_clauses();
 
-		return sprintf( '%1$s.%2$s', $redirection['table'], $redirection['column'] );
+		$meta_query_orderby = $orderby;
+		if ( $orderby === 'meta_value' ) {
+			// Handle the case where the order is by a meta key and value couple.
+			$meta_query_orderby = $this->get( 'meta_key' );
+			// If we have a list of meta query args.
+			if ( ! $meta_query_orderby && isset( reset( $meta_query_clauses )['original_meta_key'] ) ) {
+				$meta_query_orderby = reset( $meta_query_clauses )['original_meta_key'];
+			}
+		} else if ( isset( $meta_query_clauses[ $orderby ]['original_meta_key'] ) ) {
+			// Handle the case where the order is by the meta query key.
+			$meta_query_orderby = $meta_query_clauses[ $orderby ]['original_meta_key'];
+		}
+
+		if ( count( $meta_query_clauses ) ) {
+			$map = Redirection_Schema::get_filtered_meta_key_redirection_map();
+
+			foreach ( $meta_query_clauses as $meta_query_clause ) {
+				$original_meta_key = $meta_query_clause['original_meta_key'] ?? null;
+
+				if ( $meta_query_orderby !== $original_meta_key ) {
+					continue;
+				}
+
+				$matching_mapping = $map[ $original_meta_key ] ?? null;
+
+				if ( $matching_mapping === null || ! isset( $map[ $original_meta_key ]['column'] ) ) {
+					continue;
+				}
+
+				return $occurrences . '.' . $map[ $original_meta_key ]['column'];
+			}
+		}
+
+		// Let the parent handle the rest or return the input unchanged.
+		return parent::parse_orderby( $orderby );
 	}
 
 	/**
@@ -353,7 +429,11 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The `WHERE` SQL clause, modified to be date-bound, if required.
 	 */
-	public function filter_where( $where, WP_Query $query ) {
+	public function filter_where( $where, $query ) {
+		if ( ! $query instanceof WP_Query ) {
+			return $where;
+		}
+
 		/**
 		 * Filters the `WHERE` statement produced by the Custom Tables Query.
 		 *
@@ -378,7 +458,7 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @return string The `WHERE` SQL clause, modified to be date-bound, if required.
 	 */
-	public function filter_by_date( $where, WP_Query $query = null ) {
+	public function filter_by_date( $where, $query = null ) {
 		if ( $this !== $query ) {
 			return $where;
 		}
@@ -442,7 +522,12 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		global $wpdb;
-		$join .= " JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+		$join_clause = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+
+		if ( strpos( $join, $join_clause ) === false ) {
+			// Let's add the JOIN clause only if we did not already.
+			$join .= ' ' . $join_clause;
+		}
 
 		return $join;
 	}
@@ -469,5 +554,171 @@ class Custom_Tables_Query extends WP_Query {
 	 */
 	public function get_wp_query() {
 		return $this->wp_query;
+	}
+
+	/**
+	 * Short-circuits the controlled `WP_Query` instance query to get the number of found results
+	 * to avoid it from running twice.
+	 *
+	 * The Custom Tables query will pre-fill the results on the `posts_pre_query` filter and will run,
+	 * in that context, a query to get the posts and the found rows. The `WP_Query` instance whose posts
+	 * are pre-filled, will attempt to run the query to get the found rows again. This method will intercept
+	 * that second `SELECT FOUND_ROWS()` query to pre-fill it with a result the Custom Tables query already
+	 * has.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @param string $found_posts_query The SQL query that would run to fill in the `found_posts` property of the
+	 *                                  `WP_Query` instance.
+	 * @param        $query             WP_Query The `WP_Query` instance that is currently filtering its `found_posts`
+	 *                                  property.
+	 *
+	 * @return string The filtered SQL query that will run to fill in the `found_posts` property of the `WP_Query`
+	 *                instance.
+	 */
+	public function filter_found_posts_query( $found_posts_query, $query ) {
+		if ( $this->wp_query !== $query ) {
+			return $found_posts_query;
+		}
+
+		remove_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ] );
+
+		return 'SELECT ' . $this->found_posts;
+	}
+
+	/**
+	 * Removes all the filters the Custom Tables Query has added to filter its own inner workings while
+	 * pre-filling the results in the `posts_pre_query` filter.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @return void Lingering filters will be removed.
+	 */
+	protected function remove_filters(): void {
+		remove_filter( 'posts_search', [ $this, 'replace_meta_query' ] );
+		remove_filter( 'posts_fields', [ $this, 'redirect_posts_fields' ] );
+		remove_filter( 'posts_groupby', [ $this, 'group_posts_by_occurrence_id' ] );
+		remove_filter( 'posts_where', [ $this, 'filter_by_date' ] );
+		remove_filter( 'posts_where', [ $this, 'filter_where' ] );
+		remove_filter( 'posts_join', [ $this, 'join_occurrences_table' ] );
+		remove_filter( 'the_posts', [ $this, 'remove_late_filters' ] );
+		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
+		remove_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200 );
+	}
+
+	/**
+	 * Removes late filters that are required after the `posts_pre_query` filter.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @param array    $the_posts The array of posts that will be returned by the `WP_Query` instance.
+	 * @param WP_Query $query     WP_Query The `WP_Query` instance that is currently filtering its `the_posts` property.
+	 *
+	 * @return array The filtered array of posts that will be returned by the `WP_Query` instance, not modified by
+	 *               this filter.
+	 */
+	public function remove_late_filters( $the_posts, $query ) {
+		if ( $query !== $this->wp_query ) {
+			return $the_posts;
+		}
+
+		remove_filter( 'found_posts_query', [ $this, 'filter_found_posts_query' ] );
+
+		return $the_posts;
+	}
+
+	/**
+	 * Attempt an early hydration of the post caches when fetching the found rows, this method
+	 * is using the `found_posts` filter as an action.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @param int      $found_posts The number of found posts, not used by this method.
+	 * @param WP_Query $query       The `WP_Query` instance that is currently filtering its `found_posts` property.
+	 *
+	 * @return int The number of found posts, not modified by this method.
+	 */
+	public function hydrate_posts_on_found_rows( $found_posts, $query ) {
+		if ( $query !== $this ) {
+			return $found_posts;
+		}
+
+		remove_filter( 'found_posts', [ $this, 'hydrate_posts_on_found_rows' ], 0 );
+
+		if ( empty( $found_posts ) || ! is_array( $query->posts ) ) {
+			return $found_posts;
+		}
+
+		/**
+		 * Filters the posts that will be hydrated by the Custom Tables Query early, before
+		 * query caching introduced in WordPress 6.1 kicks in.
+		 *
+		 * @since 6.0.4
+		 *
+		 * @param array               $posts The posts that will be hydrated by the Custom Tables Query early.
+		 * @param Custom_Tables_Query $this  The Custom Tables Query instance.
+		 */
+		$query->posts = apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_hydrate_posts', $query->posts, $query );
+
+		return $found_posts;
+	}
+
+	/**
+	 * Filters the `ORDER` section of the query to redirect the fields that require it to the custom tables.
+	 *
+	 * The `parse_orderby` method might have not completely taken care of this redirection if the query did
+	 * not originally specify any `orderby` or later filters have modified the `ORDER BY` section of the query
+	 * further.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @param string   $posts_orderby The `ORDER` section of the query.
+	 * @param WP_Query $query         The `WP_Query` instance that is currently filtering its `posts_orderby` property.
+	 *
+	 * @return string The filtered `ORDER` section of the query.
+	 */
+	public function redirect_posts_orderby( $posts_orderby, $query ) {
+		if ( $query !== $this ) {
+			return $posts_orderby;
+		}
+
+		remove_filter( 'posts_orderby', [ $this, 'redirect_posts_orderby' ], 200 );
+
+		if ( ! is_string( $posts_orderby ) || trim( $posts_orderby ) === '' ) {
+			return $posts_orderby;
+		}
+
+		$redirected_orderbys = '';
+		$orderbys = explode( ',', $posts_orderby );
+		foreach ( $orderbys as $orderby_frag ) {
+			// Fast-track the `rand` order, no need to redirect anything.
+			if ( stripos( $orderby_frag, 'rand' ) === 0 ) {
+				$redirected_orderbys .= $orderby_frag;
+				continue;
+			}
+
+			// Each `ORDER BY` entry could specify an order (DESC|ASC) or not.
+			if ( preg_match( '~(?<orderby>.*?)\s?(?<order>ASC|DESC)$~i', $orderby_frag, $m ) ) {
+				$orderby = trim( $m['orderby'] );
+				$order = trim( $m['order'] );
+			} else {
+				// Follow the WordPress default and use DESC if no order is specified.
+				$orderby = $orderby_frag;
+				$order = 'DESC';
+			}
+
+			if ( strpos( $redirected_orderbys, $orderby ) !== false ) {
+				// The field has been already added to the redirected `ORDER BY` clause.
+				continue;
+			}
+
+			$parsed_orderby = $this->parse_orderby( (string) $orderby ) ?: $orderby;
+
+			$redirected_orderbys .= $redirected_orderbys === '' ?
+				$parsed_orderby . ' ' . $order
+				: ', ' . $parsed_orderby . ' ' . $order;
+		}
+
+		return $redirected_orderbys;
 	}
 }

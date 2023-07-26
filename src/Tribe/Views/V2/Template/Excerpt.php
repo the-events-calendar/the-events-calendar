@@ -45,10 +45,11 @@ class Excerpt extends Base_Template {
 	 * @return int The excerpt length modified, if necessary.
 	 */
 	public function maybe_filter_excerpt_length( $length ) {
+		$list_view_slug = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
 		$context = tribe_context();
-		$view = $context->get( 'event_display_mode', 'list' );
+		$view = $context->get( 'event_display_mode', $list_view_slug );
 
-		return in_array( $view, [ 'list', 'day' ] ) ? 30 : $length;
+		return in_array( $view, [ $list_view_slug, 'day' ] ) ? 30 : $length;
 	}
 
 	/**

@@ -12,9 +12,10 @@ namespace TEC\Events\Custom_Tables\V1\Models;
 use Closure;
 use Generator;
 use Serializable;
-use tad_DI52_Container;
+use TEC\Common\Contracts\Container;
 use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
+use Tribe__Cache_Listener;
 
 /**
  * Class Model
@@ -118,7 +119,7 @@ abstract class Model implements Serializable {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @var tad_DI52_Container
+	 * @var Container
 	 */
 	private $container;
 
@@ -169,14 +170,22 @@ abstract class Model implements Serializable {
 	 */
 	protected $extended_properties = [];
 
+	/**
+	 * If this model is memoized, this is the key to retrieve it.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @var null|string
+	 */
+	public $cache_key = null;
 
 	/**
 	 * Model constructor.
 	 *
 	 * @param  array                    $data       An array with key => value pairs used to populate the model on creation of the object.
-	 * @param  tad_DI52_Container|null  $container  A reference to the current Dependency Injection container instance.
+	 * @param  Container|null  $container  A reference to the current Dependency Injection container instance.
 	 */
-	public function __construct( array $data = [], tad_DI52_Container $container = null ) {
+	public function __construct( array $data = [], Container $container = null ) {
 		$this->data = $data;
 		$this->container = $container ?: tribe();
 
@@ -192,6 +201,19 @@ abstract class Model implements Serializable {
 		$this->hashed_keys = array_merge( $this->hashed_keys, $extended_hashed_keys );
 		$this->extended_properties = $extended_properties;
 	}
+
+	/**
+	 * Flush this instances cache if it was cached.
+	 *
+	 * @since 6.1.3
+	 */
+	public function flush_cache() {
+		if ( $this->cache_key ) {
+			tribe_cache()->delete( $this->cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+			$this->cache_key = null;
+		}
+	}
+
 	/**
 	 * Get the name of the table that is being affected by this model.
 	 *
@@ -257,8 +279,21 @@ abstract class Model implements Serializable {
 			static::$static_errors[ $name ] = $error_string;
 		}
 
+		if ( ! empty( $this->errors() ) ) {
+			// For debug purposes, log validation errors.
+			// These will fail update/insertions on the database.
+			do_action( 'tribe_log',
+				'debug',
+				"Model failed validation.", [
+					'source' => __METHOD__ . ':' . __LINE__,
+					'errors' => $this->errors(),
+				] );
+
+			return false;
+		}
+
 		// No errors were found.
-		return empty( $this->errors() );
+		return true;
 	}
 
 	/**
@@ -379,6 +414,8 @@ abstract class Model implements Serializable {
 		$this->errors             = [];
 		static::$static_errors    = [];
 		$this->single_validations = [];
+		// If we have a cache, let's clear it.
+		$this->flush_cache();
 
 		return $this;
 	}
@@ -532,13 +569,39 @@ abstract class Model implements Serializable {
 	 * If a model is cached, make sure only the important data is serialized, to reduce the amount of space that the
 	 * object uses when stored as a string.
 	 *
+	 * @since 6.0.6
+	 *
+	 * @return array The array representation of the object.
+	 */
+	public function __serialize(): array {
+		return $this->to_array();
+	}
+
+	/**
+	 * If a model is cached, make sure only the important data is serialized, to reduce the amount of space that the
+	 * object uses when stored as a string.
+	 *
 	 * @since 6.0.0
+	 * @since 6.0.6 - Utilize magic method for 8.1 support.
+	 *
 	 * @return string The string representing the object.
 	 */
-	public function serialize() {
-		$encode = wp_json_encode( $this->to_array() );
+	public function serialize(): string {
+		return serialize( $this->__serialize() );
+	}
 
-		return is_string( $encode ) ? $encode : '';
+	/**
+	 * If this object is constructed out of a `unserialize` call make sure the properties are set up correctly on the
+	 * object.
+	 *
+	 * @since 6.0.6
+	 *
+	 * @param  array  $serialized The array representation of the object.
+	 */
+	public function __unserialize(array $serialized): void {
+		foreach ( $serialized as $column => $value ) {
+			$this->{$column} = $value;
+		}
 	}
 
 	/**
@@ -546,19 +609,12 @@ abstract class Model implements Serializable {
 	 * object.
 	 *
 	 * @since 6.0.0
+	 * @since 6.0.6 - Utilize magic method for 8.1 support.
 	 *
 	 * @param  string  $serialized
 	 */
 	public function unserialize( $serialized ) {
-		$data = json_decode( $serialized, true );
-
-		if ( ! is_array( $data ) ) {
-			return;
-		}
-
-		foreach ( $data as $column => $value ) {
-			$this->{$column} = $value;
-		}
+		$this->__unserialize( unserialize( $serialized ) );
 	}
 
 	/**

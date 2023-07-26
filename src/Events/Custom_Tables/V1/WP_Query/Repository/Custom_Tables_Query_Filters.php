@@ -220,8 +220,14 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			 * table as that is the only way to represent Occurrences.
 			 */
 			global $wpdb;
-			$occurrences                = Occurrences::table_name( true );
-			$this->query_vars['join'][] = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+			$occurrences = Occurrences::table_name( true );
+			$join_clause = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+
+			if ( ! in_array( $join_clause, $this->query_vars['join'], true ) ) {
+				$this->query_vars['join'][] = $join_clause;
+			}
+		} else if ( ! empty( $this->query_vars['join'] ) ) {
+			$join = $this->deduplicate_joins( $join );
 		}
 
 		return parent::filter_posts_join( $join, $query );
@@ -346,41 +352,6 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	}
 
 	/**
-	 * Overrides the base method to handle requests based on the post parent, usually coming from PRO.
-	 *
-	 * @since 6.0.0
-	 *
-	 * @param string      $where_clause The original WHERE clause the repository is adding to the query.
-	 * @param string|null $id           An optional unique identifier for the query.
-	 * @param bool        $override     Whether to override a pre-existing WHERE clause with this one, if present, or
-	 *                                  not. This will only apply if the `$id` is provided.
-	 */
-	public function where( $where_clause, $id = null, $override = false ) {
-		global $wpdb;
-
-		// @see Tribe__Events__Pro__Repositories__Event::filter_by_in_series for the origin of this statement.
-		$is_in_series_where = preg_match(
-			'/^' . preg_quote( "{$wpdb->posts}.post_parent", '/' ) . '\\s?=\\s?(?<id>\\d+)/',
-			$where_clause,
-			$m );
-
-		// TODO: Move into PRO?
-		if ( $is_in_series_where && isset( $m['id'] ) ) {
-			$occurrences   = Occurrences::table_name( true );
-			$occurrence_id = Occurrence::normalize_id( absint( $m['id'] ) );
-			$occurrence    = Occurrence::find( $occurrence_id, 'occurrence_id' );
-
-			if ( ! $occurrence instanceof Occurrence ) {
-				return;
-			}
-
-			$where_clause = (string) $wpdb->prepare( "{$occurrences}.post_id = %d", $occurrence->post_id );
-		}
-
-		parent::where( $where_clause, $id, $override );
-	}
-
-	/**
 	 * Sets the mask value for a query var, or a list of query vars, that should be applied at filtering time.
 	 *
 	 * The mask will NOT change the value and content of each query var, it will just prevent the `filter_` methods
@@ -420,5 +391,54 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 */
 	public function reset_query_vars_mask() {
 		$this->query_vars_mask = self::$default_query_vars_mask;
+	}
+
+	/**
+	 * Returns a de-duplicated version of the query input JOIN clause that will not contain JOINs
+	 * that would duplicated the ones set in the this object `join` query variables.
+	 *
+	 * @param string $query_join The query input JOIN clause.
+	 *
+	 * @return string The de-duplicated JOIN clause.
+	 */
+	protected function deduplicate_joins( $query_join ): string {
+		if ( ! is_string( $query_join ) || empty( $query_join ) || empty( $this->query_vars['join'] ) ) {
+			// Nothing to deduplicate.
+			return $query_join;
+		}
+
+		// Break each current JOIN clause into a set of couples in the shape `['JOIN' 'table on ...']`.
+		$query_vars_join_couples = [];
+		$preg_split_flags = PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE;
+		foreach ( ( $this->query_vars['join'] ?? [] ) as $query_var_join ) {
+			$split = array_filter( preg_split( '/((?:LEFT|INNER|RIGHT)?\\s?JOIN)/', trim( $query_var_join ), 2, $preg_split_flags ) );
+			if ( count( $split ) !== 2 ) {
+				continue;
+			}
+			$query_vars_join_couples[] = [ reset( $split ), trim( end( $split ) ) ];
+		}
+
+		// Break the input query JOIN clause into a set of couples in the shape `['JOIN' 'table on ...']`.
+		$string_joins = array_filter( preg_split( '/((?:LEFT|INNER|RIGHT)?\\s?JOIN)/', trim( $query_join ), - 1, $preg_split_flags ) );
+		$query_join_couples = array_chunk( array_map( 'trim', $string_joins ), 2 );
+
+		// Now remove from the input query JOIN any JOIN already handled by this filter.
+		$b_join_whats = array_column( $query_join_couples, 1 );
+		foreach ( $query_vars_join_couples as $k => [$join_type, $join_what] ) {
+			if ( ! in_array( $join_what, $b_join_whats, true ) ) {
+				continue;
+			}
+
+			// Remove the JOIN clause from the query JOIN: it should be overridden by the filter's JOIN.
+			unset( $query_join_couples[ array_search( $join_what, $b_join_whats, true ) ] );
+		}
+
+		// Removed all queries
+		if ( empty( $query_join_couples ) ) {
+			return '';
+		}
+
+		// Re-assemble the JOIN clause, minus the JOIN clauses removed as already handled by this filter.
+		return implode( ' ', array_merge( ...$query_join_couples ) );
 	}
 }

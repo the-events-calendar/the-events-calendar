@@ -9,7 +9,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	/**
 	 * Setup our selectors.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 */
 	obj.selectors = {
 		sticky_in_month_view_checkbox: 'input[name="EventShowInCalendar"]',
@@ -31,7 +31,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * If more than one organizer exists, display the delete button.
 	 * If only one organizer exists, hide the delete button.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 * @return void
 	 */
 	obj.organizer.deleteButtonDisplayLogic = function () {
@@ -66,7 +66,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	/**
 	 * Logic to display, or hide the "Add Organizer" button.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 * @param selectValue
 	 * @return void
@@ -81,7 +81,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	/**
 	 * Trigger events for bind events.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 */
 	obj.organizer.bindEvents = function () {
 
@@ -109,7 +109,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * If the 'feature event' box is checked, automatically check the
 	 * sticky-in-month-view box also.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 *
 	 */
 	obj.auto_enable_sticky_field = function () {
@@ -121,7 +121,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	/**
 	 * Bind featured events logic.
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 */
 	obj.bindFeaturedEvents = function () {
 		$( obj.selectors.featured_event_checkbox ).on( 'change', obj.auto_enable_sticky_field );
@@ -131,7 +131,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	/**
 	 * Initialize
 	 *
-	 * @since TBD
+	 * @since 6.0.1
 	 */
 	obj.init = function () {
 		// Hide the "Add Organizer" button by default.

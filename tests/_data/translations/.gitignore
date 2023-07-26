@@ -1,0 +1,4 @@
+#Skip template files, they can be large.
+*.pot
+#Skip local files, these too can be very large.
+*.po

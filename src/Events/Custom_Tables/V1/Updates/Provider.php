@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Updates;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Provider_Contract;
 use Tribe__Events__Main as TEC;
 use WP_Post;
@@ -46,7 +46,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Post_Ops::class, Post_Ops::class );
 
 		$this->hook_to_watch_for_post_updates();
-		$this->hook_to_redirect_post_udpates();
+		$this->hook_to_redirect_post_updates();
 		$this->hook_to_commit_post_updates();
 		$this->hook_to_delete_post_data();
 	}
@@ -57,7 +57,7 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since 6.0.0
 	 */
-	private function hook_to_redirect_post_udpates() {
+	private function hook_to_redirect_post_updates() {
 		/*
 		 * Classic Editor updates will come through the `wp-admin/post.php` file.
 		 * This includes Trash and Delete requests.
@@ -235,7 +235,11 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * @param WP_REST_Request $request       A reference to the REST Request that is being
 	 *                                       processed.
 	 */
-	public function commit_rest_update( WP_Post $post, WP_REST_Request $request ) {
+	public function commit_rest_update( $post, $request ) {
+		if ( ! ( $post instanceof WP_Post && $request instanceof WP_REST_Request ) ) {
+			return;
+		}
+
 		$this->container->make( Controller::class )->commit_post_rest_update( $post, $request );
 	}
 
@@ -273,9 +277,13 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param int     $post_id The deleted Event post ID.
+	 * @param int $post_id The deleted Event post ID.
 	 */
-	public function delete_custom_tables_data( int $post_id ) {
+	public function delete_custom_tables_data( $post_id ) {
+		if ( ! is_int( $post_id ) ) {
+			return;
+		}
+
 		$this->container->make( Controller::class )->delete_custom_tables_data( $post_id );
 	}
 
