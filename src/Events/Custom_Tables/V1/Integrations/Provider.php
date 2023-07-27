@@ -12,7 +12,6 @@ namespace TEC\Events\Custom_Tables\V1\Integrations;
 
 use TEC\Common\Contracts\Service_Provider;
 use TEC\Events\Custom_Tables\V1\Integrations\ACF\Controller as ACF_Controller;
-use TEC\Tickets\Custom_Tables\V1\Provider as ET_Custom_Tables;
 
 /**
  * Class Provider
@@ -25,7 +24,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Registers the Service Providers required for the plugin to work with other plugins.
 	 *
-	 * @since TBD Load the Event Tickets Custom Tables logic by register_on_action.
+	 * @since TBD Removed registering ET CT1 logic.
 	 * @since 6.0.0
 	 */
 	public function register() {
