@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 5.6
-Stable tag: 5.16.4
+Stable tag: 5.16.4.1
 Tested up to: 6.0.1
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -222,6 +222,10 @@ Previous versions of The Events Calendar are not cross-compatible with 5.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [5.16.4.1] 2023-07-27 =
+
+* Security - Update Freemius to version 2.5.10 to address a security vulnerability on their end.
 
 = [5.16.4] 2022-08-09 =
 
