@@ -3,8 +3,8 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 5.8.6
-Stable tag: 6.1.3
+Requires at least: 6.1.0
+Stable tag: 6.1.4
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -228,6 +228,16 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.1.4] TBD =
+
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Correct some PHP 8.1 deprecations that impact loading of views.
+* Fix - Prevent TypeError warnings around `admin_footer_text_settings` filter due to type hinting conflicting with other plugins returning null.
+* Tweak - Deprecated misspelled `tribe_get_organiser_object_after` filter for one with correct spelling: `tribe_get_organizer_object_after`. Done as part of [TEC-4812]
+* Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
+* Tweak - Fix typo in template displaying stray "w". [TEC-4870]
 
 = [6.1.3] 2023-07-13 =
 

@@ -20,13 +20,32 @@ $website_title = tribe_events_get_venue_website_title();
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-venue">
-	<h2 class="tribe-events-single-section-title"> <?php esc_html_e( tribe_get_venue_label_singular(), 'the-events-calendar' ) ?> </h2>
+	<h2 class="tribe-events-single-section-title"> <?php echo esc_html( tribe_get_venue_label_singular() ) ?> </h2>
 	<dl>
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
-
+		<dt
+			class="tribe-common-a11y-visual-hide"
+			aria-label="<?php echo sprintf(
+					/* Translators: %1$s is the customizable venue term, e.g. "Venue name" */
+					esc_html_x( '%1$s name', "The label for the venue's name.", 'the-events-calendar' ),
+					tribe_get_venue_label_singular()
+				) ; ?>"
+		>
+			<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
+		</dt>
 		<dd class="tribe-venue"> <?php echo tribe_get_venue() ?> </dd>
 
 		<?php if ( tribe_address_exists() ) : ?>
+			<dt
+				class="tribe-common-a11y-visual-hide"
+				aria-label="<?php echo sprintf(
+					/* Translators: %1$s is the customizable venue term, e.g. "Venue address" */
+					esc_html_x( '%1$s address', "The label for the venue's address.", 'the-events-calendar' ),
+					tribe_get_venue_label_singular()
+				) ; ?>"
+			>
+				<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
+			</dt>
 			<dd class="tribe-venue-location">
 				<address class="tribe-events-address">
 					<?php echo tribe_get_full_address(); ?>
@@ -39,7 +58,7 @@ $website_title = tribe_events_get_venue_website_title();
 		<?php endif; ?>
 
 		<?php if ( ! empty( $phone ) ): ?>
-			<dt class="tribe-venue-tel-label"> <?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?> </dt>
+			<dt class="tribe-venue-tel-label"> <?php esc_html_e( 'Phone', 'the-events-calendar' ) ?> </dt>
 			<dd class="tribe-venue-tel"> <?php echo $phone ?> </dd>
 		<?php endif ?>
 
