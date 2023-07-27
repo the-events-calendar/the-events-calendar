@@ -145,12 +145,17 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$i           = 0;
 		$num_records = count( $current_linked_posts );
 
+
 		do {
 			echo '<tbody>';
 			$this->single_post_dropdown( isset( $current_linked_posts[ $i ] ) ? $current_linked_posts[ $i ] : 0 );
 			echo '</tbody>';
 			$i++;
 		} while ( $i < $num_records );
+
+		if ( $this->post_type === Tribe__Events__Venue::POSTTYPE ) {
+			require_once $this->tribe->pluginPath . 'src/admin-views/venue-map-fields.php';
+		}
 	}
 
 	/**
@@ -244,7 +249,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Renders the "Add Another Organizer" button
 	 */
 	protected function render_add_post_button() {
-		if ( empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
+		if ( ! $this->linked_posts->allow_multiple( $this->post_type ) ) {
 			return;
 		}
 

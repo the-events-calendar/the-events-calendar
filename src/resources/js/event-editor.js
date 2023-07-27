@@ -49,35 +49,12 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 					return;
 				}
 
-				const $organizer_dropdown =
-					$( obj.selectors.organizer.area +
-						' ' +
-						obj.selectors.organizer.post_dropdown );
-
-				//If this is running, it's because we only have one organizer.
-				obj.organizer.addButtonLogic( $organizer_dropdown.val() );
-
 				$( this ).hide();
 
 			} );
 
 	};
 
-	/**
-	 * Logic to display, or hide the "Add Organizer" button.
-	 *
-	 * @since 6.0.1
-	 *
-	 * @param selectValue
-	 * @return void
-	 */
-	obj.organizer.addButtonLogic = function ( selectValue ) {
-		if ( selectValue !== '-1' ) {
-			$( obj.selectors.organizer.add_button ).show();
-		} else {
-			$( obj.selectors.organizer.add_button ).hide();
-		}
-	};
 	/**
 	 * Trigger events for bind events.
 	 *
@@ -87,7 +64,6 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 
 		$( obj.selectors.organizer.area )
 			.on( 'change', obj.selectors.organizer.post_dropdown, function () {
-			obj.organizer.addButtonLogic( this.value );
 			obj.organizer.deleteButtonDisplayLogic();
 
 		} );
@@ -134,8 +110,6 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 * @since 6.0.1
 	 */
 	obj.init = function () {
-		// Hide the "Add Organizer" button by default.
-		$( obj.selectors.organizer.add_button ).hide();
 		// Run our delete button logic.
 		obj.organizer.deleteButtonDisplayLogic();
 		obj.organizer.bindEvents();
