@@ -29,9 +29,6 @@ class Provider extends Service_Provider {
 	 * @since 6.0.0
 	 */
 	public function register() {
-		// Class defined by the Event Events plugin.
-		$this->container->register_on_action( 'tec_tickets_custom_tables_controller_registered', ET_Custom_Tables::class );
-
 		// Class defined by the Advanced Custom Fields plugin.
 		if ( class_exists( 'ACF' ) ) {
 			$this->container->register( ACF_Controller::class );
