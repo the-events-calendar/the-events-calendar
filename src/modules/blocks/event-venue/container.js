@@ -95,9 +95,8 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			ownProps.setAttributes( { venue: 0 } );
 			dispatch( actions.removeVenueInBlock( clientId, venue ) );
 
-			const blocks = globals.wpDataSelectCoreEditor().getBlocks();
-			const classicBlock = blocks
-				.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
+			const blocks       = globals.wpDataSelectCoreEditor().getBlocks();
+			const classicBlock = blocks.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
 
 			if ( ! classicBlock.length || volatile ) {
 				ownProps.maybeRemoveEntry( details );
