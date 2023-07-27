@@ -78,7 +78,6 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 				$this->numeric_array(),
 				[
 					'description' => __( 'Event Venue', 'the-events-calendar' ),
-					'single'      => true,
 				]
 			)
 		);
