@@ -20,7 +20,7 @@ $title = Arr::get( 'title', '' );
 <li class="tribe-events-c-breadcrumbs__list-item">
 	<a
 		href="<?php echo esc_url( $breadcrumb['link'] ); ?>"
-		class="tribe-events-c-breadcrumbs__list-item-link"
+		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
 		title="<?php echo esc_attr( $title ); ?>"
 		data-js="tribe-events-view-link"
 	>
