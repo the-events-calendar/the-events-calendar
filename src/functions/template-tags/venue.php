@@ -154,7 +154,7 @@ function tribe_get_venue_id( $postId = null ) {
  *
  * @return array
  */
-function tribe_get_venue_ids( $event_id = null ) {
+function tec_get_venue_ids( $event_id = null ) {
 	$event_id = Tribe__Events__Main::postIdHelper( $event_id );
 
 	$venue_ids = [];
@@ -166,7 +166,7 @@ function tribe_get_venue_ids( $event_id = null ) {
 		$venue_ids = array_filter( (array) $venue_ids );
 	}
 
-	return apply_filters( 'tribe_get_venue_ids', $venue_ids, $event_id );
+	return apply_filters( 'tec_get_venue_ids', $venue_ids, $event_id );
 }
 
 /**

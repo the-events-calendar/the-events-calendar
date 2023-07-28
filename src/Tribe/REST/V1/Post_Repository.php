@@ -189,9 +189,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
 		if ( tribe_is_event( $event_or_venue_id ) ) {
-			$venues = tribe_get_venue_ids( $event_or_venue_id );
+			$venues = tec_get_venue_ids( $event_or_venue_id );
 			if ( empty( $venues ) ) {
-				return new WP_Error( 'venue-not-found', $this->messages->get_message( 'event-no-venue' ) );
+				return new WP_Error( 'event-no-venue', $this->messages->get_message( 'event-no-venue' ) );
 			}
 			// serializing happens...
 			if ( is_array( reset( $venues ) ) ) {
@@ -219,7 +219,12 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				$venue_id = $venue->ID;
 			}
 
-			$cache_key = 'rest_get_venue_data_' . get_current_user_id() . '_' . $venue_id . '_' . $context;
+			$cache_key = sprintf(
+				'rest_get_venue_data_%d_%d_%s',
+				get_current_user_id(),
+				$venue_id,
+				$context
+			);
 
 			$this_data = $cache->get( $cache_key, 'save_post' );
 
