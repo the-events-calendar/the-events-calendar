@@ -2,17 +2,7 @@
  * Internal dependencies
  */
 import { actions } from '@moderntribe/events/data/blocks/venue';
-import reducer, {
-	defaultStateToMetaMap,
-} from '@moderntribe/events/data/blocks/venue/reducer';
-
-const data = {
-	meta: {
-		_EventVenueID: 42,
-		_EventShowMap: false,
-		_EventShowMapLink: true,
-	},
-};
+import reducer from '@moderntribe/events/data/blocks/venue/reducer';
 
 jest.mock( '@moderntribe/common/utils/globals', () => ( {
 	dateSettings: () => ( {} ),

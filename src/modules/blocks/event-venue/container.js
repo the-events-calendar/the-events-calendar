@@ -15,7 +15,6 @@ import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
 import { editor } from '@moderntribe/common/data';
-import { getVenuesInBlock } from '../../data/blocks/venue/selectors';
 
 /**
  * Module Code

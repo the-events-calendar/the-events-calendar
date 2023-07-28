@@ -30,7 +30,6 @@ import {
 import { withStore } from '@moderntribe/common/hoc';
 import ClassicEventDetails from './template';
 import dateTimeBlock from '@moderntribe/events/blocks/event-datetime';
-import { getVenuesInBlock } from "../../data/blocks/venue/selectors";
 
 /**
  * Module Code
