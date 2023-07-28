@@ -891,9 +891,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Upgrade material.
 			add_action( 'init', [ $this, 'run_updates' ], 0, 0 );
 
-			// Include a noindex.
-			//add_action( 'get_header', [ $this, 'issue_noindex' ] );
-
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', [ $this, 'filter_wp_import_data_before' ], 10, 1 );
 				add_filter( 'wp_import_post_data_processed', [ $this, 'filter_wp_import_data_after' ], 10, 1 );
@@ -1521,6 +1518,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 		 */
 		public function issue_noindex() {
+			_deprecated_function( __METHOD__, 'TBD', 'TEC\Events\SEO\No_Index::issue_noindex()' );
+
 			global $wp_query;
 
 			/**

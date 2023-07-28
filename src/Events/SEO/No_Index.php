@@ -10,7 +10,6 @@
 namespace TEC\Events\SEO;
 
 use \Tribe__Date_Utils as Dates;
-use \Tribe__Cache_Listener;
 
  /**
   * Class Provider
@@ -98,19 +97,6 @@ class No_Index {
 
 		// If nothing has hooked in ($events is null|false, we do a quick query for a single event after the start date.
 		if ( empty( $events ) ) {
-			$cache     = tribe_cache();
-			$trigger   = Tribe__Cache_Listener::TRIGGER_SAVE_POST;
-			$cache_key = $cache->make_key(
-				[
-					'view'    => $view,
-					'start'   => $start_date->format( Dates::DBDATEFORMAT )
-				],
-				'tec_noindex_'
-			);
-
-			//$events = $cache->get( $cache_key, $trigger );
-
-			// Cache is empty, query.
 			if ( empty( $events ) ) {
 				if ( $start_date == $end_date )  {
 					$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Dates::DBDATEFORMAT ) );
@@ -122,9 +108,7 @@ class No_Index {
 		}
 
 		// No posts = no index.
-		$found = $events->count();
-		$here = $events->first();
-		$add_noindex = empty( $found );
+		$add_noindex = 0 < $events->count();
 
 		/**
 		 * Determines if a noindex meta tag will be set for the current event view.
