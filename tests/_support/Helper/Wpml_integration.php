@@ -4,7 +4,7 @@ namespace Helper;
 // here you can define custom actions
 // all public methods declared in helper class will be available in $I
 
-class Plugin_integration extends \Codeception\Module
+class Wpml_integration extends \Codeception\Module
 {
 
 }

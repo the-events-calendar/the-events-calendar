@@ -16,9 +16,9 @@
  *
  * @SuppressWarnings(PHPMD)
 */
-class Plugin_integrationTester extends \Codeception\Actor
+class Wpml_integrationTester extends \Codeception\Actor
 {
-    use _generated\Plugin_integrationTesterActions;
+    use _generated\Wpml_integrationTesterActions;
 
     /**
      * Define custom actions here
