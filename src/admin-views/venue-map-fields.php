@@ -17,11 +17,6 @@ if ( ! is_admin() ) {
 $google_map_toggle = ( tribe_embed_google_map( $post->ID ) || get_post_status( $post->ID ) == 'auto-draft' ) ? true : false;
 $google_map_link_toggle = ( get_post_status( $post->ID ) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $post->ID, '_EventShowMapLink', true );
 
-/**
- * Allows for the filtering of the checkbox label
- */
-$show_map_link_text = apply_filters( 'tec_events_classic_editor_venue_map_link_text', __( 'Show map link', 'the-events-calendar' ) );
-
 ?>
 <tr id="google_map_toggle" class="remain-visible tec-linked-post__map-options">
 	<td class='tribe-table-field-label'><?php esc_html_e( 'Map:', 'the-events-calendar' ); ?></td>
@@ -49,8 +44,16 @@ $show_map_link_text = apply_filters( 'tec_events_classic_editor_venue_map_link_t
 				value="1"
 				<?php checked( $google_map_link_toggle ); ?>
 			/>
-			<?php echo esc_html( $show_map_link_text ); ?>
+			<?php esc_html_e( 'Show map link', 'the-events-calendar' ); ?>
 		</label>
+		<?php
+		/**
+		 * Fires after the venue map fields have rendered.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_events_after_venue_map_fields' );
+		?>
 	</td>
 </tr>
 <?php
