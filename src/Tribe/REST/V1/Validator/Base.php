@@ -6,31 +6,30 @@ class Tribe__Events__REST__V1__Validator__Base
 	implements Tribe__Events__REST__V1__Validator__Interface {
 
 	/**
-	 * Determine if a value is a post ID, entry, or empty.
+	 * Determine if a value is a Venue ID, entry, or empty.
 	 *
-	 * @since TBD
+	 * @since 4.6.20
 	 *
-	 * @param string $type Type of linked post to check.
-	 * @param string|array $linked_post Post ID or data.
+	 * @param string|array $venue Venue ID or entry.
 	 *
-	 * @return bool
+	 * @return bool Whether a value is a Venue ID, entry, or empty.
 	 */
-	public function is_linked_post_id_or_entry_or_empty( $type, $linked_post ) {
-		if ( empty( $linked_post ) ) {
-			return true;
-		}
-
-		if ( is_array( $linked_post ) ) {
-			$check_if_empty = array_filter( $linked_post );
-
-			if ( empty( $check_if_empty ) ) {
-				return true;
-			}
-		}
-
-		return $this->is_linked_post_id_or_entry( $type, $linked_post );
+	public function is_venue_id_or_entry_or_empty( $venue ) {
+		return $this->is_linked_post_id_or_entry_or_empty( 'venue', $venue );
 	}
 
+	/**
+	 * Determine if a value is a Organizer ID, entry, or empty.
+	 *
+	 * @since 4.6.20
+	 *
+	 * @param string|array $organizer Organizer ID or entry.
+	 *
+	 * @return bool Whether a value is a Organizer ID, entry, or empty.
+	 */
+	public function is_organizer_id_or_entry_or_empty( $organizer ) {
+		return $this->is_linked_post_id_or_entry_or_empty( 'organizer', $organizer );
+	}
 
 	/**
 	 * Determine if a value is a post ID or entry.
@@ -96,28 +95,28 @@ class Tribe__Events__REST__V1__Validator__Base
 	}
 
 	/**
-	 * Determine if a value is a Venue ID, entry, or empty.
+	 * Determine if a value is a post ID, entry, or empty.
 	 *
-	 * @since 4.6.20
+	 * @since TBD
 	 *
-	 * @param string|array $venue Venue ID or entry.
+	 * @param string $type Type of linked post to check.
+	 * @param string|array $linked_post Post ID or data.
 	 *
-	 * @return bool Whether a value is a Venue ID, entry, or empty.
+	 * @return bool
 	 */
-	public function is_venue_id_or_entry_or_empty( $venue ) {
-		return $this->is_linked_post_id_or_entry_or_empty( 'venue', $venue );
-	}
+	public function is_linked_post_id_or_entry_or_empty( $type, $linked_post ) {
+		if ( empty( $linked_post ) ) {
+			return true;
+		}
 
-	/**
-	 * Determine if a value is a Organizer ID, entry, or empty.
-	 *
-	 * @since 4.6.20
-	 *
-	 * @param string|array $organizer Organizer ID or entry.
-	 *
-	 * @return bool Whether a value is a Organizer ID, entry, or empty.
-	 */
-	public function is_organizer_id_or_entry_or_empty( $organizer ) {
-		return $this->is_linked_post_id_or_entry_or_empty( 'organizer', $organizer );
+		if ( is_array( $linked_post ) ) {
+			$check_if_empty = array_filter( $linked_post );
+
+			if ( empty( $check_if_empty ) ) {
+				return true;
+			}
+		}
+
+		return $this->is_linked_post_id_or_entry( $type, $linked_post );
 	}
 }
