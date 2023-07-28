@@ -191,7 +191,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venues = tribe_get_venue_ids( $event_or_venue_id );
 			if ( empty( $venues ) ) {
-				return new WP_Error( 'venue-not-found', $this->messages->get_message( 'venue-not-found' ) );
+				return new WP_Error( 'venue-not-found', $this->messages->get_message( 'event-no-venue' ) );
 			}
 			// serializing happens...
 			if ( is_array( reset( $venues ) ) ) {
