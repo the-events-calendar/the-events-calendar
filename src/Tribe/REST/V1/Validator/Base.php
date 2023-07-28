@@ -53,7 +53,13 @@ class Tribe__Events__REST__V1__Validator__Base
 			return count( $filtered ) === count( $items );
 		}
 
-		$linked_posts = (array) $linked_post;
+		$is_associative_array = is_array( $linked_post ) && ( array_values( $linked_post ) !== $linked_post );
+		if ( $is_associative_array ) {
+			$linked_posts = [ $linked_post ];
+		} else {
+			$linked_posts = (array) $linked_post;
+		}
+
 		foreach ( $linked_posts as $entry ) {
 			if ( $this->is_numeric( $entry ) ) {
 				if ( ! $tribe_is_function( $entry ) ) {

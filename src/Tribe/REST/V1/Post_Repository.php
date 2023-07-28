@@ -188,20 +188,6 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @since 4.6 Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
-		if ( $event_or_venue_id instanceof WP_Post ) {
-			$event_or_venue_id = tribe_get_venue_id( $event_or_venue_id->ID );
-		}
-
-		/** @var Tribe__Cache $cache */
-		$cache     = tribe( 'cache' );
-		$cache_key = 'rest_get_venue_data_' . get_current_user_id() . '_' . $event_or_venue_id . '_' . $context;
-
-		$data = $cache->get( $cache_key, 'save_post' );
-
-		if ( is_array( $data ) ) {
-			return $data;
-		}
-
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venues = tribe_get_venue_ids( $event_or_venue_id );
 			if ( empty( $venues ) ) {
@@ -211,10 +197,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			if ( is_array( reset( $venues ) ) ) {
 				$venues = reset( $venues );
 			}
-			$single = false;
 		} elseif ( tribe_is_venue( $event_or_venue_id ) ) {
 			$venues = [ get_post( $event_or_venue_id ) ];
-			$single = true;
 		} else {
 			return new WP_Error( 'venue-not-found', $this->messages->get_message( 'venue-not-found' ) );
 		}
@@ -224,6 +208,9 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$event = get_post( $event_or_venue_id );
 		}
+
+		/** @var Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
 
 		foreach ( $venues as $venue_id ) {
 			if ( is_object( $venue_id ) ) {
@@ -303,6 +290,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 				}
 			}
 
+			$this_data = array_filter( $this_data );
+
 			$this_data['show_map']      = isset( $meta['_VenueShowMap'] ) ? tribe_is_truthy( $meta['_VenueShowMap'] ) : true;
 			$this_data['show_map_link'] = isset( $meta['_VenueShowMapLink'] ) ? tribe_is_truthy( $meta['_VenueShowMapLink'] ) : true;
 
@@ -316,7 +305,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			 * @param WP_Post      $venue The requested venue.
 			 * @param WP_Post|null $event The requested event, if event ID was used.
 			 */
-			$this_data = apply_filters( 'tribe_rest_venue_data', array_filter( $this_data ), $venue, $event );
+			$this_data = apply_filters( 'tribe_rest_venue_data', $this_data, $venue, $event );
 
 			$cache->set( $cache_key, $this_data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
 
@@ -334,7 +323,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$data = array_filter( $data );
 
-		return $single ? reset( $data ) : $data;
+		return count( $data ) === 1 ? reset( $data ) : $data;
 	}
 
 	protected function get_featured_image( $id ) {
