@@ -599,6 +599,8 @@ class View implements View_Interface {
 	 * Gets an inheritance list for the current class, will only include valid Views, so the abstract and interface are
 	 * not included.
 	 *
+	 * @since TBD
+	 *
 	 * @param bool $with_current Should include the current class in the inheritance list or not.
 	 *
 	 * @return array

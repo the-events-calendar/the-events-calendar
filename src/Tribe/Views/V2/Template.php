@@ -136,7 +136,7 @@ class Template extends Base_Template {
 		if ( ! $found_template ) {
 			$found_inheritance_template = false;
 			if ( $view_slug === reset( $name ) ) {
-				$inheritance = $this->view->get_inheritance( false );
+				$inheritance = $this->get_view()->get_inheritance( false );
 				$paths = array_map( static function ( $view_class ) use ( $name ) {
 					return array_replace( $name, [ $view_class::get_view_slug() ] );
 				}, $inheritance );
