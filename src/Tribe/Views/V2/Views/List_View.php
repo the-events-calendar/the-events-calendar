@@ -331,7 +331,9 @@ class List_View extends View {
 	 * @return Tribe__Repository|false $events     The events repository results.
 	 */
 	public function get_noindex_events( $events, $start_date, $end_date, $context ) {
-		if ( null === $events ) {
+		if ( null !== $events ) { return; }
+		
+		// ... do something.
 			$cache     = new \Tribe__Cache();
 			$trigger   = \Tribe__Cache_Listener::TRIGGER_SAVE_POST;
 			$cache_key = $cache->make_key(

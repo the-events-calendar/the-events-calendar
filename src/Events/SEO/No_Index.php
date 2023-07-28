@@ -40,7 +40,7 @@ class No_Index {
 	 *
 	 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 	 */
-	public function issue_noindex() {
+	public function issue_noindex() :void {
 		global $wp_query;
 
 		/**
@@ -141,7 +141,7 @@ class No_Index {
 	 * @since TBD
 	 *
 	 */
-	public function print_noindex_meta() {
+	public function print_noindex_meta() :void {
 			$noindex_meta = ' <meta name="robots" id="tec_noindex" content="noindex, follow" />' . "\n";
 
 			/**
@@ -166,7 +166,7 @@ class No_Index {
 		}
 
 		/**
-		 * Undocumented function
+		 * Returns the end date time object read from the current context.
 		 *
 		 * @since TBD
 		 *
