@@ -1,29 +1,42 @@
 <?php
 /**
- * Functionality for interacting with the SEO nodindex.
+ * Manages the legacy view removal and messaging.
  *
- * @since   6.1.0
+ * @since   5.13.0
  *
- * @package TEC\Events\SEO
+ * @package TEC\Events\Legacy\Views\V1
  */
 
-namespace TEC\Events\SEO;
+ namespace TEC\Events\SEO;
 
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use \Tribe__Date_Utils as Dates;
 
- /**
-  * Class Provider
-  *
-  * @since   6.1.0
-  * @package TEC\Events\Telemetry
-  */
-class No_Index {
+
+/**
+ * Class Provider
+ *
+ * @since   5.13.0
+
+ * @package TEC\Events\Legacy\Views\V1
+ */
+class Controller extends Controller_Contract {
+	public function do_register(): void {
+		$this->container->singleton( static::class, $this );
+
+		add_action( 'get_header', [ $this, 'issue_noindex' ] );
+	}
+
+	public function unregister(): void {
+		remove_action( 'get_header', [ $this, 'issue_noindex' ] );
+	}
+
 	/**
 	 * Runs on the "wp" action. Inspects the main query object and if it relates to an events
 	 * query makes a decision to add a noindex meta tag based on whether events were returned
 	 * in the query results or not.
 	 *
-	 * @since ??
+	 * @since 3.12.4
 	 * @since 6.0.0 Relies on v2 code.
 	 *
 	 * Disabling this behavior completely is possible with:
@@ -40,7 +53,7 @@ class No_Index {
 	 *
 	 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 	 */
-	public function issue_noindex() :void {
+	public function issue_noindex(): void {
 		global $wp_query;
 
 		/**
@@ -97,14 +110,12 @@ class No_Index {
 
 		// If nothing has hooked in ($events is null|false, we do a quick query for a single event after the start date.
 		if ( empty( $events ) ) {
-			if ( empty( $events ) ) {
-				if ( $start_date == $end_date )  {
-					$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Dates::DBDATEFORMAT ) );
-				} else {
-					$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Dates::DBDATEFORMAT ) )->where( 'starts_before', $end_date->format( Dates::DBDATEFORMAT ) );
-				}
-
+			if ( $start_date == $end_date )  {
+				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Dates::DBDATEFORMAT ) );
+			} else {
+				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Dates::DBDATEFORMAT ) )->where( 'starts_before', $end_date->format( Dates::DBDATEFORMAT ) );
 			}
+
 		}
 
 		// No posts = no index.
@@ -139,66 +150,64 @@ class No_Index {
 	 * Prints a "noindex,follow" robots tag.
 	 *
 	 * @since TBD
-	 *
 	 */
 	public function print_noindex_meta() :void {
-			$noindex_meta = ' <meta name="robots" id="tec_noindex" content="noindex, follow" />' . "\n";
-
-			/**
-			 * Filters the noindex meta tag.
-			 *
-			 * @since TBD
-			 *
-			 * @param string $noindex_meta
-			 */
-			$noindex_meta = apply_filters( 'tec_events_no_index_meta', $noindex_meta );
-
-			echo wp_kses(
-				$noindex_meta,
-				[
-					'meta' => [
-						'id'      => true,
-						'name'    => true,
-						'content' => true,
-					],
-				]
-			);
-		}
+		$noindex_meta = ' <meta name="robots" id="tec_noindex" content="noindex, follow" />' . "\n";
 
 		/**
-		 * Returns the end date time object read from the current context.
+		 * Filters the noindex meta tag.
 		 *
 		 * @since TBD
 		 *
-		 * @param [type] $view
-		 * @param [type] $start_date
-		 * @param [type] $context
-		 *
-		 * @return DateTime|false A DateTime object or `false` if a DateTime object could not be built.
+		 * @param string $noindex_meta
 		 */
-		public function get_end_date( $view, $start_date, $context ) {
-			$end_date = $context->get( 'end_date' );
+		$noindex_meta = apply_filters( 'tec_events_no_index_meta', $noindex_meta );
 
-			switch ( $view ) {
-				case 'day':
-					$end_date = clone $start_date;
-					$end_date->modify( '+1 day' );
-					return $end_date;
-					break;
-				case 'week':
-					$end_date = clone $start_date;
-					$end_date->modify( '+6 days' );
-					return $end_date;
-					break;
-				case 'month':
-					$end_date = clone $start_date;
-					$end_date->modify( '+1 month' );
-					return $end_date;
-					break;
-				default:
-					return Dates::build_date_object( $end_date );
-					break;
-			}
-		}
-
+		echo wp_kses(
+			$noindex_meta,
+			[
+				'meta' => [
+					'id'      => true,
+					'name'    => true,
+					'content' => true,
+				],
+			]
+		);
 	}
+
+	/**
+	 * Returns the end date time object read from the current context.
+	 *
+	 * @since TBD
+	 *
+	 * @param [type] $view
+	 * @param [type] $start_date
+	 * @param [type] $context
+	 *
+	 * @return DateTime|false A DateTime object or `false` if a DateTime object could not be built.
+	 */
+	public function get_end_date( $view, $start_date, $context ) {
+		$end_date = $context->get( 'end_date' );
+
+		switch ( $view ) {
+			case 'day':
+				$end_date = clone $start_date;
+				$end_date->modify( '+1 day' );
+				return $end_date;
+				break;
+			case 'week':
+				$end_date = clone $start_date;
+				$end_date->modify( '+6 days' );
+				return $end_date;
+				break;
+			case 'month':
+				$end_date = clone $start_date;
+				$end_date->modify( '+1 month' );
+				return $end_date;
+				break;
+			default:
+				return Dates::build_date_object( $end_date );
+				break;
+		}
+	}
+}

@@ -691,7 +691,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
 			// SEO support.
-			tribe_register_provider( TEC\Events\SEO\Provider::class );
+			tribe_register_provider( TEC\Events\SEO\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -1518,7 +1518,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 		 */
 		public function issue_noindex() {
-			_deprecated_function( __METHOD__, 'TBD', 'TEC\Events\SEO\No_Index::issue_noindex()' );
+			_deprecated_function( __METHOD__, 'TBD', 'TEC\Events\SEO\Controller::issue_noindex()' );
 
 			global $wp_query;
 
