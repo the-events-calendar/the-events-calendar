@@ -30,6 +30,7 @@ import {
 import { withStore } from '@moderntribe/common/hoc';
 import ClassicEventDetails from './template';
 import dateTimeBlock from '@moderntribe/events/blocks/event-datetime';
+import { getVenuesInBlock } from "../../data/blocks/venue/selectors";
 
 /**
  * Module Code
@@ -49,7 +50,7 @@ const mapStateToProps = ( state ) => ( {
 	currencyCode: priceSelectors.getCode( state ),
 	url: websiteSelectors.getUrl( state ),
 	organizers: organizerSelectors.getOrganizersInClassic( state ),
-	venues: venueSelectors.getVenuesInClassic( state ),
+	venues: venueSelectors.getVenuesInBlock( state ),
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {

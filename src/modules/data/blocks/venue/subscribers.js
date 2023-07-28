@@ -15,6 +15,7 @@ import {
 	selectors as venueSelectors,
 } from '@moderntribe/events/data/blocks/venue';
 import { selectors as detailSelectors } from '@moderntribe/events/data/details';
+import {getVenuesInBlock} from "./selectors";
 const { getState, dispatch } = store;
 
 /**
@@ -86,11 +87,11 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		dispatch( formActions.removeVolatile( venue ) );
 
 		// set event organizer meta
-		const classicVenues = venueSelectors.getVenuesInClassic( getState() );
+		const blockVenues = venueSelectors.getVenuesInBlock( getState() );
 		const postId = globals.wpData.select( 'core/editor' ).getCurrentPostId();
 		const record = {
 			meta: {
-				_EventVenueID: classicVenues,
+				_EventVenueID: blockVenues,
 			},
 		};
 

@@ -8,29 +8,26 @@ import { uniq } from 'lodash';
 /**
  * Internal dependencies
  */
-import { globals } from '@moderntribe/common/utils';
 import EventVenue from './template';
 import { toVenue } from '@moderntribe/events/elements';
 import { withStore, withForm } from '@moderntribe/common/hoc';
 import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
-import { actions as formActions } from '@moderntribe/common/data/forms';
 import { editor } from '@moderntribe/common/data';
-import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
+import { getVenuesInBlock } from '../../data/blocks/venue/selectors';
 
 /**
  * Module Code
  */
 
 const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
-	const venues = selectors.getVenuesInClassic( state );
+	const venues = selectors.getVenuesInBlock( state );
 
 	ownProps.setAttributes( { venue: venueID } );
 	ownProps.setAttributes( { venues: uniq( [ ...venues, venueID ] ) } );
 
 	dispatch( detailsActions.setDetails( venueID, details ) );
-	dispatch( actions.addVenueInClassic( venueID ) );
 	dispatch( actions.addVenueInBlock( ownProps.clientId, venueID ) );
 };
 
@@ -89,26 +86,10 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			setVenue( { state, dispatch, ownProps, venueID, details } );
 		},
 		onRemove: () => {
-			const { clientId, venue, details, volatile } = ownProps;
+			const { clientId, venue } = ownProps;
 
 			ownProps.setAttributes( { venue: 0 } );
 			dispatch( actions.removeVenueInBlock( clientId, venue ) );
-
-			const blocks = globals.wpDataSelectCoreEditor().getBlocks();
-			const classicBlock = blocks.filter(
-				block => block.name === `tribe/${ classicEventDetailsBlock.id }`,
-			);
-
-			if ( ! classicBlock.length || volatile ) {
-				ownProps.maybeRemoveEntry( details );
-
-				const venues = selectors.getVenuesInClassic( state );
-				const newVenues = venues.filter( id => id !== venue );
-
-				ownProps.setAttributes( { venues: newVenues } );
-				dispatch( actions.removeVenueInClassic( venue ) );
-				dispatch( formActions.removeVolatile( venue ) );
-			}
 		},
 	};
 };
