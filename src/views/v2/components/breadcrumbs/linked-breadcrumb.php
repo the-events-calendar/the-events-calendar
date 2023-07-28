@@ -1,4 +1,6 @@
 <?php
+use Tribe__Utils__Array as Arr;
+
 /**
  * View: Linked Breadcrumb
  *
@@ -13,11 +15,13 @@
  *
  * @var array $breadcrumb Data for breadcrumb.
  */
+$title = Arr::get( 'title', '' );
 ?>
 <li class="tribe-events-c-breadcrumbs__list-item">
 	<a
 		href="<?php echo esc_url( $breadcrumb['link'] ); ?>"
 		class="tribe-events-c-breadcrumbs__list-item-link"
+		title="<?php echo esc_attr( $title ); ?>"
 		data-js="tribe-events-view-link"
 	>
 		<?php echo esc_html( $breadcrumb['label'] ); ?>

@@ -595,6 +595,32 @@ class View implements View_Interface {
 	}
 
 	/**
+	 * Gets an inheritance list for the current class, will only include valid Views, so the abstract and interface are
+	 * not included.
+	 *
+	 * @param bool $with_current Should include the current class in the inheritance list or not.
+	 *
+	 * @return array
+	 */
+	public function get_inheritance( bool $with_current = true ): array {
+		$parent_class_names = [];
+		$parent_class_name  = get_class( $this );
+		if ( $with_current ) {
+			$parent_class_names[] = $parent_class_name;
+		}
+
+		while ( $parent_class_name = get_parent_class( $parent_class_name ) ) {
+			// We only care up until the "abstract" of Views.
+			if ( View::class === $parent_class_name ) {
+				break;
+			}
+			$parent_class_names[] = $parent_class_name;
+		}
+
+		return $parent_class_names;
+	}
+
+	/**
 	 * Sets the DI container the class should use to build views.
 	 *
 	 * @param Container $container The DI container instance to use.

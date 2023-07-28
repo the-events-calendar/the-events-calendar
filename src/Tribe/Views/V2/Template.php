@@ -109,6 +109,7 @@ class Template extends Base_Template {
 	 * If a template cannot be found for the view then the base template for the view will be returned.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Added support for looking up the inheritance chain for templates from parent views.
 	 *
 	 * @param string|array|null $name Either a specific name to check, the fragments of a name to check, or `null` to let
 	 *                                the view pick the template according to the template override rules.
@@ -116,7 +117,11 @@ class Template extends Base_Template {
 	 * @return string The path to the template file the View will use to render its contents.
 	 */
 	public function get_template_file( $name = null ) {
-		$name = null !== $name ? $name : $this->view::get_view_slug();
+		$view_slug = $this->view::get_view_slug();
+		$name = null !== $name ? $name : [ $view_slug ];
+		if ( ! is_array( $name ) ) {
+			$name = explode( '/', $name );
+		}
 
 		$cache_key = is_array( $name ) ? implode( '/', $name ) : $name;
 
@@ -125,11 +130,30 @@ class Template extends Base_Template {
 			return $cached;
 		}
 
-		$template = parent::get_template_file( $name );
+		$file = parent::get_template_file( $name );
+		$found_template = false !== $file;
 
-		$file = false !== $template
-			? $template
-			: $this->get_base_template_file();
+		if ( ! $found_template ) {
+			$found_inheritance_template = false;
+			if ( $view_slug === reset( $name ) ) {
+				$inheritance = $this->view->get_inheritance( false );
+				$paths = array_map( static function ( $view_class ) use ( $name ) {
+					return array_replace( $name, [ $view_class::get_view_slug() ] );
+				}, $inheritance );
+
+				foreach ( $paths as $path ) {
+					$file = parent::get_template_file( $path );
+					if ( false !== $file ) {
+						$found_inheritance_template = true;
+						break;
+					}
+				}
+			}
+
+			if ( $found_inheritance_template === false ) {
+				$file = $this->get_base_template_file();
+			}
+		}
 
 		$this->template_file_cache[ $cache_key ] = $file;
 
