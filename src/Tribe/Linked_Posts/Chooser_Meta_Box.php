@@ -152,10 +152,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 			echo '</tbody>';
 			$i++;
 		} while ( $i < $num_records );
-
-		if ( $this->post_type === Tribe__Events__Venue::POSTTYPE ) {
-			require_once $this->tribe->pluginPath . 'src/admin-views/venue-map-fields.php';
-		}
 	}
 
 	/**
@@ -268,6 +264,11 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 				<td></td>
 				<td><a class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
 			</tr>
+			<?php
+			if ( $this->post_type === Tribe__Events__Venue::POSTTYPE ) {
+				require_once $this->tribe->pluginPath . 'src/admin-views/venue-map-fields.php';
+			}
+			?>
 		</tfoot>
 		<?php
 	}

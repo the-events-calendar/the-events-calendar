@@ -20,44 +20,37 @@ $google_map_link_toggle = ( get_post_status( $post->ID ) == 'auto-draft' && $goo
 /**
  * Allows for the filtering of the checkbox label
  */
-$show_map_link_text = apply_filters( 'tec_events_classic_editor_venue_map_link_text', __( 'Show map link:', 'the-events-calendar' ) );
-$show_map_link_aria_text = apply_filters( 'tec_events_classic_editor_venue_map_link_aria_text', __( 'Show map link?', 'the-events-calendar' ) );
+$show_map_link_text = apply_filters( 'tec_events_classic_editor_venue_map_link_text', __( 'Show map link', 'the-events-calendar' ) );
 
 ?>
-<tfoot>
-<?php
+<tr id="google_map_toggle" class="remain-visible tec-linked-post__map-options">
+	<td class='tribe-table-field-label'><?php esc_html_e( 'Map:', 'the-events-calendar' ); ?></td>
+	<td>
+		<?php if ( tribe_get_option( 'embedGoogleMaps', true ) ) : ?>
+			<label for="EventShowMap">
+				<input
+					tabindex="<?php tribe_events_tab_index(); ?>"
+					type="checkbox"
+					id="EventShowMap"
+					name="EventShowMap"
+					value="1"
+					<?php checked( $google_map_toggle ); ?>
+				/>
+				<?php esc_html_e( 'Show map', 'the-events-calendar' ); ?>
+			</label>
+		<?php endif; ?>
 
- // Only show if embed option selected.
-if ( tribe_get_option( 'embedGoogleMaps', true ) ) : ?>
-	<tr id="google_map_toggle" class="remain-visible tribe-linked-type-venue-googlemap">
-		<td class='tribe-table-field-label'><?php esc_html_e( 'Show map:', 'the-events-calendar' ); ?></td>
-		<td>
+		<label for="EventShowMapLink">
 			<input
 				tabindex="<?php tribe_events_tab_index(); ?>"
 				type="checkbox"
-				id="EventShowMap"
-				name="EventShowMap"
+				id="EventShowMapLink"
+				name="EventShowMapLink"
 				value="1"
-				<?php checked( $google_map_toggle ); ?>
-				aria-label="<?php esc_html_e( 'Show map?', 'the-events-calendar' ); ?>"
+				<?php checked( $google_map_link_toggle ); ?>
 			/>
-		</td>
-	</tr>
-<?php endif; ?>
-
-<tr id="google_map_link_toggle" class="remain-visible tribe-linked-type-venue-googlemap-link">
-	<td class='tribe-table-field-label'><?php echo esc_html( $show_map_link_text ); ?></td>
-	<td>
-		<input
-			tabindex="<?php tribe_events_tab_index(); ?>"
-			type="checkbox"
-			id="EventShowMapLink"
-			name="EventShowMapLink"
-			value="1"
-			<?php checked( $google_map_link_toggle ); ?>
-			aria-label="<?php echo esc_html( $show_map_link_aria_text ); ?>"
-		/>
+			<?php echo esc_html( $show_map_link_text ); ?>
+		</label>
 	</td>
 </tr>
-</tfoot>
 <?php
