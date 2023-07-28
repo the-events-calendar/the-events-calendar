@@ -2283,6 +2283,33 @@ class View implements View_Interface {
 	 * @return string
 	 */
 	protected function get_header_title(): string {
+		$context      = $this->get_context();
+		$header_title = '';
+		$taxonomy     = TEC::TAXONOMY;
+		$context_tax  = $context->get( $taxonomy, false );
+		if ( empty( $context_tax ) ) {
+			$taxonomy    = 'post_tag';
+			$context_tax = $context->get( $taxonomy, false );
+		}
+
+		// Get term slug if taxonomy is not empty
+		if ( ! empty( $context_tax ) ) {
+			// Don't pass arrays to get_term_by()!
+			if ( is_array( $context_tax ) ) {
+				$context_tax = array_pop( $context_tax );
+			}
+
+			$term = get_term_by( 'slug', $context_tax, $taxonomy );
+			if ( ! empty( $term->name ) ) {
+				$header_title = $term->name;
+			}
+		}
+
+		// Setup breadcrumbs for when it's featured.
+		if ( tribe_is_truthy( $this->context->get( 'featured', false ) ) ) {
+			$header_title = esc_html__( 'Featured', 'the-events-calendar' );
+		}
+
 		/**
 		 * Filters the header title the View will print on the frontend.
 		 *
@@ -2291,7 +2318,7 @@ class View implements View_Interface {
 		 * @param string $header_title The header title to be displayed.
 		 * @param View   $this         The current View instance being rendered.
 		 */
-		$header_title = (string) apply_filters( 'tec_events_views_v2_view_header_title', '', $this );
+		$header_title = (string) apply_filters( 'tec_events_views_v2_view_header_title', $header_title, $this );
 
 		$view_slug = static::get_view_slug();
 
@@ -2320,7 +2347,7 @@ class View implements View_Interface {
 		 * @since TBD
 		 *
 		 * @param string $content_title The content title to be displayed.
-		 * @param View   $this         The current View instance being rendered.
+		 * @param View   $this          The current View instance being rendered.
 		 */
 		$content_title = (string) apply_filters( 'tec_events_views_v2_view_content_title', '', $this );
 
