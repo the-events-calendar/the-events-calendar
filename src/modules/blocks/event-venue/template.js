@@ -214,9 +214,7 @@ class EventVenue extends Component {
 
 	renderMap() {
 		const { edit, create, isLoading, submit, showMap } = this.props;
-		let { details } = this.props;
-
-		details = this.getVenueDetails();
+		const details = this.getVenueDetails();
 
 		if ( ! showMap || isEmpty( details ) || edit || create || isLoading || submit ) {
 			return null;

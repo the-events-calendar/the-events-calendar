@@ -105,7 +105,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	public function should_show_map( array $attributes ): bool {
 		if ( isset( $attributes['showMap'] ) ) {
 			return (bool) $attributes['showMap'];
-		} elseif ( ! tribe_embed_google_map() ) {
+		} elseif ( ! tribe_embed_google_map( $this->get_venue_id( $attributes ) ) ) {
 			return false;
 		}
 
@@ -133,7 +133,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	public function should_show_map_link( array $attributes ): bool {
 		if ( isset( $attributes['showMapLink'] ) ) {
 			return (bool) $attributes['showMapLink'];
-		} elseif ( ! tribe_embed_google_map() ) {
+		} elseif ( ! tribe_embed_google_map( $this->get_venue_id( $attributes ) ) ) {
 			return false;
 		}
 

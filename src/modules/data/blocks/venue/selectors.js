@@ -27,12 +27,10 @@ export const getMappedVenues = createSelector(
 
 export const getshowMapLink = createSelector(
 	[ venueBlockSelector ],
-	( block ) => block.showMapLink === undefined ? true : block.showMapLink,
+	( block ) => block.showMapLink,
 );
 
 export const getshowMap = createSelector(
 	[ venueBlockSelector, getMapEmbed ],
-	( block, embed ) =>
-		embed &&
-		( block.showMap === undefined ? true : block.showMap ),
+	( block, embed ) => embed && block.showMap,
 );

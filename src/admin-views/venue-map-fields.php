@@ -23,6 +23,10 @@ $google_map_link_toggle = ( get_post_status( $post->ID ) == 'auto-draft' && $goo
 $show_map_link_text = apply_filters( 'tec_events_classic_editor_venue_map_link_text', __( 'Show map link:', 'the-events-calendar' ) );
 $show_map_link_aria_text = apply_filters( 'tec_events_classic_editor_venue_map_link_aria_text', __( 'Show map link?', 'the-events-calendar' ) );
 
+?>
+<tfoot>
+<?php
+
  // Only show if embed option selected.
 if ( tribe_get_option( 'embedGoogleMaps', true ) ) : ?>
 	<tr id="google_map_toggle" class="remain-visible tribe-linked-type-venue-googlemap">
@@ -55,4 +59,5 @@ if ( tribe_get_option( 'embedGoogleMaps', true ) ) : ?>
 		/>
 	</td>
 </tr>
+</tfoot>
 <?php

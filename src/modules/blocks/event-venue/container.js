@@ -49,14 +49,27 @@ const editVenue = ( ownProps ) => () => {
 	editEntry( details );
 };
 
-const mapStateToProps = ( state, ownProps ) => ( {
-	venue: ownProps.attributes.venue,
-	venues: selectors.getVenuesInBlock( state ),
-	showMapLink: ownProps.attributes.showMapLink || true,
-	showMap: ownProps.attributes.showMap || true,
-	embedMap: selectors.getMapEmbed(),
-	state,
-} );
+const mapStateToProps = ( state, ownProps ) => {
+	let showMapLink = true;
+	let showMap = true;
+
+	if ( ownProps.attributes.showMapLink !== undefined ) {
+		showMapLink = ownProps.attributes.showMapLink;
+	}
+
+	if ( ownProps.attributes.showMap !== undefined ) {
+		showMap = ownProps.attributes.showMap;
+	}
+
+	return ( {
+		venue: ownProps.attributes.venue,
+		venues: selectors.getVenuesInBlock( state ),
+		showMapLink: showMapLink,
+		showMap: showMap,
+		embedMap: selectors.getMapEmbed(),
+		state,
+	} );
+};
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	toggleVenueMap: ( value ) => {
