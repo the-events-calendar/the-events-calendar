@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Deprecated misspelled `tribe_get_organiser_object_after` filter for one with correct spelling: `tribe_get_organizer_object_after`. Done as part of [TEC-4812]
 * Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
 * Tweak - Fix typo in template displaying stray "w". [TEC-4870]
+* Tweak - Removed code pertaining to Event Tickets CT1. [ETP-874]
 
 = [6.1.3] 2023-07-13 =
 
