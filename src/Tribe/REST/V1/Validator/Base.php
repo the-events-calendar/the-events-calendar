@@ -46,11 +46,11 @@ class Tribe__Events__REST__V1__Validator__Base
 		$rest_endpoint     = 'single-' . $type;
 
 		if ( ! is_array( $linked_post ) ) {
-			$venues = preg_split( '/\\s*,\\s*/', $linked_post );
-			$numeric = array_filter( $venues, 'is_numeric' );
+			$items = preg_split( '/\\s*,\\s*/', $linked_post );
+			$numeric = array_filter( $items, 'is_numeric' );
 			$filtered = array_filter( $numeric, $tribe_is_function );
 
-			return count( $filtered ) === count( $venues );
+			return count( $filtered ) === count( $items );
 		}
 
 		$linked_posts = (array) $linked_post;
