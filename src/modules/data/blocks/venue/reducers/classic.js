@@ -7,7 +7,6 @@ import { uniq } from 'lodash';
  * Internal dependencies
  */
 import * as types from './../types';
-import {SET_VENUE} from "./../types";
 
 export const DEFAULT_STATE = [];
 

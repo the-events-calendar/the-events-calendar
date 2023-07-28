@@ -3,6 +3,7 @@
  */
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { uniq } from 'lodash';
 
 /**
  * Internal dependencies
@@ -17,8 +18,6 @@ import { actions as detailsActions } from '@moderntribe/events/data/details';
 import { actions as formActions } from '@moderntribe/common/data/forms';
 import { editor } from '@moderntribe/common/data';
 import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
-import {uniq} from "lodash";
-import { wpData, wpHooks } from '@moderntribe/common/utils/globals';
 
 /**
  * Module Code
@@ -57,8 +56,8 @@ const editVenue = ( ownProps ) => () => {
 const mapStateToProps = ( state, ownProps ) => ( {
 	venue: ownProps.attributes.venue,
 	venues: selectors.getVenuesInBlock( state ),
-	showMapLink: ownProps.attributes.showMapLink === undefined ? true : ownProps.attributes.showMapLink,
-	showMap: ownProps.attributes.showMap === undefined ? true : ownProps.attributes.showMap,
+	showMapLink: ownProps.attributes.showMapLink || true,
+	showMap: ownProps.attributes.showMap || true,
 	embedMap: selectors.getMapEmbed(),
 	state,
 } );
@@ -79,8 +78,8 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 } );
 
 const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
-	const {state, ...restStateProps} = stateProps;
-	const {dispatch, ...restDispatchProps} = dispatchProps;
+	const { state, ...restStateProps } = stateProps;
+	const { dispatch, ...restDispatchProps } = dispatchProps;
 
 	return {
 		...ownProps,
@@ -95,8 +94,10 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			ownProps.setAttributes( { venue: 0 } );
 			dispatch( actions.removeVenueInBlock( clientId, venue ) );
 
-			const blocks       = globals.wpDataSelectCoreEditor().getBlocks();
-			const classicBlock = blocks.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
+			const blocks = globals.wpDataSelectCoreEditor().getBlocks();
+			const classicBlock = blocks.filter(
+				block => block.name === `tribe/${ classicEventDetailsBlock.id }`,
+			);
 
 			if ( ! classicBlock.length || volatile ) {
 				ownProps.maybeRemoveEntry( details );

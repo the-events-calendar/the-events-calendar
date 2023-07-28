@@ -8,8 +8,6 @@ import { uniq } from 'lodash';
  * Internal dependencies
  */
 import * as types from './../types';
-import { store } from '@moderntribe/common/store';
-const { getState, dispatch } = store;
 
 export const byId = ( state = {}, action ) => {
 	switch ( action.type ) {
@@ -60,7 +58,7 @@ export const core = ( state = {}, action ) => {
 		default:
 			return state;
 	}
-}
+};
 
 export default combineReducers( {
 	core,

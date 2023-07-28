@@ -15,7 +15,6 @@ import {
 	selectors as venueSelectors,
 } from '@moderntribe/events/data/blocks/venue';
 import { selectors as detailSelectors } from '@moderntribe/events/data/details';
-import { wpData, wpHooks } from '@moderntribe/common/utils/globals';
 const { getState, dispatch } = store;
 
 /**

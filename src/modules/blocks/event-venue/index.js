@@ -7,7 +7,7 @@ import React from 'react';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {registerBlockType} from '@wordpress/blocks';
+import { registerBlockType } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -40,4 +40,4 @@ export const blockDefinition = {
 /**
  * Register Block
  */
-export default registerBlockType( `tribe/${blockDefinition.id}`, blockDefinition );
+export default registerBlockType( `tribe/${ blockDefinition.id }`, blockDefinition );

@@ -28,15 +28,12 @@ import {
 	GoogleMap,
 	EditLink,
 } from '@moderntribe/events/elements';
-import classicEventDetailsBlock from '@moderntribe/events/blocks/classic-event-details';
 import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
 import { selectors, utils } from '@moderntribe/events/data/blocks/venue';
 import { google, wpEditor, wpHooks } from '@moderntribe/common/utils/globals';
-import { store } from '@moderntribe/common/store';
-const { getState, dispatch } = store;
 import './style.pcss';
 
 const { InspectorControls } = wpEditor;
@@ -48,6 +45,7 @@ const { getAddress } = utils;
 
 class EventVenue extends Component {
 	static propTypes = {
+		venue: PropTypes.number,
 		isSelected: PropTypes.bool,
 		isLoading: PropTypes.bool,
 		submit: PropTypes.bool,
@@ -156,9 +154,9 @@ class EventVenue extends Component {
 	}
 
 	renderDetails = () => {
-		let { showMapLink, details } = this.props;
+		const { showMapLink } = this.props;
 
-		details = this.getVenueDetails();
+		const details = this.getVenueDetails();
 
 		return (
 			<VenueDetails
@@ -331,8 +329,7 @@ class EventVenue extends Component {
 	 * Gets the venue details for the block.
 	 *
 	 * @since TBD
-	 *
-	 * @returns {object}
+	 * @returns {Object} Venue details.
 	 */
 	getVenueDetails() {
 		const venueId = this.getVenueId();
@@ -341,13 +338,13 @@ class EventVenue extends Component {
 			return {};
 		}
 
-		const state = getState();
+		const state = this.props.store.getState();
 
 		if (
-			! state.events
-			|| ! state.events.details
-			|| ! state.events.details[ venueId ]
-			|| ! state.events.details[ venueId ].details
+			! state.events ||
+			! state.events.details ||
+			! state.events.details[ venueId ] ||
+			! state.events.details[ venueId ].details
 		) {
 			return {};
 		}
@@ -359,11 +356,10 @@ class EventVenue extends Component {
 	 * Gets the venue ID for the block.
 	 *
 	 * @since TBD
-	 *
-	 * @returns {int|null}
+	 * @returns {number|null} Venue ID or null.
 	 */
 	getVenueId() {
-		const state       = getState();
+		const state = this.props.store.getState();
 		const allVenueIds = selectors.getVenuesInBlock( state );
 
 		if ( isEmpty( allVenueIds ) ) {
@@ -374,14 +370,17 @@ class EventVenue extends Component {
 		 * Filters the venue ID to be used for the block.
 		 *
 		 * @since TBD
-		 *
-		 * @param {int} venueId The venue ID.
+		 * @param {number} venueId The venue ID.
 		 * @param {Object} props The block props.
 		 * @param {Object} state The tribe common state.
-		 *
-		 * @return {int} The venue ID.
+		 * @return {number} The venue ID.
 		 */
-		let venueId = wpHooks.applyFilters( 'tec_events.blocks.tribe_event_venue.getVenueId', allVenueIds[0], this.props, state );
+		const venueId = wpHooks.applyFilters(
+			'tec_events.blocks.tribe_event_venue.getVenueId',
+			allVenueIds[ 0 ],
+			this.props,
+			state,
+		);
 
 		if ( ! isInteger( venueId ) ) {
 			return null;
@@ -409,8 +408,7 @@ class EventVenue extends Component {
 	 * than a cloned representation of a venue from another block.
 	 *
 	 * @since TBD
-	 *
-	 * @returns {boolean}
+	 * @returns {boolean} Whether the venue is authoritative.
 	 */
 	isAuthoritativeVenue = () => {
 		const { venue } = this.props;
