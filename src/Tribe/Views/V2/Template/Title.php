@@ -92,7 +92,7 @@ class Title {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array<string> List of taxonomy slugs.
 	 */
 	protected function get_taxonomies(): array {
 		$taxonomies = [
