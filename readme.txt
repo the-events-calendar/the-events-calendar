@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Our logic to include `tribe_events` post type on the tag archive page was incorrectly bleeding into other queries happening on the page. This narrows the scope for the `WP_Query` post type overrides and avoids situations where Divi templates were not loading properly. [TEC-4819]
 * Fix - Correct some PHP 8.1 deprecations that impact loading of views.
 * Fix - Prevent TypeError warnings around `admin_footer_text_settings` filter due to type hinting conflicting with other plugins returning null.
 * Tweak - Deprecated misspelled `tribe_get_organiser_object_after` filter for one with correct spelling: `tribe_get_organizer_object_after`. Done as part of [TEC-4812]
