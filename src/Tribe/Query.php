@@ -40,11 +40,10 @@ class Tribe__Events__Query {
 		}
 
 		// Work out if this is an Event query or not, do not set the flag yet.
-		$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
-		$any_post_type  = (array) $query->get( 'post_type' ) === [ 'any' ];
-		$is_main_query  = $query->is_main_query();
+		$is_event_query   = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
+		$any_post_type    = (array) $query->get( 'post_type' ) === [ 'any' ];
+		$is_main_query    = $query->is_main_query();
 		$query_post_types = self::get_query_post_types( $query );
-
 		$tec_post_types   = [ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE ];
 
 		if ( $is_main_query ) {
@@ -74,23 +73,23 @@ class Tribe__Events__Query {
 				// Not the main query, but it's an event query: check back later to filter and order by date.
 				add_filter( 'parse_query', [ __CLASS__, 'filter_and_order_by_date' ], 1000 );
 			}
-		}
 
-		// Refresh the value of the flag: it might have changed in the previous block.
-		$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
-		// Refresh the query post types: they might have been modified.
-		$query_post_types = (array) $query->get( 'post_type' );
-		// Add our post type if we are on the tag archive - we need to check our global wp_query for this.
-		global $wp_query;
-		$on_tag_archive_page = isset( $wp_query ) && is_tag();
-		// Add Events to tag archives when not looking at the admin screen for posts.
-		if (
-			! $any_post_type
-			&& $on_tag_archive_page
-			&& ! $is_event_query
-			&& ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
-		) {
-			self::add_post_type_to_query( $query, TEC::POSTTYPE );
+			// Refresh the value of the flag: it might have changed in the previous block.
+			$is_event_query = (array) $query->get( 'post_type' ) === [ TEC::POSTTYPE ];
+			// Refresh the query post types: they might have been modified.
+			$query_post_types = (array) $query->get( 'post_type' );
+			// Add our post type if we are on the tag archive - we need to check our global wp_query for this.
+			global $wp_query;
+			$on_tag_archive_page = isset( $wp_query ) && is_tag();
+			// Add Events to tag archives when not looking at the admin screen for posts.
+			if (
+				! $any_post_type
+				&& $on_tag_archive_page
+				&& ! $is_event_query
+				&& ! Admin_Helpers::instance()->is_post_type_screen( 'post' )
+			) {
+				self::add_post_type_to_query( $query, TEC::POSTTYPE );
+			}
 		}
 
 		// Flag the query as one to fetch Events.
