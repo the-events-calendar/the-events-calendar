@@ -14,11 +14,13 @@
  * @var bool $show_map Whether to show the map or not.
  */
 
-$event_id = $this->get( 'post_id' );
-
-$map = $show_map ? 'tribe-block__venue--has-map' : '';
-
-$default_classes = [ 'tribe-block', 'tribe-block__venue', 'tribe-clearfix', $map ];
+$event_id        = $this->get( 'post_id' );
+$default_classes = [
+	'tribe-block',
+	'tribe-block__venue',
+	'tribe-clearfix',
+	'tribe-block__venue--has-map' => $show_map,
+];
 
 // Add the custom classes from the block attributes.
 $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
