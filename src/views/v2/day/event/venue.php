@@ -12,6 +12,7 @@
  * @version 4.9.11
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var string  $slug  The slug of the view.
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -35,4 +36,5 @@ $address              = $venue->address . ( $venue->address && $append_after_add
 			<?php echo esc_html( reset( $append_after_address ) ); ?>
 		<?php endif; ?>
 	</span>
+	<?php do_action( 'tec_events_view_venue_after_address', $event->ID, $slug ); ?>
 </address>

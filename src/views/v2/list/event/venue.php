@@ -12,6 +12,7 @@
  * @version 4.9.11
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var string  $slug  The slug of the view.
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -30,18 +31,18 @@ $address              = $venue->address . ( $venue->address && ( $append_after_a
 		<?php echo wp_kses_post( $venue->post_title ); ?>
 	</span>
 	<span class="tribe-events-calendar-list__event-venue-address">
-		<?php 
-		echo esc_html( $address ); 
+		<?php
+		echo esc_html( $address );
 
-		if ( ! empty( $venue->city ) ) : 
+		if ( ! empty( $venue->city ) ) :
 			echo esc_html( $venue->city );
 			if ( $append_after_address ) :
 				echo $separator;
 			endif;
 		endif;
 
-		if ( $append_after_address ) : 
-			echo esc_html( reset( $append_after_address ) ); 
+		if ( $append_after_address ) :
+			echo esc_html( reset( $append_after_address ) );
 		endif;
 
 		if ( ! empty( $venue->country ) ):
@@ -49,4 +50,5 @@ $address              = $venue->address . ( $venue->address && ( $append_after_a
 		endif;
 		?>
 	</span>
+	<?php do_action( 'tec_events_view_venue_after_address', $event, $slug ); ?>
 </address>
