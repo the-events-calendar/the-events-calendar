@@ -1,14 +1,14 @@
 <?php
 /**
  * Venue map fields.
+ *
+ * @since TBD
  */
 
 global $post;
 
 /**
  * Only show the Google map toggles on the admin screens
- * @since 4.5.4
- *
  */
 if ( ! is_admin() ) {
 	return;

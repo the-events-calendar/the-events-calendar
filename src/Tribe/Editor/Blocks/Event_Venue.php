@@ -8,7 +8,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @var ?int
 	 */
-	public static ?int $venue_id = null;
+	protected static ?int $venue_id = null;
 
 	/**
 	 * Which is the name/slug of this block
@@ -88,7 +88,13 @@ extends Tribe__Editor__Blocks__Abstract {
 		 * @param array $attributes Array of attributes for the block.
 		 * @param Tribe__Events__Editor__Blocks__Event_Venue $block The block instance.
 		 */
-		static::$venue_id = apply_filters( 'tec_events_blocks_event_venue_id', $venue_id, $attributes, $this );
+		$venue_id = apply_filters( 'tec_events_blocks_event_venue_id', $venue_id, $attributes, $this );
+
+		if ( $venue_id !== null && ! is_int( $venue_id ) ) {
+			$venue_id = (int) $venue_id;
+		}
+
+		static::$venue_id = $venue_id;
 
 		return static::$venue_id;
 	}
@@ -103,10 +109,12 @@ extends Tribe__Editor__Blocks__Abstract {
 	 * @return bool
 	 */
 	public function should_show_map( array $attributes ): bool {
+		$show_map = true;
+
 		if ( isset( $attributes['showMap'] ) ) {
-			return (bool) $attributes['showMap'];
+			$show_map = (bool) $attributes['showMap'];
 		} elseif ( ! tribe_embed_google_map( $this->get_venue_id( $attributes ) ) ) {
-			return false;
+			$show_map = false;
 		}
 
 		/**
@@ -118,7 +126,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		 * @param array $attributes Array of attributes for the block.
 		 * @param Tribe__Events__Editor__Blocks__Event_Venue $block The block instance.
 		 */
-		return apply_filters( 'tec_events_blocks_event_venue_should_show_map', true, $attributes, $this );
+		return (bool) apply_filters( 'tec_events_blocks_event_venue_should_show_map', $show_map, $attributes, $this );
 	}
 
 	/**
@@ -131,10 +139,12 @@ extends Tribe__Editor__Blocks__Abstract {
 	 * @return bool
 	 */
 	public function should_show_map_link( array $attributes ): bool {
+		$show_map_link = true;
+
 		if ( isset( $attributes['showMapLink'] ) ) {
-			return (bool) $attributes['showMapLink'];
+			$show_map_link = (bool) $attributes['showMapLink'];
 		} elseif ( ! tribe_embed_google_map( $this->get_venue_id( $attributes ) ) ) {
-			return false;
+			$show_map_link = false;
 		}
 
 		/**
@@ -146,6 +156,6 @@ extends Tribe__Editor__Blocks__Abstract {
 		 * @param array $attributes    Array of attributes for the block.
 		 * @param Tribe__Events__Editor__Blocks__Event_Venue $block The block instance.
 		 */
-		return apply_filters( 'tec_events_blocks_event_venue_should_show_map_link', true, $attributes, $this );
+		return (bool) apply_filters( 'tec_events_blocks_event_venue_should_show_map_link', $show_map_link, $attributes, $this );
 	}
 }
