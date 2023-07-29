@@ -16,7 +16,7 @@ import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
 import { editor } from '@moderntribe/common/data';
-import { wpHooks, wpData, wpDataSelectCoreEditor } from '@moderntribe/common/utils/globals';
+import { syncVenuesWithPost } from "./data/meta-sync";
 const { getState } = store;
 
 /**
@@ -61,7 +61,7 @@ const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
 };
 
 /**
- * Handles form submission..
+ * Handles form submission.
  *
  * @param {Function} dispatch
  * @param {Object} ownProps
@@ -71,12 +71,23 @@ const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => {
 	ownProps.sendForm( toVenue( fields ), onFormComplete( getState(), dispatch, ownProps ) );
 };
 
+/**
+ * Creates a draft venue.
+ *
+ * @param {Object} ownProps
+ * @returns {Function}
+ */
 const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	title: {
 		rendered: title,
 	},
 } );
 
+/**
+ * Triggers the editEntry operation.
+ *
+ * @param {Object} ownProps
+ */
 const onEdit = ( ownProps ) => () => {
 	const { details, editEntry } = ownProps;
 	editEntry( details );
@@ -139,24 +150,6 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			syncVenuesWithPost();
 		},
 	};
-};
-
-/**
- * Synchronizes venues in the state with the meta of the post.
- *
- * @since TBD
- */
-export const syncVenuesWithPost = () => {
-	let currentPost = wpData.select( 'core/editor' ).getCurrentPost();
-	let modifiedPost = {
-		...currentPost,
-		meta: {
-			...currentPost.meta,
-			_EventVenueID: selectors.getVenuesInBlock( getState() ),
-		}
-	};
-
-	wpData.dispatch( 'core/editor' ).editPost( modifiedPost );
 };
 
 export default compose(
