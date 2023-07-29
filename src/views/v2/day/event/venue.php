@@ -9,7 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.9.11
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var string  $slug  The slug of the view.
