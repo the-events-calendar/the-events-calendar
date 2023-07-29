@@ -22,7 +22,7 @@ if ( ! $show_map ) {
 	return;
 }
 
-$map = tribe_get_embedded_map( $venue_id );
+$map = tribe_get_embedded_map( $venue_id, 310, 256 );
 
 if ( empty( $map ) ) {
 	return;
