@@ -18,10 +18,8 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		featuredEventCheckbox: 'input[name="feature_event"]',
 		finalDropDown: '.linked-post-dropdown:last-of-type',
 		linkedPostWrapper: '.linked-post-wrapper',
-		organizers: '#event_tribe_organizer',
 		savedItems: '.saved-linked-post',
 		stickyInMonthViewCheckbox: 'input[name="EventShowInCalendar"]',
-		venues: '#event_tribe_organizer',
 	};
 
 	obj.linkedPost = {};
@@ -73,7 +71,6 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 		const $wrapper = $dropdown.closest( obj.selectors.linkedPostWrapper );
 		const $finalDropDown = $wrapper.find( obj.selectors.finalDropDown );
 		const $addButton = $wrapper.find( obj.selectors.addButton );
-		console.log( $finalDropDown.val() );
 		if ( $finalDropDown.val() !== '-1' ) {
 			$addButton.show();
 		} else {
