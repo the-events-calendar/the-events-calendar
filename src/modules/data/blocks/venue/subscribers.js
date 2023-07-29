@@ -28,11 +28,11 @@ const { getState, dispatch } = store;
 export const compareBlocks = block => block.clientId;
 
 /**
- * Checks whether the block is the organizer block.
+ * Checks whether the block is the venue block.
  *
  * @exports
  * @param {Object} block Object with block attributes and data.
- * @returns {boolean} Whether the block is the organizer block or not.
+ * @returns {boolean} Whether the block is the venue block or not.
  */
 export const isVenueBlock = ( block ) => block.name === 'tribe/event-venue';
 
@@ -64,14 +64,11 @@ export const handleBlockAdded = ( block ) => {
  * @returns {Function} Function that handles the block that was removed.
  */
 export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
-	// only handle event organizer block removal
+	// only handle event venue block removal
 	if ( ! isVenueBlock( block ) ) {
 		return;
 	}
 
-	const classicBlock = currBlocks.filter( currBlock => (
-		currBlock.name === 'tribe/classic-event-details'
-	) );
 	const venue = venueSelectors.getVenueByClientId( getState(), block );
 
 	// remove venue from block state
@@ -79,24 +76,25 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		dispatch( venueActions.removeVenueInBlock( block.clientId, venue ) );
 	}
 
-	const volatile = detailSelectors.getVolatile( getState(), { name: venue } );
+	syncVenuesWithPostMeta();
+};
 
-	if ( ! classicBlock.length || volatile ) {
-		// remove organizer from classic state
-		dispatch( venueActions.removeVenueInClassic( block.attributes.venue || 0 ) );
-		dispatch( formActions.removeVolatile( venue ) );
+/**
+ * Synchronizes venues in blocks with post meta.
+ *
+ * @since TBD
+ */
+export const syncVenuesWithPostMeta = () => {
+	const blockVenues = venueSelectors.getVenuesInBlock( getState() );
+	console.log( blockVenues );
+	const postId = globals.wpData.select( 'core/editor' ).getCurrentPostId();
+	const record = {
+		meta: {
+			_EventVenueID: blockVenues,
+		},
+	};
 
-		// set event organizer meta
-		const blockVenues = venueSelectors.getVenuesInBlock( getState() );
-		const postId = globals.wpData.select( 'core/editor' ).getCurrentPostId();
-		const record = {
-			meta: {
-				_EventVenueID: blockVenues,
-			},
-		};
-
-		globals.wpData.dispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, record );
-	}
+	globals.wpData.dispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, record );
 };
 
 /**

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { difference, get } from 'lodash';
+import { get } from 'lodash';
 import { createSelector } from 'reselect';
 import { mapsAPI } from '@moderntribe/common/utils/globals';
 
@@ -14,16 +14,6 @@ export const getVenueByClientId = ( state, props ) =>
 export const getVenuesById = ( state ) => state.events.blocks.venue.blocks.byId;
 
 export const getVenuesInBlock = ( state ) => state.events.blocks.venue.blocks.allIds;
-
-export const getMappedVenues = createSelector(
-	[ getVenuesInBlock ],
-	( classic, blocks ) => {
-		return classic.map( ( id ) => ( {
-			id,
-			block: difference( [ id ], blocks ).length === 0,
-		} ) );
-	},
-);
 
 export const getshowMapLink = createSelector(
 	[ venueBlockSelector ],

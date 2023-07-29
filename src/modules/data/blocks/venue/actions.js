@@ -17,20 +17,6 @@ export const removeVenue = () => ( {
 	},
 } );
 
-export const removeVenueInClassic = ( venue ) => ( {
-	type: types.REMOVE_CLASSIC_VENUES,
-	payload: {
-		venue,
-	},
-} );
-
-export const addVenueInClassic = ( venue ) => ( {
-	type: types.ADD_CLASSIC_VENUES,
-	payload: {
-		venue,
-	},
-} );
-
 export const addVenueInBlock = ( id, venue ) => ( {
 	type: types.ADD_BLOCK_VENUE,
 	payload: {

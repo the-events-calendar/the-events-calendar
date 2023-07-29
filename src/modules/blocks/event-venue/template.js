@@ -68,7 +68,7 @@ class EventVenue extends Component {
 		onItemSelect: PropTypes.func,
 		onCreateNew: PropTypes.func,
 		onRemove: PropTypes.func,
-		editVenue: PropTypes.func,
+		onEdit: PropTypes.func,
 		volatile: PropTypes.any,
 		name: PropTypes.any,
 		store: PropTypes.any,
@@ -121,7 +121,16 @@ class EventVenue extends Component {
 	}
 
 	renderForm() {
-		const { fields, onFormSubmit } = this.props;
+		const {
+			isSelected,
+			fields,
+			onFormSubmit
+		} = this.props;
+
+		if ( ! isSelected ) {
+			return null;
+		}
+
 		return (
 			<VenueForm
 				{ ...toFields( fields ) }
@@ -138,16 +147,16 @@ class EventVenue extends Component {
 			isLoading,
 			submit,
 			volatile,
-			editVenue,
+			onEdit,
 		} = this.props;
 
 		const idle = edit || create || isLoading || submit;
-		if ( ! this.hasVenue() || ! isSelected || ! volatile || idle ) {
+		if ( ! isSelected || ! volatile || idle ) {
 			return null;
 		}
 
 		return (
-			<button onClick={ editVenue }>
+			<button onClick={ onEdit }>
 				<Dashicon icon="edit" />
 			</button>
 		);
@@ -195,13 +204,13 @@ class EventVenue extends Component {
 	);
 
 	renderContainer() {
-		const { isLoading, edit, create, submit } = this.props;
+		const { isSelected, isLoading, edit, create, submit } = this.props;
 
 		if ( isLoading || submit ) {
 			return this.renderLoading();
 		}
 
-		if ( edit || create ) {
+		if ( isSelected && ( edit || create ) ) {
 			return this.renderForm();
 		}
 
@@ -421,9 +430,9 @@ class EventVenue extends Component {
 	 * @return {void}
 	 */
 	maybeEdit = () => {
-		const { volatile, editVenue } = this.props;
+		const { volatile, onEdit } = this.props;
 		if ( this.hasVenue() && volatile ) {
-			return editVenue;
+			return onEdit;
 		}
 	}
 

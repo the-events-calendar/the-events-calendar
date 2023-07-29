@@ -24,9 +24,6 @@ import {
 import {
 	selectors as organizerSelectors,
 } from '@moderntribe/events/data/blocks/organizers';
-import {
-	selectors as venueSelectors,
-} from '@moderntribe/events/data/blocks/venue';
 import { withStore } from '@moderntribe/common/hoc';
 import ClassicEventDetails from './template';
 import dateTimeBlock from '@moderntribe/events/blocks/event-datetime';
@@ -49,7 +46,6 @@ const mapStateToProps = ( state ) => ( {
 	currencyCode: priceSelectors.getCode( state ),
 	url: websiteSelectors.getUrl( state ),
 	organizers: organizerSelectors.getOrganizersInClassic( state ),
-	venues: venueSelectors.getVenuesInBlock( state ),
 } );
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
