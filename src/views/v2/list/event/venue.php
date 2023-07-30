@@ -50,5 +50,15 @@ $address              = $venue->address . ( $venue->address && ( $append_after_a
 		endif;
 		?>
 	</span>
-	<?php do_action( 'tec_events_view_venue_after_address', $event, $slug ); ?>
+	<?php
+	/**
+	 * Fires after the full venue has been displayed.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $event Event post object.
+	 * @param string  $slug  Slug of the view.
+	 */
+	do_action( 'tec_events_view_venue_after_address', $event, $slug );
+	?>
 </address>
