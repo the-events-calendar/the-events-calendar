@@ -9,6 +9,16 @@ import { uniq } from 'lodash';
  */
 import * as types from './../types';
 
+/**
+ * Reducer that handles adding and removing blocks from state.
+ *
+ * This sets the state.events.blocks.venue.blocks.byId state, which holds all venue blocks indexed by clientId.
+ *
+ * @since TBD
+ * @param {Object} state State object.
+ * @param {string} action Action being taken.
+ * @returns {{}}
+ */
 export const byId = ( state = {}, action ) => {
 	switch ( action.type ) {
 		case types.ADD_BLOCK_VENUE:
@@ -32,6 +42,16 @@ export const byId = ( state = {}, action ) => {
 	}
 };
 
+/**
+ * Reducer that handles adding and removing blocks from state.
+ *
+ * This sets the state.events.blocks.venue.blocks.allIds state, which is a numerically indexed array of all venues.
+ *
+ * @since TBD
+ * @param {Object} state State object.
+ * @param {string} action Action being taken.
+ * @returns {{}}
+ */
 export const allIds = ( state = [], action ) => {
 	switch ( action.type ) {
 		case types.ADD_BLOCK_VENUE:
@@ -43,6 +63,16 @@ export const allIds = ( state = [], action ) => {
 	}
 };
 
+/**
+ * Reducer that handles setting the showMap and showMapLink values in state.
+ *
+ * This sets the state.events.blocks.venue.blocks.core state.
+ *
+ * @since TBD
+ * @param {Object} state State object.
+ * @param {string} action Action being taken.
+ * @returns {{}}
+ */
 export const core = ( state = {}, action ) => {
 	switch ( action.type ) {
 		case types.SET_VENUE_MAP:

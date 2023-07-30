@@ -166,7 +166,15 @@ function tec_get_venue_ids( $event_id = null ) {
 		$venue_ids = array_filter( (array) $venue_ids );
 	}
 
-	return apply_filters( 'tec_get_venue_ids', $venue_ids, $event_id );
+	/**
+	 * Allows customization of the venue IDs retrieved for a specified event.
+	 *
+	 * @since TBD
+	 *
+	 * @param int[] $venue_ids The venue IDs for the specified event.
+	 * @param int   $event_id  The ID of the event whose venues are being looked for.
+	 */
+	return (array) apply_filters( 'tec_get_venue_ids', $venue_ids, $event_id );
 }
 
 /**

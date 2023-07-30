@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, isInteger } from 'lodash';
+import { isEmpty, isInteger, get } from 'lodash';
 import classNames from 'classnames';
 
 /**
@@ -347,16 +347,7 @@ class EventVenue extends Component {
 
 		const state = this.props.store.getState();
 
-		if (
-			! state.events ||
-			! state.events.details ||
-			! state.events.details[ venueId ] ||
-			! state.events.details[ venueId ].details
-		) {
-			return {};
-		}
-
-		return state.events.details[ venueId ].details;
+		return get( state, `events.details[${ venueId }].details`, {} );
 	}
 
 	/**
