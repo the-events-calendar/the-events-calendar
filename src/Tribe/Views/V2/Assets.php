@@ -693,11 +693,6 @@ class Assets extends Service_Provider {
 			return true;
 		}
 
-		// Bail if not Single Event V2.
-		if ( ! tribe_events_single_view_v2_is_enabled() ) {
-			$should_enqueue = false;
-		}
-
 		// Bail if not Single Event.
 		if ( ! tribe( Template_Bootstrap::class )->is_single_event() ) {
 			$should_enqueue = false;

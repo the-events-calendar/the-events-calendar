@@ -9,7 +9,8 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.9.11
+ * @version TBD
+ * @since TBD Added the `tec_events_view_venue_after_address` action.
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var string  $slug  The slug of the view.
