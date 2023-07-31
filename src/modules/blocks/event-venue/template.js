@@ -402,7 +402,7 @@ class EventVenue extends Component {
 	/**
 	 * Whether or not the venue block is an authoritative one.
 	 *
-	 * Authoritative mean it is a block that is showing the venue that was explicitly selected for it rather
+	 * Authoritative means it is a block that is showing the venue that was explicitly selected for it rather
 	 * than a cloned representation of a venue from another block.
 	 *
 	 * @since TBD
