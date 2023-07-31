@@ -53,6 +53,8 @@ class Tribe__Events__Updater {
 	/**
 	 * Function fired when we evaluate a plugin version bump to be tracked in the database.
 	 *
+	 * @since 4.0
+	 *
 	 * @param string $new_version The new version for this plugin.
 	 */
 	public function update_version_option( $new_version ) {
@@ -75,17 +77,6 @@ class Tribe__Events__Updater {
 			Tribe__Settings_Manager::get_option( $this->version_option )
 		);
 		Tribe__Settings_Manager::set_option( $this->version_option, $new_version );
-	}
-
-	/**
-	 * Getter for the version option key being used.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The version option key.
-	 */
-	public function get_version_option_key() {
-		return $this->version_option;
 	}
 
 	/**

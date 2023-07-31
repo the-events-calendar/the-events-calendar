@@ -49,6 +49,22 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->hook_to_redirect_post_updates();
 		$this->hook_to_commit_post_updates();
 		$this->hook_to_delete_post_data();
+		add_action( 'tec_events_end_of_day_cutoff_time_updated', [ $this, 'sync_all_day_cutoff_times' ] );
+	}
+
+	/**
+	 * Callback to listen to the multiday cutoff settings field changes. This will
+	 * run updates across the all day Custom Table events / occurrences.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $time New time.
+	 */
+	public function sync_all_day_cutoff_times( $time ) {
+		if ( ! is_string( $time ) ) {
+			return;
+		}
+		$this->container->make( Events::class )->sync_all_day_cutoff_times( $time );
 	}
 
 	/**

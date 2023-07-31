@@ -383,8 +383,8 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
 				$date_provided          = true;
-				$data['EventStartDate'] = Dates::build_date_object( $data['EventStartDate'] )->format( 'Y-m-d 00:00:00' );
-				$data['EventEndDate']   = Dates::build_date_object( $data['EventEndDate'] )->format( 'Y-m-d 23:59:59' );
+				$data['EventStartDate'] = tribe_beginning_of_day( $data['EventStartDate'] );
+				$data['EventEndDate']   = tribe_end_of_day( $data['EventEndDate'] );
 			} elseif ( isset( $data['EventStartDate'], $data['EventEndDate'] ) ) {
 				$has_start_time      = isset( $data['EventStartTime'] );
 				$has_start_hour_min  = isset( $data['EventStartHour'], $data['EventStartMinute'] );
