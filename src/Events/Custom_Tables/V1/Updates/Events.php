@@ -278,7 +278,7 @@ class Events {
 		// Fix events table start dates.
 		$query = "UPDATE $events_table
 				INNER JOIN $wpdb->postmeta pm2
-					ON ( $events_table.post_id = pm2.post_id )
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $events_table.start_date = CONCAT( DATE( $events_table.start_date), ' ', %s)
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
@@ -298,7 +298,7 @@ class Events {
 		// Fix events table end dates.
 		$query = "UPDATE $events_table
 				INNER JOIN $wpdb->postmeta pm2
-					ON ( $events_table.post_id = pm2.post_id )
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $events_table.end_date = DATE_ADD( $events_table.start_date, INTERVAL $events_table.duration SECOND )
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
@@ -319,7 +319,7 @@ class Events {
 		$query = "UPDATE $occurrences_table
     			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
 				INNER JOIN $wpdb->postmeta pm2
-					ON ( $events_table.post_id = pm2.post_id )
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $occurrences_table.start_date = CONCAT( DATE( $occurrences_table.start_date), ' ', %s )
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
@@ -340,7 +340,7 @@ class Events {
 		$query = "UPDATE $occurrences_table
     			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
 				INNER JOIN $wpdb->postmeta pm2
-					ON ( $events_table.post_id = pm2.post_id )
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $occurrences_table.end_date = DATE_ADD( $occurrences_table.start_date, INTERVAL $occurrences_table.duration SECOND )
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
@@ -352,6 +352,96 @@ class Events {
 		 * @param string $query The query used to update `tec_occurrence` table .
 		 */
 		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_occurrences_end_date_cutoff_times_query', $query );
+		$result = $wpdb->query( $query );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// Fix events table start UTC dates.
+		$query = "UPDATE $events_table
+				INNER JOIN $wpdb->postmeta pm2
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
+				SET $events_table.start_date_utc = DATE_FORMAT(CONVERT_TZ($events_table.start_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
+				WHERE pm2.meta_key = '_EventAllDay' 
+				  AND pm2.`meta_value` = 'yes' 
+				  AND CONVERT_TZ($events_table.start_date, $events_table.timezone, 'UTC') IS NOT NULL";
+
+		/**
+		 * Filters the query used to update `tec_event` table start dates.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $query The query used to update `tec_event` table .
+		 */
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_events_start_utc_date_cutoff_times_query', $query );
+		$result = $wpdb->query( $query );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// Fix events table end dates.
+		$query = "UPDATE $events_table
+				INNER JOIN $wpdb->postmeta pm2
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
+				SET $events_table.end_date_utc = DATE_FORMAT(CONVERT_TZ($events_table.end_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
+				WHERE pm2.meta_key = '_EventAllDay' 
+					AND pm2.`meta_value` = 'yes'
+					AND CONVERT_TZ($events_table.end_date, $events_table.timezone, 'UTC') IS NOT NULL";
+
+		/**
+		 * Filters the query used to update `tec_event` table end dates.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $query The query used to update `tec_event` table .
+		 */
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_events_end_date_utc_cutoff_times_query', $query );
+		$result = $wpdb->query( $query );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// Fix occurrence table start dates.
+		$query = "UPDATE $occurrences_table
+    			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
+				INNER JOIN $wpdb->postmeta pm2
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
+				SET $occurrences_table.start_date_utc = DATE_FORMAT(CONVERT_TZ($occurrences_table.start_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
+				WHERE pm2.meta_key = '_EventAllDay' 
+				  	AND pm2.`meta_value` = 'yes'
+					AND CONVERT_TZ($occurrences_table.start_date, $events_table.timezone, 'UTC') IS NOT NULL";
+
+		/**
+		 * Filters the query used to update `tec_occurrence` table start dates.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $query The query used to update `tec_occurrence` table .
+		 */
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_occurrences_start_date_utc_cutoff_times_query', $query );
+		$result = $wpdb->query( $query );
+		if ( is_int( $result ) ) {
+			$rows_affected += $result;
+		}
+
+		// Fix occurrence table end dates.
+		$query = "UPDATE $occurrences_table
+    			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
+				INNER JOIN $wpdb->postmeta pm2
+					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
+				SET $occurrences_table.end_date_utc = DATE_FORMAT(CONVERT_TZ($occurrences_table.end_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
+				WHERE pm2.meta_key = '_EventAllDay' 
+					AND pm2.`meta_value` = 'yes'
+					AND CONVERT_TZ($occurrences_table.end_date, $events_table.timezone, 'UTC') IS NOT NULL";
+
+		/**
+		 * Filters the query used to update `tec_occurrence` table end dates.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $query The query used to update `tec_occurrence` table .
+		 */
+		$query  = apply_filters( 'tec_events_custom_tables_v1_sync_all_day_occurrences_end_date_utc_cutoff_times_query', $query );
 		$result = $wpdb->query( $query );
 		if ( is_int( $result ) ) {
 			$rows_affected += $result;
