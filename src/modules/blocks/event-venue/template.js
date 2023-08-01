@@ -232,7 +232,7 @@ class EventVenue extends Component {
 		const { coords } = this.state;
 		return (
 			<GoogleMap
-				size={ { width: 450, height: 353 } }
+				size={ { width: 450, height: 220 } }
 				coordinates={ coords }
 				address={ addressToMapString( getAddress( details ) ) }
 				interactive={ true }
