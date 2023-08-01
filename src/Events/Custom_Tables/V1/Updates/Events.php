@@ -267,10 +267,9 @@ class Events {
 	 *
 	 * @param string $time The time of day the events will sync to.
 	 *
-	 * @return int Rows affected across all updates.
+	 * @return int Rows affected across all queries. This may include multiple updates for the same occurrence or event entity.
 	 */
 	public function sync_all_day_cutoff_times( string $time ): int {
-
 		global $wpdb;
 		$events_table      = Events_Table::table_name();
 		$occurrences_table = Occurrences_Table::table_name();
@@ -279,8 +278,8 @@ class Events {
 		// Fix events table start dates.
 		$query = "UPDATE $events_table
 				INNER JOIN $wpdb->postmeta pm2
-					ON ($events_table.post_id = pm2.post_id )
-				SET $events_table.start_date = CONCAT(DATE($events_table.start_date), ' ', %s)
+					ON ( $events_table.post_id = pm2.post_id )
+				SET $events_table.start_date = CONCAT( DATE( $events_table.start_date), ' ', %s)
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
 		/**
@@ -299,8 +298,8 @@ class Events {
 		// Fix events table end dates.
 		$query = "UPDATE $events_table
 				INNER JOIN $wpdb->postmeta pm2
-					ON ($events_table.post_id = pm2.post_id )
-				SET $events_table.end_date = DATE_ADD($events_table.start_date, INTERVAL $events_table.duration SECOND )
+					ON ( $events_table.post_id = pm2.post_id )
+				SET $events_table.end_date = DATE_ADD( $events_table.start_date, INTERVAL $events_table.duration SECOND )
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
 		/**
@@ -320,8 +319,8 @@ class Events {
 		$query = "UPDATE $occurrences_table
     			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
 				INNER JOIN $wpdb->postmeta pm2
-					ON ($events_table.post_id = pm2.post_id )
-				SET $occurrences_table.start_date = CONCAT(DATE($occurrences_table.start_date), ' ', %s)
+					ON ( $events_table.post_id = pm2.post_id )
+				SET $occurrences_table.start_date = CONCAT( DATE( $occurrences_table.start_date), ' ', %s )
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
 		/**
@@ -341,8 +340,8 @@ class Events {
 		$query = "UPDATE $occurrences_table
     			INNER JOIN $events_table ON $events_table.event_id = $occurrences_table.event_id /* Join to utilize tec_events.post_id index */
 				INNER JOIN $wpdb->postmeta pm2
-					ON ($events_table.post_id = pm2.post_id )
-				SET $occurrences_table.end_date = DATE_ADD($occurrences_table.start_date, INTERVAL $occurrences_table.duration SECOND )
+					ON ( $events_table.post_id = pm2.post_id )
+				SET $occurrences_table.end_date = DATE_ADD( $occurrences_table.start_date, INTERVAL $occurrences_table.duration SECOND )
 				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
 
 		/**
