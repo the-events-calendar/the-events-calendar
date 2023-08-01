@@ -231,7 +231,12 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.4] TBD =
 
+* Tweak - Change styling for Venue Blocks to constrain to a card-like style. [ECP-1540]
+* Tweak - Adjust REST endpoints to support multiple venues during event creation and updates. [ECP-1540]
+* Tweak - If multiple venues exist on an event, display them in the classic event editor. [ECP-1540]
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Ensure the "Add Organizer" button is visible in the classic editor if organizers have been set. [TEC-4729]
+* Fix - Simplify data handling of venues within the block editor. [ECP-1540]
 
 = [6.1.3] 2023-07-13 =
 

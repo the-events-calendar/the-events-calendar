@@ -71,6 +71,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Render the chooser section for the events meta box
 	 */
 	public function render() {
+
 		$this->render_dropdowns();
 		$this->render_add_post_button();
 
@@ -143,6 +144,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 
 		$i           = 0;
 		$num_records = count( $current_linked_posts );
+
 
 		do {
 			echo '<tbody>';
@@ -243,7 +245,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Renders the "Add Another Organizer" button
 	 */
 	protected function render_add_post_button() {
-		if ( empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
+		if ( ! $this->linked_posts->allow_multiple( $this->post_type ) ) {
 			return;
 		}
 
@@ -262,6 +264,11 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 				<td></td>
 				<td><a class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
 			</tr>
+			<?php
+			if ( $this->post_type === Tribe__Events__Venue::POSTTYPE ) {
+				require_once $this->tribe->pluginPath . 'src/admin-views/venue-map-fields.php';
+			}
+			?>
 		</tfoot>
 		<?php
 	}
