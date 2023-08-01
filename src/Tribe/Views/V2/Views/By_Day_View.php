@@ -254,39 +254,25 @@ abstract class By_Day_View extends View {
 		// phpcs:ignore
 		/** @var \Tribe\Utils\Date_I18n $day */
 		foreach ( $days as $day ) {
-			$day_string     = $day->format( 'Y-m-d' );
-			$multiday_start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
-			$multiday_end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
-			$start          = $day->format( 'Y-m-d 00:00:00' );
-			$end            = $day->format( 'Y-m-d 23:59:59' );
+			$day_string = $day->format( 'Y-m-d' );
+			$day_start  = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
+			$day_end    = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 
 			// Events overlap a day if Event start date <= Day End AND Event end date > Day Start.
 			$results_in_day = array_filter(
 				$day_results,
-				static function ( $event ) use ( $multiday_start, $multiday_end, $start, $end, $use_site_timezone, $site_timezone, $utc ) {
-					// Event span dates (multiday)? If so, we use the multiday cut off values.
-					// @todo TEC-4748 + TEC-4840 will remove need for this, and leverage above code to determine which date to comparse against
-					// @todo handle All Day events differently as a quick fix for this MR versus a bigger fix in TEC-4840
-					//$spans_dates                = substr( $event->start_date, 0, 10 ) !== substr( $event->end_date, 0, 10 );
-					$spans_dates = ! tribe_is_truthy( get_post_meta( $event->ID, '_EventAllDay', true ) );
-
-					$day_start                  = $start;
-					$day_end                    = $end;
+				static function ( $event ) use ( $day_start, $day_end, $use_site_timezone, $site_timezone, $utc ) {
 					$event_localized_start_date = $event->start_date;
 					$event_localized_end_date   = $event->end_date;
 
-					// If the event spans dates, we should do comparison against our multiDayCutoff adjusted value.
-					if ( $spans_dates ) {
-						$day_start = $multiday_start;
-						$day_end   = $multiday_end;
-					}
-
 					// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
 					if ( $use_site_timezone ) {
-						// What we should do is:
-						// * convert it to the current site timezone
-						// * check if the event fits into the day, given shifted start and end of day
-						$event_localized_start_date = Dates::build_date_object( $event->start_date, $event->timezone ) // @todo but we do here?
+						/**
+						 *  What we should do is:
+						 *  - Convert it to the current site timezone
+						 *  - Check if the event fits into the day, given shifted start and end of day
+						 */
+						$event_localized_start_date = Dates::build_date_object( $event->start_date, $event->timezone )
 						                                   ->setTimezone( $site_timezone )
 						                                   ->format( Dates::DBDATETIMEFORMAT );
 						$event_localized_end_date   = Dates::build_date_object( $event->end_date, $event->timezone )
@@ -685,15 +671,21 @@ abstract class By_Day_View extends View {
 	 * The method will fetch the required data in chunks to avoid overloading the database.
 	 *
 	 * @since 5.7.0
+	 * @since TBD Removed $use_site_timezone param. Evaluation of timezone is done elsewhere for simplification.
 	 *
 	 * @param array<int> $view_event_ids    The set of Event Post IDs to build and format the Day
-	 * @param bool       $use_site_timezone Whether to use the site timezone to format the event dates or not. The value
-	 *                                      descends from the "Timezone Mode" setting.
 	 *
 	 * @return array<int,\stdClass> A map from each event Post ID to the value object that will represent
 	 *                              the Event ID, start date, end date and timezone.
 	 */
 	protected function prepare_day_results( array $view_event_ids ) {
+		if ( func_num_args() === 2 ) {
+			_deprecated_argument( __FUNCTION__,
+				'TBD',
+				__( '$use_site_timezone is deprecated. The timezone evaluation has been moved downstream.', 'the-events-calendar' )
+			);
+		}
+
 		$day_results = [];
 
 		$start_meta_key = '_EventStartDate';

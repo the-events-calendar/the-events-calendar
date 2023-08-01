@@ -54,6 +54,7 @@ class Tribe__Events__Updater {
 	 * Function fired when we evaluate a plugin version bump to be tracked in the database.
 	 *
 	 * @since 4.0
+	 * @since TBD Added `tec_events_plugin_updater_version_change_{$version_option}` action.
 	 *
 	 * @param string $new_version The new version for this plugin.
 	 */
@@ -67,12 +68,10 @@ class Tribe__Events__Updater {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $version_option  The version option being used for this plugin. This is necessary to know which plugin is updating.
 		 * @param string $new_version     The new version number.
 		 * @param string $current_version The current version number.
 		 */
-		do_action( 'tec_events_plugin_updater_version_change',
-			$this->version_option,
+		do_action( "tec_events_plugin_updater_version_change_$this->version_option",
 			$new_version,
 			Tribe__Settings_Manager::get_option( $this->version_option )
 		);
