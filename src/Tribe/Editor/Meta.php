@@ -74,14 +74,12 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 		register_meta(
 			'post',
 			'_EventVenueID',
-			[
-				'description'       => __( 'Event Venue', 'the-events-calendar' ),
-				'auth_callback'     => [ $this, 'auth_callback' ],
-				'sanitize_callback' => 'absint',
-				'type'              => 'integer',
-				'single'            => true,
-				'show_in_rest'      => true,
-			]
+			array_merge(
+				$this->numeric_array(),
+				[
+					'description' => __( 'Event Venue', 'the-events-calendar' ),
+				]
+			)
 		);
 
 		// Organizers Meta
