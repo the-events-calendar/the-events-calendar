@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty, isInteger } from 'lodash';
+import { isEmpty, isInteger, get } from 'lodash';
 import classNames from 'classnames';
 
 /**
@@ -347,16 +347,7 @@ class EventVenue extends Component {
 
 		const state = this.props.store.getState();
 
-		if (
-			! state.events ||
-			! state.events.details ||
-			! state.events.details[ venueId ] ||
-			! state.events.details[ venueId ].details
-		) {
-			return {};
-		}
-
-		return state.events.details[ venueId ].details;
+		return get( state, `events.details[${ venueId }].details`, {} );
 	}
 
 	/**
@@ -411,7 +402,7 @@ class EventVenue extends Component {
 	/**
 	 * Whether or not the venue block is an authoritative one.
 	 *
-	 * Authoritative mean it is a block that is showing the venue that was explicitly selected for it rather
+	 * Authoritative means it is a block that is showing the venue that was explicitly selected for it rather
 	 * than a cloned representation of a venue from another block.
 	 *
 	 * @since TBD
