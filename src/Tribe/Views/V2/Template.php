@@ -118,14 +118,13 @@ class Template extends Base_Template {
 	 * @return string The path to the template file the View will use to render its contents.
 	 */
 	public function get_template_file( $name = null ) {
-		$view_slug  = $this->view::get_view_slug();
-		$name       = null !== $name ? $name : [ $view_slug ];
-		$count_name = count( $name );
+		$view_slug = $this->view::get_view_slug();
+		$name      = null !== $name ? $name : [ $view_slug ];
 		if ( ! is_array( $name ) ) {
 			$name = explode( '/', $name );
 		}
-
-		$cache_key = is_array( $name ) ? implode( '/', $name ) : $name;
+		$count_name = count( $name );
+		$cache_key  = is_array( $name ) ? implode( '/', $name ) : $name;
 
 		$cached = Arr::get( $this->template_file_cache, $cache_key, false );
 		if ( $cached ) {
