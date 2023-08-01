@@ -16,9 +16,11 @@ use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use Tribe\Events\Views\V2\Views\Traits\With_Noindex;
 
 class List_View extends View {
 	use List_Behavior;
+	use With_Noindex;
 
 	/**
 	 * Slug for this view
@@ -317,43 +319,5 @@ class List_View extends View {
 	protected function on_page_reset() {
 		parent::on_page_reset();
 		$this->remove_past_query_args();
-	}
-
-	/**
-	 * Do a short query (one event) to determine if we should add a noindex meta tag to the page.
-	 *
-	 * @since TBD
-	 *
-	 * @param Tribe__Repository|false $events     The events repository. False by default.
-	 * @param DateTime                $start_date The start date (object) of the query.
-	 * @param Tribe__Context          $context    The current context.
-	 *
-	 * @return Tribe__Repository|false $events     The events repository results.
-	 */
-	public function get_noindex_events( $events, $start_date, $end_date, $context ) {
-		if ( null !== $events ) { return; }
-
-		// ... do something.
-		$cache     = new \Tribe__Cache();
-		$trigger   = \Tribe__Cache_Listener::TRIGGER_SAVE_POST;
-		$cache_key = $cache->make_key(
-			[
-				'view'    => $this->get_view_slug(),
-				'start'   => $start_date->format( \Tribe__Date_Utils::DBDATEFORMAT ),
-			],
-			'tec_noindex_'
-		);
-
-		$events = $cache->get( $cache_key, $trigger );
-
-		if ( ! $events ) {
-			$this->repository->where( 'ends_after', $start_date );
-			// We only need one ID to know we have events!
-			$events = $this->repository->per_page( 1 )->fields( 'ids' );
-
-			$cache->set( $cache_key, $events, 0, $trigger );
-		}
-
-		return $events;
 	}
 }

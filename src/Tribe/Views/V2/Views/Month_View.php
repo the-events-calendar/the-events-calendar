@@ -14,11 +14,13 @@ use Tribe\Utils\Query;
 use Tribe__Context as Context;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
+use Tribe\Events\Views\V2\Views\Traits\With_Noindex;
 
 use DateTime;
 
 class Month_View extends By_Day_View {
 	use With_Fast_Forward_Link;
+	use With_Noindex;
 
 	/**
 	 * The default number of events to show per-day.
@@ -796,43 +798,5 @@ class Month_View extends By_Day_View {
 		 * @param Month_View $view                        A reference to the View instance that is filtering its mobile messages.
 		 */
 		return apply_filters( 'tribe_events_views_v2_month_mobile_messages', $mobile_messages, $this );
-	}
-
-	/**
-	 * Do a short query (one event) to determine if we should add a noindex meta tag to the page.
-	 *
-	 * @since TBD
-	 *
-	 * @param Tribe__Repository|false $events     The events repository. False by default.
-	 * @param DateTime                $start_date The start date (object) of the query.
-	 * @param Tribe__Context          $context    The current context.
-	 *
-	 * @return Tribe__Repository|false $events     The events repository results.
-	 */
-	public function get_noindex_events( $events, $start_date, $end_date, $context ) {
-		if ( null === $events ) {
-			$cache     = new \Tribe__Cache();
-			$trigger   = \Tribe__Cache_Listener::TRIGGER_SAVE_POST;
-			$cache_key = $cache->make_key(
-				[
-					'view'    => $this->get_view_slug(),
-					'start'   => $start_date->format( \Tribe__Date_Utils::DBDATEFORMAT ),
-				],
-				'tec_noindex_'
-			);
-
-			//$events = $cache->get( $cache_key, $trigger );
-
-			if ( ! $events ) {
-				$this->repository->where( 'ends_after', $start_date );
-				$this->repository->where( 'starts_before', $end_date );
-				// We only need one ID to know we have events!
-				$events = $this->repository->per_page( 1 )->fields( 'ids' );
-
-				$cache->set( $cache_key, $events, 0, $trigger );
-			}
-		}
-
-		return $events;
 	}
 }
