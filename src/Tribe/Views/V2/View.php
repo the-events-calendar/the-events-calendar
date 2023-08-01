@@ -1738,6 +1738,7 @@ class View implements View_Interface {
 			'messages'             => $this->get_messages( $events ),
 			'start_of_week'        => get_option( 'start_of_week', 0 ),
 			'header_title'         => $this->get_header_title(),
+			'header_title_element' => $this->get_header_title_element(),
 			'content_title'        => $this->get_content_title(),
 			'breadcrumbs'          => $this->get_breadcrumbs(),
 			'before_events'        => tribe( Advanced_Display::class )->get_before_events_html( $this ),
@@ -2285,6 +2286,37 @@ class View implements View_Interface {
 		$breadcrumbs = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breadcrumbs", $breadcrumbs, $this );
 
 		return $breadcrumbs;
+	}
+
+	/**
+	 * Header Title Element, allowing better control over the title tag.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	protected function get_header_title_element(): string {
+		/**
+		 * Filters the header title element the View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $header_title_element The header title to be displayed.
+		 * @param View   $this                 The current View instance being rendered.
+		 */
+		$header_title_element = (string) apply_filters( 'tec_events_views_v2_view_header_title_element', 'h1', $this );
+
+		$view_slug = static::get_view_slug();
+
+		/**
+		 * Filters the header title element a specific View will print on the frontend.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $header_title_element The header title element to be displayed.
+		 * @param View   $this                 The current View instance being rendered.
+		 */
+		return (string) apply_filters( "tec_events_views_v2_view_{$view_slug}_header_title_element", $header_title_element, $this );
 	}
 
 	/**

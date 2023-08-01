@@ -3,7 +3,7 @@
 use \Tribe\Events\Views\V2\Template;
 
 /**
- * View Component: Title
+ * View Component: Header Title
  *
  * Override this template in your own theme by creating a file at:
  * [your-theme]/tribe/events/v2/components/header-title.php
@@ -22,10 +22,11 @@ if ( empty( $header_title ) ) {
 	return;
 }
 
+$header_title_element = $header_title_element ?? 'h1';
 ?>
 
 <div class="tribe-events-header__title">
-	<h1 class="tribe-events-header__title-text">
+	<<?php echo esc_attr( $header_title_element ); ?> class="tribe-events-header__title-text">
 		<?php echo esc_html( $header_title ); ?>
-	</h1>
+	</<?php echo esc_attr( $header_title_element ); ?>>
 </div>
