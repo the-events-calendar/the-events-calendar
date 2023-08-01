@@ -15,6 +15,7 @@ use Tribe\Events\Views\V2\Template\Title;
 use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\Views\Latest_Past_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior;
 use Tribe\Events\Views\V2\Views\Traits\HTML_Cache;
 use Tribe\Events\Views\V2\Views\Traits\iCal_Data;
@@ -601,11 +602,12 @@ class View implements View_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $with_current Should include the current class in the inheritance list or not.
+	 * @param bool $with_current     Should include the current class in the inheritance list or not.
+	 * @param bool $ignore_reflector Ignore reflector class in the inheritance list.
 	 *
 	 * @return array
 	 */
-	public function get_inheritance( bool $with_current = true ): array {
+	public function get_inheritance( bool $with_current = true, bool $ignore_reflector = true ): array {
 		$parent_class_names = [];
 		$parent_class_name  = get_class( $this );
 		if ( $with_current ) {
@@ -617,7 +619,15 @@ class View implements View_Interface {
 			if ( View::class === $parent_class_name ) {
 				break;
 			}
+
 			$parent_class_names[] = $parent_class_name;
+		}
+
+		// Filter the Reflector_View class if needed.
+		if ( $ignore_reflector ) {
+			$parent_class_names = array_filter( $parent_class_names, static function ( $class_name ) {
+				return Reflector_View::class !== $class_name;
+			} );
 		}
 
 		return $parent_class_names;

@@ -2,8 +2,8 @@
 /**
  * The base template all Views will use to locate, manage and render their HTML code.
  *
- * @package Tribe\Events\Views\V2
  * @since   4.9.2
+ * @package Tribe\Events\Views\V2
  */
 
 namespace Tribe\Events\Views\V2;
@@ -17,8 +17,8 @@ use WP_Post;
 /**
  * Class Template
  *
- * @package Tribe\Events\Views\V2
  * @since   4.9.2
+ * @package Tribe\Events\Views\V2
  */
 class Template extends Base_Template {
 	use Cache_User;
@@ -57,7 +57,7 @@ class Template extends Base_Template {
 	 * @return string The rendered template contents.
 	 */
 	public function render( array $context_overrides = [] ) {
-		$context = wp_parse_args( $context_overrides, $this->context );
+		$context             = wp_parse_args( $context_overrides, $this->context );
 		$context['_context'] = $context;
 
 		$template_slug = $this->view->get_template_slug();
@@ -74,10 +74,11 @@ class Template extends Base_Template {
 	/**
 	 * Template constructor.
 	 *
-	 * @param View_Interface $view The view the template should use to build its path.
-	 *
 	 * @since 4.9.2
 	 * @since 4.9.4 Modified the first param to only accept View_Interface instances.
+	 *
+	 * @param View_Interface $view The view the template should use to build its path.
+	 *
 	 */
 	public function __construct( $view ) {
 		$this->set_view( $view );
@@ -117,8 +118,9 @@ class Template extends Base_Template {
 	 * @return string The path to the template file the View will use to render its contents.
 	 */
 	public function get_template_file( $name = null ) {
-		$view_slug = $this->view::get_view_slug();
-		$name = null !== $name ? $name : [ $view_slug ];
+		$view_slug  = $this->view::get_view_slug();
+		$name       = null !== $name ? $name : [ $view_slug ];
+		$count_name = count( $name );
 		if ( ! is_array( $name ) ) {
 			$name = explode( '/', $name );
 		}
@@ -130,14 +132,14 @@ class Template extends Base_Template {
 			return $cached;
 		}
 
-		$file = parent::get_template_file( $name );
+		$file           = parent::get_template_file( $name );
 		$found_template = false !== $file;
 
 		if ( ! $found_template ) {
 			$found_inheritance_template = false;
 			if ( $view_slug === reset( $name ) ) {
 				$inheritance = $this->get_view()->get_inheritance( false );
-				$paths = array_map( static function ( $view_class ) use ( $name ) {
+				$paths       = array_map( static function ( $view_class ) use ( $name ) {
 					return array_replace( $name, [ $view_class::get_view_slug() ] );
 				}, $inheritance );
 
@@ -150,7 +152,7 @@ class Template extends Base_Template {
 				}
 			}
 
-			if ( $found_inheritance_template === false ) {
+			if ( $found_inheritance_template === false && $count_name === 1 ) {
 				$file = $this->get_base_template_file();
 			}
 		}
@@ -175,6 +177,7 @@ class Template extends Base_Template {
 				static function ( array $folder ) {
 					$folder['path'] = str_replace( WP_CONTENT_DIR, '', $folder['path'] );
 					$folder['path'] = str_replace( WP_PLUGIN_DIR, '/plugins', $folder['path'] );
+
 					return $folder;
 				},
 				$this->get_template_path_list()
@@ -226,7 +229,7 @@ class Template extends Base_Template {
 	 *
 	 * @since 4.9.4 Modified the Param to only accept View_Interface instances
 	 *
-	 * @param View_Interface  $view  Which view we are using this template on.
+	 * @param View_Interface $view Which view we are using this template on.
 	 */
 	public function set_view( $view ) {
 		$this->view = $view;
