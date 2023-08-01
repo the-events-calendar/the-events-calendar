@@ -95,6 +95,8 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
+		$args = $context->get( 'view_data', [] );
+
 		/**
 		 * Allow specific views to hook in and add their own calculated events.
 		 * This *bypasses* the cached query immediately after it.
