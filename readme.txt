@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.1.4] TBD =
 
+* Fix - This issue was regarding our rewrite parsing for the view picker url generation with WPML enabled. It was failing to parse the translated rewrite properly, and leaving unparsed permalinks. [TEC-4758]
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
 * Fix - Handle some issues with incorrect application of noindex meta tags. [TEC-4717]
