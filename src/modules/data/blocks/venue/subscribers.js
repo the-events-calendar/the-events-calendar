@@ -14,8 +14,8 @@ import {
 	actions as venueActions,
 	selectors as venueSelectors,
 } from '@moderntribe/events/data/blocks/venue';
-import { selectors as detailSelectors } from '@moderntribe/events/data/details';
-import {getVenuesInBlock} from "./selectors";
+import { actions as requestActions } from '@moderntribe/common/store/middlewares/request';
+
 const { getState, dispatch } = store;
 
 /**
@@ -43,10 +43,6 @@ export const isVenueBlock = ( block ) => block.name === 'tribe/event-venue';
  * @param {number} venue
  */
 globals.wpHooks.addAction( 'tec.events.blocks.venue.maybeRemoveVenue', 'tec.events.blocks.venue.subscribers', ( venue ) => {
-	if ( isEmpty( venue ) ) {
-		return;
-	}
-
 	const path = `tribe_venue/${ venue }`;
 	const options = {
 		path,

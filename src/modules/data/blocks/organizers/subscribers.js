@@ -44,10 +44,6 @@ export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organiz
  * @param {number} organizer
  */
 globals.wpHooks.addAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', 'tec.events.blocks.organizer.subscribers', ( organizer ) => {
-	if ( isEmpty( organizer ) ) {
-		return;
-	}
-
 	const path = `tribe_organizer/${ organizer }`;
 	const options = {
 		path,
