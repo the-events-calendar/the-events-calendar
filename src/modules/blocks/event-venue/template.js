@@ -374,7 +374,7 @@ class EventVenue extends Component {
 		 * @return {number} The venue ID.
 		 */
 		const venueId = wpHooks.applyFilters(
-			'tec_events.blocks.tribe_event_venue.getVenueId',
+			'tec.events.blocks.tribe_event_venue.getVenueId',
 			allVenueIds[ 0 ],
 			this.props,
 			state,
