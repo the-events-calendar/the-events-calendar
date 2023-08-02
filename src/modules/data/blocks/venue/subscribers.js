@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { differenceBy } from 'lodash';
+import {differenceBy, isEmpty} from 'lodash';
 
 /**
  * Internal dependencies
@@ -35,6 +35,27 @@ export const compareBlocks = block => block.clientId;
  * @returns {boolean} Whether the block is the venue block or not.
  */
 export const isVenueBlock = ( block ) => block.name === 'tribe/event-venue';
+
+/**
+ * Moves the venue to the trash if appropriate (if it is a draft and was removed).
+ *
+ * @since TBD
+ * @param {number} venue
+ */
+globals.wpHooks.addAction( 'tec.events.blocks.venue.maybeRemoveVenue', 'tec.events.blocks.venue.subscribers', ( venue ) => {
+	if ( isEmpty( venue ) ) {
+		return;
+	}
+
+	const path = `tribe_venue/${ venue }`;
+	const options = {
+		path,
+		actions: {
+			success: formActions.deleteEntry( dispatch )( path ),
+		},
+	};
+	dispatch( requestActions.wpRequest( options ) );
+} );
 
 /**
  * Handles the block that was added.
@@ -74,6 +95,14 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	// remove venue from block state
 	if ( venue ) {
 		dispatch( venueActions.removeVenueInBlock( block.clientId, venue ) );
+
+		/**
+		 * Moves the venue to the trash if appropriate (if it is a draft and was removed).
+		 *
+		 * @since TBD
+		 * @param {number} venue
+		 */
+		globals.wpHooks.doAction( 'tec.events.blocks.venue.maybeRemoveVenue', venue );
 	}
 
 	syncVenuesWithPostMeta();
@@ -86,7 +115,6 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
  */
 export const syncVenuesWithPostMeta = () => {
 	const blockVenues = venueSelectors.getVenuesInBlock( getState() );
-	console.log( blockVenues );
 	const postId = globals.wpData.select( 'core/editor' ).getCurrentPostId();
 	const record = {
 		meta: {
