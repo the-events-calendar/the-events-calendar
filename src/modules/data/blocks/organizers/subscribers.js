@@ -77,6 +77,7 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	// remove organizer from block state
 	if ( organizer ) {
 		dispatch( organizerActions.removeOrganizerInBlock( block.clientId, organizer ) );
+		dispatch( formActions.maybeRemoveEntry( block.name, { id: organizer } ) );
 	}
 
 	const volatile = detailSelectors.getVolatile( getState(), { name: organizer } );
