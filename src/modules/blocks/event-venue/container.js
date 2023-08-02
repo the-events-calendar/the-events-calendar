@@ -147,6 +147,14 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			ownProps.setAttributes( { venue: 0 } );
 			dispatch( actions.removeVenueInBlock( clientId, venue ) );
 
+			/**
+			 * Moves the venue to the trash if appropriate (if it is a draft and was removed).
+			 *
+			 * @since TBD
+			 * @param {number} venue
+			 */
+			globals.wpHooks.doAction( 'tec.events.blocks.venue.maybeRemoveVenue', venue );
+
 			syncVenuesWithPost();
 		},
 	};

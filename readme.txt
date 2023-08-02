@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
 * Fix - Ensure the "Add Organizer" button is visible in the classic editor if organizers have been set. [TEC-4729]
 * Fix - Simplify data handling of venues within the block editor. [ECP-1540]
+* Fix - When removing a newly created organizer in the block editor before saving the event will now trash the draft organizer. [TEC-3865]
 
 = [6.1.3] 2023-07-13 =
 
