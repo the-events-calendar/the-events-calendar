@@ -447,6 +447,16 @@ class Events {
 			$rows_affected += $result;
 		}
 
+		/**
+		 * When done with CT1 mass updates for an adjusted EOD cut off time.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $time          The new EOD cutoff H:i time.
+		 * @param string $rows_affected The sum of all CT1 queries rows affected.
+		 */
+		do_action( 'tec_events_custom_tables_v1_sync_all_day_events_applied', $time, $rows_affected );
+
 		return $rows_affected;
 	}
 }

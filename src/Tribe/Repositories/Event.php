@@ -1251,6 +1251,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$postarr['meta_input']['_EventStartDateUTC'] = $start->setTimezone( $utc )->format( $datetime_format );
 				$postarr['meta_input']['_EventEndDate']      = $end->format( $datetime_format );
 				$postarr['meta_input']['_EventEndDateUTC']   = $end->setTimezone( $utc )->format( $datetime_format );
+				$postarr['meta_input']['_EventDuration']     = $end->getTimestamp() - $start->getTimestamp();
 			}
 
 			$postarr['meta_input']['_EventTimezoneAbbr'] = Tribe__Timezones::abbr(
