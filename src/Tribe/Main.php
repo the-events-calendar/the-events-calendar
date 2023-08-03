@@ -2978,10 +2978,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							continue;
 						}
 
-						$linked_post = get_post( $linked_post_id );
-						if ( empty( $linked_post ) || $linked_post->post_status === 'publish' || $linked_post->post_status === 'private' ) {
-							continue;
-						}
+						if ( in_array( get_post_status( $linked_post_id ), [ 'publish', 'private' ], true ) ) {
 
 						wp_publish_post( $linked_post_id );
 					}
