@@ -145,7 +145,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		$i           = 0;
 		$num_records = count( $current_linked_posts );
 
-
 		do {
 			echo '<tbody>';
 			$this->single_post_dropdown( isset( $current_linked_posts[ $i ] ) ? $current_linked_posts[ $i ] : 0 );
@@ -245,10 +244,6 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Renders the "Add Another Organizer" button
 	 */
 	protected function render_add_post_button() {
-		if ( ! $this->linked_posts->allow_multiple( $this->post_type ) ) {
-			return;
-		}
-
 		$classes = [ 'tribe-add-post' ];
 
 		if ( is_admin() ) {
