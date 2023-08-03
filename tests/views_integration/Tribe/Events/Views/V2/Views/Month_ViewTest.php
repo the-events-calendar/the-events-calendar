@@ -445,7 +445,6 @@ class Month_ViewTest extends ViewTestCase {
 	}
 
 	/**
-	 * @todo When TEC-4840 is worked on, this should be adjusted to handle proper EOD cut off.
 	 * @return array[]
 	 */
 	public function multiday_cutoff_grid_data_provider() {
@@ -457,7 +456,7 @@ class Month_ViewTest extends ViewTestCase {
 					'duration'     => ( 24 * HOUR_IN_SECONDS ) - 1,
 					'status'       => 'publish',
 					'title'        => 'Faux Event',
-					'_EventAllDay' => 'yes',
+					'all_day' => 'yes',
 				],
 				[ '2019-01-02' ], // Dates we expect this event to show up on
 				'01:00', // Start EOD
@@ -470,7 +469,7 @@ class Month_ViewTest extends ViewTestCase {
 					'duration'     => ( 48 * HOUR_IN_SECONDS ) - 1,
 					'status'       => 'publish',
 					'title'        => 'Faux Event',
-					'_EventAllDay' => 'yes',
+					'all_day' => 'yes',
 				],
 				[ '2019-01-02', '2019-01-03' ], // Dates we expect this event to show up on
 				'01:00', // Start EOD
@@ -531,12 +530,15 @@ class Month_ViewTest extends ViewTestCase {
 	 * @dataProvider multiday_cutoff_grid_data_provider
 	 * @test
 	 */
-	public function test_multiday_cutoff_respected_in_grid( $create_args, $expected_dates,$pre_create_multiday_cut_off, $post_create_multiday_cut_off ) {
+	public function test_multiday_cutoff_respected_in_grid( $create_args, $expected_dates, $pre_create_multiday_cut_off, $post_create_multiday_cut_off ) {
+		global $wpdb;
 		// To validate any side effects that happens during create().
 		tribe_update_option( 'multiDayCutoff', $pre_create_multiday_cut_off );
 
 		$grid_date = new \DateTimeImmutable( $this->mock_date_value );
 		$post      = tribe_events()->set_args( $create_args )->create();
+		// @todo Fix meta_value. Not sure why these are flagged for blocks API(?)... Remove if this is resolved later.
+		$wpdb->query("UPDATE $wpdb->postmeta set meta_value='yes' where meta_key='_EventAllDay'");
 
 		// To validate any side effects that happen on update.
 		tribe_update_option( 'multiDayCutoff', $post_create_multiday_cut_off );
@@ -567,5 +569,6 @@ class Month_ViewTest extends ViewTestCase {
 		$this->assertTrue( $match_was_hit, 'Should have matched at least once. Did the test criteria break?' );
 		// Reset for next test.
 		tribe_update_option( 'multiDayCutoff', '00:00' );
+
 	}
 }
