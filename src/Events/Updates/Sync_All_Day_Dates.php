@@ -47,7 +47,7 @@ class Sync_All_Day_Dates {
 		// this will fix all day events with any start time
 		$fix_start_dates = $wpdb->prepare( "UPDATE $wpdb->postmeta AS pm1
 				INNER JOIN $wpdb->postmeta pm2
-					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes')
+					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` IN('1','yes'))
 				SET pm1.meta_value = CONCAT(DATE(pm1.meta_value), ' ', %s)
 				WHERE pm1.meta_key = '_EventStartDate'
 					AND DATE_FORMAT(pm1.meta_value, '%%H:%%i') <> %s", $event_cutoff_time, $event_cutoff_time );
@@ -56,13 +56,13 @@ class Sync_All_Day_Dates {
 		$fix_end_dates =
 			"UPDATE $wpdb->postmeta AS pm1
 				INNER JOIN $wpdb->postmeta pm2
-					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.meta_value = 'yes')
+					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` IN('1','yes'))
 				INNER JOIN $wpdb->postmeta pm3
 					ON (pm1.post_id = pm3.post_id AND pm3.meta_key = '_EventStartDate')
 				INNER JOIN $wpdb->postmeta pm4
 					ON (pm1.post_id = pm4.post_id AND pm4.meta_key = '_EventDuration')
 				SET pm1.meta_value = DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND )
-				WHERE pm1.meta_key = '_EventEndDate'"; // @todo our wherestatement should only apply to multi + all
+				WHERE pm1.meta_key = '_EventEndDate'";
 		$wpdb->query( $fix_start_dates );
 		$wpdb->query( $fix_end_dates );
 
@@ -71,7 +71,7 @@ class Sync_All_Day_Dates {
 		$fix__utc_start_dates =  "UPDATE `$wpdb->postmeta` AS pm1
         INNER JOIN $wpdb->postmeta pm2 ON (pm1.post_id = pm2.post_id
 	        AND pm2.meta_key = '_EventAllDay'
-	        AND pm2.`meta_value` = 'yes')
+	        AND pm2.`meta_value` IN('1','yes'))
         INNER JOIN $wpdb->postmeta pm3 ON pm2.post_id = pm3.post_id
         	AND pm3.meta_key = '_EventTimezone'
         INNER JOIN $wpdb->postmeta pm4 ON pm2.post_id = pm4.post_id
@@ -85,7 +85,7 @@ class Sync_All_Day_Dates {
 		$fix_utc_end_dates = "UPDATE `$wpdb->postmeta` AS pm1
         INNER JOIN $wpdb->postmeta pm2 ON (pm1.post_id = pm2.post_id
 	        AND pm2.meta_key = '_EventAllDay'
-	        AND pm2.`meta_value` = 'yes')
+	        AND pm2.`meta_value` IN('1','yes'))
         INNER JOIN $wpdb->postmeta pm3 ON pm2.post_id = pm3.post_id
         	AND pm3.meta_key = '_EventTimezone'
         INNER JOIN $wpdb->postmeta pm4 ON pm2.post_id = pm4.post_id

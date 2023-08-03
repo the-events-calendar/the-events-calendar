@@ -537,8 +537,6 @@ class Month_ViewTest extends ViewTestCase {
 
 		$grid_date = new \DateTimeImmutable( $this->mock_date_value );
 		$post      = tribe_events()->set_args( $create_args )->create();
-		// @todo Fix meta_value. Not sure why these are flagged for blocks API(?)... Remove if this is resolved later.
-		$wpdb->query("UPDATE $wpdb->postmeta set meta_value='yes' where meta_key='_EventAllDay'");
 
 		// To validate any side effects that happen on update.
 		tribe_update_option( 'multiDayCutoff', $post_create_multiday_cut_off );

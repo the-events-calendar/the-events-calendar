@@ -280,7 +280,7 @@ class Events {
 				INNER JOIN $wpdb->postmeta pm2
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $events_table.start_date = CONCAT( DATE( $events_table.start_date), ' ', %s)
-				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` IN('1','yes')";
 
 		/**
 		 * Filters the query used to update `tec_event` table start dates.
@@ -300,7 +300,7 @@ class Events {
 				INNER JOIN $wpdb->postmeta pm2
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $events_table.end_date = DATE_ADD( $events_table.start_date, INTERVAL $events_table.duration SECOND )
-				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` IN('1','yes')";
 
 		/**
 		 * Filters the query used to update `tec_event` table end dates.
@@ -321,7 +321,7 @@ class Events {
 				INNER JOIN $wpdb->postmeta pm2
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $occurrences_table.start_date = CONCAT( DATE( $occurrences_table.start_date), ' ', %s )
-				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` IN('1','yes')";
 
 		/**
 		 * Filters the query used to update `tec_occurrence` table start dates.
@@ -342,7 +342,7 @@ class Events {
 				INNER JOIN $wpdb->postmeta pm2
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $occurrences_table.end_date = DATE_ADD( $occurrences_table.start_date, INTERVAL $occurrences_table.duration SECOND )
-				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes'";
+				WHERE pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` IN('1','yes')";
 
 		/**
 		 * Filters the query used to update `tec_occurrence` table end dates.
@@ -363,7 +363,7 @@ class Events {
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $events_table.start_date_utc = DATE_FORMAT(CONVERT_TZ($events_table.start_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
 				WHERE pm2.meta_key = '_EventAllDay' 
-				  AND pm2.`meta_value` = 'yes' 
+				  AND pm2.`meta_value` IN('1','yes')
 				  AND CONVERT_TZ($events_table.start_date, $events_table.timezone, 'UTC') IS NOT NULL";
 
 		/**
@@ -385,7 +385,7 @@ class Events {
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $events_table.end_date_utc = DATE_FORMAT(CONVERT_TZ($events_table.end_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
 				WHERE pm2.meta_key = '_EventAllDay' 
-					AND pm2.`meta_value` = 'yes'
+					AND pm2.`meta_value` IN('1','yes')
 					AND CONVERT_TZ($events_table.end_date, $events_table.timezone, 'UTC') IS NOT NULL";
 
 		/**
@@ -408,7 +408,7 @@ class Events {
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $occurrences_table.start_date_utc = DATE_FORMAT(CONVERT_TZ($occurrences_table.start_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
 				WHERE pm2.meta_key = '_EventAllDay' 
-				  	AND pm2.`meta_value` = 'yes'
+				  	AND pm2.`meta_value` IN('1','yes')
 					AND CONVERT_TZ($occurrences_table.start_date, $events_table.timezone, 'UTC') IS NOT NULL";
 
 		/**
@@ -431,7 +431,7 @@ class Events {
 					ON ( $events_table.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' )
 				SET $occurrences_table.end_date_utc = DATE_FORMAT(CONVERT_TZ($occurrences_table.end_date, $events_table.timezone, 'UTC'), '%Y-%m-%d %H:%i:%s')
 				WHERE pm2.meta_key = '_EventAllDay' 
-					AND pm2.`meta_value` = 'yes'
+					AND pm2.`meta_value` IN('1','yes')
 					AND CONVERT_TZ($occurrences_table.end_date, $events_table.timezone, 'UTC') IS NOT NULL";
 
 		/**
