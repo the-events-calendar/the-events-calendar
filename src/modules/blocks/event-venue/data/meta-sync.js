@@ -3,6 +3,8 @@
  */
 import { selectors } from '@moderntribe/events/data/blocks/venue';
 import { wpData } from '@moderntribe/common/utils/globals';
+import { store } from '@moderntribe/common/store';
+const { getState } = store;
 
 /**
  * Synchronizes venues in the state with the meta of the post.
