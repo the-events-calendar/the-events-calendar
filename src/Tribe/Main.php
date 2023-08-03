@@ -2965,11 +2965,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				];
 
 				foreach ( $linked_post_prefixes as $type => $linked_post_prefix ) {
-					if ( empty( $pm[ "{$linked_post_prefix}ID" ] ) ) {
+					$id_index = "{$linked_post_prefix}ID";
+
+					if ( empty( $pm[ $id_index ] ) ) {
 						continue;
 					}
-
-					$id_index = "{$linked_post_prefix}ID";
 
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
 					if ( empty( $linked_post_ids ) ) {
