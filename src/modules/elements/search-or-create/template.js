@@ -125,10 +125,7 @@ class SearchOrCreate extends Component {
 			{ 'tribe-editor__soc__input__container--active': isSelected },
 		);
 
-		let currentTerm = '';
-		if ( isSelected ) {
-			currentTerm = term;
-		}
+		const currentTerm = isSelected ? term : '';
 
 		return (
 			<section className="tribe-soc__container">
