@@ -2972,9 +2972,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					}
 
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
-					if ( empty( $linked_post_ids ) ) {
-						continue;
-					}
 
 					foreach ( $linked_post_ids as $linked_post_id ) {
 						if ( ! $linked_post_id ) {
