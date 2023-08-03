@@ -2959,33 +2959,39 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				//get venue and organizer and publish them
 				$pm = get_post_custom( $post->ID );
 
-				do_action( 'log', 'publishing an event with a venue', 'tribe-events', $post );
+				$linked_post_prefixes = [
+					'venue'     => '_EventVenue',
+					'organizer' => '_EventOrganizer',
+				];
 
-				// save venue on first setup
-				if ( ! empty( $pm['_EventVenueID'] ) ) {
-					$venue_id = is_array( $pm['_EventVenueID'] ) ? current( $pm['_EventVenueID'] ) : $pm['_EventVenueID'];
-					if ( $venue_id ) {
-						do_action( 'log', 'event has a venue', 'tribe-events', $venue_id );
-						$venue_post = get_post( $venue_id );
-						if ( ! empty( $venue_post ) && $venue_post->post_status != 'publish' ) {
-							do_action( 'log', 'venue post found', 'tribe-events', $venue_post );
-							$venue_post->post_status = 'publish';
-							wp_update_post( $venue_post );
-							$did_save = true;
-						}
+				foreach ( $linked_post_prefixes as $type => $linked_post_prefix ) {
+					if ( empty( $pm[ "{$linked_post_prefix}ID" ] ) ) {
+						continue;
 					}
-				}
 
-				// save organizer on first setup
-				if ( ! empty( $pm['_EventOrganizerID'] ) ) {
-					$org_id = is_array( $pm['_EventOrganizerID'] ) ? current( $pm['_EventOrganizerID'] ) : $pm['_EventOrganizerID'];
-					if ( $org_id ) {
-						$org_post = get_post( $org_id );
-						if ( ! empty( $org_post ) && $org_post->post_status != 'publish' ) {
-							$org_post->post_status = 'publish';
-							wp_update_post( $org_post );
-							$did_save = true;
+					do_action( 'log', "publishing an event with a {$type}", 'tribe-events', $post );
+
+					$id_index = "{$linked_post_prefix}ID";
+
+					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
+					if ( empty( $linked_post_ids ) ) {
+						continue;
+					}
+
+					do_action( 'log', "event has at least one {$type}", 'tribe-events', print_r( $linked_post_ids, true ) );
+
+					foreach ( $linked_post_ids as $linked_post_id ) {
+						if ( ! $linked_post_id ) {
+							continue;
 						}
+
+						$linked_post = get_post( $linked_post_id );
+						if ( empty( $linked_post ) || $linked_post->post_status === 'publish' || $linked_post->post_status === 'private' ) {
+							continue;
+						}
+
+						do_action( 'log', "{$type} post found", 'tribe-events', $linked_post );
+						wp_publish_post( $linked_post_id );
 					}
 				}
 			}
