@@ -2969,16 +2969,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						continue;
 					}
 
-					do_action( 'log', "publishing an event with a {$type}", 'tribe-events', $post );
-
 					$id_index = "{$linked_post_prefix}ID";
 
 					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
 					if ( empty( $linked_post_ids ) ) {
 						continue;
 					}
-
-					do_action( 'log', "event has at least one {$type}", 'tribe-events', print_r( $linked_post_ids, true ) );
 
 					foreach ( $linked_post_ids as $linked_post_id ) {
 						if ( ! $linked_post_id ) {
@@ -2990,7 +2986,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 							continue;
 						}
 
-						do_action( 'log', "{$type} post found", 'tribe-events', $linked_post );
 						wp_publish_post( $linked_post_id );
 					}
 				}
