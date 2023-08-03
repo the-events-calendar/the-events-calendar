@@ -2979,6 +2979,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						}
 
 						if ( in_array( get_post_status( $linked_post_id ), [ 'publish', 'private' ], true ) ) {
+							continue;
+						}
 
 						wp_publish_post( $linked_post_id );
 					}
