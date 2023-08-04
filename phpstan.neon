@@ -1,0 +1,9 @@
+parameters:
+  phpVersion: 80100
+  level: 0
+  paths:
+    - src
+    - the-events-calendar.php
+  scanDirectories:
+    - ../../../wp-includes
+    - common/src
