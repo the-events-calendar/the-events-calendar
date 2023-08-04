@@ -3,6 +3,7 @@
  */
 import { selectors } from '@moderntribe/events/data/blocks/venue';
 import { wpData } from '@moderntribe/common/utils/globals';
+import { editor } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 const { getState } = store;
 
@@ -12,14 +13,13 @@ const { getState } = store;
  * @since TBD
  */
 export const syncVenuesWithPost = () => {
-	let currentPost = wpData.select( 'core/editor' ).getCurrentPost();
-	let modifiedPost = {
-		...currentPost,
+	const currentPost = wpData.select( 'core/editor' ).getCurrentPost();
+	const postId = wpData.select( 'core/editor' ).getCurrentPostId();
+	const modifiedPost = {
 		meta: {
-			...currentPost.meta,
 			_EventVenueID: selectors.getVenuesInBlock( getState() ),
 		}
 	};
 
-	wpData.dispatch( 'core/editor' ).editPost( modifiedPost );
+	wpData.dispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, modifiedPost );
 };
