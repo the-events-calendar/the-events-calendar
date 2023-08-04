@@ -17,6 +17,7 @@ import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
 import { editor } from '@moderntribe/common/data';
 import { syncVenuesWithPost } from "./data/meta-sync";
+import { globals } from '@moderntribe/common/utils';
 const { getState } = store;
 
 /**

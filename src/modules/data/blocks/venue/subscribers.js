@@ -14,6 +14,7 @@ import {
 	actions as venueActions,
 	selectors as venueSelectors,
 } from '@moderntribe/events/data/blocks/venue';
+import { syncVenuesWithPost } from '@moderntribe/events/blocks/event-venue/data/meta-sync';
 import { actions as requestActions } from '@moderntribe/common/store/middlewares/request';
 
 const { getState, dispatch } = store;
@@ -101,24 +102,7 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		globals.wpHooks.doAction( 'tec.events.blocks.venue.maybeRemoveVenue', venue );
 	}
 
-	syncVenuesWithPostMeta();
-};
-
-/**
- * Synchronizes venues in blocks with post meta.
- *
- * @since TBD
- */
-export const syncVenuesWithPostMeta = () => {
-	const blockVenues = venueSelectors.getVenuesInBlock( getState() );
-	const postId = globals.wpData.select( 'core/editor' ).getCurrentPostId();
-	const record = {
-		meta: {
-			_EventVenueID: blockVenues,
-		},
-	};
-
-	globals.wpData.dispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, record );
+	syncVenuesWithPost();
 };
 
 /**
