@@ -1263,9 +1263,7 @@ class Tribe__Events__Linked_Posts {
 				data-force-search
 				<?php endif; ?>
 			>
-				<option value="-1" <?php selected( empty( $current ) ); ?>>
-					<?php echo esc_html( $label ); ?>
-				</option>
+				<option></option>
 				<?php if ( ! empty( $data[0]['children'] ) ) : ?>
 					<?php foreach ( $data as $group ) : ?>
 						<optgroup label="<?php echo esc_attr( $group['text'] ); ?>">

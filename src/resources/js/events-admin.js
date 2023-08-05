@@ -225,7 +225,8 @@ jQuery( function( $ ) {
 
 		section.on( 'click', '.tribe-add-post', function(e) {
 			e.preventDefault();
-			var dropdown = $({}), fields = $({});
+			var dropdown = $({});
+			var fields = $({});
 
 			if ( saved_template ) {
 				dropdown = $( saved_template({}) );
@@ -243,6 +244,7 @@ jQuery( function( $ ) {
 
 			// The final <tbody> contains the add new post link, we should add this new selector before that
 			section.find( 'tfoot:first' ).before( fields );
+
 			fields.prepend( dropdown );
 
 			if ( section.find( 'tbody' ).length > 1 ) {
@@ -252,6 +254,18 @@ jQuery( function( $ ) {
 			}
 
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns();
+
+			/**
+			 * Fires when a new linked post is added to the event.
+			 *
+			 * @since TBD
+			 *
+			 * @param {string} post_type The post type of the linked post.
+			 * @param {jQuery} section   The current Section of Linked Post.
+			 * @param {jQuery} fields    The fields for the new linked post.
+			 * @param {jQuery} dropdown  The Dropdown for the new linked post.
+			 **/
+			window.wp.hooks.doAction( 'tec.events.admin.linked_posts.add_post', post_type, section, fields, dropdown );
 		});
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
@@ -390,15 +404,11 @@ jQuery( function( $ ) {
 		// Always hide the edit link unless we have an edit link to show (handled below).
 		$edit.hide();
 
-		if (
-			! existingPost &&
-			'-1' !== value &&
-			$selected.length
-		) {
+		if ( ! existingPost && value ) {
 			// Apply the New Given Title to the Correct Field
 			$group.find( '.linked-post-name' ).val( value ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
 
-			$select.val( '-1' );
+			$select.val( '' );
 
 			// Display the Fields
 			$group
@@ -619,10 +629,18 @@ jQuery( function( $ ) {
 		}
 	}
 
+	window.wp.hooks.addAction( 'tec.events.admin.linked_posts.add_post', 'tec', ( post_type, template_section, new_section ) => {
+		if ( 'tribe_venue' !== post_type ) {
+			return;
+		}
+
+		new_section.find( '#EventCountry' ).trigger( 'change' );
+	} );
+
 	//show state/province input based on first option in countries list, or based on user input of country
-	$( 'body' ).on( 'change', '#EventCountry', function () {
+	$( document ).on( 'change', '[id="EventCountry"]', function () {
 		var $country        = $( this );
-		var $container      = $country.parents( 'div.eventForm' ).eq( 0 );
+		var $container      = $country.parents( 'tbody' ).eq( 0 );
 		var $state_select   = $container.find( '#StateProvinceSelect' );
 		var $state_dropdown = $state_select.next( '.select2-container' );
 		var $state_text     = $container.find( '#StateProvinceText' );
