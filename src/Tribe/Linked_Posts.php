@@ -1253,6 +1253,7 @@ class Tribe__Events__Linked_Posts {
 				class="tribe-dropdown linked-post-dropdown hide-before-select2-init"
 				name="<?php echo esc_attr( $name ); ?>"
 				id="saved_<?php echo esc_attr( $post_type ); ?>"
+				data-post-type="<?php echo esc_attr( $post_type ); ?>"
 				data-placeholder="<?php echo esc_attr( $label ); ?>"
 				data-search-placeholder="<?php echo esc_attr( $label ); ?>"
 				<?php if ( $creation_enabled ) : ?>
@@ -1263,9 +1264,7 @@ class Tribe__Events__Linked_Posts {
 				data-force-search
 				<?php endif; ?>
 			>
-				<option value="-1" <?php selected( empty( $current ) ); ?>>
-					<?php echo esc_html( $label ); ?>
-				</option>
+				<option></option>
 				<?php if ( ! empty( $data[0]['children'] ) ) : ?>
 					<?php foreach ( $data as $group ) : ?>
 						<optgroup label="<?php echo esc_attr( $group['text'] ); ?>">
