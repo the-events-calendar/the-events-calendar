@@ -255,6 +255,17 @@ jQuery( function( $ ) {
 
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns();
 
+			dropdown.find( 'select.linked-post-dropdown' ).trigger( 'change' );
+
+			// Determine if we should hide all the trash buttons and move buttons.
+			if ( section.find( 'tbody' ).length > 1 ) {
+				section.find( '.tribe-delete-this' ).show();
+				section.find( '.move-linked-post-group' ).show();
+			} else {
+				section.find( '.tribe-delete-this' ).hide();
+				section.find( '.move-linked-post-group' ).hide();
+			}
+
 			/**
 			 * Fires when a new linked post is added to the event.
 			 *
@@ -361,6 +372,17 @@ jQuery( function( $ ) {
 
 			$group.fadeOut( 500, function() {
 				$( this ).remove();
+
+				$group.find( 'select.linked-post-dropdown' ).trigger( 'change' );
+
+				// Determine if we should hide all the trash buttons and move buttons.
+				if ( section.find( 'tbody' ).length > 1 ) {
+					section.find( '.tribe-delete-this' ).show();
+					section.find( '.move-linked-post-group' ).show();
+				} else {
+					section.find( '.tribe-delete-this' ).hide();
+					section.find( '.move-linked-post-group' ).hide();
+				}
 			} );
 		});
 
@@ -378,17 +400,27 @@ jQuery( function( $ ) {
 			delay       : 100
 		} );
 
+		// Determine if we should hide all the trash buttons and move buttons.
 		if ( section.find( 'tbody' ).length > 1 ) {
+			section.find( '.tribe-delete-this' ).show();
 			section.find( '.move-linked-post-group' ).show();
 		} else {
+			section.find( '.tribe-delete-this' ).hide();
 			section.find( '.move-linked-post-group' ).hide();
 		}
+
+		section.find( 'select.linked-post-dropdown' ).trigger( 'change' );
 	};
 
 	var toggle_linked_post_fields = function( event ) {
-
 		const $select = $( this );
+		console.log( $select );
+		const postType = $select.data( 'postType' );
+		const $wrapper = $select.parents( `#event_${postType}` ).eq( 0 );
+		const $groups = $wrapper.find( 'tbody' );
+		const linkedPostCount = $groups.length;
 		const $group = $select.closest( 'tbody' );
+		const currentGroupPosition = $groups.index( $group ) + 1;
 		const $edit = $group.find( '.edit-linked-post-link a' );
 		const value = $select.val();
 		const $selected = $select.find( ':selected' );
@@ -403,6 +435,7 @@ jQuery( function( $ ) {
 
 		// Always hide the edit link unless we have an edit link to show (handled below).
 		$edit.hide();
+		$wrapper.find( 'tfoot .tribe-add-post' ).show();
 
 		if ( ! existingPost && value ) {
 			// Apply the New Given Title to the Correct Field
@@ -410,13 +443,12 @@ jQuery( function( $ ) {
 
 			$select.val( '' );
 
-			// Display the Fields
+			// Display thwe Fields
 			$group
 				.find( '.linked-post' ).not( '[data-hidden]' ).show()
 				.find( '.tribe-dropdown' );
 
 			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
-
 		} else {
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input, select' ).val( '' );
@@ -427,6 +459,14 @@ jQuery( function( $ ) {
 			if ( ! _.isEmpty( editLink ) ) {
 				$edit.attr( 'href', editLink ).show();
 			}
+		}
+
+		if (
+			! existingPost &&
+			! value &&
+			currentGroupPosition === linkedPostCount
+		) {
+			$wrapper.find( 'tfoot .tribe-add-post' ).hide();
 		}
 	};
 
