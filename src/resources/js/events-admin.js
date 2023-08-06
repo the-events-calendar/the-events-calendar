@@ -414,7 +414,6 @@ jQuery( function( $ ) {
 
 	var toggle_linked_post_fields = function( event ) {
 		const $select = $( this );
-		console.log( $select );
 		const postType = $select.data( 'postType' );
 		const $wrapper = $select.parents( `#event_${postType}` ).eq( 0 );
 		const $groups = $wrapper.find( 'tbody' );
@@ -443,7 +442,7 @@ jQuery( function( $ ) {
 
 			$select.val( '' );
 
-			// Display thwe Fields
+			// Display the Fields
 			$group
 				.find( '.linked-post' ).not( '[data-hidden]' ).show()
 				.find( '.tribe-dropdown' );
