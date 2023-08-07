@@ -957,7 +957,7 @@ class Tribe__Events__Linked_Posts {
 			}
 
 			// Remove all pre-existing (and non-removed) linked posts to start fresh by re-adding below (for `meta_id` ordering purposes)
-			if ( ! empty( $temp_prior_linked_posts ) ) {
+			if ( ! empty( $temp_old_order ) ) {
 				delete_post_meta( $event_id, $linked_post_type_meta_key );
 			}
 
@@ -1264,7 +1264,9 @@ class Tribe__Events__Linked_Posts {
 				data-force-search
 				<?php endif; ?>
 			>
-				<option></option>
+				<option value="-1" <?php selected( empty( $current ) ); ?>>
+					<?php echo esc_html( $label ); ?>
+				</option>
 				<?php if ( ! empty( $data[0]['children'] ) ) : ?>
 					<?php foreach ( $data as $group ) : ?>
 						<optgroup label="<?php echo esc_attr( $group['text'] ); ?>">

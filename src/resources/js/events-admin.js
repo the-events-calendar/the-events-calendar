@@ -364,7 +364,7 @@ jQuery( function( $ ) {
 			group.append( fields );
 		} );
 
-		section.on( 'click', '.tribe-delete-this', function(e) {
+		$( document ).on( 'click', `#event_${post_type} .tribe-delete-this`, function(e) {
 			e.preventDefault();
 			var $group = $( this ).closest( 'tbody' );
 
@@ -383,6 +383,8 @@ jQuery( function( $ ) {
 					section.find( '.tribe-delete-this' ).hide();
 					section.find( '.move-linked-post-group' ).hide();
 				}
+
+				showOrHideAddPostButton( section );
 			} );
 		});
 
@@ -436,11 +438,11 @@ jQuery( function( $ ) {
 		$edit.hide();
 		$wrapper.find( 'tfoot .tribe-add-post' ).show();
 
-		if ( ! existingPost && value ) {
+		if ( ! existingPost && value !== '-1' && value ) {
 			// Apply the New Given Title to the Correct Field
 			$group.find( '.linked-post-name' ).val( value ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
 
-			$select.val( '' );
+			$select.val( '-1' );
 
 			// Display the Fields
 			$group
@@ -460,14 +462,42 @@ jQuery( function( $ ) {
 			}
 		}
 
+		showOrHideAddPostButton( $wrapper );
+	};
+
+	/**
+	 * Shows or hides the Add <Post> button.
+	 *
+	 * @since TBD
+	 * @param {Object} $wrapper The jQuery object for the wrapper of the linked post fields.
+	 */
+	function showOrHideAddPostButton( $wrapper ) {
+		const $groups = $wrapper.find( 'tbody' );
+		const linkedPostCount = $groups.length;
+
+		const $select = $wrapper.find( 'tbody' ).last().find( 'select' );
+		const value = $select.val();
+		const $selected = $select.find( ':selected' );
+		const selectedVal = $selected.val();
+		const $group = $select.closest( 'tbody' );
+
+		const currentGroupPosition = $groups.index( $group ) + 1;
+		let existingPost = false;
+
+		if ( selectedVal === value ) {
+			existingPost = !! $selected.data( 'existingPost' );
+		}
+
 		if (
 			! existingPost &&
-			! value &&
+			( ! value || value === '-1' ) &&
 			currentGroupPosition === linkedPostCount
 		) {
 			$wrapper.find( 'tfoot .tribe-add-post' ).hide();
+		} else {
+			$wrapper.find( 'tfoot .tribe-add-post' ).show();
 		}
-	};
+	}
 
 	$( '.hide-if-js' ).hide();
 
