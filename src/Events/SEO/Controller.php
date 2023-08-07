@@ -11,6 +11,7 @@
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use \Tribe__Date_Utils as Dates;
+use Tribe__Repository;
 
 
 /**
@@ -95,7 +96,7 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		$args = $context->get( 'view_data', [] );
+		$events = tribe_events();
 
 		/**
 		 * Allow specific views to hook in and add their own calculated events.
@@ -108,20 +109,29 @@ class Controller extends Controller_Contract {
 		 * @param Tribe__Context          $context    The current context.
 		 *
 		 */
-		$events = apply_filters( 'tec_events_noindex', null, $start_date, $end_date, $context );
+		$events = apply_filters( 'tec_events_noindex', $events, $start_date, $end_date, $context );
 
 		// If nothing has hooked in ($events is null|false, we do a quick query for a single event after the start date.
-		if ( empty( $events ) ) {
-			if ( $start_date == $end_date )  {
-				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Dates::DBDATEFORMAT ) );
-			} else {
-				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Dates::DBDATEFORMAT ) )->where( 'starts_before', $end_date->format( Dates::DBDATEFORMAT ) );
-			}
+		if (
+			empty( $events )
+			|| (
+				$events instanceof Tribe__Repository
+				&& $events->count() === 0
+			)
+		) {
+			$query_start = $start_date->format( Dates::DBDATEFORMAT );
+			$query_end   = $end_date->format( Dates::DBDATEFORMAT );
 
+			if ( $start_date == $end_date )  {
+				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $query_start )->fields( 'ids' );
+			} else {
+				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $query_start )->where( 'starts_before', $query_end )->fields( 'ids' );
+			}
 		}
 
 		// No posts = no index.
-		$add_noindex = 0 < $events->count();
+		$count = $events->count();
+		$add_noindex = $count <= 0;
 
 		/**
 		 * Determines if a noindex meta tag will be set for the current event view.

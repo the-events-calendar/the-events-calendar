@@ -22,7 +22,7 @@ trait With_Noindex {
 	 *
 	 * @since TBD
 	 *
-	 * @param Tribe__Repository|false $events     The events repository. False by default.
+	 * @param Tribe__Repository|null  $events     The events repository. Null by default.
 	 * @param DateTime                $start_date The start date (object) of the query.
 	 * @param DateTime|null           $end_date   The end date (object) of the query.
 	 * @param Tribe__Context| null    $context    The current context.
@@ -32,7 +32,6 @@ trait With_Noindex {
 	public function get_noindex_events( $events, $start_date, $end_date = null, $context = null ) {
 		if ( null === $events )  { return; }
 
-		$this->repository->get_query_vars();
 		$cache     = new \Tribe__Cache();
 		$trigger   = \Tribe__Cache_Listener::TRIGGER_SAVE_POST;
 		$cache_key = $cache->make_key(
@@ -40,7 +39,7 @@ trait With_Noindex {
 				'view'    => $this->get_view_slug(),
 				'start'   => $start_date->format( \Tribe__Date_Utils::DBDATEFORMAT ),
 				'end'     => $end_date->format( \Tribe__Date_Utils::DBDATEFORMAT ),
-				'args'    => $this->repository_args,
+				'query'   => $this->repository_args,
 			],
 			'tec_noindex_'
 		);
