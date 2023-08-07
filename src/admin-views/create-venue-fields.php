@@ -149,7 +149,7 @@ if ( ! $_POST ) {
 			class="tribe-dropdown"
 			tabindex="<?php tribe_events_tab_index(); ?>"
 			id="StateProvinceSelect"
-			name="venue[State]"
+			name="venue[State][]"
 			aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>"
 			data-prevent-clear
 		>
