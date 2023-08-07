@@ -32,7 +32,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 * @return bool
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		return $this->volatile ? isset( $this->volatile_values[ $offset ] ) : defined( $offset );
 	}
 

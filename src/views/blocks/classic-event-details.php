@@ -52,8 +52,13 @@ $time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $ti
 $time_title = apply_filters( 'tribe_events_single_event_time_title', __( 'Time:', 'the-events-calendar' ), $event_id );
 
 $website = tribe_get_event_website_link( $event_id );
+
+$default_classes = [ 'tribe-events-single-section', 'tribe-events-event-meta', 'primary', 'tribe-clearfix' ];
+
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div class="tribe-events-single-section tribe-events-event-meta primary tribe-clearfix">
+<div <?php tribe_classes( $classes ); ?>>
 	<?php do_action( 'tribe_events_single_event_meta_primary_section_start' ); ?>
 
 	<?php $this->template( 'blocks/parts/details' ); ?>
