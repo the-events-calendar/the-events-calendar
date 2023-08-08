@@ -60,4 +60,29 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $expected, $request->get_params() );
 	}
 
+	/**
+	 * Validate our REST nonces are generated as expected.
+	 *
+	 * @test
+	 */
+	public function it_should_generate_nonces() {
+		$nonces = Rest_Endpoint::get_rest_nonces();
+		$this->assertIsArray( $nonces );
+		$this->assertCount( 2, $nonces );
+
+		// Our user is not logged in, so it should only be one nonce.
+		$this->assertNotEmpty( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ] );
+		$this->assertEmpty( $nonces[ Rest_Endpoint::SECONDARY_NONCE_KEY ] );
+		$this->assertEquals( 1, wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION ) );
+
+		// Login a user, now should be two different nonces.
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$nonces = Rest_Endpoint::get_rest_nonces();
+		$this->assertNotEmpty( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ] );
+		$this->assertNotEmpty( $nonces[ Rest_Endpoint::SECONDARY_NONCE_KEY ] );
+		$this->assertNotEquals( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], $nonces[ Rest_Endpoint::SECONDARY_NONCE_KEY ] );
+		$valid = wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION )
+		         || wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION );
+		$this->assertTrue( $valid );
+	}
 }
