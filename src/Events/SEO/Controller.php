@@ -2,9 +2,9 @@
 /**
  * Manages the legacy view removal and messaging.
  *
- * @since   5.13.0
+ * @since   TBD
  *
- * @package TEC\Events\Legacy\Views\V1
+ * @package TEC\Events\SEO
  */
 
  namespace TEC\Events\SEO;
@@ -17,9 +17,9 @@ use Tribe__Repository;
 /**
  * Class Provider
  *
- * @since   5.13.0
+ * @since   TBD
 
- * @package TEC\Events\Legacy\Views\V1
+ * @package TEC\Events\SEO
  */
 class Controller extends Controller_Contract {
 	public function do_register(): void {
