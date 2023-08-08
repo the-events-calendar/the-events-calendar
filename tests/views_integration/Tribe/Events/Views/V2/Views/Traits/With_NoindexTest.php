@@ -5,6 +5,8 @@ namespace Tribe\Events\Views\V2\Views\Traits;
 use TEC\Events\SEO\Controller;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use Tribe\Events\Views\V2\Views\List_View;
+use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 
 class With_NoindexTest extends ViewTestCase {
