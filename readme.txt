@@ -231,8 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Fixed a bug where '0' and '1' were displayed on the 'general' and 'display' tabs for Network admins on multisite installations. [TEC-4774]
-
+* Fix - Fixed a bug where `0` and `1` were displayed on the `general` and `display` tabs for Network admins on multisite installations. [TEC-4774]
 
 = [6.1.4] TBD =
 
