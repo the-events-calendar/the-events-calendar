@@ -222,13 +222,13 @@ $sample_date = strtotime( 'January 15 ' . date( 'Y' ) );
 $tec_events_date_fields     = [
 	'tribeEventsDateFormatSettingsTitle' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-date">' . esc_html__( 'Date & Time', 'Date and Time settings section header', 'tribe-common' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-date">' . esc_html__( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEventsDateFormatExplanation'   => [
 		'type' => 'html',
 		'html' => '<p>'
 					. sprintf(
-						__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'tribe-common' ),
+						__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'the-events-calendar' ),
 						'<code>date()</code>',
 						'https://wordpress.org/support/article/formatting-date-and-time/'
 					)
@@ -275,8 +275,8 @@ $tec_events_date_fields     = [
 	],
 	'datepickerFormat'                   => [
 		'type'            => 'dropdown',
-		'label'           => esc_html__( 'Compact date format', 'tribe-common' ),
-		'tooltip'         => esc_html__( 'Select the date format used for elements with minimal space, such as in datepickers.', 'tribe-common' ),
+		'label'           => esc_html__( 'Compact date format', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Select the date format used for elements with minimal space, such as in datepickers.', 'the-events-calendar' ),
 		'default'         => 1,
 		'options'         => [
 			'0'  => date( 'Y-m-d', $sample_date ),
