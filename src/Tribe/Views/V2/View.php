@@ -1560,8 +1560,12 @@ class View implements View_Interface {
 			$this->repository->by_args( $this->repository_args );
 		}
 
-		// Check if we memoized these vars and if memoize is enabled.
-		$memoize_key = 'setup_template_vars_' . md5( __METHOD__ . json_encode( $this->repository_args ) );
+		// Pre build query, so we can determine the unique hash for this event query.
+		$this->repository->build_query();
+		$repository_query_hash = $this->repository->hash();
+
+		// Check if we memoized this query and if memoize was enabled.
+		$memoize_key = __METHOD__ . $repository_query_hash;
 		$vars        = tribe_cache()->get( $memoize_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
 		if ( ! empty( $vars ) ) {
 			return $vars;
