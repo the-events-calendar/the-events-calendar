@@ -229,6 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixed a bug where '0' and '1' were displayed on the 'general' and 'display' tabs for Network admins on multisite installations. [TEC-4774]
+
+
 = [6.1.4] TBD =
 
 * Fix - In some scenarios our pagination and various view actions would fail due to 403 errors on the REST endpoints, because of failing nonce checks, likely due to cache. Updating the way we handle nonces to avoid some scenarios the wrong nonce could be cached. [TEC-4814]
