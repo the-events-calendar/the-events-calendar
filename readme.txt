@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.1.4
+Stable tag: 6.2.0
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.1.4] TBD =
+= [6.2.0] TBD =
 
 * Tweak - Change styling for Venue Blocks to constrain to a card-like style. [ECP-1540]
 * Tweak - Adjust REST endpoints to support multiple venues during event creation and updates. [ECP-1540]
@@ -238,6 +238,20 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Ensure the "Add Organizer" button is visible in the classic editor if organizers have been set. [TEC-4729]
 * Fix - Simplify data handling of venues within the block editor. [ECP-1540]
 * Fix - When removing a newly created organizer in the block editor before saving the event will now trash the draft organizer. [TEC-3865]
+
+= [6.1.4] TBD =
+
+* Fix - This issue was regarding our rewrite parsing for the view picker url generation with WPML enabled. It was failing to parse the translated rewrite properly, and leaving unparsed permalinks. [TEC-4758]
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Our logic to include `tribe_events` post type on the tag archive page was incorrectly bleeding into other queries happening on the page. This narrows the scope for the `WP_Query` post type overrides and avoids situations where Divi templates were not loading properly. [TEC-4819]
+* Fix - Correct some PHP 8.1 deprecations that impact loading of views.
+* Fix - Prevent TypeError warnings around `admin_footer_text_settings` filter due to type hinting conflicting with other plugins returning null.
+* Tweak - Deprecated misspelled `tribe_get_organiser_object_after` filter for one with correct spelling: `tribe_get_organizer_object_after`. Done as part of [TEC-4812]
+* Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
+* Tweak - Fix typo in template displaying stray "w". [TEC-4870]
+* Tweak - Removed code pertaining to Event Tickets CT1. [ETP-874]
+
 
 = [6.1.3] 2023-07-13 =
 
