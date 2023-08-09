@@ -58,9 +58,34 @@ extends Tribe__Editor__Blocks__Abstract {
 			[],
 			'wp_enqueue_scripts',
 			[
-				'conditionals' => [ $this, 'has_block' ],
+				'conditionals' => [ $this, 'should_enqueue_assets' ],
 			]
 		);
+	}
+
+	/**
+	 * Determines if assets should be enqueued.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_assets(): bool {
+		$should_enqueue = false;
+
+		if ( $this->has_block() ) {
+			$should_enqueue = true;
+		}
+
+		/**
+		 * Filters whether or not assets should be enqueued for the event venue block.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $should_enqueue Whether or not assets should be enqueued.
+		 * @param Tribe__Events__Editor__Blocks__Event_Venue $block The block instance.
+		 */
+		return apply_filters( 'tec_events_blocks_event_venue_should_enqueue_assets', $should_enqueue, $this );
 	}
 
 	/**
