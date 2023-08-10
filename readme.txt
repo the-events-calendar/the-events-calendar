@@ -242,6 +242,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
 * Tweak - Fix typo in template displaying stray "w". [TEC-4870]
 * Tweak - Removed code pertaining to Event Tickets CT1. [ETP-874]
+* Tweak - Added filters: `tec_events_views_v2_get_rest_nonces`, `tribe_events_get_organizer_object_after`
+* Tweak - Deprecated filters: `tribe_events_get_organiser_object_after`
+* Tweak - Deprecated functions: In `Tribe\Views\V2\Views\Traits\HTML_Cache.php` the `get_view_nonce_fields()`,`get_view_nonce_attributes()`, `get_view_nonce_json_properties()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, and `maybe_generate_nonce()` functions have been deprecated.
+* Tweak - Changed views: `blocks/classic-event-details.php`, `blocks/event-category.php`, `blocks/event-datetime.php`, `blocks/event-organizer.php`, `blocks/event-price.php`, `blocks/event-tags.php`, `blocks/event-venue.php`, `blocks/event-website.php`, `blocks/featured-image.php`, `blocks/parts/details.php`, `blocks/parts/organizer.php`, `blocks/parts/subscribe-list.php`, `blocks/parts/subscribe-single.php`, `modules/meta/organizer.php`, `modules/meta/venue.php`, `v2/components/events-bar/search.php`, `v2/day.php`, `v2/list.php`, `v2/month.php`, `v2/widgets/widget-events-list.php`.
 * Language - 11 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.1.3] 2023-07-13 =
