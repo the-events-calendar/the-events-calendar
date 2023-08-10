@@ -642,7 +642,7 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 * @since 6.0.3.1
 	 *
 	 * @param WP_Post     $post        The organizer post object to filter and return.
@@ -652,14 +652,14 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string      $filter      The filter, or context of the fetch.
 	 */
-	$post = apply_filters_deprecated( 'tribe_get_organiser_object_after', [ $post, $organizer, $output, $filter ], 'TBD', 'tribe_get_organizer_object_after', 'Deprecated due to misspelling in filter.');
+	$post = apply_filters_deprecated( 'tribe_get_organiser_object_after', [ $post, $organizer, $output, $filter ], '6.1.4', 'tribe_get_organizer_object_after', 'Deprecated due to misspelling in filter.');
 
 	/**
 	 * Filters the organizer result after the organizer has been built from the function.
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
-	 * @since TBD
+	 * @since 6.1.4
 	 *
 	 * @param WP_Post     $post        The organizer post object to filter and return.
 	 * @param int|WP_Post $organizer   The organizer object to fetch.

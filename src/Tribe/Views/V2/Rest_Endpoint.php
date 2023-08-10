@@ -23,7 +23,7 @@ class Rest_Endpoint {
 	/**
 	 * The action for this nonce.
 	 *
-	 * @since TBD
+	 * @since 6.1.4
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Rest_Endpoint {
 	/**
 	 * The field name for the primary nonce.
 	 *
-	 * @since TBD
+	 * @since 6.1.4
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Rest_Endpoint {
 	/**
 	 * The field name for the secondary nonce.
 	 *
-	 * @since TBD
+	 * @since 6.1.4
 	 *
 	 * @var string
 	 */
@@ -78,7 +78,7 @@ class Rest_Endpoint {
 	/**
 	 * Get the nonces being passed to the V2 views used for our REST requests.
 	 *
-	 * @since TBD
+	 * @since 6.1.4
 	 *
 	 * @return array<string,string> The field => nonce array.
 	 */
@@ -118,7 +118,7 @@ class Rest_Endpoint {
 		/**
 		 * Filter the list of nonces being used on REST requests for V2 views.
 		 *
-		 * @since TBD
+		 * @since 6.1.4
 		 *
 		 * @param array<string,string> The field => nonce array.
 		 */

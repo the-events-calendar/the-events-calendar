@@ -35,7 +35,7 @@ tribe.events.views.manager = {};
 	/**
 	 * If found, will store the nonce from view responses.
 	 *
-	 * @since TBD
+	 * @since 6.1.4
 	 *
 	 * @type {String|null}
 	 */

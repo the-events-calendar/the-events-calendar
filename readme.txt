@@ -229,19 +229,20 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.1.4] TBD =
+= [6.1.4] 2023-08-10 =
 
 * Fix - In some scenarios our pagination and various view actions would fail due to 403 errors on the REST endpoints, because of failing nonce checks, likely due to cache. Updating the way we handle nonces to avoid some scenarios the wrong nonce could be cached. [TEC-4814]
 * Fix - This issue was regarding our rewrite parsing for the view picker url generation with WPML enabled. It was failing to parse the translated rewrite properly, and leaving unparsed permalinks. [TEC-4758]
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
 * Fix - Our logic to include `tribe_events` post type on the tag archive page was incorrectly bleeding into other queries happening on the page. This narrows the scope for the `WP_Query` post type overrides and avoids situations where Divi templates were not loading properly. [TEC-4819]
-* Fix - Correct some PHP 8.1 deprecations that impact loading of views.
+* Fix - Correct some PHP 8.1 deprecations that impact loading of views. [TEC-4871]
 * Fix - Prevent TypeError warnings around `admin_footer_text_settings` filter due to type hinting conflicting with other plugins returning null.
 * Tweak - Deprecated misspelled `tribe_get_organiser_object_after` filter for one with correct spelling: `tribe_get_organizer_object_after`. Done as part of [TEC-4812]
 * Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
 * Tweak - Fix typo in template displaying stray "w". [TEC-4870]
 * Tweak - Removed code pertaining to Event Tickets CT1. [ETP-874]
+* Language - 11 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.1.3] 2023-07-13 =
 
