@@ -7,7 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link http://evnt.is/1aiy
+ * @link    http://evnt.is/1aiy
+ *
+ * @since   6.1.4 Changing our nonce verification structures.
  *
  * @version TBD
  * @since TBD Moved the header information into a new components/header.php template.
@@ -15,7 +17,6 @@
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_method          The HTTP method, either `POST` or `GET`, the View will use to make requests.
- * @var string   $rest_nonce           The REST nonce.
  * @var int      $should_manage_url    int containing if it should manage the URL.
  * @var bool     $disable_event_search Boolean on whether to disable the event search.
  * @var string[] $container_classes    Classes used for the container of the view.
@@ -32,7 +33,6 @@ if ( empty( $disable_event_search ) ) {
 <div
 	<?php tribe_classes( $container_classes ); ?>
 	data-js="tribe-events-view"
-	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 	data-view-rest-method="<?php echo esc_attr( $rest_method ); ?>"
 	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
