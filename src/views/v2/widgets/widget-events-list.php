@@ -11,7 +11,7 @@
  *
  * @since 5.3.0
  * @since 5.4.0   Remove passed vars - rely on widget object in view more template.
- * @since TBD Changing our nonce verification structures.
+ * @since 6.1.4 Changing our nonce verification structures.
  *
  * @version 5.12.0
  *

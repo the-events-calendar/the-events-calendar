@@ -9,7 +9,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @since   TBD Changing our nonce verification structures.
+ * @since   6.1.4 Changing our nonce verification structures.
  *
  * @version 5.2.1
  *
