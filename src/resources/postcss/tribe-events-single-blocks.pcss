@@ -38,18 +38,15 @@
 /* = Venue block view styles
 ============================================= */
 .tribe-block__venue {
-	border: 1px solid var(--tec-color-border-secondary);
-	border-radius: var(--tec-border-radius-default);
-	flex-direction: column;
+	border-top: 1px solid var(--tec-color-border-default);
+	flex-direction: column-reverse;
 	font-family: var(--tec-font-family-sans-serif);
 	justify-content: flex-start;
-	margin-top: var(--tec-spacer-6);
-	max-width: 580px;
-	padding: var(--tec-spacer-2);
+	padding: 22.5px 0;
 
 	@media screen and (min-width: 768px) {
 		flex-direction: row;
-		padding: var(--tec-spacer-5);
+		padding: 32px 0;
 	}
 
 	&.tribe-block__venue--has-map {
@@ -58,35 +55,31 @@
 		.tribe-block__venue__map {
 			flex: none;
 			width: 100%;
-		}
-
-		.tribe-block__venue__map {
 
 			@media screen and (min-width: 768px) {
-				width: 53%;
-			}
-
-			iframe {
-				width: 100%;
+				width: 50%;
 			}
 		}
 
 		.tribe-block__venue__meta {
-			margin-bottom: var(--tec-spacer-1);
-
-			@media screen and (min-width: 768px) {
-				margin-right: var(--tec-spacer-1);
-				width: 47%;
+			@media screen and (min-width: 1200px) {
+				margin-right: 20px;
+				width: 35%;
 			}
 		}
 	}
 
 	.tribe-block__venue__meta {
+		margin-top: 24px;
+
+		@media screen and (min-width: 768px) {
+			margin-top: 0;
+		}
 
 		.tribe-block__venue__name {
 
 			h3 {
-				font-size: var(--tec-font-size-2);
+				font-size: var(--tec-font-size-3);
 				font-weight: normal;
 				letter-spacing: normal;
 				line-height: 1.64;
@@ -98,15 +91,11 @@
 
 			a {
 				color: var(--tec-color-link-accent);
-				margin-top: var(--tec-spacer-2);
+				margin-top: 17px;
 			}
 
 			.tribe-region.tribe-events-abbr {
 				text-decoration: none;
-			}
-
-			.tribe-country-name {
-				display: block;
 			}
 		}
 
@@ -118,7 +107,6 @@
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
 			color: var(--tec-color-text-primary);
-			font-size: var(--tec-font-size-2);
 			font-weight: normal;
 			letter-spacing: normal;
 			line-height: 1.64;

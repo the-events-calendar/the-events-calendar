@@ -17,22 +17,6 @@ export const removeVenue = () => ( {
 	},
 } );
 
-export const addVenueInBlock = ( id, venue ) => ( {
-	type: types.ADD_BLOCK_VENUE,
-	payload: {
-		id,
-		venue,
-	},
-} );
-
-export const removeVenueInBlock = ( id, venue ) => ( {
-	type: types.REMOVE_BLOCK_VENUE,
-	payload: {
-		id,
-		venue,
-	},
-} );
-
 export const setShowMap = ( showMap ) => ( {
 	type: types.SET_VENUE_MAP,
 	payload: {

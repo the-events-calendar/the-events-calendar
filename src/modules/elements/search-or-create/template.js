@@ -125,8 +125,6 @@ class SearchOrCreate extends Component {
 			{ 'tribe-editor__soc__input__container--active': isSelected },
 		);
 
-		const currentTerm = isSelected ? term : '';
-
 		return (
 			<section className="tribe-soc__container">
 				<div className={ containerClass }>
@@ -134,7 +132,7 @@ class SearchOrCreate extends Component {
 					<input
 						className="tribe-editor__soc__input"
 						ref={ this.inputRef }
-						value={ currentTerm }
+						value={ term }
 						placeholder={ placeholder }
 						onChange={ onInputChange }
 					/>

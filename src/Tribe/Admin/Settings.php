@@ -256,7 +256,7 @@ class Settings {
 			[
 				'id'         => $app_shop::MENU_SLUG,
 				'parent'     => $this->get_tec_events_menu_slug(),
-				'title'      => esc_html__( 'Event Add-Ons', 'the-events-calendar' ),
+				'title'      => esc_html__( 'Event Add-Ons', 'event-tickets' ),
 				'path'       => $app_shop::MENU_SLUG,
 				'capability' => 'install_plugins',
 				'callback'   => [

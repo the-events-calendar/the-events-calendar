@@ -11,18 +11,13 @@
  *
  * @version 4.7
  *
- * @var bool $show_map Whether to show the map or not.
- * @var ?int $venue_id The ID of the venue to display.
- *
  */
 
-$attributes = $this->get( 'attributes', [] );
-
-if ( ! $show_map ) {
+if ( ! tribe_embed_google_map() ) {
 	return;
 }
 
-$map = tribe_get_embedded_map( $venue_id, 310, 256 );
+$map = tribe_get_embedded_map();
 
 if ( empty( $map ) ) {
 	return;

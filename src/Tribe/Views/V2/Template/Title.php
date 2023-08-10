@@ -88,29 +88,6 @@ class Title {
 	}
 
 	/**
-	 * A list of the taxonomies that might affect the title of the page.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string> List of taxonomy slugs.
-	 */
-	protected function get_taxonomies(): array {
-		$taxonomies = [
-			TEC::TAXONOMY,
-			'tag',
-		];
-
-		/**
-		 * Filters the list of taxonomies that might affect the title of the page.
-		 *
-		 * @since TBD
-		 *
-		 * @param array<string> $taxonomies The list of taxonomies.
-		 */
-		return apply_filters( 'tec_events_title_taxonomies', $taxonomies );
-	}
-
-	/**
 	 * Builds the page title from a context.
 	 *
 	 * This method is a rewrite of the `tribe_get_events_title` function to make it leverage the local context,
@@ -170,29 +147,25 @@ class Title {
 			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $this->events_label_plural );
 		}
 
-		$taxonomies = $this->get_taxonomies();
+		$taxonomy = TEC::TAXONOMY;
+		$term     = $context->get( $taxonomy, false );
 
-		// Find the first valid term in the taxonomies that might affect the title.
-		foreach ( $taxonomies as $taxonomy ) {
-			$term_slug = $context->get( $taxonomy, false );
+		if ( false === $term ) {
+			$taxonomy    = 'post_tag';
+			$term = $context->get( $taxonomy, false );
+		}
 
-			if ( false === $term_slug ) {
-				continue;
-			}
-
+		if ( false !== $term ) {
 			// Don't pass arrays to get_term_by()!
-			if ( is_array( $term_slug ) ) {
-				$term_slug = array_pop( $term_slug );
+			if ( is_array( $term ) ) {
+				$term = array_pop( $term );
 			}
 
-			$term = get_term_by( 'slug', $term_slug, $taxonomy );
+			$tax = get_term_by( 'slug', $term, $taxonomy );
 
-			if ( ! $term instanceof \WP_Term ) {
-				$term = null;
-				continue;
+			if ( $tax instanceof \WP_Term ) {
+				$title = $this->build_category_title( $title, $tax, $depth, $sep );
 			}
-
-			$title = $this->build_category_title( $title, $term, $depth, $sep );
 		}
 
 		/**

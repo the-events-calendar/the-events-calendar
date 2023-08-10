@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.0
+Stable tag: 6.1.4
 Tested up to: 6.2.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,16 +229,6 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.0] TBD =
-
-* Tweak - Change styling for Venue Blocks to constrain to a card-like style. [ECP-1540]
-* Tweak - Adjust REST endpoints to support multiple venues during event creation and updates. [ECP-1540]
-* Tweak - If multiple venues exist on an event, display them in the classic event editor. [ECP-1540]
-* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
-* Fix - Ensure the "Add Organizer" button is visible in the classic editor if organizers have been set. [TEC-4729]
-* Fix - Simplify data handling of venues within the block editor. [ECP-1540]
-* Fix - When removing a newly created organizer in the block editor before saving the event will now trash the draft organizer. [TEC-3865]
-
 = [6.1.4] TBD =
 
 * Fix - This issue was regarding our rewrite parsing for the view picker url generation with WPML enabled. It was failing to parse the translated rewrite properly, and leaving unparsed permalinks. [TEC-4758]
@@ -251,7 +241,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
 * Tweak - Fix typo in template displaying stray "w". [TEC-4870]
 * Tweak - Removed code pertaining to Event Tickets CT1. [ETP-874]
-
 
 = [6.1.3] 2023-07-13 =
 

@@ -9,7 +9,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import classicEventDetails from '@moderntribe/events/blocks/classic-event-details';
 import EventDateTimeControls from '@moderntribe/events/blocks/event-datetime/controls';
 import eventDateTime from '@moderntribe/events/blocks/event-datetime';
-import '@moderntribe/events/blocks/event-venue/index';
+import eventVenue from '@moderntribe/events/blocks/event-venue';
 import eventOrganizer from '@moderntribe/events/blocks/event-organizer';
 import eventLinks from '@moderntribe/events/blocks/event-links';
 import eventPrice from '@moderntribe/events/blocks/event-price';
@@ -28,6 +28,7 @@ export const controls = {
 const blocks = [
 	classicEventDetails,
 	eventDateTime,
+	eventVenue,
 	eventOrganizer,
 	eventLinks,
 	eventPrice,
