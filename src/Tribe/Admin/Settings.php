@@ -256,7 +256,7 @@ class Settings {
 			[
 				'id'         => $app_shop::MENU_SLUG,
 				'parent'     => $this->get_tec_events_menu_slug(),
-				'title'      => esc_html__( 'Event Add-Ons', 'event-tickets' ),
+				'title'      => esc_html__( 'Event Add-Ons', 'the-events-calendar' ),
 				'path'       => $app_shop::MENU_SLUG,
 				'capability' => 'install_plugins',
 				'callback'   => [
@@ -450,7 +450,7 @@ class Settings {
 	 * @param string $footer_text The admin footer text.
 	 * @return string $footer_text The admin footer text, maybe modified.
 	 */
-	public function admin_footer_text_settings( $footer_text ): string {
+	public function admin_footer_text_settings( $footer_text ) {
 		$admin_pages = tribe( 'admin.pages' );
 		$admin_page  = $admin_pages->get_current_page();
 

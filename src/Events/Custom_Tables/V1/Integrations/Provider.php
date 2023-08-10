@@ -24,14 +24,10 @@ class Provider extends Service_Provider {
 	/**
 	 * Registers the Service Providers required for the plugin to work with other plugins.
 	 *
+	 * @since 6.1.4 Removed registering ET CT1 logic.
 	 * @since 6.0.0
 	 */
 	public function register() {
-		// Class defined by the Event Events plugin.
-		if ( class_exists( '\\TEC\\Event_Tickets\\Custom_Tables\\V1\\Provider' ) ) {
-			$this->container->register( \TEC\Tickets\Custom_Tables\V1\Provider::class );
-		}
-
 		// Class defined by the Advanced Custom Fields plugin.
 		if ( class_exists( 'ACF' ) ) {
 			$this->container->register( ACF_Controller::class );

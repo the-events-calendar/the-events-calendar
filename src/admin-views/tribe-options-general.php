@@ -106,7 +106,7 @@ $general_tab_fields = [
 	],
 	'tec-donate-link-info'                           => [
 		'type'        => 'html',
-		'html'        => '<p>' . esc_html__( 'If you’re enjoying The Events Calendar, give us kudos by including a link in the footer of calendar views. It really helps us a lot.', 'tribe-common' ) . '</p>',
+		'html'        => '<p>' . esc_html__( 'If you’re enjoying The Events Calendar, give us kudos by including a link in the footer of calendar views. It really helps us a lot.', 'the-events-calendar' ) . '</p>',
 	],
 	'donate-link'                                    => [
 		'type'            => 'checkbox_bool',
