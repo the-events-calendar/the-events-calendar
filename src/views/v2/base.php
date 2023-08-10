@@ -11,8 +11,8 @@ use \Tribe\Events\Views\V2\Template;
  *
  * @link    http://evnt.is/1aiy
  *
- * @since 4.9.4
  * @version TBD
+ * @since TBD Better debug output and formatting.
  *
  *
  * @var Template $this           Template Engine instance rendering.

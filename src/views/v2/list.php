@@ -9,7 +9,8 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.2.1
+ * @version TBD
+ * @since TBD Moved the header information into a new components/header.php template.
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.

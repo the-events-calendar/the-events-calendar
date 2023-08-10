@@ -11,7 +11,8 @@ use Tribe__Utils__Array as Arr;
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.3.0
+ * @version TBD
+ * @since TBD Added classes and title attribute to the anchor tags.
  *
  * @var array $breadcrumb Data for breadcrumb.
  */

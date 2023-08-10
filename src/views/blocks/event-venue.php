@@ -9,7 +9,8 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.9.14
+ * @version TBD
+ * @since TBD Reworked class handling.
  *
  * @var bool $show_map Whether to show the map or not.
  */
