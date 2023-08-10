@@ -11,12 +11,12 @@
  *
  * @since 5.3.0
  * @since 5.4.0   Remove passed vars - rely on widget object in view more template.
+ * @since 6.1.4 Changing our nonce verification structures.
  *
  * @version 5.12.0
  *
  * @var array<\WP_Post>      $events                     The array containing the events.
  * @var string               $rest_url                   The REST URL.
- * @var string               $rest_nonce                 The REST nonce.
  * @var int                  $should_manage_url          int containing if it should manage the URL.
  * @var array<string>        $compatibility_classes      Classes used for the compatibility container.
  * @var array<string>        $container_classes          Classes used for the container of the view.
@@ -37,7 +37,6 @@ if ( empty( $events ) && $hide_if_no_upcoming_events ) {
 	<div
 		<?php tribe_classes( $container_classes ); ?>
 		data-js="tribe-events-view"
-		data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 		data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 		data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
 		<?php foreach ( $container_data as $key => $value ) : ?>

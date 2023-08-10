@@ -9,12 +9,13 @@
  *
  * @link http://evnt.is/1aiy
  *
+ * @since   6.1.4 Changing our nonce verification structures.
+ *
  * @version 5.2.1
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
  * @var string   $rest_method          The HTTP method, either `POST` or `GET`, the View will use to make requests.
- * @var string   $rest_nonce           The REST nonce.
  * @var bool     $disable_event_search Boolean on whether to disable the event search.
  * @var string[] $container_classes    Classes used for the container of the view.
  * @var bool     $should_manage_url    Whether the view should manage the URL or not.
@@ -31,7 +32,6 @@ if ( empty( $disable_event_search ) ) {
 <div
 	<?php tribe_classes( $container_classes ); ?>
 	data-js="tribe-events-view"
-	data-view-rest-nonce="<?php echo esc_attr( $rest_nonce ); ?>"
 	data-view-rest-url="<?php echo esc_url( $rest_url ); ?>"
 	data-view-rest-method="<?php echo esc_attr( $rest_method ); ?>"
 	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
