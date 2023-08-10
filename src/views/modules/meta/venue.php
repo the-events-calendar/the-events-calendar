@@ -65,6 +65,17 @@ $website_title = tribe_events_get_venue_website_title();
 		<?php if ( ! empty( $website ) ): ?>
 			<?php if ( ! empty( $website_title ) ): ?>
 				<dt class="tribe-venue-url-label"> <?php echo esc_html( $website_title ) ?> </dt>
+			<?php else: ?>
+				<dt
+					class="tribe-common-a11y-visual-hide"
+					aria-label="<?php echo sprintf(
+						/* Translators: %1$s is the customizable venue term, e.g. "Venue website title" */
+						esc_html_x( '%1$s website title', "The label for the venue's website title.", 'the-events-calendar' ),
+						tribe_get_venue_label_singular()
+					) ; ?>"
+				>
+					<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>
+				</dt>
 			<?php endif ?>
 			<dd class="tribe-venue-url"> <?php echo $website ?> </dd>
 		<?php endif ?>

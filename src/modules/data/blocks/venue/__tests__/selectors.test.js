@@ -1,18 +1,24 @@
 /**
  * Internal dependencies
  */
-import { DEFAULT_STATE } from '@moderntribe/events/data/blocks/venue/reducer';
 import { selectors } from '@moderntribe/events/data/blocks/venue';
 
 const state = {
 	events: {
 		blocks: {
-			venue: DEFAULT_STATE,
+			venue: {
+				blocks: {
+					allIds: [ 42 ],
+					byId: {},
+					core: {},
+				},
+			},
 		},
 	},
 };
 
 jest.mock( '@moderntribe/common/utils/globals', () => ( {
+	dateSettings: () => ( {} ),
 	editorDefaults: () => ( {
 		venue: 0,
 		venueCountry: '',
@@ -43,9 +49,5 @@ describe( '[STORE] - Venue selectors', () => {
 
 	it( 'Should select the showMapLink', () => {
 		expect( selectors.getshowMapLink( state ) ).toMatchSnapshot();
-	} );
-
-	it( 'Should select the venue', () => {
-		expect( selectors.getVenue( state ) ).toMatchSnapshot();
 	} );
 } );

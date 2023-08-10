@@ -19,8 +19,13 @@ if ( empty( $items ) ) {
 }
 
 remove_filter( 'the_content', 'do_blocks', 9 );
+
+$default_classes = [ 'tribe-block', 'tribe-block__events-link' ];
+
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-	<div class="tribe-block tribe-block__events-link">
+	<div <?php tribe_classes( $classes ); ?>>
 		<div class="tribe-events tribe-common">
 			<div class="tribe-events-c-subscribe-dropdown__container">
 				<div class="tribe-events-c-subscribe-dropdown">
