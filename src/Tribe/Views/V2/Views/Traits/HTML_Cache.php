@@ -30,7 +30,7 @@ trait HTML_Cache {
 	 * Return cached HTML if enabled and cache is set.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Removing nonce injection.
+	 * @since 6.1.4 Removing nonce injection.
 	 *
 	 * @return false|string Either the cached HTML contents, or `false` if the View HTML should not be cached or is not
 	 *                      cached yet.
@@ -89,7 +89,7 @@ trait HTML_Cache {
 	 * If caching is enabled, set the cache.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Removing nonce extraction.
+	 * @since 6.1.4 Removing nonce extraction.
 	 *
 	 * @param string $html HTML markup for view.
 	 *
@@ -379,14 +379,14 @@ trait HTML_Cache {
 	 * Get the list of fields/input we will do replacement for HTML Cache.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Deprecating for new nonce structure.
+	 * @since 6.1.4 Deprecating for new nonce structure.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 *
 	 * @return array   List of fields/input that we are going to replace.
 	 */
 	protected function get_view_nonce_fields() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.1.4' );
 		$nonces = [
 			'wp_rest' => 'tribe-events-views[_wpnonce]',
 		];
@@ -395,7 +395,7 @@ trait HTML_Cache {
 		 * Filter to control nonce fields replacement for HTML Cache.
 		 *
 		 * @since 5.0.0
-		 * @since TBD Changed nonce array structure, flipping key/value.
+		 * @since 6.1.4 Changed nonce array structure, flipping key/value.
 		 *
 		 * @param array      $nonces  List of action and field name where the nonce is stored.
 		 * @param Context    $context Context from the current view.
@@ -408,14 +408,14 @@ trait HTML_Cache {
 	 * Get the list of attributes we will do replacement for HTML Cache.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Deprecating for new nonce structure.
+	 * @since 6.1.4 Deprecating for new nonce structure.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 *
 	 * @return array   List of attributes that we are going to replace.
 	 */
 	protected function get_view_nonce_attributes() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.1.4' );
 		$nonces = [
 			'wp_rest' => 'data-view-rest-nonce',
 		];
@@ -437,14 +437,14 @@ trait HTML_Cache {
 	 * Get the list of JSON properties we will do replacement for HTML Cache.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Deprecating for new nonce structure.
+	 * @since 6.1.4 Deprecating for new nonce structure.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 *
 	 * @return array   List of json properties that we are going to replace.
 	 */
 	protected function get_view_nonce_json_properties() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.1.4' );
 		$nonces = [
 			'wp_rest' => 'rest_nonce',
 		];
@@ -466,16 +466,16 @@ trait HTML_Cache {
 	 * the correct string placeholder so we can remove it later.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Deprecating for new nonce structure.
+	 * @since 6.1.4 Deprecating for new nonce structure.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 *
 	 * @param string $html HTML with the nonces to be replaced.
 	 *
 	 * @return string  HTML after replacement is complete.
 	 */
 	protected function extract_nonces_before_cache( $html ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.1.4' );
 
 		return $html;
 	}
@@ -484,16 +484,16 @@ trait HTML_Cache {
 	 * Does string replacement on the HTML cached based on the possible places we look for cached nonce values.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Deprecating for new nonce structure.
+	 * @since 6.1.4 Deprecating for new nonce structure.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 *
 	 * @param string $html HTML with the nonces to be replaced.
 	 *
 	 * @return string  HTML after replacement is complete.
 	 */
 	protected function inject_nonces_into_cached_html( $html ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.1.4' );
 
 		return $html;
 	}
@@ -502,16 +502,16 @@ trait HTML_Cache {
 	 * Get a generated nonce required for HTML cache replacement based on an action provided.
 	 *
 	 * @since 5.0.0
-	 * @since TBD Deprecating for new nonce structure.
+	 * @since 6.1.4 Deprecating for new nonce structure.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 *
 	 * @param string $action Which action will be used to generate the nonce.
 	 *
 	 * @return string  Nonce based on action passed.
 	 */
 	protected function maybe_generate_nonce( $action ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.1.4' );
 		$generated_nonces = tribe_get_var( __METHOD__, [] );
 
 		if ( ! isset( $generated_nonces[ $action ] ) ) {
