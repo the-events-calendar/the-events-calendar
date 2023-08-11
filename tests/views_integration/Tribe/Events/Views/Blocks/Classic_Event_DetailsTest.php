@@ -9,34 +9,27 @@ use Tribe__Events__Editor__Blocks__Classic_Event_Details;
 class Classic_Event_DetailsTest extends HtmlTestCase {
 	use MatchesSnapshots;
 
-	protected $block_content;
-
-	public function setUp(): void {
-		parent::setUp();
-
-		$block = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
-
-		ob_start();
-		echo $block->render();
-
-		$this->block_content = ob_get_clean();
-	}
-
 	/**
 	 * Test that the block is rendered.
 	 */
 	public function test_block_is_rendered() {
-		$this->assertStringContainsString( 'tribe-events-single-section', $this->block_content );
-		$this->assertStringContainsString( 'tribe-events-event-meta', $this->block_content );
-		$this->assertStringContainsString( 'primary', $this->block_content );
-		$this->assertStringContainsString( 'tribe-clearfix', $this->block_content );
+		$block         = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
+		$block_content = $block->render();
+
+		$this->assertStringContainsString( 'tribe-events-single-section', $block_content );
+		$this->assertStringContainsString( 'tribe-events-event-meta', $block_content );
+		$this->assertStringContainsString( 'primary', $block_content );
+		$this->assertStringContainsString( 'tribe-clearfix', $block_content );
 	}
 
 	/**
 	 * Test that the block is rendered with no custom classes.
 	 */
 	public function test_render_no_custom_classes() {
-		$this->assertMatchesSnapshot( $this->block_content );
+		$block         = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
+		$block_content = $block->render();
+
+		$this->assertMatchesSnapshot( $block_content );
 	}
 
 	/**
@@ -50,7 +43,7 @@ class Classic_Event_DetailsTest extends HtmlTestCase {
 	}
 
 	/**
-	 * Test that the block is rendered with single custom class.
+	 * Test that the block is rendered with multiple custom classes.
 	 */
 	public function test_render_with_multiple_custom_classes() {
 		$block_with_custom_class = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
