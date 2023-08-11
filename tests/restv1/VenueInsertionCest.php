@@ -66,7 +66,7 @@ class VenueInsertionCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'venue'       => 'A venue',
 			'author'      => (string) $editor,
-			'date'        => date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
+			'date'        => wp_date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
 			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
 			'description' => trim( apply_filters( 'the_content', 'Venue description' ) ),
 		] );
@@ -201,7 +201,7 @@ class VenueInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'image', $response );
 		$I->assertEquals( $image_id, $response['image']['id'] );
 	}
-	
+
 	/**
 	 * It should avoid inserting a venue with identical fields twice
 	 * @test

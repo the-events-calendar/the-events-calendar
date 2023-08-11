@@ -74,7 +74,7 @@ class OrganizerUpdateCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'organizer'   => 'A organizer',
 			'author'      => (string) $editor,
-			'date'        => date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
+			'date'        => wp_date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
 			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
 			'description' => trim( apply_filters( 'the_content', 'Organizer description' ) ),
 		] );
