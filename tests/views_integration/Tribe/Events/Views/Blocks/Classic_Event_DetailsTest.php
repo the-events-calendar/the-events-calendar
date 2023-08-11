@@ -9,12 +9,19 @@ use Tribe__Events__Editor__Blocks__Classic_Event_Details;
 class Classic_Event_DetailsTest extends HtmlTestCase {
 	use MatchesSnapshots;
 
+	public function setUp(): void {
+		parent::setUp();
+		add_filter( 'tribe_editor_should_load_blocks', '__return_true', PHP_INT_MAX );
+		tribe( \Tribe__Events__Editor__Provider::class )->register();
+	}
+
 	/**
 	 * Test that the block is rendered.
 	 */
 	public function test_block_is_rendered() {
-		$block         = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
-		$block_content = $block->render();
+		ob_start();
+		echo ( new Tribe__Events__Editor__Blocks__Classic_Event_Details() )->render();
+		$block_content = ob_get_clean();
 
 		$this->assertStringContainsString( 'tribe-events-single-section', $block_content );
 		$this->assertStringContainsString( 'tribe-events-event-meta', $block_content );
@@ -26,8 +33,9 @@ class Classic_Event_DetailsTest extends HtmlTestCase {
 	 * Test that the block is rendered with no custom classes.
 	 */
 	public function test_render_no_custom_classes() {
-		$block         = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
-		$block_content = $block->render();
+		ob_start();
+		echo ( new Tribe__Events__Editor__Blocks__Classic_Event_Details() )->render();
+		$block_content = ob_get_clean();
 
 		$this->assertMatchesSnapshot( $block_content );
 	}
@@ -36,6 +44,10 @@ class Classic_Event_DetailsTest extends HtmlTestCase {
 	 * Test that the block is rendered with single custom class.
 	 */
 	public function test_render_with_single_custom_class() {
+		ob_start();
+		echo ( new Tribe__Events__Editor__Blocks__Classic_Event_Details() )->render();
+		$block_content = ob_get_clean();
+
 		$block_with_custom_class = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
 		$custom_class_content    = $block_with_custom_class->render( [ 'className' => 'custom-class' ] );
 
@@ -43,7 +55,7 @@ class Classic_Event_DetailsTest extends HtmlTestCase {
 	}
 
 	/**
-	 * Test that the block is rendered with multiple custom classes.
+	 * Test that the block is rendered with single custom class.
 	 */
 	public function test_render_with_multiple_custom_classes() {
 		$block_with_custom_class = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
