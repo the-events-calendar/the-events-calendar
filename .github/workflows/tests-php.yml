@@ -26,6 +26,7 @@ jobs:
           # - views_rest
           - wp_json_api
           - ct1_wp_json_api
+          - ct1_migration
           - rewrite_functional
     runs-on: ubuntu-20.04
     steps:
