@@ -241,6 +241,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filters: `tec_events_rewrite_dynamic_matchers`, `tec_events_views_v2_assets_should_enqueue_single_event_block_editor_styles`, `tec_events_title_taxonomies`, `tec_events_views_v2_view_header_title_element`, `tec_events_views_v2_view_{$view_slug}_header_title_element`, `tec_events_views_v2_view_header_title`, `tec_events_views_v2_view_{$view_slug}_header_title`, `tec_events_views_v2_view_content_title`, `tec_events_views_v2_view_{$view_slug}_content_title`, `tec_get_venue_ids`
 * Tweak - Added actions: `tec_events_after_venue_map_fields`
 * Tweak - Changed views: `blocks/event-venue.php`, `blocks/parts/map.php`, `blocks/parts/venue.php`, `v2/base.php`, `v2/components/breadcrumbs/linked-breadcrumbs.php`, `v2/components/content-title.php`, 'v2/components/header-title.php`, `v2/components/header.php`, `v2/components/messages.php`, `v2/day.php`, `v2/day/event/venue.php`, `v2/list.php`, `v2/list/event/venue.php`, `v2/month.php`
+* Language - 3 new strings added, 72 updated, 1 fuzzied, and 2 obsoleted
 
 
 = [6.1.4] 2023-08-10 =
