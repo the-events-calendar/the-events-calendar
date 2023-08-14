@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.] TBD =
 
-
+* Tweak - Enhanced venue and organizer labels by updating aria labels with additional placeholders and revised translator comments, improving internationalization and accessibility. [TEC-4874]
 
 = [6.1.4] 2023-08-10 =
 
