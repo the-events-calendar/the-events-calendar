@@ -600,7 +600,7 @@ class View implements View_Interface {
 	 * Gets an inheritance list for the current class, will only include valid Views, so the abstract and interface are
 	 * not included.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param bool $with_current     Should include the current class in the inheritance list or not.
 	 * @param bool $ignore_reflector Ignore reflector class in the inheritance list.
@@ -2284,7 +2284,7 @@ class View implements View_Interface {
 	/**
 	 * Header Title Element, allowing better control over the title tag.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return string
 	 */
@@ -2292,7 +2292,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title element the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title_element The header title to be displayed.
 		 * @param View   $this                 The current View instance being rendered.
@@ -2304,7 +2304,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title element a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title_element The header title element to be displayed.
 		 * @param View   $this                 The current View instance being rendered.
@@ -2315,7 +2315,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the header title the View will display on the front-end, normally above the breadcrumbs.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return string
 	 */
@@ -2350,7 +2350,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title The header title to be displayed.
 		 * @param View   $this         The current View instance being rendered.
@@ -2362,7 +2362,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title The header title to be displayed.
 		 * @param View   $this         The current View instance being rendered.
@@ -2373,7 +2373,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the content title the View will display on the front-end, normally above the date selector.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return string
 	 */
@@ -2381,7 +2381,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the content title the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $content_title The content title to be displayed.
 		 * @param View   $this          The current View instance being rendered.
@@ -2393,7 +2393,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the content title a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $content_title The content title to be displayed.
 		 * @param View   $this          The current View instance being rendered.

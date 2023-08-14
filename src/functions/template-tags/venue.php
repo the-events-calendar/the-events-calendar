@@ -148,7 +148,7 @@ function tribe_get_venue_id( $postId = null ) {
 /**
  * Get the IDs of all venues associated with an event.
  *
- * @since TBD
+ * @since 6.2.0
  *
  * @param int $event_id The event post ID. Defaults to the current event.
  *
@@ -169,7 +169,7 @@ function tec_get_venue_ids( $event_id = null ) {
 	/**
 	 * Allows customization of the venue IDs retrieved for a specified event.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param int[] $venue_ids The venue IDs for the specified event.
 	 * @param int   $event_id  The ID of the event whose venues are being looked for.

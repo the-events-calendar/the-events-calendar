@@ -12,8 +12,8 @@ use \Tribe\Events\Views\V2\Template;
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
- * @since   TBD
+ * @version 6.2.0
+ * @since   6.2.0
  *
  * @var Template $this          Template Engine instance rendering.
  * @var string   $content_title The title to display.

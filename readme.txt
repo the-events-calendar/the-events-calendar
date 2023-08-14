@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.0] TBD =
+= [6.2.0] 2023-08-14 =
 
 * Tweak - Change styling for Venue Blocks to constrain to a card-like style. [ECP-1540]
 * Tweak - Adjust REST endpoints to support multiple venues during event creation and updates. [ECP-1540]

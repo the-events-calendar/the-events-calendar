@@ -706,7 +706,7 @@ class Assets extends Service_Provider {
 		/**
 		 * Allow filtering of where the base Frontend Assets will be loaded.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param bool $should_enqueue Should the assets be enqueued.
 		 */

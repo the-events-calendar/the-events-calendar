@@ -269,7 +269,7 @@ jQuery( function( $ ) {
 			/**
 			 * Fires when a new linked post is added to the event.
 			 *
-			 * @since TBD
+			 * @since 6.2.0
 			 *
 			 * @param {string} post_type The post type of the linked post.
 			 * @param {jQuery} section   The current Section of Linked Post.
@@ -468,7 +468,7 @@ jQuery( function( $ ) {
 	/**
 	 * Shows or hides the Add <Post> button.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 * @param {Object} $wrapper The jQuery object for the wrapper of the linked post fields.
 	 */
 	function showOrHideAddPostButton( $wrapper ) {
