@@ -57,14 +57,9 @@ class OrganizerUpdateCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
-		$date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'America/New_York' ) );
-		$utc_date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'UTC' ) );
-
 		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
 			'organizer'   => 'A organizer',
 			'author'      => $editor,
-			'date'        => $date->format( 'U' ),
-			'date_utc'    => $utc_date->format( 'U' ),
 			'description' => 'Organizer description',
 			'status'      => 'draft',
 		] );

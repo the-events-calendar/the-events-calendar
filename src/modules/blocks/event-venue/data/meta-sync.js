@@ -10,7 +10,7 @@ const { getState } = store;
 /**
  * Synchronizes venues in the state with the meta of the post.
  *
- * @since TBD
+ * @since 6.2.0
  */
 export const syncVenuesWithPost = () => {
 	const currentPost = wpData.select( 'core/editor' ).getCurrentPost();

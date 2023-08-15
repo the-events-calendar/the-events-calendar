@@ -34,7 +34,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	/**
 	 * Determine if a value is a post ID or entry.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param string $type Type of linked post to check.
 	 * @param string|array $linked_post Post ID or data.
@@ -103,7 +103,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	/**
 	 * Determine if a value is a post ID, entry, or empty.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param string $type Type of linked post to check.
 	 * @param string|array $linked_post Post ID or data.

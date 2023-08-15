@@ -4,7 +4,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * The ID of the venue to display.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @var ?int
 	 */
@@ -66,7 +66,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Determines if assets should be enqueued.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return bool
 	 */
@@ -80,7 +80,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		/**
 		 * Filters whether or not assets should be enqueued for the event venue block.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param bool $should_enqueue Whether or not assets should be enqueued.
 		 * @param Tribe__Events__Editor__Blocks__Event_Venue $block The block instance.
@@ -91,7 +91,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Gets the venue ID from the block.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param array $attributes Array of attributes for the block.
 	 *
@@ -107,7 +107,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		/**
 		 * Filters the venue ID for the event venue block.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param ?int  $venue_id  The venue ID.
 		 * @param array $attributes Array of attributes for the block.
@@ -127,7 +127,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Should we show the map?
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param array $attributes Array of attributes for the block.
 	 *
@@ -145,7 +145,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		/**
 		 * Filters whether the map should be shown for the event venue block.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param bool  $show_map   Whether the map should be shown.
 		 * @param array $attributes Array of attributes for the block.
@@ -157,7 +157,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Should we show the map link?
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param array $attributes Array of attributes for the block.
 	 *
@@ -175,7 +175,7 @@ extends Tribe__Editor__Blocks__Abstract {
 		/**
 		 * Filters whether the map link should be shown for the event venue block.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param bool  $show_map_link Whether the map link should be shown.
 		 * @param array $attributes    Array of attributes for the block.

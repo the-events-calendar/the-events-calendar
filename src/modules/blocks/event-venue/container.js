@@ -151,7 +151,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			/**
 			 * Moves the venue to the trash if appropriate (if it is a draft and was removed).
 			 *
-			 * @since TBD
+			 * @since 6.2.0
 			 * @param {number} venue
 			 */
 			globals.wpHooks.doAction( 'tec.events.blocks.venue.maybeRemoveVenue', venue );

@@ -40,7 +40,7 @@ export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organiz
 /**
  * Moves the organizer to the trash if appropriate (if it is a draft and was removed).
  *
- * @since TBD
+ * @since 6.2.0
  * @param {number} organizer
  */
 globals.wpHooks.addAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', 'tec.events.blocks.organizer.subscribers', ( organizer ) => {
@@ -99,7 +99,7 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		/**
 		 * Moves the organizer to the trash if appropriate (if it is a draft and was removed).
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 * @param {number} organizer
 		 */
 		globals.wpHooks.doAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', organizer );

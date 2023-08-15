@@ -913,7 +913,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Re-orders linked posts if the order has changed.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param int    $event_id Event ID.
 	 * @param string $linked_post_type The post type of the linked post.
@@ -978,7 +978,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Reorder the meta keys to match the block order.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param int    $event_id Event ID.
 	 * @param string $linked_post_type The post type of the linked post.

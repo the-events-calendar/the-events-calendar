@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.2.0
  * @since   6.1.4 Changing our nonce verification structures.
- * @since   TBD Moved the header information into a new components/header.php template.
+ * @since   6.2.0 Moved the header information into a new components/header.php template.
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
