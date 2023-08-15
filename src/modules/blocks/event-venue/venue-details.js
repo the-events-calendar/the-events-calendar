@@ -16,8 +16,20 @@ import {
 	Spinner,
 	Placeholder,
 } from '@wordpress/components';
+import PropTypes from 'prop-types';
 
 export default class VenueDetails extends Component {
+	static propTypes = {
+		venue: PropTypes.number,
+		isLoading: PropTypes.bool,
+		removeVenue: PropTypes.func,
+		beforeTitle: PropTypes.node,
+		afterTitle: PropTypes.node,
+		maybeEdit: PropTypes.func,
+		address: PropTypes.object,
+		showMapLink: PropTypes.bool,
+	};
+
 	static defaultProps = {
 		beforeTitle: null,
 		afterTitle: null,
