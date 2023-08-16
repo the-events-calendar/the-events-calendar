@@ -766,7 +766,7 @@ class Tribe__Events__Linked_Posts {
 			if ( ! $linked_post_type_data && has_blocks( $event_id ) ) {
 				$meta_key              = $this->get_meta_key( $linked_post_type );
 				$current_post_id_order = get_post_meta( $event_id, $meta_key, false );
-				$new_post_id_order     = $this->maybe_get_new_order_from_blocks( $event_id, $current_post_id_order );
+				$new_post_id_order     = $this->maybe_get_new_order_from_blocks( $event_id, $linked_post_type, $current_post_id_order );
 
 				$this->maybe_reorder_linked_posts_ids( $event_id, $linked_post_type, $new_post_id_order, $current_post_id_order );
 			}
