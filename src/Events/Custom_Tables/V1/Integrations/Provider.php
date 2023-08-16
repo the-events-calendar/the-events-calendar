@@ -24,7 +24,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Registers the Service Providers required for the plugin to work with other plugins.
 	 *
-	 * @since TBD Removed registering ET CT1 logic.
+	 * @since 6.1.4 Removed registering ET CT1 logic.
 	 * @since 6.0.0
 	 */
 	public function register() {

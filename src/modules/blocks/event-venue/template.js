@@ -335,7 +335,7 @@ class EventVenue extends Component {
 	/**
 	 * Gets the venue details for the block.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 * @returns {Object} Venue details.
 	 */
 	getVenueDetails() {
@@ -353,7 +353,7 @@ class EventVenue extends Component {
 	/**
 	 * Gets the venue ID for the block.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 * @returns {number|null} Venue ID or null.
 	 */
 	getVenueId() {
@@ -367,7 +367,7 @@ class EventVenue extends Component {
 		/**
 		 * Filters the venue ID to be used for the block.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 * @param {number} venueId The venue ID.
 		 * @param {Object} props The block props.
 		 * @param {Object} state The tribe common state.
@@ -405,7 +405,7 @@ class EventVenue extends Component {
 	 * Authoritative means it is a block that is showing the venue that was explicitly selected for it rather
 	 * than a cloned representation of a venue from another block.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 * @returns {boolean} Whether the venue is authoritative.
 	 */
 	isAuthoritativeVenue = () => {

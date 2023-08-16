@@ -9,8 +9,8 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
- * @since TBD Defer to the block attributes to dictate whether maps should show.
+ * @version 6.2.0
+ * @since 6.2.0 Defer to the block attributes to dictate whether maps should show.
  *
  * @var bool $show_map Whether to show the map or not.
  * @var ?int $venue_id The ID of the venue to display.

@@ -49,14 +49,9 @@ class VenueInsertionCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
-		$date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'America/New_York' ) );
-		$utc_date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'UTC' ) );
-
 		$I->sendPOST( $this->venues_url, [
 			'venue'       => 'A venue',
 			'author'      => $editor,
-			'date'        => $date->format( 'U' ),
-			'date_utc'    => $utc_date->format( 'U' ),
 			'description' => 'Venue description',
 			'status'      => 'draft',
 		] );
@@ -66,8 +61,6 @@ class VenueInsertionCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'venue'       => 'A venue',
 			'author'      => (string) $editor,
-			'date'        => date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
-			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
 			'description' => trim( apply_filters( 'the_content', 'Venue description' ) ),
 		] );
 		$response = json_decode( $I->grabResponse(), true );
@@ -201,7 +194,7 @@ class VenueInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'image', $response );
 		$I->assertEquals( $image_id, $response['image']['id'] );
 	}
-	
+
 	/**
 	 * It should avoid inserting a venue with identical fields twice
 	 * @test

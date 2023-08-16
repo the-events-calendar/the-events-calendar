@@ -9,5 +9,9 @@ OR test_posts.post_status = \'private\')))
 			ORDER BY test_posts.post_date DESC
 			LIMIT 0, 10',
   1 => 'SELECT FOUND_ROWS()',
-  2 => 'SELECT 3',
+  2 => 'SELECT DISTINCT t.term_id, tr.object_id
+			FROM test_terms AS t  INNER JOIN test_term_taxonomy AS tt ON t.term_id = tt.term_id INNER JOIN test_term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
+			WHERE tt.taxonomy IN (\'post_tag\', \'tribe_events_cat\') AND tr.object_id IN (191, 192, 193)
+			ORDER BY t.name ASC',
+  3 => 'SELECT 3',
 );

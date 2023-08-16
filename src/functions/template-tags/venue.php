@@ -148,7 +148,7 @@ function tribe_get_venue_id( $postId = null ) {
 /**
  * Get the IDs of all venues associated with an event.
  *
- * @since TBD
+ * @since 6.2.0
  *
  * @param int $event_id The event post ID. Defaults to the current event.
  *
@@ -169,7 +169,7 @@ function tec_get_venue_ids( $event_id = null ) {
 	/**
 	 * Allows customization of the venue IDs retrieved for a specified event.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param int[] $venue_ids The venue IDs for the specified event.
 	 * @param int   $event_id  The ID of the event whose venues are being looked for.
@@ -202,6 +202,32 @@ function tribe_get_venue_label_singular() {
 	return apply_filters(
 		'tribe_venue_label_singular',
 		__( 'Venue', 'the-events-calendar' )
+	);
+}
+
+/**
+ * Get Venue Label Singular lowercase.
+ * Returns the lowercase singular version of the Venue Label.
+ *
+ * Note: the output of this function is not escaped.
+ * You should escape it wherever you use it!
+ *
+ * @since TBD
+ *
+ * @return string The lowercase singular version of the Venue Label.
+ */
+function tribe_get_venue_label_singular_lowercase() {
+	/**
+	 * Allows customization of the singular lowercase version of the Venue Label.
+	 * Note: the output of this filter is not escaped!
+	 *
+	 * @since TBD
+	 *
+	 * @param string $label The singular lowercase version of the Venue label, defaults to "venue" (lowercase)
+	 */
+	return apply_filters(
+		'tribe_venue_label_singular_lowercase',
+		__( 'venue', 'the-events-calendar' )
 	);
 }
 

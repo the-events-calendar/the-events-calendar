@@ -2,7 +2,7 @@
 /**
  * Venue map fields.
  *
- * @since TBD
+ * @since 6.2.0
  */
 
 global $post;
@@ -50,7 +50,7 @@ $google_map_link_toggle = ( get_post_status( $post->ID ) == 'auto-draft' && $goo
 		/**
 		 * Fires after the venue map fields have rendered.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 */
 		do_action( 'tec_events_after_venue_map_fields' );
 		?>

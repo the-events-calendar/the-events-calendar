@@ -14,7 +14,7 @@ import * as types from './../types';
  *
  * This sets the state.events.blocks.venue.blocks.byId state, which holds all venue blocks indexed by clientId.
  *
- * @since TBD
+ * @since 6.2.0
  * @param {Object} state State object.
  * @param {string} action Action being taken.
  * @returns {{}}
@@ -47,7 +47,7 @@ export const byId = ( state = {}, action ) => {
  *
  * This sets the state.events.blocks.venue.blocks.allIds state, which is a numerically indexed array of all venues.
  *
- * @since TBD
+ * @since 6.2.0
  * @param {Object} state State object.
  * @param {string} action Action being taken.
  * @returns {{}}
@@ -68,7 +68,7 @@ export const allIds = ( state = [], action ) => {
  *
  * This sets the state.events.blocks.venue.blocks.core state.
  *
- * @since TBD
+ * @since 6.2.0
  * @param {Object} state State object.
  * @param {string} action Action being taken.
  * @returns {{}}
