@@ -9,7 +9,8 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.7.0
+ * @version 6.2.0
+ * @since 6.2.0 Resolved spacing issues.
  *
  * @var array<string,array<string>> $messages   An array of user-facing messages, managed by the View.
  * @var array<string,mixed>         $attributes A optional map of attributes that should be applied to the wrapper div element.

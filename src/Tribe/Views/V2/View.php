@@ -600,7 +600,7 @@ class View implements View_Interface {
 	 * Gets an inheritance list for the current class, will only include valid Views, so the abstract and interface are
 	 * not included.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param bool $with_current     Should include the current class in the inheritance list or not.
 	 * @param bool $ignore_reflector Ignore reflector class in the inheritance list.
@@ -693,6 +693,10 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
+		// Need our nonces for AJAX requests.
+		$nonces     = Rest_Endpoint::get_rest_nonces();
+		$nonce_html = "<script data-js='tribe-events-view-nonce-data' type='application/json'>" . wp_json_encode( $nonces ) . "</script>";
+
 		/*
 		 * Some Views might need to access this out of this method, let's make the filtered repository arguments
 		 * available.
@@ -706,12 +710,13 @@ class View implements View_Interface {
 		) {
 			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
-			return $cached_html;
+			return $cached_html . $nonce_html;
 		}
 
 		if ( ! tribe_events_view_v2_use_period_repository() ) {
 			$this->setup_the_loop( $repository_args );
 		}
+
 
 		/**
 		 * Fire new action on the views.
@@ -735,7 +740,7 @@ class View implements View_Interface {
 		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 		remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
-		return $html;
+		return $html . $nonce_html;
 	}
 
 	/**
@@ -1694,18 +1699,6 @@ class View implements View_Interface {
 			? Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT )
 			: false;
 
-		/*
-		 * Some plugins, like WooCommerce, will modify the UID of logged out users; avoid that filtering here.
-		 *
-		 * @see TEC-3579
-		 */
-		$rest_nonce = tribe_without_filters(
-			[ 'nonce_user_logged_out' ],
-			static function () {
-				return wp_create_nonce( 'wp_rest' );
-			}
-		);
-
 		/** @var Rest_Endpoint $endpoint */
 		$endpoint = tribe( Rest_Endpoint::class );
 
@@ -1725,7 +1718,7 @@ class View implements View_Interface {
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
 			'rest_url'             => $endpoint->get_url(),
 			'rest_method'          => $endpoint->get_method(),
-			'rest_nonce'           => $rest_nonce,
+			'rest_nonce'           => '', // For backwards compatibility in views. No longer used.
 			'should_manage_url'    => $this->should_manage_url,
 			'today_url'            => $today_url,
 			'today_title'          => $today_title,
@@ -2295,7 +2288,7 @@ class View implements View_Interface {
 	/**
 	 * Header Title Element, allowing better control over the title tag.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return string
 	 */
@@ -2303,7 +2296,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title element the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title_element The header title to be displayed.
 		 * @param View   $this                 The current View instance being rendered.
@@ -2315,7 +2308,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title element a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title_element The header title element to be displayed.
 		 * @param View   $this                 The current View instance being rendered.
@@ -2326,7 +2319,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the header title the View will display on the front-end, normally above the breadcrumbs.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return string
 	 */
@@ -2361,7 +2354,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title The header title to be displayed.
 		 * @param View   $this         The current View instance being rendered.
@@ -2373,7 +2366,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the header title a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $header_title The header title to be displayed.
 		 * @param View   $this         The current View instance being rendered.
@@ -2384,7 +2377,7 @@ class View implements View_Interface {
 	/**
 	 * Returns the content title the View will display on the front-end, normally above the date selector.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return string
 	 */
@@ -2392,7 +2385,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the content title the View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $content_title The content title to be displayed.
 		 * @param View   $this          The current View instance being rendered.
@@ -2404,7 +2397,7 @@ class View implements View_Interface {
 		/**
 		 * Filters the content title a specific View will print on the frontend.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param string $content_title The content title to be displayed.
 		 * @param View   $this          The current View instance being rendered.

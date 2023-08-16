@@ -40,7 +40,7 @@ export const isVenueBlock = ( block ) => block.name === 'tribe/event-venue';
 /**
  * Moves the venue to the trash if appropriate (if it is a draft and was removed).
  *
- * @since TBD
+ * @since 6.2.0
  * @param {number} venue
  */
 globals.wpHooks.addAction( 'tec.events.blocks.venue.maybeRemoveVenue', 'tec.events.blocks.venue.subscribers', ( venue ) => {
@@ -96,7 +96,7 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 		/**
 		 * Moves the venue to the trash if appropriate (if it is a draft and was removed).
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 * @param {number} venue
 		 */
 		globals.wpHooks.doAction( 'tec.events.blocks.venue.maybeRemoveVenue', venue );

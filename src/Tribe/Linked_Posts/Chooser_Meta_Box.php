@@ -243,7 +243,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Renders the footer for the linked post area.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 */
 	protected function render_footer() {
 		?>
@@ -284,7 +284,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Renders the map fields if necessary.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 */
 	protected function render_map_fields() {
 		if ( $this->post_type !== Tribe__Events__Venue::POSTTYPE ) {

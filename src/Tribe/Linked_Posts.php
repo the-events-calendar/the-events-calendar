@@ -766,7 +766,7 @@ class Tribe__Events__Linked_Posts {
 			if ( ! $linked_post_type_data && has_blocks( $event_id ) ) {
 				$meta_key              = $this->get_meta_key( $linked_post_type );
 				$current_post_id_order = get_post_meta( $event_id, $meta_key, false );
-				$new_post_id_order     = $this->maybe_get_new_order_from_blocks( $event_id, $current_post_id_order );
+				$new_post_id_order     = $this->maybe_get_new_order_from_blocks( $event_id, $linked_post_type, $current_post_id_order );
 
 				$this->maybe_reorder_linked_posts_ids( $event_id, $linked_post_type, $new_post_id_order, $current_post_id_order );
 			}
@@ -913,7 +913,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Re-orders linked posts if the order has changed.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param int    $event_id Event ID.
 	 * @param string $linked_post_type The post type of the linked post.
@@ -978,7 +978,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * Reorder the meta keys to match the block order.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @param int    $event_id Event ID.
 	 * @param string $linked_post_type The post type of the linked post.

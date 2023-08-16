@@ -9,7 +9,8 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.1
+ * @version 6.2.0
+ * @since 6.2.0 Be specific about which venue to render.
  *
  * @var bool $show_map_link Whether to show the map link or not.
  * @var ?int $venue_id The ID of the venue to display.

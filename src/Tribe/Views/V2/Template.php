@@ -110,7 +110,7 @@ class Template extends Base_Template {
 	 * If a template cannot be found for the view then the base template for the view will be returned.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Added support for looking up the inheritance chain for templates from parent views.
+	 * @since 6.2.0 Added support for looking up the inheritance chain for templates from parent views.
 	 *
 	 * @param string|array|null $name Either a specific name to check, the fragments of a name to check, or `null` to let
 	 *                                the view pick the template according to the template override rules.

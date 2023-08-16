@@ -90,7 +90,7 @@ class Title {
 	/**
 	 * A list of the taxonomies that might affect the title of the page.
 	 *
-	 * @since TBD
+	 * @since 6.2.0
 	 *
 	 * @return array<string> List of taxonomy slugs.
 	 */
@@ -103,7 +103,7 @@ class Title {
 		/**
 		 * Filters the list of taxonomies that might affect the title of the page.
 		 *
-		 * @since TBD
+		 * @since 6.2.0
 		 *
 		 * @param array<string> $taxonomies The list of taxonomies.
 		 */

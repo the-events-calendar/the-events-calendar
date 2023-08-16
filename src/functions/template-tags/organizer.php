@@ -154,6 +154,32 @@ function tribe_get_organizer_label_plural() {
 }
 
 /**
+ * Get Organizer Label Singular lowercase.
+ * Returns the lowercase singular version of the Organizer Label.
+ *
+ * Note: the output of this function is not escaped.
+ * You should escape it wherever you use it!
+ *
+ * @since TBD
+ *
+ * @return string The lowercase singular version of the Organizer Label.
+ */
+function tribe_get_organizer_label_singular_lowercase() {
+	/**
+	 * Allows customization of the singular lowercase version of the Organizer Label.
+	 * Note: the output of this filter is not escaped!
+	 *
+	 * @since TBD
+	 *
+	 * @param string $label The singular lowercase version of the Organizer label, defaults to "organizer" (lowercase)
+	 */
+	return apply_filters(
+		'tribe_organizer_label_singular_lowercase',
+		__( 'organizer', 'the-events-calendar' )
+	);
+}
+
+/**
  * Get the organizer label.
  *
  * Note: the output of this function is not escaped.
@@ -642,7 +668,7 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
-	 * @deprecated TBD
+	 * @deprecated 6.1.4
 	 * @since 6.0.3.1
 	 *
 	 * @param WP_Post     $post        The organizer post object to filter and return.
@@ -652,14 +678,14 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string      $filter      The filter, or context of the fetch.
 	 */
-	$post = apply_filters_deprecated( 'tribe_get_organiser_object_after', [ $post, $organizer, $output, $filter ], 'TBD', 'tribe_get_organizer_object_after', 'Deprecated due to misspelling in filter.');
+	$post = apply_filters_deprecated( 'tribe_get_organiser_object_after', [ $post, $organizer, $output, $filter ], '6.1.4', 'tribe_get_organizer_object_after', 'Deprecated due to misspelling in filter.');
 
 	/**
 	 * Filters the organizer result after the organizer has been built from the function.
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
-	 * @since TBD
+	 * @since 6.1.4
 	 *
 	 * @param WP_Post     $post        The organizer post object to filter and return.
 	 * @param int|WP_Post $organizer   The organizer object to fetch.
