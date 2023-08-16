@@ -81,6 +81,7 @@ class Tribe__Events__Assets {
 				'tribe-timepicker',
 				'underscore',
 				'wp-util',
+				'wp-hooks',
 			],
 			'admin_enqueue_scripts',
 			[
