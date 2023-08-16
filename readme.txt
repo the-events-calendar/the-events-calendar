@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.0.1] 2023-08-16 =
+
+* Fix - Ensure we pass the correct number of params to `maybe_get_new_order_from_blocks` [TEC-4889]
+
 = [6.2.0] 2023-08-15 =
 
 * Tweak - Change styling for Venue Blocks to constrain to a card-like style. [ECP-1540]
