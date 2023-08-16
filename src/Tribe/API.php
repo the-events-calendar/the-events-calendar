@@ -787,6 +787,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				}
 			}
 
+			$is_post_editor = ! empty( $args['action'] ) && $args['action'] === 'editpost';
+
+			if ( $is_post_editor ) {
+				$args['EventShowMap']     = ! empty( $args['EventShowMap'] );
+				$args['EventShowMapLink'] = ! empty( $args['EventShowMapLink'] );
+			}
+
 			return $args;
 		}
 

@@ -762,6 +762,14 @@ class Tribe__Events__Linked_Posts {
 		foreach ( $linked_post_types as $linked_post_type => $linked_post_type_data ) {
 			$linked_post_type_data = $this->get_linked_post_type_data( $submission, $linked_post_type );
 			$this->handle_submission_by_post_type( $event_id, $linked_post_type, $linked_post_type_data );
+
+			if ( ! $linked_post_type_data && has_blocks( $event_id ) ) {
+				$meta_key              = $this->get_meta_key( $linked_post_type );
+				$current_post_id_order = get_post_meta( $event_id, $meta_key, false );
+				$new_post_id_order     = $this->maybe_get_new_order_from_blocks( $event_id, $linked_post_type, $current_post_id_order );
+
+				$this->maybe_reorder_linked_posts_ids( $event_id, $linked_post_type, $new_post_id_order, $current_post_id_order );
+			}
 		}
 	}
 
@@ -890,10 +898,6 @@ class Tribe__Events__Linked_Posts {
 
 		$prior_linked_posts = $this->get_linked_post_ids_by_post_type( $event_id, $linked_post_type );
 
-		$temp_prior_linked_posts = $prior_linked_posts;
-
-		$linked_post_type_meta_key = $this->get_meta_key( $linked_post_type );
-
 		// If no pre-existing posts and no new posts to add, bail.
 		if (
 			empty( $prior_linked_posts )
@@ -902,49 +906,110 @@ class Tribe__Events__Linked_Posts {
 			return;
 		}
 
+		$post_ids_to_link = $this->maybe_get_new_order_from_blocks( $event_id, $linked_post_type, $post_ids_to_link );
+		$this->maybe_reorder_linked_posts_ids( $event_id, $linked_post_type, $post_ids_to_link, $prior_linked_posts );
+	}
+
+	/**
+	 * Re-orders linked posts if the order has changed.
+	 *
+	 * @since 6.2.0
+	 *
+	 * @param int    $event_id Event ID.
+	 * @param string $linked_post_type The post type of the linked post.
+	 * @param array  $new_order The new order of the linked posts.
+	 * @param array  $old_order The old order of the linked posts.
+	 *
+	 * @return bool
+	 */
+	public function maybe_reorder_linked_posts_ids( int $event_id, string $linked_post_type, array $new_order = [], array $old_order = [] ): bool {
 		// If the array values match both type and value and ordering, no need to touch postmeta.
+		if ( $old_order === $new_order ) {
+			return false;
+		}
+
+		$linked_post_type_meta_key = $this->get_meta_key( $linked_post_type );
+		$temp_old_order            = $old_order;
+
 		// Re-save postmeta if not matching all these conditions.
-		if ( $prior_linked_posts !== $post_ids_to_link ) {
-			$sorted_priors = $prior_linked_posts;
-			sort( $sorted_priors, SORT_NUMERIC );
+		$sorted_old = $old_order;
+		sort( $sorted_old, SORT_NUMERIC );
 
-			$sorted_to_link = $post_ids_to_link;
-			sort( $sorted_to_link, SORT_NUMERIC );
+		$sorted_new = $new_order;
+		sort( $sorted_new, SORT_NUMERIC );
 
-			if ( $sorted_priors === $sorted_to_link ) {
-				// If the post IDs are the same (none new nor removed) but not in the same order.
+		if ( $sorted_old === $sorted_new ) {
+			// If the post IDs are the same (none new nor removed) but not in the same order.
 
-				// We do not run our own unlink/link methods because we are not doing that, just re-ordering via `meta_id` by removing all and re-adding in the desired order.
+			// We do not run our own unlink/link methods because we are not doing that, just re-ordering via `meta_id` by removing all and re-adding in the desired order.
+			delete_post_meta( $event_id, $linked_post_type_meta_key );
+
+			foreach ( $new_order as $linked_post_id ) {
+				add_post_meta( $event_id, $linked_post_type_meta_key, $linked_post_id );
+			}
+		} else {
+			// We have different Linked Post IDs (adding and/or removing one or more) so possibly need to run through our own methods to trigger those hooks.
+			$posts_to_remove = array_diff( $old_order, $new_order );
+
+			foreach ( $posts_to_remove as $key => $unlinked_post_id ) {
+				$this->unlink_post( $event_id, $unlinked_post_id );
+				unset( $temp_old_order[ $key ] );
+			}
+
+			// Remove all pre-existing (and non-removed) linked posts to start fresh by re-adding below (for `meta_id` ordering purposes)
+			if ( ! empty( $temp_old_order ) ) {
 				delete_post_meta( $event_id, $linked_post_type_meta_key );
+			}
 
-				foreach ( $post_ids_to_link as $linked_post_id ) {
+			foreach ( $new_order as $linked_post_id ) {
+				if ( in_array( $linked_post_id, $old_order ) ) {
+					// Re-add pre-existing ones without our own method because we do not want to trigger those hooks.
 					add_post_meta( $event_id, $linked_post_type_meta_key, $linked_post_id );
-				}
-			} else {
-				// We have different Linked Post IDs (adding and/or removing one or more) so possibly need to run through our own methods to trigger those hooks.
-				$posts_to_remove = array_diff( $prior_linked_posts, $post_ids_to_link );
-
-				foreach ( $posts_to_remove as $key => $unlinked_post_id ) {
-					$this->unlink_post( $event_id, $unlinked_post_id );
-					unset( $temp_prior_linked_posts[ $key ] );
-				}
-
-				// Remove all pre-existing (and non-removed) linked posts to start fresh by re-adding below (for `meta_id` ordering purposes)
-				if ( ! empty( $temp_prior_linked_posts ) ) {
-					delete_post_meta( $event_id, $linked_post_type_meta_key );
-				}
-
-				foreach ( $post_ids_to_link as $linked_post_id ) {
-					if ( in_array( $linked_post_id, $prior_linked_posts ) ) {
-						// Re-add pre-existing ones without our own method because we do not want to trigger those hooks.
-						add_post_meta( $event_id, $linked_post_type_meta_key, $linked_post_id );
-					} else {
-						// Add newly-linked ones via our own method in order to trigger such hooks.
-						$this->link_post( $event_id, $linked_post_id );
-					}
+				} else {
+					// Add newly-linked ones via our own method in order to trigger such hooks.
+					$this->link_post( $event_id, $linked_post_id );
 				}
 			}
 		}
+
+		return true;
+	}
+
+	/**
+	 * Reorder the meta keys to match the block order.
+	 *
+	 * @since 6.2.0
+	 *
+	 * @param int    $event_id Event ID.
+	 * @param string $linked_post_type The post type of the linked post.
+	 * @param array  $original_order The original IDs/order stored in meta.
+	 *
+	 * @return array
+	 */
+	public function maybe_get_new_order_from_blocks( int $event_id, string $linked_post_type, array $original_order = [] ) {
+		// If the post has blocks, we need to update sorting of the post ids to link so it matches block order.
+		if ( ! has_blocks( $event_id ) ) {
+			return $original_order;
+		}
+
+		$new_order = [];
+		$blocks = parse_blocks( get_the_content( null, false, $event_id ) );
+
+		$block_name = 'tribe/event-venue';
+		$block_id_key = 'venue';
+		if ( $linked_post_type === \Tribe__Events__Organizer::POSTTYPE ) {
+			$block_name = 'tribe/event-organizer';
+			$block_id_key = 'organizer';
+		}
+
+		foreach ( $blocks as $block ) {
+			if ( $block['blockName'] === $block_name ) {
+				$new_order[] = $block['attrs'][ $block_id_key ];
+			}
+		}
+
+		// To make sure we don't have data loss, let's prioritize blocks followed by the rest of the post ids and then remove duplicates.
+		return array_map( 'absint', array_filter( array_unique( array_merge( $new_order, $original_order ) ) ) );
 	}
 
 	/**
@@ -1188,6 +1253,7 @@ class Tribe__Events__Linked_Posts {
 				class="tribe-dropdown linked-post-dropdown hide-before-select2-init"
 				name="<?php echo esc_attr( $name ); ?>"
 				id="saved_<?php echo esc_attr( $post_type ); ?>"
+				data-post-type="<?php echo esc_attr( $post_type ); ?>"
 				data-placeholder="<?php echo esc_attr( $label ); ?>"
 				data-search-placeholder="<?php echo esc_attr( $label ); ?>"
 				<?php if ( $creation_enabled ) : ?>
