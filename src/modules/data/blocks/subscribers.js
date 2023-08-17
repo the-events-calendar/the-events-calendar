@@ -13,7 +13,6 @@ import {
 	selectors as priceSelectors,
 } from './price';
 import {
-	reducer as venueReducer,
 	selectors as venueSelectors,
 } from './venue';
 import {
@@ -77,7 +76,7 @@ const subscribe = () => {
 		const blockToMapAndSelectorMap = {
 			datetime: [ datetimeReducer.defaultStateToMetaMap, datetimeSelectors.datetimeSelector ],
 			price: [ priceReducer.defaultStateToMetaMap, priceSelectors.getPriceBlock ],
-			venue: [ venueReducer.defaultStateToMetaMap, venueSelectors.venueBlockSelector ],
+			venue: [ venueSelectors.venueBlockSelector ],
 			website: [ websiteReducer.defaultStateToMetaMap, websiteSelectors.getWebsiteBlock ],
 		};
 		const blockKeys = Object.keys( blockToMapAndSelectorMap );
