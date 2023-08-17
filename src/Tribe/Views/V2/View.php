@@ -1612,7 +1612,7 @@ class View implements View_Interface {
 		$repository_query_hash = $this->repository->hash();
 
 		// Check if we memoized this query and if memoize was enabled.
-		$memoize_key = __METHOD__ . $repository_query_hash;
+		$memoize_key = tribe_cache()->make_key( $this->context->to_array(), __METHOD__ ) . $repository_query_hash;
 		$vars        = tribe_cache()->get( $memoize_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
 		if ( ! empty( $vars ) ) {
 			return $vars;
