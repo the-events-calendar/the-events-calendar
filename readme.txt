@@ -229,9 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.] TBD =
+= [6.3.0] TBD =
 
 * Tweak - Enhanced venue and organizer labels by updating aria labels with additional placeholders and revised translator comments, improving internationalization and accessibility. [TEC-4874]
+* Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 
 = [6.2.0.1] 2023-08-16 =
 
