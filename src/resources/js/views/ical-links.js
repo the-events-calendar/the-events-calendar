@@ -40,6 +40,7 @@ tribe.events.views.icalLinks = {};
 	obj.selectors = {
 		icalLinks: '.tribe-events-c-subscribe-dropdown',
 		icalLinksButton: '.tribe-events-c-subscribe-dropdown__button',
+		icalLinksButtonText: '.tribe-events-c-subscribe-dropdown__button-text',
 		icalLinksButtonActiveClass: 'tribe-events-c-subscribe-dropdown__button--active',
 		icalLinksListContainer: '.tribe-events-c-subscribe-dropdown__content',
 		icalLinksListContainerShow: 'tribe-events-c-subscribe-dropdown__content--show',
@@ -61,9 +62,18 @@ tribe.events.views.icalLinks = {};
 		// Stop event propagation to prevent triggering other click events.
 		event.stopPropagation();
 
-		var $button  = $( event.target ).closest( obj.selectors.icalLinksButton );
-		var $content = $button.siblings( obj.selectors.icalLinksListContainer );
-		var $icon    = $button.find( obj.selectors.icalLinksIcon );
+		var $button     = $( event.target ).closest( obj.selectors.icalLinksButton );
+		var $buttonText = $button.find( obj.selectors.icalLinksButtonText );
+		var $content    = $button.siblings( obj.selectors.icalLinksListContainer );
+		var $icon       = $button.find( obj.selectors.icalLinksIcon );
+
+		// Toggle the aria-expanded attribute for the button element.
+		$buttonText.attr(
+			'aria-expanded',
+			function (i, attr) {
+				return attr === 'true' ? 'false' : 'true'
+			}
+		);
 
 		// Hide all other dropdown content elements.
 		$( obj.selectors.icalLinksListContainer ).not( $content ).hide();
