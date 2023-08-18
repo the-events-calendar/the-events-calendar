@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.1.4\n"
+"Project-Id-Version: The Events Calendar 6.2.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-10T09:25:12-07:00\n"
-"PO-Revision-Date: 2023-08-10 16:25\n"
+"POT-Creation-Date: 2023-08-16T08:08:49-07:00\n"
+"PO-Revision-Date: 2023-08-16 15:08\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -1349,24 +1349,6 @@ msgstr ""
 msgid "Venue URL"
 msgstr ""
 
-#: src/admin-views/create-venue-fields.php:226
-#: src/admin-views/venue-meta-box.php:207
-msgid "Show Map:"
-msgstr ""
-
-#: src/admin-views/create-venue-fields.php:235
-msgid "Show Map?"
-msgstr ""
-
-#: src/admin-views/create-venue-fields.php:242
-#: src/admin-views/venue-meta-box.php:225
-msgid "Show Map Link:"
-msgstr ""
-
-#: src/admin-views/create-venue-fields.php:251
-msgid "Show Map Link?"
-msgstr ""
-
 #: src/admin-views/event-sidebar-options.php:16
 msgid "Hide From %s Listings"
 msgstr ""
@@ -2285,7 +2267,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-upgrade.php:20
 #: src/Tribe/Admin/Bar/Default_Configurator.php:47
-#: src/Tribe/Main.php:3547
+#: src/Tribe/Main.php:3544
 #: src/Tribe/Views/V2/Views/Widgets/Widget_View.php:61
 msgid "View Calendar"
 msgstr ""
@@ -2485,6 +2467,26 @@ msgstr ""
 msgid "We won't post this page again once you skip to The Events Calendar Settings."
 msgstr ""
 
+#: src/admin-views/venue-map-fields.php:22
+msgid "Map:"
+msgstr ""
+
+#: src/admin-views/venue-map-fields.php:34
+msgid "Show map"
+msgstr ""
+
+#: src/admin-views/venue-map-fields.php:47
+msgid "Show map link"
+msgstr ""
+
+#: src/admin-views/venue-meta-box.php:207
+msgid "Show Map:"
+msgstr ""
+
+#: src/admin-views/venue-meta-box.php:225
+msgid "Show Map Link:"
+msgstr ""
+
 #: src/admin-views/venue-meta-box.php:265
 msgid "%s Name can not be empty"
 msgstr ""
@@ -2676,7 +2678,7 @@ msgstr ""
 
 #: src/Events/Custom_Tables/V1/Migration/String_Dictionary.php:229
 #: src/views/v2/day.php:46
-#: src/views/v2/list.php:46
+#: src/views/v2/list.php:47
 #: src/views/v2/month.php:44
 msgid "Loading..."
 msgstr ""
@@ -2933,7 +2935,7 @@ msgid "NY 10001"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:169
-#: src/functions/template-tags/venue.php:518
+#: src/functions/template-tags/venue.php:550
 #: src/Tribe/Venue.php:421
 msgid "United States"
 msgstr ""
@@ -3037,8 +3039,8 @@ msgstr ""
 
 #: src/functions/template-tags/deprecated.php:22
 #: src/functions/template-tags/deprecated.php:44
-#: src/Tribe/Main.php:3196
-#: src/Tribe/Main.php:3235
+#: src/Tribe/Main.php:3193
+#: src/Tribe/Main.php:3232
 msgid "Date out of range."
 msgstr ""
 
@@ -3090,12 +3092,12 @@ msgid "Calendar powered by %s"
 msgstr ""
 
 #: src/functions/template-tags/google-map.php:93
-#: src/modules/blocks/event-venue/venue-details.js:151
+#: src/modules/blocks/event-venue/venue-details.js:163
 msgid "Click to view a Google Map"
 msgstr ""
 
 #: src/functions/template-tags/google-map.php:94
-#: src/modules/blocks/event-venue/venue-details.js:155
+#: src/modules/blocks/event-venue/venue-details.js:167
 msgid "+ Google Map"
 msgstr ""
 
@@ -3108,7 +3110,7 @@ msgstr ""
 
 #. translators: %s: Events plural
 #: src/functions/template-tags/loop.php:162
-#: src/Tribe/Views/V2/Template/Title.php:147
+#: src/Tribe/Views/V2/Template/Title.php:170
 msgid "Upcoming %s"
 msgstr ""
 
@@ -3118,18 +3120,18 @@ msgstr ""
 
 #. translators: %s: Events plural
 #: src/functions/template-tags/loop.php:179
-#: src/Tribe/Views/V2/Template/Title.php:143
+#: src/Tribe/Views/V2/Template/Title.php:166
 msgid "Past %s"
 msgstr ""
 
 #: src/functions/template-tags/loop.php:184
-#: src/Tribe/Views/V2/Template/Title.php:339
+#: src/Tribe/Views/V2/Template/Title.php:366
 msgctxt "month view"
 msgid "%1$s for %2$s"
 msgstr ""
 
 #: src/functions/template-tags/loop.php:193
-#: src/Tribe/Views/V2/Template/Title.php:366
+#: src/Tribe/Views/V2/Template/Title.php:393
 msgctxt "day_view"
 msgid "%1$s for %2$s"
 msgstr ""
@@ -3146,24 +3148,24 @@ msgid "Organizers"
 msgstr ""
 
 #: src/functions/template-tags/organizer.php:474
-#: src/functions/template-tags/venue.php:885
+#: src/functions/template-tags/venue.php:917
 #: src/views/blocks/parts/organizer.php:89
 msgid "Website"
 msgstr ""
 
-#: src/functions/template-tags/venue.php:172
+#: src/functions/template-tags/venue.php:204
 #: src/Tribe/Venue.php:200
 msgid "Venue"
 msgstr ""
 
-#: src/functions/template-tags/venue.php:200
+#: src/functions/template-tags/venue.php:232
 #: src/Tribe/Venue.php:209
 msgid "Venues"
 msgstr ""
 
-#: src/functions/template-tags/venue.php:980
-#: src/views/v2/day/event/venue.php:23
-#: src/views/v2/list/event/venue.php:23
+#: src/functions/template-tags/venue.php:1012
+#: src/views/v2/day/event/venue.php:25
+#: src/views/v2/list/event/venue.php:25
 msgctxt "Address separator"
 msgid ", "
 msgstr ""
@@ -3177,7 +3179,7 @@ msgid "Add %s"
 msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:64
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:216
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:217
 #: src/Tribe/Main.php:1990
 #: src/Tribe/Organizer.php:93
 #: src/Tribe/Organizer.php:802
@@ -3188,7 +3190,7 @@ msgstr ""
 
 #: src/Tribe/Admin/Bar/Default_Configurator.php:91
 #: src/Tribe/Admin/Settings.php:166
-#: src/Tribe/Main.php:3599
+#: src/Tribe/Main.php:3596
 msgid "Settings"
 msgstr ""
 
@@ -4732,48 +4734,48 @@ msgstr ""
 msgid "Enter Event Aggregator License"
 msgstr ""
 
-#: src/Tribe/API.php:815
+#: src/Tribe/API.php:822
 msgid "An event having a post meta value of `%s` meridian is not valid. Make sure it is either `am` or `pm`, or remove it entirely if using the 24-hour format."
 msgstr ""
 
-#: src/Tribe/API.php:843
+#: src/Tribe/API.php:850
 msgid "An event having a post meta value of `%s` hour (am/pm) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:860
+#: src/Tribe/API.php:867
 msgid "An event having a post meta value of `%s` hour (12-hour) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:867
+#: src/Tribe/API.php:874
 msgid "An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23."
 msgstr ""
 
-#: src/Tribe/API.php:897
-#: src/Tribe/API.php:908
+#: src/Tribe/API.php:904
+#: src/Tribe/API.php:915
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
 msgstr ""
 
-#: src/Tribe/Assets.php:717
+#: src/Tribe/Assets.php:718
 msgid "This event is from %%starttime%% to %%endtime%% on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:718
+#: src/Tribe/Assets.php:719
 msgid "This event is at %%starttime%% on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:719
+#: src/Tribe/Assets.php:720
 msgid "This event is all day on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:720
+#: src/Tribe/Assets.php:721
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends at %%endtime%% on %%enddatewithyear%%"
 msgstr ""
 
-#: src/Tribe/Assets.php:721
+#: src/Tribe/Assets.php:722
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends on %%enddatewithyear%%"
 msgstr ""
 
-#: src/Tribe/Assets.php:722
+#: src/Tribe/Assets.php:723
 msgid "This event is all day starting on %%startdatenoyear%% and ending on %%enddatewithyear%%."
 msgstr ""
 
@@ -4999,8 +5001,8 @@ msgstr ""
 msgid "Event Organizers"
 msgstr ""
 
-#: src/Tribe/Editor/Meta.php:78
-#: src/modules/blocks/event-venue/index.js:22
+#: src/Tribe/Editor/Meta.php:80
+#: src/modules/blocks/event-venue/index.js:21
 msgid "Event Venue"
 msgstr ""
 
@@ -5053,7 +5055,7 @@ msgid "Event Date:"
 msgstr ""
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:60
-#: src/modules/blocks/event-venue/template.js:282
+#: src/modules/blocks/event-venue/template.js:324
 msgid "Edit Venue"
 msgstr ""
 
@@ -5490,91 +5492,91 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1006
+#: src/Tribe/Linked_Posts.php:1071
 msgid "My %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1010
+#: src/Tribe/Linked_Posts.php:1075
 msgid "Available %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1196
+#: src/Tribe/Linked_Posts.php:1262
 msgid "Create: <%= term %>"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1220
+#: src/Tribe/Linked_Posts.php:1286
 msgid "No saved %s exists."
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1268
+#: src/Tribe/Linked_Posts.php:1334
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1275
+#: src/Tribe/Linked_Posts.php:1341
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1289
+#: src/Tribe/Linked_Posts.php:1355
 msgctxt "\"Find an Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1298
+#: src/Tribe/Linked_Posts.php:1364
 msgctxt "\"Create or Find Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1305
+#: src/Tribe/Linked_Posts.php:1371
 msgid "Create or Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1306
+#: src/Tribe/Linked_Posts.php:1372
 msgid "Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1317
+#: src/Tribe/Linked_Posts.php:1383
 msgctxt "\"Find a Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1326
+#: src/Tribe/Linked_Posts.php:1392
 msgctxt "\"Create or Find Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1333
+#: src/Tribe/Linked_Posts.php:1399
 msgid "Create or Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1334
+#: src/Tribe/Linked_Posts.php:1400
 msgid "Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1343
+#: src/Tribe/Linked_Posts.php:1409
 msgctxt "The \"Find a {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1352
+#: src/Tribe/Linked_Posts.php:1418
 msgctxt "The \"Create or Find {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:169
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:170
 msgid "Create New %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:170
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:171
 msgid "%s:"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:263
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:279
 msgid "Add another %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:286
+#: src/Tribe/Linked_Posts/Chooser_Meta_Box.php:314
 msgid "Delete this"
 msgstr ""
 
@@ -6003,39 +6005,39 @@ msgstr ""
 msgid "all"
 msgstr ""
 
-#: src/Tribe/Main.php:3265
+#: src/Tribe/Main.php:3262
 msgid "%s Options"
 msgstr ""
 
-#: src/Tribe/Main.php:3437
+#: src/Tribe/Main.php:3434
 msgid "Support"
 msgstr ""
 
-#: src/Tribe/Main.php:3440
+#: src/Tribe/Main.php:3437
 msgid "View All Add-Ons"
 msgstr ""
 
-#: src/Tribe/Main.php:3462
+#: src/Tribe/Main.php:3459
 msgid "News from The Events Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:3489
+#: src/Tribe/Main.php:3486
 msgid "Additional Functionality"
 msgstr ""
 
-#: src/Tribe/Main.php:3494
+#: src/Tribe/Main.php:3491
 msgid "Looking for additional functionality including recurring events, ticket sales, publicly submitted events, new views and more?"
 msgstr ""
 
-#: src/Tribe/Main.php:3495
+#: src/Tribe/Main.php:3492
 msgid "Check out the %savailable add-ons%s."
 msgstr ""
 
-#: src/Tribe/Main.php:3600
+#: src/Tribe/Main.php:3597
 msgid "Calendar"
 msgstr ""
 
-#: src/Tribe/Main.php:3637
+#: src/Tribe/Main.php:3634
 msgid "Once Every 30 Mins"
 msgstr ""
 
@@ -6904,7 +6906,7 @@ msgid "The event tag ID or name"
 msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:364
-msgid "The event venue ID or data"
+msgid "The event venue IDs or data"
 msgstr ""
 
 #: src/Tribe/REST/V1/Endpoints/Single_Event.php:372
@@ -7689,21 +7691,22 @@ msgid "No %1$s scheduled for %2$s. %3$s"
 msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Event date range
-#: src/Tribe/Views/V2/Template/Title.php:136
+#: src/Tribe/Views/V2/Template/Title.php:159
 msgid "Past %1$s from %2$s"
 msgstr ""
 
 #. translators: %1$s: Events plural %2$s: Event date range
-#: src/Tribe/Views/V2/Template/Title.php:139
+#: src/Tribe/Views/V2/Template/Title.php:162
 msgid "%1$s from %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1612
+#: src/Tribe/Views/V2/View.php:1654
 msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:2210
+#: src/Tribe/Views/V2/View.php:2255
+#: src/Tribe/Views/V2/View.php:2347
 #: src/views/v2/day/event/date/featured.php:27
 #: src/views/v2/day/event/date/featured.php:32
 #: src/views/v2/latest-past/event/date/featured.php:27
@@ -8366,31 +8369,31 @@ msgstr ""
 msgid "Add keywords by displaying linked tags."
 msgstr ""
 
-#: src/modules/blocks/event-venue/index.js:23
+#: src/modules/blocks/event-venue/index.js:22
 msgid "Where is this event happening? Select or create a location."
 msgstr ""
 
-#: src/modules/blocks/event-venue/template.js:173
+#: src/modules/blocks/event-venue/template.js:195
 msgid "Add or find a venue"
 msgstr ""
 
-#: src/modules/blocks/event-venue/template.js:231
+#: src/modules/blocks/event-venue/template.js:267
 msgid "Remove venue"
 msgstr ""
 
-#: src/modules/blocks/event-venue/template.js:267
+#: src/modules/blocks/event-venue/template.js:309
 msgid "Venue Settings"
 msgstr ""
 
-#: src/modules/blocks/event-venue/template.js:269
+#: src/modules/blocks/event-venue/template.js:311
 msgid "Show Google Maps Link"
 msgstr ""
 
-#: src/modules/blocks/event-venue/template.js:275
+#: src/modules/blocks/event-venue/template.js:317
 msgid "Show Google Maps Embed"
 msgstr ""
 
-#: src/modules/blocks/event-venue/venue-details.js:94
+#: src/modules/blocks/event-venue/venue-details.js:106
 msgid "(Untitled Venue)"
 msgstr ""
 
@@ -8480,7 +8483,7 @@ msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
 msgstr ""
 
-#: src/modules/elements/venue-form/element.js:135
+#: src/modules/elements/venue-form/element.js:138
 msgid "Country"
 msgstr ""
 

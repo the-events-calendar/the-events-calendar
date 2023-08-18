@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.1.4
+Stable tag: 6.2.0.1
 Tested up to: 6.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,6 +229,25 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.0.1] 2023-08-16 =
+
+* Fix - Ensure we pass the correct number of params to `maybe_get_new_order_from_blocks` [TEC-4889]
+
+= [6.2.0] 2023-08-15 =
+
+* Tweak - Change styling for Venue Blocks to constrain to a card-like style. [ECP-1540]
+* Tweak - Adjust REST endpoints to support multiple venues during event creation and updates. [ECP-1540]
+* Tweak - If multiple venues exist on an event, display them in the classic event editor. [ECP-1540]
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Ensure the "Add Organizer" button is visible in the classic editor if organizers have been set. [TEC-4729]
+* Fix - Simplify data handling of venues within the block editor. [ECP-1540]
+* Fix - When removing a newly created organizer in the block editor before saving the event will now trash the draft organizer. [TEC-3865]
+* Tweak - Added filters: `tec_events_rewrite_dynamic_matchers`, `tec_events_views_v2_assets_should_enqueue_single_event_block_editor_styles`, `tec_events_title_taxonomies`, `tec_events_views_v2_view_header_title_element`, `tec_events_views_v2_view_{$view_slug}_header_title_element`, `tec_events_views_v2_view_header_title`, `tec_events_views_v2_view_{$view_slug}_header_title`, `tec_events_views_v2_view_content_title`, `tec_events_views_v2_view_{$view_slug}_content_title`, `tec_get_venue_ids`
+* Tweak - Added actions: `tec_events_after_venue_map_fields`
+* Tweak - Changed views: `blocks/event-venue.php`, `blocks/parts/map.php`, `blocks/parts/venue.php`, `v2/base.php`, `v2/components/breadcrumbs/linked-breadcrumbs.php`, `v2/components/content-title.php`, 'v2/components/header-title.php`, `v2/components/header.php`, `v2/components/messages.php`, `v2/day.php`, `v2/day/event/venue.php`, `v2/list.php`, `v2/list/event/venue.php`, `v2/month.php`
+* Language - 3 new strings added, 72 updated, 1 fuzzied, and 2 obsoleted
+
+
 = [6.1.4] 2023-08-10 =
 
 * Version - The minimum supported version of WordPress is now 6.1.0
@@ -248,6 +267,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Deprecated functions: In `Tribe\Views\V2\Views\Traits\HTML_Cache.php` the `get_view_nonce_fields()`,`get_view_nonce_attributes()`, `get_view_nonce_json_properties()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, and `maybe_generate_nonce()` functions have been deprecated.
 * Tweak - Changed views: `blocks/classic-event-details.php`, `blocks/event-category.php`, `blocks/event-datetime.php`, `blocks/event-organizer.php`, `blocks/event-price.php`, `blocks/event-tags.php`, `blocks/event-venue.php`, `blocks/event-website.php`, `blocks/featured-image.php`, `blocks/parts/details.php`, `blocks/parts/organizer.php`, `blocks/parts/subscribe-list.php`, `blocks/parts/subscribe-single.php`, `modules/meta/organizer.php`, `modules/meta/venue.php`, `v2/components/events-bar/search.php`, `v2/day.php`, `v2/list.php`, `v2/month.php`, `v2/widgets/widget-events-list.php`.
 * Language - 11 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted.
+
 
 = [6.1.3] 2023-07-13 =
 
