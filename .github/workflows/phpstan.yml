@@ -40,7 +40,7 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Convert PHPStan Config for Local Paths
         run: |
-          sed -i 's/..\/..\/..\/wp-includes/wpdemo.test\/wp-includes/g' phpstan.neon \
+          sed -i 's/..\/..\/..\/wp-includes/wpdemo.test\/wp-includes/g' phpstan.neon 
       - name: Convert PHPStan Config for PHP Versions
         run: |
           sed -i 's/70400/${{ matrix.phpVersion }}/g' phpstan.neon
