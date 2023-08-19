@@ -128,7 +128,7 @@ class EventTest extends \Codeception\TestCase\WPTestCase {
 			'_EventAllDay'      => true,
 			'_EventOrganizerID' => [ 23, 89, 2389 ],
 			'_EventCost'        => '23',
-			'_EventVenueID'     => 89,
+			'_EventVenueID'     => [ 89 ],
 			'_EventShowMap'     => false,
 			'_EventShowMapLink' => true,
 		];
