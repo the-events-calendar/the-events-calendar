@@ -6,6 +6,12 @@ on:
       - '*.php'
 jobs:
   phpstan:
+    strategy:
+      matrix:
+        phpVersion:
+          - 80100
+          - 80200
+          - 80300
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout the repository
@@ -34,6 +40,9 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Convert PHPStan Config for Local Paths
         run: |
-          sed -i 's/..\/..\/..\/wp-includes/wpdemo.test\/wp-includes/g' phpstan.neon
+          sed -i 's/..\/..\/..\/wp-includes/wpdemo.test\/wp-includes/g' phpstan.neon \
+      - name: Convert PHPStan Config for PHP Versions
+        run: |
+          sed -i 's/70400/${{ matrix.phpVersion }}/g' phpstan.neon
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyse
