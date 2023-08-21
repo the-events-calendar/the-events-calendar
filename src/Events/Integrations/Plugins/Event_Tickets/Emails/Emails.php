@@ -108,8 +108,8 @@ class Emails {
 					"{event_organizer:{$index}:id}"      => $organizer_id,
 					"{event_organizer:{$index}:name}"    => $organizer_post_title,
 					"{event_organizer:{$index}:url}"     => $organizer_permalink,
-					"{event_organizer:{$index}:email}"   => $organizer_url,
-					"{event_organizer:{$index}:website}" => $organizer_email,
+					"{event_organizer:{$index}:email}"   => $organizer_email,
+					"{event_organizer:{$index}:website}" => $organizer_url,
 					"{event_organizer:{$index}:phone}"   => $organizer_phone,
 				];
 
@@ -118,8 +118,8 @@ class Emails {
 						'{event_organizer_id}'      => $organizer_id,
 						'{event_organizer_name}'    => $organizer_post_title,
 						'{event_organizer_url}'     => $organizer_permalink,
-						'{event_organizer_email}'   => $organizer_url,
-						'{event_organizer_website}' => $organizer_email,
+						'{event_organizer_email}'   => $organizer_email,
+						'{event_organizer_website}' => $organizer_url,
 						'{event_organizer_phone}'   => $organizer_phone,
 					];
 				}
