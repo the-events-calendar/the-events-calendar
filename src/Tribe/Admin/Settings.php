@@ -409,11 +409,15 @@ class Settings {
 		$first   = [ 'general', 'display' ];
 
 		// Reverse to maintain order when prepending
-		foreach ( array_reverse( $first ) as $sort ) {
+		$reversed_arr = array_reverse( $first );
+
+		foreach ( $reversed_arr as $sort ) {
 			if ( ! isset( $tabs[ $sort ] ) ) {
 				continue;
 			}
+
 			$temp = $tabs[ $sort ];
+
 			unset( $tabs[ $sort ] );
 			// Prepend the tab to the beginning of the array
 			$tabs = [ $sort => $temp ] + $tabs;
