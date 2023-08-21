@@ -613,10 +613,18 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 				}
 			}
 		}
-
 		// Where is iCal? It's handled by WordPress.
 
-		return $dynamic_matchers;
+		/**
+		 * Allow extending classes to add their own dynamic matchers.
+		 *
+		 * @since 6.2.0
+		 *
+		 * @param array<string, string>   $dynamic_matchers An array of dynamic matchers in the shape `[ <regex> => <value> ]`.
+		 * @param array<string, mixed>    $query_vars       A map of query vars and their values.
+		 * @param Tribe__Events__Rewrite  $rewrite          The rewrite instance.
+		 */
+		return apply_filters( 'tec_events_rewrite_dynamic_matchers', $dynamic_matchers, $query_vars, $this );
 	}
 
 	/**
