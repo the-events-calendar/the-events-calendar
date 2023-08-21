@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.3.0] TBD =
 
+* Fix - In some cases when multiple Widgets were used on a page, the view results would return the wrong cache, displaying incorrect results. This fixes the inspection of the different view filters being used to determine whether it is cached or not. [ECP-1561]
 * Tweak - Enhanced venue and organizer labels by updating aria labels with additional placeholders and revised translator comments, improving internationalization and accessibility. [TEC-4874]
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 
