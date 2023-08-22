@@ -300,7 +300,7 @@ class Emails {
 					];
 				}
 			}
-			$placeholders = array_merge($placeholders, ...$organizer_placeholders);
+			$placeholders = array_merge( $placeholders, ...$organizer_placeholders );
 
 		}
 		return $placeholders;

@@ -46,14 +46,14 @@ class EmailTest extends \Codeception\TestCase\WPTestCase {
 	public function create_organizers(): void {
 
 		$this->test_organizer_id = $this->factory()->organizer->create( [
-																			'post_title'   => 'Test Organizer',
-																			'post_content' => 'Organizer Description',
-																			'meta_input'   => [
-																				'_OrganizerPhone'   => '123-555-9999',
-																				'_OrganizerWebsite' => 'http://example.com',
-																				'_OrganizerEmail'   => 'test@example.com'
-																			],
-																		]
+											'post_title'   => 'Test Organizer',
+											'post_content' => 'Organizer Description',
+											'meta_input'   => [
+																'_OrganizerPhone'   => '123-555-9999',
+																'_OrganizerWebsite' => 'http://example.com',
+																'_OrgsanizerEmail'   => 'test@example.com'
+											],
+										]
 		);
 
 	}
@@ -61,18 +61,19 @@ class EmailTest extends \Codeception\TestCase\WPTestCase {
 	public function create_venues(): void {
 
 		$this->test_venue_id = $this->factory()->venue->create( [
-																	'post_title'   => 'Test Venue',
-																	'post_content' => 'Venue Description',
-																	'meta_input'   => [
-																		'_VenuePhone'    => '123-555-9999',
-																		'_VenueURL'      => 'http://example.com',
-																		'_VenueEmail'    => 'test@example.com',
-																		'_VenueZIP'      => '90210',
-																		'_VenueProvince' => 'Area 1',
-																		'_VenueCity'     => 'Area 2',
-																		'_VenueAddress'  => '123 Street',
-																	],
-																] );
+											'post_title'   => 'Test Venue',
+											'post_content' => 'Venue Description',
+											'meta_input'   => [
+																'_VenuePhone'    => '123-555-9999',
+																'_VenueURL'      => 'http://example.com',
+																'_VenueEmail'    => 'test@example.com',
+																'_VenueZIP'      => '90210',
+																'_VenueProvince' => 'Area 1',
+																'_VenueCity'     => 'Area 2',
+																'_VenueAddress'  => '123 Street',
+																],
+											]
+		);
 
 	}
 
