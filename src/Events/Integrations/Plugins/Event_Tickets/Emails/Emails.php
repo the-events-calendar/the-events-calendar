@@ -50,14 +50,11 @@ class Emails {
 		}
 
 		$tec_placeholders = array_merge(
+			$placeholders,
 			$this->get_event_placeholders( $event ),
 			$this->get_venue_placeholders( $event ),
 			$this->get_organizer_placeholders( $event )
 		);
-
-
-
-
 
 		return array_merge( $placeholders, $tec_placeholders );
 	}
@@ -267,8 +264,13 @@ class Emails {
 	 */
 	public function get_organizer_placeholders( $event ): array {
 		$placeholders = [];
+
+		$placeholders['{event_organizers_count}'] = $event->organizers->count();
+		$placeholders['{event_organizers_names}'] = !empty($event->organizer_names) ? implode(', ', $event->organizer_names->all()) : '';
+
 		// If the event has an organizer, add the organizer placeholders.
 		if ( ! empty( $event->organizers->count() ) ) {
+			$organizer_placeholders = [];
 
 			foreach ( $event->organizers as $index => $organizer ) {
 				$organizer_id         = $organizer->ID;
@@ -278,7 +280,7 @@ class Emails {
 				$organizer_email      = tribe_get_organizer_email( $organizer->ID );
 				$organizer_phone      = $organizer->phone;
 
-				$placeholders[] = [
+				$organizer_placeholders[] = [
 					"{event_organizer:{$index}:id}"      => $organizer_id,
 					"{event_organizer:{$index}:name}"    => $organizer_post_title,
 					"{event_organizer:{$index}:url}"     => $organizer_permalink,
@@ -288,7 +290,7 @@ class Emails {
 				];
 
 				if ( $index === 0 ) {
-					$placeholders[] = [
+					$organizer_placeholders[] = [
 						'{event_organizer_id}'      => $organizer_id,
 						'{event_organizer_name}'    => $organizer_post_title,
 						'{event_organizer_url}'     => $organizer_permalink,
@@ -298,8 +300,7 @@ class Emails {
 					];
 				}
 			}
-			$placeholders['{event_organizers_count}'] = $event->organizers->count();
-			$placeholders['{event_organizers_names}'] = ! empty( $event->organizer_names ) ? implode( ', ', $event->organizer_names->all() ) : '';
+			$placeholders = array_merge($placeholders, ...$organizer_placeholders);
 
 		}
 		return $placeholders;

@@ -132,7 +132,6 @@ class EmailTest extends \Codeception\TestCase\WPTestCase {
 
 		$emails = new Emails();
 
-
 		$placeholders = $emails->get_organizer_placeholders( $event );
 
 		// Assuming there's only one organizer
@@ -144,12 +143,12 @@ class EmailTest extends \Codeception\TestCase\WPTestCase {
 		$organizer_email      = tribe_get_organizer_email( $organizer->ID );
 		$organizer_phone      = $organizer->phone;
 
-		$this->assertEquals( $organizer_id, $placeholders[1]['{event_organizer_id}'], 'Event Organizer ID does not match.' );
-		$this->assertEquals( $organizer_post_title, $placeholders[1]['{event_organizer_name}'], 'Event Organizer Name does not match.' );
-		$this->assertEquals( $organizer_permalink, $placeholders[1]['{event_organizer_url}'], 'Event Organizer URL does not match.' );
-		$this->assertEquals( html_entity_decode( $organizer_email ), html_entity_decode( $placeholders[1]['{event_organizer_email}'] ), 'Event Organizer Email does not match.' );
-		$this->assertEquals( $organizer_url, $placeholders[1]['{event_organizer_website}'], 'Event Organizer Website does not match.' );
-		$this->assertEquals( $organizer_phone, $placeholders[1]['{event_organizer_phone}'], 'Event Organizer Phone does not match.' );
+		$this->assertEquals( $organizer_id, $placeholders['{event_organizer_id}'], 'Event Organizer ID does not match.' );
+		$this->assertEquals( $organizer_post_title, $placeholders['{event_organizer_name}'], 'Event Organizer Name does not match.' );
+		$this->assertEquals( $organizer_permalink, $placeholders['{event_organizer_url}'], 'Event Organizer URL does not match.' );
+		$this->assertEquals( html_entity_decode( $organizer_email ), html_entity_decode( $placeholders['{event_organizer_email}'] ), 'Event Organizer Email does not match.' );
+		$this->assertEquals( $organizer_url, $placeholders['{event_organizer_website}'], 'Event Organizer Website does not match.' );
+		$this->assertEquals( $organizer_phone, $placeholders['{event_organizer_phone}'], 'Event Organizer Phone does not match.' );
 		$this->assertEquals( 1, $placeholders['{event_organizers_count}'], 'Event Organizers Count does not match.' );
 		$this->assertEquals( $organizer_post_title, $placeholders['{event_organizers_names}'], 'Event Organizers Names do not match.' );
 	}
