@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - When using the Event Tickets email feature the Organizer email and website will no longer be switched. [ET-1843]
+
 = [6.2.0.1] 2023-08-16 =
 
 * Fix - Ensure we pass the correct number of params to `maybe_get_new_order_from_blocks` [TEC-4889]
