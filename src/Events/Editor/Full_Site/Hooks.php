@@ -4,6 +4,7 @@ namespace TEC\Events\Editor\Full_Site;
 
 use TEC\Common\Contracts\Service_Provider;
 use Tribe\Events\Editor\Blocks\Archive_Events;
+use Tribe\Events\Editor\Blocks\Event_Single;
 use Tribe__Events__Main;
 
 
@@ -46,6 +47,7 @@ class Hooks extends Service_Provider {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
 	}
 
 	/**
@@ -55,6 +57,15 @@ class Hooks extends Service_Provider {
 	 */
 	public function action_register_archive_template() {
 		return $this->container->make( Archive_Events::class )->register();
+	}
+
+	/**
+	 * Registers the Single Event template.
+	 *
+	 * @since TBD
+	 */
+	public function action_register_single_event_template() {
+		return $this->container->make( Event_Single::class )->register();
 	}
 
 	/**
@@ -76,7 +87,7 @@ class Hooks extends Service_Provider {
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
 		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-			return $this->container->make( Templates::class )->add_events_single( $query_result, $query, $template_type );
+			return $this->container->make( Templates::class )->add_event_single( $query_result, $query, $template_type );
 		}
 
 		return $this->container->make( Templates::class )->add_events_archive( $query_result, $query, $template_type );

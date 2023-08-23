@@ -115,7 +115,7 @@ class Templates {
 	 *
 	 * @return array Modified list of block templates.
 	 */
-	public function add_events_single( array $query_result, $query, string $template_type ) {
+	public function add_event_single( array $query_result, $query, string $template_type ) {
 		if ( is_admin() ) {
 			return $query_result;
 		}
@@ -131,7 +131,7 @@ class Templates {
 			return $query_result;
 		}
 
-		$query_result[] = $this->get_template_events_single();
+		$query_result[] = $this->get_template_event_single();
 
 		return $query_result;
 	}
@@ -146,13 +146,13 @@ class Templates {
 	 *
 	 * @return WP_Block_Template The single events template object.
 	 */
-	public function get_template_events_single() {
+	public function get_template_event_single() {
 		$template_content = file_get_contents(
-			Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/single-events.html'
+			Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/single-event.html'
 		);
 
 		$template                 = new WP_Block_Template();
-		$template->id             = 'the-events-calendar//single-events';
+		$template->id             = 'the-events-calendar//single-event';
 		$template->theme          = 'The Events Calendar';
 		$template->content        = Template_Utils::inject_theme_attribute_in_content( $template_content );
 		$template->slug           = static::$single_slug;
