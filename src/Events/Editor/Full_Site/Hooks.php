@@ -46,7 +46,6 @@ class Hooks extends Service_Provider {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
-		add_action( 'after_switch_theme', [ $this, 'handle_theme_switch' ], 10, 1 );
 	}
 
 	/**
@@ -136,33 +135,5 @@ class Hooks extends Service_Provider {
 		}
 
 		return $options;
-	}
-
-	/**
-	 * Handles operations when there's a switch in the theme.
-	 *
-	 * This method can be used to handle any necessary changes, resets, or operations
-	 * that should occur when a theme is switched. It can be hooked into theme
-	 * switch actions provided by WordPress.
-	 *
-	 * @since TBD
-	 *
-	 * @param string   $old_name  The name of the old theme.
-	 * @param WP_Theme $old_theme WP_Theme instance of the old theme.
-	 *
-	 * @return void
-	 */
-	public function handle_theme_switch( $old_name, $old_theme = false ) {
-		if ( tec_is_full_site_editor() ) {
-			// When switching to a site editor theme
-			// Set the Events Template setting to Default Events Template
-			tribe_update_option( 'tribeEventsTemplate', '' );
-			// Activate Block Editor for Events
-			tribe_update_option( 'blockEditorActivation', true );
-		} else {
-			// When switching away from a site editor theme
-			// Deactivate Block Editor for Events
-			tribe_update_option( 'blockEditorActivation', false );
-		}
 	}
 }
