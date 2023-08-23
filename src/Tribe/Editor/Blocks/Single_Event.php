@@ -1,7 +1,7 @@
 <?php
 namespace Tribe\Events\Editor\Blocks;
 
-class Event_Single extends \Tribe__Editor__Blocks__Abstract {
+class Single_Event extends \Tribe__Editor__Blocks__Abstract {
 
 	/**
 	 * Returns the name/slug of this block.

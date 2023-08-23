@@ -3,7 +3,7 @@
 namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
-use Tribe\Events\Editor\Blocks\Event_Single;
+use Tribe\Events\Editor\Blocks\Single_Event;
 use \Tribe__Events__Main as Events_Main;
 use TEC\Common\Contracts\Service_Provider;
 
@@ -50,7 +50,7 @@ class Provider extends Service_Provider {
 	 */
 	private function register_singletons() {
 		$this->container->singleton( Archive_Events::class, Archive_Events::class, [ 'load' ] );
-		$this->container->singleton( Event_Single::class, Event_Single::class, [ 'load' ] );
+		$this->container->singleton( Single_Event::class, Single_Event::class, [ 'load' ] );
 	}
 
 	/**

@@ -4,7 +4,7 @@ namespace TEC\Events\Editor\Full_Site;
 
 use TEC\Common\Contracts\Service_Provider;
 use Tribe\Events\Editor\Blocks\Archive_Events;
-use Tribe\Events\Editor\Blocks\Event_Single;
+use Tribe\Events\Editor\Blocks\Single_Event;
 use Tribe__Events__Main;
 
 
@@ -65,7 +65,7 @@ class Hooks extends Service_Provider {
 	 * @since TBD
 	 */
 	public function action_register_single_event_template() {
-		return $this->container->make( Event_Single::class )->register();
+		return $this->container->make( Single_Event::class )->register();
 	}
 
 	/**
