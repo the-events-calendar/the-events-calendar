@@ -1,8 +1,35 @@
 <?php
-
 namespace TEC\Events\Updates;
 
-class Sync_All_Day_Dates {
+use TEC\Common\Contracts\Provider\Controller as Base_Controller;
+use Tribe__Main;
+
+/**
+ * Class Controller
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Updates
+ */
+class Controller extends Base_Controller {
+
+	/**
+	 * Registers hooks for TEC Updates.
+	 *
+	 * @since TBD
+	 */
+	public function do_register():void {
+		add_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'on_cutoff_change_fix_all_day_events' ], 10, 2 );
+	}
+
+	/**
+	 * Removes hooks.
+	 *
+	 * @since TBD
+	 */
+	public function unregister():void {
+		remove_action( 'update_option_' . Tribe__Main::OPTIONNAME, [ $this, 'on_cutoff_change_fix_all_day_events' ], 10 );
+	}
 
 	/**
 	 * Settings callback that updates the start/end time on all day events to match the EOD cutoff.
@@ -29,7 +56,7 @@ class Sync_All_Day_Dates {
 			return;
 		}
 		// Was changed, now do updates to sync with the new time.
-		$this->fix_all_day_events( $new_value['multiDayCutoff'] . ':00' );
+		$this->fix_all_day_events( $new_value['multiDayCutoff'] . ':00:00' );
 	}
 
 	/**
@@ -38,7 +65,7 @@ class Sync_All_Day_Dates {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $event_cutoff_time H:i time, e.g. 08:00
+	 * @param string $event_cutoff_time H:i:s time, e.g. 08:00:00
 	 */
 	public function fix_all_day_events( string $event_cutoff_time ) {
 		global $wpdb;
@@ -48,9 +75,9 @@ class Sync_All_Day_Dates {
 		$fix_start_dates = $wpdb->prepare( "UPDATE $wpdb->postmeta AS pm1
 				INNER JOIN $wpdb->postmeta pm2
 					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` IN('1','yes'))
-				SET pm1.meta_value = CONCAT(DATE(pm1.meta_value), ' ', %s)
+				SET pm1.meta_value = DATE_FORMAT( CONCAT( DATE(pm1.meta_value), ' ', %s), '%%Y-%%m-%%d %%H:%%i:%%s')
 				WHERE pm1.meta_key = '_EventStartDate'
-					AND DATE_FORMAT(pm1.meta_value, '%%H:%%i') <> %s", $event_cutoff_time, $event_cutoff_time );
+					AND DATE_FORMAT( pm1.meta_value, '%%H:%%i:%%s' ) <> %s", $event_cutoff_time, $event_cutoff_time );
 
 		// mysql query to set the end time to the start time plus the duration on every all day event
 		$fix_end_dates =
@@ -61,7 +88,7 @@ class Sync_All_Day_Dates {
 					ON (pm1.post_id = pm3.post_id AND pm3.meta_key = '_EventStartDate')
 				INNER JOIN $wpdb->postmeta pm4
 					ON (pm1.post_id = pm4.post_id AND pm4.meta_key = '_EventDuration')
-				SET pm1.meta_value = DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND )
+				SET pm1.meta_value = DATE_FORMAT( DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND ), '%Y-%m-%d %H:%i:%s')
 				WHERE pm1.meta_key = '_EventEndDate'";
 		$wpdb->query( $fix_start_dates );
 		$wpdb->query( $fix_end_dates );

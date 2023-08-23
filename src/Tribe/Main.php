@@ -690,7 +690,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
 			// Various Events Updates.
-			tribe_register_provider( TEC\Events\Updates\Provider::class );
+			tribe_register_provider( TEC\Events\Updates\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
