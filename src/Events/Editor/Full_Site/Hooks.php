@@ -2,9 +2,9 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
+use TEC\Common\Contracts\Service_Provider;
 use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe__Events__Main;
-use TEC\Common\Contracts\Service_Provider;
 
 
 /**
@@ -46,6 +46,7 @@ class Hooks extends Service_Provider {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
+		add_action( 'after_switch_theme', [ $this, 'handle_theme_switch' ] );
 	}
 
 	/**
@@ -61,8 +62,8 @@ class Hooks extends Service_Provider {
 	 * Adds the archive template to the array of block templates.
 	 *
 	 * @since 5.14.2
+	 * @since TBD Added support for single event templates.
 	 *
-
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array  $query {
 	 *     Optional. Arguments to retrieve templates.
@@ -75,13 +76,8 @@ class Hooks extends Service_Provider {
 	 * @return array The modified $query.
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
-		// Don't load this template in the admin - so it's not editable by users.
-		if ( is_admin() ) {
-			return $query_result;
-		}
-
 		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-			return $query_result;
+			return $this->container->make( Templates::class )->add_events_single( $query_result, $query, $template_type );
 		}
 
 		return $this->container->make( Templates::class )->add_events_archive( $query_result, $query, $template_type );
@@ -91,7 +87,6 @@ class Hooks extends Service_Provider {
 	 * If we're using a FSE theme, we always use the full styling.
 	 *
 	 * @since 5.14.2
-
 	 *
 	 * @param string  $value The value of the option.
 	 * @return string $value The original value, or an empty string if FSE is active.
@@ -137,9 +132,37 @@ class Hooks extends Service_Provider {
 	 */
 	public function filter_tribe_save_template_option( $options, $option_id ) {
 		if ( tec_is_full_site_editor() ) {
-			$options[ 'tribeEventsTemplate' ] = '';
+			$options['tribeEventsTemplate'] = '';
 		}
 
 		return $options;
+	}
+
+	/**
+	 * Handles operations when there's a switch in the theme.
+	 *
+	 * This method can be used to handle any necessary changes, resets, or operations
+	 * that should occur when a theme is switched. It can be hooked into theme
+	 * switch actions provided by WordPress.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $new_name  The name of the new theme.
+	 * @param WP_Theme $new_theme WP_Theme instance of the new theme.
+	 *
+	 * @return void
+	 */
+	public function handle_theme_switch( $new_name, $new_theme ) {
+		if ( tec_is_full_site_editor() ) {
+			// When switching to a site editor theme
+			// Set the Events Template setting to Default Events Template
+			tribe_update_option( 'tribeEventsTemplate', '' );
+			// Activate Block Editor for Events
+			tribe_update_option( 'blockEditorActivation', true );
+		} else {
+			// When switching away from a site editor theme
+			// Deactivate Block Editor for Events
+			tribe_update_option( 'blockEditorActivation', false );
+		}
 	}
 }
