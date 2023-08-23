@@ -91,7 +91,6 @@ class Templates {
 		$template->content        = Template_Utils::inject_theme_attribute_in_content( $template_content );
 		$template->slug           = static::$archive_slug;
 		$template->source         = 'custom';
-		$template->theme          = 'The Events Calendar';
 		$template->type           = 'wp_template';
 		$template->title          = esc_html__( 'Calendar Views', 'the-events-calendar' );
 		$template->description    = esc_html__( 'Displays the event views.', 'the-events-calendar' );
