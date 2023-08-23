@@ -93,7 +93,7 @@ class Templates {
 		$template->source         = 'custom';
 		$template->theme          = 'The Events Calendar';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html__( 'Events Archive', 'the-events-calendar' );
+		$template->title          = esc_html__( 'Calendar Views', 'the-events-calendar' );
 		$template->status         = 'publish';
 		$template->has_theme_file = true;
 		$template->is_custom      = true;
@@ -158,7 +158,7 @@ class Templates {
 		$template->slug           = static::$single_slug;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html__( 'Single Event', 'the-events-calendar' );
+		$template->title          = esc_html__( 'Event Single', 'the-events-calendar' );
 		$template->status         = 'publish';
 		$template->has_theme_file = true;
 		$template->is_custom      = true;
