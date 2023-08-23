@@ -86,7 +86,7 @@ class Templates {
 		);
 
 		$template                 = new WP_Block_Template();
-		$template->id             = 'the-events-calendar//archive-events';
+		$template->id             = 'the-events-calendar/archive-events';
 		$template->theme          = 'The Events Calendar';
 		$template->content        = Template_Utils::inject_theme_attribute_in_content( $template_content );
 		$template->slug           = static::$archive_slug;
@@ -152,13 +152,13 @@ class Templates {
 		);
 
 		$template                 = new WP_Block_Template();
-		$template->id             = 'the-events-calendar//single-event';
+		$template->id             = 'the-events-calendar/single-event';
 		$template->theme          = 'The Events Calendar';
 		$template->content        = Template_Utils::inject_theme_attribute_in_content( $template_content );
 		$template->slug           = static::$single_slug;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html__( 'Event Single', 'the-events-calendar' );
+		$template->title          = esc_html__( 'Single Event', 'the-events-calendar' );
 		$template->status         = 'publish';
 		$template->has_theme_file = true;
 		$template->is_custom      = true;
