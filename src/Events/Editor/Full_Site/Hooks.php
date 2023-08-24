@@ -2,10 +2,10 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
-use TEC\Common\Contracts\Service_Provider;
 use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe\Events\Editor\Blocks\Single_Event;
 use Tribe__Events__Main;
+use TEC\Common\Contracts\Service_Provider;
 
 
 /**
@@ -90,12 +90,12 @@ class Hooks extends Service_Provider {
 		$templates_class = $this->container->make( Templates::class );
 
 		// Get the single event template.
-		$single_events_template = $templates_class->add_event_single( $query_result, $query, $template_type );
+		$single_events_template = $templates_class->add_event_single( [], $query, $template_type );
 
 		// Get the events archive template.
-		$events_archive_template = $templates_class->add_events_archive( $query_result, $query, $template_type );
+		$events_archive_template = $templates_class->add_events_archive( [], $query, $template_type );
 
-		return array_merge( $single_events_template, $events_archive_template );
+		return array_merge( $query_result, $single_events_template, $events_archive_template );
 	}
 
 	/**
