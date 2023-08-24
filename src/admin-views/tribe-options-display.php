@@ -151,7 +151,6 @@ $tec_events_display_template = [
 		'size'            => 'small',
 		'default'         => 'default',
 		'options'         => $template_options,
-		'conditional' => ( ! tec_is_full_site_editor() ),
 	],
 	'tribeEnableViews'              => [
 		'type'            => 'checkbox_list',
