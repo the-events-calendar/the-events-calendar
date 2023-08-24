@@ -88,7 +88,7 @@ class Templates {
 		$template->slug           = static::$archive_slug;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html__( 'Calendar Views', 'the-events-calendar' );
+		$template->title          = esc_html__( 'Calendar Views (Event Archive)', 'the-events-calendar' );
 		$template->description    = esc_html__( 'Displays the calendar views.', 'the-events-calendar' );
 		$template->status         = 'publish';
 		$template->has_theme_file = true;
