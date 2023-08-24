@@ -86,11 +86,16 @@ class Hooks extends Service_Provider {
 	 * @return array The modified $query.
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
-		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-			return $this->container->make( Templates::class )->add_event_single( $query_result, $query, $template_type );
-		}
+		// Create an instance of the Templates class.
+		$templates_class = $this->container->make( Templates::class );
 
-		return $this->container->make( Templates::class )->add_events_archive( $query_result, $query, $template_type );
+		// Get the single event template.
+		$single_events_template = $templates_class->add_event_single( $query_result, $query, $template_type );
+
+		// Get the events archive template.
+		$events_archive_template = $templates_class->add_events_archive( $query_result, $query, $template_type );
+
+		return array_merge( $single_events_template, $events_archive_template );
 	}
 
 	/**
