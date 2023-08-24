@@ -52,10 +52,6 @@ class Templates {
 	 * @return array
 	 */
 	public function add_events_archive( array $query_result, $query, string $template_type ) {
-		if ( is_admin() ) {
-			return $query_result;
-		}
-
 		if ( 'wp_template' !== $template_type ) {
 			return $query_result;
 		}
@@ -116,10 +112,6 @@ class Templates {
 	 * @return array Modified list of block templates.
 	 */
 	public function add_event_single( array $query_result, $query, string $template_type ) {
-		if ( is_admin() ) {
-			return $query_result;
-		}
-
 		if ( 'wp_template' !== $template_type ) {
 			return $query_result;
 		}
