@@ -237,8 +237,7 @@ class Emails {
 				$state_or_province = $venue->state_province;
 			}
 
-			$placeholders
-				= [
+			$placeholders = [
 				'{event_venue_id}'                => $venue->ID,
 				'{event_venue_name}'              => wp_kses( $venue->post_title, [] ),
 				'{event_venue_street_address}'    => $venue->address,
