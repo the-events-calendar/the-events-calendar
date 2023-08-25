@@ -50,7 +50,7 @@ class Tribe__Events__Editor__Compatibility {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 100 );
 		add_filter( 'classic_editor_enabled_editors_for_post_type', [ $this, 'filter_classic_editor_enabled_editors_for_post_type' ], 10, 2 );
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'insert_toggle_blocks_editor_field' ] );
-		add_action( 'after_switch_theme', [ $this, 'toggle_blocks_editor_setting_on_theme_switch' ], 10, 1 );
+		add_action( 'after_switch_theme', [ $this, 'enable_block_editor_on_fse_theme_activation' ], 10, 1 );
 	}
 
 	/**
@@ -241,10 +241,7 @@ class Tribe__Events__Editor__Compatibility {
 	}
 
 	/**
-     * Toggles the 'Activate Block Editor for Events' setting based on the full site editor theme status.
-     *
-     * Activates block editor if the new theme is a full site editor.
-     * Deactivates block editor if the new theme is not a full site editor.
+     * Enables the 'Activate Block Editor for Events' setting when a full site editor theme is activated.
 	 * 
 	 * @since TBD
 	 * 
@@ -253,11 +250,9 @@ class Tribe__Events__Editor__Compatibility {
      *
      * @return void
      */
-    public function toggle_blocks_editor_setting_on_theme_switch( $old_name, $old_theme = false ) {
+    public function enable_block_editor_on_fse_theme_activation( $old_name, $old_theme = false ) {
         if ( tec_is_full_site_editor() ) {
             tribe_update_option( static::$blocks_editor_key, true );
-        } else {
-            tribe_update_option( static::$blocks_editor_key, false );
         }
     }
 }
