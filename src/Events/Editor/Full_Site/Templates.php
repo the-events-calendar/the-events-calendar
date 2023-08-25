@@ -88,8 +88,8 @@ class Templates {
 		$template->slug           = static::$archive_slug;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html__( 'Calendar Views (Event Archive)', 'the-events-calendar' );
-		$template->description    = esc_html__( 'Displays the calendar views.', 'the-events-calendar' );
+		$template->title          = esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' );
+		$template->description    = esc_html_x( 'Displays the calendar views.', 'The Full Site editor block navigation description', 'the-events-calendar' );
 		$template->status         = 'publish';
 		$template->has_theme_file = true;
 		$template->is_custom      = true;
@@ -150,8 +150,8 @@ class Templates {
 		$template->slug           = static::$single_slug;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html__( 'Event Single', 'the-events-calendar' );
-		$template->description    = esc_html__( 'Displays a single event.', 'the-events-calendar' );
+		$template->title          = esc_html_x( 'Event Single', 'The Full Site editor block navigation title', 'the-events-calendar' );
+		$template->description    = esc_html_x( 'Displays a single event.', 'The Full Site editor block navigation description', 'the-events-calendar' );
 		$template->status         = 'publish';
 		$template->has_theme_file = true;
 		$template->is_custom      = true;
