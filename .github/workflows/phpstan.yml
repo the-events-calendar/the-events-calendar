@@ -9,6 +9,8 @@ jobs:
     strategy:
       matrix:
         phpVersion:
+          - 70400
+          - 80000
           - 80100
           - 80200
           - 80300
