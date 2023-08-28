@@ -80,6 +80,13 @@ tribe.events.views.icalLinks = {};
 		$content.toggle();
 	};
 
+	/**
+	 * Handles the pre-toggle logic for the accordion.
+	 *
+	 * @since TBD
+	 *
+	 * @param {event} event The triggering event object.
+	 */
 	obj.handleAccordionToggle = function( event ) {
 		var $button     = $( event.target ).closest( obj.selectors.icalLinksButton );
 		var $buttonText = $button.find( obj.selectors.icalLinksButtonText );
@@ -97,6 +104,13 @@ tribe.events.views.icalLinks = {};
 
 	}
 
+	/**
+	 * Handles the toggling of classes and attributes for the accordion.
+	 *
+	 * @since TBD
+	 *
+	 * @param {object} $ele The jQuery object of the toggle button.
+	 */
 	obj.handleToggleAccordionExpanded = function( $ele ) {
 		// Toggle the aria-expanded attribute and class for the button element.
 		var $expanded = $ele.attr( 'aria-expanded' );
@@ -114,6 +128,11 @@ tribe.events.views.icalLinks = {};
 		}
 	}
 
+	/**
+	 * Resets all dropdown content elements to their default state.
+	 *
+	 * @since TBD
+	 */
 	obj.resetAccordions = function() {
 		// Hide all dropdown content elements.
 		$( obj.selectors.icalLinksListContainer ).hide();
