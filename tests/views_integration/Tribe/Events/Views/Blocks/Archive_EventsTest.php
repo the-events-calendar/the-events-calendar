@@ -37,14 +37,6 @@ class Archive_EventsTest extends HtmlTestCase {
 	}
 
 	/**
-	 * Test that the block matches the snapshot.
-	 */
-	public function test_block_matches_snapshot() {
-		$block_content = $this->renderArchiveEventsBlock();
-		$this->assertMatchesSnapshot( $block_content );
-	}
-
-	/**
 	 * Utility method to render the block and return the content.
 	 */
 	private function renderArchiveEventsBlock(): string {

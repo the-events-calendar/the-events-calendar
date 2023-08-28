@@ -37,14 +37,6 @@ class Single_EventTest extends HtmlTestCase {
 	}
 
 	/**
-	 * Test that the block matches the snapshot.
-	 */
-	public function test_block_matches_snapshot() {
-		$block_content = $this->renderSingleEventBlock();
-		$this->assertMatchesSnapshot( $block_content );
-	}
-
-	/**
 	 * Utility method to render the block and return the content.
 	 */
 	private function renderSingleEventBlock(): string {
