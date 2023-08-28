@@ -14,16 +14,43 @@ class Single_EventTest extends HtmlTestCase {
 		tribe( \Tribe__Events__Editor__Provider::class )->register();
 	}
 
+	public function tearDown(): void {
+		// Remove any added filters, cleanup resources, etc.
+		remove_filter( 'tribe_editor_should_load_blocks', '__return_true', PHP_INT_MAX );
+		parent::tearDown();
+	}
+
 	/**
-	 * Test that the block is rendered.
+	 * Test that the block contains 'tribe-block' class.
 	 */
-	public function test_block_is_rendered() {
+	public function test_block_contains_tribe_block_class() {
+		$block_content = $this->renderSingleEventBlock();
+		$this->assertStringContainsString( 'tribe-block', $block_content );
+	}
+
+	/**
+	 * Test that the block contains 'tribe-block__single-event' class.
+	 */
+	public function test_block_contains_tribe_block_single_event_class() {
+		$block_content = $this->renderSingleEventBlock();
+		$this->assertStringContainsString( 'tribe-block__single-event', $block_content );
+	}
+
+	/**
+	 * Test that the block matches the snapshot.
+	 */
+	public function test_block_matches_snapshot() {
+		$block_content = $this->renderSingleEventBlock();
+		$this->assertMatchesSnapshot( $block_content );
+	}
+
+	/**
+	 * Utility method to render the block and return the content.
+	 */
+	private function renderSingleEventBlock(): string {
 		ob_start();
 		echo ( new Single_Event() )->render();
-		$block_content = ob_get_clean();
 
-		$this->assertStringContainsString( 'tribe-block', $block_content );
-		$this->assertStringContainsString( 'tribe-block__single-event', $block_content );
-		$this->assertMatchesSnapshot( $block_content );
+		return ob_get_clean();
 	}
 }
