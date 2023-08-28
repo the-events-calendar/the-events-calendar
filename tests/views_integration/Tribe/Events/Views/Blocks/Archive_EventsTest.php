@@ -24,16 +24,6 @@ class Archive_EventsTest extends HtmlTestCase {
 
 		$this->assertStringContainsString( 'tribe-block', $block_content );
 		$this->assertStringContainsString( 'tribe-block__archive-events', $block_content );
-	}
-
-	/**
-	 * Test that the block is rendered with no custom classes.
-	 */
-	public function test_render_no_custom_classes() {
-		ob_start();
-		echo ( new Archive_Events() )->render();
-		$block_content = ob_get_clean();
-
 		$this->assertMatchesSnapshot( $block_content );
 	}
 }

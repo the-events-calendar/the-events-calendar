@@ -24,16 +24,6 @@ class Single_EventTest extends HtmlTestCase {
 
 		$this->assertStringContainsString( 'tribe-block', $block_content );
 		$this->assertStringContainsString( 'tribe-block__single-event', $block_content );
-	}
-
-	/**
-	 * Test that the block is rendered with no custom classes.
-	 */
-	public function test_render_no_custom_classes() {
-		ob_start();
-		echo ( new Single_Event() )->render();
-		$block_content = ob_get_clean();
-
 		$this->assertMatchesSnapshot( $block_content );
 	}
 }
