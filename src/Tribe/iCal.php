@@ -754,7 +754,8 @@ class Tribe__Events__iCal {
 	/**
 	 * Get the iCal Output for the provided event object.
 	 *
-	 * @since5.1.6
+	 * @since 5.1.6
+	 * @since TBD   Sanitize organizer name using new method.
 	 *
 	 * @param \WP_Post             $event_post The event post object.
 	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.
