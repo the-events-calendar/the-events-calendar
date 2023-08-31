@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct some accessibility issues in the subscribe dropdowns. Props to @alh0319 for calling these out! [TEC-4185]
 * Tweak - Enhanced venue and organizer labels by updating aria labels with additional placeholders and revised translator comments, improving internationalization and accessibility. [TEC-4874]
 * Tweak - Changed views: `blocks/parts/organizer`, `blocks/parts/subscribe-list`, `modules/meta/organizer`, `modules/meta/venue`, `v2/components/subscribe-links/item`, `v2/components/subscribe-links/list`, `v2/components/subscribe-links/single-event-list`
+* Language - 1 new strings added, 22 updated, 0 fuzzied, and 8 obsoleted
 
 = [6.2.0.1] 2023-08-16 =
 
