@@ -391,7 +391,7 @@ class Settings {
 	 * Sort the tabs, forcing some to the front and some to the end.
 	 *
 	 * @since 6.0.5
-	 * @since TBD Correctly prepend 'general' and 'display' tabs to the beginning.
+	 * @since 6.2.1 Correctly prepend 'general' and 'display' tabs to the beginning.
 	 *
 	 * @param array $tabs        The array of tabs.
 	 * @param string $admin_page The ID of the admin page we are on.

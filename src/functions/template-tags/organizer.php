@@ -160,7 +160,7 @@ function tribe_get_organizer_label_plural() {
  * Note: the output of this function is not escaped.
  * You should escape it wherever you use it!
  *
- * @since TBD
+ * @since 6.2.1
  *
  * @return string The lowercase singular version of the Organizer Label.
  */
@@ -169,7 +169,7 @@ function tribe_get_organizer_label_singular_lowercase() {
 	 * Allows customization of the singular lowercase version of the Organizer Label.
 	 * Note: the output of this filter is not escaped!
 	 *
-	 * @since TBD
+	 * @since 6.2.1
 	 *
 	 * @param string $label The singular lowercase version of the Organizer label, defaults to "organizer" (lowercase)
 	 */
