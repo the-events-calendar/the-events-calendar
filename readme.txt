@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - When using the Event Tickets email feature the Organizer email and website will no longer be switched. [ET-1843]
+* Fix - When subscribing to an event, the organizer name will not encode as many characters, especially spaces. [ET-1778]
 
 = [6.2.0.1] 2023-08-16 =
 
