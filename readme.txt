@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.1] TBD =
+= [6.2.1] 2023-09-05 =
 
 * Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
 * Fix - Fixed a bug where `0` and `1` were displayed on the `general` and `display` tabs for Network admins on multisite installations. [TEC-4774]
