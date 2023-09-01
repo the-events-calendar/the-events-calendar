@@ -5,5 +5,5 @@ parameters:
     - src
     - the-events-calendar.php
   scanDirectories:
-    - ../../../wp-includes
     - common/src
+    # WP API is stubbed by szepeviktor/phpstan-wordpress - make sure this stays up to date w/ WP

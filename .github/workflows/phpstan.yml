@@ -31,18 +31,8 @@ jobs:
       - name: Install vendor
         run: composer i --ignore-platform-reqs
       # ------------------------------------------------------------------------------
-      # Set up Wordpress
-      # ------------------------------------------------------------------------------
-      - name: Install WP CLI
-        run: curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-      - name: Install WP Core
-        run: php wp-cli.phar core download --path=wpdemo.test --allow-root
-      # ------------------------------------------------------------------------------
       # Run the PHPStan tests
       # ------------------------------------------------------------------------------
-      - name: Convert PHPStan Config for Local Paths
-        run: |
-          sed -i 's/..\/..\/..\/wp-includes/wpdemo.test\/wp-includes/g' phpstan.neon 
       - name: Convert PHPStan Config for PHP Versions
         run: |
           sed -i 's/70400/${{ matrix.phpVersion }}/g' phpstan.neon
