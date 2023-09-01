@@ -83,7 +83,7 @@ tribe.events.views.icalLinks = {};
 	/**
 	 * Handles the pre-toggle logic for the accordion.
 	 *
-	 * @since TBD
+	 * @since 6.2.1
 	 *
 	 * @param {event} event The triggering event object.
 	 */
@@ -107,7 +107,7 @@ tribe.events.views.icalLinks = {};
 	/**
 	 * Handles the toggling of classes and attributes for the accordion.
 	 *
-	 * @since TBD
+	 * @since 6.2.1
 	 *
 	 * @param {object} $ele The jQuery object of the toggle button.
 	 */
@@ -131,7 +131,7 @@ tribe.events.views.icalLinks = {};
 	/**
 	 * Resets all dropdown content elements to their default state.
 	 *
-	 * @since TBD
+	 * @since 6.2.1
 	 */
 	obj.resetAccordions = function() {
 		// Hide all dropdown content elements.
