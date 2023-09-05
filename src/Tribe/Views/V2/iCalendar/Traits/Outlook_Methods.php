@@ -134,6 +134,17 @@ trait Outlook_Methods {
 			'body'     => $body,
 		];
 
+		/**
+		 * Allow users to Filter our Outlook Link params before constructing the URL.
+		 *
+		 * @since TBD
+		 *
+		 * @var array    $params   The params used in the add_query_arg.
+		 * @var /WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
+		 * @var string   $calendar The slug of the calendar. Values can be "outlook-365" and "outlook-live".
+		 */
+		$params = apply_filters( 'tec_views_v2_single_event_outlook_link_parameters', $params, $event, $calendar );
+
 		return $params;
 	}
 
