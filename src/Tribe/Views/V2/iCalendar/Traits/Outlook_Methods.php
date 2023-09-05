@@ -23,7 +23,7 @@ use Tribe__Events__Venue as Venue;
 trait Outlook_Methods {
 
 	/**
-	 * Space replacement used to in Outlook link.
+	 * Space replacement used in Outlook link.
 	 *
 	 * @since 5.16.0
 	 *
@@ -32,7 +32,7 @@ trait Outlook_Methods {
 	protected static $outlook_space = '%20';
 
 	/**
-	 * Temporary space replacement used to to urlencode an Outlook link.
+	 * Temporary space replacement used to urlencode an Outlook link.
 	 *
 	 * @since 5.16.0
 	 *
@@ -57,8 +57,8 @@ trait Outlook_Methods {
 		$rrv  = 'addevent';
 
 		/**
-		 * If event is an all day event, then adjust the end time.
-		 * Using the 'allday' parameter doesn't work well through time zones.
+		 * If the event is an all-day event, then adjust the end time.
+		 * The 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
 			$enddt = Dates::build_date_object( $event->end_date )->format( 'Y-m-d' )
@@ -91,7 +91,7 @@ trait Outlook_Methods {
 			// Stripping tags
 			$body = strip_tags( $body, '<p>' );
 
-			// Truncate Event Description and add permalink if greater than 900 characters
+			// Truncate the Event Description and add permalink if greater than 900 characters
 			if ( strlen( $body ) > 900 ) {
 
 				$body = substr( $body, 0, 900 );
@@ -153,7 +153,7 @@ trait Outlook_Methods {
 	 *
 	 * @since 5.16.0
 	 *
-	 * @return string The singe event add to calendar URL.
+	 * @return string The single event add to calendar URL.
 	 */
 	public function generate_outlook_full_url() {
 		$params   = $this->generate_outlook_add_url_parameters();
@@ -161,13 +161,13 @@ trait Outlook_Methods {
 		$url      = add_query_arg( $params, $base_url );
 
 		/**
-		 * Filter the Outlook single event import url.
+		 * Filter the Outlook single event import URL.
 		 *
 		 * @since 5.16.0
 		 *
-		 * @param string               $url      The url used to subscribe to a calendar in Outlook.
-		 * @param string               $base_url The base url used to subscribe in Outlook.
-		 * @param array<string|string> $params   An array of parameters added to the base url.
+		 * @param string               $url      The URL used to subscribe to a calendar in Outlook.
+		 * @param string               $base_url The base URL used to subscribe in Outlook.
+		 * @param array<string|string> $params   An array of parameters added to the base URL.
 		 * @param Outlook_Methods      $this     An instance of the link abstract.
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_single_event_import_url', $url, $base_url, $params, $this );
@@ -189,7 +189,7 @@ trait Outlook_Methods {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
-		// Remove ical query and add back after urlencoding the rest of the url.
+		// Remove ical query and add it back after urlencoding the rest of the URL.
 		$feed_url = remove_query_arg( 'ical', $feed_url );
 
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
@@ -211,10 +211,10 @@ trait Outlook_Methods {
 		 *
 		 * @since 5.16.0
 		 *
-		 * @param string                  $url      The url used to subscribe to a calendar in Outlook.
-		 * @param string                  $base_url The base url used to subscribe in Outlook.
+		 * @param string                  $url      The URL used to subscribe to a calendar in Outlook.
+		 * @param string                  $base_url The base URL used to subscribe in Outlook.
 		 * @param string                  $feed_url The subscribe url used on the site.
-		 * @param array<string|string>    $params   An array of parameters added to the base url.
+		 * @param array<string|string>    $params   An array of parameters added to the base URL.
 		 * @param Outlook_Abstract_Export $this     An instance of the link abstract.
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_subscribe_url', $url, $base_url, $feed_url, $params, $this );
