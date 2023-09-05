@@ -154,6 +154,32 @@ function tribe_get_organizer_label_plural() {
 }
 
 /**
+ * Get Organizer Label Singular lowercase.
+ * Returns the lowercase singular version of the Organizer Label.
+ *
+ * Note: the output of this function is not escaped.
+ * You should escape it wherever you use it!
+ *
+ * @since 6.2.1
+ *
+ * @return string The lowercase singular version of the Organizer Label.
+ */
+function tribe_get_organizer_label_singular_lowercase() {
+	/**
+	 * Allows customization of the singular lowercase version of the Organizer Label.
+	 * Note: the output of this filter is not escaped!
+	 *
+	 * @since 6.2.1
+	 *
+	 * @param string $label The singular lowercase version of the Organizer label, defaults to "organizer" (lowercase)
+	 */
+	return apply_filters(
+		'tribe_organizer_label_singular_lowercase',
+		__( 'organizer', 'the-events-calendar' )
+	);
+}
+
+/**
  * Get the organizer label.
  *
  * Note: the output of this function is not escaped.
