@@ -45,11 +45,9 @@ trait Outlook_Methods {
 	 *
 	 * @since 5.16.0
 	 *
-	 * @param string $calendar Whether it's Outlook live or Outlook 365.
-	 *
 	 * @return string Part of the URL containing the event information.
 	 */
-	protected function generate_outlook_add_url_parameters( $calendar = 'live' ) {
+	protected function generate_outlook_add_url_parameters() {
 		// Getting the event details
 		$event = tribe_get_event();
 
