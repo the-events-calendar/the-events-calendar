@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for TEC Block Assets. [ECP-1575]
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
 
 = [6.2.] TBD =
 
