@@ -45,7 +45,7 @@ trait Outlook_Methods {
 	 *
 	 * @since 5.16.0
 	 *
-	 * @return string Part of the URL containing the event information.
+	 * @return array $params Part of the URL containing the event information.
 	 */
 	protected function generate_outlook_add_url_parameters() {
 		// Getting the event details
