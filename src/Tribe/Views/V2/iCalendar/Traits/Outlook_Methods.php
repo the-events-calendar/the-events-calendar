@@ -51,6 +51,8 @@ trait Outlook_Methods {
 		// Getting the event details
 		$event = tribe_get_event();
 
+		$calendar = static::get_slug();
+
 		$path = '/calendar/action/compose';
 		$rrv  = 'addevent';
 
