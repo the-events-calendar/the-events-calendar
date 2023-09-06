@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Enhance accessibility by providing an outline for elements when they are in focus. [TEC-4888]
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
 
 = [6.2.1] 2023-09-05 =
 
