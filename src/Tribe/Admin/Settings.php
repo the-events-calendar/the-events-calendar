@@ -391,6 +391,7 @@ class Settings {
 	 * Sort the tabs, forcing some to the front and some to the end.
 	 *
 	 * @since 6.0.5
+	 * @since 6.2.1 Correctly prepend 'general' and 'display' tabs to the beginning.
 	 *
 	 * @param array $tabs        The array of tabs.
 	 * @param string $admin_page The ID of the admin page we are on.
@@ -406,7 +407,21 @@ class Settings {
 
 		// Ensure these are the first tabs.
 		$first   = [ 'general', 'display' ];
-		$tabs   = array_merge( array_flip( $first ), $tabs );
+
+		// Reverse to maintain order when prepending
+		$reversed_arr = array_reverse( $first );
+
+		foreach ( $reversed_arr as $sort ) {
+			if ( ! isset( $tabs[ $sort ] ) ) {
+				continue;
+			}
+
+			$temp = $tabs[ $sort ];
+
+			unset( $tabs[ $sort ] );
+			// Prepend the tab to the beginning of the array
+			$tabs = [ $sort => $temp ] + $tabs;
+		}
 
 		// Ensure these are the last tabs.
 		$last = [ 'licenses', 'addons', 'imports' ];
