@@ -50,6 +50,7 @@ class Tribe__Events__Editor__Compatibility {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 100 );
 		add_filter( 'classic_editor_enabled_editors_for_post_type', [ $this, 'filter_classic_editor_enabled_editors_for_post_type' ], 10, 2 );
 		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'insert_toggle_blocks_editor_field' ] );
+		add_action( 'after_switch_theme', [ $this, 'enable_block_editor_on_fse_theme_activation' ], 10, 1 );
 	}
 
 	/**
@@ -238,4 +239,20 @@ class Tribe__Events__Editor__Compatibility {
 
 		return $is_classic_editor;
 	}
+
+	/**
+     * Enables the 'Activate Block Editor for Events' setting when a full site editor theme is activated.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param string   $old_name  The name of the old theme that was active before switching.
+	 * @param WP_Theme $old_theme WP_Theme instance of the old theme.
+     *
+     * @return void
+     */
+    public function enable_block_editor_on_fse_theme_activation( $old_name, $old_theme = false ) {
+        if ( tec_is_full_site_editor() ) {
+            tribe_update_option( static::$blocks_editor_key, true );
+        }
+    }
 }

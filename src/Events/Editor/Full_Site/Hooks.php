@@ -3,6 +3,7 @@
 namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
+use Tribe\Events\Editor\Blocks\Single_Event;
 use Tribe__Events__Main;
 use TEC\Common\Contracts\Service_Provider;
 
@@ -46,6 +47,7 @@ class Hooks extends Service_Provider {
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
 	}
 
 	/**
@@ -58,11 +60,20 @@ class Hooks extends Service_Provider {
 	}
 
 	/**
+	 * Registers the Single Event template.
+	 *
+	 * @since TBD
+	 */
+	public function action_register_single_event_template() {
+		return $this->container->make( Single_Event::class )->register();
+	}
+
+	/**
 	 * Adds the archive template to the array of block templates.
 	 *
 	 * @since 5.14.2
+	 * @since TBD Added support for single event templates.
 	 *
-
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array  $query {
 	 *     Optional. Arguments to retrieve templates.
@@ -75,23 +86,22 @@ class Hooks extends Service_Provider {
 	 * @return array The modified $query.
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
-		// Don't load this template in the admin - so it's not editable by users.
-		if ( is_admin() ) {
-			return $query_result;
-		}
+		// Create an instance of the Templates class.
+		$templates_class = $this->container->make( Templates::class );
 
-		if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-			return $query_result;
-		}
+		// Get the single event template.
+		$single_events_template = $templates_class->add_event_single( [], $query, $template_type );
 
-		return $this->container->make( Templates::class )->add_events_archive( $query_result, $query, $template_type );
+		// Get the events archive template.
+		$events_archive_template = $templates_class->add_events_archive( [], $query, $template_type );
+
+		return array_merge( $query_result, $single_events_template, $events_archive_template );
 	}
 
 	/**
 	 * If we're using a FSE theme, we always use the full styling.
 	 *
 	 * @since 5.14.2
-
 	 *
 	 * @param string  $value The value of the option.
 	 * @return string $value The original value, or an empty string if FSE is active.
@@ -137,7 +147,7 @@ class Hooks extends Service_Provider {
 	 */
 	public function filter_tribe_save_template_option( $options, $option_id ) {
 		if ( tec_is_full_site_editor() ) {
-			$options[ 'tribeEventsTemplate' ] = '';
+			$options['tribeEventsTemplate'] = '';
 		}
 
 		return $options;
