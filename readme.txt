@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.1
+Stable tag: 6.2.2
 Tested up to: 6.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.2] TBD =
 
+* Version - The Events Calendar 6.2.2 is only compatible with Event Tickets 5.6.5 and higher
 * Fix - When using the Event Tickets email feature the Organizer email and website will no longer be switched. [ET-1843]
 * Fix - When subscribing to an event, the organizer name will not encode as many characters, especially spaces. [ET-1778]
 
