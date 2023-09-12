@@ -115,6 +115,11 @@ class Rest_Endpoint {
 			}
 		);
 
+		if ( is_admin() ) {
+			// Admin needs to auth against cookie for user caps.
+			$generated_nonces['_wpnonce'] = wp_create_nonce( 'wp_rest' );
+		}
+
 		/**
 		 * Filter the list of nonces being used on REST requests for V2 views.
 		 *

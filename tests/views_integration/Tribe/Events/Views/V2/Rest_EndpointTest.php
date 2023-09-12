@@ -1,7 +1,67 @@
 <?php
+
 namespace Tribe\Events\Views\V2;
 
+use WP_Screen;
+
 class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
+	protected $old_screen;
+	protected $old_user;
+
+	public function _tearDown() {
+		$this->reset_screen();
+		$this->reset_user();
+	}
+
+	public function given_as_an_admin_screen() {
+		global $current_screen;
+		if ( ! $this->old_screen && $current_screen ) {
+			$this->old_screen = $current_screen;
+		}
+
+		// Create a dummy screen object that mimics an admin screen
+		$current_screen              = clone WP_Screen::get( 'nav-menus' );
+		$current_screen->id          = 'admin_dummy_screen';
+		$current_screen->base        = 'admin';
+		$current_screen->parent_base = '';
+		$current_screen->action      = 'edit';
+		$current_screen->post_type   = '';
+		$current_screen->taxonomy    = '';
+		$current_screen->is_admin    = true;
+
+		return $current_screen;
+	}
+
+	public function reset_screen() {
+		global $current_screen;
+		if ( $this->old_screen && $current_screen ) {
+			$current_screen   = $this->old_screen;
+			$this->old_screen = null;
+		}
+	}
+
+	public function reset_user() {
+		if ( $this->old_user ) {
+			wp_set_current_user( $this->old_user );
+			$this->old_user = null;
+		}
+	}
+
+	public function given_as_an_anonymous_user() {
+		wp_set_current_user( 0 );
+	}
+
+	public function given_as_an_admin_user() {
+		$user = wp_get_current_user();
+		if ( ! $this->old_user && $user ) {
+			$this->old_user = $user->ID;
+		}
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		return $user_id;
+	}
+
 	private function make_instance() {
 		return new Rest_Endpoint();
 	}
@@ -40,7 +100,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 			'not_supported_param_should_be_excluded' => [
 				[
 					'not-support' => true,
-					'url' => home_url(),
+					'url'         => home_url(),
 				],
 				[
 					'url' => home_url(),
@@ -54,7 +114,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider arguments_sanitize_data_provider
 	 */
 	public function it_should_filter_and_sanitize_params( $input, $expected ) {
-		$rest = $this->make_instance();
+		$rest    = $this->make_instance();
 		$request = $rest->get_mocked_rest_request( $input );
 
 		$this->assertEquals( $expected, $request->get_params() );
@@ -81,6 +141,28 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertNotEmpty( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ] );
 		$this->assertNotEmpty( $nonces[ Rest_Endpoint::SECONDARY_NONCE_KEY ] );
 		$this->assertNotEquals( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], $nonces[ Rest_Endpoint::SECONDARY_NONCE_KEY ] );
+		$valid = wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION )
+		         || wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION );
+		$this->assertTrue( $valid );
+	}
+
+	/**
+	 * Validates we add the _wpnonce to our list of nonces when in admin screens.
+	 *
+	 * @test
+	 */
+	public function it_should_generate_admin_nonce() {
+		$this->given_as_an_admin_screen();
+
+		$nonces = Rest_Endpoint::get_rest_nonces();
+		$this->assertIsArray( $nonces );
+		$this->assertCount( 3, $nonces );
+		$this->assertNotEmpty( $nonces['_wpnonce'] );
+
+		// Should be a valid wp rest nonce.
+		$this->assertEquals( 1, wp_verify_nonce( $nonces['_wpnonce'], 'wp_rest' ) );
+
+		// These should still be valid.
 		$valid = wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION )
 		         || wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION );
 		$this->assertTrue( $valid );
