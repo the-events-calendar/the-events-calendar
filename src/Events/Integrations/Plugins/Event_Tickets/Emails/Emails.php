@@ -28,7 +28,7 @@ class Emails {
 	 * event, venue, and organizer placeholders to the provided placeholders array.
 	 *
 	 * @since 6.1.1
-	 * @since TBD Refactored method to move placeholder, venue, and organization logic out.
+	 * @since 6.2.2 Refactored method to move placeholder, venue, and organization logic out.
 	 *
 	 * @param array<string,mixed> $placeholders The placeholders for the Tickets Emails.
 	 * @param string              $email_id     The email ID.
@@ -191,7 +191,7 @@ class Emails {
 	/**
 	 * Retrieves event-related placeholders.
 	 *
-	 * @since TBD
+	 * @since 6.2.2
 	 *
 	 * @param object $event The event object.
 	 *
@@ -217,7 +217,7 @@ class Emails {
 	/**
 	 * Retrieves venue-related placeholders if the event has a venue.
 	 *
-	 * @since TBD
+	 * @since 6.2.2
 	 *
 	 * @param object $event The event object.
 	 *
@@ -255,7 +255,7 @@ class Emails {
 	/**
 	 * Retrieves organizer-related placeholders if the event has an organizer.
 	 *
-	 * @since TBD
+	 * @since 6.2.2
 	 *
 	 * @param object $event The event object.
 	 *

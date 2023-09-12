@@ -729,11 +729,11 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Sanitize organizer name.
-	 * 
-	 * @since TBD
-	 * 
+	 *
+	 * @since 6.2.2
+	 *
 	 * @param string $name
-	 * 
+	 *
 	 * @return string
 	 */
 	private function sanitize_organizer_name( string $name ): string {
@@ -755,7 +755,7 @@ class Tribe__Events__iCal {
 	 * Get the iCal Output for the provided event object.
 	 *
 	 * @since 5.1.6
-	 * @since TBD   Sanitize organizer name using new method.
+	 * @since 6.2.2   Sanitize organizer name using new method.
 	 *
 	 * @param \WP_Post             $event_post The event post object.
 	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.

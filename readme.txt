@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.2] TBD =
+= [6.2.2] 2023-09-13 =
 
 * Version - The Events Calendar 6.2.2 is only compatible with Event Tickets 5.6.5 and higher
 * Fix - When using the Event Tickets email feature the Organizer email and website will no longer be switched. [ET-1843]
