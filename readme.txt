@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 * Version - The Events Calendar 6.2.2 is only compatible with Event Tickets 5.6.5 and higher
 * Fix - When using the Event Tickets email feature the Organizer email and website will no longer be switched. [ET-1843]
 * Fix - When subscribing to an event, the organizer name will not encode as many characters, especially spaces. [ET-1778]
+* Language - 0 new strings added, 9 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.2.1] 2023-09-05 =
 
