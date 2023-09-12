@@ -109,9 +109,20 @@ class Rest_Endpoint {
 		}
 
 		// Save user for our nonce checks.
-		self::$user_id = $user->ID;
+		self::$user_id = (int)$user->ID;
 
 		return $send_nocache_headers;
+	}
+
+	/**
+	 * Returns the user ID, if we successfully stored it during a REST request.
+	 *
+	 * @since TBD
+	 *
+	 * @return int|null The user ID or null if none stored.
+	 */
+	public static function get_stored_user_id(): ?int {
+		return self::$user_id;
 	}
 
 	/**
@@ -123,7 +134,7 @@ class Rest_Endpoint {
 	 *
 	 * @return bool
 	 */
-	public function is_valid_request(Request $request) {
+	public function is_valid_request( Request $request ): bool {
 		/*
 		* Since WordPress 4.7 the REST API cannot be disabled completely.
 		* The "disabling" happens by returning falsy or error values from the `rest_authentication_errors`
@@ -137,9 +148,19 @@ class Rest_Endpoint {
 			/**
 			 * This user was set but lost, because we use custom nonces which can not be handled by Wordpress auth.
 			 *
-
 			 */
 			wp_set_current_user( self::$user_id );
+			// We have a valid user, we should not fail on the cookie check anymore.
+			$user_valid = static function ( $valid ) {
+				if ( is_null( $valid ) ) {
+					return true;
+				}
+
+				return $valid;
+			};
+			if ( ! has_filter( 'rest_authentication_errors', $user_valid ) ) {
+				add_filter( 'rest_authentication_errors', $user_valid );
+			}
 		}
 
 		// Did either our unauth or authed nonce pass? If neither, something is fishy.

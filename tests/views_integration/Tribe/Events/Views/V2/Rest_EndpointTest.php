@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use WP_REST_Request;
 use WP_Screen;
 
 class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
@@ -136,7 +137,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 1, wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION ) );
 
 		// Login a user, now should be two different nonces.
-		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		$this->given_as_an_admin_user();
 		$nonces = Rest_Endpoint::get_rest_nonces();
 		$this->assertNotEmpty( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ] );
 		$this->assertNotEmpty( $nonces[ Rest_Endpoint::SECONDARY_NONCE_KEY ] );
@@ -147,24 +148,38 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * Validates we add the _wpnonce to our list of nonces when in admin screens.
+	 * Validates we retain user when using our custom nonces.
 	 *
+	 * @see \Tribe\Events\Views\V2\Rest_Endpoint::preserve_user_for_custom_nonces() for more context.
 	 * @test
 	 */
-	public function it_should_generate_admin_nonce() {
-		$this->given_as_an_admin_screen();
+	public function it_should_retain_authenticated_user() {
+		$user_id = $this->given_as_an_admin_user();
 
+		// Sanity check.
+		$this->assertEmpty( Rest_Endpoint::get_stored_user_id() );
+
+		// Triggers storing our auth'd user.
+		apply_filters( 'rest_send_nocache_headers', true );
+
+		// Get our nonces
 		$nonces = Rest_Endpoint::get_rest_nonces();
-		$this->assertIsArray( $nonces );
-		$this->assertCount( 3, $nonces );
-		$this->assertNotEmpty( $nonces['_wpnonce'] );
 
-		// Should be a valid wp rest nonce.
-		$this->assertEquals( 1, wp_verify_nonce( $nonces['_wpnonce'], 'wp_rest' ) );
+		// Now clear user to mimic a valid request.
+		wp_set_current_user( 0 );
+
+		$rest_endpoint = new Rest_Endpoint();
+		$request       = new WP_REST_Request( 'POST' );
+		$request->set_body_params( $nonces );
+		$this->assertTrue( $rest_endpoint->is_valid_request( $request ) );
+
+		// Validate our user ID was stored.
+		$this->assertEquals( $user_id, Rest_Endpoint::get_stored_user_id() );
 
 		// These should still be valid.
 		$valid = wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION )
 		         || wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION );
+
 		$this->assertTrue( $valid );
 	}
 }
