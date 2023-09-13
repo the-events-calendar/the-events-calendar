@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.2.0.1\n"
+"Project-Id-Version: The Events Calendar 6.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-08-16T08:08:49-07:00\n"
-"PO-Revision-Date: 2023-08-16 15:08\n"
+"POT-Creation-Date: 2023-08-31T07:40:34-07:00\n"
+"PO-Revision-Date: 2023-08-31 14:40\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -2935,7 +2935,7 @@ msgid "NY 10001"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:169
-#: src/functions/template-tags/venue.php:550
+#: src/functions/template-tags/venue.php:576
 #: src/Tribe/Venue.php:421
 msgid "United States"
 msgstr ""
@@ -3147,9 +3147,14 @@ msgstr ""
 msgid "Organizers"
 msgstr ""
 
-#: src/functions/template-tags/organizer.php:474
-#: src/functions/template-tags/venue.php:917
-#: src/views/blocks/parts/organizer.php:89
+#: src/functions/template-tags/organizer.php:178
+#: src/Tribe/Organizer.php:207
+msgid "organizer"
+msgstr ""
+
+#: src/functions/template-tags/organizer.php:500
+#: src/functions/template-tags/venue.php:943
+#: src/views/blocks/parts/organizer.php:91
 msgid "Website"
 msgstr ""
 
@@ -3158,12 +3163,17 @@ msgstr ""
 msgid "Venue"
 msgstr ""
 
-#: src/functions/template-tags/venue.php:232
+#: src/functions/template-tags/venue.php:230
+#: src/Tribe/Venue.php:217
+msgid "venue"
+msgstr ""
+
+#: src/functions/template-tags/venue.php:258
 #: src/Tribe/Venue.php:209
 msgid "Venues"
 msgstr ""
 
-#: src/functions/template-tags/venue.php:1012
+#: src/functions/template-tags/venue.php:1038
 #: src/views/v2/day/event/venue.php:25
 #: src/views/v2/list/event/venue.php:25
 msgctxt "Address separator"
@@ -3300,50 +3310,50 @@ msgstr ""
 msgid "Display"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:442
+#: src/Tribe/Admin/Settings.php:457
 msgid "Network"
 msgstr ""
 
 #. Translators: %1$s: Opening `<a>` to The Events Calendar rating page. %2$s: Closing `</a>` tag. %3$s: Five stars.
-#: src/Tribe/Admin/Settings.php:462
+#: src/Tribe/Admin/Settings.php:477
 msgid "Rate %1$sThe Events Calendar%2$s %3$s"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:570
+#: src/Tribe/Admin/Settings.php:585
 msgctxt "Label for the Summary View checkbox."
 msgid "Summary"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:571
+#: src/Tribe/Admin/Settings.php:586
 msgctxt "Label for the Photo View checkbox."
 msgid "Photo"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:572
+#: src/Tribe/Admin/Settings.php:587
 msgctxt "Label for the Week View checkbox."
 msgid "Week"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:573
+#: src/Tribe/Admin/Settings.php:588
 msgctxt "Label for the Map View checkbox."
 msgid "Map"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:576
+#: src/Tribe/Admin/Settings.php:591
 msgctxt "The label for the premium view indicator."
 msgid "PRO"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:577
+#: src/Tribe/Admin/Settings.php:592
 msgctxt "The title (hover text) for the premium view indicator."
 msgid "Get Events Calendar Pro to use this View."
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:695
+#: src/Tribe/Admin/Settings.php:710
 msgid "Upgrade your calendar views"
 msgstr ""
 
-#: src/Tribe/Admin/Settings.php:720
+#: src/Tribe/Admin/Settings.php:735
 msgid "Upgrade"
 msgstr ""
 
@@ -6046,10 +6056,6 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: src/Tribe/Organizer.php:207
-msgid "organizer"
-msgstr ""
-
 #: src/Tribe/Organizer.php:221
 msgid "organizers"
 msgstr ""
@@ -7291,10 +7297,6 @@ msgstr ""
 msgid "Event Tickets REST API is not available."
 msgstr ""
 
-#: src/Tribe/Venue.php:217
-msgid "venue"
-msgstr ""
-
 #: src/Tribe/Venue.php:226
 msgid "venues"
 msgstr ""
@@ -7700,13 +7702,13 @@ msgstr ""
 msgid "%1$s from %2$s"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:1654
+#: src/Tribe/Views/V2/View.php:1658
 msgctxt "The default title text for the today button."
 msgid "Click to select today's date"
 msgstr ""
 
-#: src/Tribe/Views/V2/View.php:2255
-#: src/Tribe/Views/V2/View.php:2347
+#: src/Tribe/Views/V2/View.php:2259
+#: src/Tribe/Views/V2/View.php:2351
 #: src/views/v2/day/event/date/featured.php:27
 #: src/views/v2/day/event/date/featured.php:32
 #: src/views/v2/latest-past/event/date/featured.php:27
@@ -7858,26 +7860,25 @@ msgstr ""
 msgid "%s Tags:"
 msgstr ""
 
-#. Translators: %1$s is the customizable organizer term, e.g. "Organizer name"
-#: src/views/blocks/parts/organizer.php:51
-#: src/views/modules/meta/organizer.php:37
-msgctxt "The label for the organizer's name."
-msgid "%1$s name"
-msgstr ""
-
-#: src/views/blocks/parts/organizer.php:67
-#: src/views/modules/meta/organizer.php:53
-#: src/views/modules/meta/venue.php:61
+#: src/views/blocks/parts/organizer.php:69
+#: src/views/modules/meta/organizer.php:55
+#: src/views/modules/meta/venue.php:65
 msgid "Phone"
 msgstr ""
 
-#: src/views/blocks/parts/organizer.php:78
-#: src/views/modules/meta/organizer.php:64
+#: src/views/blocks/parts/organizer.php:80
+#: src/views/modules/meta/organizer.php:66
 msgid "Email"
 msgstr ""
 
-#: src/views/blocks/parts/subscribe-list.php:35
-#: src/views/v2/components/subscribe-links/single-event-list.php:27
+#: src/views/blocks/parts/subscribe-list.php:38
+#: src/views/v2/components/subscribe-links/list.php:28
+#: src/views/v2/components/subscribe-links/single-event-list.php:30
+msgid "View links to add events to your calendar"
+msgstr ""
+
+#: src/views/blocks/parts/subscribe-list.php:40
+#: src/views/v2/components/subscribe-links/single-event-list.php:32
 msgid "Add to calendar"
 msgstr ""
 
@@ -7915,30 +7916,6 @@ msgstr ""
 
 #: src/views/modules/map-basic.php:33
 msgid "Venue location map"
-msgstr ""
-
-#. Translators: %1$s is the customizable organizer term, e.g. "Organizer website title"
-#: src/views/modules/meta/organizer.php:83
-msgctxt "The label for the organizer's website title."
-msgid "%1$s website title"
-msgstr ""
-
-#. Translators: %1$s is the customizable venue term, e.g. "Venue name"
-#: src/views/modules/meta/venue.php:30
-msgctxt "The label for the venue's name."
-msgid "%1$s name"
-msgstr ""
-
-#. Translators: %1$s is the customizable venue term, e.g. "Venue address"
-#: src/views/modules/meta/venue.php:43
-msgctxt "The label for the venue's address."
-msgid "%1$s address"
-msgstr ""
-
-#. Translators: %1$s is the customizable venue term, e.g. "Venue website title"
-#: src/views/modules/meta/venue.php:73
-msgctxt "The label for the venue's website title."
-msgid "%1$s website title"
 msgstr ""
 
 #: src/views/single-event.php:79
@@ -8000,7 +7977,7 @@ msgstr ""
 msgid "Continue Reading"
 msgstr ""
 
-#: src/views/v2/components/subscribe-links/list.php:25
+#: src/views/v2/components/subscribe-links/list.php:30
 msgid "Subscribe to calendar"
 msgstr ""
 

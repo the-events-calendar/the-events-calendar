@@ -212,7 +212,7 @@ function tribe_get_venue_label_singular() {
  * Note: the output of this function is not escaped.
  * You should escape it wherever you use it!
  *
- * @since TBD
+ * @since 6.2.1
  *
  * @return string The lowercase singular version of the Venue Label.
  */
@@ -221,7 +221,7 @@ function tribe_get_venue_label_singular_lowercase() {
 	 * Allows customization of the singular lowercase version of the Venue Label.
 	 * Note: the output of this filter is not escaped!
 	 *
-	 * @since TBD
+	 * @since 6.2.1
 	 *
 	 * @param string $label The singular lowercase version of the Venue label, defaults to "venue" (lowercase)
 	 */
