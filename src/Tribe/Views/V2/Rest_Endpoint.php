@@ -109,7 +109,7 @@ class Rest_Endpoint {
 		}
 
 		// Save user for our nonce checks.
-		self::$user_id = (int)$user->ID;
+		self::$user_id = (int) $user->ID;
 
 		return $send_nocache_headers;
 	}
