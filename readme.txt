@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+* Fix - Resolves an issue around our new nonce structure used in view pagination, losing the authenticated user and failing to display user specific capabilities. [ECP-1581]
 
 = [6.2.1] 2023-09-05 =
 
