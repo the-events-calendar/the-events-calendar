@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.0.1
-Tested up to: 6.3
+Stable tag: 6.2.2
+Tested up to: 6.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -228,6 +228,23 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.2.2] 2023-09-13 =
+
+* Version - The Events Calendar 6.2.2 is only compatible with Event Tickets 5.6.5 and higher
+* Fix - When using the Event Tickets email feature the Organizer email and website will no longer be switched. [ET-1843]
+* Fix - When subscribing to an event, the organizer name will not encode as many characters, especially spaces. [ET-1778]
+* Language - 0 new strings added, 9 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.2.1] 2023-09-05 =
+
+* Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
+* Fix - Fixed a bug where `0` and `1` were displayed on the `general` and `display` tabs for Network admins on multisite installations. [TEC-4774]
+* Fix - In some cases when multiple Widgets were used on a page, the view results would return the wrong cache, displaying incorrect results. This fixes the inspection of the different view filters being used to determine whether it is cached or not. [ECP-1561]
+* Fix - Correct some accessibility issues in the subscribe dropdowns. Props to @alh0319 for calling these out! [TEC-4185]
+* Tweak - Enhanced venue and organizer labels by updating aria labels with additional placeholders and revised translator comments, improving internationalization and accessibility. [TEC-4874]
+* Tweak - Changed views: `blocks/parts/organizer`, `blocks/parts/subscribe-list`, `modules/meta/organizer`, `modules/meta/venue`, `v2/components/subscribe-links/item`, `v2/components/subscribe-links/list`, `v2/components/subscribe-links/single-event-list`
+* Language - 1 new strings added, 22 updated, 0 fuzzied, and 8 obsoleted
 
 = [6.2.0.1] 2023-08-16 =
 
