@@ -28,6 +28,7 @@ class Emails {
 	 * event, venue, and organizer placeholders to the provided placeholders array.
 	 *
 	 * @since 6.1.1
+	 * @since 6.2.2 Refactored method to move placeholder, venue, and organization logic out.
 	 *
 	 * @param array<string,mixed> $placeholders The placeholders for the Tickets Emails.
 	 * @param string              $email_id     The email ID.
@@ -47,86 +48,13 @@ class Emails {
 		if ( empty( $event ) ) {
 			return $placeholders;
 		}
-		$datetime_with_year_format    = tribe_get_datetime_format( true );
 
-		// if the context says that there's a post_id and it's a tribe_event, then add the event placeholders.
-		$tec_placeholders = [
-			'{event_id}'         => $post_id,
-			'{event_date}'       => wp_kses( $event->schedule_details->value(), [] ),
-			'{event_start_date}' => wp_kses( $event->dates->start->format( $datetime_with_year_format ), [] ),
-			'{event_end_date}'   => wp_kses( $event->dates->end->format( $datetime_with_year_format ), [] ),
-			'{event_name}'       => wp_kses( $event->post_title, [] ),
-			'{event_timezone}'   => $event->timezone,
-			'{event_url}'        => $event->permalink,
-			'{event_image_url}'  => ! empty( $event->thumbnail->exists ) ? $event->thumbnail->full->url : '',
-		];
-
-		// If the event has a venue, add the venue placeholders.
-		if ( ! empty( $event->venues->count() ) ) {
-			$venue = $event->venues[0];
-
-			$state_or_province = $venue->state;
-			if ( $venue->country !== 'US' ) {
-				$state_or_province = $venue->province;
-			}
-			if ( empty( $state_or_province ) ) {
-				$state_or_province = $venue->state_province;
-			}
-
-			$tec_placeholders = array_merge(
-				$tec_placeholders,
-				[
-					'{event_venue_id}'                => $venue->ID,
-					'{event_venue_name}'              => wp_kses( $venue->post_title, [] ),
-					'{event_venue_street_address}'    => $venue->address,
-					'{event_venue_city}'              => $venue->city,
-					'{event_venue_state_or_province}' => $state_or_province,
-					'{event_venue_province}'          => $venue->province,
-					'{event_venue_state}'             => $venue->state,
-					'{event_venue_zip}'               => $venue->zip,
-					'{event_venue_url}'               => $venue->permalink,
-				]
-			);
-		}
-
-		$tec_placeholders['{event_organizers_count}'] = $event->organizers->count();
-		$tec_placeholders['{event_organizers_names}'] = ! empty( $event->organizer_names ) ? implode( ', ', $event->organizer_names->all() ) : '';
-
-		// If the event has an organizer, add the organizer placeholders.
-		if ( ! empty( $event->organizers->count() ) ) {
-			$organizer_placeholders = [];
-
-			foreach ( $event->organizers as $index => $organizer ) {
-				$organizer_id         = $organizer->ID;
-				$organizer_post_title = wp_kses( $organizer->post_title, [] );
-				$organizer_permalink  = $organizer->permalink;
-				$organizer_url        = tribe_get_organizer_website_url( $organizer->ID );
-				$organizer_email      = tribe_get_organizer_email( $organizer->ID );
-				$organizer_phone      = $organizer->phone;
-
-				$organizer_placeholders[] = [
-					"{event_organizer:{$index}:id}"      => $organizer_id,
-					"{event_organizer:{$index}:name}"    => $organizer_post_title,
-					"{event_organizer:{$index}:url}"     => $organizer_permalink,
-					"{event_organizer:{$index}:email}"   => $organizer_url,
-					"{event_organizer:{$index}:website}" => $organizer_email,
-					"{event_organizer:{$index}:phone}"   => $organizer_phone,
-				];
-
-				if ( $index === 0 ) {
-					$organizer_placeholders[] = [
-						'{event_organizer_id}'      => $organizer_id,
-						'{event_organizer_name}'    => $organizer_post_title,
-						'{event_organizer_url}'     => $organizer_permalink,
-						'{event_organizer_email}'   => $organizer_url,
-						'{event_organizer_website}' => $organizer_email,
-						'{event_organizer_phone}'   => $organizer_phone,
-					];
-				}
-			}
-
-			$tec_placeholders = array_merge( $tec_placeholders, ...$organizer_placeholders );
-		}
+		$tec_placeholders = array_merge(
+			$placeholders,
+			$this->get_event_placeholders( $event ),
+			$this->get_venue_placeholders( $event ),
+			$this->get_organizer_placeholders( $event )
+		);
 
 		return array_merge( $placeholders, $tec_placeholders );
 	}
@@ -259,4 +187,122 @@ class Emails {
 
 		return $attachments;
 	}
+
+	/**
+	 * Retrieves event-related placeholders.
+	 *
+	 * @since 6.2.2
+	 *
+	 * @param object $event The event object.
+	 *
+	 * @return array<string, mixed> An associative array of event-related placeholders.
+	 */
+	public function get_event_placeholders( $event ): array {
+		$datetime_with_year_format = tribe_get_datetime_format( true );
+
+		// if the context says that there's a post_id and it's a tribe_event, then add the event placeholders.
+		$placeholders = [
+			'{event_id}'         => $event->ID,
+			'{event_date}'       => wp_kses( $event->schedule_details->value(), [] ),
+			'{event_start_date}' => wp_kses( $event->dates->start->format( $datetime_with_year_format ), [] ),
+			'{event_end_date}'   => wp_kses( $event->dates->end->format( $datetime_with_year_format ), [] ),
+			'{event_name}'       => wp_kses( $event->post_title, [] ),
+			'{event_timezone}'   => $event->timezone,
+			'{event_url}'        => $event->permalink,
+			'{event_image_url}'  => ! empty( $event->thumbnail->exists ) ? $event->thumbnail->full->url : '',
+		];
+		return $placeholders;
+	}
+
+	/**
+	 * Retrieves venue-related placeholders if the event has a venue.
+	 *
+	 * @since 6.2.2
+	 *
+	 * @param object $event The event object.
+	 *
+	 * @return array<string, mixed> An associative array of venue-related placeholders.
+	 */
+	public function get_venue_placeholders( $event ): array {
+		$placeholders = [];
+		// If the event has a venue, add the venue placeholders.
+		if ( ! empty( $event->venues->count() ) ) {
+			$venue = $event->venues[0];
+
+			$state_or_province = $venue->state;
+			if ( $venue->country !== 'US' ) {
+				$state_or_province = $venue->province;
+			}
+			if ( empty( $state_or_province ) ) {
+				$state_or_province = $venue->state_province;
+			}
+
+			$placeholders = [
+				'{event_venue_id}'                => $venue->ID,
+				'{event_venue_name}'              => wp_kses( $venue->post_title, [] ),
+				'{event_venue_street_address}'    => $venue->address,
+				'{event_venue_city}'              => $venue->city,
+				'{event_venue_state_or_province}' => $state_or_province,
+				'{event_venue_province}'          => $venue->province,
+				'{event_venue_state}'             => $venue->state,
+				'{event_venue_zip}'               => $venue->zip,
+				'{event_venue_url}'               => $venue->permalink,
+			];
+		}
+		return $placeholders;
+	}
+
+	/**
+	 * Retrieves organizer-related placeholders if the event has an organizer.
+	 *
+	 * @since 6.2.2
+	 *
+	 * @param object $event The event object.
+	 *
+	 * @return array<string, mixed> An associative array of organizer-related placeholders.
+	 */
+	public function get_organizer_placeholders( $event ): array {
+		$placeholders = [];
+
+		$placeholders['{event_organizers_count}'] = $event->organizers->count();
+		$placeholders['{event_organizers_names}'] = !empty($event->organizer_names) ? implode(', ', $event->organizer_names->all()) : '';
+
+		// If the event has an organizer, add the organizer placeholders.
+		if ( ! empty( $event->organizers->count() ) ) {
+			$organizer_placeholders = [];
+
+			foreach ( $event->organizers as $index => $organizer ) {
+				$organizer_id         = $organizer->ID;
+				$organizer_post_title = wp_kses( $organizer->post_title, [] );
+				$organizer_permalink  = $organizer->permalink;
+				$organizer_url        = tribe_get_organizer_website_url( $organizer->ID );
+				$organizer_email      = tribe_get_organizer_email( $organizer->ID );
+				$organizer_phone      = $organizer->phone;
+
+				$organizer_placeholders[] = [
+					"{event_organizer:{$index}:id}"      => $organizer_id,
+					"{event_organizer:{$index}:name}"    => $organizer_post_title,
+					"{event_organizer:{$index}:url}"     => $organizer_permalink,
+					"{event_organizer:{$index}:email}"   => $organizer_email,
+					"{event_organizer:{$index}:website}" => $organizer_url,
+					"{event_organizer:{$index}:phone}"   => $organizer_phone,
+				];
+
+				if ( $index === 0 ) {
+					$organizer_placeholders[] = [
+						'{event_organizer_id}'      => $organizer_id,
+						'{event_organizer_name}'    => $organizer_post_title,
+						'{event_organizer_url}'     => $organizer_permalink,
+						'{event_organizer_email}'   => $organizer_email,
+						'{event_organizer_website}' => $organizer_url,
+						'{event_organizer_phone}'   => $organizer_phone,
+					];
+				}
+			}
+			$placeholders = array_merge( $placeholders, ...$organizer_placeholders );
+
+		}
+		return $placeholders;
+	}
+
 }
