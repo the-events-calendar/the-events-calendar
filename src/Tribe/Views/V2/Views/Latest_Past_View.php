@@ -9,10 +9,12 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Tribe\Events\Views\V2\View;
-use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
+use Tribe\Events\Views\V2\Views\Traits\With_Noindex;
 use Tribe__Context;
 
 class Latest_Past_View extends List_View {
+	use With_Noindex;
+  
 	/**
 	 * Slug for this view
 	 *
