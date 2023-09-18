@@ -16,9 +16,11 @@ use Tribe__Context;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
+use Tribe\Events\Views\V2\Views\Traits\With_Noindex;
 
 class List_View extends View {
 	use List_Behavior;
+	use With_Noindex;
 
 	/**
 	 * Slug for this view
