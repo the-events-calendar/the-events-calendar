@@ -366,7 +366,8 @@ class Builder {
 			if ( $result === false ) {
 				do_action( 'tribe_log', 'debug', 'Builder: upsert query failure.', [
 					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 )
+					'trace'  => debug_backtrace( 2, 5 ),
+					'error' => $wpdb->last_error
 				] );
 			}
 
@@ -444,9 +445,10 @@ class Builder {
 			if ( $query_result === false && $wpdb->last_error ) {
 				do_action( 'tribe_log',
 					'error',
-					"ORM Builder mysql error while performing insert on {$this->model->table_name()}.", [
-						'source'      => __METHOD__ . ':' . __LINE__,
-						'mysql error' => $wpdb->last_error,
+					"Builder: insert() query failure..", [
+						'source' => __METHOD__ . ':' . __LINE__,
+						'trace'  => debug_backtrace( 2, 5 ),
+						'error'  => $wpdb->last_error,
 					] );
 			}
 		} while ( count( $data ) );
@@ -533,8 +535,20 @@ class Builder {
 
 		// If we have a cache, let's clear it.
 		$model->flush_cache();
+		$query_result = false;
 
-		return $this->execute_queries ? $wpdb->query( $SQL ) : false;
+		if ( $this->execute_queries ) {
+			$query_result = $wpdb->query( $SQL );
+			if ( $query_result === false ) {
+				do_action( 'tribe_log', 'debug', 'Builder: update() query failure.', [
+					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+					'trace'  => debug_backtrace( 2, 5 ),
+					'error'  => $wpdb->last_error
+				] );
+			}
+		}
+
+		return $query_result;
 	}
 
 	/**
@@ -558,7 +572,17 @@ class Builder {
 		}
 
 		$this->queries[] = $SQL;
-		$result          = $this->execute_queries ? $wpdb->query( $SQL ) : false;
+		$result = false;
+		if ( $this->execute_queries ) {
+			$result = $wpdb->query( $SQL );
+			if ( $result === false ) {
+				do_action( 'tribe_log', 'debug', 'Builder: delete() query failure.', [
+					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+					'trace'  => debug_backtrace( 2, 5 ),
+					'error'  => $wpdb->last_error
+				] );
+			}
+		}
 
 		// If an error happen or no row was updated by the query above.
 		if ( $result === false || (int) $result === 0 ) {
@@ -920,11 +944,33 @@ class Builder {
 		$SQL             = $this->get_sql();
 		$this->queries[] = $SQL;
 
+		return (int) $this->query( $SQL );
+	}
+
+	/**
+	 * Run a query and return the results directly from $wpdb->query().
+	 *
+	 * @since TBD
+	 *
+	 * @param string $query The SQL query to run on the database.
+	 *
+	 * @return bool|int|mixed|\mysqli_result|resource|null The query result or null.
+	 */
+	protected function query( string $query ) {
+		global $wpdb;
+		$result = null;
 		if ( $this->execute_queries ) {
-			return (int) $wpdb->get_var( $SQL );
+			$result = $wpdb->query( $query );
+			if ( $result === false ) {
+				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
+					'source' => __METHOD__ . ':' . __LINE__,
+					'trace'  => debug_backtrace( 2, 5 ),
+					'error'  => $wpdb->last_error
+				] );
+			}
 		}
 
-		return 0;
+		return $result;
 	}
 
 	/**
@@ -1012,6 +1058,14 @@ class Builder {
 				$SQL,
 				ARRAY_A
 			);
+
+			if ( $results === false ) {
+				do_action( 'tribe_log', 'debug', 'Builder: get() query failure.', [
+					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+					'trace'  => debug_backtrace( 2, 5 ),
+					'error'  => $wpdb->last_error
+				] );
+			}
 		}
 
 		if ( ARRAY_A === $this->output_format ) {
@@ -1567,7 +1621,13 @@ class Builder {
 			$batch         = array_splice( $keys, 0, $this->batch_size );
 			$keys_interval = implode( ',', array_map( 'absint', $batch ) );
 			$deleted       += $wpdb->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
-
+			if ( $deleted === false ) {
+				do_action( 'tribe_log', 'debug', 'Builder: upsert_set() query failure.', [
+					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+					'trace'  => debug_backtrace( 2, 5 ),
+					'error'  => $wpdb->last_error
+				] );
+			}
 			// If we have a cache, let's clear it.
 			foreach ( $models as $model ) {
 				if ( $model instanceof Model ) {

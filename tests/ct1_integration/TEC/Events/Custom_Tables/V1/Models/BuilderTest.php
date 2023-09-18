@@ -3,6 +3,8 @@
 namespace TEC\Events\Custom_Tables\V1\Models;
 
 use Spatie\Snapshots\MatchesSnapshots;
+use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use TEC\Events\Custom_Tables\V1\Tables\Events;
 use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 use Tribe__Events__Main;
@@ -12,6 +14,32 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use CT1_Fixtures;
 
+	/**
+	 * @test
+	 */
+	public function should_report_db_errors() {
+		global $wpdb;
+		$post = tribe_events()->set_args( [
+			'title'      => 'test',
+			'status'     => 'publish',
+			'start_date' => '2020-01-22 10:00:00',
+			'end_date'   => "2020-01-22 12:00:00",
+			'timezone'   => 'Europe/Paris',
+		] )->create();
+		$event_table = Events::table_name();
+
+		$q = "DROP /* WPTestCase will replace this if it matches substr()...*/ TABLE IF EXISTS `$event_table`;";
+		$wpdb->query($q);
+		tribe_cache()->reset();
+		// Table 'test.test_tec_events' doesn't exist
+		// database error Unknown table
+		$event = Event::find( 1 );
+
+		$this->assertNull($event);
+
+
+		tribe(Schema_Builder::class)->up(true);
+	}
 
 	/**
 	 * Validate chained where clauses that feed into a delete(), will invalidate cache.
