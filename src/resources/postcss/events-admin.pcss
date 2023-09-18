@@ -292,10 +292,23 @@
 }
 
 .linked-post-wrapper {
+	tbody + tbody tr:first-child td {
+		padding-top: var(--tec-spacer-4);
+	}
+
 	tbody + tbody tr.saved_linked-post td,
 	tbody + tfoot tr td {
 		margin-top: 1em;
 		padding-top: 1em;
+	}
+
+	.tec-linked-post__map-options label {
+		display: block;
+		margin-bottom: var(--tec-spacer-1);
+	}
+
+	.tec-linked-post__map-options .tribe-table-field-label {
+		vertical-align: top;
 	}
 
 	.linked-post td:first-child {

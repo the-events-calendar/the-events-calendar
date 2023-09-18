@@ -728,9 +728,34 @@ class Tribe__Events__iCal {
 	}
 
 	/**
+	 * Sanitize organizer name.
+	 *
+	 * @since 6.2.2
+	 *
+	 * @param string $name
+	 *
+	 * @return string
+	 */
+	private function sanitize_organizer_name( string $name ): string {
+		// Characters not allowed in organizer name: CTLs, DQUOTE, ";", ":", ","
+		$sanitized_name = rawurlencode( $name );
+
+		// Array of characters to allow in organizer name.
+		$chars = [ ' ', '&', '!', '?', "'", '*', '(', ')', '@', '#', '$', '%', '^', '+', '=', '{', '}', '[', ']', '|', '\\', '/', '<', '>', '`', '~' ];
+		$encoded_chars = array_map( 'rawurlencode', $chars );
+
+		// Since single quotes are allowed, let's convert any double quotes to single quotes.
+		$encoded_chars[] = rawurlencode( '"' );
+		$chars[] = "'";
+
+		return str_replace( $encoded_chars, $chars, $sanitized_name );
+	}
+
+	/**
 	 * Get the iCal Output for the provided event object.
 	 *
-	 * @since5.1.6
+	 * @since 5.1.6
+	 * @since 6.2.2   Sanitize organizer name using new method.
 	 *
 	 * @param \WP_Post             $event_post The event post object.
 	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.
@@ -847,7 +872,8 @@ class Tribe__Events__iCal {
 			$organizer    = get_post( $organizer_id );
 
 			if ( $organizer_id ) {
-				$item['ORGANIZER'] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', rawurlencode( $organizer->post_title ), $organizer_email );
+				$sanitized_name = $this->sanitize_organizer_name( $organizer->post_title );
+				$item['ORGANIZER'] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', $sanitized_name, $organizer_email );
 			} else {
 				$item['ORGANIZER'] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
 			}
