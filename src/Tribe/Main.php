@@ -141,6 +141,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug       = 'featured';
 
 		/**
+		 * @var Tribe__Events__Event_Cleaner_Scheduler $scheduler
+		 */
+		public $scheduler;
+
+		/**
 		 * @deprecated 5.14.0 use Tribe__Events__Venue::$valid_venue_keys instead.
 		*/
 		public $valid_venue_keys = [];
@@ -985,8 +990,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
 			$this->category_slug                              = $this->get_category_slug();
 			$this->tag_slug                                   = $this->get_tag_slug();
-			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
-			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
 			$this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
 			$this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
 			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
@@ -994,7 +997,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
 			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
 			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
-			$this->all_slug                                   = sanitize_title( _x( 'all', 'all events slug', 'the-events-calendar' ) );
 
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
@@ -1011,6 +1013,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->errors                                     = '';
 
 			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
+
+			/* Deprecated 4.0 */
+			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
+			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
+			$this->all_slug                                   = sanitize_title( _x( 'all', 'all events slug', 'the-events-calendar' ) );
 
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();

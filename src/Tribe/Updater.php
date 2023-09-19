@@ -29,7 +29,7 @@ class Tribe__Events__Updater {
 
 	public function do_updates() {
 		$this->clear_option_caches();
-		$updates = $this->get_updates();
+		$updates = $this->get_update_callbacks();
 		uksort( $updates, 'version_compare' );
 
 		try {
@@ -66,6 +66,7 @@ class Tribe__Events__Updater {
 	 * @deprecated 4.0
 	 */
 	protected function get_updates() {
+		_deprecated_function( __METHOD__, '4.0', 'get_update_callbacks' );
 		return $this->get_update_callbacks();
 	}
 
