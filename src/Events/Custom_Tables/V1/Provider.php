@@ -12,8 +12,10 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use tad_DI52_Container as Container;
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Container;
+
+use TEC\Common\Contracts\Service_Provider;
+
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
@@ -61,6 +63,8 @@ class Provider extends Service_Provider {
 			// Let's avoid double filtering by making sure we're registering at most once.
 			return true;
 		}
+
+		add_action( 'tec_events_custom_tables_v1_error', [ $this, 'log_errors' ] );
 
 		$this->did_register = true;
 
@@ -227,5 +231,24 @@ class Provider extends Service_Provider {
 		}
 
 		return $removed;
+	}
+
+	/**
+	 * Logs the error.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @param \Throwable $error The error to log.
+	 */
+	public function log_errors( $error ): void {
+		if ( ! $error instanceof \Throwable ) {
+			return;
+		}
+
+		do_action( 'tribe_log', 'error', 'Caught Custom Tables V1 activation error.', [
+			'message' => $error->getMessage(),
+			'file'    => $error->getFile(),
+			'line'    => $error->getLine(),
+		] );
 	}
 }

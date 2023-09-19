@@ -57,8 +57,22 @@
 			}
 		}
 
-		.tribe-events-c-subscribe-dropdown__button-text {
+		.tribe-events-c-subscribe-dropdown__button-text,
+		button.tribe-events-c-subscribe-dropdown__button-text {
+			background-color: transparent;
+			background-image: none;
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			color: currentColor;
 			cursor: pointer;
+			font-size: inherit;
+			padding: 0;
+			text-shadow: none;
+
+			&:focus {
+				outline: none;
+			}
 		}
 
 		.tribe-events-c-subscribe-dropdown__button-icon {

@@ -28,6 +28,8 @@ use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class Hooks
@@ -36,7 +38,8 @@ use WP_Post;
  *
  * @package Tribe\Events\Views\V2
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.
@@ -615,11 +618,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$is_redirected = ! empty( $parsed['tribe_redirected'] );
 
 		/**
-		 * Filters whether the current request is being redirectedor not.
+		 * Filters whether the current request is being redirected or not.
 		 *
 		 * The initial value is set by looking up the `tribe_redirected` query argument.
 		 *
-		 * @since TBD
+		 * @since 6.0.9
 		 *
 		 * @param bool $is_redirected Whether the current request is being redirected by TEC or not.
 		 */

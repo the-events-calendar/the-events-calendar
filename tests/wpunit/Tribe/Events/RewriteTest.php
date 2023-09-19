@@ -98,6 +98,21 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 */
+	public function test_rewrite_instance_continuity() {
+		global $wp_rewrite;
+		$tec_rewrite_instance = Rewrite::instance();
+		$tec_rewrite_instance->parse_request( '/' );
+		$tec_rewrite_container = tribe( Rewrite::class );
+		$tec_rewrite_container->parse_request( '/' );
+
+
+		$this->assertEquals( spl_object_id( $wp_rewrite ), spl_object_id( $tec_rewrite_instance->rewrite ) );
+		$this->assertEquals( spl_object_id( $wp_rewrite ), spl_object_id( $tec_rewrite_container->rewrite ) );
+	}
+
+	/**
+	 * @test
 	 * it should filter post type link for supported post types only
 	 */
 	public function it_should_filter_post_type_link_for_supported_post_types_only() {
@@ -253,25 +268,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( $url, $canonical );
 	}
 
-	/**
-	 * It should correctly handle translated rules
-	 *
-	 * @test
-	 * @dataProvider it_urls
-	 */
-	public function should_correctly_handle_translated_rules( $path, $expected_path ) {
-		list( $it_rules, $it_bases ) = array_values( include( codecept_data_dir( 'rewrite/it-translated-rules.php' ) ) );
-		$wp_rewrite        = new \WP_Rewrite();
-		$wp_rewrite->rules = $it_rules;
-		$rewrite           = new Rewrite( $wp_rewrite );
-		$rewrite->bases    = $it_bases;
-
-		$canonical = $rewrite->get_canonical_url( home_url( $path ) );
-
-		$this->assertEquals( home_url( $expected_path ), $canonical );
-	}
-
-	public function it_urls() {
+	public function it_urls_data_provider() {
 		return [
 			'list_page_1' => [
 				'/?post_type=tribe_events&eventDisplay=list',
@@ -298,6 +295,25 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 				'/eventi/tag/test/elenco/',
 			],
 		];
+	}
+
+	/**
+	 * It should correctly handle translated rules
+	 *
+	 * @test
+	 * @dataProvider it_urls_data_provider
+	 */
+	public function should_correctly_handle_translated_rules( $path, $expected_path ): void {
+		list( $it_rules, $it_bases ) = array_values( include( codecept_data_dir( 'rewrite/it-translated-rules.php' ) ) );
+		update_option('rewrite_rules', $it_rules );
+		$wp_rewrite        = new \WP_Rewrite();
+		$wp_rewrite->rules = $it_rules;
+		$rewrite           = new Rewrite( $wp_rewrite );
+		$rewrite->bases    = $it_bases;
+
+		$canonical = $rewrite->get_canonical_url( home_url( $path ) );
+
+		$this->assertEquals( home_url( $expected_path ), $canonical );
 	}
 
 	/**

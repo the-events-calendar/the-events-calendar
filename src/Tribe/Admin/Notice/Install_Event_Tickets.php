@@ -18,7 +18,7 @@ class Install_Event_Tickets {
 	/**
 	 * Stores the plugin slug.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @var string
 	 */
@@ -27,7 +27,7 @@ class Install_Event_Tickets {
 	/**
 	 * Stores the assets group ID for the notice.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Install_Event_Tickets {
 	/**
 	 * Stores the instance of the notice template.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @var Tribe__Template
 	 */
@@ -45,7 +45,7 @@ class Install_Event_Tickets {
 	/**
 	 * Register update notices.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 */
 	public function hook() {
 		if ( ! is_admin() || ! current_user_can( 'install_plugins' ) ) {
@@ -78,7 +78,7 @@ class Install_Event_Tickets {
 	/**
 	 * Register `Install` notice assets.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return void
 	 */
@@ -124,7 +124,7 @@ class Install_Event_Tickets {
 	/**
 	 * Checks if `Event Tickets` is installed.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return boolean True if active
 	 */
@@ -135,7 +135,7 @@ class Install_Event_Tickets {
 	/**
 	 * Checks if `Event Tickets` is active.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return boolean True if active.
 	 */
@@ -146,7 +146,7 @@ class Install_Event_Tickets {
 	/**
 	 * Check if we're on the classic "Install Plugin" page.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return boolean
 	 */
@@ -157,11 +157,16 @@ class Install_Event_Tickets {
 	/**
 	 * Should the `Install` notice be displayed?
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return bool True if the install notice should be displayed.
 	 */
 	public function should_display_notice_install(): bool {
+		// Checks whether upsell should be rendered.
+		if ( tec_should_hide_upsell( 'event-tickets-install-notice' ) ) {
+			return false;
+		}
+
 		return ! $this->is_installed()
 			&& empty( tribe_get_request_var( 'welcome-message-the-events-calendar' ) )
 			&& ! $this->is_install_plugin_page();
@@ -170,18 +175,23 @@ class Install_Event_Tickets {
 	/**
 	 * Should the `Activate` notice be displayed?
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return bool True if the activate notice should be displayed.
 	 */
 	public function should_display_notice_activate(): bool {
+		// Checks whether upsell should be rendered.
+		if ( tec_should_hide_upsell( 'event-tickets-activate-notice' ) ) {
+			return false;
+		}
+
 		return $this->is_installed() && ! $this->is_active() && ! $this->is_install_plugin_page();
 	}
 
 	/**
 	 * Install notice for `Event Tickets`.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return string $html The HTML for the notice.
 	 */
@@ -198,7 +208,7 @@ class Install_Event_Tickets {
 	/**
 	 * Should enqueue assets required for the notice.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return bool True if the assets should be enqueued.
 	 */
@@ -209,7 +219,7 @@ class Install_Event_Tickets {
 	/**
 	 * Activate notice for `Event Tickets`.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return string $html The HTML for the notice.
 	 */
@@ -232,7 +242,7 @@ class Install_Event_Tickets {
 	/**
 	 * Data for the notice template.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @param array $args Array with arguments to override the defaults.
 	 *
@@ -257,7 +267,7 @@ class Install_Event_Tickets {
 	/**
 	 * Get template object.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return \Tribe__Template
 	 */

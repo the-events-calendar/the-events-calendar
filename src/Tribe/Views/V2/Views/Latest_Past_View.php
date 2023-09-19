@@ -12,13 +12,11 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Context;
 
-class Latest_Past_View extends View {
-
-	use List_Behavior;
+class Latest_Past_View extends List_View {
 	/**
 	 * Slug for this view
 	 *
-	 * @since 5.1.0
+	 * @since      5.1.0
 	 * @deprecated 6.0.7
 	 *
 	 * @var string
@@ -76,6 +74,8 @@ class Latest_Past_View extends View {
 		'components/breadcrumbs',
 		'components/breakpoints',
 		'components/data',
+		'components/header',
+		'components/header-title',
 		'components/events-bar',
 		'components/events-bar/search-button',
 		'components/events-bar/search',
@@ -152,6 +152,7 @@ class Latest_Past_View extends View {
 		'latest-past/event/date/featured',
 		'latest-past/event/date/meta',
 		'latest-past/event/featured-image',
+		'latest-past/top-bar',
 
 		// Add-ons.
 		'components/filter-bar',
@@ -168,7 +169,7 @@ class Latest_Past_View extends View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( Tribe__Context $context = null ) {
-		$context = null !== $context ? $context : $this->context;
+		$context          = null !== $context ? $context : $this->context;
 		$this->repository = tribe_events();
 
 		$date                   = $context->get( 'event_date', 'now' );
@@ -186,7 +187,7 @@ class Latest_Past_View extends View {
 	 * @since 5.1.0
 	 */
 	public function add_view_filters() {
-		add_filter( 'tribe_template_html:events/v2/components/messages', [ $this, 'filter_template_done' ] );
+		add_filter( 'tribe_template_html:events/v2/components/before', [ $this, 'filter_template_done' ] );
 		add_filter( 'tribe_template_html:events/v2/components/ical-link', [ $this, 'add_view' ] );
 	}
 
@@ -198,6 +199,7 @@ class Latest_Past_View extends View {
 	 */
 	public function filter_template_done( $html ) {
 		add_filter( 'tribe_template_done', [ $this, 'filter_template_display_by_safelist' ], 10, 4 );
+
 		return $html;
 	}
 
@@ -206,14 +208,17 @@ class Latest_Past_View extends View {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string  $done    Whether to continue displaying the template or not.
-	 * @param array   $name    Template name.
-	 * @param array   $context Any context data you need to expose to this file.
-	 * @param boolean $echo    If we should also print the Template.
+	 * @param string       $done    Whether to continue displaying the template or not.
+	 * @param array|string $name    Template name.
+	 * @param array        $context Any context data you need to expose to this file.
+	 * @param boolean      $echo    If we should also print the Template.
 	 *
 	 * @return string
 	 */
 	public function filter_template_display_by_safelist( $done, $name, $context, $echo ) {
+		if ( is_array( $name ) ) {
+			$name = implode( '/', $name );
+		}
 		$display = in_array( $name, $this->safelist, true );
 
 		/**

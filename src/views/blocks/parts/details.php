@@ -132,7 +132,7 @@ $website = tribe_get_event_website_link( $event_id );
 				<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php echo esc_attr( $end_ts ); ?>">
 					<?php echo $time_formatted; ?>
 					<?php if ( $show_time_zone ) : ?>
-						<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>w
+						<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>
 					<?php endif; ?>
 				</div>
 			</dd>
@@ -173,7 +173,7 @@ $website = tribe_get_event_website_link( $event_id );
 
 		<?php
 		/* Translators: %s: Event (singular) */
-		tribe_meta_event_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true );
+		tribe_meta_event_archive_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true );
 		?>
 
 		<?php

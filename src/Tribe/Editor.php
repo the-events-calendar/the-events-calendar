@@ -407,14 +407,20 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 * Allows for filtering the embedded Google Maps API URL.
 		 *
 		 * @since 4.7
+		 * @since 6.0.13 Added the `$gmaps_api_callback` parameter.
 		 *
 		 * @param string $api_url The Google Maps API URL.
+		 * @param string $gmaps_api_callback The Google Maps API callback.
 		 */
-		$gmaps_api_key = tribe_get_option( 'google_maps_js_api_key' );
-		$gmaps_api_url = 'https://maps.googleapis.com/maps/api/js';
+		$gmaps_api_key      = tribe_get_option( 'google_maps_js_api_key' );
+		$gmaps_api_url      = 'https://maps.googleapis.com/maps/api/js';
+		$gmaps_api_callback = 'Function.prototype';
 
 		if ( ! empty( $gmaps_api_key ) && is_string( $gmaps_api_key ) ) {
-			$gmaps_api_url = add_query_arg( [ 'key' => $gmaps_api_key ], $gmaps_api_url );
+			$gmaps_api_url = add_query_arg( [
+				'key'      => $gmaps_api_key,
+				'callback' => $gmaps_api_callback,
+			], $gmaps_api_url );
 		}
 
 		/**
@@ -443,8 +449,21 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
-			'tribe-the-events-calendar-data',
-			'app/data.js',
+			'tribe-the-events-calendar-vendor',
+			'app/vendor.js',
+			[],
+			'enqueue_block_editor_assets',
+			[
+				'in_footer'    => false,
+				'localize'     => [],
+				'conditionals' => [ $this, 'is_events_post_type' ],
+				'priority'     => 100,
+			]
+		);
+		tribe_asset(
+			$plugin,
+			'tribe-the-events-calendar-editor',
+			'app/main.js',
 			[],
 			'enqueue_block_editor_assets',
 			[
@@ -452,72 +471,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'localize'     => [],
 				'conditionals' => [ $this, 'is_events_post_type' ],
 				'priority'     => 101,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-editor',
-			'app/editor.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 102,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-icons',
-			'app/icons.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 103,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-hoc',
-			'app/hoc.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 104,
-			]
-		);
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-elements',
-			'app/elements.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 105,
-			]
-		);
-
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-blocks',
-			'app/blocks.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 106,
 			]
 		);
 
@@ -536,13 +489,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'wp-i18n',
 				'wp-element',
 				'wp-editor',
-				'tribe-common-gutenberg-data',
-				'tribe-common-gutenberg-utils',
-				'tribe-common-gutenberg-store',
-				'tribe-common-gutenberg-icons',
-				'tribe-common-gutenberg-hoc',
-				'tribe-common-gutenberg-elements',
-				'tribe-common-gutenberg-components',
+				'tribe-common-gutenberg-vendor',
+				'tribe-common-gutenberg-modules',
+				'tribe-common-gutenberg-main',
 			],
 			'enqueue_block_editor_assets',
 			[
@@ -596,8 +545,8 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
-			'tribe-block-editor',
-			'app/editor.css',
+			'tribe-block-editor-vendor',
+			'app/vendor.css',
 			[],
 			'enqueue_block_editor_assets',
 			[
@@ -608,8 +557,8 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
-			'tribe-block-editor-blocks',
-			'app/blocks.css',
+			'tribe-block-editor-main',
+			'app/main.css',
 			[],
 			'enqueue_block_editor_assets',
 			[

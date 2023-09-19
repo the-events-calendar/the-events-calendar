@@ -520,6 +520,34 @@ class EventInsertionCest extends BaseRestCest {
 	}
 
 	/**
+	 * It should allow setting the image setting passing a valid URL
+	 *
+	 * @test
+	 */
+	public function it_should_prevent_setting_the_image_setting_passing_a_valid_url_but_not_authorized( Tester $I ) {
+		// Note: contributor can access the admin (so we don't get a 403) but cannot upload files.
+		$I->generate_nonce_for_role( 'contributor' );
+
+		$image_path = codecept_data_dir( 'csv-import-test-files/featured-image/images/featured-image.jpg' );
+		require_once( ABSPATH . 'wp-admin/includes/image.php' );
+		$attachment_id = $I->factory()->attachment->create_upload_object( $image_path );
+
+		$I->sendPOST( $this->events_url, [
+			'title'       => 'An event',
+			'description' => 'An event content',
+			'all_day'     => true,
+			'start_date'  => 'tomorrow 9am',
+			'end_date'    => 'tomorrow 11am',
+			'image'       => wp_get_attachment_url( $attachment_id ),
+		] );
+
+		$I->seeResponseCodeIs( 400 );
+		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
+		$I->assertEquals( 'rest_invalid_param', $response['code'] );
+	}
+
+	/**
 	 * It should allow setting the event cost as a string
 	 *
 	 * @test

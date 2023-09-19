@@ -41,14 +41,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.0.8';
+		const VERSION             = '6.2.2';
 
 		/**
 		 * Min Pro Addon
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.0.0-dev';
+		const MIN_ADDON_VERSION   = '6.1.0-dev';
 
 		/**
 		 * Min Common
@@ -78,7 +78,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.5.2-dev';
+		protected $min_et_version = '5.6.5-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -285,8 +285,15 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $singular_organizer_label;
 		public $plural_organizer_label;
 
+		public $singular_event_label_lowercase;
+		public $plural_event_label_lowercase;
+
 		public $singular_event_label;
 		public $plural_event_label;
+
+		public $currentDay;
+		public $errors;
+		public $registered;
 
 		/** @var Tribe__Events__Default_Values */
 		private $default_values = null;
@@ -346,6 +353,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_old_et_is_present' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'maybe_bail_if_invalid_wp_or_php' ], -1 );
 			add_action( 'plugins_loaded', [ $this, 'plugins_loaded' ], 0 );
+
+			add_filter( 'tribe_tickets_integrations_should_load_freemius', '__return_false' );
 
 			// Prevents Image Widget Plus from been problematic
 			$this->compatibility_unload_iwplus_v102();
@@ -483,9 +492,27 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->init_autoloading();
 
+			add_filter( 'tec_common_parent_plugin_file', [ $this, 'include_parent_plugin_path_to_common' ] );
+
 			Tribe__Main::instance();
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
+		}
+
+		/**
+		 * Adds our main plugin file to the list of paths.
+		 *
+		 * @since 6.1.0
+		 *
+		 *
+		 * @param array<string> $paths The paths to TCMN parent plugins.
+		 *
+		 * @return array<string>
+		 */
+		public function include_parent_plugin_path_to_common( $paths ): array {
+			$paths[] = TRIBE_EVENTS_FILE;
+
+			return $paths;
 		}
 
 		/**
@@ -573,6 +600,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Aggregator__Processes__Service_Provider' );
 			tribe_register_provider( Tribe\Events\Taxonomy\Taxonomy_Provider::class );
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
+			tribe_register_provider( TEC\Events\Configuration\Provider::class );
 
 			// @todo After version 6.0.0 this needs to move to the Events folder provider.
 			tribe_register_provider( TEC\Events\Legacy\Views\V1\Provider::class );
@@ -654,6 +682,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up the installer.
 			tribe_register_provider( TEC\Events\Installer\Provider::class );
+
+			// Set up Site Health
+			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
+
+			// Set up Telemetry
+			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -2484,6 +2518,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$event_url = home_url( '/' );
 			}
 
+			// Ensure the URL ends with a trailing slash.
+			$event_url = trailingslashit( $event_url );
+
 			// URL Arguments on home_url() pre-check
 			$url_query = @parse_url( $event_url, PHP_URL_QUERY );
 			if ( null === $url_query ) {
@@ -2922,33 +2959,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				//get venue and organizer and publish them
 				$pm = get_post_custom( $post->ID );
 
-				do_action( 'log', 'publishing an event with a venue', 'tribe-events', $post );
+				$linked_post_prefixes = [
+					'venue'     => '_EventVenue',
+					'organizer' => '_EventOrganizer',
+				];
 
-				// save venue on first setup
-				if ( ! empty( $pm['_EventVenueID'] ) ) {
-					$venue_id = is_array( $pm['_EventVenueID'] ) ? current( $pm['_EventVenueID'] ) : $pm['_EventVenueID'];
-					if ( $venue_id ) {
-						do_action( 'log', 'event has a venue', 'tribe-events', $venue_id );
-						$venue_post = get_post( $venue_id );
-						if ( ! empty( $venue_post ) && $venue_post->post_status != 'publish' ) {
-							do_action( 'log', 'venue post found', 'tribe-events', $venue_post );
-							$venue_post->post_status = 'publish';
-							wp_update_post( $venue_post );
-							$did_save = true;
-						}
+				foreach ( $linked_post_prefixes as $type => $linked_post_prefix ) {
+					$id_index = "{$linked_post_prefix}ID";
+
+					if ( empty( $pm[ $id_index ] ) ) {
+						continue;
 					}
-				}
 
-				// save organizer on first setup
-				if ( ! empty( $pm['_EventOrganizerID'] ) ) {
-					$org_id = is_array( $pm['_EventOrganizerID'] ) ? current( $pm['_EventOrganizerID'] ) : $pm['_EventOrganizerID'];
-					if ( $org_id ) {
-						$org_post = get_post( $org_id );
-						if ( ! empty( $org_post ) && $org_post->post_status != 'publish' ) {
-							$org_post->post_status = 'publish';
-							wp_update_post( $org_post );
-							$did_save = true;
+					$linked_post_ids = is_array( $pm[ $id_index ] ) ? $pm[ $id_index ] : [ $pm[ $id_index ] ];
+
+					foreach ( $linked_post_ids as $linked_post_id ) {
+						if ( ! $linked_post_id ) {
+							continue;
 						}
+
+						if ( in_array( get_post_status( $linked_post_id ), [ 'publish', 'private' ], true ) ) {
+							continue;
+						}
+
+						wp_publish_post( $linked_post_id );
 					}
 				}
 			}
@@ -3529,6 +3563,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$current_hidden_boxes = get_user_option( 'metaboxhidden_nav-menus', $user_id );
 
+			if ( ! is_array( $current_hidden_boxes ) ) {
+				return;
+			}
+
 			if ( $array_key = array_search( 'add-' . self::POSTTYPE, $current_hidden_boxes ) ) {
 				unset( $current_hidden_boxes[ $array_key ] );
 			}
@@ -4051,7 +4089,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Registers the Events' category taxonomy in WordPress.
 		 *
-		 * @since TBD
+		 * @since 6.0.9
 		 *
 		 * @return WP_Taxonomy|WP_Error The registered taxonomy object on success, WP_Error object on failure.
 		 */

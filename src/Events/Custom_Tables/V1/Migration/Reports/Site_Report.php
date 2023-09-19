@@ -189,9 +189,8 @@ class Site_Report implements JsonSerializable {
 	 * The JSON serializer.
 	 *
 	 * @since 6.0.0
-	 *
-	 * @return array<string,mixed>
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return $this->data;
 	}

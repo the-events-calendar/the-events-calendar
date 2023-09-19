@@ -343,10 +343,7 @@ class State {
 	 * @since 6.0.0
 	 */
 	public function save() {
-		do_action( 'tribe_log', 'debug', 'State: save', [
-			'source'    => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-			'phase'     => $this->data,
-		] );
+		// This will return `false` on failure to save and if the value is the same, not indicative of a failure.
 		update_option( self::STATE_OPTION_KEY, $this->data );
 	}
 

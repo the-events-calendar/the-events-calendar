@@ -74,6 +74,10 @@ class Tribe__Events__Integrations__WPML__Linked_Posts {
 		$language_code = ! empty( $event_language_info['language_code'] ) ? $event_language_info['language_code'] :
 			ICL_LANGUAGE_CODE;
 
+		if ( empty( $language_code ) ) {
+			return $id;
+		}
+
 		$added = wpml_add_translatable_content( 'post_' . $linked_post_type, $id, $language_code );
 
 		if ( WPML_API_ERROR === $added ) {

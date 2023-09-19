@@ -2,7 +2,7 @@
 /**
  * View: Install `Event Tickets` notice.
  *
- * @since TBD
+ * @since 6.0.9
  *
  * @var string $action           The notice action (`install` or `activate`).
  * @var string $title            The notice title.

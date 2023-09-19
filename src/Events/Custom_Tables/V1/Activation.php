@@ -9,9 +9,13 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
+use TEC\Events\Custom_Tables\V1\Health_Check;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
 use TEC\Events\Custom_Tables\V1\Migration\State;
+use TEC\Events\Custom_Tables\V1\Tables\Events as EventsTable;
 use TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder;
+use TEC\Events\Custom_Tables\V1\Tables\Occurrences;
+use Tribe__Events__Main;
 use Tribe__Main as Common;
 
 /**
@@ -40,35 +44,25 @@ class Activation {
 		$schema_builder->up();
 	}
 
+
+
 	/**
 	 * Checks the state to determine if whether we should create or update custom tables.
 	 *
 	 * This method will run once a day (using transients).
 	 *
 	 * @since 6.0.0
+	 * @since 6.0.14 Reworked transient logic to use tec_timed_option instead. More concise. No longer forces schema updates.
 	 */
 	public static function init() {
-		$services = tribe();
-
-		/*
-		 * Transients will use the cache when using real object cache, why check both then?
-		 * Transients might be disabled. In that case we'll use the cache and work around that limitation.
-		 * A user seeking to force the Activation to run again can flush the cache when using one, or clear
-		 * the transient when not using one.
-		 */
-		if ( wp_using_ext_object_cache() ) {
-			$last_run = wp_cache_get( static::ACTIVATION_TRANSIENT );
-		} else {
-			$last_run = get_transient( static::ACTIVATION_TRANSIENT );
-		}
-		$last_run = is_numeric( $last_run ) ? (int) $last_run : null;
-		$now      = time();
-
 		// If the activation last ran less than 24 hours ago, bail.
-		if ( $last_run && $last_run > ( $now - DAY_IN_SECONDS ) ) {
+		if ( tec_timed_option()->get( static::ACTIVATION_TRANSIENT ) ) {
 			return;
 		}
 
+		tec_timed_option()->set( static::ACTIVATION_TRANSIENT, 1, DAY_IN_SECONDS );
+
+		$services       = tribe();
 		$schema_builder = $services->make( Schema_Builder::class );
 		$state          = $services->make( State::class );
 		$phase          = $state->get_phase();
@@ -85,7 +79,7 @@ class Activation {
 
 		// Update the tables if required by the migration phase.
 		if ( $update ) {
-			$schema_builder->up( true );
+			$schema_builder->up();
 
 			// Ensure late activation only after we have the tables.
 			if ( ! $services->getVar( 'ct1_fully_activated' ) ) {
@@ -95,16 +89,6 @@ class Activation {
 				 */
 				$services->register( Full_Activation_Provider::class );
 			}
-		}
-
-		if ( wp_using_ext_object_cache() ) {
-			wp_cache_set( static::ACTIVATION_TRANSIENT, $now, '', DAY_IN_SECONDS );
-			// Clean up.
-			delete_transient( static::ACTIVATION_TRANSIENT );
-		} else {
-			set_transient( static::ACTIVATION_TRANSIENT, $now, DAY_IN_SECONDS );
-			// Clean up.
-			wp_cache_delete( static::ACTIVATION_TRANSIENT );
 		}
 	}
 
@@ -138,7 +122,47 @@ class Activation {
 			return $migration_status;
 		}
 
+		$migration_status = static::filter_include_migration_health_check_info( $migration_status );
+
 		return Common::array_insert_before_key( 'Settings', $info, $migration_status );
+	}
+
+	/**
+	 * Adds some health check reports to assist in troubleshooting.
+	 *
+	 * @since 6.0.9
+	 *
+	 * @param array<string,mixed> $info The report data to add our health check to.
+	 *
+	 * @return array<string,mixed> The modified report data.
+	 */
+	public static function filter_include_migration_health_check_info( array $info = [] ): array {
+		$issue_reports = [];
+
+		$health_check = tribe( Health_Check::class );
+
+		// Check if we have flagged as "migrated" but we show a mismatch of data in our tables.
+		if ( ! $health_check->is_event_data_healthy() ) {
+			$issue_reports[] = "Missing `Event` Table Data";
+		}
+		if ( ! $health_check->is_occurrence_data_healthy() ) {
+			$issue_reports[] = "Missing `Occurrences` Table Data";
+		}
+		if ( $health_check->is_event_table_missing() ) {
+			$issue_reports[] = "`Event` Table Missing";
+		}
+		if ( $health_check->is_occurrence_table_missing() ) {
+			$issue_reports[] = "`Occurrences` Table Missing";
+		}
+
+		$reports = empty( $issue_reports ) ? 'Good!' : implode( ' | ', $issue_reports );
+
+		// Add health checks here.
+		$migration_health_check = [
+			'Custom Tables Health Check' => $reports // If no bad reports, it's good.
+		];
+
+		return array_merge( $info, $migration_health_check );
 	}
 
 	/**

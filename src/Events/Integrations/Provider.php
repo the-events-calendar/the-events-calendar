@@ -8,6 +8,9 @@
  */
 namespace TEC\Events\Integrations;
 
+use TEC\Common\Contracts\Service_Provider;
+
+
 /**
  * Class Provider
  *
@@ -15,7 +18,8 @@ namespace TEC\Events\Integrations;
  *
  * @package TEC\Events\Integrations
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends Service_Provider {
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -25,5 +29,9 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( static::class, $this );
 
 		$this->container->register( Plugins\WordPress_SEO\Provider::class );
+		$this->container->register( Plugins\Rank_Math\Provider::class );
+		$this->container->register( Plugins\Colbri_Page_Builder\Provider::class );
+		$this->container->register( Plugins\Event_Tickets\Provider::class );
+		$this->container->register( Plugins\Elementor\Provider::class );
 	}
 }

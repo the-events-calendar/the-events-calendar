@@ -607,7 +607,7 @@ class Tribe__Events__Aggregator__Cron {
 		 * Note the filtered value will override the value defined by the
 		 * `TEC_EVENT_AGGREGATOR_RECORDS_PURGE_DIRECT_DELETION` constant.
 		 *
-		 * @since TBD
+		 * @since 6.0.9
 		 *
 		 * @param bool $direct_deletion Whether to use direct deletion of Event Aggregator records during cleanup or not.
 		 */
@@ -721,7 +721,7 @@ class Tribe__Events__Aggregator__Cron {
 	 * Deletes expired records from the database using direct queries, bypassing the filters and actions associated
 	 * with WordPress posts functions.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @param array<string> $deletable_statuses The statuses to use to fetch the records that should be purged.
 	 * @param string        $date_threshold     The date threshold to use to determine if a record should be purged or not.
@@ -755,7 +755,7 @@ class Tribe__Events__Aggregator__Cron {
 		 * Filters the number of records to be deleted in a single query when purging Event Aggregator records
 		 * using the direct deletion method.
 		 *
-		 * @since TBD
+		 * @since 6.0.9
 		 *
 		 * @param int $batch_size The number of records to be deleted in a single query. Calculated from the current
 		 *                        `max_allowed_packet` value set in the database.

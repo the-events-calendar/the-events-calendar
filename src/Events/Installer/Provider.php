@@ -3,13 +3,16 @@
 namespace TEC\Events\Installer;
 
 use TEC\Common\StellarWP\Installer\Installer;
+use TEC\Common\Contracts\Service_Provider;
 
-class Provider extends \tad_DI52_ServiceProvider {
+
+class Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );

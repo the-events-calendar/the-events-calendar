@@ -31,28 +31,36 @@ class Schema_BuilderTest extends \Codeception\TestCase\WPTestCase {
 			$calls_by_blog_id->{get_current_blog_id()} ++;
 		} );
 
+		$main_blog_now = time();
 		switch_to_blog( $main_blog_id );
 		switch_to_blog( $main_blog_id );
 		switch_to_blog( $main_blog_id );
 		switch_to_blog( $main_blog_id );
 		switch_to_blog( $main_blog_id );
-		$this->assertTrue( get_transient( Activation::ACTIVATION_TRANSIENT ) );
+		// Use a delta: being down to the second is not relevant as long as it's about this time. CI can be slower.
+		$this->assertEqualsWithDelta( $main_blog_now, get_transient( Activation::ACTIVATION_TRANSIENT ), 2.0 );
 		$this->assertEquals( 1, $calls_by_blog_id->{$main_blog_id} );
+
+		$blog_2_now = time();
 		switch_to_blog( $blog_2_id );
 		switch_to_blog( $blog_2_id );
 		switch_to_blog( $blog_2_id );
 		switch_to_blog( $blog_2_id );
 		switch_to_blog( $blog_2_id );
 		switch_to_blog( $blog_2_id );
-		$this->assertTrue( get_transient( Activation::ACTIVATION_TRANSIENT ) );
+		// Use a delta: being down to the second is not relevant as long as it's about this time. CI can be slower.
+		$this->assertEqualsWithDelta( $blog_2_now, get_transient( Activation::ACTIVATION_TRANSIENT ), 2.0 );
 		$this->assertEquals( 1, $calls_by_blog_id->{$blog_2_id} );
+
+		$blog_3_now = time();
 		switch_to_blog( $blog_3_id );
 		switch_to_blog( $blog_3_id );
 		switch_to_blog( $blog_3_id );
 		switch_to_blog( $blog_3_id );
 		switch_to_blog( $blog_3_id );
 		switch_to_blog( $blog_3_id );
-		$this->assertTrue( get_transient( Activation::ACTIVATION_TRANSIENT ) );
+		// Use a delta: being down to the second is not relevant as long as it's about this time. CI can be slower.
+		$this->assertEqualsWithDelta( $blog_3_now, get_transient( Activation::ACTIVATION_TRANSIENT ), 2.0 );
 		$this->assertEquals( 1, $calls_by_blog_id->{$blog_3_id} );
 	}
 

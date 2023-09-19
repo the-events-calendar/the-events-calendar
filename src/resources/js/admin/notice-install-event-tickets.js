@@ -1,7 +1,7 @@
 /**
  * Makes sure we have all the required levels on the Tribe Object
  *
- * @since TBD
+ * @since 6.0.9
  *
  * @type {PlainObject}
  */
@@ -11,7 +11,7 @@ tribe.events.admin = tribe.events.admin || {};
 /**
  * Configures admin manager Object in the Global Tribe variable
  *
- * @since TBD
+ * @since 6.0.9
  *
  * @type {PlainObject}
  */
@@ -20,7 +20,7 @@ tribe.events.admin.noticeInstall = {};
 /**
  * Initializes in a Strict env the code that manages the Events admin notice.
  *
- * @since TBD
+ * @since 6.0.9
  *
  * @param  {PlainObject} $   jQuery
  * @param  {PlainObject} _   Underscore.js
@@ -35,7 +35,7 @@ tribe.events.admin.noticeInstall = {};
 	/**
 	 * Selectors used for configuration and setup
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @type {PlainObject}
 	 */
@@ -46,13 +46,14 @@ tribe.events.admin.noticeInstall = {};
 	/**
 	 * Handles the initialization of the notice actions.
 	 *
-	 * @since TBD
+	 * @since 6.0.9
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function() {
 		wp.hooks.addAction(
 			'stellarwp_installer_tec_error',
+			'tec/eventTicketsInstallerError',
 			function( selector, slug, action, message ) {
 				const $button = $( selector );
 				const $description = $button.siblings( obj.selectors.noticeDescription );

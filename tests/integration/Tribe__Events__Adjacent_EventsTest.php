@@ -152,52 +152,52 @@ class Tribe__Events__Adjacent_EventsTest extends WPTestCase {
 	 * @test
 	 */
 	public function should_cache_the_result_of_the_closest_event_query(): void {
-		$previous                = tribe_events()->set_args( [
+		$previous = tribe_events()->set_args( [
 			'title'      => 'Event 1',
 			'start_date' => '-2 days 14:00:00',
 			'duration'   => HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$event                   = tribe_events()->set_args( [
+		$event    = tribe_events()->set_args( [
 			'title'      => 'Event 1',
 			'start_date' => '+2 days 14:00:00',
 			'duration'   => HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$next                    = tribe_events()->set_args( [
+		$next     = tribe_events()->set_args( [
 			'title'      => 'Event 1',
 			'start_date' => '+10 days 14:00:00',
 			'duration'   => HOUR_IN_SECONDS,
 			'status'     => 'publish',
 		] )->create();
-		$before_previous_queries = $this->queries()->countQueries();
 
 		$adjacent_events = new Adjacent_Events();
 		$adjacent_events->set_current_event_id( $event->ID );
+
+		// See we hit get post once
+		$was_hit_count = 0;
+		add_action( 'pre_get_posts', function ( $query ) use ( &$was_hit_count ) {
+			$was_hit_count ++;
+		} );
 		$adjacent_events->get_closest_event( 'previous' );
 		$adjacent_events->get_closest_event( 'previous' );
 		$adjacent_events->get_closest_event( 'previous' );
 
-		$this->assertEquals( 2,
-			$this->queries()->countQueries() - $before_previous_queries,
-			'The method should make 2 queries: one to fetch the post, one to fetch the closest.'
-		);
+		$this->assertEquals( 1, $was_hit_count, 'Ensure we fetched the post once - cache should have kicked in on other calls.' );
 		$cached = tribe_cache()->get( 'tec_events_closest_event_' . $event->ID . '_previous', Cache_Listener::TRIGGER_SAVE_POST, false );
 		$this->assertEquals( $previous->ID, $cached );
-
-		$before_next_queries = $this->queries()->countQueries();
 
 		// Create a new object to make sure the queries are not cached in an instance property.
 		$adjacent_events = new Adjacent_Events();
 		$adjacent_events->set_current_event_id( $event->ID );
+
+		// See we hit get post once
+		$was_hit_count = 0;
 		$adjacent_events->get_closest_event( 'next' );
 		$adjacent_events->get_closest_event( 'next' );
 		$adjacent_events->get_closest_event( 'next' );
 
-		$this->assertEquals( 2,
-			$this->queries()->countQueries() - $before_next_queries,
-			'The method should make 2 queries: one to fetch the post, one to fetch the closest.'
-		);
+		$this->assertEquals( 1, $was_hit_count, 'Ensure we fetched the post once - cache should have kicked in on other calls.' );
 		$cached = tribe_cache()->get( 'tec_events_closest_event_' . $event->ID . '_next', Cache_Listener::TRIGGER_SAVE_POST, false );
 		$this->assertEquals( $next->ID, $cached );
 	}

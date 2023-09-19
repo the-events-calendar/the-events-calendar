@@ -157,6 +157,9 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				return $query;
 			}
 
+			// Remove IDs, it changes.
+			$trimmed_query = preg_replace( '/IN (\([0-9].*?\))/i', 'IN ()', $trimmed_query );
+
 			$logged_queries[] = $trimmed_query;
 
 			return $query;
@@ -178,7 +181,7 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		] );
 
 		// We do not really care about the ORDER here, just the set nature.
-		$this->assertEqualSets( $events, $found );
+		$this->assertEqualsCanonicalizing( $events, $found );
 		$this->assertMatchesSnapshot( $logged_queries );
 	}
 
@@ -270,5 +273,48 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		global $wpdb;
 		$this->assertEmpty( $wpdb->last_error );
 		$this->assertMatchesSnapshot( $request );
+	}
+
+	/**
+	 * Test that we can convert a meta_value order by, into the CT1 equivalent and retrieve expected result.
+	 *
+	 * @test
+	 */
+	public function should_orderby_get_posts_with_meta_query() {
+		$post_id = tribe_events()->set_args( [
+			'post_title'  => 'Event Faux ',
+			'post_status' => 'publish',
+			'start_date'  => "2023-03-23 00:00:00",
+			'duration'    => 2 * HOUR_IN_SECONDS,
+		] )->create()->ID;
+		tribe_events()->set_args( [
+			'post_title'  => 'Event Faux ',
+			'post_status' => 'publish',
+			'start_date'  => "2023-03-20 00:00:00",
+			'duration'    => 2 * HOUR_IN_SECONDS,
+		] )->create()->ID;
+
+		$args = array(
+			'post_type'        => array( 'tribe_events' ),
+			'post_status'      => 'publish',
+			'posts_per_page'   => 1,
+			'meta_query'       => array(
+				'relation'     => 'AND',
+				'starts_after' => array(
+					'key'     => '_EventEndDate',
+					'compare' => '>=',
+					'value'   => '2023-03-01 00:00:00'
+				)
+			),
+			'fields'           => 'ids',
+			'suppress_filters' => false,
+			'orderby'          => 'meta_value',
+			'order'            => 'DESC'
+		);
+
+		// Order by should be parsed correctly.
+		$posts = get_posts( $args );
+		$this->assertCount( 1, $posts, "Should find our post with meta order by query." );
+		$this->assertContains( $post_id, $posts, "The first event created should be found due to order by query." );
 	}
 }
