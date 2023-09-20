@@ -2,6 +2,7 @@
 namespace Tribe\Events\Editor\Blocks;
 
 class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
+	protected $namespace = 'tec';
 
 	/**
 	 * Returns the name/slug of this block.

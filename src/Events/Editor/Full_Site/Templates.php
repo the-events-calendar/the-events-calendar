@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
+use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe__Events__Main;
 
 use TEC\Common\Editor\Full_Site\Template_Utils;
@@ -80,26 +81,28 @@ class Templates {
 	public function get_template_events_archive() {
 
 		$template                 = new WP_Block_Template();
-
+		$archive_block = tribe(Archive_Events::class);
 		$wp_query_args        = array(
-			'post_name__in'  => array( 'archive-events' ),
+			'post_name__in'  => array( $archive_block->slug() ),
 			'post_type'      => 'wp_template',
 			'post_status'    => array( 'auto-draft', 'draft', 'publish', 'trash' ),
 			'posts_per_page' => 1,
 			'no_found_rows'  => true,
-/*			'tax_query'      => array(
+			'tax_query'      => array(
 				array(
 					'taxonomy' => 'wp_theme',
 					'field'    => 'name',
-					'terms'    => 'tribe',
+					'terms'    => $archive_block->get_namespace(),
 				),
-			),*/
+			),
 		);
 		$template_query       = new WP_Query( $wp_query_args );
 		$posts                = $template_query->posts;
 		if(empty($posts)) {
 			$insert        = array(
-				'post_name'  =>  'archive-events' ,
+				'post_name'  =>  $archive_block->slug(),// static::$archive_slug ,// @todo is this right?
+				'post_title' => esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' ),
+				'post_excerpt' => esc_html_x( 'Displays the calendar views.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
 				'post_type'      => 'wp_template',
 				'post_status'    =>  'publish',
 				'post_content' => file_get_contents(
@@ -108,25 +111,30 @@ class Templates {
 			);
 			// @todo more fields
 			$id = wp_insert_post($insert);
+			$term  = get_term_by( 'name', 'tec', 'wp_theme',ARRAY_A);
+			if(!$term) {
+				$term = wp_insert_term('tec', 'wp_theme');
+			}
+			wp_set_post_terms($id, 'tec', 'wp_theme');
 			$post  = get_post($id);
-
 		} else {
 			$post = $posts[0];
 		}
 
 
 		$template->wp_id = $post->ID;
-		$template->id             = 'tribe/archive-events';
-		$template->theme          = 'The Events Calendar';
+		$template->id             = $archive_block->name();
+		$template->theme          = $archive_block->get_namespace();
 		$template->content        = Template_Utils::inject_theme_attribute_in_content( $post->post_content );
-		$template->slug           = static::$archive_slug;
+		$template->slug           = $post->post_name;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' );
-		$template->description    = esc_html_x( 'Displays the calendar views.', 'The Full Site editor block navigation description', 'the-events-calendar' );
-		$template->status         = 'publish';
-		$template->has_theme_file = true;
+		$template->title          = $post->post_title;
+		$template->description    = $post->post_excerpt;
+		$template->status         = $post->post_status;
+		$template->has_theme_file = false;
 		$template->is_custom      = true;
+		$template->author = $post->post_author;
 
 		return $template;
 	}
