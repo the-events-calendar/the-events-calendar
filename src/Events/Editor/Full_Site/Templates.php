@@ -8,6 +8,7 @@ use Tribe__Events__Main;
 use TEC\Common\Editor\Full_Site\Template_Utils;
 
 use WP_Block_Template;
+use WP_Post;
 use WP_Query;
 
 /**
@@ -60,7 +61,7 @@ class Templates {
 
 		// If we are not querying for all or the specific one we want we bail.
 		if (
-			! empty( $query['slug__in'] )
+			 ! empty( $query['slug__in'] )
 			&& ! in_array( static::$archive_slug, $query['slug__in'], true )
 		) {
 			return $query_result;
@@ -75,14 +76,16 @@ class Templates {
 	 * Returns the constructed template object for the query.
 	 *
 	 * @since 5.14.2
+	 * @since TBD Updated with WP_Block_Template initialization from the database for Site Editor.
 	 *
 	 * @return WP_Block_Template A reference to the template object for the query.
 	 */
 	public function get_template_events_archive() {
+		$template       = new WP_Block_Template();
+		$archive_block  = tribe( Archive_Events::class );
 
-		$template                 = new WP_Block_Template();
-		$archive_block = tribe(Archive_Events::class);
-		$wp_query_args        = array(
+		// Let's see if we have a saved template?
+		$wp_query_args  = array(
 			'post_name__in'  => array( $archive_block->slug() ),
 			'post_type'      => 'wp_template',
 			'post_status'    => array( 'auto-draft', 'draft', 'publish', 'trash' ),
@@ -96,37 +99,53 @@ class Templates {
 				),
 			),
 		);
-		$template_query       = new WP_Query( $wp_query_args );
-		$posts                = $template_query->posts;
-		if(empty($posts)) {
-			$insert        = array(
-				'post_name'  =>  $archive_block->slug(),// static::$archive_slug ,// @todo is this right?
-				'post_title' => esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' ),
+		$template_query = new WP_Query( $wp_query_args );
+		$posts          = $template_query->posts;
+
+		// If empty, this is our first time loading our Block Template. Let's create it.
+		if ( empty( $posts ) ) {
+			$insert = array(
+				'post_name'    => $archive_block->slug(),// static::$archive_slug ,// @todo is this right?
+				'post_title'   => esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' ),
 				'post_excerpt' => esc_html_x( 'Displays the calendar views.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
-				'post_type'      => 'wp_template',
-				'post_status'    =>  'publish',
+				'post_type'    => 'wp_template',
+				'post_status'  => 'publish',
 				'post_content' => file_get_contents(
 					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
 				)
 			);
-			// @todo more fields
-			$id = wp_insert_post($insert);
-			$term  = get_term_by( 'name', 'tec', 'wp_theme',ARRAY_A);
-			if(!$term) {
-				$term = wp_insert_term('tec', 'wp_theme');
+			// Create this template.
+			$id = wp_insert_post( $insert );
+
+			// Setup our "theme" term, for the taxonomy query.
+			$term = get_term_by( 'name', $archive_block->get_namespace(), 'wp_theme', ARRAY_A );
+			if ( ! $term ) {
+				wp_insert_term( $archive_block->get_namespace(), 'wp_theme' );
 			}
-			wp_set_post_terms($id, 'tec', 'wp_theme');
-			$post  = get_post($id);
+			wp_set_post_terms( $id, $archive_block->get_namespace(), 'wp_theme' );
+			$post = get_post( $id );
 		} else {
+			// We were already initialized, load our saved template.
 			$post = $posts[0];
 		}
 
+		// Validate we did stuff correctly.
+		if ( ! $post instanceof WP_Post ) {
+			do_action( 'tribe_log', 'error',
+				'Failed locating our Post for the Archive Events Block Template', [
+					'method' => __METHOD__,
+				] );
 
-		$template->wp_id = $post->ID;
+			// Might as well bail, avoid errors below.
+			return $template;
+		}
+
+		// Hydrate our template with the saved data.
+		$template->wp_id          = $post->ID;
 		$template->id             = $archive_block->name();
 		$template->theme          = $archive_block->get_namespace();
 		$template->content        = Template_Utils::inject_theme_attribute_in_content( $post->post_content );
-		$template->slug           = $post->post_name;
+		$template->slug           = static::$archive_slug;// @todo ??? $post->post_name;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
 		$template->title          = $post->post_title;
@@ -134,7 +153,7 @@ class Templates {
 		$template->status         = $post->post_status;
 		$template->has_theme_file = false;
 		$template->is_custom      = true;
-		$template->author = $post->post_author;
+		$template->author         = $post->post_author;
 
 		return $template;
 	}

@@ -6,6 +6,7 @@ use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe\Events\Editor\Blocks\Single_Event;
 use Tribe__Events__Main;
 use TEC\Common\Contracts\Service_Provider;
+use WP_Block_Template;
 
 
 /**
@@ -99,14 +100,26 @@ class Hooks extends Service_Provider {
 		return array_merge( $query_result, $single_events_template, $events_archive_template );
 	}
 
+	/**
+	 * Fetch our Block Template by ID.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|WP_Block_Template $block_template The filtered template.
+	 * @param string                 $id             The block template ID.
+	 * @param string                 $template_type  The template type.
+	 *
+	 * @return null|WP_Block_Template
+	 */
 	public function filter_include_template_by_id( $block_template, $id, $template_type ) {
-		if(!is_null($block_template)) {
+		if ( ! is_null( $block_template ) ) {
 			return $block_template;
 		}
 		if ( $template_type !== 'wp_template' ) {
 			return $block_template;
 		}
-		if($id !== 'tribe//archive-events') {
+		$archive_template = tribe( Archive_Events::class );
+		if ( $id !== $archive_template->get_namespace() . '//' . $archive_template->slug() ) {
 			return $block_template;
 		}
 
