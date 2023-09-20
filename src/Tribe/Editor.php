@@ -373,26 +373,29 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Check if current admin page is post type `tribe_events`
 	 *
 	 * @since 4.7
+	 * @since TBD Adding support to load on site editor screen.
 	 *
 	 * @return bool
 	 */
 	public function is_events_post_type() {
-		return true; // @todo remove
-		return Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE );
+		$current_screen = get_current_screen();
+
+		return Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE )
+		       || ( $current_screen instanceof WP_Screen && $current_screen->id === 'site-editor' );
 	}
 
 	/**
 	 * Check whether the current page is an edit post type page.
 	 *
 	 * @since 5.12.0
+	 * @since TBD Adding support to load on site editor screen.
 	 *
 	 * @return bool
 	 */
 	public function is_edit_screen() {
-		return true; // @todo remove
 		$current_screen = get_current_screen();
 
-		return 'post' === $current_screen->base;
+		return 'post' === $current_screen->base || $current_screen->id === 'site-editor';
 	}
 
 	/**
