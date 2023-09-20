@@ -7,6 +7,7 @@ use Tribe__Events__Main;
 use TEC\Common\Editor\Full_Site\Template_Utils;
 
 use WP_Block_Template;
+use WP_Query;
 
 /**
  * Class Templates
@@ -77,14 +78,47 @@ class Templates {
 	 * @return WP_Block_Template A reference to the template object for the query.
 	 */
 	public function get_template_events_archive() {
-		$template_content = file_get_contents(
-			Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
-		);
 
 		$template                 = new WP_Block_Template();
-		$template->id             = 'the-events-calendar//archive-events';
+
+		$wp_query_args        = array(
+			'post_name__in'  => array( 'archive-events' ),
+			'post_type'      => 'wp_template',
+			'post_status'    => array( 'auto-draft', 'draft', 'publish', 'trash' ),
+			'posts_per_page' => 1,
+			'no_found_rows'  => true,
+/*			'tax_query'      => array(
+				array(
+					'taxonomy' => 'wp_theme',
+					'field'    => 'name',
+					'terms'    => 'tribe',
+				),
+			),*/
+		);
+		$template_query       = new WP_Query( $wp_query_args );
+		$posts                = $template_query->posts;
+		if(empty($posts)) {
+			$insert        = array(
+				'post_name'  =>  'archive-events' ,
+				'post_type'      => 'wp_template',
+				'post_status'    =>  'publish',
+				'post_content' => file_get_contents(
+					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
+				)
+			);
+			// @todo more fields
+			$id = wp_insert_post($insert);
+			$post  = get_post($id);
+
+		} else {
+			$post = $posts[0];
+		}
+
+
+		$template->wp_id = $post->ID;
+		$template->id             = 'tribe/archive-events';
 		$template->theme          = 'The Events Calendar';
-		$template->content        = Template_Utils::inject_theme_attribute_in_content( $template_content );
+		$template->content        = Template_Utils::inject_theme_attribute_in_content( $post->post_content );
 		$template->slug           = static::$archive_slug;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';

@@ -35,6 +35,7 @@ class Hooks extends Service_Provider {
 	 */
 	protected function add_filters() {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
+		add_filter('get_block_template', [$this, 'filter_include_template_by_id'], 10, 3);
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option'], 10, 2 );
@@ -96,6 +97,20 @@ class Hooks extends Service_Provider {
 		$events_archive_template = $templates_class->add_events_archive( [], $query, $template_type );
 
 		return array_merge( $query_result, $single_events_template, $events_archive_template );
+	}
+
+	public function filter_include_template_by_id( $block_template, $id, $template_type ) {
+		if(!is_null($block_template)) {
+			return $block_template;
+		}
+		if ( $template_type !== 'wp_template' ) {
+			return $block_template;
+		}
+		if($id !== 'tribe//archive-events') {
+			return $block_template;
+		}
+
+		return $this->container->make( Templates::class )->get_template_events_archive();
 	}
 
 	/**
