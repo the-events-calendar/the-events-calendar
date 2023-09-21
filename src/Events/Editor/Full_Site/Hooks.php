@@ -33,13 +33,14 @@ class Hooks extends Service_Provider {
 	 * Adds the filters required by the FSE components.
 	 *
 	 * @since 5.14.2
+	 * @since TBD Adding support for block templates.
 	 */
 	protected function add_filters() {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
-		add_filter('get_block_template', [$this, 'filter_include_template_by_id'], 10, 3);
+		add_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10, 3 );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
-		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option'], 10, 2 );
+		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
 	}
 
 	/**

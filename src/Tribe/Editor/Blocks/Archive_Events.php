@@ -2,6 +2,11 @@
 namespace Tribe\Events\Editor\Blocks;
 
 class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
+	/**
+	 * @since TBD
+	 *        
+	 * @var string The namespace of this template.
+	 */
 	protected $namespace = 'tec';
 
 	/**
