@@ -1,10 +1,11 @@
 <?php
+
 namespace Tribe\Events\Editor\Blocks;
 
 class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	/**
 	 * @since TBD
-	 *        
+	 *
 	 * @var string The namespace of this template.
 	 */
 	protected $namespace = 'tec';
@@ -36,7 +37,7 @@ class Archive_Events extends \Tribe__Editor__Blocks__Abstract {
 	 *
 	 * @since 5.14.2
 	 *
-	 * @param  array $attributes The block attributes.
+	 * @param array $attributes The block attributes.
 	 *
 	 * @return string The block HTML.
 	 */

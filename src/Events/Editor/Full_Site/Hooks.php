@@ -41,6 +41,35 @@ class Hooks extends Service_Provider {
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
+		add_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10, 1 );
+	}
+
+	/**
+	 * Redirect the post type template to our slug, as that is what is used for lookup in the database.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $templates Templates in order of display hierarchy.
+	 *
+	 * @return array
+	 */
+	public function filter_archive_template_hierarchy( $templates ) {
+		if ( empty( $templates ) ) {
+			return $templates;
+		}
+		if ( ! is_array( $templates ) ) {
+			return $templates;
+		}
+		// Is it our post type?
+		$index = array_search( 'archive-tribe_events.php', $templates, true );
+		if ( ! is_int( $index ) ) {
+			return $templates;
+		}
+
+		// Switch to our faux template which maps to our slug.
+		$templates[ $index ] = 'archive-events.php';
+
+		return $templates;
 	}
 
 	/**

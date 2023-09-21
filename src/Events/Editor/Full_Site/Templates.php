@@ -43,14 +43,15 @@ class Templates {
 	 *
 	 * @since 5.14.2
 	 *
-	 * @param WP_Block_Template[] $query_result Array of found block templates.
-	 * @param array               $query        {
-	 *                                          Optional. Arguments to retrieve templates.
+	 * @param WP_Block_Template[] $query_result  Array of found block templates.
+	 * @param array               $query         {
+	 *                                           Optional. Arguments to retrieve templates.
 	 *
-	 *     @type array  $slug__in List of slugs to include.
-	 *     @type int    $wp_id Post ID of customized template.
+	 * @type array                $slug__in      List of slugs to include.
+	 * @type int                  $wp_id         Post ID of customized template.
 	 * }
-	 * @param string $template_type wp_template or wp_template_part.
+	 *
+	 * @param string              $template_type wp_template or wp_template_part.
 	 *
 	 * @return array
 	 */
@@ -61,8 +62,8 @@ class Templates {
 
 		// If we are not querying for all or the specific one we want we bail.
 		if (
-			 ! empty( $query['slug__in'] )
-			&& ! in_array( static::$archive_slug, $query['slug__in'], true )
+			! empty( $query['slug__in'] )
+			&& ! in_array( tribe( Archive_Events::class )->slug(), $query['slug__in'], true )
 		) {
 			return $query_result;
 		}
@@ -81,8 +82,8 @@ class Templates {
 	 * @return WP_Block_Template A reference to the template object for the query.
 	 */
 	public function get_template_events_archive() {
-		$template       = new WP_Block_Template();
-		$archive_block  = tribe( Archive_Events::class );
+		$template      = new WP_Block_Template();
+		$archive_block = tribe( Archive_Events::class );
 
 		// Let's see if we have a saved template?
 		$wp_query_args  = array(
@@ -105,14 +106,14 @@ class Templates {
 		// If empty, this is our first time loading our Block Template. Let's create it.
 		if ( empty( $posts ) ) {
 			$insert = array(
-				'post_name'    => $archive_block->slug(),// static::$archive_slug ,// @todo is this right?
+				'post_name'    => $archive_block->slug(),
 				'post_title'   => esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' ),
 				'post_excerpt' => esc_html_x( 'Displays the calendar views.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
 				'post_type'    => 'wp_template',
 				'post_status'  => 'publish',
-				'post_content' => file_get_contents(
+				'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
 					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
-				)
+				) )
 			);
 			// Create this template.
 			$id = wp_insert_post( $insert );
@@ -142,10 +143,10 @@ class Templates {
 
 		// Hydrate our template with the saved data.
 		$template->wp_id          = $post->ID;
-		$template->id             = $archive_block->name();
+		$template->id             = $archive_block->get_namespace() . '//' . $archive_block->slug();//$archive_block->name();
 		$template->theme          = $archive_block->get_namespace();
-		$template->content        = Template_Utils::inject_theme_attribute_in_content( $post->post_content );
-		$template->slug           = static::$archive_slug;// @todo ??? $post->post_name;
+		$template->content        = $post->post_content;
+		$template->slug           = $archive_block->slug();//@todo static::$archive_slug;
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
 		$template->title          = $post->post_title;
