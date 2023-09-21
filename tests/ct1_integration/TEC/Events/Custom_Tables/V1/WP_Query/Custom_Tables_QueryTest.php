@@ -157,7 +157,7 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				return $query;
 			}
 
-			$logged_queries[] = $trimmed_query;
+			$logged_queries[] = preg_replace( '/IN \([0-9].*?\)/', 'IN (/*removed*/)', $trimmed_query );
 
 			return $query;
 		} );
