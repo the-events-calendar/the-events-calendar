@@ -86,26 +86,26 @@ class Templates {
 		$archive_block = tribe( Archive_Events::class );
 
 		// Let's see if we have a saved template?
-		$wp_query_args  = array(
-			'post_name__in'  => array( $archive_block->slug() ),
+		$wp_query_args  = [
+			'post_name__in'  => [ $archive_block->slug() ],
 			'post_type'      => 'wp_template',
-			'post_status'    => array( 'auto-draft', 'draft', 'publish', 'trash' ),
+			'post_status'    => [ 'auto-draft', 'draft', 'publish', 'trash' ],
 			'posts_per_page' => 1,
 			'no_found_rows'  => true,
-			'tax_query'      => array(
-				array(
+			'tax_query'      => [
+				[
 					'taxonomy' => 'wp_theme',
 					'field'    => 'name',
 					'terms'    => $archive_block->get_namespace(),
-				),
-			),
-		);
+				],
+			],
+		];
 		$template_query = new WP_Query( $wp_query_args );
 		$posts          = $template_query->posts;
 
 		// If empty, this is our first time loading our Block Template. Let's create it.
 		if ( empty( $posts ) ) {
-			$insert = array(
+			$insert = [
 				'post_name'    => $archive_block->slug(),
 				'post_title'   => esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' ),
 				'post_excerpt' => esc_html_x( 'Displays the calendar views.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
@@ -114,7 +114,7 @@ class Templates {
 				'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
 					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/archive-events.html'
 				) )
-			);
+			];
 			// Create this template.
 			$id = wp_insert_post( $insert );
 

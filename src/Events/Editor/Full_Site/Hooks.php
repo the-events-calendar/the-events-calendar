@@ -107,11 +107,11 @@ class Hooks extends Service_Provider {
 	 * @since TBD Added support for single event templates.
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
-	 * @param array  $query {
-	 *     Optional. Arguments to retrieve templates.
+	 * @param array               $query        {
+	 *                                          Optional. Arguments to retrieve templates.
 	 *
-	 *     @type array  $slug__in List of slugs to include.
-	 *     @type int    $wp_id Post ID of customized template.
+	 * @type array                $slug__in     List of slugs to include.
+	 * @type int                  $wp_id        Post ID of customized template.
 	 * }
 	 *
 	 *
@@ -145,9 +145,11 @@ class Hooks extends Service_Provider {
 		if ( ! is_null( $block_template ) ) {
 			return $block_template;
 		}
+
 		if ( $template_type !== 'wp_template' ) {
 			return $block_template;
 		}
+
 		$archive_template = tribe( Archive_Events::class );
 		if ( $id !== $archive_template->get_namespace() . '//' . $archive_template->slug() ) {
 			return $block_template;
@@ -161,7 +163,8 @@ class Hooks extends Service_Provider {
 	 *
 	 * @since 5.14.2
 	 *
-	 * @param string  $value The value of the option.
+	 * @param string $value The value of the option.
+	 *
 	 * @return string $value The original value, or an empty string if FSE is active.
 	 */
 	public function filter_events_template_setting_option( $value ) {

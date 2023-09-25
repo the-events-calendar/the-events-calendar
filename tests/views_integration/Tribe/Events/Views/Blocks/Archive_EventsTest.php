@@ -22,6 +22,13 @@ class Archive_EventsTest extends HtmlTestCase {
 		parent::tearDown();
 	}
 
+	/**
+	 * Sorts and removed dynamic fields for consistent structures.
+	 *
+	 * @param $template
+	 *
+	 * @return array
+	 */
 	public static function normalize_wp_template( $template ): array {
 		$array_template = (array) $template;
 		asort( $array_template );
