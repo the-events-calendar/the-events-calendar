@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.2.1] 2023-09-25  =
+= [6.2.2.1] 2023-09-26  =
 
 * Version - The Events Calendar 6.2.2.1 is only compatible with Event Tickets 5.6.5.1 and higher
 * Fix - Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
