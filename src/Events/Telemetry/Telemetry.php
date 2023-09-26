@@ -258,15 +258,16 @@ class Telemetry {
 	 * @param bool $value The option value
 	 */
 	public function save_opt_in_setting_field( $value ): void {
-
 		// Get the value submitted on the settings page as a boolean.
 		$value = tribe_is_truthy( tribe_get_request_var( 'opt-in-status' ) );
+		// Get the currently saved value.
+		$option = tribe_get_option( 'opt-in-status', false );
 
 		// Gotta catch them all..
 		tribe( Common_Telemetry::class )->register_tec_telemetry_plugins( $value );
 
-		if ( $value ) {
-			// If opting in, blow away the expiration datetime so we send updates on next shutdown.
+		if ( $value && $value !== $option ) {
+			// If changing the value, blow away the expiration datetime so we send updates on next shutdown.
 			delete_option( 'stellarwp_telemetry_last_send' );
 		}
 	}
