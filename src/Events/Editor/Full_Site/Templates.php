@@ -146,7 +146,7 @@ class Templates {
 		$template->id             = $archive_block->get_namespace() . '//' . $archive_block->slug();//$archive_block->name();
 		$template->theme          = $archive_block->get_namespace();
 		$template->content        = $post->post_content;
-		$template->slug           = $archive_block->slug();//@todo static::$archive_slug;
+		$template->slug           = $archive_block->slug();
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
 		$template->title          = $post->post_title;
