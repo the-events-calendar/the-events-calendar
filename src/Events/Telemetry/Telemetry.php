@@ -153,7 +153,7 @@ class Telemetry {
 	 * @since 6.1.0
 	 *
 	 * @param mixed  $value  The value of the attribute.
-	 * @param string $field  The field object id.
+	 * @param string $id  The field object id.
 	 *
 	 * @return mixed $value
 	 */
@@ -237,7 +237,7 @@ class Telemetry {
 		// 'the-events-calendar'
 		$telemetry_slug = substr( basename( TRIBE_EVENTS_FILE ), 0, -4 );
 
-		$show = get_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $telemetry_slug ) );
+		$show = tribe( Common_Telemetry::class )->calculate_modal_status();
 
 		if ( ! $show ) {
 			return;
@@ -255,23 +255,30 @@ class Telemetry {
 	/**
 	 * Update our option and the stellar option when the user opts in/out via the TEC admin.
 	 *
-	 *
 	 * @since 6.1.0
 	 *
-	 * @param bool $value The option value
+	 * @param bool $saved_value The option value
 	 */
-	public function save_opt_in_setting_field( $value ): void {
-		// Get the value submitted on the settings page as a boolean.
-		$value = tribe_is_truthy( tribe_get_request_var( 'opt-in-status' ) );
+	public function save_opt_in_setting_field( $saved_value ): void {
+		$saved_value = tribe_is_truthy( $saved_value );
+
 		// Get the currently saved value.
 		$option = tribe_get_option( 'opt-in-status', false );
 
-		// Gotta catch them all..
-		tribe( Common_Telemetry::class )->register_tec_telemetry_plugins( $value );
+		// Gotta catch them all.
+		tribe( Common_Telemetry::class )->register_tec_telemetry_plugins( $saved_value );
 
-		if ( $value && $value !== $option ) {
+		if ( $saved_value && $option !== $saved_value ) {
 			// If changing the value, blow away the expiration datetime so we send updates on next shutdown.
 			delete_option( 'stellarwp_telemetry_last_send' );
+
+			$telemetry_data = get_option( 'stellarwp_telemetry' );
+
+			if ( empty( $telemetry_data['token'] ) ) {
+				// Force and Opt-in to be done, as we don't have a token yet.
+				$opt_in_subscriber = Config::get_container()->get( Opt_In_Subscriber::class );
+				$opt_in_subscriber->opt_in( static::$plugin_slug );
+			}
 		}
 	}
 }
