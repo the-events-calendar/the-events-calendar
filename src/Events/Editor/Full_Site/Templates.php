@@ -3,6 +3,7 @@
 namespace TEC\Events\Editor\Full_Site;
 
 use Tribe\Events\Editor\Blocks\Archive_Events;
+use Tribe\Events\Editor\Blocks\Single_Event;
 use Tribe__Events__Main;
 
 use TEC\Common\Editor\Full_Site\Template_Utils;
@@ -143,7 +144,7 @@ class Templates {
 
 		// Hydrate our template with the saved data.
 		$template->wp_id          = $post->ID;
-		$template->id             = $archive_block->get_namespace() . '//' . $archive_block->slug();//$archive_block->name();
+		$template->id             = $archive_block->get_namespace() . '//' . $archive_block->slug();
 		$template->theme          = $archive_block->get_namespace();
 		$template->content        = $post->post_content;
 		$template->slug           = $archive_block->slug();
@@ -201,22 +202,79 @@ class Templates {
 	 * @return WP_Block_Template The single events template object.
 	 */
 	public function get_template_event_single() {
-		$template_content = file_get_contents(
-			Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/single-event.html'
-		);
+		$template      = new WP_Block_Template();
+		$single_event_block = tribe( Single_Event::class );
 
-		$template                 = new WP_Block_Template();
-		$template->id             = 'the-events-calendar//single-event';
-		$template->theme          = 'The Events Calendar';
-		$template->content        = Template_Utils::inject_theme_attribute_in_content( $template_content );
-		$template->slug           = static::$single_slug;
+		// Let's see if we have a saved template?
+		$wp_query_args  = [
+			'post_name__in'  => [ $single_event_block->slug() ],
+			'post_type'      => 'wp_template',
+			'post_status'    => [ 'auto-draft', 'draft', 'publish', 'trash' ],
+			'posts_per_page' => 1,
+			'no_found_rows'  => true,
+			'tax_query'      => [
+				[
+					'taxonomy' => 'wp_theme',
+					'field'    => 'name',
+					'terms'    => $single_event_block->get_namespace(),
+				],
+			],
+		];
+		$template_query = new WP_Query( $wp_query_args );
+		$posts          = $template_query->posts;
+
+		// If empty, this is our first time loading our Block Template. Let's create it.
+		if ( empty( $posts ) ) {
+			$insert = [
+				'post_name'    => $single_event_block->slug(),
+				'post_title'   => esc_html_x( 'Event Single', 'The Full Site editor block navigation title', 'the-events-calendar' ),
+				'post_excerpt' => esc_html_x( 'Displays a single event.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
+				'post_type'    => 'wp_template',
+				'post_status'  => 'publish',
+				'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
+					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/single-event.html'
+				) )
+			];
+			// Create this template.
+			$id = wp_insert_post( $insert );
+
+			// Setup our "theme" term, for the taxonomy query.
+			$term = get_term_by( 'name', $single_event_block->get_namespace(), 'wp_theme', ARRAY_A );
+			if ( ! $term ) {
+				wp_insert_term( $single_event_block->get_namespace(), 'wp_theme' );
+			}
+			wp_set_post_terms( $id, $single_event_block->get_namespace(), 'wp_theme' );
+			$post = get_post( $id );
+		} else {
+			// We were already initialized, load our saved template.
+			$post = $posts[0];
+		}
+
+		// Validate we did stuff correctly.
+		if ( ! $post instanceof WP_Post ) {
+			do_action( 'tribe_log', 'error',
+				'Failed locating our Post for the Single Event Block Template', [
+					'method' => __METHOD__,
+				] );
+
+			// Might as well bail, avoid errors below.
+			return $template;
+		}
+
+		// Hydrate our template with the saved data.
+		$template->wp_id          = $post->ID;
+		$template->id             = $single_event_block->get_namespace() . '//' . $single_event_block->slug();
+		$template->theme          = $single_event_block->get_namespace();
+		$template->content        = $post->post_content;
+		$template->slug           = $single_event_block->slug();
 		$template->source         = 'custom';
 		$template->type           = 'wp_template';
-		$template->title          = esc_html_x( 'Event Single', 'The Full Site editor block navigation title', 'the-events-calendar' );
-		$template->description    = esc_html_x( 'Displays a single event.', 'The Full Site editor block navigation description', 'the-events-calendar' );
-		$template->status         = 'publish';
-		$template->has_theme_file = true;
+		$template->title          = $post->post_title;
+		$template->description    = $post->post_excerpt;
+		$template->status         = $post->post_status;
+		$template->has_theme_file = false;
 		$template->is_custom      = true;
+		$template->author         = $post->post_author;
 
 		return $template;
 	}
