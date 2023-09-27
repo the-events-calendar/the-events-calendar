@@ -10,6 +10,7 @@
 namespace TEC\Events\Telemetry;
 
 use TEC\Common\StellarWP\Telemetry\Config;
+use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Subscriber;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Status;
 use TEC\Common\StellarWP\Telemetry\Opt_In\Opt_In_Template;
 
