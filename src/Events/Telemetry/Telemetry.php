@@ -237,7 +237,7 @@ class Telemetry {
 		// 'the-events-calendar'
 		$telemetry_slug = substr( basename( TRIBE_EVENTS_FILE ), 0, -4 );
 
-		$show = get_option( Config::get_container()->get( Opt_In_Template::class )->get_option_name( $telemetry_slug ) );
+		$show = tribe( Common_Telemetry::class )->calculate_modal_status();
 
 		if ( ! $show ) {
 			return;
