@@ -162,6 +162,9 @@ class Telemetry {
 			return $value;
 		}
 
+		// Trigger this before we try use the value.
+		tribe( Common_Telemetry::class )->normalize_optin_status();
+
 		// We don't care what the value stored in tribe_options is - give us Telemetry's Opt_In\Status value.
 		$status = Config::get_container()->get( Status::class );
 		$value  = $status->get() === $status::STATUS_ACTIVE;
