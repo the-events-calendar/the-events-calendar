@@ -42,10 +42,11 @@ class Hooks extends Service_Provider {
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
 		add_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10, 1 );
+		add_filter( 'single_template_hierarchy', [ $this, 'filter_single_template_hierarchy' ], 10, 1 );
 	}
 
 	/**
-	 * Redirect the post type template to our slug, as that is what is used for lookup in the database.
+	 * Redirect the post type template to our Events Archive slug, as that is what is used for lookup in the database.
 	 *
 	 * @since TBD
 	 *
@@ -60,6 +61,7 @@ class Hooks extends Service_Provider {
 		if ( ! is_array( $templates ) ) {
 			return $templates;
 		}
+
 		// Is it our post type?
 		$index = array_search( 'archive-tribe_events.php', $templates, true );
 		if ( ! is_int( $index ) ) {
@@ -71,6 +73,36 @@ class Hooks extends Service_Provider {
 
 		return $templates;
 	}
+
+	/**
+	 * Redirect the post type template to our Single Event slug, as that is what is used for lookup in the database.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $templates Templates in order of display hierarchy.
+	 *
+	 * @return array
+	 */
+	public function filter_single_template_hierarchy( $templates ) {
+		if ( empty( $templates ) ) {
+			return $templates;
+		}
+		if ( ! is_array( $templates ) ) {
+			return $templates;
+		}
+
+		// Is it our post type?
+		$index = array_search( 'single-tribe_events.php', $templates, true ); // @todo use our slug static?
+		if ( ! is_int( $index ) ) {
+			return $templates;
+		}
+
+		// Switch to our faux template which maps to our slug.
+		$templates[ $index ] = 'single-event.php';
+
+		return $templates;
+	}
+
 
 	/**
 	 * Adds the actions required by the FSE components.
@@ -151,11 +183,16 @@ class Hooks extends Service_Provider {
 		}
 
 		$archive_template = tribe( Archive_Events::class );
-		if ( $id !== $archive_template->get_namespace() . '//' . $archive_template->slug() ) {
-			return $block_template;
+		if ( $id === $archive_template->get_namespace() . '//' . $archive_template->slug() ) {
+			return $this->container->make( Templates::class )->get_template_events_archive();
 		}
 
-		return $this->container->make( Templates::class )->get_template_events_archive();
+		$single_event = tribe( Single_Event::class );
+		if ( $id === $single_event->get_namespace() . '//' . $single_event->slug() ) {
+			return $this->container->make( Templates::class )->get_template_event_single();
+		}
+
+		return $block_template;
 	}
 
 	/**

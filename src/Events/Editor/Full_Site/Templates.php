@@ -181,7 +181,7 @@ class Templates {
 
 		if (
 			! empty( $query['slug__in'] )
-			&& ! in_array( static::$single_slug, $query['slug__in'], true )
+			&& ! in_array( tribe( Single_Event::class )->slug(), $query['slug__in'], true )
 		) {
 			return $query_result;
 		}

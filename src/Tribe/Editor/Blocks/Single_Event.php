@@ -2,6 +2,12 @@
 namespace Tribe\Events\Editor\Blocks;
 
 class Single_Event extends \Tribe__Editor__Blocks__Abstract {
+	/**
+	 * @since TBD
+	 *
+	 * @var string The namespace of this template.
+	 */
+	protected $namespace = 'tec';
 
 	/**
 	 * Returns the name/slug of this block.
