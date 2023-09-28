@@ -7,7 +7,7 @@ const { useBlockProps } = wp.blockEditor;
 /**
  * Small component to simplify some pseudo event blocks.
  *
- * @param width
+ * @param {Object} props JSX props to pass down.
  * @returns {JSX.Element}
  * @constructor
  */
@@ -16,7 +16,7 @@ const FauxLine = ( { style = {}, ...props } ) => {
 
     return ( <div style={ { ...divStyle, ...style } } { ...props } /> )
 }
-
+// @todo move to FS folder?
 /**
  * The Archive Events block used in Site Editor templates.
  */
@@ -40,7 +40,6 @@ export default {
                         { __( 'EVENT DATE/TIME', 'the-events-calendar' ) }
                     </strong>
                 </p>
-
                 <FauxLine style={ { marginLeft: 34, marginRight: '25%' } }/>
                 <FauxLine style={ { marginRight: '25%' } }/>
                 <FauxLine style={ { marginRight: '25%' } }/>
