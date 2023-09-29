@@ -3,6 +3,7 @@
 namespace Tribe\Events\Editor\Blocks;
 
 use Spatie\Snapshots\MatchesSnapshots;
+use TEC\Events\Editor\Full_Site\Single_Block_Template;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class Single_EventTest extends HtmlTestCase {
@@ -40,9 +41,6 @@ class Single_EventTest extends HtmlTestCase {
 	 * Utility method to render the block and return the content.
 	 */
 	private function renderSingleEventBlock(): string {
-		ob_start();
-		echo ( new Single_Event() )->render();
-
-		return ob_get_clean();
+		return ( new Single_Block_Template() )->render();
 	}
 }

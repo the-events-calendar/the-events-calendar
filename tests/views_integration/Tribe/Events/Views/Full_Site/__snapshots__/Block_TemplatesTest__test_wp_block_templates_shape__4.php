@@ -3,19 +3,19 @@
   'has_theme_file' => false,
   'post_types' => NULL,
   'area' => NULL,
-  'author' => NULL,
   'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentythree"} /-->
-<!-- wp:tec/archive-events /-->
+<!-- wp:tec/single-event /-->
 <!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentythree"} /-->
 ',
-  'title' => 'Calendar Views (Event Archive)',
-  'description' => 'Displays the calendar views.',
-  'slug' => 'archive-events',
+  'description' => 'Displays a single event.',
+  'title' => 'Event Single',
   'source' => 'custom',
   'status' => 'publish',
+  'slug' => 'single-event',
   'theme' => 'tec',
-  'id' => 'tec//archive-events',
+  'id' => 'tec//single-event',
   'type' => 'wp_template',
   'wp_id' => NULL,
   'is_custom' => true,
+  'author' => NULL,
 );

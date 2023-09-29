@@ -12,7 +12,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Editor\Full_Site
  */
@@ -23,7 +23,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function do_register():void {
+	public function do_register(): void {
 		$this->container->singleton( Templates::class );
 
 		// Register singletons.
@@ -38,21 +38,13 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( static::class, $this );
 	}
 
-	public function unregister():void {
-
+	public function unregister(): void {
 		$this->remove_actions();
 		$this->remove_filters();
 	}
 
-	public function remove_actions() {
-		// @todo
-	}
 
-	public function remove_filters() {
-
-	}
-
-	public function is_active():bool {
+	public function is_active(): bool {
 		return tec_is_full_site_editor();
 	}
 
@@ -131,7 +123,28 @@ class Controller extends Controller_Contract {
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
 		add_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10, 1 );
-		add_filter( 'single_template_hierarchy', [ $this, 'filter_single_template_hierarchy' ], 10, 1 );
+		add_filter( 'single_template_hierarchy', [
+			$this,
+			'filter_single_template_hierarchy'
+		], 10, 1 ); // @todo see below
+	}
+
+	/**
+	 * Removes registered filters.
+	 *
+	 * @since TBD
+	 */
+	public function remove_filters() {
+		remove_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25 );
+		remove_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10 );
+		remove_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
+		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
+		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
+		remove_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10 );
+		remove_filter( 'single_template_hierarchy', [
+			$this,
+			'filter_single_template_hierarchy'
+		], 10 );
 	}
 
 	/**
@@ -144,6 +157,7 @@ class Controller extends Controller_Contract {
 	 * @return array
 	 */
 	public function filter_archive_template_hierarchy( $templates ) {
+		// @todo Should we use our filtered templates w/ a new API to pull here?
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
@@ -203,13 +217,24 @@ class Controller extends Controller_Contract {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
 	}
 
+
+	/**
+	 * Removes registered actions.
+	 *
+	 * @since TBD
+	 */
+	public function remove_actions() {
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
+	}
+
 	/**
 	 * Registers the Events Archive template.
 	 *
 	 * @since 5.14.2
 	 */
 	public function action_register_archive_template() {
-		return $this->container->make( Archive_Events::class )->register();
+		return $this->container->make( Archive_Block_Template::class )->register(); // @todo move out?
 	}
 
 	/**
@@ -218,7 +243,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function action_register_single_event_template() {
-		return $this->container->make( Single_Event::class )->register();
+		return $this->container->make( Single_Block_Template::class )->register(); // @todo move out?
 	}
 
 	/**
@@ -239,16 +264,27 @@ class Controller extends Controller_Contract {
 	 * @return array The modified $query.
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
-		// Create an instance of the Templates class.
-		$templates_class = $this->container->make( Templates::class );
+		if ( ! is_array( $query_result ) ) {
+			return $query_result;
+		}
+		// Get our block template services for this query.
+		$template_services = $this->get_filtered_block_templates( $template_type );
+		foreach ( $template_services as $template ) {
+			if (
+				empty( $query['slug__in'] )
+				|| in_array( $template->slug(), $query['slug__in'], true )
+			) {
+				/**
+				 * @var WP_Block_Template $wp_template
+				 */
+				$wp_template = $template->get_block_template();
+				if ( $wp_template ) {
+					$query_result[] = $wp_template;
+				}
+			}
+		}
 
-		// Get the single event template.
-		$single_events_template = $templates_class->add_event_single( [], $query, $template_type );
-
-		// Get the events archive template.
-		$events_archive_template = $templates_class->add_events_archive( [], $query, $template_type );
-
-		return array_merge( $query_result, $single_events_template, $events_archive_template );
+		return $query_result;
 	}
 
 	/**
@@ -267,21 +303,39 @@ class Controller extends Controller_Contract {
 			return $block_template;
 		}
 
-		if ( $template_type !== 'wp_template' ) {
-			return $block_template;
-		}
-
-		$archive_template = tribe( Archive_Events::class );
-		if ( $id === $archive_template->get_namespace() . '//' . $archive_template->slug() ) {
-			return $this->container->make( Templates::class )->get_template_events_archive();
-		}
-
-		$single_event = tribe( Single_Event::class );
-		if ( $id === $single_event->get_namespace() . '//' . $single_event->slug() ) {
-			return $this->container->make( Templates::class )->get_template_event_single();
+		$template_services = $this->get_filtered_block_templates( $template_type );
+		foreach ( $template_services as $template ) {
+			if ( $id === $template->id() ) {
+				return $template->get_block_template();
+			}
 		}
 
 		return $block_template;
+	}
+
+	/**
+	 * @param string $template_type The type of templates we are fetching.
+	 *
+	 * @return Block_Template_Contract[]
+	 */
+	public function get_filtered_block_templates( $template_type = 'wp_template' ): array {
+		$templates = [];
+		if ( $template_type === 'wp_template' ) {
+			$templates = [
+				tribe( Archive_Block_Template::class ),
+				tribe( Single_Block_Template::class )
+			];
+		}
+
+		/**
+		 * Filter our available Full Site Block Template objects available. These are used in to define and store WP_Block_Template instances.
+		 *
+		 * @since TBD
+		 *
+		 * @param Block_Template_Contract[] $templates     The list of our Block_Template_Contracts to be used to register and generate WP_Block_Template.
+		 * @param string                    $template_type The type of template being requested.
+		 */
+		return apply_filters( 'tec_events_get_full_site_block_template_services', $templates, $template_type );
 	}
 
 	/**
