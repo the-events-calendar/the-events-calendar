@@ -237,6 +237,11 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
 * Fix - Resolves an issue around our new nonce structure used in view pagination, losing the authenticated user and failing to display user specific capabilities. [ECP-1581]
 
+= [6.2.2.1] 2023-09-28  =
+
+* Version - The Events Calendar 6.2.2.1 is only compatible with Event Tickets 5.6.5.1 and higher
+* Fix - Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
+
 = [6.2.2] 2023-09-13 =
 
 * Version - The Events Calendar 6.2.2 is only compatible with Event Tickets 5.6.5 and higher
