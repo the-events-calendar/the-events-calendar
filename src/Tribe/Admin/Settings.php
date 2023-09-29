@@ -9,7 +9,7 @@ use Tribe__Settings;
 use Tribe__Settings_Tab;
 use Tribe__Events__Main as Plugin;
 use Tribe\Admin\Troubleshooting as Troubleshooting;
-use Tribe\Admin\Dashboard as Dashboard;
+use Tribe\Admin\Calendash as Calendash;
 
 class Settings {
 
@@ -187,7 +187,7 @@ class Settings {
 		);
 
 		$this->maybe_add_troubleshooting();
-		$this->maybe_add_dashboard();
+		$this->maybe_add_calendash();
 		$this->maybe_add_app_shop();
 	}
 
@@ -771,24 +771,24 @@ class Settings {
 	}
 
 	/**
-	 * Maybe add dashboard page for The Events Calendar.
+	 * Maybe add calendash page for The Events Calendar.
 	 *
 	 * @since TBD
 	 */
-	public function maybe_add_dashboard() {
+	public function maybe_add_calendash() {
 		$admin_pages = tribe( 'admin.pages' );
 
-		$dashboard = tribe( Dashboard::class );
+		$calendash = tribe( Calendash::class );
 
 		$admin_pages->register_page(
 			[
-				'id'         => $dashboard::MENU_SLUG,
+				'id'         => $calendash::MENU_SLUG,
 				'parent'     => $this->get_tec_events_menu_slug(),
-				'title'      => esc_html__( 'Dashboard', 'the-events-calendar' ),
-				'path'       => $dashboard::MENU_SLUG,
-				'capability' => $dashboard->get_required_capability(),
+				'title'      => esc_html__( 'Calendash', 'the-events-calendar' ),
+				'path'       => $calendash::MENU_SLUG,
+				'capability' => $calendash->get_required_capability(),
 				'callback'   => [
-					$dashboard,
+					$calendash,
 					'do_menu_page',
 				],
 			]
