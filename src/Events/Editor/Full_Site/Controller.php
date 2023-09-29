@@ -2,8 +2,6 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
-use Tribe\Events\Editor\Blocks\Archive_Events;
-use Tribe\Events\Editor\Blocks\Single_Event;
 use \Tribe__Events__Main as Events_Main;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
@@ -24,8 +22,6 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->container->singleton( Templates::class );
-
 		// Register singletons.
 		$this->register_singletons();
 		$this->add_filters();
@@ -38,12 +34,19 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( static::class, $this );
 	}
 
+	/**
+	 * Unhooks actions and filters.
+	 */
 	public function unregister(): void {
 		$this->remove_actions();
 		$this->remove_filters();
 	}
 
-
+	/**
+	 * @since TBD
+	 *
+	 * @return bool Only active during FS theme.
+	 */
 	public function is_active(): bool {
 		return tec_is_full_site_editor();
 	}
