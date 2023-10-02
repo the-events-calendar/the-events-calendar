@@ -1142,7 +1142,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Allow specific views to hook in and add their own calculated events.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 *
 	 * @param Tribe__Repository|false $events     The events repository. False by default.
 	 * @param DateTime                $start_date The start date (object) of the query.
