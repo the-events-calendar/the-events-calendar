@@ -78,7 +78,7 @@ class Rest_Endpoint {
 	/**
 	 * When in a REST request, store the authenticated user ID for use later.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 *
 	 * @var null|int The authenticated user ID.
 	 */
@@ -90,7 +90,7 @@ class Rest_Endpoint {
 	 *
 	 * This stores the user (if authenticated) for use when we check that our custom nonce(s) are valid.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 *
 	 * @param bool $send_nocache_headers
 	 *
@@ -117,7 +117,7 @@ class Rest_Endpoint {
 	/**
 	 * Returns the user ID, if we successfully stored it during a REST request.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 *
 	 * @return int|null The user ID or null if none stored.
 	 */
@@ -128,7 +128,7 @@ class Rest_Endpoint {
 	/**
 	 * Ensures the nonce(s) are valid.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 *
 	 * @param Request $request
 	 *

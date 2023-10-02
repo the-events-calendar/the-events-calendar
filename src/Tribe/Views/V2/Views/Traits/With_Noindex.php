@@ -2,7 +2,7 @@
 /**
  * Widget Shortcode Templates
  *
- * @since   TBD
+ * @since 6.2.3
  *
  * @package Tribe\Events\Pro\Views\V2\Views
  */
@@ -12,7 +12,7 @@ namespace Tribe\Events\Views\V2\Views\Traits;
 /**
  * Class With_Noindex
  *
- * @since   TBD
+ * @since 6.2.3
  *
  * @package Tribe\Events\Views\V2\Views\Traits
  */
@@ -20,7 +20,7 @@ trait With_Noindex {
 	/**
 	 * Do a short query (one event) to determine if we should add a noindex meta tag to the page.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 *
 	 * @param Tribe__Repository|null  $events     The events repository. Null by default.
 	 * @param DateTime                $start_date The start date (object) of the query.

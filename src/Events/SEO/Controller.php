@@ -2,7 +2,7 @@
 /**
  * Manages the legacy view removal and messaging.
  *
- * @since   TBD
+ * @since 6.2.3
  *
  * @package TEC\Events\SEO
  */
@@ -17,7 +17,7 @@ use Tribe__Repository;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since 6.2.3
 
  * @package TEC\Events\SEO
  */
@@ -60,7 +60,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Allows filtering of if a noindex meta tag will be set for the current event view.
 		 *
-		 * @since TBD
+		 * @since 6.2.3
 		 *
 		 * @var bool $do_noindex_meta Whether to add the noindex meta tag.
 		 */
@@ -102,7 +102,7 @@ class Controller extends Controller_Contract {
 		 * Allow specific views to hook in and add their own calculated events.
 		 * This *bypasses* the cached query immediately after it.
 		 *
-		 * @since TBD
+		 * @since 6.2.3
 		 *
 		 * @param ?Tribe__Repository|null $events     The events repository. False if not hooked into.
 		 * @param DateTime                $start_date The start date (object) of the query.
@@ -146,7 +146,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Determines if a noindex meta tag will be set for a specific event view.
 		 *
-		 * @since TBD
+		 * @since 6.2.3
 		 *
 		 * @var bool $add_noindex
 		 * @var Tribe__Context $context The view context.
@@ -161,7 +161,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Prints a "noindex,follow" robots tag.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 */
 	public function print_noindex_meta() :void {
 		$noindex_meta = ' <meta name="robots" id="tec_noindex" content="noindex, follow" />' . "\n";
@@ -169,7 +169,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters the noindex meta tag.
 		 *
-		 * @since TBD
+		 * @since 6.2.3
 		 *
 		 * @param string $noindex_meta
 		 */
@@ -190,7 +190,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Returns the end date time object read from the current context.
 	 *
-	 * @since TBD
+	 * @since 6.2.3
 	 *
 	 * @param [type] $view
 	 * @param [type] $start_date
