@@ -230,7 +230,7 @@ Remember to always make a backup of your database and files before updating!
 == Changelog ==
 
 
-= [TBD] TBD =
+= [6.2.3] 2023-10-02 =
 
 * Fix - Ensure the UI can handle an unlimited number of recurrence rules when users create recurring events using the block editor. [ECP-1572]
 * Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
