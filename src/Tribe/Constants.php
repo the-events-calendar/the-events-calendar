@@ -55,7 +55,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 * @param mixed $value
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		if ( $this->volatile && ! isset( $this->volatile_values[ $offset ] ) ) {
 			$this->volatile_values[ $offset ] = $value;
 		} else {
@@ -71,7 +71,7 @@ class Tribe__Events__Constants implements ArrayAccess {
 	 * @param string $offset
 	 */
 	#[\ReturnTypeWillChange]
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		if ( $this->volatile ) {
 			$this->volatile_values = array_diff( $this->volatile_values, [ $offset ] );
 		} else {

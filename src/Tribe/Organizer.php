@@ -14,6 +14,16 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	protected $event_meta_key = '_EventOrganizerID';
 
 	/**
+	 * @var string The lowercase singular organizer label.
+	 */
+	public $singular_organizer_label_lowercase;
+
+	/**
+	 * @var string The lowercase plural organizer label.
+	 */
+	public $plural_organizer_label_lowercase;
+
+	/**
 	 * Args for organizer post type
 	 * @var array
 	 */
