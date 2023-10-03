@@ -229,6 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.5] TBD =
 
 = [6.2.3] 2023-10-03 =
 
