@@ -317,6 +317,11 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Filters and returns the available Event Block Template Services, used to locate
+	 * WP_Block_Template instances.
+	 *
+	 * @since TBD
+	 *
 	 * @param string $template_type The type of templates we are fetching.
 	 *
 	 * @return Block_Template_Contract[]
