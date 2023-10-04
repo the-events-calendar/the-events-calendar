@@ -518,6 +518,8 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function is_settings_page() {
+		$admin_helpers = Tribe__Admin__Helpers::instance();
+
 		return $admin_helpers->is_screen( 'settings_page_tribe-settings' );
 	}
 
