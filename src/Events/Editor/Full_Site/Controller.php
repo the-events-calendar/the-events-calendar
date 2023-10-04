@@ -43,6 +43,8 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Should only be active if we are in a Site Editor theme.
+	 *
 	 * @since TBD
 	 *
 	 * @return bool Only active during FS theme.
@@ -129,7 +131,7 @@ class Controller extends Controller_Contract {
 		add_filter( 'single_template_hierarchy', [
 			$this,
 			'filter_single_template_hierarchy'
-		], 10, 1 ); // @todo see below
+		], 10, 1 );
 	}
 
 	/**
@@ -157,10 +159,9 @@ class Controller extends Controller_Contract {
 	 *
 	 * @param array $templates Templates in order of display hierarchy.
 	 *
-	 * @return array
+	 * @return array Adjusted file name that is parsed to match our block template.
 	 */
 	public function filter_archive_template_hierarchy( $templates ) {
-		// @todo Should we use our filtered templates w/ a new API to pull here?
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
@@ -187,7 +188,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @param array $templates Templates in order of display hierarchy.
 	 *
-	 * @return array
+	 * @return array Adjusted file name that is parsed to match our block template.
 	 */
 	public function filter_single_template_hierarchy( $templates ) {
 		if ( empty( $templates ) ) {
