@@ -45,11 +45,15 @@ class Controller extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		if ( ! class_exists( '\TEC\Tickets_Wallet_Plus\Controller', false ) ) {
-			return false;
-		}
 
-		return tribe( '\TEC\Tickets_Wallet_Plus\Controller' )->is_active();
+		return true;
+
+		// @todo @codingmusician: Fix the logic below and uncomment.
+		// if ( ! class_exists( '\TEC\Tickets_Wallet_Plus\Controller', false ) ) {
+		// 	return false;
+		// }
+
+		// return tribe( '\TEC\Tickets_Wallet_Plus\Controller' )->is_active();
 	}
 
 	/**
@@ -68,7 +72,8 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function register_actions() {
-		add_action( 'tribe_template_before_include:pdf/pass/body/sidebar', [ $this, 'maybe_add_venue_to_pdf' ], 10, 3 );
+		add_action( 'tribe_template_after_include:tickets-wallet-plus/pdf/pass/styles', [ $this, 'add_styles_to_pdf' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets-wallet-plus/pdf/pass/body/sidebar', [ $this, 'maybe_add_venue_to_pdf' ], 10, 3 );
 	}
 
 	/**
@@ -80,6 +85,21 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters() {
 		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_vars' ] );
+	}
+
+	/**
+	 * Add styles to PDF.
+	 *
+	 * @since TBD
+	 *
+	 * @param string          $file     Path to the file.
+	 * @param string          $name     Name of the file.
+	 * @param Tribe__Template $template Template instance.
+	 *
+	 * @return void
+	 */
+	public function add_styles_to_pdf( $file, $name, $template ) {
+		$this->container->make( Pdf::class )->add_tec_styles_to_pdf( $file, $name, $template );
 	}
 
 	/**
