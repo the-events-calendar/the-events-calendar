@@ -395,7 +395,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	public function is_edit_screen() {
 		$current_screen = get_current_screen();
 
-		return 'post' === $current_screen->base || $current_screen->id === 'site-editor';
+		return 'post' === $current_screen->base || 'site-editor' === $current_screen->id;
 	}
 
 	/**
