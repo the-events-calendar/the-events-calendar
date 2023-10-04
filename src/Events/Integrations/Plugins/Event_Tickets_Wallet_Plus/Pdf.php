@@ -21,6 +21,23 @@ class Pdf {
 	 * @return array
 	 */
 	public function filter_pdf_template_vars( $vars ): array {
+		if ( empty( $vars['post']->ID ) ) {
+			return $vars;
+		}
+
+		$post_id = intval( $vars['post']->ID );
+		if ( ! tribe_is_event( $post_id ) ) {
+			return $vars;
+		}
+
+		$event = tribe_get_event( $post_id );
+		if ( empty( $event ) ) {
+			return $vars;
+		}
+
+		$vars['event'] = $event;
+		$vars['venues'] = $event->venues->all();
+
 		return $vars;
 	}
 

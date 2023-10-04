@@ -35,4 +35,7 @@
 		line-height: 1.5;
 		font-weight: regular;
 	}
+	.tec-tickets__wallet-plus-pdf-event-venue-detail-link {
+		color: #000000;
+	}
 </style>

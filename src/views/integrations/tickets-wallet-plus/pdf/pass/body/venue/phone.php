@@ -14,6 +14,10 @@
  * @version TBD
  */
 
+if ( empty( $venue->phone ) ) {
+	return;
+}
+
 ?>
 <table class="tec-tickets__wallet-plus-pdf-event-venue-detail-table">
 	<tr>
@@ -21,11 +25,15 @@
 			<table>
 				<tr>
 					<td width="24">
-						<img width="12" height="11" src="/wp-content/plugins/the-events-calendar/src/resources/images/icons/bitmap/phone.png">
+						<img 
+							width="12" 
+							height="11" 
+							src="<?php echo esc_url( tribe_resource_url( 'images/icons/bitmap/phone.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
+						/>
 					</td>
-					<td>
+					<td width="211">
 						<div class="tec-tickets__wallet-plus-pdf-event-venue-detail-text">
-							(000) 000-0000
+							<?php echo esc_html( $venue->phone ); ?>
 						</div>
 					</td>
 				</tr>

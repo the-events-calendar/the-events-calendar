@@ -14,6 +14,10 @@
  * @version TBD
  */
 
+if ( empty( $venue->website ) ) {
+	return;
+}
+
 ?>
 <table class="tec-tickets__wallet-plus-pdf-event-venue-detail-table">
 	<tr>
@@ -21,11 +25,21 @@
 			<table>
 				<tr>
 					<td width="24">
-						<img width="9" height="9" src="/wp-content/plugins/the-events-calendar/src/resources/images/icons/bitmap/link.png">
+						<img 
+							width="9" 
+							height="9" 
+							src="<?php echo esc_url( tribe_resource_url( 'images/icons/bitmap/link.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
+						/>
 					</td>
-					<td>
+					<td width="211">
 						<div class="tec-tickets__wallet-plus-pdf-event-venue-detail-text">
-							<a href="https://www.website.com" style="color:#000000">www.website.com</a>
+							<a
+								href="<?php echo esc_url( $venue->website ); ?>"
+								rel="noopener noreferrer"
+								class="tec-tickets__wallet-plus-pdf-event-venue-detail-link"
+							>
+								<?php echo esc_url( $venue->website ); ?>
+							</a>
 						</div>
 					</td>
 				</tr>

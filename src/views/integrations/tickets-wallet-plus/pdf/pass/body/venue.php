@@ -14,14 +14,22 @@
  * @version TBD
  */
 
+if ( empty( $venues ) ) {
+	return;
+}
+
+$venue = reset( $venues );
+
+error_log( print_r( $venue, true ) );
+
 ?>
 <table class="tec-tickets__wallet-plus-pdf-event-venue-table">
 	<tr>
 		<td>
-			<?php $this->template( 'pdf/pass/body/venue/title' ); ?>
-			<?php $this->template( 'pdf/pass/body/venue/location' ); ?>
-			<?php $this->template( 'pdf/pass/body/venue/phone' ); ?>
-			<?php $this->template( 'pdf/pass/body/venue/website' ); ?>
+			<?php $this->template( 'pdf/pass/body/venue/title', [ 'venue' => $venue ] ); ?>
+			<?php $this->template( 'pdf/pass/body/venue/address', [ 'venue' => $venue ] ); ?>
+			<?php $this->template( 'pdf/pass/body/venue/phone', [ 'venue' => $venue ] ); ?>
+			<?php $this->template( 'pdf/pass/body/venue/website', [ 'venue' => $venue ] ); ?>
 		</td>
 	</tr>
 </table>

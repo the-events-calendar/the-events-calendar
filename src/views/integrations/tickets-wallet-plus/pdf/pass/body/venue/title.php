@@ -16,5 +16,5 @@
 
 ?>
 <div class="tec-tickets__wallet-plus-pdf-event-venue-title">
-	Exit / In
+	<?php echo esc_html( $venue->post_title ); ?>
 </div>
