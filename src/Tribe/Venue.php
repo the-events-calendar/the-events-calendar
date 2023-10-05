@@ -84,6 +84,16 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	public $plural_venue_label;
 
 	/**
+	 * @var string The lowercase singular venue label.
+	 */
+	public $singular_venue_label_lowercase;
+
+	/**
+	 * @var string The lowercase plural venue label.
+	 */
+	public $plural_venue_label_lowercase;
+
+	/**
 	 * @var Tribe__Events__Venue
 	 */
 	protected static $instance;

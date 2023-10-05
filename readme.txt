@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.2.1
+Stable tag: 6.2.3
 Tested up to: 6.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,6 +229,16 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+
+= [6.2.3] 2023-10-03 =
+
+* Fix - Ensure the UI can handle an unlimited number of recurrence rules when users create recurring events using the block editor. [ECP-1572]
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+* Fix - Resolves an issue around our new nonce structure used in view pagination, losing the authenticated user and failing to display user specific capabilities. [ECP-1581]
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
+* Tweak - Added filters: `tec_events_add_no_index_meta_tag`, `tec_events_noindex`, `tec_events_{$view}_add_no_index_meta`, `tec_events_no_index_meta`
+* Language - 0 new strings added, 183 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.2.2.1] 2023-09-28  =
 
 * Version - The Events Calendar 6.2.2.1 is only compatible with Event Tickets 5.6.5.1 and higher
@@ -277,6 +287,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - This issue was regarding our rewrite parsing for the view picker url generation with WPML enabled. It was failing to parse the translated rewrite properly, and leaving unparsed permalinks. [TEC-4758]
 * Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
 * Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Handle some issues with incorrect application of noindex meta tags. [TEC-4717]
 * Fix - Our logic to include `tribe_events` post type on the tag archive page was incorrectly bleeding into other queries happening on the page. This narrows the scope for the `WP_Query` post type overrides and avoids situations where Divi templates were not loading properly. [TEC-4819]
 * Fix - Correct some PHP 8.1 deprecations that impact loading of views. [TEC-4871]
 * Fix - Prevent TypeError warnings around `admin_footer_text_settings` filter due to type hinting conflicting with other plugins returning null.
