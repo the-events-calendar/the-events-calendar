@@ -20,25 +20,25 @@ class Pdf {
 	 * 
 	 * @return array
 	 */
-	public function filter_template_vars( $vars ): array {
-		if ( empty( $vars['post']->ID ) ) {
-			return $vars;
+	public function filter_template_context( $ctx ): array {
+		if ( empty( $ctx['post']->ID ) ) {
+			return $ctx;
 		}
 
-		$post_id = intval( $vars['post']->ID );
+		$post_id = intval( $ctx['post']->ID );
 		if ( ! tribe_is_event( $post_id ) ) {
-			return $vars;
+			return $ctx;
 		}
 
 		$event = tribe_get_event( $post_id );
 		if ( empty( $event ) ) {
-			return $vars;
+			return $ctx;
 		}
 
-		$vars['event'] = $event;
-		$vars['venues'] = $event->venues->all();
+		$ctx['event'] = $event;
+		$ctx['venues'] = $event->venues->all();
 
-		return $vars;
+		return $ctx;
 	}
 
 	/**

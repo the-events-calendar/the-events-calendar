@@ -17,24 +17,6 @@ class Controller extends Integration_Abstract {
 	use Plugin_Integration;
 
 	/**
-	 * Apple Wallet class.
-	 *
-	 * @since TBD
-	 *
-	 * @var Apple_Wallet
-	 */
-	protected Apple_Wallet $apple_wallet_class;
-
-	/**
-	 * Pdf class.
-	 *
-	 * @since TBD
-	 *
-	 * @var Pdf
-	 */
-	protected Pdf $pdf_class;
-
-	/**
 	 * @inheritDoc
 	 */
 	public static function get_slug(): string {
@@ -126,7 +108,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @return array
 	 */
-	public function filter_pdf_template_vars( $vars ): array {
-		return $this->container->make( Pdf::class )->filter_template_vars( $vars );
+	public function filter_pdf_template_context( $ctx ): array {
+		return $this->container->make( Pdf::class )->filter_template_context( $ctx );
 	}
 }
