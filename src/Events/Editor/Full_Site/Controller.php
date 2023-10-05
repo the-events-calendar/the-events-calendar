@@ -325,7 +325,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @param string $template_type The type of templates we are fetching.
 	 *
-	 * @return Block_Template_Contract[]
+	 * @return Block_Template_Contract[] List of filtered Event Calendar templates.
 	 */
 	public function get_filtered_block_templates( $template_type = 'wp_template' ): array {
 		$templates = [];
