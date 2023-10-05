@@ -56,6 +56,7 @@ class Controller extends Integration_Abstract {
 	public function register_actions() {
 		add_action( 'tribe_template_after_include:tickets-wallet-plus/pdf/pass/styles', [ $this, 'add_styles_to_pdf' ], 10, 3 );
 		add_action( 'tribe_template_before_include:tickets-wallet-plus/pdf/pass/body/sidebar', [ $this, 'add_venue_to_pdf' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets-wallet-plus/pdf/pass/body/post-title', [ $this, 'add_date_to_pdf' ], 10, 3 );
 	}
 
 	/**
@@ -67,6 +68,19 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters() {
 		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_context' ] );
+	}
+
+	/**
+	 * Filter PDF template vars.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $vars Template vars.
+	 *
+	 * @return array
+	 */
+	public function filter_pdf_template_context( $ctx ): array {
+		return $this->container->make( Pdf::class )->filter_template_context( $ctx );
 	}
 
 	/**
@@ -85,7 +99,7 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
-	 * Maybe add venue to PDF.
+	 * Add venue to PDF.
 	 *
 	 * @since TBD
 	 *
@@ -100,15 +114,17 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
-	 * Filter PDF template vars.
+	 * Add date to PDF.
 	 *
 	 * @since TBD
 	 *
-	 * @param array $vars Template vars.
+	 * @param string          $file     Path to the file.
+	 * @param string          $name     Name of the file.
+	 * @param Tribe__Template $template Template instance.
 	 *
-	 * @return array
+	 * @return void
 	 */
-	public function filter_pdf_template_context( $ctx ): array {
-		return $this->container->make( Pdf::class )->filter_template_context( $ctx );
+	public function add_date_to_pdf( $file, $name, $template ) {
+		$this->container->make( Pdf::class )->add_date( $file, $name, $template );
 	}
 }

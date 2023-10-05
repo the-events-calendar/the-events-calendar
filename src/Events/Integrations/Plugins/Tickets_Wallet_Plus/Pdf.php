@@ -107,6 +107,25 @@ class Pdf {
 			}
 
 			$this->get_template()->template( 'pdf/pass/body/venue', $template->get_local_values(), true );
-		}	
+		}
+
+		/**
+		 * Add date.
+		 * 
+		 * @since TBD
+		 * 
+		 * @param string           $file     Path to the file.
+		 * @param string           $name     Name of the file.
+		 * @param \Tribe__Template $template Template instance.
+		 * 
+		 * @return void
+		 */
+		public function add_date( $file, $name, $template ): void {
+			if ( ! $template instanceof \Tribe__Template ) {
+				return;
+			}
+
+			$this->get_template()->template( 'pdf/pass/body/date', $template->get_local_values(), true );
+		}
 }
 

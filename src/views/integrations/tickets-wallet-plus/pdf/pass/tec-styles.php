@@ -16,6 +16,13 @@
 
 ?>
 <style>
+	.tec-tickets__wallet-plus-pdf-event-date-table {
+		font-weight: normal;
+		font-size: 9pt;
+		line-height: 2;
+		padding-top: 5pt;
+		padding-left: 0;
+	}
 	.tec-tickets__wallet-plus-pdf-event-venue-table {
 		padding-bottom: 40pt;
 		padding-left: 0;
