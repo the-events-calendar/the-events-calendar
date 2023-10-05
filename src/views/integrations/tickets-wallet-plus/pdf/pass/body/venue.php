@@ -20,8 +20,6 @@ if ( empty( $venues ) ) {
 
 $venue = reset( $venues );
 
-error_log( print_r( $venue, true ) );
-
 ?>
 <table class="tec-tickets__wallet-plus-pdf-event-venue-table">
 	<tr>
