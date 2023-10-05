@@ -229,6 +229,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.3] 2023-10-03 =
+
+* Fix - Prevent a fatal caused by get_noindex_events on Events Calendar PRO views if PRO has not been updated. [BTRIA-2054]
 
 = [6.2.3] 2023-10-03 =
 
