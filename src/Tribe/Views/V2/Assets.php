@@ -204,9 +204,10 @@ class Assets extends Service_Provider {
 				'priority'     => 9, // for `wp_print_footer_scripts` we are required to go before P10.
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key, static::$widget_group_key ],
-				'defer'        => true,
+				'in_footer'    => array( 'strategy'  => 'defer' ),
 			]
 		);
+		wp_script_add_data( 'jquery', 'strategy', 'defer' );
 
 		tribe_asset(
 			$plugin,
@@ -419,7 +420,7 @@ class Assets extends Service_Provider {
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key, static::$widget_group_key ],
-				'in_footer'    => false,
+				'in_footer'    => array( 'strategy'  => 'defer' ),
 			]
 		);
 
