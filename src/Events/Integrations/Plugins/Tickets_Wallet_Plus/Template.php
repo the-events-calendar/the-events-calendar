@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Events\Integrations\Plugins\Event_Tickets_Wallet_Plus;
+namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus;
 
 use Tribe__Events__Main as TEC;
 use Tribe__Template;
@@ -10,7 +10,7 @@ use Tribe__Template;
  *
  * @since TBD
  *
- * @package TEC\Events\Integrations\Plugins\Event_Tickets_Wallet_Plus
+ * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus
  */
 class Template extends Tribe__Template {
 	/**

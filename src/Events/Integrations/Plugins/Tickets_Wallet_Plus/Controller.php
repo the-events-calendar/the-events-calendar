@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Events\Integrations\Plugins\Event_Tickets_Wallet_Plus;
+namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus;
 
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
@@ -11,7 +11,7 @@ use Tribe__Template;
  *
  * @since   6.1.1
  *
- * @package TEC\Events\Integrations\Plugins\Event_Tickets
+ * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus
  */
 class Controller extends Integration_Abstract {
 	use Plugin_Integration;
@@ -73,7 +73,7 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_actions() {
 		add_action( 'tribe_template_after_include:tickets-wallet-plus/pdf/pass/styles', [ $this, 'add_styles_to_pdf' ], 10, 3 );
-		add_action( 'tribe_template_before_include:tickets-wallet-plus/pdf/pass/body/sidebar', [ $this, 'maybe_add_venue_to_pdf' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets-wallet-plus/pdf/pass/body/sidebar', [ $this, 'add_venue_to_pdf' ], 10, 3 );
 	}
 
 	/**
@@ -99,7 +99,7 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function add_styles_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_tec_styles_to_pdf( $file, $name, $template );
+		$this->container->make( Pdf::class )->add_tec_styles( $file, $name, $template );
 	}
 
 	/**
@@ -113,8 +113,8 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @return void
 	 */
-	public function maybe_add_venue_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->maybe_add_venue_to_pdf( $file, $name, $template );
+	public function add_venue_to_pdf( $file, $name, $template ) {
+		$this->container->make( Pdf::class )->add_venue( $file, $name, $template );
 	}
 
 	/**
@@ -127,6 +127,6 @@ class Controller extends Integration_Abstract {
 	 * @return array
 	 */
 	public function filter_pdf_template_vars( $vars ): array {
-		return $this->container->make( Pdf::class )->filter_pdf_template_vars( $vars );
+		return $this->container->make( Pdf::class )->filter_template_vars( $vars );
 	}
 }

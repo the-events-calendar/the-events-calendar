@@ -1,18 +1,18 @@
 <?php
 
-namespace TEC\Events\Integrations\Plugins\Event_Tickets_Wallet_Plus;
+namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus;
 
 /**
  * Class Pdf
  * 
  * @since TBD
  * 
- * @package TEC\Events\Integrations\Plugins\Event_Tickets_Wallet_Plus
+ * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus
  */
 class Pdf {
 
 	/**
-	 * Filter PDF template vars.
+	 * Filter template vars.
 	 *
 	 * @since TBD
 	 * 
@@ -20,7 +20,7 @@ class Pdf {
 	 * 
 	 * @return array
 	 */
-	public function filter_pdf_template_vars( $vars ): array {
+	public function filter_template_vars( $vars ): array {
 		if ( empty( $vars['post']->ID ) ) {
 			return $vars;
 		}
@@ -42,7 +42,7 @@ class Pdf {
 	}
 
 	/**
-	 * Add styles to PDF.
+	 * Add styles.
 	 * 
 	 * @since TBD
 	 * 
@@ -52,7 +52,7 @@ class Pdf {
 	 * 
 	 * @return void
 	 */
-	public function add_tec_styles_to_pdf( $file, $name, $template ): void {
+	public function add_tec_styles( $file, $name, $template ): void {
 		if ( ! $template instanceof \Tribe__Template ) {
 			return;
 		}
@@ -61,7 +61,7 @@ class Pdf {
 	}
 
 	/**
-	 * Maybe add venue to PDF.
+	 * Add venue.
 	 * 
 	 * @since TBD
 	 * 
@@ -71,7 +71,7 @@ class Pdf {
 	 * 
 	 * @return void
 	 */
-	public function maybe_add_venue_to_pdf( $file, $name, $template ): void {
+	public function add_venue( $file, $name, $template ): void {
 		if ( ! $template instanceof \Tribe__Template ) {
 			return;
 		}
