@@ -66,7 +66,7 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function register_filters() {
-		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_vars' ] );
+		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_context' ] );
 	}
 
 	/**
