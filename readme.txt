@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.3] 2023-10-03 =
+= [6.2.3] 2023-10-09 =
 
 * Fix - Prevent a fatal caused by get_noindex_events on Events Calendar PRO views if PRO has not been updated. [TEC-4946]
 * Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
