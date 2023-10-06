@@ -381,7 +381,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		$current_screen = get_current_screen();
 
 		return Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE )
-		       || ( $current_screen instanceof WP_Screen && $current_screen->id === 'site-editor' );
+		       || ( $current_screen instanceof WP_Screen && 'site-editor' === $current_screen->id );
 	}
 
 	/**
@@ -395,7 +395,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	public function is_edit_screen() {
 		$current_screen = get_current_screen();
 
-		return 'post' === $current_screen->base || $current_screen->id === 'site-editor';
+		return 'post' === $current_screen->base || 'site-editor' === $current_screen->id;
 	}
 
 	/**

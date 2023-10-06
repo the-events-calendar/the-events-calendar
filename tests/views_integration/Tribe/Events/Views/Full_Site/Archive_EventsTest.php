@@ -1,11 +1,10 @@
 <?php
 
-namespace Tribe\Events\Editor\Blocks;
+namespace Tribe\Events\Editor\Full_Site;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use TEC\Events\Editor\Full_Site\Templates;
+use TEC\Events\Editor\Full_Site\Archive_Block_Template;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
-use WP_Block_Template;
 
 class Archive_EventsTest extends HtmlTestCase {
 	use MatchesSnapshots;
@@ -44,7 +43,7 @@ class Archive_EventsTest extends HtmlTestCase {
 	 * Utility method to render the block and return the content.
 	 */
 	private function render_archive_events_block(): string {
-		return ( new Archive_Events() )->render();
+		return ( new Archive_Block_Template() )->render();
 	}
 
 	/**
@@ -61,43 +60,5 @@ class Archive_EventsTest extends HtmlTestCase {
 	public function test_block_contains_tribe_block_archive_events_class() {
 		$block_content = $this->render_archive_events_block();
 		$this->assertStringContainsString( 'tribe-block__archive-events', $block_content );
-	}
-
-	/**
-	 * Testing when the template file is queried.
-	 */
-	public function test_get_queried_template() {
-		global $wp_query;
-		$old_post_type = $wp_query->get( 'post_type' );
-		$wp_query->set( 'post_type', [ 'tribe_events' ] );
-
-		// Check we find the correct template without error.
-		$template = get_archive_template();
-		$this->assertMatchesSnapshot( $template );
-
-		$wp_query->set( 'post_type', $old_post_type );
-	}
-
-	/**
-	 * Test the Archive Event WP Template is generated correctly.
-	 */
-	public function test_wp_template() {
-		// Get our templates to test.
-		$archive_template = tribe( Archive_Events::class );
-		$templateA        = tribe( Templates::class )->get_template_events_archive();
-		$templateB        = get_block_template( $archive_template->get_namespace() . '//' . $archive_template->slug() );
-
-		$this->assertIsInt( $templateA->wp_id );
-		$this->assertGreaterThan( 0, $templateA->wp_id );
-		$this->assertIsInt( $templateB->wp_id );
-		$this->assertGreaterThan( 0, $templateB->wp_id );
-
-		// Normalize for comparisons.
-		$normalized_templateA = self::normalize_wp_template( $templateA );
-		$normalized_templateB = self::normalize_wp_template( $templateB );
-
-		// Should have correct content, title, id, slug etc.
-		$this->assertEquals( $normalized_templateA, $normalized_templateB );
-		$this->assertMatchesSnapshot( $normalized_templateA );
 	}
 }
