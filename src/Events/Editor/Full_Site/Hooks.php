@@ -6,6 +6,7 @@ use Tribe\Events\Editor\Blocks\Archive_Events;
 use Tribe\Events\Editor\Blocks\Single_Event;
 use Tribe__Events__Main;
 use TEC\Common\Contracts\Service_Provider;
+use WP_Block_Template;
 
 
 /**
@@ -32,12 +33,43 @@ class Hooks extends Service_Provider {
 	 * Adds the filters required by the FSE components.
 	 *
 	 * @since 5.14.2
+	 * @since TBD Adding support for block templates.
 	 */
 	protected function add_filters() {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
+		add_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10, 3 );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
-		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option'], 10, 2 );
+		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
+		add_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10, 1 );
+	}
+
+	/**
+	 * Redirect the post type template to our slug, as that is what is used for lookup in the database.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $templates Templates in order of display hierarchy.
+	 *
+	 * @return array
+	 */
+	public function filter_archive_template_hierarchy( $templates ) {
+		if ( empty( $templates ) ) {
+			return $templates;
+		}
+		if ( ! is_array( $templates ) ) {
+			return $templates;
+		}
+		// Is it our post type?
+		$index = array_search( 'archive-tribe_events.php', $templates, true );
+		if ( ! is_int( $index ) ) {
+			return $templates;
+		}
+
+		// Switch to our faux template which maps to our slug.
+		$templates[ $index ] = 'archive-events.php';
+
+		return $templates;
 	}
 
 	/**
@@ -75,11 +107,11 @@ class Hooks extends Service_Provider {
 	 * @since TBD Added support for single event templates.
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
-	 * @param array  $query {
-	 *     Optional. Arguments to retrieve templates.
+	 * @param array               $query        {
+	 *                                          Optional. Arguments to retrieve templates.
 	 *
-	 *     @type array  $slug__in List of slugs to include.
-	 *     @type int    $wp_id Post ID of customized template.
+	 * @type array                $slug__in     List of slugs to include.
+	 * @type int                  $wp_id        Post ID of customized template.
 	 * }
 	 *
 	 *
@@ -99,11 +131,40 @@ class Hooks extends Service_Provider {
 	}
 
 	/**
+	 * Fetch our Block Template by ID.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|WP_Block_Template $block_template The filtered template.
+	 * @param string                 $id             The block template ID.
+	 * @param string                 $template_type  The template type.
+	 *
+	 * @return null|WP_Block_Template
+	 */
+	public function filter_include_template_by_id( $block_template, $id, $template_type ) {
+		if ( ! is_null( $block_template ) ) {
+			return $block_template;
+		}
+
+		if ( $template_type !== 'wp_template' ) {
+			return $block_template;
+		}
+
+		$archive_template = tribe( Archive_Events::class );
+		if ( $id !== $archive_template->get_namespace() . '//' . $archive_template->slug() ) {
+			return $block_template;
+		}
+
+		return $this->container->make( Templates::class )->get_template_events_archive();
+	}
+
+	/**
 	 * If we're using a FSE theme, we always use the full styling.
 	 *
 	 * @since 5.14.2
 	 *
-	 * @param string  $value The value of the option.
+	 * @param string $value The value of the option.
+	 *
 	 * @return string $value The original value, or an empty string if FSE is active.
 	 */
 	public function filter_events_template_setting_option( $value ) {
