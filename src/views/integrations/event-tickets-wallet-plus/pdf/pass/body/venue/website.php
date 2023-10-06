@@ -3,7 +3,7 @@
  * PDF Pass: Body - Venue Website
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/integrations/tickets-wallet-plus/pdf/pass/body/venue/website.php
+ * [your-theme]/tribe/events/integrations/event-tickets-wallet-plus/pdf/pass/body/venue/website.php
  *
  * See more documentation about our views templating system.
  *

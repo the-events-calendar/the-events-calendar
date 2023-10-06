@@ -33,7 +33,7 @@ class Pdf {
 			if ( empty( $this->template ) ) {
 				$template = new Tribe__Template();
 				$template->set_template_origin( TEC::instance() );
-				$template->set_template_folder( 'src/views/integrations/tickets-wallet-plus' );
+				$template->set_template_folder( 'src/views/integrations/event-tickets-wallet-plus' );
 				$template->set_template_folder_lookup( true );
 				$template->set_template_context_extract( true );
 				$this->template = $template;
@@ -42,33 +42,33 @@ class Pdf {
 		}
 
 		/**
-		 * Filter template vars.
+		 * Filter template context.
 		 *
 		 * @since TBD
 		 * 
-		 * @param array $vars
+		 * @param array $context
 		 * 
 		 * @return array
 		 */
-		public function filter_template_context( $ctx ): array {
-			if ( empty( $ctx['post']->ID ) ) {
-				return $ctx;
+		public function filter_template_context( $context ): array {
+			if ( empty( $context['post']->ID ) ) {
+				return $context;
 			}
 
-			$post_id = intval( $ctx['post']->ID );
+			$post_id = intval( $context['post']->ID );
 			if ( ! tribe_is_event( $post_id ) ) {
-				return $ctx;
+				return $context;
 			}
 
 			$event = tribe_get_event( $post_id );
 			if ( empty( $event ) ) {
-				return $ctx;
+				return $context;
 			}
 
-			$ctx['event'] = $event;
-			$ctx['venues'] = $event->venues->all();
+			$context['event'] = $event;
+			$context['venues'] = $event->venues->all();
 
-			return $ctx;
+			return $context;
 		}
 
 		/**
@@ -110,7 +110,7 @@ class Pdf {
 		}
 
 		/**
-		 * Add date.
+		 * Add event date.
 		 * 
 		 * @since TBD
 		 * 
@@ -120,7 +120,7 @@ class Pdf {
 		 * 
 		 * @return void
 		 */
-		public function add_date( $file, $name, $template ): void {
+		public function add_event_date( $file, $name, $template ): void {
 			if ( ! $template instanceof \Tribe__Template ) {
 				return;
 			}

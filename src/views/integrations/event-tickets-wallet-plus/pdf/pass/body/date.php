@@ -1,9 +1,9 @@
 <?php
 /**
- * PDF Pass: Body - Event Time
+ * PDF Pass: Body - Event Date
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/integrations/tickets-wallet-plus/pdf/pass/body/event-time.php
+ * [your-theme]/tribe/events/integrations/event-tickets-wallet-plus/pdf/pass/body/date.php
  *
  * See more documentation about our views templating system.
  *
@@ -14,7 +14,7 @@
  * @version TBD
  */
 
- if ( empty( $event ) ) {
+if ( empty( $event ) ) {
 	return;
 }
 

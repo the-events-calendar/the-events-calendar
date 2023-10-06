@@ -3,7 +3,7 @@
  * PDF Pass: Body - Venue Phone
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/integrations/tickets-wallet-plus/pdf/pass/body/venue/phone.php
+ * [your-theme]/tribe/events/integrations/event-tickets-wallet-plus/pdf/pass/body/venue/phone.php
  *
  * See more documentation about our views templating system.
  *

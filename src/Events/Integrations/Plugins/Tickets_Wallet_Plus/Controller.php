@@ -9,7 +9,7 @@ use Tribe__Template;
 /**
  * Class Controller
  *
- * @since   6.1.1
+ * @since TBD
  *
  * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus
  */
@@ -71,16 +71,16 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
-	 * Filter PDF template vars.
+	 * Filter PDF template context.
 	 *
 	 * @since TBD
 	 *
-	 * @param array $vars Template vars.
+	 * @param array $context Template context.
 	 *
 	 * @return array
 	 */
-	public function filter_pdf_template_context( $ctx ): array {
-		return $this->container->make( Pdf::class )->filter_template_context( $ctx );
+	public function filter_pdf_template_context( $context ): array {
+		return $this->container->make( Pdf::class )->filter_template_context( $context );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
-	 * Add date to PDF.
+	 * Add event date to PDF.
 	 *
 	 * @since TBD
 	 *
@@ -124,7 +124,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @return void
 	 */
-	public function add_date_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_date( $file, $name, $template );
+	public function add_event_date_to_pdf( $file, $name, $template ) {
+		$this->container->make( Pdf::class )->add_event_date( $file, $name, $template );
 	}
 }
