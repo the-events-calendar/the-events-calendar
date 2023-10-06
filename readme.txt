@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.3
+Stable tag: 6.2.5
 Tested up to: 6.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,6 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.5] TBD =
 
 = [6.2.3] 2023-10-03 =
 
