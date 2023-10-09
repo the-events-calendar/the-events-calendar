@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.2.3';
+		const VERSION             = '6.2.3.1';
 
 		/**
 		 * Min Pro Addon
@@ -78,7 +78,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.6.5-dev';
+		protected $min_et_version = '5.6.5.1-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -1525,14 +1525,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 		 */
 		public function issue_noindex() {
-			_deprecated_function( __METHOD__, 'TBD', 'TEC\Events\SEO\Controller::issue_noindex()' );
+			_deprecated_function( __METHOD__, '6.2.3', 'TEC\Events\SEO\Controller::issue_noindex()' );
 
 			global $wp_query;
 
 			/**
 			 * Allows filtering of if a noindex meta tag will be set for the current event view.
 			 *
-			 * @since TBD
+			 * @since 6.2.3
 			 *
 			 * @var bool $do_noindex_meta Whether to add the noindex meta tag.
 			 */
@@ -1565,7 +1565,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Allow specific views to hook in and add their own calculated events.
 			 * This *bypasses* the cached query immediately after it.
 			 *
-			 * @since TBD
+			 * @since 6.2.3
 			 *
 			 * @param ?Tribe__Repository|null $events     The events repository. False if not hooked in to.
 			 * @param DateTime                $start_date The start date (object) of the query.
@@ -1611,7 +1611,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Determines if a noindex meta tag will be set for a specific event view.
 			 *
-			 * @since TBD
+			 * @since 6.2.3
 			 *
 			 * @var bool $add_noindex
 			 * @var Tribe__Context $context The view context.
@@ -1626,7 +1626,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Prints a "noindex,follow" robots tag.
 		 *
-		 * @since TBD
+		 * @since 6.2.3
 		 *
 		 */
 		public function print_noindex_meta() {
@@ -1635,7 +1635,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Filters the noindex meta tag.
 			 *
-			 * @since TBD
+			 * @since 6.2.3
 			 *
 			 * @param string $noindex_meta
 			 */
