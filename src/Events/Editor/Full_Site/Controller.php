@@ -165,6 +165,7 @@ class Controller extends Controller_Contract {
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
+		
 		if ( ! is_array( $templates ) ) {
 			return $templates;
 		}
@@ -194,12 +195,13 @@ class Controller extends Controller_Contract {
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
+
 		if ( ! is_array( $templates ) ) {
 			return $templates;
 		}
 
 		// Is it our post type?
-		$index = array_search( 'single-tribe_events.php', $templates, true ); // @todo use our slug static?
+		$index = array_search( 'single-tribe_events.php', $templates, true );
 		if ( ! is_int( $index ) ) {
 			return $templates;
 		}
@@ -238,7 +240,7 @@ class Controller extends Controller_Contract {
 	 * @since 5.14.2
 	 */
 	public function action_register_archive_template() {
-		return $this->container->make( Archive_Block_Template::class )->register(); // @todo move out?
+		return $this->container->make( Archive_Block_Template::class )->register();
 	}
 
 	/**
@@ -247,7 +249,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function action_register_single_event_template() {
-		return $this->container->make( Single_Block_Template::class )->register(); // @todo move out?
+		return $this->container->make( Single_Block_Template::class )->register();
 	}
 
 	/**

@@ -16,7 +16,7 @@ const FauxLine = ( { style = {}, ...props } ) => {
 
     return ( <div style={ { ...divStyle, ...style } } { ...props } /> )
 }
-// @todo move to FS folder?
+
 /**
  * The Archive Events block used in Site Editor templates.
  */
