@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.3
+Stable tag: 6.2.3.1
 Tested up to: 6.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.3.1] 2023-10-09 =
+
+* Fix - Prevent a fatal caused by get_noindex_events on Events Calendar PRO views if PRO has not been updated. [TEC-4946]
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.2.3] 2023-10-03 =
 
