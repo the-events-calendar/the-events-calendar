@@ -231,6 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.5] TBD =
 
+* Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+
 = [6.2.3] 2023-10-03 =
 
 * Fix - Ensure the UI can handle an unlimited number of recurrence rules when users create recurring events using the block editor. [ECP-1572]
