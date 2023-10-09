@@ -77,7 +77,7 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 	 *
 	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */
-	public function create_wp_block_template(): ?WP_Block_Template {
+	protected function create_wp_block_template(): ?WP_Block_Template {
 		$insert = [
 			'post_name'    => $this->slug(),
 			'post_title'   => esc_html_x( 'Calendar Views (Event Archive)', 'The Full Site editor block navigation title', 'the-events-calendar' ),
