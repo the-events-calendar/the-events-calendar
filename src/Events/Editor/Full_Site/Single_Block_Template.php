@@ -73,6 +73,32 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	}
 
 	/**
+	 * Creates then returns the WP_Block_Template object for single event.
+	 *
+	 * @since TBD
+	 *
+	 * @return null|WP_Block_Template The hydrated single event template object.
+	 */
+	public function create_wp_block_template(): ?WP_Block_Template {
+		$insert = [
+			'post_name'    => $this->slug(),
+			'post_title'   => esc_html_x( 'Event Single', 'The Full Site editor block navigation title', 'the-events-calendar' ),
+			'post_excerpt' => esc_html_x( 'Displays a single event.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
+			'post_type'    => 'wp_template',
+			'post_status'  => 'publish',
+			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
+				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/single-event.html'
+			) ),
+			'tax_input'    => [
+				'wp_theme' => $this->get_namespace()
+			]
+		];
+
+		// Create this template.
+		return Template_Utils::save_block_template( $insert );
+	}
+
+	/**
 	 * Creates if non-existent theme post, then returns the WP_Block_Template object for single events.
 	 *
 	 * @since TBD
@@ -84,22 +110,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 
 		// If empty, this is our first time loading our Block Template. Let's create it.
 		if ( ! $wp_block_template ) {
-			$insert = [
-				'post_name'    => $this->slug(),
-				'post_title'   => esc_html_x( 'Event Single', 'The Full Site editor block navigation title', 'the-events-calendar' ),
-				'post_excerpt' => esc_html_x( 'Displays a single event.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
-				'post_type'    => 'wp_template',
-				'post_status'  => 'publish',
-				'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
-					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/single-event.html'
-				) ),
-				'tax_input'    => [
-					'wp_theme' => $this->get_namespace()
-				]
-			];
-
-			// Create this template.
-			$wp_block_template = Template_Utils::save_block_template( $insert );
+			$wp_block_template = $this->create_wp_block_template();
 		}
 
 		// Validate we did stuff correctly.

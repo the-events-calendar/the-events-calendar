@@ -165,7 +165,7 @@ class Controller extends Controller_Contract {
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
-		
+
 		if ( ! is_array( $templates ) ) {
 			return $templates;
 		}
