@@ -24,10 +24,10 @@ $venue = reset( $venues );
 <table class="tec-tickets__wallet-plus-pdf-event-venue-table">
 	<tr>
 		<td>
-			<?php $this->template( 'pdf/pass/body/venue/title', [ 'venue' => $venue ] ); ?>
-			<?php $this->template( 'pdf/pass/body/venue/address', [ 'venue' => $venue ] ); ?>
-			<?php $this->template( 'pdf/pass/body/venue/phone', [ 'venue' => $venue ] ); ?>
-			<?php $this->template( 'pdf/pass/body/venue/website', [ 'venue' => $venue ] ); ?>
+			<?php $this->template( 'pdf/pass/body/event/venue/title', [ 'venue' => $venue ] ); ?>
+			<?php $this->template( 'pdf/pass/body/event/venue/address', [ 'venue' => $venue ] ); ?>
+			<?php $this->template( 'pdf/pass/body/event/venue/phone', [ 'venue' => $venue ] ); ?>
+			<?php $this->template( 'pdf/pass/body/event/venue/website', [ 'venue' => $venue ] ); ?>
 		</td>
 	</tr>
 </table>

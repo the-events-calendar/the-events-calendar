@@ -87,7 +87,7 @@ class Pdf {
 				return;
 			}
 
-			$this->get_template()->template( 'pdf/pass/tec-styles', $template->get_local_values(), true );
+			$this->get_template()->template( 'pdf/pass/tec-events-styles', $template->get_local_values(), true );
 		}
 
 		/**
@@ -106,7 +106,7 @@ class Pdf {
 				return;
 			}
 
-			$this->get_template()->template( 'pdf/pass/body/venue', $template->get_local_values(), true );
+			$this->get_template()->template( 'pdf/pass/body/event/venue', $template->get_local_values(), true );
 		}
 
 		/**
@@ -125,7 +125,7 @@ class Pdf {
 				return;
 			}
 
-			$this->get_template()->template( 'pdf/pass/body/date', $template->get_local_values(), true );
+			$this->get_template()->template( 'pdf/pass/body/event/date', $template->get_local_values(), true );
 		}
 }
 
