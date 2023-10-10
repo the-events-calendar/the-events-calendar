@@ -27,11 +27,14 @@ class Controller extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		if ( ! class_exists( '\TEC\Tickets_Wallet_Plus\Controller', false ) ) {
-			return false;
-		}
+		return function_exists( 'tec_tickets_wallet_plus_load' );
 
-		return $this->container->make( '\TEC\Tickets_Wallet_Plus\Controller' )->is_active();
+		// @todo @codingmusician: The code below is what we should be using, but it isn't working. [ETWP-50]
+		// if ( ! class_exists( '\TEC\Tickets_Wallet_Plus\Controller', false ) ) {
+		// 	return false;
+		// }
+
+		// return $this->container->make( '\TEC\Tickets_Wallet_Plus\Controller' )->is_active();
 	}
 
 	/**
