@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.3.1
+Stable tag: 6.2.3.2
 Tested up to: 6.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -228,6 +228,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.2.3.2] 2023-10-12 =
+
+* Fix - Prevent noindex code from adding tags to single event pages. [TEC-4949]
+* Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
 
 = [6.2.3.1] 2023-10-09 =
 
