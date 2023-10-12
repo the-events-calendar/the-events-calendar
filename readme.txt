@@ -229,9 +229,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.3.1] 2023-10-12 =
+= [6.2.3.2] 2023-10-12 =
 
-
+* Fix - Prevent noindex code from adding tags to single event pages. [TEC-4949]
 
 = [6.2.3.1] 2023-10-09 =
 
