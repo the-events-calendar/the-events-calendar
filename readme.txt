@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.2.3.2] 2023-10-12 =
 
 * Fix - Prevent noindex code from adding tags to single event pages. [TEC-4949]
+* Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
 
 = [6.2.3.1] 2023-10-09 =
 
