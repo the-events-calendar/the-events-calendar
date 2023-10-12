@@ -4,6 +4,7 @@ namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus;
 
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
+use TEC\Tickets_Wallet_Plus\Controller as Tickets_Wallet_Plus;
 use Tribe__Template;
 
 /**
@@ -27,14 +28,7 @@ class Controller extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		return function_exists( 'tec_tickets_wallet_plus_load' );
-
-		// @todo @codingmusician: The code below is what we should be using, but it isn't working. [ETWP-50]
-		// if ( ! class_exists( '\TEC\Tickets_Wallet_Plus\Controller', false ) ) {
-		// 	return false;
-		// }
-
-		// return $this->container->make( '\TEC\Tickets_Wallet_Plus\Controller' )->is_active();
+		return $this->container->make( Tickets_Wallet_Plus::class )->is_active();
 	}
 
 	/**
