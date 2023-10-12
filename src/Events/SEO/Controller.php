@@ -70,7 +70,7 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		if ( is_home() || is_front_page() ) {
+		if ( is_home() || is_front_page() || is_single() ) {
 			return;
 		}
 
