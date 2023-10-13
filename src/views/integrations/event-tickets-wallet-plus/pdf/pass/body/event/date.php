@@ -3,7 +3,7 @@
  * PDF Pass: Body - Event Date
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/integrations/event-tickets-wallet-plus/pdf/pass/body/date.php
+ * [your-theme]/tribe/events/integrations/event-tickets-wallet-plus/pdf/pass/body/event/date.php
  *
  * See more documentation about our views templating system.
  *
