@@ -233,6 +233,19 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 
+= [6.2.5] TBD =
+
+
+= [6.2.3.2] 2023-10-12 =
+
+* Fix - Prevent noindex code from adding tags to single event pages. [TEC-4949]
+* Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
+
+= [6.2.3.1] 2023-10-09 =
+
+* Fix - Prevent a fatal caused by get_noindex_events on Events Calendar PRO views if PRO has not been updated. [TEC-4946]
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.2.3] 2023-10-03 =
 
 * Fix - Ensure the UI can handle an unlimited number of recurrence rules when users create recurring events using the block editor. [ECP-1572]

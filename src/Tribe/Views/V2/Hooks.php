@@ -1143,6 +1143,7 @@ class Hooks extends Service_Provider {
 	 * Allow specific views to hook in and add their own calculated events.
 	 *
 	 * @since 6.2.3
+	 * @since 6.2.3.1 Added a check for function existence.
 	 *
 	 * @param Tribe__Repository|false $events     The events repository. False by default.
 	 * @param DateTime                $start_date The start date (object) of the query.
@@ -1153,6 +1154,11 @@ class Hooks extends Service_Provider {
 	public function filter_tec_events_noindex( $events, $start_date, $end_date, $context ) {
 		$view_slug = $context->get( 'view' );
 		$view = View::make( tribe( Manager::class )->get_view_class_by_slug( $view_slug ), $context );
+
+		// If ECP has not been updated, the function won't exist for ECP views. Bail.
+		if ( ! method_exists( $view, 'get_noindex_events' ) ) {
+			return $events;
+		}
 
 		return $view->get_noindex_events( $events, $start_date, $end_date, $context );
 	}
