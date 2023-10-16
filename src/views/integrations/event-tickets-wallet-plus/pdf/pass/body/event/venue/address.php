@@ -20,7 +20,7 @@ if ( empty( $venue ) ) {
 
 $comma_separator      = ', ';
 $line_separator       = '<br />';
-$append_after_address = array_filter( array_map( 'trim', [ $venue->state_province ?? null, $venue->state ?? null, $venue->province ?? null ] ) );
+$append_after_address = array_map( 'trim', array_filter( [ $venue->state_province ?? null, $venue->state ?? null, $venue->province ?? null ] ) );
 
 ?>
 <table class="tec-tickets__wallet-plus-pdf-event-venue-detail-table">
