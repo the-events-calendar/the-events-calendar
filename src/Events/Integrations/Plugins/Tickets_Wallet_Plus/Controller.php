@@ -138,7 +138,7 @@ class Controller extends Integration_Abstract {
 	 * @param array $attendee  The attendee data.
 	 */
 	public function add_event_date_to_apple_pass_data( $pass_data, $attendee ) {
-		return $this->container->make( \TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Apple_Wallet\Event_Data_Add_Info::class)->add_event_date_to_apple_pass_data( $pass_data, $attendee );
+		return $this->container->make( \TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Apple_Wallet\Event_Data_Add_Info::class )->add_event_date_to_apple_pass_data( $pass_data, $attendee );
 	}
 
 	/**
@@ -150,6 +150,6 @@ class Controller extends Integration_Abstract {
 	 * @param array $attendee  The attendee data.
 	 */
 	public function add_venue_to_apple_pass_data( $pass_data, $attendee ) {
-		return $this->container->make( \TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Apple_Wallet\Event_Data_Add_Info::class)->add_venue_to_apple_pass_data( $pass_data, $attendee );
+		return $this->container->make( \TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Apple_Wallet\Event_Data_Add_Info::class )->add_venue_to_apple_pass_data( $pass_data, $attendee );
 	}
 }
