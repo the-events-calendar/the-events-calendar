@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus;
+namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes;
 
 use Tribe__Template;
 use Tribe__Events__Main as TEC;
@@ -9,7 +9,7 @@ use Tribe__Events__Main as TEC;
  * 
  * @since TBD
  * 
- * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus
+ * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes
  */
 class Pdf {
 

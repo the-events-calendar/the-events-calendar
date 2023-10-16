@@ -73,7 +73,7 @@ class Controller extends Integration_Abstract {
 	 * @return array
 	 */
 	public function filter_pdf_template_context( $context ): array {
-		return $this->container->make( Pdf::class )->filter_template_context( $context );
+		return $this->container->make( Passes\Pdf::class )->filter_template_context( $context );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function add_styles_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_tec_styles( $file, $name, $template );
+		$this->container->make( Passes\Pdf::class )->add_tec_styles( $file, $name, $template );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function add_venue_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_venue( $file, $name, $template );
+		$this->container->make( Passes\Pdf::class )->add_venue( $file, $name, $template );
 	}
 
 	/**
@@ -118,6 +118,6 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function add_event_date_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_event_date( $file, $name, $template );
+		$this->container->make( Passes\Pdf::class )->add_event_date( $file, $name, $template );
 	}
 }
