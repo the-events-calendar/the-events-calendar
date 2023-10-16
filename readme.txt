@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Resolves issue where a deleted venue still attached to an event would cause an `PHP Warning: Undefined variable $data in /code/wp-content/plugins/the-events-calendar/src/Tribe/REST/V1/Post_Repository.php on line 327` error. [TEC-4954]
+
 = [6.2.3.2] 2023-10-12 =
 
 * Fix - Prevent noindex code from adding tags to single event pages. [TEC-4949]
