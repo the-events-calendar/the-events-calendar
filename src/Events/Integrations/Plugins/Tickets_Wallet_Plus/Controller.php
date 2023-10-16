@@ -61,6 +61,7 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters() {
 		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_context' ] );
+		add_filter( 'tec_tickets_wallet_plus_pdf_sample_template_context', [ $this, 'add_event_data_to_pdf_sample' ] );
 	}
 
 	/**
@@ -119,5 +120,18 @@ class Controller extends Integration_Abstract {
 	 */
 	public function add_event_date_to_pdf( $file, $name, $template ) {
 		$this->container->make( Passes\Pdf::class )->add_event_date( $file, $name, $template );
+	}
+
+	/**
+	 * Add event data to PDF sample.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $context Template context.
+	 *
+	 * @return array
+	 */
+	public function add_event_data_to_pdf_sample( $context ): array {
+		return $this->container->make( Passes\Pdf::class )->add_event_data_to_sample( $context );
 	}
 }

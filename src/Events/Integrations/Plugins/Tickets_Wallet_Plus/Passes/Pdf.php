@@ -2,8 +2,11 @@
 
 namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes;
 
+use Tribe\Utils\Lazy_String;
 use Tribe__Template;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Main;
+
 /**
  * Class Pdf
  * 
@@ -126,6 +129,56 @@ class Pdf {
 		}
 
 		$this->get_template()->template( 'pdf/pass/body/event/date', $template->get_local_values(), true );
+	}
+
+	/**
+	 * Add attendee fields.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param array $context Path to the file.
+	 * 
+	 * @return array
+	 */
+	public function add_event_data_to_sample( $context ): array {
+		
+		$sample_event = (object) [
+			'ID'               => 213123123,
+			'permalink'        => '#',
+			'schedule_details' => new Lazy_String(
+				static function () {
+					return esc_html__( 'September 22 @ 7:00 pm - 11:00 pm', 'the-events-calendar' );
+				}
+			),
+			'dates'            => (object) [],
+			'thumbnail'        => (object) [
+				'exists'    => true,
+				'full'      => (object) [
+					'url' => esc_url( tribe_resource_url( 'images/event-example-image.jpg', false, null, Tribe__Events__Main::instance() ) ),
+				],
+				'thumbnail' => (object) [
+					'alt'   => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
+					'title' => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
+				],
+			],
+		];
+		$sample_venues = [
+			(object) [
+				'post_title'      => esc_html__( 'Central Park', 'the-events-calendar' ),
+				'address'         => esc_html__( '41st Street', 'the-events-calendar' ),
+				'city'            => esc_html__( 'New York', 'the-events-calendar' ),
+				'state'           => esc_html__( 'NY 10001', 'the-events-calendar' ),
+				'country'         => esc_html__( 'United States', 'the-events-calendar' ),
+				'phone'           => esc_html__( '(555) 555-5555', 'the-events-calendar' ),
+				'website_url'     => esc_url( get_site_url() ),
+				'directions_link' => '#',
+			],
+		];
+
+		$context['event']  = $sample_event;
+		$context['venues'] = $sample_venues;
+
+		return $context;
 	}
 }
 
