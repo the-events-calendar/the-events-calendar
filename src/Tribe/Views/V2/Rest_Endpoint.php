@@ -95,13 +95,12 @@ class Rest_Endpoint {
 	 * @since TBD Moved to new hook with new params in order to intercede in user auth flow for REST requests.
 	 *
 	 * @param array $cors_headers List of headers to be filtered.
-	 * @param WP_REST_Request $rest_request This request.
 	 *
 	 * @return array List of headers.
 	 * @see   rest_cookie_check_errors()
 	 *
 	 */
-	public static function preserve_user_for_custom_nonces( $cors_headers, $rest_request ) {
+	public static function preserve_user_for_custom_nonces( $cors_headers ) {
 		if ( ! is_user_logged_in() ) {
 			return $cors_headers;
 		}
