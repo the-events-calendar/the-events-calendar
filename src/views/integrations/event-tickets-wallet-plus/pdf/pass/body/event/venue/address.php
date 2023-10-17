@@ -3,7 +3,7 @@
  * PDF Pass: Body - Venue Address
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/integrations/event-tickets-wallet-plus/pdf/pass/body/venue/address.php
+ * [your-theme]/tribe/events/integrations/event-tickets-wallet-plus/pdf/pass/body/event/venue/address.php
  *
  * See more documentation about our views templating system.
  *
@@ -20,7 +20,7 @@ if ( empty( $venue ) ) {
 
 $comma_separator      = ', ';
 $line_separator       = '<br />';
-$append_after_address = array_filter( array_map( 'trim', [ $venue->state_province ?? null, $venue->state ?? null, $venue->province ?? null ] ) );
+$append_after_address = array_map( 'trim', array_filter( [ $venue->state_province ?? null, $venue->state ?? null, $venue->province ?? null ] ) );
 
 ?>
 <table class="tec-tickets__wallet-plus-pdf-event-venue-detail-table">

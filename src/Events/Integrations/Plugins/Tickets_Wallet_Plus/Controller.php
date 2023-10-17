@@ -4,6 +4,7 @@ namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus;
 
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
+use TEC\Tickets_Wallet_Plus\Controller as Tickets_Wallet_Plus;
 use Tribe__Template;
 
 /**
@@ -27,14 +28,7 @@ class Controller extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		return function_exists( 'tec_tickets_wallet_plus_load' );
-
-		// @todo @codingmusician: The code below is what we should be using, but it isn't working. [ETWP-50]
-		// if ( ! class_exists( '\TEC\Tickets_Wallet_Plus\Controller', false ) ) {
-		// 	return false;
-		// }
-
-		// return $this->container->make( '\TEC\Tickets_Wallet_Plus\Controller' )->is_active();
+		return $this->container->make( Tickets_Wallet_Plus::class )->is_active();
 	}
 
 	/**
@@ -69,6 +63,7 @@ class Controller extends Integration_Abstract {
 		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_context' ] );
 		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_event_date_to_apple_pass_data' ], 10, 3 );
 		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_venue_to_apple_pass_data' ], 10 , 3);
+		add_filter( 'tec_tickets_wallet_plus_pdf_sample_template_context', [ $this, 'add_event_data_to_pdf_sample' ] );
 	}
 
 	/**
@@ -81,7 +76,7 @@ class Controller extends Integration_Abstract {
 	 * @return array
 	 */
 	public function filter_pdf_template_context( $context ): array {
-		return $this->container->make( Pdf::class )->filter_template_context( $context );
+		return $this->container->make( Passes\Pdf::class )->filter_template_context( $context );
 	}
 
 	/**
@@ -96,7 +91,7 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function add_styles_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_tec_styles( $file, $name, $template );
+		$this->container->make( Passes\Pdf::class )->add_tec_styles( $file, $name, $template );
 	}
 
 	/**
@@ -111,7 +106,7 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function add_venue_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_venue( $file, $name, $template );
+		$this->container->make( Passes\Pdf::class )->add_venue( $file, $name, $template );
 	}
 
 	/**
@@ -126,7 +121,20 @@ class Controller extends Integration_Abstract {
 	 * @return void
 	 */
 	public function add_event_date_to_pdf( $file, $name, $template ) {
-		$this->container->make( Pdf::class )->add_event_date( $file, $name, $template );
+		$this->container->make( Passes\Pdf::class )->add_event_date( $file, $name, $template );
+	}
+
+	/**
+	 * Add event data to PDF sample.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $context Template context.
+	 *
+	 * @return array
+	 */
+	public function add_event_data_to_pdf_sample( $context ): array {
+		return $this->container->make( Passes\Pdf::class )->add_event_data_to_sample( $context );
 	}
 
 	/**
