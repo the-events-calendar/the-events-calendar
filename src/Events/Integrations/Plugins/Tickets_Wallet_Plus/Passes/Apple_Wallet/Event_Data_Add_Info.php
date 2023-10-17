@@ -1,7 +1,14 @@
 <?php
 
-namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Apple_Wallet;
+namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes\Apple_Wallet;
 
+/**
+ * Class Event_Data_Add_Info
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes\Apple_Wallet
+ */
 class Event_Data_Add_Info {
 
 	/**
@@ -59,7 +66,7 @@ class Event_Data_Add_Info {
 			'key'        => 'event_start_date',
 			'label'      => esc_html__( 'Date', 'event-tickets-wallet-plus' ),
 			'timeStyle'  => 'PKDateStyleShort',
-			'value'      => $event->dates->start->format('Y-m-d\TH:iP'),
+			'value'      => $event->dates->start->format( 'Y-m-d\TH:iP' ),
 		];
 
 		return $pass_data;
