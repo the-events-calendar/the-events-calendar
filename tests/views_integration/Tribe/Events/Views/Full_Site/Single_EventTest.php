@@ -15,12 +15,6 @@ class Single_EventTest extends HtmlTestCase {
 		tribe( \Tribe__Events__Editor__Provider::class )->register();
 	}
 
-	public function tearDown(): void {
-		// Remove any added filters, cleanup resources, etc.
-		remove_filter( 'tribe_editor_should_load_blocks', '__return_true', PHP_INT_MAX );
-		parent::tearDown();
-	}
-
 	/**
 	 * Test that the block contains 'tribe-block' class.
 	 */

@@ -80,10 +80,20 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 * @return null|WP_Block_Template The hydrated single event template object.
 	 */
 	protected function create_wp_block_template(): ?WP_Block_Template {
-		$insert = [
+		/* translators: %s: Event (singular) */
+		$post_title = sprintf(
+			esc_html_x( '%s Single', 'The Full Site editor block navigation title', 'the-events-calendar' ),
+			tribe_get_event_label_singular()
+		);
+		/* translators: %s: event (singular) */
+		$post_excerpt = sprintf(
+			esc_html_x( 'Displays a single %s.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
+			tribe_get_event_label_singular_lowercase()
+		);
+		$insert       = [
 			'post_name'    => $this->slug(),
-			'post_title'   => esc_html_x( 'Event Single', 'The Full Site editor block navigation title', 'the-events-calendar' ),
-			'post_excerpt' => esc_html_x( 'Displays a single event.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
+			'post_title'   => $post_title,
+			'post_excerpt' => $post_excerpt,
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
 			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(

@@ -19,6 +19,6 @@ tribe_asset_enqueue_group( Event_Assets::$group_key );
 tribe_asset_enqueue( 'tec-events-iframe-content-resizer' );
 ?>
 
-<div class="tribe-block tribe-block__single-event">
+<div class="tec-block tec-block__single-event">
 	<?php echo tribe( Template_Bootstrap::class )->get_view_html(); ?>
 </div>

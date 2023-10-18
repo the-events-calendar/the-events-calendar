@@ -15,12 +15,6 @@ class Archive_EventsTest extends HtmlTestCase {
 		tribe( \Tribe__Events__Editor__Provider::class )->register();
 	}
 
-	public function tearDown(): void {
-		// Remove any added filters and cleanup resources.
-		remove_filter( 'tribe_editor_should_load_blocks', '__return_true', PHP_INT_MAX );
-		parent::tearDown();
-	}
-
 	/**
 	 * Sorts and removed dynamic fields for consistent structures.
 	 *
