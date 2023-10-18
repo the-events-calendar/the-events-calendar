@@ -157,9 +157,9 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $templates Templates in order of display hierarchy.
+	 * @param string[] $templates Templates in order of display hierarchy.
 	 *
-	 * @return array Adjusted file name that is parsed to match our block template.
+	 * @return string[] Adjusted file name that is parsed to match our block template.
 	 */
 	public function filter_archive_template_hierarchy( $templates ) {
 		if ( empty( $templates ) ) {
