@@ -61,6 +61,8 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters() {
 		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_context' ] );
+		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_event_date_to_apple_pass_data' ], 10, 3 );
+		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_venue_to_apple_pass_data' ], 10 , 3);
 		add_filter( 'tec_tickets_wallet_plus_pdf_sample_template_context', [ $this, 'add_event_data_to_pdf_sample' ] );
 	}
 
@@ -133,5 +135,29 @@ class Controller extends Integration_Abstract {
 	 */
 	public function add_event_data_to_pdf_sample( $context ): array {
 		return $this->container->make( Passes\Pdf::class )->add_event_data_to_sample( $context );
+	}
+
+	/**
+	 * Add Event Data to the Apple Wallet Pass.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $pass_data The Apple Pass data.
+	 * @param array $attendee  The attendee data.
+	 */
+	public function add_event_date_to_apple_pass_data( $pass_data, $attendee ) {
+		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->include_event_data( $pass_data, $attendee );
+	}
+
+	/**
+	 * Add Venue Data to the Apple Wallet Pass.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $pass_data The Apple Pass data.
+	 * @param array $attendee  The attendee data.
+	 */
+	public function add_venue_to_apple_pass_data( $pass_data, $attendee ) {
+		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->include_venue_data( $pass_data, $attendee );
 	}
 }
