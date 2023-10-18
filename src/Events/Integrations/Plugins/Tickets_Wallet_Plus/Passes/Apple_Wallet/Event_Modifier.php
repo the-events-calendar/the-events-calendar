@@ -3,13 +3,13 @@
 namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes\Apple_Wallet;
 
 /**
- * Class Event_Data_Add_Info
+ * Class Event_Modifier
  *
  * @since   TBD
  *
  * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes\Apple_Wallet
  */
-class Event_Data_Add_Info {
+class Event_Modifier {
 
 	/**
 	 * Add the Event date into the Apple Pass `back` data.
@@ -21,15 +21,14 @@ class Event_Data_Add_Info {
 	 *
 	 * @return array Modified pass data.
 	 */
-	public function add_event_date_to_apple_pass_data( array $pass_data, array $attendee ): array {
+	public function include_event_data( array $pass_data, array $attendee ): array {
 
 		if ( ! tec_tickets_tec_events_is_active() ) {
 			return $pass_data;
 		}
 
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
-		$enabled_post_types = (array) tribe_get_option( 'ticket-enabled-post-types', [] );
-		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, $enabled_post_types, true ) ) {
+		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $pass_data;
 		}
 
@@ -39,7 +38,7 @@ class Event_Data_Add_Info {
 		$event = tribe_get_event( $event_id );
 
 		// Bail if it's empty or if the ticket is from a page/post or any other CPT with tickets.
-		if ( empty( $event ) || $event->post_type !== \Tribe__Events__Main::POSTTYPE ) {
+		if ( empty( $event ) || ! in_array( $event->post_type, tribe( 'tickets.main' )->post_types() ) ) {
 			return $pass_data;
 		}
 
@@ -82,14 +81,13 @@ class Event_Data_Add_Info {
 	 *
 	 * @return array Modified pass data.
 	 */
-	public function add_venue_to_apple_pass_data( array $pass_data, array $attendee ): array {
+	public function include_venue_data( array $pass_data, array $attendee ): array {
 		if ( ! tec_tickets_tec_events_is_active() ) {
 			return $pass_data;
 		}
 
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
-		$enabled_post_types = (array) tribe_get_option( 'ticket-enabled-post-types', [] );
-		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, $enabled_post_types, true ) ) {
+		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $pass_data;
 		}
 
@@ -98,15 +96,18 @@ class Event_Data_Add_Info {
 		// Get the event.
 		$event = tribe_get_event( $event_id );
 
-		if ( $event->venues->count() ) {
-			$venue = $event->venues[0];
 
-			$pass_data['auxiliary'][] = [
-				'key'   => 'event_venue',
-				'label' => esc_html__( 'Venue', 'event-tickets-wallet-plus' ),
-				'value' => $venue->post_title,
-			];
+		if ( empty( $event->venues->count() ) ) {
+			return $pass_data;
 		}
+
+		$venue = $event->venues[0];
+
+		$pass_data['auxiliary'][] = [
+			'key'   => 'event_venue',
+			'label' => esc_html__( 'Venue', 'event-tickets-wallet-plus' ),
+			'value' => $venue->post_title,
+		];
 
 		return $pass_data;
 	}
