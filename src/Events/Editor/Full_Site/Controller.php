@@ -15,17 +15,13 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
  * @package TEC\Events\Editor\Full_Site
  */
 class Controller extends Controller_Contract {
-
 	/**
 	 * Register the provider.
 	 *
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		// Register singletons.
-		$this->register_singletons();
 		$this->add_filters();
-		$this->add_actions();
 
 		// Register the Service Provider for Assets.
 		$this->register_assets();
@@ -38,7 +34,6 @@ class Controller extends Controller_Contract {
 	 * Unhooks actions and filters.
 	 */
 	public function unregister(): void {
-		$this->remove_actions();
 		$this->remove_filters();
 	}
 
@@ -51,17 +46,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function is_active(): bool {
 		return tec_is_full_site_editor();
-	}
-
-	/**
-	 * Registers any requires singletons.
-	 *
-	 * @since 5.14.2
-	 *
-	 */
-	private function register_singletons() {
-		$this->container->singleton( Archive_Events::class, Archive_Events::class, [ 'load' ] );
-		$this->container->singleton( Single_Event::class, Single_Event::class, [ 'load' ] );
 	}
 
 	/**
@@ -210,28 +194,6 @@ class Controller extends Controller_Contract {
 		$templates[ $index ] = 'single-event.php';
 
 		return $templates;
-	}
-
-
-	/**
-	 * Adds the actions required by the FSE components.
-	 *
-	 * @since 5.14.2
-	 */
-	protected function add_actions() {
-		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
-		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
-	}
-
-
-	/**
-	 * Removes registered actions.
-	 *
-	 * @since TBD
-	 */
-	public function remove_actions() {
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
 	}
 
 	/**

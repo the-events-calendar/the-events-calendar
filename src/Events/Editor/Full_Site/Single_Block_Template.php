@@ -97,7 +97,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
 			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
-				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Editor/Full_Site/Templates/single-event.html'
+				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Blocks/Single_Event_Template/templates/single-event.html'
 			) ),
 			'tax_input'    => [
 				'wp_theme' => $this->get_namespace()
