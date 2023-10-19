@@ -74,6 +74,10 @@ class Block_TemplatesTest extends HtmlTestCase {
 			$normalized_templateA = $templateA;
 			$normalized_templateB = $templateB;
 
+			// This is only hydrated in WP 6.3+ - removing for some backwards compat in tests.
+			$normalized_templateA->modified = null;
+			$normalized_templateB->modified = null;
+
 			// Should have correct content, title, id, slug etc.
 			$this->assertEquals( $normalized_templateA, $normalized_templateB );
 			$this->assertMatchesSnapshot( self::normalize_wp_template( $normalized_templateA ) );
