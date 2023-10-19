@@ -423,7 +423,7 @@ class Assets extends Service_Provider {
 				'priority'     => 10,
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key, static::$widget_group_key ],
-				'in_footer'    => array( 'strategy'  => 'defer' ),
+				'in_footer'    => [ 'strategy' => 'defer' ],
 			]
 		);
 
