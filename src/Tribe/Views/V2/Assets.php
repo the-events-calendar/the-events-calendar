@@ -205,7 +205,7 @@ class Assets extends Service_Provider {
 				'conditionals' => [ $this, 'should_enqueue_frontend' ],
 				'groups'       => [ static::$group_key, static::$widget_group_key ],
 				'defer'        => true,
-				'in_footer'    => array( 'strategy'  => 'defer' ),
+				'in_footer'    => [ 'strategy' => 'defer' ],
 			]
 		);
 		wp_script_add_data( 'jquery-core', 'strategy', 'defer' );
