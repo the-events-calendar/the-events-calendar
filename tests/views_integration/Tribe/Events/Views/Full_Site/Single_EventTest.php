@@ -20,7 +20,7 @@ class Single_EventTest extends HtmlTestCase {
 	 */
 	public function test_block_contains_tribe_block_class() {
 		$block_content = $this->renderSingleEventBlock();
-		$this->assertStringContainsString( 'tribe-block', $block_content );
+		$this->assertStringContainsString( 'tec-block', $block_content );
 	}
 
 	/**
@@ -28,7 +28,7 @@ class Single_EventTest extends HtmlTestCase {
 	 */
 	public function test_block_contains_tribe_block_single_event_class() {
 		$block_content = $this->renderSingleEventBlock();
-		$this->assertStringContainsString( 'tribe-block__single-event', $block_content );
+		$this->assertStringContainsString( 'tec-block__single-event', $block_content );
 	}
 
 	/**

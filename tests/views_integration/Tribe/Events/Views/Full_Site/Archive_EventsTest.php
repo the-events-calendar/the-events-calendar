@@ -45,7 +45,7 @@ class Archive_EventsTest extends HtmlTestCase {
 	 */
 	public function test_block_contains_tribe_block_class() {
 		$block_content = $this->render_archive_events_block();
-		$this->assertStringContainsString( 'tribe-block', $block_content );
+		$this->assertStringContainsString( 'tec-block', $block_content );
 	}
 
 	/**
@@ -53,6 +53,6 @@ class Archive_EventsTest extends HtmlTestCase {
 	 */
 	public function test_block_contains_tribe_block_archive_events_class() {
 		$block_content = $this->render_archive_events_block();
-		$this->assertStringContainsString( 'tribe-block__archive-events', $block_content );
+		$this->assertStringContainsString( 'tec-block__archive-events', $block_content );
 	}
 }

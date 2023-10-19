@@ -15,7 +15,7 @@ class Block_TemplatesTest extends HtmlTestCase {
 	}
 
 	/**
-	 * Sorts and removed dynamic fields for consistent structures.
+	 * Sorts and removed dynamic fields for consistent structures to use in snapshots.
 	 *
 	 * @param $template
 	 *
@@ -24,8 +24,8 @@ class Block_TemplatesTest extends HtmlTestCase {
 	public static function normalize_wp_template( $template ): array {
 		$array_template = (array) $template;
 		asort( $array_template );
-		// Dynamic fields, ditch them.
-		foreach ( [ 'wp_id', 'author' ] as $field ) {
+		// Dynamic fields, ditch them for snapshots.
+		foreach ( [ 'wp_id', 'author', 'modified' ] as $field ) {
 			$array_template[ $field ] = null;
 		}
 
@@ -71,12 +71,12 @@ class Block_TemplatesTest extends HtmlTestCase {
 			$this->assertEquals( $templateA->wp_id, $templateB->wp_id );
 
 			// Normalize for comparisons.
-			$normalized_templateA = self::normalize_wp_template( $templateA );
-			$normalized_templateB = self::normalize_wp_template( $templateB );
+			$normalized_templateA = $templateA;
+			$normalized_templateB = $templateB;
 
 			// Should have correct content, title, id, slug etc.
 			$this->assertEquals( $normalized_templateA, $normalized_templateB );
-			$this->assertMatchesSnapshot( $normalized_templateA );
+			$this->assertMatchesSnapshot( self::normalize_wp_template( $normalized_templateA ) );
 		}
 	}
 }
