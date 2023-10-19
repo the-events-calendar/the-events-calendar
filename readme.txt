@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
+* Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
 
 = [6.2.4] 2023-10-19 =
 
