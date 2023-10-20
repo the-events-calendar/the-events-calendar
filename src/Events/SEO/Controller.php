@@ -85,12 +85,12 @@ class Controller extends Controller_Contract {
 
 		$context = tribe_context();
 
-		// ensure we're doing an even query
+		// Ensure we're doing an even query
 		if ( ! $context->is( 'tec_post_type' ) ) {
 			return;
 		}
 
-		// But not on single events.
+		// But never on single events.
 		if ( is_single( TEC::POSTTYPE) ) {
 			return;
 		}
@@ -128,6 +128,15 @@ class Controller extends Controller_Contract {
 		}
 	}
 
+	/**
+	 * Returns a count of events in the current view's "future" after doing a one-event query.
+	 * Returns 0 in *all* cases where no events are found, including when we have bad query data.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Context $context The current context.
+	 * @param string         $view    The current view.
+	 */
 	public function get_view_event_count( $context = null, $view = null ): int {
 		global $wp_query;
 
@@ -214,6 +223,15 @@ class Controller extends Controller_Contract {
 		);
 	}
 
+	/**
+	 * Modifies the http headers to add a canonical link to ical download pages
+	 *
+	 * @since TBD
+	 *
+	 * @param array $headers The array of headers WP is using.
+	 *
+	 * @return array The modified array of headers.
+	 */
 	public function modify_http_headers( $headers ) {
 		global $wp;
 		$request = tribe_get_request_vars();
