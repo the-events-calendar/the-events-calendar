@@ -20,10 +20,15 @@ use Tribe__Events__Main as TEC;
  * Class Provider
  *
  * @since 6.2.3
-
+ *
  * @package TEC\Events\SEO
  */
 class Controller extends Controller_Contract {
+	/**
+	 * Registers the actions.
+	 *
+	 * @since 6.2.3
+	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
 
@@ -31,6 +36,11 @@ class Controller extends Controller_Contract {
 		add_action( 'wp_headers', [ $this, 'modify_http_headers' ], 999 );
 	}
 
+	/**
+	 * De-registers the actions.
+	 *
+	 * @since 6.2.3
+	 */
 	public function unregister(): void {
 		remove_action( 'get_header', [ $this, 'issue_noindex' ] );
 		remove_action( 'wp_headers', [ $this, 'modify_http_headers' ], 999 );
