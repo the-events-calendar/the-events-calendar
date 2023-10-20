@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Resolves an issue with certain versions of Wordpress already having the legacy widget block registered causing us to trigger the console error `Block "core/legacy-widget" is already registered.` would occur. Now we check if registered first. [TEC-4764]
+
 = [6.2.3.2] 2023-10-12 =
 
 * Fix - Prevent noindex code from adding tags to single event pages. [TEC-4949]
