@@ -229,10 +229,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
+
 = [6.2.4] 2023-10-19 =
 
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
-
 
 = [6.2.3.2] 2023-10-12 =
 
