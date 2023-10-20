@@ -7,11 +7,13 @@
  * @package TEC\Events\SEO
  */
 
- namespace TEC\Events\SEO;
+namespace TEC\Events\SEO;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use \Tribe__Date_Utils as Dates;
-use Tribe__Repository;
+use \Tribe__Repository;
+use \Tribe__Events__Rewrite;
+use Tribe__Events__Main as TEC;
 
 
 /**
@@ -26,10 +28,12 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( static::class, $this );
 
 		add_action( 'get_header', [ $this, 'issue_noindex' ] );
+		add_action( 'wp_headers', [ $this, 'modify_http_headers' ], 999 );
 	}
 
 	public function unregister(): void {
 		remove_action( 'get_header', [ $this, 'issue_noindex' ] );
+		remove_action( 'wp_headers', [ $this, 'modify_http_headers' ], 999 );
 	}
 
 	/**
@@ -55,8 +59,6 @@ class Controller extends Controller_Contract {
 	 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 	 */
 	public function issue_noindex(): void {
-		global $wp_query;
-
 		/**
 		 * Allows filtering of if a noindex meta tag will be set for the current event view.
 		 *
@@ -66,25 +68,76 @@ class Controller extends Controller_Contract {
 		 */
 		$do_noindex_meta = apply_filters( 'tec_events_add_no_index_meta_tag', true );
 
+		// Filter above is set to false.
 		if ( ! tribe_is_truthy( $do_noindex_meta ) ) {
 			return;
 		}
 
-		if ( is_home() || is_front_page() || is_single() ) {
+		// Never on the home page, or for ajax requests.
+		if ( is_home() || is_front_page() || is_ajax() ) {
 			return;
 		}
 
+		// Are doing an event query? If not, we're out.
 		if ( ! $wp_query = tribe_get_global_query_object() ) {
 			return;
 		}
 
 		$context = tribe_context();
 
+		// ensure we're doing an even query
 		if ( ! $context->is( 'tec_post_type' ) ) {
 			return;
 		}
 
+		// But not on single events.
+		if ( is_single( TEC::POSTTYPE) ) {
+			return;
+		}
+
 		$view = $context->get( 'view' );
+
+		// Do a mini-query to get at most one event in the future.
+		$event_count = $this->get_view_event_count( $context, $view );
+
+		// If there are no events, we add the noindex.
+		$add_noindex = $event_count <= 0;
+
+		/**
+		 * Determines if a noindex meta tag will be set for the current event view.
+		 *
+		 * @since  3.12.4
+		 *
+		 * @var bool $add_noindex
+		 * @var Tribe__Context $context The view context.
+		 */
+		$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex, $context );
+
+		/**
+		 * Determines if a noindex meta tag will be set for a specific event view.
+		 *
+		 * @since 6.2.3
+		 *
+		 * @var bool $add_noindex
+		 * @var Tribe__Context $context The view context.
+		 */
+		$add_noindex = apply_filters( "tec_events_{$view}_add_no_index_meta", $add_noindex, $context );
+
+		if ( $add_noindex ) {
+			add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
+		}
+	}
+
+	public function get_view_event_count( $context = null, $view = null ): int {
+		global $wp_query;
+
+		if ( empty( $context ) ) {
+			$context = tribe_context();
+		}
+
+		if ( empty( $view ) ) {
+			$view = $context->get( 'view' );
+		}
 
 		$start_date = ! empty( $wp_query->query[ 'eventDate' ] ) ? $wp_query->get( 'eventDate' ) : $context->get( 'event_date' );
 		$start_date = Dates::build_date_object( $start_date );
@@ -93,7 +146,7 @@ class Controller extends Controller_Contract {
 
 		// Prevent issues with invalid dates.
 		if ( false === $start_date || false === $end_date ) {
-			return;
+			return 0;
 		}
 
 		$events = tribe_events();
@@ -129,33 +182,7 @@ class Controller extends Controller_Contract {
 			}
 		}
 
-		// No posts = no index.
-		$count = $events->count();
-		$add_noindex = $count <= 0;
-
-		/**
-		 * Determines if a noindex meta tag will be set for the current event view.
-		 *
-		 * @since  3.12.4
-		 *
-		 * @var bool $add_noindex
-		 * @var Tribe__Context $context The view context.
-		 */
-		$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex, $context );
-
-		/**
-		 * Determines if a noindex meta tag will be set for a specific event view.
-		 *
-		 * @since 6.2.3
-		 *
-		 * @var bool $add_noindex
-		 * @var Tribe__Context $context The view context.
-		 */
-		$add_noindex = apply_filters( "tec_events_{$view}_add_no_index_meta", $add_noindex, $context );
-
-		if ( $add_noindex ) {
-			add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
-		}
+		return $events->count();
 	}
 
 	/**
@@ -185,6 +212,20 @@ class Controller extends Controller_Contract {
 				],
 			]
 		);
+	}
+
+	public function modify_http_headers( $headers ) {
+		global $wp;
+		$request = tribe_get_request_vars();
+
+		// Only interested in ical requests currently.
+		if ( ! isset( $request['ical'] ) ) {
+			return $headers;
+		}
+
+		$headers['link'] = '<' . tribe( Tribe__Events__Rewrite::class )->get_canonical_url( home_url( $wp->request ) ) . '>; rel="canonical"';
+
+		return $headers;
 	}
 
 	/**
