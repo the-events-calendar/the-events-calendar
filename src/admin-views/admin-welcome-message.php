@@ -76,12 +76,12 @@ $main = Tribe__Main::instance();
 		<div class="tribe-events-admin-card tribe-events-admin-card--1up">
 			<img
 				class="tribe-events-admin-card__image"
-				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/virtual-events.jpg', false, null, $main ) ); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/tec-facebook.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'illustration of a phone screen with a person\'s face', 'the-events-calendar' ); ?>"
 			/>
-			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Virtual Event Resources', 'the-events-calendar' ); ?></div>
-			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Tips and tools to help with planning online events, webinars, and more on WordPress and beyond.', 'the-events-calendar' ); ?></div>
-			<a class="tribe-events-admin-card__link" href="https://evnt.is/1ame"><?php esc_html_e( 'Get started with online events', 'the-events-calendar' ); ?></a>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'The Events Calendar Official Facebook Community', 'the-events-calendar' ); ?></div>
+			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Get feedback on your calendar, be the first to learn about updates, and share ideas.', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/1bc-" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Join our Facebook Group today!', 'the-events-calendar' ); ?></a>
 		</div>
 
 		<div class="tribe-events-admin-card tribe-events-admin-card--2up tribe-events-admin-card--first">

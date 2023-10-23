@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Adjust the content in the admin welcome page to include a link to the TEC Facebook community group. [TEC-4953]
+
 = [6.2.4] 2023-10-19 =
 
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
