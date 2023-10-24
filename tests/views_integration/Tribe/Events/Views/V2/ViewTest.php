@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Context as Context;
@@ -10,6 +11,7 @@ use Tribe__Date_Utils as Dates;
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
+	use MatchesSnapshots;
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
@@ -87,10 +89,22 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return '__return_true';
 		} );
 
+		// Change our nonces.
+		add_filter( 'tec_events_views_v2_get_rest_nonces', function ( $nonces ) {
+			foreach ( $nonces as $key => $val ) {
+				// Take the changing nonce hash out of it so we can snapshot test.
+				$nonces[ $key ] = $key;
+			}
+
+			return $nonces;
+		} );
+
+		ob_start();
 		$view = View::make( 'test' );
 		$view->send_html();
+		$content = ob_get_clean();
 
-		$this->expectOutputString( Test_View::class );
+		$this->assertMatchesSnapshot( $content );
 	}
 
 	/**
@@ -106,10 +120,22 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return '__return_true';
 		} );
 
+		// Change our nonces.
+		add_filter( 'tec_events_views_v2_get_rest_nonces', function ( $nonces ) {
+			foreach ( $nonces as $key => $val ) {
+				// Take the changing nonce hash out of it so we can snapshot test.
+				$nonces[ $key ] = $key;
+			}
+
+			return $nonces;
+		} );
+
+		ob_start();
 		$view = View::make( 'test' );
 		$view->send_html( 'Alice in Wonderland' );
+		$content = ob_get_clean();
 
-		$this->expectOutputString( 'Alice in Wonderland' );
+		$this->assertMatchesSnapshot( $content );
 	}
 
 	/**

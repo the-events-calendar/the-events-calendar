@@ -188,6 +188,7 @@ class Template_Bootstrap {
 	 * @todo Stop handling kitchen sink template here.
 	 *
 	 * @since  4.9.2
+	 * @since TBD Adding the HTML nonce to this output.
 	 *
 	 * @return string
 	 */
@@ -214,7 +215,6 @@ class Template_Bootstrap {
 
 		// Need our nonces for AJAX requests.
 		$nonce_html = Rest_Endpoint::get_rest_nonce_html( Rest_Endpoint::get_rest_nonces());
-
 
 		$should_display_single = (
 			$this->is_single_event()
@@ -278,7 +278,7 @@ class Template_Bootstrap {
 		 *                                   based on the context but possibly altered in the build process.
 		 * @param \WP_Query       $query     The current WP Query object.
 		 */
-		return apply_filters( 'tribe_events_views_v2_bootstrap_html', $html.$nonce_html, $context, $view_slug, $query );
+		return apply_filters( 'tribe_events_views_v2_bootstrap_html', $html . $nonce_html, $context, $view_slug, $query );
 	}
 
 	/**

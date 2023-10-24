@@ -649,6 +649,7 @@ class View implements View_Interface {
 	 * Sends, echoing it and exiting, the view HTML on the page.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Adding the HTML nonce to this output.
 	 *
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.
