@@ -655,8 +655,9 @@ class View implements View_Interface {
 	 *
 	 */
 	public function send_html( $html = null ) {
-		$html = null === $html ? $this->get_html() : $html;
-		echo $html;
+		$nonce_html = Rest_Endpoint::get_rest_nonce_html( Rest_Endpoint::get_rest_nonces() );
+		$html       = null === $html ? $this->get_html() : $html;
+		echo $html . $nonce_html;
 		tribe_exit( 200 );
 	}
 
@@ -693,10 +694,6 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
-		// Need our nonces for AJAX requests.
-		$nonces     = Rest_Endpoint::get_rest_nonces();
-		$nonce_html = "<script data-js='tribe-events-view-nonce-data' type='application/json'>" . wp_json_encode( $nonces ) . "</script>";
-
 		/*
 		 * Some Views might need to access this out of this method, let's make the filtered repository arguments
 		 * available.
@@ -710,7 +707,7 @@ class View implements View_Interface {
 		) {
 			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
-			return $cached_html . $nonce_html;
+			return $cached_html ;
 		}
 
 		if ( ! tribe_events_view_v2_use_period_repository() ) {
@@ -740,7 +737,7 @@ class View implements View_Interface {
 		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 		remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
-		return $html . $nonce_html;
+		return $html ;
 	}
 
 	/**

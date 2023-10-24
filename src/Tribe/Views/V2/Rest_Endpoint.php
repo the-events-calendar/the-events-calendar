@@ -224,6 +224,12 @@ class Rest_Endpoint {
 		return (array) apply_filters( 'tec_events_views_v2_get_rest_nonces', $generated_nonces );
 	}
 
+	public static function get_rest_nonce_html( array $nonces ):string {
+		$html = "<script data-js='tribe-events-view-nonce-data' type='application/json'>" . wp_json_encode( $nonces ) . "</script>";
+
+		return (string)apply_filters('bob', $html, $nonces);
+	}
+
 	/**
 	 * Returns the URL View will use to fetch their content.
 	 *
