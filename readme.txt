@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside this HTML generation that would was being cached. [TEC-4936]
+
 = [6.2.4] 2023-10-19 =
 
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
