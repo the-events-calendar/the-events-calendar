@@ -89,16 +89,6 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return '__return_true';
 		} );
 
-		// Change our nonces.
-		add_filter( 'tec_events_views_v2_get_rest_nonces', function ( $nonces ) {
-			foreach ( $nonces as $key => $val ) {
-				// Take the changing nonce hash out of it so we can snapshot test.
-				$nonces[ $key ] = $key;
-			}
-
-			return $nonces;
-		} );
-
 		ob_start();
 		$view = View::make( 'test' );
 		$view->send_html();
@@ -118,16 +108,6 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		} );
 		add_filter( 'tribe_exit', function () {
 			return '__return_true';
-		} );
-
-		// Change our nonces.
-		add_filter( 'tec_events_views_v2_get_rest_nonces', function ( $nonces ) {
-			foreach ( $nonces as $key => $val ) {
-				// Take the changing nonce hash out of it so we can snapshot test.
-				$nonces[ $key ] = $key;
-			}
-
-			return $nonces;
 		} );
 
 		ob_start();

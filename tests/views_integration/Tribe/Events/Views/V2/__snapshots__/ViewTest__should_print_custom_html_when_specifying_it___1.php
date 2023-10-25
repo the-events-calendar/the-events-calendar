@@ -1,1 +1,1 @@
-<?php return 'Alice in Wonderland<script data-js=\'tribe-events-view-nonce-data\' type=\'application/json\'>{"_tec_view_rest_nonce_primary":"_tec_view_rest_nonce_primary","_tec_view_rest_nonce_secondary":"_tec_view_rest_nonce_secondary"}</script>';
+<?php return 'Alice in Wonderland';

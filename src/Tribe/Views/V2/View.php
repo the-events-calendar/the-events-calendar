@@ -649,16 +649,14 @@ class View implements View_Interface {
 	 * Sends, echoing it and exiting, the view HTML on the page.
 	 *
 	 * @since 4.9.2
-	 * @since TBD Adding the HTML nonce to this output.
 	 *
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.
 	 *
 	 */
 	public function send_html( $html = null ) {
-		$nonce_html = Rest_Endpoint::get_rest_nonce_html( Rest_Endpoint::get_rest_nonces() );
-		$html       = null === $html ? $this->get_html() : $html;
-		echo $html . $nonce_html;
+		$html = null === $html ? $this->get_html() : $html;
+		echo $html;
 		tribe_exit( 200 );
 	}
 
@@ -695,6 +693,9 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
+		// Need our nonces for AJAX requests.
+		$nonce_html = Rest_Endpoint::get_rest_nonce_html( Rest_Endpoint::get_rest_nonces() );
+
 		/*
 		 * Some Views might need to access this out of this method, let's make the filtered repository arguments
 		 * available.
@@ -708,7 +709,7 @@ class View implements View_Interface {
 		) {
 			remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
-			return $cached_html ;
+			return $cached_html . $nonce_html;
 		}
 
 		if ( ! tribe_events_view_v2_use_period_repository() ) {
@@ -738,7 +739,7 @@ class View implements View_Interface {
 		remove_filter( 'tribe_repository_query_arg_offset_override', [ $this, 'filter_repository_query_arg_offset_override' ], 10, 2 );
 		remove_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
 
-		return $html ;
+		return $html . $nonce_html;
 	}
 
 	/**
@@ -1295,7 +1296,7 @@ class View implements View_Interface {
 		 *                                      template.
 		 * @param View_Interface $view          The current view whose template variables are being set.
 		 */
-		$template_vars = apply_filters( 'tribe_events_views_v2_view_template_vars', $template_vars, $this ); // @todo ~.5s
+		$template_vars = apply_filters( 'tribe_events_views_v2_view_template_vars', $template_vars, $this );
 		$view_slug     = static::$view_slug;
 
 		/**
