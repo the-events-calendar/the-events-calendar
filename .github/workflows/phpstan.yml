@@ -29,10 +29,19 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.phpVersion }}
+      # ------------------------------------------------------------------------------
+      # Override composer php version
+      # ------------------------------------------------------------------------------
       - name: Set php version ${{ matrix.phpVersion }} in composer
         run: composer config platform.php ${{ matrix.phpVersion }}
+      # ------------------------------------------------------------------------------
+      # Install dependencies - ignoring php requirements
+      # ------------------------------------------------------------------------------
       - name: Install dependencies
         run: composer i --ignore-platform-req=php+
+      # ------------------------------------------------------------------------------
+      # Run phpstan
+      # ------------------------------------------------------------------------------
       - name: Run phpstan
         run: ./vendor/bin/phpstan analyse
 
