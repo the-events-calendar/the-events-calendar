@@ -8,17 +8,13 @@ jobs:
   phpstan:
     strategy:
       matrix:
-        phpVersions:
-          - long: "70400"
-            short: "7.4"
-          - long: "80000"
-            short: "8.0"
-          - long: "80100"
-            short: "8.1"
-          - long: "80200"
-            short: "8.2"
-          - long: "80300"
-            short: "8.3"
+        phpVersion: [
+            "7.4",
+            "8.0",
+            "8.1",
+            "8.2",
+            "8.3",
+        ]
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout the repository
@@ -29,12 +25,12 @@ jobs:
       # ------------------------------------------------------------------------------
       # Set up PHP and run phpstan
       # ------------------------------------------------------------------------------
-      - name: Configure PHP environment run phpstan
+      - name: Configure PHP environment to run phpstan
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.phpVersions.short }}
-      - name: Set php version in composer
-        run: composer config platform.php ${{ matrix.phpVersions.short }}
+          php-version: ${{ matrix.phpVersion }}
+      - name: Set php version ${{ matrix.phpVersion }} in composer
+        run: composer config platform.php ${{ matrix.phpVersion }}
       - name: Install dependencies
         run: composer i --ignore-platform-req=php+
       - name: Run phpstan
