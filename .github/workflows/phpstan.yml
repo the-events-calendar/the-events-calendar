@@ -27,19 +27,14 @@ jobs:
           fetch-depth: 1000
           submodules: recursive
       # ------------------------------------------------------------------------------
-      # Set up PHP
+      # Set up PHP and run phpstan
       # ------------------------------------------------------------------------------
       - name: Configure PHP environment
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.short }}
       - name: Install vendor
-        run: composer i --ignore-platform-reqs
-      # ------------------------------------------------------------------------------
-      # Run the PHPStan tests
-      # ------------------------------------------------------------------------------
-      - name: Convert PHPStan Config for PHP Versions
         run: |
-          sed -i 's/70400/${{ matrix.long }}/g' phpstan.neon
-      - name: Run PHPStan
-        run: ./vendor/bin/phpstan analyse
+          composer i --ignore-platform-reqs
+          ./vendor/bin/phpstan analyse
+
