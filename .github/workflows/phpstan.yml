@@ -29,12 +29,14 @@ jobs:
       # ------------------------------------------------------------------------------
       # Set up PHP and run phpstan
       # ------------------------------------------------------------------------------
-      - name: Configure PHP environment
+      - name: Configure PHP environment run phpstan
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.short }}
-      - name: Install vendor
-        run: |
-          composer i --ignore-platform-reqs
-          ./vendor/bin/phpstan analyse
+          php-version: ${{ matrix.phpVersions.short }}
+      - name: Set php version in composer
+        run: composer config platform.php ${{ matrix.phpVersions.short }}
+      - name: Install dependencies
+        run: composer i --ignore-platform-req=php+
+      - name: Run phpstan
+        run: ./vendor/bin/phpstan analyse
 
