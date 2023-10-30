@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.3.2
-Tested up to: 6.3.1
+Stable tag: 6.2.4
+Tested up to: 6.3.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Wordpress 6.3 introduce some changes in filters that regressed a prior fix for authentication and our new nonce structure used in view pagination. One symptom of the issue was losing the authenticated user and failing to display user specific capabilities on event views. [ECP-1601]
+
+= [6.2.4] 2023-10-19 =
+
+* Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
 
 = [6.2.3.2] 2023-10-12 =
 
