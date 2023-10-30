@@ -35,6 +35,11 @@ jobs:
       - name: Set php version ${{ matrix.phpVersion }} in composer
         run: composer config platform.php ${{ matrix.phpVersion }}
       # ------------------------------------------------------------------------------
+      # Install dependencies in common - ignoring php requirements
+      # ------------------------------------------------------------------------------
+      - name: Install common dependencies
+        run: cd common &&  composer i --ignore-platform-req=php+ && cd ../
+      # ------------------------------------------------------------------------------
       # Install dependencies - ignoring php requirements
       # ------------------------------------------------------------------------------
       - name: Install dependencies
