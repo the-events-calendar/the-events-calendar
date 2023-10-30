@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.3.2
-Tested up to: 6.3.1
+Stable tag: 6.2.4
+Tested up to: 6.3.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Resolves issue where a deleted venue still attached to an event would cause an `PHP Warning: Undefined variable $data in /code/wp-content/plugins/the-events-calendar/src/Tribe/REST/V1/Post_Repository.php on line 327` error. [TEC-4954]
+
+= [6.2.4] 2023-10-19 =
+
+* Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+
 
 = [6.2.3.2] 2023-10-12 =
 
