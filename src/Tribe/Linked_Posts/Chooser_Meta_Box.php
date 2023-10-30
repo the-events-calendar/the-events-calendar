@@ -34,7 +34,7 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * @var string
 	 */
-	 protected $singular_name_lowercase;
+	protected $singular_name_lowercase;
 
 	public function __construct( $event = null, $post_type = null ) {
 		$this->tribe                   = Tribe__Events__Main::instance();
