@@ -5,5 +5,5 @@ parameters:
     - the-events-calendar.php
   scanDirectories:
     - common/src
-		- common/vendor/vendor-prefixed
+    - common/vendor/vendor-prefixed
     # WP API is stubbed by szepeviktor/phpstan-wordpress - make sure this stays up to date w/ WP
