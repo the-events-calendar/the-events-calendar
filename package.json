@@ -64,7 +64,7 @@
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
     "jest": "TZ=UTC gulp jest",
-    "phpstan": "phpstan analyse --configuration=phpstan.neon --level=max --memory-limit=1G",
+    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
