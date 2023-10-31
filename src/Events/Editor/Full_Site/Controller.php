@@ -23,15 +23,14 @@ class Controller extends Controller_Contract {
 	public function do_register(): void {
 		$this->add_filters();
 
-		// Register the Service Provider for Assets.
-		$this->register_assets();
-
 		// Register the service provider itself on the container.
 		$this->container->singleton( static::class, $this );
 	}
 
 	/**
 	 * Unhooks actions and filters.
+	 *
+	 * @since TBD
 	 */
 	public function unregister(): void {
 		$this->remove_filters();
@@ -49,53 +48,13 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Binds and sets up implementations.
-	 *
-	 * @since 5.14.2
-	 */
-	public function register_assets() {
-		$plugin = Events_Main::instance();
-
-		tribe_asset(
-			$plugin,
-			'tec-events-full-site',
-			'app/full-site.js',
-			[
-				'react',
-				'react-dom',
-				'wp-components',
-				'wp-api',
-				'wp-api-request',
-				'wp-blocks',
-				'wp-i18n',
-				'wp-element',
-				'wp-editor',
-				'tribe-common-gutenberg-data',
-				'tribe-common-gutenberg-utils',
-				'tribe-common-gutenberg-store',
-				'tribe-common-gutenberg-icons',
-				'tribe-common-gutenberg-hoc',
-				'tribe-common-gutenberg-elements',
-				'tribe-common-gutenberg-components',
-			],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_full_site_editor' ],
-				'priority'     => 106,
-			]
-		);
-	}
-
-	/**
 	 * Internal FSE function for asset conditional testing.
 	 *
 	 * @since 5.14.2
 	 *
-	 * @return boolean Whether The current theme supports full-site editing or not.
+	 * @return bool Whether The current theme supports full-site editing or not.
 	 */
-	public function is_full_site_editor() {
+	public function is_full_site_editor(): bool {
 		return tec_is_full_site_editor();
 	}
 

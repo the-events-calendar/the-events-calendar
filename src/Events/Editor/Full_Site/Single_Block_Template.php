@@ -50,7 +50,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 *
 	 * @return array<string,mixed> The array of default attributes.
 	 */
-	public function default_attributes() {
+	public function default_attributes(): array {
 		return [];
 	}
 

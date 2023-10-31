@@ -377,7 +377,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @return bool
 	 */
-	public function is_events_post_type() {
+	public function is_events_post_type(): bool {
 		$current_screen = get_current_screen();
 
 		return Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE )
@@ -392,7 +392,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * @return bool
 	 */
-	public function is_edit_screen() {
+	public function is_edit_screen(): bool {
 		$current_screen = get_current_screen();
 
 		return 'post' === $current_screen->base || 'site-editor' === $current_screen->id;
