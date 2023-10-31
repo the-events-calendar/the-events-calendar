@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Adjust the content in the admin welcome page to include a link to the TEC Facebook community group. [TEC-4953]
+* Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Events__Linked_Posts__Chooser_Meta_Box::$singular_name_lowercase` and `\TEC\Events\Custom_Tables\V1\Models\Builder::$query` [BTRIA-2088]
 
 = [6.2.4] 2023-10-19 =
 
