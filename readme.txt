@@ -319,8 +319,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `blocks/classic-event-details.php`, `blocks/event-category.php`, `blocks/event-datetime.php`, `blocks/event-organizer.php`, `blocks/event-price.php`, `blocks/event-tags.php`, `blocks/event-venue.php`, `blocks/event-website.php`, `blocks/featured-image.php`, `blocks/parts/details.php`, `blocks/parts/organizer.php`, `blocks/parts/subscribe-list.php`, `blocks/parts/subscribe-single.php`, `modules/meta/organizer.php`, `modules/meta/venue.php`, `v2/components/events-bar/search.php`, `v2/day.php`, `v2/list.php`, `v2/month.php`, `v2/widgets/widget-events-list.php`.
 * Language - 11 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted.
 
->>>>>>> release/B23.maria
-
 = [6.1.3] 2023-07-13 =
 
 * Version - The Events Calendar 6.1.3 is only compatible with Events Community 4.10.10 and higher
