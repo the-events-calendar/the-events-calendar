@@ -457,10 +457,10 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 */
 	public function filter_by_date_overlaps( $start_datetime, $end_datetime, $timezone = null, $min_sec_overlap = 1 ) {
 		global $wpdb;
-		$utc = $this->normal_timezone;
+		$tz = $this->normal_timezone;
 
-		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $utc );
-		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $utc );
+		$lower = Tribe__Date_Utils::build_date_object( $start_datetime, $timezone )->setTimezone( $tz );
+		$upper = Tribe__Date_Utils::build_date_object( $end_datetime, $timezone )->setTimezone( $tz );
 		$lower_string = $lower->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$upper_string = $upper->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
 		$start_key = $this->start_meta_key;
@@ -483,9 +483,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$alt_where = $wpdb->prepare(
 			"(
-				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '${upper_string}' ) >= %d
+				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '{$upper_string}' ) >= %d
 				AND
-				TIMESTAMPDIFF ( SECOND, '${lower_string}', {$join_end_key}.meta_value ) >= %d
+				TIMESTAMPDIFF ( SECOND, '{$lower_string}', {$join_end_key}.meta_value ) >= %d
 			)",
 			$min_sec_overlap,
 			$min_sec_overlap
@@ -1251,6 +1251,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				$postarr['meta_input']['_EventStartDateUTC'] = $start->setTimezone( $utc )->format( $datetime_format );
 				$postarr['meta_input']['_EventEndDate']      = $end->format( $datetime_format );
 				$postarr['meta_input']['_EventEndDateUTC']   = $end->setTimezone( $utc )->format( $datetime_format );
+				$postarr['meta_input']['_EventDuration']     = $end->getTimestamp() - $start->getTimestamp();
 			}
 
 			$postarr['meta_input']['_EventTimezoneAbbr'] = Tribe__Timezones::abbr(

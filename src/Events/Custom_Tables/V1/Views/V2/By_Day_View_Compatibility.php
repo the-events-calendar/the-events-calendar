@@ -39,22 +39,17 @@ class By_Day_View_Compatibility {
 			return [];
 		}
 
-		$use_site_timezone = Timezones::is_mode( 'site' );
-		$start_date_prop   = $use_site_timezone ? 'start_date_utc' : 'start_date';
-		$end_date_prop     = $use_site_timezone ? 'end_date_utc' : 'end_date';
-
 		$prepared = [];
 
 		/** @var Occurrence $occurrence */
 		foreach (
-			Occurrence::order_by( $start_date_prop, 'ASC' )
-			          ->find_all( $ids, 'post_id' ) as $occurrence
+			Occurrence::find_all( $ids, 'post_id' ) as $occurrence
 		) {
 			$prepared[ $occurrence->post_id ] = (object) [
-				'ID'         => $occurrence->post_id,
-				'start_date' => $occurrence->{$start_date_prop},
-				'end_date'   => $occurrence->{$end_date_prop},
-				'timezone'   => get_post_meta( $occurrence->post_id, '_EventTimezone', true ),
+				'ID'             => $occurrence->post_id,
+				'start_date'     => $occurrence->start_date,
+				'end_date'       => $occurrence->end_date,
+				'timezone'       => get_post_meta( $occurrence->post_id, '_EventTimezone', true ),
 			];
 		}
 

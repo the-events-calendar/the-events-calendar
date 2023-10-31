@@ -12,7 +12,6 @@ namespace Tribe\Events\Views\V2\Views;
 use DateTimeInterface;
 use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Messages;
-use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Utils\Stack;
 use Tribe\Events\Views\V2\View;
 use Tribe\Traits\Cache_User;
@@ -191,76 +190,62 @@ abstract class By_Day_View extends View {
 		$this->warmup_cache( 'grid_days', 0, Cache_Listener::TRIGGER_SAVE_POST );
 		$this->warmup_cache( 'grid_days_found', 0, Cache_Listener::TRIGGER_SAVE_POST );
 
-		// @todo [BTRIA-599]: Remove this when the Event_Period repository is solid and cleaned up.
-		$using_period_repository = tribe_events_view_v2_use_period_repository();
-		$use_site_timezone       = Timezones::is_mode( 'site' );
+		$use_site_timezone = Timezones::is_mode( 'site' );
+		$first_grid_day    = $days->start;
+		$start             = tribe_beginning_of_day( $first_grid_day->format( Dates::DBDATETIMEFORMAT ) );
+		$last_grid_day     = $days->end;
+		$end               = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
 
-		if ( $using_period_repository ) {
-			/** @var Event_Period $repository */
-			if ( tribe_is_truthy( tribe_get_option( 'enable_month_view_cache', false ) ) ) {
-				$repository = tribe_events( 'period', 'caching' );
-			} else {
-				$repository = tribe_events( 'period' );
-			}
-			$repository->by_period( $grid_start_date, $grid_end_date )->fetch();
-		} else {
-			global $wpdb;
+		/*
+		 * Sort events in duration ascending order to make sure events that start on the same date and time
+		 * will be correctly positioned for multi-day, or all-day, parsing.
+		 * If not explicit, then events with the same start date and time would be sorted in the order MySQL
+		 * read them (not guaranteed).
+		 */
+		$order_by                   = tribe_normalize_orderby( $order_by, $order );
+		$order_by['event_duration'] = 'ASC';
 
-			$first_grid_day = $days->start;
-			$start          = tribe_beginning_of_day( $first_grid_day->format( Dates::DBDATETIMEFORMAT ) );
-			$last_grid_day  = $days->end;
-			$end            = tribe_end_of_day( $last_grid_day->format( Dates::DBDATETIMEFORMAT ) );
+		$events_repository = tribe_events()
+			->set_found_rows( true )
+			->fields( 'ids' )
+			->by_args( $repository_args )
+			->where( 'date_overlaps', $start, $end, null, 2 )
+			->per_page( - 1 )
+			->order_by( $order_by, $order );
 
-			/*
-			 * Sort events in duration ascending order to make sure events that start on the same date and time
-			 * will be correctly positioned for multi-day, or all-day, parsing.
-			 * If not explicit, then events with the same start date and time would be sorted in the order MySQL
-			 * read them (not guaranteed).
-			 */
-			$order_by                   = tribe_normalize_orderby( $order_by, $order );
-			$order_by['event_duration'] = 'ASC';
+		/**
+		 * Allows modifications to the repository, which allows specific modifications to the grid query.
+		 *
+		 * @since  5.8.2
+		 *
+		 * @param \Tribe__Repository__Interface $events_repository The Event repository we are going to filter.
+		 * @param DateTimeInterface             $grid_start        The View grid start date.
+		 * @param DateTimeInterface             $grid_end          The View grid end date.
+		 * @param By_Day_View                   $this              A reference to the View instance that has fired this filter.
+		 */
+		$events_repository = apply_filters( 'tribe_events_views_v2_by_day_view_day_repository', $events_repository, $grid_start, $grid_end, $this );
 
-			$events_repository = tribe_events()
-				->set_found_rows( true )
-				->fields( 'ids' )
-				->by_args( $repository_args )
-				->where( 'date_overlaps', $start, $end, null, 2 )
-				->per_page( - 1 )
-				->order_by( $order_by, $order );
+		$view_event_ids = $events_repository->all();
 
-			/**
-			 * Allows modifications to the repository, which allows specific modifications to the grid query.
-			 *
-			 * @since  5.8.2
-			 *
-			 * @param \Tribe__Repository__Interface $events_repository The Event repository we are going to filter.
-			 * @param DateTimeInterface             $grid_start        The View grid start date.
-			 * @param DateTimeInterface             $grid_end          The View grid end date.
-			 * @param By_Day_View                   $this              A reference to the View instance that has fired this filter.
-			 */
-			$events_repository = apply_filters( 'tribe_events_views_v2_by_day_view_day_repository', $events_repository, $grid_start, $grid_end, $this );
+		/**
+		 * Allows filtering the formatted day results before the default logic kicks in and after all the
+		 * matching Event post IDs have been found.
+		 *
+		 * @since 5.7.0
+		 *
+		 * @param null|array<int,\stdClass> $day_results    A map from each event Post ID to the value object that
+		 *                                                  will represent the Event ID, start date, end date and
+		 *                                                  timezone.
+		 * @param array<int>                $view_event_ids The set of Event Post IDs to build and format the Day
+		 * @param By_Day_View               $this           A reference to the `By_Day_View` instance that is applying the
+		 *                                                  filter.
+		 */
+		$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
 
-			$view_event_ids = $events_repository->all();
-
-			/**
-			 * Allows filtering the formatted day results before the default logic kicks in and after all the
-			 * matching Event post IDs have been found.
-			 *
-			 * @since 5.7.0
-			 *
-			 * @param null|array<int,\stdClass> $day_results    A map from each event Post ID to the value object that
-			 *                                                  will represent the Event ID, start date, end date and
-			 *                                                  timezone.
-			 * @param array<int>                $view_event_ids The set of Event Post IDs to build and format the Day
-			 * @param By_Day_View               $this           A reference to the `By_Day_View` instance that is applying the
-			 *                                                  filter.
-			 */
-			$day_results = apply_filters( 'tribe_events_views_v2_by_day_view_day_results', null, $view_event_ids, $this );
-
-			if ( null === $day_results ) {
-				$day_results = $this->prepare_day_results( $view_event_ids, $use_site_timezone );
-			}
+		if ( null === $day_results ) {
+			$day_results = $this->prepare_day_results( $view_event_ids );
 		}
+
 
 		$all_day_event_ids = [];
 		$site_timezone     = Timezones::build_timezone_object();
@@ -270,55 +255,41 @@ abstract class By_Day_View extends View {
 		/** @var \Tribe\Utils\Date_I18n $day */
 		foreach ( $days as $day ) {
 			$day_string = $day->format( 'Y-m-d' );
+			$day_start  = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
+			$day_end    = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
 
-			if ( $using_period_repository && isset( $repository ) ) {
-				$day_results   = $repository->by_date( $day_string )->get_set();
-				$day_event_ids = [];
+			// Events overlap a day if Event start date <= Day End AND Event end date > Day Start.
+			$results_in_day = array_filter(
+				$day_results,
+				static function ( $event ) use ( $day_start, $day_end, $use_site_timezone, $site_timezone, $utc ) {
+					$event_localized_start_date = $event->start_date;
+					$event_localized_end_date   = $event->end_date;
 
-				$event_ids = [];
-				if ( $day_results->count() ) {
-					// Sort events by honoring order and direction.
-					$day_results->order_by( $order_by, $order );
-					$event_ids = array_map( 'absint', $day_results->pluck( 'ID' ) );
-				}
-
-				$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
-				$this->grid_days_found_cache[ $day_string ] = $day_results->count();
-			} else {
-				$start = tribe_beginning_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
-				$end   = tribe_end_of_day( $day->format( Dates::DBDATETIMEFORMAT ) );
-
-				// Events overlap a day if Event start date <= Day End AND Event end date >= Day Start.
-				$results_in_day = array_filter(
-					$day_results,
-					static function ( $event ) use ( $start, $end, $use_site_timezone, $site_timezone, $utc ) {
-						// If the timezone setting is set to "manual timezone for each event" then this is correct.
-						if ( ! $use_site_timezone ) {
-							return $event->start_date <= $end && $event->end_date >= $start;
-						}
-
-						// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
-						// What we should do is:
-						// * use the event UTC time
-						// * convert it to the current site timezone
-						// * check if the event fits into the day, given shifted start and end of day
-						$event_localized_start_date = Dates::build_date_object( $event->start_date, $utc )
-						                                   ->setTimezone( $site_timezone );
-						$event_localized_end_date   = Dates::build_date_object( $event->end_date, $utc )
-						                                   ->setTimezone( $site_timezone );
-
-						return $event_localized_start_date->format( Dates::DBDATETIMEFORMAT ) <= $end
-						       && $event_localized_end_date->format( Dates::DBDATETIMEFORMAT ) >= $start;
+					// If the timezone setting is set to "site-wide timezone setting" then this is NOT correct.
+					if ( $use_site_timezone ) {
+						/**
+						 *  What we should do is:
+						 *  - Convert it to the current site timezone
+						 *  - Check if the event fits into the day, given shifted start and end of day
+						 */
+						$event_localized_start_date = Dates::build_date_object( $event->start_date, $event->timezone )
+						                                   ->setTimezone( $site_timezone )
+						                                   ->format( Dates::DBDATETIMEFORMAT );
+						$event_localized_end_date   = Dates::build_date_object( $event->end_date, $event->timezone )
+						                                   ->setTimezone( $site_timezone )
+						                                   ->format( Dates::DBDATETIMEFORMAT );
 					}
-				);
 
-				$day_event_ids = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
+					// Does this event show up on this day?
+					return $event_localized_start_date <= $day_end
+					       && $event_localized_end_date > $day_start;
+				}
+			);
 
-				$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
-				$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );
-			}
-
-			$all_day_event_ids = array_merge( $all_day_event_ids, $day_event_ids );
+			$day_event_ids                              = array_map( 'absint', wp_list_pluck( $results_in_day, 'ID' ) );
+			$this->grid_days_cache[ $day_string ]       = array_values( $day_event_ids );
+			$this->grid_days_found_cache[ $day_string ] = count( $results_in_day );
+			$all_day_event_ids                          = array_merge( $all_day_event_ids, $day_event_ids );
 		}
 
 		$this->grid_events = $this->get_grid_events( $all_day_event_ids );
@@ -329,15 +300,8 @@ abstract class By_Day_View extends View {
 		 */
 		$this->backfill_multiday_event_ids( $this->grid_events );
 
-		if ( $using_period_repository ) {
-			$post_ids = array_filter( array_unique( array_merge( ... array_values( $this->grid_days_cache ) ) ) );
-			/** @var \Tribe__Cache $cache */
-			$cache = tribe( 'cache' );
-			$cache->warmup_post_caches( $post_ids, true );
-		} else {
-			if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
-				$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
-			}
+		if ( is_array( $this->grid_days_cache ) && count( $this->grid_days_cache ) ) {
+			$this->grid_days_cache = $this->add_implied_events( $this->grid_days_cache );
 		}
 
 		// Drop the last day we've added before.
@@ -707,24 +671,25 @@ abstract class By_Day_View extends View {
 	 * The method will fetch the required data in chunks to avoid overloading the database.
 	 *
 	 * @since 5.7.0
+	 * @since TBD Removed $use_site_timezone param. Evaluation of timezone is done elsewhere for simplification.
 	 *
 	 * @param array<int> $view_event_ids    The set of Event Post IDs to build and format the Day
-	 * @param bool       $use_site_timezone Whether to use the site timezone to format the event dates or not. The value
-	 *                                      descends from the "Timezone Mode" setting.
 	 *
 	 * @return array<int,\stdClass> A map from each event Post ID to the value object that will represent
 	 *                              the Event ID, start date, end date and timezone.
 	 */
-	protected function prepare_day_results( array $view_event_ids, $use_site_timezone ) {
+	protected function prepare_day_results( array $view_event_ids ) {
+		if ( func_num_args() === 2 ) {
+			_deprecated_argument( __FUNCTION__,
+				'TBD',
+				__( '$use_site_timezone is deprecated. The timezone evaluation has been moved downstream.', 'the-events-calendar' )
+			);
+		}
+
 		$day_results = [];
 
 		$start_meta_key = '_EventStartDate';
 		$end_meta_key   = '_EventEndDate';
-
-		if ( $use_site_timezone ) {
-			$start_meta_key = '_EventStartDateUTC';
-			$end_meta_key   = '_EventEndDateUTC';
-		}
 
 		$results_buffer = [];
 		$request_chunks = array_chunk( $view_event_ids, $this->get_chunk_size() );
@@ -798,7 +763,7 @@ abstract class By_Day_View extends View {
 
 	/**
 	 * Overrides the base View implementation to remove pagination from the URL.
-	 * 
+	 *
 	 * {@inheritdoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {

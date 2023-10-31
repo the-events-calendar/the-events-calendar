@@ -50,7 +50,31 @@ class Tribe__Events__Updater {
 		}
 	}
 
+	/**
+	 * Function fired when we evaluate a plugin version bump to be tracked in the database.
+	 *
+	 * @since 4.0
+	 * @since TBD Added `tec_events_plugin_updater_version_change_{$version_option}` action.
+	 *
+	 * @param string $new_version The new version for this plugin.
+	 */
 	public function update_version_option( $new_version ) {
+		/**
+		 * Hook that will only fire when a plugin version has changed, enabling some one-off actions to be performed.
+		 * Important when using this hook to realize this hook will fire for various plugins, and the combination of
+		 * both params are required in order to target a particular action for a particular version on a particular plugin.
+		 *
+		 * This is fired immediately before the version change.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $new_version     The new version number.
+		 * @param string $current_version The current version number.
+		 */
+		do_action( "tec_events_plugin_updater_version_change_$this->version_option",
+			$new_version,
+			Tribe__Settings_Manager::get_option( $this->version_option )
+		);
 		Tribe__Settings_Manager::set_option( $this->version_option, $new_version );
 	}
 

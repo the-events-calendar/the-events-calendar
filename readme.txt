@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Events__Linked_Posts__Chooser_Meta_Box::$singular_name_lowercase` and `\TEC\Events\Custom_Tables\V1\Models\Builder::$query` [BTRIA-2088]
+
 = [6.2.4] 2023-10-19 =
 
 * Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
@@ -267,6 +271,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.1] 2023-09-05 =
 
+* Fix - There was some data consistency issues after 6.0 regarding all day events and `End of day cutoff` setting updates. This would show up with events spanning incorrectly interpreted cut off times. [TEC-4748]
 * Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
 * Fix - Fixed a bug where `0` and `1` were displayed on the `general` and `display` tabs for Network admins on multisite installations. [TEC-4774]
 * Fix - In some cases when multiple Widgets were used on a page, the view results would return the wrong cache, displaying incorrect results. This fixes the inspection of the different view filters being used to determine whether it is cached or not. [ECP-1561]
@@ -292,7 +297,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added actions: `tec_events_after_venue_map_fields`
 * Tweak - Changed views: `blocks/event-venue.php`, `blocks/parts/map.php`, `blocks/parts/venue.php`, `v2/base.php`, `v2/components/breadcrumbs/linked-breadcrumbs.php`, `v2/components/content-title.php`, 'v2/components/header-title.php`, `v2/components/header.php`, `v2/components/messages.php`, `v2/day.php`, `v2/day/event/venue.php`, `v2/list.php`, `v2/list/event/venue.php`, `v2/month.php`
 * Language - 3 new strings added, 72 updated, 1 fuzzied, and 2 obsoleted
-
 
 = [6.1.4] 2023-08-10 =
 

@@ -203,10 +203,6 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				unset( $data['FeaturedImage'] );
 			}
 
-			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
-				$data['EventDuration'] = null;
-			}
-
 			/**
 			 * Allow hooking in prior to updating meta fields.
 			 *
@@ -380,13 +376,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 			}
 
 			if ( isset( $data['EventEndDate'] ) ) {
-				$data['EventEndDate'] = Tribe__Date_Utils::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
+				$data['EventEndDate'] = Dates::datetime_from_format( $datepicker_format, $data['EventEndDate'] );
 			} elseif ( $existing_end_date = get_post_meta( $event_id, '_EventEndDate', true ) ) {
 				$data['EventEndDate'] = $existing_end_date;
 			}
 
 			if ( isset( $data['EventAllDay'] ) && 'yes' === $data['EventAllDay'] ) {
-				$date_provided = true;
+				$date_provided          = true;
 				$data['EventStartDate'] = tribe_beginning_of_day( $data['EventStartDate'] );
 				$data['EventEndDate']   = tribe_end_of_day( $data['EventEndDate'] );
 			} elseif ( isset( $data['EventStartDate'], $data['EventEndDate'] ) ) {
