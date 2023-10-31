@@ -8,6 +8,7 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use WP_REST_Request;
 use WP_REST_Request as Request;
 use WP_REST_Server as Server;
 use WP_User;
@@ -91,27 +92,28 @@ class Rest_Endpoint {
 	 * This stores the user (if authenticated) for use when we check that our custom nonce(s) are valid.
 	 *
 	 * @since 6.2.3
+	 * @since TBD Moved to new hook with new params in order to intercede in user auth flow for REST requests.
 	 *
-	 * @param bool $send_nocache_headers
+	 * @param array $cors_headers List of headers to be filtered.
 	 *
-	 * @return bool
+	 * @return array List of headers.
 	 * @see   rest_cookie_check_errors()
 	 *
 	 */
-	public static function preserve_user_for_custom_nonces( $send_nocache_headers ) {
+	public static function preserve_user_for_custom_nonces( $cors_headers ) {
 		if ( ! is_user_logged_in() ) {
-			return $send_nocache_headers;
+			return $cors_headers;
 		}
 
 		$user = wp_get_current_user();
 		if ( ! $user instanceof WP_User || ! $user->ID ) {
-			return $send_nocache_headers;
+			return $cors_headers;
 		}
 
 		// Save user for our nonce checks.
 		self::$user_id = (int) $user->ID;
 
-		return $send_nocache_headers;
+		return $cors_headers;
 	}
 
 	/**
