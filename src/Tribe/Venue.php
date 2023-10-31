@@ -84,6 +84,16 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 	public $plural_venue_label;
 
 	/**
+	 * @var string The lowercase singular venue label.
+	 */
+	public $singular_venue_label_lowercase;
+
+	/**
+	 * @var string The lowercase plural venue label.
+	 */
+	public $plural_venue_label_lowercase;
+
+	/**
 	 * @var Tribe__Events__Venue
 	 */
 	protected static $instance;
@@ -925,11 +935,11 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base {
 
 	/**
 	 * Updates the page title on the venue single page to include the venue title.
-	 * 
+	 *
 	 * @param string      $new_title The modified page title.
 	 * @param string      $title     The original page title.
 	 * @param string|null $sep       The separator character.
-	 * 
+	 *
 	 * @return string The modified page title.
 	 */
 	public function update_venue_title( $new_title, $title, $sep = null ) {

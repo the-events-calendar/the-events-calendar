@@ -81,6 +81,7 @@ class Tribe__Events__Assets {
 				'tribe-timepicker',
 				'underscore',
 				'wp-util',
+				'wp-hooks',
 			],
 			'admin_enqueue_scripts',
 			[
@@ -517,6 +518,8 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function is_settings_page() {
+		$admin_helpers = Tribe__Admin__Helpers::instance();
+
 		return $admin_helpers->is_screen( 'settings_page_tribe-settings' );
 	}
 

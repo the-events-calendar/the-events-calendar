@@ -71,8 +71,9 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Render the chooser section for the events meta box
 	 */
 	public function render() {
+
 		$this->render_dropdowns();
-		$this->render_add_post_button();
+		$this->render_footer();
 
 		/**
 		 * Make this Template filterable, used for Community Facing templates.
@@ -240,10 +241,26 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
+	 * Renders the footer for the linked post area.
+	 *
+	 * @since 6.2.0
+	 */
+	protected function render_footer() {
+		?>
+		<tfoot>
+		<?php
+		$this->render_add_post_button();
+		$this->render_map_fields();
+		?>
+		</tfoot>
+		<?php
+	}
+
+	/**
 	 * Renders the "Add Another Organizer" button
 	 */
 	protected function render_add_post_button() {
-		if ( empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
+		if ( ! $this->linked_posts->allow_multiple( $this->post_type ) ) {
 			return;
 		}
 
@@ -257,13 +274,24 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		?>
-		<tfoot>
-			<tr>
-				<td></td>
-				<td><a class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
-			</tr>
-		</tfoot>
+		<tr>
+			<td></td>
+			<td><a class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
+		</tr>
 		<?php
+	}
+
+	/**
+	 * Renders the map fields if necessary.
+	 *
+	 * @since 6.2.0
+	 */
+	protected function render_map_fields() {
+		if ( $this->post_type !== Tribe__Events__Venue::POSTTYPE ) {
+			return;
+		}
+
+		require_once $this->tribe->pluginPath . 'src/admin-views/venue-map-fields.php';
 	}
 
 	/**

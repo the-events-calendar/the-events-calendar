@@ -146,6 +146,38 @@ function tribe_get_venue_id( $postId = null ) {
 }
 
 /**
+ * Get the IDs of all venues associated with an event.
+ *
+ * @since 6.2.0
+ *
+ * @param int $event_id The event post ID. Defaults to the current event.
+ *
+ * @return array
+ */
+function tec_get_venue_ids( $event_id = null ) {
+	$event_id = Tribe__Events__Main::postIdHelper( $event_id );
+
+	$venue_ids = [];
+
+	if ( Tribe__Events__Main::instance()->isEvent( $event_id ) ) {
+		$venue_ids = tribe_get_event_meta( $event_id, '_EventVenueID', false );
+
+		// Protect against storing array items that render false, such as `0`.
+		$venue_ids = array_filter( (array) $venue_ids );
+	}
+
+	/**
+	 * Allows customization of the venue IDs retrieved for a specified event.
+	 *
+	 * @since 6.2.0
+	 *
+	 * @param int[] $venue_ids The venue IDs for the specified event.
+	 * @param int   $event_id  The ID of the event whose venues are being looked for.
+	 */
+	return (array) apply_filters( 'tec_get_venue_ids', $venue_ids, $event_id );
+}
+
+/**
  * Returns the singular version of the Venue Label.
  *
  * Note: the output of this function is not escaped.
@@ -170,6 +202,32 @@ function tribe_get_venue_label_singular() {
 	return apply_filters(
 		'tribe_venue_label_singular',
 		__( 'Venue', 'the-events-calendar' )
+	);
+}
+
+/**
+ * Get Venue Label Singular lowercase.
+ * Returns the lowercase singular version of the Venue Label.
+ *
+ * Note: the output of this function is not escaped.
+ * You should escape it wherever you use it!
+ *
+ * @since 6.2.1
+ *
+ * @return string The lowercase singular version of the Venue Label.
+ */
+function tribe_get_venue_label_singular_lowercase() {
+	/**
+	 * Allows customization of the singular lowercase version of the Venue Label.
+	 * Note: the output of this filter is not escaped!
+	 *
+	 * @since 6.2.1
+	 *
+	 * @param string $label The singular lowercase version of the Venue label, defaults to "venue" (lowercase)
+	 */
+	return apply_filters(
+		'tribe_venue_label_singular_lowercase',
+		__( 'venue', 'the-events-calendar' )
 	);
 }
 
@@ -882,7 +940,7 @@ function tribe_events_get_venue_website_title( $post_id = null ) {
 	 * @param string $title The title of the venue's website link.
 	 * @param int 	 $post_id The venue ID.
 	 */
-	return apply_filters( 'tribe_events_get_venue_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
+	return apply_filters( 'tribe_events_get_venue_website_title', __( 'Website', 'the-events-calendar' ), $post_id );
 }
 
 /**

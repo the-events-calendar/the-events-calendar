@@ -157,6 +157,9 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				return $query;
 			}
 
+			// Remove IDs, it changes.
+			$trimmed_query = preg_replace( '/IN (\([0-9].*?\))/i', 'IN ()', $trimmed_query );
+
 			$logged_queries[] = $trimmed_query;
 
 			return $query;
@@ -178,7 +181,7 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		] );
 
 		// We do not really care about the ORDER here, just the set nature.
-		$this->assertEqualSets( $events, $found );
+		$this->assertEqualsCanonicalizing( $events, $found );
 		$this->assertMatchesSnapshot( $logged_queries );
 	}
 
