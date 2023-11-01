@@ -1236,8 +1236,6 @@ class View implements View_Interface {
 			$this->url = false === $merge ?
 				new Url( add_query_arg( $query_args ) )
 				: $this->url->add_query_args( $query_args );
-
-			return;
 		}
 	}
 
