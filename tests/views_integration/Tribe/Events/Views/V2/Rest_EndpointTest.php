@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\V2;
 
 use WP_REST_Request;
 use WP_Screen;
+use WP_User;
 
 class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 	protected $old_screen;
@@ -153,14 +154,14 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 	 * @see \Tribe\Events\Views\V2\Rest_Endpoint::preserve_user_for_custom_nonces() for more context.
 	 * @test
 	 */
-	public function it_should_retain_authenticated_user() {
+	public function it_should_authenticate_with_nonces() {
 		$user_id = $this->given_as_an_admin_user();
 
 		// Sanity check.
 		$this->assertEmpty( Rest_Endpoint::get_stored_user_id() );
 
 		// Triggers storing our auth'd user.
-		apply_filters( 'rest_send_nocache_headers', true );
+		apply_filters( 'rest_allowed_cors_headers', null, null );
 
 		// Get our nonces
 		$nonces = Rest_Endpoint::get_rest_nonces();
@@ -181,5 +182,45 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 		         || wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION );
 
 		$this->assertTrue( $valid );
+	}
+
+	/**
+	 * We should still auth the request with the wp rest server.
+	 *
+	 * @test
+	 */
+	public function it_should_serve_authenticated_request() {
+		global $wp_rest_auth_cookie;
+		$wp_rest_auth_cookie = true;
+		$this->given_as_an_admin_user();
+
+		// Check if this flags user auth after request.
+		$is_logged_in = true;
+		add_filter( 'rest_authentication_errors', function ( $error ) use ( &$is_logged_in ) {
+			$user = wp_get_current_user();
+			if ( ! $user ) {
+				$is_logged_in = false;
+			}
+			if ( $user instanceof WP_User ) {
+				$is_logged_in = ! ! $user->ID;
+			}
+
+			return $error;
+		}, 99999 );
+
+
+		// Faux request. User was authed above, so this won't matter.
+		$_POST  = [
+			'prev_url'                       => "http://localhost/events/month/2023-10/?shortcode=admin-manager",
+			'url'                            => "http://localhost/events/month/2023-10/?shortcode=admin-manager",
+			'should_manage_url'              => "false",
+			'shortcode'                      => "admin-manager",
+			'_tec_view_rest_nonce_primary'   => "79f305ca08",
+			'_tec_view_rest_nonce_secondary' => "77925c8a1f"
+		];
+		$server = rest_get_server();
+		$server->serve_request( '/tribe/views/v2/html' );
+
+		$this->assertTrue( $is_logged_in );
 	}
 }

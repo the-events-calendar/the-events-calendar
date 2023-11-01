@@ -165,7 +165,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = $this->add_global_id_fields( $data, $event_id );
 
 		/**
-		 * Filters the data that will be returnedf for a single event.
+		 * Filters the data that will be returned for a single event.
 		 *
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
@@ -188,6 +188,8 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @since 4.6 Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
+		$data = [];
+
 		if ( tribe_is_event( $event_or_venue_id ) ) {
 			$venues = tec_get_venue_ids( $event_or_venue_id );
 			if ( empty( $venues ) ) {
@@ -214,8 +216,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		foreach ( $venues as $venue_id ) {
 			if ( is_object( $venue_id ) ) {
-				$venue = $venue_id;
-
+				$venue    = $venue_id;
 				$venue_id = $venue->ID;
 			}
 
