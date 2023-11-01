@@ -233,7 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 
-= [6.2.5] TBD =
+= [6.2.5] 2023-11-01 =
 
 * Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
 
