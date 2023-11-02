@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.4
+Stable tag: 6.2.5
 Tested up to: 6.3.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -232,10 +232,15 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
+* Tweak - Adjust the content in the admin welcome page to include a link to the TEC Facebook community group. [TEC-4953]
 * Fix - Wordpress 6.3 introduce some changes in filters that regressed a prior fix for authentication and our new nonce structure used in view pagination. One symptom of the issue was losing the authenticated user and failing to display user specific capabilities on event views. [ECP-1601]
 * Fix - Resolves issue where a deleted venue still attached to an event would cause an `PHP Warning: Undefined variable $data in /code/wp-content/plugins/the-events-calendar/src/Tribe/REST/V1/Post_Repository.php on line 327` error. [TEC-4954]
 * Fix - Resolves an issue with certain versions of Wordpress already having the legacy widget block registered causing us to trigger the console error `Block "core/legacy-widget" is already registered.` would occur. Now we check if registered first. [TEC-4764]
 * Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Events__Linked_Posts__Chooser_Meta_Box::$singular_name_lowercase` and `\TEC\Events\Custom_Tables\V1\Models\Builder::$query` [BTRIA-2088]
+
+= [6.2.5] 2023-11-01 =
+
+* Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
 
 = [6.2.4] 2023-10-19 =
 
