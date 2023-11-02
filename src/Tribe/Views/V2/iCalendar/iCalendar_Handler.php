@@ -83,6 +83,7 @@ class iCalendar_Handler extends Service_Provider {
 	 */
 	public function register_hooks() {
 		add_action( 'tribe_events_views_v2_before_make_view', [ $this, 'get_feeds' ] );
+		add_action( 'send_headers', [ $this, 'ical_header_properties' ] );
 
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_template_vars' ], 10, 2 );
 		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 20 );
@@ -230,5 +231,12 @@ class iCalendar_Handler extends Service_Provider {
 		$content .= "X-PUBLISHED-TTL:PT1H\r\n";
 
 		return $content;
+	}
+
+	public function ical_header_properties() {
+		if ( ! tribe_get_request_var( 'ical' ) && ! tribe_get_request_var( 'outlook-ical' ) ) {
+			return;
+		}
+		header( 'X-Robots-Tag:noindex, nofollow' );
 	}
 }
