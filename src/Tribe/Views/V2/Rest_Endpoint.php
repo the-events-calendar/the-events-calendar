@@ -227,6 +227,29 @@ class Rest_Endpoint {
 	}
 
 	/**
+	 * Fetches and filters the HTML tag with the encoded nonces to be output on the view markup.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $nonces The array of nonces that are being encoded in the HTML output.
+	 *
+	 * @return string The HTML for the nonces.
+	 */
+	public static function get_rest_nonce_html( array $nonces ): string {
+		$html = "<script data-js='tribe-events-view-nonce-data' type='application/json'>" . wp_json_encode( $nonces ) . "</script>";
+
+		/**
+		 * This allows filtering of the nonce script tag being appended to the various views that utilize AJAX requests.
+		 *
+		 * @since TBD
+		 *
+		 * @param string               $html   The script tag that has JSON encoded nonces.
+		 * @param array<string,string> $nonces The associative array of nonces being generated.
+		 */
+		return (string) apply_filters( 'tec_events_views_v2_get_rest_nonce_html', $html, $nonces );
+	}
+
+	/**
 	 * Returns the URL View will use to fetch their content.
 	 *
 	 * Depending on whether the REST API is enabled or not on the site, the URL might be a REST API one or an
