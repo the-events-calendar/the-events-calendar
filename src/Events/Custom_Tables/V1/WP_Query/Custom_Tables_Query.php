@@ -279,9 +279,9 @@ class Custom_Tables_Query extends WP_Query {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param  string        $request_fields The original `SELECT` SQL.
-	 * @param  WP_Query|null $query          A reference to the `WP_Query` instance currently being
-	 *                                 filtered.
+	 * @param string        $request_fields The original `SELECT` SQL.
+	 * @param WP_Query|null $query          A reference to the `WP_Query` instance currently being
+	 *                                      filtered.
 	 *
 	 * @return string The filtered `SELECT` clause.
 	 */
@@ -298,10 +298,12 @@ class Custom_Tables_Query extends WP_Query {
 		 * of a Custom Tables Query.
 		 *
 		 * @since 6.0.0
+		 * @since TBD Added the $query param.
 		 *
-		 * @param string $request_fields The Query fields request, e.g. `ids`.
+		 * @param string   $request_fields The Query fields request, e.g. `ids`.
+		 * @param WP_Query $query          This query object we are filtering.
 		 */
-		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields );
+		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields, $query );
 
 		return $request_fields;
 	}
