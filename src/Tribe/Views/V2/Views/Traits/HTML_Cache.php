@@ -30,6 +30,7 @@ trait HTML_Cache {
 	 * Return cached HTML if enabled and cache is set.
 	 *
 	 * @since 5.0.0
+	 * @since 6.1.4 Removing nonce injection.
 	 *
 	 * @return false|string Either the cached HTML contents, or `false` if the View HTML should not be cached or is not
 	 *                      cached yet.
@@ -39,15 +40,12 @@ trait HTML_Cache {
 			return false;
 		}
 
-		$cache_key = $this->get_cache_html_key();
-
+		$cache_key   = $this->get_cache_html_key();
 		$cached_html = tribe( 'cache' )->get_chunkable_transient( $cache_key, $this->cache_html_triggers() );
 
 		if ( ! $cached_html ) {
 			return false;
 		}
-
-		$cached_html = $this->inject_nonces_into_cached_html( $cached_html );
 
 		return $this->filter_cached_html( $cached_html );
 	}
@@ -91,6 +89,7 @@ trait HTML_Cache {
 	 * If caching is enabled, set the cache.
 	 *
 	 * @since 5.0.0
+	 * @since 6.1.4 Removing nonce extraction.
 	 *
 	 * @param string $html HTML markup for view.
 	 *
@@ -118,8 +117,6 @@ trait HTML_Cache {
 		);
 
 		$cache_key = $this->get_cache_html_key();
-
-		$html = $this->extract_nonces_before_cache( $html );
 
 		/** @var Cache $cache */
 		$cache = tribe( 'cache' );
@@ -292,154 +289,6 @@ trait HTML_Cache {
 	}
 
 	/**
-	 * Get the list of fields/input we will do replacement for HTML Cache.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @return array   List of fields/input that we are going to replace.
-	 */
-	protected function get_view_nonce_fields() {
-		$nonces = [
-			'wp_rest' => 'tribe-events-views[_wpnonce]',
-		];
-
-		/**
-		 * Filter to control nonce fields replacement for HTML Cache.
-		 *
-		 * @since 5.0.0
-		 *
-		 * @param array      $nonces  List of action and field name where the nonce is stored.
-		 * @param Context    $context Context from the current view.
-		 * @param HTML_Cache $this    The object using the trait.
-		 */
-		return apply_filters( 'tribe_events_views_v2_get_view_nonce_fields', $nonces, $this->get_context(), $this );
-	}
-
-	/**
-	 * Get the list of attributes we will do replacement for HTML Cache.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @return array   List of attributes that we are going to replace.
-	 */
-	protected function get_view_nonce_attributes() {
-		$nonces = [
-			'wp_rest' => 'data-view-rest-nonce',
-		];
-
-		/**
-		 * Filter to control nonce attributes replacement for HTML Cache.
-		 *
-		 * @since 5.0.0
-		 *
-		 * @param array      $nonces  List of action and field name where the nonce is stored.
-		 * @param Context    $context Context from the current view.
-		 * @param HTML_Cache $this    The object using the trait.
-		 */
-		return apply_filters( 'tribe_events_views_v2_get_view_nonce_attributes', $nonces, $this->get_context(), $this );
-	}
-
-	/**
-	 * Get the list of JSON properties we will do replacement for HTML Cache.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @return array   List of json properties that we are going to replace.
-	 */
-	protected function get_view_nonce_json_properties() {
-		$nonces = [
-			'wp_rest' => 'rest_nonce',
-		];
-
-		/**
-		 * Filter to control nonce json properties replacement for HTML Cache.
-		 *
-		 * @since 5.0.0
-		 *
-		 * @param array      $nonces  List of action and field name where the nonce is stored.
-		 * @param Context    $context Context from the current view.
-		 * @param HTML_Cache $this    The object using the trait.
-		 */
-		return apply_filters( 'tribe_events_views_v2_get_view_nonce_json_properties', $nonces, $this->get_context(), $this );
-	}
-
-	/**
-	 * Does string replacement on the HTML cached based on the possible places we look for cached nonce values to inject
-	 * the correct string placeholder so we can remove it later.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @param string $html HTML with the nonces to be replaced.
-	 *
-	 * @return string  HTML after replacement is complete.
-	 */
-	protected function extract_nonces_before_cache( $html ) {
-		$nonce_fields = $this->get_view_nonce_fields();
-		$nonce_attrs  = $this->get_view_nonce_attributes();
-		$nonce_props  = $this->get_view_nonce_json_properties();
-
-		foreach ( $nonce_fields as $action => $field ) {
-			$html = preg_replace( '!(<input[^>]+name="' . preg_quote( $field, '!' ) . '"[^>]+value=")[^"]*("[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
-			$html = preg_replace( '!(<input[^>]+value=")[^"]*("[^>]+name="' . preg_quote( $field, '!' ) . '"[^>]*>)!', '\1%%NONCE:' . $action . '%%\2', $html );
-		}
-
-		foreach ( $nonce_attrs as $action => $attr ) {
-			$html = preg_replace( '!(' . preg_quote( $attr, '!' ) . '=")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
-		}
-
-		foreach ( $nonce_props as $action => $prop ) {
-			$html = preg_replace( '!("' . preg_quote( $prop, '!' ) . '":")[^"]*(")!', '\1%%NONCE:' . $action . '%%\2', $html );
-		}
-
-		return $html;
-	}
-
-	/**
-	 * Does string replacement on the HTML cached based on the possible places we look for cached nonce values.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @param string $html HTML with the nonces to be replaced.
-	 *
-	 * @return string  HTML after replacement is complete.
-	 */
-	protected function inject_nonces_into_cached_html( $html ) {
-		$nonce_fields = $this->get_view_nonce_fields();
-		$nonce_attrs  = $this->get_view_nonce_attributes();
-		$nonce_props  = $this->get_view_nonce_json_properties();
-
-		$nonce_actions = array_merge( array_keys( $nonce_fields ), array_keys( $nonce_attrs ), array_keys( $nonce_props ) );
-		$nonce_actions = array_unique( $nonce_actions );
-
-		foreach ( $nonce_actions as $nonce_action ) {
-			$nonce = $this->maybe_generate_nonce( $nonce_action );
-			$html  = str_replace( "%%NONCE:{$nonce_action}%%", $nonce, $html );
-		}
-
-		return $html;
-	}
-
-	/**
-	 * Get a generated nonce required for HTML cache replacement based on an action provided.
-	 *
-	 * @since 5.0.0
-	 *
-	 * @param string $action Which action will be used to generate the nonce.
-	 *
-	 * @return string  Nonce based on action passed.
-	 */
-	protected function maybe_generate_nonce( $action ) {
-		$generated_nonces = tribe_get_var( __METHOD__, [] );
-
-		if ( ! isset( $generated_nonces[ $action ] ) ) {
-			$generated_nonces[ $action ] = wp_create_nonce( $action );
-			tribe_set_var( __METHOD__, $generated_nonces );
-		}
-
-		return $generated_nonces[ $action ];
-	}
-
-	/**
 	 * Returns the number of private events, `post_status => private`, currently in the database.
 	 *
 	 * The count is made database-wide to avoid having to fetch the View events (that would defeat the
@@ -524,5 +373,152 @@ trait HTML_Cache {
 		];
 
 		return $salts;
+	}
+
+	/**
+	 * Get the list of fields/input we will do replacement for HTML Cache.
+	 *
+	 * @since 5.0.0
+	 * @since 6.1.4 Deprecating for new nonce structure.
+	 *
+	 * @deprecated 6.1.4
+	 *
+	 * @return array   List of fields/input that we are going to replace.
+	 */
+	protected function get_view_nonce_fields() {
+		_deprecated_function( __METHOD__, '6.1.4' );
+		$nonces = [
+			'wp_rest' => 'tribe-events-views[_wpnonce]',
+		];
+
+		/**
+		 * Filter to control nonce fields replacement for HTML Cache.
+		 *
+		 * @since 5.0.0
+		 * @since 6.1.4 Changed nonce array structure, flipping key/value.
+		 *
+		 * @param array      $nonces  List of action and field name where the nonce is stored.
+		 * @param Context    $context Context from the current view.
+		 * @param HTML_Cache $this    The object using the trait.
+		 */
+		return apply_filters( 'tribe_events_views_v2_get_view_nonce_fields', $nonces, $this->get_context(), $this );
+	}
+
+	/**
+	 * Get the list of attributes we will do replacement for HTML Cache.
+	 *
+	 * @since 5.0.0
+	 * @since 6.1.4 Deprecating for new nonce structure.
+	 *
+	 * @deprecated 6.1.4
+	 *
+	 * @return array   List of attributes that we are going to replace.
+	 */
+	protected function get_view_nonce_attributes() {
+		_deprecated_function( __METHOD__, '6.1.4' );
+		$nonces = [
+			'wp_rest' => 'data-view-rest-nonce',
+		];
+
+
+		/**
+		 * Filter to control nonce attributes replacement for HTML Cache.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param array      $nonces  List of action and field name where the nonce is stored.
+		 * @param Context    $context Context from the current view.
+		 * @param HTML_Cache $this    The object using the trait.
+		 */
+		return apply_filters( 'tribe_events_views_v2_get_view_nonce_attributes', $nonces, $this->get_context(), $this );
+	}
+
+	/**
+	 * Get the list of JSON properties we will do replacement for HTML Cache.
+	 *
+	 * @since 5.0.0
+	 * @since 6.1.4 Deprecating for new nonce structure.
+	 *
+	 * @deprecated 6.1.4
+	 *
+	 * @return array   List of json properties that we are going to replace.
+	 */
+	protected function get_view_nonce_json_properties() {
+		_deprecated_function( __METHOD__, '6.1.4' );
+		$nonces = [
+			'wp_rest' => 'rest_nonce',
+		];
+
+		/**
+		 * Filter to control nonce json properties replacement for HTML Cache.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param array      $nonces  List of action and field name where the nonce is stored.
+		 * @param Context    $context Context from the current view.
+		 * @param HTML_Cache $this    The object using the trait.
+		 */
+		return apply_filters( 'tribe_events_views_v2_get_view_nonce_json_properties', $nonces, $this->get_context(), $this );
+	}
+
+	/**
+	 * Does string replacement on the HTML cached based on the possible places we look for cached nonce values to inject
+	 * the correct string placeholder so we can remove it later.
+	 *
+	 * @since 5.0.0
+	 * @since 6.1.4 Deprecating for new nonce structure.
+	 *
+	 * @deprecated 6.1.4
+	 *
+	 * @param string $html HTML with the nonces to be replaced.
+	 *
+	 * @return string  HTML after replacement is complete.
+	 */
+	protected function extract_nonces_before_cache( $html ) {
+		_deprecated_function( __METHOD__, '6.1.4' );
+
+		return $html;
+	}
+
+	/**
+	 * Does string replacement on the HTML cached based on the possible places we look for cached nonce values.
+	 *
+	 * @since 5.0.0
+	 * @since 6.1.4 Deprecating for new nonce structure.
+	 *
+	 * @deprecated 6.1.4
+	 *
+	 * @param string $html HTML with the nonces to be replaced.
+	 *
+	 * @return string  HTML after replacement is complete.
+	 */
+	protected function inject_nonces_into_cached_html( $html ) {
+		_deprecated_function( __METHOD__, '6.1.4' );
+
+		return $html;
+	}
+
+	/**
+	 * Get a generated nonce required for HTML cache replacement based on an action provided.
+	 *
+	 * @since 5.0.0
+	 * @since 6.1.4 Deprecating for new nonce structure.
+	 *
+	 * @deprecated 6.1.4
+	 *
+	 * @param string $action Which action will be used to generate the nonce.
+	 *
+	 * @return string  Nonce based on action passed.
+	 */
+	protected function maybe_generate_nonce( $action ) {
+		_deprecated_function( __METHOD__, '6.1.4' );
+		$generated_nonces = tribe_get_var( __METHOD__, [] );
+
+		if ( ! isset( $generated_nonces[ $action ] ) ) {
+			$generated_nonces[ $action ] = wp_create_nonce( $action );
+			tribe_set_var( __METHOD__, $generated_nonces );
+		}
+
+		return $generated_nonces[ $action ];
 	}
 }

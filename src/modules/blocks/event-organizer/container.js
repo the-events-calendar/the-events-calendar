@@ -80,17 +80,24 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			addOrganizer( { state, dispatch, ownProps, organizerID, details } );
 		},
 		onRemove: () => {
-			const { clientId, organizer, details, volatile } = ownProps;
+			const { clientId, organizer, volatile } = ownProps;
 
 			ownProps.setAttributes( { organizer: 0 } );
 			dispatch( actions.removeOrganizerInBlock( clientId, organizer ) );
+
+			/**
+			 * Moves the organizer to the trash if appropriate (if it is a draft and was removed).
+			 *
+			 * @since 6.2.0
+			 * @param {number} organizer
+			 */
+			globals.wpHooks.doAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', organizer );
 
 			const blocks = globals.wpDataSelectCoreEditor().getBlocks();
 			const classicBlock = blocks
 				.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
 
 			if ( ! classicBlock.length || volatile ) {
-				ownProps.maybeRemoveEntry( details );
 
 				const organizers = selectors.getOrganizersInClassic( state );
 				const newOrganizers = organizers.filter( id => id !== organizer );

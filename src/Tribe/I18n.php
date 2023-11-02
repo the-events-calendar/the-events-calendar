@@ -272,8 +272,10 @@ class I18n {
 		};
 
 		add_filter( 'locale', $force_locale );
+		add_filter( 'pre_determine_locale', $force_locale );
 		$result = $do( ...$args );
 		remove_filter( 'locale', $force_locale );
+		remove_filter( 'pre_determine_locale', $force_locale );
 
 		$domains = isset( $args[1] ) ? (array) $args[1] : false;
 		if ( false !== $domains ) {

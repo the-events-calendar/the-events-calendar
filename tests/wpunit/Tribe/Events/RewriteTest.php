@@ -98,6 +98,21 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 
 	/**
 	 * @test
+	 */
+	public function test_rewrite_instance_continuity() {
+		global $wp_rewrite;
+		$tec_rewrite_instance = Rewrite::instance();
+		$tec_rewrite_instance->parse_request( '/' );
+		$tec_rewrite_container = tribe( Rewrite::class );
+		$tec_rewrite_container->parse_request( '/' );
+
+
+		$this->assertEquals( spl_object_id( $wp_rewrite ), spl_object_id( $tec_rewrite_instance->rewrite ) );
+		$this->assertEquals( spl_object_id( $wp_rewrite ), spl_object_id( $tec_rewrite_container->rewrite ) );
+	}
+
+	/**
+	 * @test
 	 * it should filter post type link for supported post types only
 	 */
 	public function it_should_filter_post_type_link_for_supported_post_types_only() {

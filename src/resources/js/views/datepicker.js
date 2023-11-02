@@ -156,7 +156,6 @@ tribe.events.views.datepicker = {};
 	obj.request = function( viewData, $container ) {
 		var data = {
 			view_data: viewData,
-			_wpnonce: $container.data( 'view-rest-nonce' ),
 		};
 
 		tribe.events.views.manager.request( data, $container );

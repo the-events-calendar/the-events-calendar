@@ -68,8 +68,13 @@ $is_same_day       = $formatted_start_date == $formatted_end_date;
 $is_same_start_end = $formatted_start_date == $formatted_end_date && $formatted_start_time == $formatted_end_time;
 
 $event_id = $this->get( 'post_id' );
+
+$default_classes = [ 'tribe-events-schedule', 'tribe-clearfix' ];
+
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div class="tribe-events-schedule tribe-clearfix">
+<div <?php tribe_classes( $classes ); ?>>
 	<h2 class="tribe-events-schedule__datetime">
 		<span class="tribe-events-schedule__date tribe-events-schedule__date--start">
 			<?php echo esc_html( $formatted_start_date ); ?>
