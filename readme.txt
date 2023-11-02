@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [BTRIA-2096]
+
 = [6.2.5] 2023-11-01 =
 
 * Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]

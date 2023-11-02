@@ -233,6 +233,11 @@ class iCalendar_Handler extends Service_Provider {
 		return $content;
 	}
 
+	/**
+	 * Add x-robots tag to response headers for ical download links.
+	 *
+	 * @since TBD
+	 */
 	public function ical_header_properties() {
 		if ( ! tribe_get_request_var( 'ical' ) && ! tribe_get_request_var( 'outlook-ical' ) ) {
 			return;
