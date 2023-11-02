@@ -36,7 +36,7 @@ export default {
             <div className={ `${ className } ${ props.className }` } { ...blockProps }>
                 <h3>{ __( 'Archive Events', 'the-events-calendar' ) }</h3>
                 <p>
-                    { __( 'This block serves as a placeholder for your The Events Calendar archive events template. It will display the event search fields, and event results.', 'the-events-calendar' ) }
+                    { __( 'This block serves as a placeholder for your The Events Calendar archive events template. It will display the event search fields and event results.', 'the-events-calendar' ) }
                 </p>
                 <div>
                     <input type={ "text" } style={ {
