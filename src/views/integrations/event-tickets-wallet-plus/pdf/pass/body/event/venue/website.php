@@ -7,11 +7,15 @@
  *
  * See more documentation about our views templating system.
  *
- * @link https://evnt.is/1amp
+ * @link https://evnt.is/event-tickets-wallet-plus-tpl Help article for Wallet Plus template files.
  *
  * @since TBD
  *
  * @version TBD
+ *
+ * @var string $venue_map_pin_image_src The image source of the venue map pin icon.
+ * @var string $venue_phone_image_src The image source of the venue phone icon.
+ * @var string $venue_link_image_src The image source of the venue link icon.
  */
 
 if ( empty( $venue->website ) ) {
@@ -25,10 +29,10 @@ if ( empty( $venue->website ) ) {
 			<table>
 				<tr>
 					<td width="24">
-						<img 
-							width="9" 
-							height="9" 
-							src="<?php echo esc_url( tribe_resource_url( 'images/icons/bitmap/link.png', false, null, Tribe__Events__Main::instance() ) ); ?>"
+						<img
+							width="9"
+							height="9"
+							src="<?php echo esc_url( $venue_link_image_src ); ?>"
 						/>
 					</td>
 					<td width="211">

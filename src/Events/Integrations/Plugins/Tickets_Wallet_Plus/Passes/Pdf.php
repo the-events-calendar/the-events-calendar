@@ -9,18 +9,18 @@ use Tribe__Events__Main;
 
 /**
  * Class Pdf
- * 
+ *
  * @since TBD
- * 
+ *
  * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes
  */
 class Pdf {
 
 	/**
 	 * Template instance.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @var \Tribe__Template
 	 */
 	private $template;
@@ -48,9 +48,9 @@ class Pdf {
 	 * Filter template context.
 	 *
 	 * @since TBD
-	 * 
-	 * @param array $context
-	 * 
+	 *
+	 * @param array $context The template context.
+	 *
 	 * @return array
 	 */
 	public function filter_template_context( $context ): array {
@@ -68,7 +68,7 @@ class Pdf {
 			return $context;
 		}
 
-		$context['event'] = $event;
+		$context['event']  = $event;
 		$context['venues'] = $event->venues->all();
 
 		return $context;
@@ -76,13 +76,13 @@ class Pdf {
 
 	/**
 	 * Add styles.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @param string           $file     Path to the file.
 	 * @param string           $name     Name of the file.
 	 * @param \Tribe__Template $template Template instance.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function add_tec_styles( $file, $name, $template ): void {
@@ -95,13 +95,13 @@ class Pdf {
 
 	/**
 	 * Add venue.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @param string           $file     Path to the file.
 	 * @param string           $name     Name of the file.
 	 * @param \Tribe__Template $template Template instance.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function add_venue( $file, $name, $template ): void {
@@ -109,18 +109,26 @@ class Pdf {
 			return;
 		}
 
-		$this->get_template()->template( 'pdf/pass/body/event/venue', $template->get_local_values(), true );
+		$plugin_path = TEC::instance()->plugin_path;
+
+		$args                            = $template->get_local_values();
+		$args['venue_phone_image_src']   = $plugin_path . 'src/resources/images/icons/bitmap/phone.png';
+		$args['venue_map_pin_image_src'] = $plugin_path . 'src/resources/images/icons/bitmap/map-pin.png';
+		$args['venue_link_image_src']    = $plugin_path . 'src/resources/images/icons/bitmap/link.png';
+
+
+		$this->get_template()->template( 'pdf/pass/body/event/venue', $args, true );
 	}
 
 	/**
 	 * Add event date.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @param string           $file     Path to the file.
 	 * @param string           $name     Name of the file.
 	 * @param \Tribe__Template $template Template instance.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function add_event_date( $file, $name, $template ): void {
@@ -133,15 +141,14 @@ class Pdf {
 
 	/**
 	 * Add attendee fields.
-	 * 
+	 *
 	 * @since TBD
-	 * 
+	 *
 	 * @param array $context Path to the file.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function add_event_data_to_sample( $context ): array {
-		
 		$sample_event = (object) [
 			'ID'               => 213123123,
 			'permalink'        => '#',
