@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.5
+Stable tag: 6.2.6
 Tested up to: 6.3.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.2.6] 2023-11-07 =
 
 * Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [BTRIA-2096]
 * Tweak - Added filter: `tec_events_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [BTRIA-2096]
