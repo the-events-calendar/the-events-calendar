@@ -7,11 +7,15 @@
  *
  * See more documentation about our views templating system.
  *
- * @link https://evnt.is/1amp
+ * @link https://evnt.is/event-tickets-wallet-plus-tpl Help article for Wallet Plus template files.
  *
  * @since TBD
  *
  * @version TBD
+ *
+ * @var string $venue_map_pin_image_src The image source of the venue map pin icon.
+ * @var string $venue_phone_image_src The image source of the venue phone icon.
+ * @var string $venue_link_image_src The image source of the venue link icon.
  */
 
 if ( empty( $venues ) ) {

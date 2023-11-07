@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link https://evnt.is/1amp
+ * @link https://evnt.is/event-tickets-wallet-plus-tpl Help article for Wallet Plus template files.
  *
  * @since TBD
  *
@@ -30,7 +30,7 @@
 		padding-top: 0;
 	}
 	.tec-tickets__wallet-plus-pdf-event-venue-title {
-		font-size: 10.5pt; 
+		font-size: 10.5pt;
 		font-weight: bold;
 	}
 	.tec-tickets__wallet-plus-pdf-event-venue-detail-table {
