@@ -22,11 +22,6 @@ class Event_Modifier {
 	 * @return array Modified pass data.
 	 */
 	public function include_event_data( array $pass_data, array $attendee ): array {
-
-		if ( ! tec_tickets_tec_events_is_active() ) {
-			return $pass_data;
-		}
-
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
 		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $pass_data;
@@ -82,10 +77,6 @@ class Event_Modifier {
 	 * @return array Modified pass data.
 	 */
 	public function include_venue_data( array $pass_data, array $attendee ): array {
-		if ( ! tec_tickets_tec_events_is_active() ) {
-			return $pass_data;
-		}
-
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
 		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $pass_data;
