@@ -244,7 +244,7 @@ class iCalendar_Handler extends Service_Provider {
 		 *
 		 * @param bool $add If the x-robots tag should be added to the response headers.
 		 */
-		$add = (bool) apply_filters( 'tec_ical_header_noindex', true );
+		$add = (bool) apply_filters( 'tec_events_ical_header_noindex', true );
 
 		if ( ! $add ) {
 			return;
