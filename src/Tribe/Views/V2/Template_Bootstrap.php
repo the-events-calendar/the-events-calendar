@@ -117,7 +117,7 @@ class Template_Bootstrap {
 			return false;
 		}
 
-		return tribe_context()->is( 'tec_post_type' )
+		return tribe_context()->get( 'tec_post_type' ) === true
 		       || is_singular( TEC::POSTTYPE )
 		       || 'single-event' === tribe_context()->get( 'view' );
 	}
