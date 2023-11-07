@@ -231,8 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.6] 2023-11-07 =
 
-* Tweak - Add a `noindex, nofollow` meta tag to all event views except if the calendar is set to the home page. [TBD]
-* Tweak - Added filter `tec_events_views_v2_noindex` to short-circuit the noindex meta tag addition.
+* Tweak - Add a `noindex, nofollow` meta tag to all event views except if the calendar is set to the home page. [TEC-4976]
+* Tweak - Added filter `tec_events_views_v2_noindex` to short-circuit the noindex meta tag addition. [TEC-4976]
 
 = [6.2.5] 2023-11-01 =
 
