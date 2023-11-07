@@ -229,7 +229,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.6] 2023-11-07 =
+= [6.2.6] 2023-11-08 =
 
 * Tweak - Add a `noindex, nofollow` meta tag to all event views except if the calendar is set to the home page. [TEC-4976]
 * Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [TEC-4976]
