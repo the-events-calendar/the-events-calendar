@@ -229,6 +229,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.6] 2023-11-07 =
+
 = [6.2.5] 2023-11-01 =
 
 * Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
