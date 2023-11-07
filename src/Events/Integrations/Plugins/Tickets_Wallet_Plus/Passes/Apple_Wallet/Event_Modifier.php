@@ -45,11 +45,10 @@ class Event_Modifier {
 			$pass_data['auxiliary'] = [];
 		}
 
-
 		// Add the event title.
 		$pass_data['secondary'][] = [
 			'key'   => 'event_title',
-			'label' => esc_html__( 'Event', 'event-tickets-wallet-plus' ),
+			'label' => esc_html__( 'Event', 'the-events-calendar' ),
 			'value' => $event->post_title,
 		];
 
@@ -58,7 +57,7 @@ class Event_Modifier {
 			'dateStyle'  => 'PKDateStyleMedium',
 			'isRelative' => true,
 			'key'        => 'event_start_date',
-			'label'      => esc_html__( 'Date', 'event-tickets-wallet-plus' ),
+			'label'      => esc_html__( 'Date', 'the-events-calendar' ),
 			'timeStyle'  => 'PKDateStyleShort',
 			'value'      => $event->dates->start->format( 'Y-m-d\TH:iP' ),
 		];
@@ -87,7 +86,6 @@ class Event_Modifier {
 		// Get the event.
 		$event = tribe_get_event( $event_id );
 
-
 		if ( empty( $event->venues->count() ) ) {
 			return $pass_data;
 		}
@@ -96,8 +94,45 @@ class Event_Modifier {
 
 		$pass_data['auxiliary'][] = [
 			'key'   => 'event_venue',
-			'label' => esc_html__( 'Venue', 'event-tickets-wallet-plus' ),
+			'label' => esc_html__( 'Venue', 'the-events-calendar' ),
 			'value' => $venue->post_title,
+		];
+
+		return $pass_data;
+	}
+
+	/**
+	 * Add event data to sample Apple Wallet pass.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $pass_data the sample pass data.
+	 *
+	 * @return array
+	 */
+	public function add_event_data_to_sample( array $pass_data ) {
+		// Add the event title.
+		$pass_data['secondary'][] = [
+			'key'   => 'event_title',
+			'label' => esc_html__( 'Event', 'the-events-calendar' ),
+			'value' => esc_html__( 'Arts in the Park', 'the-events-calendar' ),
+		];
+
+		// Add the event start date.
+		$pass_data['secondary'][] = [
+			'dateStyle'  => 'PKDateStyleMedium',
+			'isRelative' => true,
+			'key'        => 'event_start_date',
+			'label'      => esc_html__( 'Date', 'the-events-calendar' ),
+			'timeStyle'  => 'PKDateStyleShort',
+			'value'      => gmdate( 'Y-m-d\TH:iP' ),
+		];
+
+		// Add the event venue.
+		$pass_data['auxiliary'][] = [
+			'key'   => 'event_venue',
+			'label' => esc_html__( 'Venue', 'the-events-calendar' ),
+			'value' => esc_html__( 'Central Park', 'the-events-calendar' ),
 		];
 
 		return $pass_data;
