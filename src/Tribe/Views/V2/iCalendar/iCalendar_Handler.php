@@ -239,9 +239,19 @@ class iCalendar_Handler extends Service_Provider {
 	 * @since TBD
 	 */
 	public function ical_header_properties() {
+		/**
+		 * Allows short-circuiting the logic to prevent the x-robots tag from being added to the response headers.
+		 */
+		$add = (bool) apply_filters( 'tec_ical_header_noindex', true );
+
+		if ( ! $add ) {
+			return;
+		}
+
 		if ( ! tribe_get_request_var( 'ical' ) && ! tribe_get_request_var( 'outlook-ical' ) ) {
 			return;
 		}
+
 		header( 'X-Robots-Tag:noindex, nofollow' );
 	}
 }

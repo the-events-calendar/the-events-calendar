@@ -232,6 +232,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [BTRIA-2096]
+* Tweak - Added filter: `tec_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [BTRIA-2096]
 
 = [6.2.5] 2023-11-01 =
 
