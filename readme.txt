@@ -90,6 +90,7 @@ Our Premium Plugins and Services:
 ⚡ [Events Calendar PRO](https://evnt.is/18wi)
 ↪️ [Event Aggregator](https://evnt.is/197u) (service)
 🎟️ [Event Tickets Plus](https://evnt.is/18wk)
+📱 [Event Tickets Wallet Plus](https://evnt.is/etwp)
 ✉️ [Promoter](https://evnt.is/1ajt)
 👥 [Community Events](https://evnt.is/2g)
 🎟️ [Community Tickets](https://evnt.is/18wl)
@@ -179,6 +180,7 @@ The following add-ons are available for The Events Calendar:
 * [Virtual Events](https://evnt.is/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://evnt.is/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
+* [Event Tickets Wallet Plus](https://evnt.is/etwp), for adding digital tickets like Apple Wallet passes and PDF tickets.
 * [Promoter](https://evnt.is/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
 * [Community Events](https://evnt.is/2g), for allowing frontend event submission from your readers.
 * [Community Tickets](https://evnt.is/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
@@ -191,7 +193,7 @@ Yes! The Events Calendar has a built-in CSV import tool. If you want to step it 
 
 = How do I sell tickets to events on my calendar? =
 
-You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-tickets/) plugin for that. This free plugin works alongside The Events Calendar and lets you create RSVPs and tickets for events. Event Tickets integrates with PayPal so you can collect payments for tickets, while our premium solution, Event Tickets Plus fully integrates with WooCommerce or Easy Digital Downloads.
+You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-tickets/) plugin for that. This free plugin works alongside The Events Calendar and lets you create RSVPs and tickets for events. Event Tickets integrates with PayPal so you can collect payments for tickets, while our premium solution, Event Tickets Plus fully integrates with WooCommerce or Easy Digital Downloads. If you want to include digital tickets like Apple Wallet passes and PDF tickets check out [Event Tickets Wallet Plus](https://evnt.is/etwp).
 
 = Can I have more than one calendar on my site? =
 
