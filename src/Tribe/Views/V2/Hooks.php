@@ -71,6 +71,7 @@ class Hooks extends Service_Provider {
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		add_action( 'wp_head', [ $this, 'action_add_noindex' ] );
 	}
 
 	/**
@@ -1178,6 +1179,38 @@ class Hooks extends Service_Provider {
 	public function action_include_global_elements_settings( $section, $manager, $customizer ) {
 		_deprecated_function( __METHOD__, '5.9.0' );
 		tribe( 'customizer' )->include_global_elements_settings( $section, $manager, $customizer );
+	}
+
+	/**
+	 * Conditionally adds a noindex meta tag to all event views.
+	 *
+	 * @since 6.2.6
+	 */
+	public function action_add_noindex(): void {
+		/**
+		 * Filter to disable the noindex meta tag on Views V2.
+		 *
+		 * @since 6.2.6
+		 *
+		 * @param bool $add Whether to add the noindex meta tag or not.
+		 */
+		$add = (bool) apply_filters( 'tec_events_views_v2_noindex', true );
+
+		// Don't add if the above filter has been changed,
+		// we're on the home page (event if the calendar is set to the home page)
+		// or we're not on an event view.
+		if (
+			! $add
+			|| is_home()
+			|| ! function_exists( 'tribe_context' )
+			|| is_null( tribe_context()->get( 'view' ) )
+		) {
+				return;
+		}
+
+		?>
+        <meta name="robots" content="noindex, nofollow" />
+        <?php
 	}
 
 	/**
