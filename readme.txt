@@ -231,8 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.6] 2023-11-07 =
 
-* Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [BTRIA-2096]
-* Tweak - Added filter: `tec_events_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [BTRIA-2096]
+* Tweak - Add a `noindex, nofollow` meta tag to all event views except if the calendar is set to the home page. [TEC-4976]
+* Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [TEC-4976]
+* Tweak - Added filter: `tec_events_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [TEC-4976]
+* Tweak - Added filter `tec_events_views_v2_noindex` to short-circuit the noindex meta tag addition. [TEC-4976]
 
 = [6.2.5] 2023-11-01 =
 
