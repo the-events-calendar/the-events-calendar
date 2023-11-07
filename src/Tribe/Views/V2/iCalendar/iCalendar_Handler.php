@@ -241,6 +241,8 @@ class iCalendar_Handler extends Service_Provider {
 	public function ical_header_properties() {
 		/**
 		 * Allows short-circuiting the logic to prevent the x-robots tag from being added to the response headers.
+		 *
+		 * @param bool $add If the x-robots tag should be added to the response headers.
 		 */
 		$add = (bool) apply_filters( 'tec_ical_header_noindex', true );
 
