@@ -231,6 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.6] 2023-11-08 =
 
+* Fix - SEO: Ensure that the noindex meta tag properly observes whether events are present on the page or not. [TEC-4976]
+* Fix - SEO: Add noindex, nofollow for grid-based views like Month and Week View when they are not set as the home page. [TEC-4976]
 * Tweak - Add a `noindex, nofollow` meta tag to all event views except if the calendar is set to the home page. [TEC-4976]
 * Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [TEC-4976]
 * Tweak - Added filter: `tec_events_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [TEC-4976]
