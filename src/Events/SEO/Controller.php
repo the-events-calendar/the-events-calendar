@@ -133,7 +133,18 @@ class Controller extends Controller_Contract {
 		$do_include = apply_filters_deprecated( "tec_events_{$view}_add_no_index_meta", [ $do_include, $context ], '6.2.6', "tec_events_seo_robots_meta_include_{$view}" );
 
 		if ( $do_include ) {
-			add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
+			if ( did_action( 'wp_head' ) ) {
+				ob_start();
+				$this->print_noindex_meta();
+				$meta_html = trim( ob_get_clean() );
+				?>
+				<script>
+					document.head.insertAdjacentHTML( 'beforeend', '<?php echo $meta_html; ?>' );
+				</script>
+				<?php
+			} else {
+				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
+			}
 		}
 	}
 
