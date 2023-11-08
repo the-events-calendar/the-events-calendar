@@ -173,6 +173,13 @@ $tec_events_general_toc = [
 	],
 ];
 
+/**
+ * Allow filtering the Table of Contents bar on the General settings page.
+ *
+ * @var array $tec_events_display_toc Array of items of the TOC.
+ */
+$tec_events_general_toc = apply_filters( 'tec_general_settings_toc', $tec_events_general_toc );
+
 $general_tab_fields += $tec_events_general_toc;
 
 // Start the form content wrapper.
