@@ -1187,30 +1187,81 @@ class Hooks extends Service_Provider {
 	 * @since 6.2.6
 	 */
 	public function action_add_noindex(): void {
+		$view = tribe_context()->get( 'view' );
+
+		// If we don't have a view, bail.
+		if ( empty( $view ) ) {
+			return;
+		}
+
+		// Don't noindex, nofollow on the home page.
+		if ( is_home() || is_front_page() ) {
+			return;
+		}
+
+		$do_include = false;
+		$manager    = tribe( Manager::class );
+		$view_class = $manager->get_view_class_by_slug( $view );
+
+		// If we have a view class and it is a subclass of the By_Day_View class (grid views), default to including noindex, nofollow.
+		if ( ! empty( $view_class ) && is_subclass_of( $view_class, Views\By_Day_View::class ) ) {
+			$do_include = true;
+		}
+
 		/**
 		 * Filter to disable the noindex meta tag on Views V2.
 		 *
 		 * @since 6.2.6
 		 *
-		 * @param bool $add Whether to add the noindex meta tag or not.
+		 * @param bool $do_include Whether to add the noindex, nofollow meta tag or not.
+		 * @param string $view The current view slug.
 		 */
-		$add = (bool) apply_filters( 'tec_events_views_v2_noindex', true );
+		$do_include = (bool) apply_filters( 'tec_events_views_v2_robots_meta_include', $do_include, $view );
 
-		// Don't add if the above filter has been changed,
-		// we're on the home page (event if the calendar is set to the home page)
-		// or we're not on an event view.
-		if (
-			! $add
-			|| is_home()
-			|| ! function_exists( 'tribe_context' )
-			|| is_null( tribe_context()->get( 'view' ) )
-		) {
-				return;
+		/**
+		 * Filter to disable the noindex meta tag on Views V2 for a specific view.
+		 *
+		 * @since 6.2.6
+		 *
+		 * @param bool $do_include Whether to add the noindex, nofollow meta tag or not.
+		 * @param string $view The current view slug.
+		 */
+		$do_include = (bool) apply_filters( "tec_events_views_v2_robots_meta_include_{$view}", $do_include, $view );
+
+		if ( ! $do_include ) {
+			return;
+		}
+
+		$robots_meta_content = 'noindex, nofollow';
+
+		/**
+		 * Filter to disable the noindex meta tag on Views V2.
+		 *
+		 * @since 6.2.6
+		 *
+		 * @param string $robots_meta_content The contents of the robots meta tag.
+		 * @param string $view The current view slug.
+		 */
+		$robots_meta_content = (string) apply_filters( 'tec_events_views_v2_robots_meta_content', $robots_meta_content, $view );
+
+		/**
+		 * Filter to disable the noindex meta tag on Views V2 for a specific view.
+		 *
+		 * @since 6.2.6
+		 *
+		 * @param string $robots_meta_content The contents of the robots meta tag.
+		 * @param string $view The current view slug.
+		 */
+		$robots_meta_content = (string) apply_filters( "tec_events_views_v2_robots_meta_content_{$view}", $robots_meta_content, $view );
+
+		if ( ! $robots_meta_content ) {
+			return;
 		}
 
 		?>
-        <meta name="robots" content="noindex, nofollow" />
-        <?php
+		<!-- The following robots meta is from The Events Calendar: <?php echo esc_html( __METHOD__ ); ?> -->
+		<meta name="robots" content="<?php echo esc_attr( $robots_meta_content ); ?>"/>
+		<?php
 	}
 
 	/**
