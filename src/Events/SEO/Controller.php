@@ -64,8 +64,8 @@ class Controller extends Controller_Contract {
 			 *
 			 * @since 6.2.6
 			 *
-			 * @param array $robots_enabled_post_types The post types that should allow noindex tags.
-			 * @param string $post_type The current post type.
+			 * @param array  $robots_enabled_post_types The post types that should allow noindex tags.
+			 * @param string $post_type                 The current post type.
 			 */
 			$robots_enabled_post_types = (array) apply_filters( 'tec_events_seo_robots_meta_allowable_post_types', $robots_enabled_post_types, $post_type );
 
