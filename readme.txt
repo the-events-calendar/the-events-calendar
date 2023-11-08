@@ -231,11 +231,13 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.6] 2023-11-08 =
 
-* Tweak - Add a `noindex, nofollow` meta tag to all event views except if the calendar is set to the home page. [TEC-4976]
+* Fix - SEO: Ensure that the noindex meta tag properly observes whether events are present on the page or not. [TEC-4976]
+* Fix - SEO: Add noindex, nofollow for grid-based views like Month and Week View when they are not set as the home page. [TEC-4976]
 * Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [TEC-4976]
 * Tweak - Added filter: `tec_events_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [TEC-4976]
-* Tweak - Added filter `tec_events_views_v2_robots_meta_include` and `tec_events_views_v2_robots_meta_include_{$view}` to short-circuit the robots meta tag addition. [TEC-4976]
-* Tweak - Added filter `tec_events_views_v2_robots_meta_content` and `tec_events_views_v2_robots_meta_content_{$view}` to alter the content attribute of the robots meta tag addition. [TEC-4976]
+* Tweak - Added filter `tec_events_seo_robots_meta_include` and `tec_events_seo_robots_meta_include_{$view}` to short-circuit the robots meta tag addition. [TEC-4976]
+* Tweak - Added filter `tec_events_seo_robots_meta_content` to alter the content attribute of the robots meta tag addition. [TEC-4976]
+* Tweak - Deprecated filters `tec_events_add_no_index_meta_tag`, `tribe_events_add_no_index_meta`, and `tec_events_{$view}_add_no_index_meta` in favor of the above new filters.
 
 = [6.2.5] 2023-11-01 =
 
