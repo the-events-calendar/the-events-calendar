@@ -58,7 +58,6 @@ class Controller extends Controller_Contract {
 
 			$linked_post_types           = (array) \Tribe__Events__Linked_Posts::instance()->get_linked_post_types();
 			$robots_enabled_post_types   = array_keys( $linked_post_types );
-			$robots_enabled_post_types[] = \Tribe__Events__Main::TAXONOMY;
 
 			/**
 			 * Allows for the filtering of post types that should allow noindex tags.
