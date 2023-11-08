@@ -87,6 +87,11 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
+		// Let's avoid adding noindex to shortcode views.
+		if ( $context->get( 'shortcode' ) ) {
+			return;
+		}
+
 		// If we have a view class and it is a subclass of the By_Day_View class (grid views), default to including noindex, nofollow.
 		if ( $instance instanceof Views\By_Day_View ) {
 			$do_include = true;
