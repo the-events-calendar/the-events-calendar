@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filter: `tec_events_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [TEC-4976]
 * Tweak - Added filter `tec_events_seo_robots_meta_include` and `tec_events_seo_robots_meta_include_{$view}` to short-circuit the robots meta tag addition. [TEC-4976]
 * Tweak - Added filter `tec_events_seo_robots_meta_content` to alter the content attribute of the robots meta tag addition. [TEC-4976]
+* Tweak - Deprecated filters `tec_events_add_no_index_meta_tag`, `tribe_events_add_no_index_meta`, and `tec_events_{$view}_add_no_index_meta` in favor of the above new filters.
 
 = [6.2.5] 2023-11-01 =
 
