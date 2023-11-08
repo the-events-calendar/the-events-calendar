@@ -1195,7 +1195,7 @@ class Hooks extends Service_Provider {
 		}
 
 		// Don't noindex, nofollow on the home page.
-		if ( is_home() ) {
+		if ( is_home() || is_front_page() ) {
 			return;
 		}
 
