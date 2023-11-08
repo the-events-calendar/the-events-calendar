@@ -49,8 +49,30 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function hook_issue_noindex() {
-		if ( is_home() || is_front_page() || is_single() ) {
+		if ( is_home() || is_front_page() ) {
 			return;
+		}
+
+		if ( is_single() ) {
+			$post_type = get_post_type();
+
+			$linked_post_types           = (array) \Tribe__Events__Linked_Posts::instance()->get_linked_post_types();
+			$robots_enabled_post_types   = array_keys( $linked_post_types );
+			$robots_enabled_post_types[] = \Tribe__Events__Main::TAXONOMY;
+
+			/**
+			 * Allows for the filtering of post types that should allow noindex tags.
+			 *
+			 * @since 6.2.6
+			 *
+			 * @param array $robots_enabled_post_types The post types that should allow noindex tags.
+			 * @param string $post_type The current post type.
+			 */
+			$robots_enabled_post_types = (array) apply_filters( 'tec_events_seo_robots_meta_allowable_post_types', $robots_enabled_post_types, $post_type );
+
+			if ( ! in_array( $post_type, $robots_enabled_post_types ) ) {
+				return;
+			}
 		}
 
 		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
