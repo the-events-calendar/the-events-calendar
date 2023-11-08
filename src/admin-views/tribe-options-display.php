@@ -56,9 +56,8 @@ $tec_events_display_fields = [
 	],
 ];
 
-
 // Add the TOC
-$tec_events_general_toc = [
+$tec_events_display_toc = [
 	'tec-events-settings-display-toc-nav-start'             => [
 		'type' => 'html',
 		'html' => '<div class="tec-settings-header">',
@@ -101,7 +100,7 @@ $tec_events_general_toc = [
 	],
 ];
 
-$tec_events_display_fields += $tec_events_general_toc;
+$tec_events_display_fields += $tec_events_display_toc;
 
 // Start the form content wrapper.
 $tec_events_general_form_end = [
