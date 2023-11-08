@@ -105,7 +105,7 @@ $tec_events_display_toc = [
  * 
  * @var array $tec_events_display_toc Array of items of the TOC. 
  */
-$tec_events_display_toc = apply_filters( 'tec_events_display_toc', $tec_events_display_toc );
+$tec_events_display_toc = apply_filters( 'tec_events_display_settings_toc', $tec_events_display_toc );
 
 $tec_events_display_fields += $tec_events_display_toc;
 
