@@ -23,14 +23,37 @@ use Tribe__Context;
  * @package TEC\Events\SEO
  */
 class Controller extends Controller_Contract {
+	/**
+	 * @inerhitDoc
+	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
 
-		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+		// We hook an extra layer
+		add_action( 'wp', [ $this, 'hook_issue_noindex' ] );
 	}
 
+	/**
+	 * @inerhitDoc
+	 */
 	public function unregister(): void {
+		remove_action( 'wp', [ $this, 'hook_issue_noindex' ] );
 		remove_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+	}
+
+	/**
+	 * Hooked to wp action to check if we should bail before hooking the full noindex logic.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @return void
+	 */
+	public function hook_issue_noindex() {
+		if ( is_home() || is_front_page() || is_single() ) {
+			return;
+		}
+
+		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
 	}
 
 	/**
@@ -63,12 +86,6 @@ class Controller extends Controller_Contract {
 		if ( empty( $view ) ) {
 			return;
 		}
-
-		if ( is_home() || is_front_page() || is_single() ) {
-			return;
-		}
-
-		$do_include = false;
 
 		// If we have a view class and it is a subclass of the By_Day_View class (grid views), default to including noindex, nofollow.
 		if ( $instance instanceof Views\By_Day_View ) {
