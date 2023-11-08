@@ -149,19 +149,19 @@ $tec_events_general_toc = [
 	],
 	'tec-settings-general-toc-viewing'         => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-viewing">' . _x( 'Viewing', 'Viewing table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-general-viewing">' . _x( 'Viewing', 'Viewing table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-settings-general-toc-editing'         => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-editing">' . _x( 'Editing', 'Editing table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-general-editing">' . _x( 'Editing', 'Editing table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-settings-general-toc-maintenance'         => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-maintenance">' . _x( 'Maintenance', 'Maintenance table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-general-maintenance">' . _x( 'Maintenance', 'Maintenance table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-settings-general-toc-debugging' => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-general-debugging">' . _x( 'Debugging', 'Debugging table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-general-debugging">' . _x( 'Debugging', 'Debugging table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-settings-general-toc-end'             => [
 		'type' => 'html',
