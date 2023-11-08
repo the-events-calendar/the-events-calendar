@@ -1214,8 +1214,9 @@ class Hooks extends Service_Provider {
 		 * @since 6.2.6
 		 *
 		 * @param bool $do_include Whether to add the noindex, nofollow meta tag or not.
+		 * @param string $view The current view slug.
 		 */
-		$do_include = (bool) apply_filters( 'tec_events_views_v2_robots_meta_include', $do_include );
+		$do_include = (bool) apply_filters( 'tec_events_views_v2_robots_meta_include', $do_include, $view );
 
 		/**
 		 * Filter to disable the noindex meta tag on Views V2 for a specific view.
@@ -1223,8 +1224,9 @@ class Hooks extends Service_Provider {
 		 * @since 6.2.6
 		 *
 		 * @param bool $do_include Whether to add the noindex, nofollow meta tag or not.
+		 * @param string $view The current view slug.
 		 */
-		$do_include = (bool) apply_filters( "tec_events_views_v2_robots_meta_include_{$view}", $do_include );
+		$do_include = (bool) apply_filters( "tec_events_views_v2_robots_meta_include_{$view}", $do_include, $view );
 
 		if ( ! $do_include ) {
 			return;
@@ -1238,8 +1240,9 @@ class Hooks extends Service_Provider {
 		 * @since 6.2.6
 		 *
 		 * @param string $robots_meta_content The contents of the robots meta tag.
+		 * @param string $view The current view slug.
 		 */
-		$robots_meta_content = (string) apply_filters( 'tec_events_views_v2_robots_meta_content', $robots_meta_content );
+		$robots_meta_content = (string) apply_filters( 'tec_events_views_v2_robots_meta_content', $robots_meta_content, $view );
 
 		/**
 		 * Filter to disable the noindex meta tag on Views V2 for a specific view.
@@ -1247,8 +1250,9 @@ class Hooks extends Service_Provider {
 		 * @since 6.2.6
 		 *
 		 * @param string $robots_meta_content The contents of the robots meta tag.
+		 * @param string $view The current view slug.
 		 */
-		$robots_meta_content = (string) apply_filters( "tec_events_views_v2_robots_meta_content_{$view}", $robots_meta_content );
+		$robots_meta_content = (string) apply_filters( "tec_events_views_v2_robots_meta_content_{$view}", $robots_meta_content, $view );
 
 		if ( ! $robots_meta_content ) {
 			return;
