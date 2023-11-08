@@ -229,6 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
+* Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
+
 = [6.2.5] 2023-11-01 =
 
 * Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
