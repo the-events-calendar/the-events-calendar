@@ -236,7 +236,7 @@ class iCalendar_Handler extends Service_Provider {
 	/**
 	 * Add x-robots tag to response headers for ical download links.
 	 *
-	 * @since TBD
+	 * @since 6.2.6
 	 */
 	public function ical_header_properties() {
 		/**
