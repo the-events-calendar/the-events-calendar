@@ -72,23 +72,23 @@ $tec_events_display_toc = [
 	],
 	'tec-events-settings-display-toc-calendar'         => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-calendar">' . _x( 'Calendar Display', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-calendar">' . _x( 'Calendar Display', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-date'         => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-date">' . _x( 'Date & Time', 'Date & Time table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-date">' . _x( 'Date & Time', 'Date & Time table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-currency' => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-currency">' . _x( 'Currency', 'Currency table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-currency">' . _x( 'Currency', 'Currency table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-maps' => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-maps">' . _x( 'Maps', 'Maps table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-maps">' . _x( 'Maps', 'Maps table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-additional' => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-additional">' . _x( 'Additional Content', 'Additional Content table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-additional">' . _x( 'Additional Content', 'Additional Content table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-end'             => [
 		'type' => 'html',
