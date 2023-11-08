@@ -73,9 +73,7 @@ class Controller extends Controller_Contract {
 		// If we have a view class and it is a subclass of the By_Day_View class (grid views), default to including noindex, nofollow.
 		if ( $instance instanceof Views\By_Day_View ) {
 			$do_include = true;
-			add_filter( 'tec_events_seo_robots_meta_content', static function() {
-				return 'noindex, nofollow';
-			} );
+			add_filter( 'tec_events_seo_robots_meta_content', [ $this, 'get_noindex_nofollow' ] );
 		} else {
 			$do_include = $this->should_add_no_index_for_list_based_views( $instance );
 		}
@@ -161,12 +159,34 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Get the noindex, follow string.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @return string
+	 */
+	public function get_noindex_follow(): string {
+		return 'noindex, follow';
+	}
+
+	/**
+	 * Get the noindex, nofollow string.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @return string
+	 */
+	public function get_noindex_nofollow(): string {
+		return 'noindex, nofollow';
+	}
+
+	/**
 	 * Prints a "noindex,follow" robots tag.
 	 *
 	 * @since 6.2.3
 	 */
 	public function print_noindex_meta() :void {
-		$robots_meta_content = 'noindex, follow';
+		$robots_meta_content = $this->get_noindex_follow();
 
 		/**
 		 * Filter to disable the noindex meta tag on Views V2.
