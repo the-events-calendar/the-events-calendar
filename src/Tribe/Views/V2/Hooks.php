@@ -1255,8 +1255,8 @@ class Hooks extends Service_Provider {
 		}
 
 		?>
-		<!-- The following robots meta is from The Events Calendar: <?php esc_html_e( __METHOD__ ); ?> -->
-		<meta name="robots" content="<?php esc_attr_e( $robots_meta_content ); ?>"/>
+		<!-- The following robots meta is from The Events Calendar: <?php echo esc_html( __METHOD__ ); ?> -->
+		<meta name="robots" content="<?php echo esc_attr( $robots_meta_content ); ?>"/>
 		<?php
 	}
 
