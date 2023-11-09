@@ -298,12 +298,10 @@ class Custom_Tables_Query extends WP_Query {
 		 * of a Custom Tables Query.
 		 *
 		 * @since 6.0.0
-		 * @since TBD Added the $query param.
 		 *
 		 * @param string   $request_fields The Query fields request, e.g. `ids`.
-		 * @param WP_Query $query          This query object we are filtering.
 		 */
-		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields, $query );
+		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields );
 
 		return $request_fields;
 	}
