@@ -266,7 +266,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 
 		$this->redirect();
 
-		$fields = $this->post_id_to_occurrence_id( $fields,   $query );
+		$fields = $this->post_id_to_occurrence_id( $fields );
 
 		return parent::filter_posts_fields( $fields, $query );
 	}
@@ -292,7 +292,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 		 * @since 6.0.0
 		 * @see   Custom_Tables_Query::redirect_posts_fields() for this filter documentation.
 		 */
-		$select_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $wp_post_fields );
+		$select_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $wp_post_fields, 'ids' );
 
 		return str_replace( $wp_post_fields, $select_fields, $input );
 	}
