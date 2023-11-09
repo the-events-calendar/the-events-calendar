@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.6.1] 2023-11-09 =
+
+* Fix - Update a common library to prevent possible fatals. [TEC-4978]
+
 = [6.2.6] 2023-11-08 =
 
 * Fix - SEO: Ensure that the noindex meta tag properly observes whether events are present on the page or not. [TEC-4976]
