@@ -42,8 +42,7 @@ if ( empty( $venue->website ) ) {
 								rel="noopener noreferrer"
 								class="tec-tickets__wallet-plus-pdf-event-venue-detail-link"
 							>
-								<?php echo esc_url( $venue->website ); ?>
-							</a>
+								<?php echo esc_url( $venue->website ); ?></a>
 						</div>
 					</td>
 				</tr>
