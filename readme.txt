@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.1.0
-Stable tag: 6.2.6
+Stable tag: 6.2.7
 Tested up to: 6.4
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -90,6 +90,7 @@ Our Premium Plugins and Services:
 ⚡ [Events Calendar PRO](https://evnt.is/18wi)
 ↪️ [Event Aggregator](https://evnt.is/197u) (service)
 🎟️ [Event Tickets Plus](https://evnt.is/18wk)
+📱 [Event Tickets Wallet Plus](https://evnt.is/etwp)
 ✉️ [Promoter](https://evnt.is/1ajt)
 👥 [Community Events](https://evnt.is/2g)
 🎟️ [Community Tickets](https://evnt.is/18wl)
@@ -179,6 +180,7 @@ The following add-ons are available for The Events Calendar:
 * [Virtual Events](https://evnt.is/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://evnt.is/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
+* [Event Tickets Wallet Plus](https://evnt.is/etwp), for adding digital tickets like Apple Wallet passes and PDF tickets.
 * [Promoter](https://evnt.is/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
 * [Community Events](https://evnt.is/2g), for allowing frontend event submission from your readers.
 * [Community Tickets](https://evnt.is/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
@@ -191,7 +193,7 @@ Yes! The Events Calendar has a built-in CSV import tool. If you want to step it 
 
 = How do I sell tickets to events on my calendar? =
 
-You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-tickets/) plugin for that. This free plugin works alongside The Events Calendar and lets you create RSVPs and tickets for events. Event Tickets integrates with PayPal so you can collect payments for tickets, while our premium solution, Event Tickets Plus fully integrates with WooCommerce or Easy Digital Downloads.
+You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-tickets/) plugin for that. This free plugin works alongside The Events Calendar and lets you create RSVPs and tickets for events. Event Tickets integrates with PayPal so you can collect payments for tickets, while our premium solution, Event Tickets Plus fully integrates with WooCommerce or Easy Digital Downloads. If you want to include digital tickets like Apple Wallet passes and PDF tickets check out [Event Tickets Wallet Plus](https://evnt.is/etwp).
 
 = Can I have more than one calendar on my site? =
 
@@ -229,6 +231,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+<<<<<<< HEAD
+= [6.2.6] 2023-11-15 =
+
+
+=======
 = [6.2.6] 2023-11-08 =
 
 * Fix - SEO: Ensure that the noindex meta tag properly observes whether events are present on the page or not. [TEC-4976]
@@ -239,6 +246,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filter `tec_events_seo_robots_meta_content` to alter the content attribute of the robots meta tag addition. [TEC-4976]
 * Tweak - Added filter `tec_events_seo_robots_meta_allowable_post_types` to allow for the filtering of single post types that can have robots meta tags added.
 * Tweak - Deprecated filters `tec_events_add_no_index_meta_tag`, `tribe_events_add_no_index_meta`, and `tec_events_{$view}_add_no_index_meta` in favor of the above new filters.
+>>>>>>> 40722eecbad1b500701f70421845dd587c0d2ee4
 
 = [6.2.5] 2023-11-01 =
 
