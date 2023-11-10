@@ -5,6 +5,7 @@ namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Tickets_Wallet_Plus\Controller as Tickets_Wallet_Plus;
+use TEC\Tickets_Wallet_Plus\Passes\Apple_Wallet\Pass;
 use Tribe__Template;
 
 /**
@@ -61,10 +62,11 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters() {
 		add_filter( 'tec_tickets_wallet_plus_pdf_pass_template_vars', [ $this, 'filter_pdf_template_context' ] );
-		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_event_date_to_apple_pass_data' ], 10, 3 );
-		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_venue_to_apple_pass_data' ], 10, 3 );
 		add_filter( 'tec_tickets_wallet_plus_pdf_sample_template_context', [ $this, 'add_event_data_to_pdf_sample' ] );
-		add_filter( 'tec_tickets_wallet_plus_apple_preview_pass_data', [ $this, 'add_event_data_to_sample_apple_wallet_pass' ] );
+
+		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_event_date_to_apple_pass_data' ], 10, 2 );
+		add_filter( 'tec_tickets_wallet_plus_apple_pass_data', [ $this, 'add_venue_to_apple_pass_data' ], 10, 2 );
+		add_filter( 'tec_tickets_wallet_plus_apple_preview_pass_data', [ $this, 'add_event_data_to_sample_apple_wallet_pass' ], 10, 2 );
 	}
 
 	/**
@@ -143,11 +145,12 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $pass_data The Apple Pass data.
-	 * @param array $attendee  The attendee data.
+	 * @param array $data The Apple Pass data.
+	 * @param Pass $pass The Apple Pass object.
+	 *
 	 */
-	public function add_event_date_to_apple_pass_data( $pass_data, $attendee ) {
-		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->include_event_data( $pass_data, $attendee );
+	public function add_event_date_to_apple_pass_data( $data, $pass ) {
+		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->include_event_data( $data, $pass );
 	}
 
 	/**
@@ -155,11 +158,12 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $pass_data The Apple Pass data.
-	 * @param array $attendee  The attendee data.
+	 * @param array $data The Apple Pass data.
+	 * @param Pass $pass The Apple Pass object.
+	 *
 	 */
-	public function add_venue_to_apple_pass_data( $pass_data, $attendee ) {
-		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->include_venue_data( $pass_data, $attendee );
+	public function add_venue_to_apple_pass_data( $data, $pass ) {
+		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->include_venue_data( $data, $pass );
 	}
 
 	/**
@@ -167,9 +171,11 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $pass_data The preview Apple Pass data.
+	 * @param array $data The Apple Pass data.
+	 * @param Pass $pass The Apple Pass object.
+	 *
 	 */
-	public function add_event_data_to_sample_apple_wallet_pass( $pass_data ): array {
-		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->add_event_data_to_sample( $pass_data );
+	public function add_event_data_to_sample_apple_wallet_pass( $data, $pass ): array {
+		return $this->container->make( Passes\Apple_Wallet\Event_Modifier::class )->add_event_data_to_sample( $data, $pass );
 	}
 }
