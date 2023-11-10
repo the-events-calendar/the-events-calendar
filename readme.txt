@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Version - The Events Calendar 6.2.6.1 is only compatible with Event Tickets 5.6.8.1 and higher
 * Fix - Update a common library to prevent possible fatals. [TEC-4978]
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.2.6] 2023-11-08 =
 
