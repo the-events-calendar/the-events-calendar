@@ -34,7 +34,7 @@ class Event_Modifier {
 			return $data;
 		}
 
-		$event_id = $pass->get_attendee()['post_id'];
+		$event_id = $pass->get_event_id();
 
 		// Get the event.
 		$event = tribe_get_event( $event_id );
@@ -93,7 +93,7 @@ class Event_Modifier {
 			return $data;
 		}
 
-		$event_id = $pass->get_attendee()['post_id'];
+		$event_id = $pass->get_event_id();
 
 		// Get the event.
 		$event = tribe_get_event( $event_id );
