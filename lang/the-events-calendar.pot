@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.2.3.1\n"
+"Project-Id-Version: The Events Calendar 6.2.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-09T07:37:18-07:00\n"
-"PO-Revision-Date: 2023-10-09 14:37\n"
+"POT-Creation-Date: 2023-11-09T13:20:47-08:00\n"
+"PO-Revision-Date: 2023-11-09 21:20\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -2139,7 +2139,7 @@ msgstr ""
 
 #: src/admin-views/tribe-options-general.php:329
 #: src/admin-views/tribe-options-general.php:347
-#: src/Tribe/Views/V2/Hooks.php:1251
+#: src/Tribe/Views/V2/Hooks.php:1252
 msgid "Disabled"
 msgstr ""
 
@@ -5060,11 +5060,11 @@ msgctxt "Postponed label"
 msgid "Postponed"
 msgstr ""
 
-#: src/Tribe/Event_Tickets/Attendees_Report.php:38
+#: src/Tribe/Event_Tickets/Attendees_Report.php:40
 msgid "Event Date:"
 msgstr ""
 
-#: src/Tribe/Event_Tickets/Attendees_Report.php:60
+#: src/Tribe/Event_Tickets/Attendees_Report.php:62
 #: src/modules/blocks/event-venue/template.js:324
 msgid "Edit Venue"
 msgstr ""
@@ -7636,7 +7636,7 @@ msgctxt "The default text for the 'today' button's title and aria-label on the W
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1251
+#: src/Tribe/Views/V2/Hooks.php:1252
 msgid "Enabled"
 msgstr ""
 
