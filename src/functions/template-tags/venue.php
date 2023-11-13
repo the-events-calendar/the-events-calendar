@@ -733,6 +733,8 @@ function tribe_get_phone( $postId = null ) {
 
 /**
  * Get all the venues
+ * 
+ * @since TBD - Applied the `tec_events_custom_tables_v1_normalize_occurrence_id` filter to convert provisional IDs into regular IDs.
  *
  * @param bool  $only_with_upcoming Only return venues with upcoming events attached to them.
  * @param int   $posts_per_page
@@ -750,6 +752,11 @@ function tribe_get_phone( $postId = null ) {
 function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $suppress_filters = true, array $args = [] ) {
 	// filter out the `null` values
 	$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
+
+	// Convert provisional IDs into regular post IDs. 
+	if ( isset( $args['event'] ) ) {
+		$args['event'] = apply_filters( 'tec_events_custom_tables_v1_normalize_occurrence_id', $args['event'] );
+	}
 
 	if ( tribe_is_truthy( $only_with_upcoming ) ) {
 		$args['only_with_upcoming'] = true;
