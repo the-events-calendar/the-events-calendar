@@ -92,7 +92,7 @@ class Rest_Endpoint {
 	 * This stores the user (if authenticated) for use when we check that our custom nonce(s) are valid.
 	 *
 	 * @since 6.2.3
-	 * @since TBD Moved to new hook with new params in order to intercede in user auth flow for REST requests.
+	 * @since 6.2.7 Moved to new hook with new params in order to intercede in user auth flow for REST requests.
 	 *
 	 * @param array $cors_headers List of headers to be filtered.
 	 *
@@ -229,7 +229,7 @@ class Rest_Endpoint {
 	/**
 	 * Fetches and filters the HTML tag with the encoded nonces to be output on the view markup.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @param array $nonces The array of nonces that are being encoded in the HTML output.
 	 *
@@ -241,7 +241,7 @@ class Rest_Endpoint {
 		/**
 		 * This allows filtering of the nonce script tag being appended to the various views that utilize AJAX requests.
 		 *
-		 * @since TBD
+		 * @since 6.2.7
 		 *
 		 * @param string               $html   The script tag that has JSON encoded nonces.
 		 * @param array<string,string> $nonces The associative array of nonces being generated.
