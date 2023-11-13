@@ -238,7 +238,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Events__Linked_Posts__Chooser_Meta_Box::$singular_name_lowercase` and `\TEC\Events\Custom_Tables\V1\Models\Builder::$query` [BTRIA-2088]
 * Tweak - Adjust the content in the admin welcome page to include a link to the TEC Facebook community group. [TEC-4953]
 * Tweak - Added filters: `tec_events_get_full_site_block_template_services`, `tec_events_views_v2_get_rest_nonce_html`
-* Tweak - Added actions: `tribe_log`
 * Tweak - Changed views: `blocks/archive-events`, `blocks/single-event`
 * Language - 11 new strings added, 119 updated, 0 fuzzied, and 5 obsoleted.
 
