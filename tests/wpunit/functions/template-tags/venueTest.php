@@ -466,7 +466,7 @@ class venueTest extends Events_TestCase {
 	 * @test
 	 */
 	public function test_normalize_provisional_id() {
-		$provisional_id = 10000641;
+		$provisional_id = 123;
 		$filter_applied = false;
 
 		// Mock the filter to set $filter_applied to true

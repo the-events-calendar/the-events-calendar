@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisonal IDs. [ECP-1597]
+* Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
 
 = [TBD] TBD =
 
