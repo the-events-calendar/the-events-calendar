@@ -229,11 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.7] 2023-11-13 =
+= [TBD] TBD =
 
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 
-= [TBD] TBD =
+= [6.2.7] 2023-11-13 =
 
 * Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
 * Fix - Wordpress 6.3 introduce some changes in filters that regressed a prior fix for authentication and our new nonce structure used in view pagination. One symptom of the issue was losing the authenticated user and failing to display user specific capabilities on event views. [ECP-1601]
