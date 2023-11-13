@@ -12,7 +12,7 @@ interface Block_Template_Contract {
 	/**
 	 * The Block ID.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string
 	 */
@@ -21,7 +21,7 @@ interface Block_Template_Contract {
 	/**
 	 * The Block slug.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string
 	 */
@@ -30,7 +30,7 @@ interface Block_Template_Contract {
 	/**
 	 * Our namespace for a set of blocks.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string
 	 */
@@ -39,7 +39,7 @@ interface Block_Template_Contract {
 	/**
 	 * The getter for this template service to retrieve a hydrated WP_Block_Template.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return WP_Block_Template|null
 	 */
@@ -48,7 +48,7 @@ interface Block_Template_Contract {
 	/**
 	 * Handles rendering the template.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string
 	 */
