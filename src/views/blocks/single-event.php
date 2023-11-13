@@ -9,7 +9,7 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.2.7
  */
 
 use Tribe\Events\Views\V2\Assets as Event_Assets;
