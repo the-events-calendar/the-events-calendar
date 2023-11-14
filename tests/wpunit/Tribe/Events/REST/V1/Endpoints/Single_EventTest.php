@@ -94,17 +94,41 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	public function it_should_return_event_data_if_event_accessible() {
 		$request = new \WP_REST_Request( 'GET', '' );
-		$id = $this->factory()->event->create();
+		$id      = $this->factory()->event->create();
 		$request->set_param( 'id', $id );
 
 		$this->repository = $this->prophesize( \Tribe__Events__REST__V1__Post_Repository::class );
 		$this->repository->get_event_data( $id, Argument::type( 'string' ) )->willReturn( [ 'some' => 'data' ] );
 
-		$sut = $this->make_instance();
+		$sut      = $this->make_instance();
 		$response = $sut->get( $request );
 
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertEquals( [ 'some' => 'data' ], $response->get_data() );
+	}
+
+	/**
+	 * It should return without error if event venue is missing
+	 *
+	 * @test
+	 */
+	public function it_should_return_event_data_if_venue_is_missing() {
+		// Given an event with a deleted venue.
+		$venue_id = $this->factory()->venue->create();
+		$id       = $this->factory()->event->create( [ 'venue' => $venue_id ] );
+		wp_delete_post( $venue_id );
+
+		// Setup REST request.
+		$request = new \WP_REST_Request( 'GET', '' );
+		$request->set_param( 'id', $id );
+
+		$sut      = $this->make_instance();
+		$response = $sut->get( $request );
+		$data     = $response->get_data();
+
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertNotEmpty( $data );
+		$this->assertEquals( [], $data['venue'] );
 	}
 
 	public function post_stati_and_user_roles() {

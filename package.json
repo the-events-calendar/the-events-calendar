@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "6.2.7",
+  "version": "6.2.8",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -64,6 +64,7 @@
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
     "jest": "TZ=UTC gulp jest",
+    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
     "glotpress": "gulp glotpress"
   },
