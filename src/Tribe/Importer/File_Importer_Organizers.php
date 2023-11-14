@@ -37,7 +37,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	}
 
 	/**
-	 * Build a organizer array for creation/update of the current imported organizer.
+	 * Build an organizer array for the creation/update of the currently imported organizer.
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
@@ -68,7 +68,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 
 			/**
 			 * Allows filtering of main values before setting.
-			 * Return boolean false to prevent importing that value.
+			 * Return a boolean false to prevent importing that value.
 			 *
 			 * @since 5.1.6
 			 *
@@ -95,6 +95,31 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 
 		// Handle the manual stuff.
 		$organizer['FeaturedImage'] = $this->get_featured_image( $organizer, $record );
+
+		/**
+		 * Filter to allow the saving of additional fields for Organizers.
+		 *
+		 * @var array $additional_organizer_fields An array in the format [ $key => $value ]
+		 * Where $key is the `meta_key` (postmeta table) or column name (posts table)
+		 *   and $value is the CSV column ID from the column mapping.
+		 */
+		$additional_organizer_fields = apply_filters( 'tribe_events_csv_import_organizer_additional_fields', [] );
+
+		if ( ! empty ( $additional_organizer_fields ) ) {
+			foreach ( $additional_organizer_fields as $key => $csv_column ) {
+				$value = $this->get_value_by_key( $record, $key );
+				/**
+				 * This is needed when adding custom fields to the post type.
+				 * On save the metakey gets the "_Organizer" prefix added. So it should be removed before the import.
+				 */
+				$key = preg_replace( '/' . preg_quote( "_Organizer", '/' ) . '/', "", $key, 1 );
+				if ( strpos( $value, '|' ) > -1 ) {
+					$organizer[ $key ] = explode( '|', $value );
+				} else {
+					$organizer[ $key ] = $value;
+				}
+			}
+		}
 
 		/**
 		 * Allows filtering of record values before import.

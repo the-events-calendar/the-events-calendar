@@ -229,6 +229,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Added the filter `tribe_events_csv_import_organizer_additional_fields` to allow the saving of additional data for organizers through CSV import. [TEC-4846]
+* Tweak - Added the filter `tribe_events_csv_import_venue_additional_fields` to allow the saving of additional data for venues through CSV import. [TEC-4846]
+
 = [6.2.7] 2023-11-14 =
 
 * Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
@@ -346,7 +351,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Deprecated functions: In `Tribe\Views\V2\Views\Traits\HTML_Cache.php` the `get_view_nonce_fields()`,`get_view_nonce_attributes()`, `get_view_nonce_json_properties()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, and `maybe_generate_nonce()` functions have been deprecated.
 * Tweak - Changed views: `blocks/classic-event-details.php`, `blocks/event-category.php`, `blocks/event-datetime.php`, `blocks/event-organizer.php`, `blocks/event-price.php`, `blocks/event-tags.php`, `blocks/event-venue.php`, `blocks/event-website.php`, `blocks/featured-image.php`, `blocks/parts/details.php`, `blocks/parts/organizer.php`, `blocks/parts/subscribe-list.php`, `blocks/parts/subscribe-single.php`, `modules/meta/organizer.php`, `modules/meta/venue.php`, `v2/components/events-bar/search.php`, `v2/day.php`, `v2/list.php`, `v2/month.php`, `v2/widgets/widget-events-list.php`.
 * Language - 11 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted.
-
 
 = [6.1.3] 2023-07-13 =
 
