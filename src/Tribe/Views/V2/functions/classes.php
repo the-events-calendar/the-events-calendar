@@ -102,6 +102,7 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  * Outputs classes for each day "cell".
  *
  * @since 6.0.2
+ * @since TBD Updated to use $today_date for class comparisons, fixing issues with incorrect class application when navigating between months.
  *
  * @param array<mixed> $day          The current day data.
  * @param string       $day_date     The current day date, in the `Y-m-d` format.
@@ -133,9 +134,9 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	$day_classes = [
 		'tribe-events-calendar-month__day'              => true,
 		// Add a class for the current day.
-		'tribe-events-calendar-month__day--current'     => $comparison_date->format( 'Y-m-d' ) === $day_date,
+		'tribe-events-calendar-month__day--current'     => $today_date === $day_date,
 		// Add a class for the past days (includes days in the requested month).
-		'tribe-events-calendar-month__day--past'        => $comparison_date->format( 'Y-m-d' ) > $day_date,
+		'tribe-events-calendar-month__day--past'        => $today_date > $day_date,
 		// Not the requested month.
 		'tribe-events-calendar-month__day--other-month' => $day[ 'month_number' ] !== $comparison_date->format( 'm' ),
 		// Past month.

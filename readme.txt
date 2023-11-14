@@ -229,6 +229,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
+
 = [6.2.7] 2023-11-14 =
 
 * Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
