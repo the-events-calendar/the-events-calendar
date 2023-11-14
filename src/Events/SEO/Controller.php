@@ -10,8 +10,9 @@
  namespace TEC\Events\SEO;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use \Tribe__Date_Utils as Dates;
-use Tribe__Repository;
+use Tribe\Events\Views\V2\Views;
+use Tribe__Date_Utils as Dates;
+use Tribe__Context;
 
 
 /**
@@ -22,14 +23,58 @@ use Tribe__Repository;
  * @package TEC\Events\SEO
  */
 class Controller extends Controller_Contract {
+	/**
+	 * @inerhitDoc
+	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
 
-		add_action( 'get_header', [ $this, 'issue_noindex' ] );
+		// We hook an extra layer
+		add_action( 'wp', [ $this, 'hook_issue_noindex' ] );
 	}
 
+	/**
+	 * @inerhitDoc
+	 */
 	public function unregister(): void {
-		remove_action( 'get_header', [ $this, 'issue_noindex' ] );
+		remove_action( 'wp', [ $this, 'hook_issue_noindex' ] );
+		remove_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+	}
+
+	/**
+	 * Hooked to wp action to check if we should bail before hooking the full noindex logic.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @return void
+	 */
+	public function hook_issue_noindex() {
+		if ( is_home() || is_front_page() ) {
+			return;
+		}
+
+		if ( is_single() ) {
+			$post_type = get_post_type();
+
+			$linked_post_types           = (array) \Tribe__Events__Linked_Posts::instance()->get_linked_post_types();
+			$robots_enabled_post_types   = array_keys( $linked_post_types );
+
+			/**
+			 * Allows for the filtering of post types that should allow noindex tags.
+			 *
+			 * @since 6.2.6
+			 *
+			 * @param array  $robots_enabled_post_types The post types that should allow noindex tags.
+			 * @param string $post_type                 The current post type.
+			 */
+			$robots_enabled_post_types = (array) apply_filters( 'tec_events_seo_robots_meta_allowable_post_types', $robots_enabled_post_types, $post_type );
+
+			if ( ! in_array( $post_type, $robots_enabled_post_types ) ) {
+				return;
+			}
+		}
+
+		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
 	}
 
 	/**
@@ -42,106 +87,83 @@ class Controller extends Controller_Contract {
 	 *
 	 * Disabling this behavior completely is possible with:
 	 *
-	 *     add_filter( 'tec_events_add_no_index_meta_tag', '__return_false' );
+	 *     add_filter( 'tec_events_seo_robots_meta_include', '__return_false' );
 	 *
 	 *  Always adding the noindex meta tag for all event views is possible with:
 	 *
-	 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
+	 *     add_filter( 'tec_events_seo_robots_meta_include', '__return_true' );
 	 *
 	 *  Always adding the noindex meta tag for a specific event view is possible with:
 	 *
-	 *     add_filter( "tribe_events_{$view}_add_no_index_meta", '__return_true' );
+	 *     add_filter( "tec_events_seo_robots_meta_include_{$view}", '__return_true' );
 	 *
 	 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 	 */
-	public function issue_noindex(): void {
-		global $wp_query;
+	public function issue_noindex( $instance ): void {
+		$context = $instance->get_context();
+		$view    = $context->get( 'view' );
+
+		// If we don't have a view, bail.
+		if ( empty( $view ) ) {
+			return;
+		}
+
+		// Let's avoid adding noindex to shortcode views.
+		if ( $context->get( 'shortcode' ) ) {
+			return;
+		}
+
+		// If we have a view class and it is a subclass of the By_Day_View class (grid views), default to including noindex, nofollow.
+		if ( $instance instanceof Views\By_Day_View ) {
+			$do_include = true;
+			add_filter( 'tec_events_seo_robots_meta_content', [ $this, 'get_noindex_nofollow' ] );
+		} else {
+			$do_include = $this->should_add_no_index_for_list_based_views( $instance );
+		}
 
 		/**
 		 * Allows filtering of if a noindex meta tag will be set for the current event view.
 		 *
 		 * @since 6.2.3
+		 * @deprecated 6.2.6
 		 *
-		 * @var bool $do_noindex_meta Whether to add the noindex meta tag.
+		 * @var bool $do_include Whether to add the noindex meta tag.
 		 */
-		$do_noindex_meta = apply_filters( 'tec_events_add_no_index_meta_tag', true );
-
-		if ( ! tribe_is_truthy( $do_noindex_meta ) ) {
-			return;
-		}
-
-		if ( is_home() || is_front_page() || is_single() ) {
-			return;
-		}
-
-		if ( ! $wp_query = tribe_get_global_query_object() ) {
-			return;
-		}
-
-		$context = tribe_context();
-
-		if ( ! $context->is( 'tec_post_type' ) ) {
-			return;
-		}
-
-		$view = $context->get( 'view' );
-
-		$start_date = ! empty( $wp_query->query[ 'eventDate' ] ) ? $wp_query->get( 'eventDate' ) : $context->get( 'event_date' );
-		$start_date = Dates::build_date_object( $start_date );
-
-		$end_date = $this->get_end_date( $view, $start_date, $context );
-
-		// Prevent issues with invalid dates.
-		if ( false === $start_date || false === $end_date ) {
-			return;
-		}
-
-		$events = tribe_events();
+		$do_include = (bool) apply_filters_deprecated( 'tec_events_add_no_index_meta_tag', [ $do_include ], '6.2.6', 'tec_events_seo_robots_meta_include' );
 
 		/**
-		 * Allow specific views to hook in and add their own calculated events.
-		 * This *bypasses* the cached query immediately after it.
+		 * Filter to disable the noindex meta tag on Views V2.
 		 *
-		 * @since 6.2.3
+		 * @since 6.2.6
 		 *
-		 * @param ?Tribe__Repository|null $events     The events repository. False if not hooked into.
-		 * @param DateTime                $start_date The start date (object) of the query.
-		 * @param Tribe__Context          $context    The current context.
-		 *
+		 * @param bool $do_include Whether to add the noindex, nofollow meta tag or not.
+		 * @param string $view The current view slug.
 		 */
-		$events = apply_filters( 'tec_events_noindex', $events, $start_date, $end_date, $context );
+		$do_include = (bool) apply_filters( 'tec_events_seo_robots_meta_include', $do_include, $view );
 
-		// If nothing has hooked in ($events is null|false, we do a quick query for a single event after the start date.
-		if (
-			empty( $events )
-			|| (
-				$events instanceof Tribe__Repository
-				&& $events->count() === 0
-			)
-		) {
-			$query_start = $start_date->format( Dates::DBDATEFORMAT );
-			$query_end   = $end_date->format( Dates::DBDATEFORMAT );
+		/**
+		 * Filter to disable the noindex meta tag on Views V2 for a specific view.
+		 *
+		 * @since 6.2.6
+		 *
+		 * @param bool $do_include Whether to add the noindex, nofollow meta tag or not.
+		 * @param string $view The current view slug.
+		 */
+		$do_include = (bool) apply_filters( "tec_events_seo_robots_meta_include_{$view}", $do_include, $view );
 
-			if ( $start_date == $end_date )  {
-				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $query_start )->fields( 'ids' );
-			} else {
-				$events = tribe_events()->per_page( 1 )->where( 'ends_after', $query_start )->where( 'starts_before', $query_end )->fields( 'ids' );
-			}
+		if ( ! $do_include ) {
+			return;
 		}
-
-		// No posts = no index.
-		$count = $events->count();
-		$add_noindex = $count <= 0;
 
 		/**
 		 * Determines if a noindex meta tag will be set for the current event view.
 		 *
 		 * @since  3.12.4
 		 *
-		 * @var bool $add_noindex
+		 * @var bool $do_include
 		 * @var Tribe__Context $context The view context.
 		 */
-		$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex, $context );
+		$do_include = apply_filters_deprecated( 'tribe_events_add_no_index_meta', [ $do_include, $context ], '6.2.6', 'tec_events_seo_robots_meta_include' );
 
 		/**
 		 * Determines if a noindex meta tag will be set for a specific event view.
@@ -151,11 +173,65 @@ class Controller extends Controller_Contract {
 		 * @var bool $add_noindex
 		 * @var Tribe__Context $context The view context.
 		 */
-		$add_noindex = apply_filters( "tec_events_{$view}_add_no_index_meta", $add_noindex, $context );
+		$do_include = apply_filters_deprecated( "tec_events_{$view}_add_no_index_meta", [ $do_include, $context ], '6.2.6', "tec_events_seo_robots_meta_include_{$view}" );
 
-		if ( $add_noindex ) {
-			add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
+		if ( $do_include ) {
+			if ( did_action( 'wp_head' ) ) {
+				ob_start();
+				$this->print_noindex_meta();
+				$meta_html = trim( ob_get_clean() );
+				?>
+				<script>
+					document.head.insertAdjacentHTML( 'beforeend', '<?php echo $meta_html; ?>' );
+				</script>
+				<?php
+			} else {
+				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
+			}
 		}
+	}
+
+	/**
+	 * Determine if a nonindex should be added for list based views that don't have events.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @return bool
+	 */
+	protected function should_add_no_index_for_list_based_views( $instance ): bool {
+		$context = $instance->get_context();
+
+		if ( ! $context->is( 'tec_post_type' ) ) {
+			return false;
+		}
+
+		$events = $instance->get_repository();
+
+		// No posts = no index.
+		$count = $events->count();
+		return $count <= 0;
+	}
+
+	/**
+	 * Get the noindex, follow string.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @return string
+	 */
+	public function get_noindex_follow(): string {
+		return 'noindex, follow';
+	}
+
+	/**
+	 * Get the noindex, nofollow string.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @return string
+	 */
+	public function get_noindex_nofollow(): string {
+		return 'noindex, nofollow';
 	}
 
 	/**
@@ -164,7 +240,26 @@ class Controller extends Controller_Contract {
 	 * @since 6.2.3
 	 */
 	public function print_noindex_meta() :void {
-		$noindex_meta = ' <meta name="robots" id="tec_noindex" content="noindex, follow" />' . "\n";
+		$robots_meta_content = $this->get_noindex_follow();
+
+		/**
+		 * Filter to disable the noindex meta tag on Views V2.
+		 *
+		 * @since 6.2.6
+		 *
+		 * @param string $robots_meta_content The contents of the robots meta tag.
+		 * @param string $view The current view slug.
+		 */
+		$robots_meta_content = (string) apply_filters( 'tec_events_seo_robots_meta_content', $robots_meta_content );
+
+		if ( ! $robots_meta_content ) {
+			return;
+		}
+
+		$noindex_meta = sprintf(
+			'<meta name="robots" id="tec_noindex" content="%s" />',
+			esc_attr( $robots_meta_content )
+		). "\n";
 
 		/**
 		 * Filters the noindex meta tag.
