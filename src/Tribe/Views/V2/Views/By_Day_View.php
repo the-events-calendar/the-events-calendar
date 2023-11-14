@@ -345,7 +345,7 @@ abstract class By_Day_View extends View {
 		array_pop( $this->grid_days_found_cache );
 		$this->fill_week_duration_cache();
 
-		Taxonomy::prime_term_cache( $this->grid_events );
+		Taxonomy::prime_term_cache( $this->grid_events, [ 'post_tag', \Tribe__Events__Main::TAXONOMY ] );
 		Event::prime_cache( $this->grid_events );
 
 		return $this->grid_days_cache;
@@ -798,7 +798,7 @@ abstract class By_Day_View extends View {
 
 	/**
 	 * Overrides the base View implementation to remove pagination from the URL.
-	 * 
+	 *
 	 * {@inheritdoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {
