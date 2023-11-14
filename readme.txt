@@ -231,11 +231,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
-= [6.2.6] 2023-11-15 =
+= [6.2.7] 2023-11-15 =
 
 
-=======
 = [6.2.6] 2023-11-08 =
 
 * Fix - SEO: Ensure that the noindex meta tag properly observes whether events are present on the page or not. [TEC-4976]
@@ -246,7 +244,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filter `tec_events_seo_robots_meta_content` to alter the content attribute of the robots meta tag addition. [TEC-4976]
 * Tweak - Added filter `tec_events_seo_robots_meta_allowable_post_types` to allow for the filtering of single post types that can have robots meta tags added.
 * Tweak - Deprecated filters `tec_events_add_no_index_meta_tag`, `tribe_events_add_no_index_meta`, and `tec_events_{$view}_add_no_index_meta` in favor of the above new filters.
->>>>>>> 40722eecbad1b500701f70421845dd587c0d2ee4
 
 = [6.2.5] 2023-11-01 =
 
