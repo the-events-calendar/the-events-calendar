@@ -1623,7 +1623,7 @@ class View implements View_Interface {
 			return $event instanceof \WP_Post;
 		} );
 
-		Taxonomy::prime_term_cache( $events );
+		Taxonomy::prime_term_cache( $events, [ 'post_tag', \Tribe__Events__Main::TAXONOMY ] );
 		Event::prime_cache( $events );
 
 		/**

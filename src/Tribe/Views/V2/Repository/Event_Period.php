@@ -690,10 +690,10 @@ class Event_Period implements Core_Read_Interface {
 		 *
 		 * @since 4.9.13
 		 *
-		 * @param int                $limit The SQL LIMIT to use for result set fetching.
-		 * @param static             $this  The current repository instance.
-		 * @param \DateTimeInterface $start The period start date.
-		 * @param \DateTimeInterface $end   The period end date.
+		 * @param int                $limit      The SQL LIMIT to use for result set fetching.
+		 * @param static             $repository The current repository instance.
+		 * @param \DateTimeInterface $start      The period start date.
+		 * @param \DateTimeInterface $end        The period end date.
 		 */
 		$limit = apply_filters( 'tribe_events_event_period_repository_set_limit', $limit, $this, $start, $end );
 		$limit = absint( $limit );

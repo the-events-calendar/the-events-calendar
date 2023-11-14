@@ -23,6 +23,23 @@ class Tribe__Events__Cost_Utils extends Tribe__Cost_Utils {
 	}
 
 	/**
+	 * Returns a particular cost within an array of costs.
+	 * Overrides the parent class method to allow for grabbing costs via `get_all_costs()`.
+	 *
+	 * @param mixed $costs     Cost(s) to review for max value
+	 * @param string $function Function to use to determine which cost to return from range. Valid values: max, min
+	 *
+	 * @return float
+	 */
+	protected function get_cost_by_func( $costs = null, $function = 'max' ) {
+		if ( null === $costs ) {
+			$costs = $this->get_all_costs();
+		}
+
+		return parent::get_cost_by_func( $costs, $function );
+	}
+
+	/**
 	 * Fetches all event costs from the database
 	 *
 	 * @return array
