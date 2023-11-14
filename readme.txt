@@ -229,8 +229,6 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
-=======
 = [6.2.7] 2023-11-14 =
 
 * Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
@@ -243,7 +241,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `blocks/archive-events`, `blocks/single-event`
 * Language - 11 new strings added, 119 updated, 0 fuzzied, and 5 obsoleted.
 
->>>>>>> release/B23.maria
 = [6.2.6.1] 2023-11-09 =
 
 * Version - The Events Calendar 6.2.6.1 is only compatible with Event Tickets 5.6.8.1 and higher
