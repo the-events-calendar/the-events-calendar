@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
-Stable tag: 6.2.6.1
-Tested up to: 6.4.0
+Stable tag: 6.2.7
+Tested up to: 6.4.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -229,6 +229,21 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+<<<<<<< HEAD
+=======
+= [6.2.7] 2023-11-14 =
+
+* Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
+* Fix - Wordpress 6.3 introduce some changes in filters that regressed a prior fix for authentication and our new nonce structure used in view pagination. One symptom of the issue was losing the authenticated user and failing to display user specific capabilities on event views. [ECP-1601]
+* Fix - Resolves issue where a deleted venue still attached to an event would cause an `PHP Warning: Undefined variable $data in /code/wp-content/plugins/the-events-calendar/src/Tribe/REST/V1/Post_Repository.php on line 327` error. [TEC-4954]
+* Fix - Resolves an issue with certain versions of Wordpress already having the legacy widget block registered causing us to trigger the console error `Block "core/legacy-widget" is already registered.` would occur. Now we check if registered first. [TEC-4764]
+* Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Events__Linked_Posts__Chooser_Meta_Box::$singular_name_lowercase` and `\TEC\Events\Custom_Tables\V1\Models\Builder::$query` [BTRIA-2088]
+* Tweak - Adjust the content in the admin welcome page to include a link to the TEC Facebook community group. [TEC-4953]
+* Tweak - Added filters: `tec_events_get_full_site_block_template_services`, `tec_events_views_v2_get_rest_nonce_html`
+* Tweak - Changed views: `blocks/archive-events`, `blocks/single-event`
+* Language - 11 new strings added, 119 updated, 0 fuzzied, and 5 obsoleted.
+
+>>>>>>> release/B23.maria
 = [6.2.6.1] 2023-11-09 =
 
 * Version - The Events Calendar 6.2.6.1 is only compatible with Event Tickets 5.6.8.1 and higher

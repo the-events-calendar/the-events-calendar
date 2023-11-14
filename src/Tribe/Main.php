@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.2.6.1';
+		const VERSION             = '6.2.7';
 
 		/**
 		 * Min Pro Addon
@@ -680,8 +680,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 
-			// FSE
-			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
+			// Blocks
+			tribe_register_provider( TEC\Events\Blocks\Controller::class );
+
+			// Site Editor
+			tribe_register_provider( TEC\Events\Editor\Full_Site\Controller::class );
 
 			// Load the new third-party integration system.
 			tribe_register_provider( TEC\Events\Integrations\Provider::class );

@@ -817,8 +817,6 @@ class Builder {
 			return;
 		}
 
-		$this->query = '';
-
 		list( $column, $data, $format ) = $column_data_format;
 
 		$operator = is_array( $value ) ? 'IN' : '=';
