@@ -10,7 +10,7 @@ use Tribe__Events__Main;
 /**
  * Class Pdf
  *
- * @since TBD
+ * @since 6.2.8
  *
  * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes
  */
@@ -19,7 +19,7 @@ class Pdf {
 	/**
 	 * Template instance.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @var \Tribe__Template
 	 */
@@ -28,7 +28,7 @@ class Pdf {
 	/**
 	 * Get the template.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @return \Tribe__Template
 	 */
@@ -47,7 +47,7 @@ class Pdf {
 	/**
 	 * Filter template context.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $context The template context.
 	 *
@@ -77,7 +77,7 @@ class Pdf {
 	/**
 	 * Add styles.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param string           $file     Path to the file.
 	 * @param string           $name     Name of the file.
@@ -96,7 +96,7 @@ class Pdf {
 	/**
 	 * Add venue.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param string           $file     Path to the file.
 	 * @param string           $name     Name of the file.
@@ -123,7 +123,7 @@ class Pdf {
 	/**
 	 * Add event date.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param string           $file     Path to the file.
 	 * @param string           $name     Name of the file.
@@ -142,7 +142,7 @@ class Pdf {
 	/**
 	 * Add attendee fields.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $context Path to the file.
 	 *
