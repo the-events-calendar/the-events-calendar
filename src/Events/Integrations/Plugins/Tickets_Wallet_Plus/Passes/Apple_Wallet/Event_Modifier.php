@@ -7,7 +7,7 @@ use TEC\Tickets_Wallet_Plus\Passes\Apple_Wallet\Pass;
 /**
  * Class Event_Modifier
  *
- * @since   TBD
+ * @since   6.2.8
  *
  * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes\Apple_Wallet
  */
@@ -16,7 +16,7 @@ class Event_Modifier {
 	/**
 	 * Add the Event date into the Apple Pass `back` data.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -75,7 +75,7 @@ class Event_Modifier {
 	/**
 	 * Add the Venue data into the Apple Pass `back` data.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -116,7 +116,7 @@ class Event_Modifier {
 	/**
 	 * Add event data to sample Apple Wallet pass.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
