@@ -11,7 +11,7 @@ use Tribe__Template;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.2.8
  *
  * @package TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus
  */
@@ -43,7 +43,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Register actions.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @return void
 	 */
@@ -56,7 +56,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Register filters.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @return void
 	 */
@@ -72,7 +72,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Filter PDF template context.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $context Template context.
 	 *
@@ -85,7 +85,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add styles to PDF.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param string          $file     Path to the file.
 	 * @param string          $name     Name of the file.
@@ -100,7 +100,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add venue to PDF.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param string          $file     Path to the file.
 	 * @param string          $name     Name of the file.
@@ -115,7 +115,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add event date to PDF.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param string          $file     Path to the file.
 	 * @param string          $name     Name of the file.
@@ -130,7 +130,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add event data to PDF sample.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $context Template context.
 	 *
@@ -143,7 +143,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add Event Data to the Apple Wallet Pass.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass $pass The Apple Pass object.
@@ -156,7 +156,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add Venue Data to the Apple Wallet Pass.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass $pass The Apple Pass object.
@@ -169,7 +169,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add event data to Sample Apple Wallet Pass.
 	 *
-	 * @since TBD
+	 * @since 6.2.8
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass $pass The Apple Pass object.
