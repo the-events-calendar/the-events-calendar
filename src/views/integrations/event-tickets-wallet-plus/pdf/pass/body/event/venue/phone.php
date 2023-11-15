@@ -9,9 +9,9 @@
  *
  * @link https://evnt.is/event-tickets-wallet-plus-tpl Help article for Wallet Plus template files.
  *
- * @since TBD
+ * @since 6.2.8
  *
- * @version TBD
+ * @version 6.2.8
  *
  * @var string $venue_map_pin_image_src The image source of the venue map pin icon.
  * @var string $venue_phone_image_src The image source of the venue phone icon.
