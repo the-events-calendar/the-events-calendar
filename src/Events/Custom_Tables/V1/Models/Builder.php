@@ -364,7 +364,7 @@ class Builder {
 			 */
 			$result = $wpdb->query( $SQL );
 			if ( $result === false ) {
-				do_action( 'tribe_log', 'debug', 'Builder: upsert query failure.', [
+				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
 					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 					'trace'  => debug_backtrace( 2, 5 ),
 					'error' => $wpdb->last_error
@@ -438,18 +438,8 @@ class Builder {
 			$SQL             = $wpdb->prepare( $SQL, ...$validated['values'] );
 			$this->queries[] = $SQL;
 			if ( $this->execute_queries ) {
-				$query_result = $wpdb->query( $SQL );
+				$query_result = $this->query( $SQL );
 				$result       += (int) $query_result;
-			}
-			// Log our errors.
-			if ( $query_result === false && $wpdb->last_error ) {
-				do_action( 'tribe_log',
-					'error',
-					"Builder: insert() query failure..", [
-						'source' => __METHOD__ . ':' . __LINE__,
-						'trace'  => debug_backtrace( 2, 5 ),
-						'error'  => $wpdb->last_error,
-					] );
 			}
 		} while ( count( $data ) );
 
@@ -538,14 +528,7 @@ class Builder {
 		$query_result = false;
 
 		if ( $this->execute_queries ) {
-			$query_result = $wpdb->query( $SQL );
-			if ( $query_result === false ) {
-				do_action( 'tribe_log', 'debug', 'Builder: update() query failure.', [
-					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ),
-					'error'  => $wpdb->last_error
-				] );
-			}
+			$query_result = $this->query( $SQL );
 		}
 
 		return $query_result;
@@ -574,14 +557,7 @@ class Builder {
 		$this->queries[] = $SQL;
 		$result = false;
 		if ( $this->execute_queries ) {
-			$result = $wpdb->query( $SQL );
-			if ( $result === false ) {
-				do_action( 'tribe_log', 'debug', 'Builder: delete() query failure.', [
-					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ),
-					'error'  => $wpdb->last_error
-				] );
-			}
+			$result = $this->query( $SQL );
 		}
 
 		// If an error happen or no row was updated by the query above.
@@ -866,6 +842,14 @@ class Builder {
 			if ( empty( $results ) ) {
 				// Run a fetch if we're out of results to return, maybe get some results.
 				$results = $wpdb->get_results( $semi_prepared . " OFFSET {$offset}", ARRAY_A );
+				if ( $results === false || $wpdb->last_error ) {
+					do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
+						'source' => __METHOD__ . ':' . __LINE__,
+						'trace'  => debug_backtrace( 2, 5 ),
+						'error'  => $wpdb->last_error
+					] );
+				}
+
 				$offset  += $batch_size;
 				$found   = count( $results );
 				$results = array_reverse( $results );
@@ -961,7 +945,7 @@ class Builder {
 		$result = null;
 		if ( $this->execute_queries ) {
 			$result = $wpdb->query( $query );
-			if ( $result === false ) {
+			if ( $result === false || $wpdb->last_error ) {
 				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
 					'source' => __METHOD__ . ':' . __LINE__,
 					'trace'  => debug_backtrace( 2, 5 ),
@@ -1059,8 +1043,8 @@ class Builder {
 				ARRAY_A
 			);
 
-			if ( $results === false ) {
-				do_action( 'tribe_log', 'debug', 'Builder: get() query failure.', [
+			if ( $results === false || $wpdb->last_error ) {
+				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
 					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
 					'trace'  => debug_backtrace( 2, 5 ),
 					'error'  => $wpdb->last_error

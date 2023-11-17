@@ -14,31 +14,99 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use CT1_Fixtures;
 
-	/**
-	 * @test
-	 */
-	public function should_report_db_errors() {
-		global $wpdb;
-		$post = tribe_events()->set_args( [
+	public function report_db_errors_queries_data_provider(): array {
+		$event = tribe_events()->set_args( [
 			'title'      => 'test',
 			'status'     => 'publish',
 			'start_date' => '2020-01-22 10:00:00',
 			'end_date'   => "2020-01-22 12:00:00",
 			'timezone'   => 'Europe/Paris',
 		] )->create();
-		$event_table = Events::table_name();
 
-		$q = "DROP /* WPTestCase will replace this if it matches substr()...*/ TABLE IF EXISTS `$event_table`;";
-		$wpdb->query($q);
+		return [
+			'find()'   => [ 'find', [ 1 ] ],
+			'upsert()' => [
+				'upsert',
+				[
+					[ 'occurrence_id' ],
+					[
+						'occurrence_id' => 123,
+						'title'         => 'test',
+						'status'        => 'publish',
+						'start_date'    => '2020-01-22 10:00:00',
+						'end_date'      => "2020-01-22 12:00:00",
+						'timezone'      => 'Europe/Paris',
+					]
+				]
+			],
+			'update()' => [
+				'update',
+				[
+					[
+						'occurrence_id' => 123,
+						'title'         => 'test',
+						'status'        => 'publish',
+						'start_date'    => '2020-01-22 10:00:00',
+						'end_date'      => "2020-01-22 12:00:00",
+						'timezone'      => 'Europe/Paris',
+					]
+				]
+			],
+			'insert()' => [
+				'insert',
+				[
+					[
+						'title'          => 'test',
+						'status'         => 'publish',
+						'start_date'     => '2020-01-22 11:00:00',
+						'end_date'       => "2020-01-22 13:00:00",
+						'start_date_utc' => '2020-01-22 10:00:00',
+						'end_date_utc'   => "2020-01-22 12:00:00",
+						'timezone'       => 'Europe/Paris',
+						'duration'       => 7200,
+						'event_id'       => 123,
+						'post_id'        => $event->ID,
+						'hash'           => '123hashbrowns321'
+					]
+				]
+			]
+		];
+	}
+
+	/**
+	 * @dataProvider  report_db_errors_queries_data_provider
+	 * @test
+	 */
+	public function should_report_db_errors( $func, $args ) {
+		global $wpdb;
+		tribe_events()->set_args( [
+			'title'      => 'test',
+			'status'     => 'publish',
+			'start_date' => '2020-01-22 10:00:00',
+			'end_date'   => "2020-01-22 12:00:00",
+			'timezone'   => 'Europe/Paris',
+		] )->create();
+		$occurrences_table = Occurrences::table_name();
+
+		$q = "DROP /* WPTestCase will replace this if it matches substr()...*/ TABLE IF EXISTS `$occurrences_table`;";
+		$wpdb->query( $q );
 		tribe_cache()->reset();
-		// Table 'test.test_tec_events' doesn't exist
-		// database error Unknown table
-		$event = Event::find( 1 );
 
-		$this->assertNull($event);
+		$found = false;
+		// Validate our error shows...
+		add_action( 'tribe_log', function ( $type, $message, $context ) use ( $occurrences_table, &$found ) {
+			if ( $message === 'Builder: query failure.' && isset( $context['error'] ) && stripos( $context['error'], "Table 'test.$occurrences_table' doesn't exist" ) !== false ) {
+				$found = true;
+			}
+		}, 10, 3 );
 
+		// Database error Unknown table
+		$occurrence = Occurrence::$func( ...$args );
 
-		tribe(Schema_Builder::class)->up(true);
+		$this->assertEmpty( $occurrence, 'Should not be a successful query.' );
+		$this->assertTrue( $found, 'Did not trigger the expected error.' );
+
+		tribe( Schema_Builder::class )->up( true );
 	}
 
 	/**
