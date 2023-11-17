@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.9] TBD =
 
+* Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
 
 = [6.2.8] 2023-11-16 =
 
