@@ -53,7 +53,7 @@ class With_NoindexTest extends ViewTestCase {
 	 */
 	public function test_noindex_render_empty( $class ) {
 		$tester = $this;
-		add_filter( 'tribe_events_add_no_index_meta', function( $add_noindex ) use ( $tester ) {
+		add_filter( 'tec_events_seo_robots_meta_include', function( $add_noindex ) use ( $tester ) {
 			$tester->assertTrue( $add_noindex );
 
 			return $add_noindex;
@@ -136,6 +136,24 @@ class With_NoindexTest extends ViewTestCase {
 
 		$view = View::make( $class, $this->context );
 		$view->get_html();
+
+		// Add our insertion on the filter so we can test the value. Month always gets noindex, so skip it.
+		add_filter( 'tec_events_seo_robots_meta_include', function( $add_noindex ) use ( $tester, $view ) {
+			if ( $view->get_slug() === 'month' ) {
+				return $add_noindex;
+			}
+
+			$tester->assertFalse( $add_noindex );
+
+			return $add_noindex;
+		});
+
+		// Make sure that month still has noindex.
+		add_filter( 'tec_events_seo_robots_meta_include_month', function( $add_noindex ) use ( $tester, $view ) {
+			$tester->assertTrue( $add_noindex );
+
+			return $add_noindex;
+		});
 
 		// Manually run the noindex check, triggering the assertion.
 		tribe( Controller::class )->issue_noindex( $view );
