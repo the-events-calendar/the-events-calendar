@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'src/**.php'
+      - '.github/workflows/phpcs.yml'
       - '*.php'
 jobs:
   phpcs:
