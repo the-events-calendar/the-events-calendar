@@ -525,11 +525,7 @@ class Builder {
 
 		// If we have a cache, let's clear it.
 		$model->flush_cache();
-		$query_result = false;
-
-		if ( $this->execute_queries ) {
-			$query_result = $this->query( $SQL );
-		}
+		$query_result = $this->execute_queries ? $this->query( $SQL ) : false;
 
 		return $query_result;
 	}
@@ -555,10 +551,7 @@ class Builder {
 		}
 
 		$this->queries[] = $SQL;
-		$result = false;
-		if ( $this->execute_queries ) {
-			$result = $this->query( $SQL );
-		}
+		$result          = $this->execute_queries ? $this->query( $SQL ) : false;
 
 		// If an error happen or no row was updated by the query above.
 		if ( $result === false || (int) $result === 0 ) {
@@ -1604,14 +1597,8 @@ class Builder {
 		do {
 			$batch         = array_splice( $keys, 0, $this->batch_size );
 			$keys_interval = implode( ',', array_map( 'absint', $batch ) );
-			$deleted       += $wpdb->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
-			if ( $deleted === false ) {
-				do_action( 'tribe_log', 'debug', 'Builder: upsert_set() query failure.', [
-					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ),
-					'error'  => $wpdb->last_error
-				] );
-			}
+			$deleted       += $this->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
+
 			// If we have a cache, let's clear it.
 			foreach ( $models as $model ) {
 				if ( $model instanceof Model ) {
