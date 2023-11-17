@@ -50,7 +50,7 @@ $main = Tribe__Main::instance();
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Getting Started Guide', 'the-events-calendar' ); ?></div>
 			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'New to The Events Calendar? Here\'s everything you need to get started.', 'the-events-calendar' ); ?></div>
-			<a class="tribe-events-admin-card__link" href="https://evnt.is/welcom"><?php esc_html_e( 'Check out the guide', 'the-events-calendar' ); ?></a>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/welcom" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Check out the guide', 'the-events-calendar' ); ?></a>
 		</div>
 		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--middle">
 			<img
@@ -60,7 +60,7 @@ $main = Tribe__Main::instance();
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Knowledgebase', 'the-events-calendar' ); ?></div>
 			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Ready to dig deeper? Our Knowledgebase can help you get the most out of The Events Calendar suite.', 'the-events-calendar' ); ?></div>
-			<a class="tribe-events-admin-card__link" href="https://evnt.is/kb-welcome"><?php esc_html_e( 'Dig deeper', 'the-events-calendar' ); ?></a>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/kb-welcome" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Dig deeper', 'the-events-calendar' ); ?></a>
 		</div>
 		<div class="tribe-events-admin-card tribe-events-admin-card--3up tribe-events-admin-card--last">
 			<img
@@ -70,18 +70,18 @@ $main = Tribe__Main::instance();
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Translations', 'the-events-calendar' ); ?></div>
 			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Need a language other than English? We\'ve got you covered here.', 'the-events-calendar' ); ?></div>
-			<a class="tribe-events-admin-card__link" href="https://evnt.is/language"><?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?></a>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/language" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Learn more', 'the-events-calendar' ); ?></a>
 		</div>
 
 		<div class="tribe-events-admin-card tribe-events-admin-card--1up">
 			<img
 				class="tribe-events-admin-card__image"
-				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/virtual-events.jpg', false, null, $main ) ); ?>"
+				src="<?php echo esc_url( tribe_resource_url( 'images/welcome/tec-facebook.png', false, null, $main ) ); ?>"
 				alt="<?php esc_attr_e( 'illustration of a phone screen with a person\'s face', 'the-events-calendar' ); ?>"
 			/>
-			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Virtual Event Resources', 'the-events-calendar' ); ?></div>
-			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Tips and tools to help with planning online events, webinars, and more on WordPress and beyond.', 'the-events-calendar' ); ?></div>
-			<a class="tribe-events-admin-card__link" href="https://evnt.is/1ame"><?php esc_html_e( 'Get started with online events', 'the-events-calendar' ); ?></a>
+			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'The Events Calendar Official Facebook Community', 'the-events-calendar' ); ?></div>
+			<div class="tribe-events-admin-card__description"><?php esc_html_e( 'Get feedback on your calendar, be the first to learn about updates, and share ideas.', 'the-events-calendar' ); ?></div>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/1bc-" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Join our Facebook Group today!', 'the-events-calendar' ); ?></a>
 		</div>
 
 		<div class="tribe-events-admin-card tribe-events-admin-card--2up tribe-events-admin-card--first">
@@ -91,7 +91,7 @@ $main = Tribe__Main::instance();
 				alt="<?php esc_attr_e( 'illustration of an event moving from one calendar to another', 'the-events-calendar' ); ?>"
 			/>
 			<div class="tribe-events-admin-card__title"><?php esc_html_e( 'Migrating events from another calendar?', 'the-events-calendar' ); ?></div>
-			<a class="tribe-events-admin-card__link" href="https://evnt.is/1amf"><?php esc_html_e( 'We can help with that', 'the-events-calendar' ); ?></a>
+			<a class="tribe-events-admin-card__link" href="https://evnt.is/1amf" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'We can help with that', 'the-events-calendar' ); ?></a>
 		</div>
 		<div class="tribe-events-admin-card tribe-events-admin-card--2up tribe-events-admin-card--second">
 			<img
