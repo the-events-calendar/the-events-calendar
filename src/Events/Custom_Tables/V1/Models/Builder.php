@@ -919,7 +919,16 @@ class Builder {
 		$SQL             = $this->get_sql();
 		$this->queries[] = $SQL;
 
-		return (int) $this->query( $SQL );
+		$result = $wpdb->get_var( $SQL );
+		if ( $result === false || $wpdb->last_error ) {
+			do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
+				'source' => __METHOD__ . ':' . __LINE__,
+				'trace'  => debug_backtrace( 2, 5 ),
+				'error'  => $wpdb->last_error
+			] );
+		}
+
+		return (int) $result;
 	}
 
 	/**
