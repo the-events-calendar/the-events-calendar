@@ -9,8 +9,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2023-11-13T06:22:58-08:00\n"
 "PO-Revision-Date: 2023-11-13 14:23\n"
+=======
+"POT-Creation-Date: 2023-11-14T09:06:49-08:00\n"
+"PO-Revision-Date: 2023-11-14 17:06\n"
+>>>>>>> 6b2c111aa000f78e279d4d9d7c7bbd9b220f3bf6
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -616,6 +621,8 @@ msgid "Location"
 msgstr ""
 
 #: src/admin-views/aggregator/origins/refine.php:7
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:67
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:139
 msgid "Date"
 msgstr ""
 
@@ -1215,6 +1222,8 @@ msgstr ""
 
 #: src/admin-views/aggregator/tabs/import-form.php:229
 #: src/admin-views/aggregator/tabs/import-form.php:241
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:58
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:130
 #: src/functions/template-tags/general.php:71
 #: src/Tribe/Main.php:1505
 msgid "Event"
@@ -2933,38 +2942,56 @@ msgid "Attach calendar invites (.ics) to the ticket email."
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:87
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:157
 msgid "September 22 @ 7:00 pm - 11:00 pm"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:93
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:148
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:174
 msgid "Central Park"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:94
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:175
 msgid "41st Street"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:95
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:176
 msgid "New York"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:96
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:177
 msgid "NY 10001"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:97
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:178
 #: src/functions/template-tags/venue.php:576
 #: src/Tribe/Venue.php:431
 msgid "United States"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:98
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:179
 msgid "(555) 555-5555"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:109
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:110
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:131
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:167
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:168
 msgid "Arts in the Park"
+msgstr ""
+
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:109
+#: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Apple_Wallet/Event_Modifier.php:147
+#: src/functions/template-tags/venue.php:204
+#: src/Tribe/Venue.php:210
+msgid "Venue"
 msgstr ""
 
 #: src/Events/Site_Health/Info_Section.php:74
@@ -3174,11 +3201,6 @@ msgstr ""
 #: src/functions/template-tags/venue.php:943
 #: src/views/blocks/parts/organizer.php:91
 msgid "Website"
-msgstr ""
-
-#: src/functions/template-tags/venue.php:204
-#: src/Tribe/Venue.php:210
-msgid "Venue"
 msgstr ""
 
 #: src/functions/template-tags/venue.php:230
@@ -7903,6 +7925,12 @@ msgstr ""
 msgid "Add to calendar"
 msgstr ""
 
+#: src/views/integrations/event-tickets-wallet-plus/pdf/pass/body/event/venue/address.php:68
+#: src/views/integrations/event-tickets/emails/template-parts/body/event/venue/address.php:66
+msgctxt "Link on the Ticket Email"
+msgid "Get Directions"
+msgstr ""
+
 #: src/views/integrations/event-tickets/emails/template-parts/body/event/links/gcal.php:33
 msgctxt "Button on Ticket Email"
 msgid "Add event to Google Calendar"
@@ -7916,11 +7944,6 @@ msgstr ""
 #: src/views/integrations/event-tickets/emails/template-parts/body/event/venue.php:39
 msgctxt "Event location on the Ticket Email"
 msgid "Event Location"
-msgstr ""
-
-#: src/views/integrations/event-tickets/emails/template-parts/body/event/venue/address.php:66
-msgctxt "Link on the Ticket Email"
-msgid "Get Directions"
 msgstr ""
 
 #: src/views/kitchen-sink/page.php:275
