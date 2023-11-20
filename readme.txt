@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.8.1] =
+= [6.2.8.1] 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected.
 
