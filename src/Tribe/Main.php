@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
 
-		const VERSION             = '6.2.8';
+		const VERSION             = '6.2.8.1';
 
 		/**
 		 * Min Pro Addon
@@ -55,7 +55,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_COMMON_VERSION  = '4.9.2-dev';
+		const MIN_COMMON_VERSION  = '5.1.15.1-dev';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
@@ -64,14 +64,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_wordpress = '5.6';
+		protected $min_wordpress = '6.2';
 
 		/**
 		 * Min Version of PHP
 		 *
 		 * @since 4.8
 		 */
-		protected $min_php = '5.6.0';
+		protected $min_php = '7.4.0';
 
 		/**
 		 * Min Version of Event Tickets
