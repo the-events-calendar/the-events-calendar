@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.8.1] =
+
+* Security - Ensure all password protected posts have their settings respected.
+
 = [6.2.8] 2023-11-16 =
 
 * Version - The Events Calendar 6.2.8 is only compatible with Event Tickets 5.7.0 and higher
