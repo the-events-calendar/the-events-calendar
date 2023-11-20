@@ -233,7 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.8.1] 2023-11-20 =
 
-* Security - Ensure all password protected posts have their settings respected.
+* Security - Ensure all password protected posts have their settings respected. [TCMN-167]
 
 = [6.2.8] 2023-11-16 =
 
