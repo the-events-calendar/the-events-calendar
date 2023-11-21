@@ -154,7 +154,9 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		global $wpdb;
 
 		// An optional 'frequency|interval' format for the events to retrieve field, e.g. '15|MINUTE'.
-		list( $frequency, $interval ) = explode( "|", $month );
+		$frequency_struct = explode( "|", $month );
+		$frequency        = $frequency_struct[0];
+		$interval         = $frequency_struct[1] ?? 'MONTH';
 
 		$event_post_type = Tribe__Events__Main::POSTTYPE;
 
@@ -196,7 +198,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$args = [
 			'post_type' => $event_post_type,
 			'date'      => $frequency,
-			'interval'  => ! empty( $interval ) ? $interval : 'MONTH',
+			'interval'  => $interval,
 			'limit'     => 15,
 		];
 
