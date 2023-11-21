@@ -4,10 +4,12 @@ namespace Tribe\Events\Views\V2\Views\Widgets;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Widget_ListTest extends ViewTestCase {
 
 	use MatchesSnapshots;
+	use With_Uopz;
 
 	public function setUp() {
 		parent::setUp();
@@ -18,9 +20,15 @@ class Widget_ListTest extends ViewTestCase {
 			return $views;
 		} );
 
+		// Set the current user to an admin to avoid permissions issues.
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+
 		remove_filter( 'post_class', 'twenty_twenty_one_post_classes', 10 );
 		remove_filter( 'post_class', 'twentynineteen_post_classes', 10 );
 		add_filter( 'tribe_events_views_v2_theme_compatibility_registered', '__return_empty_array' );
+
+		$this->set_fn_return( 'wp_create_nonce', '123123' );
 	}
 
 	/**
