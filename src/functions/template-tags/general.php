@@ -1230,7 +1230,7 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 	$cache_details     = tribe_get_var( $cache_var_name, [] );
 	$cache_details_key = "{$event->ID}:{$before}:{$after}:{$html}";
 
-	// if the event has no start or end date, avoid returning empty schedule details.
+	// If the event has no start or end date, avoid returning empty schedule details.
 	if ( empty( tribe_get_start_date( $event->ID ) )
 	     && empty( tribe_get_end_date( $event->ID ) )
 	) {
