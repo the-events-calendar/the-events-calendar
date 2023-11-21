@@ -597,6 +597,10 @@ class Post_RepositoryTest extends Events_TestCase {
 
 		$id = $this->factory()->event->create();
 
+		// Set the current user to an admin so we can read the JSON LD data.
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+
 		$data = $sut->get_event_data( $id, 'foo' );
 
 		$this->assertArrayHasKey( 'json_ld', $data );
@@ -624,6 +628,10 @@ class Post_RepositoryTest extends Events_TestCase {
 
 		$id = $this->factory()->venue->create();
 
+		// Set the current user to an admin so we can read the JSON LD data.
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
+
 		$data = $sut->get_venue_data( $id, 'foo' );
 
 		$this->assertArrayHasKey( 'json_ld', $data );
@@ -650,6 +658,10 @@ class Post_RepositoryTest extends Events_TestCase {
 		$sut = $this->make_instance();
 
 		$id = $this->factory()->organizer->create();
+
+		// Set the current user to an admin so we can read the JSON LD data.
+		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
 
 		$data = $sut->get_organizer_data( $id, 'foo' );
 
