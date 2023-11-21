@@ -4,7 +4,11 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
+<<<<<<< HEAD
 Stable tag: 6.2.9
+=======
+Stable tag: 6.2.8.1
+>>>>>>> master
 Tested up to: 6.4.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -234,6 +238,10 @@ Remember to always make a backup of your database and files before updating!
 = [6.2.9] TBD =
 
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
+
+= [6.2.8.1] 2023-11-20 =
+
+* Security - Ensure all password protected posts have their settings respected. [TCMN-167]
 
 = [6.2.8] 2023-11-16 =
 
