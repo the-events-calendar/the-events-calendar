@@ -13,7 +13,7 @@ class Widget_ListTest extends ViewTestCase {
 		parent::setUp();
 		$user = static::factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user );
-		
+
 		\Tribe__Rewrite::instance()->setup();
 		add_filter( 'tribe_events_views', static function ( array $views ) {
 			$views['widget-events-list'] = Widget_List_View::class;
