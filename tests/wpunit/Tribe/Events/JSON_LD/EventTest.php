@@ -14,6 +14,8 @@ class JSON_LD__EventTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		// before
 		parent::setUp();
+		$user = $this->factory()->user->create();
+		wp_set_current_user( $user );
 
 		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
 
