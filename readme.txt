@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.9] TBD =
 
+* Tweak - Updating Trash Old Events query argument filter `tribe_events_delete_old_events_sql_args` with an `interval` field that will contain the `MONTH` value by default. The fetch events query is updated to handle this new field and allows more granular control of the events to trash. [ECP-1604]
 
 = [6.2.8.1] 2023-11-20 =
 
