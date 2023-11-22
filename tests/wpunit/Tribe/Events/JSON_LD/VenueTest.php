@@ -14,8 +14,6 @@ class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 
 		// your set up methods here
 		$this->create_test_data();
-		$user = $this->factory()->user->create( [ 'role' => 'administrator' ] );
-		wp_set_current_user( $user );
 	}
 
 	public function tearDown() {
