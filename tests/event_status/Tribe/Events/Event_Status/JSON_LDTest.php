@@ -10,6 +10,8 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$user = static::factory()->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user );
 		static::factory()->event = new Event();
 	}
 
