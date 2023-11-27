@@ -162,4 +162,4 @@
 		document.addEventListener( \'DOMContentLoaded\', initBreakpoints );
 	})();
 </script>
-<script data-js=\'tribe-events-view-nonce-data\' type=\'application/json\'>{"_tec_view_rest_nonce_primary":"2ab7cc6b39","_tec_view_rest_nonce_secondary":"2ab7cc6b39"}</script>';
+<script data-js=\'tribe-events-view-nonce-data\' type=\'application/json\'>{"_tec_view_rest_nonce_primary":"2ab7cc6b39","_tec_view_rest_nonce_secondary":""}</script>';
