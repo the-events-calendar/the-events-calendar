@@ -33,6 +33,10 @@ jobs:
           php-version: "latest"
       - uses: "ramsey/composer-install@v2"
 
+      - name: "Give permissions"
+        run: |
+          sudo chown -R root:root $GITHUB_WORKSPACE
+
       # ------------------------------------------------------------------------------
       # PHPCS
       # ------------------------------------------------------------------------------
