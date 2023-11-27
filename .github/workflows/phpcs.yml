@@ -21,6 +21,9 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - uses: the-events-calendar/action-tribe-phpcs@master
+      - name: phpcs
+        uses: shirobrak/action-phpcs@v1.0.0
         with:
-          github-bot-token: ${{ secrets.GH_BOT_TOKEN }}
+          github_token: ${{ secrets.GH_BOT_TOKEN }}
+          reporter: github-pr-review  # Change reporter.
+          phpcs_flags: '--standard=phpcs.xml src/'
