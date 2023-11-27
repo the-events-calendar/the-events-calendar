@@ -4,6 +4,7 @@ on:
     paths:
       - 'src/**.php'
       - '*.php'
+      - '.github/workflows/phpcs.yml'
 jobs:
   phpcs:
     runs-on: ubuntu-latest
