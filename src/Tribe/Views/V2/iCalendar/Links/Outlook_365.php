@@ -30,7 +30,7 @@ class Outlook_365 extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $calendar_slug = 'office';
+	public static $service_slug = 'office';
 
 	/**
 	 * {@inheritDoc}

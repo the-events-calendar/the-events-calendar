@@ -41,6 +41,15 @@ trait Outlook_Methods {
 	protected static $outlook_temp_space = 'TEC_OUTLOOK_SPACE';
 
 	/**
+	 * {Holds the slug for the service we're sending to (i.e. live or office).
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $service_slug = '';
+
+	/**
 	 * Generate the parameters for the Outlook export buttons.
 	 *
 	 * @since 5.16.0
@@ -91,7 +100,7 @@ trait Outlook_Methods {
 			// Stripping tags
 			$body = strip_tags( $body, '<p>' );
 
-			// Truncate Event Description and add permalink if greater than 900 characters
+			// Truncate the Event description and add permalink if greater than 900 characters
 			if ( strlen( $body ) > 900 ) {
 
 				$body = substr( $body, 0, 900 );
@@ -134,6 +143,17 @@ trait Outlook_Methods {
 			'body'     => $body,
 		];
 
+		/**
+		 * Allow users to Filter our Outlook Link params before constructing the URL.
+		 *
+		 * @since TBD
+		 *
+		 * @var array    $params   The params used in the add_query_arg.
+		 * @var /WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
+		 * @var string   $calendar The slug of the calendar. Values can be "outlook-365" and "outlook-live".
+		 */
+		$params = apply_filters( 'tec_views_v2_single_event_outlook_link_parameters', $params, $event, $calendar );
+
 		return $params;
 	}
 
@@ -146,7 +166,7 @@ trait Outlook_Methods {
 	 */
 	public function generate_outlook_full_url() {
 		$params   = $this->generate_outlook_add_url_parameters();
-		$base_url = 'https://outlook.' . static::$calendar_slug . '.com/owa/';
+		$base_url = 'https://outlook.' . static::$service_slug . '.com/owa/';
 		$url      = add_query_arg( $params, $base_url );
 
 		/**
@@ -172,7 +192,7 @@ trait Outlook_Methods {
 	 * @return string The subscribe url.
 	 */
 	public function generate_outlook_subscribe_url( View $view = null ) {
-		$base_url = 'https://outlook.' . static::$calendar_slug . '.com/owa?path=/calendar/action/compose';
+		$base_url = 'https://outlook.' . static::$service_slug . '.com/owa?path=/calendar/action/compose';
 
 		if ( null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );

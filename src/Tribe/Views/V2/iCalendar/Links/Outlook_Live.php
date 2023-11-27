@@ -35,7 +35,7 @@ class Outlook_Live extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $calendar_slug = 'live';
+	public static $service_slug = 'live';
 
 	/**
 	 * {@inheritDoc}
