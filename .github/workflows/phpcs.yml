@@ -44,5 +44,5 @@ jobs:
         uses: shirobrak/action-phpcs@v1.0.0
         with:
           github_token: ${{ secrets.GH_BOT_TOKEN }}
-          reporter: local  # Change reporter.
+          reporter: github-pr-review  # Change reporter.
           phpcs_flags: 'the-events-calendar.php src/'
