@@ -45,4 +45,4 @@ jobs:
         with:
           github_token: ${{ secrets.GH_BOT_TOKEN }}
           reporter: github-pr-review  # Change reporter.
-          phpcs_flags: '--config-set installed_paths vendor/wp-coding-standards/wpcs,vendor/the-events-calendar/coding-standards --standard=phpcs.xml src/'
+          phpcs_flags: '--runtime-set installed_paths ../../automattic/vipwpcs,../../sirbrillig/phpcs-variable-analysis,../../the-events-calendar/coding-standards,../../wp-coding-standards/wpcs,vendor/wp-coding-standards/wpcs,vendor/the-events-calendar/coding-standards --standard=phpcs.xml src/'
