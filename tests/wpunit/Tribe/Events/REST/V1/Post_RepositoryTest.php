@@ -26,9 +26,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	public function setUp() {
 		// before
 		parent::setUp();
-		$user = $this->factory()->user->create();
-		wp_set_current_user( $user );
-		
+
 		// your set up methods here
 		$this->messages = new Messages();
 	}

@@ -11,8 +11,6 @@ class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		// before
 		parent::setUp();
-		$user = $this->factory()->user->create();
-		wp_set_current_user( $user );
 
 		// your set up methods here
 		$this->create_test_data();
