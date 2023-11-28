@@ -9,3 +9,4 @@ jobs:
     uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
     with:
       ref: ${{ github.event.inputs.ref }}
+    secrets: inherit
