@@ -56,4 +56,4 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
           CHANGED_FILES: ${{ steps.files.outputs.all }}
         run: |
-          echo "$CHANGED_FILES" | xargs -n 1 -I {} bash -c '[[ "{}" =~ \.php$ ]] && vendor/bin/phpcs --report=json "{}"' | jq -r ' .files | to_entries[] | .key as $path | .value.messages[] as $msg | "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)" ' | reviewdog -efm="%f:%l:%c:%m" -name="PHPCS" -filter-mode="added" -reporter=github-pr-review
+          echo "$CHANGED_FILES" | xargs -I {} bash -c '[[ "{}" =~ \.php$ ]] && vendor/bin/phpcs --report=json "{}"' | jq -r ' .files | to_entries[] | .key as $path | .value.messages[] as $msg | "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)" ' | reviewdog -efm="%f:%l:%c:%m" -name="PHPCS" -filter-mode="added" -reporter=github-pr-review
