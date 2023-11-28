@@ -5,4 +5,5 @@ jobs:
     uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
     with:
       ref: ${{ github.event.inputs.ref }}
-    secrets: inherit
+    secrets:
+      access-token: ${{ secrets.GH_BOT_TOKEN }}
