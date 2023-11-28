@@ -1,9 +1,5 @@
-name: 'Linting'
-on:
-  pull_request:
-    paths:
-      - '*.php'
-      - 'src/**.php'
+name: 'PHPCS'
+on: [pull_request]
 jobs:
   phpcs:
     uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
