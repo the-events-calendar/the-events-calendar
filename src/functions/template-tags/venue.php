@@ -725,8 +725,8 @@ function tribe_get_phone( $postId = null ) {
 	 * @since ??
 	 * @since 4.5.11 Added docblock and venue ID to filter
 	 *
-	 * @param bool $output The escaped phone number for the venue.
-	 * @param int  $venue_id The venue ID
+	 * @param string $output The escaped phone number for the venue.
+	 * @param int    $venue_id The venue ID
 	 */
 	return apply_filters( 'tribe_get_phone', $output, $venue_id );
 }
