@@ -35,13 +35,11 @@ class Outlook_Live extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $service_slug = 'live';
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public function register() {
 		$this->label        = __( 'Outlook Live', 'the-events-calendar' );
 		$this->single_label = $this->label;
+
+		// Defined and used in the trait.
+		self::$service_slug = 'live';
 	}
 }

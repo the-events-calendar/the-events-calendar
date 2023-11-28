@@ -30,11 +30,6 @@ class Outlook_365 extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
 	 */
-	public static $service_slug = 'office';
-
-	/**
-	 * {@inheritDoc}
-	 */
 	public $block_slug = 'hasOutlook365';
 
 	/**
@@ -43,5 +38,8 @@ class Outlook_365 extends Link_Abstract {
 	public function register() {
 		$this->label        = __( 'Outlook 365', 'the-events-calendar' );
 		$this->single_label = $this->label;
+
+		// Defined and used in the trait.
+		self::$service_slug = 'office';
 	}
 }
