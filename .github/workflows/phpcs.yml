@@ -1,60 +1,11 @@
-name: 'PHPCS'
+name: 'Linting'
 on:
   pull_request:
     paths:
-      - 'src/**.php'
       - '*.php'
-      - '.github/workflows/phpcs.yml'
+      - 'src/**.php'
 jobs:
   phpcs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2000
-
-      # ------------------------------------------------------------------------------
-      # Prepare our cache directories
-      # ------------------------------------------------------------------------------
-      - name: Get Composer Cache Directory
-        if: steps.s3_zip.outcome != 'success'
-        id: get-composer-cache-dir
-        run: |
-          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - uses: actions/cache@v2
-        if: steps.s3_zip.outcome != 'success'
-        id: composer-cache
-        with:
-          path: ${{ steps.get-composer-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-
-      - uses: "shivammathur/setup-php@v2"
-        with:
-          php-version: "7.4"
-      - uses: "ramsey/composer-install@v2"
-
-      - name: "Give permissions"
-        run: |
-          sudo chown -R root:root $GITHUB_WORKSPACE
-
-      # ------------------------------------------------------------------------------
-      # Get changed files
-      # ------------------------------------------------------------------------------
-      - name: Get list of changed files
-        id: files
-        run: |
-          echo "CHANGED_FILES=$(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} | grep '\.php$' | tr '\n' ' ')" >> $GITHUB_ENV
-
-      # ------------------------------------------------------------------------------
-      # PHPCS
-      # ------------------------------------------------------------------------------
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest # Optional. [latest,nightly,v.X.Y.Z]
-      - name: Run reviewdog
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        run: |
-          vendor/bin/phpcs --report=json ${CHANGED_FILES} | jq -r ' .files | to_entries[] | .key as $path | .value.messages[] as $msg | "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)" ' | reviewdog -efm="%f:%l:%c:%m" -name="PHPCS" -filter-mode="added" -fail-on-error=true -reporter=github-pr-review
+    uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
+    with:
+      ref: ${{ github.event.inputs.ref }}
