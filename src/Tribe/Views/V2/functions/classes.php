@@ -121,7 +121,7 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	 * @since 6.0.2
 	 *
 	 * @param string       $comparison_date The date used for comparisons.
-	 * @param DateTime     $request_date    The request date for the view.
+	 * @param \DateTime    $request_date    The request date for the view.
 	 * @param string       $day_date        The current day date, in the `Y-m-d` format.
 	 * @param array<mixed> $day             The current day data.
 	 */
