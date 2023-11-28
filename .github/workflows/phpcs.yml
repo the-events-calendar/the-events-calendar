@@ -38,6 +38,14 @@ jobs:
           sudo chown -R root:root $GITHUB_WORKSPACE
 
       # ------------------------------------------------------------------------------
+      # Get changed files
+      # ------------------------------------------------------------------------------
+      - name: Get list of changed files
+        id: files
+        run: |
+          echo "::set-output name=all::$(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})"
+
+      # ------------------------------------------------------------------------------
       # PHPCS
       # ------------------------------------------------------------------------------
       - uses: reviewdog/action-setup@v1
@@ -46,5 +54,6 @@ jobs:
       - name: Run reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
+          CHANGED_FILES: ${{ steps.files.outputs.all }}
         run: |
-          vendor/bin/phpcs --report=json the-events-calendar.php src/ | jq -r ' .files | to_entries[] | .key as $path | .value.messages[] as $msg | "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)" ' | reviewdog -efm="%f:%l:%c:%m" -name="PHPCS" -filter-mode="added" -reporter=github-pr-review
+          echo "$CHANGED_FILES" | xargs -n 1 -I {} bash -c '[[ "{}" =~ \.php$ ]] && vendor/bin/phpcs --report=json "{}"' | jq -r ' .files | to_entries[] | .key as $path | .value.messages[] as $msg | "\($path):\($msg.line):\($msg.column):`\($msg.source)`<br>\($msg.message)" ' | reviewdog -efm="%f:%l:%c:%m" -name="PHPCS" -filter-mode="added" -reporter=github-pr-review
