@@ -36,7 +36,6 @@ require_once dirname( TRIBE_EVENTS_FILE ) . '/src/functions/php-min-version.php'
 // Load the Composer autoload file.
 require_once dirname( TRIBE_EVENTS_FILE ) . '/vendor/autoload.php';
 
-$x=5;
 /**
  * Verifies if we need to warn the user about min PHP version and bail to avoid fatals
  */
