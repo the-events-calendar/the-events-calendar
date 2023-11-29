@@ -261,9 +261,29 @@ abstract class Link_Abstract implements Link_Interface {
 			return '';
 		}
 
-		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
+		/**
+		 * Allows filtering of the URL for the subscribe links.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL for the subscribe link.
+		 * @param Link_Abstract $link_obj The link object the url is for.
+		 */
+		$url = apply_filters( 'tec_events_subscribe_link_url', $feed_url, $this );
 
-		return $feed_url;
+		/**
+		 * Allows filtering of the URL for a service-specific subscribe link.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL for the subscribe link.
+		 * @param Link_Abstract $link_obj The link object the url is for.
+		 */
+		$url = apply_filters( 'tec_events_subscribe_link_url_' . static::$slug, $url, $this );
+
+		$url = str_replace( [ 'http://', 'https://' ], 'webcal://', $url );
+
+		return $url;
 	}
 
 	/**
