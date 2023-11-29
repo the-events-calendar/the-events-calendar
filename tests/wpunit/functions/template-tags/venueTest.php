@@ -470,11 +470,13 @@ class venueTest extends Events_TestCase {
 		$filter_applied = false;
 
 		// Mock the filter to set $filter_applied to true
-		tests_add_filter( 'tec_events_custom_tables_v1_normalize_occurrence_id', function ( $id ) use ( &$filter_applied ) {
-			$filter_applied = true;
-
-			return $id; // Return the ID unchanged
-		} );
+		tests_add_filter(
+			'tec_events_custom_tables_v1_normalize_occurrence_id', 
+			function ( $id ) use ( &$filter_applied ) {
+				$filter_applied = true;
+				return $id; // Return the ID unchanged
+			}
+		);
 
 		tribe_get_venues(
 			false,
