@@ -753,7 +753,15 @@ function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $s
 	// filter out the `null` values
 	$args = array_diff_key( $args, array_filter( $args, 'is_null' ) );
 
-	// Convert provisional IDs into regular post IDs. 
+	/**
+	 * Convert provisional IDs into regular post IDs.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The array of arguments passed to the tribe_get_venues function.
+	 *
+	 * @return array Modified $args with normalized 'event' ID.
+	 */
 	if ( isset( $args['event'] ) ) {
 		$args['event'] = apply_filters( 'tec_events_custom_tables_v1_normalize_occurrence_id', $args['event'] );
 	}
