@@ -476,7 +476,12 @@ class venueTest extends Events_TestCase {
 			return $id; // Return the ID unchanged
 		} );
 
-		tribe_get_venues( false, - 1, true, [ 'event' => $provisional_id ] );
+		tribe_get_venues(
+			false,
+			- 1,
+			true,
+			[ 'event' => $provisional_id ]
+		);
 
 		$this->assertTrue( $filter_applied, 'The `tec_events_custom_tables_v1_normalize_occurrence_id` filter should be applied.' );
 	}
