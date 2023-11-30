@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.9] TBD =
 
+* Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 * Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
 
 = [6.2.8.1] 2023-11-20 =
