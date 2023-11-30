@@ -165,7 +165,7 @@ trait Outlook_Methods {
 			// Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits (~2000).
 			if ( strlen( $event_url ) < 900 ) {
 				$body .= ' ' . sprintf(
-					/* Translators %1$s singular event label %2$s URL */
+					/* Translators: %1$s singular event label %2$s URL */
 					esc_html_x(
 						'(View Full %1$s Description Here: %2$s)',
 						'Link text to full post description.',
