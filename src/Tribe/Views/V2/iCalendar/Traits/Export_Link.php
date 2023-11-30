@@ -104,7 +104,7 @@ trait Export_Link {
 			 * @param View          $view     The view object, if available.
 			 * @param Link_Abstract $link_obj The link object the url is for.
 			 */
-			$url = apply_filters( "tec_events_export_link_url_single", $url, $view, $this );
+			$url = apply_filters( 'tec_events_export_link_url_single', $url, $view, $this );
 
 			/**
 			 * Allows filtering of the URL for a specific single export link.
@@ -146,7 +146,7 @@ trait Export_Link {
 		 * @param string         $url       The URL for the link.
 		 * @param Outlook_Export $link_obj  The link object the url is for.
 		 */
-		$url = apply_filters( "tec_events_export_link_url", $url, $this );
+		$url = apply_filters( 'tec_events_export_link_url', $url, $this );
 
 		/**
 		 * Allows filtering of the URL for a specific view export link.
