@@ -96,7 +96,18 @@ trait Export_Link {
 			$url = add_query_arg( [ static::$query_arg => 1 ], get_the_permalink() );
 
 			/**
-			 * Allows filtering of the URL for the view export link.
+			 * Allows filtering of the URL for all single export links.
+			 *
+			 * @since TBD
+			 *
+			 * @param string        $url      The URL for the link.
+			 * @param View          $view     The view object, if available.
+			 * @param Link_Abstract $link_obj The link object the url is for.
+			 */
+			$url = apply_filters( "tec_events_export_link_url_single", $url, $view, $this );
+
+			/**
+			 * Allows filtering of the URL for a specific single export link.
 			 *
 			 * @since TBD
 			 *
@@ -128,7 +139,17 @@ trait Export_Link {
 		}
 
 		/**
-		 * Allows filtering of the URL for the view export link.
+		 * Allows filtering of the URL for the view export links.
+		 *
+		 * @since TBD
+		 *
+		 * @param string         $url       The URL for the link.
+		 * @param Outlook_Export $link_obj  The link object the url is for.
+		 */
+		$url = apply_filters( "tec_events_export_link_url", $url, $this );
+
+		/**
+		 * Allows filtering of the URL for a specific view export link.
 		 *
 		 * @since TBD
 		 *

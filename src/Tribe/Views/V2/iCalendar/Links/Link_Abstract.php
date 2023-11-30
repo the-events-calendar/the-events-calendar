@@ -160,6 +160,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 * Allows filtering of the visibility for the links.
 		 *
 		 * @since 5.14.0
+		 * @since TBD Now passing the link object as a param.
 		 *
 		 * @param boolean       $visible  Whether to display the link.
 		 * @param Link_Abstract $link_obj The link object the visibility is for.
@@ -172,6 +173,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 * Allows link-specific filtering of the visibility.
 		 *
 		 * @since 5.14.0
+		 * @since TBD Now passing the link object as a param.
 		 *
 		 * @param boolean       $visible  Whether to display the link.
 		 * @param Link_Abstract $link_obj The link object the visibility is for.
