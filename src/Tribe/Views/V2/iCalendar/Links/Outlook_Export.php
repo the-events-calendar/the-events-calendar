@@ -55,6 +55,6 @@ class Outlook_Export extends Link_Abstract {
 	public function filter_tec_views_v2_subscribe_link_outlook_ics_visibility( $visible ) {
 		_deprecated_function( __METHOD__, 'TBD', 'Outlook_Export::filter_tec_views_v2_subscribe_link_visibility' );
 		// Don't display on single event by default.
-		return self::filter_tec_views_v2_subscribe_link_visibility( $visible, $this);
+		return self::filter_tec_views_v2_subscribe_link_visibility( $visible, $this );
 	}
 }

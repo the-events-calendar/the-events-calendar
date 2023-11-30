@@ -30,9 +30,15 @@ trait Export_Link {
 	 */
 	private static $query_arg = 'ical';
 
+	/**
+	 * Add filter hooks here.
+	 *
+	 * @since TBD
+	 */
 	public function filters() {
 		// Filters the subscribe link based on the final class slug.
-		add_filter( 'tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility', [ $this, 'filter_tec_views_v2_subscribe_link_visibility'], 10, 2 );
+		$slug = static::get_slug();
+		add_filter( "tec_views_v2_subscribe_link_{$slug}_visibility", [ $this, 'filter_tec_views_v2_subscribe_link_visibility' ], 10, 2 );
 	}
 
 	/**
@@ -41,8 +47,8 @@ trait Export_Link {
 	 * @since 5.14.0
 	 * @since TBD Moved to trait from export classes.
 	 *
-	 * @param boolean $visible Whether to display the link.
-	 * @param Link_Abstract    $link_object     The current link object.
+	 * @param boolean       $visible     Whether to display the link.
+	 * @param Link_Abstract $link_object The current link object.
 	 *
 	 * @return boolean $visible Whether to display the link.
 	 */
@@ -63,17 +69,19 @@ trait Export_Link {
 		 * @param boolean $visible Whether to display the link.
 		 * @param Link_Abstract    $link_object     The current link object.
 		 */
-		$visible = apply_filters( "tec_events_export_link_visibility", $visible, $this );
+		$visible = apply_filters( 'tec_events_export_link_visibility', $visible, $this );
+
+		$slug = static::get_slug();
 
 		/**
 		 * Allows filtering of the visibility of a specific export link.
 		 *
 		 * @since TBD
 		 *
-		 * @param boolean $visible Whether to display the link.
-		 * @param Link_Abstract    $link_object     The current link object.
+		 * @param boolean       $visible     Whether to display the link.
+		 * @param Link_Abstract $link_object The current link object.
 		 */
-		return apply_filters( "tec_events_{static::get_slug()}export_link_visibility", $visible, $this );
+		return apply_filters( "tec_events_{$slug}_export_link_visibility", $visible, $this );
 	}
 
 	/**
@@ -92,10 +100,11 @@ trait Export_Link {
 			 *
 			 * @since TBD
 			 *
-			 * @param string $url The URL for the link.
+			 * @param string        $url      The URL for the link.
+			 * @param View          $view     The view object, if available.
 			 * @param Link_Abstract $link_obj The link object the url is for.
 			 */
-			return apply_filters( "tec_events_{$slug}_export_link_url_single", $url, $this );
+			return apply_filters( "tec_events_{$slug}_export_link_url_single", $url, $view, $this );
 		}
 
 		$template_vars = $view->get_template_vars();
@@ -112,7 +121,7 @@ trait Export_Link {
 
 		$url = $ical->link->url;
 
-		if ( static::$query_arg !== 'ical') {
+		if ( 'ical' !== static::$query_arg ) {
 			// Remove ical query argument and add Outlook.
 			$url = remove_query_arg( 'ical', $url );
 			$url = add_query_arg( [ static::$query_arg => 1 ], $url );

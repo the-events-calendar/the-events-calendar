@@ -86,7 +86,7 @@ trait Outlook_Methods {
 			'startdt'  => $start_datetime,
 			'enddt'    => $end_datetime,
 			'location' => Venue::generate_string_address( $event ),
-			'subject'  => $this->space_replace_and_encode( strip_tags( $event->post_title ) ),
+			'subject'  => $this->space_replace_and_encode( wp_strip_all_tags( $event->post_title ) ),
 			'body'     => $this->generate_outlook_event_description( $event ),
 		];
 
@@ -142,8 +142,8 @@ trait Outlook_Methods {
 
 		$body = $event->post_content;
 
-		// Stripping tags
-		$body = strip_tags( $body, '<p>' );
+		// Stripping most tags.
+		$body = wp_kses_post( $body );
 
 		/**
 		 * Allows filtering the content of the event description.
