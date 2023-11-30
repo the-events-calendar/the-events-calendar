@@ -85,7 +85,13 @@ trait Export_Link {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Getter function for the uri property.
+	 *
+	 * @since 5.12.0
+	 *
+	 * @param View|null $view The current View object.
+	 *
+	 * @return string The url for the link calendar subscription "feed", or download.
 	 */
 	public function get_uri( View $view = null ) {
 		$is_single = null === $view || is_single( Tribe__Events__Main::POSTTYPE );
