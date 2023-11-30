@@ -274,6 +274,8 @@ abstract class Link_Abstract implements Link_Interface {
 		 */
 		$url = apply_filters( 'tec_events_subscribe_link_url', $feed_url, $is_single, $this );
 
+		$slug = static::get_slug();
+
 		/**
 		 * Allows filtering of the URL for a service-specific subscribe link.
 		 *
@@ -283,7 +285,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 * @param boolean $is_single Whether the link is for a single event page.
 		 * @param Link_Abstract $link_obj The link object the url is for.
 		 */
-		$url = apply_filters( "tec_events_{static::get_slug()}_subscribe_link_url", $url, $is_single, $this );
+		$url = apply_filters( "tec_events_{$slug}_subscribe_link_url", $url, $is_single, $this );
 
 		$url = str_replace( [ 'http://', 'https://' ], 'webcal://', $url );
 
