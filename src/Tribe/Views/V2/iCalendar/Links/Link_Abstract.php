@@ -161,7 +161,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @since 5.14.0
 		 *
-		 * @param boolean $visible Whether to display the link.
+		 * @param boolean       $visible  Whether to display the link.
 		 * @param Link_Abstract $link_obj The link object the visibility is for.
 		 *
 		 * @return boolean $visible Whether to display the link.
@@ -173,7 +173,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @since 5.14.0
 		 *
-		 * @param boolean $visible Whether to display the link.
+		 * @param boolean       $visible  Whether to display the link.
 		 * @param Link_Abstract $link_obj The link object the visibility is for.
 		 *
 		 * @return boolean $visible Whether to display the link.

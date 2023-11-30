@@ -31,7 +31,7 @@ trait Export_Link {
 	private static $query_arg = 'ical';
 
 	/**
-	 * Add filter hooks here.
+	 * Adding our filter hooks.
 	 *
 	 * @since TBD
 	 */
