@@ -155,16 +155,16 @@ trait Outlook_Methods {
 		 */
 		$body = apply_filters( 'tec_events_ical_outlook_event_description_content', $body );
 
-		// Truncate the Event description and add permalink if greater than 900 characters
+		// Truncate the Event description and add permalink if greater than 900 characters.
 		if ( strlen( $body ) > 900 ) {
 
 			$body = substr( $body, 0, 900 );
 
 			$event_url = get_permalink( $event->ID );
 
-			//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits (~2000)
+			// Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits (~2000).
 			if ( strlen( $event_url ) < 900 ) {
-				$body .= ' ' . sprintf( esc_html__( '(View Full %1$s Description Here: %2$s)', 'the-events-calendar' ), tribe_get_event_label_singular(), $event_url );
+				$body .= ' ' . sprintf( esc_html_x( '(View Full %1$s Description Here: %2$s)', 'Link text to full post description.', 'the-events-calendar' ), tribe_get_event_label_singular(), $event_url );
 			}
 		}
 
@@ -177,7 +177,7 @@ trait Outlook_Methods {
 		 */
 		$num_words = apply_filters( 'tec_events_ical_outlook_event_description_num_words', false );
 
-		// Encoding and trimming
+		// Encoding and trimming.
 		if ( (int) $num_words > 0 ) {
 			$body = wp_trim_words( $body, $num_words );
 		}

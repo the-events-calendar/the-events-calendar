@@ -35,8 +35,8 @@ class iCalendar_Export extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		self::$query_arg = 'ical';
-		$this->label = __( 'Export .ics file', 'the-events-calendar' );
+		self::$query_arg    = 'ical';
+		$this->label        = __( 'Export .ics file', 'the-events-calendar' );
 		$this->single_label = $this->label;
 		$this->filters();
 	}
@@ -54,6 +54,6 @@ class iCalendar_Export extends Link_Abstract {
 	public function filter_tec_views_v2_subscribe_link_ics_visibility( $visible ) {
 		_deprecated_function( __METHOD__, 'TBD', 'iCalendar_Export::filter_tec_views_v2_subscribe_link_visibility' );
 		// Don't display on single event by default.
-		return self::filter_tec_views_v2_subscribe_link_visibility( $visible, $this);
+		return self::filter_tec_views_v2_subscribe_link_visibility( $visible, $this );
 	}
 }

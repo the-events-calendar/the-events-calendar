@@ -35,8 +35,8 @@ class Outlook_Export extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		self::$query_arg = 'outlook-ical';
-		$this->label = _x( 'Export Outlook .ics file', 'The text for the link to export and Outlook ics file.', 'the-events-calendar' );
+		self::$query_arg    = 'outlook-ical';
+		$this->label        = _x( 'Export Outlook .ics file', 'The text for the link to export and Outlook ics file.', 'the-events-calendar' );
 		$this->single_label = $this->label;
 		$this->filters();
 	}
