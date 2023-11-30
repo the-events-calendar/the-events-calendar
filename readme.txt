@@ -235,6 +235,10 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 
+= [6.2.9] TBD =
+
+* Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
+
 = [6.2.8.1] 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected. [TCMN-167]
