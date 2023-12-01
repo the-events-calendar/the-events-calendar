@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.2.8.2] 2023-12-04 =
 
 * Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 130 updated, 0 fuzzied, and 5 obsoleted
 
 = [6.2.8.1] 2023-11-20 =
 
