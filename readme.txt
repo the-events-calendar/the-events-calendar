@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.2.8.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+
 = [6.2.8.1] 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected. [TCMN-167]
