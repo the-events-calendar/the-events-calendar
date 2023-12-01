@@ -265,7 +265,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		$cache         = tribe_cache();
 		$cache_key     = 'tec_rewrite_default_bases_' . $locale;
-		$default_bases =[];// $cache[ $cache_key ];
+		$default_bases = $cache[ $cache_key ];
 
 		if ( empty( $default_bases ) ) { // @todo
 			$default_bases = [
