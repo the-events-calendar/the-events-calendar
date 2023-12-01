@@ -758,7 +758,7 @@ function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $s
 	 *
 	 * @since TBD
 	 *
-	 * @param array $args The array of arguments passed to the tribe_get_venues function.
+	 * @param int $event The provisional event ID.
 	 *
 	 * @return array Modified $args with normalized 'event' ID.
 	 */
