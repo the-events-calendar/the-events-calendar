@@ -355,6 +355,37 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEqualSets( $expected, $parsed );
 	}
 
+	/**
+	 * @test
+	 */
+	public function should_update_pagination_base_for_tec_category_query() {
+		global $wp_query, $wp_rewrite, $wp_the_query;
+		$rewrite = new Rewrite;
+		$rewrite->setup( $wp_rewrite );
+
+		// Sanity check before value.
+		$this->assertEquals( 'page', $wp_rewrite->pagination_base );
+		// Spoof a translation.
+		add_filter( 'gettext_with_context', function ( $translation, $text, $context, $domain ) {
+			if ( $text === 'page' ) {
+				return 'bob';
+			}
+
+			return $translation;
+		}, 10, 4 );
+		$rewrite->filter_pagination_base();
+		$this->assertEquals( 'page', $wp_rewrite->pagination_base );
+
+		$wp_query->queried_object = get_term_by( 'slug', 'test', 'tribe_events_cat' );
+		$rewrite->filter_pagination_base();
+		$this->assertEquals( 'page', $wp_rewrite->pagination_base );
+
+		// All conditions are met - now this should adjust the pagination_base property.
+		$wp_the_query = $wp_query;
+		$rewrite->filter_pagination_base();
+		$this->assertEquals( 'bob', $wp_rewrite->pagination_base );
+	}
+
 	public function clean_url_data_set() {
 		return [
 			'already_clean'    => [ '/events/list', '/events/list/' ],

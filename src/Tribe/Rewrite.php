@@ -435,7 +435,13 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		return $this->add( $regex, $args );
 	}
 
-	public function filter_pagination_base() {
+	/**
+	 * Will adjust the `pagination_base` property in cases where the locale for the site is updated,
+	 * and the page field needs to be interpreted with the translated value.
+	 *
+	 * @since TBD
+	 */
+	public function filter_pagination_base(): void {
 		global $wp_query, $wp_rewrite;
 		if ( ! $wp_query ) {
 			return;
@@ -446,8 +452,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 			return;
 		}
 
-		
-		if ( isset( $queried_object->taxonomy ) && $queried_object->taxonomy === 'tribe_events_cat' ) {
+		if ( $wp_query->is_main_query() && isset( $queried_object->taxonomy ) && $queried_object->taxonomy === 'tribe_events_cat' ) {
 			// Will always ensure it is localized properly.
 			$wp_rewrite->pagination_base = strtolower( esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) );
 		}

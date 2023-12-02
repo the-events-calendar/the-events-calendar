@@ -238,6 +238,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.2.9] TBD =
 
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
+* Fix - When on category page when there is a locale switched to a language with a translation for the `page` URL param, the paginated page would redirect to a 404. [TEC-4979]
 
 = [6.2.8.1] 2023-11-20 =
 
