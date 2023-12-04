@@ -5,9 +5,13 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
 <<<<<<< HEAD
+<<<<<<< HEAD
 Stable tag: 6.2.9
 =======
 Stable tag: 6.2.8.1
+>>>>>>> master
+=======
+Stable tag: 6.2.8.2
 >>>>>>> master
 Tested up to: 6.4.1
 Requires PHP: 7.4
@@ -239,6 +243,11 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 * Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
+
+= [6.2.8.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 130 updated, 0 fuzzied, and 5 obsoleted
 
 = [6.2.8.1] 2023-11-20 =
 
