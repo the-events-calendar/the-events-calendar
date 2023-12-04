@@ -267,7 +267,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		$cache_key     = 'tec_rewrite_default_bases_' . $locale;
 		$default_bases = $cache[ $cache_key ];
 
-		if ( empty( $default_bases ) ) { // @todo
+		if ( empty( $default_bases ) ) {
 			$default_bases = [
 				'month'    => [ 'month', sanitize_title( __( 'month', 'the-events-calendar' ) ) ],
 				'list'     => [ 'list', sanitize_title( __( 'list', 'the-events-calendar' ) ) ],

@@ -360,7 +360,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_update_pagination_base_for_tec_category_query() {
 		global $wp_query, $wp_rewrite, $wp_the_query;
-		$rewrite = new Rewrite;
+		$rewrite = new Rewrite();
 		$rewrite->setup( $wp_rewrite );
 
 		// Sanity check before value.
