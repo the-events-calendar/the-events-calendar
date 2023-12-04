@@ -176,7 +176,7 @@ class Hooks extends Service_Provider {
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
 
-		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 4 );
+		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 5 );
 
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
 
@@ -1148,12 +1148,13 @@ class Hooks extends Service_Provider {
 	 * @param Tribe__Repository|false $events     The events repository. False by default.
 	 * @param DateTime                $start_date The start date (object) of the query.
 	 * @param \Tribe__Context         $context    The current context.
+	 * @param View_Interface          $instance   The current view instance.
 	 *
 	 * @return \Tribe__Repository|false $events     The events repository results.
 	 */
-	public function filter_tec_events_noindex( $events, $start_date, $end_date, $context ) {
-		$view_slug = $context->get( 'view' );
-		$view = View::make( tribe( Manager::class )->get_view_class_by_slug( $view_slug ), $context );
+	public function filter_tec_events_noindex( $events, $start_date, $end_date, $context, $view ) {
+		//$view_slug = $context->get( 'view' );
+		//$view = View::make( tribe( Manager::class )->get_view_class_by_slug( $view_slug ), $context );
 
 		// If ECP has not been updated, the function won't exist for ECP views. Bail.
 		if ( ! method_exists( $view, 'get_noindex_events' ) ) {
