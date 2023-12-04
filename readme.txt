@@ -5,6 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
 Stable tag: 6.2.9
+Stable tag: 6.2.8.2
 Tested up to: 6.4.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -236,6 +237,11 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 * Tweak - Add new filters to allow customization of the subscribe and export links. [TEC-4916]
 * Tweak - Added filters: , `tec_events_subscribe_link_url`, `tec_events_{$slug}_subscribe_link_url`, `tec_events_export_link_visibility`, `tec_events_{$slug}_export_link_visibility`, `tec_events_export_link_url_single`, `tec_events_{$slug}_export_link_url_single`, `tec_events_export_link_url`, `tec_events_{$slug}_export_link_url`
+
+= [6.2.8.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 130 updated, 0 fuzzied, and 5 obsoleted
 
 = [6.2.8.1] 2023-11-20 =
 
