@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
-Stable tag: 6.2.8.1
+Stable tag: 6.2.8.2
 Tested up to: 6.4.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -230,6 +230,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.2.8.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 130 updated, 0 fuzzied, and 5 obsoleted
 
 = [6.2.8.1] 2023-11-20 =
 
