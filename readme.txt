@@ -242,6 +242,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.2.9] TBD =
 
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
+* Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
 
 = [6.2.8.2] 2023-12-04 =
 
