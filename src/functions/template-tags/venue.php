@@ -760,7 +760,7 @@ function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $s
 	 *
 	 * @param int $event The provisional event ID.
 	 *
-	 * @return array Modified $args with normalized 'event' ID.
+	 * @return int The normalized event ID.
 	 */
 	if ( isset( $args['event'] ) ) {
 		$args['event'] = apply_filters( 'tec_events_custom_tables_v1_normalize_occurrence_id', $args['event'] );
