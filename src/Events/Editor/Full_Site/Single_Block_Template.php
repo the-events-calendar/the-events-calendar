@@ -9,13 +9,13 @@ use WP_Block_Template;
 /**
  * Class Single_Block_Templates
  *
- * @since   TBD
+ * @since   6.2.7
  *
  * @package TEC\Events\Editor\Full_Site
  */
 class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements Block_Template_Contract {
 	/**
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @var string The namespace of this template.
 	 */
@@ -24,7 +24,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Returns the name/slug of this block.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string The name/slug of this block.
 	 */
@@ -35,7 +35,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * The ID of this block.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string The WP Block Template ID.
 	 */
@@ -46,7 +46,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Set the default attributes of this block.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return array<string,mixed> The array of default attributes.
 	 */
@@ -57,7 +57,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @param array $attributes The block attributes.
 	 *
@@ -75,7 +75,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Creates then returns the WP_Block_Template object for single event.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return null|WP_Block_Template The hydrated single event template object.
 	 */
@@ -111,7 +111,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Creates if non-existent theme post, then returns the WP_Block_Template object for single events.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return null|WP_Block_Template The hydrated single events template object.
 	 */

@@ -373,7 +373,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Check if current admin page is post type `tribe_events`
 	 *
 	 * @since 4.7
-	 * @since TBD Adding support to load on site editor screen.
+	 * @since 6.2.7 Adding support to load on site editor screen.
 	 *
 	 * @return bool
 	 */
@@ -388,7 +388,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 * Check whether the current page is an edit post type page.
 	 *
 	 * @since 5.12.0
-	 * @since TBD Adding support to load on site editor screen.
+	 * @since 6.2.7 Adding support to load on site editor screen.
 	 *
 	 * @return bool
 	 */

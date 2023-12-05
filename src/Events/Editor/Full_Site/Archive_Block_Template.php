@@ -9,20 +9,20 @@ use WP_Block_Template;
 /**
  * Class Archive_Block_Template
  *
- * @since   TBD
+ * @since   6.2.7
  *
  * @package TEC\Events\Editor\Full_Site
  */
 class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements Block_Template_Contract {
 	/**
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @var string The namespace of this template.
 	 */
 	protected $namespace = 'tec';
 
 	/**
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string The WP Block Template ID.
 	 */
@@ -33,7 +33,7 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 	/**
 	 * Returns the name/slug of this block.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return string The name/slug of this block.
 	 */
@@ -44,7 +44,7 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 	/**
 	 * Set the default attributes of this block.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return array<string,mixed> The array of default attributes.
 	 */
@@ -55,7 +55,7 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @param array $attributes The block attributes.
 	 *
@@ -73,7 +73,7 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 	/**
 	 * Creates then returns the WP_Block_Template object for archive events.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */
@@ -105,7 +105,7 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 	/**
 	 * Creates if non-existent theme post, then returns the WP_Block_Template object for archive events.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */

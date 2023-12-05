@@ -10,7 +10,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since   6.2.7
  *
  * @package TEC\Events\Editor\Full_Site
  */
@@ -18,7 +18,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function do_register(): void {
 		$this->add_filters();
@@ -30,7 +30,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function unregister(): void {
 		$this->remove_filters();
@@ -39,7 +39,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Should only be active if we are in a Site Editor theme.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @return bool Only active during FS theme.
 	 */
@@ -62,7 +62,7 @@ class Controller extends Controller_Contract {
 	 * Adds the filters required by the FSE components.
 	 *
 	 * @since 5.14.2
-	 * @since TBD Adding support for block templates.
+	 * @since 6.2.7 Adding support for block templates.
 	 */
 	protected function add_filters() {
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
@@ -80,7 +80,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes registered filters.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function remove_filters() {
 		remove_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25 );
@@ -98,7 +98,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Redirect the post type template to our Events Archive slug, as that is what is used for lookup in the database.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @param string[] $templates Templates in order of display hierarchy.
 	 *
@@ -128,7 +128,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Redirect the post type template to our Single Event slug, as that is what is used for lookup in the database.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @param array $templates Templates in order of display hierarchy.
 	 *
@@ -167,7 +167,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the Single Event template.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function action_register_single_event_template() {
 		return $this->container->make( Single_Block_Template::class )->register();
@@ -177,7 +177,7 @@ class Controller extends Controller_Contract {
 	 * Adds the archive template to the array of block templates.
 	 *
 	 * @since 5.14.2
-	 * @since TBD Added support for single event templates.
+	 * @since 6.2.7 Added support for single event templates.
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array               $query        {
@@ -217,7 +217,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Fetch our Block Template by ID.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @param null|WP_Block_Template $block_template The filtered template.
 	 * @param string                 $id             The block template ID.
@@ -244,7 +244,7 @@ class Controller extends Controller_Contract {
 	 * Filters and returns the available Event Block Template Services, used to locate
 	 * WP_Block_Template instances.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 *
 	 * @param string $template_type The type of templates we are fetching.
 	 *
@@ -262,7 +262,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filter our available Full Site Block Template objects available. These are used in to define and store WP_Block_Template instances.
 		 *
-		 * @since TBD
+		 * @since 6.2.7
 		 *
 		 * @param Block_Template_Contract[] $templates     The list of our Block_Template_Contracts to be used to register and generate WP_Block_Template.
 		 * @param string                    $template_type The type of template being requested.

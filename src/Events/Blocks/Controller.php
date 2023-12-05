@@ -10,7 +10,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since 6.2.7
  *
  * @package TEC\Events\Blocks
  */
@@ -18,7 +18,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function do_register(): void {
 		$this->add_actions();
@@ -37,7 +37,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds the actions required by the Blocks components.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
@@ -47,7 +47,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes registered actions.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function remove_actions() {
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
@@ -57,7 +57,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the Events Archive template.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function action_register_archive_template() {
 		return $this->container->make( Archive_Block_Template::class )->register();
@@ -66,7 +66,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the Single Event template.
 	 *
-	 * @since TBD
+	 * @since 6.2.7
 	 */
 	public function action_register_single_event_template() {
 		return $this->container->make( Single_Block_Template::class )->register();

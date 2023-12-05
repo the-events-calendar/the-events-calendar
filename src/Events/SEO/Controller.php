@@ -10,10 +10,10 @@
  namespace TEC\Events\SEO;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use Tribe\Events\Views\V2\View_Interface;
 use Tribe\Events\Views\V2\Views;
 use Tribe__Date_Utils as Dates;
 use Tribe__Context;
-
 
 /**
  * Class Provider
@@ -98,6 +98,8 @@ class Controller extends Controller_Contract {
 	 *     add_filter( "tec_events_seo_robots_meta_include_{$view}", '__return_true' );
 	 *
 	 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
+	 *
+	 * @param View_Interface $instance The view instance.
 	 */
 	public function issue_noindex( $instance ): void {
 		$context = $instance->get_context();
@@ -195,6 +197,8 @@ class Controller extends Controller_Contract {
 	 * Determine if a nonindex should be added for list based views that don't have events.
 	 *
 	 * @since 6.2.6
+	 *
+	 * @param View_Interface $instance The view instance.
 	 *
 	 * @return bool
 	 */
