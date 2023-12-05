@@ -154,7 +154,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		global $wpdb;
 
 		// An optional 'frequency|interval' format for the events to retrieve field, e.g. '15|MINUTE'.
-		$frequency_struct = explode( "|", $month );
+		$frequency_struct = explode( '|', $month );
 		$frequency        = $frequency_struct[0];
 		$interval         = $frequency_struct[1] ?? 'MONTH';
 
