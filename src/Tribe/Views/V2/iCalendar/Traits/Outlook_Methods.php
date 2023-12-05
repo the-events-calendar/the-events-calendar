@@ -57,6 +57,13 @@ trait Outlook_Methods {
 		$rrv  = 'addevent';
 
 		/**
+		 * Filters whether the time zone offset should be removed from the URL or not.
+		 *
+		 * @var bool $remove_timezone_offset
+		 */
+		$remove_timezone_offset = apply_filters( 'tec_remove_outlook_timezone_offset', false );
+
+		/**
 		 * If event is an all day event, then adjust the end time.
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
