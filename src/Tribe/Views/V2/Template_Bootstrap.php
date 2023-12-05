@@ -118,8 +118,8 @@ class Template_Bootstrap {
 		}
 
 		return tribe_context()->get( 'tec_post_type' ) === true
-		       || is_singular( TEC::POSTTYPE )
-		       || 'single-event' === tribe_context()->get( 'view' );
+			|| is_singular( TEC::POSTTYPE )
+			|| 'single-event' === tribe_context()->get( 'view' );
 	}
 
 	/**
