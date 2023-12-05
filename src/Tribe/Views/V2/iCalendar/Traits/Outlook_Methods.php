@@ -73,11 +73,15 @@ trait Outlook_Methods {
 				. Dates::build_date_object( $event->start_date, $event->timezone )->format( 'H:i:s' );
 		} else {
 			$enddt = Dates::build_date_object( $event->end_date, $event->timezone )->format( 'c' );
-			$enddt = substr( $enddt, 0, strlen( $enddt ) - 6 );
+			if ( $remove_timezone_offset ) {
+				$enddt = substr( $enddt, 0, strlen( $enddt ) - 6 );
+			}
 		}
 
 		$startdt = Dates::build_date_object( $event->start_date, $event->timezone )->format( 'c' );
-		$startdt = substr( $startdt, 0, strlen( $startdt ) - 6 );
+		if ( $remove_timezone_offset ) {
+			$startdt = substr( $startdt, 0, strlen( $startdt ) - 6 );
+		}
 
 		$location = Venue::generate_string_address( $event );
 
