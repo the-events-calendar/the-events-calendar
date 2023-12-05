@@ -372,7 +372,8 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			}
 
 			return $translation;
-		}, 10, 4 );
+		}
+		, 10, 4 );
 		$rewrite->filter_pagination_base();
 		$this->assertEquals( 'page', $wp_rewrite->pagination_base );
 
