@@ -148,43 +148,8 @@ trait Outlook_Methods {
 		 */
 		$include_event_description = (bool) apply_filters( 'tec_events_ical_outlook_include_event_description', true );
 
-		if ( $include_event_description ) {
-			$body = $event->post_content;
-
-			// Stripping tags
-			$body = strip_tags( $body, '<p>' );
-
-			// Truncate the Event Description and add permalink if greater than 900 characters.
-			if ( strlen( $body ) > 900 ) {
-
-				$body = substr( $body, 0, 900 );
-
-				$event_url = get_permalink( $event->ID );
-
-				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits (~2000)
-				if ( strlen( $event_url ) < 900 ) {
-					$body .= ' ' . sprintf( esc_html__( '(View Full %1$s Description Here: %2$s)', 'the-events-calendar' ), tribe_get_event_label_singular(), $event_url );
-				}
-			}
-
-			/**
-			 * Allows filtering the length of the event description.
-			 *
-			 * @since 5.16.0
-			 *
-			 * @param bool|int $num_words
-			 */
-			$num_words = apply_filters( 'tec_events_ical_outlook_event_description_num_words', false );
-
-			// Encoding and trimming
-			if ( (int) $num_words > 0 ) {
-				$body = wp_trim_words( $body, $num_words );
-			}
-
-			// Changing the spaces to %20, Outlook can take that.
-			$body = $this->space_replace_and_encode( $body );
-		} else {
-			$body = false;
+		if ( ! $include_event_description ) {
+			return '';
 		}
 
 		$body = $event->post_content;
