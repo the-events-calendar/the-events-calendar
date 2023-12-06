@@ -10,356 +10,343 @@ use Tribe__Events__Venue as Venue;
  *
  * Really a proxy to test the base class.
  */
-class VenueTest extends Events_TestCase
-{
-    /**
-     * It should allow searching like in title
-     * @test
-     */
-    public function it_should_allow_searching_like_in_title()
-    {
-        $venue_1 = $this->factory()->venue->create([ 'post_title' => 'Venue Foo' ]);
-        $venue_2 = $this->factory()->venue->create([ 'post_title' => 'Venue Bar' ]);
-        $venue_3 = $this->factory()->venue->create([ 'post_title' => 'Venue Baz' ]);
+class VenueTest extends Events_TestCase {
+	/**
+	 * It should allow searching like in title
+	 * @test
+	 */
+	public function it_should_allow_searching_like_in_title() {
+		$venue_1 = $this->factory()->venue->create( [ 'post_title' => 'Venue Foo' ] );
+		$venue_2 = $this->factory()->venue->create( [ 'post_title' => 'Venue Bar' ] );
+		$venue_3 = $this->factory()->venue->create( [ 'post_title' => 'Venue Baz' ] );
 
-        $sut = $this->make_instance();
+		$sut = $this->make_instance();
 
-        $this->assertCount(3, $sut->find_like('Venue'));
-        $this->assertCount(3, $sut->find_like('venue'));
-        $this->assertCount(1, $sut->find_like('venue foo'));
-        $this->assertCount(1, $sut->find_like('Venue Foo'));
-        $this->assertCount(1, $sut->find_like('Foo Venue'));
-        $this->assertCount(1, $sut->find_like('foo venue'));
-    }
+		$this->assertCount( 3, $sut->find_like( 'Venue' ) );
+		$this->assertCount( 3, $sut->find_like( 'venue' ) );
+		$this->assertCount( 1, $sut->find_like( 'venue foo' ) );
+		$this->assertCount( 1, $sut->find_like( 'Venue Foo' ) );
+		$this->assertCount( 1, $sut->find_like( 'Foo Venue' ) );
+		$this->assertCount( 1, $sut->find_like( 'foo venue' ) );
+	}
 
-    /**
-     * It should allow searching like in content
-     *
-     * @test
-     */
-    public function should_allow_searching_like_in_content()
-    {
-        $venue_1 = $this->factory()->venue->create([ 'post_content' => 'Venue Foo' ]);
-        $venue_2 = $this->factory()->venue->create([ 'post_content' => 'Venue Bar' ]);
-        $venue_3 = $this->factory()->venue->create([ 'post_content' => 'Venue Baz' ]);
+	/**
+	 * It should allow searching like in content
+	 *
+	 * @test
+	 */
+	public function should_allow_searching_like_in_content() {
+		$venue_1 = $this->factory()->venue->create( [ 'post_content' => 'Venue Foo' ] );
+		$venue_2 = $this->factory()->venue->create( [ 'post_content' => 'Venue Bar' ] );
+		$venue_3 = $this->factory()->venue->create( [ 'post_content' => 'Venue Baz' ] );
 
-        $sut = $this->make_instance();
+		$sut = $this->make_instance();
 
-        $this->assertCount(3, $sut->find_like('Venue'));
-        $this->assertCount(3, $sut->find_like('venue'));
-        $this->assertCount(1, $sut->find_like('venue foo'));
-        $this->assertCount(1, $sut->find_like('Venue Foo'));
-        $this->assertCount(1, $sut->find_like('Foo Venue'));
-        $this->assertCount(1, $sut->find_like('foo venue'));
-    }
+		$this->assertCount( 3, $sut->find_like( 'Venue' ) );
+		$this->assertCount( 3, $sut->find_like( 'venue' ) );
+		$this->assertCount( 1, $sut->find_like( 'venue foo' ) );
+		$this->assertCount( 1, $sut->find_like( 'Venue Foo' ) );
+		$this->assertCount( 1, $sut->find_like( 'Foo Venue' ) );
+		$this->assertCount( 1, $sut->find_like( 'foo venue' ) );
+	}
 
-    /**
-     * It should allow searching like in excerpt
-     *
-     * @test
-     */
-    public function should_allow_searching_like_in_excerpt()
-    {
-        $venue_1 = $this->factory()->venue->create([ 'post_excerpt' => 'Venue Foo' ]);
-        $venue_2 = $this->factory()->venue->create([ 'post_excerpt' => 'Venue Bar' ]);
-        $venue_3 = $this->factory()->venue->create([ 'post_excerpt' => 'Venue Baz' ]);
+	/**
+	 * It should allow searching like in excerpt
+	 *
+	 * @test
+	 */
+	public function should_allow_searching_like_in_excerpt() {
+		$venue_1 = $this->factory()->venue->create( [ 'post_excerpt' => 'Venue Foo' ] );
+		$venue_2 = $this->factory()->venue->create( [ 'post_excerpt' => 'Venue Bar' ] );
+		$venue_3 = $this->factory()->venue->create( [ 'post_excerpt' => 'Venue Baz' ] );
 
-        $sut = $this->make_instance();
+		$sut = $this->make_instance();
 
-        $this->assertCount(3, $sut->find_like('Venue'));
-        $this->assertCount(3, $sut->find_like('venue'));
-        $this->assertCount(1, $sut->find_like('venue foo'));
-        $this->assertCount(1, $sut->find_like('Venue Foo'));
-        $this->assertCount(1, $sut->find_like('Foo Venue'));
-        $this->assertCount(1, $sut->find_like('foo venue'));
-    }
+		$this->assertCount( 3, $sut->find_like( 'Venue' ) );
+		$this->assertCount( 3, $sut->find_like( 'venue' ) );
+		$this->assertCount( 1, $sut->find_like( 'venue foo' ) );
+		$this->assertCount( 1, $sut->find_like( 'Venue Foo' ) );
+		$this->assertCount( 1, $sut->find_like( 'Foo Venue' ) );
+		$this->assertCount( 1, $sut->find_like( 'foo venue' ) );
+	}
 
-    /**
-     * @test
-     */
-    public function should_detect_modified_venue_title()
-    {
-        $this->factory()->venue->create([
-            'post_excerpt' => 'Venue Foo',
-            'post_content' => 'lorem dolor',
-        ]);
-        add_filter('pre_get_document_title', function (
-            $title
-        ) {
-                return 'bob';
-        });
-        $return_true = static function () {
-            return true;
-        };
-        add_filter('tribe_events_views_v2_bootstrap_pre_should_load', $return_true);
-        tribe_context()->safe_set('tec_post_type', false);
+	/**
+	 * @test
+	 */
+	public function should_detect_modified_venue_title() {
+		$this->factory()->venue->create( [
+			'post_excerpt' => 'Venue Foo',
+			'post_content' => 'lorem dolor',
+		]
+		);
+		add_filter( 'pre_get_document_title', function (
+			$title
+			)
+			{
+				return 'bob';
+			}
+		);
+		$return_true = static function () {
+			return true;
+		};
+		add_filter( 'tribe_events_views_v2_bootstrap_pre_should_load', $return_true );
+		tribe_context()->safe_set( 'tec_post_type', false );
 
-        $title = wp_get_document_title();
-        $this->assertNotEquals('bob', $title);
+		$title = wp_get_document_title();
+		$this->assertNotEquals( 'bob', $title );
 
-        tribe_context()->safe_set('tec_post_type', '1');
-        $title = wp_get_document_title();
-        $this->assertNotEquals('bob', $title);
+		tribe_context()->safe_set( 'tec_post_type', '1' );
+		$title = wp_get_document_title();
+		$this->assertNotEquals( 'bob', $title );
 
-        remove_filter('tribe_events_views_v2_bootstrap_pre_should_load', $return_true);
-        add_filter('tribe_events_views_v2_bootstrap_pre_should_load', '__return_false');
+		remove_filter( 'tribe_events_views_v2_bootstrap_pre_should_load', $return_true );
+		add_filter( 'tribe_events_views_v2_bootstrap_pre_should_load', '__return_false' );
 
-        $title = wp_get_document_title();
-        $this->assertEquals('bob', $title);
-    }
+		$title = wp_get_document_title();
+		$this->assertEquals( 'bob', $title );
+	}
 
-    /**
-     * It should allow searching like in title, content and excerpt
-     *
-     * @test
-     */
-    public function should_allow_searching_like_in_title_content_and_excerpt()
-    {
-        $venue_1 = $this->factory()->venue->create([
-            'post_content' => 'lorem dolor',
-            'post_excerpt' => 'sed nunqua',
-        ]);
-        $venue_2 = $this->factory()->venue->create([
-            'post_excerpt' => 'Venue Bar',
-            'post_content' => 'dolor sit',
-            'post_excerpt' => 'altera via',
-        ]);
-        $venue_3 = $this->factory()->venue->create([
-            'post_excerpt' => 'Venue Baz',
-            'post_content' => 'sit nunqua',
-            'post_excerpt' => 'Caesar docet',
-        ]);
+	/**
+	 * It should allow searching like in title, content and excerpt
+	 *
+	 * @test
+	 */
+	public function should_allow_searching_like_in_title_content_and_excerpt() {
+		$venue_1 = $this->factory()->venue->create( [
+			'post_content' => 'lorem dolor',
+			'post_excerpt' => 'sed nunqua',
+		] );
+		$venue_2 = $this->factory()->venue->create( [
+			'post_excerpt' => 'Venue Bar',
+			'post_content' => 'dolor sit',
+			'post_excerpt' => 'altera via',
+		] );
+		$venue_3 = $this->factory()->venue->create( [
+			'post_excerpt' => 'Venue Baz',
+			'post_content' => 'sit nunqua',
+			'post_excerpt' => 'Caesar docet',
+		] );
 
-        $sut = $this->make_instance();
+		$sut = $this->make_instance();
 
-        $this->assertCount(3, $sut->find_like('Venue'));
-        $this->assertCount(3, $sut->find_like('venue'));
-        $this->assertCount(2, $sut->find_like('dolor'));
-        $this->assertCount(2, $sut->find_like('sit'));
-        $this->assertCount(1, $sut->find_like('caesar'));
-        $this->assertCount(2, $sut->find_like('nunqua'));
-    }
+		$this->assertCount( 3, $sut->find_like( 'Venue' ) );
+		$this->assertCount( 3, $sut->find_like( 'venue' ) );
+		$this->assertCount( 2, $sut->find_like( 'dolor' ) );
+		$this->assertCount( 2, $sut->find_like( 'sit' ) );
+		$this->assertCount( 1, $sut->find_like( 'caesar' ) );
+		$this->assertCount( 2, $sut->find_like( 'nunqua' ) );
+	}
 
-    /**
-     * It should allow searching like in custom fields
-     *
-     * @test
-     */
-    public function should_allow_searching_like_in_custom_fields()
-    {
-        $venue_1 = $this->factory()->venue->create([
-            'post_title'   => 'Venue Foo',
-            'post_content' => 'lorem dolor',
-            'post_excerpt' => 'sed nunqua',
-            'meta_input'   => [
-                '_VenueAddress'       => '221b Baker Street',
-                '_VenueCity'          => 'London',
-                '_VenueProvince'      => 'Greater London',
-                '_VenueState'         => 'England',
-                '_VenueStateProvince' => 'England, Greater London',
-                '_VenueZip'           => '223345',
-                '_VenuePhone'         => '111111',
-            ],
-        ]);
-        $venue_2 = $this->factory()->venue->create([
-            'post_title'   => 'Venue Bar',
-            'post_content' => 'dolor sit',
-            'post_excerpt' => 'altera via',
-            'meta_input'   => [
-                '_VenueAddress'       => '10, Piccadilly Circus',
-                '_VenueCity'          => 'London',
-                '_VenueProvince'      => 'Greater London',
-                '_VenueState'         => 'England',
-                '_VenueStateProvince' => 'England, Greater London',
-                '_VenueZip'           => '223345',
-                '_VenuePhone'         => '22222222',
-            ],
-        ]);
-        $venue_3 = $this->factory()->venue->create([
-            'post_title'   => 'Venue Baz',
-            'post_content' => 'sit nunqua',
-            'post_excerpt' => 'Caesar docet',
-            'meta_input'   => [
-                '_VenueAddress'       => '100, Avenue du Temple',
-                '_VenueCity'          => 'Paris',
-                '_VenueProvince'      => 'Ile de France',
-                '_VenueState'         => 'France',
-                '_VenueStateProvince' => 'France, Ile de France',
-                '_VenueZip'           => '23443',
-                '_VenuePhone'         => '3333333',
-            ],
-        ]);
+	/**
+	 * It should allow searching like in custom fields
+	 *
+	 * @test
+	 */
+	public function should_allow_searching_like_in_custom_fields() {
+		$venue_1 = $this->factory()->venue->create( [
+			'post_title'   => 'Venue Foo',
+			'post_content' => 'lorem dolor',
+			'post_excerpt' => 'sed nunqua',
+			'meta_input'   => [
+				'_VenueAddress'       => '221b Baker Street',
+				'_VenueCity'          => 'London',
+				'_VenueProvince'      => 'Greater London',
+				'_VenueState'         => 'England',
+				'_VenueStateProvince' => 'England, Greater London',
+				'_VenueZip'           => '223345',
+				'_VenuePhone'         => '111111',
+			],
+		] );
+		$venue_2 = $this->factory()->venue->create( [
+			'post_title'   => 'Venue Bar',
+			'post_content' => 'dolor sit',
+			'post_excerpt' => 'altera via',
+			'meta_input'   => [
+				'_VenueAddress'       => '10, Piccadilly Circus',
+				'_VenueCity'          => 'London',
+				'_VenueProvince'      => 'Greater London',
+				'_VenueState'         => 'England',
+				'_VenueStateProvince' => 'England, Greater London',
+				'_VenueZip'           => '223345',
+				'_VenuePhone'         => '22222222',
+			],
+		] );
+		$venue_3 = $this->factory()->venue->create( [
+			'post_title'   => 'Venue Baz',
+			'post_content' => 'sit nunqua',
+			'post_excerpt' => 'Caesar docet',
+			'meta_input'   => [
+				'_VenueAddress'       => '100, Avenue du Temple',
+				'_VenueCity'          => 'Paris',
+				'_VenueProvince'      => 'Ile de France',
+				'_VenueState'         => 'France',
+				'_VenueStateProvince' => 'France, Ile de France',
+				'_VenueZip'           => '23443',
+				'_VenuePhone'         => '3333333',
+			],
+		] );
 
-        $sut = $this->make_instance();
+		$sut = $this->make_instance();
 
-        $this->assertCount(2, $sut->find_like('london'));
-        $this->assertCount(1, $sut->find_like('3333333'));
-        $this->assertCount(1, $sut->find_like('temple avenue'));
-        $this->assertCount(2, $sut->find_like('greater london'));
-        $this->assertCount(1, $sut->find_like('france'));
-        $this->assertCount(1, $sut->find_like('france, ile de'));
-        $this->assertCount(2, $sut->find_like('223345'));
-    }
+		$this->assertCount( 2, $sut->find_like( 'london' ) );
+		$this->assertCount( 1, $sut->find_like( '3333333' ) );
+		$this->assertCount( 1, $sut->find_like( 'temple avenue' ) );
+		$this->assertCount( 2, $sut->find_like( 'greater london' ) );
+		$this->assertCount( 1, $sut->find_like( 'france' ) );
+		$this->assertCount( 1, $sut->find_like( 'france, ile de' ) );
+		$this->assertCount( 2, $sut->find_like( '223345' ) );
+	}
 
-    /**
-     * @return Venue
-     */
-    protected function make_instance()
-    {
-        return tribe('tec.linked-posts.venue');
-    }
+	/**
+	 * @return Venue
+	 */
+	protected function make_instance() {
+		return tribe( 'tec.linked-posts.venue' );
+	}
 
-    /**
-     * It should allow getting all venues related to an event
-     * @test
-     */
-    public function it_should_allow_getting_all_venues_related_to_an_event()
-    {
-        $venue_1 = $this->factory()->venue->create();
-        $venue_2 = $this->factory()->venue->create();
-        $event_1 = $this->factory()->event->create([ 'venue' => $venue_1 ]);
-        $event_2 = $this->factory()->event->create([ 'venue' => $venue_2 ]);
-        $event_3 = $this->factory()->event->create();
+	/**
+	 * It should allow getting all venues related to an event
+	 * @test
+	 */
+	public function it_should_allow_getting_all_venues_related_to_an_event() {
+		$venue_1 = $this->factory()->venue->create();
+		$venue_2 = $this->factory()->venue->create();
+		$event_1 = $this->factory()->event->create( [ 'venue' => $venue_1 ] );
+		$event_2 = $this->factory()->event->create( [ 'venue' => $venue_2 ] );
+		$event_3 = $this->factory()->event->create();
 
-        $sut = $this->make_instance();
-        $this->assertEquals([ $venue_1 ], $sut->find_for_event($event_1));
-        $this->assertEquals([ $venue_2 ], $sut->find_for_event($event_2));
-        $this->assertEmpty($sut->find_for_event($event_3));
-    }
+		$sut = $this->make_instance();
+		$this->assertEquals( [ $venue_1 ], $sut->find_for_event( $event_1 ) );
+		$this->assertEquals( [ $venue_2 ], $sut->find_for_event( $event_2 ) );
+		$this->assertEmpty( $sut->find_for_event( $event_3 ) );
+	}
 
-    /**
-     * It should return empty array if passing invalid event id
-     * @test
-     */
-    public function it_should_return_empty_array_if_passing_invalid_event_id()
-    {
-        $sut = $this->make_instance();
-        $this->assertEmpty($sut->find_for_event(23));
-    }
+	/**
+	 * It should return empty array if passing invalid event id
+	 * @test
+	 */
+	public function it_should_return_empty_array_if_passing_invalid_event_id() {
+		$sut = $this->make_instance();
+		$this->assertEmpty( $sut->find_for_event( 23 ) );
+	}
 
-    /**
-     * It should allow getting venues with linked events
-     * @test
-     */
-    public function it_should_allow_getting_venues_with_linked_events()
-    {
-        $venue_1 = $this->factory()->venue->create();
-        $venue_2 = $this->factory()->venue->create();
-        $venue_3 = $this->factory()->venue->create();
-        $venue_4 = $this->factory()->venue->create();
-        $this->factory()->event->create([ 'venue' => $venue_1 ]);
-        $this->factory()->event->create([ 'venue' => $venue_2 ]);
+	/**
+	 * It should allow getting venues with linked events
+	 * @test
+	 */
+	public function it_should_allow_getting_venues_with_linked_events() {
+		$venue_1 = $this->factory()->venue->create();
+		$venue_2 = $this->factory()->venue->create();
+		$venue_3 = $this->factory()->venue->create();
+		$venue_4 = $this->factory()->venue->create();
+		$this->factory()->event->create( [ 'venue' => $venue_1 ] );
+		$this->factory()->event->create( [ 'venue' => $venue_2 ] );
 
-        $sut = $this->make_instance();
-        $this->assertEquals([ $venue_1, $venue_2 ], $sut->find_with_events(true));
-        $this->assertEquals([ $venue_3, $venue_4 ], $sut->find_with_events(false));
-    }
+		$sut = $this->make_instance();
+		$this->assertEquals( [ $venue_1, $venue_2 ], $sut->find_with_events( true ) );
+		$this->assertEquals( [ $venue_3, $venue_4 ], $sut->find_with_events( false ) );
+	}
 
-    /**
-     * It should return empty array if there are no venues and getting with events
-     * @test
-     */
-    public function it_should_return_empty_array_if_there_are_no_venues_and_getting_with_events()
-    {
-        $this->factory()->event->create_many(3);
+	/**
+	 * It should return empty array if there are no venues and getting with events
+	 * @test
+	 */
+	public function it_should_return_empty_array_if_there_are_no_venues_and_getting_with_events() {
+		$this->factory()->event->create_many( 3 );
 
-        $sut = $this->make_instance();
-        $this->assertEmpty($sut->find_with_events(true));
-    }
+		$sut = $this->make_instance();
+		$this->assertEmpty( $sut->find_with_events( true ) );
+	}
 
 
-    /**
-     * It should return empty array if there are no events and getting with events
-     * @test
-     */
-    public function it_should_return_empty_array_if_there_are_no_events_and_getting_with_events()
-    {
-        $this->factory()->venue->create_many(3);
+	/**
+	 * It should return empty array if there are no events and getting with events
+	 * @test
+	 */
+	public function it_should_return_empty_array_if_there_are_no_events_and_getting_with_events() {
+		$this->factory()->venue->create_many( 3 );
 
-        $sut = $this->make_instance();
-        $this->assertEmpty($sut->find_with_events(true));
-    }
+		$sut = $this->make_instance();
+		$this->assertEmpty( $sut->find_with_events( true ) );
+	}
 
-    /**
-     * It should not consider draft and pending events when getting venues with events
-     * @test
-     */
-    public function it_should_not_consider_draft_and_pending_events_when_getting_venues_with_events()
-    {
-        $venue_1 = $this->factory()->venue->create();
-        $venue_2 = $this->factory()->venue->create();
-        $venue_3 = $this->factory()->venue->create();
-        $this->factory()->event->create([ 'venue' => $venue_1 ]);
-        $this->factory()->event->create([ 'venue' => $venue_2, 'post_status' => 'draft' ]);
-        $this->factory()->event->create([ 'venue' => $venue_3, 'post_status' => 'pending' ]);
+	/**
+	 * It should not consider draft and pending events when getting venues with events
+	 * @test
+	 */
+	public function it_should_not_consider_draft_and_pending_events_when_getting_venues_with_events() {
+		$venue_1 = $this->factory()->venue->create();
+		$venue_2 = $this->factory()->venue->create();
+		$venue_3 = $this->factory()->venue->create();
+		$this->factory()->event->create( [ 'venue' => $venue_1 ] );
+		$this->factory()->event->create( [ 'venue' => $venue_2, 'post_status' => 'draft' ] );
+		$this->factory()->event->create( [ 'venue' => $venue_3, 'post_status' => 'pending' ] );
 
-        $sut = $this->make_instance();
-        $this->assertEquals([ $venue_1 ], $sut->find_with_events(true));
-        $expected = [ $venue_1, $venue_2, $venue_3 ];
-        $result = $sut->find_with_events(true, []);
-        $this->assertCount(count($expected), $result);
-        $this->assertEmpty(array_diff($expected, $result));
-    }
+		$sut = $this->make_instance();
+		$this->assertEquals( [ $venue_1 ], $sut->find_with_events( true ) );
+		$expected = [ $venue_1, $venue_2, $venue_3 ];
+		$result = $sut->find_with_events( true, [] );
+		$this->assertCount( count( $expected ), $result );
+		$this->assertEmpty( array_diff( $expected, $result ) );
+	}
 
-    /**
-     * It should allow getting venues with upcoming events
-     * @test
-     */
-    public function it_should_allow_getting_venues_with_upcoming_events()
-    {
-        $venue_1 = $this->factory()->venue->create();
-        $venue_2 = $this->factory()->venue->create();
-        $venue_3 = $this->factory()->venue->create();
-        $venue_4 = $this->factory()->venue->create();
-        $venue_5 = $this->factory()->venue->create();
-        $this->factory()->event->create([ 'venue' => $venue_1, 'when' => '+1 month' ]);
-        $this->factory()->event->create([ 'venue' => $venue_2, 'when' => '+1 month' ]);
-        $this->factory()->event->create([ 'venue' => $venue_3, 'when' => '-1 month' ]);
-        $this->factory()->event->create([ 'venue' => $venue_4, 'when' => '-1 month' ]);
+	/**
+	 * It should allow getting venues with upcoming events
+	 * @test
+	 */
+	public function it_should_allow_getting_venues_with_upcoming_events() {
+		$venue_1 = $this->factory()->venue->create();
+		$venue_2 = $this->factory()->venue->create();
+		$venue_3 = $this->factory()->venue->create();
+		$venue_4 = $this->factory()->venue->create();
+		$venue_5 = $this->factory()->venue->create();
+		$this->factory()->event->create( [ 'venue' => $venue_1, 'when' => '+1 month' ] );
+		$this->factory()->event->create( [ 'venue' => $venue_2, 'when' => '+1 month' ] );
+		$this->factory()->event->create( [ 'venue' => $venue_3, 'when' => '-1 month' ] );
+		$this->factory()->event->create( [ 'venue' => $venue_4, 'when' => '-1 month' ] );
 
-        $sut = $this->make_instance();
-        $this->assertEquals([ $venue_1, $venue_2 ], $sut->find_with_upcoming_events(true));
-        $this->assertEquals([ $venue_3, $venue_4, $venue_5 ], $sut->find_with_upcoming_events(false));
-    }
+		$sut = $this->make_instance();
+		$this->assertEquals( [ $venue_1, $venue_2 ], $sut->find_with_upcoming_events( true ) );
+		$this->assertEquals( [ $venue_3, $venue_4, $venue_5 ], $sut->find_with_upcoming_events( false ) );
+	}
 
-    /**
-     * @test
-     */
-    public function it_should_not_create_duplicate_venues_and_should_update_existing_with_same_title()
-    {
-        $venue = $this->make_instance();
+	/**
+	 * @test
+	 */
+	public function it_should_not_create_duplicate_venues_and_should_update_existing_with_same_title() {
+		$venue = $this->make_instance();
 
-        $data = [
-            'Venue'         => 'Test Venue A',
-            'Description'   => 'This is Venue A ',
-            'Address'       => 'Road A',
-            'City'          => 'Providence',
-            'Province'      => 'Rhode Island',
-            'State'         => 'NewYork',
-            'StateProvince' => '',
-            'Zip'           => '9090',
-            'Phone'         => 883383,
-        ];
+		$data = [
+			'Venue'         => 'Test Venue A',
+			'Description'   => 'This is Venue A ',
+			'Address'       => 'Road A',
+			'City'          => 'Providence',
+			'Province'      => 'Rhode Island',
+			'State'         => 'NewYork',
+			'StateProvince' => '',
+			'Zip'           => '9090',
+			'Phone'         => 883383,
+		];
 
-        // Using same data should return the same venue.
-        $venue_1 = $venue->create($data, 'publish');
-        $venue_2 = $venue->create($data, 'publish', true);
+		// Using same data should return the same venue.
+		$venue_1 = $venue->create( $data, 'publish' );
+		$venue_2 = $venue->create( $data, 'publish', true );
 
-        $this->assertEquals($venue_1, $venue_2, 'Venue ID should be same for same data');
+		$this->assertEquals( $venue_1, $venue_2, 'Venue ID should be same for same data' );
 
-        // Using different title should create different venues.
-        $data['Venue']       = 'Test Venue B';
-        $data['Description'] = 'This is Venue B';
-        $venue_3             = $venue->create($data, 'publish', true);
-        $this->assertNotEquals($venue_1, $venue_3, 'Venue ID should be different for different title and description');
+		// Using different title should create different venues.
+		$data['Venue']       = 'Test Venue B';
+		$data['Description'] = 'This is Venue B';
+		$venue_3             = $venue->create( $data, 'publish', true );
+		$this->assertNotEquals( $venue_1, $venue_3, 'Venue ID should be different for different title and description' );
 
-        // Using same title with different address should update the existing venue.
-        $data['City']  = 'Austin';
-        $data['State'] = 'Texas';
-        $data['Zip']   = '123';
-        $venue_4       = $venue->create($data, 'publish', true);
+		// Using same title with different address should update the existing venue.
+		$data['City']  = 'Austin';
+		$data['State'] = 'Texas';
+		$data['Zip']   = '123';
+		$venue_4       = $venue->create( $data, 'publish', true );
 
-        $this->assertEquals($venue_3, $venue_4, 'Venue should be updated keeping the same ID');
-        $this->assertEquals(tribe_get_address($venue_3), tribe_get_address($venue_4), 'Venue address should be updated properly');
-    }
+		$this->assertEquals( $venue_3, $venue_4, 'Venue should be updated keeping the same ID' );
+		$this->assertEquals( tribe_get_address( $venue_3 ), tribe_get_address( $venue_4 ), 'Venue address should be updated properly' );
+	}
 }
