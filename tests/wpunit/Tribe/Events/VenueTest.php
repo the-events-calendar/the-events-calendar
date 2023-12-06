@@ -73,15 +73,17 @@ class VenueTest extends Events_TestCase {
 	/**
 	 * @test
 	 */
-	public function should_detect_modified_venue_title()
-	{
+	public function should_detect_modified_venue_title() {
 		$this->factory()->venue->create( [
-			'post_excerpt' => 'Venue Foo',
-			'post_content' => 'lorem dolor',
-		] );
-		add_filter( 'pre_get_document_title', function ( $title ) {
-			return 'bob';
-		} );
+				'post_excerpt' => 'Venue Foo',
+				'post_content' => 'lorem dolor',
+			]
+		);
+		add_filter( 'pre_get_document_title', function ( $title )
+			{
+				return 'bob';
+			}
+		);
 		$return_true = static function () {
 			return true;
 		};
