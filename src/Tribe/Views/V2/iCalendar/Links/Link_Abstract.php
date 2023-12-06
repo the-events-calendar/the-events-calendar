@@ -8,11 +8,10 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
-use Tribe__Date_Utils as Dates;
 use \Tribe\Events\Views\V2\View;
 
 /**
- * Class Abstract_Link
+ * Class Link_Abstract
  *
  * @since   5.12.0
  * @package Tribe\Events\Views\V2\iCalendar
@@ -161,23 +160,27 @@ abstract class Link_Abstract implements Link_Interface {
 		 * Allows filtering of the visibility for the links.
 		 *
 		 * @since 5.14.0
+		 * @since TBD Now passing the link object as a param.
 		 *
-		 * @param boolean $visible Whether to display the link.
+		 * @param boolean       $visible  Whether to display the link.
+		 * @param Link_Abstract $link_obj The link object the visibility is for.
 		 *
 		 * @return boolean $visible Whether to display the link.
 		 */
-		$visible = (boolean) apply_filters( 'tec_views_v2_subscribe_link_visibility', $visible );
+		$visible = (bool) apply_filters( 'tec_views_v2_subscribe_link_visibility', $visible, $this );
 
 		/**
 		 * Allows link-specific filtering of the visibility.
 		 *
 		 * @since 5.14.0
+		 * @since TBD Now passing the link object as a param.
 		 *
-		 * @param boolean $visible Whether to display the link.
+		 * @param boolean       $visible  Whether to display the link.
+		 * @param Link_Abstract $link_obj The link object the visibility is for.
 		 *
 		 * @return boolean $visible Whether to display the link.
 		 */
-		$visible = (boolean) apply_filters( 'tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility', $visible );
+		$visible = (bool) apply_filters( 'tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility', $visible, $this );
 
 		// Set the object property to the filtered value.
 		$this->set_visibility( $visible );
@@ -248,8 +251,9 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_uri( View $view = null ) {
+		$is_single = is_single();
 		// If we're on a Single Event view, let's bypass the canonical function call and logic.
-		if ( is_single() ) {
+		if ( $is_single ) {
 			$feed_url = null === $view ? tribe_get_single_ical_link() : $view->get_context()->get( 'single_ical_link', false );
 		}
 
@@ -261,9 +265,33 @@ abstract class Link_Abstract implements Link_Interface {
 			return '';
 		}
 
-		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
+		/**
+		 * Allows filtering of the URL for the subscribe links.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL for the subscribe link.
+		 * @param boolean $is_single Whether the link is for a single event page.
+		 * @param Link_Abstract $link_obj The link object the url is for.
+		 */
+		$url = apply_filters( 'tec_events_subscribe_link_url', $feed_url, $is_single, $this );
 
-		return $feed_url;
+		$slug = static::get_slug();
+
+		/**
+		 * Allows filtering of the URL for a service-specific subscribe link.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL for the subscribe link.
+		 * @param boolean $is_single Whether the link is for a single event page.
+		 * @param Link_Abstract $link_obj The link object the url is for.
+		 */
+		$url = apply_filters( "tec_events_{$slug}_subscribe_link_url", $url, $is_single, $this );
+
+		$url = str_replace( [ 'http://', 'https://' ], 'webcal://', $url );
+
+		return $url;
 	}
 
 	/**
