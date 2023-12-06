@@ -102,7 +102,7 @@ trait Outlook_Methods {
 			// Stripping tags
 			$body = strip_tags( $body, '<p>' );
 
-			// Truncate the Event Description and add permalink if greater than 900 characters
+			// Truncate the Event Description and add permalink if greater than 900 characters.
 			if ( strlen( $body ) > 900 ) {
 
 				$body = substr( $body, 0, 900 );
