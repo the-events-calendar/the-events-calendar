@@ -56,7 +56,7 @@ trait Outlook_Methods {
 	 *
 	 * @since 5.16.0
 	 *
-	 * @param string $calendar Whether it's Outlook live or Outlook 365.
+	 * @param string $calendar Whether it's Outlook Live or Outlook 365.
 	 *
 	 * @return string Part of the URL containing the event information.
 	 */
@@ -65,20 +65,32 @@ trait Outlook_Methods {
 		$event = tribe_get_event();
 
 		/**
-		 * If event is an all day event, then adjust the end time.
+		 * Filters whether the time zone offset should be removed from the URL or not.
+		 *
+		 * @var bool $remove_timezone_offset
+		 */
+		$remove_timezone_offset = apply_filters( 'tec_remove_outlook_timezone_offset', false );
+
+		/**
+		 * If the event is an all-day event, then adjust the end time.
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
-			$end_datetime = Dates::build_date_object( $event->end_date )->format( 'Y-m-d' )
+			$end_datetime = Dates::build_date_object( $event->end_date, $event->timezone )->format( 'Y-m-d' )
 				. 'T'
-				. Dates::build_date_object( $event->start_date )->format( 'H:i:s' );
+				. Dates::build_date_object( $event->start_date, $event->timezone )->format( 'H:i:s' );
 		} else {
-			$end_datetime = Dates::build_date_object( $event->end_date )->format( 'c' );
-			$end_datetime = substr( $end_datetime, 0, -6 );
+			$end_datetime = Dates::build_date_object( $event->end_date, $event->timezone )->format( 'c' );
+
+			if ( $remove_timezone_offset ) {
+				$end_datetime = substr( $end_datetime, 0, strlen( $end_datetime ) - 6 );
+			}
 		}
 
-		$start_datetime = Dates::build_date_object( $event->start_date )->format( 'c' );
-		$start_datetime = substr( $start_datetime, 0, -6 );
+		$start_datetime = Dates::build_date_object( $event->start_date, $event->timezone )->format( 'c' );
+		if ( $remove_timezone_offset ) {
+			$start_datetime = substr( $start_datetime, 0, strlen( $start_datetime ) - 6 );
+		}
 
 		$params = [
 			'path'     => '/calendar/action/compose',
