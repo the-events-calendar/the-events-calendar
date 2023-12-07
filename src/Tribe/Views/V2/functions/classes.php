@@ -4,6 +4,7 @@
  *
  * @since 5.1.1
  */
+
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Date_Utils as Dates;
@@ -51,12 +52,12 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
 		 *
 		 * @since 5.1.1
 		 *
-		 * @param array<string> $classes    An array of thee classes to be applied.
-		 * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
-		 *                                  function.
-		 * @param string  $day_date         The `Y-m-d` date of the day currently being displayed.
-		 * @param bool    $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
-		 * @param string  $today_date       Today's date in the `Y-m-d` format.
+		 * @param array<string> $classes          An array of thee classes to be applied.
+		 * @param WP_Post       $event            An event post object with event-specific properties added from the the `tribe_get_event`
+		 *                                        function.
+		 * @param string        $day_date         The `Y-m-d` date of the day currently being displayed.
+		 * @param bool          $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
+		 * @param string        $today_date       Today's date in the `Y-m-d` format.
 		 */
 		return apply_filters( 'tribe_events_views_v2_month_multiday_classes', $classes, $event, $day_date, $is_start_of_week, $today_date );
 	}
@@ -87,12 +88,12 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
 	 *
 	 * @since 5.1.1
 	 *
-	 * @param array<string> $classes    An array of thee classes to be applied.
-	 * @param WP_Post $event            An event post object with event-specific properties added from the the `tribe_get_event`
-	 *                                  function.
-	 * @param string  $day_date         The `Y-m-d` date of the day currently being displayed.
-	 * @param bool    $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
-	 * @param string  $today_date       Today's date in the `Y-m-d` format.
+	 * @param array<string> $classes          An array of thee classes to be applied.
+	 * @param WP_Post       $event            An event post object with event-specific properties added from the the `tribe_get_event`
+	 *                                        function.
+	 * @param string        $day_date         The `Y-m-d` date of the day currently being displayed.
+	 * @param bool          $is_start_of_week Whether the current grid day being rendered is the first day of the week or not.
+	 * @param string        $today_date       Today's date in the `Y-m-d` format.
 	 */
 	return apply_filters( 'tribe_events_views_v2_month_multiday_classes', $classes, $event, $day_date, $is_start_of_week, $today_date );
 }
@@ -102,7 +103,8 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  * Outputs classes for each day "cell".
  *
  * @since 6.0.2
- * @since TBD Updated to use $today_date for class comparisons, fixing issues with incorrect class application when navigating between months.
+ * @since TBD Updated to use `$today_date` for class comparisons by default, fixing issues with incorrect class application when navigating between months.
+ *        Users can still override the default behavior through the `tec_events_month_day_classes_comparison_date` filter.
  *
  * @param array<mixed> $day          The current day data.
  * @param string       $day_date     The current day date, in the `Y-m-d` format.
@@ -112,20 +114,23 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  * @return array<string,bool> $day_classes The classes to add to the day "cell".
  */
 function month_day_classes( array $day, string $day_date, \DateTime $request_date, string $today_date ) {
-	// If for some reason we don't have a request date, use today's date.
-	$comparison_date = ! empty( $request_date ) ? $request_date->format( 'Y-m-d' ) : $today_date;
+	// If there's no request date, initialize it with today's date.
+	$request_date = ! empty( $request_date ) ? $request_date : \DateTime::createFromFormat( 'Y-m-d', $today_date );
 
 	/**
 	 * Allows filtering the date used for comparison when generating the Month View day cell classes.
 	 *
 	 * @since 6.0.2
+	 * @since TBD Updated to reflect the default use of `$today_date` for class comparisons.
 	 *
-	 * @param string       $comparison_date The date used for comparisons.
+	 * @param string       $comparison_date The date used for comparisons. Defaults to the `$request_date` if provided, otherwise `$today_date`.
 	 * @param \DateTime    $request_date    The request date for the view.
 	 * @param string       $day_date        The current day date, in the `Y-m-d` format.
 	 * @param array<mixed> $day             The current day data.
+	 *
+	 * @return string $comparison_date The final date used for comparisons.
 	 */
-	$comparison_date =  apply_filters( 'tec_events_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day  );
+	$comparison_date = apply_filters( 'tec_events_month_day_classes_comparison_date', $request_date->format( 'Y-m-d' ), $request_date, $day_date, $day );
 
 	// Convert it to a date object.
 	$comparison_date = Dates::immutable( $comparison_date );
@@ -135,14 +140,14 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 		'tribe-events-calendar-month__day'              => true,
 		// Add a class for the current day.
 		'tribe-events-calendar-month__day--current'     => $today_date === $day_date,
-		// Add a class for the past days (includes days in the requested month).
+		// Add a class for the past days.
 		'tribe-events-calendar-month__day--past'        => $today_date > $day_date,
 		// Not the requested month.
-		'tribe-events-calendar-month__day--other-month' => $day[ 'month_number' ] !== $comparison_date->format( 'm' ),
+		'tribe-events-calendar-month__day--other-month' => $day['month_number'] !== $comparison_date->format( 'm' ),
 		// Past month.
-		'tribe-events-calendar-month__day--past-month'  => $day[ 'month_number' ] < $comparison_date->format( 'm' ),
+		'tribe-events-calendar-month__day--past-month'  => $day['month_number'] < $comparison_date->format( 'm' ),
 		// Future month.
-		'tribe-events-calendar-month__day--next-month'  => $day[ 'month_number' ] > $comparison_date->format( 'm' ),
+		'tribe-events-calendar-month__day--next-month'  => $day['month_number'] > $comparison_date->format( 'm' ),
 	];
 
 	/**
