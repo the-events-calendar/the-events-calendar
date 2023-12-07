@@ -127,7 +127,7 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	 * @param array<mixed> $day             The current day data.
 	 * @param string       $today_date      Today's date in the `Y-m-d` format.
 	 */
-	$comparison_date =  apply_filters( 'tec_events_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day, $today_date  );
+	$comparison_date =  apply_filters( 'tec_events_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day, $today_date );
 
 	// Convert it to a date object.
 	$comparison_date = Dates::immutable( $comparison_date );
