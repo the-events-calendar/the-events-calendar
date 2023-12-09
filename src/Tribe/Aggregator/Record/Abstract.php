@@ -1616,6 +1616,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$event['Venue']['Country'] = $venue_data['Country'] = $this->maybe_fix_country( $item->venue->country );
 					}
 
+					// If "State" is empty, it will not show up on the venue editing screen.
+					if ( ! isset( $event['Venue']['State'] && isset( $item->venue->stateprovince ) ) ) {
+						$event['Venue']['State'] = $venue_data['State'] = $item->venue->stateprovince;
+					}
+
 					if ( $venue ) {
 						$venue_id                   = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
 						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
