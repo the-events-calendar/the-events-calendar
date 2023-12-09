@@ -1621,13 +1621,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$event['Venue']['State'] = $venue_data['State'] = $item->venue->stateprovince;
 					}
 
+					// This will help prevent a superfluous Geocoding request in
+					// events-calendar-pro/src/Tribe/Geo_Loc.php:712
+					$event['Venue']['GeoAddress'] = $venue_data['GeoAddress'] = $venue_data['Venue'];
+
 					if ( $venue ) {
 						$venue_id                   = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
 						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 
 						// Here we might need to update the Venue depending on the main GlobalID
 						if ( 'retain' === $update_authority_setting ) {
-							// When we get here we say that we skipped an Venue
+							// When we get here we say that we skipped a Venue
 							$activity->add( 'venue', 'skipped', $venue->ID );
 						} else {
 							if ( 'preserve_changes' === $update_authority_setting ) {
