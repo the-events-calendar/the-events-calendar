@@ -1606,6 +1606,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					if ( isset( $item->venue->image ) ) {
 						$venue_data['FeaturedImage'] = $item->venue->image;
 					}
+					
+					// If the data is coming from Meetup, then fix the country.
+					// Meetup sends the country as a lowercase two-digit country code.
+					if (
+						$origin == 'meetup'
+						&& isset( $item->venue->country )
+					) {
+						$event['Venue']['Country'] = $venue_data['Country'] = $this->maybe_fix_country( $item->venue->country );
+					}
 
 					if ( $venue ) {
 						$venue_id                   = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
