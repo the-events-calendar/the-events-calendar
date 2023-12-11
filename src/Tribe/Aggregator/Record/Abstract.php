@@ -1617,7 +1617,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					}
 
 					// If "State" is empty, it will not show up on the venue editing screen.
-					if ( ! isset( $event['Venue']['State'] && null !== $item->venue->stateprovince ) ) {
+					if ( ! isset( $event['Venue']['State'] ) && isset( $item->venue->stateprovince ) ) {
 						$event['Venue']['State'] = $venue_data['State'] = $item->venue->stateprovince;
 					}
 
@@ -2851,8 +2851,8 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	 * Changes the two-digit country code to the country name.
 	 * Meetup sends the country as a two-digit country code, which the Venues post type cannot recognize.
 	 * It is also better/safer for other instances where the full country name might differ in the source vs. TEC.
-         *
-         * @TODO Would this be better in Common?
+	 *
+	 * @TODO Would this be better in Common?
 	 *
 	 * @param string $country_code The two-digit country code.
 	 *
