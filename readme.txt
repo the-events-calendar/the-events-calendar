@@ -235,7 +235,6 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Make sure that the full country name is used when importing events from Meetup. [EA-469]
 * Fix - Ensure that the venue state is saved when data is available.
-* Tweak - Prevent superfluous geocoding requests when importing events.
 
 = [6.2.8.2] 2023-12-04 =
 
