@@ -366,8 +366,8 @@ class Builder {
 			if ( $result === false ) {
 				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
 					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ),
-					'error' => $wpdb->last_error
+					'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+					'error'  => $wpdb->last_error
 				] );
 			}
 
@@ -921,7 +921,11 @@ class Builder {
 
 		$result = $wpdb->get_var( $SQL );
 		if ( $result === false || $wpdb->last_error ) {
-			do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
+			do_action( 
+				'tribe_log', 
+				'debug', 
+				'Builder: query failure.', 
+				[
 				'source' => __METHOD__ . ':' . __LINE__,
 				'trace'  => debug_backtrace( 2, 5 ),
 				'error'  => $wpdb->last_error
