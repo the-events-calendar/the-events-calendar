@@ -1610,14 +1610,14 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 					// If the data is coming from Meetup, then fix the country.
 					// Meetup sends the country as a lowercase two-digit country code.
 					if (
-						$origin == 'meetup'
+						'meetup' == $origin
 						&& isset( $item->venue->country )
 					) {
 						$event['Venue']['Country'] = $venue_data['Country'] = $this->maybe_fix_country( $item->venue->country );
 					}
 
 					// If "State" is empty, it will not show up on the venue editing screen.
-					if ( ! isset( $event['Venue']['State'] && isset( $item->venue->stateprovince ) ) ) {
+					if ( ! isset( $event['Venue']['State'] && null !== $item->venue->stateprovince ) ) {
 						$event['Venue']['State'] = $venue_data['State'] = $item->venue->stateprovince;
 					}
 
@@ -1625,19 +1625,19 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$venue_id                   = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
 						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
 
-						// Here we might need to update the Venue depending on the main GlobalID
+						// Here we might need to update the Venue depending on the main GlobalID.
 						if ( 'retain' === $update_authority_setting ) {
-							// When we get here we say that we skipped a Venue
+							// When we get here we say that we skipped a Venue.
 							$activity->add( 'venue', 'skipped', $venue->ID );
 						} else {
 							if ( 'preserve_changes' === $update_authority_setting ) {
 								$venue_data = Tribe__Events__Aggregator__Event::preserve_changed_fields( $venue_data );
 							}
 
-							// Update the Venue
+							// Update the Venue.
 							Tribe__Events__Venue::instance()->update( $venue->ID, $venue_data );
 
-							// Tell that we updated the Venue to the activity tracker
+							// Tell that we updated the Venue to the activity tracker.
 							$activity->add( 'venue', 'updated', $venue->ID );
 						}
 					} else {
@@ -2850,7 +2850,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	/**
 	 * Changes the two-digit country code to the country name.
 	 * Meetup sends the country as a two-digit country code, which the Venues post type cannot recognize.
-	 * It is also better/safer for other instances, where the full country name might differ in the source vs. TEC.
+	 * It is also better/safer for other instances where the full country name might differ in the source vs. TEC.
+         *
+         * @TODO Would this be better in Common?
 	 *
 	 * @param string $country_code The two-digit country code.
 	 *
@@ -2862,7 +2864,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 		// Get the country code of the venue.
 		$country_code = strtoupper( $country_code );
 
-		// Get the country array from Tribe Common
+		// Get the country array from Tribe Common.
 		$countries = tribe( \Tribe__Languages__Locations::class )->build_country_array();
 
 		if ( array_key_exists( $country_code, $countries ) ) {
