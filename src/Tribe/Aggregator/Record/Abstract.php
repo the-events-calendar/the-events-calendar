@@ -1621,10 +1621,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 						$event['Venue']['State'] = $venue_data['State'] = $item->venue->stateprovince;
 					}
 
-					// This will help prevent a superfluous Geocoding request in
-					// events-calendar-pro/src/Tribe/Geo_Loc.php:712
-					$event['Venue']['GeoAddress'] = $venue_data['GeoAddress'] = $venue_data['Venue'];
-
 					if ( $venue ) {
 						$venue_id                   = $event['EventVenueID'] = $venue_data['ID'] = $venue->ID;
 						$found_venues[ $venue->ID ] = $event['Venue']['Venue'];
