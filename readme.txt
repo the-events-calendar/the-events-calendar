@@ -234,9 +234,11 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.9] TBD =
 
+* Fix - Resolved situations Venue and Organizer pages would not generate the correct page title due to an improper conditional. [ECP-1059]
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 * Tweak - Add new filters to allow customization of the subscribe and export links. [TEC-4916]
 * Tweak - Added filters: , `tec_events_subscribe_link_url`, `tec_events_{$slug}_subscribe_link_url`, `tec_events_export_link_visibility`, `tec_events_{$slug}_export_link_visibility`, `tec_events_export_link_url_single`, `tec_events_{$slug}_export_link_url_single`, `tec_events_export_link_url`, `tec_events_{$slug}_export_link_url`
+* Fix - When on category page when there is a locale switched to a language with a translation for the `page` URL param, the paginated page would redirect to a 404. [TEC-4979]
 * Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
 * Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
 

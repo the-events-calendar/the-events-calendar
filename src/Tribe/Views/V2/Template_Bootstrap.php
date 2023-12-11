@@ -113,17 +113,13 @@ class Template_Bootstrap {
 	 * @return bool Whether the current request is for the single event template or not.
 	 */
 	public function is_single_event() {
-		if( ! did_action( 'parse_query' ) ) {
+		if ( ! did_action( 'parse_query' ) ) {
 			return false;
 		}
 
-		$conditions = [
-			tribe_context()->get( 'tec_post_type' ),
-			is_singular( TEC::POSTTYPE ),
-			'single-event' === tribe_context()->get( 'view' ),
-		];
-
-		return in_array( true, $conditions, true );
+		return tribe_context()->get( 'tec_post_type' ) === true
+			|| is_singular( TEC::POSTTYPE )
+			|| 'single-event' === tribe_context()->get( 'view' );
 	}
 
 	/**
