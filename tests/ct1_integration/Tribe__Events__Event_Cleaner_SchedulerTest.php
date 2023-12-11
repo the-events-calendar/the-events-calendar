@@ -53,7 +53,7 @@ class Tribe__Events__Event_Cleaner_SchedulerTest extends \Codeception\TestCase\W
 				'12|month',
 				'12',
 				'month',
-			]
+			],
 		];
 	}
 
@@ -65,9 +65,7 @@ class Tribe__Events__Event_Cleaner_SchedulerTest extends \Codeception\TestCase\W
 		$cleaner     = new Tribe__Events__Event_Cleaner_Scheduler();
 		$parsed_args = [];
 		add_filter( 'tribe_events_delete_old_events_sql_args',
-			function ( $args )
-			use ( &$parsed_args )
-			{
+			function ( $args ) use ( &$parsed_args ) {
 				$parsed_args = $args;
 
 				return $parsed_args;
