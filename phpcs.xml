@@ -1,23 +1,22 @@
 <?xml version="1.0"?>
-<ruleset name="The Events Calendar Coding Standards">
+<ruleset name="The Events Calendar Coding Standards"><?xml version="1.1"?>
+	<rule ref="TEC"/>
 	<rule ref="WordPress-VIP-Go"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Core"/>
 	<rule ref="WordPress-Docs">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+		<!-- We always want short array syntax only. -->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
-	<rule ref="TEC"/>
 
-	<!--exclude the rule for violation of direct DB calls as some have no alternative-->
-	<rule ref="WordPress.DB.DirectDatabaseQuery">
-		<exclude-pattern>src/Test.php</exclude-pattern>
-	</rule>
-	<rule ref="WordPress.PHP.YodaConditions.NotYoda">
-		<exclude-pattern>src/*</exclude-pattern>
-	</rule>
-
-	<exclude-pattern>*/tests/_support/_generated/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+
+	<!-- We always want short array syntax only. -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
 </ruleset>
