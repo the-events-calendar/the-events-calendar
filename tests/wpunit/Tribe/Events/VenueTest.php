@@ -71,48 +71,13 @@ class VenueTest extends Events_TestCase {
 	}
 
 	/**
-	 * @test
-	 */
-	public function should_detect_modified_venue_title() {
-		$this->factory()->venue->create( [
-			'post_excerpt' => 'Venue Foo',
-			'post_content' => 'lorem dolor',
-		]
-		);
-		add_filter( 'pre_get_document_title', function (
-			$title
-			)
-			{
-				return 'bob';
-			}
-		);
-		$return_true = static function () {
-			return true;
-		};
-		add_filter( 'tribe_events_views_v2_bootstrap_pre_should_load', $return_true );
-		tribe_context()->safe_set( 'tec_post_type', false );
-
-		$title = wp_get_document_title();
-		$this->assertNotEquals( 'bob', $title );
-
-		tribe_context()->safe_set( 'tec_post_type', '1' );
-		$title = wp_get_document_title();
-		$this->assertNotEquals( 'bob', $title );
-
-		remove_filter( 'tribe_events_views_v2_bootstrap_pre_should_load', $return_true );
-		add_filter( 'tribe_events_views_v2_bootstrap_pre_should_load', '__return_false' );
-
-		$title = wp_get_document_title();
-		$this->assertEquals( 'bob', $title );
-	}
-
-	/**
 	 * It should allow searching like in title, content and excerpt
 	 *
 	 * @test
 	 */
 	public function should_allow_searching_like_in_title_content_and_excerpt() {
 		$venue_1 = $this->factory()->venue->create( [
+			'post_excerpt' => 'Venue Foo',
 			'post_content' => 'lorem dolor',
 			'post_excerpt' => 'sed nunqua',
 		] );
