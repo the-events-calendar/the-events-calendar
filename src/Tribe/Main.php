@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+    // File alterd to trigger tests
 if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
