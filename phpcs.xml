@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="The Events Calendar Coding Standards"><?xml version="1.1"?>
+<ruleset name="The Events Calendar Coding Standards">
 	<rule ref="TEC"/>
 	<rule ref="WordPress-VIP-Go"/>
 	<rule ref="WordPress-Extra"/>
