@@ -10,13 +10,11 @@
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
-		<!-- We always want short array syntax only. -->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
 	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
-
-	<!-- We always want short array syntax only. -->
-	<rule ref="Generic.Arrays.DisallowLongArraySyntax" />
 </ruleset>
