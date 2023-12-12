@@ -233,7 +233,6 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.9] TBD =
 
-* Fix - Resolved situations Venue and Organizer pages would not generate the correct page title due to an improper conditional. [ECP-1059]
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 * Fix - When on category page when there is a locale switched to a language with a translation for the `page` URL param, the paginated page would redirect to a 404. [TEC-4979]
 * Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
