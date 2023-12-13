@@ -233,10 +233,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.2.9] TBD =
 
+* Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 * Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
-* Tweak - Updating Trash Old Events query argument filter `tribe_events_delete_old_events_sql_args` with an `interval` field that will contain the `MONTH` value by default. The fetch events query is updated to handle this new field and allows more granular control of the events to trash. [ECP-1604]
-* Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
 
 = [6.2.8.2] 2023-12-04 =
 
