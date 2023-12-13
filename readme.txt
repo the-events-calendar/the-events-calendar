@@ -238,6 +238,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
 * Tweak - Added filters: `tec_events_custom_tables_v1_normalize_occurrence_id`
 * Tweak - Changed views: `v2/list/event/featured-image`
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.2.8.2] 2023-12-04 =
 
