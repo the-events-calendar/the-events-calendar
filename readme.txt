@@ -231,11 +231,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.2.9] TBD =
+= [6.2.9] 2023-12-14 =
 
 * Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
 * Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
+* Tweak - Added filters: `tec_events_custom_tables_v1_normalize_occurrence_id`
+* Tweak - Changed views: `v2/list/event/featured-image`
 
 = [6.2.8.2] 2023-12-04 =
 
