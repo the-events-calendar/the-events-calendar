@@ -14,6 +14,9 @@
 	<rule ref="WordPress.DB.DirectDatabaseQuery">
 		<exclude-pattern>src/Test.php</exclude-pattern>
 	</rule>
+	<rule ref="WordPress.PHP.YodaConditions.NotYoda">
+		<exclude-pattern>src/*</exclude-pattern>
+	</rule>
 
 	<exclude-pattern>*/tests/_support/_generated/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
