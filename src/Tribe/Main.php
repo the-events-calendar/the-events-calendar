@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Main Tribe Events Calendar class.
  */
