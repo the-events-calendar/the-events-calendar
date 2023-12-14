@@ -496,16 +496,12 @@ class Hooks extends Service_Provider {
 	 * @return string The current title or empty string.
 	 */
 	public function pre_get_document_title( $title ) {
-        if ( tribe_context()->is( 'tec_post_type' ) ) {
-            return $title;
-        }
-        
-        $bootstrap = $this->container->make( Template_Bootstrap::class );
-        if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
-            return $title;
-        }
+		$bootstrap = $this->container->make( Template_Bootstrap::class );
+		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
+			return $title;
+		}
 
-        return '';
+		return '';
 	}
 
 	/**
