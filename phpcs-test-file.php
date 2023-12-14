@@ -1,7 +1,7 @@
 <?php
 // Missing `/**` style docblock for file.
 // Based on https://docs.theeventscalendar.com/developer/code-standards/php/.
-// This server to "test our tests" AND to ensure we have test coverage for every internal rule.
+// This serves to "test our tests" AND to ensure we have test coverage for every internal rule.
 
 // Missing `/**` style comment for class.
 class phpcsTest { // Incorrect camel-case class name. Class name must begin with a capital letter.
