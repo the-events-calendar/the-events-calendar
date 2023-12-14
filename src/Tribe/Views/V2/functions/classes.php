@@ -102,7 +102,7 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  * Outputs classes for each day "cell".
  *
  * @since 6.0.2
- * @since TBD Updated logic to always default to comparing days with today's date.
+ * @since 6.2.9 Updated logic to always default to comparing days with today's date.
  *
  * @param array<mixed> $day          The current day data.
  * @param string       $day_date     The current day date, in the `Y-m-d` format.
@@ -116,8 +116,8 @@ function month_day_classes( array $day, string $day_date, \DateTime $request_dat
 	 * Allows filtering the date used for comparison when generating the Month View day cell classes.
 	 *
 	 * @since 6.0.2
-	 * @since TBD Added `$today_date` parameter to the filter.
-	 * @since TBD Comparison date now defaults to today's date instead of the request date.
+	 * @since 6.2.9 Added `$today_date` parameter to the filter.
+	 * @since 6.2.9 Comparison date now defaults to today's date instead of the request date.
 	 *
 	 * @param string       $comparison_date The date used for comparisons. Defaults to today's date ($today_date).
 	 * @param \DateTime    $request_date    The request date for the view.

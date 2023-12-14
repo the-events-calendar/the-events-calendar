@@ -733,18 +733,18 @@ function tribe_get_phone( $postId = null ) {
 
 /**
  * Get all the venues
- * 
- * @since TBD Applied the `tec_events_custom_tables_v1_normalize_occurrence_id` filter to convert provisional IDs into regular IDs.
+ *
+ * @since 6.2.9 Applied the `tec_events_custom_tables_v1_normalize_occurrence_id` filter to convert provisional IDs into regular IDs.
  *
  * @param bool  $only_with_upcoming Only return venues with upcoming events attached to them.
  * @param int   $posts_per_page
  * @param bool  $suppress_filters
  * @param array $args {
- *		Optional. Array of Query parameters.
+ *      Optional. Array of Query parameters.
  *
- *		@type int  $event       Only venues linked to this event post ID.
- *		@type bool $has_events  Only venues that have events.
- *		@type bool $found_posts Return the number of found venues.
+ *      @type int  $event       Only venues linked to this event post ID.
+ *      @type bool $has_events  Only venues that have events.
+ *      @type bool $found_posts Return the number of found venues.
  * }
  *
  * @return array An array of venue post objects.
@@ -756,7 +756,7 @@ function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $s
 	/**
 	 * Convert provisional IDs into regular post IDs.
 	 *
-	 * @since TBD
+	 * @since 6.2.9
 	 *
 	 * @param int $event The provisional event ID.
 	 *
@@ -952,8 +952,8 @@ function tribe_events_get_venue_website_title( $post_id = null ) {
 	 *
 	 * @since 5.5.0
 	 *
-	 * @param string $title The title of the venue's website link.
-	 * @param int 	 $post_id The venue ID.
+	 * @param string $title   The title of the venue's website link.
+	 * @param int    $post_id The venue ID.
 	 */
 	return apply_filters( 'tribe_events_get_venue_website_title', __( 'Website', 'the-events-calendar' ), $post_id );
 }
