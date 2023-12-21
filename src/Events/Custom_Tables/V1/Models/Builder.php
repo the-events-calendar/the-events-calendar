@@ -364,11 +364,17 @@ class Builder {
 			 */
 			$result = $wpdb->query( $SQL );
 			if ( $result === false ) {
-				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
-					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-					'error'  => $wpdb->last_error
-				] );
+				do_action(
+					'tribe_log',
+					'debug',
+					'Builder: query failure.',
+					[
+						'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+						'trace'  => debug_backtrace( 2, 5 ),
+						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+						'error'  => $wpdb->last_error,
+					]
+				);
 			}
 
 			// If we have a cache, let's clear it.
