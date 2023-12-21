@@ -114,6 +114,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public $origin;
 
 	/**
+	 * The image uploader service.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Image__Uploader
+	 */
+	public $image_uploader;
+
+	/**
 	 * Setup all the hooks and filters
 	 *
 	 * @return void
