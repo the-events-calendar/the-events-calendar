@@ -370,8 +370,7 @@ class Builder {
 					'Builder: query failure.',
 					[
 						'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-						'trace'  => debug_backtrace( 2, 5 ),
-						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+						'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 						'error'  => $wpdb->last_error,
 					]
 				);
@@ -440,11 +439,11 @@ class Builder {
 			$columns      = $validated['columns'];
 			$placeholders = $validated['placeholders'];
 
-			$SQL             = "INSERT INTO {$wpdb->prefix}{$this->model->table_name()} ($columns) VALUES $placeholders";
-			$SQL             = $wpdb->prepare( $SQL, ...$validated['values'] );
-			$this->queries[] = $SQL;
+			$sql             = "INSERT INTO {$wpdb->prefix}{$this->model->table_name()} ($columns) VALUES $placeholders";
+			$sql             = $wpdb->prepare( $sql, ...$validated['values'] );
+			$this->queries[] = $sql;
 			if ( $this->execute_queries ) {
-				$query_result = $this->query( $SQL );
+				$query_result = $this->query( $sql );
 				$result       += (int) $query_result;
 			}
 		} while ( count( $data ) );
@@ -525,15 +524,14 @@ class Builder {
 			$pieces[] = $where;
 		}
 
-		$SQL = implode( "\n", $pieces );
+		$sql = implode( "\n", $pieces );
 
-		$this->queries[] = $SQL;
+		$this->queries[] = $sql;
 
 		// If we have a cache, let's clear it.
 		$model->flush_cache();
-		$query_result = $this->execute_queries ? $this->query( $SQL ) : false;
 
-		return $query_result;
+		return $this->execute_queries ? $this->query( $sql ) : false;
 	}
 
 	/**
@@ -842,7 +840,7 @@ class Builder {
 				if ( $results === false || $wpdb->last_error ) {
 					do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
 						'source' => __METHOD__ . ':' . __LINE__,
-						'trace'  => debug_backtrace( 2, 5 ),
+						'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 						'error'  => $wpdb->last_error
 					] );
 				}
@@ -922,20 +920,21 @@ class Builder {
 			return 0;
 		}
 
-		$SQL             = $this->get_sql();
-		$this->queries[] = $SQL;
+		$sql             = $this->get_sql();
+		$this->queries[] = $sql;
 
-		$result = $wpdb->get_var( $SQL );
+		$result = $wpdb->get_var( $sql );
 		if ( $result === false || $wpdb->last_error ) {
-			do_action( 
-				'tribe_log', 
-				'debug', 
-				'Builder: query failure.', 
+			do_action(
+				'tribe_log',
+				'debug',
+				'Builder: query failure.',
 				[
-				'source' => __METHOD__ . ':' . __LINE__,
-				'trace'  => debug_backtrace( 2, 5 ),
-				'error'  => $wpdb->last_error
-			] );
+					'source' => __METHOD__ . ':' . __LINE__,
+					'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+					'error'  => $wpdb->last_error,
+				]
+			);
 		}
 
 		return (int) $result;
@@ -956,11 +955,16 @@ class Builder {
 		if ( $this->execute_queries ) {
 			$result = $wpdb->query( $query );
 			if ( $result === false || $wpdb->last_error ) {
-				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
-					'source' => __METHOD__ . ':' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ),
-					'error'  => $wpdb->last_error
-				] );
+				do_action(
+					'tribe_log',
+					'debug',
+					'Builder: query failure.',
+					[
+						'source' => __METHOD__ . ':' . __LINE__,
+						'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+						'error'  => $wpdb->last_error,
+					]
+				);
 			}
 		}
 
@@ -1056,7 +1060,7 @@ class Builder {
 			if ( $results === false || $wpdb->last_error ) {
 				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
 					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ),
+					'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
 					'error'  => $wpdb->last_error
 				] );
 			}
