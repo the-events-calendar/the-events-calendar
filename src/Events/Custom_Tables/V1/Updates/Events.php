@@ -140,10 +140,7 @@ class Events {
 		$latest   = $this->get_latest_occurrence();
 
 		if ( $earliest ) {
-			$earliest_id = $earliest->provisional_id;
-			if ( ! $earliest_id ) {
-				$earliest_id = $earliest->post_id;
-			}
+			$earliest_id = $earliest->provisional_id ? $earliest->provisional_id : $earliest->post_id;
 			tribe_update_option( 'earliest_date', $earliest->start_date_utc );
 			tribe_update_option( 'earliest_date_markers', [ $earliest_id ] );
 		} else {
@@ -152,10 +149,7 @@ class Events {
 		}
 
 		if ( $latest ) {
-			$latest_id = $latest->provisional_id;
-			if ( ! $latest_id ) {
-				$latest_id = $latest->post_id;
-			}
+			$latest_id = $latest->provisional_id ? $latest->provisional_id : $latest->post_id;
 			tribe_update_option( 'latest_date', $latest->end_date_utc );
 			tribe_update_option( 'latest_date_markers', [ $latest_id ] );
 		} else {
