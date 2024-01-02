@@ -15,14 +15,6 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	use CT1_Fixtures;
 
 	public function report_db_errors_queries_data_provider(): array {
-		$event = tribe_events()->set_args( [
-			'title'      => 'test',
-			'status'     => 'publish',
-			'start_date' => '2020-01-22 10:00:00',
-			'end_date'   => "2020-01-22 12:00:00",
-			'timezone'   => 'Europe/Paris',
-		] )->create();
-
 		return [
 			'find()'   => [ 'find', [ 1 ] ],
 			'upsert()' => [
@@ -56,7 +48,7 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 				'insert',
 				[
 					[
-						'title'          => 'test',
+						'title'          => 'test report_db_errors_queries',
 						'status'         => 'publish',
 						'start_date'     => '2020-01-22 11:00:00',
 						'end_date'       => "2020-01-22 13:00:00",
@@ -65,7 +57,6 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 						'timezone'       => 'Europe/Paris',
 						'duration'       => 7200,
 						'event_id'       => 123,
-						'post_id'        => $event->ID,
 						'hash'           => '123hashbrowns321'
 					]
 				]
@@ -79,13 +70,17 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_report_db_errors( $func, $args ) {
 		global $wpdb;
-		tribe_events()->set_args( [
-			'title'      => 'test',
-			'status'     => 'publish',
-			'start_date' => '2020-01-22 10:00:00',
-			'end_date'   => "2020-01-22 12:00:00",
-			'timezone'   => 'Europe/Paris',
-		] )->create();
+		$event = tribe_events()->set_args( [
+			                                   'title'      => 'test',
+			                                   'status'     => 'publish',
+			                                   'start_date' => '2020-01-22 10:00:00',
+			                                   'end_date'   => "2020-01-22 12:00:00",
+			                                   'timezone'   => 'Europe/Paris',
+		                                   ] )->create();
+		// Add post ID for insert.
+		if ( $func === 'insert' ) {
+			$args[0]['post_id'] = $event->ID;
+		}
 		$occurrences_table = Occurrences::table_name();
 
 		$q = "DROP /* WPTestCase will replace this if it matches substr()...*/ TABLE IF EXISTS `$occurrences_table`;";
@@ -95,7 +90,9 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 		$found = false;
 		// Validate our error shows...
 		add_action( 'tribe_log', function ( $type, $message, $context ) use ( $occurrences_table, &$found ) {
-			if ( $message === 'Builder: query failure.' && isset( $context['error'] ) && stripos( $context['error'], "Table 'test.$occurrences_table' doesn't exist" ) !== false ) {
+			if ( $message === 'Builder: query failure.'
+			     && isset( $context['error'] )
+			     && stripos( $context['error'], "Table 'test.$occurrences_table' doesn't exist" ) !== false ) {
 				$found = true;
 			}
 		}, 10, 3 );
@@ -158,7 +155,7 @@ class BuilderTest extends \Codeception\TestCase\WPTestCase {
 		$start_b = "2020-01-22 11:00:00";
 		$start_c = "2020-01-22 10:30:00";
 		$post    = tribe_events()->set_args( [
-			'title'      => 'test',
+			'title'      => 'test should_expire_cache_on_upsert',
 			'status'     => 'publish',
 			'start_date' => $start_a,
 			'end_date'   => "2020-01-22 12:00:00",
