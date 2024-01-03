@@ -2850,31 +2850,4 @@ abstract class Tribe__Events__Aggregator__Record__Abstract {
 	public function generate_next_batch_hash() {
 		return md5( uniqid( '', true ) );
 	}
-
-	/**
-	 * Changes the two-digit country code to the country name.
-	 * Meetup sends the country as a two-digit country code, which the Venues post type cannot recognize.
-	 * It is also better/safer for other instances where the full country name might differ in the source vs. TEC.
-	 *
-	 * @TODO Would this be better in Common?
-	 *
-	 * @param string $country_code The two-digit country code.
-	 *
-	 * @return string The country name or the two-digit country code.
-	 *
-	 * @since TBD
-	 */
-	public function maybe_fix_country( string $country_code ): string {
-		// Get the country code of the venue.
-		$country_code = strtoupper( $country_code );
-
-		// Get the country array from Tribe Common.
-		$countries = tribe( \Tribe__Languages__Locations::class )->build_country_array();
-
-		if ( array_key_exists( $country_code, $countries ) ) {
-			return $countries[ $country_code ];
-		}
-
-		return $country_code;
-	}
 }
