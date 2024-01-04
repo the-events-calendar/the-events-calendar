@@ -53,15 +53,16 @@ class With_NoindexTest extends ViewTestCase {
 	 */
 	public function test_noindex_render_empty( $class ) {
 		$tester = $this;
-		add_filter( 'tribe_events_add_no_index_meta', function( $add_noindex ) use ( $tester ) {
+		add_filter( 'tec_events_seo_robots_meta_include', function( $add_noindex ) use ( $tester ) {
 			$tester->assertTrue( $add_noindex );
 
 			return $add_noindex;
 		});
 
-		View::make( $class, $this->context );
+		$view = View::make( $class, $this->context );
+		$view->get_html();
 
-		tribe( Controller::class )->issue_noindex();
+		tribe( Controller::class )->issue_noindex( $view );
 	}
 
 	/**
@@ -109,7 +110,7 @@ class With_NoindexTest extends ViewTestCase {
 			function ( array $data ) use ( $remapped_post_ids ) {
 				if ( ! empty( $data['events'] ) ) {
 					foreach ( $data['events'] as &$day_events_ids ) {
-						$day_events_ids = $this->remap_post_id_array( $day_events_ids, $remapped_post_ids );
+						$day_events_ids = $this->remap_post_id_array( (array) $day_events_ids, $remapped_post_ids );
 					}
 				}
 
@@ -133,21 +134,28 @@ class With_NoindexTest extends ViewTestCase {
 			}
 		);
 
-		View::make( $class, $this->context );
+		$view = View::make( $class, $this->context );
+		$view->get_html();
 
-		// Pass our IDs in to ensure there are events when the noindex runs
-		add_filter( 'tec_events_noindex', function( $orig_events ) use ( $event_ids ) {
-			return tribe_events()->where( 'post__in' , $event_ids );
-		});
+		// Add our insertion on the filter so we can test the value. Month always gets noindex, so skip it.
+		add_filter( 'tec_events_seo_robots_meta_include', function( $add_noindex ) use ( $tester, $view ) {
+			if ( $view->get_slug() === 'month' ) {
+				return $add_noindex;
+			}
 
-		// Add our insertion on the filter so we can test the value.
-		add_filter( 'tribe_events_add_no_index_meta', function( $add_noindex ) use ( $tester ) {
 			$tester->assertFalse( $add_noindex );
 
 			return $add_noindex;
 		});
 
+		// Make sure that month still has noindex.
+		add_filter( 'tec_events_seo_robots_meta_include_month', function( $add_noindex ) use ( $tester, $view ) {
+			$tester->assertTrue( $add_noindex );
+
+			return $add_noindex;
+		});
+
 		// Manually run the noindex check, triggering the assertion.
-		tribe( Controller::class )->issue_noindex();
+		tribe( Controller::class )->issue_noindex( $view );
 	}
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: The Events Calendar
  * Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
- * Version: 6.2.5
+ * Version: 6.2.9
  * Author: The Events Calendar
  * Author URI: https://evnt.is/1x
  * Text Domain: the-events-calendar
@@ -53,6 +53,7 @@ if ( tribe_is_not_min_php_version() ) {
 	 */
 	function tribe_events_not_php_version_plugin_name( $names ) {
 		$names['the-events-calendar'] = esc_html__( 'The Events Calendar', 'the-events-calendar' );
+
 		return $names;
 	}
 
