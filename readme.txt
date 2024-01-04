@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 = TBD [TBD] =
 
 * Tweak - Add new filters to allow customization of the subscribe and export links. [TEC-4916]
-* Tweak - Added filters: , `tec_events_subscribe_link_url`, `tec_events_{$slug}_subscribe_link_url`, `tec_events_export_link_visibility`, `tec_events_{$slug}_export_link_visibility`, `tec_events_export_link_url_single`, `tec_events_{$slug}_export_link_url_single`, `tec_events_export_link_url`, `tec_events_{$slug}_export_link_url`
+* Tweak - Added filters: `tec_events_subscribe_link_url`, `tec_events_{$slug}_subscribe_link_url`, `tec_events_export_link_visibility`, `tec_events_{$slug}_export_link_visibility`, `tec_events_export_link_url_single`, `tec_events_{$slug}_export_link_url_single`, `tec_events_export_link_url`, `tec_events_{$slug}_export_link_url`
 
 = [6.2.9] 2023-12-14 =
 

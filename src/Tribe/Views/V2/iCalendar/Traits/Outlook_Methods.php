@@ -45,11 +45,11 @@ trait Outlook_Methods {
 	 * Used in the outlook URLs.
 	 *
 	 * @since 5.16.0
-	 * @since TBD Renamed from $calendar_slug to $service_slug. Moved into the trait from the classes.
+	 * @since TBD Renamed from $calendar_slug to $service_slug. Protected, moved into the trait from the classes.
 	 *
 	 * @var string
 	 */
-	public static $service_slug;
+	protected static $service_slug;
 
 	/**
 	 * Generate the parameters for the Outlook export buttons.
@@ -101,7 +101,7 @@ trait Outlook_Methods {
 		 */
 		$params = apply_filters( 'tec_events_single_event_outlook_link_parameters', $params, $event, $calendar );
 
-		$service_slug = static::$service_slug;
+		$service_slug = static::get_service_slug();
 
 		/**
 		 * Allow users to filter the params for a specific Outlook link before constructing the URL.
@@ -206,7 +206,7 @@ trait Outlook_Methods {
 	 */
 	public function generate_outlook_full_url() {
 		$params   = $this->generate_outlook_add_url_parameters();
-		$base_url = 'https://outlook.' . static::$service_slug . '.com/owa/';
+		$base_url = 'https://outlook.' . static::get_service_slug() . '.com/owa/';
 		$url      = add_query_arg( $params, $base_url );
 
 		/**
@@ -232,7 +232,7 @@ trait Outlook_Methods {
 	 * @return string The subscribe URL.
 	 */
 	public function generate_outlook_subscribe_url( View $view = null ) {
-		$base_url = 'https://outlook.' . static::$service_slug . '.com/owa?path=/calendar/action/compose';
+		$base_url = 'https://outlook.' . static::get_service_slug() . '.com/owa?path=/calendar/action/compose';
 
 		if ( null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
@@ -303,5 +303,16 @@ trait Outlook_Methods {
 		}
 
 		return $this->generate_outlook_subscribe_url( $view );
+	}
+
+	/**
+	 * Public getter for protected service slug property.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The service slug.
+	 */
+	public static function get_service_slug(): string {
+		return static::$service_slug;
 	}
 }
