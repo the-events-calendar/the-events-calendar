@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
+
 = [6.2.9] 2023-12-14 =
 
 * Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
