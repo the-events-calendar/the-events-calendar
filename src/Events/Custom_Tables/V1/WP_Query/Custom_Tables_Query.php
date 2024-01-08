@@ -299,7 +299,7 @@ class Custom_Tables_Query extends WP_Query {
 		 *
 		 * @since 6.0.0
 		 *
-		 * @param string   $request_fields The Query fields request, e.g. `ids`.
+		 * @param string $request_fields The Query fields request, e.g. `ids`.
 		 */
 		$request_fields = apply_filters( 'tec_events_custom_tables_v1_occurrence_select_fields', $request_fields );
 
