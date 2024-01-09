@@ -233,6 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
 
 = [6.2.9] 2023-12-14 =
