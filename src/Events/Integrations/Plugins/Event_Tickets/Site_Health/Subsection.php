@@ -17,7 +17,7 @@ use TEC\Tickets\Site_Health\Abstract_Info_Subsection;
  * @since   TBD
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Site_Health
  */
-class The_Events_Calendar_Subsection extends Abstract_Info_Subsection {
+class Subsection extends Abstract_Info_Subsection {
 
 	/**
 	 * @inheritDoc
