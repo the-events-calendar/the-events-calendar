@@ -1,4 +1,12 @@
 <?php
+/**
+ * Class that handles interfacing with Site Health.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Integrations\Plugins\Event_Tickets
+ */
+
 namespace TEC\Events\Integrations\Plugins\Event_Tickets\Site_Health;
 
 use TEC\Events\Integrations\Integration_Abstract;
