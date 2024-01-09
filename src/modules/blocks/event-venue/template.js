@@ -339,7 +339,7 @@ class EventVenue extends Component {
 	 * @returns {Object} Venue details.
 	 */
 	getVenueDetails() {
-		const venueId = this.getVenueId();
+		const venueId = this.props.venue || this.getVenueId();
 
 		if ( ! isInteger( venueId ) ) {
 			return {};
