@@ -153,11 +153,6 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		/** @var wpdb $wpdb */
 		global $wpdb;
 
-		// An optional 'frequency|interval' format for the events to retrieve field, e.g. '15|MINUTE'.
-		$frequency_struct = explode( '|', $month );
-		$frequency        = $frequency_struct[0];
-		$interval         = $frequency_struct[1] ?? 'MONTH';
-
 		$event_post_type = Tribe__Events__Main::POSTTYPE;
 
 		$posts_with_parents_sql = "
@@ -175,7 +170,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			WHERE
 				t1.post_type = %s
 				AND t2.meta_key = '_EventEndDate'
-				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL %d %3s )
+				AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
 				AND t2.meta_value != 0
 				AND t2.meta_value != ''
 				AND t2.meta_value IS NOT NULL
@@ -187,29 +182,26 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		/**
 		 * Filter - Allows users to manipulate the cleanup query
 		 *
+		 * @param string $sql - The query statement
+		 *
 		 * @since 4.6.13
 		 * @since 6.0.13 Added a limit param to the default query.
-		 * @since 6.2.9 Added a mysql `interval` parameter (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
-		 *
-		 * @param string $sql - The query statement.
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
 		$args = [
 			'post_type' => $event_post_type,
-			'date'      => $frequency,
-			'interval'  => $interval,
+			'date'      => $month,
 			'limit'     => 15,
 		];
 
 		/**
 		 * Filter - Allows users to modify the query's placeholders
 		 *
+		 * @param array $args - The array of variables
+		 *
 		 * @since 4.6.13
 		 * @since 6.0.13 Added a limit arg, defaulting to 100.
-		 * @since 6.2.9 Added a mysql `interval` field (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
-		 *
-		 * @param array $args - The array of variables.
 		 */
 		$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
 
