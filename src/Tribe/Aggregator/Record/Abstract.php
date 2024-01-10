@@ -1083,7 +1083,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 			return false;
 		}
 
-		$args  = array_merge(
+		$args = array_merge(
 			$args,
 			[
 				'post_status'    => $statuses->{$status},
@@ -1323,7 +1323,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 
 		return [
 			'title' => $title,
-			'via' => $via,
+			'via'   => $via,
 		];
 	}
 
@@ -1872,7 +1872,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 			if (
 				! empty( $event['ID'] )
 				&& 'preserve_changes' === $update_authority_setting
-				&& $existing_organizer_ids = tribe_get_organizer_ids( $event['ID'] ) // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.Found
+				&& $existing_organizer_ids = tribe_get_organizer_ids( $event['ID'] ) // phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
 			) {
 				$event['Organizer'] = $existing_organizer_ids;
 				unset( $event['Organizer'] );
@@ -2159,7 +2159,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 
 			if ( ! empty( $event['categories'] ) ) {
 				foreach ( $event['categories'] as $cat ) {
-					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) { // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.term_exists_term_exists
+					if ( ! $term = term_exists( $cat, Tribe__Events__Main::TAXONOMY ) ) { // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.term_exists_term_exists, Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
 						$term = wp_insert_term( $cat, Tribe__Events__Main::TAXONOMY );
 						if ( ! is_wp_error( $term ) ) {
 							$terms[] = (int) $term['term_id'];
@@ -2176,7 +2176,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 			$tags = [];
 			if ( ! empty( $event['tags'] ) ) {
 				foreach ( $event['tags'] as $tag_name ) {
-					if ( ! $tag = term_exists( $tag_name, 'post_tag' ) ) { // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.term_exists_term_exists
+					if ( ! $tag = term_exists( $tag_name, 'post_tag' ) ) { // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.term_exists_term_exists, Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
 						$tag = wp_insert_term( $tag_name, 'post_tag' );
 						if ( ! is_wp_error( $tag ) ) {
 							$tags[] = (int) $tag['term_id'];
