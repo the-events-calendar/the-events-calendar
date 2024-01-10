@@ -2,7 +2,7 @@
 				FROM test_posts
 			    	INNER JOIN test_tec_occurrences ON test_posts.ID = test_tec_occurrences.post_id
 				WHERE test_posts.post_type = %s
-					AND test_tec_occurrences.end_date_utc <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL %d %3s )
+					AND test_tec_occurrences.end_date_utc <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
 					AND test_posts.post_status != \'trash\'
 				GROUP BY test_tec_occurrences.post_id
 				HAVING COUNT(*) = 1
