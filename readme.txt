@@ -231,8 +231,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= TBD [TBD] =
+= [TBD] TBD =
 
+* Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
+* Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
+* Fix - Make sure that the full country name is used when importing events from Meetup. [EA-469]
+* Fix - Ensure that the venue state is saved when data is available.
+* Fix - Resolved situations Venue and Organizer pages would not generate the correct page title due to an improper conditional. [ECP-1059]
+* Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
+* Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
 * Tweak - Add new filters to allow customization of the subscribe and export links. [TEC-4916]
 * Tweak - Added filters: `tec_events_subscribe_link_url`, `tec_events_{$slug}_subscribe_link_url`, `tec_events_export_link_visibility`, `tec_events_{$slug}_export_link_visibility`, `tec_events_export_link_url_single`, `tec_events_{$slug}_export_link_url_single`, `tec_events_export_link_url`, `tec_events_{$slug}_export_link_url`
 
@@ -261,6 +268,10 @@ Remember to always make a backup of your database and files before updating!
 * Language - 0 new strings added, 135 updated, 0 fuzzied, and 11 obsoleted
 
 = [6.2.7] 2023-11-14 =
+
+* Fix - Our Week view "Next" pagination button would fail to show in some scenarios. This was due to improper tracking of which is the next future occurrence date. [ECP-1535]
+
+= [TBD] TBD =
 
 * Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
 * Fix - Wordpress 6.3 introduce some changes in filters that regressed a prior fix for authentication and our new nonce structure used in view pagination. One symptom of the issue was losing the authenticated user and failing to display user specific capabilities on event views. [ECP-1601]

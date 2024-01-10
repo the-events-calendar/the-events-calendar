@@ -354,15 +354,12 @@ class EventVenue extends Component {
 	 * Gets the venue ID for the block.
 	 *
 	 * @since 6.2.0
+	 * @since TBD This will now return the value of the `venue` prop.
 	 * @returns {number|null} Venue ID or null.
 	 */
 	getVenueId() {
 		const state = this.props.store.getState();
-		const allVenueIds = selectors.getVenuesInBlock( state );
-
-		if ( isEmpty( allVenueIds ) ) {
-			return null;
-		}
+		let venueId = this.props.venue;
 
 		/**
 		 * Filters the venue ID to be used for the block.
@@ -373,9 +370,9 @@ class EventVenue extends Component {
 		 * @param {Object} state The tribe common state.
 		 * @return {number} The venue ID.
 		 */
-		const venueId = wpHooks.applyFilters(
+		venueId = wpHooks.applyFilters(
 			'tec.events.blocks.tribe_event_venue.getVenueId',
-			allVenueIds[ 0 ],
+			venueId,
 			this.props,
 			state,
 		);
