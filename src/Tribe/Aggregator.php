@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 4.3.0
  */
-class Tribe__Events__Aggregator {// phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, Generic.Classes.OpeningBraceSameLine.ContentAfterBrace.
+class Tribe__Events__Aggregator { // phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, Generic.Classes.OpeningBraceSameLine.ContentAfterBrace
 	/**
 	 * Cache key used to storage the services list returned by the call to:
 	 * - Tribe__Events__Aggregator__Service::instance()->get_origins();
@@ -501,8 +501,8 @@ class Tribe__Events__Aggregator {// phpcs:ignore TEC.Classes.ValidClassName.NotS
 	 */
 	public function add_csv_mimes( $info, $file, $filename, $mimes ) {
 		$wp_filetype = wp_check_filetype( $filename, $mimes );
-		$ext = $wp_filetype['ext'];
-		$type = $wp_filetype['type'];
+		$ext         = $wp_filetype['ext'];
+		$type        = $wp_filetype['type'];
 
 		if ( 'csv' !== $ext ) {
 			return $info;
@@ -510,13 +510,13 @@ class Tribe__Events__Aggregator {// phpcs:ignore TEC.Classes.ValidClassName.NotS
 
 		if ( function_exists( 'finfo_file' ) ) {
 			// Use finfo_file if available to validate non-image files.
-			$finfo = finfo_open( FILEINFO_MIME_TYPE );
+			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
 			$real_mime = finfo_file( $finfo, $file );
 			finfo_close( $finfo );
 
 			// If the extension matches an alternate mime type, let's use it.
 			if ( in_array( $real_mime, [ 'text/plain', 'text/csv', 'text/comma-separated-values' ] ) ) {
-				$info['ext'] = $ext;
+				$info['ext']  = $ext;
 				$info['type'] = $type;
 			}
 		}
