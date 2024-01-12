@@ -231,11 +231,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= TBD [TBD] =
+= [TBD] TBD =
 
+* Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
 * Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
+* Fix - Make sure that the full country name is used when importing events from Meetup. [EA-469]
+* Fix - Ensure that the venue state is saved when data is available.
 * Fix - Resolved situations Venue and Organizer pages would not generate the correct page title due to an improper conditional. [ECP-1059]
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
+* Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
 
 
 = [6.2.9] 2023-12-14 =
