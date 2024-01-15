@@ -129,7 +129,7 @@ class Hooks extends Service_Provider {
 		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
 
 		// Need to handle our custom nonce user auth.
-		add_filter( 'rest_send_nocache_headers', [ Rest_Endpoint::class, 'preserve_user_for_custom_nonces' ], 10,1 );
+		add_filter( 'rest_allowed_cors_headers', [ Rest_Endpoint::class, 'preserve_user_for_custom_nonces' ], 10, 1 );
 
 		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
 		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );

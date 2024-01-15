@@ -102,6 +102,7 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  * Outputs classes for each day "cell".
  *
  * @since 6.0.2
+ * @since 6.2.9 Updated logic to always default to comparing days with today's date.
  *
  * @param array<mixed> $day          The current day data.
  * @param string       $day_date     The current day date, in the `Y-m-d` format.
@@ -111,20 +112,20 @@ function month_multiday_classes( $event, $day_date, $is_start_of_week, $today_da
  * @return array<string,bool> $day_classes The classes to add to the day "cell".
  */
 function month_day_classes( array $day, string $day_date, \DateTime $request_date, string $today_date ) {
-	// If for some reason we don't have a request date, use today's date.
-	$comparison_date = ! empty( $request_date ) ? $request_date->format( 'Y-m-d' ) : $today_date;
-
 	/**
 	 * Allows filtering the date used for comparison when generating the Month View day cell classes.
 	 *
 	 * @since 6.0.2
+	 * @since 6.2.9 Added `$today_date` parameter to the filter.
+	 * @since 6.2.9 Comparison date now defaults to today's date instead of the request date.
 	 *
-	 * @param string       $comparison_date The date used for comparisons.
-	 * @param DateTime     $request_date    The request date for the view.
+	 * @param string       $comparison_date The date used for comparisons. Defaults to today's date ($today_date).
+	 * @param \DateTime    $request_date    The request date for the view.
 	 * @param string       $day_date        The current day date, in the `Y-m-d` format.
 	 * @param array<mixed> $day             The current day data.
+	 * @param string       $today_date      Today's date in the `Y-m-d` format.
 	 */
-	$comparison_date =  apply_filters( 'tec_events_month_day_classes_comparison_date', $comparison_date, $request_date, $day_date, $day  );
+	$comparison_date = apply_filters( 'tec_events_month_day_classes_comparison_date', $today_date, $request_date, $day_date, $day, $today_date );
 
 	// Convert it to a date object.
 	$comparison_date = Dates::immutable( $comparison_date );

@@ -46,9 +46,14 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 */
 	obj.init = () => {
 		obj.bindFeaturedEvents();
+
+		// We need to register core/legacy-widget block to support
+		// earlier versions of WP which don't have it registered by default.
+		if ( wp.widgets && wp.blocks && ! wp.blocks.getBlockType( 'core/legacy-widget' ) ) {
+			wp.widgets.registerLegacyWidgetBlock();
+		}
 	};
 
 	// Init our main object.
 	$( obj.init );
-
 } )( jQuery, tribe_events_event_editor );
