@@ -14,7 +14,7 @@
     "woocommerce/action-scheduler": "^3.4.0"
   },
   "require-dev": {
-    "automattic/vipwpcs": "^2.0",
+    "automattic/vipwpcs": "^3.0",
     "bordoni/phpass": "^0.3.5",
     "codeception/module-asserts": "^1.0",
     "codeception/module-cli": "^1.0",
@@ -33,10 +33,10 @@
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "^1.0",
     "spatie/phpunit-snapshot-assertions": "^1.2",
-    "the-events-calendar/coding-standards": "dev-master",
+    "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
     "vlucas/phpdotenv": "^4.1",
-    "wp-coding-standards/wpcs": "^2.1",
+    "wp-coding-standards/wpcs": "^3.0",
     "phpstan/phpstan": "^1.10",
     "phpstan/phpstan-deprecation-rules": "^1.1",
     "phpstan/extension-installer": "^1.3",
