@@ -87,7 +87,7 @@ trait Export_Link {
 	/**
 	 * Getter function for the uri property.
 	 *
-	 * @since 5.12.0
+	 * @since TBD
 	 *
 	 * @param View|null $view The current View object.
 	 *
