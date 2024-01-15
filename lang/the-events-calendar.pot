@@ -9,13 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2023-11-13T06:22:58-08:00\n"
-"PO-Revision-Date: 2023-11-13 14:23\n"
-=======
 "POT-Creation-Date: 2023-11-14T09:06:49-08:00\n"
 "PO-Revision-Date: 2023-11-14 17:06\n"
->>>>>>> 6b2c111aa000f78e279d4d9d7c7bbd9b220f3bf6
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
