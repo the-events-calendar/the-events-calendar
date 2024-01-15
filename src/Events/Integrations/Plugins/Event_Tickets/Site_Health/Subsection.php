@@ -23,10 +23,7 @@ class Subsection extends Abstract_Info_Subsection {
 	 * @inheritDoc
 	 */
 	protected function is_subsection_enabled(): bool {
-		return class_exists(
-			'Tribe__Events__Main',
-			false
-		);
+		return true;
 	}
 
 	/**
