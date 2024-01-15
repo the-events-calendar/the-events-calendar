@@ -454,7 +454,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 
 		if ( $wp_query->is_main_query() && isset( $queried_object->taxonomy ) && $queried_object->taxonomy === 'tribe_events_cat' ) {
 			// Will always ensure it is localized properly.
-			$wp_rewrite->pagination_base = strtolower( esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) );
+			$wp_rewrite->pagination_base = urlencode( strtolower( esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ) );
 		}
 	}
 
