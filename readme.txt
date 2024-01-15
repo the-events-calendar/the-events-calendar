@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
-Stable tag: 6.3.0-dev
+Stable tag: 6.3.0
 Tested up to: 6.4.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.3.0] TBD =
+= [6.3.0] 2024-01-16 =
 
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 
