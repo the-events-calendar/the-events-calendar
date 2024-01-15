@@ -13,14 +13,7 @@
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 
-
-	<!--exclude the rule for violation of direct DB calls as some have no alternative-->
-	<rule ref="WordPress.DB.DirectDatabaseQuery">
-		<exclude-pattern>src/Test.php</exclude-pattern>
-	</rule>
-
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-
 
 	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
