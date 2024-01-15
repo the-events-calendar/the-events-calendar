@@ -2981,15 +2981,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			$avoid_recursion = true;
 
-			$original_post     = wp_is_post_revision( $post );
-			$is_event_revision = $original_post && tribe_is_event( $original_post );
-
-			if ( $is_event_revision ) {
-				$revision = Tribe__Events__Revisions__Post::new_from_post( $post );
-				$revision->save();
-
-				$avoid_recursion = false;
-
+			if ( wp_is_post_revision( $postId ) ) {
+				// Do not save meta for revisions: it would be saved to the original post anyway.
 				return;
 			}
 

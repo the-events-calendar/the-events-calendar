@@ -1,5 +1,5 @@
 <?php
-
+_deprecated_class( 'Tribe__Events__Revisions__Event', 'TBD' );
 
 /**
  * Class Tribe__Events__Revisions__Event
@@ -7,6 +7,9 @@
  * Handles the saving operations of an event revision.
  *
  * @since 4.2.5
+ * @since TBD
+ *
+ * @deprecated
  */
 class Tribe__Events__Revisions__Event extends Tribe__Events__Revisions__Post {
 
