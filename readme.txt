@@ -233,6 +233,8 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.3.0] 2024-01-16 =
 
+* Version - The Events Calendar 6.3.0 is only compatible with Event Tickets 5.8.0 and higher.
+* Feature - Include Series Passes supporting code to enable the creation of Series Passes.
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 * Language - 0 new strings added, 92 updated, 0 fuzzied, and 0 obsoleted
 
