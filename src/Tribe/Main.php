@@ -2979,12 +2979,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$avoid_recursion = true;
-
 			if ( wp_is_post_revision( $postId ) ) {
 				// Do not save meta for revisions: it would be saved to the original post anyway.
 				return;
 			}
+
+			$avoid_recursion = true;
 
 			// When not an instance of Post we bail to avoid revision problems.
 			if ( ! $post instanceof WP_Post ) {

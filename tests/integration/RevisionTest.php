@@ -17,7 +17,9 @@ class RevisionTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_not_save_revision_meta_on_post_update(): void {
 		// Let's make sure revisions are set to be saved after the post insertion per WordPress 6.4.
-		if ( ! has_action( 'wp_after_insert_post', 'wp_save_post_revision_on_insert' ) ) {
+		if ( function_exists( 'wp_save_post_revision_on_insert' )
+		     && ! has_action( 'wp_after_insert_post', 'wp_save_post_revision_on_insert' )
+		) {
 			add_action( 'wp_after_insert_post', 'wp_save_post_revision_on_insert' );
 		}
 		// Create an Event.
