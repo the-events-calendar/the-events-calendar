@@ -1,5 +1,5 @@
 <?php
-_deprecated_class( 'Tribe__Events__Revisions__Post', 'TBD' );
+_deprecated_class( 'Tribe__Events__Revisions__Post', '6.3.0' );
 
 
 /**
@@ -8,9 +8,9 @@ _deprecated_class( 'Tribe__Events__Revisions__Post', 'TBD' );
  * Handles the saving operations of a generic post revision.
  *
  * @since      4.2.5
- * @since      TBD Deprecated the class.
+ * @since      6.3.0 Deprecated the class.
  *
- * @deprecated TBD
+ * @deprecated 6.3.0
  */
 class Tribe__Events__Revisions__Post {
 
