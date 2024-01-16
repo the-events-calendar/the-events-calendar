@@ -176,7 +176,7 @@ class Process_Worker {
 		/**
 		 * Fires after a dry run migration was applied.
 		 *
-		 * @since TBD
+		 * @since 6.3.0
 		 *
 		 * @param numeric $post_id The ID of the Event that was migrated.
 		 */
