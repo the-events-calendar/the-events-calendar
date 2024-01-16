@@ -31,7 +31,7 @@ class Provider extends Service_Provider {
 	/**
 	 * The custom action that will be fired when the provider registers.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return void
 	 */
