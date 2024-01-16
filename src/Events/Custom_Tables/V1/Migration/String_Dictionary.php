@@ -59,7 +59,7 @@ class String_Dictionary {
 	 * Initializes the strings map filtering it.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Added the `$force` parameter.
+	 * @since 6.3.0 Added the `$force` parameter.
 	 *
 	 * @param bool $force Whether to force the initialization or not.
 	 *
@@ -496,7 +496,7 @@ class String_Dictionary {
 	/**
 	 * Forces the re-initialization of the strings map.
 	 *
-	 * @since TBD
+	 * @since 6.3.0
 	 *
 	 * @return String_Dictionary For chaining.
 	 */
