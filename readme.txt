@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.3.0] 2024-01-16 =
 
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
+* Language - 0 new strings added, 92 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.2.9] 2023-12-14 =
 
