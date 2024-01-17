@@ -579,7 +579,7 @@ class Assets extends Service_Provider {
 		if (
 			defined( 'ELEMENTOR_PATH' )
 			&& ! empty( ELEMENTOR_PATH )
-			&& isset( $_GET['elementor-preview'] )
+			&& isset( $_GET['elementor-preview'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		) {
 			$this->should_enqueue_frontend = true;
 
@@ -687,7 +687,7 @@ class Assets extends Service_Provider {
 		if (
 			defined( 'ELEMENTOR_PATH' )
 			&& ! empty( ELEMENTOR_PATH )
-			&& isset( $_GET[ 'elementor-preview' ] )
+			&& isset( $_GET['elementor-preview'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		) {
 			return true;
 		}
