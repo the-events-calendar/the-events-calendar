@@ -9,6 +9,7 @@
  *
  * @package Tribe\Events\Views\V2
  */
+
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Plugin;
@@ -507,7 +508,7 @@ class Assets extends Service_Provider {
 			[ 'admin_enqueue_scripts' ],
 			[
 				'conditionals' => [
-					[ $this, 'should_enqueue_admin' ]
+					[ $this, 'should_enqueue_admin' ],
 				],
 			]
 		);
@@ -685,9 +686,7 @@ class Assets extends Service_Provider {
 		 */
 		if (
 			defined( 'ELEMENTOR_PATH' )
-
 			&& ! empty( ELEMENTOR_PATH )
-
 			&& isset( $_GET[ 'elementor-preview' ] )
 		) {
 			return true;
