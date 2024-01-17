@@ -577,12 +577,12 @@ class Assets extends Service_Provider {
 		 */
 		if (
 			defined( 'ELEMENTOR_PATH' )
-
 			&& ! empty( ELEMENTOR_PATH )
-
-			&& isset( $_GET[ 'elementor-preview' ] )
+			&& isset( $_GET['elementor-preview'] )
 		) {
-			return $this->should_enqueue = true;
+			$this->should_enqueue_frontend = true;
+
+			return $this->should_enqueue_frontend;
 		}
 
 		$should_enqueue = tribe( Template_Bootstrap::class )->should_load();
