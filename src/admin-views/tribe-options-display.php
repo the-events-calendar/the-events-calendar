@@ -71,6 +71,10 @@ $tec_events_general_toc = [
 		'type' => 'html',
 		'html' => '<li>' . _x( 'Jump to:', 'Text introducing the table of contents links.', 'the-events-calendar' ) . '</li>',
 	],
+	'tec-events-settings-display-toc-templates'         => [
+		'type' => 'html',
+		'html' => '<li><a href="#tec-settings-events-settings-display-templates-calendar">' . _x( 'Calendar Templates', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a>',
+	],
 	'tec-events-settings-display-toc-calendar'         => [
 		'type' => 'html',
 		'html' => '<li><a href="#tec-settings-events-settings-display-calendar">' . _x( 'Calendar Display', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a>',
@@ -115,10 +119,10 @@ $tec_events_general_form_end = [
 $tec_events_display_fields += $tec_events_general_form_end;
 
 // Insert Basic Template settings.
-$tec_events_display_template = [
-	'tribe-events-calendar-display-title' => [
+$tec_events_display_template_settings = [
+	'tribe-events-calendar-display-template-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-calendar">' . __( 'Calendar Display', 'Calendar display settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-templates-calendar">' . __( 'Calendar Templates', 'Template display settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'stylesheetOption'              => [ 'type' => 'html'],
 	'stylesheet_mode'               => [
@@ -153,6 +157,17 @@ $tec_events_display_template = [
 		'options'         => $template_options,
 		'conditional' => ( ! tec_is_full_site_editor() ),
 	],
+];
+
+$tec_events_display_fields += $tec_events_display_template_settings;
+
+// Insert Basic Display settings.
+$tec_events_display_template = [
+	'tribe-events-calendar-display-title' => [
+		'type' => 'html',
+		'html' => '<h3 id="tec-settings-events-settings-display-calendar">' . __( 'Calendar Display', 'Calendar display settings section header', 'the-events-calendar' ) . '</h3>',
+	],
+	'stylesheetOption'              => [ 'type' => 'html'],
 	'tribeEnableViews'              => [
 		'type'            => 'checkbox_list',
 		'label'           => __( 'Enable event views', 'the-events-calendar' ),
