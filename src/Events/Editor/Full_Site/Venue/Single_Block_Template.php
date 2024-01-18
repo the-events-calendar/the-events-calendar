@@ -1,21 +1,22 @@
 <?php
 
-namespace TEC\Events\Editor\Full_Site;
+namespace TEC\Events\Editor\Full_Site\Venue;
 
 use Tribe__Events__Main;
 use TEC\Common\Editor\Full_Site\Template_Utils;
 use WP_Block_Template;
+use TEC\Events\Editor\Full_Site\Block_Template_Contract;
 
 /**
- * Class Single_Block_Templates
+ * Class Single_Block_Template
  *
- * @since   6.2.7
+ * @since TBD
  *
- * @package TEC\Events\Editor\Full_Site
+ * @package TEC\Events\Editor\Full_Site\Venue
  */
 class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements Block_Template_Contract {
 	/**
-	 * @since 6.2.7
+	 * @since TBD
 	 *
 	 * @var string The namespace of this template.
 	 */
@@ -24,18 +25,18 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Returns the name/slug of this block.
 	 *
-	 * @since 6.2.7
+	 * @since TBD
 	 *
 	 * @return string The name/slug of this block.
 	 */
 	public function slug(): string {
-		return 'single-event';
+		return 'single-venue';
 	}
 
 	/**
 	 * The ID of this block.
 	 *
-	 * @since 6.2.7
+	 * @since TBD
 	 *
 	 * @return string The WP Block Template ID.
 	 */
@@ -46,7 +47,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Set the default attributes of this block.
 	 *
-	 * @since 6.2.7
+	 * @since TBD
 	 *
 	 * @return array<string,mixed> The array of default attributes.
 	 */
@@ -57,7 +58,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
-	 * @since 6.2.7
+	 * @since TBD
 	 *
 	 * @param array $attributes The block attributes.
 	 *
@@ -73,22 +74,22 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	}
 
 	/**
-	 * Creates then returns the WP_Block_Template object for single event.
+	 * Creates then returns the WP_Block_Template object for single venue.
 	 *
-	 * @since 6.2.7
+	 * @since TBD
 	 *
 	 * @return null|WP_Block_Template The hydrated single event template object.
 	 */
 	protected function create_wp_block_template(): ?WP_Block_Template {
 		/* translators: %s: Event (singular) */
 		$post_title = sprintf(
-			esc_html_x( '%s Single', 'The Full Site editor block navigation title', 'the-events-calendar' ),
-			tribe_get_event_label_singular()
+			esc_html_x( '%s Single', 'The Full Site editor venue block navigation title', 'the-events-calendar' ),
+			tribe_get_venue_label_singular()
 		);
 		/* translators: %s: event (singular) */
 		$post_excerpt = sprintf(
-			esc_html_x( 'Displays a single %s.', 'The Full Site editor block navigation description', 'the-events-calendar' ),
-			tribe_get_event_label_singular_lowercase()
+			esc_html_x( 'Displays a single %s.', 'The Full Site editor venue block navigation description', 'the-events-calendar' ),
+			tribe_get_venue_label_singular_lowercase()
 		);
 		$insert       = [
 			'post_name'    => $this->slug(),
@@ -97,7 +98,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
 			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
-				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Blocks/Single_Event_Template/templates/single-event.html'
+				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Blocks/Single_Venue_Template/templates/single-venue.html'
 			) ),
 			'tax_input'    => [
 				'wp_theme' => $this->get_namespace()
@@ -111,7 +112,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	/**
 	 * Creates if non-existent theme post, then returns the WP_Block_Template object for single events.
 	 *
-	 * @since 6.2.7
+	 * @since TBD
 	 *
 	 * @return null|WP_Block_Template The hydrated single events template object.
 	 */
@@ -126,7 +127,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 		// Validate we did stuff correctly.
 		if ( ! $wp_block_template instanceof WP_Block_Template ) {
 			do_action( 'tribe_log', 'error',
-				'Failed locating our WP_Block_Template for the Single Event Block', [
+				'Failed locating our WP_Block_Template for the Single Venue Block', [
 					'method'    => __METHOD__,
 					'slug'      => $this->slug(),
 					'namespace' => $this->get_namespace()

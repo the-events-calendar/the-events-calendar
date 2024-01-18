@@ -2,7 +2,10 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
+use TEC\Events\Editor\Full_Site\Venue\Single_Block_Template as Single_Venue_Block_Template;
 use \Tribe__Events__Main as Events_Main;
+use TEC\Events\Editor\Full_Site\Event\Archive_Block_Template;
+use TEC\Events\Editor\Full_Site\Event\Single_Block_Template;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
@@ -75,6 +78,9 @@ class Controller extends Controller_Contract {
 			$this,
 			'filter_single_template_hierarchy'
 		], 10, 1 );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_venue_template' ] );
 	}
 
 	/**
@@ -93,6 +99,9 @@ class Controller extends Controller_Contract {
 			$this,
 			'filter_single_template_hierarchy'
 		], 10 );
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_venue_template' ] );
 	}
 
 	/**
@@ -145,14 +154,28 @@ class Controller extends Controller_Contract {
 
 		// Is it our post type?
 		$index = array_search( 'single-tribe_events.php', $templates, true );
-		if ( ! is_int( $index ) ) {
-			return $templates;
+		if ( is_int( $index ) ) {
+			// Switch to our faux template which maps to our slug.
+			$templates[ $index ] = 'single-event.php';
 		}
 
-		// Switch to our faux template which maps to our slug.
-		$templates[ $index ] = 'single-event.php';
+		// Is it our post type?
+		$index = array_search( 'single-tribe_venues.php', $templates, true );
+		if ( is_int( $index ) ) {
+			// Switch to our faux template which maps to our slug.
+			$templates[ $index ] = 'single-venue.php';
+		}
 
 		return $templates;
+	}
+
+	/**
+	 * Registers the Venue template.
+	 *
+	 * @since TBD
+	 */
+	public function action_register_single_venue_template() {
+		return $this->container->make( Single_Venue_Block_Template::class )->register();
 	}
 
 	/**
@@ -255,7 +278,8 @@ class Controller extends Controller_Contract {
 		if ( $template_type === 'wp_template' ) {
 			$templates = [
 				tribe( Archive_Block_Template::class ),
-				tribe( Single_Block_Template::class )
+				tribe( Single_Block_Template::class ),
+				tribe( Single_Venue_Block_Template::class )
 			];
 		}
 

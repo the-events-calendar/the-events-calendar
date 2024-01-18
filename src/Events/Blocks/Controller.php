@@ -2,11 +2,11 @@
 
 namespace TEC\Events\Blocks;
 
-use TEC\Events\Editor\Full_Site\Archive_Block_Template;
-use TEC\Events\Editor\Full_Site\Single_Block_Template;
+use TEC\Events\Editor\Full_Site\Event\Archive_Block_Template;
+use TEC\Events\Editor\Full_Site\Event\Single_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-
-
+use TEC\Events\Editor\Full_Site\Venue\Single_Block_Template as Single_Venue_Block_Template;
+// @todo Ditch this - does very little, seems odd considering lift of FS/Controller ?
 /**
  * Class Controller
  *
@@ -40,8 +40,7 @@ class Controller extends Controller_Contract {
 	 * @since 6.2.7
 	 */
 	protected function add_actions() {
-		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
-		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
+
 	}
 
 	/**
@@ -50,9 +49,10 @@ class Controller extends Controller_Contract {
 	 * @since 6.2.7
 	 */
 	public function remove_actions() {
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
+
 	}
+
+
 
 	/**
 	 * Registers the Events Archive template.
