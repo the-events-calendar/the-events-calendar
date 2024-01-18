@@ -233,7 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Added a Calendar Templates section in the event display settings page. [ECP-1618]
+* Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
 
 = [TBD] TBD =
 

@@ -71,9 +71,9 @@ $tec_events_general_toc = [
 		'type' => 'html',
 		'html' => '<li>' . _x( 'Jump to:', 'Text introducing the table of contents links.', 'the-events-calendar' ) . '</li>',
 	],
-	'tec-events-settings-display-toc-templates'         => [
+	'tec-events-settings-display-toc-template'         => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-templates-calendar">' . _x( 'Calendar Templates', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-template-calendar">' . _x( 'Calendar Template', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a>',
 	],
 	'tec-events-settings-display-toc-calendar'         => [
 		'type' => 'html',
@@ -122,7 +122,7 @@ $tec_events_display_fields += $tec_events_general_form_end;
 $tec_events_display_template_settings = [
 	'tribe-events-calendar-display-template-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-templates-calendar">' . __( 'Calendar Templates', 'Template display settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-template-calendar">' . __( 'Calendar Template', 'Template display settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'stylesheetOption'              => [ 'type' => 'html'],
 	'stylesheet_mode'               => [
