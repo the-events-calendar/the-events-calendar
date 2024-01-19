@@ -21,9 +21,9 @@ $tribe_enable_views_tooltip = esc_html__( 'You must select at least one view.', 
 
 if ( $ecp && tribe_is_using_basic_gmaps_api() ) {
 	$tribe_enable_views_tooltip .= ' ' . sprintf(
-			__( 'Please note that you are using The Events Calendar\'s default Google Maps API key, which will limit the Map View\'s functionality. Visit <a href="edit.php?page=tribe-common&tab=addons&post_type=%s">the Integrations Settings page</a> to learn more and add your own Google Maps API key.', 'the-events-calendar' ),
-			Tribe__Events__Main::POSTTYPE
-		);
+		__( 'Please note that you are using The Events Calendar\'s default Google Maps API key, which will limit the Map View\'s functionality. Visit <a href="edit.php?page=tribe-common&tab=addons&post_type=%s">the Integrations Settings page</a> to learn more and add your own Google Maps API key.', 'the-events-calendar' ),
+		Tribe__Events__Main::POSTTYPE
+	);
 }
 
 $posts_per_page_tooltip = ! class_exists( 'Tribe__Events__Pro__Main', false )
@@ -45,10 +45,10 @@ $tec_events_display_fields = [
 		'html' => '<p>'
 		          . __( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). ', 'the-events-calendar' )
 		          . sprintf(
-		          /* Translators: %s: URL to knowledgebase. Please continue to use &#37; for % to avoid PHP warnings. */
-			          __( ' Check out our <a href="%s" rel="noopener" target="_blank">customization guide</a> for instructions on template modifications.', 'the-events-calendar' ),
-			          esc_url( 'https://evnt.is/1bbs' )
-		          )
+						/* Translators: %s: URL to knowledgebase. Please continue to use &#37; for % to avoid PHP warnings. */
+						__( ' Check out our <a href="%s" rel="noopener" target="_blank">customization guide</a> for instructions on template modifications.', 'the-events-calendar' ),
+						esc_url( 'https://evnt.is/1bbs' )
+		          	)
 		          . '</p>',
 	],
 	'info-end'             => [
@@ -110,7 +110,6 @@ $tec_events_display_fields += $tec_events_general_toc;
 
 // Start the form content wrapper.
 $tec_events_general_form_end = [
-
 	'tribe-form-content-start' => [
 		'type' => 'html',
 		'html' => '<div class="tribe-settings-form-wrap tec-settings-display">',
@@ -134,16 +133,16 @@ $tec_events_display_template_settings = [
 			'skeleton' => __( 'Skeleton Styles', 'the-events-calendar' )
 			              . '<p class=\'description tribe-style-selection\'>'
 			              . __(
-				              'Only includes enough css to achieve complex layouts like calendar and week view.',
-				              'the-events-calendar'
-			              )
+								'Only includes enough css to achieve complex layouts like calendar and week view.',
+								'the-events-calendar'
+			              	)
 			              . '</p>',
 			'tribe'    => __( 'Default Styles', 'the-events-calendar' )
 			              . '<p class=\'description tribe-style-selection\'>'
 			              . __(
-				              'A fully designed and styled theme for your events pages.',
-				              'the-events-calendar'
-			              )
+								'A fully designed and styled theme for your events pages.',
+								'the-events-calendar'
+			              	)
 			              . '</p>',
 		],
 		'validation_type' => 'options',
