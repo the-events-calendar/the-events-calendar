@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.3.0] 2024-01-16 =
+= [6.3.0] 2024-01-22 =
 
 * Version - The Events Calendar 6.3.0 is only compatible with Event Tickets 5.8.0 and higher.
 * Feature - Include Series Passes supporting code to enable the creation of Series Passes.
