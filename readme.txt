@@ -231,11 +231,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.3.1] 2024-01-24 =
+= [TBD] TBD =
 
 * Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
 
-= [TBD] TBD =
+= [6.3.1] 2024-01-24 =
 
 * Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
 * Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
