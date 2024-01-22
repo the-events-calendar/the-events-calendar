@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.3.1] TBD =
 
 * Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
 * Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
@@ -241,6 +241,12 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
 * Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
 
+= [6.3.0] 2024-01-22 =
+
+* Version - The Events Calendar 6.3.0 is only compatible with Event Tickets 5.8.0 and higher.
+* Feature - Include Series Passes supporting code to enable the creation of Series Passes.
+* Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
+* Language - 0 new strings added, 92 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.2.9] 2023-12-14 =
 
