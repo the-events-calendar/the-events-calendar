@@ -240,6 +240,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolved situations Venue and Organizer pages would not generate the correct page title due to an improper conditional. [ECP-1059]
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
 * Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
+* Tweak - Added actions: `tec_events_custom_tables_v1_migration_after_dry_run`
 
 = [6.3.0] 2024-01-22 =
 
