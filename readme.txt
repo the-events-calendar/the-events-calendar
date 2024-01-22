@@ -233,10 +233,6 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
-
-= [TBD] TBD =
-
 * Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
 * Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
 * Fix - Make sure that the full country name is used when importing events from Meetup. [EA-469]
