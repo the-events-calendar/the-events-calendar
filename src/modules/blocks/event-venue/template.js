@@ -354,7 +354,7 @@ class EventVenue extends Component {
 	 * Gets the venue ID for the block.
 	 *
 	 * @since 6.2.0
-	 * @since TBD This will now return the value of the `venue` prop.
+	 * @since 6.3.1 This will now return the value of the `venue` prop.
 	 * @returns {number|null} Venue ID or null.
 	 */
 	getVenueId() {

@@ -49,21 +49,28 @@ class OrganizerInsertionCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
+		$date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'America/New_York' ) );
+		$utc_date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'UTC' ) );
+
 		$I->sendPOST( $this->organizers_url, [
 			'organizer'   => 'A organizer',
 			'author'      => $editor,
+			'date'        => $date->format( 'U' ),
+			'date_utc'    => $utc_date->format( 'U' ),
 			'description' => 'Organizer description',
 			'status'      => 'draft',
 		] );
 
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
+		$response = json_decode( $I->grabResponse(), true );
 		$I->canSeeResponseContainsJson( [
 			'organizer'   => 'A organizer',
 			'author'      => (string) $editor,
+			'date'        => wp_date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
+			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
 			'description' => trim( apply_filters( 'the_content', 'Organizer description' ) ),
 		] );
-		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
 		$id = $response['id'];
 		$I->seePostInDatabase( [ 'ID' => $id, 'post_status' => 'draft' ] );
