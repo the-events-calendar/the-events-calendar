@@ -1,5 +1,5 @@
 <?php
-
+_deprecated_class( 'Tribe__Events__Revisions__Event', '6.3.0' );
 
 /**
  * Class Tribe__Events__Revisions__Event
@@ -7,6 +7,9 @@
  * Handles the saving operations of an event revision.
  *
  * @since 4.2.5
+ * @since 6.3.0
+ *
+ * @deprecated
  */
 class Tribe__Events__Revisions__Event extends Tribe__Events__Revisions__Post {
 

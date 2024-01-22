@@ -439,7 +439,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 	 * Will adjust the `pagination_base` property in cases where the locale for the site is updated,
 	 * and the page field needs to be interpreted with the translated value.
 	 *
-	 * @since TBD
+	 * @since 6.3.1
 	 */
 	public function filter_pagination_base(): void {
 		global $wp_query, $wp_rewrite;
