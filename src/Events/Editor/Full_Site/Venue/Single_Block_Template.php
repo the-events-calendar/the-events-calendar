@@ -83,7 +83,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	protected function create_wp_block_template(): ?WP_Block_Template {
 		/* translators: %s: Event (singular) */
 		$post_title = sprintf(
-			esc_html_x( '%s Single', 'The Full Site editor venue block navigation title', 'the-events-calendar' ),
+			esc_html_x( 'Single %s', 'The Full Site editor venue block navigation title', 'the-events-calendar' ),
 			tribe_get_venue_label_singular()
 		);
 		/* translators: %s: event (singular) */
