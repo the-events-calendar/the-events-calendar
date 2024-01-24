@@ -3,7 +3,7 @@
 namespace Tribe\Events\Editor\Full_Site;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use TEC\Events\Editor\Full_Site\Event\Archive_Block_Template;
+use TEC\Events\Block_Templates\Archive_Events\Archive_Block_Template;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class Archive_EventsTest extends HtmlTestCase {

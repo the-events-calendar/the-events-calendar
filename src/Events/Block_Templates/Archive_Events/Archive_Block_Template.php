@@ -1,6 +1,6 @@
 <?php
 
-namespace TEC\Events\Editor\Full_Site\Event;
+namespace TEC\Events\Block_Templates\Archive_Events;
 
 use Tribe__Events__Main;
 use TEC\Common\Editor\Full_Site\Template_Utils;
@@ -8,13 +8,13 @@ use WP_Block_Template;
 use TEC\Events\Editor\Full_Site\Block_Template_Contract;
 
 /**
- * Class Single_Block_Templates
+ * Class Archive_Block_Template
  *
  * @since   6.2.7
  *
- * @package TEC\Events\Editor\Full_Site
+ * @package TEC\Events\Block_Templates\Archive_Events
  */
-class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements Block_Template_Contract {
+class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements Block_Template_Contract {
 	/**
 	 * @since 6.2.7
 	 *
@@ -23,19 +23,6 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	protected $namespace = 'tec';
 
 	/**
-	 * Returns the name/slug of this block.
-	 *
-	 * @since 6.2.7
-	 *
-	 * @return string The name/slug of this block.
-	 */
-	public function slug(): string {
-		return 'single-event';
-	}
-
-	/**
-	 * The ID of this block.
-	 *
 	 * @since 6.2.7
 	 *
 	 * @return string The WP Block Template ID.
@@ -45,13 +32,24 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	}
 
 	/**
+	 * Returns the name/slug of this block.
+	 *
+	 * @since 6.2.7
+	 *
+	 * @return string The name/slug of this block.
+	 */
+	public function slug(): string {
+		return 'archive-events';
+	}
+
+	/**
 	 * Set the default attributes of this block.
 	 *
 	 * @since 6.2.7
 	 *
 	 * @return array<string,mixed> The array of default attributes.
 	 */
-	public function default_attributes(): array {
+	public function default_attributes() {
 		return [];
 	}
 
@@ -74,23 +72,19 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	}
 
 	/**
-	 * Creates then returns the WP_Block_Template object for single event.
+	 * Creates then returns the WP_Block_Template object for archive events.
 	 *
 	 * @since 6.2.7
 	 *
-	 * @return null|WP_Block_Template The hydrated single event template object.
+	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */
 	protected function create_wp_block_template(): ?WP_Block_Template {
 		/* translators: %s: Event (singular) */
-		$post_title = sprintf(
-			esc_html_x( 'Single %s', 'The Full Site editor event block navigation title', 'the-events-calendar' ),
+		$post_title   = sprintf(
+			esc_html_x( 'Calendar Views (%s Archive)', 'The Full Site editor archive events block navigation title', 'the-events-calendar' ),
 			tribe_get_event_label_singular()
 		);
-		/* translators: %s: event (singular) */
-		$post_excerpt = sprintf(
-			esc_html_x( 'Displays a single %s.', 'The Full Site editor event block navigation description', 'the-events-calendar' ),
-			tribe_get_event_label_singular_lowercase()
-		);
+		$post_excerpt = esc_html_x( 'Displays the calendar views.', 'The Full Site editor archive events block navigation description', 'the-events-calendar' );
 		$insert       = [
 			'post_name'    => $this->slug(),
 			'post_title'   => $post_title,
@@ -98,7 +92,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
 			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
-				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Blocks/Single_Event_Template/templates/single-event.html'
+				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Archive_Events/templates/archive-events.html'
 			) ),
 			'tax_input'    => [
 				'wp_theme' => $this->get_namespace()
@@ -110,11 +104,11 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	}
 
 	/**
-	 * Creates if non-existent theme post, then returns the WP_Block_Template object for single events.
+	 * Creates if non-existent theme post, then returns the WP_Block_Template object for archive events.
 	 *
 	 * @since 6.2.7
 	 *
-	 * @return null|WP_Block_Template The hydrated single events template object.
+	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */
 	public function get_block_template(): ?WP_Block_Template {
 		$wp_block_template = Template_Utils::find_block_template_by_post( $this->slug(), $this->get_namespace() );
@@ -127,7 +121,7 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 		// Validate we did stuff correctly.
 		if ( ! $wp_block_template instanceof WP_Block_Template ) {
 			do_action( 'tribe_log', 'error',
-				'Failed locating our WP_Block_Template for the Single Event Block', [
+				'Failed locating our WP_Block_Template for the Archive Events Block', [
 					'method'    => __METHOD__,
 					'slug'      => $this->slug(),
 					'namespace' => $this->get_namespace()

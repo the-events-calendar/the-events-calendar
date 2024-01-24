@@ -4,8 +4,8 @@ namespace TEC\Events\Editor\Full_Site;
 
 use TEC\Events\Editor\Full_Site\Venue\Single_Block_Template as Single_Venue_Block_Template;
 use \Tribe__Events__Main as Events_Main;
-use TEC\Events\Editor\Full_Site\Event\Archive_Block_Template;
-use TEC\Events\Editor\Full_Site\Event\Single_Block_Template;
+use TEC\Events\Block_Templates\Archive_Events\Archive_Block_Template;
+use TEC\Events\Block_Templates\Single_Event\Single_Block_Template;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
