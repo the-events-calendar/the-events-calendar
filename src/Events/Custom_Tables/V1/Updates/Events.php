@@ -131,6 +131,7 @@ class Events {
 	 *
 	 * @since 6.0.0
 	 * @since 6.0.13 Fix for "markers" being computed incorrectly, and only fetching provisional IDs.
+	 * @since 6.3.1 Fix for latest not detecting provisional IDs (magic property ternary check failure).
 	 *
 	 * @return true To indicate the earliest and latest Event dates were updated.
 	 */
@@ -139,16 +140,18 @@ class Events {
 		$latest   = $this->get_latest_occurrence();
 
 		if ( $earliest ) {
+			$earliest_id = $earliest->provisional_id ? $earliest->provisional_id : $earliest->post_id;
 			tribe_update_option( 'earliest_date', $earliest->start_date_utc );
-			tribe_update_option( 'earliest_date_markers', [ $earliest->provisional_id ?? $earliest->post_id ] );
+			tribe_update_option( 'earliest_date_markers', [ $earliest_id ] );
 		} else {
 			tribe_remove_option( 'earliest_date' );
 			tribe_remove_option( 'earliest_date_markers' );
 		}
 
 		if ( $latest ) {
+			$latest_id = $latest->provisional_id ? $latest->provisional_id : $latest->post_id;
 			tribe_update_option( 'latest_date', $latest->end_date_utc );
-			tribe_update_option( 'latest_date_markers', [ $latest->provisional_id ?? $latest->post_id ] );
+			tribe_update_option( 'latest_date_markers', [ $latest_id ] );
 		} else {
 			tribe_remove_option( 'latest_date' );
 			tribe_remove_option( 'latest_date_markers' );

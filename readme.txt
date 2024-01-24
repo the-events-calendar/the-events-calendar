@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
-Stable tag: 6.3.0
+Stable tag: 6.3.1
 Tested up to: 6.4.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,16 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.3.1] 2024-01-24 =
+
+* Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
+* Fix - Make sure that the full country name is used when importing events from Meetup. [EA-469]
+* Fix - Our Week view "Next" pagination button would fail to show in some scenarios. This was due to improper tracking of which is the next future occurrence date. [ECP-1535]
+* Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
+* Tweak - Added actions: `tec_events_custom_tables_v1_migration_after_dry_run`
+* Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
+* Language - 0 new strings added, 115 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.3.0] 2024-01-22 =
 
 * Version - The Events Calendar 6.3.0 is only compatible with Event Tickets 5.8.0 and higher.
@@ -242,6 +252,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
+* Fix - When on category page when there is a locale switched to a language with a translation for the `page` URL param, the paginated page would redirect to a 404. [TEC-4979]
 * Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
 * Tweak - Added filters: `tec_events_custom_tables_v1_normalize_occurrence_id`
 * Tweak - Changed views: `v2/list/event/featured-image`
