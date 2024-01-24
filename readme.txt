@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2.0
-Stable tag: 6.2.9
+Stable tag: 6.3.0
 Tested up to: 6.4.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -230,6 +230,13 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.3.0] 2024-01-22 =
+
+* Version - The Events Calendar 6.3.0 is only compatible with Event Tickets 5.8.0 and higher.
+* Feature - Include Series Passes supporting code to enable the creation of Series Passes.
+* Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
+* Language - 0 new strings added, 92 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.2.9] 2023-12-14 =
 
