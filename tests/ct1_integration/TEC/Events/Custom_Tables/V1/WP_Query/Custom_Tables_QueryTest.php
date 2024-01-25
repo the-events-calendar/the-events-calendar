@@ -157,8 +157,10 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				return $query;
 			}
 
-			// Remove IDs, it changes.
-			$trimmed_query = preg_replace( '/IN (\([0-9].*?\))/i', 'IN ()', $trimmed_query );
+			// Drop a query for terms.
+			if ( strpos( $trimmed_query, 'SELECT DISTINCT t.term_id' ) !== false ) {
+				return $query;
+			}
 
 			$logged_queries[] = $trimmed_query;
 

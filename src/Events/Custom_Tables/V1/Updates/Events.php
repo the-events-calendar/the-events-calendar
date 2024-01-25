@@ -131,7 +131,7 @@ class Events {
 	 *
 	 * @since 6.0.0
 	 * @since 6.0.13 Fix for "markers" being computed incorrectly, and only fetching provisional IDs.
-	 * @since TBD Fix for latest not detecting provisional IDs (magic property ternary check failure).
+	 * @since 6.3.1 Fix for latest not detecting provisional IDs (magic property ternary check failure).
 	 *
 	 * @return true To indicate the earliest and latest Event dates were updated.
 	 */

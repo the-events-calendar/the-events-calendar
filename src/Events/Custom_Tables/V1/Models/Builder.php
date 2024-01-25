@@ -943,7 +943,7 @@ class Builder {
 	/**
 	 * Run a query and return the results directly from $wpdb->query().
 	 *
-	 * @since TBD
+	 * @since 6.3.1
 	 *
 	 * @param string $query The SQL query to run on the database.
 	 *
