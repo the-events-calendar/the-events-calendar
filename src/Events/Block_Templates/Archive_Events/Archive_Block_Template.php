@@ -2,10 +2,11 @@
 
 namespace TEC\Events\Block_Templates\Archive_Events;
 
+use TEC\Events\Blocks\Archive_Events\Block;
 use Tribe__Events__Main;
 use TEC\Common\Editor\Full_Site\Template_Utils;
 use WP_Block_Template;
-use TEC\Events\Editor\Full_Site\Block_Template_Contract;
+use TEC\Events\Block_Templates\Block_Template_Contract;
 
 /**
  * Class Archive_Block_Template
@@ -14,61 +15,34 @@ use TEC\Events\Editor\Full_Site\Block_Template_Contract;
  *
  * @package TEC\Events\Block_Templates\Archive_Events
  */
-class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements Block_Template_Contract {
+class Archive_Block_Template implements Block_Template_Contract {
 	/**
-	 * @since 6.2.7
+	 * @since TBD
 	 *
-	 * @var string The namespace of this template.
+	 * @var Block The registered block for this template.
 	 */
-	protected $namespace = 'tec';
+	protected Block $block;
 
 	/**
+	 * Constructor for Single Venue Block Template.
+	 *
+	 * @since TBD
+	 *
+	 * @param Block $block The registered Block for Single Venue.
+	 */
+	public function __construct( Block $block ) {
+		$this->block = $block;
+	}
+
+	/**
+	 * The ID of this block.
+	 *
 	 * @since 6.2.7
 	 *
 	 * @return string The WP Block Template ID.
 	 */
 	public function id(): string {
-		return $this->get_namespace() . '//' . $this->slug();
-	}
-
-	/**
-	 * Returns the name/slug of this block.
-	 *
-	 * @since 6.2.7
-	 *
-	 * @return string The name/slug of this block.
-	 */
-	public function slug(): string {
-		return 'archive-events';
-	}
-
-	/**
-	 * Set the default attributes of this block.
-	 *
-	 * @since 6.2.7
-	 *
-	 * @return array<string,mixed> The array of default attributes.
-	 */
-	public function default_attributes() {
-		return [];
-	}
-
-	/**
-	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
-	 *
-	 * @since 6.2.7
-	 *
-	 * @param array $attributes The block attributes.
-	 *
-	 * @return string The block HTML.
-	 */
-	public function render( $attributes = [] ): string {
-		$args['attributes'] = $this->attributes( $attributes );
-
-		// Add the rendering attributes into global context.
-		tribe( 'events.editor.template' )->add_template_globals( $args );
-
-		return tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
+		return $this->block->get_namespace() . '//' . $this->block->slug();
 	}
 
 	/**
@@ -86,17 +60,19 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 		);
 		$post_excerpt = esc_html_x( 'Displays the calendar views.', 'The Full Site editor archive events block navigation description', 'the-events-calendar' );
 		$insert       = [
-			'post_name'    => $this->slug(),
+			'post_name'    => $this->block->slug(),
 			'post_title'   => $post_title,
 			'post_excerpt' => $post_excerpt,
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
-			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
-				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Archive_Events/templates/archive-events.html'
-			) ),
+			'post_content' => Template_Utils::inject_theme_attribute_in_content(
+				file_get_contents(
+					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Archive_Events/templates/archive-events.html'
+				) 
+			),
 			'tax_input'    => [
-				'wp_theme' => $this->get_namespace()
-			]
+				'wp_theme' => $this->block->get_namespace(),
+			],
 		];
 
 		// Create this template.
@@ -111,7 +87,7 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */
 	public function get_block_template(): ?WP_Block_Template {
-		$wp_block_template = Template_Utils::find_block_template_by_post( $this->slug(), $this->get_namespace() );
+		$wp_block_template = Template_Utils::find_block_template_by_post( $this->block->slug(), $this->block->get_namespace() );
 
 		// If empty, this is our first time loading our Block Template. Let's create it.
 		if ( ! $wp_block_template ) {
@@ -120,12 +96,16 @@ class Archive_Block_Template extends \Tribe__Editor__Blocks__Abstract implements
 
 		// Validate we did stuff correctly.
 		if ( ! $wp_block_template instanceof WP_Block_Template ) {
-			do_action( 'tribe_log', 'error',
-				'Failed locating our WP_Block_Template for the Archive Events Block', [
+			do_action(
+				'tribe_log',
+				'error',
+				'Failed locating our WP_Block_Template for the Archive Events Block',
+				[
 					'method'    => __METHOD__,
-					'slug'      => $this->slug(),
-					'namespace' => $this->get_namespace()
-				] );
+					'slug'      => $this->block->slug(),
+					'namespace' => $this->block->get_namespace(),
+				] 
+			);
 		}
 
 		return $wp_block_template;

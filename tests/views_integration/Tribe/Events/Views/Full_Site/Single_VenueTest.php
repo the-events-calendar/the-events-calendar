@@ -3,7 +3,7 @@
 namespace Tribe\Events\Editor\Blocks;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use TEC\Events\Editor\Full_Site\Venue\Single_Block_Template;
+use TEC\Events\Block_Templates\Single_Venue\Single_Block_Template;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class Single_VenueTest extends HtmlTestCase {
