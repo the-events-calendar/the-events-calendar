@@ -14,28 +14,7 @@ jobs:
     strategy:
       matrix:
         suite:
-          - aggregatorv1
-          - blocks_editor_integration
-          - event_status
-          - integration
-          - muintegration
-          - restv1
-          - views_integration
-          - views_settings
-          - views_ui
-          - views_v2_customizer_integration
-          - views_widgets
-          - views_wpunit
-          - wpunit
-          - ct1_integration
-          - ct1_multisite_integration
-          - deprecated
-          # really weird error with RBE changes.
-          # - views_rest
-          - wp_json_api
-          - ct1_wp_json_api
-          - ct1_migration
-          - rewrite_functional
+          - integrations_plugin_wordpress_seo
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout the repository
@@ -168,7 +147,7 @@ jobs:
       - name: Install the plugins on this particular Test Suite
         if: steps.skip.outputs.value != 1 && steps.test_suite_plugins_required.outputs.content
         run: |
-          ${SLIC_BIN} wp core update --version=6.1
+          ${SLIC_BIN} wp core update --version=6.3
           ${SLIC_BIN} wp plugin install ${{ steps.test_suite_plugins_required.outputs.content }}
 
       # ------------------------------------------------------------------------------
