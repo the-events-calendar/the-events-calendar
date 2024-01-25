@@ -11,7 +11,7 @@ use TEC\Events\Block_Templates\Block_Template_Contract;
 /**
  * Class Single_Block_Template
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Block_Templates\Single_Venue
  */
@@ -47,6 +47,17 @@ class Single_Block_Template implements Block_Template_Contract {
 	}
 
 	/**
+	 * Which is the name/slug of this template block.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function slug(): string {
+		return $this->block->slug();
+	}
+
+	/**
 	 * Creates then returns the WP_Block_Template object for single venue.
 	 *
 	 * @since TBD
@@ -70,12 +81,14 @@ class Single_Block_Template implements Block_Template_Contract {
 			'post_excerpt' => $post_excerpt,
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
-			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
-				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Single_Venue/templates/single-venue.html'
-			) ),
+			'post_content' => Template_Utils::inject_theme_attribute_in_content(
+				file_get_contents(
+					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Single_Venue/templates/single-venue.html'
+				)
+			),
 			'tax_input'    => [
-				'wp_theme' => $this->block->get_namespace()
-			]
+				'wp_theme' => $this->block->get_namespace(),
+			],
 		];
 
 		// Create this template.
@@ -99,12 +112,16 @@ class Single_Block_Template implements Block_Template_Contract {
 
 		// Validate we did stuff correctly.
 		if ( ! $wp_block_template instanceof WP_Block_Template ) {
-			do_action( 'tribe_log', 'error',
-				'Failed locating our WP_Block_Template for the Single Venue Block', [
+			do_action(
+				'tribe_log',
+				'error',
+				'Failed locating our WP_Block_Template for the Single Venue Block',
+				[
 					'method'    => __METHOD__,
 					'slug'      => $this->block->slug(),
-					'namespace' => $this->block->get_namespace()
-				] );
+					'namespace' => $this->block->get_namespace(),
+				] 
+			);
 		}
 
 		return $wp_block_template;

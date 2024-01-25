@@ -2,11 +2,6 @@
 
 namespace TEC\Events\Blocks\Single_Event;
 
-use Tribe__Events__Main;
-use TEC\Common\Editor\Full_Site\Template_Utils;
-use WP_Block_Template;
-use TEC\Events\Block_Templates\Block_Template_Contract;
-
 /**
  * Class Block
  *

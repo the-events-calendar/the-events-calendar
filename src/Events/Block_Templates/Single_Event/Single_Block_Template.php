@@ -1,4 +1,5 @@
 <?php
+
 namespace TEC\Events\Block_Templates\Single_Event;
 
 use TEC\Events\Blocks\Single_Event\Block;
@@ -34,6 +35,17 @@ class Single_Block_Template implements Block_Template_Contract {
 	}
 
 	/**
+	 * Which is the name/slug of this template block.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function slug(): string {
+		return $this->block->slug();
+	}
+
+	/**
 	 * The ID of this block.
 	 *
 	 * @since 6.2.7
@@ -52,13 +64,13 @@ class Single_Block_Template implements Block_Template_Contract {
 	 * @return null|WP_Block_Template The hydrated single event template object.
 	 */
 	protected function create_wp_block_template(): ?WP_Block_Template {
-		/* translators: %s: Event (singular) */
 		$post_title = sprintf(
+			/* translators: %s: Event (singular) */
 			esc_html_x( 'Single %s', 'The Full Site editor event block navigation title', 'the-events-calendar' ),
 			tribe_get_event_label_singular()
 		);
-		/* translators: %s: event (singular) */
 		$post_excerpt = sprintf(
+			/* translators: %s: event (singular) */
 			esc_html_x( 'Displays a single %s.', 'The Full Site editor event block navigation description', 'the-events-calendar' ),
 			tribe_get_event_label_singular_lowercase()
 		);
@@ -68,12 +80,14 @@ class Single_Block_Template implements Block_Template_Contract {
 			'post_excerpt' => $post_excerpt,
 			'post_type'    => 'wp_template',
 			'post_status'  => 'publish',
-			'post_content' => Template_Utils::inject_theme_attribute_in_content( file_get_contents(
-				Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Single_Event/templates/single-event.html'
-			) ),
+			'post_content' => Template_Utils::inject_theme_attribute_in_content(
+				file_get_contents(
+					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Single_Event/templates/single-event.html'
+				)
+			),
 			'tax_input'    => [
-				'wp_theme' => $this->block->get_namespace()
-			]
+				'wp_theme' => $this->block->get_namespace(),
+			],
 		];
 
 		// Create this template.
@@ -97,12 +111,16 @@ class Single_Block_Template implements Block_Template_Contract {
 
 		// Validate we did stuff correctly.
 		if ( ! $wp_block_template instanceof WP_Block_Template ) {
-			do_action( 'tribe_log', 'error',
-				'Failed locating our WP_Block_Template for the Single Event Block', [
+			do_action(
+				'tribe_log',
+				'error',
+				'Failed locating our WP_Block_Template for the Single Event Block',
+				[
 					'method'    => __METHOD__,
 					'slug'      => $this->block->slug(),
-					'namespace' => $this->block->get_namespace()
-				] );
+					'namespace' => $this->block->get_namespace(),
+				] 
+			);
 		}
 
 		return $wp_block_template;

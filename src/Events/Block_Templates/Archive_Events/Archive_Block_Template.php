@@ -35,6 +35,17 @@ class Archive_Block_Template implements Block_Template_Contract {
 	}
 
 	/**
+	 * Which is the name/slug of this template block.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function slug(): string {
+		return $this->block->slug();
+	}
+
+	/**
 	 * The ID of this block.
 	 *
 	 * @since 6.2.7
@@ -53,8 +64,8 @@ class Archive_Block_Template implements Block_Template_Contract {
 	 * @return null|WP_Block_Template The hydrated archive events template object.
 	 */
 	protected function create_wp_block_template(): ?WP_Block_Template {
-		/* translators: %s: Event (singular) */
 		$post_title   = sprintf(
+			/* translators: %s: Event (singular) */
 			esc_html_x( 'Calendar Views (%s Archive)', 'The Full Site editor archive events block navigation title', 'the-events-calendar' ),
 			tribe_get_event_label_singular()
 		);

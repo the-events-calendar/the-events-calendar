@@ -2,16 +2,15 @@
 
 namespace TEC\Events\Blocks;
 
-use TEC\Events\Block_Templates\Archive_Events\Archive_Block_Template;
-use TEC\Events\Block_Templates\Single_Event\Single_Block_Template;
+use TEC\Events\Blocks\Archive_Events\Block as Archive_Events_Block;
+use TEC\Events\Blocks\Single_Event\Block as Single_Event_Block;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\Block_Templates\Single_Venue\Single_Block_Template as Single_Venue_Block_Template;
-use TEC\Events\Blocks\Single_Venue\Block;
+use TEC\Events\Blocks\Single_Venue\Block as Single_Venue_Block;
 
 /**
  * Class Controller
  *
- * @since 6.2.7
+ * @since   6.2.7
  *
  * @package TEC\Events\Blocks
  */
@@ -41,8 +40,8 @@ class Controller extends Controller_Contract {
 	 * @since 6.2.7
 	 */
 	protected function add_actions() {
-		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
-		add_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_venue_block' ] );
 	}
 
@@ -52,8 +51,8 @@ class Controller extends Controller_Contract {
 	 * @since 6.2.7
 	 */
 	public function remove_actions() {
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_archive_template' ] );
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'action_register_single_event_template' ] );
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_venue_block' ] );
 	}
 
@@ -62,8 +61,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.2.7
 	 */
-	public function action_register_archive_template() {
-		return $this->container->make( Archive_Block_Template::class )->register();
+	public function register_archive_events_block() {
+		return $this->container->make( Archive_Events_Block::class )->register();
 	}
 
 	/**
@@ -71,8 +70,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 6.2.7
 	 */
-	public function action_register_single_event_template() {
-		return $this->container->make( Single_Block_Template::class )->register();
+	public function register_single_event_block() {
+		return $this->container->make( Single_Event_Block::class )->register();
 	}
 
 	/**
@@ -81,6 +80,6 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function register_single_venue_block() {
-		return $this->container->make( Block::class )->register();
+		return $this->container->make( Single_Venue_Block::class )->register();
 	}
 }

@@ -9,6 +9,15 @@ use WP_Block_Template;
  */
 interface Block_Template_Contract {
 	/**
+	 * Which is the name/slug of this template block.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function slug();
+
+	/**
 	 * The Block ID.
 	 *
 	 * @since 6.2.7

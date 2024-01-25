@@ -73,10 +73,15 @@ class Controller extends Controller_Contract {
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
 		add_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10, 1 );
-		add_filter( 'single_template_hierarchy', [
-			$this,
-			'filter_single_template_hierarchy'
-		], 10, 1 );
+		add_filter(
+			'single_template_hierarchy',
+			[
+				$this,
+				'filter_single_template_hierarchy',
+			],
+			10,
+			1 
+		);
 	}
 
 	/**
@@ -91,10 +96,14 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
 		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
 		remove_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10 );
-		remove_filter( 'single_template_hierarchy', [
-			$this,
-			'filter_single_template_hierarchy'
-		], 10 );
+		remove_filter(
+			'single_template_hierarchy',
+			[
+				$this,
+				'filter_single_template_hierarchy',
+			],
+			10 
+		);
 	}
 
 	/**
@@ -176,7 +185,6 @@ class Controller extends Controller_Contract {
 	 * @type int                  $wp_id        Post ID of customized template.
 	 * }
 	 *
-	 *
 	 * @return array The modified $query.
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
@@ -186,10 +194,7 @@ class Controller extends Controller_Contract {
 		// Get our block template services for this query.
 		$template_services = $this->get_filtered_block_templates( $template_type );
 		foreach ( $template_services as $template ) {
-			if (
-				empty( $query['slug__in'] )
-				|| in_array( $template->slug(), $query['slug__in'], true )
-			) {
+			if ( empty( $query['slug__in'] ) || in_array( $template->slug(), $query['slug__in'], true ) ) {
 				/**
 				 * @var WP_Block_Template $wp_template
 				 */
@@ -245,7 +250,7 @@ class Controller extends Controller_Contract {
 			$templates = [
 				tribe( Archive_Block_Template::class ),
 				tribe( Single_Block_Template::class ),
-				tribe( Single_Venue_Block_Template::class )
+				tribe( Single_Venue_Block_Template::class ),
 			];
 		}
 
