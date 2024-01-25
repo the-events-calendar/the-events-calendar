@@ -1,4 +1,4 @@
-name: 'Codeception Tests'
+name: 'SEO Plugin Tests'
 on:
   pull_request:
     paths:
