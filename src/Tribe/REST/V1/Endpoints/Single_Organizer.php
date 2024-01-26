@@ -272,6 +272,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 				'default'           => null,
 				'description'       => __( 'The organizer post status', 'the-events-calendar' ),
 			],
+			'timezone'   => [
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_string' ],
+				'type'              => 'string',
+				'default'           => null,
+				'description'       => __( 'The event timezone', 'the-events-calendar' ),
+			],
 			// Organizer meta fields
 			'phone'       => [
 				'required'          => false,
@@ -324,7 +331,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Organizer
 	 */
 	public function prepare_postarr( WP_REST_Request $request ) {
 		$post_date = isset( $request['date'] )
-			? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' )
+			? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s', $request['timezone'] ?? null )
 			: false;
 		$post_date_gmt = isset( $request['date_utc'] )
 			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
