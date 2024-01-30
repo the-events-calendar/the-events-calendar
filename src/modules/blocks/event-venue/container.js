@@ -143,9 +143,9 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			setVenue( { state, dispatch, ownProps, venueID, details } );
 		},
 		onRemove: () => {
-			const { clientId, venue } = ownProps;
+			const { venue, clientId } = ownProps;
 
-			ownProps.setAttributes( { venue: 0 } );
+			ownProps.setAttributes( { venue: null } );
 			dispatch( actions.removeVenueInBlock( clientId, venue ) );
 
 			/**
