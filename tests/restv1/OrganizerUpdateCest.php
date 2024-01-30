@@ -67,17 +67,18 @@ class OrganizerUpdateCest extends BaseRestCest {
 			'date_utc'    => $utc_date->format( 'U' ),
 			'description' => 'Organizer description',
 			'status'      => 'draft',
+			'timezone'    => 'America/New_York',
 		] );
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
-			'organizer'   => 'A organizer',
-			'author'      => (string) $editor,
-			'date'        => wp_date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
-			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
-			'description' => trim( apply_filters( 'the_content', 'Organizer description' ) ),
-		] );
+			                                'organizer'   => 'A organizer',
+			                                'author'      => (string) $editor,
+			                                'date'        => $utc_date->format( 'Y-m-d H:i:s' ),
+			                                'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
+			                                'description' => trim( apply_filters( 'the_content', 'Organizer description' ) ),
+		                                ] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
 		$id = $response['id'];

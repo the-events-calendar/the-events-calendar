@@ -67,6 +67,7 @@ class VenueUpdateCest extends BaseRestCest {
 			'date_utc'    => $utc_date->format( 'U' ),
 			'description' => 'Venue description',
 			'status'      => 'draft',
+			'timezone'    => 'America/New_York',
 		] );
 
 		$I->seeResponseCodeIs( 200 );
@@ -74,7 +75,7 @@ class VenueUpdateCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'venue'       => 'A venue',
 			'author'      => (string) $editor,
-			'date'        => wp_date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
+			'date'        => $date->format( 'Y-m-d H:i:s' ),
 			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
 			'description' => trim( apply_filters( 'the_content', 'Venue description' ) ),
 		] );
