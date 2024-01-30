@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Adding the `defer` strategy on several script tags, such as `underscore` and `jquery-core`. [TECENG-48]
+
 = [6.3.1] 2024-01-24 =
 
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
