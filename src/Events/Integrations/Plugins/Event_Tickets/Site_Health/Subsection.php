@@ -2,7 +2,7 @@
 /**
  * Class that handles interfacing with core Site Health.
  *
- * @since   TBD
+ * @since$6.3.2
  *
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Site_Health
  */
@@ -14,7 +14,7 @@ use TEC\Tickets\Site_Health\Abstract_Info_Subsection;
 /**
  * Class The_Events_Calendar_Fields
  *
- * @since   TBD
+ * @since$6.3.2
  * @package TEC\Events\Integrations\Plugins\Event_Tickets\Site_Health
  */
 class Subsection extends Abstract_Info_Subsection {

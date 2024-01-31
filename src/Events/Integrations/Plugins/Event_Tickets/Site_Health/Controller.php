@@ -2,7 +2,7 @@
 /**
  * Class that handles interfacing with Site Health.
  *
- * @since   TBD
+ * @since$6.3.2
  *
  * @package TEC\Tickets_Plus\Integrations\Event_Tickets
  */
@@ -15,7 +15,7 @@ use TEC\Tickets\Integrations\Integration_Abstract;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since$6.3.2
  *
  * @package TEC\Tickets_Plus\Integrations
  */
@@ -47,7 +47,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Register actions.
 	 *
-	 * @since TBD
+	 * @since$6.3.2
 	 *
 	 * @return void
 	 */
@@ -57,7 +57,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Register filters.
 	 *
-	 * @since TBD
+	 * @since$6.3.2
 	 *
 	 * @return void
 	 */
@@ -76,7 +76,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Appends an additional subsection to the site health subsections array.
 	 *
-	 * @since TBD
+	 * @since$6.3.2
 	 *
 	 * @param array $subsections The existing array of site health subsections.
 	 *
