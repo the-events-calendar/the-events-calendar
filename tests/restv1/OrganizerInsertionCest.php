@@ -49,7 +49,7 @@ class OrganizerInsertionCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
-		$date     = new DateTime( 'tomorrow 9am', new DateTimeZone( 'America/New_York' ) );
+		$date     = new DateTime( 'tomorrow 9am', wp_timezone() );
 		$utc_date = clone $date;
 		$utc_date->setTimezone( new DateTimeZone( 'UTC' ) );
 

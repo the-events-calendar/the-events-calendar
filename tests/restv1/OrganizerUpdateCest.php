@@ -57,7 +57,7 @@ class OrganizerUpdateCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
-		$date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'America/New_York' ) );
+		$date = new DateTime( 'tomorrow 9am', wp_timezone() );
 		$utc_date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'UTC' ) );
 
 		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
@@ -75,7 +75,7 @@ class OrganizerUpdateCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			                                'organizer'   => 'A organizer',
 			                                'author'      => (string) $editor,
-			                                'date'        => $utc_date->format( 'Y-m-d H:i:s' ),
+			                                'date'        => $date->format( 'Y-m-d H:i:s' ),
 			                                'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
 			                                'description' => trim( apply_filters( 'the_content', 'Organizer description' ) ),
 		                                ] );

@@ -57,7 +57,7 @@ class VenueUpdateCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
-		$date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'America/New_York' ) );
+		$date = new DateTime( 'tomorrow 9am', wp_timezone() );
 		$utc_date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'UTC' ) );
 
 		$I->sendPOST( $this->venues_url . "/{$venue_id}", [
