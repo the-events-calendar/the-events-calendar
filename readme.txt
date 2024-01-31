@@ -233,7 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.3.2] 2024-02-07 =
 
-* Enhancement - Share statistical information to Event Tickets plugin when active. [ET-1925]
+* Tweak - Share statistical information to Event Tickets plugin when active. [ET-1925]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.1] 2024-01-24 =
