@@ -74,6 +74,7 @@ class VenueUpdateCest extends BaseRestCest {
 		$I->canSeeResponseContainsJson( [
 			'venue'       => 'A venue',
 			'author'      => (string) $editor,
+			'date'        => wp_date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
 			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
 			'description' => trim( apply_filters( 'the_content', 'Venue description' ) ),
 		] );
