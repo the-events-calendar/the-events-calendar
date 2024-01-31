@@ -231,6 +231,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.3.2] 2024-02-07 =
+
+* Enhancement - Share statistical information to Event Tickets plugin when active. [ET-1925]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.3.1] 2024-01-24 =
 
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
