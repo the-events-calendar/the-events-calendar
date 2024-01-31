@@ -52,7 +52,7 @@ export default {
                         margin: '18px 4px'
                     } }/>
                 </div>
-                <div style={{clear:'both', height:1}}></div>
+                <div style={ { clear: 'both', height: 1 } }></div>
             </div>
         );
     },

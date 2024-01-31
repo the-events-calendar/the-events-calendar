@@ -11,6 +11,7 @@ use TEC\Events\Block_Templates\Block_Template_Contract;
 /**
  * Class Archive_Block_Template
  *
+ * @since TBD Moved and renamed class, decoupled from Tribe__Editor__Blocks__Abstract.
  * @since   6.2.7
  *
  * @package TEC\Events\Block_Templates\Archive_Events

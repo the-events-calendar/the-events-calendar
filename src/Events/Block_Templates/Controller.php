@@ -12,6 +12,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
+ * @since TBD Moved and decoupled from Block API requirements, focusing on Template requirements.
  * @since   6.2.7
  *
  * @package TEC\Events\Block_Templates

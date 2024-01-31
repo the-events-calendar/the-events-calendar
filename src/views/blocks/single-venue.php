@@ -3,7 +3,7 @@
  * View: Default Template for the Single Venue on FSE.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/blocks/single-event.php
+ * [your-theme]/tribe/events/blocks/single-venue.php
  *
  * See more documentation about our views templating system.
  *

@@ -10,6 +10,7 @@ use TEC\Events\Blocks\Single_Venue\Block as Single_Venue_Block;
 /**
  * Class Controller
  *
+ * @since TBD Decoupled from Block Templates, focusing on Block requirements and a cleaner separation of concerns.
  * @since   6.2.7
  *
  * @package TEC\Events\Blocks

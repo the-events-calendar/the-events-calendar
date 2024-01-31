@@ -11,6 +11,7 @@ use TEC\Events\Block_Templates\Block_Template_Contract;
 /**
  * Class Single_Block_Template
  *
+ * @since TBD Moved and decoupled from Block API requirements, focusing on Template requirements.
  * @since   6.2.7
  *
  * @package TEC\Events\Block_Templates\Single_Event
@@ -24,11 +25,11 @@ class Single_Block_Template implements Block_Template_Contract {
 	protected Block $block;
 
 	/**
-	 * Constructor for Single Venue Block Template.
+	 * Constructor for Single Event Block Template.
 	 *
 	 * @since TBD
 	 *
-	 * @param Block $block The registered Block for Single Venue.
+	 * @param Block $block The registered Block for Single Event.
 	 */
 	public function __construct( Block $block ) {
 		$this->block = $block;
