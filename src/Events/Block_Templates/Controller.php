@@ -3,6 +3,7 @@
 namespace TEC\Events\Block_Templates;
 
 use TEC\Events\Block_Templates\Single_Venue\Single_Block_Template as Single_Venue_Block_Template;
+use TEC\Events\Block_Templates\Single_Organizer\Single_Block_Template as Single_Organizer_Block_Template;
 use TEC\Events\Block_Templates\Archive_Events\Archive_Block_Template;
 use TEC\Events\Block_Templates\Single_Event\Single_Block_Template;
 use WP_Block_Template;
@@ -169,6 +170,13 @@ class Controller extends Controller_Contract {
 			$templates[ $index ] = 'single-venue.php';
 		}
 
+		// Is it our post type?
+		$index = array_search( 'single-tribe_organizer.php', $templates, true );
+		if ( is_int( $index ) ) {
+			// Switch to our faux template which maps to our slug.
+			$templates[ $index ] = 'single-organizer.php';
+		}
+
 		return $templates;
 	}
 
@@ -252,6 +260,7 @@ class Controller extends Controller_Contract {
 				tribe( Archive_Block_Template::class ),
 				tribe( Single_Block_Template::class ),
 				tribe( Single_Venue_Block_Template::class ),
+				tribe( Single_Organizer_Block_Template::class ),
 			];
 		}
 

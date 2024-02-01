@@ -20,6 +20,7 @@ import FeaturedImage from '@moderntribe/events/blocks/featured-image';
 import archiveEvents from '@moderntribe/events/blocks/archive-events';
 import singleEvent from '@moderntribe/events/blocks/single-event';
 import singleVenue from '@moderntribe/events/blocks/single-venue';
+import singleOrganizer from '@moderntribe/events/blocks/single-organizer';
 import { initStore } from '@moderntribe/events/data';
 import './style.pcss';
 
@@ -40,7 +41,8 @@ const blocks = [
 	FeaturedImage,
 	archiveEvents,
 	singleEvent,
-	singleVenue
+	singleVenue,
+	singleOrganizer
 ];
 
 blocks.forEach( block => {

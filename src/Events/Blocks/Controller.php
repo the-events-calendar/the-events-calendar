@@ -6,6 +6,7 @@ use TEC\Events\Blocks\Archive_Events\Block as Archive_Events_Block;
 use TEC\Events\Blocks\Single_Event\Block as Single_Event_Block;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Blocks\Single_Venue\Block as Single_Venue_Block;
+use TEC\Events\Blocks\Single_Organizer\Block as Single_Organizer_Block;
 
 /**
  * Class Controller
@@ -44,6 +45,7 @@ class Controller extends Controller_Contract {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_venue_block' ] );
+		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_organizer_block' ] );
 	}
 
 	/**
@@ -55,6 +57,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_venue_block' ] );
+		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_organizer_block' ] );
 	}
 
 	/**
@@ -82,5 +85,14 @@ class Controller extends Controller_Contract {
 	 */
 	public function register_single_venue_block() {
 		return $this->container->make( Single_Venue_Block::class )->register();
+	}
+
+	/**
+	 * Registers the Single Organizer block.
+	 *
+	 * @since TBD
+	 */
+	public function register_single_organizer_block() {
+		return $this->container->make( Single_Organizer_Block::class )->register();
 	}
 }
