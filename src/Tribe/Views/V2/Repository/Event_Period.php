@@ -19,6 +19,7 @@ use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
 
+// Remove when BTRIA-595 is dealt with.
 // phpcs:disable Squiz.Commenting.FunctionComment.InvalidNoReturn
 
 /**
