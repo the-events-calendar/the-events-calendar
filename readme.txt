@@ -233,7 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Feature - Adding the Site Editor Single Organizer page template. [ECP-1622]
+* Tweak - Refactored some of the underlying structure for Block Template architecture. [ECP-1620]
 
 = [6.3.1] 2024-01-24 =
 

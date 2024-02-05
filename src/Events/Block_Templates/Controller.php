@@ -2,12 +2,10 @@
 
 namespace TEC\Events\Block_Templates;
 
-use TEC\Events\Block_Templates\Single_Venue\Single_Block_Template as Single_Venue_Block_Template;
 use TEC\Events\Block_Templates\Archive_Events\Archive_Block_Template;
 use TEC\Events\Block_Templates\Single_Event\Single_Block_Template;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-
 
 /**
  * Class Controller
@@ -244,7 +242,6 @@ class Controller extends Controller_Contract {
 			$templates = [
 				tribe( Archive_Block_Template::class ),
 				tribe( Single_Block_Template::class ),
-				tribe( Single_Venue_Block_Template::class ),
 			];
 		}
 

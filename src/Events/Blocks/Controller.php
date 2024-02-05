@@ -5,7 +5,6 @@ namespace TEC\Events\Blocks;
 use TEC\Events\Blocks\Archive_Events\Block as Archive_Events_Block;
 use TEC\Events\Blocks\Single_Event\Block as Single_Event_Block;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\Blocks\Single_Venue\Block as Single_Venue_Block;
 
 /**
  * Class Controller
@@ -43,7 +42,6 @@ class Controller extends Controller_Contract {
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
-		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_venue_block' ] );
 	}
 
 	/**
@@ -54,7 +52,6 @@ class Controller extends Controller_Contract {
 	public function remove_actions() {
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_venue_block' ] );
 	}
 
 	/**
@@ -73,14 +70,5 @@ class Controller extends Controller_Contract {
 	 */
 	public function register_single_event_block() {
 		return $this->container->make( Single_Event_Block::class )->register();
-	}
-
-	/**
-	 * Registers the Single Venue block.
-	 *
-	 * @since TBD
-	 */
-	public function register_single_venue_block() {
-		return $this->container->make( Single_Venue_Block::class )->register();
 	}
 }
