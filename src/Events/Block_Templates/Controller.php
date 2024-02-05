@@ -162,13 +162,6 @@ class Controller extends Controller_Contract {
 			$templates[ $index ] = 'single-event.php';
 		}
 
-		// Is it our post type?
-		$index = array_search( 'single-tribe_venue.php', $templates, true );
-		if ( is_int( $index ) ) {
-			// Switch to our faux template which maps to our slug.
-			$templates[ $index ] = 'single-venue.php';
-		}
-
 		return $templates;
 	}
 
