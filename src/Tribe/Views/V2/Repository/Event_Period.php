@@ -230,7 +230,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @return array
 	 */
-	public function all() {
+	public function all( $return_generator = false, int $batch_size = 50 ) {
 		// @todo [BTRIA-595]: Implement all() method.
 	}
 
@@ -561,7 +561,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @return array An array containing the post IDs to update.
 	 */
-	public function get_ids() {
+	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
 		return $this->get_sets_ids( $this->get_sets() );
 	}
 
