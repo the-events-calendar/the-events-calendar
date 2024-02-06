@@ -231,7 +231,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.3.2] 2024-02-07 =
+= [6.3.2] 2024-02-06 =
 
 * Tweak - Share statistical information to Event Tickets plugin when active. [ET-1925]
 * Fix - Improve the usage of the shortcodes around Event Details.
