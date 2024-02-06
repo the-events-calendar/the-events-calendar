@@ -435,9 +435,33 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		return $this->add( $regex, $args );
 	}
 
+	/**
+	 * Will adjust the `pagination_base` property in cases where the locale for the site is updated,
+	 * and the page field needs to be interpreted with the translated value.
+	 *
+	 * @since 6.3.1
+	 */
+	public function filter_pagination_base(): void {
+		global $wp_query, $wp_rewrite;
+		if ( ! $wp_query ) {
+			return;
+		}
+
+		$queried_object = $wp_query->get_queried_object();
+		if ( ! is_object( $queried_object ) ) {
+			return;
+		}
+
+		if ( $wp_query->is_main_query() && isset( $queried_object->taxonomy ) && $queried_object->taxonomy === 'tribe_events_cat' ) {
+			// Will always ensure it is localized properly.
+			$wp_rewrite->pagination_base = urlencode( strtolower( esc_html_x( 'page', 'The "/page/" URL string component.', 'the-events-calendar' ) ) );
+		}
+	}
+
 	protected function remove_hooks() {
 		parent::remove_hooks();
 		remove_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15 );
+		remove_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
 	}
 
 	protected function add_hooks() {
@@ -446,6 +470,7 @@ class Tribe__Events__Rewrite extends Tribe__Rewrite {
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 15, 2 );
 		add_filter( 'url_to_postid', array( $this, 'filter_url_to_postid' ) );
 		add_action( 'wp_loaded', [ $this, 'maybe_delayed_flush_rewrite_rules' ] );
+		add_action( 'template_redirect', [ $this, 'filter_pagination_base' ], 1 );
 	}
 
 	/**
