@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.3.3] TBD =
+
+* Version - The Events Calendar 6.3.1 is only compatible with Event Tickets 5.8.1 and higher.
+
 = [6.3.1] 2024-01-24 =
 
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
