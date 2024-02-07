@@ -228,10 +228,11 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * Mind that "all" means "all the posts matching all the filters" so pagination applies.
 	 *
-	 * @return array
+	 * @return array|\Generator List of posts found.
 	 */
 	public function all( $return_generator = false, int $batch_size = 50 ) {
 		// @todo [BTRIA-595]: Implement all() method.
+		return [];
 	}
 
 	/**
