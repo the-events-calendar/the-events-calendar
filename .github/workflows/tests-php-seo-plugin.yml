@@ -9,6 +9,7 @@ on:
       - 'composer.lock'
       - 'codeception.dist.yml'
       - '.github/workflows/tests-php.yaml'
+      - '.github/workflows/tests-php-seo-plugin.yml'
 jobs:
   test:
     strategy:

@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 6.2.0
-Stable tag: 6.3.1
-Tested up to: 6.4.2
+Requires at least: 6.2
+Stable tag: 6.3.3
+Tested up to: 6.4.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -235,6 +235,12 @@ Remember to always make a backup of your database and files before updating!
 
 * Version - The Events Calendar 6.3.1 is only compatible with Event Tickets 5.8.1 and higher.
 * Tweak - Refactored some of the underlying structure for Block Template architecture. [ECP-1620]
+
+= [6.3.2] 2024-02-06 =
+
+* Tweak - Share statistical information to Event Tickets plugin when active. [ET-1925]
+* Fix - Improve the usage of the shortcodes around Event Details.
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.1] 2024-01-24 =
 
