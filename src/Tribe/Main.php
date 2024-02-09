@@ -683,7 +683,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( TEC\Events\Blocks\Controller::class );
 
 			// Site Editor
-			tribe_register_provider( TEC\Events\Editor\Full_Site\Controller::class );
+			tribe_register_provider( TEC\Events\Block_Templates\Controller::class );
 
 			// Load the new third-party integration system.
 			tribe_register_provider( TEC\Events\Integrations\Provider::class );

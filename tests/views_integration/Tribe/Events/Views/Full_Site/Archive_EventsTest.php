@@ -3,7 +3,7 @@
 namespace Tribe\Events\Editor\Full_Site;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use TEC\Events\Editor\Full_Site\Archive_Block_Template;
+use TEC\Events\Blocks\Archive_Events\Block;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class Archive_EventsTest extends HtmlTestCase {
@@ -37,7 +37,7 @@ class Archive_EventsTest extends HtmlTestCase {
 	 * Utility method to render the block and return the content.
 	 */
 	private function render_archive_events_block(): string {
-		return ( new Archive_Block_Template() )->render();
+		return ( new Block() )->render();
 	}
 
 	/**
