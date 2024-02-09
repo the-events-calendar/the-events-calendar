@@ -9,7 +9,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since TBD Decoupled from Block Templates, focusing on Block requirements and a cleaner separation of concerns.
+ * @since   TBD Decoupled from Block Templates, focusing on Block requirements and a cleaner separation of concerns.
  * @since   6.2.7
  *
  * @package TEC\Events\Blocks
@@ -58,6 +58,7 @@ class Controller extends Controller_Contract {
 	 * Registers the Events Archive block.
 	 *
 	 * @since 6.2.7
+	 * @since TBD Renamed function.
 	 */
 	public function register_archive_events_block() {
 		return $this->container->make( Archive_Events_Block::class )->register();
@@ -67,8 +68,33 @@ class Controller extends Controller_Contract {
 	 * Registers the Single Event block.
 	 *
 	 * @since 6.2.7
+	 * @since TBD Renamed function.
 	 */
 	public function register_single_event_block() {
 		return $this->container->make( Single_Event_Block::class )->register();
+	}
+
+	/**
+	 * Registers the Events Archive template.
+	 *
+	 * @since      6.2.7
+	 * @deprecated TBD
+	 */
+	public function action_register_archive_template() {
+		_deprecated_function( __FUNCTION__, 'TBD' );
+
+		return $this->register_archive_events_block();
+	}
+
+	/**
+	 * Registers the Single Event template.
+	 *
+	 * @since      6.2.7
+	 * @deprecated TBD
+	 */
+	public function action_register_single_event_template() {
+		_deprecated_function( __FUNCTION__, 'TBD' );
+
+		return $this->register_single_event_block();
 	}
 }
