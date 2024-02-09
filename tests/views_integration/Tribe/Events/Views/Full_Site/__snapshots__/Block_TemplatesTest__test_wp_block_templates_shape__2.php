@@ -4,9 +4,9 @@
   'area' => NULL,
   'post_types' => NULL,
   'origin' => NULL,
-  'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentyfour"} /-->
+  'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentythree"} /-->
 <!-- wp:tec/archive-events /-->
-<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentyfour"} /-->
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentythree"} /-->
 ',
   'title' => 'Calendar Views (Event Archive)',
   'description' => 'Displays the calendar views.',
