@@ -244,6 +244,7 @@ class Event_Period implements Core_Read_Interface {
 	 */
 	public function all( $return_generator = false, int $batch_size = 50 ) {
 		// @todo [BTRIA-595]: Implement all() method.
+		return [];
 	}
 
 	/**
@@ -571,14 +572,17 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Gets the ids of the posts matching the query.
 	 *
-	 * @since 4.9.13
+	 * @since 4.1.3
+	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
 	 *
-	 * @param int  $offset    The offset to set; optional, unused.
-	 * @param bool $increment Whether to increment the offset by the value or replace it; optional, unused.
+	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
+	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
+	 *                               if `$return_generator` is false.
 	 *
-	 * @return array An array containing the post IDs to update.
+	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
+	 *                                   if `$return_generator` is true.
 	 */
-	public function get_ids( $offset = 0, $increment = false ) {
+	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
 		return $this->get_sets_ids( $this->get_sets() );
 	}
 
