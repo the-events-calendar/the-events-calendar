@@ -572,7 +572,7 @@ class Event_Period implements Core_Read_Interface {
 	/**
 	 * Gets the ids of the posts matching the query.
 	 *
-	 * @since 4.1.3
+	 * @since 4.9.13
 	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
 	 *
 	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
