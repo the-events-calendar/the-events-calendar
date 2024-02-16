@@ -101,7 +101,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'author',
 				'thumbnail',
 				'custom-fields',
-				'comments',
 				'revisions',
 			],
 			'taxonomies'      => [ 'post_tag' ],
