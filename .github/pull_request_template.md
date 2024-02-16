@@ -18,7 +18,8 @@ Include any important information for reviewers
 
 ### ✔️ Checklist
 - [ ] Changelog entry in the `readme.txt` file.
-- [ ] Code is covered by `wpunit` or `integration` tests.
+- [ ] Code is covered by **NEW** `wpunit` or `integration` tests.
+- [ ] Code is covered by **EXISTING** `wpunit` or `integration` tests.
 - [ ] Are all the **required** tests passing?
 - [ ] Automated code review comments are addressed.
 - [ ] Have you added Artifacts?
