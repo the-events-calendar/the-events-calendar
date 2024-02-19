@@ -1,10 +1,12 @@
 <?php
+/**
+ * Handles the display settings for The Events Calendar.
+ */
 
-use \Tribe\Events\Views\V2\Manager;
+use Tribe\Events\Views\V2\Manager;
 
-$tec  = Tribe__Events__Main::instance();
-$tcmn = Tribe__Main::instance();
-$ecp  = defined( 'EVENTS_CALENDAR_PRO_FILE' );
+$tec = Tribe__Events__Main::instance();
+$ecp = defined( 'EVENTS_CALENDAR_PRO_FILE' );
 
 $template_options = [
 	''        => esc_html__( 'Default Events Template', 'the-events-calendar' ),
@@ -21,7 +23,11 @@ $tribe_enable_views_tooltip = esc_html__( 'You must select at least one view.', 
 
 if ( $ecp && tribe_is_using_basic_gmaps_api() ) {
 	$tribe_enable_views_tooltip .= ' ' . sprintf(
-		__( 'Please note that you are using The Events Calendar\'s default Google Maps API key, which will limit the Map View\'s functionality. Visit <a href="edit.php?page=tribe-common&tab=addons&post_type=%s">the Integrations Settings page</a> to learn more and add your own Google Maps API key.', 'the-events-calendar' ),
+		/* Translators: %s:post_type slug for tribe_events. */
+		__(
+			'Please note that you are using The Events Calendar\'s default Google Maps API key, which will limit the Map View\'s functionality. Visit <a href="edit.php?page=tribe-common&tab=addons&post_type=%s">the Integrations Settings page</a> to learn more and add your own Google Maps API key.',
+			'the-events-calendar'
+		),
 		Tribe__Events__Main::POSTTYPE
 	);
 }
@@ -38,18 +44,18 @@ $tec_events_display_fields = [
 	],
 	'info-box-title'       => [
 		'type' => 'html',
-		'html' => '<h2>' . __( 'Display Settings', 'Display settings tab header', 'the-events-calendar' ) . '</h2>',
+		'html' => '<h2>' . _x( 'Display Settings', 'Display settings tab header', 'the-events-calendar' ) . '</h2>',
 	],
 	'info-box-description' => [
 		'type' => 'html',
 		'html' => '<p>'
-		          . __( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). ', 'the-events-calendar' )
-		          . sprintf(
-						/* Translators: %s: URL to knowledgebase. Please continue to use &#37; for % to avoid PHP warnings. */
-						__( ' Check out our <a href="%s" rel="noopener" target="_blank">customization guide</a> for instructions on template modifications.', 'the-events-calendar' ),
-						esc_url( 'https://evnt.is/1bbs' )
-		          	)
-		          . '</p>',
+			. __( 'The settings below control the display of your calendar. If things don\'t look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). ', 'the-events-calendar' )
+			. sprintf(
+				/* Translators: %s: URL to knowledgebase. Please continue to use &#37; for % to avoid PHP warnings. */
+				__( ' Check out our <a href="%s" rel="noopener" target="_blank">customization guide</a> for instructions on template modifications.', 'the-events-calendar' ),
+				esc_url( 'https://evnt.is/1bbs' )
+			)
+			. '</p>',
 	],
 	'info-end'             => [
 		'type' => 'html',
@@ -58,7 +64,7 @@ $tec_events_display_fields = [
 ];
 
 
-// Add the TOC
+// Add the TOC.
 $tec_events_general_toc = [
 	'tec-events-settings-display-toc-nav-start'  => [
 		'type' => 'html',
@@ -122,7 +128,7 @@ $tec_events_display_fields += $tec_events_general_form_end;
 $tec_events_display_template_settings = [
 	'tribe-events-calendar-display-template-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-template-calendar">' . __( 'Calendar Template', 'Template display settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-template-calendar">' . _x( 'Calendar Template', 'Template display settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'stylesheetOption'                             => [ 'type' => 'html' ],
 	'stylesheet_mode'                              => [
@@ -131,19 +137,19 @@ $tec_events_display_template_settings = [
 		'default'         => 'tribe',
 		'options'         => [
 			'skeleton' => __( 'Skeleton Styles', 'the-events-calendar' )
-			              . '<p class=\'description tribe-style-selection\'>'
-			              . __(
-								'Only includes enough css to achieve complex layouts like calendar and week view.',
-								'the-events-calendar'
-			              	)
-			              . '</p>',
+				. '<p class=\'description tribe-style-selection\'>'
+				. __(
+					'Only includes enough css to achieve complex layouts like calendar and week view.',
+					'the-events-calendar'
+				)
+				. '</p>',
 			'tribe'    => __( 'Default Styles', 'the-events-calendar' )
-			              . '<p class=\'description tribe-style-selection\'>'
-			              . __(
-								'A fully designed and styled theme for your events pages.',
-								'the-events-calendar'
-			              	)
-			              . '</p>',
+				. '<p class=\'description tribe-style-selection\'>'
+				. __(
+					'A fully designed and styled theme for your events pages.',
+					'the-events-calendar'
+				)
+				. '</p>',
 		],
 		'validation_type' => 'options',
 	],
@@ -165,7 +171,7 @@ $tec_events_display_fields += $tec_events_display_template_settings;
 $tec_events_display_template = [
 	'tribe-events-calendar-display-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-calendar">' . __( 'Calendar Display', 'Calendar display settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-calendar">' . _x( 'Calendar Display', 'Calendar display settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'stylesheetOption'                    => [ 'type' => 'html' ],
 	'tribeEnableViews'                    => [
@@ -198,6 +204,7 @@ $tec_events_display_template = [
 		'type'            => 'text',
 		'label'           => __( 'Month view events per day', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
+			/* Translators: %s: URL to knowledgebase. */
 			__( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ),
 			'https://evnt.is/rh'
 		),
@@ -231,30 +238,32 @@ $tec_events_display_template = [
 
 $tec_events_display_fields += $tec_events_display_template;
 
-$sample_date = strtotime( 'January 15 ' . date( 'Y' ) );
+$sample_date = strtotime( 'January 15 ' . gmdate( 'Y' ) );
 
 // Date Format Settings.
 $tec_events_date_fields = [
 	'tribeEventsDateFormatSettingsTitle' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-date">' . esc_html__( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-date">' . esc_html_x( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEventsDateFormatExplanation'   => [
 		'type' => 'html',
 		'html' => '<p>'
-		          . sprintf(
-			          __( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'the-events-calendar' ),
-			          '<code>date()</code>',
-			          'https://wordpress.org/support/article/formatting-date-and-time/'
-		          )
-		          . '</p>',
+			. sprintf(
+				/* Translators: %1$s: PHP date function, %2$s: URL to WP knowledgebase. */
+				__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'the-events-calendar' ),
+				'<code>date()</code>',
+				'https://wordpress.org/support/article/formatting-date-and-time/'
+			)
+			. '</p>',
 	],
 	'dateWithYearFormat'                 => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Date with year format', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
+			/* Translators: %1$s: Example date with year format. */
 			esc_html__( 'Enter the format to use for displaying dates with the year. Used when showing an event from a future year. Example: %1$s', 'the-events-calendar' ),
-			date(
+			gmdate(
 				tribe_get_option(
 					'dateWithYearFormat',
 					get_option( 'date_format', 'F j, Y' )
@@ -270,8 +279,9 @@ $tec_events_date_fields = [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Date without year format', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
+			/* Translators: %1$s: Example date without year format. */
 			esc_html__( 'Enter the format to use for displaying dates without a year. Used when showing an event from the current year. Example: %1$s', 'the-events-calendar' ),
-			date( tribe_get_option( 'dateWithoutYearFormat', 'F j' ), $sample_date )
+			gmdate( tribe_get_option( 'dateWithoutYearFormat', 'F j' ), $sample_date )
 		),
 		'default'         => 'F j',
 		'size'            => 'medium',
@@ -281,8 +291,9 @@ $tec_events_date_fields = [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Month and year format', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
+			/* Translators: %1$s: Example month and year format. */
 			esc_html__( 'Enter the format to use for dates that show a month and year only. Used on month view. Example: %1$s', 'the-events-calendar' ),
-			date( tribe_get_option( 'monthAndYearFormat', 'F Y' ), $sample_date )
+			gmdate( tribe_get_option( 'monthAndYearFormat', 'F Y' ), $sample_date )
 		),
 		'default'         => 'F Y',
 		'size'            => 'medium',
@@ -294,18 +305,18 @@ $tec_events_date_fields = [
 		'tooltip'         => esc_html__( 'Select the date format used for elements with minimal space, such as in datepickers.', 'the-events-calendar' ),
 		'default'         => 1,
 		'options'         => [
-			'0'  => date( 'Y-m-d', $sample_date ),
-			'1'  => date( 'n/j/Y', $sample_date ),
-			'2'  => date( 'm/d/Y', $sample_date ),
-			'3'  => date( 'j/n/Y', $sample_date ),
-			'4'  => date( 'd/m/Y', $sample_date ),
-			'5'  => date( 'n-j-Y', $sample_date ),
-			'6'  => date( 'm-d-Y', $sample_date ),
-			'7'  => date( 'j-n-Y', $sample_date ),
-			'8'  => date( 'd-m-Y', $sample_date ),
-			'9'  => date( 'Y.m.d', $sample_date ),
-			'10' => date( 'm.d.Y', $sample_date ),
-			'11' => date( 'd.m.Y', $sample_date ),
+			'0'  => gmdate( 'Y-m-d', $sample_date ),
+			'1'  => gmdate( 'n/j/Y', $sample_date ),
+			'2'  => gmdate( 'm/d/Y', $sample_date ),
+			'3'  => gmdate( 'j/n/Y', $sample_date ),
+			'4'  => gmdate( 'd/m/Y', $sample_date ),
+			'5'  => gmdate( 'n-j-Y', $sample_date ),
+			'6'  => gmdate( 'm-d-Y', $sample_date ),
+			'7'  => gmdate( 'j-n-Y', $sample_date ),
+			'8'  => gmdate( 'd-m-Y', $sample_date ),
+			'9'  => gmdate( 'Y.m.d', $sample_date ),
+			'10' => gmdate( 'm.d.Y', $sample_date ),
+			'11' => gmdate( 'd.m.Y', $sample_date ),
 		],
 		'validation_type' => 'options',
 	],
@@ -358,7 +369,7 @@ $should_hide_upsell            = tec_should_hide_upsell();
 $tec_events_display_currency = [
 	'tribe-events-currency-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-currency">' . esc_html__( 'Currency', 'Currency settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-currency">' . esc_html_x( 'Currency', 'Currency settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-tickets-infobox-start'   => [
 		'type'        => 'html',
@@ -367,7 +378,7 @@ $tec_events_display_currency = [
 	],
 	'tec-tickets-infobox-logo'    => [
 		'type'        => 'html',
-		'html'        => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-et.svg', dirname( __FILE__ ) ) . '" alt="Events Tickets Logo">',
+		'html'        => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-et.svg', __DIR__ ) . '" alt="Events Tickets Logo">',
 		'conditional' => $is_missing_event_tickets_plus && ! $should_hide_upsell,
 	],
 	'tec-tickets-infobox-title'   => [
@@ -427,11 +438,11 @@ $tec_events_display_fields += $tec_events_display_currency;
 $tec_events_display_maps = [
 	'tribe-google-maps-settings-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-maps">' . esc_html__( 'Maps', 'Map settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-maps">' . esc_html_x( 'Maps', 'Map settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-maps-infobox-start'           => [
 		'type' => 'html',
-		'html' => '<div class="tec-settings-infobox">'
+		'html' => '<div class="tec-settings-infobox">',
 	],
 	'tec-maps-infobox-title'           => [
 		'type' => 'html',
@@ -451,7 +462,7 @@ $tec_events_display_maps = [
 	],
 	'tec-maps-infobox-end'             => [
 		'type' => 'html',
-		'html' => '</div>'
+		'html' => '</div>',
 	],
 	'embedGoogleMaps'                  => [
 		'type'            => 'checkbox_bool',
@@ -478,7 +489,7 @@ $tec_events_display_fields += $tec_events_display_maps;
 $tec_events_display_advanced = [
 	'tribe-events-advanced-settings-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-additional">' . esc_html__( 'Additional Content', 'Additional content settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-additional">' . esc_html_x( 'Additional Content', 'Additional content settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEventsBeforeHTML'                => [
 		'type'            => 'wysiwyg',
@@ -501,7 +512,7 @@ $tec_events_display_fields += [
 	'tribe-form-content-end' => [
 		'type' => 'html',
 		'html' => '</div>',
-	]
+	],
 ];
 
 /**
@@ -510,7 +521,6 @@ $tec_events_display_fields += [
  * @see Tribe__Field
  *
  * @param array $fields a nested associative array of fields & field info passed to Tribe__Field
- *
  */
 $tec_events_display_fields = apply_filters( 'tec_events_display_settings_tab_fields', $tec_events_display_fields );
 
