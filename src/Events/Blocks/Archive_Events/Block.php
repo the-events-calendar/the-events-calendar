@@ -5,13 +5,13 @@ namespace TEC\Events\Blocks\Archive_Events;
 /**
  * Class Block
  *
- * @since TBD
+ * @since 6.3.3
  *
  * @package TEC\Events\Blocks\Archive_Events
  */
 class Block extends \Tribe__Editor__Blocks__Abstract {
 	/**
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @var string The namespace of this template.
 	 */
@@ -20,7 +20,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Returns the name/slug of this block.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @return string The name/slug of this block.
 	 */
@@ -31,7 +31,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Set the default attributes of this block.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @return array<string,mixed> The array of default attributes.
 	 */
@@ -42,7 +42,7 @@ class Block extends \Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @param array $attributes The block attributes.
 	 *
