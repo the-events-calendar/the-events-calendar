@@ -231,17 +231,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
 = [TBD] TBD =
 
 * Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
-=======
+
 = [6.3.2] 2024-02-06 =
 
 * Tweak - Share statistical information to Event Tickets plugin when active. [ET-1925]
 * Fix - Improve the usage of the shortcodes around Event Details.
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
->>>>>>> master
 
 = [6.3.1] 2024-01-24 =
 
