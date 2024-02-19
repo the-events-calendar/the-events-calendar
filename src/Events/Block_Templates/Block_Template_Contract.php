@@ -7,14 +7,14 @@ use WP_Block_Template;
 /**
  * Interface Block_Template_Contract
  *
- * @since TBD Moved and decoupled from Block API requirements, focusing on Template requirements.
+ * @since 6.3.3 Moved and decoupled from Block API requirements, focusing on Template requirements.
  * @since 6.2.7
  */
 interface Block_Template_Contract {
 	/**
 	 * Which is the name/slug of this template block.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @return string
 	 */
