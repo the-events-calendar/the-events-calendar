@@ -10,7 +10,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since TBD Moved and decoupled from Block API requirements, focusing on Template requirements.
+ * @since 6.3.3 Moved and decoupled from Block API requirements, focusing on Template requirements.
  * @since   6.2.7
  *
  * @package TEC\Events\Block_Templates
@@ -79,7 +79,7 @@ class Controller extends Controller_Contract {
 				'filter_single_template_hierarchy',
 			],
 			10,
-			1 
+			1
 		);
 	}
 
@@ -101,7 +101,7 @@ class Controller extends Controller_Contract {
 				$this,
 				'filter_single_template_hierarchy',
 			],
-			10 
+			10
 		);
 	}
 
