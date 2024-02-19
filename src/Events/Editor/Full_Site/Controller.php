@@ -6,13 +6,13 @@ use \Tribe__Events__Main as Events_Main;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
-_deprecated_file( __FILE__, 'TBD' );
+_deprecated_file( __FILE__, '6.3.3' );
 
 /**
  * Class Controller
  *
  * @since      6.2.7
- * @deprecated TBD
+ * @deprecated 6.3.3
  *
  * @package    TEC\Events\Editor\Full_Site
  */
@@ -21,10 +21,10 @@ class Controller extends Controller_Contract {
 	 * Register the provider.
 	 *
 	 * @since      6.2.7
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function do_register(): void {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$this->add_filters();
 
 		// Register the service provider itself on the container.
@@ -35,10 +35,10 @@ class Controller extends Controller_Contract {
 	 * Unhooks actions and filters.
 	 *
 	 * @since      6.2.7
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function unregister(): void {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$this->remove_filters();
 	}
 
@@ -47,10 +47,10 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since      6.2.7
 	 * @return bool Only active during FS theme.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function is_active(): bool {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return tec_is_full_site_editor();
 	}
@@ -60,10 +60,10 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since      5.14.2
 	 * @return bool Whether The current theme supports full-site editing or not.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function is_full_site_editor(): bool {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return tec_is_full_site_editor();
 	}
@@ -73,10 +73,10 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since      5.14.2
 	 * @since      6.2.7 Adding support for block templates.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	protected function add_filters() {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
 		add_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10, 3 );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
@@ -93,10 +93,10 @@ class Controller extends Controller_Contract {
 	 * Removes registered filters.
 	 *
 	 * @since      6.2.7
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function remove_filters() {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		remove_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25 );
 		remove_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10 );
 		remove_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
@@ -117,11 +117,11 @@ class Controller extends Controller_Contract {
 	 * @param string[] $templates Templates in order of display hierarchy.
 	 *
 	 * @return string[] Adjusted file name that is parsed to match our block template.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function filter_archive_template_hierarchy( $templates ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
@@ -150,11 +150,11 @@ class Controller extends Controller_Contract {
 	 * @param array $templates Templates in order of display hierarchy.
 	 *
 	 * @return array Adjusted file name that is parsed to match our block template.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function filter_single_template_hierarchy( $templates ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
@@ -179,10 +179,10 @@ class Controller extends Controller_Contract {
 	 * Registers the Events Archive template.
 	 *
 	 * @since      5.14.2
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function action_register_archive_template() {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return $this->container->make( Archive_Block_Template::class )->register();
 	}
@@ -191,10 +191,10 @@ class Controller extends Controller_Contract {
 	 * Registers the Single Event template.
 	 *
 	 * @since      6.2.7
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function action_register_single_event_template() {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return $this->container->make( Single_Block_Template::class )->register();
 	}
@@ -215,11 +215,11 @@ class Controller extends Controller_Contract {
 	 *
 	 *
 	 * @return array The modified $query.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( ! is_array( $query_result ) ) {
 			return $query_result;
 		}
@@ -250,11 +250,11 @@ class Controller extends Controller_Contract {
 	 * @param string                 $template_type  The template type.
 	 *
 	 * @return null|WP_Block_Template
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function filter_include_template_by_id( $block_template, $id, $template_type ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( ! is_null( $block_template ) ) {
 			return $block_template;
 		}
@@ -278,11 +278,11 @@ class Controller extends Controller_Contract {
 	 * @param string $template_type The type of templates we are fetching.
 	 *
 	 * @return Block_Template_Contract[] List of filtered Event Calendar templates.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function get_filtered_block_templates( $template_type = 'wp_template' ): array {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$templates = [];
 		if ( $template_type === 'wp_template' ) {
 			$templates = [
@@ -310,11 +310,11 @@ class Controller extends Controller_Contract {
 	 * @param string $value The value of the option.
 	 *
 	 * @return string $value The original value, or an empty string if FSE is active.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function filter_events_template_setting_option( $value ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return tec_is_full_site_editor() ? '' : $value;
 	}
@@ -330,11 +330,11 @@ class Controller extends Controller_Contract {
 	 * @param string $option_name Name of the option.
 	 *
 	 * @return mixed results of option query.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function filter_tribe_get_single_option( $option, $default, $option_name ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( 'tribeEventsTemplate' !== $option_name ) {
 			return $option;
 		}
@@ -356,11 +356,11 @@ class Controller extends Controller_Contract {
 	 * @param string               $option_id The main option ID.
 	 *
 	 * @return array<string, mixed> $options   The array of values to save. In the format option key => value.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 *
 	 */
 	public function filter_tribe_save_template_option( $options, $option_id ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( tec_is_full_site_editor() ) {
 			$options['tribeEventsTemplate'] = '';
 		}
