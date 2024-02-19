@@ -11,14 +11,14 @@ use TEC\Events\Block_Templates\Block_Template_Contract;
 /**
  * Class Archive_Block_Template
  *
- * @since TBD Moved and renamed class, decoupled from Tribe__Editor__Blocks__Abstract.
+ * @since 6.3.3 Moved and renamed class, decoupled from Tribe__Editor__Blocks__Abstract.
  * @since   6.2.7
  *
  * @package TEC\Events\Block_Templates\Archive_Events
  */
 class Archive_Block_Template implements Block_Template_Contract {
 	/**
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @var Block The registered block for this template.
 	 */
@@ -27,7 +27,7 @@ class Archive_Block_Template implements Block_Template_Contract {
 	/**
 	 * Constructor for Single Venue Block Template.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @param Block $block The registered Block for Single Venue.
 	 */
@@ -38,7 +38,7 @@ class Archive_Block_Template implements Block_Template_Contract {
 	/**
 	 * Which is the name/slug of this template block.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @return string
 	 */
@@ -80,7 +80,7 @@ class Archive_Block_Template implements Block_Template_Contract {
 			'post_content' => Template_Utils::inject_theme_attribute_in_content(
 				file_get_contents(
 					Tribe__Events__Main::instance()->plugin_path . '/src/Events/Block_Templates/Archive_Events/templates/archive-events.html'
-				) 
+				)
 			),
 			'tax_input'    => [
 				'wp_theme' => $this->block->get_namespace(),
@@ -116,7 +116,7 @@ class Archive_Block_Template implements Block_Template_Contract {
 					'method'    => __METHOD__,
 					'slug'      => $this->block->slug(),
 					'namespace' => $this->block->get_namespace(),
-				] 
+				]
 			);
 		}
 
