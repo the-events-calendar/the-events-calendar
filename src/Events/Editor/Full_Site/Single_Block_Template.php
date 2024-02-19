@@ -6,13 +6,13 @@ use Tribe__Events__Main;
 use TEC\Common\Editor\Full_Site\Template_Utils;
 use WP_Block_Template;
 
-_deprecated_file( __FILE__, 'TBD' );
+_deprecated_file( __FILE__, '6.3.3' );
 
 /**
  * Class Single_Block_Templates
  *
  * @since      6.2.7
- * @deprecated TBD
+ * @deprecated 6.3.3
  *
  * @package    TEC\Events\Editor\Full_Site
  */
@@ -29,10 +29,10 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 *
 	 * @since      6.2.7
 	 * @return string The name/slug of this block.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function slug(): string {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return 'single-event';
 	}
@@ -42,10 +42,10 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 *
 	 * @since      6.2.7
 	 * @return string The WP Block Template ID.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function id(): string {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return $this->get_namespace() . '//' . $this->slug();
 	}
@@ -55,10 +55,10 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 *
 	 * @since      6.2.7
 	 * @return array<string,mixed> The array of default attributes.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function default_attributes(): array {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 
 		return [];
 	}
@@ -71,10 +71,10 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 * @param array $attributes The block attributes.
 	 *
 	 * @return string The block HTML.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function render( $attributes = [] ): string {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$args['attributes'] = $this->attributes( $attributes );
 
 		// Add the rendering attributes into global context.
@@ -88,10 +88,10 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 *
 	 * @since      6.2.7
 	 * @return null|WP_Block_Template The hydrated single event template object.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	protected function create_wp_block_template(): ?WP_Block_Template {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		/* translators: %s: Event (singular) */
 		$post_title = sprintf(
 			esc_html_x( '%s Single', 'The Full Site editor block navigation title', 'the-events-calendar' ), tribe_get_event_label_singular()
@@ -125,10 +125,10 @@ class Single_Block_Template extends \Tribe__Editor__Blocks__Abstract implements 
 	 *
 	 * @since      6.2.7
 	 * @return null|WP_Block_Template The hydrated single events template object.
-	 * @deprecated TBD
+	 * @deprecated 6.3.3
 	 */
 	public function get_block_template(): ?WP_Block_Template {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$wp_block_template = Template_Utils::find_block_template_by_post( $this->slug(), $this->get_namespace() );
 
 		// If empty, this is our first time loading our Block Template. Let's create it.
