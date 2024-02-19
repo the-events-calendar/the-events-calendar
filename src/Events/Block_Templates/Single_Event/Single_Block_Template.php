@@ -11,14 +11,14 @@ use TEC\Events\Block_Templates\Block_Template_Contract;
 /**
  * Class Single_Block_Template
  *
- * @since TBD Moved and decoupled from Block API requirements, focusing on Template requirements.
+ * @since 6.3.3 Moved and decoupled from Block API requirements, focusing on Template requirements.
  * @since   6.2.7
  *
  * @package TEC\Events\Block_Templates\Single_Event
  */
 class Single_Block_Template implements Block_Template_Contract {
 	/**
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @var Block The registered block for this template.
 	 */
@@ -27,7 +27,7 @@ class Single_Block_Template implements Block_Template_Contract {
 	/**
 	 * Constructor for Single Event Block Template.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @param Block $block The registered Block for Single Event.
 	 */
@@ -38,7 +38,7 @@ class Single_Block_Template implements Block_Template_Contract {
 	/**
 	 * Which is the name/slug of this template block.
 	 *
-	 * @since TBD
+	 * @since 6.3.3
 	 *
 	 * @return string
 	 */
@@ -120,7 +120,7 @@ class Single_Block_Template implements Block_Template_Contract {
 					'method'    => __METHOD__,
 					'slug'      => $this->block->slug(),
 					'namespace' => $this->block->get_namespace(),
-				] 
+				]
 			);
 		}
 
