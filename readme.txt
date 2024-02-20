@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
+* Tweak - converted some uses of `date()` to `gmdate()` for display in the date settings section. [ECP-1618]
 
 = [6.3.2] 2024-02-06 =
 
