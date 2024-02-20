@@ -105,8 +105,8 @@ function tribe_is_by_date(): bool {
 	 * Typically Month and Day Views.
 	 * Events PRO hooks in here to indicate that Week View is a by-date-view at 10.
 	 *
-	 * @param bool $tribe_is_by_date Whether a "by date" calendar view is currently being displayed.
-	 * @param Tribe__Context The global context object.
+	 * @param bool           $tribe_is_by_date Whether a "by date" calendar view is currently being displayed.
+	 * @param Tribe__Context $context          The global context object.
 	 */
 	return (bool) apply_filters( 'tribe_is_by_date', (bool) $tribe_is_by_date, $context );
 }
@@ -205,9 +205,9 @@ function tribe_get_events_title( $depth = true ) {
 	/**
 	 * Allows for customization of the "Events" page title.
 	 *
-	 * @param string $title The "Events" page title as it's been generated thus far.
-	 * @param bool   $depth Whether to include the linked title or not.
-	 * @param Context $context The context used to build the title, it could be the global one
+	 * @param string         $title   The "Events" page title as it's been generated thus far.
+	 * @param bool           $depth   Whether to include the linked title or not.
+	 * @param Tribe__Context $context The context used to build the title, it could be the global one
 	 */
 	return apply_filters( 'tribe_get_events_title', $title, $depth, $context );
 }
@@ -526,8 +526,9 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	 *
 	 * @since 6.0.7
 	 *
-	 * @param boolean $is_view Whether you're on the View or not
-	 * @param Tribe__Context The global context object.
+	 * @param boolean        $is_view   Whether you're on the View or not
+	 * @param string         $view_slug The view slug.
+	 * @param Tribe__Context $context   The global context object.
 	 */
 	$is_view = apply_filters( 'tec_is_view', $is_view, $view_slug, $context );
 
@@ -536,8 +537,8 @@ function tec_is_view( string $view_slug = 'default', $context = null ): bool {
 	 *
 	 * @since 6.0.7
 	 *
-	 * @param boolean $is_view Whether you're on the View or not
-	 * @param Tribe__Context The global context object.
+	 * @param boolean        $is_view Whether you're on the View or not
+	 * @param Tribe__Context $context The global context object.
 	 */
 	return (bool) apply_filters( "tec_is_{$view_slug}_view", $is_view, $context );
 }
