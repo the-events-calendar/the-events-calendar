@@ -21,7 +21,7 @@ class Tribe__Events__Front_Page_View {
 		add_action( 'admin_init', [ $this, 'backwards_compatible' ] );
 
 		// Allow to set negative numbers on the homepage.
-		add_action( 'sanitize_option_show_on_front', [ $this, 'save_show_on_front' ], 10, 3 );
+		//add_action( 'sanitize_option_show_on_front', [ $this, 'save_show_on_front' ], 10, 3 );
 		add_action( 'sanitize_option_page_on_front', [ $this, 'save_page_on_front' ], 10, 3 );
 		// Insert the main Events page on the Customizer and Reading settings option
 		add_filter( 'wp_dropdown_pages', [ $this, 'add_events_page_option' ], 10, 3 );
