@@ -21,7 +21,7 @@ class Tribe__Events__Front_Page_View {
 		add_action( 'admin_init', [ $this, 'backwards_compatible' ] );
 
 		// Allow to set negative numbers on the homepage.
-		//add_action( 'sanitize_option_show_on_front', [ $this, 'save_show_on_front' ], 10, 3 );
+		add_action( 'sanitize_option_show_on_front', [ $this, 'save_show_on_front' ], 10, 3 );
 		add_action( 'sanitize_option_page_on_front', [ $this, 'save_page_on_front' ], 10, 3 );
 		// Insert the main Events page on the Customizer and Reading settings option
 		add_filter( 'wp_dropdown_pages', [ $this, 'add_events_page_option' ], 10, 3 );
@@ -265,10 +265,12 @@ class Tribe__Events__Front_Page_View {
 	 * @return mixed
 	 */
 	public function save_show_on_front( $value ) {
-		if ( 'posts' === $value ) {
-			tribe_update_option( 'front_page_event_archive', false );
+		if ( $value === 'posts' && ! doing_action( 'wp_initialize_site' ) ) {
 			update_option( 'page_on_front', 0 );
 			update_option( 'page_for_posts', 0 );
+		}
+		if ( $value === 'posts' ) {
+			tribe_update_option( 'front_page_event_archive', false );
 		} elseif ( 'page' === $value && $this->is_virtual_page_on_front() ) {
 			tribe_update_option( 'front_page_event_archive', true );
 		}
