@@ -72,9 +72,9 @@ class Event_Modifier {
 		}
 
 		// Add the event title.
-		$data['secondary'][] = [
+		$data['primary'][] = [
 			'key'   => 'event_title',
-			'label' => esc_html__( 'Event', 'the-events-calendar' ),
+			'label' => '',
 			'value' => $event->post_title,
 		];
 
@@ -126,6 +126,7 @@ class Event_Modifier {
 
 		$event_id = $pass->get_event_id();
 		// @todo Redscar - Confirm tribe_is_event_series() is the correct function to use.
+		// Rafsun recommended https://lw.slack.com/archives/C01S5CC5MJB/p1707751086764209
 		$is_series_pass = tribe_is_event_series( $event_id );
 
 		if ( ! $is_series_pass ) {
@@ -157,7 +158,7 @@ class Event_Modifier {
 			'value' => $event_time_value,
 		];
 
-		$data['secondary'][] = [
+		$data['back'][] = [
 			'key'   => 'event_dates',
 			'label' => esc_html__(
 				'Event Dates',
@@ -165,6 +166,20 @@ class Event_Modifier {
 			),
 			'value' => $event_dates_value,
 		];
+
+		// Change the ticket_title to display 'Series Pass'.
+		$back_keys  = array_column(
+			$data['back'],
+			'key'
+		);
+		$back_index = array_search(
+			'ticket_title',
+			$back_keys
+		);
+		if ( false !== $back_index ) {
+			// 'ticket_title' exists, update its value.
+			$data['back'][ $back_index ]['label'] = 'Series Pass';
+		}
 
 		return $data;
 	}
@@ -215,11 +230,11 @@ class Event_Modifier {
 
 		$data['header'][] = [
 			'key'   => 'event_date_time_range',
-			'label' => '', // No label for Series Passes.
+			'label' => '',
 			'value' => $event_time_value,
 		];
 
-		$data['secondary'][] = [
+		$data['back'][] = [
 			'key'   => 'event_dates',
 			'label' => esc_html__(
 				'Event Dates',
@@ -227,7 +242,6 @@ class Event_Modifier {
 			),
 			'value' => $event_dates_value,
 		];
-
 
 		return $data;
 	}
@@ -261,7 +275,7 @@ class Event_Modifier {
 		$event_id = $pass->get_event_id();
 		$event    = tribe_get_event( $event_id );
 
-		$event_spans_multiple_days = $event->dates->start->format( 'Y-m-d' ) !== $event->dates->end->format( 'Y-m-d' );
+		$event_spans_multiple_days = tribe_get_start_date( $event_id ) !== tribe_get_end_date( $event_id );
 
 		if ( $event_spans_multiple_days ) {
 			return $data;
