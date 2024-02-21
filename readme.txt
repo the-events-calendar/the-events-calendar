@@ -231,9 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+
 = [6.3.3.1] TBD =
 
-
+* Fix - On a multisite using Wordpress 6.4.3 there was an issue with the subsite options not being properly created during initialization.
 
 = [6.3.3] 2024-02-19 =
 

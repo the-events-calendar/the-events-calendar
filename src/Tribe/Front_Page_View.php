@@ -265,10 +265,12 @@ class Tribe__Events__Front_Page_View {
 	 * @return mixed
 	 */
 	public function save_show_on_front( $value ) {
-		if ( 'posts' === $value ) {
-			tribe_update_option( 'front_page_event_archive', false );
+		if ( $value === 'posts' && ! doing_action( 'wp_initialize_site' ) ) {
 			update_option( 'page_on_front', 0 );
 			update_option( 'page_for_posts', 0 );
+		}
+		if ( $value === 'posts' ) {
+			tribe_update_option( 'front_page_event_archive', false );
 		} elseif ( 'page' === $value && $this->is_virtual_page_on_front() ) {
 			tribe_update_option( 'front_page_event_archive', true );
 		}
