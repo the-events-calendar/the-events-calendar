@@ -63,14 +63,6 @@ class Event_Modifier {
 			return $data;
 		}
 
-		if ( empty( $data['secondary'] ) || ! is_array( $data['secondary'] ) ) {
-			$data['secondary'] = [];
-		}
-
-		if ( empty( $data['auxiliary'] ) || ! is_array( $data['auxiliary'] ) ) {
-			$data['auxiliary'] = [];
-		}
-
 		// Add the event title.
 		$data['primary'][] = [
 			'key'   => 'event_title',
@@ -84,15 +76,17 @@ class Event_Modifier {
 	/**
 	 * Helper function to format the date and time to display on the pass.
 	 *
-	 * @param $start
-	 * @param $end
+	 * @since TBD
+	 *
+	 * @param DateTimeImmutable $start The start date and time.
+	 * @param DateTimeImmutable $end The end date and time.
 	 *
 	 * @return string
 	 */
 	private function format_date_time_range(
-		$start,
-		$end
-	) {
+		DateTimeImmutable $start,
+		DateTimeImmutable $end
+	): string {
 		$formatted_start = $start->format( $this->date_format ) . ' @ ' . $start->format( $this->time_format );
 		$formatted_end   = $end->format( $this->date_format ) . ' @ ' . $end->format( $this->time_format );
 		return $formatted_start . ' - ' . $formatted_end;
@@ -100,6 +94,8 @@ class Event_Modifier {
 
 	/**
 	 * Add the Event Date for series.
+	 *
+	 * @since TBD
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -186,6 +182,8 @@ class Event_Modifier {
 
 	/**
 	 * Add the Event Date for multiday events.
+	 *
+	 * @since TBD
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -275,7 +273,7 @@ class Event_Modifier {
 		$event_id = $pass->get_event_id();
 		$event    = tribe_get_event( $event_id );
 
-		$event_spans_multiple_days = tribe_get_start_date( $event_id ) !== tribe_get_end_date( $event_id );
+		$event_spans_multiple_days = tribe_get_start_date( $event_id, false ) !== tribe_get_end_date( $event_id, false );
 
 		if ( $event_spans_multiple_days ) {
 			return $data;
@@ -291,6 +289,14 @@ class Event_Modifier {
 			'value' => $event_time_value,
 		];
 
+		$data['back'][] = [
+			'key'   => 'event_date_time_range',
+			'label' => 'Event Dates',
+			'value' => tribe_get_start_date(
+				$event_id
+			),
+		];
+
 		return $data;
 	}
 
@@ -298,6 +304,7 @@ class Event_Modifier {
 	 * Add the Venue data into the Apple Pass `back` data.
 	 *
 	 * @since 6.2.8
+	 * @since TBD Added Location to the back of the pass.
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -331,6 +338,35 @@ class Event_Modifier {
 			'label' => esc_html__( 'Venue', 'the-events-calendar' ),
 			'value' => $venue->post_title,
 		];
+
+
+		$venue_location_parts = [];
+
+		// Concatenate address and city without a comma, only add if non-empty.
+		if ( ! empty( $venue->address ) || ! empty( $venue->city ) ) {
+			$venue_location_parts[] = trim( $venue->address . ' ' . $venue->city );
+		}
+
+		// Append zip and state if they are not empty, with commas as appropriate.
+		if ( ! empty( $venue->zip ) ) {
+			$venue_location_parts[] = $venue->zip;
+		}
+		if ( ! empty( $venue->state ) ) {
+			$venue_location_parts[] = $venue->state;
+		}
+
+		// Combine the parts into a string, separating by a comma only between zip and state.
+		$venue_location = implode(
+			', ',
+			$venue_location_parts
+		);
+		if ( ! empty( $venue_location_parts ) ) {
+			$data['back'][] = [
+				'key'   => 'venue_location',
+				'label' => esc_html__( 'Location', 'the-events-calendar' ),
+				'value' => $venue_location,
+			];
+		}
 
 		return $data;
 	}
