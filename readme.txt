@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2
-Stable tag: 6.3.3
+Stable tag: 6.3.3.1
 Tested up to: 6.4.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,7 +231,8 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+
+= [6.3.3.1] TBD =
 
 * Fix - On a multisite using Wordpress 6.4.3 there was an issue with the subsite options not being properly created during initialization.
 
