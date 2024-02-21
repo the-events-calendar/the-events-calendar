@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - On a multisite using Wordpress 6.4.3 there was an issue with the subsite options not being properly created during initialization.
+
 = [6.3.3] 2024-02-19 =
 
 * Version - The Events Calendar 6.3.1 is only compatible with Event Tickets 5.8.1 and higher.
