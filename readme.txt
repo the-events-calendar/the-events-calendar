@@ -233,7 +233,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.3.3.1] 2024-02-22 =
 
-* Fix - On a multisite using Wordpress 6.4.3 there was an issue with the subsite options not being properly created during initialization.
+* Fix - On a multisite using Wordpress 6.4.3 there was an issue with the subsite options not being properly created during initialization. [TEC-5043]
 
 = [6.3.3] 2024-02-19 =
 
