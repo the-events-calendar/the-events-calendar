@@ -163,19 +163,26 @@ class Event_Modifier {
 			'value' => $event_dates_value,
 		];
 
-		// Change the ticket_title to display 'Series Pass'.
-		$back_keys  = array_column(
-			$data['back'],
-			'key'
-		);
-		$back_index = array_search(
+		$data = $pass->replace_label_by_key(
+			$data,
+			'back',
 			'ticket_title',
-			$back_keys
+			esc_html__(
+				'Series Pass',
+				'the-events-calendar'
+			)
 		);
-		if ( false !== $back_index ) {
-			// 'ticket_title' exists, update its value.
-			$data['back'][ $back_index ]['label'] = 'Series Pass';
-		}
+		$data = $pass->replace_label_by_key(
+			$data,
+			'auxiliary',
+			'ticket_title',
+			esc_html__(
+				'Series Pass',
+				'the-events-calendar'
+			)
+		);
+
+
 
 		return $data;
 	}
@@ -332,13 +339,6 @@ class Event_Modifier {
 		}
 
 		$venue = $event->venues[0];
-
-		$data['auxiliary'][] = [
-			'key'   => 'event_venue',
-			'label' => esc_html__( 'Venue', 'the-events-calendar' ),
-			'value' => $venue->post_title,
-		];
-
 
 		$venue_location_parts = [];
 
