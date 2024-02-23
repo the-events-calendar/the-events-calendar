@@ -108,7 +108,7 @@ class Tribe__Events__Importer__File_Reader {
 	 */
 	public function get_csv_params() {
 		$csv_params = [
-			'delimiter'  => ',',
+			'delimiter' => ',',
 			'enclosure' => '"',
 			'escape'    => '\\',
 		];
