@@ -117,10 +117,7 @@ class Event_Modifier {
 		$attendee  = $pass->get_attendee();
 		$ticket_id = $attendee['product_id'];
 		$provider  = tribe_tickets_get_ticket_provider( (int) $ticket_id );
-		$ticket    = $provider->get_ticket(
-			$event_id,
-			$ticket_id
-		);
+		$ticket = $provider->get_ticket( $event_id, $ticket_id );
 
 		if ( Series_Passes::TICKET_TYPE !== $ticket->type() ) {
 			return $data;
@@ -131,10 +128,7 @@ class Event_Modifier {
 
 		$event_time_value = $start_date->format( $this->date_format ) . '-' . $end_date->format( $this->date_format );
 
-		$event_dates_value = $this->format_date_time_range(
-			$start_date,
-			$end_date,
-		);
+		$event_dates_value = $this->format_date_time_range( $start_date, $end_date, );
 
 		$data['header'][] = [
 			'key'   => 'event_date_time_range',
