@@ -82,7 +82,7 @@ class Event_Modifier {
 	 *
 	 * @return string
 	 */
-	private function format_date_time_range( DateTimeImmutable $start, DateTimeImmutable $end ): string {
+	protected function format_date_time_range( DateTimeImmutable $start, DateTimeImmutable $end ): string {
 		$formatted_start = $start->format( $this->date_format ) . ' @ ' . $start->format( $this->time_format );
 		$formatted_end   = $end->format( $this->date_format ) . ' @ ' . $end->format( $this->time_format );
 		return $formatted_start . ' - ' . $formatted_end;
