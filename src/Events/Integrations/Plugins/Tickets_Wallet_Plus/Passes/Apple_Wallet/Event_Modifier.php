@@ -82,10 +82,7 @@ class Event_Modifier {
 	 *
 	 * @return string
 	 */
-	private function format_date_time_range(
-		DateTimeImmutable $start,
-		DateTimeImmutable $end
-	): string {
+	private function format_date_time_range( DateTimeImmutable $start, DateTimeImmutable $end ): string {
 		$formatted_start = $start->format( $this->date_format ) . ' @ ' . $start->format( $this->time_format );
 		$formatted_end   = $end->format( $this->date_format ) . ' @ ' . $end->format( $this->time_format );
 		return $formatted_start . ' - ' . $formatted_end;
@@ -101,10 +98,7 @@ class Event_Modifier {
 	 *
 	 * @return array Modified pass data.
 	 */
-	public function include_event_date_series(
-		array $data,
-		Pass  $pass
-	) {
+	public function include_event_date_series( array $data, Pass $pass ) {
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
 		if ( ! in_array(
 			\Tribe__Events__Main::POSTTYPE,
@@ -177,7 +171,6 @@ class Event_Modifier {
 		);
 
 
-
 		return $data;
 	}
 
@@ -191,17 +184,10 @@ class Event_Modifier {
 	 *
 	 * @return array Modified pass data.
 	 */
-	public function include_event_date_multiday(
-		array $data,
-		Pass $pass
-	) {
+	public function include_event_date_multiday( array $data, Pass $pass ) {
 
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
-		if ( ! in_array(
-			\Tribe__Events__Main::POSTTYPE,
-			tribe( 'tickets.main' )->post_types(),
-			true
-		) ) {
+		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $data;
 		}
 
@@ -217,13 +203,8 @@ class Event_Modifier {
 			return $data;
 		}
 
-		$event_time_value  = $event->dates->start->format( $this->date_format )
-							. '-' .
-							$event->dates->end->format( $this->date_format );
-		$event_dates_value = $this->format_date_time_range(
-			$event->dates->start,
-			$event->dates->end
-		);
+		$event_time_value  = $event->dates->start->format( $this->date_format ) . '-' . $event->dates->end->format( $this->date_format );
+		$event_dates_value = $this->format_date_time_range( $event->dates->start, $event->dates->end );
 
 		$data['header'][] = [
 			'key'   => 'event_date_time_range',
@@ -251,16 +232,9 @@ class Event_Modifier {
 	 *
 	 * @return array
 	 */
-	public function include_event_date_single(
-		array $data,
-		Pass $pass
-	): array {
+	public function include_event_date_single( array $data, Pass $pass ): array {
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
-		if ( ! in_array(
-			\Tribe__Events__Main::POSTTYPE,
-			tribe( 'tickets.main' )->post_types(),
-			true
-		) ) {
+		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $data;
 		}
 
@@ -346,10 +320,7 @@ class Event_Modifier {
 		}
 
 		// Combine the parts into a string, separating by a comma only between zip and state.
-		$venue_location = implode(
-			', ',
-			$venue_location_parts
-		);
+		$venue_location = implode( ', ', $venue_location_parts );
 		if ( ! empty( $venue_location_parts ) ) {
 			$data['back'][] = [
 				'key'   => 'venue_location',
