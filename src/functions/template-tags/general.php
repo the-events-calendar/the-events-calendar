@@ -1116,7 +1116,7 @@ function tribe_event_in_category( $event_cat_slug, $event_id = null ) {
  * Return the featured image for an event (within the loop automatically will get event ID).
  *
  * Where possible, the image will be returned as a well formed <img> tag contained in a link
- * element and wrapped in a div used for targetting featured images from stylesheet. By setting
+ * element and wrapped in a div used for targeting featured images from stylesheet. By setting
  * the two final and optional parameters to false, however, it is possible to retrieve only
  * the image URL itself.
  *
@@ -1480,7 +1480,7 @@ function tec_events_get_current_view() {
 	 *
 	 * @since  6.0.0
 	 *
-	 * @pararm null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
+	 * @param null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
 	 */
 	return apply_filters( 'tec_events_get_current_view', null );
 }

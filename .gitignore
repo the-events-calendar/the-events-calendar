@@ -20,7 +20,7 @@ tests/*.suite.yml
 # Tests - local output files
 tests/_output
 
-# General Purpose Ingored Files
+# General Purpose Ignored Files
 .DS_Store
 .idea
 node_modules
