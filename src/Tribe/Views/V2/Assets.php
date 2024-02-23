@@ -208,9 +208,6 @@ class Assets extends Service_Provider {
 				'in_footer'    => [ 'strategy' => 'defer' ],
 			]
 		);
-		wp_script_add_data( 'jquery-core', 'strategy', 'defer' );
-		wp_script_add_data( 'jquery-migrate', 'strategy', 'defer' );
-		wp_script_add_data( 'underscore', 'strategy', 'defer' );
 
 		tribe_asset(
 			$plugin,
