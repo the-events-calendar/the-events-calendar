@@ -3,9 +3,8 @@
 namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes\Apple_Wallet;
 
 use DateTimeImmutable;
-use TEC\Tickets\Commerce\Module;
+use TEC\Tickets\Flexible_Tickets\Series_Passes\Series_Passes;
 use TEC\Tickets_Wallet_Plus\Passes\Apple_Wallet\Pass;
-use Tribe__Tickets__Tickets;
 
 /**
  * Class Event_Modifier
@@ -120,15 +119,7 @@ class Event_Modifier {
 			return $data;
 		}
 
-		$event_id = $pass->get_event_id();
-		// @todo Redscar - Confirm tribe_is_event_series() is the correct function to use.
-		// Rafsun recommended https://lw.slack.com/archives/C01S5CC5MJB/p1707751086764209
-		$is_series_pass = tribe_is_event_series( $event_id );
-
-		if ( ! $is_series_pass ) {
-			return $data;
-		}
-
+		$event_id  = $pass->get_event_id();
 		$attendee  = $pass->get_attendee();
 		$ticket_id = $attendee['product_id'];
 		$provider  = tribe_tickets_get_ticket_provider( (int) $ticket_id );
@@ -136,6 +127,10 @@ class Event_Modifier {
 			$event_id,
 			$ticket_id
 		);
+
+		if ( Series_Passes::TICKET_TYPE !== $ticket->type() ) {
+			return $data;
+		}
 
 		$start_date = ( new DateTimeImmutable() )->setTimestamp( $ticket->start_date() );
 		$end_date   = ( new DateTimeImmutable() )->setTimestamp( $ticket->end_date() );
@@ -146,7 +141,6 @@ class Event_Modifier {
 			$start_date,
 			$end_date,
 		);
-
 
 		$data['header'][] = [
 			'key'   => 'event_date_time_range',
@@ -219,9 +213,7 @@ class Event_Modifier {
 		$event_id = $pass->get_event_id();
 		$event    = tribe_get_event( $event_id );
 
-		$event_spans_multiple_days = $event->dates->start->format( 'Y-m-d' ) !== $event->dates->end->format( 'Y-m-d' );
-
-		if ( ! $event_spans_multiple_days ) {
+		if ( is_null( $event->multiday ) || $event->multiday <= 1 ) {
 			return $data;
 		}
 
@@ -240,7 +232,7 @@ class Event_Modifier {
 		];
 
 		$data['back'][] = [
-			'key'   => 'event_dates',
+			'key'   => 'event_date_time_range',
 			'label' => esc_html__(
 				'Event Dates',
 				'the-events-calendar'
@@ -280,9 +272,7 @@ class Event_Modifier {
 		$event_id = $pass->get_event_id();
 		$event    = tribe_get_event( $event_id );
 
-		$event_spans_multiple_days = tribe_get_start_date( $event_id, false ) !== tribe_get_end_date( $event_id, false );
-
-		if ( $event_spans_multiple_days ) {
+		if ( $event->multiday > 1 ) {
 			return $data;
 		}
 
