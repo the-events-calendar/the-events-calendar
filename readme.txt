@@ -1,12 +1,12 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, paulskim, vicskf, zbtirrell, juanfra
+Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 5.6
-Stable tag: 5.16.4
-Tested up to: 6.0.1
-Requires PHP: 7.1
+Requires at least: 6.2
+Stable tag: 6.3.3.1
+Tested up to: 6.4.3
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,7 @@ Our Premium Plugins and Services:
 ⚡ [Events Calendar PRO](https://evnt.is/18wi)
 ↪️ [Event Aggregator](https://evnt.is/197u) (service)
 🎟️ [Event Tickets Plus](https://evnt.is/18wk)
+📱 [Event Tickets Wallet Plus](https://evnt.is/etwp)
 ✉️ [Promoter](https://evnt.is/1ajt)
 👥 [Community Events](https://evnt.is/2g)
 🎟️ [Community Tickets](https://evnt.is/18wl)
@@ -118,7 +119,7 @@ Still have a question? Shoot us an email at support@theeventscalendar.com.
 
 Installing the plugin is easy. Just follow one of the following methods:
 
-= Install The Events Calendar from within Wordpress =
+= Install The Events Calendar from within WordPress =
 
 1. Visit the plugins page within your dashboard and select ‘Add New’
 2. Search for "Events Calendar"
@@ -179,6 +180,7 @@ The following add-ons are available for The Events Calendar:
 * [Virtual Events](https://evnt.is/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://evnt.is/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
+* [Event Tickets Wallet Plus](https://evnt.is/etwp), for adding digital tickets like Apple Wallet passes and PDF tickets.
 * [Promoter](https://evnt.is/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
 * [Community Events](https://evnt.is/2g), for allowing frontend event submission from your readers.
 * [Community Tickets](https://evnt.is/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
@@ -191,19 +193,26 @@ Yes! The Events Calendar has a built-in CSV import tool. If you want to step it 
 
 = How do I sell tickets to events on my calendar? =
 
-You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-tickets/) plugin for that. This free plugin works alongside The Events Calendar and lets you create RSVPs and tickets for events. Event Tickets integrates with PayPal so you can collect payments for tickets, while our premium solution, Event Tickets Plus fully integrates with WooCommerce or Easy Digital Downloads.
+You'll want to use our [Event Tickets](https://wordpress.org/plugins/event-tickets/) plugin for that. This free plugin works alongside The Events Calendar and lets you create RSVPs and tickets for events. Event Tickets integrates with PayPal so you can collect payments for tickets, while our premium solution, Event Tickets Plus fully integrates with WooCommerce or Easy Digital Downloads. If you want to include digital tickets like Apple Wallet passes and PDF tickets check out [Event Tickets Wallet Plus](https://evnt.is/etwp).
 
 = Can I have more than one calendar on my site? =
 
-Unfortunately, no. However, you can use event categories or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as "Fitness," [like this example from our demo site](https://evnt.is/1ajv).
+Unfortunately, no. However, you can use [event categories](https://evnt.is/1bay) or tags to create calendar views that only display certain events. For example, you could create a direct link to a calendar view that only shows events categorized as “Fitness,” [like this example from our demo site](https://evnt.is/1ajv).
 
-With Events Calendar Pro, you can use [shortcodes](https://evnt.is/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
+With [Events Calendar Pro](https://evnt.is/18wi), you can use [shortcodes](https://evnt.is/1ajw) to embed your calendar on other WordPress pages and posts, then filter that calendar by category.
 
 = Can I allow people to submit events to my calendar? =
 
 This is available with the [Community Events](https://evnt.is/2g) add-on to facilitate submissions. Install Community Events alongside The Events Calendar and a page will be added to your WordPress site with a form that visitors can use to submit events. As the calendar owner, you have full control over whether event submissions are published immediately or require moderation first.
 
 If you want to let users sell tickets for the events they submit, check out [Community Tickets](https://evnt.is/18wl). It runs with The Events Calendar, Community Events, and Event Tickets and empowers visitors to create and sell tickets, splitting the profits with you.
+
+= What’s the difference between The Events Calendar and Events Calendar Pro =
+
+The Events Calendar is our cornerstone plugin, and it’s required in order to run any of our premium calendar add-ons, including [Events Calendar Pro](https://evnt.is/18wi), [Community Events](https://evnt.is/1bax), [Filter Bar](https://evnt.is/fa), and others.
+
+In other words, Events Calendar Pro runs alongside The Events Calendar and enhances it with extra features, including recurring events and event Series, additional calendar views, calendar shortcodes, advanced widgets, custom event fields, a duplicate event tool, and more.
+
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -215,10 +224,9 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 
 == Upgrade Notice ==
 
-= [5.0] =
-
+= [6.0] =
 Please see the changelog for the complete list of changes in this release.
-Previous versions of The Events Calendar are not cross-compatible with 5.X add-ons.
+Previous versions of The Events Calendar are not cross-compatible with 6.X add-ons.
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
@@ -226,6 +234,546 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Fix - Improve updated views CSS overwrites for buttons and view selector.
+
+= [6.3.3.1] 2024-02-22 =
+
+* Fix - On a multisite using WordPress 6.4.3 there was an issue with the subsite options not being properly created during initialization. [TEC-5043]
+
+= [6.3.3] 2024-02-19 =
+
+* Version - The Events Calendar 6.3.1 is only compatible with Event Tickets 5.8.1 and higher.
+* Tweak - Refactored some of the underlying structure for Block Template architecture. [ECP-1620]
+* Tweak - Added filters: `tec_events_get_full_site_block_template_services`
+* Tweak - Changed views: `blocks/event-links`, `single-event`, `v2/components/data`
+* Language - 4 new strings added, 4 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.3.2] 2024-02-06 =
+
+* Tweak - Share statistical information to Event Tickets plugin when active. [ET-1925]
+* Fix - Improve the usage of the shortcodes around Event Details.
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.3.1] 2024-01-24 =
+
+* Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
+* Fix - Make sure that the full country name is used when importing events from Meetup. [EA-469]
+* Fix - Our Week view "Next" pagination button would fail to show in some scenarios. This was due to improper tracking of which is the next future occurrence date. [ECP-1535]
+* Fix - Resolved an issue where adding multiple venues in block editor would not persist the second venue after the page was reloaded. [ECP-1637]
+* Tweak - Added actions: `tec_events_custom_tables_v1_migration_after_dry_run`
+* Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
+* Language - 0 new strings added, 115 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.3.0] 2024-01-22 =
+
+* Version - The Events Calendar 6.3.0 is only compatible with Event Tickets 5.8.0 and higher.
+* Feature - Include Series Passes supporting code to enable the creation of Series Passes.
+* Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
+* Language - 0 new strings added, 92 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.2.9] 2023-12-14 =
+
+* Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
+* Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
+* Fix - When on category page when there is a locale switched to a language with a translation for the `page` URL param, the paginated page would redirect to a 404. [TEC-4979]
+* Tweak - Updated the `tribe_get_venues` function to work with recurring events that have provisional IDs. [ECP-1597]
+* Tweak - Added filters: `tec_events_custom_tables_v1_normalize_occurrence_id`
+* Tweak - Changed views: `v2/list/event/featured-image`
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.2.8.2] 2023-12-04 =
+
+* Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
+* Language - 0 new strings added, 130 updated, 0 fuzzied, and 5 obsoleted
+
+= [6.2.8.1] 2023-11-20 =
+
+* Security - Ensure all password protected posts have their settings respected. [TCMN-167]
+
+= [6.2.8] 2023-11-16 =
+
+* Version - The Events Calendar 6.2.8 is only compatible with Event Tickets 5.7.0 and higher
+* Tweak - Include Event data into for Event Tickets Wallet Plus for both PDF and Apple Wallet passes.
+* Language - 0 new strings added, 135 updated, 0 fuzzied, and 11 obsoleted
+
+= [6.2.7] 2023-11-14 =
+
+* Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
+* Fix - WordPress 6.3 introduce some changes in filters that regressed a prior fix for authentication and our new nonce structure used in view pagination. One symptom of the issue was losing the authenticated user and failing to display user specific capabilities on event views. [ECP-1601]
+* Fix - Resolves issue where a deleted venue still attached to an event would cause an `PHP Warning: Undefined variable $data in /code/wp-content/plugins/the-events-calendar/src/Tribe/REST/V1/Post_Repository.php on line 327` error. [TEC-4954]
+* Fix - Resolves an issue with certain versions of WordPress already having the legacy widget block registered causing us to trigger the console error `Block "core/legacy-widget" is already registered.` would occur. Now we check if registered first. [TEC-4764]
+* Fix - Resolved several `Deprecated: Creation of dynamic property` warnings on: `\Tribe__Events__Linked_Posts__Chooser_Meta_Box::$singular_name_lowercase` and `\TEC\Events\Custom_Tables\V1\Models\Builder::$query` [BTRIA-2088]
+* Tweak - Adjust the content in the admin welcome page to include a link to the TEC Facebook community group. [TEC-4953]
+* Tweak - Added filters: `tec_events_get_full_site_block_template_services`, `tec_events_views_v2_get_rest_nonce_html`
+* Tweak - Changed views: `blocks/archive-events`, `blocks/single-event`
+* Language - 11 new strings added, 119 updated, 0 fuzzied, and 5 obsoleted.
+
+= [6.2.6.1] 2023-11-09 =
+
+* Version - The Events Calendar 6.2.6.1 is only compatible with Event Tickets 5.6.8.1 and higher
+* Fix - Update a common library to prevent possible fatals. [TEC-4978]
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.2.6] 2023-11-08 =
+
+* Fix - SEO: Ensure that the noindex meta tag properly observes whether events are present on the page or not. [TEC-4976]
+* Fix - SEO: Add noindex, nofollow for grid-based views like Month and Week View when they are not set as the home page. [TEC-4976]
+* Tweak - Add an X-Robots-Tag to the response headers for ical download links to help prevent search engine crawling. [TEC-4976]
+* Tweak - Added filter: `tec_events_ical_header_noindex` to allow preventing the X-Robots-Tag addition. [TEC-4976]
+* Tweak - Added filter `tec_events_seo_robots_meta_include` and `tec_events_seo_robots_meta_include_{$view}` to short-circuit the robots meta tag addition. [TEC-4976]
+* Tweak - Added filter `tec_events_seo_robots_meta_content` to alter the content attribute of the robots meta tag addition. [TEC-4976]
+* Tweak - Added filter `tec_events_seo_robots_meta_allowable_post_types` to allow for the filtering of single post types that can have robots meta tags added.
+* Tweak - Deprecated filters `tec_events_add_no_index_meta_tag`, `tribe_events_add_no_index_meta`, and `tec_events_{$view}_add_no_index_meta` in favor of the above new filters.
+
+= [6.2.5] 2023-11-01 =
+
+* Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
+
+= [6.2.4] 2023-10-19 =
+
+* Fix - AM/PM time formats `g:i A` and `g:i a` are now respected for the French locale. [TEC-4807]
+
+= [6.2.3.2] 2023-10-12 =
+
+* Fix - Prevent noindex code from adding tags to single event pages. [TEC-4949]
+* Fix - Correct a problem that can cause a fatal when plugins are deactivated in a certain order. [TEC-4951]
+
+= [6.2.3.1] 2023-10-09 =
+
+* Fix - Prevent a fatal caused by get_noindex_events on Events Calendar PRO views if PRO has not been updated. [TEC-4946]
+* Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.2.3] 2023-10-03 =
+
+* Fix - Ensure the UI can handle an unlimited number of recurrence rules when users create recurring events using the block editor. [ECP-1572]
+* Fix - Resolved "Uncaught ReferenceError: lodash is not defined" error by adding `lodash` as a dependency for the Block Editor Assets. [ECP-1575]
+* Fix - Resolves an issue around our new nonce structure used in view pagination, losing the authenticated user and failing to display user specific capabilities. [ECP-1581]
+* Tweak - Updated focus state for relevant elements to have default outline ensuring improved accessibility and consistent browser behavior. [TEC-4888]
+* Tweak - Added filters: `tec_events_add_no_index_meta_tag`, `tec_events_noindex`, `tec_events_{$view}_add_no_index_meta`, `tec_events_no_index_meta`
+* Language - 0 new strings added, 183 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.2.2.1] 2023-09-28  =
+
+* Version - The Events Calendar 6.2.2.1 is only compatible with Event Tickets 5.6.5.1 and higher
+* Fix - Fix - Correct issue where Telemetry would register active plugins multiple times. [TEC-4920]
+
+= [6.2.2] 2023-09-13 =
+
+* Version - The Events Calendar 6.2.2 is only compatible with Event Tickets 5.6.5 and higher
+* Fix - When using the Event Tickets email feature the Organizer email and website will no longer be switched. [ET-1843]
+* Fix - When subscribing to an event, the organizer name will not encode as many characters, especially spaces. [ET-1778]
+* Language - 0 new strings added, 9 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.2.1] 2023-09-05 =
+
+* Fix - WP Rewrite was being incorrectly initialized in some scenarios due to container DI, and causing some 404s. This was affecting classes that extend the `Tribe__Rewrite`. [TEC-4844]
+* Fix - Fixed a bug where `0` and `1` were displayed on the `general` and `display` tabs for Network admins on multisite installations. [TEC-4774]
+* Fix - In some cases when multiple Widgets were used on a page, the view results would return the wrong cache, displaying incorrect results. This fixes the inspection of the different view filters being used to determine whether it is cached or not. [ECP-1561]
+* Fix - Correct some accessibility issues in the subscribe dropdowns. Props to @alh0319 for calling these out! [TEC-4185]
+* Tweak - Enhanced venue and organizer labels by updating aria labels with additional placeholders and revised translator comments, improving internationalization and accessibility. [TEC-4874]
+* Tweak - Changed views: `blocks/parts/organizer`, `blocks/parts/subscribe-list`, `modules/meta/organizer`, `modules/meta/venue`, `v2/components/subscribe-links/item`, `v2/components/subscribe-links/list`, `v2/components/subscribe-links/single-event-list`
+* Language - 1 new strings added, 22 updated, 0 fuzzied, and 8 obsoleted
+
+= [6.2.0.1] 2023-08-16 =
+
+* Fix - Ensure we pass the correct number of params to `maybe_get_new_order_from_blocks` [TEC-4889]
+
+= [6.2.0] 2023-08-15 =
+
+* Tweak - Change styling for Venue Blocks to constrain to a card-like style. [ECP-1540]
+* Tweak - Adjust REST endpoints to support multiple venues during event creation and updates. [ECP-1540]
+* Tweak - If multiple venues exist on an event, display them in the classic event editor. [ECP-1540]
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Ensure the "Add Organizer" button is visible in the classic editor if organizers have been set. [TEC-4729]
+* Fix - Simplify data handling of venues within the block editor. [ECP-1540]
+* Fix - When removing a newly created organizer in the block editor before saving the event will now trash the draft organizer. [TEC-3865]
+* Tweak - Added filters: `tec_events_rewrite_dynamic_matchers`, `tec_events_views_v2_assets_should_enqueue_single_event_block_editor_styles`, `tec_events_title_taxonomies`, `tec_events_views_v2_view_header_title_element`, `tec_events_views_v2_view_{$view_slug}_header_title_element`, `tec_events_views_v2_view_header_title`, `tec_events_views_v2_view_{$view_slug}_header_title`, `tec_events_views_v2_view_content_title`, `tec_events_views_v2_view_{$view_slug}_content_title`, `tec_get_venue_ids`
+* Tweak - Added actions: `tec_events_after_venue_map_fields`
+* Tweak - Changed views: `blocks/event-venue.php`, `blocks/parts/map.php`, `blocks/parts/venue.php`, `v2/base.php`, `v2/components/breadcrumbs/linked-breadcrumbs.php`, `v2/components/content-title.php`, 'v2/components/header-title.php`, `v2/components/header.php`, `v2/components/messages.php`, `v2/day.php`, `v2/day/event/venue.php`, `v2/list.php`, `v2/list/event/venue.php`, `v2/month.php`
+* Language - 3 new strings added, 72 updated, 1 fuzzied, and 2 obsoleted
+
+
+= [6.1.4] 2023-08-10 =
+
+* Version - The minimum supported version of WordPress is now 6.1.0
+* Fix - In some scenarios our pagination and various view actions would fail due to 403 errors on the REST endpoints, because of failing nonce checks, likely due to cache. Updating the way we handle nonces to avoid some scenarios the wrong nonce could be cached. [TEC-4814]
+* Fix - This issue was regarding our rewrite parsing for the view picker url generation with WPML enabled. It was failing to parse the translated rewrite properly, and leaving unparsed permalinks. [TEC-4758]
+* Fix - Ensure we output valid html around <dt> and <dd> elements in an accessible way. [TEC-4812]
+* Fix - Ensure the block editor includes support for user-defined custom CSS classes. [TEC-4724]
+* Fix - Handle some issues with incorrect application of noindex meta tags. [TEC-4717]
+* Fix - Our logic to include `tribe_events` post type on the tag archive page was incorrectly bleeding into other queries happening on the page. This narrows the scope for the `WP_Query` post type overrides and avoids situations where Divi templates were not loading properly. [TEC-4819]
+* Fix - Correct some PHP 8.1 deprecations that impact loading of views. [TEC-4871]
+* Fix - Prevent TypeError warnings around `admin_footer_text_settings` filter due to type hinting conflicting with other plugins returning null.
+* Tweak - Deprecated misspelled `tribe_get_organiser_object_after` filter for one with correct spelling: `tribe_get_organizer_object_after`. Done as part of [TEC-4812]
+* Tweak - Remove end colons from some translated strings. Done as part of [TEC-4812]
+* Tweak - Fix typo in template displaying stray "w". [TEC-4870]
+* Tweak - Removed code pertaining to Event Tickets CT1. [ETP-874]
+* Tweak - Added filters: `tec_events_views_v2_get_rest_nonces`, `tribe_events_get_organizer_object_after`
+* Tweak - Deprecated filters: `tribe_events_get_organiser_object_after`
+* Tweak - Deprecated functions: In `Tribe\Views\V2\Views\Traits\HTML_Cache.php` the `get_view_nonce_fields()`,`get_view_nonce_attributes()`, `get_view_nonce_json_properties()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, and `maybe_generate_nonce()` functions have been deprecated.
+* Tweak - Changed views: `blocks/classic-event-details.php`, `blocks/event-category.php`, `blocks/event-datetime.php`, `blocks/event-organizer.php`, `blocks/event-price.php`, `blocks/event-tags.php`, `blocks/event-venue.php`, `blocks/event-website.php`, `blocks/featured-image.php`, `blocks/parts/details.php`, `blocks/parts/organizer.php`, `blocks/parts/subscribe-list.php`, `blocks/parts/subscribe-single.php`, `modules/meta/organizer.php`, `modules/meta/venue.php`, `v2/components/events-bar/search.php`, `v2/day.php`, `v2/list.php`, `v2/month.php`, `v2/widgets/widget-events-list.php`.
+* Language - 11 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted.
+
+
+= [6.1.3] 2023-07-13 =
+
+* Version - The Events Calendar 6.1.3 is only compatible with Events Community 4.10.10 and higher
+* Fix - Performance improvements on Month and Day view when a lot of future and past events were found. [TEC-3089]
+* Fix - Ensure we're using the correct download link for the `Export Outlook .ics` file in the single event page. [TEC-4776]
+* Fix - Ensure TEC styles can be easily overridden by themes and page builders. [ECP-1503]
+* Fix - Avoid the issue where TEC blocks would break when either the `WP Go Maps`, `MapPress Google Maps` and `Leaflet Maps` plugins were active on a site. [TEC-4810]
+* Fix - Added some event parsing to ensure only valid events are handled in the iCal file generation. [TEC-4837]
+* Fix - Harden some of our CSS to prevent unintended overrides by Elementor global styles. [TEC-4811]
+* Fix - Log errors throw in the context of the Custom Tables v1 component. [ET-1486]
+* Fix - Adding memoizing into the CT1 models to help reduce trips to fetch the same instance. [ECP-1505]
+* Tweak - Refactored CSS for Tickets Emails to better conform to email client CSS standards. [TEC-4849]
+* Tweak - Added filters: `tec_events_ical_protected_content_description`
+* Tweak - Added actions: `tribe_log`
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
+* Security - Various improvements to event creation.
+* Language - 1 new strings added, 129 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.1.2.2] 2023-06-23 =
+
+* Fix - Ensure there is backwards compatibility with Extensions and Pods.
+
+= [6.1.2.1] 2023-06-22 =
+
+* Fix - Prevent Telemetry from being initialized and triggering a Fatal when the correct conditionals are not met.
+
+= [6.1.2] 2023-06-22 =
+
+* Version - The Events Calendar 6.1.2 is only compatible with Event Tickets 5.6.1 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Filterbar 5.5.0 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community 4.10.8 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Events Community Tickets 4.9.3 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Eventbrite Tickets 4.6.14 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Virtual Events 1.15.1 and higher
+* Version - The Events Calendar 6.1.2 is only compatible with Event Automator 1.3.1 and higher
+* Fix - Lock our container usage(s) to the new Service_Provider contract in tribe-common. This prevents conflicts and potential fatals with other plugins that use a di52 container.
+
+= [6.1.1] 2023-06-15 =
+
+* Feature - Include Events data into the Tickets Email for compatibility with Event Tickets. [ET-1552] [ET-1553] [ET-1601]
+* Tweak - Added filters: `tribe_general_settings_viewing_section`, `tribe_general_settings_editing_section`, `tribe_general_settings_maintenance_section`, `tribe_general_settings_debugging_section`
+* Tweak - Removed filters: `tec_events_integrations_should_load`, `tec_events_integrations_{$type}_should_load`, `tec_events_integrations_{$type}_{$slug}_should_load`, `tribe_events_integrations_should_load_freemius`
+* Tweak - Added actions: `tec_telemetry_modal`
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/date`, `integrations/event-tickets/emails/template-parts/body/event/image`, `integrations/event-tickets/emails/template-parts/body/event/links`, `integrations/event-tickets/emails/template-parts/body/event/links/gcal`, `integrations/event-tickets/emails/template-parts/body/event/links/ical`, `integrations/event-tickets/emails/template-parts/body/event/venue`, `integrations/event-tickets/emails/template-parts/body/event/venue/address`, `integrations/event-tickets/emails/template-parts/body/event/venue/phone`, `integrations/event-tickets/emails/template-parts/body/event/venue/website`, `integrations/event-tickets/emails/template-parts/header/head/tec-styles`
+* Language - 28 new strings added, 132 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.1.0.1] 2023-06-14 =
+
+* Fix - Prevent fatals when older version of Event Tickets was looking for Freemius code that was removed.
+
+= [6.1.0] 2023-06-14 =
+
+* Feature - Replace Freemius with Telemetry - an in-house info system. [TEC-4700]
+* Feature - Add plugin info to Site Health admin page. [TEC-4701]
+* Fix - Elementor and other themes would inadvertently override styles on the tickets button, when the global styles were set. This hardens the common button (rsv/ticket button) styles a bit more. [TEC-4794]
+* Fix - Added option to disable pagination on the Month and Week views to address issue of missing events. [TEC-4615]
+* Fix - Avoid SQL error when filtering by Series in Custom Tables v1 context. [ET-1486]
+* Fix - Fixes database error, caused by the CT1 query parser when attempting rewrite the order by statement. Added logic to reflect on meta query arrays, and not just key/value pairs. [ECP-1495]
+* Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+* Fix - Prevent administration navigation fatal error with `TypeError: array_search()`. [TEC-4780]
+* Fix - Removing our eager schema updates. This was causing a number of `ALTER` statements being run redundantly. No longer utilizes cache/transient for the last run check as it is not dependable. [TEC-4797]
+* Fix - This fixes a situation where cache would cause the `post` reference to switch to the initial `post` mid-loop on the admin events list page. This likely could have been happening on other pages as well. [TEC-4690]
+* Tweak - Ensure the page titles on the single venue and organizer pages include the respective post titles for improved SEO. [ECP-1173]
+* Tweak - Updates title tags on events pages, to be more unique and search specific, taking on formats like "Events from February 2, 2017 - February 3, 2019". [TEC-4692]
+* Tweak - Utilize our new container architecture in tribe-common.
+* Language - 1 new strings added, 22 updated, 1 fuzzied, and 0 obsoleted
+
+= [6.0.13.1] 2023-05-15 =
+
+* Fix - In block editor there were unnecessary geocode API calls being triggered for Event Venue blocks. Moved logic within stateful conditions, now it no longer runs fetch if the address has not actually changed. [TEC-4741]
+* Language - 0 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.13] 2023-05-08 =
+
+* Fix - Correct issue with event subscriptions not passing events past the first 30. [TEC_4584]
+* Fix - Ensure Events are displayed correctly on Elementor's `Posts` widget. [TEC-4685]
+* Fix - Fix a `Fatal error: Uncaught TypeError: Illegal offset type in isset or empty in …/wp-content/plugins/sitepress-multilingual-cms/classes/url-handling/converter/class-wpml-url-cached-converter.php:46` fatal with our WPML integration when filtering Event permalinks for Event views. [TEC-4770]
+* Fix - Fixed an edge case to not inadvertently trash entire Events Pro recurrences. [ECP-1475]
+* Fix - For CT1 in markers the occurrence would sometimes not be the same one found as the date field, only one was filtering by post_status. We were only using `provisional_id` for CT1, now we fallback to `post_id`. Now removing options when no occurrences are found, instead of retaining a stale value. [TEC-4768]
+* Fix - Pass a NOOP callback function to Google Maps scripts to prevent JS warnings. [TEC-4762]
+* Fix - Some button style hardening to prevent some common theme global style bleed, namely from Elementor global styles. [TEC-4677]
+* Tweak - Added filter `tec_events_event_cleaner_trash_cron_frequency` to allow customizing the frequency of the trash old event cron. [ECP-1475]
+* Tweak - Deprecated some event cleaner functionality. When 6.0 data structure is activated the `Permanently delete events older than` option is disabled, added an adjusted tooltip on the `Move to trash events older than` event setting regarding `EMPTY_TRASH_DAYS`. [TEC-4744]
+* Tweak - Ensure the `Subscribe to Calendar` dropdown toggles on and off on click for an improved user experience. [TEC-4388]
+* Tweak - Ensure we have the ability to hide the Event Tickets Activation notice using the `defined( 'TRIBE_HIDE_UPSELL' )` constant. [TEC-4767]
+* Tweak - Updates to `tribe_events_delete_old_events_sql_args` and `tribe_events_delete_old_events_sql` filters to support Events Pro recurrence cleanup. [ECP-1475]
+* Tweak - Added filters: `tribe_events_known_range_stati`, `tec_events_custom_tables_v1_events_only_modifier_before_get_posts`, `tec_events_event_cleaner_trash_cron_frequency`, `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status`, `tribe_events_add_canonical_tag`
+* Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
+* Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
+* Language - 1 new strings added, 32 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.12] 2023-04-10 =
+
+* Fix - Avoid JS error when using the first compact date display format together with WPML. [TEC-4360]
+* Fix - Build secondary Views navigation links correctly when WPML is active. [TEC-4689]
+* Fix - Build the link to the Events page from the Permalinks settings page correctly. [TEC-4689]
+* Fix - Correctly handle the creation or update of Custom Tables v1 in multisite context. (thanks @jiadil). [BTRIA-1734]
+* Fix - Ensure the link to the Event Tags Archive page is correct when using the Block Editor. [TEC-4716]
+* Fix - Ensure the venue country is displayed in the list view when venues are created through the block editor interface. [TEC-4731]
+* Fix - Fix issue with events post type bleeding in on custom tag queries, instead of only on tag archive page. [TEC-4694]
+* Fix - Fixed a situation where an invalid request header in our pagination would cause some strict security settings to block these AJAX requests. [TEC-4723]
+* Fix - Fixes an edge case where running get_posts() twice with a taxonomy query, would result in an extra where statement added limiting results in an unexpected way. [TEC-4695]
+* Fix - Fixes situation in block editor where a default organizer would not persist after being saved. [ECP-1061]
+* Fix - Make improvements to the canonical tags added to event views to improve compatibility with SEO plugins. [TEC-4693]
+* Fix - Resolve the issue of the WP customizer not loading correctly when the Colbri Page Builder plugin is active. [TEC-4735]
+* Fix - Updates the Monolog repository to use TEC namespacing via Strauss, to provide more compatibility with other plugins. [TEC-4730]
+* Tweak - Added filter: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts` in our 6.0 query modifier, useful to make changes to the query prior to fetching posts for the selected events. [TEC-4695]
+* Tweak - Added Filters: `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status` to allow filtering of post status of Linked Posts. [CE-27]
+* Tweak - Ensure we only have a single <main> element in the single events page for improved accessibility. [TEC-3415]
+* Tweak - Fire the `tec_events_custom_tables_v1_fully_activated` when the Custom Tables v1 implementation is fully loaded. [ET-1495]
+* Tweak - Replace the use of `FILTER_SANITIZE_STRING` in favour of `tec_sanitize_string` to improve PHP 8.1 compatibility. [TEC-4666]
+* Tweak - Added filters: `tec_events_custom_tables_v1_events_only_modifier_before_get_posts`, `tec_events_linked_posts_my_posts_post_status`, `tec_events_linked_posts_all_posts_post_status`, `tribe_events_add_canonical_tag`
+* Tweak - Added actions: `tec_events_custom_tables_v1_fully_activated`
+* Tweak - Changed views: `blocks/event-tags`, `blocks/parts/details`, `v2/list/event/venue`
+* Language - 0 new strings added, 82 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.11] 2023-03-20 =
+
+* Fix - Add a default Schema eventStatus value for JSON LD output of events. [TEC-4609]
+* Fix - Avoid fatal error in `tribe_events_event_classes` when called on events that aren't assigned to any category. [TEC-4709]
+* Fix - Avoid PHP errors originating from a missing HTML template when the migration to Custom Tables v1 is not required. [ECP-1472]
+* Fix - Correctly display Recurring Event Venue and Organizer details on the front-end and back-end when using WPML. [ECP-1442, ECP-1455]
+* Fix - Display Venue correctly in List-like views when using WPML. [ECP-1443]
+* Fix - Ensure the date tags for recurring events are displayed correctly in the `Events List` widget. [ECP-1382]
+* Fix - Ensure the Subscribe to Calendar Dropdown opens and closes consistently across all themes. [TEC-4388]
+* Fix - Failures while saving Events from Blocks Editor while using WPML. [ECP-1429]
+* Fix - Fix an issue that stopped the default venue values from populating when submitting a Community Event. [CE-178]
+* Fix - Fix the pagination styling on the Aggregator import preview data table. [TEC-4698]
+* Fix - Link to the correct Occurrence when using CT1 and WPML. [TEC-4632]
+* Fix - Prevent event save processing from being interrupted in cases of partial WPML activation where a language code is missing. [ECP-1442]
+* Fix - Prevent fatal on PHP 8+ during generation of the activation report when issues exist.
+* Fix - Prevent fatal on PHP 8+ for `tribe_get_event_cat_slugs` with bad typing around `array_filter` [TEC-4725]
+* Fix - Prevent PHP 8.0+ fatal around iCal exporting with param not being array [TEC-4726]
+* Tweak - Add empty alt tag to featured images across all views when a user doesn't explicitly define one to improve SEO. [ECP-1454]
+* Tweak - Ensure all instances of the `tribe_get_events_title` filter have matching signatures. [TEC-3929]
+* Tweak - Modified single-event.php to use `tribe_get_formatted_cost` instead of `tribe_get_cost` to display the event cost. [TEC-4699]
+* Tweak - Update the datepicker label on list-style views to `Upcoming` when no events are found. [TEC-3960]
+* Tweak - Removed actions: `tribe_log`
+* Tweak - Changed views: `single-event`, `v2/day/event/featured-image`, `v2/latest-past/event/featured-image`, `v2/list/event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/featured-image`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image`, `v2/month/mobile-events/mobile-day/mobile-event/featured-image`, `v2/widgets/widget-events-list/event/date-tag`
+* Language - 0 new strings added, 24 updated, 2 fuzzied, and 0 obsoleted
+
+= [6.0.10] 2023-02-22 =
+
+* Version - The Events Calendar 6.0.10 is only compatible with Events Calendar PRO 6.0.9 and higher
+* Tweak - PHP version compatibility bumped to PHP 7.4
+* Tweak - Version Composer updated to 2
+* Tweak - Version Node updated to 18.13.0
+* Tweak - Version NPM update to 8.19.3
+* Tweak - Reduce JavaScript bundle sizes for Blocks editor
+
+= [6.0.9] 2023-02-09 =
+
+* Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
+* Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, more error checking in WPML integration. [TEC-4679]
+* Fix - Updating some button styles to be more compatible with global button styles, such as Elementor global styling. [TEC-4653]
+* Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
+* Fix - Ensure the zoom level set under `Events → Settings → Display → Google Maps default zoom level` is applied to the single events page. [TEC-4634]
+* Fix - Ensure the code will work correctly when the Events' category taxonomy is unregistered. [TEC-4664]
+* Fix - Change the type of the date-related custom tables date fields to VARCHAR to avoid warnings on stricter SQL modes. [TEC-4536]
+* Fix - Add logic to our template tags to handle non-string returns from `get_the_terms_list()` [TEC-4664]
+* Tweak - Add support for opt-in direct deletion of EA older records using the `tec_event_aggregator_direct_record_deletion` filter or setting the `TEC_EVENT_AGGREGATOR_RECORDS_PURGE_DIRECT_DELETION` constant. [EA-446]
+* Tweak - Ensure all Google Map iframes have a title attribute to improve accessibility. [TEC-4243]
+* Tweak - Allow filtering the redirected nature of a Views v2 request using the `tec_events_views_v2_redirected` filter. [TEC-4511]
+* Tweak - Added filters: `tec_event_aggregator_direct_record_deletion`, `tec_event_aggregator_direct_record_deletion_batch_size`, `tec_events_views_v2_redirected`
+* Tweak - Changed views: `modules/map-basic`
+* Language - 6 new strings added, 125 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.8] 2023-01-26 =
+
+* Fix - Modifications to custom tables registration to ensure all sites get the new 6.0 table schema, preventing 404 and other related issues. [TEC-4631]
+* Fix - Prevent Yoast SEO 19.2 notice due to integration with The Events Calendar [TEC-4662]
+* Feature - Add Event Automator to Add-ons page. [TEC-4660]
+* Language - 5 new strings added, 171 updated, 1 fuzzied, and 8 obsoleted.
+
+= [6.0.7.1] 2023-01-19 =
+
+* Fix - Prevent fatal when using The Events Calendar with Event Tickets due to Common library not being updated.
+
+= [6.0.7] 2023-01-18 =
+
+* Version - The Events Calendar 6.0.7 is only compatible with Events Calendar PRO 6.0.6 and higher
+* Fix - Event repository filters, when passing UTC dates on non-UTC event date fields, when using `Condense Event Series` showing tomorrow's event instead of today's. [ECP-1423]
+* Fix - Resolve problem with relative dates on REST endpoint for event creation. Dates would potentially cross timezones that would push to an incorrect day due to using the wrong timezone.
+* Fix - Prevent Update page from display on minor updates, only for major updates and feature updates. [TEC-4589]
+* Fix - Compatibility with Redis Object Cache plugin that would cause Events not be editable in the Blocks Editor. [TEC-4613]
+* Fix - Avoid user locale overriding the site locale during rewrite rules generation. [TEC-3733]
+* Fix - Correct logic for tribe_is_view functions to account for default view. [TEC-4586]
+* Fix - Avoid the issue of events which have venues assigned not being able to be updated successfully on some browsers. [TEC-4596]
+* Fix - Handle the case where rewrite rules map to arrays avoiding fatal errors. [TEC-4567]
+* Fix - Prevent primary cause of MySQL `Deadlock` errors in 6.0 event migration and added `Deadlock` error catching in our lock/fetch event queue. [TEC-4548]
+* Fix - Avoid running slow query for adjacent events when possible. [TEC-4633]
+* Fix - Ensure we did not get an error object back when requesting event category. [TEC-4619]
+* Fix - Fix the issue of an invalid property error notice being thrown while visiting the Attendee Registration page as an admin. [TEC-4608]
+* Fix - Resolve compatibility issue between Yoast SEO and FacetWP. [TEC-4628]
+* Fix - Resolve the issue where `tribe_is_upcoming()` and other conditionals were not working as expected. [TEC-4301]
+* Tweak - Convert all uses of (view)->get_slug() to (view)::get_view_slug(). [TEC-4586]
+* Tweak - Change some labelling of event settings in the admin. [TEC-4626]
+* Tweak - Reorganize a few Event settings in the admin. [TEC-4627]
+* Tweak - Add canonical tag to the head of all calendar views to prevent Google and other search engines from indexing URLs with custom URL parameters. [TEC-4538]
+* Tweak - Added filters: `tribe_events_views_v2_{$view_slug}_view_html_classes`, `tribe_events_views_v2_view_{$view_slug}_template_vars`, `tribe_events_views_v2_view_{$view_slug}_url`, `tribe_events_views_v2_view_{$view_slug}_prev_url`, `tribe_events_views_v2_view_{$view_slug}_next_url`, `tribe_events_views_v2_view_{$view_slug}_link_label_format`, `tribe_events_views_v2_view_{$view_slug}_title`, `tribe_events_views_v2_view_{$view_slug}_messages`, `tribe_events_views_v2_view_{$view_slug}_breadcrumbs`, `tribe_events_views_v2_view_{$view_slug}_display_events_bar`, `tribe_events_views_v2_view_{$view_slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$view_slug}_public_views`, `tribe_events_views_v2_{$view_slug}_view_container_data`, `tribe_events_views_v2_{$view_slug}_show_latest_past_events_view`, `tribe_events_views_v2_{$view_slug}_events_per_day`, `tribe_events_views_v2_view_{$view_slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$view_slug}_breakpoints`, `tribe_events_views_v2_view_{$view_slug}_cached_html`, `tribe_events_views_v2_{$view_slug}_widget_repository_args`, `tribe_events_views_v2_{$view_slug}_widget_compatibility_classes`, `tribe_events_views_v2_{$view_slug}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_label`, `tec_is_view`, `tec_is_{$view_slug}_view`
+* Tweak - Removed filters: `tribe_events_views_v2_{$this->get_slug()}_view_html_classes`, `tribe_events_views_v2_view_{$this->slug}_template_vars`, `tribe_events_views_v2_view_{$this->slug}_url`, `tribe_events_views_v2_view_{$this->slug}_prev_url`, `tribe_events_views_v2_view_{$this->slug}_next_url`, `tribe_events_views_v2_view_{$this->slug}_link_label_format`, `tribe_events_views_v2_view_{$slug}_title`, `tribe_events_views_v2_view_{$slug}_messages`, `tribe_events_views_v2_view_{$this->slug}_breadcrumbs`, `tribe_events_views_v2_view_{$this->slug}_display_events_bar`, `tribe_events_views_v2_view_{$this->slug}_show_datepicker_submit`, `tribe_events_views_v2_view_{$this->slug}_public_views`, `tribe_events_views_v2_{$this->get_slug()}_view_container_data`, `tribe_events_views_v2_{$this->get_slug()}_show_latest_past_events_view`, `tec_events_views_v2_{$this->slug}_view_global_repository_args`, `tribe_events_views_v2_{$this->slug}_events_per_day`, `tribe_events_views_v2_view_{$this->slug}_breakpoint_pointer`, `tribe_events_views_v2_view_{$this->slug}_breakpoints`, `tribe_events_views_v2_view_{$this->slug}_cached_html`, `tribe_events_views_v2_{$this->get_slug()}_widget_repository_args`, `tribe_events_views_v2_{$this->get_slug()}_widget_compatibility_classes`, `tribe_events_views_v2_{$this->get_slug()}_widget_html_classes`, `tec_events_view_{$view_slug}_today_button_title`
+
+= [6.0.6.2] 2022-12-16 =
+
+* Fix - Fix layout issues with Avada, Divi, and similar themes. [TEC-4623]
+
+= [6.0.6.1] 2022-12-14 =
+
+* Fix - Avoid fatal error in the `tribe_is_events_front_page` when called before global query object is initialized. [BTRIA-1556]
+
+= [6.0.6] 2022-12-14 =
+
+* Fix - Resolved a migration state problem in the view not being handled properly when preview is unsupported and a migration error happens simultaneously. [TEC-4482]
+* Fix - Prevent a couple scenarios that would cause 404 pages on events. This addresses both an error from UTC offset validation failures and an issue where table renaming improperly created foreign keys that pointed to an invalid constraint target. [TEC-4578]
+* Fix - Avoid query filtering issues where the Event post type would be incorrectly added to queries. [TEC-4588]
+* Fix - Incorrect results when including Events in the main blog loop. [TEC-4474]
+* Fix - Avoid errors when third-party plugins reference or use the `Tribe__Events__Query::pre_get_posts` method. [TEC-4540]
+* Fix - Prevent Serializable interface deprecated error in PHP 8.1 when migrating events. [ECP-1319]
+* Fix - Ensure the `Previous Events` button when using the `Event View` Elementor widget navigates correctly to the previous page. [FBAR-273]
+* Fix - Ensure that when we hit a single-event ical endpoint we get a the correct single event. [TEC-4469]
+* Fix - Avoid PHP fatal error on PHP 8.0+ in some settings' pages when setting the front page to the Main Events Page. [BTRIA-1545]
+* Tweak - Add aria label to Google Maps iFrame embed to improve accessibility. [TEC-4404]
+* Tweak - Prevent unbound query for previous URL on list based views, improving performance.
+* Tweak - Additional views setup no longer run extra Database Query unnecessarily, improving performance.
+* Tweak - Improve performance on the Settings page when dealing with a big dataset of events.
+* Tweak - Improve performance on the `tribe_events()` and on the Event Views by removing an unnecessary JOIN for hiding of specific upcoming events.
+* Tweak - Changed views: `modules/map-basic`
+* Language - 1 new strings added, 17 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.5] 2022-11-29 =
+
+* Fix - Fix for scenarios where fatal `Call to a member function get() on null in... the-events-calendar/src/Tribe/Query.php(46)` would occur when `$wp_query` global was not set. [TEC-4566]
+* Fix - Add correct text domains to the Organizer block. [TEC-4466]
+* Fix - Fix for stuck migrations when duplicate meta exists. [TEC-4547]
+* Tweak - Added ability to filter v2 repository args on all View queries. [ECP-1372]
+* Tweak - Reorganize the General and Display settings tab content. [TCMN-149]
+* Tweak - New headers for the General and Display settings tabs. [TEC-4573]
+* Tweak - Add view upsells for ECP on the settings display tab. [TEC-4572]
+* Tweak - Add settings info boxes. [TEC-4574]
+* Fix - Avoid issues when trying to import some .ics format files with Event Aggregator. [EA-461]
+* Deprecation - `Tribe__Events__Editor__Compatibility::$blocks_editor_hidden_field_key`.
+* Deprecation - `Tribe__Events__Main::do_addons_api_settings_tab()`, `Tribe__Events__Main::show_upgrade()`,
+				`Tribe__Events__Main::do_upgrade_tab()`, `Tribe__Events__Main::general_settings_tab_fields()`,
+				`Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
+* Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
+* Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
+
+= [6.0.4] 2022-11-15 =
+
+* Version - The Events Calendar 6.0.4 is only compatible with Events Calendar PRO 6.0.3 and higher
+* Feature - Include Yoast WordPress SEO OpenGraph integration. [TEC-4558][TEC-4561]
+* Fix - Fix for fatal when adding Featured Venue Events widget on Appearance -> Widgets screen. [ECP-1411]
+* Fix - Fix for fatal error on Series page in PHP 7.3. [TEC-4549]
+* Fix - Prevent error around Free regular expression for JSON-LD on updated views. Props @jonkastonka @saleck @randon [TEC-4570]
+* Fix - Avoid fatal error when using PHP version 8.0 or above and the HyperDB plugin. [ECP-1360]
+* Fix - Ensure view labels are translated appropriately. [TEC-4485]
+* Fix - Errors and warnings in WP.com installations due to empty query results. [TEC-4543]
+* Fix - Translation of Event Occurrences URL when using WPML and the Custom Tables V1 implementation. [ECP-1373]
+* Fix - More robust type checking in Builder methods. [ECP-1402]
+* Fix - Avoid `orderby` related database error in Custom Tables V1 context. [TEC-4555]
+* Fix - Prevent error when updating Venue in sites using object cache. [TEC-4348]
+* Fix - Prevent date format error when trying to subscribe to calendar in sites using object cache. [TEC-4459]
+* Tweak - Clean up the Event Website block to make it more intuitive for users. [TEC-4352]
+* Tweak - Update the venue website field to type URL. [TEC-4349]
+* Tweak - Do not add date-based ordering to queries when using `none` or `rand` order. [TEC-4555]
+* Tweak - Added filters: `tec_events_integrations_should_load`, `tec_events_integrations_{$type}_should_load`, `tec_events_integrations_{$type}_{$slug}_should_load`, `tec_events_integrations_{$integration_type}_{$integration_slug}_events_schema_is_needed`, `tec_events_integrations_{$integration_type}_{$integration_slug}_json_ld_{$type}_data`, `tec_events_views_v2_view_label`, `tec_events_views_v2_{$slug}_view_label`
+* Tweak - Removed filters: `tribe_events_views`, `tribe_events_views_v2_manager_view_label_domain`, `tribe_events_views_v2_manager_{$slug}_view_label_domain`, `tribe_events_views_v2_manager_view_label`, `tribe_events_views_v2_manager_{$slug}_view_label`
+* Language - 3 new strings added, 144 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.0.3.1] 2022-11-03 =
+
+* Fix - Correct issues where early queries can interfere with View template redirects. [TEC-4554]
+* Fix - Serialization and unserialization issues related to caching of post models. [TEC-4379]
+* Fix - Prevent default WordPress occurrence query caching because we cache it ourselves. [TEC-4379]
+* Tweak - Add the `tribe_get_venue_object_after` and `tribe_get_organizer_object_after` filters. [TEC-4379]
+
+= [6.0.3] 2022-10-31 =
+
+* Fix - Handle repository query filters correctly in custom tables context; fix a REST API issue. [ET-1567]
+
+= [6.0.2] 2022-10-20 =
+
+* Feature - Add initial integration with Restrict Content Pro. This hides any events on the calendar views that the user is not allowed to view. [ [TEC-4457]]
+* Feature - Support the `strict_dates` REST API argument in the `/events` endpoint to control the inclusiveness of the date parameters. [TEC-4493]
+* Feature - Support relative date parameters (e.g: `starts_before`, `ends_after` as REST API arguments in the `/events` endpoint to retrieve single day and multi-day events in a single search. [TEC-4493]
+* Fix - Prevent problems with WordPress.com Memcache turning Event Single Pages into 404s after the first visit [TEC-4488]
+* Fix - Add new function to properly escape event titles in URLs so they are better handled by rewrite rules. Props to @shisho585 for the fix! [TEC-4518]
+* Fix - Avoid resetting post data in some Dive theme and plugins. [TEC-4510]
+* Fix - Correct a few misnamed custom prop references. [TEC-4445]
+* Fix - Correct an issue with event venue when saving in our WPML integration. Props to @dgwatkins for the fix! [TEC-4498]
+* Fix - Correctly deprecate the `Tribe__Events__Main::get_closest_event` method. [ECP-1326]
+* Fix - Correctly set `found_posts` and `max_num_pages` when redirecting a query to the custom tables. [TEC-4508]
+* Fix - Do not run wasteful queries on `switch_blog` in multi-site installations. [TEC-4492]
+* Fix - Do not throw errors during migration when notices or errors come from other plugins. [ECP-1318]
+* Fix - Ensure `tribe_is_month` and `tribe_is_by_date` work as expected. [TEC-4509]
+* Fix - Ensure we handle if By_Day_View gets a null $event_obj->dates. Props to @juliangumenita for the fix! [TEC-4509]
+* Fix - Remove strict type hinting from Custom Tables v1 code that would cause fatals in some environments. [ECP-1343]
+* Fix - Resolve problems with tribe_get_full_address() which was not properly returning venue address.
+* Fix - Restore erroneously removed Events query filters that would result in out-of-order results. [TEC-4470]
+* Fix - Revert the code erroneous removed on legacy views removal around the "Show events with the site's other posts" setting.
+* Fix - Prevent a potential fatal when WP-CLI isn't present. [TEC-4470]
+* Tweak - Move Month View day cell class logic to a standalone function with filters. [TEC-4457]
+* Tweak - Add new method: `\Tribe\Events\Views\V2\month_day_classes` [TEC-4457]
+* Tweak - Added filter `tec_events_month_day_classes_comparison_date` to filter the date used for class determination comparisons. [TEC-4457]
+* Tweak - Added filter `tec_events_month_day_classes` to filter the actual class list before it gets passed to the template. [TEC-4457]
+* Tweak - Update the organizer website field to type URL. [TEC-4395]
+* Tweak - Add an event property for if the event is currently happening. [TEC-4454]
+* Tweak - Create a filterable function `tec_events_get_today_button_label()` for the text on the "Today" button on calendar views. [TEC-4458]
+* Tweak - Add a filter for the link title and aria-label so they match the button text more closely. [TEC-4458]
+* Tweak - Added filters: `tec_events_today_button_label` and `tec_events_view_{view_slug}_today_button_label` to filter the output of the `tec_events_get_today_button_label` function
+                         `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
+* Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TEC-4517]
+* Language - 11 new strings added, 149 updated, 2 fuzzied, and 2 obsoleted.
+
+
+= [6.0.1.1] 2022-09-29 =
+
+* Fix - Prevent Google Calendar duplicated Events from Importing with Aggregator. [TEC-4497]
+
+= [6.0.1] 2022-09-22 =
+
+* Fix - Prevent network deactivation from overwriting the subsite settings with main site cached settings. [TEC-3738]
+* Fix - Correct some translation domains pointing to the wrong plugin. [TEC-4450]
+* Fix - Ensure the details in the single event page are accurate for Divi users who set any Divi template under Settings → Events template. [TEC-3814]
+* Fix - Add caching to prevent duplicated queries for translated venue/organizer values. props to @dgwatkins for the suggested fix! [TEC-4428]
+* Fix - Check the document for `lang` and `rtl` attributes and pass them on to the datepicker so it adapts properly. [TEC-4452]
+* Fix - Corrected an issue where the Organizer Block was showing the "Add Another Organizer" button when no organizers were selected. [CE-11]
+* Fix - Corrected an issue where the "Edit Venue" and "Edit Organizer" links were displaying with no link. [CE-165]
+* Fix - Correct migration error when The Events Calendar PRO is not active. [TEC-4475]
+* Fix - Normalize, reformat and rebuild Event date-related meta to fix a number of migration preview failures [ECP-1304]
+* Fix - Correct a problem with moving tickets when The Events Calendar PRO is not active. [TEC-4471]
+* Fix - Correct an issue with migrating past events that straddle Daylight Savings Time. [ECP-1270]
+* Fix - Fix the Community Events recurrence link. [ECP-1215]
+* Tweak - Add some helpful knowledgebase article links to the CSV import screen. [TEC-4353]
+* Tweak - Ensure the Fast-forward link uses the correct, customizable color as other links. [TEC-3962]
+* Tweak - Include Custom Tables Migration in the Support System Information array. [ECP-1316]
+* Tweak - Add compatibility for new "Convert to single" option in The Events Calendar PRO. [ECP-1308]
+* Language - 5 new strings added, 163 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.0.0.1] 2022-09-07 =
+
+* Fix - Prevent `E_ERROR` from showing up when calling `tribe_context()->is( 'is_main_query' )` too early in execution. [TEC-4464]
+
+= [6.0.0] 2022-09-06 =
+
+* Version - The Events Calendar 6.0.0 is only compatible with Events Calendar PRO 6.0.0 and higher
+* Feature - Custom tables and optimization of Cache Primers to enable reduced and stabilized number of queries on Event views.
+* Feature - Inclusion of Event Occurrences custom table `{$prefix}_tec_occurrences`.
+* Feature - Inclusion of Events custom table `{$prefix}_tec_events`.
+* Tweak - Legacy views are now fully deprecated and most of the template files and code was removed, please see other changelog items to see modifications.
+* Language - 123 new strings added, 296 updated, 0 fuzzied, and 161 obsoleted
+* Tweak - Methods marked as deprecated: `Tribe__Events__Main::add_new_organizer`, `Tribe__Events__Main::default_view`, `Tribe__Events__Main::fullAddress`, `Tribe__Events__Main::fullAddressString`, `Tribe__Events__Main::getDateStringShortened`, `Tribe__Events__Main::getPostTypes`, `Tribe__Events__Main::googleCalendarLink`, `Tribe__Events__Main::googleMapLink`, `Tribe__Events__Main::monthNames`, `Tribe__Events__Main::nextMonth`, `Tribe__Events__Main::previousMonth`, `Tribe__Events__Main::setDisplay`
+* Tweak - Functions moved to `src/functions/template-tags/deprecated`: `tribe_events_the_header_attributes`, `tribe_get_next_day_date`, `tribe_get_previous_day_date`
+* Tweak - Functions/methods refactored:  `tribe_events_is_view_enabled`, `tribe_is_ajax_view_request`, `tribe_meta_event_category_name`
+* Tweak - Functions/Methods Removed:  `tribe_get_list_widget_events`, `Tribe__Events__Main::register_list_widget`, `Tribe__Events__Main::init_day_view`, `Tribe__Events__Main::eventQueryVars`, `Tribe__Events__Main::ecpActive`, `Tribe__Events__Main::dateHelper`, `Tribe__Events__Main::dateToTimeStamp`, `Tribe__Events__Main::defaultValueReplaceEnabled`, `Tribe__Events__Main::addHelpAdminMenuItem`, `Tribe__Events__Main::getNotices`, `Tribe__Events__Main::removeNotice`, `Tribe__Events__Main::isNotice`, `Tribe__Events__Main::setNotice`, `Tribe__Events__Main::renderDebug`, `Tribe__Events__Main::debug`, `Tribe__Events__Main::truncate`, `Tribe__Events__Main::saveAllTabsHidden`, `Tribe__Events__Main::doNetworkSettingTab`, `Tribe__Events__Main::addNetworkOptionsPage`, `Tribe__Events__Main::setNetworkOptions`, `Tribe__Events__Main::getNetworkOption`, `Tribe__Events__Main::getNetworkOptions`, `Tribe__Events__Main::setOption`, `Tribe__Events__Main::setOptions`, `Tribe__Events__Main::getOption`, `Tribe__Events__Main::getOptions`, `Tribe__Events__Main::getTagRewriteSlug`, `Tribe__Events__Main::getTaxRewriteSlug`, `Tribe__Events__Main::doHelpTab`, `Tribe__Events__Main::doSettingTabs`, `Tribe__Events__Main::array_insert_before_key`, `Tribe__Events__Main::array_insert_after_key`, `Tribe__Events__Main::add_post_type_to_edit_term_link`, `Tribe__Events__Main::prepare_to_fix_tagcloud_links`, `Tribe__Events__Main::saved_organizers_dropdown`, `Tribe__Events__Main::saved_venues_dropdown`, `Tribe__Events__Main::set_meta_factory_global`, `Tribe__Events__Main::initOptions`, `Tribe__Events__Main::loadTextDomain`, `Tribe__Events__Main::common`, `Tribe__Events__Main::issue_noindex`, `Tribe__Events__Main::displayEventOrganizerDropdown`, `Tribe__Events__Main::displayEventVenueDropdown`, `Tribe__Events__Main::checkAddOnCompatibility`, `Tribe__Events__Main::maybe_delay_activation_if_outdated_common`, `Tribe__Events__Main::is_delayed_activation`, `Tribe__Events__Main::get_event_link`, `Tribe__Events__Main::get_closest_event`, `Tribe__Events__Main::setPostExceptionThrown`, `Tribe__Events__Main::getPostExceptionThrown`, `Tribe__Events__Main::manage_preview_metapost`, `Tribe__Events__Main::setDashicon`, `Tribe__Events__Main::printLocalizedAdmin`, `Tribe__Events__Main::localizeAdmin`, `Tribe__Events__Main::asset_fixes`, `Tribe__Events__Main::add_admin_assets`, `Tribe__Events__Main::loadStyle`, `Tribe__Events__Main::enqueue_wp_admin_menu_style`, `Tribe__Events__Main::get_closest_event_where`, `Tribe__Events__Main::setup_listview_in_bar`, `Tribe__Events__Main::setup_gridview_in_bar`, `Tribe__Events__Main::setup_dayview_in_bar`, `Tribe__Events__Main::setup_date_search_in_bar`, `Tribe__Events__Main::remove_hidden_views`, `Tribe__Events__Main::setup_keyword_search_in_bar`, `Tribe__Events__Main::OrganizerMetaBox`, `Tribe__Events__Main::VenueMetaBox`, `Tribe__Events__Main::EventsChooserBox`, `Tribe__Events__Main::normalize_organizer_submission`, `Tribe__Events__Main::get_i18n_strings_for_domains`, `Tribe__Events__Main::get_i18n_strings`, `Tribe__Events__Main::redirect_past_upcoming_view_urls`, `Tribe__Events__Main::getOrganizerPostTypeArgs`, `Tribe__Events__Main::getVenuePostTypeArgs`, `Tribe__Events__Main::disable_pro`, `Tribe__Events__Main::template_redirect`, `Tribe__Events__Main::handle_submit_bar_redirect`, `Tribe__Events__Main::print_noindex_meta`, `Tribe__Events__Query::init`, `Tribe__Events__Query::parse_query`, `Tribe__Events__Query::pre_get_posts`, `Tribe__Events__Query::default_page_on_front`, `Tribe__Events__Query::multi_type_posts_fields`, `Tribe__Events__Query::posts_join`, `Tribe__Events__Query::posts_fields`, `Tribe__Events__Query::posts_results`, `Tribe__Events__Query::posts_where`, `Tribe__Events__Query::posts_orderby_venue_organizer`, `Tribe__Events__Query::posts_join_venue_organizer`, `Tribe__Events__Query::posts_distinct`, `Tribe__Events__Query::posts_orderby`, `Tribe__Events__Query::set_orderby`, `Tribe__Events__Query::set_order`, `Tribe__Events__Query::getHideFromUpcomingEvents`, `Tribe__Events__Query::getEventCounts`, `Tribe__Events__Query::last_found_events`, `Tribe__Events__Query::postmeta_table`, `Tribe__Events__Query::can_inject_date_field`, `Tribe__Events__Query::should_remove_date_filters`, `Tribe\Events\Views\V2\Widgets\Service_Provider::unregister_list_widget`, `tribe_include_view_list`, `tribe_events_month_has_events_filtered`, `tribe_events_the_month_single_event_classes`, `tribe_events_the_month_day_classes`, `tribe_events_get_current_month_day`, `tribe_events_get_current_week`, `tribe_events_the_month_day`, `tribe_events_have_month_days`, `tribe_show_month`, `tribe_get_dropdown_link_prefix`, `tribe_events_get_filters`, `tribe_events_get_views`, `Tribe__Events__Template__Single_Event::setup_meta`, `Tribe__Events__Template_Factory::asset_package`, `Tribe__Events__Template_Factory::get_asset_factory_instance`, `Tribe__Events__Template_Factory::handle_asset_package_request`, `Tribe__Events__Template_Factory::setup_meta`, `tribe_initialize_view`, `Tribe__Events__Templates::init`, `Tribe__Events__Templates::instantiate_template_class`, `Tribe__Events__Templates::load_ecp_comments_page_template`, `Tribe__Events__Templates::load_ecp_into_page_template`, `Tribe__Events__Templates::maybe_modify_global_post_title`, `Tribe__Events__Templates::maybeSpoofQuery`, `Tribe__Events__Templates::modify_global_post_title`, `Tribe__Events__Templates::restore_global_post_title`, `Tribe__Events__Templates::setup_ecp_template`, `Tribe__Events__Templates::showInLoops`, `Tribe__Events__Templates::spoof_the_post`, `Tribe__Events__Templates::templateChooser`, `Tribe__Events__Templates::theme_body_class`, `Tribe__Events__Templates::add_singular_body_class`, `Tribe__Events__Templates::get_current_page_template`, `Tribe__Events__Templates::needs_compatibility_fix`, `Tribe__Events__Templates::remove_singular_body_class`, `Tribe__Events__Templates::restoreQuery`, `Tribe__Events__Templates::spoof_the_post`, `Tribe__Events__Templates::template_body_class`, `Tribe__Events__Templates::wpHeadFinished`, `event_grid_view`, `get_event_google_map_link`, `event_google_map_link`, `tec_get_event_address`, `tec_event_address`, `tec_address_exists`, `get_event_google_map_embed`, `event_google_map_embed`, `get_jump_to_date_calendar`, `the_event_start_date`, `the_event_end_date`, `the_event_cost`, `the_event_venue`, `the_event_country`, `the_event_address`, `the_event_city`, `the_event_state`, `the_event_province`, `the_event_zip`, `the_event_phone`, `the_event_region`, `the_event_all_day`, `is_new_event_day`, `get_events`, `tribe_event_link`, `events_displaying_past`, `events_displaying_upcoming`, `events_displaying_month`, `events_get_past_link`, `events_get_upcoming_link`, `events_get_next_month_link`, `events_get_previous_month_link`, `events_get_events_link`, `events_get_gridview_link`, `events_get_listview_link`, `events_get_listview_past_link`, `events_get_previous_month_text`, `events_get_current_month_text`, `events_get_next_month_text`, `events_get_displayed_month`, `events_get_this_month_link`, `sp_get_option`, `sp_calendar_grid`, `sp_calendar_mini_grid`, `sp_sort_by_month`, `sp_is_event`, `sp_get_map_link`, `sp_the_map_link`, `sp_get_full_address`, `sp_the_full_address`, `sp_address_exists`, `sp_get_embedded_map`, `sp_the_embedded_map`, `sp_month_year_dropdowns`, `sp_get_start_date`, `sp_get_end_date`, `sp_get_cost`, `sp_has_organizer`, `sp_get_organizer`, `sp_get_organizer_email`, `sp_get_organizer_website`, `sp_get_organizer_link`, `sp_get_organizer_phone`, `sp_has_venue`, `sp_get_venue`, `sp_get_country`, `sp_get_address`, `sp_get_city`, `sp_get_stateprovince`, `sp_get_state`, `sp_get_province`, `sp_get_zip`, `sp_get_phone`, `sp_previous_event_link`, `sp_next_event_link`, `sp_post_id_helper`, `sp_is_new_event_day`, `sp_get_events`, `sp_is_past`, `sp_is_upcoming`, `sp_is_month`, `sp_get_past_link`, `sp_get_upcoming_link`, `sp_get_next_month_link`, `sp_get_previous_month_link`, `sp_get_month_view_date`, `sp_get_single_ical_link`, `sp_get_events_link`, `sp_get_gridview_link`, `sp_get_listview_link`, `sp_get_listview_past_link`, `sp_get_dropdown_link_prefix`, `sp_get_ical_link`, `sp_get_previous_month_text`, `sp_get_current_month_text`, `sp_get_next_month_text`, `sp_get_displayed_month`, `sp_get_this_month_link`, `sp_get_region`, `sp_get_all_day`, `sp_is_multiday`, `sp_events_title`, `sp_meta_event_cats`, `sp_meta_event_category_name`, `sp_get_add_to_gcal_link`, `eventsGetOptionValue`, `events_by_month`, `is_event`, `getEventMeta`, `tribe_events_event_recurring_info_tooltip`, `tribe_the_map_link`, `tribe_the_embedded_map`, `tribe_the_full_address`, `tribe_get_organizer_website`, `tribe_get_venue_permalink`, `tribe_previous_event_link`, `tribe_next_event_link`, `display_day_title`, `display_day`, `tribe_meta_event_cats`, `tribe_get_all_day`, `tribe_is_multiday`, `tribe_calendar_grid`, `tribe_calendar_mini_grid`, `tribe_sort_by_month`, `tribe_month_year_dropdowns`, `tribe_get_this_month_link`, `tribe_get_displayed_month`, `tribe_get_display_day_title`, `tribe_the_display_day`, `tribe_get_display_day`, `tribe_get_object_property_from_array`, `tribe_mini_display_day`, `tribe_event_format_date`, `tribe_event_beginning_of_day`, `tribe_event_end_of_day`, `tribe_events_the_notices`, `tribe_get_the_day_link_date`, `tribe_get_the_day_link_label`, `tribe_the_day_link`, `tribe_get_linked_day`, `tribe_events_disabled_views`, `tribe_events_enabled_views`, `tribe_events_template_data`, `tribe_get_ticket_form`, `tribe_map_cost_array_callback`, `tribe_events_get_days_of_week`, `tribe_is_community_my_events_page`, `tribe_display_current_events_slug`, `tribe_display_current_single_event_slug`, `tribe_display_current_ical_link`, `tribe_is_new_event_day`
+* Tweak - Added filters: `tec_events_custom_tables_v1_upgrade_before`, `tec_events_custom_tables_v1_upgrade_after`, `tec_events_custom_tables_v1_should_render_maintenance_modal`, `tec_events_custom_tables_v1_migration_ajax_ui_renderer`, `tec_events_custom_tables_v1_migration_strategy`, `tec_events_custom_tables_v1_delete_meta_keys`, `tec_events_custom_tables_v1_migration_strategy_text_override_$action`, `tec_events_custom_tables_v1_migration_event_report_categories`, `tec_events_custom_tables_v1_migration_get_plugin_state_migration_addendum`, `tec_events_custom_tables_v1_event_data_from_post`, `tec_custom_tables_{$this->table}_model_v1_extensions`, `tec_events_custom_tables_v1_normalize_occurrence_id`, `tec_events_custom_tables_v1_occurrences_generator`, `tec_custom_tables_v1_get_occurrence_match`, `tec_events_custom_tables_v1_enabled`, `tec_events_custom_tables_v1_table_schemas`, `tec_events_custom_tables_v1_field_schemas`, `tec_events_custom_tables_v1_tables_to_drop`, `tec_events_custom_tables_v1_fields_to_drop`, `tec_events_custom_tables_v1_db_transactions_supported`, `tec_events_custom_tables_v1_should_update_custom_tables`, `tec_events_custom_tables_v1_commit_post_updates`, `tec_events_custom_tables_v1_updated_post`, `tec_events_custom_tables_v1_deleted_post`, `tec_events_custom_tables_v1_redirect_post_location`, `tribe_events_known_range_stati`, `tec_events_custom_tables_v1_request_factory_post_id_keys`, `tec_events_custom_tables_v1_custom_tables_query_vars`, `tec_events_custom_tables_v1_occurrence_select_fields`, `tec_events_custom_tables_v1_custom_tables_query_where`, `tec_events_custom_tables_v1_meta_key_redirection_map`, `tec_events_custom_tables_v1_show_series_title`, `tec_events_custom_tables_v1_series_marker_label_classes`, `tribe_events_assets_should_enqueue_admin_update_page_assets`, `tec_events_custom_tables_v1_blocks_editor_event_meta`, `tribe_events_linked_posts_should_render_meta_box`, `tec_events_upgrade_tab_has_content`, `tec_events_prime_cache_post_ids`, `tec_events_get_current_view`, `tribe_get_venue_website_link_target`, `tribe_get_venue_website_link_label`, `tribe_events_settings_default_fields_initializer`
+* Tweak - Removed filters: `aggregator_should_load_scripts`, `tribe-events-bar-should-show`, `widget_title`, `tribe_events_`, `tribe_events_widget_jsonld_enabled`, `tec_events_default_view`, `tribe_events_get_{$mode}_event_link`, `tribe_events_get_closest_event`, `tribe_events_get_event_link`, `tribe-events-bar-date-search-default-value`, `tribe_events_bar_date_search_default_value`, `tribe_bar_datepicker_caption`, `tribe_tec_addons`, `tribe_add_on_compatibility_errors`, `tribe_display_event_venue_dropdown_id`, `tribe_display_event_organizer_dropdown_id`, `tribe_events_category_rewrite_slug`, `tribe_events_tag_rewrite_slug`, `the_content`, `tribe_events_suppress_query_filters`, `tribe_query_can_inject_date_field`, `tec_events_query_default_view`, `tribe_events_query_include_start_date_meta`, `tribe_events_query_include_children`, `tribe_events_query_posts_fields`, `tribe_events_query_force_local_tz`, `tribe_events_query_posts_joins`, `tribe_events_query_end_date_column`, `tribe_events_query_posts_orderby`, `tribe_events_query_posts_join_orderby`, `tribe_events_query_posts_join_venue_organizer`, `tribe_events_hide_from_upcoming_ids`, `tribe_events_month_day_limit`, `tribe_enable_recurring_event_queries`, `tribe_events_day_view_title`, `tribe_events_day_timeslot_format`, `tribe_events_ajax_response`, `tribe_upcoming_events_title`, `tribe_past_events_title`, `tribe_events_listview_ajax_get_event_args`, `tribe_events_listview_ajax_event_display`, `tribe_events_month_view_transient_expiration`, `tribe_month_grid_view_title`, `tribe_events_this_month_title`, `tribe_events_month_get_events_in_month`, `tribe_events_month_daily_events`, `tribe_events_month_daily_events_query_args`, `tribe_themes_compatibility_fixes`, `tribe_set_global_post_title`, `tribe_events_current_template_class`, `tribe_event_meta_event_date`, `tribe_event_meta_event_category`, `tribe_event_meta_event_tag`, `tribe_event_meta_event_website`, `tribe_events_display_event_origin`, `tribe_event_meta_event_origin`, `tribe_event_meta_organizer_name`, `tribe_event_meta_organizer_email`, `tribe_event_meta_venue_name`, `tribe_event_meta_venue_address_gmap`, `tribe_event_meta_venue_address`, `tribe_event_meta_venue_map`, `tribe_events_kill_responsive`, `tribe_events_stylesheet_url`, `tribe_importer_url`, `tribe_events_hide_legacy_imports`, `tribe_events_import_type_titles_map`, `tribe_events_import_options_rows`, `tribe_events_import_options_default_selected`, `tribe-import-tabs`, `tribe_import_tabs`, `tribe_events_csv_batch_size`, `tribe-import-available-options`, `tribe_import_available_options`, `tribe-import-setting-`, `tribe_import_setting_`, `tribe_import_default_post_status_non_saved`, `tribe_import_default_post_status`, `tribe_import_possible_stati`, `tribe_import_default_encode_status_non_saved`, `tribe_import_default_encode_status`, `tribe_import_encoding_status`, `tribe_meta_factory_check_exists`, `tribe_meta_factory_get_args`, `tribe_meta_factory_template`, `tribe_get_linked_day`, `tribe_the_day_link`, `tribe_event_link`, `tribe_get_organizer_website`, `tribe_previous_event_link`, `tribe_next_event_link`, `tribe_meta_event_cats`, `tribe_get_all_day`, `tribe_is_multiday`, `tribe_get_ticket_form`, `tribe-events-bar-filters`, `tribe_is_new_event_day`, `tribe_events_get_current_month_day`, `tribe_events_the_month_day_class`, `tribe_events_the_month_single_event_classes`, `tribe_events_month_has_events_filtered`, `tribe_get_dropdown_link_prefix`, `tribe_get_list_widget_events`, `tribe_events_views_v2_is_enabled`, `tribe_events_views_v2_should_smart_activate`, `tribe_events_views_v2_use_period_repository`, `tribe_events_widgets_v2_is_enabled`, `tribe_events_single_view_v2_is_enabled`, `tec_events_views_v1_should_display_deprecated_notice`, `tribe_events_day_view_event_type`, `tribe_default_events_template_classes`, `tribe_events_list_view_event_type`, `tribe_events_list_widget_thumbnail_size`, `tribe_events_list_widget_featured_image_link`
+* Tweak - Added actions: `tec_events_custom_tables_v1_error`, `tribe_log`, `tec_events_custom_tables_v1_migration_maintenance_mode`, `tec_events_custom_tables_v1_before_migration_applied`, `tec_events_custom_tables_v1_migration_before_cancel`, `tec_events_custom_tables_v1_migration_after_cancel`, `tec_events_custom_tables_v1_migration_completed`, `tec_events_custom_tables_v1_after_insert_occurrences`, `tec_events_custom_tables_v1_after_save_occurrences`, `tec_events_custom_tables_v1_after_update_occurrences`, `tec_events_custom_tables_v1_pre_drop_tables`, `tec_events_custom_tables_v1_post_drop_tables`, `tec_events_custom_tables_v1_pre_drop_fields`, `tec_events_custom_tables_v1_post_drop_fields`, `tec_events_custom_tables_v1_request_after_insert_event`, `tec_events_custom_tables_v1_request_after_update_event`, `tec_events_custom_tables_v1_update_post_before`, `tec_events_custom_tables_v1_update_post_after`, `tec_events_custom_tables_v1_delete_post`, `tec_events_custom_tables_v1_after_insert_event`, `tec_events_custom_tables_v1_after_update_event`, `tec_events_custom_tables_v1_redirect_classic_editor_event_post`, `tec_events_custom_tables_v1_redirect_rest_event_post`, `tec_events_custom_tables_v1_custom_tables_query_pre_get_posts`, `tec_events_custom_tables_v1_custom_tables_query_results`, `tec_events_custom_tables_v1_{$modifier_class}_done`, `tec_events_views_v2_after_get_events`, `tribe_events_single_meta_details_section_after_datetime`
+* Tweak - Removed actions: `tribe-events-bar-enqueue-scripts`, `tribe_events_widget_render`, `tribe_events_before_list_widget`, `tribe_events_list_widget_before_the_title`, `tribe_events_list_widget_after_the_title`, `tribe_events_after_list_widget`, `tribe_events_pre_get_posts`, `tribe_events_set_month_view_events_from_cache`, `tribe_events_calendar_loop_end`, `tribe_tec_template_chooser`, `tribe_events_filter_the_page_title`, `tribe-import-render-tab-`, `tribe_import_render_tab_`, `tribe_events_csv_import_complete`, `tribe_import_options_updated`, `tribe_meta_factory_register`, `tribe_pre_initialize_view`, `tribe_events_before_event_template_data_date_display`, `tribe_events_after_event_template_data_date_display`, `tribe_events_before_show_month`, `tribe_events_after_show_month`, `tribe_events_before_template`, `tribe_events_after_template`, `tribe_events_before_header`, `tribe_events_before_header_nav`, `tribe_events_after_header_nav`, `tribe_events_after_header`, `tribe_events_before_loop`, `tribe_events_after_loop`, `tribe_events_before_footer`, `tribe_events_before_footer_nav`, `tribe_events_after_footer_nav`, `tribe_events_after_footer`, `tribe_events_inside_before_loop`, `tribe_events_inside_after_loop`, `tribe_events_before_the_event_title`, `tribe_events_after_the_event_title`, `tribe_events_before_the_meta`, `tribe_events_inside_cost`, `tribe_events_after_the_meta`, `tribe_events_before_the_content`, `tribe_events_after_the_content`, `tribe_events_before_the_title`, `tribe_events_after_the_title`, `tribe_default_events_template_after_header`, `tribe_default_events_template_before_footer`, `tribe_events_list_before_the_content`, `tribe_events_bar_before_template`, `tribe_events_bar_after_template`, `tribe_events_before_the_grid`, `tribe_events_after_the_grid`, `tribe_events_before_nav`, `tribe_events_after_nav`, `tribe_events_list_widget_before_the_event_image`, `tribe_events_list_widget_after_the_event_image`, `tribe_events_list_widget_before_the_event_title`, `tribe_events_list_widget_after_the_event_title`, `tribe_events_list_widget_before_the_meta`, `tribe_events_list_widget_after_the_meta`
+* Tweak - Changed views: `blocks/event-links`, `blocks/event-website`, `blocks/parts/details`, `day`, `day/content`, `day/loop`, `day/nav`, `day/single-event`, `day/single-featured`, `day/title-bar`, `default-template`, `list`, `list/content`, `list/loop`, `list/nav`, `list/single-event`, `list/single-featured`, `list/title-bar`, `modules/address`, `modules/bar`, `modules/meta/details`, `month`, `month/content`, `month/loop-grid`, `month/mobile`, `month/nav`, `month/single-day`, `month/single-event`, `month/title-bar`, `month/tooltip`, `v2/month/calendar-body/day`, `v2/month/calendar-body/day/calendar-events/calendar-event/title`, `v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title`, `v2/month/mobile-events/mobile-day/mobile-event/title`, `widgets/calendar-widget`, `widgets/list-widget`
 
 = [5.16.4] 2022-08-09 =
 
@@ -300,7 +848,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [5.15.0.1] 2022-05-23 =
 
-* Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [BTRIA-1243]
+* Fix - Prevent fatal when using Yoast due to missing function `tribe_is_month()` [TEC-4376]
 * Fix - Check if function exists for `get_current_screen` to avoid a fatal if not.
 
 = [5.15.0] 2022-05-19 =

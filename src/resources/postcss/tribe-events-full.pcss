@@ -287,7 +287,8 @@ a.tribe-button,
 }
 
 /* Links */
-#tribe-events-content a,
+.tribe-events-single a,
+.tribe-embed a,
 .tribe-events-event-meta a {
 	color: var(--tec-color-link-accent);
 	text-decoration: none;
@@ -1787,10 +1788,6 @@ input[name*='tribe-bar-']:-moz-placeholder {
 	text-transform: none;
 	width: 100%;
 
-	&:focus {
-		outline: 1px dotted;
-	}
-
 	&:hover,
 	&:focus {
 		background: #cacaca;
@@ -1854,7 +1851,7 @@ input[name*='tribe-bar-']:-moz-placeholder {
 		}
 
 		&:focus {
-			outline: 1px dotted;
+			outline: auto;
 		}
 
 		&:last-child {

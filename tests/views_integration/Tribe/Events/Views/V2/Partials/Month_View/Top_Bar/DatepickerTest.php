@@ -35,6 +35,8 @@ class DatepickerTest extends HtmlPartialTestCase
 		$this->assertMatchesSnapshot( $this->get_partial_html( [
 			'now'                        => '2018-01-01 12:00:00',
 			'today_url'                  => 'http://test.tri.be',
+			'today_label'                => 'Today',
+			'today_title'                => 'Click to select today\'s date',
 			'is_now'                     => true,
 			'show_now'                   => true,
 			'formatted_grid_date'        => 'January 2018',

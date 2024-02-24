@@ -11,6 +11,7 @@ $field->source      = 'csv_content_type';
 
 $csv_record = Tribe__Events__Aggregator__Records::instance()->get_by_origin( 'csv' );
 $post_types = $csv_record->get_import_post_types();
+$main       = Tribe__Events__Main::instance();
 ?>
 <tr class="tribe-dependent" data-depends="#tribe-ea-field-origin" data-condition="csv">
 	<th scope="row">
@@ -77,3 +78,25 @@ $field->media_title = __( 'Upload a CSV File', 'the-events-calendar' );
 		</button>
 	</td>
 </tr>
+
+<div class="tec-admin-ea-help-message" data-depends="#tribe-ea-field-origin" data-condition-not-empty data-condition-relation="and" data-condition-not='["url","eventbrite", "gcal", "ics", "ical", "meetup", "url"]'>
+	<?php esc_html_e( 'Need assistance? You can find more information here:', 'the-events-calendar' ); ?>
+
+	<img
+		class="tec-admin-ea-help-message__icon"
+		src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
+		alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
+	/>
+	<a href="https://evnt.is/1bam" target="_blank" rel="noopener noreferrer">
+		<?php esc_html_e( 'Importing Calendar Data From a CSV File', 'the-events-calendar' ); ?>
+	</a>
+
+	<img
+		class="tec-admin-ea-help-message__icon"
+		src="<?php echo esc_url( tribe_resource_url( 'images/icons/tec-horns.svg', false, null, $main ) ); ?>"
+		alt="<?php esc_attr_e( 'The Events Calendar logo', 'the-events-calendar' ); ?>"
+	/>
+	<a href="https://evnt.is/1ban" target="_blank" rel="noopener noreferrer">
+		<?php esc_html_e( 'CSV File Formatting and Examples ', 'the-events-calendar' ); ?>
+	</a>
+</div>

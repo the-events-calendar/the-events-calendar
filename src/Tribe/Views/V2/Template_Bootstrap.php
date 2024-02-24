@@ -57,8 +57,6 @@ class Template_Bootstrap {
 	/**
 	 * Disables the Views V1 implementation of a Template Hijack
 	 *
-	 * @todo   use a better method to remove Views V1 from been initialized
-	 *
 	 * @since  4.9.2
 	 *
 	 * @return void
@@ -66,7 +64,6 @@ class Template_Bootstrap {
 	public function disable_v1() {
 		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
 		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
-		remove_action( 'plugins_loaded', [ V1_Event_Templates::class, 'init' ] );
 	}
 
 	/**
@@ -148,14 +145,14 @@ class Template_Bootstrap {
 
 		ob_start();
 		if ( 'page' === $setting ) {
-			echo '<main id="tribe-events">';
+			echo '<section id="tribe-events">';
 		} else {
-			echo '<main id="tribe-events-pg-template" class="tribe-events-pg-template">';
+			echo '<section id="tribe-events-pg-template" class="tribe-events-pg-template">';
 		}
 		tribe_events_before_html();
 		tribe_get_view( 'single-event' );
 		tribe_events_after_html();
-		echo '</main>';
+		echo '</section>';
 
 		$html = ob_get_clean();
 
@@ -174,9 +171,6 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	protected function get_v1_embed_template_path() {
-		global $post;
-		$query = tribe_get_global_query_object();
-
 		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
 			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
 		}
@@ -197,7 +191,7 @@ class Template_Bootstrap {
 	public function get_view_html() {
 		$query     = tribe_get_global_query_object();
 		$context   = tribe_context();
-		$view_slug = $context->get( 'view' );
+		$view_slug = $context->get( 'event_display' );
 
 		/**
 		 * Filters the HTML for the view before we do any other logic around that.
@@ -218,7 +212,7 @@ class Template_Bootstrap {
 		$should_display_single = (
 			$this->is_single_event()
 			&& ! tribe_is_showing_all()
-			&& ! V1_Templates::is_embed()
+			&& ! is_embed()
 		);
 
 		/**
@@ -389,8 +383,7 @@ class Template_Bootstrap {
 			return $template;
 		}
 
-		$view_slug = $context->get( 'view' );
-		$is_embed  = V1_Templates::is_embed() || 'embed' === $view_slug;
+		$is_embed  = is_embed() || 'embed' === $context->get( 'view' );
 
 		if ( $is_embed ) {
 			return $this->get_v1_embed_template_path();

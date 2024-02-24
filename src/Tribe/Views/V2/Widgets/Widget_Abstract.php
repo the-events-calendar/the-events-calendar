@@ -252,7 +252,7 @@ abstract class Widget_Abstract extends \Tribe\Widget\Widget_Abstract {
 	 * @return array<string,mixed> The modified template variables.
 	 */
 	public function filter_widget_template_vars( $template_vars, $view ) {
-		if ( $view->get_slug() !== $this->view_slug ) {
+		if ( $view::get_view_slug() !== $this->view_slug ) {
 			return $template_vars;
 		}
 

@@ -5,8 +5,7 @@ use Step\Restv1\RestGuy as Tester;
 use Tribe__Image__Uploader as Image;
 use Tribe__Timezones as Timezones;
 
-class EventUpdateCest extends BaseRestCest
-{
+class EventUpdateCest extends BaseRestCest {
 	/**
 	 * It should return 401 if user cannot update events
 	 *
@@ -15,7 +14,7 @@ class EventUpdateCest extends BaseRestCest
 	public function it_should_return_401_if_user_cannot_update_events( Tester $I ) {
 		$event_id = $I->haveEventInDatabase();
 
-		$I->sendPOST( $this->events_url ."/{$event_id}", [
+		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'excerpt'     => 'An event excerpt',
@@ -40,7 +39,7 @@ class EventUpdateCest extends BaseRestCest
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
 		$start = 'tomorrow 9am';
-		$end = 'tomorrow 11am';
+		$end   = 'tomorrow 11am';
 
 		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
 		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
@@ -81,7 +80,7 @@ class EventUpdateCest extends BaseRestCest
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
 		$start = 'tomorrow 9am';
-		$end = 'tomorrow 11am';
+		$end   = 'tomorrow 11am';
 
 		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
 		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
@@ -125,12 +124,14 @@ class EventUpdateCest extends BaseRestCest
 		$I->generate_nonce_for_role( 'administrator' );
 
 		$start = $data[0];
-		$end = $data[1];
+		$end   = $data[1];
 
-		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
-		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+		$timezone   = 'America/New_York';
+		$start_obj  = new DateTime( $start, new DateTimeZone( $timezone ) );
+		$end_obj    = new DateTime( $end, new DateTimeZone( $timezone ) );
+		$start_date = $start_obj->format( 'Y-m-d H:i:s' );
+		$end_date   = $end_obj->format( 'Y-m-d H:i:s' );
 
-		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
@@ -155,25 +156,30 @@ class EventUpdateCest extends BaseRestCest
 	 *
 	 * @test
 	 *
+	 * @example ["tomorrow 9am", "tomorrow 11am", "Australia/Sydney"]
 	 * @example ["tomorrow 9am", "tomorrow 11am", "America/New_York"]
 	 * @example ["tomorrow 11am", "tomorrow 1pm", "UTC"]
 	 * @example ["2018-01-01 4pm", "2018-01-01 5pm","Asia/Hong_Kong"]
 	 * @example ["next wednesday 4pm", "next wednesday 5pm","Europe/Rome"]
+	 *
 	 */
 	public function it_should_allow_specifying_the_timezone_of_the_event_to_update( Tester $I, \Codeception\Example $data ) {
 		$event_id = $I->haveEventInDatabase();
 
 		$I->generate_nonce_for_role( 'administrator' );
 
+		$default_timezone = 'Australia/Darwin';
 		// set the site to another timezone completely
-		$I->haveOptionInDatabase( 'timezone_string', 'Australia/Darwin' );
+		$I->haveOptionInDatabase( 'timezone_string', $default_timezone );
 
-		$start = $data[0];
-		$end = $data[1];
+		$start    = $data[0];
+		$end      = $data[1];
 		$timezone = $data[2];
 
-		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
-		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+		$start_obj  = new DateTime( $start, new DateTimeZone( $timezone ) );
+		$end_obj    = new DateTime( $end, new DateTimeZone( $timezone ) );
+		$start_date = $start_obj->format( 'Y-m-d H:i:s' );
+		$end_date   = $end_obj->format( 'Y-m-d H:i:s' );
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'      => 'An event',
@@ -204,13 +210,25 @@ class EventUpdateCest extends BaseRestCest
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
+		$new_tz_start_obj = new DateTime( $start, new DateTimeZone( $new_timezone ) );
+		$new_tz_end_obj   = new DateTime( $end, new DateTimeZone( $new_timezone ) );
 		$I->canSeeResponseContainsJson( [
 			'title'          => 'An event',
 			'timezone'       => $new_timezone,
-			'start_date'     => $start_date,
-			'end_date'       => $end_date,
-			'utc_start_date' => Timezones::convert_date_from_timezone( $start_date, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
-			'utc_end_date'   => Timezones::convert_date_from_timezone( $end_date, $new_timezone, 'UTC', 'Y-m-d H:i:s' ),
+			'start_date'     => $new_tz_start_obj->format( 'Y-m-d H:i:s' ),
+			'end_date'       => $new_tz_end_obj->format( 'Y-m-d H:i:s' ),
+			'utc_start_date' => Timezones::convert_date_from_timezone(
+				$new_tz_start_obj->format( 'Y-m-d H:i:s' ),
+				$new_timezone,
+				'UTC',
+				'Y-m-d H:i:s'
+			),
+			'utc_end_date'   => Timezones::convert_date_from_timezone(
+				$new_tz_end_obj->format( 'Y-m-d H:i:s' ),
+				$new_timezone,
+				'UTC',
+				'Y-m-d H:i:s'
+			),
 		] );
 
 	}
@@ -371,12 +389,12 @@ class EventUpdateCest extends BaseRestCest
 	public function it_should_not_allow_overriding_generated_fields( Tester $I, \Codeception\Example $data ) {
 		$event_id = $I->haveEventInDatabase();
 
-		$key = $data[0];
+		$key   = $data[0];
 		$value = $data[1];
 
 		$I->generate_nonce_for_role( 'administrator' );
 
-		$params = [
+		$params         = [
 			'title'      => 'An event title',
 			'start_date' => 'tomorrow 9am',
 			'end_date'   => 'tomorrow 11am',
@@ -405,16 +423,20 @@ class EventUpdateCest extends BaseRestCest
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
-		$start = 'tomorrow 9am';
-		$end = 'tomorrow 11am';
-		$all_day_start = 'tomorrow 00:00:00';
-		$all_day_end = 'tomorrow 23:59:59';
+		$start            = 'tomorrow 9am';
+		$end              = 'tomorrow 11am';
+		$all_day_start    = 'tomorrow 00:00:00';
+		$all_day_end      = 'tomorrow 23:59:59';
+		$start_obj        = new DateTime( $start, new DateTimeZone( $timezone ) );
+		$end_obj          = new DateTime( $end, new DateTimeZone( $timezone ) );
+		$start_allday_obj = new DateTime( $all_day_start, new DateTimeZone( $timezone ) );
+		$end_allday_obj   = new DateTime( $all_day_end, new DateTimeZone( $timezone ) );
 
-		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
-		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+		$start_date = $start_obj->format( 'Y-m-d H:i:s' );
+		$end_date   = $end_obj->format( 'Y-m-d H:i:s' );
 
-		$all_day_start_date = date( 'Y-m-d H:i:s', strtotime( $all_day_start ) );
-		$all_day_end_date   = date( 'Y-m-d H:i:s', strtotime( $all_day_end ) );
+		$all_day_start_date = $start_allday_obj->format( 'Y-m-d H:i:s' );
+		$all_day_end_date   = $end_allday_obj->format( 'Y-m-d H:i:s' );
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
@@ -451,16 +473,21 @@ class EventUpdateCest extends BaseRestCest
 		$timezone = 'America/New_York';
 		$I->haveOptionInDatabase( 'timezone_string', $timezone );
 
-		$start = 'tomorrow 9am';
-		$end = '+5 days 11am';
+		$start         = 'tomorrow 9am';
+		$end           = '+5 days 11am';
 		$all_day_start = 'tomorrow 00:00:00';
-		$all_day_end = '+5 days 23:59:59';
+		$all_day_end   = '+5 days 23:59:59';
 
-		$start_date = date( 'Y-m-d H:i:s', strtotime( $start ) );
-		$end_date   = date( 'Y-m-d H:i:s', strtotime( $end ) );
+		$start_obj        = new DateTime( $start, new DateTimeZone( $timezone ) );
+		$end_obj          = new DateTime( $end, new DateTimeZone( $timezone ) );
+		$start_allday_obj = new DateTime( $all_day_start, new DateTimeZone( $timezone ) );
+		$end_allday_obj   = new DateTime( $all_day_end, new DateTimeZone( $timezone ) );
 
-		$all_day_start_date = date( 'Y-m-d H:i:s', strtotime( $all_day_start ) );
-		$all_day_end_date   = date( 'Y-m-d H:i:s', strtotime( $all_day_end ) );
+		$start_date = $start_obj->format( 'Y-m-d H:i:s' );
+		$end_date   = $end_obj->format( 'Y-m-d H:i:s' );
+
+		$all_day_start_date = $start_allday_obj->format( 'Y-m-d H:i:s' );
+		$all_day_end_date   = $end_allday_obj->format( 'Y-m-d H:i:s' );
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", [
 			'title'       => 'An event',
@@ -723,7 +750,7 @@ class EventUpdateCest extends BaseRestCest
 
 		$I->generate_nonce_for_role( 'editor' );
 
-		$params = [
+		$params             = [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
@@ -753,7 +780,7 @@ class EventUpdateCest extends BaseRestCest
 
 		$I->generate_nonce_for_role( 'author' );
 
-		$params = [
+		$params             = [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
@@ -1107,7 +1134,7 @@ class EventUpdateCest extends BaseRestCest
 	 *
 	 * @test
 	 */
-	public function should_allow_removing_the_organizer_from_an_event(Tester $I) {
+	public function should_allow_removing_the_organizer_from_an_event( Tester $I ) {
 		$event_id     = $I->haveEventInDatabase();
 		$organizer_id = $I->haveOrganizerInDatabase();
 
@@ -1153,11 +1180,11 @@ class EventUpdateCest extends BaseRestCest
 	 *
 	 * @test
 	 */
-	public function should_allow_removing_the_venue_from_an_event(Tester $I) {
+	public function should_allow_removing_the_venue_from_an_event( Tester $I ) {
 		Assert::markTestSkipped( 'Due to an incompatibility between how the test sends information to the backend and how we handle it.' );
 
-		$event_id     = $I->haveEventInDatabase();
-		$venue_id     = $I->haveVenueInDatabase();
+		$event_id = $I->haveEventInDatabase();
+		$venue_id = $I->haveVenueInDatabase();
 
 		$I->generate_nonce_for_role( 'administrator' );
 
@@ -1187,9 +1214,9 @@ class EventUpdateCest extends BaseRestCest
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$response = json_decode( $I->grabResponse(), true );
-		 $I->assertArrayHasKey( 'venue', $response );
-		 $venue_response = $response['venue'];
-		 $I->assertEmpty( $venue_response );
+		$I->assertArrayHasKey( 'venue', $response );
+		$venue_response = $response['venue'];
+		$I->assertEmpty( $venue_response );
 	}
 
 	/**
@@ -1207,7 +1234,7 @@ class EventUpdateCest extends BaseRestCest
 
 		$cat_1_id = reset( $cat_1 );
 		$cat_2_id = reset( $cat_2 );
-		$params = [
+		$params   = [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
@@ -1330,12 +1357,12 @@ class EventUpdateCest extends BaseRestCest
 
 		$tag_1_id = reset( $tag_1 );
 		$tag_2_id = reset( $tag_2 );
-		$params = [
+		$params   = [
 			'title'       => 'An event',
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'tags'  => [ $tag_1_id, $tag_2_id ],
+			'tags'        => [ $tag_1_id, $tag_2_id ],
 		];
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", $params );
@@ -1425,7 +1452,7 @@ class EventUpdateCest extends BaseRestCest
 			'description' => 'An event content',
 			'start_date'  => 'tomorrow 9am',
 			'end_date'    => 'tomorrow 11am',
-			'tags'  => [ $tag_1_id, 'tag2' ],
+			'tags'        => [ $tag_1_id, 'tag2' ],
 		];
 
 		$I->sendPOST( $this->events_url . "/{$event_id}", $params );

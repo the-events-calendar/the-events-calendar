@@ -5,6 +5,8 @@ use Tribe\Events\Admin\Settings;
 use Tribe__Events__Main;
 use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;
+use TEC\Common\Contracts\Service_Provider;
+
 
 
 /**
@@ -13,7 +15,8 @@ use Tribe__Admin__Helpers;
  * @since 5.14.0
  *
  */
-class Provider extends \tad_DI52_ServiceProvider {
+class Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.
@@ -135,7 +138,8 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$tec_events_admin_filter_bar_upsell_fields = apply_filters( 'tec_events_filterbar_upgrade_content', $tec_events_filter_bar_upsell_tab );
 
 		new Tribe__Settings_Tab(
-			'filter-view', esc_html__( 'Filters', 'the_events_calendar' ),
+			'filter-view',
+			esc_html_x( 'Filters', 'Label for the Filters tab.', 'the-events-calendar' ),
 			[
 				'priority'      => 40,
 				'fields'        => $tec_events_admin_filter_bar_upsell_fields,

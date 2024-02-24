@@ -24,7 +24,12 @@ use Tribe__Events__Venue as Venue;
  *
  * @package Tribe\Events\Service_Providers
  */
-class Context extends \tad_DI52_ServiceProvider {
+
+use TEC\Common\Contracts\Service_Provider;
+
+
+class Context extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.
@@ -67,6 +72,15 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
 						Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
 						Tribe__Context::QUERY_VAR        => [ 'tribe_view', 'eventDisplay' ],
+						Tribe__Context::FUNC             => [
+							static function () {
+								if ( 1 === (int) tribe_get_request_var( 'ical', 0 ) && is_singular( TEC::POSTTYPE ) ) {
+									return 'single-event';
+								}
+
+								return Tribe__Context::NOT_FOUND;
+							}
+						],
 						Tribe__Context::TRIBE_OPTION     => 'viewOption',
 					],
 					'write' => [
@@ -269,7 +283,7 @@ class Context extends \tad_DI52_ServiceProvider {
 								];
 								$found = array_filter( $found );
 
-								return count( $found ) ?: Tribe__Context::NOT_FOUND;
+								return count( $found ) ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 						Tribe__Context::LOCATION_FUNC => [
@@ -296,7 +310,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
-								return [ TEC::POSTTYPE ] === (array) $post_type;
+								return [ TEC::POSTTYPE ] === (array) $post_type ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 					],
@@ -311,7 +325,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
-								return [ Venue::POSTTYPE ] === (array) $post_type;
+								return [ Venue::POSTTYPE ] === (array) $post_type ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 					],
@@ -326,7 +340,7 @@ class Context extends \tad_DI52_ServiceProvider {
 						Tribe__Context::LOCATION_FUNC => [
 							'post_type',
 							static function ( $post_type ) {
-								return [ Organizer::POSTTYPE ] === (array) $post_type;
+								return [ Organizer::POSTTYPE ] === (array) $post_type ? true : Tribe__Context::NOT_FOUND;
 							},
 						],
 					],

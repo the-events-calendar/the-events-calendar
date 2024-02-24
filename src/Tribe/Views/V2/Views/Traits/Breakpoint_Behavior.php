@@ -74,6 +74,8 @@ trait Breakpoint_Behavior {
 		 */
 		$pointer = apply_filters( "tribe_events_views_v2_view_breakpoint_pointer", $pointer, $this );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the pointer ID for a specific view.
 		 *
@@ -82,7 +84,7 @@ trait Breakpoint_Behavior {
 		 * @param string $pointer   Current pointer value.
 		 * @param View   $this      The current View instance being rendered.
 		 */
-		$pointer = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoint_pointer", $pointer, $this );
+		$pointer = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breakpoint_pointer", $pointer, $this );
 
 		return $pointer;
 	}
@@ -107,6 +109,8 @@ trait Breakpoint_Behavior {
 		 */
 		$breakpoints = apply_filters( "tribe_events_views_v2_view_breakpoints", $breakpoints, $this );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters the breakpoints value for a specific view.
 		 *
@@ -115,7 +119,7 @@ trait Breakpoint_Behavior {
 		 * @param array  $breakpoints All breakpoints available.
 		 * @param View   $this        The current View instance being rendered.
 		 */
-		$breakpoints = apply_filters( "tribe_events_views_v2_view_{$this->slug}_breakpoints", $breakpoints, $this );
+		$breakpoints = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breakpoints", $breakpoints, $this );
 
 		return $breakpoints;
 	}

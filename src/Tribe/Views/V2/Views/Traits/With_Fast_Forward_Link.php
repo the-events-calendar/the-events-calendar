@@ -123,6 +123,8 @@ trait With_Fast_Forward_Link {
 		 */
 		$use_ff_link = apply_filters( 'tribe_events_views_v2_use_ff_link', $use_ff_link, $canonical, $passthru_vars, $this );
 
+		$view_slug = static::get_view_slug();
+
 		/**
 		 * Filters whether the fast-forward link should be used for this specific View or not whenever possible.
 		 *
@@ -135,7 +137,7 @@ trait With_Fast_Forward_Link {
 		 * @param View_Interface $this          The View currently rendering.
 		 */
 		$use_ff_link = apply_filters(
-			"tribe_events_views_v2_{$this->slug}_use_ff_link",
+			"tribe_events_views_v2_{$view_slug}_use_ff_link",
 			$use_ff_link,
 			$passthru_vars,
 			$this

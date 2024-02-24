@@ -157,13 +157,13 @@ trait List_Behavior {
 
 			$now_label = sprintf(
 			// translators: the placeholder is for the date range start, e.g. "Now" or "October 23".
-				_x( '%s onwards', 'The datepicker range definition when no events are found.', 'the-events-calendar' ),
+				_x( 'Upcoming', 'The datepicker range definition when no events are found.', 'the-events-calendar' ),
 				$onwards_label_start
 			);
 
 			$now_label_mobile = sprintf(
 			// translators: the placeholder is for the date range start, e.g. "Now" or "1/1/2020".
-				_x( '%s onwards', 'The datepicker range definition when no events are found (for mobile).', 'the-events-calendar' ),
+				_x( 'Upcoming', 'The datepicker range definition when no events are found (for mobile).', 'the-events-calendar' ),
 				$onwards_label_start_mobile
 			);
 

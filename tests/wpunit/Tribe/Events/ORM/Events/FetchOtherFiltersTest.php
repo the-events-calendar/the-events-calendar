@@ -148,6 +148,9 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 
 		$not_matching = $this->factory()->event->create_many( 3 );
 
+		tribe_cache()->set_last_occurrence( \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+
+
 		$term_1 = get_term( $terms[0] );
 		$term_2 = get_term( $terms[1] );
 		$term_3 = get_term( $terms[2] );
@@ -182,6 +185,7 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 		$matching2 = $this->factory()->event->create_many( 2, [ 'tax_input' => [ 'post_tag' => [ $terms[1] ] ] ] );
 
 		$not_matching = $this->factory()->event->create_many( 3 );
+		tribe_cache()->set_last_occurrence( \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 
 		$term_1 = get_term( $terms[0] );
 		$term_2 = get_term( $terms[1] );
@@ -215,8 +219,11 @@ class FetchOtherFiltersTest extends \Codeception\TestCase\WPTestCase {
 		$hidden     = static::factory()->event->create( [ 'meta_input' => [ '_EventHideFromUpcoming' => 'yes' ] ] );
 		$not_hidden = static::factory()->event->create();
 
-		$this->assertEquals( [ $hidden ], tribe_events()->where( 'hidden_from_upcoming', true )->get_ids() );
-		$this->assertEquals( [ $not_hidden ], tribe_events()->where( 'hidden_from_upcoming', false )->get_ids() );
+		tribe_cache()->set_last_occurrence( \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+
+		$this->assertEquals( [ $hidden ], tribe_events()->where( 'hidden_from_upcoming', true )->get_ids(), 'Should be hidden' );
+		$this->assertEquals( [ $not_hidden ], tribe_events()->where( 'hidden_from_upcoming', false )->get_ids(), 'Should be visible' );
+
 		// Not specifying the hidden_from_upcoming filter should yield both.
 		$this->assertEqualSets( [ $hidden, $not_hidden ], tribe_events()->get_ids() );
 	}
