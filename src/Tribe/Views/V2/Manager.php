@@ -100,15 +100,18 @@ class Manager {
 		 *
 		 * @param array $views An associative  array of views in the shape `[ <slug> => <class> ]`.
 		 */
-		$views = (array) apply_filters( 'tribe_events_views', [
-			'list'        => List_View::class,
-			'month'       => Month_View::class,
-			'day'         => Day_View::class,
-			'latest-past' => Latest_Past_View::class,
-		] );
+		$views = (array) apply_filters(
+			'tribe_events_views',
+			[
+				List_View::get_view_slug()        => List_View::class,
+				Month_View::get_view_slug()       => Month_View::class,
+				Day_View::get_view_slug()         => Day_View::class,
+				Latest_Past_View::get_view_slug() => Latest_Past_View::class,
+			]
+		);
 
 		// Make sure the Reflector View is always available.
-		$views['reflector'] = Reflector_View::class;
+		$views[ Reflector_View::get_view_slug() ] = Reflector_View::class;
 
 		return $views;
 	}
@@ -149,7 +152,7 @@ class Manager {
 		$view_slug = $this->get_default_view_option();
 		$view_class = Arr::get( $registered_views, $view_slug, reset( $registered_views ) );
 
-		// Class for the view doesnt exist we bail with false.
+		// Class for the view doesn't exist we bail with false.
 		if ( ! class_exists( $view_class ) ) {
 			return false;
 		}
@@ -166,13 +169,28 @@ class Manager {
 	}
 
 	/**
+	 * Get the slug for the default registered view.
+	 *
+	 * @since 6.0.0
+	 *
+	 * @return string
+	 */
+	public function get_default_view_slug() {
+		$view = $this->get_default_view();
+
+		return $view ? $view::get_view_slug() : Month_View::get_view_slug();
+	}
+
+	/**
 	 * Returns an associative array of Views currently registered that are publicly visible.
 	 *
 	 * @since  4.9.4
 	 *
+	 * @param bool $is_enabled Should only return enabled views or all publicly visible ones.
+	 *
 	 * @return array An array in the shape `[ <slug> => <View Class> ]`.
 	 */
-	public function get_publicly_visible_views() {
+	public function get_publicly_visible_views( bool $is_enabled = true ) {
 		$views = $this->get_registered_views();
 
 		/*
@@ -184,8 +202,8 @@ class Manager {
 
 		$views = array_filter(
 			$views,
-			static function ( $view_class, $slug ) use ( $enabled_views ) {
-				return in_array( $slug, $enabled_views, true )
+			static function ( $view_class, $slug ) use ( $enabled_views, $is_enabled ) {
+				return ( ! $is_enabled || in_array( $slug, $enabled_views, true ) )
 				       && (bool) call_user_func( [ $view_class, 'is_publicly_visible' ] );
 			},
 			ARRAY_FILTER_USE_BOTH
@@ -323,13 +341,15 @@ class Manager {
 	 * @return string|false The label associated with a given View.
 	 */
 	public function get_view_label_by_class( $view_class ) {
-		$slug = $this->get_view_slug_by_class( $view_class );
-
-		if ( ! $slug ) {
+		if ( ! $view_class ) {
 			return false;
 		}
 
-		return $this->prepare_view_label( $slug, $view_class );
+		if ( ! method_exists( $view_class, 'get_view_label' ) ) {
+			return false;
+		}
+
+		return $view_class::get_view_label();
 	}
 
 	/**
@@ -342,17 +362,27 @@ class Manager {
 	 * @return string|false The label associated with a given View.
 	 */
 	public function get_view_label_by_slug( $slug ) {
+		/**
+		 * @var $view_class
+		 */
 		$view_class = $this->get_view_class_by_slug( $slug );
 
 		if ( ! $view_class ) {
 			return false;
 		}
 
-		return $this->prepare_view_label( $slug, $view_class );
+		if ( ! method_exists( $view_class, 'get_view_label' ) ) {
+			return false;
+		}
+
+		return $view_class::get_view_label();
 	}
 
 	/**
 	 * Prepare the view Label with filters for the domain and label.
+	 *
+	 * @since 5.0.0
+	 * @deprecated 6.0.4 Translations do not handle variable domains well. Now handled in the View class.
 	 *
 	 * @param  string $slug       The view slug.
 	 * @param  string $view_class The view fully qualified class name.
@@ -360,54 +390,69 @@ class Manager {
 	 * @return string             The filtered label associated with a given View.
 	 */
 	protected function prepare_view_label( $slug, $view_class ) {
-		$label = ucfirst( $slug );
+		_deprecated_function( __METHOD__, '6.0.4', 'No direct replacements, see more at View::filter_view_label()' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated 6.0.4 We cannot use variables for domains.
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $slug         Slug of the view we are getting the label for.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$domain = apply_filters( 'tribe_events_views_v2_manager_view_label_domain', 'the-events-calendar', $slug, $view_class );
+		$domain = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label_domain', [ 'the-events-calendar', $slug, $view_class ], '6.0.4' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated 6.0.4 We cannot use variables for domains.
 		 *
 		 * @param string $domain       Text Domain for the View label.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$domain = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label_domain", $domain, $view_class );
+		$domain = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label_domain", [ $domain, $view_class ], '6.0.4' );
 
 		/**
 		 * Pass by the translation engine, don't remove.
+		 * This originally was `$label = __( $label, $domain );`
+		 *
+		 * The problem is, that doesn't wind up in the .pot file and so it not translated.
+		 * You _cannot_ use a variable for the domain.
+		 * If the translated string is just a variable, it won't get translated either.
+		 *
+		 * @see http://ottopress.com/2012/internationalization-youre-probably-doing-it-wrong/
 		 */
-		$label = __( $label, $domain );
+		$label = tribe( $view_class )->get_label();
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated 6.0.4 Filtering is now done in the View class.
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $slug         Slug of the view we are getting the label for.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$label = apply_filters( 'tribe_events_views_v2_manager_view_label', $label, $slug, $view_class );
+		$label = apply_filters_deprecated( 'tribe_events_views_v2_manager_view_label', [ $label, $slug, $view_class ], '6.0.4', 'tribe_events_views_v2_view_label' );
 
 		/**
 		 * Filters the label that will be used on the UI for views listing.
+		 * Deprecated.
 		 *
 		 * @since 5.0.0
+		 * @deprecated 6.0.4 Filtering is now done in the View class.
 		 *
 		 * @param string $label        Label of the Current view.
 		 * @param string $view_class   Class Name of the view we are getting the label for.
 		 */
-		$label = apply_filters( "tribe_events_views_v2_manager_{$slug}_view_label", $label, $view_class );
+		$label = apply_filters_deprecated( "tribe_events_views_v2_manager_{$slug}_view_label", [ $label, $view_class ], '6.0.4', 'tribe_events_views_v2_{$slug}_view_label' );
 
 		return $label;
 	}

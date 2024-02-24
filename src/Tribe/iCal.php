@@ -46,10 +46,7 @@ class Tribe__Events__iCal {
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
-		add_action(
-			'tribe_events_single_event_after_the_content',
-			[ $this, 'single_event_links' ]
-		);
+		add_action( 'tribe_events_single_event_after_the_content', [ $this, 'single_event_links' ] );
 		add_action( 'template_redirect', [ $this, 'do_ical_template' ] );
 		add_filter( 'tribe_get_ical_link', [ $this, 'day_view_ical_link' ], 20, 1 );
 		add_action( 'wp_head', [ $this, 'set_feed_link' ], 2, 0 );
@@ -250,10 +247,13 @@ class Tribe__Events__iCal {
 		$event_ids = apply_filters( 'tribe_ical_template_event_ids', $event_ids );
 
 		if ( false !== $event_ids ) {
+			$event_ids = Arr::list_to_array( $event_ids );
+
+			// Exit or the feed will still generate.
 			if ( empty( $event_ids ) ) {
 				die();
 			}
-			$event_ids = Arr::list_to_array( $event_ids );
+
 			$events = array_map( 'tribe_get_event', $event_ids );
 			$this->generate_ical_feed( $events );
 		} elseif ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
@@ -265,16 +265,86 @@ class Tribe__Events__iCal {
 	}
 
 	/**
+	 * Checks access to an event's content, in the context for generating an iCal file.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @param numeric|WP_Post $post The post to evaluate our access to.
+	 *
+	 * @return bool
+	 */
+	public static function has_access_to_see_event_content( $post ): bool {
+		// Can we see it at all?
+		if ( ! self::has_access_to_see_event_exists( $post ) ) {
+			return false;
+		}
+
+		// If password required, we hide the content from the feed.
+		return ! post_password_required( $post );
+	}
+
+	/**
+	 * Checks access to an event, in the context for generating an iCal file.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @param numeric|WP_Post $post The post to evaluate our access to.
+	 *
+	 * @return bool
+	 */
+	public static function has_access_to_see_event_exists( $post ): bool {
+		$post = get_post( $post );
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+		// Most events.
+		if ( $post->post_status === 'publish' ) {
+			return true;
+		}
+		// If private, make sure they have access (and are logged in).
+		if ( $post->post_status === 'private' && current_user_can( 'read_post', $post->ID ) ) {
+			return true;
+		}
+
+		// Fallback to denied access unless explicitly approved above.
+		return false;
+	}
+
+	/**
 	 * Generates the iCal file
 	 *
-	 * @param int|null $post If you want the ical file for a single event
+	 * @since 6.1.3 Adding access checks to the provided posts.
+	 *
+	 * @param int|null|array $post If you want the ical file for a single event
 	 * @param boolean  $echo Whether the content should be echoed or returned
 	 *
 	 * @return string
 	 */
 	public function generate_ical_feed( $post = null, $echo = true ) {
-		$this->post = $post;
+		// If we are searching via a single numeric/post, turn into an array.
+		if ( ! empty( $post ) && ! is_array( $post ) ) {
+			$post = [ $post ];
+		}
+
+		// Gatekeep any externally handed events through permissions.
+		if ( is_array( $post ) ) {
+			$post = array_filter( $post, static function ( $event_id ) {
+				return self::has_access_to_see_event_exists( get_post( $event_id ) );
+			} );
+			if ( empty( $post ) ) {
+				if ( $echo ) {
+					die();
+				} else {
+					return '';
+				}
+			}
+			$post = array_map( 'get_post', $post );
+		}
+
+		// Now setup to do our search.
+		$this->post   = $post;
 		$this->events = $this->get_event_posts();
+
 		$content = $this->get_content();
 
 		if ( $echo ) {
@@ -301,11 +371,13 @@ class Tribe__Events__iCal {
 			return $this->get_month_view_events();
 		}
 
+		$list_view_slug = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
+
 		if ( tribe_is_organizer() ) {
 			return $this->get_events_list(
 				[
-					'organizer' => get_the_ID(),
-					'eventDisplay' => 'list',
+					'organizer'    => get_the_ID(),
+					'eventDisplay' => $list_view_slug,
 				]
 			);
 		}
@@ -313,8 +385,8 @@ class Tribe__Events__iCal {
 		if ( tribe_is_venue() ) {
 			return $this->get_events_list(
 				[
-					'venue' => get_the_ID(),
-					'eventDisplay' => tribe_get_request_var( 'tribe_event_display', 'list' ),
+					'venue'        => get_the_ID(),
+					'eventDisplay' => tribe_get_request_var( 'tribe_event_display', $list_view_slug ),
 				]
 			);
 		}
@@ -325,9 +397,17 @@ class Tribe__Events__iCal {
 
 		$args = $wp_query->query_vars;
 
-		if ( 'list' === $args['eventDisplay'] ) {
+		if ( $list_view_slug === $args['eventDisplay'] ) {
 			// Whe producing a List view iCal feed the `eventDate` is misleading.
 			unset( $args['eventDate'] );
+
+			// If passed a date, only observe it if it's in the future.
+			if ( isset( $args['tribe-bar-date'] ) ) {
+				$set_date = Dates::build_date_object( $args['tribe-bar-date'] );
+				if ( $set_date < Dates::build_date_object() ) {
+					unset( $args['tribe-bar-date'] );
+				}
+			}
 		}
 
 		return $this->get_events_list( $args, $wp_query );
@@ -357,11 +437,11 @@ class Tribe__Events__iCal {
 			: $wp_query->get( 'eventDate' );
 
 		$args = [
-			'eventDisplay' => 'custom',
-			'start_date' => Tribe__Events__Template__Month::calculate_first_cell_date( $month ),
-			'end_date' => Tribe__Events__Template__Month::calculate_final_cell_date( $month ),
+			'eventDisplay'   => 'custom',
+			'start_date'     => \Tribe\Events\Views\V2\Views\Month_View::calculate_first_cell_date( $month ),
+			'end_date'       => \Tribe\Events\Views\V2\Views\Month_View::calculate_final_cell_date( $month ),
 			'posts_per_page' => -1,
-			'hide_upcoming' => true,
+			'hide_upcoming'  => true,
 		];
 
 		// Verify the Initial Category.
@@ -409,9 +489,9 @@ class Tribe__Events__iCal {
 	 */
 	protected function get_file_name() {
 		$event_ids = wp_list_pluck( $this->events, 'ID' );
-		$site = sanitize_title( get_bloginfo( 'name' ) );
-		$hash = substr( md5( $this->type . implode( $event_ids ) ), 0, 11 );
-		$filename = sprintf( '%s-%s.ics', $site, $hash );
+		$site      = sanitize_title( get_bloginfo( 'name' ) );
+		$hash      = substr( md5( $this->type . implode( $event_ids ) ), 0, 11 );
+		$filename  = sprintf( '%s-%s.ics', $site, $hash );
 
 		/**
 		 * Modifies the filename provided in the Content-Disposition header for iCal feeds.
@@ -519,7 +599,7 @@ class Tribe__Events__iCal {
 			}
 
 			$transitions = $timezone->getTransitions( $start, $end );
-			if ( count( $transitions ) === 1 ) {
+			if ( is_array( $transitions ) && count( $transitions ) === 1 ) {
 				$transitions[] = array_values( $transitions )[ 0 ];
 			}
 
@@ -648,9 +728,34 @@ class Tribe__Events__iCal {
 	}
 
 	/**
+	 * Sanitize organizer name.
+	 *
+	 * @since 6.2.2
+	 *
+	 * @param string $name
+	 *
+	 * @return string
+	 */
+	private function sanitize_organizer_name( string $name ): string {
+		// Characters not allowed in organizer name: CTLs, DQUOTE, ";", ":", ","
+		$sanitized_name = rawurlencode( $name );
+
+		// Array of characters to allow in organizer name.
+		$chars = [ ' ', '&', '!', '?', "'", '*', '(', ')', '@', '#', '$', '%', '^', '+', '=', '{', '}', '[', ']', '|', '\\', '/', '<', '>', '`', '~' ];
+		$encoded_chars = array_map( 'rawurlencode', $chars );
+
+		// Since single quotes are allowed, let's convert any double quotes to single quotes.
+		$encoded_chars[] = rawurlencode( '"' );
+		$chars[] = "'";
+
+		return str_replace( $encoded_chars, $chars, $sanitized_name );
+	}
+
+	/**
 	 * Get the iCal Output for the provided event object.
 	 *
-	 * @since5.1.6
+	 * @since 5.1.6
+	 * @since 6.2.2   Sanitize organizer name using new method.
 	 *
 	 * @param \WP_Post             $event_post The event post object.
 	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.
@@ -658,14 +763,13 @@ class Tribe__Events__iCal {
 	 * @return array  An array of iCal output fields.
 	 */
 	public function get_ical_output_for_an_event( $event_post, Tribe__Events__Main $tec ) {
-
 		// Add fields to iCal output.
-		$item = [];
-
-		$full_format = 'Ymd\THis';
-		$utc_format  = 'Ymd\THis\Z';
-		$all_day     = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
-		$time        = (object) [
+		$item              = [];
+		$access_to_content = self::has_access_to_see_event_content( $event_post );
+		$full_format       = 'Ymd\THis';
+		$utc_format        = 'Ymd\THis\Z';
+		$all_day           = ( 'yes' === get_post_meta( $event_post->ID, '_EventAllDay', true ) );
+		$time              = (object) [
 			'start'    => tribe_get_start_date( $event_post->ID, false, 'U' ),
 			'end'      => tribe_get_end_date( $event_post->ID, false, 'U' ),
 			'modified' => Tribe__Date_Utils::wp_strtotime( $event_post->post_modified ),
@@ -713,14 +817,26 @@ class Tribe__Events__iCal {
 		$item['UID']           = 'UID:' . $event_post->ID . '-' . $time->start . '-' . $time->end . '@' . wp_parse_url( home_url( '/' ), PHP_URL_HOST );
 		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
 
-		$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+		if ( $access_to_content ) {
+			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
+		} else {
+			$content = _x( 'Content is protected.', 'Description in iCal content for events with hidden/protected content.', 'the-events-calendar' );
+			/**
+			 * Filters the password protected description for ical event descriptions that are displayed in the output.
+			 *
+			 * @since 6.1.3
+			 *
+			 * @param string The replaced message that will display in the ical event description.
+			 */
+			$content = apply_filters( 'tec_events_ical_protected_content_description', $content );
+		}
 
 		$item['DESCRIPTION'] = 'DESCRIPTION:' . $this->replace( wp_strip_all_tags( str_replace( '</p>', '</p> ', $content ) ) );
 
 		$item['URL'] = 'URL:' . get_permalink( $event_post->ID );
 
 		// Add location if available.
-		$location = $tec->fullAddressString( $event_post->ID );
+		$location = \Tribe__Events__Venue::get_address_full_string( $event_post->ID );
 		if ( ! empty( $location ) ) {
 			$str_location = $this->replace( $location, [ ',', "\n" ], [ '\,', '\n' ] );
 
@@ -728,14 +844,14 @@ class Tribe__Events__iCal {
 		}
 
 		// Add categories if available.
-		$event_cats = (array) wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, [ 'fields' => 'names' ] );
+		$event_cats = wp_get_object_terms( $event_post->ID, Tribe__Events__Main::TAXONOMY, [ 'fields' => 'names' ] );
 
-		if ( ! empty( $event_cats ) ) {
-			$item['CATEGORIES'] = 'CATEGORIES:' . $this->html_decode( join( ',', $event_cats ) );
+		if ( ! is_wp_error( $event_cats ) && ! empty( $event_cats ) ) {
+			$item['CATEGORIES'] = 'CATEGORIES:' . $this->html_decode( join( ',', (array) $event_cats ) );
 		}
 
 		// Add featured image if available.
-		if ( has_post_thumbnail( $event_post->ID ) ) {
+		if ( has_post_thumbnail( $event_post->ID ) && $access_to_content ) {
 			$thumbnail_id        = get_post_thumbnail_id( $event_post->ID );
 			$thumbnail_url       = wp_get_attachment_url( $thumbnail_id );
 			$thumbnail_mime_type = get_post_mime_type( $thumbnail_id );
@@ -756,7 +872,8 @@ class Tribe__Events__iCal {
 			$organizer    = get_post( $organizer_id );
 
 			if ( $organizer_id ) {
-				$item['ORGANIZER'] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', rawurlencode( $organizer->post_title ), $organizer_email );
+				$sanitized_name = $this->sanitize_organizer_name( $organizer->post_title );
+				$item['ORGANIZER'] = sprintf( 'ORGANIZER;CN="%s":MAILTO:%s', $sanitized_name, $organizer_email );
 			} else {
 				$item['ORGANIZER'] = sprintf( 'ORGANIZER:MAILTO:%s', $organizer_email );
 			}

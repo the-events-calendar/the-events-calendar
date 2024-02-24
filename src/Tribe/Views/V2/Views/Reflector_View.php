@@ -22,10 +22,20 @@ class Reflector_View extends View {
 	 * Slug for this view.
 	 *
 	 * @since 4.9.4
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
 	protected $slug = 'reflector';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'reflector';
 
 	/**
 	 * Visibility for this view.

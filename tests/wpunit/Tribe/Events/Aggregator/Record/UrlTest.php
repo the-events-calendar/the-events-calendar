@@ -29,7 +29,11 @@ class UrlTest extends Events_TestCase {
 	 * @return Url
 	 */
 	protected function make_instance() {
-		return new Url();
+		$record = new Url();
+		$record->meta['origin'] = 'url';
+		$record->meta['post_status'] = 'publish';
+
+		return $record;
 	}
 
 	/**

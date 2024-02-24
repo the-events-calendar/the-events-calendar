@@ -3,6 +3,7 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Main;
+require_once codecept_data_dir( 'Views/V2/classes/Test_Full_View.php' );
 
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 
@@ -304,7 +305,7 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 
 	public function filter_template_include_data_set() {
 		{
-			$event_template = ( new Template( $this->makeEmpty( View_Interface::class ) ) )
+			$event_template = ( new Template( new Test_Full_View() ) )
 				->get_template_file( 'default-template' );
 
 			// This data provider will run before WordPress loads, so we'll resolve the value later.

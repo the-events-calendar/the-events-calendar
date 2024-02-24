@@ -3,13 +3,13 @@
 namespace Tribe\Events\Aggregator\Record;
 
 include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Scheduled_Test.php' ) );
+include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Manual_Test.php' ) );
 
 use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Import_Record;
 use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Aggregator__Record__Abstract as Base;
-use Tribe__Events__Aggregator__Record__Activity as Activity;
-use Tribe__Events__Aggregator__Record__Facebook as FB_Record;
+use Tribe__Events__Aggregator__Record__Manual_Test as Manual_Test_Record;
 use Tribe__Events__Aggregator__Record__Scheduled_Test as Record;
 use Tribe__Events__Aggregator__Record__Url as Url_Import_Record;
 use Tribe__Events__Aggregator__Records as Records;
@@ -283,6 +283,117 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function should_not_duplicate_when_uid_is_already_present() {
+		// Insert Manual Test as a valid UNIQUE ID field source.
+		Base::$unique_id_fields['manual-test'] = [
+			'source' => 'uid',
+			'target' => 'uid',
+		];
+
+		$post = $this->factory()->post->create_and_get( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => 'ea/manual-test',
+		] );
+
+		$record = new Record();
+		$record->set_post( $post );
+		$record->frequency             = (object) [
+			'id'       => 'on_demand',
+			'interval' => 0,
+		];
+		$record->meta['post_status']   = 'publish';
+		$record->meta['origin']        = 'manual-test';
+		$record->meta['ids_to_import'] = 'all';
+
+		$uid = '__unique_uuid_for_manual_test__' . time();
+
+		$successful_child_record = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => $record->post->post_mime_type,
+		] );
+
+		$event_id = $this->factory()->event->create( [
+			'meta_input' => [
+				'_uid' => $uid,
+			]
+		] );
+
+		$manual_test_record = new Manual_Test_Record( $record );
+		$manual_test_record->meta['origin'] = 'manual-test';
+
+		// Enforce this particular Static variable.
+		Manual_Test_Record::$unique_id_fields = Base::$unique_id_fields;
+
+		$data = [
+			[ 'uid' => $uid, ]
+		];
+
+		$existing_ids = $manual_test_record->get_existing_ids_from_import_data( $data );
+		$this->assertCount( 1, $existing_ids );
+		$existing_id = reset( $existing_ids );
+
+		$this->assertEquals( $existing_id->post_id, $event_id );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_not_duplicate_when_uid_is_not_present() {
+		// Insert Manual Test as a valid UNIQUE ID field source.
+		Base::$unique_id_fields['manual-test'] = [
+			'source' => 'uid',
+			'target' => 'uid',
+		];
+
+		$post = $this->factory()->post->create_and_get( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => 'ea/manual-test',
+		] );
+
+		$record = new Record();
+		$record->set_post( $post );
+		$record->frequency             = (object) [
+			'id'       => 'on_demand',
+			'interval' => 0,
+		];
+		$record->meta['post_status']   = 'publish';
+		$record->meta['origin']        = 'manual-test';
+		$record->meta['ids_to_import'] = 'all';
+
+		$uid = '__unique_uuid_for_manual_test_not_present__' . time();
+
+		$successful_child_record = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => $record->post->post_mime_type,
+		] );
+
+		$manual_test_record = new Manual_Test_Record( $record );
+		$manual_test_record->meta['origin'] = 'manual-test';
+
+		// Enforce this particular Static variable.
+		Manual_Test_Record::$unique_id_fields = Base::$unique_id_fields;
+
+		$data = [
+			[ 'uid' => $uid, ]
+		];
+
+		$existing_ids = $manual_test_record->get_existing_ids_from_import_data( $data );
+		$this->assertCount( 0, $existing_ids );
+	}
+
+	/**
 	 * It should allow filtering the venue id when global ID does not provide a match
 	 *
 	 * @test
@@ -302,6 +413,8 @@ class AbstractTest extends Events_TestCase {
 			return $venue_id;
 		}, 10, 2 );
 		$sut = new Url_Import_Record();
+		$sut->meta['origin'] = 'url';
+		$sut->meta['post_status'] = 'publish';
 
 		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
 		$activity       = $sut->insert_posts( [ $item ] );
@@ -325,6 +438,8 @@ class AbstractTest extends Events_TestCase {
 			return $organizer_ids[ $i ++ ];
 		}, 10, 2 );
 		$sut = new Url_Import_Record();
+		$sut->meta['origin'] = 'url';
+		$sut->meta['post_status'] = 'publish';
 
 		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
 		$activity           = $sut->insert_posts( [ $item ] );
@@ -477,6 +592,9 @@ class AbstractTest extends Events_TestCase {
 				return 'test';
 			}
 		};
+
+		$test_record->meta['origin'] = $origin;
+		$test_record->meta['post_status'] = 'publish';
 
 		return $test_record;
 	}

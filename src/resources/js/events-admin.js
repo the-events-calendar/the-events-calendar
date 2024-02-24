@@ -225,7 +225,8 @@ jQuery( function( $ ) {
 
 		section.on( 'click', '.tribe-add-post', function(e) {
 			e.preventDefault();
-			var dropdown = $({}), fields = $({});
+			var dropdown = $({});
+			var fields = $({});
 
 			if ( saved_template ) {
 				dropdown = $( saved_template({}) );
@@ -242,7 +243,8 @@ jQuery( function( $ ) {
 			}
 
 			// The final <tbody> contains the add new post link, we should add this new selector before that
-			section.find( 'tfoot' ).before( fields );
+			section.find( 'tfoot:first' ).before( fields );
+
 			fields.prepend( dropdown );
 
 			if ( section.find( 'tbody' ).length > 1 ) {
@@ -252,6 +254,29 @@ jQuery( function( $ ) {
 			}
 
 			fields.find( '.tribe-dropdown' ).tribe_dropdowns();
+
+			dropdown.find( 'select.linked-post-dropdown' ).trigger( 'change' );
+
+			// Determine if we should hide all the trash buttons and move buttons.
+			if ( section.find( 'tbody' ).length > 1 ) {
+				section.find( '.tribe-delete-this' ).show();
+				section.find( '.move-linked-post-group' ).show();
+			} else {
+				section.find( '.tribe-delete-this' ).hide();
+				section.find( '.move-linked-post-group' ).hide();
+			}
+
+			/**
+			 * Fires when a new linked post is added to the event.
+			 *
+			 * @since 6.2.0
+			 *
+			 * @param {string} post_type The post type of the linked post.
+			 * @param {jQuery} section   The current Section of Linked Post.
+			 * @param {jQuery} fields    The fields for the new linked post.
+			 * @param {jQuery} dropdown  The Dropdown for the new linked post.
+			 **/
+			window.wp.hooks.doAction( 'tec.events.admin.linked_posts.add_post', post_type, section, fields, dropdown );
 		});
 
 		section.on( 'change', '.linked-post-dropdown', toggle_linked_post_fields );
@@ -339,7 +364,7 @@ jQuery( function( $ ) {
 			group.append( fields );
 		} );
 
-		section.on( 'click', '.tribe-delete-this', function(e) {
+		$( document ).on( 'click', `#event_${post_type} .tribe-delete-this`, function(e) {
 			e.preventDefault();
 			var $group = $( this ).closest( 'tbody' );
 
@@ -347,6 +372,19 @@ jQuery( function( $ ) {
 
 			$group.fadeOut( 500, function() {
 				$( this ).remove();
+
+				$group.find( 'select.linked-post-dropdown' ).trigger( 'change' );
+
+				// Determine if we should hide all the trash buttons and move buttons.
+				if ( section.find( 'tbody' ).length > 1 ) {
+					section.find( '.tribe-delete-this' ).show();
+					section.find( '.move-linked-post-group' ).show();
+				} else {
+					section.find( '.tribe-delete-this' ).hide();
+					section.find( '.move-linked-post-group' ).hide();
+				}
+
+				showOrHideAddPostButton( section );
 			} );
 		});
 
@@ -364,17 +402,26 @@ jQuery( function( $ ) {
 			delay       : 100
 		} );
 
+		// Determine if we should hide all the trash buttons and move buttons.
 		if ( section.find( 'tbody' ).length > 1 ) {
+			section.find( '.tribe-delete-this' ).show();
 			section.find( '.move-linked-post-group' ).show();
 		} else {
+			section.find( '.tribe-delete-this' ).hide();
 			section.find( '.move-linked-post-group' ).hide();
 		}
+
+		section.find( 'select.linked-post-dropdown' ).trigger( 'change' );
 	};
 
 	var toggle_linked_post_fields = function( event ) {
-
 		const $select = $( this );
+		const postType = $select.data( 'postType' );
+		const $wrapper = $select.parents( `#event_${postType}` ).eq( 0 );
+		const $groups = $wrapper.find( 'tbody' );
+		const linkedPostCount = $groups.length;
 		const $group = $select.closest( 'tbody' );
+		const currentGroupPosition = $groups.index( $group ) + 1;
 		const $edit = $group.find( '.edit-linked-post-link a' );
 		const value = $select.val();
 		const $selected = $select.find( ':selected' );
@@ -389,12 +436,9 @@ jQuery( function( $ ) {
 
 		// Always hide the edit link unless we have an edit link to show (handled below).
 		$edit.hide();
+		$wrapper.find( 'tfoot .tribe-add-post' ).show();
 
-		if (
-			! existingPost &&
-			'-1' !== value &&
-			$selected.length
-		) {
+		if ( ! existingPost && value !== '-1' && value ) {
 			// Apply the New Given Title to the Correct Field
 			$group.find( '.linked-post-name' ).val( value ).parents( '.linked-post' ).eq( 0 ).attr( 'data-hidden', true );
 
@@ -406,7 +450,6 @@ jQuery( function( $ ) {
 				.find( '.tribe-dropdown' );
 
 			$group.parents( '.tribe-section' ).addClass( 'tribe-is-creating-linked-post' );
-
 		} else {
 			// Hide all fields and remove their values
 			$group.find( '.linked-post' ).hide().find( 'input, select' ).val( '' );
@@ -418,7 +461,43 @@ jQuery( function( $ ) {
 				$edit.attr( 'href', editLink ).show();
 			}
 		}
+
+		showOrHideAddPostButton( $wrapper );
 	};
+
+	/**
+	 * Shows or hides the Add <Post> button.
+	 *
+	 * @since 6.2.0
+	 * @param {Object} $wrapper The jQuery object for the wrapper of the linked post fields.
+	 */
+	function showOrHideAddPostButton( $wrapper ) {
+		const $groups = $wrapper.find( 'tbody' );
+		const linkedPostCount = $groups.length;
+
+		const $select = $wrapper.find( 'tbody' ).last().find( 'select' );
+		const value = $select.val();
+		const $selected = $select.find( ':selected' );
+		const selectedVal = $selected.val();
+		const $group = $select.closest( 'tbody' );
+
+		const currentGroupPosition = $groups.index( $group ) + 1;
+		let existingPost = false;
+
+		if ( selectedVal === value ) {
+			existingPost = !! $selected.data( 'existingPost' );
+		}
+
+		if (
+			! existingPost &&
+			( ! value || value === '-1' ) &&
+			currentGroupPosition === linkedPostCount
+		) {
+			$wrapper.find( 'tfoot .tribe-add-post' ).hide();
+		} else {
+			$wrapper.find( 'tfoot .tribe-add-post' ).show();
+		}
+	}
 
 	$( '.hide-if-js' ).hide();
 
@@ -619,10 +698,18 @@ jQuery( function( $ ) {
 		}
 	}
 
+	window.wp.hooks.addAction( 'tec.events.admin.linked_posts.add_post', 'tec', ( post_type, template_section, new_section ) => {
+		if ( 'tribe_venue' !== post_type ) {
+			return;
+		}
+
+		new_section.find( '#EventCountry' ).trigger( 'change' );
+	} );
+
 	//show state/province input based on first option in countries list, or based on user input of country
-	$( 'body' ).on( 'change', '#EventCountry', function () {
+	$( document ).on( 'change', '[id="EventCountry"]', function () {
 		var $country        = $( this );
-		var $container      = $country.parents( 'div.eventForm' ).eq( 0 );
+		var $container      = $country.parents( 'tbody' ).eq( 0 );
 		var $state_select   = $container.find( '#StateProvinceSelect' );
 		var $state_dropdown = $state_select.next( '.select2-container' );
 		var $state_text     = $container.find( '#StateProvinceText' );

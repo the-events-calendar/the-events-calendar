@@ -4,8 +4,7 @@ namespace Tribe\Events\Views\V2;
 
 
 class Publicly_Visible_Test_View extends View {
-
-	protected $slug = 'publicly-visible-test';
+	protected static $view_slug = 'publicly-visible-test';
 
 	protected static $publicly_visible = true;
 

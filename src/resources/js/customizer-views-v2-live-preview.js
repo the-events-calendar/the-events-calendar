@@ -83,7 +83,7 @@ var tribe_events_customizer_live_preview_js_config =
 		],
 		globalEventDateColor: [
 			'--tec-color-text-event-date',
-			'--tec-color-text-event-date-secondary',
+			'--tec-color-text-secondary-event-date',
 		],
 		globalBackgroundColor: '--tec-color-background-events',
 		globalAccentColor: [

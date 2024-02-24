@@ -77,9 +77,10 @@ class Import_Record {
 		}
 
 		$record['organizer'] = $this->create_and_get_many_organizers_data( $origin, $organizer_count, $organizer_overrides );
-		$record['venue']     = (object) $this->create_and_get_venue_data( $origin, $venue_overrides );
+		$record['venue']     = $this->create_and_get_venue_data( $origin, $venue_overrides );
 
-		return (object) $record;
+		// Ensure this will be recursively cast to stdClass.
+		return json_decode( json_encode( $record ), false );
 	}
 
 	/**
@@ -125,7 +126,7 @@ class Import_Record {
 	 */
 	public function create_and_get_many_organizers_data( $origin, $count, $overrides = [] ) {
 		return array_map( function () use ( $origin, $overrides ) {
-			return (object) $this->create_and_get_organizer_data( $origin, $overrides );
+			return (array) $this->create_and_get_organizer_data( $origin, $overrides );
 		}, range( 1, $count ) );
 	}
 

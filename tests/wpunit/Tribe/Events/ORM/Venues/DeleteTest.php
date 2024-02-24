@@ -7,7 +7,7 @@ use Tribe__Promise as Promise;
 
 class DeleteTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->factory()->venue = new Venue();
 	}

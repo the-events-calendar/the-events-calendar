@@ -8,7 +8,6 @@ use Tribe\Test\Products\Traits\With_Ascii_Calendar;
 use Tribe\Test\Products\Traits\With_Json_Data_Sets;
 use Tribe\Test\Products\Traits\With_View_Context;
 use Tribe__Date_Utils as Dates;
-use Tribe__Events__Template__Month as Month;
 
 class Month_ViewTest extends WPTestCase {
 	use With_View_Context;
@@ -35,8 +34,8 @@ class Month_ViewTest extends WPTestCase {
 		$expected_days = [];
 		$one_day       = Dates::interval( 'P1D' );
 		$one_second    = Dates::interval( 'PT1S' );
-		$grid_start    = Dates::build_date_object( Month::calculate_first_cell_date( $event_date ), $site_timezone );
-		$grid_end      = Dates::build_date_object( Month::calculate_final_cell_date( $event_date ), $site_timezone );
+		$grid_start    = Dates::build_date_object( Month_View::calculate_first_cell_date( $event_date ), $site_timezone );
+		$grid_end      = Dates::build_date_object( Month_View::calculate_final_cell_date( $event_date ), $site_timezone );
 		// compensate for the last day, else it will not be included in the period.
 		$period = new \DatePeriod( $grid_start, $one_day, $grid_end->add( $one_second ) );
 

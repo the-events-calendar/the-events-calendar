@@ -8,10 +8,14 @@ use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Test\Factories\Organizer;
 use Tribe\Events\Test\Factories\Venue;
 use Tribe\Test\PHPUnit\Traits\With_Filter_Manipulation;
+use Tribe\Utils\Date_I18n_Immutable;
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Events__Timezones as Timezones;
 
 class eventTest extends WPTestCase {
 	use With_Filter_Manipulation;
+
+	private $using_object_cache_backup;
 
 	public function setUp() {
 		parent::setUp();
@@ -24,14 +28,48 @@ class eventTest extends WPTestCase {
 	}
 
 	/**
+	 * @before
+	 */
+	public function  wp_using_ext_object_cache_backup():void{
+		$this->using_object_cache_backup = wp_using_ext_object_cache();
+	}
+
+	/**
+	 * @after
+	 */
+	public function wp_using_ext_object_cache_backup_restore(): void {
+		wp_using_ext_object_cache( $this->using_object_cache_backup );
+	}
+
+	/**
 	 * Test tribe_get_event returns null for non-existing event
 	 */
-	public
-	function test_tribe_get_event_returns_null_for_non_existing_event() {
+	public function test_tribe_get_event_returns_null_for_non_existing_event() {
 		// Sanity check: let's make sure this does not exist.
 		$this->assertNull( get_post( 23 ) );
 
 		$this->assertNull( tribe_get_event( 23 ) );
+	}
+
+	/**
+	 * Edge case bug where global post was being reset in a loop. This verifies the lazy objects doesn't do that again.
+	 */
+	public function test_tribe_get_event_properties_retains_global_post() {
+		global $wp_query;
+		$global_post     = static::factory()->event->create_and_get();
+		$post            = static::factory()->event->create_and_get();
+		$wp_query->post  = $global_post;
+		$GLOBALS['post'] = $post;
+		setup_postdata( $post );
+		$this->assertEquals( get_post(), $post );
+		$event = tribe_get_event( $post );
+		$props = $event->to_array();
+		foreach ( $props as $value ) {
+			// We have some lazy objects that do magic. Let's make sure it's safe.
+			json_encode( $value );
+		}
+		// Ensure global retains.
+		$this->assertEquals( get_post(), $post );
 	}
 
 	/**
@@ -393,7 +431,7 @@ class eventTest extends WPTestCase {
 	 * @test
 	 */
 	public function should_cache_on_shutdown_and_only_if_a_lazy_property_was_accessed() {
-		$using_backup = wp_using_ext_object_cache();
+		// Required as lazy properties will trigger caching only when using object cache.
 		wp_using_ext_object_cache( true );
 		$post_id = static::factory()->event->create();
 
@@ -402,7 +440,7 @@ class eventTest extends WPTestCase {
 
 		$event = tribe_get_event( $post_id );
 
-		$cached_before = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+		$cached_before = $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST );
 
 		$this->assertFalse( $cached_before );
 
@@ -410,12 +448,24 @@ class eventTest extends WPTestCase {
 			function () use ( $cache, $cache_key, $event ) {
 				$event->organizers->all();
 				do_action( 'shutdown' );
-				$cached = $cache->get( $cache_key, \Tribe__Cache_Listener::TRIGGER_SAVE_POST );
+				$cached = $cache->get( $cache_key, Cache_Listener::TRIGGER_SAVE_POST );
 				$this->assertInternalType( 'array', $cached );
 				$this->assertNotEmpty( array_intersect_key( get_object_vars( $event ), $cached ) );
+				$this->assertArrayHasKey( 'dates', $cached, 'Dates should be cached.' );
+				$this->assertInternalType( 'array', $cached['dates'], 'An array of dates should be cached.' );
+				$this->assertContainsOnlyInstancesOf(
+					\DateTimeImmutable::class,
+					$cached['dates'],
+					'Dates should have been converted to DateTimeImmutable type.'
+				);
+				$this->assertCount(
+					0,
+					array_filter( $cached['dates'], static function ( $date ) {
+						return $date instanceof Date_I18n_Immutable;
+					} ),
+					'Dates should have been converted from the Date_I18n_Immutable type.'
+				);
 			}
 		);
-
-		wp_using_ext_object_cache( $using_backup );
 	}
 }

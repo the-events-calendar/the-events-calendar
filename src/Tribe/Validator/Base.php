@@ -236,7 +236,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 	/**
 	 * Checks whether `ticketed` param is valid or not.
 	 *
-	 * @since TBD
+	 * @since 6.0.0
 	 *
 	 * @param bool $value Can be true or false.
 	 *

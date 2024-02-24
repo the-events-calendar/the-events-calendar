@@ -58,9 +58,7 @@ class iCalendar_Export extends Link_Abstract {
 			return add_query_arg( [ 'ical' => 1 ], get_the_permalink() );
 		}
 
-		$template_vars = $view->get_template_vars();
-
-		$ical = ! empty( $template_vars['ical'] ) ? $template_vars['ical'] : $view->get_ical_data();
+		$ical = $view->get_ical_data();
 
 		if ( empty( $ical->display_link ) ) {
 			return '';
