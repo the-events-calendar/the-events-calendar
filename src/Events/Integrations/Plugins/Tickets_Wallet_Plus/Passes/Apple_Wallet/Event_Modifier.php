@@ -225,6 +225,8 @@ class Event_Modifier {
 	/**
 	 * Add the Event Date for single day events.
 	 *
+	 * @since TBD
+	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
 	 *
