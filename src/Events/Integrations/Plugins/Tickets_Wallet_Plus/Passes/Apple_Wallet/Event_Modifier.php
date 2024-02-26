@@ -105,11 +105,7 @@ class Event_Modifier {
 	 */
 	public function include_event_date_series( array $data, Pass $pass ) {
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
-		if ( ! in_array(
-			\Tribe__Events__Main::POSTTYPE,
-			tribe( 'tickets.main' )->post_types(),
-			true
-		) ) {
+		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $data;
 		}
 
@@ -128,11 +124,9 @@ class Event_Modifier {
 			return $data;
 		}
 
-		$start_date = ( Tribe__Date_Utils::immutable() )->setTimestamp( $ticket->start_date() );
-		$end_date   = ( Tribe__Date_Utils::immutable() )->setTimestamp( $ticket->end_date() );
-
-		$event_time_value = $start_date->format( $this->get_date_format( 'event_date_time_range_value' ) ) . '-' . $end_date->format( $this->get_date_format( 'event_date_time_range_value' ) );
-
+		$start_date        = ( Tribe__Date_Utils::immutable() )->setTimestamp( $ticket->start_date() );
+		$end_date          = ( Tribe__Date_Utils::immutable() )->setTimestamp( $ticket->end_date() );
+		$event_time_value  = $start_date->format( $this->get_date_format( 'event_date_time_range_value' ) ) . '-' . $end_date->format( $this->get_date_format( 'event_date_time_range_value' ) );
 		$event_dates_value = $this->format_date_time_range( $start_date, $end_date, );
 
 		$data['header'][] = [
@@ -143,32 +137,12 @@ class Event_Modifier {
 
 		$data['back'][] = [
 			'key'   => 'event_dates',
-			'label' => esc_html__(
-				'Event Dates',
-				'the-events-calendar'
-			),
+			'label' => esc_html__( 'Event Dates', 'the-events-calendar' ),
 			'value' => $event_dates_value,
 		];
 
-		$data = $pass->replace_label_by_key(
-			$data,
-			'back',
-			'ticket_title',
-			esc_html__(
-				'Series Pass',
-				'the-events-calendar'
-			)
-		);
-		$data = $pass->replace_label_by_key(
-			$data,
-			'auxiliary',
-			'ticket_title',
-			esc_html__(
-				'Series Pass',
-				'the-events-calendar'
-			)
-		);
-
+		$data = $pass->replace_label_by_key( $data, 'back', 'ticket_title', esc_html__( 'Series Pass', 'the-events-calendar' ) );
+		$data = $pass->replace_label_by_key( $data, 'auxiliary', 'ticket_title', esc_html__( 'Series Pass', 'the-events-calendar' ) );
 
 		return $data;
 	}
@@ -212,10 +186,7 @@ class Event_Modifier {
 
 		$data['back'][] = [
 			'key'   => 'event_date_time_range',
-			'label' => esc_html__(
-				'Event Dates',
-				'the-events-calendar'
-			),
+			'label' => esc_html__( 'Event Dates', 'the-events-calendar' ),
 			'value' => $event_dates_value,
 		];
 
@@ -263,9 +234,7 @@ class Event_Modifier {
 		$data['back'][] = [
 			'key'   => 'event_date_time_range',
 			'label' => 'Event Dates',
-			'value' => tribe_get_start_date(
-				$event_id
-			),
+			'value' => tribe_get_start_date( $event_id ),
 		];
 
 		return $data;
