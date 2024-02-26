@@ -5,6 +5,7 @@ namespace TEC\Events\Integrations\Plugins\Tickets_Wallet_Plus\Passes\Apple_Walle
 use DateTimeImmutable;
 use TEC\Tickets\Flexible_Tickets\Series_Passes\Series_Passes;
 use TEC\Tickets_Wallet_Plus\Passes\Apple_Wallet\Pass;
+use Tribe__Date_Utils;
 
 /**
  * Class Event_Modifier
@@ -18,12 +19,16 @@ class Event_Modifier {
 	/**
 	 * Format for displaying the Date
 	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $date_format = 'M j';
 
 	/**
 	 * Format for displaying the time.
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
@@ -83,8 +88,8 @@ class Event_Modifier {
 	 * @return string
 	 */
 	protected function format_date_time_range( DateTimeImmutable $start, DateTimeImmutable $end ): string {
-		$formatted_start = $start->format( $this->date_format ) . ' @ ' . $start->format( $this->time_format );
-		$formatted_end   = $end->format( $this->date_format ) . ' @ ' . $end->format( $this->time_format );
+		$formatted_start = $start->format( $this->get_date_format() ) . ' @ ' . $start->format( $this->get_time_format() );
+		$formatted_end   = $end->format( $this->get_date_format() ) . ' @ ' . $end->format( $this->get_time_format() );
 		return $formatted_start . ' - ' . $formatted_end;
 	}
 
@@ -117,16 +122,16 @@ class Event_Modifier {
 		$attendee  = $pass->get_attendee();
 		$ticket_id = $attendee['product_id'];
 		$provider  = tribe_tickets_get_ticket_provider( (int) $ticket_id );
-		$ticket = $provider->get_ticket( $event_id, $ticket_id );
+		$ticket    = $provider->get_ticket( $event_id, $ticket_id );
 
 		if ( Series_Passes::TICKET_TYPE !== $ticket->type() ) {
 			return $data;
 		}
 
-		$start_date = ( new DateTimeImmutable() )->setTimestamp( $ticket->start_date() );
-		$end_date   = ( new DateTimeImmutable() )->setTimestamp( $ticket->end_date() );
+		$start_date = ( Tribe__Date_Utils::immutable() )->setTimestamp( $ticket->start_date() );
+		$end_date   = ( Tribe__Date_Utils::immutable() )->setTimestamp( $ticket->end_date() );
 
-		$event_time_value = $start_date->format( $this->date_format ) . '-' . $end_date->format( $this->date_format );
+		$event_time_value = $start_date->format( $this->get_date_format() ) . '-' . $end_date->format( $this->get_date_format() );
 
 		$event_dates_value = $this->format_date_time_range( $start_date, $end_date, );
 
@@ -179,7 +184,6 @@ class Event_Modifier {
 	 * @return array Modified pass data.
 	 */
 	public function include_event_date_multiday( array $data, Pass $pass ) {
-
 		// Bail if `tribe_events` CPT is not enabled to have tickets.
 		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, tribe( 'tickets.main' )->post_types(), true ) ) {
 			return $data;
@@ -197,7 +201,7 @@ class Event_Modifier {
 			return $data;
 		}
 
-		$event_time_value  = $event->dates->start->format( $this->date_format ) . '-' . $event->dates->end->format( $this->date_format );
+		$event_time_value  = $event->dates->start->format( $this->get_date_format() ) . '-' . $event->dates->end->format( $this->get_date_format() );
 		$event_dates_value = $this->format_date_time_range( $event->dates->start, $event->dates->end );
 
 		$data['header'][] = [
@@ -244,8 +248,8 @@ class Event_Modifier {
 			return $data;
 		}
 
-		$label            = $event->dates->start->format( $this->time_format );
-		$event_time_value = $event->dates->start->format( $this->date_format );
+		$label            = $event->dates->start->format( $this->get_time_format() );
+		$event_time_value = $event->dates->start->format( $this->get_date_format() );
 
 
 		$data['header'][] = [
@@ -364,4 +368,45 @@ class Event_Modifier {
 
 		return $data;
 	}
+
+	/**
+	 * Gets the filtered date format.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Filtered date format.
+	 */
+	protected function get_date_format(): string {
+		/**
+		 * Filters the date format used in the Apple Wallet passes.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $date_format The current time format. Default is `M j`.
+		 *
+		 * @return string The filtered time format.
+		 */
+		return apply_filters( 'tec_tickets_wallet_plus_apple_wallet_time_format', $this->date_format );
+	}
+
+	/**
+	 * Gets the filtered time format.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Filtered time format.
+	 */
+	protected function get_time_format(): string {
+		/**
+		 * Filters the date format used in the Apple Wallet passes.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $time_format The current time format. Default is `g:ia`.
+		 *
+		 * @return string The filtered time format.
+		 */
+		return apply_filters( 'tec_tickets_wallet_plus_apple_wallet_date_format', $this->time_format );
+	}
+
 }
