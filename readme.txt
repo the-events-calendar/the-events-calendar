@@ -97,6 +97,7 @@ Our Premium Plugins and Services:
 ✏️ [Filter Bar](https://evnt.is/fa)
 🗓️ [Eventbrite Tickets](https://evnt.is/2e)
 📡 [Virtual Events](https://evnt.is/1aky)
+🔄 [Event Automator](https://evnt.is/1bdk)
 
 == Help ==
 
