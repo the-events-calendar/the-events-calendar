@@ -46,7 +46,7 @@ class Tribe__Events__REST__V1__Headers__Base implements Tribe__REST__Headers__Ba
 
 	/**
 	 * Returns the header the REST API will print on the page head to report its origin
-	 * url. Normaly the home_url()
+	 * url. Normally the home_url()
 	 *
 	 * @return string
 	 */

@@ -108,7 +108,7 @@ class Tribe__Events__Importer__File_Reader {
 	 */
 	public function get_csv_params() {
 		$csv_params = [
-			'delimter'  => ',',
+			'delimiter' => ',',
 			'enclosure' => '"',
 			'escape'    => '\\',
 		];
@@ -123,7 +123,7 @@ class Tribe__Events__Importer__File_Reader {
 		 * @param array $csv_params (
 		 *      The parameters
 		 *
-		 *      @param string $delimter  The field delimiter (one character only).
+		 *      @param string $delimiter  The field delimiter (one character only).
 		 *      @param string $enclosure The field enclosure character (one character only).
 		 *      @param string $escape    The field escape character (one character only).
 		 * }
@@ -140,14 +140,14 @@ class Tribe__Events__Importer__File_Reader {
 	 * @param array $params (
 	 *      The parameters
 	 *
-	 *      @param string $delimter  The field delimiter (one character only).
+	 *      @param string $delimiter  The field delimiter (one character only).
 	 *      @param string $enclosure The field enclosure character (one character only).
 	 *      @param string $escape    The field escape character (one character only).
 	 * }
 	 */
 	private function set_csv_params( $params ) {
 		$this->file->setCsvControl(
-			$params['delimter'],
+			$params['delimiter'],
 			$params['enclosure'],
 			$params['escape']
 		);

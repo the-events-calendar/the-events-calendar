@@ -11,7 +11,7 @@
  *
  * @since 4.9.4
  * @since 5.1.5 format_i18n method from Utilize\Tribe\Utils\Date_I18n_Immutable for date display.
- * @since 4.6.0   Add logic around date separator to alow for displaying multiple days in the list.
+ * @since 4.6.0   Add logic around date separator to allow for displaying multiple days in the list.
  *
  * @version 4.6.0
  *

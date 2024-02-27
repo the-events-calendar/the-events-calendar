@@ -127,7 +127,7 @@ class Tribe__Events__Aggregator__Record__Eventbrite extends Tribe__Events__Aggre
 	}
 
 	/**
-	 * Add Site URL for Eventbrite Requets
+	 * Add Site URL for Eventbrite Requests
 	 *
 	 * @since 4.6.18
 	 *

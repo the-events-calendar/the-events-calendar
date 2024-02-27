@@ -303,7 +303,7 @@ class Title {
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param Context|null $context The context to use, `null` values will unset it causing the object ot use the
+	 * @param Context|null $context The context to use, `null` values will unset it causing the object to use the
 	 *                              global context.
 	 *
 	 * @return $this For chaining.

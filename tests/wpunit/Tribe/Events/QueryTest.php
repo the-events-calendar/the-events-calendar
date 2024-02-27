@@ -307,7 +307,7 @@ class QueryTest extends Events_TestCase {
 		$this->assertEquals(
 			10,
 			has_filter( 'option_page_on_front', [ Query::class, 'default_page_on_front' ] ),
-			'Page on front should be filterd for home queries.'
+			'Page on front should be filtered for home queries.'
 		);
 	}
 

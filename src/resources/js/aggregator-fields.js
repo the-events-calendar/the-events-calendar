@@ -240,7 +240,7 @@ tribe_aggregator.fields = {
 
 				var $origin = $( obj.selector.origin_field );
 
-				// Prevent Changing when dealing with Non-Existant Origin
+				// Prevent Changing when dealing with Non-Existent Origin
 				if ( ! $origin.find( 'option[value="' + origin + '"]' ).length ) {
 					return;
 				}

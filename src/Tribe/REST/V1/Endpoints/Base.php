@@ -225,7 +225,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	}
 
 	/**
-	 * Converts REST format type argument to the correspondant Swagger.io definition.
+	 * Converts REST format type argument to the correspondent Swagger.io definition.
 	 *
 	 * @since 4.6
 	 *

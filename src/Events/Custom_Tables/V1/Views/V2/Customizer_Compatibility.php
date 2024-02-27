@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the custom tables v1 implementation compatiblity with the Customizer
+ * Handles the custom tables v1 implementation compatibility with the Customizer
  * controls and settings.
  *
  * @since   6.0.0
