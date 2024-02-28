@@ -231,10 +231,14 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.3.3] TBD =
+= [6.3.3] 2024-02-19 =
 
 * Feature - Adding the `defer` strategy on several script tags, such as `underscore` and `jquery-core`. [TECENG-48]
 * Version - The Events Calendar 6.3.1 is only compatible with Event Tickets 5.8.1 and higher.
+* Tweak - Refactored some of the underlying structure for Block Template architecture. [ECP-1620]
+* Tweak - Added filters: `tec_events_get_full_site_block_template_services`
+* Tweak - Changed views: `blocks/event-links`, `single-event`, `v2/components/data`
+* Language - 4 new strings added, 4 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.2] 2024-02-06 =
 
