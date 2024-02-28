@@ -534,7 +534,7 @@ function tribe_get_event_cat_slugs( $post_id = 0 ) {
  * @param int   $post_id
  * @param array $args
  *
- * @return string HTML string of taxonomy terms
+ * @return string|false HTML string of taxonomy terms. False if no terms found/failure.
  * @category Events
  */
 function tribe_get_event_taxonomy( $post_id = null, $args = [] ) {
@@ -549,6 +549,10 @@ function tribe_get_event_taxonomy( $post_id = null, $args = [] ) {
 	$args      = wp_parse_args( $args, $defaults );
 	extract( $args, EXTR_SKIP );
 	$taxonomy = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
+
+	if ( $taxonomy instanceof WP_Error ) {
+		$taxonomy = false;
+	}
 
 	return apply_filters( 'tribe_get_event_taxonomy', $taxonomy, $post_id, $args );
 }
@@ -582,26 +586,32 @@ function tribe_get_event_categories( $post_id = null, $args = [] ) {
 	$args       = wp_parse_args( $args, $defaults );
 	$categories = tribe_get_event_taxonomy( $post_id, $args );
 
-	// check for the occurrences of links in the returned string
-	if ( null === $args['label'] ) {
-		$label = sprintf(
-		/* translators: %s is the singular translation of "Event" */
-			_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'the-events-calendar' ),
-			$events_label_singular
-		);
+	// If we get back something unexpected from WP, use an empty string to prevent warnings/fatals. Skip all the extra work.
+	if ( empty( $categories ) || $categories instanceof WP_Error ) {
+		$html = '';
 	} else {
-		$label = $args['label'];
+		// check for the occurrences of links in the returned string
+		if ( null === $args['label'] ) {
+			$label = sprintf(
+			/* translators: %s is the singular translation of "Event" */
+				_nx( '%s Category', '%s Categories', substr_count( $categories, '<a href' ), 'category list label', 'the-events-calendar' ),
+				$events_label_singular
+			);
+		} else {
+			$label = $args['label'];
+		}
+
+		$html = sprintf(
+			'%s%s:%s %s%s%s',
+			$args['label_before'],
+			$label,
+			$args['label_after'],
+			$args['wrap_before'],
+			$categories,
+			$args['wrap_after']
+		);
 	}
 
-	$html = ! empty( $categories ) ? sprintf(
-		'%s%s:%s %s%s%s',
-		$args['label_before'],
-		$label,
-		$args['label_after'],
-		$args['wrap_before'],
-		$categories,
-		$args['wrap_after']
-	) : '';
 	if ( $args['echo'] ) {
 		echo apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
 	} else {
@@ -629,7 +639,6 @@ function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true )
 		$label = esc_html__( 'Tags:', 'the-events-calendar' );
 	}
 
-	$tribe_ecp = Tribe__Events__Main::instance();
 	$list      = get_the_term_list( get_the_ID(), 'post_tag', '<dt class="tribe-event-tags-label">' . $label . '</dt><dd class="tribe-event-tags">', $separator, '</dd>' );
 	$list      = apply_filters( 'tribe_meta_event_tags', $list, $label, $separator, $echo );
 	if ( $echo ) {
