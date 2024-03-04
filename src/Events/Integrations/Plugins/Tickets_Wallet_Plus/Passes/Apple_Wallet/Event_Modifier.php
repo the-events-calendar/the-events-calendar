@@ -217,7 +217,7 @@ class Event_Modifier {
 		$event_id = $pass->get_event_id();
 		$event    = tribe_get_event( $event_id );
 
-		if ( $event->multiday > 1 ) {
+		if ( $event->multiday > 1 || 'tribe_event_series' === $event->post_type ) {
 			return $data;
 		}
 
