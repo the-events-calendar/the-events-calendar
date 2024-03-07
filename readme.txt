@@ -231,6 +231,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.3.2] 2024-03-11 =
+
+* Tweak - When using Event Tickets Wallet Plus the Apple Pass will now display date fields differently based off of Single, Multi, or Series Events. [ETWP-95]
+
 = [6.3.3.1] 2024-02-22 =
 
 * Fix - On a multisite using WordPress 6.4.3 there was an issue with the subsite options not being properly created during initialization. [TEC-5043]

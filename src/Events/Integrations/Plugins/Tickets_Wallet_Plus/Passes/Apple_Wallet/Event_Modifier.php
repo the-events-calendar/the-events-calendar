@@ -19,7 +19,7 @@ class Event_Modifier {
 	/**
 	 * Format for displaying the Date
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @var string
 	 */
@@ -28,7 +28,7 @@ class Event_Modifier {
 	/**
 	 * Format for displaying the time.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @var string
 	 */
@@ -39,7 +39,7 @@ class Event_Modifier {
 	 * Add the Event date into the Apple Pass `back` data.
 	 *
 	 * @since 6.2.8
-	 * @since TBD Removed Event date from secondary array.
+	 * @since 6.3.2 Removed Event date from secondary array.
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -80,7 +80,7 @@ class Event_Modifier {
 	/**
 	 * Helper function to format the date and time to display on the pass.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param DateTimeImmutable $start The start date and time.
 	 * @param DateTimeImmutable $end The end date and time.
@@ -96,7 +96,7 @@ class Event_Modifier {
 	/**
 	 * Add the Event Date for series.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -150,7 +150,7 @@ class Event_Modifier {
 	/**
 	 * Add the Event Date for multiday events.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -196,7 +196,7 @@ class Event_Modifier {
 	/**
 	 * Add the Event Date for single day events.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -244,7 +244,7 @@ class Event_Modifier {
 	 * Add the Venue data into the Apple Pass `back` data.
 	 *
 	 * @since 6.2.8
-	 * @since TBD Added Location to the back of the pass.
+	 * @since 6.3.2 Added Location to the back of the pass.
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -305,7 +305,7 @@ class Event_Modifier {
 	 * Add event data to sample Apple Wallet pass.
 	 *
 	 * @since 6.2.8
-	 * @since TBD removed date from secondary and moved to header.
+	 * @since 6.3.2 removed date from secondary and moved to header.
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -343,7 +343,7 @@ class Event_Modifier {
 	/**
 	 * Gets the filtered date format.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string|null $location Location where the date formatting is used.
 	 *
@@ -353,7 +353,7 @@ class Event_Modifier {
 		/**
 		 * Filters the date format used in the Apple Wallet passes.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param string $date_format The current date format. Default is `M j`.
 		 * @param null|string $location Location where the date formatting is used.
@@ -366,7 +366,7 @@ class Event_Modifier {
 	/**
 	 * Gets the filtered time format.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param string|null $location Location where the time formatting is used.
 	 *
@@ -376,7 +376,7 @@ class Event_Modifier {
 		/**
 		 * Filters the time format used in the Apple Wallet passes.
 		 *
-		 * @since TBD
+		 * @since 6.3.2
 		 *
 		 * @param string $time_format The current time format. Default is `g:ia`.
 		 * @param null|string $location Location where the time formatting is used.

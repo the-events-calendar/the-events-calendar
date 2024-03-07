@@ -159,7 +159,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add Event Date for single events to the Apple Wallet Pass.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -171,7 +171,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add Event Date for series passes to the Apple Wallet Pass.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
@@ -183,7 +183,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Add Event Date for multiday events to the Apple Wallet Pass.
 	 *
-	 * @since TBD
+	 * @since 6.3.2
 	 *
 	 * @param array $data The Apple Pass data.
 	 * @param Pass  $pass The Apple Pass object.
