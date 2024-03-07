@@ -234,6 +234,8 @@ Remember to always make a backup of your database and files before updating!
 = [6.3.2] 2024-03-11 =
 
 * Tweak - When using Event Tickets Wallet Plus the Apple Pass will now display date fields differently based off of Single, Multi, or Series Events. [ETWP-95]
+* Tweak - Added filters: `tec_tickets_wallet_plus_apple_wallet_date_format`, `tec_tickets_wallet_plus_apple_wallet_time_format`
+* Language - 2 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.3.1] 2024-02-22 =
 
