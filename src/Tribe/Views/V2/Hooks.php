@@ -47,6 +47,10 @@ class Hooks extends Service_Provider {
 	 * @since 4.9.2
 	 */
 	public function register() {
+		// Bind as singleton to maintain state in filters.
+		$this->container->singleton( Title::class );
+
+		// Setup hooks.
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -71,38 +75,7 @@ class Hooks extends Service_Provider {
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
-	}
-
-	/**
-	 * Enqueue Customizer styles for the single event block editor screen.
-	 *
-	 * @since 5.14.1
-	 */
-	public function enqueue_customizer_in_block_editor() {
-		// Make sure we're on the block edit screen
-		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
-			return;
-		}
-
-		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
-			return;
-		}
-
-		global $post;
-		// Make sure we're editing an Event post.
-		if ( empty( $post ) || ! $post instanceof WP_Post || ! tribe_is_event( $post ) ) {
-			return;
-		}
-
-		// Append the customizer styles to the single block stylesheet
-		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
-			$sheets[] = 'tribe-admin-v2-single-blocks';
-
-			return $sheets;
-		} );
-
-		// Print the styles!
-		tribe( 'customizer' )->inline_style( true );
+		add_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ], 10, 2 );
 	}
 
 	/**
@@ -184,6 +157,55 @@ class Hooks extends Service_Provider {
 
 		add_filter( 'tec_events_view_month_today_button_label', [ $this, 'filter_view_month_today_button_label' ], 10, 2 );
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
+	}
+
+	/**
+	 * This retrieves the posts to be used on the rendered page, and stores them for use in title generation.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post[] $events  The list of tribe events for this page.
+	 * @param View $view    The current view being rendered.
+	 */
+	public function action_set_title_events( array $events, $view ) {
+		// Trim to what is shown (we add one sometimes for pagination links).
+		$cnt = $view->get_context()->get( 'events_per_page' );
+		if ( $cnt ) {
+			$events = array_slice( $events, 0, $cnt );
+		}
+		$this->container->make( Title::class )->set_posts( $events );
+	}
+
+	/**
+	 * Enqueue Customizer styles for the single event block editor screen.
+	 *
+	 * @since 5.14.1
+	 */
+	public function enqueue_customizer_in_block_editor() {
+		// Make sure we're on the block edit screen
+		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
+			return;
+		}
+
+		if ( ! tribe( 'admin.helpers' )->is_post_type_screen() ) {
+			return;
+		}
+
+		global $post;
+		// Make sure we're editing an Event post.
+		if ( empty( $post ) || ! $post instanceof WP_Post || ! tribe_is_event( $post ) ) {
+			return;
+		}
+
+		// Append the customizer styles to the single block stylesheet
+		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
+			$sheets[] = 'tribe-admin-v2-single-blocks';
+
+			return $sheets;
+		} );
+
+		// Print the styles!
+		tribe( 'customizer' )->inline_style( true );
 	}
 
 	/**
@@ -1365,5 +1387,6 @@ class Hooks extends Service_Provider {
 		remove_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		remove_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		remove_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ] );
 	}
 }
