@@ -27,7 +27,7 @@ if ( empty( $view_more_link ) ) {
 ?>
 <div class="tribe-events-widget-events-list__view-more tribe-common-b1 tribe-common-b2--min-medium">
 	<a
-		href="<?php echo esc_url( $view_more_link ); ?>"
+		href="<?php echo esc_url( tribe_get_events_link() ); ?>"
 		class="tribe-events-widget-events-list__view-more-link tribe-common-anchor-thin"
 		title="<?php echo esc_attr( $view_more_title ); ?>"
 	>
