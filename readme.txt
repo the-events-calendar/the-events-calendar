@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+
+= [TBD] TBD =
+
+* Fixes an issue where the global posts were not the correct range or sort order. This now stores the ones from the view repository to be used in the WP title filters. [TEC-4845]
+
 = [6.3.3.1] 2024-02-22 =
 
 * Fix - On a multisite using WordPress 6.4.3 there was an issue with the subsite options not being properly created during initialization. [TEC-5043]

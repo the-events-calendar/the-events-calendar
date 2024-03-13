@@ -167,7 +167,12 @@ class Hooks extends Service_Provider {
 	 * @param WP_Post[] $events  The list of tribe events for this page.
 	 * @param View $view    The current view being rendered.
 	 */
-	public function action_set_title_events( array $events, $view ) {
+	public function action_set_title_events( $events, $view ) {
+		// Not a list? Bail.
+		if ( ! is_array( $events ) ) {
+			return;
+		}
+
 		// Trim to what is shown (we add one sometimes for pagination links).
 		$cnt = $view->get_context()->get( 'events_per_page' );
 		if ( $cnt ) {
