@@ -105,13 +105,13 @@ class Ical_LinkTest extends HtmlPartialTestCase
 		global $wp_query;
 		$wp_query->is_single = true;
 
-		$event_id = tribe_events()->set_args( [
-			                                      'start_date' => '2018-07-01 10am',
-			                                      'timezone'   => 'Europe/Paris',
-			                                      'duration'   => 3 * HOUR_IN_SECONDS,
-			                                      'title'      => 'Test Event - 2018-07-01 11am',
-			                                      'status'     => 'publish',
-		                                      ] )->create();
+		$event_id        = tribe_events()->set_args( [
+			                                             'start_date' => '2018-07-01 10am',
+			                                             'timezone'   => 'Europe/Paris',
+			                                             'duration'   => 3 * HOUR_IN_SECONDS,
+			                                             'title'      => 'Test Event - 2018-07-01 11am',
+			                                             'status'     => 'publish',
+		                                             ] )->create();
 		$GLOBALS['post'] = get_post( $event_id );
 
 		$subs = $this->setup_subs();
@@ -120,6 +120,10 @@ class Ical_LinkTest extends HtmlPartialTestCase
 				$this->get_partial_html( [ 'subscribe_links' => $subs ] )
 			)
 		);
+
+		// Make sure an invalid event will not fatal.
+		$GLOBALS['post'] = null;
+		$this->get_partial_html( [ 'subscribe_links' => $subs ] );
 	}
 
 	public function test_render_with_gcal_only() {

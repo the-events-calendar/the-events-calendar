@@ -49,11 +49,16 @@ trait Outlook_Methods {
 	 *
 	 * @param string $calendar Whether it's Outlook live or Outlook 365.
 	 *
-	 * @return string Part of the URL containing the event information.
+	 * @return array<string,string> Params for the URL containing the event information.
 	 */
 	protected function generate_outlook_add_url_parameters( $calendar = 'live' ) {
-		// Getting the event details
-		$event    = tribe_get_event();
+		// Getting the event details.
+		$event = tribe_get_event();
+		if ( ! $event ) {
+
+			return [];
+		}
+
 		$path     = '/calendar/action/compose';
 		$rrv      = 'addevent';
 		$timezone = $event->timezone ?? Tribe__Timezones::wp_timezone_string();
@@ -63,13 +68,12 @@ trait Outlook_Methods {
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
-			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T'
-			         . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' );
+			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T' . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' );
 		} else {
 			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'c' );
 		}
 
-		$startdt = Dates::build_date_object( $event->start_date,$timezone )->format( 'c' );
+		$startdt = Dates::build_date_object( $event->start_date, $timezone )->format( 'c' );
 
 		$location = Venue::generate_string_address( $event );
 
