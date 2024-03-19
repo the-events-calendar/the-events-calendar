@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.3.5] 024-03-25 =
+
+* Tweak - Updated version of tribe-common with fixes for ECP.
+
 = [6.3.4] 2024-03-12 =
 
 * Tweak - When using Event Tickets Wallet Plus the Apple Pass will now display date fields differently based off of Single, Multi, or Series Events. [ETWP-95]
