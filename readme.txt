@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2
-Stable tag: 6.3.3.1
+Stable tag: 6.3.5
 Tested up to: 6.4.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,16 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.3.5] 2024-03-20 =
+
+* Tweak - Updated version of tribe-common with fixes for ECP.
+
+= [6.3.4] 2024-03-12 =
+
+* Tweak - When using Event Tickets Wallet Plus the Apple Pass will now display date fields differently based off of Single, Multi, or Series Events. [ETWP-95]
+* Tweak - Added filters: `tec_tickets_wallet_plus_apple_wallet_date_format`, `tec_tickets_wallet_plus_apple_wallet_time_format`
+* Language - 2 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.3.1] 2024-02-22 =
 
