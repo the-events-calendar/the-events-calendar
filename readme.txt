@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.3.5] 024-03-25 =
+= [6.3.5] 2024-03-20 =
 
 * Tweak - Updated version of tribe-common with fixes for ECP.
 
