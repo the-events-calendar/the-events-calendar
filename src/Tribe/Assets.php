@@ -32,7 +32,7 @@ class Tribe__Events__Assets {
 	 * @return void
 	 */
 	public function register() {
-		$plugin = Tribe__Events__Main::instance();
+		$plugin        = Tribe__Events__Main::instance();
 		$admin_helpers = Tribe__Admin__Helpers::instance();
 
 		// Vendor
