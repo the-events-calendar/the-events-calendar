@@ -97,7 +97,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Venue
 			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
 		}
 
-		$args = $this->parse_args( $args, $request->get_default_params() );
+		$args = $this->parse_args( $args, $request->get_default_params(), $request );
 
 		/**
 		 * Filters whether only venues with upcoming events should be shown (`true`) or not (`false`) when
