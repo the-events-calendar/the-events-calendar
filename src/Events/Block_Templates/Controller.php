@@ -1,30 +1,27 @@
 <?php
 
-namespace TEC\Events\Editor\Full_Site;
+namespace TEC\Events\Block_Templates;
 
-use \Tribe__Events__Main as Events_Main;
+use TEC\Events\Block_Templates\Archive_Events\Archive_Block_Template;
+use TEC\Events\Block_Templates\Single_Event\Single_Block_Template;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-
-_deprecated_file( __FILE__, '6.3.3' );
 
 /**
  * Class Controller
  *
- * @since      6.2.7
- * @deprecated 6.3.3
+ * @since 6.3.3 Moved and decoupled from Block API requirements, focusing on Template requirements.
+ * @since   6.2.7
  *
- * @package    TEC\Events\Editor\Full_Site
+ * @package TEC\Events\Block_Templates
  */
 class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since      6.2.7
-	 * @deprecated 6.3.3
+	 * @since 6.2.7
 	 */
 	public function do_register(): void {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$this->add_filters();
 
 		// Register the service provider itself on the container.
@@ -34,94 +31,90 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since      6.2.7
-	 * @deprecated 6.3.3
+	 * @since 6.2.7
 	 */
 	public function unregister(): void {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$this->remove_filters();
 	}
 
 	/**
 	 * Should only be active if we are in a Site Editor theme.
 	 *
-	 * @since      6.2.7
+	 * @since 6.2.7
+	 *
 	 * @return bool Only active during FS theme.
-	 * @deprecated 6.3.3
 	 */
 	public function is_active(): bool {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
-
 		return tec_is_full_site_editor();
 	}
 
 	/**
 	 * Internal FSE function for asset conditional testing.
 	 *
-	 * @since      5.14.2
+	 * @since 5.14.2
+	 *
 	 * @return bool Whether The current theme supports full-site editing or not.
-	 * @deprecated 6.3.3
 	 */
 	public function is_full_site_editor(): bool {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
-
 		return tec_is_full_site_editor();
 	}
 
 	/**
 	 * Adds the filters required by the FSE components.
 	 *
-	 * @since      5.14.2
-	 * @since      6.2.7 Adding support for block templates.
-	 * @deprecated 6.3.3
+	 * @since 5.14.2
+	 * @since 6.2.7 Adding support for block templates.
 	 */
 	protected function add_filters() {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		add_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25, 3 );
 		add_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10, 3 );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
 		add_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10, 1 );
-		add_filter( 'single_template_hierarchy', [
-			$this,
-			'filter_single_template_hierarchy',
-		],          10, 1 );
+		add_filter(
+			'single_template_hierarchy',
+			[
+				$this,
+				'filter_single_template_hierarchy',
+			],
+			10,
+			1
+		);
 	}
 
 	/**
 	 * Removes registered filters.
 	 *
-	 * @since      6.2.7
-	 * @deprecated 6.3.3
+	 * @since 6.2.7
 	 */
 	public function remove_filters() {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		remove_filter( 'get_block_templates', [ $this, 'filter_include_templates' ], 25 );
 		remove_filter( 'get_block_template', [ $this, 'filter_include_template_by_id' ], 10 );
 		remove_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
 		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
 		remove_filter( 'archive_template_hierarchy', [ $this, 'filter_archive_template_hierarchy' ], 10 );
-		remove_filter( 'single_template_hierarchy', [
-			$this,
-			'filter_single_template_hierarchy',
-		],             10 );
+		remove_filter(
+			'single_template_hierarchy',
+			[
+				$this,
+				'filter_single_template_hierarchy',
+			],
+			10
+		);
 	}
 
 	/**
 	 * Redirect the post type template to our Events Archive slug, as that is what is used for lookup in the database.
 	 *
-	 * @since      6.2.7
+	 * @since 6.2.7
 	 *
 	 * @param string[] $templates Templates in order of display hierarchy.
 	 *
 	 * @return string[] Adjusted file name that is parsed to match our block template.
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function filter_archive_template_hierarchy( $templates ) {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
@@ -145,16 +138,13 @@ class Controller extends Controller_Contract {
 	/**
 	 * Redirect the post type template to our Single Event slug, as that is what is used for lookup in the database.
 	 *
-	 * @since      6.2.7
+	 * @since 6.2.7
 	 *
 	 * @param array $templates Templates in order of display hierarchy.
 	 *
 	 * @return array Adjusted file name that is parsed to match our block template.
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function filter_single_template_hierarchy( $templates ) {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( empty( $templates ) ) {
 			return $templates;
 		}
@@ -165,45 +155,19 @@ class Controller extends Controller_Contract {
 
 		// Is it our post type?
 		$index = array_search( 'single-tribe_events.php', $templates, true );
-		if ( ! is_int( $index ) ) {
-			return $templates;
+		if ( is_int( $index ) ) {
+			// Switch to our faux template which maps to our slug.
+			$templates[ $index ] = 'single-event.php';
 		}
-
-		// Switch to our faux template which maps to our slug.
-		$templates[ $index ] = 'single-event.php';
 
 		return $templates;
 	}
 
 	/**
-	 * Registers the Events Archive template.
-	 *
-	 * @since      5.14.2
-	 * @deprecated 6.3.3
-	 */
-	public function action_register_archive_template() {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
-
-		return $this->container->make( Archive_Block_Template::class )->register();
-	}
-
-	/**
-	 * Registers the Single Event template.
-	 *
-	 * @since      6.2.7
-	 * @deprecated 6.3.3
-	 */
-	public function action_register_single_event_template() {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
-
-		return $this->container->make( Single_Block_Template::class )->register();
-	}
-
-	/**
 	 * Adds the archive template to the array of block templates.
 	 *
-	 * @since      5.14.2
-	 * @since      6.2.7 Added support for single event templates.
+	 * @since 5.14.2
+	 * @since 6.2.7 Added support for single event templates.
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 * @param array               $query        {
@@ -213,13 +177,9 @@ class Controller extends Controller_Contract {
 	 * @type int                  $wp_id        Post ID of customized template.
 	 * }
 	 *
-	 *
 	 * @return array The modified $query.
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function filter_include_templates( $query_result, $query, $template_type ) {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( ! is_array( $query_result ) ) {
 			return $query_result;
 		}
@@ -243,18 +203,15 @@ class Controller extends Controller_Contract {
 	/**
 	 * Fetch our Block Template by ID.
 	 *
-	 * @since      6.2.7
+	 * @since 6.2.7
 	 *
 	 * @param null|WP_Block_Template $block_template The filtered template.
 	 * @param string                 $id             The block template ID.
 	 * @param string                 $template_type  The template type.
 	 *
 	 * @return null|WP_Block_Template
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function filter_include_template_by_id( $block_template, $id, $template_type ) {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( ! is_null( $block_template ) ) {
 			return $block_template;
 		}
@@ -273,16 +230,13 @@ class Controller extends Controller_Contract {
 	 * Filters and returns the available Event Block Template Services, used to locate
 	 * WP_Block_Template instances.
 	 *
-	 * @since      6.2.7
+	 * @since 6.2.7
 	 *
 	 * @param string $template_type The type of templates we are fetching.
 	 *
 	 * @return Block_Template_Contract[] List of filtered Event Calendar templates.
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function get_filtered_block_templates( $template_type = 'wp_template' ): array {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		$templates = [];
 		if ( $template_type === 'wp_template' ) {
 			$templates = [
@@ -305,17 +259,13 @@ class Controller extends Controller_Contract {
 	/**
 	 * If we're using a FSE theme, we always use the full styling.
 	 *
-	 * @since      5.14.2
+	 * @since 5.14.2
 	 *
 	 * @param string $value The value of the option.
 	 *
 	 * @return string $value The original value, or an empty string if FSE is active.
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function filter_events_template_setting_option( $value ) {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
-
 		return tec_is_full_site_editor() ? '' : $value;
 	}
 
@@ -323,18 +273,15 @@ class Controller extends Controller_Contract {
 	/**
 	 * Override the get_single_option to return the default event template when FSE is active.
 	 *
-	 * @since      5.14.2
+	 * @since 5.14.2
 	 *
 	 * @param mixed  $option      Results of option query.
 	 * @param string $default     The default value.
 	 * @param string $option_name Name of the option.
 	 *
 	 * @return mixed results of option query.
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function filter_tribe_get_single_option( $option, $default, $option_name ) {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( 'tribeEventsTemplate' !== $option_name ) {
 			return $option;
 		}
@@ -350,17 +297,14 @@ class Controller extends Controller_Contract {
 	 * Overwrite the template option on save if FSE is active.
 	 * We only support the default events template for now.
 	 *
-	 * @since      5.14.2
+	 * @since 5.14.2
 	 *
 	 * @param array<string, mixed> $options   The array of values to save. In the format option key => value.
 	 * @param string               $option_id The main option ID.
 	 *
 	 * @return array<string, mixed> $options   The array of values to save. In the format option key => value.
-	 * @deprecated 6.3.3
-	 *
 	 */
 	public function filter_tribe_save_template_option( $options, $option_id ) {
-		_deprecated_function( __FUNCTION__, '6.3.3' );
 		if ( tec_is_full_site_editor() ) {
 			$options['tribeEventsTemplate'] = '';
 		}

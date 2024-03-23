@@ -6,3 +6,4 @@ jobs:
     with:
       ref: ${{ github.event.inputs.ref }}
     secrets:
+      access-token: ${{ secrets.GH_BOT_TOKEN }}
