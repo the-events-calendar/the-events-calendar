@@ -164,8 +164,8 @@ class Hooks extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_Post[] $events  The list of tribe events for this page.
-	 * @param View $view    The current view being rendered.
+	 * @param WP_Post[] $events The list of tribe events for this page.
+	 * @param View      $view   The current view being rendered.
 	 */
 	public function action_set_title_events( $events, $view ) {
 		// Not a list? Bail.
@@ -187,7 +187,7 @@ class Hooks extends Service_Provider {
 	 * @since 5.14.1
 	 */
 	public function enqueue_customizer_in_block_editor() {
-		// Make sure we're on the block edit screen
+		// Make sure we're on the block edit screen.
 		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
 			return;
 		}
@@ -202,12 +202,15 @@ class Hooks extends Service_Provider {
 			return;
 		}
 
-		// Append the customizer styles to the single block stylesheet
-		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
-			$sheets[] = 'tribe-admin-v2-single-blocks';
+		// Append the customizer styles to the single block stylesheet.
+		add_filter(
+			'tribe_customizer_inline_stylesheets',
+			static function ( $sheets ) {
+				$sheets[] = 'tribe-admin-v2-single-blocks';
 
-			return $sheets;
-		} );
+				return $sheets;
+			}
+		);
 
 		// Print the styles!
 		tribe( 'customizer' )->inline_style( true );
@@ -223,7 +226,7 @@ class Hooks extends Service_Provider {
 	 *
 	 * @return void
 	 */
-	public function action_include_filters_excerpt() {
+	public function action_include_filters_excerpt(): void {
 		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 50 );
 	}
 
