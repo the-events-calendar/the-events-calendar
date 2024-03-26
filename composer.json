@@ -71,12 +71,6 @@
       "type": "github",
       "url": "https://github.com/the-events-calendar/tec-testing-facilities",
       "no-api": true
-    },
-    {
-      "name": "the-events-calendar/coding-standards",
-      "type": "github",
-      "url": "https://github.com/the-events-calendar/coding-standards",
-      "no-api": true
     }
   ],
   "scripts": {
