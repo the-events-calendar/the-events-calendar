@@ -54,7 +54,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime separators.
 	 */
 	public function get_separator_class() {
-		// tec-elementor-event-widget__datetime-separator.
+		// tec-events-elementor-event-widget__datetime-separator.
 		return $this->get_widget_class() . '-separator';
 	}
 
@@ -66,7 +66,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The base class used for the datetime date.
 	 */
 	public function get_date_class() {
-		// tec-elementor-event-widget__datetime-date.
+		// tec-events-elementor-event-widget__datetime-date.
 		return $this->get_widget_class() . '-date';
 	}
 
@@ -78,7 +78,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime start date.
 	 */
 	public function get_start_date_class() {
-		// tec-elementor-event-widget__datetime-date--start.
+		// tec-events-elementor-event-widget__datetime-date--start.
 		return $this->get_date_class() . '--start';
 	}
 
@@ -90,7 +90,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime end date.
 	 */
 	public function get_end_date_class() {
-		// tec-elementor-event-widget__datetime-date--end.
+		// tec-events-elementor-event-widget__datetime-date--end.
 		return $this->get_date_class() . '--end';
 	}
 
@@ -102,7 +102,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime all day indication.
 	 */
 	public function get_all_day_class() {
-		// tec-elementor-event-widget__datetime--all-day.
+		// tec-events-elementor-event-widget__datetime--all-day.
 		return $this->get_widget_class() . '--all-day';
 	}
 
@@ -114,7 +114,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The base class used for the datetime time.
 	 */
 	public function get_time_class() {
-		// tec-elementor-event-widget__datetime-time.
+		// tec-events-elementor-event-widget__datetime-time.
 		return $this->get_widget_class() . '-time';
 	}
 
@@ -126,7 +126,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime start time.
 	 */
 	public function get_start_time_class() {
-		// tec-elementor-event-widget__datetime-time--start.
+		// tec-events-elementor-event-widget__datetime-time--start.
 		return $this->get_time_class() . '--start';
 	}
 
@@ -138,7 +138,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime end time.
 	 */
 	public function get_end_time_class() {
-		// tec-elementor-event-widget__datetime-time--end.
+		// tec-events-elementor-event-widget__datetime-time--end.
 		return $this->get_time_class() . '--end';
 	}
 
