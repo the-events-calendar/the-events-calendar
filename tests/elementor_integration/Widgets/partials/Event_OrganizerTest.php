@@ -8,7 +8,7 @@ use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
-use Tribe\Events\Tests\Traits\Integrations\Plugins\Elementor\Widgets\Filter_Trait;
+use Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets\Filter_Trait;
 
 
 class Event_OrganizerTest extends WPTestCase {

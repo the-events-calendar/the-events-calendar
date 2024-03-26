@@ -10,7 +10,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Datetime;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Tests\Traits\With_Uopz;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
-use Tribe\Events\Tests\Traits\Integrations\Plugins\Elementor\Widgets\Filter_Trait;
+use Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets\Filter_Trait;
 
 
 class Event_DatetimeTest extends WPTestCase {
