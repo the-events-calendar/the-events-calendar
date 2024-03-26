@@ -336,10 +336,11 @@ class Title {
 	 * Returns the post the title should use to build some title fragments.
 	 *
 	 * @since 4.9.10
+	 * @since TBD Scope changed to public to make it more testable.
 	 *
 	 * @return array An array of injected posts, or the globally found posts.
 	 */
-	protected function get_posts() {
+	public function get_posts() {
 		$posts = $this->posts;
 
 		if ( null === $this->posts ) {
