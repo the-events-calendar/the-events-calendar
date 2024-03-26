@@ -13,7 +13,7 @@
               "settings": {},
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_event_title",
+              "widgetType": "tec_events_elementor_widget_event_title",
               "elType": "widget"
             },
             {
@@ -21,7 +21,7 @@
               "settings": {},
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_virtual_hybrid_event_marker",
+              "widgetType": "tec_events_elementor_widget_virtual_hybrid_event_marker",
               "elType": "widget"
             },
             {
@@ -29,7 +29,7 @@
               "settings": {},
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_event_datetime",
+              "widgetType": "tec_events_elementor_widget_event_datetime",
               "elType": "widget"
             },
             {
@@ -37,7 +37,7 @@
               "settings": {},
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_event_cost",
+              "widgetType": "tec_events_elementor_widget_event_cost",
               "elType": "widget"
             },
             {
@@ -48,7 +48,7 @@
               },
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_event_image",
+              "widgetType": "tec_events_elementor_widget_event_image",
               "elType": "widget"
             },
             {
@@ -56,7 +56,7 @@
               "settings": {},
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_event_description",
+              "widgetType": "tec_events_elementor_widget_event_description",
               "elType": "widget"
             },
             {
@@ -64,7 +64,7 @@
               "settings": {},
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_event_export",
+              "widgetType": "tec_events_elementor_widget_event_export",
               "elType": "widget"
             },
             {
@@ -72,7 +72,7 @@
               "settings": {},
               "elements": [],
               "isInner": false,
-              "widgetType": "tec_elementor_widget_virtual_event",
+              "widgetType": "tec_events_elementor_widget_virtual_event",
               "elType": "widget"
             },
             {
@@ -169,7 +169,7 @@
 					  },
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_datetime",
+                      "widgetType": "tec_events_elementor_widget_event_datetime",
                       "elType": "widget"
                     },
                     {
@@ -214,7 +214,7 @@
 					  },
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_datetime",
+                      "widgetType": "tec_events_elementor_widget_event_datetime",
                       "elType": "widget"
                     },
                     {
@@ -255,7 +255,7 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_cost",
+                      "widgetType": "tec_events_elementor_widget_event_cost",
                       "elType": "widget"
                     },
                     {
@@ -263,7 +263,7 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_categories",
+                      "widgetType": "tec_events_elementor_widget_event_categories",
                       "elType": "widget"
                     },
                     {
@@ -271,7 +271,7 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_tags",
+                      "widgetType": "tec_events_elementor_widget_event_tags",
                       "elType": "widget"
                     },
                     {
@@ -279,7 +279,7 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_website",
+                      "widgetType": "tec_events_elementor_widget_event_website",
                       "elType": "widget"
                     }
                   ],
@@ -295,7 +295,7 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_organizer",
+                      "widgetType": "tec_events_elementor_widget_event_organizer",
                       "elType": "widget"
                     }
                   ],
@@ -311,29 +311,13 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_venue",
+                      "widgetType": "tec_events_elementor_widget_event_venue",
                       "elType": "widget"
                     }
                   ],
                   "isInner": true,
                   "elType": "column"
                 },
-                {
-                  "id": "4627ed69",
-                  "settings": { "_column_size": 25, "_inline_size": 20 },
-                  "elements": [
-                    {
-                      "id": "2423ab2f",
-                      "settings": {},
-                      "elements": [],
-                      "isInner": false,
-                      "widgetType": "tec_elementor_widget_additional_fields",
-                      "elType": "widget"
-                    }
-                  ],
-                  "isInner": true,
-                  "elType": "column"
-                }
               ],
               "isInner": true,
               "elType": "section"
@@ -360,7 +344,7 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_related_events",
+                      "widgetType": "tec_events_elementor_widget_related_events",
                       "elType": "widget"
                     },
                     {
@@ -368,7 +352,7 @@
                       "settings": {},
                       "elements": [],
                       "isInner": false,
-                      "widgetType": "tec_elementor_widget_event_footer",
+                      "widgetType": "tec_events_elementor_widget_event_footer",
                       "elType": "widget"
                     }
                   ],

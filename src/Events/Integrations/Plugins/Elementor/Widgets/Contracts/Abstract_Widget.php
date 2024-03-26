@@ -30,7 +30,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @var string
 	 */
-	protected static string $slug_prefix = 'tec_elementor_widget_';
+	protected static string $slug_prefix = 'tec_events_elementor_widget_';
 
 	/**
 	 * Widget slug.
@@ -149,7 +149,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		$title = apply_filters( 'tec_events_elementor_event_widget_title', $title, $this );
 
 		/**
-		 * Filters the title of a specific tec-elementor widget, by slug.
+		 * Filters the title of a specific tec-events-elementor widget, by slug.
 		 *
 		 * @since TBD
 		 *
@@ -194,7 +194,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		$slug    = static::get_slug();
 
 		/**
-		 * Filters the widget class list for all tec-elementor widgets.
+		 * Filters the widget class list for all tec-events-elementor widgets.
 		 *
 		 * @since TBD
 		 *
@@ -207,7 +207,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		$classes = apply_filters( 'tec_events_elementor_event_widget_element_classes', (array) $classes, $format, $this );
 
 		/**
-		 * Filters the widget class list for a specific tec-elementor widget, by slug.
+		 * Filters the widget class list for a specific tec-events-elementor widget, by slug.
 		 *
 		 * @since TBD
 		 *
@@ -247,10 +247,10 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_widget_class(): string {
 		$slug  = static::get_slug();
-		$class = 'tec-elementor-event-widget__' . $this->trim_slug();
+		$class = 'tec-events-elementor-event-widget__' . $this->trim_slug();
 
 		/**
-		 * Filters the widget class for all tec-elementor widgets.
+		 * Filters the widget class for all tec-events-elementor widgets.
 		 *
 		 * @since TBD
 		 *
@@ -262,7 +262,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		$class = apply_filters( 'tec_events_elementor_event_widget_class', $class, $this );
 
 		/**
-		 * Filters the widget class for a specific tec-elementor widget, by slug.
+		 * Filters the widget class for a specific tec-events-elementor widget, by slug.
 		 *
 		 * @since TBD
 		 *
@@ -283,10 +283,10 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_icon_class(): string {
 		$slug  = static::get_slug();
-		$class = 'tec-elementor-event-widget__icon-' . $this->trim_slug();
+		$class = 'tec-events-elementor-event-widget__icon-' . $this->trim_slug();
 
 		/**
-		 * Filters the widget icon class for all tec-elementor widgets.
+		 * Filters the widget icon class for all tec-events-elementor widgets.
 		 *
 		 * @since TBD
 		 *
@@ -298,7 +298,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		$class = apply_filters( 'tec_events_elementor_event_widget_icon_class', $class, $this );
 
 		/**
-		 * Filters the widget icon class for a specific tec-elementor widget, by slug.
+		 * Filters the widget icon class for a specific tec-events-elementor widget, by slug.
 		 *
 		 * @since TBD
 		 *

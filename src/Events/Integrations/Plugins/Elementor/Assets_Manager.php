@@ -29,7 +29,7 @@ class Assets_Manager extends Controller {
 	 *
 	 * @var string
 	 */
-	public static $group_key = 'tec-elementor';
+	public static $group_key = 'tec-events-elementor';
 
 	/**
 	 * The group key for the icon assets.
@@ -38,7 +38,7 @@ class Assets_Manager extends Controller {
 	 *
 	 * @var string
 	 */
-	public static $icon_group_key = 'tec-elementor-icons';
+	public static $icon_group_key = 'tec-events-elementor-icons';
 
 	/**
 	 * Register and enqueue the hooks for the plugin.
@@ -105,31 +105,31 @@ class Assets_Manager extends Controller {
 			tribe( 'tec.main' ),
 			[
 				[
-					'tec-elementor-event_categories-widget-styles',
+					'tec-events-elementor-event_categories-widget-styles',
 					'integrations/plugins/elementor/widgets/event-categories.css',
 				],
 				[
-					'tec-elementor-event_export-widget-styles',
+					'tec-events-elementor-event_export-widget-styles',
 					'integrations/plugins/elementor/widgets/event-export.css',
 				],
 				[
-					'tec-elementor-event_navigation-widget-styles',
+					'tec-events-elementor-event_navigation-widget-styles',
 					'integrations/plugins/elementor/widgets/event-navigation.css',
 				],
 				[
-					'tec-elementor-event_organizer-widget-styles',
+					'tec-events-elementor-event_organizer-widget-styles',
 					'integrations/plugins/elementor/widgets/event-organizer.css',
 				],
 				[
-					'tec-elementor-event_tags-widget-styles',
+					'tec-events-elementor-event_tags-widget-styles',
 					'integrations/plugins/elementor/widgets/event-tags.css',
 				],
 				[
-					'tec-elementor-event_venue-widget-styles',
+					'tec-events-elementor-event_venue-widget-styles',
 					'integrations/plugins/elementor/widgets/event-venue.css',
 				],
 				[
-					'tec-elementor-event_website-widget-styles',
+					'tec-events-elementor-event_website-widget-styles',
 					'integrations/plugins/elementor/widgets/event-website.css',
 				],
 			],
@@ -160,7 +160,7 @@ class Assets_Manager extends Controller {
 	public function enqueue_preview_styles() {
 		foreach ( $this->get_widgets() as $widget ) {
 			$slug = str_replace( '_', '-', $widget::get_slug() );
-			tribe_asset_enqueue( 'tec-elementor-' . $slug . '-widget-styles' );
+			tribe_asset_enqueue( 'tec-events-elementor-' . $slug . '-widget-styles' );
 		}
 	}
 
@@ -200,7 +200,7 @@ class Assets_Manager extends Controller {
 			return;
 		}
 
-		tribe_asset_enqueue( 'tec-elementor-' . $slug . '-widget-styles' );
+		tribe_asset_enqueue( 'tec-events-elementor-' . $slug . '-widget-styles' );
 	}
 
 	/**
@@ -212,7 +212,7 @@ class Assets_Manager extends Controller {
 		// setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
 		tribe_asset(
 			tribe( 'tec.main' ),
-			'tec-elementor-icons',
+			'tec-events-elementor-icons',
 			'integrations/plugins/elementor/icons.css',
 			[],
 			null,
