@@ -142,7 +142,7 @@ class Importer {
 	protected function get_template_engine(): Template {
 		if ( ! isset( $this->template ) ) {
 			$this->template = new Template();
-			$this->template->set_template_origin( tribe( 'events-pro.main' ) );
+			$this->template->set_template_origin( tribe( 'tec.main' ) );
 			$this->template->set_template_folder( 'src/views/integrations/elementor/templates' );
 			$this->template->set_template_context_extract( true );
 			$this->template->set_template_folder_lookup( true );

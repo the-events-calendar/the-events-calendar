@@ -70,7 +70,7 @@ class Controller extends Integration_Abstract {
 	 * @since TBD
 	 */
 	public function register_actions(): void {
-		add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
+//		add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
 	}
 
 	/**

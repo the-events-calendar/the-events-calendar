@@ -47,7 +47,7 @@ class Template_Engine extends Base_Template_Engine {
 	 * @since TBD
 	 */
 	protected function __construct() {
-		$this->set_template_origin( tribe( 'events-pro.main' ) );
+		$this->set_template_origin( tribe( 'tec.main' ) );
 		$this->set_template_folder( 'src/views/integrations/elementor' );
 		$this->set_template_context_extract( true );
 		$this->set_template_folder_lookup( true );

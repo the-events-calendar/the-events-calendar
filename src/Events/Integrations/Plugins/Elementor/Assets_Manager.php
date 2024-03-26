@@ -102,7 +102,7 @@ class Assets_Manager extends Controller {
 	 */
 	public function register_widget_assets() {
 		tribe_assets(
-			tribe( 'events-pro.main' ),
+			tribe( 'tec.main' ),
 			[
 				[
 					'tec-elementor-event_categories-widget-styles',
