@@ -7,7 +7,7 @@
  * @package Tribe\Events\Tests\Traits\Integrations\Plugins\Elementor\Widgets;
  */
 
-namespace Tribe\Events\Tests\Traits\Integrations\Plugins\Elementor\Widgets;
+namespace Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets;
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
