@@ -2,14 +2,14 @@
   "name": "the-events-calendar/the-events-calendar",
   "description": "The Events Calendar WordPress plugin by The Events Calendar",
   "type": "wordpress-plugin",
-  "keywords": [
-    "wordpress",
-    "events"
-  ],
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "keywords": [
+    "wordpress",
+    "events"
+  ],
   "require": {
     "woocommerce/action-scheduler": "^3.4.0"
   },
@@ -65,20 +65,6 @@
       "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views"
     }
   },
-  "repositories": [
-    {
-      "name": "the-events-calendar/tec-testing-facilities",
-      "type": "github",
-      "url": "https://github.com/the-events-calendar/tec-testing-facilities",
-      "no-api": true
-    },
-    {
-      "name": "the-events-calendar/coding-standards",
-      "type": "github",
-      "url": "https://github.com/the-events-calendar/coding-standards",
-      "no-api": true
-    }
-  ],
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
     "stop-chromedriver": "docker stop chromedriver"
