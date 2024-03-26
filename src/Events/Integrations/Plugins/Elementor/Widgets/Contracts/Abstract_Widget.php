@@ -342,10 +342,6 @@ abstract class Abstract_Widget extends Widget_Base {
 			$event_id = (int) tribe_get_request_var( 'post', false );
 		}
 
-		// Ensure we deal with any series ID that gets passed!
-		$event_id = tribe( Single_Event_Modifications::class )->normalize_post_id( $event_id );
-		$event_id = Occurrence::normalize_id( $event_id );
-
 		/**
 		 * Filters the event/post ID of the event/post the widget is used in.
 		 *
@@ -365,6 +361,9 @@ abstract class Abstract_Widget extends Widget_Base {
 		 * @param Abstract_Widget $this     The widget instance.
 		 */
 		$event_id = (int) apply_filters( "tec_events_elementor_widget_{$slug}_event_id", (int) $event_id, $this );
+
+		// Ensure we have a valid event ID.
+		$event_id = Occurrence::normalize_id( $event_id );
 
 		if ( get_post_type( $event_id ) !== TEC::POSTTYPE ) {
 			return null;
