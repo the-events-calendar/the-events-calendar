@@ -101,27 +101,6 @@ jobs:
           ${SLIC_BIN} info
           ${SLIC_BIN} config
       # ------------------------------------------------------------------------------
-      # Fetch branches for dependent repos
-      # ------------------------------------------------------------------------------
-      - name: Fetch head branch from TEC
-        uses: octokit/request-action@v2.x
-        if: steps.skip.outputs.value != 1
-        id: fetch-tec-head-branch
-        with:
-          route: GET /repos/the-events-calendar/the-events-calendar/branches/${{ github.head_ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      - name: Fetch base branch from TEC
-        uses: octokit/request-action@v2.x
-        id: fetch-tec-base-branch
-        if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success'
-        with:
-          route: GET /repos/the-events-calendar/the-events-calendar/branches/${{ github.base_ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_BOT_TOKEN }}
-        continue-on-error: true
-      # ------------------------------------------------------------------------------
       # Set TEC branch
       # ------------------------------------------------------------------------------
       - name: Set TEC with head branch
@@ -133,19 +112,6 @@ jobs:
       - name: Set TEC with master branch
         if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome != 'success'
         run: echo "TEC_BRANCH=master" >> $GITHUB_ENV
-      # ------------------------------------------------------------------------------
-      # Clone and init TEC
-      # ------------------------------------------------------------------------------
-      - name: Clone TEC
-        uses: actions/checkout@v2
-        if: steps.skip.outputs.value != 1
-        with:
-          fetch-depth: 1
-          repository: the-events-calendar/the-events-calendar
-          ref: ${{ env.TEC_BRANCH }}
-          token: ${{ secrets.GH_BOT_TOKEN }}
-          path: the-events-calendar
-          submodules: recursive
       - name: Set up Common
         if: steps.skip.outputs.value != 1
         run: |
