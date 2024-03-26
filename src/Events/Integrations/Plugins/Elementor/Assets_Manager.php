@@ -41,26 +41,6 @@ class Assets_Manager extends Controller {
 	public static $icon_group_key = 'tec-elementor-icons';
 
 	/**
-	 * The widgets to register and enqueue assets for.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	protected array $widgets = [
-		'event_categories' => 'event-categories.css',
-		'event_export'     => 'event-export.css',
-		'event_navigation' => 'event-navigation.css',
-		'event_organizer'  => 'event-organizer.css',
-		'event_related'    => 'related-events.css',
-		'event_series'     => 'event-series.css',
-		'event_status'     => 'event-status.css',
-		'event_tags'       => 'event-tags.css',
-		'event_venue'      => 'event-venue.css',
-		'event_website'    => 'event-website.css',
-	];
-
-	/**
 	 * Register and enqueue the hooks for the plugin.
 	 *
 	 * @since TBD
@@ -115,115 +95,44 @@ class Assets_Manager extends Controller {
 	 * Registers the assets for the widgets.
 	 * To be enqueued later based on widget render.
 	 *
+	 * Note: we *register* them manually.
+	 * When we enqueue, we loop through the widgets and just try to enqueue for all of them.
+	 *
 	 * @since TBD
 	 */
 	public function register_widget_assets() {
-		$pro = tribe( 'events-pro.main' );
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_categories-widget-styles',
-			'integrations/plugins/elementor/widgets/event-categories.css',
-			[],
-			null,
+		tribe_assets(
+			tribe( 'events-pro.main' ),
 			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_export-widget-styles',
-			'integrations/plugins/elementor/widgets/event-export.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_navigation-widget-styles',
-			'integrations/plugins/elementor/widgets/event-navigation.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_organizer-widget-styles',
-			'integrations/plugins/elementor/widgets/event-organizer.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_related-widget-styles',
-			'integrations/plugins/elementor/widgets/related-events.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_series-widget-styles',
-			'integrations/plugins/elementor/widgets/event-series.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_status-widget-styles',
-			'integrations/plugins/elementor/widgets/event-status.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_tags-widget-styles',
-			'integrations/plugins/elementor/widgets/event-tags.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_venue-widget-styles',
-			'integrations/plugins/elementor/widgets/event-venue.css',
-			[],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
-
-		tribe_asset(
-			$pro,
-			'tec-elementor-event_website-widget-styles',
-			'integrations/plugins/elementor/widgets/event-website.css',
-			[],
+				[
+					'tec-elementor-event_categories-widget-styles',
+					'integrations/plugins/elementor/widgets/event-categories.css',
+				],
+				[
+					'tec-elementor-event_export-widget-styles',
+					'integrations/plugins/elementor/widgets/event-export.css',
+				],
+				[
+					'tec-elementor-event_navigation-widget-styles',
+					'integrations/plugins/elementor/widgets/event-navigation.css',
+				],
+				[
+					'tec-elementor-event_organizer-widget-styles',
+					'integrations/plugins/elementor/widgets/event-organizer.css',
+				],
+				[
+					'tec-elementor-event_tags-widget-styles',
+					'integrations/plugins/elementor/widgets/event-tags.css',
+				],
+				[
+					'tec-elementor-event_venue-widget-styles',
+					'integrations/plugins/elementor/widgets/event-venue.css',
+				],
+				[
+					'tec-elementor-event_website-widget-styles',
+					'integrations/plugins/elementor/widgets/event-website.css',
+				],
+			],
 			null,
 			[
 				'groups' => [ static::$group_key ],
@@ -237,7 +146,9 @@ class Assets_Manager extends Controller {
 	 * Returns the widgets that need Elementor assets registered.
 	 */
 	public function get_widgets() {
-		return apply_filters( 'tec_events_elementor_widget_asset_widgets', $this->widgets );
+		$widgets = tribe( Widgets_Manager::class )->get_widgets();
+
+		return apply_filters( 'tec_events_elementor_widget_asset_widgets', $widgets );
 	}
 
 	/**
@@ -247,7 +158,8 @@ class Assets_Manager extends Controller {
 	 * @since TBD
 	 */
 	public function enqueue_preview_styles() {
-		foreach ( $this->get_widgets() as $slug => $file ) {
+		foreach ( $this->get_widgets() as $widget ) {
+			$slug = str_replace( '_', '-', $widget::get_slug() );
 			tribe_asset_enqueue( 'tec-elementor-' . $slug . '-widget-styles' );
 		}
 	}
@@ -282,7 +194,7 @@ class Assets_Manager extends Controller {
 			return;
 		}
 
-		$slug = $widget::get_slug();
+		$slug = str_replace( '_', '-', $widget::get_slug() );
 
 		if ( ! in_array( $slug, array_keys( $widgets ), true ) ) {
 			return;
@@ -299,7 +211,7 @@ class Assets_Manager extends Controller {
 	public function action_register_editor_styles(): void {
 		// setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
 		tribe_asset(
-			tribe( 'events-pro.main' ),
+			tribe( 'tec.main' ),
 			'tec-elementor-icons',
 			'integrations/plugins/elementor/icons.css',
 			[],
@@ -349,7 +261,7 @@ class Assets_Manager extends Controller {
 			'elementor-event-template-' . $template->ID,
 			$upload_dir['baseurl'] . '/elementor/css/post-' . $template->ID . '.css',
 			[],
-			\Tribe__Events__Pro__Main::VERSION
+			\Tribe__Events__Main::VERSION
 		);
 	}
 }

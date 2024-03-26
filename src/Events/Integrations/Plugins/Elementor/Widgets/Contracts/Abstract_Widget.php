@@ -9,7 +9,6 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts;
 
-use TEC\Events\Custom_Tables\V1\Templates\Single_Event_Modifications;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
