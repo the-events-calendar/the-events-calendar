@@ -78,7 +78,9 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 */
-	public function register_filters(): void {}
+	public function register_filters(): void {
+		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
+	}
 
 	/**
 	 * Checks if Elementor Pro is active.
@@ -122,5 +124,29 @@ class Controller extends Integration_Abstract {
 
 		// Don't use `update_post_meta` that can't handle `revision` post type.
 		$is_meta_updated = update_metadata( 'post', $real_id, '_elementor_data', $saved_meta );
+	}
+
+
+
+	/**
+	 * Modifies the Elementor posts widget query arguments to set 'tribe_suppress_query_filters' to true for the Event post type.
+	 *
+	 * @param array $query_args The Elementor posts widget query arguments.
+	 *
+	 * @return array The modified Elementor posts widget query arguments.
+	 */
+	public function suppress_query_filters( $query_args ): array {
+		/**
+		 * Checks if the 'tribe_events' post type is present in the query arguments.
+		 * If not, it returns the query arguments unmodified.
+		 */
+		if ( ! in_array( Tribe__Events__Main::POSTTYPE, (array) $query_args['post_type'], true ) ) {
+			return $query_args;
+		}
+
+		// Set the 'tribe_suppress_query_filters' to true.
+		$query_args['tribe_suppress_query_filters'] = true;
+
+		return $query_args;
 	}
 }
