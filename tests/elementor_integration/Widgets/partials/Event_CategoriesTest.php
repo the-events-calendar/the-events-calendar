@@ -26,7 +26,7 @@ class Event_CategoriesTest extends WPTestCase {
 		$this->set_class_fn_return(
 			'Elementor\Controls_Stack',
 			'get_settings_for_display',
-			[ 'show_heading' => true ]
+			[ 'show_he`ading' => true ]
 		);
 	}
 
