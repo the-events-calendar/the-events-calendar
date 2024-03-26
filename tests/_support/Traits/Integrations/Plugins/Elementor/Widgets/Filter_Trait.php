@@ -4,7 +4,7 @@
  *
  * @since   TBD
  *
- * @package Tribe\Events_Pro\Tests\Traits\Integrations\Plugins\Elementor\Widgets;
+ * @package Tribe\Events\Tests\Traits\Integrations\Plugins\Elementor\Widgets;
  */
 
 namespace Tribe\Events\Tests\Traits\Integrations\Plugins\Elementor\Widgets;
