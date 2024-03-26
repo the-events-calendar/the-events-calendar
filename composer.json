@@ -2,14 +2,14 @@
   "name": "the-events-calendar/the-events-calendar",
   "description": "The Events Calendar WordPress plugin by The Events Calendar",
   "type": "wordpress-plugin",
-  "keywords": [
-    "wordpress",
-    "events"
-  ],
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "keywords": [
+    "wordpress",
+    "events"
+  ],
   "require": {
     "woocommerce/action-scheduler": "^3.4.0"
   },
