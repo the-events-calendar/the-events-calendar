@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Fixes a PHP warning `Undefined array key "venue" in /var/www/html/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 1007`.
+
 = [6.3.5] 2024-03-20 =
 
 * Tweak - Updated version of tribe-common with fixes for ECP.
