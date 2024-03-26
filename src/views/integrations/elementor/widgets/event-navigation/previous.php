@@ -3,7 +3,7 @@
  * View: Elementor Event Navigation previous link.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-navigation/previous.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-navigation/previous.php
  *
  * @since TBD
  *

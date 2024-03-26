@@ -3,7 +3,7 @@
  * View: Elementor Event Venue widget.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-venue.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-venue.php
  *
  * @since TBD
  *

@@ -3,7 +3,7 @@
  * View: Elementor Single Event Venue widget.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/venue/event-venue/website.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/venue/event-venue/website.php
  *
  * @since TBD
  * @var bool   $show         Whether to show the website section.

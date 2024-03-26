@@ -3,7 +3,7 @@
  * View: Elementor Single Event Venue widget header.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/venue/event-venue/header.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/venue/event-venue/header.php
  *
  * @since TBD
  *

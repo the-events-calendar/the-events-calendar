@@ -3,7 +3,7 @@
  * View: Elementor Event Organizer widget website section header.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-organizer/details/website/header.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-organizer/details/website/header.php
  *
  * @since TBD
  *

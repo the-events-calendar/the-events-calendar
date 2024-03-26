@@ -3,7 +3,7 @@
  * View: Elementor Event Organizer widget.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-organizer.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-organizer.php
  *
  * @since TBD
  *

@@ -5,7 +5,7 @@
  * Contains links to next and previous (chronologically by event date) events, if they exist.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-navigation.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-navigation.php
  *
  * @since TBD
  *

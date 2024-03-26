@@ -3,7 +3,7 @@
  * View: Elementor Event Navigation widget header.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-navigation/header.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-navigation/header.php
  *
  * @since TBD
  *
