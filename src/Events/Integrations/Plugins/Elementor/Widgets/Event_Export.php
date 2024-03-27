@@ -47,7 +47,7 @@ class Event_Export extends Abstract_Widget {
 	 * @return string
 	 */
 	protected function title(): string {
-		return esc_html__( 'Add to Calendar', 'tribe-events-calendar-pro' );
+		return esc_html__( 'Add to Calendar', 'the-events-calendar' );
 	}
 
 	/**
@@ -426,7 +426,7 @@ class Event_Export extends Abstract_Widget {
 		$this->start_controls_section(
 			'section_title',
 			[
-				'label' => esc_html__( 'Add to Calendar Button', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Add to Calendar Button', 'the-events-calendar' ),
 			]
 		);
 
@@ -434,10 +434,10 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'show_gcal_link',
 			[
-				'label'     => esc_html__( 'Include Google Calendar', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Include Google Calendar', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -446,10 +446,10 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'show_ical_link',
 			[
-				'label'     => esc_html__( 'Include iCalendar', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Include iCalendar', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -458,10 +458,10 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'show_outlook_365_link',
 			[
-				'label'     => esc_html__( 'Include Outlook 365', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Include Outlook 365', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -470,10 +470,10 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'show_outlook_live_link',
 			[
-				'label'     => esc_html__( 'Include Outlook Live', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Include Outlook Live', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -501,7 +501,7 @@ class Event_Export extends Abstract_Widget {
 		$this->start_controls_section(
 			'styling_section_title',
 			[
-				'label' => esc_html__( 'Add to Calendar Button', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Add to Calendar Button', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -509,7 +509,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -523,7 +523,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'color_on_hover',
 			[
-				'label'     => esc_html__( 'Text Color on Hover', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color on Hover', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class() . ':hover' => 'color: {{VALUE}};',
@@ -561,22 +561,22 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class() => 'mix-blend-mode: {{VALUE}}',
@@ -588,7 +588,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'button_border_color',
 			[
-				'label'     => esc_html__( 'Border Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Border Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -603,7 +603,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'button_background_color',
 			[
-				'label'     => esc_html__( 'Background Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Background Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_dropdown_class() . '  .' . $this->get_button_class() => 'background-color: {{VALUE}};',
@@ -614,7 +614,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'button_background_hover_color',
 			[
-				'label'     => esc_html__( 'Hover Background Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Hover Background Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_dropdown_class() . '  .' . $this->get_button_class() . ':hover' => 'background-color: {{VALUE}};',
@@ -634,7 +634,7 @@ class Event_Export extends Abstract_Widget {
 		$this->start_controls_section(
 			'dropdown_styling_section_title',
 			[
-				'label' => esc_html__( 'Export Options', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Export Options', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -642,7 +642,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'dropdown_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -683,22 +683,22 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'dropdown_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_link_class() => 'mix-blend-mode: {{VALUE}}',
@@ -710,7 +710,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'dropdown_border_color',
 			[
-				'label'     => esc_html__( 'Border Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Border Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -725,7 +725,7 @@ class Event_Export extends Abstract_Widget {
 		$this->add_control(
 			'dropdown_background_color',
 			[
-				'label'     => esc_html__( 'Background Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Background Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
 				'selectors' => [

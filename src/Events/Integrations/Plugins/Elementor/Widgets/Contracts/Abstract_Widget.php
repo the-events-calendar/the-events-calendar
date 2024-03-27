@@ -433,7 +433,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	protected function set_template_filter( string $on, ?callable $callback = null, int $priority = 10, int $accepted_args = 1 ): void {
 		$template_file = $this->get_template_file();
-		$hook_name     = "events-pro/integrations/elementor/{$template_file}";
+		$hook_name     = "events/integrations/elementor/{$template_file}";
 
 		$add    = "tribe_template_after_include:{$hook_name}";
 		$remove = "tribe_template_before_include:{$hook_name}";

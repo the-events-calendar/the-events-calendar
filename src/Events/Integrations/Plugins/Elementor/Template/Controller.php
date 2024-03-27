@@ -13,7 +13,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integratio
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use Elementor\Core\Documents_Manager;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use Tribe__Events__Pro__Main;
+use Tribe__Events__Main;
 
 /**
  * Class Controller
@@ -205,7 +205,7 @@ class Controller extends Controller_Contract {
 	 * @return string
 	 */
 	public function get_blank_file(): string {
-		$plugin_path = trailingslashit( Tribe__Events__Pro__Main::instance()->pluginPath );
+		$plugin_path = trailingslashit( Tribe__Events__Main::instance()->pluginPath );
 
 		return "{$plugin_path}src/views/integrations/elementor/templates/blank.php";
 	}

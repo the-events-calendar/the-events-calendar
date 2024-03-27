@@ -6,13 +6,12 @@
  *
  * @package Tribe\Events\Pro\Integrations\Plugins\Elementor\Widgets
  */
+
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
-
 use Tribe__Template as Base_Template_Engine;
 use Tribe__Events__Main as TEC;
-
 use WP_Post;
 
 /**
@@ -96,7 +95,7 @@ class Template_Engine extends Base_Template_Engine {
 	 *
 	 * @since TBD
 	 *
-	 * @param int|string|WP_Post $event
+	 * @param int|string|WP_Post $event The event ID, post object or slug.
 	 *
 	 * @return void
 	 */
@@ -145,7 +144,7 @@ class Template_Engine extends Base_Template_Engine {
 	 *
 	 * @return bool
 	 */
-	protected function is_edit_mode(): bool {
+	public function is_edit_mode(): bool {
 		return \Elementor\Plugin::$instance->editor->is_edit_mode();
 	}
 
@@ -156,7 +155,7 @@ class Template_Engine extends Base_Template_Engine {
 	 *
 	 * @return bool
 	 */
-	protected function is_preview_mode(): bool {
+	public function is_preview_mode(): bool {
 		return \Elementor\Plugin::$instance->preview->is_preview_mode();
 	}
 }
