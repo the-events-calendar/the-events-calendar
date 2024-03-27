@@ -82,15 +82,15 @@ class Content {
 		}
 
 		if ( ! $post instanceof WP_Post ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-post-content-invalid-post' );
+			return new WP_Error( 'tec-events-integration-elementor-post-content-invalid-post' );
 		}
 
 		if ( $post->post_type !== TEC::POSTTYPE ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-post-content-invalid-post-type' );
+			return new WP_Error( 'tec-events-integration-elementor-post-content-invalid-post-type' );
 		}
 
 		if ( ! $force_update && ! empty( $post->post_content_filtered ) ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-post-content-filtered-exists' );
+			return new WP_Error( 'tec-events-integration-elementor-post-content-filtered-exists' );
 		}
 
 		return wp_update_post(

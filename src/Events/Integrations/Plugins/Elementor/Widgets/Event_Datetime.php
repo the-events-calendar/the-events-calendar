@@ -43,7 +43,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string
 	 */
 	protected function title(): string {
-		return esc_html__( 'Event Date & Time', 'tribe-events-calendar-pro' );
+		return esc_html__( 'Event Date & Time', 'the-events-calendar' );
 	}
 
 	/**
@@ -248,10 +248,10 @@ class Event_Datetime extends Abstract_Widget {
 		$this->add_control(
 			'show_datetime_year',
 			[
-				'label'     => esc_html__( 'Show Year', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Year', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'Hide', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
 				'default'   => 'no',
 				'separator' => 'before',
 			]
@@ -261,10 +261,10 @@ class Event_Datetime extends Abstract_Widget {
 		$this->add_control(
 			'show_datetime_date',
 			[
-				'label'     => esc_html__( 'Show Date (Day, Month)', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Date (Day, Month)', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'Hide', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
 				'default'   => 'yes',
 				'separator' => 'before',
 			]
@@ -274,10 +274,10 @@ class Event_Datetime extends Abstract_Widget {
 		$this->add_control(
 			'show_datetime_time',
 			[
-				'label'     => esc_html__( 'Show Time', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Time', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'Hide', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
 				'default'   => 'yes',
 				'separator' => 'before',
 			]
@@ -286,7 +286,7 @@ class Event_Datetime extends Abstract_Widget {
 		$this->add_control(
 			'html_tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
 					'h1'   => 'H1',
@@ -307,23 +307,23 @@ class Event_Datetime extends Abstract_Widget {
 		$this->add_responsive_control(
 			'align',
 			[
-				'label'     => esc_html__( 'Alignment', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'    => [
-						'title' => esc_html__( 'Left', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Left', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center'  => [
-						'title' => esc_html__( 'Center', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Center', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'   => [
-						'title' => esc_html__( 'Right', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Right', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 					'justify' => [
-						'title' => esc_html__( 'Justified', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
@@ -357,7 +357,7 @@ class Event_Datetime extends Abstract_Widget {
 		$this->start_controls_section(
 			'datetime_styling',
 			[
-				'label' => esc_html__( 'Date & Time Content', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Date & Time Content', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -365,7 +365,7 @@ class Event_Datetime extends Abstract_Widget {
 		$this->add_control(
 			'color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -406,22 +406,22 @@ class Event_Datetime extends Abstract_Widget {
 		$this->add_control(
 			'blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_widget_class() => 'mix-blend-mode: {{VALUE}}',

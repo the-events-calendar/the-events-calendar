@@ -13,7 +13,6 @@ use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integratio
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use Elementor\Core\Documents_Manager;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use Tribe__Events__Pro__Main;
 
 /**
  * Class Controller

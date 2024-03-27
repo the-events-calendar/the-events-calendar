@@ -42,7 +42,7 @@ class Event_Navigation extends Abstract_Widget {
 	 * @return string
 	 */
 	protected function title(): string {
-		return esc_html__( 'Event Navigation', 'tribe-events-calendar-pro' );
+		return esc_html__( 'Event Navigation', 'the-events-calendar' );
 	}
 
 	/**
@@ -182,9 +182,9 @@ class Event_Navigation extends Abstract_Widget {
 		$this->add_control(
 			'header_tag',
 			[
-				'label'       => esc_html__( 'HTML Tag', 'tribe-events-calendar-pro' ),
+				'label'       => esc_html__( 'HTML Tag', 'the-events-calendar' ),
 				'type'        => Controls_Manager::SELECT,
-				'description' => esc_html__( 'Choose the HTML tag to use for the navigation label read by screen readers.', 'tribe-events-calendar-pro' ),
+				'description' => esc_html__( 'Choose the HTML tag to use for the navigation label read by screen readers.', 'the-events-calendar' ),
 				'options'     => [
 					'h1'   => 'H1',
 					'h2'   => 'H2',
@@ -205,11 +205,11 @@ class Event_Navigation extends Abstract_Widget {
 		$this->add_control(
 			'show_header',
 			[
-				'label'       => esc_html__( 'Show header', 'tribe-events-calendar-pro' ),
+				'label'       => esc_html__( 'Show header', 'the-events-calendar' ),
 				'type'        => Controls_Manager::SWITCHER,
-				'description' => esc_html__( 'Choose to show the navigation label. When hidden it will still be visible to screen readers.', 'tribe-events-calendar-pro' ),
-				'label_on'    => esc_html__( 'Show', 'tribe-events-calendar-pro' ),
-				'label_off'   => esc_html__( 'Hide', 'tribe-events-calendar-pro' ),
+				'description' => esc_html__( 'Choose to show the navigation label. When hidden it will still be visible to screen readers.', 'the-events-calendar' ),
+				'label_on'    => esc_html__( 'Show', 'the-events-calendar' ),
+				'label_off'   => esc_html__( 'Hide', 'the-events-calendar' ),
 				'default'     => 'no',
 			]
 		);
@@ -234,7 +234,7 @@ class Event_Navigation extends Abstract_Widget {
 		$this->add_control(
 			'color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -249,7 +249,7 @@ class Event_Navigation extends Abstract_Widget {
 		$this->add_control(
 			'hover-color',
 			[
-				'label'     => esc_html__( 'Text Hover Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Hover Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_ACCENT,
@@ -297,22 +297,22 @@ class Event_Navigation extends Abstract_Widget {
 		$this->add_control(
 			'blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_list_class() => 'mix-blend-mode: {{VALUE}}',

@@ -41,7 +41,7 @@ class Event_Image extends Abstract_Widget {
 	 * @return string
 	 */
 	protected function title(): string {
-		return esc_html__( 'Event Image', 'tribe-events-calendar-pro' );
+		return esc_html__( 'Event Image', 'the-events-calendar' );
 	}
 
 	/**
@@ -151,19 +151,19 @@ class Event_Image extends Abstract_Widget {
 		$this->add_responsive_control(
 			'event_image_align',
 			[
-				'label'     => esc_html__( 'Alignment', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'   => [
-						'title' => esc_html__( 'Left', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Left', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center' => [
-						'title' => esc_html__( 'Center', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Center', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'  => [
-						'title' => esc_html__( 'Right', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Right', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -193,7 +193,7 @@ class Event_Image extends Abstract_Widget {
 		$this->add_responsive_control(
 			'width',
 			[
-				'label'          => esc_html__( 'Width', 'tribe-events-calendar-pro' ),
+				'label'          => esc_html__( 'Width', 'the-events-calendar' ),
 				'type'           => Controls_Manager::SLIDER,
 				'default'        => [
 					'unit' => '%',
@@ -228,7 +228,7 @@ class Event_Image extends Abstract_Widget {
 		$this->add_responsive_control(
 			'space',
 			[
-				'label'          => esc_html__( 'Max Width', 'tribe-events-calendar-pro' ),
+				'label'          => esc_html__( 'Max Width', 'the-events-calendar' ),
 				'type'           => Controls_Manager::SLIDER,
 				'default'        => [
 					'unit' => '%',
@@ -263,7 +263,7 @@ class Event_Image extends Abstract_Widget {
 		$this->add_responsive_control(
 			'height',
 			[
-				'label'      => esc_html__( 'Height', 'tribe-events-calendar-pro' ),
+				'label'      => esc_html__( 'Height', 'the-events-calendar' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'em', 'rem', 'vh', 'custom' ],
 				'range'      => [
@@ -285,16 +285,16 @@ class Event_Image extends Abstract_Widget {
 		$this->add_responsive_control(
 			'object-fit',
 			[
-				'label'     => esc_html__( 'Object Fit', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Object Fit', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'condition' => [
 					'height[size]!' => '',
 				],
 				'options'   => [
-					''        => esc_html__( 'Default', 'tribe-events-calendar-pro' ),
-					'fill'    => esc_html__( 'Fill', 'tribe-events-calendar-pro' ),
-					'cover'   => esc_html__( 'Cover', 'tribe-events-calendar-pro' ),
-					'contain' => esc_html__( 'Contain', 'tribe-events-calendar-pro' ),
+					''        => esc_html__( 'Default', 'the-events-calendar' ),
+					'fill'    => esc_html__( 'Fill', 'the-events-calendar' ),
+					'cover'   => esc_html__( 'Cover', 'the-events-calendar' ),
+					'contain' => esc_html__( 'Contain', 'the-events-calendar' ),
 				],
 				'default'   => '',
 				'selectors' => [
@@ -306,18 +306,18 @@ class Event_Image extends Abstract_Widget {
 		$this->add_responsive_control(
 			'object-position',
 			[
-				'label'     => esc_html__( 'Object Position', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Object Position', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					'center center' => esc_html__( 'Center Center', 'tribe-events-calendar-pro' ),
-					'center left'   => esc_html__( 'Center Left', 'tribe-events-calendar-pro' ),
-					'center right'  => esc_html__( 'Center Right', 'tribe-events-calendar-pro' ),
-					'top center'    => esc_html__( 'Top Center', 'tribe-events-calendar-pro' ),
-					'top left'      => esc_html__( 'Top Left', 'tribe-events-calendar-pro' ),
-					'top right'     => esc_html__( 'Top Right', 'tribe-events-calendar-pro' ),
-					'bottom center' => esc_html__( 'Bottom Center', 'tribe-events-calendar-pro' ),
-					'bottom left'   => esc_html__( 'Bottom Left', 'tribe-events-calendar-pro' ),
-					'bottom right'  => esc_html__( 'Bottom Right', 'tribe-events-calendar-pro' ),
+					'center center' => esc_html__( 'Center Center', 'the-events-calendar' ),
+					'center left'   => esc_html__( 'Center Left', 'the-events-calendar' ),
+					'center right'  => esc_html__( 'Center Right', 'the-events-calendar' ),
+					'top center'    => esc_html__( 'Top Center', 'the-events-calendar' ),
+					'top left'      => esc_html__( 'Top Left', 'the-events-calendar' ),
+					'top right'     => esc_html__( 'Top Right', 'the-events-calendar' ),
+					'bottom center' => esc_html__( 'Bottom Center', 'the-events-calendar' ),
+					'bottom left'   => esc_html__( 'Bottom Left', 'the-events-calendar' ),
+					'bottom right'  => esc_html__( 'Bottom Right', 'the-events-calendar' ),
 				],
 				'default'   => 'center center',
 				'selectors' => [
@@ -342,14 +342,14 @@ class Event_Image extends Abstract_Widget {
 		$this->start_controls_tab(
 			'normal',
 			[
-				'label' => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Normal', 'the-events-calendar' ),
 			]
 		);
 
 		$this->add_control(
 			'opacity',
 			[
-				'label'     => esc_html__( 'Opacity', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Opacity', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
@@ -377,14 +377,14 @@ class Event_Image extends Abstract_Widget {
 		$this->start_controls_tab(
 			'hover',
 			[
-				'label' => esc_html__( 'Hover', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Hover', 'the-events-calendar' ),
 			]
 		);
 
 		$this->add_control(
 			'opacity_hover',
 			[
-				'label'     => esc_html__( 'Opacity', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Opacity', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
@@ -410,7 +410,7 @@ class Event_Image extends Abstract_Widget {
 		$this->add_control(
 			'background_hover_transition',
 			[
-				'label'     => esc_html__( 'Transition Duration', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Transition Duration', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SLIDER,
 				'range'     => [
 					'px' => [
@@ -427,7 +427,7 @@ class Event_Image extends Abstract_Widget {
 		$this->add_control(
 			'tec_event_hover_animation',
 			[
-				'label' => esc_html__( 'Hover Animation', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Hover Animation', 'the-events-calendar' ),
 				'type'  => Controls_Manager::HOVER_ANIMATION,
 			]
 		);
@@ -448,7 +448,7 @@ class Event_Image extends Abstract_Widget {
 		$this->add_responsive_control(
 			'image_border_radius',
 			[
-				'label'      => esc_html__( 'Border Radius', 'tribe-events-calendar-pro' ),
+				'label'      => esc_html__( 'Border Radius', 'the-events-calendar' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'  => [

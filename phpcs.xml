@@ -17,4 +17,5 @@
 
 	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/views/integrations/elementor/templates/*</exclude-pattern>
 </ruleset>

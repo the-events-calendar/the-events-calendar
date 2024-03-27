@@ -56,7 +56,7 @@ class Event_Single_Pro extends Single_Base {
 	 * @return string Document title.
 	 */
 	public static function get_title(): string {
-		return __( 'Single Event', 'tribe-events-calendar-pro' );
+		return __( 'Single Event', 'the-events-calendar' );
 	}
 
 	/**

@@ -82,7 +82,7 @@ class Meta_Courier {
 		}
 
 		if ( ! $post instanceof WP_Post ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-invalid-post' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-invalid-post' );
 		}
 
 		$courier  = new static();
@@ -159,7 +159,7 @@ class Meta_Courier {
 	 */
 	protected function set_post( WP_Post $post ) {
 		if ( ! in_array( $post->post_type, $this->get_valid_post_types(), true ) ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-invalid-post-type' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-invalid-post-type' );
 		}
 
 		$this->post = $post;
@@ -192,14 +192,14 @@ class Meta_Courier {
 	 */
 	public function carry( string $key ) {
 		if ( ! $this->should_carry( $key ) ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-invalid-key' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-invalid-key' );
 		}
 
 		$callbacks = $this->get_meta_keys_map();
 		$method    = $callbacks[ $key ] ?? null;
 
 		if ( ! method_exists( $this, $method ) ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-invalid-method' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-invalid-method' );
 		}
 
 		return $this->{$method}();
@@ -217,19 +217,19 @@ class Meta_Courier {
 	protected function carry_elementor_data( bool $force_delivery = false ) {
 		$template_post = $this->get_template_post();
 		if ( ! $template_post ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-no-template' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-no-template' );
 		}
 
 		$elementor_data_raw = get_post_meta( $template_post->ID, $this->meta_elementor_data, true );
 		$elementor_data     = json_decode( $elementor_data_raw, true );
 
 		if ( ! $elementor_data_raw || ! is_array( $elementor_data ) ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-no-elementor-data' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-no-elementor-data' );
 		}
 
 		$post = $this->get_post();
 		if ( ! $force_delivery && metadata_exists( 'post', $post->ID, $this->meta_elementor_data ) ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-elementor-data-exists' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-elementor-data-exists' );
 		}
 
 		// If we are not forcing delivery, we will add the meta.
@@ -253,7 +253,7 @@ class Meta_Courier {
 	protected function carry_elementor_template_type( bool $force_delivery = false ) {
 		$post = $this->get_post();
 		if ( ! $force_delivery && metadata_exists( 'post', $post->ID, $this->meta_elementor_template_type ) ) {
-			return new WP_Error( 'tec-events-pro-integration-elementor-meta-courier-elementor-template-type-exists' );
+			return new WP_Error( 'tec-events-integration-elementor-meta-courier-elementor-template-type-exists' );
 		}
 
 		$value = Event_Single::get_type();

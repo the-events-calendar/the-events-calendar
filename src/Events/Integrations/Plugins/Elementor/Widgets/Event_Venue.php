@@ -44,7 +44,7 @@ class Event_Venue extends Abstract_Widget {
 	 * @return string
 	 */
 	protected function title(): string {
-		return esc_html__( 'Event Venue', 'tribe-events-calendar-pro' );
+		return esc_html__( 'Event Venue', 'the-events-calendar' );
 	}
 
 	/**
@@ -158,7 +158,7 @@ class Event_Venue extends Abstract_Widget {
 			'Venues',
 			count( $venue_ids ),
 			'The main header string for the Elementor event venue widget.',
-			'tribe-events-calendar-pro'
+			'the-events-calendar'
 		);
 
 		/**
@@ -185,7 +185,7 @@ class Event_Venue extends Abstract_Widget {
 		$header_text = _x(
 			'Website',
 			'The header string for the Elementor event venue widget website section.',
-			'tribe-events-calendar-pro'
+			'the-events-calendar'
 		);
 
 		/**
@@ -212,7 +212,7 @@ class Event_Venue extends Abstract_Widget {
 		$header_text = _x(
 			'Phone',
 			'The header string for the Elementor event venue widget phone section.',
-			'tribe-events-calendar-pro'
+			'the-events-calendar'
 		);
 
 		/**
@@ -239,7 +239,7 @@ class Event_Venue extends Abstract_Widget {
 		$header_text = _x(
 			'Address',
 			'The header string for the Elementor event venue widget address section.',
-			'tribe-events-calendar-pro'
+			'the-events-calendar'
 		);
 
 		/**
@@ -451,7 +451,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'section_title',
 			[
-				'label' => esc_html__( 'Event Venue', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Event Venue', 'the-events-calendar' ),
 			]
 		);
 
@@ -459,23 +459,23 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_responsive_control(
 			'align',
 			[
-				'label'     => esc_html__( 'Alignment', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'    => [
-						'title' => esc_html__( 'Left', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Left', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center'  => [
-						'title' => esc_html__( 'Center', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Center', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'   => [
-						'title' => esc_html__( 'Right', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Right', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 					'justify' => [
-						'title' => esc_html__( 'Justified', 'tribe-events-calendar-pro' ),
+						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-justify',
 					],
 				],
@@ -490,10 +490,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_header',
 			[
-				'label'     => esc_html__( 'Show Widget Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Widget Header', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -501,7 +501,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'venue_header_tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
 					'h1'   => 'H1',
@@ -525,10 +525,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_name',
 			[
-				'label'     => esc_html__( 'Show Name', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Name', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -537,10 +537,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_address',
 			[
-				'label'     => esc_html__( 'Show Address', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Address', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -549,10 +549,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_phone',
 			[
-				'label'     => esc_html__( 'Show Phone', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Phone', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -561,10 +561,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_website',
 			[
-				'label'     => esc_html__( 'Show Website', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Website', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -573,10 +573,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_map',
 			[
-				'label'     => esc_html__( 'Show Map', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Map', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -593,7 +593,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_name_content_options',
 			[
-				'label'     => esc_html__( 'Event Venue Name', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_name' => 'yes',
 				],
@@ -603,7 +603,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'venue_name_html_tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
 					'h1'   => 'H1',
@@ -627,10 +627,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'link_venue_name',
 			[
-				'label'     => esc_html__( 'Link to Venue Profile', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Link to Venue Profile', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -647,7 +647,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_phone_content_options',
 			[
-				'label'     => esc_html__( 'Event Venue Phone', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Event Venue Phone', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_phone' => 'yes',
 				],
@@ -658,10 +658,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_phone_header',
 			[
-				'label'     => esc_html__( 'Show Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'no',
 			]
 		);
@@ -669,7 +669,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'venue_phone_header_tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
 					'h1'   => 'H1',
@@ -701,7 +701,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_address_content_options',
 			[
-				'label'     => esc_html__( 'Event Venue Address', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Event Venue Address', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_address' => 'yes',
 				],
@@ -712,10 +712,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_address_header',
 			[
-				'label'     => esc_html__( 'Show Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'no',
 			]
 		);
@@ -723,7 +723,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'venue_address_header_tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
 					'h1'   => 'H1',
@@ -746,10 +746,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_address_map_link',
 			[
-				'label'     => esc_html__( 'Show Map Link', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Map Link', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
 			]
 		);
@@ -766,7 +766,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_website_content_options',
 			[
-				'label'     => esc_html__( 'Event Venue Website', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Event Venue Website', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_website' => 'yes',
 				],
@@ -777,10 +777,10 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'show_venue_website_header',
 			[
-				'label'     => esc_html__( 'Show Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'tribe-events-calendar-pro' ),
-				'label_off' => esc_html__( 'No', 'tribe-events-calendar-pro' ),
+				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'no',
 			]
 		);
@@ -788,7 +788,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'venue_website_header_tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
 					'h1'   => 'H1',
@@ -810,8 +810,8 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'venue_website_link_target',
 			[
-				'label'       => esc_html__( 'Link Target', 'tribe-events-calendar-pro' ),
-				'description' => esc_html__( 'Choose whether to open the venue website link in the same window or a new window.', 'tribe-events-calendar-pro' ),
+				'label'       => esc_html__( 'Link Target', 'the-events-calendar' ),
+				'description' => esc_html__( 'Choose whether to open the venue website link in the same window or a new window.', 'the-events-calendar' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '_self',
 				'options'     => [
@@ -854,7 +854,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_section_header_styling',
 			[
-				'label'     => esc_html__( 'Venue Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Venue Header', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_venue_header' => 'yes',
@@ -865,7 +865,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'header_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -906,22 +906,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'header_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} ' . $this->get_header_classes()[0] => 'mix-blend-mode: {{VALUE}}',
@@ -944,7 +944,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_name_styling',
 			[
-				'label'     => esc_html__( 'Venue Name', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Venue Name', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_venue_name' => 'yes',
@@ -955,7 +955,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'name_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -996,22 +996,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'name_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_name_base_class() . ', {{WRAPPER}} .' . $this->get_name_base_class() . ' a' => 'mix-blend-mode: {{VALUE}}',
@@ -1034,7 +1034,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_phone_styling',
 			[
-				'label'     => esc_html__( 'Venue Phone', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Venue Phone', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_venue_phone' => 'yes',
@@ -1045,7 +1045,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'phone_label_header',
 			[
-				'label'     => esc_html__( 'Phone Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Phone Header', 'the-events-calendar' ),
 				'type'      => Controls_Manager::HEADING,
 				'condition' => [
 					'show_venue_phone_header' => 'yes',
@@ -1056,7 +1056,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'phone_label_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1109,22 +1109,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'phone_label_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_phone_base_class() . '-header' => 'mix-blend-mode: {{VALUE}}',
@@ -1139,7 +1139,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'phone_header',
 			[
-				'label' => esc_html__( 'Phone Text', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Phone Text', 'the-events-calendar' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -1147,7 +1147,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'phone_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1188,22 +1188,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'phone_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_phone_base_class() . '-number' => 'mix-blend-mode: {{VALUE}}',
@@ -1226,7 +1226,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_address_styling',
 			[
-				'label'     => esc_html__( 'Venue Address', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Venue Address', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_venue_address' => 'yes',
@@ -1237,7 +1237,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_label_header',
 			[
-				'label'     => esc_html__( 'Address Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Address Header', 'the-events-calendar' ),
 				'type'      => Controls_Manager::HEADING,
 				'condition' => [
 					'show_venue_address_header' => 'yes',
@@ -1248,7 +1248,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_label_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1301,22 +1301,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_label_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_address_base_class() . '-header' => 'mix-blend-mode: {{VALUE}}',
@@ -1331,7 +1331,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_header',
 			[
-				'label' => esc_html__( 'Address Text', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Address Text', 'the-events-calendar' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -1339,7 +1339,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1380,22 +1380,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_address_base_class()  => 'mix-blend-mode: {{VALUE}}',
@@ -1407,7 +1407,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_venue_map_link_header',
 			[
-				'label'     => esc_html__( 'Map Link', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Map Link', 'the-events-calendar' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
@@ -1419,7 +1419,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_venue_map_link_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1472,22 +1472,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'address_venue_map_link_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link .tribe-events-gmap' => 'mix-blend-mode: {{VALUE}}',
@@ -1513,7 +1513,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'venue_website_styling',
 			[
-				'label'     => esc_html__( 'Venue Website', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Venue Website', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_venue_website' => 'yes',
@@ -1524,7 +1524,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'website_label_header',
 			[
-				'label'     => esc_html__( 'Website Header', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Website Header', 'the-events-calendar' ),
 				'type'      => Controls_Manager::HEADING,
 				'condition' => [
 					'show_venue_website_header' => 'yes',
@@ -1535,7 +1535,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'website_label_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1588,22 +1588,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'website_label_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_website_base_class() . '-header' => 'mix-blend-mode: {{VALUE}}',
@@ -1618,7 +1618,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'venue_website_header',
 			[
-				'label' => esc_html__( 'Website Url', 'tribe-events-calendar-pro' ),
+				'label' => esc_html__( 'Website Url', 'the-events-calendar' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -1626,7 +1626,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'website_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1667,22 +1667,22 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_control(
 			'website_blend_mode',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
 				'type'      => Controls_Manager::SELECT,
 				'options'   => [
-					''            => esc_html__( 'Normal', 'tribe-events-calendar-pro' ),
-					'multiply'    => esc_html__( 'Multiply', 'tribe-events-calendar-pro' ),
-					'screen'      => esc_html__( 'Screen', 'tribe-events-calendar-pro' ),
-					'overlay'     => esc_html__( 'Overlay', 'tribe-events-calendar-pro' ),
-					'darken'      => esc_html__( 'Darken', 'tribe-events-calendar-pro' ),
-					'lighten'     => esc_html__( 'Lighten', 'tribe-events-calendar-pro' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'tribe-events-calendar-pro' ),
-					'saturation'  => esc_html__( 'Saturation', 'tribe-events-calendar-pro' ),
-					'color'       => esc_html__( 'Color', 'tribe-events-calendar-pro' ),
-					'difference'  => esc_html__( 'Difference', 'tribe-events-calendar-pro' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'tribe-events-calendar-pro' ),
-					'hue'         => esc_html__( 'Hue', 'tribe-events-calendar-pro' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'tribe-events-calendar-pro' ),
+					''            => esc_html__( 'Normal', 'the-events-calendar' ),
+					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
+					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
+					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
+					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
+					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
+					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
+					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
+					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
+					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
+					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
+					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
+					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
 				'selectors' => [
 					'{{WRAPPER}} .' . $this->get_website_base_class() . '-url a' => 'mix-blend-mode: {{VALUE}}',
@@ -1705,7 +1705,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'styling_section_title',
 			[
-				'label'     => esc_html__( 'Venue Map', 'tribe-events-calendar-pro' ),
+				'label'     => esc_html__( 'Venue Map', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_venue_map' => 'yes',
@@ -1716,7 +1716,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_responsive_control(
 			'width',
 			[
-				'label'          => esc_html__( 'Width', 'tribe-events-calendar-pro' ),
+				'label'          => esc_html__( 'Width', 'the-events-calendar' ),
 				'type'           => Controls_Manager::SLIDER,
 				'default'        => [
 					'unit' => '%',
@@ -1751,7 +1751,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_responsive_control(
 			'space',
 			[
-				'label'          => esc_html__( 'Max Width', 'tribe-events-calendar-pro' ),
+				'label'          => esc_html__( 'Max Width', 'the-events-calendar' ),
 				'type'           => Controls_Manager::SLIDER,
 				'default'        => [
 					'unit' => '%',
@@ -1786,7 +1786,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_responsive_control(
 			'height',
 			[
-				'label'      => esc_html__( 'Height', 'tribe-events-calendar-pro' ),
+				'label'      => esc_html__( 'Height', 'the-events-calendar' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', '%', 'em', 'rem', 'vh', 'custom' ],
 				'range'      => [
@@ -1821,7 +1821,7 @@ class Event_Venue extends Abstract_Widget {
 		$this->add_responsive_control(
 			'venue_map_border_radius',
 			[
-				'label'      => esc_html__( 'Border Radius', 'tribe-events-calendar-pro' ),
+				'label'      => esc_html__( 'Border Radius', 'the-events-calendar' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'  => [
