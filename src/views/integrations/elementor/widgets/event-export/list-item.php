@@ -9,11 +9,10 @@
  *
  * @var array        $link           The link and label. In the format:
  *                                   [
- *                                   'label' => string,
- *                                   'link'  => string,
- *                                   'class' => array,
+ *                                       'label' => string,
+ *                                       'link'  => string,
+ *                                       'class' => array,
  *                                   ]
- * @var array        $settings       The widget settings.
  * @var bool         $should_display Whether to show the widget.
  * @var int          $event_id       The event ID.
  * @var Event_Export $widget         The widget instance.
@@ -28,14 +27,6 @@ if ( empty( $link ) || ! $should_display ) {
 ?>
 <li <?php tribe_classes( $link['class'] ); ?>>
 	<?php
-	$this->template(
-		'views/integrations/elementor/widgets/event-export/link',
-		[
-			'link'     => $link,
-			'event_id' => $event_id,
-			'settings' => $settings,
-			'widget'   => $widget,
-		]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-export/link' );
 	?>
 </li>

@@ -9,12 +9,10 @@
  *
  * @var array        $link     The link and label. In the format:
  *                             [
- *                             'label' => string,
- *                             'link'  => string,
- *                             'class' => array,
+ *                                 'label' => string,
+ *                                 'link'  => string,
+ *                                 'class' => array,
  *                             ]
- * @var array        $settings The widget settings.
- * @var bool         $show     Whether to show the widget.
  * @var int          $event_id The event ID.
  * @var Event_Export $widget   The widget instance.
  */
