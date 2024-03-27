@@ -478,6 +478,15 @@ abstract class Abstract_Widget extends Widget_Base {
 	abstract protected function template_args(): array;
 
 	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	abstract protected function preview_args(): array;
+
+	/**
 	 * Get the template arguments.
 	 *
 	 * This calls the template_args method on the widget and then filters the data.
@@ -487,28 +496,33 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return array
 	 */
 	public function get_template_args(): array {
-		$args = $this->template_args(); // Defined in each widget instance.
-		$slug = self::get_slug();
+		$template = $this->get_template();
+		$slug     = self::get_slug();
+		$preview  = $template->is_preview_mode();
+		$args     = $preview ? $this->template_args() : $this->preview_args(); // Defined in each widget instance.
+
 
 		/**
 		 * Filters the template data for all Elementor widget templates.
 		 *
-		 * @param array<string,mixed> $data   The template data.
+		 * @param array<string,mixed> $args   The template data.
+		 * @param bool                $preview Whether the template is in preview mode.
 		 * @param object              $widget The widget object.
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( 'tec_events_elementor_widget_template_data', $args, $this );
+		$args = (array) apply_filters( 'tec_events_elementor_widget_template_data', $args, $preview, $this );
 
 		/**
 		 * Filters the template data for a specific (by $slug) Elementor widget templates.
 		 *
 		 * @param array<string,mixed> $args   The template data.
+		 * @param bool                $preview Whether the template is in preview mode.
 		 * @param object              $widget The widget object.
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, $this );
+		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, $preview, $this );
 
 		// Add the widget to the data array.
 		$args['widget'] = $this;

@@ -126,6 +126,17 @@ class Event_Export extends Abstract_Widget {
 	}
 
 	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return $this->template_args();
+	}
+
+	/**
 	 * Get the class used for the dropdown.
 	 *
 	 * @since TBD

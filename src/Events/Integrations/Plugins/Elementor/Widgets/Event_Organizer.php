@@ -100,6 +100,17 @@ class Event_Organizer extends Abstract_Widget {
 	}
 
 	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return $this->template_args();
+	}
+
+	/**
 	 * Modify the target for the event website link.
 	 *
 	 * @since TBD

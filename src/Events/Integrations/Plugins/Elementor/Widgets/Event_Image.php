@@ -74,7 +74,18 @@ class Event_Image extends Abstract_Widget {
 	}
 
 	/**
-	 * Renders teh image widget for the editor live preview.
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return $this->template_args();
+	}
+
+	/**
+	 * Renders the image widget for the editor live preview.
 	 *
 	 * @since TBD
 	 */

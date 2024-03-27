@@ -83,6 +83,17 @@ class Event_Tags extends Abstract_Widget {
 	}
 
 	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return $this->template_args();
+	}
+
+	/**
 	 * Allows filtering of the tag separator prior to output.
 	 *
 	 * @since TBD
