@@ -162,7 +162,7 @@ class Event_Venue extends Abstract_Widget {
 		$venue_ids = tec_get_venue_ids( $event_id );
 
 		foreach ( $venue_ids as $venue_id ) {
-			$phone = tribe_get_phone( $venue_id );
+			$phone               = tribe_get_phone( $venue_id );
 			$venues[ $venue_id ] = [
 				'id'         => $venue_id,
 				'name'       => tribe_get_venue( $venue_id ),
