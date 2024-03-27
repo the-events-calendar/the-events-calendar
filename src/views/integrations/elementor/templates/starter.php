@@ -317,7 +317,7 @@
                   ],
                   "isInner": true,
                   "elType": "column"
-                },
+                }
               ],
               "isInner": true,
               "elType": "section"
