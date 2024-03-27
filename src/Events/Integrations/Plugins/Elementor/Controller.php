@@ -29,6 +29,15 @@ class Controller extends Integration_Abstract {
 	use Plugin_Integration;
 
 	/**
+	 * The template instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe_Template
+	 */
+	protected $template;
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @since TBD
@@ -76,7 +85,7 @@ class Controller extends Integration_Abstract {
 	 * @since TBD
 	 */
 	public function register_actions(): void {
-//		add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
+		// add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 	}
 

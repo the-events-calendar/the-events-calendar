@@ -13,7 +13,7 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Organizer $widget The widget instance.
  */
 
-$email = tribe_get_organizer_email( $organizer );
+$email = ! $this->get_widget()->should_show_mock_data() ? tribe_get_organizer_email( $organizer ) : 'info@theeventscalendar.com';
 ?>
 <p <?php tribe_classes( $widget->get_email_base_class() ); ?>>
 	<?php if ( $link_organizer_email ) : ?>

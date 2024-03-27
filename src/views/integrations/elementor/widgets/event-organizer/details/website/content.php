@@ -13,5 +13,6 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Organizer $widget The widget instance.
  */
 
+$website = ! $this->get_widget()->should_show_mock_data() ? tribe_get_organizer_website_link( $organizer ) : 'http://theeventscalendar.com';
 ?>
-<p <?php tribe_classes( $widget->get_website_base_class() ); ?>><?php echo wp_kses_post( tribe_get_organizer_website_link( $organizer ) ); ?></p>
+<p <?php tribe_classes( $widget->get_website_base_class() ); ?>><?php echo wp_kses_post( $website ); ?></p>

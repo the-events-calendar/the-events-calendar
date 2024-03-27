@@ -288,7 +288,30 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		$date_format = tribe_get_date_format();
+		$time_format = tribe_get_time_format();
+
+		$start = new \DateTime();
+		$start->modify( '+1 day' );
+		$start->setTime( 8, 0 );
+
+		$end = new \DateTime();
+		$end->modify( '+2 days' );
+		$end->setTime( 17, 0 );
+
+		return [
+			'html_tag'          => $this->get_html_tag(),
+			'show_date'         => true,
+			'show_time'         => true,
+			'show_year'         => true,
+			'start_date'        => $start->format( $date_format ) ?? '',
+			'end_date'          => $end->format( $date_format ) ?? '',
+			'start_time'        => $start->format( $time_format ) ?? '',
+			'end_time'          => $end->format( $time_format ) ?? '',
+			'is_same_day'       => false,
+			'is_all_day'        => false,
+			'is_same_start_end' => false,
+		];
 	}
 
 	/**

@@ -81,7 +81,9 @@ class Event_Image extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		return [
+			'image' => '<img src="' . tribe_resource_url( 'images/placeholder.png' ) . '" class="elementor-image" />',
+		];
 	}
 
 	/**

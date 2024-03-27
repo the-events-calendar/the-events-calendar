@@ -10,8 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Text_Stroke;
 use Elementor\Group_Control_Typography;
@@ -75,7 +73,13 @@ class Event_Description extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		return [
+			'content' => _x(
+				'This is demo content for the Event Description widget.',
+				'Content used for the widget preview.',
+				'the-events-calendar'
+			),
+		];
 	}
 
 	/**

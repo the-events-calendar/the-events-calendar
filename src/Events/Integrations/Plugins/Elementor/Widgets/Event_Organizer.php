@@ -61,7 +61,6 @@ class Event_Organizer extends Abstract_Widget {
 	protected function template_args(): array {
 		$event_id = $this->get_event_id();
 		$settings = $this->get_settings_for_display();
-		$multiple = $this->has_multiple_organizers();
 
 		if ( isset( $settings['organizer_website_link_target'] ) ) {
 			$this->set_template_filter(
@@ -93,7 +92,7 @@ class Event_Organizer extends Abstract_Widget {
 			'organizer_email_header_text'   => $this->get_email_header_text(),
 			'organizer_phone_header_text'   => $this->get_phone_header_text(),
 			'organizer_website_header_text' => $this->get_website_header_text(),
-			'multiple'                      => $multiple,
+			'multiple'                      => $this->has_multiple_organizers(),
 			'settings'                      => $settings,
 			'event_id'                      => $event_id,
 		];
@@ -107,7 +106,29 @@ class Event_Organizer extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		return [
+			'organizer_ids'                 => [ 1 ],
+			'show_organizer_header'         => true,
+			'link_organizer_name'           => true,
+			'show_organizer_name'           => true,
+			'show_organizer_phone'          => true,
+			'link_organizer_phone'          => true,
+			'show_organizer_email'          => true,
+			'link_organizer_email'          => true,
+			'show_organizer_website'        => true,
+			'show_organizer_phone_header'   => true,
+			'show_organizer_email_header'   => true,
+			'show_organizer_website_header' => true,
+			'organizer_header_tag'          => 'h2',
+			'organizer_name_tag'            => 'h3',
+			'organizer_phone_header_tag'    => 'h4',
+			'organizer_email_header_tag'    => 'h4',
+			'organizer_website_header_tag'  => 'h4',
+			'organizer_email_header_text'   => $this->get_email_header_text(),
+			'organizer_phone_header_text'   => $this->get_phone_header_text(),
+			'organizer_website_header_text' => $this->get_website_header_text(),
+			'multiple'                      => false,
+		];
 	}
 
 	/**

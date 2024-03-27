@@ -487,6 +487,20 @@ abstract class Abstract_Widget extends Widget_Base {
 	abstract protected function preview_args(): array;
 
 	/**
+	 * Determine if the widget should show mock data.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_show_mock_data(): bool {
+		$template = $this->get_template();
+		$type     = get_post_type();
+
+		return $template->is_preview_mode() || $type === 'elementor_library';
+	}
+
+	/**
 	 * Get the template arguments.
 	 *
 	 * This calls the template_args method on the widget and then filters the data.
@@ -496,10 +510,9 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return array
 	 */
 	public function get_template_args(): array {
-		$template = $this->get_template();
-		$slug     = self::get_slug();
-		$preview  = $template->is_preview_mode();
-		$args     = $preview ? $this->template_args() : $this->preview_args(); // Defined in each widget instance.
+		$preview = $this->should_show_mock_data();
+		$args    = $preview ? $this->preview_args() : $this->template_args(); // Defined in each widget instance.
+		$slug    = self::get_slug();
 
 
 		/**

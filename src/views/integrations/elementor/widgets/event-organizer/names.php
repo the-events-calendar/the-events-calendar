@@ -23,12 +23,15 @@ if ( ! $show_organizer_name ) {
 if ( empty( $organizer ) ) {
 	return;
 }
+
+$organizer_name = ! $this->get_widget()->should_show_mock_data() ? tribe_get_organizer( $organizer ) : _x( 'John Doe', 'Placeholder name for widget preview', 'the-events-calendar' );
+$organizer_link = ! $this->get_widget()->should_show_mock_data() ? tribe_get_organizer_link( $organizer, false ) : '#';
 ?>
 <<?php echo tag_escape( $organizer_name_tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
 	<?php if ( $link_organizer_name ) : ?>
-		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( tribe_get_organizer_link( $organizer, false ) ); ?>">
+		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( $organizer_link ); ?>">
 	<?php endif; ?>
-		<?php echo esc_html( tribe_get_organizer( $organizer ) ); ?>
+		<?php echo esc_html( $organizer_name ); ?>
 	<?php if ( $link_organizer_name ) : ?>
 		</a>
 	<?php endif; ?>

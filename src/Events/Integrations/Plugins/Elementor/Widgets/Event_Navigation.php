@@ -82,7 +82,21 @@ class Event_Navigation extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		$prev_event             = new \stdClass();
+		$next_event             = new \stdClass();
+		$prev_event->post_title = 'Previous Event';
+		$next_event->post_title = 'Next Event';
+
+		return [
+			'show_nav_header' => false,
+			'header_tag'      => $this->get_event_navigation_header_tag(),
+			'header_text'     => $this->get_header_text(),
+			'prev_event'      => $prev_event,
+			'prev_link'       => '#',
+			'next_event'      => $next_event,
+			'next_link'       => '#',
+			'event_id'        => $this->get_event_id(),
+		];
 	}
 
 	/**

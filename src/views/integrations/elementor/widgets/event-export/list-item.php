@@ -19,7 +19,7 @@
  * @var Event_Export $widget         The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Export;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Export;
 
 // No url, no render.
 if ( empty( $link ) || ! $should_display ) {

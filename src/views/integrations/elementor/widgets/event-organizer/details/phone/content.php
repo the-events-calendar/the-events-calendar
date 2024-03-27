@@ -13,7 +13,7 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Organizer $widget The widget instance.
  */
 
-$phone = tribe_get_organizer_phone( $organizer );
+$phone = ! $this->get_widget()->should_show_mock_data() ? tribe_get_organizer_phone( $organizer ) : '123-456-7890';
 ?>
 <p <?php tribe_classes( $widget->get_phone_base_class() ); ?>>
 	<?php if ( $link_organizer_phone ) : ?>

@@ -31,7 +31,7 @@
  * @var array        $outlook_live           The Outlook Live link and label.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Export;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Export;
 
 // Ensure the Links are avail.
 $gcal         ??= null;

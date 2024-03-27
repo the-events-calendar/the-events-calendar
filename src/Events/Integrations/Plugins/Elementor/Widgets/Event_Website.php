@@ -102,7 +102,11 @@ class Event_Website extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		$args = $this->template_args();
+
+		$args['website'] = 'http://theeventscalendar.com';
+
+		return $args;
 	}
 
 	/**

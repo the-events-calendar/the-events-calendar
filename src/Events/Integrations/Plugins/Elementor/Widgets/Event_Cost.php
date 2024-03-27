@@ -50,16 +50,14 @@ class Event_Cost extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	protected function template_args(): array {
-		$header_tag = $this->get_header_tag();
-		$event_id   = $this->get_event_id();
-		$cost       = tribe_get_formatted_cost( $event_id );
+		$event_id = $this->get_event_id();
 
 		return [
 			'show_header' => tribe_is_truthy( $settings['show_header'] ?? false ),
-			'header_tag'  => $header_tag,
+			'header_tag'  => $this->get_header_tag(),
 			'html_tag'    => $this->get_html_tag(),
 			'event_id'    => $event_id,
-			'cost'        => $cost,
+			'cost'        => tribe_get_formatted_cost( $event_id ),
 		];
 	}
 
@@ -71,7 +69,12 @@ class Event_Cost extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		return [
+			'show_header' => false,
+			'header_tag'  => $this->get_header_tag(),
+			'html_tag'    => $this->get_html_tag(),
+			'cost'        => '$10',
+		];
 	}
 
 	/**

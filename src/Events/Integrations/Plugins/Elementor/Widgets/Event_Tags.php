@@ -90,7 +90,15 @@ class Event_Tags extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		return [
+			'show_tags_header' => 'yes',
+			'header_tag'       => 'h3',
+			'tags'             => [
+				'demo-tag-1' => '#',
+				'demo-tag-2' => '#',
+			],
+			'label_text'       => $this->get_header_text(),
+		];
 	}
 
 	/**
