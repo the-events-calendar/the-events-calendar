@@ -105,7 +105,7 @@ class Event_Website extends Abstract_Widget {
 	protected function preview_args(): array {
 		$args = $this->template_args();
 
-		$args['website'] = 'http://theeventscalendar.com';
+		$args['website'] = '<a href="http://theeventscalendar.com" target="_self" rel="external">http://theeventscalendar.com</a>';
 
 		return $args;
 	}

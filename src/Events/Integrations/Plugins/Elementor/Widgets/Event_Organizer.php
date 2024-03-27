@@ -73,7 +73,6 @@ class Event_Organizer extends Abstract_Widget {
 		}
 
 		return [
-			'organizer_ids'                 => array_filter( tribe_get_organizer_ids( $event_id ) ),
 			'show_organizer_header'         => tribe_is_truthy( $settings['show_organizer_header'] ?? true ),
 			'link_organizer_name'           => tribe_is_truthy( $settings['link_organizer_name'] ?? true ),
 			'show_organizer_name'           => tribe_is_truthy( $settings['show_organizer_name'] ?? true ),
@@ -96,6 +95,7 @@ class Event_Organizer extends Abstract_Widget {
 			'multiple'                      => $this->has_multiple_organizers(),
 			'settings'                      => $settings,
 			'event_id'                      => $event_id,
+			'organizers'                    => $this->get_organizer_data(),
 		];
 	}
 
@@ -107,9 +107,9 @@ class Event_Organizer extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$phone = '555-555-5555';
 		return [
-			'organizer_ids'                 => [ 1 ],
-			'show_organizer_header'         => true,
+			'show_organizer_header'         => false,
 			'link_organizer_name'           => true,
 			'show_organizer_name'           => true,
 			'show_organizer_phone'          => true,
@@ -117,9 +117,9 @@ class Event_Organizer extends Abstract_Widget {
 			'show_organizer_email'          => true,
 			'link_organizer_email'          => true,
 			'show_organizer_website'        => true,
-			'show_organizer_phone_header'   => true,
-			'show_organizer_email_header'   => true,
-			'show_organizer_website_header' => true,
+			'show_organizer_phone_header'   => false,
+			'show_organizer_email_header'   => false,
+			'show_organizer_website_header' => false,
 			'organizer_header_tag'          => 'h2',
 			'organizer_name_tag'            => 'h3',
 			'organizer_phone_header_tag'    => 'h4',
@@ -129,7 +129,59 @@ class Event_Organizer extends Abstract_Widget {
 			'organizer_phone_header_text'   => $this->get_phone_header_text(),
 			'organizer_website_header_text' => $this->get_website_header_text(),
 			'multiple'                      => false,
+			'organizers'                    => [
+				1 => [
+					'id'         => 1,
+					'name'       => _x( 'John Doe', 'Placeholder name for widget preview', 'the-events-calendar' ),
+					'link'       => '#',
+					'phone'      => $phone,
+					'phone_link' => $this->format_phone_link( $phone ),
+					'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Organizer Website</a>',
+					'email'      => 'info@theeventscalendar.com',
+				],
+			],
 		];
+	}
+
+	/**
+	 * Get the organizer data for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The organizer data.
+	 */
+	protected function get_organizer_data(): array {
+		$organizers    = [];
+		$settings      = $this->get_settings_for_display();
+		$event_id      = $this->get_event_id();
+		$organizer_ids = array_filter( tribe_get_organizer_ids( $event_id ) );
+
+		foreach ( $organizer_ids as $organizer_id ) {
+			$phone                       = tribe_get_organizer_phone( $organizer_id );
+			$organizers[ $organizer_id ] = [
+				'id'         => $organizer_id,
+				'name'       => tribe_get_organizer( $organizer_id ),
+				'link'       => tribe_is_truthy( $settings['link_organizer_name'] ?? true ) ? tribe_get_organizer_link( $organizer_id, false ) : false,
+				'phone'      => $phone,
+				'phone_link' => tribe_is_truthy( $settings['link_organizer_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
+				'website'    => tribe_get_organizer_website_link( $organizer_id ),
+				'email'      => tribe_get_organizer_email( $organizer_id ),
+			];
+		}
+
+		return $organizers;
+	}
+
+	/**
+	 * Format a phone number for use in a tel link.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool|string $phone The phone number to format.
+	 */
+	protected function format_phone_link( $phone ): bool|string {
+		// For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension.
+		return 'tel:' . str_ireplace( [ 'ext', 'x', ' ' ], [ 'p', 'p', '' ], $phone );
 	}
 
 	/**
@@ -180,7 +232,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @since TBD
 		 *
 		 * @param string $header_text The header text.
-		 * @param Event_Venue $this The event organizer widget instance.
+		 * @param Event_Organizer $this The event organizer widget instance.
 		 *
 		 * @return string The filtered header text.
 		 */
@@ -207,7 +259,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @since TBD
 		 *
 		 * @param string $header_text The header text.
-		 * @param Event_Venue $this The event organizer widget instance.
+		 * @param Event_Organizer $this The event organizer widget instance.
 		 *
 		 * @return string The filtered header text.
 		 */
@@ -234,7 +286,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @since TBD
 		 *
 		 * @param string $header_text The header text.
-		 * @param Event_Venue $this The event organizer widget instance.
+		 * @param Event_Organizer $this The event organizer widget instance.
 		 *
 		 * @return string The filtered header text.
 		 */
