@@ -545,6 +545,10 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @since TBD
 	 */
 	public function enqueue_style(): void {
+		if ( ! static::$has_styles ) {
+			return;
+		}
+
 		$slug = str_replace( '_', '-', $this::get_slug() );
 
 		tribe_asset_enqueue( static::$asset_prefix . $slug . '-styles' );
