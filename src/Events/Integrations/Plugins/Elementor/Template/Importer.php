@@ -60,7 +60,16 @@ class Importer {
 		}
 
 		$elementor_template_json = $this->get_template_engine()->template( 'starter', [], false );
-		$elementor_template_data = json_decode( $elementor_template_json, true );
+		try {
+			$elementor_template_data = json_decode( $elementor_template_json, true, 512, JSON_THROW_ON_ERROR );
+		} catch( \JsonException $e ) {
+			return;
+		}
+
+		if ( ! is_array( $elementor_template_data ) ) {
+			return;
+		}
+
 		$this->import_with_elementor( $elementor_template_data );
 	}
 

@@ -9,10 +9,14 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use WP_Post;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Template_Controller;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+
+use Tribe__Template as Template;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller
@@ -62,6 +66,8 @@ class Controller extends Integration_Abstract {
 
 		// Make sure we instantiate the templates controller.
 		tribe( Template_Controller::class );
+
+		$this->register_assets();
 	}
 
 	/**
@@ -71,6 +77,7 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_actions(): void {
 //		add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
+		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 	}
 
 	/**
@@ -80,6 +87,27 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
+	}
+
+	/**
+	 * Register the assets for the Elementor integration.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function register_assets(): void {
+		$plugin = tribe( 'tec.main' );
+		tribe_asset(
+			$plugin,
+			'tec-events-elementor-admin',
+			'integrations/plugins/elementor/admin.css',
+			[],
+			'admin_enqueue_scripts',
+			[
+				'conditionals' => [ $this, 'should_load_admin_styles' ],
+			]
+		);
 	}
 
 	/**
@@ -94,6 +122,18 @@ class Controller extends Integration_Abstract {
 		return defined( 'ELEMENTOR_PRO_VERSION' );
 	}
 
+
+	/**
+	 * Checks if the admin styles should be loaded.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_load_admin_styles(): bool {
+		return \Tribe__Admin__Helpers::instance()->is_post_type_screen( TEC::POSTTYPE );
+	}
+
 	/**
 	 * Test function to re-save the metadata as the base post in a series.
 	 *
@@ -102,7 +142,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param \Elementor\Core\DocumentTypes\Post $document The document.
+	 * @param \Elementor\Core\DocumentTypes\Post $document    The document.
 	 * @param array                              $editor_data The editor data.
 	 */
 	public function action_elementor_document_after_save( $document, $editor_data ): void {
@@ -126,7 +166,34 @@ class Controller extends Integration_Abstract {
 		$is_meta_updated = update_metadata( 'post', $real_id, '_elementor_data', $saved_meta );
 	}
 
+	/**
+	 * Modify the switch mode button to show a warning when the event is not properly saved yet.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post|int|string $post The post object.
+	 *
+	 * @return void
+	 */
+	public function modify_switch_mode_button( $post ): void {
+		// Since this is a hook, we need to check if the post is an object.
+		if ( ! $post instanceof \WP_Post ) {
+			return;
+		}
 
+		if ( ! tribe_is_event( $post ) ) {
+			return;
+		}
+
+		$start_date = get_post_meta( $post->ID, '_EventStartDate', true );
+		$end_date   = get_post_meta( $post->ID, '_EventEndDate', true );
+
+		if ( ! empty( $start_date ) && ! empty( $end_date ) ) {
+			return;
+		}
+
+		$this->get_template()->template( 'switch-warning', [ 'post' => $post ] );
+	}
 
 	/**
 	 * Modifies the Elementor posts widget query arguments to set 'tribe_suppress_query_filters' to true for the Event post type.
@@ -140,7 +207,7 @@ class Controller extends Integration_Abstract {
 		 * Checks if the 'tribe_events' post type is present in the query arguments.
 		 * If not, it returns the query arguments unmodified.
 		 */
-		if ( ! in_array( Tribe__Events__Main::POSTTYPE, (array) $query_args['post_type'], true ) ) {
+		if ( ! in_array( \Tribe__Events__Main::POSTTYPE, (array) $query_args['post_type'], true ) ) {
 			return $query_args;
 		}
 
@@ -148,5 +215,23 @@ class Controller extends Integration_Abstract {
 		$query_args['tribe_suppress_query_filters'] = true;
 
 		return $query_args;
+	}
+
+	/**
+	 * Gets the template instance used to setup the rendering html.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Template
+	 */
+	public function get_template() {
+		if ( empty( $this->template ) ) {
+			$this->template = new Template();
+			$this->template->set_template_origin( tribe( 'tec.main' ) );
+			$this->template->set_template_folder( 'src/admin-views/integrations/plugins/elementor' );
+			$this->template->set_template_context_extract( true );
+		}
+
+		return $this->template;
 	}
 }
