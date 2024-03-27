@@ -187,15 +187,13 @@ class Controller extends Integration_Abstract {
 		}
 
 		$start_date = get_post_meta( $post->ID, '_EventStartDate', true );
-		$end_date = get_post_meta( $post->ID, '_EventEndDate', true );
+		$end_date   = get_post_meta( $post->ID, '_EventEndDate', true );
 
 		if ( ! empty( $start_date ) && ! empty( $end_date ) ) {
 			return;
 		}
 
-		$this->get_template()->template( 'switch-warning', [
-			'post' => $post,
-		] );
+		$this->get_template()->template( 'switch-warning', [ 'post' => $post ] );
 	}
 
 	/**
