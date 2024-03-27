@@ -478,15 +478,6 @@ abstract class Abstract_Widget extends Widget_Base {
 	abstract protected function template_args(): array;
 
 	/**
-	 * Get the template args for the widget preview.
-	 *
-	 * @since TBD
-	 *
-	 * @return array The template args for the preview.
-	 */
-	abstract protected function preview_args(): array;
-
-	/**
 	 * Determine if the widget should show mock data.
 	 *
 	 * @since TBD
@@ -494,10 +485,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return bool
 	 */
 	public function should_show_mock_data(): bool {
-		$template = $this->get_template();
-		$type     = get_post_type();
-
-		return $template->is_preview_mode() || $type === 'elementor_library';
+		return false;
 	}
 
 	/**
@@ -510,9 +498,8 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return array
 	 */
 	public function get_template_args(): array {
-		$preview = $this->should_show_mock_data();
-		$args    = $preview ? $this->preview_args() : $this->template_args(); // Defined in each widget instance.
-		$slug    = self::get_slug();
+		$args = $this->template_args(); // Defined in each widget instance.
+		$slug = self::get_slug();
 
 
 		/**
@@ -524,7 +511,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( 'tec_events_elementor_widget_template_data', $args, $preview, $this );
+		$args = (array) apply_filters( 'tec_events_elementor_widget_template_data', $args, false, $this );
 
 		/**
 		 * Filters the template data for a specific (by $slug) Elementor widget templates.
@@ -535,7 +522,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, $preview, $this );
+		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, false, $this );
 
 		// Add the widget to the data array.
 		$args['widget'] = $this;

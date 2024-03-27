@@ -22,6 +22,7 @@ use Tribe__Events__Main;
  */
 class Event_Categories extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
