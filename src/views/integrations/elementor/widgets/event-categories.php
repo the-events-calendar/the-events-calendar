@@ -7,15 +7,16 @@
  *
  * @since TBD
  *
- * @var bool             $show_heading Whether to show the heading.
+ * @var bool             $show_header Whether to show the header.
  * @var array            $categories   The event categories.
- * @var string           $heading_tag  The HTML tag to use for the heading.
+ * @var string           $header_tag   The HTML tag to use for the header.
+ * @var string           $header_text  The header text.
  * @var array            $settings     The widget settings.
  * @var int              $event_id     The event ID.
  * @var Event_Categories $widget       The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Categories;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Categories;
 
 if ( empty( $categories ) ) {
 	return;
@@ -27,13 +28,7 @@ if ( empty( $categories ) ) {
 	<?php
 	$this->template(
 		'views/integrations/elementor/widgets/event-categories/header',
-		[
-			'show'        => $show_heading,
-			'heading_tag' => $heading_tag,
-			'settings'    => $settings,
-			'event_id'    => $event_id,
-			'widget'      => $widget,
-		]
+		[ 'show' => $show_header ]
 	);
 	?>
 	<div <?php tribe_classes( $widget->get_wrapper_class() ); ?>>

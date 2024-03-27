@@ -55,8 +55,8 @@ class Controller extends Integration_Abstract {
 	 */
 	public function load(): void {
 		$this->container->register_on_action( 'elementor/init', Template_Controller::class );
-		$this->container->register_on_action( 'elementor/loaded', Assets_Manager::class );
 		$this->container->register_on_action( 'elementor/widgets/register', Widgets_Manager::class );
+		$this->container->register_on_action( 'elementor/loaded', Assets_Manager::class );
 
 		$this->register_actions();
 		$this->register_filters();

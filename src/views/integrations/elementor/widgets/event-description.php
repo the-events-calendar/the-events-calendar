@@ -13,7 +13,7 @@
  * @var Event_Description $widget   The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Description;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Description;
 
 // No content, no render.
 if ( empty( $content ) ) {

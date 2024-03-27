@@ -39,7 +39,7 @@ $ical         ??= null;
 $outlook_365  ??= null;
 $outlook_live ??= null;
 
-// Ensure we dont get notices.
+// Ensure we don't get notices.
 $show_gcal_link         ??= false;
 $show_ical_link         ??= false;
 $show_outlook_365_link  ??= false;

@@ -13,13 +13,13 @@
  * @var Event_Title $widget     The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Title;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Title;
 
 // No title, no render.
 if ( empty( $title ) ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_element_classes() ); ?>>
-<?php echo wp_kses_post( $title ); ?>
+<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_widget_class() ); ?>>
+	<?php echo wp_kses_post( $title ); ?>
 </<?php echo tag_escape( $header_tag ); ?>>

@@ -3,12 +3,13 @@
  * View: Elementor Event Datetime widget.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime.php
+ * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-datetime.php
  *
  * @since TBD
  *
  * @var Template_Engine $this              The template engine.
- * @var string          $html_tag          The HTML tag for the widget.
+ * @var bool            $show_header       Whether to show the header.
+ * @var string          $html_tag          The HTML tag for the date content.
  * @var bool            $show_date         Whether to show the date.
  * @var bool            $show_time         Whether to show the time.
  * @var bool            $show_year         Whether to show the year.
@@ -20,16 +21,23 @@
  * @var bool            $is_all_day        Whether the event is all day on a single day.
  * @var bool            $is_same_start_end Whether the start and end date and time are the same.
  *
- * @var Event_Datetime  $widget            The widget instance.
+ * @var Event_Datetime  $this-            The widget instance.
  */
 
 use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Datetime;
 use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
-if ( ! $this->has_event() ) {
+if ( ! $this->has_event() || ! $show ) {
 	return;
 }
 
+$widget = $this->get_widget();
+?>
+<?php
+$this->template(
+	'views/integrations/elementor/widgets/event-datetime/header',
+	[ 'show' => $show_header ]
+);
 ?>
 <<?php echo tag_escape( $html_tag ); ?> <?php tribe_classes( $widget->get_widget_class() ); ?>>
 <?php if ( $show_date && $start_date ) : ?>
@@ -42,7 +50,7 @@ if ( ! $this->has_event() ) {
 	<span <?php tribe_classes( $widget->get_time_class(), $widget->get_start_time_class() ); ?>><?php echo esc_html( $start_time ); ?></span>
 <?php endif; ?>
 <?php if ( $is_all_day ) : ?>
-	<span <?php tribe_classes( $widget->get_all_day_class() ); ?>><?php esc_html_e( 'All day', 'tribe-events-calendar-pro' ); ?></span>
+	<span <?php tribe_classes( $widget->get_all_day_class() ); ?>><?php esc_html_e( 'All day', 'the-events-calendar' ); ?></span>
 <?php endif; ?>
 <?php if ( ! $is_same_start_end && ( $show_date || $show_time ) ) : ?>
 	<?php if ( $show_date && $show_time ) : ?>

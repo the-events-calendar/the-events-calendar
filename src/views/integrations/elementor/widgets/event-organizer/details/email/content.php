@@ -13,5 +13,15 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Organizer $widget The widget instance.
  */
 
+$email = tribe_get_organizer_email( $organizer );
 ?>
-<p <?php tribe_classes( $widget->get_email_base_class() ); ?>><?php echo esc_html( tribe_get_organizer_email( $organizer, false ) ); ?></p>
+<p <?php tribe_classes( $widget->get_email_base_class() ); ?>>
+	<?php if ( $link_organizer_email ) : ?>
+		<?php // For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension. ?>
+		<a <?php tribe_classes( $widget->get_email_base_class() . '-link' ); ?> href="<?php echo esc_url( 'mailto:' . $email ); ?>">
+	<?php endif; ?>
+		<?php echo esc_html( $email ); ?>
+	<?php if ( $link_organizer_email ) : ?>
+		</a>
+	<?php endif; ?>
+</p>

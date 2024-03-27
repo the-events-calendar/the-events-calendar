@@ -7,13 +7,18 @@
  *
  * @since TBD
  *
- * @var string $header_tag The HTML tag for the event title.
- * @var string $label      The label for the event navigation.
- * @var int    $event_id   The event ID.
+ * @var bool   $show_nav_header Whether to visually show/hide the event navigation header.
+ * @var string $header_tag      The HTML tag for the event title.
+ * @var string $header_text     The header_text for the event navigation.
+ * @var int    $event_id        The event ID.
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Navigation $widget The widget instance.
  */
 
+if ( ! $show_nav_header ) {
+	return;
+}
+
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_classes() ); ?>>
-	<?php echo esc_html( $label ); ?>
+<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_class(), $class ); ?>>
+	<?php echo esc_html( $header_text ); ?>
 </<?php echo tag_escape( $header_tag ); ?>>

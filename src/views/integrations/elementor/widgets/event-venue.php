@@ -42,7 +42,7 @@
  * @var Event_Venue $widget                The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Venue;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Venue;
 
 // No title, no render.
 if ( empty( $venue_ids ) ) {
@@ -53,48 +53,13 @@ if ( empty( $venue_ids ) ) {
 	<?php
 	$this->template(
 		'views/integrations/elementor/widgets/event-venue/header',
-		[
-			'show'        => $show_widget_header,
-			'header_tag'  => $header_tag,
-			'header_text' => $header_text,
-			'settings'    => $settings,
-			'event_id'    => $event_id,
-			'widget'      => $widget,
-		]
+		[ 'show' => $show_widget_header ]
 	);
 	?>
 	<div <?php tribe_classes( $widget->get_container_classes() ); ?>>
 		<?php foreach ( $venue_ids as $venue_id ) : ?>
 			<?php
-			$this->template(
-				'views/integrations/elementor/widgets/event-venue/single-venue',
-				[
-					'link_name'             => $link_name,
-					'show_name'             => $show_name,
-					'tag'                   => $name_tag,
-					'show_widget_header'    => $show_widget_header,
-					'show_address'          => $show_address,
-					'show_address_map_link' => $show_address_map_link,
-					'show_map'              => $show_map,
-					'show_phone'            => $show_phone,
-					'show_website'          => $show_website,
-					'show_address_header'   => $show_address_header,
-					'show_phone_header'     => $show_phone_header,
-					'show_website_header'   => $show_website_header,
-					'header_tag'            => $header_tag,
-					'address_header_tag'    => $address_header_tag,
-					'phone_header_tag'      => $phone_header_tag,
-					'website_header_tag'    => $website_header_tag,
-					'header_text'           => $header_text,
-					'address_header_text'   => $address_header_text,
-					'phone_header_text'     => $phone_header_text,
-					'website_header_text'   => $website_header_text,
-					'event_id'              => $event_id,
-					'settings'              => $settings,
-					'venue_ids'             => $venue_ids,
-					'widget'                => $widget,
-				]
-			);
+			$this->template( 'views/integrations/elementor/widgets/event-venue/single-venue' );
 			?>
 		<?php endforeach; ?>
 	</div>

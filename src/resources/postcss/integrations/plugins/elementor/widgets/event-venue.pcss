@@ -11,19 +11,25 @@
 
 .tec-events-elementor-event-widget__venue-container,
 .tribe-events-content .tec-events-elementor-event-widget__venue-container {
+	border: 1px solid var(--tec-color-border-secondary);
+	border-radius: var(--tec-border-radius-default);
 	display: flex;
+	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	margin-bottom: var(--tec-spacer-6);
+	max-width: 580px;
+	padding: var(--tec-spacer-5);
 
-	@media only screen and (max-width: 767px) {
-		flex-direction: column;
+	@media only screen and (min-width: 767px) {
+		flex-direction: row;
 	}
 
 	.tec-events-elementor-event-widget__venue-details {
 		box-sizing: border-box;
 		flex: 1;
-		min-width: 50%;
+		flex-basis: 50%;
+		font-size: var(--tec-font-size-2);
 		padding: 10px;
 
 		p {
@@ -47,23 +53,49 @@
 		margin: var(--tec-spacer-1) 0;
 	}
 
+	,
+	.tec-events-elementor-event-widget__venue-email-link,
+	.tec-events-elementor-event-widget__venue-phone-link {
+		border-color: currentColor;
+	}
+
 	.tec-events-elementor-event-widget__venue-address-map-link > a {
 		border-color: currentColor;
+		color: var(--tec-color-accent-primary);
+
+		&:hover {
+			color: var(--tec-color-accent-primary-hover);
+		}
 	}
 
 	.tec-events-elementor-event-widget__venue-website-url > a {
 		border-color: currentColor;
+		color: var(--tec-color-accent-primary);
+
+		&:hover {
+			color: var(--tec-color-accent-primary-hover);
+		}
 	}
 
 	.tec-events-elementor-event-widget__venue-name-header {
 		padding-bottom: var(--tec-spacer-2);
 	}
 
+	.tec-events-elementor-event-widget__venue-name {
+		font-size: var(--tec-font-size-4);
+	}
+
 	.tec-events-elementor-event-widget__venue-name-link {
 		border-color: currentColor;
+		font-size: inherit;
 	}
 
 	.tec-events-elementor-event-widget__venue-phone-header .tec-events-elementor-event-widget__venue-phone {
 		padding: 0;
+	}
+
+	.tec-events-elementor-event-widget__venue-map {
+		flex: 1;
+		flex-basis: 50%;
 	}
 }

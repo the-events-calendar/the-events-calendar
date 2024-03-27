@@ -11,8 +11,16 @@
  * @var string $tag_link The tag url.
  * @var array  $settings The widget settings.
  * @var int    $event_id The event ID.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Tags $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Tags $widget The widget instance.
  */
 
+// Note: inserting a line break after the closing anchor tag will add a visual "space" between the anchor text and the separator.
 ?>
-<a <?php tribe_classes( $widget->get_link_class() ); ?> href="<?php echo esc_url( $tag_link ); ?>"><?php echo esc_html( $tag_name ); ?></a>
+<a <?php tribe_classes( $widget->get_link_class() ); ?> href="<?php echo esc_url( $tag_link ); ?>">
+	<?php echo esc_html( $tag_name ); ?>
+</a><span class="<?php tribe_classes( $widget->get_link_class() . '-separator' ); ?>"><?php // phpcs:ignore Squiz.PHP.EmbeddedPhp.ContentBeforeOpen,Squiz.PHP.EmbeddedPhp.ContentAfterOpen
+if ( ! $last ) {
+	$widget->print_tags_separator();
+}
+?>
+</span>

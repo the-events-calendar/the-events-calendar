@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
@@ -29,6 +24,7 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Export extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
 
 	/**
 	 * Widget slug.
@@ -38,6 +34,15 @@ class Event_Export extends Abstract_Widget {
 	 * @var string
 	 */
 	protected static string $slug = 'event_export';
+
+	/**
+	 * Whether the widget has styles to register/enqueue.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected static bool $has_styles = true;
 
 	/**
 	 * Create the widget title.
@@ -140,7 +145,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_class', $class, $this );
 	}
 
 	/**
@@ -163,7 +168,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_button_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_button_class', $class, $this );
 	}
 
 	/**
@@ -186,7 +191,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_list_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_list_class', $class, $this );
 	}
 
 	/**
@@ -209,7 +214,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_list_item_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_list_item_class', $class, $this );
 	}
 
 	/**
@@ -232,7 +237,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_link_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_link_class', $class, $this );
 	}
 
 	/**
@@ -255,7 +260,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_content_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_content_class', $class, $this );
 	}
 
 	/**
@@ -278,7 +283,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_icon_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_icon_class', $class, $this );
 	}
 
 	/**
@@ -301,7 +306,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_export_icon_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_export_icon_class', $class, $this );
 	}
 
 	/**
@@ -324,7 +329,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_gcal_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_gcal_class', $class, $this );
 	}
 
 	/**
@@ -347,7 +352,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_ical_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_ical_class', $class, $this );
 	}
 
 	/**
@@ -370,7 +375,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_365_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_365_class', $class, $this );
 	}
 
 	/**
@@ -393,7 +398,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_live_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_live_class', $class, $this );
 	}
 
 	/**
@@ -401,7 +406,7 @@ class Event_Export extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function register_controls() {
+	protected function register_controls(): void {
 		// Content tab.
 		$this->content_panel();
 		// Style tab.
@@ -413,7 +418,7 @@ class Event_Export extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_panel() {
+	protected function content_panel(): void {
 		$this->content_options();
 	}
 
@@ -422,59 +427,47 @@ class Event_Export extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_options() {
+	protected function content_options(): void {
 		$this->start_controls_section(
-			'section_title',
+			'content_section',
 			[
 				'label' => esc_html__( 'Add to Calendar Button', 'the-events-calendar' ),
 			]
 		);
 
 		// Toggle for including Google Calendar.
-		$this->add_control(
-			'show_gcal_link',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Include Google Calendar', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'id'    => 'show_gcal_link',
+				'label' => esc_html__( 'Include Google Calendar', 'the-events-calendar' ),
 			]
 		);
 
 		// Toggle for including iCalendar.
-		$this->add_control(
-			'show_ical_link',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Include iCalendar', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'id'    => 'show_ical_link',
+				'label' => esc_html__( 'Include iCalendar', 'the-events-calendar' ),
 			]
 		);
 
 		// Toggle for including Outlook 365.
-		$this->add_control(
-			'show_outlook_365_link',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Include Outlook 365', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'id'    => 'show_outlook_365_link',
+				'label' => esc_html__( 'Include Outlook 365', 'the-events-calendar' ),
 			]
 		);
 
 		// Toggle for including Outlook Live.
-		$this->add_control(
-			'show_outlook_live_link',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Include Outlook Live', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'id'    => 'show_outlook_live_link',
+				'label' => esc_html__( 'Include Outlook Live', 'the-events-calendar' ),
 			]
 		);
 
@@ -486,9 +479,9 @@ class Event_Export extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function style_panel() {
+	protected function style_panel(): void {
 		$this->style_export_button();
-
+		$this->style_export_button_hover();
 		$this->style_export_dropdown();
 	}
 
@@ -497,91 +490,20 @@ class Event_Export extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function style_export_button() {
+	protected function style_export_button(): void {
 		$this->start_controls_section(
-			'styling_section_title',
+			'button_styling_section',
 			[
-				'label' => esc_html__( 'Add to Calendar Button', 'the-events-calendar' ),
+				'label' => esc_html__( 'Button Styles', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class() => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'color_on_hover',
-			[
-				'label'     => esc_html__( 'Text Color on Hover', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class() . ':hover' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class(),
-			]
-		);
-
-		$this->add_control(
-			'blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'prefix'   => 'button',
+				'selector' => '{{WRAPPER}} .' . $this->get_button_class(),
 			]
 		);
 
@@ -590,12 +512,7 @@ class Event_Export extends Abstract_Widget {
 			[
 				'label'     => esc_html__( 'Border Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class() => 'border-color: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_button_class() => 'border-color: {{VALUE}};' ],
 				'separator' => 'before',
 			]
 		);
@@ -605,20 +522,51 @@ class Event_Export extends Abstract_Widget {
 			[
 				'label'     => esc_html__( 'Background Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . '  .' . $this->get_button_class() => 'background-color: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_dropdown_class() . '  .' . $this->get_button_class() => 'background-color: {{VALUE}};' ],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Add controls for text styling of the Google & iCal export button.
+	 *
+	 * @since TBD
+	 */
+	protected function style_export_button_hover(): void {
+		$this->start_controls_section(
+			'button_hover_styling_section',
+			[
+				'label' => esc_html__( 'Button Styles on Hover', 'the-events-calendar' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_shared_control(
+			'typography',
+			[
+				'prefix'   => 'button_hover',
+				'selector' => '{{WRAPPER}} .' . $this->get_button_class() . ':hover',
 			]
 		);
 
 		$this->add_control(
-			'button_background_hover_color',
+			'button_hover_border_color',
 			[
-				'label'     => esc_html__( 'Hover Background Color', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Border Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . '  .' . $this->get_button_class() . ':hover' => 'background-color: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_button_class() . ':hover' => 'border-color: {{VALUE}};' ],
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'button_hover_background_color',
+			[
+				'label'     => esc_html__( 'Background Color', 'the-events-calendar' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_button_class() => 'background-color: {{VALUE}};' ],
 			]
 		);
 
@@ -630,80 +578,29 @@ class Event_Export extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function style_export_dropdown() {
+	protected function style_export_dropdown(): void {
 		$this->start_controls_section(
-			'dropdown_styling_section_title',
+			'dropdown_styling_section',
 			[
-				'label' => esc_html__( 'Export Options', 'the-events-calendar' ),
+				'label' => esc_html__( 'Dropdown Options', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'dropdown_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_link_class() => 'color: {{VALUE}}; border-color: {{VALUE}};',
-				],
+				'prefix'   => 'dropdown',
+				'selector' => '{{WRAPPER}} .' . $this->get_list_class(),
+				'label'    => esc_html__( 'Dropdown Typography', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'dropdown_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_link_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'dropdown_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_link_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'dropdown_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_link_class(),
-			]
-		);
-
-		$this->add_control(
-			'dropdown_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_link_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'dropdown_align',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_list_class() ],
 			]
 		);
 
@@ -712,12 +609,7 @@ class Event_Export extends Abstract_Widget {
 			[
 				'label'     => esc_html__( 'Border Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_list_class() => 'border-color: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_list_class() => 'border-color: {{VALUE}};' ],
 				'separator' => 'before',
 			]
 		);
@@ -728,9 +620,7 @@ class Event_Export extends Abstract_Widget {
 				'label'     => esc_html__( 'Background Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#ffffff',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_dropdown_class() . ' .' . $this->get_list_class() => 'background-color: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_list_class() => 'background-color: {{VALUE}};' ],
 			]
 		);
 

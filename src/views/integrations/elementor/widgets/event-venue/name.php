@@ -21,7 +21,7 @@ if ( empty( $show ) ) {
 
 $url = $link ? tribe_get_venue_link( $venue_id, false ) : false;
 ?>
-<<?php echo tag_escape( $tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
+<<?php echo tag_escape( $name_tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
 	<?php if ( $url ) : ?>
 		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( $url ); ?>">
 	<?php endif; ?>
@@ -29,4 +29,4 @@ $url = $link ? tribe_get_venue_link( $venue_id, false ) : false;
 	<?php if ( $url ) : ?>
 		</a>
 	<?php endif; ?>
-</<?php echo tag_escape( $tag ); ?>>
+</<?php echo tag_escape( $name_tag ); ?>>

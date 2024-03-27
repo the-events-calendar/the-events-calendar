@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -25,6 +20,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Datetime extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
 
 	/**
 	 * Widget slug.
@@ -47,6 +43,98 @@ class Event_Datetime extends Abstract_Widget {
 	}
 
 	/**
+	 * Get the template args for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args.
+	 */
+	public function get_template_args(): array {
+		$event_id = $this->get_event_id();
+		$event    = tribe_get_event( $event_id );
+
+		if ( empty( $event ) ) {
+			return [ 'show' => false ];
+		}
+
+		$settings = $this->get_settings_for_display();
+
+		// Date and time settings.
+		$show_year   = tribe_is_truthy( $settings['show_year'] ?? false );
+		$date_format = tribe_get_date_format( $show_year );
+		$start_date  = $event->dates->start->format( $date_format ) ?? '';
+		$end_date    = $event->dates->end->format( $date_format ) ?? '';
+
+		$time_format = tribe_get_time_format();
+		$start_time  = $event->dates->start->format( $time_format ) ?? '';
+		$end_time    = $event->dates->end->format( $time_format ) ?? '';
+
+		return [
+			'show'              => true,
+			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
+			'html_tag'          => $this->get_html_tag(),
+			'show_date'         => tribe_is_truthy( $settings['show_date'] ?? false ),
+			'show_time'         => tribe_is_truthy( $settings['show_time'] ?? false ),
+			'show_year'         => $show_year,
+			'start_date'        => $start_date,
+			'end_date'          => $end_date,
+			'start_time'        => $start_time,
+			'end_time'          => $end_time,
+			'is_same_day'       => $start_date === $end_date,
+			'is_all_day'        => tribe_event_is_all_day( $event_id ),
+			'is_same_start_end' => $start_date === $end_date && $start_time === $end_time,
+			'event_id'          => $event_id,
+		];
+	}
+
+	/**
+	 * Create the widget title.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_header_text(): string {
+		return _x( 'Date & Time:', 'The header text for the event date and time widget', 'the-events-calendar' );
+	}
+
+	/**
+	 * Get the class used for the category header.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_header_class() {
+		$class = $this->get_widget_class() . '-header';
+
+		/**
+		 * Filters the class used for the category header.
+		 *
+		 * @since TBD
+		 *
+		 * @param string          $class The class used for the category header.
+		 * @param Abstract_Widget $this  The widget instance.
+		 *
+		 * @return string
+		 */
+		return apply_filters( 'tec_events_pro_elementor_event_category_widget_header_class', $class, $this );
+	}
+
+	/**
+	 * Get the HTML tag used for the category header.
+	 *
+	 * @since TBD
+	 */
+	public function get_header_tag(): string {
+		$settings = $this->get_settings_for_display();
+
+		$tag = $settings['header_tag'] ?? 'h3';
+
+		return (string) $tag;
+	}
+
+	/**
 	 * Get the class used for the datetime separators.
 	 *
 	 * @since TBD
@@ -54,7 +142,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime separators.
 	 */
 	public function get_separator_class() {
-		// tec-events-elementor-event-widget__datetime-separator.
 		return $this->get_widget_class() . '-separator';
 	}
 
@@ -66,7 +153,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The base class used for the datetime date.
 	 */
 	public function get_date_class() {
-		// tec-events-elementor-event-widget__datetime-date.
 		return $this->get_widget_class() . '-date';
 	}
 
@@ -78,7 +164,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime start date.
 	 */
 	public function get_start_date_class() {
-		// tec-events-elementor-event-widget__datetime-date--start.
 		return $this->get_date_class() . '--start';
 	}
 
@@ -90,7 +175,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime end date.
 	 */
 	public function get_end_date_class() {
-		// tec-events-elementor-event-widget__datetime-date--end.
 		return $this->get_date_class() . '--end';
 	}
 
@@ -102,7 +186,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime all day indication.
 	 */
 	public function get_all_day_class() {
-		// tec-events-elementor-event-widget__datetime--all-day.
 		return $this->get_widget_class() . '--all-day';
 	}
 
@@ -114,7 +197,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The base class used for the datetime time.
 	 */
 	public function get_time_class() {
-		// tec-events-elementor-event-widget__datetime-time.
 		return $this->get_widget_class() . '-time';
 	}
 
@@ -126,7 +208,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime start time.
 	 */
 	public function get_start_time_class() {
-		// tec-events-elementor-event-widget__datetime-time--start.
 		return $this->get_time_class() . '--start';
 	}
 
@@ -138,7 +219,6 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The class used for the datetime end time.
 	 */
 	public function get_end_time_class() {
-		// tec-events-elementor-event-widget__datetime-time--end.
 		return $this->get_time_class() . '--end';
 	}
 
@@ -205,7 +285,7 @@ class Event_Datetime extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function register_controls() {
+	protected function register_controls(): void {
 		// Content tab.
 		$this->content_panel();
 		// Style tab.
@@ -217,8 +297,9 @@ class Event_Datetime extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_panel() {
-		$this->content_options();
+	protected function content_panel(): void {
+		$this->header_content_section();
+		$this->datetime_content_section();
 	}
 
 	/**
@@ -226,110 +307,42 @@ class Event_Datetime extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function style_panel() {
+	protected function style_panel(): void {
 		// Styling options.
-		$this->styling_options();
+		$this->style_datetime_header();
+		$this->style_datetime_content();
 	}
 
 	/**
-	 * Add controls for text content of the event datetime.
+	 * Add controls for header of the event datetime.
 	 *
 	 * @since TBD
 	 */
-	protected function content_options() {
+	protected function header_content_section(): void {
 		$this->start_controls_section(
-			'section_title',
+			'header_section',
 			[
-				'label' => $this->get_title(),
+				'label' => 'Date & Time Header',
 			]
 		);
 
-		// Toggle for yearless date format.
-		$this->add_control(
-			'show_datetime_year',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Show Year', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
-				'default'   => 'no',
-				'separator' => 'before',
+				'id'      => 'show_header',
+				'label'   => esc_html__( 'Show Header', 'the-events-calendar' ),
+				'default' => 'no',
 			]
 		);
 
-		// Toggle to show or hide the date.
-		$this->add_control(
-			'show_datetime_date',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'Show Date (Day, Month)', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
-				'default'   => 'yes',
-				'separator' => 'before',
-			]
-		);
-
-		// Toggle to show or hide the time.
-		$this->add_control(
-			'show_datetime_time',
-			[
-				'label'     => esc_html__( 'Show Time', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
-				'default'   => 'yes',
-				'separator' => 'before',
-			]
-		);
-
-		$this->add_control(
-			'html_tag',
-			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'p',
-				'separator' => 'before',
-			]
-		);
-
-		$this->add_responsive_control(
-			'align',
-			[
-				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
-						'title' => esc_html__( 'Left', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-left',
-					],
-					'center'  => [
-						'title' => esc_html__( 'Center', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-center',
-					],
-					'right'   => [
-						'title' => esc_html__( 'Right', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
-				],
-				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
+				'id'        => 'header_tag',
+				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
+				'default'   => 'h3',
+				'condition' => [
+					'show_header' => 'yes',
 				],
 			]
 		);
@@ -338,12 +351,62 @@ class Event_Datetime extends Abstract_Widget {
 	}
 
 	/**
-	 * Add controls for text styling of the event datetime.
+	 * Add controls for text content of the event datetime.
 	 *
 	 * @since TBD
 	 */
-	protected function styling_options() {
-		$this->style_datetime();
+	protected function datetime_content_section(): void {
+		$this->start_controls_section(
+			'content_section',
+			[
+				'label' => $this->get_title(),
+			]
+		);
+
+		// Toggle for yearless date format.
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_year',
+				'label'     => esc_html__( 'Show Year', 'the-events-calendar' ),
+				'default'   => 'no',
+				'separator' => 'before',
+			]
+		);
+
+		// Toggle to show or hide the date.
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_date',
+				'label'     => esc_html__( 'Show Date (Day, Month)', 'the-events-calendar' ),
+				'default'   => 'yes',
+				'separator' => 'before',
+			]
+		);
+
+		// Toggle to show or hide the time.
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_time',
+				'label'     => esc_html__( 'Show Time', 'the-events-calendar' ),
+				'default'   => 'yes',
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_shared_control(
+			'tag',
+			[
+				'id'        => 'html_tag',
+				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
+				'default'   => 'p',
+				'separator' => 'before',
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -353,80 +416,66 @@ class Event_Datetime extends Abstract_Widget {
 	 *
 	 * @return void
 	 */
-	protected function style_datetime() {
+	protected function style_datetime_header(): void {
 		$this->start_controls_section(
-			'datetime_styling',
+			'datetime_header_styling',
+			[
+				'label'     => esc_html__( 'Date & Time Header', 'the-events-calendar' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_header' => 'yes',
+				],
+			]
+		);
+
+		$this->add_shared_control(
+			'typography',
+			[
+				'prefix'   => 'datetime_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
+			]
+		);
+
+		$this->add_shared_control(
+			'alignment',
+			[
+				'id'        => 'align_header',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_header_class() ],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Assembles the styling controls for the datetime.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function style_datetime_content(): void {
+		$this->start_controls_section(
+			'datetime_content_styling',
 			[
 				'label' => esc_html__( 'Date & Time Content', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'datetime_content',
 				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_control(
-			'blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'align_content',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() ],
 			]
 		);
 

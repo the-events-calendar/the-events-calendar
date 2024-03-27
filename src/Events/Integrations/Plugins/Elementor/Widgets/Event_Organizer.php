@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -25,6 +20,8 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Organizer extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
+
 	/**
 	 * Widget slug.
 	 *
@@ -33,6 +30,15 @@ class Event_Organizer extends Abstract_Widget {
 	 * @var string
 	 */
 	protected static string $slug = 'event_organizer';
+
+	/**
+	 * Whether the widget has styles to register/enqueue.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected static bool $has_styles = true;
 
 	/**
 	 * Create the widget title.
@@ -44,7 +50,6 @@ class Event_Organizer extends Abstract_Widget {
 	protected function title(): string {
 		return esc_html__( 'Event Organizer', 'the-events-calendar' );
 	}
-
 
 	/**
 	 * Get the template args for the widget.
@@ -68,26 +73,29 @@ class Event_Organizer extends Abstract_Widget {
 		}
 
 		return [
-			'organizer_ids'       => array_filter( tribe_get_organizer_ids( $event_id ) ),
-			'show_header'         => isset( $settings['show_organizer_header'] ) ? tribe_is_truthy( $settings['show_organizer_header'] ) : true,
-			'link_name'           => isset( $settings['link_organizer_name'] ) ? tribe_is_truthy( $settings['link_organizer_name'] ) : true,
-			'show_name'           => isset( $settings['show_organizer_name'] ) ? tribe_is_truthy( $settings['show_organizer_name'] ) : true,
-			'show_phone'          => isset( $settings['show_organizer_phone'] ) ? tribe_is_truthy( $settings['show_organizer_phone'] ) : true,
-			'show_email'          => isset( $settings['show_organizer_email'] ) ? tribe_is_truthy( $settings['show_organizer_email'] ) : true,
-			'show_website'        => isset( $settings['show_organizer_website'] ) ? tribe_is_truthy( $settings['show_organizer_website'] ) : true,
-			'show_phone_header'   => isset( $settings['show_organizer_phone_header'] ) ? tribe_is_truthy( $settings['show_organizer_phone_header'] ) : true,
-			'show_email_header'   => isset( $settings['show_organizer_email_header'] ) ? tribe_is_truthy( $settings['show_organizer_email_header'] ) : true,
-			'show_website_header' => isset( $settings['show_organizer_website_header'] ) ? tribe_is_truthy( $settings['show_organizer_website_header'] ) : true,
-			'header_tag'          => $settings['organizer_header_tag'] ?? 'h2',
-			'phone_header_tag'    => $settings['organizer_phone_header_tag'] ?? 'h3',
-			'email_header_tag'    => $settings['organizer_email_header_tag'] ?? 'h3',
-			'website_header_tag'  => $settings['organizer_website_header_tag'] ?? 'h3',
-			'email_header_text'   => $this->get_email_header_text(),
-			'phone_header_text'   => $this->get_phone_header_text(),
-			'website_header_text' => $this->get_website_header_text(),
-			'multiple'            => $multiple,
-			'settings'            => $settings,
-			'event_id'            => $event_id,
+			'organizer_ids'                 => array_filter( tribe_get_organizer_ids( $event_id ) ),
+			'show_organizer_header'         => tribe_is_truthy( $settings['show_organizer_header'] ?? true ),
+			'link_organizer_name'           => tribe_is_truthy( $settings['link_organizer_name'] ?? true ),
+			'show_organizer_name'           => tribe_is_truthy( $settings['show_organizer_name'] ?? true ),
+			'show_organizer_phone'          => tribe_is_truthy( $settings['show_organizer_phone'] ?? true ),
+			'link_organizer_phone'          => tribe_is_truthy( $settings['link_organizer_phone'] ?? true ),
+			'show_organizer_email'          => tribe_is_truthy( $settings['show_organizer_email'] ?? true ),
+			'link_organizer_email'          => tribe_is_truthy( $settings['link_organizer_email'] ?? true ),
+			'show_organizer_website'        => tribe_is_truthy( $settings['show_organizer_website'] ?? true ),
+			'show_organizer_phone_header'   => tribe_is_truthy( $settings['show_organizer_phone_header'] ?? true ),
+			'show_organizer_email_header'   => tribe_is_truthy( $settings['show_organizer_email_header'] ?? true ),
+			'show_organizer_website_header' => tribe_is_truthy( $settings['show_organizer_website_header'] ?? true ),
+			'organizer_header_tag'          => $settings['organizer_header_tag'] ?? 'h2',
+			'organizer_name_tag'            => $settings['organizer_name_tag'] ?? 'h3',
+			'organizer_phone_header_tag'    => $settings['organizer_phone_header_tag'] ?? 'h4',
+			'organizer_email_header_tag'    => $settings['organizer_email_header_tag'] ?? 'h4',
+			'organizer_website_header_tag'  => $settings['organizer_website_header_tag'] ?? 'h4',
+			'organizer_email_header_text'   => $this->get_email_header_text(),
+			'organizer_phone_header_text'   => $this->get_phone_header_text(),
+			'organizer_website_header_text' => $this->get_website_header_text(),
+			'multiple'                      => $multiple,
+			'settings'                      => $settings,
+			'event_id'                      => $event_id,
 		];
 	}
 
@@ -143,7 +151,7 @@ class Event_Organizer extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_widget_email_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_widget_email_header_text', $header_text, $this );
 	}
 
 	/**
@@ -170,7 +178,7 @@ class Event_Organizer extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_widget_phone_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_widget_phone_header_text', $header_text, $this );
 	}
 
 	/**
@@ -197,7 +205,7 @@ class Event_Organizer extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_widget_website_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_widget_website_header_text', $header_text, $this );
 	}
 
 	/**
@@ -205,23 +213,20 @@ class Event_Organizer extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 *
-	 * @return array<string> The classes for the event organizer widget.
+	 * @return string The classes for the event organizer widget.
 	 */
-	public function get_widget_header_classes(): array {
-		$classes = [
-			'tribe-events-single-section-title',
-			$this->get_widget_class() . '-header',
-		];
+	public function get_header_class(): string {
+		$class = $this->get_widget_class() . '-header';
 
 		/**
 		 * Filters the classes for the event organizer widget header.
 		 *
 		 * @since TBD
 		 *
-		 * @param array $classes The widget header classes.
-		 * @param Event_Organizer $this The event organizer widget instance.
+		 * @param string          $class The widget header class.
+		 * @param Event_Organizer $this  The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_header_class', $classes, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_header_class', $class, $this );
 	}
 
 	/**
@@ -242,7 +247,28 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The name base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_name_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_name_class', $class, $this );
+	}
+
+	/**
+	 * Get the wrapper class for the event organizer name.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The name class.
+	 */
+	public function get_name_wrapper_class(): string {
+		$class = $this->get_widget_class() . '-name-wrapper';
+
+		/**
+		 * Filters the wrapper class for the event organizer name section header.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class The name wrapper class.
+		 * @param Event_Organizer $this The event organizer widget instance.
+		 */
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_name_wrapper_class', $class, $this );
 	}
 
 	/**
@@ -263,28 +289,49 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The phone base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_phone_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_phone_class', $class, $this );
 	}
 
 	/**
-	 * Get the label class for the event organizer phone section.
+	 * Get the wrapper class for the event organizer phone.
 	 *
 	 * @since TBD
 	 *
 	 * @return string The phone class.
 	 */
-	public function get_phone_label_class(): string {
-		$class = $this->get_phone_base_class() . '-label';
+	public function get_phone_wrapper_class(): string {
+		$class = $this->get_phone_base_class() . '-wrapper';
 
 		/**
-		 * Filters the label class for the event organizer phone section header.
+		 * Filters the wrapper class for the event organizer phone section header.
 		 *
 		 * @since TBD
 		 *
-		 * @param string $class The phone label class.
+		 * @param string $class The phone wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_phone_label_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_phone_wrapper_class', $class, $this );
+	}
+
+	/**
+	 * Get the header class for the event organizer phone section.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The phone header class.
+	 */
+	public function get_phone_header_class(): string {
+		$class = $this->get_phone_base_class() . '-header';
+
+		/**
+		 * Filters the header class for the event organizer phone section header.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class The phone header class.
+		 * @param Event_Organizer $this The event organizer widget instance.
+		 */
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_phone_header_class', $class, $this );
 	}
 
 	/**
@@ -305,28 +352,49 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The email base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_email_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_email_class', $class, $this );
 	}
 
 	/**
-	 * Get the label class for the event organizer email section.
+	 * Get the wrapper class for the event organizer email.
 	 *
 	 * @since TBD
 	 *
 	 * @return string The email class.
 	 */
-	public function get_email_label_class(): string {
-		$class = $this->get_email_base_class() . '-label';
+	public function get_email_wrapper_class(): string {
+		$class = $this->get_email_base_class() . '-wrapper';
 
 		/**
-		 * Filters the label class for the event organizer email section header.
+		 * Filters the wrapper class for the event organizer email section header.
 		 *
 		 * @since TBD
 		 *
-		 * @param string $class The email label class.
+		 * @param string $class The email wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_email_label_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_email_wrapper_class', $class, $this );
+	}
+
+	/**
+	 * Get the header class for the event organizer email section.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The email class.
+	 */
+	public function get_email_header_class(): string {
+		$class = $this->get_email_base_class() . '-header';
+
+		/**
+		 * Filters the header class for the event organizer email section header.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class The email header class.
+		 * @param Event_Organizer $this The event organizer widget instance.
+		 */
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_email_header_class', $class, $this );
 	}
 
 	/**
@@ -347,28 +415,49 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The website base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_website_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_website_class', $class, $this );
 	}
 
 	/**
-	 * Get the label class for the event organizer website section.
+	 * Get the wrapper class for the event organizer website.
 	 *
 	 * @since TBD
 	 *
 	 * @return string The website class.
 	 */
-	public function get_website_label_class(): string {
-		$class = $this->get_website_base_class() . '-label';
+	public function get_website_wrapper_class(): string {
+		$class = $this->get_website_base_class() . '-wrapper';
 
 		/**
-		 * Filters the label class for the event organizer website section header.
+		 * Filters the wrapper class for the event organizer website section header.
 		 *
 		 * @since TBD
 		 *
-		 * @param string $class The website label class.
+		 * @param string $class The website wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_organizer_website_label_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_website_wrapper_class', $class, $this );
+	}
+
+	/**
+	 * Get the header class for the event organizer website section.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The website class.
+	 */
+	public function get_website_header_class(): string {
+		$class = $this->get_website_base_class() . '-header';
+
+		/**
+		 * Filters the header class for the event organizer website section header.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $class The website header class.
+		 * @param Event_Organizer $this The event organizer widget instance.
+		 */
+		return apply_filters( 'tec_events_pro_elementor_event_organizer_website_header_class', $class, $this );
 	}
 
 	/**
@@ -456,122 +545,24 @@ class Event_Organizer extends Abstract_Widget {
 			]
 		);
 
-		// Widget alignment control.
-		$this->add_responsive_control(
-			'align',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
-						'title' => esc_html__( 'Left', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-left',
-					],
-					'center'  => [
-						'title' => esc_html__( 'Center', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-center',
-					],
-					'right'   => [
-						'title' => esc_html__( 'Right', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
-				],
-				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
-				],
+				'id'      => 'show_organizer_header',
+				'label'   => esc_html__( 'Show Widget Header', 'the-events-calendar' ),
+				'default' => 'no',
 			]
 		);
 
-		// Show Organizer Header control.
-		$this->add_control(
-			'show_organizer_header',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'Show Widget Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'organizer_header_tag',
-			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
+				'id'        => 'organizer_header_tag',
+				'label'     => esc_html__( 'Widget Header HTML Tag', 'the-events-calendar' ),
 				'default'   => 'h2',
-				'condition' => [
-					'show_organizer_header' => 'yes',
-				],
+				'condition' => [ 'show_organizer_header' => 'yes' ],
 			]
 		);
-
-		// Show Organizer Name control.
-		$this->add_control(
-			'show_organizer_name',
-			[
-				'label'     => esc_html__( 'Show Name', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		// Only show the following options if the event has a single organizer.
-		if ( ! $this->has_multiple_organizers() ) {
-			// Show Organizer Phone control.
-			$this->add_control(
-				'show_organizer_phone',
-				[
-					'label'     => esc_html__( 'Show Phone', 'the-events-calendar' ),
-					'type'      => Controls_Manager::SWITCHER,
-					'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-					'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-					'default'   => 'yes',
-				]
-			);
-
-			// Show Organizer Email control.
-			$this->add_control(
-				'show_organizer_email',
-				[
-					'label'     => esc_html__( 'Show Email', 'the-events-calendar' ),
-					'type'      => Controls_Manager::SWITCHER,
-					'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-					'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-					'default'   => 'yes',
-				]
-			);
-
-			// Show Organizer Website control.
-			$this->add_control(
-				'show_organizer_website',
-				[
-					'label'     => esc_html__( 'Show Website', 'the-events-calendar' ),
-					'type'      => Controls_Manager::SWITCHER,
-					'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-					'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-					'default'   => 'yes',
-				]
-			);
-		}
 
 		$this->end_controls_section();
 	}
@@ -582,8 +573,15 @@ class Event_Organizer extends Abstract_Widget {
 	 * @since TBD
 	 */
 	protected function style_panel() {
-		// Styling options.
-		$this->styling_options();
+		$this->style_organizer_header();
+
+		$this->style_organizer_name();
+
+		$this->style_organizer_phone();
+
+		$this->style_organizer_email();
+
+		$this->style_organizer_website();
 	}
 
 	/**
@@ -594,15 +592,28 @@ class Event_Organizer extends Abstract_Widget {
 	protected function organizer_name_content_options() {
 		$this->start_controls_section(
 			'organizer_name_content_options',
+			[ 'label' => esc_html__( 'Name', 'the-events-calendar' ) ]
+		);
+
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Event Organizer Name', 'the-events-calendar' ),
-				'condition' => [
-					'show_organizer_name' => 'yes',
-				],
+				'id'    => 'show_organizer_name',
+				'label' => esc_html__( 'Show Name', 'the-events-calendar' ),
 			]
 		);
 
-		// Show Organizer Header control.
+		$this->add_shared_control(
+			'tag',
+			[
+				'id'        => 'organizer_name_tag',
+				'label'     => esc_html__( 'Name HTML Tag', 'the-events-calendar' ),
+				'default'   => 'h2',
+				'condition' => [ 'show_organizer_name' => 'yes' ],
+			]
+		);
+
+		// Link Organizer Name control.
 		$this->add_control(
 			'link_organizer_name',
 			[
@@ -611,29 +622,7 @@ class Event_Organizer extends Abstract_Widget {
 				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
 				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'organizer_name_tag',
-			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h2',
-				'condition' => [
-					'show_organizer_header' => 'yes',
-				],
+				'condition' => [ 'show_organizer_name' => 'yes' ],
 			]
 		);
 
@@ -649,45 +638,49 @@ class Event_Organizer extends Abstract_Widget {
 		$this->start_controls_section(
 			'organizer_phone_content_options',
 			[
-				'label'     => esc_html__( 'Event Organizer Phone', 'the-events-calendar' ),
-				'condition' => [
-					'show_organizer_phone' => 'yes',
-				],
+				'label' => esc_html__( 'Phone', 'the-events-calendar' ),
 			]
 		);
 
-		// Show Organizer Header control.
-		$this->add_control(
-			'show_organizer_phone_header',
+		$this->add_shared_control(
+			'show',
 			[
+				'id'    => 'show_organizer_phone',
+				'label' => esc_html__( 'Show Phone', 'the-events-calendar' ),
+			]
+		);
+
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_organizer_phone_header',
 				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'default'   => 'no',
+				'condition' => [ 'show_organizer_phone' => 'yes' ],
 			]
 		);
 
-		$this->add_control(
-			'organizer_phone_header_tag',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
-				'condition' => [
-					'show_organizer_phone_header' => 'yes',
-				],
+				'id'        => 'organizer_phone_header_tag',
+				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
+				'default'   => 'h4',
+				'condition' => [ 'show_organizer_phone_header' => 'yes' ],
+			]
+		);
+
+		// Link Organizer Name control.
+		$this->add_control(
+			'link_organizer_phone',
+			[
+				'label'       => esc_html__( 'Link organizer phone.', 'the-events-calendar' ),
+				'description' => esc_html__( 'Make organizer phone number a callable link.', 'the-events-calendar' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'label_on'    => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off'   => esc_html__( 'No', 'the-events-calendar' ),
+				'default'     => 'yes',
+				'condition'   => [ 'show_organizer_phone' => 'yes' ],
 			]
 		);
 
@@ -703,45 +696,49 @@ class Event_Organizer extends Abstract_Widget {
 		$this->start_controls_section(
 			'organizer_email_content_options',
 			[
-				'label'     => esc_html__( 'Event Organizer Email', 'the-events-calendar' ),
-				'condition' => [
-					'show_organizer_email' => 'yes',
-				],
+				'label' => esc_html__( 'Email', 'the-events-calendar' ),
 			]
 		);
 
-		// Show Organizer Header control.
-		$this->add_control(
-			'show_organizer_email_header',
+		$this->add_shared_control(
+			'show',
 			[
+				'id'    => 'show_organizer_email',
+				'label' => esc_html__( 'Show Email', 'the-events-calendar' ),
+			]
+		);
+
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_organizer_email_header',
 				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'condition' => [ 'show_organizer_email' => 'yes' ],
+				'default'   => 'no',
 			]
 		);
 
-		$this->add_control(
-			'organizer_email_header_tag',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
-				'condition' => [
-					'show_organizer_email_header' => 'yes',
-				],
+				'id'        => 'organizer_email_header_tag',
+				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
+				'default'   => 'h4',
+				'condition' => [ 'show_organizer_email_header' => 'yes' ],
+			]
+		);
+
+		// Link Organizer Name control.
+		$this->add_control(
+			'link_organizer_email',
+			[
+				'label'       => esc_html__( 'Link organizer email.', 'the-events-calendar' ),
+				'description' => esc_html__( 'Make organizer email a mailto link.', 'the-events-calendar' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'label_on'    => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off'   => esc_html__( 'No', 'the-events-calendar' ),
+				'default'     => 'yes',
+				'condition'   => [ 'show_organizer_email' => 'yes' ],
 			]
 		);
 
@@ -757,80 +754,42 @@ class Event_Organizer extends Abstract_Widget {
 		$this->start_controls_section(
 			'organizer_website_content_options',
 			[
-				'label'     => esc_html__( 'Event Organizer Website', 'the-events-calendar' ),
-				'condition' => [
-					'show_organizer_website' => 'yes',
-				],
+				'label' => esc_html__( 'Website', 'the-events-calendar' ),
 			]
 		);
 
 		// Show Organizer Header control.
-		$this->add_control(
-			'show_organizer_website_header',
+		$this->add_shared_control(
+			'show',
 			[
+				'id'    => 'show_organizer_website',
+				'label' => esc_html__( 'Show Website', 'the-events-calendar' ),
+			]
+		);
+
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_organizer_website_header',
 				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'condition' => [ 'show_organizer_website' => 'yes' ],
+				'default'   => 'no',
 			]
 		);
 
-		$this->add_control(
-			'organizer_website_header_tag',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
-				'condition' => [
-					'show_organizer_website_header' => 'yes',
-				],
+				'id'        => 'organizer_website_header_tag',
+				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
+				'default'   => 'h4',
+				'condition' => [ 'show_organizer_website_header' => 'yes' ],
 			]
 		);
 
-		$this->add_control(
-			'organizer_website_link_target',
-			[
-				'label'       => esc_html__( 'Link Target', 'the-events-calendar' ),
-				'description' => esc_html__( 'Choose whether to open the organizer website link in the same window or a new window.', 'the-events-calendar' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => '_self',
-				'options'     => [
-					'_self'  => 'same window',
-					'_blank' => 'new window',
-				],
-			]
-		);
+		$this->add_shared_control( 'link_target', [ 'prefix' => 'organizer_website_link_target' ] );
 
 		$this->end_controls_section();
-	}
-
-	/**
-	 * Add controls for text styling of the event organizer.
-	 *
-	 * @since TBD
-	 */
-	protected function styling_options() {
-		$this->style_organizer_label();
-
-		$this->style_organizer_name();
-
-		$this->style_organizer_phone();
-
-		$this->style_organizer_email();
-
-		$this->style_organizer_website();
 	}
 
 	/**
@@ -840,11 +799,11 @@ class Event_Organizer extends Abstract_Widget {
 	 *
 	 * @return void
 	 */
-	protected function style_organizer_label() {
+	protected function style_organizer_header() {
 		$this->start_controls_section(
-			'organizer_section_header_styling',
+			'organizer_header_styling_section',
 			[
-				'label'     => esc_html__( 'Organizer Header', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Header', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_organizer_header' => 'yes',
@@ -852,71 +811,19 @@ class Event_Organizer extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'header_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_header_classes()[0] => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'organizer_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'header_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_header_classes()[0],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'header_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_header_classes()[0],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'header_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_header_classes()[0],
-			]
-		);
-
-		$this->add_control(
-			'header_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_header_classes()[0] => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'organizer_header_alignment',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_header_class() ],
 			]
 		);
 
@@ -934,7 +841,7 @@ class Event_Organizer extends Abstract_Widget {
 		$this->start_controls_section(
 			'organizer_name_styling',
 			[
-				'label'     => esc_html__( 'Organizer Name', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Name', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_organizer_name' => 'yes',
@@ -942,71 +849,19 @@ class Event_Organizer extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'name_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_name_base_class() . ' a' => 'color: {{VALUE}}; border-bottom-color: {{VALUE}};',
-				],
+				'prefix'   => 'organizer_name',
+				'selector' => '{{WRAPPER}} .' . $this->get_name_base_class() . ', {{WRAPPER}} .' . $this->get_name_base_class() . ' a',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'name_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'name_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'name_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_control(
-			'name_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'organizer_name_alignment',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_name_base_class() ],
 			]
 		);
 
@@ -1024,7 +879,7 @@ class Event_Organizer extends Abstract_Widget {
 		$this->start_controls_section(
 			'organizer_phone_styling',
 			[
-				'label'     => esc_html__( 'Organizer Phone', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Phone', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_organizer_phone' => 'yes',
@@ -1032,155 +887,52 @@ class Event_Organizer extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'phone_label_header',
+		$this->add_shared_control(
+			'subheader',
 			[
-				'label' => esc_html__( 'Phone Header', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
+				'prefix' => 'phone_header',
+				'label'  => esc_html__( 'Phone Header', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_control(
-			'phone_label_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_label_class() => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'phone_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_phone_header_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'phone_label_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_phone_label_class(),
+				'id'        => 'phone_header_alignment',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_phone_header_class() ],
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'subheader',
 			[
-				'name'     => 'phone_label_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_phone_label_class(),
+				'prefix'    => 'phone_text',
+				'label'     => esc_html__( 'Phone Text', 'the-events-calendar' ),
+				'separator' => 'before',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
+		$this->add_shared_control(
+			'typography',
 			[
-				'name'     => 'phone_label_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_phone_label_class(),
-			]
-		);
-
-		$this->add_control(
-			'phone_label_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_label_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'after',
-			]
-		);
-
-		$this->add_control(
-			'phone_header',
-			[
-				'label' => esc_html__( 'Phone Text', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
-			]
-		);
-
-		$this->add_control(
-			'phone_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_base_class() => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'phone_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'phone_text',
 				'selector' => '{{WRAPPER}} .' . $this->get_phone_base_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'phone_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_phone_base_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'phone_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_phone_base_class(),
-			]
-		);
-
-		$this->add_control(
-			'phone_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_base_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'phone_text_alignment',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_phone_base_class() ],
 			]
 		);
 
@@ -1198,7 +950,7 @@ class Event_Organizer extends Abstract_Widget {
 		$this->start_controls_section(
 			'organizer_email_styling',
 			[
-				'label'     => esc_html__( 'Organizer Email', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Email', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_organizer_email' => 'yes',
@@ -1206,155 +958,52 @@ class Event_Organizer extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'email_label_header',
+		$this->add_shared_control(
+			'subheader',
 			[
-				'label' => esc_html__( 'Email Header', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
+				'prefix' => 'email_header',
+				'label'  => esc_html__( 'Email Header', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_control(
-			'email_label_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_email_label_class() => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'email_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_email_header_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'email_label_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_email_label_class(),
+				'id'        => 'email_header_alignment',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_email_header_class() ],
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'subheader',
 			[
-				'name'     => 'email_label_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_email_label_class(),
+				'prefix'    => 'email_text',
+				'label'     => esc_html__( 'Email Text', 'the-events-calendar' ),
+				'separator' => 'before',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
+		$this->add_shared_control(
+			'typography',
 			[
-				'name'     => 'email_label_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_email_label_class(),
+				'prefix'   => 'email_text',
+				'selector' => '{{WRAPPER}}  .' . $this->get_email_base_class(),
 			]
 		);
 
-		$this->add_control(
-			'email_label_blend_mode',
+		$this->add_shared_control(
+			'alignment',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_email_label_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'after',
-			]
-		);
-
-		$this->add_control(
-			'email_header',
-			[
-				'label' => esc_html__( 'Email Text', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
-			]
-		);
-
-		$this->add_control(
-			'email_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_email_base_class() => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'email_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_email_base_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'email_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_email_base_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'email_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_email_base_class(),
-			]
-		);
-
-		$this->add_control(
-			'email_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_email_base_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'email_text_alignment',
+				'selectors' => [ '{{WRAPPER}} .a' . $this->get_email_base_class() ],
 			]
 		);
 
@@ -1372,7 +1021,7 @@ class Event_Organizer extends Abstract_Widget {
 		$this->start_controls_section(
 			'organizer_website_styling',
 			[
-				'label'     => esc_html__( 'Organizer Website', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Website', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'show_organizer_website' => 'yes',
@@ -1380,155 +1029,52 @@ class Event_Organizer extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'website_label_header',
+		$this->add_shared_control(
+			'subheader',
 			[
-				'label' => esc_html__( 'Website Header', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
+				'prefix' => 'website_header',
+				'label'  => esc_html__( 'Website Header', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_control(
-			'website_label_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_label_class() => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'website_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_website_header_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'website_label_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_website_label_class(),
+				'id'        => 'website_header_alignment',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_website_header_class() ],
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'subheader',
 			[
-				'name'     => 'website_label_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_website_label_class(),
+				'prefix'    => 'website_url',
+				'label'     => esc_html__( 'Website Url', 'the-events-calendar' ),
+				'separator' => 'before',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
+		$this->add_shared_control(
+			'typography',
 			[
-				'name'     => 'website_label_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_website_label_class(),
-			]
-		);
-
-		$this->add_control(
-			'website_label_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_label_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'after',
-			]
-		);
-
-		$this->add_control(
-			'website_header',
-			[
-				'label' => esc_html__( 'Website Url', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
-			]
-		);
-
-		$this->add_control(
-			'website_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_base_class() . ' a' => 'color: {{VALUE}}; border-bottom-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'website_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'website_url',
 				'selector' => '{{WRAPPER}} .' . $this->get_website_base_class() . ' a',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'website_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_website_base_class() . ' a',
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'website_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_website_base_class() . ' a',
-			]
-		);
-
-		$this->add_control(
-			'website_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_base_class() . ' a' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'website_url_alignment',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_website_base_class() ],
 			]
 		);
 

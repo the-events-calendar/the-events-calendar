@@ -7,18 +7,24 @@
  *
  * @since TBD
  *
- * @var string     $header_tag The HTML tag for the event cost.
+ * @var string     $html_tag The HTML tag for the event cost.
  * @var int        $event_id   The event ID.
  * @var string     $cost       The event cost.
  * @var Event_Cost $widget     The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Cost;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Cost;
 
 if ( empty( $cost ) ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $header_tag ); ?><?php tribe_classes( $widget->get_element_classes() ); ?>>
+<?php
+$this->template(
+	'views/integrations/elementor/widgets/event-cost/header',
+	[ 'show' => $show_header ]
+);
+?>
+<<?php echo tag_escape( $html_tag ); ?><?php tribe_classes( $widget->get_element_classes() ); ?>>
 <?php echo esc_html( $cost ); ?>
-</<?php echo tag_escape( $header_tag ); ?>>
+</<?php echo tag_escape( $html_tag ); ?>>

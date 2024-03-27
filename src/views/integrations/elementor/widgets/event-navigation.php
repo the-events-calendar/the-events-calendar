@@ -19,55 +19,32 @@
  * @var Event_Navigation $widget     The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Navigation;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Navigation;
 
 // Bail if both links empty.
 if ( empty( $prev_link ) && empty( $next_link ) ) {
 	return;
 }
-// Bail if both events empty.
 
+// Bail if both events empty.
 if ( empty( $prev_event ) && empty( $next_event ) ) {
 	return;
 }
 
 ?>
-<nav <?php tribe_classes( $widget->get_widget_class() ); ?>>
-	<?php if ( ! empty( $label ) ) : ?>
+<nav <?php tribe_classes( $widget->get_widget_class() ); ?> aria-label="<?php echo esc_attr( tribe_get_event_label_plural() ); ?>">
+	<?php if ( ! empty( $header_text ) ) : ?>
 		<?php
-		$this->template(
-			'integrations/elementor/widgets/event-navigation/header',
-			[
-				'label'      => $label,
-				'header_tag' => $header_tag,
-				'widget'     => $widget,
-			]
-		);
+		$this->template( 'integrations/elementor/widgets/event-navigation/header' );
 		?>
 	<?php endif; ?>
 	<ul <?php tribe_classes( $widget->get_list_class() ); ?>>
 		<?php
-		$this->template(
-			'integrations/elementor/widgets/event-navigation/previous',
-			[
-				'prev_link'  => $prev_link,
-				'prev_event' => $prev_event,
-				'event_id'   => $event_id,
-				'widget'     => $widget,
-			]
-		);
+		$this->template( 'integrations/elementor/widgets/event-navigation/previous' );
 		?>
 
 		<?php
-		$this->template(
-			'integrations/elementor/widgets/event-navigation/next',
-			[
-				'next_link'  => $next_link,
-				'next_event' => $next_event,
-				'event_id'   => $event_id,
-				'widget'     => $widget,
-			]
-		);
+		$this->template( 'integrations/elementor/widgets/event-navigation/next' );
 		?>
 	</ul>
 </nav>

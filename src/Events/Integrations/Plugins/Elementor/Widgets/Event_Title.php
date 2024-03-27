@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -25,6 +20,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Title extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
 
 	/**
 	 * Widget slug.
@@ -36,6 +32,15 @@ class Event_Title extends Abstract_Widget {
 	protected static string $slug = 'event_title';
 
 	/**
+	 * Whether the widget has styles to register/enqueue.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected static bool $has_styles = true;
+
+	/**
 	 * Create the widget title.
 	 *
 	 * @since TBD
@@ -44,19 +49,6 @@ class Event_Title extends Abstract_Widget {
 	 */
 	protected function title(): string {
 		return esc_html__( 'Event Title', 'the-events-calendar' );
-	}
-
-	/**
-	 * Determine the HTML tag to use for the event title based on settings.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The HTML tag to use for the event title.
-	 */
-	protected function get_event_title_header_tag(): string {
-		$settings = $this->get_settings_for_display();
-
-		return $settings['header_tag'] ?? 'h1';
 	}
 
 	/**
@@ -76,6 +68,19 @@ class Event_Title extends Abstract_Widget {
 			'header_tag' => $header_tag,
 			'title'      => $title,
 		];
+	}
+
+	/**
+	 * Determine the HTML tag to use for the event title based on settings.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML tag to use for the event title.
+	 */
+	protected function get_event_title_header_tag(): string {
+		$settings = $this->get_settings_for_display();
+
+		return $settings['header_tag'] ?? 'h1';
 	}
 
 	/**
@@ -116,59 +121,18 @@ class Event_Title extends Abstract_Widget {
 	 */
 	protected function content_options(): void {
 		$this->start_controls_section(
-			'section_title',
+			'content_section',
 			[
 				'label' => $this->get_title(),
 			]
 		);
 
-		$this->add_control(
-			'header_tag',
+		$this->add_shared_control(
+			'tag',
 			[
+				'id'      => 'header_tag',
 				'label'   => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
 				'default' => 'h1',
-			]
-		);
-
-		$this->add_responsive_control(
-			'align',
-			[
-				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
-						'title' => esc_html__( 'Left', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-left',
-					],
-					'center'  => [
-						'title' => esc_html__( 'Center', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-center',
-					],
-					'right'   => [
-						'title' => esc_html__( 'Right', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
-				],
-				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
-				],
 			]
 		);
 
@@ -182,78 +146,26 @@ class Event_Title extends Abstract_Widget {
 	 */
 	protected function styling_options(): void {
 		$this->start_controls_section(
-			'styling_section_title',
+			'event_title_styling_section',
 			[
 				'label' => $this->get_title(),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'event_title',
 				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_control(
-			'blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'event_title_align',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() ],
 			]
 		);
 

@@ -24,6 +24,8 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Image extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
+
 	/**
 	 * Widget slug.
 	 *
@@ -133,7 +135,7 @@ class Event_Image extends Abstract_Widget {
 	 */
 	protected function content_options() {
 		$this->start_controls_section(
-			'section_title',
+			'content_section',
 			[
 				'label' => $this->get_title(),
 			]
@@ -167,9 +169,7 @@ class Event_Image extends Abstract_Widget {
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};' ],
 			]
 		);
 
@@ -183,7 +183,7 @@ class Event_Image extends Abstract_Widget {
 	 */
 	protected function styling_options() {
 		$this->start_controls_section(
-			'styling_section_title',
+			'styling_section',
 			[
 				'label' => $this->get_title(),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -297,9 +297,7 @@ class Event_Image extends Abstract_Widget {
 					'contain' => esc_html__( 'Contain', 'the-events-calendar' ),
 				],
 				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'object-fit: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'object-fit: {{VALUE}};' ],
 			]
 		);
 
@@ -320,12 +318,8 @@ class Event_Image extends Abstract_Widget {
 					'bottom right'  => esc_html__( 'Bottom Right', 'the-events-calendar' ),
 				],
 				'default'   => 'center center',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'object-position: {{VALUE}};',
-				],
-				'condition' => [
-					'object-fit' => 'cover',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'object-position: {{VALUE}};' ],
+				'condition' => [ 'object-fit' => 'cover' ],
 			]
 		);
 
@@ -358,9 +352,7 @@ class Event_Image extends Abstract_Widget {
 						'step' => 0.01,
 					],
 				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'opacity: {{SIZE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'opacity: {{SIZE}};' ],
 			]
 		);
 
@@ -393,9 +385,7 @@ class Event_Image extends Abstract_Widget {
 						'step' => 0.01,
 					],
 				],
-				'selectors' => [
-					'{{WRAPPER}}:hover .' . $this->get_widget_class() . ' img' => 'opacity: {{SIZE}};',
-				],
+				'selectors' => [ '{{WRAPPER}}:hover .' . $this->get_widget_class() . ' img' => 'opacity: {{SIZE}};' ],
 			]
 		);
 
@@ -418,9 +408,7 @@ class Event_Image extends Abstract_Widget {
 						'step' => 0.1,
 					],
 				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'transition-duration: {{SIZE}}s',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() . ' img' => 'transition-duration: {{SIZE}}s' ],
 			]
 		);
 
