@@ -11,10 +11,10 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts;
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
+use TEC\Events\Integrations\Plugins\Elementor\Assets_Manager;
 use Tribe__Events__Main as TEC;
 
 use Elementor\Widget_Base;
-use WP_Post;
 
 /**
  * Abstract Widget class
@@ -32,6 +32,16 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	protected static string $slug_prefix = 'tec_events_elementor_widget_';
 
+
+	/**
+	 * Widget asset prefix.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static string $asset_prefix = 'tec-events-elementor-widget-';
+
 	/**
 	 * Widget slug.
 	 *
@@ -42,13 +52,13 @@ abstract class Abstract_Widget extends Widget_Base {
 	protected static string $slug;
 
 	/**
-	 * Widget CSS class.
+	 * Whether the widget has styles to register/enqueue.
 	 *
 	 * @since TBD
 	 *
-	 * @var array<string>
+	 * @var bool
 	 */
-	protected array $css_classes;
+	protected static bool $has_styles = false;
 
 	/**
 	 * Widget categories.
@@ -190,7 +200,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_element_classes( string $format = 'attribute' ) {
 		// If the property is empty, generate and use the widget class.
-		$classes = $this->css_classes ?? [ $this->get_widget_class() ];
+		$classes = $this->get_widget_class();
 		$slug    = static::get_slug();
 
 		/**
@@ -504,6 +514,40 @@ abstract class Abstract_Widget extends Widget_Base {
 		$args['widget'] = $this;
 
 		return $args;
+	}
+
+	/**
+	 * Register the styles for the widget.
+	 *
+	 * @since TBD
+	 */
+	public function register_style(): void {
+		if ( ! static::$has_styles ) {
+			return;
+		}
+
+		$slug = str_replace( '_', '-', $this::get_slug() );
+
+		// Register the styles for the widget.
+		tribe_asset(
+			tribe( 'tec.main' ),
+			static::$asset_prefix . str_replace( '_', '-', $this::get_slug() ) . '-styles',
+			'integrations/plugins/elementor/widgets/' . $slug . '.css',
+			[],
+			null,
+			[ 'groups' => [ Assets_Manager::$group_key ] ]
+		);
+	}
+
+	/**
+	 * Enqueue the styles for the widget.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_style(): void {
+		$slug = str_replace( '_', '-', $this::get_slug() );
+
+		tribe_asset_enqueue( static::$asset_prefix . $slug . '-styles' );
 	}
 
 	/**

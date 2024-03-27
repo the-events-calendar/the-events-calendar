@@ -101,43 +101,9 @@ class Assets_Manager extends Controller {
 	 * @since TBD
 	 */
 	public function register_widget_assets() {
-		tribe_assets(
-			tribe( 'tec.main' ),
-			[
-				[
-					'tec-events-elementor-event_categories-widget-styles',
-					'integrations/plugins/elementor/widgets/event-categories.css',
-				],
-				[
-					'tec-events-elementor-event_export-widget-styles',
-					'integrations/plugins/elementor/widgets/event-export.css',
-				],
-				[
-					'tec-events-elementor-event_navigation-widget-styles',
-					'integrations/plugins/elementor/widgets/event-navigation.css',
-				],
-				[
-					'tec-events-elementor-event_organizer-widget-styles',
-					'integrations/plugins/elementor/widgets/event-organizer.css',
-				],
-				[
-					'tec-events-elementor-event_tags-widget-styles',
-					'integrations/plugins/elementor/widgets/event-tags.css',
-				],
-				[
-					'tec-events-elementor-event_venue-widget-styles',
-					'integrations/plugins/elementor/widgets/event-venue.css',
-				],
-				[
-					'tec-events-elementor-event_website-widget-styles',
-					'integrations/plugins/elementor/widgets/event-website.css',
-				],
-			],
-			null,
-			[
-				'groups' => [ static::$group_key ],
-			]
-		);
+		foreach ( $this->get_widgets() as $widget ) {
+			tribe( $widget )->register_style();
+		}
 
 		do_action( 'tec_events_elementor_register_widget_assets', $this );
 	}
@@ -159,8 +125,7 @@ class Assets_Manager extends Controller {
 	 */
 	public function enqueue_preview_styles() {
 		foreach ( $this->get_widgets() as $widget ) {
-			$slug = str_replace( '_', '-', $widget::get_slug() );
-			tribe_asset_enqueue( 'tec-events-elementor-' . $slug . '-widget-styles' );
+			tribe( $widget )->enqueue_style();
 		}
 	}
 
@@ -194,13 +159,11 @@ class Assets_Manager extends Controller {
 			return;
 		}
 
-		$slug = str_replace( '_', '-', $widget::get_slug() );
-
-		if ( ! in_array( $slug, array_keys( $widgets ), true ) ) {
+		if ( ! method_exists( $widget, 'enqueue_style' ) ) {
 			return;
 		}
 
-		tribe_asset_enqueue( 'tec-events-elementor-' . $slug . '-widget-styles' );
+		tribe( $widget )->enqueue_style();
 	}
 
 	/**
