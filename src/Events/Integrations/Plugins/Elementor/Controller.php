@@ -87,6 +87,24 @@ class Controller extends Integration_Abstract {
 	public function register_actions(): void {
 		// add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
+		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
+	}
+
+	/**
+	 * Registers widget categories for Elementor.
+	 *
+	 * @since 5.4.0
+	 *
+	 * @param Elements_Manager $elements_manager Elementor Manager instance.
+	 */
+	public function action_register_elementor_category( $elements_manager ) {
+		$elements_manager->add_category(
+			'the-events-calendar',
+			[
+				'title' => __( 'The Events Calendar', 'the-events-calendar' ),
+				'icon'  => 'eicon-calendar',
+			]
+		);
 	}
 
 	/**
