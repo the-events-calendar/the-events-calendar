@@ -101,6 +101,13 @@ class Assets_Manager extends Controller {
 	 * @since TBD
 	 */
 	public function register_widget_assets() {
+		tribe_asset(
+			tribe( 'tec.main' ),
+			'tec-events-elementor-widgets-base-styles',
+			'integrations/plugins/elementor/widgets/widget-base.css',
+			[],
+		);
+
 		foreach ( $this->get_widgets() as $widget ) {
 			tribe( $widget )->register_style();
 		}
@@ -137,6 +144,7 @@ class Assets_Manager extends Controller {
 	public function enqueue_frontend_resources(): void {
 		tribe_asset_enqueue( 'tribe-events-v2-single-skeleton' );
 		tribe_asset_enqueue( 'tribe-events-v2-single-skeleton-full' );
+		tribe_asset_enqueue( 'tec-events-elementor-widgets-base-styles' );
 	}
 
 	/**
@@ -155,7 +163,7 @@ class Assets_Manager extends Controller {
 		$widgets = $this->get_widgets();
 
 		// Not one of ours.
-		if ( ! method_exists( $widget, 'get_slug' ) ) {
+		if ( strpos( $name, 'tec_events_elementor_widget_' ) === false ) {
 			return;
 		}
 

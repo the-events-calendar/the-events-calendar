@@ -13,7 +13,15 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
+$phone = tribe_get_phone( $venue_id );
 ?>
 <p <?php tribe_classes( $widget->get_phone_base_class() . '-number' ); ?> >
-	<?php echo wp_kses_post( tribe_get_phone( $venue_id ) ); ?>
+	<?php if ( $link_venue_phone ) : ?>
+		<?php // For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension. ?>
+		<a <?php tribe_classes( $widget->get_phone_base_class() . '-link' ); ?> href="<?php echo esc_url( 'tel:' . str_ireplace( [ 'ext', 'x', ' ' ], [ 'p', 'p', '' ], $phone ) ); ?>">
+	<?php endif; ?>
+		<?php echo wp_kses_post( $phone ); ?>
+	<?php if ( $link_venue_phone ) : ?>
+		</a>
+	<?php endif; ?>
 </p>

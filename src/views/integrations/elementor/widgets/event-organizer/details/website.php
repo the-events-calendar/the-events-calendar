@@ -8,44 +8,25 @@
  * @since TBD
  *
  * @var bool   $show        Whether to show the organizer website.
- * @var bool   $show_header Whether to show the organizer website heading.
+ * @var bool   $show_header Whether to show the organizer website header.
  * @var string $header_tag  The organizer website header tag.
  * @var string $header_text The organizer website header text.
  * @var string $website     The organizer website.
  * @var int    $organizer   The organizer ID.
  * @var array  $settings    The widget settings.
  * @var int    $event_id    The event ID.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Organizer $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Organizer $widget The widget instance.
  */
 
-if ( ! $show ) {
+if ( ! $show_organizer_website ) {
 	return;
 }
 
 ?>
-<div <?php tribe_classes( $widget->get_website_base_class() ); ?>>
+<div <?php tribe_classes( $widget->get_website_wrapper_class() ); ?>>
 	<?php
-	$this->template(
-		'integrations/elementor/widgets/event-organizer/details/website/header',
-		[
-			'show'        => $show_header,
-			'header_tag'  => $header_tag,
-			'header_text' => $header_text,
-			'organizer'   => $organizer,
-			'settings'    => $settings,
-			'event_id'    => $event_id,
-			'widget'      => $widget,
-		]
-	);
+	$this->template( 'integrations/elementor/widgets/event-organizer/details/website/header' );
 
-	$this->template(
-		'integrations/elementor/widgets/event-organizer/details/website/content',
-		[
-			'organizer' => $organizer,
-			'settings'  => $settings,
-			'event_id'  => $event_id,
-			'widget'    => $widget,
-		]
-	);
+	$this->template( 'integrations/elementor/widgets/event-organizer/details/website/content' );
 	?>
 </div>

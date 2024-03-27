@@ -17,10 +17,10 @@ if ( empty( $venue_id ) ) {
 	return;
 }
 ?>
-<p <?php tribe_classes( $widget->get_address_base_class() . '-address' ); ?>>
+<address <?php tribe_classes( $widget->get_address_base_class() . '-address' ); ?>>
 	<?php
 	echo wp_kses_post(
 		tribe_get_full_address( $venue_id )
 	);
 	?>
-</p>
+</address>

@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -25,6 +20,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Cost extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
 
 	/**
 	 * Widget slug.
@@ -47,20 +43,6 @@ class Event_Cost extends Abstract_Widget {
 	}
 
 	/**
-	 * Determine the HTML tag to use for the event cost based on settings.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The HTML tag to use for the event cost.
-	 */
-	protected function get_header_tag() {
-
-		$settings = $this->get_settings_for_display();
-
-		return $settings['header_tag'] ?? 'p';
-	}
-
-	/**
 	 * Get the template args for the widget.
 	 *
 	 * @since TBD
@@ -73,10 +55,74 @@ class Event_Cost extends Abstract_Widget {
 		$cost       = tribe_get_formatted_cost( $event_id );
 
 		return [
-			'header_tag' => $header_tag,
-			'event_id'   => $event_id,
-			'cost'       => $cost,
+			'show_header' => tribe_is_truthy( $settings['show_header'] ?? false ),
+			'header_tag'  => $header_tag,
+			'html_tag'    => $this->get_html_tag(),
+			'event_id'    => $event_id,
+			'cost'        => $cost,
 		];
+	}
+
+	/**
+	 * Determine the HTML tag to use for the event cost based on settings.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML tag to use for the event cost.
+	 */
+	protected function get_html_tag(): string {
+
+		$settings = $this->get_settings_for_display();
+
+		return $settings['html_tag'] ?? 'p';
+	}
+
+	/**
+	 * Determine the HTML tag to use for the event cost based on settings.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML tag to use for the event cost.
+	 */
+	protected function get_header_tag() {
+
+		$settings = $this->get_settings_for_display();
+
+		return $settings['header_tag'] ?? 'h3';
+	}
+
+	/**
+	 * Create the widget title.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_header_text(): string {
+		return _x( 'Cost:', 'The header text for the event cost widget', 'the-events-calendar' );
+	}
+
+	/**
+	 * Get the class used for the category header.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_header_class(): string {
+		$class = $this->get_widget_class() . '-header';
+
+		/**
+		 * Filters the class used for the category header.
+		 *
+		 * @since TBD
+		 *
+		 * @param string          $class The class used for the category header.
+		 * @param Abstract_Widget $this  The widget instance.
+		 *
+		 * @return string
+		 */
+		return apply_filters( 'tec_events_pro_elementor_event_category_widget_header_class', $class, $this );
 	}
 
 	/**
@@ -96,7 +142,8 @@ class Event_Cost extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_panel() {
+	protected function content_panel(): void {
+		$this->header_options();
 		$this->content_options();
 	}
 
@@ -105,9 +152,45 @@ class Event_Cost extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function style_panel() {
-		// Styling options.
-		$this->styling_options();
+	protected function style_panel(): void {
+		$this->header_styling_options();
+		$this->content_styling_options();
+	}
+
+	/**
+	 * Add controls for the header of the event cost.
+	 *
+	 * @since TBD
+	 */
+	protected function header_options(): void {
+		$this->start_controls_section(
+			'cost_header_section',
+			[
+				'label' => esc_html__( 'Cost Header', 'the-events-calendar' ),
+			]
+		);
+
+		$this->add_shared_control(
+			'show',
+			[
+				'id'      => 'show_header',
+				'label'   => esc_html__( 'Show Header', 'the-events-calendar' ),
+				'default' => 'no',
+			]
+		);
+
+		$this->add_shared_control(
+			'tag',
+			[
+				'id'        => 'header_tag',
+				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
+				'condition' => [
+					'show_header' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
 	}
 
 	/**
@@ -115,61 +198,56 @@ class Event_Cost extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_options() {
+	protected function content_options(): void {
 		$this->start_controls_section(
-			'section_title',
+			'cost_content_section',
 			[
-				'label' => $this->get_title(),
+				'label' => esc_html__( 'Cost Content', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_control(
-			'header_tag',
+		$this->add_shared_control(
+			'tag',
 			[
+				'id'      => 'html_tag',
 				'label'   => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
 				'default' => 'p',
 			]
 		);
 
-		$this->add_responsive_control(
-			'align',
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Add controls for text styling of the event cost header.
+	 *
+	 * @since TBD
+	 */
+	protected function header_styling_options(): void {
+		$this->start_controls_section(
+			'styling_section_header',
 			[
-				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
-						'title' => esc_html__( 'Left', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-left',
-					],
-					'center'  => [
-						'title' => esc_html__( 'Center', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-center',
-					],
-					'right'   => [
-						'title' => esc_html__( 'Right', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
+				'label'     => esc_html__( 'Header Styling', 'the-events-calendar' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_header' => 'yes',
 				],
-				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
-				],
+			]
+		);
+
+		$this->add_shared_control(
+			'typography',
+			[
+				'prefix'   => 'header',
+				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
+			]
+		);
+
+		$this->add_shared_control(
+			'alignment',
+			[
+				'id'        => 'align_header',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_header_class() ],
 			]
 		);
 
@@ -181,80 +259,28 @@ class Event_Cost extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function styling_options() {
+	protected function content_styling_options(): void {
 		$this->start_controls_section(
-			'styling_section_title',
+			'styling_section_content',
 			[
-				'label' => $this->get_title(),
+				'label' => esc_html__( 'Content Styling', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'cost_content',
 				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
-			]
-		);
-
-		$this->add_control(
-			'blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'align_content',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() ],
 			]
 		);
 

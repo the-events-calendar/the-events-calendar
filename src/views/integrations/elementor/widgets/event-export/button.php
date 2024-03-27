@@ -22,7 +22,7 @@ use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Export;
 	<?php tribe_classes( $widget->get_button_class(), 'tribe-common-c-btn-border', 'tribe-events-c-subscribe-dropdown__button' ); ?>
 	aria-expanded="false"
 	aria-controls="<?php $widget->get_content_class(); ?>"
-	aria-label="<?php esc_attr_e( 'View links to add events to your calendar', 'tribe-events-calendar-pro' ); ?>"
+	aria-label="<?php esc_attr_e( 'View links to add events to your calendar', 'the-events-calendar' ); ?>"
 >
 	<i
 		<?php
@@ -37,7 +37,7 @@ use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Export;
 		?>
 		aria-hidden="true"
 	></i>
-	<?php esc_html_e( 'Add to calendar', 'tribe-events-calendar-pro' ); ?>
+	<?php esc_html_e( 'Add to calendar', 'the-events-calendar' ); ?>
 	<svg
 		<?php tribe_classes( $widget->get_dropdown_icon_class() ); ?>
 		width="12"

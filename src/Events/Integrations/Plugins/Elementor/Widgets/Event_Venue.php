@@ -10,13 +10,8 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -27,6 +22,8 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Venue extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
+
 	/**
 	 * Widget slug.
 	 *
@@ -70,9 +67,9 @@ class Event_Venue extends Abstract_Widget {
 
 		if ( isset( $settings['venue_website_link_target'] ) ) {
 			$this->set_template_filter(
-				'tec_get_event_venue_website_link_target',
+				'tribe_get_event_venue_website_link_target',
 				function () use ( $settings ) {
-					return $settings['organizer_website_link_target'];
+					return $settings['venue_website_link_target'];
 				}
 			);
 		}
@@ -91,6 +88,7 @@ class Event_Venue extends Abstract_Widget {
 			// Boolean conversion of yes/no strings. Default false.
 			'show_address_header'   => tribe_is_truthy( $settings['show_venue_address_header'] ?? false ),
 			'show_phone_header'     => tribe_is_truthy( $settings['show_venue_phone_header'] ?? false ),
+			'link_venue_phone'      => tribe_is_truthy( $settings['link_venue_phone'] ?? false ),
 			'show_website_header'   => tribe_is_truthy( $settings['show_venue_website_header'] ?? false ),
 			// HTML tags.
 			'header_tag'            => $settings['venue_header_tag'] ?? 'h2',
@@ -180,7 +178,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_widget_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_header_text', $header_text, $this );
 	}
 
 	/**
@@ -207,7 +205,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_widget_website_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_website_header_text', $header_text, $this );
 	}
 
 	/**
@@ -234,7 +232,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_widget_phone_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_phone_header_text', $header_text, $this );
 	}
 
 	/**
@@ -261,7 +259,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_widget_address_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_address_header_text', $header_text, $this );
 	}
 
 	/**
@@ -284,17 +282,14 @@ class Event_Venue extends Abstract_Widget {
 	}
 
 	/**
-	 * Get the classes for the widget header.
+	 * Get the class for the widget header.
 	 *
 	 * @since TBD
 	 *
-	 * @return array The header classes.
+	 * @return array The header class.
 	 */
-	public function get_header_classes() {
-		$classes = [
-			'tribe-events-single-section-title',
-			$this->get_widget_class() . '-header',
-		];
+	public function get_header_class() {
+		$class = $this->get_widget_class() . '-header';
 
 		/**
 		 * Filters the classes for the event venue widget header.
@@ -304,7 +299,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param array $classes The widget header classes.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_header_class', $classes, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_header_class', $class, $this );
 	}
 
 	/**
@@ -325,7 +320,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The name base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_name_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_name_class', $class, $this );
 	}
 
 	/**
@@ -346,7 +341,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The address base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_address_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_address_class', $class, $this );
 	}
 
 	/**
@@ -367,7 +362,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The phone base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_phone_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_phone_class', $class, $this );
 	}
 
 	/**
@@ -388,7 +383,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The website base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_website_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_website_class', $class, $this );
 	}
 
 	/**
@@ -409,7 +404,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The map base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_venue_map_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_venue_map_class', $class, $this );
 	}
 
 	/**
@@ -418,9 +413,7 @@ class Event_Venue extends Abstract_Widget {
 	 * @since TBD
 	 */
 	protected function register_controls() {
-		// Content tab.
 		$this->content_panel();
-		// Style tab.
 		$this->style_panel();
 	}
 
@@ -439,6 +432,8 @@ class Event_Venue extends Abstract_Widget {
 		$this->venue_phone_content_options();
 
 		$this->venue_website_content_options();
+
+		$this->venue_map_content_options();
 	}
 
 	/**
@@ -447,8 +442,17 @@ class Event_Venue extends Abstract_Widget {
 	 * @since TBD
 	 */
 	protected function style_panel() {
-		// Styling options.
-		$this->styling_options();
+		$this->style_venue_header();
+
+		$this->style_venue_name();
+
+		$this->style_venue_address();
+
+		$this->style_venue_phone();
+
+		$this->style_venue_website();
+
+		$this->style_venue_map();
 	}
 
 	/**
@@ -459,134 +463,27 @@ class Event_Venue extends Abstract_Widget {
 	protected function content_options() {
 		$this->start_controls_section(
 			'section_title',
-			[
-				'label' => esc_html__( 'Event Venue', 'the-events-calendar' ),
-			]
-		);
-
-		// Widget alignment control.
-		$this->add_responsive_control(
-			'align',
-			[
-				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
-						'title' => esc_html__( 'Left', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-left',
-					],
-					'center'  => [
-						'title' => esc_html__( 'Center', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-center',
-					],
-					'right'   => [
-						'title' => esc_html__( 'Right', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
-				],
-				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . implode( ' ', (array) $this->get_container_classes() ) => 'text-align: {{VALUE}};',
-				],
-			]
+			[ 'label' => esc_html__( 'Event Venue', 'the-events-calendar' ) ]
 		);
 
 		// Show Venue Header control.
-		$this->add_control(
-			'show_venue_header',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Show Widget Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'id'      => 'show_venue_header',
+				'label'   => esc_html__( 'Show Widget Header', 'the-events-calendar' ),
+				'default' => 'no',
 			]
 		);
 
-		$this->add_control(
-			'venue_header_tag',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
+				'id'        => 'venue_header_tag',
 				'default'   => 'h2',
 				'condition' => [
 					'show_venue_header' => 'yes',
 				],
-			]
-		);
-
-		// Show Venue Name control.
-		$this->add_control(
-			'show_venue_name',
-			[
-				'label'     => esc_html__( 'Show Name', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		// Show Venue Address control.
-		$this->add_control(
-			'show_venue_address',
-			[
-				'label'     => esc_html__( 'Show Address', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		// Show Venue Phone control.
-		$this->add_control(
-			'show_venue_phone',
-			[
-				'label'     => esc_html__( 'Show Phone', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		// Show Venue Website control.
-		$this->add_control(
-			'show_venue_website',
-			[
-				'label'     => esc_html__( 'Show Website', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		// Show Venue Map control.
-		$this->add_control(
-			'show_venue_map',
-			[
-				'label'     => esc_html__( 'Show Map', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
 			]
 		);
 
@@ -601,33 +498,24 @@ class Event_Venue extends Abstract_Widget {
 	protected function venue_name_content_options() {
 		$this->start_controls_section(
 			'venue_name_content_options',
+			[ 'label' => esc_html__( 'Name', 'the-events-calendar' ) ]
+		);
+
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Event Venue Name', 'the-events-calendar' ),
-				'condition' => [
-					'show_venue_name' => 'yes',
-				],
+				'id'    => 'show_venue_name',
+				'label' => esc_html__( 'Show Name', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_control(
-			'venue_name_html_tag',
+		$this->add_shared_control(
+			'tag',
 			[
+				'id'        => 'venue_name_html_tag',
 				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
 				'condition' => [
-					'show_venue_address_header' => 'yes',
+					'show_venue_name' => 'yes',
 				],
 			]
 		);
@@ -641,6 +529,9 @@ class Event_Venue extends Abstract_Widget {
 				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
 				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
 				'default'   => 'yes',
+				'condition' => [
+					'show_venue_name' => 'yes',
+				],
 			]
 		);
 
@@ -655,46 +546,50 @@ class Event_Venue extends Abstract_Widget {
 	protected function venue_phone_content_options() {
 		$this->start_controls_section(
 			'venue_phone_content_options',
+			[ 'label' => esc_html__( 'Phone', 'the-events-calendar' ) ]
+		);
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Event Venue Phone', 'the-events-calendar' ),
+				'id'    => 'show_venue_phone',
+				'label' => esc_html__( 'Show Phone', 'the-events-calendar' ),
+			]
+		);
+
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_venue_phone_header',
+				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
+				'default'   => 'no',
 				'condition' => [
 					'show_venue_phone' => 'yes',
 				],
 			]
 		);
 
-		// Show Venue Header control.
-		$this->add_control(
-			'show_venue_phone_header',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'no',
-			]
-		);
-
-		$this->add_control(
-			'venue_phone_header_tag',
-			[
+				'id'        => 'venue_phone_header_tag',
 				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
 				'condition' => [
 					'show_venue_phone_header' => 'yes',
 				],
+			]
+		);
+
+		// Link Organizer Name control.
+		$this->add_control(
+			'link_venue_phone',
+			[
+				'label'       => esc_html__( 'Link venue phone.', 'the-events-calendar' ),
+				'description' => esc_html__( 'Make venue phone number a callable link.', 'the-events-calendar' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'label_on'    => esc_html__( 'Yes', 'the-events-calendar' ),
+				'label_off'   => esc_html__( 'No', 'the-events-calendar' ),
+				'default'     => 'yes',
+				'condition'   => [ 'show_venue_phone' => 'yes' ],
 			]
 		);
 
@@ -709,57 +604,46 @@ class Event_Venue extends Abstract_Widget {
 	protected function venue_address_content_options() {
 		$this->start_controls_section(
 			'venue_address_content_options',
+			[ 'label' => esc_html__( 'Address', 'the-events-calendar' ) ]
+		);
+
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Event Venue Address', 'the-events-calendar' ),
+				'id'    => 'show_venue_address',
+				'label' => esc_html__( 'Show Address', 'the-events-calendar' ),
+			]
+		);
+
+		// Show Venue Header control.
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_venue_address_header',
+				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
+				'default'   => 'no',
 				'condition' => [
 					'show_venue_address' => 'yes',
 				],
 			]
 		);
 
-		// Show Venue Header control.
-		$this->add_control(
-			'show_venue_address_header',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'no',
-			]
-		);
-
-		$this->add_control(
-			'venue_address_header_tag',
-			[
+				'id'        => 'venue_address_header_tag',
 				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
 				'condition' => [
 					'show_venue_address_header' => 'yes',
 				],
 			]
 		);
 
-		$this->add_control(
-			'show_venue_address_map_link',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Show Map Link', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'id'    => 'show_venue_address_map_link',
+				'label' => esc_html__( 'Show Map Link', 'the-events-calendar' ),
 			]
 		);
 
@@ -774,82 +658,66 @@ class Event_Venue extends Abstract_Widget {
 	protected function venue_website_content_options() {
 		$this->start_controls_section(
 			'venue_website_content_options',
+			[ 'label' => esc_html__( 'Website', 'the-events-calendar' ) ]
+		);
+
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Event Venue Website', 'the-events-calendar' ),
+				'id'    => 'show_venue_website',
+				'label' => esc_html__( 'Show Website', 'the-events-calendar' ),
+			]
+		);
+
+		$this->add_shared_control(
+			'show',
+			[
+				'id'        => 'show_venue_website_header',
+				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
+				'default'   => 'no',
 				'condition' => [
 					'show_venue_website' => 'yes',
 				],
 			]
 		);
 
-		// Show Venue Header control.
-		$this->add_control(
-			'show_venue_website_header',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'Show Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'no',
-			]
-		);
-
-		$this->add_control(
-			'venue_website_header_tag',
-			[
+				'id'        => 'venue_website_header_tag',
 				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
 				'condition' => [
 					'show_venue_website_header' => 'yes',
 				],
 			]
 		);
-		$this->add_control(
-			'venue_website_link_target',
-			[
-				'label'       => esc_html__( 'Link Target', 'the-events-calendar' ),
-				'description' => esc_html__( 'Choose whether to open the venue website link in the same window or a new window.', 'the-events-calendar' ),
-				'type'        => Controls_Manager::SELECT,
-				'default'     => '_self',
-				'options'     => [
-					'_self'  => 'same window',
-					'_blank' => 'new window',
-				],
-			]
-		);
+
+		$this->add_shared_control( 'link_target', [ 'prefix' => 'venue_website_link_target' ] );
 
 		$this->end_controls_section();
 	}
 
 	/**
-	 * Add controls for text styling of the event venue.
+	 * Add controls for text content of the event venue website.
 	 *
 	 * @since TBD
 	 */
-	protected function styling_options() {
-		$this->style_venue_label();
+	protected function venue_map_content_options() {
+		$this->start_controls_section(
+			'venue_map_content_options',
+			[ 'label' => esc_html__( 'Map', 'the-events-calendar' ) ]
+		);
 
-		$this->style_venue_name();
+		// Show Venue Map control.
+		$this->add_shared_control(
+			'show',
+			[
+				'id'    => 'show_venue_map',
+				'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			]
+		);
 
-		$this->style_venue_address();
-
-		$this->style_venue_phone();
-
-		$this->style_venue_website();
-
-		$this->style_venue_map();
+		$this->end_controls_section();
 	}
 
 	/**
@@ -859,7 +727,7 @@ class Event_Venue extends Abstract_Widget {
 	 *
 	 * @return void
 	 */
-	protected function style_venue_label() {
+	protected function style_venue_header() {
 		$this->start_controls_section(
 			'venue_section_header_styling',
 			[
@@ -871,71 +739,19 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'header_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_header_classes()[0] => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'venue_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'header_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_header_classes()[0],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'header_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_header_classes()[0],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'header_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_header_classes()[0],
-			]
-		);
-
-		$this->add_control(
-			'header_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} ' . $this->get_header_classes()[0] => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'venue_header_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_header_class(),
 			]
 		);
 
@@ -961,73 +777,22 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'name_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_name_base_class() . ', {{WRAPPER}} .' . $this->get_name_base_class() . ' a' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'name_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'venue_name',
 				'selector' => '{{WRAPPER}} .' . $this->get_name_base_class() . ', {{WRAPPER}} .' . $this->get_name_base_class() . ' a',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'name_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_name_base_class() . ', {{WRAPPER}} .' . $this->get_name_base_class() . ' a',
+				'id'        => 'venue_name_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_name_base_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'name_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_name_base_class() . ', {{WRAPPER}} .' . $this->get_name_base_class() . ' a',
-			]
-		);
-
-		$this->add_control(
-			'name_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_name_base_class() . ', {{WRAPPER}} .' . $this->get_name_base_class() . ' a' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
-			]
-		);
 
 		$this->end_controls_section();
 	}
@@ -1051,173 +816,54 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'phone_label_header',
+		$this->add_shared_control(
+			'subheader',
 			[
+				'prefix'    => 'phone_header',
 				'label'     => esc_html__( 'Phone Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::HEADING,
 				'condition' => [
 					'show_venue_phone_header' => 'yes',
 				],
 			]
 		);
 
-		$this->add_control(
-			'phone_label_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_base_class() . '-header' => 'color: {{VALUE}};',
-				],
-				'condition' => [
-					'show_venue_phone_header' => 'yes',
-				],
+				'prefix'   => 'phone_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-header',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'      => 'phone_label_typography',
-				'global'    => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector'  => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-header',
-				'condition' => [
-					'show_venue_phone_header' => 'yes',
-				],
+				'id'        => 'phone_header_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-header',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'subheader',
 			[
-				'name'      => 'phone_label_text_stroke',
-				'selector'  => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-header',
-				'condition' => [
-					'show_venue_phone_header' => 'yes',
-				],
+				'prefix' => 'phone_number',
+				'label'  => esc_html__( 'Phone Number', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
+		$this->add_shared_control(
+			'typography',
 			[
-				'name'      => 'phone_label_text_shadow',
-				'selector'  => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-header',
-				'condition' => [
-					'show_venue_phone_header' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'phone_label_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_base_class() . '-header' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'after',
-				'condition' => [
-					'show_venue_phone_header' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'phone_header',
-			[
-				'label' => esc_html__( 'Phone Text', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
-			]
-		);
-
-		$this->add_control(
-			'phone_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_base_class() . '-number' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'phone_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'phone_number',
 				'selector' => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-number',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'phone_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-number',
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'phone_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-number',
-			]
-		);
-
-		$this->add_control(
-			'phone_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_phone_base_class() . '-number' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'phone_number_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_phone_base_class() . '-number',
 			]
 		);
 
@@ -1243,181 +889,56 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'address_label_header',
+
+
+		$this->add_shared_control(
+			'subheader',
 			[
-				'label'     => esc_html__( 'Address Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::HEADING,
+				'prefix'    => 'address_header',
+				'label'     => esc_html__( 'Phone Number', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_address_header' => 'yes',
 				],
 			]
 		);
 
-		$this->add_control(
-			'address_label_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_address_base_class() . '-header' => 'color: {{VALUE}};',
-				],
-				'condition' => [
-					'show_venue_address_header' => 'yes',
-				],
+				'prefix'   => 'address_header',
+				'selector' => '{{WRAPPER}} .' . $this->get_address_base_class() . '-header',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'      => 'address_label_typography',
-				'global'    => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector'  => '{{WRAPPER}} .' . $this->get_address_base_class() . '-header',
-				'condition' => [
-					'show_venue_address_header' => 'yes',
-				],
+				'id'        => 'address_header_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_address_base_class() . '-header',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'subheader',
 			[
-				'name'      => 'address_label_text_stroke',
-				'selector'  => '{{WRAPPER}} .' . $this->get_address_base_class() . '-header',
-				'condition' => [
-					'show_venue_address_header' => 'yes',
-				],
+				'prefix' => 'address_text',
+				'label'  => esc_html__( 'Address Text', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
+		$this->add_shared_control(
+			'typography',
 			[
-				'name'      => 'address_label_text_shadow',
-				'selector'  => '{{WRAPPER}} .' . $this->get_address_base_class() . '-header',
-				'condition' => [
-					'show_venue_address_header' => 'yes',
-				],
+				'prefix'   => 'address_text',
+				'selector' => '{{WRAPPER}} .' . $this->get_address_base_class(),
 			]
 		);
 
-		$this->add_control(
-			'address_label_blend_mode',
+		$this->add_shared_control(
+			'subheader',
 			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_address_base_class() . '-header' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'after',
-				'condition' => [
-					'show_venue_address_header' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'address_header',
-			[
-				'label' => esc_html__( 'Address Text', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
-			]
-		);
-
-		$this->add_control(
-			'address_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_address_base_class()  => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'address_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_address_base_class() ,
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'address_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_address_base_class() ,
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'address_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_address_base_class() ,
-			]
-		);
-
-		$this->add_control(
-			'address_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_address_base_class()  => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
-			]
-		);
-
-		$this->add_control(
-			'address_venue_map_link_header',
-			[
+				'prefix'    => 'address_map_link',
 				'label'     => esc_html__( 'Map Link', 'the-events-calendar' ),
-				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
 					'show_venue_address_map_link' => 'yes',
@@ -1425,86 +946,19 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'address_venue_map_link_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link .tribe-events-gmap' => 'color: {{VALUE}};',
-				],
-				'condition' => [
-					'show_venue_address_map_link' => 'yes',
-				],
+				'prefix'   => 'address_map_link_typography',
+				'selector' => '{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link .tribe-events-gmap',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'      => 'address_venue_map_link_typography',
-				'global'    => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector'  => '{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link .tribe-events-gmap',
-				'condition' => [
-					'show_venue_address_map_link' => 'yes',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'      => 'address_venue_map_link_text_stroke',
-				'selector'  => '{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link .tribe-events-gmap',
-				'condition' => [
-					'show_venue_address_map_link' => 'yes',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'      => 'address_venue_map_link_text_shadow',
-				'selector'  => '{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link .tribe-events-gmap',
-				'condition' => [
-					'show_venue_address_map_link' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'address_venue_map_link_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link .tribe-events-gmap' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
-				'condition' => [
-					'show_venue_address_map_link' => 'yes',
-				],
+				'id'        => 'address_venue_map_link_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_address_base_class() . '-map-link',
 			]
 		);
 
@@ -1530,173 +984,54 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'website_label_header',
+		$this->add_shared_control(
+			'subheader',
 			[
+				'prefix'    => 'website_header',
 				'label'     => esc_html__( 'Website Header', 'the-events-calendar' ),
-				'type'      => Controls_Manager::HEADING,
 				'condition' => [
 					'show_venue_website_header' => 'yes',
 				],
 			]
 		);
 
-		$this->add_control(
-			'website_label_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_base_class() . '-header' => 'color: {{VALUE}};',
-				],
-				'condition' => [
-					'show_venue_website_header' => 'yes',
-				],
+				'prefix'   => 'website_label_typography',
+				'selector' => '{{WRAPPER}} .' . $this->get_website_base_class() . '-header',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'      => 'website_label_typography',
-				'global'    => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector'  => '{{WRAPPER}} .' . $this->get_website_base_class() . '-header',
-				'condition' => [
-					'show_venue_website_header' => 'yes',
-				],
+				'id'        => 'website_label_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_website_base_class() . '-header',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'subheader',
 			[
-				'name'      => 'website_label_text_stroke',
-				'selector'  => '{{WRAPPER}} .' . $this->get_website_base_class() . '-header',
-				'condition' => [
-					'show_venue_website_header' => 'yes',
-				],
+				'prefix' => 'website_url',
+				'label'  => esc_html__( 'Website Url', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
+		$this->add_shared_control(
+			'typography',
 			[
-				'name'      => 'website_label_text_shadow',
-				'selector'  => '{{WRAPPER}} .' . $this->get_website_base_class() . '-header',
-				'condition' => [
-					'show_venue_website_header' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'website_label_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_base_class() . '-header' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'after',
-				'condition' => [
-					'show_venue_website_header' => 'yes',
-				],
-			]
-		);
-
-		$this->add_control(
-			'venue_website_header',
-			[
-				'label' => esc_html__( 'Website Url', 'the-events-calendar' ),
-				'type'  => Controls_Manager::HEADING,
-			]
-		);
-
-		$this->add_control(
-			'website_color',
-			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_base_class() . '-url a' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'website_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'website_url',
 				'selector' => '{{WRAPPER}} .' . $this->get_website_base_class() . '-url a',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'website_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_website_base_class() . '-url a',
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'website_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_website_base_class() . '-url a',
-			]
-		);
-
-		$this->add_control(
-			'website_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_website_base_class() . '-url a' => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'website_url_align',
+				'selectors' => '{{WRAPPER}} .' . $this->get_website_base_class() . '-url',
 			]
 		);
 
@@ -1714,9 +1049,9 @@ class Event_Venue extends Abstract_Widget {
 		$this->start_controls_section(
 			'styling_section_title',
 			[
-				'label'     => esc_html__( 'Venue Map', 'the-events-calendar' ),
-				'tab'       => Controls_Manager::TAB_STYLE,
-				'condition' => [
+				'label'       => esc_html__( 'Venue Map', 'the-events-calendar' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'conditional' => [
 					'show_venue_map' => 'yes',
 				],
 			]
@@ -1839,18 +1174,17 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		// phpcs:disable WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 		$this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'     => 'venue_map_box_shadow',
+				// phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude -- This is not a query.
 				'exclude'  => [
 					'box_shadow_position',
 				],
 				'selector' => '{{WRAPPER}} .' . $this->get_map_base_class(),
 			]
 		);
-		// phpcs:enable WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_exclude
 
 		$this->end_controls_section();
 	}

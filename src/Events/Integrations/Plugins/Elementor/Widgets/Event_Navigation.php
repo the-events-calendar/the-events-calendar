@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -25,6 +20,8 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Navigation extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
+
 	/**
 	 * Widget slug.
 	 *
@@ -55,6 +52,29 @@ class Event_Navigation extends Abstract_Widget {
 	}
 
 	/**
+	 * Get the template args for the event nav widget.
+	 *
+	 * @since TBD
+	 */
+	protected function template_args(): array {
+		$adjacent_events = tribe( 'tec.adjacent-events' );
+		$adjacent_events->set_current_event_id( $this->get_event_id() );
+		$next_event = $adjacent_events->get_closest_event( 'next' );
+		$prev_event = $adjacent_events->get_closest_event( 'previous' );
+
+		return [
+			'show_nav_header' => tribe_is_truthy( $this->get_settings_for_display( 'show_nav_header' ) ?? false ),
+			'header_tag'      => $this->get_event_navigation_header_tag(),
+			'header_text'     => $this->get_header_text(),
+			'prev_event'      => $prev_event,
+			'prev_link'       => tribe_get_event_link( $prev_event ),
+			'next_event'      => $next_event,
+			'next_link'       => tribe_get_event_link( $next_event ),
+			'event_id'        => $this->get_event_id(),
+		];
+	}
+
+	/**
 	 * Determine the HTML tag to use for the event nav based on settings.
 	 *
 	 * @since TBD
@@ -68,25 +88,23 @@ class Event_Navigation extends Abstract_Widget {
 	}
 
 	/**
-	 * Get the template args for the event nav widget.
+	 * Get the header text for the event nav.
 	 *
 	 * @since TBD
+	 *
+	 * @return string The header text for the event nav.
 	 */
-	protected function template_args(): array {
-		$adjacent_events = tribe( 'tec.adjacent-events' );
-		$adjacent_events->set_current_event_id( $this->get_event_id() );
-		$next_event = $adjacent_events->get_closest_event( 'next' );
-		$prev_event = $adjacent_events->get_closest_event( 'previous' );
+	protected function get_header_text(): string {
+		$title = tribe_get_event_label_plural();
 
-		return [
-			'header_tag' => $this->get_event_navigation_header_tag(),
-			'prev_event' => $prev_event,
-			'prev_link'  => tribe_get_event_link( $prev_event ),
-			'next_event' => $next_event,
-			'next_link'  => tribe_get_event_link( $next_event ),
-			'label'      => $this->get_title(),
-			'event_id'   => $this->get_event_id(),
-		];
+		/**
+		 * Filters the header text for the event nav.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $title The header text for the event nav.
+		 */
+		return (string) apply_filters( 'tribe_events_elementor_widget_event_navigation_header_text', $title );
 	}
 
 	/**
@@ -94,21 +112,10 @@ class Event_Navigation extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return string The class for the header element.
 	 */
-	public function get_header_classes(): array {
-		$settings = $this->get_settings_for_display();
-		$classes  = [
-			$this->get_widget_class() . '--header',
-		];
-
-		$show_header = tribe_is_truthy( $settings['show_header'] ?? false );
-
-		if ( ! $show_header ) {
-			$classes[] = 'tribe-common-a11y-visual-hide';
-		}
-
-		return $classes;
+	public function get_header_class(): string {
+		return $this->get_widget_class() . '--header';
 	}
 
 	/**
@@ -171,8 +178,9 @@ class Event_Navigation extends Abstract_Widget {
 	 * @since TBD
 	 */
 	protected function style_panel() {
-		// Styling options.
-		$this->styling_options();
+		$this->header_styling_options();
+		$this->content_styling_options();
+		$this->content_hover_styling_options();
 	}
 
 	/**
@@ -188,38 +196,59 @@ class Event_Navigation extends Abstract_Widget {
 			]
 		);
 
-		$this->add_control(
-			'header_tag',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'       => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'        => Controls_Manager::SELECT,
-				'description' => esc_html__( 'Choose the HTML tag to use for the navigation label read by screen readers.', 'the-events-calendar' ),
-				'options'     => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'     => 'h3',
+				'id'      => 'show_nav_header',
+				'label'   => esc_html__( 'Show header', 'the-events-calendar' ),
+				'default' => 'no',
 			]
 		);
 
-
-
-		$this->add_control(
-			'show_header',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'       => esc_html__( 'Show header', 'the-events-calendar' ),
-				'type'        => Controls_Manager::SWITCHER,
-				'description' => esc_html__( 'Choose to show the navigation label. When hidden it will still be visible to screen readers.', 'the-events-calendar' ),
-				'label_on'    => esc_html__( 'Show', 'the-events-calendar' ),
-				'label_off'   => esc_html__( 'Hide', 'the-events-calendar' ),
-				'default'     => 'no',
+				'id'          => 'header_tag',
+				'label'       => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
+				'description' => esc_html__( 'Choose the HTML tag to use for the navigation label read by screen readers.', 'the-events-calendar' ),
+				'condition'   => [
+					'show_nav_header' => 'yes',
+				],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+	/**
+	 * Add controls for text styling of the event nav header.
+	 *
+	 * @since TBD
+	 */
+	protected function header_styling_options() {
+		$this->start_controls_section(
+			'header_styling_section',
+			[
+				'label'     => esc_html__( 'Header Styling', 'the-events-calendar' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_nav_header' => 'yes',
+				],
+			]
+		);
+
+		$this->add_shared_control(
+			'typography',
+			[
+				'prefix'   => 'header',
+				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
+			]
+		);
+
+		$this->add_shared_control(
+			'alignment',
+			[
+				'id'        => 'header_align',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_header_class() ],
 			]
 		);
 
@@ -227,106 +256,49 @@ class Event_Navigation extends Abstract_Widget {
 	}
 
 	/**
-	 * Add controls for text styling of the event nav.
+	 * Add controls for text styling of the event nav content.
 	 *
 	 * @since TBD
 	 */
-	protected function styling_options() {
+	protected function content_styling_options() {
 		$this->start_controls_section(
-			'styling_section_title',
+			'content_styling_section',
 			[
-				'label' => $this->get_title(),
+				'label' => esc_html__( 'Link Styling', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_prev_class() . ' a' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .' . $this->get_next_class() . ' a' => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'content',
+				'selector' => '{{WRAPPER}} .' . $this->get_list_class() . ' a',
 			]
 		);
 
-		$this->add_control(
-			'hover-color',
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Add controls for text styling of the event nav content.
+	 *
+	 * @since TBD
+	 */
+	protected function content_hover_styling_options() {
+		$this->start_controls_section(
+			'content_hover_styling_section',
 			[
-				'label'     => esc_html__( 'Text Hover Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_ACCENT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_prev_class() . ' a:hover'  => 'color: {{VALUE}};',
-					'{{WRAPPER}} .' . $this->get_prev_class() . ' a:active' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .' . $this->get_prev_class() . ' a:focus'  => 'color: {{VALUE}};',
-					'{{WRAPPER}} .' . $this->get_next_class() . ' a:hover'  => 'color: {{VALUE}};',
-					'{{WRAPPER}} .' . $this->get_next_class() . ' a:active' => 'color: {{VALUE}};',
-					'{{WRAPPER}} .' . $this->get_next_class() . ' a:focus'  => 'color: {{VALUE}};',
-				],
+				'label' => esc_html__( 'Link Hover Styling', 'the-events-calendar' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'typography',
 			[
-				'name'      => 'typography',
-				'global'    => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_list_class(),
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_list_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_list_class(),
-			]
-		);
-
-		$this->add_control(
-			'blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_list_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'prefix'   => 'content_hover',
+				'selector' => '{{WRAPPER}} .' . $this->get_list_class() . ' a:hover',
 			]
 		);
 

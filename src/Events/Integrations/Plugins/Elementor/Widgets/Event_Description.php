@@ -25,6 +25,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Description extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
 
 	/**
 	 * Widget slug.
@@ -134,9 +135,7 @@ class Event_Description extends Abstract_Widget {
 					],
 				],
 				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};' ],
 			]
 		);
 
@@ -162,12 +161,7 @@ class Event_Description extends Abstract_Widget {
 			[
 				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'color: {{VALUE}};',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() => 'color: {{VALUE}};' ],
 			]
 		);
 
@@ -175,9 +169,6 @@ class Event_Description extends Abstract_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_TEXT,
-				],
 				'selector' => '{{WRAPPER}} .' . $this->get_widget_class(),
 			]
 		);
@@ -218,9 +209,7 @@ class Event_Description extends Abstract_Widget {
 					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
 					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
 				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'mix-blend-mode: {{VALUE}}',
-				],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() => 'mix-blend-mode: {{VALUE}}' ],
 				'separator' => 'none',
 			]
 		);

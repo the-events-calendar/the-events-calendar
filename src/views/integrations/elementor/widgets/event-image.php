@@ -12,7 +12,7 @@
  * @var Event_Image $widget   The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Image;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Image;
 
 if ( ! $image ) {
 

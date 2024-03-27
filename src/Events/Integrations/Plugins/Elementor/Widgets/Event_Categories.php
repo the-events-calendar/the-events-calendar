@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 use Tribe__Events__Main;
 
@@ -26,6 +21,8 @@ use Tribe__Events__Main;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Categories extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
+
 	/**
 	 * Widget slug.
 	 *
@@ -56,17 +53,6 @@ class Event_Categories extends Abstract_Widget {
 	}
 
 	/**
-	 * Create the widget title.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function get_label_text(): string {
-		return _x( 'Event Categories:', 'The label/header text for the event categories widget', 'the-events-calendar' );
-	}
-
-	/**
 	 * Get the template args for the widget.
 	 *
 	 * @since TBD
@@ -79,12 +65,24 @@ class Event_Categories extends Abstract_Widget {
 		$tec_main = Tribe__Events__Main::instance();
 
 		return [
-			'show_heading' => tribe_is_truthy( $settings['show_categories_heading'] ?? true ),
-			'heading_tag'  => $settings['categories_heading_tag'] ?? 'h3',
-			'categories'   => get_the_terms( $event_id, $tec_main->get_event_taxonomy() ),
-			'settings'     => $settings,
-			'event_id'     => $event_id,
+			'show_header' => tribe_is_truthy( $settings['show_categories_header'] ?? true ),
+			'header_tag'  => $settings['categories_header_tag'] ?? 'h3',
+			'header_text' => $this->get_header_text(),
+			'categories'  => get_the_terms( $event_id, $tec_main->get_event_taxonomy() ),
+			'settings'    => $settings,
+			'event_id'    => $event_id,
 		];
+	}
+
+	/**
+	 * Create the widget title.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_header_text(): string {
+		return _x( 'Categories:', 'The label/header text for the event categories widget', 'the-events-calendar' );
 	}
 
 	/**
@@ -99,9 +97,9 @@ class Event_Categories extends Abstract_Widget {
 		$categories = tribe_get_event_taxonomy(
 			$event_id,
 			[
+				'after'  => '',
 				'before' => '',
 				'sep'    => ', ',
-				'after'  => '',
 			]
 		);
 
@@ -144,8 +142,8 @@ class Event_Categories extends Abstract_Widget {
 	 *
 	 * @return string
 	 */
-	public function get_label_class() {
-		$class = $this->get_widget_class() . '-label';
+	public function get_header_class(): string {
+		$class = $this->get_widget_class() . '-header';
 
 		/**
 		 * Filters the class used for the category label.
@@ -157,7 +155,7 @@ class Event_Categories extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_elementor_event_category_widget_label_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_category_widget_header_class', $class, $this );
 	}
 
 	/**
@@ -167,7 +165,7 @@ class Event_Categories extends Abstract_Widget {
 	 *
 	 * @return string
 	 */
-	public function get_wrapper_class() {
+	public function get_wrapper_class(): string {
 		$class = $this->get_widget_class() . '-link-wrapper';
 
 		/**
@@ -188,7 +186,7 @@ class Event_Categories extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function register_controls() {
+	protected function register_controls(): void {
 		// Content tab.
 		$this->content_panel();
 		// Style tab.
@@ -200,7 +198,7 @@ class Event_Categories extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_panel() {
+	protected function content_panel(): void {
 		$this->content_options();
 	}
 
@@ -209,9 +207,9 @@ class Event_Categories extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function style_panel() {
-		$this->heading_styling();
-		$this->categories_styling();
+	protected function style_panel(): void {
+		$this->header_styling();
+		$this->content_styling();
 	}
 
 	/**
@@ -219,74 +217,29 @@ class Event_Categories extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_options() {
+	protected function content_options(): void {
 		$this->start_controls_section(
-			'section_title',
+			'header_content_section',
 			[
-				'label' => esc_html__( 'Event Categories', 'the-events-calendar' ),
+				'label' => esc_html__( 'Header ', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_responsive_control(
-			'align',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
-						'title' => esc_html__( 'Left', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-left',
-					],
-					'center'  => [
-						'title' => esc_html__( 'Center', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-center',
-					],
-					'right'   => [
-						'title' => esc_html__( 'Right', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
-				],
-				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
-				],
+				'id'    => 'show_categories_header',
+				'label' => esc_html__( 'Show Header', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_control(
-			'show_categories_heading',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'Show Heading', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'categories_heading_tag',
-			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
+				'id'        => 'header_tag',
+				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
 				'condition' => [
-					'show_categories_heading' => 'yes',
+					'show_header' => 'yes',
 				],
 			]
 		);
@@ -295,87 +248,35 @@ class Event_Categories extends Abstract_Widget {
 	}
 
 	/**
-	 * Add controls for text styling of the section heading.
+	 * Add controls for text styling of the section header.
 	 *
 	 * @since TBD
 	 */
-	protected function heading_styling() {
+	protected function header_styling(): void {
 		$this->start_controls_section(
-			'heading_section_title',
+			'header_style_section',
 			[
-				'label'     => esc_html__( 'Section Heading', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Header Styles', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_categories_heading' => 'yes',
+					'show_header' => 'yes',
 				],
 			]
 		);
 
-		$this->add_control(
-			'heading_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_label_class() => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'header',
+				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'heading_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_label_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'heading_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_wrapper_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'heading_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_label_class(),
-			]
-		);
-
-		$this->add_control(
-			'heading_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_label_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'header_align',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() ],
 			]
 		);
 
@@ -387,80 +288,28 @@ class Event_Categories extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function categories_styling() {
+	protected function content_styling(): void {
 		$this->start_controls_section(
-			'categories_section_title',
+			'content_style_section',
 			[
-				'label' => esc_html__( 'Event Categories', 'the-events-calendar' ),
+				'label' => esc_html__( 'Content Styles', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_wrapper_class() . ',{{WRAPPER}} .' . $this->get_wrapper_class() . ' a' => 'color: {{VALUE}}; border-bottom-color: {{VALUE}};',
-				],
+				'prefix'   => 'content',
+				'selector' => '{{WRAPPER}} .' . $this->get_wrapper_class() . ' a',
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_wrapper_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_wrapper_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_wrapper_class(),
-			]
-		);
-
-		$this->add_control(
-			'blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_wrapper_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'content_align',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_wrapper_class() ],
 			]
 		);
 

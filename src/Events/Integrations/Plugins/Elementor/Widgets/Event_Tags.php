@@ -10,11 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
-use Elementor\Group_Control_Text_Shadow;
-use Elementor\Group_Control_Text_Stroke;
-use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -25,6 +20,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Event_Tags extends Abstract_Widget {
+	use Traits\With_Shared_Controls;
 
 	/**
 	 * Widget slug.
@@ -56,16 +52,81 @@ class Event_Tags extends Abstract_Widget {
 	}
 
 	/**
+	 * Get the template args for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args.
+	 */
+	protected function template_args(): array {
+		$event_id   = $this->get_event_id();
+		$event_tags = get_the_tags( $event_id );
+		$settings   = $this->get_settings_for_display();
+		$tags       = [];
+
+		if ( ! $event_tags || is_wp_error( $event_tags ) ) {
+			return [];
+		}
+
+		foreach ( $event_tags as $tag ) {
+			$tags[ $tag->name ] = get_tag_link( $tag->term_id );
+		}
+
+		return [
+			'show_tags_header' => $settings['show_tags_header'] ?? 'yes',
+			'header_tag'       => $settings['header_tag'] ?? 'h3',
+			'tags'             => $tags,
+			'label_text'       => $this->get_header_text(),
+			'event_id'         => $event_id,
+			'settings'         => $settings,
+		];
+	}
+
+	/**
+	 * Allows filtering of the tag separator prior to output.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $echo Whether to echo the separator or just return it, unescaped.
+	 *
+	 * @return mixed The separator as a string, no return when $echo set to true.
+	 */
+	public function print_tags_separator( $echo = true ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
+		/**
+		 * Filters the separator for the event tags widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param string      $separator The separator.
+		 * @param Event_Tags $this The event tags widget instance.
+		 *
+		 * @return string The filtered separator.
+		 */
+		$separator = (string) apply_filters( 'tec_events_pro_elementor_event_tags_separator', ',', $this );
+
+		if ( empty( $separator ) ) {
+			$separator = ',';
+		}
+
+		if ( $echo ) {
+			echo esc_html( $separator );
+			return;
+		}
+
+		return $separator;
+	}
+
+	/**
 	 * Get the label for the event tags widget.
 	 *
 	 * @since TBD
 	 *
 	 * @return string The label for the event tags widget.
 	 */
-	protected function get_label_text(): string {
+	protected function get_header_text(): string {
 		$label_text = sprintf(
 			// Translators: %s is the singular lowercase label for an event, e.g., "event".
-			__( 'This %s has tags.', 'the-events-calendar' ),
+			__( 'Tags:', 'the-events-calendar' ),
 			tribe_get_event_label_singular_lowercase()
 		);
 
@@ -79,59 +140,28 @@ class Event_Tags extends Abstract_Widget {
 		 *
 		 * @return string The filtered label text.
 		 */
-		return apply_filters( 'tec_events_elementor_event_tags_widget_label_text', $label_text, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_tags_widget_header_text', $label_text, $this );
 	}
 
 	/**
-	 * Get the template args for the widget.
+	 * Get the class for the event tag header.
 	 *
 	 * @since TBD
 	 *
-	 * @return array The template args.
+	 * @return string The header class.
 	 */
-	protected function template_args(): array {
-		$settings   = $this->get_settings_for_display();
-		$event_id   = $this->get_event_id();
-		$event_tags = get_the_tags( $event_id );
-		$tags       = [];
-
-		if ( ! $event_tags || is_wp_error( $event_tags ) ) {
-			return [];
-		}
-
-		foreach ( $event_tags as $tag ) {
-			$tags[ $tag->name ] = get_tag_link( $tag->term_id );
-		}
-
-		return [
-			'show_heading' => $settings['show_heading'] ?? 'yes',
-			'heading_tag'  => $settings['heading_tag'] ?? 'h3',
-			'tags'         => $tags,
-			'label_text'   => $this->get_label_text(),
-			'event_id'     => $event_id,
-			'settings'     => $settings,
-		];
-	}
-
-	/**
-	 * Get the class for the event tag label.
-	 *
-	 * @since TBD
-	 *
-	 * @return string The label class.
-	 */
-	public function get_label_class(): string {
-		$class = $this->get_widget_class() . '-label';
+	public function get_header_class(): string {
+		$class = $this->get_widget_class() . '-header';
 
 		/**
-		 * Filters the base class for the event tags label section header.
+		 * Filters the base class for the event tags header section header.
 		 *
 		 * @since TBD
 		 *
-		 * @param string $class The label base class.
+		 * @param string $class The header base class.
 		 * @param Event_tags $this The event tags widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_tags_label_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_tags_header_class', $class, $this );
 	}
 
 	/**
@@ -152,7 +182,7 @@ class Event_Tags extends Abstract_Widget {
 		 * @param string $class The links base class.
 		 * @param Event_tags $this The event tags widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_tags_links_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_tags_links_class', $class, $this );
 	}
 
 	/**
@@ -173,7 +203,7 @@ class Event_Tags extends Abstract_Widget {
 		 * @param string $class The link base class.
 		 * @param Event_tags $this The event tags widget instance.
 		 */
-		return apply_filters( 'tec_events_elementor_event_tags_link_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_tags_link_class', $class, $this );
 	}
 
 	/**
@@ -181,7 +211,7 @@ class Event_Tags extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function register_controls() {
+	protected function register_controls(): void {
 		// Content tab.
 		$this->content_panel();
 		// Style tab.
@@ -193,7 +223,7 @@ class Event_Tags extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_panel() {
+	protected function content_panel(): void {
 		$this->content_options();
 	}
 
@@ -202,8 +232,8 @@ class Event_Tags extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function style_panel() {
-		$this->heading_styling();
+	protected function style_panel(): void {
+		$this->header_styling();
 		$this->tags_styling();
 	}
 
@@ -212,74 +242,29 @@ class Event_Tags extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function content_options() {
+	protected function content_options(): void {
 		$this->start_controls_section(
-			'section_title',
+			'content_section',
 			[
 				'label' => $this->get_title(),
 			]
 		);
 
-		$this->add_responsive_control(
-			'align',
+		$this->add_shared_control(
+			'show',
 			[
-				'label'     => esc_html__( 'Alignment', 'the-events-calendar' ),
-				'type'      => Controls_Manager::CHOOSE,
-				'options'   => [
-					'left'    => [
-						'title' => esc_html__( 'Left', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-left',
-					],
-					'center'  => [
-						'title' => esc_html__( 'Center', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-center',
-					],
-					'right'   => [
-						'title' => esc_html__( 'Right', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-right',
-					],
-					'justify' => [
-						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
-						'icon'  => 'eicon-text-align-justify',
-					],
-				],
-				'default'   => '',
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_widget_class() => 'text-align: {{VALUE}};',
-				],
+				'id'    => 'show_tags_header',
+				'label' => esc_html__( 'Show Header', 'the-events-calendar' ),
 			]
 		);
 
-		$this->add_control(
-			'show_heading',
+		$this->add_shared_control(
+			'tag',
 			[
-				'label'     => esc_html__( 'Show Heading', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Show', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'Hide', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'heading_tag',
-			[
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					'h1'   => 'H1',
-					'h2'   => 'H2',
-					'h3'   => 'H3',
-					'h4'   => 'H4',
-					'h5'   => 'H5',
-					'h6'   => 'H6',
-					'div'  => 'div',
-					'span' => 'span',
-					'p'    => 'p',
-				],
-				'default'   => 'h3',
+				'id'        => 'header_tag',
+				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
 				'condition' => [
-					'show_heading' => 'yes',
+					'show_tags_header' => 'yes',
 				],
 			]
 		);
@@ -288,87 +273,35 @@ class Event_Tags extends Abstract_Widget {
 	}
 
 	/**
-	 * Add controls for text styling of the section heading.
+	 * Add controls for text styling of the section header.
 	 *
 	 * @since TBD
 	 */
-	protected function heading_styling() {
+	protected function header_styling(): void {
 		$this->start_controls_section(
-			'heading_styling_title',
+			'header_styling_section',
 			[
-				'label'     => esc_html__( 'Section Heading', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Heading Styles', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_heading' => 'yes',
+					'show_tags_header' => 'yes',
 				],
 			]
 		);
 
-		$this->add_control(
-			'heading_color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_PRIMARY,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_label_class() => 'color: {{VALUE}};',
-				],
+				'prefix'   => 'header',
+				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'heading_typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
-				'selector' => '{{WRAPPER}} .' . $this->get_label_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
-			[
-				'name'     => 'heading_text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_label_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'heading_text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_label_class(),
-			]
-		);
-
-		$this->add_control(
-			'heading_blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_label_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'header_align',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_header_class() ],
 			]
 		);
 
@@ -380,80 +313,28 @@ class Event_Tags extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 */
-	protected function tags_styling() {
+	protected function tags_styling(): void {
 		$this->start_controls_section(
-			'tags_styling_title',
+			'tags_styling_section',
 			[
 				'label' => esc_html__( 'Event Tags', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'color',
+		$this->add_shared_control(
+			'typography',
 			[
-				'label'     => esc_html__( 'Text Color', 'the-events-calendar' ),
-				'type'      => Controls_Manager::COLOR,
-				'global'    => [
-					'default' => Global_Colors::COLOR_TEXT,
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_link_class() => 'color: {{VALUE}}; border-bottom-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'typography',
-				'global'   => [
-					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
-				],
+				'prefix'   => 'tags',
 				'selector' => '{{WRAPPER}} .' . $this->get_link_class(),
 			]
 		);
 
-		$this->add_group_control(
-			Group_Control_Text_Stroke::get_type(),
+		$this->add_shared_control(
+			'alignment',
 			[
-				'name'     => 'text_stroke',
-				'selector' => '{{WRAPPER}} .' . $this->get_link_class(),
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Text_Shadow::get_type(),
-			[
-				'name'     => 'text_shadow',
-				'selector' => '{{WRAPPER}} .' . $this->get_link_class(),
-			]
-		);
-
-		$this->add_control(
-			'blend_mode',
-			[
-				'label'     => esc_html__( 'Blend Mode', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SELECT,
-				'options'   => [
-					''            => esc_html__( 'Normal', 'the-events-calendar' ),
-					'multiply'    => esc_html__( 'Multiply', 'the-events-calendar' ),
-					'screen'      => esc_html__( 'Screen', 'the-events-calendar' ),
-					'overlay'     => esc_html__( 'Overlay', 'the-events-calendar' ),
-					'darken'      => esc_html__( 'Darken', 'the-events-calendar' ),
-					'lighten'     => esc_html__( 'Lighten', 'the-events-calendar' ),
-					'color-dodge' => esc_html__( 'Color Dodge', 'the-events-calendar' ),
-					'saturation'  => esc_html__( 'Saturation', 'the-events-calendar' ),
-					'color'       => esc_html__( 'Color', 'the-events-calendar' ),
-					'difference'  => esc_html__( 'Difference', 'the-events-calendar' ),
-					'exclusion'   => esc_html__( 'Exclusion', 'the-events-calendar' ),
-					'hue'         => esc_html__( 'Hue', 'the-events-calendar' ),
-					'luminosity'  => esc_html__( 'Luminosity', 'the-events-calendar' ),
-				],
-				'selectors' => [
-					'{{WRAPPER}} .' . $this->get_link_class() => 'mix-blend-mode: {{VALUE}}',
-				],
-				'separator' => 'none',
+				'id'        => 'tag_align',
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_links_class() ],
 			]
 		);
 
