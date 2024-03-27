@@ -205,7 +205,7 @@ class Controller extends Controller_Contract {
 	 * @return string
 	 */
 	public function get_blank_file(): string {
-		$plugin_path = trailingslashit( Tribe__Events__Pro__Main::instance()->pluginPath );
+		$plugin_path = trailingslashit( tribe( 'tec.main' )->pluginPath );
 
 		return "{$plugin_path}src/views/integrations/elementor/templates/blank.php";
 	}
