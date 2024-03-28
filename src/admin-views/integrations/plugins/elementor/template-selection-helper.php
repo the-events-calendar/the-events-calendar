@@ -9,6 +9,7 @@
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */
+
 ?>
 <style>
 	.tec-events-elementor-template-selection-helper {

@@ -114,7 +114,7 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		if (  Plugin::instance()->editor->is_edit_mode() ) {
+		if ( Plugin::instance()->editor->is_edit_mode() ) {
 			return;
 		}
 
