@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
+use Elementor\Plugin;
 use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integration;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use Elementor\Core\Documents_Manager;
@@ -100,9 +101,9 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function include_template_selection_helper(): void {
-		$action = tribe_get_request_var( 'action' );
+		$preview = tribe_get_request_var( 'elementor-preview' );
 
-		if ( 'elementor' !== $action ) {
+		if ( empty( $preview ) ) {
 			return;
 		}
 
@@ -110,6 +111,10 @@ class Controller extends Controller_Contract {
 
 		// Only include the helper if we are looking at a single event.
 		if ( ! tribe_is_event( $post ) ) {
+			return;
+		}
+
+		if (  Plugin::instance()->editor->is_edit_mode() ) {
 			return;
 		}
 

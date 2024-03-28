@@ -27,8 +27,8 @@
 		let injected = false;
 
 		const helperContainer = document.createElement( 'div' );
-        const text = document.createTextNode( '<?php esc_html_e( '%%PLACEHOLDER TEXT: HELP TEC USERS%%', 'the-events-calendar' ); ?>' );
-        helperContainer.appendChild( text );
+		const text = document.createTextNode( '<?php esc_html_e( '%%PLACEHOLDER TEXT: HELP TEC USERS%%', 'the-events-calendar' ); ?>' );
+		helperContainer.appendChild( text );
 		helperContainer.classList.add( 'tec-events-elementor-template-selection-helper' );
 
 		const mutationObserverCallback = ( mutationsList, observer ) => {
