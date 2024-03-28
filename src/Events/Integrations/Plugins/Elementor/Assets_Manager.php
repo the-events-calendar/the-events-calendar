@@ -101,6 +101,11 @@ class Assets_Manager extends Controller {
 	 * @since TBD
 	 */
 	public function register_widget_assets() {
+		if ( defined( 'DOING_AJAX' ) &&  DOING_AJAX ) {
+			return;
+		}
+
+		// Register the base widget styles first.
 		tribe_asset(
 			tribe( 'tec.main' ),
 			'tec-events-elementor-widgets-base-styles',
@@ -191,6 +196,8 @@ class Assets_Manager extends Controller {
 				'groups' => [ static::$icon_group_key ],
 			]
 		);
+
+		do_action( 'tec_events_elementor_register_editor_styles', $this );
 	}
 
 	/**

@@ -245,7 +245,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return string
 	 */
 	protected function trim_slug(): string {
-		return str_replace( 'event_', '', static::get_slug() );
+		return str_replace( [ 'event_', '_' ], [ '', '-' ], static::get_slug() );
 	}
 
 	/**
@@ -531,6 +531,19 @@ abstract class Abstract_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Get the asset source for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_asset_source() {
+		$source = 'tec.main';
+
+		return apply_filters( 'tec_events_elementor_widget_asset_source', $source, $this );
+	}
+
+	/**
 	 * Register the styles for the widget.
 	 *
 	 * @since TBD
@@ -540,12 +553,17 @@ abstract class Abstract_Widget extends Widget_Base {
 			return;
 		}
 
-		$slug = str_replace( '_', '-', $this::get_slug() );
+		if ( defined( 'DOING_AJAX' ) &&  DOING_AJAX ) {
+			return;
+		}
+
+		$slug = $this->trim_slug();
+		$source = $this->get_asset_source();
 
 		// Register the styles for the widget.
 		tribe_asset(
-			tribe( 'tec.main' ),
-			static::$asset_prefix . str_replace( '_', '-', $this::get_slug() ) . '-styles',
+			tribe( $source ),
+			static::$asset_prefix . $slug . '-styles',
 			'integrations/plugins/elementor/widgets/' . $slug . '.css',
 			[],
 			null,
@@ -563,7 +581,7 @@ abstract class Abstract_Widget extends Widget_Base {
 			return;
 		}
 
-		$slug = str_replace( '_', '-', $this::get_slug() );
+		$slug = $this->trim_slug();
 
 		tribe_asset_enqueue( static::$asset_prefix . $slug . '-styles' );
 	}
