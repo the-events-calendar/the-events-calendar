@@ -51,10 +51,10 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool Whether or not integrations should load.
+	 * @return bool Whether integrations should load.
 	 */
 	public function load_conditionals(): bool {
-		return ! empty( ELEMENTOR_PATH );
+		return defined( 'ELEMENTOR_PATH' ) && ! empty( ELEMENTOR_PATH );
 	}
 
 	/**
