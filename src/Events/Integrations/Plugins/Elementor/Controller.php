@@ -238,7 +238,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Gets the template instance used to setup the rendering html.
 	 *
-	 * @since 1.0.0
+	 * @since TBD
 	 *
 	 * @return Template
 	 */

@@ -65,39 +65,4 @@ class Content {
 
 		return $document->is_built_with_elementor();
 	}
-
-	/**
-	 * Saves the existing Post Content as Post Content Filtered.
-	 *
-	 * @since TBD
-	 *
-	 * @param int|array|WP_Post|string $post         Which post to save the content for.
-	 * @param bool                     $force_update Whether to force the update or not. Default: false.
-	 *
-	 * @return int|WP_Error
-	 */
-	public function save_post_content_as_filtered_content( $post, $force_update = false ) {
-		if ( is_numeric( $post ) || is_array( $post ) ) {
-			$post = get_post( $post );
-		}
-
-		if ( ! $post instanceof WP_Post ) {
-			return new WP_Error( 'tec-events-integration-elementor-post-content-invalid-post' );
-		}
-
-		if ( $post->post_type !== TEC::POSTTYPE ) {
-			return new WP_Error( 'tec-events-integration-elementor-post-content-invalid-post-type' );
-		}
-
-		if ( ! $force_update && ! empty( $post->post_content_filtered ) ) {
-			return new WP_Error( 'tec-events-integration-elementor-post-content-filtered-exists' );
-		}
-
-		return wp_update_post(
-			[
-				'ID'                    => $post->ID,
-				'post_content_filtered' => $post->post_content,
-			]
-		);
-	}
 }
