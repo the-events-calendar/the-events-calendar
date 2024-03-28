@@ -70,6 +70,13 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_filters(): void {
 		add_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
+		add_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
+
+		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
+		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
+		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
+
+
 		add_filter( 'get_post_metadata', [ $this, 'bind_meta_courier' ], 25, 3 );
 		add_filter( 'elementor/document/config', [ $this, 'bind_content_handler' ], 25, 2 );
 	}
@@ -81,8 +88,68 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_filters(): void {
 		remove_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
+		remove_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
+
+		remove_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
+		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
+		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
+
 		remove_filter( 'get_post_metadata', [ $this, 'bind_meta_courier' ], 25 );
 		remove_filter( 'elementor/document/config', [ $this, 'bind_content_handler' ], 25 );
+	}
+
+
+	/**
+	 * Force the correct template object for Elementor theme.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $value The value of the option.
+	 *
+	 * @return string $value The original value, or an empty string if FSE is active.
+	 */
+	public function filter_events_template_setting_option( $value ): string {
+		return '';
+	}
+
+	/**
+	 * Override the get_single_option to return the default event template when Elementor is active.
+	 *
+	 * @since 5.14.2
+	 *
+	 * @param mixed  $option      Results of option query.
+	 * @param string $default     The default value.
+	 * @param string $option_name Name of the option.
+	 *
+	 * @return mixed results of option query.
+	 */
+	public function filter_tribe_get_single_option( $option, $default, $option_name ) {
+		if ( 'tribeEventsTemplate' !== $option_name ) {
+			return $option;
+		}
+
+		return '';
+	}
+
+	/**
+	 * Overwrite the template option on save if Elementor is active.
+	 * We only support the default events template for now.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, mixed> $options   The array of values to save. In the format option key => value.
+	 * @param string               $option_id The main option ID.
+	 *
+	 * @return array<string, mixed> $options   The array of values to save. In the format option key => value.
+	 */
+	public function filter_tribe_save_template_option( $options, $option_id ): array {
+		if ( ! is_array( $options ) ) {
+			$options = [];
+		}
+
+		$options['tribeEventsTemplate'] = '';
+
+		return $options;
 	}
 
 	/**
