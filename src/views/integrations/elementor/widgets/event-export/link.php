@@ -9,17 +9,15 @@
  *
  * @var array        $link     The link and label. In the format:
  *                             [
- *                             'label' => string,
- *                             'link'  => string,
- *                             'class' => array,
+ *                                 'label' => string,
+ *                                 'link'  => string,
+ *                                 'class' => array,
  *                             ]
- * @var array        $settings The widget settings.
- * @var bool         $show     Whether to show the widget.
  * @var int          $event_id The event ID.
  * @var Event_Export $widget   The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Export;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Export;
 
 // No url, no render.
 if ( empty( $link ) ) {

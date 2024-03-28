@@ -3,7 +3,7 @@
  * View: Elementor Event Datetime widget.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events-pro/integrations/elementor/widgets/event-datetime.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime.php
  *
  * @since TBD
  *
@@ -24,20 +24,17 @@
  * @var Event_Datetime  $this-            The widget instance.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Event_Datetime;
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Template_Engine;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Datetime;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
-if ( ! $this->has_event() || ! $show ) {
+if ( ! $this->get_widget()->should_show_mock_data() && ! $this->has_event() ) {
 	return;
 }
 
 $widget = $this->get_widget();
 ?>
 <?php
-$this->template(
-	'views/integrations/elementor/widgets/event-datetime/header',
-	[ 'show' => $show_header ]
-);
+$this->template( 'views/integrations/elementor/widgets/event-datetime/header' );
 ?>
 <<?php echo tag_escape( $html_tag ); ?> <?php tribe_classes( $widget->get_widget_class() ); ?>>
 <?php if ( $show_date && $start_date ) : ?>

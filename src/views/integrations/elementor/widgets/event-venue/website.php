@@ -16,33 +16,14 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
-if ( empty( $show ) ) {
+if ( empty( $show_website ) ) {
 	return;
 }
 ?>
 <div <?php tribe_classes( $widget->get_website_base_class() ); ?> >
 	<?php
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/website/header',
-		[
-			'show'        => $show_website_header,
-			'header_tag'  => $header_tag,
-			'header_text' => $header_text,
-			'venue_id'    => $venue_id,
-			'settings'    => $settings,
-			'event_id'    => $event_id,
-			'widget'      => $widget,
-		]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-venue/website/header' );
 
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/website/website',
-		[
-			'venue_id' => $venue_id,
-			'settings' => $settings,
-			'event_id' => $event_id,
-			'widget'   => $widget,
-		]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-venue/website/website' );
 	?>
 </div>

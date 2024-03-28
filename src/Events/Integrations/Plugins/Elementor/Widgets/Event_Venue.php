@@ -23,6 +23,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  */
 class Event_Venue extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -61,9 +62,7 @@ class Event_Venue extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	protected function template_args(): array {
-		$event_id  = $this->get_event_id();
-		$venue_ids = tec_get_venue_ids( $event_id );
-		$settings  = $this->get_settings_for_display();
+		$settings = $this->get_settings_for_display();
 
 		if ( isset( $settings['venue_website_link_target'] ) ) {
 			$this->set_template_filter(
@@ -101,11 +100,95 @@ class Event_Venue extends Abstract_Widget {
 			'address_header_text'   => $this->get_address_header_text(),
 			'phone_header_text'     => $this->get_phone_header_text(),
 			'website_header_text'   => $this->get_website_header_text(),
-			// Misc.
-			'event_id'              => $event_id,
-			'settings'              => $settings,
-			'venue_ids'             => $venue_ids,
+			// Venue data.
+			'venues'                => $this->get_venue_data(),
 		];
+	}
+
+	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		$args = $this->template_args();
+
+		ob_start();
+		?>
+		<address class="tec-events-elementor-event-widget__venue-address-address">
+			<span class="tribe-address">
+				<span class="tribe-street-address">1005 S Michigan Ave</span>
+				<br>
+				<span class="tribe-locality">Chicago</span><span class="tribe-delimiter">,</span>
+				<abbr class="tribe-region tribe-events-abbr" title="">Illinois</abbr>
+				<span class="tribe-country-name">United States</span>
+			</span>
+		</address>
+		<?php
+		$preview_address = ob_get_clean();
+		$phone           = '123-456-7890';
+
+		$args['venues'] = [
+			1 => [
+				'id'         => 1,
+				'name'       => _x( 'Mock Venue', 'A mock venue name for the widget preview', 'the-events-calendar' ),
+				'name_link'  => 'https://theeventscalendar.com',
+				'address'    => $preview_address,
+				'phone'      => $phone,
+				'phone_link' => $this->format_phone_link( $phone ),
+				'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Venue Website</a>',
+				'map_link'   => '<a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States" title="Click to view a Google Map" target="_blank" rel="noreferrer noopener">+ Google Map</a>',
+				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue" aria-label="Venue location map" width="100%" height="200px" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
+					</iframe>',
+			],
+		];
+
+		return $args;
+	}
+
+	/**
+	 * Get the venue data for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The venue data.
+	 */
+	protected function get_venue_data(): array {
+		$venues    = [];
+		$settings  = $this->get_settings_for_display();
+		$event_id  = $this->get_event_id();
+		$venue_ids = tec_get_venue_ids( $event_id );
+
+		foreach ( $venue_ids as $venue_id ) {
+			$phone               = tribe_get_phone( $venue_id );
+			$venues[ $venue_id ] = [
+				'id'         => $venue_id,
+				'name'       => tribe_get_venue( $venue_id ),
+				'name_link'  => tribe_is_truthy( $settings['link_venue_name'] ?? true ) ? tribe_get_venue_link( $venue_id, false ) : false,
+				'address'    => tribe_get_full_address( $venue_id ),
+				'phone'      => $phone,
+				'phone_link' => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
+				'map_link'   => tribe_get_map_link_html( $venue_id ),
+				'website'    => tribe_get_venue_website_link( $venue_id ),
+				'map'        => tribe_get_embedded_map( $venue_id, '100%', '200px' ),
+			];
+		}
+
+		return $venues;
+	}
+
+	/**
+	 * Format a phone number for use in a tel link.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool|string $phone The phone number to format.
+	 */
+	protected function format_phone_link( $phone ): bool|string {
+		// For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension.
+		return 'tel:' . str_ireplace( [ 'ext', 'x', ' ' ], [ 'p', 'p', '' ], $phone );
 	}
 
 	/**

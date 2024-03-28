@@ -15,11 +15,6 @@
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Image;
 
 if ( ! $image ) {
-
-	if ( $this->is_preview_mode() || $this->is_edit_mode() ) {
-		return;
-	}
-
 	return;
 }
 ?>

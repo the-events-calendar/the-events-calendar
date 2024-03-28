@@ -38,28 +38,25 @@
  * Misc.
  * @var int         $event_id              The event ID.
  * @var array       $settings              The widget settings.
- * @var array       $venue_ids             The venue IDs.
+ * @var array       $venues                The venue data arrays.
  * @var Event_Venue $widget                The widget instance.
  */
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Venue;
 
-// No title, no render.
-if ( empty( $venue_ids ) ) {
+// No venues, no render.
+if ( empty( $venues ) ) {
 	return;
 }
 ?>
 <div <?php tribe_classes( $widget->get_element_classes() ); ?>>
 	<?php
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/header',
-		[ 'show' => $show_widget_header ]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-venue/header' );
 	?>
 	<div <?php tribe_classes( $widget->get_container_classes() ); ?>>
-		<?php foreach ( $venue_ids as $venue_id ) : ?>
+		<?php foreach ( $venues as $venue ) : ?>
 			<?php
-			$this->template( 'views/integrations/elementor/widgets/event-venue/single-venue' );
+			$this->template( 'views/integrations/elementor/widgets/event-venue/single-venue', [ 'venue' => $venue ] );
 			?>
 		<?php endforeach; ?>
 	</div>

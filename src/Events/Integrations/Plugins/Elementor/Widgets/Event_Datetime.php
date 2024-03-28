@@ -21,6 +21,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  */
 class Event_Datetime extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -49,7 +50,7 @@ class Event_Datetime extends Abstract_Widget {
 	 *
 	 * @return array The template args.
 	 */
-	public function get_template_args(): array {
+	public function template_args(): array {
 		$event_id = $this->get_event_id();
 		$event    = tribe_get_event( $event_id );
 
@@ -84,6 +85,41 @@ class Event_Datetime extends Abstract_Widget {
 			'is_all_day'        => tribe_event_is_all_day( $event_id ),
 			'is_same_start_end' => $start_date === $end_date && $start_time === $end_time,
 			'event_id'          => $event_id,
+		];
+	}
+
+	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		$date_format = tribe_get_date_format();
+		$time_format = tribe_get_time_format();
+
+		$start = new \DateTime();
+		$start->modify( '+1 day' );
+		$start->setTime( 8, 0 );
+
+		$end = new \DateTime();
+		$end->modify( '+2 days' );
+		$end->setTime( 17, 0 );
+
+		return [
+			'html_tag'          => $this->get_html_tag(),
+			'show_header'       => false,
+			'show_date'         => true,
+			'show_time'         => true,
+			'show_year'         => true,
+			'start_date'        => $start->format( $date_format ) ?? '',
+			'end_date'          => $end->format( $date_format ) ?? '',
+			'start_time'        => $start->format( $time_format ) ?? '',
+			'end_time'          => $end->format( $time_format ) ?? '',
+			'is_same_day'       => false,
+			'is_all_day'        => false,
+			'is_same_start_end' => false,
 		];
 	}
 
@@ -234,50 +270,6 @@ class Event_Datetime extends Abstract_Widget {
 		$settings = $this->get_settings_for_display();
 
 		return $settings['html_tag'] ?? 'p';
-	}
-
-	/**
-	 * Get the template args for the widget.
-	 *
-	 * @since TBD
-	 *
-	 * @return array The template args.
-	 */
-	protected function template_args(): array {
-		$event_id = $this->get_event_id();
-		$event    = tribe_get_event( $event_id );
-
-		if ( empty( $event ) ) {
-			return [];
-		}
-		$settings = $this->get_settings_for_display();
-
-		// Date and time settings.
-		$show_year   = tribe_is_truthy( $settings['show_datetime_year'] );
-		$show_date   = tribe_is_truthy( $settings['show_datetime_date'] );
-		$show_time   = tribe_is_truthy( $settings['show_datetime_time'] );
-		$date_format = tribe_get_date_format( $show_year );
-		$time_format = tribe_get_time_format();
-
-		$start_date = $event->dates->start->format( $date_format ) ?? '';
-		$end_date   = $event->dates->end->format( $date_format ) ?? '';
-		$start_time = $event->dates->start->format( $time_format ) ?? '';
-		$end_time   = $event->dates->end->format( $time_format ) ?? '';
-
-		return [
-			'html_tag'          => $this->get_html_tag(),
-			'event_id'          => $event_id,
-			'show_date'         => $show_date,
-			'show_time'         => $show_time,
-			'show_year'         => $show_year,
-			'start_date'        => $start_date,
-			'end_date'          => $end_date,
-			'start_time'        => $start_time,
-			'end_time'          => $end_time,
-			'is_same_day'       => $start_date === $end_date,
-			'is_all_day'        => tribe_event_is_all_day( $event_id ),
-			'is_same_start_end' => $start_date === $end_date && $start_time === $end_time,
-		];
 	}
 
 	/**

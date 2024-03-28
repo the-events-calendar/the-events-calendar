@@ -26,14 +26,11 @@ if ( empty( $categories ) ) {
 
 <div <?php tribe_classes( $widget->get_element_classes() ); ?>>
 	<?php
-	$this->template(
-		'views/integrations/elementor/widgets/event-categories/header',
-		[ 'show' => $show_header ]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-categories/header' );
 	?>
 	<div <?php tribe_classes( $widget->get_wrapper_class() ); ?>>
 	<?php
-		echo wp_kses_post( $widget->do_categories() );
+		echo wp_kses_post( $categories );
 	?>
 	</div>
 </div>

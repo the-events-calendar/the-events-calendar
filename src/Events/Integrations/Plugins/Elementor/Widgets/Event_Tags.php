@@ -21,6 +21,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  */
 class Event_Tags extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -79,6 +80,25 @@ class Event_Tags extends Abstract_Widget {
 			'label_text'       => $this->get_header_text(),
 			'event_id'         => $event_id,
 			'settings'         => $settings,
+		];
+	}
+
+	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return [
+			'show_tags_header' => 'yes',
+			'header_tag'       => 'h3',
+			'tags'             => [
+				'demo-tag-1' => '#',
+				'demo-tag-2' => '#',
+			],
+			'label_text'       => $this->get_header_text(),
 		];
 	}
 
