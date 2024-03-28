@@ -14,4 +14,4 @@
  */
 
 ?>
-<p <?php tribe_classes( $widget->get_website_base_class() ); ?>><?php echo wp_kses_post( tribe_get_organizer_website_link( $organizer ) ); ?></p>
+<p <?php tribe_classes( $widget->get_website_base_class() ); ?>><?php echo wp_kses_post( $organizer['website'] ); ?></p>

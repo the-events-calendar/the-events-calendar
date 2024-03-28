@@ -14,17 +14,17 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
-if ( empty( $show ) ) {
+if ( empty( $show_map ) ) {
 	return;
 }
 
-if ( empty( $venue_id ) ) {
+if ( empty( $venue ) ) {
 	return;
 }
 ?>
 <div <?php tribe_classes( $widget->get_map_base_class() ); ?>>
 	<?php
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped -- cannot escape Google map HTML
-	echo tribe_get_embedded_map( $venue_id, '100%', '200px' );
+	echo $venue['map'];
 	?>
 </div>

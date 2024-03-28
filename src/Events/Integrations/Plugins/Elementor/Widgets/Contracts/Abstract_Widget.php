@@ -478,6 +478,17 @@ abstract class Abstract_Widget extends Widget_Base {
 	abstract protected function template_args(): array;
 
 	/**
+	 * Determine if the widget should show mock data.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_show_mock_data(): bool {
+		return false;
+	}
+
+	/**
 	 * Get the template arguments.
 	 *
 	 * This calls the template_args method on the widget and then filters the data.
@@ -490,25 +501,28 @@ abstract class Abstract_Widget extends Widget_Base {
 		$args = $this->template_args(); // Defined in each widget instance.
 		$slug = self::get_slug();
 
+
 		/**
 		 * Filters the template data for all Elementor widget templates.
 		 *
-		 * @param array<string,mixed> $data   The template data.
+		 * @param array<string,mixed> $args   The template data.
+		 * @param bool                $preview Whether the template is in preview mode.
 		 * @param object              $widget The widget object.
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( 'tec_events_elementor_widget_template_data', $args, $this );
+		$args = (array) apply_filters( 'tec_events_elementor_widget_template_data', $args, false, $this );
 
 		/**
 		 * Filters the template data for a specific (by $slug) Elementor widget templates.
 		 *
 		 * @param array<string,mixed> $args   The template data.
+		 * @param bool                $preview Whether the template is in preview mode.
 		 * @param object              $widget The widget object.
 		 *
 		 * @return array
 		 */
-		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, $this );
+		$args = (array) apply_filters( "tec_events_elementor_widget_{$slug}_template_data", $args, false, $this );
 
 		// Add the widget to the data array.
 		$args['widget'] = $this;

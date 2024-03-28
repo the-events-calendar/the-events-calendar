@@ -29,6 +29,15 @@ class Controller extends Integration_Abstract {
 	use Plugin_Integration;
 
 	/**
+	 * The template instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe_Template
+	 */
+	protected $template;
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @since TBD

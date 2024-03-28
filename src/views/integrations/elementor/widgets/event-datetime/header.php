@@ -7,13 +7,13 @@
  *
  * @since TBD
  *
- * @var bool   $show         Whether to show the header.
+ * @var bool   $show_header  Whether to show the header.
  * @var array  $settings     The widget settings.
  * @var int    $event_id     The event ID.
  * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Datetime $widget The widget instance.
  */
 
-if ( ! $show ) {
+if ( ! $show_header ) {
 	return;
 }
 

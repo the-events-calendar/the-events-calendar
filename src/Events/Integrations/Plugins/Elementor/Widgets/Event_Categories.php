@@ -22,6 +22,7 @@ use Tribe__Events__Main;
  */
 class Event_Categories extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -68,21 +69,26 @@ class Event_Categories extends Abstract_Widget {
 			'show_header' => tribe_is_truthy( $settings['show_categories_header'] ?? true ),
 			'header_tag'  => $settings['categories_header_tag'] ?? 'h3',
 			'header_text' => $this->get_header_text(),
-			'categories'  => get_the_terms( $event_id, $tec_main->get_event_taxonomy() ),
+			'categories'  => $this->do_categories(),
 			'settings'    => $settings,
 			'event_id'    => $event_id,
 		];
 	}
 
 	/**
-	 * Create the widget title.
+	 * Get the template args for the widget preview.
 	 *
 	 * @since TBD
 	 *
-	 * @return string
+	 * @return array The template args for the preview.
 	 */
-	public function get_header_text(): string {
-		return _x( 'Categories:', 'The label/header text for the event categories widget', 'the-events-calendar' );
+	protected function preview_args(): array {
+		return [
+			'show_header' => 'yes',
+			'header_tag'  => 'h3',
+			'header_text' => $this->get_header_text(),
+			'categories'  => $this->do_preview_categories(),
+		];
 	}
 
 	/**
@@ -133,6 +139,34 @@ class Event_Categories extends Abstract_Widget {
 		$html = apply_filters( 'tec_events_elementor_event_categories_widget_event_categories_html', $html, $event_id );
 
 		return $html;
+	}
+
+	/**
+	 * Renders the categories list for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The HTML for the categories list.
+	 */
+	protected function do_preview_categories() {
+		ob_start();
+		?>
+		<div class="tec-events-elementor-event-widget__categories-link-wrapper">
+			<a href="#" rel="tag">Demo Category</a>
+		</div>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Create the widget title.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_header_text(): string {
+		return _x( 'Categories:', 'The label/header text for the event categories widget', 'the-events-calendar' );
 	}
 
 	/**

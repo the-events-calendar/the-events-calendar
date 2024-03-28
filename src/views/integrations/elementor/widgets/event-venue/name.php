@@ -15,18 +15,16 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
-if ( empty( $show ) ) {
+if ( empty( $show_name ) ) {
 	return;
 }
-
-$url = $link ? tribe_get_venue_link( $venue_id, false ) : false;
 ?>
 <<?php echo tag_escape( $name_tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
-	<?php if ( $url ) : ?>
-		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( $url ); ?>">
+	<?php if ( $venue['name_link'] ) : ?>
+		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( $venue['name_link'] ); ?>">
 	<?php endif; ?>
-	<?php echo wp_kses_post( tribe_get_venue( $venue_id ) ); ?>
-	<?php if ( $url ) : ?>
+	<?php echo wp_kses_post( $venue['name'] ); ?>
+	<?php if ( $venue['name_link'] ) : ?>
 		</a>
 	<?php endif; ?>
 </<?php echo tag_escape( $name_tag ); ?>>

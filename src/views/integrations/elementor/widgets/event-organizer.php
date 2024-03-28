@@ -25,7 +25,7 @@
  * @var string          $phone_header_text   The text for the phone header.
  * @var string          $website_header_text The text for the website header.
  * @var string          $website_header_tag  The website header tag.
- * @var array           $organizer_ids       The organizer IDs.
+ * @var array           $organizers          The organizer data arrays.
  * @var int             $event_id            The event ID.
  * @var array           $settings            The widget settings.
  * @var Event_Organizer $widget              The widget instance.
@@ -34,7 +34,7 @@
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Organizer;
 
 // No organizers, no render.
-if ( empty( $organizer_ids ) ) {
+if ( empty( $organizers ) ) {
 	return;
 }
 ?>
@@ -42,7 +42,7 @@ if ( empty( $organizer_ids ) ) {
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-organizer/header' );
 
-	foreach ( $organizer_ids as $organizer ) {
+	foreach ( $organizers as $organizer ) {
 		$this->template(
 			'views/integrations/elementor/widgets/event-organizer/names',
 			[ 'organizer' => $organizer ]
