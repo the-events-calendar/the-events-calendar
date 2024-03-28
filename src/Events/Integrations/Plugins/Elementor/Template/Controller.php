@@ -9,10 +9,13 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
+use Elementor\Plugin;
 use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integration;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use Elementor\Core\Documents_Manager;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+
+use Tribe__Template as Template;
 
 /**
  * Class Controller
@@ -22,6 +25,15 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */
 class Controller extends Controller_Contract {
+
+	/**
+	 * Instance of the template class.
+	 *
+	 * @since TBD
+	 *
+	 * @var Template
+	 */
+	protected Template $template;
 
 	/**
 	 * Binds and sets up implementations.
@@ -70,15 +82,12 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_filters(): void {
 		add_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
+
 		add_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
 
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
-
-
-		add_filter( 'get_post_metadata', [ $this, 'bind_meta_courier' ], 25, 3 );
-		add_filter( 'elementor/document/config', [ $this, 'bind_content_handler' ], 25, 2 );
 	}
 
 	/**
@@ -88,14 +97,12 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_filters(): void {
 		remove_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
+
 		remove_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
 
 		remove_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
 		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
-
-		remove_filter( 'get_post_metadata', [ $this, 'bind_meta_courier' ], 25 );
-		remove_filter( 'elementor/document/config', [ $this, 'bind_content_handler' ], 25 );
 	}
 
 
@@ -151,68 +158,32 @@ class Controller extends Controller_Contract {
 
 		return $options;
 	}
-
 	/**
-	 * Handle the content of the Event for better compatibility.
-	 *
-	 * @param array $config The additional document configuration.
-	 * @param int   $id     The post ID of the document.
-	 */
-	public function bind_content_handler( $config, $id ): array {
-		tribe( Content::class )->save_post_content_as_filtered_content( $id );
-
-		return (array) $config;
-	}
-
-	/**
-	 * Binds the Meta Courier to copy data our Document type to the Post in question.
+	 * Include the template selection helper.
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed  $value  The value to return, either a single metadata value or an array
-	 *                       of values depending on the value of `$single`. Default null.
-	 * @param int    $id     ID of the object metadata is for.
-	 * @param string $key    Metadata key.
-	 *
-	 * @return mixed
+	 * @return void
 	 */
-	public function bind_meta_courier( $value, $id, $key ) {
-		// Prevents the clone of the Base template from happening all the time.
-		if ( ! empty( $value ) ) {
-			return $value;
+	public function include_template_selection_helper(): void {
+		$preview = tribe_get_request_var( 'elementor-preview' );
+
+		if ( empty( $preview ) ) {
+			return;
 		}
 
-		if ( ! is_string( $key ) ) {
-			return $key;
+		$post = tribe_get_request_var( 'post' );
+
+		// Only include the helper if we are looking at a single event.
+		if ( ! tribe_is_event( $post ) ) {
+			return;
 		}
 
-		$courier = Meta_Courier::to_post( $id );
-		if ( is_wp_error( $courier ) ) {
-			return $value;
+		if ( Plugin::instance()->editor->is_edit_mode() ) {
+			return;
 		}
 
-		remove_filter( 'get_post_metadata', [ $this, 'bind_meta_courier' ], 25 );
-		$carried = $courier->carry( $key );
-		add_filter( 'get_post_metadata', [ $this, 'bind_meta_courier' ], 25, 3 );
-
-		if ( is_wp_error( $carried ) ) {
-			return $value;
-		}
-
-		// We already had something stored.
-		if ( false === $carried ) {
-			return $value;
-		}
-
-		// Avoids the filter we already hooked bv using the MID.
-		$meta = get_metadata_by_mid( 'post', $carried );
-
-		// Cannot find the metadata.
-		if ( ! $meta ) {
-			return $value;
-		}
-
-		return $meta->meta_value;
+		$this->get_template()->template( 'template-selection-helper' );
 	}
 
 	/**
@@ -260,6 +231,9 @@ class Controller extends Controller_Contract {
 			return $file;
 		}
 
+		// Potentially inject the template selection helper.
+		add_action( 'tribe_events_before_view', [ $this, 'include_template_selection_helper' ] );
+
 		return $this->get_blank_file();
 	}
 
@@ -285,5 +259,23 @@ class Controller extends Controller_Contract {
 	 */
 	public function action_import_starter_template(): void {
 		$this->container->make( Importer::class )->import_starter_template();
+	}
+
+	/**
+	 * Gets the template instance used to setup the rendering html.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return Template
+	 */
+	public function get_template() {
+		if ( empty( $this->template ) ) {
+			$this->template = new Template();
+			$this->template->set_template_origin( tribe( 'tec.main' ) );
+			$this->template->set_template_folder( 'src/admin-views/integrations/plugins/elementor' );
+			$this->template->set_template_context_extract( true );
+		}
+
+		return $this->template;
 	}
 }
