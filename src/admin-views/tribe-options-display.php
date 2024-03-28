@@ -124,6 +124,15 @@ $tec_events_general_form_end = [
 
 $tec_events_display_fields += $tec_events_general_form_end;
 
+/**
+ * Filter to determine if the Events Templates should be displayed in the settings.
+ *
+ * @since TBD
+ *
+ * @param bool $should_display Whether the Events Templates should be displayed.
+ */
+$tec_events_should_display_events_templates = apply_filters( 'tec_events_should_display_events_template_setting', ! tec_is_full_site_editor() );
+
 // Insert Basic Template settings.
 $tec_events_display_template_settings = [
 	'tribe-events-calendar-display-template-title' => [
@@ -161,7 +170,7 @@ $tec_events_display_template_settings = [
 		'size'            => 'small',
 		'default'         => 'default',
 		'options'         => $template_options,
-		'conditional'     => ( ! tec_is_full_site_editor() ),
+		'conditional'     => $tec_events_should_display_events_templates,
 	],
 ];
 
