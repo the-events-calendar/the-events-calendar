@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2
-Stable tag: 6.3.5
+Stable tag: 6.4.0
 Tested up to: 6.4.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [TBD] TBD =
+
+* Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
+* Tweak - converted some uses of `date()` to `gmdate()` for display in the date settings section. [ECP-1618]
 
 = [6.3.5] 2024-03-20 =
 
