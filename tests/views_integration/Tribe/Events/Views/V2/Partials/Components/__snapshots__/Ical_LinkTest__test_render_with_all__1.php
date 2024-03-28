@@ -2,7 +2,7 @@
 	<div class="tribe-events-c-subscribe-dropdown">
 		<div class="tribe-common-c-btn-border tribe-events-c-subscribe-dropdown__button">
 			<button
-				class="tribe-events-c-subscribe-dropdown__button-text"
+				class="tribe-events-c-subscribe-dropdown__button-text tribe-common-c-btn--clear"
 				aria-expanded="false"
 				aria-controls="tribe-events-subscribe-dropdown-content"
 				aria-label=""

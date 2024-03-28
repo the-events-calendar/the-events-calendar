@@ -28,7 +28,7 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
 		aria-label="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
