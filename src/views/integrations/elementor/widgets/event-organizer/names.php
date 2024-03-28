@@ -26,9 +26,9 @@ if ( empty( $organizer ) ) {
 ?>
 <<?php echo tag_escape( $organizer_name_tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
 	<?php if ( $link_organizer_name ) : ?>
-		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( tribe_get_organizer_link( $organizer, false ) ); ?>">
+		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( $organizer['link'] ); ?>">
 	<?php endif; ?>
-		<?php echo esc_html( tribe_get_organizer( $organizer ) ); ?>
+		<?php echo esc_html( $organizer['name'] ); ?>
 	<?php if ( $link_organizer_name ) : ?>
 		</a>
 	<?php endif; ?>

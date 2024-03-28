@@ -35,83 +35,25 @@
  * Misc.
  * @var int    $event_id              The event ID.
  * @var array  $settings              The widget settings.
- * @var array  $venue_ids             The venue IDs.
+ * @var array  $venues             The venue IDs.
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
-if ( empty( $venue_ids ) ) {
+if ( empty( $venue ) ) {
 	return;
 }
 
-foreach ( $venue_ids as $venue_id ) : ?>
-	<div <?php tribe_classes( $widget->get_widget_class() . '-details' ); ?>>
-		<?php
-		$this->template(
-			'views/integrations/elementor/widgets/event-venue/name',
-			[
-				'show'     => $show_name,
-				'link'     => $link_name,
-				'venue_id' => $venue_id,
-				'settings' => $settings,
-				'event_id' => $event_id,
-				'widget'   => $widget,
-			]
-		);
-
-		$this->template(
-			'views/integrations/elementor/widgets/event-venue/address',
-			[
-				'show'          => $show_address,
-				'show_map_link' => $show_address_map_link,
-				'show_header'   => $show_address_header,
-				'header_tag'    => $address_header_tag,
-				'header_text'   => $address_header_text,
-				'venue_id'      => $venue_id,
-				'settings'      => $settings,
-				'event_id'      => $event_id,
-				'widget'        => $widget,
-			]
-		);
-
-		$this->template(
-			'views/integrations/elementor/widgets/event-venue/phone',
-			[
-				'show'        => $show_phone,
-				'show_header' => $show_phone_header,
-				'header_tag'  => $phone_header_tag,
-				'header_text' => $phone_header_text,
-				'venue_id'    => $venue_id,
-				'settings'    => $settings,
-				'event_id'    => $event_id,
-				'widget'      => $widget,
-			]
-		);
-
-		$this->template(
-			'views/integrations/elementor/widgets/event-venue/website',
-			[
-				'show'        => $show_website,
-				'show_header' => $show_website_header,
-				'header_tag'  => $website_header_tag,
-				'header_text' => $website_header_text,
-				'venue_id'    => $venue_id,
-				'settings'    => $settings,
-				'event_id'    => $event_id,
-				'widget'      => $widget,
-			]
-		);
-		?>
-	</div>
+?>
+<div <?php tribe_classes( $widget->get_widget_class() . '-details' ); ?>>
 	<?php
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/map',
-		[
-			'show'     => $show_map,
-			'venue_id' => $venue_id,
-			'settings' => $settings,
-			'event_id' => $event_id,
-			'widget'   => $widget,
-		]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-venue/name' );
 
-endforeach;
+	$this->template( 'views/integrations/elementor/widgets/event-venue/address' );
+
+	$this->template( 'views/integrations/elementor/widgets/event-venue/phone' );
+
+	$this->template( 'views/integrations/elementor/widgets/event-venue/website' );
+	?>
+</div>
+<?php
+$this->template( 'views/integrations/elementor/widgets/event-venue/map' );

@@ -7,19 +7,15 @@
  *
  * @since TBD
  *
- * @var string $venue_id The venue ID.
- * @var bool   $show     Whether to show the venue map link.
- * @var array  $settings The widget settings.
- * @var int    $event_id The event ID.
+ * @var string $venue_id               The venue ID.
+ * @var bool   $show_address_map_link  Whether to show the venue map link.
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
-if ( empty( $show ) || empty( $venue_id ) ) {
+if ( empty( $show_address_map_link ) || empty( $venue['map_link'] ) ) {
 	return;
 }
-
 ?>
-
 <p <?php tribe_classes( $widget->get_address_base_class() . '-map-link' ); ?>>
-	<?php echo wp_kses_post( tribe_get_map_link_html( $venue_id ) ); ?>
+	<?php echo wp_kses_post( $venue['map_link'] ); ?>
 </p>

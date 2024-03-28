@@ -25,6 +25,7 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
  */
 class Event_Export extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -75,52 +76,129 @@ class Event_Export extends Abstract_Widget {
 		}
 
 		if ( tribe_is_truthy( $settings['show_gcal_link'] ?? false ) ) {
-			$args['show']           = true;
-			$gcal_helper            = new Google_Calendar();
-			$args['show_gcal_link'] = true;
-			$args['gcal']['label']  = $gcal_helper->get_label();
-			$args['gcal']['link']   = \Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
-			$args['gcal']['class']  = [
-				$this->get_list_item_class(),
-				$this->get_gcal_class(),
-			];
+			$args = $this->add_gcal_data( $args );
 		}
 
 		if ( tribe_is_truthy( $settings['show_ical_link'] ?? false ) ) {
-			$args['show']           = true;
-			$ical_helper            = new iCal();
-			$args['show_ical_link'] = true;
-			$args['ical']['label']  = $ical_helper->get_label();
-			$args['ical']['link']   = tribe_get_single_ical_link();
-			$args['ical']['class']  = [
-				$this->get_list_item_class(),
-				$this->get_ical_class(),
-			];
+			$args = $this->add_ical_data( $args );
 		}
 
 		if ( tribe_is_truthy( $settings['show_outlook_365_link'] ?? false ) ) {
-			$args['show']                  = true;
-			$outlook_365_helper            = new Outlook_365();
-			$args['show_outlook_365_link'] = true;
-			$args['outlook_365']['label']  = $outlook_365_helper->get_label();
-			$args['outlook_365']['link']   = $outlook_365_helper->generate_outlook_full_url();
-			$args['outlook_365']['class']  = [
-				$this->get_list_item_class(),
-				$this->get_outlook_365_class(),
-			];
+			$args = $this->add_outlook_365_data( $args );
 		}
 
 		if ( tribe_is_truthy( $settings['show_outlook_live_link'] ?? false ) ) {
-			$args['show']                   = true;
-			$outlook_live_helper            = new Outlook_Live();
-			$args['show_outlook_live_link'] = true;
-			$args['outlook_live']['label']  = $outlook_live_helper->get_label();
-			$args['outlook_live']['link']   = $outlook_live_helper->generate_outlook_full_url();
-			$args['outlook_live']['class']  = [
-				$this->get_list_item_class(),
-				$this->get_outlook_live_class(),
-			];
+			$args = $this->add_outlook_live_data( $args );
 		}
+
+		return $args;
+	}
+
+	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args.
+	 */
+	protected function preview_args(): array {
+		$args = [
+			'event_id' => $this->get_event_id(),
+			'show'     => true,
+		];
+
+		$args                         = $this->add_ical_data( $args );
+		$args['ical']['link']         = '#';
+		$args                         = $this->add_gcal_data( $args );
+		$args['gcal']['link']         = '#';
+		$args                         = $this->add_outlook_365_data( $args );
+		$args['outlook_365']['link']  = '#';
+		$args                         = $this->add_outlook_live_data( $args );
+		$args['outlook_live']['link'] = '#';
+
+		return $args;
+	}
+
+	/**
+	 * Get the template data for the ical link.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The template data.
+	 */
+	protected function add_ical_data( $args ): array {
+		$args['show']           = true;
+		$ical_helper            = new iCal();
+		$args['show_ical_link'] = true;
+		$args['ical']['label']  = $ical_helper->get_label();
+		$args['ical']['link']   = tribe_get_single_ical_link();
+		$args['ical']['class']  = [
+			$this->get_list_item_class(),
+			$this->get_ical_class(),
+		];
+
+		return $args;
+	}
+
+	/**
+	 * Get the template data for the gcal link.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The template data.
+	 */
+	protected function add_gcal_data( $args ): array {
+		$args['show']           = true;
+		$gcal_helper            = new Google_Calendar();
+		$args['show_gcal_link'] = true;
+		$args['gcal']['label']  = $gcal_helper->get_label();
+		$args['gcal']['link']   = \Tribe__Events__Main::instance()->esc_gcal_url( tribe_get_gcal_link() );
+		$args['gcal']['class']  = [
+			$this->get_list_item_class(),
+			$this->get_gcal_class(),
+		];
+
+		return $args;
+	}
+
+	/**
+	 * Get the template data for the Outlook 365 link.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The template data.
+	 */
+	protected function add_outlook_365_data( $args ): array {
+		$args['show']                  = true;
+		$outlook_365_helper            = new Outlook_365();
+		$args['show_outlook_365_link'] = true;
+		$args['outlook_365']['label']  = $outlook_365_helper->get_label();
+		$args['outlook_365']['link']   = $outlook_365_helper->generate_outlook_full_url();
+		$args['outlook_365']['class']  = [
+			$this->get_list_item_class(),
+			$this->get_outlook_365_class(),
+		];
+
+		return $args;
+	}
+
+	/**
+	 * Get the template data for the Outlook Live link.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The template data.
+	 */
+	protected function add_outlook_live_data( $args ): array {
+		$args['show']                   = true;
+		$outlook_live_helper            = new Outlook_Live();
+		$args['show_outlook_live_link'] = true;
+		$args['outlook_live']['label']  = $outlook_live_helper->get_label();
+		$args['outlook_live']['link']   = $outlook_live_helper->generate_outlook_full_url();
+		$args['outlook_live']['class']  = [
+			$this->get_list_item_class(),
+			$this->get_outlook_live_class(),
+		];
 
 		return $args;
 	}

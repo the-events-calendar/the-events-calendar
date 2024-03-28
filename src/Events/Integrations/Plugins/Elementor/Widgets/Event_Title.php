@@ -21,6 +21,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  */
 class Event_Title extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -59,14 +60,27 @@ class Event_Title extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	protected function template_args(): array {
-		$header_tag = $this->get_event_title_header_tag();
-		$event_id   = $this->get_event_id();
-		$title      = $event_id ? get_the_title( $event_id ) : get_the_title();
+		$event_id = $this->get_event_id();
+		$title    = $event_id ? get_the_title( $event_id ) : get_the_title();
 
 		return [
 			'event_id'   => $event_id,
-			'header_tag' => $header_tag,
+			'header_tag' => $this->get_event_title_header_tag(),
 			'title'      => $title,
+		];
+	}
+
+	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return [
+			'header_tag' => $this->get_event_title_header_tag(),
+			'title'      => $this->title(),
 		];
 	}
 

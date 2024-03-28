@@ -7,7 +7,7 @@
  *
  * @since TBD
  *
- * @var bool   $show         Whether to show the header.
+ * @var bool   $show_header  Whether to show the header.
  * @var string $header_tag   The HTML tag to use for the header.
  * @var string $header_text  The header text.
  * @var array  $settings     The widget settings.
@@ -15,7 +15,7 @@
  * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Categories $widget The widget instance.
  */
 
-if ( ! $show ) {
+if ( ! $show_header ) {
 	return;
 }
 ?>

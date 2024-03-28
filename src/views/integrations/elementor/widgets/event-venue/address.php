@@ -18,46 +18,19 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
-if ( empty( $show ) ) {
+if ( empty( $show_address ) ) {
 	return;
 }
 ?>
 <div <?php tribe_classes( $widget->get_address_base_class() ); ?> >
 	<?php
-	// Display address header based on user settings.
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/address/header',
-		[
-			'show'        => $show_header,
-			'header_tag'  => $header_tag,
-			'header_text' => $header_text,
-			'venue_id'    => $venue_id,
-			'settings'    => $settings,
-			'event_id'    => $event_id,
-			'widget'      => $widget,
-		]
-	);
+	// Display address header.
+	$this->template( 'views/integrations/elementor/widgets/event-venue/address/header' );
 
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/address/address',
-		[
-			'venue_id' => $venue_id,
-			'settings' => $settings,
-			'event_id' => $event_id,
-			'widget'   => $widget,
-		]
-	);
+	// Display the address.
+	$this->template( 'views/integrations/elementor/widgets/event-venue/address/address' );
 
-	// Display map link based on user settings.
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/address/map_link',
-		[
-			'show'     => $show_map_link,
-			'venue_id' => $venue_id,
-			'settings' => $settings,
-			'event_id' => $event_id,
-			'widget'   => $widget,
-		]
-	);
+	// Display map link.
+	$this->template( 'views/integrations/elementor/widgets/event-venue/address/map_link' );
 	?>
 </div>

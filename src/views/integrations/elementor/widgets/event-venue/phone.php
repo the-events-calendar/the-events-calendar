@@ -17,33 +17,14 @@
  * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
-if ( empty( $show ) ) {
+if ( empty( $show_phone ) ) {
 	return;
 }
 ?>
 <div <?php tribe_classes( $widget->get_phone_base_class() ); ?> >
 	<?php
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/phone/header',
-		[
-			'show'        => $show_header,
-			'header_tag'  => $header_tag,
-			'header_text' => $header_text,
-			'venue_id'    => $venue_id,
-			'settings'    => $settings,
-			'event_id'    => $event_id,
-			'widget'      => $widget,
-		]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-venue/phone/header' );
 
-	$this->template(
-		'views/integrations/elementor/widgets/event-venue/phone/phone',
-		[
-			'venue_id' => $venue_id,
-			'settings' => $settings,
-			'event_id' => $event_id,
-			'widget'   => $widget,
-		]
-	);
+	$this->template( 'views/integrations/elementor/widgets/event-venue/phone/phone' );
 	?>
 </div>

@@ -10,8 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
-use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Text_Stroke;
 use Elementor\Group_Control_Typography;
@@ -26,6 +24,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  */
 class Event_Description extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -64,6 +63,23 @@ class Event_Description extends Abstract_Widget {
 			'content'  => $post instanceof \WP_Post ? $post->post_content_filtered : '',
 			'event_id' => $id,
 			'settings' => $settings,
+		];
+	}
+
+	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return [
+			'content' => _x(
+				'This is demo content for the Event Description widget.',
+				'Content used for the widget preview.',
+				'the-events-calendar'
+			),
 		];
 	}
 

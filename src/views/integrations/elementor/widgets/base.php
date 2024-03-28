@@ -10,6 +10,6 @@
  * @var Template_Engine $this The template engine.
  */
 
-use TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Template_Engine;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
 $this->template( $this->get_widget()->get_template_file() );
