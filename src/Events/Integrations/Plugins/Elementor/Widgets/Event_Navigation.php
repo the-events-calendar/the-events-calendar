@@ -89,7 +89,7 @@ class Event_Navigation extends Abstract_Widget {
 		$next_event->post_title = 'Next Event';
 
 		return [
-			'show_nav_header' => false,
+			'show_nav_header' => tribe_is_truthy( $this->get_settings_for_display( 'show_nav_header' ) ?? false ),
 			'header_tag'      => $this->get_event_navigation_header_tag(),
 			'header_text'     => $this->get_header_text(),
 			'prev_event'      => $prev_event,
