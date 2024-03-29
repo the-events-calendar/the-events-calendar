@@ -17,7 +17,7 @@ class venueTest extends Events_TestCase {
 	/**
 	 * Create a set of test events and venues.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event     = new Event();
 		static::factory()->organizer = new Organizer();
@@ -471,7 +471,7 @@ class venueTest extends Events_TestCase {
 
 		// Mock the filter to set $filter_applied to true
 		tests_add_filter(
-			'tec_events_custom_tables_v1_normalize_occurrence_id', 
+			'tec_events_custom_tables_v1_normalize_occurrence_id',
 			function ( $id ) use ( &$filter_applied ) {
 				$filter_applied = true;
 				return $id; // Return the ID unchanged

@@ -100,6 +100,7 @@ class Tribe__Events__Event_Cleaner_SchedulerTest extends \Codeception\TestCase\W
 
 		$cleaner            = new Tribe__Events__Event_Cleaner_Scheduler();
 		$event_ids_to_purge = $cleaner->select_events_to_purge( 3 );
+		$event_ids_to_purge = array_map( 'absint', $event_ids_to_purge );
 
 		$this->assertContains( $post->ID, $event_ids_to_purge, 'Past events should be selected' );
 		$this->assertNotContains( $skip_me_post->ID, $event_ids_to_purge, 'Upcoming events should never be selected' );

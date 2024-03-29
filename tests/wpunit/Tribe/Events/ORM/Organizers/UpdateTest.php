@@ -6,7 +6,7 @@ use Tribe\Events\Test\Factories\Organizer;
 
 class UpdateTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->factory()->organizer = new Organizer();
 	}

@@ -8,7 +8,7 @@ use Tribe\Events\Test\Factories\Venue;
 
 class FetchOrderByTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

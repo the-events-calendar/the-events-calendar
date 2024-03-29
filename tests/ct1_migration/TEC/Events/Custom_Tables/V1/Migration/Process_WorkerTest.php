@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Null_Migration_Strategy;
 use TEC\Events\Custom_Tables\V1\Migration\Strategies\Single_Event_Migration_Strategy;
@@ -18,6 +19,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	use CT1_Test_Utils;
 	use Forks;
 	use With_Uopz;
+	use ArraySubsetAsserts;
 
 	private $uopz_allow_exit_ini_value;
 
@@ -80,7 +82,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$process = new Process_Worker( $events, new State( $events ) );
 		$report = $process->migrate_event( $post_id, false );
 
-		$this->assertContains( 'for reasons', $report->error );
+		$this->assertStringContainsString( 'for reasons', $report->error );
 		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
 		$this->assertEquals( State::PHASE_MIGRATION_FAILURE_IN_PROGRESS, $this->get_phase() );
 	}
@@ -88,7 +90,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 	/**
 	 * Make sure state is cleaned up from other tests.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		tribe()->offsetUnset( State::class );
 		tribe()->offsetUnset( Process_Worker::class );
@@ -119,7 +121,7 @@ class Process_WorkerTest extends \CT1_Migration_Test_Case {
 		$process = new Process_Worker( $events, new State( $events ) );
 		$report = $process->migrate_event( $post_id, $dry_run );
 
-		$this->assertContains( "Random error", $report->error );
+		$this->assertStringContainsString( "Random error", $report->error );
 		$this->assertEquals( Event_Report::STATUS_FAILURE, $report->status );
 		// If an error, we abort migration and work to a rollback state.
 		$this->assertEquals( State::PHASE_MIGRATION_FAILURE_IN_PROGRESS, $this->get_phase() );

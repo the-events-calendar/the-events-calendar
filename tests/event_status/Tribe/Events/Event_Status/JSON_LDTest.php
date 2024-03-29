@@ -8,7 +8,7 @@ use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 	use With_Post_Remapping;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event = new Event();
 	}

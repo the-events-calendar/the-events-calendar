@@ -2,12 +2,14 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration;
 
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use TEC\Events\Custom_Tables\V1\Migration\CSV_Report\File_Download;
 use TEC\Events\Custom_Tables\V1\Migration\Reports\Event_Report;
 use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 
 class Download_ReportTest extends \CT1_Migration_Test_Case {
 	use CT1_Fixtures;
+	use ArraySubsetAsserts;
 
 	/**
 	 * Check when you should be able to download the CSV.
@@ -60,11 +62,11 @@ class Download_ReportTest extends \CT1_Migration_Test_Case {
 		} );
 
 		// Should have our post in it.
-		$this->assertContains( $post->post_title, $report );
+		$this->assertStringContainsString( $post->post_title, $report );
 
 		// Should have all the columns in it.
 		foreach ( $columns as $column ) {
-			$this->assertContains( $column, $report );
+			$this->assertStringContainsString( $column, $report );
 		}
 
 		// Should only be one event report in it (and the columns).

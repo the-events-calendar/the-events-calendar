@@ -9,7 +9,7 @@ class Widget_ListTest extends ViewTestCase {
 
 	use MatchesSnapshots;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		\Tribe__Rewrite::instance()->setup();
 		add_filter( 'tribe_events_views', static function ( array $views ) {

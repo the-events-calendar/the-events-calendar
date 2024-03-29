@@ -7,7 +7,7 @@ use Tribe__Events__Main as TEC;
 use TEC\Events\Custom_Tables\V1\Integrations\ACF\Controller as ACF_Controller;
 
 class ControllerTest extends \Codeception\TestCase\WPTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		tribe()->register( ACF_Controller::class );
 	}

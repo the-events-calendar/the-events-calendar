@@ -9,7 +9,7 @@ use Tribe__Context as Context;
 class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 	use With_Post_Remapping;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		/** @var \Tribe__Cache $cache */
 		$cache = tribe( 'cache' );

@@ -43,7 +43,7 @@ class Month_ViewTest extends ViewTestCase {
 	 */
 	protected $context;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$now = new \DateTime( $this->mock_date_value );
@@ -76,7 +76,7 @@ class Month_ViewTest extends ViewTestCase {
 		update_option( 'timezone_string', $timezone_string );
 
 		$now = new \DateTimeImmutable( $this->mock_date_value, $timezone );
-    
+
 		// Create some events that will be available in the Month timeframe.
 		$events    = array_map(
 			static function ( $i ) use ( $now, $timezone ) {
@@ -384,26 +384,26 @@ class List_ViewTest extends ViewTestCase {
 		}
 		// Sanity check
 		$this->assertEquals( 3, tribe_events()->where( 'ends_after', 'now' )->count() );
-		
+
 		// We are remapping posts in order to avoid snapshot failure due to different IDs, dates, or similar.
 		$this->remap_posts( $events, [
 			'events/featured/1.json',
 			'events/single/1.json',
 			'events/single/2.json'
 		] );
-		
+
 		// We initialize the view and set context.
 		$list_view = View::make( List_View::class );
 		$list_view->set_context( tribe_context()->alter( [
 			// We're mocking "Today" and "Now" date to avoid failed tests when they run it in a different date.
-			'today'      => $this->mock_date_value, 
+			'today'      => $this->mock_date_value,
 			'now'        => $this->mock_date_value,
 			'events_per_page' => 2,
 		] ) );
-		
+
 		// We get the view HTML.
 		$html = $list_view->get_html();
-		
+
 		// And we make sure that the snapshot test is correct.
 		$this->assertMatchesSnapshot( $html );
 	}

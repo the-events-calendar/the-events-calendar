@@ -11,7 +11,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 
 	use MatchesSnapshots;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

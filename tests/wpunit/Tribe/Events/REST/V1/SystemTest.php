@@ -5,7 +5,7 @@ use Tribe__Events__REST__V1__System as System;
 
 class SystemTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -14,7 +14,7 @@ class SystemTest extends \Codeception\TestCase\WPTestCase {
 		// your set up methods here
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

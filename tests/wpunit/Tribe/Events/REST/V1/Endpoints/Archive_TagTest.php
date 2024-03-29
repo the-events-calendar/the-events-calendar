@@ -100,7 +100,7 @@ class Archive_TagTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertInstanceOf( \WP_Error::class, $got );
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		$this->messages   = $this->prophesize( \Tribe__REST__Messages_Interface::class );
 		$this->repository = $this->prophesize( \Tribe__Events__REST__Interfaces__Post_Repository::class );
 		$this->validator  = $this->prophesize( \Tribe__Events__Validator__Interface::class );

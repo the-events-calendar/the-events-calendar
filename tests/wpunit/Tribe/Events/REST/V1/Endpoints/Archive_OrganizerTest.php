@@ -22,7 +22,7 @@ class Archive_OrganizerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $validator;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -39,7 +39,7 @@ class Archive_OrganizerTest extends \Codeception\TestCase\WPTestCase {
 		tribe( 'context' )->doing_ajax( true );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

@@ -12,7 +12,7 @@ class Top_BarTest extends HtmlPartialTestCase
 
 	protected $partial_path = 'month/top-bar';
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		// Start Function Mocker.
 		Test::setUp();

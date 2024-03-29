@@ -21,7 +21,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		}
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		if ( empty( static::$events ) ) {
 			return;

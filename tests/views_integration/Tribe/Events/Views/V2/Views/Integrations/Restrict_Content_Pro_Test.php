@@ -28,7 +28,7 @@ class Restrict_Content_Pro_Test extends ViewTestCase {
 	 */
 	protected $base_date = '2019-01-01';
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		tribe( 'cache' )->reset();
 

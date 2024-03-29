@@ -11,7 +11,7 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $requests;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -21,7 +21,7 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 		$this->requests = $this->prophesize( \Tribe__Events__Aggregator__API__Requests::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

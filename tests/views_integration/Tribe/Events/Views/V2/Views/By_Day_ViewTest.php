@@ -9,7 +9,7 @@ use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 use Tribe__Date_Utils as Dates;
 
 class By_Day_ViewTest extends ViewTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event = new Event();
 	}

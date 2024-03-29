@@ -9,7 +9,7 @@ use Tribe__Events__Main;
 
 class Publish_AssociatedTest extends WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -18,7 +18,7 @@ class Publish_AssociatedTest extends WPTestCase {
 		$this->factory()->venue = new Venue();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

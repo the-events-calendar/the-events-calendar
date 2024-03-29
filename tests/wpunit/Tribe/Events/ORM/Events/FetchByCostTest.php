@@ -13,7 +13,7 @@ class FetchByCostTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $events = [];
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

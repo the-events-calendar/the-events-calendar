@@ -11,7 +11,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $system;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -19,7 +19,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 		$this->system = $this->prophesize( System::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

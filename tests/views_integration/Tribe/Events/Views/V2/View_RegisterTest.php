@@ -54,7 +54,7 @@ class View_RegisterTest extends \Codeception\TestCase\WPTestCase {
 
 	public static $original_permalink_structure;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );

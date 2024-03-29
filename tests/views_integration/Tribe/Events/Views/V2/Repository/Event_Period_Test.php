@@ -18,7 +18,7 @@ use Tribe__Date_Utils as Dates;
 
 class Event_Period_Test extends WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event = new Event();
 		static::factory()->venue = new Venue();

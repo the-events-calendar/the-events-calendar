@@ -10,7 +10,7 @@ class Month_Multiday_ClassesTest extends WPTestCase {
 
 	use With_Post_Remapping;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		static::factory()->event = new Event();

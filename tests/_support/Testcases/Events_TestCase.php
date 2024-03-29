@@ -32,7 +32,7 @@ class Events_TestCase extends WPTestCase {
 		}
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		foreach ( $this->implementation_backups as $alias => $value ) {
 			tribe_singleton( $alias, $value );
 		}

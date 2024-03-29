@@ -12,7 +12,7 @@ require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event = new Event();
 	}

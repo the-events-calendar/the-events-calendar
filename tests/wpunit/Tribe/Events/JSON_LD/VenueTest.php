@@ -8,7 +8,7 @@ class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $venue;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -16,7 +16,7 @@ class JSON_LD__VenueTest extends \Codeception\TestCase\WPTestCase {
 		$this->create_test_data();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		JSON_LD__Venue::unregister_all();

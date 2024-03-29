@@ -18,6 +18,7 @@ extensions:
     enabled:
       - Tribe\Test\Codeception\Extensions\Function_Mocker
       - tad\WPBrowser\Extension\Events
+      - lucatume\WPBrowser\Extension\IsolationSupport
     config:
       Tribe\Test\Codeception\Extensions\Function_Mocker:
             suites: [ 'views_integration', 'views_widgets' ]
@@ -30,3 +31,9 @@ extensions:
         - 'Codeception\Command\GenerateWPAjax'
         - 'Codeception\Command\GenerateWPCanonical'
         - 'Codeception\Command\GenerateWPXMLRPC'
+        - "lucatume\\WPBrowser\\Command\\RunOriginal"
+        - "lucatume\\WPBrowser\\Command\\RunAll"
+        - "lucatume\\WPBrowser\\Command\\DbExport"
+        - "lucatume\\WPBrowser\\Command\\DbImport"
+        - "lucatume\\WPBrowser\\Command\\MonkeyCachePath"
+        - "lucatume\\WPBrowser\\Command\\MonkeyCacheClear"

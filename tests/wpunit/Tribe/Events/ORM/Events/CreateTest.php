@@ -9,7 +9,7 @@ use Tribe__Events__Main as Main;
 
 class CreateTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->factory()->event     = new Event();
 		$this->factory()->venue     = new Venue();

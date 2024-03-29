@@ -11,7 +11,7 @@ use WP_Post;
 class iCalTest extends WPTestCase {
 	protected $post_example_settings;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -40,7 +40,7 @@ class iCalTest extends WPTestCase {
 		);
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

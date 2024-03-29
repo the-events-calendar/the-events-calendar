@@ -10,6 +10,7 @@
 
 namespace Tribe\Events\Test\Traits;
 
+use Codeception\Codecept;
 use Codeception\Exception\ModuleException;
 use Codeception\Module\Db;
 use Codeception\Module\WPDb;

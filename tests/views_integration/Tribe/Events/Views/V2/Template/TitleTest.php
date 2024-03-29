@@ -11,7 +11,7 @@ class TitleTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use With_Post_Remapping;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$return_mock_url = static function () {
 			return 'http://products.tribe';

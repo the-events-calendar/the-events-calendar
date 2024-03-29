@@ -7,12 +7,12 @@ use Tribe\Tests\Traits\With_Uopz;
 class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		tribe()->singleton( 'ct_query_monitor_test', Custom_Tables_Query_Monitor::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		tribe()->offsetUnset( 'ct_query_monitor_test' );
 	}

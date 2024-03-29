@@ -3,7 +3,7 @@ namespace TEC\Test\Utils;
 
 class Id_GeneratorTest extends \Codeception\TestCase\WPTestCase {
 
-	public function tearDown() {
+	public function tearDown(): void {
 		\Tribe__Events__Utils__Id_Generator::reset();
 		parent::tearDown();
 	}

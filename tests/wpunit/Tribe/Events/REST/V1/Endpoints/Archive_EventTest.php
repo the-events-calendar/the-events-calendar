@@ -26,7 +26,7 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	protected $validator;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

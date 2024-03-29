@@ -39,7 +39,7 @@ class File_Importer_OrganizersTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $featured_image_uploader;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -47,7 +47,7 @@ class File_Importer_OrganizersTest extends \Codeception\TestCase\WPTestCase {
 		$this->featured_image_uploader = $this->prophesize( 'Tribe__Events__Importer__Featured_Image_Uploader' );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

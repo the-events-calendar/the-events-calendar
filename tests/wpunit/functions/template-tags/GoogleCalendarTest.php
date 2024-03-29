@@ -10,13 +10,13 @@ class GoogleCalendarTest extends WPTestCase {
 	private $mode = '';
 	private $initial_tz;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->mode       = Timezones::mode();
 		$this->initial_tz = Timezones::build_timezone_object();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		tribe_update_option( 'tribe_events_timezone_mode', $this->mode );
 		update_option( 'timezone_string', $this->initial_tz );

@@ -4,7 +4,7 @@ namespace Tribe\Events\Event_Status\Compatibility\Filter_Bar;
 
 class Service_ProviderTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 	}
 

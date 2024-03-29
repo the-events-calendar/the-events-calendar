@@ -11,7 +11,7 @@ class Events_Control_ExtensionTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use With_Uopz;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event = new Event();
 
