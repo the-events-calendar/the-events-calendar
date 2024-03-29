@@ -73,11 +73,11 @@ class Event_Single extends Library_Document {
 	 * @return string Document title.
 	 */
 	public static function get_title(): string {
-		return esc_html__( 'Single Event', 'the-events-calendar' );
+		return esc_html__( 'Single Event Template', 'the-events-calendar' );
 	}
 
 	public static function get_plural_title() {
-		return esc_html__( 'Single Events', 'elementor' );
+		return esc_html__( 'Single Event Templates', 'elementor' );
 	}
 
 	public static function get_add_new_title() {

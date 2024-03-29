@@ -248,15 +248,17 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		$class = Documents\Event_Single::class;
+		if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
 
-//		if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
-//			$class = Documents\Event_Single_Pro::class;
-//		}
+			$documents_manager->register_document_type(
+				Documents\Event_Single_Pro::get_type(),
+				Documents\Event_Single_Pro::class
+			);
+		}
 
 		$documents_manager->register_document_type(
-			$class::get_type(),
-			$class
+			Documents\Event_Single::get_type(),
+			Documents\Event_Single::class
 		);
 	}
 

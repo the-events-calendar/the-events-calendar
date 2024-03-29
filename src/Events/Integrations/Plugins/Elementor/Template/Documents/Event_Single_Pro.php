@@ -67,7 +67,7 @@ class Event_Single_Pro extends Single_Base {
 	 * @return string Document name.
 	 */
 	public function get_name(): string {
-		return 'tec_event_single';
+		return 'tec_event_single_base';
 	}
 
 	/**
@@ -78,6 +78,6 @@ class Event_Single_Pro extends Single_Base {
 	 * @return string Document type.
 	 */
 	public static function get_type(): string {
-		return 'tec_event_single';
+		return 'tec_event_single_base';
 	}
 }
