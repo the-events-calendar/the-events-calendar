@@ -74,7 +74,7 @@ class Event_Tags extends Abstract_Widget {
 		}
 
 		return [
-			'show_tags_header' => $settings['show_tags_header'] ?? 'yes',
+			'show_tags_header' => tribe_is_truthy( $settings['show_tags_header'] ?? true ),
 			'header_tag'       => $settings['header_tag'] ?? 'h3',
 			'tags'             => $tags,
 			'label_text'       => $this->get_header_text(),
@@ -92,8 +92,8 @@ class Event_Tags extends Abstract_Widget {
 	 */
 	protected function preview_args(): array {
 		return [
-			'show_tags_header' => 'yes',
-			'header_tag'       => 'h3',
+			'show_tags_header' => tribe_is_truthy( $settings['show_tags_header'] ?? true ),
+			'header_tag'       => $settings['header_tag'] ?? 'h3',
 			'tags'             => [
 				'demo-tag-1' => '#',
 				'demo-tag-2' => '#',
