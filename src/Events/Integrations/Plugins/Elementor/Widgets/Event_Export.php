@@ -102,19 +102,31 @@ class Event_Export extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	protected function preview_args(): array {
-		$args = [
+		$settings = $this->get_settings_for_display();
+		$args     = [
 			'event_id' => $this->get_event_id(),
 			'show'     => true,
 		];
 
-		$args                         = $this->add_ical_data( $args );
-		$args['ical']['link']         = '#';
-		$args                         = $this->add_gcal_data( $args );
-		$args['gcal']['link']         = '#';
-		$args                         = $this->add_outlook_365_data( $args );
-		$args['outlook_365']['link']  = '#';
-		$args                         = $this->add_outlook_live_data( $args );
-		$args['outlook_live']['link'] = '#';
+		if ( tribe_is_truthy( $settings['show_gcal_link'] ?? true ) ) {
+			$args                 = $this->add_ical_data( $args );
+			$args['ical']['link'] = '#';
+		}
+
+		if ( tribe_is_truthy( $settings['show_ical_link'] ?? true ) ) {
+			$args                 = $this->add_gcal_data( $args );
+			$args['gcal']['link'] = '#';
+		}
+
+		if ( tribe_is_truthy( $settings['show_outlook_365_link'] ?? true ) ) {
+			$args                        = $this->add_outlook_365_data( $args );
+			$args['outlook_365']['link'] = '#';
+		}
+
+		if ( tribe_is_truthy( $settings['show_outlook_live_link'] ?? true ) ) {
+			$args                         = $this->add_outlook_live_data( $args );
+			$args['outlook_live']['link'] = '#';
+		}
 
 		return $args;
 	}

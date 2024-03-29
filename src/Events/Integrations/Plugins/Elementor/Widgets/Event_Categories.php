@@ -11,7 +11,6 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
-use Tribe__Events__Main;
 
 /**
  * Class Widget_Event_Categories
@@ -63,7 +62,6 @@ class Event_Categories extends Abstract_Widget {
 	protected function template_args(): array {
 		$event_id = $this->get_event_id();
 		$settings = $this->get_settings_for_display();
-		$tec_main = Tribe__Events__Main::instance();
 
 		return [
 			'show_header' => tribe_is_truthy( $settings['show_categories_header'] ?? true ),
@@ -83,9 +81,11 @@ class Event_Categories extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$settings = $this->get_settings_for_display();
+
 		return [
-			'show_header' => 'yes',
-			'header_tag'  => 'h3',
+			'show_header' => tribe_is_truthy( $settings['show_categories_header'] ?? true ),
+			'header_tag'  => $settings['categories_header_tag'] ?? 'h3',
 			'header_text' => $this->get_header_text(),
 			'categories'  => $this->do_preview_categories(),
 		];

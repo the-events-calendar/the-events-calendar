@@ -96,6 +96,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$settings    = $this->get_settings_for_display();
 		$date_format = tribe_get_date_format();
 		$time_format = tribe_get_time_format();
 
@@ -109,10 +110,10 @@ class Event_Datetime extends Abstract_Widget {
 
 		return [
 			'html_tag'          => $this->get_html_tag(),
-			'show_header'       => false,
-			'show_date'         => true,
-			'show_time'         => true,
-			'show_year'         => true,
+			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
+			'show_date'         => tribe_is_truthy( $settings['show_date'] ?? true ),
+			'show_time'         => tribe_is_truthy( $settings['show_time'] ?? true ),
+			'show_year'         => tribe_is_truthy( $settings['show_year'] ?? true ),
 			'start_date'        => $start->format( $date_format ) ?? '',
 			'end_date'          => $end->format( $date_format ) ?? '',
 			'start_time'        => $start->format( $time_format ) ?? '',
@@ -165,9 +166,7 @@ class Event_Datetime extends Abstract_Widget {
 	public function get_header_tag(): string {
 		$settings = $this->get_settings_for_display();
 
-		$tag = $settings['header_tag'] ?? 'h3';
-
-		return (string) $tag;
+		return (string) $settings['header_tag'] ?? 'h3';
 	}
 
 	/**
@@ -266,10 +265,9 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return string The HTML tag to use for the event datetime.
 	 */
 	protected function get_html_tag() {
-
 		$settings = $this->get_settings_for_display();
 
-		return $settings['html_tag'] ?? 'p';
+		return (string) $settings['html_tag'] ?? 'p';
 	}
 
 	/**
