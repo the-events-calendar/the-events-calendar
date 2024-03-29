@@ -9,6 +9,9 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
+use Elementor\Core\Base\Document;
+use WP_Post;
+
 use Elementor\Plugin;
 use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integration;
 use Tribe\Events\Views\V2\Template_Bootstrap;
@@ -16,6 +19,7 @@ use Elementor\Core\Documents_Manager;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
 use Tribe__Template as Template;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller
@@ -63,6 +67,8 @@ class Controller extends Controller_Contract {
 	public function add_actions(): void {
 		add_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
 		add_action( 'init', [ $this, 'action_import_starter_template' ] );
+		add_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
+		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}
 
 	/**
@@ -73,6 +79,8 @@ class Controller extends Controller_Contract {
 	public function remove_actions(): void {
 		remove_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
 		remove_action( 'init', [ $this, 'action_import_starter_template' ] );
+		remove_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
+		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 	}
 
 	/**
@@ -104,7 +112,6 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
 		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
 	}
-
 
 	/**
 	 * Force the correct template object for Elementor theme.
@@ -158,6 +165,7 @@ class Controller extends Controller_Contract {
 
 		return $options;
 	}
+
 	/**
 	 * Include the template selection helper.
 	 *
@@ -187,6 +195,47 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Checks if the current event needs an Elementor template override.
+	 * If we have the template set to our template, use the internal blank post template
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $post_id The post ID to check. If null will use the current post.
+	 *
+	 * @return bool
+	 */
+	public function is_override( $post_id = null ): bool {
+		$template = tribe( Importer::class )->get_template();
+
+		// Ensure we have a template to use.
+		if ( null === $template ) {
+			return false;
+		}
+
+		if ( null === $post_id ) {
+			$post_id = get_the_ID();
+		}
+
+		$post = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		if ( $post->post_type !== TEC::POSTTYPE ) {
+			return false;
+		}
+
+		$document = Plugin::$instance->documents->get( $post->ID );
+
+		if ( ! $document ) {
+			return false;
+		}
+
+		return $document->is_built_with_elementor();
+	}
+
+	/**
 	 * Registers the Elementor documents.
 	 * A document in Elementor's context represents the basic type of post (e.g., page, section, widget).
 	 *
@@ -199,16 +248,46 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		$class = Documents\Event_Single::class;
-
 		if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
-			$class = Documents\Event_Single_Pro::class;
+
+			$documents_manager->register_document_type(
+				Documents\Event_Single_Pro::get_type(),
+				Documents\Event_Single_Pro::class
+			);
 		}
 
 		$documents_manager->register_document_type(
-			$class::get_type(),
-			$class
+			Documents\Event_Single::get_type(),
+			Documents\Event_Single::class
 		);
+	}
+
+	/**
+	 * Ensures that the document type is set correctly when the Document Type meta is updated.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $mid        The meta ID after successful update.
+	 * @param int    $object_id  ID of the object metadata is for.
+	 * @param string $meta_key   Metadata key.
+	 * @param mixed  $meta_value Metadata value.
+	 *
+	 * @return void
+	 */
+	public function action_ensure_document_type( $mid, $object_id, $meta_key, $meta_value ): void {
+		if ( Document::TYPE_META_KEY !== $meta_key ) {
+			return;
+		}
+
+		if ( ! tribe_is_event( $object_id ) ) {
+			return;
+		}
+
+		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
+
+		update_metadata_by_mid( 'post', $mid, Documents\Event_Single::get_type() );
+
+		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}
 
 	/**
@@ -227,7 +306,7 @@ class Controller extends Controller_Contract {
 			return $file;
 		}
 
-		if ( ! tribe( Content::class )->is_override() ) {
+		if ( ! $this->is_override() ) {
 			return $file;
 		}
 

@@ -230,7 +230,9 @@
 		"elType": "container"
 	}],
 	"page_settings": [],
+	"settings": [],
+	"import_settings": [],
 	"version": "0.4",
-	"title": "TEC Default Starter Template",
+	"title": "The Events Calendar - Starter",
 	"type": "tec_event_single"
 }

@@ -5,5 +5,4 @@
  * @since TBD
  */
 
-// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Required to use the template in the editor.
-echo the_content();
+the_content();
