@@ -88,6 +88,7 @@ class Controller extends Integration_Abstract {
 		// add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
+		add_action( 'elementor/elements/elements_registered', [ $this, 'action_register_elementor_container' ] );
 	}
 
 	/**
@@ -105,6 +106,18 @@ class Controller extends Integration_Abstract {
 				'icon'  => 'eicon-calendar',
 			]
 		);
+	}
+
+	/**
+	 * Registers the Event Container widget for Elementor.
+	 *
+	 * @since 5.4.0
+	 *
+	 * @param Elements_Manager $elements_manager Elementor Manager instance.
+	 */
+	public function action_register_elementor_container( $elements_manager ) {
+
+		$elements_manager->register_element_type( new Widgets\Event_Container() );
 	}
 
 	/**

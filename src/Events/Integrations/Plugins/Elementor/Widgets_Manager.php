@@ -28,7 +28,6 @@ class Widgets_Manager extends Controller {
 	 * @var array
 	 */
 	protected array $widget_classes = [
-		Widgets\Event_Title::class,
 		Widgets\Event_Categories::class,
 		Widgets\Event_Cost::class,
 		Widgets\Event_Datetime::class,
@@ -38,6 +37,7 @@ class Widgets_Manager extends Controller {
 		Widgets\Event_Navigation::class,
 		Widgets\Event_Organizer::class,
 		Widgets\Event_Tags::class,
+		Widgets\Event_Title::class,
 		Widgets\Event_Venue::class,
 		Widgets\Event_Website::class,
 	];
@@ -55,6 +55,8 @@ class Widgets_Manager extends Controller {
 		foreach ( $this->get_widgets() as $widget_class ) {
 			$this->container->bind( $widget_class, $widget_class );
 		}
+
+		$this->container->bind( Widgets\Event_Container::class, Widgets\Event_Container::class );
 
 		$this->register_with_elementor();
 	}
