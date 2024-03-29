@@ -10,6 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Template\Documents;
 
 use Elementor\Modules\Library\Documents\Library_Document;
+use Elementor\Core\DocumentTypes\Post;
 
 /**
  * Class Event_Single
@@ -20,8 +21,6 @@ use Elementor\Modules\Library\Documents\Library_Document;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Documents
  */
-use Elementor\Core\DocumentTypes\Post;
-
 class Event_Single extends Library_Document {
 
 	/**
@@ -76,10 +75,24 @@ class Event_Single extends Library_Document {
 		return esc_html__( 'Single Event Template', 'the-events-calendar' );
 	}
 
+	/**
+	 * The document plural title.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public static function get_plural_title() {
 		return esc_html__( 'Single Event Templates', 'elementor' );
 	}
 
+	/**
+	 * The document add new title.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public static function get_add_new_title() {
 		return esc_html__( 'Add New Single Event Template', 'elementor' );
 	}
