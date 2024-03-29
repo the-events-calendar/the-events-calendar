@@ -9,6 +9,8 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
+use WP_Post;
+
 use Elementor\Plugin;
 use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integration;
 use Tribe\Events\Views\V2\Template_Bootstrap;
@@ -16,6 +18,7 @@ use Elementor\Core\Documents_Manager;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
 use Tribe__Template as Template;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller
@@ -187,6 +190,47 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Checks if the current event needs an Elementor template override.
+	 * If we have the template set to our template, use the internal blank post template
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed $post_id The post ID to check. If null will use the current post.
+	 *
+	 * @return bool
+	 */
+	public function is_override( $post_id = null ): bool {
+		$template = tribe( Importer::class )->get_template();
+
+		// Ensure we have a template to use.
+		if ( null === $template ) {
+			return false;
+		}
+
+		if ( null === $post_id ) {
+			$post_id = get_the_ID();
+		}
+
+		$post = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			return false;
+		}
+
+		if ( $post->post_type !== TEC::POSTTYPE ) {
+			return false;
+		}
+
+		$document = Plugin::$instance->documents->get( $post->ID );
+
+		if ( ! $document ) {
+			return false;
+		}
+
+		return $document->is_built_with_elementor();
+	}
+
+	/**
 	 * Registers the Elementor documents.
 	 * A document in Elementor's context represents the basic type of post (e.g., page, section, widget).
 	 *
@@ -227,7 +271,7 @@ class Controller extends Controller_Contract {
 			return $file;
 		}
 
-		if ( ! tribe( Content::class )->is_override() ) {
+		if ( ! $this->is_override() ) {
 			return $file;
 		}
 
