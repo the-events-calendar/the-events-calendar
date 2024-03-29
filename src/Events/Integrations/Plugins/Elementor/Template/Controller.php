@@ -165,6 +165,7 @@ class Controller extends Controller_Contract {
 
 		return $options;
 	}
+
 	/**
 	 * Include the template selection helper.
 	 *
@@ -259,7 +260,19 @@ class Controller extends Controller_Contract {
 		);
 	}
 
-	public function action_ensure_document_type( $mid, $object_id, $meta_key, $meta_value ) {
+	/**
+	 * Ensures that the document type is set correctly when the Document Type meta is updated.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $mid        The meta ID after successful update.
+	 * @param int    $object_id  ID of the object metadata is for.
+	 * @param string $meta_key   Metadata key.
+	 * @param mixed  $meta_value Metadata value.
+	 *
+	 * @return void
+	 */
+	public function action_ensure_document_type( $mid, $object_id, $meta_key, $meta_value ): void {
 		if ( Document::TYPE_META_KEY !== $meta_key ) {
 			return;
 		}
