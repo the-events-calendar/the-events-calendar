@@ -55,8 +55,6 @@ class Event_Container extends \Elementor\Includes\Elements\Container {
 	 * @return void
 	 */
 	public function __construct( array $data = [], array $args = null ) {
-		parent::__construct( $data, $args );
-
 		$this->active_kit                      = Plugin::$instance->kits_manager->get_active_kit();
 		$this->logical_dimensions_inline_start = is_rtl() ? '{{RIGHT}}{{UNIT}}' : '{{LEFT}}{{UNIT}}';
 		$this->logical_dimensions_inline_end   = is_rtl() ? '{{LEFT}}{{UNIT}}' : '{{RIGHT}}{{UNIT}}';
@@ -155,7 +153,7 @@ class Event_Container extends \Elementor\Includes\Elements\Container {
 	 */
 	protected function get_initial_config() {
 		$config               = parent::get_initial_config();
-		$config['categories'] = [ 'the-events-calendar' ];
+		$config['categories'] = [ 'the-events-calendar', 'layout' ];
 
 		return $config;
 	}
@@ -184,7 +182,7 @@ class Event_Container extends \Elementor\Includes\Elements\Container {
 				view.addRenderAttribute( 'background-video-container', 'class', 'elementor-hidden-phone' );
 			}
 			#>
-			<div {{{ view.getRenderAttributeString( 'background-video-container' ) }}}>
+			<div {{{ view.getRenderAttributeString( 'background-video-container' ) }}}><?php // phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation ?>
 				<div class="elementor-background-video-embed"></div>
 				<video class="elementor-background-video-hosted elementor-html5-video" {{ videoAttributes }}></video>
 			</div>
