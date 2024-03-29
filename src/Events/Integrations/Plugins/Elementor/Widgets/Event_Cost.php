@@ -140,7 +140,7 @@ class Event_Cost extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_category_widget_header_class', $class, $this );
+		return apply_filters( 'tec_events_pro_elementor_event_cost_widget_header_class', $class, $this );
 	}
 
 	/**
