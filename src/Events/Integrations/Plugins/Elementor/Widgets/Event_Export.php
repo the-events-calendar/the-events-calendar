@@ -103,7 +103,7 @@ class Event_Export extends Abstract_Widget {
 	 */
 	protected function preview_args(): array {
 		$settings = $this->get_settings_for_display();
-		$args = [
+		$args     = [
 			'event_id' => $this->get_event_id(),
 			'show'     => true,
 		];

@@ -540,7 +540,18 @@ abstract class Abstract_Widget extends Widget_Base {
 	public function get_asset_source() {
 		$source = 'tec.main';
 
-		return apply_filters( 'tec_events_elementor_widget_asset_source', $source, $this );
+		/**
+		 * Filters the asset source for the widget.
+		 * Allows other plugins to change the source for their widget assets.
+		 *
+		 * @since TBD
+		 *
+		 * @param string          $source The asset source.
+		 * @param Abstract_Widget $this   The widget instance.
+		 *
+		 * @return string
+		 */
+		return (string) apply_filters( 'tec_events_elementor_widget_asset_source', $source, $this );
 	}
 
 	/**
@@ -553,11 +564,11 @@ abstract class Abstract_Widget extends Widget_Base {
 			return;
 		}
 
-		if ( defined( 'DOING_AJAX' ) &&  DOING_AJAX ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			return;
 		}
 
-		$slug = $this->trim_slug();
+		$slug   = $this->trim_slug();
 		$source = $this->get_asset_source();
 
 		// Register the styles for the widget.

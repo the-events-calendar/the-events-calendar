@@ -11,7 +11,6 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
-use Tribe__Events__Main;
 
 /**
  * Class Widget_Event_Categories
