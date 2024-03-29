@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
+use Elementor\Core\Base\Document;
 use WP_Post;
 
 use Elementor\Plugin;
@@ -66,6 +67,8 @@ class Controller extends Controller_Contract {
 	public function add_actions(): void {
 		add_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
 		add_action( 'init', [ $this, 'action_import_starter_template' ] );
+		add_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
+		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}
 
 	/**
@@ -76,6 +79,8 @@ class Controller extends Controller_Contract {
 	public function remove_actions(): void {
 		remove_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
 		remove_action( 'init', [ $this, 'action_import_starter_template' ] );
+		remove_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
+		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 	}
 
 	/**
@@ -107,7 +112,6 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
 		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
 	}
-
 
 	/**
 	 * Force the correct template object for Elementor theme.
@@ -245,14 +249,30 @@ class Controller extends Controller_Contract {
 
 		$class = Documents\Event_Single::class;
 
-		if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
-			$class = Documents\Event_Single_Pro::class;
-		}
+//		if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
+//			$class = Documents\Event_Single_Pro::class;
+//		}
 
 		$documents_manager->register_document_type(
 			$class::get_type(),
 			$class
 		);
+	}
+
+	public function action_ensure_document_type( $mid, $object_id, $meta_key, $meta_value ) {
+		if ( Document::TYPE_META_KEY !== $meta_key ) {
+			return;
+		}
+
+		if ( ! tribe_is_event( $object_id ) ) {
+			return;
+		}
+
+		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
+
+		update_metadata_by_mid( 'post', $mid, Documents\Event_Single::get_type() );
+
+		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}
 
 	/**
