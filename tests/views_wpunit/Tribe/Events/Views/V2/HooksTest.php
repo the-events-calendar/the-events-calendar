@@ -123,24 +123,27 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 	public function test_events_for_title_stored() {
 		for ( $i = 1; $i < 20; $i ++ ) {
 			$date = "2020-06-$i 08:00:00";
-			tribe_events()->set_args( [
-				                          'start_date' => $date,
-				                          'timezone'   => 'America/New_York',
-				                          'duration'   => 3 * HOUR_IN_SECONDS,
-				                          'title'      => 'Test Event',
-				                          'status'     => 'publish',
-			                          ] )->create();
+			tribe_events()->set_args(
+				[
+					'start_date' => $date,
+					'timezone'   => 'America/New_York',
+					'duration'   => 3 * HOUR_IN_SECONDS,
+					'title'      => 'Test Event',
+					'status'     => 'publish',
+				]
+			)->create();
 		}
 
 		$title = tribe( Title::class );
 		$this->assertEmpty( $title->get_posts() );
-		$context = tribe_context()->alter( [
-			                                   'single' => false,
-			                                   'event_post_type' => true,
-
-			                                   'event_display' => 'list',
-			                                   'event_date'    => '2020-06-01',
-		                                   ] );
+		$context = tribe_context()->alter(
+			[
+				'single' => false,
+				'event_post_type' => true,
+				'event_display' => 'list',
+				'event_date'    => '2020-06-01',
+			]
+		);
 		$view    = View::make( List_View::class );
 		$view->set_context( $context );
 		$view->get_html();
