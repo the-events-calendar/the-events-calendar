@@ -236,6 +236,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Adds timezone offset to the dates in the Outlook subscribe links on event pages. [TEC-4831]
 * Fix - Improve updated views CSS overwrites for buttons and view selector.
+* Fix - Resolves an issue where the global posts were not the correct range or sort order. This now stores the ones from the view repository to be used in the WP title filters. [TEC-4845]
 * Fix - Fixes a PHP warning `Undefined array key "venue" in /var/www/html/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 1007`.
 
 = [6.3.5] 2024-03-20 =
