@@ -178,9 +178,9 @@ class Event_Organizer extends Abstract_Widget {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool|string $phone The phone number to format.
+	 * @param string $phone The phone number to format.
 	 */
-	protected function format_phone_link( $phone ): bool|string {
+	protected function format_phone_link( $phone ): string {
 		// For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension.
 		return 'tel:' . str_ireplace( [ 'ext', 'x', ' ' ], [ 'p', 'p', '' ], $phone );
 	}
