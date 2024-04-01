@@ -10,7 +10,6 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts;
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
-use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use TEC\Events\Integrations\Plugins\Elementor\Assets_Manager;
 use Tribe__Events__Main as TEC;
 
@@ -239,12 +238,13 @@ abstract class Abstract_Widget extends Widget_Base {
 
 	/**
 	 * Provides a "trimmed" slug for usage in classes and such (removes the "event_" prefix)
+	 * and converts all underscores to dashes.
 	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
-	protected function trim_slug(): string {
+	public function trim_slug(): string {
 		return str_replace( [ 'event_', '_' ], [ '', '-' ], static::get_slug() );
 	}
 
@@ -370,9 +370,6 @@ abstract class Abstract_Widget extends Widget_Base {
 		 * @param Abstract_Widget $this     The widget instance.
 		 */
 		$event_id = (int) apply_filters( "tec_events_elementor_widget_{$slug}_event_id", (int) $event_id, $this );
-
-		// Ensure we have a valid event ID.
-		$event_id = Occurrence::normalize_id( $event_id );
 
 		if ( get_post_type( $event_id ) !== TEC::POSTTYPE ) {
 			return null;

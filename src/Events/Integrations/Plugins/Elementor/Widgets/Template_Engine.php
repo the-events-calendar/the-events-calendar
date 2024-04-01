@@ -4,7 +4,7 @@
  *
  * @since TBD
  *
- * @package Tribe\Events\Pro\Integrations\Plugins\Elementor\Widgets
+ * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
@@ -19,7 +19,7 @@ use WP_Post;
  *
  * @since TBD
  *
- * @package Tribe\Events\Pro\Integrations\Plugins\Elementor\Widgets
+ * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
 class Template_Engine extends Base_Template_Engine {
 	/**

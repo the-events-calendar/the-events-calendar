@@ -89,10 +89,8 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function add_filters(): void {
-		add_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
-
 		add_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
-
+		add_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
 		add_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10, 2 );
@@ -104,10 +102,8 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function remove_filters(): void {
-		remove_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
-
 		remove_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
-
+		remove_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
 		remove_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		remove_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10 );
 		remove_filter( 'tribe_settings_save_option_array', [ $this, 'filter_tribe_save_template_option' ], 10 );
@@ -131,13 +127,13 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 5.14.2
 	 *
-	 * @param mixed  $option      Results of option query.
-	 * @param string $default     The default value.
-	 * @param string $option_name Name of the option.
+	 * @param mixed  $option        Results of option query.
+	 * @param string $default_value The default value.
+	 * @param string $option_name   Name of the option.
 	 *
 	 * @return mixed results of option query.
 	 */
-	public function filter_tribe_get_single_option( $option, $default, $option_name ) {
+	public function filter_tribe_get_single_option( $option, $default_value, $option_name ) {
 		if ( 'tribeEventsTemplate' !== $option_name ) {
 			return $option;
 		}

@@ -137,4 +137,3 @@ class Event_Single extends Library_Document {
 		return $config;
 	}
 }
-
