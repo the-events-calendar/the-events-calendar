@@ -36,7 +36,7 @@
  * @var int    $event_id              The event ID.
  * @var array  $settings              The widget settings.
  * @var array  $venues             The venue IDs.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
 if ( empty( $venue ) ) {

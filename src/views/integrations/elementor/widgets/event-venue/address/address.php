@@ -8,7 +8,7 @@
  * @since TBD
  *
  * @var string $venue_id        The venue ID.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
 if ( empty( $venue['address'] ) ) {

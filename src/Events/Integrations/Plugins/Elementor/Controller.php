@@ -88,6 +88,7 @@ class Controller extends Integration_Abstract {
 		// add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
+		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
 	}
 
 	/**
@@ -135,6 +136,15 @@ class Controller extends Integration_Abstract {
 				'conditionals' => [ $this, 'should_load_admin_styles' ],
 			]
 		);
+	}
+
+	/**
+	 * Registers controls for Elementor.
+	 *
+	 * @since TBD
+	 */
+	public function action_register_elementor_controls() {
+		return $this->container->make( Controls_Manager::class )->register();
 	}
 
 	/**

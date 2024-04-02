@@ -9,7 +9,7 @@
  *
  * @var string $venue_id               The venue ID.
  * @var bool   $show_address_map_link  Whether to show the venue map link.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
 if ( empty( $show_address_map_link ) || empty( $venue['map_link'] ) ) {

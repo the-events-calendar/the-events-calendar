@@ -9,7 +9,7 @@
  *
  * @var string $venue_id         The venue ID.
  * @var bool   $link_venue_phone Whether to link the phone number.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
 if ( empty( $show_phone ) ) {

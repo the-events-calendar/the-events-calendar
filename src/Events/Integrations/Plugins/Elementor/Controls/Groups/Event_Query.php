@@ -78,9 +78,9 @@ class Event_Query extends Group_Control_Base {
 			'default'     => 'current',
 			'label_block' => true,
 			'options'     => [
-				''        => __( 'Select a specific upcoming event by ID', 'the-events-calendar' ),
 				'current' => __( "Use the current page's event ID", 'the-events-calendar' ),
 				'custom'  => __( 'Manually enter event ID', 'the-events-calendar' ),
+				'search'  => __( 'Select a specific upcoming event by ID', 'the-events-calendar' ),
 			],
 		];
 
@@ -98,6 +98,9 @@ class Event_Query extends Group_Control_Base {
 			'placeholder' => __( 'Search for a specific upcoming event', 'the-events-calendar' ),
 			'type'        => Controls_Manager::TEXT,
 			'label_block' => true,
+			'condition'   => [
+				'id_selection' => 'search',
+			],
 		];
 
 		$fields['slug'] = [
@@ -105,6 +108,9 @@ class Event_Query extends Group_Control_Base {
 			'placeholder' => __( 'Enter a URL-formatted event name', 'the-events-calendar' ),
 			'type'        => Controls_Manager::TEXT,
 			'label_block' => true,
+			'condition'   => [
+				'id_selection' => 'search',
+			],
 		];
 
 		$fields['tab_heading'] = [

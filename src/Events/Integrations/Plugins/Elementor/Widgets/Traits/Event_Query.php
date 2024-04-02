@@ -33,6 +33,20 @@ trait Event_Query {
 	protected $default_repository_to_current_date = true;
 
 	/**
+	 * Provides a "trimmed" slug for usage in classes and such (removes the "event_" prefix)
+	 * and converts all underscores to dashes.
+	 *
+	 * This is here for the widgets that use this trait but do not extend Abstract_Widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public static function trim_slug(): string {
+		return str_replace( [ 'event_', '_' ], [ '', '-' ], static::get_slug() );
+	}
+
+	/**
 	 * Method for adding the event_query section in the widget controls.
 	 *
 	 * @since 5.4.0
@@ -41,7 +55,7 @@ trait Event_Query {
 		$this->start_controls_section(
 			'event_query_section',
 			[
-				'label' => __( 'Event Query', 'tribe-events-calendar-pro' ),
+				'label' => __( 'Event Query', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
