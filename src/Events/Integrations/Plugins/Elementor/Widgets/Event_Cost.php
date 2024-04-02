@@ -90,7 +90,6 @@ class Event_Cost extends Abstract_Widget {
 	 * @return string The HTML tag to use for the event cost.
 	 */
 	protected function get_html_tag(): string {
-
 		$settings = $this->get_settings_for_display();
 
 		return $settings['html_tag'] ?? 'p';
@@ -141,7 +140,7 @@ class Event_Cost extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_category_widget_header_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_category_widget_header_class', $class, $this );
 	}
 
 	/**
@@ -261,15 +260,7 @@ class Event_Cost extends Abstract_Widget {
 				'prefix'   => 'header',
 				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
 			]
-		);
-
-		$this->add_shared_control(
-			'alignment',
-			[
-				'id'        => 'align_header',
-				'selectors' => [ '{{WRAPPER}} .' . $this->get_header_class() ],
-			]
-		);
+		);src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php
 
 		$this->end_controls_section();
 	}

@@ -123,7 +123,7 @@ class Event_Tags extends Abstract_Widget {
 		 *
 		 * @return string The filtered separator.
 		 */
-		$separator = (string) apply_filters( 'tec_events_pro_elementor_event_tags_separator', ',', $this );
+		$separator = (string) apply_filters( 'tec_events_elementor_event_tags_separator', ',', $this );
 
 		if ( empty( $separator ) ) {
 			$separator = ',';
@@ -161,7 +161,7 @@ class Event_Tags extends Abstract_Widget {
 		 *
 		 * @return string The filtered label text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_tags_widget_header_text', $label_text, $this );
+		return apply_filters( 'tec_events_elementor_event_tags_widget_header_text', $label_text, $this );
 	}
 
 	/**
@@ -182,7 +182,7 @@ class Event_Tags extends Abstract_Widget {
 		 * @param string $class The header base class.
 		 * @param Event_tags $this The event tags widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_tags_header_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_tags_header_class', $class, $this );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class Event_Tags extends Abstract_Widget {
 		 * @param string $class The links base class.
 		 * @param Event_tags $this The event tags widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_tags_links_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_tags_links_class', $class, $this );
 	}
 
 	/**
@@ -224,7 +224,7 @@ class Event_Tags extends Abstract_Widget {
 		 * @param string $class The link base class.
 		 * @param Event_tags $this The event tags widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_tags_link_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_tags_link_class', $class, $this );
 	}
 
 	/**

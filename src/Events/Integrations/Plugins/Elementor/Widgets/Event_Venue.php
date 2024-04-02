@@ -261,7 +261,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_widget_header_text', $header_text, $this );
 	}
 
 	/**
@@ -288,7 +288,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_website_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_widget_website_header_text', $header_text, $this );
 	}
 
 	/**
@@ -315,7 +315,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_phone_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_widget_phone_header_text', $header_text, $this );
 	}
 
 	/**
@@ -342,7 +342,7 @@ class Event_Venue extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_widget_address_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_widget_address_header_text', $header_text, $this );
 	}
 
 	/**
@@ -382,7 +382,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param array $classes The widget header classes.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_header_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_header_class', $class, $this );
 	}
 
 	/**
@@ -403,7 +403,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The name base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_name_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_name_class', $class, $this );
 	}
 
 	/**
@@ -424,7 +424,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The address base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_address_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_address_class', $class, $this );
 	}
 
 	/**
@@ -445,7 +445,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The phone base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_phone_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_phone_class', $class, $this );
 	}
 
 	/**
@@ -466,7 +466,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The website base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_website_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_website_class', $class, $this );
 	}
 
 	/**
@@ -487,7 +487,7 @@ class Event_Venue extends Abstract_Widget {
 		 * @param string $class The map base class.
 		 * @param Event_Venue $this The event venue widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_venue_map_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_venue_map_class', $class, $this );
 	}
 
 	/**

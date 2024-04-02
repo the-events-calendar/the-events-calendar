@@ -237,7 +237,7 @@ class Event_Organizer extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_widget_email_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_widget_email_header_text', $header_text, $this );
 	}
 
 	/**
@@ -264,7 +264,7 @@ class Event_Organizer extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_widget_phone_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_widget_phone_header_text', $header_text, $this );
 	}
 
 	/**
@@ -291,7 +291,7 @@ class Event_Organizer extends Abstract_Widget {
 		 *
 		 * @return string The filtered header text.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_widget_website_header_text', $header_text, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_widget_website_header_text', $header_text, $this );
 	}
 
 	/**
@@ -312,7 +312,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string          $class The widget header class.
 		 * @param Event_Organizer $this  The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_header_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_header_class', $class, $this );
 	}
 
 	/**
@@ -333,7 +333,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The name base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_name_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_name_class', $class, $this );
 	}
 
 	/**
@@ -354,7 +354,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The name wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_name_wrapper_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_name_wrapper_class', $class, $this );
 	}
 
 	/**
@@ -375,7 +375,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The phone base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_phone_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_phone_class', $class, $this );
 	}
 
 	/**
@@ -396,7 +396,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The phone wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_phone_wrapper_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_phone_wrapper_class', $class, $this );
 	}
 
 	/**
@@ -417,7 +417,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The phone header class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_phone_header_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_phone_header_class', $class, $this );
 	}
 
 	/**
@@ -438,7 +438,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The email base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_email_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_email_class', $class, $this );
 	}
 
 	/**
@@ -459,7 +459,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The email wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_email_wrapper_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_email_wrapper_class', $class, $this );
 	}
 
 	/**
@@ -480,7 +480,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The email header class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_email_header_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_email_header_class', $class, $this );
 	}
 
 	/**
@@ -501,7 +501,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The website base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_website_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_website_class', $class, $this );
 	}
 
 	/**
@@ -522,7 +522,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The website wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_website_wrapper_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_website_wrapper_class', $class, $this );
 	}
 
 	/**
@@ -543,7 +543,7 @@ class Event_Organizer extends Abstract_Widget {
 		 * @param string $class The website header class.
 		 * @param Event_Organizer $this The event organizer widget instance.
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_organizer_website_header_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_organizer_website_header_class', $class, $this );
 	}
 
 	/**
