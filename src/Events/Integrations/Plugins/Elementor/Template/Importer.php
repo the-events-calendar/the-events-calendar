@@ -62,7 +62,7 @@ class Importer {
 		$elementor_template_json = $this->get_template_engine()->template( 'starter', [], false );
 		try {
 			$elementor_template_data = json_decode( $elementor_template_json, true, 512, JSON_THROW_ON_ERROR );
-		} catch( \JsonException $e ) {
+		} catch ( \JsonException $e ) {
 			return;
 		}
 

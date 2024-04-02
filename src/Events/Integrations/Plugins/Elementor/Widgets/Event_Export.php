@@ -26,6 +26,7 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
 class Event_Export extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
+	use Traits\Event_Query;
 
 	/**
 	 * Widget slug.
@@ -510,6 +511,7 @@ class Event_Export extends Abstract_Widget {
 	 */
 	protected function content_panel(): void {
 		$this->content_options();
+		$this->add_event_query_section();
 	}
 
 	/**
