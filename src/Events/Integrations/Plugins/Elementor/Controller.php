@@ -17,6 +17,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 
 use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
+use Tribe__Main;
 
 /**
  * Class Controller
@@ -115,6 +116,7 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'disable_blocks' ] );
 	}
 
 	/**
@@ -252,6 +254,47 @@ class Controller extends Integration_Abstract {
 		$query_args['tribe_suppress_query_filters'] = true;
 
 		return $query_args;
+	}
+
+	/**
+	 * Disables the Blocks Editor on posts that have been edited with Elementor.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $blocks_enabled Whether the Blocks Editor is enabled or not.
+	 *
+	 * @return bool
+	 */
+	public function disable_blocks( $blocks_enabled ) {
+		$post_id = get_the_ID();
+
+		if ( ! $post_id ) {
+			$post_id = Tribe__Main::post_id_helper();
+		}
+
+		if ( ! $post_id ) {
+			$post_id = tribe_get_request_var( 'post' );
+		}
+
+		// We can't get the post ID, bail out.
+		if ( ! $post_id ) {
+			return $blocks_enabled;
+		}
+
+		// Not an event, bail out.
+		if ( ! tribe_is_event( $post_id ) ) {
+			return $blocks_enabled;
+		}
+
+		$elementor_edit = get_post_meta( $post_id, '_elementor_edit_mode', true );
+
+		// Missing the expected meta - bail out.
+		if ( empty( $elementor_edit ) ) {
+			return $blocks_enabled;
+		}
+
+		// Disable the blocks editor.
+		return false;
 	}
 
 	/**
