@@ -8,6 +8,22 @@
 				"_column_size": 100,
 				"_inline_size": null
 			},
+			{
+              "id": "63ab6d4a",
+              "settings": {},
+              "elements": [],
+              "isInner": false,
+              "widgetType": "tec_elementor_widget_event_backlink",
+              "elType": "widget"
+            },
+            {
+              "id": "5c4ca066",
+              "settings": {},
+              "elements": [],
+              "isInner": false,
+              "widgetType": "tec_elementor_widget_event_status",
+              "elType": "widget"
+            },
 			"elements": [{
 				"id": "75c65b7c",
 				"settings": [],
