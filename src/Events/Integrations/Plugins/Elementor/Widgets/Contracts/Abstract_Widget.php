@@ -4,7 +4,7 @@
  *
  * @since   TBD
  *
- * @package Tribe\Events\Pro\Integrations\Elementor\Widgets
+ * @package Tribe\Events\Integrations\Elementor\Widgets
  */
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts;
@@ -244,7 +244,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @return string
 	 */
-	public function trim_slug(): string {
+	public static function trim_slug(): string {
 		return str_replace( [ 'event_', '_' ], [ '', '-' ], static::get_slug() );
 	}
 
@@ -257,7 +257,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_widget_class(): string {
 		$slug  = static::get_slug();
-		$class = 'tec-events-elementor-event-widget__' . $this->trim_slug();
+		$class = 'tec-events-elementor-event-widget__' . $this::trim_slug();
 
 		/**
 		 * Filters the widget class for all tec-events-elementor widgets.
@@ -293,7 +293,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public function get_icon_class(): string {
 		$slug  = static::get_slug();
-		$class = 'tec-events-elementor-event-widget__icon-' . $this->trim_slug();
+		$class = 'tec-events-elementor-event-widget__icon-' . $this::trim_slug();
 
 		/**
 		 * Filters the widget icon class for all tec-events-elementor widgets.
@@ -565,7 +565,7 @@ abstract class Abstract_Widget extends Widget_Base {
 			return;
 		}
 
-		$slug   = $this->trim_slug();
+		$slug   = $this::trim_slug();
 		$source = $this->get_asset_source();
 
 		// Register the styles for the widget.
@@ -589,7 +589,7 @@ abstract class Abstract_Widget extends Widget_Base {
 			return;
 		}
 
-		$slug = $this->trim_slug();
+		$slug = $this::trim_slug();
 
 		tribe_asset_enqueue( static::$asset_prefix . $slug . '-styles' );
 	}
