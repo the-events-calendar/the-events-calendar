@@ -32,7 +32,6 @@ class Widgets_Manager extends Controller {
 		Widgets\Event_Categories::class,
 		Widgets\Event_Cost::class,
 		Widgets\Event_Datetime::class,
-		Widgets\Event_Description::class,
 		Widgets\Event_Export::class,
 		Widgets\Event_Image::class,
 		Widgets\Event_Navigation::class,
