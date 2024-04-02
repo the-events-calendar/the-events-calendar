@@ -55,7 +55,7 @@ trait Event_Query {
 		$this->start_controls_section(
 			'event_query_section',
 			[
-				'label' => __( 'Event Query', 'tribe-events-calendar-pro' ),
+				'label' => __( 'Event Query', 'the-events-calendar' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);

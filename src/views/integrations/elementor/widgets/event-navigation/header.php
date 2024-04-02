@@ -11,7 +11,7 @@
  * @var string $header_tag      The HTML tag for the event title.
  * @var string $header_text     The header_text for the event navigation.
  * @var int    $event_id        The event ID.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Navigation $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Navigation $widget The widget instance.
  */
 
 if ( ! $show_nav_header ) {

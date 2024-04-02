@@ -10,7 +10,7 @@
  * @var bool   $show_address_header Whether to show the website header.
  * @var string $header_tag          The HTML tag to use for the website header.
  * @var string $header_text         The website header text.
- * @var Tribe\Events\Pro\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
 if ( ! $show_address_header ) {
