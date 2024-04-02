@@ -18,7 +18,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Cost;
 if ( empty( $cost ) ) {
 	return;
 }
-?>src/views/integrations/elementor/widgets/event-cost.php 
+?>
 <?php
 $this->template( 'views/integrations/elementor/widgets/event-cost/header' );
 ?>
