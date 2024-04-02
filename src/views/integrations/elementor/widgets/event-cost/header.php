@@ -13,10 +13,10 @@
  * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Cost $widget The widget instance.
  */
 
-if ( ! $show ) {
+if ( ! $show_header ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $widget->get_header_tag() ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>>
+<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>>
 	<?php echo esc_html( $widget->get_header_text() ); ?>
-</<?php echo tag_escape( $widget->get_header_tag() ); ?>>
+</<?php echo tag_escape( $header_tag ); ?>>
