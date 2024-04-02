@@ -7,22 +7,21 @@
  *
  * @since TBD
  *
- * @var bool   $show          If the widget should be shown.
+ * @var bool   $show_status   If the widget should be shown.
  * @var string $status        The status.
  * @var string $status_label  The status label.
  * @var string $status_reason The status reason.
- * @var int    $event_id      The event ID.
- * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Status $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Header $widget The widget instance.
  */
 
-if ( ! $show || empty( $status_label ) || empty( $status ) ) {
+if ( ! $show_status || empty( $status ) ) {
 	return;
 }
 
 ?>
 <div <?php tribe_classes( $widget->get_element_classes() ); ?>>
-	<div <?php tribe_classes( $widget->get_label_class(), $widget->get_status_class( $status ) ); ?>><?php echo esc_html( $status_label ); ?></div>
+	<div <?php tribe_classes( $widget->get_status_label_class(), $widget->get_status_class( $status ) ); ?>><?php echo esc_html( $status_label ); ?></div>
 	<?php if ( ! empty( $status_reason ) ) : ?>
-		<div <?php tribe_classes( $widget->get_description_class() ); ?>><?php echo wp_kses_post( $status_reason ); ?></div>
+		<div <?php tribe_classes( $widget->get_status_description_class() ); ?>><?php echo wp_kses_post( $status_reason ); ?></div>
 	<?php endif; ?>
 </div>

@@ -28,7 +28,7 @@ class Widgets_Manager extends Controller {
 	 * @var array
 	 */
 	protected array $widget_classes = [
-		Widgets\Event_Title::class,
+		Widgets\Event_Backlink::class,
 		Widgets\Event_Categories::class,
 		Widgets\Event_Cost::class,
 		Widgets\Event_Datetime::class,
@@ -37,7 +37,9 @@ class Widgets_Manager extends Controller {
 		Widgets\Event_Image::class,
 		Widgets\Event_Navigation::class,
 		Widgets\Event_Organizer::class,
+		Widgets\Event_Status::class,
 		Widgets\Event_Tags::class,
+		Widgets\Event_Title::class,
 		Widgets\Event_Venue::class,
 		Widgets\Event_Website::class,
 	];
