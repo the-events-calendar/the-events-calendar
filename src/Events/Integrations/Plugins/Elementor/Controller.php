@@ -285,6 +285,11 @@ class Controller extends Integration_Abstract {
 			$post_id = tribe_get_request_var( 'post' );
 		}
 
+		// Handle previews.
+		if ( ! $post_id ) {
+			$post_id = tribe_get_request_var( 'preview_id' );
+		}
+
 		// We can't get the post ID, bail out.
 		if ( ! $post_id ) {
 			return false;
@@ -323,7 +328,10 @@ class Controller extends Integration_Abstract {
 			return;
 		}
 
-		
+		if ( ! $this->built_with_elementor() ) {
+			return;
+		}
+
 		remove_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
 	}
 }
