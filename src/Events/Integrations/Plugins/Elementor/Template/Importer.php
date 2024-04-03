@@ -14,6 +14,7 @@ use Elementor\TemplateLibrary\Source_Local;
 use Elementor\Plugin;
 
 use Tribe__Template as Template;
+use Tribe__Log as Log;
 
 /**
  * Class Importer
@@ -63,6 +64,9 @@ class Importer {
 		try {
 			$elementor_template_data = json_decode( $elementor_template_json, true, 512, JSON_THROW_ON_ERROR );
 		} catch ( \JsonException $e ) {
+			do_action( 'tribe_log', Log::DEBUG, 'Failed to decode the Elementor template JSON.', [
+				'json_string' => $elementor_template_json,
+			] );
 			return;
 		}
 
