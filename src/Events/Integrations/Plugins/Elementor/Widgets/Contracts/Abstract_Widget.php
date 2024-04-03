@@ -114,7 +114,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return array
 	 */
 	protected function get_init_settings(): array {
-		return [];
+		return parent::get_init_settings();
 	}
 
 	/**
