@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Elementor Event Datetime widget header.
+ * View: Elementor Event Datetime widget - end date section.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/header.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/end-date.php
  *
  * @since TBD
  *
@@ -27,12 +27,23 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
-if ( ! $show_header ) {
+if ( $is_same_start_end ) {
 	return;
 }
 
-$widget = $this->get_widget();
+if ( $is_all_day ) {
+	return;
+}
+
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>>
-	<?php echo esc_html( $header_text ); ?>
-</<?php echo tag_escape( $header_tag ); ?>>
+
+<?php if ( $show_date && ! $is_same_day && $end_date ) : ?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/separator' ); ?>
+<?php endif; ?>
+
+<?php if ( $show_date && ! $is_same_day && $end_date ) : ?>
+	<span <?php tribe_classes( $widget->get_date_class(), $widget->get_end_date_class() ); ?>><?php echo esc_html( $end_date ); ?></span>
+<?php endif; ?>
+
+<?php
+$this->template( 'views/integrations/elementor/widgets/event-datetime/end-time' );

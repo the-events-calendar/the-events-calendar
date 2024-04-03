@@ -26,7 +26,7 @@ class Event_CategoriesTest extends WPTestCase {
 		$this->set_class_fn_return(
 			'Elementor\Controls_Stack',
 			'get_settings_for_display',
-			[ 'show_he`ading' => true ]
+			[ 'show_heading' => true ]
 		);
 	}
 
@@ -51,9 +51,8 @@ class Event_CategoriesTest extends WPTestCase {
 					'string' => '<h4',
 					'additional' => [
 						'show_heading' => true,
-						'categories'   => [
-							'test'
-						],
+						'header_tag'   => 'h4',
+						'categories'   => 'not_empty',
 					],
 				];
 			},

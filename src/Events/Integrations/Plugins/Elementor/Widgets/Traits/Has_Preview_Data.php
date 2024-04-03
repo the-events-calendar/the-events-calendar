@@ -28,7 +28,13 @@ trait Has_Preview_Data {
 		$template = $this->get_template();
 		$type     = get_post_type();
 
-		return $template->is_preview_mode() || $type === 'elementor_library';
+		if ( $type === 'elementor_library' ) {
+			return true;
+		}
+
+		$post_id = $this->get_event_id();
+
+		return $template->is_preview_mode() && empty( $post_id );
 	}
 
 	/**

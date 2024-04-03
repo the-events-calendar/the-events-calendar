@@ -34,17 +34,11 @@ if ( empty( $prev_event ) && empty( $next_event ) ) {
 ?>
 <nav <?php tribe_classes( $widget->get_widget_class() ); ?> aria-label="<?php echo esc_attr( tribe_get_event_label_plural() ); ?>">
 	<?php if ( ! empty( $header_text ) ) : ?>
-		<?php
-		$this->template( 'integrations/elementor/widgets/event-navigation/header' );
-		?>
+		<?php $this->template( 'integrations/elementor/widgets/event-navigation/header' ); ?>
 	<?php endif; ?>
 	<ul <?php tribe_classes( $widget->get_list_class() ); ?>>
-		<?php
-		$this->template( 'integrations/elementor/widgets/event-navigation/previous' );
-		?>
+		<?php $this->template( 'integrations/elementor/widgets/event-navigation/previous' ); ?>
 
-		<?php
-		$this->template( 'integrations/elementor/widgets/event-navigation/next' );
-		?>
+		<?php $this->template( 'integrations/elementor/widgets/event-navigation/next' ); ?>
 	</ul>
 </nav>
