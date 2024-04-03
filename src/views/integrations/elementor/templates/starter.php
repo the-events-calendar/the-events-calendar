@@ -269,7 +269,7 @@
 	"page_settings": [],
 	"settings": [],
 	"import_settings": {
-		"thumbnail": false,
+		"thumbnail": false
 	},
 	"version": "0.4",
 	"title": "The Events Calendar - Starter",
