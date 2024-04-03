@@ -107,6 +107,17 @@ abstract class Abstract_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Ensure init settings are always an array to start.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	protected function get_init_settings(): array {
+		return [];
+	}
+
+	/**
 	 * Gets the name (aka slug) of the widget.
 	 *
 	 * @since TBD
