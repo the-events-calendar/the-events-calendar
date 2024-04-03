@@ -11,7 +11,7 @@
  * @var string $status        The status.
  * @var string $status_label  The status label.
  * @var string $status_reason The status reason.
- * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Header $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Status $widget The widget instance.
  */
 
 if ( ! $show_status || empty( $status ) ) {

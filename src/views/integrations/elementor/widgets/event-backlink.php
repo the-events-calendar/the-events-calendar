@@ -1,6 +1,6 @@
 <?php
 /**
- * View: Elementor Event Header widget - All Events backlink.
+ * View: Elementor Event Backlink widget.
  *
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/events-header/backlink.php
@@ -11,7 +11,7 @@
  * @var string $backlink_label Label for the link.
  * @var string $backlink_class CSS classes.
  * @var string $backlink       URL to the events page.
- * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Header $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Backlink $widget The widget instance.
  */
 
 ?>

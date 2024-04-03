@@ -26,6 +26,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  */
 class Event_Status extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -76,10 +77,33 @@ class Event_Status extends Abstract_Widget {
 			'status'            => $event->event_status,
 			'status_label'      => $this->get_status_label( $event ),
 			'status_reason'     => $reason,
-			'show_status'       => $settings['show_status'],
-			'show_passed'       => $settings['show_passed'],
-			'is_passed'         => $is_passed,
+			'show_status'       => tribe_is_truthy( $settings['show_status'] ?? true ),
+			'show_passed'       => tribe_is_truthy( $settings['show_passed'] ?? true ),
+			'is_passed'         => tribe_is_truthy( $is_passed ),
 			'passed_label'      => $this->get_passed_label_text(),
+			'event'             => $event,
+		];
+	}
+
+	/**
+	 * Get the template args for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The template args for the preview.
+	 */
+	protected function preview_args(): array {
+		return [
+			'description_class' => $this->get_status_description_class(),
+			'label_class'       => $this->get_status_label_class(),
+			'status'            => 'postponed',
+			'status_label'      => 'Postponed',
+			'status_reason'     => __( 'No reason provided.', 'the-events-calendar' ),
+			'show_status'       => true,
+			'show_passed'       => true,
+			'is_passed'         => true,
+			'passed_label'      => $this->get_passed_label_text(),
+			'event'             => true,
 		];
 	}
 

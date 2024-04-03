@@ -1,6 +1,6 @@
 <?php
 /**
- * Event Header Elementor Widget.
+ * Event Backlink Elementor Widget.
  *
  * @since   TBD
  *
@@ -21,6 +21,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  */
 class Event_Backlink extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
+	use Traits\Has_Preview_Data;
 
 	/**
 	 * Widget slug.
@@ -77,7 +78,7 @@ class Event_Backlink extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return [];
+		return $this->template_args();
 	}
 
 	/**

@@ -9,7 +9,7 @@
  *
  * @var string $passed_label The "passed" message.
  * @var bool   $is_passed    Whether the event has passed.
- * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Header $widget The widget instance.
+ * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Status $widget The widget instance.
  */
 
 if ( ! $is_passed || ! $show_passed ) {
