@@ -23,7 +23,7 @@
 			background-color: var(--tec-color-accent-primary);
 			color: var(--tec-color-background);
 
-			.tec-events-elementor-event-widget__export-dropdown-icon {
+			.tec-events-elementor-event-widget__export-dropdown-icon path {
 				fill: #fff;
 			}
 		}
@@ -32,11 +32,17 @@
 	.tec-events-elementor-event-widget__export-dropdown-export-icon {
 		font-family: 'eicons';
 		margin-right: var(--tec-spacer-1);
+		padding: 0;
 	}
 
 	.tec-events-elementor-event-widget__export-dropdown-icon {
-		fill: #334aff;
 		margin-left: var(--tec-spacer-1);
+		padding: 0;
+		vertical-align: text-bottom;
+
+		path {
+			fill: #334aff;
+		}
 
 		&.tec-events-elementor-event-widget__export-dropdown-icon--active {
 			transform: rotate(180deg);
