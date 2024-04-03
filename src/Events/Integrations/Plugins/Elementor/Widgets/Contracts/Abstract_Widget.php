@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts;
 
+use Elementor\Utils;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 use TEC\Events\Integrations\Plugins\Elementor\Assets_Manager;
 use Tribe__Events__Main as TEC;
@@ -104,17 +105,6 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	public static function get_elementor_slug(): string {
 		return static::$slug_prefix . static::get_slug();
-	}
-
-	/**
-	 * Ensure init settings are always an array to start.
-	 *
-	 * @since TBD
-	 *
-	 * @return array
-	 */
-	protected function get_init_settings(): array {
-		return parent::get_init_settings();
 	}
 
 	/**

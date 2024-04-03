@@ -312,11 +312,15 @@ trait Event_Query {
 	 * @return ?int The ID of the current item (parent post) the widget is in. False if not found.
 	 */
 	protected function event_id(): ?int {
-		$setting_id    = $this->event_query_control_prefix . '_id_selection';
-		$query_setting = Arr::get( $this->get_settings_for_display(), $setting_id );
+		$event_id = null;
 
-		if ( ! empty( $query_setting ) && 'current' !== $query_setting ) {
-			$event_id = $this->get_id_from_repository();
+		if ( ! $this->is_type_instance() ) {
+			$setting_id    = $this->event_query_control_prefix . '_id_selection';
+			$query_setting = Arr::get( $this->get_settings_for_display(), $setting_id );
+
+			if ( ! empty( $query_setting ) && 'current' !== $query_setting ) {
+				$event_id = $this->get_id_from_repository();
+			}
 		}
 
 		if ( empty( $event_id ) ) {
