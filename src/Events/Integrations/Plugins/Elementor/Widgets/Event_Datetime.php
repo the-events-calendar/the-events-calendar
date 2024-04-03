@@ -53,10 +53,10 @@ class Event_Datetime extends Abstract_Widget {
 	 */
 	public function template_args(): array {
 		$event_id = $this->get_event_id();
-		$event    = tribe_get_event( $event_id );
+		$event    = tribe_get_event( $event_id, null, 'raw', true );
 
 		if ( empty( $event ) ) {
-			return [ 'show' => false ];
+			return [];
 		}
 
 		$settings = $this->get_settings_for_display();
@@ -72,20 +72,21 @@ class Event_Datetime extends Abstract_Widget {
 		$end_time    = $event->dates->end->format( $time_format ) ?? '';
 
 		return [
-			'show'              => true,
-			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
+			'all_day_text'      => $this->get_all_day_text(),
+			'end_date'          => $end_date,
+			'end_time'          => $end_time,
+			'header_text'       => $this->get_header_text(),
+			'header_tag'        => $this->get_header_tag(),
 			'html_tag'          => $this->get_html_tag(),
+			'is_all_day'        => tribe_event_is_all_day( $event_id ),
+			'is_same_day'       => $start_date === $end_date,
+			'is_same_start_end' => ( $start_date === $end_date ) && ( $start_time === $end_time ),
 			'show_date'         => tribe_is_truthy( $settings['show_date'] ?? false ),
+			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
 			'show_time'         => tribe_is_truthy( $settings['show_time'] ?? false ),
 			'show_year'         => $show_year,
 			'start_date'        => $start_date,
-			'end_date'          => $end_date,
 			'start_time'        => $start_time,
-			'end_time'          => $end_time,
-			'is_same_day'       => $start_date === $end_date,
-			'is_all_day'        => tribe_event_is_all_day( $event_id ),
-			'is_same_start_end' => $start_date === $end_date && $start_time === $end_time,
-			'event_id'          => $event_id,
 		];
 	}
 
@@ -110,18 +111,21 @@ class Event_Datetime extends Abstract_Widget {
 		$end->setTime( 17, 0 );
 
 		return [
+			'all_day_text'      => esc_html__( 'All day', 'the-events-calendar' ),
+			'end_date'          => $end->format( $date_format ) ?? '',
+			'end_time'          => $end->format( $time_format ) ?? '',
+			'header_text'       => $this->get_header_text(),
+			'header_tag'        => $this->get_header_tag(),
 			'html_tag'          => $this->get_html_tag(),
-			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
+			'is_all_day'        => false,
+			'is_same_day'       => false,
+			'is_same_start_end' => false,
 			'show_date'         => tribe_is_truthy( $settings['show_date'] ?? true ),
+			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
 			'show_time'         => tribe_is_truthy( $settings['show_time'] ?? true ),
 			'show_year'         => tribe_is_truthy( $settings['show_year'] ?? true ),
 			'start_date'        => $start->format( $date_format ) ?? '',
-			'end_date'          => $end->format( $date_format ) ?? '',
 			'start_time'        => $start->format( $time_format ) ?? '',
-			'end_time'          => $end->format( $time_format ) ?? '',
-			'is_same_day'       => false,
-			'is_all_day'        => false,
-			'is_same_start_end' => false,
 		];
 	}
 
@@ -134,6 +138,17 @@ class Event_Datetime extends Abstract_Widget {
 	 */
 	public function get_header_text(): string {
 		return _x( 'Date & Time:', 'The header text for the event date and time widget', 'the-events-calendar' );
+	}
+
+	/**
+	 * Create the widget title.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_all_day_text(): string {
+		return _x( 'All day', 'The all-day text for the event date and time widget', 'the-events-calendar' );
 	}
 
 	/**
