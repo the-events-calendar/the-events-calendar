@@ -236,7 +236,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_class', $class, $this );
 	}
 
 	/**
@@ -259,7 +259,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_button_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_button_class', $class, $this );
 	}
 
 	/**
@@ -282,7 +282,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_list_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_list_class', $class, $this );
 	}
 
 	/**
@@ -305,7 +305,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_list_item_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_list_item_class', $class, $this );
 	}
 
 	/**
@@ -328,7 +328,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_link_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_link_class', $class, $this );
 	}
 
 	/**
@@ -351,7 +351,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_content_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_content_class', $class, $this );
 	}
 
 	/**
@@ -374,7 +374,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_icon_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_icon_class', $class, $this );
 	}
 
 	/**
@@ -397,7 +397,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_export_icon_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_export_icon_class', $class, $this );
 	}
 
 	/**
@@ -420,7 +420,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_gcal_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_gcal_class', $class, $this );
 	}
 
 	/**
@@ -443,7 +443,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_ical_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_ical_class', $class, $this );
 	}
 
 	/**
@@ -466,7 +466,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_365_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_365_class', $class, $this );
 	}
 
 	/**
@@ -489,7 +489,7 @@ class Event_Export extends Abstract_Widget {
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_pro_elementor_event_export_widget_dropdown_live_class', $class, $this );
+		return apply_filters( 'tec_events_elementor_event_export_widget_dropdown_live_class', $class, $this );
 	}
 
 	/**
