@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Elementor Event Datetime widget header.
+ * View: Elementor Event Datetime widget - separator.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/header.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/separator.php
  *
  * @since TBD
  *
@@ -27,12 +27,6 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
-if ( ! $show_header ) {
-	return;
-}
-
-$widget = $this->get_widget();
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>>
-	<?php echo esc_html( $header_text ); ?>
-</<?php echo tag_escape( $header_tag ); ?>>
+
+<span <?php tribe_classes( $widget->get_separator_class() ); ?>> - </span>

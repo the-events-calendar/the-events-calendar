@@ -1,9 +1,9 @@
 <?php
 /**
- * View: Elementor Event Datetime widget header.
+ * View: Elementor Event Datetime widget - start time section.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/header.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/start-time.php
  *
  * @since TBD
  *
@@ -27,12 +27,13 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
-if ( ! $show_header ) {
+if ( ! $show_time || ! $start_time ) {
 	return;
 }
-
-$widget = $this->get_widget();
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>>
-	<?php echo esc_html( $header_text ); ?>
-</<?php echo tag_escape( $header_tag ); ?>>
+<?php if ( $show_date && $start_date && ! $is_same_day ) : ?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/separator' ); ?>
+<?php endif; ?>
+
+
+<span <?php tribe_classes( $widget->get_time_class(), $widget->get_start_time_class() ); ?>><?php echo esc_html( $start_time ); ?></span>
