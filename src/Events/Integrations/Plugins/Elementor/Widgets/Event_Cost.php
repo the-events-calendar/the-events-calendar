@@ -260,7 +260,7 @@ class Event_Cost extends Abstract_Widget {
 				'prefix'   => 'header',
 				'selector' => '{{WRAPPER}} .' . $this->get_header_class(),
 			]
-		);src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php
+		);
 
 		$this->end_controls_section();
 	}
