@@ -15,7 +15,6 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Text_Stroke;
 use Elementor\Group_Control_Typography;
-use PhpParser\Builder\Method;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
@@ -202,7 +201,6 @@ class Event_Status extends Abstract_Widget {
 		 * @return string The filtered label text.
 		 */
 		return apply_filters( 'tec_events_elementor_event_passed_label_text', $label_text, $this );
-
 	}
 
 	/**
