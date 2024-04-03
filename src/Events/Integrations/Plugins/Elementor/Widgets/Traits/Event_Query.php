@@ -312,7 +312,6 @@ trait Event_Query {
 	 */
 	protected function get_event_id(): ?int {
 		$event_id = get_the_ID();
-		error_log( $event_id );
 
 		if ( ! empty( $this->get_data( 'settings' ) ) ) {
 			$settings = $this->get_settings_for_display();
