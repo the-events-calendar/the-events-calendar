@@ -76,19 +76,19 @@ class Event_Export extends Abstract_Widget {
 			return $args;
 		}
 
-		if ( tribe_is_truthy( $settings['show_gcal_link'] ?? false ) ) {
+		if ( tribe_is_truthy( $settings['show_gcal_link'] ?? true ) ) {
 			$args = $this->add_gcal_data( $args );
 		}
 
-		if ( tribe_is_truthy( $settings['show_ical_link'] ?? false ) ) {
+		if ( tribe_is_truthy( $settings['show_ical_link'] ?? true ) ) {
 			$args = $this->add_ical_data( $args );
 		}
 
-		if ( tribe_is_truthy( $settings['show_outlook_365_link'] ?? false ) ) {
+		if ( tribe_is_truthy( $settings['show_outlook_365_link'] ?? true ) ) {
 			$args = $this->add_outlook_365_data( $args );
 		}
 
-		if ( tribe_is_truthy( $settings['show_outlook_live_link'] ?? false ) ) {
+		if ( tribe_is_truthy( $settings['show_outlook_live_link'] ?? true ) ) {
 			$args = $this->add_outlook_live_data( $args );
 		}
 
