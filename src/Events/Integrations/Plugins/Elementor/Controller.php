@@ -17,6 +17,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Elementor\Core\Base\Document;
 use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Revisions__Preview;
 
 /**
  * Class Controller
@@ -89,6 +90,7 @@ class Controller extends Integration_Abstract {
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
+		add_action( 'template_redirect', [ $this, 'action_remove_revision_metadata_modifier' ], 1 );
 	}
 
 	/**
@@ -98,7 +100,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @param Elements_Manager $elements_manager Elementor Manager instance.
 	 */
-	public function action_register_elementor_category( $elements_manager ) {
+	public function action_register_elementor_category( $elements_manager ): void {
 		$elements_manager->add_category(
 			'the-events-calendar',
 			[
@@ -144,8 +146,8 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 */
-	public function action_register_elementor_controls() {
-		return $this->container->make( Controls_Manager::class )->register();
+	public function action_register_elementor_controls(): void {
+		$this->container->make( Controls_Manager::class )->register();
 	}
 
 	/**
@@ -264,7 +266,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @return bool
 	 */
-	public function disable_blocks( $blocks_enabled ) {
+	public function disable_blocks( $blocks_enabled ): bool {
 		return $this->built_with_elementor() ? false : $blocks_enabled;
 	}
 
@@ -280,6 +282,11 @@ class Controller extends Integration_Abstract {
 	public function built_with_elementor( $post_id = null ): bool {
 		if ( ! $post_id ) {
 			$post_id = tribe_get_request_var( 'post' );
+		}
+
+		// Handle previews.
+		if ( ! $post_id ) {
+			$post_id = tribe_get_request_var( 'preview_id' );
 		}
 
 		// We can't get the post ID, bail out.
@@ -313,5 +320,22 @@ class Controller extends Integration_Abstract {
 		}
 
 		return $this->template;
+	}
+
+	/**
+	 * Removes the revision metadata modifier on event previews in Elementor.
+	 *
+	 * @since TBD
+	 */
+	public function action_remove_revision_metadata_modifier(): void {
+		if ( ! is_preview() ) {
+			return;
+		}
+
+		if ( ! $this->built_with_elementor() ) {
+			return;
+		}
+
+		remove_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
 	}
 }

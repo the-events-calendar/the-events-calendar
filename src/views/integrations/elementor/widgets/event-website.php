@@ -19,16 +19,18 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Website;
 
+if ( ! $this->has_event() ) {
+	return;
+}
+
+$website = tribe_get_event_website_url( $this->get_event() );
+
 if ( empty( $website ) ) {
 	return;
 }
 
 ?>
 <div <?php tribe_classes( $widget->get_element_classes() ); ?>>
-	<?php
-	$this->template( 'views/integrations/elementor/widgets/event-website/header' );
-	?>
-	<?php
-	$this->template( 'views/integrations/elementor/widgets/event-website/link' );
-	?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-website/header' ); ?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-website/link' ); ?>
 </div>

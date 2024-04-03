@@ -87,6 +87,15 @@ abstract class Abstract_Widget extends Widget_Base {
 	protected string $template_engine_class = Template_Engine::class;
 
 	/**
+	 * The hooks added by the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,array>
+	 */
+	protected array $added_hooks = [];
+
+	/**
 	 * Get elementor widget slug.
 	 *
 	 * @since TBD
@@ -453,8 +462,8 @@ abstract class Abstract_Widget extends Widget_Base {
 		$template_file = $this->get_template_file();
 		$hook_name     = "events/integrations/elementor/{$template_file}";
 
-		$add    = "tribe_template_after_include:{$hook_name}";
-		$remove = "tribe_template_before_include:{$hook_name}";
+		$add    = "tribe_template_before_include:{$hook_name}";
+		$remove = "tribe_template_after_include:{$hook_name}";
 
 		// ensure the callback is callable.
 		if ( ! is_callable( $callback ) ) {
@@ -471,9 +480,28 @@ abstract class Abstract_Widget extends Widget_Base {
 
 		// Include the hook.
 		add_action( $add, $add_callback );
+		$this->added_hooks[] = [
+			'hook'     => $add,
+			'callback' => $add_callback,
+		];
 
 		// Remove the hook.
 		add_action( $remove, $remove_callback );
+		$this->added_hooks[] = [
+			'hook'     => $remove,
+			'callback' => $remove_callback,
+		];
+	}
+
+	/**
+	 * Unset the template filters.
+	 *
+	 * @since TBD
+	 */
+	protected function unset_template_filters(): void {
+		foreach ( $this->added_hooks as $hook ) {
+			remove_action( $hook['hook'], $hook['callback'] );
+		}
 	}
 
 	/**
@@ -545,21 +573,8 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @return string
 	 */
-	public function get_asset_source() {
-		$source = 'tec.main';
-
-		/**
-		 * Filters the asset source for the widget.
-		 * Allows other plugins to change the source for their widget assets.
-		 *
-		 * @since TBD
-		 *
-		 * @param string          $source The asset source.
-		 * @param Abstract_Widget $this   The widget instance.
-		 *
-		 * @return string
-		 */
-		return (string) apply_filters( 'tec_events_elementor_widget_asset_source', $source, $this );
+	protected function get_asset_source() {
+		return tribe( 'tec.main' );
 	}
 
 	/**
@@ -613,7 +628,11 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return string
 	 */
 	public function get_output(): string {
-		return $this->get_template()->template( 'widgets/base', $this->get_template_args(), false );
+		$output = $this->get_template()->template( 'widgets/base', $this->get_template_args(), false );
+
+		$this->unset_template_filters();
+
+		return $output;
 	}
 
 	/**
@@ -622,6 +641,6 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @since TBD
 	 */
 	protected function render(): void {
-		echo $this->get_output(); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped, WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $this->get_output(); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped,WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

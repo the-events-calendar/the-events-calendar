@@ -55,9 +55,7 @@ if ( empty( $venues ) ) {
 	?>
 	<div <?php tribe_classes( $widget->get_container_classes() ); ?>>
 		<?php foreach ( $venues as $venue ) : ?>
-			<?php
-			$this->template( 'views/integrations/elementor/widgets/event-venue/single-venue', [ 'venue' => $venue ] );
-			?>
+			<?php $this->template( 'views/integrations/elementor/widgets/event-venue/single-venue', [ 'venue' => $venue ] ); ?>
 		<?php endforeach; ?>
 	</div>
 </div>

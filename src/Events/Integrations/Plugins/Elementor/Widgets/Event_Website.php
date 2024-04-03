@@ -83,8 +83,6 @@ class Event_Website extends Abstract_Widget {
 			);
 		}
 
-		$website = tribe_get_event_website_link( $event_id );
-
 		return [
 			'align'               => $settings['align'] ?? '',
 			'show_website_header' => $settings['show_website_header'] ?? 'yes',
@@ -92,7 +90,6 @@ class Event_Website extends Abstract_Widget {
 			'event_id'            => $event_id,
 			'header_class'        => $this->get_header_class(),
 			'link_class'          => $this->get_link_class(),
-			'website'             => $website,
 		];
 	}
 
