@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Traits;
 
 use Elementor\Controls_Manager;
 use TEC\Events\Integrations\Plugins\Elementor\Controls\Groups;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 use Tribe__Utils__Array as Arr;
 use Tribe__Events__Main as TEC;
 
@@ -312,8 +313,9 @@ trait Event_Query {
 	 */
 	protected function get_event_id(): ?int {
 		$event_id = get_the_ID();
+		$settings = $this->get_settings();
 
-		if ( ! empty( $this->get_data( 'settings' ) ) ) {
+		if ( ! empty( $settings ) ) {
 			$settings = $this->get_settings_for_display();
 
 			if (
