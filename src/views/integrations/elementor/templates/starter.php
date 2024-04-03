@@ -68,13 +68,6 @@
 				"widgetType": "tec_events_elementor_widget_event_image",
 				"elType": "widget"
 			}, {
-				"id": "4f57bcf3",
-				"settings": [],
-				"elements": [],
-				"isInner": false,
-				"widgetType": "tec_events_elementor_widget_event_description",
-				"elType": "widget"
-			}, {
 				"id": "191e47b3",
 				"settings": {
 					"layout": "full_width",

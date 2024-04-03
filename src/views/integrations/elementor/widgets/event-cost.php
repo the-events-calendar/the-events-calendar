@@ -20,10 +20,7 @@ if ( empty( $cost ) ) {
 }
 ?>
 <?php
-$this->template(
-	'views/integrations/elementor/widgets/event-cost/header',
-	[ 'show' => $show_header ]
-);
+$this->template( 'views/integrations/elementor/widgets/event-cost/header' );
 ?>
 <<?php echo tag_escape( $html_tag ); ?><?php tribe_classes( $widget->get_element_classes() ); ?>>
 <?php echo esc_html( $cost ); ?>
