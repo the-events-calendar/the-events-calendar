@@ -197,8 +197,8 @@ trait Event_Query {
 	 * @since 5.4.0
 	 *
 	 * @param \Tribe__Events__Repositories__Event $repository Event Repository.
-	 * @param array<string>                       $settings Widget settings.
-	 * @param string                              $which Which date type to analyze. 'start' or 'end'.
+	 * @param array<string>                       $settings   Widget settings.
+	 * @param string                              $which      Which date type to analyze. 'start' or 'end'.
 	 *
 	 * @return \Tribe__Events__Repositories__Event
 	 */
@@ -312,8 +312,8 @@ trait Event_Query {
 	 * @return ?int The ID of the current item (parent post) the widget is in. False if not found.
 	 */
 	protected function get_event_id(): ?int {
-		$event_id = get_the_ID();
-		$settings = $this->get_settings_for_display();
+		$event_id   = get_the_ID();
+		$settings   = $this->get_settings_for_display();
 		$setting_id = $this->event_query_control_prefix . '_id_selection';
 
 		if ( 'current' !== Arr::get( $settings, $setting_id ) ) {
