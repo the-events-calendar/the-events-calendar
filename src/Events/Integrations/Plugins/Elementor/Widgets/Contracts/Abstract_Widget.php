@@ -358,7 +358,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @return int|false The ID of the current item (parent post) the widget is in. False if not found.
 	 */
-	protected function get_event_id(): ?int {
+	protected function event_id(): ?int {
 		$event_id = (int) get_the_ID();
 		$slug     = self::get_slug();
 
@@ -396,6 +396,10 @@ abstract class Abstract_Widget extends Widget_Base {
 		}
 
 		return $event_id > 0 ? $event_id : null;
+	}
+
+	public function get_event_id() {
+		return $this->event_id();
 	}
 
 	/**

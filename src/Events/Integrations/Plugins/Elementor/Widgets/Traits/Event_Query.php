@@ -311,13 +311,24 @@ trait Event_Query {
 	 *
 	 * @return ?int The ID of the current item (parent post) the widget is in. False if not found.
 	 */
-	protected function get_event_id(): ?int {
-		$event_id   = get_the_ID();
-		$settings   = $this->get_settings_for_display();
-		$setting_id = $this->event_query_control_prefix . '_id_selection';
+	protected function event_id(): ?int {
+		$setting_id    = $this->event_query_control_prefix . '_id_selection';
+		$query_setting = Arr::get( $this->get_settings_for_display(), $setting_id );
 
-		if ( 'current' !== Arr::get( $settings, $setting_id ) ) {
+		if ( ! empty( $query_setting ) && 'current' !== $query_setting ) {
 			$event_id = $this->get_id_from_repository();
+		}
+
+		if ( empty( $event_id ) ) {
+			$event_id = get_the_ID();
+		}
+
+		if ( empty( $event_id ) ) {
+			$event_id = tribe_get_request_var( 'post', false );
+		}
+
+		if ( empty( $event_id ) ) {
+			$event_id = tribe_get_request_var( 'preview_id', false );
 		}
 
 		$slug = self::get_slug();
