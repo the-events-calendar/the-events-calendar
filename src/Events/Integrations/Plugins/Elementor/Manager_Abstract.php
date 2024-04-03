@@ -45,7 +45,7 @@ abstract class Manager_Abstract {
 		 *
 		 * @param array $widgets An associative array of objects in the shape `[ <slug> => <class> ]`.
 		 */
-		return (array) apply_filters( "tribe_events_pro_elementor_registered_{$this->type}", $this->objects );
+		return (array) apply_filters( "tec_events_elementor_registered_{$this->type}", $this->objects );
 	}
 
 	/**
