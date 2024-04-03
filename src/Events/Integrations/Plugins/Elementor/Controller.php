@@ -101,7 +101,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @param Elements_Manager $elements_manager Elementor Manager instance.
 	 */
-	public function action_register_elementor_category( $elements_manager ) {
+	public function action_register_elementor_category( $elements_manager ): void {
 		$elements_manager->add_category(
 			'the-events-calendar',
 			[
@@ -147,8 +147,8 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 */
-	public function action_register_elementor_controls() {
-		return $this->container->make( Controls_Manager::class )->register();
+	public function action_register_elementor_controls(): void {
+		$this->container->make( Controls_Manager::class )->register();
 	}
 
 	/**
@@ -267,7 +267,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @return bool
 	 */
-	public function disable_blocks( $blocks_enabled ) {
+	public function disable_blocks( $blocks_enabled ): bool {
 		return $this->built_with_elementor() ? false : $blocks_enabled;
 	}
 
@@ -323,7 +323,12 @@ class Controller extends Integration_Abstract {
 		return $this->template;
 	}
 
-	public function action_remove_revision_metadata_modifier() {
+	/**
+	 * Removes the revision metadata modifier on event previews in Elementor.
+	 *
+	 * @since TBD
+	 */
+	public function action_remove_revision_metadata_modifier(): void {
 		if ( ! is_preview() ) {
 			return;
 		}
