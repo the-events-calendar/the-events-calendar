@@ -182,7 +182,7 @@ class Event_Datetime extends Abstract_Widget {
 	public function get_header_tag(): string {
 		$settings = $this->get_settings_for_display();
 
-		return (string) $settings['header_tag'] ?? 'h3';
+		return $settings['header_tag'] ?? 'h3';
 	}
 
 	/**
@@ -283,7 +283,7 @@ class Event_Datetime extends Abstract_Widget {
 	protected function get_html_tag() {
 		$settings = $this->get_settings_for_display();
 
-		return (string) $settings['html_tag'] ?? 'p';
+		return $settings['html_tag'] ?? 'p';
 	}
 
 	/**

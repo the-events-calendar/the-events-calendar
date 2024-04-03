@@ -65,7 +65,7 @@ class Event_Website extends Abstract_Widget {
 		$event_id = $this->get_event_id();
 
 		// Only add filters if they are needed.
-		if ( $settings['website_link_target'] ) {
+		if ( isset( $settings['website_link_target'] ) ) {
 			$this->set_template_filter(
 				'tribe_get_event_website_link_target',
 				[ $this, 'modify_link_target' ],
@@ -74,7 +74,7 @@ class Event_Website extends Abstract_Widget {
 			);
 		}
 
-		if ( $settings['link_label'] ) {
+		if ( isset( $settings['link_label'] ) ) {
 			$this->set_template_filter(
 				'tribe_get_event_website_link_label',
 				[ $this, 'modify_link_label' ],

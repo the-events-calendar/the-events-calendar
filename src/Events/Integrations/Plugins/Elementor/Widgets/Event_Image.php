@@ -59,7 +59,9 @@ class Event_Image extends Abstract_Widget {
 			$atts['class'] .= ' elementor-animation-' . $settings['tec_event_hover_animation'];
 		}
 
-		$size = $settings['event_image_size'] === 'custom' ? $settings['event_image_custom_dimension'] : $settings['event_image_size'];
+		$image_size = $settings['event_image_size'] ?? 'large';
+
+		$size = $image_size === 'custom' ? $settings['event_image_custom_dimension'] : $image_size;
 
 		$image = wp_get_attachment_image(
 			get_post_thumbnail_id( $event_id ),
