@@ -398,6 +398,13 @@ abstract class Abstract_Widget extends Widget_Base {
 		return $event_id > 0 ? $event_id : null;
 	}
 
+	/**
+	 * Get the event ID.
+	 *
+	 * @since TBD
+	 *
+	 * @return int|null
+	 */
 	public function get_event_id() {
 		return $this->event_id();
 	}
