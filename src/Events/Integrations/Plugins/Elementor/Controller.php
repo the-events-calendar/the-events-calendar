@@ -14,7 +14,7 @@ use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Template_Controller;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-
+use Elementor\Core\Base\Document;
 use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
 
@@ -115,6 +115,7 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
+		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'disable_blocks' ] );
 	}
 
 	/**
@@ -252,6 +253,48 @@ class Controller extends Integration_Abstract {
 		$query_args['tribe_suppress_query_filters'] = true;
 
 		return $query_args;
+	}
+
+	/**
+	 * Disables the Blocks Editor on posts that have been edited with Elementor.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $blocks_enabled Whether the Blocks Editor is enabled or not.
+	 *
+	 * @return bool
+	 */
+	public function disable_blocks( $blocks_enabled ) {
+		return $this->built_with_elementor() ? false : $blocks_enabled;
+	}
+
+	/**
+	 * Checks if the post was edited with Elementor.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return bool
+	 */
+	public function built_with_elementor( $post_id = null ): bool {
+		if ( ! $post_id ) {
+			$post_id = tribe_get_request_var( 'post' );
+		}
+
+		// We can't get the post ID, bail out.
+		if ( ! $post_id ) {
+			return false;
+		}
+
+		// Not an event, bail out.
+		if ( ! tribe_is_event( $post_id ) ) {
+			return false;
+		}
+
+		$elementor_edit = get_post_meta( $post_id, Document::BUILT_WITH_ELEMENTOR_META_KEY, true );
+
+		return apply_filters( 'tec_events_elementor_built_with_elementor', $elementor_edit, $post_id );
 	}
 
 	/**
