@@ -313,17 +313,11 @@ trait Event_Query {
 	 */
 	protected function get_event_id(): ?int {
 		$event_id = get_the_ID();
-		$settings = $this->get_settings();
+		$settings = $this->get_settings_for_display();
+		$setting_id = $this->event_query_control_prefix . '_id_selection';
 
-		if ( ! empty( $settings ) ) {
-			$settings = $this->get_settings_for_display();
-
-			if (
-				isset( $settings[ $this->event_query_control_prefix . '_id_selection' ] )
-				&& 'current' !== $settings[ $this->event_query_control_prefix . '_id_selection' ]
-			) {
-				$event_id = $this->get_id_from_repository();
-			}
+		if ( 'current' !== Arr::get( $settings, $setting_id ) ) {
+			$event_id = $this->get_id_from_repository();
 		}
 
 		$slug = self::get_slug();
