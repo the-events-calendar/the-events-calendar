@@ -17,7 +17,6 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Elementor\Core\Base\Document;
 use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
-use Tribe__Main;
 
 /**
  * Class Controller
