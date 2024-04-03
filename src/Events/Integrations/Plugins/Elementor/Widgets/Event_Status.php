@@ -72,16 +72,17 @@ class Event_Status extends Abstract_Widget {
 
 
 		return [
-			'description_class' => $this->get_status_description_class(),
-			'label_class'       => $this->get_status_label_class(),
-			'status'            => $event->event_status,
-			'status_label'      => $this->get_status_label( $event ),
-			'status_reason'     => $reason,
-			'show_status'       => tribe_is_truthy( $settings['show_status'] ?? true ),
-			'show_passed'       => tribe_is_truthy( $settings['show_passed'] ?? true ),
-			'is_passed'         => tribe_is_truthy( $is_passed ),
-			'passed_label'      => $this->get_passed_label_text(),
-			'event'             => $event,
+			'description_class'  => $this->get_status_description_class(),
+			'label_class'        => $this->get_status_label_class(),
+			'status'             => $event->event_status,
+			'status_label'       => $this->get_status_label( $event ),
+			'status_reason'      => $reason,
+			'show_status'        => tribe_is_truthy( $settings['show_status'] ?? true ),
+			'show_passed'        => tribe_is_truthy( $settings['show_passed'] ?? true ),
+			'is_passed'          => tribe_is_truthy( $is_passed ),
+			'passed_label'       => $this->get_passed_label_text(),
+			'passed_label_class' => $this->get_passed_label_class(),
+			'event'              => $event,
 		];
 	}
 
@@ -94,16 +95,17 @@ class Event_Status extends Abstract_Widget {
 	 */
 	protected function preview_args(): array {
 		return [
-			'description_class' => $this->get_status_description_class(),
-			'label_class'       => $this->get_status_label_class(),
-			'status'            => 'postponed',
-			'status_label'      => 'Postponed',
-			'status_reason'     => __( 'No reason provided.', 'the-events-calendar' ),
-			'show_status'       => true,
-			'show_passed'       => true,
-			'is_passed'         => true,
-			'passed_label'      => $this->get_passed_label_text(),
-			'event'             => true,
+			'description_class'  => $this->get_status_description_class(),
+			'label_class'        => $this->get_status_label_class(),
+			'status'             => 'postponed',
+			'status_label'       => 'Postponed',
+			'status_reason'      => __( 'No reason provided.', 'the-events-calendar' ),
+			'show_status'        => true,
+			'show_passed'        => true,
+			'is_passed'          => true,
+			'passed_label'       => $this->get_passed_label_text(),
+			'passed_label_class' => $this->get_passed_label_class(),
+			'event'              => true,
 		];
 	}
 
