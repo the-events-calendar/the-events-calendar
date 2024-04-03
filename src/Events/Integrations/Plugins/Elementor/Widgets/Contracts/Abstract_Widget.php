@@ -87,6 +87,15 @@ abstract class Abstract_Widget extends Widget_Base {
 	protected string $template_engine_class = Template_Engine::class;
 
 	/**
+	 * The hooks added by the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string,array>
+	 */
+	protected array $added_hooks = [];
+
+	/**
 	 * Get elementor widget slug.
 	 *
 	 * @since TBD
@@ -439,22 +448,49 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @param int       $accepted_args The number of arguments the filter accepts.
 	 */
 	protected function set_template_filter( string $on, ?callable $callback = null, int $priority = 10, int $accepted_args = 1 ): void {
+		$template_file = $this->get_template_file();
+		$hook_name     = "events/integrations/elementor/{$template_file}";
+
+		$add    = "tribe_template_before_include:{$hook_name}";
+		$remove = "tribe_template_after_include:{$hook_name}";
+
 		// ensure the callback is callable.
 		if ( ! is_callable( $callback ) ) {
 			return;
 		}
 
+		$add_callback = static function () use ( $on, $callback, $priority, $accepted_args ) {
+			add_filter( $on, $callback, $priority, $accepted_args );
+		};
+
 		$remove_callback = static function () use ( $on, $callback, $priority ) {
 			remove_filter( $on, $callback, $priority );
 		};
 
-		$slug = $this::trim_slug();
+		// Include the hook.
+		add_action( $add, $add_callback );
+		$this->added_hooks[] = [
+			'hook'     => $add,
+			'callback' => $add_callback,
+		];
 
-		// Add filter now as we're about to get the template.
-		add_filter( $on, $callback, $priority, $accepted_args );
+		// Remove the hook.
+		add_action( $remove, $remove_callback );
+		$this->added_hooks[] = [
+			'hook'     => $remove,
+			'callback' => $remove_callback,
+		];
+	}
 
-		// Remove the later.
-		add_action( "tec_events_elementor_widget_{$slug}_after_render", $remove_callback );
+	/**
+	 * Unset the template filters.
+	 *
+	 * @since TBD
+	 */
+	protected function unset_template_filters(): void {
+		foreach ( $this->added_hooks as $hook ) {
+			remove_action( $hook['hook'], $hook['callback'] );
+		}
 	}
 
 	/**
@@ -526,21 +562,8 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @return string
 	 */
-	public function get_asset_source() {
-		$source = 'tec.main';
-
-		/**
-		 * Filters the asset source for the widget.
-		 * Allows other plugins to change the source for their widget assets.
-		 *
-		 * @since TBD
-		 *
-		 * @param string          $source The asset source.
-		 * @param Abstract_Widget $this   The widget instance.
-		 *
-		 * @return string
-		 */
-		return (string) apply_filters( 'tec_events_elementor_widget_asset_source', $source, $this );
+	protected function get_asset_source() {
+		return tribe( 'tec.main' );
 	}
 
 	/**
@@ -587,22 +610,26 @@ abstract class Abstract_Widget extends Widget_Base {
 	}
 
 	/**
+	 * Get the output of the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_output(): string {
+		$output = $this->get_template()->template( 'widgets/base', $this->get_template_args(), false );
+
+		$this->unset_template_filters();
+
+		return $output;
+	}
+
+	/**
 	 * Render the Elementor widget, this method needs to be protected as it is originally defined as such in elementor.
 	 *
 	 * @since TBD
 	 */
 	protected function render(): void {
-		$slug = $this::trim_slug();
-		$args = $this->get_template_args();
-
-		do_action( 'tec_events_elementor_widget_before_render', $this );
-
-		do_action( "tec_events_elementor_widget_{$slug}_before_render", $this );
-
-		$this->get_template()->template( 'widgets/base', $args, true );
-
-		do_action( 'tec_events_elementor_widget_after_render', $this );
-
-		do_action( "tec_events_elementor_widget_{$slug}_after_render", $this );
+		echo $this->get_output(); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped,WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }

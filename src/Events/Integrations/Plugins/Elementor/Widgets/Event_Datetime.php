@@ -53,7 +53,7 @@ class Event_Datetime extends Abstract_Widget {
 	 */
 	public function template_args(): array {
 		$event_id = $this->get_event_id();
-		$event    = tribe_get_event( $event_id, null, 'raw', true );
+		$event    = tribe_get_event( $event_id );
 
 		if ( empty( $event ) ) {
 			return [];

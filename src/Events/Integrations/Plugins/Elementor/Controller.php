@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use Elementor\Plugin;
 use WP_Post;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
@@ -17,6 +18,7 @@ use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 
 use Tribe__Template as Template;
 use Tribe__Events__Main as TEC;
+use Tribe__Events__Revisions__Preview;
 
 /**
  * Class Controller
@@ -89,6 +91,7 @@ class Controller extends Integration_Abstract {
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
+		add_action( 'template_redirect', [ $this, 'action_remove_revision_metadata_modifier' ], 1 );
 	}
 
 	/**
@@ -270,5 +273,14 @@ class Controller extends Integration_Abstract {
 		}
 
 		return $this->template;
+	}
+
+	public function action_remove_revision_metadata_modifier() {
+		if ( ! is_preview() ) {
+			return;
+		}
+
+		
+		remove_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
 	}
 }

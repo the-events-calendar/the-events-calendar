@@ -11,10 +11,10 @@
  * @var string $website    The event website link.
  */
 
-if ( ! $website ) {
+if ( ! $this->has_event() ) {
 	return;
 }
 ?>
 <div <?php tribe_classes( $link_class ); ?>>
-	<?php echo wp_kses_post( $website ); ?>
+	<?php echo tribe_get_event_website_link( $this->get_event() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 </div>
