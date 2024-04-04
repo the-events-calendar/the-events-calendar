@@ -655,7 +655,7 @@ class Event_Venue extends Abstract_Widget {
 			'tag',
 			[
 				'id'        => 'venue_phone_header_tag',
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Header Tag', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_phone_header' => 'yes',
 				],
@@ -715,7 +715,7 @@ class Event_Venue extends Abstract_Widget {
 			'tag',
 			[
 				'id'        => 'venue_address_header_tag',
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Header Tag', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_address_header' => 'yes',
 				],
@@ -768,7 +768,7 @@ class Event_Venue extends Abstract_Widget {
 			'tag',
 			[
 				'id'        => 'venue_website_header_tag',
-				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
+				'label'     => esc_html__( 'Header Tag', 'the-events-calendar' ),
 				'condition' => [
 					'show_venue_website_header' => 'yes',
 				],
