@@ -88,7 +88,7 @@ class Event_OrganizerTest extends WPTestCase {
 				'phone'      => tribe_get_organizer_phone( $id ),
 				'phone_link' => false,
 				'website'    => tribe_get_organizer_website_link( $id ),
-				'email'      => tribe_get_organizer_email( $id ),
+				'email'      => tribe_get_organizer_email( $id, false ),
 			];
 		}
 
