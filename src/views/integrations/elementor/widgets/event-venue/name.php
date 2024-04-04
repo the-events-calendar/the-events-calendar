@@ -20,11 +20,11 @@ if ( empty( $show_name ) ) {
 }
 ?>
 <<?php echo tag_escape( $name_tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
-	<?php if ( $venue['name_link'] ) : ?>
-		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( $venue['name_link'] ); ?>">
+	<?php if ( $link_name ) : ?>
+		<a <?php tribe_classes( $widget->get_name_base_class() . '-link' ); ?> href="<?php echo esc_url( get_permalink( $venue['id'] ) ); ?>">
 	<?php endif; ?>
 	<?php echo wp_kses_post( $venue['name'] ); ?>
-	<?php if ( $venue['name_link'] ) : ?>
+	<?php if ( $link_name ) : ?>
 		</a>
 	<?php endif; ?>
 </<?php echo tag_escape( $name_tag ); ?>>

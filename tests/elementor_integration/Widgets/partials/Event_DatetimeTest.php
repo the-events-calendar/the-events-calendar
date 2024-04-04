@@ -64,7 +64,7 @@ class Event_DatetimeTest extends WPTestCase {
 	public function disable_widget_hooks(){
 		remove_filter( 'tec_events_elementor_widget_event_datetime_template_data', [ $this, 'mock_data' ], 0 );
 
-		unset( $this->widget );
+		//unset( $this->widget );
 
 		$this->unset_uopz_functions();
 	}
@@ -75,6 +75,7 @@ class Event_DatetimeTest extends WPTestCase {
 		return [
 			'html_tag'          => 'p', // default <p>
 			'widget'            => $this->widget, // needs to be an object
+			'show_header'       => false, // default: false
 			'show_date'         => true,
 			'show_time'         => true,
 			'show_year'         => false, // not used in template
@@ -84,6 +85,7 @@ class Event_DatetimeTest extends WPTestCase {
 			'end_time'          => '10:00 AM',
 			'is_same_day'       => false,
 			'is_all_day'        => false,
+			'all_day_text'      => 'All day',
 			'is_same_start_end' => false,
 		];
 	}
@@ -94,7 +96,7 @@ class Event_DatetimeTest extends WPTestCase {
 	 * value is the value to be used in the filter.
 	 * string is the string to be checked for in the rendered HTML.
 	 */
-	public function test_data_provider(): Generator {
+	public function data_provider(): Generator {
 		yield 'html_tag' => [
 			static function () {
 				return [
@@ -217,7 +219,7 @@ class Event_DatetimeTest extends WPTestCase {
 	/**
 	 * Test render with html filtered.
 	 *
-	 * @dataProvider test_data_provider
+	 * @dataProvider data_provider
 	 */
 	public function test_render_filtered( Closure $passed ) {
 		$object = $passed();

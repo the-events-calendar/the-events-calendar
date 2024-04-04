@@ -32,30 +32,30 @@ class Event_VenueTest extends WPTestCase {
 			'get_settings_for_display',
 			[
 				'header_tag'                  => 'p',
-				'link_venue_name'             => true,
-				'show_venue_name'             => true,
-				'show_venue_header'           => true,
-				'show_venue_address'          => true,
-				'show_venue_address_map_link' => true,
-				'show_venue_map'              => true,
-				'show_venue_phone'            => true,
-				'show_venue_website'          => true,
-				'show_venue_address_header'   => false,
-				'show_venue_phone_header'     => false,
-				'show_venue_website_header'   => false,
-				'venue_header_tag'            => 'h2',
-				'venue_name_tag'              => 'h3',
-				'venue_address_header_tag'    => 'h3',
-				'venue_phone_header_tag'      => 'h3',
-				'venue_website_header_tag'    => 'h3',
-				'venue_website_link_target'   => '_self',
+				'link_name'             => true,
+				'show_name'             => true,
+				'show_header'           => true,
+				'show_address'          => true,
+				'show_address_map_link' => true,
+				'show_map'              => true,
+				'show_phone'            => true,
+				'show_website'          => true,
+				'show_address_header'   => false,
+				'show_phone_header'     => false,
+				'show_website_header'   => false,
+				'header_tag'            => 'h2',
+				'name_tag'              => 'h3',
+				'address_header_tag'    => 'h3',
+				'phone_header_tag'      => 'h3',
+				'website_header_tag'    => 'h3',
+				'website_link_target'   => '_self',
 			]
 		);
 
 		$this->set_defaults();
 	}
 
-	public function _tearDown(){
+	public function tearDown(){
 		$this->unset_uopz_returns();
 
 		parent::_tearDown();
@@ -65,13 +65,46 @@ class Event_VenueTest extends WPTestCase {
 		$event = $this->mock_event( 'events/single/1.json' )->with_venue( 'venues/1.json' )->get();
 
 		add_filter(
+			'tec_events_elementor_widget_event_id',
+			static function () use ( $event ) {
+				return 8;
+			}
+		);
+
+		add_filter(
 			$this->filter,
 			function ( $data ) use ( $event ) {
 				$data['event_id'] = $event->ID;
 				$data['venue_ids'] = tec_get_venue_ids( $event->ID );
+				$data['venues'] = $this->setup_venues( $event->ID );
+
 				return $data;
 			}
 		);
+	}
+
+	public function setup_venues( $event_id ) {
+		$venues = [];
+
+		$venue_ids = tec_get_venue_ids( $event_id );
+
+		foreach ( $venue_ids as $venue_id ) {
+			$venue = tribe_get_venue( $venue_id );
+
+			$venues[] = [
+				'id'         => $venue_id,
+				'name'       => tribe_get_venue( $venue_id ),
+				'name_link'  => tribe_get_venue_link( $venue_id, false ),
+				'address'    => tribe_get_full_address( $venue_id ),
+				'phone'      => tribe_get_phone( $venue_id ),
+				'phone_link' => false,
+				'map_link'   => tribe_get_map_link_html( $venue_id ),
+				'website'    => tribe_get_venue_website_link( $venue_id ),
+				'map'        => tribe_get_embedded_map( $venue_id, '100%', '200px' ),
+			];
+		}
+
+		return $venues;
 	}
 
 	/**
@@ -80,13 +113,13 @@ class Event_VenueTest extends WPTestCase {
 	 * value is the value to be used in the filter.
 	 * string is the string to be checked for in the rendered HTML.
 	 */
-	public function test_data_provider(): Generator {
+	public function data_provider(): Generator {
 		yield 'link_name' => [
 			static function () {
 				return [
 					'label'      => 'link_name',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-name-link',
+					'string'     => 'tec-events-elementor-event-widget__venue-name-link',
 				];
 			},
 		];
@@ -95,7 +128,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'link_name',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-name-link',
+					'string'     => 'tec-events-elementor-event-widget__venue-name-link',
 					'invert'	 => true,
 				];
 			},
@@ -105,7 +138,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_name',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-name',
+					'string'     => 'tec-events-elementor-event-widget__venue-name',
 				];
 			},
 		];
@@ -114,7 +147,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_name',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-name',
+					'string'     => 'tec-events-elementor-event-widget__venue-name',
 					'invert'	 => true,
 				];
 			},
@@ -124,7 +157,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_widget_header',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-header',
 				];
 			},
 		];
@@ -133,7 +166,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_widget_header',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-header',
 					'invert'     => true,
 				];
 			},
@@ -143,7 +176,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_address',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-address',
+					'string'     => 'tec-events-elementor-event-widget__venue-address',
 				];
 			},
 		];
@@ -152,7 +185,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_address',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-address',
+					'string'     => 'tec-events-elementor-event-widget__venue-address',
 					'invert'     => true,
 				];
 			},
@@ -181,7 +214,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_map',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-map',
+					'string'     => 'tec-events-elementor-event-widget__venue-map',
 				];
 			},
 		];
@@ -190,7 +223,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_map',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-map',
+					'string'     => 'tec-events-elementor-event-widget__venue-map',
 					'invert'     => true,
 				];
 			},
@@ -200,7 +233,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_phone',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-phone',
+					'string'     => 'tec-events-elementor-event-widget__venue-phone',
 				];
 			},
 		];
@@ -209,7 +242,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_phone',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-phone',
+					'string'     => 'tec-events-elementor-event-widget__venue-phone',
 					'invert'     => true,
 				];
 			},
@@ -219,7 +252,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_website',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-website',
+					'string'     => 'tec-events-elementor-event-widget__venue-website',
 				];
 			},
 		];
@@ -228,7 +261,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_website',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-website',
+					'string'     => 'tec-events-elementor-event-widget__venue-website',
 					'invert'     => true,
 				];
 			},
@@ -238,7 +271,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_address_header',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-address-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-address-header',
 				];
 			},
 		];
@@ -247,7 +280,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_address_header',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-address-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-address-header',
 					'invert'     => true,
 				];
 			},
@@ -257,7 +290,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_phone_header',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-phone-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-phone-header',
 				];
 			},
 		];
@@ -266,7 +299,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_phone_header',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-phone-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-phone-header',
 					'invert'     => true,
 				];
 			},
@@ -276,7 +309,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_website_header',
 					'value'      => true,
-					'string'     => 'tec-elementor-event-widget__venue-website-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-website-header',
 				];
 			},
 		];
@@ -285,7 +318,7 @@ class Event_VenueTest extends WPTestCase {
 				return [
 					'label'      => 'show_website_header',
 					'value'      => false,
-					'string'     => 'tec-elementor-event-widget__venue-website-header',
+					'string'     => 'tec-events-elementor-event-widget__venue-website-header',
 					'invert'     => true,
 				];
 			},
@@ -404,10 +437,10 @@ class Event_VenueTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'venue_website_link_target' => [
+		yield 'website_link_target' => [
 			static function () {
 				return [
-					'label'      => 'venue_website_link_target',
+					'label'      => 'website_link_target',
 					'value'      => '_blank',
 					'string'     => 'target="_blank"',
 					'additional' => [
@@ -421,7 +454,7 @@ class Event_VenueTest extends WPTestCase {
 	/**
 	 * Test render with html filtered.
 	 *
-	 * @dataProvider test_data_provider
+	 * @dataProvider data_provider
 	 */
 	public function test_render_filtered( Closure $passed ) {
 		$object = $passed();

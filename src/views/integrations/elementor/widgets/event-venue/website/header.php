@@ -7,9 +7,9 @@
  *
  * @since TBD
  *
- * @var bool   $show Whether to show the website header.
- * @var string $header_tag The HTML tag to use for the website header.
- * @var string $header_text The website header text.
+ * @var bool   $show_website_header Whether to show the website header.
+ * @var string $website_header_tag  The HTML tag to use for the website header.
+ * @var string $website_header_text The website header text.
  * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
