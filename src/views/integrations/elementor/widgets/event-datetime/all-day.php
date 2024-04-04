@@ -31,4 +31,4 @@ if ( ! $is_all_day ) {
 	return;
 }
 ?>
-<span <?php tribe_classes( $widget->get_all_day_class() ); ?>><?php esc_html( $all_day_text ); ?></span>
+<span <?php tribe_classes( $widget->get_all_day_class() ); ?>><?php echo esc_html( $all_day_text ); ?></span>

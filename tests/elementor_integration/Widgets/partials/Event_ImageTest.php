@@ -39,7 +39,7 @@ class Event_ImageTest extends WPTestCase {
 		);
 	}
 
-	public function _tearDown() {
+	public function tearDown() {
 		$this->unset_uopz_returns();
 
 		parent::_tearDown();

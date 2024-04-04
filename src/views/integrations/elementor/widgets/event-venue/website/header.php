@@ -7,9 +7,9 @@
  *
  * @since TBD
  *
- * @var bool   $show Whether to show the website header.
- * @var string $header_tag The HTML tag to use for the website header.
- * @var string $header_text The website header text.
+ * @var bool   $show_website_header Whether to show the website header.
+ * @var string $website_header_tag  The HTML tag to use for the website header.
+ * @var string $website_header_text The website header text.
  * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Venue $widget The widget instance.
  */
 
@@ -17,6 +17,6 @@ if ( ! $show_website_header ) {
 	return;
 }
 ?>
-<<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_website_base_class() . '-header' ); ?>>
-	<?php echo wp_kses_post( $header_text ); ?>
-</<?php echo tag_escape( $header_tag ); ?>>
+<<?php echo tag_escape( $website_header_tag ); ?> <?php tribe_classes( $widget->get_website_base_class() . '-header' ); ?>>
+	<?php echo wp_kses_post( $website_header_text ); ?>
+</<?php echo tag_escape( $website_header_tag ); ?>>
