@@ -17,7 +17,7 @@ params:
 extensions:
     enabled:
       - Tribe\Test\Codeception\Extensions\Function_Mocker
-      - tad\WPBrowser\Extension\Events
+      - lucatume\WPBrowser\Extension\EventDispatcherBridge
       - lucatume\WPBrowser\Extension\IsolationSupport
     config:
       Tribe\Test\Codeception\Extensions\Function_Mocker:
