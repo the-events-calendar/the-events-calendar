@@ -232,6 +232,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+* Fix - When creating a new event the Currency symbol, code and position fields are populated from the general settings options.
+
 = [6.3.5] 2024-03-20 =
 
 * Tweak - Updated version of tribe-common with fixes for ECP.
