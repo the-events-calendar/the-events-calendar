@@ -84,10 +84,8 @@ class Event_Website extends Abstract_Widget {
 		}
 
 		return [
-			'align'               => $settings['align'] ?? '',
 			'show_website_header' => $settings['show_website_header'] ?? 'yes',
 			'header_tag'          => $settings['header_tag'] ?? 'h3',
-			'event_id'            => $event_id,
 			'header_class'        => $this->get_header_class(),
 			'link_class'          => $this->get_link_class(),
 		];

@@ -31,27 +31,33 @@ class Event_OrganizerTest extends WPTestCase {
 			'Elementor\Controls_Stack',
 			'get_settings_for_display',
 			[
-				'show_organizer_header'         => true,
+				'link_organizer_email'          => false,
 				'link_organizer_name'           => true,
-				'show_organizer_name'           => true,
-				'show_organizer_phone'          => true,
-				'show_organizer_email'          => true,
-				'show_organizer_website'        => true,
-				'show_organizer_phone_header'   => true,
-				'show_organizer_email_header'   => true,
-				'show_organizer_website_header' => true,
-				'organizer_header_tag'          => 'h2',
-				'organizer_phone_header_tag'    => 'h3',
+				'link_organizer_phone'          => false,
 				'organizer_email_header_tag'    => 'h3',
+				'organizer_email_header_text'   => 'Email',
+				'organizer_header_tag'          => 'h2',
+				'organizer_name_tag'            => 'h2',
+				'organizer_phone_header_tag'    => 'h3',
+				'organizer_phone_header_text'   => 'Phone',
 				'organizer_website_header_tag'  => 'h3',
+				'organizer_website_header_text' => 'Website',
 				'organizer_website_link_target' => '_self',
+				'show_organizer_email_header'   => true,
+				'show_organizer_email'          => true,
+				'show_organizer_header'         => true,
+				'show_organizer_name'           => true,
+				'show_organizer_phone_header'   => true,
+				'show_organizer_phone'          => true,
+				'show_organizer_website_header' => true,
+				'show_organizer_website'        => true,
 			]
 		);
 
 		$this->set_defaults();
 	}
 
-	public function _tearDown(){
+	public function tearDown(){
 		$this->unset_uopz_returns();
 
 		parent::_tearDown();
@@ -64,10 +70,29 @@ class Event_OrganizerTest extends WPTestCase {
 			$this->filter,
 			function ( $data ) use ( $event ) {
 				$data['event_id'] = $event->ID;
-				$data['organizer_ids'] = tribe_get_organizer_ids( $event->ID );
+				$data['organizers'] = $this->setup_organizers( $event->ID );
+
 				return $data;
 			}
 		);
+	}
+
+	public function setup_organizers( $event_id ) {
+		$ids = tribe_get_organizer_ids( $event_id );
+		$organizers = [];
+		foreach ( $ids as $id ) {
+			$organizers[ $id ] = [
+				'id'         => $id,
+				'name'       => tribe_get_organizer( $id ),
+				'link'       => tribe_get_organizer_link( $id, false ),
+				'phone'      => tribe_get_organizer_phone( $id ),
+				'phone_link' => false,
+				'website'    => tribe_get_organizer_website_link( $id ),
+				'email'      => tribe_get_organizer_email( $id, false ),
+			];
+		}
+
+		return $organizers;
 	}
 
 	/**
@@ -76,195 +101,195 @@ class Event_OrganizerTest extends WPTestCase {
 	 * value is the value to be used in the filter.
 	 * string is the string to be checked for in the rendered HTML.
 	 */
-	public function test_data_provider(): Generator {
-		yield 'show_header' => [
+	public function data_provider(): Generator {
+		yield 'show_organizer_header' => [
 			static function () {
 				return [
-					'label'  => 'show_header',
+					'label'  => 'show_organizer_header',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-header',
+					'string' => 'tec-events-elementor-event-widget__organizer-header',
 				];
 			},
 		];
-		yield 'no_show_header' => [
+		yield 'no_show_organizer_header' => [
 			static function () {
 				return [
-					'label'  => 'show_header',
+					'label'  => 'show_organizer_header',
 					'value'  => false,
 					'string' => '',
 				];
 			},
 		];
-		yield 'link_name' => [
+		yield 'link_organizer_name' => [
 			static function () {
 				return [
-					'label'  => 'link_name',
+					'label'  => 'link_organizer_name',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-name-link',
+					'string' => 'tec-events-elementor-event-widget__organizer-name-link',
 				];
 			},
 		];
-		yield 'no_link_name' => [
+		yield 'no_link_organizer_name' => [
 			static function () {
 				return [
-					'label'  => 'link_name',
+					'label'  => 'link_organizer_name',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-name-link',
+					'string' => 'tec-events-elementor-event-widget__organizer-name-link',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'show_name' => [
+		yield 'show_organizer_name' => [
 			static function () {
 				return [
-					'label'  => 'show_name',
+					'label'  => 'show_organizer_name',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-name',
+					'string' => 'tec-events-elementor-event-widget__organizer-name',
 				];
 			},
 		];
-		yield 'no_show_name' => [
+		yield 'no_show_organizer_name' => [
 			static function () {
 				return [
-					'label'  => 'show_name',
+					'label'  => 'show_organizer_name',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-name',
+					'string' => 'tec-events-elementor-event-widget__organizer-name',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'show_phone' => [
+		yield 'show_organizer_phone' => [
 			static function () {
 				return [
-					'label'  => 'show_phone',
+					'label'  => 'show_organizer_phone',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-phone',
+					'string' => 'tec-events-elementor-event-widget__organizer-phone',
 				];
 			},
 		];
-		yield 'no_show_phone' => [
+		yield 'no_show_organizer_phone' => [
 			static function () {
 				return [
-					'label'  => 'show_phone',
+					'label'  => 'show_organizer_phone',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-phone',
+					'string' => 'tec-events-elementor-event-widget__organizer-phone',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'show_email' => [
+		yield 'show_organizer_email' => [
 			static function () {
 				return [
-					'label'  => 'show_email',
+					'label'  => 'show_organizer_email',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-email',
+					'string' => 'tec-events-elementor-event-widget__organizer-email',
 				];
 			},
 		];
-		yield 'no_show_email' => [
+		yield 'no_show_organizer_email' => [
 			static function () {
 				return [
-					'label'  => 'show_email',
+					'label'  => 'show_organizer_email',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-email',
+					'string' => 'tec-events-elementor-event-widget__organizer-email',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'show_website' => [
+		yield 'show_organizer_website' => [
 			static function () {
 				return [
-					'label'  => 'show_website',
+					'label'  => 'show_organizer_website',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-website',
+					'string' => 'tec-events-elementor-event-widget__organizer-website',
 				];
 			},
 		];
-		yield 'no_show_website' => [
+		yield 'no_show_organizer_website' => [
 			static function () {
 				return [
-					'label'  => 'show_website',
+					'label'  => 'show_organizer_website',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-website',
+					'string' => 'tec-events-elementor-event-widget__organizer-website',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'show_phone_header' => [
+		yield 'show_organizer_phone_header' => [
 			static function () {
 				return [
-					'label'  => 'show_phone_header',
+					'label'  => 'show_organizer_phone_header',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-phone-label',
+					'string' => 'tec-events-elementor-event-widget__organizer-phone-header',
 				];
 			},
 		];
-		yield 'no_show_phone_header' => [
+		yield 'no_show_organizer_phone_header' => [
 			static function () {
 				return [
-					'label'  => 'show_phone_header',
+					'label'  => 'show_organizer_phone_header',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-phone-label',
+					'string' => 'tec-events-elementor-event-widget__organizer-phone-header',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'show_email_header' => [
+		yield 'show_organizer_email_header' => [
 			static function () {
 				return [
-					'label'  => 'show_email_header',
+					'label'  => 'show_organizer_email_header',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-email-label',
+					'string' => 'tec-events-elementor-event-widget__organizer-email-header',
 				];
 			},
 		];
-		yield 'no_show_email_header' => [
+		yield 'no_show_organizer_email_header' => [
 			static function () {
 				return [
-					'label'  => 'show_email_header',
+					'label'  => 'show_organizer_email_header',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-email-label',
+					'string' => 'tec-events-elementor-event-widget__organizer-email-header',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'show_website_header' => [
+		yield 'show_organizer_website_header' => [
 			static function () {
 				return [
-					'label'  => 'show_website_header',
+					'label'  => 'show_organizer_website_header',
 					'value'  => true,
-					'string' => 'tec-elementor-event-widget__organizer-website-label',
+					'string' => 'tec-events-elementor-event-widget__organizer-website-header',
 				];
 			},
 		];
 		yield 'no_show_website_header' => [
 			static function () {
 				return [
-					'label'  => 'show_website_header',
+					'label'  => 'show_organizer_website_header',
 					'value'  => false,
-					'string' => 'tec-elementor-event-widget__organizer-website-label',
+					'string' => 'tec-events-elementor-event-widget__organizer-website-header',
 					'invert' => true,
 				];
 			},
 		];
-		yield 'header_tag' => [
+		yield 'organizer_header_tag' => [
 			static function () {
 				return [
-					'label'  => 'header_tag',
+					'label'  => 'organizer_header_tag',
 					'value'  => 'h1',
-					'string' => '<h1 class="tribe-events-single-section-title tec-elementor-event-widget__organizer-header" >',
+					'string' => '<h1 class="tec-events-elementor-event-widget__organizer-header" >',
 					'additional' => [
 						'show_header' => true,
 					]
 				];
 			},
 		];
-		yield 'phone_header_tag' => [
+		yield 'organizer_phone_header_tag' => [
 			static function () {
 				return [
-					'label'  => 'phone_header_tag',
+					'label'  => 'organizer_phone_header_tag',
 					'value'  => 'h1',
-					'string' => '<h1 class="tec-elementor-event-widget__organizer-phone-label" >',
+					'string' => '<h1 class="tec-events-elementor-event-widget__organizer-phone-header" >',
 					'additional' => [
 						'show_hone'        => true,
 						'show_hone_header' => true,
@@ -272,12 +297,12 @@ class Event_OrganizerTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'email_header_tag' => [
+		yield 'organizer_email_header_tag' => [
 			static function () {
 				return [
-					'label'  => 'email_header_tag',
+					'label'  => 'organizer_email_header_tag',
 					'value'  => 'h1',
-					'string' => '<h1 class="tec-elementor-event-widget__organizer-email-label" >',
+					'string' => '<h1 class="tec-events-elementor-event-widget__organizer-email-header" >',
 					'additional' => [
 						'show_email'        => true,
 						'show_email_header' => true,
@@ -285,12 +310,12 @@ class Event_OrganizerTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'website_header_tag' => [
+		yield 'organizer_website_header_tag' => [
 			static function () {
 				return [
-					'label'  => 'website_header_tag',
+					'label'  => 'organizer_website_header_tag',
 					'value'  => 'h1',
-					'string' => '<h1 class="tec-elementor-event-widget__organizer-website-label" >',
+					'string' => '<h1 class="tec-events-elementor-event-widget__organizer-website-header" >',
 					'additional' => [
 						'show_website'        => true,
 						'show_website_header' => true,
@@ -298,12 +323,12 @@ class Event_OrganizerTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'email_header_text' => [
+		yield 'organizer_email_header_text' => [
 			static function () {
 				return [
-					'label'  => 'email_header_text',
-					'value'  => 'email_header_text',
-					'string' => 'email_header_text',
+					'label'  => 'organizer_email_header_text',
+					'value'  => 'organizer_email_header_text',
+					'string' => 'organizer_email_header_text',
 					'additional' => [
 						'show_email'        => true,
 						'show_email_header' => true,
@@ -311,12 +336,12 @@ class Event_OrganizerTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'phone_header_text' => [
+		yield 'organizer_phone_header_text' => [
 			static function () {
 				return [
-					'label'  => 'phone_header_text',
-					'value'  => 'phone_header_text',
-					'string' => 'phone_header_text',
+					'label'  => 'organizer_phone_header_text',
+					'value'  => 'organizer_phone_header_text',
+					'string' => 'organizer_phone_header_text',
 					'additional' => [
 						'show_phone'        => true,
 						'show_phone_header' => true,
@@ -324,12 +349,12 @@ class Event_OrganizerTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'website_header_text' => [
+		yield 'organizer_website_header_text' => [
 			static function () {
 				return [
-					'label'  => 'website_header_text',
-					'value'  => 'website_header_text',
-					'string' => 'website_header_text',
+					'label'  => 'organizer_website_header_text',
+					'value'  => 'organizer_website_header_text',
+					'string' => 'organizer_website_header_text',
 					'additional' => [
 						'show_website'        => true,
 						'show_website_header' => true,
@@ -342,7 +367,7 @@ class Event_OrganizerTest extends WPTestCase {
 	/**
 	 * Test render with html filtered.
 	 *
-	 * @dataProvider test_data_provider
+	 * @dataProvider data_provider
 	 */
 	public function test_render_filtered( Closure $passed ) {
 		$object = $passed();

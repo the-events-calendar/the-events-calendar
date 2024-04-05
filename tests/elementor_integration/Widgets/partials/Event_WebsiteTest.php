@@ -6,14 +6,13 @@ use Closure;
 use Generator;
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
+use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets\Filter_Trait;
 
 
 class Event_WebsiteTest extends WPTestCase {
-	use SnapshotAssertions;
-	use With_Uopz;
-	use Filter_Trait;
+	use SnapshotAssertions, With_Uopz, Filter_Trait, With_Post_Remapping;
 
 	/**
 	 * The filter to use.
@@ -21,15 +20,23 @@ class Event_WebsiteTest extends WPTestCase {
 	public $filter = 'tec_events_elementor_widget_event_website_template_data';
 
 	private $settings_array = [
-		'align'        => '',
-		'header_tag'     => 'h3',
-		'show_heading' => 'yes',
-		'link_label'   => '',
-		'link_target'  => '',
+		'show_website_header' => 'yes',
+		'header_tag'          => 'h3',
+		'header_class'        => 'tec-events-elementor-event-widget__website-header',
+		'link_class'          => 'tec-events-elementor-event-widget__website-link',
 	];
 
 	public function setUp(): void {
 		parent::setUp();
+
+		$event = $this->mock_event( 'events/single/website.json' );
+
+		add_filter(
+			'tec_events_elementor_widget_event_id',
+			static function () use ( $event ) {
+				return 13;
+			}
+		);
 
 		$this->set_class_fn_return(
 			'Elementor\Controls_Stack',
@@ -38,7 +45,7 @@ class Event_WebsiteTest extends WPTestCase {
 		);
 	}
 
-	public function _tearDown(){
+	public function tearDown(){
 		$this->unset_uopz_returns();
 
 		parent::_tearDown();
@@ -50,7 +57,7 @@ class Event_WebsiteTest extends WPTestCase {
 	 * value is the value to be used in the filter.
 	 * string is the string to be checked for in the rendered HTML.
 	 */
-	public function test_data_provider(): Generator {
+	public function data_provider(): Generator {
 		yield 'header_tag' => [
             static function () {
                 return [
@@ -58,39 +65,27 @@ class Event_WebsiteTest extends WPTestCase {
                     'value'  => 'p',
                     'string' => '<p',
 					'additional' => [
-						'website' => '<a href="http://theeventscalendar.com">link</a>',
+						'show_website_header' => 'yes',
 					]
                 ];
             },
         ];
-        yield 'show_heading' => [
+        yield 'show_website_header' => [
             static function () {
                 return [
-                    'label'  => 'show_heading',
+                    'label'  => 'show_website_header',
                     'value'  => 'yes',
-                    'string' => 'Event Website',
-					'additional' => [
-						'website' => '<a href="http://theeventscalendar.com">link</a>',
-					]
+                    'string' => 'tec-events-elementor-event-widget__website-header',
                 ];
             },
         ];
-		yield 'no_website' => [
-			static function () {
-				return [
-					'label'  => 'website',
-					'value'  => '',
-					'render' => false
-				];
-			},
-		];
 		// @todo: come up with a good way to test the link label and target controls.
 	}
 
 	/**
 	 * Test render with html filtered.
 	 *
-	 * @dataProvider test_data_provider
+	 * @dataProvider data_provider
 	 */
 	public function test_render_filtered( Closure $passed ) {
 		$object = $passed();

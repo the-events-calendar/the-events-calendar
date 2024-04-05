@@ -34,7 +34,7 @@ class Event_NavigationTest extends WPTestCase {
 		self::$next_event = $this->mock_event( 'events/single/2.json' )->get();
 	}
 
-	public function _tearDown(){
+	public function tearDown(){
 		$this->unset_uopz_returns();
 
 		parent::_tearDown();
@@ -46,7 +46,7 @@ class Event_NavigationTest extends WPTestCase {
 	 * value is the value to be used in the filter.
 	 * string is the string to be checked for in the rendered HTML.
 	 */
-	public function test_data_provider(): Generator {
+	public function data_provider(): Generator {
 		yield 'header_tag' => [
 			static function () {
 				return [
@@ -181,7 +181,7 @@ class Event_NavigationTest extends WPTestCase {
 	/**
 	 * Test render with html filtered.
 	 *
-	 * @dataProvider test_data_provider
+	 * @dataProvider data_provider
 	 */
 	public function test_render_filtered( Closure $passed ) {
 		$object = $passed();
