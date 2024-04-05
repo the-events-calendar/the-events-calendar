@@ -24,13 +24,13 @@ extensions:
             suites: [ 'views_integration', 'views_widgets' ]
             initFile: tests/_function-mocker-bootstrap.php
     commands:
-        - 'Codeception\Command\GenerateWPUnit'
-        - 'Codeception\Command\GenerateWPRestApi'
-        - 'Codeception\Command\GenerateWPRestController'
-        - 'Codeception\Command\GenerateWPRestPostTypeController'
-        - 'Codeception\Command\GenerateWPAjax'
-        - 'Codeception\Command\GenerateWPCanonical'
-        - 'Codeception\Command\GenerateWPXMLRPC'
+        - "lucatume\\WPBrowser\\Command\\GenerateWPUnit"
+        - "lucatume\\WPBrowser\\Command\\GenerateWPRestApi"
+        - "lucatume\\WPBrowser\\Command\\GenerateWPRestController"
+        - "lucatume\\WPBrowser\\Command\\GenerateWPRestPostTypeController"
+        - "lucatume\\WPBrowser\\Command\\GenerateWPAjax"
+        - "lucatume\\WPBrowser\\Command\\GenerateWPCanonical"
+        - "lucatume\\WPBrowser\\Command\\GenerateWPXMLRPC"
         - "lucatume\\WPBrowser\\Command\\RunOriginal"
         - "lucatume\\WPBrowser\\Command\\RunAll"
         - "lucatume\\WPBrowser\\Command\\DbExport"
