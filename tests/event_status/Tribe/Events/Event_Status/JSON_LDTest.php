@@ -37,7 +37,7 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
 		$object    = array_shift( $json_data );
 
-		$this->assertObjectHasAttribute(
+		$this->assertObjectHasProperty(
 			'eventAttendanceMode',
 			$object,
 			'Function modify_event did not add default attendance mode.'
@@ -58,7 +58,7 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
 		$object    = array_shift( $json_data );
 
-		$this->assertObjectHasAttribute(
+		$this->assertObjectHasProperty(
 			'eventStatus',
 			$object,
 			'Missing default eventStatus.'
@@ -79,7 +79,7 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
 		$object    = array_shift( $json_data );
 
-		$this->assertObjectHasAttribute(
+		$this->assertObjectHasProperty(
 			'eventStatus',
 			$object,
 			'Function modify_event did not add eventStatus.'
@@ -100,7 +100,7 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
 		$object    = array_shift( $json_data );
 
-		$this->assertObjectHasAttribute(
+		$this->assertObjectHasProperty(
 			'eventStatus',
 			$object,
 			'Function modify_event did not add eventStatus.'
