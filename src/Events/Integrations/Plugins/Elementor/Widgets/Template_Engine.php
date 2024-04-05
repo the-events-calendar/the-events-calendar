@@ -86,7 +86,7 @@ class Template_Engine extends Base_Template_Engine {
 	 *
 	 * @return Abstract_Widget
 	 */
-	protected function get_widget(): Abstract_Widget {
+	public function get_widget(): Abstract_Widget {
 		return $this->widget;
 	}
 
@@ -122,7 +122,7 @@ class Template_Engine extends Base_Template_Engine {
 	 *
 	 * @return bool
 	 */
-	protected function has_event(): bool {
+	public function has_event(): bool {
 		return null !== $this->get_event();
 	}
 
@@ -133,7 +133,7 @@ class Template_Engine extends Base_Template_Engine {
 	 *
 	 * @return WP_Post|null
 	 */
-	protected function get_event(): ?WP_Post {
+	public function get_event(): ?WP_Post {
 		return $this->event;
 	}
 
