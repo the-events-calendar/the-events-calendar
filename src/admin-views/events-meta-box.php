@@ -223,7 +223,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							id='EventCurrencySymbol'
 							name='EventCurrencySymbol'
 							size='2'
-							value='<?php echo isset( $_EventCurrencySymbol ) ? esc_attr( $_EventCurrencySymbol ) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>'
+							value='<?php echo isset( $_EventCurrencySymbol ) && ! empty( $_EventCurrencySymbol ) ? esc_attr( $_EventCurrencySymbol ) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>'
 							class='alignleft'
 						/>
 						<select
@@ -234,9 +234,9 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							data-prevent-clear
 						>
 							<?php
-							if ( isset( $_EventCurrencyPosition ) && 'suffix' === $_EventCurrencyPosition ) {
+							if ( isset( $_EventCurrencyPosition ) && ! empty( $_EventCurrencyPosition ) && 'suffix' === $_EventCurrencyPosition ) {
 								$suffix = true;
-							} elseif ( isset( $_EventCurrencyPosition ) && 'prefix' === $_EventCurrencyPosition ) {
+							} elseif ( isset( $_EventCurrencyPosition ) && ! empty( $_EventCurrencyPosition ) && 'prefix' === $_EventCurrencyPosition ) {
 								$suffix = false;
 							} elseif ( true === tribe_get_option( 'reverseCurrencyPosition', false ) ) {
 								$suffix = true;
@@ -260,7 +260,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							id='EventCurrencyCode'
 							name='EventCurrencyCode'
 							size='3'
-							value='<?php echo isset( $_EventCurrencyCode ) ? esc_attr( $_EventCurrencyCode ) : tribe_get_option( 'defaultCurrencyCode', 'USD' ); ?>'
+							value='<?php echo isset( $_EventCurrencyCode ) && ! empty( $_EventCurrencyCode ) ? esc_attr( $_EventCurrencyCode ) : tribe_get_option( 'defaultCurrencyCode', 'USD' ); ?>'
 							class='alignleft'
 						/>
 					</td>
