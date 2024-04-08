@@ -10,8 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
-use Tribe__Template as Base_Template_Engine;
-use Tribe__Events__Main as TEC;
+use TEC\Common\Integrations\Plugins\Elementor\Widgets\Template_Engine as Template_Engine_Contract;
 use WP_Post;
 
 /**
@@ -21,15 +20,15 @@ use WP_Post;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
-class Template_Engine extends Base_Template_Engine {
+class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Which widget instance is being used for this template engine.
 	 *
 	 * @since TBD
 	 *
-	 * @var Abstract_Widget The widget instance.
+	 * @var Abstract_Widget
 	 */
-	protected Abstract_Widget $widget;
+	protected $widget;
 
 	/**
 	 * Stores a potential Event ID associated with this template.
@@ -53,33 +52,6 @@ class Template_Engine extends Base_Template_Engine {
 	}
 
 	/**
-	 * Factory method to create a new instance of the Template Engine.
-	 *
-	 * @param Abstract_Widget $widget The widget instance to set.
-	 *
-	 * @return Template_Engine
-	 */
-	public static function with_widget( Abstract_Widget $widget ): Template_Engine {
-		$instance = new static();
-		$instance->set_widget( $widget );
-
-		return $instance;
-	}
-
-	/**
-	 * Set the widget internally to these templates.
-	 *
-	 * @since TBD
-	 *
-	 * @param Abstract_Widget $widget The widget instance to set.
-	 *
-	 * @return void
-	 */
-	protected function set_widget( Abstract_Widget $widget ): void {
-		$this->widget = $widget;
-	}
-
-	/**
 	 * Allows to get the widget instance.
 	 *
 	 * @since TBD
@@ -100,19 +72,7 @@ class Template_Engine extends Base_Template_Engine {
 	 * @return void
 	 */
 	public function set_event( $event ): void {
-		if ( is_numeric( $event ) ) {
-			$event = tribe_get_event( $event );
-		}
-
-		if ( ! $event instanceof WP_Post ) {
-			return;
-		}
-
-		if ( $event->post_type !== TEC::POSTTYPE ) {
-			return;
-		}
-
-		$this->event = $event;
+		parent::set_post( $event );
 	}
 
 	/**
@@ -123,7 +83,8 @@ class Template_Engine extends Base_Template_Engine {
 	 * @return bool
 	 */
 	public function has_event(): bool {
-		return null !== $this->get_event();
+		return null !== $this->get_event()
+			&& $this->get_event()->post_type === $this->get_widget()::get_widget_post_type();
 	}
 
 	/**
@@ -134,7 +95,7 @@ class Template_Engine extends Base_Template_Engine {
 	 * @return WP_Post|null
 	 */
 	public function get_event(): ?WP_Post {
-		return $this->event;
+		return parent::get_post();
 	}
 
 	/**

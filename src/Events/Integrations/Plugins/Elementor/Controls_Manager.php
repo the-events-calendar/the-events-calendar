@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor;
 
 use Elementor\Group_Control_Base;
 use Elementor\Plugin as Elementor_Plugin;
+use TEC\Common\Integrations\Contracts\Manager_Abstract;
 
 /**
  * Class Controls_Manager
