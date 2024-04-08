@@ -162,7 +162,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * This retrieves the posts to be used on the rendered page, and stores them for use in title generation.
 	 *
-	 * @since TBD
+	 * @since 6.3.6
 	 *
 	 * @param WP_Post[] $events The list of tribe events for this page.
 	 * @param View      $view   The current view being rendered.

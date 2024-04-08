@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2
-Stable tag: 6.3.5
+Stable tag: 6.3.6
 Tested up to: 6.4.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -232,12 +232,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.3.6] 2024-04-09 =
 
 * Fix - Adds timezone offset to the dates in the Outlook subscribe links on event pages. [TEC-4831]
-* Fix - Improve updated views CSS overwrites for buttons and view selector.
+* Fix - Improve updated views CSS overwrites for buttons and view selector. [TEC-5047]
 * Fix - Resolves an issue where the global posts were not the correct range or sort order. This now stores the ones from the view repository to be used in the WP title filters. [TEC-4845]
 * Fix - Fixes a PHP warning `Undefined array key "venue" in /var/www/html/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 1007`.
+* Tweak - Changed views: `blocks/classic-event-details`, `blocks/event-website`, `v2/components/events-bar/views`, `v2/components/json-ld-data`, `v2/components/subscribe-links/list`, `v2/day/top-bar/datepicker`, `v2/list/top-bar/datepicker`, `v2/month/top-bar/datepicker`
 
 = [6.3.5] 2024-03-20 =
 

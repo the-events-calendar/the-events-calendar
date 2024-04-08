@@ -45,7 +45,7 @@ trait Outlook_Methods {
 	 * Generate the parameters for the Outlook export buttons.
 	 *
 	 * @since 5.16.0
-	 * @since TBD Adding timezone to the start and end dates generated.
+	 * @since 6.3.6 Adding timezone to the start and end dates generated.
 	 *
 	 * @param string $calendar Whether it's Outlook live or Outlook 365.
 	 *
