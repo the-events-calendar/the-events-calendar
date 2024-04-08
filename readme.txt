@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Resolves an issue where the global posts were not the correct range or sort order. This now stores the ones from the view repository to be used in the WP title filters. [TEC-4845]
 * Fix - Fixes a PHP warning `Undefined array key "venue" in /var/www/html/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 1007`.
 * Tweak - Changed views: `blocks/classic-event-details`, `blocks/event-website`, `v2/components/events-bar/views`, `v2/components/json-ld-data`, `v2/components/subscribe-links/list`, `v2/day/top-bar/datepicker`, `v2/list/top-bar/datepicker`, `v2/month/top-bar/datepicker`
+* Language - 0 new strings added, 15 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.5] 2024-03-20 =
 
