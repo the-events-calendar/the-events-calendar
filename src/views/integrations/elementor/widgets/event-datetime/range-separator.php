@@ -1,9 +1,11 @@
 <?php
 /**
- * View: Elementor Event Datetime widget - separator.
+ * View: Elementor Event Datetime widget - range separator.
+ * Used to separate two times displayed adjacent to each other.
+ * Corresponds to the TEC timeRangeSeparator setting.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/separator.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/range-separator.php
  *
  * @since TBD
  *
@@ -27,6 +29,15 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
+$symbol = tribe_get_option( 'timeRangeSeparator', '-' );
 ?>
-
-<span <?php tribe_classes( $widget->get_separator_class() ); ?>> - </span>
+<span <?php tribe_classes( $widget->get_separator_class() ); ?>>
+	<?php
+	printf(
+		/* translators: Separator between the date and time. */
+		esc_html_x( ' %s ', 'Time range separator with a space on either side.', 'the-events-calendar' ),
+		esc_html( $symbol )
+	);
+	?>
+</span>
+</span>
