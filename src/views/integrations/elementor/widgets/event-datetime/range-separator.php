@@ -1,7 +1,7 @@
 <?php
 /**
  * View: Elementor Event Datetime widget - range separator.
- * Used to separate two times displayed adjacent to each other.
+ * Used to separate two times displayed adjacent to each other. As the "-" in "April 1, 2020 @ 12:00 pm - 2:00 pm".
  * Corresponds to the TEC timeRangeSeparator setting.
  *
  * You can override this template in your own theme by creating a file at

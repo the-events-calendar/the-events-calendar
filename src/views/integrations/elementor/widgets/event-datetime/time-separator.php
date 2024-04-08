@@ -1,7 +1,7 @@
 <?php
 /**
- * View: Elementor Event Datetime widget - range separator.
- * Used to separate the time and date.
+ * View: Elementor Event Datetime widget - time separator.
+ * Used to separate the time and date. As the "@" in  "January 1, 2020 @ 12:00 pm".
  * Corresponds to the TEC dateTimeSeparator setting.
  *
  * You can override this template in your own theme by creating a file at
