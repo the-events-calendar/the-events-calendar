@@ -37,7 +37,7 @@
 
 	<div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
 		aria-label="Click to toggle datepicker"

@@ -131,7 +131,7 @@
 		Event Views Navigation	</h3>
 	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--labels tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
 		<button
-			class="tribe-events-c-view-selector__button"
+			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">
@@ -232,7 +232,7 @@
 
 	<div class="tribe-events-c-top-bar__datepicker">
 	<button
-		class="tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
+		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
 		aria-label="Click to toggle datepicker"
@@ -522,7 +522,7 @@
 	<div class="tribe-events-c-subscribe-dropdown">
 		<div class="tribe-common-c-btn-border tribe-events-c-subscribe-dropdown__button">
 			<button
-				class="tribe-events-c-subscribe-dropdown__button-text"
+				class="tribe-events-c-subscribe-dropdown__button-text tribe-common-c-btn--clear"
 				aria-expanded="false"
 				aria-controls="tribe-events-subscribe-dropdown-content"
 				aria-label=""
