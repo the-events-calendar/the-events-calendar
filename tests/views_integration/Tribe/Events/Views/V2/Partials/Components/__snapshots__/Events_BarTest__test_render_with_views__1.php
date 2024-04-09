@@ -68,7 +68,7 @@
 		Event Views Navigation	</h3>
 	<div  class="tribe-events-c-view-selector tribe-events-c-view-selector--labels tribe-events-c-view-selector--tabs"  data-js="tribe-events-view-selector">
 		<button
-			class="tribe-events-c-view-selector__button"
+			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">

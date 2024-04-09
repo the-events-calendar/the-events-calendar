@@ -370,7 +370,10 @@ function tribe_get_organizer_link( $post_id = null, $full_link = true, $echo = f
 		 *
 		 * @since 4.0
 		 *
-		 * @param string the link HTML.
+		 * @param string $link      The link HTML.
+		 * @param int    $post_id   The post ID.
+		 * @param bool   $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output.
+		 * @param string $url       The link URL.
 		 */
 		return apply_filters( 'tribe_get_organizer_link', $link, $post_id, $full_link, $url );
 	}
@@ -444,7 +447,8 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string the link label/text.
+	 * @param string $label   The link label/text.
+	 * @param int    $post_id The post ID.
 	 */
 	$label = apply_filters( 'tribe_get_organizer_website_link_label', $label, $post_id );
 
@@ -473,7 +477,7 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 	 *
 	 * @since 3.0
 	 *
-	 * @param string the link HTML.
+	 * @param string $html The link HTML.
 	 */
 	return apply_filters( 'tribe_get_organizer_website_link', $html );
 }
