@@ -53,9 +53,9 @@ if ( empty( $venues ) ) {
 	<?php
 	$this->template( 'views/integrations/elementor/widgets/event-venue/header' );
 	?>
-	<div <?php tribe_classes( $widget->get_container_classes() ); ?>>
-		<?php foreach ( $venues as $venue ) : ?>
-			<?php $this->template( 'views/integrations/elementor/widgets/event-venue/single-venue', [ 'venue' => $venue ] ); ?>
-		<?php endforeach; ?>
-	</div>
+	<?php foreach ( $venues as $venue ) : ?>
+		<div <?php tribe_classes( $widget->get_container_classes() ); ?>>
+				<?php $this->template( 'views/integrations/elementor/widgets/event-venue/single-venue', [ 'venue' => $venue ] ); ?>
+		</div>
+	<?php endforeach; ?>
 </div>
