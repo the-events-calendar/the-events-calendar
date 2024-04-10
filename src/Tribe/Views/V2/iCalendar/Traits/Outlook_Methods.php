@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\iCalendar\Traits;
 use Tribe\Events\Views\V2\View as View;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Venue as Venue;
+use Tribe__Timezones;
 
 /**
  * Class Outlook_Methods
@@ -44,33 +45,35 @@ trait Outlook_Methods {
 	 * Generate the parameters for the Outlook export buttons.
 	 *
 	 * @since 5.16.0
+	 * @since 6.3.6 Adding timezone to the start and end dates generated.
 	 *
 	 * @param string $calendar Whether it's Outlook live or Outlook 365.
 	 *
-	 * @return string Part of the URL containing the event information.
+	 * @return array<string,string> Params for the URL containing the event information.
 	 */
 	protected function generate_outlook_add_url_parameters( $calendar = 'live' ) {
-		// Getting the event details
+		// Getting the event details.
 		$event = tribe_get_event();
+		if ( ! $event ) {
 
-		$path = '/calendar/action/compose';
-		$rrv  = 'addevent';
+			return [];
+		}
+
+		$path     = '/calendar/action/compose';
+		$rrv      = 'addevent';
+		$timezone = $event->timezone ?? Tribe__Timezones::wp_timezone_string();
 
 		/**
 		 * If event is an all day event, then adjust the end time.
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
-			$enddt = Dates::build_date_object( $event->end_date )->format( 'Y-m-d' )
-				. 'T'
-				. Dates::build_date_object( $event->start_date )->format( 'H:i:s' );
+			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T' . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' );
 		} else {
-			$enddt = Dates::build_date_object( $event->end_date )->format( 'c' );
-			$enddt = substr( $enddt, 0, strlen( $enddt ) - 6 );
+			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'c' );
 		}
 
-		$startdt = Dates::build_date_object( $event->start_date )->format( 'c' );
-		$startdt = substr( $startdt, 0, strlen( $startdt ) - 6 );
+		$startdt = Dates::build_date_object( $event->start_date, $timezone )->format( 'c' );
 
 		$location = Venue::generate_string_address( $event );
 

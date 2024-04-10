@@ -74,7 +74,6 @@ class Event_Organizer extends Abstract_Widget {
 
 		return [
 			'show_organizer_header'         => tribe_is_truthy( $settings['show_organizer_header'] ?? true ),
-			'link_organizer_name'           => tribe_is_truthy( $settings['link_organizer_name'] ?? true ),
 			'show_organizer_name'           => tribe_is_truthy( $settings['show_organizer_name'] ?? true ),
 			'show_organizer_phone'          => tribe_is_truthy( $settings['show_organizer_phone'] ?? true ),
 			'link_organizer_phone'          => tribe_is_truthy( $settings['link_organizer_phone'] ?? true ),
@@ -111,7 +110,6 @@ class Event_Organizer extends Abstract_Widget {
 		return [
 
 			'show_organizer_header'         => tribe_is_truthy( $settings['show_organizer_header'] ?? false ),
-			'link_organizer_name'           => tribe_is_truthy( $settings['link_organizer_name'] ?? true ),
 			'show_organizer_name'           => tribe_is_truthy( $settings['show_organizer_name'] ?? true ),
 			'show_organizer_phone'          => tribe_is_truthy( $settings['show_organizer_phone'] ?? true ),
 			'link_organizer_phone'          => tribe_is_truthy( $settings['link_organizer_phone'] ?? true ),
@@ -162,7 +160,6 @@ class Event_Organizer extends Abstract_Widget {
 			$organizers[ $organizer_id ] = [
 				'id'         => $organizer_id,
 				'name'       => tribe_get_organizer( $organizer_id ),
-				'link'       => tribe_is_truthy( $settings['link_organizer_name'] ?? true ) ? tribe_get_organizer_link( $organizer_id, false ) : false,
 				'phone'      => $phone,
 				'phone_link' => tribe_is_truthy( $settings['link_organizer_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
 				'website'    => tribe_get_organizer_website_link( $organizer_id ),
@@ -695,19 +692,6 @@ class Event_Organizer extends Abstract_Widget {
 				'id'        => 'organizer_name_tag',
 				'label'     => esc_html__( 'Name HTML Tag', 'the-events-calendar' ),
 				'default'   => 'h2',
-				'condition' => [ 'show_organizer_name' => 'yes' ],
-			]
-		);
-
-		// Link Organizer Name control.
-		$this->add_control(
-			'link_organizer_name',
-			[
-				'label'     => esc_html__( 'Link to Organizer Profile', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
 				'condition' => [ 'show_organizer_name' => 'yes' ],
 			]
 		);
