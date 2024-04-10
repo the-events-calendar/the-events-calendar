@@ -31,8 +31,8 @@ if ( ! $show_time || ! $start_time ) {
 	return;
 }
 ?>
-<?php if ( $show_date && $start_date && ! $is_same_day ) : ?>
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/separator' ); ?>
+<?php if ( $show_date && $start_date ) : ?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/time-separator' ); ?>
 <?php endif; ?>
 
 
