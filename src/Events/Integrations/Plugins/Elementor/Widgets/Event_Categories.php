@@ -275,7 +275,7 @@ class Event_Categories extends Abstract_Widget {
 				'id'        => 'header_tag',
 				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
 				'condition' => [
-					'show_header' => 'yes',
+					'show_categories_header' => 'yes',
 				],
 			]
 		);
@@ -295,7 +295,7 @@ class Event_Categories extends Abstract_Widget {
 				'label'     => esc_html__( 'Header Styles', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_header' => 'yes',
+					'show_categories_header' => 'yes',
 				],
 			]
 		);
