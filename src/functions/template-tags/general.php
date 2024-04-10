@@ -1239,7 +1239,6 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 
 	if ( ! isset( $cache_details[ $cache_details_key ] ) ) {
 		$inner                    = $html ? '<span class="tribe-event-date-start">' : '';
-		$format                   = '';
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
 		$time_format              = get_option( 'time_format' );

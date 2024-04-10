@@ -228,6 +228,13 @@ class Template_Bootstrap {
 		$should_display_single = apply_filters( 'tribe_events_views_v2_bootstrap_should_display_single', $should_display_single, $view_slug, $query, $context );
 
 		if ( $should_display_single ) {
+			// Set our context to read as a single-event view.
+			add_filter(
+				"tribe_context_pre_view",
+				function () {
+					return 'single-event';
+				}
+			);
 			$html = $this->get_v1_single_event_html();
 		} elseif ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
 			$context = [

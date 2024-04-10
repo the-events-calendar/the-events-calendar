@@ -17,6 +17,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use TEC\Events\Views\Modifiers\Hide_End_Time_Modifier;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
@@ -71,6 +72,7 @@ class Hooks extends Service_Provider {
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		add_action( 'init', [ $this, 'hide_event_end_time' ] );
 	}
 
 	/**
@@ -175,15 +177,78 @@ class Hooks extends Service_Provider {
 
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
-
 		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 5 );
-
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
-
-		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
-
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12, 2 );
 		add_filter( 'tec_events_view_month_today_button_label', [ $this, 'filter_view_month_today_button_label' ], 10, 2 );
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
+	}
+
+	/**
+	 * Hook for the hide end time setting to flag the view accordingly.
+	 */
+	public function hide_event_end_time(): void {
+		$views = (array) tribe_get_option( 'remove_event_end_time', [] );
+		if ( empty( $views ) ) {
+			return;
+		}
+
+		// Make an associative array to be the shape we expect.
+		$views = array_flip( $views );
+		// Any elements here should be false to indicate that the end time should be hidden.
+		$views = array_map(
+			function () {
+				return false;
+			},
+			$views
+		);
+		$end_time_modifier = new Hide_End_Time_Modifier( $views );
+
+		// Let's setup our context, in either one of two hooks.
+		add_action(
+			'tribe_views_v2_after_setup_loop',
+			function ( $view ) use ( $end_time_modifier ) {
+				// We need further context to determine if we should hide the end time for a particular area.
+				$end_time_modifier->set_context( $view->get_context() );
+			}
+		);
+		add_filter(
+			'tribe_events_views_v2_bootstrap_pre_get_view_html',
+			function ( $html, $view_slug, $query, $context ) use ( $end_time_modifier ) {
+				// We need further context to determine if we should hide the end time for a particular area.
+				$end_time_modifier->set_context( $context );
+
+				return $html;
+			},
+			10,
+			4
+		);
+
+		// If there are any views checked, then run the filter.
+		add_filter(
+			'tribe_events_event_schedule_details_formatting',
+			function ( $settings ) use ( $end_time_modifier ) {
+				$context = $end_time_modifier->get_context();
+				if ( ! $context ) {
+					// Should have context here, bail to avoid fatal.
+					do_action(
+						'tribe_log',
+						'error',
+						'End time visibility failed to locate context.',
+						[
+							'source' => __METHOD__ . ' ' . __LINE__,
+						]
+					);
+
+					return $settings;
+				}
+
+				// Is this view flagged to hide the end time?
+				$settings['show_end_time'] = $end_time_modifier->is_visible( $context->get( 'view' ) );
+
+				return $settings;
+			}
+		);
 	}
 
 	/**
