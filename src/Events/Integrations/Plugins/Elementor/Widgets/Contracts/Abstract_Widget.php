@@ -9,7 +9,6 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts;
 
-use Elementor\Utils;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 use TEC\Events\Integrations\Plugins\Elementor\Assets_Manager;
 use Tribe__Events__Main as TEC;
