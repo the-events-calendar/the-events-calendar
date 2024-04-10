@@ -1,9 +1,11 @@
 <?php
 /**
- * View: Elementor Event Datetime widget - start time section.
+ * View: Elementor Event Datetime widget - time separator.
+ * Used to separate the time and date. As the "@" in  "January 1, 2020 @ 12:00 pm".
+ * Corresponds to the TEC dateTimeSeparator setting.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/start-time.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/range-separator.php
  *
  * @since TBD
  *
@@ -26,17 +28,15 @@
  */
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
-
-if ( ! $show_time || ! $end_time ) {
-	return;
-}
+$symbol = tribe_get_option( 'dateTimeSeparator', '@' );
 ?>
-<?php if ( $show_time && $end_time && $show_date && $end_date && ! $is_same_day ) : ?>
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/time-separator' ); ?>
-<?php endif; ?>
 
-<?php if ( ( $show_time && $end_time ) && ( ! $show_date || ! $end_date || $is_same_day ) ) : ?>
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/range-separator' ); ?>
-<?php endif; ?>
-
-<span <?php tribe_classes( $widget->get_time_class(), $widget->get_end_time_class() ); ?>><?php echo esc_html( $end_time ); ?></span>
+<span <?php tribe_classes( $widget->get_separator_class() ); ?>>
+	<?php
+	printf(
+		/* translators: Separator between the date and time. */
+		esc_html_x( ' %s ', 'Datetime separator with a space on either side', 'the-events-calendar' ),
+		esc_html( $symbol )
+	);
+	?>
+</span>
