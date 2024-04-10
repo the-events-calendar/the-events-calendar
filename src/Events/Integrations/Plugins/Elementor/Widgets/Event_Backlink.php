@@ -89,7 +89,7 @@ class Event_Backlink extends Abstract_Widget {
 	protected function get_backlink_tag(): string {
 		$settings = $this->get_settings_for_display();
 
-		return $settings['link_tag'] ?? 'p';
+		return $settings['html_tag'] ?? 'p';
 	}
 
 	/**
