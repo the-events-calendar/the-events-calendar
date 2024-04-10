@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7aa5112f8a48f73098dc5f3e1b3712fc",
+    "content-hash": "1b6d45376c82593c328f73411f9b4a13",
     "packages": [
         {
             "name": "woocommerce/action-scheduler",
@@ -8366,7 +8366,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/the-events-calendar/tec-testing-facilities.git",
+                "url": "https://github.com/the-events-calendar/tec-testing-facilities",
                 "reference": "6c66235042c4389079a0c98ff8e70ad0ac227eb0"
             },
             "dist": {
@@ -8391,14 +8391,42 @@
             "default-branch": true,
             "type": "library",
             "autoload": {
-                "files": [
-                    "src/functions.php"
-                ],
                 "psr-4": {
                     "Tribe\\Test\\": "src"
-                }
+                },
+                "files": [
+                    "src/functions.php"
+                ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "code-sniff": [
+                    "vendor/bin/phpcs --standard=./cs-ruleset.xml -s src"
+                ],
+                "code-fix": [
+                    "vendor/bin/phpcbf --standard=./cs-ruleset.xml src tests"
+                ],
+                "wp-install": [
+                    "bash bin/wp-install.sh"
+                ],
+                "wp-empty": [
+                    "bash bin/wp-empty.sh"
+                ],
+                "wp-db-dump": [
+                    "bash bin/wp-db-dump.sh"
+                ],
+                "wp-server-start": [
+                    "bash bin/wp-server-start.sh"
+                ],
+                "wp-server-stop": [
+                    "bash bin/wp-server-stop.sh"
+                ],
+                "php-logs": [
+                    "bash bin/php-logs.sh"
+                ],
+                "test": [
+                    "vendor/bin/codecept run unit && vendor/bin/codecept run wpunit"
+                ]
+            },
             "license": [
                 "GPL-3.0+"
             ],
@@ -8409,10 +8437,6 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "support": {
-                "issues": "https://github.com/the-events-calendar/tec-testing-facilities/issues",
-                "source": "https://github.com/the-events-calendar/tec-testing-facilities/tree/master"
-            },
             "time": "2022-05-20T15:21:07+00:00"
         },
         {
@@ -11018,5 +11042,5 @@
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

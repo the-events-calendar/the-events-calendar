@@ -58,7 +58,6 @@ if ( tribe_is_not_min_php_version() ) {
 	}
 
 	add_filter( 'tribe_not_php_version_names', 'tribe_events_not_php_version_plugin_name' );
-
 	if ( ! has_filter( 'admin_notices', 'tribe_not_php_version_notice' ) ) {
 		add_action( 'admin_notices', 'tribe_not_php_version_notice' );
 	}
@@ -73,6 +72,6 @@ require_once dirname( TRIBE_EVENTS_FILE ) . '/src/Tribe/Main.php';
 
 Tribe__Events__Main::instance();
 
-register_activation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'activate' ) );
+register_activation_hook( TRIBE_EVENTS_FILE, [ 'Tribe__Events__Main', 'activate' ] );
 
-register_deactivation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'deactivate' ) );
+register_deactivation_hook( TRIBE_EVENTS_FILE, [ 'Tribe__Events__Main', 'deactivate' ] );

@@ -980,11 +980,11 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @since 6.2.0
 	 *
-	 * @param int    $event_id Event ID.
+	 * @param int    $event_id         Event ID.
 	 * @param string $linked_post_type The post type of the linked post.
-	 * @param array  $original_order The original IDs/order stored in meta.
+	 * @param array  $original_order   The original IDs/order stored in meta.
 	 *
-	 * @return array
+	 * @return array The new order of blocks if modified.
 	 */
 	public function maybe_get_new_order_from_blocks( int $event_id, string $linked_post_type, array $original_order = [] ) {
 		// If the post has blocks, we need to update sorting of the post ids to link so it matches block order.
@@ -1003,7 +1003,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		foreach ( $blocks as $block ) {
-			if ( $block['blockName'] === $block_name ) {
+			if ( $block['blockName'] === $block_name && isset( $block['attrs'][ $block_id_key ] ) ) {
 				$new_order[] = $block['attrs'][ $block_id_key ];
 			}
 		}
