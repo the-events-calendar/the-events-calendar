@@ -37,8 +37,8 @@ if ( $is_all_day ) {
 
 ?>
 
-<?php if ( $show_date && ! $is_same_day && $end_date ) : ?>
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/separator' ); ?>
+<?php if ( $show_date && ! $is_same_day && $end_date ) : // we have a start and end date and we're showing them. ?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/range-separator' ); ?>
 <?php endif; ?>
 
 <?php if ( $show_date && ! $is_same_day && $end_date ) : ?>
