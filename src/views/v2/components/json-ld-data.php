@@ -27,12 +27,12 @@ if ( isset( $jsonld_enable ) && ! $jsonld_enable ) {
 /**
  * Filters the JSON-LD data markup that will be printed for the View.
  *
- * While this filter controls the markup at the view level, other earlier filters are available in the View template vars
- * and in the code responsible for the JSON-LD data.
+ * While this filter controls the markup at the view level, other earlier filters are available in the View template
+ * vars and in the code responsible for the JSON-LD data.
  *
  * @since 5.0.2
  *
- * @param array                                $json_ld_data The JSON-LD data markup for the current View and Context.
+ * @param string                               $json_ld_data The JSON-LD data markup for the current View and Context.
  * @param string                               $view_slug    The slug of the view currently being rendered.
  * @param Tribe\Events\Views\V2\View_Interface $view         The View instance that is being rendered.
  */
