@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
+
 = [6.3.5] 2024-03-20 =
 
 * Tweak - Updated version of tribe-common with fixes for ECP.

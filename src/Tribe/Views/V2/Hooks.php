@@ -188,6 +188,8 @@ class Hooks extends Service_Provider {
 	 * Hook for the hide end time setting to flag the view accordingly.
 	 */
 	public function hide_event_end_time(): void {
+
+
 		$views = (array) tribe_get_option( 'remove_event_end_time', [] );
 		if ( empty( $views ) ) {
 			return;
