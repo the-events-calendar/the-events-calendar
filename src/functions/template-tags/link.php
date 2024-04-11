@@ -408,7 +408,8 @@ function tribe_get_event_website_link( $event = null, $label = null ) {
 		 *
 		 * @since 3.0
 		 *
-		 * @param string the link label/text.
+		 * @param string $label   The link label/text.
+		 * @param int    $post_id The post ID.
 		 */
 		$label = apply_filters( 'tribe_get_event_website_link_label', $label, $post_id );
 		$html  = sprintf(
@@ -427,7 +428,7 @@ function tribe_get_event_website_link( $event = null, $label = null ) {
 	 *
 	 * @since 3.0
 	 *
-	 * @param string the link HTML.
+	 * @param string $html The link HTML.
 	 */
 	return apply_filters( 'tribe_get_event_website_link', $html );
 }
