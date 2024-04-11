@@ -261,19 +261,6 @@ class Hooks extends Service_Provider {
 			'tribe_events_event_schedule_details_formatting',
 			function ( $settings ) use ( $end_time_modifier ) {
 				$context = $end_time_modifier->get_context();
-				if ( ! $context ) {
-					// Should have context here, bail to avoid fatal.
-					do_action(
-						'tribe_log',
-						'error',
-						'End time visibility failed to locate context.',
-						[
-							'source' => __METHOD__ . ' ' . __LINE__,
-						]
-					);
-
-					return $settings;
-				}
 
 				// Is this view flagged to hide the end time?
 				$settings['show_end_time'] = $end_time_modifier->is_visible( $context->get( 'view' ) );

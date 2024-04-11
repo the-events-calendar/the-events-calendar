@@ -41,7 +41,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	 * @return Tribe__Context $context The context object.
 	 */
 	public function get_context(): Tribe__Context {
-		return $this->context;
+		return $this->context ?? tribe_context();
 	}
 
 	/**
