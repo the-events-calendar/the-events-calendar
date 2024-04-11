@@ -40,7 +40,10 @@ use TEC\Common\Contracts\Service_Provider;
  * @package Tribe\Events\Views\V2
  */
 class Hooks extends Service_Provider {
-
+	/**
+	 * @var Hide_End_Time_Modifier The modifier to hide the end time.
+	 */
+	protected Hide_End_Time_Modifier $end_time_modifier;
 
 	/**
 	 * Binds and sets up implementations.
@@ -224,7 +227,6 @@ class Hooks extends Service_Provider {
 		if ( empty( $views ) ) {
 			return;
 		}
-
 		// Make an associative array to be the shape we expect.
 		$views = array_flip( $views );
 		// Any elements here should be false to indicate that the end time should be hidden.
@@ -234,40 +236,73 @@ class Hooks extends Service_Provider {
 			},
 			$views
 		);
-		$end_time_modifier = new Hide_End_Time_Modifier( $views );
+
+		// Create the modifier that handles when to show/hide the end time.
+		$this->end_time_modifier = new Hide_End_Time_Modifier( $views );
 
 		// Let's setup our context, in either one of two hooks.
-		add_action(
-			'tribe_views_v2_after_setup_loop',
-			function ( $view ) use ( $end_time_modifier ) {
-				// We need further context to determine if we should hide the end time for a particular area.
-				$end_time_modifier->set_context( $view->get_context() );
-			}
-		);
+		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'set_context_for_views_v2_setup_loop' ] );
 		add_filter(
 			'tribe_events_views_v2_bootstrap_pre_get_view_html',
-			function ( $html, $view_slug, $query, $context ) use ( $end_time_modifier ) {
-				// We need further context to determine if we should hide the end time for a particular area.
-				$end_time_modifier->set_context( $context );
-
-				return $html;
-			},
+			[
+				$this,
+				'set_context_for_views_v2_endtime',
+			],
 			10,
 			4
 		);
 
 		// If there are any views checked, then run the filter.
-		add_filter(
-			'tribe_events_event_schedule_details_formatting',
-			function ( $settings ) use ( $end_time_modifier ) {
-				$context = $end_time_modifier->get_context();
+		add_filter( 'tribe_events_event_schedule_details_formatting', [ $this, 'handle_end_time_visibility' ] );
+	}
 
-				// Is this view flagged to hide the end time?
-				$settings['show_end_time'] = $end_time_modifier->is_visible( $context->get( 'view' ) );
+	/**
+	 * Handles the visibility of the end time.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, boolean> $settings The settings.
+	 *
+	 * @return array
+	 */
+	public function handle_end_time_visibility( $settings ) {
+		$context = $this->end_time_modifier->get_context();
 
-				return $settings;
-			}
-		);
+		// Is this view flagged to hide the end time?
+		$settings['show_end_time'] = $this->end_time_modifier->is_visible( $context->get( 'view' ) );
+
+		return $settings;
+	}
+
+	/**
+	 * Sets the context for the hide end time modifier.
+	 *
+	 * @since TBD
+	 *
+	 * @param View $view The view.
+	 */
+	public function set_context_for_views_v2_setup_loop( $view ) {
+		// We need further context to determine if we should hide the end time for a particular area.
+		$this->end_time_modifier->set_context( $view->get_context() );
+	}
+
+	/**
+	 * Sets the context for the views v2 end time view modifier.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $html      The HTML to be filtered.
+	 * @param string $view_slug The view slug.
+	 * @param array  $query     The query.
+	 * @param array  $context   The context.
+	 *
+	 * @return string
+	 */
+	public function set_context_for_views_v2_endtime( $html, $view_slug, $query, $context ) {
+		// We need further context to determine if we should hide the end time for a particular area.
+		$this->end_time_modifier->set_context( $context );
+
+		return $html;
 	}
 
 	/**
