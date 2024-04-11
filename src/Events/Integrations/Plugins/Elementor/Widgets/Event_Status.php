@@ -330,18 +330,16 @@ class Event_Status extends Abstract_Widget {
 		$this->add_shared_control(
 			'show',
 			[
-				'id'      => 'show_passed',
-				'label'   => esc_html__( 'Show Event Passed', 'the-events-calendar' ),
-				'default' => 'no',
+				'id'    => 'show_passed',
+				'label' => esc_html__( 'Show Event Passed', 'the-events-calendar' ),
 			]
 		);
 
 		$this->add_shared_control(
 			'show',
 			[
-				'id'      => 'show_status',
-				'label'   => esc_html__( 'Show Event Status', 'the-events-calendar' ),
-				'default' => 'no',
+				'id'    => 'show_status',
+				'label' => esc_html__( 'Show Event Status', 'the-events-calendar' ),
 			]
 		);
 
