@@ -2,7 +2,10 @@
 
 namespace Tribe\Events\Event_Status\Compatibility\Filter_Bar;
 
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
+
 class Service_ProviderTest extends \Codeception\TestCase\WPTestCase {
+	use ArraySubsetAsserts;
 
 	public function setUp(): void {
 		parent::setUp();
