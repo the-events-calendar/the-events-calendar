@@ -5,10 +5,10 @@
  */
 
 use Tribe__Events__Event_Cleaner_Scheduler as Scheduler;
+use Tribe__Date_Utils as Dates;
 
 
 class Event_Cleaner_Scheduler_Test extends \Codeception\TestCase\WPTestCase {
-
 	protected $settings;
 
 	public function event_settings( $event_date ) {
@@ -40,12 +40,21 @@ class Event_Cleaner_Scheduler_Test extends \Codeception\TestCase\WPTestCase {
 	 * Check to make sure that past events are being correctly selected.
 	 */
 	public function test_tribe_select_only_past_events() {
-		$past_event_date     = '2018-01-01';
-		$upcoming_event_date = date( 'Y-m-d' );
-		$past_event          = tribe_create_event( $this->event_settings( $past_event_date ) );
-		$upcoming_event      = tribe_create_event( $this->event_settings( $upcoming_event_date ) );
-		$cleaner             = new Scheduler();
-		$select_past_events  = $cleaner->select_events_to_purge( 3 );
+		$past_event     = tribe_events()->set_args( [
+			'title'      => 'Past Event',
+			'start_date' => Dates::build_date_object( '7 months ago' ),
+			'duration'   => 3 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create()->ID;
+		$upcoming_event = tribe_events()->set_args( [
+			'title'      => 'Upcoming Event',
+			'start_date' => Dates::build_date_object( 'tomorrow 10am' ),
+			'duration'   => 3 * HOUR_IN_SECONDS,
+			'status'     => 'publish',
+		] )->create()->ID;
+
+		$cleaner            = new Scheduler();
+		$select_past_events = array_map( 'absint', $cleaner->select_events_to_purge( 3 ) );
 
 		$this->assertContains( $past_event, $select_past_events, 'Past events should be selected' );
 		$this->assertNotContains( $upcoming_event, $select_past_events, 'Upcoming events are being selected' );

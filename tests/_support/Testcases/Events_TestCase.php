@@ -20,7 +20,7 @@ class Events_TestCase extends WPTestCase {
 	 */
 	protected $implementation_backups = [];
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 
 		$this->factory()->event     = new Event();

@@ -7,7 +7,7 @@
 class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	protected $post_example_settings;
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		$this->post_example_settings = array(
 			'post_author'      => 5,
@@ -28,7 +28,7 @@ class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	public function test_tribe_create_organizer_template_tag_post_object_created() {
 		$post = get_post( tribe_create_organizer( $this->post_example_settings ) );
 
-		$this->assertInternalType( 'object', $post );
+		$this->assertIsObject( $post );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Organizer_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_tribe_create_organizer_API_post_object_created() {
 		$post = get_post( Tribe__Events__API::createOrganizer( $this->post_example_settings ) );
-		$this->assertInternalType( 'object', $post );
+		$this->assertIsObject( $post );
 	}
 
 	/**

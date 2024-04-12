@@ -7,7 +7,7 @@
 class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	protected $post_example_settings;
 
-	function setUp() {
+	function setUp(): void {
 		parent::setUp();
 		$this->post_example_settings = [
 			'post_author'      => 2,
@@ -45,7 +45,7 @@ class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	public function test_tribe_create_venue_template_tag_post_object_created() {
 		$post = get_post( tribe_create_venue( $this->post_example_settings ) );
 
-		$this->assertInternalType( 'object', $post );
+		$this->assertIsObject( $post );
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Venue_Creation_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_tribe_create_venue_API_post_object_created() {
 		$post = get_post( Tribe__Events__API::createVenue( $this->post_example_settings ) );
-		$this->assertInternalType( 'object', $post );
+		$this->assertIsObject( $post );
 	}
 
 	/**
