@@ -217,13 +217,14 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 				<tr>
 					<td><?php esc_html_e( 'Currency Symbol:', 'the-events-calendar' ); ?></td>
 					<td>
+						<?php $currency_symbol = $_EventCurrencySymbol ?: tribe_get_option( 'defaultCurrencySymbol', '$' ); // phpcs:ignore -- Legacy naming. ?>
 						<input
 							tabindex="<?php tribe_events_tab_index(); ?>"
 							type='text'
 							id='EventCurrencySymbol'
 							name='EventCurrencySymbol'
 							size='2'
-							value='<?php echo isset( $_EventCurrencySymbol ) && ! empty( $_EventCurrencySymbol ) ? esc_attr( $_EventCurrencySymbol ) : tribe_get_option( 'defaultCurrencySymbol', '$' ); ?>'
+							value='<?php echo esc_attr( $currency_symbol ); ?>'
 							class='alignleft'
 						/>
 						<select
@@ -233,34 +234,25 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							class="tribe-dropdown"
 							data-prevent-clear
 						>
-							<?php
-							if ( isset( $_EventCurrencyPosition ) && ! empty( $_EventCurrencyPosition ) && 'suffix' === $_EventCurrencyPosition ) {
-								$suffix = true;
-							} elseif ( isset( $_EventCurrencyPosition ) && ! empty( $_EventCurrencyPosition ) && 'prefix' === $_EventCurrencyPosition ) {
-								$suffix = false;
-							} elseif ( true === tribe_get_option( 'reverseCurrencyPosition', false ) ) {
-								$suffix = true;
-							} else {
-								$suffix = false;
-							}
+							<?php // phpcs:ignore -- Legacy naming.
+							$suffix = $_EventCurrencyPosition ? ( 'suffix' === $_EventCurrencyPosition ? true : false ) : ( tribe_get_option( 'reverseCurrencyPosition' ) ?: false );
 							?>
 							<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'the-events-calendar' ) ?> </option>
-							<option value="suffix"<?php if ( $suffix ) {
-								echo ' selected="selected"';
-							} ?>><?php _ex( 'After cost', 'Currency symbol position', 'the-events-calendar' ) ?></option>
+							<option value="suffix" <?php selected( $suffix, true ); ?>><?php _ex( 'After cost', 'Currency symbol position', 'the-events-calendar' ) ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td><?php esc_html_e( 'ISO Currency Code:', 'the-events-calendar' ); ?></td>
 					<td>
+						<?php $currency_code = $_EventCurrencyCode ?: tribe_get_option( 'defaultCurrencyCode', 'USD' ); // phpcs:ignore -- Legacy naming. ?>
 						<input
 							tabindex="<?php tribe_events_tab_index(); ?>"
 							type='text'
 							id='EventCurrencyCode'
 							name='EventCurrencyCode'
 							size='3'
-							value='<?php echo isset( $_EventCurrencyCode ) && ! empty( $_EventCurrencyCode ) ? esc_attr( $_EventCurrencyCode ) : tribe_get_option( 'defaultCurrencyCode', 'USD' ); ?>'
+							value='<?php echo esc_attr( $currency_code ); ?>
 							class='alignleft'
 						/>
 					</td>
