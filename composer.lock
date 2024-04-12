@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d67e29b329061cfafa74580e85ef29c7",
+    "content-hash": "657530c81b82bb39c3184bf38be9056f",
     "packages": [
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.7.3",
+            "version": "3.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "8aa895a6edfeb92f40d6eddc9dfc35df65da38ae"
+                "reference": "5fb655253dc004bb7a6d840da807f0949aea8bcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/8aa895a6edfeb92f40d6eddc9dfc35df65da38ae",
-                "reference": "8aa895a6edfeb92f40d6eddc9dfc35df65da38ae",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/5fb655253dc004bb7a6d840da807f0949aea8bcd",
+                "reference": "5fb655253dc004bb7a6d840da807f0949aea8bcd",
                 "shasum": ""
             },
             "require": {
@@ -45,9 +45,9 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.7.3"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.7.4"
             },
-            "time": "2024-03-20T10:16:56+00:00"
+            "time": "2024-04-05T14:42:07+00:00"
         }
     ],
     "packages-dev": [
@@ -1682,16 +1682,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "dev-v35-wploader-loadonly-event",
+            "version": "3.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "bc0fc8c265d19e4cb8c3b4e727ac5b688b1aa6ed"
+                "reference": "ab60b3f5bb80108498401b1ea8cc22cfabbc9d52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/bc0fc8c265d19e4cb8c3b4e727ac5b688b1aa6ed",
-                "reference": "bc0fc8c265d19e4cb8c3b4e727ac5b688b1aa6ed",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/ab60b3f5bb80108498401b1ea8cc22cfabbc9d52",
+                "reference": "ab60b3f5bb80108498401b1ea8cc22cfabbc9d52",
                 "shasum": ""
             },
             "require": {
@@ -1767,7 +1767,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lucatume/wp-browser/issues",
-                "source": "https://github.com/lucatume/wp-browser/tree/v35-wploader-loadonly-event"
+                "source": "https://github.com/lucatume/wp-browser/tree/3.5.7"
             },
             "funding": [
                 {
@@ -1775,7 +1775,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-05T13:51:37+00:00"
+            "time": "2024-04-12T11:48:16+00:00"
         },
         {
             "name": "lucatume/wp-snaphot-assertions",
@@ -6967,17 +6967,9 @@
             "time": "2022-06-08T03:23:46+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "lucatume/wp-browser",
-            "version": "dev-v35-wploader-loadonly-event",
-            "alias": "3.5.6",
-            "alias_normalized": "3.5.6.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "lucatume/wp-browser": 20,
         "stellarwp/coding-standards": 20,
         "the-events-calendar/tec-testing-facilities": 20
     },
