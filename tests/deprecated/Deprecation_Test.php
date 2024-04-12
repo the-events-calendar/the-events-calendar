@@ -10,9 +10,7 @@
 use Codeception\TestCase\WPTestCase;
 use PHPUnit\Framework\AssertionFailedError;
 
-
-class Expected_Deprecation_Signal extends Exception {
-}
+require_once codecept_relative_path('tests/_support/Expected_Deprecation_Signal.php');
 
 class Deprecation_Test extends WPTestCase {
 	private string $plugin_version;
@@ -63,23 +61,13 @@ class Deprecation_Test extends WPTestCase {
 		$args = array_map( static function ( ReflectionParameter $arg ) {
 			return $arg->isDefaultValueAvailable() ? $arg->getDefaultValue() : null;
 		}, $args );
-		// Trigger the deprecation error, check it and then bail out of the function.
-		add_filter( 'deprecated_function_trigger_error', '__return_true' );
-		// Work out the plugin major version now, to make sure methods are deprecated in the right version.
-		add_action( 'deprecated_function_run', $this->get_test_closure( $class, $method, $version ), 10, 3 );
-		set_error_handler( static function () {
-			// Throw to just get out of the function before any real logic runs.
-			throw new Expected_Deprecation_Signal();
-		}, E_USER_DEPRECATED );
 
-		try {
-			if ( $is_static ) {
-				$class::$method( ...$args );
-			} else {
-				$instance->{$method}( ...$args );
-			}
-		} catch ( Expected_Deprecation_Signal $e ) {
-			// Do nothing, this is expected.
+		$this->setExpectedDeprecated( "{$class}::{$method}" );
+
+		if ( $is_static ) {
+			$class::$method( ...$args );
+		} else {
+			$instance->{$method}( ...$args );
 		}
 	}
 
@@ -100,7 +88,7 @@ class Deprecation_Test extends WPTestCase {
 			$method,
 			$version
 		) {
-			$this->assertContains( $class . '::' . $method, $function );
+			$this->assertStringContainsString( $class . '::' . $method, $function );
 			$this->assertEquals( $version, $deprecation_version );
 			$deprecation_major_version = substr( $deprecation_version, 0, strpos( $deprecation_version, '.' ) );
 			$this->assertEquals(
@@ -228,10 +216,6 @@ PHP;
 	 * @dataProvider major_version_diff_test_data_provider
 	 */
 	public function test_major_version_check( string $class, bool $is_static, string $method, string $version, bool $expect_exception ): void {
-		if ( $expect_exception ) {
-			$this->expectException( AssertionFailedError::class );
-		}
-
 		$this->test_deprecated_methods_and_versions( $is_static, $class, $method, $version );
 	}
 }
