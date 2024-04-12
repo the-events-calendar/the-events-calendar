@@ -27,7 +27,7 @@ class Provider extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	public function load_conditionals(): bool {
-		return class_exists( \Tribe\Extensions\Tec_Tweaks\Main::class );
+		return class_exists( \Tribe\Extensions\Tec_Tweaks\Main::class, false );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class Provider extends Integration_Abstract {
 	 * This handles removing the end time extension settings from the tweaks extension.
 	 */
 	public function remove_end_time_extension_settings() {
-		apply_filters( 'tribe_get_option_tribe_ext_tec_tweaks_remove_event_end_time', '__return_empty_array' );
+		add_filter( 'tribe_get_option_tribe_ext_tec_tweaks_remove_event_end_time', '__return_empty_array' );
 		add_filter(
 			'tribe_settings_tab_fields',
 			static function ( $fields, $id ) {
