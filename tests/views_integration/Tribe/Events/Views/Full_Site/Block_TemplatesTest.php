@@ -9,7 +9,7 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 class Block_TemplatesTest extends HtmlTestCase {
 	use MatchesSnapshots;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 	}

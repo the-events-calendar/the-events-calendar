@@ -17,7 +17,7 @@ class Calendar_BodyTest extends HtmlPartialTestCase {
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		// Start Function Mocker.
 		Test::setUp();

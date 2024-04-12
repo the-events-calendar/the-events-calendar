@@ -7,14 +7,14 @@ class ConstantsTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $backupGlobals = false;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
 		// your set up methods here
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

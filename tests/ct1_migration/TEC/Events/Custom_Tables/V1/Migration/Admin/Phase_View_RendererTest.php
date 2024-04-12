@@ -2,6 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use Spatie\Snapshots\MatchesSnapshots;
 use TEC\Events\Custom_Tables\V1\Migration\Ajax;
 use TEC\Events\Custom_Tables\V1\Migration\Events;
@@ -14,8 +15,9 @@ use Tribe\Events\Test\Traits\CT1\CT1_Fixtures;
 class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 	use MatchesSnapshots;
 	use CT1_Fixtures;
+	use ArraySubsetAsserts;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		global $wpdb;
 		// clear our post state
@@ -81,9 +83,9 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
 		$this->assertEmpty( $output['nodes'] );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'start-migration-preview-button' ), $output['html'] );
-		$this->assertContains( 'tec-ct1-upgrade-start-migration-preview', $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'start-migration-preview-button' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade-start-migration-preview', $output['html'] );
 	}
 
 	/**
@@ -107,10 +109,10 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . State::PHASE_PREVIEW_IN_PROGRESS, $output['html'] );
-		$this->assertContains( $text->get( 'preview-in-progress' ), $output['html'] );
-		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
-		$this->assertContains( 'tribe-update-bar__summary-progress-text', $node['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . State::PHASE_PREVIEW_IN_PROGRESS, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'preview-in-progress' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
+		$this->assertStringContainsString( 'tribe-update-bar__summary-progress-text', $node['html'] );
 
 	}
 
@@ -191,11 +193,11 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
 		$this->assertEmpty( $output['nodes'] );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( 'tec-ct1-upgrade__alert', $output['html'] );
-		$this->assertContains( $text->get( 'start-migration-button' ), $output['html'] );
-		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
-		$this->assertContains( wp_date( 'F j, Y, g:i a', $time ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade__alert', $output['html'] );
+		$this->assertStringContainsString( $text->get( 'start-migration-button' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade__report-body-content', $output['html'] );
+		$this->assertStringContainsString( wp_date( 'F j, Y, g:i a', $time ), $output['html'] );
 	}
 
 	/**
@@ -217,10 +219,10 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
-		$this->assertContains( 'tribe-update-bar__summary-progress-text', $node['html'] );
-		$this->assertContains( $text->get( 'migration-in-progress' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade-update-bar-container', $output['html'] );
+		$this->assertStringContainsString( 'tribe-update-bar__summary-progress-text', $node['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-in-progress' ), $output['html'] );
 	}
 
 	/**
@@ -241,10 +243,10 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( 'tec-ct1-upgrade__link-danger', $output['html'] );
-		$this->assertContains( 'tec-ct1-upgrade__report-body-content', $output['html'] );
-		$this->assertContains( $text->get( 'migration-complete' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade__link-danger', $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade__report-body-content', $output['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-complete' ), $output['html'] );
 	}
 
 	/**
@@ -265,8 +267,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'cancel-migration-in-progress' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'cancel-migration-in-progress' ), $output['html'] );
 	}
 
 	/**
@@ -287,8 +289,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'reverse-migration-in-progress' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'reverse-migration-in-progress' ), $output['html'] );
 	}
 
 	/**
@@ -308,8 +310,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-in-progress' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-in-progress' ), $output['html'] );
 	}
 
 	/**
@@ -330,8 +332,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'cancel-migration-in-progress' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'cancel-migration-in-progress' ), $output['html'] );
 	}
 
 	/**
@@ -351,8 +353,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'reverse-migration-in-progress' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'reverse-migration-in-progress' ), $output['html'] );
 	}
 
 	/**
@@ -372,8 +374,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-complete' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-complete' ), $output['html'] );
 	}
 
 	/**
@@ -393,8 +395,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-canceled' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-canceled' ), $output['html'] );
 	}
 
 	/**
@@ -414,8 +416,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-reversed' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-reversed' ), $output['html'] );
 	}
 
 
@@ -437,8 +439,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-failed' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-failed' ), $output['html'] );
 	}
 
 	/**
@@ -456,8 +458,8 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 
 		// Check for expected compiled values.
 		$this->assertNotEmpty( $output );
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
-		$this->assertContains( $text->get( 'migration-failure-complete' ), $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( $text->get( 'migration-failure-complete' ), $output['html'] );
 	}
 
 
@@ -516,17 +518,17 @@ class Phase_View_RendererTest extends \CT1_Migration_Test_Case {
 		$start       = $page === 1 ? 0 : ( $page - 1 ) * $count;
 		$should_have = $start < $total;
 		if ( $should_have ) {
-			$this->assertContains( 'tec-ct1-upgrade-event-item', $output['html'] );
+			$this->assertStringContainsString( 'tec-ct1-upgrade-event-item', $output['html'] );
 		} else {
-			$this->assertNotContains( 'tec-ct1-upgrade-event-item', $output['html'] );
+			$this->assertStringNotContainsString( 'tec-ct1-upgrade-event-item', $output['html'] );
 		}
-		$this->assertContains( 'tec-ct1-upgrade--' . $phase, $output['html'] );
+		$this->assertStringContainsString( 'tec-ct1-upgrade--' . $phase, $output['html'] );
 
 		foreach ( $event_reports as $event_report ) {
 			/**
 			 * @var Event_Report $event_report
 			 */
-			$this->assertContains( $event_report->source_event_post->post_title, $output['html'] );
+			$this->assertStringContainsString( $event_report->source_event_post->post_title, $output['html'] );
 		}
 	}
 }

@@ -5,7 +5,7 @@ namespace Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Test\Factories\Event;
 
 class StackTest extends \Codeception\TestCase\WPTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event = new Event();
 	}

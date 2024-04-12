@@ -35,7 +35,7 @@ class Single_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 	 */
 	protected $organizer_endpoint;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

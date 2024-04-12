@@ -14,7 +14,7 @@ class Events_BarTest extends HtmlPartialTestCase
 
 	protected $partial_path = 'components/events-bar';
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		// Start Function Mocker.
 		Test::setUp();

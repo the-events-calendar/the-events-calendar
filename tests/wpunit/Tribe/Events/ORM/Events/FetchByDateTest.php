@@ -8,7 +8,7 @@ use Tribe\Events\Test\Factories\Event;
 
 class FetchByDateTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

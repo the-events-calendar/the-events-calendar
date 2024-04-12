@@ -17,7 +17,7 @@ class Known_RangeTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $start;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -26,7 +26,7 @@ class Known_RangeTest extends \Codeception\TestCase\WPTestCase {
 		$this->format =  Date_Utils::DBDATETIMEFORMAT;
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

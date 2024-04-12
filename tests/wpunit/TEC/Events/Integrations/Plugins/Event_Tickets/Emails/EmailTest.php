@@ -11,7 +11,7 @@ class EmailTest extends \Codeception\TestCase\WPTestCase {
 	public $test_venue_id     = null;
 	public $test_organizer_id = null;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->factory()->venue     = new Venue();

@@ -11,7 +11,7 @@ class Unticketed_Cost_Formatting_Test extends Events_TestCase {
 	 *
 	 * @since 4.6.17
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 	}
 
@@ -20,7 +20,7 @@ class Unticketed_Cost_Formatting_Test extends Events_TestCase {
 	 *
 	 * @since 4.6.17
  	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 	}
 

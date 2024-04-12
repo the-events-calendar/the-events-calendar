@@ -11,7 +11,7 @@ namespace Tribe\Events\ORM\Events;
 use Tribe\Events\Test\Factories\Event;
 
 class FormatTest extends \Codeception\TestCase\WPTestCase {
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
 		static::factory()->event = new Event();
 	}

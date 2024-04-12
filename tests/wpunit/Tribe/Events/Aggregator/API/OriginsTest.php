@@ -19,7 +19,7 @@ class OriginsTest extends Aggregator_TestCase {
 	 */
 	protected $service;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -32,7 +32,7 @@ class OriginsTest extends Aggregator_TestCase {
 		$this->service = $this->prophesize( Service::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 		tribe_register( 'events-aggregator.service', self::$service_backup );
 

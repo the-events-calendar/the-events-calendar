@@ -31,7 +31,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $wp_rewrite_rules;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -65,7 +65,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 		];
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// Restore backed up properties on TEC main instance.
 		if ( ! empty( $this->tec_prop_backup ) ) {
 			$tec_main = TEC::instance();
@@ -376,7 +376,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 				return $translation;
 			},
 			10,
-			4 
+			4
 		);
 		$rewrite->filter_pagination_base();
 		$this->assertEquals( 'page', $wp_rewrite->pagination_base );
@@ -612,7 +612,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			'locale',
 			static function () use ( $lang_code ) {
 				return $lang_code;
-			} 
+			}
 		);
 		add_filter(
 			'load_textdomain_mofile',
@@ -620,7 +620,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 				return codecept_data_dir( "lang/the-events-calendar-{$lang_code}.mo" );
 			},
 			99,
-			2 
+			2
 		);
 
 
@@ -632,7 +632,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 			$rewrite,
 			[
 				'localized_bases' => $localized_bases,
-			] 
+			]
 		);
 		$ugly_archive_url = add_query_arg( $args, home_url() );
 		$canonical_url    = $rewrite->get_canonical_url( $ugly_archive_url );
@@ -683,8 +683,8 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 					'post_type'    => TEC::POSTTYPE,
 					'eventDisplay' => 'default',
 				],
-				'http://wordpress.test/test' 
-			) 
+				'http://wordpress.test/test'
+			)
 		);
 
 		$this->assertEquals( 'http://wordpress.test/test/events/', $url );
@@ -731,9 +731,9 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 						'post_type'    => TEC::POSTTYPE,
 						'eventDisplay' => 'default',
 					],
-					$query_args 
-				) 
-			) 
+					$query_args
+				)
+			)
 		);
 
 		$this->assertEquals( $expected, str_replace( home_url(), '', urldecode( $clean_url ) ) );
@@ -760,7 +760,7 @@ class RewriteTest extends \Codeception\TestCase\WPTestCase {
 					1 => 89,
 				],
 			],
-			home_url() 
+			home_url()
 		);
 		$expected  = '/events/?tribe_tags[0]=23&tribe_tags[1]=89';
 

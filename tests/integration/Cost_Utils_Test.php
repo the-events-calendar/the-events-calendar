@@ -14,7 +14,7 @@ class Cost_Utils_Test extends \Codeception\TestCase\WPTestCase {
 	 * Ensure we have events with a range of different costs and also
 	 * some events where the cost is not defined.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		// This needs to come first so that the post_example_settings template is created
 		parent::setUp();
 

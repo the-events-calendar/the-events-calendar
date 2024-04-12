@@ -8,7 +8,7 @@ class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 
 	protected $organizer;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -16,7 +16,7 @@ class JSON_LD__OrganizerTest extends \Codeception\TestCase\WPTestCase {
 		$this->create_test_data();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		JSON_LD__Organizer::unregister_all();

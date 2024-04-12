@@ -8,7 +8,7 @@ use Tribe\Test\Products\WPBrowser\Views\V2\HtmlTestCase;
 
 class SnapshotTest extends HtmlTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		require_once codecept_data_dir( 'classes/Tribe/Plugins/Filter_Bar/Context_Filter.php' );

@@ -11,7 +11,7 @@ class Venue_Template_Tags_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Create a set of test events and venues.
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$settings = array(
 			'post_author'           => 3,
@@ -59,7 +59,7 @@ class Venue_Template_Tags_Test extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * Remove our test events and venues.
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		foreach ( $this->posts as $test_post_id ) {
 			wp_delete_post( $test_post_id, true );
 		}

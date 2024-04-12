@@ -10,7 +10,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $site_url;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -20,7 +20,7 @@ class MainTest extends \Codeception\TestCase\WPTestCase {
 		$this->site_url = get_option( 'siteurl' );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

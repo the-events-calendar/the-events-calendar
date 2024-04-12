@@ -15,6 +15,7 @@ class Events_Only_ModifierTest extends \Codeception\TestCase\WPTestCase {
 	 * It should not apply to query in admin context
 	 *
 	 * @test
+	 *
 	 * @preserveGlobalState  disabled
 	 * @runInSeparateProcess to avoid carrying over the const to other tests
 	 */

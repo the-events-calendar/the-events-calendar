@@ -8,7 +8,7 @@ use Tribe__Events__Importer__File_Reader as File_Reader;
 
 class File_ImporterTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -16,7 +16,7 @@ class File_ImporterTest extends \Codeception\TestCase\WPTestCase {
 		$this->file_reader = $this->prophesize( File_Reader::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

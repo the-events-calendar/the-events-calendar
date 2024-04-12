@@ -15,12 +15,12 @@ class HTML_CacheTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $implementation;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
 		static::factory()->event = new Event();
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->implementation = new class extends View {
 			protected static $view_slug = 'month';

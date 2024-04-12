@@ -10,7 +10,7 @@ class DatepickerTest extends HtmlPartialTestCase
 
 	protected $partial_path = 'day/top-bar/datepicker';
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		// Start Function Mocker.
 		Test::setUp();

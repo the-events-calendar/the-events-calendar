@@ -7,9 +7,7 @@ modules:
     - WPDb
   config:
     WPDb:
-      dsn: 'mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%'
-      user: "%WP_DB_USER%"
-      password: "%WP_DB_PASSWORD%"
+      dbUrl: 'mysql://%WP_DB_USER%:%WP_DB_PASSWORD%@%WP_DB_HOST%/%WP_DB_NAME%'
       dump: tests/_data/ct1_migration/dump.sql
       populate: true # Do import the dump when the suite starts.
       cleanup: false # Do not clean the db between tests, we'll deal with it.
@@ -21,7 +19,4 @@ modules:
       # Just load WordPress using the same db as WPDb.
       loadOnly: true
       wpRootFolder: "%WP_ROOT_FOLDER%"
-      dbName: "%WP_DB_NAME%"
-      dbHost: "%WP_DB_HOST%"
-      dbUser: "%WP_DB_USER%"
-      dbPassword: "%WP_DB_PASSWORD%"
+      dbUrl: 'mysql://%WP_DB_USER%:%WP_DB_PASSWORD%@%WP_DB_HOST%/%WP_DB_NAME%'

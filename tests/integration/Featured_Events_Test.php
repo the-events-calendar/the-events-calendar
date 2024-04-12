@@ -16,7 +16,7 @@ class Featured_Events_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $featured_events;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->featured_events = tribe( 'tec.featured_events' );
 		$this->create_test_posts();

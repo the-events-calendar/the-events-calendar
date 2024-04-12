@@ -23,7 +23,7 @@ class Post_RepositoryTest extends Events_TestCase {
 	 */
 	protected $messages;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 

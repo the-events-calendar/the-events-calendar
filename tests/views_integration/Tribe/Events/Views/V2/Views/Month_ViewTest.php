@@ -18,7 +18,7 @@ class Month_ViewTest extends ViewTestCase {
 	 */
 	protected $context;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		tribe( 'cache' )->reset();
 

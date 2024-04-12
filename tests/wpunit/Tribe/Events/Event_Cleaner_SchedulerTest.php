@@ -14,14 +14,14 @@ use Tribe__Events__Event_Cleaner_Scheduler as Cleaner_Scheduler;
  */
 class Event_Cleaner_SchedulerTest extends WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
 		$this->factory()->event = new Event();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

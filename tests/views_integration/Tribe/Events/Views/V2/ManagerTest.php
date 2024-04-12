@@ -11,7 +11,7 @@ require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 require_once codecept_data_dir( 'Views/V2/classes/Publicly_Visible_Test_View.php' );
 
 class ManagerTest extends \Codeception\TestCase\WPTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );

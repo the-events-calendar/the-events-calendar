@@ -10,22 +10,21 @@ use Tribe__Events__Main;
 
 class Post_Save_EventsTest extends WPTestCase {
 
-	public function _setUp() {
-		parent::_setUp();
+	public function setUp(): void {
+		parent::setUp();
 		$_POST              = [];
 		$_POST['ecp_nonce'] = wp_create_nonce( Tribe__Events__Main::POSTTYPE );
 
 		add_filter( 'user_has_cap', [ $this, 'user_has_cap_filter' ], 10, 2 );
 	}
 
-	public function _tearDown() {
+	public function tearDown(): void {
 		remove_filter( 'user_has_cap', [ $this, 'user_has_cap_filter' ], 10 );
 		$_POST = [];
-		parent::_tearDown();
+		parent::tearDown();
 	}
 
 	public function integration_data_provider() {
-		// @todo meta_input
 		return [
 			'Testing UTC-5 with DST'             => [
 				[

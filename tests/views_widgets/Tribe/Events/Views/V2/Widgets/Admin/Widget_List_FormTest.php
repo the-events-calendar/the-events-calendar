@@ -9,7 +9,7 @@ class Widget_List_FormTest extends ViewTestCase {
 
 	use MatchesSnapshots;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		\Tribe__Rewrite::instance()->setup();
 	}

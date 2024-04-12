@@ -12,7 +12,7 @@ class WPML_Integration_Test_Case extends \Codeception\Test\Unit {
 	protected static $hooks_saved = [];
 	protected $backupGlobals = false;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		// This will load all the factories.
 		self::$factory = new FactoryStore();
 		static::$factory->getThingFactory( 'post' );
@@ -33,14 +33,14 @@ class WPML_Integration_Test_Case extends \Codeception\Test\Unit {
 		}
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		$this->flush_cache();
 		$this->set_user_to_admin();
 		$this->filter_site_url();
 		$this->backup_hooks();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		$this->clean_globals();
 	}
 

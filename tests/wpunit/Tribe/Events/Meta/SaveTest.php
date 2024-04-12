@@ -19,7 +19,7 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $context;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -28,7 +28,7 @@ class SaveTest extends \Codeception\TestCase\WPTestCase {
 		$this->context = $this->prophesize( Context::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

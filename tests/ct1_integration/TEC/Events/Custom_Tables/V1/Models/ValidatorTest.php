@@ -125,8 +125,8 @@ class ValidatorTest extends \Codeception\TestCase\WPTestCase {
 		$errors = $model->errors();
 		$this->assertTrue( $model->is_invalid() );
 		$this->assertCount( 1, $errors );
-		$this->assertContains( "Must be an integer", $errors[ $faux_field_name ] );
-		$this->assertContains( "Must be more than 100", $errors[ $faux_field_name ] );
+		$this->assertStringContainsString( "Must be an integer", $errors[ $faux_field_name ] );
+		$this->assertStringContainsString( "Must be more than 100", $errors[ $faux_field_name ] );
 
 		// Valid value
 		$model->$faux_field_name = 1234;

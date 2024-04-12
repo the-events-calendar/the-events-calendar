@@ -12,7 +12,7 @@ class Classic_EditorTest extends \Codeception\TestCase\WPTestCase {
 	use MatchesSnapshots;
 	use With_Uopz;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		static::factory()->event = new Event();
 		$this->set_fn_return( 'wp_create_nonce', '123123' );

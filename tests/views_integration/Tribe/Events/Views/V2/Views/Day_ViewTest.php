@@ -14,7 +14,7 @@ class Day_ViewTest extends ViewTestCase {
 
 	use MatchesSnapshots;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
@@ -385,7 +385,7 @@ class Day_ViewTest extends ViewTestCase {
 		$this->assertMatchesSnapshot( $html_tag );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		if ( isset( $this->date_default_timezone ) ) {
 			date_default_timezone_set( $this->date_default_timezone );

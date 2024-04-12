@@ -7,7 +7,7 @@ use Tribe__Settings_Manager as Settings;
 
 class Widget_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		// Let's make sure we do not run "second" tests on cached value(s).
 		tribe_set_var( Settings::OPTION_CACHE_VAR_NAME, null );

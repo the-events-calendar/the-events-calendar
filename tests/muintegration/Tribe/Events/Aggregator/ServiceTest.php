@@ -2,16 +2,17 @@
 namespace Tribe\Events\Aggregator;
 
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__Events__Aggregator__Service as Service;
 
 class ServiceTest extends \Codeception\TestCase\WPTestCase {
-
-	/**
+	use ProphecyTrait;
+/**
 	 * @var \Tribe__Events__Aggregator__API__Requests
 	 */
 	protected $requests;
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -21,7 +22,7 @@ class ServiceTest extends \Codeception\TestCase\WPTestCase {
 		$this->requests = $this->prophesize( \Tribe__Events__Aggregator__API__Requests::class );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

@@ -84,7 +84,7 @@ class File_Importer_Events_ReimportBehaviourTest extends File_Importer_EventsTes
 		'featured_image',
 	];
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->featured_image_url     = plugins_url( '_data/csv-import-test-files/featured-image/images/featured-image.jpg', codecept_data_dir() );
 		$this->data['featured_image'] = $this->featured_image_url;

@@ -50,7 +50,7 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $template = 'events';
 
-	public function setUp() {
+	public function setUp(): void {
 		// before
 		parent::setUp();
 
@@ -59,7 +59,7 @@ class File_Importer_EventsTest extends \Codeception\TestCase\WPTestCase {
 		$this->factory()->event = new Event();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		// your tear down methods here
 
 		// then

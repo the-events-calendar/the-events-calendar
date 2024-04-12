@@ -15,7 +15,7 @@ class ExtendingViewTest extends TestCase {
 
 	protected $unlink_on_tear_down = [];
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		add_filter( 'tribe_events_views', static function ( array $views ) {
 			$views['test'] = Test_Template_View::class;
@@ -86,7 +86,7 @@ class ExtendingViewTest extends TestCase {
 		$this->assertEquals( $template_folder->url() . '/test.php', $view_template_file );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		foreach ( $this->unlink_on_tear_down as $file ) {
 			if ( file_exists( $file ) ) {
 				$this->unlink( $file );

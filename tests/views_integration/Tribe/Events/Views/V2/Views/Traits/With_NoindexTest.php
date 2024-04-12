@@ -17,7 +17,7 @@ class With_NoindexTest extends ViewTestCase {
 	 */
 	protected $context;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		tribe( 'cache' )->reset();
 

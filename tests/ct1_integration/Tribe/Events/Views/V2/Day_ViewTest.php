@@ -29,7 +29,7 @@ class Day_ViewTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $context;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		tribe( 'cache' )->reset();
 
