@@ -2,11 +2,12 @@
 namespace Tribe\Events\Aggregator;
 
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Tribe__Events__Aggregator__Service as Service;
 
 class ServiceTest extends \Codeception\TestCase\WPTestCase {
-
-	/**
+	use ProphecyTrait;
+/**
 	 * @var \Tribe__Events__Aggregator__API__Requests
 	 */
 	protected $requests;
