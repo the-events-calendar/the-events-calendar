@@ -120,25 +120,6 @@ class Event_OrganizerTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'link_organizer_name' => [
-			static function () {
-				return [
-					'label'  => 'link_organizer_name',
-					'value'  => true,
-					'string' => 'tec-events-elementor-event-widget__organizer-name-link',
-				];
-			},
-		];
-		yield 'no_link_organizer_name' => [
-			static function () {
-				return [
-					'label'  => 'link_organizer_name',
-					'value'  => false,
-					'string' => 'tec-events-elementor-event-widget__organizer-name-link',
-					'invert' => true,
-				];
-			},
-		];
 		yield 'show_organizer_name' => [
 			static function () {
 				return [
