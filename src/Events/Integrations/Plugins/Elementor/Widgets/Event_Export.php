@@ -683,7 +683,7 @@ class Event_Export extends Abstract_Widget {
 			'typography',
 			[
 				'prefix'   => 'dropdown',
-				'selector' => '{{WRAPPER}} .' . $this->get_list_class(),
+				'selector' => '{{WRAPPER}} .' . $this->get_link_class(),
 				'label'    => esc_html__( 'Dropdown Typography', 'the-events-calendar' ),
 			]
 		);
@@ -692,7 +692,7 @@ class Event_Export extends Abstract_Widget {
 			'alignment',
 			[
 				'id'        => 'dropdown_align',
-				'selectors' => [ '{{WRAPPER}} .' . $this->get_list_class() ],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_link_class() ],
 			]
 		);
 

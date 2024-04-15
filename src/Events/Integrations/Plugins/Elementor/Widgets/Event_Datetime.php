@@ -34,6 +34,15 @@ class Event_Datetime extends Abstract_Widget {
 	protected static string $slug = 'event_datetime';
 
 	/**
+	 * Whether the widget has styles to register/enqueue.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected static bool $has_styles = true;
+
+	/**
 	 * Create the widget title.
 	 *
 	 * @since TBD
