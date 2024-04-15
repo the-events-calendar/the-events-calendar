@@ -152,6 +152,7 @@ trait With_Shared_Controls {
 	 *                            - string label_on:  The label for the "on" state. Defaults to "Show".
 	 *                            - string label_off: The label for the "off" state. Defaults to "Hide".
 	 *                            - string default:   The default state ("yes" or "no", defaults to "yes").
+	 *                            - string description The description for the control.
 	 */
 	protected function show( $args = [] ): void {
 		$check = $this->check_required_args( $args, 'id' );
@@ -165,11 +166,12 @@ trait With_Shared_Controls {
 		$this->add_control(
 			$args['id'],
 			[
-				'label'     => $args['label'] ?? esc_html__( 'Show Element', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => $args['label_on'] ?? esc_html__( 'Show', 'the-events-calendar' ),
-				'label_off' => $args['label_off'] ?? esc_html__( 'Hide', 'the-events-calendar' ),
-				'default'   => $args['default'] ?? 'yes',
+				'label'       => $args['label'] ?? esc_html__( 'Show Element', 'the-events-calendar' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'label_on'    => $args['label_on'] ?? esc_html__( 'Show', 'the-events-calendar' ),
+				'label_off'   => $args['label_off'] ?? esc_html__( 'Hide', 'the-events-calendar' ),
+				'default'     => $args['default'] ?? 'yes',
+				'description' => $args['description'] ?? '',
 			]
 		);
 	}
