@@ -98,7 +98,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @version  TBD
 	 * @since    TBD Updated docblock to indicate future deprecation of function
 	 */
-	function tribe_create_event( array $args ): bool|int {
+	function tribe_create_event( $args ) {
 		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
 		$postId            = Tribe__Events__API::createEvent( $args );
 
