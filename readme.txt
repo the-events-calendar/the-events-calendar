@@ -232,9 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.3.7] 2024-04-17 =
 
 * Fix - Corrected the missing Venue Website URL within the Event Tickets Email feature. [ET-2019]
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/venue/website`
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.6] 2024-04-09 =
 
