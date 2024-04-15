@@ -14,7 +14,9 @@
 	}
 
 	.tec-events-elementor-event-widget__venue-header {
+		font-weight: var(--tec-font-weight-bold);
 		margin: var(--tec-spacer-1) 0;
+		text-transform: uppercase;
 	}
 
 	.tec-events-elementor-event-widget__venue-container {
@@ -59,6 +61,7 @@
 			margin-bottom: var(--tec-spacer-5);
 
 			&-header {
+				font-weight: var(--tec-font-weight-bold);
 				margin-bottom: var(--tec-spacer-1) 0;
 			}
 		}
@@ -67,7 +70,9 @@
 		.tec-events-elementor-event-widget__venue-name-link,
 		.tec-events-elementor-event-widget__venue-phone-link {
 			border-color: currentColor;
+			color: var(--tec-color-accent-primary);
 			font-size: inherit;
+			text-decoration: underline;
 		}
 
 		.tec-events-elementor-event-widget__venue-address-address {
@@ -83,6 +88,7 @@
 			> a {
 				border-color: currentColor;
 				color: var(--tec-color-accent-primary);
+				text-decoration: underline;
 
 				&:hover {
 					color: var(--tec-color-accent-primary-hover);

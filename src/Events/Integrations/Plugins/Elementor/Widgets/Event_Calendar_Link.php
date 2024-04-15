@@ -1,6 +1,6 @@
 <?php
 /**
- * Event Backlink Elementor Widget.
+ * Event Calendar Link Elementor Widget.
  *
  * @since   TBD
  *
@@ -13,13 +13,13 @@ use Elementor\Controls_Manager;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 
 /**
- * Class Event_Backlink
+ * Class Event_calendar_link
  *
  * @since   TBD
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
-class Event_Backlink extends Abstract_Widget {
+class Event_calendar_link extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
 
@@ -30,7 +30,7 @@ class Event_Backlink extends Abstract_Widget {
 	 *
 	 * @var string
 	 */
-	protected static string $slug = 'event_backlink';
+	protected static string $slug = 'event_calendar_link';
 
 	/**
 	 * Whether the widget has styles to register/enqueue.
@@ -49,7 +49,7 @@ class Event_Backlink extends Abstract_Widget {
 	 * @return string
 	 */
 	protected function title(): string {
-		return esc_html__( 'Event Backlink', 'the-events-calendar' );
+		return esc_html__( 'Event Calendar Link', 'the-events-calendar' );
 	}
 
 	/**
@@ -63,10 +63,10 @@ class Event_Backlink extends Abstract_Widget {
 		$event_id = $this->get_event_id();
 
 		return [
-			'backlink_class' => $this->get_link_class(),
-			'backlink_tag'   => $this->get_backlink_tag(),
-			'backlink_label' => $this->get_backlink_text(),
-			'backlink'       => tribe_get_events_link(),
+			'calendar_link_class' => $this->get_link_class(),
+			'calendar_link_tag'   => $this->get_calendar_link_tag(),
+			'calendar_link_label' => $this->get_calendar_link_text(),
+			'calendar_link'       => tribe_get_events_link(),
 		];
 	}
 
@@ -82,35 +82,35 @@ class Event_Backlink extends Abstract_Widget {
 	}
 
 	/**
-	 * Get the HTML tag for the backlink wrapper.
+	 * Get the HTML tag for the calendar link wrapper.
 	 *
 	 * @since TBD
 	 */
-	protected function get_backlink_tag(): string {
+	protected function get_calendar_link_tag(): string {
 		$settings = $this->get_settings_for_display();
 
 		return $settings['html_tag'] ?? 'p';
 	}
 
 	/**
-	 * Get the backlink text.
+	 * Get the calendar link text.
 	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
-	protected function get_backlink_text(): string {
+	protected function get_calendar_link_text(): string {
 		$label = sprintf(
 			/* Translators: %s: plural label for events */
 			esc_html__( 'All %s', 'tribe-events-calendar-pro' ),
 			tribe_get_event_label_plural()
 		);
 
-		return (string) apply_filters( 'tec_events_elementor_event_backlink_widget_link_text', $label, $this );
+		return (string) apply_filters( 'tec_events_elementor_event_calendar_link_widget_link_text', $label, $this );
 	}
 
 	/**
-	 * Get the class for the backlink.
+	 * Get the class for the calendar link.
 	 *
 	 * @since TBD
 	 *
@@ -151,15 +151,15 @@ class Event_Backlink extends Abstract_Widget {
 	}
 
 	/**
-	 * Add controls for the content of the backlink.
+	 * Add controls for the content of the calendar link.
 	 *
 	 * @since TBD
 	 */
 	protected function content_options(): void {
 		$this->start_controls_section(
-			'backlink_content_section',
+			'calendar_link_content_section',
 			[
-				'label' => esc_html__( 'Event Backlink', 'the-events-calendar' ),
+				'label' => esc_html__( 'Event Calendar Link', 'the-events-calendar' ),
 			]
 		);
 
@@ -176,7 +176,7 @@ class Event_Backlink extends Abstract_Widget {
 	}
 
 	/**
-	 * Add styling controls for the content of the backlink.
+	 * Add styling controls for the content of the calendar link.
 	 *
 	 * @since TBD
 	 */
@@ -200,7 +200,7 @@ class Event_Backlink extends Abstract_Widget {
 
 
 		$this->add_control(
-			'backlink_hover_color',
+			'calendar_link_hover_color',
 			[
 				'label'     => esc_html__( 'Hover Link Color', 'the-events-calendar' ),
 				'type'      => Controls_Manager::COLOR,
