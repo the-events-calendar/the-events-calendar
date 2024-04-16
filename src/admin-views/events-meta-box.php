@@ -82,9 +82,9 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								class="tribe-datepicker tribe-field-start_date"
 								name="EventStartDate"
 								id="EventStartDate"
-								value="<?php echo esc_attr( $EventStartDate ) ?>"
+								value="<?php echo esc_attr( $EventStartDate ); ?>"
 							/>
-							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ); ?></span>
 
 							<input
 								autocomplete="off"
@@ -93,12 +93,12 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								class="tribe-timepicker tribe-field-start_time"
 								name="EventStartTime"
 								id="EventStartTime"
-								<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : '' ?>
+								<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : ''; ?>
 								data-step="<?php echo esc_attr( $start_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
-								value="<?php echo esc_attr( $metabox->is_auto_draft() ? $start_timepicker_default : $EventStartTime ) ?>"
+								value="<?php echo esc_attr( $metabox->is_auto_draft() ? $start_timepicker_default : $EventStartTime ); ?>"
 							/>
-							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ); ?></span>
 
 							<span class="tribe-datetime-separator"> <?php echo esc_html_x( 'to', 'Start Date Time "to" End Date Time', 'the-events-calendar' ); ?> </span>
 
@@ -108,12 +108,12 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								class="tribe-timepicker tribe-field-end_time"
 								name="EventEndTime"
 								id="EventEndTime"
-								<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : '' ?>
+								<?php echo Tribe__View_Helpers::is_24hr_format() ? 'data-format="H:i"' : ''; ?>
 								data-step="<?php echo esc_attr( $end_timepicker_step ); ?>"
 								data-round="<?php echo esc_attr( $timepicker_round ); ?>"
 								value="<?php echo esc_attr( $metabox->is_auto_draft() ? $end_timepicker_default : $EventEndTime ); ?>"
 							/>
-							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php esc_html_e( 'HH:MM', 'the-events-calendar' ); ?></span>
 
 							<input
 								autocomplete="off"
@@ -123,15 +123,15 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 								id="EventEndDate"
 								value="<?php echo esc_attr( $EventEndDate ); ?>"
 							/>
-							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ) ?></span>
+							<span class="helper-text hide-if-js"><?php esc_html_e( 'YYYY-MM-DD', 'the-events-calendar' ); ?></span>
 
 							<select
 								tabindex="<?php tribe_events_tab_index(); ?>"
 								name="EventTimezone"
 								id="event-timezone"
 								class="tribe-field-timezone tribe-dropdown hide-if-js"
-								data-timezone-label="<?php esc_attr_e( 'Time Zone:', 'the-events-calendar' ) ?>"
-								data-timezone-value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ) ?>"
+								data-timezone-label="<?php esc_attr_e( 'Time Zone:', 'the-events-calendar' ); ?>"
+								data-timezone-value="<?php echo esc_attr( Tribe__Events__Timezones::get_event_timezone_string() ); ?>"
 								data-prevent-clear
 							>
 								<?php echo tribe_events_timezone_choice( Tribe__Events__Timezones::get_event_timezone_string() ); ?>
@@ -237,8 +237,8 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							<?php // phpcs:ignore -- Legacy naming.
 							$suffix = $_EventCurrencyPosition ? ( 'suffix' === $_EventCurrencyPosition ? true : false ) : ( tribe_get_option( 'reverseCurrencyPosition' ) ?: false );
 							?>
-							<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'the-events-calendar' ) ?> </option>
-							<option value="suffix" <?php selected( $suffix, true ); ?>><?php _ex( 'After cost', 'Currency symbol position', 'the-events-calendar' ) ?></option>
+							<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'the-events-calendar' ); ?> </option>
+							<option value="suffix" <?php selected( $suffix, true ); ?>><?php echo esc_html( _x( 'After cost', 'Currency symbol position', 'the-events-calendar' ) ); ?></option>
 						</select>
 					</td>
 				</tr>
