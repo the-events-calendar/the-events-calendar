@@ -62,7 +62,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	public function template_args(): array {
-		$event    = $this->get_event();
+		$event = $this->get_event();
 
 		if ( empty( $event ) ) {
 			return [];
@@ -128,7 +128,7 @@ class Event_Datetime extends Abstract_Widget {
 
 		$show_tz = tribe_is_truthy( $settings['show_timezone'] ?? tribe_get_option( 'tribe_events_timezones_show_zone', false ) );
 		if ( $show_tz ) {
-			$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $start_date ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event->ID );
+			$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $start ) : 'EDT';
 		}
 
 		return [
