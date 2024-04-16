@@ -14,6 +14,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Assets_Manager;
 use Tribe__Events__Main as TEC;
 
 use Elementor\Widget_Base;
+use WP_Post;
 
 /**
  * Abstract Widget class
@@ -407,6 +408,17 @@ abstract class Abstract_Widget extends Widget_Base {
 	 */
 	protected function has_event_id(): bool {
 		return $this->get_event_id() !== null;
+	}
+
+	/**
+	 * Get the event associated with this widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return ?WP_Post
+	 */
+	public function get_event(): ?WP_Post {
+		return tribe_get_event( $this->get_event_id() );
 	}
 
 	/**
