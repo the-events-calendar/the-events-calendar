@@ -20,6 +20,7 @@ class Provider extends Service_Provider {
 		$this->container->singleton( 'tec.admin.notice.marketing', Notice\Marketing::class );
 		$this->container->singleton( 'tec.admin.notice.update', Notice\Update::class );
 		$this->container->singleton( Notice\Install_Event_Tickets::class, Notice\Install_Event_Tickets::class );
+		$this->container->singleton( Notice\Rest_Api::class, Notice\Rest_Api::class );
 
 		$this->add_hooks();
 	}
@@ -32,9 +33,9 @@ class Provider extends Service_Provider {
 	public function add_hooks() {
 		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'settings_ui' ) );
 		add_action( 'admin_menu', $this->container->callback( Settings::class, 'add_admin_pages' ), 11 );
-		add_action( 'tribe_settings_do_tabs', $this->container->callback(  Settings::class, 'do_addons_api_settings_tab' ) );
-		add_action( 'tribe_settings_do_tabs', $this->container->callback(  Settings::class, 'do_upgrade_tab' ) );
-		add_filter( 'tribe_settings_url', $this->container->callback(  Settings::class, 'filter_url' ) );
+		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_addons_api_settings_tab' ) );
+		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_upgrade_tab' ) );
+		add_filter( 'tribe_settings_url', $this->container->callback( Settings::class, 'filter_url' ) );
 		add_action( 'network_admin_menu', $this->container->callback( Settings::class, 'maybe_add_network_settings_page' ) );
 		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_network_settings_tab' ), 400 );
 		add_filter( 'tribe_settings_page_title', $this->container->callback( Settings::class, 'settings_page_title' ) );
@@ -52,5 +53,6 @@ class Provider extends Service_Provider {
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.fse', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( Notice\Legacy_Views_Updated::class, 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( Notice\Install_Event_Tickets::class, 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( Notice\Rest_Api::class, 'hook' ) );
 	}
 }
