@@ -28,7 +28,7 @@
 		let injected = false;
 
 		const helperContainer = document.createElement( 'div' );
-		const text = document.createTextNode( '<?php esc_html_e( 'Click the folder icon to use The Events Calendar starter template (under My Templates)', 'the-events-calendar' ); ?>' );
+		const text = document.createTextNode( '<?php esc_html_e( 'Looking for the Event template? Click the folder and navigate to My Templates.', 'the-events-calendar' ); ?>' );
 		helperContainer.appendChild( text );
 		helperContainer.classList.add( 'tec-events-elementor-template-selection-helper' );
 
