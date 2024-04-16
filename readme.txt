@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
+
 = [6.3.6] 2024-04-09 =
 
 * Fix - Adds timezone offset to the dates in the Outlook subscribe links on event pages. [TEC-4831]
