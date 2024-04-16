@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use Elementor\Elements_Manager;
 use WP_Post;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
