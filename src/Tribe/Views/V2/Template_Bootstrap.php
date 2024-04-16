@@ -10,12 +10,10 @@
  */
 namespace Tribe\Events\Views\V2;
 
-use ElementorPro\Modules\ThemeBuilder\Module as ThemeBuilderModule;
 use Tribe\Utils\Body_Classes;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Templates as V1_Event_Templates;
 use Tribe__Notices;
-use Tribe__Templates as V1_Templates;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
 
