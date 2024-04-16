@@ -10,6 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
 use Elementor\Core\Base\Document;
+use ElementorPro\Modules\ThemeBuilder\Module;
 use WP_Post;
 
 use Elementor\Plugin;
@@ -228,7 +229,13 @@ class Controller extends Controller_Contract {
 			return false;
 		}
 
-		return $document->is_built_with_elementor();
+		if ( ! tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
+			return $document->is_built_with_elementor();
+		}
+
+		$documents_by_conditions = Module::instance()->get_conditions_manager()->get_documents_for_location( 'single' );
+
+		return ! ( empty( $documents_by_conditions ) && ! $document->is_built_with_elementor() );
 	}
 
 	/**
