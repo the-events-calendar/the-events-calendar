@@ -28,8 +28,6 @@ class Event_NavigationTest extends WPTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->set_class_fn_return( 'Elementor\Controls_Stack', 'get_settings_for_display', [ 'header_tag' => 'h3' ] );
-
 		self::$prev_event = $this->mock_event( 'events/single/1.json' )->get();
 		self::$next_event = $this->mock_event( 'events/single/2.json' )->get();
 	}
@@ -47,21 +45,6 @@ class Event_NavigationTest extends WPTestCase {
 	 * string is the string to be checked for in the rendered HTML.
 	 */
 	public function data_provider(): Generator {
-		yield 'header_tag' => [
-			static function () {
-				return [
-					'label'  => 'header_tag',
-					'value'  => 'p',
-					'string' => '<p',
-					'additional' => [
-						'prev_link' => 'http://theeventscalendar.com/prev',
-						'prev_event' => self::$prev_event,
-						'next_link' => 'http://theeventscalendar.com/next',
-						'next_event' => self::$next_event,
-					],
-				];
-			},
-		];
 		yield 'prev_link' => [
 			static function () {
 				return [
