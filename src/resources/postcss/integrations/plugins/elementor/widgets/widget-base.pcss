@@ -36,3 +36,16 @@ a[class*="tec-events-elementor-event-widget"],
 		margin-block-end: var(--tec-spacer-3);
 	}
 }
+
+.elementor-widget-empty-icon[class*="tec-events-elementor-event-widget__icon"] {
+	padding-bottom: 20px;
+
+	&:after {
+		color: var(--tec-color-text-primary);
+		content: '';
+		display: block;
+		font-size: var(--tec-font-size-4);
+		margin: 0 1em;
+		position: relative;
+	}
+}
