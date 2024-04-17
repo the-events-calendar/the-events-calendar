@@ -65,11 +65,11 @@ class Event_Navigation extends Abstract_Widget {
 		$prev_event = $adjacent_events->get_closest_event( 'previous' );
 
 		return [
-			'prev_event'      => $prev_event,
-			'prev_link'       => tribe_get_event_link( $prev_event ),
-			'next_event'      => $next_event,
-			'next_link'       => tribe_get_event_link( $next_event ),
-			'event_id'        => $this->get_event_id(),
+			'prev_event' => $prev_event,
+			'prev_link'  => tribe_get_event_link( $prev_event ),
+			'next_event' => $next_event,
+			'next_link'  => tribe_get_event_link( $next_event ),
+			'event_id'   => $this->get_event_id(),
 		];
 	}
 
@@ -81,17 +81,24 @@ class Event_Navigation extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$id   = $this->get_event_id();
+		$args = $this->template_args();
+
+		if ( tribe_is_event( $id ) ) {
+			return $args;
+		}
+
 		$prev_event             = new \stdClass();
 		$next_event             = new \stdClass();
 		$prev_event->post_title = 'Previous Event';
 		$next_event->post_title = 'Next Event';
 
 		return [
-			'prev_event'      => $prev_event,
-			'prev_link'       => '#',
-			'next_event'      => $next_event,
-			'next_link'       => '#',
-			'event_id'        => $this->get_event_id(),
+			'prev_event' => $prev_event,
+			'prev_link'  => '#',
+			'next_event' => $next_event,
+			'next_link'  => '#',
+			'event_id'   => $this->get_event_id(),
 		];
 	}
 

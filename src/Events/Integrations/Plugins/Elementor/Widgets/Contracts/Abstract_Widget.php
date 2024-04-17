@@ -346,7 +346,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @since TBD
 	 *
-	 * @return int|false The ID of the current item (parent post) the widget is in. False if not found.
+	 * @return ?int The ID of the current item (parent post) the widget is in. Null if not found.
 	 */
 	protected function event_id(): ?int {
 		$event_id = (int) get_the_ID();
@@ -393,9 +393,9 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * @since TBD
 	 *
-	 * @return int|null
+	 * @return ?int
 	 */
-	public function get_event_id() {
+	public function get_event_id(): ?int {
 		return $this->event_id();
 	}
 

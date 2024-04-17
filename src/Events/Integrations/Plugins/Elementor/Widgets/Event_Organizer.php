@@ -22,6 +22,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 class Event_Organizer extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
+	use Traits\Event_Query;
 
 	/**
 	 * Widget slug.
@@ -106,39 +107,39 @@ class Event_Organizer extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$id   = $this->get_event_id();
+		$args = $this->template_args();
+
+		if ( tribe_is_event( $id ) ) {
+			return $args;
+		}
+
+		if ( ! empty( $args['organizers'] ) ) {
+			return $args;
+		}
+
+		$args['organizers'][0] = $this->get_mock_organizer();
+
+		return $args;
+	}
+
+	/**
+	 * Get the mock organizer data for the widget preview.
+	 *
+	 * @since TBD
+	 *
+	 * @return array The mock organizer data.
+	 */
+	protected function get_mock_organizer() {
 		$phone = '555-555-5555';
 		return [
-
-			'show_organizer_header'         => tribe_is_truthy( $settings['show_organizer_header'] ?? false ),
-			'show_organizer_name'           => tribe_is_truthy( $settings['show_organizer_name'] ?? true ),
-			'show_organizer_phone'          => tribe_is_truthy( $settings['show_organizer_phone'] ?? true ),
-			'link_organizer_phone'          => tribe_is_truthy( $settings['link_organizer_phone'] ?? true ),
-			'show_organizer_email'          => tribe_is_truthy( $settings['show_organizer_email'] ?? true ),
-			'link_organizer_email'          => tribe_is_truthy( $settings['link_organizer_email'] ?? true ),
-			'show_organizer_website'        => tribe_is_truthy( $settings['show_organizer_website'] ?? true ),
-			'show_organizer_phone_header'   => tribe_is_truthy( $settings['show_organizer_phone_header'] ?? true ),
-			'show_organizer_email_header'   => tribe_is_truthy( $settings['show_organizer_email_header'] ?? true ),
-			'show_organizer_website_header' => tribe_is_truthy( $settings['show_organizer_website_header'] ?? true ),
-			'organizer_header_tag'          => $settings['organizer_header_tag'] ?? 'h2',
-			'organizer_name_tag'            => $settings['organizer_name_tag'] ?? 'h3',
-			'organizer_phone_header_tag'    => $settings['organizer_phone_header_tag'] ?? 'h4',
-			'organizer_email_header_tag'    => $settings['organizer_email_header_tag'] ?? 'h4',
-			'organizer_website_header_tag'  => $settings['organizer_website_header_tag'] ?? 'h4',
-			'organizer_email_header_text'   => $this->get_email_header_text(),
-			'organizer_phone_header_text'   => $this->get_phone_header_text(),
-			'organizer_website_header_text' => $this->get_website_header_text(),
-			'multiple'                      => false,
-			'organizers'                    => [
-				1 => [
-					'id'         => 1,
-					'name'       => _x( 'John Doe', 'Placeholder name for widget preview', 'the-events-calendar' ),
-					'link'       => '#',
-					'phone'      => $phone,
-					'phone_link' => $this->format_phone_link( $phone ),
-					'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Organizer Website</a>',
-					'email'      => 'info@theeventscalendar.com',
-				],
-			],
+			'id'         => 1,
+			'name'       => _x( 'John Doe', 'Placeholder name for widget preview', 'the-events-calendar' ),
+			'link'       => '#',
+			'phone'      => $phone,
+			'phone_link' => $this->format_phone_link( $phone ),
+			'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Organizer Website</a>',
+			'email'      => 'info@theeventscalendar.com',
 		];
 	}
 
@@ -609,10 +610,12 @@ class Event_Organizer extends Abstract_Widget {
 		if ( ! $this->has_multiple_organizers() ) {
 			$this->organizer_phone_content_options();
 
-			$this->organizer_email_content_options();
-
 			$this->organizer_website_content_options();
+
+			$this->organizer_email_content_options();
 		}
+
+		$this->add_event_query_section();
 	}
 
 	/**
