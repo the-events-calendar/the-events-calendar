@@ -10,11 +10,7 @@
  * @var string $link_class The class for the link.
  * @var string $website    The event website link.
  */
-
-if ( ! $this->has_event() ) {
-	return;
-}
 ?>
 <div <?php tribe_classes( $link_class ); ?>>
-	<?php echo tribe_get_event_website_link( $this->get_event() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
+	<?php echo $website; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped ?>
 </div>

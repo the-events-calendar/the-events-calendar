@@ -84,6 +84,13 @@ class Event_Navigation extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$id   = $this->get_event_id();
+		$args = $this->template_args();
+
+		if ( tribe_is_event( $id ) ) {
+			return $args;
+		}
+
 		$prev_event             = new \stdClass();
 		$next_event             = new \stdClass();
 		$prev_event->post_title = 'Previous Event';

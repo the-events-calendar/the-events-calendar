@@ -66,7 +66,6 @@ class Event_Status extends Abstract_Widget {
 		$is_passed = tribe_is_event( $event ) && tribe_is_past_event( get_post( $event ) );
 		$settings  = $this->get_settings_for_display();
 
-
 		return [
 			'description_class'  => $this->get_status_description_class(),
 			'label_class'        => $this->get_status_label_class(),

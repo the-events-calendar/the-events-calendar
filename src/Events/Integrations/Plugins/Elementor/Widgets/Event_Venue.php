@@ -24,6 +24,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 class Event_Venue extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
+	use Traits\Event_Query;
 
 	/**
 	 * Widget slug.
@@ -113,7 +114,12 @@ class Event_Venue extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$id   = $this->get_event_id();
 		$args = $this->template_args();
+
+		if ( tribe_is_event( $id ) ) {
+			return $args;
+		}
 
 		ob_start();
 		?>
@@ -517,6 +523,8 @@ class Event_Venue extends Abstract_Widget {
 		$this->venue_website_content_options();
 
 		$this->venue_map_content_options();
+
+		$this->add_event_query_section();
 	}
 
 	/**
