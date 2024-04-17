@@ -113,43 +113,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		$settings    = $this->get_settings_for_display();
-		$date_format = tribe_get_date_format();
-		$time_format = tribe_get_time_format();
-
-		$start = new \DateTime();
-		$start->modify( '+1 day' );
-		$start->setTime( 8, 0 );
-
-		$end = new \DateTime();
-		$end->modify( '+2 days' );
-		$end->setTime( 17, 0 );
-
-
-		$show_tz = tribe_is_truthy( $settings['show_timezone'] ?? tribe_get_option( 'tribe_events_timezones_show_zone', false ) );
-		if ( $show_tz ) {
-			$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $start ) : 'EDT';
-		}
-
-		return [
-			'all_day_text'      => esc_html__( 'All day', 'the-events-calendar' ),
-			'end_date'          => $end->format( $date_format ) ?? '',
-			'end_time'          => $end->format( $time_format ) ?? '',
-			'header_text'       => $this->get_header_text(),
-			'header_tag'        => $this->get_header_tag(),
-			'html_tag'          => $this->get_html_tag(),
-			'is_all_day'        => false,
-			'is_same_day'       => false,
-			'is_same_start_end' => false,
-			'show_date'         => tribe_is_truthy( $settings['show_date'] ?? true ),
-			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
-			'show_time'         => tribe_is_truthy( $settings['show_time'] ?? true ),
-			'show_timezone'     => $show_tz,
-			'time_zone_label'   => $time_zone_label ?? '',
-			'show_year'         => tribe_is_truthy( $settings['show_year'] ?? true ),
-			'start_date'        => $start->format( $date_format ) ?? '',
-			'start_time'        => $start->format( $time_format ) ?? '',
-		];
+		return $this->template_args();
 	}
 
 	/**

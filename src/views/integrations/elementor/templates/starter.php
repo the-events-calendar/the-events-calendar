@@ -16,7 +16,7 @@
 							"settings": {},
 							"elements": [],
 							"isInner": false,
-							"widgetType": "tec_elementor_widget_event_backlink",
+							"widgetType": "tec_events_elementor_widget_event_calendar_link",
 							"elType": "widget"
 						},
 						{
@@ -24,7 +24,7 @@
 							"settings": {},
 							"elements": [],
 							"isInner": false,
-							"widgetType": "tec_elementor_widget_event_status",
+							"widgetType": "tec_events_elementor_widget_event_status",
 							"elType": "widget"
 						},
 						{
