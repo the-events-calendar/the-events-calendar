@@ -28,6 +28,7 @@ use Tribe\Events\Event_Status\Status_Labels;
 class Event_Status extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
+	use Traits\Event_Query;
 
 	/**
 	 * Widget slug.
@@ -88,18 +89,7 @@ class Event_Status extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return [
-			'description_class'  => $this->get_status_description_class(),
-			'label_class'        => $this->get_status_label_class(),
-			'status'             => 'postponed',
-			'status_label'       => 'Postponed',
-			'status_reason'      => __( 'No reason provided.', 'the-events-calendar' ),
-			'show_status'        => true,
-			'show_passed'        => true,
-			'is_passed'          => true,
-			'passed_label'       => $this->get_passed_label_text(),
-			'passed_label_class' => $this->get_passed_label_class(),
-		];
+		return $this->template_args();
 	}
 
 	/**
@@ -324,7 +314,7 @@ class Event_Status extends Abstract_Widget {
 	 */
 	protected function content_panel() {
 		$this->content_options();
-		$this->preview_options();
+		$this->add_event_query_section();
 	}
 
 	/**
@@ -380,67 +370,6 @@ class Event_Status extends Abstract_Widget {
 			[
 				'id'    => 'show_status',
 				'label' => esc_html__( 'Show Event Status', 'the-events-calendar' ),
-			]
-		);
-
-		$this->end_controls_section();
-	}
-
-	/**
-	 * Add controls for preview of the event status widget.
-	 *
-	 * @since TBD
-	 */
-	protected function preview_options() {
-		$this->start_controls_section(
-			'preview_section_title',
-			[
-				'label' => esc_html__( 'Preview Controls', 'the-events-calendar' ),
-			]
-		);
-
-		$this->add_control(
-			'preview_notice',
-			[
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__(
-					'The toggles below are for preview purposes only. They do not impact actual content display.',
-					'the-events-calendar'
-				),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-			]
-		);
-
-		$this->add_control(
-			'show_passed_status_preview',
-			[
-				'label'     => esc_html__( 'Preview Passed', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'show_postponed_status_preview',
-			[
-				'label'     => esc_html__( 'Preview Postponed', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'show_canceled_status_preview',
-			[
-				'label'     => esc_html__( 'Preview Canceled', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
 			]
 		);
 
