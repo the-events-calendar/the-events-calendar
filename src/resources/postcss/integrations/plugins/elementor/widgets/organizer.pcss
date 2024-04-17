@@ -5,7 +5,13 @@
  */
 
 .tec-events-elementor-event-widget__organizer {
+	margin: 0 0 var(--tec-spacer-0) 0;
 	padding-bottom: var(--tec-spacer-2);
+
+	> [class*="tec-events-elementor-event-widget"] {
+		margin: 0 0 var(--tec-spacer-1) 0;
+		padding: 0;
+	}
 
 	.tec-events-elementor-event-widget__organizer-header {
 		font-weight: var(--tec-font-weight-bold);
@@ -16,10 +22,13 @@
 	.tec-events-elementor-event-widget__organizer-email,
 	.tec-events-elementor-event-widget__organizer-website {
 
+		&-wrapper {
+			margin: 0 0 var(--tec-spacer-5) 0;
+		}
+
 		&-header {
 			font-weight: var(--tec-font-weight-bold);
-			margin: var(--tec-spacer-3) 0 var(--tec-spacer-0) 0;
-			padding: 0;
+			margin-bottom: var(--tec-spacer-1);
 		}
 	}
 
