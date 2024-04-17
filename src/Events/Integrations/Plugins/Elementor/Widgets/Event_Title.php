@@ -81,7 +81,7 @@ class Event_Title extends Abstract_Widget {
 	protected function preview_args(): array {
 		return [
 			'header_tag' => $this->get_event_title_header_tag(),
-			'title'      => $this->title(),
+			'title'      => _x( 'Your Events Calendar Template', 'Mock Title for previewing the Event Title widget', 'the-events-calendar' ),
 		];
 	}
 

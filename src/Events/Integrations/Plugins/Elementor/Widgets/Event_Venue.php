@@ -273,7 +273,7 @@ class Event_Venue extends Abstract_Widget {
 	 */
 	protected function get_website_header_text(): string {
 		$header_text = _x(
-			'Website',
+			'Website:',
 			'The header string for the Elementor event venue widget website section.',
 			'the-events-calendar'
 		);
@@ -300,7 +300,7 @@ class Event_Venue extends Abstract_Widget {
 	 */
 	protected function get_phone_header_text(): string {
 		$header_text = _x(
-			'Phone',
+			'Phone:',
 			'The header string for the Elementor event venue widget phone section.',
 			'the-events-calendar'
 		);
@@ -327,7 +327,7 @@ class Event_Venue extends Abstract_Widget {
 	 */
 	protected function get_address_header_text(): string {
 		$header_text = _x(
-			'Address',
+			'Address:',
 			'The header string for the Elementor event venue widget address section.',
 			'the-events-calendar'
 		);

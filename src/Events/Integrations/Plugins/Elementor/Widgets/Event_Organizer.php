@@ -219,7 +219,7 @@ class Event_Organizer extends Abstract_Widget {
 	 */
 	protected function get_email_header_text(): string {
 		$header_text = _x(
-			'Email',
+			'Email:',
 			'The header string for the Elementor event organizer widget email section.',
 			'the-events-calendar'
 		);
@@ -246,7 +246,7 @@ class Event_Organizer extends Abstract_Widget {
 	 */
 	protected function get_phone_header_text(): string {
 		$header_text = _x(
-			'Phone',
+			'Phone:',
 			'The header string for the Elementor event organizer widget phone section.',
 			'the-events-calendar'
 		);
@@ -273,7 +273,7 @@ class Event_Organizer extends Abstract_Widget {
 	 */
 	protected function get_website_header_text(): string {
 		$header_text = _x(
-			'Website',
+			'Website:',
 			'The header string for the Elementor event organizer widget website section.',
 			'the-events-calendar'
 		);
