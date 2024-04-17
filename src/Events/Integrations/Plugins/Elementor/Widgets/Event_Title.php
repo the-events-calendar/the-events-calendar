@@ -86,7 +86,7 @@ class Event_Title extends Abstract_Widget {
 			return $args;
 		}
 
-		$args['title'] = get_the_title();
+		$args['title'] = _x( 'Your Events Calendar Template', 'Mock Title for previewing the Event Title widget', 'the-events-calendar' );
 
 		return $args;
 	}

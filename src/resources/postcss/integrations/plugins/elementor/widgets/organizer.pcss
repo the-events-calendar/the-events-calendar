@@ -7,11 +7,17 @@
 .tec-events-elementor-event-widget__organizer {
 	padding-bottom: var(--tec-spacer-2);
 
+	.tec-events-elementor-event-widget__organizer-header {
+		font-weight: var(--tec-font-weight-bold);
+		text-transform: uppercase;
+	}
+
 	.tec-events-elementor-event-widget__organizer-phone,
 	.tec-events-elementor-event-widget__organizer-email,
 	.tec-events-elementor-event-widget__organizer-website {
 
 		&-header {
+			font-weight: var(--tec-font-weight-bold);
 			margin: var(--tec-spacer-3) 0 var(--tec-spacer-0) 0;
 			padding: 0;
 		}
@@ -21,6 +27,7 @@
 		> a {
 			border-color: currentColor;
 			color: var(--tec-color-accent-primary);
+			text-decoration: underline;
 
 			&:hover {
 				color: var(--tec-color-accent-primary-hover);
@@ -28,9 +35,10 @@
 		}
 	}
 
-	.tec-events-elementor-event-widget__organizer-name-link,
 	.tec-events-elementor-event-widget__organizer-email-link,
 	.tec-events-elementor-event-widget__organizer-phone-link {
 		border-color: currentColor;
+		color: var(--tec-color-accent-primary);
+		text-decoration: underline;
 	}
 }

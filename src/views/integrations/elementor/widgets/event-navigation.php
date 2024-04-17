@@ -9,7 +9,6 @@
  *
  * @since TBD
  *
- * @var string           $header_tag The HTML tag for the event title.
  * @var string           $label      The label for the event navigation.
  * @var ?WP_Post         $prev_event The previous event.
  * @var string           $prev_link  The HTML previous link.
@@ -33,9 +32,6 @@ if ( empty( $prev_event ) && empty( $next_event ) ) {
 
 ?>
 <nav <?php tribe_classes( $widget->get_widget_class() ); ?> aria-label="<?php echo esc_attr( tribe_get_event_label_plural() ); ?>">
-	<?php if ( ! empty( $header_text ) ) : ?>
-		<?php $this->template( 'integrations/elementor/widgets/event-navigation/header' ); ?>
-	<?php endif; ?>
 	<ul <?php tribe_classes( $widget->get_list_class() ); ?>>
 		<?php $this->template( 'integrations/elementor/widgets/event-navigation/previous' ); ?>
 

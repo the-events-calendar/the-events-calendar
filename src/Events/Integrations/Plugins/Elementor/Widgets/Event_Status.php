@@ -360,7 +360,7 @@ class Event_Status extends Abstract_Widget {
 			[
 				'type'            => Controls_Manager::RAW_HTML,
 				'raw'             => esc_html__(
-					'The following toggles control front-end display of the stati. They also affect the preview shown here.',
+					'The toggles below let you control the visibility of message banners related to:',
 					'the-events-calendar'
 				),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
@@ -404,7 +404,7 @@ class Event_Status extends Abstract_Widget {
 			[
 				'type'            => Controls_Manager::RAW_HTML,
 				'raw'             => esc_html__(
-					'The following toggles allow you to see a generic preview of what each status would look like, as if it applied. They do not alter the actual status of the event or what is displayed on the front end.',
+					'The toggles below are for preview purposes only. They do not impact actual content display.',
 					'the-events-calendar'
 				),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
