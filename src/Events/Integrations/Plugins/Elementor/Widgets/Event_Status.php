@@ -89,7 +89,24 @@ class Event_Status extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return $this->template_args();
+		$event = $this->get_event();
+
+		if ( tribe_is_event( $event ) ) {
+			return $this->template_args();
+		}
+
+		return [
+			'description_class'  => $this->get_status_description_class(),
+			'label_class'        => $this->get_status_label_class(),
+			'status'             => __( 'postponed', 'the-events-calendar' ),
+			'status_label'       => __( 'postponed', 'the-events-calendar' ),
+			'status_reason'      => __( '(DEMO) This event has been postponed.', 'the-events-calendar' ),
+			'show_status'        => tribe_is_truthy( $settings['show_status'] ?? true ),
+			'show_passed'        => tribe_is_truthy( $settings['show_passed'] ?? true ),
+			'is_passed'          => true,
+			'passed_label'       => $this->get_passed_label_text(),
+			'passed_label_class' => $this->get_passed_label_class(),
+		];
 	}
 
 	/**
@@ -210,89 +227,6 @@ class Event_Status extends Abstract_Widget {
 		 * @return string The filtered label text.
 		 */
 		return apply_filters( 'tec_events_elementor_event_passed_label_text', $label_text, $this );
-	}
-
-	/**
-	 * Render the widget output in the editor.
-	 * Note: this only adds items if they don't exist and we've turned on the preview.
-	 *
-	 * Written as a Backbone JavaScript template and used to generate the live preview.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @access protected
-	 */
-	protected function content_template() {
-		$status_labels = new Status_Labels();
-		$event         = $this->get_event();
-
-		// Template.
-		$this->do_passed_preview( $event );
-		?>
-		<div>
-		<?php $this->do_postponed_preview( $event, $status_labels ); ?>
-		<?php $this->do_canceled_preview( $event, $status_labels ); ?>
-		</div>
-		<?php
-	}
-
-	/**
-	 * Render the "passed" output in the editor.
-	 *
-	 * @since TBD
-	 *
-	 * @param \WP_Post $event The event post object.
-	 */
-	private function do_passed_preview( $event ): void {
-		?>
-		<# if ( settings.show_passed || settings.show_passed_status_preview ) { #>
-			<p <?php tribe_classes( $this->get_passed_label_class() ); ?>><?php echo wp_kses_post( $this->get_passed_label_text() ); ?></p>
-		<# } #>
-		<?php
-	}
-
-	/**
-	 * Render the "canceled" output in the editor.
-	 *
-	 * @since TBD
-	 *
-	 * @param \WP_Post      $event         The event post object.
-	 * @param Status_Labels $status_labels The status labels object.
-	 */
-	private function do_canceled_preview( $event, $status_labels ): void {
-		// Preview canceled status if setting(s) are enabled.
-		$reason = $event->event_status_reason ?? _x( 'This event has been canceled.', 'demo reason for canceled event', 'the-events-calendar' );
-		?>
-		<# if ( settings.show_status || settings.show_canceled_status_preview ) { #>
-			<div class="<?php echo esc_attr( $this->get_widget_class() ); ?> ">
-				<div <?php tribe_classes( $this->get_status_label_class(), $this->get_status_class( 'canceled' ) ); ?>><?php echo esc_html( $status_labels->get_canceled_label() ); ?></div>
-				<div class="<?php echo esc_attr( $this->get_status_description_class() ); ?>"><?php echo esc_html( $reason ); ?></div>
-			</div>
-			<br />
-		<# } #>
-		<?php
-	}
-
-	/**
-	 * Render the "postponed" output in the editor.
-	 *
-	 * @since TBD
-	 *
-	 * @param \WP_Post      $event         The event post object.
-	 * @param Status_Labels $status_labels The status labels object.
-	 */
-	private function do_postponed_preview( $event, $status_labels ): void {
-		// Preview postponed status if setting(s) are enabled.
-		$reason = $event->event_status_reason ?? _x( 'This event has been postponed.', 'demo reason for postponed event', 'the-events-calendar' );
-		?>
-		<# if ( settings.show_status || settings.show_postponed_status_preview ) { #>
-			<div class="<?php echo esc_attr( $this->get_widget_class() ); ?> ">
-				<div <?php tribe_classes( $this->get_status_label_class(), $this->get_status_class( 'postponed' ) ); ?>><?php echo esc_html( $status_labels->get_postponed_label() ); ?></div>
-				<div class="<?php echo esc_attr( $this->get_status_description_class() ); ?>"><?php echo esc_html( $reason ); ?></div>
-			</div>
-			<br />
-		<# } #>
-		<?php
 	}
 
 	/**
