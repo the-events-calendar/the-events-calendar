@@ -146,7 +146,7 @@ class Event_Venue extends Abstract_Widget {
 				'phone_link' => $this->format_phone_link( $phone ),
 				'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Venue Website</a>',
 				'map_link'   => '<a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States" title="Click to view a Google Map" target="_blank" rel="noreferrer noopener">+ Google Map</a>',
-				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue" aria-label="Venue location map" width="100%" height="200px" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
+				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue" aria-label="Venue location map" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
 					</iframe>',
 			],
 		];
@@ -178,7 +178,7 @@ class Event_Venue extends Abstract_Widget {
 				'phone_link' => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
 				'map_link'   => tribe_get_map_link_html( $venue_id ),
 				'website'    => tribe_get_venue_website_link( $venue_id ),
-				'map'        => tribe_get_embedded_map( $venue_id, '100%', '200px' ),
+				'map'        => tribe_get_embedded_map( $venue_id, '100%', '100%' ),
 			];
 		}
 
@@ -1149,18 +1149,21 @@ class Event_Venue extends Abstract_Widget {
 		);
 
 		$this->add_responsive_control(
-			'width',
+			'max_width',
 			[
 				'label'          => esc_html__( 'Width', 'the-events-calendar' ),
 				'type'           => Controls_Manager::SLIDER,
 				'default'        => [
 					'unit' => '%',
+					'size' => 50,
 				],
 				'tablet_default' => [
 					'unit' => '%',
+					'size' => 50,
 				],
 				'mobile_default' => [
 					'unit' => '%',
+					'size' => 100,
 				],
 				'size_units'     => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'range'          => [
@@ -1178,42 +1181,7 @@ class Event_Venue extends Abstract_Widget {
 					],
 				],
 				'selectors'      => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() . ' iframe' => 'width: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'space',
-			[
-				'label'          => esc_html__( 'Max Width', 'the-events-calendar' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
-					'unit' => '%',
-				],
-				'tablet_default' => [
-					'unit' => '%',
-				],
-				'mobile_default' => [
-					'unit' => '%',
-				],
-				'size_units'     => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
-				'range'          => [
-					'%'  => [
-						'min' => 1,
-						'max' => 100,
-					],
-					'px' => [
-						'min' => 1,
-						'max' => 1000,
-					],
-					'vw' => [
-						'min' => 1,
-						'max' => 100,
-					],
-				],
-				'selectors'      => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() . ' iframe' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .' . $this->get_map_base_class() => 'max-width: calc({{SIZE}}{{UNIT}} / 2 );',
 				],
 			]
 		);
@@ -1239,7 +1207,7 @@ class Event_Venue extends Abstract_Widget {
 					'size' => 100, // the map's height should default to 100%.
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() . ' iframe' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .' . $this->get_map_base_class() => 'height: {{SIZE}}{{UNIT}};flex-basis: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
