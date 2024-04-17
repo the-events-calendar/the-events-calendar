@@ -68,9 +68,10 @@ class Event_Query extends Group_Control_Base {
 	 * @return array
 	 */
 	protected function init_fields_by_name( $name ) {
-		$fields = [];
+		$fields       = [];
 		$current_text = __( 'Use the current event ID', 'the-events-calendar' );
-		$event_id = tribe_get_request_var( 'post', false );
+		$event_id     = tribe_get_request_var( 'post', false );
+
 		if ( ! tribe_is_event( $event_id ) ) {
 			$current_text = __( 'Use the current event ID (show demo data)', 'the-events-calendar' );
 		}

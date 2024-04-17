@@ -65,11 +65,11 @@ class Event_Navigation extends Abstract_Widget {
 		$prev_event = $adjacent_events->get_closest_event( 'previous' );
 
 		return [
-			'prev_event'      => $prev_event,
-			'prev_link'       => tribe_get_event_link( $prev_event ),
-			'next_event'      => $next_event,
-			'next_link'       => tribe_get_event_link( $next_event ),
-			'event_id'        => $this->get_event_id(),
+			'prev_event' => $prev_event,
+			'prev_link'  => tribe_get_event_link( $prev_event ),
+			'next_event' => $next_event,
+			'next_link'  => tribe_get_event_link( $next_event ),
+			'event_id'   => $this->get_event_id(),
 		];
 	}
 
@@ -94,11 +94,11 @@ class Event_Navigation extends Abstract_Widget {
 		$next_event->post_title = 'Next Event';
 
 		return [
-			'prev_event'      => $prev_event,
-			'prev_link'       => '#',
-			'next_event'      => $next_event,
-			'next_link'       => '#',
-			'event_id'        => $this->get_event_id(),
+			'prev_event' => $prev_event,
+			'prev_link'  => '#',
+			'next_event' => $next_event,
+			'next_link'  => '#',
+			'event_id'   => $this->get_event_id(),
 		];
 	}
 

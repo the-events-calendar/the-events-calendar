@@ -93,7 +93,7 @@ class Event_Tags extends Abstract_Widget {
 	 */
 	protected function preview_args(): array {
 		$args = (array) $this->template_args();
-		$id = $this->get_event_id();
+		$id   = $this->get_event_id();
 
 		if ( empty( $args['tags'] ) && ! tribe_is_event( $id ) ) {
 			$args['tags'] = [
