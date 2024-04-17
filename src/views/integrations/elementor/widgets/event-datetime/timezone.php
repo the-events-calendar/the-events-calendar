@@ -1,9 +1,11 @@
 <?php
 /**
- * View: Elementor Event Datetime widget - start date section.
+ * View: Elementor Event Datetime widget - range separator.
+ * Used to separate two times displayed adjacent to each other. As the "-" in "April 1, 2020 @ 12:00 pm - 2:00 pm".
+ * Corresponds to the TEC timeRangeSeparator setting.
  *
  * You can override this template in your own theme by creating a file at
- * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/start-date.php
+ * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/range-separator.php
  *
  * @since TBD
  *
@@ -29,9 +31,5 @@
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
 ?>
-<?php if ( $show_date && $start_date ) : ?>
-	<span <?php tribe_classes( $widget->get_date_class(), $widget->get_start_date_class() ); ?>><?php echo esc_html( $start_date ); ?></span>
-<?php endif; ?>
 
-<?php
-$this->template( 'views/integrations/elementor/widgets/event-datetime/start-time' );
+<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>

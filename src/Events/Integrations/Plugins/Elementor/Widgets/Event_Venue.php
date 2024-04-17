@@ -24,6 +24,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 class Event_Venue extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
+	use Traits\Event_Query;
 
 	/**
 	 * Widget slug.
@@ -113,7 +114,12 @@ class Event_Venue extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$id   = $this->get_event_id();
 		$args = $this->template_args();
+
+		if ( tribe_is_event( $id ) ) {
+			return $args;
+		}
 
 		ob_start();
 		?>
@@ -273,7 +279,7 @@ class Event_Venue extends Abstract_Widget {
 	 */
 	protected function get_website_header_text(): string {
 		$header_text = _x(
-			'Website',
+			'Website:',
 			'The header string for the Elementor event venue widget website section.',
 			'the-events-calendar'
 		);
@@ -300,7 +306,7 @@ class Event_Venue extends Abstract_Widget {
 	 */
 	protected function get_phone_header_text(): string {
 		$header_text = _x(
-			'Phone',
+			'Phone:',
 			'The header string for the Elementor event venue widget phone section.',
 			'the-events-calendar'
 		);
@@ -327,7 +333,7 @@ class Event_Venue extends Abstract_Widget {
 	 */
 	protected function get_address_header_text(): string {
 		$header_text = _x(
-			'Address',
+			'Address:',
 			'The header string for the Elementor event venue widget address section.',
 			'the-events-calendar'
 		);
@@ -517,6 +523,8 @@ class Event_Venue extends Abstract_Widget {
 		$this->venue_website_content_options();
 
 		$this->venue_map_content_options();
+
+		$this->add_event_query_section();
 	}
 
 	/**

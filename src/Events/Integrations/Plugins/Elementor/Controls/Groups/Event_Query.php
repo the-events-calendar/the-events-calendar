@@ -68,9 +68,13 @@ class Event_Query extends Group_Control_Base {
 	 * @return array
 	 */
 	protected function init_fields_by_name( $name ) {
-		$fields = [];
+		$fields       = [];
+		$current_text = __( 'Use the current event ID', 'the-events-calendar' );
+		$event_id     = tribe_get_request_var( 'post', false );
 
-		$name .= '_';
+		if ( ! tribe_is_event( $event_id ) ) {
+			$current_text = __( 'Use the current event ID (show demo data)', 'the-events-calendar' );
+		}
 
 		$fields['id_selection'] = [
 			'label'       => __( 'Specify an Event', 'the-events-calendar' ),
@@ -78,7 +82,7 @@ class Event_Query extends Group_Control_Base {
 			'default'     => 'current',
 			'label_block' => true,
 			'options'     => [
-				'current' => __( "Use the current page's event ID", 'the-events-calendar' ),
+				'current' => $current_text,
 				'custom'  => __( 'Manually enter event ID', 'the-events-calendar' ),
 				'search'  => __( 'Select a specific upcoming event by ID', 'the-events-calendar' ),
 			],
@@ -124,9 +128,9 @@ class Event_Query extends Group_Control_Base {
 			'type' => Controls_Manager::TABS,
 		];
 
-		$tabs_wrapper     = $name . 'query_tabs';
-		$date_tab_wrapper = $name . 'date_tab';
-		$meta_tab_wrapper = $name . 'meta_tab';
+		$tabs_wrapper     = $name . '_query_tabs';
+		$date_tab_wrapper = $name . '_date_tab';
+		$meta_tab_wrapper = $name . '_meta_tab';
 
 		$fields['date_tab'] = [
 			'type'         => Controls_Manager::TAB,

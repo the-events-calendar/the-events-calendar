@@ -88,6 +88,7 @@ class Event_Website extends Abstract_Widget {
 			'header_tag'          => $settings['header_tag'] ?? 'h3',
 			'header_class'        => $this->get_header_class(),
 			'link_class'          => $this->get_link_class(),
+			'website'             => tribe_get_event_website_link( $event_id ),
 		];
 	}
 
@@ -101,7 +102,9 @@ class Event_Website extends Abstract_Widget {
 	protected function preview_args(): array {
 		$args = $this->template_args();
 
-		$args['website'] = '<a href="http://theeventscalendar.com" target="_self" rel="external">http://theeventscalendar.com</a>';
+		if ( empty( $args['website'] ) ) {
+			$args['website'] = '<a href="http://theeventscalendar.com" target="_self" rel="external">http://theeventscalendar.com</a>';
+		}
 
 		return $args;
 	}

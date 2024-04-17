@@ -79,10 +79,16 @@ class Event_Title extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return [
-			'header_tag' => $this->get_event_title_header_tag(),
-			'title'      => $this->title(),
-		];
+		$args     = $this->template_args();
+		$event_id = $this->get_event_id();
+
+		if ( tribe_is_event( $event_id ) ) {
+			return $args;
+		}
+
+		$args['title'] = _x( 'Your Events Calendar Template', 'Mock Title for previewing the Event Title widget', 'the-events-calendar' );
+
+		return $args;
 	}
 
 	/**
