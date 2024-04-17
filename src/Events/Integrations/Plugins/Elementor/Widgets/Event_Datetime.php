@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use Tribe__Events__Timezones;
 
 /**
  * Class Widget_Event_Datetime
@@ -61,8 +62,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	public function template_args(): array {
-		$event_id = $this->get_event_id();
-		$event    = tribe_get_event( $event_id );
+		$event = $this->get_event();
 
 		if ( empty( $event ) ) {
 			return [];
@@ -79,6 +79,10 @@ class Event_Datetime extends Abstract_Widget {
 		$time_format = tribe_get_time_format();
 		$start_time  = $event->dates->start->format( $time_format ) ?? '';
 		$end_time    = $event->dates->end->format( $time_format ) ?? '';
+		$show_tz     = tribe_is_truthy( $settings['show_timezone'] ?? tribe_get_option( 'tribe_events_timezones_show_zone', false ) );
+		if ( $show_tz ) {
+			$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $start_date ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event->ID );
+		}
 
 		return [
 			'all_day_text'      => $this->get_all_day_text(),
@@ -87,13 +91,15 @@ class Event_Datetime extends Abstract_Widget {
 			'header_text'       => $this->get_header_text(),
 			'header_tag'        => $this->get_header_tag(),
 			'html_tag'          => $this->get_html_tag(),
-			'is_all_day'        => tribe_event_is_all_day( $event_id ),
+			'is_all_day'        => tribe_event_is_all_day( $event ),
 			'is_same_day'       => $start_date === $end_date,
 			'is_same_start_end' => ( $start_date === $end_date ) && ( $start_time === $end_time ),
 			'show_date'         => tribe_is_truthy( $settings['show_date'] ?? true ),
 			'show_header'       => tribe_is_truthy( $settings['show_header'] ?? false ),
 			'show_time'         => tribe_is_truthy( $settings['show_time'] ?? true ),
 			'show_year'         => $show_year,
+			'show_timezone'     => $show_tz,
+			'time_zone_label'   => $time_zone_label ?? '',
 			'start_date'        => $start_date,
 			'start_time'        => $start_time,
 		];
@@ -346,9 +352,7 @@ class Event_Datetime extends Abstract_Widget {
 	protected function datetime_content_section(): void {
 		$this->start_controls_section(
 			'content_section',
-			[
-				'label' => $this->get_title(),
-			]
+			[ 'label' => $this->get_title() ]
 		);
 
 		// Toggle for yearless date format.
@@ -381,6 +385,18 @@ class Event_Datetime extends Abstract_Widget {
 				'label'     => esc_html__( 'Show Time', 'the-events-calendar' ),
 				'default'   => 'yes',
 				'separator' => 'before',
+			]
+		);
+
+		// Toggle to show or hide the time.
+		$this->add_shared_control(
+			'show',
+			[
+				'id'          => 'show_timezone',
+				'label'       => esc_html__( 'Show Timezone', 'the-events-calendar' ),
+				'default'     => 'no',
+				'separator'   => 'before',
+				'description' => esc_html__( 'Show the timezone of the event. This overrides the option set in Events -> Settings -> Display.', 'the-events-calendar' ),
 			]
 		);
 
