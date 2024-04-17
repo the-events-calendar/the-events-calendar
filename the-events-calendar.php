@@ -25,7 +25,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software.
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 define( 'TRIBE_EVENTS_FILE', __FILE__ );
@@ -37,7 +37,7 @@ require_once dirname( TRIBE_EVENTS_FILE ) . '/src/functions/php-min-version.php'
 require_once dirname( TRIBE_EVENTS_FILE ) . '/vendor/autoload.php';
 
 /**
- * Verifies if we need to warn the user about min PHP version and bail to avoid fatals
+ * Verifies if we need to warn the user about min PHP version and bail to avoid fatals.
  */
 if ( tribe_is_not_min_php_version() ) {
 	tribe_not_php_version_textdomain( 'the-events-calendar', TRIBE_EVENTS_FILE );
