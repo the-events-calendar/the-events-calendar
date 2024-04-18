@@ -11,6 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
 use Elementor\Core\Base\Document;
 use ElementorPro\Modules\ThemeBuilder\Module;
+use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single;
 use WP_Post;
 
 use Elementor\Plugin;
@@ -202,7 +203,7 @@ class Controller extends Controller_Contract {
 	 * @return bool
 	 */
 	public function is_override( $post_id = null ): bool {
-		$template = tribe( Importer::class )->get_template();
+		$template = tribe( Importer::class )->get_template( Event_Single::class );
 
 		// Ensure we have a template to use.
 		if ( null === $template ) {
