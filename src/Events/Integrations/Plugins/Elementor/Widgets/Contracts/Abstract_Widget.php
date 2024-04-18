@@ -701,7 +701,7 @@ abstract class Abstract_Widget extends Widget_Base {
 			return false;
 		}
 
-		return  $this->empty_conditions();
+		return $this->empty_conditions();
 	}
 
 	/**
