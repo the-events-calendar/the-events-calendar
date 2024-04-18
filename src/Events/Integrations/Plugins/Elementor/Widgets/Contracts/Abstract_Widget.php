@@ -658,7 +658,9 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * @return string
 	 */
 	public function get_output(): string {
-		$output = $this->get_template()->template( 'widgets/base', $this->get_template_args(), false );
+		$template = $this->show_empty() ? 'widgets/empty' : 'widgets/base';
+
+		$output = $this->get_template()->template( $template, $this->get_template_args(), false );
 
 		$this->unset_template_filters();
 
@@ -687,5 +689,29 @@ abstract class Abstract_Widget extends Widget_Base {
 			'The default message shown when an event widget is empty.',
 			'the-events-calendar'
 		);
+	}
+
+	/**
+	 * Wether to show the empty widget template in the editor.
+	 *
+	 * @since TBD
+	 */
+	public function show_empty(): bool {
+		if ( ! $this->get_template()->is_edit_mode() ) {
+			return false;
+		}
+
+		return  $this->empty_conditions();
+	}
+
+	/**
+	 * Conditions for showing the empty widget template in the editor.
+	 * Meant to be overridden in the widget class.
+	 * This must return true for the empty widget template to show.
+	 *
+	 * @since TBD
+	 */
+	protected function empty_conditions(): bool {
+		return false;
 	}
 }

@@ -518,4 +518,25 @@ class Event_Status extends Abstract_Widget {
 			'the-events-calendar'
 		);
 	}
+
+	/**
+	 * Conditions for showing the empty widget template in the editor.
+	 *
+	 * @since TBD
+	 */
+	protected function empty_conditions(): bool {
+		$event     = $this->get_event();
+		$settings  = $this->get_settings_for_display();
+		$is_passed = tribe_is_event( $event ) && tribe_is_past_event( get_post( $event ) );
+
+		if ( $settings['show_passed'] && $is_passed ) {
+			return false;
+		}
+
+		if ( $settings['show_status'] && ! empty( $status ) ) {
+			return false;
+		}
+
+		return true;
+	}
 }
