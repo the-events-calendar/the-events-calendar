@@ -164,12 +164,6 @@ class Assets_Manager extends Controller {
 		tribe_asset_enqueue( 'tribe-events-v2-single-skeleton' );
 		tribe_asset_enqueue( 'tribe-events-v2-single-skeleton-full' );
 		tribe_asset_enqueue( 'tec-events-elementor-widgets-base-styles' );
-		wp_add_inline_style(
-			'tec-events-elementor-widgets-base-styles',
-			'.elementor-widget-empty-icon[class*="tec-events-elementor-event-widget__icon"]:after {
-				content: "' . __( "This widget is empty and won't display on the front end unless you add some content in the WordPress editor.", 'the-events-calendar' ) . '";
-			}'
-		);
 
 		do_action( 'tec_events_elementor_enqueue_frontend_assets', $this );
 	}
