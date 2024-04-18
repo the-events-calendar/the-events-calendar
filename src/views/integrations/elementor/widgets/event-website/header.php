@@ -18,4 +18,4 @@ if ( ! $show_website_header ) {
 ?>
 <<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $header_class ); ?>>
 	<?php printf( esc_html__( 'Website:', 'the-events-calendar' ) ); ?>
-</<?php echo tag_escape( $header_tag ); ?>>
+<?php echo '</' . tag_escape( $header_tag ) . '>'; ?>
