@@ -278,7 +278,7 @@ class Event_Categories extends Abstract_Widget {
 		$this->add_shared_control(
 			'tag',
 			[
-				'id'        => 'header_tag',
+				'id'        => 'categories_header_tag',
 				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
 				'condition' => [
 					'show_categories_header' => 'yes',
