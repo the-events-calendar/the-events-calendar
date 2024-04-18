@@ -22,4 +22,4 @@ if ( ! $show_tags_header ) {
 ?>
 <<?php echo tag_escape( $header_tag ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>class="tec-events-event-tags-label">
 	<?php echo esc_html( $label_text ); ?>
-</<?php echo tag_escape( $header_tag ); ?>>
+<?php echo '</' . tag_escape( $header_tag ) . '>'; ?>
