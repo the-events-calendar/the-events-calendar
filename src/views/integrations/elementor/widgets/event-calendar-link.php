@@ -17,4 +17,4 @@
 ?>
 <<?php echo esc_attr( $calendar_link_tag ); ?> <?php tribe_classes( $calendar_link_class ); ?>>
 	<a href="<?php echo esc_url( $calendar_link ); ?>" >&laquo; <?php echo wp_kses_post( $calendar_link_label ); ?></a>
-</<?php echo esc_attr( $calendar_link_tag ); ?>>
+</<?php echo esc_attr( $calendar_link_tag ) . '>'; ?>

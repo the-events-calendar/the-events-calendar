@@ -20,4 +20,4 @@ if ( ! $show_organizer_header ) {
 ?>
 <<?php echo tag_escape( $organizer_header_tag ); ?> <?php tribe_classes( $widget->get_header_class() ); ?>>
 	<?php echo esc_html( tribe_get_organizer_label( ! $multiple ) ); ?>
-</<?php echo tag_escape( $organizer_header_tag ); ?>>
+<?php echo '</' . tag_escape( $organizer_header_tag ) . '>'; ?>
