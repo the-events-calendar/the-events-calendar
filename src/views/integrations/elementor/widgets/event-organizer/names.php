@@ -26,4 +26,4 @@ if ( empty( $organizer ) ) {
 ?>
 <<?php echo tag_escape( $organizer_name_tag ); ?> <?php tribe_classes( $widget->get_name_base_class() ); ?>>
 	<?php echo esc_html( $organizer['name'] ); ?>
-</<?php echo tag_escape( $organizer_name_tag ); ?>>
+<?php echo '</' . tag_escape( $organizer_name_tag ) . '>'; ?>
