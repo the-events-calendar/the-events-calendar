@@ -67,7 +67,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_actions(): void {
 		add_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
-		add_action( 'init', [ $this, 'action_import_starter_template' ] );
+		add_action( 'init', [ $this, 'action_import_starter_templates' ] );
 		add_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}
@@ -79,7 +79,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_actions(): void {
 		remove_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
-		remove_action( 'init', [ $this, 'action_import_starter_template' ] );
+		remove_action( 'init', [ $this, 'action_import_starter_templates' ] );
 		remove_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 	}
@@ -339,8 +339,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	public function action_import_starter_template(): void {
-		$this->container->make( Importer::class )->import_starter_template();
+	public function action_import_starter_templates(): void {
+		$this->container->make( Importer::class )->import_starter_templates();
 	}
 
 	/**
