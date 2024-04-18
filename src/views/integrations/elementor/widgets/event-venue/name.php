@@ -27,4 +27,4 @@ if ( empty( $show_name ) ) {
 	<?php if ( $link_name ) : ?>
 		</a>
 	<?php endif; ?>
-</<?php echo tag_escape( $name_tag ); ?>>
+<?php echo '</' . tag_escape( $name_tag ) . '>'; ?>

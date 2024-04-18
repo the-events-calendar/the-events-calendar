@@ -19,4 +19,4 @@ if ( ! $show_address_header ) {
 ?>
 <<?php echo tag_escape( $address_header_tag ); ?> <?php tribe_classes( $widget->get_address_base_class() . '-header' ); ?>>
 	<?php echo wp_kses_post( $address_header_text ); ?>
-</<?php echo tag_escape( $address_header_tag ); ?>>
+<?php echo '</' . tag_escape( $address_header_tag ) . '>'; ?>
