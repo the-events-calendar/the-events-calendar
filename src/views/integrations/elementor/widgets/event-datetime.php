@@ -39,9 +39,6 @@ $widget = $this->get_widget();
 	?>
 	<<?php echo tag_escape( $html_tag ); ?> <?php tribe_classes( $widget->get_widget_class() ); ?>>
 		<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/start-date' ); ?>
-
-		<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/all-day' ); ?>
-
 		<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/end-date' ); ?>
 	<?php echo '</' . tag_escape( $html_tag ) . '>'; ?>
 </div>
