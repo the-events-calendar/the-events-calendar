@@ -64,15 +64,6 @@ class Event_Organizer extends Abstract_Widget {
 		$event_id = $this->get_event_id();
 		$settings = $this->get_settings_for_display();
 
-		if ( isset( $settings['organizer_website_link_target'] ) ) {
-			$this->set_template_filter(
-				'tribe_get_event_website_link_target',
-				function () use ( $settings ) {
-					return $settings['organizer_website_link_target'];
-				}
-			);
-		}
-
 		return [
 			'show_organizer_header'         => tribe_is_truthy( $settings['show_organizer_header'] ?? true ),
 			'show_organizer_name'           => tribe_is_truthy( $settings['show_organizer_name'] ?? true ),
@@ -155,6 +146,7 @@ class Event_Organizer extends Abstract_Widget {
 		$settings      = $this->get_settings_for_display();
 		$event_id      = $this->get_event_id();
 		$organizer_ids = array_filter( tribe_get_organizer_ids( $event_id ) );
+		$target        = $settings['organizer_website_link_target'] ?? '_self';
 
 		foreach ( $organizer_ids as $organizer_id ) {
 			$phone                       = tribe_get_organizer_phone( $organizer_id );
@@ -163,7 +155,7 @@ class Event_Organizer extends Abstract_Widget {
 				'name'       => tribe_get_organizer( $organizer_id ),
 				'phone'      => $phone,
 				'phone_link' => tribe_is_truthy( $settings['link_organizer_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
-				'website'    => tribe_get_organizer_website_link( $organizer_id ),
+				'website'    => tribe_get_organizer_website_link( $organizer_id, null, $target ),
 				'email'      => tribe_get_organizer_email( $organizer_id ),
 			];
 		}
@@ -181,34 +173,6 @@ class Event_Organizer extends Abstract_Widget {
 	protected function format_phone_link( $phone ): string {
 		// For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension.
 		return 'tel:' . str_ireplace( [ 'ext', 'x', ' ' ], [ 'p', 'p', '' ], $phone );
-	}
-
-	/**
-	 * Modify the target for the event website link.
-	 *
-	 * @since TBD
-	 *
-	 * @param string          $link_target The target attribute string. Defaults to "_self".
-	 * @param string          $unused_url  The link URL.
-	 * @param null|object|int $post_id     The event the url is attached to.
-	 *
-	 * @return string The modified target attribute string.
-	 */
-	public function modify_link_target( $link_target, $unused_url, $post_id ): string {
-		$event_id = $this->get_event_id();
-		// Not the same event, bail.
-		if ( $event_id !== $post_id ) {
-			return $link_target;
-		}
-
-		$settings        = $this->get_settings_for_display();
-		$target_override = $settings['organizer_website_link_target'];
-
-		if ( ! $target_override ) {
-			return $link_target;
-		}
-
-		return $target_override;
 	}
 
 	/**
@@ -860,7 +824,7 @@ class Event_Organizer extends Abstract_Widget {
 			]
 		);
 
-		$this->add_shared_control( 'link_target', [ 'prefix' => 'organizer_website_link_target' ] );
+		$this->add_shared_control( 'link_target', [ 'prefix' => 'organizer_website' ] );
 
 		$this->end_controls_section();
 	}
