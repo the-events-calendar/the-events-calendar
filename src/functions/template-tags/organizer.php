@@ -466,8 +466,8 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null, $targ
 		$label = is_null( $label ) ? $url : $label;
 
 		if ( ! empty( $url ) ) {
-			$parseUrl = parse_url( $url );
-			if ( empty( $parseUrl['scheme'] ) ) {
+			$parse_url = parse_url( $url );
+			if ( empty( $parse_url['scheme'] ) ) {
 				$url = "http://$url";
 			}
 		}

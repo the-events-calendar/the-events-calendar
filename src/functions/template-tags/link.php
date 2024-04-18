@@ -379,8 +379,8 @@ function tribe_get_event_link( $post_id = null, $full_link = false ) {
  * Event Website Link (more info)
  *
  * @param null|object|int $event The event object or ID.
- * @param ?string     $label The link label.
- * @param string      $target The link target.
+ * @param ?string         $label The link label.
+ * @param string          $target The link target.
  *
  * @return string $html
  */

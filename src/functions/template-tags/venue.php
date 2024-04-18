@@ -844,14 +844,14 @@ function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $s
  *
  * @return string Formatted link to the venue website
  */
-function tribe_get_venue_website_link( $post_id = null, $label = null, $target = '_self'  ): string {
+function tribe_get_venue_website_link( $post_id = null, $label = null, $target = '_self' ): string {
 	$post_id = tribe_get_venue_id( $post_id );
 	$url     = tribe_get_venue_website_url( $post_id );
 
 	if ( ! empty( $url ) ) {
 		$label = is_null( $label ) ? $url : $label;
-		$parseUrl = parse_url( $url );
-		if ( empty( $parseUrl['scheme'] ) ) {
+		$parse_url = parse_url( $url );
+		if ( empty( $parse_url['scheme'] ) ) {
 			$url = 'http://' . $url;
 		}
 

@@ -64,7 +64,7 @@ class Event_Website extends Abstract_Widget {
 		$settings = $this->get_settings_for_display();
 		$event_id = $this->get_event_id();
 
-		$label = $settings['link_label'] ?? null;
+		$label  = $settings['link_label'] ?? null;
 		$target = $settings['website_link_target'] ?? null;
 
 		return [
