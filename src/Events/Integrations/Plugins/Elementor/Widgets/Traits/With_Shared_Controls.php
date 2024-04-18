@@ -140,6 +140,64 @@ trait With_Shared_Controls {
 	}
 
 	/**
+	 * Add a control for flex alignment. Mimics a text-align control but uses flexbox.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args      Additional arguments for the control.
+	 *                         Requires:
+	 *                             - string id: The control ID.
+	 *                             - array  selectors: The selectors to apply the alignment to.
+	 *                         Accepts:
+	 *                             - string label:    The label for the control.
+	 *                             - array  options:   The alignment options.
+	 *                             - string default:  The default alignment.
+	 *                             - array  condition: The conditions for showing the control.
+	 */
+	protected function flex_alignment( $args = [] ): void {
+		$check = $this->check_required_args( $args, [ 'id', 'selectors' ] );
+
+		if ( is_wp_error( $check ) ) {
+			echo esc_html( $check->get_error_message() );
+			return;
+		}
+
+		$updated = [];
+
+		foreach ( (array) $args['selectors'] as $selector ) {
+			$updated[ $selector ] = 'justify-content: {{VALUE}};';
+		}
+		$this->add_responsive_control(
+			$args['id'],
+			[
+				'label'     => $args['label'] ?? esc_html__( 'Alignment', 'the-events-calendar' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => $args['options'] ?? [
+					'left'    => [
+						'title' => esc_html__( 'Left', 'the-events-calendar' ),
+						'icon'  => 'eicon-text-align-left',
+					],
+					'center'  => [
+						'title' => esc_html__( 'Center', 'the-events-calendar' ),
+						'icon'  => 'eicon-text-align-center',
+					],
+					'right'   => [
+						'title' => esc_html__( 'Right', 'the-events-calendar' ),
+						'icon'  => 'eicon-text-align-right',
+					],
+					'space-evenly' => [
+						'title' => esc_html__( 'Justified', 'the-events-calendar' ),
+						'icon'  => 'eicon-text-align-justify',
+					],
+				],
+				'default'   => $args['default'] ?? '',
+				'selectors' => (array) $updated,
+				'condition' => $args['condition'] ?? [],
+			]
+		);
+	}
+
+	/**
 	 * Add control for showing an element.
 	 *
 	 * @since TBD
