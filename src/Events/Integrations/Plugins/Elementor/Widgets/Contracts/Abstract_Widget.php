@@ -673,4 +673,19 @@ abstract class Abstract_Widget extends Widget_Base {
 	protected function render(): void {
 		echo $this->get_output(); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped,WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
+
+	/**
+	 * Get the message to show when the widget is empty.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The message shown when an event widget is empty.
+	 */
+	public function get_empty_message(): string {
+		return esc_html_x(
+			"This widget is empty and won't display on the front end unless you add some content in the WordPress editor.",
+			'The default message shown when an event widget is empty.',
+			'the-events-calendar'
+		);
+	}
 }

@@ -24,6 +24,11 @@ if ( ! $this->get_widget()->should_show_mock_data() && ! $this->has_event() ) {
 	return;
 }
 
+if ( ! $this->has_event() ) {
+	$this->template( 'views/integrations/elementor/widgets/empty' );
+	return;
+}
+
 $this->template( 'views/integrations/elementor/widgets/event-status/passed' );
 
 $this->template( 'views/integrations/elementor/widgets/event-status/status' );
