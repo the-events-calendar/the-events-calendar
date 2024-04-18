@@ -836,87 +836,59 @@ function tribe_get_venues( $only_with_upcoming = false, $posts_per_page = -1, $s
 /**
  * Get the link for the venue website.
  *
- * @since ??
+ * @since 3.0
  *
- * @param null|int    $post_id The event or venue ID.
- * @param null|string $label   The label for the link.
- * @return string              Formatted link to the venue website
+ * @param ?int    $post_id The event or venue ID.
+ * @param ?string $label   The label for the link.
+ * @param string  $target  The target attribute for the link.
+ *
+ * @return string Formatted link to the venue website
  */
-function tribe_get_venue_website_link( $post_id = null, $label = null ) {
+function tribe_get_venue_website_link( $post_id = null, $label = null, $target = '_self' ): string {
 	$post_id = tribe_get_venue_id( $post_id );
 	$url     = tribe_get_venue_website_url( $post_id );
 
 	if ( ! empty( $url ) ) {
 		$label = is_null( $label ) ? $url : $label;
-		if ( ! empty( $url ) ) {
-			$parseUrl = parse_url( $url );
-			if ( empty( $parseUrl['scheme'] ) ) {
-				$url = "http://$url";
-			}
-
-			/**
-			 * Allows customization of a venue's website link target.
-			 *
-			 * @since ??
-			 * @since 4.5.11 Added docblock and venue ID to filter.
-			 *
-			 * @param string $target  The target attribute string. Defaults to "_self".
-			 * @param string $url     The link URL.
-			 * @param int    $post_id The venue ID.
-			 */
-			$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $url, $post_id );
-			$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
-
-			/**
-			 * Allows customization of a venue's website link label.
-			 *
-			 * @since ??
-			 * @since 4.5.11 Added docblock and venue ID to filter.
-			 *
-			 * @param string $label   The venue's website link label.
-			 * @param int    $post_id The venue ID.
-			 */
-			$website_link_label = apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ), $post_id );
-
-			$html = sprintf(
-				'<a href="%1$s" target="%2$s" rel="%3$s">%4$s</a>',
-				esc_attr( esc_url( $url ) ),
-				esc_attr( $website_link_target ),
-				esc_attr( $rel ),
-				esc_html( $website_link_label )
-			);
-		} else {
-			$html = '';
+		$parse_url = parse_url( $url );
+		if ( empty( $parse_url['scheme'] ) ) {
+			$url = 'http://' . $url;
 		}
 
 		/**
 		 * Allows customization of a venue's website link target.
 		 *
-		 * @since ??
+		 * @since 3.0
 		 * @since 4.5.11 Added docblock and venue ID to filter.
 		 *
 		 * @param string $target  The target attribute string. Defaults to "_self".
 		 * @param string $url     The link URL.
 		 * @param int    $post_id The venue ID.
 		 */
-		$website_link_target = apply_filters( 'tribe_get_venue_website_link_target', '_self', $url, $post_id );
-		$rel                 = ( '_blank' === $website_link_target ) ? 'noopener noreferrer' : 'external';
+		$target = apply_filters( 'tribe_get_venue_website_link_target', $target, $url, $post_id );
+
+		// Ensure the target is given a valid value.
+		$allowed = [ '_self', '_blank', '_parent', '_top', '_unfencedTop' ];
+		if ( ! in_array( $target, $allowed ) ) {
+			$target = '_self';
+		}
+
+		$rel = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 		/**
 		 * Allows customization of a venue's website link label.
 		 *
-		 * @since ??
+		 * @since 3.0
 		 * @since 4.5.11 Added docblock and venue ID to filter.
 		 *
 		 * @param string $label   The venue's website link label.
 		 * @param int    $post_id The venue ID.
 		 */
 		$website_link_label = apply_filters( 'tribe_get_venue_website_link_label', esc_html( $label ), $post_id );
-
 		$html = sprintf(
-			'<a href="%s" target="%s" rel="%s">%s</a>',
+			'<a href="%1$s" target="%2$s" rel="%3$s">%4$s</a>',
 			esc_attr( esc_url( $url ) ),
-			esc_attr( $website_link_target ),
+			esc_attr( $target ),
 			esc_attr( $rel ),
 			esc_html( $website_link_label )
 		);
@@ -927,7 +899,7 @@ function tribe_get_venue_website_link( $post_id = null, $label = null ) {
 	/**
 	 * Allows customization of a venue's website link.
 	 *
-	 * @since ??
+	 * @since 3.0
 	 * @since 4.5.11 Added docblock.
 	 *
 	 * @param string $html The assembled HTML link tag of venue's website link.
