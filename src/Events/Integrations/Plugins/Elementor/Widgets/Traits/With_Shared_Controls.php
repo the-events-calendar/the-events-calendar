@@ -173,15 +173,15 @@ trait With_Shared_Controls {
 				'label'     => $args['label'] ?? esc_html__( 'Alignment', 'the-events-calendar' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => $args['options'] ?? [
-					'left'    => [
+					'left'         => [
 						'title' => esc_html__( 'Left', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-left',
 					],
-					'center'  => [
+					'center'       => [
 						'title' => esc_html__( 'Center', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-center',
 					],
-					'right'   => [
+					'right'        => [
 						'title' => esc_html__( 'Right', 'the-events-calendar' ),
 						'icon'  => 'eicon-text-align-right',
 					],
