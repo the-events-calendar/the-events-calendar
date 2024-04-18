@@ -270,7 +270,7 @@ class Event_Datetime extends Abstract_Widget {
 	protected function get_html_tag() {
 		$settings = $this->get_settings_for_display();
 
-		return $settings['html_tag'] ?? 'p';
+		return $settings['html_tag'] ?? 'div';
 	}
 
 	/**
@@ -405,7 +405,7 @@ class Event_Datetime extends Abstract_Widget {
 			[
 				'id'        => 'html_tag',
 				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'default'   => 'p',
+				'default'   => 'div',
 				'separator' => 'before',
 			]
 		);
@@ -476,10 +476,12 @@ class Event_Datetime extends Abstract_Widget {
 		);
 
 		$this->add_shared_control(
-			'alignment',
+			'flex_alignment',
 			[
 				'id'        => 'align_content',
-				'selectors' => [ '{{WRAPPER}} .' . $this->get_widget_class() ],
+				'selectors' => [
+					'{{WRAPPER}} .' . $this->get_widget_class() . '-wrapper',
+				],
 			]
 		);
 
