@@ -513,7 +513,7 @@ class Event_Status extends Abstract_Widget {
 	 */
 	public function get_empty_message(): string {
 		return esc_html_x(
-			"The Event Status widget only shows content if the chosen event has passed, been canceled, or postponed.",
+			'The Event Status widget only shows content if the chosen event has passed, been canceled, or postponed.',
 			'The message shown when the event status widget is empty.',
 			'the-events-calendar'
 		);
