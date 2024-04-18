@@ -42,4 +42,4 @@ $this->template( 'views/integrations/elementor/widgets/event-datetime/header' );
 	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/all-day' ); ?>
 
 	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/end-date' ); ?>
-</<?php echo tag_escape( $html_tag ); ?>>
+<?php echo '</' . tag_escape( $html_tag ) . '>'; ?>

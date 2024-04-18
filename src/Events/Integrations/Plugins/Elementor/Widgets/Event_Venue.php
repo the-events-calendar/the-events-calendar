@@ -114,8 +114,9 @@ class Event_Venue extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		$id   = $this->get_event_id();
-		$args = $this->template_args();
+		$id       = $this->get_event_id();
+		$args     = $this->template_args();
+		$settings = $this->get_settings_for_display();
 
 		if ( tribe_is_event( $id ) ) {
 			return $args;
@@ -146,10 +147,25 @@ class Event_Venue extends Abstract_Widget {
 				'phone_link' => $this->format_phone_link( $phone ),
 				'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Venue Website</a>',
 				'map_link'   => '<a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States" title="Click to view a Google Map" target="_blank" rel="noreferrer noopener">+ Google Map</a>',
-				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue" aria-label="Venue location map" width="100%" height="200px" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
+				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue" aria-label="Venue location map" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
 					</iframe>',
 			],
 		];
+
+		if ( tribe_is_truthy( $settings['show_multi_venue_mock'] ?? false ) ) {
+			$args['venues'][2] = [
+				'id'         => 2,
+				'name'       => _x( 'Mock Venue 2', 'A mock venue name for the widget preview', 'the-events-calendar' ),
+				'name_link'  => 'https://theeventscalendar.com',
+				'address'    => $preview_address,
+				'phone'      => $phone,
+				'phone_link' => $this->format_phone_link( $phone ),
+				'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Venue 2 Website</a>',
+				'map_link'   => '<a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States" title="Click to view a Google Map" target="_blank" rel="noreferrer noopener">+ Google Map</a>',
+				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue 2" aria-label="Venue 2 location map" width="100%" height="200px" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
+					</iframe>',
+			];
+		}
 
 		return $args;
 	}
@@ -178,7 +194,7 @@ class Event_Venue extends Abstract_Widget {
 				'phone_link' => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
 				'map_link'   => tribe_get_map_link_html( $venue_id ),
 				'website'    => tribe_get_venue_website_link( $venue_id ),
-				'map'        => tribe_get_embedded_map( $venue_id, '100%', '200px' ),
+				'map'        => tribe_get_embedded_map( $venue_id, '100%', '100%' ),
 			];
 		}
 
@@ -525,6 +541,8 @@ class Event_Venue extends Abstract_Widget {
 		$this->venue_map_content_options();
 
 		$this->add_event_query_section();
+
+		$this->mock_data_content_options();
 	}
 
 	/**
@@ -796,7 +814,12 @@ class Event_Venue extends Abstract_Widget {
 	protected function venue_map_content_options() {
 		$this->start_controls_section(
 			'venue_map_content_options',
-			[ 'label' => esc_html__( 'Map', 'the-events-calendar' ) ]
+			[
+				'label'     => esc_html__( 'Map', 'the-events-calendar' ),
+				'condition' => [
+					$this->should_show_mock_data() => 'yes',
+				],
+			]
 		);
 
 		// Show Venue Map control.
@@ -805,6 +828,30 @@ class Event_Venue extends Abstract_Widget {
 			[
 				'id'    => 'show_venue_map',
 				'label' => esc_html__( 'Show Map', 'the-events-calendar' ),
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Control for showing two venues.
+	 *
+	 * @since TBD
+	 */
+	protected function mock_data_content_options(): void {
+		$this->start_controls_section(
+			'venue_mock_content_options',
+			[ 'label' => esc_html__( 'Mock Data', 'the-events-calendar' ) ]
+		);
+
+		// Show Venue Map control.
+		$this->add_shared_control(
+			'show',
+			[
+				'id'      => 'show_multi_venue_mock',
+				'label'   => esc_html__( 'Show Two Venues', 'the-events-calendar' ),
+				'default' => 'no',
 			]
 		);
 
@@ -1149,18 +1196,21 @@ class Event_Venue extends Abstract_Widget {
 		);
 
 		$this->add_responsive_control(
-			'width',
+			'max_width',
 			[
 				'label'          => esc_html__( 'Width', 'the-events-calendar' ),
 				'type'           => Controls_Manager::SLIDER,
 				'default'        => [
 					'unit' => '%',
+					'size' => 50,
 				],
 				'tablet_default' => [
 					'unit' => '%',
+					'size' => 50,
 				],
 				'mobile_default' => [
 					'unit' => '%',
+					'size' => 100,
 				],
 				'size_units'     => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'range'          => [
@@ -1178,42 +1228,7 @@ class Event_Venue extends Abstract_Widget {
 					],
 				],
 				'selectors'      => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() . ' iframe' => 'width: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'space',
-			[
-				'label'          => esc_html__( 'Max Width', 'the-events-calendar' ),
-				'type'           => Controls_Manager::SLIDER,
-				'default'        => [
-					'unit' => '%',
-				],
-				'tablet_default' => [
-					'unit' => '%',
-				],
-				'mobile_default' => [
-					'unit' => '%',
-				],
-				'size_units'     => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
-				'range'          => [
-					'%'  => [
-						'min' => 1,
-						'max' => 100,
-					],
-					'px' => [
-						'min' => 1,
-						'max' => 1000,
-					],
-					'vw' => [
-						'min' => 1,
-						'max' => 100,
-					],
-				],
-				'selectors'      => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() . ' iframe' => 'max-width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .' . $this->get_map_base_class() => 'max-width: calc({{SIZE}}{{UNIT}} / 2 );',
 				],
 			]
 		);
@@ -1239,7 +1254,7 @@ class Event_Venue extends Abstract_Widget {
 					'size' => 100, // the map's height should default to 100%.
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() . ' iframe' => 'height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .' . $this->get_map_base_class() => 'height: {{SIZE}}{{UNIT}};flex-basis: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);

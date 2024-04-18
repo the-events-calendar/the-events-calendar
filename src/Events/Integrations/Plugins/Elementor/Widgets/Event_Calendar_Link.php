@@ -60,8 +60,6 @@ class Event_Calendar_Link extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	protected function template_args(): array {
-		$event_id = $this->get_event_id();
-
 		return [
 			'calendar_link_class' => $this->get_link_class(),
 			'calendar_link_tag'   => $this->get_calendar_link_tag(),

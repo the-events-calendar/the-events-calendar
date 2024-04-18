@@ -21,4 +21,4 @@ if ( ! $show_organizer_email_header ) {
 ?>
 <<?php echo tag_escape( $organizer_email_header_tag ); ?> <?php tribe_classes( $widget->get_email_header_class() ); ?>>
 	<?php echo wp_kses_post( $organizer_email_header_text ); ?>
-</<?php echo tag_escape( $organizer_email_header_tag ); ?>>
+<?php echo '</' . tag_escape( $organizer_email_header_tag ) . '>'; ?>

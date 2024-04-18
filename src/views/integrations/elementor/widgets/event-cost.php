@@ -19,9 +19,7 @@ if ( empty( $cost ) ) {
 	return;
 }
 ?>
-<?php
-$this->template( 'views/integrations/elementor/widgets/event-cost/header' );
-?>
+<?php $this->template( 'views/integrations/elementor/widgets/event-cost/header' ); ?>
 <<?php echo tag_escape( $html_tag ); ?><?php tribe_classes( $widget->get_element_classes() ); ?>>
 <?php echo esc_html( $cost ); ?>
-</<?php echo tag_escape( $html_tag ); ?>>
+<?php echo '</' . tag_escape( $html_tag ) . '>'; ?>
