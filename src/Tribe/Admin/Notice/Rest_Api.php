@@ -40,8 +40,10 @@ class Rest_Api {
 	 * Constructor.
 	 *
 	 * @since
+	 *
+	 * @return void
 	 */
-	public function hook() {
+	public function hook() : void {
 		$slug = $this->slug;
 
 		tribe_notice(
@@ -63,7 +65,7 @@ class Rest_Api {
 	 *
 	 * @return boolean
 	 */
-	public function should_display() {
+	public function should_display() : bool {
 		global $pagenow;
 
 		if ( tribe( 'admin.helpers' )->is_screen() || 'index.php' === $pagenow ) {
@@ -80,7 +82,7 @@ class Rest_Api {
 	 *
 	 * @return boolean
 	 */
-	public function is_rest_api_blocked() {
+	public function is_rest_api_blocked() : bool {
 
 		$event_api = get_rest_url( null, '/tribe/events/v1/' );
 		$response  = wp_remote_get( $event_api );
@@ -104,7 +106,7 @@ class Rest_Api {
 	 *
 	 * @since
 	 *
-	 * @return string
+	 * @return false|string
 	 */
 	public function notice() {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
