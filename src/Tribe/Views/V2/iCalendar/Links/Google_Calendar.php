@@ -237,6 +237,7 @@ class Google_Calendar extends Link_Abstract {
 		}
 
 		$event_details = substr( $event_details, 0, 996 );
+		$event_details = force_balance_tags( $event_details ); // Ensure we don't have any unclosed tags.
 		$event_url     = get_permalink( $post );
 
 		// Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits.
