@@ -525,16 +525,25 @@ class Event_Status extends Abstract_Widget {
 	 * @since TBD
 	 */
 	protected function empty_conditions(): bool {
-		$event     = $this->get_event();
-		$settings  = $this->get_settings_for_display();
-		$is_passed = tribe_is_event( $event ) && tribe_is_past_event( get_post( $event ) );
+		$event = $this->get_event();
 
-		if ( $settings['show_passed'] && $is_passed ) {
+		if ( ! tribe_is_event( $event ) ) {
+			return true;
+		}
+
+		$settings = $this->get_settings_for_display();
+
+		if ( isset( $settings['show_passed'] ) && tribe_is_past_event( $event ) ) {
 			return false;
 		}
 
-		if ( $settings['show_status'] && ! empty( $status ) ) {
+		if ( isset( $settings['show_status'] ) && ! empty( $event->event_status ) ) {
 			return false;
+		} else {
+			error_log( $settings['status'] );
+			error_log('no status');
+			error_log($event->event_status);
+			error_log(print_r( $event, true ) );
 		}
 
 		return true;
