@@ -692,7 +692,7 @@ class Event_Export extends Abstract_Widget {
 			'alignment',
 			[
 				'id'        => 'dropdown_align',
-				'selectors' => [ '{{WRAPPER}} .' . $this->get_link_class() ],
+				'selectors' => [ '{{WRAPPER}} .' . $this->get_list_class() ],
 			]
 		);
 
