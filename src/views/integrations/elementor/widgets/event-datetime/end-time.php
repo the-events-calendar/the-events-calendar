@@ -28,7 +28,7 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
-if ( ! $show_time || ! $end_time ) {
+if ( ! $show_time || ! $end_time || $is_all_day ) {
 	return;
 }
 ?>
