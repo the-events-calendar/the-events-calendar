@@ -89,7 +89,7 @@ class Importer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $document_class_name
+	 * @param string $document_class_name The document class name to import.
 	 *
 	 * @return false|int
 	 */
@@ -144,7 +144,7 @@ class Importer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $document_class_name
+	 * @param string $document_class_name Which document class name to mark as updating.
 	 *
 	 * @return bool
 	 */
@@ -160,9 +160,9 @@ class Importer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $document_class_name
+	 * @param string $document_class_name Which document class name to clear the updating status for.
 	 *
-	 *
+	 * @return bool
 	 */
 	protected function clear_updating_status( string $document_class_name ): bool {
 		$templates = $this->get_templates();
@@ -179,7 +179,7 @@ class Importer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $document_class_name
+	 * @param string $document_class_name Which document class name to check for.
 	 *
 	 * @return bool
 	 */
