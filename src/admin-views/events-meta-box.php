@@ -237,7 +237,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							<?php // phpcs:ignore -- Legacy naming.
 							$suffix = $_EventCurrencyPosition ? ( 'suffix' === $_EventCurrencyPosition ? true : false ) : ( tribe_get_option( 'reverseCurrencyPosition' ) ?: false );
 							?>
-							<option value="prefix"> <?php _ex( 'Before cost', 'Currency symbol position', 'the-events-calendar' ); ?> </option>
+							<option value="prefix" <?php selected( $suffix, false ); ?>> <?php echo esc_html( _x( 'Before cost', 'Currency symbol position', 'the-events-calendar' ) ); ?> </option>
 							<option value="suffix" <?php selected( $suffix, true ); ?>><?php echo esc_html( _x( 'After cost', 'Currency symbol position', 'the-events-calendar' ) ); ?></option>
 						</select>
 					</td>
