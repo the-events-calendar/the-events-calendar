@@ -98,6 +98,12 @@ class Importer {
 			return false;
 		}
 
+		if ( $this->is_updating( $document_class_name ) ) {
+			return false;
+		}
+
+		$this->mark_as_updating( $document_class_name );
+
 		$template_to_use = 'starter';
 
 		// If the document has a prepare_template_data method, call it to allow for custom data manipulation.
@@ -109,6 +115,7 @@ class Importer {
 		try {
 			$elementor_template_data = json_decode( $elementor_template_json, true, 512, JSON_THROW_ON_ERROR );
 		} catch ( \JsonException $e ) {
+			$this->clear_updating_status( $document_class_name );
 			do_action( 'tribe_log', Log::DEBUG, 'Failed to decode the Elementor template JSON.', [
 				'json_string' => $elementor_template_json,
 			] );
@@ -116,6 +123,7 @@ class Importer {
 		}
 
 		if ( ! is_array( $elementor_template_data ) ) {
+			$this->clear_updating_status( $document_class_name );
 			return false;
 		}
 
@@ -129,6 +137,55 @@ class Importer {
 		}
 
 		return $this->import_with_elementor( $document_class_name, $elementor_template_data );
+	}
+
+	/**
+	 * Mark the starter template as currently being imported, this prevents multiple imports from happening at the same time.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $document_class_name
+	 *
+	 * @return bool
+	 */
+	protected function mark_as_updating( string $document_class_name ): bool {
+		$templates = $this->get_templates();
+		$templates[ $document_class_name ] = 'updating';
+
+		return update_option( $this->imported_key, $templates );
+	}
+
+	/**
+	 * Clear the updating status for the starter template importing operation.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $document_class_name
+	 *
+	 *
+	 */
+	protected function clear_updating_status( string $document_class_name ): bool {
+		$templates = $this->get_templates();
+
+		if ( isset( $templates[ $document_class_name ] ) ) {
+			unset( $templates[ $document_class_name ] );
+		}
+
+		return update_option( $this->imported_key, $templates );
+	}
+
+	/**
+	 * Check if the starter template is currently being imported.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $document_class_name
+	 *
+	 * @return bool
+	 */
+	protected function is_updating( string $document_class_name ): bool {
+		$templates = $this->get_templates();
+		return isset( $templates[ $document_class_name ] ) && 'updating' === $templates[ $document_class_name ];
 	}
 
 	/**
@@ -209,10 +266,12 @@ class Importer {
 	 */
 	public function import_with_elementor( string $document_class_name, array $template_data ) {
 		if ( ! class_exists( $document_class_name ) ) {
+			$this->clear_updating_status( $document_class_name );
 			return false;
 		}
 
 		if ( ! is_subclass_of( $document_class_name, Document::class ) ) {
+			$this->clear_updating_status( $document_class_name );
 			return false;
 		}
 
@@ -235,6 +294,7 @@ class Importer {
 		$updated = update_option( $this->imported_key, $templates );
 
 		if ( ! $updated ) {
+			$this->clear_updating_status( $document_class_name );
 			return false;
 		}
 
