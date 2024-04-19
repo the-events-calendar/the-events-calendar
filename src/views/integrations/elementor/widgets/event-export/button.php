@@ -36,8 +36,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Export;
 	<?php esc_html_e( 'Add to calendar', 'the-events-calendar' ); ?>
 	<svg
 		<?php tribe_classes( $widget->get_dropdown_icon_class() ); ?>
-		width="12"
-		height="8"
+		viewBox="0 0 12 8"
 		xmlns="http://www.w3.org/2000/svg"
 	>
 		<path d="M1.21.85L6 5.64 10.79.85 11.94 2 6 7.94.06 2z" fill="currentColor" fill-rule="nonzero"/>
