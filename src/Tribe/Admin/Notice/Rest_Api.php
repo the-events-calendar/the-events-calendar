@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Admin\Notice;
 
+use Tribe\Events\Views\V2\Rest_Endpoint as V2;
+
 /**
  * Class Rest_Api
  *
@@ -43,7 +45,7 @@ class Rest_Api {
 	 *
 	 * @return void
 	 */
-	public function hook() : void {
+	public function hook(): void {
 		$slug = $this->slug;
 
 		tribe_notice(
@@ -65,7 +67,7 @@ class Rest_Api {
 	 *
 	 * @return boolean
 	 */
-	public function should_display() : bool {
+	public function should_display(): bool {
 		global $pagenow;
 
 		if ( tribe( 'admin.helpers' )->is_screen() || 'index.php' === $pagenow ) {
@@ -82,16 +84,17 @@ class Rest_Api {
 	 *
 	 * @return boolean
 	 */
-	public function is_rest_api_blocked() : bool {
+	public function is_rest_api_blocked(): bool {
 
-		$event_api = get_rest_url( null, '/tribe/events/v1/' );
+		$v1_api    = new \Tribe__Events__REST__V1__Main();
+		$event_api = get_rest_url( null, $v1_api->get_namespace() . '/events/' . $v1_api->get_version() );
 		$response  = wp_remote_get( $event_api );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$this->blocked_endpoint = $event_api;
 			return true;
 		}
 
-		$views_api = get_rest_url( null, 'tribe/views/v2/' );
+		$views_api = get_rest_url( null, V2::ROOT_NAMESPACE );
 		$response  = wp_remote_get( $views_api );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$this->blocked_endpoint = $views_api;
