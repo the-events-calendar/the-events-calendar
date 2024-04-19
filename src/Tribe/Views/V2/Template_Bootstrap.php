@@ -127,6 +127,17 @@ class Template_Bootstrap {
 	}
 
 	/**
+	 * Sets the current view context to `single-event` for the legacy view system.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function context_view_as_single_event() {
+		return 'single-event';
+	}
+
+	/**
 	 * Fetches the HTML for the Single Event page using the legacy view system
 	 *
 	 * @since  4.9.4
@@ -137,6 +148,12 @@ class Template_Bootstrap {
 		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
 			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
 		}
+
+		// Set our context to read as a single-event view.
+		if ( ! has_filter( "tribe_context_view", [ $this, 'context_view_as_single_event' ] ) ) {
+			add_filter( "tribe_context_view", [ $this, 'context_view_as_single_event' ] );
+		}
+
 		$setting = $this->get_template_setting();
 
 		// A number of TEC, and third-party, functions, depend on this. Let's fire it.
@@ -228,13 +245,6 @@ class Template_Bootstrap {
 		$should_display_single = apply_filters( 'tribe_events_views_v2_bootstrap_should_display_single', $should_display_single, $view_slug, $query, $context );
 
 		if ( $should_display_single ) {
-			// Set our context to read as a single-event view.
-			add_filter(
-				"tribe_context_pre_view",
-				function () {
-					return 'single-event';
-				}
-			);
 			$html = $this->get_v1_single_event_html();
 		} elseif ( isset( $query->query_vars['tribe_events_views_kitchen_sink'] ) ) {
 			$context = [
