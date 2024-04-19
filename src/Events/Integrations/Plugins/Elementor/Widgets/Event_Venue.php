@@ -1176,7 +1176,7 @@ class Event_Venue extends Abstract_Widget {
 					'unit' => '%',
 					'size' => 100,
 				],
-				'size_units'     => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
+				'size_units'     => [ 'px', '%', 'vw', 'custom' ],
 				'range'          => [
 					'%'  => [
 						'min' => 1,
@@ -1184,7 +1184,7 @@ class Event_Venue extends Abstract_Widget {
 					],
 					'px' => [
 						'min' => 1,
-						'max' => 1000,
+						'max' => 500,
 					],
 					'vw' => [
 						'min' => 1,
@@ -1192,7 +1192,7 @@ class Event_Venue extends Abstract_Widget {
 					],
 				],
 				'selectors'      => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() => 'max-width: calc({{SIZE}}{{UNIT}} / 2 );',
+					'{{WRAPPER}} .' . $this->get_map_base_class() => 'max-width: {{SIZE}}{{UNIT}};width: {{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1202,7 +1202,7 @@ class Event_Venue extends Abstract_Widget {
 			[
 				'label'      => esc_html__( 'Height', 'the-events-calendar' ),
 				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'vh', 'custom' ],
+				'size_units' => [ 'px', '%', 'vh', 'custom' ],
 				'range'      => [
 					'px' => [
 						'min' => 1,
@@ -1218,7 +1218,7 @@ class Event_Venue extends Abstract_Widget {
 					'size' => 100, // the map's height should default to 100%.
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() => 'height: {{SIZE}}{{UNIT}};flex-basis: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .' . $this->get_map_base_class() => 'height: calc( {{SIZE}}{{UNIT}} - var(--tec-spacer-2));', // Accounts for margins to prevent overflow.
 				],
 			]
 		);
