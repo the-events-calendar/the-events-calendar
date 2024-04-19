@@ -195,7 +195,8 @@ class Event_DatetimeTest extends WPTestCase {
 				return [
 					'label'  => 'is_all_day',
 					'value'  => true,
-					'string' => 'All day',
+					'string' => 'AM', // We don't show specific text, but we do hide the time.
+					'invert' => true,
 					'additional' => [
 						'end_date'    => 'July 4',
 						'end_time'    => '10:00 AM',
