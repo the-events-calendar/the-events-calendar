@@ -32,10 +32,6 @@ if ( $is_same_start_end ) {
 	return;
 }
 
-if ( $is_all_day ) {
-	return;
-}
-
 ?>
 
 <?php if ( $show_date && ! $is_same_day && $end_date ) : // we have a start and end date and we're showing them. ?>
