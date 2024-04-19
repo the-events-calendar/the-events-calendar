@@ -64,7 +64,7 @@ $links_list = [
 	],
 ];
 
-if ( ! $show ) {
+if ( empty( $show ) ) {
 	return;
 }
 ?>

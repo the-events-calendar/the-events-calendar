@@ -21,9 +21,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Categories;
 if ( empty( $categories ) ) {
 	return;
 }
-
 ?>
-
 <div <?php tribe_classes( $widget->get_element_classes() ); ?>>
 	<?php $this->template( 'views/integrations/elementor/widgets/event-categories/header' ); ?>
 	<div <?php tribe_classes( $widget->get_wrapper_class() ); ?>>
