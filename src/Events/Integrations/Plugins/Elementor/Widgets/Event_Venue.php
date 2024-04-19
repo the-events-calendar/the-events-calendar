@@ -1218,7 +1218,7 @@ class Event_Venue extends Abstract_Widget {
 					'size' => 100, // the map's height should default to 100%.
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .' . $this->get_map_base_class() => 'height: calc( {{SIZE}}{{UNIT}} - var(--tec-spacer-2));', // Accounts for margins to prevent overflow
+					'{{WRAPPER}} .' . $this->get_map_base_class() => 'height: calc( {{SIZE}}{{UNIT}} - var(--tec-spacer-2));', // Accounts for margins to prevent overflow.
 				],
 			]
 		);
