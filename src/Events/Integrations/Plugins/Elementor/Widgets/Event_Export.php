@@ -622,7 +622,7 @@ class Event_Export extends Abstract_Widget {
 	}
 
 	/**
-	 * Add controls for text styling of the Google & iCal export button.
+	 * Add controls for text styling of the Google & iCal export button on hover.
 	 *
 	 * @since TBD
 	 */
