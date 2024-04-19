@@ -411,7 +411,7 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 	$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 	if ( ! empty( $url ) ) {
-		$label = is_null( $label ) ? $url : $label;
+		$label = empty( $label ) ? $url : $label;
 		/**
 		 * Filter the website link label
 		 *
