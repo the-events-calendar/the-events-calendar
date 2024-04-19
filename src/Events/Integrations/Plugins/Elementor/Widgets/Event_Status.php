@@ -539,11 +539,6 @@ class Event_Status extends Abstract_Widget {
 
 		if ( isset( $settings['show_status'] ) && ! empty( $event->event_status ) ) {
 			return false;
-		} else {
-			error_log( $settings['status'] );
-			error_log('no status');
-			error_log($event->event_status);
-			error_log(print_r( $event, true ) );
 		}
 
 		return true;
