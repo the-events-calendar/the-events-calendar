@@ -136,4 +136,22 @@ class Event_Single extends Library_Document {
 
 		return $config;
 	}
+
+	/**
+	 * Modify the template data before importing.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public static function prepare_template_data( $data ): array {
+		$widgets = $data['content'][0]['elements'][0]['elements'];
+
+		// Remove the theme-post-content from widget.
+		$widgets = wp_filter_object_list( $widgets, [ 'widgetType' => 'theme-post-content' ], 'NOT' );
+
+		$data['content'][0]['elements'][0]['elements'] = $widgets;
+
+		return $data;
+	}
 }

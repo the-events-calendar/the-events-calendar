@@ -75,6 +75,14 @@
 							"elType": "widget"
 						},
 						{
+							"id": "7d812fbe",
+							"settings": [],
+							"elements": [],
+							"isInner": false,
+							"widgetType": "theme-post-content",
+							"elType": "widget"
+						},
+						{
 							"id": "191e47b3",
 							"settings": {
 								"layout": "full_width",
