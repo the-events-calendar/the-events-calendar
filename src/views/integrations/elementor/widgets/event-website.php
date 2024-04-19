@@ -23,6 +23,10 @@ if ( ! $this->get_widget()->should_show_mock_data() && ! $this->has_event() ) {
 	return;
 }
 
+if ( empty( $website ) ) {
+	return;
+}
+
 ?>
 <div <?php tribe_classes( $widget->get_element_classes() ); ?>>
 	<?php $this->template( 'views/integrations/elementor/widgets/event-website/header' ); ?>

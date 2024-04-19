@@ -421,12 +421,15 @@ if ( ! function_exists( 'tribe_get_organizer_website_url' ) ) { // wrapped in if
  *
  * Returns the event Organizer Name with a link to their supplied website
  *
- * @param null|int    $post_id The post ID for an event.
- * @param null|string $label   The text for the link.
+ * @since 3.0
+ *
+ * @param ?int    $post_id The post ID for an event.
+ * @param ?string $label   The text for the link.
+ * @param ?string $target  The target attribute for the link.
  *
  * @return string
  **/
-function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
+function tribe_get_organizer_website_link( $post_id = null, $label = null, $target = '_self' ): string {
 	$post_id = tribe_get_organizer_id( $post_id );
 	$url     = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
 
@@ -439,8 +442,15 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 	 * @param string   $url     The link URL.
 	 * @param null|int $post_id post ID for the organizer.
 	 */
-	$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id );
-	$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
+	$target = apply_filters( 'tribe_get_event_organizer_link_target', $target, $url, $post_id );
+
+	// Ensure the target is given a valid value.
+	$allowed = [ '_self', '_blank', '_parent', '_top', '_unfencedTop' ];
+	if ( ! in_array( $target, $allowed ) ) {
+		$target = '_self';
+	}
+
+	$rel = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 	/**
 	 * Filter the organizer link label
@@ -456,8 +466,8 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 		$label = is_null( $label ) ? $url : $label;
 
 		if ( ! empty( $url ) ) {
-			$parseUrl = parse_url( $url );
-			if ( empty( $parseUrl['scheme'] ) ) {
+			$parse_url = parse_url( $url );
+			if ( empty( $parse_url['scheme'] ) ) {
 				$url = "http://$url";
 			}
 		}

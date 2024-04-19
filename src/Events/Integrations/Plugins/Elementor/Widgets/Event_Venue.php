@@ -65,15 +65,6 @@ class Event_Venue extends Abstract_Widget {
 	protected function template_args(): array {
 		$settings = $this->get_settings_for_display();
 
-		if ( isset( $settings['venue_website_link_target'] ) ) {
-			$this->set_template_filter(
-				'tribe_get_event_venue_website_link_target',
-				function () use ( $settings ) {
-					return $settings['venue_website_link_target'];
-				}
-			);
-		}
-
 		return [
 			// Show toggles.
 			// Boolean conversion of yes/no strings. Default true.
@@ -162,7 +153,7 @@ class Event_Venue extends Abstract_Widget {
 				'phone_link' => $this->format_phone_link( $phone ),
 				'website'    => '<a href="http://theeventscaledndar.com" target="_self" rel="external">View Venue 2 Website</a>',
 				'map_link'   => '<a class="tribe-events-gmap" href="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States" title="Click to view a Google Map" target="_blank" rel="noreferrer noopener">+ Google Map</a>',
-				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue 2" aria-label="Venue 2 location map" width="100%" height="200px" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
+				'map'        => '<iframe title="Google maps iframe displaying the address to Mock Venue 2" aria-label="Venue 2 location map" width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDNsicAsP6-VuGtAb1O9riI3oc_NOb7IOU&amp;q=1005+S+Michigan+Ave+Chicago+Illinois+United+States+&amp;zoom=10" allowfullscreen="">
 					</iframe>',
 			];
 		}
@@ -182,6 +173,7 @@ class Event_Venue extends Abstract_Widget {
 		$settings  = $this->get_settings_for_display();
 		$event_id  = $this->get_event_id();
 		$venue_ids = tec_get_venue_ids( $event_id );
+		$target    = $settings['venue_website_link_target'] ?? '_self';
 
 		foreach ( $venue_ids as $venue_id ) {
 			$phone               = tribe_get_phone( $venue_id );
@@ -193,7 +185,7 @@ class Event_Venue extends Abstract_Widget {
 				'phone'      => $phone,
 				'phone_link' => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
 				'map_link'   => tribe_get_map_link_html( $venue_id ),
-				'website'    => tribe_get_venue_website_link( $venue_id ),
+				'website'    => tribe_get_venue_website_link( $venue_id, null, $target ),
 				'map'        => tribe_get_embedded_map( $venue_id, '100%', '100%' ),
 			];
 		}
@@ -211,34 +203,6 @@ class Event_Venue extends Abstract_Widget {
 	protected function format_phone_link( $phone ): string {
 		// For a dial link we remove spaces, and replace 'ext' or 'x' with 'p' to pause before dialing the extension.
 		return 'tel:' . str_ireplace( [ 'ext', 'x', ' ' ], [ 'p', 'p', '' ], $phone );
-	}
-
-	/**
-	 * Modify the target for the event website link.
-	 *
-	 * @since TBD
-	 *
-	 * @param string          $link_target The target attribute string. Defaults to "_self".
-	 * @param string          $unused_url  The link URL.
-	 * @param null|object|int $post_id     The event the url is attached to.
-	 *
-	 * @return string The modified target attribute string.
-	 */
-	public function modify_link_target( $link_target, $unused_url, $post_id ): string {
-		$event_id = $this->get_event_id();
-		// Not the same event, bail.
-		if ( $event_id !== $post_id ) {
-			return $link_target;
-		}
-
-		$settings        = $this->get_settings_for_display();
-		$target_override = $settings['venue_website_link_target'];
-
-		if ( ! $target_override ) {
-			return $link_target;
-		}
-
-		return $target_override;
 	}
 
 	/**
@@ -801,7 +765,7 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		$this->add_shared_control( 'link_target', [ 'prefix' => 'venue_website_link_target' ] );
+		$this->add_shared_control( 'link_target', [ 'prefix' => 'venue_website' ] );
 
 		$this->end_controls_section();
 	}

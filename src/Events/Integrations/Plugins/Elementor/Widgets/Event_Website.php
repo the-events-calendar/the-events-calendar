@@ -64,31 +64,15 @@ class Event_Website extends Abstract_Widget {
 		$settings = $this->get_settings_for_display();
 		$event_id = $this->get_event_id();
 
-		// Only add filters if they are needed.
-		if ( isset( $settings['website_link_target'] ) ) {
-			$this->set_template_filter(
-				'tribe_get_event_website_link_target',
-				[ $this, 'modify_link_target' ],
-				10,
-				3
-			);
-		}
-
-		if ( isset( $settings['link_label'] ) ) {
-			$this->set_template_filter(
-				'tribe_get_event_website_link_label',
-				[ $this, 'modify_link_label' ],
-				10,
-				2
-			);
-		}
+		$label  = $settings['link_label'] ?? null;
+		$target = $settings['website_link_target'] ?? null;
 
 		return [
 			'show_website_header' => $settings['show_website_header'] ?? 'yes',
 			'header_tag'          => $settings['header_tag'] ?? 'h3',
 			'header_class'        => $this->get_header_class(),
 			'link_class'          => $this->get_link_class(),
-			'website'             => tribe_get_event_website_link( $event_id ),
+			'website'             => tribe_get_event_website_link( $event_id, $label, $target ),
 		];
 	}
 
@@ -107,59 +91,6 @@ class Event_Website extends Abstract_Widget {
 		}
 
 		return $args;
-	}
-
-	/**
-	 * Modify the target for the event website link.
-	 *
-	 * @since TBD
-	 *
-	 * @param string          $link_target The target attribute string. Defaults to "_self".
-	 * @param string          $unused_url  The link URL.
-	 * @param null|object|int $post_id     The event the url is attached to.
-	 *
-	 * @return string The modified target attribute string.
-	 */
-	public function modify_link_target( $link_target, $unused_url, $post_id ): string {
-		$event_id = $this->get_event_id();
-		// Not the same event, bail.
-		if ( $event_id !== $post_id ) {
-			return $link_target;
-		}
-
-		$settings        = $this->get_settings_for_display();
-		$target_override = $settings['website_link_target'];
-
-		if ( ! $target_override ) {
-			return $link_target;
-		}
-
-		return $target_override;
-	}
-
-	/**
-	 * Modify the label for the event website link.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $label   The link label.
-	 * @param int    $post_id The event ID.
-	 */
-	public function modify_link_label( $label, $post_id ): string {
-		$event_id = $this->get_event_id();
-		// Not the same event, bail.
-		if ( $event_id !== $post_id ) {
-			return $label;
-		}
-
-		$settings = $this->get_settings_for_display();
-		$text     = $settings['link_label'];
-
-		if ( ! $text ) {
-			return $label;
-		}
-
-		return $text;
 	}
 
 	/**
