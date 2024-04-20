@@ -4,10 +4,10 @@
  *
  * @since
  *
- * @package Tribe\Events\Admin\Notice
+ * @package TEC\Events\Admin\Notice
  */
 
-namespace Tribe\Events\Admin\Notice;
+namespace TEC\Events\Admin\Notice;
 
 use Tribe\Events\Views\V2\Rest_Endpoint as V2;
 
@@ -61,7 +61,7 @@ class Rest_Api {
 	}
 
 	/**
-	 * Checks if we are in an TEC page or in main admin Dashboard.
+	 * Checks if we are in a TEC page or in the main Dashboard.
 	 *
 	 * @since
 	 *

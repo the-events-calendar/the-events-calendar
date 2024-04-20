@@ -20,7 +20,6 @@ class Provider extends Service_Provider {
 		$this->container->singleton( 'tec.admin.notice.marketing', Notice\Marketing::class );
 		$this->container->singleton( 'tec.admin.notice.update', Notice\Update::class );
 		$this->container->singleton( Notice\Install_Event_Tickets::class, Notice\Install_Event_Tickets::class );
-		$this->container->singleton( Notice\Rest_Api::class, Notice\Rest_Api::class );
 
 		$this->add_hooks();
 	}
@@ -53,6 +52,5 @@ class Provider extends Service_Provider {
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.fse', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( Notice\Legacy_Views_Updated::class, 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( Notice\Install_Event_Tickets::class, 'hook' ) );
-		add_action( 'admin_init', $this->container->callback( Notice\Rest_Api::class, 'hook' ) );
 	}
 }
