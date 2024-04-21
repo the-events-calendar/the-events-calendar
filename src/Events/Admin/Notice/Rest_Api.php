@@ -87,7 +87,7 @@ class Rest_Api {
 	public function is_rest_api_blocked(): bool {
 
 		$v1_api    = new \Tribe__Events__REST__V1__Main();
-		$event_api = get_rest_url( null, $v1_api->get_namespace() . '/events/' . $v1_api->get_version() );
+		$event_api = get_rest_url( null, $v1_api->get_events_route_namespace() );
 		$response  = wp_remote_get( $event_api );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$this->blocked_endpoint = $event_api;
