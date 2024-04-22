@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+- [TBD] TBD =
+
+* Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
+
 = [6.3.6] 2024-04-09 =
 
 * Fix - Adds timezone offset to the dates in the Outlook subscribe links on event pages. [TEC-4831]
