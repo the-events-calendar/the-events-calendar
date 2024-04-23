@@ -167,10 +167,9 @@ class Importer {
 			$this->clear_updating_status( $document_class_name );
 			do_action(
 				'tribe_log',
-				Log::DEBUG, 'Failed to decode the Elementor template JSON.',
-				[
-					'json_string' => $elementor_template_json,
-				]
+				Log::DEBUG,
+				'Failed to decode the Elementor template JSON.',
+				[ 'json_string' => $elementor_template_json ]
 			);
 
 			return false;
