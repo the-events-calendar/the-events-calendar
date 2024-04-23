@@ -13,7 +13,7 @@ use Elementor\Modules\Library\Documents\Library_Document;
 use Elementor\Core\DocumentTypes\Post;
 
 /**
- * Class Event_Single
+ * Class Event_Single_Static
  *
  * Represents a custom Elementor document for TEC, tailored for users to create single event templates.
  *
@@ -21,7 +21,7 @@ use Elementor\Core\DocumentTypes\Post;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Documents
  */
-class Event_Single extends Library_Document {
+class Event_Single_Static extends Library_Document {
 
 	/**
 	 * Get document properties.
@@ -61,7 +61,7 @@ class Event_Single extends Library_Document {
 	 * @return string Document type.
 	 */
 	public static function get_type(): string {
-		return 'tec_event_single';
+		return 'tec_event_single_static';
 	}
 
 	/**

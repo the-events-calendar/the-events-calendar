@@ -74,11 +74,11 @@ class Importer {
 	 */
 	protected function get_documents_to_import(): array {
 		$documents = [
-			Documents\Event_Single::class,
+			Documents\Event_Single_Static::class,
 		];
 
 		if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
-			$documents[] = Documents\Event_Single_Pro::class;
+			$documents[] = Documents\Event_Single_Dynamic::class;
 		}
 
 		return array_unique( array_filter( $documents ) );
@@ -92,6 +92,10 @@ class Importer {
 	 * @return void
 	 */
 	public function import_starter_templates(): void {
+		if ( ! is_admin() ) {
+			return;
+		}
+
 		// Avoid running when WordPress is installing.
 		if ( wp_installing() ) {
 			return;
@@ -184,8 +188,8 @@ class Importer {
 		// If the document has a prepare_template_data method, call it to allow for custom data manipulation.
 		if ( method_exists( $document_class_name, 'prepare_template_data' ) ) {
 			/**
-			 * @uses \TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single::prepare_template_data()
-			 * @uses \TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Pro::prepare_template_data()
+			 * @uses \TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Static::prepare_template_data()
+			 * @uses \TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Dynamic::prepare_template_data()
 			 */
 			$elementor_template_data = $document_class_name::prepare_template_data( $elementor_template_data );
 		}

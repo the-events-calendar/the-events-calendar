@@ -11,7 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Template;
 
 use Elementor\Core\Base\Document;
 use ElementorPro\Modules\ThemeBuilder\Module;
-use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single;
+use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Static;
 use WP_Post;
 
 use Elementor\Plugin;
@@ -68,7 +68,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_actions(): void {
 		add_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
-		add_action( 'admin_init', [ $this, 'action_import_starter_templates' ] );
+		add_action( 'wp', [ $this, 'action_import_starter_templates' ] );
 		add_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}
@@ -80,7 +80,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_actions(): void {
 		remove_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
-		remove_action( 'admin_init', [ $this, 'action_import_starter_templates' ] );
+		remove_action( 'wp', [ $this, 'action_import_starter_templates' ] );
 		remove_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 	}
@@ -203,7 +203,7 @@ class Controller extends Controller_Contract {
 	 * @return bool
 	 */
 	public function is_override( $post_id = null ): bool {
-		$template = tribe( Importer::class )->get_template( Event_Single::class );
+		$template = tribe( Importer::class )->get_template( Event_Single_Static::class );
 
 		// Ensure we have a template to use.
 		if ( null === $template ) {
@@ -255,14 +255,14 @@ class Controller extends Controller_Contract {
 		if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() ) {
 
 			$documents_manager->register_document_type(
-				Documents\Event_Single_Pro::get_type(),
-				Documents\Event_Single_Pro::class
+				Documents\Event_Single_Dynamic::get_type(),
+				Documents\Event_Single_Dynamic::class
 			);
 		}
 
 		$documents_manager->register_document_type(
-			Documents\Event_Single::get_type(),
-			Documents\Event_Single::class
+			Documents\Event_Single_Static::get_type(),
+			Documents\Event_Single_Static::class
 		);
 	}
 
@@ -289,7 +289,7 @@ class Controller extends Controller_Contract {
 
 		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 
-		update_metadata_by_mid( 'post', $mid, Documents\Event_Single::get_type() );
+		update_metadata_by_mid( 'post', $mid, Documents\Event_Single_Static::get_type() );
 
 		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}

@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
-use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single;
+use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Static;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Importer;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use TEC\Common\Contracts\Provider\Controller;
@@ -252,7 +252,7 @@ class Assets_Manager extends Controller {
 			return;
 		}
 
-		$template = tribe( Importer::class )->get_template( Event_Single::class );
+		$template = tribe( Importer::class )->get_template( Event_Single_Static::class );
 		if ( null === $template ) {
 			return;
 		}
