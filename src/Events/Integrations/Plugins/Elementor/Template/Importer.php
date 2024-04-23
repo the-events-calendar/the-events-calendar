@@ -384,9 +384,12 @@ class Importer {
 		try {
 			$template_data = json_decode( $template_data, true, 512, JSON_THROW_ON_ERROR );
 		} catch ( \JsonException $e ) {
-			do_action( 'tribe_log', Log::DEBUG, 'Failed to decode the Elementor template JSON.', [
-				'json_string' => $template_data,
-			] );
+			do_action(
+				'tribe_log',
+				Log::DEBUG,
+				'Failed to decode the Elementor template JSON.',
+				[ 'json_string' => $template_data ]
+			);
 
 			return false;
 		}
