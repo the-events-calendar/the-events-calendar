@@ -15,7 +15,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Creates an Event using the legacy method.
 	 *
-	 * Note: This function is outdated and should be replaced with the TEC ORM `create()` method {@see Tribe__Repository::create()}.
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_events()->create()` method](https://docs.theeventscalendar.com/apis/orm/create/events/).
 	 *
 	 * Legacy Note: If ONLY the 'VenueID'/'OrganizerID' value is set in the 'Venue'/'Organizer' array,
 	 * then the specified Venue/Organizer will be associated with this Event without attempting
@@ -26,48 +26,51 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * a post_type argument therefore is superfluous as it will be reset to the events post
 	 * type in any case.
 	 *
+	 * @category Events
+	 *
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 *
 	 * @see      wp_insert_post()
 	 * @see      tribe_create_venue()
 	 * @see      tribe_create_organizer()
+	 * @see      Tribe__Repository::create()
 	 *
-	 * @param array $args                        {
-	 *                                           An array of elements that make up a post to update or insert. Accepts anything from {@see wp_insert_post()}.
+	 * @param array $args {
+	 *      An array of elements that make up a post to update or insert. Accepts anything from {@see wp_insert_post()}.
 	 *
-	 * @type int    $ID                          The post ID. If equal to something other than 0,
+	 * @type int    $ID                      The post ID. If equal to something other than 0,
 	 *                                           the post with that ID will be updated. Default 0.
-	 * @type int    $post_author                 The ID of the user who added the post. Default is
+	 * @type int    $post_author             The ID of the user who added the post. Default is
 	 *                                           the current user ID.
-	 * @type string $post_date                   The date of the post. Default is the current time.
-	 * @type string $post_date_gmt               The date of the post in the GMT timezone. Default is
+	 * @type string $post_date               The date of the post. Default is the current time.
+	 * @type string $post_date_gmt           The date of the post in the GMT timezone. Default is
 	 *                                           the value of `$post_date`.
-	 * @type mixed  $post_content                The post content. Default empty.
-	 * @type string $post_content_filtered       The filtered post content. Default empty.
-	 * @type string $post_title                  The post title. Default empty.
-	 * @type string $post_excerpt                The post excerpt. Default empty.
-	 * @type string $post_status                 The post status. Default 'draft'.
-	 * @type string $post_type                   The post type. Default 'post'.
-	 * @type string $comment_status              Whether the post can accept comments. Accepts 'open' or 'closed'.
+	 * @type mixed  $post_content            The post content. Default empty.
+	 * @type string $post_content_filtered   The filtered post content. Default empty.
+	 * @type string $post_title              The post title. Default empty.
+	 * @type string $post_excerpt            The post excerpt. Default empty.
+	 * @type string $post_status             The post status. Default 'draft'.
+	 * @type string $post_type               The post type. Default 'post'.
+	 * @type string $comment_status          Whether the post can accept comments. Accepts 'open' or 'closed'.
 	 *                                           Default is the value of 'default_comment_status' option.
-	 * @type string $ping_status                 Whether the post can accept pings. Accepts 'open' or 'closed'.
+	 * @type string $ping_status             Whether the post can accept pings. Accepts 'open' or 'closed'.
 	 *                                           Default is the value of 'default_ping_status' option.
-	 * @type string $post_password               The password to access the post. Default empty.
-	 * @type string $post_name                   The post name. Default is the sanitized post title
+	 * @type string $post_password           The password to access the post. Default empty.
+	 * @type string $post_name               The post name. Default is the sanitized post title
 	 *                                           when creating a new post.
-	 * @type string $to_ping                     Space or carriage return-separated list of URLs to ping.
+	 * @type string $to_ping                 Space or carriage return-separated list of URLs to ping.
 	 *                                           Default empty.
-	 * @type string $pinged                      Space or carriage return-separated list of URLs that have
+	 * @type string $pinged                  Space or carriage return-separated list of URLs that have
 	 *                                           been pinged. Default empty.
-	 * @type string $post_modified               The date when the post was last modified. Default is
+	 * @type string $post_modified           The date when the post was last modified. Default is
 	 *                                           the current time.
-	 * @type string $post_modified_gmt           The date when the post was last modified in the GMT
+	 * @type string $post_modified_gmt       The date when the post was last modified in the GMT
 	 *                                           timezone. Default is the current time.
-	 * @type int    $post_parent                 Set this for the post it belongs to, if any. Default 0.
-	 * @type int    $menu_order                  The order the post should be displayed in. Default 0.
-	 * @type string $post_mime_type              The mime type of the post. Default empty.
-	 * @type string $guid                        Global Unique ID for referencing the post. Default empty.
-	 * @type array  $post_category               Array of category IDs.
+	 * @type int    $post_parent             Set this for the post it belongs to, if any. Default 0.
+	 * @type int    $menu_order              The order the post should be displayed in. Default 0.
+	 * @type string $post_mime_type          The mime type of the post. Default empty.
+	 * @type string $guid                    Global Unique ID for referencing the post. Default empty.
+	 * @type array  $post_category           Array of category IDs.
 	 *                                           Defaults to value of the 'default_category' option.
 	 * @type array  $tags_input                  Array of tag names, slugs, or IDs. Default empty.
 	 * @type array  $tax_input                   Array of taxonomy terms keyed by their taxonomy name. Default empty.
@@ -89,11 +92,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @type string $FeaturedImage               URL or ID of a featured image.
 	 * @type string $Venue                       Array of data to create or update an Venue to be associated with the Event {@link tribe_create_venue}.
 	 * @type string $Organizer                   Array of data to create or update an Organizer to be associated with the Event {@link tribe_create_organizer}.
-	 * @type string $_ecp_custom_                [ID]        Pro Custom fields (Events Calendar Pro only).
-	 *                                           }
+	 * @type string $_ecp_custom_[ID]        Pro Custom fields (Events Calendar Pro only).
+	 * }
 	 *
 	 * @return int|bool ID of the event that was created. False if insert failed.
-	 * @category Events
 	 *
 	 * @version  TBD
 	 * @since    TBD Updated docblock to indicate future deprecation of function
