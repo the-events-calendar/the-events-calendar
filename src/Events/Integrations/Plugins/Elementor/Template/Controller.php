@@ -68,7 +68,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_actions(): void {
 		add_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
-		add_action( 'init', [ $this, 'action_import_starter_templates' ] );
+		add_action( 'admin_init', [ $this, 'action_import_starter_templates' ] );
 		add_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 		add_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15, 4 );
 	}
@@ -80,7 +80,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_actions(): void {
 		remove_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
-		remove_action( 'init', [ $this, 'action_import_starter_templates' ] );
+		remove_action( 'admin_init', [ $this, 'action_import_starter_templates' ] );
 		remove_action( 'added_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 		remove_action( 'updated_post_meta', [ $this, 'action_ensure_document_type' ], 15 );
 	}
