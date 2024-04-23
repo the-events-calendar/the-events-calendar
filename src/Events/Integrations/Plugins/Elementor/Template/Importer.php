@@ -46,6 +46,15 @@ class Importer {
 	protected string $imported_key = 'tec_events_elementor_template_imported';
 
 	/**
+	 * Every imported elementor document will have a relationship with a document class.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $document_relationship_meta_key = 'tec_events_elementor_document';
+
+	/**
 	 * Gets a list of the documents to import.
 	 *
 	 * @since TBD
@@ -318,6 +327,75 @@ class Importer {
 	}
 
 	/**
+	 * Mark the document as imported.
+	 * This will create a new post meta entry with the document class name as the value.
+	 *
+	 * Uses the following key: `$this->document_relationship_meta_key`
+	 *
+	 * @see $this->document_relationship_meta_key
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $document_class_name Name of the event document class.
+	 * @param Document $document            Actual object from Elementor of the document.
+	 *
+	 * @return bool
+	 */
+	protected function mark_document_as_imported( string $document_class_name, Document $document ): bool {
+		$post_id = $document->get_post()->ID;
+
+		return update_post_meta( $this->document_relationship_meta_key, $post_id, $document_class_name );
+	}
+
+
+	/**
+	 * Get the document class name from the post ID.
+	 * This will get the document class name from the post meta of a given document.
+	 *
+	 * Uses the following key: `$this->document_relationship_meta_key`
+	 *
+	 * @see $this->document_relationship_meta_key
+	 *
+	 * @since TBD
+	 *
+	 * @param $post_id
+	 *
+	 * @return string
+	 */
+	protected function get_document_class_name( $post_id ): string {
+		return (string) get_post_meta( $this->document_relationship_meta_key, $post_id, true );
+	}
+
+	/**
+	 * Get the post ID of a document by its class name.
+	 *
+	 * This will get the post ID of a document by its class name.
+	 *
+	 * @see $this->document_relationship_meta_key
+	 *
+	 * @since TBD
+	 *
+	 * @param string $document_class_name
+	 *
+	 * @return int|null
+	 */
+	protected function get_document_post_id_by_class_name( string $document_class_name ): ?int {
+		$post_ids = get_posts( [
+			'post_type' => Source_Local::CPT,
+			'meta_key' => $this->document_relationship_meta_key,
+			'meta_value' => $document_class_name,
+			'posts_per_page' => 1,
+			'fields' => 'ids',
+		] );
+
+		if ( empty( $post_ids ) ) {
+			return null;
+		}
+
+		return reset( $post_ids );
+	}
+
+	/**
 	 * Import the template using Elementor's methods.
 	 *
 	 * @param array $template_data The template data.
@@ -331,6 +409,13 @@ class Importer {
 		}
 
 		if ( ! is_subclass_of( $document_class_name, Document::class ) ) {
+			$this->clear_updating_status( $document_class_name );
+			return false;
+		}
+
+		$existing_document_id = $this->get_document_post_id_by_class_name( $document_class_name );
+		if ( null !== $existing_document_id ) {
+			wp_delete_post( $existing_document_id, true );
 			$this->clear_updating_status( $document_class_name );
 			return false;
 		}
@@ -352,6 +437,8 @@ class Importer {
 		$templates = $this->get_templates();
 		$templates[ $document_class_name ] = $document->get_post()->ID;
 		$updated = update_option( $this->imported_key, $templates );
+
+		$this->mark_document_as_imported( $document_class_name, $document );
 
 		if ( ! $updated ) {
 			$this->clear_updating_status( $document_class_name );
