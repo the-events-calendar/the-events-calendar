@@ -108,7 +108,7 @@ class Importer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $document_class_name The document class name to import.
+	 * @param string $document_class_name Name of the event document class we're importing.
 	 *
 	 * @return false|int
 	 */
@@ -135,9 +135,14 @@ class Importer {
 			$elementor_template_data = json_decode( $elementor_template_json, true, 512, JSON_THROW_ON_ERROR );
 		} catch ( \JsonException $e ) {
 			$this->clear_updating_status( $document_class_name );
-			do_action( 'tribe_log', Log::DEBUG, 'Failed to decode the Elementor template JSON.', [
-				'json_string' => $elementor_template_json,
-			] );
+			do_action(
+				'tribe_log',
+				Log::DEBUG, 'Failed to decode the Elementor template JSON.',
+				[
+					'json_string' => $elementor_template_json,
+				]
+			);
+
 			return false;
 		}
 
@@ -358,7 +363,7 @@ class Importer {
 	 *
 	 * @since TBD
 	 *
-	 * @param $post_id
+	 * @param int $post_id The post ID of the document.
 	 *
 	 * @return string
 	 */
@@ -375,18 +380,20 @@ class Importer {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $document_class_name
+	 * @param string $document_class_name Name of the event document class.
 	 *
 	 * @return int|null
 	 */
 	protected function get_document_post_id_by_class_name( string $document_class_name ): ?int {
-		$post_ids = get_posts( [
-			'post_type' => Source_Local::CPT,
-			'meta_key' => $this->document_relationship_meta_key,
-			'meta_value' => $document_class_name,
-			'posts_per_page' => 1,
-			'fields' => 'ids',
-		] );
+		$post_ids = get_posts(
+			[
+				'post_type'      => Source_Local::CPT,
+				'meta_key'       => $this->document_relationship_meta_key,
+				'meta_value'     => $document_class_name,
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+			]
+		);
 
 		if ( empty( $post_ids ) ) {
 			return null;
