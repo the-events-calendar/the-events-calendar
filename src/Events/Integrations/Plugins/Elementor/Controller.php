@@ -302,6 +302,17 @@ class Controller extends Integration_Abstract {
 
 		$elementor_edit = get_post_meta( $post_id, Document::BUILT_WITH_ELEMENTOR_META_KEY, true );
 
+		/**
+		 * Filters whether the post was built with Elementor.
+		 *
+		 * Specifically only filtering for Events and takes in consideration if we are looking at a preview request
+		 * and uses the same meta as Elementor itself to check, see `Document::BUILT_WITH_ELEMENTOR_META_KEY`.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $elementor_edit Whether the post was built with Elementor.
+		 * @param int $post_id The post ID.
+		 */
 		return apply_filters( 'tec_events_elementor_built_with_elementor', $elementor_edit, $post_id );
 	}
 

@@ -61,7 +61,7 @@ class Importer {
 			$documents[] = Documents\Event_Single_Pro::class;
 		}
 
-		return $documents;
+		return array_unique( array_filter( $documents ) );
 	}
 
 	/**
@@ -73,7 +73,17 @@ class Importer {
 	 */
 	public function import_starter_templates(): void {
 		// Avoid running when WordPress is installing.
-		if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) {
+		if ( wp_installing() ) {
+			return;
+		}
+
+		// Do not run on ajax requests.
+		if ( wp_doing_ajax() ) {
+			return;
+		}
+
+		// Do not import while doing cron.
+		if ( wp_doing_cron() ) {
 			return;
 		}
 
@@ -134,6 +144,12 @@ class Importer {
 			 * @uses \TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Pro::prepare_template_data()
 			 */
 			$elementor_template_data = $document_class_name::prepare_template_data( $elementor_template_data );
+		}
+
+		// Ensure the template data is valid.
+		if ( ! $this->validate_template_data( $document_class_name, $elementor_template_data ) ) {
+			$this->clear_updating_status( $document_class_name );
+			return false;
 		}
 
 		return $this->import_with_elementor( $document_class_name, $elementor_template_data );
@@ -255,6 +271,50 @@ class Importer {
 		}
 
 		return $template;
+	}
+
+	/**
+	 * Validate the template data.
+	 * This method will check for the following data in the template data:
+	 * - title
+	 * - content
+	 * - version
+	 * - settings
+	 * - content[0].elements[0].elements
+	 *
+	 * @since TBD
+	 *
+	 * @param string $document_class_name The document class name.
+	 * @param mixed  $template_data       The template data.
+	 *
+	 * @return bool
+	 */
+	protected function validate_template_data( string $document_class_name, $template_data ): bool {
+		if ( ! is_array( $template_data ) ) {
+			return false;
+		}
+
+		if ( ! isset( $template_data['title'] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $template_data['content'] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $template_data['version'] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $template_data['settings'] ) ) {
+			return false;
+		}
+
+		if ( empty( $template_data['content'][0]['elements'][0]['elements'] ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
