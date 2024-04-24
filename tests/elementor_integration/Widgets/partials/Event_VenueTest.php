@@ -31,8 +31,7 @@ class Event_VenueTest extends WPTestCase {
 			'Elementor\Controls_Stack',
 			'get_settings_for_display',
 			[
-				'header_tag'                  => 'p',
-				'link_name'             => true,
+				'header_tag'            => 'p',
 				'show_name'             => true,
 				'show_header'           => true,
 				'show_address'          => true,
@@ -114,25 +113,6 @@ class Event_VenueTest extends WPTestCase {
 	 * string is the string to be checked for in the rendered HTML.
 	 */
 	public function data_provider(): Generator {
-		yield 'link_name' => [
-			static function () {
-				return [
-					'label'      => 'link_name',
-					'value'      => true,
-					'string'     => 'tec-events-elementor-event-widget__venue-name-link',
-				];
-			},
-		];
-		yield 'no_link_name' => [
-			static function () {
-				return [
-					'label'      => 'link_name',
-					'value'      => false,
-					'string'     => 'tec-events-elementor-event-widget__venue-name-link',
-					'invert'	 => true,
-				];
-			},
-		];
 		yield 'show_name' => [
 			static function () {
 				return [

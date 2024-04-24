@@ -68,7 +68,6 @@ class Event_Venue extends Abstract_Widget {
 		return [
 			// Show toggles.
 			// Boolean conversion of yes/no strings. Default true.
-			'link_name'             => tribe_is_truthy( $settings['link_venue_name'] ?? true ),
 			'show_name'             => tribe_is_truthy( $settings['show_venue_name'] ?? true ),
 			'show_widget_header'    => tribe_is_truthy( $settings['show_venue_header'] ?? true ),
 			'show_address'          => tribe_is_truthy( $settings['show_venue_address'] ?? true ),
@@ -132,7 +131,6 @@ class Event_Venue extends Abstract_Widget {
 			1 => [
 				'id'         => 1,
 				'name'       => _x( 'Mock Venue', 'A mock venue name for the widget preview', 'the-events-calendar' ),
-				'name_link'  => 'https://theeventscalendar.com',
 				'address'    => $preview_address,
 				'phone'      => $phone,
 				'phone_link' => $this->format_phone_link( $phone ),
@@ -147,7 +145,6 @@ class Event_Venue extends Abstract_Widget {
 			$args['venues'][2] = [
 				'id'         => 2,
 				'name'       => _x( 'Mock Venue 2', 'A mock venue name for the widget preview', 'the-events-calendar' ),
-				'name_link'  => 'https://theeventscalendar.com',
 				'address'    => $preview_address,
 				'phone'      => $phone,
 				'phone_link' => $this->format_phone_link( $phone ),
@@ -180,7 +177,6 @@ class Event_Venue extends Abstract_Widget {
 			$venues[ $venue_id ] = [
 				'id'         => $venue_id,
 				'name'       => tribe_get_venue( $venue_id ),
-				'name_link'  => tribe_is_truthy( $settings['link_venue_name'] ?? true ) ? tribe_get_venue_link( $venue_id, false ) : false,
 				'address'    => tribe_get_full_address( $venue_id ),
 				'phone'      => $phone,
 				'phone_link' => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
@@ -587,21 +583,6 @@ class Event_Venue extends Abstract_Widget {
 			[
 				'id'        => 'venue_name_html_tag',
 				'label'     => esc_html__( 'HTML Tag', 'the-events-calendar' ),
-				'condition' => [
-					'show_venue_name' => 'yes',
-				],
-			]
-		);
-
-		// Show Venue Header control.
-		$this->add_control(
-			'link_venue_name',
-			[
-				'label'     => esc_html__( 'Link to Venue Profile', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
 				'condition' => [
 					'show_venue_name' => 'yes',
 				],
