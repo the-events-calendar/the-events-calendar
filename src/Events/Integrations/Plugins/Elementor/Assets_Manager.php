@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_Static;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Importer;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use TEC\Common\Contracts\Provider\Controller;
@@ -71,6 +72,7 @@ class Assets_Manager extends Controller {
 		// Enqueue the widget styles when the widget is rendered. Both in the editor preview and on the frontend.
 		add_action( 'elementor/widget/before_render_content', [ $this, 'action_enqueue_widget_styles' ] );
 		add_action( 'elementor/preview/enqueue_styles', [ $this, 'enqueue_preview_styles' ] );
+		add_action( 'elementor/preview/enqueue_styles', [ $this, 'action_enqueue_editor_styles' ] );
 
 		// register and enqueue the icon styles for our widgets.
 		add_action( 'elementor/editor/before_enqueue_styles', [ $this, 'action_register_editor_styles' ] );
@@ -117,6 +119,19 @@ class Assets_Manager extends Controller {
 			tribe( $widget )->register_style();
 		}
 
+		// setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
+		tribe_asset(
+			tribe( 'tec.main' ),
+			'tec-events-elementor-icons',
+			'integrations/plugins/elementor/icons.css',
+			[],
+			null,
+			[
+				'groups' => [ static::$icon_group_key ],
+			]
+		);
+
+
 		do_action( 'tec_events_elementor_register_widget_assets', $this );
 	}
 
@@ -150,6 +165,8 @@ class Assets_Manager extends Controller {
 		tribe_asset_enqueue( 'tribe-events-v2-single-skeleton' );
 		tribe_asset_enqueue( 'tribe-events-v2-single-skeleton-full' );
 		tribe_asset_enqueue( 'tec-events-elementor-widgets-base-styles' );
+
+		do_action( 'tec_events_elementor_enqueue_frontend_assets', $this );
 	}
 
 	/**
@@ -235,7 +252,7 @@ class Assets_Manager extends Controller {
 			return;
 		}
 
-		$template = tribe( Importer::class )->get_template();
+		$template = tribe( Importer::class )->get_template( Event_Single_Static::class );
 		if ( null === $template ) {
 			return;
 		}

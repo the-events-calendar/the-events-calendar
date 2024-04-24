@@ -17,31 +17,29 @@
 		font-family: var(--tec-font-family-sans-serif);
 		font-weight: var(--tec-font-weight-bold);
 		padding: var(--tec-spacer-1) var(--tec-spacer-2);
-		width: 200px;
+		width: auto;
 
 		&:hover {
 			background-color: var(--tec-color-accent-primary);
 			color: var(--tec-color-background);
-
-			.tec-events-elementor-event-widget__export-dropdown-icon path {
-				fill: #fff;
-			}
 		}
 	}
 
 	.tec-events-elementor-event-widget__export-dropdown-export-icon {
 		font-family: 'eicons';
-		margin-right: var(--tec-spacer-1);
+		margin: 0 var(--tec-spacer-1) 0 0;
 		padding: 0;
 	}
 
 	.tec-events-elementor-event-widget__export-dropdown-icon {
+		height: 0.5em;
 		margin-left: var(--tec-spacer-1);
 		padding: 0;
-		vertical-align: text-bottom;
+		vertical-align: middle;
+		width: 1em;
 
 		path {
-			fill: #334aff;
+			fill: currentColor;
 		}
 
 		&.tec-events-elementor-event-widget__export-dropdown-icon--active {
@@ -65,13 +63,18 @@
 		#tribe-events-pg-template & {
 			list-style: none;
 		}
+
+		/* Override for the Elementor editor preview */
+		.elementor-editor-active & {
+			z-index: 9999;
+		}
 	}
 
 	.tec-events-elementor-event-widget__export-dropdown-list-item {
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: var(--tec-font-size-2);
 		font-weight: var(--tec-font-weight-regular);
-		line-height: var--tec-line-height-2);
+		line-height: var(--tec-line-height-2);
 		margin-bottom: var(--tec-spacer-0);
 		padding: var(--tec-spacer-0) var(--tec-spacer-4);
 		text-wrap: nowrap;
@@ -89,5 +92,6 @@
 	.tec-events-elementor-event-widget__export-dropdown-link {
 		border-bottom-color: currentColor;
 		color: var(--tec-color-text-primary);
+		padding: 0;
 	}
 }

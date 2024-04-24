@@ -20,10 +20,10 @@
  */
 
 // No event, no render.
-if ( empty( $event ) ) {
+if ( ! $this->get_widget()->should_show_mock_data() && ! $this->has_event() ) {
 	return;
 }
 
-$this->template( 'event-status/passed' );
+$this->template( 'views/integrations/elementor/widgets/event-status/passed' );
 
-$this->template( 'event-status/status' );
+$this->template( 'views/integrations/elementor/widgets/event-status/status' );

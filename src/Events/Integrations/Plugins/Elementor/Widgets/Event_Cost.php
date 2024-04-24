@@ -72,14 +72,18 @@ class Event_Cost extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		$settings = $this->get_settings_for_display();
+		$id   = $this->get_event_id();
+		$args = $this->template_args();
 
-		return [
-			'show_header' => tribe_is_truthy( $settings['show_header'] ?? false ),
-			'header_tag'  => $this->get_header_tag(),
-			'html_tag'    => $this->get_html_tag(),
-			'cost'        => '$10',
-		];
+		if ( ! empty( $id )
+			&& ( ! empty( $args['categories'] ) || tribe_is_event( $id ) )
+		) {
+			return $args;
+		}
+
+		$args['cost'] = '$10';
+
+		return $args;
 	}
 
 	/**

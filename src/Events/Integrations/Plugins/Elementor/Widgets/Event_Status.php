@@ -16,6 +16,7 @@ use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Text_Stroke;
 use Elementor\Group_Control_Typography;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use Tribe\Events\Event_Status\Status_Labels;
 
 /**
  * Class Widget_Event_Status
@@ -27,6 +28,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 class Event_Status extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
+	use Traits\Event_Query;
 
 	/**
 	 * Widget slug.
@@ -56,33 +58,26 @@ class Event_Status extends Abstract_Widget {
 	 * @return array The template args.
 	 */
 	public function template_args(): array {
-		$event = tribe_get_event( $this->get_event_id() );
+		$event = $this->get_event();
 
-		if (
-			empty( $event )
-			|| ! $event instanceof \WP_Post
-			|| empty( $event->event_status )
-		) {
+		if ( empty( $event ) ) {
 			return [];
 		}
 
-		$is_passed = tribe_is_event( $event->ID ) && tribe_is_past_event( get_post( $event->ID ) );
-		$reason    = $event->event_status_reason;
+		$is_passed = tribe_is_event( $event ) && tribe_is_past_event( get_post( $event ) );
 		$settings  = $this->get_settings_for_display();
-
 
 		return [
 			'description_class'  => $this->get_status_description_class(),
 			'label_class'        => $this->get_status_label_class(),
-			'status'             => $event->event_status,
+			'status'             => $event->event_status ?? '',
 			'status_label'       => $this->get_status_label( $event ),
-			'status_reason'      => $reason,
+			'status_reason'      => $event->event_status_reason ?? '',
 			'show_status'        => tribe_is_truthy( $settings['show_status'] ?? true ),
 			'show_passed'        => tribe_is_truthy( $settings['show_passed'] ?? true ),
 			'is_passed'          => tribe_is_truthy( $is_passed ),
 			'passed_label'       => $this->get_passed_label_text(),
 			'passed_label_class' => $this->get_passed_label_class(),
-			'event'              => $event,
 		];
 	}
 
@@ -94,18 +89,23 @@ class Event_Status extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$event = $this->get_event();
+
+		if ( tribe_is_event( $event ) ) {
+			return $this->template_args();
+		}
+
 		return [
 			'description_class'  => $this->get_status_description_class(),
 			'label_class'        => $this->get_status_label_class(),
-			'status'             => 'postponed',
-			'status_label'       => 'Postponed',
-			'status_reason'      => __( 'No reason provided.', 'the-events-calendar' ),
-			'show_status'        => true,
-			'show_passed'        => true,
+			'status'             => __( 'postponed', 'the-events-calendar' ),
+			'status_label'       => __( 'postponed', 'the-events-calendar' ),
+			'status_reason'      => __( '(DEMO) This event has been postponed.', 'the-events-calendar' ),
+			'show_status'        => tribe_is_truthy( $settings['show_status'] ?? true ),
+			'show_passed'        => tribe_is_truthy( $settings['show_passed'] ?? true ),
 			'is_passed'          => true,
 			'passed_label'       => $this->get_passed_label_text(),
 			'passed_label_class' => $this->get_passed_label_class(),
-			'event'              => true,
 		];
 	}
 
@@ -134,7 +134,7 @@ class Event_Status extends Abstract_Widget {
 			return null;
 		}
 
-		$status_labels = new \Tribe\Events\Event_Status\Status_Labels();
+		$status_labels = new Status_Labels();
 		$method        = 'get_' . $event->event_status . '_label';
 
 		if ( ! method_exists( $status_labels, $method ) ) {
@@ -230,42 +230,6 @@ class Event_Status extends Abstract_Widget {
 	}
 
 	/**
-	 * Render the widget output in the editor.
-	 *
-	 * Written as a Backbone JavaScript template and used to generate the live preview.
-	 *
-	 * @since 1.1.0
-	 *
-	 * @access protected
-	 */
-	protected function content_template() {
-		$status_labels   = new \Tribe\Events\Event_Status\Status_Labels();
-		$canceled_label  = esc_html( $status_labels->get_canceled_label() );
-		$postponed_label = esc_html( $status_labels->get_postponed_label() );
-		// Preview postponed stati if setting(s) are enabled.
-		?>
-		<# if ( settings.show_passed_status_preview && settings.show_passed ) { #>
-			<p <?php tribe_classes( $this->get_passed_label_class() ); ?>><?php echo wp_kses_post( $this->get_passed_label_text() ); ?></p>
-		<# } #>
-		<div>
-			<# if ( settings.show_postponed_status_preview && settings.show_status ) { #>
-				<div class="<?php echo esc_attr( $this->get_widget_class() ); ?> ">
-					<div <?php tribe_classes( $this->get_status_label_class(), $this->get_status_class( 'postponed' ) ); ?>><?php echo esc_html( $postponed_label ); ?></div>
-					<div class="<?php echo esc_attr( $this->get_status_description_class() ); ?>">This event has been postponed.</div>
-				</div>
-				<br />
-			<# } #>
-			<# if ( settings.show_canceled_status_preview && settings.show_status ) { #>
-			<div class="<?php echo esc_attr( $this->get_widget_class() ); ?>">
-				<div <?php tribe_classes( $this->get_status_label_class(), $this->get_status_class( 'canceled' ) ); ?>"><?php echo esc_html( $canceled_label ); ?></div>
-				<div class="<?php echo esc_attr( $this->get_status_description_class() ); ?>">This event has been canceled.</div>
-			</div>
-			<# } #>
-		</div>
-		<?php
-	}
-
-	/**
 	 * Register controls for the widget.
 	 *
 	 * @since TBD
@@ -284,7 +248,7 @@ class Event_Status extends Abstract_Widget {
 	 */
 	protected function content_panel() {
 		$this->content_options();
-		$this->preview_options();
+		$this->add_event_query_section();
 	}
 
 	/**
@@ -320,7 +284,7 @@ class Event_Status extends Abstract_Widget {
 			[
 				'type'            => Controls_Manager::RAW_HTML,
 				'raw'             => esc_html__(
-					'The following toggles control front-end display of the stati. They also affect the preview shown here.',
+					'The toggles below let you control the visibility of message banners related to:',
 					'the-events-calendar'
 				),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
@@ -330,79 +294,16 @@ class Event_Status extends Abstract_Widget {
 		$this->add_shared_control(
 			'show',
 			[
-				'id'      => 'show_passed',
-				'label'   => esc_html__( 'Show Event Passed', 'the-events-calendar' ),
-				'default' => 'no',
+				'id'    => 'show_passed',
+				'label' => esc_html__( 'Show Event Passed', 'the-events-calendar' ),
 			]
 		);
 
 		$this->add_shared_control(
 			'show',
 			[
-				'id'      => 'show_status',
-				'label'   => esc_html__( 'Show Event Status', 'the-events-calendar' ),
-				'default' => 'no',
-			]
-		);
-
-		$this->end_controls_section();
-	}
-
-	/**
-	 * Add controls for preview of the event status widget.
-	 *
-	 * @since TBD
-	 */
-	protected function preview_options() {
-		$this->start_controls_section(
-			'preview_section_title',
-			[
-				'label' => esc_html__( 'Preview Controls', 'the-events-calendar' ),
-			]
-		);
-
-		$this->add_control(
-			'preview_notice',
-			[
-				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__(
-					'The following toggles are for preview purposes only. They allow you to see a generic preview of what each status would look like, as if it applied.',
-					'the-events-calendar'
-				),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
-			]
-		);
-
-		$this->add_control(
-			'show_passed_status_preview',
-			[
-				'label'     => esc_html__( 'Preview Passed', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'show_postponed_status_preview',
-			[
-				'label'     => esc_html__( 'Preview Postponed', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'show_canceled_status_preview',
-			[
-				'label'     => esc_html__( 'Preview Canceled', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
+				'id'    => 'show_status',
+				'label' => esc_html__( 'Show Event Status', 'the-events-calendar' ),
 			]
 		);
 
@@ -601,5 +502,45 @@ class Event_Status extends Abstract_Widget {
 		);
 
 		$this->end_controls_section();
+	}
+
+	/**
+	 * Get the message to show when the widget is empty.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The message shown when an event widget is empty.
+	 */
+	public function get_empty_message(): string {
+		return esc_html_x(
+			'The Event Status widget only shows content if the chosen event has passed, been canceled, or postponed.',
+			'The message shown when the event status widget is empty.',
+			'the-events-calendar'
+		);
+	}
+
+	/**
+	 * Conditions for showing the empty widget template in the editor.
+	 *
+	 * @since TBD
+	 */
+	protected function empty_conditions(): bool {
+		$event = $this->get_event();
+
+		if ( ! tribe_is_event( $event ) ) {
+			return true;
+		}
+
+		$settings = $this->get_settings_for_display();
+
+		if ( isset( $settings['show_passed'] ) && tribe_is_past_event( $event ) ) {
+			return false;
+		}
+
+		if ( isset( $settings['show_status'] ) && ! empty( $event->event_status ) ) {
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -19,11 +19,9 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Website;
 
-if ( ! $this->has_event() ) {
+if ( ! $this->get_widget()->should_show_mock_data() && ! $this->has_event() ) {
 	return;
 }
-
-$website = tribe_get_event_website_url( $this->get_event() );
 
 if ( empty( $website ) ) {
 	return;

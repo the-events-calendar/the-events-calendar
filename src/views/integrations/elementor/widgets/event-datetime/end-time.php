@@ -13,6 +13,7 @@
  * @var bool            $show_header       Whether to show the header.
  * @var bool            $show_time         Whether to show the time.
  * @var bool            $show_year         Whether to show the year.
+ * @var bool            $show_time_zone    Whether to show the time zone.
  * @var string          $all_day_text      The all day text.
  * @var string          $end_date          The formatted end date. (hidden if show_date is false)
  * @var string          $end_time          The formatted end time. (hidden if show_time is false)
@@ -27,12 +28,18 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
-if ( ! $show_time || ! $end_time ) {
+if ( ! $show_time || ! $end_time || $is_all_day ) {
 	return;
 }
 ?>
-<?php if ( $show_date && $end_date ) : ?>
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/separator' ); ?>
+<?php if ( $show_time && $end_time && $show_date && $end_date && ! $is_same_day ) : ?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/time-separator' ); ?>
+<?php endif; ?>
+
+<?php if ( ( $show_time && $end_time ) && ( ! $show_date || ! $end_date || $is_same_day ) ) : ?>
+	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/range-separator' ); ?>
 <?php endif; ?>
 
 <span <?php tribe_classes( $widget->get_time_class(), $widget->get_end_time_class() ); ?>><?php echo esc_html( $end_time ); ?></span>
+
+<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/timezone' ); ?>

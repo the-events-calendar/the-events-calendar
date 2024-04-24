@@ -13,7 +13,7 @@ use Elementor\Modules\Library\Documents\Library_Document;
 use Elementor\Core\DocumentTypes\Post;
 
 /**
- * Class Event_Single
+ * Class Event_Single_Static
  *
  * Represents a custom Elementor document for TEC, tailored for users to create single event templates.
  *
@@ -21,7 +21,7 @@ use Elementor\Core\DocumentTypes\Post;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Documents
  */
-class Event_Single extends Library_Document {
+class Event_Single_Static extends Library_Document {
 
 	/**
 	 * Get document properties.
@@ -61,7 +61,7 @@ class Event_Single extends Library_Document {
 	 * @return string Document type.
 	 */
 	public static function get_type(): string {
-		return 'tec_event_single';
+		return 'tec_event_single_static';
 	}
 
 	/**
@@ -135,5 +135,23 @@ class Event_Single extends Library_Document {
 		$config['default_route'] = 'templates/my-templates';
 
 		return $config;
+	}
+
+	/**
+	 * Modify the template data before importing.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public static function prepare_template_data( $data ): array {
+		$widgets = $data['content'][0]['elements'][0]['elements'];
+
+		// Remove the theme-post-content from widget.
+		$widgets = wp_filter_object_list( $widgets, [ 'widgetType' => 'theme-post-content' ], 'NOT' );
+
+		$data['content'][0]['elements'][0]['elements'] = $widgets;
+
+		return $data;
 	}
 }

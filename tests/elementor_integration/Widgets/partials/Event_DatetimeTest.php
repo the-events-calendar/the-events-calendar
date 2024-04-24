@@ -49,10 +49,11 @@ class Event_DatetimeTest extends WPTestCase {
 			\Elementor\Controls_Stack::class,
 			'get_settings_for_display',
 			[
-				'html_tag'  => 'p',
-				'show_year' => false,
-				'show_date' => true,
-				'show_time' => true,
+				'html_tag'      => 'p',
+				'show_year'     => false,
+				'show_date'     => true,
+				'show_time'     => true,
+				'show_timezone' => false,
 			],
 			false
 		);
@@ -70,8 +71,6 @@ class Event_DatetimeTest extends WPTestCase {
 	}
 
 	public function mock_data( $data ) {
-
-
 		return [
 			'html_tag'          => 'p', // default <p>
 			'widget'            => $this->widget, // needs to be an object
@@ -87,6 +86,8 @@ class Event_DatetimeTest extends WPTestCase {
 			'is_all_day'        => false,
 			'all_day_text'      => 'All day',
 			'is_same_start_end' => false,
+			'show_timezone'     => false,
+			'time_zone_label'   => 'EDT',
 		];
 	}
 
@@ -121,6 +122,15 @@ class Event_DatetimeTest extends WPTestCase {
 					'label'  => 'show_time',
 					'value'  => false,
 					'string' => '',
+				];
+			},
+		];
+		yield 'show_timezone'     => [
+			static function () {
+				return [
+					'label'  => 'show_timezone',
+					'value'  => true,
+					'string' => 'EDT',
 				];
 			},
 		];
@@ -185,7 +195,8 @@ class Event_DatetimeTest extends WPTestCase {
 				return [
 					'label'  => 'is_all_day',
 					'value'  => true,
-					'string' => 'All day',
+					'string' => 'AM', // We don't show specific text, but we do hide the time.
+					'invert' => true,
 					'additional' => [
 						'end_date'    => 'July 4',
 						'end_time'    => '10:00 AM',

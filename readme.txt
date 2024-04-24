@@ -237,6 +237,15 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
 * Tweak - converted some uses of `date()` to `gmdate()` for display in the date settings section. [ECP-1618]
 
+= [6.3.6] 2024-04-09 =
+
+* Fix - Adds timezone offset to the dates in the Outlook subscribe links on event pages. [TEC-4831]
+* Fix - Improve updated views CSS overwrites for buttons and view selector. [TEC-5047]
+* Fix - Resolves an issue where the global posts were not the correct range or sort order. This now stores the ones from the view repository to be used in the WP title filters. [TEC-4845]
+* Fix - Fixes a PHP warning `Undefined array key "venue" in /var/www/html/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 1007`.
+* Tweak - Changed views: `blocks/classic-event-details`, `blocks/event-website`, `v2/components/events-bar/views`, `v2/components/json-ld-data`, `v2/components/subscribe-links/list`, `v2/day/top-bar/datepicker`, `v2/list/top-bar/datepicker`, `v2/month/top-bar/datepicker`
+* Language - 0 new strings added, 15 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.3.5] 2024-03-20 =
 
 * Tweak - Updated version of tribe-common with fixes for ECP.

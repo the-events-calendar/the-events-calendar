@@ -110,13 +110,13 @@ class Event_Export extends Abstract_Widget {
 		];
 
 		if ( tribe_is_truthy( $settings['show_gcal_link'] ?? true ) ) {
-			$args                 = $this->add_ical_data( $args );
-			$args['ical']['link'] = '#';
+			$args                 = $this->add_gcal_data( $args );
+			$args['gcal']['link'] = '#';
 		}
 
 		if ( tribe_is_truthy( $settings['show_ical_link'] ?? true ) ) {
-			$args                 = $this->add_gcal_data( $args );
-			$args['gcal']['link'] = '#';
+			$args                 = $this->add_ical_data( $args );
+			$args['ical']['link'] = '#';
 		}
 
 		if ( tribe_is_truthy( $settings['show_outlook_365_link'] ?? true ) ) {
@@ -622,7 +622,7 @@ class Event_Export extends Abstract_Widget {
 	}
 
 	/**
-	 * Add controls for text styling of the Google & iCal export button.
+	 * Add controls for text styling of the Google & iCal export button on hover.
 	 *
 	 * @since TBD
 	 */
@@ -683,7 +683,7 @@ class Event_Export extends Abstract_Widget {
 			'typography',
 			[
 				'prefix'   => 'dropdown',
-				'selector' => '{{WRAPPER}} .' . $this->get_list_class(),
+				'selector' => '{{WRAPPER}} .' . $this->get_link_class(),
 				'label'    => esc_html__( 'Dropdown Typography', 'the-events-calendar' ),
 			]
 		);

@@ -26,6 +26,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 class Event_Image extends Abstract_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
+	use Traits\Event_Query;
 
 	/**
 	 * Widget slug.
@@ -35,6 +36,16 @@ class Event_Image extends Abstract_Widget {
 	 * @var string
 	 */
 	protected static string $slug = 'event_image';
+
+	/**
+	 * Whether the widget has styles to register/enqueue.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
+	protected static bool $has_styles = true;
+
 
 	/**
 	 * Create the widget title.
@@ -63,6 +74,10 @@ class Event_Image extends Abstract_Widget {
 
 		$size = $image_size === 'custom' ? $settings['event_image_custom_dimension'] : $image_size;
 
+		if ( empty( $event_id ) ) {
+			return [];
+		}
+
 		$image = wp_get_attachment_image(
 			get_post_thumbnail_id( $event_id ),
 			$size,
@@ -84,6 +99,17 @@ class Event_Image extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
+		$id   = $this->get_event_id();
+		$args = $this->template_args();
+
+		if ( tribe_is_event( $id ) ) {
+			return $args;
+		}
+
+		if ( ! empty( $args['image'] ) ) {
+			return $args;
+		}
+
 		return [
 			'image' => '<img src="' . tribe_resource_url( 'images/placeholder.png' ) . '" class="elementor-image" />',
 		];
@@ -96,6 +122,10 @@ class Event_Image extends Abstract_Widget {
 	 */
 	protected function content_template(): void {
 		$event_id = $this->get_event_id();
+
+		if ( empty( $event_id ) ) {
+			return;
+		}
 		?>
 		<#
 		var image = {
@@ -132,6 +162,7 @@ class Event_Image extends Abstract_Widget {
 	 */
 	protected function content_panel() {
 		$this->content_options();
+		$this->add_event_query_section();
 	}
 
 	/**

@@ -16,7 +16,7 @@
 							"settings": {},
 							"elements": [],
 							"isInner": false,
-							"widgetType": "tec_elementor_widget_event_backlink",
+							"widgetType": "tec_events_elementor_widget_event_calendar_link",
 							"elType": "widget"
 						},
 						{
@@ -24,7 +24,7 @@
 							"settings": {},
 							"elements": [],
 							"isInner": false,
-							"widgetType": "tec_elementor_widget_event_status",
+							"widgetType": "tec_events_elementor_widget_event_status",
 							"elType": "widget"
 						},
 						{
@@ -72,6 +72,14 @@
 							"elements": [],
 							"isInner": false,
 							"widgetType": "tec_events_elementor_widget_event_image",
+							"elType": "widget"
+						},
+						{
+							"id": "7d812fbe",
+							"settings": [],
+							"elements": [],
+							"isInner": false,
+							"widgetType": "theme-post-content",
 							"elType": "widget"
 						},
 						{
@@ -272,6 +280,6 @@
 		"thumbnail": false
 	},
 	"version": "0.4",
-	"title": "The Events Calendar - Starter",
-	"type": "tec_event_single"
+	"title": "The Events Calendar &mdash; Starter",
+	"type": "tec_event_single_static"
 }

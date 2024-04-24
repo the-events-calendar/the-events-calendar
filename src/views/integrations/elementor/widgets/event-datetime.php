@@ -34,13 +34,12 @@ if ( ! $this->get_widget()->should_show_mock_data() && ! $this->has_event() ) {
 
 $widget = $this->get_widget();
 ?>
-<?php
-$this->template( 'views/integrations/elementor/widgets/event-datetime/header' );
-?>
-<<?php echo tag_escape( $html_tag ); ?> <?php tribe_classes( $widget->get_widget_class() ); ?>>
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/start-date' ); ?>
-
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/all-day' ); ?>
-
-	<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/end-date' ); ?>
-</<?php echo tag_escape( $html_tag ); ?>>
+<div <?php tribe_classes( $widget->get_widget_class() . '-wrapper' ); ?>>
+	<?php
+	$this->template( 'views/integrations/elementor/widgets/event-datetime/header' );
+	?>
+	<<?php echo tag_escape( $html_tag ); ?> <?php tribe_classes( $widget->get_widget_class() ); ?>>
+		<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/start-date' ); ?>
+		<?php $this->template( 'views/integrations/elementor/widgets/event-datetime/end-date' ); ?>
+	<?php echo '</' . tag_escape( $html_tag ) . '>'; ?>
+</div>

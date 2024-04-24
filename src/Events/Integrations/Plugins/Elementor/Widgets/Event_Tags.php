@@ -66,8 +66,8 @@ class Event_Tags extends Abstract_Widget {
 		$settings   = $this->get_settings_for_display();
 		$tags       = [];
 
-		if ( ! $event_tags || is_wp_error( $event_tags ) ) {
-			return [];
+		if ( empty( $event_tags ) || is_wp_error( $event_tags ) ) {
+			$event_tags = [];
 		}
 
 		foreach ( $event_tags as $tag ) {
@@ -92,15 +92,17 @@ class Event_Tags extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		return [
-			'show_tags_header' => tribe_is_truthy( $settings['show_tags_header'] ?? true ),
-			'header_tag'       => $settings['header_tag'] ?? 'h3',
-			'tags'             => [
+		$args = (array) $this->template_args();
+		$id   = $this->get_event_id();
+
+		if ( empty( $args['tags'] ) && ! tribe_is_event( $id ) ) {
+			$args['tags'] = [
 				'demo-tag-1' => '#',
 				'demo-tag-2' => '#',
-			],
-			'label_text'       => $this->get_header_text(),
-		];
+			];
+		}
+
+		return $args;
 	}
 
 	/**

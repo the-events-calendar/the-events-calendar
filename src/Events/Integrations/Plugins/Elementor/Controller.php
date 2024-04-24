@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor;
 
+use Elementor\Elements_Manager;
 use WP_Post;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
 use TEC\Events\Integrations\Integration_Abstract;
@@ -117,7 +118,7 @@ class Controller extends Integration_Abstract {
 	 */
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
-		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'disable_blocks' ] );
+		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
 	}
 
 	/**
@@ -259,15 +260,41 @@ class Controller extends Integration_Abstract {
 
 	/**
 	 * Disables the Blocks Editor on posts that have been edited with Elementor.
+     * By filtering them out of the post content on display.
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $blocks_enabled Whether the Blocks Editor is enabled or not.
+	 * @param string $content The post content.
 	 *
-	 * @return bool
+	 * @return string The modified post content.
 	 */
-	public function disable_blocks( $blocks_enabled ): bool {
-		return $this->built_with_elementor() ? false : $blocks_enabled;
+	public function disable_blocks_on_display( $content ): string {
+		global $post;
+
+        // Not a post.
+		if ( ! $post instanceof WP_Post ) {
+			return $content;
+		}
+
+        // Not an event.
+		if ( ! tribe_is_event( $post ) ) {
+			return $content;
+		}
+
+		if (
+            // Not an event edited with Elementor.
+            // Or one having an Elementor template applied.
+			! tribe( Template_Controller::class )->is_override()
+		) {
+			return $content;
+		}
+
+        // Remove TEC blocks when displayed in an elementor widget.
+		return preg_replace(
+            '/<!-- wp:tribe.*-->/miU',
+            '',
+            $content
+        );
 	}
 
 	/**
@@ -301,6 +328,17 @@ class Controller extends Integration_Abstract {
 
 		$elementor_edit = get_post_meta( $post_id, Document::BUILT_WITH_ELEMENTOR_META_KEY, true );
 
+		/**
+		 * Filters whether the post was built with Elementor.
+		 *
+		 * Specifically only filtering for Events and takes in consideration if we are looking at a preview request
+		 * and uses the same meta as Elementor itself to check, see `Document::BUILT_WITH_ELEMENTOR_META_KEY`.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $elementor_edit Whether the post was built with Elementor.
+		 * @param int $post_id The post ID.
+		 */
 		return apply_filters( 'tec_events_elementor_built_with_elementor', $elementor_edit, $post_id );
 	}
 

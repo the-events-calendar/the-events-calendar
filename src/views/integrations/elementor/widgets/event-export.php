@@ -64,7 +64,7 @@ $links_list = [
 	],
 ];
 
-if ( ! $show ) {
+if ( empty( $show ) ) {
 	return;
 }
 ?>
@@ -84,13 +84,14 @@ if ( ! $show ) {
 
 		<script>
 			// Some JS to toggle the dropdown, todo: maybe move this to a separate file?
-			const exportButton = document.querySelector( ".<?php echo esc_attr( $widget->get_button_class() ); ?>" );
-			const exportDropdownContent = document.querySelector( ".<?php echo esc_attr( $widget->get_content_class() ); ?>" );
-			const exportDropdownIcon = document.querySelector( ".<?php echo esc_attr( $widget->get_dropdown_icon_class() ); ?>" );
+			var exportButton = document.querySelector( ".<?php echo esc_attr( $widget->get_button_class() ); ?>" );
+			var exportDropdownContent = document.querySelector( ".<?php echo esc_attr( $widget->get_content_class() ); ?>" );
+			var exportDropdownIcon = document.querySelector( ".<?php echo esc_attr( $widget->get_dropdown_icon_class() ); ?>" );
+
 			exportButton.addEventListener(
 				"click",
 				function () {
-					const isClosed = exportDropdownContent.style.display !== "block";
+					let isClosed = exportDropdownContent.style.display !== "block";
 					exportButton.ariaExpanded = isClosed ? "true" : "false"; // Update aria-expanded.
 					exportDropdownContent.style.display = isClosed ? "block" : "none"; // Toggle display.
 					exportDropdownIcon.classList.toggle( "<?php echo esc_attr( $widget->get_dropdown_icon_class() ); ?>--active" ); // Toggle arrow direction.

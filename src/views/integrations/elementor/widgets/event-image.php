@@ -14,7 +14,7 @@
 
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Image;
 
-if ( ! $image ) {
+if ( empty( $image ) ) {
 	return;
 }
 ?>

@@ -82,14 +82,20 @@ class Event_Categories extends Abstract_Widget {
 	 * @return array The template args for the preview.
 	 */
 	protected function preview_args(): array {
-		$settings = $this->get_settings_for_display();
+		$args     = $this->template_args();
+		$event_id = $this->get_event_id();
 
-		return [
-			'show_header' => tribe_is_truthy( $settings['show_categories_header'] ?? true ),
-			'header_tag'  => $settings['categories_header_tag'] ?? 'h3',
-			'header_text' => $this->get_header_text(),
-			'categories'  => $this->do_preview_categories(),
-		];
+		if ( tribe_is_event( $event_id ) ) {
+			return $args;
+		}
+
+		if ( ! empty( $args['categories'] ) ) {
+			return $args;
+		}
+
+		$args['categories'] = $this->do_preview_categories();
+
+		return $args;
 	}
 
 	/**
@@ -272,10 +278,10 @@ class Event_Categories extends Abstract_Widget {
 		$this->add_shared_control(
 			'tag',
 			[
-				'id'        => 'header_tag',
+				'id'        => 'categories_header_tag',
 				'label'     => esc_html__( 'Header HTML Tag', 'the-events-calendar' ),
 				'condition' => [
-					'show_header' => 'yes',
+					'show_categories_header' => 'yes',
 				],
 			]
 		);
@@ -295,7 +301,7 @@ class Event_Categories extends Abstract_Widget {
 				'label'     => esc_html__( 'Header Styles', 'the-events-calendar' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'show_header' => 'yes',
+					'show_categories_header' => 'yes',
 				],
 			]
 		);
