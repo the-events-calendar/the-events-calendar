@@ -52,9 +52,11 @@ class Rest_Api {
 			$slug,
 			[ $this, 'notice' ],
 			[
-				'type'    => 'error',
-				'dismiss' => 1,
-				'wrap'    => 'p',
+				'type'               => 'error',
+				'dismiss'            => 1,
+				'wrap'               => 'p',
+				'recurring'          => true,
+				'recurring_interval' => 'P7D',
 			],
 			[ $this, 'should_display' ]
 		);
@@ -116,12 +118,17 @@ class Rest_Api {
 			return false;
 		}
 
-		$text = [];
-		// Translators: %s is the "Warning" word in bold.
-		$text[] = sprintf( __( '%s : The Events Calendar REST API endpoints are not accessible! This may be due to a server configuration or another plugin blocking access to the REST API.', 'the-events-calendar' ), '<strong>' . __( 'Warning', 'the-events-calendar' ) . '</strong>' );
-		$text[] = __( 'Please check with your hosting provider or system administrator to ensure that the below is accessible:', 'the-events-calendar' );
-		$text[] = '<p><a href="' . $this->blocked_endpoint . '" target="_blank">' . $this->blocked_endpoint . '</a></p>';
+		$output = sprintf(
+			/* Translators: %1$s and %2$s - opening and closing strong tags, respectively. */
+			__( '%1$sWarning%2$s: The Events Calendar REST API endpoints are not accessible! This may be due to a server configuration or another plugin blocking access to the REST API.', 'the-events-calendar' ),
+			'<strong>',
+			'</strong>'
+		);
+		$output .= '<br />';
+		$output .= __( 'Please check with your hosting provider or system administrator to ensure that the below is accessible:', 'the-events-calendar' );
+		$output .= '<br />';
+		$output .= '<a href="' . $this->blocked_endpoint . '" target="_blank">' . $this->blocked_endpoint . '</a>';
 
-		return implode( '<br />', $text );
+		return $output;
 	}
 }
