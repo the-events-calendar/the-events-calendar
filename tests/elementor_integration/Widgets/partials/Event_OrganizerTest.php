@@ -32,7 +32,6 @@ class Event_OrganizerTest extends WPTestCase {
 			'get_settings_for_display',
 			[
 				'link_organizer_email'          => false,
-				'link_organizer_name'           => true,
 				'link_organizer_phone'          => false,
 				'organizer_email_header_tag'    => 'h3',
 				'organizer_email_header_text'   => 'Email',
@@ -84,7 +83,6 @@ class Event_OrganizerTest extends WPTestCase {
 			$organizers[ $id ] = [
 				'id'         => $id,
 				'name'       => tribe_get_organizer( $id ),
-				'link'       => tribe_get_organizer_link( $id, false ),
 				'phone'      => tribe_get_organizer_phone( $id ),
 				'phone_link' => false,
 				'website'    => tribe_get_organizer_website_link( $id ),
