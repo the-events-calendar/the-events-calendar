@@ -13,9 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
-	 * Create's an Event.
+	 * Creates an Event using the legacy method.
 	 *
-	 * Note: If ONLY the 'VenueID'/'OrganizerID' value is set in the 'Venue'/'Organizer' array,
+	 *  Note: This function is outdated and should be replaced with the [TEC ORM `tribe_events()->create()` method](https://docs.theeventscalendar.com/apis/orm/create/events/).
+	 *
+	 *  Legacy Note:  If ONLY the 'VenueID'/'OrganizerID' value is set in the 'Venue'/'Organizer' array,
 	 * then the specified Venue/Organizer will be associated with this Event without attempting
 	 * to edit the Venue/Organizer. If NO 'VenueID'/'OrganizerID' is passed, but other Venue/Organizer
 	 * data is passed, then a new Venue/Organizer will be created.
@@ -24,13 +26,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * a post_type argument therefore is superfluous as it will be reset to the events post
 	 * type in any case.
 	 *
-	 * @category Events
-	 *
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 *
 	 * @see      wp_insert_post()
 	 * @see      tribe_create_venue()
 	 * @see      tribe_create_organizer()
+	 * @see      Tribe__Repository::create()
 	 *
 	 * @param array $args {
 	 *     An array of elements that make up a post to update or insert. Accepts anything from {@see wp_insert_post()}.
@@ -72,8 +73,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *     @type array  $tags_input              Array of tag names, slugs, or IDs. Default empty.
 	 *     @type array  $tax_input               Array of taxonomy terms keyed by their taxonomy name. Default empty.
 	 *     @type array  $meta_input              Array of post meta values keyed by their post meta key. Default empty.
-
-	 *     @type string $EventStartDate          Start date of event (required).
+ *     @type string $EventStartDate          Start date of event (required).
 	 *     @type string $EventEndDate            End date of event (required).
 	 *     @type bool   $EventAllDay             Set to true if event has no start / end time and should run all day.
 	 *     @type string $EventStartHour          Event start hour (01-12 if `EventStartMeridian` is also passed, else 00-23).
@@ -94,6 +94,10 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * }
 	 *
 	 * @return int|bool ID of the event that was created. False if insert failed.
+	 * @category Events
+	 *
+	 * @version  TBD
+	 * @since    TBD Updated docblock to indicate future deprecation of function
 	 */
 	function tribe_create_event( $args ) {
 		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
