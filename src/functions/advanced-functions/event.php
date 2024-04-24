@@ -103,7 +103,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Update an Event.
+	 * Update an Event using the legacy method.
+	 *
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_events()->save()` method](https://docs.theeventscalendar.com/apis/orm/basics/#save).
 	 *
 	 * @category Events
 	 *
@@ -111,11 +113,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @see      wp_update_post()
 	 * @see      tribe_create_event()
+	 * @see      Tribe__Repository::save()
 	 *
 	 * @param int|bool   $postId  ID of the event to be modified.
 	 * @param array      $args    Args for updating the post. See {@link tribe_create_event()} for more info.
 	 *
 	 * @return int|bool ID of the event that was created. False if update failed.
+	 *
+	 * @version TBD
+	 * @since   TBD Updated docblock to indicate future deprecation of function.
 	 */
 	function tribe_update_event( $postId, $args ) {
 		$postId = Tribe__Events__API::updateEvent( $postId, $args );
