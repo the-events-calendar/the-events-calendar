@@ -235,6 +235,9 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
+* Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
+* Fix - When creating a new event the Currency symbol, code and position fields are populated from the general settings options. [TEC-5072]
+
 
 = [6.3.6] 2024-04-09 =
 
