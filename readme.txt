@@ -235,6 +235,8 @@ Remember to always make a backup of your database and files before updating!
 = [TBD] TBD =
 
 * Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
+* Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
+* Fix - When creating a new event the Currency symbol, code and position fields are populated from the general settings options. [TEC-5072]
 
 = [6.3.6] 2024-04-09 =
 
