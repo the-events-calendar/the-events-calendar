@@ -67,7 +67,7 @@ class Event_Single_Dynamic extends Single_Base {
 	 * @return string Document name.
 	 */
 	public function get_name(): string {
-		return 'tec_event_single_dynamic';
+		return static::get_type();
 	}
 
 	/**
@@ -78,10 +78,8 @@ class Event_Single_Dynamic extends Single_Base {
 	 * @return string Document type.
 	 */
 	public static function get_type(): string {
-		return 'tec_event_single_base';
+		return 'tec_event_single_dynamic';
 	}
-
-
 
 	/**
 	 * Modify the template data before importing.
