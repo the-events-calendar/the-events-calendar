@@ -92,7 +92,7 @@ class Event_Single_Dynamic extends Single_Base {
 	 */
 	public static function prepare_template_data( $data ): array {
 		// Do not translate this string.
-		$data['title'] = 'The Events Calendar — Dynamic template';
+		$data['title'] = 'The Events Calendar - Dynamic template';
 
 		return $data;
 	}

@@ -280,6 +280,6 @@
 		"thumbnail": false
 	},
 	"version": "0.4",
-	"title": "The Events Calendar — Starter",
+	"title": "The Events Calendar - Starter",
 	"type": "tec_event_single_static"
 }
