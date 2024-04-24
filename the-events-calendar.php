@@ -2,7 +2,7 @@
 /**
  * Plugin Name: The Events Calendar
  * Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
- * Version: 6.3.6
+ * Version: 6.3.7
  * Author: The Events Calendar
  * Author URI: https://evnt.is/1x
  * Text Domain: the-events-calendar
@@ -37,7 +37,7 @@ require_once dirname( TRIBE_EVENTS_FILE ) . '/src/functions/php-min-version.php'
 require_once dirname( TRIBE_EVENTS_FILE ) . '/vendor/autoload.php';
 
 /**
- * Verifies if we need to warn the user about min PHP version and bail to avoid fatals
+ * Verifies if we need to warn the user about min PHP version and bail to avoid fatals.
  */
 if ( tribe_is_not_min_php_version() ) {
 	tribe_not_php_version_textdomain( 'the-events-calendar', TRIBE_EVENTS_FILE );
@@ -72,6 +72,6 @@ require_once dirname( TRIBE_EVENTS_FILE ) . '/src/Tribe/Main.php';
 
 Tribe__Events__Main::instance();
 
-register_activation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'activate' ) );
+register_activation_hook( TRIBE_EVENTS_FILE, [ 'Tribe__Events__Main', 'activate' ] );
 
-register_deactivation_hook( TRIBE_EVENTS_FILE, array( 'Tribe__Events__Main', 'deactivate' ) );
+register_deactivation_hook( TRIBE_EVENTS_FILE, [ 'Tribe__Events__Main', 'deactivate' ] );

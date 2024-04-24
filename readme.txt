@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.2
-Stable tag: 6.3.6
+Stable tag: 6.3.7
 Tested up to: 6.5
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,12 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.3.7] 2024-04-18 =
+
+* Fix - Corrected the missing Venue Website URL within the Event Tickets Email feature. [ET-2019]
+* Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/venue/website`
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.3.6] 2024-04-09 =
 
