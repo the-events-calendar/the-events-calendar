@@ -239,14 +239,21 @@ class Controller extends Controller_Contract {
 	public function get_filtered_block_templates( $template_type = 'wp_template' ): array {
 		$templates = [];
 		if ( $template_type === 'wp_template' ) {
-			$allow_archive = apply_filters( 'tec_allow_archive_block_template', true );
+			/**
+			 * Filter whether the event archive block template should be used.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool $allow_archive Whether the event archive block template should be used.
+			 */
+			$allow_archive = apply_filters( 'tec_events_allow_archive_block_template', true );
 
 			if ( $allow_archive ) {
 				$templates[] = tribe( Archive_Block_Template::class );
 			}
 
 			/**
-			 * Filter whether the single block template should be used.
+			 * Filter whether the event single block template should be used.
 			 *
 			 * @since TBD
 			 *
