@@ -239,10 +239,19 @@ class Controller extends Controller_Contract {
 	public function get_filtered_block_templates( $template_type = 'wp_template' ): array {
 		$templates = [];
 		if ( $template_type === 'wp_template' ) {
-			$templates = [
-				tribe( Archive_Block_Template::class ),
-				tribe( Single_Block_Template::class ),
-			];
+			$allow_archive = apply_filters( 'tec_allow_archive_block_template', true );
+
+			if ( $allow_archive ) {
+				$templates[] = tribe( Archive_Block_Template::class );
+			}
+
+			$allow_single = apply_filters( 'tec_allow_single_block_template', true );
+			if ( $allow_single ) {
+				$templates[] = tribe( Single_Block_Template::class );
+			}
+
+			return $templates;
+
 		}
 
 		/**

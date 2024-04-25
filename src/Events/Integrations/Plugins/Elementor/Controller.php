@@ -119,6 +119,7 @@ class Controller extends Integration_Abstract {
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
+		add_filter( 'tec_allow_single_block_template', [ $this, 'filter_allow_single_block_template' ] );
 	}
 
 	/**
@@ -258,9 +259,33 @@ class Controller extends Integration_Abstract {
 		return $query_args;
 	}
 
+	public function filter_allow_single_block_template( $allow ) {
+		global $post;
+
+		// Not a post.
+		if ( ! $post instanceof WP_Post ) {
+			return $allow;
+		}
+
+		// Not an event.
+		if ( ! tribe_is_event( $post ) ) {
+			return $allow;
+		}
+
+		if (
+			// Not an event edited with Elementor.
+			// Or one having an Elementor template applied.
+			! tribe( Template_Controller::class )->is_override()
+		) {
+			return $allow;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Disables the Blocks Editor on posts that have been edited with Elementor.
-     * By filtering them out of the post content on display.
+	 * By filtering them out of the post content on display.
 	 *
 	 * @since TBD
 	 *
@@ -271,30 +296,30 @@ class Controller extends Integration_Abstract {
 	public function disable_blocks_on_display( $content ): string {
 		global $post;
 
-        // Not a post.
+		// Not a post.
 		if ( ! $post instanceof WP_Post ) {
 			return $content;
 		}
 
-        // Not an event.
+		// Not an event.
 		if ( ! tribe_is_event( $post ) ) {
 			return $content;
 		}
 
 		if (
-            // Not an event edited with Elementor.
-            // Or one having an Elementor template applied.
+			// Not an event edited with Elementor.
+			// Or one having an Elementor template applied.
 			! tribe( Template_Controller::class )->is_override()
 		) {
 			return $content;
 		}
 
-        // Remove TEC blocks when displayed in an elementor widget.
+		// Remove TEC blocks when displayed in an elementor widget.
 		return preg_replace(
-            '/<!-- wp:tribe.*-->/miU',
-            '',
-            $content
-        );
+			'/<!-- wp:tribe.*-->/miU',
+			'',
+			$content
+		);
 	}
 
 	/**
