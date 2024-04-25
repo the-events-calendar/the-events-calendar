@@ -119,6 +119,7 @@ class Controller extends Integration_Abstract {
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
+		add_filter( 'tec_events_allow_single_block_template', [ $this, 'filter_tec_events_allow_single_block_template' ] );
 	}
 
 	/**
@@ -259,8 +260,39 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
+	 * Filters the tec_events_allow_single_block_template flag to disable it for events edited with Elementor.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $allow_single Whether the single block template should be used.
+	 */
+	public function filter_tec_events_allow_single_block_template( bool $allow_single ): bool {
+		global $post;
+
+		// Not a post.
+		if ( ! $post instanceof WP_Post ) {
+			return $allow_single;
+		}
+
+		// Not an event.
+		if ( ! tribe_is_event( $post ) ) {
+			return $allow_single;
+		}
+
+		if (
+			// Not an event edited with Elementor.
+			// Or one having an Elementor template applied.
+			! tribe( Template_Controller::class )->is_override()
+		) {
+			return $allow_single;
+		}
+
+		return false;
+	}
+
+	/**
 	 * Disables the Blocks Editor on posts that have been edited with Elementor.
-     * By filtering them out of the post content on display.
+	 * By filtering them out of the post content on display.
 	 *
 	 * @since TBD
 	 *
@@ -271,30 +303,30 @@ class Controller extends Integration_Abstract {
 	public function disable_blocks_on_display( $content ): string {
 		global $post;
 
-        // Not a post.
+		// Not a post.
 		if ( ! $post instanceof WP_Post ) {
 			return $content;
 		}
 
-        // Not an event.
+		// Not an event.
 		if ( ! tribe_is_event( $post ) ) {
 			return $content;
 		}
 
 		if (
-            // Not an event edited with Elementor.
-            // Or one having an Elementor template applied.
+			// Not an event edited with Elementor.
+			// Or one having an Elementor template applied.
 			! tribe( Template_Controller::class )->is_override()
 		) {
 			return $content;
 		}
 
-        // Remove TEC blocks when displayed in an elementor widget.
+		// Remove TEC blocks when displayed in an elementor widget.
 		return preg_replace(
-            '/<!-- wp:tribe.*-->/miU',
-            '',
-            $content
-        );
+			'/<!-- wp:tribe.*-->/miU',
+			'',
+			$content
+		);
 	}
 
 	/**

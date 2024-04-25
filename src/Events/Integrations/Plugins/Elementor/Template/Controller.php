@@ -92,6 +92,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_filters(): void {
 		add_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
+		add_filter( 'tribe_events_template_single-tribe_events.php', [ $this, 'filter_override_event_template' ] );
 		add_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
