@@ -218,6 +218,22 @@ $tec_events_display_fields += $tec_events_display_template;
 
 $sample_date = strtotime( 'January 15 ' . date( 'Y' ) );
 
+$end_time_options = [
+	'recent'       => esc_html__( 'Recent past events list', 'the-events-calendar' ),
+	'single-event' => esc_html__( 'Single event page', 'the-events-calendar' ),
+	'day'          => esc_html__( 'Day view', 'the-events-calendar' ),
+	'list'         => esc_html__( 'List view', 'the-events-calendar' ),
+	'month'        => esc_html__( 'Month view tooltip', 'the-events-calendar' ),
+];
+/**
+ * Allow other plugins to add their views to the control.
+ *
+ * @since TBD
+ *
+ * @param array $end_time_options The list of views where the end time can be removed.
+ */
+$end_time_options = apply_filters( 'tec_events_display_remove_event_end_time_options', $end_time_options );
+
 // Date Format Settings.
 $tec_events_date_fields     = [
 	'tribeEventsDateFormatSettingsTitle' => [
@@ -332,24 +348,24 @@ $tec_events_date_fields     = [
 			'11:00' => date_i18n( $site_time_format, strtotime( '11:00 am' ) ),
 		],
 	],
-
 	'remove_event_end_time'             => [
 		'type'            => 'checkbox_list',
-		'label'           => esc_html__( 'Remove event end time', 'tec-labs-tec-tweaks' ),
-		'tooltip'         => esc_html__(
-			                     'When this box is checked the end time will no longer display for events that end on the same day when viewing the List and Day views, the recent past events list, the tooltip in Month and Week (Pro) views, as well as on the event page itself.',
-			                     'tec-labs-tec-tweaks'
-		                     ) . '<br><i>' . esc_html__(
-			                     'Source:',
-			                     'tec-labs-tec-tweaks'
-		                     ) . ' <a href="https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/" target="_blank">Remove the Event End Time in Views</a></i>',
-		'options'         => [
-			'recent' => esc_html__( 'Recent past events list', 'tec-labs-tec-tweaks' ),
-			'single-event' => esc_html__( 'Single event page', 'tec-labs-tec-tweaks' ),
-			'day'    => esc_html__( 'Day view', 'tec-labs-tec-tweaks' ),
-			'list'   => esc_html__( 'List view', 'tec-labs-tec-tweaks' ),
-			'month'  => esc_html__( 'Month view tooltip', 'tec-labs-tec-tweaks' ),
-		],
+		'label'           => esc_html__( 'Remove event end time', 'the-events-calendar' ),
+		'tooltip'         => sprintf(
+			// Dev note: This string is multi-line to remove the need for a line break tag.
+			__(
+				/* Translators: %1$s - opening italics tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing italics tag */
+				'When one of these boxes is checked, the end time will no longer display for events that end on the same day when viewing the specified view.
+				%1$s Source: %2$s Remove the Event End Time in Views %3$s%4$s',
+				'the-events-calendar',
+			),
+			'<i>',
+			'<a href="' . esc_url( 'https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/' ) . '" target="_blank">',
+			'</a>',
+			'</i>',
+
+		),
+		'options'         => $end_time_options,
 		'validation_type' => 'options_multi',
 		'can_be_empty'    => true,
 	],
