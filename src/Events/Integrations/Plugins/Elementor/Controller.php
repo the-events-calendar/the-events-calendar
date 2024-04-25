@@ -264,7 +264,7 @@ class Controller extends Integration_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param bool allow_single Whether the single block template should be used.
+	 * @param bool $allow_single Whether the single block template should be used.
 	 */
 	public function filter_tec_events_allow_single_block_template( bool $allow_single ): bool {
 		global $post;
