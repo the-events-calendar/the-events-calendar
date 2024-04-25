@@ -259,7 +259,14 @@ class Controller extends Integration_Abstract {
 		return $query_args;
 	}
 
-	public function filter_allow_single_block_template( $allow ) {
+	/**
+	 * Filters the allow_single_block_template flag to disable it for events edited with Elementor.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $allow
+	 */
+	public function filter_allow_single_block_template( bool $allow ): bool {
 		global $post;
 
 		// Not a post.
