@@ -245,7 +245,14 @@ class Controller extends Controller_Contract {
 				$templates[] = tribe( Archive_Block_Template::class );
 			}
 
-			$allow_single = apply_filters( 'tec_allow_single_block_template', true );
+			/**
+			 * Filter whether the single block template should be used.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool $allow_single Whether the single block template should be used.
+			 */
+			$allow_single = apply_filters( 'tec_events_allow_single_block_template', true );
 			if ( $allow_single ) {
 				$templates[] = tribe( Single_Block_Template::class );
 			}

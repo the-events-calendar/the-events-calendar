@@ -119,7 +119,7 @@ class Controller extends Integration_Abstract {
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
-		add_filter( 'tec_allow_single_block_template', [ $this, 'filter_allow_single_block_template' ] );
+		add_filter( 'tec_events_allow_single_block_template', [ $this, 'filter_tec_events_allow_single_block_template' ] );
 	}
 
 	/**
@@ -260,23 +260,23 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
-	 * Filters the allow_single_block_template flag to disable it for events edited with Elementor.
+	 * Filters the tec_events_allow_single_block_template flag to disable it for events edited with Elementor.
 	 *
 	 * @since TBD
 	 *
-	 * @param bool $allow
+	 * @param bool allow_single Whether the single block template should be used.
 	 */
-	public function filter_allow_single_block_template( bool $allow ): bool {
+	public function filter_tec_events_allow_single_block_template( bool $allow_single ): bool {
 		global $post;
 
 		// Not a post.
 		if ( ! $post instanceof WP_Post ) {
-			return $allow;
+			return $allow_single;
 		}
 
 		// Not an event.
 		if ( ! tribe_is_event( $post ) ) {
-			return $allow;
+			return $allow_single;
 		}
 
 		if (
@@ -284,7 +284,7 @@ class Controller extends Integration_Abstract {
 			// Or one having an Elementor template applied.
 			! tribe( Template_Controller::class )->is_override()
 		) {
-			return $allow;
+			return $allow_single;
 		}
 
 		return false;
