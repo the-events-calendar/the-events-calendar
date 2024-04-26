@@ -6,7 +6,7 @@ import { omit, noop } from 'lodash';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
+import { isSame } from 'date-fns';
 
 /**
  * Wordpress dependencies
@@ -17,6 +17,7 @@ import { Component } from '@wordpress/element';
  * Internal dependencies
  */
 import { YearMonthForm } from '@moderntribe/events/elements';
+import { moment as momentUtil } from '@moderntribe/common/utils';
 import './style.pcss';
 
 const today = new Date();
@@ -67,7 +68,7 @@ export default class Month extends Component {
 				range.to = undefined;
 			}
 
-			if ( range.to && moment( range.to ).isSame( range.from ) ) {
+			if ( range.to && isSameDay( range.from, moment.construct( range.to ) ) ) {
 				range.to = undefined;
 			}
 		} else {

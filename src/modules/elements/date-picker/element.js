@@ -2,9 +2,9 @@
  * External dependencies
  */
 import React from 'react';
-import moment from 'moment';
 import { noop } from 'lodash';
 import { PropTypes } from 'prop-types';
+import { isValid } from 'date-fns';
 
 /**
  * WordPress dependencies
@@ -41,7 +41,7 @@ export default class DatePicker extends Component {
 		}
 
 		return {
-			datetime: toDatePicker( toMoment( datetime ) ),
+			datetime: toDatePicker( momentUtil.construct( datetime ) ),
 		};
 	}
 
@@ -52,14 +52,13 @@ export default class DatePicker extends Component {
 
 		this.state = {
 			...props,
-			datetime: toDatePicker( toMoment( props.datetime ) ),
+			datetime: toDatePicker( momentUtil.construct( props.datetime ) ),
 		};
 	}
 
-	normalize = ( date = moment() ) => {
-		// Convert to moment
-		const current = moment( date );
-		return current.isValid() ? current : moment();
+	normalize = ( date = momentUtil.construct() ) => {
+		const current = momentUtil.construct( date );
+		return isValid( current ) ? current : momentUtil.construct();
 	};
 
 	renderContent = ( { onClose } ) => {
@@ -69,7 +68,7 @@ export default class DatePicker extends Component {
 		return (
 			<WPDatePicker
 				key="date-picker"
-				currentDate={ moment( datetime ) }
+				currentDate={ momentUtil.construct( datetime ) }
 				onChange={ this.onChange }
 			/>
 		);

@@ -15,7 +15,7 @@ import { ToggleControl, TextControl, PanelBody } from '@wordpress/components';
 /**
  * Internal dependencies
  */
-import { date, moment as momentUtil } from '@moderntribe/common/utils';
+import { date, moment } from '@moderntribe/common/utils';
 import { wpEditor } from '@moderntribe/common/utils/globals';
 import { TermsList, MetaGroup } from '@moderntribe/events/elements';
 import EventDetailsOrganizers from './event-details-organizers/container';
@@ -25,7 +25,7 @@ const { PlainText, InspectorControls } = wpEditor;
  * Module Code
  */
 
-const { toMoment, toDate, toTime } = momentUtil;
+const { construct, toDate, toTime } = moment;
 
 const ClassicEventDetails = ( props ) => {
 	const renderTitle = () => {
@@ -52,11 +52,11 @@ const ClassicEventDetails = ( props ) => {
 					onClick={ toggleDashboardDateTime }
 				>
 					<strong>{ __( 'Start: ', 'the-events-calendar' ) }</strong>
-					{ toDate( toMoment( start ), date.FORMATS.WP.date ) }
+					{ toDate( construct( start ), date.FORMATS.WP.date ) }
 					{ ! allDay && (
 						<Fragment>
 							<span>{ ' '.concat( separatorDate, ' ' ) }</span>
-							<span>{ toTime( toMoment( start ), date.FORMATS.WP.time ) }</span>
+							<span>{ toTime( construct( start ), date.FORMATS.WP.time ) }</span>
 						</Fragment>
 					) }
 				</button>
@@ -74,11 +74,11 @@ const ClassicEventDetails = ( props ) => {
 					onClick={ toggleDashboardDateTime }
 				>
 					<strong>{ __( 'End: ', 'the-events-calendar' ) }</strong>
-					{ toDate( toMoment( end ), date.FORMATS.WP.date ) }
+					{ toDate( construct( end ), date.FORMATS.WP.date ) }
 					{ ! allDay && (
 						<Fragment>
 							<span>{ ' '.concat( separatorDate, ' ' ) }</span>
-							<span>{ toTime( toMoment( end ), date.FORMATS.WP.time ) }</span>
+							<span>{ toTime( construct( end ), date.FORMATS.WP.time ) }</span>
 						</Fragment>
 					) }
 				</button>

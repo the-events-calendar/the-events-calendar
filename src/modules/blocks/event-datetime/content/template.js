@@ -18,7 +18,7 @@ import {
 } from '@moderntribe/events/elements';
 import {
 	date,
-	moment as momentUtil,
+	moment,
 } from '@moderntribe/common/utils';
 import { settings, wpHooks } from '@moderntribe/common/utils/globals';
 import HumanReadableInput from '../human-readable-input/container';
@@ -29,12 +29,12 @@ import HumanReadableInput from '../human-readable-input/container';
 
 const { FORMATS, TODAY } = date;
 const {
-	toMoment,
+	construct,
 	toDate,
 	toDateNoYear,
 	toTime,
 	isSameYear,
-} = momentUtil;
+} = moment;
 FORMATS.date = settings() && settings().dateWithYearFormat
 	? settings().dateWithYearFormat
 	: __( 'F j', 'the-events-calendar' );
@@ -75,10 +75,10 @@ const renderSeparator = ( props, type, className ) => {
 };
 
 const renderStartDate = ( { start, end } ) => {
-	let startDate = toDate( toMoment( start ) );
+	let startDate = toDate( construct( start ) );
 
 	if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
-		startDate = toDateNoYear( toMoment( start ) );
+		startDate = toDateNoYear( construct( start ) );
 	}
 
 	return (
@@ -96,7 +96,7 @@ const renderStartTime = ( props ) => {
 	return (
 		<Fragment>
 			{ renderSeparator( props, 'date-time' ) }
-			{ toTime( toMoment( start ), FORMATS.WP.time ) }
+			{ toTime( construct( start ), FORMATS.WP.time ) }
 		</Fragment>
 	);
 };
@@ -106,10 +106,10 @@ const renderEndDate = ( { start, end, multiDay } ) => {
 		return null;
 	}
 
-	let endDate = toDate( toMoment( end ) );
+	let endDate = toDate( construct( end ) );
 
 	if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
-		endDate = toDateNoYear( toMoment( end ) );
+		endDate = toDateNoYear( construct( end ) );
 	}
 
 	return (
@@ -127,7 +127,7 @@ const renderEndTime = ( props ) => {
 	return (
 		<Fragment>
 			{ multiDay && renderSeparator( props, 'date-time' ) }
-			{ toTime( toMoment( end ), FORMATS.WP.time ) }
+			{ toTime( construct( end ), FORMATS.WP.time ) }
 		</Fragment>
 	);
 };

@@ -69,11 +69,7 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 
 		// Prevent user from making an invalid end-time entry; an event has to end after it starts, not before.
 		if ( obj.start_date === obj.end_date ) {
-			// Convert to 24-hour time for easier comparison.
-			var comparison_start_time = moment( obj.start_time, 'h:mm a' ).format( 'HH:mm' );
-			var comparison_end_time   = moment( obj.end_time, 'h:mm a' ).format( 'HH:mm' );
-
-			if ( comparison_start_time > comparison_end_time ) {
+			if ( new Date( obj.start_time ) > new Date( obj.end_time ) ) {
 
 				if ( 'undefined' !== typeof $.fn.tribeTimepicker ) {
 					$( '#EventEndTime' ).tribeTimepicker( 'setTime', obj.start_time );

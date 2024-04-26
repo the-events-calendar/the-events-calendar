@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import moment from 'moment-timezone';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import $ from 'jquery';
@@ -31,5 +30,3 @@ global.console = {
 	log: jest.fn(),
 	warning: jest.fn(),
 };
-
-moment.tz.setDefault( 'UTC' );

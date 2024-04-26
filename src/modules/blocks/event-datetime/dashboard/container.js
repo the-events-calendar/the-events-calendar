@@ -3,6 +3,7 @@
  */
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { isValid } from 'date-fns';
 
 /**
  * Internal dependencies
@@ -15,7 +16,7 @@ import {
 	defaultStartMoment,
 	defaultEndMoment,
 } from '@moderntribe/events/data/blocks/datetime/reducer';
-import { moment as momentUtil } from '@moderntribe/common/utils';
+import { moment } from '@moderntribe/common/utils';
 import { withStore } from '@moderntribe/common/hoc';
 import EventDateTimeDashboard from './template';
 
@@ -41,11 +42,11 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 			dispatch( dateTimeActions.setDateRange( { from, to }, meta ) )
 		),
 		onStartTimePickerBlur: ( e ) => {
-			let startTimeMoment = momentUtil.toMoment( e.target.value, momentUtil.TIME_FORMAT, false );
-			if ( ! startTimeMoment.isValid() ) {
+			let startTimeMoment = moment.toMoment( e.target.value, moment.TIME_FORMAT, false );
+			if ( ! isValid( startTimeMoment ) ) {
 				startTimeMoment = defaultStartMoment;
 			}
-			const seconds = momentUtil.totalSeconds( startTimeMoment );
+			const seconds = moment.totalSeconds( startTimeMoment );
 			dispatch( dateTimeActions.setStartTime( seconds, meta ) );
 		},
 		onStartTimePickerChange: ( e ) => (
@@ -56,11 +57,11 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 			onClose();
 		},
 		onEndTimePickerBlur: ( e ) => {
-			let endTimeMoment = momentUtil.toMoment( e.target.value, momentUtil.TIME_FORMAT, false );
-			if ( ! endTimeMoment.isValid() ) {
+			let endTimeMoment = moment.toMoment( e.target.value, moment.TIME_FORMAT, false );
+			if ( ! isValid( endTimeMoment ) ) {
 				endTimeMoment = defaultEndMoment;
 			}
-			const seconds = momentUtil.totalSeconds( endTimeMoment );
+			const seconds = moment.totalSeconds( endTimeMoment );
 			dispatch( dateTimeActions.setEndTime( seconds, meta ) );
 		},
 		onEndTimePickerChange: ( e ) => (

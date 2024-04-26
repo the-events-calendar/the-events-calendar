@@ -11,7 +11,6 @@ import * as types from '@moderntribe/events/data/blocks/datetime/types';
 import * as actions from '@moderntribe/events/data/blocks/datetime/actions';
 import * as selectors from '@moderntribe/events/data/blocks/datetime/selectors';
 import watchers, * as sagas from '@moderntribe/events/data/blocks/datetime/sagas';
-import moment from 'moment';
 import { toDateTime } from '@moderntribe/common/utils/moment';
 import {
 	date as dateUtil,
@@ -54,8 +53,8 @@ describe( 'Event Date time Block sagas', () => {
 			);
 			expect( gen.next( { start: 1, end: 2 } ).value ).toEqual(
 				all( {
-					start: call( momentUtil.toMoment, 1 ),
-					end: call( momentUtil.toMoment, 2 ),
+					start: call( momentUtil.construct, 1 ),
+					end: call( momentUtil.construct, 2 ),
 				} ),
 			);
 		} );
@@ -106,8 +105,8 @@ describe( 'Event Date time Block sagas', () => {
 
 		test( 'Custom data is provided', () => {
 			const dates = {
-				start: moment( '12-25-2017', 'MM-DD-YYYY' ),
-				end: moment( '12-25-2018', 'MM-DD-YYYY' ),
+				start: momentUtils.construct( '12-25-2017', 'MM-DD-YYYY' ),
+				end: momentUtils.construct( '12-25-2018', 'MM-DD-YYYY' ),
 			};
 			const gen = sagas.setHumanReadableLabel( dates );
 
@@ -130,7 +129,7 @@ describe( 'Event Date time Block sagas', () => {
 
 	describe( 'setHumanReadableFromDate', () => {
 		test( 'When called from start date', () => {
-			const formated = toDateTime( moment( '12-25-2018', 'MM-DD-YYYY' ) );
+			const formated = toDateTime( momentUtils.construct( '12-25-2018', 'MM-DD-YYYY' ) );
 			const gen = sagas.setHumanReadableFromDate( actions.setStartDateTime( formated ) );
 			expect( gen.next().value ).toEqual(
 				select( selectors.getStart ),
@@ -148,7 +147,7 @@ describe( 'Event Date time Block sagas', () => {
 		} );
 
 		test( 'When called from end date', () => {
-			const formated = toDateTime( moment( '12-25-2018', 'MM-DD-YYYY' ) );
+			const formated = toDateTime( momentUtils.construct( '12-25-2018', 'MM-DD-YYYY' ) );
 			const gen = sagas.setHumanReadableFromDate( actions.setEndDateTime( formated ) );
 			expect( gen.next().value ).toEqual(
 				select( selectors.getStart ),
@@ -166,8 +165,8 @@ describe( 'Event Date time Block sagas', () => {
 	describe( 'resetNaturalLanguageLabel', () => {
 		test( 'Select values from state', () => {
 			const gen = sagas.resetNaturalLanguageLabel();
-			const start = toDateTime( moment( '12-25-2018 12:30', 'MM-DD-YYYY HH:mm' ) );
-			const end = toDateTime( moment( '12-25-2018 14:40', 'MM-DD-YYYY HH:mm' ) );
+			const start = toDateTime( momentUtils.construct( '12-25-2018 12:30', 'MM-DD-YYYY HH:mm' ) );
+			const end = toDateTime( momentUtils.construct( '12-25-2018 14:40', 'MM-DD-YYYY HH:mm' ) );
 
 			expect( gen.next().value ).toEqual( all( {
 				start: select( selectors.getStart ),
@@ -216,8 +215,8 @@ describe( 'Event Date time Block sagas', () => {
 				const label = { start: '12-25-1995', end: '12-25-1995' };
 
 				const dates = {
-					start: moment( '12-25-1995', 'MM-DD-YYYY' ),
-					end: moment( '12-25-1995', 'MM-DD-YYYY' ),
+					start: momentUtils.construct( '12-25-1995', 'MM-DD-YYYY' ),
+					end: momentUtils.construct( '12-25-1995', 'MM-DD-YYYY' ),
 				};
 
 				expect( gen.next().value ).toEqual(
@@ -230,8 +229,8 @@ describe( 'Event Date time Block sagas', () => {
 
 				expect( gen.next( label ).value ).toEqual(
 					all( {
-						start: call( momentUtil.toMoment, label.start ),
-						end: call( momentUtil.toMoment, label.end || label.start ),
+						start: call( momentUtil.construct, label.start ),
+						end: call( momentUtil.construct, label.end || label.start ),
 					} ),
 				);
 
@@ -278,8 +277,8 @@ describe( 'Event Date time Block sagas', () => {
 			const meta = { setAttributes: jest.fn() };
 			const action = { payload, meta };
 			const moments = {
-				from: moment( payload.from, 'MM-DD-YYYY' ),
-				to: moment( payload.to, 'MM-DD-YYYY' ),
+				from: momentUtils.construct( payload.from, 'MM-DD-YYYY' ),
+				to: momentUtils.construct( payload.to, 'MM-DD-YYYY' ),
 			};
 			const dates = {
 				start: '2015-01-01',
@@ -294,8 +293,8 @@ describe( 'Event Date time Block sagas', () => {
 
 			expect( gen.next( moments ).value ).toEqual(
 				all( {
-					from: call( momentUtil.toMoment, payload.from ),
-					to: call( momentUtil.toMoment, payload.to || payload.from ),
+					from: call( momentUtil.construct, payload.from ),
+					to: call( momentUtil.construct, payload.to || payload.from ),
 				} ),
 			);
 

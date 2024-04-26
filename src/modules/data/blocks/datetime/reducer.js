@@ -2,18 +2,17 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import moment from 'moment';
 
 /**
  * Internal dependencies
  */
 import * as globals from '@moderntribe/common/utils/globals';
 import * as date from '@moderntribe/common/utils/date';
-import * as momentUtil from '@moderntribe/common/utils/moment';
+import * as moment from '@moderntribe/common/utils/moment';
 import * as time from '@moderntribe/common/utils/time';
 import * as types from './types';
 
-const { isSameDay, parseFormats, toDateTime, toMoment, toTime } = momentUtil;
+const { construct, isSameDay, parseFormats, toDateTime, toTime } = moment;
 
 const defaultStartTime = globals.defaultTimes().start ? globals.defaultTimes().start : '08:00:00';
 const defaultEndTime = globals.defaultTimes().end ? globals.defaultTimes().end : '17:00:00';
@@ -22,9 +21,9 @@ const defaultEndTimeSeconds = time.toSeconds( defaultEndTime, time.TIME_FORMAT_H
 const queryStartDate = globals.postObjects().tribe_events.tribe_start_date;
 
 export const defaultStartMoment = queryStartDate
-	? moment( queryStartDate ).seconds( defaultStartTimeSeconds )
-	: moment().startOf( 'day' ).seconds( defaultStartTimeSeconds );
-export const defaultEndMoment = moment().startOf( 'day' ).seconds( defaultEndTimeSeconds );
+	? construct( queryStartDate ).seconds( defaultStartTimeSeconds )
+	: construct().startOf( 'day' ).seconds( defaultStartTimeSeconds );
+export const defaultEndMoment = construct().startOf( 'day' ).seconds( defaultEndTimeSeconds );
 
 const defaultStartDateTime = toDateTime( defaultStartMoment );
 const defaultEndDateTime = toDateTime( defaultEndMoment );
@@ -75,8 +74,8 @@ export const setInitialState = ( data ) => {
 	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
 	DEFAULT_STATE.naturalLanguageLabel = date.rangeToNaturalLanguage( start, end );
 	DEFAULT_STATE.multiDay = ! isSameDay(
-		toMoment( start ),
-		toMoment( end ),
+		construct( start ),
+		construct( end ),
 	);
 };
 

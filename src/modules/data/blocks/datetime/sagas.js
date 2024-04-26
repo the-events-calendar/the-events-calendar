@@ -30,7 +30,7 @@ const {
 //
 
 /**
- * Convert current start and end date into moments
+ * Convert current start and end date into Date objects
  *
  * @export
  * @yields
@@ -44,8 +44,8 @@ export function* deriveMomentsFromDates() {
 	} );
 
 	return yield all( {
-		start: call( momentUtil.toMoment, dates.start ),
-		end: call( momentUtil.toMoment, dates.end ),
+		start: call( momentUtil.construct, dates.start ),
+		end: call( momentUtil.construct, dates.end ),
 	} );
 }
 
@@ -100,14 +100,14 @@ export function* setHumanReadableLabel( dates = {} ) {
 }
 
 /**
- * Set the humman readable label from an action that sets the date on the event either the start or end date
+ * Set the human readable label from an action that sets the date on the event either the start or end date
  * first selects as default value current start and end dates after that based on the action type selects the
  * date to be replaced or the new date to be set before doing the conversion into text.
  *
  * @export
  * @yields
  * @since 0.3.1-alpha
- * @param {Object} action Dispateched by the component and watched by this generator
+ * @param {Object} action Dispatched by the component and watched by this generator
  */
 export function* setHumanReadableFromDate( action ) {
 	const dates = {
@@ -157,8 +157,8 @@ export function* onHumanReadableChange( action ) {
 		yield call( resetNaturalLanguageLabel );
 	} else {
 		const moments = yield all( {
-			start: call( momentUtil.toMoment, start ),
-			end: call( momentUtil.toMoment, end || start ),
+			start: call( momentUtil.construct, start ),
+			end: call( momentUtil.construct, end || start ),
 		} );
 
 		const result = yield call( momentUtil.adjustStart, moments.start, moments.end );
@@ -211,8 +211,8 @@ export function* handleDateRangeChange( action ) {
 	const moments = yield call( deriveMomentsFromDates );
 
 	const rangeMoments = yield all( {
-		from: call( momentUtil.toMoment, from ),
-		to: call( momentUtil.toMoment, to || from ),
+		from: call( momentUtil.construct, from ),
+		to: call( momentUtil.construct, to || from ),
 	} );
 
 	// NOTE: Mutation

@@ -24,7 +24,7 @@ import {
 } from '@moderntribe/events/elements';
 import {
 	date,
-	moment as momentUtil,
+	moment,
 	time,
 	globals,
 } from '@moderntribe/common/utils';
@@ -35,11 +35,11 @@ import {
 
 const { FORMATS, TODAY } = date;
 const {
-	toMoment,
+	construct,
 	toDate,
 	toDateNoYear,
 	isSameYear,
-} = momentUtil;
+} = moment;
 const { editorConstants, settings, wpHooks } = globals;
 
 FORMATS.date = settings() && settings().dateWithYearFormat
@@ -69,9 +69,9 @@ const renderStartTimePicker = ( {
 		allDay,
 	};
 
-	let startDate = toDate( toMoment( start ) );
+	let startDate = toDate( construct( start ) );
 	if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
-		startDate = toDateNoYear( toMoment( start ) );
+		startDate = toDateNoYear( construct( start ) );
 	}
 
 	return (
@@ -118,9 +118,9 @@ const renderEndTimePicker = ( {
 		allDay,
 	};
 
-	let endDate = toDate( toMoment( end ) );
+	let endDate = toDate( construct( end ) );
 	if ( isSameYear( start, end ) && isSameYear( start, TODAY ) ) {
-		endDate = toDateNoYear( toMoment( end ) );
+		endDate = toDateNoYear( construct( end ) );
 	}
 
 	return (
@@ -141,7 +141,7 @@ class Calendars extends PureComponent {
 
 	constructor( props ) {
 		super( props );
-		this.state = { visibleMonth: toMoment( props.start ).toDate() };
+		this.state = { visibleMonth: construct( props.start ).toDate() };
 	}
 
 	setVisibleMonth = ( visibleMonth ) => {
@@ -154,13 +154,13 @@ class Calendars extends PureComponent {
 		const monthProps = {
 			onSelectDay: onSelectDay,
 			withRange: multiDay,
-			from: toMoment( start ).toDate(),
+			from: construct( start ).toDate(),
 			month: this.state.visibleMonth,
 			setVisibleMonth: this.setVisibleMonth,
 		};
 
 		if ( multiDay ) {
-			monthProps.to = toMoment( end ).toDate();
+			monthProps.to = construct( end ).toDate();
 		}
 
 		return <Month { ...monthProps } />;
