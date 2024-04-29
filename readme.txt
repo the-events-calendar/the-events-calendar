@@ -234,8 +234,16 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Feature - Added component Elementor widgets for the single event page.
+* feature - Widgets include: Title, Date, Cost, Image, Status, Organizer, Venue, Website, Category, Tags, Subscribe, and Calendar link.
+* Feature - Most widgets can be used outside of a single-event post by specifying an event ID or event query parameters.
+* Feature - All widgets utilize our PHP templating system, allowing customization of the widget templates.
+* Feature - Added a customizable single event template for Elementor Free users utilizing the new widgets.
+* Feature - Added a separate customizable single event Theme Builder template for Elementor Pro users utilizing the new widgets.
+* Feature - Widgets include mock data for display in template editor.
 * Tweak - Added a Calendar Template section in the event display settings page. [ECP-1618]
 * Tweak - converted some uses of `date()` to `gmdate()` for display in the date settings section. [ECP-1618]
+
 
 = [6.3.6] 2024-04-09 =
 
