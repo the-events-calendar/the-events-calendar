@@ -43,7 +43,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const VERSION             = '6.4.0';
 
 		/**
-		 * Min Pro Addon
+		 * Min Pro Addon.
 		 *
 		 * @deprecated 4.8
 		 */
