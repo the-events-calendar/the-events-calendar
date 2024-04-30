@@ -967,7 +967,7 @@ class Hooks extends Service_Provider {
 			return $value;
 		}
 
-		// Note: backslash is hte escape character - so we need to escape it.
+		// Note: backslash is the escape character - so we need to escape it.
 		// This is the equivalent of replacing any occurrence of \\ with \
 		$value = str_replace( "\\\\", "\\", $value);
 		//$value = stripslashes( $value ); will strip out ones we want to keep!

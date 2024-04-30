@@ -63,6 +63,15 @@ class Assets extends Service_Provider {
 	protected $should_enqueue_frontend;
 
 	/**
+	 * Caches the result of the `should_enqueue_full_styles` check.
+	 *
+	 * @todo: Elementor? IS this needed?
+	 *
+	 * @var bool
+	 */
+	protected $should_enqueue;
+
+	/**
 	 * Applies a filter to allow users that are experiencing issues w/ the Views v2 datepicker to load
 	 * it in no-conflict mode.
 	 *
@@ -582,7 +591,9 @@ class Assets extends Service_Provider {
 
 			&& isset( $_GET[ 'elementor-preview' ] )
 		) {
-			return $this->should_enqueue = true;
+			$this->should_enqueue = true;
+
+			return $this->should_enqueue;
 		}
 
 		$should_enqueue = tribe( Template_Bootstrap::class )->should_load();
