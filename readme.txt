@@ -232,7 +232,6 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-<<<<<<< HEAD
 = [TBD] TBD =
 
 * Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
@@ -240,7 +239,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
 * Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
 
-=======
 = [6.4.0] 2024-04-30 =
 
 * Feature - Elementor Compatibility. Compatible with Elementor Free 3.21+ and Elementor Pro 3.20+.
@@ -264,7 +262,6 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Corrected the missing Venue Website URL within the Event Tickets Email feature. [ET-2019]
 * Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/venue/website`
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
->>>>>>> master
 
 = [6.3.6] 2024-04-09 =
 
