@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 6.3.0
+Requires at least: 6.3
 Stable tag: 6.4.0
 Tested up to: 6.5.2
 Requires PHP: 7.4
@@ -234,8 +234,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.4.0] 2024-04-30 =
 
+* Feature - Elementor Compatibility. Compatible with Elementor Free 3.21+ and Elementor Pro 3.20+.
 * Feature - Added component Elementor widgets for the single event page.
-* feature - Widgets include: Title, Date, Cost, Image, Status, Organizer, Venue, Website, Category, Tags, Subscribe, and Calendar link.
+* Feature - Widgets include: Title, Date, Cost, Image, Status, Organizer, Venue, Website, Category, Tags, Subscribe, and Calendar link.
 * Feature - Most widgets can be used outside of a single-event post by specifying an event ID or event query parameters.
 * Feature - All widgets utilize our PHP templating system, allowing customization of the widget templates.
 * Feature - Added a customizable single event template for Elementor Free users utilizing the new widgets.
