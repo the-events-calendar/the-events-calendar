@@ -2,7 +2,7 @@
 /**
  * List View Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package Tribe\Events\Integrations\Elementor\Widgets
  */
@@ -26,7 +26,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Widget slug prefix.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Widget asset prefix.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -45,7 +45,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -54,7 +54,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -63,7 +63,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Widget categories.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var array<string>
 	 */
@@ -72,7 +72,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Widget template engine.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var Template_Engine
 	 */
@@ -81,7 +81,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Template engine class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string The template engine class to use.
 	 */
@@ -90,7 +90,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * The hooks added by the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var array<string,array>
 	 */
@@ -99,7 +99,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get elementor widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -110,7 +110,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Gets the name (aka slug) of the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -121,7 +121,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get local widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -138,7 +138,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * This method can be overridden by the child class to provide a custom template file path.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -151,7 +151,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Gets the title of the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function get_title(): string {
 		$title = $this->title();
@@ -160,7 +160,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the title of the widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $title The widget title.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -170,7 +170,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the title of a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $title The widget title.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -182,14 +182,14 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * Gets/creates the title of the widget.
 	 * This must be overridden by the child class to include translating the title string.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	abstract protected function title(): string;
 
 	/**
 	 * Gets the icon class for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -201,7 +201,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * Gets the CSS class list for the widget.
 	 * As a string (for use in attributes) or as an array.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $format The format to return. Either 'attribute' (default) or 'array'.
 	 *
@@ -215,7 +215,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the widget class list for all tec-events-elementor widgets.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array<string>   $classes The widget classes.
 		 * @param string          $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
@@ -228,7 +228,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the widget class list for a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array<string>   $classes The widget classes.
 		 * @param string          $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
@@ -250,7 +250,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * Provides a "trimmed" slug for usage in classes and such (removes the "event_" prefix)
 	 * and converts all underscores to dashes.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -261,7 +261,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Provides the main CSS class for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -272,7 +272,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the widget class for all tec-events-elementor widgets.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -284,7 +284,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the widget class for a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -297,7 +297,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Provides the CSS class for the widget icon.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -308,7 +308,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the widget icon class for all tec-events-elementor widgets.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -320,7 +320,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the widget icon class for a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -333,7 +333,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Gets the categories of the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array<string>
 	 */
@@ -344,7 +344,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * An internal, filterable function to get the ID of the event/post the widget is used in.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return ?int The ID of the current item (parent post) the widget is in. Null if not found.
 	 */
@@ -364,7 +364,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the event/post ID of the event/post the widget is used in.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
 		 * @param Abstract_Widget $this     The widget instance.
@@ -374,7 +374,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Filters the event/post ID of the event/post the widget is used in.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
 		 * @param Abstract_Widget $this     The widget instance.
@@ -391,7 +391,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get the event ID.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return ?int
 	 */
@@ -402,7 +402,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Determines if the widget has a valid event ID associated with it.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -413,7 +413,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get the event associated with this widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return ?WP_Post
 	 */
@@ -424,7 +424,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get the template engine class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -440,7 +440,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get template object.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return Template_Engine
 	 */
@@ -463,7 +463,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * Set up a self-removing filter for a widget template, it should hook itself on the before and after include hooks
 	 * of the template engine.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string    $on            The hook to add on.
 	 * @param ?callable $callback      The callback to add to the filter.
@@ -508,7 +508,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Unset the template filters.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function unset_template_filters(): void {
 		foreach ( $this->added_hooks as $hook ) {
@@ -519,7 +519,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -528,7 +528,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Determine if the widget should show mock data.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -541,7 +541,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 *
 	 * This calls the template_args method on the widget and then filters the data.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */
@@ -581,7 +581,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get the asset source for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -592,7 +592,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Register the styles for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register_style(): void {
 		if ( ! static::$has_styles ) {
@@ -620,7 +620,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Enqueue the styles for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function enqueue_style(): void {
 		if ( ! static::$has_styles ) {
@@ -634,7 +634,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Fires after the styles for the Elementor widget have been enqueued.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param Abstract_Widget $this The widget instance.
 		 */
@@ -643,7 +643,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		/**
 		 * Fires after the styles for a specific Elementor widget have been enqueued.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param Abstract_Widget $this The widget instance.
 		 */
@@ -653,7 +653,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get the output of the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -670,7 +670,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Render the Elementor widget, this method needs to be protected as it is originally defined as such in elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function render(): void {
 		echo $this->get_output(); // phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped,WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -679,7 +679,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Get the message to show when the widget is empty.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The message shown when an event widget is empty.
 	 */
@@ -694,7 +694,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	/**
 	 * Wether to show the empty widget template in the editor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function show_empty(): bool {
 		if ( ! $this->get_template()->is_edit_mode() ) {
@@ -709,7 +709,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	 * Meant to be overridden in the widget class.
 	 * This must return true for the empty widget template to show.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function empty_conditions(): bool {
 		return false;

@@ -242,7 +242,7 @@ class Controller extends Controller_Contract {
 			/**
 			 * Filter whether the event archive block template should be used.
 			 *
-			 * @since TBD
+			 * @since 6.4.0
 			 *
 			 * @param bool $allow_archive Whether the event archive block template should be used.
 			 */
@@ -255,7 +255,7 @@ class Controller extends Controller_Contract {
 			/**
 			 * Filter whether the event single block template should be used.
 			 *
-			 * @since TBD
+			 * @since 6.4.0
 			 *
 			 * @param bool $allow_single Whether the single block template should be used.
 			 */

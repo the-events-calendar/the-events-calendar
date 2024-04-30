@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-venue.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * Show toggles, default true.
  * @var bool        $link_name             Whether to link the venue name.

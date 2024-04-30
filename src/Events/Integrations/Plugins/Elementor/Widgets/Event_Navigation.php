@@ -2,7 +2,7 @@
 /**
  * Event Nav Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -15,7 +15,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Widget_Event_Navigation
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -27,7 +27,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -45,7 +45,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -56,7 +56,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Get the template args for the event nav widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function template_args(): array {
 		$adjacent_events = tribe( 'tec.adjacent-events' );
@@ -76,7 +76,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -105,7 +105,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Get the class for the next link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The class for the element.
 	 */
@@ -116,7 +116,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Get the class for the pervious link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The class for the element.
 	 */
@@ -127,7 +127,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Get the class for the link list.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The class for the element.
 	 */
@@ -138,7 +138,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls() {
 		// Content tab.
@@ -150,7 +150,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel() {
 		$this->add_event_query_section();
@@ -159,7 +159,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel() {
 		$this->content_styling_options();
@@ -169,7 +169,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event nav content.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_styling_options() {
 		$this->start_controls_section(
@@ -194,7 +194,7 @@ class Event_Navigation extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event nav content.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_hover_styling_options() {
 		$this->start_controls_section(

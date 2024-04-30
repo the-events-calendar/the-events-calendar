@@ -2,7 +2,7 @@
 /**
  * Provides shared control methods for Elementor widgets using the TEC templating engine.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets\Traits;
  */
@@ -18,7 +18,7 @@ use WP_Error;
 /**
  * Trait With_Shared_Controls
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events_Pro\Integrations\Plugins\Elementor\Widgets\Traits;
  */
@@ -26,7 +26,7 @@ trait With_Shared_Controls {
 	/**
 	 * Add a shared control.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $control The control to add.
 	 * @param array  $args    Additional arguments for the control.
@@ -41,7 +41,7 @@ trait With_Shared_Controls {
 	/**
 	 * Add control for HTML tag.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args Additional arguments for the control.
 	 *                    Requires:
@@ -84,7 +84,7 @@ trait With_Shared_Controls {
 	/**
 	 * Add a control for text alignment.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args      Additional arguments for the control.
 	 *                         Requires:
@@ -142,7 +142,7 @@ trait With_Shared_Controls {
 	/**
 	 * Add a control for flex alignment. Mimics a text-align control but uses flexbox.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args      Additional arguments for the control.
 	 *                         Requires:
@@ -200,7 +200,7 @@ trait With_Shared_Controls {
 	/**
 	 * Add control for showing an element.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args Additional arguments for the control.
 	 *                        Requires:
@@ -238,7 +238,7 @@ trait With_Shared_Controls {
 	 * Add controls for text styling.
 	 * Includes text color, typography, text stroke, text shadow, and blend mode controls.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args Additional arguments for the control.
 	 *                        Requires:
@@ -345,7 +345,7 @@ trait With_Shared_Controls {
 	/**
 	 * Add control for link target.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args Additional arguments for the control.
 	 *                        Requires:
@@ -380,7 +380,7 @@ trait With_Shared_Controls {
 	/**
 	 * Add control for phone number.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args Additional arguments for the control.
 	 *                        Requires:
@@ -412,7 +412,7 @@ trait With_Shared_Controls {
 	/**
 	 * Allows above functions to check their required args and throw an error if they are missing.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array        $args     The arguments to check.
 	 * @param string|array $required The required arguments. Converted to an array.

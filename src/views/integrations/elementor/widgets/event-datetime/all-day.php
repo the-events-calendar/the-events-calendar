@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-datetime/all-day.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var bool            $is_all_day        Whether the event is all day on a single day.
  * @var bool            $is_same_start_end Whether the start and end date and time are the same.

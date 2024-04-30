@@ -2,7 +2,7 @@
 /**
  * Event Categories Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -15,7 +15,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Widget_Event_Categories
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -27,7 +27,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -45,7 +45,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -56,7 +56,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -77,7 +77,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -101,7 +101,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Renders the categories list for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The HTML for the categories list. Empty string if no categories are found.
 	 */
@@ -126,7 +126,7 @@ class Event_Categories extends Abstract_Widget {
 		 * Applies filters from the tribe_get_event_categories() function,
 		 * as this is essentially a stripped-down version of said function.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $html       The HTML output for the event categories.
 		 * @param int    $event_id   The event ID.
@@ -138,7 +138,7 @@ class Event_Categories extends Abstract_Widget {
 		/**
 		 * Allows filtering of the HTML output for the event categories widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $html       The HTML output for the event categories.
 		 * @param int    $event_id   The event ID.
@@ -151,7 +151,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Renders the categories list for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The HTML for the categories list.
 	 */
@@ -168,7 +168,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -179,7 +179,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Get the class used for the category label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -189,7 +189,7 @@ class Event_Categories extends Abstract_Widget {
 		/**
 		 * Filters the class used for the category label.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the category label.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -202,7 +202,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Get the class used for the category list.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -212,7 +212,7 @@ class Event_Categories extends Abstract_Widget {
 		/**
 		 * Filters the class used for the category list wrapper.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the category list wrapper.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -225,7 +225,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls(): void {
 		// Content tab.
@@ -237,7 +237,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel(): void {
 		$this->content_options();
@@ -247,7 +247,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel(): void {
 		$this->header_styling();
@@ -257,7 +257,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event categories.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_options(): void {
 		$this->start_controls_section(
@@ -292,7 +292,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the section header.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function header_styling(): void {
 		$this->start_controls_section(
@@ -328,7 +328,7 @@ class Event_Categories extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event categories.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_styling(): void {
 		$this->start_controls_section(

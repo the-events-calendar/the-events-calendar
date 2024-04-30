@@ -2,7 +2,7 @@
 /**
  * Elementor Assets Manager.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor
  */
@@ -18,7 +18,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Assets_Manager
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor
  */
@@ -26,7 +26,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * The group key for the assets.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * The group key for the icon assets.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Register and enqueue the hooks for the plugin.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function do_register(): void {
 		$this->add_actions();
@@ -53,7 +53,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Unregister the hooks for the plugin.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function unregister(): void {
 		$this->remove_actions();
@@ -62,7 +62,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Adds the actions required by the assets manager.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function add_actions(): void {
 		add_action( 'init', [ $this, 'register_widget_assets' ] );
@@ -82,7 +82,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Removes the actions required by the assets manager.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function remove_actions() {
 		remove_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_resources' ] );
@@ -100,7 +100,7 @@ class Assets_Manager extends Controller {
 	 * Note: we *register* them manually.
 	 * When we enqueue, we loop through the widgets and just try to enqueue for all of them.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register_widget_assets() {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
@@ -148,7 +148,7 @@ class Assets_Manager extends Controller {
 	 * Enqueues the assets for the widgets in the Elementor preview.
 	 * Just enqueues them all, as any could be added/removed while editing.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function enqueue_preview_styles() {
 		foreach ( $this->get_widgets() as $widget ) {
@@ -159,7 +159,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Enqueue frontend resources.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function enqueue_frontend_resources(): void {
 		tribe_asset_enqueue( 'tribe-events-v2-single-skeleton' );
@@ -172,7 +172,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Dynamically enqueues the styles for the rendered TEC widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param Abstract_Widget $widget The widget instance.
 	 */
@@ -199,7 +199,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Registers icon styles for Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function action_register_editor_styles(): void {
 		// setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
@@ -217,7 +217,7 @@ class Assets_Manager extends Controller {
 		/**
 		 * Fires after the Elementor editor (icon) styles have been registered.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param Assets_Manager $this The assets manager instance.
 		 */
@@ -227,7 +227,7 @@ class Assets_Manager extends Controller {
 	/**
 	 * Enqueues icon styles for Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function action_enqueue_editor_styles(): void {
 		tribe_asset_enqueue_group( static::$icon_group_key );
@@ -237,7 +237,7 @@ class Assets_Manager extends Controller {
 	 * Enqueues the Elementor stylesheet for a single event page if a specific Elementor template is set.
 	 * Note this stylesheet is programmatically created by Elementor and stored in the uploads directory.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function enqueue_single_event_template_styles(): void {
 		// Bail if we are not on a single event page.

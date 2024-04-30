@@ -2,7 +2,7 @@
 /**
  * Event Tags Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -15,7 +15,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Widget_Event_Tags
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -27,7 +27,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -45,7 +45,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -56,7 +56,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -87,7 +87,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -108,7 +108,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Allows filtering of the tag separator prior to output.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param bool $echo Whether to echo the separator or just return it, unescaped.
 	 *
@@ -118,7 +118,7 @@ class Event_Tags extends Abstract_Widget {
 		/**
 		 * Filters the separator for the event tags widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string      $separator The separator.
 		 * @param Event_Tags $this The event tags widget instance.
@@ -142,7 +142,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Get the label for the event tags widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The label for the event tags widget.
 	 */
@@ -156,7 +156,7 @@ class Event_Tags extends Abstract_Widget {
 		/**
 		 * Filters the label text for the event tags widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string      $label_text The label text.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -169,7 +169,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Get the class for the event tag header.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The header class.
 	 */
@@ -179,7 +179,7 @@ class Event_Tags extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event tags header section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The header base class.
 		 * @param Event_tags $this The event tags widget instance.
@@ -190,7 +190,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Get the class for the event tag links section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The links class.
 	 */
@@ -200,7 +200,7 @@ class Event_Tags extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event tags links section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The links base class.
 		 * @param Event_tags $this The event tags widget instance.
@@ -211,7 +211,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Get the class for a single event tag link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The link class.
 	 */
@@ -221,7 +221,7 @@ class Event_Tags extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event tags link section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The link base class.
 		 * @param Event_tags $this The event tags widget instance.
@@ -232,7 +232,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls(): void {
 		// Content tab.
@@ -244,7 +244,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel(): void {
 		$this->content_options();
@@ -254,7 +254,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel(): void {
 		$this->header_styling();
@@ -264,7 +264,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event tags.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_options(): void {
 		$this->start_controls_section(
@@ -299,7 +299,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the section header.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function header_styling(): void {
 		$this->start_controls_section(
@@ -335,7 +335,7 @@ class Event_Tags extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the tags.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function tags_styling(): void {
 		$this->start_controls_section(

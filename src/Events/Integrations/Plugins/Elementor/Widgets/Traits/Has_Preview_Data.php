@@ -2,7 +2,7 @@
 /**
  * The Preview Data Trait for TEC Elementor Widgets.
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Traits;
 /**
  * Preview_Data Trait
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Event_Automator\Integration\REST\V1\Interfaces
  */
@@ -20,7 +20,7 @@ trait Has_Preview_Data {
 	/**
 	 * Determine if the widget should show mock data.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -41,7 +41,7 @@ trait Has_Preview_Data {
 	 * Get the template args for the widget preview.
 	 * Must be implemented by each widget that uses this trait!
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -52,7 +52,7 @@ trait Has_Preview_Data {
 	 *
 	 * This calls the template_args method on the widget and then filters the data.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */

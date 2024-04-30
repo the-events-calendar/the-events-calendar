@@ -2,7 +2,7 @@
 /**
  * Abstract Manager class for Elementor integrations.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package Tribe\Events\Integrations\Plugins\Elementor
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor;
 /**
  * Class Manager_Abstract
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package Tribe\Events\Integrations\plugins\Elementor
  */
@@ -30,7 +30,7 @@ abstract class Manager_Abstract {
 	/**
 	 * Returns an associative array of objects to be registered.
 	 *
-	 * @since  TBD
+	 * @since 6.4.0
 	 *
 	 * @return array An array in the shape `[ <slug> => <class> ]`.
 	 */
@@ -41,7 +41,7 @@ abstract class Manager_Abstract {
 		 * Both classes and built objects can be associated with a slug; if bound in the container the classes
 		 * will be built according to the binding rules; objects will be returned as they are.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array $widgets An associative array of objects in the shape `[ <slug> => <class> ]`.
 		 */
@@ -51,7 +51,7 @@ abstract class Manager_Abstract {
 	/**
 	 * Registers the objects with Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	abstract public function register();
 }

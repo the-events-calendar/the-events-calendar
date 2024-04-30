@@ -127,7 +127,7 @@ $tec_events_display_fields += $tec_events_general_form_end;
 /**
  * Filter to determine if the Events Templates should be displayed in the settings.
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @param bool $should_display Whether the Events Templates should be displayed.
  */

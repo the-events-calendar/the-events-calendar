@@ -2,7 +2,7 @@
 /**
  * Blank template file for implementing Event template i Elementor Free.
  *
- * @since TBD
+ * @since 6.4.0
  */
 use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integration;
 
@@ -11,6 +11,6 @@ use TEC\Events\Integrations\Plugins\Elementor\Controller as Elementor_Integratio
  */
 if ( tribe( Elementor_Integration::class )->is_elementor_pro_active() && elementor_theme_do_location( 'single' ) ) {
 	return;
-} 
+}
 
 the_content();

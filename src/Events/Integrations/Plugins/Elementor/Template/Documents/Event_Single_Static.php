@@ -2,7 +2,7 @@
 /**
  * Single Event Document.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Documents
  */
@@ -17,7 +17,7 @@ use Elementor\Core\DocumentTypes\Post;
  *
  * Represents a custom Elementor document for TEC, tailored for users to create single event templates.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Documents
  */
@@ -28,7 +28,7 @@ class Event_Single_Static extends Library_Document {
 	 *
 	 * Retrieve the document properties.
 	 *
-	 * @since  TBD
+	 * @since 6.4.0
 	 *
 	 * @return array Document properties.
 	 */
@@ -45,7 +45,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * The document name.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string Document name.
 	 */
@@ -56,7 +56,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * The document type.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string Document type.
 	 */
@@ -67,7 +67,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * The document title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string Document title.
 	 */
@@ -78,7 +78,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * The document plural title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -89,7 +89,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * The document add new title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -100,7 +100,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * Modify the CSS wrapper selector.
 	 *
-	 * @since  TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -111,7 +111,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * Register the global controls for this type of document.
 	 *
-	 * @since  TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -124,7 +124,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * Controls where this type of document opens the remote library.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */
@@ -140,7 +140,7 @@ class Event_Single_Static extends Library_Document {
 	/**
 	 * Modify the template data before importing.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */

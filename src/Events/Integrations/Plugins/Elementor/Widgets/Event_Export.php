@@ -2,7 +2,7 @@
 /**
  * Elementor Event Export Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -19,7 +19,7 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
 /**
  * Class Widget_Event_Export
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -31,7 +31,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -40,7 +40,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -49,7 +49,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -60,7 +60,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -98,7 +98,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -135,7 +135,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the template data for the ical link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args The template data.
 	 */
@@ -156,7 +156,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the template data for the gcal link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args The template data.
 	 */
@@ -177,7 +177,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the template data for the Outlook 365 link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args The template data.
 	 */
@@ -198,7 +198,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the template data for the Outlook Live link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $args The template data.
 	 */
@@ -219,7 +219,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the dropdown.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -229,7 +229,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the website link label.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the website link label.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -242,7 +242,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the dropdown button.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -252,7 +252,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the dropdown button.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown button.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -265,7 +265,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the dropdown list.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -275,7 +275,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the dropdown list.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown list.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -288,7 +288,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the dropdown list items.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -298,7 +298,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the dropdown list items.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown list items.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -311,7 +311,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the dropdown links.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -321,7 +321,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the dropdown links.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown links.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -334,7 +334,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the dropdown content.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -344,7 +344,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the dropdown content.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown content.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -357,7 +357,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the dropdown icon (arrow/caret).
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -367,7 +367,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the dropdown icon.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown icon.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -380,7 +380,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the export icon (arrow/caret).
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -390,7 +390,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the export icon.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the export icon.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -403,7 +403,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the gcal link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -413,7 +413,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the gcal link.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the gcal link.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -426,7 +426,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the ical link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -436,7 +436,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the ical link.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the ical link.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -449,7 +449,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the Outlook 365 link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -459,7 +459,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the 365 link.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the Outlook 365 link.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -472,7 +472,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Get the class used for the Outlook live link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -482,7 +482,7 @@ class Event_Export extends Abstract_Widget {
 		/**
 		 * Filters the class used for the live link.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the Outlook live link.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -495,7 +495,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls(): void {
 		// Content tab.
@@ -507,7 +507,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel(): void {
 		$this->content_options();
@@ -517,7 +517,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the Google & iCal export.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_options(): void {
 		$this->start_controls_section(
@@ -569,7 +569,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel(): void {
 		$this->style_export_button();
@@ -580,7 +580,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the Google & iCal export button.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_export_button(): void {
 		$this->start_controls_section(
@@ -624,7 +624,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the Google & iCal export button on hover.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_export_button_hover(): void {
 		$this->start_controls_section(
@@ -668,7 +668,7 @@ class Event_Export extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the Google & iCal export dropdown.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_export_dropdown(): void {
 		$this->start_controls_section(

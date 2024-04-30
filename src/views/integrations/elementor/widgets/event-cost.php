@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-cost.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var string     $html_tag The HTML tag for the event cost.
  * @var int        $event_id   The event ID.

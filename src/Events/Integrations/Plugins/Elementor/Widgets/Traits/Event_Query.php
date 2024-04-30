@@ -39,7 +39,7 @@ trait Event_Query {
 	 *
 	 * This is here for the widgets that use this trait but do not extend Abstract_Widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -288,7 +288,7 @@ trait Event_Query {
 	/**
 	 * Get the ID of the event/post the widget is used in.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return ?int The ID of the current item (parent post) the widget is in. Null if not found.
 	 */
@@ -307,7 +307,7 @@ trait Event_Query {
 	/**
 	 * An internal, filterable function to get the ID of the event/post the widget is used in.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return ?int The ID of the current item (parent post) the widget is in. False if not found.
 	 */
@@ -349,7 +349,7 @@ trait Event_Query {
 		/**
 		 * Filters the event/post ID of the event/post the widget is used in.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
 		 * @param Abstract_Widget $this     The widget instance.
@@ -359,7 +359,7 @@ trait Event_Query {
 		/**
 		 * Filters the event/post ID of the event/post the widget is used in.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
 		 * @param Abstract_Widget $this     The widget instance.

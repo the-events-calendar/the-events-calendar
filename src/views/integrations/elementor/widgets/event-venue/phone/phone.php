@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/venue/event-venue/phone/phone.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var string $venue_id         The venue ID.
  * @var bool   $link_venue_phone Whether to link the phone number.

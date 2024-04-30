@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-status/status.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var bool   $show_status       Whether the status should be shown.
  * @var string $description_class The CSS classes for the description.
