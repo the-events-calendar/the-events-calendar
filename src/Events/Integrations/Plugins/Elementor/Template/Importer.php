@@ -515,6 +515,9 @@ class Importer {
 	/**
 	 * Import the template using Elementor's methods.
 	 *
+	 * @since 6.4.0
+	 *
+	 * @param string $document_class_name The document class name.
 	 * @param array $template_data The template data.
 	 *
 	 * @return false|int

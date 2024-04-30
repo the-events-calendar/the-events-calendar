@@ -142,6 +142,8 @@ class Event_Single_Static extends Library_Document {
 	 *
 	 * @since 6.4.0
 	 *
+	 * @param array $data The template data.
+	 *
 	 * @return array
 	 */
 	public static function prepare_template_data( $data ): array {

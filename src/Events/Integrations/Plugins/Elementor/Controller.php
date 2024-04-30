@@ -87,7 +87,6 @@ class Controller extends Integration_Abstract {
 	 * @since 6.4.0
 	 */
 	public function register_actions(): void {
-		// add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
