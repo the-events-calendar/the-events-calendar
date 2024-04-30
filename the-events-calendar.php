@@ -7,6 +7,8 @@
  * Author URI: https://evnt.is/1x
  * Text Domain: the-events-calendar
  * License: GPLv2 or later
+ * Elementor tested up to: 3.21.4
+ * Elementor Pro tested up to: 3.21.2
  *
  * @package TEC
  */
