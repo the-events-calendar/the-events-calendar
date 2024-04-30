@@ -8,6 +8,7 @@
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */
+
 ?>
 <div id="tec-events-integration-elementor-warn-about-switch-button">
 	<?php esc_html_e( 'This event needs to be saved before switching to Elementor.', 'the-events-calendar' ); ?>
