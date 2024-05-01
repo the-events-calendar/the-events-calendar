@@ -250,7 +250,6 @@ $tec_events_display_fields += $tec_events_display_template;
 $sample_date = strtotime( 'January 15 ' . gmdate( 'Y' ) );
 
 $end_time_options = [
-	'recent'       => esc_html__( 'Recent past events list', 'the-events-calendar' ),
 	'single-event' => esc_html__( 'Single event page', 'the-events-calendar' ),
 	'day'          => esc_html__( 'Day view', 'the-events-calendar' ),
 	'list'         => esc_html__( 'List view', 'the-events-calendar' ),
