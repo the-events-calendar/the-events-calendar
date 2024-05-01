@@ -509,21 +509,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tribe_asset(
 			$plugin,
-			'legacy-widget',
-			'legacy-widget.js',
-			[
-				'admin-widgets',
-				'wp-widgets',
-			],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => true,
-				'conditionals' => [ $this, 'is_edit_screen' ],
-			]
-		);
-
-		tribe_asset(
-			$plugin,
 			'tec-widget-blocks-styles',
 			'app/widgets.css',
 			[
@@ -549,7 +534,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		);
 
 		tribe_asset(
-			$plugin,
+			Tribe__Main::instance(),
 			'tribe-block-editor-vendor',
 			'app/vendor.css',
 			[],
