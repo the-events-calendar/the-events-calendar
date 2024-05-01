@@ -3,6 +3,7 @@
 namespace TEC\Events\Views\Modifiers;
 
 use TEC\Events\Views\Modifiers\Visibility_Modifier_Abstract;
+use Tribe\Events\Views\V2\Manager as Views_Manager;
 use Tribe__Context;
 use WP_Post;
 
@@ -83,6 +84,11 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	final public function check_visibility( string $area, $post = null ): bool {
 		$views        = $this->get_options();
 		$display_mode = $this->get_context()->get( 'event_display_mode' );
+
+		// If the area is the default view, we need to replace 'default' with the actual view slug.
+		if ( $area === 'default' ) {
+			$area = tribe( Views_Manager::class )->get_default_view_slug();
+		}
 
 		if ( $area === 'list' && $display_mode === 'past' ) {
 			// Recent past events list view should not show the end time.
