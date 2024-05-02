@@ -124,7 +124,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Delete an Event.
+	 * Delete an Event using the legacy method.
+	 *
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_events()->delete()` method](https://docs.theeventscalendar.com/apis/orm/basics/#delete).
 	 *
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
 	 * @see      wp_delete_post()
@@ -134,6 +136,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @param bool $force_delete Whether to bypass trash and force deletion. Defaults to false.
 	 *
 	 * @return bool false if delete failed.
+	 *
+	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	function tribe_delete_event( $post_id, $force_delete = false ) {
 		return Tribe__Events__API::deleteEvent( $post_id, $force_delete );
