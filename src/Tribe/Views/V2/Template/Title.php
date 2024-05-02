@@ -346,6 +346,19 @@ class Title {
 		if ( null === $this->posts ) {
 			global $wp_query;
 			$posts = null !== $wp_query->posts ? $wp_query->posts : $wp_query->get_posts();
+
+			if ( is_post_type_archive( 'tribe_events' ) ) {
+				$post_ids = wp_list_pluck( $posts, 'ID' );
+				$posts    = tribe_get_events(
+					[
+						'posts_per_page' => -1,
+						'orderby'        => 'meta_value',
+						'meta_key'       => '_EventStartDate',
+						'order'          => 'ASC',
+						'post__in'       => $post_ids,
+					]
+				);
+			}
 		}
 
 		return $posts;
