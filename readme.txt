@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Fix - Ensure JSON reply of Reflector class is sanitized, to avoid potential security issues. [SVUL-2]
+
 = [6.4.0] 2024-04-30 =
 
 * Feature - Elementor Compatibility. Compatible with Elementor Free 3.21+ and Elementor Pro 3.20+.
