@@ -235,6 +235,8 @@ Remember to always make a backup of your database and files before updating!
 = [6.4.0.1] 2024-05-02 =
 
 * Fix - Prevent the Status widget from potentially running undefined methods. [ECP-1797]
+* Fix - Correct a user permissions check. [TBD]
+* Tweak - Add action to signal activation of TEC Elementor compatibility. [ECP-1789]
 
 = [6.4.0] 2024-04-30 =
 
