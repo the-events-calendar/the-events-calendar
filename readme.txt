@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.4.0.1] 2024-05-02 =
+
+
+
 = [6.4.0] 2024-04-30 =
 
 * Feature - Elementor Compatibility. Compatible with Elementor Free 3.21+ and Elementor Pro 3.20+.
