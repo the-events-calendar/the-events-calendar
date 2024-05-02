@@ -79,6 +79,11 @@ class Controller extends Integration_Abstract {
 		tribe( Template_Controller::class );
 
 		$this->register_assets();
+
+		/**
+		 * Fires after the TEC Elementor integration has been loaded.
+		 */
+		do_action( 'tec_events_elementor_loaded' );
 	}
 
 	/**
