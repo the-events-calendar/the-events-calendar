@@ -120,8 +120,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @return int|bool ID of the event that was created. False if update failed.
 	 *
-	 * @version TBD
-	 * @since   TBD Updated docblock to indicate future deprecation of function.
+	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	function tribe_update_event( $postId, $args ) {
 		$postId = Tribe__Events__API::updateEvent( $postId, $args );
