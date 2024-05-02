@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.4.0
+Stable tag: 6.4.0.1
 Tested up to: 6.5.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.4.0.1] 2024-05-02 =
 
 * Fix - Ensure JSON reply of Reflector class is sanitized, to avoid potential security issues. [SVUL-2]
 
