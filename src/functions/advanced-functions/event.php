@@ -96,8 +96,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @return int|bool ID of the event that was created. False if insert failed.
 	 * @category Events
 	 *
-	 * @version  TBD
-	 * @since    TBD Updated docblock to indicate future deprecation of function.
+	 * @since    3.0.0
 	 */
 	function tribe_create_event( $args ) {
 		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
