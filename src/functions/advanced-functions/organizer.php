@@ -27,15 +27,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - Website string - URL of the Organizer.
 	 * - Phone string - Phone number for the Organizer.
 	 *
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
+	 * @category Organizers
+	 * @since 3.0.0
+	 *
 	 * @see      wp_insert_post()
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 *
 	 * @param array $args Elements that make up post to insert.
 	 *
 	 * @return int ID of the Organizer that was created. False if insert failed.
-	 * @category Organizers
-	 *
-	 * @since 3.0.0
 	 */
 	function tribe_create_organizer( $args ) {
 		$postId = Tribe__Events__API::createOrganizer( $args );
