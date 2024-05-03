@@ -26,12 +26,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * a post_type argument therefore is superfluous as it will be reset to the events post
 	 * type in any case.
 	 *
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
+	 * @since    3.0.0
 	 *
 	 * @see      wp_insert_post()
 	 * @see      tribe_create_venue()
 	 * @see      tribe_create_organizer()
 	 * @see      Tribe__Repository::create()
+	 *
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 *
 	 * @param array $args {
 	 *     An array of elements that make up a post to update or insert. Accepts anything from {@see wp_insert_post()}.
@@ -94,9 +96,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * }
 	 *
 	 * @return int|bool ID of the event that was created. False if insert failed.
-	 * @category Events
-	 *
-	 * @since    3.0.0
 	 */
 	function tribe_create_event( $args ) {
 		$args['post_type'] = Tribe__Events__Main::POSTTYPE;
