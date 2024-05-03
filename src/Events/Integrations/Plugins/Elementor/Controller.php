@@ -82,6 +82,8 @@ class Controller extends Integration_Abstract {
 
 		/**
 		 * Fires after the TEC Elementor integration has been loaded.
+		 *
+		 * @since TBD
 		 */
 		do_action( 'tec_events_elementor_loaded' );
 	}
