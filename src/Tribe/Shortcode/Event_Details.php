@@ -157,7 +157,7 @@ class Tribe__Events__Shortcode__Event_Details {
 		}
 
 		// If the user can't access the post, we bail.
-		if ( ! current_user_can( 'read', $args->id ) ) {
+		if ( ! current_user_can( 'read_post', $args->id ) ) {
 			return $html;
 		}
 
