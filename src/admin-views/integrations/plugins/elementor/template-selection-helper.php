@@ -5,7 +5,7 @@
  * This template is used to inject a helper message to the Elementor editor to help users understand that they are editing,
  * the JavaScript and CSS are inline to avoid having the loading complexity for Elementor Edit area.
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */

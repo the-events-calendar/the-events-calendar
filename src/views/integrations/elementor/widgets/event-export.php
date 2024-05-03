@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-export.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * Guaranteed variables:
  * @var array        $settings               The widget settings.

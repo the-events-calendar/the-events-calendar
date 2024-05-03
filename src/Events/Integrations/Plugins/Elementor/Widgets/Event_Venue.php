@@ -2,7 +2,7 @@
 /**
  * Event Venue Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -17,7 +17,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Event_Venue
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -29,7 +29,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -38,7 +38,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -47,7 +47,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -58,7 +58,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -68,7 +68,6 @@ class Event_Venue extends Abstract_Widget {
 		return [
 			// Show toggles.
 			// Boolean conversion of yes/no strings. Default true.
-			'link_name'             => tribe_is_truthy( $settings['link_venue_name'] ?? true ),
 			'show_name'             => tribe_is_truthy( $settings['show_venue_name'] ?? true ),
 			'show_widget_header'    => tribe_is_truthy( $settings['show_venue_header'] ?? true ),
 			'show_address'          => tribe_is_truthy( $settings['show_venue_address'] ?? true ),
@@ -100,7 +99,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -132,7 +131,6 @@ class Event_Venue extends Abstract_Widget {
 			1 => [
 				'id'         => 1,
 				'name'       => _x( 'Mock Venue', 'A mock venue name for the widget preview', 'the-events-calendar' ),
-				'name_link'  => 'https://theeventscalendar.com',
 				'address'    => $preview_address,
 				'phone'      => $phone,
 				'phone_link' => $this->format_phone_link( $phone ),
@@ -147,7 +145,6 @@ class Event_Venue extends Abstract_Widget {
 			$args['venues'][2] = [
 				'id'         => 2,
 				'name'       => _x( 'Mock Venue 2', 'A mock venue name for the widget preview', 'the-events-calendar' ),
-				'name_link'  => 'https://theeventscalendar.com',
 				'address'    => $preview_address,
 				'phone'      => $phone,
 				'phone_link' => $this->format_phone_link( $phone ),
@@ -164,7 +161,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the venue data for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The venue data.
 	 */
@@ -180,7 +177,6 @@ class Event_Venue extends Abstract_Widget {
 			$venues[ $venue_id ] = [
 				'id'         => $venue_id,
 				'name'       => tribe_get_venue( $venue_id ),
-				'name_link'  => tribe_is_truthy( $settings['link_venue_name'] ?? true ) ? tribe_get_venue_link( $venue_id, false ) : false,
 				'address'    => tribe_get_full_address( $venue_id ),
 				'phone'      => $phone,
 				'phone_link' => tribe_is_truthy( $settings['link_venue_phone'] ?? false ) ? $this->format_phone_link( $phone ) : false,
@@ -196,7 +192,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Format a phone number for use in a tel link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $phone The phone number to format.
 	 */
@@ -208,7 +204,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Checks whether the event being previewed has multiple venues assigned.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool Whether the event has multiple venues.
 	 */
@@ -222,7 +218,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the main header text for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The header text.
 	 */
@@ -240,7 +236,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the header text for the event venue widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $header_text The header text.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -253,7 +249,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the website header text for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The website header text.
 	 */
@@ -267,7 +263,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the website header text for the event venue widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $header_text The header text.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -280,7 +276,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the phone header text for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The phone header text.
 	 */
@@ -294,7 +290,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the phone header text for the event venue widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $header_text The header text.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -307,7 +303,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the address header text for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The address header text.
 	 */
@@ -321,7 +317,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the address header text for the event venue widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $header_text The header text.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -334,7 +330,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the classes for the widget container.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The container classes.
 	 */
@@ -353,7 +349,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the class for the widget header.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The header class.
 	 */
@@ -363,7 +359,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the classes for the event venue widget header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array $classes The widget header classes.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -374,7 +370,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the base class for the event venue name section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The name header classes.
 	 */
@@ -384,7 +380,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event venue name section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The name base class.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -395,7 +391,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the base class for the event venue address section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The address header classes.
 	 */
@@ -405,7 +401,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event venue address section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The address base class.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -416,7 +412,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the base class for the event venue phone section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The phone header classes.
 	 */
@@ -426,7 +422,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event venue phone section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The phone base class.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -437,7 +433,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the base class for the event venue website section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The website header classes.
 	 */
@@ -447,7 +443,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event venue website section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The website base class.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -458,7 +454,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Get the base class for the event venue map section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The map header classes.
 	 */
@@ -468,7 +464,7 @@ class Event_Venue extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event venue map section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The map base class.
 		 * @param Event_Venue $this The event venue widget instance.
@@ -479,7 +475,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls() {
 		$this->content_panel();
@@ -489,7 +485,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel() {
 		$this->content_options();
@@ -512,7 +508,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel() {
 		$this->style_venue_header();
@@ -531,7 +527,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event venue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_options() {
 		$this->start_controls_section(
@@ -566,7 +562,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event venue name.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function venue_name_content_options() {
 		$this->start_controls_section(
@@ -593,28 +589,13 @@ class Event_Venue extends Abstract_Widget {
 			]
 		);
 
-		// Show Venue Header control.
-		$this->add_control(
-			'link_venue_name',
-			[
-				'label'     => esc_html__( 'Link to Venue Profile', 'the-events-calendar' ),
-				'type'      => Controls_Manager::SWITCHER,
-				'label_on'  => esc_html__( 'Yes', 'the-events-calendar' ),
-				'label_off' => esc_html__( 'No', 'the-events-calendar' ),
-				'default'   => 'yes',
-				'condition' => [
-					'show_venue_name' => 'yes',
-				],
-			]
-		);
-
 		$this->end_controls_section();
 	}
 
 	/**
 	 * Add controls for text content of the event venue phone.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function venue_phone_content_options() {
 		$this->start_controls_section(
@@ -672,7 +653,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event venue address.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function venue_address_content_options() {
 		$this->start_controls_section(
@@ -726,7 +707,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event venue website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function venue_website_content_options() {
 		$this->start_controls_section(
@@ -773,7 +754,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event venue website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function venue_map_content_options() {
 		$this->start_controls_section(
@@ -801,7 +782,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Control for showing two venues.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function mock_data_content_options(): void {
 		$this->start_controls_section(
@@ -825,7 +806,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the venue label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -863,7 +844,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the venue name.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -902,7 +883,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the venue phone.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -975,7 +956,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the venue address.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -1070,7 +1051,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the venue website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -1143,7 +1124,7 @@ class Event_Venue extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the venue map.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */

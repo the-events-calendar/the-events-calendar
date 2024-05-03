@@ -2,7 +2,7 @@
 /**
  * Template Engine for Elementor Widgets.
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -16,7 +16,7 @@ use WP_Post;
 /**
  * Class Template_Engine.
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -24,7 +24,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Which widget instance is being used for this template engine.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var Abstract_Widget
 	 */
@@ -33,7 +33,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Stores a potential Event ID associated with this template.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var WP_Post|null The event post object.
 	 */
@@ -42,7 +42,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Template_Engine constructor, handles configuring which is the base folder, plugin and so on.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function __construct() {
 		$this->set_template_origin( tribe( 'tec.main' ) );
@@ -54,7 +54,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Allows to get the widget instance.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return Abstract_Widget
 	 */
@@ -65,7 +65,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Get the event ID associated with this template.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param int|string|WP_Post $event The event ID, post object or slug.
 	 *
@@ -78,7 +78,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Determines if the template has an event associated with it.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -90,7 +90,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Get the event associated with this template.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return WP_Post|null
 	 */
@@ -101,7 +101,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Determines if Elementor is in Edit Mode.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -112,7 +112,7 @@ class Template_Engine extends Template_Engine_Contract {
 	/**
 	 * Determines if Elementor is on Preview Mode.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */

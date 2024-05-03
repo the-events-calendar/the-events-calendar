@@ -2,7 +2,7 @@
 /**
  * Event Status Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -21,7 +21,7 @@ use Tribe\Events\Event_Status\Status_Labels;
 /**
  * Class Widget_Event_Status
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -33,7 +33,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -53,7 +53,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -84,7 +84,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -112,7 +112,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the CSS class for the label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The CSS class for the label.
 	 */
@@ -123,7 +123,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the displayed label for the status widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param \WP_Post $event The event post object.
 	 *
@@ -147,7 +147,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the CSS class for the passed label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The CSS class for the passed label.
 	 */
@@ -158,7 +158,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the CSS class for the Status description.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The CSS class for the description.
 	 */
@@ -169,7 +169,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the CSS class for the status.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $status The status.
 	 *
@@ -183,7 +183,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the CSS class for the postponed label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The CSS class for the postponed label.
 	 */
@@ -194,7 +194,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the CSS class for the canceled .
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The CSS class for the canceled .
 	 */
@@ -205,7 +205,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the CSS class for the event passed label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The CSS class for the event passed label.
 	 */
@@ -219,7 +219,7 @@ class Event_Status extends Abstract_Widget {
 		/**
 		 * Filters the label text for the event passed widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string       $label_text The label text.
 		 * @param Event_Passed $this The event passed widget instance.
@@ -232,7 +232,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls() {
 		// Content tab.
@@ -244,7 +244,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel() {
 		$this->content_options();
@@ -254,7 +254,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel() {
 		$this->passed_label_styling();
@@ -269,7 +269,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event status widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_options(): void {
 		$this->start_controls_section(
@@ -313,7 +313,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event passed label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function passed_label_styling() {
 		$this->start_controls_section(
@@ -346,7 +346,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event status label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function status_label_styling() {
 		$this->start_controls_section(
@@ -379,7 +379,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event status status.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function status_description_styling() {
 		$this->start_controls_section(
@@ -464,7 +464,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event status peripherals.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function status_peripherals_styling() {
 		$this->start_controls_section(
@@ -507,7 +507,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Get the message to show when the widget is empty.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The message shown when an event widget is empty.
 	 */
@@ -522,7 +522,7 @@ class Event_Status extends Abstract_Widget {
 	/**
 	 * Conditions for showing the empty widget template in the editor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function empty_conditions(): bool {
 		$event = $this->get_event();

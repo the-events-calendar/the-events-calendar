@@ -2,7 +2,7 @@
 /**
  * Event Website Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -15,7 +15,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Widget_Event_Website
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -27,7 +27,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -45,7 +45,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -56,7 +56,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -79,7 +79,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -96,7 +96,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Get the class used for the website link header.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -106,7 +106,7 @@ class Event_Website extends Abstract_Widget {
 		/**
 		 * Filters the class used for the website header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the website header .
 		 * @param Abstract_Widget $this  The widget instance.
@@ -119,7 +119,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Get the class used for the website link wrapper.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -129,7 +129,7 @@ class Event_Website extends Abstract_Widget {
 		/**
 		 * Filters the class used for the website link wrapper.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the website link wrapper.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -142,7 +142,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls(): void {
 		// Content tab.
@@ -154,7 +154,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel(): void {
 		$this->header_options();
@@ -165,7 +165,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel(): void {
 		$this->header_styling();
@@ -175,7 +175,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Add controls for the header content of the event website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function header_options(): void {
 		$this->start_controls_section(
@@ -210,7 +210,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function link_options(): void {
 		$this->start_controls_section(
@@ -238,7 +238,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the section header.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function header_styling(): void {
 		$this->start_controls_section(
@@ -274,7 +274,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function link_styling(): void {
 		$this->start_controls_section(
@@ -307,7 +307,7 @@ class Event_Website extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function link_hover_styling(): void {
 		$this->start_controls_section(

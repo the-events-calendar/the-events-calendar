@@ -2,7 +2,7 @@
 /**
  * List View Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package Tribe\Events\Integrations\Elementor\Widgets
  */
@@ -24,7 +24,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Widget slug prefix.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Widget asset prefix.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 *
 	 * This holds the base path to the widget templates.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -62,7 +62,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Template engine class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string The template engine class to use.
 	 */
@@ -71,7 +71,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Get local widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -82,7 +82,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Get the post type associated with the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -99,7 +99,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Gets the title of the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function get_title(): string {
 		$title = $this->title();
@@ -108,7 +108,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the title of the widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $title The widget title.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -118,7 +118,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the title of a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $title The widget title.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -130,14 +130,14 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 * Gets/creates the title of the widget.
 	 * This must be overridden by the child class to include translating the title string.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	abstract protected function title(): string;
 
 	/**
 	 * Gets the icon class for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -149,7 +149,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 * Gets the CSS class list for the widget.
 	 * As a string (for use in attributes) or as an array.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $format The format to return. Either 'attribute' (default) or 'array'.
 	 *
@@ -163,7 +163,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the widget class list for all tec-events-elementor widgets.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array<string>   $classes The widget classes.
 		 * @param string          $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
@@ -176,7 +176,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the widget class list for a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array<string>   $classes The widget classes.
 		 * @param string          $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
@@ -198,7 +198,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 * Provides a "trimmed" slug for usage in classes and such (removes the "event_" prefix)
 	 * and converts all underscores to dashes.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -209,7 +209,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Provides the main CSS class for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -220,7 +220,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the widget class for all tec-events-elementor widgets.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -232,7 +232,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the widget class for a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -245,7 +245,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Provides the CSS class for the widget icon.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -256,7 +256,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the widget icon class for all tec-events-elementor widgets.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -268,7 +268,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the widget icon class for a specific tec-events-elementor widget, by slug.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget class.
 		 * @param Abstract_Widget $this  The widget instance.
@@ -281,7 +281,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Gets the categories of the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array<string>
 	 */
@@ -292,7 +292,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * An internal, filterable function to get the ID of the event/post the widget is used in.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return ?int The ID of the current item (parent post) the widget is in. Null if not found.
 	 */
@@ -312,7 +312,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the event/post ID of the event/post the widget is used in.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
 		 * @param Abstract_Widget $this     The widget instance.
@@ -322,7 +322,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		/**
 		 * Filters the event/post ID of the event/post the widget is used in.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
 		 * @param Abstract_Widget $this     The widget instance.
@@ -339,7 +339,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Get the event ID.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return ?int
 	 */
@@ -350,7 +350,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Determines if the widget has a valid event ID associated with it.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -361,7 +361,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Get the asset source for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -372,7 +372,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Register the styles for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register_style(): void {
 		static::$group_key = Assets_Manager::$group_key;
@@ -383,7 +383,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Get the message to show when the widget is empty.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The message shown when an event widget is empty.
 	 */
@@ -398,7 +398,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	/**
 	 * Wether to show the empty widget template in the editor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function show_empty(): bool {
 		if ( ! $this->get_template()->is_edit_mode() ) {
@@ -413,7 +413,7 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 * Meant to be overridden in the widget class.
 	 * This must return true for the empty widget template to show.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function empty_conditions(): bool {
 		return false;

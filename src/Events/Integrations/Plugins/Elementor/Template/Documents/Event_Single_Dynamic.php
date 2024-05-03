@@ -2,7 +2,7 @@
 /**
  * Single Event Pro Document.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Documents
  */
@@ -18,7 +18,7 @@ use ElementorPro\Modules\ThemeBuilder\Documents\Single_Base;
  * It integrates with Elementor's Theme Builder, offering advanced features such as
  * dynamic tags and conditional display settings for Single Event templates.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Documents
  */
@@ -26,7 +26,7 @@ class Event_Single_Dynamic extends Single_Base {
 	/**
 	 * Retrieves the properties for the Event_Single_Dynamic document.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The Event_Single_Dynamic document properties.
 	 */
@@ -40,7 +40,7 @@ class Event_Single_Dynamic extends Single_Base {
 	/**
 	 * The document icon.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string Document icon.
 	 */
@@ -51,7 +51,7 @@ class Event_Single_Dynamic extends Single_Base {
 	/**
 	 * The document title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string Document title.
 	 */
@@ -62,31 +62,29 @@ class Event_Single_Dynamic extends Single_Base {
 	/**
 	 * The document name.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string Document name.
 	 */
 	public function get_name(): string {
-		return 'tec_event_single_dynamic';
+		return static::get_type();
 	}
 
 	/**
 	 * The document type.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string Document type.
 	 */
 	public static function get_type(): string {
-		return 'tec_event_single_base';
+		return 'tec_event_single_dynamic';
 	}
-
-
 
 	/**
 	 * Modify the template data before importing.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array $data The template data.
 	 *
@@ -94,7 +92,7 @@ class Event_Single_Dynamic extends Single_Base {
 	 */
 	public static function prepare_template_data( $data ): array {
 		// Do not translate this string.
-		$data['title'] = 'The Events Calendar &mdash; Dynamic template';
+		$data['title'] = 'The Events Calendar - Dynamic template';
 
 		return $data;
 	}

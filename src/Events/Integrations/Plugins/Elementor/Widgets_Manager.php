@@ -2,7 +2,7 @@
 /**
  * Handles Registering Elementor widgets.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor
  */
@@ -15,7 +15,7 @@ use TEC\Common\Contracts\Provider\Controller;
 /**
  * Class Widget_Manager
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor
  */
@@ -23,7 +23,7 @@ class Widgets_Manager extends Controller {
 	/**
 	 * A list of widget classes to register.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var array
 	 */
@@ -46,7 +46,7 @@ class Widgets_Manager extends Controller {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function do_register(): void {
 		if ( ! class_exists( 'Elementor\Widget_Base', false ) ) {
@@ -65,7 +65,7 @@ class Widgets_Manager extends Controller {
 	 *
 	 * Bound implementations should not be removed in this method!
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void Filters and actions hooks added by the controller are be removed.
 	 */
@@ -74,7 +74,7 @@ class Widgets_Manager extends Controller {
 	/**
 	 * Gets a filtered list of the widgets to be registered with Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */
@@ -84,7 +84,7 @@ class Widgets_Manager extends Controller {
 		/**
 		 * Allows filtering the widget classes to be registered with Elementor.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array $classes The widget classes to be registered with Elementor.
 		 *
@@ -96,7 +96,7 @@ class Widgets_Manager extends Controller {
 	/**
 	 * Returns the widgets to be registered with Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */
@@ -104,7 +104,7 @@ class Widgets_Manager extends Controller {
 		/**
 		 * Allows filtering the widgets to be registered with Elementor.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param array $widgets The widgets to be registered with Elementor.
 		 */
@@ -128,7 +128,7 @@ class Widgets_Manager extends Controller {
 	/**
 	 * Registers the widgets with Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register_with_elementor(): void {
 		$widgets = $this->get_widgets();

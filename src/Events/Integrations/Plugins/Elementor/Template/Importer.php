@@ -2,7 +2,7 @@
 /**
  * Class to handle the importation of Elementor Single Event templates.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */
@@ -21,7 +21,7 @@ use Tribe__Log as Log;
 /**
  * Class Importer
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */
@@ -30,7 +30,7 @@ class Importer {
 	/**
 	 * Widget template.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var Template $template
 	 */
@@ -41,7 +41,7 @@ class Importer {
 	 *
 	 * This is used to prevent multiple imports from happening at the same time in the same request.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -50,7 +50,7 @@ class Importer {
 	/**
 	 * The option key used to store whether the starter template has been imported.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -59,7 +59,7 @@ class Importer {
 	/**
 	 * Every imported elementor document will have a relationship with a document class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -68,7 +68,7 @@ class Importer {
 	/**
 	 * Gets a list of the documents to import.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string[]
 	 */
@@ -87,7 +87,7 @@ class Importer {
 	/**
 	 * Imports the starter template.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -137,7 +137,7 @@ class Importer {
 	/**
 	 * Imports a given document base template.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name Name of the event document class we're importing.
 	 *
@@ -207,7 +207,7 @@ class Importer {
 	/**
 	 * Mark the starter template as currently being imported, this prevents multiple imports from happening at the same time.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name Which document class name to mark as updating.
 	 *
@@ -223,7 +223,7 @@ class Importer {
 	/**
 	 * Clear the updating status for the starter template importing operation.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name Which document class name to clear the updating status for.
 	 *
@@ -242,7 +242,7 @@ class Importer {
 	/**
 	 * Check if the starter template is currently being imported.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name Which document class name to check for.
 	 *
@@ -257,7 +257,7 @@ class Importer {
 	/**
 	 * Check if the starter template has already been imported.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name Which document class name to check for.
 	 *
@@ -270,7 +270,7 @@ class Importer {
 	/**
 	 * Get the imported template if it exists.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */
@@ -287,7 +287,7 @@ class Importer {
 	/**
 	 * Get the imported template if it exists.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name Which document class name to get the template for.
 	 *
@@ -332,7 +332,7 @@ class Importer {
 	 * * - settings
 	 * * - content[0].elements[0].elements
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name The document class name.
 	 * @param mixed  $template_data       The template data.
@@ -372,7 +372,7 @@ class Importer {
 	 * This method will check for the following data in the template data:
 	 * - [0].elements[0].elements
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name The document class name.
 	 * @param int    $post_id             The template id we will check.
@@ -417,7 +417,7 @@ class Importer {
 	 *
 	 * @see   $this->document_relationship_meta_key
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string   $document_class_name Name of the event document class.
 	 * @param Document $document            Actual object from Elementor of the document.
@@ -439,7 +439,7 @@ class Importer {
 	 *
 	 * @see   $this->document_relationship_meta_key
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param int $post_id The post ID.
 	 *
@@ -456,7 +456,7 @@ class Importer {
 	 *
 	 * @see   $this->document_relationship_meta_key
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $document_class_name The document class name.
 	 *
@@ -487,7 +487,7 @@ class Importer {
 	/**
 	 * Get all documents that have a relationship with a document class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array
 	 */
@@ -515,6 +515,9 @@ class Importer {
 	/**
 	 * Import the template using Elementor's methods.
 	 *
+	 * @since 6.4.0
+	 *
+	 * @param string $document_class_name The document class name.
 	 * @param array $template_data The template data.
 	 *
 	 * @return false|int
@@ -569,7 +572,7 @@ class Importer {
 	/**
 	 * Gets the template engine for handling template importing.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return Template
 	 */

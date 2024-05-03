@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-calendar_link.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var string $calendar_link_tag   HTML tag for the backlink.
  * @var string $calendar_link_label Label for the link.

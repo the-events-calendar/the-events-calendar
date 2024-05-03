@@ -2,7 +2,7 @@
 /**
  * Event Organizer Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -15,7 +15,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Event_Organizer
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -27,7 +27,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -45,7 +45,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -56,7 +56,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -93,7 +93,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -117,7 +117,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the mock organizer data for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The mock organizer data.
 	 */
@@ -137,7 +137,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the organizer data for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The organizer data.
 	 */
@@ -166,7 +166,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Format a phone number for use in a tel link.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $phone The phone number to format.
 	 */
@@ -178,7 +178,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the email header text for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The email header text.
 	 */
@@ -192,7 +192,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the email header text for the event organizer widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $header_text The header text.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -205,7 +205,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the phone header text for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The phone header text.
 	 */
@@ -219,7 +219,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the phone header text for the event organizer widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $header_text The header text.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -232,7 +232,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the website header text for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The website header text.
 	 */
@@ -246,7 +246,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the website header text for the event organizer widget.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $header_text The header text.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -259,7 +259,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the classes for the event organizer widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The classes for the event organizer widget.
 	 */
@@ -269,7 +269,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the classes for the event organizer widget header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string          $class The widget header class.
 		 * @param Event_Organizer $this  The event organizer widget instance.
@@ -280,7 +280,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the base class for the event organizer name list.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The name class.
 	 */
@@ -290,7 +290,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event organizer name section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The name base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -301,7 +301,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the wrapper class for the event organizer name.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The name class.
 	 */
@@ -311,7 +311,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the wrapper class for the event organizer name section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The name wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -322,7 +322,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the base class for the event organizer phone section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The phone class.
 	 */
@@ -332,7 +332,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event organizer phone section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The phone base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -343,7 +343,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the wrapper class for the event organizer phone.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The phone class.
 	 */
@@ -353,7 +353,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the wrapper class for the event organizer phone section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The phone wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -364,7 +364,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the header class for the event organizer phone section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The phone header class.
 	 */
@@ -374,7 +374,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the header class for the event organizer phone section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The phone header class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -385,7 +385,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the base class for the event organizer email section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The address header classes.
 	 */
@@ -395,7 +395,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event organizer email section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The email base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -406,7 +406,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the wrapper class for the event organizer email.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The email class.
 	 */
@@ -416,7 +416,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the wrapper class for the event organizer email section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The email wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -427,7 +427,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the header class for the event organizer email section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The email class.
 	 */
@@ -437,7 +437,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the header class for the event organizer email section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The email header class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -448,7 +448,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the base class for the event organizer website section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The address header classes.
 	 */
@@ -458,7 +458,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the base class for the event organizer website section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The website base class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -469,7 +469,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the wrapper class for the event organizer website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The website class.
 	 */
@@ -479,7 +479,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the wrapper class for the event organizer website section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The website wrapper class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -490,7 +490,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the header class for the event organizer website section.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The website class.
 	 */
@@ -500,7 +500,7 @@ class Event_Organizer extends Abstract_Widget {
 		/**
 		 * Filters the header class for the event organizer website section header.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param string $class The website header class.
 		 * @param Event_Organizer $this The event organizer widget instance.
@@ -511,7 +511,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Get the class(es) for the event organizer container.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $format The format for the class(es).
 	 *                       If anything other than "array" is passed, the class(es) will be returned as a string.
@@ -537,7 +537,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Checks whether the event being previewed has multiple organizers assigned.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool Whether the event has multiple organizers.
 	 */
@@ -551,7 +551,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls() {
 		// Content tab.
@@ -563,7 +563,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel() {
 		$this->content_options();
@@ -585,7 +585,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event organizer.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_options() {
 		$this->start_controls_section(
@@ -620,7 +620,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel() {
 		$this->style_organizer_header();
@@ -637,7 +637,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event organizer name.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function organizer_name_content_options() {
 		$this->start_controls_section(
@@ -669,7 +669,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event organizer phone.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function organizer_phone_content_options() {
 		$this->start_controls_section(
@@ -727,7 +727,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event organizer email.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function organizer_email_content_options() {
 		$this->start_controls_section(
@@ -785,7 +785,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event organizer website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function organizer_website_content_options() {
 		$this->start_controls_section(
@@ -832,7 +832,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the organizer label.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -870,7 +870,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the organizer name.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -908,7 +908,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the organizer phone.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -979,7 +979,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the organizer email.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -1050,7 +1050,7 @@ class Event_Organizer extends Abstract_Widget {
 	/**
 	 * Assembles the styling controls for the organizer website.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */

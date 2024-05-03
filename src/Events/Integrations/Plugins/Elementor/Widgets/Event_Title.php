@@ -2,7 +2,7 @@
 /**
  * Event Title Elementor Widget.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -15,7 +15,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Class Event_Title
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
@@ -27,7 +27,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Widget slug.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Whether the widget has styles to register/enqueue.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var bool
 	 */
@@ -45,7 +45,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Create the widget title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -56,7 +56,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args.
 	 */
@@ -74,7 +74,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Get the template args for the widget preview.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return array The template args for the preview.
 	 */
@@ -94,7 +94,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Determine the HTML tag to use for the event title based on settings.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string The HTML tag to use for the event title.
 	 */
@@ -107,7 +107,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Register controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function register_controls(): void {
 		// Content tab.
@@ -119,7 +119,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Add content controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_panel(): void {
 		$this->content_options();
@@ -129,7 +129,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Add styling controls for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function style_panel(): void {
 		// Styling options.
@@ -139,7 +139,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Add controls for text content of the event title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function content_options(): void {
 		$this->start_controls_section(
@@ -164,7 +164,7 @@ class Event_Title extends Abstract_Widget {
 	/**
 	 * Add controls for text styling of the event title.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	protected function styling_options(): void {
 		$this->start_controls_section(

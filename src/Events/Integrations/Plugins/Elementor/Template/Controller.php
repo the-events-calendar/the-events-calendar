@@ -2,7 +2,7 @@
 /**
  * Elementor Templates Controller.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */
@@ -26,7 +26,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Template
  */
@@ -35,7 +35,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Instance of the template class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var Template
 	 */
@@ -44,7 +44,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function do_register(): void {
 		$this->container->singleton( self::class, self::class );
@@ -64,7 +64,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds the actions required by each template component.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function add_actions(): void {
 		add_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
@@ -76,7 +76,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes the actions hooked by this class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function remove_actions(): void {
 		remove_action( 'elementor/documents/register', [ $this, 'action_register_elementor_documents' ] );
@@ -88,10 +88,11 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds the filters required by each template component.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function add_filters(): void {
 		add_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
+		add_filter( 'tribe_events_template_single-tribe_events.php', [ $this, 'filter_override_event_template' ] );
 		add_filter( 'tribe_events_template_single-event.php', [ $this, 'filter_override_event_template' ] );
 		add_filter( 'tribe_get_option_tribeEventsTemplate', [ $this, 'filter_events_template_setting_option' ] );
 		add_filter( 'tribe_get_single_option', [ $this, 'filter_tribe_get_single_option' ], 10, 3 );
@@ -101,7 +102,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes the filters hooked by this class.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function remove_filters(): void {
 		remove_filter( 'tec_events_should_display_events_template_setting', '__return_false' );
@@ -114,7 +115,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Force the correct template object for Elementor theme.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $value The value of the option.
 	 *
@@ -147,7 +148,7 @@ class Controller extends Controller_Contract {
 	 * Overwrite the template option on save if Elementor is active.
 	 * We only support the default events template for now.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param array<string, mixed> $options   The array of values to save. In the format option key => value.
 	 * @param string               $option_id The main option ID.
@@ -167,7 +168,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Include the template selection helper.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -196,7 +197,7 @@ class Controller extends Controller_Contract {
 	 * Checks if the current event needs an Elementor template override.
 	 * If we have the template set to our template, use the internal blank post template
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param mixed $post_id The post ID to check. If null will use the current post.
 	 *
@@ -243,7 +244,7 @@ class Controller extends Controller_Contract {
 	 * Registers the Elementor documents.
 	 * A document in Elementor's context represents the basic type of post (e.g., page, section, widget).
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param Documents_Manager $documents_manager The documents' manager.
 	 */
@@ -269,7 +270,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Ensures that the document type is set correctly when the Document Type meta is updated.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param int    $mid        The meta ID after successful update.
 	 * @param int    $object_id  ID of the object metadata is for.
@@ -298,7 +299,7 @@ class Controller extends Controller_Contract {
 	 * Overrides the single event template based on the selected Elementor Template.
 	 * Priority is given to individual event templates over the global setting for all events.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param string $file Path to the template file.
 	 *
@@ -323,7 +324,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Retrieves the path to the blank file.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return string
 	 */
@@ -336,7 +337,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Imports the single event starter template.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */

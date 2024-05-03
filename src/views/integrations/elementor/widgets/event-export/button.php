@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-export/button.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var Event_Export $widget   The widget instance.
  */

@@ -2,7 +2,7 @@
 /**
  * Controller for Events Calendar Pro Elementor integrations.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor
  */
@@ -23,7 +23,7 @@ use Tribe__Events__Revisions__Preview;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package TEC\Events\Integrations\Plugins\Elementor
  */
@@ -33,7 +33,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * The template instance.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @var Tribe_Template
 	 */
@@ -42,7 +42,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public static function get_slug(): string {
 		return 'elementor';
@@ -51,7 +51,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool Whether integrations should load.
 	 */
@@ -62,7 +62,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function load(): void {
 		$this->container->register_on_action( 'elementor/init', Template_Controller::class );
@@ -84,10 +84,9 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Register actions.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register_actions(): void {
-		// add_action( 'elementor/document/after_save', [ $this, 'action_elementor_document_after_save' ], 10, 2 );
 		add_action( 'edit_form_after_title', [ $this, 'modify_switch_mode_button' ], 15, 1 );
 		add_action( 'elementor/elements/categories_registered', [ $this, 'action_register_elementor_category' ] );
 		add_action( 'elementor/controls/controls_registered', [ $this, 'action_register_elementor_controls' ] );
@@ -114,17 +113,18 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Register filters.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register_filters(): void {
 		add_filter( 'elementor/query/query_args', [ $this, 'suppress_query_filters' ], 10, 1 );
 		add_filter( 'the_content', [ $this, 'disable_blocks_on_display' ], 10 );
+		add_filter( 'tec_events_allow_single_block_template', [ $this, 'filter_tec_events_allow_single_block_template' ] );
 	}
 
 	/**
 	 * Register the assets for the Elementor integration.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return void
 	 */
@@ -145,7 +145,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Registers controls for Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function action_register_elementor_controls(): void {
 		$this->container->make( Controls_Manager::class )->register();
@@ -155,7 +155,7 @@ class Controller extends Integration_Abstract {
 	 * Checks if Elementor Pro is active.
 	 * For registering controllers, etc, use register_on_action(  'elementor_pro/init' )
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -167,7 +167,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Checks if the admin styles should be loaded.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return bool
 	 */
@@ -181,7 +181,7 @@ class Controller extends Integration_Abstract {
 	 * This is a temporary solution to fix the issue with the Elementor data not being saved on the real post.
 	 * It's NOT WORKING CORRECTLY as of yet, and the issue is still being investigated.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param \Elementor\Core\DocumentTypes\Post $document    The document.
 	 * @param array                              $editor_data The editor data.
@@ -210,7 +210,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Modify the switch mode button to show a warning when the event is not properly saved yet.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param WP_Post|int|string $post The post object.
 	 *
@@ -259,10 +259,41 @@ class Controller extends Integration_Abstract {
 	}
 
 	/**
-	 * Disables the Blocks Editor on posts that have been edited with Elementor.
-     * By filtering them out of the post content on display.
+	 * Filters the tec_events_allow_single_block_template flag to disable it for events edited with Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
+	 *
+	 * @param bool $allow_single Whether the single block template should be used.
+	 */
+	public function filter_tec_events_allow_single_block_template( bool $allow_single ): bool {
+		global $post;
+
+		// Not a post.
+		if ( ! $post instanceof WP_Post ) {
+			return $allow_single;
+		}
+
+		// Not an event.
+		if ( ! tribe_is_event( $post ) ) {
+			return $allow_single;
+		}
+
+		if (
+			// Not an event edited with Elementor.
+			// Or one having an Elementor template applied.
+			! tribe( Template_Controller::class )->is_override()
+		) {
+			return $allow_single;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Disables the Blocks Editor on posts that have been edited with Elementor.
+	 * By filtering them out of the post content on display.
+	 *
+	 * @since 6.4.0
 	 *
 	 * @param string $content The post content.
 	 *
@@ -271,36 +302,36 @@ class Controller extends Integration_Abstract {
 	public function disable_blocks_on_display( $content ): string {
 		global $post;
 
-        // Not a post.
+		// Not a post.
 		if ( ! $post instanceof WP_Post ) {
 			return $content;
 		}
 
-        // Not an event.
+		// Not an event.
 		if ( ! tribe_is_event( $post ) ) {
 			return $content;
 		}
 
 		if (
-            // Not an event edited with Elementor.
-            // Or one having an Elementor template applied.
+			// Not an event edited with Elementor.
+			// Or one having an Elementor template applied.
 			! tribe( Template_Controller::class )->is_override()
 		) {
 			return $content;
 		}
 
-        // Remove TEC blocks when displayed in an elementor widget.
+		// Remove TEC blocks when displayed in an elementor widget.
 		return preg_replace(
-            '/<!-- wp:tribe.*-->/miU',
-            '',
-            $content
-        );
+			'/<!-- wp:tribe.*-->/miU',
+			'',
+			$content
+		);
 	}
 
 	/**
 	 * Checks if the post was edited with Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @param int $post_id The post ID.
 	 *
@@ -334,7 +365,7 @@ class Controller extends Integration_Abstract {
 		 * Specifically only filtering for Events and takes in consideration if we are looking at a preview request
 		 * and uses the same meta as Elementor itself to check, see `Document::BUILT_WITH_ELEMENTOR_META_KEY`.
 		 *
-		 * @since TBD
+		 * @since 6.4.0
 		 *
 		 * @param bool $elementor_edit Whether the post was built with Elementor.
 		 * @param int $post_id The post ID.
@@ -345,7 +376,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Gets the template instance used to setup the rendering html.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 *
 	 * @return Template
 	 */
@@ -363,7 +394,7 @@ class Controller extends Integration_Abstract {
 	/**
 	 * Removes the revision metadata modifier on event previews in Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function action_remove_revision_metadata_modifier(): void {
 		if ( ! is_preview() ) {

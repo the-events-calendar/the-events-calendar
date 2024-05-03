@@ -2,7 +2,7 @@
 /**
  * Controls Manager class for Elementor integrations.
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package Tribe\Events\Integrations\Elementor
  */
@@ -16,7 +16,7 @@ use TEC\Common\Integrations\Contracts\Manager_Abstract;
 /**
  * Class Controls_Manager
  *
- * @since   TBD
+ * @since 6.4.0
  *
  * @package Tribe\Events\Integrations\Elementor
  */
@@ -29,7 +29,7 @@ class Controls_Manager extends Manager_Abstract {
 	/**
 	 * Constructor
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function __construct() {
 		$this->objects = [
@@ -40,7 +40,7 @@ class Controls_Manager extends Manager_Abstract {
 	/**
 	 * Registers the controls with Elementor.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register() {
 		$objects = $this->get_registered_objects();

@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-navigation/next.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var string   $next_link  The URl to the next event.
  * @var ?WP_Post $next_event The next event.

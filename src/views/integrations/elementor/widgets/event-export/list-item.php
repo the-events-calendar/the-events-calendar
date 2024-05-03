@@ -5,7 +5,7 @@
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/event-export/list-item.php
  *
- * @since TBD
+ * @since 6.4.0
  *
  * @var array        $link           The link and label. In the format:
  *                                   [
