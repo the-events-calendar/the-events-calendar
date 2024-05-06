@@ -55,6 +55,12 @@ class Reflector_View extends View {
 	 * @return false|string The result of the `json_encode` called on the current view context.
 	 */
 	public function get_html() {
-		return wp_json_encode( $this->context->to_array(), JSON_PRETTY_PRINT );
+		$json = wp_json_encode( $this->context->to_array(), JSON_PRETTY_PRINT );
+
+		if ( false === $json ) {
+			return false;
+		}
+
+		return sanitize_textarea_field( $json );
 	}
 }

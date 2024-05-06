@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.4.0
+Stable tag: 6.4.0.1
 Tested up to: 6.5.2
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -240,6 +240,15 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
 * Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
 * Tweak - Add note to `tribe_event_delete()` docblock to indicate future deprecation.
+
+= [6.4.0.1] 2024-05-06 =
+
+* Fix - Prevent the Status widget from potentially running undefined methods. [ECP-1797]
+* Fix - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
+* Fix - Correct a user permissions check.
+* Tweak - Add action to signal activation of TEC Elementor compatibility. [ECP-1789]
+* Tweak - Added actions: `tec_events_elementor_loaded`
+* Language - 0 new strings added, 27 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0] 2024-04-30 =
 
