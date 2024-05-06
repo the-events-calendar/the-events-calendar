@@ -28,7 +28,6 @@
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 
 if ( ! $this->get_widget()->should_show_mock_data() && ! $this->has_event() ) {
-	error_log('no event');
 	return;
 }
 

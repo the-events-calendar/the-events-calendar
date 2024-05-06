@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
-use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Events_Widget;
 use TEC\Common\Integrations\Plugins\Elementor\Widgets\Template_Engine as Template_Engine_Contract;
 use WP_Post;
 
@@ -26,7 +26,7 @@ class Template_Engine extends Template_Engine_Contract {
 	 *
 	 * @since 6.4.0
 	 *
-	 * @var Abstract_Widget
+	 * @var Abstract_Events_Widget
 	 */
 	protected $widget;
 
@@ -56,9 +56,9 @@ class Template_Engine extends Template_Engine_Contract {
 	 *
 	 * @since 6.4.0
 	 *
-	 * @return Abstract_Widget
+	 * @return Abstract_Events_Widget
 	 */
-	public function get_widget(): Abstract_Widget {
+	public function get_widget(): Abstract_Events_Widget {
 		return $this->widget;
 	}
 

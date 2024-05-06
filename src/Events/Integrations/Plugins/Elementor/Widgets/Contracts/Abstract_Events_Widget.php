@@ -10,16 +10,17 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts;
 
 use TEC\Events\Integrations\Plugins\Elementor\Assets_Manager;
-use TEC\Common\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget as Common_Abstract_Widget;
+use TEC\Common\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 use TEC\Events\Integrations\Plugins\Elementor\Widgets\Template_Engine;
 use Tribe__Events__Main as TEC;
+use WP_Post;
 
 /**
  * Abstract Widget class
  *
  * All template widgets should extend this class.
  */
-abstract class Abstract_Widget extends Common_Abstract_Widget {
+abstract class Abstract_Events_Widget extends Abstract_Widget {
 
 	/**
 	 * Widget slug.
@@ -90,6 +91,13 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		return TEC::POSTTYPE;
 	}
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
 	public function get_template_file(): string {
 		$file = str_replace( '_', '-', self::get_slug() );
 
@@ -110,8 +118,8 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string          $title The widget title.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param string                $title The widget title.
+		 * @param Abstract_Event_Widget $this  The widget instance.
 		 */
 		$title = apply_filters( 'tec_events_elementor_event_widget_title', $title, $this );
 
@@ -120,8 +128,8 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string          $title The widget title.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param string                $title The widget title.
+		 * @param Abstract_Event_Widget $this  The widget instance.
 		 */
 		return (string) apply_filters( "tec_events_elementor_event_{$slug}_widget_title", $title, $this );
 	}
@@ -165,9 +173,9 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param array<string>   $classes The widget classes.
-		 * @param string          $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
-		 * @param Abstract_Widget $this    The widget instance.
+		 * @param array<string>         $classes The widget classes.
+		 * @param string                $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
+		 * @param Abstract_Event_Widget $this    The widget instance.
 		 *
 		 * @return array<string>
 		 */
@@ -178,9 +186,9 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param array<string>   $classes The widget classes.
-		 * @param string          $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
-		 * @param Abstract_Widget $this    The widget instance.
+		 * @param array<string>         $classes The widget classes.
+		 * @param string                $format  The format to return. Either 'attribute' (default - returns a string) or 'array'.
+		 * @param Abstract_Event_Widget $this    The widget instance.
 		 *
 		 * @return array<string>
 		 */
@@ -222,8 +230,8 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string          $class The widget class.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param string                $class The widget class.
+		 * @param Abstract_Event_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -234,8 +242,8 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string          $class The widget class.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param string                $class The widget class.
+		 * @param Abstract_Event_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -258,8 +266,8 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string          $class The widget class.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param string                $class The widget class.
+		 * @param Abstract_Event_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -270,8 +278,8 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param string          $class The widget class.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param string                $class The widget class.
+		 * @param Abstract_Event_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -314,8 +322,8 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param int             $event_id The event ID.
-		 * @param Abstract_Widget $this     The widget instance.
+		 * @param int                   $event_id The event ID.
+		 * @param Abstract_Event_Widget $this     The widget instance.
 		 */
 		$event_id = (int) apply_filters( 'tec_events_elementor_widget_event_id', (int) $event_id, $this );
 
@@ -324,12 +332,13 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 		 *
 		 * @since 6.4.0
 		 *
-		 * @param int             $event_id The event ID.
-		 * @param Abstract_Widget $this     The widget instance.
+		 * @param int                   $event_id The event ID.
+		 * @param Abstract_Event_Widget $this     The widget instance.
 		 */
 		$event_id = (int) apply_filters( "tec_events_elementor_widget_{$slug}_event_id", (int) $event_id, $this );
 
 		if ( get_post_type( $event_id ) !== TEC::POSTTYPE ) {
+			error_log( 'post-type-check failed. event_id: ' . get_post_type( $event_id ) );
 			return null;
 		}
 
@@ -344,7 +353,38 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 * @return ?int
 	 */
 	public function get_event_id() {
-		return $this->get_post_id();
+		return $this->event_id();
+	}
+
+	/**
+	 * Get the event ID.
+	 *
+	 * @since 6.4.0
+	 *
+	 * @return ?int
+	 */
+	public function get_post_id() {
+		return $this->get_event_id();
+	}
+
+	/**
+	 * Get the event object.
+	 *
+	 * @since 6.4.0
+	 */
+	public function get_event(): ?WP_Post {
+		return tribe_get_event( $this->get_event_id() );
+	}
+
+	/**
+	 * Get the post object for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return WP_Post|null
+	 */
+	public function get_post(): ?WP_Post {
+		return $this->get_event();
 	}
 
 	/**
@@ -356,6 +396,17 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 */
 	protected function has_event_id(): bool {
 		return $this->get_event_id() !== null;
+	}
+
+	/**
+	 * Determines if the widget has a valid event associated with it.
+	 *
+	 * @since 6.4.0
+	 *
+	 * @return bool
+	 */
+	protected function has_event(): bool {
+		return $this->get_event() !== null;
 	}
 
 	/**
@@ -374,10 +425,10 @@ abstract class Abstract_Widget extends Common_Abstract_Widget {
 	 *
 	 * @since 6.4.0
 	 */
-	public function register_style(): void {
+	public function register_assets(): void {
 		static::$group_key = Assets_Manager::$group_key;
 
-		parent::register_style();
+		parent::register_assets();
 	}
 
 	/**

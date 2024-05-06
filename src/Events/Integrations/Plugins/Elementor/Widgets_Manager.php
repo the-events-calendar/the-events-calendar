@@ -115,7 +115,7 @@ class Widgets_Manager extends Controller {
 			$widget_instance = new $widget();
 
 			// Remove the widget if it is not an instance of Widget_Abstract.
-			if ( ! $widget_instance instanceof Widgets\Contracts\Abstract_Widget ) {
+			if ( ! $widget_instance instanceof Widgets\Contracts\Abstract_Events_Widget ) {
 				unset( $widgets[ get_class( $widget_instance ) ] );
 			}
 

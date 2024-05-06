@@ -11,7 +11,7 @@ namespace TEC\Events\Integrations\Plugins\Elementor\Widgets\Traits;
 
 use Elementor\Controls_Manager;
 use TEC\Events\Integrations\Plugins\Elementor\Controls\Groups;
-use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Events_Widget;
 use Tribe__Utils__Array as Arr;
 use Tribe__Events__Main as TEC;
 
@@ -37,7 +37,7 @@ trait Event_Query {
 	 * Provides a "trimmed" slug for usage in classes and such (removes the "event_" prefix)
 	 * and converts all underscores to dashes.
 	 *
-	 * This is here for the widgets that use this trait but do not extend Abstract_Widget.
+	 * This is here for the widgets that use this trait but do not extend Abstract_Events_Widget.
 	 *
 	 * @since 6.4.0
 	 *
@@ -352,7 +352,7 @@ trait Event_Query {
 		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
-		 * @param Abstract_Widget $this     The widget instance.
+		 * @param Abstract_Events_Widget $this     The widget instance.
 		 */
 		$event_id = (int) apply_filters( 'tec_events_elementor_widget_event_id', (int) $event_id, $this );
 
@@ -362,7 +362,7 @@ trait Event_Query {
 		 * @since 6.4.0
 		 *
 		 * @param int             $event_id The event ID.
-		 * @param Abstract_Widget $this     The widget instance.
+		 * @param Abstract_Events_Widget $this     The widget instance.
 		 */
 		$event_id = (int) apply_filters( "tec_events_elementor_widget_{$slug}_event_id", (int) $event_id, $this );
 
