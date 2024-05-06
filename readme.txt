@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.4.0.1] 2024-05-02 =
+= [6.4.0.1] 2024-05-06 =
 
 * Fix - Prevent the Status widget from potentially running undefined methods. [ECP-1797]
 * Fix - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
