@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Wrong page titles in List page when using a Classic Theme. [TEC-5074]
 * Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
 * Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
+* Tweak - Add note to `tribe_event_delete()` docblock to indicate future deprecation.
 
 = [6.4.0] 2024-04-30 =
 
