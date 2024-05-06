@@ -222,9 +222,7 @@ class Tribe__Events__Assets {
 			'events-dynamic.js',
 			[
 				'jquery',
-				'tribe-events-php-date-formatter',
-				'tribe-moment',
-				'tribe-moment-locales'
+				'tribe-events-php-date-formatter'
 			],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[
