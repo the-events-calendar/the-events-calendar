@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Template;
 
+use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe__Context as Context;
@@ -346,16 +347,24 @@ class Title {
 			$posts = null !== $wp_query->posts ? $wp_query->posts : $wp_query->get_posts();
 
 			if ( is_post_type_archive( 'tribe_events' ) ) {
-				$post_ids = wp_list_pluck( $posts, 'ID' );
-				$posts    = tribe_get_events(
-					[
-						'posts_per_page' => -1,
-						'orderby'        => 'meta_value',
-						'meta_key'       => '_EventStartDate',
-						'order'          => 'ASC',
-						'post__in'       => $post_ids,
-					]
-				);
+				/**
+				 * We create the View, we call get_html() to setup the repository with
+				 * all query args and then we get all the events. This is needed to fix title
+				 * filters that were fired before the View was setup.
+				 *
+				 * We pop the last one when needed. See:
+				 * setup_template_vars() in src/Tribe/Views/V2/View.php
+				 */
+				$view  = View::make( 'list' );
+				$html  = $view->get_html();
+				$repo  = $view->get_repository();
+				$posts = $repo->all();
+
+				$is_paginated    = isset( $repo->query_args['posts_per_page'] ) && - 1 !== $repo->query_args['posts_per_page'];
+				$has_next_events = count( $posts ) > $view->get_context()->get( 'events_per_page', 12 );
+				if ( $is_paginated && $has_next_events ) {
+					array_pop( $posts );
+				}
 			}
 		}
 
