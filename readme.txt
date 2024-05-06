@@ -239,6 +239,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct a user permissions check.
 * Tweak - Add action to signal activation of TEC Elementor compatibility. [ECP-1789]
 * Tweak - Added actions: `tec_events_elementor_loaded`
+* Language - 0 new strings added, 27 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0] 2024-04-30 =
 
