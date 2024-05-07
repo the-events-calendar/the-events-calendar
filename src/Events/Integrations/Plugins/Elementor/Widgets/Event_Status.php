@@ -177,6 +177,12 @@ class Event_Status extends Abstract_Widget {
 	 */
 	public function get_status_class( $status ) {
 		$method = 'get_' . $status . '_class';
+
+		// Don't call a method we don't have - in case of custom stati.
+		if ( ! method_exists( $this, $method ) ) {
+			return '';
+		}
+
 		return $this->$method();
 	}
 
