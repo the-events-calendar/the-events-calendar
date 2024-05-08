@@ -18,7 +18,7 @@ const FauxLine = ( { style = {}, ...props } ) => {
 }
 
 /**
- * The Archive Events block used in Site Editor templates.
+ * The Single Event block used in Site Editor templates.
  */
 export default {
     id: 'tec/single-event',
