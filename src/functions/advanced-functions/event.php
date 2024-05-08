@@ -75,7 +75,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *     @type array  $tags_input              Array of tag names, slugs, or IDs. Default empty.
 	 *     @type array  $tax_input               Array of taxonomy terms keyed by their taxonomy name. Default empty.
 	 *     @type array  $meta_input              Array of post meta values keyed by their post meta key. Default empty.
- 	 *     @type string $EventStartDate          Start date of event (required).
+	 *     @type string $EventStartDate          Start date of event (required).
 	 *     @type string $EventEndDate            End date of event (required).
 	 *     @type bool   $EventAllDay             Set to true if event has no start / end time and should run all day.
 	 *     @type string $EventStartHour          Event start hour (01-12 if `EventStartMeridian` is also passed, else 00-23).
