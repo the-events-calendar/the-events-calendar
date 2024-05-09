@@ -58,6 +58,8 @@ class Widgets_Manager extends Controller {
 		}
 
 		$this->register_with_elementor();
+
+		do_action( 'tec_events_elementor_widgets_registered' );
 	}
 
 	/**
