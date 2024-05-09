@@ -15,7 +15,7 @@ use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 use Elementor\Group_Control_Text_Shadow;
 use Elementor\Group_Control_Text_Stroke;
 use Elementor\Group_Control_Typography;
-use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Events_Widget;
 use Tribe\Events\Event_Status\Status_Labels;
 
 /**
@@ -25,7 +25,7 @@ use Tribe\Events\Event_Status\Status_Labels;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
-class Event_Status extends Abstract_Widget {
+class Event_Status extends Abstract_Events_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
 	use Traits\Event_Query;

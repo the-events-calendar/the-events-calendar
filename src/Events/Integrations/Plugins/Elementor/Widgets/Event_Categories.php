@@ -10,7 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Events_Widget;
 
 /**
  * Class Widget_Event_Categories
@@ -19,7 +19,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
-class Event_Categories extends Abstract_Widget {
+class Event_Categories extends Abstract_Events_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
 	use Traits\Event_Query;
@@ -192,7 +192,7 @@ class Event_Categories extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the category label.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -215,7 +215,7 @@ class Event_Categories extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the category list wrapper.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */

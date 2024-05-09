@@ -10,7 +10,7 @@
 namespace TEC\Events\Integrations\Plugins\Elementor\Widgets;
 
 use Elementor\Controls_Manager;
-use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Events_Widget;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\Outlook_365;
@@ -23,7 +23,7 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
-class Event_Export extends Abstract_Widget {
+class Event_Export extends Abstract_Events_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
 	use Traits\Event_Query;
@@ -232,7 +232,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the website link label.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -255,7 +255,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown button.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -278,7 +278,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown list.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -301,7 +301,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown list items.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -324,7 +324,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown links.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -347,7 +347,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown content.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -370,7 +370,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the dropdown icon.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -393,7 +393,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the export icon.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -416,7 +416,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the gcal link.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -439,7 +439,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the ical link.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -462,7 +462,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the Outlook 365 link.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */
@@ -485,7 +485,7 @@ class Event_Export extends Abstract_Widget {
 		 * @since 6.4.0
 		 *
 		 * @param string          $class The class used for the Outlook live link.
-		 * @param Abstract_Widget $this  The widget instance.
+		 * @param Abstract_Events_Widget $this  The widget instance.
 		 *
 		 * @return string
 		 */

@@ -13,7 +13,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Template\Documents\Event_Single_St
 use TEC\Events\Integrations\Plugins\Elementor\Template\Importer;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 use TEC\Common\Contracts\Provider\Controller;
-use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Event_Widget;
 
 /**
  * Class Assets_Manager
@@ -116,10 +116,10 @@ class Assets_Manager extends Controller {
 		);
 
 		foreach ( $this->get_widgets() as $widget ) {
-			tribe( $widget )->register_style();
+			tribe( $widget )->register_assets();
 		}
 
-		// setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
+		// Setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
 		tribe_asset(
 			tribe( 'tec.main' ),
 			'tec-events-elementor-icons',
@@ -174,7 +174,7 @@ class Assets_Manager extends Controller {
 	 *
 	 * @since 6.4.0
 	 *
-	 * @param Abstract_Widget $widget The widget instance.
+	 * @param Abstract_Event_Widget $widget The widget instance.
 	 */
 	public function action_enqueue_widget_styles( $widget ) {
 		$name = $widget->get_name();

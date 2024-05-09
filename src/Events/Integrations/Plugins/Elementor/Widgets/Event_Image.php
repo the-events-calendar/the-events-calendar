@@ -14,7 +14,7 @@ use Elementor\Group_Control_Border;
 use Elementor\Group_Control_Box_Shadow;
 use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Image_Size;
-use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Events_Widget;
 
 /**
  * Class Widget_Event_Image
@@ -23,7 +23,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
  *
  * @package TEC\Events\Integrations\Plugins\Elementor\Widgets
  */
-class Event_Image extends Abstract_Widget {
+class Event_Image extends Abstract_Events_Widget {
 	use Traits\With_Shared_Controls;
 	use Traits\Has_Preview_Data;
 	use Traits\Event_Query;
