@@ -59,6 +59,11 @@ class Widgets_Manager extends Controller {
 
 		$this->register_with_elementor();
 
+		/**
+		 * Fires after the TEC Elementor widgets have been registered.
+		 *
+		 * @since TBD
+		 */
 		do_action( 'tec_events_elementor_widgets_registered' );
 	}
 
