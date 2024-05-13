@@ -2,72 +2,30 @@
 
 exports[`[STORE] - Venue reducer Should remove the venue 1`] = `
 Object {
-  "showMap": true,
-  "showMapLink": true,
-  "venue": 0,
+  "blocks": Object {
+    "allIds": Array [],
+    "byId": Object {},
+    "core": Object {},
+  },
 }
 `;
 
-exports[`[STORE] - Venue reducer Should return the default state to meta map 1`] = `
+exports[`[STORE] - Venue reducer Should return the default state 1`] = `
 Object {
-  "showMap": "_EventShowMap",
-  "showMapLink": "_EventShowMapLink",
-  "venue": "_EventVenueID",
-}
-`;
-
-exports[`[STORE] - Venue reducer Should return the initial state 1`] = `
-Object {
-  "showMap": true,
-  "showMapLink": true,
-  "venue": 0,
-}
-`;
-
-exports[`[STORE] - Venue reducer Should set the initial state 1`] = `
-Object {
-  "showMap": false,
-  "showMapLink": true,
-  "venue": 42,
-}
-`;
-
-exports[`[STORE] - Venue reducer Should set the showMap 1`] = `
-Object {
-  "showMap": true,
-  "showMapLink": true,
-  "venue": 0,
-}
-`;
-
-exports[`[STORE] - Venue reducer Should set the showMap 2`] = `
-Object {
-  "showMap": false,
-  "showMapLink": true,
-  "venue": 0,
-}
-`;
-
-exports[`[STORE] - Venue reducer Should set the showMapLink 1`] = `
-Object {
-  "showMap": true,
-  "showMapLink": true,
-  "venue": 0,
-}
-`;
-
-exports[`[STORE] - Venue reducer Should set the showMapLink 2`] = `
-Object {
-  "showMap": true,
-  "showMapLink": false,
-  "venue": 0,
+  "blocks": Object {
+    "allIds": Array [],
+    "byId": Object {},
+    "core": Object {},
+  },
 }
 `;
 
 exports[`[STORE] - Venue reducer Should set the venue 1`] = `
 Object {
-  "showMap": true,
-  "showMapLink": true,
-  "venue": 99,
+  "blocks": Object {
+    "allIds": Array [],
+    "byId": Object {},
+    "core": Object {},
+  },
 }
 `;

@@ -25,11 +25,19 @@ use WP_Post;
 class Google_Calendar extends Link_Abstract {
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since 5.12.0
+	 *
+	 * @var string
 	 */
 	public static $slug = 'gcal';
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since 5.12.0
+	 *
+	 * @var string
 	 */
 	public $block_slug = 'hasGoogleCalendar';
 
@@ -37,12 +45,16 @@ class Google_Calendar extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		$this->label = __( 'Google Calendar', 'the-events-calendar' );
+		$this->label        = __( 'Google Calendar', 'the-events-calendar' );
 		$this->single_label = __( 'Add to Google Calendar', 'the-events-calendar' );
 	}
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since 5.12.0
+	 *
+	 * @param View|null $view The view object.
 	 */
 	public function get_uri( View $view = null ) {
 		if ( null === $view || is_singular( Tribe__Events__Main::POSTTYPE ) ) {
@@ -73,15 +85,15 @@ class Google_Calendar extends Link_Abstract {
 	/**
 	 * Generate a link that will import a single event into Google Calendar.
 	 *
-	 *	Required link items:
-	 *	action=TEMPLATE
-	 *	text=[the title of the event]
-	 *	dates= in YYYYMMDDHHMMSS format. start datetime / end datetime
+	 * Required link items:
+	 *     action=TEMPLATE
+	 *     text=[the title of the event]
+	 *     dates= in YYYYMMDDHHMMSS format. start datetime / end datetime
 	 *
-	 *	Optional link items:
-	 *	ctz=[time zone]
-	 *	details=[event details]
-	 *	location=[event location]
+	 * Optional link items:
+	 *     ctz=[time zone]
+	 *     details=[event details]
+	 *     location=[event location]
 	 *
 	 * URL format: https://www.google.com/calendar/render?action=TEMPLATE&text=Title&dates=20190227/20190228
 	 *
@@ -102,7 +114,7 @@ class Google_Calendar extends Link_Abstract {
 			return '';
 		}
 
-		$base_url =  'https://www.google.com/calendar/event';
+		$base_url = 'https://www.google.com/calendar/event';
 
 		/**
 		 * Allow users to Filter our Google Calendar Link base URL before constructing the URL.
@@ -123,16 +135,21 @@ class Google_Calendar extends Link_Abstract {
 		$event_details = '';
 		if ( ! empty( $event->description ) ) {
 			$event_details = $event->description;
-		} else if ( ! empty( $event->post_content ) ) {
+		} elseif ( ! empty( $event->post_content ) ) {
 			$event_details = $event->post_content;
 		}
 
-		$event_details = urlencode( $event_details );
+		// Removes any Elementor comments from the event description before we try to process it.
+		$re            = '/(<!-- .* \/?-->)/m';
+		$event_details = preg_replace( $re, '', $event_details );
 
 		if ( ! empty( $event_details ) ) {
-			//Truncate Event Description and add permalink if greater than 996 characters
+			// Truncate Event Description and add permalink if greater than 996 characters.
 			$event_details = $this->format_event_details_for_url( $event_details, $event, 996 );
 		}
+
+		// Moved to after we do any tag shenanigans - otherwise one or both are meaningless.
+		$event_details = urlencode( $event_details );
 
 		if ( Tribe__Timezones::is_mode( Tribe__Timezones::SITE_TIMEZONE ) ) {
 			$ctz = Tribe__Timezones::build_timezone_object()->getName();
@@ -140,7 +157,7 @@ class Google_Calendar extends Link_Abstract {
 			$ctz = Tribe__Events__Timezones::get_event_timezone_string( $event->ID );
 		}
 
-		$pieces   = [
+		$pieces = [
 			'action'   => 'TEMPLATE',
 			'dates'    => $event->dates->start->format( 'Ymd\THis' ) . '/' . $event->dates->end->format( 'Ymd\THis' ),
 			'text'     => rawurlencode( get_the_title( $event ) ),
@@ -159,12 +176,12 @@ class Google_Calendar extends Link_Abstract {
 		 * @var array Params used in the add_query_arg
 		 * @var int   Event ID
 		 */
-	   $pieces = apply_filters_deprecated(
-		   'tribe_google_calendar_parameters',
-		   [ $pieces, $event->ID ],
-		   '5.14.0',
-		   'tec_views_v2_single_event_gcal_link_parameters',
-		   'Moved generic hook to something more specific and appropriate while moving function.'
+		$pieces = apply_filters_deprecated(
+			'tribe_google_calendar_parameters',
+			[ $pieces, $event->ID ],
+			'5.14.0',
+			'tec_views_v2_single_event_gcal_link_parameters',
+			'Moved generic hook to something more specific and appropriate while moving function.'
 		);
 
 		/**
@@ -181,7 +198,7 @@ class Google_Calendar extends Link_Abstract {
 		$pieces = array_filter( $pieces );
 
 		// Missing required info - bail.
-		if ( empty( $pieces[ 'action' ] ) || empty( $pieces[ 'dates' ] ) || empty( $pieces[ 'text' ] ) ) {
+		if ( empty( $pieces['action'] ) || empty( $pieces['dates'] ) || empty( $pieces['text'] ) ) {
 			return '';
 		}
 
@@ -196,7 +213,6 @@ class Google_Calendar extends Link_Abstract {
 		 * @var WP_Post $event The Event the link is for. As decorated by tribe_get_event().
 		 */
 		return apply_filters( 'tec_views_v2_single_gcal_subscribe_link', $url, $event );
-
 	}
 
 	/**
@@ -205,33 +221,33 @@ class Google_Calendar extends Link_Abstract {
 	 * @since 5.14.0
 	 *
 	 * @param string      $event_details The event description.
-	 * @param WP_Post|int $post_id The event post or ID.
-	 * @param int         $length The max length for the description before adding a "read more" link.
+	 * @param WP_Post|int $post          The event post or ID.
+	 * @param int         $length        The max length for the description before adding a "read more" link.
 	 *
 	 * @return string The possibly modified event description.
 	 */
 	public function format_event_details_for_url( $event_details, $post, int $length = 0 ) {
 		// Hack: Add space after paragraph
 		// Normally Google Cal understands the newline character %0a
-		// And that character will automatically replace newlines on urlencode()
-		$event_details = str_replace ( '</p>', '</p> ', $event_details );
-		$event_details = strip_tags( $event_details );
+		// And that character will automatically replace newlines on urlencode().
+		$event_details = str_replace( '</p>', '</p> ', $event_details );
 
 		if ( strlen( $event_details ) <= 996 ) {
 			return $event_details;
 		}
 
 		$event_details = substr( $event_details, 0, 996 );
-
+		$event_details = force_balance_tags( $event_details ); // Ensure we don't have any unclosed tags.
 		$event_url     = get_permalink( $post );
 
-		//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits.
+		// Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits.
 		if ( strlen( $event_url ) > 900 ) {
 			return $event_details;
 		}
 
 		// Append the "read more" link.
 		$event_details .= sprintf(
+			/* Translators: %1$s: Event singular label. %2$s: Event URL. */
 			esc_html_x( ' (View Full %1$s Description Here: %2$s)', 'Link to full description. %1$s: pre=translated event term. %2$s: event url.', 'the-events-calendar' ),
 			tribe_get_event_label_singular_lowercase(),
 			$event_url
@@ -248,7 +264,7 @@ class Google_Calendar extends Link_Abstract {
 	 * @todo This should really live in Tribe__Events__Venue, so move it there at some point
 	 * @see Tribe__Events__Main->fullAddressString()
 	 *
-	 * @param int|WP_Post|null The post object or post id.
+	 * @param int|WP_Post|null $event The post object or post id.
 	 *
 	 * @return string The event venue's address. Empty string if the event or venue isn't found.
 	 */
@@ -268,9 +284,7 @@ class Google_Calendar extends Link_Abstract {
 			return '';
 		}
 
-		$address = \Tribe__Events__Venue::get_address_full_string( $event );
-		// The above includes the venue name.
-
-		return $address;
+		// The below includes the venue name.
+		return \Tribe__Events__Venue::get_address_full_string( $event );
 	}
 }

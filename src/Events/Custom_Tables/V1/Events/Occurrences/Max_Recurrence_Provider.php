@@ -49,6 +49,8 @@ class Max_Recurrence_Provider extends Service_Provider {
 
 		add_filter( 'tribe_events_settings_default_fields_initializer', [ $this, 'change_default_options' ] );
 		add_filter( 'tribe_settings_tab_fields', [ $this, 'change_default_settings_field' ], 99, 2 );
+
+		return true;
 	}
 
 	/**

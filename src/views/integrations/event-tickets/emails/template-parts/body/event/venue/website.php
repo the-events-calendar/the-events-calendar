@@ -23,7 +23,7 @@ if ( empty( $venue ) ) {
 	return;
 }
 
-if ( empty( $venue->website_url ) ) {
+if ( empty( $venue->website ) ) {
 	return;
 }
 ?>
@@ -39,12 +39,12 @@ if ( empty( $venue->website_url ) ) {
 		</td>
 		<td class="tec-tickets__email-table-content-event-venue-website-container">
 			<a
-				href="<?php echo esc_url( $venue->website_url ); ?>"
+				href="<?php echo esc_url( $venue->website ); ?>"
 				target="_blank"
 				rel="noopener noreferrer"
 				style="overflow-wrap: anywhere;"
 			>
-				<?php echo esc_url( $venue->website_url ); ?>
+				<?php echo esc_url( $venue->website ); ?>
 			</a>
 		</td>
 	</tr>

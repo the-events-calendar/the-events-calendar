@@ -157,6 +157,11 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				return $query;
 			}
 
+			// Drop a query for terms.
+			if ( strpos( $trimmed_query, 'SELECT DISTINCT t.term_id' ) !== false ) {
+				return $query;
+			}
+
 			$logged_queries[] = $trimmed_query;
 
 			return $query;
@@ -178,7 +183,7 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 		] );
 
 		// We do not really care about the ORDER here, just the set nature.
-		$this->assertEqualSets( $events, $found );
+		$this->assertEqualsCanonicalizing( $events, $found );
 		$this->assertMatchesSnapshot( $logged_queries );
 	}
 

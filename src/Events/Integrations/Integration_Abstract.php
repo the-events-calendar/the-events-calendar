@@ -27,7 +27,7 @@ abstract class Integration_Abstract extends Common_Integration_Abstract {
 	 * Filters whether the integration should load.
 	 *
 	 * @since 6.0.4
-	 * @depecated 6.1.1 uses the Common integration as the base filter and then Events for Legacy compatibility.
+	 * @deprecated 6.1.1 uses the Common integration as the base filter and then Events for Legacy compatibility.
 	 *
 	 * @param bool $value Whether the integration should load.
 	 *

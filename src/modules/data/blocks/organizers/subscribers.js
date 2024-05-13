@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { differenceBy } from 'lodash';
+import {differenceBy, isEmpty} from 'lodash';
 
 /**
  * Internal dependencies
@@ -15,6 +15,7 @@ import {
 	selectors as organizerSelectors,
 } from '@moderntribe/events/data/blocks/organizers';
 import { selectors as detailSelectors } from '@moderntribe/events/data/details';
+import { actions as requestActions } from '@moderntribe/common/store/middlewares/request';
 
 const { getState, dispatch } = store;
 
@@ -35,6 +36,23 @@ export const compareBlocks = block => block.clientId;
  * @returns {boolean} Whether the block is the organizer block or not.
  */
 export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organizer';
+
+/**
+ * Moves the organizer to the trash if appropriate (if it is a draft and was removed).
+ *
+ * @since 6.2.0
+ * @param {number} organizer
+ */
+globals.wpHooks.addAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', 'tec.events.blocks.organizer.subscribers', ( organizer ) => {
+	const path = `tribe_organizer/${ organizer }`;
+	const options = {
+		path,
+		actions: {
+			success: formActions.deleteEntry( dispatch )( path ),
+		},
+	};
+	dispatch( requestActions.wpRequest( options ) );
+} );
 
 /**
  * Handles the block that was added.
@@ -77,6 +95,14 @@ export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
 	// remove organizer from block state
 	if ( organizer ) {
 		dispatch( organizerActions.removeOrganizerInBlock( block.clientId, organizer ) );
+
+		/**
+		 * Moves the organizer to the trash if appropriate (if it is a draft and was removed).
+		 *
+		 * @since 6.2.0
+		 * @param {number} organizer
+		 */
+		globals.wpHooks.doAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', organizer );
 	}
 
 	const volatile = detailSelectors.getVolatile( getState(), { name: organizer } );

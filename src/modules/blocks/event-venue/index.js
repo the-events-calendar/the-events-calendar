@@ -7,17 +7,16 @@ import React from 'react';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
+import { registerBlockType } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
  */
+import blockAttributes from './data/attributes';
 import EventVenue from './container';
 import { Venue } from '@moderntribe/events/icons';
 
-/**
- * Module Code
- */
-export default {
+export const blockDefinition = {
 	id: 'event-venue',
 	title: __( 'Event Venue', 'the-events-calendar' ),
 	description: __(
@@ -27,29 +26,10 @@ export default {
 	icon: <Venue />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],
-
 	supports: {
 		html: false,
 	},
-
-	attributes: {
-		venue: {
-			type: 'integer',
-			source: 'meta',
-			meta: '_EventVenueID',
-		},
-		showMapLink: {
-			type: 'boolean',
-			source: 'meta',
-			meta: '_EventShowMapLink',
-		},
-		showMap: {
-			type: 'boolean',
-			source: 'meta',
-			meta: '_EventShowMap',
-		},
-	},
-
+	attributes: blockAttributes,
 	edit: EventVenue,
 
 	save() {
@@ -57,3 +37,7 @@ export default {
 	},
 };
 
+/**
+ * Register Block
+ */
+export default registerBlockType( `tribe/${ blockDefinition.id }`, blockDefinition );

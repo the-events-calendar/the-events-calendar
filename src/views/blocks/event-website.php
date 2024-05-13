@@ -26,8 +26,9 @@ $post_id = Arr::get( $this->context, 'post_id' );
  *
  * @since 5.1.0
  *
- * @param string $target The target attribute string. Defaults to "_self".
- * @param string $href   The link URL.
+ * @param string $target  The target attribute string. Defaults to "_self".
+ * @param string $href    The link URL.
+ * @param int    $post_id The event post ID.
  */
 $target = apply_filters( 'tribe_get_event_website_link_target', '_self', $href, $post_id );
 

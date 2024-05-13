@@ -483,9 +483,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$alt_where = $wpdb->prepare(
 			"(
-				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '${upper_string}' ) >= %d
+				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '{$upper_string}' ) >= %d
 				AND
-				TIMESTAMPDIFF ( SECOND, '${lower_string}', {$join_end_key}.meta_value ) >= %d
+				TIMESTAMPDIFF ( SECOND, '{$lower_string}', {$join_end_key}.meta_value ) >= %d
 			)",
 			$min_sec_overlap,
 			$min_sec_overlap

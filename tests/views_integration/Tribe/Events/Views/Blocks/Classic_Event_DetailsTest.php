@@ -9,40 +9,45 @@ use Tribe__Events__Editor__Blocks__Classic_Event_Details;
 class Classic_Event_DetailsTest extends HtmlTestCase {
 	use MatchesSnapshots;
 
-	protected $block_content;
-
 	public function setUp(): void {
 		parent::setUp();
-
-		$block = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
-
-		ob_start();
-		echo $block->render();
-
-		$this->block_content = ob_get_clean();
+		add_filter( 'tribe_editor_should_load_blocks', '__return_true', PHP_INT_MAX );
+		tribe( \Tribe__Events__Editor__Provider::class )->register();
 	}
 
 	/**
 	 * Test that the block is rendered.
 	 */
 	public function test_block_is_rendered() {
-		$this->assertStringContainsString( 'tribe-events-single-section', $this->block_content );
-		$this->assertStringContainsString( 'tribe-events-event-meta', $this->block_content );
-		$this->assertStringContainsString( 'primary', $this->block_content );
-		$this->assertStringContainsString( 'tribe-clearfix', $this->block_content );
+		ob_start();
+		echo ( new Tribe__Events__Editor__Blocks__Classic_Event_Details() )->render();
+		$block_content = ob_get_clean();
+
+		$this->assertStringContainsString( 'tribe-events-single-section', $block_content );
+		$this->assertStringContainsString( 'tribe-events-event-meta', $block_content );
+		$this->assertStringContainsString( 'primary', $block_content );
+		$this->assertStringContainsString( 'tribe-clearfix', $block_content );
 	}
 
 	/**
 	 * Test that the block is rendered with no custom classes.
 	 */
 	public function test_render_no_custom_classes() {
-		$this->assertMatchesSnapshot( $this->block_content );
+		ob_start();
+		echo ( new Tribe__Events__Editor__Blocks__Classic_Event_Details() )->render();
+		$block_content = ob_get_clean();
+
+		$this->assertMatchesSnapshot( $block_content );
 	}
 
 	/**
 	 * Test that the block is rendered with single custom class.
 	 */
 	public function test_render_with_single_custom_class() {
+		ob_start();
+		echo ( new Tribe__Events__Editor__Blocks__Classic_Event_Details() )->render();
+		$block_content = ob_get_clean();
+
 		$block_with_custom_class = new Tribe__Events__Editor__Blocks__Classic_Event_Details();
 		$custom_class_content    = $block_with_custom_class->render( [ 'className' => 'custom-class' ] );
 

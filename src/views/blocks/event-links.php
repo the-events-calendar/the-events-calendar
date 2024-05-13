@@ -10,6 +10,7 @@
  *
  * @version 4.7
  *
+ * @var Tribe__Events__Editor__Template $this
  */
 
 // don't show on password protected posts

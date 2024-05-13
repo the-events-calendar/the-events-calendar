@@ -1,7 +1,8 @@
 <?php return '<li class="tribe-events-c-breadcrumbs__list-item">
 	<a
 		href="https://test.tri.be/events/list"
-		class="tribe-events-c-breadcrumbs__list-item-link"
+		class="tribe-events-c-breadcrumbs__list-item-link tribe-common-anchor"
+		title=""
 		data-js="tribe-events-view-link"
 	>
 		Events	</a>

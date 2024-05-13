@@ -25,7 +25,7 @@ $event_id = Tribe__Events__Main::postIdHelper( get_the_ID() );
  *
  * @since 6.0.1
  *
- * @param int $event_id
+ * @param numeric $event_id
  */
 $event_id = apply_filters( 'tec_events_single_event_id', $event_id );
 
@@ -34,8 +34,8 @@ $event_id = apply_filters( 'tec_events_single_event_id', $event_id );
  *
  * @since 5.8.0
  *
- * @param array  $title_classes List of classes to create the class string from.
- * @param string $event_id The ID of the displayed event.
+ * @param array   $title_classes List of classes to create the class string from.
+ * @param numeric $event_id      The ID of the displayed event.
  */
 $title_classes = apply_filters( 'tribe_events_single_event_title_classes', [ 'tribe-events-single-event-title' ], $event_id );
 $title_classes = implode( ' ', tribe_get_classes( $title_classes ) );
@@ -45,8 +45,8 @@ $title_classes = implode( ' ', tribe_get_classes( $title_classes ) );
  *
  * @since 5.8.0
  *
- * @param string $before HTML string to display before the title text.
- * @param string $event_id The ID of the displayed event.
+ * @param string  $before   HTML string to display before the title text.
+ * @param numeric $event_id The ID of the displayed event.
  */
 $before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 class="' . $title_classes . '">', $event_id );
 
@@ -55,8 +55,8 @@ $before = apply_filters( 'tribe_events_single_event_title_html_before', '<h1 cla
  *
  * @since 5.8.0
  *
- * @param string $after HTML string to display after the title text.
- * @param string $event_id The ID of the displayed event.
+ * @param string  $after    HTML string to display after the title text.
+ * @param numeric $event_id The ID of the displayed event.
  */
 $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $event_id );
 
@@ -65,8 +65,8 @@ $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $
  *
  * @since 5.8.0
  *
- * @param string $after HTML string to display. Return an empty string to not display the title.
- * @param string $event_id The ID of the displayed event.
+ * @param string  $after    HTML string to display. Return an empty string to not display the title.
+ * @param numeric $event_id The ID of the displayed event.
  */
 $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after, false ), $event_id );
 $cost  = tribe_get_formatted_cost( $event_id );

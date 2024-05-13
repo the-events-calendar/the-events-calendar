@@ -47,9 +47,11 @@ $website = tribe_get_organizer_website_link();
 			<dt
 				class="tribe-common-a11y-visual-hide"
 				aria-label="<?php echo sprintf(
-					/* Translators: %1$s is the customizable organizer term, e.g. "Organizer name" */
-					esc_html_x( '%1$s name', "The label for the organizer's name.", 'the-events-calendar' ),
-					tribe_get_organizer_label_singular()
+					/* Translators: %1$s is the customizable organizer term, e.g. "Organizer". %2$s is the customizable event term in lowercase, e.g. "event". %3$s is the customizable organizer term in lowercase, e.g. "organizer". */
+					esc_html_x( '%1$s name: This represents the name of the %2$s %3$s.', 'the-events-calendar' ),
+					tribe_get_organizer_label_singular(),
+					tribe_get_event_label_singular_lowercase(),
+					tribe_get_organizer_label_singular_lowercase()
 				) ; ?>"
 			>
 				<?php // This element is only present to ensure we have a valid HTML, it'll be hidden from browsers but visible to screenreaders for accessibility. ?>

@@ -34,7 +34,7 @@
 
 	<div class="tribe-half-column">
 		<h2><?php printf( esc_html__( 'Keep the Core Plugin %sFREE%s!', 'the-events-calendar' ), '<strong>', '</strong>' ); ?></h2>
-		<p><?php printf( esc_html__( 'Every time you rate %s5 stars%s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.', 'the-events-calendar' ), '<strong>', '</strong>' ); ?></p>
+		<p><?php printf( esc_html__( 'Every time you rate %1$s5 stars%2$s, a fairy is born. Okay maybe not, but more happy users mean more contributions and help on the forums. The community NEEDS your voice.', 'the-events-calendar' ), '<strong>', '</strong>' ); ?></p>
 		<p><a href="https://wordpress.org/support/plugin/the-events-calendar/reviews/?filter=5" target="_blank" class="button-primary"><?php esc_html_e( 'Rate It', 'the-events-calendar' ); ?></a></p>
 
 		<br/>

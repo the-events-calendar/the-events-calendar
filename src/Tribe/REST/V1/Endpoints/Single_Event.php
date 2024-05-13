@@ -361,7 +361,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'validate_callback' => [ $this->validator, 'is_venue_id_or_entry_or_empty' ],
 				'swagger_type'      => 'array',
 				'items'             => [ 'type' => 'integer' ],
-				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
+				'description'       => __( 'The event venue IDs or data', 'the-events-calendar' ),
 			],
 			'organizer'          => [
 				'required'          => false,

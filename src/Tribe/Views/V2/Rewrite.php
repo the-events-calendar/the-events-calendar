@@ -60,7 +60,7 @@ class Rewrite {
 					$encoded = strtolower( $value );
 					$decoded = urldecode( $value );
 				} else {
-					$encoded = strtolower( urlencode( $value ) );
+					$encoded = urlencode( strtolower( $value ) );
 					$decoded = $value;
 				}
 

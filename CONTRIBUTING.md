@@ -6,7 +6,7 @@ worth knowing.
 
 ## Standards
 
-We have a set of [coding standards](http://the-events-calendar.github.io/products-engineering/)
+We have a set of [coding standards](https://docs.theeventscalendar.com/developer/)
 that we follow and encourage others to follow as well. When you submit
 Pull Requests, you'll probably notice a friendly bot - `tr1b0t` - that
 comments on your PR and suggests changes. Be gentle with him, he's only

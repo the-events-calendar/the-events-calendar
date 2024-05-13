@@ -2,16 +2,8 @@
 
 exports[`[STORE] - Venue selectors Should return the map embed config 1`] = `true`;
 
-exports[`[STORE] - Venue selectors Should return the venue block 1`] = `
-Object {
-  "showMap": true,
-  "showMapLink": true,
-  "venue": 0,
-}
-`;
+exports[`[STORE] - Venue selectors Should return the venue block 1`] = `Object {}`;
 
-exports[`[STORE] - Venue selectors Should select the showMap 1`] = `true`;
+exports[`[STORE] - Venue selectors Should select the showMap 1`] = `undefined`;
 
-exports[`[STORE] - Venue selectors Should select the showMapLink 1`] = `true`;
-
-exports[`[STORE] - Venue selectors Should select the venue 1`] = `0`;
+exports[`[STORE] - Venue selectors Should select the showMapLink 1`] = `undefined`;

@@ -14,6 +14,16 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 	protected $event_meta_key = '_EventOrganizerID';
 
 	/**
+	 * @var string The lowercase singular organizer label.
+	 */
+	public $singular_organizer_label_lowercase;
+
+	/**
+	 * @var string The lowercase plural organizer label.
+	 */
+	public $plural_organizer_label_lowercase;
+
+	/**
 	 * Args for organizer post type
 	 * @var array
 	 */
@@ -811,11 +821,11 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 
 	/**
 	 * Updates the page title on the organizer single page to include the organizer title.
-	 * 
+	 *
 	 * @param string      $new_title The modified page title.
 	 * @param string      $title     The original page title.
 	 * @param string|null $sep       The separator character.
-	 * 
+	 *
 	 * @return string The modified page title.
 	 */
 	public function update_organizer_title( $new_title, $title, $sep = null ) {

@@ -172,6 +172,15 @@ class Process_Worker {
 			}
 			$this->remove_cache_compatibility_hooks();
 		}
+
+		/**
+		 * Fires after a dry run migration was applied.
+		 *
+		 * @since 6.3.0
+		 *
+		 * @param numeric $post_id The ID of the Event that was migrated.
+		 */
+		do_action( 'tec_events_custom_tables_v1_migration_after_dry_run', $post_id );
 	}
 
 	/**

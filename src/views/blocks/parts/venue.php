@@ -9,8 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.0.1
+ * @version 6.2.0
+ * @since 6.2.0 Be specific about which venue to render.
  *
+ * @var bool $show_map_link Whether to show the map link or not.
+ * @var ?int $venue_id The ID of the venue to display.
  */
 
 if ( ! tribe_get_venue_id() ) {
@@ -18,24 +21,24 @@ if ( ! tribe_get_venue_id() ) {
 }
 $attributes = $this->get( 'attributes', [] );
 
-$phone   = tribe_get_phone();
-$website = tribe_get_venue_website_link();
+$phone   = tribe_get_phone( $venue_id );
+$website = tribe_get_venue_website_link( $venue_id );
 
 ?>
 
 <div class="tribe-block__venue__meta">
 	<div class="tribe-block__venue__name">
-		<h3><?php echo tribe_get_venue_link() ?></h3>
+		<h3><?php echo tribe_get_venue_link( $venue_id ) ?></h3>
 	</div>
 
 	<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
-	<?php if ( tribe_address_exists() ) : ?>
+	<?php if ( tribe_address_exists( $venue_id ) ) : ?>
 		<address class="tribe-block__venue__address">
-			<?php echo tribe_get_full_address(); ?>
+			<?php echo tribe_get_full_address( $venue_id ); ?>
 
-			<?php if ( tribe_show_google_map_link() ) : ?>
-				<?php echo tribe_get_map_link_html(); ?>
+			<?php if ( $show_map_link ) : ?>
+				<?php echo tribe_get_map_link_html( $venue_id ); ?>
 			<?php endif; ?>
 		</address>
 	<?php endif; ?>

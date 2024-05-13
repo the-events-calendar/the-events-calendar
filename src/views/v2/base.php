@@ -1,4 +1,6 @@
 <?php
+use \Tribe\Events\Views\V2\Template;
+
 /**
  * View: Base View
  *
@@ -7,20 +9,30 @@
  *
  * See more documentation about our views templating system.
  *
- * @link http://evnt.is/1aiy
+ * @link    http://evnt.is/1aiy
  *
- * @version 4.9.4
+ * @version 6.2.0
+ * @since 6.2.0 Better debug output and formatting.
  *
  *
- * @var string $view_slug This View slug.
- * @var string $view_class The fully-qualified name of the View.
- * @var array $lookup_folders A list of the folders that have been searched to find the View template, including
- *                            type and priority.
- * @var array $_context The current context array dump.
+ * @var Template $this           Template Engine instance rendering.
+ * @var string   $view_slug      This View slug.
+ * @var string   $view_class     The fully-qualified name of the View.
+ * @var array    $lookup_folders A list of the folders that have been searched to find the View template, including
+ *                               type and priority.
+ * @var array    $_context       The current context array dump.
  */
 ?>
 <div class="tribe-view tribe-view--base tribe-view--<?php echo esc_attr( $view_slug ) ?>">
-	<p>We looked for a template file for the <code><?php echo esc_html( $view_slug ) ?></code> slug but could not find one.
+	<dl>
+		<dt>View:</dt>
+		<dd><code><?php echo esc_html( $view_slug ) ?></code></dd>
+		<dt>Hook name:</dt>
+		<dd><code><?php echo esc_html( $this->get_template_current_hook_name() ) ?></code></dd>
+	</dl>
+	<p>
+		We looked for a template file for the <code><?php echo esc_html( $view_slug ) ?></code> slug but could not find
+		one.
 	</p>
 	<p>This was rendered by the <code><?php echo esc_html( $view_class ) ?></code> View.</p>
 	<p>We've looked in the following locations:</p>

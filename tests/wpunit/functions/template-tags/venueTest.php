@@ -459,4 +459,32 @@ class venueTest extends Events_TestCase {
 		$this->assertNotContains( $state_province_string, $full_address_html_with_province_id, 'Full Address for a Venue not the US without StateProvince should NOT contain the StateProvince' );
 		$this->assertNotContains( $state_string, $full_address_html_with_province_id, 'Full Address for a Venue not the US without StateProvince should NOT contain the State' );
 	}
+
+	/**
+	 * Tests whether or not the `tec_events_custom_tables_v1_normalize_occurrence_id` filter is applied to provisional IDs.
+	 *
+	 * @test
+	 */
+	public function test_normalize_provisional_id() {
+		$provisional_id = 123;
+		$filter_applied = false;
+
+		// Mock the filter to set $filter_applied to true
+		tests_add_filter(
+			'tec_events_custom_tables_v1_normalize_occurrence_id', 
+			function ( $id ) use ( &$filter_applied ) {
+				$filter_applied = true;
+				return $id; // Return the ID unchanged
+			}
+		);
+
+		tribe_get_venues(
+			false,
+			- 1,
+			true,
+			[ 'event' => $provisional_id ]
+		);
+
+		$this->assertTrue( $filter_applied, 'The `tec_events_custom_tables_v1_normalize_occurrence_id` filter should be applied.' );
+	}
 }

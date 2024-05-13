@@ -14,7 +14,6 @@ use Tribe\Utils\Body_Classes;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Templates as V1_Event_Templates;
 use Tribe__Notices;
-use Tribe__Templates as V1_Templates;
 use Tribe__Utils__Array as Arr;
 use WP_Query;
 
@@ -171,9 +170,6 @@ class Template_Bootstrap {
 	 * @return string
 	 */
 	protected function get_v1_embed_template_path() {
-		global $post;
-		$query = tribe_get_global_query_object();
-
 		if ( ! tribe_is_showing_all() && tribe_is_past_event() ) {
 			Tribe__Notices::set_notice( 'event-past', sprintf( esc_html__( 'This %s has passed.', 'the-events-calendar' ), tribe_get_event_label_singular_lowercase() ) );
 		}

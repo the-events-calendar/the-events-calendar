@@ -2,10 +2,13 @@
 
 namespace Tribe\Events\Views\V2\Partials\Components;
 
+use Tribe\Events\Views\V2\iCalendar\Links\Outlook_365;
+use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use Tribe\Events\Views\V2\iCalendar\Links\Google_Calendar;
 use Tribe\Events\Views\V2\iCalendar\Links\iCal;
 use Tribe\Events\Views\V2\iCalendar\Links\iCalendar_Export;
+use Tribe\Events\Test\Factories\Event;
 
 class Ical_LinkTest extends HtmlPartialTestCase
 {
@@ -29,18 +32,22 @@ class Ical_LinkTest extends HtmlPartialTestCase
 	}
 
 	public function setup_subs() {
-		$gcal = new Google_Calendar;
-		$ical = new iCal;
-		$ics  = new iCalendar_Export;
+		$gcal  = new Google_Calendar;
+		$ical  = new iCal;
+		$ics   = new iCalendar_Export;
+		$ocl   = new Outlook_Live();
+		$oc365 = new Outlook_365();
 
 		$gcal->register();
 		$ical->register();
 		$ics->register();
 
 		$subs = [
-			'gcal' => $gcal,
-			'ical' => $ical,
-			'ics'  => $ics,
+			'gcal'  => $gcal,
+			'ical'  => $ical,
+			'ics'   => $ics,
+			'ocl'   => $ocl,
+			'oc365' => $oc365,
 		];
 
 		return $subs;
@@ -92,6 +99,31 @@ class Ical_LinkTest extends HtmlPartialTestCase
 				$this->get_partial_html( [ 'subscribe_links' => $subs ] )
 				)
 		);
+	}
+
+	public function test_render_single_with_all() {
+		global $wp_query;
+		$wp_query->is_single = true;
+
+		$event_id        = tribe_events()->set_args( [
+			                                             'start_date' => '2018-07-01 10am',
+			                                             'timezone'   => 'Europe/Paris',
+			                                             'duration'   => 3 * HOUR_IN_SECONDS,
+			                                             'title'      => 'Test Event - 2018-07-01 11am',
+			                                             'status'     => 'publish',
+		                                             ] )->create();
+		$GLOBALS['post'] = get_post( $event_id );
+
+		$subs = $this->setup_subs();
+		$this->assertMatchesSnapshot(
+			$this->trim_snapshot(
+				$this->get_partial_html( [ 'subscribe_links' => $subs ] )
+			)
+		);
+
+		// Make sure an invalid event will not fatal.
+		$GLOBALS['post'] = null;
+		$this->get_partial_html( [ 'subscribe_links' => $subs ] );
 	}
 
 	public function test_render_with_gcal_only() {

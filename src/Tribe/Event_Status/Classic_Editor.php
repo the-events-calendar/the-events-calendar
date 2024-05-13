@@ -51,6 +51,11 @@ class Classic_Editor {
 	protected $admin_template;
 
 	/**
+	 * @var Tribe__Context
+	 */
+	protected $context;
+
+	/**
 	 * Metabox constructor.
 	 *
 	 * @since 5.11.0

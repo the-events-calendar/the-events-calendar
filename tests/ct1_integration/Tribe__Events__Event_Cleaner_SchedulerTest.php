@@ -32,6 +32,51 @@ class Tribe__Events__Event_Cleaner_SchedulerTest extends \Codeception\TestCase\W
 		return $this->given_a_migrated_single_event( $args );
 	}
 
+	public function frequency_struct_data_provider() {
+		return [
+			'15 minutes'  => [
+				'15|minute',
+				'15',
+				'minute',
+			],
+			'6 hours'     => [
+				'6|hour',
+				'6',
+				'hour',
+			],
+			'1 w/default' => [
+				'1',
+				'1',
+				'MONTH',
+			],
+			'12 months'   => [
+				'12|month',
+				'12',
+				'month',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider frequency_struct_data_provider
+	 * @test
+	 */
+	public function should_parse_frequency_struct( $purge_range, $expected_frequency, $expected_interval ) {
+		$cleaner     = new Tribe__Events__Event_Cleaner_Scheduler();
+		$parsed_args = [];
+		add_filter( 'tribe_events_delete_old_events_sql_args',
+			function ( $args ) use ( &$parsed_args ) {
+				$parsed_args = $args;
+
+				return $parsed_args;
+			}
+		);
+		$cleaner->select_events_to_purge( $purge_range );
+
+		$this->assertEquals( $expected_interval, $parsed_args['interval'] );
+		$this->assertEquals( $expected_frequency, $parsed_args['date'] );
+	}
+
 	/**
 	 * Check to make sure that past events are being correctly selected.
 	 *

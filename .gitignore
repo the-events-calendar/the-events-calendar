@@ -27,6 +27,7 @@ node_modules
 compiler.jar
 *.ps1
 *.code-workspace
+bun.lockb
 
 wpml-config.xml
 .env.testing

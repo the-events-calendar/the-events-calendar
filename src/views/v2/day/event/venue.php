@@ -9,9 +9,11 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.9.11
+ * @version 6.2.0
+ * @since 6.2.0 Added the `tec_events_view_venue_after_address` action.
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var string  $slug  The slug of the view.
  *
  * @see tribe_get_event() For the format of the event object.
  */
@@ -35,4 +37,15 @@ $address              = $venue->address . ( $venue->address && $append_after_add
 			<?php echo esc_html( reset( $append_after_address ) ); ?>
 		<?php endif; ?>
 	</span>
+	<?php
+	/**
+	 * Fires after the full venue has been displayed.
+	 *
+	 * @since 6.2.0
+	 *
+	 * @param WP_Post $event Event post object.
+	 * @param string  $slug  Slug of the view.
+	 */
+	do_action( 'tec_events_view_venue_after_address', $event, $slug );
+	?>
 </address>

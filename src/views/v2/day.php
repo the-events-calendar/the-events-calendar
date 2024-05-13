@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
+ * @version 6.2.0
  * @since   6.1.4 Changing our nonce verification structures.
- *
- * @version 5.2.1
+ * @since   6.2.0 Moved the header information into a new components/header.php template.
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
@@ -51,17 +51,7 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/before' ); ?>
 
-		<header <?php tribe_classes( $header_classes ); ?>>
-			<?php $this->template( 'components/messages' ); ?>
-
-			<?php $this->template( 'components/breadcrumbs' ); ?>
-
-			<?php $this->template( 'components/events-bar' ); ?>
-
-			<?php $this->template( 'day/top-bar' ); ?>
-
-			<?php $this->template( 'components/messages', [ 'classes' => [ 'tribe-events-header__messages--mobile' ] ] ); ?>
-		</header>
+		<?php $this->template( 'components/header' ); ?>
 
 		<?php $this->template( 'components/filter-bar' ); ?>
 

@@ -222,6 +222,7 @@ class Query_Replace {
 
 				if ( empty( $m['meta_key'] ) ) {
 					// Not the kind of check we're looking for, move on.
+					$redirected_join[] = $join_sql;
 					continue;
 				}
 

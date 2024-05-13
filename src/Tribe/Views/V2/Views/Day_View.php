@@ -15,11 +15,13 @@ use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
 use Tribe__Context;
+use Tribe\Events\Views\V2\Views\Traits\With_Noindex;
 
 use DateTime;
 
 class Day_View extends View {
 	use With_Fast_Forward_Link;
+	use With_Noindex;
 
 	/**
 	 * Slug for this view

@@ -56,8 +56,6 @@ $data = apply_filters( 'tribe_events_views_v2_view_data', $data, $view_slug, $vi
  * @since 5.5.0
  *
  * @param int                                  $options   The Options passed into the json_encode.
- * @param string                               $view_slug The slug of the view currently being rendered.
- * @param Tribe\Events\Views\V2\View_Interface $view      The View instance that is being rendered.
  */
 $json_options = apply_filters( 'tribe_events_views_v2_view_data_json_encode_options', 0 );
 ?>
