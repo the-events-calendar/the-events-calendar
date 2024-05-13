@@ -247,6 +247,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Removed filters: `tribe_events_register_venue_post_type_labels`
 * Tweak - Added actions: `tec_events_elementor_widgets_registered`
 * Tweak - Changed views: `single-event/recurring-description`, `v2/list/event/featured-image`
+* Language - 8 new strings added, 190 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0.1] 2024-05-06 =
 
