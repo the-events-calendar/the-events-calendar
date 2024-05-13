@@ -232,9 +232,9 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.4.1] 2024-05-13 =
+= [6.5.0] 2024-05-13 =
 
-* Version - The Events Calendar 6.4.1 is only compatible with Event Tickets 5.9.3 and higher
+* Version - The Events Calendar 6.5.0 is only compatible with Event Tickets 5.10.0 and higher
 * Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
 * Fix - When creating a new event the Currency symbol, code and position fields are populated from the general settings options. [TEC-5072]
 * Fix - Wrong page titles in List page when using a Classic Theme. [TEC-5074]
