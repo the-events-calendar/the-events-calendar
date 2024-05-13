@@ -242,6 +242,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
 * Tweak - Add note to `tribe_event_delete()` docblock to indicate future deprecation.
 * Tweak - Added actions: `tec_events_elementor_widgets_registered` [TEC-5091]
+* Tweak - Added filters: `tec_events_filter_events_template_setting_option`, `tec_events_filter_tribe_get_single_option`, `tec_events_{$slug}_visibility_is_visible`, `tec_events_{$slug}_visibility_is_visible:{$area}`, `tec_events_{$slug}_visibility_is_visible:{$area}:{$post_id}`, `tec_events_display_remove_event_end_time_options`
+* Tweak - Removed filters: `tribe_events_register_venue_post_type_labels`
+* Tweak - Added actions: `tec_events_elementor_widgets_registered`
+* Tweak - Changed views: `single-event/recurring-description`, `v2/list/event/featured-image`
 
 = [6.4.0.1] 2024-05-06 =
 

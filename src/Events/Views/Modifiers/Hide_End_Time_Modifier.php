@@ -12,7 +12,7 @@ use WP_Post;
  *
  * This class is used to manage the visibility of end time for different views.
  *
- * @since   TBD
+ * @since 6.4.1
  *
  * @package TEC\Events\Views\Modifiers
  */
@@ -26,7 +26,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	/**
 	 * Set the context object.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param Tribe__Context $context The context object.
 	 */
@@ -37,7 +37,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	/**
 	 * Get the context object.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @return Tribe__Context $context The context object.
 	 */
@@ -48,7 +48,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	/**
 	 * Get the list of valid options for visibility.
 	 *
-	 * @since   TBD
+	 * @since 6.4.1
 	 *
 	 * @return array The visibility options.
 	 */
@@ -74,7 +74,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	/**
 	 * Check the visibility of the view for end time fields.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param string                  $area The view to check visibility for.
 	 * @param null|int|string|WP_Post $post The post object to check visibility for.

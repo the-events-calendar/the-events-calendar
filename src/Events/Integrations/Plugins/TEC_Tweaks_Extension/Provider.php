@@ -9,7 +9,7 @@ use Tribe__Events__Main;
 /**
  * Class Provider
  *
- * @since TBD
+ * @since 6.4.1
  *
  * @package TEC\Events\Integrations\Plugins\TEC_Tweaks_Extension
  */

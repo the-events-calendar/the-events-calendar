@@ -259,7 +259,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Handles the visibility of the end time.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param array<string, boolean> $settings The settings.
 	 *
@@ -277,7 +277,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Sets the context for the hide end time modifier.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param View $view The view.
 	 */
@@ -289,7 +289,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Sets the context for the views v2 end time view modifier.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param string $html      The HTML to be filtered.
 	 * @param string $view_slug The view slug.

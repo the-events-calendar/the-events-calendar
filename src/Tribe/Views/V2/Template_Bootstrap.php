@@ -128,7 +128,7 @@ class Template_Bootstrap {
 	/**
 	 * Sets the current view context to `single-event` for the legacy view system.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @return string
 	 */

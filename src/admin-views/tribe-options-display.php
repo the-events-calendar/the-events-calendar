@@ -258,7 +258,7 @@ $end_time_options = [
 /**
  * Allow other plugins to add their views to the control.
  *
- * @since TBD
+ * @since 6.4.1
  *
  * @param array $end_time_options The list of views where the end time can be removed.
  */

@@ -7,21 +7,21 @@ use WP_Post;
 /**
  * Class Visibility_Modifier_Abstract.
  *
- * @since   TBD
+ * @since 6.4.1
  *
  * @package TEC\Events\Views\Modifiers
  */
 abstract class Visibility_Modifier_Abstract {
 
 	/**
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @var array The options to be used for processing visibility operations.
 	 */
 	protected array $options = [];
 
 	/**
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param array $options The options to be used for processing visibility operations.
 	 */
@@ -32,7 +32,7 @@ abstract class Visibility_Modifier_Abstract {
 	/**
 	 * Should validate and store the options to be used for processing visibility operations.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param array $options The options to be used for processing visibility operations.
 	 */
@@ -45,7 +45,7 @@ abstract class Visibility_Modifier_Abstract {
 	/**
 	 * Get the list of valid options for visibility.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @return array The visibility options.
 	 */
@@ -56,7 +56,7 @@ abstract class Visibility_Modifier_Abstract {
 	/**
 	 * Get the default options.
 	 *
-	 * @since   TBD
+	 * @since 6.4.1
 	 *
 	 * @return array The default options.
 	 */
@@ -66,7 +66,7 @@ abstract class Visibility_Modifier_Abstract {
 	 * Check if the visibility modifier's linked data (i.e. phone number) is visible on a certain page.
 	 * This method should be implemented by the extending class.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @param string                  $area The area for this visibility modifier.
 	 * @param null|int|string|WP_Post $post The post to check for this visibility modifier.
@@ -78,7 +78,7 @@ abstract class Visibility_Modifier_Abstract {
 	/**
 	 * The key for this visibility implementation, mostly used for hook prefixing.
 	 *
-	 * @since TBD
+	 * @since 6.4.1
 	 *
 	 * @return string Get the slug for this visibility implementation.
 	 */
@@ -88,7 +88,7 @@ abstract class Visibility_Modifier_Abstract {
 	 * Check if the visibility modifier's linked data (i.e. phone number) is visible on a certain page.
 	 * Runs through filters to allow for more granular control.
 	 *
-	 * @since   TBD
+	 * @since 6.4.1
 	 *
 	 * @param string                  $area The area for this visibility modifier.
 	 * @param null|int|string|WP_Post $post The post to check for this visibility modifier.
@@ -102,7 +102,7 @@ abstract class Visibility_Modifier_Abstract {
 		/**
 		 * Filter the value of the visibility modifier for all areas, it will also pass the post for context and area for granularity.
 		 *
-		 * @since TBD
+		 * @since 6.4.1
 		 *
 		 * @param bool                    $is_visible True if  this visibility modifier is visible in the given area, false otherwise.
 		 * @param string                  $area       The area to check for this visibility modifier.
@@ -113,7 +113,7 @@ abstract class Visibility_Modifier_Abstract {
 		/**
 		 * Filter the visibility of the visibility modifier specifically for a certain area.
 		 *
-		 * @since TBD
+		 * @since 6.4.1
 		 *
 		 * @param bool                    $is_visible True if this visibility modifier is visible in the given area, false otherwise.
 		 * @param string                  $area       The area to check for this visibility modifier.
@@ -125,7 +125,7 @@ abstract class Visibility_Modifier_Abstract {
 		/**
 		 * Filter the visibility of the visibility modifier specifically for a post in a certain area.
 		 *
-		 * @since TBD
+		 * @since 6.4.1
 		 *
 		 * @param bool                    $is_visible True if this visibility modifier is visible in the given area, false otherwise.
 		 * @param string                  $area       The area to check for this visibility modifier.
