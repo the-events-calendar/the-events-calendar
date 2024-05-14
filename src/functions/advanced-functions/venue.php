@@ -13,7 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
-	 * Create a Venue
+	 * Create a Venue using the legacy method.
+	 *
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_venue()->create()` method](https://docs.theeventscalendar.com/apis/orm/create/venues/)
 	 *
 	 * $args accepts all the args that can be passed to wp_insert_post().
 	 * In addition to that, the following args can be passed specifically
@@ -28,12 +30,14 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - Zip string - Zip code of the Venue.
 	 * - Phone string - Phone number for the Venue.
 	 *
+	 * @since 3.0.0
+	 *
 	 * @param array $args Elements that make up post to insert.
 	 *
-	 * @return int ID of the Venue that was created. False if insert failed.
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 * @see      wp_insert_post()
-	 * @category Venues
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
+	 *
+	 * @return int ID of the Venue that was created. False if insert failed.
 	 */
 	function tribe_create_venue( $args ) {
 		$postId = Tribe__Events__API::createVenue( $args );
