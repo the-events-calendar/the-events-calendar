@@ -302,7 +302,7 @@ function tribe_is_event( $postId = null ) {
 	 * Filter: 'tribe_is_event'.
 	 *
 	 * @param bool $is_event
-	 * @param int|WP_Post The event/post id or object. (optional)
+	 * @param int|WP_Post $postId The event/post id or object. (optional)
 	 */
 	return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 }
@@ -556,15 +556,15 @@ function tribe_get_event_taxonomy( $post_id = null, $args = [] ) {
 /**
  * Event Categories (Display)
  *
- * Display the event categories with display param
+ * Display the event categories with display param.
  *
+ * @param int   $post_id The post ID.
+ * @param array $args    The display options.
+ *
+ * @return string|void The html string or echo if provided in $args.
  * @uses     tribe_get_event_taxonomy()
  * @replaces tribe_meta_event_cats()
  *
- * @param int   $post_id
- * @param array $args
- *
- * @return string $html (echo if provided in $args)
  * @category Events
  */
 function tribe_get_event_categories( $post_id = null, $args = [] ) {
@@ -602,26 +602,34 @@ function tribe_get_event_categories( $post_id = null, $args = [] ) {
 		$categories,
 		$args['wrap_after']
 	) : '';
+	/**
+	 * Filters the HTML output of the event categories.
+	 *
+	 * @param string $html        The HTML output of the event categories
+	 * @param int    $post_id     The ID of the event
+	 * @param array  $args        The arguments passed to the function
+	 * @param string $categories  The HTML output of the event categories
+	 */
+	$out = apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
 	if ( $args['echo'] ) {
-		echo apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
+		echo $out;
 	} else {
-		return apply_filters( 'tribe_get_event_categories', $html, $post_id, $args, $categories );
+		return $out;
 	}
 }
 
 /**
  * Event Tags (Display)
  *
- * Display the event tags
+ * Display the event tags.
  *
+ * @param null|string $label     The label for the tags.
+ * @param string      $separator The delimiter for the tags.
+ * @param bool        $echo      Whether to echo the tags or return them.
+ *
+ * @return string|void The HTML list of tags.
  * @uses     the_terms()
  *
- * @param string      $separator
- * @param bool        $echo
- *
- * @param null|string $label
- *
- * @return array
  * @category Events
  */
 function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true ) {
@@ -631,6 +639,14 @@ function tribe_meta_event_tags( $label = null, $separator = ', ', $echo = true )
 
 	$tribe_ecp = Tribe__Events__Main::instance();
 	$list      = get_the_term_list( get_the_ID(), 'post_tag', '<dt class="tribe-event-tags-label">' . $label . '</dt><dd class="tribe-event-tags">', $separator, '</dd>' );
+	/**
+	 * Filters the HTML output of the event tags.
+	 *
+	 * @param string $list      The HTML output of the event tags
+	 * @param string $label     The label for the event tags
+	 * @param string $separator The separator for the event tags
+	 * @param bool   $echo      Whether to echo the output or return it
+	 */
 	$list      = apply_filters( 'tribe_meta_event_tags', $list, $label, $separator, $echo );
 	if ( $echo ) {
 		echo $list;
@@ -690,7 +706,7 @@ if ( ! function_exists( 'tribe_meta_event_archive_tags' ) ) {
 	 *
 	 * @param null|string $label     The label for the term list.
 	 * @param string      $separator The separator of each term.
-	 * @param bool        $echo      , Whether to echo or return the list.
+	 * @param boolean     $echo      Whether to echo or return the list.
 	 *
 	 * @return string|void The html list of tags or void if no terms.
 	 */
@@ -700,7 +716,7 @@ if ( ! function_exists( 'tribe_meta_event_archive_tags' ) ) {
 		 *
 		 * @since 5.16.0
 		 *
-		 * @param boolean Whether to use the WordPress tag archive urls.
+		 * @param boolean $use_wp_tag Whether to use the WordPress tag archive urls.
 		 */
 		$use_wp_tag = apply_filters( 'tec_events_use_wordpress_tag_archive_url', false );
 		if ( $use_wp_tag ) {
@@ -1239,7 +1255,6 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 
 	if ( ! isset( $cache_details[ $cache_details_key ] ) ) {
 		$inner                    = $html ? '<span class="tribe-event-date-start">' : '';
-		$format                   = '';
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
 		$time_format              = get_option( 'time_format' );
@@ -1488,11 +1503,10 @@ function tec_events_get_current_view() {
 /**
  * Display the Events Calendar promo banner
  *
- * @param bool $echo Whether or not to echo the banner, if false, it's returned
+ * @param boolean $echo Whether or not to echo the banner, if false, it's returned.
  *
- * @return string
- **@category Events
- *
+ * @return string|void If not echoing, the banner HTML string.
+ * @category Events
  */
 function tribe_events_promo_banner( $echo = true ) {
 	if ( tribe_get_option( 'donate-link', false ) == true && ! tribe_is_bot() ) {

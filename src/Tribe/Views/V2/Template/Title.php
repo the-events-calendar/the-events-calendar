@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Template;
 
+use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe__Context as Context;
@@ -82,9 +83,7 @@ class Title {
 		 * @param string      $title     The original title.
 		 * @param null|string $sep       The separator sequence to separate the title components.
 		 */
-		$the_title = apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep, $depth );
-
-		return $the_title;
+		return apply_filters( 'tribe_events_title_tag', $new_title, $title, $sep, $depth );
 	}
 
 	/**
@@ -141,18 +140,18 @@ class Title {
 		 */
 		$this->events_label_plural = apply_filters( 'tribe_events_filter_views_v2_wp_title_plural_events_label', $this->events_label_plural, $context );
 
-		// If there's a date selected in the tribe bar, show the date range of the currently showing events
+		// If there's a date selected in the tribe bar, show the date range of the currently showing events.
 		$event_date         = $context->get( 'event_date', false );
 		$event_display_mode = $context->get( 'event_display_mode' );
 
 		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
-		} else if ( Day_View::get_view_slug() === $event_display_mode ) {
+		} elseif ( Day_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_day_title( $event_date );
 		} elseif ( $context->is( 'single' ) && $context->is( 'event_post_type' ) ) {
-			// For single events, the event title itself is required
+			// For single events, the event title itself is required.
 			$title = get_the_title( $context->get( 'post_id' ) );
-		} else if ( count( $posts ) ) {
+		} elseif ( count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
 			if ( 'past' === $event_display_mode ) {
 				/* translators: %1$s: Events plural %2$s: Event date range */
@@ -165,7 +164,7 @@ class Title {
 			/* translators: %s: Events plural */
 			$title = sprintf( esc_html__( 'Past %s', 'the-events-calendar' ), $this->events_label_plural );
 		} else {
-			// For all other cases, start with 'upcoming events'
+			// For all other cases, start with 'upcoming events'.
 			/* translators: %s: Events plural */
 			$title = sprintf( esc_html__( 'Upcoming %s', 'the-events-calendar' ), $this->events_label_plural );
 		}
@@ -346,6 +345,27 @@ class Title {
 		if ( null === $this->posts ) {
 			global $wp_query;
 			$posts = null !== $wp_query->posts ? $wp_query->posts : $wp_query->get_posts();
+
+			if ( is_post_type_archive( 'tribe_events' ) ) {
+				/**
+				 * We create the View, we call get_html() to setup the repository with
+				 * all query args and then we get all the events. This is needed to fix title
+				 * filters that were fired before the View was setup.
+				 *
+				 * We pop the last one when needed. See:
+				 * setup_template_vars() in src/Tribe/Views/V2/View.php
+				 */
+				$view  = View::make( 'list' );
+				$html  = $view->get_html();
+				$repo  = $view->get_repository();
+				$posts = $repo->all();
+
+				$is_paginated    = isset( $repo->query_args['posts_per_page'] ) && - 1 !== $repo->query_args['posts_per_page'];
+				$has_next_events = count( $posts ) > $view->get_context()->get( 'events_per_page', 12 );
+				if ( $is_paginated && $has_next_events ) {
+					array_pop( $posts );
+				}
+			}
 		}
 
 		return $posts;
@@ -364,6 +384,7 @@ class Title {
 		$event_date = Dates::build_date_object( $event_date )->format( Dates::DBDATEFORMAT );
 
 		$title = sprintf(
+			/* translators: %1$s: Events plural %2$s: Month and year */
 			esc_html_x( '%1$s for %2$s', 'month view', 'the-events-calendar' ),
 			$this->events_label_plural,
 			date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( $event_date ) )
@@ -391,6 +412,7 @@ class Title {
 	 */
 	protected function build_day_title( $event_date ) {
 		$title = sprintf(
+			/* translators: %1$s: Events plural %2$s: Day */
 			esc_html_x( '%1$s for %2$s', 'day_view', 'the-events-calendar' ),
 			$this->events_label_plural,
 			date_i18n( tribe_get_date_format( true ), strtotime( $event_date ) )
@@ -405,7 +427,7 @@ class Title {
 		 * @param string The date to use to build the title, in the `Y-m-d` format.
 		 */
 		return apply_filters( 'tribe_events_views_v2_day_title', $title, $event_date );
-}
+	}
 
 	/**
 	 * Builds, wrapping the current title, the Event Category archive title.
@@ -414,7 +436,7 @@ class Title {
 	 * @since 5.12.3 Added params, refined logic around category archive titles.
 	 *
 	 * @param string      $title     The input title.
-	 * @param  \WP_Term   $cat       The category term to use to build the title.
+	 * @param  \WP_Term    $cat       The category term to use to build the title.
 	 * @param boolean     $depth     Whether to display the taxonomy hierarchy as part of the title.
 	 * @param null|string $separator The separator sequence to separate the title components.
 	 *
@@ -428,7 +450,7 @@ class Title {
 		 *
 		 * @since 5.12.3
 		 *
-	 	 * @param boolean     $depth Whether to display the taxonomy hierarchy as part of the title.
+		 * @param boolean     $depth Whether to display the taxonomy hierarchy as part of the title.
 		 * @param string      $title The input title.
 		 * @param  \WP_Term   $cat   The category term to use to build the title.
 		 */
@@ -441,7 +463,7 @@ class Title {
 				$cat->taxonomy,
 				[
 					'link'      => false,
-					'separator' => $separator
+					'separator' => $separator,
 				]
 			);
 		}
@@ -450,13 +472,12 @@ class Title {
 			$term_parents = $cat->name;
 		}
 
-		$new_title =  $title . $separator . $term_parents;
+		$new_title = $title . $separator . $term_parents;
 
 		/**
 		 * Filters the Event Category Archive title.
 		 *
 		 * @since 4.9.10
-		 *
 		 *
 		 * @param string    $new_title The Event Category archive title.
 		 * @param string    $title     The original title.
