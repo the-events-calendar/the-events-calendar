@@ -171,7 +171,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	 *
 	 * @return string
 	 */
-	protected function get_events_route_namespace() {
+	public function get_events_route_namespace() {
 		return $this->get_namespace() . '/events/' . $this->get_version();
 	}
 
