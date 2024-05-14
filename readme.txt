@@ -4,8 +4,8 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.4.0.1
-Tested up to: 6.5.2
+Stable tag: 6.5.0
+Tested up to: 6.5.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,23 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.5.0] 2024-05-14 =
+
+* Version - The Events Calendar 6.5.0 is only compatible with Event Tickets 5.10.0 and higher
+* Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
+* Fix - When creating a new event the Currency symbol, code and position fields are populated from the general settings options. [TEC-5072]
+* Fix - Wrong page titles in List page when using a Classic Theme. [TEC-5074]
+* Fix - Replace uses of the retired moment.js with Day.js [TEC-5011]
+* Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
+* Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
+* Tweak - Add note to `tribe_event_delete()` docblock to indicate future deprecation.
+* Tweak - Added actions: `tec_events_elementor_widgets_registered` [TEC-5091]
+* Tweak - Added filters: `tec_events_filter_events_template_setting_option`, `tec_events_filter_tribe_get_single_option`, `tec_events_{$slug}_visibility_is_visible`, `tec_events_{$slug}_visibility_is_visible:{$area}`, `tec_events_{$slug}_visibility_is_visible:{$area}:{$post_id}`, `tec_events_display_remove_event_end_time_options`
+* Tweak - Removed filters: `tribe_events_register_venue_post_type_labels`
+* Tweak - Added actions: `tec_events_elementor_widgets_registered`
+* Tweak - Changed views: `single-event/recurring-description`, `v2/list/event/featured-image`
+* Language - 8 new strings added, 190 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0.1] 2024-05-06 =
 

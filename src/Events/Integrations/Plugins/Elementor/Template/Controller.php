@@ -132,7 +132,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Allows filtering of the events template setting option override.
 		 *
-		 * @since TBD
+		 * @since 6.4.1
 		 *
 		 * @param string $value  The value of the option. If this is set to anything other than an empty string,
 		 *                       it will prevent the use of the provided Elementor templates.
@@ -171,7 +171,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Allows filtering of the events single template option override.
 		 *
-		 * @since TBD
+		 * @since 6.4.1
 		 *
 		 * @param string $value  The value of the `tribeEventsTemplate` option. If this is set to anything other
 		 *                       than an empty string, it will prevent the use of the provided Elementor templates.
