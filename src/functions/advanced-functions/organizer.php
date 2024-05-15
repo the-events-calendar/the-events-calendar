@@ -13,8 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( class_exists( 'Tribe__Events__Main' ) ) {
 
 	/**
-	 * Create an Organizer
+	 * Create an Organizer using the legacy method.
 	 *
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_organizers()->create()` method](https://docs.theeventscalendar.com/apis/orm/create/organizers/).
+	 *
+	 * Legacy Note:
 	 * $args accepts all the args that can be passed to wp_insert_post().
 	 * In addition to that, the following args can be passed specifically
 	 * for the process of creating an Organizer:
@@ -24,12 +27,15 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - Website string - URL of the Organizer.
 	 * - Phone string - Phone number for the Organizer.
 	 *
+	 * @category Organizers
+	 * @since 3.0.0
+	 *
+	 * @see      wp_insert_post()
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
+	 *
 	 * @param array $args Elements that make up post to insert.
 	 *
 	 * @return int ID of the Organizer that was created. False if insert failed.
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
-	 * @see      wp_insert_post()
-	 * @category Organizers
 	 */
 	function tribe_create_organizer( $args ) {
 		$postId = Tribe__Events__API::createOrganizer( $args );
