@@ -252,9 +252,9 @@ Remember to always make a backup of your database and files before updating!
 = [6.4.0.1] 2024-05-06 =
 
 * Fix - Prevent the Status widget from potentially running undefined methods. [ECP-1797]
-* Fix - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
 * Tweak - Add action to signal activation of TEC Elementor compatibility. [ECP-1789]
 * Tweak - Added actions: `tec_events_elementor_loaded`
+* Security - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
 * Security - Correct a user permissions check.
 * Language - 0 new strings added, 27 updated, 0 fuzzied, and 0 obsoleted
 
