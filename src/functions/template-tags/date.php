@@ -13,9 +13,11 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	/**
 	 * End Date formatted for display
 	 *
-	 * Returns the event end date that observes the end of day cutoff
+	 * Returns the event end date that observes the end of day cutoff.
+	 * The cutoff can be manually adjusted by user under 'Events > Settings > Display > End of day cutoff'
+	 * By default, the End of the day cutoff is 12am
 	 *
-	 * @since: 3.0.0
+	 * @since 3.0.0
 	 *
 	 * @see http://php.net/manual/en/function.date.php
 	 *
