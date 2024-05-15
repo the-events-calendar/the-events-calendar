@@ -15,13 +15,16 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	 *
 	 * Returns the event end date that observes the end of day cutoff
 	 *
-	 * @category Events
-	 * @see      http://php.net/manual/en/function.date.php
+	 * @since: 3.0.0
+	 *
+	 * @see http://php.net/manual/en/function.date.php
 	 *
 	 * @param int|WP_Post $event        The event (optional).
 	 * @param bool        $display_time If true shows date and time, if false only shows date.
 	 * @param string      $date_format  Allows date and time formatting using standard php syntax.
 	 * @param string      $timezone     Timezone in which to present the date/time (or default behaviour if not set).
+	 *
+	 * @category Events
 	 *
 	 * @return string|null Date
 	 */
