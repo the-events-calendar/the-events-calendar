@@ -54,7 +54,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_COMMON_VERSION  = '6.4.1-dev';
+		const MIN_COMMON_VERSION  = '6.5.7-dev';
 
 		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
