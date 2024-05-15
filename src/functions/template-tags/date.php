@@ -24,8 +24,6 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 	 * @param string      $date_format  Allows date and time formatting using standard php syntax.
 	 * @param string      $timezone     Timezone in which to present the date/time (or default behaviour if not set).
 	 *
-	 * @category Events
-	 *
 	 * @return string|null Date
 	 */
 	function tribe_get_display_end_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
