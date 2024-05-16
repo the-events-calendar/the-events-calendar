@@ -56,13 +56,18 @@ if ( ! function_exists( 'tribe_get_display_end_date' ) ) {
 
 if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 	/**
-	 * Given a date and an event, returns true or false if the event is happening on that date
-	 * This function properly adjusts for the EOD cutoff and multi-day events
+	 * Checks if an event occurs on a given date.
 	 *
-	 * @param null $date
-	 * @param null $event
+	 * This function determines whether an event takes place on the specified date.
+	 * If no date is provided, the current date is used. If no event is provided,
+	 * the function will try to use the global post object.
 	 *
-	 * @return mixed|void
+	 * @since 3.10
+	 *
+	 * @param string|null $date The date to check against, in 'mysql' format. Defaults to current date.
+	 * @param WP_Post|null $event The event post object. Defaults to the global $post.
+	 *
+	 * @return bool True if the event occurs on the given date, false otherwise.
 	 */
 	function tribe_event_is_on_date( $date = null, $event = null ) {
 
