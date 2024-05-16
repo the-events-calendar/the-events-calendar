@@ -289,7 +289,10 @@ jQuery( function( $ ) {
 		 */
 		function add_sticky_linked_post_data( post_type, container, fields ) {
 			// Bail if expected global sticky data array is not set
-			if ( 'undefined' === typeof window['tribe_sticky_' + post_type + '_fields'] || ! Array.isArray( window['tribe_sticky_' + post_type + '_fields'] ) ) {
+			if (
+				'undefined' === typeof window['tribe_sticky_' + post_type + '_fields']
+				|| ! Array.isArray( window['tribe_sticky_' + post_type + '_fields'] )
+			) {
 				return;
 			}
 
@@ -301,7 +304,7 @@ jQuery( function( $ ) {
 				return;
 			}
 
-			// The linked post type fields also need sticky field behaviour: populate
+			// The linked post type fields also need sticky field behavior: populate
 			// them if we've been provided with the necessary data to do so
 			var sticky_data = window['tribe_sticky_' + post_type + '_fields'].shift();
 			var sticky_data_added = false;

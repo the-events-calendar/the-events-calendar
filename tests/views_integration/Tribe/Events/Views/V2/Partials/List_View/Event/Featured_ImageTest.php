@@ -31,7 +31,7 @@ class Featured_ImageTest extends HtmlPartialTestCase
 	 * Test render event with featured image with alt text.
 	 */
 	public function test_render_with_event_with_featured_image_with_alt() {
-		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$event = $this->mock_event( 'events/single/2.json' )->with_thumbnail()->get();
 		$event->thumbnail->alt = "Featured Image";
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
