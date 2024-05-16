@@ -64,7 +64,7 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 	 *
 	 * @since 3.10
 	 *
-	 * @param string|null $date The date to check against, in 'mysql' format. Defaults to current date.
+	 * @param string|null  $date  The date to check against, in 'mysql' format. Defaults to current date.
 	 * @param WP_Post|null $event The event post object. Defaults to the global $post.
 	 *
 	 * @return bool True if the event occurs on the given date, false otherwise.
