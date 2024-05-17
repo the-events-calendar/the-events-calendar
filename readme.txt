@@ -237,6 +237,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add note to `tribe_create_organizer()` docblock to indicate future deprecation.
 * Tweak - Add note to `tribe_create_event()` docblock to indicate future deprecation.
 * Tweak - Add note to `tribe_event_update()` docblock to indicate future deprecation.
+* Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
 
 
 = [6.5.0] 2024-05-14 =
