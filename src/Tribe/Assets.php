@@ -32,7 +32,7 @@ class Tribe__Events__Assets {
 	 * @return void
 	 */
 	public function register() {
-		$plugin = Tribe__Events__Main::instance();
+		$plugin        = Tribe__Events__Main::instance();
 		$admin_helpers = Tribe__Admin__Helpers::instance();
 
 		// Vendor
@@ -223,8 +223,6 @@ class Tribe__Events__Assets {
 			[
 				'jquery',
 				'tribe-events-php-date-formatter',
-				'tribe-moment',
-				'tribe-moment-locales'
 			],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[

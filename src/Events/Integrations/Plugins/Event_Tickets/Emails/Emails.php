@@ -96,7 +96,7 @@ class Emails {
 					'state'           => esc_html__( 'NY 10001', 'the-events-calendar' ),
 					'country'         => esc_html__( 'United States', 'the-events-calendar' ),
 					'phone'           => esc_html__( '(555) 555-5555', 'the-events-calendar' ),
-					'website_url'     => esc_url( get_site_url() ),
+					'website'         => esc_url( get_site_url() ),
 					'directions_link' => '#',
 				],
 			],
