@@ -234,8 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.5.1] TBD =
 
-* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, and `tribe_event_update()` docblocks to indicate future deprecation.
-
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 
 = [6.5.0] 2024-05-14 =
 
