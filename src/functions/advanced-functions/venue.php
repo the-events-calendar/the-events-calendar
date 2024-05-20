@@ -37,7 +37,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @see      wp_insert_post()
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_insert_post
 	 *
-	 * @return int ID of the Venue that was created. False if insert failed.
+	 * @return int|false ID of the Venue that was created. False if insert failed.
 	 */
 	function tribe_create_venue( $args ) {
 		$postId = Tribe__Events__API::createVenue( $args );
