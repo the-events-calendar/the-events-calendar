@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Update the integration template path hooks due to Tickets Wallet Plus being merged into Tickets Plus.
+
 = [6.5.0] 2024-05-14 =
 
 * Version - The Events Calendar 6.5.0 is only compatible with Event Tickets 5.10.0 and higher
