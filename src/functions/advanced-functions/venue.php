@@ -63,15 +63,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Delete a Venue
+	 * Delete a Venue using the legacy method.
+	 *
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_venue()->delete()` method](https://docs.theeventscalendar.com/apis/orm/delete)
+	 *
+	 * @since 3.0.0
+	 *
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
+	 * @see      wp_delete_post()
 	 *
 	 * @param int  $postId       ID of the Venue to be deleted.
 	 * @param bool $force_delete Whether to bypass trash and force deletion. Defaults to false.
 	 *
 	 * @return bool false if delete failed.
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
-	 * @see      wp_delete_post()
-	 * @category Venues
 	 */
 	function tribe_delete_venue( $postId, $force_delete = false ) {
 		$success = Tribe__Events__API::deleteVenue( $postId, $args );

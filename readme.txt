@@ -236,7 +236,6 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 
-
 = [6.5.0] 2024-05-14 =
 
 * Version - The Events Calendar 6.5.0 is only compatible with Event Tickets 5.10.0 and higher
