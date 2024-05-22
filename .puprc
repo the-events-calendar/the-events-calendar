@@ -13,7 +13,10 @@
 	],
 	"checks": {
 		"tbd": {
-			"dirs": [ "src" ]
+			"dirs": [
+				"src",
+				"common/src"
+			]
 		},
 		"version-conflict": {}
 	},
@@ -50,7 +53,10 @@
 				"regex": "(Stable tag: )(.+)"
 			}
 		],
-		"views": [ "src/views" ]
+		"views": [
+			"src/views",
+			"common/src/views"
+		]
 	},
 	"zip_name": "the-events-calendar"
 }
