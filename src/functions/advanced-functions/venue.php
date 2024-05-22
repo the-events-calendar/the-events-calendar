@@ -42,16 +42,19 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Update a Venue
+	 * Update a Venue using the legacy method.
+	 *
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_venue()->save()` method](https://docs.theeventscalendar.com/apis/orm/update)
+	 *
+	 * @since 3.0.0
+	 *
+	 * @see      wp_update_post()
+	 * @see      tribe_create_venue()
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
 	 *
 	 * @param int   $postId ID of the Venue to be modified.
 	 * @param array $args   Args for updating the post. See {@link tribe_create_venue()} for more info.
-	 *
 	 * @return int ID of the Venue that was created. False if update failed.
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
-	 * @see      wp_update_post()
-	 * @see      tribe_create_venue()
-	 * @category Venues
 	 */
 	function tribe_update_venue( $postId, $args ) {
 		$postId = Tribe__Events__API::updateVenue( $postId, $args );
