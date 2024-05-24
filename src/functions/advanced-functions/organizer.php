@@ -53,8 +53,8 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @see      tribe_create_organizer()
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
 	 *
-	 * @param array $args   Args for updating the post. See {@link tribe_create_organizer()} for more info.
 	 * @param int   $postId ID of the Organizer to be modified.
+	 * @param array $args   Args for updating the post. See {@link tribe_create_organizer()} for more info.
 	 * @return int|false ID of the Organizer that was created. False if update failed.
 	 */
 	function tribe_update_organizer( $postId, $args ) {
