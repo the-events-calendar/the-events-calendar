@@ -44,6 +44,7 @@ class Tribe__Events__Assets {
 				[ 'tribe-events-jquery-resize', 'vendor/jquery-resize/jquery.ba-resize.js', [ 'jquery' ] ],
 				[ 'tribe-events-chosen-style', 'vendor/chosen/public/chosen.css', [] ],
 				[ 'tribe-events-chosen-jquery', 'vendor/chosen/public/chosen.jquery.js', [ 'jquery' ] ],
+				[ 'tribe-events-php-date-formatter', 'vendor/php-date-formatter/js/php-date-formatter.js', [] ],
 				[
 					'tribe-events-bootstrap-datepicker-css',
 					'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css',

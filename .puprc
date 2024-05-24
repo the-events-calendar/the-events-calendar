@@ -29,12 +29,20 @@
 	],
 	"paths": {
 		"changelog": "readme.txt",
-		"css": [ "src/resources/postcss" ],
+		"css": [
+			"src/resources/postcss",
+			"common/src/resources/postcss"
+		],
 		"js": [
 			"src/resources/js",
-			"src/modules"
+			"src/modules",
+			"common/src/resources/js",
+			"common/src/modules"
 		],
-		"sync_files": [],
+		"sync_files": [
+			"common/.distfiles",
+			"common/.gitattributes"
+		],
 		"versions": [
 			{
 				"file": "src/Tribe/Main.php",
