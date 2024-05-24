@@ -71,13 +71,11 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * @see      wp_delete_post()
 	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
 	 *
-	 * @param  int  $postId       ID of the Organizer to be deleted.
+	 * @param  int  $post_id       ID of the Organizer to be deleted.
 	 * @param  bool $force_delete Whether to bypass trash and force deletion. Defaults to false.
 	 * @return WP_Post|false|null False if delete failed, null if delete succeeded.
 	 */
-	function tribe_delete_organizer( $postId, $force_delete = false ) {
-		$success = Tribe__Events__API::deleteOrganizer( $postId, $force_delete );
-
-		return $success;
+	function tribe_delete_organizer( $post_id, $force_delete = false ) {
+		return Tribe__Events__API::deleteOrganizer( $post_id, $force_delete );
 	}
 }
