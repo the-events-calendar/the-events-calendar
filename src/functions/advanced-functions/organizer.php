@@ -62,18 +62,21 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Delete an Organizer
+	 * Delete an Organizer using the legacy method.
 	 *
-	 * @param int  $postId       ID of the Organizer to be deleted.
-	 * @param bool $force_delete Whether to bypass trash and force deletion. Defaults to false.
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_organizers()->delete()` method](https://docs.theeventscalendar.com/apis/orm/delete).
 	 *
-	 * @return bool false if delete failed.
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
+	 * @since 3.0.0
+	 *
 	 * @see      wp_delete_post()
-	 * @category Organizers
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_delete_post
+	 *
+	 * @param  int  $postId       ID of the Organizer to be deleted.
+	 * @param  bool $force_delete Whether to bypass trash and force deletion. Defaults to false.
+	 * @return WP_Post|false|null False if delete failed, null if delete succeeded.
 	 */
 	function tribe_delete_organizer( $postId, $force_delete = false ) {
-		$success = Tribe__Events__API::deleteOrganizer( $postId, $args );
+		$success = Tribe__Events__API::deleteOrganizer( $postId, $force_delete );
 
 		return $success;
 	}
