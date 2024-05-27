@@ -1,14 +1,14 @@
 {
 	"build": [
 		"pup do build-common",
-		"echo 'building Events Calendar in: '$(pwd)",
+		"echo 'building The Events Calendar in: '$(pwd)",
 		"composer install --no-dev",
 		"npm ci",
 		"npm run build"
 	],
 	"build_dev": [
 		"pup do build-common",
-		"echo 'building Events Calendar in: '$(pwd)",
+		"echo 'building The Events Calendar in: '$(pwd)",
 		"composer install",
 		"npm ci",
 		"npm run build"
