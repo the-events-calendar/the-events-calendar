@@ -1,16 +1,24 @@
 {
 	"build": [
-		"cd common && pup build",
+		"pup do build-common",
+		"echo 'building Events Calendar in: '$(pwd)",
 		"composer install --no-dev",
 		"npm ci",
 		"npm run build"
 	],
 	"build_dev": [
-		"cd common && pup build",
+		"pup do build-common",
+		"echo 'building Events Calendar in: '$(pwd)",
 		"composer install",
 		"npm ci",
 		"npm run build"
 	],
+	"workflow": {
+		"build-common": [
+			"echo 'building common (no-dev) in: '$(pwd)",
+			"cd common && pup build"
+		]
+	},
 	"checks": {
 		"tbd": {
 			"dirs": [
