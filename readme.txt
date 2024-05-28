@@ -256,6 +256,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added actions: `tec_events_elementor_widgets_registered`
 * Tweak - Changed views: `single-event/recurring-description`, `v2/list/event/featured-image`
 * Language - 8 new strings added, 190 updated, 0 fuzzied, and 0 obsoleted
+* Tweak - Add tags to `tribe_get_prev_event_link()` docblock.
 
 = [6.4.0.1] 2024-05-06 =
 
