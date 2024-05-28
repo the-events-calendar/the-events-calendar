@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.6.0] TBD =
 
 * Tweak - Update the integration template path hooks due to Tickets Wallet Plus being merged into Tickets Plus.
 
