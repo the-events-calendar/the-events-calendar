@@ -116,9 +116,16 @@ jobs:
         run: |
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
+      # ------------------------------------------------------------------------------
+      # WP SEO requires WP 6.4+
+      # ------------------------------------------------------------------------------
       - name: Init the WordPress container
         if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} up wordpress
+        run: |
+          ${SLIC_BIN} up wordpress
+          ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp core update --force --version=6.4.1
+          ${SLIC_BIN} wp core version
       - name: Ensure Twenty-Twenty is installed
         if: steps.skip.outputs.value != 1
         run: |

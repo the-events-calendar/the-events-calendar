@@ -128,11 +128,15 @@ jobs:
           ${SLIC_BIN} use the-events-calendar/common
           ${SLIC_BIN} composer install --no-dev
       # ------------------------------------------------------------------------------
-      # Update WordPress version
+      # Update WordPress version to our min required.
       # ------------------------------------------------------------------------------
       - name: Init the WordPress container
         if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} up wordpress
+        run: |
+          ${SLIC_BIN} up wordpress
+          ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp core update --force --version=6.3.1
+          ${SLIC_BIN} wp core version
       # ------------------------------------------------------------------------------
       # Install and activate TwentyTwenty
       # ------------------------------------------------------------------------------
