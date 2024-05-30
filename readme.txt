@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.5.0.1] 2024-06-03 =
+
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-49]
+
 = [6.5.0] 2024-05-14 =
 
 * Version - The Events Calendar 6.5.0 is only compatible with Event Tickets 5.10.0 and higher
