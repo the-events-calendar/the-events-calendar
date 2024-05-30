@@ -177,7 +177,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 * - Outlook 365: outlook-365
 		 * - Outlook Live: outlook-live
 		 * - Export .ics file: ics
-		 * - Export Oulook .ics file: outlook-ics
+		 * - Export Outlook .ics file: outlook-ics
 		 *
 		 * @since 5.14.0
 		 *
