@@ -4006,7 +4006,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Specify the "preview organizer" to link to an event.
 		 *
-		 *
 		 * @since 4.5.1
 		 *
 		 * @param int $event_id The ID of the event being previewed.
