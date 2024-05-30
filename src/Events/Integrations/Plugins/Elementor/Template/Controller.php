@@ -230,10 +230,10 @@ class Controller extends Controller_Contract {
 		 * @param bool  $bypass  Whether to bypass the template override. Default is false.
 		 * @param mixed $post_id The post ID being checked. Will be null if using the current post.
 		 */
-		$bypass_override = apply_filters('tribe_bypass_template_override', false, $post_id);
+		$bypass_override = apply_filters( 'tribe_bypass_template_override', false, $post_id );
 
 		// Allow users to bypass the override.
-		if ($bypass_override) {
+		if ( $bypass_override ) {
 			return false;
 		}
 
