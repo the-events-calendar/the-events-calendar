@@ -219,6 +219,24 @@ class Controller extends Controller_Contract {
 	 * @return bool
 	 */
 	public function is_override( $post_id = null ): bool {
+		/**
+		 * Filters whether to bypass the template override for events.
+		 *
+		 *  This filter allows developers to short-circuit the template override process
+		 *  and use the default template instead.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool  $bypass  Whether to bypass the template override. Default is false.
+		 * @param mixed $post_id The post ID being checked. Will be null if using the current post.
+		 */
+		$bypass_override = apply_filters('tribe_bypass_template_override', false, $post_id);
+
+		// Allow users to bypass the override.
+		if ($bypass_override) {
+			return false;
+		}
+
 		$template = tribe( Importer::class )->get_template( Event_Single_Static::class );
 
 		// Ensure we have a template to use.
