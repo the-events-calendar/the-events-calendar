@@ -27,7 +27,6 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 * - Website string - URL of the Organizer.
 	 * - Phone string - Phone number for the Organizer.
 	 *
-	 * @category Organizers
 	 * @since 3.0.0
 	 *
 	 * @see      wp_insert_post()
@@ -35,7 +34,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 *
 	 * @param array $args Elements that make up post to insert.
 	 *
-	 * @return int ID of the Organizer that was created. False if insert failed.
+	 * @return int|false ID of the Organizer that was created. False if insert failed.
 	 */
 	function tribe_create_organizer( $args ) {
 		$postId = Tribe__Events__API::createOrganizer( $args );
@@ -44,16 +43,20 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	}
 
 	/**
-	 * Update an Organizer
+	 * Update an Organizer using the legacy method.
+	 *
+	 * Note: This function is outdated and should be replaced with the [TEC ORM `tribe_organizers()->save()` method](https://docs.theeventscalendar.com/apis/orm/update).
+	 *
+	 * @since 3.0.0
+	 *
+	 * @see      tribe_create_organizer()
+	 * @see      wp_update_post()
+	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
 	 *
 	 * @param int   $postId ID of the Organizer to be modified.
-	 * @param array $args   Args for updating the post. See {@link tribe_create_organizer()} for more info.
+	 * @param array $args Args for updating the post.
 	 *
-	 * @return int ID of the Organizer that was created. False if update failed.
-	 * @link     http://codex.wordpress.org/Function_Reference/wp_update_post
-	 * @see      wp_update_post()
-	 * @see      tribe_create_organizer()
-	 * @category Organizers
+	 * @return int|false ID of the Organizer that was created. False if update failed.
 	 */
 	function tribe_update_organizer( $postId, $args ) {
 		$postId = Tribe__Events__API::updateOrganizer( $postId, $args );
