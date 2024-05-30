@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Tweak - Add details to the `tec_views_v2_subscribe_link_visibility()` and `tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility()` docblocks for clarity.
+
 = [6.5.0] 2024-05-14 =
 
 * Version - The Events Calendar 6.5.0 is only compatible with Event Tickets 5.10.0 and higher
