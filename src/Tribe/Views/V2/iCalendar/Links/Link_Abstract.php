@@ -158,7 +158,7 @@ abstract class Link_Abstract implements Link_Interface {
 		$visible = $this->visible;
 
 		/**
-		 * Allows filtering of the visibility for the links.
+		 * Allows filtering the visibility of the Subscribe to Calendar and Add to Calendar links.
 		 *
 		 * @since 5.14.0
 		 *
