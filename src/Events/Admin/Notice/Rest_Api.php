@@ -91,7 +91,9 @@ class Rest_Api {
 		$cache_key     = 'events_is_rest_api_blocked';
 		$cache_timeout = 48 * HOUR_IN_SECONDS;
 		if ( ! $force && tec_timed_option()->exists( $cache_key, $force ) ) {
-			return $this->blocked_endpoint = tec_timed_option()->get( $cache_key, null, $force );
+			$this->blocked_endpoint = tec_timed_option()->get( $cache_key, null, $force );
+
+			return ! empty( $this->blocked_endpoint );
 		}
 
 		$v1_api    = tribe( 'tec.rest-v1.main' );
