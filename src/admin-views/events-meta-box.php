@@ -252,7 +252,7 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 							id='EventCurrencyCode'
 							name='EventCurrencyCode'
 							size='3'
-							value='<?php echo esc_attr( $currency_code ); ?>
+							value='<?php echo esc_attr( $currency_code ); ?>'
 							class='alignleft'
 						/>
 					</td>
