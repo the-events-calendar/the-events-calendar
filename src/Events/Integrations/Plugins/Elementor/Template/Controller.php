@@ -222,15 +222,17 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters whether to bypass the template override for events.
 		 *
-		 *  This filter allows developers to short-circuit the template override process
-		 *  and use the default template instead.
+		 * This filter allows developers to short-circuit the template override process
+		 * and use the default template instead.
 		 *
 		 * @since TBD
 		 *
 		 * @param bool  $bypass  Whether to bypass the template override. Default is false.
 		 * @param mixed $post_id The post ID being checked. Will be null if using the current post.
+		 *
+		 * @return bool Whether to bypass the template override. Default is false.
 		 */
-		$bypass_override = apply_filters( 'tec_events_bypass_template_override', false, $post_id );
+		$bypass_override = apply_filters( 'tec_events_integration_elementor_bypass_template_override', false, $post_id );
 
 		// Allow users to bypass the override.
 		if ( $bypass_override ) {
