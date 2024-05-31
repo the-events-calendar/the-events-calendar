@@ -140,9 +140,10 @@ class Tribe__Events__REST__V1__Validator__Base
 	 * @return bool True if the user can access password-protected content, otherwise false.
 	 */
 	public function can_access_password_content( WP_Post $post, WP_REST_Request $request ): bool {
+		// It has no password, so yes.
 		if ( empty( $post->post_password ) ) {
 			// No filter required.
-			return false;
+			return true;
 		}
 
 		$edit_cap = get_post_type_object( $post->post_type )->cap->edit_post;
