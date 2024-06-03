@@ -238,7 +238,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add note to `tribe_create_event()` docblock to indicate future deprecation.
 * Tweak - Add note to `tribe_event_update()` docblock to indicate future deprecation.
 * Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
-
+* Tweak - Add tags to `tribe_get_prev_event_link()` docblock.
 
 = [6.5.0] 2024-05-14 =
 
@@ -256,7 +256,6 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added actions: `tec_events_elementor_widgets_registered`
 * Tweak - Changed views: `single-event/recurring-description`, `v2/list/event/featured-image`
 * Language - 8 new strings added, 190 updated, 0 fuzzied, and 0 obsoleted
-* Tweak - Add tags to `tribe_get_prev_event_link()` docblock.
 
 = [6.4.0.1] 2024-05-06 =
 
