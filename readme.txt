@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.5.0.1] 2024-06-04 =
 
-* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-49]
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
 * Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
 
 = [6.5.0] 2024-05-14 =
