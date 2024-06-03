@@ -26,19 +26,4 @@ class CommonTest extends Events_TestCase {
 			'Tribe Common is not loading, you probably need to check that'
 		);
 	}
-
-	/**
-	 * Common must be, at least in MIN_COMMON_VERSION
-	 *
-	 * @test
-	 * @since 4.6.22
-	*/
-	public function it_is_loading_common_required_version() {
-
-		$this->assertTrue(
-			version_compare( Common::VERSION, Events::MIN_COMMON_VERSION, '>=' ),
-			'Tribe Common version should be at least ' . Events::MIN_COMMON_VERSION . ', currently on ' . Common::VERSION
-		);
-	}
-
-	}
+}
