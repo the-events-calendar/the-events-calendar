@@ -178,7 +178,7 @@ $tec_events_general_toc = [
  *
  * @since TBD
  *
- * @var array $tec_events_display_toc Array of items of the TOC.
+ * @param array $tec_events_display_toc Array of items of the TOC.
  */
 $general_tab_fields += apply_filters( 'tec_events_general_settings_toc', $tec_events_general_toc );
 
