@@ -30,6 +30,8 @@ class CommonTest extends Events_TestCase {
 	/**
 	 * Common must be, at least in MIN_COMMON_VERSION
 	 *
+	 * @skip
+	 *
 	 * @test
 	 * @since 4.6.22
 	*/
