@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.5.0.1] 2024-06-03 =
+= [6.5.0.1] 2024-06-04 =
 
 * Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-49]
 * Security - Ensure Events that are password protected are not accessible via the REST API  without the password. [TECTRIA-49]
