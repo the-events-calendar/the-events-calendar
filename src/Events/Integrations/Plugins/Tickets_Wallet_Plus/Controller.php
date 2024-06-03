@@ -51,6 +51,9 @@ class Controller extends Integration_Abstract {
 		add_action( 'tribe_template_after_include:tickets-wallet-plus/pdf/pass/styles', [ $this, 'add_styles_to_pdf' ], 10, 3 );
 		add_action( 'tribe_template_before_include:tickets-wallet-plus/pdf/pass/body/sidebar', [ $this, 'add_venue_to_pdf' ], 10, 3 );
 		add_action( 'tribe_template_before_include:tickets-wallet-plus/pdf/pass/body/post-title', [ $this, 'add_event_date_to_pdf' ], 10, 3 );
+		add_action( 'tribe_template_after_include:tickets-plus/tickets-wallet-plus/pdf/pass/styles', [ $this, 'add_styles_to_pdf' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets-plus/tickets-wallet-plus/pdf/pass/body/sidebar', [ $this, 'add_venue_to_pdf' ], 10, 3 );
+		add_action( 'tribe_template_before_include:tickets-plus/tickets-wallet-plus/pdf/pass/body/post-title', [ $this, 'add_event_date_to_pdf' ], 10, 3 );
 	}
 
 	/**

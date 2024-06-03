@@ -234,10 +234,17 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.5.1] TBD =
 
+<<<<<<< fix/docblock-tribe_get_prev_event_link
 * Tweak - Add note to `tribe_create_organizer()` docblock to indicate future deprecation.
 * Tweak - Add note to `tribe_create_event()` docblock to indicate future deprecation.
 * Tweak - Add note to `tribe_event_update()` docblock to indicate future deprecation.
 * Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
+=======
+* Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
+* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
+* Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php`.
+>>>>>>> release/T24.asag
 
 = [6.5.0] 2024-05-14 =
 
@@ -245,7 +252,6 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
 * Fix - When creating a new event the Currency symbol, code and position fields are populated from the general settings options. [TEC-5072]
 * Fix - Wrong page titles in List page when using a Classic Theme. [TEC-5074]
-* Fix - Replace uses of the retired moment.js with Day.js [TEC-5011]
 * Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
 * Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
 * Tweak - Add note to `tribe_event_delete()` docblock to indicate future deprecation.
@@ -254,15 +260,16 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Removed filters: `tribe_events_register_venue_post_type_labels`
 * Tweak - Added actions: `tec_events_elementor_widgets_registered`
 * Tweak - Changed views: `single-event/recurring-description`, `v2/list/event/featured-image`
+* Security - Replace uses of the retired moment.js with Day.js [TEC-5011]
 * Language - 8 new strings added, 190 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0.1] 2024-05-06 =
 
 * Fix - Prevent the Status widget from potentially running undefined methods. [ECP-1797]
-* Fix - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
-* Fix - Correct a user permissions check.
 * Tweak - Add action to signal activation of TEC Elementor compatibility. [ECP-1789]
 * Tweak - Added actions: `tec_events_elementor_loaded`
+* Security - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
+* Security - Correct a user permissions check.
 * Language - 0 new strings added, 27 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0] 2024-04-30 =
