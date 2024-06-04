@@ -2407,7 +2407,7 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.11
 	 *
-	 * @return array
+	 * @return bool
 	 */
 	protected function filter_display_events_bar( $display ) {
 
