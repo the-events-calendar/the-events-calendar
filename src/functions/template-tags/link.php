@@ -22,7 +22,7 @@ function tribe_the_prev_event_link( $anchor = false ) {
  * Returns a link to the previous event by start date for the given event.
  *
  * @since 5.14.0
- * 
+ *
  * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
  *
  * @return string The link to the previous event.
@@ -56,11 +56,13 @@ function tribe_the_next_event_link( $anchor = false ) {
 }
 
 /**
- * Return a link to the next post by start date for the given event
+ * Returns a link to the next event by start date for the given event.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 5.14.0
  *
- * @return string
+ * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
+ *
+ * @return string The link to the next event.
  */
 function tribe_get_next_event_link( $anchor = false ) {
 	$event_id = get_the_ID();
