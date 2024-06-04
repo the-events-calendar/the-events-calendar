@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.5.0
+Stable tag: 6.5.0.1
 Tested up to: 6.5.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.5.0.1] 2024-06-04 =
+
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
+* Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
 
 = [6.5.0] 2024-05-14 =
 
