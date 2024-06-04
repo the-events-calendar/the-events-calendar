@@ -114,8 +114,8 @@ if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
 	 *
 	 * @since 4.6.5
 	 *
-	 * @param string 		$selected_zone The selected timezone.
-	 * @param string|null 	$locale Optional. The locale to use for the timezone choice. Default null.
+	 * @param string $selected_zone The selected timezone.
+	 * @param string|null $locale Optional. The locale to use for the timezone choice. Default null.
 	 *
 	 * @return string The HTML output for the timezone selection dropdown, potentially modified by the 'tribe_events_timezone_choice' filter.
 	 */
