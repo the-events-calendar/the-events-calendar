@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.5.0
+Stable tag: 6.5.0.1
 Tested up to: 6.5.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -72,7 +72,7 @@ All of our documentation can be found in [our Knowledgebase](https://evnt.is/eu)
 Additional helpful links:
 
 * [The Events Calendar New User Primer](https://evnt.is/2l)
-* [The Themer’s Guide to The Events Calendar](https://evnt.is/2m)
+* [The Themer's Guide to The Events Calendar](https://evnt.is/2m)
 
 If you have any questions about this plugin, you can post a thread in the [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar). Please search existing threads before starting a new one.
 
@@ -239,6 +239,10 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 
+= [6.5.0.1] 2024-06-04 =
+
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
+* Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
 
 = [6.5.0] 2024-05-14 =
 
