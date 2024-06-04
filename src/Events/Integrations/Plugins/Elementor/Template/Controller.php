@@ -223,7 +223,7 @@ class Controller extends Controller_Contract {
 		 * Filters whether to bypass the template override for events.
 		 *
 		 * This filter allows developers to short-circuit the template override process
-		 * and use the default template instead.
+		 * and use the default template instead. Bypassing the override disables application of the provided templates.
 		 *
 		 * @since TBD
 		 *
