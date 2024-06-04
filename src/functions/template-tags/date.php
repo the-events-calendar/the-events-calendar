@@ -106,25 +106,20 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 
 if ( ! function_exists( 'tribe_events_timezone_choice' ) ) {
 	/**
-	 * Event-specific wrapper for wp_timezone_choice().
+	 * Generates a timezone selection dropdown.
+	 *
+	 * This function provides an opportunity to modify the timezone `<option>` elements used within the timezone picker.
+	 * It utilizes the `wp_timezone_choice` function to generate the timezone options and allows for further customization
+	 * through the `tribe_events_timezone_choice` filter.
 	 *
 	 * @since 4.6.5
 	 *
-	 * @param string $selected_zone
-	 * @param string $locale (optional)
+	 * @param string 		$selected_zone The selected timezone.
+	 * @param string|null 	$locale Optional. The locale to use for the timezone choice. Default null.
 	 *
-	 * @return string
+	 * @return string The HTML output for the timezone selection dropdown, potentially modified by the 'tribe_events_timezone_choice' filter.
 	 */
 	function tribe_events_timezone_choice( $selected_zone, $locale = null ) {
-		/**
-		 * Opportunity to modify the timezone <option>s used within the timezone picker.
-		 *
-		 * @since 4.6.5
-		 *
-		 * @param string $html
-		 * @param string $selected_zone
-		 * @param string $locale
-		 */
 		return apply_filters(
 			'tribe_events_timezone_choice',
 			wp_timezone_choice( $selected_zone, $locale ),
