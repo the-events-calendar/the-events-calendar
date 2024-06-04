@@ -260,7 +260,13 @@ $events_label_plural_lowercase   = tribe_get_event_label_plural_lowercase();
 				<tr>
 					<td><?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?></td>
 					<td>
-						<input tabindex="<?php tribe_events_tab_index(); ?>" type='text' id='EventCost' name='EventCost' size='6' value='<?php echo ( isset( $_EventCost ) ) ? esc_attr( $_EventCost ) : ''; ?>' />
+						<input
+							tabindex="<?php tribe_events_tab_index(); ?>"
+							type='text'
+							id='EventCost'
+							name='EventCost'
+							size='6'
+							value='<?php echo ( isset( $_EventCost ) ) ? esc_attr( $_EventCost ) : ''; ?>' />
 					</td>
 				</tr>
 				<tr>
