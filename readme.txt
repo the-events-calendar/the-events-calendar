@@ -238,7 +238,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
-* Tweak - Add missing single quote to `src/admin-views/events-meta-box.php` on line 255.
+* Tweak - Add missing single quote to `src/admin-views/events-meta-box.php` on line 255 - props for the fix @gugaalves! [TECTRIA-63]
 
 = [6.5.0] 2024-05-14 =
 
