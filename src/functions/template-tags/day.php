@@ -14,12 +14,16 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 		$is_day = tec_is_view( \Tribe\Events\Views\V2\Views\Day_View::get_view_slug() );
 
 		/**
-		 * Allows filtering of the tribe_is_day boolean value.
+		 * Filters the boolean value indicating if the current view is the Day View.
 		 *
-		 * @since 6.0.7 Added context to parameters.
+		 * This filter allows customization of the boolean value returned by the
+		 * `tribe_is_day` function, which checks if the current view is the Day View.
+		 * The filter provides the current boolean value and the context as parameters.
 		 *
-		 * @param bool           $is_day  If we're on the Day View
-		 * @param Tribe__Context $context The current context
+		 * @param bool           $is_day  Whether the current view is the Day View.
+		 * @param Tribe__Context $context The current context.
+		 *
+		 * @return bool The filtered boolean value indicating if the current view is the Day View.
 		 */
 		return apply_filters( 'tribe_is_day', $is_day, $context );
 	}
