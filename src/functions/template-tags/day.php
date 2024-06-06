@@ -1,11 +1,13 @@
 <?php
 if ( ! function_exists( 'tribe_is_day' ) ) {
 	/**
-	 * Single Day Test
+	 * Checks if the current view is the Day View.
 	 *
-	 * Returns true if the query is set for single day, false otherwise
+	 * This function determines whether the current view is the Day View by
+	 * comparing the current view slug with the Day View slug. It also allows
+	 * for the result to be filtered.
 	 *
-	 * @return bool
+	 * @return bool True if the current view is the Day View, false otherwise.
 	 */
 	function tribe_is_day(): bool {
 		$context  = tribe_context();
