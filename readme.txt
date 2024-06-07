@@ -225,7 +225,7 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 
 == Upgrade Notice ==
 
-= [6.0] =
+= 6.0 - =
 Please see the changelog for the complete list of changes in this release.
 Previous versions of The Events Calendar are not cross-compatible with 6.X add-ons.
 Remember to always make a backup of your database and files before updating!
@@ -245,12 +245,12 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `single-event`
 * Language: 2 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.5.0.1] 2024-06-04 =
+= 6.5.0.1 - 2024-06-04 =
 
 * Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
 * Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
 
-= [6.5.0] 2024-05-14 =
+= 6.5.0 - 2024-05-14 =
 
 * Version - The Events Calendar 6.5.0 is only compatible with Event Tickets 5.10.0 and higher
 * Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
@@ -267,7 +267,7 @@ Remember to always make a backup of your database and files before updating!
 * Security - Replace uses of the retired moment.js with Day.js [TEC-5011]
 * Language - 8 new strings added, 190 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.4.0.1] 2024-05-06 =
+= 6.4.0.1 - 2024-05-06 =
 
 * Fix - Prevent the Status widget from potentially running undefined methods. [ECP-1797]
 * Tweak - Add action to signal activation of TEC Elementor compatibility. [ECP-1789]
@@ -276,7 +276,7 @@ Remember to always make a backup of your database and files before updating!
 * Security - Correct a user permissions check.
 * Language - 0 new strings added, 27 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.4.0] 2024-04-30 =
+= 6.4.0 - 2024-04-30 =
 
 * Feature - Elementor Compatibility. Compatible with Elementor Free 3.21+ and Elementor Pro 3.20+.
 * Feature - Added component Elementor widgets for the single event page.
@@ -294,13 +294,13 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `integrations/elementor/templates/blank`, `integrations/elementor/templates/starter`, `integrations/elementor/widgets/base`, `integrations/elementor/widgets/empty`, `integrations/elementor/widgets/event-calendar-link`, `integrations/elementor/widgets/event-categories`, `integrations/elementor/widgets/event-categories/header`, `integrations/elementor/widgets/event-cost`, `integrations/elementor/widgets/event-cost/header`, `integrations/elementor/widgets/event-datetime`, `integrations/elementor/widgets/event-datetime/all-day`, `integrations/elementor/widgets/event-datetime/end-date`, `integrations/elementor/widgets/event-datetime/end-time`, `integrations/elementor/widgets/event-datetime/header`, `integrations/elementor/widgets/event-datetime/range-separator`, `integrations/elementor/widgets/event-datetime/start-date`, `integrations/elementor/widgets/event-datetime/start-time`, `integrations/elementor/widgets/event-datetime/time-separator`, `integrations/elementor/widgets/event-datetime/timezone`, `integrations/elementor/widgets/event-export`, `integrations/elementor/widgets/event-export/button`, `integrations/elementor/widgets/event-export/link`, `integrations/elementor/widgets/event-export/list-item`, `integrations/elementor/widgets/event-image`, `integrations/elementor/widgets/event-navigation`, `integrations/elementor/widgets/event-navigation/next`, `integrations/elementor/widgets/event-navigation/previous`, `integrations/elementor/widgets/event-organizer`, `integrations/elementor/widgets/event-organizer/details`, `integrations/elementor/widgets/event-organizer/details/email`, `integrations/elementor/widgets/event-organizer/details/email/content`, `integrations/elementor/widgets/event-organizer/details/email/header`, `integrations/elementor/widgets/event-organizer/details/phone`, `integrations/elementor/widgets/event-organizer/details/phone/content`, `integrations/elementor/widgets/event-organizer/details/phone/header`, `integrations/elementor/widgets/event-organizer/details/website`, `integrations/elementor/widgets/event-organizer/details/website/content`, `integrations/elementor/widgets/event-organizer/details/website/header`, `integrations/elementor/widgets/event-organizer/header`, `integrations/elementor/widgets/event-organizer/names`, `integrations/elementor/widgets/event-status`, `integrations/elementor/widgets/event-status/passed`, `integrations/elementor/widgets/event-status/status`, `integrations/elementor/widgets/event-tags`, `integrations/elementor/widgets/event-tags/content`, `integrations/elementor/widgets/event-tags/header`, `integrations/elementor/widgets/event-title`, `integrations/elementor/widgets/event-venue`, `integrations/elementor/widgets/event-venue/address`, `integrations/elementor/widgets/event-venue/address/address`, `integrations/elementor/widgets/event-venue/address/header`, `integrations/elementor/widgets/event-venue/address/map_link`, `integrations/elementor/widgets/event-venue/header`, `integrations/elementor/widgets/event-venue/map`, `integrations/elementor/widgets/event-venue/name`, `integrations/elementor/widgets/event-venue/phone`, `integrations/elementor/widgets/event-venue/phone/header`, `integrations/elementor/widgets/event-venue/phone/phone`, `integrations/elementor/widgets/event-venue/single-venue`, `integrations/elementor/widgets/event-venue/website`, `integrations/elementor/widgets/event-venue/website/header`, `integrations/elementor/widgets/event-venue/website/website`, `integrations/elementor/widgets/event-website`, `integrations/elementor/widgets/event-website/header`, `integrations/elementor/widgets/event-website/link`, `integrations/event-tickets/emails/template-parts/body/event/venue/website`
 * Language - 201 new strings added, 101 updated, 3 fuzzied, and 0 obsoleted
 
-= [6.3.7] 2024-04-18 =
+= 6.3.7 - 2024-04-18 =
 
 * Fix - Corrected the missing Venue Website URL within the Event Tickets Email feature. [ET-2019]
 * Tweak - Changed views: `integrations/event-tickets/emails/template-parts/body/event/venue/website`
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.3.6] 2024-04-09 =
+= 6.3.6 - 2024-04-09 =
 
 * Fix - Adds timezone offset to the dates in the Outlook subscribe links on event pages. [TEC-4831]
 * Fix - Improve updated views CSS overwrites for buttons and view selector. [TEC-5047]
@@ -309,21 +309,21 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `blocks/classic-event-details`, `blocks/event-website`, `v2/components/events-bar/views`, `v2/components/json-ld-data`, `v2/components/subscribe-links/list`, `v2/day/top-bar/datepicker`, `v2/list/top-bar/datepicker`, `v2/month/top-bar/datepicker`
 * Language - 0 new strings added, 15 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.3.5] 2024-03-20 =
+= 6.3.5 - 2024-03-20 =
 
 * Tweak - Updated version of tribe-common with fixes for ECP.
 
-= [6.3.4] 2024-03-12 =
+= 6.3.4 - 2024-03-12 =
 
 * Tweak - When using Event Tickets Wallet Plus the Apple Pass will now display date fields differently based off of Single, Multi, or Series Events. [ETWP-95]
 * Tweak - Added filters: `tec_tickets_wallet_plus_apple_wallet_date_format`, `tec_tickets_wallet_plus_apple_wallet_time_format`
 * Language - 2 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.3.3.1] 2024-02-22 =
+= 6.3.3.1 - 2024-02-22 =
 
 * Fix - On a multisite using WordPress 6.4.3 there was an issue with the subsite options not being properly created during initialization. [TEC-5043]
 
-= [6.3.3] 2024-02-19 =
+= 6.3.3 - 2024-02-19 =
 
 * Version - The Events Calendar 6.3.1 is only compatible with Event Tickets 5.8.1 and higher.
 * Tweak - Refactored some of the underlying structure for Block Template architecture. [ECP-1620]
@@ -331,13 +331,13 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `blocks/event-links`, `single-event`, `v2/components/data`
 * Language - 4 new strings added, 4 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.3.2] 2024-02-06 =
+= 6.3.2 - 2024-02-06 =
 
 * Tweak - Share statistical information to Event Tickets plugin when active. [ET-1925]
 * Fix - Improve the usage of the shortcodes around Event Details.
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.3.1] 2024-01-24 =
+= 6.3.1 - 2024-01-24 =
 
 * Fix - Fix PHP 8.2 deprecation errors `PHP Deprecated:  Creation of dynamic property Tribe__Events__Aggregator__Record__gCal::$image_uploader is deprecated`. [ECP-1603]
 * Fix - Make sure that the full country name is used when importing events from Meetup. [EA-469]
@@ -347,14 +347,14 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Adding some more testing and some clean up around handling and reporting query errors. [TECENG-46]
 * Language - 0 new strings added, 115 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.3.0] 2024-01-22 =
+= 6.3.0 - 2024-01-22 =
 
 * Version - The Events Calendar 6.3.0 is only compatible with Event Tickets 5.8.0 and higher.
 * Feature - Include Series Passes supporting code to enable the creation of Series Passes.
 * Tweak - Added the `tec_events_custom_tables_v1_migration_after_dry_run` filter. [ET-1715]
 * Language - 0 new strings added, 92 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.2.9] 2023-12-14 =
+= 6.2.9 - 2023-12-14 =
 
 * Fix - Resolves an issue where the `tribe-events-calendar-month__day--past` and `tribe-events-calendar-month__day--current` classes were not consistently applied after navigating through different months in the Month View. [TEC-4898]
 * Tweak - Define image sizes on the List view featured image to avoid Content Layout Shifting. [TEC-4919]
@@ -364,22 +364,22 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `v2/list/event/featured-image`
 * Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.2.8.2] 2023-12-04 =
+= 6.2.8.2 - 2023-12-04 =
 
 * Fix - Ensure correct access rights to JSON-LD data depending on the user role. [TEC-4995]
 * Language - 0 new strings added, 130 updated, 0 fuzzied, and 5 obsoleted
 
-= [6.2.8.1] 2023-11-20 =
+= 6.2.8.1 - 2023-11-20 =
 
 * Security - Ensure all password protected posts have their settings respected. [TCMN-167]
 
-= [6.2.8] 2023-11-16 =
+= 6.2.8 - 2023-11-16 =
 
 * Version - The Events Calendar 6.2.8 is only compatible with Event Tickets 5.7.0 and higher
 * Tweak - Include Event data into for Event Tickets Wallet Plus for both PDF and Apple Wallet passes.
 * Language - 0 new strings added, 135 updated, 0 fuzzied, and 11 obsoleted
 
-= [6.2.7] 2023-11-14 =
+= 6.2.7 - 2023-11-14 =
 
 * Fix - On the Past Events View, the nonce was incorrectly being generated twice, and one of them would be cached in our HTML transient cache. This was causing a 401 nonce errors to occur when the cached nonce expired. The nonce generation was moved outside the HTML generation that is being cached. [TEC-4936]
 * Fix - WordPress 6.3 introduce some changes in filters that regressed a prior fix for authentication and our new nonce structure used in view pagination. One symptom of the issue was losing the authenticated user and failing to display user specific capabilities on event views. [ECP-1601]
@@ -391,13 +391,13 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Changed views: `blocks/archive-events`, `blocks/single-event`
 * Language - 11 new strings added, 119 updated, 0 fuzzied, and 5 obsoleted.
 
-= [6.2.6.1] 2023-11-09 =
+= 6.2.6.1 - 2023-11-09 =
 
 * Version - The Events Calendar 6.2.6.1 is only compatible with Event Tickets 5.6.8.1 and higher
 * Fix - Update a common library to prevent possible fatals. [TEC-4978]
 * Language - 0 new strings added, 2 updated, 0 fuzzied, and 0 obsoleted
 
-= [6.2.6] 2023-11-08 =
+= 6.2.6 - 2023-11-08 =
 
 * Fix - SEO: Ensure that the noindex meta tag properly observes whether events are present on the page or not. [TEC-4976]
 * Fix - SEO: Add noindex, nofollow for grid-based views like Month and Week View when they are not set as the home page. [TEC-4976]
@@ -408,7 +408,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added filter `tec_events_seo_robots_meta_allowable_post_types` to allow for the filtering of single post types that can have robots meta tags added.
 * Tweak - Deprecated filters `tec_events_add_no_index_meta_tag`, `tribe_events_add_no_index_meta`, and `tec_events_{$view}_add_no_index_meta` in favor of the above new filters.
 
-= [6.2.5] 2023-11-01 =
+= 6.2.5 - 2023-11-01 =
 
 * Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
 
