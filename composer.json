@@ -56,7 +56,7 @@
   },
   "extra": {
     "changelogger": {
-        "changelog": "changelog.txt",
+        "changelog": "changelog.md",
         "types": {
           "feat" : "Feature",
           "tweak" : "Tweak",

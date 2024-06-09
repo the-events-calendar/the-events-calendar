@@ -37,7 +37,7 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 	 *
 	 * @var string
 	 */
-	private $title = '*** The Events Calendar Changelog ***';
+	private $title = '# The Events Calendar Changelog';
 
 	/**
 	 * Separator used in headings and change entries.
@@ -82,10 +82,13 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 
 		// Entries make up the rest of the document.
 		$entries = [];
-		preg_match_all( '/^=\s+([^\n=]+)\s+=([\s\S]*?)(?=^=\s+|\z)/m', $changelog, $version_sections );
+		preg_match_all( '/^###\s+\[([^\n=]+)\]\s+([^\n=]+)([\s\S]*?)(?=^###\s+|\z)/m', $changelog, $version_sections );
+
+		// var_dump( $version_sections['0']); die();
 
 		foreach ( $version_sections[0] as $section ) {
-			$heading_pattern = '/^= +(\[?[^] ]+\]?) - (.+?) =/';
+			// $heading_pattern = '/^### +\[(\[?[^] ]+\]?)\] (.+?)/';
+			$heading_pattern = '/^### +\[([^\] ]+)\] (.+)/';
 			// Parse the heading and create a ChangelogEntry for it.
 			preg_match( $heading_pattern, $section, $heading );
 			if ( ! count( $heading ) ) {
@@ -101,6 +104,7 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 				try {
 					$timestamp = new DateTime( $timestamp, new DateTimeZone( 'UTC' ) );
 				} catch ( \Exception $ex ) {
+					var_dump( $heading, $section ); die();
 					throw new InvalidArgumentException( "Heading has an invalid timestamp: $heading", 0, $ex );
 				}
 				if ( strtotime( $heading[2], 0 ) !== strtotime( $heading[2], 1000000000 ) ) {
@@ -192,7 +196,7 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 			$timestamp    = $entry->getTimestamp();
 			$release_date = null === $timestamp ? $this->get_unreleased_date() : $timestamp->format( $this->date_format );
 
-			$ret .= '= ' . $entry->getVersion() . ' ' . $this->separator . ' ' . $release_date . " =\n\n";
+			$ret .= '### [' . $entry->getVersion() . '] ' . $release_date . "\n\n";
 
 			$prologue = trim( $entry->getPrologue() );
 			if ( '' !== $prologue ) {

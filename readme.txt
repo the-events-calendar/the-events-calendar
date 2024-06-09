@@ -412,4 +412,5 @@ Remember to always make a backup of your database and files before updating!
 
 * Tweak - Updated hook for showing Event name in the event tickets order report pages. [ET-1810]
 
-### For all versions, please see the full [changelog](https://github.com/the-events-calendar/the-events-calendar/blob/master/changelog.md) in our documentation.
+### For older versions, please see the [changelog](https://github.com/the-events-calendar/the-events-calendar/blob/master/changelog.md) in our documentation.
+### For release notes from the 3.x and older lifecycles, see our [full historical release notes](https://theeventscalendar.com/category/products/release-notes/).

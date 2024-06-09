@@ -40,5 +40,5 @@ else
 	perl -i -p0e "s/= $RELEASE_VERSION.*?(\n){2}//s" readme.txt # Delete the existing changelog for the release version first
 	fi
 
-	sed -ri "s|(== Changelog ==)|\1\n\n= $RELEASE_VERSION - $RELEASE_DATE =\n\n$CHANGELOG|" readme.txt
+	sed -ri "s|(== Changelog ==)|\1\n\n= [$RELEASE_VERSION] $RELEASE_DATE =\n\n$CHANGELOG|" readme.txt
 fi
