@@ -1,3 +1,5 @@
+# The Events Calendar Changelog
+
 ### [6.5.1] 2024-06-11
 
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
@@ -5,7 +7,7 @@
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 * Tweak - Changed views: `single-event`
-* Language: 2 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted
+* Language - 2 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted
 
 ### [6.5.0.1] 2024-06-04
 
@@ -237,7 +239,6 @@
 * Tweak - Changed views: `blocks/event-venue.php`, `blocks/parts/map.php`, `blocks/parts/venue.php`, `v2/base.php`, `v2/components/breadcrumbs/linked-breadcrumbs.php`, `v2/components/content-title.php`, 'v2/components/header-title.php`, `v2/components/header.php`, `v2/components/messages.php`, `v2/day.php`, `v2/day/event/venue.php`, `v2/list.php`, `v2/list/event/venue.php`, `v2/month.php`
 * Language - 3 new strings added, 72 updated, 1 fuzzied, and 2 obsoleted
 
-
 ### [6.1.4] 2023-08-10
 
 * Version - The minimum supported version of WordPress is now 6.1.0
@@ -258,7 +259,6 @@
 * Tweak - Deprecated functions: In `Tribe\Views\V2\Views\Traits\HTML_Cache.php` the `get_view_nonce_fields()`,`get_view_nonce_attributes()`, `get_view_nonce_json_properties()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, `extract_nonces_before_cache()`, and `maybe_generate_nonce()` functions have been deprecated.
 * Tweak - Changed views: `blocks/classic-event-details.php`, `blocks/event-category.php`, `blocks/event-datetime.php`, `blocks/event-organizer.php`, `blocks/event-price.php`, `blocks/event-tags.php`, `blocks/event-venue.php`, `blocks/event-website.php`, `blocks/featured-image.php`, `blocks/parts/details.php`, `blocks/parts/organizer.php`, `blocks/parts/subscribe-list.php`, `blocks/parts/subscribe-single.php`, `modules/meta/organizer.php`, `modules/meta/venue.php`, `v2/components/events-bar/search.php`, `v2/day.php`, `v2/list.php`, `v2/month.php`, `v2/widgets/widget-events-list.php`.
 * Language - 11 new strings added, 12 updated, 0 fuzzied, and 0 obsoleted.
-
 
 ### [6.1.3] 2023-07-13
 
@@ -412,7 +412,7 @@
 
 ### [6.0.9] 2023-02-09
 
-* Feature: Add a notice with install functionality for Event Tickets. [TEC-4663]
+* Feature - Add a notice with install functionality for Event Tickets. [TEC-4663]
 * Fix - Added safeguard against the `rewrite_rules_array` filter being passed non-array values, more error checking in WPML integration. [TEC-4679]
 * Fix - Updating some button styles to be more compatible with global button styles, such as Elementor global styling. [TEC-4653]
 * Fix - Ensure custom tables data is correctly updated when duplicating an Event using WPML. [TEC-4651]
@@ -502,8 +502,8 @@
 * Fix - Avoid issues when trying to import some .ics format files with Event Aggregator. [EA-461]
 * Deprecation - `Tribe__Events__Editor__Compatibility::$blocks_editor_hidden_field_key`.
 * Deprecation - `Tribe__Events__Main::do_addons_api_settings_tab()`, `Tribe__Events__Main::show_upgrade()`,
-				`Tribe__Events__Main::do_upgrade_tab()`, `Tribe__Events__Main::general_settings_tab_fields()`,
-				`Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
+                `Tribe__Events__Main::do_upgrade_tab()`, `Tribe__Events__Main::general_settings_tab_fields()`,
+                `Tribe__Events__Main::display_settings_tab_fields()`, `Tribe__Events__Main::tribe_settings_url()`.
 * Tweak - Added filters: `tec_events_custom_tables_v1_query_modifier_applies_to_query`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Language - 118 new strings added, 287 updated, 10 fuzzied, and 88 obsoleted.
 
@@ -573,7 +573,6 @@
                          `tec_events_today_button_title` and `tec_events_{view_slug}_view_today_button_title` to filter the link title and aria-label. [TEC-4458]
 * Tweak - Speed up the Custom Tables v1 migration process if a browser window is open on the migration UI. [TEC-4517]
 * Language - 11 new strings added, 149 updated, 2 fuzzied, and 2 obsoleted.
-
 
 ### [6.0.1.1] 2022-09-29
 
@@ -1753,7 +1752,7 @@
 * Fix - Fix the classic header option not working. Thanks @hanemac, David Luyendyk and others for flagging this! [111672]
 * Tweak - Namespace javascript debug function to prevent conflicts causing a function found, thanks to Tom-Mulvey for the fix [110462]
 * Tweak - Add venue name to address string for iCal and gCal export, thanks for the coding from sylviavanos [110464]
-* Tweak -  Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
+* Tweak - Drop the order from the query WPML linked query as it is set later in the method, thanks to dgwatkins for the PR [110459]
 * Tweak - Display JS debug messages only if setting is set or through the `tribe_events_js_debug` filter. Thanks to Rob, @aand and others for flagging this! [82781]
 
 ### [4.6.21] 2018-08-01
@@ -2260,7 +2259,6 @@
 * Language - 1 new strings added, 15 updated, 1 fuzzied, and 1 obsoleted [the-events-calendar]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted [tribe-common]
 
-
 ### [4.5.5] 2017-06-14
 
 * Fix - Removed extra double quotes in organizer link output [71133]
@@ -2284,7 +2282,7 @@
 
 * Fix - Made it easier to translate the update confirmation message (our thanks to safu9 for highlighting this) [79729]
 * Fix - Fixed compatibility issue with WPML which caused organizers and venues to disappear on translated events [67581]
-* Fix — Fixed bug where venues and organizers would be duplicated when their associated event is previewed. [64088]
+* Fix - Fixed bug where venues and organizers would be duplicated when their associated event is previewed. [64088]
 * Tweak - Other fixes to the plugin verbiage (with thanks to @garrett-eclipse and others)
 
 ### [4.5.2.1] 2017-05-19

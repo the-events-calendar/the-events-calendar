@@ -133,9 +133,7 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 				$changes = [];
 				$rows    = explode( "\n", $content );
 				foreach ( $rows as $row ) {
-					$_test_row = trim( $row );
-
-					$is_entry = substr( $_test_row, 0, 1 ) === $this->bullet;
+					$is_entry = substr( $row, 0, 1 ) === $this->bullet;
 
 					// It's a multi line entry - add them to previous as content unformatted.
 					if ( ! $is_entry ) {
@@ -143,7 +141,7 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 						continue;
 					}
 
-					$row = $_test_row;
+					$row = trim( $row );
 					$row = preg_replace( '/\\' . $this->bullet . '/', '', $row, 1 );
 
 					$row_segments = explode( $this->separator, $row, 2 );
