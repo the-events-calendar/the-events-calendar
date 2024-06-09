@@ -82,7 +82,7 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 
 		// Entries make up the rest of the document.
 		$entries = [];
-		preg_match_all( '/^=\s+([^\n=]+)\s+=(((?!^=).)+)/ms', $changelog, $version_sections );
+		preg_match_all( '/^=\s+([^\n=]+)\s+=([\s\S]*?)(?=^=\s+|\z)/m', $changelog, $version_sections );
 
 		foreach ( $version_sections[0] as $section ) {
 			$heading_pattern = '/^= +(\[?[^] ]+\]?) - (.+?) =/';
@@ -129,8 +129,19 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 				$changes = [];
 				$rows    = explode( "\n", $content );
 				foreach ( $rows as $row ) {
-					$row          = trim( $row );
-					$row          = preg_replace( '/\\' . $this->bullet . '/', '', $row, 1 );
+					$_test_row = trim( $row );
+
+					$is_entry = substr( $_test_row, 0, 1 ) === $this->bullet;
+
+					// It's a multi line entry - add them to previous as content unformatted.
+					if ( ! $is_entry ) {
+						$changes[ count( $changes ) - 1 ]['content'] .= "\n" . $row;
+						continue;
+					}
+
+					$row = $_test_row;
+					$row = preg_replace( '/\\' . $this->bullet . '/', '', $row, 1 );
+
 					$row_segments = explode( $this->separator, $row, 2 );
 
 					if ( count( $row_segments ) !== 2 ) {
