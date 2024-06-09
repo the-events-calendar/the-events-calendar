@@ -7,10 +7,14 @@ RELEASE_DATE=${4-today}
 
 RELEASE_DATE=$( date "+%Y-%m-%d" -d "$RELEASE_DATE" ) # Release date formatted as YYYY-MM-DD
 
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+
+cd $SCRIPT_DIR/../
+
 echo "RELEASE_DATE=$RELEASE_DATE"
 
 if [ "$ACTION_TYPE" == "amend-version" ]; then
-	sed -i "s/^= $CURRENT_VERSION - .* =$/= $RELEASE_VERSION - $RELEASE_DATE =/" changelog.txt
+	sed -i "s/^= $CURRENT_VERSION - .* =$/= $RELEASE_VERSION - $RELEASE_DATE =/" changelog.md
 else
 	if [ "$ACTION_TYPE" == "generate" ]; then
 		CHANGELOG_FLAG=""

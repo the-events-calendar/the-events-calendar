@@ -84,10 +84,7 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 		$entries = [];
 		preg_match_all( '/^###\s+\[([^\n=]+)\]\s+([^\n=]+)([\s\S]*?)(?=^###\s+|\z)/m', $changelog, $version_sections );
 
-		// var_dump( $version_sections['0']); die();
-
 		foreach ( $version_sections[0] as $section ) {
-			// $heading_pattern = '/^### +\[(\[?[^] ]+\]?)\] (.+?)/';
 			$heading_pattern = '/^### +\[([^\] ]+)\] (.+)/';
 			// Parse the heading and create a ChangelogEntry for it.
 			preg_match( $heading_pattern, $section, $heading );
@@ -104,7 +101,6 @@ class TEC_Changelog_Formatter extends Parser implements FormatterPlugin {
 				try {
 					$timestamp = new DateTime( $timestamp, new DateTimeZone( 'UTC' ) );
 				} catch ( \Exception $ex ) {
-					var_dump( $heading, $section ); die();
 					throw new InvalidArgumentException( "Heading has an invalid timestamp: $heading", 0, $ex );
 				}
 				if ( strtotime( $heading[2], 0 ) !== strtotime( $heading[2], 1000000000 ) ) {
