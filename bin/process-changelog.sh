@@ -24,7 +24,7 @@ else
 	./vendor/bin/changelogger write --use-version="$RELEASE_VERSION" --release-date="$RELEASE_DATE" $CHANGELOG_FLAG --no-interaction --yes
 fi
 
-CHANGELOG=$(awk '/^= / { if (p) { exit }; p=1; next } p && NF' changelog.txt)
+CHANGELOG=$(awk '/^### / { if (p) { exit }; p=1; next } p && NF' changelog.md)
 
 # Escape backslash, new line and ampersand characters. The order is important.
 CHANGELOG=${CHANGELOG//\\/\\\\}
