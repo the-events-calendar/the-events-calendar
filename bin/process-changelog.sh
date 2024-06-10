@@ -14,7 +14,7 @@ cd $SCRIPT_DIR/../
 echo "RELEASE_DATE=$RELEASE_DATE"
 
 if [ "$ACTION_TYPE" == "amend-version" ]; then
-	sed -i "s/^= $CURRENT_VERSION - .* =$/= $RELEASE_VERSION - $RELEASE_DATE =/" changelog.md
+	sed -i "s/^### \[$CURRENT_VERSION\] .*$/### [$RELEASE_VERSION] $RELEASE_DATE/" changelog.md
 else
 	if [ "$ACTION_TYPE" == "generate" ]; then
 		CHANGELOG_FLAG=""
@@ -38,10 +38,10 @@ CHANGELOG=${CHANGELOG//&/\\&}
 echo "CHANGELOG=$CHANGELOG"
 
 if [ "$ACTION_TYPE" == "amend-version" ]; then
-	sed -i "s/^= $CURRENT_VERSION - .* =$/= $RELEASE_VERSION - $RELEASE_DATE =/" readme.txt
+	sed -i "s/^= \[$CURRENT_VERSION\] .* =$/= [$RELEASE_VERSION] $RELEASE_DATE =/" readme.txt
 else
 	if [ "$ACTION_TYPE" == "amend" ]; then
-	perl -i -p0e "s/= $RELEASE_VERSION.*?(\n){2}//s" readme.txt # Delete the existing changelog for the release version first
+	perl -i -p0e "s/= \[$RELEASE_VERSION\].*? =(.*?)(\n){2}(?==)//s" readme.txt # Delete the existing changelog for the release version first
 	fi
 
 	sed -ri "s|(== Changelog ==)|\1\n\n= [$RELEASE_VERSION] $RELEASE_DATE =\n\n$CHANGELOG|" readme.txt
