@@ -33,14 +33,14 @@ class Advanced_Display {
 	public static $key_after_events_html = 'tribeEventsAfterHTML';
 
 	/**
-	 * Fetches from the tribe options setting the string for the before events,
-	 * applies all the required methods for proper usage and returns it.
+	 * Fetches the "HTML before event" content from the tribe options setting, which can be found under Events > Settings > Display tab.
+	 * Applies all the required methods for proper usage and returns it.
 	 *
 	 * @since  4.9.11
 	 *
 	 * @param  View_Interface|null $view Instance of the view we are getting this for.
 	 *
-	 * @return string HTML with all the methods have been applied to it.
+	 * @return string HTML after all the methods have been applied to it.
 	 */
 	public function get_before_events_html( $view = null ) {
 		$before = stripslashes( tribe_get_option( static::$key_before_events_html, '' ) );
