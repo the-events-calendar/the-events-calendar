@@ -77,14 +77,14 @@ class Advanced_Display {
 	}
 
 	/**
-	 * Fetches from the tribe options setting the string for after the events,
-	 * applies all the required methods for proper usage and returns it.
+	 * Fetches the "HTML after event content" from the calendar settings, which can be found under Events > Settings > Display tab.
+	 * Applies all the required methods for proper usage and returns it.
 	 *
 	 * @since  4.9.11
 	 *
 	 * @param  View_Interface|null $view Instance of the view we are getting this for.
 	 *
-	 * @return string HTML with all the methods have been applied to it.
+	 * @return string HTML after all the methods have been applied to it.
 	 */
 	public function get_after_events_html( $view = null ) {
 		$after = stripslashes( tribe_get_option( static::$key_after_events_html, '' ) );
