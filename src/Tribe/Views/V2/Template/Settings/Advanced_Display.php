@@ -77,8 +77,8 @@ class Advanced_Display {
 	}
 
 	/**
-	 * Fetches the "HTML after event content" from the calendar settings, which can be found under Events > Settings > Display tab.
-	 * Applies all the required methods for proper usage and returns it.
+	 * Fetches the "HTML after event content" from the calendar settings, which can be found under
+	 * Events > Settings > Display tab. Applies all the required methods for proper usage and returns it.
 	 *
 	 * @since  4.9.11
 	 *
@@ -98,8 +98,8 @@ class Advanced_Display {
 		 * Filter imported from V1 of Views, kept since there was no requirement to
 		 * remove the backwards compatibility here.
 		 *
-		 * @since  ???  Unsure which verison this was introduced to the codebase.
-		 * @since  4.9.11  Moved to the a class method in V2.
+		 * @since  ???  Unsure which version this was introduced to the codebase.
+		 * @since  4.9.11  Moved to the class method in V2.
 		 *
 		 * @param  string              $after  HTML after passing all the params.
 		 * @param  View_Interface|null $view   Instance of the view we are getting this for.
