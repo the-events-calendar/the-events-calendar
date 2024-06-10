@@ -20,6 +20,8 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 		 * `tribe_is_day` function, which checks if the current view is the Day View.
 		 * The filter provides the current boolean value and the context as parameters.
 		 *
+		 * @since 6.0.7 Added context to parameters.
+		 *
 		 * @param bool           $is_day  Whether the current view is the Day View.
 		 * @param Tribe__Context $context The current context.
 		 *
