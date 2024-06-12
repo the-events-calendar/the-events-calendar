@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.5.2] TBD =
 
-
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @iandelmar
 
 = [6.5.1] 2024-06-11 =
 
