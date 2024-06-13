@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.5.1.1] 2024-06-13 =
 
 * Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [6.5.1] 2024-06-11 =
 
