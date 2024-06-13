@@ -1,22 +1,24 @@
 {
 	"build": [
-		"cd common && rm -rf vendor",
-		"cd common && git checkout -- vendor",
-		"cd common && composer install --no-dev",
-		"cd common && npm run build",
+		"pup do build-common",
+		"echo 'building The Events Calendar in: '$(pwd)",
 		"composer install --no-dev",
 		"npm ci",
 		"npm run build"
 	],
 	"build_dev": [
-		"cd common && rm -rf vendor",
-		"cd common && git checkout -- vendor",
-		"cd common && composer install --no-dev",
-		"cd common && npm run build",
+		"pup do build-common",
+		"echo 'building The Events Calendar in: '$(pwd)",
 		"composer install",
 		"npm ci",
 		"npm run build"
 	],
+	"workflow": {
+		"build-common": [
+			"echo 'building common (no-dev) in: '$(pwd)",
+			"cd common && pup build"
+		]
+	},
 	"checks": {
 		"tbd": {
 			"dirs": [
@@ -31,12 +33,6 @@
 			"textdomain": "the-events-calendar",
 			"url": "https://translate.wordpress.org",
 			"slug": "wp-plugins/the-events-calendar/stable"
-		},
-		{
-			"path": "common/lang",
-			"textdomain": "tribe-common",
-			"url": "https://translations.theeventscalendar.com",
-			"slug": "tribe-common"
 		}
 	],
 	"paths": {
