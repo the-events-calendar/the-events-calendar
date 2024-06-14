@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.5.1.2] 2024-06-14 =
 
 * Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.1.1] 2024-06-13 =
 
