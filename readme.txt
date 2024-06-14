@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.5.2] TBD =
 
 * Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
 
 = [6.5.1] 2024-06-11 =
 
