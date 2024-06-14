@@ -235,7 +235,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.5.1.3] 2024-06-14 =
 
 * Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
-* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+* Language - 0 new strings added, 109 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.1.2] 2024-06-14 =
 
