@@ -1,7 +1,4 @@
 <?php
-
-use \Tribe\Events\Views\V2\Template;
-
 /**
  * View Component: Header Title
  *
@@ -15,9 +12,10 @@ use \Tribe\Events\Views\V2\Template;
  * @version 6.2.0
  * @since   6.2.0
  *
- * @var Template $this         Template Engine instance rendering.
- * @var string   $header_title The title to display.
+ * @var \Tribe\Events\Views\V2\Template $this         Template Engine instance rendering.
+ * @var string                          $header_title The title to display.
  */
+
 if ( empty( $header_title ) ) {
 	return;
 }
