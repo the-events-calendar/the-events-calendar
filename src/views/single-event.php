@@ -8,7 +8,6 @@
  *
  * @package TribeEventsCalendar
  * @version 4.6.19
- *
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

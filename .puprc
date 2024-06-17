@@ -1,19 +1,30 @@
 {
 	"build": [
-		"cd common && pup build",
+		"pup do build-common",
+		"echo 'building The Events Calendar in: '$(pwd)",
 		"composer install --no-dev",
 		"npm ci",
 		"npm run build"
 	],
 	"build_dev": [
-		"cd common && pup build",
+		"pup do build-common",
+		"echo 'building The Events Calendar in: '$(pwd)",
 		"composer install",
 		"npm ci",
 		"npm run build"
 	],
+	"workflow": {
+		"build-common": [
+			"echo 'building common (no-dev) in: '$(pwd)",
+			"cd common && pup build"
+		]
+	},
 	"checks": {
 		"tbd": {
-			"dirs": [ "src" ]
+			"dirs": [
+				"src",
+				"common/src"
+			]
 		},
 		"version-conflict": {}
 	},
@@ -26,12 +37,20 @@
 	],
 	"paths": {
 		"changelog": "readme.txt",
-		"css": [ "src/resources/postcss" ],
+		"css": [
+			"src/resources/postcss",
+			"common/src/resources/postcss"
+		],
 		"js": [
 			"src/resources/js",
-			"src/modules"
+			"src/modules",
+			"common/src/resources/js",
+			"common/src/modules"
 		],
-		"sync_files": [],
+		"sync_files": [
+			"common/.distfiles",
+			"common/.gitattributes"
+		],
 		"versions": [
 			{
 				"file": "src/Tribe/Main.php",
@@ -50,7 +69,10 @@
 				"regex": "(Stable tag: )(.+)"
 			}
 		],
-		"views": [ "src/views" ]
+		"views": [
+			"src/views",
+			"common/src/views"
+		]
 	},
 	"zip_name": "the-events-calendar"
 }

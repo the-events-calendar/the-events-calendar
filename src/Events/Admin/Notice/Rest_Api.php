@@ -16,14 +16,14 @@ use Tribe\Events\Views\V2\Rest_Endpoint as V2;
  *
  * Shows an admin notice when our REST API endpoints are not available.
  *
- * @since
+ * @since 6.5.0
  */
 class Rest_Api {
 
 	/**
 	 * Notice Slug on the user options
 	 *
-	 * @since
+	 * @since 6.5.0
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Rest_Api {
 	/**
 	 * Blocked endpoint.
 	 *
-	 * @since
+	 * @since 6.5.0
 	 *
 	 * @var string
 	 */
@@ -41,7 +41,7 @@ class Rest_Api {
 	/**
 	 * Constructor.
 	 *
-	 * @since
+	 * @since 6.5.0
 	 *
 	 * @return void
 	 */
@@ -65,34 +65,44 @@ class Rest_Api {
 	/**
 	 * Checks if we are in a TEC page or in the main Dashboard.
 	 *
-	 * @since
+	 * @since 6.5.0
 	 *
 	 * @return boolean
 	 */
 	public function should_display(): bool {
-		global $pagenow;
-
-		if ( tribe( 'admin.helpers' )->is_screen() || 'index.php' === $pagenow ) {
-			return $this->is_rest_api_blocked() ? true : false;
+		if ( ! tribe( 'admin.helpers' )->is_screen() ) {
+			return false;
 		}
 
-		return false;
+		return $this->is_rest_api_blocked();
 	}
 
 	/**
 	 * Checks if our endpoints are accessible.
 	 *
-	 * @since
+	 * @since 6.5.0
+	 * @sicne 6.5.0.1 Introduce a force param.
+	 *
+	 * @param bool $force Force the check, skipping timed option cache.
 	 *
 	 * @return boolean
 	 */
-	public function is_rest_api_blocked(): bool {
+	public function is_rest_api_blocked( bool $force = false ): bool {
+		$cache_key     = 'events_is_rest_api_blocked';
+		$cache_timeout = 48 * HOUR_IN_SECONDS;
+		if ( ! $force && tec_timed_option()->exists( $cache_key, $force ) ) {
+			$this->blocked_endpoint = tec_timed_option()->get( $cache_key, null, $force );
 
-		$v1_api    = new \Tribe__Events__REST__V1__Main();
+			return ! empty( $this->blocked_endpoint );
+		}
+
+		$v1_api    = tribe( 'tec.rest-v1.main' );
 		$event_api = get_rest_url( null, $v1_api->get_events_route_namespace() );
 		$response  = wp_remote_get( $event_api );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$this->blocked_endpoint = $event_api;
+			tec_timed_option()->set( $cache_key, $event_api, $cache_timeout );
+
 			return true;
 		}
 
@@ -100,8 +110,12 @@ class Rest_Api {
 		$response  = wp_remote_get( $views_api );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$this->blocked_endpoint = $views_api;
+			tec_timed_option()->set( $cache_key, $views_api, $cache_timeout );
+
 			return true;
 		}
+
+		tec_timed_option()->set( $cache_key, false, $cache_timeout );
 
 		return false;
 	}
@@ -109,7 +123,7 @@ class Rest_Api {
 	/**
 	 * HTML for the notice when we have blocked REST API endpoints.
 	 *
-	 * @since
+	 * @since 6.5.0
 	 *
 	 * @return false|string
 	 */
@@ -119,7 +133,7 @@ class Rest_Api {
 		}
 
 		$output = sprintf(
-			/* Translators: %1$s and %2$s - opening and closing strong tags, respectively. */
+		/* Translators: %1$s and %2$s - opening and closing strong tags, respectively. */
 			__( '%1$sWarning%2$s: The Events Calendar REST API endpoints are not accessible! This may be due to a server configuration or another plugin blocking access to the REST API.', 'the-events-calendar' ),
 			'<strong>',
 			'</strong>'

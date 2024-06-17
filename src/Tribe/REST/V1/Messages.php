@@ -32,6 +32,7 @@ class Tribe__Events__REST__V1__Messages implements Tribe__REST__Messages_Interfa
 				'the-events-calendar'
 			),
 			'event-not-accessible'             => __( 'The requested event is not accessible', 'the-events-calendar' ),
+			'event-password-protected'         => __( 'The requested event is not accessible without a password', 'the-events-calendar' ),
 			'event-archive-bad-page'           => __(
 				"The 'page' parameter must be a positive integer greater than 1",
 				'the-events-calendar'
