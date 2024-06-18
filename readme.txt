@@ -234,7 +234,9 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.5.2] TBD =
 
-* Tweak - Updated docBlock for `get_before_events_html` to provide more clarity.
+* Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
+* Tweak - Updated docblock for `get_before_events_html` to provide more clarity.
 
 = [6.5.1] 2024-06-11 =
 
