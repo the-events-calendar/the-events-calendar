@@ -185,6 +185,25 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * Validates we exclude other filters when validating nonces.
+	 *
+	 * @test
+	 */
+	public function it_can_validate_generated_nonces() {
+		add_filter( 'nonce_user_logged_out', function () {
+			return '127.0.0.1';
+		} );
+
+		// Get our nonces
+		$nonces = Rest_Endpoint::get_rest_nonces();
+
+		$rest_endpoint = new Rest_Endpoint();
+		$request       = new WP_REST_Request( 'POST' );
+		$request->set_body_params( $nonces );
+		$this->assertTrue( $rest_endpoint->is_valid_request( $request ) );
+	}
+
+	/**
 	 * We should still auth the request with the wp rest server.
 	 *
 	 * @test
