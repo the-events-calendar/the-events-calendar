@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.5.1.4] 2024-06-18 =
 
-* Fix - Follow Symlinks in order to locate assets [TECTRIA-91]
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located.[TECTRIA-91]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.1.3] 2024-06-14 =
