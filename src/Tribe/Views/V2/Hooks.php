@@ -17,6 +17,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use TEC\Events\Views\Modifiers\Hide_End_Time_Modifier;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
@@ -39,7 +40,10 @@ use TEC\Common\Contracts\Service_Provider;
  * @package Tribe\Events\Views\V2
  */
 class Hooks extends Service_Provider {
-
+	/**
+	 * @var Hide_End_Time_Modifier The modifier to hide the end time.
+	 */
+	protected Hide_End_Time_Modifier $end_time_modifier;
 
 	/**
 	 * Binds and sets up implementations.
@@ -47,6 +51,10 @@ class Hooks extends Service_Provider {
 	 * @since 4.9.2
 	 */
 	public function register() {
+		// Bind as singleton to maintain state in filters.
+		$this->container->singleton( Title::class );
+
+		// Setup hooks.
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -71,6 +79,8 @@ class Hooks extends Service_Provider {
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		add_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ], 10, 2 );
+		add_action( 'init', [ $this, 'hide_event_end_time' ] );
 	}
 
 	/**
@@ -79,7 +89,7 @@ class Hooks extends Service_Provider {
 	 * @since 5.14.1
 	 */
 	public function enqueue_customizer_in_block_editor() {
-		// Make sure we're on the block edit screen
+		// Make sure we're on the block edit screen.
 		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
 			return;
 		}
@@ -94,12 +104,15 @@ class Hooks extends Service_Provider {
 			return;
 		}
 
-		// Append the customizer styles to the single block stylesheet
-		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
-			$sheets[] = 'tribe-admin-v2-single-blocks';
+		// Append the customizer styles to the single block stylesheet.
+		add_filter(
+			'tribe_customizer_inline_stylesheets',
+			static function ( $sheets ) {
+				$sheets[] = 'tribe-admin-v2-single-blocks';
 
-			return $sheets;
-		} );
+				return $sheets;
+			}
+		);
 
 		// Print the styles!
 		tribe( 'customizer' )->inline_style( true );
@@ -175,15 +188,121 @@ class Hooks extends Service_Provider {
 
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
-
 		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 5 );
-
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
-
-		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
-
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12, 2 );
 		add_filter( 'tec_events_view_month_today_button_label', [ $this, 'filter_view_month_today_button_label' ], 10, 2 );
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
+	}
+
+	/**
+	 * This retrieves the posts to be used on the rendered page, and stores them for use in title generation.
+	 *
+	 * @since 6.3.6
+	 *
+	 * @param WP_Post[] $events The list of tribe events for this page.
+	 * @param View      $view   The current view being rendered.
+	 */
+	public function action_set_title_events( $events, $view ) {
+		// Not a list? Bail.
+		if ( ! is_array( $events ) ) {
+			return;
+		}
+
+		// Trim to what is shown (we add one sometimes for pagination links).
+		$cnt = $view->get_context()->get( 'events_per_page' );
+		if ( $cnt ) {
+			$events = array_slice( $events, 0, $cnt );
+		}
+		$this->container->make( Title::class )->set_posts( $events );
+	}
+
+
+
+	/**
+	 * Hook for the hide end time setting to flag the view accordingly.
+	 */
+	public function hide_event_end_time(): void {
+		$views = (array) tribe_get_option( 'remove_event_end_time', [] );
+		if ( empty( $views ) ) {
+			return;
+		}
+		// Make an associative array to be the shape we expect.
+		$views = array_flip( $views );
+		// Any elements here should be false to indicate that the end time should be hidden.
+		$views = array_map(
+			function () {
+				return false;
+			},
+			$views
+		);
+
+		// Create the modifier that handles when to show/hide the end time.
+		$this->end_time_modifier = new Hide_End_Time_Modifier( $views );
+
+		// Let's setup our context, in either one of two hooks.
+		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'set_context_for_views_v2_setup_loop' ] );
+		add_filter(
+			'tribe_events_views_v2_bootstrap_pre_get_view_html',
+			[
+				$this,
+				'set_context_for_views_v2_endtime',
+			],
+			10,
+			4
+		);
+
+		// If there are any views checked, then run the filter.
+		add_filter( 'tribe_events_event_schedule_details_formatting', [ $this, 'handle_end_time_visibility' ] );
+	}
+
+	/**
+	 * Handles the visibility of the end time.
+	 *
+	 * @since 6.4.1
+	 *
+	 * @param array<string, boolean> $settings The settings.
+	 *
+	 * @return array
+	 */
+	public function handle_end_time_visibility( $settings ) {
+		$context = $this->end_time_modifier->get_context();
+
+		// Is this view flagged to hide the end time?
+		$settings['show_end_time'] = $this->end_time_modifier->is_visible( $context->get( 'view' ) );
+
+		return $settings;
+	}
+
+	/**
+	 * Sets the context for the hide end time modifier.
+	 *
+	 * @since 6.4.1
+	 *
+	 * @param View $view The view.
+	 */
+	public function set_context_for_views_v2_setup_loop( $view ) {
+		// We need further context to determine if we should hide the end time for a particular area.
+		$this->end_time_modifier->set_context( $view->get_context() );
+	}
+
+	/**
+	 * Sets the context for the views v2 end time view modifier.
+	 *
+	 * @since 6.4.1
+	 *
+	 * @param string $html      The HTML to be filtered.
+	 * @param string $view_slug The view slug.
+	 * @param array  $query     The query.
+	 * @param array  $context   The context.
+	 *
+	 * @return string
+	 */
+	public function set_context_for_views_v2_endtime( $html, $view_slug, $query, $context ) {
+		// We need further context to determine if we should hide the end time for a particular area.
+		$this->end_time_modifier->set_context( $context );
+
+		return $html;
 	}
 
 	/**
@@ -196,7 +315,7 @@ class Hooks extends Service_Provider {
 	 *
 	 * @return void
 	 */
-	public function action_include_filters_excerpt() {
+	public function action_include_filters_excerpt(): void {
 		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 50 );
 	}
 
@@ -937,7 +1056,7 @@ class Hooks extends Service_Provider {
 			return $value;
 		}
 
-		// Note: backslash is hte escape character - so we need to escape it.
+		// Note: backslash is the escape character - so we need to escape it.
 		// This is the equivalent of replacing any occurrence of \\ with \
 		$value = str_replace( "\\\\", "\\", $value);
 		//$value = stripslashes( $value ); will strip out ones we want to keep!
@@ -1365,5 +1484,6 @@ class Hooks extends Service_Provider {
 		remove_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		remove_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		remove_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ] );
 	}
 }

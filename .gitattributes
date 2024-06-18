@@ -4,21 +4,3 @@
 tests/_support/_generated/* linguist-generated=true
 */__snapshots__/* linguist-generated=true
 */__mocks__/* linguist-generated=true
-
-__mocks__/ export-ignore
-__snapshots__/ export-ignore
-__tests__/ export-ignore
-_plugins/ export-ignore
-_wordpress/ export-ignore
-.github/ export-ignore
-bin/ export-ignore
-dev/ export-ignore
-files/ export-ignore
-tests/ export-ignore
-
-
-*.md export-ignore
-*.swp export-ignore
-.stylelintrc export-ignore
-package-safelist.json export-ignore
-the-events-calendar*.zip export-ignore

@@ -1,5 +1,6 @@
 name: 'npm lint'
 on:
+  pull_request:
   workflow_dispatch:
     paths:
       - 'src/modules/**.js'
