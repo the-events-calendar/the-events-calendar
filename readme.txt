@@ -238,6 +238,26 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
 * Tweak - Updated docblock for `get_before_events_html` to provide more clarity.
 
+= [6.5.1.4] 2024-06-18 =
+
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located.[TECTRIA-91]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.3] 2024-06-14 =
+
+* Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
+* Language - 0 new strings added, 109 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.2] 2024-06-14 =
+
+* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.1] 2024-06-13 =
+
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
 = [6.5.1] 2024-06-11 =
 
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
