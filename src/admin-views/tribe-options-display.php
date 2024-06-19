@@ -104,11 +104,11 @@ $tec_events_display_toc = [
 /**
  * Allow filtering the Table of Contents bar on the Display settings page.
  *
- * @var array $tec_events_display_toc Array of items of the TOC.
+ * @since TBD
+ *
+ * @param array $tec_events_display_toc Array of items of the TOC.
  */
-$tec_events_display_toc = apply_filters( 'tec_events_display_settings_toc', $tec_events_display_toc );
-
-$tec_events_display_fields += $tec_events_display_toc;
+$tec_events_display_fields += apply_filters( 'tec_events_display_settings_toc', $tec_events_display_toc );
 
 // Start the form content wrapper.
 $tec_events_general_form_end = [
