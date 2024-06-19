@@ -27,6 +27,7 @@ node_modules
 compiler.jar
 *.ps1
 *.code-workspace
+bun.lockb
 
 wpml-config.xml
 .env.testing
@@ -40,6 +41,9 @@ src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
 files/
+
+# Local packaging files
+.pup-*
 
 # Misc
 bin/strauss.phar

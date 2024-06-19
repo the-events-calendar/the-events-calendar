@@ -1,5 +1,14 @@
 name: 'Codeception Tests'
-on: [ pull_request ]
+on:
+  pull_request:
+    paths:
+      - 'tests/**.php'
+      - 'src/**.php'
+      - '*.php'
+      - 'composer.json'
+      - 'composer.lock'
+      - 'codeception.dist.yml'
+      - '.github/workflows/tests-php.yaml'
 jobs:
   test:
     strategy:
@@ -9,7 +18,6 @@ jobs:
           - blocks_editor_integration
           - event_status
           - integration
-          - integrations_plugin_wordpress_seo
           - muintegration
           - restv1
           - views_integration
@@ -26,6 +34,7 @@ jobs:
           # - views_rest
           - wp_json_api
           - ct1_wp_json_api
+          - ct1_migration
           - rewrite_functional
     runs-on: ubuntu-20.04
     steps:

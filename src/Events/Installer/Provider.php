@@ -1,4 +1,7 @@
 <?php
+/**
+ * Event Tickets Installer Service Provider
+ */
 
 namespace TEC\Events\Installer;
 

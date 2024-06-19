@@ -8,6 +8,7 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use WP_REST_Request;
 use WP_REST_Request as Request;
 use WP_REST_Server as Server;
 use WP_User;
@@ -91,27 +92,28 @@ class Rest_Endpoint {
 	 * This stores the user (if authenticated) for use when we check that our custom nonce(s) are valid.
 	 *
 	 * @since 6.2.3
+	 * @since 6.2.7 Moved to new hook with new params in order to intercede in user auth flow for REST requests.
 	 *
-	 * @param bool $send_nocache_headers
+	 * @param array $cors_headers List of headers to be filtered.
 	 *
-	 * @return bool
+	 * @return array List of headers.
 	 * @see   rest_cookie_check_errors()
 	 *
 	 */
-	public static function preserve_user_for_custom_nonces( $send_nocache_headers ) {
+	public static function preserve_user_for_custom_nonces( $cors_headers ) {
 		if ( ! is_user_logged_in() ) {
-			return $send_nocache_headers;
+			return $cors_headers;
 		}
 
 		$user = wp_get_current_user();
 		if ( ! $user instanceof WP_User || ! $user->ID ) {
-			return $send_nocache_headers;
+			return $cors_headers;
 		}
 
 		// Save user for our nonce checks.
 		self::$user_id = (int) $user->ID;
 
-		return $send_nocache_headers;
+		return $cors_headers;
 	}
 
 	/**
@@ -222,6 +224,29 @@ class Rest_Endpoint {
 		 * @param array<string,string> The field => nonce array.
 		 */
 		return (array) apply_filters( 'tec_events_views_v2_get_rest_nonces', $generated_nonces );
+	}
+
+	/**
+	 * Fetches and filters the HTML tag with the encoded nonces to be output on the view markup.
+	 *
+	 * @since 6.2.7
+	 *
+	 * @param array $nonces The array of nonces that are being encoded in the HTML output.
+	 *
+	 * @return string The HTML for the nonces.
+	 */
+	public static function get_rest_nonce_html( array $nonces ): string {
+		$html = "<script data-js='tribe-events-view-nonce-data' type='application/json'>" . wp_json_encode( $nonces ) . "</script>";
+
+		/**
+		 * This allows filtering of the nonce script tag being appended to the various views that utilize AJAX requests.
+		 *
+		 * @since 6.2.7
+		 *
+		 * @param string               $html   The script tag that has JSON encoded nonces.
+		 * @param array<string,string> $nonces The associative array of nonces being generated.
+		 */
+		return (string) apply_filters( 'tec_events_views_v2_get_rest_nonce_html', $html, $nonces );
 	}
 
 	/**

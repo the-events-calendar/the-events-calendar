@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Main Tribe Events Calendar class.
  */
@@ -40,45 +39,44 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-
-		const VERSION             = '6.2.5';
+		const VERSION             = '6.5.2';
 
 		/**
-		 * Min Pro Addon
+		 * Min Pro Addon.
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.1.0-dev';
+		const MIN_ADDON_VERSION = '6.5.0.1';
 
 		/**
 		 * Min Common
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_COMMON_VERSION  = '4.9.2-dev';
+		const MIN_COMMON_VERSION = '5.2.7-dev';
 
-		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
+		const WP_PLUGIN_URL = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
 		 * Min Version of WordPress
 		 *
 		 * @since 4.8
 		 */
-		protected $min_wordpress = '5.6';
+		protected $min_wordpress = '6.2';
 
 		/**
 		 * Min Version of PHP
 		 *
 		 * @since 4.8
 		 */
-		protected $min_php = '5.6.0';
+		protected $min_php = '7.4.0';
 
 		/**
 		 * Min Version of Event Tickets
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.6.5.1-dev';
+		protected $min_et_version = '5.10.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -680,8 +678,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Filter Bar.
 			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
 
-			// FSE
-			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
+			// Blocks
+			tribe_register_provider( TEC\Events\Blocks\Controller::class );
+
+			// Site Editor
+			tribe_register_provider( TEC\Events\Block_Templates\Controller::class );
 
 			// Load the new third-party integration system.
 			tribe_register_provider( TEC\Events\Integrations\Provider::class );
@@ -697,6 +698,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
+
+			// Register new Admin Notice system.
+			tribe_register_provider( TEC\Events\Admin\Notice\Provider::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -2976,19 +2980,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$avoid_recursion = true;
-
-			$original_post     = wp_is_post_revision( $post );
-			$is_event_revision = $original_post && tribe_is_event( $original_post );
-
-			if ( $is_event_revision ) {
-				$revision = Tribe__Events__Revisions__Post::new_from_post( $post );
-				$revision->save();
-
-				$avoid_recursion = false;
-
+			if ( wp_is_post_revision( $postId ) ) {
+				// Do not save meta for revisions: it would be saved to the original post anyway.
 				return;
 			}
+
+			$avoid_recursion = true;
 
 			// When not an instance of Post we bail to avoid revision problems.
 			if ( ! $post instanceof WP_Post ) {
@@ -3978,7 +3975,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Specify the "preview venue" to link to an event.
 		 *
-		 *
 		 * @since 4.5.1
 		 *
 		 * @param int $event_id The ID of the event being previewed.
@@ -4007,7 +4003,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Specify the "preview organizer" to link to an event.
-		 *
 		 *
 		 * @since 4.5.1
 		 *

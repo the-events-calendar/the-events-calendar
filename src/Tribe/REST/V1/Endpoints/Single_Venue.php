@@ -369,7 +369,9 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 * @return array
 	 */
 	public function prepare_postarr( WP_REST_Request $request ) {
-		$post_date = isset( $request['date'] ) ? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' ) : false;
+		$post_date = isset( $request['date'] )
+			? Tribe__Date_Utils::reformat( $request['date'], Tribe__Date_Utils::DBDATETIMEFORMAT )
+			: false;
 		$post_date_gmt = isset( $request['date_utc'] ) ? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' ) : false;
 		$post_status = $this->scale_back_post_status( $request['status'], Tribe__Events__Main::POSTTYPE );
 

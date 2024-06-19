@@ -234,9 +234,9 @@ class Event extends Model {
 		 *
 		 * @param array<string,mixed> $data     The data for the Event, as prepared by The
 		 *                                      Events Calendar and previous filters.
-		 * @param int                 $event_id The Event post ID.
+		 * @param int                 $post_id The Event post ID.
 		 */
-		return apply_filters( 'tec_events_custom_tables_v1_event_data_from_post', $data, $event_id );
+		return apply_filters( 'tec_events_custom_tables_v1_event_data_from_post', $data, $post_id );
 	}
 
 	/**

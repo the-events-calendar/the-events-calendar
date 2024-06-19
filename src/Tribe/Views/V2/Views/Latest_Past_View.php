@@ -250,8 +250,17 @@ class Latest_Past_View extends List_View {
 	 * @param $html string The HTML of the view being rendered.
 	 *
 	 * @return string The HTML of the View being Rendered and Latest Past Events HTML
+	 * @todo  This recursive call should be removed, and View objects should not be injected as pseudo templates.
 	 */
 	public function add_view( $html ) {
-		return $this->get_html();
+		// Disable nonce - this is a recursive call, and we don't want two sets of nonces.
+		$nonce_override = function ( $html ) {
+			return '';
+		};
+		add_filter( 'tec_events_views_v2_get_rest_nonce_html', $nonce_override, 10 );
+		$html = $this->get_html();
+		remove_filter( 'tec_events_views_v2_get_rest_nonce_html', $nonce_override );
+
+		return $html;
 	}
 }
