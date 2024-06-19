@@ -14,6 +14,7 @@ if ( 'count' === $global_limit_type ) {
 	$global_limit_option  = tribe_get_option( 'tribe_aggregator_default_import_limit_number', $settings->get_import_limit_count_default() );
 	$global_limit_message = esc_html(
 		sprintf(
+			// Translators: %s: the number of events defined in the settings.
 			__(
 				'Event Aggregator will try to fetch %s events starting from the current date or the specified date;',
 				'the-events-calendar'
