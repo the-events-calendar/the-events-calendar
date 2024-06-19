@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.5.1.4
+Stable tag: 6.5.2
 Tested up to: 6.5.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -232,9 +232,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.5.2] TBD =
 
+* Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
 * Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [BTRIA-2248]
+* Tweak - Updated docblock for `get_before_events_html` to provide more clarity.
 
 = [6.5.1.4] 2024-06-18 =
 
