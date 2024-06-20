@@ -236,7 +236,9 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
 * Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
-* Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [BTRIA-2248]
+* Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
+* Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
+* Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
 * Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
 
 = [6.5.1.4] 2024-06-18 =
