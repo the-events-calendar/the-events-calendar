@@ -28,6 +28,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		if ($this->event_test) {
 			tribe_events()->delete($this->event_test->ID);
 		}
+
 		parent::tearDown();
 	}
 
@@ -38,9 +39,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_bypassing_override(): void {
 		// Set up filter to return true.
-		add_filter('tec_events_integration_elementor_bypass_template_override', function(){
-			return true;
-		});
+		add_filter('tec_events_integration_elementor_bypass_template_override', '__return true', 10);
 
 		// Create an instance of the Elementor_Template_Controller
 		$container = tribe();
@@ -49,6 +48,11 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		// Assert that `is_override` returns false and is not overriding the template.
 		$is_overridden = $controller->is_override($this->event_test->ID);
 		$this->assertFalse($is_overridden);
+
+		/**
+		 * @after
+		 */
+		remove_filter( 'tec_events_integration_elementor_bypass_template_override', '__return_false', 10 );
 	}
 
 	/**
@@ -58,9 +62,8 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_not_bypass_override_when_false_is_returned(): void {
 		// Set up filter to return false.
-		add_filter('tec_events_integration_elementor_bypass_template_override', function(){
-			return false;
-		});
+		add_filter('tec_events_integration_elementor_bypass_template_override', '__return false', 10);
+
 
 		// Create an instance of the Elementor_Template_Controller with the required container
 		$container = tribe();
