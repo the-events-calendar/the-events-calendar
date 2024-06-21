@@ -48,6 +48,9 @@ class SearchOrCreate extends Component {
 		onInputChange: PropTypes.func,
 		onCreateClick: PropTypes.func,
 		onItemClick: PropTypes.func,
+		addBlock: PropTypes.func,
+		setSearchPostType: PropTypes.func,
+		postType: PropTypes.string,
 	};
 
 	constructor( props ) {
