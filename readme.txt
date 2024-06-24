@@ -238,6 +238,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
 * Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
 * Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
+* Tweak - Add details to the `tec_views_v2_subscribe_link_visibility()` and `tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility()` docblocks for clarity.
 * Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
 * Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
 
