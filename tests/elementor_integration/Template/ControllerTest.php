@@ -4,29 +4,32 @@ namespace TEC\Events\Integrations\Plugins\Elementor;
 
 use Tribe__Events__Main as TEC;
 use TEC\Events\Integrations\Plugins\Elementor\Template\Controller as Elementor_Template_Controller;
+use Tribe\Tests\Traits\With_Uopz;
 
 class ControllerTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
+
 	public function setUp() {
 		parent::setUp();
 		tribe()->register( Elementor_Template_Controller::class );
 
-		// Create an event using The Events Calendar ORM before each test
+		// Create an event using The Events Calendar ORM before each test. Is this what is being replaced with With_Uopz? Should I delete this?
 		$event_data = [
-			'title' => 'Sample Event',
-			'content' => 'This is a sample event description.',
+			'title'      => 'Sample Event',
+			'content'    => 'This is a sample event description.',
 			'start_date' => '2024-09-23 01:00:00',
-			'end_date' => '2024-09-23 05:00:00',
+			'end_date'   => '2024-09-23 05:00:00',
 		];
 
-		$this->event_test = tribe_events()->set_args($event_data)->create();
+		$this->event_test = tribe_events()->set_args( $event_data )->create();
 
 	}
 
 	public function tearDown(): void {
 		tribe( Elementor_Template_Controller::class )->unregister();
 		// Delete the event after each test
-		if ($this->event_test) {
-			tribe_events()->delete($this->event_test->ID);
+		if ( $this->event_test ) {
+			tribe_events()->delete( $this->event_test->ID );
 		}
 
 		parent::tearDown();
@@ -39,20 +42,21 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function should_allow_bypassing_override(): void {
 		// Set up filter to return true.
-		add_filter('tec_events_integration_elementor_bypass_template_override', '__return true', 10);
+		add_filter( 'tec_events_integration_elementor_bypass_template_override', '__return true', 10 );
 
 		// Create an instance of the Elementor_Template_Controller
-		$container = tribe();
-		$controller = new Elementor_Template_Controller($container);
+		$container  = tribe();
+		$controller = new Elementor_Template_Controller( $container );
 
 		// Assert that `is_override` returns false and is not overriding the template.
-		$is_overridden = $controller->is_override($this->event_test->ID);
-		$this->assertFalse($is_overridden);
+		$this->set_fn_return( Elementor_Template_Controller::class, false, false );
+		$is_overridden = $controller->is_override( $this->event_test->ID );
+		$this->assertFalse( $is_overridden );
 
 		/**
 		 * @after
 		 */
-		remove_filter( 'tec_events_integration_elementor_bypass_template_override', '__return_false', 10 );
+		remove_filter( 'tec_events_integration_elementor_bypass_template_override', '__return_true', 10 );
 	}
 
 	/**
@@ -61,17 +65,22 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_not_bypass_override_when_false_is_returned(): void {
-		// Set up filter to return false.
-		add_filter('tec_events_integration_elementor_bypass_template_override', '__return false', 10);
+		// Set up filter to return false. (Is this necessary if the default is to return false?)
+		add_filter( 'tec_events_integration_elementor_bypass_template_override', '__return false', 10 );
 
 
 		// Create an instance of the Elementor_Template_Controller with the required container
-		$container = tribe();
-		$controller = new Elementor_Template_Controller($container);
+		$container  = tribe();
+		$controller = new Elementor_Template_Controller( $container );
 
 		// Assert that `is_override` returns true and is overriding the template.
-		$is_overridden = $controller->is_override($this->event_test->ID);
-		$this->assertTrue($is_overridden);
+		$is_overridden = $controller->is_override( $this->event_test->ID );
+		$this->assertTrue( $is_overridden );
+
+		/**
+		 * @after
+		 */
+		remove_filter( 'tec_events_integration_elementor_bypass_template_override', '__return_false', 10 );
 	}
 
 	/**
