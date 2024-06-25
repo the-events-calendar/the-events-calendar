@@ -190,34 +190,30 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
-			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
+			// Validate action and post parameters.
+			if ( ! isset( $_GET['action'], $_GET['post'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}
 
 			$event = get_post( absint( $_GET['post'] ) );
 
-			if ( ! $event instanceof WP_Post ) {
+			// Validate the retrieved post.
+			if ( ! $event instanceof WP_Post || Tribe__Events__Main::POSTTYPE !== $event->post_type || self::$ignored_status !== $event->post_status ) {
 				return;
 			}
 
-			if ( Tribe__Events__Main::POSTTYPE !== $event->post_type ) {
-				return;
-			}
+			$sendback = wp_get_referer();
 
-			if ( self::$ignored_status !== $event->post_status ) {
-				return;
-			}
-
-			if ( ! function_exists( 'wp_get_referer' ) ) {
+			if ( empty( $sendback ) ) {
 				if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 					$sendback = $_SERVER['REQUEST_URI'];
 				} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
 					$sendback = $_REQUEST['_wp_http_referer'];
 				} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
 					$sendback = $_SERVER['HTTP_REFERER'];
+				} else {
+					$sendback = '';
 				}
-			} else {
-				$sendback = wp_get_referer();
 			}
 
 			$sendback = remove_query_arg( [ 'trashed', 'untrashed', 'deleted', 'locked', 'ids' ], $sendback );
