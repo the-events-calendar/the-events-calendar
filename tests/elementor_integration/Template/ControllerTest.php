@@ -50,10 +50,9 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		// Variable to hold if the callback for the filter has been called yet.
 		$called = false;
 
-		// Callback function for the filter. Changes the $called variable to true and returns false for whether to bypass.
+		// Callback function for the filter. Changes the $called variable to true if called.
 		$override_callback = function () use ( &$called ) {
 			$called = true;
-			return true;
 		};
 
 		// Set up the filter with the callback function.
@@ -67,13 +66,68 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow the Elementor template override to be bypassed on a specific event.
+	 * It should pass the $bypass parameter to the filter.
 	 *
 	 * @test
 	 */
-	public function should_allow_bypassing_override_on_specific_event(): void {
-		// Set up filter to only bypass on a specific event.
-		// Assert that for that event `is_override` returns false
-		// Assert that for another event `is_override` returns false
+	public function should_pass_bypass_parameter_to_filter(): void {
+		// Variable to capture the passed $bypass value.
+		$passed_bypass = null;
+
+		// Callback function for the filter. Captures the $bypass parameter.
+		$override_callback = function ( $bypass ) use ( &$passed_bypass ) {
+			$passed_bypass = $bypass;
+			return $bypass;
+		};
+
+		// Set up the filter with the callback function.
+		add_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10, 1 );
+
+		// Create an instance of the Elementor_Template_Controller
+		$controller = tribe( Elementor_Template_Controller::class );
+
+		// Call the function where the filter is bound.
+		$controller->is_override();
+
+		// Assertions.
+		$this->assertFalse( $passed_bypass ); // Default value of $bypass should be false.
+
+		// Clean up.
+		remove_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10 );
 	}
+
+	/**
+	 * It should pass the $post_id parameter to the filter.
+	 *
+	 * @test
+	 */
+	public function should_pass_post_id_parameter_to_filter(): void {
+		// Variable to capture the passed $post_id value.
+		$passed_post_id = null;
+
+		// Callback function for the filter. Captures the $post_id parameter.
+		$override_callback = function ( $bypass, $post_id ) use ( &$passed_post_id ) {
+			$passed_post_id = $post_id;
+			return $bypass;
+		};
+
+		// Set up the filter with the callback function.
+		add_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10, 2 );
+
+		// Create an instance of the Elementor_Template_Controller
+		$controller = tribe( Elementor_Template_Controller::class );
+
+		// Define a specific post ID to check.
+		$specific_post_id = 123;
+
+		// Call the function where the filter is bound with the specific post ID.
+		$controller->is_override( $specific_post_id );
+
+		// Assertions.
+		$this->assertEquals( $specific_post_id, $passed_post_id ); // This confirms that the specific post ID was passed to the filter.
+
+		// Clean up.
+		remove_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10 );
+	}
+
 }
