@@ -232,8 +232,9 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				$post_ids = array_map( 'intval', (array) $_REQUEST['post'] );
 			}
 
-			if ( ! is_array( $post_ids ) || count( $post_ids ) === 0 ) {
-				return;
+			if ( empty( $post_ids ) ) {
+				wp_redirect( add_query_arg( 'restored', 0, $sendback ) );
+				exit;
 			}
 
 			$restored = 0;
