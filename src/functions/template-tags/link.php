@@ -94,9 +94,15 @@ function tribe_get_previous_events_link() {
 }
 
 /**
- * Get a link to the next events
+ * Get a link to the next events.
  *
- * @return string
+ * This function determines the appropriate link to the next events based on the current context.
+ * If the current view is in the past and on a paginated page greater than one, it returns the past events link.
+ * Otherwise, it returns the upcoming events link.
+ *
+ * @return string The URL to the next events page.
+ *
+ * @hook tribe_get_next_events_link Filters the URL to the next events page.
  */
 function tribe_get_next_events_link() {
 
