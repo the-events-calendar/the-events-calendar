@@ -185,6 +185,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		/**
 		 * Action to Restore Events on the Single Page
 		 *
+		 * @since 6.5.1.7 Added additional validation.
+		 *
 		 * @param  WP_Screen $screen Which WP Screen we are currently in
 		 *
 		 * @return void|Redirect
