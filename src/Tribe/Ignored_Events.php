@@ -195,16 +195,21 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 */
 		public function action_restore_events() {
 			// Confirm the correct parameters were sent over.
-			if ( ! isset( $_GET['action'], $_GET['post'], $_GET['_wpnonce'] ) || 'tribe-restore' !== $_GET['action'] ) {
+			if ( ! isset( $_GET['action'], $_GET['post'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}
 
 			$post_id = absint( $_GET['post'] );
-			$event   = get_post( $post_id );
 
-			if ( ! $event || ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $post_id ) ) {
+			if (
+				! isset( $_GET['_wpnonce'] )
+				|| ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $post_id )
+				|| ! check_admin_referer( 'restore-post_' . $post_id )
+			) {
 				wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
 			}
+
+			$event = get_post( $post_id );
 
 			// Validate the retrieved post.
 			if ( ! $event instanceof WP_Post || Tribe__Events__Main::POSTTYPE !== $event->post_type || self::$ignored_status !== $event->post_status ) {
