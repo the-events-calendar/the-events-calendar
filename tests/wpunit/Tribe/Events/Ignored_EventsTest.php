@@ -341,7 +341,7 @@ class Ignored_EventsTest extends Events_TestCase {
 
 		// Expect WPDieException to be thrown with the specific message
 		$this->expectException( WPDieException::class );
-		$this->expectExceptionMessage( 'The link you followed has expired.' );
+		$this->expectExceptionMessage( 'You do not have permission to restore this post.' );
 
 		$this->ignored_events->action_restore_events();
 	}

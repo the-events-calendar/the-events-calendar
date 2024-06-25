@@ -194,7 +194,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		 */
 		public function action_restore_events() {
-			// Validate action, post, and nonce parameters.
+			// Confirm the correct parameters were sent over.
 			if ( ! isset( $_GET['action'], $_GET['post'], $_GET['_wpnonce'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}
@@ -202,8 +202,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$post_id = absint( $_GET['post'] );
 			$event   = get_post( $post_id );
 
-			// Validate nonce.
-			if ( ! $event || ! check_admin_referer( 'restore-post_' . $post_id ) ) {
+			if ( ! $event || ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $post_id ) ) {
 				wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
 			}
 
@@ -213,9 +212,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			// Get the referer URL.
-			$sendback = wp_get_referer();
-
-			if ( empty( $sendback ) ) {
+			if ( ! function_exists( 'wp_get_referer' ) ) {
 				if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
 					$sendback = $_SERVER['REQUEST_URI'];
 				} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
@@ -223,6 +220,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
 					$sendback = $_SERVER['HTTP_REFERER'];
 				}
+			} else {
+				$sendback = wp_get_referer();
 			}
 
 			$sendback = remove_query_arg( [ 'trashed', 'untrashed', 'deleted', 'locked', 'ids' ], $sendback );
@@ -231,6 +230,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				$post_ids = explode( ',', $_REQUEST['ids'] );
 			} elseif ( ! empty( $_REQUEST['post'] ) ) {
 				$post_ids = array_map( 'intval', (array) $_REQUEST['post'] );
+			}
+
+			if ( ! is_array( $post_ids ) || count( $post_ids ) === 0 ) {
+				return;
 			}
 
 			$restored = 0;
@@ -245,9 +248,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 				$restored++;
 			}
-			$sendback = add_query_arg( 'restored', $restored, $sendback );
-
-			wp_redirect( $sendback );
+			wp_redirect( add_query_arg( 'restored', $restored, $sendback ) );
 			exit;
 		}
 
