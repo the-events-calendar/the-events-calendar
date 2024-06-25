@@ -222,8 +222,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 					$sendback = $_REQUEST['_wp_http_referer'];
 				} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
 					$sendback = $_SERVER['HTTP_REFERER'];
-				} else {
-					$sendback = '';
 				}
 			}
 
