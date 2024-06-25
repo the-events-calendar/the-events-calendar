@@ -240,6 +240,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
 * Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
 * Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
+* Tweak - Enhanced docblock for the `tribe_get_events_link` function.
 
 = [6.5.1.4] 2024-06-18 =
 
