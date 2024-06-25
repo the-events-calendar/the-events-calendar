@@ -15,21 +15,29 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function should_allow_bypassing_override(): void {
+		// Variable to hold if the callback for the filter has been called yet.
 		$called = false;
-		$override_callback = function() use( &$called ) {
+
+		// Callback function for the filter. Changes the $called variable to true and returns true for whether to bypass.
+		$override_callback = function () use ( &$called ) {
 			$called = true;
 			return true;
 		};
-		// Set up filter to return true.
+
+		// Set up the filter with the callback function.
 		add_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10 );
 
 		// Create an instance of the Elementor_Template_Controller
-		$controller  = tribe( Elementor_Template_Controller::class );
+		$controller = tribe( Elementor_Template_Controller::class );
 
+		// Call the function where the filter is bound.
 		$is_overridden = $controller->is_override();
-		$this->assertFalse( $is_overridden );
-		$this->assertTrue( $called );
 
+		// Assertions.
+		$this->assertFalse( $is_overridden ); // Since we returned true to bypassing the function, we expect it not to be overridden.
+		$this->assertTrue( $called ); // This confirms that the filter was applied because the callback function changed the variable.
+
+		// Clean up.
 		remove_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10 );
 	}
 
