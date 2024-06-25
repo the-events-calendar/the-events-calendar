@@ -42,6 +42,31 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
+	 * It should be bound to `is_override()` and only be called when `is_override()` is called.
+	 *
+	 * @test
+	 */
+	public function should_be_bound_to_is_override(): void {
+		// Variable to hold if the callback for the filter has been called yet.
+		$called = false;
+
+		// Callback function for the filter. Changes the $called variable to true and returns false for whether to bypass.
+		$override_callback = function () use ( &$called ) {
+			$called = true;
+			return true;
+		};
+
+		// Set up the filter with the callback function.
+		add_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10 );
+
+		// Assertions.
+		$this->assertFalse( $called ); // This confirms that the filter was NOT applied.
+
+		// Clean up.
+		remove_filter( 'tec_events_integration_elementor_bypass_template_override', $override_callback, 10 );
+	}
+
+	/**
 	 * It should allow the Elementor template override to be bypassed on a specific event.
 	 *
 	 * @test
