@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.5.1.3\n"
+"Project-Id-Version: The Events Calendar 6.5.1.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-14T10:43:46-07:00\n"
-"PO-Revision-Date: 2024-06-14 17:43\n"
+"POT-Creation-Date: 2024-06-26T11:34:43-07:00\n"
+"PO-Revision-Date: 2024-06-26 18:34\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -294,8 +294,8 @@ msgid "Origin:"
 msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:5
-#: src/Tribe/Ignored_Events.php:362
-#: src/Tribe/Ignored_Events.php:364
+#: src/Tribe/Ignored_Events.php:342
+#: src/Tribe/Ignored_Events.php:344
 msgid "Source:"
 msgstr ""
 
@@ -304,7 +304,7 @@ msgid "Last Import:"
 msgstr ""
 
 #: src/admin-views/aggregator/meta-box.php:14
-#: src/Tribe/Ignored_Events.php:331
+#: src/Tribe/Ignored_Events.php:311
 msgid "The last time this event was imported and/or updated via import."
 msgstr ""
 
@@ -4583,14 +4583,14 @@ msgstr ""
 
 #: src/Tribe/Aggregator.php:622
 #: src/Tribe/Aggregator/Record/List_Table.php:618
-#: src/Tribe/Ignored_Events.php:376
+#: src/Tribe/Ignored_Events.php:356
 msgctxt "human readable time ago"
 msgid "about %s ago"
 msgstr ""
 
 #: src/Tribe/Aggregator.php:624
 #: src/Tribe/Aggregator/Record/List_Table.php:620
-#: src/Tribe/Ignored_Events.php:378
+#: src/Tribe/Ignored_Events.php:358
 msgctxt "in human readable time"
 msgid "in about %s"
 msgstr ""
@@ -5060,7 +5060,7 @@ msgid "Import preview"
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:515
-#: src/Tribe/Ignored_Events.php:358
+#: src/Tribe/Ignored_Events.php:338
 msgctxt "record via origin"
 msgid "via "
 msgstr ""
@@ -6327,7 +6327,7 @@ msgstr ""
 
 #: src/Tribe/Ignored_Events.php:43
 #: src/Tribe/Ignored_Events.php:59
-#: src/Tribe/Ignored_Events.php:456
+#: src/Tribe/Ignored_Events.php:443
 msgid "Delete Permanently"
 msgstr ""
 
@@ -6336,18 +6336,18 @@ msgid "Ignored events that are deleted will be removed permanently. They can be 
 msgstr ""
 
 #: src/Tribe/Ignored_Events.php:47
-#: src/Tribe/Ignored_Events.php:489
-#: src/Tribe/Ignored_Events.php:765
+#: src/Tribe/Ignored_Events.php:476
+#: src/Tribe/Ignored_Events.php:752
 msgid "Ignored"
 msgstr ""
 
 #: src/Tribe/Ignored_Events.php:51
-#: src/Tribe/Ignored_Events.php:419
+#: src/Tribe/Ignored_Events.php:399
 msgid "Hide & Ignore"
 msgstr ""
 
 #: src/Tribe/Ignored_Events.php:52
-#: src/Tribe/Ignored_Events.php:418
+#: src/Tribe/Ignored_Events.php:398
 msgid "Ignored events do not show on the calendar but can be updated with future imports"
 msgstr ""
 
@@ -6382,84 +6382,73 @@ msgctxt "link to knowlegebase article"
 msgid "Read more about Ignored Events."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:234
+#: src/Tribe/Ignored_Events.php:200
 #: src/Tribe/Ignored_Events.php:276
-msgid "You do not have permission to restore this post."
+msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:238
-#: src/Tribe/Ignored_Events.php:282
-msgid "Error restoring from Ignored Events."
-msgstr ""
-
-#: src/Tribe/Ignored_Events.php:290
-msgid "%s post restored."
-msgid_plural "%s posts restored."
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/Tribe/Ignored_Events.php:328
+#: src/Tribe/Ignored_Events.php:308
 msgid "Source"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:335
+#: src/Tribe/Ignored_Events.php:315
 msgid "Last Import"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:417
+#: src/Tribe/Ignored_Events.php:397
 msgid "Hide and Ignore &#8220;%s&#8221;"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:447
+#: src/Tribe/Ignored_Events.php:434
 msgid "Restore &#8220;%s&#8221; from the Ignored"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:448
+#: src/Tribe/Ignored_Events.php:435
 msgid "Restore"
 msgstr ""
 
 #. translators: %s: post title
-#: src/Tribe/Ignored_Events.php:455
+#: src/Tribe/Ignored_Events.php:442
 msgid "Delete &#8220;%s&#8221; permanently"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:766
+#: src/Tribe/Ignored_Events.php:753
 msgid "Ignored <span class=\"count\">(%s)</span>"
 msgid_plural "Ignored <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:885
+#: src/Tribe/Ignored_Events.php:872
 msgid "Error, a unknown bug happened and it was impossible to migrate the Legacy Ignored Events, try again later."
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:895
+#: src/Tribe/Ignored_Events.php:882
 msgid "You do not have permission to migrate Legacy Ignored Events"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:902
+#: src/Tribe/Ignored_Events.php:889
 msgid "There were no Legacy Events to be Migrated, you are ready to rock!"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:926
+#: src/Tribe/Ignored_Events.php:913
 msgid "Migration: %d Legacy Ignored Post was migrated but %d failed. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated but %d failed. To see the migrated events you will first need to refresh this screen."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:938
+#: src/Tribe/Ignored_Events.php:925
 msgid "Migration: %d Legacy Ignored Post failed to be migrated."
 msgid_plural "Migration: %d Legacy Ignored Posts failed to be migrated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Ignored_Events.php:950
+#: src/Tribe/Ignored_Events.php:937
 msgid "Event %d: %s"
 msgstr ""
 
-#: src/Tribe/Ignored_Events.php:957
+#: src/Tribe/Ignored_Events.php:944
 msgid "Migration: %d Legacy Ignored Post was migrated successfully. To see the migrated event you will first need to refresh this screen."
 msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To see the migrated events you will first need to refresh this screen."
 msgstr[0] ""
