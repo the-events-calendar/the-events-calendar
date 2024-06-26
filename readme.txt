@@ -241,7 +241,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Add details to the `tec_views_v2_subscribe_link_visibility()` and `tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility()` docblocks for clarity.
 * Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
 * Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
-* Tweak - Updated docblock and notes for the `month_multiday_classes` method and the `tribe_events_views_v2_month_multiday_classes` filter.
+* Tweak - Updated docblock and notes for the `month_multiday_classes` and `month_day_classes` methods and the `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` filters.
 
 = [6.5.1.4] 2024-06-18 =
 
