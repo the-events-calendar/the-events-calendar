@@ -187,34 +187,37 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 *
 		 * @since 6.5.1.7 Added additional validation.
 		 *
-		 * @param  WP_Screen $screen Which WP Screen we are currently in
-		 *
-		 * @return void|Redirect
-		 *
-		 * @phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		 * @return false|void
 		 */
 		public function action_restore_events() {
-			// Confirm the correct parameters were sent over.
-			if ( ! isset( $_GET['action'], $_GET['post'] ) || 'tribe-restore' !== $_GET['action'] ) {
-				return;
+			if ( ! isset( $_GET['tribe-action'] ) || 'tribe-restore' !== $_GET['tribe-action'] ) {
+				return false;
 			}
 
-			$post_id = absint( $_GET['post'] );
-
-			if (
-				! isset( $_GET['_wpnonce'] )
-				|| ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $post_id )
-				|| ! check_admin_referer( 'restore-post_' . $post_id )
+			if ( ! isset( $_GET['_wpnonce'] )
+				 || ! wp_verify_nonce( $_GET['_wpnonce'], 'tribe-restore' )
 			) {
-				wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
+				wp_die( esc_html__( 'You do not have permission to perform this action.', 'the-events-calendar' ) );
 			}
 
-			$event = get_post( $post_id );
+			$post = tribe_get_request_var( 'post', '' );
+			$ids  = tribe_get_request_var( 'ids', '' );
 
-			// Validate the retrieved post.
-			if ( ! $event instanceof WP_Post || Tribe__Events__Main::POSTTYPE !== $event->post_type || self::$ignored_status !== $event->post_status ) {
-				return;
+			// Convert the Event ID's into an array.
+			$ids_array     = ! empty( $ids ) ? array_map( 'intval', explode( ',', $ids ) ) : [];
+			$post_array    = ! empty( $post ) ? array_map( 'intval', (array) $post ) : [];
+			$restore_posts = ! empty( $post_array ) ? $post_array : $ids_array;
+
+			$restored_events = [];
+			foreach ( $restore_posts as $event_id ) {
+				$restored = $this->restore_ignored_event( $event_id );
+
+				if ( $restored ) {
+					$restored_events[] = $event_id;
+				}
 			}
+
+			$restored_count = count( $restored_events );
 
 			// Get the referer URL.
 			if ( ! function_exists( 'wp_get_referer' ) ) {
@@ -231,91 +234,55 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 
 			$sendback = remove_query_arg( [ 'trashed', 'untrashed', 'deleted', 'locked', 'ids' ], $sendback );
 
-			if ( isset( $_REQUEST['ids'] ) ) {
-				$post_ids = explode( ',', $_REQUEST['ids'] );
-			} elseif ( ! empty( $_REQUEST['post'] ) ) {
-				$post_ids = array_map( 'intval', (array) $_REQUEST['post'] );
+			// Check if the current URL is the same as the sendback URL.
+			$current_url = ( ! empty( $_SERVER['REQUEST_URI'] ) ) ? $_SERVER['REQUEST_URI'] : '';
+
+			if ( $sendback === $current_url ) {
+				// Redirect to a fallback URL if the current URL is the same as the sendback URL to stop infinite redirects.
+				$sendback = admin_url( 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE );
 			}
 
-			if ( empty( $post_ids ) ) {
-				wp_redirect( add_query_arg( 'restored', 0, $sendback ) );
-				exit;
-			}
-
-			$restored = 0;
-			foreach ( (array) $post_ids as $post_id ) {
-				if ( ! current_user_can( 'delete_post', $post_id ) ) {
-					wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
-				}
-
-				if ( ! $this->restore_event( $post_id ) ) {
-					wp_die( esc_html__( 'Error restoring from Ignored Events.', 'the-events-calendar' ) );
-				}
-
-				$restored++;
-			}
-			wp_redirect( add_query_arg( 'restored', $restored, $sendback ) );
+			wp_redirect( add_query_arg( 'restored', $restored_count, $sendback ) );
 			exit;
 		}
 
 		/**
 		 * Allows Bulk Actions to Work it's magic (more Complex than it needs to be)
 		 *
+		 * @deprecated 6.5.1.5 Deprecated in favor of action_restore_events.
+		 *
 		 * @return void|false
 		 */
 		public function action_restore_ignored() {
-			if ( ! Tribe__Admin__Helpers::instance()->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
+			_deprecated_function( __FUNCTION__, '6.5.1.5', 'action_restore_events' );
+			$this->action_restore_events();
+		}
+
+		/**
+		 * Restores an ignored event if it meets the necessary criteria.
+		 *
+		 * @param int $event_id The ID of the event to restore.
+		 *
+		 * @return bool True if the event was successfully restored, false otherwise.
+		 */
+		protected function restore_ignored_event( int $event_id ): bool {
+			$event = get_post( $event_id );
+			if ( empty( $event ) ) {
 				return false;
 			}
 
-			if ( ! isset( $_GET['ids'] ) ) {
+			if ( ! current_user_can( 'delete_post', $event->ID ) ) {
+				wp_die( esc_html__( 'You do not have permission to perform this action.', 'the-events-calendar' ) );
+			}
+
+			if ( $event->post_status !== self::$ignored_status ) {
 				return false;
 			}
 
-			if ( ! isset( $_GET['tribe-action'] ) || 'tribe-restore' !== $_GET['tribe-action'] ) {
-				return false;
-			}
+			// If the event was correctly restored, the Event ID is returned.
+			$restore = $this->restore_event( $event->ID );
 
-			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'tribe-restore' ) ) {
-				return false;
-			}
-
-			$ids      = (array) explode( ',', $_GET['ids'] );
-			$restored = [];
-
-			foreach ( $ids as $id ) {
-				if ( ! current_user_can( 'delete_post', $id ) ) {
-					wp_die( esc_html__( 'You do not have permission to restore this post.', 'the-events-calendar' ) );
-				}
-
-				$restore = $this->restore_event( $id );
-
-				if ( ! $restore ) {
-					wp_die( esc_html__( 'Error restoring from Ignored Events.', 'the-events-calendar' ) );
-				}
-
-				$restored[] = $restore;
-			}
-
-			$count_restored = count( $restored );
-
-			$message = '<p>' . sprintf( _n( '%s post restored.', '%s posts restored.', $count_restored, 'the-events-calendar' ), $count_restored ) . '</p>';
-
-			if ( ! empty( $_SERVER['REQUEST_URI'] ) ) {
-				$_SERVER['REQUEST_URI'] = remove_query_arg( [ 'tribe-action', '_wpnonce' ], $_SERVER['REQUEST_URI'] );
-			} elseif ( ! empty( $_REQUEST['_wp_http_referer'] ) ) {
-				$_REQUEST['_wp_http_referer'] = remove_query_arg(
-					[
-						'tribe-action',
-						'_wpnonce',
-					],
-					$_REQUEST['_wp_http_referer']
-				);
-			} elseif ( ! empty( $_SERVER['HTTP_REFERER'] ) ) {
-				$_SERVER['HTTP_REFERER'] = remove_query_arg( [ 'tribe-action', '_wpnonce' ], $_SERVER['HTTP_REFERER'] );
-			}
-
-			return tribe_notice( 'restored-events', $message, 'dismiss=1&type=success' );
+			return $restore === $event->ID;
 		}
 
 		/**
@@ -452,9 +419,16 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$post_type_object = get_post_type_object( $event->post_type );
 
 			if ( current_user_can( 'delete_post', $event->ID ) ) {
+				$args = [
+					'post'          => $event->ID,
+					'tribe-action' => 'tribe-restore',
+					'post_type'    => Tribe__Events__Main::POSTTYPE,
+				];
+				$restore_link = wp_nonce_url( add_query_arg( $args, 'edit.php' ), 'tribe-restore' );
+
 				$actions['restore'] = sprintf(
 					'<a href="%s" aria-label="%s">%s</a>',
-					wp_nonce_url( admin_url( sprintf( $post_type_object->_edit_link . '&amp;action=tribe-restore', $event->ID ) ), 'restore-post_' . $event->ID ),
+					wp_nonce_url( admin_url( $restore_link ), 'tribe-restore' ),
 					/* translators: %s: post title */
 					esc_attr( sprintf( __( 'Restore &#8220;%s&#8221; from the Ignored', 'the-events-calendar' ), $title ) ),
 					__( 'Restore', 'the-events-calendar' )
@@ -987,7 +961,6 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		public function hook() {
 			add_action( 'init', [ $this, 'register_ignored_post_status' ] );
 			add_action( 'current_screen', [ $this, 'action_restore_events' ] );
-			add_action( 'current_screen', [ $this, 'action_restore_ignored' ] );
 
 			/**
 			 * `pre_delete_post` only exists after WP 4.4

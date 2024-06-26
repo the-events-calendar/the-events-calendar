@@ -27,6 +27,8 @@ class Ignored_EventsTest extends Events_TestCase {
 	}
 
 	public function tearDown(): void {
+		unset( $_GET ); // Reset $_GET between tests.
+		unset( $_REQUEST ); // Reset $_GET between tests.
 		parent::tearDown();
 		uopz_allow_exit( true );
 		self::$wp_redirect_params = null; // Reset the static variable after each test
@@ -47,16 +49,16 @@ class Ignored_EventsTest extends Events_TestCase {
 			]
 		)->create()->ID;
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $event_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . $event_id );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $event_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $event_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'tribe-restore' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $event_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		// Expect WPDieException to be thrown with the specific message
 		$this->expectException( WPDieException::class );
-		$this->expectExceptionMessage( 'You do not have permission to restore this post.' );
+		$this->expectExceptionMessage( 'You do not have permission to perform this action.' );
 
 		$this->ignored_events->action_restore_events();
 	}
@@ -80,12 +82,12 @@ class Ignored_EventsTest extends Events_TestCase {
 			]
 		)->create()->ID;
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $event_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . $event_id );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $event_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $event_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'tribe-restore' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $event_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		// Ensure no exception is thrown
 		$this->ignored_events->action_restore_events();
@@ -97,7 +99,56 @@ class Ignored_EventsTest extends Events_TestCase {
 		// Assert that wp_redirect was called with the correct parameters
 		$this->assertNotEmpty( self::$wp_redirect_params, 'wp_redirect was not called.' );
 		$expected_params = [
-			'?restored=1',
+			admin_url( 'edit.php?post_type=tribe_events&restored=1' ),
+			302,
+			'WordPress',
+		];
+		$this->assertEquals( $expected_params, self::$wp_redirect_params );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_succeed_with_post_ids() {
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+
+		$events = [];
+		// Create an event as the current user
+		for ( $i = 1; $i <= 3; $i++ ) {
+			$events[] = tribe_events()->set_args(
+				[
+					'title'        => 'Test',
+					'status'       => 'tribe-ignored',
+					'start_date'   => '2050-01-01 09:00:00',
+					'end_date'     => '2050-01-01 11:30:00',
+					'post_content' => 'testing',
+					'post_author'  => get_current_user_id(),
+				]
+			)->create()->ID;
+		}
+
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['ids']              = implode( ',', $events );
+		$_GET['_wpnonce']         = wp_create_nonce( 'tribe-restore' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['ids']          = implode( ',', $events );
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
+
+		// Ensure no exception is thrown
+		$this->ignored_events->action_restore_events();
+
+		// Add assertions to verify the event is restored
+		foreach ( $events as $event ) {
+			$restored_event = get_post( $event );
+			$this->assertNotEquals( 'tribe-ignored', $restored_event->post_status );
+		}
+
+
+		// Assert that wp_redirect was called with the correct parameters
+		$this->assertNotEmpty( self::$wp_redirect_params, 'wp_redirect was not called.' );
+		$expected_params = [
+			admin_url( 'edit.php?post_type=tribe_events&restored=3' ),
 			302,
 			'WordPress',
 		];
@@ -125,16 +176,16 @@ class Ignored_EventsTest extends Events_TestCase {
 		$user_y_id = $this->factory->user->create( [ 'role' => 'subscriber' ] );
 		wp_set_current_user( $user_y_id );
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $event_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . $event_id );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $event_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $event_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'tribe-restore' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $event_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		// Expect WPDieException to be thrown with the specific message
 		$this->expectException( WPDieException::class );
-		$this->expectExceptionMessage( 'You do not have permission to restore this post.' );
+		$this->expectExceptionMessage( 'You do not have permission to perform this action.' );
 
 		$this->ignored_events->action_restore_events();
 	}
@@ -160,12 +211,12 @@ class Ignored_EventsTest extends Events_TestCase {
 		$user_y_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_y_id );
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $event_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . $event_id );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $event_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $event_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'tribe-restore' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $event_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		// Ensure no exception is thrown
 		$this->ignored_events->action_restore_events();
@@ -177,7 +228,7 @@ class Ignored_EventsTest extends Events_TestCase {
 		// Assert that wp_redirect was called with the correct parameters
 		$this->assertNotEmpty( self::$wp_redirect_params, 'wp_redirect was not called.' );
 		$expected_params = [
-			'?restored=1',
+			admin_url( 'edit.php?post_type=tribe_events&restored=1' ),
 			302,
 			'WordPress',
 		];
@@ -200,16 +251,16 @@ class Ignored_EventsTest extends Events_TestCase {
 			]
 		)->create()->ID;
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $event_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . $event_id );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $event_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $event_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'tribe-restore' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $event_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		// Expect WPDieException to be thrown with the specific message
 		$this->expectException( WPDieException::class );
-		$this->expectExceptionMessage( 'You do not have permission to restore this post.' );
+		$this->expectExceptionMessage( 'You do not have permission to perform this action.' );
 
 		$this->ignored_events->action_restore_events();
 	}
@@ -221,14 +272,16 @@ class Ignored_EventsTest extends Events_TestCase {
 		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_0' );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['_wpnonce']         = wp_create_nonce( 'restore-post' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
-		$restored_events = $this->ignored_events->action_restore_events();
+		// Expect WPDieException to be thrown with the specific message
+		$this->expectException( WPDieException::class );
+		$this->expectExceptionMessage( 'You do not have permission to perform this action.' );
 
-		$this->assertEquals( null, $restored_events );
+		$this->ignored_events->action_restore_events();
 	}
 
 	/**
@@ -238,16 +291,16 @@ class Ignored_EventsTest extends Events_TestCase {
 		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = 999999; // Assuming this post ID does not exist
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . 999999 );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = 999999;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = 999999; // Assuming this post ID does not exist
+		$_GET['_wpnonce']         = wp_create_nonce( 'restore-post' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = 999999;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		// Expect WPDieException to be thrown with the specific message
 		$this->expectException( WPDieException::class );
-		$this->expectExceptionMessage( 'You do not have permission to restore this post.' );
+		$this->expectExceptionMessage( 'You do not have permission to perform this action.' );
 
 		$this->ignored_events->action_restore_events();
 	}
@@ -270,16 +323,18 @@ class Ignored_EventsTest extends Events_TestCase {
 			]
 		);
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $post_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . $post_id );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $post_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $post_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'restore-post' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $post_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
-		$restored_events = $this->ignored_events->action_restore_events();
+		// Expect WPDieException to be thrown with the specific message
+		$this->expectException( WPDieException::class );
+		$this->expectExceptionMessage( 'You do not have permission to perform this action.' );
 
-		$this->assertEquals( null, $restored_events );
+		$this->ignored_events->action_restore_events();
 	}
 
 	/**
@@ -301,12 +356,12 @@ class Ignored_EventsTest extends Events_TestCase {
 			]
 		)->create()->ID;
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $event_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'restore-post_' . $event_id );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $event_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $event_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'tribe-restore' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $event_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		$restored_events = $this->ignored_events->action_restore_events();
 
@@ -332,16 +387,16 @@ class Ignored_EventsTest extends Events_TestCase {
 			]
 		)->create()->ID;
 
-		$_GET['action']       = 'tribe-restore';
-		$_GET['post']         = $event_id;
-		$_GET['_wpnonce']     = wp_create_nonce( 'invalid-nonce' );
-		$_REQUEST['action']   = 'tribe-restore';
-		$_REQUEST['post']     = $event_id;
-		$_REQUEST['_wpnonce'] = $_GET['_wpnonce'];
+		$_GET['tribe-action']     = 'tribe-restore';
+		$_GET['post']             = $event_id;
+		$_GET['_wpnonce']         = wp_create_nonce( 'invalid-nonce' );
+		$_REQUEST['tribe-action'] = 'tribe-restore';
+		$_REQUEST['post']         = $event_id;
+		$_REQUEST['_wpnonce']     = $_GET['_wpnonce'];
 
 		// Expect WPDieException to be thrown with the specific message
 		$this->expectException( WPDieException::class );
-		$this->expectExceptionMessage( 'You do not have permission to restore this post.' );
+		$this->expectExceptionMessage( 'You do not have permission to perform this action.' );
 
 		$this->ignored_events->action_restore_events();
 	}
