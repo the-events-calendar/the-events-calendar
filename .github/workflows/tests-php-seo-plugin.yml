@@ -117,7 +117,8 @@ jobs:
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
       # ------------------------------------------------------------------------------
-      # WP SEO requires WP 6.4+
+      # Init WordPress container
+      # WP SEO requires 6.4+ to run
       # ------------------------------------------------------------------------------
       - name: Init the WordPress container
         if: steps.skip.outputs.value != 1
