@@ -139,19 +139,15 @@ function tribe_get_events_link( $context = 'href' ) {
  * Generates the permalink for a specific view based on the provided slug and optional term.
  *
  * @since 5.7.0
- *
- * @param string $slug The slug of the view for which the permalink is being generated.
- * @param bool|int|null $term Optional. The term associated with the view. Default is null.
- *
- * @return string The generated permalink for the view.
- *
- * @hook tribe_get_view_permalink Filters the overall view permalink.
- * @param string $permalink The generated permalink.
- * @param string $slug The slug of the view.
- *
+ * 
+ * @hook tribe_get_view_permalink        Filters the overall view permalink.
  * @hook tribe_get_{slug}_view_permalink Filters the specific view permalink.
- * @param string $permalink The generated permalink.
- * @param string $slug The slug of the view.
+ *
+ * @param string        $slug      The slug of the view for which the permalink is being generated.
+ * @param bool|int|null $term      Optional. The term associated with the view. Default is null.
+ * @param string        $permalink The generated permalink.
+ * 
+ * @return string The generated permalink for the view.
  */
 function tribe_get_view_permalink( $slug, $term = null ) {
 	$permalink = tribe_events_get_url( $slug );
