@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.5.1.4
+Stable tag: 6.5.2
 Tested up to: 6.5.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -232,8 +232,15 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [TBD] TBD =
+= [6.5.2] TBD =
 
+* Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
+* Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
+* Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
+* Tweak - Add details to the `tec_views_v2_subscribe_link_visibility()` and `tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility()` docblocks for clarity.
+* Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
+* Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
 * Tweak - Updated docblock for `month_day_classes` and `tec_events_month_day_classes_comparison_date`.
 
 = [6.5.1.4] 2024-06-18 =
