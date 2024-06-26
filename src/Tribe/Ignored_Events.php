@@ -203,21 +203,22 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			$post = tribe_get_request_var( 'post', '' );
 			$ids  = tribe_get_request_var( 'ids', '' );
 
-			// Convert the Event ID's into an array.
-			$ids_array     = ! empty( $ids ) ? array_map( 'intval', explode( ',', $ids ) ) : [];
-			$post_array    = ! empty( $post ) ? array_map( 'intval', (array) $post ) : [];
-			$restore_posts = ! empty( $post_array ) ? $post_array : $ids_array;
+			if ( ! empty( $post ) ) {
+				$post_array = array_map( 'intval', (array) $post );
+			} elseif ( ! empty( $ids ) ) {
+				$post_array = array_map( 'intval', explode( ',', $ids ) );
+			} else {
+				// Bail if we have no IDs to work with.
+				return;
+			}
 
 			$restored_events = [];
-			foreach ( $restore_posts as $event_id ) {
+			foreach ( $post_array as $event_id ) {
 				$restored = $this->restore_ignored_event( $event_id );
-
 				if ( $restored ) {
 					$restored_events[] = $event_id;
 				}
 			}
-
-			$restored_count = count( $restored_events );
 
 			// Get the referer URL.
 			if ( ! function_exists( 'wp_get_referer' ) ) {
@@ -242,7 +243,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				$sendback = admin_url( 'edit.php?post_type=' . Tribe__Events__Main::POSTTYPE );
 			}
 
-			wp_redirect( add_query_arg( 'restored', $restored_count, $sendback ) );
+			wp_redirect( add_query_arg( 'restored', count( $restored_events ), $sendback ) );
 			exit;
 		}
 
