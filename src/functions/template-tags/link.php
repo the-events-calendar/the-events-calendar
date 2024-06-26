@@ -182,12 +182,11 @@ function tribe_get_view_permalink( $slug, $term = null ) {
  *
  * Returns a link to the general or category-specific calendar grid view.
  *
- * @param string|null $term Optional. Event category to link to. Default is null.
- *
- * @return string The URL to the grid view.
- *
- * @hook tribe_get_gridview_link Filters the URL to the grid view.
- * @param string $output The generated URL to the grid view.
+ * @hook   tribe_get_gridview_link Filters the URL to the grid view.
+ * 
+ * @param  string|null $term   Optional. Event category to link to. Default is null.
+ * 
+ * @return string      $output The generated URL to the grid view.
  */
 function tribe_get_gridview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
