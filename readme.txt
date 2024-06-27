@@ -268,7 +268,8 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
 * Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
-* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
+* Tweak - Include a filter to the Elementor integration `tec_events_integration_elementor_bypass_template_override` to allow users to bypass the single event template. [TECTRIA-56]
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()` and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 * Tweak - Changed views: `single-event`
 * Language: 2 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted
