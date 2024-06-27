@@ -66,7 +66,8 @@
     "jest": "TZ=UTC gulp jest",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress"
+    "glotpress": "gulp glotpress",
+    "changelog": "./vendor/bin/changelogger add"
   },
   "engines": { "node": "18.13.0", "npm": "8.19.3" },
   "devDependencies": {
