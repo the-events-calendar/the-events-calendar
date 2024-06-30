@@ -398,7 +398,7 @@ class Tribe__Events__iCal {
 		$args = $wp_query->query_vars;
 
 		if ( $list_view_slug === $args['eventDisplay'] ) {
-			// Whe producing a List view iCal feed the `eventDate` is misleading.
+			// When producing a List view iCal feed the `eventDate` is misleading.
 			unset( $args['eventDate'] );
 
 			// If passed a date, only observe it if it's in the future.

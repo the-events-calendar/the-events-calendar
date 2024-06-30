@@ -730,7 +730,7 @@ class Tribe__Events__Aggregator__Cron {
 	 */
 	private function purge_expired_records_directly( array $deletable_statuses, string $date_threshold ): int {
 		global $wpdb;
-		$deleteable_statuses_interval = $wpdb->prepare(
+		$deletable_statuses_interval = $wpdb->prepare(
 			implode( ', ', array_fill( 0, count( $deletable_statuses ), '%s' ) ),
 			...$deletable_statuses
 		);
@@ -773,7 +773,7 @@ class Tribe__Events__Aggregator__Cron {
 				SELECT ID
 				FROM {$wpdb->posts}
 				WHERE post_type = %s
-				AND post_status IN ( $deleteable_statuses_interval )
+				AND post_status IN ( $deletable_statuses_interval )
 				AND post_date_gmt < %s
 				ORDER BY ID DESC
 				LIMIT %d",
@@ -796,7 +796,7 @@ class Tribe__Events__Aggregator__Cron {
 					SELECT ID
 					FROM {$wpdb->posts}
 					WHERE post_type = %s
-					AND post_status in ( $deleteable_statuses_interval )
+					AND post_status in ( $deletable_statuses_interval )
 					AND post_date_gmt < %s
 					ORDER BY ID DESC
 				) LIMIT %d",
@@ -814,7 +814,7 @@ class Tribe__Events__Aggregator__Cron {
 					SELECT ID
 					FROM {$wpdb->posts}
 					WHERE post_type = %s
-					AND post_status in ( $deleteable_statuses_interval )
+					AND post_status in ( $deletable_statuses_interval )
 					AND post_date_gmt < %s
 					ORDER BY ID DESC
 				) LIMIT %d",
@@ -828,7 +828,7 @@ class Tribe__Events__Aggregator__Cron {
 		$deleted = $wpdb->query( $wpdb->prepare( "
 				DELETE FROM {$wpdb->posts}
 				WHERE post_type = %s
-				AND post_status in ( $deleteable_statuses_interval )
+				AND post_status in ( $deletable_statuses_interval )
 				AND post_date_gmt < %s
 				ORDER BY ID DESC
 				LIMIT %d",

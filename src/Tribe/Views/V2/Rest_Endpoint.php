@@ -148,7 +148,7 @@ class Rest_Endpoint {
 
 		if ( self::$user_id && ! is_user_logged_in() ) {
 			/**
-			 * This user was set but lost, because we use custom nonces which can not be handled by Wordpress auth.
+			 * This user was set but lost, because we use custom nonces which can not be handled by WordPress auth.
 			 *
 			 */
 			wp_set_current_user( self::$user_id );

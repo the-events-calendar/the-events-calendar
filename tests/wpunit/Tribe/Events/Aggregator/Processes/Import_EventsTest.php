@@ -236,7 +236,7 @@ class Import_EventsTest extends Aggregator_TestCase {
 	 * @test
 	 */
 	public function should_skip_the_import_of_an_event_that_generates_an_exception() {
-		$this->markTestSkipped( "Skipping due ot some Exception problem not being handled properly." );
+		$this->markTestSkipped( "Skipping due to some Exception problem not being handled properly." );
 
 		$item = $this->factory()->import_record->create_and_get_event_data();
 		unset( $item->venue, $item->organizer );

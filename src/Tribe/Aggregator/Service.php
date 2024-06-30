@@ -39,7 +39,7 @@ class Tribe__Events__Aggregator__Service {
 	public static $auth_transient_meetup = 'tribe_aggregator_has_meetup_authorized_response';
 
 	/**
-	 * API varibles stored in a single Object
+	 * API variables stored in a single Object
 	 *
 	 * @var array $api {
 	 *     @type string     $key         License key for the API (PUE)
@@ -213,7 +213,7 @@ class Tribe__Events__Aggregator__Service {
 
 		/**
 		 * Length of time to wait when initially connecting to Event Aggregator before abandoning the attempt.
-		 * default is 60 seconds. We set this high so large files can be transfered on slow connections
+		 * default is 60 seconds. We set this high so large files can be transferred on slow connections
 		 *
 		 * @var int $timeout_in_seconds
 		 */

@@ -84,9 +84,9 @@ class Post_RepositoryTest extends Events_TestCase {
 
 	/**
 	 * @test
-	 * it should reutrn the array representation of an event if trying to get an event data
+	 * it should return the array representation of an event if trying to get an event data
 	 */
-	public function it_should_reutrn_the_array_representation_of_an_event_if_trying_to_get_an_event_data() {
+	public function it_should_return_the_array_representation_of_an_event_if_trying_to_get_an_event_data() {
 		$event = $this->factory()->event->create();
 
 		$sut  = $this->make_instance();

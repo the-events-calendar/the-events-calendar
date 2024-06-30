@@ -337,7 +337,7 @@ class Event extends Base {
 	}
 
 	/**
-	 * Overrides the base method to conver the I18n Dates to PHP built-in Date types.
+	 * Overrides the base method to convert the I18n Dates to PHP built-in Date types.
 	 *
 	 * @since 6.0.3.1
 	 *

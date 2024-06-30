@@ -162,7 +162,7 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Create the Date input that will be preprended on the form created.
+	 * Create the Date input that will be prepended on the form created.
 	 *
 	 * @since 4.9.11
 	 *

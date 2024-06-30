@@ -99,7 +99,7 @@ class Advanced_Display {
 		 * remove the backwards compatibility here.
 		 *
 		 * @since  ???  Unsure which version this was introduced to the codebase.
-		 * @since  4.9.11  Moved to the class method in V2.
+		 * @since  4.9.11  Moved to a class method in V2.
 		 *
 		 * @param  string              $after  HTML after passing all the params.
 		 * @param  View_Interface|null $view   Instance of the view we are getting this for.

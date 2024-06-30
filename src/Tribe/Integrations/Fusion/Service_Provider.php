@@ -54,7 +54,7 @@ class Service_Provider extends Provider_Contract {
 	}
 
 	/**
-	 * Builds and hooks the class that will handle shortcode support in the context of Fusipn Core.
+	 * Builds and hooks the class that will handle shortcode support in the context of Fusion Core.
 	 *
 	 * @since 5.5.0
 	 *
