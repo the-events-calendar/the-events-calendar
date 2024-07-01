@@ -4,7 +4,7 @@ Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
-Stable tag: 6.5.0
+Stable tag: 6.5.2
 Tested up to: 6.5.3
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -72,7 +72,7 @@ All of our documentation can be found in [our Knowledgebase](https://evnt.is/eu)
 Additional helpful links:
 
 * [The Events Calendar New User Primer](https://evnt.is/2l)
-* [The Themer’s Guide to The Events Calendar](https://evnt.is/2m)
+* [The Themer's Guide to The Events Calendar](https://evnt.is/2m)
 
 If you have any questions about this plugin, you can post a thread in the [WordPress.org forum](https://wordpress.org/support/plugin/the-events-calendar). Please search existing threads before starting a new one.
 
@@ -232,10 +232,53 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.5.1] TBD =
+= [6.5.2] TBD =
 
-* Tweak - Add note to `tribe_event_update()` docblock to indicate future deprecation.
+* Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
+* Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
+* Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
+* Tweak - Add details to the `tec_views_v2_subscribe_link_visibility()` and `tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility()` docblocks for clarity.
+* Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
+* Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
+* Tweak - Enhanced docblock for the `tribe_get_view_permalink` function
+* Tweak - Updated docblock and notes for the `month_multiday_classes` and `month_day_classes` methods and the `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` filters.
 * Tweak - Added docblock for docblock-tribe_get_display_end_date function.
+
+= [6.5.1.4] 2024-06-18 =
+
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located.[TECTRIA-91]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.3] 2024-06-14 =
+
+* Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
+* Language - 0 new strings added, 109 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.2] 2024-06-14 =
+
+* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.1] 2024-06-13 =
+
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
+
+= [6.5.1] 2024-06-11 =
+
+* Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
+* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
+* Tweak - Include a filter to the Elementor integration `tec_events_integration_elementor_bypass_template_override` to allow users to bypass the single event template. [TECTRIA-56]
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()` and `tribe_delete_venue()` docblocks to indicate future deprecation.
+* Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
+* Tweak - Changed views: `single-event`
+* Language: 2 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.0.1] 2024-06-04 =
+
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
+* Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
 
 = [6.5.0] 2024-05-14 =
 
@@ -243,7 +286,6 @@ Remember to always make a backup of your database and files before updating!
 * Feature - Moved the Remove End Time settings from our Tweaks extension into the TEC > Settings > Display section. Fixes some compatibility issues with recent updates to the views. Also adds a compatibility layer in case of using an older Tweaks extension. [TEC-4371]
 * Fix - When creating a new event the Currency symbol, code and position fields are populated from the general settings options. [TEC-5072]
 * Fix - Wrong page titles in List page when using a Classic Theme. [TEC-5074]
-* Fix - Replace uses of the retired moment.js with Day.js [TEC-5011]
 * Tweak - Add a warning notice in admin area when the REST API endpoints are not accessible. [TEC-4667]
 * Tweak - Add aria-hidden="true" to the event image link so that screen readers ignore it. [TEC-5023]
 * Tweak - Add note to `tribe_event_delete()` docblock to indicate future deprecation.
@@ -252,15 +294,16 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Removed filters: `tribe_events_register_venue_post_type_labels`
 * Tweak - Added actions: `tec_events_elementor_widgets_registered`
 * Tweak - Changed views: `single-event/recurring-description`, `v2/list/event/featured-image`
+* Security - Replace uses of the retired moment.js with Day.js [TEC-5011]
 * Language - 8 new strings added, 190 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0.1] 2024-05-06 =
 
 * Fix - Prevent the Status widget from potentially running undefined methods. [ECP-1797]
-* Fix - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
-* Fix - Correct a user permissions check.
 * Tweak - Add action to signal activation of TEC Elementor compatibility. [ECP-1789]
 * Tweak - Added actions: `tec_events_elementor_loaded`
+* Security - Ensure JSON response of Reflector View class is sanitized, to avoid potential security issues. [SVUL-2]
+* Security - Correct a user permissions check.
 * Language - 0 new strings added, 27 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.4.0] 2024-04-30 =
