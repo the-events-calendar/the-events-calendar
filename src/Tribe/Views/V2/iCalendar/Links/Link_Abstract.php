@@ -158,7 +158,7 @@ abstract class Link_Abstract implements Link_Interface {
 		$visible = $this->visible;
 
 		/**
-		 * Allows filtering of the visibility for the links.
+		 * Allows filtering the visibility of the Subscribe to Calendar and Add to Calendar links.
 		 *
 		 * @since 5.14.0
 		 *
@@ -169,7 +169,15 @@ abstract class Link_Abstract implements Link_Interface {
 		$visible = (boolean) apply_filters( 'tec_views_v2_subscribe_link_visibility', $visible );
 
 		/**
-		 * Allows link-specific filtering of the visibility.
+		 * Allows link-specific filtering of the visibility of the Subscribe to Calendar and Add to Calendar links.
+		 * `self::get_slug()` is the slug of the particular instance of the Link.
+		 * Accepted values:
+		 * - Google Calendar: gcal
+		 * - iCalendar: ical
+		 * - Outlook 365: outlook-365
+		 * - Outlook Live: outlook-live
+		 * - Export .ics file: ics
+		 * - Export Outlook .ics file: outlook-ics
 		 *
 		 * @since 5.14.0
 		 *
