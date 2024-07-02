@@ -243,6 +243,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
 * Tweak - Enhanced docblock for the `tribe_get_view_permalink` function
 * Tweak - Updated docblock and notes for the `month_multiday_classes` and `month_day_classes` methods and the `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` filters.
+* Tweak - Updated docblock for tribe_get_day_link function and filter.
 
 = [6.5.1.4] 2024-06-18 =
 
