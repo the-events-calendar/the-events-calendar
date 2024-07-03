@@ -27,9 +27,9 @@ function tribe_the_prev_event_link( $anchor = false ) {
  *
  * @since 5.14.0
  *
- * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
+ * @param  bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
  *
- * @return string The link to the previous event.
+ * @return string              The link to the previous event.
  */
 function tribe_get_prev_event_link( $anchor = false ) {
 	$event_id = get_the_ID();
