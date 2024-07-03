@@ -125,4 +125,46 @@ class Tribe__Events__REST__V1__Validator__Base
 
 		return $this->is_linked_post_id_or_entry( $type, $linked_post );
 	}
+
+	/**
+	 * Checks if the user can access password-protected content.
+	 *
+	 * This method determines whether we need to override the regular password
+	 * check in core with a filter.
+	 *
+	 * @since 6.5.0.1
+	 *
+	 * @param WP_Post         $post    Post to check against.
+	 * @param WP_REST_Request $request Request data to check.
+	 *
+	 * @return bool True if the user can access password-protected content, otherwise false.
+	 */
+	public function can_access_password_content( WP_Post $post, WP_REST_Request $request ): bool {
+		// It has no password, so yes.
+		if ( empty( $post->post_password ) ) {
+			// No filter required.
+			return true;
+		}
+
+		$edit_cap = get_post_type_object( $post->post_type )->cap->edit_post;
+
+		/*
+		 * Users always gets access to password protected content in the edit
+		 * context if they have the `edit_post` meta capability.
+		 */
+		if (
+			'edit' === $request['context'] &&
+			current_user_can( $edit_cap, $post->ID )
+		) {
+			return true;
+		}
+
+		// No password, no auth.
+		if ( empty( $request['password'] ) ) {
+			return false;
+		}
+
+		// Double-check the request password.
+		return hash_equals( $post->post_password, $request['password'] );
+	}
 }
