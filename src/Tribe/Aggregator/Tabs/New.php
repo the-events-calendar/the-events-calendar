@@ -203,7 +203,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	/**
-	 * Parses the queue for errors and informations.
+	 * Parses the queue for errors and information.
 	 *
 	 * @param Tribe__Events__Aggregator__Record__Queue_Interface|WP_Error|Tribe__Events__Aggregator__Record__Activity $queue
 	 *
