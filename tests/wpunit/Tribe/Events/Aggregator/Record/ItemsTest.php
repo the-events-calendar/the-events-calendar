@@ -24,11 +24,11 @@ class ItemsTest extends Aggregator_TestCase {
 	}
 
 	/**
-	 * It should return emtpy array if items are not set
+	 * It should return empty array if items are not set
 	 *
 	 * @test
 	 */
-	public function should_return_emtpy_array_if_items_are_not_set() {
+	public function should_return_empty_array_if_items_are_not_set() {
 		$sut = $this->make_instance();
 		$this->assertEquals( [], $sut->get_items() );
 	}

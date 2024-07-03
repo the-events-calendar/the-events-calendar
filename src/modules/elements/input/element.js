@@ -28,7 +28,7 @@ import './style.pcss';
  * - validate
  *
  * Both properties are helpful to provide validation based on the type of the element also has
- * the option to add a cusotm validation callback with the property validateCallback.
+ * the option to add a custom validation callback with the property validateCallback.
  *
  * <Input />
  *

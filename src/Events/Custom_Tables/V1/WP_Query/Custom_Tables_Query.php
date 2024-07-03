@@ -441,7 +441,7 @@ class Custom_Tables_Query extends WP_Query {
 		 *
 		 * @param string              $where    The `WHERE` statement produced by the Custom Tables Query.
 		 * @param WP_Query            $query    The query object being filtered.
-		 * @param Custom_Tables_Query $ct_query A reference to the Custom Tables Query instance that is appplying
+		 * @param Custom_Tables_Query $ct_query A reference to the Custom Tables Query instance that is applying
 		 *                                      the filter.
 		 */
 		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_where', $where, $query, $this );
