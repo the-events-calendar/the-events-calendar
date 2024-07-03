@@ -226,7 +226,19 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			if ( ! in_array( $join_clause, $this->query_vars['join'], true ) ) {
 				$this->query_vars['join'][] = $join_clause;
 			}
-		} else if ( ! empty( $this->query_vars['join'] ) ) {
+		//} else if ( ! empty( $this->query_vars['join'] ) ) {
+		//	$join = $this->deduplicate_joins( $join );
+		}
+
+		/*
+		 * Fix for php error "WordPress database error Not unique table/alias: 'wp_tec_occurrences' 
+   		 * for query SELECT SQL_CALC_FOUND_ROWS..."
+		 *
+		 * Moved from above 'else if'. Function filter_posts_join needs to check for dups regardless of 
+		 * whether or not there are any redirects because the external join from wp_query still needs to 
+		 * be tested against the existing query vars.
+		 */
+		if ( ! empty( $this->query_vars['join'] ) ) {
 			$join = $this->deduplicate_joins( $join );
 		}
 
