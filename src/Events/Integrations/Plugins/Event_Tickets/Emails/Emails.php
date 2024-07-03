@@ -180,9 +180,9 @@ class Emails {
 			return $attachments;
 		}
 
-		$ics_filname = $file . '.ics';
-		file_put_contents( $ics_filname, $ics_content );
-		$attachments[] = $ics_filname;
+		$ics_filename = $file . '.ics';
+		file_put_contents( $ics_filename, $ics_content );
+		$attachments[] = $ics_filename;
 		unlink( $file );
 
 		return $attachments;

@@ -130,8 +130,8 @@ describe( 'Event Date time Block sagas', () => {
 
 	describe( 'setHumanReadableFromDate', () => {
 		test( 'When called from start date', () => {
-			const formated = toDateTime( moment( '12-25-2018', 'MM-DD-YYYY' ) );
-			const gen = sagas.setHumanReadableFromDate( actions.setStartDateTime( formated ) );
+			const formatted = toDateTime( moment( '12-25-2018', 'MM-DD-YYYY' ) );
+			const gen = sagas.setHumanReadableFromDate( actions.setStartDateTime( formatted ) );
 			expect( gen.next().value ).toEqual(
 				select( selectors.getStart ),
 			);
@@ -148,8 +148,8 @@ describe( 'Event Date time Block sagas', () => {
 		} );
 
 		test( 'When called from end date', () => {
-			const formated = toDateTime( moment( '12-25-2018', 'MM-DD-YYYY' ) );
-			const gen = sagas.setHumanReadableFromDate( actions.setEndDateTime( formated ) );
+			const formatted = toDateTime( moment( '12-25-2018', 'MM-DD-YYYY' ) );
+			const gen = sagas.setHumanReadableFromDate( actions.setEndDateTime( formatted ) );
 			expect( gen.next().value ).toEqual(
 				select( selectors.getStart ),
 			);
