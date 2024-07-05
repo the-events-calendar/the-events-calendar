@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Tweak - Update docblock for `tribe_get_map_link()` and add docblocks for the `tribe_events_google_map_link` and `tribe_get_map_link` filters.
+* Tweak - Update docblock for the `tribe_get_map_link()` and `tribe_get_map_link_html()` methods and add docblocks for the `tribe_events_google_map_link`, `tribe_get_map_link` and `tribe_get_map_link_html` filters.
 
 = [6.5.1.4] 2024-06-18 =
 
