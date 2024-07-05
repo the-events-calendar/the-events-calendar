@@ -203,6 +203,8 @@ function tribe_show_google_map_link( $postId = null ) {
  * @since 4.6.24
  *
  * @param string $address_string The full address for the marker to be shown on the map (e.g. an event venue).
+ * 
+ * @return string The full URL for a basic Google Maps embed.
  */
 function tribe_get_basic_gmap_embed_url( $address_string ) {
 
@@ -221,7 +223,7 @@ function tribe_get_basic_gmap_embed_url( $address_string ) {
 		 *
 		 * @since 4.6.24
 		 *
-		 * @param array $embed_url_args The URL parameters being passed to the Google Maps embed URL
+		 * @param array $embed_url_args The URL parameters being passed to the Google Maps embed URL.
 		 */
 		apply_filters( 'tribe_get_basic_gmap_embed_url_args', $embed_url_args ),
 		/**
