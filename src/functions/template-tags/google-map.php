@@ -131,10 +131,10 @@ function tribe_get_map_link_html( $postId = null ) {
  *
  * @category Events
  *
- * @param string $post_id    The event post ID.
- * @param int    $width      The width of the iframe containing the map in pixels.
- * @param int    $height     The height of the iframe containing the map in pixels.
- * @param bool   $force_load If true, then load the map even if an address is not provided.
+ * @param id   $post_id    The event post ID.
+ * @param int  $width      The width of the iframe containing the map in pixels.
+ * @param int  $height     The height of the iframe containing the map in pixels.
+ * @param bool $force_load If true, then load the map even if an address is not provided.
  *
  * @return string An iframe pulling https://maps.google.com/ for this event.
  */
