@@ -239,12 +239,13 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
 * Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
 * Tweak - Add details to the `tec_views_v2_subscribe_link_visibility()` and `tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility()` docblocks for clarity.
-* Tweak - Added filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
-* Tweak - Updated docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
-* Tweak - Enhanced docblock for the `tribe_get_view_permalink` function
-* Tweak - Updated docblock and notes for the `month_multiday_classes` and `month_day_classes` methods and the `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` filters.
-* Tweak - Updated many docblock typos - credit goes to @szepeviktor.
-* Tweak - Corrected some variables with typos, such as `$ics_filname` to `$ics_filename` and `$deleteable_statuses_interval` to `$deletable_statuses_interval` and `$delimter` to `$delimiter. Credit goes to @szepeviktor.
+* Tweak - Add filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
+* Tweak - Update docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
+* Tweak - Enhance docblock for the `tribe_get_view_permalink` function.
+* Tweak - Update docblock and notes for the `month_multiday_classes` and `month_day_classes` methods and the `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` filters.
+* Tweak - Update many docblock typos - credit goes to @szepeviktor.
+* Tweak - Correct some variables with typos, such as `$ics_filname` to `$ics_filename` and `$deleteable_statuses_interval` to `$deletable_statuses_interval` and `$delimter` to `$delimiter. Credit goes to @szepeviktor.
+* Tweak - Update docblock for `tribe_event_featured_image()`.
 
 = [6.5.1.4] 2024-06-18 =
 
