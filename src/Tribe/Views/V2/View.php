@@ -2407,7 +2407,9 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.11
 	 *
-	 * @return array
+	 * @param bool $display Whether the view should display the events bar or not.
+	 *
+	 * @return bool
 	 */
 	protected function filter_display_events_bar( $display ) {
 

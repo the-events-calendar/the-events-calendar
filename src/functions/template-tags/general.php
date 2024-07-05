@@ -1495,7 +1495,7 @@ function tec_events_get_current_view() {
 	 *
 	 * @since  6.0.0
 	 *
-	 * @pararm null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
+	 * @param null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
 	 */
 	return apply_filters( 'tec_events_get_current_view', null );
 }
