@@ -91,12 +91,14 @@ function tribe_get_map_link( $post_id = null ) {
 
 /**
  * Returns a formed HTML link to Google Maps for the given event.
+ * 
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param string $postId
+ * @param string $postId The event post ID.
  *
- * @return string A fully qualified link to https://maps.google.com/ for this event
+ * @return string A fully qualified link to https://maps.google.com/ for this event.
  */
 function tribe_get_map_link_html( $postId = null ) {
 	$map_link = esc_url( tribe_get_map_link( $postId ) );
@@ -112,6 +114,13 @@ function tribe_get_map_link_html( $postId = null ) {
 		);
 	}
 
+	/**
+	 * Allows filtering the formed HTML link to Google Maps for the given event.
+	 * 
+	 * @since 4.6.24
+	 * 
+	 * @param string $link The fully formed HTML link to Google Maps.
+	 */
 	return apply_filters( 'tribe_get_map_link_html', $link );
 }
 
