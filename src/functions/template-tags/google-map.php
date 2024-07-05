@@ -125,18 +125,18 @@ function tribe_get_map_link_html( $postId = null ) {
 }
 
 /**
- * Google Map Embed
- *
- * Returns an embedded google maps for an event
+ * Returns an embedded Google Maps map for an event.
+ * 
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param string $post_id
- * @param int    $width
- * @param int    $height
+ * @param string $post_id    The event post ID.
+ * @param int    $width      The width of the iframe containing the map in pixels.
+ * @param int    $height     The height of the iframe containing the map in pixels.
  * @param bool   $force_load If true, then load the map even if an address is not provided.
  *
- * @return string An iframe pulling https://maps.google.com/ for this event
+ * @return string An iframe pulling https://maps.google.com/ for this event.
  */
 function tribe_get_embedded_map( $post_id = null, $width = null, $height = null, $force_load = false ) {
 	return Tribe__Events__Embedded_Maps::instance()->get_map( $post_id, $width, $height, $force_load );
