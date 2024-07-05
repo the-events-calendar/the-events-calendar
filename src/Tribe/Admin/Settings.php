@@ -93,7 +93,7 @@ class Settings {
 	}
 
 	/**
-	 * Defines wether the current page is The Events Calendar Settings page.
+	 * Defines whether the current page is The Events Calendar Settings page.
 	 *
 	 * @since 5.15.0
 	 *
