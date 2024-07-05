@@ -37,13 +37,15 @@ function tribe_is_using_basic_gmaps_api() {
 /**
  * Google Map Link
  *
- * Returns a url to google maps for the given event
+ * Returns a URL to Google Maps for the given event.
+ * 
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param string $postId
+ * @param int $post_id The event post ID.
  *
- * @return string A fully qualified link to https://maps.google.com/ for this event
+ * @return string A fully qualified link to https://maps.google.com/ for this event.
  */
 function tribe_get_map_link( $post_id = null ) {
 	if ( $post_id === null || ! is_numeric( $post_id ) ) {
@@ -66,20 +68,37 @@ function tribe_get_map_link( $post_id = null ) {
 		$url = 'https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=' . urlencode( trim( $to_encode ) );
 	}
 
+	/**
+	 * Allows filtering the Google Maps URL for the given event.
+	 * 
+	 * @since 4.6.24
+	 * 
+	 * @param string $url     The URL to Google Maps.
+	 * @param int    $post_id The event post ID.
+	 */
 	$url = apply_filters( 'tribe_events_google_map_link', $url, $post_id );
 	$output = esc_url( $url );
 
+	/**
+	 * Allows filtering the escaped Google Maps URL for the given event.
+	 * 
+	 * @since 4.6.24
+	 * 
+	 * @param string $output The escaped URL to Google Maps.
+	 */
 	return apply_filters( 'tribe_get_map_link', $output );
 }
 
 /**
  * Returns a formed HTML link to Google Maps for the given event.
+ * 
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param string $postId
+ * @param int $postId The event post ID.
  *
- * @return string A fully qualified link to https://maps.google.com/ for this event
+ * @return string A fully qualified link to https://maps.google.com/ for this event.
  */
 function tribe_get_map_link_html( $postId = null ) {
 	$map_link = esc_url( tribe_get_map_link( $postId ) );
@@ -95,6 +114,13 @@ function tribe_get_map_link_html( $postId = null ) {
 		);
 	}
 
+	/**
+	 * Allows filtering the formed HTML link to Google Maps for the given event.
+	 * 
+	 * @since 4.6.24
+	 * 
+	 * @param string $link The fully formed HTML link to Google Maps.
+	 */
 	return apply_filters( 'tribe_get_map_link_html', $link );
 }
 
