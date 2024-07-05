@@ -33,14 +33,14 @@ class Advanced_Display {
 	public static $key_after_events_html = 'tribeEventsAfterHTML';
 
 	/**
-	 * Fetches from the tribe options setting the string for the before events,
-	 * applies all the required methods for proper usage and returns it.
+	 * Fetches the "HTML before event content" from the calendar settings, which can be found under
+	 * Events > Settings > Display tab. Applies all the required methods for proper usage and returns it.
 	 *
 	 * @since  4.9.11
 	 *
 	 * @param  View_Interface|null $view Instance of the view we are getting this for.
 	 *
-	 * @return string HTML with all the methods have been applied to it.
+	 * @return string HTML after all the methods have been applied to it.
 	 */
 	public function get_before_events_html( $view = null ) {
 		$before = stripslashes( tribe_get_option( static::$key_before_events_html, '' ) );
@@ -55,7 +55,7 @@ class Advanced_Display {
 		 * remove the backwards compatibility here.
 		 *
 		 * @since  ???  Unsure which version this was introduced to the codebase.
-		 * @since  4.9.11  Moved to the a class method in V2, and removed Loader HTML.
+		 * @since  4.9.11  Moved to the class method in V2, and removed Loader HTML.
 		 *
 		 * @param  string              $before HTML after passing all the params.
 		 * @param  View_Interface|null $view   Instance of the view we are getting this for.
@@ -77,14 +77,14 @@ class Advanced_Display {
 	}
 
 	/**
-	 * Fetches from the tribe options setting the string for after the events,
-	 * applies all the required methods for proper usage and returns it.
+	 * Fetches the "HTML after event content" from the calendar settings, which can be found under
+	 * Events > Settings > Display tab. Applies all the required methods for proper usage and returns it.
 	 *
 	 * @since  4.9.11
 	 *
 	 * @param  View_Interface|null $view Instance of the view we are getting this for.
 	 *
-	 * @return string HTML with all the methods have been applied to it.
+	 * @return string HTML after all the methods have been applied to it.
 	 */
 	public function get_after_events_html( $view = null ) {
 		$after = stripslashes( tribe_get_option( static::$key_after_events_html, '' ) );
@@ -98,8 +98,8 @@ class Advanced_Display {
 		 * Filter imported from V1 of Views, kept since there was no requirement to
 		 * remove the backwards compatibility here.
 		 *
-		 * @since  ???  Unsure which verison this was introduced to the codebase.
-		 * @since  4.9.11  Moved to the a class method in V2.
+		 * @since  ???  Unsure which version this was introduced to the codebase.
+		 * @since  4.9.11  Moved to a class method in V2.
 		 *
 		 * @param  string              $after  HTML after passing all the params.
 		 * @param  View_Interface|null $view   Instance of the view we are getting this for.

@@ -6,7 +6,7 @@ class Tribe__Events__Front_Page_View {
 
 
 	/**
-	 * The ID used to identify the virtual page, using a -10 for no particular reason, but avoding -1 as is regular
+	 * The ID used to identify the virtual page, using a -10 for no particular reason, but avoiding -1 as is regular
 	 * used as infinite or any other popular reference.
 	 *
 	 * @since 4.6.15
@@ -149,7 +149,7 @@ class Tribe__Events__Front_Page_View {
 	 * @return string
 	 */
 	public function main_event_page_links( $url ) {
-		// Capture the main events URL and break it into its consituent pieces for future comparison
+		// Capture the main events URL and break it into its constituent pieces for future comparison
 		static $event_url;
 
 		if ( ! isset( $event_url ) ) {
@@ -334,7 +334,7 @@ class Tribe__Events__Front_Page_View {
 
 	/**
 	 * Compare a value with the value used on the virtual page ID and converts the var $compare to an integer
-	 * to make sure the strict comparision is done correctly between two integers.
+	 * to make sure the strict comparison is done correctly between two integers.
 	 *
 	 * @since 4.6.15
 	 *
@@ -362,7 +362,7 @@ class Tribe__Events__Front_Page_View {
 	 *
 	 * @since 6.0.6
 	 *
-	 * @param mixed|null $input The first iput of the method, when used as a filter.
+	 * @param mixed|null $input The first input of the method, when used as a filter.
 	 *
 	 * @return mixed|null The first input of the method, when used as a filter, unmodified.
 	 */
