@@ -96,7 +96,7 @@ function tribe_get_map_link( $post_id = null ) {
  *
  * @category Events
  *
- * @param string $postId The event post ID.
+ * @param int $postId The event post ID.
  *
  * @return string A fully qualified link to https://maps.google.com/ for this event.
  */
