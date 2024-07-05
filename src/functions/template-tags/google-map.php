@@ -29,7 +29,7 @@ function tribe_is_using_basic_gmaps_api() {
 	 *
 	 * @param boolean $using_basic_maps_api Whether basic Google Maps Embed API requests are allowed on this site.
 	 * @param string $user_api_key The value of the Google Maps API Key setting in TEC.
-	 * @param string $tec_api_key The default Google Maps API Key provided by Tge Events Calendar for basic functionality.
+	 * @param string $tec_api_key The default Google Maps API Key provided by The Events Calendar for basic functionality.
 	 */
 	return apply_filters( 'tribe_is_using_basic_gmaps_api', $user_api_key === $tec_api_key, $user_api_key, $tec_api_key );
 }
@@ -96,7 +96,7 @@ function tribe_get_map_link( $post_id = null ) {
  *
  * @category Events
  *
- * @param string $postId The event post ID.
+ * @param int $postId The event post ID.
  *
  * @return string A fully qualified link to https://maps.google.com/ for this event.
  */

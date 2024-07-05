@@ -795,7 +795,7 @@ class Tribe__Events__Linked_Posts {
 		$post_ids_to_link          = [];
 		$event_post_status         = get_post_status( $event_id );
 
-		// Prevents Revisons from been Linked
+		// Prevents Revisions from been Linked
 		if ( 'inherit' === $event_post_status ) {
 			return;
 		}

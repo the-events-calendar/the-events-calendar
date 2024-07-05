@@ -84,7 +84,7 @@ class Service_Provider extends Provider_Contract {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
-		// Allow Hooks to be removed, by having the them registred to the container
+		// Allow Hooks to be removed, by having the them registered to the container
 		$this->container->singleton( Hooks::class, $hooks );
 		$this->container->singleton( 'events.views.v2.hooks', $hooks );
 	}
