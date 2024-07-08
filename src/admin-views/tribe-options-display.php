@@ -116,9 +116,9 @@ $tec_events_general_toc = [
  *
  * @since TBD
  *
- * @param array $tec_events_display_toc Array of items of the TOC.
+ * @param array $tec_events_general_toc Array of items of the TOC.
  */
-$tec_events_display_fields += apply_filters( 'tec_events_display_settings_toc', $tec_events_display_toc );
+$tec_events_display_fields += apply_filters( 'tec_events_display_settings_toc', $tec_events_general_toc );
 
 // Start the form content wrapper.
 $tec_events_general_form_end = [
