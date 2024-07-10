@@ -53,6 +53,26 @@
       "phpstan/extension-installer": true
     }
   },
+  "extra": {
+    "changelogger": {
+      "changelog": "changelog.md",
+      "types": {
+        "feat" : "Feature",
+        "tweak" : "Tweak",
+        "fix" : "Fix",
+        "performance" : "Performance",
+        "security" : "Security",
+        "accessibility" : "Accessibility",
+        "compatibility" : "Compatibility",
+        "deprecated" : "Deprecated",
+        "language" : "Language"
+      },
+      "formatter": {
+        "filename": "bin/class-tec-changelog-formatter.php"
+      },
+      "changes-dir": "changelog"
+    }
+  },
   "autoload": {
     "psr-4": {
       "Tribe\\Events\\" : "src/Tribe",
