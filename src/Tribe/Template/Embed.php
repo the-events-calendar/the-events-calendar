@@ -4,8 +4,8 @@
  * This file contains the hook logic required to create an effective embed view
  *
  * @package TribeEventsCalendar
- *
  */
+
 /**
  * Single event template class
  */
