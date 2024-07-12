@@ -167,6 +167,13 @@ function tribe_show_google_map_link( $post_id = null ) {
 		$output = tribe_is_truthy( get_post_meta( $post_id, '_VenueShowMapLink', 1 ) );
 	}
 
+	/**
+	 * Allows filtering the "Show Map Link" setting globally.
+	 *
+	 * @since 4.6.24
+	 *
+	 * @param bool $output The value of the "Show Map Link" setting.
+	 */
 	return apply_filters( 'tribe_show_google_map_link', $output );
 }
 
