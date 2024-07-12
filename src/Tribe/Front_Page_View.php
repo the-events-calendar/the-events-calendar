@@ -149,7 +149,7 @@ class Tribe__Events__Front_Page_View {
 	 * @return string
 	 */
 	public function main_event_page_links( $url ) {
-		// Capture the main events URL and break it into its constituent pieces for future comparison
+		// Capture the main events URL and break it into its constituent pieces for future comparison.
 		static $event_url;
 
 		if ( ! isset( $event_url ) ) {
@@ -161,7 +161,7 @@ class Tribe__Events__Front_Page_View {
 			return $url;
 		}
 
-		// Break apart the requested URL
+		// Break apart the requested URL.
 		$current = parse_url( $url );
 
 		// If the URLs can't be inspected then bail
