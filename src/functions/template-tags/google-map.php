@@ -145,13 +145,13 @@ function tribe_get_embedded_map( $post_id = null, $width = null, $height = null,
 /**
  * Google Map Embed Test
  *
- * Check if embed google map is enabled for this event (or venue ).
+ * Check if the "Show Map" option is enabled for the event or venue.
  *
  * @category Events
  *
- * @param int $postId Id of the post, if none specified, current post is used
+ * @param int $postId Post ID of the post, if none specified, current post is used.
  *
- * @return bool True if google map option is set to embed the map
+ * @return bool True if the "Show Map" option is enabled.
  */
 function tribe_embed_google_map( $postId = null ) {
 
