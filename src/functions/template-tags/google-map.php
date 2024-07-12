@@ -145,15 +145,15 @@ function tribe_embed_google_map( $postId = null ) {
 }
 
 /**
- * Google Map Link Test
+ * Check if the "Show Map Link" option is enabled for the event or venue.
  *
- * Check if google map link is enabled for this event
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param int $postId Id of the post, if none specified, current post is used
+ * @param int $postId The post ID. If none specified, current post is used.
  *
- * @return bool True if google map link is set to display the event
+ * @return bool True if the "Show Map Link" option is enabled.
  */
 function tribe_show_google_map_link( $postId = null ) {
 
