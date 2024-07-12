@@ -128,7 +128,7 @@ function tribe_get_embedded_map( $post_id = null, $width = null, $height = null,
 function tribe_embed_google_map( $post_id = null ) {
 
 	$output    = false;
-	$post_id    = Tribe__Events__Main::postIdHelper( $post_id );
+	$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
 	$post_type = get_post_type( $post_id );
 
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) {
@@ -139,6 +139,13 @@ function tribe_embed_google_map( $post_id = null ) {
 		}
 	}
 
+	/**
+	 * Allows filtering the "Show Map" setting globally.
+	 *
+	 * @since 4.6.24
+	 *
+	 * @param bool $output The value of the "Show Map" setting.
+	 */
 	return apply_filters( 'tribe_embed_google_map', $output );
 }
 
