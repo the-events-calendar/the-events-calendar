@@ -38,7 +38,7 @@ function tribe_is_using_basic_gmaps_api() {
  * Google Map Link
  *
  * Returns a URL to Google Maps for the given event.
- * 
+ *
  * @since 4.6.24
  *
  * @category Events
@@ -70,9 +70,9 @@ function tribe_get_map_link( $post_id = null ) {
 
 	/**
 	 * Allows filtering the Google Maps URL for the given event.
-	 * 
+	 *
 	 * @since 4.6.24
-	 * 
+	 *
 	 * @param string $url     The URL to Google Maps.
 	 * @param int    $post_id The event post ID.
 	 */
@@ -81,9 +81,9 @@ function tribe_get_map_link( $post_id = null ) {
 
 	/**
 	 * Allows filtering the escaped Google Maps URL for the given event.
-	 * 
+	 *
 	 * @since 4.6.24
-	 * 
+	 *
 	 * @param string $output The escaped URL to Google Maps.
 	 */
 	return apply_filters( 'tribe_get_map_link', $output );
@@ -91,7 +91,7 @@ function tribe_get_map_link( $post_id = null ) {
 
 /**
  * Returns a formed HTML link to Google Maps for the given event.
- * 
+ *
  * @since 4.6.24
  *
  * @category Events
@@ -116,9 +116,9 @@ function tribe_get_map_link_html( $postId = null ) {
 
 	/**
 	 * Allows filtering the formed HTML link to Google Maps for the given event.
-	 * 
+	 *
 	 * @since 4.6.24
-	 * 
+	 *
 	 * @param string $link The fully formed HTML link to Google Maps.
 	 */
 	return apply_filters( 'tribe_get_map_link_html', $link );
@@ -126,12 +126,12 @@ function tribe_get_map_link_html( $postId = null ) {
 
 /**
  * Returns an embedded Google Maps map for an event.
- * 
+ *
  * @since 4.6.24
  *
  * @category Events
  *
- * @param id   $post_id    The event post ID.
+ * @param int  $post_id    The event post ID.
  * @param int  $width      The width of the iframe containing the map in pixels.
  * @param int  $height     The height of the iframe containing the map in pixels.
  * @param bool $force_load If true, then load the map even if an address is not provided.
@@ -203,7 +203,7 @@ function tribe_show_google_map_link( $postId = null ) {
  * @since 4.6.24
  *
  * @param string $address_string The full address for the marker to be shown on the map (e.g. an event venue).
- * 
+ *
  * @return string The full URL for a basic Google Maps embed.
  */
 function tribe_get_basic_gmap_embed_url( $address_string ) {
