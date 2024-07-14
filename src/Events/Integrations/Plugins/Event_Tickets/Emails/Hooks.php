@@ -20,7 +20,7 @@ use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\Email\Ticket;
 use TEC\Events\Integrations\Plugins\Event_Tickets\Emails\JSON_LD\Event_Data;
 use TEC\Tickets\Emails\Dispatcher;
 use TEC\Tickets\Emails\Email_Abstract;
-use \Tribe__Template as Common_Template;
+use Tribe__Template as Common_Template;
 
 /**
  * Class Hooks.

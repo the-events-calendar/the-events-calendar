@@ -1,7 +1,4 @@
 <?php
-
-use \Tribe\Events\Views\V2\Template;
-
 /**
  * View Component: Header
  *
@@ -15,8 +12,8 @@ use \Tribe\Events\Views\V2\Template;
  * @version 6.2.0
  * @since   6.2.0
  *
- * @var Template $this                 Template Engine instance rendering.
- * @var bool     $disable_event_search Boolean on whether to disable the event search.
+ * @var \Tribe\Events\Views\V2\Template $this                 Template Engine instance rendering.
+ * @var bool                            $disable_event_search Boolean on whether to disable the event search.
  */
 
 $header_classes = [ 'tribe-events-header' ];
