@@ -4,7 +4,7 @@ defined( 'WPINC' ) or die;
 
 use Tribe__Events__Aggregator__Records as Records;
 
-// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder
+// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder,WordPress.DB.DirectDatabaseQuery.DirectQuery
 
 class Tribe__Events__Aggregator__Cron {
 	/**
@@ -793,7 +793,8 @@ class Tribe__Events__Aggregator__Cron {
 		// ORDER BY ID DESC is important here to make sure the run will insist on the same set of records.
 
 		// Use a sub-query to avoid running into the max_allowed_packet limit.
-		if ( $wpdb->query(
+		if (
+			$wpdb->query(
 				$wpdb->prepare(
 					'DELETE FROM %1$s
 					WHERE comment_post_ID IN (
