@@ -204,6 +204,7 @@ $tec_events_general_viewing = [
 		'label'       => esc_html__( 'Events URL slug', 'the-events-calendar' ),
 		'html'        => '<p>'
 						. sprintf(
+								/* Translators: %1$s - link to the front-end calendar page, %2$s - URL to the permalinks admin page. */
 							__( 'The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href="%2$s">enable pretty permalinks</a>.', 'the-events-calendar' ),
 							sprintf(
 								'<a href="%1$s">%2$s</a>',
@@ -224,7 +225,16 @@ $tec_events_general_viewing = [
 	],
 	'current-events-slug'                       => [
 		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">' . esc_html__( 'The slug used for building the events URL.', 'the-events-calendar' ) . ' ' . sprintf( esc_html__( 'Your current events URL is: %s', 'the-events-calendar' ), '<code><a href="' . esc_url( tribe_get_events_link() ) . '">' . urldecode( tribe_get_events_link() ) . '</a></code>' ) . '</p>',
+		'html'        => '<p class="tribe-field-indent tribe-field-description description">'
+							. esc_html__( 'The slug used for building the events URL.', 'the-events-calendar' )
+							. ' '
+							. sprintf(
+								/* Translators: %1$s - URL to the events page (link), %2$s - URL to the events page (readable string) */
+								esc_html__( 'Your current events URL is: <code><a href="%1$s">%2$s</a></code>', 'the-events-calendar' ),
+								esc_url( tribe_get_events_link() ),
+								urldecode( tribe_get_events_link() )
+							)
+							. '</p>',
 		'conditional' => ( '' !== get_option( 'permalink_structure' ) ),
 	],
 	'singleEventSlug'                           => [
@@ -236,7 +246,12 @@ $tec_events_general_viewing = [
 	],
 	'current-single-event-slug'                 => [
 		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">' . sprintf( __( 'The above should ideally be plural, and this singular.<br />Your single event URL is: %s', 'the-events-calendar' ), '<code>' . trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/</code>' ) . '</p>',
+		'html'        => '<p class="tribe-field-indent tribe-field-description description">'
+				. sprintf(
+					/* Translators: %1$s - URL to the single event page (readable string) */
+					__( 'The above should ideally be plural, and this singular.<br />Your single event URL is: <code>%1$s</code>', 'the-events-calendar' ),
+					trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/'
+				) . '</p>',
 		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 	],
 	'showEventsInMainLoop'                      => [
@@ -249,7 +264,11 @@ $tec_events_general_viewing = [
 	'enable_month_view_cache'                   => [
 		'type'            => 'checkbox_bool',
 		'label'           => __( 'Enable the Month View Cache', 'the-events-calendar' ),
-		'tooltip'         => sprintf( __( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ), 'https://evnt.is/18di' ),
+		'tooltip'         => sprintf(
+			/* Translators: %s - link to the Month View Cache documentation */
+			__( 'Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ),
+			'https://evnt.is/18di'
+		),
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
@@ -312,6 +331,7 @@ $trash_tooltip = esc_html__( 'This option allows you to automatically move past 
 // Some adjusted functionality with CT1 activated.
 if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
 	$trash_tooltip = sprintf(
+		/* Translators: %1$d - number of days, %2$s - `EMPTY_TRASH_DAYS` constant (code), %3$s - link to the documentation */
 		__( 'Trashed events will permanently be deleted in %1$d days, you can change that value using <code>%2$s</code>. <a href="%3$s" rel="noopener noreferrer" target="_blank">Read more.</a>', 'the-events-calendar' ),
 		(int) EMPTY_TRASH_DAYS,
 		'EMPTY_TRASH_DAYS',
@@ -406,8 +426,9 @@ $tec_events_general_debugging = [
 		'type'            => 'checkbox_bool',
 		'label'           => esc_html__( 'Debug mode', 'the-event-calendar' ),
 		'tooltip'         => sprintf(
+			/* Translators: %1$s - wordpress.org link to the Debug Bar Plugin */
 			esc_html__(
-				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.',
+				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %1$s and look for the "Tribe" tab in the debug output.',
 				'the-event-calendar'
 			),
 			'<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/extend/plugins/debug-bar/">' . esc_html__( 'Debug Bar Plugin', 'the-event-calendar' ) . '</a>'
