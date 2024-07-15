@@ -772,7 +772,7 @@ class Tribe__Events__Aggregator__Cron {
 				'SELECT ID
 				FROM %1$s
 				WHERE post_type = "%2$s"
-				AND post_status IN ( %3$s )
+				AND post_status IN ( "%3$s" )
 				AND post_date_gmt < "%4$s"
 				ORDER BY ID DESC
 				LIMIT %5$d',
@@ -798,7 +798,7 @@ class Tribe__Events__Aggregator__Cron {
 						SELECT ID
 						FROM %2$s
 						WHERE post_type = "%3$s"
-						AND post_status in ( %4$s )
+						AND post_status in ( "%4$s" )
 						AND post_date_gmt < "%5$s"
 						ORDER BY ID DESC
 					) LIMIT %6$d',
@@ -823,7 +823,7 @@ class Tribe__Events__Aggregator__Cron {
 						SELECT ID
 						FROM %2$s
 						WHERE post_type = "%3$s"
-						AND post_status in ( %4$s )
+						AND post_status in ( "%4$s" )
 						AND post_date_gmt < "%5$s"
 						ORDER BY ID DESC
 					) LIMIT %6$d',
@@ -843,7 +843,7 @@ class Tribe__Events__Aggregator__Cron {
 			$wpdb->prepare(
 				'DELETE FROM %1$s
 				WHERE post_type = "%2$s"
-				AND post_status in ( %3$ )
+				AND post_status in ( "%3$" )
 				AND post_date_gmt < "%4$s"
 				ORDER BY ID DESC
 				LIMIT %5$d',
