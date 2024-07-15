@@ -39,12 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-<<<<<<< HEAD
 		const VERSION             = '6.6.0';
-=======
-
-		const VERSION             = '6.5.2';
->>>>>>> release/T24.babayaga
 
 		/**
 		 * Min Pro Addon.
