@@ -808,17 +808,20 @@ class Tribe__Events__Aggregator__Cron {
 		}
 
 		// Use a sub-query to avoid running into the max_allowed_packet limit.
-		if ( $wpdb->query( $wpdb->prepare( "
-				DELETE FROM {$wpdb->postmeta}
+		if ( $wpdb->query( $wpdb->prepare( '
+				DELETE FROM %1$s
 				WHERE post_id IN (
 					SELECT ID
-					FROM {$wpdb->posts}
-					WHERE post_type = %s
-					AND post_status in ( $deletable_statuses_interval )
-					AND post_date_gmt < %s
+					FROM %2$s
+					WHERE post_type = %3$s
+					AND post_status in ( %4$s )
+					AND post_date_gmt < %5$s
 					ORDER BY ID DESC
-				) LIMIT %d",
+				) LIMIT %6$d',
+				$wpdb->postmeta,
+				$wpdb->posts,
 				Tribe__Events__Aggregator__Records::$post_type,
+				$deletable_statuses_interval,
 				$date_threshold,
 				$batch_size
 			) ) === false ) {

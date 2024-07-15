@@ -40,28 +40,28 @@ $general_tab_fields = [
 	'tec-links-documentation-section-start'          => [
 		'type' => 'html',
 		'html' => '<ul class="tec-settings-header-links-section__documentation">'
-		          . '<li>' . esc_html__( 'Documentation', 'the-events-calendar' ) . '</li>',
+					. '<li>' . esc_html__( 'Documentation', 'the-events-calendar' ) . '</li>',
 	],
 	'tec-documentation-section-welcome-page-link'    => [
 		'type' => 'html',
 		'html' => '<li><a href="'
-		          . esc_url( tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) ) . '">'
-		          . esc_html__( 'View Welcome Page', 'the-events-calendar' )
-		          . '</a></li>',
+		        	. esc_url( tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) ) . '">'
+		        	. esc_html__( 'View Welcome Page', 'the-events-calendar' )
+		        	. '</a></li>',
 	],
 	'tec-documentation-section-getting-started-link' => [
 		'type' => 'html',
 		'html' => '<li><a href="'
-		          . esc_url( 'https://evnt.is/1bbv' ) . '" rel="noopener" target="_blank">'
-		          . esc_html__( 'Getting started guide', 'the-events-calendar' )
-		          . '</a></li>',
+		        	. esc_url( 'https://evnt.is/1bbv' ) . '" rel="noopener" target="_blank">'
+		        	. esc_html__( 'Getting started guide', 'the-events-calendar' )
+		        	. '</a></li>',
 	],
 	'tec-documentation-section-knowledgebase-link'   => [
 		'type' => 'html',
 		'html' => '<li><a href="'
-		          . esc_url( 'https://evnt.is/1bbw' ) . '" rel="noopener" target="_blank">'
-		          . esc_html__( 'Knowledgebase', 'the-events-calendar' )
-		          . '</a></li>',
+		        	. esc_url( 'https://evnt.is/1bbw' ) . '" rel="noopener" target="_blank">'
+		        	. esc_html__( 'Knowledgebase', 'the-events-calendar' )
+		        	. '</a></li>',
 	],
 	'tec-links-documentation-section-end'            => [
 		'type' => 'html',
@@ -74,27 +74,27 @@ $general_tab_fields = [
 	'tec-view-calendar-link'                         => [
 		'type' => 'html',
 		'html' => '<ul>'
-		          . '<li>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . '</li>'
-		          . '<li><a href="'
-		          . esc_url( tribe( 'tec.main' )->getLink() ) . '">'
-		          . esc_html__( 'Right here', 'the-events-calendar' )
-		          . '</a></li>'
+		        	. '<li>' . esc_html__( 'Where\'s my calendar?', 'the-events-calendar' ) . '</li>'
+		        	. '<li><a href="'
+		        	. esc_url( tribe( 'tec.main' )->getLink() ) . '">'
+		        	. esc_html__( 'Right here', 'the-events-calendar' )
+		        	. '</a></li>'
 
-		          . '</ul>',
+		        	. '</ul>',
 	],
 	'tec-having-trouble-links'                       => [
 		'type' => 'html',
 		'html' => '<ul>'
-		          . '<li>' . esc_html__( 'Having trouble?', 'the-events-calendar' ) . '</li>'
-		          . '<li><a href="'
-		          . esc_url( 'edit.php?post_type=tribe_events&page=tec-events-help' ) . '">'
-		          . esc_html__( 'Help', 'the-events-calendar' )
-		          . '</a></li>'
-		          . '<li><a href="'
-		          . esc_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' ) . '">'
-		          . esc_html__( 'Troubleshoot', 'the-events-calendar' )
-		          . '</a></li>'
-		          . '</ul>',
+		        	. '<li>' . esc_html__( 'Having trouble?', 'the-events-calendar' ) . '</li>'
+		        	. '<li><a href="'
+		        	. esc_url( 'edit.php?post_type=tribe_events&page=tec-events-help' ) . '">'
+		        	. esc_html__( 'Help', 'the-events-calendar' )
+		        	. '</a></li>'
+		        	. '<li><a href="'
+		        	. esc_url( 'edit.php?post_type=tribe_events&page=tec-troubleshooting' ) . '">'
+		        	. esc_html__( 'Troubleshoot', 'the-events-calendar' )
+		        	. '</a></li>'
+		        	. '</ul>',
 	],
 	'tec-links-help-section-end'                     => [
 		'type' => 'html',
@@ -203,7 +203,7 @@ $tec_events_general_viewing = [
 		'type'        => 'wrapped_html',
 		'label'       => esc_html__( 'Events URL slug', 'the-events-calendar' ),
 		'html'        => '<p>'
-		                 . sprintf(
+		               	. sprintf(
 			                 __( 'The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href="%2$s">enable pretty permalinks</a>.', 'the-events-calendar' ),
 			                 sprintf(
 				                 '<a href="%1$s">%2$s</a>',
@@ -212,7 +212,7 @@ $tec_events_general_viewing = [
 			                 ),
 			                 esc_url( trailingslashit( get_admin_url() ) . 'options-permalink.php' )
 		                 )
-		                 . '</p>',
+		               	. '</p>',
 		'conditional' => ( '' == get_option( 'permalink_structure' ) ),
 	],
 	'eventsSlug'                                => [

@@ -181,7 +181,7 @@ class Emails {
 		}
 
 		$ics_filename = $file . '.ics';
-		file_put_contents( $ics_filename, $ics_content );
+		file_put_contents( $ics_filename, $ics_content ); // phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_file_put_contents
 		$attachments[] = $ics_filename;
 		unlink( $file );
 
