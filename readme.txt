@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Requires at least: 6.3
 Stable tag: 6.5.2
-Tested up to: 6.5.3
+Tested up to: 6.6.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -238,16 +238,20 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
 * Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
 * Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
-* Tweak - Add details to the `tec_views_v2_subscribe_link_visibility()` and `tec_views_v2_subscribe_link_' . self::get_slug() . '_visibility()` docblocks for clarity.
-* Tweak - Add filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
-* Tweak - Update docblock for `get_before_events_html` and `get_after_events_html` to provide more clarity.
-* Tweak - Enhance docblock for the `tribe_get_view_permalink` function.
-* Tweak - Update docblock and notes for the `month_multiday_classes` and `month_day_classes` methods and the `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` filters.
 * Tweak - Update many docblock typos - credit goes to @szepeviktor.
 * Tweak - Correct some variables with typos, such as `$ics_filname` to `$ics_filename` and `$deleteable_statuses_interval` to `$deletable_statuses_interval` and `$delimter` to `$delimiter. Credit goes to @szepeviktor.
-* Tweak - Update docblock for `tribe_event_featured_image()`.
-* Tweak - Update docblock for the `tribe_get_map_link()` and `tribe_get_map_link_html()` methods and add docblocks for the `tribe_events_google_map_link`, `tribe_get_map_link` and `tribe_get_map_link_html` filters.
-* Tweak - Add return parameter to the `tribe_get_basic_gmap_embed_url()` docblock.
+* Tweak - Add filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
+* Tweak - Update docblock for hooks: `month_multiday_classes`, `month_day_classes`, `get_before_events_html`, `get_after_events_html`, `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` to provide more clarity.
+* Tweak - Update docblock for methods/functions: `tec_views_v2_subscribe_link_visibility`, `tec_views_v2_subscribe_link_{$slug}_visibility`, `tribe_get_view_permalink()`, `tribe_get_basic_gmap_embed_url()`, `tribe_event_featured_image()`, `tribe_get_map_link()` and `tribe_get_map_link_html()` methods and add docblocks for the `tribe_events_google_map_link`, `tribe_get_map_link` and `tribe_get_map_link_html` filters.
+
+= [6.5.1.6] 2024-07-11 =
+
+* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
+
+= [6.5.1.5] 2024-06-27 =
+
+* Security - Added additional security check when an ignored event is restored. [SVUL-3]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.1.4] 2024-06-18 =
 
