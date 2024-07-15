@@ -273,7 +273,7 @@ $tec_events_general_editing = [
 	],
 	'tec-aggregator-infobox-logo'               => [
 		'type'        => 'html',
-		'html'        => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-event-aggregator.svg', dirname( __FILE__ ) ) . '" alt="Events Aggregator Logo">',
+		'html'        => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-event-aggregator.svg', __DIR__ ) . '" alt="Events Aggregator Logo">',
 		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-title'              => [
@@ -381,7 +381,7 @@ $tec_events_general_debugging = [
 	],
 	'tec-troubleshooting-infobox-logo'            => [
 		'type' => 'html',
-		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-image-high-five.svg', dirname( __FILE__ ) ) . '" alt="Events troubleshooting Logo">',
+		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-image-high-five.svg', __DIR__ ) . '" alt="Events troubleshooting Logo">',
 	],
 	'tec-troubleshooting-infobox-title'           => [
 		'type' => 'html',

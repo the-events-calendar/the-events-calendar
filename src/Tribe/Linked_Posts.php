@@ -1216,16 +1216,14 @@ class Tribe__Events__Linked_Posts {
 		$options->owned['children']     = array_filter( $options->owned['children'] );
 		$options->available['children'] = array_filter( $options->available['children'] );
 
-		// When Owned is empty, we only use Available.
 		if ( empty( $options->owned['children'] ) ) {
+			// When Owned is empty, we only use Available.
 			$data = $options->available['children'];
-
-		// When Available is empty, we only use Owned.
 		} elseif ( empty( $options->available['children'] ) ) {
+			// When Available is empty, we only use Owned.
 			$data = $options->owned['children'];
-
-		// If we have both we make it an array.
 		} else {
+			// If we have both we make it an array.
 			$data = array_values( (array) $options );
 		}
 

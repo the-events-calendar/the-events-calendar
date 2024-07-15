@@ -771,9 +771,9 @@ class Tribe__Events__Aggregator__Cron {
 			$wpdb->prepare(
 				'SELECT ID
 				FROM %1$s
-				WHERE post_type = %2$s
+				WHERE post_type = "%2$s"
 				AND post_status IN ( %3$s )
-				AND post_date_gmt < %4$s
+				AND post_date_gmt < "%4$s"
 				ORDER BY ID DESC
 				LIMIT %5$d',
 				$wpdb->posts,
@@ -791,60 +791,69 @@ class Tribe__Events__Aggregator__Cron {
 		// ORDER BY ID DESC is important here to make sure the run will insist on the same set of records.
 
 		// Use a sub-query to avoid running into the max_allowed_packet limit.
-		if ( $wpdb->query( $wpdb->prepare(
-				'DELETE FROM %1$s
-				WHERE comment_post_ID IN (
-					SELECT ID
-					FROM %2$s
-					WHERE post_type = %3$s
-					AND post_status in ( %4$s )
-					AND post_date_gmt < %5$s
-					ORDER BY ID DESC
-				) LIMIT %6$d',
-				$wpdb->comments,
-				$wpdb->posts,
-				Tribe__Events__Aggregator__Records::$post_type,
-				$deletable_statuses_interval,
-				$date_threshold,
-				$batch_size
-			) ) === false ) {
+		if ( $wpdb->query(
+				$wpdb->prepare(
+					'DELETE FROM %1$s
+					WHERE comment_post_ID IN (
+						SELECT ID
+						FROM %2$s
+						WHERE post_type = "%3$s"
+						AND post_status in ( %4$s )
+						AND post_date_gmt < "%5$s"
+						ORDER BY ID DESC
+					) LIMIT %6$d',
+					$wpdb->comments,
+					$wpdb->posts,
+					Tribe__Events__Aggregator__Records::$post_type,
+					$deletable_statuses_interval,
+					$date_threshold,
+					$batch_size
+				)
+			) === false
+		) {
 			tribe( 'logger' )->log_error( 'Failed to delete expired records comments using direct delete: ' . $wpdb->last_error, 'EA Cron' );
 		}
 
 		// Use a sub-query to avoid running into the max_allowed_packet limit.
-		if ( $wpdb->query( $wpdb->prepare(
+		if (
+			$wpdb->query(
+				$wpdb->prepare(
+					'DELETE FROM %1$s
+					WHERE post_id IN (
+						SELECT ID
+						FROM %2$s
+						WHERE post_type = "%3$s"
+						AND post_status in ( %4$s )
+						AND post_date_gmt < "%5$s"
+						ORDER BY ID DESC
+					) LIMIT %6$d',
+					$wpdb->postmeta,
+					$wpdb->posts,
+					Tribe__Events__Aggregator__Records::$post_type,
+					$deletable_statuses_interval,
+					$date_threshold,
+					$batch_size
+				)
+			) === false
+		) {
+			tribe( 'logger' )->log_error( 'Failed to delete expired records postmeta using direct delete: ' . $wpdb->last_error, 'EA Cron' );
+		}
+
+		$deleted = $wpdb->query(
+			$wpdb->prepare(
 				'DELETE FROM %1$s
-				WHERE post_id IN (
-					SELECT ID
-					FROM %2$s
-					WHERE post_type = %3$s
-					AND post_status in ( %4$s )
-					AND post_date_gmt < %5$s
-					ORDER BY ID DESC
-				) LIMIT %6$d',
-				$wpdb->postmeta,
+				WHERE post_type = "%2$s"
+				AND post_status in ( %3$ )
+				AND post_date_gmt < "%4$s"
+				ORDER BY ID DESC
+				LIMIT %5$d',
 				$wpdb->posts,
 				Tribe__Events__Aggregator__Records::$post_type,
 				$deletable_statuses_interval,
 				$date_threshold,
 				$batch_size
-			) ) === false ) {
-			tribe( 'logger' )->log_error( 'Failed to delete expired records postmeta using direct delete: ' . $wpdb->last_error, 'EA Cron' );
-		}
-
-		$deleted = $wpdb->query( $wpdb->prepare(
-			'DELETE FROM %1$s
-			WHERE post_type = %2$s
-			AND post_status in ( %3$ )
-			AND post_date_gmt < %4$s
-			ORDER BY ID DESC
-			LIMIT %5$d',
-			$wpdb->posts,
-			Tribe__Events__Aggregator__Records::$post_type,
-			$deletable_statuses_interval,
-			$date_threshold,
-			$batch_size
-		) );
+			)
+		);
 
 		if ( $deleted === false ) {
 			tribe( 'logger' )->log_error( 'Failed to delete expired records using direct delete: ' . $wpdb->last_error, 'EA Cron' );
