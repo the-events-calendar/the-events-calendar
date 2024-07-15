@@ -4,6 +4,8 @@ defined( 'WPINC' ) or die;
 
 use Tribe__Events__Aggregator__Records as Records;
 
+// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder
+
 class Tribe__Events__Aggregator__Cron {
 	/**
 	 * Action where the cron will run, on schedule

@@ -121,7 +121,7 @@ class Tribe__Events__Importer__File_Reader {
 		 * @since 4.6.1
 		 *
 		 * @param array $csv_params params [
-		 * 	    string $delimiter  The field delimiter (one character only).
+		 *      string $delimiter  The field delimiter (one character only).
 		 *      string $enclosure The field enclosure character (one character only).
 		 *      string $escape    The field escape character (one character only).
 		 * ]
