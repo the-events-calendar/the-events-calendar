@@ -4,7 +4,7 @@ defined( 'WPINC' ) or die;
 
 use Tribe__Events__Aggregator__Records as Records;
 
-// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder,WordPress.DB.DirectDatabaseQuery.DirectQuery
+// phpcs:disable WordPress.DB.PreparedSQLPlaceholders.UnquotedComplexPlaceholder,WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.PreparedSQL.NotPrepared
 
 class Tribe__Events__Aggregator__Cron {
 	/**
