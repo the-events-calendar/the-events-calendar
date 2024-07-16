@@ -774,13 +774,12 @@ class Tribe__Events__Aggregator__Cron {
 				'SELECT ID
 				FROM %1$s
 				WHERE post_type = "%2$s"
-				AND post_status IN ( "%3$s" )
-				AND post_date_gmt < "%4$s"
+				AND post_status IN ( ' . $deletable_statuses_interval . ' )
+				AND post_date_gmt < "%3$s"
 				ORDER BY ID DESC
-				LIMIT %5$d',
+				LIMIT %4$d',
 				$wpdb->posts,
 				Records::$post_type,
-				$deletable_statuses_interval,
 				$date_threshold,
 				$batch_size
 			)
@@ -801,14 +800,13 @@ class Tribe__Events__Aggregator__Cron {
 						SELECT ID
 						FROM %2$s
 						WHERE post_type = "%3$s"
-						AND post_status in ( "%4$s" )
-						AND post_date_gmt < "%5$s"
+						AND post_status in ( ' . $deletable_statuses_interval . ' )
+						AND post_date_gmt < "%4$s"
 						ORDER BY ID DESC
-					) LIMIT %6$d',
+					) LIMIT %5$d',
 					$wpdb->comments,
 					$wpdb->posts,
 					Tribe__Events__Aggregator__Records::$post_type,
-					$deletable_statuses_interval,
 					$date_threshold,
 					$batch_size
 				)
@@ -816,6 +814,25 @@ class Tribe__Events__Aggregator__Cron {
 		) {
 			tribe( 'logger' )->log_error( 'Failed to delete expired records comments using direct delete: ' . $wpdb->last_error, 'EA Cron' );
 		}
+
+		codecept_debug(
+			$wpdb->prepare(
+				'DELETE FROM %1$s
+				WHERE post_id IN (
+					SELECT ID
+					FROM %2$s
+					WHERE post_type = "%3$s"
+					AND post_status in ( ' . $deletable_statuses_interval . ' )
+					AND post_date_gmt < "%4$s"
+					ORDER BY ID DESC
+				) LIMIT %5$d',
+				$wpdb->postmeta,
+				$wpdb->posts,
+				Tribe__Events__Aggregator__Records::$post_type,
+				$date_threshold,
+				$batch_size
+			)
+		);
 
 		// Use a sub-query to avoid running into the max_allowed_packet limit.
 		if (
@@ -826,14 +843,13 @@ class Tribe__Events__Aggregator__Cron {
 						SELECT ID
 						FROM %2$s
 						WHERE post_type = "%3$s"
-						AND post_status in ( "%4$s" )
-						AND post_date_gmt < "%5$s"
+						AND post_status in ( ' . $deletable_statuses_interval . ' )
+						AND post_date_gmt < "%4$s"
 						ORDER BY ID DESC
-					) LIMIT %6$d',
+					) LIMIT %5$d',
 					$wpdb->postmeta,
 					$wpdb->posts,
 					Tribe__Events__Aggregator__Records::$post_type,
-					$deletable_statuses_interval,
 					$date_threshold,
 					$batch_size
 				)
@@ -846,13 +862,12 @@ class Tribe__Events__Aggregator__Cron {
 			$wpdb->prepare(
 				'DELETE FROM %1$s
 				WHERE post_type = "%2$s"
-				AND post_status in ( "%3$s" )
-				AND post_date_gmt < "%4$s"
+				AND post_status in ( ' . $deletable_statuses_interval . ' )
+				AND post_date_gmt < "%3$s"
 				ORDER BY ID DESC
-				LIMIT %5$d',
+				LIMIT %4$d',
 				$wpdb->posts,
 				Tribe__Events__Aggregator__Records::$post_type,
-				$deletable_statuses_interval,
 				$date_threshold,
 				$batch_size
 			)
