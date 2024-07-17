@@ -22,7 +22,7 @@ trait Filter_Trait {
 	/**
 	 * Filters the template data for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.5.2
 	 *
 	 * @param array $override The data to override with.
 	 * @param array $passed   The data passed to the template.
