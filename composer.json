@@ -41,7 +41,8 @@
     "phpstan/phpstan": "^1.10",
     "phpstan/phpstan-deprecation-rules": "^1.1",
     "phpstan/extension-installer": "^1.3",
-    "szepeviktor/phpstan-wordpress": "*"
+    "szepeviktor/phpstan-wordpress": "*",
+    "automattic/jetpack-changelogger": "^4.2"
   },
   "config": {
     "preferred-install": "dist",
@@ -51,6 +52,26 @@
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "phpstan/extension-installer": true
+    }
+  },
+  "extra": {
+    "changelogger": {
+      "changelog": "changelog.md",
+      "types": {
+        "feat" : "Feature",
+        "tweak" : "Tweak",
+        "fix" : "Fix",
+        "performance" : "Performance",
+        "security" : "Security",
+        "accessibility" : "Accessibility",
+        "compatibility" : "Compatibility",
+        "deprecated" : "Deprecated",
+        "language" : "Language"
+      },
+      "formatter": {
+        "filename": "bin/class-tec-changelog-formatter.php"
+      },
+      "changes-dir": "changelog"
     }
   },
   "autoload": {
