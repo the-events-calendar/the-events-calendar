@@ -245,6 +245,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Update docblock for methods/functions: `tec_views_v2_subscribe_link_visibility`, `tec_views_v2_subscribe_link_{$slug}_visibility`, `tribe_get_view_permalink()`, `tribe_get_basic_gmap_embed_url()`, `tribe_event_featured_image()`, `tribe_get_map_link()` and `tribe_get_map_link_html()` methods and add docblocks for the `tribe_events_google_map_link`, `tribe_get_map_link` and `tribe_get_map_link_html` filters.
 * Tweak - Added filters: `tec_events_integration_elementor_bypass_template_override`, `tec_events_display_settings_toc`, `tec_events_general_settings_toc`
 * Tweak - Changed views: `single-event-blocks`, `v2/month/mobile-events/mobile-day/day-marker`
+* Language - 0 new strings added, 222 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.1.6] 2024-07-11 =
 
