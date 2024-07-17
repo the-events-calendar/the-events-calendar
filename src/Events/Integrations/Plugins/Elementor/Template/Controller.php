@@ -225,7 +225,7 @@ class Controller extends Controller_Contract {
 		 * This filter allows developers to short-circuit the template override process
 		 * and use the default template instead. Bypassing the override disables application of the provided templates.
 		 *
-		 * @since TBD
+		 * @since 6.5.2
 		 *
 		 * @param bool  $bypass  Whether to bypass the template override. Default is false.
 		 * @param mixed $post_id The post ID being checked. Will be null if using the current post.

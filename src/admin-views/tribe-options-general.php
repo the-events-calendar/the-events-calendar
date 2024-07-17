@@ -176,7 +176,7 @@ $tec_events_general_toc = [
 /**
  * Allow filtering the Table of Contents bar on the General settings page.
  *
- * @since TBD
+ * @since 6.5.2
  *
  * @param array $tec_events_display_toc Array of items of the TOC.
  */
