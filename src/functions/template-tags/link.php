@@ -212,16 +212,16 @@ function tribe_get_listview_past_link( $term = null ) {
 }
 
 /**
- * Link to a nearby List View page
+ * Returns a link to the next or previous list view page.
  *
- * Returns a link to the next/previous list view page
+ * @since  5.14.0
  *
- * @param string   $direction 'next' or 'prev'.
- * @param int|null $term Term ID.
- * @param string   $currently_displaying Type of listview page that is currently being displayed ('past' or 'list').
- * @param int      $page Current page number being displayed.
+ * @param string      $direction            'next' or 'prev'.
+ * @param int|null    $term                 Optional. Term ID. Default null.
+ * @param string|null $currently_displaying Optional. Type of list view page currently displayed ('past' or 'list'). Default null.
+ * @param int|null    $page                 Optional. Current page number being displayed. Default null.
  *
- * @return string URL
+ * @return string URL of the next or previous list view page.
  */
 function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
 	$link = tribe_get_listview_link( $term );
