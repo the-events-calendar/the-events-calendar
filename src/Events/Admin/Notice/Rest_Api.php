@@ -55,7 +55,7 @@ class Rest_Api {
 			$slug,
 			[ $this, 'notice' ],
 			[
-				'type'               => 'error',
+				'type'               => 'warning',
 				'dismiss'            => 1,
 				'wrap'               => 'p',
 				'recurring'          => true,
