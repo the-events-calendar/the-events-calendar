@@ -250,10 +250,10 @@ $tec_events_display_fields += $tec_events_display_template;
 $sample_date = strtotime( 'January 15 ' . gmdate( 'Y' ) );
 
 $end_time_options = [
-	'single-event' => esc_html__( 'Single event page', 'the-events-calendar' ),
-	'day'          => esc_html__( 'Day view', 'the-events-calendar' ),
-	'list'         => esc_html__( 'List view', 'the-events-calendar' ),
-	'month'        => esc_html__( 'Month view tooltip', 'the-events-calendar' ),
+	'single-event' => esc_html( _x( 'Single event page', "The option to remove end times for the single event page view.", 'the-events-calendar' ) ),
+	'day'          => esc_html( _x( 'Day view', "The option to remove end times for day view.", 'the-events-calendar' ) ),
+	'list'         => esc_html( _x( 'List view', "The option to remove end times for list view.", 'the-events-calendar' ) ),
+	'month'        => esc_html( _x( 'Month view', "The option to remove end times for month view.", 'the-events-calendar' ) ),
 ];
 /**
  * Allow other plugins to add their views to the control.

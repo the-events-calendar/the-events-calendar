@@ -217,8 +217,6 @@ class Hooks extends Service_Provider {
 		$this->container->make( Title::class )->set_posts( $events );
 	}
 
-
-
 	/**
 	 * Hook for the hide end time setting to flag the view accordingly.
 	 */
@@ -241,7 +239,7 @@ class Hooks extends Service_Provider {
 		$this->end_time_modifier = new Hide_End_Time_Modifier( $views );
 
 		// Let's setup our context, in either one of two hooks.
-		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'set_context_for_views_v2_setup_loop' ] );
+ 		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'set_context_for_views_v2_setup_loop' ] );
 		add_filter(
 			'tribe_events_views_v2_bootstrap_pre_get_view_html',
 			[
@@ -254,6 +252,11 @@ class Hooks extends Service_Provider {
 
 		// If there are any views checked, then run the filter.
 		add_filter( 'tribe_events_event_schedule_details_formatting', [ $this, 'handle_end_time_visibility' ] );
+		// @todo
+		add_action( "tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date",function( $html, $file, $name, $template ){
+			$settings = $this->handle_end_time_visibility();
+			$template->set_values($settings);
+		},10,4);
 	}
 
 	/**
@@ -265,7 +268,7 @@ class Hooks extends Service_Provider {
 	 *
 	 * @return array
 	 */
-	public function handle_end_time_visibility( $settings ) {
+	public function handle_end_time_visibility( $settings = [] ) {
 		$context = $this->end_time_modifier->get_context();
 
 		// Is this view flagged to hide the end time?
