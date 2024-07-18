@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Admin\Notice;
 
+use TEC\Tribe\Traits\Development_Mode;
 use Tribe\Events\Views\V2\Rest_Endpoint as V2;
 
 /**
@@ -19,6 +20,8 @@ use Tribe\Events\Views\V2\Rest_Endpoint as V2;
  * @since 6.5.0
  */
 class Rest_Api {
+
+	use Development_Mode;
 
 	/**
 	 * Notice Slug on the user options
@@ -96,9 +99,14 @@ class Rest_Api {
 			return ! empty( $this->blocked_endpoint );
 		}
 
+		// Development mode sometimes has SSL issues that generates a false positive error.
+		$request_options = [
+			'sslverify' => ! $this->is_site_development_mode(),
+		];
+
 		$v1_api    = tribe( 'tec.rest-v1.main' );
 		$event_api = get_rest_url( null, $v1_api->get_events_route_namespace() );
-		$response  = wp_remote_get( $event_api );
+		$response  = wp_remote_get( $event_api, $request_options );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$this->blocked_endpoint = $event_api;
 			tec_timed_option()->set( $cache_key, $event_api, $cache_timeout );
@@ -107,7 +115,7 @@ class Rest_Api {
 		}
 
 		$views_api = get_rest_url( null, V2::ROOT_NAMESPACE );
-		$response  = wp_remote_get( $views_api );
+		$response  = wp_remote_get( $views_api, $request_options );
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
 			$this->blocked_endpoint = $views_api;
 			tec_timed_option()->set( $cache_key, $views_api, $cache_timeout );
