@@ -310,11 +310,7 @@ class Tribe__Events__Assets {
 			'wp_enqueue_scripts',
 			[
 				'groups'       => [ 'events-styles' ],
-				'conditionals' => [
-					'operator' => 'AND',
-					[ $this, 'should_enqueue_frontend' ],
-					[ $this, 'override_style_exists' ],
-				],
+				'conditionals' => [ $this, 'override_style_exists' ],
 			]
 		);
 	}
@@ -533,6 +529,11 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function override_style_exists(): bool {
+		// This is a frontend script, let's bail early if we can.
+		if ( ! $this->should_enqueue_frontend() ) {
+			return false;
+		}
+
 		$file = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 		return $file && file_exists( $file );
 	}
