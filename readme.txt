@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.0] 2024-07-22 =
+
+
+
 = [6.5.2] 2024-07-18 =
 
 * Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar

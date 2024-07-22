@@ -2,7 +2,7 @@
 /**
  * Provides test methods for Elementor widget using the TEC templating engine.
  *
- * @since   TBD
+ * @since   6.6.0
  *
  * @package Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets;
  */
@@ -14,7 +14,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Trait for Elementor widget template tests.
  *
- * @since   TBD
+ * @since   6.6.0
  *
  * @package Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets;
  */
