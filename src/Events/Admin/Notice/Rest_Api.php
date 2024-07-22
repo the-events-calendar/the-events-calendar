@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Admin\Notice;
 
-use TEC\Tribe\Traits\Development_Mode;
+use TEC\Events\Traits\Development_Mode;
 use Tribe\Events\Views\V2\Rest_Endpoint as V2;
 
 /**

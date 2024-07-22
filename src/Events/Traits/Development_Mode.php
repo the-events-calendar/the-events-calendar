@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace TEC\Tribe\Traits;
+namespace TEC\Events\Traits;
 
 /**
  * Trait Development_Mode
