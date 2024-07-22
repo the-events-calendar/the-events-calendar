@@ -235,6 +235,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.6.0] 2024-07-22 =
 
 * Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
+* Fix - Properly handle custom theme assets when files are not present, prevents errors on Query Monitor and some notices. [ECP-1811]
 * Tweak - Added filters: `tec_events_integration_elementor_bypass_template_override`, `tec_events_display_settings_toc`, `tec_events_general_settings_toc`
 * Tweak - Changed views: `single-event-blocks`, `v2/month/mobile-events/mobile-day/day-marker`
 * Language - 1 new strings added, 172 updated, 1 fuzzied, and 1 obsoleted
