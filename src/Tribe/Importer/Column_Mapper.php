@@ -47,7 +47,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	public function make_select_box( $index ) {
 		$selected = isset( $this->defaults[ $index ] ) ? $this->defaults[ $index ] : '';
 		$html     = '<select name="column_map[' . $index . ']">';
-		$html     .= '<option value="">' . esc_html__( 'Do Not Import', 'the-events-calendar' ) . '</option>';
+		$html    .= '<option value="">' . esc_html__( 'Do Not Import', 'the-events-calendar' ) . '</option>';
 		foreach ( $this->column_names as $key => $value ) {
 			$html .= sprintf( '<option value="%s" %s>%s</option>', esc_attr( $key ), selected( $selected, $key, false ), esc_html( $value ) );
 		}
