@@ -27,6 +27,7 @@ use Tribe__Context as Context;
 use Tribe__Customizer__Section as Customizer_Section;
 use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
+use Tribe__Template;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
 use TEC\Common\Contracts\Service_Provider;
@@ -252,11 +253,42 @@ class Hooks extends Service_Provider {
 
 		// If there are any views checked, then run the filter.
 		add_filter( 'tribe_events_event_schedule_details_formatting', [ $this, 'handle_end_time_visibility' ] );
-		// @todo
-		add_action( "tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date",function( $html, $file, $name, $template ){
-			$settings = $this->handle_end_time_visibility();
-			$template->set_values($settings);
-		},10,4);
+
+		// Hook to add the flag for month view template.
+		add_action( "tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date",
+			[ $this, 'handle_template_hide_end_time' ],
+			10,
+			4
+		);
+
+		// Hook to add the flag for photo view template.
+		add_action( "tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date",
+			[ $this, 'handle_template_hide_end_time' ],
+			10,
+			4
+		);
+
+		// Once we are setup, broadcast ourself for further integrations.
+		do_action( "tec_events_views_v2_hide_end_time_init", $this );
+	}
+
+	/**
+	 * Hook callback for the month calendar-event/date template, where we add the hide end time flag.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $html Current template HTML.
+	 * @param string $file File path.
+	 * @param string $name Template name.
+	 * @param Tribe__Template $template The month template.
+	 * @return void
+	 */
+	public function handle_template_hide_end_time( $html, $file, $name, $template ) {
+		// Will check hide flag with current view context.
+		$settings = $this->handle_end_time_visibility();
+
+		// Set the hide flag on this Month Day template.
+		$template->set_values( $settings );
 	}
 
 	/**
