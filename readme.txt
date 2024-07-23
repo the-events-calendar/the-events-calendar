@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.0.1] 2024-07-23 =
+
+* Fix - Prevent fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
+
 = [6.6.0] 2024-07-22 =
 
 * Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
