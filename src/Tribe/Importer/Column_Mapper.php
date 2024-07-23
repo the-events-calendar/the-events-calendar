@@ -40,6 +40,8 @@ class Tribe__Events__Importer__Column_Mapper {
 	/**
 	 * Render a select dropdown at the top of a column for column mapping.
 	 *
+	 * @since 3.10.0
+	 *
 	 * @param int $index The index of the column. Starts with 0.
 	 *
 	 * @return string The HTML markup of the select box.
