@@ -37,6 +37,13 @@ class Tribe__Events__Importer__Column_Mapper {
 		$this->defaults = $defaults;
 	}
 
+	/**
+	 * Render a select dropdown at the top of a column for column mapping.
+	 *
+	 * @param int $index The index of the column. Starts with 0.
+	 *
+	 * @return string The HTML markup of the select box.
+	 */
 	public function make_select_box( $index ) {
 		$selected = isset( $this->defaults[ $index ] ) ? $this->defaults[ $index ] : '';
 		$html     = '<select name="column_map[' . $index . ']">';
