@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.6.0.2] 2024-07-24 =
 
-* Fix - Stellar Sale's banner copy. [TECTRIA-204]
+* Fix - Stellar Sale's banner copy. [TEC-5121]
 
 = [6.6.0.1] 2024-07-23 =
 
