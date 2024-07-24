@@ -63,7 +63,6 @@ $tec_events_display_fields = [
 	],
 ];
 
-
 // Add the TOC.
 $tec_events_general_toc = [
 	'tec-events-settings-display-toc-nav-start'  => [
@@ -80,27 +79,27 @@ $tec_events_general_toc = [
 	],
 	'tec-events-settings-display-toc-template'   => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-template-calendar">' . _x( 'Calendar Template', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-template-calendar">' . _x( 'Calendar Template', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-calendar'   => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-calendar">' . _x( 'Calendar Display', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-calendar">' . _x( 'Calendar Display', 'Calendar Display table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-date'       => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-date">' . _x( 'Date & Time', 'Date & Time table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-date">' . _x( 'Date & Time', 'Date & Time table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-currency'   => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-currency">' . _x( 'Currency', 'Currency table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-currency">' . _x( 'Currency', 'Currency table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-maps'       => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-maps">' . _x( 'Maps', 'Maps table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-maps">' . _x( 'Maps', 'Maps table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-additional' => [
 		'type' => 'html',
-		'html' => '<li><a href="#tec-settings-events-settings-display-additional">' . _x( 'Additional Content', 'Additional Content table of contents link.', 'the-events-calendar' ) . '</a>',
+		'html' => '<li><a href="#tec-settings-events-settings-display-additional">' . _x( 'Additional Content', 'Additional Content table of contents link.', 'the-events-calendar' ) . '</a></li>',
 	],
 	'tec-events-settings-display-toc-end'        => [
 		'type' => 'html',
@@ -112,7 +111,14 @@ $tec_events_general_toc = [
 	],
 ];
 
-$tec_events_display_fields += $tec_events_general_toc;
+/**
+ * Allow filtering the Table of Contents bar on the Display settings page.
+ *
+ * @since 6.5.2
+ *
+ * @param array $tec_events_general_toc Array of items of the TOC.
+ */
+$tec_events_display_fields += apply_filters( 'tec_events_display_settings_toc', $tec_events_general_toc );
 
 // Start the form content wrapper.
 $tec_events_general_form_end = [
