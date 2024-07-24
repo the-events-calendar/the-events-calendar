@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.1] TBD =
+
+* Fix - Ensure we don't try to enqueue nonexistent override stylesheets. [ECP-1811]
+
 = [6.6.0] 2024-07-22 =
 
 * Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
