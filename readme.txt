@@ -234,7 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.6.0.2] 2024-07-24 =
 
-* Fix - Fix Stellar Sale banner links and details. [TEC-5121]
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
 
 = [6.6.0.1] 2024-07-23 =
 
