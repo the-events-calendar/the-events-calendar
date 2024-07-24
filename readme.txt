@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.0.2] 2024-07-24 =
+
+* Fix - Stellar Sale's banner copy. [TECTRIA-204]
+
 = [6.6.0.1] 2024-07-23 =
 
 * Fix - Prevent fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
