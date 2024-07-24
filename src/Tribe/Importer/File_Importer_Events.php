@@ -177,7 +177,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * Get the event start date from the import record.
 	 *
 	 * @param array<string|mixed> $record    An event record from the import.
-	 * @param boolean             $date_only An optional setting to incude the date only and no time.
+	 * @param boolean             $date_only An optional setting to include the date only and no time.
 	 *
 	 * @return string $start_date The start date time string.
 	 */
