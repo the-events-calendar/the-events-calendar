@@ -81,7 +81,7 @@ class Hooks extends Service_Provider {
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
 		add_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ], 10, 2 );
-		add_action( 'init', [ $this, 'hide_event_end_time' ] );
+		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'hide_event_end_time' ], 2 );
 	}
 
 	/**
@@ -255,13 +255,6 @@ class Hooks extends Service_Provider {
 		add_filter( 'tribe_events_event_schedule_details_formatting', [ $this, 'handle_end_time_visibility' ] );
 
 		// Hook to add the flag for month view template.
-		add_action( "tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date",
-			[ $this, 'handle_template_hide_end_time' ],
-			10,
-			4
-		);
-
-		// Hook to add the flag for photo view template.
 		add_action( "tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date",
 			[ $this, 'handle_template_hide_end_time' ],
 			10,
