@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+
+= [TBD] TBD =
+
+* Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view.
+
 = [6.6.0] 2024-07-22 =
 
 * Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
