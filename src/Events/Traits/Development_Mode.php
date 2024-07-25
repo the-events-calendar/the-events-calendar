@@ -1,4 +1,13 @@
 <?php
+/**
+ * Development Mode Trait.
+ *
+ * This trait provides a method to check if the site is in development mode.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Traits
+ */
 
 declare( strict_types=1 );
 
@@ -7,7 +16,7 @@ namespace TEC\Events\Traits;
 /**
  * Trait Development_Mode
  *
- * @since x.x.x
+ * @since TBD
  */
 trait Development_Mode {
 
@@ -21,7 +30,7 @@ trait Development_Mode {
 	 * This method also applies a filter so that 3rd party developers can set their
 	 * own conditions for development mode.
 	 *
-	 * @since x.x.x
+	 * @since TBD
 	 *
 	 * @return bool
 	 */
@@ -35,6 +44,8 @@ trait Development_Mode {
 
 		/**
 		 * Filters whether the site is in development mode.
+		 *
+		 * @since TBD
 		 *
 		 * @param bool $is_development_mode Whether the site is in development mode.
 		 */
