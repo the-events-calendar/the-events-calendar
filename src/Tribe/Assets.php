@@ -301,7 +301,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		// Custom stylesheet
+		// Custom stylesheet.
 		$override_sheet = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 
 		if ( ! empty( $override_sheet ) && file_exists( $override_sheet ) ) {
