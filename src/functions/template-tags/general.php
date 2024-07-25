@@ -1277,6 +1277,7 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 		 */
 		extract( $settings );
 
+		$show_end_time = $show_end_time ?? true;
 		$format = $date_with_year_format;
 
 		/**
