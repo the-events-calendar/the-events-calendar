@@ -243,6 +243,9 @@ class Month_ViewTest extends ViewTestCase {
 		}
 
 		$this->assertMatchesSnapshot( $html );
+
+		// Remove option so flag doesn't bleed into other tests.
+		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [] );
 	}
 
 

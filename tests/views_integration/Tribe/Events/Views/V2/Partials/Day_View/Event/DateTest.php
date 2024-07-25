@@ -30,6 +30,9 @@ class DateTest extends HtmlPartialTestCase
 		tribe( Hooks::class )->hide_event_end_time();
 		$event = $this->get_mock_event( 'events/single/1.json' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+
+		// Remove option so flag doesn't bleed into other tests.
+		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [] );
 	}
 
 	/**

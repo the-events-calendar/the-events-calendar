@@ -22,9 +22,7 @@
  * @version 5.1.1
  */
 
-
-
-
+$show_end_time    ??= true;
 $time_format      = tribe_get_time_format();
 $display_end_date = $event->dates->start_display->format( 'H:i' ) !== $event->dates->end_display->format( 'H:i' )
 					&& $show_end_time;
