@@ -131,7 +131,7 @@ class Rest_Api {
 		}
 
 		$output = sprintf(
-		/* Translators: %1$s and %2$s - opening and closing strong tags, respectively. */
+			/* translators: %1$s and %2$s - opening and closing strong tags, respectively. */
 			__( '%1$sWarning%2$s: The Events Calendar REST API endpoints are not accessible! This may be due to a server configuration or another plugin blocking access to the REST API.', 'the-events-calendar' ),
 			'<strong>',
 			'</strong>'
@@ -159,7 +159,7 @@ class Rest_Api {
 			return $this->is_wp_error_response_blocking( $response );
 		} else {
 			$response_code = wp_remote_retrieve_response_code( $response );
-			$blocked = ( 200 !== $response_code );
+			$blocked       = ( 200 !== $response_code );
 		}
 
 		/**
@@ -190,7 +190,7 @@ class Rest_Api {
 				// If the site is in development mode, we allow cURL error 60.
 				if ( str_starts_with( $message, 'cURL error 60' ) && $this->is_site_development_mode() ) {
 					$blocked = false;
-				} elseif( str_starts_with( $message, 'cURL error 28: Operation timed out' ) ) {
+				} elseif ( str_starts_with( $message, 'cURL error 28: Operation timed out' ) ) {
 					/**
 					 * Filters whether the REST API response is considered to be blocked due to a timeout.
 					 *
