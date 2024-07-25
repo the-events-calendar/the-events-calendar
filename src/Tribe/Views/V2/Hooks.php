@@ -240,7 +240,7 @@ class Hooks extends Service_Provider {
 		$this->end_time_modifier = new Hide_End_Time_Modifier( $views );
 
 		// Let's setup our context, in either one of two hooks.
- 		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'set_context_for_views_v2_setup_loop' ] );
+		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'set_context_for_views_v2_setup_loop' ] );
 		add_filter(
 			'tribe_events_views_v2_bootstrap_pre_get_view_html',
 			[
@@ -255,14 +255,15 @@ class Hooks extends Service_Provider {
 		add_filter( 'tribe_events_event_schedule_details_formatting', [ $this, 'handle_end_time_visibility' ] );
 
 		// Hook to add the flag for month view template.
-		add_action( "tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date",
+		add_action(
+			'tribe_template_pre_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date',
 			[ $this, 'handle_template_hide_end_time' ],
 			10,
 			4
 		);
 
 		// Once we are setup, broadcast ourself for further integrations.
-		do_action( "tec_events_views_v2_hide_end_time_init", $this );
+		do_action( 'tec_events_views_v2_hide_end_time_init', $this );
 	}
 
 	/**
@@ -270,9 +271,9 @@ class Hooks extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $html Current template HTML.
-	 * @param string $file File path.
-	 * @param string $name Template name.
+	 * @param string          $html Current template HTML.
+	 * @param string          $file File path.
+	 * @param string          $name Template name.
 	 * @param Tribe__Template $template The month template.
 	 * @return void
 	 */
