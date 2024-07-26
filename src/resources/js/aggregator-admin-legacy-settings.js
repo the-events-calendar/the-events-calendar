@@ -4,7 +4,7 @@ var tribe_aggregator = tribe_aggregator || {};
 	"use strict";
 
 	/**
-	 * Migration for Lagacy Ignored Event
+	 * Migration for Legacy Ignored Event
 	 */
 	$( function() {
 		$( '#tribe-migrate-ical-settings' ).on( 'click', function() {

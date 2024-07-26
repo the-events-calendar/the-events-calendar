@@ -7,7 +7,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 /**
- * Wordpress dependencies
+ * WordPress dependencies
  */
 import { Spinner } from '@wordpress/components';
 

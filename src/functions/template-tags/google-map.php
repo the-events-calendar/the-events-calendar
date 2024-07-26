@@ -29,7 +29,7 @@ function tribe_is_using_basic_gmaps_api() {
 	 *
 	 * @param boolean $using_basic_maps_api Whether basic Google Maps Embed API requests are allowed on this site.
 	 * @param string $user_api_key The value of the Google Maps API Key setting in TEC.
-	 * @param string $tec_api_key The default Google Maps API Key provided by Tge Events Calendar for basic functionality.
+	 * @param string $tec_api_key The default Google Maps API Key provided by The Events Calendar for basic functionality.
 	 */
 	return apply_filters( 'tribe_is_using_basic_gmaps_api', $user_api_key === $tec_api_key, $user_api_key, $tec_api_key );
 }
@@ -37,13 +37,15 @@ function tribe_is_using_basic_gmaps_api() {
 /**
  * Google Map Link
  *
- * Returns a url to google maps for the given event
+ * Returns a URL to Google Maps for the given event.
+ * 
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param string $postId
+ * @param int $post_id The event post ID.
  *
- * @return string A fully qualified link to https://maps.google.com/ for this event
+ * @return string A fully qualified link to https://maps.google.com/ for this event.
  */
 function tribe_get_map_link( $post_id = null ) {
 	if ( $post_id === null || ! is_numeric( $post_id ) ) {
@@ -66,20 +68,37 @@ function tribe_get_map_link( $post_id = null ) {
 		$url = 'https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=' . urlencode( trim( $to_encode ) );
 	}
 
+	/**
+	 * Allows filtering the Google Maps URL for the given event.
+	 * 
+	 * @since 4.6.24
+	 * 
+	 * @param string $url     The URL to Google Maps.
+	 * @param int    $post_id The event post ID.
+	 */
 	$url = apply_filters( 'tribe_events_google_map_link', $url, $post_id );
 	$output = esc_url( $url );
 
+	/**
+	 * Allows filtering the escaped Google Maps URL for the given event.
+	 * 
+	 * @since 4.6.24
+	 * 
+	 * @param string $output The escaped URL to Google Maps.
+	 */
 	return apply_filters( 'tribe_get_map_link', $output );
 }
 
 /**
  * Returns a formed HTML link to Google Maps for the given event.
+ * 
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param string $postId
+ * @param int $postId The event post ID.
  *
- * @return string A fully qualified link to https://maps.google.com/ for this event
+ * @return string A fully qualified link to https://maps.google.com/ for this event.
  */
 function tribe_get_map_link_html( $postId = null ) {
 	$map_link = esc_url( tribe_get_map_link( $postId ) );
@@ -95,22 +114,29 @@ function tribe_get_map_link_html( $postId = null ) {
 		);
 	}
 
+	/**
+	 * Allows filtering the formed HTML link to Google Maps for the given event.
+	 * 
+	 * @since 4.6.24
+	 * 
+	 * @param string $link The fully formed HTML link to Google Maps.
+	 */
 	return apply_filters( 'tribe_get_map_link_html', $link );
 }
 
 /**
- * Google Map Embed
- *
- * Returns an embedded google maps for an event
+ * Returns an embedded Google Maps map for an event.
+ * 
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param string $post_id
- * @param int    $width
- * @param int    $height
- * @param bool   $force_load If true, then load the map even if an address is not provided.
+ * @param id   $post_id    The event post ID.
+ * @param int  $width      The width of the iframe containing the map in pixels.
+ * @param int  $height     The height of the iframe containing the map in pixels.
+ * @param bool $force_load If true, then load the map even if an address is not provided.
  *
- * @return string An iframe pulling https://maps.google.com/ for this event
+ * @return string An iframe pulling https://maps.google.com/ for this event.
  */
 function tribe_get_embedded_map( $post_id = null, $width = null, $height = null, $force_load = false ) {
 	return Tribe__Events__Embedded_Maps::instance()->get_map( $post_id, $width, $height, $force_load );
@@ -177,6 +203,8 @@ function tribe_show_google_map_link( $postId = null ) {
  * @since 4.6.24
  *
  * @param string $address_string The full address for the marker to be shown on the map (e.g. an event venue).
+ * 
+ * @return string The full URL for a basic Google Maps embed.
  */
 function tribe_get_basic_gmap_embed_url( $address_string ) {
 
@@ -195,7 +223,7 @@ function tribe_get_basic_gmap_embed_url( $address_string ) {
 		 *
 		 * @since 4.6.24
 		 *
-		 * @param array $embed_url_args The URL parameters being passed to the Google Maps embed URL
+		 * @param array $embed_url_args The URL parameters being passed to the Google Maps embed URL.
 		 */
 		apply_filters( 'tribe_get_basic_gmap_embed_url_args', $embed_url_args ),
 		/**
