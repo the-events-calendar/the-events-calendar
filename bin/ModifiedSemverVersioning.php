@@ -41,7 +41,7 @@ class ModifiedSemverVersioning implements VersioningPlugin {
 		if ( ! preg_match( '/^(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)(?:\.(?P<hotfix>\d+))?(?:-(?P<prerelease>(?:[0-9a-zA-Z-]+)(?:\.(?:[0-9a-zA-Z-]+))*))?(?:\+(?P<buildinfo>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/', $version, $m ) ) {
 			throw new InvalidArgumentException( "Version number \"$version\" is not in a recognized format." );
 		}
-		$info = array(
+		$info = [
 			'major'      => (int) $m['major'],
 			'minor'      => (int) $m['minor'],
 			'patch'      => (int) $m['patch'],
@@ -49,7 +49,7 @@ class ModifiedSemverVersioning implements VersioningPlugin {
 			'version'    => sprintf( '%d.%d.%d', $m['major'], $m['minor'], $m['patch'] ) . ( ! empty( $m['hotfix'] ) ? '.' . (int) $m['hotfix'] : '' ),
 			'prerelease' => isset( $m['prerelease'] ) && '' !== $m['prerelease'] ? $m['prerelease'] : null,
 			'buildinfo'  => isset( $m['buildinfo'] ) && '' !== $m['buildinfo'] ? $m['buildinfo'] : null,
-		);
+		];
 
 		if ( null !== $info['prerelease'] ) {
 			$sep        = '';
@@ -75,12 +75,12 @@ class ModifiedSemverVersioning implements VersioningPlugin {
 	 * @return string Normalized version.
 	 * @throws InvalidArgumentException If the version number is not in a recognized format or extra is invalid.
 	 */
-	public function normalizeVersion( $version, $extra = array() ) {
+	public function normalizeVersion( $version, $extra = [] ) {
 		if ( is_array( $version ) ) {
-			$info = $version + array(
+			$info = $version + [
 				'prerelease' => null,
 				'buildinfo'  => null,
-			);
+			];
 			$test = $this->parseVersion( '0.0.0' );
 			unset( $test['version'] );
 			if ( array_intersect_key( $test, $info ) !== $test ) {
@@ -114,7 +114,7 @@ class ModifiedSemverVersioning implements VersioningPlugin {
 	 * @throws InvalidArgumentException If the `$extra` data is invalid.
 	 */
 	private function validateExtra( array $extra, $nulls = true ) {
-		$info = array();
+		$info = [];
 
 		if ( isset( $extra['prerelease'] ) ) {
 			try {
@@ -149,20 +149,20 @@ class ModifiedSemverVersioning implements VersioningPlugin {
 	 * @return string
 	 * @throws InvalidArgumentException If the version number is not in a recognized format, or other arguments are invalid.
 	 */
-	public function nextVersion( $version, array $changes, array $extra = array() ) {
+	public function nextVersion( $version, array $changes, array $extra = [] ) {
 		$info = array_merge(
 			$this->parseVersion( $version ),
 			$this->validateExtra( $extra )
 		);
 
-		$significances = array();
+		$significances = [];
 		foreach ( $changes as $change ) {
 			$significances[ (string) $change->getSignificance() ] = true;
 		}
 		if ( isset( $significances['major'] ) ) {
 			$info['patch'] = 0;
 			if ( 0 === (int) $info['major'] ) {
-				if ( is_callable( array( $this->output, 'getErrorOutput' ) ) ) { // @phan-suppress-current-line PhanUndeclaredMethodInCallable -- See https://github.com/phan/phan/issues/1204.
+				if ( is_callable( [ $this->output, 'getErrorOutput' ] ) ) { // @phan-suppress-current-line PhanUndeclaredMethodInCallable -- See https://github.com/phan/phan/issues/1204.
 					$out = $this->output->getErrorOutput(); // @phan-suppress-current-line PhanUndeclaredMethod -- See https://github.com/phan/phan/issues/1204.
 					$out->writeln( '<warning>Semver does not automatically move version 0.y.z to 1.0.0.</>' );
 					$out->writeln( '<warning>You will have to do that manually when you\'re ready for the first release.</>' );
@@ -256,14 +256,14 @@ class ModifiedSemverVersioning implements VersioningPlugin {
 	 * @param array $extra Extra components for the version, as for `nextVersion()`.
 	 * @return string
 	 */
-	public function firstVersion( array $extra = array() ) {
+	public function firstVersion( array $extra = [] ) {
 		return $this->normalizeVersion(
-			array(
+			[
 				'major'  => 0,
 				'minor'  => 1,
 				'patch'  => 0,
 				'hotfix' => null,
-			) + $this->validateExtra( $extra )
+			 ] + $this->validateExtra( $extra )
 		);
 	}
 }
