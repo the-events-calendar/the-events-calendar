@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignoreFile StellarWP.Classes.ValidClassName.NotSnakeCaseClass
 /**
  * Modified Semver versioning plugin.
  *
@@ -263,7 +263,7 @@ class ModifiedSemverVersioning implements VersioningPlugin {
 				'minor'  => 1,
 				'patch'  => 0,
 				'hotfix' => null,
-			 ] + $this->validateExtra( $extra )
+			] + $this->validateExtra( $extra )
 		);
 	}
 }
