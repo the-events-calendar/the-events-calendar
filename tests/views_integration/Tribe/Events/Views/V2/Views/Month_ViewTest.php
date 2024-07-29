@@ -152,9 +152,8 @@ class Month_ViewTest extends ViewTestCase {
 	 * Test render with events with end time hidden.
 	 */
 	public function test_render_with_events_hide_endtime() {
-		// The views will default to `list` because of a dirty context check, so use list here.
-		// It's ok because we are checking the View objects directly. When the dirty context is fixed,
-		// this should change.
+		/* The views will default to `list` because of a dirty context check, so use list here.
+		 It's ok because we are checking the View objects directly. When the dirty context is fixed, this should change. */
 		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [ 'list' ] );
 
 		tribe( Hooks::class )->hide_event_end_time();
@@ -244,7 +243,7 @@ class Month_ViewTest extends ViewTestCase {
 
 		$this->assertMatchesSnapshot( $html );
 
-		// Remove option so flag doesn't bleed into other tests.
+		// Remove option so the flag doesn't bleed into other tests.
 		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [] );
 	}
 
