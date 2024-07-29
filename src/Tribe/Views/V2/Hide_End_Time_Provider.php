@@ -41,8 +41,7 @@ class Hide_End_Time_Provider extends Service_Provider {
 	/**
 	 * Remove our initialization hooks.
 	 */
-	public function remove_init_actions()
-	{
+	public function remove_init_actions() {
 		remove_action( 'tribe_views_v2_after_setup_loop', [ $this, 'hide_event_end_time' ], 2 );
 		remove_action( 'tribe_events_views_v2_bootstrap_pre_get_view_html', [ $this, 'hide_event_end_time' ], 2 );
 	}
