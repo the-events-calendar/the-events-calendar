@@ -98,7 +98,7 @@ class Hide_End_Time_Provider extends Service_Provider {
 		 *
 		 * @since TBD
 		 *
-		 * @param Hooks $this The provider.
+		 * @param Hide_End_Time_Provider $this The provider.
 		 */
 		do_action( 'tec_events_views_v2_hide_end_time_init', $this );
 	}
