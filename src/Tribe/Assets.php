@@ -533,7 +533,7 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function override_style_exists(): bool {
-		_deprecated_function( __METHOD__, '6.6.0', 'Tribe__Events__Assets::should_enqueue_frontend' );
+		_deprecated_function( __METHOD__, '6.6.1', 'Tribe__Events__Assets::should_enqueue_frontend' );
 		// This is a frontend script, let's bail early if we can.
 		if ( ! $this->should_enqueue_frontend() ) {
 			return false;
