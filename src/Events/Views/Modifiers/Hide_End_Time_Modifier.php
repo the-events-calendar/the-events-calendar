@@ -70,6 +70,13 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 			'month'        => true,
 		];
 
+		/**
+		 * Filter to registering any additional views with default values.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $defaults The views and their default show flag.
+		 */
 		return apply_filters( 'tec_events_hide_end_time_modifier_defaults', $defaults );
 	}
 
