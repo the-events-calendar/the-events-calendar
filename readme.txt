@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.1] TBD =
+
+* Fix - Ensure we don't try to enqueue nonexistent override stylesheets. [ECP-1811]
+
 = [6.6.0.2] 2024-07-24 =
 
 * Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
