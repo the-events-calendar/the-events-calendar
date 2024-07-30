@@ -47,3 +47,5 @@ files/
 
 # Misc
 bin/strauss.phar
+
+.vscode
