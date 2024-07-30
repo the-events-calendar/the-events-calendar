@@ -1479,7 +1479,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since 4.9
 	 *
-	 * @param bool $use_utc Whether ot use the UTC dates and times to read events or not. If `true` then the
+	 * @param bool $use_utc Whether to use the UTC dates and times to read events or not. If `true` then the
 	 *                      `_EventStartDateUTC` and `_EventEndDateUTC` meta keys will be used, if `false` then the
 	 *                      `_EventStartDate` and `_EventEndDate` meta keys will be used.
 	 *
@@ -1572,7 +1572,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				default:
 					$after = $after || 1 === $loop;
 					if ( empty( $this->query_args['orderby'] ) ) {
-						// In some versions of WP, [ $order_by, $order ] doesn't work as expected. Using explict value setting instead.
+						// In some versions of WP, [ $order_by, $order ] doesn't work as expected. Using explicit value setting instead.
 						$this->query_args['orderby'] = $order_by;
 						$this->query_args['order']   = $order;
 					} else {

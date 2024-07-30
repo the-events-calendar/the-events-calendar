@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
+Stable tag: 6.6.0.2
 Requires at least: 6.3
-Stable tag: 6.5.1.6
-Tested up to: 6.6
+Tested up to: 6.6.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -232,6 +232,37 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.0.2] 2024-07-24 =
+
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+
+= [6.6.0.1] 2024-07-23 =
+
+* Fix - Prevent fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
+
+= [6.6.0] 2024-07-22 =
+
+* Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
+* Fix - Properly handle custom theme assets when files are not present, prevents errors on Query Monitor and some notices. [ECP-1811]
+* Tweak - Added filters: `tec_events_integration_elementor_bypass_template_override`, `tec_events_display_settings_toc`, `tec_events_general_settings_toc`
+* Tweak - Changed views: `single-event-blocks`, `v2/month/mobile-events/mobile-day/day-marker`
+* Language - 1 new strings added, 172 updated, 1 fuzzied, and 1 obsoleted
+
+= [6.5.2] 2024-07-18 =
+
+* Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
+* Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
+* Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [TECTRIA-103]
+* Tweak - Update many docblock typos - credit goes to @szepeviktor.
+* Tweak - Correct some variables with typos, such as `$ics_filname` to `$ics_filename` and `$deleteable_statuses_interval` to `$deletable_statuses_interval` and `$delimter` to `$delimiter. Credit goes to @szepeviktor.
+* Tweak - Add filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
+* Tweak - Update docblock for hooks: `month_multiday_classes`, `month_day_classes`, `get_before_events_html`, `get_after_events_html`, `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` to provide more clarity.
+* Tweak - Update docblock for methods/functions: `tec_views_v2_subscribe_link_visibility`, `tec_views_v2_subscribe_link_{$slug}_visibility`, `tribe_get_view_permalink()`, `tribe_get_basic_gmap_embed_url()`, `tribe_event_featured_image()`, `tribe_get_map_link()` and `tribe_get_map_link_html()` methods and add docblocks for the `tribe_events_google_map_link`, `tribe_get_map_link` and `tribe_get_map_link_html` filters.
+* Tweak - Added filters: `tec_events_integration_elementor_bypass_template_override`, `tec_events_display_settings_toc`, `tec_events_general_settings_toc`
+* Tweak - Changed views: `single-event-blocks`, `v2/month/mobile-events/mobile-day/day-marker`
+* Language - 0 new strings added, 222 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.5.1.6] 2024-07-11 =
 
 * Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TECTRIA-149]
@@ -265,7 +296,8 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
 * Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
-* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
+* Tweak - Include a filter to the Elementor integration `tec_events_integration_elementor_bypass_template_override` to allow users to bypass the single event template. [TECTRIA-56]
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()` and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 * Tweak - Changed views: `single-event`
 * Language: 2 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted

@@ -58,6 +58,7 @@
     "changelogger": {
       "changelog": "changelog.md",
       "types": {
+        "version" : "Version",
         "feat" : "Feature",
         "tweak" : "Tweak",
         "fix" : "Fix",

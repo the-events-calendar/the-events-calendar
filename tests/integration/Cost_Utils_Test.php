@@ -50,7 +50,7 @@ class Cost_Utils_Test extends \Codeception\TestCase\WPTestCase {
 			'180.067',
 			'3.00 8.00 125.95', // representing a range of values
 			'*&^$@#%@',         // cost range related functions should ignore this
-			'東京は都会です',     // ...and ignor this one, too
+			'東京は都会です',     // ...and ignore this one, too
 			'1995.95',
 		];
 

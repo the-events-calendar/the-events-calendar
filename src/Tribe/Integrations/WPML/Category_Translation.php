@@ -32,7 +32,7 @@ class Tribe__Events__Integrations__WPML__Category_Translation {
 	 * into account in our rewrite rules and try to show a localized version of the `category` slug
 	 * in the permalinks.
 	 *
-	 * @param string $slug The original, possibily translated, category slug.
+	 * @param string $slug The original, possibly translated, category slug.
 	 *
 	 * @return string The category slug in its ENG form if the Events Category translation is not active
 	 *                or in a translation that The Events Calendar supports.

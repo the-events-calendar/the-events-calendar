@@ -34,7 +34,7 @@ interface Tribe__Events__REST__Interfaces__Post_Repository {
 	 * @param string $context               Context of data.
 	 *
 	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
-	 *                        arrya of array representations of an event organizer or
+	 *                        array of array representations of an event organizer or
 	 *                        an error object.
 	 *
 	 * @since 4.6 Added $context param
