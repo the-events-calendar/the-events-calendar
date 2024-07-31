@@ -199,7 +199,7 @@ class Rest_Api {
 					 * @param bool     $blocked  Whether the REST API response is blocked.
 					 * @param WP_Error $response The response from the REST API.
 					 */
-					$blocked = (bool) apply_filters( 'tec_events_rest_api_response_blocked_due_to_timeout', true, $response );
+					$blocked = (bool) apply_filters( 'tec_events_rest_api_response_blocked_due_to_timeout', false, $response );
 				} else {
 					$blocked = true;
 				}
