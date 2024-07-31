@@ -156,7 +156,7 @@ class Rest_Api {
 	private function is_response_blocked( $response ): bool {
 		// First handle a WP_Error object.
 		if ( is_wp_error( $response ) ) {
-			return $this->is_wp_error_response_blocking( $response );
+			$blocked = $this->is_wp_error_response_blocking( $response );
 		} else {
 			$response_code = wp_remote_retrieve_response_code( $response );
 			$blocked       = ( 200 !== $response_code );
