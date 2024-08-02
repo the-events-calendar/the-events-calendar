@@ -51,10 +51,8 @@ class Rest_Api {
 	 * @return void
 	 */
 	public function hook(): void {
-		$slug = $this->slug;
-
 		tribe_notice(
-			$slug,
+			$this->slug,
 			[ $this, 'notice' ],
 			[
 				'type'               => 'warning',
