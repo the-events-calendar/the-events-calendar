@@ -45,7 +45,12 @@ class RESTAPITest extends WPTestCase {
 			$rest_api
 		);
 
+		$this->assertFalse( $wrapper( $request_return_timeout() ) );
+		$this->assertFalse( $wrapper( $request_return_ssl_error() ) );
+
+		// Test that the filters can change the results.
+		add_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
 		$this->assertTrue( $wrapper( $request_return_timeout() ) );
-		$this->assertTrue( $wrapper( $request_return_ssl_error() ) );
+		remove_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
 	}
 }
