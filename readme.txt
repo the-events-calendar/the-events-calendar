@@ -236,6 +236,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Fix - Ensure we don't try to enqueue nonexistent override stylesheets. [ECP-1811]
 * Tweak - Changed views: `v2/widgets/widget-events-list/view-more`
+* Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.6.0.2] 2024-07-24 =
 
