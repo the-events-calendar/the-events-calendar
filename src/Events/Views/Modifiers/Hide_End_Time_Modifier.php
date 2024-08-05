@@ -75,9 +75,10 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 		 *
 		 * @since TBD
 		 *
-		 * @param array $defaults The views and their default show flag.
+		 * @param array                  $defaults The views and their default show flag.
+		 * @param Hide_End_Time_Modifier $modifier Which modifier we are using.
 		 */
-		return apply_filters( 'tec_events_hide_end_time_modifier_defaults', $defaults );
+		return apply_filters( 'tec_events_hide_end_time_modifier_defaults', $defaults, $this );
 	}
 
 	/**
