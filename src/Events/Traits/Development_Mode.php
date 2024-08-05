@@ -34,7 +34,7 @@ trait Development_Mode {
 	 *
 	 * @return bool
 	 */
-	protected function is_site_development_mode() {
+	protected function is_site_development_mode(): bool {
 		$env_type = wp_get_environment_type();
 
 		$is_development_mode =
@@ -49,6 +49,6 @@ trait Development_Mode {
 		 *
 		 * @param bool $is_development_mode Whether the site is in development mode.
 		 */
-		return apply_filters( 'tribe_site_is_development_mode', $is_development_mode );
+		return (bool) apply_filters( 'tec_events_site_is_development_mode', $is_development_mode );
 	}
 }
