@@ -37,7 +37,7 @@ class RESTAPITest extends WPTestCase {
 		$rest_api = new Rest_Api();
 
 		// Set up a wrapper to test the private method.
-		$wrapper = Closure::bind(
+		$is_response_blocking = Closure::bind(
 			function( $response ) {
 				return $this->is_wp_error_response_blocking( $response );
 			},
@@ -45,12 +45,16 @@ class RESTAPITest extends WPTestCase {
 			$rest_api
 		);
 
-		$this->assertFalse( $wrapper( $request_return_timeout() ) );
-		$this->assertFalse( $wrapper( $request_return_ssl_error() ) );
-
-		// Test that the filters can change the results.
+		// A timeout should not be blocking, unless we filter it to true.
+		$this->assertFalse( $is_response_blocking( $request_return_timeout() ) );
 		add_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
-		$this->assertTrue( $wrapper( $request_return_timeout() ) );
+		$this->assertTrue( $is_response_blocking( $request_return_timeout() ) );
 		remove_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
+
+		// An SSL error should be blocking, unless we are in development mode.
+		$this->assertTrue( $is_response_blocking( $request_return_ssl_error() ) );
+		add_filter( 'tec_events_site_is_development_mode', '__return_true' );
+		$this->assertFalse( $is_response_blocking( $request_return_ssl_error() ) );
+		remove_filter( 'tec_events_site_is_development_mode', '__return_true' );
 	}
 }
