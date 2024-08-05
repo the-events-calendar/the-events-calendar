@@ -235,7 +235,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
-* Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view.
+* Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view. [TEC-5080]
 
 = [6.6.0] 2024-07-22 =
 

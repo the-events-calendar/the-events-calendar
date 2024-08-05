@@ -3,7 +3,7 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use Tribe\Events\Views\V2\Hooks;
+use Tribe\Events\Views\V2\Hide_End_Time_Provider;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
@@ -156,7 +156,7 @@ class Month_ViewTest extends ViewTestCase {
 		 It's ok because we are checking the View objects directly. When the dirty context is fixed, this should change. */
 		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [ 'list' ] );
 
-		tribe( Hooks::class )->hide_event_end_time();
+		tribe( Hide_End_Time_Provider::class )->hide_event_end_time();
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
