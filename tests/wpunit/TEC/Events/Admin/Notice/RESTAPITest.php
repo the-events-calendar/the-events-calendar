@@ -27,7 +27,6 @@ class RESTAPITest extends WPTestCase {
 	 * @return void
 	 */
 	public function wpTearDownAfterClass() {
-		$this->unset_uopz_returns();
 		remove_all_filters( 'tec_events_site_is_development_mode' );
 	}
 
@@ -66,5 +65,6 @@ class RESTAPITest extends WPTestCase {
 		add_filter( 'tec_events_site_is_development_mode', '__return_true' );
 		$this->assertFalse( $rest_api->is_rest_api_blocked( true ) );
 		remove_filter( 'tec_events_site_is_development_mode', '__return_true' );
+		$this->unset_uopz_returns();
 	}
 }
