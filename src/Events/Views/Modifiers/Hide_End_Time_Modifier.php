@@ -62,13 +62,23 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	 * @return array<string, bool> The default options.
 	 */
 	public function get_defaults(): array {
-		return [
+		$defaults = [
 			'recent'       => true,
 			'single-event' => true,
 			'day'          => true,
 			'list'         => true,
 			'month'        => true,
 		];
+
+		/**
+		 * Filter to registering any additional views with default values.
+		 *
+		 * @since TBD
+		 *
+		 * @param array                  $defaults The views and their default show flag.
+		 * @param Hide_End_Time_Modifier $modifier Which modifier we are using.
+		 */
+		return apply_filters( 'tec_events_hide_end_time_modifier_defaults', $defaults, $this );
 	}
 
 	/**
