@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.6.1] TBD =
+= [6.6.1] 2024-08-05 =
 
 * Fix - Ensure we don't try to enqueue nonexistent override stylesheets. [ECP-1811]
 * Tweak - Changed views: `v2/widgets/widget-events-list/view-more`
