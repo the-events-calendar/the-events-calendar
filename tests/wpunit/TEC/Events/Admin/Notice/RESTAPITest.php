@@ -7,9 +7,9 @@ declare( strict_types=1 );
 
 namespace TEC\Tests\Events\Admin\Notice;
 
-use Closure;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Admin\Notice\Rest_Api;
+use Tribe\Tests\Traits\With_Uopz;
 use WP_Error;
 
 /**
@@ -19,7 +19,25 @@ use WP_Error;
  */
 class RESTAPITest extends WPTestCase {
 
-	function test_response_blocked_from_wp_error() {
+	use With_Uopz;
+
+	/**
+	 * Clean up after this test class finishes.
+	 *
+	 * @return void
+	 */
+	public function wpTearDownAfterClass() {
+		$this->unset_uopz_returns();
+		remove_all_filters( 'tec_events_site_is_development_mode' );
+	}
+
+	/**
+	 * Test scenarios that should report whether the API is blocked.
+	 *
+	 * @test
+	 * @return void
+	 */
+	public function should_correctly_determine_if_the_api_is_blocked() {
 		$request_return_timeout = function() {
 			return new WP_Error(
 				'http_request_failed',
@@ -36,25 +54,17 @@ class RESTAPITest extends WPTestCase {
 
 		$rest_api = new Rest_Api();
 
-		// Set up a wrapper to test the private method.
-		$is_response_blocking = Closure::bind(
-			function( $response ) {
-				return $this->is_wp_error_response_blocking( $response );
-			},
-			$rest_api,
-			$rest_api
-		);
-
 		// A timeout should not be blocking, unless we filter it to true.
-		$this->assertFalse( $is_response_blocking( $request_return_timeout() ) );
-		add_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
-		$this->assertTrue( $is_response_blocking( $request_return_timeout() ) );
-		remove_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
+		$this->assertFalse( $rest_api->is_rest_api_blocked( true ) );
+		$this->set_fn_return( 'wp_safe_remote_get', $request_return_timeout, true );
+		$this->assertTrue( $rest_api->is_rest_api_blocked( true ) );
+		$this->unset_uopz_returns();
 
 		// An SSL error should be blocking, unless we are in development mode.
-		$this->assertTrue( $is_response_blocking( $request_return_ssl_error() ) );
+		$this->set_fn_return( 'wp_safe_remote_get', $request_return_ssl_error, true );
+		$this->assertTrue( $rest_api->is_rest_api_blocked( true ) );
 		add_filter( 'tec_events_site_is_development_mode', '__return_true' );
-		$this->assertFalse( $is_response_blocking( $request_return_ssl_error() ) );
+		$this->assertFalse( $rest_api->is_rest_api_blocked( true ) );
 		remove_filter( 'tec_events_site_is_development_mode', '__return_true' );
 	}
 }
