@@ -222,7 +222,7 @@ class Rest_Api {
 		$routes  = [];
 		$v1_main = tribe( 'tec.rest-v1.main' );
 
-		// Ensure the what we got from tribe() is the instance we expect.
+		// Ensure that what we got from tribe() is the instance we expect.
 		if ( $v1_main instanceof V1 ) {
 			$routes[] = rest_url( $v1_main->get_events_route_namespace() );
 		}
