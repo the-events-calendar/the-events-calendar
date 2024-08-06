@@ -356,7 +356,14 @@ class VenueTest extends Events_TestCase {
 		$venue_3       = $venue->save( false, $data, false, 'publish' );
 
 		$this->assertNotEquals( $venue_1, $venue_3, 'Venue should not have the same ID' );
-		$this->assertNotEquals( tribe_get_address( $venue_1 ), tribe_get_address( $venue_3 ), 'Venue address should not be updated' );
+
+		// Address of 1 and 2 should still be the same
+		$this->assertEquals( tribe_get_full_address( $venue_1 ), tribe_get_full_address( $venue_2 ), 'Venue address should be the same' );
+
+		// City, State, and Zip of 1 and 3 should be different.
+		$this->assertNotEquals( tribe_get_city( $venue_1 ), tribe_get_city( $venue_3 ), 'Venue city should be different' );
+		$this->assertNotEquals( tribe_get_state( $venue_1 ), tribe_get_state( $venue_3 ), 'Venue state should be different' );
+		$this->assertNotEquals( tribe_get_zip( $venue_1 ), tribe_get_zip( $venue_3 ), 'Venue zip should be different' );
 
 		// Disable the filter after we're done.
 		remove_filter( 'tribe_get_option_allow_duplicate_venues', '__return_true' );
