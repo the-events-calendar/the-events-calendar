@@ -37,6 +37,10 @@ class RESTAPITest extends WPTestCase {
 	 * @return void
 	 */
 	public function should_correctly_determine_if_the_api_is_blocked() {
+		$request_return_success = function() {
+			return [ 'response' => [ 'code' => 200 ] ];
+		};
+
 		$request_return_timeout = function() {
 			return new WP_Error(
 				'http_request_failed',
@@ -54,7 +58,10 @@ class RESTAPITest extends WPTestCase {
 		$rest_api = new Rest_Api();
 
 		// A timeout should not be blocking, unless we filter it to true.
+		$this->set_fn_return( 'wp_safe_remote_get', $request_return_success, true );
 		$this->assertFalse( $rest_api->is_rest_api_blocked( true ) );
+		$this->unset_uopz_returns();
+
 		$this->set_fn_return( 'wp_safe_remote_get', $request_return_timeout, true );
 		$this->assertTrue( $rest_api->is_rest_api_blocked( true ) );
 		$this->unset_uopz_returns();
