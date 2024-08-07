@@ -402,7 +402,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Resets the global common info back to ET's common path
+		 * Resets the global common info back to ET's common path.
 		 *
 		 * @since 4.9.3.2
 		 */
