@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { get, noop, pick } from 'lodash';
+import { PropTypes } from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -80,6 +81,10 @@ export function toVenue( fields ) {
  */
 
 export default class VenueForm extends Component {
+	static propTypes = {
+		onSubmit: PropTypes.func,
+	};
+
 	static defaultProps = {
 		onSubmit: noop,
 	};

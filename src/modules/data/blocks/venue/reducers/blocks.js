@@ -17,7 +17,7 @@ import * as types from './../types';
  * @since 6.2.0
  * @param {Object} state State object.
  * @param {string} action Action being taken.
- * @returns {{}}
+ * @returns {{}} The new state.
  */
 export const byId = ( state = {}, action ) => {
 	switch ( action.type ) {
@@ -50,7 +50,7 @@ export const byId = ( state = {}, action ) => {
  * @since 6.2.0
  * @param {Object} state State object.
  * @param {string} action Action being taken.
- * @returns {{}}
+ * @returns {{}} The new state.
  */
 export const allIds = ( state = [], action ) => {
 	switch ( action.type ) {
@@ -71,7 +71,7 @@ export const allIds = ( state = [], action ) => {
  * @since 6.2.0
  * @param {Object} state State object.
  * @param {string} action Action being taken.
- * @returns {{}}
+ * @returns {{}} The new state.
  */
 export const core = ( state = {}, action ) => {
 	switch ( action.type ) {
