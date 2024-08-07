@@ -24,9 +24,11 @@ class RESTAPITest extends WPTestCase {
 	/**
 	 * Clean up after this test class finishes.
 	 *
+	 * @afterClass
+	 *
 	 * @return void
 	 */
-	public function wpTearDownAfterClass() {
+	public static function cleanup_after_class() {
 		remove_all_filters( 'tec_events_site_is_development_mode' );
 		remove_all_filters( 'tec_events_rest_api_response_blocked_due_to_timeout' );
 	}
@@ -58,23 +60,19 @@ class RESTAPITest extends WPTestCase {
 
 		$rest_api = new Rest_Api();
 
-		// A timeout should not be blocking, unless we filter it to true.
+		// A timeout should not be blocking.
 		$this->set_fn_return( 'wp_safe_remote_get', $request_return_success, true );
 		$this->assertFalse( $rest_api->is_rest_api_blocked( true ) );
-		$this->unset_uopz_returns();
 
+		// A timeout SHOULD be blocking when the filter is set to true.
 		$this->set_fn_return( 'wp_safe_remote_get', $request_return_timeout, true );
 		add_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
 		$this->assertTrue( $rest_api->is_rest_api_blocked( true ) );
-		$this->unset_uopz_returns();
-		remove_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
 
 		// An SSL error should be blocking, unless we are in development mode.
 		$this->set_fn_return( 'wp_safe_remote_get', $request_return_ssl_error, true );
 		$this->assertTrue( $rest_api->is_rest_api_blocked( true ) );
 		add_filter( 'tec_events_site_is_development_mode', '__return_true' );
 		$this->assertFalse( $rest_api->is_rest_api_blocked( true ) );
-		remove_filter( 'tec_events_site_is_development_mode', '__return_true' );
-		$this->unset_uopz_returns();
 	}
 }
