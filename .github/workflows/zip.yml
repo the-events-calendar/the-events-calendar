@@ -42,7 +42,7 @@ jobs:
           name: id_rsa
           known_hosts: github.com
       # ------------------------------------------------------------------------------
-      # Checkout the repo and tut
+      # Checkout the repo
       # ------------------------------------------------------------------------------
       - name: Checkout the repository
         uses: actions/checkout@v2
@@ -51,6 +51,22 @@ jobs:
           token: ${{ secrets.GH_BOT_TOKEN }}
           submodules: recursive
           ref: ${{ steps.settings.outputs.branch }}
+      # ------------------------------------------------------------------------------
+      # Setup Node.
+      # ------------------------------------------------------------------------------
+      - name: Check for .nvmrc file
+        id: check-nvmrc
+        run: echo "::set-output name=exists::$(test -f ${{ github.workspace }}/.nvmrc && echo 'true' || echo 'false')"
+
+      - uses: actions/setup-node@v3
+        if: steps.check-nvmrc.outputs.exists == 'true'
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      # ------------------------------------------------------------------------------
+      # Checkout the tut
+      # ------------------------------------------------------------------------------
       - name: Checkout tut
         uses: actions/checkout@v2
         with:
@@ -67,6 +83,7 @@ jobs:
           ref: main
           path: jenkins-scripts
           fetch-depth: 1
+
       # ------------------------------------------------------------------------------
       # Determine if we need to zip
       # ------------------------------------------------------------------------------
