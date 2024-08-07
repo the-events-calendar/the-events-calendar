@@ -12,7 +12,7 @@
  * @since 5.2.1
  * @since 5.4.0   Add template vars for link text and title.
  *
- * @version TDB
+ * @version 5.4.0
  *
  * @var string $view_more_link  The URL to view all events.
  * @var string $view_more_text  The text for the "view more" link.

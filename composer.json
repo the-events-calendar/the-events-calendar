@@ -69,6 +69,9 @@
         "deprecated" : "Deprecated",
         "language" : "Language"
       },
+      "versioning": {
+        "filename": "bin/ModifiedSemverVersioning.php"
+      },
       "formatter": {
         "filename": "bin/class-tec-changelog-formatter.php"
       },
