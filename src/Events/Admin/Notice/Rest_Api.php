@@ -102,7 +102,7 @@ class Rest_Api {
 		// Check multiple endpoints to determine if the REST API is blocked.
 		$endpoints = $this->get_routes_to_check();
 		foreach ( $endpoints as $endpoint ) {
-			$response = wp_safe_remote_get( $endpoint );
+			$response = wp_safe_remote_get( $endpoint, [ 'timeout' => 3 ] );
 			if ( $this->is_response_blocked( $response ) ) {
 				$this->blocked_endpoint = $endpoint;
 				tec_timed_option()->set( $cache_key, $endpoint, $cache_timeout );
