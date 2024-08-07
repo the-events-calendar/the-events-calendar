@@ -28,6 +28,7 @@ class RESTAPITest extends WPTestCase {
 	 */
 	public function wpTearDownAfterClass() {
 		remove_all_filters( 'tec_events_site_is_development_mode' );
+		remove_all_filters( 'tec_events_rest_api_response_blocked_due_to_timeout' );
 	}
 
 	/**
@@ -63,8 +64,10 @@ class RESTAPITest extends WPTestCase {
 		$this->unset_uopz_returns();
 
 		$this->set_fn_return( 'wp_safe_remote_get', $request_return_timeout, true );
+		add_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
 		$this->assertTrue( $rest_api->is_rest_api_blocked( true ) );
 		$this->unset_uopz_returns();
+		remove_filter( 'tec_events_rest_api_response_blocked_due_to_timeout', '__return_true' );
 
 		// An SSL error should be blocking, unless we are in development mode.
 		$this->set_fn_return( 'wp_safe_remote_get', $request_return_ssl_error, true );
