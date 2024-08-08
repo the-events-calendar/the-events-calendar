@@ -423,6 +423,13 @@ class Month_View extends By_Day_View {
 	 * @return array An associative array of day data for each day in the shape `[ <Y-m-d> => <day_data> ]`.
 	 */
 	protected function get_days_data( array $grid_days ) {
+		/// INNOVATION DAY
+		$days_data = apply_filters( 'tribe_events_views_v2_by_day_view_days_data', null, $grid_days, $this );
+
+		if ( $days_data !== null ) {
+			return $days_data;
+		}
+
 		$found_events = $this->get_grid_days_counts();
 		$events_per_day = $this->get_events_per_day();
 
