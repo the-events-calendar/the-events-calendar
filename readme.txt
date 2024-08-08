@@ -235,6 +235,10 @@ Remember to always make a backup of your database and files before updating!
 
 = [TBD] TBD =
 
+* Fix - Resolved issue where single event pages were not scrolling when embedded in an iframe. [TEC-5033]
+
+= [TBD] TBD =
+
 * Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view. [TEC-5080]
 
 = [6.6.0] 2024-07-22 =
