@@ -204,11 +204,11 @@ function tribe_get_listview_link( $term = null ) {
 /**
  * Returns a link to the general or category past view.
  *
- * @since  5.14.0
+ * @since 5.14.0
  *
  * @param int|null $term Optional. Term ID. Default null.
  *
- * @return string                  URL of the past list view.
+ * @return string URL of the past list view.
  */
 function tribe_get_listview_past_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
