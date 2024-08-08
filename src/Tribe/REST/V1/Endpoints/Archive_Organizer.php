@@ -54,14 +54,14 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 				'responses'  => [
 					'200' => [
 						'description' => __( 'Returns all the organizers matching the search criteria', 'the-events-calendar' ),
-						'content' => [
+						'content'     => [
 							'application/json' => [
 								'schema' => [
 									'title' => 'organizers',
 									'type'  => 'array',
 									'items' => [ '$ref' => '#/components/schemas/Organizer' ],
-								]
-							]
+								],
+							],
 						],
 					],
 					'400' => [
@@ -78,11 +78,12 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	/**
 	 * Handles GET requests on the endpoint.
 	 *
+	 * @since 4.6
+	 *
 	 * @param WP_REST_Request $request
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
-	 * @since 4.6
 	 */
 	public function get( WP_REST_Request $request ) {
 		$args = [
@@ -100,13 +101,16 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			$args['post_status'] = $this->filter_post_status_list( $request['status'] );
 		}
 
+		$args = $this->parse_args( $args, $request->get_default_params(), $request );
+
 		/**
 		 * Filters whether only organizers with upcoming events should be shown (`true`) or not (`false`) when
 		 * the request parameter `only_with_upcoming` is not explicitly set.
 		 *
+		 * @since 4.6
+		 *
 		 * @param bool $default_only_with_upcoming
 		 *
-		 * @since 4.6
 		 */
 		$default_only_with_upcoming = apply_filters( 'tribe_rest_organizer_default_only_with_upcoming', false );
 
@@ -131,6 +135,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 				$organizers = [];
 			}
 		}
+
+		// Filter the arguments using the request as part of the hook name, helps external inclusions of params.
+		$args = $this->filter_args( $args, $request );
 
 		$posts_per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 
@@ -195,9 +202,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	 * Returns the content of the `args` array that should be used to register the endpoint
 	 * with the `register_rest_route` function.
 	 *
+	 * @since 4.5
 	 * @return array
 	 *
-	 * @since 4.5
 	 */
 	public function READ_args() {
 		return [
@@ -252,9 +259,9 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	/**
 	 * Returns the maximum number of posts per page fetched via the REST API.
 	 *
+	 * @since 4.5
 	 * @return int
 	 *
-	 * @since 4.5
 	 */
 	public function get_max_posts_per_page() {
 		/**
@@ -278,7 +285,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	protected function get_total( $args, $only_with_upcoming = false ) {
 		unset( $args['posts_per_page'] );
 
-		$this->total = tribe_get_organizers( $only_with_upcoming, -1, true,
+		$this->total = tribe_get_organizers( $only_with_upcoming, - 1, true,
 			array_merge( $args, [
 				'found_posts'            => true,
 				'update_post_meta_cache' => false,
@@ -306,14 +313,16 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	/**
 	 * Whether there is a next page in respect to the specified one.
 	 *
-	 * @param array $args
+	 * @since 4.6
+	 *
 	 * @param int   $page
 	 *
 	 * @param bool  $only_with_upcoming
 	 *
+	 * @param array $args
+	 *
 	 * @return bool
 	 *
-	 * @since 4.6
 	 */
 	protected function has_next( $args, $page, $only_with_upcoming ) {
 		$overrides = [
@@ -323,7 +332,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			'update_post_term_cache' => false,
 		];
 
-		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
+		$per_page  = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );
 
 		$next = tribe_get_organizers( $only_with_upcoming, $per_page, false, $overrides );
@@ -334,13 +343,15 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 	/**
 	 * Whether there is a previous page in respect to the specified one.
 	 *
-	 * @param int   $page
+	 * @since 4.5
+	 *
 	 * @param array $args
 	 * @param bool  $only_with_upcoming
 	 *
+	 * @param int   $page
+	 *
 	 * @return bool
 	 *
-	 * @since 4.5
 	 */
 	protected function has_previous( $page, $args, $only_with_upcoming ) {
 		$overrides = [
@@ -350,7 +361,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Organizer
 			'update_post_term_cache' => false,
 		];
 
-		$per_page = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
+		$per_page  = Tribe__Utils__Array::get( $args, 'posts_per_page', $this->get_default_posts_per_page() );
 		$overrides = array_merge( $args, $overrides );
 
 		$previous = tribe_get_organizers( $only_with_upcoming, $per_page, false, array_merge( $args, $overrides ) );
