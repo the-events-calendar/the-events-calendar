@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.6.1
+Stable tag: 6.6.2
 Requires at least: 6.3
 Tested up to: 6.6.1
 Requires PHP: 7.4
@@ -231,6 +231,10 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [TBD] TBD =
+
+* Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view. [TEC-5080]
 
 = [6.6.1] 2024-08-06 =
 

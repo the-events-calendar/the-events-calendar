@@ -87,8 +87,9 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views",
       "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules",
-      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views"
+      "TEC\\Tests\\Events\\Admin\\Notice\\": "tests/wpunit/TEC/Events/Admin/Notice"
     }
   },
   "repositories": [

@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Add an option to allow for duplicate Venue creation as part of creating/editing Events.

@@ -427,7 +427,10 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base { // phpcs:
 			unset( $data['VenueID'] );
 		}
 
-		return $this->create( $data, $post_status, true );
+		// Check the option for whether duplicate venues are allowed.
+		$avoid_duplicates = ! tribe_get_option( 'allow_duplicate_venues', false );
+
+		return $this->create( $data, $post_status, $avoid_duplicates );
 	}
 
 	/**

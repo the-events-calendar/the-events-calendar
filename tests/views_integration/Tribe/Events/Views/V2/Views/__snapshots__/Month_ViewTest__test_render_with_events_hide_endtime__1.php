@@ -490,9 +490,6 @@
 </em>
 	<time datetime="13:01">
 		1:01 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:01">
-			5:01 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -552,9 +549,6 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="13:04">
 		1:04 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:04">
-			5:04 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -605,9 +599,6 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="13:04">
 		1:04 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:04">
-			5:04 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
