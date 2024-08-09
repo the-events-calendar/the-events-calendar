@@ -15,19 +15,20 @@ jobs:
         with:
           fetch-depth: 1
           submodules: recursive
-      - name: Set node version
-        run: |
-          . ~/.nvm/nvm.sh && nvm install $(cat .nvmrc) && nvm use
-      - name: Get npm cache
-        uses: actions/cache@v2
-        id: npm-cache
+      # ------------------------------------------------------------------------------
+      # Setup Node.
+      # ------------------------------------------------------------------------------
+      - name: Check for .nvmrc file
+        id: check-nvmrc
+        run: echo "::set-output name=exists::$(test -f ${{ github.workspace }}/.nvmrc && echo 'true' || echo 'false')"
+
+      - uses: actions/setup-node@v3
+        if: steps.check-nvmrc.outputs.exists == 'true'
         with:
-          path: '~/.npm'
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
       - name: Install node modules
-        run: |
-          . ~/.nvm/nvm.sh && nvm use && npm ci
+        run: npm ci
       - name: Run linting tasks
-        run: |
-          . ~/.nvm/nvm.sh && nvm use && npm run lint
+        run: npm run lint

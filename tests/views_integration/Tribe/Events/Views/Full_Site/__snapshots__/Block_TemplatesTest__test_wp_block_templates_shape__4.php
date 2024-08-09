@@ -4,9 +4,9 @@
   'area' => NULL,
   'post_types' => NULL,
   'origin' => NULL,
-  'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentythree"} /-->
+  'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentyfour"} /-->
 <!-- wp:tec/single-event /-->
-<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentythree"} /-->
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentyfour"} /-->
 ',
   'description' => 'Displays a single event.',
   'title' => 'Single Event',
