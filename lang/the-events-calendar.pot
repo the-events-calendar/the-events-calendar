@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.5.1.3\n"
+"Project-Id-Version: The Events Calendar 6.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-14T10:43:46-07:00\n"
-"PO-Revision-Date: 2024-06-14 17:43\n"
+"POT-Creation-Date: 2024-08-05T09:08:33-07:00\n"
+"PO-Revision-Date: 2024-08-05 16:08\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -23,7 +23,7 @@ msgstr ""
 #: src/Tribe/Main.php:992
 #: src/Tribe/Main.php:1436
 #: src/Tribe/Privacy.php:29
-#: the-events-calendar.php:57
+#: the-events-calendar.php:59
 #: src/modules/blocks/archive-events/index.js:30
 #: src/modules/blocks/single-event/index.js:30
 msgid "The Events Calendar"
@@ -570,16 +570,17 @@ msgstr ""
 msgid "Upload an ICS File"
 msgstr ""
 
-#: src/admin-views/aggregator/origins/limit.php:16
+#. Translators: %s: the number of events defined in the settings.
+#: src/admin-views/aggregator/origins/limit.php:18
 msgid "Event Aggregator will try to fetch %s events starting from the current date or the specified date;"
 msgstr ""
 
-#: src/admin-views/aggregator/origins/limit.php:29
+#: src/admin-views/aggregator/origins/limit.php:32
 #: src/admin-views/aggregator/origins/url.php:97
 msgid "Event Aggregator will try to fetch events starting within the next %s from the current date or the specified date;"
 msgstr ""
 
-#: src/admin-views/aggregator/origins/limit.php:39
+#: src/admin-views/aggregator/origins/limit.php:42
 #: src/admin-views/aggregator/origins/url.php:99
 msgid "you can modify this setting here."
 msgstr ""
@@ -1288,7 +1289,7 @@ msgstr ""
 #: src/admin-views/create-venue-fields.php:195
 #: src/admin-views/organizer-meta-box.php:37
 #: src/admin-views/venue-meta-box.php:185
-#: src/functions/template-tags/link.php:464
+#: src/functions/template-tags/link.php:470
 #: src/views/blocks/parts/details.php:183
 #: src/views/integrations/elementor/widgets/event-website/header.php:20
 #: src/modules/elements/organizer-form/element.js:179
@@ -1769,310 +1770,310 @@ msgstr ""
 msgid " Check out our <a href=\"%s\" rel=\"noopener\" target=\"_blank\">customization guide</a> for instructions on template modifications."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:79
+#: src/admin-views/tribe-options-display.php:78
 #: src/admin-views/tribe-options-general.php:148
 msgctxt "Text introducing the table of contents links."
 msgid "Jump to:"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:83
+#: src/admin-views/tribe-options-display.php:82
 msgctxt "Calendar Display table of contents link."
 msgid "Calendar Template"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:87
+#: src/admin-views/tribe-options-display.php:86
 msgctxt "Calendar Display table of contents link."
 msgid "Calendar Display"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:91
+#: src/admin-views/tribe-options-display.php:90
 msgctxt "Date & Time table of contents link."
 msgid "Date & Time"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:95
+#: src/admin-views/tribe-options-display.php:94
 msgctxt "Currency table of contents link."
 msgid "Currency"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:99
+#: src/admin-views/tribe-options-display.php:98
 msgctxt "Maps table of contents link."
 msgid "Maps"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:103
+#: src/admin-views/tribe-options-display.php:102
 msgctxt "Additional Content table of contents link."
 msgid "Additional Content"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:140
+#: src/admin-views/tribe-options-display.php:146
 msgctxt "Template display settings section header"
 msgid "Calendar Template"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:145
+#: src/admin-views/tribe-options-display.php:151
 msgid "Default stylesheet used for events templates"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:148
+#: src/admin-views/tribe-options-display.php:154
 msgid "Skeleton Styles"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:150
+#: src/admin-views/tribe-options-display.php:156
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:155
+#: src/admin-views/tribe-options-display.php:161
 msgid "Default Styles"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:157
+#: src/admin-views/tribe-options-display.php:163
 msgid "A fully designed and styled theme for your events pages."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:167
+#: src/admin-views/tribe-options-display.php:173
 msgid "Events template"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:168
+#: src/admin-views/tribe-options-display.php:174
 msgid "Choose a page template to control the appearance of your calendar and event content."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:183
+#: src/admin-views/tribe-options-display.php:189
 msgctxt "Calendar display settings section header"
 msgid "Calendar Display"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:188
+#: src/admin-views/tribe-options-display.php:194
 msgid "Enable event views"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:201
+#: src/admin-views/tribe-options-display.php:207
 #: src/Events/Site_Health/Info_Section.php:170
 msgid "Default view"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:214
+#: src/admin-views/tribe-options-display.php:220
 msgid "Month view events per day"
 msgstr ""
 
 #. Translators: %s: URL to knowledgebase.
-#: src/admin-views/tribe-options-display.php:217
+#: src/admin-views/tribe-options-display.php:223
 msgid "Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href=\"%s\" rel=\"noopener\" target=\"_blank\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:226
+#: src/admin-views/tribe-options-display.php:232
 msgid "Number of events to show per page"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:234
+#: src/admin-views/tribe-options-display.php:240
 msgid "Show comments"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:235
+#: src/admin-views/tribe-options-display.php:241
 msgid "Enable comments on event pages."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:241
+#: src/admin-views/tribe-options-display.php:247
 msgid "Disable the event search bar"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:242
+#: src/admin-views/tribe-options-display.php:248
 msgid "Hide the search field on all views."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:253
+#: src/admin-views/tribe-options-display.php:259
 msgid "Single event page"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:254
+#: src/admin-views/tribe-options-display.php:260
 msgid "Day view"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:255
+#: src/admin-views/tribe-options-display.php:261
 msgid "List view"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:256
+#: src/admin-views/tribe-options-display.php:262
 msgid "Month view tooltip"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:271
+#: src/admin-views/tribe-options-display.php:277
 msgctxt "Date and Time settings section header"
 msgid "Date & Time"
 msgstr ""
 
 #. Translators: %1$s: PHP date function, %2$s: URL to WP knowledgebase.
-#: src/admin-views/tribe-options-display.php:278
+#: src/admin-views/tribe-options-display.php:284
 msgid "The following three fields accept the date format options available to the PHP %1$s function. <a href=\"%2$s\" target=\"_blank\">Learn how to make your own date format here</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:286
+#: src/admin-views/tribe-options-display.php:292
 msgid "Date with year format"
 msgstr ""
 
 #. Translators: %1$s: Example date with year format.
-#: src/admin-views/tribe-options-display.php:289
+#: src/admin-views/tribe-options-display.php:295
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a future year. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:304
+#: src/admin-views/tribe-options-display.php:310
 msgid "Date without year format"
 msgstr ""
 
 #. Translators: %1$s: Example date without year format.
-#: src/admin-views/tribe-options-display.php:307
+#: src/admin-views/tribe-options-display.php:313
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:316
+#: src/admin-views/tribe-options-display.php:322
 msgid "Month and year format"
 msgstr ""
 
 #. Translators: %1$s: Example month and year format.
-#: src/admin-views/tribe-options-display.php:319
+#: src/admin-views/tribe-options-display.php:325
 msgid "Enter the format to use for dates that show a month and year only. Used on month view. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:328
+#: src/admin-views/tribe-options-display.php:334
 msgid "Compact date format"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:329
+#: src/admin-views/tribe-options-display.php:335
 msgid "Select the date format used for elements with minimal space, such as in datepickers."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:349
+#: src/admin-views/tribe-options-display.php:355
 msgid "Date time separator"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:350
+#: src/admin-views/tribe-options-display.php:356
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:357
+#: src/admin-views/tribe-options-display.php:363
 msgid "Time range separator"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:358
+#: src/admin-views/tribe-options-display.php:364
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:365
+#: src/admin-views/tribe-options-display.php:371
 msgid "End of day cutoff"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:366
+#: src/admin-views/tribe-options-display.php:372
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:387
+#: src/admin-views/tribe-options-display.php:393
 msgid "Remove event end time"
 msgstr ""
 
 #. Translators: %1$s - opening italics tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing italics tag
-#: src/admin-views/tribe-options-display.php:390
+#: src/admin-views/tribe-options-display.php:396
 msgid ""
 "When one of these boxes is checked, the end time will no longer display for events that end on the same day when viewing the specified view.\n"
 "\t\t\t\t%1$s Source: %2$s Remove the Event End Time in Views %3$s%4$s"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:417
+#: src/admin-views/tribe-options-display.php:423
 msgctxt "Currency settings section header"
 msgid "Currency"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:431
+#: src/admin-views/tribe-options-display.php:437
 msgid "Start selling tickets to your events"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:437
+#: src/admin-views/tribe-options-display.php:443
 msgid "Get Event Tickets to manage attendee registration and ticket sales to your events, for free."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:442
-#: src/admin-views/tribe-options-general.php:284
+#: src/admin-views/tribe-options-display.php:448
+#: src/admin-views/tribe-options-general.php:310
 #: src/Tribe/REST/V1/EA_Messages.php:40
 msgid "Learn more."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:452
+#: src/admin-views/tribe-options-display.php:458
 msgid "Default currency symbol"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:453
+#: src/admin-views/tribe-options-display.php:459
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:460
+#: src/admin-views/tribe-options-display.php:466
 msgid "Default currency code"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:461
+#: src/admin-views/tribe-options-display.php:467
 msgid "Set the default currency ISO-4217 code for event costs. This is a three-letter code and is mainly used for data/SEO purposes."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:468
+#: src/admin-views/tribe-options-display.php:474
 #: src/modules/data/blocks/price/reducer.js:26
 msgid "USD"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:473
+#: src/admin-views/tribe-options-display.php:479
 msgid "Currency symbol follows value"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:474
+#: src/admin-views/tribe-options-display.php:480
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:486
+#: src/admin-views/tribe-options-display.php:492
 msgctxt "Map settings section header"
 msgid "Maps"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:494
+#: src/admin-views/tribe-options-display.php:500
 msgid "Advanced Google Maps functionality"
 msgstr ""
 
 #. Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag
-#: src/admin-views/tribe-options-display.php:501
+#: src/admin-views/tribe-options-display.php:507
 msgid "%1$sThe Events Calendar comes with a default API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %2$sGoogle Maps API key%3$s.%4$s"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:514
+#: src/admin-views/tribe-options-display.php:520
 msgid "Enable Maps"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:515
+#: src/admin-views/tribe-options-display.php:521
 msgid "Check to enable maps for events and venues."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:522
+#: src/admin-views/tribe-options-display.php:528
 msgid "Google Maps default zoom level"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:523
+#: src/admin-views/tribe-options-display.php:529
 msgid "0 = zoomed out; 21 = zoomed in."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:537
+#: src/admin-views/tribe-options-display.php:543
 msgctxt "Additional content settings section header"
 msgid "Additional Content"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:541
+#: src/admin-views/tribe-options-display.php:547
 msgid "Add HTML before event content"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:542
+#: src/admin-views/tribe-options-display.php:548
 msgid "If you are familiar with HTML, you can add additional code before the event template. Some themes may require this to help with styling or layout."
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:547
+#: src/admin-views/tribe-options-display.php:553
 msgid "Add HTML after event content"
 msgstr ""
 
-#: src/admin-views/tribe-options-display.php:548
+#: src/admin-views/tribe-options-display.php:554
 msgid "If you are familiar with HTML, you can add additional code after the event template. Some themes may require this to help with styling or layout."
 msgstr ""
 
@@ -2155,164 +2156,169 @@ msgctxt "Debugging table of contents link."
 msgid "Debugging"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:193
+#: src/admin-views/tribe-options-general.php:200
 msgctxt "Title for the viewing section of the general settings."
 msgid "Viewing"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:197
-#: src/admin-views/tribe-options-general.php:213
+#: src/admin-views/tribe-options-general.php:204
+#: src/admin-views/tribe-options-general.php:221
 msgid "Events URL slug"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:200
+#. Translators: %1$s - link to the front-end calendar page, %2$s - URL to the permalinks admin page.
+#: src/admin-views/tribe-options-general.php:208
 msgid "The current URL for your events page is %1$s. <br><br> You cannot edit the slug for your events page as you do not have pretty permalinks enabled. In order to edit the slug here, <a href=\"%2$s\">enable pretty permalinks</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:220
+#: src/admin-views/tribe-options-general.php:229
 msgid "The slug used for building the events URL."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:220
-msgid "Your current events URL is: %s"
+#. Translators: %1$s - URL to the events page (link), %2$s - URL to the events page (readable string)
+#: src/admin-views/tribe-options-general.php:233
+msgid "Your current events URL is: <code><a href=\"%1$s\">%2$s</a></code>"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:225
+#: src/admin-views/tribe-options-general.php:242
 msgid "Single event URL slug"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:232
-msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: %s"
+#. Translators: %1$s - URL to the single event page (readable string)
+#: src/admin-views/tribe-options-general.php:252
+msgid "The above should ideally be plural, and this singular.<br />Your single event URL is: <code>%1$s</code>"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:237
+#: src/admin-views/tribe-options-general.php:259
 msgid "Include events in main blog loop"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:238
+#: src/admin-views/tribe-options-general.php:260
 msgid "Show events with the site's other posts. When this box is checked, events will also continue to appear on the default events page."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:244
+#: src/admin-views/tribe-options-general.php:266
 msgid "Enable the Month View Cache"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:245
+#. Translators: %s - link to the Month View Cache documentation
+#: src/admin-views/tribe-options-general.php:269
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\" rel=\"noopener\" target=\"_blank\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:260
+#: src/admin-views/tribe-options-general.php:286
 msgctxt "Title for the editing section of the general settings."
 msgid "Editing"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:274
+#: src/admin-views/tribe-options-general.php:300
 msgid "Import events with Event Aggregator"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:279
+#: src/admin-views/tribe-options-general.php:305
 #: src/Tribe/Aggregator/Tabs/New.php:530
 msgid "Effortlessly fill your calendar with events from Meetup, Eventbrite, iCal, Google Calendar, and more."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:294
+#: src/admin-views/tribe-options-general.php:320
 msgid "Show Custom Fields metabox"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:295
+#: src/admin-views/tribe-options-general.php:321
 msgid "Enable WordPress Custom Fields on events in the classic editor."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:304
+#: src/admin-views/tribe-options-general.php:330
 msgid "This option allows you to automatically move past events to trash."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:308
+#. Translators: %1$d - number of days, %2$s - `EMPTY_TRASH_DAYS` constant (code), %3$s - link to the documentation
+#: src/admin-views/tribe-options-general.php:335
 msgid "Trashed events will permanently be deleted in %1$d days, you can change that value using <code>%2$s</code>. <a href=\"%3$s\" rel=\"noopener noreferrer\" target=\"_blank\">Read more.</a>"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:319
+#: src/admin-views/tribe-options-general.php:346
 msgctxt "Title for the maintenance section of the general settings."
 msgid "Maintenance"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:323
+#: src/admin-views/tribe-options-general.php:350
 msgid "Move to trash events older than"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:329
-#: src/admin-views/tribe-options-general.php:347
+#: src/admin-views/tribe-options-general.php:356
+#: src/admin-views/tribe-options-general.php:374
 #: src/Tribe/Views/V2/Hooks.php:1371
 msgid "Disabled"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:330
-#: src/admin-views/tribe-options-general.php:348
+#: src/admin-views/tribe-options-general.php:357
+#: src/admin-views/tribe-options-general.php:375
 msgid "1 month"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:331
-#: src/admin-views/tribe-options-general.php:349
+#: src/admin-views/tribe-options-general.php:358
+#: src/admin-views/tribe-options-general.php:376
 msgid "3 months"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:332
-#: src/admin-views/tribe-options-general.php:350
+#: src/admin-views/tribe-options-general.php:359
+#: src/admin-views/tribe-options-general.php:377
 msgid "6 months"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:333
-#: src/admin-views/tribe-options-general.php:351
+#: src/admin-views/tribe-options-general.php:360
+#: src/admin-views/tribe-options-general.php:378
 msgid "9 months"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:334
-#: src/admin-views/tribe-options-general.php:352
+#: src/admin-views/tribe-options-general.php:361
+#: src/admin-views/tribe-options-general.php:379
 msgid "1 year"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:335
-#: src/admin-views/tribe-options-general.php:353
+#: src/admin-views/tribe-options-general.php:362
+#: src/admin-views/tribe-options-general.php:380
 msgid "2 years"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:336
-#: src/admin-views/tribe-options-general.php:354
+#: src/admin-views/tribe-options-general.php:363
+#: src/admin-views/tribe-options-general.php:381
 msgid "3 years"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:341
+#: src/admin-views/tribe-options-general.php:368
 msgid "Permanently delete events older than"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:342
+#: src/admin-views/tribe-options-general.php:369
 msgid "This option allows you to bulk delete past events. Be careful and backup your database before removing your events as there is no way to reverse the changes."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:359
+#: src/admin-views/tribe-options-general.php:386
 msgid "Merge duplicate Venues &amp; Organizers"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:359
+#: src/admin-views/tribe-options-general.php:386
 #: src/Tribe/Amalgamator.php:455
 msgid "Merge Duplicates"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:359
+#: src/admin-views/tribe-options-general.php:386
 msgid "Click this button to automatically merge identical venues and organizers."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:369
+#: src/admin-views/tribe-options-general.php:396
 msgctxt "Title for the debugging section of the general settings."
 msgid "Debugging"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:381
+#: src/admin-views/tribe-options-general.php:408
 msgid "There is a solution for every problem"
 msgstr ""
 
 #. Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag
-#: src/admin-views/tribe-options-general.php:387
+#: src/admin-views/tribe-options-general.php:414
 msgid "%1$sSometimes things just don’t work as expected. The %2$stroubleshooting page%3$s has a wealth of resources to get you back on track.%4$s"
 msgstr ""
 
@@ -4278,12 +4284,12 @@ msgstr ""
 msgid "Calendar powered by %s"
 msgstr ""
 
-#: src/functions/template-tags/google-map.php:93
+#: src/functions/template-tags/google-map.php:112
 #: src/modules/blocks/event-venue/venue-details.js:163
 msgid "Click to view a Google Map"
 msgstr ""
 
-#: src/functions/template-tags/google-map.php:94
+#: src/functions/template-tags/google-map.php:113
 #: src/modules/blocks/event-venue/venue-details.js:167
 msgid "+ Google Map"
 msgstr ""
@@ -4622,37 +4628,37 @@ msgstr ""
 msgid "Create, run and manage Event Aggregator imports."
 msgstr ""
 
-#: src/Tribe/Aggregator/Cron.php:98
+#: src/Tribe/Aggregator/Cron.php:100
 msgctxt "aggregator schedule frequency"
 msgid "On Demand"
 msgstr ""
 
-#: src/Tribe/Aggregator/Cron.php:103
+#: src/Tribe/Aggregator/Cron.php:105
 msgctxt "aggregator schedule frequency"
 msgid "Every 30 Minutes"
 msgstr ""
 
-#: src/Tribe/Aggregator/Cron.php:112
+#: src/Tribe/Aggregator/Cron.php:114
 msgctxt "aggregator schedule frequency"
 msgid "Hourly"
 msgstr ""
 
-#: src/Tribe/Aggregator/Cron.php:117
+#: src/Tribe/Aggregator/Cron.php:119
 msgctxt "aggregator schedule frequency"
 msgid "Daily"
 msgstr ""
 
-#: src/Tribe/Aggregator/Cron.php:122
+#: src/Tribe/Aggregator/Cron.php:124
 msgctxt "aggregator schedule frequency"
 msgid "Weekly"
 msgstr ""
 
-#: src/Tribe/Aggregator/Cron.php:127
+#: src/Tribe/Aggregator/Cron.php:129
 msgctxt "aggregator schedule frequency"
 msgid "Monthly"
 msgstr ""
 
-#: src/Tribe/Aggregator/Cron.php:210
+#: src/Tribe/Aggregator/Cron.php:212
 msgctxt "aggregator schedule frequency"
 msgid "Every 15 minutes"
 msgstr ""
@@ -5944,27 +5950,27 @@ msgstr ""
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
 msgstr ""
 
-#: src/Tribe/Assets.php:718
+#: src/Tribe/Assets.php:740
 msgid "This event is from %%starttime%% to %%endtime%% on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:719
+#: src/Tribe/Assets.php:741
 msgid "This event is at %%starttime%% on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:720
+#: src/Tribe/Assets.php:742
 msgid "This event is all day on %%startdatewithyear%%."
 msgstr ""
 
-#: src/Tribe/Assets.php:721
+#: src/Tribe/Assets.php:743
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends at %%endtime%% on %%enddatewithyear%%"
 msgstr ""
 
-#: src/Tribe/Assets.php:722
+#: src/Tribe/Assets.php:744
 msgid "This event starts at %%starttime%% on %%startdatenoyear%% and ends on %%enddatewithyear%%"
 msgstr ""
 
-#: src/Tribe/Assets.php:723
+#: src/Tribe/Assets.php:745
 msgid "This event is all day starting on %%startdatenoyear%% and ending on %%enddatewithyear%%."
 msgstr ""
 
@@ -6640,74 +6646,74 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1071
+#: src/Tribe/Linked_Posts.php:1070
 msgid "My %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1075
+#: src/Tribe/Linked_Posts.php:1074
 msgid "Available %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1262
+#: src/Tribe/Linked_Posts.php:1259
 msgid "Create: <%= term %>"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1286
+#: src/Tribe/Linked_Posts.php:1283
 msgid "No saved %s exists."
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1334
+#: src/Tribe/Linked_Posts.php:1331
 msgctxt "Indefinite article for the phrase \"Find a {post type name}. Will be replaced with \"an\" if the {post type name} starts with a vowel."
 msgid "a"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1341
+#: src/Tribe/Linked_Posts.php:1338
 msgctxt "Indefinite article for the phrase \"Find a {post type name}\" when the {post type name} starts with a vowel, e.g. \"Find an Organizer\"."
 msgid "an"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1355
+#: src/Tribe/Linked_Posts.php:1352
 msgctxt "\"Find an Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1364
+#: src/Tribe/Linked_Posts.php:1361
 msgctxt "\"Create or Find Organizer\", but when the word \"Organizer\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1371
+#: src/Tribe/Linked_Posts.php:1368
 msgid "Create or Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1372
+#: src/Tribe/Linked_Posts.php:1369
 msgid "Find an Organizer"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1383
+#: src/Tribe/Linked_Posts.php:1380
 msgctxt "\"Find a Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1392
+#: src/Tribe/Linked_Posts.php:1389
 msgctxt "\"Create or Find Venue\", but when the word \"Venue\" is customized to something else."
 msgid "Create or Find %s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1399
+#: src/Tribe/Linked_Posts.php:1396
 msgid "Create or Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1400
+#: src/Tribe/Linked_Posts.php:1397
 msgid "Find a Venue"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1409
+#: src/Tribe/Linked_Posts.php:1406
 msgctxt "The \"Find a {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Find %1$s %2$s"
 msgstr ""
 
-#: src/Tribe/Linked_Posts.php:1418
+#: src/Tribe/Linked_Posts.php:1415
 msgctxt "The \"Create or Find {post type name}\" label for custom linked post types that are *not* Venues or Organizers"
 msgid "Create or Find %s"
 msgstr ""
@@ -8879,7 +8885,7 @@ msgctxt "The text label for the Month View."
 msgid "Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Views/Month_View.php:783
+#: src/Tribe/Views/V2/Views/Month_View.php:787
 msgctxt "A message shown in the mobile version when a day without events is selected."
 msgid "There are no events on this day."
 msgstr ""

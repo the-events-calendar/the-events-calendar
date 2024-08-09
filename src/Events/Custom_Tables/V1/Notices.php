@@ -42,7 +42,7 @@ class Notices {
 	}
 
 	/**
-	 * In wp-cli context, dispatch the current erorr to the CLI.
+	 * In wp-cli context, dispatch the current error to the CLI.
 	 *
 	 * @since 6.0.0
 	 *
