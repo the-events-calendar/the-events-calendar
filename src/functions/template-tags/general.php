@@ -9,11 +9,15 @@ use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Timezones as Timezones;
 
 /**
- * Includes a view file, runs hooks around the view
+ * Retrieves and includes the template for a specified view.
  *
- * @param bool|string $view View slug
+ * This function will trigger deprecation warnings if used with certain views, or without specifying a view.
+ * It also includes hooks for actions before and after the view template is loaded.
  *
- **/
+ * @param string|bool $view Optional. The view to retrieve the template for. Default false.
+ *
+ * @return void
+ */
 function tribe_get_view( $view = false ) {
 	do_action( 'tribe_pre_get_view' );
 
