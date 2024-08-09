@@ -28,7 +28,7 @@ class Tribe__Events__Aggregator__Settings {
 
 	/**
 	 * A private method to prevent it to be created twice.
-	 * It will add the methods and setup any dependecies
+	 * It will add the methods and setup any dependencies
 	 *
 	 * Note: This should load on `plugins_loaded@P10`
 	 */
@@ -482,7 +482,7 @@ class Tribe__Events__Aggregator__Settings {
 	/**
 	 * Returns the default value for an origin regarding applicable event settings.
 	 *
-	 * Event setttings are those settings related to an event presentation like Show Google Map, Hide from Listings and so on.
+	 * Event settings are those settings related to an event presentation like Show Google Map, Hide from Listings and so on.
 	 *
 	 * @param string $origin The origin to look up the settings for.
 	 *

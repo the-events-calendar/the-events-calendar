@@ -181,6 +181,10 @@ class Day_View extends View {
 			return $this->memoized_dates[ $cache_key ];
 		}
 
+		if ( isset( $args['past'] ) && tribe_is_truthy( $args['past'] ) ) {
+			return false;
+		}
+
 		// For the next event date we only care about 1 item.
 		$args['posts_per_page'] = 1;
 
