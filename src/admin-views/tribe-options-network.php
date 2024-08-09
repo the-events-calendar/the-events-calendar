@@ -1,5 +1,5 @@
 <?php
-$allTabs = apply_filters( 'tribe_settings_all_tabs', [] );
+$all_tabs = apply_filters( 'tribe_settings_all_tabs', [] );
 
 $networkTab = [
 	'priority'      => 10,
@@ -26,7 +26,7 @@ $networkTab = [
 				'type'         => 'checkbox_list',
 				'label'        => esc_html__( 'Hide the following settings tabs on every site:', 'the-events-calendar' ),
 				'default'      => false,
-				'options'      => $allTabs,
+				'options'      => $all_tabs,
 				'can_be_empty' => true,
 			],
 		]
