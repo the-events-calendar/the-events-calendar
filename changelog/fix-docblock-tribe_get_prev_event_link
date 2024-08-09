@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+* Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
