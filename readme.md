@@ -1,5 +1,6 @@
 # The Events Calendar
 
+
 Welcome to the official git repository for the WordPress plugin [The Events Calendar](http://wordpress.org/plugins/the-events-calendar/).
 
 Please feel free to fork this repository and submit pull requests!
