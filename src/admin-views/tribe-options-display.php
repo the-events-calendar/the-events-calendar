@@ -7,6 +7,7 @@ use Tribe\Events\Views\V2\Manager;
 
 $tec = Tribe__Events__Main::instance();
 $ecp = defined( 'EVENTS_CALENDAR_PRO_FILE' );
+$site_time_format = get_option( 'time_format' );
 
 $template_options = [
 	''        => esc_html__( 'Default Events Template', 'the-events-calendar' ),
