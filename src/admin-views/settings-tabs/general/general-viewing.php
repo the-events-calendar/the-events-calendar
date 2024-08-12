@@ -1,4 +1,11 @@
 <?php
+/**
+ * Viewing settings tab.
+ * Subtab of the General Tab.
+ *
+ * @since TBD
+ */
+
 $tec = Tribe__Events__Main::instance();
 
 // Add the "Viewing" section.

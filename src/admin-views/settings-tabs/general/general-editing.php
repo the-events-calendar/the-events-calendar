@@ -1,4 +1,10 @@
 <?php
+/**
+ * Editing settings tab.
+ * Subtab of the General Tab.
+ *
+ * @since TBD
+ */
 
 $is_missing_aggregator_license_key = '' === get_option( 'pue_install_key_event_aggregator' );
 $should_hide_upsell                = tec_should_hide_upsell();

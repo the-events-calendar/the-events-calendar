@@ -1,4 +1,10 @@
 <?php
+/**
+ * General settings tab.
+ * This tab sets up the main structure and the "sidebar" for the sub-tabs under it.
+ *
+ * @since TBD
+ */
 
 $general_tab_fields = [
 	'info-start'                                     => [
@@ -144,7 +150,7 @@ $general_tab = [
 	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $general_tab_fields ),
 ];
 
-include_once 'settings-tabs/general/general-viewing.php';
-include_once 'settings-tabs/general/general-editing.php';
-include_once 'settings-tabs/general/general-maintenance.php';
-include_once 'settings-tabs/general/general-debugging.php';
+require_once 'settings-tabs/general/general-viewing.php';
+require_once 'settings-tabs/general/general-editing.php';
+require_once 'settings-tabs/general/general-maintenance.php';
+require_once 'settings-tabs/general/general-debugging.php';

@@ -1,6 +1,11 @@
 <?php
+/**
+ * Debugging settings tab.
+ * Subtab of the General Tab.
+ *
+ * @since TBD
+ */
 
-// Add the "Debugging" section.
 $tec_events_general_debugging = [
 	'tec-events-settings-general-debugging-title' => [
 		'type' => 'html',
@@ -55,7 +60,7 @@ $debugging = new Tribe__Settings_Tab(
 	esc_html__( 'Debugging', 'the-events-calendar' ),
 	[
 		'priority' => 15,
-		'fields' => apply_filters( 'tribe_general_settings_debugging_section', $tec_events_general_debugging ),
-		'parent' => 'general',
+		'fields'   => apply_filters( 'tribe_general_settings_debugging_section', $tec_events_general_debugging ),
+		'parent'   => 'general',
 	]
 );

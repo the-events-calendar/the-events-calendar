@@ -1,4 +1,10 @@
 <?php
+/**
+ * Maintgenance settings tab.
+ * Subtab of the General Tab.
+ *
+ * @since TBD
+ */
 
 /**
  * @var Tribe__Events__Event_Cleaner $event_cleaner
