@@ -1,11 +1,11 @@
 name: 'npm lint'
 on:
   pull_request:
-  workflow_dispatch:
     paths:
       - 'src/modules/**.js'
       - 'src/resources/js/**.js'
       - 'src/resources/postcss/**.pcss'
+  workflow_dispatch:
 jobs:
   lint:
     runs-on: ubuntu-latest
