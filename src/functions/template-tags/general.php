@@ -202,16 +202,18 @@ function tec_events_get_today_button_label( $view = null ) {
 }
 
 /**
- * Includes a template part, similar to the WP get template part, but looks
- * in the correct directories for Tribe Events templates
+ * Includes a template part, similar to WordPress's `get_template_part()`, but specifically for Tribe Events templates.
  *
- * @uses Tribe__Templates::getTemplateHierarchy
+ * This function searches for and includes a template file based on the provided slug and optional name.
+ * It looks in the appropriate Tribe Events directories and allows variables to be injected into the template.
  *
- * @param null|string $name
+ * @uses Tribe__Templates::getTemplateHierarchy() Retrieves the full path to a template file.
  *
- * @param array       $data optional array of vars to inject into the template part
+ * @param string      $slug The slug name for the generic template.
+ * @param null|string $name Optional. The name of the specialized template. Default null.
+ * @param array|null  $data Optional. Array of variables to inject into the template part. Default null.
  *
- * @param string      $slug
+ * @return void
  */
 function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
