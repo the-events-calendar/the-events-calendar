@@ -14,7 +14,9 @@ use Tribe__Timezones as Timezones;
  * This function will trigger deprecation warnings if used with certain views, or without specifying a view.
  * It also includes hooks for actions before and after the view template is loaded.
  *
- * @param string|bool $view Optional. The view to retrieve the template for. Default false.
+ * @param string|bool $view Optional. The view to retrieve the template for.
+ *                          Default false. Leaving this as the default (false)
+ *                          will trigger a deprecation warning.
  *
  * @return void
  */
