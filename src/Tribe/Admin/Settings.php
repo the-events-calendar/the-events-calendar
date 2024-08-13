@@ -4,6 +4,8 @@ namespace Tribe\Events\Admin;
 /**
  * Manages the admin settings UI in relation to events configuration.
  */
+
+use TEC\Common\Admin\Settings_Sidebar;
 use Tribe__App_Shop;
 use Tribe__Settings;
 use Tribe__Main;
@@ -400,6 +402,18 @@ class Settings {
 		$this->tabs['display'] = $display_tab;
 
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
+
+		add_action(
+			'tribe_settings_after_form_div',
+			function() {
+				$sidebar = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/settings-sidebar.php';
+				if ( ! $sidebar instanceof Settings_Sidebar ) {
+					return;
+				}
+
+				$sidebar->render();
+			}
+		);
 	}
 
 	/**
