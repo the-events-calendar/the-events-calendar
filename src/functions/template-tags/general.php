@@ -260,6 +260,16 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 			include( $file );
 			do_action( 'tribe_after_get_template_part', $template, $file, $slug, $name );
 			$html = ob_get_clean();
+
+			/**
+			 * Filters the HTML content of the template part before it's output.
+			 *
+			 * @param string      $html     The HTML content of the template part.
+			 * @param string      $template The template being used.
+			 * @param string      $file     The path to the template file.
+			 * @param string      $slug     The slug name for the generic template.
+			 * @param null|string $name     The name of the specialized template.
+			 */
 			echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
 			break; // We found our template, no need to continue the loop
 		}
