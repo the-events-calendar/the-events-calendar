@@ -243,6 +243,15 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 	// loop through templates, return first one found.
 	foreach ( $templates as $template ) {
 		$file = Tribe__Events__Templates::getTemplateHierarchy( $template, [ 'disable_view_check' => true ] );
+
+		/**
+		 * Filters the path to the template file before it's included.
+		 *
+		 * @param string      $file     The path to the template file.
+		 * @param string      $template The template being used.
+		 * @param string      $slug     The slug name for the generic template.
+		 * @param null|string $name     The name of the specialized template.
+		 */
 		$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 		$file = apply_filters( 'tribe_get_template_part_path_' . $template, $file, $slug, $name );
 		if ( file_exists( $file ) ) {
