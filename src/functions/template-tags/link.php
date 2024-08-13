@@ -204,7 +204,7 @@ function tribe_get_listview_link( $term = null ) {
 /**
  * Returns a link to the general or category past view.
  *
- * @since 5.14.0
+ * @since 2.0.1
  *
  * @param int|null $term Optional. Term ID. Default null.
  *
