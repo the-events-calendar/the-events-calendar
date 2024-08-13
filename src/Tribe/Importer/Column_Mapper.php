@@ -33,6 +33,15 @@ class Tribe__Events__Importer__Column_Mapper {
 		}
 	}
 
+	/**
+	 * Set the default values for the import.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $defaults Array of the default values.
+	 *
+	 * @return void
+	 */
 	public function set_defaults( $defaults ) {
 		$this->defaults = $defaults;
 	}
