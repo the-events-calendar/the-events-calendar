@@ -234,7 +234,7 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 	 * @param array       $templates Array of template file paths.
 	 * @param string      $slug      The slug name for the generic template.
 	 * @param null|string $name      The name of the specialized template.
-	 *
+
 	 * @since 3.0
 	 */
 	$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
@@ -257,7 +257,6 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 		 * @param null|string $name     The name of the specialized template.
 		 *
 		 * @since 3.0
-		 *
 		 */
 		$file = apply_filters( 'tribe_get_template_part_path', $file, $template, $slug, $name );
 		$file = apply_filters( 'tribe_get_template_part_path_' . $template, $file, $slug, $name );
@@ -278,7 +277,6 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 			 * @param null|string $name     The name of the specialized template.
 			 *
 			 * @since 3.0
-			 *
 			 */
 			echo apply_filters( 'tribe_get_template_part_content', $html, $template, $file, $slug, $name );
 			break; // We found our template, no need to continue the loop
