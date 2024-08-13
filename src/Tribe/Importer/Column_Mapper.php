@@ -36,7 +36,7 @@ class Tribe__Events__Importer__Column_Mapper {
 	/**
 	 * Set the default values for the import.
 	 *
-	 * @since TBD
+	 * @since 3.2.0
 	 *
 	 * @param array $defaults Array of the default values.
 	 *
