@@ -226,7 +226,13 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 	}
 	$templates[] = $slug . '.php';
 
-	// Allow template parts to be filtered
+	/**
+	 * Filters the list of template files to search for.
+	 *
+	 * @param array       $templates Array of template file paths.
+	 * @param string      $slug      The slug name for the generic template.
+	 * @param null|string $name      The name of the specialized template.
+	 */
 	$templates = apply_filters( 'tribe_get_template_part_templates', $templates, $slug, $name );
 
 	// Make any provided variables available in the template's symbol table
