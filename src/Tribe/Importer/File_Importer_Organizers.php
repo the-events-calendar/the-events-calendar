@@ -134,8 +134,8 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 		 *
 		 * @since 5.1.6
 		 *
-		 * @param array $organizer The array of organizer data we're modifying.
-		 * @param array $record The event record from the import.
+		 * @param array $organizer    The array of organizer data we're modifying.
+		 * @param array $record       The event record from the import.
 		 * @param int   $organizer_id The ID of the organizer we're currently importing.
 		 */
 		$organizer = apply_filters(
