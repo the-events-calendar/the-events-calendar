@@ -49,6 +49,15 @@ class Tribe__Events__Importer__Column_Mapper {
 		return $html;
 	}
 
+	/**
+	 * Get the label of a column.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param string $key The array key of the column for which we need the label.
+	 *
+	 * @return mixed|string The label of the column, or an empty string if column is not found.
+	 */
 	public function get_column_label( $key ) {
 		if ( isset( $this->column_names[ $key ] ) ) {
 			return $this->column_names[ $key ];
