@@ -202,7 +202,7 @@ function tribe_get_listview_link( $term = null ) {
 }
 
 /**
- * Returns a link to the general or category past view.
+ * Returns a url to the general or category past view.
  *
  * @since 2.0.1
  *
