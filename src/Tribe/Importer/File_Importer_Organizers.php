@@ -37,10 +37,11 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	}
 
 	/**
-	 * Build a organizer array for creation/update of the current imported organizer.
+	 * Build an organizer array for creation/update of the current imported organizer.
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
+	 * @since TBD   Add code to allow importing custom data.
 	 *
 	 * @param int   $organizer_id The ID of the organizer we're currently importing.
 	 * @param array $record       An event record from the import.
