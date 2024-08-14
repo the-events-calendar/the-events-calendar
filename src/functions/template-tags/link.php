@@ -188,10 +188,10 @@ function tribe_get_gridview_link( $term = null ) {
 /**
  * Returns a link to the general or category upcoming view.
  *
- * @since  5.14.0
+ * @since  2.0.1
  *
  * @param  int|null $term Optional. Event category ID to link to. Default null.
- * @return string         URL of the list view.
+ * @return string The URL of the list view.
  */
 function tribe_get_listview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
