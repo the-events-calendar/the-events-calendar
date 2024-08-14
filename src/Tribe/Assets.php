@@ -301,18 +301,22 @@ class Tribe__Events__Assets {
 			]
 		);
 
+		// Custom stylesheet.
+		$override_sheet = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 
-		tribe_asset(
-			$plugin,
-			'tribe-events-calendar-override-style',
-			Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' ),
-			[],
-			'wp_enqueue_scripts',
-			[
-				'groups'       => [ 'events-styles' ],
-				'conditionals' => [ $this, 'override_style_exists' ],
-			]
-		);
+		if ( ! empty( $override_sheet ) && file_exists( $override_sheet ) ) {
+			tribe_asset(
+				$plugin,
+				'tribe-events-calendar-override-style',
+				$override_sheet,
+				[],
+				'wp_enqueue_scripts',
+				[
+					'groups'       => [ 'events-styles' ],
+					'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				]
+			);
+		}
 	}
 
 	/**
@@ -529,6 +533,7 @@ class Tribe__Events__Assets {
 	 * @return bool
 	 */
 	public function override_style_exists(): bool {
+		_deprecated_function( __METHOD__, '6.6.1', 'Tribe__Events__Assets::should_enqueue_frontend' );
 		// This is a frontend script, let's bail early if we can.
 		if ( ! $this->should_enqueue_frontend() ) {
 			return false;
