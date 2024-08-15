@@ -22,29 +22,28 @@ $tec_events_display_currency = [
 if ( ! $should_hide_upsell && $is_missing_event_tickets_plus ) {
 	$tec_events_display_currency = $tec_events_display_currency + [
 		'tec-tickets-infobox-start'   => [
-			'type'        => 'html',
-			'html'        => '<div class="tec-settings-infobox">',
+			'type' => 'html',
+			'html' => '<div class="tec-settings-infobox">',
 		],
 		'tec-tickets-infobox-logo'    => [
-			'type'        => 'html',
-			'html'        => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-et.svg', __DIR__ ) . '" alt="Events Tickets Logo">',
+			'type' => 'html',
+			'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-et.svg', __DIR__ ) . '" alt="Events Tickets Logo">',
 		],
 		'tec-tickets-infobox-title'   => [
-			'type'        => 'html',
-			'html'        => '<h3 class="tec-settings-infobox-title">' . __( 'Start selling tickets to your events', 'the-events-calendar' ) . '</h3>',
+			'type' => 'html',
+			'html' => '<h3 class="tec-settings-infobox-title">' . __( 'Start selling tickets to your events', 'the-events-calendar' ) . '</h3>',
 		],
-		/* @TODO: This is placeholder text! */
 		'tec-tickets-infobox-content' => [
-			'type'        => 'html',
-			'html'        => '<p>' . __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ) . '</p>',
+			'type' => 'html',
+			'html' => '<p>' . __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ) . '</p>',/* @TODO: This is placeholder text! */
 		],
 		'tec-tickets-infobox-link'    => [
-			'type'        => 'html',
-			'html'        => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '" rel="noopener" target="_blank">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
+			'type' => 'html',
+			'html' => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '" rel="noopener" target="_blank">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
 		],
 		'tec-tickets-infobox-end'     => [
-			'type'        => 'html',
-			'html'        => '</div>',
+			'type' => 'html',
+			'html' => '</div>',
 		]
 	];
 }

@@ -89,12 +89,21 @@ class Settings {
 		return __( 'Settings', 'the-events-calendar' );
 	}
 
-	public function settings_page_logo_source( $page_logo ) {
+	/**
+	 * Replaces the source URL of the settings page logo.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $source_url The current source URL of the settings page logo.
+	 *
+	 * @return string The source URL of the settings page logo.
+	 */
+	public function settings_page_logo_source( $source_url ): string {
 		if ( ! $this->is_tec_events_settings() ) {
-			return;
+			return $source_url;
 		}
 
-		return tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );;
+		return tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
 	}
 
 	/**
