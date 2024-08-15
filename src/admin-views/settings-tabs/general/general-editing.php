@@ -13,7 +13,7 @@ $should_hide_upsell                = tec_should_hide_upsell();
 $tec_events_general_editing = [
 	'tec-events-settings-general-editing-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-editing">' . esc_html_x( 'Editing', 'Title for the editing section of the general settings.', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-general-editing" class="tec_settings__section-header">' . esc_html_x( 'Editing', 'Title for the editing section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-aggregator-infobox-start'              => [
 		'type'        => 'html',
@@ -55,12 +55,17 @@ $tec_events_general_editing = [
 ];
 
 
-$tec_events_general_editing = new Tribe__Settings_Tab(
-	'editing',
+$general_editing = new Tribe__Settings_Tab(
+	'general-editing-tab',
 	esc_html__( 'Editing', 'the-events-calendar' ),
 	[
-		'priority' => 5,
-		'fields'   => apply_filters( 'tribe_general_settings_editing_section', $tec_events_general_editing ),
+		'priority' => 0.05,
+		'fields'   => apply_filters(
+			'tribe_general_settings_editing_section',
+			$tec_events_general_editing
+		),
 		'parent'   => 'general',
 	]
 );
+
+do_action( 'tec_events_display_general_editing_tab', $general_editing );

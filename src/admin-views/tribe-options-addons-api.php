@@ -42,7 +42,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$internal_meetup = [
 		'meetup-start'        => [
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
+			'html' => '<h3 class="tec_settings__section-header">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
 		],
 		'meetup-info-box'     => [
 			'type' => 'html',
@@ -94,7 +94,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 	$internal2 = [
 		'eb-start'        => [
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
+			'html' => '<h3 class="tec_settings__section-header">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
 		],
 		'eb-info-box'     => [
 			'type' => 'html',

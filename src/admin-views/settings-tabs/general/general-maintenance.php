@@ -28,7 +28,7 @@ if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
 $tec_events_general_maintenance = [
 	'tec-events-settings-general-maintenance-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-maintenance">' . esc_html_x( 'Maintenance', 'Title for the maintenance section of the general settings.', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-general-maintenance" class="tec_settings__section-header">' . esc_html_x( 'Maintenance', 'Title for the maintenance section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
 	$event_cleaner->key_trash_events                => [
 		'type'            => 'dropdown',
@@ -72,12 +72,14 @@ $tec_events_general_maintenance = [
 	],
 ];
 
-$tec_events_general_maintenance = new Tribe__Settings_Tab(
-	'maintenance',
+$general_maintenance = new Tribe__Settings_Tab(
+	'general-maintenance-tab',
 	esc_html__( 'Maintenance', 'the-events-calendar' ),
 	[
-		'priority' => 10,
+		'priority' => 0.10,
 		'fields'   => apply_filters( 'tribe_general_settings_maintenance_section', $tec_events_general_maintenance ),
 		'parent'   => 'general',
 	]
 );
+
+do_action( 'tec_events_display_general_editing_tab', $general_maintenance );

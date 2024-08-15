@@ -65,7 +65,7 @@ class Provider extends Service_Provider {
 		}, 99 );
 
 		// Hide from settings page.
-		add_filter( 'tribe_general_settings_tab_fields', function ( $args ) {
+		add_filter( 'tribe_general_settings_maintenance_section', function ( $args ) {
 			$event_cleaner = tribe( 'tec.event-cleaner' );
 			unset( $args[ $event_cleaner->key_delete_events ] );
 

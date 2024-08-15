@@ -129,28 +129,17 @@ $general_tab_fields = [
 	],
 ];
 
-// Start the form content wrapper.
-$general_tab_fields += [
-	'tribe-form-content-start' => [
-		'type' => 'html',
-		'html' => '<div class="tribe-settings-form-wrap tec-settings-general">',
-	],
-];
-
-// Close the form content wrapper.
-$general_tab_fields += [
-	'tribe-form-content-end' => [
-		'type' => 'html',
-		'html' => '</div>',
-	],
-];
-
-$general_tab = [
-	'priority' => 0,
-	'fields'   => apply_filters( 'tribe_general_settings_tab_fields', $general_tab_fields ),
-];
+$general_tab = new Tribe__Settings_Tab(
+	'general',
+	esc_html__( 'General', 'the-events-calendar' ),
+	[
+		'priority' => 0,
+		'fields'   => [], // Parent tabs don't have content of their own!
+	]
+);
 
 require_once 'settings-tabs/general/general-viewing.php';
 require_once 'settings-tabs/general/general-editing.php';
 require_once 'settings-tabs/general/general-maintenance.php';
 require_once 'settings-tabs/general/general-debugging.php';
+do_action( 'tec_settings_tab_general', $general_tab );

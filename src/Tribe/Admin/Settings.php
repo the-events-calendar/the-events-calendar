@@ -6,6 +6,7 @@ namespace Tribe\Events\Admin;
  */
 use Tribe__App_Shop;
 use Tribe__Settings;
+use Tribe__Main;
 use Tribe__Settings_Tab;
 use Tribe__Events__Main as Plugin;
 use Tribe\Admin\Troubleshooting as Troubleshooting;
@@ -74,7 +75,7 @@ class Settings {
 	}
 
 	/**
-	 * Filter The Events CAlendar Settings page title
+	 * Filter The Events Calendar Settings page title
 	 *
 	 * @param string $title The title of the settings page.
 	 *
@@ -85,11 +86,15 @@ class Settings {
 			return $title;
 		}
 
-		return sprintf(
-			// Translators: %s is the `Events` in plural.
-			__( '%s Settings', 'the-events-calendar' ),
-			tribe_get_event_label_plural( 'tec_events_settings_title' )
-		);
+		return __( 'Settings', 'the-events-calendar' );
+	}
+
+	public function settings_page_logo_source( $page_logo ) {
+		if ( ! $this->is_tec_events_settings() ) {
+			return;
+		}
+
+		return tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );;
 	}
 
 	/**
@@ -382,8 +387,9 @@ class Settings {
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
-		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'the-events-calendar' ), $general_tab );
-		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'the-events-calendar' ), $tec_events_display_tab );
+		$this->tabs['general'] = $general_tab;
+		$this->tabs['display'] = $display_tab;
+
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
 	}
 
@@ -436,6 +442,7 @@ class Settings {
 			unset( $tabs[ $sort ] );
 			$tabs[ $sort ] = $temp;
 		}
+
 
 		return $tabs;
 	}
