@@ -35,36 +35,41 @@ $tec_events_general_viewing_fields = [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Events URL slug', 'the-events-calendar' ),
 		'default'         => 'events',
+		'tooltip_first'   => true,
+		'tooltip'         => sprintf(
+			/* Translators: %1$s - URL to the events page (link), %2$s - URL to the events page (readable string) */
+			wp_kses_post( __( 'Preview: <a href="%1$s">%2$s</a>', 'the-events-calendar' ) ),
+			esc_url( tribe_get_events_link() ),
+			urldecode( tribe_get_events_link() )
+		),
 		'validation_type' => 'slug',
 		'conditional'     => ( '' !== get_option( 'permalink_structure' ) ),
 	],
 	'current-events-slug'                       => [
 		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">'
-							. esc_html__( 'The slug used for building the events URL.', 'the-events-calendar' )
-							. ' '
-							. sprintf(
-								/* Translators: %1$s - URL to the events page (link), %2$s - URL to the events page (readable string) */
-								esc_html__( 'Your current events URL is: <code><a href="%1$s">%2$s</a></code>', 'the-events-calendar' ),
-								esc_url( tribe_get_events_link() ),
-								urldecode( tribe_get_events_link() )
-							)
-							. '</p>',
+		'html'        => '<p class="tribe-field-description description">' . esc_html__( 'The above should be plural.', 'the-events-calendar' ) . '</p>',
 		'conditional' => ( '' !== get_option( 'permalink_structure' ) ),
 	],
 	'singleEventSlug'                           => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Single event URL slug', 'the-events-calendar' ),
 		'default'         => 'event',
+		'tooltip_first'   => true,
+		'tooltip'         =>  sprintf(
+			/* Translators: %1$s - URL to a single events page (link), %2$s - URL to a single events page (readable string) */
+			wp_kses_post( __( 'Preview: <a href="%1$s">%2$s</a>', 'the-events-calendar' ) ),
+			esc_url( home_url() . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/' ),
+			trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/'
+		),
 		'validation_type' => 'slug',
 		'conditional'     => ( '' != get_option( 'permalink_structure' ) ),
 	],
 	'current-single-event-slug'                 => [
 		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description">'
+		'html'        => '<p class="tribe-field-description description">'
 				. sprintf(
 					/* Translators: %1$s - URL to the single event page (readable string) */
-					__( 'The above should ideally be plural, and this singular.<br />Your single event URL is: <code>%1$s</code>', 'the-events-calendar' ),
+					__( 'The above should be singular.', 'the-events-calendar' ),
 					trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/'
 				) . '</p>',
 		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
