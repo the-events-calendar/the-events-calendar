@@ -81,7 +81,6 @@ $tec_events_display_calendar = [
 		'options'         => $template_options,
 		'conditional'     => $tec_events_should_display_events_templates,
 	],
-	'stylesheetOption'                               => [ 'type' => 'html' ],
 	'tec-events-display-calendar-views-separator'    => [
 		'type' => 'html',
 		'html' => '<hr class="tec_settings__section-separator">',

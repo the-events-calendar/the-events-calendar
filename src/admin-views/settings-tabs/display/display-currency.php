@@ -35,7 +35,7 @@ if ( ! $should_hide_upsell && $is_missing_event_tickets_plus ) {
 		],
 		'tec-tickets-infobox-content' => [
 			'type' => 'html',
-			'html' => '<p>' . __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ) . '</p>',/* @TODO: This is placeholder text! */
+			'html' => '<p>' . __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ) . '</p>', /* @TODO: This is placeholder text! */
 		],
 		'tec-tickets-infobox-link'    => [
 			'type' => 'html',
@@ -44,12 +44,12 @@ if ( ! $should_hide_upsell && $is_missing_event_tickets_plus ) {
 		'tec-tickets-infobox-end'     => [
 			'type' => 'html',
 			'html' => '</div>',
-		]
+		],
 	];
 }
 
 $tec_events_display_currency = $tec_events_display_currency + [
-	'defaultCurrencySymbol'       => [
+	'defaultCurrencySymbol'   => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Default currency symbol', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively.', 'the-events-calendar' ),
@@ -57,7 +57,7 @@ $tec_events_display_currency = $tec_events_display_currency + [
 		'size'            => 'small',
 		'default'         => '$',
 	],
-	'defaultCurrencyCode'         => [
+	'defaultCurrencyCode'     => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Default currency code', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Set the default currency ISO-4217 code for event costs. This is a three-letter code and is mainly used for data/SEO purposes.', 'the-events-calendar' ),
@@ -70,7 +70,7 @@ $tec_events_display_currency = $tec_events_display_currency + [
 			'placeholder' => __( 'USD', 'the-events-calendar' ),
 		],
 	],
-	'reverseCurrencyPosition'     => [
+	'reverseCurrencyPosition' => [
 		'type'            => 'checkbox_bool',
 		'label'           => esc_html__( 'Currency symbol follows value', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'The currency symbol normally precedes the value. Enabling this option positions the symbol after the value.', 'the-events-calendar' ),

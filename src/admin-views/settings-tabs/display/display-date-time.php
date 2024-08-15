@@ -142,13 +142,13 @@ $tec_events_display_date = [
 			'11:00' => date_i18n( $site_time_format, strtotime( '11:00 am' ) ),
 		],
 	],
-	'remove_event_end_time'             => [
+	'remove_event_end_time'              => [
 		'type'            => 'checkbox_list',
 		'label'           => esc_html__( 'Remove event end time', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
 			// Dev note: This string is multi-line to remove the need for a line break tag.
+			/* Translators: %1$s - opening italics tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing italics tag */
 			__(
-				/* Translators: %1$s - opening italics tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing italics tag */
 				'When one of these boxes is checked, the end time will no longer display for events that end on the same day when viewing the specified view.
 				%1$s Source: %2$s Remove the Event End Time in Views %3$s%4$s',
 				'the-events-calendar',
@@ -156,8 +156,7 @@ $tec_events_display_date = [
 			'<i>',
 			'<a href="' . esc_url( 'https://theeventscalendar.com/knowledgebase/k/remove-the-event-end-time-in-views/' ) . '" target="_blank">',
 			'</a>',
-			'</i>',
-
+			'</i>'
 		),
 		'options'         => $end_time_options,
 		'validation_type' => 'options_multi',
