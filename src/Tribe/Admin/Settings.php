@@ -5,11 +5,11 @@ namespace Tribe\Events\Admin;
  * Manages the admin settings UI in relation to events configuration.
  */
 
-use TEC\Common\Admin\Settings_Sidebar;
 use Tribe__App_Shop;
 use Tribe__Settings;
 use Tribe__Main;
-use Tribe__Settings_Tab;
+use Tribe__Settings_Tab as Tab;
+
 use Tribe__Events__Main as Plugin;
 use Tribe\Admin\Troubleshooting as Troubleshooting;
 
@@ -398,22 +398,16 @@ class Settings {
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
+		$general_tab->add_sidebar(
+			function () {
+				return include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/settings-sidebar.php';
+			}
+		);
+
 		$this->tabs['general'] = $general_tab;
 		$this->tabs['display'] = $display_tab;
 
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
-
-		add_action(
-			'tribe_settings_after_form_div',
-			function() {
-				$sidebar = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/settings-sidebar.php';
-				if ( ! $sidebar instanceof Settings_Sidebar ) {
-					return;
-				}
-
-				$sidebar->render();
-			}
-		);
 	}
 
 	/**
@@ -484,7 +478,7 @@ class Settings {
 
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-network.php';
 
-		$this->tabs['network'] = new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
+		$this->tabs['network'] = new Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
 	}
 
 	/**
@@ -761,7 +755,7 @@ class Settings {
 		 */
 		$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
-		new Tribe__Settings_Tab(
+		new Tab(
 			'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
 			[
 				'priority'      => 100,
