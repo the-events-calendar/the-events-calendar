@@ -2,21 +2,32 @@
 
 declare( strict_types=1 );
 
+use TEC\Common\Admin\Entities\FieldW_Wrapper;
+use TEC\Common\Admin\Entities\Heading;
+use TEC\Common\Admin\Entities\Image;
 use TEC\Common\Admin\Entities\Link;
 use TEC\Common\Admin\Entities\Paragraph;
 use TEC\Common\Admin\Settings_Section;
 use TEC\Common\Admin\Settings_Sidebar;
+use Tribe\Utils\Element_Attributes;
 
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
 $sidebar = new Settings_Sidebar();
 $sidebar->set_header_image(
-	'https://example.com/image.jpg',
-	'Header image alt text'
-); // todo: real image here.
+	new Image(
+		'https://example.com/image.jpg', // todo: real image here.
+		new Element_Attributes(
+			[
+				'alt'  => '',
+				'role' => 'presentation',
+			]
+		)
+	)
+);
 
-$sidebar->set_title( __( 'Finding and extending your calendar', 'tribe-common' ) );
+$sidebar->set_title( new Heading( __( 'Finding and extending your calendar', 'tribe-common' ), 2 ) );
 $sidebar->add_section(
 	( new Settings_Section() )
 		->add_elements(
@@ -34,7 +45,7 @@ $sidebar->add_section(
 
 $sidebar->add_section(
 	( new Settings_Section() )
-		->set_title( __( 'Documentation', 'tribe-common' ), 3 )
+		->set_title( new Heading( __( 'Documentation', 'tribe-common' ), 3 ) )
 		->add_elements(
 			[
 				new Link(
@@ -92,6 +103,23 @@ $sidebar->add_section(
 		->add_element(
 			new Paragraph(
 				__( "If you're enjoying The Events Calendar, give us kudos by including a link in the footer of calendar views. It really helps us a lot.", 'tribe-common' )
+			)
+		)
+);
+
+$sidebar->add_section(
+	( new Settings_Section() )
+		->add_element(
+			new FieldW_Wrapper(
+				new Tribe__Field(
+					'donate-link',
+					[
+						'type'            => 'checkbox_bool',
+						'label'           => esc_html__( 'Show The Events Calendar link', 'the-event-calendar' ),
+						'validation_type' => 'boolean',
+					],
+					get_option( 'donate-link', false )
+				)
 			)
 		)
 );
