@@ -38,7 +38,7 @@ $tribe_enable_views_tooltip = apply_filters(
 $tec_events_display_calendar = [
 	'tec-events-calendar-display-title'              => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-calendar" class="tec_settings__section-header tec_settings__section-header--wide">' . _x( 'Calendar', 'Calendar display settings header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-calendar" class="tec-settings__section-header tec-settings__section-header--wide">' . _x( 'Calendar', 'Calendar display settings header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-events-display-calendar-template-separator' => [
 		'type' => 'html',
@@ -46,7 +46,7 @@ $tec_events_display_calendar = [
 	],
 	'tec-events-calendar-display-template-title'     => [
 		'type' => 'html',
-		'html' => '<h2 id="tec-settings-events-settings-display-template-calendar" class="tec_settings__section-header tec_settings__section-header--sub">' . _x( 'Template', 'Calendar template display settings header', 'the-events-calendar' ) . '</h2>',
+		'html' => '<h2 id="tec-settings-events-settings-display-template-calendar" class="tec-settings__section-header tec-settings__section-header--sub">' . _x( 'Template', 'Calendar template display settings header', 'the-events-calendar' ) . '</h2>',
 	],
 	'stylesheetOption'                               => [ 'type' => 'html' ],
 	'stylesheet_mode'                                => [
@@ -88,7 +88,7 @@ $tec_events_display_calendar = [
 	],
 	'tec-events-calendar-display-views-title'        => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-views-calendar" class="tec_settings__section-header tec_settings__section-header--sub">' . _x( 'Views', 'Calendar views display settings header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-views-calendar" class="tec-settings__section-header tec-settings__section-header--sub">' . _x( 'Views', 'Calendar views display settings header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEnableViews'                               => [
 		'type'            => 'checkbox_list',

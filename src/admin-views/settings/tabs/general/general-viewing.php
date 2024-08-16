@@ -12,7 +12,7 @@ $tec = Tribe__Events__Main::instance();
 $tec_events_general_viewing_fields = [
 	'tec-events-settings-general-viewing-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-viewing" class="tec_settings__section-header">' . esc_html_x( 'Viewing', 'Title for the viewing section of the general settings.', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-general-viewing" class="tec-settings__section-header">' . esc_html_x( 'Viewing', 'Title for the viewing section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
 	'unpretty-permalinks-url'                   => [
 		'type'        => 'wrapped_html',

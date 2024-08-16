@@ -7,7 +7,7 @@ use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;
 use TEC\Common\Contracts\Service_Provider;
 
-
+_deprecated_class( __NAMESPACE__ . '\Provider', 'TBD', 'TEC\Events\Admin\Settings\Filter_Bar_Upsell' );
 
 /**
  * Class Provider
@@ -16,8 +16,6 @@ use TEC\Common\Contracts\Service_Provider;
  *
  */
 class Provider extends Service_Provider {
-
-
 	/**
 	 * Binds and sets up implementations.
 	 *

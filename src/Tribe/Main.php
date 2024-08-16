@@ -675,9 +675,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
 
-			// Filter Bar.
-			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
-
 			// Blocks
 			tribe_register_provider( TEC\Events\Blocks\Controller::class );
 
@@ -975,7 +972,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.rest-v1.main' );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
-			tribe( Tribe\Events\Admin\Filter_Bar\Provider::class );
 		}
 
 		/**

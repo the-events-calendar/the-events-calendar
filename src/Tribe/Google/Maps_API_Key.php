@@ -63,7 +63,7 @@ class Tribe__Events__Google__Maps_API_Key {
 		$gmaps_api_fields = [
 			'gmaps-js-api-start' => [
 				'type' => 'html',
-				'html' => '<h3 class="tec_settings__section-header">' . esc_html__( 'Google Maps API', 'the-events-calendar' ) . '</h3>',
+				'html' => '<h3 class="tec-settings__section-header">' . esc_html__( 'Google Maps API', 'the-events-calendar' ) . '</h3>',
 			],
 
 			'gmaps-js-api-info-box' => [

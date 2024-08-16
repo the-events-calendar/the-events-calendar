@@ -9,7 +9,7 @@
 $tec_events_general_debugging = [
 	'tec-events-settings-general-debugging-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-debugging" class="tec_settings__section-header">' . esc_html_x( 'Debugging', 'Title for the debugging section of the general settings.', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-general-debugging" class="tec-settings__section-header">' . esc_html_x( 'Debugging', 'Title for the debugging section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-troubleshooting-infobox-start'           => [
 		'type' => 'html',

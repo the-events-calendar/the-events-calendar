@@ -22,6 +22,12 @@ use Tribe\Events\Admin\Settings;
 class Provider extends Service_Provider {
 
 	public function register() {
+		// Filter Bar upsell tab.
+		tribe_register_provider( Filter_Bar_Upsell::class );
+
+		// Community upsell tab.
+		tribe_register_provider( Community_Upsell::class );
+
 		$this->add_actions();
 		$this->add_filters();
 	}

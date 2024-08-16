@@ -10,7 +10,7 @@
 $tec_events_display_additional_content = [
 	'tribe-events-advanced-settings-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-additional" class="tec_settings__section-header">' . esc_html_x( 'Additional Content', 'Additional content settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-additional" class="tec-settings__section-header">' . esc_html_x( 'Additional Content', 'Additional content settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEventsBeforeHTML'                => [
 		'type'            => 'wysiwyg',

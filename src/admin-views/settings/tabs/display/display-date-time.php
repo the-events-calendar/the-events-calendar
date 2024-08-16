@@ -28,7 +28,7 @@ $end_time_options = apply_filters( 'tec_events_display_remove_event_end_time_opt
 $tec_events_display_date = [
 	'tribeEventsDateFormatSettingsTitle' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-date" class="tec_settings__section-header">' . esc_html_x( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-date" class="tec-settings__section-header">' . esc_html_x( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEventsDateFormatExplanation'   => [
 		'type' => 'html',

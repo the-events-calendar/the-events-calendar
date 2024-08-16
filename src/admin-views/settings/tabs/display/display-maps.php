@@ -13,7 +13,7 @@ $tec_events_display_maps = [];
 $tec_events_display_maps = [
 	'tribe-google-maps-settings-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-maps" class="tec_settings__section-header">' . esc_html_x( 'Maps', 'Map settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-maps" class="tec-settings__section-header">' . esc_html_x( 'Maps', 'Map settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 	'embedGoogleMaps'                  => [
 		'type'            => 'checkbox_bool',
