@@ -66,6 +66,13 @@ class Tribe__Events__Importer__Column_Mapper {
 		return '';
 	}
 
+	/**
+	 * Retrieve column names for event import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @return mixed|null
+	 */
 	private function get_event_column_names() {
 		$column_names = array(
 			'event_name'              => esc_html__( 'Event Name', 'the-events-calendar' ),
