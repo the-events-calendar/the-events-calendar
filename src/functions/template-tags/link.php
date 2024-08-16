@@ -220,7 +220,7 @@ function tribe_get_listview_past_link( $term = null ) {
 /**
  * Returns a link to the next or previous list view page.
  *
- * @since  5.14.0
+ * @since 4.0
  *
  * @param string      $direction            'next' or 'prev'.
  * @param int|null    $term                 Optional. Term ID. Default null.
