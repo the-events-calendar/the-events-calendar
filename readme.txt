@@ -233,7 +233,7 @@ nd files before updating!
 
 == Changelog ==
 
-= [6.6.2] 2024-08-16 =
+= [6.6.2] 2024-08-19 =
 
 * Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view. [TEC-5080]
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
