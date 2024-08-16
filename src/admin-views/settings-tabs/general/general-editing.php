@@ -68,4 +68,4 @@ $general_editing = new Tribe__Settings_Tab(
 	]
 );
 
-do_action( 'tec_events_display_general_editing_tab', $general_editing );
+do_action( 'tec_events_settings_tab_general_editing', $general_editing );

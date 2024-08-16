@@ -142,4 +142,4 @@ require_once 'settings-tabs/general/general-viewing.php';
 require_once 'settings-tabs/general/general-editing.php';
 require_once 'settings-tabs/general/general-maintenance.php';
 require_once 'settings-tabs/general/general-debugging.php';
-do_action( 'tec_settings_tab_general', $general_tab );
+do_action( 'tec_events_settings_tab_general', $general_tab );

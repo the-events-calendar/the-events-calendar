@@ -44,15 +44,12 @@ $tec_events_general_viewing_fields = [
 		),
 		'validation_type' => 'slug',
 		'conditional'     => ( '' !== get_option( 'permalink_structure' ) ),
-	],
-	'current-events-slug'                       => [
-		'type'        => 'html',
-		'html'        => '<p class="tribe-field-description description">' . esc_html__( 'The above should be plural.', 'the-events-calendar' ) . '</p>',
-		'conditional' => ( '' !== get_option( 'permalink_structure' ) ),
+		'append'		  => '<p class="tribe-field-description description">' . esc_html__( 'The above should be plural.', 'the-events-calendar' ) . '</p>',
 	],
 	'singleEventSlug'                           => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Single event URL slug', 'the-events-calendar' ),
+		'append'          => '<p class="tribe-field-description description">' . __( 'The above should be singular.', 'the-events-calendar' ) . '</p>',
 		'default'         => 'event',
 		'tooltip_first'   => true,
 		'tooltip'         =>  sprintf(
@@ -63,16 +60,6 @@ $tec_events_general_viewing_fields = [
 		),
 		'validation_type' => 'slug',
 		'conditional'     => ( '' != get_option( 'permalink_structure' ) ),
-	],
-	'current-single-event-slug'                 => [
-		'type'        => 'html',
-		'html'        => '<p class="tribe-field-description description">'
-				. sprintf(
-					/* Translators: %1$s - URL to the single event page (readable string) */
-					__( 'The above should be singular.', 'the-events-calendar' ),
-					trailingslashit( home_url() ) . urldecode( tribe_get_option( 'singleEventSlug', 'event' ) ) . '/single-post-name/'
-				) . '</p>',
-		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 	],
 	'showEventsInMainLoop'                      => [
 		'type'            => 'checkbox_bool',
@@ -94,12 +81,13 @@ $tec_events_general_viewing_fields = [
 	],
 ];
 
-new Tribe__Settings_Tab(
+$general_viewing = new Tribe__Settings_Tab(
 	'general-viewing-tab',
 	esc_html__( 'Viewing', 'the-events-calendar' ),
 	[
 		'priority' => 0.0,
-		'fields'   => apply_filters( 'tribe_general_settings_viewing_section', $tec_events_general_viewing_fields ),
+		'fields'   => apply_filters( 'tec_general_settings_viewing_section', $tec_events_general_viewing_fields ),
 		'parent'   => 'general',
 	]
 );
+do_action( 'tec_events_settings_tab_general_viewing', $general_viewing );

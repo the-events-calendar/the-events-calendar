@@ -17,7 +17,7 @@ $tec_events_general_debugging = [
 	],
 	'tec-troubleshooting-infobox-logo'            => [
 		'type' => 'html',
-		'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-image-high-five.svg', __DIR__ ) . '" alt="Events troubleshooting Logo">',
+		'html' => '<img class="tec-settings-infobox-logo" src="' . tribe_resource_url( 'images/settings-icons/icon-image-high-five.svg', false, null, Tribe__Events__Main::instance() ) . '" alt="Events troubleshooting Logo">',
 	],
 	'tec-troubleshooting-infobox-title'           => [
 		'type' => 'html',
@@ -68,4 +68,4 @@ $general_debugging = new Tribe__Settings_Tab(
 	]
 );
 
-do_action( 'tec_events_display_general_debugging_tab', $general_debugging );
+do_action( 'tec_events_settings_tab_general_debugging', $general_debugging );

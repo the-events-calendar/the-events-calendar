@@ -86,11 +86,11 @@ $display_currency = new Tribe__Settings_Tab(
 	[
 		'priority' => 5.15,
 		'fields'   => apply_filters(
-			'tec_events_display_settings_currency_section',
+			'tec_events_settings_display_currency_section',
 			$tec_events_display_currency
 		),
 		'parent'   => 'display',
 	]
 );
 
-do_action( 'tec_events_display_settings_date_time_tab', $display_currency );
+do_action( 'tec_events_settings_tab_display_date_time', $display_currency );

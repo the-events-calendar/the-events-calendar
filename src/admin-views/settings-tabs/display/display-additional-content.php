@@ -32,11 +32,11 @@ $display_additional_content = new Tribe__Settings_Tab(
 	[
 		'priority' => 5.25,
 		'fields'   => apply_filters(
-			'tec_events_display_settings_additional_content_section',
+			'tec_events_settings_display_additional_content_section',
 			$tec_events_display_additional_content
 		),
 		'parent'   => 'display',
 	]
 );
 
-do_action( 'tec_events_display_settings_maps_tab', $display_additional_content );
+do_action( 'tec_events_settings_tab_display_additional_content', $display_additional_content );

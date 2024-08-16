@@ -170,11 +170,11 @@ $display_date_time = new Tribe__Settings_Tab(
 	[
 		'priority' => 5.10,
 		'fields'   => apply_filters(
-			'tec_events_display_settings_date_time_section',
+			'tec_events_settings_display_date_time_section',
 			$tec_events_display_date
 		),
 		'parent'   => 'display',
 	]
 );
 
-do_action( 'tec_events_display_settings_date_time_tab', $display_date_time );
+do_action( 'tec_events_settings_tab_display_date_time', $display_date_time );

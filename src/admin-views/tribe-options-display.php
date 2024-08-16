@@ -45,4 +45,4 @@ require_once 'settings-tabs/display/display-currency.php';
 require_once 'settings-tabs/display/display-maps.php';
 require_once 'settings-tabs/display/display-additional-content.php';
 
-do_action( 'tec_settings_tab_display', $display_tab );
+do_action( 'tec_events_settings_tab_display', $display_tab );

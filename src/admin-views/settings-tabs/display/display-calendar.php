@@ -31,7 +31,7 @@ $posts_per_page_tooltip = apply_filters(
 );
 
 $tribe_enable_views_tooltip = apply_filters(
-	'tec_events_display_calendar_settings_enable_views_tooltip',
+	'tec_events_settings_display_calendar_enable_views_tooltip',
 	esc_html__( 'You must select at least one view.', 'the-events-calendar' )
 );
 
@@ -42,11 +42,11 @@ $tec_events_display_calendar = [
 	],
 	'tec-events-display-calendar-template-separator' => [
 		'type' => 'html',
-		'html' => '<hr class="tec_settings__section-separator">',
+		'html' => '<hr class="tec_settings__separator--section">',
 	],
 	'tec-events-calendar-display-template-title'     => [
 		'type' => 'html',
-		'html' => '<h2 id="tec-settings-events-settings-display-template-calendar" class="tec_settings__section-header">' . _x( 'Template', 'Calendar template display settings header', 'the-events-calendar' ) . '</h2>',
+		'html' => '<h2 id="tec-settings-events-settings-display-template-calendar" class="tec_settings__section-header tec_settings__section-header--sub">' . _x( 'Template', 'Calendar template display settings header', 'the-events-calendar' ) . '</h2>',
 	],
 	'stylesheetOption'                               => [ 'type' => 'html' ],
 	'stylesheet_mode'                                => [
@@ -74,7 +74,8 @@ $tec_events_display_calendar = [
 	'tribeEventsTemplate'                            => [
 		'type'            => 'dropdown',
 		'label'           => __( 'Events template', 'the-events-calendar' ),
-		'tooltip'         => __( 'Choose a page template to control the appearance of your calendar and event content.', 'the-events-calendar' ),
+		'tooltip'         => __( 'Page template to control the appearance of your calendar and event content.', 'the-events-calendar' ),
+		'tooltip_first'   => true,
 		'validation_type' => 'options',
 		'size'            => 'small',
 		'default'         => 'default',
@@ -83,11 +84,11 @@ $tec_events_display_calendar = [
 	],
 	'tec-events-display-calendar-views-separator'    => [
 		'type' => 'html',
-		'html' => '<hr class="tec_settings__section-separator">',
+		'html' => '<hr class="tec_settings__separator--section">',
 	],
 	'tec-events-calendar-display-views-title'        => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-views-calendar" class="tec_settings__section-header">' . _x( 'Views', 'Calendar views display settings header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-views-calendar" class="tec_settings__section-header tec_settings__section-header--sub">' . _x( 'Views', 'Calendar views display settings header', 'the-events-calendar' ) . '</h3>',
 	],
 	'tribeEnableViews'                               => [
 		'type'            => 'checkbox_list',
@@ -120,7 +121,7 @@ $tec_events_display_calendar = [
 		'label'           => __( 'Month view events per day', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
 			/* Translators: %s: URL to knowledgebase. */
-			__( 'Change the default 3 events per day in month view. To impose no limit, you may specify -1. Please note there may be performance issues if you allow too many events per day. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ),
+			__( 'Default is 3. To impose no limit, specify -1. Note that there may be performance issues if you allow too many events per day. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ),
 			'https://evnt.is/rh'
 		),
 		'validation_type' => 'int',
@@ -131,6 +132,7 @@ $tec_events_display_calendar = [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Number of events to show per page', 'the-events-calendar' ),
 		'tooltip'         => $posts_per_page_tooltip,
+		'tooltip_first'   => true,
 		'size'            => 'small',
 		'default'         => tribe_events_views_v2_is_enabled() ? 12 : get_option( 'posts_per_page' ),
 		'validation_type' => 'positive_int',
@@ -157,10 +159,10 @@ $display_calendar = new Tribe__Settings_Tab(
 	[
 		'priority' => 5.01,
 		'fields'   => apply_filters(
-			'tec_events_display_settings_calendar_section',
+			'tec_events_settings_display_calendar_section',
 			$tec_events_display_calendar
 		),
 		'parent'   => 'display',
 	]
 );
-do_action( 'tec_events_display_settings_calendar_tab', $display_calendar );
+do_action( 'tec_events_settings_tab_display_calendar', $display_calendar );

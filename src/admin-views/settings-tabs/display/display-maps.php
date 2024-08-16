@@ -65,11 +65,11 @@ $display_maps = new Tribe__Settings_Tab(
 	[
 		'priority' => 5.20,
 		'fields'   => apply_filters(
-			'tec_events_display_settings_maps_section',
+			'tec_events_settings_display_maps_section',
 			$tec_events_display_maps
 		),
 		'parent'   => 'display',
 	]
 );
 
-do_action( 'tec_events_display_settings_maps_tab', $display_maps );
+do_action( 'tec_events_settings_tab_display_maps', $display_maps );

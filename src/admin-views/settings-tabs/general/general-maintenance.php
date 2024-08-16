@@ -68,7 +68,7 @@ $tec_events_general_maintenance = [
 	],
 	'amalgamate-duplicates'                         => [
 		'type' => 'html',
-		'html' => '<fieldset class="tribe-field tribe-field-html"><legend>' . esc_html__( 'Merge duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="tribe-field-indent description">' . esc_html__( 'Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset>',
+		'html' => '<fieldset class="tribe-field tribe-field-html"><legend class="tribe-field-label">' . esc_html__( 'Merge duplicate Venues &amp; Organizers', 'the-events-calendar' ) . '</legend><div class="tribe-field-wrap">' . Tribe__Events__Amalgamator::migration_button( esc_html__( 'Merge Duplicates', 'the-events-calendar' ) ) . '<p class="description">' . esc_html__( 'Click this button to automatically merge identical venues and organizers.', 'the-events-calendar' ) . '</p></div></fieldset>',
 	],
 ];
 
@@ -82,4 +82,4 @@ $general_maintenance = new Tribe__Settings_Tab(
 	]
 );
 
-do_action( 'tec_events_display_general_editing_tab', $general_maintenance );
+do_action( 'tec_events_settings_tab_general_maintenance', $general_maintenance );
