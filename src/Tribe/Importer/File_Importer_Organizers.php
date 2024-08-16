@@ -110,7 +110,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 		 */
 		$additional_organizer_fields = apply_filters( 'tribe_events_csv_import_organizer_additional_fields', [] );
 
-		if ( ! empty ( $additional_organizer_fields ) ) {
+		if ( ! empty( $additional_organizer_fields ) ) {
 			foreach ( $additional_organizer_fields as $key => $csv_column ) {
 				// Get the value from the record based on the column slug.
 				$value = $this->get_value_by_key( $record, $csv_column );
@@ -119,9 +119,9 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 				 * When saving, the metadata gets the "_Organizer" prefix automatically, so it should be removed
 				 * before the import to avoid duplication.
 				 */
-				$key = preg_replace( '/' . preg_quote( "_Organizer", '/') . '/', "", $key, 1 );
+				$key = preg_replace( '/' . preg_quote( '_Organizer', '/' ) . '/', '', $key, 1 );
 
-				// Handle multiple values separated by a pipe (|)
+				// Handle multiple values separated by a pipe (|).
 				if ( strpos( $value, '|' ) > -1 ) {
 					$organizer[ $key ] = explode( '|', $value );
 				} else {
