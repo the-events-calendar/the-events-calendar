@@ -141,6 +141,13 @@ class Tribe__Events__Importer__Column_Mapper {
 		return apply_filters( 'tribe_events_importer_venue_column_names', $column_names );
 	}
 
+	/**
+	 * Retrieve column names for organizer import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @return mixed|null
+	 */
 	private function get_organizer_column_names() {
 		$column_names = array(
 			'organizer_name'        => esc_html__( 'Organizer Name', 'the-events-calendar' ),
