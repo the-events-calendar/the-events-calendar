@@ -12,8 +12,7 @@
 		</div>
 		<div id="tribe-events-c-subscribe-dropdown-content" class="tribe-events-c-subscribe-dropdown__content">
 			<ul class="tribe-events-c-subscribe-dropdown__list">
-									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+									<li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -22,8 +21,7 @@
 	>
 		Google Calendar	</a>
 </li>
-									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+									<li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1&#038;eventDisplay=list"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -32,8 +30,7 @@
 	>
 		iCalendar	</a>
 </li>
-																		
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+																		<li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="https://outlook.live.com/owa/?path=/calendar/action/compose&#038;rrv=addevent&#038;startdt=2018-07-01T10:00:00+02:00&#038;enddt=2018-07-01T13:00:00+02:00&#038;location&#038;subject=Test%20Event%20-%202018-07-01%2011am&#038;body"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
@@ -42,8 +39,7 @@
 	>
 		Outlook Live	</a>
 </li>
-									
-<li class="tribe-events-c-subscribe-dropdown__list-item">
+									<li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="https://outlook.office.com/owa/?path=/calendar/action/compose&#038;rrv=addevent&#038;startdt=2018-07-01T10:00:00+02:00&#038;enddt=2018-07-01T13:00:00+02:00&#038;location&#038;subject=Test%20Event%20-%202018-07-01%2011am&#038;body"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
