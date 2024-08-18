@@ -12,8 +12,8 @@
  * @version 5.12.0
  *
  * @var Link_Abstract $item Object containing subscribe/export label and url.
- *
  */
+
 use Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract;
 
 if ( ! $item instanceof Link_Abstract ) {
@@ -22,14 +22,16 @@ if ( ! $item instanceof Link_Abstract ) {
 
 $view = $this->get_view();
 
-if( ! $item->is_visible( $view ) ) {
+if ( ! $item->is_visible( $view ) ) {
 	return;
 }
-?>
 
+$uri = $item->get_uri( $view );
+
+?>
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="<?php echo esc_url( $item->get_uri( $view ) ); ?>"
+		href="<?php echo esc_url( $uri ); ?>"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
