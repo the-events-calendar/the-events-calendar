@@ -26,12 +26,12 @@
 		<script data-js="tribe-events-view-data" type="application/json">
 	{"slug":"day","prev_url":"","next_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/day\\/2019-01-02\\/","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_slug":"day","view_label":"Day","title":"Events \\u2013 The Events Calendar Tests","events":[904385349785,349589759485,340934095850,904385349781,349589759480,340934095823],"url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/","url_event_date":"2019-01-01","bar":{"keyword":"","date":"2019-01-01 09:00:00"},"today":"2019-01-01 09:00:00","now":"2019-01-01 09:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/","today_title":"Click to select today\'s date","today_label":"Today","prev_label":"","next_label":"2019-01-02","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":[],"start_of_week":"1","header_title":"tag-1","header_title_element":"h1","content_title":"","breadcrumbs":[{"link":"http:\\/\\/test.tri.be\\/events\\/","label":"Events"},{"link":"","label":"tag-1"}],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/today\\/?ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--day"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/list\\/?tribe-bar-date=2019-01-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/2019-01\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/tag\\/tag-1\\/day\\/2019-01-01\\/","view_label":"Day"}},"show_latest_past":true,"next_rel":"noindex","prev_rel":"noindex","subscribe_links":{"gcal":{"block_slug":"hasGoogleCalendar","label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"block_slug":"hasiCal","label":"iCalendar","single_label":"Add to iCalendar","visible":true},"outlook-365":{"block_slug":"hasOutlook365","label":"Outlook 365","single_label":"Outlook 365","visible":true},"outlook-live":{"block_slug":"hasOutlookLive","label":"Outlook Live","single_label":"Outlook Live","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true,"block_slug":null},"outlook-ics":{"label":"Export Outlook .ics file","single_label":"Export Outlook .ics file","visible":true,"block_slug":null}},"_context":{"slug":"day"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
-
-
+		
+		
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
-
-
-
+	
+	
+	
 <div class="tribe-events-header__title">
 	<h1 class="tribe-events-header__title-text">
 		tag-1	</h1>
@@ -39,7 +39,7 @@
 
 	<div class="tribe-events-header__breadcrumbs tribe-events-c-breadcrumbs">
 	<ol class="tribe-events-c-breadcrumbs__list">
-
+		
 							<li class="tribe-events-c-breadcrumbs__list-item">
 	<a
 		href="http://test.tri.be/events/"
@@ -50,14 +50,14 @@
 		Events	</a>
 	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
 </li>
-
-
+			
+		
 							<li class="tribe-events-c-breadcrumbs__list-item">
 	<span class="tribe-events-c-breadcrumbs__list-item-text">
 		tag-1	</span>
 	<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-right tribe-events-c-breadcrumbs__list-item-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M.3 1.6L1.8.1 9.7 8l-7.9 7.9-1.5-1.5L6.7 8 .3 1.6z"/></svg>
 </li>
-
+			
 			</ol>
 </div>
 
@@ -127,7 +127,7 @@
 	</form>
 </div>
 		</div>
-
+	
 	<div class="tribe-events-c-events-bar__views">
 	<h3 class="tribe-common-a11y-visual-hide">
 		Event Views Navigation	</h3>
@@ -192,7 +192,7 @@
 
 </div>
 
-
+	
 	<div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
 	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden">
@@ -282,10 +282,10 @@
 </div>
 </header>
 
-
+		
 		<div class="tribe-events-calendar-day">
 
-
+							
 								<div class="tribe-events-calendar-day__time-separator">
 	<time
 		class="tribe-events-calendar-day__time-separator-text tribe-common-h7 tribe-common-h6--min-medium tribe-common-h--alt"
@@ -296,7 +296,7 @@
 				<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-904385349785 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-
+		
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -326,17 +326,17 @@
 </h3>
 							</header>
 
-
+						
 		</div>
 
 	</div>
 </article>
 
-
+							
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-349589759485 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-
+		
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -355,17 +355,17 @@
 </h3>
 							</header>
 
-
+						
 		</div>
 
 	</div>
 </article>
 
-
+							
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-340934095850 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-
+		
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -384,17 +384,17 @@
 </h3>
 							</header>
 
-
+						
 		</div>
 
 	</div>
 </article>
 
-
+							
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-904385349781 tribe_events type-tribe_events status-publish hentry tribe-events-calendar-day__event--featured" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-
+		
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -424,17 +424,17 @@
 </h3>
 							</header>
 
-
+						
 		</div>
 
 	</div>
 </article>
 
-
+							
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-349589759480 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-
+		
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -453,17 +453,17 @@
 </h3>
 							</header>
 
-
+						
 		</div>
 
 	</div>
 </article>
 
-
+							
 												<article  class="tribe-common-g-row tribe-common-g-row--gutters tribe-events-calendar-day__event post-340934095823 tribe_events type-tribe_events status-publish hentry" >
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
 
-
+		
 		<div class="tribe-events-calendar-day__event-details">
 
 			<header class="tribe-events-calendar-day__event-header">
@@ -482,13 +482,13 @@
 </h3>
 							</header>
 
-
+						
 		</div>
 
 	</div>
 </article>
 
-
+			
 		</div>
 
 		<nav class="tribe-events-calendar-day-nav tribe-events-c-nav">
@@ -534,7 +534,7 @@
 		</div>
 		<div id="tribe-events-c-subscribe-dropdown-content" class="tribe-events-c-subscribe-dropdown__content">
 			<ul class="tribe-events-c-subscribe-dropdown__list">
-
+									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist"
@@ -544,7 +544,7 @@
 	>
 		Google Calendar	</a>
 </li>
-
+									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1&#038;eventDisplay=list"
@@ -554,27 +554,27 @@
 	>
 		iCalendar	</a>
 </li>
-
+									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.office.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26eventDisplay%3Dlist&#038;ical=1&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
+		href="https://outlook.office.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
 	>
 		Outlook 365	</a>
 </li>
-
+									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.live.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26eventDisplay%3Dlist&#038;ical=1&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
+		href="https://outlook.live.com/owa?path=%2Fcalendar%2Faction%2Fcompose&#038;rru=addsubscription&#038;url=webcal%253A%252F%252Ftest.tri.be%252F%253Fpost_type%253Dtribe_events%2526eventDisplay%253Dlist%26ical%3D1&#038;name=The+Events+Calendar+Tests+Events+%E2%80%93+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
 	>
 		Outlook Live	</a>
 </li>
-
+									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="http://test.tri.be/events/tag/tag-1/today/?ical=1"
@@ -584,7 +584,7 @@
 	>
 		Export .ics file	</a>
 </li>
-
+									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
 		href="http://test.tri.be/events/tag/tag-1/today/?outlook-ical=1"
@@ -600,7 +600,7 @@
 </div>
 
 		<div class="tribe-events-after-html">
-
+	
 <!--
 This calendar is powered by The Events Calendar.
 http://evnt.is/18wn
