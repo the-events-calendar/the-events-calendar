@@ -930,7 +930,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_events_google_maps_api', [ $google_maps_api_key, 'filter_tribe_events_google_maps_api' ] );
 			add_filter( 'tribe_events_pro_google_maps_api', [ $google_maps_api_key, 'filter_tribe_events_google_maps_api' ] );
 			add_filter( 'tribe_field_value', [ $google_maps_api_key, 'populate_field_with_default_api_key' ], 10, 2 );
-			add_filter( 'tribe_field_tooltip', [ $google_maps_api_key, 'populate_field_tooltip_with_helper_text' ], 10, 2 );
+			add_filter( 'tribe_field_append', [ $google_maps_api_key, 'populate_field_tooltip_with_helper_text' ], 10, 2 );
 
 			// Preview handling
 			add_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
