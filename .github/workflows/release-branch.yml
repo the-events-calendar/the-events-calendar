@@ -1,0 +1,158 @@
+name: Release Branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      new-branch:
+        description: 'Name of the new branch (e.g. release/T24.centaur)'
+        default: release/T24.release-name
+        required: true
+      version-bump-type:
+        description: 'Type of version bump'
+        required: true
+        type: choice
+        options:
+          - major (X.x.x)
+          - feature (x.X.x)
+          - maintenance (x.x.X)
+          - hotfix (x.x.x.X)
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set Variables
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
+
+      - name: Set up Git configuration
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+
+      - name: Check for .puprc file and paths.versions
+        id: check-puprc
+        run: |
+          if [ ! -f ".puprc" ]; then
+            echo "Error: .puprc file not found" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          if ! jq -e '.paths.versions' .puprc > /dev/null; then
+            echo "Error: paths.versions not found in .puprc" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Create and push release branch
+        id: create-release-branch
+        run: |
+          newBranch="${{ github.event.inputs.new-branch }}"
+          if git show-ref --quiet "refs/heads/$newBranch"; then
+            echo "Branch $newBranch already exists, skipping creation."
+            git fetch origin "$newBranch"
+            git checkout "$newBranch"
+          else
+            git checkout -b "$newBranch"
+            git push origin "$newBranch" || (git fetch origin "$newBranch" && git reset --hard "origin/$newBranch")
+          fi
+
+      - name: Read and apply version bump
+        id: versions
+        run: |
+          changeBranch="task/version-bump-${{ github.event.inputs.new-branch }}-${{ steps.vars.outputs.sha_short }}"
+          git checkout -b "$changeBranch"
+          git push origin "$changeBranch"
+          versionBumpType="${{ github.event.inputs.version-bump-type }}"
+
+          jq -c '.paths.versions[]' .puprc | while read -r version; do
+            echo "Processing version info: $version"
+            file=$(echo "$version" | jq -r '.file')
+            regex=$(echo "$version" | jq -r '.regex')
+
+            echo "## \`$file\`" >> $GITHUB_STEP_SUMMARY
+            if [ -f "$file" ]; then
+              existing_version=$(grep -Po "$regex" "$file" | grep -Po '(\d+\.\d+\.\d+(\.\d+)?)')
+              if [ -z "$existing_version" ]; then
+                echo "Error: No version found in \`$file\` using regex \`$regex\`" >> $GITHUB_STEP_SUMMARY
+                exit 1
+              fi
+              echo "* Found: \`$existing_version\`" >> $GITHUB_STEP_SUMMARY
+
+              if [ "$versionBumpType" = "hotfix" ] && [ "$file" = "package.json" ]; then
+                echo "Skipping version bump in \`package.json\` for \`hotfix\` mode" >> $GITHUB_STEP_SUMMARY
+                continue
+              fi
+              
+              IFS='.' read -r -a version_parts <<< "$existing_version"
+
+              case "$versionBumpType" in
+                major)
+                  version_parts[0]=$((version_parts[0] + 1))
+                  version_parts[1]=0
+                  version_parts[2]=0
+                  unset version_parts[3]
+                  ;;
+                feature)
+                  version_parts[1]=$((version_parts[1] + 1))
+                  version_parts[2]=0
+                  unset version_parts[3]
+                  ;;
+                maintenance)
+                  version_parts[2]=$((version_parts[2] + 1))
+                  unset version_parts[3]
+                  ;;
+                hotfix)
+                  if [ -z "${version_parts[3]}" ]; then
+                    version_parts[3]=1
+                  else
+                    version_parts[3]=$((version_parts[3] + 1))
+                  fi
+                  ;;
+              esac
+
+              new_version="${version_parts[0]}.${version_parts[1]}.${version_parts[2]}"
+              if [ -n "${version_parts[3]}" ]; then
+                new_version="$new_version.${version_parts[3]}"
+              fi
+
+              echo "* Modified: \`$new_version\`" >> $GITHUB_STEP_SUMMARY
+
+              php_regex=$(echo "$regex" | sed "s/'/\\\\'/g")
+              php -r "file_put_contents('$file', preg_replace('/$php_regex/', '\${1}$new_version', file_get_contents('$file')));"
+
+              echo "new_version=$new_version" >> $GITHUB_OUTPUT
+            else
+              echo "Error: File \`$file\` not found" >> $GITHUB_STEP_SUMMARY
+              exit 1
+            fi
+          done
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        id: cpr
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: "${{ github.event.inputs.new-branch }}"
+          branch: "task/version-bump-${{ github.event.inputs.new-branch }}-${{ steps.vars.outputs.sha_short }}"
+          title: "Version bump for ${{ github.event.inputs.new-branch }}"
+          body: |
+            This is an automated PR created by ${{ github.actor }}.
+            It was generated by [this GitHub Action](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+          labels: "automation"
+          commit-message: |
+            Version bump for ${{ github.event.inputs.new-branch }}
+
+            This is an automated PR created by ${{ github.actor }}.
+            Generated by: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      - name: Check outputs
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "## Pull Request"  >> $GITHUB_STEP_SUMMARY
+          echo "* Number - ${{ steps.cpr.outputs.pull-request-number }}" >> $GITHUB_STEP_SUMMARY
+          echo "* URL - [${{ steps.cpr.outputs.pull-request-url }}](${{ steps.cpr.outputs.pull-request-url }})" >> $GITHUB_STEP_SUMMARY
