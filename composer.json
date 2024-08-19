@@ -35,7 +35,7 @@
     "scotteh/php-dom-wrapper": "^1.0",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "stellarwp/coding-standards": "dev-main",
-    "the-events-calendar/tec-testing-facilities": "dev-master",
+    "the-events-calendar/tec-testing-facilities": "dev-mocker",
     "vlucas/phpdotenv": "^4.1",
     "wp-coding-standards/wpcs": "^3.0",
     "phpstan/phpstan": "^1.10",
