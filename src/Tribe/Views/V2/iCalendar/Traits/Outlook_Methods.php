@@ -72,8 +72,10 @@ trait Outlook_Methods {
 		} else {
 			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'c' );
 		}
+		$enddt = str_replace( [ '+', ':' ], [ '%2B', '%3A' ], $enddt );
 
 		$startdt = Dates::build_date_object( $event->start_date, $timezone )->format( 'c' );
+		$startdt = str_replace( [ '+', ':' ], [ '%2B', '%3A' ], $startdt );
 
 		$location = Venue::generate_string_address( $event );
 
@@ -211,7 +213,7 @@ trait Outlook_Methods {
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_subscribe_url', $url, $base_url, $feed_url, $params, $this );
 
-		return $url;
+		return rawurldecode( $url );
 	}
 
 	/**
