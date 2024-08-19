@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Add docblock for `set_defaults()` in the Tribe__Events__Importer__Column_Mapper class.
