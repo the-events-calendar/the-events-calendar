@@ -8467,12 +8467,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-events-calendar/tec-testing-facilities",
-                "reference": "51c43ac7e2ea4c3271c48650486cdc78a2bb96f4"
+                "reference": "df7a4950b98a41d719a52019af486af1de5bc432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/51c43ac7e2ea4c3271c48650486cdc78a2bb96f4",
-                "reference": "51c43ac7e2ea4c3271c48650486cdc78a2bb96f4",
+                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/df7a4950b98a41d719a52019af486af1de5bc432",
+                "reference": "df7a4950b98a41d719a52019af486af1de5bc432",
                 "shasum": ""
             },
             "require": {
@@ -8536,7 +8536,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2024-08-19T16:45:51+00:00"
+            "time": "2024-08-19T18:04:43+00:00"
         },
         {
             "name": "theseer/tokenizer",
