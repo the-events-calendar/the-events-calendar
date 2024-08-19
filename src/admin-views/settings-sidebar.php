@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-use TEC\Common\Admin\Entities\FieldW_Wrapper;
+use TEC\Common\Admin\Entities\Field_Wrapper;
 use TEC\Common\Admin\Entities\Heading;
 use TEC\Common\Admin\Entities\Image;
 use TEC\Common\Admin\Entities\Link;
@@ -110,7 +110,7 @@ $sidebar->add_section(
 $sidebar->add_section(
 	( new Settings_Section() )
 		->add_element(
-			new FieldW_Wrapper(
+			new Field_Wrapper(
 				new Tribe__Field(
 					'donate-link',
 					[
