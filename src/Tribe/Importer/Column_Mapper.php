@@ -37,10 +37,19 @@ class Tribe__Events__Importer__Column_Mapper {
 		$this->defaults = $defaults;
 	}
 
+	/**
+	 * Render a select dropdown at the top of a column for column mapping.
+	 *
+	 * @since 3.10.0
+	 *
+	 * @param int $index The index of the column. Starts with 0.
+	 *
+	 * @return string The HTML markup of the select box.
+	 */
 	public function make_select_box( $index ) {
 		$selected = isset( $this->defaults[ $index ] ) ? $this->defaults[ $index ] : '';
 		$html     = '<select name="column_map[' . $index . ']">';
-		$html .= '<option value="">' . esc_html__( 'Do Not Import', 'the-events-calendar' ) . '</option>';
+		$html    .= '<option value="">' . esc_html__( 'Do Not Import', 'the-events-calendar' ) . '</option>';
 		foreach ( $this->column_names as $key => $value ) {
 			$html .= sprintf( '<option value="%s" %s>%s</option>', esc_attr( $key ), selected( $selected, $key, false ), esc_html( $value ) );
 		}

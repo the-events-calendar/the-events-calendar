@@ -322,6 +322,13 @@ $tec_events_general_editing = [
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
+	'allow_duplicate_venues'                    => [
+		'type'            => 'checkbox_bool',
+		'label'           => esc_html__( 'Allow duplicate Venues', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Allow the creation of duplicate Venues.', 'the-events-calendar' ),
+		'default'         => false,
+		'validation_type' => 'boolean',
+	],
 ];
 
 $general_tab_fields += apply_filters( 'tribe_general_settings_editing_section', $tec_events_general_editing );
