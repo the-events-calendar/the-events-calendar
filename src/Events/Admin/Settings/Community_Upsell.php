@@ -120,7 +120,7 @@ class Community_Upsell extends Service_Provider {
 	 *
 	 * @return string|false HTML of the Comunity upsell banner. False if the template is not found.
 	 */
-	public function get_upsell_html( $context = [], $echo = false ) {
+	public function get_upsell_html( $context = [], $echo = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
 		return $this->get_template()->template( 'community', wp_parse_args( $context ), $echo );
 	}
 

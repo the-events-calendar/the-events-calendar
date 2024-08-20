@@ -101,7 +101,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @return Tribe__Template
 	 */
-	public function get_upsell_html( $context = [], $echo = false ) {
+	public function get_upsell_html( $context = [], $echo = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
 
 		return $this->get_template()->template( 'upsell', wp_parse_args( $context ), $echo );
 	}

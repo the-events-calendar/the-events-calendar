@@ -49,15 +49,15 @@ class Tribe__Events__Google__Maps_API_Key {
 	 */
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
 		$tooltip = sprintf(
-					/* translators: %1$s and %2$s are placeholders for the opening <a> tags */
-					__(
-						'<p>The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$sGoogle Maps API key</a>. %2$sRead More</a>.</p>',
-						'the-events-calendar'
-					),
-					'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">',
-					'</a>',
-					'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">'
-				);
+			/* translators: %1$s and %2$s are placeholders for the opening <a> tags */
+			__(
+				'<p>The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$sGoogle Maps API key</a>. %2$sRead More</a>.</p>',
+				'the-events-calendar'
+			),
+			'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">',
+			'</a>',
+			'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">'
+		);
 
 		$append = sprintf(
 			'<p><strong>%1$s</strong></p> <p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
@@ -77,8 +77,7 @@ class Tribe__Events__Google__Maps_API_Key {
 				. '<h3 id="tec-events-pro-defaults-licenses-title" class="tec-settings__section-header tec-settings__section-header--sub">'
 				. esc_html__( 'Google Maps API', 'the-events-calendar' )
 				. '</h3>'
-				. '</div>'
-
+				. '</div>',
 			],
 
 			self::$api_key_option_name => [

@@ -52,7 +52,7 @@ $tec_events_general_viewing_fields = [
 		'append'          => '<p class="tribe-field-description description">' . __( 'The above should be singular.', 'the-events-calendar' ) . '</p>',
 		'default'         => 'event',
 		'tooltip_first'   => true,
-		'tooltip'         =>  sprintf(
+		'tooltip'         => sprintf(
 			/* Translators: %1$s - URL to a single events page (link), %2$s - URL to a single events page (readable string) */
 			wp_kses_post( __( 'Preview: <a href="%1$s">%2$s</a>', 'the-events-calendar' ) ),
 			esc_url( home_url() . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/' ),
