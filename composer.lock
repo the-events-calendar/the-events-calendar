@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d35ed23f0dfb83f3245a613f9f4a4956",
+    "content-hash": "af65b88dc513654448dc0c9e151257f0",
     "packages": [
         {
             "name": "woocommerce/action-scheduler",
@@ -8526,31 +8526,32 @@
         },
         {
             "name": "the-events-calendar/tec-testing-facilities",
-            "version": "dev-mocker",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/the-events-calendar/tec-testing-facilities",
-                "reference": "ad10e2958ebdb8b8a458121aaf00e8c1334211b8"
+                "reference": "acc56cfa577c2f0b4926711143cf43722e588cac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/ad10e2958ebdb8b8a458121aaf00e8c1334211b8",
-                "reference": "ad10e2958ebdb8b8a458121aaf00e8c1334211b8",
+                "url": "https://api.github.com/repos/the-events-calendar/tec-testing-facilities/zipball/acc56cfa577c2f0b4926711143cf43722e588cac",
+                "reference": "acc56cfa577c2f0b4926711143cf43722e588cac",
                 "shasum": ""
             },
             "require": {
-                "lucatume/wp-browser": "3.2.3",
+                "lucatume/wp-browser": "^2.0 || ^3.0",
                 "nilportugues/sql-query-formatter": "^1.2",
-                "php": ">=7.0"
+                "php": ">=7.4"
             },
             "require-dev": {
-                "codeception/codeception": "^4.0",
+                "codeception/codeception": "^3.0",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-                "phpunit/phpunit": "~6.0",
+                "phpunit/phpunit": "^6.0",
                 "vlucas/phpdotenv": "^3.0",
                 "wordpress/wordpress": "dev-master",
                 "wp-coding-standards/wpcs": "^2.1"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -8599,7 +8600,7 @@
                 }
             ],
             "description": "Testing facilities, helpers and examples.",
-            "time": "2024-08-19T18:53:20+00:00"
+            "time": "2024-08-20T13:23:06+00:00"
         },
         {
             "name": "theseer/tokenizer",
