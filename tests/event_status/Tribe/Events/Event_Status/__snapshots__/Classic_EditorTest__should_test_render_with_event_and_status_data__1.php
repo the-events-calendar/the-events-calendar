@@ -1,5 +1,5 @@
 <?php return '<div class="tribe-events-status_metabox__container">
-	<input type="hidden" id="tribe-events-status[nonce]" name="tribe-events-status[nonce]" value="123123" /><input type="hidden" name="_wp_http_referer" value="" />
+	<input type="hidden" id="tribe-events-status[nonce]" name="tribe-events-status[nonce]" value="123123" /><input type="hidden" name="_wp_http_referer" value="/wp-admin/post.php" />
 	<label for="tribe-events-status-status">
 		Set status:	</label>
 	<div
