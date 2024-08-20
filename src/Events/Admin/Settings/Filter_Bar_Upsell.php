@@ -1,4 +1,12 @@
 <?php
+/**
+ * Service Provider for Filter Bar upsell/settings.
+ *
+ * @since
+ *
+ * @package TEC\Events\Admin\Settings
+ */
+
 namespace TEC\Events\Admin\Settings;
 
 use Tribe\Events\Admin\Settings;
@@ -11,7 +19,6 @@ use TEC\Common\Contracts\Service_Provider;
  * Class Upsell
  *
  * @since TBD
- *
  */
 class Filter_Bar_Upsell extends Service_Provider {
 	/**
@@ -19,7 +26,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function register() {
+	public function register(): void {
 		if ( tec_should_hide_upsell() ) {
 			return;
 		}
@@ -38,7 +45,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function add_actions() {
+	public function add_actions(): void {
 		add_action( 'tribe_settings_do_tabs', [ $this, 'add_tab' ] );
 	}
 
@@ -55,8 +62,10 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * Create a Filter Bar upsell tab.
 	 *
 	 * @since TBD
+	 *
+	 * @param string $admin_page The current admin page.
 	 */
-	public function add_tab( $admin_page ) {
+	public function add_tab( $admin_page ) : void{
 		$tec_settings_page_id = tribe( Settings::class )::$settings_page_id;
 
 		if ( ! empty( $admin_page ) && $tec_settings_page_id !== $admin_page ) {
@@ -95,7 +104,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 
 		add_filter(
 			'tec_events_settings_tabs_ids',
-			function( $tabs ) {
+			function ( $tabs ) {
 				$tabs[] = 'filter-view';
 				return $tabs;
 			}
@@ -110,9 +119,9 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * @param array   $context Context of template.
 	 * @param boolean $echo    Whether or not to output the HTML or just return it.
 	 *
-	 * @return Tribe__Template
+	 * @return string|false HTML of the Filter Bar upsell banner. False if the template is not found.
 	 */
-	public function get_upsell_html( $context = [], $echo = false ) {
+	public function get_upsell_html( $context = [], $echo = false ): string|false {
 		return $this->get_template()->template( 'filter_bar', wp_parse_args( $context ), $echo );
 	}
 
@@ -123,7 +132,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @return Tribe__Template
 	 */
-	public function get_template() {
+	public function get_template(): Tribe__Template {
 		if ( empty( $this->template ) ) {
 			$this->template = new \Tribe__Template();
 			$this->template->set_template_origin( \Tribe__Events__Main::instance() );

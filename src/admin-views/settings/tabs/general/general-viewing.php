@@ -32,11 +32,11 @@ $tec_events_general_viewing_fields = [
 		'conditional' => ( '' == get_option( 'permalink_structure' ) ),
 	],
 	'eventsSlug'                                => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Events URL slug', 'the-events-calendar' ),
-		'default'         => 'events',
-		'tooltip_first'   => true,
-		'tooltip'         => sprintf(
+		'type'          => 'text',
+		'label'         => esc_html__( 'Events URL slug', 'the-events-calendar' ),
+		'default'       => 'events',
+		'tooltip_first' => true,
+		'tooltip'       => sprintf(
 			/* Translators: %1$s - URL to the events page (link), %2$s - URL to the events page (readable string) */
 			wp_kses_post( __( 'Preview: <a href="%1$s">%2$s</a>', 'the-events-calendar' ) ),
 			esc_url( tribe_get_events_link() ),
@@ -44,15 +44,15 @@ $tec_events_general_viewing_fields = [
 		),
 		'validation_type' => 'slug',
 		'conditional'     => ( '' !== get_option( 'permalink_structure' ) ),
-		'append'		  => '<p class="tribe-field-description description">' . esc_html__( 'The above should be plural.', 'the-events-calendar' ) . '</p>',
+		'append'          => '<p class="tribe-field-description description">' . esc_html__( 'The above should be plural.', 'the-events-calendar' ) . '</p>',
 	],
 	'singleEventSlug'                           => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Single event URL slug', 'the-events-calendar' ),
-		'append'          => '<p class="tribe-field-description description">' . __( 'The above should be singular.', 'the-events-calendar' ) . '</p>',
-		'default'         => 'event',
-		'tooltip_first'   => true,
-		'tooltip'         =>  sprintf(
+		'type'          => 'text',
+		'label'         => esc_html__( 'Single event URL slug', 'the-events-calendar' ),
+		'append'        => '<p class="tribe-field-description description">' . __( 'The above should be singular.', 'the-events-calendar' ) . '</p>',
+		'default'       => 'event',
+		'tooltip_first' => true,
+		'tooltip'       =>  sprintf(
 			/* Translators: %1$s - URL to a single events page (link), %2$s - URL to a single events page (readable string) */
 			wp_kses_post( __( 'Preview: <a href="%1$s">%2$s</a>', 'the-events-calendar' ) ),
 			esc_url( home_url() . tribe_get_option( 'singleEventSlug', 'event' ) . '/single-post-name/' ),

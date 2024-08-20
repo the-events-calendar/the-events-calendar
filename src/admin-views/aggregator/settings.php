@@ -241,8 +241,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$ical = [
 		'ical-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-ical-settings" class="tec-settings__section-header">' . esc_html__( 'iCalendar Import Settings', 'the-events-calendar' ) . '</h3>',
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-ical-settings" class="tec-settings__section-header">' . esc_html__( 'iCalendar Import Settings', 'the-events-calendar' ) . '</h3>',
 			'priority' => 20.1,
 		],
 		'tribe_aggregator_default_ical_post_status' => [
@@ -285,9 +285,9 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$ics = [
 		'ics-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-ics-settings" class="tec-settings__section-header">' . esc_html__( 'ICS File Import Settings', 'the-events-calendar' ) . '</h3>',
-			'priority'        => 25.1,
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-ics-settings" class="tec-settings__section-header">' . esc_html__( 'ICS File Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 25.1,
 		],
 		'tribe_aggregator_default_ics_post_status' => [
 			'type'            => 'dropdown',
@@ -329,9 +329,9 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$gcal = [
 		'gcal-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-google-settings" class="tec-settings__section-header">' . esc_html__( 'Google Calendar Import Settings', 'the-events-calendar' ) . '</h3>',
-			'priority'  => 35.1,
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-google-settings" class="tec-settings__section-header">' . esc_html__( 'Google Calendar Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 35.1,
 		],
 		'tribe_aggregator_default_gcal_post_status' => [
 			'type'            => 'dropdown',
@@ -373,13 +373,13 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$meetup = [
 		'meetup-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-meetup-settings" class="tec-settings__section-header">' . esc_html__( 'Meetup Import Settings', 'the-events-calendar' ) . '</h3>',
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-meetup-settings" class="tec-settings__section-header">' . esc_html__( 'Meetup Import Settings', 'the-events-calendar' ) . '</h3>',
 			'priority' => 40.1,
 		],
 		'meetup-defaults-info' => [
-			'type'            => 'html',
-			'html'            => '<p>' . sprintf(
+			'type'     => 'html',
+			'html'     => '<p>' . sprintf(
 				esc_html__(
 					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > Integrations%2$s',
 					'the-events-calendar'
@@ -387,7 +387,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 				'<a href="' . tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'addons' ] ) . '">',
 				'</a>'
 			). '</p>',
-			'priority'        => 40.2,
+			'priority' => 40.2,
 		],
 		'tribe_aggregator_default_meetup_post_status' => [
 			'type'            => 'dropdown',
@@ -429,9 +429,9 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$url = [
 		'url-defaults' => [
-			'type'      => 'html',
-			'html'      => '<h3 id="tribe-import-url-settings">' . esc_html__( 'Other URL Import Settings', 'the-events-calendar' ) . '</h3>',
-			'priority'  => 45.1,
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-url-settings">' . esc_html__( 'Other URL Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 45.1,
 		],
 		'tribe_aggregator_default_url_post_status' => [
 			'type'            => 'dropdown',
