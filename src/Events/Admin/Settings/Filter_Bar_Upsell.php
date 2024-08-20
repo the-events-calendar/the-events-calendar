@@ -12,6 +12,7 @@ namespace TEC\Events\Admin\Settings;
 use Tribe\Events\Admin\Settings;
 use Tribe__Settings_Tab;
 use TEC\Common\Contracts\Service_Provider;
+use Tribe__Template;
 
 
 
@@ -121,7 +122,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @return string|false HTML of the Filter Bar upsell banner. False if the template is not found.
 	 */
-	public function get_upsell_html( $context = [], $echo = false ): string|false {
+	public function get_upsell_html( $context = [], $echo = false ) {
 		return $this->get_template()->template( 'filter_bar', wp_parse_args( $context ), $echo );
 	}
 
@@ -134,7 +135,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 */
 	public function get_template(): Tribe__Template {
 		if ( empty( $this->template ) ) {
-			$this->template = new \Tribe__Template();
+			$this->template = new Tribe__Template();
 			$this->template->set_template_origin( \Tribe__Events__Main::instance() );
 			$this->template->set_template_folder( 'src/admin-views/settings/upsells/' );
 			$this->template->set_template_context_extract( true );

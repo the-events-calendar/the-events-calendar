@@ -120,7 +120,7 @@ class Community_Upsell extends Service_Provider {
 	 *
 	 * @return string|false HTML of the Comunity upsell banner. False if the template is not found.
 	 */
-	public function get_upsell_html( $context = [], $echo = false ): string|false {
+	public function get_upsell_html( $context = [], $echo = false ) {
 		return $this->get_template()->template( 'community', wp_parse_args( $context ), $echo );
 	}
 
@@ -133,7 +133,7 @@ class Community_Upsell extends Service_Provider {
 	 */
 	public function get_template(): Tribe__Template {
 		if ( empty( $this->template ) ) {
-			$this->template = new \Tribe__Template();
+			$this->template = new Tribe__Template();
 			$this->template->set_template_origin( \Tribe__Events__Main::instance() );
 			$this->template->set_template_folder( 'src/admin-views/settings/upsells/' );
 			$this->template->set_template_context_extract( true );
