@@ -89,8 +89,16 @@ $display_currency = new Tribe__Settings_Tab(
 			'tec_events_settings_display_currency_section',
 			$tec_events_display_currency
 		),
-		'parent'   => 'display',
 	]
 );
 
+/**
+ * Fires after the display settings currency tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $display_currency The display settings currency tab.
+ */
 do_action( 'tec_events_settings_tab_display_date_time', $display_currency );
+
+return $display_currency;

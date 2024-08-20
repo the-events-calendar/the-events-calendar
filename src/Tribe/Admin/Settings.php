@@ -395,8 +395,8 @@ class Settings {
 			return;
 		}
 
-		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 		$general_tab = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
+		$display_tab = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
 		$this->tabs['general'] = $general_tab;
 		$this->tabs['display'] = $display_tab;

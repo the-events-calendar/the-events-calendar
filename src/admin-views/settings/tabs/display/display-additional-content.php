@@ -35,8 +35,16 @@ $display_additional_content = new Tribe__Settings_Tab(
 			'tec_events_settings_display_additional_content_section',
 			$tec_events_display_additional_content
 		),
-		'parent'   => 'display',
 	]
 );
 
+/**
+ * Fires after the display additional content settings tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $display_additional_content The display additional content settings tab.
+ */
 do_action( 'tec_events_settings_tab_display_additional_content', $display_additional_content );
+
+return $display_additional_content;

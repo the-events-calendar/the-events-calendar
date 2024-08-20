@@ -173,8 +173,16 @@ $display_date_time = new Tribe__Settings_Tab(
 			'tec_events_settings_display_date_time_section',
 			$tec_events_display_date
 		),
-		'parent'   => 'display',
 	]
 );
 
+/**
+ * Fires after the display settings date & time tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $display_date_time The display settings date & time tab.
+ */
 do_action( 'tec_events_settings_tab_display_date_time', $display_date_time );
+
+return $display_date_time;

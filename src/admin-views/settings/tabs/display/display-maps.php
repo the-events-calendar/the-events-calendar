@@ -68,8 +68,16 @@ $display_maps = new Tribe__Settings_Tab(
 			'tec_events_settings_display_maps_section',
 			$tec_events_display_maps
 		),
-		'parent'   => 'display',
 	]
 );
 
+/**
+ * Fires after the display settings maps tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $display_maps The display settings maps tab.
+ */
 do_action( 'tec_events_settings_tab_display_maps', $display_maps );
+
+return $display_maps;

@@ -35,14 +35,32 @@ $display_tab = new Tribe__Settings_Tab(
 	esc_html__( 'Display', 'the-events-calendar' ),
 	[
 		'priority' => 5,
-		'fields'   => [], // Parent tabs don't have content of their own!
+		'fields'   => [],
 	]
 );
 
-require_once 'settings/tabs/display/display-calendar.php';
-require_once 'settings/tabs/display/display-date-time.php';
-require_once 'settings/tabs/display/display-currency.php';
-require_once 'settings/tabs/display/display-maps.php';
-require_once 'settings/tabs/display/display-additional-content.php';
+$calendar_tab = require_once __DIR__ . '/settings/tabs/display/display-calendar.php';
+$display_tab->add_child( $calendar_tab );
 
+$date_time = require_once __DIR__ . '/settings/tabs/display/display-date-time.php';
+$display_tab->add_child( $date_time );
+
+$currency_tab = require_once __DIR__ . '/settings/tabs/display/display-currency.php';
+$display_tab->add_child( $currency_tab );
+
+$maps_tab = require_once __DIR__ . '/settings/tabs/display/display-maps.php';
+$display_tab->add_child( $maps_tab );
+
+$additional_content_tab = require_once __DIR__ . '/settings/tabs/display/display-additional-content.php';
+$display_tab->add_child( $additional_content_tab );
+
+/**
+ * Fires after the display settings tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $display_tab The display settings tab.
+ */
 do_action( 'tec_events_settings_tab_display', $display_tab );
+
+return $display_tab;

@@ -162,7 +162,16 @@ $display_calendar = new Tribe__Settings_Tab(
 			'tec_events_settings_display_calendar_section',
 			$tec_events_display_calendar
 		),
-		'parent'   => 'display',
 	]
 );
+
+/**
+ * Fires after the display settings calendar tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $display_calendar The display settings calendar tab.
+ */
 do_action( 'tec_events_settings_tab_display_calendar', $display_calendar );
+
+return $display_calendar;
