@@ -7,7 +7,7 @@ use Tribe__Settings_Tab;
 use Tribe__Admin__Helpers;
 use TEC\Common\Contracts\Service_Provider;
 
-
+_deprecated_class( __NAMESPACE__ . '\Provider', 'TBD', 'TEC\Events\Admin\Settings\Filter_Bar_Upsell' );
 
 /**
  * Class Provider
@@ -16,8 +16,6 @@ use TEC\Common\Contracts\Service_Provider;
  *
  */
 class Provider extends Service_Provider {
-
-
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -103,7 +101,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @return Tribe__Template
 	 */
-	public function get_upsell_html( $context = [], $echo = false ) {
+	public function get_upsell_html( $context = [], $echo = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
 
 		return $this->get_template()->template( 'upsell', wp_parse_args( $context ), $echo );
 	}

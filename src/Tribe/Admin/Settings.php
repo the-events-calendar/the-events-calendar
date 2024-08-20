@@ -4,9 +4,12 @@ namespace Tribe\Events\Admin;
 /**
  * Manages the admin settings UI in relation to events configuration.
  */
+
 use Tribe__App_Shop;
 use Tribe__Settings;
-use Tribe__Settings_Tab;
+use Tribe__Main;
+use Tribe__Settings_Tab as Tab;
+
 use Tribe__Events__Main as Plugin;
 use Tribe\Admin\Troubleshooting as Troubleshooting;
 
@@ -74,7 +77,7 @@ class Settings {
 	}
 
 	/**
-	 * Filter The Events CAlendar Settings page title
+	 * Filter The Events Calendar Settings page title
 	 *
 	 * @param string $title The title of the settings page.
 	 *
@@ -85,11 +88,24 @@ class Settings {
 			return $title;
 		}
 
-		return sprintf(
-			// Translators: %s is the `Events` in plural.
-			__( '%s Settings', 'the-events-calendar' ),
-			tribe_get_event_label_plural( 'tec_events_settings_title' )
-		);
+		return __( 'Settings', 'the-events-calendar' );
+	}
+
+	/**
+	 * Replaces the source URL of the settings page logo.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $source_url The current source URL of the settings page logo.
+	 *
+	 * @return string The source URL of the settings page logo.
+	 */
+	public function settings_page_logo_source( $source_url ): string {
+		if ( ! $this->is_tec_events_settings() ) {
+			return $source_url;
+		}
+
+		return tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
 	}
 
 	/**
@@ -167,7 +183,7 @@ class Settings {
 				'path'     => static::$settings_page_id,
 				'callback' => [
 					tribe( 'settings' ),
-					'generatePage',
+					'generate_page',
 				],
 			]
 		);
@@ -196,7 +212,7 @@ class Settings {
 	 */
 	public function maybe_add_network_settings_page() {
 		$admin_pages = tribe( 'admin.pages' );
-		$settings    = Tribe__Settings::instance();
+		$settings    = tribe( 'settings' );
 
 		if ( ! is_plugin_active_for_network( 'the-events-calendar/the-events-calendar.php' ) ) {
 			return;
@@ -211,7 +227,7 @@ class Settings {
 				'capability' => $admin_pages->get_capability( 'manage_network_options' ),
 				'callback'   => [
 					$settings,
-					'generatePage',
+					'generate_page',
 				],
 			]
 		);
@@ -379,11 +395,12 @@ class Settings {
 			return;
 		}
 
-		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
+		$general_tab = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
+		$display_tab = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
-		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'the-events-calendar' ), $general_tab );
-		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'the-events-calendar' ), $tec_events_display_tab );
+		$this->tabs['general'] = $general_tab;
+		$this->tabs['display'] = $display_tab;
+
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
 	}
 
@@ -437,6 +454,7 @@ class Settings {
 			$tabs[ $sort ] = $temp;
 		}
 
+
 		return $tabs;
 	}
 
@@ -454,7 +472,7 @@ class Settings {
 
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-network.php';
 
-		$this->tabs['network'] = new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
+		$this->tabs['network'] = new Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
 	}
 
 	/**
@@ -731,7 +749,7 @@ class Settings {
 		 */
 		$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
-		new Tribe__Settings_Tab(
+		new Tab(
 			'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
 			[
 				'priority'      => 100,

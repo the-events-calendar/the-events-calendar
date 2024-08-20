@@ -1,11 +1,11 @@
 <?php
-_deprecated_file( __FILE__, 'TBD', 'src/admin-views/settings/upsells/filter_bar.php' );
 /**
- * Filter bar upsell banner.
+ * Filter Bar upsell banner.
  *
  * @since 5.14.0
  * @since TBD Drastically simplified the HTML, changed classes to use new admin styles
  */
+
 $main = Tribe__Events__Main::instance();
 ?>
 <div class="tec-settings__upsell">
@@ -30,7 +30,7 @@ $main = Tribe__Events__Main::instance();
 	</div>
 	<img
 		class="tec-settings__upsell-image"
-		src="<?php echo esc_url( tribe_resource_url( 'icons/filterbar-banner.png', false, null, $main ) ); ?>"
+		src="<?php echo esc_url( tribe_resource_url( 'images/filterbar-banner.png', false, null, $main ) ); ?>"
 		alt="<?php esc_attr_e( 'Filter Bar Banner Icon', 'the-events-calendar' ); ?>"
 	>
 </div>
