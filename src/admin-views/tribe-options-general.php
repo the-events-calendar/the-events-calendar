@@ -150,4 +150,14 @@ $general_tab->add_child( $maintenance_tab );
 
 $debugging_tab = require_once __DIR__ . '/settings/tabs/general/general-debugging.php';
 $general_tab->add_child( $debugging_tab );
+
+// Add the sidebar.
+$general_tab->add_sidebar(
+	function () {
+		return require_once __DIR__ . '/settings/tabs/general/general-sidebar.php';
+	}
+);
+
 do_action( 'tec_events_settings_tab_general', $general_tab );
+
+return $general_tab;

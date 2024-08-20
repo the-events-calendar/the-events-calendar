@@ -1,4 +1,9 @@
 <?php
+/**
+ * Sidebar for the general settings tab.
+ *
+ * @since TBD
+ */
 
 declare( strict_types=1 );
 
