@@ -66,7 +66,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @param string $admin_page The current admin page.
 	 */
-	public function add_tab( $admin_page ) : void{
+	public function add_tab( $admin_page ): void {
 		$tec_settings_page_id = tribe( Settings::class )::$settings_page_id;
 
 		if ( ! empty( $admin_page ) && $tec_settings_page_id !== $admin_page ) {
