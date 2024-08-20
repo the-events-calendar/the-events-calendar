@@ -64,8 +64,16 @@ $general_debugging = new Tribe__Settings_Tab(
 			'tribe_general_settings_debugging_section',
 			$tec_events_general_debugging
 		),
-		'parent'   => 'general',
 	]
 );
 
+/**
+ * Fires after the general debugging settings tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $general_debugging The general debugging settings tab.
+ */
 do_action( 'tec_events_settings_tab_general_debugging', $general_debugging );
+
+return $general_debugging;

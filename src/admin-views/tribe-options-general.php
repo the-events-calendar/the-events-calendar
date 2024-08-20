@@ -138,8 +138,16 @@ $general_tab = new Tribe__Settings_Tab(
 	]
 );
 
-require_once 'settings/tabs/general/general-viewing.php';
-require_once 'settings/tabs/general/general-editing.php';
-require_once 'settings/tabs/general/general-maintenance.php';
-require_once 'settings/tabs/general/general-debugging.php';
+// Add each of the sub-tabs.
+$viewing_tab = require_once __DIR__ . '/settings/tabs/general/general-viewing.php';
+$general_tab->add_child( $viewing_tab );
+
+$editing_tab = require_once __DIR__ . '/settings/tabs/general/general-editing.php';
+$general_tab->add_child( $editing_tab );
+
+$maintenance_tab = require_once __DIR__ . '/settings/tabs/general/general-maintenance.php';
+$general_tab->add_child( $maintenance_tab );
+
+$debugging_tab = require_once __DIR__ . '/settings/tabs/general/general-debugging.php';
+$general_tab->add_child( $debugging_tab );
 do_action( 'tec_events_settings_tab_general', $general_tab );

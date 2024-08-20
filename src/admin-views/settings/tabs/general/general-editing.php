@@ -64,8 +64,16 @@ $general_editing = new Tribe__Settings_Tab(
 			'tribe_general_settings_editing_section',
 			$tec_events_general_editing
 		),
-		'parent'   => 'general',
 	]
 );
 
+/**
+ * Fires after the general editing settings tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $general_editing The general editing settings tab.
+ */
 do_action( 'tec_events_settings_tab_general_editing', $general_editing );
+
+return $general_editing;

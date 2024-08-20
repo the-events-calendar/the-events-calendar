@@ -87,7 +87,16 @@ $general_viewing = new Tribe__Settings_Tab(
 	[
 		'priority' => 0.0,
 		'fields'   => apply_filters( 'tec_general_settings_viewing_section', $tec_events_general_viewing_fields ),
-		'parent'   => 'general',
 	]
 );
+
+/**
+ * Fires after the Viewing settings tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $viewing The Viewing settings tab.
+ */
 do_action( 'tec_events_settings_tab_general_viewing', $general_viewing );
+
+return $general_viewing;

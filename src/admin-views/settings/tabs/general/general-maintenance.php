@@ -78,8 +78,16 @@ $general_maintenance = new Tribe__Settings_Tab(
 	[
 		'priority' => 0.10,
 		'fields'   => apply_filters( 'tribe_general_settings_maintenance_section', $tec_events_general_maintenance ),
-		'parent'   => 'general',
 	]
 );
 
+/**
+ * Fires after the general maintenance settings tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $general_maintenance The general maintenance settings tab.
+ */
 do_action( 'tec_events_settings_tab_general_maintenance', $general_maintenance );
+
+return $general_maintenance;
