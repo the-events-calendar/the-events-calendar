@@ -5,6 +5,7 @@
  * @package The Events Calendar
  */
 
+// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 use Automattic\Jetpack\Changelog\Changelog;
 use Automattic\Jetpack\Changelog\Parser;
 use Automattic\Jetpack\Changelogger\FormatterPlugin;

@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 
 /**
- * Wordpress dependencies
+ * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
 

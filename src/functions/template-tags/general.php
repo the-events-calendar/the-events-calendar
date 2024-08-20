@@ -1129,19 +1129,19 @@ function tribe_event_in_category( $event_cat_slug, $event_id = null ) {
 }
 
 /**
- * Return the featured image for an event (within the loop automatically will get event ID).
+ * Return the featured image for an event. (Within the loop it will automatically get event ID).
  *
- * Where possible, the image will be returned as a well formed <img> tag contained in a link
- * element and wrapped in a div used for targetting featured images from stylesheet. By setting
+ * Where possible, the image will be returned as a well-formed <img> tag contained in a link
+ * element and wrapped in a div used for targeting featured images from a stylesheet. By setting
  * the two final and optional parameters to false, however, it is possible to retrieve only
  * the image URL itself.
  *
- * @param int    $post_id
- * @param string $size
- * @param bool   $link
- * @param bool   $wrapper
+ * @param int    $post_id The post ID of the event.
+ * @param string $size    The size of the featured image.
+ * @param bool   $link    Whether the featured image should be wrapped in a link.
+ * @param bool   $wrapper Whether to wrap the featured image in our standard div.
  *
- * @return string
+ * @return string The featured image HTML.
  * @category Events
  *
  */
@@ -1153,8 +1153,8 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
 	/**
 	 * Provides an opportunity to modify the featured image size.
 	 *
-	 * @param string $size
-	 * @param int    $post_id
+	 * @param string $size    The size of the featured image.
+	 * @param int    $post_id The post ID of the event.
 	 */
 	$size = apply_filters( 'tribe_event_featured_image_size', $size, $post_id );
 
@@ -1189,9 +1189,9 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
 	/**
 	 * Provides an opportunity to modify the featured image HTML.
 	 *
-	 * @param string $featured_image
-	 * @param int    $post_id
-	 * @param string $size
+	 * @param string $featured_image The featured image HTML.
+	 * @param int    $post_id        The post ID of the event.
+	 * @param string $size           The size of the featured image.
 	 */
 	return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size );
 }
@@ -1495,7 +1495,7 @@ function tec_events_get_current_view() {
 	 *
 	 * @since  6.0.0
 	 *
-	 * @pararm null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
+	 * @param null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
 	 */
 	return apply_filters( 'tec_events_get_current_view', null );
 }
