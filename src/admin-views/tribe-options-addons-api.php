@@ -112,7 +112,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_op
 $internal = apply_filters( 'tribe_addons_tab_fields', $internal );
 
 $info_box = [
-	'tec-settings-addons-title'       => [
+	'tec-settings-addons-title' => [
 		'type' => 'html',
 		'html' => '<div class="tec_settings__header-block tec_settings__header-block--horizontal">'
 				. '<h3 id="tec-settings-addons-title" class="tec-settings__section-header">'
