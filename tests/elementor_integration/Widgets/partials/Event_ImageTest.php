@@ -33,15 +33,10 @@ class Event_ImageTest extends WPTestCase {
 		// Was trying to avoid post remapping, but it's so much simpler this way...
 		$this->event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
 
-		$this->set_fn_return(
-			'get_the_ID',
-			$this->event->ID
-		);
+		$this->set_fn_return( 'get_the_ID', $this->event->ID );
 	}
 
 	public function tearDown() {
-		$this->unset_uopz_returns();
-
 		parent::_tearDown();
 	}
 

@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.6.1
+Stable tag: 6.6.2
 Requires at least: 6.3
 Tested up to: 6.6.1
 Requires PHP: 7.4
@@ -228,9 +228,24 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 = [6.0] =
 Please see the changelog for the complete list of changes in this release.
 Previous versions of The Events Calendar are not cross-compatible with 6.X add-ons.
-Remember to always make a backup of your database and files before updating!
+Remember to always make a backup of your database areadme.txt
+nd files before updating!
 
 == Changelog ==
+
+= [6.6.2] 2024-09-20 =
+
+* Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view. [TEC-5080]
+* Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
+* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
+* Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
+* Tweak - Changed views: `single-event`
+* Language - 6 new strings added, 81 updated, 0 fuzzied, and 4 obsoleted
+
+* Tweak - Added filters: `tec_events_rest_api_response_blocked`, `tec_events_rest_api_response_blocked_due_to_timeout`, `tec_events_site_is_development_mode`, `tec_events_hide_end_time_modifier_defaults`
+* Tweak - Added actions: `tec_events_views_v2_hide_end_time_init`
+* Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
 
 = [6.6.1] 2024-08-06 =
 

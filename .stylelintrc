@@ -1,3 +1,13 @@
 {
-  "extends": "@the-events-calendar/product-taskmaster/config/stylelint"
+	"extends": "@the-events-calendar/product-taskmaster/config/stylelint",
+	"rules": {
+		"property-no-unknown": [
+			true, {
+				"ignoreProperties": ["container-type"]
+			}
+		]
+	},
+	"ignoreFiles": [
+		"src/resources/postcss/utilities/**"
+	]
 }
