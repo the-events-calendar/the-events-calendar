@@ -404,7 +404,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @param string $context               Context of data.
 	 *
 	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
-	 *                        arrya of array representations of an event organizer or
+	 *                        array of array representations of an event organizer or
 	 *                        an error object.
 	 *
 	 * @since 4.6 Added $context param
@@ -662,7 +662,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * Filters the data that will be returned for an event tags.
 		 *
 		 * @param array   $data  The data that will be returned in the response.
-		 * @param WP_Post $event The requsted event.
+		 * @param WP_Post $event The requested event.
 		 */
 		$data = apply_filters( 'tribe_rest_event_tags_data', $data, get_post( $event_id ) );
 

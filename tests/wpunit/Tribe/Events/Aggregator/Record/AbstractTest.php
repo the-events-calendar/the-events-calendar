@@ -557,7 +557,7 @@ class AbstractTest extends Events_TestCase {
 
 		$this->assertEmpty( get_post_meta( $post_id, \Tribe__Tracker::$field_key, true ) );
 
-		// run the import a second time ot update the event
+		// run the import a second time to update the event
 		/** @var Base $record */
 		$record_2 = $this->extend_base_w_origin( 'gcal' );
 		$record_2->insert_posts( [ $event_data ] );
