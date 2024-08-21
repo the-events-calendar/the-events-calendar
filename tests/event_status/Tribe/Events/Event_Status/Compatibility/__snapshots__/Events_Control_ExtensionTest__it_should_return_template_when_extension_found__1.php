@@ -1,5 +1,5 @@
 <?php return '<div class="tribe-events-control-metabox-container" style="margin-top: 18px;">
-	<input type="hidden" id="tribe-events-control[nonce]" name="tribe-events-control[nonce]" value="123123" /><input type="hidden" name="_wp_http_referer" value="/wp-admin/post.php" />	<div>
+	<input type="hidden" id="tribe-events-control[nonce]" name="tribe-events-control[nonce]" value="123123" /><input type="hidden" name="_wp_http_referer" value="" />	<div>
 		<p>
 			<label for="tribe-events-control-online">
 				<input

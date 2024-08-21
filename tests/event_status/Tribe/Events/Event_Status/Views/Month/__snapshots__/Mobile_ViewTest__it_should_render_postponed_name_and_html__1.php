@@ -4,7 +4,7 @@
 </span>
 
 	<a
-		href="http://test.tri.be/event/single-event-1/"
+		href="http://test.tri.be/?tribe_events=single-event-1"
 		title="Single Event 1"
 		rel="bookmark"
 		class="tribe-events-calendar-month-mobile-events__mobile-event-title-link tribe-common-anchor"
