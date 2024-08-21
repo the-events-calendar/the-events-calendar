@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Made string translatable in settings.php file. (props @DAnn2012)
