@@ -139,13 +139,13 @@ function tribe_get_events_link( $context = 'href' ) {
  * Generates the permalink for a specific view based on the provided slug and optional term.
  *
  * @since 5.7.0
- * 
+ *
  * @hook tribe_get_view_permalink        Filters the overall view permalink.
  * @hook tribe_get_{slug}_view_permalink Filters the specific view permalink.
  *
  * @param string        $slug      The slug of the view for which the permalink is being generated.
  * @param bool|int|null $term      Optional. The term associated with the view. Default is null.
- * 
+ *
  * @return string       $permalink The generated permalink for the view.
  */
 function tribe_get_view_permalink( $slug, $term = null ) {
@@ -289,11 +289,14 @@ function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_dis
 }
 
 /**
- * Validates that the current view is inside of the Two allowed: list or view if not default to the list view.
+ * Validates and returns the current view display, defaulting to the list view if invalid.
+ *
+ * This function checks whether the current view display is either the list view or the
+ * "past" view. If the current view is not valid, it defaults to the list view.
  *
  * @since 4.6.12
  *
- * @return string
+ * @return string The validated view display, either 'list' or 'past'.
  */
 function tribe_get_listview_display() {
 	$view_slug       = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
