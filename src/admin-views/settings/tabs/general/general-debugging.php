@@ -11,6 +11,24 @@ $tec_events_general_debugging = [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-general-debugging" class="tec-settings__section-header">' . esc_html_x( 'Debugging', 'Title for the debugging section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
+	'debugEvents'                                 => [
+		'type'            => 'checkbox_bool',
+		'label'           => esc_html__( 'Debug mode', 'the-event-calendar' ),
+		'tooltip'         => sprintf(
+			/* Translators: %1$s - wordpress.org link to the Debug Bar Plugin */
+			esc_html__(
+				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %1$s and look for the "Tribe" tab in the debug output.',
+				'the-event-calendar'
+			),
+			'<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/extend/plugins/debug-bar/">' . esc_html__( 'Debug Bar Plugin', 'the-event-calendar' ) . '</a>'
+		),
+		'default'         => false,
+		'validation_type' => 'boolean',
+		'conditional'     => is_super_admin(),
+	],
+];
+
+$tec_events_general_debugging += [
 	'tec-troubleshooting-infobox-start'           => [
 		'type' => 'html',
 		'html' => '<div class="tec-settings-infobox">',
@@ -37,21 +55,6 @@ $tec_events_general_debugging = [
 	'tec-troubleshooting-infobox-end'             => [
 		'type' => 'html',
 		'html' => '</div>',
-	],
-	'debugEvents'                                 => [
-		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Debug mode', 'the-event-calendar' ),
-		'tooltip'         => sprintf(
-			/* Translators: %1$s - wordpress.org link to the Debug Bar Plugin */
-			esc_html__(
-				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %1$s and look for the "Tribe" tab in the debug output.',
-				'the-event-calendar'
-			),
-			'<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/extend/plugins/debug-bar/">' . esc_html__( 'Debug Bar Plugin', 'the-event-calendar' ) . '</a>'
-		),
-		'default'         => false,
-		'validation_type' => 'boolean',
-		'conditional'     => is_super_admin(),
 	],
 ];
 

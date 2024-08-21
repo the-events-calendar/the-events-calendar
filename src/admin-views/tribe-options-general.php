@@ -96,24 +96,6 @@ $general_tab_fields = [
 		'type' => 'html',
 		'html' => '</div>',
 	],
-	'tec-links-donate-section-start'                 => [
-		'type' => 'html',
-		'html' => '<div class="tec-settings-header-links-section__donate">',
-	],
-	'tec-donate-link-info'                           => [
-		'type' => 'html',
-		'html' => '<p>' . esc_html__( 'If you’re enjoying The Events Calendar, give us kudos by including a link in the footer of calendar views. It really helps us a lot.', 'the-events-calendar' ) . '</p>',
-	],
-	'donate-link'                                    => [
-		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Show The Events Calendar link', 'the-event-calendar' ),
-		'default'         => false,
-		'validation_type' => 'boolean',
-	],
-	'tec-links-donate-section-end'                   => [
-		'type' => 'html',
-		'html' => '</div>',
-	],
 	'tec-links-section-end'                          => [
 		'type' => 'html',
 		'html' => '</div>',
@@ -150,13 +132,9 @@ $general_tab->add_child( $maintenance_tab );
 
 $debugging_tab = require_once __DIR__ . '/settings/tabs/general/general-debugging.php';
 $general_tab->add_child( $debugging_tab );
-
+$general_sidebar = require_once __DIR__ . '/settings/tabs/general/general-sidebar.php';
 // Add the sidebar.
-$general_tab->add_sidebar(
-	function () {
-		return require_once __DIR__ . '/settings/tabs/general/general-sidebar.php';
-	}
-);
+$general_tab->add_sidebar( $general_sidebar );
 
 do_action( 'tec_events_settings_tab_general', $general_tab );
 
