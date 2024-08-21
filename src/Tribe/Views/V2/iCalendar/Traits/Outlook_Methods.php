@@ -68,14 +68,12 @@ trait Outlook_Methods {
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
-			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T' . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' );
+			$enddt = urlencode( Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T' . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' ) );
 		} else {
-			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'c' );
+			$enddt = urlencode( Dates::build_date_object( $event->end_date, $timezone )->format( 'c' ) );
 		}
-		$enddt = str_replace( [ '+', ':' ], [ '%2B', '%3A' ], $enddt );
 
-		$startdt = Dates::build_date_object( $event->start_date, $timezone )->format( 'c' );
-		$startdt = str_replace( [ '+', ':' ], [ '%2B', '%3A' ], $startdt );
+		$startdt = urlencode( Dates::build_date_object( $event->start_date, $timezone )->format( 'c' ) );
 
 		$location = Venue::generate_string_address( $event );
 
