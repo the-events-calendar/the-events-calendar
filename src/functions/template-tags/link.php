@@ -186,13 +186,12 @@ function tribe_get_gridview_link( $term = null ) {
 }
 
 /**
- * Link to List View
+ * Returns a link to the general or category upcoming view.
  *
- * Returns a link to the general or category upcoming view
+ * @since  2.0.1
  *
- * @param int $term Optional event category ID to link to.
- *
- * @return string URL
+ * @param  int|null $term Optional. Event category ID to link to. Default null.
+ * @return string The URL of the list view.
  */
 function tribe_get_listview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
@@ -218,16 +217,16 @@ function tribe_get_listview_past_link( $term = null ) {
 }
 
 /**
- * Link to a nearby List View page
+ * Returns a link to the next or previous list view page.
  *
- * Returns a link to the next/previous list view page
+ * @since 4.0
  *
- * @param string   $direction 'next' or 'prev'.
- * @param int|null $term Term ID.
- * @param string   $currently_displaying Type of listview page that is currently being displayed ('past' or 'list').
- * @param int      $page Current page number being displayed.
+ * @param string      $direction            'next' or 'prev'.
+ * @param int|null    $term                 Optional. Term ID. Default null.
+ * @param string|null $currently_displaying Optional. Type of list view page currently displayed ('past' or 'list'). Default null.
+ * @param int|null    $page                 Optional. Current page number being displayed. Default null.
  *
- * @return string URL
+ * @return string URL of the next or previous list view page.
  */
 function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
 	$link = tribe_get_listview_link( $term );
