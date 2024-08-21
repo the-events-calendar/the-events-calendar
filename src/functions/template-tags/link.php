@@ -262,10 +262,10 @@ function tribe_get_listview_dir_link( $direction = 'next', $term = null, $curren
  *                                          Default is null, which triggers a fallback to the default list view.
  *
  * @return array An associative array containing the updated display and page number.
- *		{
- *		@type string $display The view to be displayed, either 'list' or 'past'.
- *		@type int    $page    The updated page number.
- *		}
+ *      {
+ *      @type string $display The view to be displayed, either 'list' or 'past'.
+ *      @type int    $page    The updated page number.
+ *      }
  */
 function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_displaying = null ) {
 	// if what we are currently displaying is not passed in, let's set a default and check $_GET
