@@ -1,11 +1,11 @@
 <?php return '
-					SELECT SQL_CALC_FOUND_ROWS  wp_posts.ID
-					FROM wp_posts  INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id )
+					SELECT SQL_CALC_FOUND_ROWS  test_posts.ID
+					FROM test_posts  INNER JOIN test_tec_occurrences ON test_posts.ID = test_tec_occurrences.post_id
 					WHERE 1=1  AND ( 
-  wp_postmeta.meta_key = \'_EventEndDateUTC\'
-) AND ((wp_posts.post_type = \'tribe_events\' AND (wp_posts.post_status = \'publish\' OR wp_posts.post_status = \'tribe-ea-success\' OR wp_posts.post_status = \'tribe-ea-failed\' OR wp_posts.post_status = \'tribe-ea-schedule\' OR wp_posts.post_status = \'tribe-ea-pending\' OR wp_posts.post_status = \'tribe-ea-draft\' 
-OR wp_posts.post_status = \'private\')))
-					GROUP BY wp_posts.ID
-					ORDER BY wp_postmeta.meta_value DESC
+  test_tec_occurrences.post_id IS NOT NULL
+) AND ((test_posts.post_type = \'tribe_events\' AND (test_posts.post_status = \'publish\' OR test_posts.post_status = \'tribe-ea-success\' OR test_posts.post_status = \'tribe-ea-failed\' OR test_posts.post_status = \'tribe-ea-schedule\' OR test_posts.post_status = \'tribe-ea-pending\' OR test_posts.post_status = \'tribe-ea-draft\' 
+OR test_posts.post_status = \'private\')))
+					GROUP BY test_tec_occurrences.occurrence_id
+					ORDER BY test_tec_occurrences.end_date_utc DESC
 					LIMIT 0, 10
 				';
