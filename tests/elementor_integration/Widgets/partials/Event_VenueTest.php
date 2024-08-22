@@ -54,12 +54,6 @@ class Event_VenueTest extends WPTestCase {
 		$this->set_defaults();
 	}
 
-	public function tearDown(){
-		$this->unset_uopz_returns();
-
-		parent::_tearDown();
-	}
-
 	public function set_defaults() {
 		$event = $this->mock_event( 'events/single/1.json' )->with_venue( 'venues/1.json' )->get();
 

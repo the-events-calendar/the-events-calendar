@@ -728,11 +728,14 @@ class Post_RepositoryTest extends Events_TestCase {
 			'taxonomy' => TEC::TAXONOMY,
 			'name'     => 'Category 2',
 		] );
-		$this->set_fn_return( 'wp_get_post_terms', [
-			null,
-			$cat_term_2,
-			new \WP_Error( 'error', 'error' ),
-		] );
+		$this->set_fn_return(
+			'wp_get_post_terms',
+			[
+				null,
+				$cat_term_2,
+				new \WP_Error( 'error', 'error' ),
+			]
+		);
 
 		$repository = $this->make_instance();
 		$terms      = $repository->get_terms( $event->ID, TEC::TAXONOMY );

@@ -36,11 +36,14 @@ class Tribe__Events__Admin_ListTest extends \Codeception\TestCase\WPTestCase {
 			'start_date' => '2018-01-01 08:00:00',
 			'end_date'   => '2018-01-01 10:00:00',
 		] )->create()->ID;
-		$this->set_fn_return( 'wp_get_post_terms', [
-			null,
-			'Good Term',
-			new WP_Error( 'bad term', 'bad term' ),
-		] );
+		$this->set_fn_return(
+			'wp_get_post_terms',
+			[
+				null,
+				'Good Term',
+				new WP_Error( 'bad term', 'bad term' ),
+			]
+		);
 
 		$this->expectOutputString( 'Good Term' );
 
