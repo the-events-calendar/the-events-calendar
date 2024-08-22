@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Made a string translatable in `settings.php` file. (props to @DAnn2012).
