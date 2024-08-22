@@ -214,6 +214,13 @@ The Events Calendar is our cornerstone plugin, and it’s required in order to r
 
 In other words, Events Calendar Pro runs alongside The Events Calendar and enhances it with extra features, including recurring events and event Series, additional calendar views, calendar shortcodes, advanced widgets, custom event fields, a duplicate event tool, and more.
 
+= Found a security vulnerability? =
+
+Make sure you are reporting in a safe and responsible way. We take security very seriously. If you discover a security issue, please bring it to our attention right away! Below you will find all the methods to report security vulnerabilities:
+
+* [Report security bugs through the Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/the-events-calendar)
+* Check our [Bug Bounty Program](https://www.liquidweb.com/policies/bug-bounty-program/)
+* Reach out directly to us on `security [at] stellarwp.com`.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
