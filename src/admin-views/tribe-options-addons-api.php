@@ -40,13 +40,13 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$meetup_token_html = ob_get_clean();
 
 	$internal_meetup = [
+		'tec-events-settings-meetup-separator' => [
+			'type' => 'html',
+			'html' => '<hr class="tec_settings__separator--section">',
+		],
 		'meetup-start'        => [
 			'type' => 'html',
-			'html' => '<h3 class="tec-settings__section-header">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
-		],
-		'meetup-info-box'     => [
-			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Meetup to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
+			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
 		],
 		'meetup_token_button' => [
 			'type' => 'html',
@@ -67,7 +67,6 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_op
 
 	ob_start();
 	?>
-
 	<fieldset id="tribe-field-eventbrite_token" class="tribe-field tribe-field-text tribe-size-medium">
 		<legend class="tribe-field-label"><?php esc_html_e( 'Eventbrite Authentication', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
@@ -92,13 +91,13 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_op
 	$eventbrite_token_html = ob_get_clean();
 
 	$internal2 = [
+		'tec-events-settings-eventbrite-separator' => [
+			'type' => 'html',
+			'html' => '<hr class="tec_settings__separator--section">',
+		],
 		'eb-start'        => [
 			'type' => 'html',
-			'html' => '<h3 class="tec-settings__section-header">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
-		],
-		'eb-info-box'     => [
-			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Eventbrite to import your events from Eventbrite.', 'the-events-calendar' ) . '</p>',
+			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
 		],
 		'eb_token_button' => [
 			'type' => 'html',
