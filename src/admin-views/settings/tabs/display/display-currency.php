@@ -8,9 +8,6 @@
 
 $tec_events_display_currency = [];
 
-$is_missing_event_tickets_plus = ! defined( 'EVENT_TICKETS_PLUS_FILE' );
-$should_hide_upsell            = tec_should_hide_upsell();
-
 // Insert Currency settings.
 $tec_events_display_currency = [
 	'tribe-events-currency-title' => [
@@ -18,35 +15,6 @@ $tec_events_display_currency = [
 		'html' => '<h3 id="tec-settings-events-settings-display-currency" class="tec-settings__section-header">' . esc_html_x( 'Currency', 'Currency settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 ];
-
-if ( ! $should_hide_upsell && $is_missing_event_tickets_plus ) {
-	$tec_events_display_currency = $tec_events_display_currency + [
-		'tec-tickets-infobox-start'   => [
-			'type' => 'html',
-			'html' => '<div class="tec-settings-infobox">',
-		],
-		'tec-tickets-infobox-logo'    => [
-			'type' => 'html',
-			'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-et.svg', __DIR__ ) . '" alt="Events Tickets Logo">',
-		],
-		'tec-tickets-infobox-title'   => [
-			'type' => 'html',
-			'html' => '<h3 class="tec-settings-infobox-title">' . __( 'Start selling tickets to your events', 'the-events-calendar' ) . '</h3>',
-		],
-		'tec-tickets-infobox-content' => [
-			'type' => 'html',
-			'html' => '<p>' . __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ) . '</p>', /* @TODO: This is placeholder text! */
-		],
-		'tec-tickets-infobox-link'    => [
-			'type' => 'html',
-			'html' => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '" rel="noopener" target="_blank">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
-		],
-		'tec-tickets-infobox-end'     => [
-			'type' => 'html',
-			'html' => '</div>',
-		],
-	];
-}
 
 $tec_events_display_currency = $tec_events_display_currency + [
 	'defaultCurrencySymbol'   => [
@@ -78,6 +46,36 @@ $tec_events_display_currency = $tec_events_display_currency + [
 		'validation_type' => 'boolean',
 	],
 ];
+
+// Add the Tickets Plus upsell if the user doesn't have it.
+if ( ! tec_should_hide_upsell() && ! defined( 'EVENT_TICKETS_PLUS_FILE' ) ) {
+	$tec_events_display_currency = $tec_events_display_currency + [
+		'tec-tickets-infobox-start'   => [
+			'type' => 'html',
+			'html' => '<div class="tec-settings-infobox">',
+		],
+		'tec-tickets-infobox-logo'    => [
+			'type' => 'html',
+			'html' => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'src/resources/images/settings-icons/icon-et.svg', TRIBE_EVENTS_FILE ) . '" alt="Events Tickets Logo">',
+		],
+		'tec-tickets-infobox-title'   => [
+			'type' => 'html',
+			'html' => '<h3 class="tec-settings-infobox-title">' . __( 'Start selling tickets to your events', 'the-events-calendar' ) . '</h3>',
+		],
+		'tec-tickets-infobox-content' => [
+			'type' => 'html',
+			'html' => '<p>' . __( 'Get Event Tickets to manage attendee registration and ticket sales to your events, for free.', 'the-events-calendar' ) . '</p>', /* @TODO: This is placeholder text! */
+		],
+		'tec-tickets-infobox-link'    => [
+			'type' => 'html',
+			'html' => '<a href="' . esc_url( 'https://evnt.is/1bbx' ) . '" rel="noopener" target="_blank">' . __( 'Learn more.', 'the-events-calendar' ) . '</a>',
+		],
+		'tec-tickets-infobox-end'     => [
+			'type' => 'html',
+			'html' => '</div>',
+		],
+	];
+}
 
 
 $display_currency = new Tribe__Settings_Tab(
