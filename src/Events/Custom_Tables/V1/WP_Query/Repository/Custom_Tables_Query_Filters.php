@@ -226,7 +226,12 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			if ( ! in_array( $join_clause, $this->query_vars['join'], true ) ) {
 				$this->query_vars['join'][] = $join_clause;
 			}
-		} else if ( ! empty( $this->query_vars['join'] ) ) {
+		}
+
+		/*
+		 * @since TBD Changed from 'else if' to `if`.
+		 */
+		if ( ! empty( $this->query_vars['join'] ) ) {
 			$join = $this->deduplicate_joins( $join );
 		}
 
