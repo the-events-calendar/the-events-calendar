@@ -247,12 +247,10 @@ nd files before updating!
 * Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
-* Tweak - Changed views: `single-event`
-* Language - 6 new strings added, 81 updated, 0 fuzzied, and 4 obsoleted
-
 * Tweak - Added filters: `tec_events_rest_api_response_blocked`, `tec_events_rest_api_response_blocked_due_to_timeout`, `tec_events_site_is_development_mode`, `tec_events_hide_end_time_modifier_defaults`
 * Tweak - Added actions: `tec_events_views_v2_hide_end_time_init`
-* Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Tweak - Changed views: `single-event`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 6 new strings added, 81 updated, 0 fuzzied, and 4 obsoleted
 
 = [6.6.1] 2024-08-06 =
 
