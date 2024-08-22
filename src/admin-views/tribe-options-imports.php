@@ -121,18 +121,20 @@ $fields[] = ( new Div( new Classes( [ 'tec_settings__header-block', 'tec_setting
 $fields[] = $hr_element;
 
 // Event Update Authority.
-$event_update_authority = ( new Container() )->add_children(
-	[
-		new Heading( __( 'Event Update Authority', 'the-events-calendar' ), 3, $section_header_classes ),
-		( new Paragraph() )->add_child(
-			new Plain_Text(
-				__(
-					'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.',
-					'the-events-calendar'
-				),
-			)
-		),
-	]
+$event_update_authority = ( new Container() )->add_child(
+	( new Div( $section_header_classes ) )->add_children(
+		[
+			new Heading( __( 'Event Update Authority', 'the-events-calendar' ), 3, $section_header_classes ),
+			( new Paragraph() )->add_child(
+				new Plain_Text(
+					__(
+						'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.',
+						'the-events-calendar'
+					),
+				)
+			),
+		]
+	)
 );
 
 $wrap_fields(
@@ -673,6 +675,7 @@ $wrap_fields(
 
 // Add the sections if EA is active.
 if ( $show_all_ea_settings ) {
+	$fields[] = $hr_element;
 	$fields[] = $eventbrite_import_settings;
 	$fields[] = $hr_element;
 	$fields[] = $ical_import_settings;
