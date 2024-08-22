@@ -395,11 +395,8 @@ class Settings {
 			return;
 		}
 
-		$general_tab = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
-		$display_tab = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
-
-		$this->tabs['general'] = $general_tab;
-		$this->tabs['display'] = $display_tab;
+		$this->tabs['general'] = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
+		$this->tabs['display'] = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
 	}
@@ -422,38 +419,12 @@ class Settings {
 			return $tabs;
 		}
 
-		// Ensure these are the first tabs.
-		$first   = [ 'general', 'display' ];
-
-		// Reverse to maintain order when prepending
-		$reversed_arr = array_reverse( $first );
-
-		foreach ( $reversed_arr as $sort ) {
-			if ( ! isset( $tabs[ $sort ] ) ) {
-				continue;
+		uasort(
+			$tabs,
+			function( $a, $b ) {
+				return $a->priority <=> $b->priority;
 			}
-
-			$temp = $tabs[ $sort ];
-
-			unset( $tabs[ $sort ] );
-			// Prepend the tab to the beginning of the array
-			$tabs = [ $sort => $temp ] + $tabs;
-		}
-
-		// Ensure these are the last tabs.
-		$last = [ 'licenses', 'addons', 'imports' ];
-
-
-		foreach( $last as $sort ) {
-			if ( ! isset( $tabs[ $sort ] ) ) {
-				continue;
-			}
-			// TL/DR: grab each tab, unset it and append it to the end of the array in order.
-			$temp = $tabs[ $sort ];
-			unset( $tabs[ $sort ] );
-			$tabs[ $sort ] = $temp;
-		}
-
+		);
 
 		return $tabs;
 	}
