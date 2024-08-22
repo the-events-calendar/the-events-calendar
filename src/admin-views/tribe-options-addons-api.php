@@ -44,11 +44,11 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			'type' => 'html',
 			'html' => '<hr class="tec_settings__separator--section">',
 		],
-		'meetup-start'        => [
+		'meetup-start'                         => [
 			'type' => 'html',
 			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
 		],
-		'meetup_token_button' => [
+		'meetup_token_button'                  => [
 			'type' => 'html',
 			'html' => $meetup_token_html,
 		],
@@ -95,11 +95,11 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_op
 			'type' => 'html',
 			'html' => '<hr class="tec_settings__separator--section">',
 		],
-		'eb-start'        => [
+		'eb-start'                                 => [
 			'type' => 'html',
 			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
 		],
-		'eb_token_button' => [
+		'eb_token_button'                          => [
 			'type' => 'html',
 			'html' => $eventbrite_token_html,
 		],

@@ -421,7 +421,7 @@ class Settings {
 
 		uasort(
 			$tabs,
-			function( $a, $b ) {
+			function ( $a, $b ) {
 				return $a->priority <=> $b->priority;
 			}
 		);
