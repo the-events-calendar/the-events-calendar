@@ -231,24 +231,16 @@ class Day_ViewTest extends ViewTestCase {
 		// Do not check for current dates in templates inputs.
 		remove_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'collect_date_dependent_values' ] );
 		// Site Timezone is America, New York.
-		update_option( 'timezone_string', 'America/New_York' );
+		update_option('timezone_string','America/New_York');
 		// Server timezone is UTC.
 		date_default_timezone_set( $server_timezone );
 		// Set up a fake "now"; this simulates a Day View request done at `2019-09-11 22:00:00`.
 		$date = new \DateTime( '2019-09-11 22:00:00', new \DateTimeZone( 'America/New_York' ) );
-		$now  = $date->getTimestamp();
+		$now = $date->getTimestamp() ;
 		// Alter the concept of the `now` timestamp to return the timestamp for `2019-09-11 22:00:00` in NY timezone.
-		uopz_set_return(
-			'strtotime',
-			static function ( $str ) use ( $now ) {
-				$default_timezone = date_default_timezone_get();
-				date_default_timezone_set( 'UTC' );
-				$timestamp = $str === 'now' ? $now : strtotime( $str );
-				date_default_timezone_set( $default_timezone );
-				return $timestamp;
-			},
-			true
-		);
+		uopz_set_return( 'strtotime', static function ( $str ) use ( $now ) {
+			return $str === 'now' ? $now : strtotime( $str );
+		}, true );
 		// Make sure that `now` (string) will be resolved to the fake date object.
 		uopz_set_return( Dates::class, 'build_date_object', $date );
 
