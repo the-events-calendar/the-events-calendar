@@ -749,12 +749,16 @@ $fields = array_merge(
 $import = apply_filters(
 	'tribe_aggregator_tab',
 	[
-		'priority' => 50,
+		'priority' => 55,
 		'fields'   => $fields,
 	]
 );
 
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
-	new Tribe__Settings_Tab( 'imports', esc_html__( 'Imports', 'the-events-calendar' ), $import );
+	new Tribe__Settings_Tab(
+		'imports',
+		esc_html__( 'Imports', 'the-events-calendar' ),
+		$import
+	);
 }
