@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Character encoding issues on subscribe URLs for Outlook. [TEC-5085, TEC-5094, TEC-5136]

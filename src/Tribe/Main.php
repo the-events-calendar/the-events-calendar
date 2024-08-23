@@ -3706,7 +3706,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Add filters to register custom cron schedules
+		 * Add filters to register custom cron schedules.
 		 *
 		 */
 		public function filter_cron_schedules() {
