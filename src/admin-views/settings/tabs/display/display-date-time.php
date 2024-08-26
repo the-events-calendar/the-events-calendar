@@ -9,8 +9,6 @@
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Field_Wrapper;
 use TEC\Common\Admin\Entities\Heading;
-use TEC\Common\Admin\Entities\Paragraph;
-use TEC\Common\Admin\Entities\Plain_Text;
 use Tribe\Utils\Element_Classes as Classes;
 
 $sample_date = strtotime( 'January 15 ' . gmdate( 'Y' ) );
