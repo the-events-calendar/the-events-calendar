@@ -20,9 +20,9 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 * events then only the update tool will be exposed in this area, in all other cases this
 	 * is not exposed and the ordinary timezone settings will be visible.
 	 *
-	 * @param $display_settings
+	 * @param array $display_settings The settings array for the Display->Date & Time sub-tab.
 	 *
-	 * @return array
+	 * @return array $display_settings The settings array with timezone settings added
 	 */
 	public function settings_ui( array $display_settings ) {
 		$updater = new Tribe__Events__Admin__Timezone_Updater;
