@@ -64,12 +64,20 @@ class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
 	public function run_once_data_provider(): \Generator {
 		yield 'before init, not doing init, never filtered' => [
 			function () {
-				$this->set_fn_return( 'did_action', function ( string $action ) {
-					return $action === 'init' ? 0 : did_action( $action );
-				}, true );
-				$this->set_fn_return( 'doing_action', function ( string $action ) {
-					return $action === 'init' ? false : doing_action( $action );
-				}, true );
+				$this->set_fn_return(
+					'did_action',
+					function ( string $action ) {
+						return $action === 'init' ? 0 : did_action( $action );
+					},
+					true
+				);
+				$this->set_fn_return(
+					'doing_action',
+					function ( string $action ) {
+						return $action === 'init' ? false : doing_action( $action );
+					},
+					true
+				);
 
 				return [ false, true ];
 			}
@@ -77,12 +85,20 @@ class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
 
 		yield 'before init, doing init, already filtered' => [
 			function () {
-				$this->set_fn_return( 'did_action', function ( string $action ) {
-					return $action === 'init' ? 0 : did_action( $action );
-				}, true );
-				$this->set_fn_return( 'doing_action', function ( string $action ) {
-					return $action === 'init' ? false : doing_action( $action );
-				}, true );
+				$this->set_fn_return(
+					'did_action',
+					function ( string $action ) {
+						return $action === 'init' ? 0 : did_action( $action );
+					},
+					true
+				);
+				$this->set_fn_return(
+					'doing_action',
+					function ( string $action ) {
+						return $action === 'init' ? false : doing_action( $action );
+					},
+					true
+				);
 
 
 				return [ true, true ];
@@ -91,12 +107,20 @@ class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
 
 		yield 'after init, never filtered' => [
 			function () {
-				$this->set_fn_return( 'did_action', function ( string $action ) {
-					return $action === 'init' ? 1 : did_action( $action );
-				}, true );
-				$this->set_fn_return( 'doing_action', function ( string $action ) {
-					return $action === 'init' ? false : doing_action( $action );
-				}, true );
+				$this->set_fn_return(
+					'did_action',
+					function ( string $action ) {
+						return $action === 'init' ? 1 : did_action( $action );
+					},
+					true
+				);
+				$this->set_fn_return(
+					'doing_action',
+					function ( string $action ) {
+						return $action === 'init' ? false : doing_action( $action );
+					},
+					true
+				);
 
 
 				return [ false, true ];
@@ -105,12 +129,20 @@ class Custom_Tables_Query_MonitorTest extends \Codeception\TestCase\WPTestCase {
 
 		yield 'after init, already filtered' => [
 			function () {
-				$this->set_fn_return( 'did_action', function ( string $action ) {
-					return $action === 'init' ? 1 : did_action( $action );
-				}, true );
-				$this->set_fn_return( 'doing_action', function ( string $action ) {
-					return $action === 'init' ? false : doing_action( $action );
-				}, true );
+				$this->set_fn_return(
+					'did_action',
+					function ( string $action ) {
+						return $action === 'init' ? 1 : did_action( $action );
+					},
+					true
+				);
+				$this->set_fn_return(
+					'doing_action',
+					function ( string $action ) {
+						return $action === 'init' ? false : doing_action( $action );
+					},
+					true
+				);
 
 
 				return [ true, false ];
