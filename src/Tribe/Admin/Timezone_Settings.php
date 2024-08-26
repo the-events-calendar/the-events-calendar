@@ -10,7 +10,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	public function __construct() {
 		$this->listen();
 		add_action( 'wp_ajax_tribe_timezone_update', [ $this, 'ajax_updater' ] );
-		add_filter( 'tribe_display_settings_date_section', [ $this, 'settings_ui' ], 20 );
+		add_filter( 'tec_events_settings_display_date_time_section', [ $this, 'settings_ui' ], 20 );
 	}
 
 	/**
@@ -20,7 +20,7 @@ class Tribe__Events__Admin__Timezone_Settings {
 	 * events then only the update tool will be exposed in this area, in all other cases this
 	 * is not exposed and the ordinary timezone settings will be visible.
 	 *
-	 * @param array $display_settings
+	 * @param $display_settings
 	 *
 	 * @return array
 	 */
