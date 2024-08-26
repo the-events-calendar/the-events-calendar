@@ -38,6 +38,18 @@ $display_additional_content = new Tribe__Settings_Tab(
 	]
 );
 
+// Ensure the proper editor styles are loaded to make the WYSIWYG editor work.
+$display_additional_content->add_hook_callback(
+	function () {
+		add_action(
+			'admin_enqueue_scripts',
+			function () {
+				wp_enqueue_style( 'editor-buttons' );
+			}
+		);
+	}
+);
+
 /**
  * Fires after the display additional content settings tab has been created.
  *
