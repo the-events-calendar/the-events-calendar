@@ -509,9 +509,6 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="13:04">
 		1:04 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:04">
-			5:04 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -534,7 +531,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span><span class="tribe-event-time"></span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
@@ -562,9 +559,6 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="13:04">
 		1:04 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:04">
-			5:04 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -587,7 +581,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span><span class="tribe-event-time"></span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
@@ -615,9 +609,6 @@
 		<div class="tribe-events-calendar-month__calendar-event-datetime">
 		<time datetime="13:04">
 		1:04 pm	</time>
-			<span class="tribe-events-calendar-month__calendar-event-datetime-separator"> - </span>
-		<time datetime="17:04">
-			5:04 pm		</time>
 		</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">
 	<a
@@ -640,7 +631,7 @@
 	>
 				<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">
 		<time datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span><span class="tribe-event-time"></span>	</time>
 	</div>
 		<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">
 	<a
@@ -2391,7 +2382,7 @@
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 				<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span><span class="tribe-event-time"></span>		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
@@ -2417,7 +2408,7 @@
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 				<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span><span class="tribe-event-time"></span>		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
@@ -2443,7 +2434,7 @@
 
 		<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">
 				<time datetime="2019-06-20">
-			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>		</time>
+			<span class="tribe-event-date-start">June 20 @ 1:04 pm</span><span class="tribe-event-time"></span>		</time>
 		</div>
 		<h3  class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7" >
 	<a
@@ -3172,7 +3163,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.office.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26eventDisplay%3Dlist&#038;ical=1&#038;name=The+Events+Calendar+Tests+The+Events+Calendar+Tests"
+		href="https://outlook.office.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist&#038;name=The+Events+Calendar+Tests+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
@@ -3182,7 +3173,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.live.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26eventDisplay%3Dlist&#038;ical=1&#038;name=The+Events+Calendar+Tests+The+Events+Calendar+Tests"
+		href="https://outlook.live.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist&#038;name=The+Events+Calendar+Tests+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
