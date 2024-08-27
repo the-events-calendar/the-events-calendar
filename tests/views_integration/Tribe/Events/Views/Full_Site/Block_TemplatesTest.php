@@ -36,8 +36,6 @@ class Block_TemplatesTest extends HtmlTestCase {
 	 * Testing when the template file is queried.
 	 */
 	public function test_get_queried_template() {
-		// @todo Skipping because of `Parameter 1 to _inject_theme_attribute_in_template_part_block() expected to be a reference, value given at vendor/antecedent/patchwork/src/CallRerouting.php:419` error - seems test suite related.
-		$this->markTestSkipped( 'Skipping because of `Parameter 1 to _inject_theme_attribute_in_template_part_block() expected to be a reference, value given at vendor/antecedent/patchwork/src/CallRerouting.php:419` error - seems test suite related.' );
 		global $wp_query;
 		$old_post_type = $wp_query->get( 'post_type' );
 		$wp_query->set( 'post_type', [ 'tribe_events' ] );
