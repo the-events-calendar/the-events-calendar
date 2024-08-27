@@ -337,7 +337,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01+09%3A00%3A00%26ical%3D1%26eventDisplay%3Dlist"
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01%2B09%253A00%253A00%26ical%3D1%26eventDisplay%3Dlist"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
@@ -347,7 +347,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2019-01-01%2009:00:00&#038;ical=1&#038;eventDisplay=list"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;tribe-bar-date=2019-01-01+09%3A00%3A00&#038;ical=1&#038;eventDisplay=list"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
@@ -357,7 +357,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.office.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01+09%3A00%3A00%26ical%3D1%26eventDisplay%3Dlist&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
+		href="https://outlook.office.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01%2B09%253A00%253A00%26ical%3D1%26eventDisplay%3Dlist&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
@@ -367,7 +367,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://outlook.live.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01+09%3A00%3A00%26ical%3D1%26eventDisplay%3Dlist&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
+		href="https://outlook.live.com/owa?path=/calendar/action/compose&#038;rru=addsubscription&#038;url=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26tribe-bar-date%3D2019-01-01%2B09%253A00%253A00%26ical%3D1%26eventDisplay%3Dlist&#038;name=The+Events+Calendar+Tests+Events+–+The+Events+Calendar+Tests"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
