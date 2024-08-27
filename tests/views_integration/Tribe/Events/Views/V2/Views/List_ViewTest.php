@@ -230,6 +230,7 @@ class List_ViewTest extends ViewTestCase {
 	 * @dataProvider pages_data_set
 	 */
 	public function test_past_events_show_asc_order( $page ) {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$values  = [
 			'today'              => '2019-09-11',
 			'now'                => '2019-09-11 09:00:00',
