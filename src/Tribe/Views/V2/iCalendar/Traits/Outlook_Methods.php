@@ -181,14 +181,9 @@ trait Outlook_Methods {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
-		// Remove ical query and add back after urlencoding the rest of the url.
-		$feed_url = remove_query_arg( 'ical', $feed_url );
-
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
 
 		$feed_url = urlencode( $feed_url );
-
-		$feed_url = $feed_url . '&ical=1';
 
 		$params = [
 			'rru'  => 'addsubscription',
