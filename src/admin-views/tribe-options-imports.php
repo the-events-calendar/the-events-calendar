@@ -691,7 +691,7 @@ if ( $show_all_ea_settings ) {
 	$fields[] = $event_aggregator_control;
 }
 
-return new Tribe__Settings_Tab(
+$imports_tab = new Tribe__Settings_Tab(
 	'imports',
 	esc_html__( 'Imports', 'the-events-calendar' ),
 	[
@@ -699,3 +699,14 @@ return new Tribe__Settings_Tab(
 		'fields'   => $fields,
 	]
 );
+
+/**
+ * Fires after the imports settings tab has been created.
+ *
+ * @since TBD
+ *
+ * @param Tribe__Settings_Tab $imports_tab The imports settings tab.
+ */
+do_action( 'tec_events_settings_tab_imports', $imports_tab );
+
+return $imports_tab;
