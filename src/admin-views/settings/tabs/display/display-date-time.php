@@ -6,6 +6,11 @@
  * @since TBD
  */
 
+use TEC\Common\Admin\Entities\Div;
+use TEC\Common\Admin\Entities\Field_Wrapper;
+use TEC\Common\Admin\Entities\Heading;
+use Tribe\Utils\Element_Classes as Classes;
+
 $sample_date = strtotime( 'January 15 ' . gmdate( 'Y' ) );
 
 $site_time_format = get_option( 'time_format' );
@@ -26,21 +31,32 @@ $end_time_options = [
 $end_time_options = apply_filters( 'tec_events_display_remove_event_end_time_options', $end_time_options );
 
 $tec_events_display_date = [
-	'tribeEventsDateFormatSettingsTitle' => [
-		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-date" class="tec-settings__section-header">' . esc_html_x( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ) . '</h3>',
-	],
-	'tribeEventsDateFormatExplanation'   => [
-		'type' => 'html',
-		'html' => '<p>'
-			. sprintf(
-				/* Translators: %1$s: PHP date function, %2$s: URL to WP knowledgebase. */
-				__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'the-events-calendar' ),
-				'<code>date()</code>',
-				'https://wordpress.org/support/article/formatting-date-and-time/'
-			)
-			. '</p>',
-	],
+	( new Div( new Classes( [ 'tec_settings__header-block' ] ) ) )->add_children(
+		[
+			new Heading(
+				_x( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ),
+				2,
+				new Classes( [ 'tec-settings__section-header' ] )
+			),
+			// @todo: Need to create a <code> element.
+			( new Field_Wrapper(
+				new Tribe__Field(
+					'tribeEventsDateFormatExplanation',
+					[
+						'type' => 'html',
+						'html' => '<p>'
+							. sprintf(
+								/* Translators: %1$s: PHP date function, %2$s: URL to WP knowledgebase. */
+								__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'the-events-calendar' ),
+								'<code>date()</code>',
+								'https://wordpress.org/support/article/formatting-date-and-time/'
+							)
+							. '</p>',
+					]
+				)
+			) ),
+		]
+	),
 	'dateWithYearFormat'                 => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Date with year format', 'the-events-calendar' ),

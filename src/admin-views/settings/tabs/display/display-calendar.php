@@ -6,7 +6,13 @@
  * @since TBD
  */
 
+use TEC\Common\Admin\Entities\Div;
+use TEC\Common\Admin\Entities\Heading;
+use TEC\Common\Admin\Entities\Paragraph;
+use TEC\Common\Admin\Entities\Plain_Text;
+use TEC\Common\Admin\Entities\Separator;
 use Tribe\Events\Views\V2\Manager;
+use Tribe\Utils\Element_Classes as Classes;
 
 /**
  * Filter to determine if the Events Templates should be displayed in the settings.
@@ -35,34 +41,47 @@ $tribe_enable_views_tooltip = apply_filters(
 	esc_html__( 'You must select at least one view.', 'the-events-calendar' )
 );
 
+$hr_element             = new Separator( new Classes( [ 'tec_settings__separator--section' ] ) );
+$section_header_classes = new Classes( [ 'tec-settings__section-header', 'tec-settings__section-header--sub' ] );
+
 $tec_events_display_calendar = [
-	'tec-events-calendar-display-title'              => [
-		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-calendar" class="tec-settings__section-header tec-settings__section-header--wide">' . _x( 'Calendar', 'Calendar display settings header', 'the-events-calendar' ) . '</h3>',
-	],
-	'tec-events-display-calendar-template-separator' => [
-		'type' => 'html',
-		'html' => '<hr class="tec_settings__separator--section">',
-	],
-	'tec-events-calendar-display-template-title'     => [
-		'type' => 'html',
-		'html' => '<h2 id="tec-settings-events-settings-display-template-calendar" class="tec-settings__section-header tec-settings__section-header--sub">' . _x( 'Template', 'Calendar template display settings header', 'the-events-calendar' ) . '</h2>',
-	],
-	'stylesheetOption'                               => [ 'type' => 'html' ],
+	( new Div( new Classes( [ 'tec_settings__header-block', 'tec_settings__header-block--horizontal' ] ) ) )->add_children(
+		[
+			new Heading(
+				_x( 'Calendar', 'Calendar display settings header', 'the-events-calendar' ),
+				2,
+				new Classes( [ 'tec-settings__section-header' ] )
+			),
+			( new Paragraph( new Classes( [ 'tec_settings__section-description' ] ) ) )->add_child(
+				new Plain_Text(
+					__(
+						"The settings below control the display of your calendar. If things don't look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). Check out our customization guide for instructions on template modifications.",
+						'the-events-calendar'
+					)
+				)
+			),
+		]
+	),
+	$hr_element,
+	( new Heading(
+		_x( 'Calendar Template', 'Calendar template display settings header', 'the-events-calendar' ),
+		3,
+		$section_header_classes
+	) ),
 	'stylesheet_mode'                                => [
 		'type'            => 'radio',
 		'label'           => __( 'Default stylesheet used for events templates', 'the-events-calendar' ),
 		'default'         => 'tribe',
 		'options'         => [
 			'skeleton' => __( 'Skeleton Styles', 'the-events-calendar' )
-				. '<p class=\'description tribe-style-selection\'>'
+				. '<p class="description tribe-style-selection">'
 				. __(
 					'Only includes enough css to achieve complex layouts like calendar and week view.',
 					'the-events-calendar'
 				)
 				. '</p>',
 			'tribe'    => __( 'Default Styles', 'the-events-calendar' )
-				. '<p class=\'description tribe-style-selection\'>'
+				. '<p class="description tribe-style-selection">'
 				. __(
 					'A fully designed and styled theme for your events pages.',
 					'the-events-calendar'
@@ -82,14 +101,12 @@ $tec_events_display_calendar = [
 		'options'         => $template_options,
 		'conditional'     => $tec_events_should_display_events_templates,
 	],
-	'tec-events-display-calendar-views-separator'    => [
-		'type' => 'html',
-		'html' => '<hr class="tec_settings__separator--section">',
-	],
-	'tec-events-calendar-display-views-title'        => [
-		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-views-calendar" class="tec-settings__section-header tec-settings__section-header--sub">' . _x( 'Views', 'Calendar views display settings header', 'the-events-calendar' ) . '</h3>',
-	],
+	$hr_element,
+	( new Heading(
+		_x( 'Calendar Display', 'Calendar views display settings header', 'the-events-calendar' ),
+		3,
+		$section_header_classes
+	) ),
 	'tribeEnableViews'                               => [
 		'type'            => 'checkbox_list',
 		'label'           => __( 'Enable event views', 'the-events-calendar' ),
