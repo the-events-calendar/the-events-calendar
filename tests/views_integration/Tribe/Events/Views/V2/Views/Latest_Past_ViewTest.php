@@ -17,6 +17,17 @@ class Latest_Past_ViewTest extends ViewTestCase {
 		wp_cache_flush();
 	}
 
+	/**
+	 * @before
+	 */
+	public function set_permalink_structure() {
+		global $wp_rewrite;
+		// Set the desired permalink structure.
+		update_option( 'permalink_structure', '/%postname%/' );
+		$wp_rewrite->init();
+		$wp_rewrite->flush_rules( true );
+	}
+
 	public function latest_past_events_snapshot_data_provider() {
 		return [
 			'Month View' => [ Month_View::class, 'month' ],
