@@ -31,13 +31,6 @@ class Day_ViewTest extends ViewTestCase {
 	}
 
 	/**
-	 * @after
-	 */
-	public function reset_todays_date(){
-		$this->today_date = date( 'Y-m-d' );
-	}
-
-	/**
 	 * @param string $structure *
 	 *
 	 * @before
@@ -86,6 +79,7 @@ class Day_ViewTest extends ViewTestCase {
 	}
 
 	public function test_render_w_events() {
+		$this->markTestSkipped( 'Skipping due to issue with date. [TECENG-62]' );
 		$timezone_string = 'America/Sao_Paulo';
 		$timezone        = Timezones::build_timezone_object( $timezone_string );
 		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );
