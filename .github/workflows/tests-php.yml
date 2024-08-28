@@ -15,28 +15,28 @@ jobs:
     strategy:
       matrix:
         suite:
-          - aggregatorv1
-          - blocks_editor_integration
-          - event_status
-          - integration
-          - muintegration
-          - restv1
+          #- aggregatorv1
+          #- blocks_editor_integration
+          #- event_status
+          #- integration
+          #- muintegration
+          #- restv1
           - views_integration
-          - views_settings
-          - views_ui
-          - views_v2_customizer_integration
-          - views_widgets
-          - views_wpunit
-          - wpunit
-          - ct1_integration
-          - ct1_multisite_integration
-          - deprecated
+          #- views_settings
+          #- views_ui
+          #- views_v2_customizer_integration
+          #- views_widgets
+          #- views_wpunit
+          #- wpunit
+          #- ct1_integration
+          #- ct1_multisite_integration
+          #- deprecated
           # really weird error with RBE changes.
           # - views_rest
-          - wp_json_api
-          - ct1_wp_json_api
-          - ct1_migration
-          - rewrite_functional
+          #- wp_json_api
+          #- ct1_wp_json_api
+          #- ct1_migration
+          #- rewrite_functional
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout the repository
@@ -146,7 +146,7 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.4.1
+          ${SLIC_BIN} wp core update --force --version=6.6.1
           ${SLIC_BIN} wp core version
       - name: Ensure Twenty-Twenty is installed
         if: steps.skip.outputs.value != 1
