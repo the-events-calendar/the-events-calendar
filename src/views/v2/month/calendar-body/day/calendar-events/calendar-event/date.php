@@ -11,7 +11,7 @@
  *
  * @since 4.9.13
  * @since 5.1.1 Move icons into separate templates.
- * @since TBD Adding $show_end_time flag.
+ * @since 6.6.3 Adding $show_end_time flag.
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var obj     $date_formats Object containing the date formats.

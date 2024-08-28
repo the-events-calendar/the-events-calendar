@@ -73,7 +73,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 		/**
 		 * Filter to registering any additional views with default values.
 		 *
-		 * @since TBD
+		 * @since 6.6.3
 		 *
 		 * @param array                  $defaults The views and their default show flag.
 		 * @param Hide_End_Time_Modifier $modifier Which modifier we are using.
