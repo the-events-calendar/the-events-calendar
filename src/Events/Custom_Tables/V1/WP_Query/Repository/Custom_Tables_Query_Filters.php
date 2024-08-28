@@ -200,6 +200,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * to the custom tables.
 	 *
 	 * @since 6.0.0
+	 * @since TBD Changed from 'else if' to `if` for handling deduplication of join clauses.
 	 *
 	 * {@inheritdoc}
 	 */
@@ -228,9 +229,6 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			}
 		}
 
-		/*
-		 * @since TBD Changed from 'else if' to `if`.
-		 */
 		if ( ! empty( $this->query_vars['join'] ) ) {
 			$join = $this->deduplicate_joins( $join );
 		}
