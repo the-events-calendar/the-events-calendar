@@ -3,7 +3,7 @@
 namespace Tribe\Events\Views\V2;
 
 use org\bovigo\vfs\vfsStream;
-use tad\FunctionMocker\FunctionMocker as Test;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Test\Products\WPBrowser\Views\V2\TestCase;
@@ -12,6 +12,7 @@ require_once codecept_data_dir( 'Views/V2/classes/Test_Template_View.php' );
 require_once codecept_data_dir( 'Views/V2/classes/Test_Full_View.php' );
 
 class ExtendingViewTest extends TestCase {
+	use With_Uopz;
 
 	protected $unlink_on_tear_down = [];
 
@@ -23,8 +24,16 @@ class ExtendingViewTest extends TestCase {
 			return $views;
 		} );
 
-		// Always return the same value when creating nonces.
-		Test::replace( 'wp_create_nonce', '2ab7cc6b39' );
+		$this->set_fn_return( 'wp_create_nonce', '2ab7cc6b39' );
+	}
+
+	public function tearDown() {
+		foreach ( $this->unlink_on_tear_down as $file ) {
+			if ( file_exists( $file ) ) {
+				$this->unlink( $file );
+			}
+		}
+		parent::tearDown();
 	}
 
 	/**
@@ -84,15 +93,6 @@ class ExtendingViewTest extends TestCase {
 
 		$this->assertNotEmpty( $view_template_file );
 		$this->assertEquals( $template_folder->url() . '/test.php', $view_template_file );
-	}
-
-	public function tearDown() {
-		foreach ( $this->unlink_on_tear_down as $file ) {
-			if ( file_exists( $file ) ) {
-				$this->unlink( $file );
-			}
-		}
-		parent::tearDown();
 	}
 
 	/**

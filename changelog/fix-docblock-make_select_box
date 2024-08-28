@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Add docblock for make_select_box()

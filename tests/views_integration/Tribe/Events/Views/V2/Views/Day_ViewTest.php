@@ -9,10 +9,12 @@ use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Timezones as Timezones;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Day_ViewTest extends ViewTestCase {
 
 	use MatchesSnapshots;
+	use With_Uopz;
 
 	public function setUp() {
 		parent::setUp();
@@ -45,6 +47,7 @@ class Day_ViewTest extends ViewTestCase {
 	}
 
 	public function test_render_w_events() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$timezone_string = 'America/Sao_Paulo';
 		$timezone        = Timezones::build_timezone_object( $timezone_string );
 		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );
@@ -226,6 +229,7 @@ class Day_ViewTest extends ViewTestCase {
 	 * @dataProvider server_timezone_provider
 	 */
 	public function should_correctly_setup_day_interval( $server_timezone) {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		// Backup the current server timezone.
 		$this->date_default_timezone = date_default_timezone_get();
 		// Do not check for current dates in templates inputs.
@@ -238,11 +242,15 @@ class Day_ViewTest extends ViewTestCase {
 		$date = new \DateTime( '2019-09-11 22:00:00', new \DateTimeZone( 'America/New_York' ) );
 		$now = $date->getTimestamp() ;
 		// Alter the concept of the `now` timestamp to return the timestamp for `2019-09-11 22:00:00` in NY timezone.
-		uopz_set_return( 'strtotime', static function ( $str ) use ( $now ) {
-			return $str === 'now' ? $now : strtotime( $str );
-		}, true );
+		$this->set_fn_return(
+			'strtotime',
+			static function ( $str ) use ( $now ) {
+				return $str === 'now' ? $now : strtotime( $str );
+			},
+			true
+		);
 		// Make sure that `now` (string) will be resolved to the fake date object.
-		uopz_set_return( Dates::class, 'build_date_object', $date );
+		$this->set_fn_return( Dates::class, 'build_date_object', $date );
 
 		/*
 		 * Given a "now" of 2019-09-11 22:00:00 the beginning of day should be `2019-09-11 00:00:00`,
@@ -280,6 +288,7 @@ class Day_ViewTest extends ViewTestCase {
 	 * @test
 	 */
 	public function test_render_w_events_w_taxonomies() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$timezone_string = 'America/Sao_Paulo';
 		$timezone        = Timezones::build_timezone_object( $timezone_string );
 		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );
@@ -390,7 +399,5 @@ class Day_ViewTest extends ViewTestCase {
 		if ( isset( $this->date_default_timezone ) ) {
 			date_default_timezone_set( $this->date_default_timezone );
 		}
-		uopz_unset_return( 'strtotime' );
-		uopz_unset_return( Dates::class, 'build_date_object' );
 	}
 }

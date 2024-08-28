@@ -28,7 +28,7 @@
     "lucatume/codeception-snapshot-assertions": "^0.3.0",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.3.8",
-    "lucatume/wp-browser": "<3.5",
+    "lucatume/wp-browser": "3.2.3",
     "lucatume/wp-snaphot-assertions": "^1.1.0",
     "mikey179/vfsstream": "^1.6",
     "phpunit/phpunit": "~6.0",
@@ -87,8 +87,9 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views",
       "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules",
-      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views"
+      "TEC\\Tests\\Events\\Admin\\Notice\\": "tests/wpunit/TEC/Events/Admin/Notice"
     }
   },
   "repositories": [
