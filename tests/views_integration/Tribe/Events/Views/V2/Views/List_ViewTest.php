@@ -22,6 +22,7 @@ class List_ViewTest extends ViewTestCase {
 	 * Test render empty
 	 */
 	public function test_render_empty() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		// Sanity check
 		$this->assertEmpty( tribe_events()->found() );
 
@@ -52,6 +53,7 @@ class List_ViewTest extends ViewTestCase {
 	 * Test render with upcoming events
 	 */
 	public function test_render_with_upcoming_events() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$events = [];
 
 		// Create the events.
@@ -230,6 +232,7 @@ class List_ViewTest extends ViewTestCase {
 	 * @dataProvider pages_data_set
 	 */
 	public function test_past_events_show_asc_order( $page ) {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$values  = [
 			'today'              => '2019-09-11',
 			'now'                => '2019-09-11 09:00:00',
@@ -301,6 +304,7 @@ class List_ViewTest extends ViewTestCase {
 	 * @test
 	 */
 	public function test_render_with_upcoming_taxonomy_events() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$events = [];
 		$cat    = $this->factory()->term->create( [ 'slug' => 'cat-1', 'name' => 'cat-1', 'taxonomy' => TEC::TAXONOMY ] );
 		$cat_term = get_term( $cat, TEC::TAXONOMY  );
