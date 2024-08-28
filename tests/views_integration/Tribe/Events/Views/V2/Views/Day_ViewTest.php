@@ -19,12 +19,22 @@ class Day_ViewTest extends ViewTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		// Overwrite Today's date to a paste date.
+		$this->today_date = '01-01-2019';
+
 		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
 
 		// Remove v1 filtering to have consistent results.
 		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
 		remove_filter( 'tribe_events_after_html', [ TEC::instance(), 'after_html_data_wrapper' ] );
 		tribe( 'cache' )->reset();
+	}
+
+	/**
+	 * @after
+	 */
+	public function reset_todays_date(){
+		$this->today_date = date( 'Y-m-d' );
 	}
 
 	/**
@@ -59,13 +69,15 @@ class Day_ViewTest extends ViewTestCase {
 	 */
 	public function test_render_empty() {
 		// Sanity check
-		$this->assertEmpty( tribe_events()->found() );
+		$this->assertEmpty( tribe_events()->found(), 'Expected no events to be found, but some were found.' );
 
-		$context = tribe_context()->alter( [
-			'today'      => $this->mock_date_value,
-			'now'        => $this->mock_date_value,
-			'event_date' => $this->mock_date_value
-		] );
+		$context = tribe_context()->alter(
+			[
+				'today'      => $this->mock_date_value,
+				'now'        => $this->mock_date_value,
+				'event_date' => $this->mock_date_value,
+			]
+		);
 
 		$day_view = View::make( Day_View::class, $context );
 		$html     = $day_view->get_html();
@@ -101,10 +113,11 @@ class Day_ViewTest extends ViewTestCase {
 		// Sanity check
 		$day_start = tribe_beginning_of_day( $today );
 		$day_end   = tribe_end_of_day( $today );
-		$this->assertEquals( 3, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count() );
 
-		add_filter( 'tribe_events_views_v2_view_day_template_vars', function ( array $vars )
-		{
+		$this->assertEquals( 3, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count(), 'Expected to find 3 events overlapping the day, but the count was different.' );
+
+		add_filter(
+			'tribe_events_views_v2_view_day_template_vars', function ( array $vars ) {
 			$vars['events'] = [
 				$this->get_mock_event( 'events/featured/id.template.json', [ 'id' => 904385349785 ] ),
 				$this->get_mock_event( 'events/single/id.template.json', [ 'id' => 349589759485 ] ),
@@ -120,6 +133,7 @@ class Day_ViewTest extends ViewTestCase {
 				'event_date' => $this->mock_date_value,
 			]
 		);
+
 		$day_view = View::make( Day_View::class, $context );
 
 		$html = $day_view->get_html();
@@ -127,7 +141,7 @@ class Day_ViewTest extends ViewTestCase {
 		// Let's make sure the View is displaying what events we expect it to display.
 		$expected_post_ids = wp_list_pluck( $events, 'ID' );
 
-		$this->assertEquals( $expected_post_ids, $day_view->found_post_ids() );
+		$this->assertEquals( $expected_post_ids, $day_view->found_post_ids(), 'The post IDs found in the day view do not match the expected post IDs.' );
 
 		$this->assertMatchesSnapshot( $html );
 	}
@@ -177,7 +191,7 @@ class Day_ViewTest extends ViewTestCase {
 		$mock_repository = $this->makeEmpty(
 			\Tribe__Repository__Interface::class,
 			[
-				'count' => 23
+				'count' => 23,
 			]
 		);
 
@@ -185,7 +199,7 @@ class Day_ViewTest extends ViewTestCase {
 		$view->set_repository( $mock_repository );
 
 		$today_url = $view->get_today_url( true );
-		$this->assertEquals( home_url( $expected ), $today_url );
+		$this->assertEquals( home_url( $expected ), $today_url, "The generated 'today' URL does not match the expected URL." );
 	}
 
 	public function message_data_sets(  ) {
@@ -235,7 +249,7 @@ class Day_ViewTest extends ViewTestCase {
 		// Call this method to trigger the message population in the View.
 		$view->get_template_vars();
 
-		$this->assertEquals( $expected, $view->get_messages() );
+		$this->assertEquals( $expected, $view->get_messages(), 'The messages displayed to the user do not match the expected messages.' );
 	}
 
 	public function server_timezone_provider() {
@@ -254,19 +268,19 @@ class Day_ViewTest extends ViewTestCase {
 	 * @test
 	 * @dataProvider server_timezone_provider
 	 */
-	public function should_correctly_setup_day_interval( $server_timezone) {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
+	public function should_correctly_setup_day_interval( $server_timezone ) {
+		$this->markTestSkipped( 'Skipping due to issue with date. [TECENG-62]' );
 		// Backup the current server timezone.
 		$this->date_default_timezone = date_default_timezone_get();
 		// Do not check for current dates in templates inputs.
 		remove_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'collect_date_dependent_values' ] );
 		// Site Timezone is America, New York.
-		update_option('timezone_string','America/New_York');
+		update_option( 'timezone_string', 'America/New_York' );
 		// Server timezone is UTC.
 		date_default_timezone_set( $server_timezone );
 		// Set up a fake "now"; this simulates a Day View request done at `2019-09-11 22:00:00`.
 		$date = new \DateTime( '2019-09-11 22:00:00', new \DateTimeZone( 'America/New_York' ) );
-		$now = $date->getTimestamp() ;
+		$now  = $date->getTimestamp();
 		// Alter the concept of the `now` timestamp to return the timestamp for `2019-09-11 22:00:00` in NY timezone.
 		$this->set_fn_return(
 			'strtotime',
@@ -371,7 +385,7 @@ class Day_ViewTest extends ViewTestCase {
 		// Sanity check
 		$day_start = tribe_beginning_of_day( $today );
 		$day_end   = tribe_end_of_day( $today );
-		$this->assertEquals( 5, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count() );
+		$this->assertEquals( 5, tribe_events()->where( 'date_overlaps', $day_start, $day_end )->count(), 'Expected to find 5 events overlapping the day, but the count was different.' );
 
 		add_filter( 'tribe_events_views_v2_view_day_template_vars', function ( array $vars ) {
 			$vars['events'] = [
@@ -400,7 +414,7 @@ class Day_ViewTest extends ViewTestCase {
 		// Let's make sure the View is displaying what events we expect it to display.
 		$expected_post_ids = wp_list_pluck( array_slice( $events, 2, 5 ), 'ID' );
 
-		$this->assertEquals( $expected_post_ids, $day_view->found_post_ids() );
+		$this->assertEquals( $expected_post_ids, $day_view->found_post_ids(), 'The post IDs found in the category archive day view do not match the expected post IDs.' );
 
 		$this->assertMatchesSnapshot( $html );
 
@@ -415,7 +429,7 @@ class Day_ViewTest extends ViewTestCase {
 
 		$html_tag = $day_view_tag->get_html();
 
-		$this->assertEquals( $expected_post_ids, $day_view_tag->found_post_ids() );
+		$this->assertEquals( $expected_post_ids, $day_view_tag->found_post_ids(), 'The post IDs found in the tag archive day view do not match the expected post IDs.' );
 
 		$this->assertMatchesSnapshot( $html_tag );
 	}
