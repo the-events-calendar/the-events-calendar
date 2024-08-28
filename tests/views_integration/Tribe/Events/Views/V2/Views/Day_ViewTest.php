@@ -28,6 +28,33 @@ class Day_ViewTest extends ViewTestCase {
 	}
 
 	/**
+	 * @param string $structure *
+	 *
+	 * @before
+	 */
+	public function set_permalink_structure( $structure = '' ) {
+		global $wp_rewrite;
+		// Save the original permalink structure.
+		$this->original_permalink_structure = get_option( 'permalink_structure' );
+
+		// Set the desired permalink structure.
+		update_option( 'permalink_structure', '/%postname%/' );
+		$wp_rewrite->init();
+		$wp_rewrite->flush_rules( true );
+	}
+
+	/**
+	 * @after
+	 */
+	public function restore_permalink_structure() {
+		global $wp_rewrite;
+		// Restore the original permalink structure.
+		update_option( 'permalink_structure', $this->original_permalink_structure );
+		$wp_rewrite->init();
+		$wp_rewrite->flush_rules( true );
+	}
+
+	/**
 	 * Test render empty
 	 */
 	public function test_render_empty() {
