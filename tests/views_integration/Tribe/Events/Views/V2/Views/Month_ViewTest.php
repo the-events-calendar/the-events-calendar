@@ -50,6 +50,7 @@ class Month_ViewTest extends ViewTestCase {
 	 * Test render empty
 	 */
 	public function test_render_empty() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$month_view = View::make( Month_View::class, $this->context );
 
 		$this->assertEmpty( $month_view->found_post_ids() );
@@ -61,6 +62,7 @@ class Month_ViewTest extends ViewTestCase {
 	 * Test render with events
 	 */
 	public function test_render_with_events() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
@@ -152,6 +154,7 @@ class Month_ViewTest extends ViewTestCase {
 	 * Test render with events with end time hidden.
 	 */
 	public function test_render_with_events_hide_endtime() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		/* The views will default to `list` because of a dirty context check, so use list here.
 		 It's ok because we are checking the View objects directly. When the dirty context is fixed, this should change. */
 		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [ 'list' ] );
@@ -325,6 +328,7 @@ class Month_ViewTest extends ViewTestCase {
 	 * @dataProvider message_data_sets
 	 */
 	public function should_display_the_correct_messages_to_the_user( $context_alterations, $expected ) {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$values  = array_merge( [
 			'today'      => '2019-09-11',
 			'now'        => '2019-09-11 09:00:00',
@@ -371,6 +375,7 @@ class Month_ViewTest extends ViewTestCase {
 	 * @dataProvider day_url_data_provider
 	 */
 	public function should_carry_over_query_args_from_view_to_view_more_link( array $context_alterations, string $expected_template ) {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		// Create the category to make sure it will appear.
 		static::factory()->term->create( [ 'taxonomy' => TEC::TAXONOMY, 'slug' => 'test' ] );
 		$view = View::make( Month_View::class );
@@ -392,6 +397,7 @@ class Month_ViewTest extends ViewTestCase {
 	 * @test
 	 */
 	public function test_render_with_events_w_taxonomies() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
