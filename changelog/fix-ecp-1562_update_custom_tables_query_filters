@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Changed logic within the custom tables query to avoid a database error. (props @datadiver0x0) [ECP-1562]
