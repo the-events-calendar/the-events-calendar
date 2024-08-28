@@ -71,7 +71,6 @@ class With_NoindexTest extends ViewTestCase {
 	 * @dataProvider view_data_set
 	 */
 	public function test_noindex_render_with_events( $class ) {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$tester = $this;
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
