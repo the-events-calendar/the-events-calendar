@@ -246,6 +246,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
 * Tweak - Add docblock for make_select_box()
 * Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.6.2] 2024-09-20 =
 
