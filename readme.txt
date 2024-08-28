@@ -239,6 +239,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.3] 2024-08-28 =
+
+* Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events. [TEC-4941]
+* Fix - Character encoding issues on subscribe URLs for Outlook. [TEC-5085, TEC-5094, TEC-5136]
+* Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
+* Tweak - Add docblock for make_select_box()
+
 = [6.6.2] 2024-09-20 =
 
 * Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view. [TEC-5080]
