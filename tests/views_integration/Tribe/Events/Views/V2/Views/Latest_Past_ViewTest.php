@@ -11,6 +11,13 @@ class Latest_Past_ViewTest extends ViewTestCase {
 	use With_Post_Remapping;
 
 	/**
+	 * Holds the original permalink structure before the test modifies it.
+	 *
+	 * @var string
+	 */
+	protected $original_permalink_structure;
+
+	/**
 	 * @before
 	 */
 	public function clean_caches() {
@@ -18,12 +25,28 @@ class Latest_Past_ViewTest extends ViewTestCase {
 	}
 
 	/**
+	 * @param string $structure *
+	 *
 	 * @before
 	 */
-	public function set_permalink_structure() {
+	public function set_permalink_structure( $structure = '' ) {
 		global $wp_rewrite;
+		// Save the original permalink structure.
+		$this->original_permalink_structure = get_option( 'permalink_structure' );
+
 		// Set the desired permalink structure.
 		update_option( 'permalink_structure', '/%postname%/' );
+		$wp_rewrite->init();
+		$wp_rewrite->flush_rules( true );
+	}
+
+	/**
+	 * @after
+	 */
+	public function restore_permalink_structure() {
+		global $wp_rewrite;
+		// Restore the original permalink structure.
+		update_option( 'permalink_structure', $this->original_permalink_structure );
 		$wp_rewrite->init();
 		$wp_rewrite->flush_rules( true );
 	}
@@ -47,30 +70,36 @@ class Latest_Past_ViewTest extends ViewTestCase {
 		tribe_update_option( View_Manager::$option_default, $view_slug );
 		tribe_update_option( View_Manager::$option_mobile_default, $view_slug );
 		// Create a mock context that will ensure the Latest Past Events View will show.
-		$context = tribe_context()->alter( [
-			'today'            => '2020-03-01',
-			'now'              => '2020-03-01 11:00:00',
-			'event_date'       => '2020-03-01',
-			'show_latest_past' => true,
-		] );
+		$context = tribe_context()->alter(
+			[
+				'today'            => '2020-03-01',
+				'now'              => '2020-03-01 11:00:00',
+				'event_date'       => '2020-03-01',
+				'show_latest_past' => true,
+			]
+		);
 		$view    = View::make( $view_class, $context );
 
 		// Let's make sure we're starting from a clean slate.
 		$this->assertEquals( 0, tribe_events()->found() );
 
 		// Create 2 events in the past of the mock "now" date and time.
-		$mock_events[] = $this->get_mock_event( 'events/single/1.template.json', [
+		$mock_events[] = $this->get_mock_event(
+			'events/single/1.template.json', [
 			'ID'           => 23,
 			'post_content' => 'Snapshot event 23',
 			'start_date'   => '2020-02-15',
 			'end_date'     => '2020-02-15',
-		] );
-		$mock_events[] = $this->get_mock_event( 'events/single/1.template.json', [
+		]
+		);
+		$mock_events[] = $this->get_mock_event(
+			'events/single/1.template.json', [
 			'ID'           => 89,
 			'post_content' => 'Snapshot event 89',
 			'start_date'   => '2020-02-20',
 			'end_date'     => '2020-02-20',
-		] );
+		]
+		);
 		/*
 		 * Create 2 real events and remap them to the mock ones; the date is not important as long as it's in the past
 		 * of the mock "now".
