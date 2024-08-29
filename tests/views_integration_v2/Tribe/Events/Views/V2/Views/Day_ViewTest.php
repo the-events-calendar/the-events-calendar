@@ -23,6 +23,12 @@ class Day_ViewTest extends ViewTestCase {
 		$this->today_date = '01-01-2019';
 
 		tribe_unset_var( \Tribe__Settings_Manager::OPTION_CACHE_VAR_NAME );
+	/*	$this->set_class_fn_return(
+			'Date_I18n', 'format_i18n', function ( $format, $timestamp ) {
+			// You can control what the function returns here
+			return '2023-01-01'; // Example fixed return value
+		}
+		);*/
 
 		// Remove v1 filtering to have consistent results.
 		remove_filter( 'tribe_events_before_html', [ TEC::instance(), 'before_html_data_wrapper' ] );
@@ -262,7 +268,6 @@ class Day_ViewTest extends ViewTestCase {
 	 * @dataProvider server_timezone_provider
 	 */
 	public function should_correctly_setup_day_interval( $server_timezone ) {
-		$this->markTestSkipped( 'Skipping due to issue with date. [TECENG-62]' );
 		// Backup the current server timezone.
 		$this->date_default_timezone = date_default_timezone_get();
 		// Do not check for current dates in templates inputs.
@@ -278,7 +283,15 @@ class Day_ViewTest extends ViewTestCase {
 		$this->set_fn_return(
 			'strtotime',
 			static function ( $str ) use ( $now ) {
-				return $str === 'now' ? $now : strtotime( $str );
+				// Save the current timezone
+				$default_timezone = date_default_timezone_get();
+				// Set the default timezone to UTC
+				date_default_timezone_set( 'UTC' );
+				// Calculate the timestamp
+				$timestamp = $str === 'now' ? $now : strtotime( $str );
+				// Restore the original timezone
+				date_default_timezone_set( $default_timezone );
+				return $timestamp;
 			},
 			true
 		);
