@@ -239,7 +239,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.6.3] 2024-08-28 =
+= [6.6.3] 2024-08-29 =
 
 * Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events. [TEC-4941]
 * Fix - Character encoding issues on subscribe URLs for Outlook. [TEC-5085, TEC-5094, TEC-5136]
