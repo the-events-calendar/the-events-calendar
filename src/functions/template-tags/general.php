@@ -252,14 +252,15 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
 	/**
-	 * Check if the current request is for a tribe view via ajax
+	 * Determines if the current request is for a Tribe Events view via AJAX.
 	 *
-	 * @since    6.0.0 Refactored to use tribe_context().
+	 * This function checks if the request is being made via AJAX and if it matches the specified view slug.
 	 *
-	 * @param bool|string $view View slug.
+	 * @since 6.0.0 Refactored to use `tribe_context()`.
 	 *
-	 * @return bool
-	 * @category Events
+	 * @param bool|string $view Optional. The view slug to check against the current request. Default false.
+	 *
+	 * @return bool True if the current request is an AJAX request for the specified view, false otherwise.
 	 */
 	function tribe_is_ajax_view_request( $view = false ) {
 		$context              = tribe_context();
@@ -283,6 +284,14 @@ if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
 			}
 		}
 
+		/**
+		 * Filters whether the current request is an AJAX request for a specific Tribe view.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param bool       $is_ajax_view_request Whether the request is an AJAX request for the specified view.
+		 * @param bool|string $view                 The view slug being checked.
+		 */
 		return apply_filters( 'tribe_is_ajax_view_request', $is_ajax_view_request, $view );
 	}
 }
