@@ -252,7 +252,7 @@ function tribe_get_template_part( $slug, $name = null, array $data = null ) {
 
 if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
 	/**
-	 * Determines if the current request is for a Tribe Events view via AJAX.
+	 * Determines if the current request is for an Event view via AJAX.
 	 *
 	 * This function checks if the request is being made via AJAX and if it matches the specified view slug.
 	 *
@@ -289,7 +289,7 @@ if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
 		 *
 		 * @since 6.0.0
 		 *
-		 * @param bool       $is_ajax_view_request Whether the request is an AJAX request for the specified view.
+		 * @param bool        $is_ajax_view_request Whether the request is an AJAX request for the specified view.
 		 * @param bool|string $view                 The view slug being checked.
 		 */
 		return apply_filters( 'tribe_is_ajax_view_request', $is_ajax_view_request, $view );
