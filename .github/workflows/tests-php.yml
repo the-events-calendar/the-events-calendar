@@ -22,6 +22,7 @@ jobs:
           #- muintegration
           #- restv1
           - views_integration
+          - views_integration_v2
           #- views_settings
           #- views_ui
           #- views_v2_customizer_integration
