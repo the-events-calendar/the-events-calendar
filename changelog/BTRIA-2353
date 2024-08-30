@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [BTRIA-2353]
