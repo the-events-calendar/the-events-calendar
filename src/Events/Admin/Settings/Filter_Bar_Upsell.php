@@ -9,10 +9,10 @@
 
 namespace TEC\Events\Admin\Settings;
 
-use Tribe\Events\Admin\Settings;
-use Tribe__Settings_Tab;
 use TEC\Common\Contracts\Service_Provider;
+use Tribe__Settings_Tab;
 use Tribe__Template;
+use Tribe\Events\Admin\Settings;
 
 
 
@@ -23,6 +23,14 @@ use Tribe__Template;
  */
 class Filter_Bar_Upsell extends Service_Provider {
 	/**
+	 * The slug of the upsell tab.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $slug = 'filter-view';
+	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since TBD
@@ -32,13 +40,13 @@ class Filter_Bar_Upsell extends Service_Provider {
 			return;
 		}
 
-
 		// Bail if Filter Bar is already installed/registered.
 		if ( has_action( 'tribe_common_loaded', 'tribe_register_filterbar' ) ) {
 			return;
 		}
 
 		$this->add_actions();
+		$this->add_filters();
 	}
 
 	/**
@@ -48,6 +56,27 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 */
 	public function add_actions(): void {
 		add_action( 'tribe_settings_do_tabs', [ $this, 'add_tab' ] );
+	}
+
+	public function add_filters(): void {
+		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ], 10, 2 );
+		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'filter_tribe_settings_no_save_tabs' ] );
+	}
+
+	public function filter_tribe_settings_form_classes( $classes ) {
+		if ( ! in_array( "tec-settings__{$this->slug}-tab--active", $classes ) ) {
+			return $classes;
+		}
+
+		$classes[] = 'tec-events-settings__upsell-form';
+
+		return $classes;
+	}
+
+	public function filter_tribe_settings_no_save_tabs( $tabs ) {
+		$tabs[] = $this->slug;
+
+		return $tabs;
 	}
 
 	/**
@@ -93,7 +122,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 		);
 
 		new Tribe__Settings_Tab(
-			'filter-view',
+			$this->slug,
 			esc_html_x( 'Filters', 'Label for the Filters tab.', 'the-events-calendar' ),
 			[
 				'priority'      => 40,
@@ -106,7 +135,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 		add_filter(
 			'tec_events_settings_tabs_ids',
 			function ( $tabs ) {
-				$tabs[] = 'filter-view';
+				$tabs[] = $this->slug;
 				return $tabs;
 			}
 		);
@@ -123,7 +152,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * @return string|false HTML of the Filter Bar upsell banner. False if the template is not found.
 	 */
 	public function get_upsell_html( $context = [], $echo = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
-		return $this->get_template()->template( 'filter_bar', wp_parse_args( $context ), $echo );
+		return $this->get_template()->template( $this->slug, wp_parse_args( $context ), $echo );
 	}
 
 	/**
