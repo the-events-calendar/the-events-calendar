@@ -5,7 +5,7 @@ namespace Tribe\Events\Admin;
  * Manages the admin settings UI in relation to events configuration.
  */
 
-use Tribe\Admin\Troubleshooting as Troubleshooting;
+use Tribe\Admin\Troubleshooting;
 use Tribe__App_Shop;
 use Tribe__Events__Main as Plugin;
 use Tribe__Main;
