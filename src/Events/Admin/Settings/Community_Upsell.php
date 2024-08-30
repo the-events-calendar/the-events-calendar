@@ -20,6 +20,7 @@ use Tribe\Events\Admin\Settings;
  * @since TBD
  */
 class Community_Upsell extends Service_Provider {
+
 	/**
 	 * The slug of the upsell tab.
 	 *
@@ -28,6 +29,7 @@ class Community_Upsell extends Service_Provider {
 	 * @var string
 	 */
 	protected string $slug = 'community';
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -71,7 +73,9 @@ class Community_Upsell extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $classes
+	 * @param array $classes The classes for the settings form.
+	 *
+	 * @return array The modified classes for the settings form.
 	 */
 	public function filter_tribe_settings_form_classes( $classes ): array {
 		if ( ! in_array( 'tec-settings__community-tab--active', $classes ) ) {
@@ -88,9 +92,9 @@ class Community_Upsell extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $tabs
+	 * @param array $tabs The tabs that should not use the save footer.
 	 *
-	 * @return array
+	 * @return array The modified tabs that should not use the save footer.
 	 */
 	public function filter_tribe_settings_no_save_tabs( $tabs ): array {
 		$tabs[] = $this->slug;

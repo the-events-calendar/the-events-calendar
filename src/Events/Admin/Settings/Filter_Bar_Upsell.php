@@ -22,6 +22,7 @@ use Tribe\Events\Admin\Settings;
  * @since TBD
  */
 class Filter_Bar_Upsell extends Service_Provider {
+
 	/**
 	 * The slug of the upsell tab.
 	 *
@@ -30,6 +31,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * @var string
 	 */
 	protected string $slug = 'filter-view';
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -92,9 +94,9 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $tabs The tabs that should not be saved.
+	 * @param array $tabs The tabs that should not use the save footer.
 	 *
-	 * @return array The modified tabs that should not be saved.
+	 * @return array The modified tabs that should not use the save footer.
 	 */
 	public function filter_tribe_settings_no_save_tabs( $tabs ): array {
 		$tabs[] = $this->slug;
