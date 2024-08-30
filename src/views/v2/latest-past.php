@@ -13,6 +13,10 @@
  *
  * @var array $events The array containing the events.
  */
+
+if ( count( $events ) === 0 ) {
+	return;
+}
 ?>
 <div class="tribe-events-calendar-latest-past">
 
