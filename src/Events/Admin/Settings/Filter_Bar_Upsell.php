@@ -33,6 +33,15 @@ class Filter_Bar_Upsell extends Service_Provider {
 	protected string $slug = 'filter-view';
 
 	/**
+	 * Stores the instance of the template engine that we will use for rendering the elements.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Template
+	 */
+	protected $template;
+
+	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since TBD
@@ -103,15 +112,6 @@ class Filter_Bar_Upsell extends Service_Provider {
 
 		return $tabs;
 	}
-
-	/**
-	 * Stores the instance of the template engine that we will use for rendering the elements.
-	 *
-	 * @since TBD
-	 *
-	 * @var Tribe__Template
-	 */
-	protected $template;
 
 	/**
 	 * Create a Filter Bar upsell tab.
