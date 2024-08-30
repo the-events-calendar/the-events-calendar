@@ -214,6 +214,13 @@ The Events Calendar is our cornerstone plugin, and it’s required in order to r
 
 In other words, Events Calendar Pro runs alongside The Events Calendar and enhances it with extra features, including recurring events and event Series, additional calendar views, calendar shortcodes, advanced widgets, custom event fields, a duplicate event tool, and more.
 
+= Found a security vulnerability? =
+
+Make sure you are reporting in a safe and responsible way. We take security very seriously. If you discover a security issue, please bring it to our attention right away! Below you will find all the methods to report security vulnerabilities:
+
+* [Report security bugs through the Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/the-events-calendar)
+* Check our [Bug Bounty Program](https://www.liquidweb.com/policies/bug-bounty-program/)
+* Reach out directly to us on `security [at] stellarwp.com`.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -240,17 +247,15 @@ nd files before updating!
 * Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
-* Tweak - Changed views: `single-event`
-* Language - 6 new strings added, 81 updated, 0 fuzzied, and 4 obsoleted
-
 * Tweak - Added filters: `tec_events_rest_api_response_blocked`, `tec_events_rest_api_response_blocked_due_to_timeout`, `tec_events_site_is_development_mode`, `tec_events_hide_end_time_modifier_defaults`
 * Tweak - Added actions: `tec_events_views_v2_hide_end_time_init`
 * Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 6 new strings added, 81 updated, 0 fuzzied, and 4 obsoleted
 
 = [6.6.1] 2024-08-06 =
 
 * Fix - Ensure we don't try to enqueue nonexistent override stylesheets. [ECP-1811]
-* Tweak - Changed views: `v2/widgets/widget-events-list/view-more`
+* Tweak - Changed views: `single-event`, `v2/widgets/widget-events-list/view-more`
 * Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.6.0.2] 2024-07-24 =
