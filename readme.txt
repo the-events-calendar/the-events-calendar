@@ -249,13 +249,13 @@ nd files before updating!
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 * Tweak - Added filters: `tec_events_rest_api_response_blocked`, `tec_events_rest_api_response_blocked_due_to_timeout`, `tec_events_site_is_development_mode`, `tec_events_hide_end_time_modifier_defaults`
 * Tweak - Added actions: `tec_events_views_v2_hide_end_time_init`
-* Tweak - Changed views: `single-event`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
 * Language - 6 new strings added, 81 updated, 0 fuzzied, and 4 obsoleted
 
 = [6.6.1] 2024-08-06 =
 
 * Fix - Ensure we don't try to enqueue nonexistent override stylesheets. [ECP-1811]
-* Tweak - Changed views: `v2/widgets/widget-events-list/view-more`
+* Tweak - Changed views: `single-event`, `v2/widgets/widget-events-list/view-more`
 * Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.6.0.2] 2024-07-24 =
