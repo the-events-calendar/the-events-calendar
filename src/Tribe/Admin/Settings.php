@@ -5,13 +5,11 @@ namespace Tribe\Events\Admin;
  * Manages the admin settings UI in relation to events configuration.
  */
 
+use Tribe\Admin\Troubleshooting;
 use Tribe__App_Shop;
-use Tribe__Settings;
+use Tribe__Events__Main as Plugin;
 use Tribe__Main;
 use Tribe__Settings_Tab as Tab;
-
-use Tribe__Events__Main as Plugin;
-use Tribe\Admin\Troubleshooting as Troubleshooting;
 
 class Settings {
 
@@ -399,6 +397,18 @@ class Settings {
 		$this->tabs['display'] = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
+	}
+
+	/**
+	 * Register the default settings tab sidebar.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_default_sidebar() {
+		$sidebar = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/settings/sidebars/default-sidebar.php';
+		Tab::set_default_sidebar( $sidebar );
 	}
 
 	/**
