@@ -14,8 +14,6 @@ use Tribe__Settings_Tab;
 use Tribe__Template;
 use Tribe\Events\Admin\Settings;
 
-
-
 /**
  * Class Upsell
  *

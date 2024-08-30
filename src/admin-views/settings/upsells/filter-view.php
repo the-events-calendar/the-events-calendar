@@ -14,7 +14,7 @@ $main = Tribe__Events__Main::instance();
 			<img
 				src="<?php echo esc_url( tribe_resource_url( 'icons/filterbar.svg', false, null, $main ) ); ?>"
 				class="tec-settings__upsell-logo"
-				role="presentation
+				role="presentation"
 				alt=""
 			>
 			<h3 class="tec-settings__upsell-title">
