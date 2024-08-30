@@ -56,12 +56,24 @@ class Community_Upsell extends Service_Provider {
 		add_action( 'tribe_settings_do_tabs', [ $this, 'add_tab' ] );
 	}
 
+	/**
+	 * Add filters.
+	 *
+	 * @since TBD
+	 */
 	public function add_filters(): void {
 		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ], 10, 2 );
 		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'filter_tribe_settings_no_save_tabs' ] );
 	}
 
-	public function filter_tribe_settings_form_classes( $classes ) {
+	/**
+	 * Adds a class to the settings form to allow for custom styling.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $classes
+	 */
+	public function filter_tribe_settings_form_classes( $classes ): array {
 		if ( ! in_array( 'tec-settings__community-tab--active', $classes ) ) {
 			return $classes;
 		}
@@ -71,7 +83,16 @@ class Community_Upsell extends Service_Provider {
 		return $classes;
 	}
 
-	public function filter_tribe_settings_no_save_tabs( $tabs ) {
+	/**
+	 * Adds the Community tab to the list of tabs that should not be saved.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $tabs
+	 *
+	 * @return array
+	 */
+	public function filter_tribe_settings_no_save_tabs( $tabs ): array {
 		$tabs[] = $this->slug;
 
 		return $tabs;
