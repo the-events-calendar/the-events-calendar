@@ -64,7 +64,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * @since TBD
 	 */
 	public function add_filters(): void {
-		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ], 10, 2 );
+		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ] );
 		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'filter_tribe_settings_no_save_tabs' ] );
 	}
 
