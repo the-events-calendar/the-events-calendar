@@ -696,7 +696,14 @@ $imports_tab = new Tribe__Settings_Tab(
 	esc_html__( 'Imports', 'the-events-calendar' ),
 	[
 		'priority' => 50,
-		'fields'   => $fields,
+		/**
+		 * Filter the fields for the imports settings tab.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $fields The fields for the imports settings tab.
+		 */
+		'fields'   => apply_filters( 'tec_events_settings_tab_imports_fields', $fields ),
 	]
 );
 

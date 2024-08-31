@@ -27,11 +27,15 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public function register() {
-		// Filter Bar upsell tab.
-		tribe_register_provider( Filter_Bar_Upsell::class );
+		$providers = [
+			Filter_Bar_Upsell::class,
+			Community_Upsell::class,
+			Event_Aggregator_Upsell::class,
+		];
 
-		// Community upsell tab.
-		tribe_register_provider( Community_Upsell::class );
+		foreach ( $providers as $provider ) {
+			tribe_register_provider( $provider );
+		}
 
 		$this->add_actions();
 		$this->add_filters();
