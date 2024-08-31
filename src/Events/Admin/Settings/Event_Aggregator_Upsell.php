@@ -96,13 +96,13 @@ class Event_Aggregator_Upsell extends Service_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $context The context to pass to the template.
-	 * @param bool  $echo    Whether to echo the HTML or return it.
+	 * @param array $context   The context to pass to the template.
+	 * @param bool  $echo_html Whether to echo the HTML or return it.
 	 *
 	 * @return string
 	 */
-	protected function get_upsell_html( array $context = [], bool $echo = false ): string {
-		$html = $this->get_template()->template( 'event-aggregator', $context, $echo );
+	protected function get_upsell_html( array $context = [], bool $echo_html = false ): string {
+		$html = $this->get_template()->template( 'event-aggregator', $context, $echo_html );
 
 		return $html ?: '';
 	}
