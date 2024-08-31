@@ -103,7 +103,7 @@ $fields = [];
 // Header section.
 $fields[] = ( new Div( new Classes( [ 'tec_settings__header-block', 'tec_settings__header-block--horizontal' ] ) ) )->add_children(
 	[
-		new Heading( __( 'Imports', 'tribe-common' ), 2, new Classes( [ 'tec_settings__section-header' ] ) ),
+		new Heading( __( 'Imports', 'tribe-common' ), 2, new Classes( [ 'tec-settings__section-header' ] ) ),
 		( new Paragraph( new Classes( [ 'tec_settings__section-description' ] ) ) )->add_children(
 			[
 				new Plain_Text( __( 'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'tribe-common' ) ),
