@@ -96,6 +96,7 @@ $wrap_fields = function ( Container $container, array $fields ) {
 $hr_element             = new Separator( new Classes( [ 'tec_settings__separator--section' ] ) );
 $import_page            = new Container();
 $section_header_classes = new Classes( [ 'tec-settings__section-header', 'tec-settings__section-header--sub' ] );
+$empty_space            = new Plain_Text( ' ' );
 
 // Start the fields array.
 $fields = [];
@@ -106,9 +107,10 @@ $fields[] = ( new Div( new Classes( [ 'tec_settings__header-block', 'tec_setting
 		new Heading( __( 'Imports', 'tribe-common' ), 2, new Classes( [ 'tec-settings__section-header' ] ) ),
 		( new Paragraph( new Classes( [ 'tec_settings__section-description' ] ) ) )->add_children(
 			[
-				new Plain_Text( __( 'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'tribe-common' ) ),
+				new Plain_Text( __( 'Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'tribe-common' ) ),
+				$empty_space,
 				new Plain_Text( __( 'Check your Event Aggregator Service Status on the', 'tribe-common' ) ),
-				new Plain_Text( ' ' ),
+				$empty_space,
 				new Link(
 					tribe( 'tec.main' )->settings()->get_url( [ 'page' => 'tec-troubleshooting' ] ),
 					__( 'Troubleshooting Page', 'the-events-calendar' )
