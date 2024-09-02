@@ -9,12 +9,10 @@
 
 namespace TEC\Events\Admin\Settings;
 
-use Tribe\Events\Admin\Settings;
-use Tribe__Settings_Tab;
 use TEC\Common\Contracts\Service_Provider;
+use Tribe__Settings_Tab;
 use Tribe__Template;
-
-
+use Tribe\Events\Admin\Settings;
 
 /**
  * Class Upsell
@@ -22,6 +20,25 @@ use Tribe__Template;
  * @since TBD
  */
 class Filter_Bar_Upsell extends Service_Provider {
+
+	/**
+	 * The slug of the upsell tab.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $slug = 'filter-view';
+
+	/**
+	 * Stores the instance of the template engine that we will use for rendering the elements.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Template
+	 */
+	protected $template;
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -32,13 +49,13 @@ class Filter_Bar_Upsell extends Service_Provider {
 			return;
 		}
 
-
 		// Bail if Filter Bar is already installed/registered.
 		if ( has_action( 'tribe_common_loaded', 'tribe_register_filterbar' ) ) {
 			return;
 		}
 
 		$this->add_actions();
+		$this->add_filters();
 	}
 
 	/**
@@ -51,13 +68,48 @@ class Filter_Bar_Upsell extends Service_Provider {
 	}
 
 	/**
-	 * Stores the instance of the template engine that we will use for rendering the elements.
+	 * Add filters.
+	 *
+	 * @since TBD
+	 */
+	public function add_filters(): void {
+		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ] );
+		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'filter_tribe_settings_no_save_tabs' ] );
+	}
+
+	/**
+	 * Filters the classes for the settings form.
 	 *
 	 * @since TBD
 	 *
-	 * @var Tribe__Template
+	 * @param array $classes The classes for the settings form.
+	 *
+	 * @return array The modified classes for the settings form.
 	 */
-	protected $template;
+	public function filter_tribe_settings_form_classes( $classes ): array {
+		if ( ! in_array( "tec-settings__{$this->slug}-tab--active", $classes ) ) {
+			return $classes;
+		}
+
+		$classes[] = 'tec-events-settings__upsell-form';
+
+		return $classes;
+	}
+
+	/**
+	 * Adds the Filter Bar Upsell to the tabs that should not be saved.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $tabs The tabs that should not use the save footer.
+	 *
+	 * @return array The modified tabs that should not use the save footer.
+	 */
+	public function filter_tribe_settings_no_save_tabs( $tabs ): array {
+		$tabs[] = $this->slug;
+
+		return $tabs;
+	}
 
 	/**
 	 * Create a Filter Bar upsell tab.
@@ -93,7 +145,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 		);
 
 		new Tribe__Settings_Tab(
-			'filter-view',
+			$this->slug,
 			esc_html_x( 'Filters', 'Label for the Filters tab.', 'the-events-calendar' ),
 			[
 				'priority'      => 40,
@@ -106,7 +158,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 		add_filter(
 			'tec_events_settings_tabs_ids',
 			function ( $tabs ) {
-				$tabs[] = 'filter-view';
+				$tabs[] = $this->slug;
 				return $tabs;
 			}
 		);
@@ -123,7 +175,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * @return string|false HTML of the Filter Bar upsell banner. False if the template is not found.
 	 */
 	public function get_upsell_html( $context = [], $echo = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
-		return $this->get_template()->template( 'filter_bar', wp_parse_args( $context ), $echo );
+		return $this->get_template()->template( $this->slug, wp_parse_args( $context ), $echo );
 	}
 
 	/**

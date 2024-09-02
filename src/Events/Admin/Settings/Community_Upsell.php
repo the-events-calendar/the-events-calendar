@@ -1,6 +1,6 @@
 <?php
 /**
- * Service Provider for Comunity upsell/settings.
+ * Service Provider for Community upsell/settings.
  *
  * @since
  *
@@ -9,10 +9,10 @@
 
 namespace TEC\Events\Admin\Settings;
 
-use Tribe\Events\Admin\Settings;
-use Tribe__Settings_Tab;
 use TEC\Common\Contracts\Service_Provider;
+use Tribe__Settings_Tab;
 use Tribe__Template;
+use Tribe\Events\Admin\Settings;
 
 /**
  * Class Upsell
@@ -20,6 +20,25 @@ use Tribe__Template;
  * @since TBD
  */
 class Community_Upsell extends Service_Provider {
+
+	/**
+	 * The slug of the upsell tab.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $slug = 'community';
+
+	/**
+	 * Stores the instance of the template engine that we will use for rendering the elements.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Template
+	 */
+	protected $template;
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -30,13 +49,13 @@ class Community_Upsell extends Service_Provider {
 			return;
 		}
 
-
-		// Bail if Comunity is already installed/registered.
+		// Bail if Community is already installed/registered.
 		if ( has_action( 'tribe_common_loaded', 'tribe_register_community' ) ) {
 			return;
 		}
 
 		$this->add_actions();
+		$this->add_filters();
 	}
 
 	/**
@@ -49,16 +68,51 @@ class Community_Upsell extends Service_Provider {
 	}
 
 	/**
-	 * Stores the instance of the template engine that we will use for rendering the elements.
+	 * Add filters.
+	 *
+	 * @since TBD
+	 */
+	public function add_filters(): void {
+		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ] );
+		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'filter_tribe_settings_no_save_tabs' ] );
+	}
+
+	/**
+	 * Adds a class to the settings form to allow for custom styling.
 	 *
 	 * @since TBD
 	 *
-	 * @var Tribe__Template
+	 * @param array $classes The classes for the settings form.
+	 *
+	 * @return array The modified classes for the settings form.
 	 */
-	protected $template;
+	public function filter_tribe_settings_form_classes( $classes ): array {
+		if ( ! in_array( 'tec-settings__community-tab--active', $classes ) ) {
+			return $classes;
+		}
+
+		$classes[] = 'tec-events-settings__upsell-form';
+
+		return $classes;
+	}
 
 	/**
-	 * Create a Comunity upsell tab.
+	 * Adds the Community tab to the list of tabs that should not be saved.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $tabs The tabs that should not use the save footer.
+	 *
+	 * @return array The modified tabs that should not use the save footer.
+	 */
+	public function filter_tribe_settings_no_save_tabs( $tabs ): array {
+		$tabs[] = $this->slug;
+
+		return $tabs;
+	}
+
+	/**
+	 * Create a Community upsell tab.
 	 *
 	 * @since TBD
 	 *
@@ -79,11 +133,11 @@ class Community_Upsell extends Service_Provider {
 		];
 
 		/**
-		* Allows the fields displayed in the Comunity upsell tab to be modified.
+		* Allows the fields displayed in the Community upsell tab to be modified.
 		*
 		* @since TBD
 		*
-		* @param array $tec_events_community_upsell_tab Array of fields used to setup the Comunity upsell Tab.
+		* @param array $tec_events_community_upsell_tab Array of fields used to setup the Community upsell Tab.
 		*/
 		$tec_events_admin_community_upsell_fields = apply_filters(
 			'tec_events_settings_community_tab_content',
@@ -91,7 +145,7 @@ class Community_Upsell extends Service_Provider {
 		);
 
 		new Tribe__Settings_Tab(
-			'community',
+			$this->slug,
 			esc_html_x( 'Community', 'Label for the Community tab.', 'the-events-calendar' ),
 			[
 				'priority'      => 45,
@@ -104,24 +158,24 @@ class Community_Upsell extends Service_Provider {
 		add_filter(
 			'tec_events_settings_tabs_ids',
 			function ( $tabs ) {
-				$tabs[] = 'community';
+				$tabs[] = $this->slug;
 				return $tabs;
 			}
 		);
 	}
 
 	/**
-	 * Returns html of the Comunity upsell banner.
+	 * Returns html of the Community upsell banner.
 	 *
 	 * @since TBD
 	 *
 	 * @param array   $context Context of template.
 	 * @param boolean $echo    Whether or not to output the HTML or just return it.
 	 *
-	 * @return string|false HTML of the Comunity upsell banner. False if the template is not found.
+	 * @return string|false HTML of the Community upsell banner. False if the template is not found.
 	 */
 	public function get_upsell_html( $context = [], $echo = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
-		return $this->get_template()->template( 'community', wp_parse_args( $context ), $echo );
+		return $this->get_template()->template( $this->slug, wp_parse_args( $context ), $echo );
 	}
 
 	/**
