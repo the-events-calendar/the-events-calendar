@@ -46,24 +46,6 @@ class Provider extends Service_Provider {
 	}
 
 	/**
-	 * Register Assets.
-	 *
-	 * @since 5.14.0
-	 */
-	public function add_assets() {
-		tribe_asset(
-			Tribe__Events__Main::instance(),
-			'tec-admin-filterbar-upsell',
-			'tec-admin-filterbar-upsell.css',
-			[],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_enqueue_admin' ],
-			]
-		);
-	}
-
-	/**
 	 * Stores the instance of the template engine that we will use for rendering the elements.
 	 *
 	 * @since 5.14.0
