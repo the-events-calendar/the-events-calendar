@@ -4,6 +4,7 @@
  *
  * @since 5.14.0
  * @since TBD Deprecated
+ * @deprecated
  */
 _deprecated_file( __FILE__, 'TBD', 'src/admin-views/settings/upsells/filter_bar.php' );
 $main = Tribe__Events__Main::instance();
