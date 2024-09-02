@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.6.1\n"
+"Project-Id-Version: The Events Calendar 6.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-05T09:08:33-07:00\n"
-"PO-Revision-Date: 2024-08-05 16:08\n"
+"POT-Creation-Date: 2024-08-16T09:14:12-07:00\n"
+"PO-Revision-Date: 2024-08-16 16:14\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -19,7 +19,7 @@ msgstr ""
 #: src/admin-views/admin-welcome-message.php:29
 #: src/Events/Integrations/Plugins/Elementor/Controller.php:114
 #: src/Events/Site_Health/Info_Section.php:73
-#: src/functions/template-tags/general.php:1513
+#: src/functions/template-tags/general.php:1514
 #: src/Tribe/Main.php:992
 #: src/Tribe/Main.php:1436
 #: src/Tribe/Privacy.php:29
@@ -1314,7 +1314,7 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:82
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:967
-#: src/Tribe/Importer/Column_Mapper.php:103
+#: src/Tribe/Importer/Column_Mapper.php:112
 msgid "Venue Address"
 msgstr ""
 
@@ -1324,7 +1324,7 @@ msgid "City:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:95
-#: src/Tribe/Importer/Column_Mapper.php:105
+#: src/Tribe/Importer/Column_Mapper.php:114
 msgid "Venue City"
 msgstr ""
 
@@ -1334,7 +1334,7 @@ msgid "Country:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:120
-#: src/Tribe/Importer/Column_Mapper.php:102
+#: src/Tribe/Importer/Column_Mapper.php:111
 msgid "Venue Country"
 msgstr ""
 
@@ -1364,7 +1364,7 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:190
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:894
-#: src/Tribe/Importer/Column_Mapper.php:108
+#: src/Tribe/Importer/Column_Mapper.php:117
 msgid "Venue Phone"
 msgstr ""
 
@@ -1385,7 +1385,7 @@ msgid "When events are sticky in month view, they'll display first in the list o
 msgstr ""
 
 #: src/admin-views/event-sidebar-options.php:31
-#: src/Tribe/Importer/Column_Mapper.php:73
+#: src/Tribe/Importer/Column_Mapper.php:82
 msgid "Feature Event"
 msgstr ""
 
@@ -1420,7 +1420,7 @@ msgid "Time Zone:"
 msgstr ""
 
 #: src/admin-views/events-meta-box.php:149
-#: src/Tribe/Importer/Column_Mapper.php:70
+#: src/Tribe/Importer/Column_Mapper.php:79
 msgid "All Day Event"
 msgstr ""
 
@@ -1883,19 +1883,23 @@ msgid "Hide the search field on all views."
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:259
+msgctxt "The option to remove end times for the single event page view."
 msgid "Single event page"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:260
+msgctxt "The option to remove end times for day view."
 msgid "Day view"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:261
+msgctxt "The option to remove end times for list view."
 msgid "List view"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:262
-msgid "Month view tooltip"
+msgctxt "The option to remove end times for month view."
+msgid "Month view"
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:277
@@ -2228,97 +2232,105 @@ msgstr ""
 msgid "Enable WordPress Custom Fields on events in the classic editor."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:330
+#: src/admin-views/tribe-options-general.php:327
+msgid "Allow duplicate Venues"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:328
+msgid "Allow the creation of duplicate Venues."
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:337
 msgid "This option allows you to automatically move past events to trash."
 msgstr ""
 
 #. Translators: %1$d - number of days, %2$s - `EMPTY_TRASH_DAYS` constant (code), %3$s - link to the documentation
-#: src/admin-views/tribe-options-general.php:335
+#: src/admin-views/tribe-options-general.php:342
 msgid "Trashed events will permanently be deleted in %1$d days, you can change that value using <code>%2$s</code>. <a href=\"%3$s\" rel=\"noopener noreferrer\" target=\"_blank\">Read more.</a>"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:346
+#: src/admin-views/tribe-options-general.php:353
 msgctxt "Title for the maintenance section of the general settings."
 msgid "Maintenance"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:350
-msgid "Move to trash events older than"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:356
-#: src/admin-views/tribe-options-general.php:374
-#: src/Tribe/Views/V2/Hooks.php:1371
-msgid "Disabled"
-msgstr ""
-
 #: src/admin-views/tribe-options-general.php:357
-#: src/admin-views/tribe-options-general.php:375
-msgid "1 month"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:358
-#: src/admin-views/tribe-options-general.php:376
-msgid "3 months"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:359
-#: src/admin-views/tribe-options-general.php:377
-msgid "6 months"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:360
-#: src/admin-views/tribe-options-general.php:378
-msgid "9 months"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:361
-#: src/admin-views/tribe-options-general.php:379
-msgid "1 year"
-msgstr ""
-
-#: src/admin-views/tribe-options-general.php:362
-#: src/admin-views/tribe-options-general.php:380
-msgid "2 years"
+msgid "Move to trash events older than"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:363
 #: src/admin-views/tribe-options-general.php:381
-msgid "3 years"
+#: src/Tribe/Views/V2/Hooks.php:1286
+msgid "Disabled"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:364
+#: src/admin-views/tribe-options-general.php:382
+msgid "1 month"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:365
+#: src/admin-views/tribe-options-general.php:383
+msgid "3 months"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:366
+#: src/admin-views/tribe-options-general.php:384
+msgid "6 months"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:367
+#: src/admin-views/tribe-options-general.php:385
+msgid "9 months"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:368
-msgid "Permanently delete events older than"
+#: src/admin-views/tribe-options-general.php:386
+msgid "1 year"
 msgstr ""
 
 #: src/admin-views/tribe-options-general.php:369
+#: src/admin-views/tribe-options-general.php:387
+msgid "2 years"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:370
+#: src/admin-views/tribe-options-general.php:388
+msgid "3 years"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:375
+msgid "Permanently delete events older than"
+msgstr ""
+
+#: src/admin-views/tribe-options-general.php:376
 msgid "This option allows you to bulk delete past events. Be careful and backup your database before removing your events as there is no way to reverse the changes."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:386
+#: src/admin-views/tribe-options-general.php:393
 msgid "Merge duplicate Venues &amp; Organizers"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:386
+#: src/admin-views/tribe-options-general.php:393
 #: src/Tribe/Amalgamator.php:455
 msgid "Merge Duplicates"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:386
+#: src/admin-views/tribe-options-general.php:393
 msgid "Click this button to automatically merge identical venues and organizers."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:396
+#: src/admin-views/tribe-options-general.php:403
 msgctxt "Title for the debugging section of the general settings."
 msgid "Debugging"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:408
+#: src/admin-views/tribe-options-general.php:415
 msgid "There is a solution for every problem"
 msgstr ""
 
 #. Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag
-#: src/admin-views/tribe-options-general.php:414
+#: src/admin-views/tribe-options-general.php:421
 msgid "%1$sSometimes things just don’t work as expected. The %2$stroubleshooting page%3$s has a wealth of resources to get you back on track.%4$s"
 msgstr ""
 
@@ -2644,12 +2656,12 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#. Translators: %1$s and %2$s - opening and closing strong tags, respectively.
-#: src/Events/Admin/Notice/Rest_Api.php:137
+#. translators: %1$s and %2$s - opening and closing strong tags, respectively.
+#: src/Events/Admin/Notice/Rest_Api.php:133
 msgid "%1$sWarning%2$s: The Events Calendar REST API endpoints are not accessible! This may be due to a server configuration or another plugin blocking access to the REST API."
 msgstr ""
 
-#: src/Events/Admin/Notice/Rest_Api.php:142
+#: src/Events/Admin/Notice/Rest_Api.php:138
 msgid "Please check with your hosting provider or system administrator to ensure that the below is accessible:"
 msgstr ""
 
@@ -3336,7 +3348,7 @@ msgid "Content Styles"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:44
-#: src/Tribe/Importer/Column_Mapper.php:78
+#: src/Tribe/Importer/Column_Mapper.php:87
 msgid "Event Cost"
 msgstr ""
 
@@ -3863,7 +3875,7 @@ msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:53
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:344
-#: src/Tribe/Importer/Column_Mapper.php:83
+#: src/Tribe/Importer/Column_Mapper.php:92
 msgid "Event Tags"
 msgstr ""
 
@@ -3972,7 +3984,7 @@ msgid "Venue Header"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:855
-#: src/Tribe/Importer/Column_Mapper.php:100
+#: src/Tribe/Importer/Column_Mapper.php:109
 msgid "Venue Name"
 msgstr ""
 
@@ -3990,7 +4002,7 @@ msgid "Map Link"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1062
-#: src/Tribe/Importer/Column_Mapper.php:109
+#: src/Tribe/Importer/Column_Mapper.php:118
 msgid "Venue Website"
 msgstr ""
 
@@ -3999,7 +4011,7 @@ msgid "Venue Map"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Website.php:53
-#: src/Tribe/Importer/Column_Mapper.php:84
+#: src/Tribe/Importer/Column_Mapper.php:93
 #: src/modules/blocks/event-website/index.js:22
 msgid "Event Website"
 msgstr ""
@@ -4114,7 +4126,7 @@ msgstr ""
 #: src/Events/Integrations/Plugins/Event_Tickets/Emails/Emails.php:97
 #: src/Events/Integrations/Plugins/Tickets_Wallet_Plus/Passes/Pdf.php:178
 #: src/functions/template-tags/venue.php:576
-#: src/Tribe/Venue.php:460
+#: src/Tribe/Venue.php:463
 msgid "United States"
 msgstr ""
 
@@ -4274,13 +4286,13 @@ msgstr[1] ""
 msgid "Loading %s"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1409
+#: src/functions/template-tags/general.php:1410
 #: src/views/v2/widgets/widget-events-list/event/date.php:26
 msgctxt "All day label for event"
 msgid "All day"
 msgstr ""
 
-#: src/functions/template-tags/general.php:1513
+#: src/functions/template-tags/general.php:1514
 msgid "Calendar powered by %s"
 msgstr ""
 
@@ -4378,7 +4390,7 @@ msgstr ""
 #: src/Tribe/Organizer.php:103
 #: src/Tribe/Organizer.php:812
 #: src/Tribe/Venue.php:165
-#: src/Tribe/Venue.php:955
+#: src/Tribe/Venue.php:958
 msgid "Edit %s"
 msgstr ""
 
@@ -6471,136 +6483,136 @@ msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To 
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Importer/Column_Mapper.php:43
+#: src/Tribe/Importer/Column_Mapper.php:52
 msgid "Do Not Import"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:62
+#: src/Tribe/Importer/Column_Mapper.php:71
 msgid "Event Name"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:63
+#: src/Tribe/Importer/Column_Mapper.php:72
 msgid "Event Description"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:64
+#: src/Tribe/Importer/Column_Mapper.php:73
 msgid "Event Excerpt"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:65
+#: src/Tribe/Importer/Column_Mapper.php:74
 msgid "Event Start Date"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:66
+#: src/Tribe/Importer/Column_Mapper.php:75
 msgid "Event Start Time"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:67
+#: src/Tribe/Importer/Column_Mapper.php:76
 msgid "Event End Date"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:68
+#: src/Tribe/Importer/Column_Mapper.php:77
 msgid "Event End Time"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:69
+#: src/Tribe/Importer/Column_Mapper.php:78
 msgid "Event Time Zone"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:71
+#: src/Tribe/Importer/Column_Mapper.php:80
 msgid "Hide Event From Event Listings"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:72
+#: src/Tribe/Importer/Column_Mapper.php:81
 msgid "Event Sticky in Month View"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:74
+#: src/Tribe/Importer/Column_Mapper.php:83
 msgid "Event Venue Name"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:75
+#: src/Tribe/Importer/Column_Mapper.php:84
 msgid "Event Organizer Name(s) or ID(s)"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:76
+#: src/Tribe/Importer/Column_Mapper.php:85
 msgid "Event Show Map Link"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:77
+#: src/Tribe/Importer/Column_Mapper.php:86
 msgid "Event Show Map"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:79
+#: src/Tribe/Importer/Column_Mapper.php:88
 msgid "Event ISO Currency Code"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:80
+#: src/Tribe/Importer/Column_Mapper.php:89
 msgid "Event Currency Symbol"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:81
+#: src/Tribe/Importer/Column_Mapper.php:90
 msgid "Event Currency Position"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:82
+#: src/Tribe/Importer/Column_Mapper.php:91
 #: src/modules/blocks/event-category/block.js:26
 msgid "Event Category"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:85
+#: src/Tribe/Importer/Column_Mapper.php:94
 msgid "Event Featured Image"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:86
+#: src/Tribe/Importer/Column_Mapper.php:95
 msgid "Event Allow Comments"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:87
+#: src/Tribe/Importer/Column_Mapper.php:96
 msgid "Event Allow Trackbacks and Pingbacks"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:101
+#: src/Tribe/Importer/Column_Mapper.php:110
 msgid "Venue Description"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:104
+#: src/Tribe/Importer/Column_Mapper.php:113
 msgid "Venue Address 2"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:106
+#: src/Tribe/Importer/Column_Mapper.php:115
 msgid "Venue State/Province"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:107
+#: src/Tribe/Importer/Column_Mapper.php:116
 msgid "Venue Zip"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:110
+#: src/Tribe/Importer/Column_Mapper.php:119
 msgid "Venue Featured Image"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:123
+#: src/Tribe/Importer/Column_Mapper.php:132
 msgid "Organizer Name"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:124
+#: src/Tribe/Importer/Column_Mapper.php:133
 msgid "Organizer Description"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:125
+#: src/Tribe/Importer/Column_Mapper.php:134
 msgid "Organizer Email"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:126
+#: src/Tribe/Importer/Column_Mapper.php:135
 msgid "Organizer Website"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:127
+#: src/Tribe/Importer/Column_Mapper.php:136
 msgid "Organizer Phone"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:128
+#: src/Tribe/Importer/Column_Mapper.php:137
 msgid "Organizer Featured Image"
 msgstr ""
 
@@ -8459,7 +8471,7 @@ msgctxt "Metabox title"
 msgid "Location"
 msgstr ""
 
-#: src/Tribe/Venue.php:528
+#: src/Tribe/Venue.php:531
 msgid "Unnamed Venue"
 msgstr ""
 
@@ -8742,44 +8754,44 @@ msgstr ""
 msgid "Options selected here will override what was selected in the \"Global Elements\" section on Single Event views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:694
+#: src/Tribe/Views/V2/Hooks.php:609
 msgid "We recommend a 16:9 aspect ratio for featured images."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:781
+#: src/Tribe/Views/V2/Hooks.php:696
 msgid "Recommended for all sites using the updated calendar views."
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:796
+#: src/Tribe/Views/V2/Hooks.php:711
 msgid "The Events Calendar - View V2"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1112
+#: src/Tribe/Views/V2/Hooks.php:1027
 msgctxt "Capitalized label for the event website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1140
+#: src/Tribe/Views/V2/Hooks.php:1055
 msgctxt "Capitalized label for the venue website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1168
+#: src/Tribe/Views/V2/Hooks.php:1083
 msgctxt "Capitalized label for the organizer website link."
 msgid "View %s Website"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1232
+#: src/Tribe/Views/V2/Hooks.php:1147
 msgctxt "The default text label for the \"today\" button on the Month View."
 msgid "This Month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1252
+#: src/Tribe/Views/V2/Hooks.php:1167
 msgctxt "The default text for the 'today' button's title and aria-label on the Week View."
 msgid "Click to select the current month"
 msgstr ""
 
-#: src/Tribe/Views/V2/Hooks.php:1371
+#: src/Tribe/Views/V2/Hooks.php:1286
 msgid "Enabled"
 msgstr ""
 

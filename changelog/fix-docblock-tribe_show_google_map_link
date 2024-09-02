@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
