@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-Updated docblocks in the `Tribe__Events__Repositories__Organizer` class
+Updated the docblocks in the `Tribe__Events__Repositories__Organizer` class.
