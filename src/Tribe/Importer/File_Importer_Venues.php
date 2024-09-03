@@ -40,15 +40,16 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
+	 * @since TBD Add code to allow importing custom data.
 	 *
-	 * @param int                   $venue_id The ID of the venue we're currently importing.
-	 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
+	 * @param int   $venue_id The ID of the venue we're currently importing.
+	 * @param array $record   The event record from the import file. Only contains mapped values.
 	 *                                        Useful if value and key above don't appear to match what's expected.
 	 *                                        In the format [ mapped_key => value ].
 	 *
 	 * @return array $venue The array of venue data for creation/update.
 	 */
-	private function build_venue_array( $venue_id, array $record ) {
+	private function build_venue_array( int $venue_id, array $record ): array {
 		$venue   = [];
 		$columns = [
 			'Venue'       => 'venue_name',
