@@ -40,10 +40,6 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$meetup_token_html = ob_get_clean();
 
 	$internal_meetup = [
-		'tec-events-settings-meetup-separator' => [
-			'type' => 'html',
-			'html' => '<hr class="tec_settings__separator--section">',
-		],
 		'meetup-start'                         => [
 			'type' => 'html',
 			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
@@ -53,6 +49,8 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 			'html' => $meetup_token_html,
 		],
 	];
+
+	$internal_meetup = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-meetup', $internal_meetup );
 
 	$internal = array_merge( $internal, $internal_meetup );
 
@@ -91,10 +89,6 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_op
 	$eventbrite_token_html = ob_get_clean();
 
 	$internal2 = [
-		'tec-events-settings-eventbrite-separator' => [
-			'type' => 'html',
-			'html' => '<hr class="tec_settings__separator--section">',
-		],
 		'eb-start'                                 => [
 			'type' => 'html',
 			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
@@ -104,6 +98,8 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_op
 			'html' => $eventbrite_token_html,
 		],
 	];
+
+	$internal2 = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-eventbrite', $internal2 );
 
 	$internal = array_merge( $internal, $internal2 );
 }

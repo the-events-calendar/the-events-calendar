@@ -41,7 +41,6 @@ $tribe_enable_views_tooltip = apply_filters(
 	esc_html__( 'You must select at least one view.', 'the-events-calendar' )
 );
 
-$hr_element             = new Separator( new Classes( [ 'tec_settings__separator--section' ] ) );
 $section_header_classes = new Classes( [ 'tec-settings__section-header', 'tec-settings__section-header--sub' ] );
 
 $tec_events_display_calendar = [
@@ -62,12 +61,15 @@ $tec_events_display_calendar = [
 			),
 		]
 	),
-	$hr_element,
-	( new Heading(
-		_x( 'Calendar Template', 'Calendar template display settings header', 'the-events-calendar' ),
-		3,
-		$section_header_classes
-	) ),
+];
+
+$calendar_template_section = [
+	'calendar_template_header'                  => [
+		'type'  => 'html',
+		'html'  => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">'
+			. esc_html_x( 'Calendar Template', 'Calendar template display settings header', 'the-events-calendar' )
+			. '</h3>',
+	],
 	'stylesheet_mode'                                => [
 		'type'            => 'radio',
 		'label'           => __( 'Default stylesheet used for events templates', 'the-events-calendar' ),
@@ -101,12 +103,19 @@ $tec_events_display_calendar = [
 		'options'         => $template_options,
 		'conditional'     => $tec_events_should_display_events_templates,
 	],
-	$hr_element,
-	( new Heading(
-		_x( 'Calendar Display', 'Calendar views display settings header', 'the-events-calendar' ),
-		3,
-		$section_header_classes
-	) ),
+];
+
+$calendar_template_section = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-calendar-template', $calendar_template_section );
+
+$tec_events_display_calendar += $calendar_template_section;
+
+$calendar_display_section = [
+	'calendar_display_header'                  => [
+		'type'  => 'html',
+		'html'  => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">'
+			. esc_html_x( 'Calendar Display', 'Calendar display display settings header', 'the-events-calendar' )
+			. '</h3>',
+	],
 	'tribeEnableViews'                               => [
 		'type'            => 'checkbox_list',
 		'label'           => __( 'Enable event views', 'the-events-calendar' ),
@@ -169,6 +178,12 @@ $tec_events_display_calendar = [
 		'validation_type' => 'boolean',
 	],
 ];
+
+$calendar_display_section = apply_filters( 'tec_events_settings_display_calendar_display_section', $calendar_display_section );
+
+$calendar_display_section = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-calendar-display', $calendar_display_section );
+
+$tec_events_display_calendar += $calendar_display_section;
 
 $display_calendar = new Tribe__Settings_Tab(
 	'display-calendar-tab',
