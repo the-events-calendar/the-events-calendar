@@ -30,7 +30,6 @@ class Provider extends Service_Provider {
 		$providers = [
 			Filter_Bar_Upsell::class,
 			Community_Upsell::class,
-//			Event_Aggregator_Upsell::class,
 		];
 
 		foreach ( $providers as $provider ) {
@@ -70,7 +69,6 @@ class Provider extends Service_Provider {
 	public function filter_tribe_settings_wrap_classes( $classes, $admin_page ): array {
 		if ( $admin_page !== Settings::$settings_page_id ) {
 			return $classes;
-
 		}
 
 		$classes[] = 'tec-events-admin-settings';
