@@ -12,7 +12,7 @@ $tec_events_display_currency = [];
 $tec_events_display_currency = [
 	'tribe-events-currency-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-currency" class="tec-settings__section-header">' . esc_html_x( 'Currency', 'Currency settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-events-settings-display-currency" class="tec-settings-form__section-header">' . esc_html_x( 'Currency', 'Currency settings section header', 'the-events-calendar' ) . '</h3>',
 	],
 ];
 

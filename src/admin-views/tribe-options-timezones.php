@@ -15,7 +15,7 @@ $enable_button_html = <<<HTML
 	<fieldset class="tribe-field tribe-field-html">
 		<legend> $enable_button_label </legend>
 		<div class="tribe-field-wrap">
-			<a href="$enable_button_url" class="button tec-settings__button"> $enable_button_text </a>
+			<a href="$enable_button_url" class="button tec-settings-form__button"> $enable_button_text </a>
 			<p class="tribe-field-indent description">
 				$enable_button_help
 			</p>

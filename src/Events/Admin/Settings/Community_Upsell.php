@@ -87,7 +87,7 @@ class Community_Upsell extends Service_Provider {
 	 * @return array The modified classes for the settings form.
 	 */
 	public function filter_tribe_settings_form_classes( $classes ): array {
-		if ( ! in_array( 'tec-settings__community-tab--active', $classes ) ) {
+		if ( ! in_array( 'tec-settings-form__community-tab--active', $classes ) ) {
 			return $classes;
 		}
 

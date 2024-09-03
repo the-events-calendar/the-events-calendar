@@ -37,7 +37,7 @@ $sidebar->set_header_image(
 	)
 );
 
-$sidebar->set_title( new Heading( __( 'Finding and extending your calendar', 'tribe-common' ), 2, new Classes( 'tec-settings__sidebar-header' ) ) );
+$sidebar->set_title( new Heading( __( 'Finding and extending your calendar', 'tribe-common' ), 2, new Classes( 'tec-settings-form__sidebar-header' ) ) );
 $sidebar->add_section(
 	( new Settings_Section() )
 		->add_elements(
