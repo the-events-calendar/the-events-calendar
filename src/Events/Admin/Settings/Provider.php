@@ -30,7 +30,7 @@ class Provider extends Service_Provider {
 		$providers = [
 			Filter_Bar_Upsell::class,
 			Community_Upsell::class,
-			Event_Aggregator_Upsell::class,
+//			Event_Aggregator_Upsell::class,
 		];
 
 		foreach ( $providers as $provider ) {

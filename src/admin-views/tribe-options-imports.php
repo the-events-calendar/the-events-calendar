@@ -66,7 +66,7 @@ $origin_show_map_options = [ '-1' => $use_global_settings_phrase ] + $yes_no_opt
  *
  * @param bool $show_all_ea_settings Whether to show all EA settings.
  */
-$show_all_ea_settings = (bool) apply_filters( 'tec_events_aggregator_show_all_settings', Tribe__Events__Aggregator::is_service_active() );
+$show_all_ea_settings = (bool) apply_filters( 'tec_events_aggregator_show_all_settings', $events_aggregator_is_active );
 
 /**
  * Helper function for wrapping fields.
@@ -120,17 +120,15 @@ $fields[] = ( new Div( new Classes( [ 'tec_settings__header-block', 'tec_setting
 	]
 );
 
-$fields[] = $hr_element;
-
 // Event Update Authority.
 $event_update_authority = ( new Container() )->add_child(
-	( new Div( $section_header_classes ) )->add_children(
+	( new Div( new Classes( [ 'tec_settings__header-block' ] ) ) )->add_children(
 		[
 			new Heading( __( 'Event Update Authority', 'the-events-calendar' ), 3, $section_header_classes ),
 			( new Paragraph() )->add_child(
 				new Plain_Text(
 					__(
-						'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.',
+						'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar.',
 						'the-events-calendar'
 					),
 				)
@@ -154,12 +152,17 @@ $wrap_fields(
 				'preserve_changes' => __( 'Import events but preserve local changes to event fields.', 'the-events-calendar' ),
 			],
 			'priority'        => 1.3,
-		]
+			'tooltip'         => __(
+				' The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.',
+				'the-events-calendar'
+			),
+			'tooltip_first'   => true,
+		],
 	]
 );
 
 $fields[] = $event_update_authority;
-$fields[] = $hr_element;
+//$fields[] = $hr_element;
 
 // Set up the global import settings.
 $global_import_settings = ( new Container() )->add_child(
