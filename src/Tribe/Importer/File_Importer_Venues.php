@@ -85,17 +85,17 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			/**
 			 * Allows filtering of individual main values before setting.
 			 * Return boolean false to prevent importing that value.
-
+			 *
 			 * @since 5.1.6
 			 *
-			 * @param string                $key    The mapped key for the value we'll be importing.
-			 *                                      From the $columns array above, this would be 'venue_name', for example.
-			 * @param string                $value  The mapped value we'll be importing.
-			 * @param array                 $venue  The entire array of venue data we're modifying.
-			 * @param array <string,string> $record The event record from the import file. Only contains mapped values.
-			 *                                      Useful if value and key above don't appear to match what's expected.
-			 *                                      In the format [ mapped_key => value ].
-			 * @param object                $this   The current instance of Tribe__Events__Importer__File_Importer_Venues.
+			 * @param string               $key    The mapped key for the value we'll be importing.
+			 *                                     From the $columns array above, this would be 'venue_name', for example.
+			 * @param string               $value  The mapped value we'll be importing.
+			 * @param array                $venue  The entire array of venue data we're modifying.
+			 * @param array<string,string> $record The event record from the import file. Only contains mapped values.
+			 *                                     Useful if value and key above don't appear to match what's expected.
+			 *                                     In the format [ mapped_key => value ].
+			 * @param object               $this   The current instance of Tribe__Events__Importer__File_Importer_Venues.
 			 */
 			$value = apply_filters(
 				"tribe_events_importer_venue_{$key}_value",
@@ -123,11 +123,11 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		 * Allows triggering using the default values set in the admin for imported venues.
 		 *
 		 * @since 5.1.6
-		 * @param int                   $venue_id The ID of the venue we're currently importing.
-		 * @param array                 $venue    The array of venue data we're modifying.
-		 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
-		 *                                        Useful if value and key above don't appear to match what's expected.
-		 *                                        In the format [ mapped_key => value ].
+		 * @param int                  $venue_id The ID of the venue we're currently importing.
+		 * @param array                $venue    The array of venue data we're modifying.
+		 * @param array<string,string> $record   The event record from the import file. Only contains mapped values.
+		 *                                       Useful if value and key above don't appear to match what's expected.
+		 *                                       In the format [ mapped_key => value ].
 		 */
 		$set_defaults = apply_filters(
 			'tribe_events_importer_set_default_venue_import_values',
