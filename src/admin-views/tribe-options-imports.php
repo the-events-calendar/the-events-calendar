@@ -7,6 +7,7 @@
 
 declare( strict_types=1 );
 
+use TEC\Common\Admin\Entities\Br;
 use TEC\Common\Admin\Entities\Container;
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Field_Wrapper;
@@ -97,28 +98,53 @@ $hr_element             = new Separator( new Classes( [ 'tec-settings-form__sepa
 $import_page            = new Container();
 $section_header_classes = new Classes( [ 'tec-settings-form__section-header', 'tec-settings-form__section-header--sub' ] );
 $empty_space            = new Plain_Text( ' ' );
+$description_classes    = new Classes( [ 'tec-settings-form__section-description' ] );
 
 // Start the fields array.
 $fields = [];
 
 // Header section.
-$fields[] = ( new Div( new Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) ) )->add_children(
-	[
-		new Heading( __( 'Imports', 'tribe-common' ), 2, new Classes( [ 'tec-settings-form__section-header' ] ) ),
-		( new Paragraph( new Classes( [ 'tec-settings-form__section-description' ] ) ) )->add_children(
+$header = new Div( new Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) );
+$header->add_child(
+	new Heading( __( 'Imports', 'the-events-calendar' ), 2, new Classes( [ 'tec-settings-form__section-header' ] ) )
+);
+
+// Add the correct header text based on whether the Events Aggregator is active.
+if ( $events_aggregator_is_active ) {
+	$header->add_child(
+		( new Paragraph( $description_classes ) )->add_children(
 			[
-				new Plain_Text( __( 'Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'tribe-common' ) ),
+				new Plain_Text( __( 'Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'the-events-calendar' ) ),
 				$empty_space,
-				new Plain_Text( __( 'Check your Event Aggregator Service Status on the', 'tribe-common' ) ),
+				new Plain_Text( __( 'Check your Event Aggregator Service Status on the', 'the-events-calendar' ) ),
 				$empty_space,
 				new Link(
 					tribe( 'tec.main' )->settings()->get_url( [ 'page' => 'tec-troubleshooting' ] ),
 					__( 'Troubleshooting Page', 'the-events-calendar' )
 				),
 			]
-		),
-	]
-);
+		)
+	);
+} else {
+	$header->add_children(
+		[
+			( new Paragraph( $description_classes ) )->add_child(
+				new Plain_Text( __( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ) ),
+			),
+			new Br(),
+			( new Paragraph( $description_classes ) )->add_child(
+				new Link(
+					'https://evnt.is/196z',
+					__( 'Check out Event Aggregator', 'the-events-calendar' )
+				)
+			),
+		]
+	);
+}
+
+
+$fields[] = $header;
+
 
 // Event Update Authority.
 $event_update_authority = ( new Container() )->add_child(
