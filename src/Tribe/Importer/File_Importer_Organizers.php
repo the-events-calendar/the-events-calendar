@@ -48,7 +48,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	 *
 	 * @return array $organizer The array of organizer data for creation/update.
 	 */
-	private function build_organizer_array( int $organizer_id, array $record ): array {
+	private function build_organizer_array( int $organizer_id, array $record ) {
 		$organizer = [];
 		$columns   = [
 			'Organizer'   => 'organizer_name',
