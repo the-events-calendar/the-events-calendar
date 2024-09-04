@@ -49,7 +49,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 *
 	 * @return array $venue The array of venue data for creation/update.
 	 */
-	private function build_venue_array( int $venue_id, array $record ): array {
+	private function build_venue_array( int $venue_id, array $record ) {
 		$venue   = [];
 		$columns = [
 			'Venue'       => 'venue_name',
@@ -173,7 +173,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 				}
 			}
 		}
-		
+
 		/**
 		 * Allows filtering of values before import.
 		 *
