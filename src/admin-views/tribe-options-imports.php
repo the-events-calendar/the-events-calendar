@@ -131,7 +131,6 @@ if ( $events_aggregator_is_active ) {
 			( new Paragraph( $description_classes ) )->add_child(
 				new Plain_Text( __( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ) ),
 			),
-			new Br(),
 			( new Paragraph( $description_classes ) )->add_child(
 				new Link(
 					'https://evnt.is/196z',
