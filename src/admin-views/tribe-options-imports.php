@@ -188,7 +188,6 @@ $wrap_fields(
 );
 
 $fields[] = $event_update_authority;
-//$fields[] = $hr_element;
 
 // Set up the global import settings.
 $global_import_settings = ( new Container() )->add_child(
