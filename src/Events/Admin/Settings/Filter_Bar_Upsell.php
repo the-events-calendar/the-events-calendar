@@ -87,7 +87,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * @return array The modified classes for the settings form.
 	 */
 	public function filter_tribe_settings_form_classes( $classes ): array {
-		if ( ! in_array( "tec-settings__{$this->slug}-tab--active", $classes ) ) {
+		if ( ! in_array( "tec-settings-form__{$this->slug}-tab--active", $classes ) ) {
 			return $classes;
 		}
 

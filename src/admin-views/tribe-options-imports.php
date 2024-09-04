@@ -7,6 +7,7 @@
 
 declare( strict_types=1 );
 
+use TEC\Common\Admin\Entities\Br;
 use TEC\Common\Admin\Entities\Container;
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Field_Wrapper;
@@ -66,7 +67,7 @@ $origin_show_map_options = [ '-1' => $use_global_settings_phrase ] + $yes_no_opt
  *
  * @param bool $show_all_ea_settings Whether to show all EA settings.
  */
-$show_all_ea_settings = (bool) apply_filters( 'tec_events_aggregator_show_all_settings', Tribe__Events__Aggregator::is_service_active() );
+$show_all_ea_settings = (bool) apply_filters( 'tec_events_aggregator_show_all_settings', $events_aggregator_is_active );
 
 /**
  * Helper function for wrapping fields.
@@ -93,42 +94,67 @@ $wrap_fields = function ( Container $container, array $fields ) {
 };
 
 // Common elements.
-$hr_element             = new Separator( new Classes( [ 'tec_settings__separator--section' ] ) );
+$hr_element             = new Separator( new Classes( [ 'tec-settings-form__separator--section' ] ) );
 $import_page            = new Container();
-$section_header_classes = new Classes( [ 'tec-settings__section-header', 'tec-settings__section-header--sub' ] );
+$section_header_classes = new Classes( [ 'tec-settings-form__section-header', 'tec-settings-form__section-header--sub' ] );
+$empty_space            = new Plain_Text( ' ' );
+$description_classes    = new Classes( [ 'tec-settings-form__section-description' ] );
 
 // Start the fields array.
 $fields = [];
 
 // Header section.
-$fields[] = ( new Div( new Classes( [ 'tec_settings__header-block', 'tec_settings__header-block--horizontal' ] ) ) )->add_children(
-	[
-		new Heading( __( 'Imports', 'tribe-common' ), 2, new Classes( [ 'tec_settings__section-header' ] ) ),
-		( new Paragraph( new Classes( [ 'tec_settings__section-description' ] ) ) )->add_children(
+$header = new Div( new Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) );
+$header->add_child(
+	new Heading( __( 'Imports', 'the-events-calendar' ), 2, new Classes( [ 'tec-settings-form__section-header' ] ) )
+);
+
+// Add the correct header text based on whether the Events Aggregator is active.
+if ( $events_aggregator_is_active ) {
+	$header->add_child(
+		( new Paragraph( $description_classes ) )->add_children(
 			[
-				new Plain_Text( __( 'Use the options below to configure your imports. Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'tribe-common' ) ),
-				new Plain_Text( __( 'Check your Event Aggregator Service Status on the', 'tribe-common' ) ),
-				new Plain_Text( ' ' ),
+				new Plain_Text( __( 'Global Import Settings apply to all imports, but you can also override the global settings by adjusting the origin-specific options.', 'the-events-calendar' ) ),
+				$empty_space,
+				new Plain_Text( __( 'Check your Event Aggregator Service Status on the', 'the-events-calendar' ) ),
+				$empty_space,
 				new Link(
 					tribe( 'tec.main' )->settings()->get_url( [ 'page' => 'tec-troubleshooting' ] ),
 					__( 'Troubleshooting Page', 'the-events-calendar' )
 				),
 			]
-		),
-	]
-);
+		)
+	);
+} else {
+	$header->add_children(
+		[
+			( new Paragraph( $description_classes ) )->add_child(
+				new Plain_Text( __( 'Use the options below to configure your imports. Looking for more ways to import events from other websites?', 'the-events-calendar' ) ),
+			),
+			new Br(),
+			( new Paragraph( $description_classes ) )->add_child(
+				new Link(
+					'https://evnt.is/196z',
+					__( 'Check out Event Aggregator', 'the-events-calendar' )
+				)
+			),
+		]
+	);
+}
 
-$fields[] = $hr_element;
+
+$fields[] = $header;
+
 
 // Event Update Authority.
 $event_update_authority = ( new Container() )->add_child(
-	( new Div( $section_header_classes ) )->add_children(
+	( new Div( new Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
 		[
 			new Heading( __( 'Event Update Authority', 'the-events-calendar' ), 3, $section_header_classes ),
 			( new Paragraph() )->add_child(
 				new Plain_Text(
 					__(
-						'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.',
+						'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar.',
 						'the-events-calendar'
 					),
 				)
@@ -152,12 +178,16 @@ $wrap_fields(
 				'preserve_changes' => __( 'Import events but preserve local changes to event fields.', 'the-events-calendar' ),
 			],
 			'priority'        => 1.3,
-		]
+			'tooltip'         => __(
+				' The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.',
+				'the-events-calendar'
+			),
+			'tooltip_first'   => true,
+		],
 	]
 );
 
 $fields[] = $event_update_authority;
-$fields[] = $hr_element;
 
 // Set up the global import settings.
 $global_import_settings = ( new Container() )->add_child(
@@ -696,7 +726,14 @@ $imports_tab = new Tribe__Settings_Tab(
 	esc_html__( 'Imports', 'the-events-calendar' ),
 	[
 		'priority' => 50,
-		'fields'   => $fields,
+		/**
+		 * Filter the fields for the imports settings tab.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $fields The fields for the imports settings tab.
+		 */
+		'fields'   => apply_filters( 'tec_events_settings_tab_imports_fields', $fields ),
 	]
 );
 

@@ -31,12 +31,12 @@ $end_time_options = [
 $end_time_options = apply_filters( 'tec_events_display_remove_event_end_time_options', $end_time_options );
 
 $tec_events_display_date = [
-	( new Div( new Classes( [ 'tec_settings__header-block' ] ) ) )->add_children(
+	( new Div( new Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
 		[
 			new Heading(
 				_x( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ),
 				2,
-				new Classes( [ 'tec-settings__section-header' ] )
+				new Classes( [ 'tec-settings-form__section-header' ] )
 			),
 			// @todo: Need to create a <code> element.
 			( new Field_Wrapper(

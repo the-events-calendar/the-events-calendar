@@ -41,17 +41,17 @@ $tribe_enable_views_tooltip = apply_filters(
 	esc_html__( 'You must select at least one view.', 'the-events-calendar' )
 );
 
-$section_header_classes = new Classes( [ 'tec-settings__section-header', 'tec-settings__section-header--sub' ] );
+$section_header_classes = new Classes( [ 'tec-settings-form__section-header', 'tec-settings-form__section-header--sub' ] );
 
 $tec_events_display_calendar = [
-	( new Div( new Classes( [ 'tec_settings__header-block', 'tec_settings__header-block--horizontal' ] ) ) )->add_children(
+	( new Div( new Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) ) )->add_children(
 		[
 			new Heading(
 				_x( 'Calendar', 'Calendar display settings header', 'the-events-calendar' ),
 				2,
-				new Classes( [ 'tec-settings__section-header' ] )
+				new Classes( [ 'tec-settings-form__section-header' ] )
 			),
-			( new Paragraph( new Classes( [ 'tec_settings__section-description' ] ) ) )->add_child(
+			( new Paragraph( new Classes( [ 'tec-settings-form__section-description' ] ) ) )->add_child(
 				new Plain_Text(
 					__(
 						"The settings below control the display of your calendar. If things don't look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). Check out our customization guide for instructions on template modifications.",
@@ -66,7 +66,7 @@ $tec_events_display_calendar = [
 $calendar_template_section = [
 	'calendar_template_header'                  => [
 		'type'  => 'html',
-		'html'  => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">'
+		'html'  => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
 			. esc_html_x( 'Calendar Template', 'Calendar template display settings header', 'the-events-calendar' )
 			. '</h3>',
 	],
@@ -112,7 +112,7 @@ $tec_events_display_calendar += $calendar_template_section;
 $calendar_display_section = [
 	'calendar_display_header'                  => [
 		'type'  => 'html',
-		'html'  => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">'
+		'html'  => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
 			. esc_html_x( 'Calendar Display', 'Calendar display display settings header', 'the-events-calendar' )
 			. '</h3>',
 	],

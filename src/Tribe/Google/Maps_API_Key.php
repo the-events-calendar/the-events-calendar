@@ -75,7 +75,7 @@ class Tribe__Events__Google__Maps_API_Key {
 		$gmaps_api_fields = [
 			'gmaps-js-api-start' => [
 				'type' => 'html',
-				'html' => '<h3 id="tec-events-pro-defaults-licenses-title" class="tec-settings__section-header tec-settings__section-header--sub">'
+				'html' => '<h3 id="tec-events-pro-defaults-licenses-title" class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
 				. esc_html__( 'Google Maps API', 'the-events-calendar' )
 				. '</h3>',
 			],

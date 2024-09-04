@@ -42,7 +42,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$internal_meetup = [
 		'meetup-start'                         => [
 			'type' => 'html',
-			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
+			'html' => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
 		],
 		'meetup_token_button'                  => [
 			'type' => 'html',
@@ -91,7 +91,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_op
 	$internal2 = [
 		'eb-start'                                 => [
 			'type' => 'html',
-			'html' => '<h3 class="tec-settings__section-header tec-settings__section-header--sub">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
+			'html' => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
 		],
 		'eb_token_button'                          => [
 			'type' => 'html',
@@ -109,11 +109,11 @@ $internal = apply_filters( 'tribe_addons_tab_fields', $internal );
 $info_box = [
 	'tec-settings-addons-title' => [
 		'type' => 'html',
-		'html' => '<div class="tec_settings__header-block tec_settings__header-block--horizontal">'
-				. '<h3 id="tec-settings-addons-title" class="tec-settings__section-header">'
+		'html' => '<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">'
+				. '<h3 id="tec-settings-addons-title" class="tec-settings-form__section-header">'
 				. _x( 'Integrations', 'Integrations section header', 'tribe-common' )
 				. '</h3>'
-				. '<p class="tec_settings__section-description">'
+				. '<p class="tec-settings-form__section-description">'
 				. esc_html__( 'The Events Calendar, Event Tickets and their add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations.', 'tribe-common' )
 				. '</p>'
 				. '</div>',

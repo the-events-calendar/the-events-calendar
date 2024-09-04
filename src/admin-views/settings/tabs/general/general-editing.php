@@ -13,7 +13,7 @@ $should_hide_upsell                = tec_should_hide_upsell();
 $tec_events_general_editing = [
 	'tec-events-settings-general-editing-title' => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-general-editing" class="tec-settings__section-header">' . esc_html_x( 'Editing', 'Title for the editing section of the general settings.', 'the-events-calendar' ) . '</h3>',
+		'html' => '<h3 id="tec-settings-general-editing" class="tec-settings-form__section-header">' . esc_html_x( 'Editing', 'Title for the editing section of the general settings.', 'the-events-calendar' ) . '</h3>',
 	],
 	'tec-aggregator-infobox-start'              => [
 		'type'        => 'html',
