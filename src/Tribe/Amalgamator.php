@@ -460,7 +460,7 @@ class Tribe__Events__Amalgamator {
 		$url = add_query_arg( [ 'amalgamate' => '1' ], $url );
 		$url = wp_nonce_url( $url, 'amalgamate_duplicates' );
 
-		return sprintf( '<a href="%s" class="button tec-settings-form__button">%s</a>', $url, $text );
+		return sprintf( '<a href="%s" class="button-secondary">%s</a>', $url, $text );
 	}
 
 	/**
