@@ -92,6 +92,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$this->limit                   = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 	}
 
+	/**
+	 * Create a map and an inverted map of the columns to be imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param array $map_array The array of columns that are being used in the import.
+	 *
+	 * @return void
+	 */
 	public function set_map( array $map_array ) {
 		$this->map          = $map_array;
 		$this->inverted_map = array_flip( $this->map );
