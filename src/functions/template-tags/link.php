@@ -328,7 +328,7 @@ function tribe_get_listview_prev_link( $term = null ) {
  *
  * @since 3.11
  *
- * @param int|null $term Optional. The term ID for filtering events by category or taxonomy.
+ * @param int|null $term Optional. The term ID for filtering events by the specific taxonomy's term.
  *                       Defaults to null, meaning no specific term filtering.
  *
  * @return string The URL to the next page of the list view.
