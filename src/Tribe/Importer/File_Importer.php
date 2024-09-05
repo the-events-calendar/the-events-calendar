@@ -16,6 +16,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 	/** @var Tribe__Events__Importer__File_Reader */
 	private $reader   = null;
+
+	/**
+	 * Stores the column names being imported in an indexed array where the indices are the positions of the columns
+	 * in the file being imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var array
+	 */
 	private $map = [];
 	private $type     = '';
 	private $limit    = 100;
@@ -27,6 +36,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 	protected $log = [];
 
 	protected $skipped = [];
+
+	/**
+	 * Stores the column names being imported in an associative array where the keys are the column names,
+	 * and the values are the positions of the columns in the file being imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var array
+	 */
 	protected $inverted_map = [];
 
 	public $is_aggregator = false;
