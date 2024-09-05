@@ -98,6 +98,7 @@ $import_page            = new Container();
 $section_header_classes = new Classes( [ 'tec-settings-form__section-header', 'tec-settings-form__section-header--sub' ] );
 $empty_space            = new Plain_Text( ' ' );
 $description_classes    = new Classes( [ 'tec-settings-form__section-description' ] );
+$content_block          = new Div( new Classes( [ 'tec-settings-form__content-section' ] ) );
 
 // Start the fields array.
 $fields = [];
@@ -143,11 +144,11 @@ if ( $events_aggregator_is_active ) {
 $fields[] = $header;
 
 // Event Update Authority.
-$event_update_authority = ( new Container() )->add_child(
+$event_update_authority = ( clone $content_block )->add_child(
 	( new Div( new Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
 		[
 			new Heading( __( 'Event Update Authority', 'the-events-calendar' ), 3, $section_header_classes ),
-			( new Paragraph() )->add_child(
+			( new Paragraph( $description_classes ) )->add_child(
 				new Plain_Text(
 					__(
 						'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar.',
@@ -186,7 +187,7 @@ $wrap_fields(
 $fields[] = $event_update_authority;
 
 // Set up the global import settings.
-$global_import_settings = ( new Container() )->add_child(
+$global_import_settings = ( clone $content_block )->add_child(
 	new Heading( __( 'Global Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
 );
 
@@ -306,11 +307,10 @@ $wrap_fields(
 // Only add these items if the Events Aggregator is active.
 if ( $show_all_ea_settings ) {
 	$fields[] = $global_import_settings;
-	$fields[] = $hr_element;
 }
 
 // Set up the CSV import settings.
-$csv_import_settings = ( new Container() )->add_child(
+$csv_import_settings = ( clone $content_block )->add_child(
 	new Heading( __( 'CSV Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
 );
 
@@ -347,7 +347,7 @@ $wrap_fields(
 $fields[] = $csv_import_settings;
 
 // Set up Eventbrite Import settings.
-$eventbrite_import_settings = ( new Container() )->add_child(
+$eventbrite_import_settings = ( clone $content_block )->add_child(
 	new Heading( __( 'Eventbrite Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
 );
 
@@ -405,7 +405,7 @@ $wrap_fields(
 );
 
 // Set up iCal settings.
-$ical_import_settings = ( new Container() )->add_child(
+$ical_import_settings = ( clone $content_block )->add_child(
 	new Heading( __( 'iCalendar Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
 );
 
@@ -452,7 +452,7 @@ $wrap_fields(
 );
 
 // Set up ICS import settings.
-$ics_import_settings = ( new Container() )->add_child(
+$ics_import_settings = ( clone $content_block )->add_child(
 	new Heading( __( 'ICS File Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
 );
 
@@ -499,7 +499,7 @@ $wrap_fields(
 );
 
 // Set up Google Calendar settings.
-$google_import_settings = ( new Container() )->add_child(
+$google_import_settings = ( clone $content_block )->add_child(
 	new Heading( __( 'Google Calendar Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
 );
 
@@ -546,21 +546,24 @@ $wrap_fields(
 );
 
 // Setup Meetup import settings.
-$meetup_import_settings = ( new Container() )->add_children(
-	[
-		new Heading( __( 'Meetup Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
-		( new Paragraph() )->add_children(
-			[
-				new Plain_Text(
-					__( 'To import Meetup events, please be sure to add your Meetup API key here:', 'the-events-calendar' )
-				),
-				new Link(
-					tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'addons' ] ),
-					__( 'Events > Settings > Integrations', 'the-events-calendar' )
-				),
-			]
-		),
-	]
+$meetup_import_settings = ( clone $content_block )->add_child(
+	( new Div( new Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
+		[
+			new Heading( __( 'Meetup Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
+			( new Paragraph() )->add_children(
+				[
+					new Plain_Text(
+						__( 'To import Meetup events, please be sure to add your Meetup API key here:', 'the-events-calendar' )
+					),
+					$empty_space,
+					new Link(
+						tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'addons' ] ),
+						__( 'Events > Settings > Integrations', 'the-events-calendar' )
+					),
+				]
+			),
+		]
+	)
 );
 
 $wrap_fields(
@@ -606,7 +609,7 @@ $wrap_fields(
 );
 
 // Set up other URL settings.
-$other_url_settings = ( new Container() )->add_child(
+$other_url_settings = ( clone $content_block )->add_child(
 	new Heading( __( 'Other URL Import Settings', 'the-events-calendar' ), 3, $section_header_classes ),
 );
 
@@ -680,7 +683,7 @@ $wrap_fields(
 );
 
 // Set up the Event Aggregator control.
-$event_aggregator_control = ( new Container() )->add_child(
+$event_aggregator_control = ( clone $content_block )->add_child(
 	new Heading( __( 'Event Aggregator Control', 'the-events-calendar' ), 3, $section_header_classes )
 );
 
