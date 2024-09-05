@@ -40,10 +40,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 	protected $featured_image_uploader;
 
 	/**
-	 * @param string                         $type
-	 * @param Tribe__Events__Importer__File_Reader $file_reader
+	 * Instantiate the relevant importer class.
 	 *
-	 * @return Tribe__Events__Importer__File_Importer
+	 * @since 3.2.0
+	 *
+	 * @param string                               $type        The post type being imported.
+	 * @param Tribe__Events__Importer__File_Reader $file_reader The file reader.
+	 *
+	 * @return Tribe__Events__Importer__File_Importer The importer instance.
 	 * @throws InvalidArgumentException
 	 */
 	public static function get_importer( $type, Tribe__Events__Importer__File_Reader $file_reader ) {
@@ -61,8 +65,8 @@ abstract class Tribe__Events__Importer__File_Importer {
 				/**
 				 * Allows developers to return an importer instance to use for unsupported import types.
 				 *
-				 * @param bool|mixed An importer instance or `false` if not found or not supported.
-				 * @param Tribe__Events__Importer__File_Reader $file_reader
+				 * @param bool|mixed                           $importer    An importer instance or `false` if not found or not supported.
+				 * @param Tribe__Events__Importer__File_Reader $file_reader The file reader.
 				 */
 				$importer = apply_filters( "tribe_events_import_{$type}_importer", false, $file_reader );
 
