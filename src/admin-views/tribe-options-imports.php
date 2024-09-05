@@ -94,7 +94,6 @@ $wrap_fields = function ( Container $container, array $fields ) {
 };
 
 // Common elements.
-$hr_element             = new Separator( new Classes( [ 'tec-settings-form__separator--section' ] ) );
 $import_page            = new Container();
 $section_header_classes = new Classes( [ 'tec-settings-form__section-header', 'tec-settings-form__section-header--sub' ] );
 $empty_space            = new Plain_Text( ' ' );
@@ -141,9 +140,7 @@ if ( $events_aggregator_is_active ) {
 	);
 }
 
-
 $fields[] = $header;
-
 
 // Event Update Authority.
 $event_update_authority = ( new Container() )->add_child(
@@ -704,19 +701,12 @@ $wrap_fields(
 
 // Add the sections if EA is active.
 if ( $show_all_ea_settings ) {
-	$fields[] = $hr_element;
 	$fields[] = $eventbrite_import_settings;
-	$fields[] = $hr_element;
 	$fields[] = $ical_import_settings;
-	$fields[] = $hr_element;
 	$fields[] = $ics_import_settings;
-	$fields[] = $hr_element;
 	$fields[] = $google_import_settings;
-	$fields[] = $hr_element;
 	$fields[] = $meetup_import_settings;
-	$fields[] = $hr_element;
 	$fields[] = $other_url_settings;
-	$fields[] = $hr_element;
 	$fields[] = $event_aggregator_control;
 }
 
