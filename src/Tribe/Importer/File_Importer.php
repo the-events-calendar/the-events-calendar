@@ -79,7 +79,12 @@ abstract class Tribe__Events__Importer__File_Importer {
 	}
 
 	/**
-	 * @param Tribe__Events__Importer__File_Reader $file_reader
+	 * Constructor.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param Tribe__Events__Importer__File_Reader                  $file_reader             The file reader class.
+	 * @param Tribe__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader The featured image uploader class.
 	 */
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
 		$this->reader                  = $file_reader;
