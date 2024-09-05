@@ -124,6 +124,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$this->inverted_map = array_flip( $this->map );
 	}
 
+	/**
+	 * Sets the post type of the import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param string $type The post type being imported.
+	 *
+	 * @return void
+	 */
 	public function set_type( $type ) {
 		$this->type = $type;
 	}
