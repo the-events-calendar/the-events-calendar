@@ -323,7 +323,7 @@ function tribe_get_listview_prev_link( $term = null ) {
  * Retrieves the URL for the next page in the list view.
  *
  * This function returns a link to the next page of events in the list view,
- * optionally filtered by a specific term (category or taxonomy).
+ * optionally filtered by a specific taxonomy's term.
  * The returned link can be filtered using the `tribe_get_listview_next_link` filter.
  *
  * @since 3.11
