@@ -44,7 +44,7 @@ $tec_events_display_date = [
 					'tribeEventsDateFormatExplanation',
 					[
 						'type' => 'html',
-						'html' => '<p>'
+						'html' => '<p class="tec-settings-form__section-description">'
 							. sprintf(
 								/* Translators: %1$s: PHP date function, %2$s: URL to WP knowledgebase. */
 								__( 'The following three fields accept the date format options available to the PHP %1$s function. <a href="%2$s" target="_blank">Learn how to make your own date format here</a>.', 'the-events-calendar' ),
