@@ -139,13 +139,13 @@ function tribe_get_events_link( $context = 'href' ) {
  * Generates the permalink for a specific view based on the provided slug and optional term.
  *
  * @since 5.7.0
- * 
+ *
  * @hook tribe_get_view_permalink        Filters the overall view permalink.
  * @hook tribe_get_{slug}_view_permalink Filters the specific view permalink.
  *
  * @param string        $slug      The slug of the view for which the permalink is being generated.
  * @param bool|int|null $term      Optional. The term associated with the view. Default is null.
- * 
+ *
  * @return string       $permalink The generated permalink for the view.
  */
 function tribe_get_view_permalink( $slug, $term = null ) {
@@ -320,13 +320,18 @@ function tribe_get_listview_prev_link( $term = null ) {
 }
 
 /**
- * Link to next List View
+ * Retrieves the URL for the next page in the list view.
  *
- * Returns a link to the next list view page
+ * This function returns a link to the next page of events in the list view,
+ * optionally filtered by a specific taxonomy's term.
+ * The returned link can be filtered using the `tribe_get_listview_next_link` filter.
  *
- * @param int|null $term Term ID
+ * @since 3.11
  *
- * @return string URL
+ * @param int|null $term Optional. The term ID for filtering events by the specific taxonomy's term.
+ *                       Defaults to null, meaning no specific term filtering.
+ *
+ * @return string The URL to the next page of the list view.
  */
 function tribe_get_listview_next_link( $term = null ) {
 	$link = tribe_get_listview_dir_link( 'next', $term );
