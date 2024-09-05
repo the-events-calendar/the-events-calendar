@@ -152,6 +152,13 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$this->type = $type;
 	}
 
+	/**
+	 * Set the batch size for imports.
+	 *
+	 * @param int $limit The batch size to be processed in one run. Default is 100.
+	 *
+	 * @return void
+	 */
 	public function set_limit( $limit ) {
 		$this->limit = (int) $limit;
 	}
