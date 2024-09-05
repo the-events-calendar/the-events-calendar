@@ -39,7 +39,9 @@ abstract class Tribe__Events__Importer__File_Importer {
 	/**
 	 * Stores the batch size that is being processed in one run during an import.
 	 *
-	 * @var mixed|null
+	 * @since 3.2.0
+	 *
+	 * @var int
 	 */
 	private $limit = 100;
 
@@ -154,6 +156,8 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 	/**
 	 * Set the batch size for imports.
+	 *
+	 * @since 3.2.0
 	 *
 	 * @param int $limit The batch size to be processed in one run. Default is 100.
 	 *
