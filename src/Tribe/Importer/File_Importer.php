@@ -35,7 +35,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * @var string
 	 */
 	private $type = '';
-	private $limit    = 100;
+
+	/**
+	 * Stores the batch size that is being processed in one run during an import.
+	 *
+	 * @var mixed|null
+	 */
+	private $limit = 100;
+
 	private $offset   = 0;
 	private $errors = [];
 	private $updated  = 0;
