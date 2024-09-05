@@ -26,7 +26,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 	 * @var array
 	 */
 	private $map = [];
-	private $type     = '';
+
+	/**
+	 * Stores the post type that is being imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var string
+	 */
+	private $type = '';
 	private $limit    = 100;
 	private $offset   = 0;
 	private $errors = [];
