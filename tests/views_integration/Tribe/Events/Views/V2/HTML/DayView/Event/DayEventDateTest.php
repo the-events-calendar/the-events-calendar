@@ -14,7 +14,7 @@ class DayEventDateTest extends HtmlTestCase {
 
 		$event = $this->get_mock_event( 'events/single/1.json' );
 
-		$template = $this->template->template( 'day/event/date', [ 'event' => $event ] );
+		$template = $this->template->template( 'day/event/date', [ 'event' => $event ], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -38,7 +38,7 @@ class DayEventDateTest extends HtmlTestCase {
 
 		$event = $this->get_mock_event( 'events/featured/1.json' );
 
-		$template = $this->template->template( 'day/event', [ 'event' => $event ] );
+		$template = $this->template->template( 'day/event', [ 'event' => $event ], false );
 
 		$html = $this->document->html( $template );
 

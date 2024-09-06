@@ -14,7 +14,8 @@ class MonthCalendarEventTitleTest extends HtmlTestCase {
 		$event = $this->get_mock_event( 'events/single/1.json' );
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/title',
-			[ 'event' => $event ]
+			[ 'event' => $event ],
+			false
 		);
 		$html     = $this->document->html( $template );
 

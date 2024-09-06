@@ -4,7 +4,7 @@
 			<ul class="tribe-events-c-messages__message-list">
 									<li
 						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
+											>
 					There were no results found					</li>
 							</ul>
 		</div>
@@ -13,11 +13,12 @@
 			<ul class="tribe-events-c-messages__message-list">
 									<li
 						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
+											>
 					The first rule of fight club is, you do not talk about fight club.					</li>
 									<li
 						class="tribe-events-c-messages__message-list-item"
-						 data-key="1" 					>
+													data-key="1"
+											>
 					The second rule of fight club is, <strong>you do not talk about fight club.</strong>					</li>
 							</ul>
 		</div>

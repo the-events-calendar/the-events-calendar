@@ -19,7 +19,7 @@ class DayEventDescriptionTest extends HtmlTestCase {
 			}
 		);
 
-		$template = $this->template->template( 'day/event/description', [ 'event' => $event ] );
+		$template = $this->template->template( 'day/event/description', [ 'event' => $event ], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

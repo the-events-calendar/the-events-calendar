@@ -12,12 +12,13 @@ class MonthCalendarEventFeaturedImageTest extends HtmlTestCase {
 	 */
 	public function it_should_contain_correct_html_classes() {
 		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->get();
-		$template     = $this->template->template(
+		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/featured-image',
-			[ 'event' => $event ]
+			[ 'event' => $event ],
+			false
 		);
 
-		$html         = $this->document->html( $template );
+		$html = $this->document->html( $template );
 
 		$this->assertEquals(
 			$html->find( '.tribe-events-calendar-month__calendar-event-featured-image-wrapper' )->count(),

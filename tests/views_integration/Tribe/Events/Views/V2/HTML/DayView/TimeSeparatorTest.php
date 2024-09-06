@@ -18,7 +18,7 @@ class TimeSeparatorTest extends HtmlTestCase {
 			'event' => $event,
 		];
 
-		$template = $this->template->template( 'day/time-separator', $args );
+		$template = $this->template->template( 'day/time-separator', $args, false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

@@ -37,7 +37,9 @@ class Archive_EventsTest extends HtmlTestCase {
 	 * Utility method to render the block and return the content.
 	 */
 	private function render_archive_events_block(): string {
-		return ( new Block() )->render();
+		ob_start();
+		echo ( new Block() )->render();
+		return ob_get_clean();
 	}
 
 	/**

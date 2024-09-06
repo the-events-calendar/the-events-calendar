@@ -32,7 +32,7 @@
 						<ul class="tribe-events-c-messages__message-list">
 									<li
 						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
+											>
 					There are no upcoming events.					</li>
 							</ul>
 		</div>
@@ -43,7 +43,7 @@
 						<ul class="tribe-events-c-messages__message-list">
 									<li
 						class="tribe-events-c-messages__message-list-item"
-						 data-key="0" 					>
+											>
 					There are no upcoming events.					</li>
 							</ul>
 		</div>

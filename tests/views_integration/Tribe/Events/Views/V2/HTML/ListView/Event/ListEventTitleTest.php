@@ -14,7 +14,7 @@ class ListEventTitleTest extends HtmlTestCase {
 
 		$event = $this->get_mock_event( 'events/single/1.json' );
 
-		$template = $this->template->template( 'list/event/title', [ 'event' => $event ] );
+		$template = $this->template->template( 'list/event/title', [ 'event' => $event ], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

@@ -23,7 +23,7 @@ class ListTest extends HtmlTestCase {
 			],
 			false
 		);
-		$template = $this->template->template( 'list', [ 'events' => [] ] );
+		$template = $this->template->template( 'list', [ 'events' => [] ], false );
 		$html     = $this->document->html( $template );
 
 		$this->assertEquals(

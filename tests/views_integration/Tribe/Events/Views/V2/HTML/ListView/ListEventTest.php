@@ -14,7 +14,7 @@ class ListEventTest extends HtmlTestCase {
 
 		$event = $this->get_mock_event( 'events/single/1.json' );
 
-		$template = $this->template->template( 'list/event', [ 'event' => $event ] );
+		$template = $this->template->template( 'list/event', [ 'event' => $event ], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -37,7 +37,7 @@ class ListEventTest extends HtmlTestCase {
 
 		$event = $this->get_mock_event( 'events/featured/1.json' );
 
-		$template = $this->template->template( 'list/event', [ 'event' => $event ] );
+		$template = $this->template->template( 'list/event', [ 'event' => $event ], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

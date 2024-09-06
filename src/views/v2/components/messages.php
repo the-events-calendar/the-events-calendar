@@ -38,7 +38,9 @@ $attributes = isset( $attributes ) ? (array) $attributes : [];
 				<?php foreach ( $message_group as $key => $message ) : ?>
 					<li
 						class="tribe-events-c-messages__message-list-item"
-						<?php tribe_attributes( [ 'data-key' => (string) $key ] ); ?>
+						<?php if ( $key ) : ?>
+							data-key="<?php echo esc_attr( $key ); ?>"
+						<?php endif; ?>
 					>
 					<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : $message; ?>
 					</li>

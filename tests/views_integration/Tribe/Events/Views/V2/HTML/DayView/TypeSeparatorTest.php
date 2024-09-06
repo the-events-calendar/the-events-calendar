@@ -19,7 +19,7 @@ class TypeSeparatorTest extends HtmlTestCase {
 			'event' => $event,
 		];
 
-		$template = $this->template->template( 'day/type-separator', $args );
+		$template = $this->template->template( 'day/type-separator', $args, false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

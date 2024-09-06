@@ -16,7 +16,8 @@ class MonthTooltipCostTest extends HtmlTestCase {
 		$event->cost = '$10';
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/tooltip/cost',
-			[ 'event' => $event ]
+			[ 'event' => $event ],
+			false
 		);
 		$html     = $this->document->html( $template );
 

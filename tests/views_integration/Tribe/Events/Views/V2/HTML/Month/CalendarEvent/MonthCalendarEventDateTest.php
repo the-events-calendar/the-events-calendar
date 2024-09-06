@@ -15,7 +15,8 @@ class MonthCalendarEventDateTest extends HtmlTestCase {
 
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/date',
-			[ 'event' => $event ]
+			[ 'event' => $event ],
+			false
 		);
 		$html     = $this->document->html( $template );
 
@@ -34,7 +35,8 @@ class MonthCalendarEventDateTest extends HtmlTestCase {
 
 		$template = $this->template->template(
 			'month/calendar-body/day/calendar-events/calendar-event/date',
-			[ 'event' => $event ]
+			[ 'event' => $event ],
+			false
 		);
 		$html     = $this->document->html( $template );
 

@@ -35,6 +35,8 @@ class Single_EventTest extends HtmlTestCase {
 	 * Utility method to render the block and return the content.
 	 */
 	private function renderSingleEventBlock(): string {
-		return ( new Block() )->render();
+		ob_start();
+		echo ( new Block() )->render();
+		return ob_get_clean();
 	}
 }

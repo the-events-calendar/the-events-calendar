@@ -14,7 +14,7 @@ class ListEventDateTest extends HtmlTestCase {
 
 		$event = $this->get_mock_event( 'events/single/1.json' );
 
-		$template = $this->template->template( 'list/event/date', [ 'event' => $event ] );
+		$template = $this->template->template( 'list/event/date', [ 'event' => $event ], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -38,7 +38,7 @@ class ListEventDateTest extends HtmlTestCase {
 
 		$event = $this->get_mock_event( 'events/featured/1.json' );
 
-		$template = $this->template->template( 'list/event', [ 'event' => $event ] );
+		$template = $this->template->template( 'list/event', [ 'event' => $event ], false );
 		$html = $this->document->html( $template );
 
 		$featured_icon = $html->find( '.tribe-events-calendar-list__event-datetime-featured-icon' );

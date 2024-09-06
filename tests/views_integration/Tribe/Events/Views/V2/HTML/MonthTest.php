@@ -18,7 +18,7 @@ class MonthTest extends HtmlTestCase {
 			'the_date' => Dates::build_date_object( '2019-08-01' ),
 			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		] );
-		$template = $this->template->template( 'month' );
+		$template = $this->template->template( 'month', [], false );
 		$html     = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -43,7 +43,7 @@ class MonthTest extends HtmlTestCase {
 			'the_date' => Dates::build_date_object( '2019-08-01' ),
 			'mobile_messages' => [ 'notice' => [ 'raccoons' => 'Too many raccoons on this day' ] ],
 		] );
-		$template = $this->template->template( 'month' );
+		$template = $this->template->template( 'month', [], false );
 		$html       = $this->document->html( $template );
 		$month      = $html->find( '.tribe-events-calendar-month' );
 		$month_body = $month->find( '.tribe-events-calendar-month__body' );

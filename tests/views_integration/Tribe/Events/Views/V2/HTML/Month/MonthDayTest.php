@@ -50,7 +50,8 @@ class MonthDayTest extends HtmlTestCase {
 				'day'             => $day_data,
 				'grid_start_date' => '2019-07-01',
 				'date_formats'    => $date_formats,
-			]
+			],
+			false
 		);
 
 		$html = $this->document->html( $template );
@@ -111,7 +112,8 @@ class MonthDayTest extends HtmlTestCase {
 				'day'             => $day_data,
 				'grid_start_date' => '2019-07-01',
 				'date_formats'    => $date_formats,
-			]
+			],
+			false
 		);
 
 		$html = $this->document->html( $template );

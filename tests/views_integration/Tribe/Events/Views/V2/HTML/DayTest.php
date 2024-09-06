@@ -12,7 +12,7 @@ class DayTest extends HtmlTestCase {
 		$this->template->add_template_globals( [
 			'view_slug' => 'day',
 		] );
-		$template = $this->template->template( 'day', [ 'events' => [] ] );
+		$template = $this->template->template( 'day', [ 'events' => [] ], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(

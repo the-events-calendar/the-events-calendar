@@ -11,7 +11,8 @@
 			<ul class="tribe-events-c-messages__message-list">
 									<li
 						class="tribe-events-c-messages__message-list-item"
-						 data-key="raccoons" 					>
+													data-key="raccoons"
+											>
 					Too many raccoons on this day					</li>
 							</ul>
 		</div>
@@ -30,7 +31,8 @@
 			<ul class="tribe-events-c-messages__message-list">
 									<li
 						class="tribe-events-c-messages__message-list-item"
-						 data-key="raccoons" 					>
+													data-key="raccoons"
+											>
 					Too many raccoons on this day					</li>
 							</ul>
 		</div>

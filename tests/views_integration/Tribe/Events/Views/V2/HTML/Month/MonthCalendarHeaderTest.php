@@ -9,7 +9,7 @@ class MonthCalendarHeaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_correct_html_classes() {
-		$template = $this->template->template( 'month/calendar-header' );
+		$template = $this->template->template( 'month/calendar-header', [], false );
 		$html = $this->document->html( $template );
 
 		$this->assertEquals(
@@ -23,7 +23,7 @@ class MonthCalendarHeaderTest extends HtmlTestCase {
 	 * @test
 	 */
 	public function it_should_contain_a11y_attributes() {
-		$template = $this->template->template( 'month/calendar-header' );
+		$template = $this->template->template( 'month/calendar-header', [], false );
 		$html = $this->document->html( $template );
 		$header = $html->find( 'header' );
 		$month_header_row = $header->find( '.tribe-events-calendar-month__header-row' );
