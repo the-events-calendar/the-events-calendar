@@ -72,7 +72,7 @@ $tec_events_display_date = [
 			)
 		),
 		'default'         => get_option( 'date_format' ),
-		'size'            => 'medium',
+		'size'            => 'medium-small',
 		'validation_type' => 'not_empty',
 	],
 	'dateWithoutYearFormat'              => [
@@ -84,7 +84,7 @@ $tec_events_display_date = [
 			gmdate( tribe_get_option( 'dateWithoutYearFormat', 'F j' ), $sample_date )
 		),
 		'default'         => 'F j',
-		'size'            => 'medium',
+		'size'            => 'medium-small',
 		'validation_type' => 'not_empty',
 	],
 	'monthAndYearFormat'                 => [
@@ -96,7 +96,7 @@ $tec_events_display_date = [
 			gmdate( tribe_get_option( 'monthAndYearFormat', 'F Y' ), $sample_date )
 		),
 		'default'         => 'F Y',
-		'size'            => 'medium',
+		'size'            => 'medium-small',
 		'validation_type' => 'not_empty',
 	],
 	'datepickerFormat'                   => [
