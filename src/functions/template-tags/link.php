@@ -317,13 +317,18 @@ function tribe_get_listview_display() {
 
 
 /**
- * Link to prev List View
+ * Retrieves the URL for the previous page in the list view.
  *
- * Returns a link to the previous list view page
+ * This function generates a link to the previous page of events in the list view,
+ * optionally filtered by a specific taxonomy term.
+ * The returned URL can be modified via the `tribe_get_listview_prev_link` filter.
  *
- * @param int|null $term Term ID
+ * @since 3.11
  *
- * @return string URL
+ * @param int|null $term Optional. The term ID for filtering events by a specific taxonomy term.
+ *                       Defaults to null, meaning no specific term filtering.
+ *
+ * @return string The URL to the previous page of the list view.
  */
 function tribe_get_listview_prev_link( $term = null ) {
 	$link = tribe_get_listview_dir_link( 'prev', $term );
