@@ -2,8 +2,9 @@ name: 'PHPStan Tests'
 on:
   pull_request:
     paths:
-      - 'src/**.php'
+      - '.github/**/*'
       - '*.php'
+      - 'src/**.php'
 jobs:
   phpstan:
     strategy:

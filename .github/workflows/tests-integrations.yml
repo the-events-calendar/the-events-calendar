@@ -2,13 +2,13 @@ name: 'Third-Party Integration Tests'
 on:
   pull_request:
     paths:
-      - 'tests/**.php'
-      - 'src/**.php'
+      - '.github/**/*'
       - '*.php'
+      - 'codeception.dist.yml'
       - 'composer.json'
       - 'composer.lock'
-      - 'codeception.dist.yml'
-      - '.github/workflows/tests-integrations.yaml'
+      - 'src/**.php'
+      - 'tests/**.php'
 jobs:
   test:
     strategy:

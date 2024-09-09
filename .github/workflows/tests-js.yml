@@ -2,6 +2,7 @@ name: 'npm jest'
 on:
   pull_request:
     paths:
+      - '.github/**/*'
       - 'src/modules/**.js'
 jobs:
   jest:

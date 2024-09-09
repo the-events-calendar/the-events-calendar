@@ -3,6 +3,7 @@ on:
   pull_request:
   workflow_dispatch:
     paths:
+      - '.github/**/*'
       - 'src/modules/**.js'
       - 'src/resources/js/**.js'
       - 'src/resources/postcss/**.pcss'
