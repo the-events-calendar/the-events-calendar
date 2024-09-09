@@ -306,8 +306,8 @@ function tribe_is_event( $postId = null ) {
 	 *
 	 * @since 3.0
 	 *
-	 * @param bool        $is_event Whether the post is an Event.
-	 * @param int|WP_Post $postId   The event/post ID or object.
+	 * @param bool             $is_event Whether the post is an Event.
+	 * @param int|WP_Post|null $postId   The event/post ID or object
 	 */
 	return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 }
