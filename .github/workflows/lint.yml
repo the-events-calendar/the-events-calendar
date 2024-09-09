@@ -3,6 +3,7 @@ on:
   pull_request:
   workflow_dispatch:
     paths:
+      - '.github/**/*'
       - 'src/modules/**.js'
       - 'src/resources/js/**.js'
       - 'src/resources/postcss/**.pcss'
@@ -11,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: recursive
