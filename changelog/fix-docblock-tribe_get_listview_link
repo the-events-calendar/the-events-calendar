@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Add information and missing tags to `tribe_get_listview_link()` docblock.
