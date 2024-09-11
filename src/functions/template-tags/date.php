@@ -186,9 +186,11 @@ if ( ! function_exists( 'tec_events_get_time_range_separator' ) ) {
 		$cache                = tribe_cache();
 		$is_cache_set         = isset( $cache['tec_events_get_time_range_separator'] );
 		$time_range_separator = $cache['tec_events_get_time_range_separator'];
-		if ( $is_cache_set ) {
+
+		if ( $is_cache_set && is_string( $time_range_separator ) ) {
 			return $time_range_separator;
 		}
+
 		$default              = ' - ';
 		$time_range_separator = tribe_get_option( 'timeRangeSeparator', $default );
 
@@ -226,9 +228,11 @@ if ( ! function_exists( 'tec_events_get_date_time_separator' ) ) {
 		$cache                    = tribe_cache();
 		$is_cache_set             = isset( $cache['tec_events_get_date_time_separator'] );
 		$datetime_range_separator = $cache['tec_events_get_date_time_separator'];
-		if ( $is_cache_set ) {
+
+		if ( $is_cache_set && is_string( $datetime_range_separator ) ) {
 			return $datetime_range_separator;
 		}
+
 		$default              = ' @ ';
 		$datetime_range_separator = tribe_get_option( 'dateTimeSeparator', $default );
 
