@@ -15,7 +15,7 @@ use WP_Error;
 /**
  * Class RESTAPITest
  *
- * @since TBD
+ * @since 6.6.3
  */
 class RESTAPITest extends WPTestCase {
 

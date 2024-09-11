@@ -45,7 +45,7 @@ jobs:
       # Checkout the repo
       # ------------------------------------------------------------------------------
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000
           token: ${{ secrets.GH_BOT_TOKEN }}
@@ -70,7 +70,7 @@ jobs:
       # Checkout the tut
       # ------------------------------------------------------------------------------
       - name: Checkout tut
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_BOT_TOKEN }}
           repository: the-events-calendar/tut
@@ -78,7 +78,7 @@ jobs:
           path: tut
           fetch-depth: 1
       - name: Checkout jenkins-scripts
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_BOT_TOKEN }}
           repository: the-events-calendar/jenkins-scripts

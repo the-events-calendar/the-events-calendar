@@ -19,11 +19,13 @@ function tribe_the_prev_event_link( $anchor = false ) {
 }
 
 /**
- * Return a link to the previous event by start date for the given event.
+ * Returns a link to the previous event by start date for the given event.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ * 
+ * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
  *
- * @return string
+ * @return string The link to the previous event.
  */
 function tribe_get_prev_event_link( $anchor = false ) {
 	$event_id = get_the_ID();
@@ -249,15 +251,24 @@ function tribe_get_listview_dir_link( $direction = 'next', $term = null, $curren
 }
 
 /**
- * Utility function to update the pagination and current display on the list view.
+ * Updates pagination and determines the current view display for the list view.
+ *
+ * This function adjusts the pagination and sets the view to be displayed based on
+ * the current page and navigation direction.
  *
  * @since 4.6.12
  *
- * @param int $page
- * @param string $direction
- * @param null $currently_displaying
+ * @param int         $page                 The current page number. Default is 1.
+ * @param string      $direction            The navigation direction, either 'next' or 'prev'. Default is 'next'.
+ * @param string|null $currently_displaying The view currently being displayed, such as 'list' or 'past'.
+ *                                          Default is null, which triggers a fallback to the default list view.
  *
- * @return array
+ * @return array {
+ *      An associative array containing the updated display and page number.
+ * 
+ *      @type string $display The view to be displayed, either 'list' or 'past'.
+ *      @type int    $page    The updated page number.
+ * }
  */
 function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_displaying = null ) {
 	// if what we are currently displaying is not passed in, let's set a default and check $_GET
