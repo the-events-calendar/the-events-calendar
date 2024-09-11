@@ -339,14 +339,17 @@ function tribe_get_listview_next_link( $term = null ) {
 }
 
 /**
- * Single Event Link
+ * Retrieves the link to a single event.
  *
- * Get link to a single event
+ * This function returns the URL to a single event post, or if the `$full_link` parameter is set to true,
+ * it outputs a complete HTML `<a>` tag with the event title as the link text. If no event is found, it returns false.
  *
- * @param WP_Post|int $post_id   Optional. WP Post that this affects
- * @param bool        $full_link Optional. If true outputs a complete HTML <a> link, otherwise only the URL is output
+ * @since 2.0.1
  *
- * @return string|bool Link to post or false if none found
+ * @param WP_Post|int|null $post_id   Optional. The event post ID or WP_Post object. Defaults to the current post if not provided.
+ * @param bool             $full_link Optional. If true, outputs a complete HTML `<a>` tag. Defaults to false, returning just the URL.
+ *
+ * @return string|false The URL to the event or an HTML `<a>` tag if `$full_link` is true. Returns false if no link is found.
  */
 function tribe_get_event_link( $post_id = null, $full_link = false ) {
 	$post_id = Tribe__Main::post_id_helper( $post_id );
@@ -375,12 +378,12 @@ function tribe_get_event_link( $post_id = null, $full_link = false ) {
 	}
 
 	/**
-	 * Filters the permalink to events
+	 * Filters the permalink to events.
 	 *
-	 * @param mixed  $link      The link, possibly HTML, just URL, or false
-	 * @param int    $post_id   Post ID
-	 * @param bool   $full_link Whether to output full HTML <a> link
-	 * @param string $url       The URL itself
+	 * @param string|false $link      The event link, either as an HTML `<a>` tag, URL, or false if not found.
+	 * @param int          $post_id   The post ID of the event.
+	 * @param bool         $full_link Whether to output a full HTML `<a>` link.
+	 * @param string       $url       The URL of the event.
 	 */
 	return apply_filters( 'tribe_get_event_link', $link, $post_id, $full_link, $url );
 }
