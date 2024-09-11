@@ -239,12 +239,14 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.6.4] 2024-09-09 =
+= [6.6.4] 2024-09-11 =
 
+* Security - Improve handling of Date/Time Separator settings to prevent potential XSS vulnerabilities.
 * Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
 * Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [BTRIA-2353]
 * Fix - Changed logic within the custom tables query to avoid a database error. (props @datadiver0x0) [ECP-1562]
 * Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
+* Tweak - Include methods `tec_events_get_date_time_separator` and `tec_events_get_time_range_separator` and it's respective filters.
 * Tweak - Add docblock for make_select_box()
 * Tweak - Add docblock for `set_defaults()` in the `Tribe__Events__Importer__Column_Mapper` class.
 * Tweak - Add docblocks to the methods in the `Tribe__Events__Importer__Column_Mapper` class.

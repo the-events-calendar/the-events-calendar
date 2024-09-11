@@ -1258,8 +1258,8 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
 		$time_format              = get_option( 'time_format' );
-		$datetime_separator       = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$datetime_separator       = tec_events_get_date_time_separator();
+		$time_range_separator     = tec_events_get_time_range_separator();
 
 		$settings = [
 			'show_end_time' => true,
@@ -1418,7 +1418,7 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
 				$inner .= tribe_get_start_date( $event, false, $time_format );
 			} else {
 				// Different start/end time.
-				$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+				$time_range_separator = tec_events_get_time_range_separator();
 
 				$inner .= tribe_get_start_date( $event, false, $time_format );
 				$inner .= $html ? '</span>' : '';
