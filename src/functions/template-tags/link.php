@@ -345,6 +345,7 @@ function tribe_get_listview_next_link( $term = null ) {
  * it outputs a complete HTML `<a>` tag with the event title as the link text. If no event is found, it returns false.
  *
  * @since 2.0.1
+ *
  * @param WP_Post|int|null $post_id   Optional. The event post ID or WP_Post object. Defaults to the current post if not provided.
  * @param bool             $full_link Optional. If true, outputs a complete HTML `<a>` tag. Defaults to false, returning just the URL.
  *
