@@ -2,15 +2,15 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.6.2\n"
+"Project-Id-Version: The Events Calendar 6.6.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-events-calendar\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-16T09:14:12-07:00\n"
-"PO-Revision-Date: 2024-08-16 16:14\n"
+"POT-Creation-Date: 2024-09-09T06:34:28-07:00\n"
+"PO-Revision-Date: 2024-09-09 13:34\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: the-events-calendar\n"
 
@@ -917,6 +917,13 @@ msgstr ""
 msgid "When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website's hosting resources may impact the success of imports. Selecting a shorter time period may improve results."
 msgstr ""
 
+#: src/admin-views/aggregator/settings.php:475
+#: src/admin-views/tribe-options-display.php:448
+#: src/admin-views/tribe-options-general.php:310
+#: src/Tribe/REST/V1/EA_Messages.php:40
+msgid "Learn more."
+msgstr ""
+
 #: src/admin-views/aggregator/settings.php:486
 msgid "Import Event Settings"
 msgstr ""
@@ -1289,7 +1296,7 @@ msgstr ""
 #: src/admin-views/create-venue-fields.php:195
 #: src/admin-views/organizer-meta-box.php:37
 #: src/admin-views/venue-meta-box.php:185
-#: src/functions/template-tags/link.php:470
+#: src/functions/template-tags/link.php:480
 #: src/views/blocks/parts/details.php:183
 #: src/views/integrations/elementor/widgets/event-website/header.php:20
 #: src/modules/elements/organizer-form/element.js:179
@@ -1314,7 +1321,7 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:82
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:967
-#: src/Tribe/Importer/Column_Mapper.php:112
+#: src/Tribe/Importer/Column_Mapper.php:144
 msgid "Venue Address"
 msgstr ""
 
@@ -1324,7 +1331,7 @@ msgid "City:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:95
-#: src/Tribe/Importer/Column_Mapper.php:114
+#: src/Tribe/Importer/Column_Mapper.php:146
 msgid "Venue City"
 msgstr ""
 
@@ -1334,7 +1341,7 @@ msgid "Country:"
 msgstr ""
 
 #: src/admin-views/create-venue-fields.php:120
-#: src/Tribe/Importer/Column_Mapper.php:111
+#: src/Tribe/Importer/Column_Mapper.php:143
 msgid "Venue Country"
 msgstr ""
 
@@ -1364,7 +1371,7 @@ msgstr ""
 
 #: src/admin-views/create-venue-fields.php:190
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:894
-#: src/Tribe/Importer/Column_Mapper.php:117
+#: src/Tribe/Importer/Column_Mapper.php:149
 msgid "Venue Phone"
 msgstr ""
 
@@ -1385,7 +1392,7 @@ msgid "When events are sticky in month view, they'll display first in the list o
 msgstr ""
 
 #: src/admin-views/event-sidebar-options.php:31
-#: src/Tribe/Importer/Column_Mapper.php:82
+#: src/Tribe/Importer/Column_Mapper.php:107
 msgid "Feature Event"
 msgstr ""
 
@@ -1420,7 +1427,7 @@ msgid "Time Zone:"
 msgstr ""
 
 #: src/admin-views/events-meta-box.php:149
-#: src/Tribe/Importer/Column_Mapper.php:79
+#: src/Tribe/Importer/Column_Mapper.php:104
 msgid "All Day Event"
 msgstr ""
 
@@ -1993,12 +2000,6 @@ msgstr ""
 
 #: src/admin-views/tribe-options-display.php:443
 msgid "Get Event Tickets to manage attendee registration and ticket sales to your events, for free."
-msgstr ""
-
-#: src/admin-views/tribe-options-display.php:448
-#: src/admin-views/tribe-options-general.php:310
-#: src/Tribe/REST/V1/EA_Messages.php:40
-msgid "Learn more."
 msgstr ""
 
 #: src/admin-views/tribe-options-display.php:458
@@ -3348,7 +3349,7 @@ msgid "Content Styles"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Cost.php:44
-#: src/Tribe/Importer/Column_Mapper.php:87
+#: src/Tribe/Importer/Column_Mapper.php:112
 msgid "Event Cost"
 msgstr ""
 
@@ -3875,7 +3876,7 @@ msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:53
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Tags.php:344
-#: src/Tribe/Importer/Column_Mapper.php:92
+#: src/Tribe/Importer/Column_Mapper.php:117
 msgid "Event Tags"
 msgstr ""
 
@@ -3984,7 +3985,7 @@ msgid "Venue Header"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:855
-#: src/Tribe/Importer/Column_Mapper.php:109
+#: src/Tribe/Importer/Column_Mapper.php:141
 msgid "Venue Name"
 msgstr ""
 
@@ -4002,7 +4003,7 @@ msgid "Map Link"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Venue.php:1062
-#: src/Tribe/Importer/Column_Mapper.php:118
+#: src/Tribe/Importer/Column_Mapper.php:150
 msgid "Venue Website"
 msgstr ""
 
@@ -4011,7 +4012,7 @@ msgid "Venue Map"
 msgstr ""
 
 #: src/Events/Integrations/Plugins/Elementor/Widgets/Event_Website.php:53
-#: src/Tribe/Importer/Column_Mapper.php:93
+#: src/Tribe/Importer/Column_Mapper.php:118
 #: src/modules/blocks/event-website/index.js:22
 msgid "Event Website"
 msgstr ""
@@ -6483,136 +6484,136 @@ msgid_plural "Migration: %d Legacy Ignored Posts were migrated successfully. To 
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Tribe/Importer/Column_Mapper.php:52
+#: src/Tribe/Importer/Column_Mapper.php:61
 msgid "Do Not Import"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:71
+#: src/Tribe/Importer/Column_Mapper.php:96
 msgid "Event Name"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:72
+#: src/Tribe/Importer/Column_Mapper.php:97
 msgid "Event Description"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:73
+#: src/Tribe/Importer/Column_Mapper.php:98
 msgid "Event Excerpt"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:74
+#: src/Tribe/Importer/Column_Mapper.php:99
 msgid "Event Start Date"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:75
+#: src/Tribe/Importer/Column_Mapper.php:100
 msgid "Event Start Time"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:76
+#: src/Tribe/Importer/Column_Mapper.php:101
 msgid "Event End Date"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:77
+#: src/Tribe/Importer/Column_Mapper.php:102
 msgid "Event End Time"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:78
+#: src/Tribe/Importer/Column_Mapper.php:103
 msgid "Event Time Zone"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:80
+#: src/Tribe/Importer/Column_Mapper.php:105
 msgid "Hide Event From Event Listings"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:81
+#: src/Tribe/Importer/Column_Mapper.php:106
 msgid "Event Sticky in Month View"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:83
+#: src/Tribe/Importer/Column_Mapper.php:108
 msgid "Event Venue Name"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:84
+#: src/Tribe/Importer/Column_Mapper.php:109
 msgid "Event Organizer Name(s) or ID(s)"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:85
+#: src/Tribe/Importer/Column_Mapper.php:110
 msgid "Event Show Map Link"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:86
+#: src/Tribe/Importer/Column_Mapper.php:111
 msgid "Event Show Map"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:88
+#: src/Tribe/Importer/Column_Mapper.php:113
 msgid "Event ISO Currency Code"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:89
+#: src/Tribe/Importer/Column_Mapper.php:114
 msgid "Event Currency Symbol"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:90
+#: src/Tribe/Importer/Column_Mapper.php:115
 msgid "Event Currency Position"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:91
+#: src/Tribe/Importer/Column_Mapper.php:116
 #: src/modules/blocks/event-category/block.js:26
 msgid "Event Category"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:94
+#: src/Tribe/Importer/Column_Mapper.php:119
 msgid "Event Featured Image"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:95
+#: src/Tribe/Importer/Column_Mapper.php:120
 msgid "Event Allow Comments"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:96
+#: src/Tribe/Importer/Column_Mapper.php:121
 msgid "Event Allow Trackbacks and Pingbacks"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:110
+#: src/Tribe/Importer/Column_Mapper.php:142
 msgid "Venue Description"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:113
+#: src/Tribe/Importer/Column_Mapper.php:145
 msgid "Venue Address 2"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:115
+#: src/Tribe/Importer/Column_Mapper.php:147
 msgid "Venue State/Province"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:116
+#: src/Tribe/Importer/Column_Mapper.php:148
 msgid "Venue Zip"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:119
+#: src/Tribe/Importer/Column_Mapper.php:151
 msgid "Venue Featured Image"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:132
+#: src/Tribe/Importer/Column_Mapper.php:171
 msgid "Organizer Name"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:133
+#: src/Tribe/Importer/Column_Mapper.php:172
 msgid "Organizer Description"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:134
+#: src/Tribe/Importer/Column_Mapper.php:173
 msgid "Organizer Email"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:135
+#: src/Tribe/Importer/Column_Mapper.php:174
 msgid "Organizer Website"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:136
+#: src/Tribe/Importer/Column_Mapper.php:175
 msgid "Organizer Phone"
 msgstr ""
 
-#: src/Tribe/Importer/Column_Mapper.php:137
+#: src/Tribe/Importer/Column_Mapper.php:176
 msgid "Organizer Featured Image"
 msgstr ""
 

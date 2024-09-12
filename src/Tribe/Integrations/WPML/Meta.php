@@ -237,7 +237,7 @@ class Tribe__Events__Integrations__WPML__Meta {
 			$buffer[] = $this->translate_element( $element_type, $element_id );
 		}
 
-		return array_unique( array_filter( array_merge( ...$buffer ) ) );
+		return array_unique( array_filter( array_merge( $elements, ...$buffer ) ) );
 	}
 
 	/**

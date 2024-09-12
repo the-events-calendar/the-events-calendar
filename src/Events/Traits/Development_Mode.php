@@ -4,7 +4,7 @@
  *
  * This trait provides a method to check if the site is in development mode.
  *
- * @since TBD
+ * @since 6.6.3
  *
  * @package TEC\Events\Traits
  */
@@ -16,7 +16,7 @@ namespace TEC\Events\Traits;
 /**
  * Trait Development_Mode
  *
- * @since TBD
+ * @since 6.6.3
  */
 trait Development_Mode {
 
@@ -30,7 +30,7 @@ trait Development_Mode {
 	 * This method also applies a filter so that 3rd party developers can set their
 	 * own conditions for development mode.
 	 *
-	 * @since TBD
+	 * @since 6.6.3
 	 *
 	 * @return bool
 	 */
@@ -45,7 +45,7 @@ trait Development_Mode {
 		/**
 		 * Filters whether the site is in development mode.
 		 *
-		 * @since TBD
+		 * @since 6.6.3
 		 *
 		 * @param bool $is_development_mode Whether the site is in development mode.
 		 */

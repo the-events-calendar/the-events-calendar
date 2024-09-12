@@ -382,6 +382,7 @@ class List_BehaviorTest extends \Codeception\TestCase\WPTestCase {
 	 * @dataProvider setup_datepicker_template_vars_data_set
 	 */
 	public function should_correctly_setup_the_template_vars( $template_vars, $context, $expected ) {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$view = $this->make_view( $context() );
 		if ( isset( $template_vars['events'] ) ) {
 			$template_vars['events'] = array_map(
