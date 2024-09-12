@@ -68,12 +68,12 @@ trait Outlook_Methods {
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
-			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T' . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' );
+			$enddt = urlencode( Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T' . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' ) );
 		} else {
-			$enddt = Dates::build_date_object( $event->end_date, $timezone )->format( 'c' );
+			$enddt = urlencode( Dates::build_date_object( $event->end_date, $timezone )->format( 'c' ) );
 		}
 
-		$startdt = Dates::build_date_object( $event->start_date, $timezone )->format( 'c' );
+		$startdt = urlencode( Dates::build_date_object( $event->start_date, $timezone )->format( 'c' ) );
 
 		$location = Venue::generate_string_address( $event );
 
@@ -181,14 +181,9 @@ trait Outlook_Methods {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
-		// Remove ical query and add back after urlencoding the rest of the url.
-		$feed_url = remove_query_arg( 'ical', $feed_url );
-
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
 
 		$feed_url = urlencode( $feed_url );
-
-		$feed_url = $feed_url . '&ical=1';
 
 		$params = [
 			'rru'  => 'addsubscription',
@@ -211,7 +206,7 @@ trait Outlook_Methods {
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_subscribe_url', $url, $base_url, $feed_url, $params, $this );
 
-		return $url;
+		return rawurldecode( $url );
 	}
 
 	/**

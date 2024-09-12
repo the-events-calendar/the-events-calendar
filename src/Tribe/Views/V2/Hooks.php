@@ -36,7 +36,7 @@ use TEC\Common\Contracts\Service_Provider;
  * Class Hooks
  *
  * @since 4.9.2
- * @since TBD Moved Hide End Time feature into Hide_End_Time_Provider provider.
+ * @since 6.6.3 Moved Hide End Time feature into Hide_End_Time_Provider provider.
  *
  * @package Tribe\Events\Views\V2
  */
