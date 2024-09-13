@@ -19,11 +19,13 @@ function tribe_the_prev_event_link( $anchor = false ) {
 }
 
 /**
- * Return a link to the previous event by start date for the given event.
+ * Returns a link to the previous event by start date for the given event.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ * 
+ * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
  *
- * @return string
+ * @return string The link to the previous event.
  */
 function tribe_get_prev_event_link( $anchor = false ) {
 	$event_id = get_the_ID();
@@ -249,15 +251,24 @@ function tribe_get_listview_dir_link( $direction = 'next', $term = null, $curren
 }
 
 /**
- * Utility function to update the pagination and current display on the list view.
+ * Updates pagination and determines the current view display for the list view.
+ *
+ * This function adjusts the pagination and sets the view to be displayed based on
+ * the current page and navigation direction.
  *
  * @since 4.6.12
  *
- * @param int $page
- * @param string $direction
- * @param null $currently_displaying
+ * @param int         $page                 The current page number. Default is 1.
+ * @param string      $direction            The navigation direction, either 'next' or 'prev'. Default is 'next'.
+ * @param string|null $currently_displaying The view currently being displayed, such as 'list' or 'past'.
+ *                                          Default is null, which triggers a fallback to the default list view.
  *
- * @return array
+ * @return array {
+ *      An associative array containing the updated display and page number.
+ * 
+ *      @type string $display The view to be displayed, either 'list' or 'past'.
+ *      @type int    $page    The updated page number.
+ * }
  */
 function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_displaying = null ) {
 	// if what we are currently displaying is not passed in, let's set a default and check $_GET
@@ -339,14 +350,17 @@ function tribe_get_listview_next_link( $term = null ) {
 }
 
 /**
- * Single Event Link
+ * Retrieves the link to a single event.
  *
- * Get link to a single event
+ * This function returns the URL to a single event post, or if the `$full_link` parameter is set to true,
+ * it outputs a complete HTML `<a>` tag with the event title as the link text. If no event is found, it returns false.
  *
- * @param WP_Post|int $post_id   Optional. WP Post that this affects
- * @param bool        $full_link Optional. If true outputs a complete HTML <a> link, otherwise only the URL is output
+ * @since 2.0.1
  *
- * @return string|bool Link to post or false if none found
+ * @param WP_Post|int|null $post_id   Optional. The event post ID or WP_Post object. Defaults to the current post if not provided.
+ * @param bool             $full_link Optional. If true, outputs a complete HTML `<a>` tag. Defaults to false, returning just the URL.
+ *
+ * @return string|false The URL to the event or an HTML `<a>` tag if `$full_link` is true. Returns false if no link is found.
  */
 function tribe_get_event_link( $post_id = null, $full_link = false ) {
 	$post_id = Tribe__Main::post_id_helper( $post_id );
@@ -375,12 +389,12 @@ function tribe_get_event_link( $post_id = null, $full_link = false ) {
 	}
 
 	/**
-	 * Filters the permalink to events
+	 * Filters the permalink to events.
 	 *
-	 * @param mixed  $link      The link, possibly HTML, just URL, or false
-	 * @param int    $post_id   Post ID
-	 * @param bool   $full_link Whether to output full HTML <a> link
-	 * @param string $url       The URL itself
+	 * @param string|false $link      The event link, either as an HTML `<a>` tag, URL, or false if not found.
+	 * @param int          $post_id   The post ID of the event.
+	 * @param bool         $full_link Whether to output a full HTML `<a>` link.
+	 * @param string       $url       The URL of the event.
 	 */
 	return apply_filters( 'tribe_get_event_link', $link, $post_id, $full_link, $url );
 }

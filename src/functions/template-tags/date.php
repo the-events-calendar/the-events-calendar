@@ -173,3 +173,87 @@ if ( ! function_exists( 'tribe_event_ends_on' ) ) {
 		return $formatted_date === $end_date;
 	}
 }
+
+if ( ! function_exists( 'tec_events_get_time_range_separator' ) ) {
+	/**
+	 * Gets the separator used between the start and end time of an event.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Time Range separator.
+	 */
+	function tec_events_get_time_range_separator(): string {
+		$cache                = tribe_cache();
+		$is_cache_set         = isset( $cache['tec_events_get_time_range_separator'] );
+		$time_range_separator = $cache['tec_events_get_time_range_separator'];
+
+		if ( $is_cache_set && is_string( $time_range_separator ) ) {
+			return $time_range_separator;
+		}
+
+		$default              = ' - ';
+		$time_range_separator = tribe_get_option( 'timeRangeSeparator', $default );
+
+		/**
+		 * Opportunity to modify the separator used between the start and end time of an event.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $time_range_separator
+		 * @param string $default
+		 */
+		$time_range_separator = apply_filters(
+			'tec_events_get_time_range_separator',
+			$time_range_separator,
+			$default
+		);
+
+		$time_range_separator = wp_kses_post( $time_range_separator );
+
+		$cache['tec_events_get_time_range_separator'] = $time_range_separator;
+
+		return $time_range_separator;
+	}
+}
+
+if ( ! function_exists( 'tec_events_get_date_time_separator' ) ) {
+	/**
+	 * Gets the separator used between the start and end datetime of an event.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Time Range separator.
+	 */
+	function tec_events_get_date_time_separator(): string {
+		$cache                    = tribe_cache();
+		$is_cache_set             = isset( $cache['tec_events_get_date_time_separator'] );
+		$datetime_range_separator = $cache['tec_events_get_date_time_separator'];
+
+		if ( $is_cache_set && is_string( $datetime_range_separator ) ) {
+			return $datetime_range_separator;
+		}
+
+		$default              = ' @ ';
+		$datetime_range_separator = tribe_get_option( 'dateTimeSeparator', $default );
+
+		/**
+		 * Opportunity to modify the separator used between the start and end date time of an event.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $datetime_range_separator Separator used between the start and end date time of an event.
+		 * @param string $default                  Default separator.
+		 */
+		$datetime_range_separator = apply_filters(
+			'tec_events_get_date_time_separator',
+			$datetime_range_separator,
+			$default
+		);
+
+		$datetime_range_separator = wp_kses_post( $datetime_range_separator );
+
+		$cache['tec_events_get_date_time_separator'] = $datetime_range_separator;
+
+		return $datetime_range_separator;
+	}
+}

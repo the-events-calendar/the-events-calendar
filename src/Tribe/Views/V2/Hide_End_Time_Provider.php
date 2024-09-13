@@ -2,7 +2,7 @@
 /**
  * Handles hooking all the actions and filters used by the Hide End Time module.
  *
- * @since TBD
+ * @since 6.6.3
  *
  * @package Tribe\Events\Views\V2
  */
@@ -17,7 +17,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Hide_End_Time_Provider
  *
- * @since TBD
+ * @since 6.6.3
  *
  * @package Tribe\Events\Views\V2
  */
@@ -30,7 +30,7 @@ class Hide_End_Time_Provider extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.6.3
 	 */
 	public function register() {
 		// One of two possibilities for our view rendering initialization.
@@ -96,7 +96,7 @@ class Hide_End_Time_Provider extends Service_Provider {
 		/**
 		 * Once we are setup, broadcast ourself for further integrations.
 		 *
-		 * @since TBD
+		 * @since 6.6.3
 		 *
 		 * @param Hide_End_Time_Provider $this The provider.
 		 */
@@ -106,7 +106,7 @@ class Hide_End_Time_Provider extends Service_Provider {
 	/**
 	 * Hook callback for the month calendar-event/date template, where we add the hide end time flag.
 	 *
-	 * @since TBD
+	 * @since 6.6.3
 	 *
 	 * @param string          $html Current template HTML.
 	 * @param string          $file File path.
