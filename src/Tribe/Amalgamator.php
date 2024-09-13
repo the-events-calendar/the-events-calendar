@@ -455,7 +455,7 @@ class Tribe__Events__Amalgamator {
 		$text = $text ? $text : __( 'Merge Duplicates', 'the-events-calendar' );
 
 		// Get the base settings page URL.
-		$url = tribe( Plugin_Settings::class )->get_url();
+		$url = tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'general-maintenance-tab'] );
 
 		$url = add_query_arg( [ 'amalgamate' => '1' ], $url );
 		$url = wp_nonce_url( $url, 'amalgamate_duplicates' );
