@@ -288,21 +288,26 @@ if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
 }
 
 /**
- * Event Type Test
+ * Checks if a given post ID or object is an Event post type.
  *
- * Checks type of $postId to determine if it is an Event
+ * This function tests whether the provided post ID or object corresponds to an Event.
  *
- * @param int|WP_Post The event/post id or object. (optional)
+ * @since 2.0.1
  *
- * @return bool true if this post is an Event post type
+ * @param int|WP_Post|null $postId Optional. The event/post ID or object. Default null.
+ *
+ * @return bool True if the post is of type 'Event', false otherwise.
+ *
  * @category Events
  */
 function tribe_is_event( $postId = null ) {
 	/**
-	 * Filter: 'tribe_is_event'.
+	 * Filters whether a post is an Event post type.
 	 *
-	 * @param bool $is_event
-	 * @param int|WP_Post $postId The event/post id or object. (optional)
+	 * @since 3.0
+	 *
+	 * @param bool             $is_event Whether the post is an Event.
+	 * @param int|WP_Post|null $postId   The event/post ID or object
 	 */
 	return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 }
