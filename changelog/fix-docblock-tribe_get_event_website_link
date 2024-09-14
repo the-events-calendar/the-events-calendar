@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Enhanced documentation for `tribe_get_event_website_link` function
