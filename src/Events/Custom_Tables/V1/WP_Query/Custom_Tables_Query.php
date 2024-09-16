@@ -363,6 +363,8 @@ class Custom_Tables_Query extends WP_Query {
 				$occurrences = Occurrences::table_name( true );
 				$order = $normalized_order_by['ID'] ?? $normalized_order_by[ $wpdb->posts . '.ID' ] ?? 'DESC';
 
+				$order = $this->sanitize_order( $order );
+
 				// The second `order` is omitted: it will be added by the following `parse_order` call.
 				$parsed = "ID $order, $occurrences.occurrence_id";
 				break;
@@ -698,9 +700,9 @@ class Custom_Tables_Query extends WP_Query {
 			}
 
 			// Each `ORDER BY` entry could specify an order (DESC|ASC) or not.
-			if ( preg_match( '~(?<orderby>.*?)\s?(?<order>ASC|DESC)$~i', $orderby_frag, $m ) ) {
+			if ( preg_match( '~\s*(?<orderby>[^\s]+]?)\s+(?<order>.+)$~i', $orderby_frag, $m ) ) {
 				$orderby = trim( $m['orderby'] );
-				$order = trim( $m['order'] );
+				$order = $this->sanitize_order( $m['order'] );
 			} else {
 				// Follow the WordPress default and use DESC if no order is specified.
 				$orderby = $orderby_frag;
@@ -720,5 +722,18 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		return $redirected_orderbys;
+	}
+
+	/**
+	 * Sanitizes the order direction.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $order The order direction to sanitize.
+	 *
+	 * @return string The sanitized order direction.
+	 */
+	protected function sanitize_order( $order ) {
+		return strtoupper( trim( $order ) ) === 'DESC' ? 'DESC' : 'ASC';
 	}
 }
