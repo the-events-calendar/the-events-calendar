@@ -414,7 +414,7 @@ function tribe_get_event_link( $post_id = null, $full_link = false ) {
  *
  * @param null|object|int $event  The event object or ID. Defaults to null - which will use global `$post`.
  * @param null|string     $label  Optional. The text label for the link. Defaults to the event URL if not provided.
- * @param string          $target Optional. The target attribute for the link. Defaults to '_self'.
+ * @param string          $target Optional. The target attribute for the link. Defaults to '_self'. Allowed values are: '_self', '_blank', '_parent', '_top', '_unfencedTop'.
  *
  * @return string The HTML for the event website link, or an empty string if no URL is found.
  */
