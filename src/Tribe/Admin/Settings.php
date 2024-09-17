@@ -46,16 +46,16 @@ class Settings {
 
 		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 
-		if ( $args['frag'] ?? false ) {
+		if ( $args['anchor'] ?? false ) {
 			// Append hash character if needed.
-			if ( $args['frag'][0] !== '#' ) {
-				$args['frag'] = "#{$args['frag']}";
+			if ( $args['anchor'][0] !== '#' ) {
+				$args['anchor'] = "#{$args['anchor']}";
 			}
 
-			$wp_url .= $args['frag'];
+			$wp_url .= $args['anchor'];
 
-			// Don't pass this to add_query_arg().
-			unset( $args['frag'] );
+			// Don't pass this to add_query_arg(). Core will handle moving it as needed.
+			unset( $args['anchor'] );
 		}
 
 		// Keep the resulting URL args clean.
