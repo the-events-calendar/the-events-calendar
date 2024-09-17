@@ -351,11 +351,11 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 			return '2022-10-01 08:00:00';
 		} );
 
-		$_REQUEST['tribe-bar-search'] = 'test1 test2';
 		$args = [
 			'post_type' => TEC::POSTTYPE,
 			'order'     => 'DESC',
 			'orderby'  => 'ID',
+			's'        => 'test1 test2',
 		];
 
 		$query = new \WP_Query( $args );
