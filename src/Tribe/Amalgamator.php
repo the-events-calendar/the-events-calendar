@@ -457,7 +457,7 @@ class Tribe__Events__Amalgamator {
 		// Get the base settings page URL.
 		$url = tribe( Plugin_Settings::class )->get_url(
 			[
-				'tab' => 'general-maintenance-tab'
+				'tab' => 'general-maintenance-tab',
 			]
 		);
 
