@@ -46,6 +46,18 @@ class Settings {
 
 		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 
+		if ( $args['frag'] ?? false ) {
+			// Append hash character if needed.
+			if ( $args['frag'][0] !== '#' ) {
+				$args['frag'] = '#' . $args['frag'];
+
+			}
+
+			$wp_url .= $args['frag'];
+			// Don't pass this to add_query_arg().
+			unset( $args['frag'] );
+		}
+
 		// Keep the resulting URL args clean.
 		$url = add_query_arg( $args, $wp_url );
 
