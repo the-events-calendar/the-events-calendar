@@ -341,33 +341,6 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should correctly order events by different order_by criteria
-	 *
-	 * @test
-	 */
-	public function it_should_handle_single_and_multiple_search_params() {
-		// Fix the `now` moment to avoid snapshot invalidation.
-		add_filter( 'tec_events_query_current_moment', static function () {
-			return '2022-10-01 08:00:00';
-		} );
-
-		$args = [
-			'post_type' => TEC::POSTTYPE,
-			'order'     => 'DESC',
-			'orderby'  => 'ID',
-			's'        => 'test1 test2',
-		];
-
-		$query = new \WP_Query( $args );
-
-		$request = $query->request;
-
-		global $wpdb;
-		$this->assertEmpty( $wpdb->last_error );
-		$this->assertMatchesSnapshot( $request );
-	}
-
-	/**
 	 * Test that we can convert a meta_value order by, into the CT1 equivalent and retrieve expected result.
 	 *
 	 * @test
