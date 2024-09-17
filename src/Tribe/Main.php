@@ -1263,7 +1263,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$edit_settings_link = __( ' ask the site administrator to set a different Events URL slug.', 'the-events-calendar' );
 
 			if ( current_user_can( $settings_cap ) ) {
-				$setting_page_link  = tribe( Tribe\Events\Admin\Settings::class )->get_url(
+				$setting_page_link = tribe( Tribe\Events\Admin\Settings::class )->get_url(
 					[
 						'anchor' => 'tribe-field-eventsSlug',
 						'tab'    => 'general-viewing-tab',

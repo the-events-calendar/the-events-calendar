@@ -374,7 +374,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 					tribe( Plugin_Settings::class )->get_url(
 						[
 							'tab'    => 'display-date-time',
-							'anchor' =>'tribe-field-tribe_events_timezone_mode',
+							'anchor' => 'tribe-field-tribe_events_timezone_mode',
 						]
 					)
 				) . '">',
