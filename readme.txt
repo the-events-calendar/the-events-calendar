@@ -239,6 +239,14 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.6.4.2] 2024-09-17 =
+
+* Fix - Resolve fatal errors happening when Events search was being used alongside query ordering. [TEC-5155]
+
+= [6.6.4.1] 2024-09-16 =
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
 = [6.6.4] 2024-09-11 =
 
 * Security - Improve handling of Date/Time Separator settings to prevent potential XSS vulnerabilities.
