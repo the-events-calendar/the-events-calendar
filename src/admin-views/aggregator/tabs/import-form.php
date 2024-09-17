@@ -339,8 +339,8 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 				'<a href="' . esc_url(
 					tribe( Plugin_Settings::class )->get_url(
 						[
-							'tab' => 'display-date-time',
-							'anchor' => 'tribe-field-tribe_events_timezone_mode'
+							'tab'    => 'display-date-time',
+							'anchor' => 'tribe-field-tribe_events_timezone_mode',
 						]
 					)
 				) . '">',
@@ -357,8 +357,8 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 				'<a href="' . esc_url(
 					tribe( Plugin_Settings::class )->get_url(
 						[
-							'tab' => 'imports',
-							'anchor' => 'tribe-field-tribe_aggregator_default_import_limit_type'
+							'tab'    => 'imports',
+							'anchor' => 'tribe-field-tribe_aggregator_default_import_limit_type',
 						]
 					)
 				) . '">',
@@ -373,7 +373,7 @@ $scheduled_save_help = esc_html__( 'When you save this scheduled import, the eve
 				'<a href="' . esc_url(
 					tribe( Plugin_Settings::class )->get_url(
 						[
-							'tab' => 'display-date-time',
+							'tab'    => 'display-date-time',
 							'anchor' =>'tribe-field-tribe_events_timezone_mode',
 						]
 					)

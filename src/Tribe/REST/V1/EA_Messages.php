@@ -59,7 +59,7 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 			tribe( Plugin_Settings::class )->get_url(
 				[
 					'tab'   => 'imports',
-					'achor' => 'tribe-field-tribe_aggregator_default_url_import_range'
+					'anchor' => 'tribe-field-tribe_aggregator_default_url_import_range',
 				]
 			)
 		);

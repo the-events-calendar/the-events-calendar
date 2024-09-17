@@ -1266,7 +1266,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$setting_page_link  = tribe( Tribe\Events\Admin\Settings::class )->get_url(
 					[
 						'anchor' => 'tribe-field-eventsSlug',
-						'tab'  => 'general-viewing-tab',
+						'tab'    => 'general-viewing-tab',
 					]
 				);
 
