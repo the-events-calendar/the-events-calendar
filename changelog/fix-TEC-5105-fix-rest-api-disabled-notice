@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]

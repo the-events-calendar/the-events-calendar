@@ -235,10 +235,44 @@ Check out our extensive [knowledgebase](https://evnt.is/18wm) for articles on us
 = [6.0] =
 Please see the changelog for the complete list of changes in this release.
 Previous versions of The Events Calendar are not cross-compatible with 6.X add-ons.
-Remember to always make a backup of your database areadme.txt
-nd files before updating!
+Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.6.4.1] 2024-09-16 =
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
+= [6.6.4] 2024-09-11 =
+
+* Security - Improve handling of Date/Time Separator settings to prevent potential XSS vulnerabilities.
+* Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
+* Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [BTRIA-2353]
+* Fix - Changed logic within the custom tables query to avoid a database error. (props @datadiver0x0) [ECP-1562]
+* Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
+* Tweak - Include methods `tec_events_get_date_time_separator` and `tec_events_get_time_range_separator` and it's respective filters.
+* Tweak - Add docblock for make_select_box()
+* Tweak - Add docblock for `set_defaults()` in the `Tribe__Events__Importer__Column_Mapper` class.
+* Tweak - Add docblocks to the methods in the `Tribe__Events__Importer__Column_Mapper` class.
+* Tweak - Add information and missing tags to `tribe_get_listview_args()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_dir_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_past_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
+* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TECTRIA-292]
+* Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
+* Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
+* Tweak - Changed views: `silence`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 0 new strings added, 46 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.6.3] 2024-08-29 =
+
+* Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events. [TEC-4941]
+* Fix - Character encoding issues on subscribe URLs for Outlook. [TEC-5085, TEC-5094, TEC-5136]
+* Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
+* Tweak - Add docblock for make_select_box()
+* Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.6.2] 2024-09-20 =
 

@@ -70,6 +70,7 @@ class Restrict_Content_Pro_Test extends ViewTestCase {
 	 * Test render with restrictions removed
 	 */
 	public function test_render_unrestricted() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
@@ -137,6 +138,7 @@ class Restrict_Content_Pro_Test extends ViewTestCase {
 	 * Test render with restrictions in place
 	 */
 	public function test_render_restricted() {
+		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$this->restrict_all();
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );

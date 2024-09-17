@@ -145,7 +145,7 @@ class Rest_Api {
 	/**
 	 * Checks if the response is blocked.
 	 *
-	 * @since TBD
+	 * @since 6.6.3
 	 *
 	 * @param array|WP_Error $response The response from the REST API.
 	 *
@@ -163,7 +163,7 @@ class Rest_Api {
 		/**
 		 * Filters whether the REST API response is considered to be blocked.
 		 *
-		 * @since TBD
+		 * @since 6.6.3
 		 *
 		 * @param bool           $blocked  Whether the REST API response is blocked.
 		 * @param array|WP_Error $response The response from the REST API.
@@ -174,7 +174,7 @@ class Rest_Api {
 	/**
 	 * Checks if the WP_Error response is blocking.
 	 *
-	 * @since TBD
+	 * @since 6.6.3
 	 *
 	 * @param WP_Error $response The response from the REST API.
 	 *
@@ -192,7 +192,7 @@ class Rest_Api {
 					/**
 					 * Filters whether the REST API response is considered to be blocked due to a timeout.
 					 *
-					 * @since TBD
+					 * @since 6.6.3
 					 *
 					 * @param bool     $blocked  Whether the REST API response is blocked.
 					 * @param WP_Error $response The response from the REST API.
@@ -214,7 +214,7 @@ class Rest_Api {
 	/**
 	 * Get the routes to check for possible REST API blocking.
 	 *
-	 * @since TBD
+	 * @since 6.6.3
 	 *
 	 * @return array
 	 */

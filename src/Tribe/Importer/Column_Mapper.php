@@ -33,6 +33,15 @@ class Tribe__Events__Importer__Column_Mapper {
 		}
 	}
 
+	/**
+	 * Set the default values for the import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param array $defaults Array of the default values.
+	 *
+	 * @return void
+	 */
 	public function set_defaults( $defaults ) {
 		$this->defaults = $defaults;
 	}
@@ -58,6 +67,15 @@ class Tribe__Events__Importer__Column_Mapper {
 		return $html;
 	}
 
+	/**
+	 * Get the label of a column.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param string $key The array key of the column for which we need the label.
+	 *
+	 * @return mixed|string The label of the column, or an empty string if column is not found.
+	 */
 	public function get_column_label( $key ) {
 		if ( isset( $this->column_names[ $key ] ) ) {
 			return $this->column_names[ $key ];
@@ -66,6 +84,13 @@ class Tribe__Events__Importer__Column_Mapper {
 		return '';
 	}
 
+	/**
+	 * Retrieve column names for event import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @return mixed|null
+	 */
 	private function get_event_column_names() {
 		$column_names = array(
 			'event_name'              => esc_html__( 'Event Name', 'the-events-calendar' ),
@@ -104,6 +129,13 @@ class Tribe__Events__Importer__Column_Mapper {
 		return apply_filters( 'tribe_events_importer_event_column_names', $column_names );
 	}
 
+	/**
+	 * Retrieve column names for venue import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @return mixed|null
+	 */
 	private function get_venue_column_names() {
 		$column_names = array(
 			'venue_name'        => esc_html__( 'Venue Name', 'the-events-calendar' ),
@@ -127,6 +159,13 @@ class Tribe__Events__Importer__Column_Mapper {
 		return apply_filters( 'tribe_events_importer_venue_column_names', $column_names );
 	}
 
+	/**
+	 * Retrieve column names for organizer import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @return mixed|null
+	 */
 	private function get_organizer_column_names() {
 		$column_names = array(
 			'organizer_name'        => esc_html__( 'Organizer Name', 'the-events-calendar' ),
