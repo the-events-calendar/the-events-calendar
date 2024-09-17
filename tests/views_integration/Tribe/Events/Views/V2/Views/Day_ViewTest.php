@@ -47,7 +47,6 @@ class Day_ViewTest extends ViewTestCase {
 	}
 
 	public function test_render_w_events() {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$timezone_string = 'America/Sao_Paulo';
 		$timezone        = Timezones::build_timezone_object( $timezone_string );
 		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );
@@ -229,7 +228,6 @@ class Day_ViewTest extends ViewTestCase {
 	 * @dataProvider server_timezone_provider
 	 */
 	public function should_correctly_setup_day_interval( $server_timezone) {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		// Backup the current server timezone.
 		$this->date_default_timezone = date_default_timezone_get();
 		// Do not check for current dates in templates inputs.
@@ -288,7 +286,6 @@ class Day_ViewTest extends ViewTestCase {
 	 * @test
 	 */
 	public function test_render_w_events_w_taxonomies() {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$timezone_string = 'America/Sao_Paulo';
 		$timezone        = Timezones::build_timezone_object( $timezone_string );
 		$today           = Dates::build_date_object( $this->mock_date_value, $timezone )->format( 'Y-m-d' );

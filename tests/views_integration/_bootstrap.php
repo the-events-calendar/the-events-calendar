@@ -11,11 +11,11 @@ tribe_register_provider( Service_Provider::class );
 
 // Let's make sure to set rewrite rules.
 global $wp_rewrite;
-$wp_rewrite->permalink_structure = '/%postname%/';
+$wp_rewrite->set_permalink_structure( '/%postname%/' );
 $wp_rewrite->rewrite_rules();
 
-update_option( 'theme', 'twentytwenty' );
-update_option( 'stylesheet', 'twentytwenty' );
+update_option( 'theme', 'twentytwentyfour' );
+update_option( 'stylesheet', 'twentytwentyfour' );
 
 // Fix the fact that the subscribe links default to "today"
 add_filter(
