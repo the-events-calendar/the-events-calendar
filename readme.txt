@@ -241,6 +241,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.6.4.2] 2024-09-17 =
 
+* Fix - Resolve fatal errors happening when Events search was being used alongside query ordering. [TEC-5155]
 
 = [6.6.4.1] 2024-09-16 =
 
