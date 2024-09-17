@@ -7,9 +7,9 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Day_View;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 
-class With_NoindexTest extends ViewTestCase {
+class With_NoindexTest extends TecViewTestCase {
 	/**
 	 * The mock rendering context.
 	 *

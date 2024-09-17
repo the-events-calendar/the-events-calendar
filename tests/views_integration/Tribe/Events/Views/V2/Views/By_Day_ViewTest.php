@@ -5,10 +5,10 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Utils\Stack;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 use Tribe__Date_Utils as Dates;
 
-class By_Day_ViewTest extends ViewTestCase {
+class By_Day_ViewTest extends TecViewTestCase {
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
