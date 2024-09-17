@@ -49,11 +49,11 @@ class Settings {
 		if ( $args['frag'] ?? false ) {
 			// Append hash character if needed.
 			if ( $args['frag'][0] !== '#' ) {
-				$args['frag'] = '#' . $args['frag'];
-
+				$args['frag'] = "#{$args['frag']}";
 			}
 
 			$wp_url .= $args['frag'];
+
 			// Don't pass this to add_query_arg().
 			unset( $args['frag'] );
 		}

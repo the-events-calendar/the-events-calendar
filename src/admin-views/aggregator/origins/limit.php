@@ -41,8 +41,8 @@ if ( 'range' === $global_limit_type ) {
 $import_limit_link = esc_url(
 	tribe( Plugin_Settings::class )->get_url(
 		[
-			'tab'  => 'imports',
-			'frag' => 'tribe-field-tribe_aggregator_default_import_limit_type',
+			'tab'    => 'imports',
+			'anchor' => 'tribe-field-tribe_aggregator_default_import_limit_type',
 		]
 	)
 );

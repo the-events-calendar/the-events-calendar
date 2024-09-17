@@ -58,8 +58,8 @@ class Tribe__Events__REST__V1__EA_Messages extends Tribe__Events__REST__V1__Mess
 		$adjust_link         = esc_url(
 			tribe( Plugin_Settings::class )->get_url(
 				[
-					'tab' => 'imports',
-					'frag' => '#tribe-field-tribe_aggregator_default_url_import_range'
+					'tab'   => 'imports',
+					'achor' => 'tribe-field-tribe_aggregator_default_url_import_range'
 				]
 			)
 		);
