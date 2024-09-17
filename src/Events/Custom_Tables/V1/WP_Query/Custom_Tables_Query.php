@@ -700,9 +700,9 @@ class Custom_Tables_Query extends WP_Query {
 			}
 
 			// Each `ORDER BY` entry could specify an order (DESC|ASC) or not.
-			if ( preg_match( '~\s*(?<orderby>[^\s]+]?)\s+(?<order>.+)$~i', $orderby_frag, $m ) ) {
+			if ( preg_match( '~(?<orderby>.+)\s+(?<order>ASC|DESC)$~i', $orderby_frag, $m ) ) {
 				$orderby = trim( $m['orderby'] );
-				$order = $this->sanitize_order( $m['order'] );
+				$order   = $this->sanitize_order( $m['order'] );
 			} else {
 				// Follow the WordPress default and use DESC if no order is specified.
 				$orderby = $orderby_frag;
