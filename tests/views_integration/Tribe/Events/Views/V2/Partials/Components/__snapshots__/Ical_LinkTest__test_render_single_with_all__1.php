@@ -15,7 +15,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist"
+		href="https://www.google.com/calendar/render?cid=webcal%3A%2F%2Ftest.tri.be%2F%3Fpost_type%3Dtribe_events%26ical%3D1%26eventDisplay%3Dlist%26tribe-bar-date%3D2021-07-04"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
@@ -25,7 +25,7 @@
 									
 <li class="tribe-events-c-subscribe-dropdown__list-item">
 	<a
-		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1&#038;eventDisplay=list"
+		href="webcal://test.tri.be/?post_type=tribe_events&#038;ical=1&#038;eventDisplay=list&#038;tribe-bar-date=2021-07-04"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
