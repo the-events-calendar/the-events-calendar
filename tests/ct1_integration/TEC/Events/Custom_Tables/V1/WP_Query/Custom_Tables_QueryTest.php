@@ -291,6 +291,24 @@ class Custom_Tables_QueryTest extends \Codeception\TestCase\WPTestCase {
 				],
 			],
 		];
+		yield 'SQL injection on order and order by' => [
+			[
+				'orderby' => 'ID; (SELECT ID FROM wp_posts)',
+				'order' => 'ASC (SELECT ID FROM wp_posts)',
+			],
+		];
+		yield 'SQL injection on order by' => [
+			[
+				'orderby' => 'ID (SELECT ID FROM wp_posts)',
+				'order' => 'DESC',
+			],
+		];
+		yield 'SQL injection on order' => [
+			[
+				'orderby' => 'ID',
+				'order' => 'ASC; SELECT ID FROM wp_posts',
+			],
+		];
 	}
 
 	/**
