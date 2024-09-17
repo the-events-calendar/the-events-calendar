@@ -405,13 +405,18 @@ function tribe_get_event_link( $post_id = null, $full_link = false ) {
 }
 
 /**
- * Event Website Link (more info)
+ * Retrieves the website link for an event, including an optional label and target attribute.
  *
- * @param null|object|int $event The event object or ID.
- * @param ?string         $label The link label.
- * @param string          $target The link target.
+ * This function returns the URL associated with the event and outputs it as an HTML anchor (`<a>`) element.
+ * It also allows customization of the link label and target through filters.
  *
- * @return string $html
+ * @since 3.0
+ *
+ * @param null|object|int $event  The event object or ID. Defaults to null - which will use global `$post`.
+ * @param null|string     $label  Optional. The text label for the link. Defaults to the event URL if not provided.
+ * @param string          $target Optional. The target attribute for the link. Defaults to '_self'. Allowed values are: '_self', '_blank', '_parent', '_top', '_unfencedTop'.
+ *
+ * @return string The HTML for the event website link, or an empty string if no URL is found.
  */
 function tribe_get_event_website_link( $event = null, $label = null, $target = '_self' ): string {
 	// We won't get far without a post ID. Especially since we pass it to filters that depend on it.
@@ -420,14 +425,16 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 	$target  = $target ? $target : '_self';
 
 	/**
-	 * Filter the target attribute for the event website link
+	 * Filters the target attribute for the event website link.
+	 *
+	 * This filter allows developers to modify the target attribute of the event website link.
 	 *
 	 * @since 5.1.0
-	 * @since 5.5.0 Added $post_id argument
+	 * @since 5.5.0 Added $post_id argument.
 	 *
-	 * @param string          $target The target attribute string. Defaults to "_self" (above).
-	 * @param string          $url    The link URL.
-	 * @param null|object|int $post_id  The event the url is attached to.
+	 * @param string          $target  The target attribute. Defaults to '_self'.
+	 * @param string          $url     The event website URL.
+	 * @param null|object|int $post_id The event the URL is attached to.
 	 */
 	$target = apply_filters( 'tribe_get_event_website_link_target', $target, $url, $post_id );
 
@@ -442,12 +449,14 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 	if ( ! empty( $url ) ) {
 		$label = empty( $label ) ? $url : $label;
 		/**
-		 * Filter the website link label
+		 * Filters the label of the event website link.
+		 *
+		 * This filter allows developers to modify the text label of the event website link.
 		 *
 		 * @since 3.0
 		 *
-		 * @param string $label   The link label/text.
-		 * @param int    $post_id The post ID.
+		 * @param string $label   The link label. Defaults to the URL if not provided.
+		 * @param int    $post_id The post ID of the event.
 		 */
 		$label = apply_filters( 'tribe_get_event_website_link_label', $label, $post_id );
 		$html  = sprintf(
@@ -462,11 +471,13 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 	}
 
 	/**
-	 * Filter the website link HTML
+	 * Filters the HTML output for the event website link.
+	 *
+	 * This filter allows developers to modify the full HTML string for the event website link.
 	 *
 	 * @since 3.0
 	 *
-	 * @param string $html The link HTML.
+	 * @param string $html The HTML for the event website link.
 	 */
 	return apply_filters( 'tribe_get_event_website_link', $html );
 }
