@@ -44,7 +44,7 @@ $tribe_enable_views_tooltip = apply_filters(
 $section_header_classes = new Classes( [ 'tec-settings-form__section-header', 'tec-settings-form__section-header--sub' ] );
 
 $tec_events_display_calendar = [
-	( new Div( new Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) ) )->add_children(
+	'tec-settings-form__header-block' => ( new Div( new Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) ) )->add_children(
 		[
 			new Heading(
 				_x( 'Calendar', 'Calendar display settings header', 'the-events-calendar' ),
