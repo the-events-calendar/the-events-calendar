@@ -46,6 +46,18 @@ class Settings {
 
 		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 
+		if ( $args['anchor'] ?? false ) {
+			// Prepend hash character if needed.
+			if ( $args['anchor'][0] !== '#' ) {
+				$args['anchor'] = "#{$args['anchor']}";
+			}
+
+			$wp_url .= $args['anchor'];
+
+			// Don't pass this to add_query_arg(). Core will handle moving it as needed.
+			unset( $args['anchor'] );
+		}
+
 		// Keep the resulting URL args clean.
 		$url = add_query_arg( $args, $wp_url );
 
