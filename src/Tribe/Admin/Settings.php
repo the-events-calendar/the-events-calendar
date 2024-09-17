@@ -47,7 +47,7 @@ class Settings {
 		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 
 		if ( $args['anchor'] ?? false ) {
-			// Append hash character if needed.
+			// Prepend hash character if needed.
 			if ( $args['anchor'][0] !== '#' ) {
 				$args['anchor'] = "#{$args['anchor']}";
 			}
