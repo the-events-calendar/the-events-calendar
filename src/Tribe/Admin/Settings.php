@@ -174,16 +174,21 @@ class Settings {
 
 		$admin_pages->register_page(
 			[
-				'id'       => 'tec-events-help',
+				'id'       => 'tec-events-help-hub',
 				'parent'   => $this->get_tec_events_menu_slug(),
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
-				'path'     => 'tec-events-help',
+				'path'     => 'tec-events-help-hub',
 				'callback' => [
 					tribe( 'settings.manager' ),
 					'do_help_tab',
 				],
 			]
 		);
+		add_filter('admin_body_class',function ($classes) {
+			$classes .= ' tribe_events_page_tec-events-settings';
+
+			return $classes;
+		});
 
 		$this->maybe_add_troubleshooting();
 		$this->maybe_add_app_shop();
