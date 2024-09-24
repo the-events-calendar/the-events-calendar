@@ -239,6 +239,19 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.7.0] 2024-09-25 =
+
+* Version - The Events Calendar 6.7.0 is only compatible with Events Calendar Pro 7.1.0 and higher
+* Version - The Events Calendar 6.7.0 is only compatible with Events Filterbar 5.5.7 and higher
+* Version - The Events Calendar 6.7.0 is only compatible with Events Calendar Pro 5.0.4 and higher
+* Feature - New settings layout and styles. [TEC-5124]
+* Fix - Correct translation domains in a few templates. [TBD]
+* Tweak - Added filters: `tec_settings_gmaps_js_api_start`, `tec_events_settings_display_calendar_display_section`, `tec_general_settings_viewing_section`, `tec_events_aggregator_show_all_settings`, `tec_events_settings_tab_imports_fields`
+* Tweak - Removed filters: `tec_events_should_display_events_template_setting`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
+* Tweak - Added actions: `tec_events_settings_tab_display_additional_content`, `tec_events_settings_tab_display_calendar`, `tec_events_settings_tab_display_date_time`, `tec_events_settings_tab_display_maps`, `tec_events_settings_tab_general_debugging`, `tec_events_settings_tab_general_editing`, `tec_events_settings_tab_general_maintenance`, `tec_events_settings_tab_general_viewing`, `tec_settings_tab_addons`, `tec_events_settings_tab_display`, `tec_events_settings_tab_general`, `tec_events_settings_tab_imports`
+* Tweak - Changed views: `v2/latest-past/event/venue`
+* Language - 6 new strings added, 356 updated, 3 fuzzied, and 29 obsoleted
+
 = [6.6.4.2] 2024-09-17 =
 
 * Fix - Resolve fatal errors happening when Events search was being used alongside query ordering. [TEC-5155]

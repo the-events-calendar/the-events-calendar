@@ -3,7 +3,7 @@
  * Currency settings tab.
  * Subtab of the Display Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 $tec_events_display_currency = [];
@@ -93,7 +93,7 @@ $display_currency = new Tribe__Settings_Tab(
 /**
  * Fires after the display settings currency tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $display_currency The display settings currency tab.
  */

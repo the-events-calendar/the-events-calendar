@@ -3,7 +3,7 @@
  * Editing settings tab.
  * Subtab of the General Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 $is_missing_aggregator_license_key = '' === get_option( 'pue_install_key_event_aggregator' );
@@ -70,7 +70,7 @@ $general_editing = new Tribe__Settings_Tab(
 /**
  * Fires after the general editing settings tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $general_editing The general editing settings tab.
  */

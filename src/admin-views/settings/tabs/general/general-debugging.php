@@ -3,7 +3,7 @@
  * Debugging settings tab.
  * Subtab of the General Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 $tec_events_general_debugging = [
@@ -73,7 +73,7 @@ $general_debugging = new Tribe__Settings_Tab(
 /**
  * Fires after the general debugging settings tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $general_debugging The general debugging settings tab.
  */

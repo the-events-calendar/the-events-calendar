@@ -2,7 +2,7 @@
 /**
  * Community upsell banner.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 $main = Tribe__Events__Main::instance();

@@ -104,7 +104,7 @@ class Settings {
 	/**
 	 * Replaces the source URL of the settings page logo.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $source_url The current source URL of the settings page logo.
 	 *
@@ -414,7 +414,7 @@ class Settings {
 	/**
 	 * Register the default settings tab sidebar.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return void
 	 */

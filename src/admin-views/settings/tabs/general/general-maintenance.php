@@ -3,7 +3,7 @@
  * Maintgenance settings tab.
  * Subtab of the General Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 /**
@@ -84,7 +84,7 @@ $general_maintenance = new Tribe__Settings_Tab(
 /**
  * Fires after the general maintenance settings tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $general_maintenance The general maintenance settings tab.
  */

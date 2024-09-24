@@ -3,7 +3,7 @@
  * Maps settings tab.
  * Subtab of the Display Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 use TEC\Common\Admin\Entities\Div;
@@ -81,7 +81,7 @@ $display_maps = new Tribe__Settings_Tab(
 /**
  * Fires after the display settings maps tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $display_maps The display settings maps tab.
  */

@@ -2,7 +2,7 @@
 /**
  * The default sidebar for the settings pages.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 declare( strict_types=1 );

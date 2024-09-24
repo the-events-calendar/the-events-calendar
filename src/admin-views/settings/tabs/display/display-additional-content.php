@@ -3,7 +3,7 @@
  * Additional Content settings tab.
  * Subtab of the Display Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 // Insert Advanced Template settings.
@@ -41,7 +41,7 @@ $display_additional_content = new Tribe__Settings_Tab(
 /**
  * Fires after the display additional content settings tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $display_additional_content The display additional content settings tab.
  */

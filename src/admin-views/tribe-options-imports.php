@@ -2,7 +2,7 @@
 /**
  * Handles the Import settings for The Events Calendar.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 declare( strict_types=1 );
@@ -720,7 +720,7 @@ $imports_tab = new Tribe__Settings_Tab(
 		/**
 		 * Filter the fields for the imports settings tab.
 		 *
-		 * @since TBD
+		 * @since 6.7.0
 		 *
 		 * @param array $fields The fields for the imports settings tab.
 		 */
@@ -731,7 +731,7 @@ $imports_tab = new Tribe__Settings_Tab(
 /**
  * Fires after the imports settings tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $imports_tab The imports settings tab.
  */

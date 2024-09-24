@@ -3,7 +3,7 @@
  * Calendar settings tab.
  * Subtab of the Display Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 use TEC\Common\Admin\Entities\Div;
@@ -199,7 +199,7 @@ $display_calendar = new Tribe__Settings_Tab(
 /**
  * Fires after the display settings calendar tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $display_calendar The display settings calendar tab.
  */

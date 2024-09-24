@@ -57,7 +57,7 @@ $display_tab->add_child( $additional_content_tab );
 /**
  * Fires after the display settings tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $display_tab The display settings tab.
  */

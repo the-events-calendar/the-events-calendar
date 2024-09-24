@@ -3,7 +3,7 @@
  * Date & Time settings tab.
  * Subtab of the Display Tab.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 use TEC\Common\Admin\Entities\Div;
@@ -195,7 +195,7 @@ $display_date_time = new Tribe__Settings_Tab(
 /**
  * Fires after the display settings date & time tab has been created.
  *
- * @since TBD
+ * @since 6.7.0
  *
  * @param Tribe__Settings_Tab $display_date_time The display settings date & time tab.
  */

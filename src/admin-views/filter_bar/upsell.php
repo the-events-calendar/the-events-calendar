@@ -3,10 +3,10 @@
  * Filter bar upsell banner.
  *
  * @since 5.14.0
- * @since TBD Deprecated
+ * @since 6.7.0 Deprecated
  * @deprecated
  */
-_deprecated_file( __FILE__, 'TBD', 'src/admin-views/settings/upsells/filter_bar.php' );
+_deprecated_file( __FILE__, '6.7.0', 'src/admin-views/settings/upsells/filter_bar.php' );
 $main = Tribe__Events__Main::instance();
 ?>
 <div class="tec-settings-form__upsell">

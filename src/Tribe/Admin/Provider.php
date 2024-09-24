@@ -40,7 +40,7 @@ class Provider extends Service_Provider {
 		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_network_settings_tab' ), 400 );
 		add_filter( 'tribe_settings_page_title', $this->container->callback( Settings::class, 'settings_page_title' ) );
 		add_filter( 'tec_settings_page_logo_source', $this->container->callback( Settings::class, 'settings_page_logo_source' ) );
-		add_filter( 'tec_events_settings_tab_url', $this->container->callback( Settings::class, 'filter_settings_tab_url' ), 50, 3 );
+		add_filter( 'tec_settings_tab_url', $this->container->callback( Settings::class, 'filter_settings_tab_url' ), 50, 3 );
 		add_filter( 'tec_admin_pages_with_tabs', $this->container->callback( Settings::class, 'add_to_pages_with_tabs' ), 20, 1 );
 		add_filter( 'tribe_settings_page_url', $this->container->callback( Settings::class, 'filter_settings_page_url' ), 50, 3 );
 		add_filter( 'tec_admin_footer_text', $this->container->callback( Settings::class, 'admin_footer_text_settings' ) );

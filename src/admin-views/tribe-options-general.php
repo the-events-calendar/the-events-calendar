@@ -3,7 +3,7 @@
  * General settings tab.
  * This tab sets up the main structure and the "sidebar" for the sub-tabs under it.
  *
- * @since TBD
+ * @since 6.7.0
  */
 
 $general_tab_fields = [

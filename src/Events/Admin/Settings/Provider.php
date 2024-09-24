@@ -24,7 +24,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Register the service provider.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 */
 	public function register() {
 		$providers = [
@@ -43,14 +43,14 @@ class Provider extends Service_Provider {
 	/**
 	 * Add actions.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 */
 	public function add_actions(): void {}
 
 	/**
 	 * Add filters.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 */
 	public function add_filters(): void {
 		add_filter( 'tribe_settings_wrap_classes', [ $this, 'filter_tribe_settings_wrap_classes' ], 10, 2 );
@@ -59,7 +59,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Add classes to the settings wrap.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param array<string> $classes    The classes to add to the settings wrap.
 	 * @param string        $admin_page The current admin page.

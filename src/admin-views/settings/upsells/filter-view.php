@@ -3,7 +3,7 @@
  * Filter Bar upsell banner.
  *
  * @since 5.14.0
- * @since TBD Drastically simplified the HTML, changed classes to use new admin styles
+ * @since 6.7.0 Drastically simplified the HTML, changed classes to use new admin styles
  */
 
 $main = Tribe__Events__Main::instance();

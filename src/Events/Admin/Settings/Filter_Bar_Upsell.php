@@ -17,14 +17,14 @@ use Tribe\Events\Admin\Settings;
 /**
  * Class Upsell
  *
- * @since TBD
+ * @since 6.7.0
  */
 class Filter_Bar_Upsell extends Service_Provider {
 
 	/**
 	 * The slug of the upsell tab.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var string
 	 */
@@ -33,7 +33,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Stores the instance of the template engine that we will use for rendering the elements.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @var Tribe__Template
 	 */
@@ -42,7 +42,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Binds and sets up implementations.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 */
 	public function register(): void {
 		if ( tec_should_hide_upsell() ) {
@@ -61,7 +61,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Add actions.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 */
 	public function add_actions(): void {
 		add_action( 'tribe_settings_do_tabs', [ $this, 'add_tab' ] );
@@ -70,7 +70,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Add filters.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 */
 	public function add_filters(): void {
 		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ] );
@@ -80,7 +80,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Filters the classes for the settings form.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param array $classes The classes for the settings form.
 	 *
@@ -99,7 +99,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Adds the Filter Bar Upsell to the tabs that should not be saved.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param array $tabs The tabs that should not use the save footer.
 	 *
@@ -114,7 +114,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Create a Filter Bar upsell tab.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param string $admin_page The current admin page.
 	 */
@@ -135,7 +135,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 		/**
 		* Allows the fields displayed in the Filter Bar upsell tab to be modified.
 		*
-		* @since TBD
+		* @since 6.7.0
 		*
 		* @param array $tec_events_filter_bar_upsell_tab Array of fields used to setup the Filter Bar upsell Tab.
 		*/
@@ -167,7 +167,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Returns html of the Filter Bar upsell banner.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @param array   $context Context of template.
 	 * @param boolean $echo    Whether or not to output the HTML or just return it.
@@ -181,7 +181,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	/**
 	 * Gets the template instance used to setup the rendering html.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return Tribe__Template
 	 */
