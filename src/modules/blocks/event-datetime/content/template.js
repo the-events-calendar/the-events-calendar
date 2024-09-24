@@ -208,6 +208,16 @@ const EventDateTimeContent = ( props ) => {
 };
 
 EventDateTimeContent.propTypes = {
+	multiDay: PropTypes.bool,
+	allDay: PropTypes.bool,
+	sameStartEnd: PropTypes.bool,
+	isEditable: PropTypes.bool,
+	setAttributes: PropTypes.func,
+	isOpen: PropTypes.bool,
+	open: PropTypes.func,
+};
+
+EventDateTimeContent.propTypes = {
 	allDay: PropTypes.bool,
 	cost: PropTypes.string,
 	currencyPosition: PropTypes.oneOf( [ 'prefix', 'suffix', '' ] ),
