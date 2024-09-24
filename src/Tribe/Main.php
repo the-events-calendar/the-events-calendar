@@ -723,6 +723,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected function loadLibraries() {
 			// Setup the Activation page
 			$this->activation_page();
+			add_filter( 'tec_admin_update_page_bypass', '__return_false' );
 
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
