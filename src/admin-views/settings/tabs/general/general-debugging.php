@@ -29,19 +29,19 @@ $tec_events_general_debugging = [
 ];
 
 $tec_events_general_debugging += [
-	'tec-troubleshooting-infobox-start'           => [
+	'tec-troubleshooting-infobox-start'   => [
 		'type' => 'html',
 		'html' => '<div class="tec-settings-infobox">',
 	],
-	'tec-troubleshooting-infobox-logo'            => [
+	'tec-troubleshooting-infobox-logo'    => [
 		'type' => 'html',
 		'html' => '<img class="tec-settings-infobox-logo" src="' . tribe_resource_url( 'images/settings-icons/icon-image-high-five.svg', false, null, Tribe__Events__Main::instance() ) . '" alt="Events troubleshooting Logo">',
 	],
-	'tec-troubleshooting-infobox-title'           => [
+	'tec-troubleshooting-infobox-title'   => [
 		'type' => 'html',
 		'html' => '<h3 class="tec-settings-infobox-title">' . __( 'There is a solution for every problem', 'the-events-calendar' ) . '</h3>',
 	],
-	'tec-troubleshooting-infobox-content'         => [
+	'tec-troubleshooting-infobox-content' => [
 		'type' => 'html',
 		'html' => sprintf(
 		/* Translators: %1$s - opening paragraph tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing paragraph tag */
@@ -52,7 +52,7 @@ $tec_events_general_debugging += [
 			'</p>',
 		),
 	],
-	'tec-troubleshooting-infobox-end'             => [
+	'tec-troubleshooting-infobox-end'     => [
 		'type' => 'html',
 		'html' => '</div>',
 	],
