@@ -615,7 +615,7 @@ $other_url_settings = ( clone $content_block )->add_child(
 $wrap_fields(
 	$other_url_settings,
 	[
-		'tribe_aggregator_default_url_post_status'           => [
+		'tribe_aggregator_default_url_post_status'  => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Default Status', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'The default post status for events imported via other URLs', 'the-events-calendar' ),
@@ -627,7 +627,7 @@ $wrap_fields(
 			'options'         => $origin_post_statuses,
 			'priority'        => 45.2,
 		],
-		'tribe_aggregator_default_url_category'              => [
+		'tribe_aggregator_default_url_category'     => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Default Event Category', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'The default event category for events imported via other URLs', 'the-events-calendar' ),
@@ -639,7 +639,7 @@ $wrap_fields(
 			'options'         => $origin_categories,
 			'priority'        => 45.3,
 		],
-		'tribe_aggregator_default_url_show_map'              => [
+		'tribe_aggregator_default_url_show_map'     => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Show Map', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
@@ -651,7 +651,7 @@ $wrap_fields(
 			'options'         => $origin_show_map_options,
 			'priority'        => 45.4,
 		],
-		'tribe_aggregator_default_url_import_range'          => [
+		'tribe_aggregator_default_url_import_range' => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Import Date Range Limit', 'the-events-calendar' ),
 			'tooltip'         => esc_html__(
@@ -666,7 +666,7 @@ $wrap_fields(
 			'options'         => tribe( 'events-aggregator.settings' )->get_url_import_range_options( true ),
 			'priority'        => 45.5,
 		],
-		'tribe_aggregator_default_url_import_event_settings' => [
+		'tribe_aggregator_default_url_import_event' => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( "Fetch source event's settings (e.g. Show Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
