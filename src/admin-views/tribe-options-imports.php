@@ -7,7 +7,6 @@
 
 declare( strict_types=1 );
 
-use TEC\Common\Admin\Entities\Br;
 use TEC\Common\Admin\Entities\Container;
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Field_Wrapper;
@@ -15,11 +14,10 @@ use TEC\Common\Admin\Entities\Heading;
 use TEC\Common\Admin\Entities\Link;
 use TEC\Common\Admin\Entities\Paragraph;
 use TEC\Common\Admin\Entities\Plain_Text;
-use TEC\Common\Admin\Entities\Separator;
 use Tribe\Events\Admin\Settings as Plugin_Settings;
 use Tribe\Utils\Element_Classes as Classes;
 
-// Set up some vairables we'll reuse in the options.
+// Set up some variables we'll reuse in the options.
 $internal                   = [];
 $use_global_settings_phrase = esc_html__( 'Use global import settings', 'the-events-calendar' );
 $post_statuses              = get_post_statuses();
@@ -292,6 +290,7 @@ $wrap_fields(
 			'type'     => 'wrapped_html',
 			'label'    => esc_html__( 'Stop current processes', 'the-events-calendar' ),
 			'html'     => sprintf(
+				/* Translators: %1$s: link to stop current processes */
 				__( 'If you want to stop and clear current asynchronous import processes %1$s.', 'the-events-calendar' ),
 				sprintf(
 					'<a href="%1$s">%2$s</a>',
@@ -656,9 +655,9 @@ $wrap_fields(
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Import Date Range Limit', 'the-events-calendar' ),
 			'tooltip'         => esc_html__(
-				                     'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.',
-				                     'the-events-calendar'
-			                     ) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/url-import-errors-event-aggregator/' ), esc_html( 'Learn more.' ) ),
+				'When importing from a website that uses The Events Calendar, the REST API will attempt to fetch events this far in the future. That website\'s hosting resources may impact the success of imports. Selecting a shorter time period may improve results.',
+				'the-events-calendar'
+			) . ' ' . sprintf( '<a href="%1$s" target="_blank">%2$s</a>', esc_attr( 'https://theeventscalendar.com/knowledgebase/url-import-errors-event-aggregator/' ), esc_html( 'Learn more.' ) ),
 			'size'            => 'medium',
 			'validation_type' => 'options',
 			'default'         => tribe( 'events-aggregator.settings' )->get_import_range_default(),
