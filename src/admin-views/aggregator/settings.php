@@ -123,6 +123,7 @@ $global = $ical = $ics = $gcal = $meetup = $url = $eb_fields = [];
 if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$stop_running_processes_message = sprintf(
+		/* Translators: %1$s: link to stop current processes */
 		__( 'If you want to stop and clear current asynchronous import processes %1$s.', 'the-events-calendar' ),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',

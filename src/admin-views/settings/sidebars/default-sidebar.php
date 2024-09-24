@@ -22,10 +22,12 @@ use Tribe\Utils\Element_Classes as Classes;
 defined( 'ABSPATH' ) || exit;
 
 $break               = new Br();
-$external_attributes = new Attributes( [
-	'target' => '_blank',
-	'rel' => 'noopener',
-] );
+$external_attributes = new Attributes(
+	[
+		'target' => '_blank',
+		'rel'    => 'noopener',
+	]
+);
 
 $sidebar = new Settings_Sidebar();
 $sidebar->set_header_image(
