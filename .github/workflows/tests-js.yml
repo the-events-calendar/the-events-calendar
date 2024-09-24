@@ -2,13 +2,14 @@ name: 'npm jest'
 on:
   pull_request:
     paths:
+      - '.github/**/*'
       - 'src/modules/**.js'
 jobs:
   jest:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: recursive

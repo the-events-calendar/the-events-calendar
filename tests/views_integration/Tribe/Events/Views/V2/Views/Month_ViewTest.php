@@ -3,14 +3,14 @@
 namespace Tribe\Events\Views\V2\Views;
 
 use Spatie\Snapshots\MatchesSnapshots;
-use Tribe\Events\Views\V2\Hooks;
+use Tribe\Events\Views\V2\Hide_End_Time_Provider;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 use Tribe__Events__Main as TEC;
 use Tribe__Settings_Manager;
 
-class Month_ViewTest extends ViewTestCase {
+class Month_ViewTest extends TecViewTestCase {
 	use MatchesSnapshots;
 
 	/**
@@ -149,11 +149,14 @@ class Month_ViewTest extends ViewTestCase {
 	}
 
 	/**
-	 * Test render with events with endtime hidden.
+	 * Test render with events with end time hidden.
 	 */
 	public function test_render_with_events_hide_endtime() {
+		/* The views will default to `list` because of a dirty context check, so use list here.
+		 It's ok because we are checking the View objects directly. When the dirty context is fixed, this should change. */
 		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [ 'list' ] );
-		tribe( Hooks::class )->hide_event_end_time();
+
+		tribe( Hide_End_Time_Provider::class )->hide_event_end_time();
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );
 		update_option( 'timezone_string', $timezone_string );
@@ -239,6 +242,9 @@ class Month_ViewTest extends ViewTestCase {
 		}
 
 		$this->assertMatchesSnapshot( $html );
+
+		// Remove option so the flag doesn't bleed into other tests.
+		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [] );
 	}
 
 

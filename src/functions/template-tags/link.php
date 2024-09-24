@@ -19,11 +19,13 @@ function tribe_the_prev_event_link( $anchor = false ) {
 }
 
 /**
- * Return a link to the previous event by start date for the given event.
+ * Returns a link to the previous event by start date for the given event.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ * 
+ * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
  *
- * @return string
+ * @return string The link to the previous event.
  */
 function tribe_get_prev_event_link( $anchor = false ) {
 	$event_id = get_the_ID();
@@ -139,13 +141,13 @@ function tribe_get_events_link( $context = 'href' ) {
  * Generates the permalink for a specific view based on the provided slug and optional term.
  *
  * @since 5.7.0
- * 
+ *
  * @hook tribe_get_view_permalink        Filters the overall view permalink.
  * @hook tribe_get_{slug}_view_permalink Filters the specific view permalink.
  *
  * @param string        $slug      The slug of the view for which the permalink is being generated.
  * @param bool|int|null $term      Optional. The term associated with the view. Default is null.
- * 
+ *
  * @return string       $permalink The generated permalink for the view.
  */
 function tribe_get_view_permalink( $slug, $term = null ) {
@@ -186,13 +188,12 @@ function tribe_get_gridview_link( $term = null ) {
 }
 
 /**
- * Link to List View
+ * Returns a link to the general or category upcoming view.
  *
- * Returns a link to the general or category upcoming view
+ * @since  2.0.1
  *
- * @param int $term Optional event category ID to link to.
- *
- * @return string URL
+ * @param  int|null $term Optional. Event category ID to link to. Default null.
+ * @return string The URL of the list view.
  */
 function tribe_get_listview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
@@ -202,13 +203,13 @@ function tribe_get_listview_link( $term = null ) {
 }
 
 /**
- * Link to List View (Past)
+ * Returns a url to the general or category past view.
  *
- * Returns a link to the general or category past view
+ * @since 2.0.1
  *
- * @param int|null $term Term ID
+ * @param int|null $term Optional. Term ID. Default null.
  *
- * @return string URL
+ * @return string URL of the past list view.
  */
 function tribe_get_listview_past_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
@@ -218,16 +219,16 @@ function tribe_get_listview_past_link( $term = null ) {
 }
 
 /**
- * Link to a nearby List View page
+ * Returns a link to the next or previous list view page.
  *
- * Returns a link to the next/previous list view page
+ * @since 4.0
  *
- * @param string   $direction 'next' or 'prev'.
- * @param int|null $term Term ID.
- * @param string   $currently_displaying Type of listview page that is currently being displayed ('past' or 'list').
- * @param int      $page Current page number being displayed.
+ * @param string      $direction            'next' or 'prev'.
+ * @param int|null    $term                 Optional. Term ID. Default null.
+ * @param string|null $currently_displaying Optional. Type of list view page currently displayed ('past' or 'list'). Default null.
+ * @param int|null    $page                 Optional. Current page number being displayed. Default null.
  *
- * @return string URL
+ * @return string URL of the next or previous list view page.
  */
 function tribe_get_listview_dir_link( $direction = 'next', $term = null, $currently_displaying = null, $page = null ) {
 	$link = tribe_get_listview_link( $term );
@@ -250,15 +251,24 @@ function tribe_get_listview_dir_link( $direction = 'next', $term = null, $curren
 }
 
 /**
- * Utility function to update the pagination and current display on the list view.
+ * Updates pagination and determines the current view display for the list view.
+ *
+ * This function adjusts the pagination and sets the view to be displayed based on
+ * the current page and navigation direction.
  *
  * @since 4.6.12
  *
- * @param int $page
- * @param string $direction
- * @param null $currently_displaying
+ * @param int         $page                 The current page number. Default is 1.
+ * @param string      $direction            The navigation direction, either 'next' or 'prev'. Default is 'next'.
+ * @param string|null $currently_displaying The view currently being displayed, such as 'list' or 'past'.
+ *                                          Default is null, which triggers a fallback to the default list view.
  *
- * @return array
+ * @return array {
+ *      An associative array containing the updated display and page number.
+ * 
+ *      @type string $display The view to be displayed, either 'list' or 'past'.
+ *      @type int    $page    The updated page number.
+ * }
  */
 function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_displaying = null ) {
 	// if what we are currently displaying is not passed in, let's set a default and check $_GET
