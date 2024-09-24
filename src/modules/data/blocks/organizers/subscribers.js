@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import {differenceBy, isEmpty} from 'lodash';
+import { differenceBy } from 'lodash';
 
 /**
  * Internal dependencies
@@ -43,16 +43,20 @@ export const isOrganizerBlock = ( block ) => block.name === 'tribe/event-organiz
  * @since 6.2.0
  * @param {number} organizer
  */
-globals.wpHooks.addAction( 'tec.events.blocks.organizer.maybeRemoveOrganizer', 'tec.events.blocks.organizer.subscribers', ( organizer ) => {
-	const path = `tribe_organizer/${ organizer }`;
-	const options = {
-		path,
-		actions: {
-			success: formActions.deleteEntry( dispatch )( path ),
-		},
-	};
-	dispatch( requestActions.wpRequest( options ) );
-} );
+globals.wpHooks.addAction(
+	'tec.events.blocks.organizer.maybeRemoveOrganizer',
+	'tec.events.blocks.organizer.subscribers',
+	( organizer ) => {
+		const path = `tribe_organizer/${ organizer }`;
+		const options = {
+			path,
+			actions: {
+				success: formActions.deleteEntry( dispatch )( path ),
+			},
+		};
+		dispatch( requestActions.wpRequest( options ) );
+	},
+);
 
 /**
  * Handles the block that was added.
