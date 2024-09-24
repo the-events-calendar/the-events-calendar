@@ -49,7 +49,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const MIN_ADDON_VERSION = '6.7.0';
 
 		/**
-		 * Min Common
+		 * Min Common.
 		 *
 		 * @deprecated 4.8
 		 */
