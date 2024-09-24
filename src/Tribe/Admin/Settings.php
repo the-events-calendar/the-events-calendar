@@ -465,7 +465,7 @@ class Settings {
 
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-network.php';
 
-		$this->tabs['network'] = new Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
+		$this->tabs['network'] = new Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $network_tab );
 	}
 
 	/**

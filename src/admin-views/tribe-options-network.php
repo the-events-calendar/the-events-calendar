@@ -1,7 +1,7 @@
 <?php
 $all_tabs = apply_filters( 'tribe_settings_all_tabs', [] );
 
-$networkTab = [
+$network_tab = [
 	'priority'      => 10,
 	'network_admin' => true,
 	'fields'        => apply_filters(

@@ -39,12 +39,12 @@ class Max_Recurrence {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @param array  $fields
-	 * @param string $deprecated
+	 * @param array  $fields     The fields to be displayed on the "defaults" settings page.
+	 * @param string $deprecated Unused.
 	 *
 	 * @return array|mixed
 	 */
-	public function change_default_settings_field( $fields, $deprecated = null ) {
+	public function change_default_settings_field( $fields, $deprecated = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		if ( isset( $fields['recurrenceMaxMonthsAfter']['default'] ) ) {
 			$fields['recurrenceMaxMonthsAfter']['default'] = self::get_recurrence_max_months_default();
 		}

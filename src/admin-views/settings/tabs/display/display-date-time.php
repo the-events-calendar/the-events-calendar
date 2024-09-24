@@ -31,7 +31,7 @@ $end_time_options = [
 $end_time_options = apply_filters( 'tec_events_display_remove_event_end_time_options', $end_time_options );
 
 $tec_events_display_date = [
-	( new Div( new Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
+	'tec-settings-date-header' => ( new Div( new Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
 		[
 			new Heading(
 				_x( 'Date & Time', 'Date and Time settings section header', 'the-events-calendar' ),
@@ -57,9 +57,12 @@ $tec_events_display_date = [
 			) ),
 		]
 	),
-	'dateWithYearFormat'                 => [
+	'dateWithYearFormat'       => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Date with year format', 'the-events-calendar' ),
+		'default'         => get_option( 'date_format' ),
+		'size'            => 'medium',
+		'validation_type' => 'not_empty',
 		'tooltip'         => sprintf(
 			/* Translators: %1$s: Example date with year format. */
 			esc_html__( 'Enter the format to use for displaying dates with the year. Used when showing an event from a future year. Example: %1$s', 'the-events-calendar' ),
@@ -71,39 +74,37 @@ $tec_events_display_date = [
 				$sample_date
 			)
 		),
-		'default'         => get_option( 'date_format' ),
-		'size'            => 'medium',
-		'validation_type' => 'not_empty',
 	],
-	'dateWithoutYearFormat'              => [
+	'dateWithoutYearFormat'    => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Date without year format', 'the-events-calendar' ),
+		'default'         => 'F j',
+		'size'            => 'medium',
+		'validation_type' => 'not_empty',
 		'tooltip'         => sprintf(
 			/* Translators: %1$s: Example date without year format. */
 			esc_html__( 'Enter the format to use for displaying dates without a year. Used when showing an event from the current year. Example: %1$s', 'the-events-calendar' ),
 			gmdate( tribe_get_option( 'dateWithoutYearFormat', 'F j' ), $sample_date )
 		),
-		'default'         => 'F j',
-		'size'            => 'medium',
-		'validation_type' => 'not_empty',
 	],
-	'monthAndYearFormat'                 => [
+	'monthAndYearFormat'       => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Month and year format', 'the-events-calendar' ),
+		'default'         => 'F Y',
+		'size'            => 'medium',
+		'validation_type' => 'not_empty',
 		'tooltip'         => sprintf(
 			/* Translators: %1$s: Example month and year format. */
 			esc_html__( 'Enter the format to use for dates that show a month and year only. Used on month view. Example: %1$s', 'the-events-calendar' ),
 			gmdate( tribe_get_option( 'monthAndYearFormat', 'F Y' ), $sample_date )
 		),
-		'default'         => 'F Y',
-		'size'            => 'medium',
-		'validation_type' => 'not_empty',
 	],
-	'datepickerFormat'                   => [
+	'datepickerFormat'         => [
 		'type'            => 'dropdown',
 		'label'           => esc_html__( 'Compact date format', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Select the date format used for elements with minimal space, such as in datepickers.', 'the-events-calendar' ),
 		'default'         => 1,
+		'validation_type' => 'options',
 		'options'         => [
 			'0'  => gmdate( 'Y-m-d', $sample_date ),
 			'1'  => gmdate( 'n/j/Y', $sample_date ),
@@ -118,9 +119,8 @@ $tec_events_display_date = [
 			'10' => gmdate( 'm.d.Y', $sample_date ),
 			'11' => gmdate( 'd.m.Y', $sample_date ),
 		],
-		'validation_type' => 'options',
 	],
-	'dateTimeSeparator'                  => [
+	'dateTimeSeparator'        => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Date time separator', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enter the separator that will be placed between the date and time, when both are shown.', 'the-events-calendar' ),
@@ -128,7 +128,7 @@ $tec_events_display_date = [
 		'size'            => 'small',
 		'validation_type' => 'html',
 	],
-	'timeRangeSeparator'                 => [
+	'timeRangeSeparator'       => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Time range separator', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enter the separator that will be used between the start and end time of an event.', 'the-events-calendar' ),
@@ -136,7 +136,7 @@ $tec_events_display_date = [
 		'size'            => 'small',
 		'validation_type' => 'html',
 	],
-	'multiDayCutoff'                     => [
+	'multiDayCutoff'           => [
 		'type'            => 'dropdown',
 		'label'           => esc_html__( 'End of day cutoff', 'the-events-calendar' ),
 		'tooltip'         => __( "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar.", 'the-events-calendar' ),
@@ -158,9 +158,12 @@ $tec_events_display_date = [
 			'11:00' => date_i18n( $site_time_format, strtotime( '11:00 am' ) ),
 		],
 	],
-	'remove_event_end_time'              => [
+	'remove_event_end_time'    => [
 		'type'            => 'checkbox_list',
 		'label'           => esc_html__( 'Remove event end time', 'the-events-calendar' ),
+		'options'         => $end_time_options,
+		'validation_type' => 'options_multi',
+		'can_be_empty'    => true,
 		'tooltip'         => sprintf(
 			// Dev note: This string is multi-line to remove the need for a line break tag.
 			/* Translators: %1$s - opening italics tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing italics tag */
@@ -174,9 +177,6 @@ $tec_events_display_date = [
 			'</a>',
 			'</i>'
 		),
-		'options'         => $end_time_options,
-		'validation_type' => 'options_multi',
-		'can_be_empty'    => true,
 	],
 ];
 

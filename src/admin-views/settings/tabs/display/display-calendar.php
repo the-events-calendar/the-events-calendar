@@ -10,7 +10,6 @@ use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Heading;
 use TEC\Common\Admin\Entities\Paragraph;
 use TEC\Common\Admin\Entities\Plain_Text;
-use TEC\Common\Admin\Entities\Separator;
 use Tribe\Events\Views\V2\Manager;
 use Tribe\Utils\Element_Classes as Classes;
 
@@ -64,16 +63,17 @@ $tec_events_display_calendar = [
 ];
 
 $calendar_template_section = [
-	'calendar_template_header'                  => [
-		'type'  => 'html',
-		'html'  => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
+	'calendar_template_header' => [
+		'type' => 'html',
+		'html' => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
 			. esc_html_x( 'Calendar Template', 'Calendar template display settings header', 'the-events-calendar' )
 			. '</h3>',
 	],
-	'stylesheet_mode'                                => [
+	'stylesheet_mode'          => [
 		'type'            => 'radio',
 		'label'           => __( 'Default stylesheet used for events templates', 'the-events-calendar' ),
 		'default'         => 'tribe',
+		'validation_type' => 'options',
 		'options'         => [
 			'skeleton' => __( 'Skeleton Styles', 'the-events-calendar' )
 				. '<p class="description tribe-style-selection">'
@@ -90,9 +90,8 @@ $calendar_template_section = [
 				)
 				. '</p>',
 		],
-		'validation_type' => 'options',
 	],
-	'tribeEventsTemplate'                            => [
+	'tribeEventsTemplate'      => [
 		'type'            => 'dropdown',
 		'label'           => __( 'Events template', 'the-events-calendar' ),
 		'tooltip'         => __( 'Page template to control the appearance of your calendar and event content.', 'the-events-calendar' ),
@@ -110,26 +109,26 @@ $calendar_template_section = tribe( 'settings' )->wrap_section_content( 'tec-eve
 $tec_events_display_calendar += $calendar_template_section;
 
 $calendar_display_section = [
-	'calendar_display_header'                  => [
-		'type'  => 'html',
-		'html'  => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
+	'calendar_display_header' => [
+		'type' => 'html',
+		'html' => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
 			. esc_html_x( 'Calendar Display', 'Calendar display display settings header', 'the-events-calendar' )
 			. '</h3>',
 	],
-	'tribeEnableViews'                               => [
+	'tribeEnableViews'        => [
 		'type'            => 'checkbox_list',
 		'label'           => __( 'Enable event views', 'the-events-calendar' ),
 		'tooltip'         => $tribe_enable_views_tooltip,
 		'default'         => array_keys( tribe( Manager::class )->get_publicly_visible_views() ),
+		'validation_type' => 'options_multi',
 		'options'         => array_map(
 			static function ( $view ) {
 				return tribe( Manager::class )->get_view_label_by_class( $view );
 			},
 			tribe( Manager::class )->get_publicly_visible_views( false )
 		),
-		'validation_type' => 'options_multi',
 	],
-	'viewOption'                                     => [
+	'viewOption'              => [
 		'type'            => 'dropdown',
 		'label'           => __( 'Default view', 'the-events-calendar' ),
 		'validation_type' => 'not_empty',
@@ -142,19 +141,19 @@ $calendar_display_section = [
 			tribe( Manager::class )->get_publicly_visible_views()
 		),
 	],
-	'monthEventAmount'                               => [
+	'monthEventAmount'        => [
 		'type'            => 'text',
 		'label'           => __( 'Month view events per day', 'the-events-calendar' ),
+		'validation_type' => 'int',
+		'size'            => 'small',
+		'default'         => '3',
 		'tooltip'         => sprintf(
 			/* Translators: %s: URL to knowledgebase. */
 			__( 'Default is 3. To impose no limit, specify -1. Note that there may be performance issues if you allow too many events per day. <a href="%s" rel="noopener" target="_blank">Read more</a>.', 'the-events-calendar' ),
 			'https://evnt.is/rh'
 		),
-		'validation_type' => 'int',
-		'size'            => 'small',
-		'default'         => '3',
 	],
-	'postsPerPage'                                   => [
+	'postsPerPage'            => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Number of events to show per page', 'the-events-calendar' ),
 		'tooltip'         => $posts_per_page_tooltip,
@@ -163,14 +162,14 @@ $calendar_display_section = [
 		'default'         => tribe_events_views_v2_is_enabled() ? 12 : get_option( 'posts_per_page' ),
 		'validation_type' => 'positive_int',
 	],
-	'showComments'                                   => [
+	'showComments'            => [
 		'type'            => 'checkbox_bool',
 		'label'           => esc_html__( 'Show comments', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enable comments on event pages.', 'the-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',
 	],
-	'tribeDisableTribeBar'                           => [
+	'tribeDisableTribeBar'    => [
 		'type'            => 'checkbox_bool',
 		'label'           => __( 'Disable the event search bar', 'the-events-calendar' ),
 		'tooltip'         => __( 'Hide the search field on all views.', 'the-events-calendar' ),

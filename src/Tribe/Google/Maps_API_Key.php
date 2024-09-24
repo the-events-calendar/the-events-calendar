@@ -70,7 +70,7 @@ class Tribe__Events__Google__Maps_API_Key {
 			$append = $this->get_basic_embed_api_tooltip();
 		}
 
-		$gmaps_js_api_start = apply_filters( 'tec-settings-gmaps-js-api-start', []);
+		$gmaps_js_api_start = apply_filters( 'tec-settings-gmaps-js-api-start', [] ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 
 		$gmaps_api_fields = [
 			'gmaps-js-api-start' => [
