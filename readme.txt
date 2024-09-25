@@ -244,7 +244,7 @@ Remember to always make a backup of your database and files before updating!
 * Version - The Events Calendar 6.7.0 is only compatible with Events Calendar Pro 7.1.0 and higher
 * Version - The Events Calendar 6.7.0 is only compatible with Events Filterbar 5.5.7 and higher
 * Version - The Events Calendar 6.7.0 is only compatible with Events Community 5.0.4 and higher
-* Feature - New settings layout and styles. [TEC-5124]
+* Feature - New and improved settings layout and styles. [TEC-5124]
 * Fix - Correct translation domains in a few templates. [TBD]
 * Tweak - Added filters: `tec_settings_gmaps_js_api_start`, `tec_events_settings_display_calendar_display_section`, `tec_general_settings_viewing_section`, `tec_events_aggregator_show_all_settings`, `tec_events_settings_tab_imports_fields`
 * Tweak - Removed filters: `tec_events_should_display_events_template_setting`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
