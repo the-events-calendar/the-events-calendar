@@ -44,14 +44,14 @@ $yes_no_options = [
 $origin_show_map_options = [ '-1' => $use_global_settings_phrase ] + $yes_no_options;
 
 $change_authority = [
-	'import-defaults-update_authority' => [
-		'type' => 'html',
-		'html' => '<h3 id="tribe-import-update-authority">' . esc_html__( 'Event Update Authority', 'the-events-calendar' ) . '</h3>',
+	'import-defaults-update_authority'          => [
+		'type'     => 'html',
+		'html'     => '<h3 id="tribe-import-update-authority" class="tec-settings-form__section-header">' . esc_html__( 'Event Update Authority', 'the-events-calendar' ) . '</h3>',
 		'priority' => 1.1,
 	],
-	'info-update_authority' => [
-		'type' => 'html',
-		'html' => '<p>' . esc_html__( 'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.', 'the-events-calendar' ) . '</p>',
+	'info-update_authority'                     => [
+		'type'     => 'html',
+		'html'     => '<p>' . esc_html__( 'You can make changes to imported events via The Events Calendar and see those changes reflected on your site’s calendar. The owner of the original event source (e.g. the iCalendar feed or Meetup group) might also make changes to their event. If you choose to re-import an altered event (manually or via a scheduled import), any changes made at the source or on your calendar will need to be addressed.', 'the-events-calendar' ) . '</p>',
 		'priority' => 1.2,
 	],
 	'tribe_aggregator_default_update_authority' => [
@@ -65,12 +65,12 @@ $change_authority = [
 			'retain'           => __( 'Do not re-import events. Changes made locally will be preserved.', 'the-events-calendar' ),
 			'preserve_changes' => __( 'Import events but preserve local changes to event fields.', 'the-events-calendar' ),
 		],
-		'priority' => 1.3,
+		'priority'        => 1.3,
 	],
 ];
 
 $csv = [
-	'csv-defaults' => [
+	'csv-defaults'                             => [
 		'type'     => 'html',
 		'html'     => '<h3 id="tribe-import-csv-settings">' . esc_html__( 'CSV Import Settings', 'the-events-calendar' ) . '</h3>',
 		'priority' => 10.1,
@@ -87,7 +87,7 @@ $csv = [
 		'options'         => $origin_post_statuses,
 		'priority'        => 10.2,
 	],
-	'tribe_aggregator_default_csv_category' => [
+	'tribe_aggregator_default_csv_category'    => [
 		'type'            => 'dropdown',
 		'label'           => esc_html__( 'Default Event Category', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'The default event category for events imported via CSV', 'the-events-calendar' ),
@@ -107,7 +107,7 @@ $ea_disable = [
 		'html'     => '<h3 id="tribe-import-ea-disable">' . esc_html__( 'Event Aggregator Control', 'the-events-calendar' ) . '</h3>',
 		'priority' => 50.1,
 	],
-	'tribe_aggregator_disable' => [
+	'tribe_aggregator_disable'        => [
 		'type'            => 'checkbox_bool',
 		'label'           => __( 'Disable Event Aggregator imports', 'the-events-calendar' ),
 		'tooltip'         => __( 'Stop all Event Aggregator imports from running. Existing imported events will not be affected. Imports via CSV file will still be available.', 'the-events-calendar' ),
@@ -123,6 +123,7 @@ $global = $ical = $ics = $gcal = $meetup = $url = $eb_fields = [];
 if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$stop_running_processes_message = sprintf(
+		/* Translators: %1$s: link to stop current processes */
 		__( 'If you want to stop and clear current asynchronous import processes %1$s.', 'the-events-calendar' ),
 		sprintf(
 			'<a href="%1$s">%2$s</a>',
@@ -131,13 +132,13 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 		)
 	);
 
-	$global                 = [
-		'import-defaults' => [
+	$global = [
+		'import-defaults'                              => [
 			'type'     => 'html',
 			'html'     => '<h3 id="tribe-import-global-settings">' . esc_html__( 'Global Import Settings', 'the-events-calendar' ) . '</h3>',
 			'priority' => 5.1,
 		],
-		'tribe_aggregator_default_post_status' => [
+		'tribe_aggregator_default_post_status'         => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Default Status', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'The default post status for events', 'the-events-calendar' ),
@@ -149,7 +150,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => $post_statuses,
 			'priority'        => 5.2,
 		],
-		'tribe_aggregator_default_category' => [
+		'tribe_aggregator_default_category'            => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Default Event Category', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'The default event category for events', 'the-events-calendar' ),
@@ -161,7 +162,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => $categories,
 			'priority'        => 5.3,
 		],
-		'tribe_aggregator_default_show_map' => [
+		'tribe_aggregator_default_show_map'            => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Show Map', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
@@ -173,7 +174,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => $yes_no_options,
 			'priority'        => 5.4,
 		],
-		'tribe_aggregator_default_import_limit_type' => [
+		'tribe_aggregator_default_import_limit_type'   => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Import Limit Type', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Limit the number of imported events by number, date range, or not at all; on slower websites this may impact the success of imports. Selecting a shorter time period or a smaller number of events may improve results.', 'the-events-calendar' ),
@@ -185,41 +186,41 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => tribe( 'events-aggregator.settings' )->get_import_limit_type_options(),
 			'priority'        => 5.5,
 		],
-		'tribe_aggregator_default_import_limit_range' => [
-			'type'            => 'dropdown',
-			'label'           => esc_html__( 'Import Date Range Limit', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'When importing from an event source, this is how far into the future the events will be fetched; on slower websites a larger date range may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ),
-			'size'            => 'medium',
-			'validation_type' => 'options',
-			'default'         => tribe( 'events-aggregator.settings' )->get_import_range_default( true ),
-			'can_be_empty'    => true,
-			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
-			'options'         => tribe( 'events-aggregator.settings' )->get_import_range_options( true ),
-			'class'           => 'tribe-dependent',
+		'tribe_aggregator_default_import_limit_range'  => [
+			'type'                => 'dropdown',
+			'label'               => esc_html__( 'Import Date Range Limit', 'the-events-calendar' ),
+			'tooltip'             => esc_html__( 'When importing from an event source, this is how far into the future the events will be fetched; on slower websites a larger date range may impact the success of imports. Selecting a shorter time period may improve results.', 'the-events-calendar' ),
+			'size'                => 'medium',
+			'validation_type'     => 'options',
+			'default'             => tribe( 'events-aggregator.settings' )->get_import_range_default( true ),
+			'can_be_empty'        => true,
+			'parent_option'       => Tribe__Events__Main::OPTIONNAME,
+			'options'             => tribe( 'events-aggregator.settings' )->get_import_range_options( true ),
+			'class'               => 'tribe-dependent',
 			'fieldset_attributes' => [
 				'data-depends'   => '#tribe_aggregator_default_import_limit_type-select',
 				'data-condition' => 'range',
 			],
-			'priority'         => 5.6,
+			'priority'            => 5.6,
 		],
 		'tribe_aggregator_default_import_limit_number' => [
-			'type'            => 'dropdown',
-			'label'           => esc_html__( 'Import Quantity Limit', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'When importing from an event source, this is the maximum number of events that will be imported; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results.', 'the-events-calendar' ),
-			'size'            => 'medium',
-			'validation_type' => 'options',
-			'default'         => tribe( 'events-aggregator.settings' )->get_import_limit_count_default(),
-			'can_be_empty'    => true,
-			'parent_option'   => Tribe__Events__Main::OPTIONNAME,
-			'options'         => tribe( 'events-aggregator.settings' )->get_import_limit_count_options(),
-			'class'           => 'tribe-dependent',
+			'type'                => 'dropdown',
+			'label'               => esc_html__( 'Import Quantity Limit', 'the-events-calendar' ),
+			'tooltip'             => esc_html__( 'When importing from an event source, this is the maximum number of events that will be imported; on slower websites this may impact the success of imports. Setting this to a smaller number may improve results.', 'the-events-calendar' ),
+			'size'                => 'medium',
+			'validation_type'     => 'options',
+			'default'             => tribe( 'events-aggregator.settings' )->get_import_limit_count_default(),
+			'can_be_empty'        => true,
+			'parent_option'       => Tribe__Events__Main::OPTIONNAME,
+			'options'             => tribe( 'events-aggregator.settings' )->get_import_limit_count_options(),
+			'class'               => 'tribe-dependent',
 			'fieldset_attributes' => [
 				'data-depends'   => '#tribe_aggregator_default_import_limit_type-select',
 				'data-condition' => 'count',
 			],
-			'priority'        => 5.7,
+			'priority'            => 5.7,
 		],
-		'tribe_aggregator_import_process_system' => [
+		'tribe_aggregator_import_process_system'       => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Import Process System', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'The Asynchronous import process is faster and does not rely on WordPress Cron but might not work correctly in all WordPress installations, try switching to the Cron-based process for maximum compatibility.', 'the-events-calendar' ),
@@ -231,7 +232,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => tribe( 'events-aggregator.settings' )->get_import_process_options( true ),
 			'priority'        => 5.8,
 		],
-		'tribe_aggregator_import_process_control' => [
+		'tribe_aggregator_import_process_control'      => [
 			'type'            => 'wrapped_html',
 			'label'           => esc_html__( 'Stop current processes', 'the-events-calendar' ),
 			'html'            => $stop_running_processes_message,
@@ -241,8 +242,8 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$ical = [
 		'ical-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-ical-settings">' . esc_html__( 'iCalendar Import Settings', 'the-events-calendar' ) . '</h3>',
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-ical-settings" class="tec-settings-form__section-header">' . esc_html__( 'iCalendar Import Settings', 'the-events-calendar' ) . '</h3>',
 			'priority' => 20.1,
 		],
 		'tribe_aggregator_default_ical_post_status' => [
@@ -285,9 +286,9 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$ics = [
 		'ics-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-ics-settings">' . esc_html__( 'ICS File Import Settings', 'the-events-calendar' ) . '</h3>',
-			'priority'        => 25.1,
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-ics-settings" class="tec-settings-form__section-header">' . esc_html__( 'ICS File Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 25.1,
 		],
 		'tribe_aggregator_default_ics_post_status' => [
 			'type'            => 'dropdown',
@@ -329,9 +330,9 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$gcal = [
 		'gcal-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-google-settings">' . esc_html__( 'Google Calendar Import Settings', 'the-events-calendar' ) . '</h3>',
-			'priority'  => 35.1,
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-google-settings" class="tec-settings-form__section-header">' . esc_html__( 'Google Calendar Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 35.1,
 		],
 		'tribe_aggregator_default_gcal_post_status' => [
 			'type'            => 'dropdown',
@@ -373,13 +374,13 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$meetup = [
 		'meetup-defaults' => [
-			'type' => 'html',
-			'html' => '<h3 id="tribe-import-meetup-settings">' . esc_html__( 'Meetup Import Settings', 'the-events-calendar' ) . '</h3>',
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-meetup-settings" class="tec-settings-form__section-header">' . esc_html__( 'Meetup Import Settings', 'the-events-calendar' ) . '</h3>',
 			'priority' => 40.1,
 		],
 		'meetup-defaults-info' => [
-			'type'            => 'html',
-			'html'            => '<p>' . sprintf(
+			'type'     => 'html',
+			'html'     => '<p>' . sprintf(
 				esc_html__(
 					'To import Meetup events, please be sure to add your Meetup API key on %1$sEvents > Settings > Integrations%2$s',
 					'the-events-calendar'
@@ -387,7 +388,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 				'<a href="' . tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'addons' ] ) . '">',
 				'</a>'
 			). '</p>',
-			'priority'        => 40.2,
+			'priority' => 40.2,
 		],
 		'tribe_aggregator_default_meetup_post_status' => [
 			'type'            => 'dropdown',
@@ -429,11 +430,11 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 
 	$url = [
 		'url-defaults' => [
-			'type'      => 'html',
-			'html'      => '<h3 id="tribe-import-url-settings">' . esc_html__( 'Other URL Import Settings', 'the-events-calendar' ) . '</h3>',
-			'priority'  => 45.1,
+			'type'     => 'html',
+			'html'     => '<h3 id="tribe-import-url-settings">' . esc_html__( 'Other URL Import Settings', 'the-events-calendar' ) . '</h3>',
+			'priority' => 45.1,
 		],
-		'tribe_aggregator_default_url_post_status' => [
+		'tribe_aggregator_default_url_post_status'  => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Default Status', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'The default post status for events imported via other URLs', 'the-events-calendar' ),
@@ -445,7 +446,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => $origin_post_statuses,
 			'priority'        => 45.2,
 		],
-		'tribe_aggregator_default_url_category' => [
+		'tribe_aggregator_default_url_category'     => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Default Event Category', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'The default event category for events imported via other URLs', 'the-events-calendar' ),
@@ -457,7 +458,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => $origin_categories,
 			'priority'        => 45.3,
 		],
-		'tribe_aggregator_default_url_show_map' => [
+		'tribe_aggregator_default_url_show_map'     => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Show Map', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( 'Show map by default on imported event and venues', 'the-events-calendar' ),
@@ -481,7 +482,7 @@ if ( Tribe__Events__Aggregator::is_service_active() ) {
 			'options'         => tribe( 'events-aggregator.settings' )->get_url_import_range_options( true ),
 			'priority'        => 45.5,
 		],
-		'tribe_aggregator_default_url_import_event_settings' => [
+		'tribe_aggregator_default_url_import_event' => [
 			'type'            => 'dropdown',
 			'label'           => esc_html__( 'Import Event Settings', 'the-events-calendar' ),
 			'tooltip'         => esc_html__( "Fetch source event's settings (e.g. Show Maps Link or Sticky in Month View) when importing from another site using The Events Calendar.", 'the-events-calendar' ),
@@ -710,19 +711,19 @@ if ( tribe( 'events-aggregator.main' )->is_service_active() ) {
 
 $fields = array_merge(
 	[
-		'import-box-start' => [
+		'import-box-start'          => [
 			'type' => 'html',
 			'html' => '<div id="modern-tribe-info">',
 		],
-		'import-box-title' => [
+		'import-box-title'          => [
 			'type' => 'html',
 			'html' => '<h2>' . esc_html__( 'Imports', 'the-events-calendar' ) . '</h2>',
 		],
-		'import-box-description' => [
+		'import-box-description'    => [
 			'type' => 'html',
 			'html' => '<p>' . $import_instructions . '</p>',
 		],
-		'import-box-end' => [
+		'import-box-end'            => [
 			'type' => 'html',
 			'html' => '</div>',
 		],
@@ -749,12 +750,16 @@ $fields = array_merge(
 $import = apply_filters(
 	'tribe_aggregator_tab',
 	[
-		'priority' => 50,
+		'priority' => 55,
 		'fields'   => $fields,
 	]
 );
 
 // Only create the Add-ons Tab if there is any
 if ( ! empty( $internal ) ) {
-	new Tribe__Settings_Tab( 'imports', esc_html__( 'Imports', 'the-events-calendar' ), $import );
+	new Tribe__Settings_Tab(
+		'imports',
+		esc_html__( 'Imports', 'the-events-calendar' ),
+		$import
+	);
 }

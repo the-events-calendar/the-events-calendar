@@ -48,8 +48,18 @@ class Tribe__Events__Google__Maps_API_Key {
 	 * @return array
 	 */
 	public function filter_tribe_addons_tab_fields( array $addon_fields ) {
-
 		$tooltip = sprintf(
+			/* translators: %1$s and %2$s are placeholders for the opening <a> tags */
+			__(
+				'<p>The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$sGoogle Maps API key</a>. %2$sRead More</a>.</p>',
+				'the-events-calendar'
+			),
+			'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">',
+			'</a>',
+			'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">'
+		);
+
+		$append = sprintf(
 			'<p><strong>%1$s</strong></p> <p><a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank">%2$s</a> %3$s',
 			esc_html__( 'You are using a custom Google Maps API key.', 'the-events-calendar' ),
 			esc_html__( 'Click here', 'the-events-calendar' ),
@@ -57,31 +67,25 @@ class Tribe__Events__Google__Maps_API_Key {
 		);
 
 		if ( tribe_is_using_basic_gmaps_api() ) {
-			$tooltip = $this->get_basic_embed_api_tooltip();
+			$append = $this->get_basic_embed_api_tooltip();
 		}
+
+		$gmaps_js_api_start = apply_filters( 'tec_settings_gmaps_js_api_start', [] );
 
 		$gmaps_api_fields = [
 			'gmaps-js-api-start' => [
 				'type' => 'html',
-				'html' => '<h3>' . esc_html__( 'Google Maps API', 'the-events-calendar' ) . '</h3>',
-			],
-
-			'gmaps-js-api-info-box' => [
-				'type' => 'html',
-				'html' => '<p>' . sprintf(
-						__(
-							'The Events Calendar comes with an API key for basic maps functionality. If you’d like to use more advanced features like custom map pins or dynamic map loads, you’ll need to get your own %1$s. %2$s.',
-							'the-events-calendar'
-						),
-						'<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Google Maps API key', 'the-events-calendar' ) . '</a>',
-						'<a href="https://theeventscalendar.com/knowledgebase/setting-up-your-google-maps-api-key/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Read more', 'the-events-calendar' ) . '</a>'
-					) . '</p>',
+				'html' => '<h3 id="tec-events-pro-defaults-licenses-title" class="tec-settings-form__section-header tec-settings-form__section-header--sub">'
+				. esc_html__( 'Google Maps API', 'the-events-calendar' )
+				. '</h3>',
 			],
 
 			self::$api_key_option_name => [
 				'type'            => 'text',
 				'label'           => esc_html__( 'Google Maps API key', 'the-events-calendar' ),
 				'tooltip'         => $tooltip,
+				'tooltip_first'   => true,
+				'append'          => $append,
 				'size'            => 'medium',
 				'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
 				'can_be_empty'    => true,
@@ -89,7 +93,9 @@ class Tribe__Events__Google__Maps_API_Key {
 			],
 		];
 
-		return array_merge( (array) $addon_fields, $gmaps_api_fields );
+		$gmaps_api_fields = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-gmaps-js-api', $gmaps_api_fields );
+
+		return $addon_fields + $gmaps_js_api_start + $gmaps_api_fields;
 	}
 
 	/**

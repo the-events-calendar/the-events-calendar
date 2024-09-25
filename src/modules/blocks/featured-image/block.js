@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -20,6 +21,10 @@ import { Placeholder, Spinner } from '@wordpress/components';
  */
 
 class FeaturedImage extends Component {
+	static propTypes = {
+		image: PropTypes.object,
+	};
+
 	constructor() {
 		super( ...arguments );
 	}

@@ -44,7 +44,7 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 	 *
 	 * @since 6.0.1
 	 */
-	obj.init = () => {
+	obj.init = function () {
 		obj.bindFeaturedEvents();
 
 		// We need to register core/legacy-widget block to support

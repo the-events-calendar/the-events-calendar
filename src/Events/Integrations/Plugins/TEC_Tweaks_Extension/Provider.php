@@ -43,7 +43,7 @@ class Provider extends Integration_Abstract {
 	public function remove_end_time_extension_settings() {
 		add_filter( 'tribe_get_option_tribe_ext_tec_tweaks_remove_event_end_time', '__return_empty_array' );
 		add_filter(
-			'tribe_settings_tab_fields',
+			'tec_general_settings_viewing_section',
 			static function ( $fields, $id ) {
 				if ( $id !== 'tec-tweaks' ) {
 					return $fields;

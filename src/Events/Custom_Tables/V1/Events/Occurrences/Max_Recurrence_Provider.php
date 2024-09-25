@@ -48,7 +48,7 @@ class Max_Recurrence_Provider extends Service_Provider {
 		$this->did_register = true;
 
 		add_filter( 'tribe_events_settings_default_fields_initializer', [ $this, 'change_default_options' ] );
-		add_filter( 'tribe_settings_tab_fields', [ $this, 'change_default_settings_field' ], 99, 2 );
+		add_filter( 'tec_general_settings_viewing_section', [ $this, 'change_default_settings_field' ], 99 );
 
 		return true;
 	}
@@ -76,7 +76,7 @@ class Max_Recurrence_Provider extends Service_Provider {
 	 *
 	 * @return array|mixed
 	 */
-	public function change_default_settings_field( $fields, $settings_tab ) {
-		return $this->container->make( Max_Recurrence::class )->change_default_settings_field( $fields, $settings_tab );
+	public function change_default_settings_field( $fields ) {
+		return $this->container->make( Max_Recurrence::class )->change_default_settings_field( $fields );
 	}
 }
