@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.7.0] 2024-09-25
+### [6.7.0] 2024-09-26
 
 * Version - The Events Calendar 6.7.0 is only compatible with Events Calendar Pro 7.1.0 and higher
 * Version - The Events Calendar 6.7.0 is only compatible with Events Filterbar 5.5.7 and higher
