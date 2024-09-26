@@ -4,6 +4,8 @@ namespace Tribe\Events\Admin;
 /**
  * Manages the admin settings UI in relation to events configuration.
  */
+
+use Tribe__Admin__Help_Page;
 use Tribe__App_Shop;
 use Tribe__Settings;
 use Tribe__Settings_Tab;
@@ -174,12 +176,12 @@ class Settings {
 
 		$admin_pages->register_page(
 			[
-				'id'       => 'tec-events-help',
+				'id'       => 'tec-events-help-hub',
 				'parent'   => $this->get_tec_events_menu_slug(),
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
-				'path'     => 'tec-events-help',
+				'path'     => 'tec-events-help-hub',
 				'callback' => [
-					tribe( 'settings.manager' ),
+					tribe( Tribe__Admin__Help_Page::class ),
 					'do_help_tab',
 				],
 			]
