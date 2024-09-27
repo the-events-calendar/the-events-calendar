@@ -9,37 +9,53 @@ use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Timezones as Timezones;
 
 /**
- * Includes a view file, runs hooks around the view
+ * Includes a view template and runs hooks around the view.
  *
- * @param bool|string $view View slug
- *
- **/
-function tribe_get_view( $view = false ) {
+ * @param string|bool $view The View slug.
+ */
+function tribe_get_view( $view = false ): void {
+	/**
+	 * Fires before the view template is loaded.
+	 */
 	do_action( 'tribe_pre_get_view' );
 
 	if (
-		! in_array( $view, [ 'single-event', 'embed' ] )
+		! in_array( $view, [ 'single-event', 'embed' ], true )
 		&& tec_events_views_v1_should_display_deprecated_notice()
 	) {
 		_deprecated_function( __FUNCTION__, '5.13.0', 'On version 6.0.0 this function will be removed. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization assistance.' );
 	}
 
-	if (
-		empty( $view )
-		&& (
-			is_singular( Tribe__Events__Main::POSTTYPE )
-			|| tribe_context()->is( 'event_post_type' )
-		)
-	) {
-		$view = 'single-event';
+	if ( empty( $view ) ) {
 		_deprecated_function( 'tribe_get_view( $view = false )', '6.0.0', 'of this method without a defined $view will be completely removed soon. Please refer to <a href="https://evnt.is/v1-removal">https://evnt.is/v1-removal</a> for template customization' );
+
+		if (
+			! is_singular( Tribe__Events__Main::POSTTYPE )
+			&& ! tribe_context()->is( 'event_post_type' )
+		) {
+			return;
+		}
+
+		$view = 'single-event';
 	}
 
 	$template_file = Tribe__Events__Templates::getTemplateHierarchy( $view, [ 'disable_view_check' => true ] );
 
 	if ( file_exists( $template_file ) ) {
+		/**
+		 * Fires before including an existing view template.
+		 *
+		 * @param string $template_file The path to the template file.
+		 */
 		do_action( 'tribe_events_before_view', $template_file );
-		include( $template_file );
+
+		include $template_file;
+
+		/**
+		 * Fires after including an existing view template.
+		 *
+		 * @param string $template_file The path to the template file.
+		 */
 		do_action( 'tribe_events_after_view', $template_file );
 	}
 }
