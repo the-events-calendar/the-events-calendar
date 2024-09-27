@@ -8,7 +8,7 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
-use \Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\View;
 
 /**
  * Class Link_Interface
