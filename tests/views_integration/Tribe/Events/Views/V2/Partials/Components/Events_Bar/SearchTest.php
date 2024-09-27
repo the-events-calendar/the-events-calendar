@@ -10,21 +10,11 @@ class SearchTest extends HtmlPartialTestCase {
 
 	protected $partial_path = 'components/events-bar/search';
 
-	public function setUp() {
-		parent::setUp();
-		// Always return the same value when creating nonces.
-		$this->set_fn_return( 'wp_create_nonce', '2ab7cc6b39' );
-	}
-
 	/**
 	 * Test render with context
 	 */
 	public function test_render_with_context() {
+		$this->set_fn_return( 'wp_create_nonce', '2ab7cc6b39' );
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'url' => 'http://test.tri.be' ] ) );
-	}
-
-	public function tearDown(){
-		$this->unset_uopz_returns();
-		parent::tearDown();
 	}
 }

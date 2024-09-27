@@ -178,7 +178,7 @@ if ( ! function_exists( 'tec_events_get_time_range_separator' ) ) {
 	/**
 	 * Gets the separator used between the start and end time of an event.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return string Time Range separator.
 	 */
@@ -197,7 +197,7 @@ if ( ! function_exists( 'tec_events_get_time_range_separator' ) ) {
 		/**
 		 * Opportunity to modify the separator used between the start and end time of an event.
 		 *
-		 * @since TBD
+		 * @since 6.7.0
 		 *
 		 * @param string $time_range_separator
 		 * @param string $default
@@ -220,7 +220,7 @@ if ( ! function_exists( 'tec_events_get_date_time_separator' ) ) {
 	/**
 	 * Gets the separator used between the start and end datetime of an event.
 	 *
-	 * @since TBD
+	 * @since 6.7.0
 	 *
 	 * @return string Time Range separator.
 	 */
@@ -239,7 +239,7 @@ if ( ! function_exists( 'tec_events_get_date_time_separator' ) ) {
 		/**
 		 * Opportunity to modify the separator used between the start and end date time of an event.
 		 *
-		 * @since TBD
+		 * @since 6.7.0
 		 *
 		 * @param string $datetime_range_separator Separator used between the start and end date time of an event.
 		 * @param string $default                  Default separator.

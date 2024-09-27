@@ -7,9 +7,9 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Day_View;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 
-class With_NoindexTest extends ViewTestCase {
+class With_NoindexTest extends TecViewTestCase {
 	/**
 	 * The mock rendering context.
 	 *
@@ -52,7 +52,6 @@ class With_NoindexTest extends ViewTestCase {
 	 * @dataProvider view_data_set
 	 */
 	public function test_noindex_render_empty( $class ) {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$tester = $this;
 		add_filter( 'tec_events_seo_robots_meta_include', function( $add_noindex ) use ( $tester ) {
 			$tester->assertTrue( $add_noindex );
@@ -71,7 +70,6 @@ class With_NoindexTest extends ViewTestCase {
 	 * @dataProvider view_data_set
 	 */
 	public function test_noindex_render_with_events( $class ) {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		$tester = $this;
 		$timezone_string = 'Europe/Paris';
 		$timezone        = new \DateTimeZone( $timezone_string );

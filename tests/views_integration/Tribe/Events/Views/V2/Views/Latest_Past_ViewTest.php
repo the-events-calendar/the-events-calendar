@@ -5,9 +5,9 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\Manager as View_Manager;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 
-class Latest_Past_ViewTest extends ViewTestCase {
+class Latest_Past_ViewTest extends TecViewTestCase {
 	use With_Post_Remapping;
 
 	/**
@@ -32,7 +32,6 @@ class Latest_Past_ViewTest extends ViewTestCase {
 	 * @dataProvider latest_past_events_snapshot_data_provider
 	 */
 	public function should_correctly_render_in_the_context_of_month_view( $view_class, $view_slug ) {
-		$this->markTestSkipped('Skipping due to issue with date. [TECENG-62]');
 		// Ensure this View is the default View, else the Latest Past View will not render.
 		tribe_update_option( View_Manager::$option_default, $view_slug );
 		tribe_update_option( View_Manager::$option_mobile_default, $view_slug );

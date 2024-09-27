@@ -38,7 +38,15 @@ if ( 'range' === $global_limit_type ) {
 	);
 }
 
-$import_limit_link    = esc_url( tribe( Plugin_Settings::class )->get_url( [ 'tab' => 'imports#tribe-field-tribe_aggregator_default_import_limit_type' ] ) );
+$import_limit_link = esc_url(
+	tribe( Plugin_Settings::class )->get_url(
+		[
+			'tab'    => 'imports',
+			'anchor' => 'tribe-field-tribe_aggregator_default_import_limit_type',
+		]
+	)
+);
+
 $import_limit_message = $global_limit_message . ' ' . sprintf( '<a href="%s" target="_blank">%s</a> ', $import_limit_link, esc_html__( 'you can modify this setting here.', 'the-events-calendar' ) );
 ?>
 
