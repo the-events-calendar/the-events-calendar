@@ -240,6 +240,13 @@ abstract class By_Day_View extends View {
 			 */
 			$events_repository = apply_filters( 'tribe_events_views_v2_by_day_view_day_repository', $events_repository, $grid_start, $grid_end, $this );
 
+			/// INNOVATION DAY
+			$grid_days = apply_filters( 'tribe_events_views_v2_by_day_view_grid_days_from_repository', null, $grid_start, $grid_end, $this );
+
+			if ( null !== $grid_days ) {
+				return $grid_days;
+			}
+
 			$view_event_ids = $events_repository->all();
 
 			/**
