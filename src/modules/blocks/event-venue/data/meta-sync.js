@@ -13,12 +13,11 @@ const { getState } = store;
  * @since 6.2.0
  */
 export const syncVenuesWithPost = () => {
-	const currentPost = wpData.select( 'core/editor' ).getCurrentPost();
 	const postId = wpData.select( 'core/editor' ).getCurrentPostId();
 	const modifiedPost = {
 		meta: {
 			_EventVenueID: selectors.getVenuesInBlock( getState() ),
-		}
+		},
 	};
 
 	wpData.dispatch( 'core' ).editEntityRecord( 'postType', editor.EVENT, postId, modifiedPost );
