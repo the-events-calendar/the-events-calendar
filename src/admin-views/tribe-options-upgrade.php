@@ -17,7 +17,7 @@
 
 				<p><?php esc_html_e( 'Go check out your new calendar designs! Each calendar view has been updated, so feel free to enable views you may not have been using. If necessary, you can revert back to the legacy calendar views in the Display tab of your Event Settings.', 'the-events-calendar' ); ?></p>
 
-				<a class="button" href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>"><?php esc_html_e( 'View Calendar', 'the-events-calendar' ); ?></a>
+				<a class="button tec-settings-button-secondary" href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>"><?php esc_html_e( 'View Calendar', 'the-events-calendar' ); ?></a>
 			</div>
 
 			<div class="image-container">

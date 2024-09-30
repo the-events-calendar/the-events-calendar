@@ -1,13 +1,12 @@
 /**
  * External dependencies
  */
-import {differenceBy, isEmpty} from 'lodash';
+import { differenceBy } from 'lodash';
 
 /**
  * Internal dependencies
  */
 import { globals } from '@moderntribe/common/utils';
-import { editor } from '@moderntribe/common/data';
 import { store } from '@moderntribe/common/store';
 import { actions as formActions } from '@moderntribe/common/data/forms';
 import {
@@ -43,16 +42,20 @@ export const isVenueBlock = ( block ) => block.name === 'tribe/event-venue';
  * @since 6.2.0
  * @param {number} venue
  */
-globals.wpHooks.addAction( 'tec.events.blocks.venue.maybeRemoveVenue', 'tec.events.blocks.venue.subscribers', ( venue ) => {
-	const path = `tribe_venue/${ venue }`;
-	const options = {
-		path,
-		actions: {
-			success: formActions.deleteEntry( dispatch )( path ),
-		},
-	};
-	dispatch( requestActions.wpRequest( options ) );
-} );
+globals.wpHooks.addAction(
+	'tec.events.blocks.venue.maybeRemoveVenue',
+	'tec.events.blocks.venue.subscribers',
+	( venue ) => {
+		const path = `tribe_venue/${ venue }`;
+		const options = {
+			path,
+			actions: {
+				success: formActions.deleteEntry( dispatch )( path ),
+			},
+		};
+		dispatch( requestActions.wpRequest( options ) );
+	},
+);
 
 /**
  * Handles the block that was added.
@@ -78,10 +81,9 @@ export const handleBlockAdded = ( block ) => {
  * Handles the block that was removed.
  *
  * @exports
- * @param {Array} currBlocks Array of current blocks in the editor.
  * @returns {Function} Function that handles the block that was removed.
  */
-export const handleBlockRemoved = ( currBlocks ) => ( block ) => {
+export const handleBlockRemoved = () => ( block ) => {
 	// only handle event venue block removal
 	if ( ! isVenueBlock( block ) ) {
 		return;
