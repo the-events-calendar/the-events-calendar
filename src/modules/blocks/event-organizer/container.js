@@ -98,7 +98,6 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 				.filter( block => block.name === `tribe/${ classicEventDetailsBlock.id }` );
 
 			if ( ! classicBlock.length || volatile ) {
-
 				const organizers = selectors.getOrganizersInClassic( state );
 				const newOrganizers = organizers.filter( id => id !== organizer );
 

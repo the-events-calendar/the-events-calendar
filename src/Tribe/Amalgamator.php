@@ -455,12 +455,16 @@ class Tribe__Events__Amalgamator {
 		$text = $text ? $text : __( 'Merge Duplicates', 'the-events-calendar' );
 
 		// Get the base settings page URL.
-		$url = tribe( Plugin_Settings::class )->get_url();
+		$url = tribe( Plugin_Settings::class )->get_url(
+			[
+				'tab' => 'general-maintenance-tab',
+			]
+		);
 
 		$url = add_query_arg( [ 'amalgamate' => '1' ], $url );
 		$url = wp_nonce_url( $url, 'amalgamate_duplicates' );
 
-		return sprintf( '<a href="%s" class="button">%s</a>', $url, $text );
+		return sprintf( '<a href="%s" class="button-secondary">%s</a>', $url, $text );
 	}
 
 	/**
@@ -475,8 +479,12 @@ class Tribe__Events__Amalgamator {
 		$amalgamator = new self();
 		$amalgamator->merge_duplicates();
 
-		// Redirect to base settings page.
-		$url = tribe( Plugin_Settings::class )->get_url();
+		// Redirect to the TEC general -> maintenance settings tab.
+		$url = tribe( Plugin_Settings::class )->get_url(
+			[
+				'tab' => 'general-maintenance-tab',
+			]
+		);
 
 		wp_redirect( esc_url_raw( $url ) );
 		tribe_exit();
