@@ -171,7 +171,7 @@ class Latest_Past_View extends List_View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( Tribe__Context $context = null ) {
-		$context = null !== $context ?: $this->context;
+		$context = $context ?? $this->context;
 		$args    = parent::setup_repository_args( $context );
 
 		$args['posts_per_page'] = $this->context->get( 'latest_past_per_page', 3 );
