@@ -5,16 +5,18 @@ namespace Tribe\Events\Views\V2\Views;
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 use Tribe__Utils__Post_Collection as Collection;
 use Tribe__Events__Main as TEC;
 
-class List_ViewTest extends ViewTestCase {
+class List_ViewTest extends TecViewTestCase {
 
 	use MatchesSnapshots;
 
-	public function setUp() {
-		parent::setUp();
+	/**
+	 * @before
+	 */
+	public function set_up_before() {
 		\Tribe__Rewrite::instance()->setup();
 	}
 

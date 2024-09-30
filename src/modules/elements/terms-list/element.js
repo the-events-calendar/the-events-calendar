@@ -4,6 +4,7 @@
 import React from 'react';
 import { compose } from 'redux';
 import { unescape } from 'lodash';
+import { PropTypes } from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -50,6 +51,10 @@ const Label = ( { text } ) => (
 	</strong>
 );
 
+Label.propTypes = {
+	text: PropTypes.string,
+};
+
 const Empty = ( { renderEmpty = null, id, label } ) => (
 	renderEmpty && (
 		<div key={ id } className="tribe-editor__terms--empty">
@@ -58,6 +63,12 @@ const Empty = ( { renderEmpty = null, id, label } ) => (
 		</div>
 	)
 );
+
+Empty.propTypes = {
+	renderEmpty: PropTypes.node,
+	id: PropTypes.string,
+	label: PropTypes.string,
+};
 
 const List = ( {
 	terms = [],
@@ -84,7 +95,20 @@ const List = ( {
 	);
 };
 
+List.propTypes = {
+	terms: PropTypes.array,
+	termSeparator: PropTypes.string,
+	isLoading: PropTypes.bool,
+	id: PropTypes.string,
+	className: PropTypes.string,
+};
+
 const Separator = ( { delimiter, isLast } ) => ! isLast ? <span>{ delimiter }</span> : '';
+
+Separator.propTypes = {
+	delimiter: PropTypes.string,
+	isLast: PropTypes.bool,
+};
 
 const Item = ( { separator, term, isLast } ) => {
 	let termLink = term.link;
@@ -109,12 +133,23 @@ const Item = ( { separator, term, isLast } ) => {
 	);
 };
 
+Item.propTypes = {
+	separator: PropTypes.string,
+	term: PropTypes.object,
+	isLast: PropTypes.bool,
+};
+
 const Loading = ( { id = '', className = '' } ) => (
 	<div key={ id } className={ `tribe-editor__terms__spinner ${ className }` }>
 		<Label />
 		<Spinner key="terms-spinner" />
 	</div>
 );
+
+Loading.propTypes = {
+	id: PropTypes.string,
+	className: PropTypes.string,
+};
 
 export const TaxonomiesElement = ( {
 	className,
@@ -139,6 +174,15 @@ export const TaxonomiesElement = ( {
 			</div>
 		</div>
 	);
+};
+
+TaxonomiesElement.propTypes = {
+	className: PropTypes.string,
+	slug: PropTypes.string,
+	label: PropTypes.string,
+	renderEmpty: PropTypes.node,
+	isRequesting: PropTypes.bool,
+	terms: PropTypes.array,
 };
 
 TaxonomiesElement.defaultProps = {

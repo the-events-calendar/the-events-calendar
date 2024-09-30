@@ -42,17 +42,15 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	$internal_meetup = [
 		'meetup-start'        => [
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
-		],
-		'meetup-info-box'     => [
-			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Meetup to import your events from Meetup.', 'the-events-calendar' ) . '</p>',
+			'html' => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . esc_html__( 'Meetup', 'the-events-calendar' ) . '</h3>',
 		],
 		'meetup_token_button' => [
 			'type' => 'html',
 			'html' => $meetup_token_html,
 		],
 	];
+
+	$internal_meetup = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-meetup', $internal_meetup );
 
 	$internal = array_merge( $internal, $internal_meetup );
 
@@ -61,13 +59,12 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 /**
  * Show Eventbrite API Connection only if Eventbrite Plugin is Active or Event Aggregator license key has a license key
  */
-if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( 'pue_install_key_event_aggregator' ) ) {
+if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) || get_option( 'pue_install_key_event_aggregator' ) ) {
 
 	$missing_eb_credentials = ! tribe( 'events-aggregator.settings' )->is_ea_authorized_for_eb();
 
 	ob_start();
 	?>
-
 	<fieldset id="tribe-field-eventbrite_token" class="tribe-field tribe-field-text tribe-size-medium">
 		<legend class="tribe-field-label"><?php esc_html_e( 'Eventbrite Authentication', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
@@ -94,11 +91,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 	$internal2 = [
 		'eb-start'        => [
 			'type' => 'html',
-			'html' => '<h3>' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
-		],
-		'eb-info-box'     => [
-			'type' => 'html',
-			'html' => '<p>' . esc_html__( 'You need to connect Event Aggregator to Eventbrite to import your events from Eventbrite.', 'the-events-calendar' ) . '</p>',
+			'html' => '<h3 class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . esc_html__( 'Eventbrite', 'the-events-calendar' ) . '</h3>',
 		],
 		'eb_token_button' => [
 			'type' => 'html',
@@ -106,41 +99,30 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 		],
 	];
 
+	$internal2 = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-eventbrite', $internal2 );
+
 	$internal = array_merge( $internal, $internal2 );
 }
 
 $internal = apply_filters( 'tribe_addons_tab_fields', $internal );
 
-$fields = array_merge(
-	[
-		'addons-box-start' => [
-			'type' => 'html',
-			'html' => '<div id="modern-tribe-info">',
-		],
-		'addons-box-title' => [
-			'type' => 'html',
-			'html' => '<h2>' . esc_html__( 'Integrations', 'the-events-calendar' ) . '</h2>',
-		],
-		'addons-box-description' => [
-			'type' => 'html',
-			'html' => '<p>' . __( 'The Events Calendar and its add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations.', 'the-events-calendar' ) . '</p>',
-		],
-		'addons-box-end' => [
-			'type' => 'html',
-			'html' => '</div>',
-		],
-		'addons-form-content-start' => [
-			'type' => 'html',
-			'html' => '<div class="tribe-settings-form-wrap">',
-		],
+$info_box = [
+	'tec-settings-addons-title' => [
+		'type' => 'html',
+		'html' => '<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">'
+				. '<h3 id="tec-settings-addons-title" class="tec-settings-form__section-header">'
+				. _x( 'Integrations', 'Integrations section header', 'tribe-common' )
+				. '</h3>'
+				. '<p class="tec-settings-form__section-description">'
+				. esc_html__( 'The Events Calendar, Event Tickets and their add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations.', 'tribe-common' )
+				. '</p>'
+				. '</div>',
 	],
+];
+
+$fields = array_merge(
+	$info_box,
 	$internal,
-	[
-		'addons-form-content-end' => [
-			'type' => 'html',
-			'html' => '</div>',
-		],
-	]
 );
 
 /**
@@ -158,6 +140,14 @@ $addons = apply_filters(
 );
 
 // Only create the Add-ons Tab if there is any
-if ( ! empty( $internal ) ) {
-	new Tribe__Settings_Tab( 'addons', esc_html__( 'Integrations', 'the-events-calendar' ), $addons );
+if ( empty( $internal ) ) {
+	return;
 }
+
+$addons_tab = new Tribe__Settings_Tab(
+	'addons',
+	esc_html__( 'Integrations', 'the-events-calendar' ),
+	$addons
+);
+
+do_action( 'tec_settings_tab_addons', $addons_tab );

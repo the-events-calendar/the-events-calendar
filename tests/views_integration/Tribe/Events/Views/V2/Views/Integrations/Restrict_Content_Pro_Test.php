@@ -6,11 +6,11 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main as TEC;
 use Tribe\Events\Views\V2\Views\Month_View as Month;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 use Tribe\Events\Integrations\Restrict_Content_Pro\Service_Provider as RCP_Integration;
 
 
-class Restrict_Content_Pro_Test extends ViewTestCase {
+class Restrict_Content_Pro_Test extends TecViewTestCase {
 	use MatchesSnapshots;
 
 	/**

@@ -99,6 +99,7 @@ OrganizerDetails.propTypes = {
 	edit: PropTypes.func,
 	remove: PropTypes.func,
 	selected: PropTypes.bool,
+	volatile: PropTypes.bool,
 };
 
 OrganizerDetails.defaultProps = {
