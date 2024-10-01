@@ -196,7 +196,7 @@ class Settings {
 	 */
 	public function maybe_add_network_settings_page() {
 		$admin_pages = tribe( 'admin.pages' );
-		$settings    = Tribe__Settings::instance();
+		$settings    = tribe( 'settings' );
 
 		if ( ! is_plugin_active_for_network( 'the-events-calendar/the-events-calendar.php' ) ) {
 			return;
