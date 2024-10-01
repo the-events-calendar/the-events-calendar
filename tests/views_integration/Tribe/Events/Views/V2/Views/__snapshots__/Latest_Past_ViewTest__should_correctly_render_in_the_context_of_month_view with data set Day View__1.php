@@ -288,51 +288,6 @@
 		<div  class="tribe-common-g-row tribe-events-calendar-latest-past__event-row" >
 
 	<div class="tribe-events-calendar-latest-past__event-date-tag tribe-common-g-col">
-	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="2020-02-20" aria-hidden="true">
-		<span class="tribe-events-calendar-latest-past__event-date-tag-month">
-			Feb		</span>
-		<span class="tribe-events-calendar-latest-past__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
-			20		</span>
-		<span class="tribe-events-calendar-latest-past__event-date-tag-year">
-			2020		</span>
-	</time>
-</div>
-
-	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
-		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-89 tribe_events type-tribe_events status-publish hentry" >
-			
-			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
-
-				<header class="tribe-events-calendar-latest-past__event-header">
-					<div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
-		<time class="tribe-events-calendar-latest-past__event-datetime" datetime="2020-02-20">
-		<span class="tribe-event-date-start">February 20, 2020 @ 8:00 am</span> - <span class="tribe-event-time">5:00 pm</span>	</time>
-	</div>
-					<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium">
-	<a
-		href="http://test.tri.be/?tribe_events=single-event-1"
-		title="Single Event 1"
-		rel="bookmark"
-		class="tribe-events-calendar-latest-past__event-title-link tribe-common-anchor-thin"
-	>
-		Single Event 1	</a>
-</h3>
-									</header>
-
-				<div class="tribe-events-calendar-latest-past__event-description tribe-common-b2 tribe-common-a11y-hidden">
-	<p>Snapshot event 89</p>
-</div>
-				
-			</div>
-		</article>
-	</div>
-
-</div>
-
-			
-		<div  class="tribe-common-g-row tribe-events-calendar-latest-past__event-row" >
-
-	<div class="tribe-events-calendar-latest-past__event-date-tag tribe-common-g-col">
 	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="2020-02-15" aria-hidden="true">
 		<span class="tribe-events-calendar-latest-past__event-date-tag-month">
 			Feb		</span>
@@ -366,6 +321,51 @@
 
 				<div class="tribe-events-calendar-latest-past__event-description tribe-common-b2 tribe-common-a11y-hidden">
 	<p>Snapshot event 23</p>
+</div>
+				
+			</div>
+		</article>
+	</div>
+
+</div>
+
+			
+		<div  class="tribe-common-g-row tribe-events-calendar-latest-past__event-row" >
+
+	<div class="tribe-events-calendar-latest-past__event-date-tag tribe-common-g-col">
+	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="2020-02-20" aria-hidden="true">
+		<span class="tribe-events-calendar-latest-past__event-date-tag-month">
+			Feb		</span>
+		<span class="tribe-events-calendar-latest-past__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			20		</span>
+		<span class="tribe-events-calendar-latest-past__event-date-tag-year">
+			2020		</span>
+	</time>
+</div>
+
+	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
+		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-89 tribe_events type-tribe_events status-publish hentry" >
+			
+			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
+
+				<header class="tribe-events-calendar-latest-past__event-header">
+					<div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-latest-past__event-datetime" datetime="2020-02-20">
+		<span class="tribe-event-date-start">February 20, 2020 @ 8:00 am</span> - <span class="tribe-event-time">5:00 pm</span>	</time>
+	</div>
+					<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-1"
+		title="Single Event 1"
+		rel="bookmark"
+		class="tribe-events-calendar-latest-past__event-title-link tribe-common-anchor-thin"
+	>
+		Single Event 1	</a>
+</h3>
+									</header>
+
+				<div class="tribe-events-calendar-latest-past__event-description tribe-common-b2 tribe-common-a11y-hidden">
+	<p>Snapshot event 89</p>
 </div>
 				
 			</div>
