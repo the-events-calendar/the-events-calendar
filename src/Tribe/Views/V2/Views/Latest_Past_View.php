@@ -14,7 +14,7 @@ use Tribe__Context;
 
 class Latest_Past_View extends List_View {
 	use With_Noindex;
-  
+
 	/**
 	 * Slug for this view
 	 *
@@ -171,14 +171,15 @@ class Latest_Past_View extends List_View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( Tribe__Context $context = null ) {
-		$context          = null !== $context ? $context : $this->context;
-		$this->repository = tribe_events();
+		$context ??= $this->context;
+		$args    = parent::setup_repository_args( $context );
 
-		$date                   = $context->get( 'event_date', 'now' );
 		$args['posts_per_page'] = $this->context->get( 'latest_past_per_page', 3 );
 		$args['order_by']       = 'event_date';
 		$args['order']          = 'DESC';
-		$args['ends_before']    = $date;
+		$args['ends_before']    = tribe_beginning_of_day( current_time( 'mysql' ) );
+
+		unset( $args['ends_after'] );
 
 		return $args;
 	}
