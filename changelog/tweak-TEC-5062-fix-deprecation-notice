@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Cast theme object to string to avoid deprecation notices. [TEC-5062]
