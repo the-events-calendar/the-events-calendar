@@ -424,7 +424,7 @@ class Template_Bootstrap {
 			return $classes;
 		}
 
-		$classes[] = 'page-template-' . sanitize_title( (string) $active_theme );
+		$classes[] = 'page-template-' . sanitize_title( (string) $active_theme->display( 'Name' );
 
 		if ( ! get_queried_object() instanceof \WP_Term ) {
 			$key = array_search( 'archive', $classes, true );
