@@ -1,5 +1,48 @@
 # Changelog
 
+### [6.7.0] 2024-09-26
+
+* Version - The Events Calendar 6.7.0 is only compatible with Events Calendar Pro 7.1.0 and higher
+* Version - The Events Calendar 6.7.0 is only compatible with Events Filterbar 5.5.7 and higher
+* Version - The Events Calendar 6.7.0 is only compatible with Events Community 5.0.4 and higher
+* Feature - New and improved settings layout and styles. [TEC-5124]
+* Fix - Correct translation domains in a few templates. [TBD]
+* Tweak - Added filters: `tec_settings_gmaps_js_api_start`, `tec_events_settings_display_calendar_display_section`, `tec_general_settings_viewing_section`, `tec_events_aggregator_show_all_settings`, `tec_events_settings_tab_imports_fields`
+* Tweak - Removed filters: `tec_events_should_display_events_template_setting`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
+* Tweak - Added actions: `tec_events_settings_tab_display_additional_content`, `tec_events_settings_tab_display_calendar`, `tec_events_settings_tab_display_date_time`, `tec_events_settings_tab_display_maps`, `tec_events_settings_tab_general_debugging`, `tec_events_settings_tab_general_editing`, `tec_events_settings_tab_general_maintenance`, `tec_events_settings_tab_general_viewing`, `tec_settings_tab_addons`, `tec_events_settings_tab_display`, `tec_events_settings_tab_general`, `tec_events_settings_tab_imports`
+* Tweak - Changed views: `v2/latest-past/event/venue`
+* Language - 6 new strings added, 356 updated, 3 fuzzied, and 29 obsoleted
+
+### [6.6.4.2] 2024-09-17
+
+* Fix - Resolve fatal errors happening when Events search was being used alongside query ordering. [TEC-5155]
+
+### [6.6.4.1] 2024-09-16
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
+### [6.6.4] 2024-09-11
+
+* Security - Improve handling of Date/Time Separator settings to prevent potential XSS vulnerabilities.
+* Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
+* Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [BTRIA-2353]
+* Fix - Changed logic within the custom tables query to avoid a database error. (props @datadiver0x0) [ECP-1562]
+* Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
+* Tweak - Include methods `tec_events_get_date_time_separator` and `tec_events_get_time_range_separator` and it's respective filters.
+* Tweak - Add docblock for make_select_box()
+* Tweak - Add docblock for `set_defaults()` in the `Tribe__Events__Importer__Column_Mapper` class.
+* Tweak - Add docblocks to the methods in the `Tribe__Events__Importer__Column_Mapper` class.
+* Tweak - Add information and missing tags to `tribe_get_listview_args()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_dir_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_past_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
+* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TECTRIA-292]
+* Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
+* Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
+* Tweak - Changed views: `silence`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 0 new strings added, 46 updated, 0 fuzzied, and 0 obsoleted
+
 ### [6.6.3] 2024-09-09
 
 * Tweak - Add docblock for make_select_box()

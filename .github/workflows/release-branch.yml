@@ -22,6 +22,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print input vars to summary
+        run: |
+          echo "### Debugging Inputs" >> $GITHUB_STEP_SUMMARY
+          echo "- version-bump-type: \`${{ github.event.inputs['version-bump-type'] }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- new-branch: \`${{ github.event.inputs['new-branch'] }}\`" >> $GITHUB_STEP_SUMMARY
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -29,7 +35,10 @@ jobs:
 
       - name: Set Variables
         id: vars
-        run: echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
+        run: |
+          versionBumpType="${{ github.event.inputs.version-bump-type }}"
+          echo "sha_short=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_OUTPUT
+          echo "version_bump_type=${versionBumpType%% *}" >> $GITHUB_OUTPUT
 
       - name: Set up Git configuration
         run: |
@@ -67,7 +76,7 @@ jobs:
           changeBranch="task/version-bump-${{ github.event.inputs.new-branch }}-${{ steps.vars.outputs.sha_short }}"
           git checkout -b "$changeBranch"
           git push origin "$changeBranch"
-          versionBumpType="${{ github.event.inputs.version-bump-type }}"
+          versionBumpType="${{ steps.vars.outputs.version_bump_type }}"
 
           jq -c '.paths.versions[]' .puprc | while read -r version; do
             echo "Processing version info: $version"
