@@ -483,23 +483,30 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 }
 
 /**
- * Get the link for the event website.
+ * Retrieves the formatted title for the event website link.
+ *
+ * This function fetches the event website title, which can be customized
+ * using the 'tribe_events_get_event_website_title' filter.
  *
  * @since 5.5.0
  *
- * @param null|int $post_id The event or event ID.
- * @return string  Formatted title for the event website link
+ * @param null|int $post_id Optional. The event post object or event ID. Defaults to null.
+ * 
+ * @return string The formatted title for the event website link.
  */
 function tribe_events_get_event_website_title( $post_id = null ) {
 	$post_id = Tribe__Main::post_id_helper( $post_id );
 
 	/**
-	 * Allows customization of a event's website title link.
+	 * Filters the formatted title for the event's website link.
+	 *
+	 * This filter allows the customization of the text displayed as the
+	 * event's website link title, such as changing or translating the string.
 	 *
 	 * @since 5.5.0
 	 *
-	 * @param string $title The title of the event's website link.
-	 * @param int 	 $post_id The event ID.
+	 * @param string $title   The title for the event's website link. Default is 'Website:'.
+	 * @param int    $post_id The event post ID.
 	 */
 	return apply_filters( 'tribe_events_get_event_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
 }
