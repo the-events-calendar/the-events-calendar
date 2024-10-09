@@ -490,7 +490,7 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
  *
  * @since 5.5.0
  *
- * @param null|int $post_id Optional. The event post object or event ID. Defaults to null, which uses the current event ID.
+ * @param null|int $post_id Optional. The event post object or event ID. Defaults to null.
  * 
  * @return string The formatted title for the event website link.
  */
