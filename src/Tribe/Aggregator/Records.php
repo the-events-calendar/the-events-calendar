@@ -64,6 +64,8 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Adjusting the "Edit Post" link.
 	 *
+	 * @since 4.3.0
+	 *
 	 * @param string $link    The edit link.
 	 * @param int    $post    The post ID.
 	 * @param string $context The link context. If set to 'display' then ampersands are encoded.
@@ -85,6 +87,17 @@ class Tribe__Events__Aggregator__Records {
 		return Tribe__Events__Aggregator__Page::instance()->get_url( $args );
 	}
 
+	/**
+	 * Adjusting the "Delete Post" link.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @param string $link    The delete link.
+	 * @param int    $post    The post ID.
+	 * @param bool   $context Whether to bypass the Trash and force deletion. Default false.
+	 *
+	 * @return string
+	 */
 	public function filter_delete_link( $link, $post, $context ) {
 		$post = get_post( $post );
 
