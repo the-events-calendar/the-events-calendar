@@ -61,6 +61,15 @@ class Tribe__Events__Aggregator__Records {
 		}
 	}
 
+	/**
+	 * Adjusting the "Edit Post" link.
+	 *
+	 * @param string $link    The edit link.
+	 * @param int    $post    The post ID.
+	 * @param string $context The link context. If set to 'display' then ampersands are encoded.
+	 *
+	 * @return string
+	 */
 	public function filter_edit_link( $link, $post, $context ) {
 		$post = get_post( $post );
 
