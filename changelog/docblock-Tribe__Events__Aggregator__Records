@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Updated docblocks in the `Tribe__Events__Aggregator__Records` class.
