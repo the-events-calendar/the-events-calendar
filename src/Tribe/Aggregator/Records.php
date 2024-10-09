@@ -42,9 +42,11 @@ class Tribe__Events__Aggregator__Records {
 	private static $instance;
 
 	/**
+	 * The time, in "Y-m-d H:i:s" format, that's used to query records.
+	 *
 	 * @since 4.3.0
 	 *
-	 * @var string The time, in "Y-m-d H:i:s" format, that's used to query records.
+	 * @var string
 	 */
 	protected $after_time;
 
