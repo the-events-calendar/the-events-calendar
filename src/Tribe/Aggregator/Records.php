@@ -346,8 +346,8 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Returns an appropriate Record object for the given origin.
 	 *
-	 * @param string $origin The record import origin.
-	 * @param int|WP_Post The record post or post ID.
+	 * @param string      $origin The record import origin.
+	 * @param int|WP_Post $post   The record post or post ID.
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract An instance of the correct record class
 	 *                                                     for the origin or an unsupported record
