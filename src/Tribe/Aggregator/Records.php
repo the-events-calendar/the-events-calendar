@@ -696,6 +696,13 @@ class Tribe__Events__Aggregator__Records {
 		return wp_send_json_success();
 	}
 
+	/**
+	 * Return the origin of the import.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return string
+	 */
 	public function filter_post_origin() {
 		return Tribe__Events__Aggregator__Event::$event_origin;
 	}
