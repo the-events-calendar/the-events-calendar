@@ -505,7 +505,7 @@ function tribe_events_get_event_website_title( $post_id = null ) {
 	 *
 	 * @since 5.5.0
 	 *
-	 * @param string $title   The default title for the event's website link. Default 'Website:'.
+	 * @param string $title   The title for the event's website link. Default is 'Website:'.
 	 * @param int    $post_id The event post ID.
 	 */
 	return apply_filters( 'tribe_events_get_event_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
