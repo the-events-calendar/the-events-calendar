@@ -4,14 +4,14 @@ defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Records {
 	/**
-	 * Slug of the Post Type used for Event Aggregator Records
+	 * Slug of the Post Type used for Event Aggregator Records.
 	 *
 	 * @var string
 	 */
 	public static $post_type = 'tribe-ea-record';
 
 	/**
-	 * Base slugs for all the EA Record Post Statuses
+	 * Base slugs for all the EA Record Post Statuses.
 	 *
 	 * @var stdClass
 	 */
@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator__Records {
 	];
 
 	/**
-	 * Static Singleton Holder
+	 * Static Singleton Holder.
 	 *
 	 * @var self
 	 */
@@ -41,7 +41,7 @@ class Tribe__Events__Aggregator__Records {
 	protected $after_time;
 
 	/**
-	 * Static Singleton Factory Method
+	 * Static Singleton Factory Method.
 	 *
 	 * @return self
 	 */
@@ -50,7 +50,7 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Setup all the hooks and filters
+	 * Set up all the hooks and filters.
 	 *
 	 * @return void
 	 */
