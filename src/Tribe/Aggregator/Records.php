@@ -426,9 +426,11 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Returns an appropriate Record object for the given post id
+	 * Returns an appropriate Record object for the given post ID.
 	 *
-	 * @param int $post_id WP Post ID of record
+	 * @since 4.3.0
+	 *
+	 * @param int $post The post ID of the record.
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract|WP_Error|null
 	 */
