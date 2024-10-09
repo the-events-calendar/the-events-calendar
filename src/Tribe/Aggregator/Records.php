@@ -117,9 +117,9 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Register and return the Aggregator Record Custom Post Type
-	 * Instead of having a method for returning and another registering
-	 * we do it all in one single method depending if it exists or not
+	 * Register and return the Aggregator Record Custom Post Type.
+	 * Instead of having a method for returning and another for registering,
+	 * we do it all in one single method depending on if it exists or not.
 	 *
 	 * @return stdClass|WP_Error
 	 */
@@ -166,9 +166,9 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Register and return the Aggregator Record Custom Post Status
-	 * Instead of having a method for returning and another registering
-	 * we do it all in one single method depending if it exists or not
+	 * Register and return the Aggregator Record Custom Post Status.
+	 * Instead of having a method for returning and another for registering,
+	 * we do it all in one single method depending on if it exists or not.
 	 *
 	 * @param  string $status Which status object you are looking for
 	 *
