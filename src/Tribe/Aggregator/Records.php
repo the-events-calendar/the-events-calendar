@@ -457,10 +457,12 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Returns an appropriate Record object for the given import id
+	 * Returns an appropriate Record object for the given import ID.
 	 *
-	 * @param int $import_id Aggregator import id
-	 * @param array $args An array of arguments to override the default ones.
+	 * @since 4.3.0
+	 *
+	 * @param int   $import_id Post ID of the aggregator import.
+	 * @param array $args      An array of arguments to override the default ones.
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract|WP_Error
 	 */
