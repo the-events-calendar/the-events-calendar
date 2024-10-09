@@ -6,12 +6,16 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Slug of the Post Type used for Event Aggregator Records.
 	 *
+	 * @since 4.3.0
+	 *
 	 * @var string
 	 */
 	public static $post_type = 'tribe-ea-record';
 
 	/**
 	 * Base slugs for all the EA Record Post Statuses.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @var stdClass
 	 */
@@ -31,17 +35,23 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Static Singleton Holder.
 	 *
+	 * @since 4.3.0
+	 *
 	 * @var self
 	 */
 	private static $instance;
 
 	/**
+	 * @since 4.3.0
+	 *
 	 * @var string The time, in "Y-m-d H:i:s" format, that's used to query records.
 	 */
 	protected $after_time;
 
 	/**
 	 * Static Singleton Factory Method.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @return self
 	 */
@@ -51,6 +61,8 @@ class Tribe__Events__Aggregator__Records {
 
 	/**
 	 * Set up all the hooks and filters.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @return void
 	 */
@@ -121,6 +133,8 @@ class Tribe__Events__Aggregator__Records {
 	 * Instead of having a method for returning and another for registering,
 	 * we do it all in one single method depending on if it exists or not.
 	 *
+	 * @since 4.3.0
+	 *
 	 * @return stdClass|WP_Error
 	 */
 	public function get_post_type() {
@@ -169,6 +183,8 @@ class Tribe__Events__Aggregator__Records {
 	 * Register and return the Aggregator Record Custom Post Status.
 	 * Instead of having a method for returning and another for registering,
 	 * we do it all in one single method depending on if it exists or not.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @param  string $status Which status object you are looking for
 	 *
@@ -285,6 +301,8 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Count the number of imports based on origin.
 	 *
+	 * @since 4.3.0
+	 *
 	 * @param array<string> $type         The type of import.
 	 * @param string|array  $raw_statuses The statuses of the imports to look in.
 	 *
@@ -345,6 +363,8 @@ class Tribe__Events__Aggregator__Records {
 
 	/**
 	 * Returns an appropriate Record object for the given origin.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @param string      $origin The record import origin.
 	 * @param int|WP_Post $post   The record post or post ID.
