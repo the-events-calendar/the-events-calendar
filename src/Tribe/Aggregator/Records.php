@@ -708,11 +708,13 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Adds the import record and origin to the imported event
+	 * Adds the import record and origin to the imported event.
 	 *
-	 * @param int $id Event ID
-	 * @param int $record_id Import Record ID
-	 * @param string $origin Import Origin
+	 * @since 4.3.0
+	 *
+	 * @param int    $id        Event ID
+	 * @param int    $record_id Import Record ID
+	 * @param string $origin    Import Origin
 	 */
 	public function add_record_to_event( $id, $record_id, $origin ) {
 		$record = $this->get_by_post_id( $record_id );
@@ -740,11 +742,11 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Prefixes a String to be the Key for Record meta
+	 * Prefixes a String to be the Key for Record meta.
 	 *
-	 * @since  4.3
+	 * @since  4.3.0
 	 *
-	 * @param  string $str Append to the Prefix
+	 * @param  string $str String to append to the Prefix.
 	 *
 	 * @return string
 	 */
