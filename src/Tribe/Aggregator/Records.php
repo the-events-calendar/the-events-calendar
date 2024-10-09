@@ -755,7 +755,7 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Fetches the Amount of seconds that we will hold a Record Log on the Posts Table
+	 * Fetches the Amount of seconds that we will hold a Record Log on the Posts Table.
 	 *
 	 * @since  4.3.2
 	 *
@@ -882,10 +882,10 @@ class Tribe__Events__Aggregator__Records {
 	/**
 	 * Filter records by source and data hash.
 	 *
+	 * @since 4.6.25
+	 *
 	 * @param string $source    Source value.
 	 * @param string $data_hash Data hash.
-	 *
-	 * @since 4.6.25
 	 *
 	 * @return Tribe__Events__Aggregator__Record__Abstract|false Record object or false if not found.
 	 */
