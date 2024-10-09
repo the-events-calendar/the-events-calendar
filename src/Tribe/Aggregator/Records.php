@@ -648,11 +648,18 @@ class Tribe__Events__Aggregator__Records {
 		return $this->get( $tab );
 	}
 
+	/**
+	 * Start the import process.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return null
+	 */
 	public function action_do_import() {
 		 // First we convert the array to a json string
 		$json = json_encode( $_POST );
 
-		// The we convert the json string to a stdClass()
+		// Then we convert the json string to a stdClass()
 		$request = json_decode( $json, true );
 
 		// Empty Required Variables
