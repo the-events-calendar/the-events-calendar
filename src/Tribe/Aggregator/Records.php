@@ -282,6 +282,14 @@ class Tribe__Events__Aggregator__Records {
 		return $registered_by_key;
 	}
 
+	/**
+	 * Count the number of imports based on origin.
+	 *
+	 * @param array<string> $type         The type of import.
+	 * @param string|array  $raw_statuses The statuses of the imports to look in.
+	 *
+	 * @return array
+	 */
 	public function count_by_origin( $type = [ 'schedule', 'manual' ], $raw_statuses = '' ) {
 		global $wpdb;
 
