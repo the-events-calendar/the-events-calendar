@@ -656,7 +656,7 @@ class Tribe__Events__Aggregator__Records {
 	 * @return null
 	 */
 	public function action_do_import() {
-		 // First we convert the array to a json string.
+		// First we convert the array to a json string.
 		$json = json_encode( $_POST );
 
 		// Then we convert the json string to a stdClass().
