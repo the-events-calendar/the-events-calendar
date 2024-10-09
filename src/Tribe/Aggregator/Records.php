@@ -563,7 +563,9 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Returns whether or not there are any scheduled imports
+	 * Returns whether or not there are any scheduled imports.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @return boolean
 	 */
@@ -585,7 +587,9 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Returns whether or not there have been any import requests
+	 * Returns whether or not there have been any import requests.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @return boolean
 	 */
@@ -606,7 +610,9 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Filter the Admin page tile and add Tab Name
+	 * Filter the Admin page tile and add Tab Name.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @param  string $admin_title Full Admin Title
 	 * @param  string $title       Original Title from the Page
@@ -623,7 +629,9 @@ class Tribe__Events__Aggregator__Records {
 	}
 
 	/**
-	 * Fetches the current active tab
+	 * Fetches the current active tab.
+	 *
+	 * @since 4.3.0
 	 *
 	 * @return object An instance of the Class used to create the Tab
 	 */
