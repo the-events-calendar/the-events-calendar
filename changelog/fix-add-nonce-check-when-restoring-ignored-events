@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Added security check when restoring imported events that were in ignored status. [SVUL-7]
