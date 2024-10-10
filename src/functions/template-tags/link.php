@@ -300,11 +300,14 @@ function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_dis
 }
 
 /**
- * Validates that the current view is inside of the Two allowed: list or view if not default to the list view.
+ * Retrieves the display view for the events, defaulting to the list view if an invalid view is requested.
+ *
+ * This function checks whether the current view is one of the two allowed views: the list view or the past view.
+ * If the requested view is not valid, it defaults to the list view.
  *
  * @since 4.6.12
  *
- * @return string
+ * @return string The validated display view, either 'list' or 'past'.
  */
 function tribe_get_listview_display() {
 	$view_slug       = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
