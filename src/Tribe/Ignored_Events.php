@@ -194,6 +194,14 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				return;
 			}
 
+			if (
+				! isset( $_GET['_wpnonce'] )
+				|| ! isset( $_GET['post'] )
+				|| ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $_GET['post'] )
+			) {
+				return;
+			}
+
 			$event = get_post( absint( $_GET['post'] ) );
 
 			if ( ! $event instanceof WP_Post ) {
@@ -265,8 +273,10 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'tribe-restore' ) ) {
+				error_log('action_restore_ignored: nonce check failed');
 				return false;
 			}
+			error_log('action_restore_ignored: nonce check passed');
 
 			$ids      = (array) explode( ',', $_GET['ids'] );
 			$restored = [];
