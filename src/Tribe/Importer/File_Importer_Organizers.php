@@ -37,17 +37,18 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	}
 
 	/**
-	 * Build a organizer array for creation/update of the current imported organizer.
+	 * Build an organizer array for creation/update of the current imported organizer.
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
+	 * @since TBD   Add code to allow importing custom data.
 	 *
 	 * @param int   $organizer_id The ID of the organizer we're currently importing.
 	 * @param array $record       An event record from the import.
 	 *
 	 * @return array $organizer The array of organizer data for creation/update.
 	 */
-	private function build_organizer_array( $organizer_id, array $record ) {
+	private function build_organizer_array( int $organizer_id, array $record ) {
 		$organizer = [];
 		$columns   = [
 			'Organizer'   => 'organizer_name',
@@ -97,12 +98,45 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 		$organizer['FeaturedImage'] = $this->get_featured_image( $organizer, $record );
 
 		/**
+		 * A filter to allow saving custom data when importing organizers.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $additional_organizer_fields Array where the key is the meta_key to be used and the value is
+		 *                                           the slug of the column that contains the value to be saved.
+		 *
+		 * @note During the import process the meta key will receive the "_Organizer" prefix.
+		 *       For example, if the array key is "CustomData", then the meta key will be "_OrganizerCustomData".
+		 */
+		$additional_organizer_fields = apply_filters( 'tribe_events_csv_import_organizer_additional_fields', [] );
+
+		if ( ! empty( $additional_organizer_fields ) ) {
+			foreach ( $additional_organizer_fields as $key => $csv_column ) {
+				// Get the value from the record based on the column slug.
+				$value = $this->get_value_by_key( $record, $csv_column );
+				/**
+				 * This is needed if custom fields are being added to the post type.
+				 * When saving, the metadata gets the "_Organizer" prefix automatically, so it should be removed
+				 * before the import to avoid duplication.
+				 */
+				$key = preg_replace( '/' . preg_quote( '_Organizer', '/' ) . '/', '', $key, 1 );
+
+				// Handle multiple values separated by a pipe (|).
+				if ( strpos( $value, '|' ) > -1 ) {
+					$organizer[ $key ] = explode( '|', $value );
+				} else {
+					$organizer[ $key ] = $value;
+				}
+			}
+		}
+
+		/**
 		 * Allows filtering of record values before import.
 		 *
 		 * @since 5.1.6
 		 *
-		 * @param array $organizer The array of organizer data we're modifying.
-		 * @param array $record The event record from the import.
+		 * @param array $organizer    The array of organizer data we're modifying.
+		 * @param array $record       The event record from the import.
 		 * @param int   $organizer_id The ID of the organizer we're currently importing.
 		 */
 		$organizer = apply_filters(

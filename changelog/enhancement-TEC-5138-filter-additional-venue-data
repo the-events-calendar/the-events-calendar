@@ -1,0 +1,4 @@
+Significance: minor
+Type: feat
+
+Allow importing custom data when importing Venues from a CSV file. [TEC-5138]
