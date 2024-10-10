@@ -190,15 +190,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
-			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
-				return;
-			}
-
-			if (
-				! isset( $_GET['_wpnonce'] )
-				|| ! isset( $_GET['post'] )
-				|| ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $_GET['post'] )
-			) {
+			if ( 'tribe-restore' !== tribe_get_request_var( 'action', false ) ) {
 				return;
 			}
 
@@ -273,10 +265,8 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 			}
 
 			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'tribe-restore' ) ) {
-				error_log('action_restore_ignored: nonce check failed');
 				return false;
 			}
-			error_log('action_restore_ignored: nonce check passed');
 
 			$ids      = (array) explode( ',', $_GET['ids'] );
 			$restored = [];
