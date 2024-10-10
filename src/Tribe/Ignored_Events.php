@@ -190,11 +190,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
-			if (
-				! isset( $_GET['_wpnonce'] )
-				|| ! isset( $_GET['post'] )
-				|| ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $_GET['post'] )
-			) {
+			if ( ! wp_verify_nonce( tribe_get_request_var( '_wpnonce', '' ), 'restore-post_' . tribe_get_request_var( 'post', '' ) ) ) {
 				return;
 			}
 
