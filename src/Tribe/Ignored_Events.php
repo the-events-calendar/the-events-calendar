@@ -190,15 +190,15 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 		 * @return void|Redirect
 		 */
 		public function action_restore_events() {
-			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
-				return;
-			}
-
 			if (
 				! isset( $_GET['_wpnonce'] )
 				|| ! isset( $_GET['post'] )
 				|| ! wp_verify_nonce( $_GET['_wpnonce'], 'restore-post_' . $_GET['post'] )
 			) {
+				return;
+			}
+
+			if ( ! isset( $_GET['action'] ) || 'tribe-restore' !== $_GET['action'] ) {
 				return;
 			}
 
