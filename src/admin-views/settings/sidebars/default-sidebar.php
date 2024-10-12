@@ -15,6 +15,7 @@ use TEC\Common\Admin\Entities\Paragraph;
 use TEC\Common\Admin\Entities\Plain_Text;
 use TEC\Common\Admin\Settings_Section;
 use TEC\Common\Admin\Settings_Sidebar;
+use TEC\Common\Admin\Settings_Sidebar_Section;
 use Tribe\Utils\Element_Attributes as Attributes;
 use Tribe\Utils\Element_Classes as Classes;
 
@@ -30,20 +31,23 @@ $external_attributes = new Attributes(
 );
 
 $sidebar = new Settings_Sidebar();
-$sidebar->set_header_image(
-	new Image(
-		tribe_resource_url( 'images/settings_illustration.jpg', false, null, Tribe__Events__Main::instance() ),
-		new Attributes(
-			[
-				'alt'  => '',
-				'role' => 'presentation',
-			]
+
+$hero_section = ( new Settings_Sidebar_Section() );
+$hero_section->header_image(
+		new Image(
+			tribe_resource_url( 'images/settings_illustration.jpg', false, null, Tribe__Events__Main::instance() ),
+			new Attributes(
+				[
+					'alt'  => '',
+					'role' => 'presentation',
+				]
+			)
 		)
 	)
-);
+	->set_title( new Heading( __( 'Finding and extending your calendar', 'tribe-common' ), 2, new Classes( 'tec-settings-form__sidebar-header' ) ) );
 
-$sidebar->set_title( new Heading( __( 'Finding and extending your calendar', 'tribe-common' ), 2, new Classes( 'tec-settings-form__sidebar-header' ) ) );
-$sidebar->add_section(
+
+$hero_section->add_section(
 	( new Settings_Section() )
 		->add_elements(
 			[
@@ -58,7 +62,7 @@ $sidebar->add_section(
 		)
 );
 
-$sidebar->add_section(
+$hero_section->add_section(
 	( new Settings_Section() )
 		->set_title( new Heading( __( 'Documentation', 'tribe-common' ), 3 ) )
 		->add_elements(
@@ -85,7 +89,7 @@ $sidebar->add_section(
 		)
 );
 
-$sidebar->add_section(
+$hero_section->add_section(
 	( new Settings_Section() )
 		->add_elements(
 			[
@@ -100,7 +104,7 @@ $sidebar->add_section(
 		)
 );
 
-$sidebar->add_section(
+$hero_section->add_section(
 	( new Settings_Section() )
 		->add_elements(
 			[
@@ -120,5 +124,7 @@ $sidebar->add_section(
 			]
 		)
 );
+
+$sidebar->add_section( $hero_section );
 
 return $sidebar;
