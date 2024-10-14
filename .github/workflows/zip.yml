@@ -63,27 +63,7 @@ jobs:
           else
             echo "exists=false" >> $GITHUB_ENV
           fi
-
-      # Install NVM if .nvmrc exists
-      - name: Install NVM
-        if: env.exists == 'true'
-        run: |
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-      # Use NVM to install Node.js version from .nvmrc
-      - name: Use Node.js version from .nvmrc
-        if: env.exists == 'true'
-        run: |
-          export NVM_DIR="$HOME/.nvm"
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install
-          nvm use
-          node -v  # Optional: Verify the Node.js version
-
-      # Use actions/setup-node to cache npm packages
+          
       - uses: actions/setup-node@v4
         if: env.exists == 'true'
         with:
