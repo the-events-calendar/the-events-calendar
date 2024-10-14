@@ -170,8 +170,6 @@ jobs:
       # Zip
       # ------------------------------------------------------------------------------
       - name: Package the plugin into a zip
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         id: zip
         if: steps.s3_zip.outcome != 'success'
         working-directory: ../
@@ -188,12 +186,6 @@ jobs:
           touch ${GITHUB_WORKSPACE}/results.txt
           echo "$output" > ${GITHUB_WORKSPACE}/results.txt
           mv zip ${GITHUB_WORKSPACE}/zip
-      - uses: actions/upload-artifact@v4
-        id: zip-results
-        if: steps.s3_zip.outcome != 'success'
-        with:
-          name: tut-package-results
-          path:  ${GITHUB_WORKSPACE}/results.txt
       - uses: the-events-calendar/action-s3-utility@main
         if: steps.s3_zip.outcome != 'success'
         with:
