@@ -189,6 +189,8 @@ jobs:
           echo "$output" > ${GITHUB_WORKSPACE}/results.txt
           mv zip ${GITHUB_WORKSPACE}/zip
       - uses: actions/upload-artifact@v4
+        id: zip-results
+        if: steps.s3_zip.outcome != 'success'
         with:
           name: tut-package-results
           path:  ${GITHUB_WORKSPACE}/results.txt
