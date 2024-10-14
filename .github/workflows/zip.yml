@@ -53,18 +53,22 @@ jobs:
           ref: ${{ steps.settings.outputs.branch }}
 
       # ------------------------------------------------------------------------------
-      # Setup Node.
+      # Install and Setup NVM if .nvmrc exists.
       # ------------------------------------------------------------------------------
       - name: Check for .nvmrc file
         id: check-nvmrc
-        run: echo "::set-output name=exists::$(test -f ${{ github.workspace }}/.nvmrc && echo 'true' || echo 'false')"
-
-      - uses: actions/setup-node@v3
-        if: steps.check-nvmrc.outputs.exists == 'true'
+        run: |
+          if [ -f "${{ github.workspace }}/.nvmrc" ]; then
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "exists=false" >> $GITHUB_ENV
+          fi
+          
+      - uses: actions/setup-node@v4
+        if: env.exists == 'true'
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-          cache-dependency-path: package-lock.json
 
       # ------------------------------------------------------------------------------
       # Checkout the tut
@@ -170,30 +174,51 @@ jobs:
       # Zip
       # ------------------------------------------------------------------------------
       - name: Package the plugin into a zip
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         id: zip
         if: steps.s3_zip.outcome != 'success'
         working-directory: ../
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
+          set -x  # Enable command tracing
+
+          # Print out variables to help debug
+          echo "GITHUB_ACTOR: $GITHUB_ACTOR"
+          echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+          
           REPO_ORG=$GITHUB_ACTOR
           REPO_NAME=$( echo $GITHUB_REPOSITORY | sed "s/the-events-calendar\///")
+          echo "REPO_NAME: $REPO_NAME"
+          echo "Branch: ${{ steps.settings.outputs.branch }}"
+          echo "JOB_FINAL: $JOB_FINAL"
+          
           mkdir zip
-          if [ "${JOB_FINAL}" == "1" ]; then
-            output=$($TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output=./zip --final -v)
-          else
-            output=$($TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output=./zip -v)
+          
+          # Check if TUT_BIN is set and accessible
+          if [ -z "$TUT_BIN" ]; then
+            echo "Error: TUT_BIN is not set"
+            exit 1
           fi
+
+          # Conditional packaging based on JOB_FINAL
+          if [ "${JOB_FINAL}" == "1" ]; then
+            output=$($TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output=./zip --final -v) || { echo "Packaging with final flag failed"; exit 1; }
+          else
+            output=$($TUT_BIN package --plugin=$REPO_NAME --branch="${{ steps.settings.outputs.branch }}" --ignore-view-versions --output=./zip -v) || { echo "Packaging failed"; exit 1; }
+          fi
+          
           echo "$output"
+          
+          # Create results file and move zip directory if successful
           touch ${GITHUB_WORKSPACE}/results.txt
           echo "$output" > ${GITHUB_WORKSPACE}/results.txt
-          mv zip ${GITHUB_WORKSPACE}/zip
-      - uses: actions/upload-artifact@v4
-        id: zip-results
-        if: steps.s3_zip.outcome != 'success'
-        with:
-          name: tut-package-results
-          path:  ${GITHUB_WORKSPACE}/results.txt
+          
+          if [ -d "zip" ]; then
+            mv zip ${GITHUB_WORKSPACE}/zip
+          else
+            echo "Error: zip directory was not created"
+            exit 1
+          fi
       - uses: the-events-calendar/action-s3-utility@main
         if: steps.s3_zip.outcome != 'success'
         with:
