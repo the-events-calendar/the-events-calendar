@@ -173,6 +173,8 @@ jobs:
         id: zip
         if: steps.s3_zip.outcome != 'success'
         working-directory: ../
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
           REPO_ORG=$GITHUB_ACTOR
           REPO_NAME=$( echo $GITHUB_REPOSITORY | sed "s/the-events-calendar\///")
