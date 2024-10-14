@@ -57,14 +57,18 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Check for .nvmrc file
         id: check-nvmrc
-        run: echo "::set-output name=exists::$(test -f ${{ github.workspace }}/.nvmrc && echo 'true' || echo 'false')"
-
-      - uses: actions/setup-node@v3
-        if: steps.check-nvmrc.outputs.exists == 'true'
+        run: |
+          if [ -f "${{ github.workspace }}/.nvmrc" ]; then
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "exists=false" >> $GITHUB_ENV
+          fi
+          
+      - uses: actions/setup-node@v4
+        if: env.exists == 'true'
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
-          cache-dependency-path: package-lock.json
 
       # ------------------------------------------------------------------------------
       # Checkout the tut
