@@ -33,7 +33,7 @@ $external_attributes = new Attributes(
 $sidebar = new Settings_Sidebar();
 
 $hero_section = ( new Settings_Sidebar_Section() );
-$hero_section->header_image(
+$hero_section->set_header_image(
 		new Image(
 			tribe_resource_url( 'images/settings_illustration.jpg', false, null, Tribe__Events__Main::instance() ),
 			new Attributes(
