@@ -1,4 +1,16 @@
 # Changelog
+### [6.7.1] 2024-10-17
+
+* Feature - Allow importing custom data when importing Organizers from a CSV file. [TEC-4846]
+* Feature - Allow importing custom data when importing Venues from a CSV file. [TEC-5138]
+* Fix - Ensure Latest Past Events appear properly in Category views [TEC-4991]
+* Fix - Cast theme object to string to avoid a deprecation notice. [TEC-5062]
+* Tweak - Removed the 6.0 welcome message. [TEC-5166]
+* Tweak - Added filters: `tribe_events_csv_import_organizer_additional_fields`, `tribe_events_csv_import_venue_additional_fields`
+* Tweak - Changed views: `v2/latest-past`
+* Tweak - Updated docblocks in the `Tribe__Events__Aggregator__Records`, `Tribe__Events__Importer__File_Importer`, and `Tribe__Events__Repositories__Organizer` classes.
+* Tweak - Improved documentation for the `tribe_is_event`, `tribe_get_event_link`, `tribe_events_get_event_website_title`, `tribe_get_event_website_link`, `tribe_get_listview_display`, `tribe_get_listview_args`, and `tribe_get_listview_prev_link` functions.
+* Language - 3 new strings added, 218 updated, 0 fuzzied, and 32 obsoleted
 
 ### [6.7.0] 2024-09-26
 
