@@ -6,7 +6,7 @@
  * @since 6.7.0
  */
 
-$is_missing_aggregator_license_key = '' === get_option( 'pue_install_key_event_aggregator' );
+$is_missing_aggregator_license_key = empty( get_option( 'pue_install_key_event_aggregator', false ) );
 $should_hide_upsell                = tec_should_hide_upsell();
 
 // Add the "Editing" section.
