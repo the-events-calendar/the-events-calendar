@@ -238,8 +238,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param integer             $post_id The event ID to update.
-	 * @param array<string|mixed> $record  An event record from the import.
+	 * @param integer             $event_id The event ID to update.
+	 * @param array<string|mixed> $record   An event record from the import.
 	 *
 	 * @return array<string|mixed> An array of information to save or update an event.
 	 */
@@ -331,11 +331,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		/**
-		 * Filter the csv event import event meta.
+		 * Filters the event metadata during CSV import, allowing developers to modify the event data before it's processed.
 		 *
 		 * @since 5.12.4
 		 *
-		 * @param array<string|mixed> $event An array event meta fields.
+		 * @param array<string|mixed> $event  An array event meta fields.
+		 * @param array<string|mixed> $record An event record from the import.
+		 * @param object              $this   The class instance.
 		 *
 		 * @return array<string|mixed> An array of the autodetect results.
 		 */
@@ -360,9 +362,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 4.6.19
 	 *
-	 * @param $organizers
+	 * @param array[]|bool|false|string[] $organizers An array of organizers or false if empty.
 	 *
-	 * @return array
+	 * @return array An array of the post IDs of matching organizers.
 	 */
 	private function match_organizers( $organizers ) {
 		$matches   = [];
@@ -419,9 +421,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 4.6.19
 	 *
-	 * @param $organizer
+	 * @param string $organizer The organizer name(s) in the record.
 	 *
-	 * @return array[]|bool|false|string[]
+	 * @return array[]|bool|false|string[] An array of organizer names, or false if empty.
 	 */
 	private function organizer_is_space_separated_ids( $organizer ) {
 		$pattern = '/\s+/';
@@ -440,9 +442,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 4.6.19
 	 *
-	 * @param $organizer
+	 * @param string $organizer The organizer names in the record.
 	 *
-	 * @return array[]|bool|false|string[]
+	 * @return array[]|bool|false|string[] An array of organizer names, or false if empty.
 	 */
 	private function maybe_organizer_is_separated_list( $organizer ) {
 		$separator = $this->get_separator();
