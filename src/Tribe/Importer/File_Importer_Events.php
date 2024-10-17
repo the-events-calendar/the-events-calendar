@@ -317,6 +317,15 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['EventShowInCalendar'] = 'yes';
 		}
 
+		/**
+		 * Filters the additional fields available during the CSV import of events.
+		 *
+		 * @since 3.12.0
+		 *
+		 * @param array $additional_fields An array of additional fields for the event.
+		 *
+		 * @return array Modified list of additional fields.
+		 */
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', [] );
 
 		if ( ! empty ( $additional_fields ) ) {
@@ -345,14 +354,21 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
-	 * Filter allowing user to customize the separator used for organizers.
+	 * Retrieves the separator used between multiple organizers during event import.
 	 * Defaults to comma ','.
 	 *
 	 * @since 4.6.19
 	 *
-	 * @return mixed
+	 * @return mixed The separator used between organizers. Default is a comma (,).
 	 */
 	private function get_separator() {
+		/**
+		 * Filters the separator used between multiple organizers during event import.
+		 *
+		 * @param string $separator The separator used between organizers. Default is a comma (,).
+		 *
+		 * @return string Modified separator for multiple organizers.
+		 */
 		return apply_filters( 'tribe_get_event_import_organizer_separator', ',' );
 	}
 
