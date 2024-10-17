@@ -468,7 +468,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @param array<string|mixed> $record The event record from the import.
 	 *
-	 * @return array
+	 * @return array An array of post IDs that match the organizer being imported.
 	 */
 	private function find_matching_organizer_id( $record ) {
 		$organizer = $this->get_value_by_key( $record, 'event_organizer_name' );
@@ -495,11 +495,15 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
+	 * Handle finding the matching venue(s) for the event.
+	 *
 	 * @since 3.2.0
 	 *
-	 * @param $record
+	 * @param array<string|mixed> $record The event record from the import.
 	 *
-	 * @return false|float|int|string|WP_Post
+	 * @return false|float|int|string|WP_Post 0 if $name is empty or there's no match.
+	 *                                        $name if it's numeric and there is a match.
+	 *                                        An array of post IDs matching the venue being imported.
 	 */
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
@@ -512,7 +516,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param string $timezone_candidate
+	 * @param string $timezone_candidate The string representing the time zone of the event.
 	 *
 	 * @return bool|string Either the timezone string or `false` if the timezone candidate is invalid.
 	 */
@@ -567,7 +571,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param array $record
+	 * @param array $record An event record from the import.
 	 *
 	 * @return string Either `prefix` or `suffix`; will fall back on the first if the specified position is not
 	 *                a recognized alias.
