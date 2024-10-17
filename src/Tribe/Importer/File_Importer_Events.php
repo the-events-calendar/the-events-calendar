@@ -11,6 +11,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * Searches the database for an existing event matching the one described
 	 * by the specified record.
 	 *
+	 * @since 3.2.0
+	 *
 	 * @param array $record An array of values from the Events CSV file.
 	 *
 	 * @return int An event matching the one described by the record or `0` if no matching
@@ -21,7 +23,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$end_date   = $this->get_event_end_date( $record );
 		$all_day    = $this->get_boolean_value_by_key( $record, 'event_all_day' );
 
-		// Base query - only the meta query will be different
+		// Base query - only the meta query will be different.
 		$query_args = [
 			'post_type'        => Tribe__Events__Main::POSTTYPE,
 			'post_title'       => $this->get_value_by_key( $record, 'event_name' ),
@@ -91,6 +93,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Update an event with the imported information.
 	 *
+	 * @since 3.2.0
+	 *
 	 * @param integer             $post_id The event ID to update.
 	 * @param array<string|mixed> $record  An event record from the import.
 	 *
@@ -144,6 +148,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Create an event with the imported information.
 	 *
+	 * @since 3.2.0
+	 *
 	 * @param array<string|mixed> $record An event record from the import.
 	 *
 	 * @return integer The new event's post id.
@@ -176,6 +182,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Get the event start date from the import record.
 	 *
+	 * @since 3.2.0
+	 *
 	 * @param array<string|mixed> $record    An event record from the import.
 	 * @param boolean             $date_only An optional setting to include the date only and no time.
 	 *
@@ -198,6 +206,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Get the event end date from the import record.
+	 *
+	 * @since 3.2.0
 	 *
 	 * @param array<string|mixed> $record An event record from the import.
 	 *
@@ -225,6 +235,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Build an event array from import record.
+	 *
+	 * @since 3.2.0
 	 *
 	 * @param integer             $post_id The event ID to update.
 	 * @param array<string|mixed> $record  An event record from the import.
@@ -405,6 +417,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Determine if organizer is a list of space-separated IDs.
 	 *
+	 * @since 4.6.19
+	 *
 	 * @param $organizer
 	 *
 	 * @return array[]|bool|false|string[]
@@ -423,6 +437,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Determine if organizer is a list of $separator-separated IDs.
+	 *
+	 * @since 4.6.19
 	 *
 	 * @param $organizer
 	 *
@@ -446,9 +462,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Handle finding the matching organizer(s) for the event.
 	 *
-	 * @since 4.6.19
+	 * @since 3.2.0
 	 *
-	 * @param $record - The event record from the import.
+	 * @param array<string|mixed> $record The event record from the import.
 	 *
 	 * @return array
 	 */
@@ -476,6 +492,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return [ 'OrganizerID' => $matching_post_ids ];
 	}
 
+	/**
+	 * @since 3.2.0
+	 *
+	 * @param $record
+	 *
+	 * @return false|float|int|string|WP_Post
+	 */
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
@@ -484,6 +507,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Parses a timezone string candidate and returns a TEC supported timezone string.
+	 *
+	 * @since 4.2.0
 	 *
 	 * @param string $timezone_candidate
 	 *
@@ -537,6 +562,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 	/**
 	 * Allows the user to specify the currency position using alias terms.
+	 *
+	 * @since 4.2.0
 	 *
 	 * @param array $record
 	 *
