@@ -239,7 +239,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.7.1] 2024-10-17 =
+= [6.7.1] 2024-10-21 =
 
 * Feature - Allow importing custom data when importing Organizers from a CSV file. [TEC-4846]
 * Feature - Allow importing custom data when importing Venues from a CSV file. [TEC-5138]
