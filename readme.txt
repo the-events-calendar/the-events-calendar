@@ -243,6 +243,7 @@ Remember to always make a backup of your database and files before updating!
 
 * Feature - Allow importing custom data when importing Organizers from a CSV file. [TEC-4846]
 * Feature - Allow importing custom data when importing Venues from a CSV file. [TEC-5138]
+* Security - Ensure restoring events from trash does not allow for unauthorized access. [SVUL-7] (props @patchstack)
 * Fix - Ensure Latest Past Events appear properly in Category views [TEC-4991]
 * Fix - Cast theme object to string to avoid a deprecation notice. [TEC-5062]
 * Tweak - Removed the 6.0 welcome message. [TEC-5166]
