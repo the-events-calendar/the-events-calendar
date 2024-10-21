@@ -49,7 +49,7 @@
 * Tweak - Add information and missing tags to `tribe_get_listview_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_listview_past_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
-* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TECTRIA-292]
+* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TEC-5142]
 * Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
 * Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
 * Tweak - Changed views: `silence`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`
@@ -65,7 +65,7 @@
 * Tweak - Add information and missing tags to `tribe_get_listview_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_listview_past_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
-* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TECTRIA-292]
+* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TEC-5142]
 * Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
 * Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
 * Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
@@ -83,7 +83,7 @@
 ### [6.5.1] 2024-06-11
 
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
-* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
+* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TEC-5146]
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 * Tweak - Changed views: `single-event`
@@ -91,8 +91,8 @@
 
 ### [6.5.0.1] 2024-06-04
 
-* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
-* Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TEC-5147]
+* Security - Ensure the Events REST API respects the individual post access restrictions. [TEC-5148]
 
 ### [6.5.0] 2024-05-14
 
