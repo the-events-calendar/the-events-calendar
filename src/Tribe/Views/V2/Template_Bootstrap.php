@@ -412,6 +412,7 @@ class Template_Bootstrap {
 	 * Set the correct body classes for our plugin.
 	 *
 	 * @since  4.9.11
+	 * @since TBD Cast  object to string to avoid deprecation notices.
 	 *
 	 * @return array The array containing the body classes
 	 */
@@ -423,7 +424,7 @@ class Template_Bootstrap {
 			return $classes;
 		}
 
-		$classes[] = 'page-template-' . sanitize_title( $active_theme );
+		$classes[] = 'page-template-' . sanitize_title( (string) $active_theme->display( 'Name' ) );
 
 		if ( ! get_queried_object() instanceof \WP_Term ) {
 			$key = array_search( 'archive', $classes, true );

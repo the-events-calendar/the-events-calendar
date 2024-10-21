@@ -6,7 +6,7 @@
  * @since 6.7.0
  */
 
-$is_missing_aggregator_license_key = '' === get_option( 'pue_install_key_event_aggregator' );
+$is_missing_aggregator_license_key = empty( get_option( 'pue_install_key_event_aggregator', false ) );
 $should_hide_upsell                = tec_should_hide_upsell();
 
 // Add the "Editing" section.
@@ -22,7 +22,7 @@ $tec_events_general_editing = [
 	],
 	'tec-aggregator-infobox-logo'               => [
 		'type'        => 'html',
-		'html'        => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'resources/images/settings-icons/icon-event-aggregator.svg', __DIR__ ) . '" alt="Events Aggregator Logo">',
+		'html'        => '<img class="tec-settings-infobox-logo" src="' . plugins_url( 'src/resources/images/settings-icons/icon-event-aggregator.svg', TRIBE_EVENTS_FILE ) . '" alt="Events Aggregator Logo">',
 		'conditional' => $is_missing_aggregator_license_key && ! $should_hide_upsell,
 	],
 	'tec-aggregator-infobox-title'              => [
