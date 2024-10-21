@@ -300,11 +300,14 @@ function tribe_get_listview_args( $page = 1, $direction = 'next', $currently_dis
 }
 
 /**
- * Validates that the current view is inside of the Two allowed: list or view if not default to the list view.
+ * Retrieves the display view for the events, defaulting to the list view if an invalid view is requested.
+ *
+ * This function checks whether the current view is one of the two allowed views: the list view or the past view.
+ * If the requested view is not valid, it defaults to the list view.
  *
  * @since 4.6.12
  *
- * @return string
+ * @return string The validated display view, either 'list' or 'past'.
  */
 function tribe_get_listview_display() {
 	$view_slug       = \Tribe\Events\Views\V2\Views\List_View::get_view_slug();
@@ -317,13 +320,18 @@ function tribe_get_listview_display() {
 
 
 /**
- * Link to prev List View
+ * Retrieves the URL for the previous page in the list view.
  *
- * Returns a link to the previous list view page
+ * This function generates a link to the previous page of events in the list view,
+ * optionally filtered by a specific taxonomy term.
+ * The returned URL can be modified via the `tribe_get_listview_prev_link` filter.
  *
- * @param int|null $term Term ID
+ * @since 3.11
  *
- * @return string URL
+ * @param int|null $term Optional. The term ID for filtering events by a specific taxonomy term.
+ *                       Defaults to null, meaning no specific term filtering.
+ *
+ * @return string The URL to the previous page of the list view.
  */
 function tribe_get_listview_prev_link( $term = null ) {
 	$link = tribe_get_listview_dir_link( 'prev', $term );
@@ -331,13 +339,18 @@ function tribe_get_listview_prev_link( $term = null ) {
 }
 
 /**
- * Link to next List View
+ * Retrieves the URL for the next page in the list view.
  *
- * Returns a link to the next list view page
+ * This function returns a link to the next page of events in the list view,
+ * optionally filtered by a specific taxonomy's term.
+ * The returned link can be filtered using the `tribe_get_listview_next_link` filter.
  *
- * @param int|null $term Term ID
+ * @since 3.11
  *
- * @return string URL
+ * @param int|null $term Optional. The term ID for filtering events by the specific taxonomy's term.
+ *                       Defaults to null, meaning no specific term filtering.
+ *
+ * @return string The URL to the next page of the list view.
  */
 function tribe_get_listview_next_link( $term = null ) {
 	$link = tribe_get_listview_dir_link( 'next', $term );
@@ -345,14 +358,17 @@ function tribe_get_listview_next_link( $term = null ) {
 }
 
 /**
- * Single Event Link
+ * Retrieves the link to a single event.
  *
- * Get link to a single event
+ * This function returns the URL to a single event post, or if the `$full_link` parameter is set to true,
+ * it outputs a complete HTML `<a>` tag with the event title as the link text. If no event is found, it returns false.
  *
- * @param WP_Post|int $post_id   Optional. WP Post that this affects
- * @param bool        $full_link Optional. If true outputs a complete HTML <a> link, otherwise only the URL is output
+ * @since 2.0.1
  *
- * @return string|bool Link to post or false if none found
+ * @param WP_Post|int|null $post_id   Optional. The event post ID or WP_Post object. Defaults to the current post if not provided.
+ * @param bool             $full_link Optional. If true, outputs a complete HTML `<a>` tag. Defaults to false, returning just the URL.
+ *
+ * @return string|false The URL to the event or an HTML `<a>` tag if `$full_link` is true. Returns false if no link is found.
  */
 function tribe_get_event_link( $post_id = null, $full_link = false ) {
 	$post_id = Tribe__Main::post_id_helper( $post_id );
@@ -381,24 +397,29 @@ function tribe_get_event_link( $post_id = null, $full_link = false ) {
 	}
 
 	/**
-	 * Filters the permalink to events
+	 * Filters the permalink to events.
 	 *
-	 * @param mixed  $link      The link, possibly HTML, just URL, or false
-	 * @param int    $post_id   Post ID
-	 * @param bool   $full_link Whether to output full HTML <a> link
-	 * @param string $url       The URL itself
+	 * @param string|false $link      The event link, either as an HTML `<a>` tag, URL, or false if not found.
+	 * @param int          $post_id   The post ID of the event.
+	 * @param bool         $full_link Whether to output a full HTML `<a>` link.
+	 * @param string       $url       The URL of the event.
 	 */
 	return apply_filters( 'tribe_get_event_link', $link, $post_id, $full_link, $url );
 }
 
 /**
- * Event Website Link (more info)
+ * Retrieves the website link for an event, including an optional label and target attribute.
  *
- * @param null|object|int $event The event object or ID.
- * @param ?string         $label The link label.
- * @param string          $target The link target.
+ * This function returns the URL associated with the event and outputs it as an HTML anchor (`<a>`) element.
+ * It also allows customization of the link label and target through filters.
  *
- * @return string $html
+ * @since 3.0
+ *
+ * @param null|object|int $event  The event object or ID. Defaults to null - which will use global `$post`.
+ * @param null|string     $label  Optional. The text label for the link. Defaults to the event URL if not provided.
+ * @param string          $target Optional. The target attribute for the link. Defaults to '_self'. Allowed values are: '_self', '_blank', '_parent', '_top', '_unfencedTop'.
+ *
+ * @return string The HTML for the event website link, or an empty string if no URL is found.
  */
 function tribe_get_event_website_link( $event = null, $label = null, $target = '_self' ): string {
 	// We won't get far without a post ID. Especially since we pass it to filters that depend on it.
@@ -407,14 +428,16 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 	$target  = $target ? $target : '_self';
 
 	/**
-	 * Filter the target attribute for the event website link
+	 * Filters the target attribute for the event website link.
+	 *
+	 * This filter allows developers to modify the target attribute of the event website link.
 	 *
 	 * @since 5.1.0
-	 * @since 5.5.0 Added $post_id argument
+	 * @since 5.5.0 Added $post_id argument.
 	 *
-	 * @param string          $target The target attribute string. Defaults to "_self" (above).
-	 * @param string          $url    The link URL.
-	 * @param null|object|int $post_id  The event the url is attached to.
+	 * @param string          $target  The target attribute. Defaults to '_self'.
+	 * @param string          $url     The event website URL.
+	 * @param null|object|int $post_id The event the URL is attached to.
 	 */
 	$target = apply_filters( 'tribe_get_event_website_link_target', $target, $url, $post_id );
 
@@ -429,12 +452,14 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 	if ( ! empty( $url ) ) {
 		$label = empty( $label ) ? $url : $label;
 		/**
-		 * Filter the website link label
+		 * Filters the label of the event website link.
+		 *
+		 * This filter allows developers to modify the text label of the event website link.
 		 *
 		 * @since 3.0
 		 *
-		 * @param string $label   The link label/text.
-		 * @param int    $post_id The post ID.
+		 * @param string $label   The link label. Defaults to the URL if not provided.
+		 * @param int    $post_id The post ID of the event.
 		 */
 		$label = apply_filters( 'tribe_get_event_website_link_label', $label, $post_id );
 		$html  = sprintf(
@@ -449,33 +474,42 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
 	}
 
 	/**
-	 * Filter the website link HTML
+	 * Filters the HTML output for the event website link.
+	 *
+	 * This filter allows developers to modify the full HTML string for the event website link.
 	 *
 	 * @since 3.0
 	 *
-	 * @param string $html The link HTML.
+	 * @param string $html The HTML for the event website link.
 	 */
 	return apply_filters( 'tribe_get_event_website_link', $html );
 }
 
 /**
- * Get the link for the event website.
+ * Retrieves the formatted title for the event website link.
+ *
+ * This function fetches the event website title, which can be customized
+ * using the 'tribe_events_get_event_website_title' filter.
  *
  * @since 5.5.0
  *
- * @param null|int $post_id The event or event ID.
- * @return string  Formatted title for the event website link
+ * @param null|int $post_id Optional. The event post object or event ID. Defaults to null.
+ * 
+ * @return string The formatted title for the event website link.
  */
 function tribe_events_get_event_website_title( $post_id = null ) {
 	$post_id = Tribe__Main::post_id_helper( $post_id );
 
 	/**
-	 * Allows customization of a event's website title link.
+	 * Filters the formatted title for the event's website link.
+	 *
+	 * This filter allows the customization of the text displayed as the
+	 * event's website link title, such as changing or translating the string.
 	 *
 	 * @since 5.5.0
 	 *
-	 * @param string $title The title of the event's website link.
-	 * @param int 	 $post_id The event ID.
+	 * @param string $title   The title for the event's website link. Default is 'Website:'.
+	 * @param int    $post_id The event post ID.
 	 */
 	return apply_filters( 'tribe_events_get_event_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
 }

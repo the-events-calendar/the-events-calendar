@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.7.0';
+		const VERSION             = '6.7.1';
 
 		/**
 		 * Min Pro Addon.
@@ -723,6 +723,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		protected function loadLibraries() {
 			// Setup the Activation page
 			$this->activation_page();
+			add_filter( 'tec_admin_update_page_bypass', '__return_false' );
 
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
@@ -1101,7 +1102,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
 						'version_history_slug'  => 'previous_ecp_versions',
 						'update_page_title'     => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
-						'update_page_template'  => $this->plugin_path . 'src/admin-views/updates/6.0.0.php',
+						'update_page_template'  => $this->plugin_path . 'src/admin-views/admin-update-message.php',
 						'welcome_page_title'    => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
 						'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
 					]

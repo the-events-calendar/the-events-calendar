@@ -40,15 +40,16 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
+	 * @since TBD Add code to allow importing custom data.
 	 *
-	 * @param int                   $venue_id The ID of the venue we're currently importing.
-	 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
+	 * @param int   $venue_id The ID of the venue we're currently importing.
+	 * @param array $record   The event record from the import file. Only contains mapped values.
 	 *                                        Useful if value and key above don't appear to match what's expected.
 	 *                                        In the format [ mapped_key => value ].
 	 *
 	 * @return array $venue The array of venue data for creation/update.
 	 */
-	private function build_venue_array( $venue_id, array $record ) {
+	private function build_venue_array( int $venue_id, array $record ) {
 		$venue   = [];
 		$columns = [
 			'Venue'       => 'venue_name',
@@ -84,17 +85,17 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 			/**
 			 * Allows filtering of individual main values before setting.
 			 * Return boolean false to prevent importing that value.
-
+			 *
 			 * @since 5.1.6
 			 *
-			 * @param string                $key    The mapped key for the value we'll be importing.
-			 *                                      From the $columns array above, this would be 'venue_name', for example.
-			 * @param string                $value  The mapped value we'll be importing.
-			 * @param array                 $venue  The entire array of venue data we're modifying.
-			 * @param array <string,string> $record The event record from the import file. Only contains mapped values.
-			 *                                      Useful if value and key above don't appear to match what's expected.
-			 *                                      In the format [ mapped_key => value ].
-			 * @param object                $this   The current instance of Tribe__Events__Importer__File_Importer_Venues.
+			 * @param string               $key    The mapped key for the value we'll be importing.
+			 *                                     From the $columns array above, this would be 'venue_name', for example.
+			 * @param string               $value  The mapped value we'll be importing.
+			 * @param array                $venue  The entire array of venue data we're modifying.
+			 * @param array<string,string> $record The event record from the import file. Only contains mapped values.
+			 *                                     Useful if value and key above don't appear to match what's expected.
+			 *                                     In the format [ mapped_key => value ].
+			 * @param object               $this   The current instance of Tribe__Events__Importer__File_Importer_Venues.
 			 */
 			$value = apply_filters(
 				"tribe_events_importer_venue_{$key}_value",
@@ -122,11 +123,11 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		 * Allows triggering using the default values set in the admin for imported venues.
 		 *
 		 * @since 5.1.6
-		 * @param int                   $venue_id The ID of the venue we're currently importing.
-		 * @param array                 $venue    The array of venue data we're modifying.
-		 * @param array <string,string> $record   The event record from the import file. Only contains mapped values.
-		 *                                        Useful if value and key above don't appear to match what's expected.
-		 *                                        In the format [ mapped_key => value ].
+		 * @param int                  $venue_id The ID of the venue we're currently importing.
+		 * @param array                $venue    The array of venue data we're modifying.
+		 * @param array<string,string> $record   The event record from the import file. Only contains mapped values.
+		 *                                       Useful if value and key above don't appear to match what's expected.
+		 *                                       In the format [ mapped_key => value ].
 		 */
 		$set_defaults = apply_filters(
 			'tribe_events_importer_set_default_venue_import_values',
@@ -138,6 +139,39 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 
 		if ( $set_defaults ) {
 			$venue = $this->set_defaults( $venue, $record );
+		}
+
+		/**
+		 * A filter to allow saving custom data when importing venues.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $additional_venue_fields Array where the key is the meta_key to be used and the value is
+		 *                                       the slug of the column that contains the value to be saved.
+		 *
+		 * @note During the import process the meta key will receive the "_Venue" prefix.
+		 *       For example, if the array key is "CustomData", then the meta key will be "_VenueCustomData".
+		 */
+		$additional_venue_fields = apply_filters( 'tribe_events_csv_import_venue_additional_fields', [] );
+
+		if ( ! empty( $additional_venue_fields ) ) {
+			foreach ( $additional_venue_fields as $key => $csv_column ) {
+				// Get the value from the record based on the column slug.
+				$value = $this->get_value_by_key( $record, $csv_column );
+				/**
+				 * This is needed if custom fields are being added to the post type.
+				 * When saving, the metadata gets the "_Venue" prefix automatically, so it should be removed
+				 * before the import to avoid duplication.
+				 */
+				$key = preg_replace( '/' . preg_quote( '_Venue', '/' ) . '/', '', $key, 1 );
+
+				// Handle multiple values separated by a pipe (|).
+				if ( strpos( $value, '|' ) > -1 ) {
+					$venue[ $key ] = explode( '|', $value );
+				} else {
+					$venue[ $key ] = $value;
+				}
+			}
 		}
 
 		/**
