@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI.
