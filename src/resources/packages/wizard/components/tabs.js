@@ -41,19 +41,21 @@ const OnboardingTabs = ({ closeModal }) => {
 	return (
 		<TabPanel
 			activeClass="active-tab"
-			activeTab={activeTab}
+			initialTabName="intro"
 			className="tec-events-onboarding__tab-panel"
 			onSelect={setActiveTab}
 			tabs={tabs}
 		>
-			{(tab) => (
+			{(tab) => {
+				const newTab = tabs.find(t => t.name === activeTab);
+				return (
 				<>
 					<VisuallyHidden>
-						<h2>{tab.title}</h2>
+						<h2>{newTab.title}</h2>
 					</VisuallyHidden>
-					{ tab.content.default({closeModal, tabs, moveToNextTab}) }
+					{ newTab.content.default({closeModal, moveToNextTab}) }
 				</>
-			)}
+			)}}
 		</TabPanel>
 	);
 }

@@ -1,6 +1,6 @@
 import { Button } from '@wordpress/components';
 
-const SetupButton = ({tabs, moveToNextTab}) => (
+const SetupButton = ({moveToNextTab}) => (
 	<Button
 		variant="primary"
 		onClick={moveToNextTab}
