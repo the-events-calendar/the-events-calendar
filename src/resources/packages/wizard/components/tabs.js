@@ -22,17 +22,19 @@ const OnboardingTabs = ({ closeModal }) => {
 
 	const moveToNextTab = () => {
 		const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
-		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab
+		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end.
 		const nextTab = tabs[nextIndex];
 
-		// Enable the next tab if it's currently disabled
+		// Enable the next tab if it's currently disabled.
 		if (nextTab.disabled) {
 			const updatedTabs = tabs.map((tab, index) =>
 				index === nextIndex ? { ...tab, disabled: false } : tab
 			);
+
 			setTabs(updatedTabs);
 		}
 
+		// Set the next tab as the active tab.
 		setActiveTab(nextTab.name);
 	};
 
