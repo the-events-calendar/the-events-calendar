@@ -1,14 +1,14 @@
 import domReady from '@wordpress/dom-ready';
 import { createRoot } from 'react-dom/client';
 import { useState } from '@wordpress/element';
-import { Modal } from '@wordpress/components';
+import { Button, Modal } from '@wordpress/components';
 import OnboardingTabs from './components/tabs';
 import * as TecIcon from './components/icons/tec';
 import './index.css';
 
 const OnboardingModal = () => {
 	const [ isOpen, setOpen ] = useState( true );
-	const openModal = () => setOpen( true );
+	const openModal = () => setOpen( false );
 	const closeModal = () => setOpen( false );
 
 	return (
@@ -34,9 +34,26 @@ const OnboardingModal = () => {
 };
 
 domReady( () => {
-    const root = createRoot(
-        document.getElementById( 'tec-events-onboarding-wizard-target' )
-    );
 
-    root.render( <OnboardingModal /> );
+	const initializeWizard = (data) => {
+		const {containerElement} = data;
+		const root = createRoot(
+			containerElement
+		);
+
+		root.render( <OnboardingModal /> );
+	};
+
+	var foo = document.querySelectorAll( '.tec-events-onboarding-wizard' );
+	console.log(foo);
+
+	document.querySelectorAll( '.tec-events-onboarding-wizard' ).forEach( ( element ) => {
+		element.addEventListener( 'click', (event) => {
+			console.log(element);
+			event.preventDefault();
+			initializeWizard({
+				containerElement: document.getElementById( element.dataset.containerElement )
+			});
+		});
+	});
 } );

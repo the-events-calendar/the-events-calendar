@@ -1,13 +1,14 @@
 import { Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 const handleSkip = () => {};
 
 const SkipButton = () => (
 	<Button
-	  variant="secondary"
-	  onClick={ handleSkip }
+		variant="secondary"
+		onClick={ handleSkip }
 	>
-	  Skip step
+	  __( "Skip step", "the-events-calendar" )
 	</Button>
 );
 

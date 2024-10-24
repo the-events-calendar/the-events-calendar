@@ -163,7 +163,16 @@ class Controller extends Controller_Contract {
 	 */
 	public function tec_onboarding_wizard_html() {
 		printf(
-			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>',
+			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
+			. get_submit_button(
+				'Open Wizard',
+				'secondary tec-events-onboarding-wizard',
+				'open',
+				true,
+				[
+					'data-container-element' => 'tec-events-onboarding-wizard-target',
+				]
+			),
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
 	}
