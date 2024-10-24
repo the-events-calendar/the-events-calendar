@@ -1,13 +1,12 @@
 import { Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
-const handleNext = () => {};
-
-const NextButton = () => (
+const NextButton = ({moveToNextTab}) => (
 	<Button
-	  variant="primary"
-	  onClick={ handleNext }
+		variant="primary"
+		onClick= {moveToNextTab}
 	>
-	  Continue
+		{__('Continue', 'the-events-calendar')}
 	</Button>
 );
 

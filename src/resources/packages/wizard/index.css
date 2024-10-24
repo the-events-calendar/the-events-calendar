@@ -20,6 +20,16 @@
 	width: var(--tec-onboarding-tab-panel-width);
 }
 
+.tec-events-onboarding__header-icon {
+	height: 28px;
+	width: 24px;
+}
+
+.tec-events-onboarding__header-icon--brand {
+	height: 38px;
+	width: 46px;
+}
+
 .tec-events-onboarding__intro-header {
 	height: 180px;
 }

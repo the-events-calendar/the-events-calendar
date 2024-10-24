@@ -34,7 +34,6 @@ const OnboardingModal = () => {
 };
 
 domReady( () => {
-
 	const initializeWizard = (data) => {
 		const {containerElement} = data;
 		const root = createRoot(
@@ -44,12 +43,8 @@ domReady( () => {
 		root.render( <OnboardingModal /> );
 	};
 
-	var foo = document.querySelectorAll( '.tec-events-onboarding-wizard' );
-	console.log(foo);
-
 	document.querySelectorAll( '.tec-events-onboarding-wizard' ).forEach( ( element ) => {
 		element.addEventListener( 'click', (event) => {
-			console.log(element);
 			event.preventDefault();
 			initializeWizard({
 				containerElement: document.getElementById( element.dataset.containerElement )
