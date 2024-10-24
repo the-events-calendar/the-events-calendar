@@ -40,7 +40,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
-	 * @since TBD Add code to allow importing custom data.
+	 * @since 6.7.2 Add code to allow importing custom data.
 	 *
 	 * @param int   $venue_id The ID of the venue we're currently importing.
 	 * @param array $record   The event record from the import file. Only contains mapped values.
@@ -144,7 +144,7 @@ class Tribe__Events__Importer__File_Importer_Venues extends Tribe__Events__Impor
 		/**
 		 * A filter to allow saving custom data when importing venues.
 		 *
-		 * @since TBD
+		 * @since 6.7.2
 		 *
 		 * @param array $additional_venue_fields Array where the key is the meta_key to be used and the value is
 		 *                                       the slug of the column that contains the value to be saved.

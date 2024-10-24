@@ -239,6 +239,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.7.2] 2024-20-24 =
+
+* Fix Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+
 = [6.7.1] 2024-10-21 =
 
 * Feature - Allow importing custom data when importing Organizers from a CSV file. [TEC-4846]
@@ -259,7 +263,7 @@ Remember to always make a backup of your database and files before updating!
 * Version - The Events Calendar 6.7.0 is only compatible with Events Filterbar 5.5.7 and higher
 * Version - The Events Calendar 6.7.0 is only compatible with Events Community 5.0.4 and higher
 * Feature - New and improved settings layout and styles. [TEC-5124]
-* Fix - Correct translation domains in a few templates. [TBD]
+* Fix - Correct translation domains in a few templates. [6.7.2]
 * Tweak - Added filters: `tec_settings_gmaps_js_api_start`, `tec_events_settings_display_calendar_display_section`, `tec_general_settings_viewing_section`, `tec_events_aggregator_show_all_settings`, `tec_events_settings_tab_imports_fields`
 * Tweak - Removed filters: `tec_events_should_display_events_template_setting`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Tweak - Added actions: `tec_events_settings_tab_display_additional_content`, `tec_events_settings_tab_display_calendar`, `tec_events_settings_tab_display_date_time`, `tec_events_settings_tab_display_maps`, `tec_events_settings_tab_general_debugging`, `tec_events_settings_tab_general_editing`, `tec_events_settings_tab_general_maintenance`, `tec_events_settings_tab_general_viewing`, `tec_settings_tab_addons`, `tec_events_settings_tab_display`, `tec_events_settings_tab_general`, `tec_events_settings_tab_imports`

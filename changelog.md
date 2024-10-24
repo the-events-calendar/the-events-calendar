@@ -1,4 +1,9 @@
 # Changelog
+
+### [6.7.2] 2024-20-24
+
+* Fix Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+
 ### [6.7.1] 2024-10-21
 
 * Feature - Allow importing custom data when importing Organizers from a CSV file. [TEC-4846]
