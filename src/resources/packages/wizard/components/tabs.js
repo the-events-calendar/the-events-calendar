@@ -1,5 +1,6 @@
 import { TabPanel, VisuallyHidden } from '@wordpress/components';
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import * as IntroContent from './tabs/intro';
 import * as DisplayContent from './tabs/display';
 import * as OrganizerContent from './tabs/organizer';
@@ -9,12 +10,42 @@ import * as TicketsContent from './tabs/tickets';
 
 const OnboardingTabs = ({ closeModal }) => {
 	const initialTabs = [
-		{ name: 'intro', title: 'Intro', className: 'tec-events-onboarding__tab--intro', disabled: false, content: IntroContent },
-		{ name: 'display', title: 'Display', className: 'tec-events-onboarding__tab--display', disabled: true, content: DisplayContent },
-		{ name: 'settings', title: 'Settings', className: 'tec-events-onboarding__tab--settings', disabled: true, content: SettingsContent },
-		{ name: 'organizer', title: 'Organizer', className: 'tec-events-onboarding__tab--organizer', disabled: true, content: OrganizerContent },
-		{ name: 'venue', title: 'Venue', className: 'tec-events-onboarding__tab--venue', disabled: true, content: VenueContent },
-		{ name: 'tickets', title: 'Tickets', className: 'tec-events-onboarding__tab--tickets', disabled: true, content: TicketsContent },
+		{
+			name: 'intro',
+			title: __('Intro', 'the-events-calendar'),
+			className: 'tec-events-onboarding__tab--intro',
+			disabled: false,
+			content: IntroContent },
+		{
+			name: 'display',
+			title: __('Display', 'the-events-calendar'),
+			className: 'tec-events-onboarding__tab--display',
+			disabled: true,
+			content: DisplayContent },
+		{
+			name: 'settings',
+			title: __('Settings', 'the-events-calendar'),
+			className: 'tec-events-onboarding__tab--settings',
+			disabled: true,
+			content: SettingsContent },
+		{
+			name: 'organizer',
+			title: __('Organizer', 'the-events-calendar'),
+			className: 'tec-events-onboarding__tab--organizer',
+			disabled: true,
+			content: OrganizerContent },
+		{
+			name: 'venue',
+			title: __('Venue', 'the-events-calendar'),
+			className: 'tec-events-onboarding__tab--venue',
+			disabled: true,
+			content: VenueContent },
+		{
+			name: 'tickets',
+			title: __('Tickets', 'the-events-calendar'),
+			className: 'tec-events-onboarding__tab--tickets',
+			disabled: true,
+			content: TicketsContent },
 	];
 
 	const [tabs, setTabs] = useState(initialTabs);
@@ -58,6 +89,6 @@ const OnboardingTabs = ({ closeModal }) => {
 			)}}
 		</TabPanel>
 	);
-}
+};
 
 export default OnboardingTabs;

@@ -1,11 +1,12 @@
 import { Button } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 const SetupButton = ({moveToNextTab}) => (
 	<Button
 		variant="primary"
 		onClick={moveToNextTab}
 	>
-	Set up my calendar
+		{__("Set up my calendar", "the-events-calendar")}
 	</Button>
 );
 

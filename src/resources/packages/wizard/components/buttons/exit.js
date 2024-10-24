@@ -1,11 +1,12 @@
 import { Button, Modal } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 
 const ExitButton = ({closeModal}) => (
 	<Button
-	  variant="secondary"
-	  onClick={ closeModal }
+		variant="secondary"
+		onClick={closeModal}
 	>
-	  Skip guided setup
+		{__('Skip guided setup', 'the-events-calendar')}
 	</Button>
 );
 
