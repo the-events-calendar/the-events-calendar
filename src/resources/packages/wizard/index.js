@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { useState } from '@wordpress/element';
 import { Button, Modal } from '@wordpress/components';
 import OnboardingTabs from './components/tabs';
-import * as TecIcon from './components/icons/tec';
 import './index.css';
 
 const OnboardingModal = () => {
@@ -18,7 +17,6 @@ const OnboardingModal = () => {
 				overlayClassName="tec-events-onboarding__modal-overlay"
 				className="tec-events-onboarding__modal"
 				contentLabel="TEC Onboarding Wizard"
-				icon={TecIcon.default()}
 				isDismissible={false}
 				isFullScreen={true}
 				initialTabName="intro"

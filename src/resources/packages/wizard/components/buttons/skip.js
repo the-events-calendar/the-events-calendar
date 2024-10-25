@@ -8,7 +8,7 @@ const SkipButton = ({moveToNextTab}) => {
 
 	return (
 		<Button
-			variant="secondary"
+			variant="tertiary"
 			onClick={moveToNextTab}
 		>
 			{__( "Skip step", "the-events-calendar" )}

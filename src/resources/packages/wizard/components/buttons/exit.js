@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 const ExitButton = ({closeModal}) => (
 	<Button
-		variant="secondary"
+		variant="tertiary"
 		onClick={closeModal}
 	>
 		{__('Skip guided setup', 'the-events-calendar')}
