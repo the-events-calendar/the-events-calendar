@@ -5,9 +5,8 @@ namespace Tribe\Events\Admin;
  * Manages the admin settings UI in relation to events configuration.
  */
 
-use TEC\Common\Help_Hub\Hub as HelpHub;
+use TEC\Common\Help_Hub\Help_Hub_Factory as Help_Hub_Factory;
 use Tribe\Admin\Troubleshooting;
-use Tribe__Admin__Help_Page;
 use Tribe__App_Shop;
 use Tribe__Events__Main as Plugin;
 use Tribe__Main;
@@ -207,7 +206,7 @@ class Settings {
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
 				'path'     => 'tec-events-help-hub',
 				'callback' => [
-					tribe( HelpHub::class ),
+					tribe( Help_Hub_Factory::class )->create( 'tec_events' ),
 					'render',
 				],
 			]
