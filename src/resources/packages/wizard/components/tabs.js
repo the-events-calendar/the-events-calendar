@@ -80,6 +80,7 @@ const OnboardingTabs = ({ closeModal }) => {
 				initialTabName="intro"
 				className={modalClass}
 				onSelect={setActiveTab}
+				selectOnMove={false}
 				tabs={tabs}
 			>
 				{(tab) => {
