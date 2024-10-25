@@ -5,7 +5,7 @@ namespace Tribe\Events\Admin;
  * Manages the admin settings UI in relation to events configuration.
  */
 
-use TEC\Common\Help_Hub\Help_Hub_Factory as Help_Hub_Factory;
+use TEC\Common\Admin\Help_Hub\Help_Hub_Factory as Help_Hub_Factory;
 use Tribe\Admin\Troubleshooting;
 use Tribe__App_Shop;
 use Tribe__Events__Main as Plugin;
