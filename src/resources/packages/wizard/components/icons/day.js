@@ -1,6 +1,6 @@
 const DayViewIcon = () => {
 	return (
-		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 89 60">
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 89 60" alt="a thumbnail representing the calendar day view">
 			<rect width="87" height="59" x="1" y=".5" fill="#F6F7F7" rx="4.495" />
 			<rect width="87" height="59" x="1" y=".5" stroke="#DCDCDE" rx="4.495" />
 			<path fill="#0F1031"

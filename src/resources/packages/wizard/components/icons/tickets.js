@@ -1,6 +1,6 @@
 const TicketsIcon = () => {
 	return (
-		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 47 35" className="tec-events-onboarding__content-header-icon tec-events-onboarding__content-header-icon--brand">
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 47 35" className="tec-events-onboarding__content-header-icon tec-events-onboarding__content-header-icon--brand" alt="Event Tickets Logo">
 			<path fill="#fff"
 				d="m8.36.278.053.043 4.81 4.363a.572.572 0 0 1 .034.817 3.315 3.315 0 0 0-.898 2.272c0 1.85 1.515 3.35 3.382 3.35.965 0 1.862-.402 2.5-1.094.219-.238.637.273.877.491l3.925 3.858s5.612-4.799 6.541-6.172c.189-.279.328-.675.595-.48l.051.041 4.442 4.061c.25.229.25.617.001.846l-.119.113a4.226 4.226 0 1 0 6.32 5.582.596.596 0 0 1 .817-.116l.053.043 4.431 4.052c.21.192.249.503.094.739-3.564 5.41-12.863 10.833-17.943 11.325-4.456.431-7.52-.161-10.959-2.376l-.22-.144c-2.34-1.547-6.633-5.031-12.897-10.466l-.8-.695C1.566 19.77.5 17.818.587 14.729.716 10.223 3.206 5.105 7.577.36a.596.596 0 0 1 .782-.08Z" />
 			<path fill="#334AFF" fillRule="evenodd"

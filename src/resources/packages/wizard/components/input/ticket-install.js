@@ -16,8 +16,8 @@ const TicketInstallCheckbox = () => {
 				__nextHasNoMarginBottom
 				aria-describedby="tec-events-onboarding__checkbox-description"
 				checked={isChecked}
+				onChange={ setChecked }
 				id="tec-events-onboarding__checkbox-input"
-				onChange={handleTicketInstallChange}
 			/>
 			<div className="tec-events-onboarding__checkbox-description">
 				<label htmlFor="tec-events-onboarding__checkbox-input">
@@ -25,9 +25,6 @@ const TicketInstallCheckbox = () => {
 				</label>
 				<div
 					id="tec-events-onboarding__checkbox-description"
-					style={{
-						fontSize: 13
-					}}
 				>
 				</div>
 			</div>

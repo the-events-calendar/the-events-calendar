@@ -16,8 +16,8 @@ const OptInCheckbox = () => {
 				__nextHasNoMarginBottom
 				aria-describedby="tec-events-onboarding__checkbox-description"
 				checked={isChecked}
+				onChange={ setChecked }
 				id="tec-events-onboarding__checkbox-input"
-				onChange={handleOptInChange}
 			/>
 			<div className="tec-events-onboarding__checkbox-description">
 				<label htmlFor="tec-events-onboarding__checkbox-input">
@@ -25,9 +25,6 @@ const OptInCheckbox = () => {
 				</label>
 				<div
 					id="tec-events-onboarding__checkbox-description"
-					style={{
-						fontSize: 13
-					}}
 				>
 				<a href="#" target="_blank">What permissions are being granted?</a>
 				</div>
