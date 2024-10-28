@@ -693,6 +693,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Set up Telemetry
 			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
 
+			// Set up IAN Client - In-App Notifications
+			tribe_register_provider( TEC\Events\Ian\Provider::class );
+
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
 
