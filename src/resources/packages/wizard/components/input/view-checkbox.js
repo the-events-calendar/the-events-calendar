@@ -36,10 +36,11 @@ const ViewCheckbox = ({view}) => {
 				onChange={setChecked}
 				id={"tec-events-onboarding__checkbox-input-" + view}
 			/>
-			<div className="tec-events-onboarding__checkbox-label">
+			<div>
 				<label
 					id={"tec-events-onboarding__checkbox-label--" + view}
 					htmlFor={"tec-events-onboarding__checkbox-input-" + view}
+					className={isChecked ? "tec-events-onboarding__checkbox-label tec-events-onboarding__checkbox-label--checked" : "tec-events-onboarding__checkbox-label"}
 				>
 					{icons.get(view)}
 					{view}
