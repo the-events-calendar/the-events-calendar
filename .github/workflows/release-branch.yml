@@ -145,7 +145,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         id: cpr
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
           base: "${{ github.event.inputs.new-branch }}"
           branch: "task/version-bump-${{ github.event.inputs.new-branch }}-${{ steps.vars.outputs.sha_short }}"
           title: "Version bump for ${{ github.event.inputs.new-branch }}"
