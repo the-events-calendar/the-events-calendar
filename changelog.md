@@ -1,8 +1,8 @@
 # Changelog
 
-### [6.7.2] 2024-20-24
+### [6.8.1] 2024-20-31
 
-* Fix Prevent new Settings pages to over sanitize textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+* Fix - Prevent new Settings pages from over-sanitizing textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
 
 ### [6.7.1] 2024-10-21
 
