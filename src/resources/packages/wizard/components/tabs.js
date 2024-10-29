@@ -10,109 +10,214 @@ import * as TicketsContent from './tabs/tickets';
 import * as TecIcon from './icons/tec';
 
 const OnboardingTabs = ({ closeModal }) => {
+	/**
+	 * Initial collection of tabs.
+	 * @type {Array}
+	 *
+	 * @property {string}   name               - The name of the tab, used as the "slug".
+	 * @property {string}   title              - The title of the tab, displayed in the tab list.
+	 * @property {string}   className          - The class name for the tab. This changes based on the tab's state.
+	 * @property {string}   baseClass          - The base class name for the tab. This remains unchanged for reference.
+	 * @property {boolean}  disabled           - Whether the tab is disabled or not.
+	 * @property {function} content           - The content to render for the tab.
+	 */
 	const initialTabs = [
 		{
 			name: 'intro',
 			title: __('Intro', 'the-events-calendar'),
 			className: 'tec-events-onboarding__tab-intro',
+			baseClass: 'tec-events-onboarding__tab-intro',
 			disabled: false,
-			content: IntroContent,
-			current: true
+			content: IntroContent
 		},
 		{
 			name: 'display',
 			title: __('Calendar Display', 'the-events-calendar'),
 			className: 'tec-events-onboarding__tab-display',
+			baseClass: 'tec-events-onboarding__tab-display',
 			disabled: true,
-			content: DisplayContent,
-			current: false
+			content: DisplayContent
 		},
 		{
 			name: 'settings',
 			title: __('Event Settings', 'the-events-calendar'),
 			className: 'tec-events-onboarding__tab-settings',
+			baseClass: 'tec-events-onboarding__tab-settings',
 			disabled: true,
-			content: SettingsContent,
-			current: false
+			content: SettingsContent
 		},
 		{
 			name: 'organizer',
 			title: __('Event Organizer', 'the-events-calendar'),
 			className: 'tec-events-onboarding__tab-organizer',
+			baseClass: 'tec-events-onboarding__tab-organizer',
 			disabled: true,
-			content: OrganizerContent,
-			current: false
+			content: OrganizerContent
 		},
 		{
 			name: 'venue',
 			title: __('Event Venue', 'the-events-calendar'),
 			className: 'tec-events-onboarding__tab-venue',
+			baseClass: 'tec-events-onboarding__tab-venue',
 			disabled: true,
-			content: VenueContent,
-			current: false
+			content: VenueContent
 		},
 		{
 			name: 'tickets',
 			title: __('Tickets', 'the-events-calendar'),
 			className: 'tec-events-onboarding__tab-tickets',
+			baseClass: 'tec-events-onboarding__tab-tickets',
 			disabled: true,
-			content: TicketsContent,
-			current: false
+			content: TicketsContent
 		},
 	];
 
+	/**
+	 * State management for tabs.
+	 *
+	 * @property {Array} tabs - The current state of tabs.
+	 */
 	const [tabs, setTabs] = useState(initialTabs);
+
+	/**
+	 * State management for active tab.
+	 *
+	 * @property {string} activeTab - The currently active tab.
+	 * @default 'intro'
+	 */
 	const [activeTab, setActiveTab] = useState('intro');
 
-	const moveToNextTab = () => {
-		const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
-		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end.
-		const nextTab = tabs[nextIndex];
+	/**
+	 * Class names for completed tab state.
+	 *
+	 * @type {string}
+	 */
+	const completedClass = "tec-events-onboarding__tab--completed";
 
-		// Enable the next tab if it's currently disabled.
-		if (nextTab.disabled) {
-			const updatedTabs = tabs.map((tab, index) =>
-				index === currentIndex ? { ...tab, current: false, className: tab.className.replace("tec-events-onboarding__tab--active", "") + " tec-events-onboarding__tab--completed" }
-				: index === nextIndex ? { ...tab, disabled: false, current: true, className: tab.className + " tec-events-onboarding__tab--active" }
-				: { ...tab }
-			);
+	/**
+	 * Class names for active tab state.
+	 *
+	 * @type {string}
+	 */
+	const activeClass = "tec-events-onboarding__tab--active";
 
-			setTabs(updatedTabs);
-		}
+	/**
+	 * "Clean" the tab classes by removing the "active" class from all tabs.
+	 */
+	const cleanTabClasses = () => {
+		const cleanedTabs = tabs.map(tab => (
+			// We just want to remove the "active" class from all tabs prior to setting the next one.
+			tab.className = tab.className.replace(activeClass, "")
+		));
 
-		// Set the next tab as the active tab.
-		setActiveTab(nextTab.name);
+		return setTabs(cleanedTabs);
 	};
 
-	const SkipToNextTab = () => {
-		const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
-		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end.
-		const nextTab = tabs[nextIndex];
+	/**
+	 * Mark a tab as active by name.
+	 *
+	 * @param {string} tabName - The name of the tab to mark as active.
+	 */
+	const setAsActive = (tabName) => {
+		const activeTabs = tabs.map(tab => {
+			if (tab.name === tabName) {
+				// Add the active class to the active tab.
+				return { ...tab, className: tab.className + " " + activeClass };
+			}
+			return tab;
+		});
 
-		// Enable the next tab if it's currently disabled.
-		if (nextTab.disabled) {
-			const updatedTabs = tabs.map((tab, index) =>
-				index === nextIndex
-				? { ...tab, disabled: false, current: true, className: tab.className + " tec-events-onboarding__tab--active" }
-				: { ...tab, current: false, className: tab.className.replace("tec-events-onboarding__tab--active", "")}
-			);
-
-			setTabs(updatedTabs);
-		}
+		// Update the state with the active tabs.
+		setTabs(activeTabs);
 
 		// Set the next tab as the active tab.
-		setActiveTab(nextTab.name);
+		setActiveTab(tabName);
+	};
+
+	/**
+	 * Mark a tab as completed by name.
+	 *
+	 * @param {string} tabName - The name of the tab to mark as completed.
+	 */
+	const completeTab = (tabName) => {
+		const completedTabs = tabs.map(tab => {
+			if (tab.name === tabName) {
+				// Add the completed class to the completed tab.
+				return { ...tab, className: tab.className + " " + completedClass };
+			}
+			return tab;
+		});
+
+		setTabs(completedTabs);
 	}
 
+	/**
+	 * Enable a tab by name.
+	 *
+	 * @param {string} tabName - The name of the tab to enable.
+	 */
+	const enableTab = (tabName) => {
+		const enabledTabs = tabs.map(tab => {
+			if (tab.name === tabName) {
+				// Add the active class to the active tab.
+				return { ...tab, disabled: false };
+			}
+
+			return tab;
+		});
+
+		// Update the state with the enabled tabs.
+		setTabs(enabledTabs);
+	}
+
+	/**
+	 * Move to the next tab, completing (saving) the current tab.
+	 */
+	const moveToNextTab = () => {
+		const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
+		const currentTab = tabs[currentIndex];
+		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end. For now.
+		const nextTab = tabs[nextIndex];
+
+		// Remove all "active" classes.
+		{cleanTabClasses()}
+
+		// Mark the current tab complete.
+		{completeTab(currentTab.name)}
+
+		// Enable the next tab before we move to it.
+		{enableTab(nextTab.name)}
+
+		// Add the active class to the correct tab.
+		setAsActive(nextTab.name);
+	};
+
+	/**
+	 * Skip to the next tab, without completing/saving the current tab.
+	 */
+	const SkipToNextTab = () => {
+		const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
+		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end. For now.
+		const nextTab = tabs[nextIndex];
+
+		{cleanTabClasses()}
+
+		// Enable the next tab before we move to it.
+		{enableTab(nextTab.name)}
+
+		// Add the active class to the correct tab.
+		setAsActive(nextTab.name);
+	}
+
+	// Set modal class to help enforce active tab styling.
 	const activeTabObj = tabs.find(t => t.name === activeTab);
-	const activeName = activeTabObj ? activeTabObj.className.replace("tec-events-onboarding__tab--active", "").replace("tec-events-onboarding__tab--completed", "") : "";
-	const modalClass ="tec-events-onboarding__tab-panel " + activeName;
+	const modalClass = "tec-events-onboarding__tab-panel " + activeTabObj.baseClass;
 
 	return (
 		<>
 			<TecIcon.default />
 			<TabPanel
-				activeClass="tec-events-onboarding__tab--active"
+				activeClass={activeClass}
 				initialTabName="intro"
 				className={modalClass}
 				onSelect={setActiveTab}
