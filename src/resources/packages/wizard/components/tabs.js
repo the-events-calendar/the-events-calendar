@@ -14,12 +14,12 @@ const OnboardingTabs = ({ closeModal }) => {
 	 * Initial collection of tabs.
 	 * @type {Array}
 	 *
-	 * @property {string}   name               - The name of the tab, used as the "slug".
-	 * @property {string}   title              - The title of the tab, displayed in the tab list.
-	 * @property {string}   className          - The class name for the tab. This changes based on the tab's state.
-	 * @property {string}   baseClass          - The base class name for the tab. This remains unchanged for reference.
-	 * @property {boolean}  disabled           - Whether the tab is disabled or not.
-	 * @property {function} content           - The content to render for the tab.
+	 * @property {string}   name      - The name of the tab, used as the "slug".
+	 * @property {string}   title     - The title of the tab, displayed in the tab list.
+	 * @property {string}   className - The class name for the tab. This changes based on the tab's state.
+	 * @property {string}   baseClass - The base class name for the tab. This remains unchanged for reference.
+	 * @property {boolean}  disabled  - Whether the tab is disabled or not.
+	 * @property {function} content   - The content to render for the tab.
 	 */
 	const initialTabs = [
 		{
@@ -119,11 +119,14 @@ const OnboardingTabs = ({ closeModal }) => {
 	 * @param {string} tabName - The name of the tab to mark as active.
 	 */
 	const setAsActive = (tabName) => {
+		cleanTabClasses();
+
 		const activeTabs = tabs.map(tab => {
 			if (tab.name === tabName) {
 				// Add the active class to the active tab.
-				return { ...tab, className: tab.className + " " + activeClass };
+				tab.className = tab.className + " " + activeClass;
 			}
+
 			return tab;
 		});
 
@@ -143,8 +146,9 @@ const OnboardingTabs = ({ closeModal }) => {
 		const completedTabs = tabs.map(tab => {
 			if (tab.name === tabName) {
 				// Add the completed class to the completed tab.
-				return { ...tab, className: tab.className + " " + completedClass };
+				tab.className = tab.className + " " + completedClass;
 			}
+
 			return tab;
 		});
 
@@ -160,7 +164,7 @@ const OnboardingTabs = ({ closeModal }) => {
 		const enabledTabs = tabs.map(tab => {
 			if (tab.name === tabName) {
 				// Add the active class to the active tab.
-				return { ...tab, disabled: false };
+				tab.disabled = false;
 			}
 
 			return tab;
@@ -179,14 +183,11 @@ const OnboardingTabs = ({ closeModal }) => {
 		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end. For now.
 		const nextTab = tabs[nextIndex];
 
-		// Remove all "active" classes.
-		{cleanTabClasses()}
-
 		// Mark the current tab complete.
-		{completeTab(currentTab.name)}
+		completeTab(currentTab.name);
 
 		// Enable the next tab before we move to it.
-		{enableTab(nextTab.name)}
+		enableTab(nextTab.name);
 
 		// Add the active class to the correct tab.
 		setAsActive(nextTab.name);
@@ -200,10 +201,8 @@ const OnboardingTabs = ({ closeModal }) => {
 		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end. For now.
 		const nextTab = tabs[nextIndex];
 
-		{cleanTabClasses()}
-
 		// Enable the next tab before we move to it.
-		{enableTab(nextTab.name)}
+		enableTab(nextTab.name);
 
 		// Add the active class to the correct tab.
 		setAsActive(nextTab.name);
@@ -217,10 +216,10 @@ const OnboardingTabs = ({ closeModal }) => {
 		<>
 			<TecIcon.default />
 			<TabPanel
-				activeClass={activeClass}
+				activeClass='active-tab' // {activeClass}
 				initialTabName="intro"
 				className={modalClass}
-				onSelect={setActiveTab}
+				onSelect={setAsActive}
 				selectOnMove={false}
 				tabs={tabs}
 			>
