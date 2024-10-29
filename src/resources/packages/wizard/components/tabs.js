@@ -14,39 +14,51 @@ const OnboardingTabs = ({ closeModal }) => {
 		{
 			name: 'intro',
 			title: __('Intro', 'the-events-calendar'),
-			className: 'tec-events-onboarding__tab--intro',
+			className: 'tec-events-onboarding__tab-intro',
 			disabled: false,
-			content: IntroContent },
+			content: IntroContent,
+			current: true
+		},
 		{
 			name: 'display',
 			title: __('Calendar Display', 'the-events-calendar'),
-			className: 'tec-events-onboarding__tab--display',
+			className: 'tec-events-onboarding__tab-display',
 			disabled: true,
-			content: DisplayContent },
+			content: DisplayContent,
+			current: false
+		},
 		{
 			name: 'settings',
 			title: __('Event Settings', 'the-events-calendar'),
-			className: 'tec-events-onboarding__tab--settings',
+			className: 'tec-events-onboarding__tab-settings',
 			disabled: true,
-			content: SettingsContent },
+			content: SettingsContent,
+			current: false
+		},
 		{
 			name: 'organizer',
 			title: __('Event Organizer', 'the-events-calendar'),
-			className: 'tec-events-onboarding__tab--organizer',
+			className: 'tec-events-onboarding__tab-organizer',
 			disabled: true,
-			content: OrganizerContent },
+			content: OrganizerContent,
+			current: false
+		},
 		{
 			name: 'venue',
 			title: __('Event Venue', 'the-events-calendar'),
-			className: 'tec-events-onboarding__tab--venue',
+			className: 'tec-events-onboarding__tab-venue',
 			disabled: true,
-			content: VenueContent },
+			content: VenueContent,
+			current: false
+		},
 		{
 			name: 'tickets',
 			title: __('Tickets', 'the-events-calendar'),
-			className: 'tec-events-onboarding__tab--tickets',
+			className: 'tec-events-onboarding__tab-tickets',
 			disabled: true,
-			content: TicketsContent },
+			content: TicketsContent,
+			current: false
+		},
 	];
 
 	const [tabs, setTabs] = useState(initialTabs);
@@ -60,7 +72,9 @@ const OnboardingTabs = ({ closeModal }) => {
 		// Enable the next tab if it's currently disabled.
 		if (nextTab.disabled) {
 			const updatedTabs = tabs.map((tab, index) =>
-				index === nextIndex ? { ...tab, disabled: false } : tab
+				index === currentIndex ? { ...tab, current: false, className: tab.className.replace("tec-events-onboarding__tab--active", "") + " tec-events-onboarding__tab--completed" }
+				: index === nextIndex ? { ...tab, disabled: false, current: true, className: tab.className + " tec-events-onboarding__tab--active" }
+				: { ...tab }
 			);
 
 			setTabs(updatedTabs);
@@ -70,13 +84,35 @@ const OnboardingTabs = ({ closeModal }) => {
 		setActiveTab(nextTab.name);
 	};
 
-	const modalClass ="tec-events-onboarding__tab-panel " + tabs.find(t => t.name === activeTab).className + "--active";
+	const SkipToNextTab = () => {
+		const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
+		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end.
+		const nextTab = tabs[nextIndex];
+
+		// Enable the next tab if it's currently disabled.
+		if (nextTab.disabled) {
+			const updatedTabs = tabs.map((tab, index) =>
+				index === nextIndex
+				? { ...tab, disabled: false, current: true, className: tab.className + " tec-events-onboarding__tab--active" }
+				: { ...tab, current: false, className: tab.className.replace("tec-events-onboarding__tab--active", "")}
+			);
+
+			setTabs(updatedTabs);
+		}
+
+		// Set the next tab as the active tab.
+		setActiveTab(nextTab.name);
+	}
+
+	const activeTabObj = tabs.find(t => t.name === activeTab);
+	const activeName = activeTabObj ? activeTabObj.className.replace("tec-events-onboarding__tab--active", "").replace("tec-events-onboarding__tab--completed", "") : "";
+	const modalClass ="tec-events-onboarding__tab-panel " + activeName;
 
 	return (
 		<>
 			<TecIcon.default />
 			<TabPanel
-				activeClass="active-tab"
+				activeClass="tec-events-onboarding__tab--active"
 				initialTabName="intro"
 				className={modalClass}
 				onSelect={setActiveTab}
@@ -90,7 +126,7 @@ const OnboardingTabs = ({ closeModal }) => {
 						<VisuallyHidden>
 							<h2>{newTab.title}</h2>
 						</VisuallyHidden>
-						{ newTab.content.default({closeModal, moveToNextTab}) }
+						{ newTab.content.default({closeModal, moveToNextTab, SkipToNextTab}) }
 					</>
 				)}}
 			</TabPanel>

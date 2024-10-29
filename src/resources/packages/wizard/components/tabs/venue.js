@@ -3,7 +3,7 @@ import NextButton from '../buttons/next';
 import SkipButton from '../buttons/skip';
 import * as VenueIcon from '../icons/venue';
 
-const VenueContent = ({closeModal, moveToNextTab}) => {
+const VenueContent = ({closeModal, moveToNextTab, SkipToNextTab}) => {
 	return (
 		<>
 			<VenueIcon.default />
@@ -11,7 +11,7 @@ const VenueContent = ({closeModal, moveToNextTab}) => {
 			<p>{__("Add an event organizer for your events. You can display this information for your event attendees on your website.", "the-events-calendar")}</p>
 			<div>Form goes here</div>
 			<p><NextButton moveToNextTab={moveToNextTab}/></p>
-			<p><SkipButton moveToNextTab={moveToNextTab}/></p>
+			<p><SkipButton SkipToNextTab={SkipToNextTab}/></p>
 		</>
 	);
 };

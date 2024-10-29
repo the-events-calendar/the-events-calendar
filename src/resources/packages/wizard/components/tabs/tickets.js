@@ -4,7 +4,7 @@ import SkipButton from '../buttons/skip';
 import * as TicketsIcon from '../icons/tickets';
 import TicketInstallCheckbox from '../input/ticket-install';
 
-const TicketsContent = ({closeModal, moveToNextTab}) => {
+const TicketsContent = ({closeModal, moveToNextTab, SkipToNextTab}) => {
 	return (
 		<>
 			<div className='.tec-events-onboarding__content-checkbox-grid'>

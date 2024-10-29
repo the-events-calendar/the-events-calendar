@@ -3,7 +3,7 @@ import NextButton from '../buttons/next';
 import SkipButton from '../buttons/skip';
 import * as GearIcon from '../icons/gear';
 
-const SettingsContent = ({closeModal, moveToNextTab}) => {
+const SettingsContent = ({closeModal, moveToNextTab, SkipToNextTab}) => {
 	return (
 		<>
 			<GearIcon.default />
@@ -11,7 +11,7 @@ const SettingsContent = ({closeModal, moveToNextTab}) => {
 			<p>{__("Let’s get your events with the correct basic settings.", "the-events-calendar")}</p>
 			<div>Form goes here</div>
 			<p><NextButton moveToNextTab={moveToNextTab}/></p>
-			<p><SkipButton moveToNextTab={moveToNextTab}/></p>
+			<p><SkipButton SkipToNextTab={SkipToNextTab}/></p>
 		</>
 	);
 };

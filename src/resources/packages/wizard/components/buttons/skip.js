@@ -1,15 +1,11 @@
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-const SkipButton = ({moveToNextTab}) => {
-	const handleSkip = ({moveToNextTab}) => {
-		{moveToNextTab}
-	};
-
+const SkipButton = ({SkipToNextTab}) => {
 	return (
 		<Button
 			variant="tertiary"
-			onClick={moveToNextTab}
+			onClick={SkipToNextTab}
 		>
 			{__( "Skip step", "the-events-calendar" )}
 		</Button>

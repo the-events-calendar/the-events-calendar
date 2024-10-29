@@ -3,7 +3,7 @@ import NextButton from '../buttons/next';
 import SkipButton from '../buttons/skip';
 import ViewCheckbox from '../input/view-checkbox';
 
-const DisplayContent = ({closeModal, moveToNextTab}) => {
+const DisplayContent = ({closeModal, moveToNextTab, SkipToNextTab}) => {
 	const views = [
 		'Month',
 		'Day',
@@ -23,7 +23,7 @@ const DisplayContent = ({closeModal, moveToNextTab}) => {
 				))}
 			</div>
 			<p><NextButton moveToNextTab={moveToNextTab}/></p>
-			<p><SkipButton moveToNextTab={moveToNextTab}/></p>
+			<p><SkipButton SkipToNextTab={SkipToNextTab}/></p>
 		</>
 	);
 };
