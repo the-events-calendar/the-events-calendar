@@ -4,7 +4,7 @@ import ExitButton from '../buttons/exit';
 import OptInCheckbox from '../input/opt-in';
 import Illustration from '../img/wizard-intro-illo.png';
 
-const IntroContent = ({closeModal, moveToNextTab, SkipToNextTab}) => {
+const IntroContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 
 	return (
 		<>

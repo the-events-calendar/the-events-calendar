@@ -196,7 +196,7 @@ const OnboardingTabs = ({ closeModal }) => {
 	/**
 	 * Skip to the next tab, without completing/saving the current tab.
 	 */
-	const SkipToNextTab = () => {
+	const skipToNextTab = () => {
 		const currentIndex = tabs.findIndex(tab => tab.name === activeTab);
 		const nextIndex = currentIndex + 1 < tabs.length ? currentIndex + 1 : 0; // Loop back to first tab if we reach the end. For now.
 		const nextTab = tabs[nextIndex];
@@ -230,7 +230,7 @@ const OnboardingTabs = ({ closeModal }) => {
 						<VisuallyHidden>
 							<h2>{newTab.title}</h2>
 						</VisuallyHidden>
-						{ newTab.content.default({closeModal, moveToNextTab, SkipToNextTab}) }
+						{ newTab.content.default({closeModal, moveToNextTab, skipToNextTab}) }
 					</>
 				)}}
 			</TabPanel>

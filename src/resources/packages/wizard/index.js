@@ -1,7 +1,7 @@
 import domReady from '@wordpress/dom-ready';
 import { createRoot } from 'react-dom/client';
 import { useState } from '@wordpress/element';
-import { Button, Modal } from '@wordpress/components';
+import { Modal } from '@wordpress/components';
 import OnboardingTabs from './components/tabs';
 import './index.css';
 
