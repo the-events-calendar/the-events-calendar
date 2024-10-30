@@ -239,7 +239,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.8.0] 2024-10-29 =
+= [6.8.0] 2024-10-30 =
 
 * Version - The Events Calendar 6.8.0 is only compatible with Events Calendar Pro 7.3.0 and higher.
 * Version - The Events Calendar 6.8.0 is only compatible with Events Tickets Plus 6.1.0 or higher.
