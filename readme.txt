@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.7.1
+Stable tag: 6.8.0
 Requires at least: 6.3
 Tested up to: 6.6.2
 Requires PHP: 7.4
@@ -238,6 +238,14 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.8.0] 2024-10-30 =
+
+* Version - The Events Calendar 6.8.0 is only compatible with Events Calendar Pro 7.3.0 and higher.
+* Version - The Events Calendar 6.8.0 is only compatible with Events Tickets Plus 6.1.0 or higher.
+* Version - The Events Calendar 6.8.0 is only compatible with Event Tickets 5.16.0 or higher.
+* Feature - Added integration with new premium Seating product for Event Tickets.
+* Language - 0 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.7.1] 2024-10-21 =
 
