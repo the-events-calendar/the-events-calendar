@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.8.0.1] 2024-10-31
+
+* Fix - Order of past events in the list view when no future events exist. [TEC-5309]
+
 ### [6.8.0] 2024-10-30
 
 * Version - The Events Calendar 6.8.0 is only compatible with Events Calendar Pro 7.3.0 and higher.
