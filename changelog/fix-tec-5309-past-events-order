@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Order of past events in the list view when no future events exist. [TEC-5309]

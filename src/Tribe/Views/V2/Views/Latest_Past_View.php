@@ -171,6 +171,7 @@ class Latest_Past_View extends List_View {
 	 * {@inheritDoc}
 	 */
 	protected function setup_repository_args( Tribe__Context $context = null ) {
+		$this->repository = tribe_events();
 		$context ??= $this->context;
 		$args    = parent::setup_repository_args( $context );
 
