@@ -239,7 +239,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.8.1] 2024-10-24 =
+= [6.8.1] 2024-10-31 =
 
 * Fix - Order of past events in the list view when no future events exist. [TEC-5309]
 * Fix - Prevent new Settings pages from over-sanitizing textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
