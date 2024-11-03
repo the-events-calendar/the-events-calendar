@@ -35,11 +35,6 @@ class Ian_Client {
 			return false;
 		}
 
-		// Are we on a post edit screen?
-		if ( $current_screen instanceof \WP_Screen && tribe_get_request_var( 'action' ) === 'edit' ) {
-			return false;
-		}
-
 		// Are we on a new post screen?
 		if ( $current_screen instanceof \WP_Screen && $current_screen->action === 'add' ) {
 			return false;
