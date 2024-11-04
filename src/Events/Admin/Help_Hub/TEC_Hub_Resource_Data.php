@@ -10,7 +10,7 @@
  * @package TEC\Common\Admin\Help_Hub\Resource_Data
  */
 
-namespace TEC\Events\Admin\Notice\Help_Hub;
+namespace TEC\Events\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use TEC\Common\Telemetry\Telemetry;
