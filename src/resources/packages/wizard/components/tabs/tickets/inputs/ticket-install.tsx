@@ -22,7 +22,7 @@ const TicketInstallCheckbox = () => {
 			/>
 			<div className="tec-events-onboarding__checkbox-description">
 				<label htmlFor="tec-events-onboarding__tickets-checkbox-input">
-				{__("Yes, install Event Tickets for free on my website.", "the-events-calendar")}
+					{__("Yes, install Event Tickets for free on my website.", "the-events-calendar")}
 				</label>
 				<div
 					id="tec-events-onboarding__checkbox-description"

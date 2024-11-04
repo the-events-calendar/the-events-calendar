@@ -57,6 +57,7 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					label={__("Country", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
 					options={ [
+						// THese don't need translations - they need to come from somewhere else - WP core has a list I believe.
 						{ label: 'Australia', value: 'AU' },
 						{ label: 'Brazil', value: 'BR' },
 						{ label: 'Canada', value: 'CA' },

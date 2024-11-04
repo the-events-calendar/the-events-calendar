@@ -163,42 +163,56 @@ class Controller extends Controller_Contract {
 	 * @since   TBD
 	 */
 	public function tec_onboarding_wizard_html() {
+		$first_boot_data = [
+			'available-views' => [
+				'list'  => true,
+				'day'   => true,
+				'week'  => true,
+				'month' => true,
+				'photo' => true,
+				'map'   => true,
+			],
+			'active-views'    => [
+				'list'  => true,
+				'day'   => true,
+				'week'  => true,
+				'month' => true,
+				'photo' => true,
+				'map'   => true,
+			],
+			'currency'        => 'USD',
+			'date-format'     => 'F j, Y',
+			'event-tickets'   => false,
+			'optin'           => false, // (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			'organizer'       => false,
+			'time-zone'       => 'America/New_York',
+			'venue'           => false,
+			'week-starts-on'  => 0,
+		];
+
+		$opted_in_data = $first_boot_data;
+		$opted_in_data['optin'] = true;
+
 		printf(
 			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
 			. get_submit_button(
-				'Open Wizard',
+				'Open New Install Wizard',
 				'secondary tec-events-onboarding-wizard',
 				'open',
 				true,
 				[
 					'data-container-element' => 'tec-events-onboarding-wizard-target',
-					'data-wizard-boot-data'  => wp_json_encode([
-						'available-views' => [
-							'list'  => true,
-							'day'   => true,
-							'week'  => true,
-							'month' => true,
-							'photo' => true,
-							'map'   => true,
-						],
-						'active-views'    => [
-							'list'  => true,
-							'day'   => true,
-							'week'  => true,
-							'month' => true,
-							'photo' => true,
-							'map'   => true,
-						],
-						'currency'        => 'USD',
-						'date-format'     => 'F j, Y',
-						'event-tickets'   => false,
-						'optin'           => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
-						'organizer'       => false,
-						'time-zone'       => 'America/New_York',
-						'venue'           => false,
-						'week-starts-on'  => 0,
-
-					]),
+					'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
+				]
+			)
+			. get_submit_button(
+				'Open Opted-In Wizard',
+				'secondary tec-events-onboarding-wizard',
+				'open',
+				true,
+				[
+					'data-container-element' => 'tec-events-onboarding-wizard-target',
+					'data-wizard-boot-data'  => wp_json_encode( $opted_in_data ),
 				]
 			),
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )

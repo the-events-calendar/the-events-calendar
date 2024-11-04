@@ -4,14 +4,14 @@ import { createReduxStore, register } from '@wordpress/data';
 import { createRoot } from 'react-dom/client';
 import { useState } from '@wordpress/element';
 import { Modal } from '@wordpress/components';
-import OnboardingTabs from './components/tabs';
+import OnboardingTabs from './components/Tabs';
 import './index.css';
 
-const [ isOpen, setOpen ] = useState( true );
-const openModal = () => setOpen( false );
-const closeModal = () => setOpen( false );
-
 const OnboardingModal = ({bootData}) => {
+	const [ isOpen, setOpen ] = useState( true );
+	const openModal = () => setOpen( false );
+	const closeModal = () => setOpen( false );
+
 	return (
 		<>
 		{ isOpen && (
