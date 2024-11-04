@@ -6,11 +6,12 @@ import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import GearIcon from './img/gear';
 
-const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
-	const [ currency, setCurrency ] = useState( 'USD' );
-	const [ timeZone, setTimeZone ] = useState( 'UTC' );
-	const [ dateFormat, setDateFormat ] = useState( 'American' );
-	const [ weekStart, setWeekStart ] = useState( '1' );
+const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
+	const {defaultCurrency, defaultTimezone, defaultDateFormat, defaultWeekStart} = bootData;
+	const [ currency, setCurrency ] = useState( defaultCurrency );
+	const [ timeZone, setTimeZone ] = useState( defaultTimezone );
+	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat );
+	const [ weekStart, setWeekStart ] = useState( defaultWeekStart );
 
 	return (
 		<>
@@ -22,12 +23,12 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					__nextHasNoMarginBottom
 					label={__("Currency", "the-events-calendar")}
 					value={ currency }
+					onChange={ setCurrency }
 					options={ [
 						{ label: 'USD', value: 'USD' },
 						{ label: 'CAD', value: 'CAD' },
 						{ label: 'GBP', value: 'GBP' },
 					] }
-					onChange={ setCurrency }
 				/>
 
 				<SelectControl
@@ -35,31 +36,32 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					label={__("Time Zone", "the-events-calendar")}
 					description={__("Please select your time zone as UTC offsets are not supported.", "the-events-calendar")}
 					value={ timeZone }
+					onChange={ setTimeZone }
 					options={ [
 						{ label: 'GMT', value: 'UTC' },
 						{ label: 'America/New York', value: 'EDT' },
 						{ label: 'America/LosAngeles', value: 'PDT' },
 					] }
-					onChange={ setTimeZone }
 				/>
 
 				<SelectControl
 					__nextHasNoMarginBottom
 					label={__("Date Format", "the-events-calendar")}
 					value={ dateFormat }
+					onChange={ setDateFormat }
 					options={ [
 						{ label: 'October 29, 2024', value: 'American' },
 						{ label: '29 October, 2024', value: 'European' },
 						{ label: '10/29/2024', value: 'shortAmerican' },
 						{ label: '2024-10-29', value: 'shortEuropean' },
 					] }
-					onChange={ setDateFormat }
 				/>
 
 				<SelectControl
 					__nextHasNoMarginBottom
 					label={__("Your Week starts on", "the-events-calendar")}
 					value={ weekStart }
+					onChange={ setWeekStart }
 					options={ [
 						{ label: 'Sunday', value: '0' },
 						{ label: 'Monday', value: '1' },
@@ -69,7 +71,6 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 						{ label: 'Friday', value: '5' },
 						{ label: 'Saturday', value: '6' },
 					] }
-					onChange={ setWeekStart }
 				/>
 			</div>
 			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab}/></p>

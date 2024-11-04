@@ -5,7 +5,7 @@ import ExitButton from '../../buttons/exit';
 import OptInCheckbox from './inputs/opt-in';
 import Illustration from './img/wizard-welcome-img.png';
 
-const WelcomeContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
+const WelcomeContent = ({closeModal, moveToNextTab, bootData}) => {
 	const {optin} = bootData;
 
 	return (

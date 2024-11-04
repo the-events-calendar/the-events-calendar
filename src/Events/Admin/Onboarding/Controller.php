@@ -9,6 +9,7 @@ namespace TEC\Events\Admin\Onboarding;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Telemetry\Telemetry;
+use TEC\Common\StellarWP\Installer\Installer;
 
 /**
  * Class Controller
@@ -163,58 +164,105 @@ class Controller extends Controller_Contract {
 	 * @since   TBD
 	 */
 	public function tec_onboarding_wizard_html() {
-		$first_boot_data = [
-			'available-views' => [
-				'list'  => true,
-				'day'   => true,
-				'week'  => true,
-				'month' => true,
-				'photo' => true,
-				'map'   => true,
-			],
-			'active-views'    => [
-				'list'  => true,
-				'day'   => true,
-				'week'  => true,
-				'month' => true,
-				'photo' => true,
-				'map'   => true,
-			],
-			'currency'        => 'USD',
-			'date-format'     => 'F j, Y',
-			'event-tickets'   => false,
-			'optin'           => false, // (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
-			'organizer'       => false,
-			'time-zone'       => 'America/New_York',
-			'venue'           => false,
-			'week-starts-on'  => 0,
+		$view_manager     = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$availableViews  = array_keys( $view_manager->get_registered_views() );
+		$activeViews     = array_keys( $view_manager->get_publicly_visible_views() );
+		// Don't need these.
+		$remove          = [
+			"latest-past",
+			"widget-events-list",
+			"widget-countdown",
+			"widget-featured-venue",
+			"widget-week",
+			"organizer",
+			"reflector"
 		];
 
-		$opted_in_data = $first_boot_data;
+		$availableViews  = array_diff_key( $availableViews, array_flip( $remove ) );
+
+		$first_boot_data = [
+			'availableViews'   => $availableViews,
+			'activeViews'      => $activeViews,
+			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', 'USD' ),
+			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', 'F j, Y' )),
+			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', 'America/NewYork' ) ),
+			'defaultWeekStart'  => get_option( 'start_of_week', 1 ),
+			'eventTickets'     => Installer::get()->is_installed( 'event-tickets' ),
+			'optin'             => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			'organizer'         => tribe( 'events.organizer-repository' )->per_page( - 1 )->first(),
+			'venue'             => tribe( 'events.venue-repository' )->per_page( - 1 )->first(),
+		];
+
+		$default_button = get_submit_button(
+			'Open Install Wizard (current)',
+			'secondary tec-events-onboarding-wizard',
+			'open',
+			true,
+			[
+				'data-container-element' => 'tec-events-onboarding-wizard-target',
+				'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
+			]
+			);
+
+		$opted_in_data          = $first_boot_data;
 		$opted_in_data['optin'] = true;
+		$opted_in_button        = get_submit_button(
+			'Open Opted-In Wizard',
+			'secondary tec-events-onboarding-wizard',
+			'open',
+			true,
+			[
+				'data-container-element' => 'tec-events-onboarding-wizard-target',
+				'data-wizard-boot-data'  => wp_json_encode( $opted_in_data ),
+			]
+		);
+
+		$venued_data          = $first_boot_data;
+		$venued_data['venue'] = true;
+		$venued_button        = get_submit_button(
+			'Open Wizard With Venue',
+			'secondary tec-events-onboarding-wizard',
+			'open',
+			true,
+			[
+				'data-container-element' => 'tec-events-onboarding-wizard-target',
+				'data-wizard-boot-data'  => wp_json_encode( $venued_data ),
+			]
+		);
+
+		$organizered_data              = $first_boot_data;
+		$organizered_data['organizer'] = true;
+		$organizered_button            = get_submit_button(
+			'Open Wizard With Organizer',
+			'secondary tec-events-onboarding-wizard',
+			'open',
+			true,
+			[
+				'data-container-element' => 'tec-events-onboarding-wizard-target',
+				'data-wizard-boot-data'  => wp_json_encode( $organizered_data ),
+			]
+		);
+
+		$tickets_data = $first_boot_data;
+		$tickets_data['eventTickets'] = true;
+		$tickets_button = get_submit_button(
+			'Open Wizard With Tickets',
+			'secondary tec-events-onboarding-wizard',
+			'open',
+			true,
+			[
+				'data-container-element' => 'tec-events-onboarding-wizard-target',
+				'data-wizard-boot-data'  => wp_json_encode( $tickets_data ),
+			]
+		);
 
 		printf(
 			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
-			. get_submit_button(
-				'Open New Install Wizard',
-				'secondary tec-events-onboarding-wizard',
-				'open',
-				true,
-				[
-					'data-container-element' => 'tec-events-onboarding-wizard-target',
-					'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
-				]
-			)
-			. get_submit_button(
-				'Open Opted-In Wizard',
-				'secondary tec-events-onboarding-wizard',
-				'open',
-				true,
-				[
-					'data-container-element' => 'tec-events-onboarding-wizard-target',
-					'data-wizard-boot-data'  => wp_json_encode( $opted_in_data ),
-				]
-			),
+			. $default_button
+			. $opted_in_button
+			. $venued_button
+			. $organizered_button
+			. $tickets_button,
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
 	}

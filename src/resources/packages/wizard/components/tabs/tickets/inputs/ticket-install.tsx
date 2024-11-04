@@ -3,9 +3,14 @@ import { CheckboxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-const TicketInstallCheckbox = () => {
+const TicketInstallCheckbox = ({hasTickets}) => {
+	// Don't show the checkbox if they've already installed Event Tickets.
+	if(hasTickets) {
+		return;
+	}
+
 	const [ isChecked, setChecked ] = useState( false );
-	const handleTicketInstallChange = () => {}
+
 	return (
 		<div
 			alignment="top"

@@ -4,17 +4,10 @@ import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import ViewCheckbox from './inputs/view-checkbox';
 
-const DisplayContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
-	const views = [
-		'Month',
-		'Day',
-		'List',
-		'Week',
-		'Map',
-		'Photo',
-		'Summary',
-		'all'
-	];
+const DisplayContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
+	const { availableViews, activeViews } = bootData;
+	console.log(availableViews);
+	console.log(activeViews);
 
 	document.addEventListener(
 		'change',
@@ -59,8 +52,8 @@ const DisplayContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 			<h1 className="tec-events-onboarding__tab-header">{__("How do you want people to view your calendar?", "the-events-calendar")}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{__("Select how you want to display your events on your site. You can choose more than one.", "the-events-calendar")}</p>
 			<div className="tec-events-onboarding__grid--view-checkbox">
-				{views.map((view,key) => (
-					<ViewCheckbox view={view} key={key}/>
+				{availableViews.map((view, key) => (
+					<ViewCheckbox view={view} active={activeViews} available={availableViews} key={key} />
 				))}
 			</div>
 			<p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab}/></p>

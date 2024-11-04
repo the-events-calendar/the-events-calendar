@@ -10,18 +10,27 @@ import MapViewIcon from '../img/map';
 import SummaryViewIcon from '../img/summary';
 import WeekViewIcon from '../img/week';
 
-const ViewCheckbox = ({view}) => {
+const icons = new Map();
+icons.set('Day', <DayViewIcon />);
+icons.set('Month', <MonthViewIcon />);
+icons.set('List', <ListViewIcon />);
+// pro
+icons.set('Map', <MapViewIcon />);
+icons.set('Photo', <PhotoViewIcon />);
+icons.set('Week', <WeekViewIcon />);
+icons.set('Summary', <SummaryViewIcon />);
+
+const ViewCheckbox = ({view, active, available}) => {
 	const lowerCaseView = view.toLowerCase();
 	const [ isChecked, setChecked ] = useState( false );
-	const icons = new Map();
-	icons.set('Day', <DayViewIcon />);
-	icons.set('Month', <MonthViewIcon />);
-	icons.set('List', <ListViewIcon />);
-	// pro
-	icons.set('Map', <MapViewIcon />);
-	icons.set('Photo', <PhotoViewIcon />);
-	icons.set('Week', <WeekViewIcon />);
-	icons.set('Summary', <SummaryViewIcon />);
+
+	if ( ! available.includes(lowerCaseView) ) {
+		return;
+	}
+
+	if ( active.includes(lowerCaseView) ) {
+		setChecked(true);
+	}
 
 	return (
 		<div

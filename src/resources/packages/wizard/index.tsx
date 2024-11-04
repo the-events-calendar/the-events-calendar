@@ -35,11 +35,7 @@ const OnboardingModal = ({bootData}) => {
 
 domReady( () => {
 	const initializeWizard = (containerElement, bootData) => {
-		const root = createRoot(
-			containerElement
-		);
-
-		// const DEFAULT_STATE = {...bootData};
+		const root = createRoot( containerElement );
 
 		root.render( <OnboardingModal bootData={bootData} /> );
 	};

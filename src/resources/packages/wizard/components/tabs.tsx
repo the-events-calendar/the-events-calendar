@@ -223,7 +223,6 @@ const OnboardingTabs = ({bootData, closeModal}) => {
 				<WelcomeContent
 					closeModal={closeModal}
 					moveToNextTab={moveToNextTab}
-					skipToNextTab={skipToNextTab}
 					bootData={bootData}
 				/>
 			</TabPanel>
@@ -237,6 +236,7 @@ const OnboardingTabs = ({bootData, closeModal}) => {
 					closeModal={closeModal}
 					moveToNextTab={moveToNextTab}
 					skipToNextTab={skipToNextTab}
+					bootData={bootData}
 				/>
 			</TabPanel>
 			<TabPanel
@@ -249,6 +249,7 @@ const OnboardingTabs = ({bootData, closeModal}) => {
 					closeModal={closeModal}
 					moveToNextTab={moveToNextTab}
 					skipToNextTab={skipToNextTab}
+					bootData={bootData}
 				/>
 			</TabPanel>
 			<TabPanel
@@ -261,6 +262,7 @@ const OnboardingTabs = ({bootData, closeModal}) => {
 					closeModal={closeModal}
 					moveToNextTab={moveToNextTab}
 					skipToNextTab={skipToNextTab}
+					bootData={bootData}
 				/>
 			</TabPanel>
 			<TabPanel
@@ -273,7 +275,7 @@ const OnboardingTabs = ({bootData, closeModal}) => {
 					closeModal={closeModal}
 					moveToNextTab={moveToNextTab}
 					skipToNextTab={skipToNextTab}
-
+					bootData={bootData}
 				/>
 			</TabPanel>
 			<TabPanel
@@ -285,8 +287,7 @@ const OnboardingTabs = ({bootData, closeModal}) => {
 				<TicketsContent
 					closeModal={closeModal}
 					moveToNextTab={moveToNextTab}
-					skipToNextTab={skipToNextTab}
-
+					bootData={bootData}
 				/>
 			</TabPanel>
 		</section>

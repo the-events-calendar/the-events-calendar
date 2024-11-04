@@ -6,7 +6,18 @@ import SkipButton from "../../buttons/skip";
 import OrganizerIcon from "./img/organizer";
 import { _x } from "@wordpress/i18n";
 
-const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
+const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
+	const {organizer} = bootData;
+	const disabled = !! organizer;
+
+	// Mocking data for now.
+	const organizerObj = organizer ? {
+		name: "The Events Calendar",
+		phone: "555-555-5555",
+		website: "https://theeventscalendar.com",
+		email: "organizer@theeventscalendar.com",
+	} : null;
+
 	/**
 	 * Function to show hidden fields.
 	 *
@@ -28,8 +39,10 @@ const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					__nextHasNoMarginBottom
 					label={__("Organizer Name", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
-					value=""
+					value={organizerObj && organizerObj.name ? organizerObj.name : ""}
+					disabled={disabled}
 				/>
+				{ }
 				<Button
 					__next40pxDefaultSize
 					onClick={showField}
@@ -44,15 +57,17 @@ const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					label={__("Phone", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
 					type="tel"
-					value=""
+					value={organizerObj && organizerObj.phone ? organizerObj.phone : ""}
+					disabled={disabled}
 				/>
+				{organizerObj && organizerObj.website ? "" :
 				<Button
 					__next40pxDefaultSize
 					onClick={showField}
 					variant="tertiary"
 				>
 					{_x("Add a website +", "Direction to add a website followed by a plus sign", "the-events-calendar")}
-				</Button>
+				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
 					className="tec-events-onboarding__form-field--hidden"
@@ -60,15 +75,17 @@ const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					label={__("Website", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
 					type="url"
-					value=""
+					value={organizerObj && organizerObj.website ? organizerObj.website : ""}
+					disabled={disabled}
 				/>
+				{organizerObj && organizerObj.email ? "" :
 				<Button
 					__next40pxDefaultSize
 					onClick={showField}
 					variant="tertiary"
 				>
 					{_x("Add an email +", "Direction to add an email followed by a plus sign", "the-events-calendar")}
-				</Button>
+				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
 					className="tec-events-onboarding__form-field--hidden"
@@ -76,7 +93,8 @@ const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					label={__("Email", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
 					type="email"
-					value=""
+					value={organizerObj && organizerObj.email ? organizerObj.email : ""}
+					disabled={disabled}
 				/>
 			</div>
 			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab}/></p>
