@@ -6,6 +6,7 @@ namespace Tribe\Events\Admin;
  */
 
 use TEC\Common\Admin\Help_Hub\Help_Hub_Factory as Help_Hub_Factory;
+use TEC\Events\Admin\Notice\Help_Hub\TEC_Hub_Resource_Data;
 use Tribe\Admin\Troubleshooting;
 use Tribe__App_Shop;
 use Tribe__Events__Main as Plugin;
@@ -206,7 +207,7 @@ class Settings {
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
 				'path'     => 'tec-events-help-hub',
 				'callback' => [
-					tribe( Help_Hub_Factory::class )->create( 'tec_events' ),
+					tribe( Help_Hub_Factory::class )->create( new TEC_Hub_Resource_Data() ),
 					'render',
 				],
 			]
