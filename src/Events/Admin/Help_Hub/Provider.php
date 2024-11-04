@@ -7,7 +7,7 @@
  * @package TEC\Events\Admin\Notice\Help_Hub
  */
 
-namespace TEC\Events\Admin\Notice\Help_Hub;
+namespace TEC\Events\Admin\Help_Hub;
 
 use TEC\Common\Contracts\Service_Provider;
 
