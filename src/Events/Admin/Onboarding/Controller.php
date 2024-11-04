@@ -171,6 +171,33 @@ class Controller extends Controller_Contract {
 				true,
 				[
 					'data-container-element' => 'tec-events-onboarding-wizard-target',
+					'data-field-values'      => [
+						'available-views' => [
+							'list'  => true,
+							'day'   => true,
+							'week'  => true,
+							'month' => true,
+							'photo' => true,
+							'map'   => true,
+						],
+						'active-views'    => [
+							'list'  => true,
+							'day'   => true,
+							'week'  => true,
+							'month' => true,
+							'photo' => true,
+							'map'   => true,
+						],
+						'currency'        => 'USD',
+						'date-format'     => 'F j, Y',
+						'event-tickets'   => false,
+						'optin'           => false,
+						'organizer'       => false,
+						'time-zone'       => 'America/New_York',
+						'venue'           => false,
+						'week-starts-on'  => 0,
+
+					],
 				]
 			),
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
