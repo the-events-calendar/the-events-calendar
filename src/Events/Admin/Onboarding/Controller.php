@@ -8,6 +8,7 @@
 namespace TEC\Events\Admin\Onboarding;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Telemetry\Telemetry;
 
 /**
  * Class Controller
@@ -171,7 +172,7 @@ class Controller extends Controller_Contract {
 				true,
 				[
 					'data-container-element' => 'tec-events-onboarding-wizard-target',
-					'data-field-values'      => [
+					'data-wizard-boot-data'  => wp_json_encode([
 						'available-views' => [
 							'list'  => true,
 							'day'   => true,
@@ -191,13 +192,13 @@ class Controller extends Controller_Contract {
 						'currency'        => 'USD',
 						'date-format'     => 'F j, Y',
 						'event-tickets'   => false,
-						'optin'           => false,
+						'optin'           => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 						'organizer'       => false,
 						'time-zone'       => 'America/New_York',
 						'venue'           => false,
 						'week-starts-on'  => 0,
 
-					],
+					]),
 				]
 			),
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )

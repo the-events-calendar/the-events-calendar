@@ -1,10 +1,15 @@
-import { CheckboxControl } from '@wordpress/components';
-import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import React from 'react';
+import {CheckboxControl} from '@wordpress/components';
+import {useState} from '@wordpress/element';
+import {__} from '@wordpress/i18n';
 
-const OptInCheckbox = () => {
-	const [ isChecked, setChecked ] = useState( false );
-	const handleOptInChange = () => {}
+const OptInCheckbox = ({initialOptin}) => {
+	// Don't show the checkbox if they've already opted in.
+	if(initialOptin) {
+		return;
+	}
+
+	const [ isChecked, setChecked ] = useState( initialOptin );
 	return (
 		<div
 			alignment="top"
@@ -16,7 +21,7 @@ const OptInCheckbox = () => {
 				__nextHasNoMarginBottom
 				aria-describedby="tec-events-onboarding__checkbox-description"
 				checked={isChecked}
-				onChange={ setChecked }
+				onChange={setChecked}
 				id="tec-events-onboarding__optin-checkbox-input"
 			/>
 			<div className="tec-events-onboarding__checkbox-description">

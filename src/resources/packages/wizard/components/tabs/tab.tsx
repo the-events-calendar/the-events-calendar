@@ -44,15 +44,15 @@ const Tab: FunctionComponent<TabProps> = ({
 	return (
 	<li role="presentation" className={tabClasses()}>
 		<button
-		aria-controls={tab.panelId}
-		aria-selected={activeTab === index}
-		className="tec-events-onboarding__tab-button"
-		disabled={tab.disabled}
-		id={tab.id}
-		onClick={handleClick}
-		ref={tab.ref}
-		role="tab"
-		tabIndex={activeTab === index ? 0 : -1}
+			aria-controls={tab.panelId}
+			aria-selected={activeTab === index}
+			className="tec-events-onboarding__tab-button"
+			disabled={tab.disabled}
+			id={tab.id}
+			onClick={handleClick}
+			ref={tab.ref}
+			role="tab"
+			tabIndex={activeTab === index ? 0 : -1}
 		>
 		{tab.title}
 		</button>

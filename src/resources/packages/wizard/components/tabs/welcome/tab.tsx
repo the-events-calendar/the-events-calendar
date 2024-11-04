@@ -1,10 +1,12 @@
+import React from 'react';
 import { __ } from '@wordpress/i18n';
 import SetupButton from '../../buttons/setup';
 import ExitButton from '../../buttons/exit';
 import OptInCheckbox from './inputs/opt-in';
 import Illustration from './img/wizard-welcome-img.png';
 
-const WelcomeContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
+const WelcomeContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
+	const {optin} = bootData;
 
 	return (
 		<>
@@ -18,7 +20,7 @@ const WelcomeContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 						<p><ExitButton closeModal={closeModal} /></p>
 					</div>
 				</div>
-				<OptInCheckbox />
+				<OptInCheckbox initialOptin={optin} />
 			</div>
 		</>
 	);

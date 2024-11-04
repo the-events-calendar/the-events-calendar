@@ -18,8 +18,8 @@ const DisplayContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 
 	document.addEventListener(
 		'change',
-		function(e) {
-			const targetElement = e.target as HTMLInputElement;
+		(event) => {
+			const targetElement = event.target as HTMLInputElement;
 			if ( targetElement.matches('.tec-events-onboarding__checkbox-input .components-checkbox-control__input') ) {
 				const isChecked = targetElement.checked;
 				const isAll = targetElement.value === 'all';
@@ -59,8 +59,8 @@ const DisplayContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 			<h1 className="tec-events-onboarding__tab-header">{__("How do you want people to view your calendar?", "the-events-calendar")}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{__("Select how you want to display your events on your site. You can choose more than one.", "the-events-calendar")}</p>
 			<div className="tec-events-onboarding__grid--view-checkbox">
-				{views.map((view) => (
-					<ViewCheckbox view={view}/>
+				{views.map((view,key) => (
+					<ViewCheckbox view={view} key={key}/>
 				))}
 			</div>
 			<p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab}/></p>

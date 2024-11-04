@@ -1,16 +1,17 @@
 import React from "react";
 import domReady from '@wordpress/dom-ready';
+import { createReduxStore, register } from '@wordpress/data';
 import { createRoot } from 'react-dom/client';
 import { useState } from '@wordpress/element';
 import { Modal } from '@wordpress/components';
 import OnboardingTabs from './components/tabs';
 import './index.css';
 
-const OnboardingModal = ({fieldValues}) => {
-	const [ isOpen, setOpen ] = useState( true );
-	const openModal = () => setOpen( false );
-	const closeModal = () => setOpen( false );
+const [ isOpen, setOpen ] = useState( true );
+const openModal = () => setOpen( false );
+const closeModal = () => setOpen( false );
 
+const OnboardingModal = ({bootData}) => {
 	return (
 		<>
 		{ isOpen && (
@@ -25,7 +26,7 @@ const OnboardingModal = ({fieldValues}) => {
 				selectOnMove={false}
 				shouldCloseOnClickOutside={false}
 			>
-				<OnboardingTabs fieldValues={fieldValues} closeModal={closeModal} />
+				<OnboardingTabs bootData={JSON.parse(bootData)} closeModal={closeModal} />
 			</Modal>
 		) }
 		</>
@@ -33,21 +34,23 @@ const OnboardingModal = ({fieldValues}) => {
 };
 
 domReady( () => {
-	const initializeWizard = (containerElement, fieldValues) => {
+	const initializeWizard = (containerElement, bootData) => {
 		const root = createRoot(
 			containerElement
 		);
 
-		root.render( <OnboardingModal fieldValues={fieldValues} /> );
+		// const DEFAULT_STATE = {...bootData};
+
+		root.render( <OnboardingModal bootData={bootData} /> );
 	};
 
 	document.querySelectorAll( '.tec-events-onboarding-wizard' ).forEach( ( element ) => {
 		element.addEventListener( 'click', (event) => {
 			event.preventDefault();
-			initializeWizard({
-				containerElement: document.getElementById( (element as HTMLElement).dataset.containerElement || '' ),
-				fieldValues: (element as HTMLElement).dataset.fieldValues,
-			});
+			initializeWizard(
+				document.getElementById( (element as HTMLElement).dataset.containerElement || '' ),
+				(element as HTMLElement).dataset.wizardBootData
+			);
 		});
 	});
 } );
