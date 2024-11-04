@@ -41,7 +41,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 	 *
 	 * @since 3.2
 	 * @since 5.1.6 Adjust to prevent overwriting values that aren't mapped.
-	 * @since TBD   Add code to allow importing custom data.
+	 * @since 6.7.2   Add code to allow importing custom data.
 	 *
 	 * @param int   $organizer_id The ID of the organizer we're currently importing.
 	 * @param array $record       An event record from the import.
@@ -100,7 +100,7 @@ class Tribe__Events__Importer__File_Importer_Organizers extends Tribe__Events__I
 		/**
 		 * A filter to allow saving custom data when importing organizers.
 		 *
-		 * @since TBD
+		 * @since 6.7.2
 		 *
 		 * @param array $additional_organizer_fields Array where the key is the meta_key to be used and the value is
 		 *                                           the slug of the column that contains the value to be saved.

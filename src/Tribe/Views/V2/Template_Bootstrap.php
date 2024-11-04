@@ -412,7 +412,7 @@ class Template_Bootstrap {
 	 * Set the correct body classes for our plugin.
 	 *
 	 * @since  4.9.11
-	 * @since TBD Cast  object to string to avoid deprecation notices.
+	 * @since 6.7.2 Cast  object to string to avoid deprecation notices.
 	 *
 	 * @return array The array containing the body classes
 	 */
