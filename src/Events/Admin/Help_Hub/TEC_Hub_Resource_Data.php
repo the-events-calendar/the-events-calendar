@@ -7,7 +7,7 @@
  * resources, FAQs, and settings for the Help Hub functionality.
  *
  * @since   TBD
- * @package TEC\Common\Admin\Help_Hub\Resource_Data
+ * @package TEC\Events\Admin\Help_Hub
  */
 
 namespace TEC\Events\Admin\Help_Hub;
@@ -24,7 +24,7 @@ use Tribe__PUE__Checker;
  * to The Events Calendar, including FAQs, common issues, and customization guides.
  *
  * @since   TBD
- * @package TEC\Common\Admin\Help_Hub\Resource_Data
+ * @package TEC\Events\Admin\Help_Hub
  */
 class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 
@@ -110,87 +110,87 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 			'getting_started' => [
 				[
 					'icon'  => $this->get_icon_url( 'tec_icon' ),
-					'title' => _x( 'The Events Calendar', 'The Events Calendar title', 'tribe-common' ),
+					'title' => _x( 'The Events Calendar', 'The Events Calendar title', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1ap9',
 				],
 				[
 					'icon'  => $this->get_icon_url( 'ea_icon' ),
-					'title' => _x( 'Event Aggregator', 'Event Aggregator title', 'tribe-common' ),
+					'title' => _x( 'Event Aggregator', 'Event Aggregator title', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apc',
 				],
 				[
 					'icon'  => $this->get_icon_url( 'fbar_icon' ),
-					'title' => _x( 'Filter Bar', 'Filter Bar title', 'tribe-common' ),
+					'title' => _x( 'Filter Bar', 'Filter Bar title', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apd',
 				],
 			],
 			'customizations'  => [
 				[
-					'title' => _x( 'Getting started with customization', 'Customization article', 'tribe-common' ),
+					'title' => _x( 'Getting started with customization', 'Customization article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apf',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
-					'title' => _x( 'Highlighting events', 'Highlighting events article', 'tribe-common' ),
+					'title' => _x( 'Highlighting events', 'Highlighting events article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apg',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
-					'title' => _x( 'Customizing template files', 'Customizing templates article', 'tribe-common' ),
+					'title' => _x( 'Customizing template files', 'Customizing templates article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1aph',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
-					'title' => _x( 'Customizing CSS', 'Customizing CSS article', 'tribe-common' ),
+					'title' => _x( 'Customizing CSS', 'Customizing CSS article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1api',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 			],
 			'common_issues'   => [
 				[
-					'title' => _x( 'Known issues', 'Known issues article', 'tribe-common' ),
+					'title' => _x( 'Known issues', 'Known issues article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apj',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
-					'title' => _x( 'Release notes', 'Release notes article', 'tribe-common' ),
+					'title' => _x( 'Release notes', 'Release notes article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apk',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
-					'title' => _x( 'Integrations', 'Integrations article', 'tribe-common' ),
+					'title' => _x( 'Integrations', 'Integrations article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apl',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 				[
-					'title' => _x( 'Shortcodes', 'Shortcodes article', 'tribe-common' ),
+					'title' => _x( 'Shortcodes', 'Shortcodes article', 'the-events-calendar' ),
 					'link'  => 'https://evnt.is/1apm',
 					'icon'  => $this->get_icon_url( 'article_icon' ),
 				],
 			],
 			'faqs'            => [
 				[
-					'question'  => _x( 'Can I have more than one calendar?', 'FAQ more than one calendar question', 'tribe-common' ),
-					'answer'    => _x( 'No, but you can use event categories or tags to display certain events.', 'FAQ more than one calendar answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to more than one calendar article', 'tribe-common' ),
+					'question'  => _x( 'Can I have more than one calendar?', 'FAQ more than one calendar question', 'the-events-calendar' ),
+					'answer'    => _x( 'No, but you can use event categories or tags to display certain events.', 'FAQ more than one calendar answer', 'the-events-calendar' ),
+					'link_text' => _x( 'Learn More', 'Link to more than one calendar article', 'the-events-calendar' ),
 					'link_url'  => 'https://evnt.is/1arh',
 				],
 				[
-					'question'  => _x( 'What do I get with Events Calendar Pro?', 'FAQ what is in Calendar Pro question', 'tribe-common' ),
-					'answer'    => _x( 'Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features.', 'FAQ what is in Calendar Pro answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to what is in Calendar Pro article', 'tribe-common' ),
+					'question'  => _x( 'What do I get with Events Calendar Pro?', 'FAQ what is in Calendar Pro question', 'the-events-calendar' ),
+					'answer'    => _x( 'Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features.', 'FAQ what is in Calendar Pro answer', 'the-events-calendar' ),
+					'link_text' => _x( 'Learn More', 'Link to what is in Calendar Pro article', 'the-events-calendar' ),
 					'link_url'  => 'https://evnt.is/1arj',
 				],
 				[
-					'question'  => _x( 'How do I sell event tickets?', 'FAQ how to sell event tickets question', 'tribe-common' ),
-					'answer'    => _x( 'Get started with tickets and RSVPs using our free Event Tickets plugin.', 'FAQ how to sell event tickets answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to what is in Event Tickets article', 'tribe-common' ),
+					'question'  => _x( 'How do I sell event tickets?', 'FAQ how to sell event tickets question', 'the-events-calendar' ),
+					'answer'    => _x( 'Get started with tickets and RSVPs using our free Event Tickets plugin.', 'FAQ how to sell event tickets answer', 'the-events-calendar' ),
+					'link_text' => _x( 'Learn More', 'Link to what is in Event Tickets article', 'the-events-calendar' ),
 					'link_url'  => 'https://evnt.is/1ark',
 				],
 				[
-					'question'  => _x( 'Where can I find a list of available shortcodes?', 'FAQ where are the shortcodes question', 'tribe-common' ),
-					'answer'    => _x( 'Our plugins offer a variety of shortcodes, allowing you to easily embed the calendar, display an event countdown clock, show attendee details, and much more.', 'FAQ where are the shortcodes answer', 'tribe-common' ),
-					'link_text' => _x( 'Learn More', 'Link to the shortcodes article', 'tribe-common' ),
+					'question'  => _x( 'Where can I find a list of available shortcodes?', 'FAQ where are the shortcodes question', 'the-events-calendar' ),
+					'answer'    => _x( 'Our plugins offer a variety of shortcodes, allowing you to easily embed the calendar, display an event countdown clock, show attendee details, and much more.', 'FAQ where are the shortcodes answer', 'the-events-calendar' ),
+					'link_text' => _x( 'Learn More', 'Link to the shortcodes article', 'the-events-calendar' ),
 					'link_url'  => 'https://evnt.is/1arl',
 				],
 			],
