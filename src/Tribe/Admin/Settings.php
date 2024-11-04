@@ -5,13 +5,15 @@ namespace Tribe\Events\Admin;
  * Manages the admin settings UI in relation to events configuration.
  */
 
-use TEC\Common\Admin\Help_Hub\Help_Hub_Factory as Help_Hub_Factory;
-use TEC\Events\Admin\Notice\Help_Hub\TEC_Hub_Resource_Data;
+use TEC\Common\Admin\Help_Hub\Hub;
+use TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data;
 use Tribe\Admin\Troubleshooting;
 use Tribe__App_Shop;
 use Tribe__Events__Main as Plugin;
 use Tribe__Main;
 use Tribe__Settings_Tab as Tab;
+use TEC\Common\Configuration\Configuration;
+use Tribe__Template;
 
 class Settings {
 
@@ -200,16 +202,21 @@ class Settings {
 			]
 		);
 
+		// Instantiate necessary dependencies for the Help Hub.
+		$template      = tribe( Tribe__Template::class );
+		$config        = tribe( Configuration::class );
+		$resource_data = tribe( TEC_Hub_Resource_Data::class );
+
+		// Instantiate the Hub instance with all dependencies.
+		$hub_instance = new Hub( $resource_data, $config, $template );
+
 		$admin_pages->register_page(
 			[
 				'id'       => 'tec-events-help-hub',
 				'parent'   => $this->get_tec_events_menu_slug(),
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
 				'path'     => 'tec-events-help-hub',
-				'callback' => [
-					tribe( Help_Hub_Factory::class )->create( new TEC_Hub_Resource_Data() ),
-					'render',
-				],
+				'callback' => [ $hub_instance, 'render' ],
 			]
 		);
 
