@@ -141,7 +141,7 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
 					disabled={disabled}
 				/>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab}/></p>
+			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} disabled={false}/></p>
 			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab}/></p>
 		</>
 	);
