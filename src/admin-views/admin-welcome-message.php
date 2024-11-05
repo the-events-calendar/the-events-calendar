@@ -3,6 +3,8 @@
  * The template that displays the welcome message when the plugin is first activated.
  */
 
+use TEC\Common\Admin\Conditional_Content\Black_Friday;
+
 $main = Tribe__Main::instance();
 ?>
 
@@ -38,6 +40,8 @@ $main = Tribe__Main::instance();
 			<li class="tribe-events-admin-quick-nav__link-item"><a href="<?php echo esc_url( Tribe__Events__Main::instance()->getLink() ); ?>" class="tribe-events-admin-quick-nav__link"><?php esc_html_e( 'View My Calendar', 'the-events-calendar' ); ?></a></li>
 		</ul>
 	</div>
+
+	<?php tribe( Black_Friday::class )->render_narrow_banner_html(); ?>
 
 	<h3 class="tribe-events-admin-section-header"><?php esc_html_e( 'Helpful Resources', 'the-events-calendar' ); ?></h3>
 
