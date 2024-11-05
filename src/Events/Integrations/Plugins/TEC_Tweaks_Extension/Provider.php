@@ -45,9 +45,13 @@ class Provider extends Integration_Abstract {
 		add_filter(
 			'tec_general_settings_viewing_section',
 			static function ( $fields ) {
+				// Bail, if not on the Tweaks settings tab.
 				if ( $_REQUEST['tab'] !== 'tec-tweaks' ) {
 					return $fields;
 				}
+
+				// Remove settings on the Tweaks tab.
+				// Compatibility for TEC Tweaks 1.1.1 and before.
 				unset( $fields['tec_labs_tec_tweaks_remove_event_end_time'] );
 
 				return $fields;
