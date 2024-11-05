@@ -60,7 +60,7 @@ class Provider extends Integration_Abstract {
 				return $fields;
 			},
 			10,
-			2
+			1
 		);
 	}
 }
