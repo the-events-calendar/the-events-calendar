@@ -439,7 +439,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @param string $organizer The organizer name(s) in the record.
 	 *
-	 * @return array[]|bool|false|string[] An array of organizer names, or false if empty.
+	 * @return array<array<mixed>|string>|bool|false An array of organizer names, or false if empty.
 	 */
 	private function organizer_is_space_separated_ids( $organizer ) {
 		$pattern = '/\s+/';
