@@ -49,7 +49,7 @@ class Provider extends Integration_Abstract {
 			'tec_general_settings_viewing_section',
 			static function ( $fields ) {
 				// Bail, if not on the Tweaks settings tab.
-				if ( $_REQUEST['tab'] !== 'tec-tweaks' ) {
+				if ( tec_get_request_var( 'tab' ) !== 'tec-tweaks' ) {
 					return $fields;
 				}
 
