@@ -378,7 +378,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 4.6.19
 	 *
-	 * @param array[]|bool|false|string[] $organizers An array of organizers or false if empty.
+	 * @param array<array<mixed>|string>|bool|false $organizers An array of organizers or false if empty.
 	 *
 	 * @return array An array of the post IDs of matching organizers.
 	 */
