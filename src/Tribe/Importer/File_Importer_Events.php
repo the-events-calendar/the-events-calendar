@@ -77,7 +77,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param array $matches    Array with the duplicate matches.
+		 * @param array<mixed> $matches    Array with the duplicate matches.
 		 * @param array $query_args Array with the arguments used to get the posts.
 		 */
 		$matches = (array) apply_filters( 'tribe_events_import_event_duplicate_matches', get_posts( $query_args ), $query_args );
