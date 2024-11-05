@@ -39,6 +39,9 @@ class Provider extends Integration_Abstract {
 
 	/**
 	 * This handles removing the end time extension settings from the tweaks extension.
+	 *
+	 * @since 6.5.0 The setting is moved to TEC, so we null the setting value and remove it
+	 *              from the settings page of the extension.
 	 */
 	public function remove_end_time_extension_settings() {
 		add_filter( 'tribe_get_option_tribe_ext_tec_tweaks_remove_event_end_time', '__return_empty_array' );
