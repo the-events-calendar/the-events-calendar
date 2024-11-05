@@ -44,8 +44,8 @@ class Provider extends Integration_Abstract {
 		add_filter( 'tribe_get_option_tribe_ext_tec_tweaks_remove_event_end_time', '__return_empty_array' );
 		add_filter(
 			'tec_general_settings_viewing_section',
-			static function ( $fields, $id ) {
-				if ( $id !== 'tec-tweaks' ) {
+			static function ( $fields ) {
+				if ( $_REQUEST['tab'] !== 'tec-tweaks' ) {
 					return $fields;
 				}
 				unset( $fields['tec_labs_tec_tweaks_remove_event_end_time'] );
