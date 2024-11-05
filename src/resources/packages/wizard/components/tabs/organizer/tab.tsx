@@ -8,11 +8,11 @@ import { _x } from "@wordpress/i18n";
 
 const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
 	const {organizer} = bootData;
-	const disabled = !! organizer;
+	const disabled = !!organizer;
 
 	// Mocking data for now.
 	const organizerObj = organizer ? {
-		name: "The Events Calendar",
+		name: "The Events Calendar Joe",
 		phone: "555-555-5555",
 		website: "https://theeventscalendar.com",
 		email: "organizer@theeventscalendar.com",
@@ -42,17 +42,17 @@ const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) 
 					value={organizerObj && organizerObj.name ? organizerObj.name : ""}
 					disabled={disabled}
 				/>
-				{ }
+				{organizerObj && organizerObj.phone ? "" :
 				<Button
 					__next40pxDefaultSize
 					onClick={showField}
 					variant="tertiary"
 				>
 					{_x("Add a phone number +", "Direction to add a phone number followed by a plus sign", "the-events-calendar")}
-				</Button>
+				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field--hidden"
+					className={organizerObj && organizerObj.phone ? "" : "tec-events-onboarding__form-field--hidden" }
 					id="organizer-phone"
 					label={__("Phone", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
@@ -70,7 +70,7 @@ const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) 
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field--hidden"
+					className={organizerObj && organizerObj.website ? "" : "tec-events-onboarding__form-field--hidden" }
 					id="organizer-website"
 					label={__("Website", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
@@ -88,7 +88,7 @@ const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) 
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field--hidden"
+					className={organizerObj && organizerObj.email ? "" : "tec-events-onboarding__form-field--hidden" }
 					id="organizer-email"
 					label={__("Email", "the-events-calendar")}
 					onChange={function noRefCheck(){}}

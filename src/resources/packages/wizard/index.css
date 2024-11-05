@@ -90,8 +90,8 @@
  * Tab Styles - until we change our build process to include multiple stylesheets.
  * ----------------------------------------------------------------------------- */
 
- /* Tab Container */
- .tec-events-onboarding__tabs {
+/* Tab Container */
+.tec-events-onboarding__tabs {
 	display: grid;
 	gap: var(--tec-spacer-5);
 	grid-template-columns: auto;
@@ -104,9 +104,9 @@
 
 @media (min-width: 1024px) {
 	.tec-events-onboarding__tabs {
+		gap: 100px;
 		grid-template-columns: none;
 		grid-template-rows: 84px auto;
-		gap: 100px;
 	}
 
 	.tec-events-onboarding__tabs.tec-events-onboarding__tab-welcome {
@@ -116,10 +116,10 @@
 
 /* Tab Container Header */
 .tec-events-onboarding__tabs-header {
+	align-items: center;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-between;
-	align-items: center;
 }
 
 /* Tab Container Header Brand Icon */
@@ -207,7 +207,11 @@
 	white-space: nowrap;
 }
 
-.tec-events-onboarding__tab:first-child {
+.tec-events-onboarding__tab.tec-events-onboarding__tab--welcome {
+	display: none;
+}
+
+.tec-events-onboarding__tab:nth-child(2) {
 	border-bottom-left-radius: var(--tec-admin-border-radius-1);
 	border-left-width: 1px;
 	border-top-left-radius: var(--tec-admin-border-radius-1);
@@ -245,7 +249,7 @@
 
 @media (min-width: 1024px) {
 	.tec-events-onboarding__tab:before {
-		left: 0px;
+		left: 0;
 		line-height: var(--tec-admin-line-height-0);
 		padding: 0 4.5px;
 		position: relative;
@@ -277,7 +281,7 @@
 	background-color: #fff;
 	border: 1px solid #fff;
 	color: var(--tec-wp-core-blue-50);
-	left: 0px;
+	left: 0;
 	position: relative;
 	top: 0;
 	transform: none;

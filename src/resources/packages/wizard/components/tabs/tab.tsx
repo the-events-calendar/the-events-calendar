@@ -1,62 +1,58 @@
-import React, { FunctionComponent, LegacyRef } from "react";
+import React, { FunctionComponent, LegacyRef, useMemo } from "react";
 
 interface TabProps {
-	id: string;
-	title: string;
+	tab: {
+		id: string;
+		title: string;
+		disabled: boolean;
+		completed: boolean;
+		panelId: string;
+		ref: LegacyRef<HTMLButtonElement>;
+	};
 	activeTab: number;
 	index: number;
-	tabPanelId: string;
-	handleChange: (event) => void;
-	tabRef: LegacyRef<HTMLButtonElement>;
+	handleChange: (index: number) => void;
 }
 
 const Tab: FunctionComponent<TabProps> = ({
 	index,
 	tab,
 	activeTab,
-	handleChange
+	handleChange,
 }) => {
+	const { id, title, disabled, completed, panelId, ref } = tab;
+	const isActive = activeTab === index;
+
 	const handleClick = () => handleChange(index);
 
-	/**
-	 * Add classes based on activeTab and completed status.
-	 *
-	 * @returns string
-	 */
-	const tabClasses = () => {
-		let classes = "tec-events-onboarding__tab";
-
-		if ( tab.disabled ) {
-			classes += " tec-events-onboarding__tab--disabled";
-		}
-
-		if (activeTab === index) {
-			classes += " tec-events-onboarding__tab--active";
-		}
-
-		if ( tab.completed ) {
-			classes += " tec-events-onboarding__tab--completed";
-		}
-
-		return classes;
-	}
+	const tabClasses = useMemo(() => {
+	return [
+		"tec-events-onboarding__tab",
+		`tec-events-onboarding__tab--${id}`,
+		disabled && "tec-events-onboarding__tab--disabled",
+		isActive && "tec-events-onboarding__tab--active",
+		completed && "tec-events-onboarding__tab--completed",
+	]
+		.filter(Boolean)
+		.join(" ");
+	}, [disabled, isActive, completed]);
 
 	return (
-	<li role="presentation" className={tabClasses()}>
-		<button
-			aria-controls={tab.panelId}
-			aria-selected={activeTab === index}
-			className="tec-events-onboarding__tab-button"
-			disabled={tab.disabled}
-			id={tab.id}
-			onClick={handleClick}
-			ref={tab.ref}
-			role="tab"
-			tabIndex={activeTab === index ? 0 : -1}
-		>
-		{tab.title}
-		</button>
-	</li>
+		<li role="presentation" className={tabClasses}>
+			<button
+				aria-controls={panelId}
+				aria-selected={isActive}
+				className="tec-events-onboarding__tab-button"
+				disabled={disabled}
+				id={id}
+				onClick={handleClick}
+				ref={ref}
+				role="tab"
+				tabIndex={isActive ? 0 : -1}
+			>
+				{title}
+			</button>
+		</li>
 	);
 };
 

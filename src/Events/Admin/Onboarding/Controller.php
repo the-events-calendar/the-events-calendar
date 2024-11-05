@@ -170,27 +170,32 @@ class Controller extends Controller_Contract {
 		// Don't need these.
 		$remove          = [
 			"latest-past",
-			"widget-events-list",
+			"organizer",
+			"reflector",
+			"venue",
 			"widget-countdown",
+			"widget-events-list",
 			"widget-featured-venue",
 			"widget-week",
-			"organizer",
-			"reflector"
 		];
 
-		$availableViews  = array_diff_key( $availableViews, array_flip( $remove ) );
+		$cleanedViews  = array_flip( array_diff_key( array_flip( $availableViews ), array_flip( $remove ) ) );
+		$availableViews = array_values( $cleanedViews );
+		$tz_choices = $this->get_timezone_list();
+
 
 		$first_boot_data = [
 			'availableViews'   => $availableViews,
 			'activeViews'      => $activeViews,
-			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', 'USD' ),
-			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', 'F j, Y' )),
-			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', 'America/NewYork' ) ),
-			'defaultWeekStart'  => get_option( 'start_of_week', 1 ),
+			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', false ),
+			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false )),
+			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', false ) ),
+			'defaultWeekStart'  => get_option( 'start_of_week', false ),
 			'eventTickets'     => Installer::get()->is_installed( 'event-tickets' ),
 			'optin'             => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
-			'organizer'         => tribe( 'events.organizer-repository' )->per_page( - 1 )->first(),
-			'venue'             => tribe( 'events.venue-repository' )->per_page( - 1 )->first(),
+			'organizer'         => tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first(),
+			'venue'             => tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first(),
+			'timezones'         => $tz_choices
 		];
 
 		$default_button = get_submit_button(
@@ -203,6 +208,30 @@ class Controller extends Controller_Contract {
 				'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
 			]
 			);
+
+		$null_data          = $first_boot_data;
+		$nulling = [
+				'activeViews'       => false,
+				'defaultCurrency'   => false,
+				'defaultDateFormat' => false,
+				'defaultTimezone'   => false,
+				'defaultWeekStart'  => false,
+				'eventTickets'      => false,
+				'optin'             => false,
+				'organizer'         => false,
+				'venue'             => false,
+		];
+		$null_data = array_merge( $null_data, $nulling );
+		$null_button        = get_submit_button(
+			'Open Wizard With No Data',
+			'secondary tec-events-onboarding-wizard',
+			'open',
+			true,
+			[
+				'data-container-element' => 'tec-events-onboarding-wizard-target',
+				'data-wizard-boot-data'  => wp_json_encode( $null_data ),
+			]
+		);
 
 		$opted_in_data          = $first_boot_data;
 		$opted_in_data['optin'] = true;
@@ -259,6 +288,7 @@ class Controller extends Controller_Contract {
 		printf(
 			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
 			. $default_button
+			. $null_button
 			. $opted_in_button
 			. $venued_button
 			. $organizered_button
@@ -297,5 +327,98 @@ class Controller extends Controller_Contract {
 			[],
 			$asset['version']
 		);
+	}
+
+	/**
+	 * Get list of timezones. Excludes manual offsets.
+	 *
+	 * Ruthlessly lifted in part from `wp_timezone_choice()`
+	 *
+	 * @todo Move this somewhere for reuse!
+	 *
+	 * @since TBD
+	 */
+	public function get_timezone_list(): array {
+		static $mo_loaded = false, $locale_loaded = null;
+		$locale = get_user_locale();
+
+		$continents = [
+			'Africa',
+			'America',
+			'Antarctica',
+			'Arctic',
+			'Asia',
+			'Atlantic',
+			'Australia',
+			'Europe',
+			'Indian',
+			'Pacific'
+		];
+
+		// Load translations for continents and cities.
+		if ( ! $mo_loaded || $locale !== $locale_loaded ) {
+			$locale_loaded = $locale ? $locale : get_locale();
+			$mofile        = WP_LANG_DIR . '/continents-cities-' . $locale_loaded . '.mo';
+			unload_textdomain( 'continents-cities', true );
+			load_textdomain( 'continents-cities', $mofile, $locale_loaded );
+			$mo_loaded = true;
+		}
+
+		$tz_identifiers = timezone_identifiers_list();
+		$zonen          = [];
+
+		foreach ( $tz_identifiers as $zone ) {
+			$zone = explode( '/', $zone );
+			if ( ! in_array( $zone[0], $continents, true ) ) {
+				continue;
+			}
+
+			// This determines what gets set and translated - we don't translate Etc/* strings here, they are done later.
+			$exists    = [
+				0 => ( isset( $zone[0] ) && $zone[0] ),
+				1 => ( isset( $zone[1] ) && $zone[1] ),
+				2 => ( isset( $zone[2] ) && $zone[2] ),
+			];
+			$exists[3] = ( $exists[0] && 'Etc' !== $zone[0] );
+			$exists[4] = ( $exists[1] && $exists[3] );
+			$exists[5] = ( $exists[2] && $exists[3] );
+
+			// phpcs:disable WordPress.WP.I18n.LowLevelTranslationFunction,WordPress.WP.I18n.NonSingularStringLiteralText
+			$zonen[] = [
+				'continent'   => ( $exists[0] ? $zone[0] : '' ),
+				'city'        => ( $exists[1] ? $zone[1] : '' ),
+				'subcity'     => ( $exists[2] ? $zone[2] : '' ),
+				't_continent' => ( $exists[3] ? translate( str_replace( '_', ' ', $zone[0] ), 'continents-cities' ) : '' ),
+				't_city'      => ( $exists[4] ? translate( str_replace( '_', ' ', $zone[1] ), 'continents-cities' ) : '' ),
+				't_subcity'   => ( $exists[5] ? translate( str_replace( '_', ' ', $zone[2] ), 'continents-cities' ) : '' ),
+			];
+			// phpcs:enable
+		}
+		usort( $zonen, '_wp_timezone_choice_usort_callback' );
+
+		$zones = [];
+		foreach( $continents as $continent ) {
+			$zones[$continent] = [];
+		}
+
+		foreach ( $zonen as $zone ) {
+			// Check if subcity is available (i.e. a state + city)
+			if (!empty($zone['t_subcity'])) {
+				$city = str_replace( ' ', '_', $zone['t_city']);
+				$subcity = str_replace( ' ', '_', $zone['t_subcity']);
+				$key = "{$zone['t_continent']}/{$city}/{$subcity}";
+				$value = "{$zone['t_city']} - {$zone['t_subcity']}";
+			} else {
+				// Format without subcity.
+				$city = str_replace( ' ', '_', $zone['t_city']);
+				$key = "{$zone['t_continent']}/{$city}";
+				$value = "{$zone['t_city']}";
+			}
+
+			// Format it as a new associative array
+			$zones[$zone['t_continent']][$key] = $value;
+		}
+
+		return $zones;
 	}
 }

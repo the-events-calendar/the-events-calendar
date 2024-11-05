@@ -1,6 +1,6 @@
 import React, { useRef, useState, KeyboardEvent } from "react";
 import { __ } from "@wordpress/i18n";
-import TabPanel from "./tabs/TabPanel";
+import MemoizedTabPanel from "./tabs/TabPanel";
 import Tab from "./tabs/Tab";
 import TecIcon from "./img/tec";
 import WelcomeContent from "./tabs/welcome/tab";
@@ -10,288 +10,109 @@ import VenueContent from "./tabs/venue/tab";
 import TicketsContent from "./tabs/tickets/tab";
 import OrganizerContent from "./tabs/organizer/tab";
 
-const OnboardingTabs = ({bootData, closeModal}) => {
-	/**
-	 * An object containing tab information.
-	 *
-	 * @property title - The title of the tab.
-	 * @property disabled - Whether the tab is disabled.
-	 * @property completed - Whether the tab is completed.
-	 * @property ref - A reference to the tab element.
-	 */
-	const InitialTabs = {
-		1: { id: "welcome", panelId: "welcomePanel", title: __("Welcome", "the-events-calendar" ), disabled: false, completed: false, ref: useRef(null) },
-		2: { id: "display", panelId: "displayPanel", title: __("Display", "the-events-calendar" ), disabled: true, completed: false, ref: useRef(null) },
-		3: { id: "settings", panelId: "settingsPanel", title: __("Settings", "the-events-calendar" ), disabled: true, completed: false, ref: useRef(null) },
-		4: { id: "organizer", panelId: "organizerPanel", title: __("Organizer", "the-events-calendar" ), disabled: true, completed: false, ref: useRef(null) },
-		5: { id: "venue", panelId: "venuePanel", title: __("Venue", "the-events-calendar" ), disabled: true, completed: false, ref: useRef(null) },
-		6: { id: "tickets", panelId: "ticketsPanel", title: __("Tickets", "the-events-calendar" ), disabled: true, completed: false, ref: useRef(null) }
-	};
 
-	/**
-		 * State management for active tab.
-		 *
-		 * @property activeTab - The currently active tab.
-		 * @default 1
-		 */
-	const [ activeTab, setActiveTab ] = useState(1);
+const OnboardingTabs = ({ bootData, closeModal }) => {
+	const tabConfig = [
+		{ id: "welcome", title: __("Welcome", "the-events-calendar"), content: WelcomeContent, dataKey: "optin", ref: useRef(null) },
+		{ id: "display", title: __("Display", "the-events-calendar"), content: DisplayContent, dataKey: "activeViews", ref: useRef(null) },
+		{ id: "settings", title: __("Settings", "the-events-calendar"), content: SettingsContent, ref: useRef(null) },
+		{ id: "organizer", title: __("Organizer", "the-events-calendar"), content: OrganizerContent, dataKey: "organizer", ref: useRef(null) },
+		{ id: "venue", title: __("Venue", "the-events-calendar"), content: VenueContent, dataKey: "venue", ref: useRef(null) },
+		{ id: "tickets", title: __("Tickets", "the-events-calendar"), content: TicketsContent, dataKey: "eventTickets", ref: useRef(null) }
+	];
 
-	const [ Tabs, setTabs ] = useState(InitialTabs);
+    const [activeTab, setActiveTab] = useState(0);
+    const [tabsState, setTabsState] = useState(() =>
+        tabConfig.map((tab: Object, index) => ({
+            ...tab,
+            disabled: index > 0 && !bootData[tab.dataKey],
+            completed: !!bootData[tab.dataKey],
+        }))
+    );
 
-	/**
-	 * Handle tab click event.
-	 *
-	 * @param index - The index of the clicked tab.
-	 */
-	const handleClick = (index: number) => {
-		if (Tabs[index].disabled) {
-			return;
-		}
+    const handleClick = (index) => {
+        if (!tabsState[index].disabled) {
+            setActiveTab(index);
+        }
+    };
 
-		setActiveTab(index);
-		setTabs(Tabs);
-	};
+    const handleKeyPress = (event) => {
+        if (event.key === "ArrowRight") changeTab(1);
+        if (event.key === "ArrowLeft") changeTab(-1);
+    };
 
-	/**
-	 * Count the number of tabs.
-	 *
-	 * @returns The number of tabs.
-	 */
-	const countTabs = () => {
-		return Object.keys(Tabs).length;
-	}
+    const changeTab = (direction) => {
+        const newIndex = activeTab + direction;
+        if (newIndex >= 0 && newIndex < tabsState.length && !tabsState[newIndex].disabled) {
+            setActiveTab(newIndex);
+            tabsState[newIndex].ref.current.focus();
+        }
+    };
 
-	/**
-	 * Enable a tab by index.
-	 *
-	 * @param index - The index of the tab to enable.
-	 */
-	const enableTab = (index: number) => {
-		Tabs[index].disabled = false;
+    const updateTabState = (index, changes) => {
+        setTabsState((prevState) =>
+            prevState.map((tab, i) => (i === index ? { ...tab, ...changes } : tab))
+        );
+    };
 
-		setTabs(Tabs);
-	}
+    const moveToNextTab = () => {
+        if (activeTab < tabsState.length - 1) {
+            updateTabState(activeTab, { completed: true });
+            updateTabState(activeTab + 1, { disabled: false });
+            changeTab(1);
+        } else {
+            closeModal();
+        }
+    };
 
-	/**
-	 * Complete a tab by index.
-	 *
-	 * @param index - The index of the tab to complete.
-	 */
-	const completeTab = (index: number) => {
-		Tabs[index].completed = true;
-
-		setTabs(Tabs);
-	}
-
-	/**
-	 * Handle keyboard navigation.
-	 *
-	 * @param event - The keyboard event.
-	 */
-	const handleKeyPress = (event: KeyboardEvent<HTMLUListElement>) => {
-		if (event.key === "ArrowLeft") {
-			handleNextTab();
-		}
-
-		if (event.key === "ArrowRight") {
-			handlePrevTab();
-		}
-	};
-
-	/**
-	 * Move to the next tab.
-	 */
-	const handleNextTab = () => {
-		const tabToSelect = activeTab + 1;
-
-		// Can't move outside the range of Tabs.
-		if ( tabToSelect > countTabs() ) {
-			return;
-		}
-
-		// Can't select a disabled tab.
-		if (Tabs[tabToSelect].disabled) {
-			return;
-		}
-
-		setActiveTab(tabToSelect);
-		Tabs[tabToSelect].ref.current.focus();
-
-		setTabs(Tabs);
-	};
-
-	/**
-	 * Move to the previous tab.
-	 */
-	const handlePrevTab = () => {
-		const tabToSelect = activeTab - 1;
-
-		// Can't move outside the range of Tabs.
-		if ( tabToSelect < 0 ) {
-			return;
-		}
-
-		// Can't select a disabled tab.
-		if (Tabs[tabToSelect].disabled) {
-			return;
-		}
-
-		setActiveTab(tabToSelect);
-		Tabs[tabToSelect].ref.current.focus();
-
-		setTabs(Tabs);
-	};
-
-	const wrapperClass = "tec-events-onboarding__tabs tec-events-onboarding__tab-" + Tabs[activeTab].id;
-
-	/**
-	 * Move to the next tab, upon completing (saving) the current tab.
-	 */
-	const moveToNextTab = () => {
-		if (activeTab < countTabs() ) {
-			completeTab(activeTab);
-			enableTab(activeTab + 1);
-			handleNextTab();
-			setTabs(Tabs);
-		} else {
-			// Need to handle save of last tab.
-			closeModal();
-		}
-	};
-
-	/**
-	 * Skip to the next tab, without completing/saving the current tab.
-	 */
 	const skipToNextTab = () => {
-		if (activeTab < countTabs()) {
-			enableTab(activeTab + 1);
-			handleNextTab();
-			setTabs(Tabs);
-		} else {
-			closeModal();
-		}
+		if (activeTab < tabsState.length - 1) {
+			updateTabState(activeTab + 1, { disabled: false });
+            changeTab(1);
+        } else {
+            closeModal();
+        }
 	}
 
-	return (
-		<section className={wrapperClass}>
-			<div className="tec-events-onboarding__tabs-header">
-				<TecIcon />
-				<ul
-					role="tablist"
-					className="tec-events-onboarding__tabs-list"
-					aria-label="Food Tabs"
-					onKeyDown={handleKeyPress}
-				>
-					<Tab
-						index={2}
-						tab={Tabs[2]}
-						activeTab={activeTab}
-						handleChange={handleClick}
-					/>
-					<Tab
-						index={3}
-						tab={Tabs[3]}
-						activeTab={activeTab}
-						handleChange={handleClick}
-					/>
-					<Tab
-						index={4}
-						tab={Tabs[4]}
-						activeTab={activeTab}
-						handleChange={handleClick}
-					/>
-					<Tab
-						index={5}
-						tab={Tabs[5]}
-						activeTab={activeTab}
-						handleChange={handleClick}
-					/>
-					<Tab
-						index={6}
-						tab={Tabs[6]}
-						activeTab={activeTab}
-						handleChange={handleClick}
-					/>
-				</ul>
-			</div>
-			<TabPanel
-				tabIndex={1}
-				id={Tabs[1].panelId}
-				tabId={Tabs[1].id}
-				activeTab={activeTab}
-			>
-				<WelcomeContent
-					closeModal={closeModal}
-					moveToNextTab={moveToNextTab}
-					bootData={bootData}
-				/>
-			</TabPanel>
-			<TabPanel
-				tabIndex={2}
-				id={Tabs[2].panelId}
-				tabId={Tabs[2].id}
-				activeTab={activeTab}
-			>
-				<DisplayContent
-					closeModal={closeModal}
-					moveToNextTab={moveToNextTab}
-					skipToNextTab={skipToNextTab}
-					bootData={bootData}
-				/>
-			</TabPanel>
-			<TabPanel
-				tabIndex={3}
-				id={Tabs[3].panelId}
-				tabId={Tabs[3].id}
-				activeTab={activeTab}
-			>
-				<SettingsContent
-					closeModal={closeModal}
-					moveToNextTab={moveToNextTab}
-					skipToNextTab={skipToNextTab}
-					bootData={bootData}
-				/>
-			</TabPanel>
-			<TabPanel
-				tabIndex={4}
-				id={Tabs[4].panelId}
-				tabId={Tabs[4].id}
-				activeTab={activeTab}
-			>
-				<OrganizerContent
-					closeModal={closeModal}
-					moveToNextTab={moveToNextTab}
-					skipToNextTab={skipToNextTab}
-					bootData={bootData}
-				/>
-			</TabPanel>
-			<TabPanel
-				tabIndex={5}
-				id={Tabs[5].panelId}
-				tabId={Tabs[5].id}
-				activeTab={activeTab}
-			>
-				<VenueContent
-					closeModal={closeModal}
-					moveToNextTab={moveToNextTab}
-					skipToNextTab={skipToNextTab}
-					bootData={bootData}
-				/>
-			</TabPanel>
-			<TabPanel
-				tabIndex={6}
-				id={Tabs[6].panelId}
-				tabId={Tabs[6].id}
-				activeTab={activeTab}
-			>
-				<TicketsContent
-					closeModal={closeModal}
-					moveToNextTab={moveToNextTab}
-					bootData={bootData}
-				/>
-			</TabPanel>
-		</section>
-	);
+    return (
+        <section className={`tec-events-onboarding__tabs tec-events-onboarding__tab-${tabsState[activeTab].id}`}>
+            <div className="tec-events-onboarding__tabs-header">
+                <TecIcon />
+                <ul
+                    role="tablist"
+                    className="tec-events-onboarding__tabs-list"
+                    aria-label="Food Tabs"
+                    onKeyDown={handleKeyPress}
+                >
+                    {tabsState.map((tab, index) => (
+                        <Tab
+                            key={tab.id}
+                            index={index}
+                            tab={tab}
+                            activeTab={activeTab}
+                            handleChange={handleClick}
+                        />
+                    ))}
+                </ul>
+            </div>
+            {tabsState.map((tab, index) => (
+                <MemoizedTabPanel
+                    key={tab.id}
+                    tabIndex={index}
+                    id={`${tab.id}Panel`}
+                    tabId={tab.id}
+                    activeTab={activeTab}
+                >
+                    <tab.content
+                        closeModal={closeModal}
+                        moveToNextTab={moveToNextTab}
+                        skipToNextTab={skipToNextTab}
+                        bootData={bootData}
+                    />
+                </MemoizedTabPanel>
+            ))}
+        </section>
+    );
 };
 
 export default OnboardingTabs;

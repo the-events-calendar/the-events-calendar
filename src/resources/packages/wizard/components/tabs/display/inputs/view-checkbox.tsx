@@ -11,52 +11,40 @@ import SummaryViewIcon from '../img/summary';
 import WeekViewIcon from '../img/week';
 
 const icons = new Map();
-icons.set('Day', <DayViewIcon />);
-icons.set('Month', <MonthViewIcon />);
-icons.set('List', <ListViewIcon />);
+icons.set('day', <DayViewIcon />);
+icons.set('month', <MonthViewIcon />);
+icons.set('list', <ListViewIcon />);
 // pro
-icons.set('Map', <MapViewIcon />);
-icons.set('Photo', <PhotoViewIcon />);
-icons.set('Week', <WeekViewIcon />);
-icons.set('Summary', <SummaryViewIcon />);
+icons.set('map', <MapViewIcon />);
+icons.set('photo', <PhotoViewIcon />);
+icons.set('week', <WeekViewIcon />);
+icons.set('summary', <SummaryViewIcon />);
 
-const ViewCheckbox = ({view, active, available}) => {
-	const lowerCaseView = view.toLowerCase();
-	const [ isChecked, setChecked ] = useState( false );
-
-	if ( ! available.includes(lowerCaseView) ) {
-		return;
-	}
-
-	if ( active.includes(lowerCaseView) ) {
-		setChecked(true);
-	}
+const ViewCheckbox = ({view, checked}) => {
+	const [ isChecked, setChecked ] = useState( checked );
 
 	return (
 		<div
-			alignment="top"
-			justify="center"
-			spacing={0}
-			id={`tec-events-onboarding__checkbox-${lowerCaseView}`}
+			id={`tec-events-onboarding__checkbox-${view}`}
 			className="tec-events-onboarding__checkbox tec-events-onboarding__checkbox--view"
 		>
 			<CheckboxControl
 				__nextHasNoMarginBottom
-				aria-describedby={`tec-events-onboarding__checkbox-label-${lowerCaseView}`}
+				aria-describedby={`tec-events-onboarding__checkbox-label-${view}`}
 				checked={isChecked}
 				onChange={setChecked}
-				id={`tec-events-onboarding__checkbox-input-${lowerCaseView}`}
+				id={`tec-events-onboarding__checkbox-input-${view}`}
 				className="tec-events-onboarding__checkbox-input"
-				value={lowerCaseView}
+				value={view}
 			/>
 			<div>
 				<label
-					id={`tec-events-onboarding__checkbox-label-${lowerCaseView}`}
-					htmlFor={`tec-events-onboarding__checkbox-input-${lowerCaseView}`}
+					id={`tec-events-onboarding__checkbox-label-${view}`}
+					htmlFor={`tec-events-onboarding__checkbox-input-${view}`}
 					className={isChecked ? "tec-events-onboarding__checkbox-label tec-events-onboarding__checkbox-label--checked" : "tec-events-onboarding__checkbox-label"}
 				>
 					{icons.get(view)}
-					{'all' !== lowerCaseView ? view : __( 'Select all the views', 'the-events-calendar' )}
+					{'all' !== view ? view : __( 'Select all the views', 'the-events-calendar' )}
 				</label>
 			</div>
 		</div>

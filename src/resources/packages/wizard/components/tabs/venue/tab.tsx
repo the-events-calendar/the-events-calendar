@@ -8,7 +8,7 @@ import { _x } from '@wordpress/i18n';
 
 const VenueContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
 	const {venue} = bootData;
-	const disabled = !! venue;
+	const disabled = !!venue;
 
 	// Mocking data for now.
 	const venueObj = venue ? {
@@ -33,24 +33,11 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
 		ele.style.display = "none";
 	}
 
-	const header = venue ?
-		<h1 className="tec-events-onboarding__tab-header">{__("Sweet - you've already got a venue set up!", "the-events-calendar")}</h1>
-		: <h1 className="tec-events-onboarding__tab-header">{__("Add your first event venue.", "the-events-calendar")}</h1>;
-	const subheader = venue ?
-		<p className="tec-events-onboarding__tab-subheader">{
-			sprintf(
-				/* Translators: %s are opening/closing anchor tags to edit the venue */
-				__('You can just skip right along - click here if you want to %sedit the venue%s.', "the-events-calendar"),
-				'<a href="#">',
-				'</a>'
-			)
-		}</p>
-		: <p className="tec-events-onboarding__tab-subheader">{__("Show your attendees where they need to go to get to your events. You can display the location using Google Maps on your event pages.", "the-events-calendar")}</p>;
 	return (
 		<>
 			<VenueIcon />
-			{header}
-			{subheader}
+			<h1 className="tec-events-onboarding__tab-header">{__("Add your first event venue.", "the-events-calendar")}</h1>
+			<p className="tec-events-onboarding__tab-subheader">{__("Show your attendees where they need to go to get to your events. You can display the location using Google Maps on your event pages.", "the-events-calendar")}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<TextControl
 					__nextHasNoMarginBottom
@@ -90,7 +77,7 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
 					onChange={function noRefCheck(){}}
 					disabled={disabled}
 					options={ [
-						// THese don't need translations - they need to come from somewhere else - WP core has a list I believe.
+						// These don't need translations - they need to come from somewhere else - WP core has a list I believe.
 						{ label: 'Australia', value: 'AU' },
 						{ label: 'Brazil', value: 'BR' },
 						{ label: 'Canada', value: 'CA' },
@@ -128,7 +115,7 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field--hidden"
+					className={venueObj && venueObj.website ? "" : "tec-events-onboarding__form-field--hidden" }
 					id="venue-website"
 					label={__("Website", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
@@ -145,7 +132,7 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field--hidden"
+					className={venueObj && venueObj.email ? "" : "tec-events-onboarding__form-field--hidden" }
 					id="venue-email"
 					label={__("Email", "the-events-calendar")}
 					onChange={function noRefCheck(){}}
