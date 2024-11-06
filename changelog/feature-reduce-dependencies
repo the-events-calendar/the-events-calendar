@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Clean up package.json to remove unused libraries and move libraries to devdependencies.
