@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import {CheckboxControl} from '@wordpress/components';
 import {useState} from '@wordpress/element';
 import {__} from '@wordpress/i18n';
 
-const OptInCheckbox = ({initialOptin}) => {
-	// Don't show the checkbox if they've already opted in.
-	if(initialOptin) {
-		return;
-	}
-
+const OptInCheckbox = forwardRef(({ initialOptin }, ref) => {
 	const [ isChecked, setChecked ] = useState( initialOptin );
+
+	useImperativeHandle(ref, () => ({
+		isChecked: () => isChecked,
+	  }));
+
 	return (
 		<div
 			alignment="top"
@@ -36,6 +36,6 @@ const OptInCheckbox = ({initialOptin}) => {
 			</div>
 		</div>
 	);
-};
+});
 
 export default OptInCheckbox;

@@ -1,7 +1,7 @@
 
 /* Dispatch actions for the reducers to handle */
 import TYPES from "./action-types";
-const { INITIALIZE, UPDATE, CREATE, HYDRATE } = TYPES;
+const { INITIALIZE, CREATE, UPDATE, HYDRATE } = TYPES;
 
 export function initializeSettings(settings) {
 	return {

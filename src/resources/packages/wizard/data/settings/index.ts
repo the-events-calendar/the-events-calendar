@@ -1,7 +1,8 @@
 import * as selectors from "./selectors";
 import * as actions from "./actions";
 import reducer from "./reducer";
-import resolvers from "./resolvers";
+//import resolvers from "./resolvers";
+// import resolvers from "./resolvers";
 import { controls as wpControls } from "@wordpress/data-controls";
 import localControls from "./controls";
 
@@ -10,6 +11,6 @@ export const STORE_CONFIG = {
   selectors,
   actions,
   reducer,
-  resolvers,
+  //resolvers,
   controls: { ...wpControls, ...localControls }
 };

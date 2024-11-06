@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { __ } from '@wordpress/i18n';
+import { useSelect, useDispatch } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import ViewCheckbox from './inputs/view-checkbox';
-import { useSelect } from "@wordpress/data";
-import { SETTINGS_STORE_KEY } from "../../../data";
 
 interface DisplayContentProps {
 	closeModal: () => void;
@@ -13,63 +13,42 @@ interface DisplayContentProps {
 }
 
 const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextTab, skipToNextTab }) => {
-	const [isAnyChecked, setIsAnyChecked] = useState(false); // State to track if any checkbox is checked
-	const availableViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('availableViews') || false, []);
-	const activeViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('activeViews') || false, []);
+	const availableViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('availableViews') || [], []);
+	const activeViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('activeViews') || [], []);
+	const { updateSetting } = useDispatch(SETTINGS_STORE_KEY);
 
+	console.log(activeViews);
+
+	// Ensure "all" option is always included
+	if (!availableViews.includes('all')) {
+		availableViews.push('all');
+	}
+
+	// Track which views are checked
+	const [checkedViews, setCheckedViews] = useState<string[]>(activeViews);
+
+	// Sync `checkedViews` state with `activeViews` from store on load and when `activeViews` changes
 	useEffect(() => {
-		// Function to check if any checkbox is checked
-		const updateAnyChecked = () => {
-			const anyChecked = availableViews.some((view) => activeViews.includes(view));
-			setIsAnyChecked(anyChecked);
-		};
+		setCheckedViews(activeViews);
+	}, [activeViews]);
 
-		// Check on initial load based on activeViews
-		updateAnyChecked();
+	// Update the checked state when a checkbox changes
+	const handleCheckboxChange = (view: string, isChecked: boolean) => {
+		setCheckedViews((prevChecked) =>
+			isChecked ? [...prevChecked, view] : prevChecked.filter((v) => v !== view)
+		);
+	};
 
-		const handleCheckboxChange = (event: Event) => {
-			const target = event.target as HTMLInputElement;
+	// Save the checked views to the store on "Continue" button click
+	const handleContinue = () => {
+		const filteredViews = checkedViews.filter(view => view !== 'all');
+		console.log('Saving the following views: ', filteredViews);
+		updateSetting({key:'activeViews', value:filteredViews});
+		moveToNextTab();
+	};
 
-			// Check if the event target matches the input selector
-			if (!target.matches('.tec-events-onboarding__checkbox-input .components-checkbox-control__input')) return;
-
-			const isChecked = target.checked;
-			const isAll = target.value === 'all';
-
-			// Helper function to toggle checkbox states and label classes
-			const toggleCheckboxes = (checked: boolean) => {
-				document.querySelectorAll('.tec-events-onboarding__checkbox-input input').forEach((checkbox) => {
-					(checkbox as HTMLInputElement).checked = checked;
-				});
-				document.querySelectorAll('.tec-events-onboarding__checkbox-label').forEach((label) => {
-					label.classList.toggle('tec-events-onboarding__checkbox-label--checked', checked);
-				});
-			};
-
-			if (isAll && isChecked) {
-				toggleCheckboxes(true);
-			} else if (!isChecked) {
-				// Uncheck the "all" checkbox and remove the checked class from specific label
-				const allCheckbox = document.getElementById('tec-events-onboarding__checkbox-input-all') as HTMLInputElement;
-				allCheckbox && (allCheckbox.checked = false);
-
-				const allLabel = document.getElementById('tec-events-onboarding__checkbox-label-all');
-				allLabel?.classList.remove('tec-events-onboarding__checkbox-label--checked');
-
-				const label = document.getElementById(`tec-events-onboarding__checkbox-label-${target.value}`);
-				label?.classList.remove('tec-events-onboarding__checkbox-label--checked');
-			}
-
-			// Update the isAnyChecked state based on the checkbox states
-			updateAnyChecked();
-		};
-
-		// Attach event listener on mount
-		document.addEventListener('change', handleCheckboxChange);
-
-		// Clean up event listener on unmount
-		return () => document.removeEventListener('change', handleCheckboxChange);
-	}, [availableViews, activeViews]); // Add availableViews and activeViews as dependencies
+	// Check if any checkboxes are selected
+	const isAnyChecked = checkedViews.length > 0;
 
 	return (
 		<>
@@ -81,11 +60,16 @@ const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextT
 			</p>
 			<div className="tec-events-onboarding__grid--view-checkbox">
 				{availableViews.map((view, key) => (
-					<ViewCheckbox view={view} checked={activeViews.includes(view)} key={key} />
+					<ViewCheckbox
+						key={key}
+						view={view}
+						isChecked={checkedViews.includes(view)} // Pass the checked state to each checkbox
+						onChange={handleCheckboxChange} // Pass the parent handler
+					/>
 				))}
 			</div>
 			<p className="tec-events-onboarding__element--center">
-				<NextButton moveToNextTab={moveToNextTab} disabled={!isAnyChecked} /> {/* Pass disabled state */}
+				<NextButton moveToNextTab={handleContinue} disabled={!isAnyChecked} />
 			</p>
 			<p className="tec-events-onboarding__element--center">
 				<SkipButton skipToNextTab={skipToNextTab} />

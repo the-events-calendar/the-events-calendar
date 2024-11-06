@@ -1,6 +1,5 @@
 import React from "react";
 import { CheckboxControl } from '@wordpress/components';
-import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import DayViewIcon from '../img/day';
 import MonthViewIcon from '../img/month';
@@ -20,9 +19,7 @@ icons.set('photo', <PhotoViewIcon />);
 icons.set('week', <WeekViewIcon />);
 icons.set('summary', <SummaryViewIcon />);
 
-const ViewCheckbox = ({view, checked}) => {
-	const [ isChecked, setChecked ] = useState( checked );
-
+const ViewCheckbox = ({ view, isChecked, onChange }) => {
 	return (
 		<div
 			id={`tec-events-onboarding__checkbox-${view}`}
@@ -32,7 +29,7 @@ const ViewCheckbox = ({view, checked}) => {
 				__nextHasNoMarginBottom
 				aria-describedby={`tec-events-onboarding__checkbox-label-${view}`}
 				checked={isChecked}
-				onChange={setChecked}
+				onChange={(isChecked) => onChange(view, isChecked)} // Pass the view and new checked state to parent
 				id={`tec-events-onboarding__checkbox-input-${view}`}
 				className="tec-events-onboarding__checkbox-input"
 				value={view}

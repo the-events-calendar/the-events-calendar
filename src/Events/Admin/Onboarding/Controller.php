@@ -290,6 +290,7 @@ class Controller extends Controller_Contract {
 		$availableViews  = array_keys( $view_manager->get_registered_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 		// Don't need these.
 		$remove          = [
+			"all",
 			"latest-past",
 			"organizer",
 			"reflector",

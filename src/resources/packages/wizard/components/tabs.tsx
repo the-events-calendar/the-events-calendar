@@ -1,5 +1,6 @@
-import React, { useRef, useState, KeyboardEvent } from "react";
+import React, { useRef, KeyboardEvent } from "react";
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 import MemoizedTabPanel from "./tabs/TabPanel";
 import Tab from "./tabs/Tab";
 import TecIcon from "./img/tec";

@@ -2,7 +2,7 @@
 import React from "react";
 import TYPES from "./action-types";
 
-const { INITIALIZE, CREATE, UPDATE, DELETE, HYDRATE } = TYPES;
+const { INITIALIZE, CREATE, UPDATE, HYDRATE } = TYPES;
 
 interface Setting {
   	key: string;
@@ -17,7 +17,7 @@ const initialState: State = { settings: [] };
 
 const reducer = (
 	state = initialState,
-	{ settings: incomingSettings, setting, key, type, activeSetting }: { settings?: Setting[], setting?: Setting, key?: string, type: string, activeSetting?: number }
+	{ settings: incomingSettings, setting, type }: { settings?: Setting[], setting?: Setting, type: string }
 ) => {
 	switch (type) {
 	case INITIALIZE:
@@ -26,9 +26,11 @@ const reducer = (
 		return { settings: [...state.settings, setting] };
 	case UPDATE:
 		return {
-			settings: state.settings
-				.filter(existing => setting && existing.key !== setting.key)
-				.concat(setting ? [setting] : [])
+			...state,
+			settings: {
+				...state.settings,
+				[setting.key]: setting.value,  // Update the specific setting key with its new value
+			}
 		};
 	case HYDRATE:
 		return { settings: incomingSettings };
