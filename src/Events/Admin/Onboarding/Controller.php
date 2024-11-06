@@ -164,16 +164,16 @@ class Controller extends Controller_Contract {
 	 * @since   TBD
 	 */
 	public function tec_onboarding_wizard_html() {
-		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-		$availableViews = $this->get_available_views();
-		$view_manager   = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$activeViews    = array_keys( $view_manager->get_publicly_visible_views() );
-		$tz_choices     = $this->get_timezone_list();
+		// phpcs:disable
+		$available_views = $this->get_available_views();
+		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$active_views     = array_keys( $view_manager->get_publicly_visible_views() );
+		$tz_choices      = $this->get_timezone_list();
 
 
 		$first_boot_data = [
-			'availableViews'    => $availableViews,
-			'activeViews'       => $activeViews,
+			'availableViews'    => $available_views,
+			'activeViews'       => $active_views,
 			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', false ),
 			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
 			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', false ) ),
@@ -273,14 +273,13 @@ class Controller extends Controller_Contract {
 			]
 		);
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		printf(
 			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
 			. $default_button,
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
 
-		//phpcs: enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		//phpcs:enable
 	}
 
 	/**
