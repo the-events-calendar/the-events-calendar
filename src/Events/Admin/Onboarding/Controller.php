@@ -164,9 +164,10 @@ class Controller extends Controller_Contract {
 	 * @since   TBD
 	 */
 	public function tec_onboarding_wizard_html() {
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		$availableViews = $this->get_available_views();
 		$view_manager   = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$availableViews = $this->get_available_views(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-		$activeViews    = array_keys( $view_manager->get_publicly_visible_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		$activeViews    = array_keys( $view_manager->get_publicly_visible_views() );
 		$tz_choices     = $this->get_timezone_list();
 
 
@@ -174,7 +175,7 @@ class Controller extends Controller_Contract {
 			'availableViews'    => $availableViews,
 			'activeViews'       => $activeViews,
 			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', false ),
-			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false )),
+			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
 			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', false ) ),
 			'defaultWeekStart'  => get_option( 'start_of_week', false ),
 			'eventTickets'      => Installer::get()->is_installed( 'event-tickets' ),
@@ -195,18 +196,19 @@ class Controller extends Controller_Contract {
 			]
 		);
 
-		$null_data   = $first_boot_data;
+
 		$nulling     = [
-				'activeViews'       => false,
-				'defaultCurrency'   => false,
-				'defaultDateFormat' => false,
-				'defaultTimezone'   => false,
-				'defaultWeekStart'  => false,
-				'eventTickets'      => false,
-				'optin'             => false,
-				'organizer'         => false,
-				'venue'             => false,
+			'activeViews'       => false,
+			'defaultCurrency'   => false,
+			'defaultDateFormat' => false,
+			'defaultTimezone'   => false,
+			'defaultWeekStart'  => false,
+			'eventTickets'      => false,
+			'optin'             => false,
+			'organizer'         => false,
+			'venue'             => false,
 		];
+		$null_data   = $first_boot_data;
 		$null_data   = array_merge( $null_data, $nulling );
 		$null_button = get_submit_button(
 			'Open Wizard With No Data',
@@ -271,39 +273,40 @@ class Controller extends Controller_Contract {
 			]
 		);
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		printf(
 			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
 			. $default_button,
-			//. $null_button,
-			// . $opted_in_button,
-			//. $venued_button,
-			//. $organizered_button,
-			//. $tickets_button,
-
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
+
+		//phpcs: enable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 	}
 
-	public function get_available_views() {
+	/**
+	 * Get the available views.
+	 *
+	 * @since TBD
+	 */
+	public function get_available_views(): array {
 		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$availableViews  = array_keys( $view_manager->get_registered_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-		// Don't need these.
+		$available_views = array_keys( $view_manager->get_registered_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 		$remove          = [
-			"all",
-			"latest-past",
-			"organizer",
-			"reflector",
-			"venue",
-			"widget-countdown",
-			"widget-events-list",
-			"widget-featured-venue",
-			"widget-week",
+			'all',
+			'latest-past',
+			'organizer',
+			'reflector',
+			'venue',
+			'widget-countdown',
+			'widget-events-list',
+			'widget-featured-venue',
+			'widget-week',
 		];
 
-		$cleanedViews   = array_flip( array_diff_key( array_flip( $availableViews ), array_flip( $remove ) ) );
-		$availableViews = array_values( $cleanedViews );
+		$cleaned_views   = array_flip( array_diff_key( array_flip( $available_views ), array_flip( $remove ) ) );
+		$available_views = array_values( $cleaned_views );
 
-		return $availableViews;
+		return $available_views;
 	}
 
 	/**
@@ -412,14 +415,14 @@ class Controller extends Controller_Contract {
 
 		foreach ( $zonen as $zone ) {
 			// Check if subcity is available (i.e. a state + city)
-			if (!empty($zone['t_subcity'])) {
-				$city = str_replace( ' ', '_', $zone['t_city']);
-				$subcity = str_replace( ' ', '_', $zone['t_subcity']);
+			if ( !empty( $zone['t_subcity'] ) ) {
+				$city = str_replace( ' ', '_', $zone['t_city'] );
+				$subcity = str_replace( ' ', '_', $zone['t_subcity'] );
 				$key = "{$zone['t_continent']}/{$city}/{$subcity}";
 				$value = "{$zone['t_city']} - {$zone['t_subcity']}";
 			} else {
 				// Format without subcity.
-				$city = str_replace( ' ', '_', $zone['t_city']);
+				$city = str_replace( ' ', '_', $zone['t_city'] );
 				$key = "{$zone['t_continent']}/{$city}";
 				$value = "{$zone['t_city']}";
 			}
