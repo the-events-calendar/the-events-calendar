@@ -279,7 +279,7 @@ class Controller extends Controller_Contract {
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
 
-		//phpcs:enable
+		// phpcs:enable
 	}
 
 	/**
@@ -351,9 +351,8 @@ class Controller extends Controller_Contract {
 	 */
 	public function get_timezone_list(): array {
 		static $mo_loaded = false, $locale_loaded = null;
-		$locale = get_user_locale();
-
-		$continents = [
+		$locale           = get_user_locale();
+		$continents       = [
 			'Africa',
 			'America',
 			'Antarctica',
@@ -363,7 +362,7 @@ class Controller extends Controller_Contract {
 			'Australia',
 			'Europe',
 			'Indian',
-			'Pacific'
+			'Pacific',
 		];
 
 		// Load translations for continents and cities.
@@ -408,26 +407,26 @@ class Controller extends Controller_Contract {
 		usort( $zonen, '_wp_timezone_choice_usort_callback' );
 
 		$zones = [];
-		foreach( $continents as $continent ) {
-			$zones[$continent] = [];
+		foreach ( $continents as $continent ) {
+			$zones[ $continent ] = [];
 		}
 
 		foreach ( $zonen as $zone ) {
 			// Check if subcity is available (i.e. a state + city)
-			if ( !empty( $zone['t_subcity'] ) ) {
-				$city = str_replace( ' ', '_', $zone['t_city'] );
+			if ( ! empty( $zone['t_subcity'] ) ) {
+				$city    = str_replace( ' ', '_', $zone['t_city'] );
 				$subcity = str_replace( ' ', '_', $zone['t_subcity'] );
-				$key = "{$zone['t_continent']}/{$city}/{$subcity}";
-				$value = "{$zone['t_city']} - {$zone['t_subcity']}";
+				$key     = "{$zone['t_continent']}/{$city}/{$subcity}";
+				$value   = "{$zone['t_city']} - {$zone['t_subcity']}";
 			} else {
 				// Format without subcity.
-				$city = str_replace( ' ', '_', $zone['t_city'] );
-				$key = "{$zone['t_continent']}/{$city}";
+				$city  = str_replace( ' ', '_', $zone['t_city'] );
+				$key   = "{$zone['t_continent']}/{$city}";
 				$value = "{$zone['t_city']}";
 			}
 
 			// Format it as a new associative array
-			$zones[$zone['t_continent']][$key] = $value;
+			$zones[ $zone['t_continent'] ][ $key ] = $value;
 		}
 
 		return $zones;
