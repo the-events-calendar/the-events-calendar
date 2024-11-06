@@ -3,12 +3,23 @@ import domReady from '@wordpress/dom-ready';
 import { createRoot } from 'react-dom/client';
 import { useState } from '@wordpress/element';
 import { Modal } from '@wordpress/components';
+import { useSelect, useDispatch } from "@wordpress/data";
 import OnboardingTabs from './components/Tabs';
+import { SETTINGS_STORE_KEY } from './data';
 import './index.css';
 
 const OnboardingModal = ({ bootData }) => {
 	const [isOpen, setOpen] = useState(true);
 	const closeModal = () => setOpen(false);
+
+	const settings = useSelect(select => {
+		return select(SETTINGS_STORE_KEY).getProducts();
+	  }, []);
+	  const { initializeSettings, createSetting, updateSetting, deleteSetting } = useDispatch(
+		SETTINGS_STORE_KEY
+	  );
+
+	  initializeSettings(bootData);
 
 	return (
 		<>

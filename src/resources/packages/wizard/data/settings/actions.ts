@@ -3,7 +3,7 @@
 import TYPES from "./action-types";
 const { INITIALIZE, UPDATE, CREATE, DELETE, HYDRATE, SET_ACTIVE_TAB } = TYPES;
 
-export function createSettings(settings) {
+export function initializeSettings(settings) {
 	return {
 		type: INITIALIZE,
 		settings
