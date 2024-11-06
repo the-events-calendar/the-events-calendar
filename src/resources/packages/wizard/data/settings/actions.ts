@@ -17,10 +17,10 @@ export function createSetting(setting) {
 	};
 }
 
-export function updateSetting(setting) {
+export function updateSettings(settings) {
 	return {
 		type: UPDATE,
-		setting
+		settings
 	};
 }
 

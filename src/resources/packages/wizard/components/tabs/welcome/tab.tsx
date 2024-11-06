@@ -10,7 +10,7 @@ import Illustration from './img/wizard-welcome-img.png';
 const WelcomeContent = ({closeModal, moveToNextTab}) => {
 	const optinRef = React.useRef();
 	const optin = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('optin') || false, []);
-	const { updateSetting } = useDispatch(SETTINGS_STORE_KEY);
+	const { updateSettings } = useDispatch(SETTINGS_STORE_KEY);
 
 	// Function to handle the "continue" button click
 	const handleContinue = () => {
@@ -18,7 +18,7 @@ const WelcomeContent = ({closeModal, moveToNextTab}) => {
 		const checked = optinRef.current?.isChecked() || false;
 
 		// Update the optin setting in the store.
-		updateSetting({ key: 'optin', value: checked });
+		updateSettings({ 'optin':checked });
 
 		// Now move to the next tab.
 		moveToNextTab();

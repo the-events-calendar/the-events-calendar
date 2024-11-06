@@ -2,11 +2,11 @@ import React from "react";
 import { SelectControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
+import { useSelect, useDispatch } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import GearIcon from './img/gear';
-import { useSelect } from "@wordpress/data";
-import { SETTINGS_STORE_KEY } from "../../../data";
 
 const dateFormatOptions = [
 	{ label: _x('October 29, 2024', 'example date in "F j, Y" format', 'the-events-calendar'), value: 'F j, Y' },
@@ -45,12 +45,30 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 		},
 		[]
 	);
+	const { updateSettings } = useDispatch(SETTINGS_STORE_KEY);
 	const [ currency, setCurrency ] = useState( defaultCurrency );
 	const [ timeZone, setTimeZone ] = useState( defaultTimezone );
 	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat );
 	const [ weekStart, setWeekStart ] = useState( defaultWeekStart );
 
 	const timeZoneMessage = defaultTimezone && defaultTimezone.includes("UTC") ? __("Please select your time zone as UTC offsets are not supported.", "the-events-calendar") : __("Please select your time zone.", "the-events-calendar");
+
+
+	// Save the checked views to the store on "Continue" button click
+	const handleContinue = () => {
+		const updates: Record<string, any> = {};
+
+		if (timeZone !== defaultTimezone) updates.defaultTimezone = timeZone;
+		if (currency !== defaultCurrency) updates.defaultCurrency = currency;
+		if (dateFormat !== defaultDateFormat) updates.defaultDateFormat = dateFormat;
+		if (weekStart !== defaultWeekStart) updates.defaultWeekStart = weekStart;
+
+		// Only update if there are changes
+		if (Object.keys(updates).length > 0) {
+			updateSettings(updates);
+		}
+		moveToNextTab();
+	};
 
 	return (
 		<>
@@ -99,7 +117,7 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 					options={startDayOptions}
 				/>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} disabled={false}/></p>
+			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={handleContinue} disabled={false}/></p>
 			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab}/></p>
 		</>
 	);

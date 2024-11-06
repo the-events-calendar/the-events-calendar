@@ -15,9 +15,7 @@ interface DisplayContentProps {
 const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextTab, skipToNextTab }) => {
 	const availableViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('availableViews') || [], []);
 	const activeViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('activeViews') || [], []);
-	const { updateSetting } = useDispatch(SETTINGS_STORE_KEY);
-
-	console.log(activeViews);
+	const { updateSettings } = useDispatch(SETTINGS_STORE_KEY);
 
 	// Ensure "all" option is always included
 	if (!availableViews.includes('all')) {
@@ -26,11 +24,6 @@ const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextT
 
 	// Track which views are checked
 	const [checkedViews, setCheckedViews] = useState<string[]>(activeViews);
-
-	// Sync `checkedViews` state with `activeViews` from store on load and when `activeViews` changes
-	useEffect(() => {
-		setCheckedViews(activeViews);
-	}, [activeViews]);
 
 	// Update the checked state when a checkbox changes
 	const handleCheckboxChange = (view: string, isChecked: boolean) => {
@@ -42,8 +35,8 @@ const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextT
 	// Save the checked views to the store on "Continue" button click
 	const handleContinue = () => {
 		const filteredViews = checkedViews.filter(view => view !== 'all');
-		console.log('Saving the following views: ', filteredViews);
-		updateSetting({key:'activeViews', value:filteredViews});
+
+		updateSettings({'activeViews':filteredViews});
 		moveToNextTab();
 	};
 

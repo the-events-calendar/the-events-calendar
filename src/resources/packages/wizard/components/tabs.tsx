@@ -15,6 +15,14 @@ import { SETTINGS_STORE_KEY } from "../data";
 
 
 const OnboardingTabs = ({closeModal }) => {
+	type TabConfig = {
+		id: string;
+		title: string;
+		content: React.ComponentType;
+		dataKey?: string;
+		ref: React.RefObject<HTMLDivElement>;
+	};
+
 	const tabConfig = [
 		{ id: "welcome", title: __("Welcome", "the-events-calendar"), content: WelcomeContent, dataKey: "optin", ref: useRef(null) },
 		{ id: "display", title: __("Display", "the-events-calendar"), content: DisplayContent, dataKey: "activeViews", ref: useRef(null) },
@@ -28,8 +36,9 @@ const OnboardingTabs = ({closeModal }) => {
 	}, []);
 
 	const [activeTab, setActiveTab] = useState(0);
+
 	const [tabsState, setTabsState] = useState(() =>
-		tabConfig.map((tab: Object, index) => ({
+		tabConfig.map((tab: TabConfig, index) => ({
 			...tab,
 			disabled: index > 0 && !settings?.[tab.dataKey],  // Check if the setting exists
 			completed: !!settings?.[tab.dataKey],            // Mark as completed if setting is truthy
@@ -49,6 +58,7 @@ const OnboardingTabs = ({closeModal }) => {
 
 	const changeTab = (direction) => {
 		const newIndex = activeTab + direction;
+		console.log('change tab', newIndex);
 		if (newIndex >= 0 && newIndex < tabsState.length && !tabsState[newIndex].disabled) {
 			setActiveTab(newIndex);
 			tabsState[newIndex].ref.current.focus();
