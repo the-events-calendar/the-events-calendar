@@ -164,38 +164,25 @@ class Controller extends Controller_Contract {
 	 * @since   TBD
 	 */
 	public function tec_onboarding_wizard_html() {
-		$view_manager     = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$availableViews  = array_keys( $view_manager->get_registered_views() );
-		$activeViews     = array_keys( $view_manager->get_publicly_visible_views() );
-		// Don't need these.
-		$remove          = [
-			"latest-past",
-			"organizer",
-			"reflector",
-			"venue",
-			"widget-countdown",
-			"widget-events-list",
-			"widget-featured-venue",
-			"widget-week",
-		];
+		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$availableViews  = $this->get_available_views();
+		$activeViews     = array_keys( $view_manager->get_publicly_visible_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 
-		$cleanedViews  = array_flip( array_diff_key( array_flip( $availableViews ), array_flip( $remove ) ) );
-		$availableViews = array_values( $cleanedViews );
-		$tz_choices = $this->get_timezone_list();
+		$tz_choices     = $this->get_timezone_list();
 
 
 		$first_boot_data = [
-			'availableViews'   => $availableViews,
-			'activeViews'      => $activeViews,
+			'availableViews'    => $availableViews,
+			'activeViews'       => $activeViews,
 			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', false ),
 			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false )),
 			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', false ) ),
 			'defaultWeekStart'  => get_option( 'start_of_week', false ),
-			'eventTickets'     => Installer::get()->is_installed( 'event-tickets' ),
+			'eventTickets'      => Installer::get()->is_installed( 'event-tickets' ),
 			'optin'             => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			'organizer'         => tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first(),
 			'venue'             => tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first(),
-			'timezones'         => $tz_choices
+			'timezones'         => $tz_choices,
 		];
 
 		$default_button = get_submit_button(
@@ -207,10 +194,10 @@ class Controller extends Controller_Contract {
 				'data-container-element' => 'tec-events-onboarding-wizard-target',
 				'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
 			]
-			);
+		);
 
-		$null_data          = $first_boot_data;
-		$nulling = [
+		$null_data   = $first_boot_data;
+		$nulling     = [
 				'activeViews'       => false,
 				'defaultCurrency'   => false,
 				'defaultDateFormat' => false,
@@ -221,8 +208,8 @@ class Controller extends Controller_Contract {
 				'organizer'         => false,
 				'venue'             => false,
 		];
-		$null_data = array_merge( $null_data, $nulling );
-		$null_button        = get_submit_button(
+		$null_data   = array_merge( $null_data, $nulling );
+		$null_button = get_submit_button(
 			'Open Wizard With No Data',
 			'secondary tec-events-onboarding-wizard',
 			'open',
@@ -272,9 +259,9 @@ class Controller extends Controller_Contract {
 			]
 		);
 
-		$tickets_data = $first_boot_data;
+		$tickets_data                 = $first_boot_data;
 		$tickets_data['eventTickets'] = true;
-		$tickets_button = get_submit_button(
+		$tickets_button               = get_submit_button(
 			'Open Wizard With Tickets',
 			'secondary tec-events-onboarding-wizard',
 			'open',
@@ -296,6 +283,27 @@ class Controller extends Controller_Contract {
 
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
+	}
+
+	public function get_available_views() {
+		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$availableViews  = array_keys( $view_manager->get_registered_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		// Don't need these.
+		$remove          = [
+			"latest-past",
+			"organizer",
+			"reflector",
+			"venue",
+			"widget-countdown",
+			"widget-events-list",
+			"widget-featured-venue",
+			"widget-week",
+		];
+
+		$cleanedViews   = array_flip( array_diff_key( array_flip( $availableViews ), array_flip( $remove ) ) );
+		$availableViews = array_values( $cleanedViews );
+
+		return $availableViews;
 	}
 
 	/**
