@@ -10,6 +10,9 @@ vendor
 !vendor/ForceUTF8
 !vendor/php-date-formatter
 
+# Build files - generated on packaging
+src/build
+
 # Tests - local config files
 codeception.yml
 tests/*.suite.yml
