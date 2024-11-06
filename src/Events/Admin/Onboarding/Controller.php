@@ -164,10 +164,9 @@ class Controller extends Controller_Contract {
 	 * @since   TBD
 	 */
 	public function tec_onboarding_wizard_html() {
-		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$availableViews  = $this->get_available_views();
-		$activeViews     = array_keys( $view_manager->get_publicly_visible_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
-
+		$view_manager   = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$availableViews = $this->get_available_views(); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		$activeViews    = array_keys( $view_manager->get_publicly_visible_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
 		$tz_choices     = $this->get_timezone_list();
 
 
