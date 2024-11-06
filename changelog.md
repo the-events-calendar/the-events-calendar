@@ -1,5 +1,31 @@
 # Changelog
 
+### [6.8.1] 2024-11-04
+
+* Fix - Order of past events in the list view when no future events exist. [TEC-5309]
+* Fix - Prevent new Settings pages from over-sanitizing textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+* Fix - Include backwards compatibility for deprecated proprieties in the Settings class used in The Events Calendar and Event Tickets [TEC-5312]
+
+### [6.8.0] 2024-10-30
+
+* Version - The Events Calendar 6.8.0 is only compatible with Events Calendar Pro 7.3.0 and higher.
+* Version - The Events Calendar 6.8.0 is only compatible with Events Tickets Plus 6.1.0 or higher.
+* Version - The Events Calendar 6.8.0 is only compatible with Event Tickets 5.16.0 or higher.
+* Feature - Added integration with new premium Seating product for Event Tickets.
+
+### [6.7.1] 2024-10-21
+
+* Feature - Allow importing custom data when importing Organizers from a CSV file. [TEC-4846]
+* Feature - Allow importing custom data when importing Venues from a CSV file. [TEC-5138]
+* Fix - Ensure Latest Past Events appear properly in Category views [TEC-4991]
+* Fix - Cast theme object to string to avoid a deprecation notice. [TEC-5062]
+* Tweak - Removed the 6.0 welcome message. [TEC-5166]
+* Tweak - Added filters: `tribe_events_csv_import_organizer_additional_fields`, `tribe_events_csv_import_venue_additional_fields`
+* Tweak - Changed views: `v2/latest-past`
+* Tweak - Updated docblocks in the `Tribe__Events__Aggregator__Records`, `Tribe__Events__Importer__File_Importer`, and `Tribe__Events__Repositories__Organizer` classes.
+* Tweak - Improved documentation for the `tribe_is_event`, `tribe_get_event_link`, `tribe_events_get_event_website_title`, `tribe_get_event_website_link`, `tribe_get_listview_display`, `tribe_get_listview_args`, and `tribe_get_listview_prev_link` functions.
+* Language - 3 new strings added, 218 updated, 0 fuzzied, and 32 obsoleted
+
 ### [6.7.0] 2024-09-26
 
 * Version - The Events Calendar 6.7.0 is only compatible with Events Calendar Pro 7.1.0 and higher
@@ -37,7 +63,7 @@
 * Tweak - Add information and missing tags to `tribe_get_listview_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_listview_past_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
-* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TECTRIA-292]
+* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TEC-5142]
 * Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
 * Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
 * Tweak - Changed views: `silence`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`
@@ -53,7 +79,7 @@
 * Tweak - Add information and missing tags to `tribe_get_listview_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_listview_past_link()` docblock.
 * Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
-* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TECTRIA-292]
+* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TEC-5142]
 * Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
 * Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
 * Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
@@ -71,7 +97,7 @@
 ### [6.5.1] 2024-06-11
 
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
-* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
+* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TEC-5146]
 * Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 * Tweak - Changed views: `single-event`
@@ -79,8 +105,8 @@
 
 ### [6.5.0.1] 2024-06-04
 
-* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
-* Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TEC-5147]
+* Security - Ensure the Events REST API respects the individual post access restrictions. [TEC-5148]
 
 ### [6.5.0] 2024-05-14
 
@@ -1069,7 +1095,7 @@
 * Fix - Ensure the Events List widget also shows the Time Zone when displaying it is set in the admin. [TEC-3747]
 * Fix - Saving on Blocks editor without Organizer is working as expected again [TEC-3788]
 * Fix - Fusion Core/Avada Widget implementation of The Events Calendar will no longer throw warnings on the frontend display. [ECP-538]
-* Fix - Usage of `tribe_get_events()` for non-existent posts will no longer throw warnings on the Blocks Editor, impacted Community Events Shortcode usage [BTPLAN-121]
+* Fix - Usage of `tribe_get_events()` for non-existent posts will no longer throw warnings on the Blocks Editor, impacted Community Events Shortcode usage [TEC-3829]
 * Tweak - Added rel=noreferrer to Google Map links. [TEC-3795]
 * Tweak - Include actions before and after the creation of a view for REST API requests. Hooks added were: `tribe_events_views_v2_before_make_view_for_rest` and `tribe_events_views_v2_after_make_view_for_rest`
 * Tweak - Allow specific filtering to add other views into the HTML caching for performance using hook `tribe_events_views_v2_cached_views`.
