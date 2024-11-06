@@ -5,9 +5,11 @@ import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import VenueIcon from './img/venue';
 import { _x } from '@wordpress/i18n';
+import { useSelect } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 
-const VenueContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
-	const {venue} = bootData;
+const VenueContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
+	const venue = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("venue") || false, []);
 	const disabled = !!venue;
 
 	// Mocking data for now.

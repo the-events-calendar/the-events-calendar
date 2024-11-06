@@ -3,20 +3,19 @@ import { __ } from '@wordpress/i18n';
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import ViewCheckbox from './inputs/view-checkbox';
+import { useSelect } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 
 interface DisplayContentProps {
 	closeModal: () => void;
 	moveToNextTab: () => void;
 	skipToNextTab: () => void;
-	bootData: {
-		availableViews: string[];
-		activeViews: string[];
-	};
 }
 
-const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextTab, skipToNextTab, bootData }) => {
-	const { availableViews, activeViews } = bootData;
+const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextTab, skipToNextTab }) => {
 	const [isAnyChecked, setIsAnyChecked] = useState(false); // State to track if any checkbox is checked
+	const availableViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('availableViews') || false, []);
+	const activeViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('activeViews') || false, []);
 
 	useEffect(() => {
 		// Function to check if any checkbox is checked

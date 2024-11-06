@@ -1,7 +1,7 @@
 
 /* Dispatch actions for the reducers to handle */
 import TYPES from "./action-types";
-const { INITIALIZE, UPDATE, CREATE, DELETE, HYDRATE, SET_ACTIVE_TAB } = TYPES;
+const { INITIALIZE, UPDATE, CREATE, HYDRATE } = TYPES;
 
 export function initializeSettings(settings) {
 	return {
@@ -30,10 +30,3 @@ export const hydrate = settings => {
 		settings
 	};
 };
-
-export function setActiveSetting(activeSetting) {
-	return {
-		type: SET_ACTIVE_TAB,
-		activeSetting
-	};
-}

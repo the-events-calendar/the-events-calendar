@@ -2,7 +2,7 @@
 import React from "react";
 import TYPES from "./action-types";
 
-const { INITIALIZE, CREATE, UPDATE, DELETE, HYDRATE, SET_ACTIVE_TAB } = TYPES;
+const { INITIALIZE, CREATE, UPDATE, DELETE, HYDRATE } = TYPES;
 
 interface Setting {
   	key: string;
@@ -30,12 +30,8 @@ const reducer = (
 				.filter(existing => setting && existing.key !== setting.key)
 				.concat(setting ? [setting] : [])
 		};
-	case DELETE:
-		return { settings: state.settings.filter(existing => existing.key !== key) };
 	case HYDRATE:
-		return { settings: incomingSettings && incomingSettings ? incomingSettings : state.settings };
-	case SET_ACTIVE_TAB:
-		return { activeSetting: activeSetting };
+		return { settings: incomingSettings };
 	default:
 		return state;
 	}

@@ -13,6 +13,7 @@ import './index.css';
 const OnboardingModal = ({ bootData }) => {
 	const [isOpen, setOpen] = useState(true);
 	const closeModal = () => setOpen(false);
+
 	// Initialize the settings store.
 	const {
 		initializeSettings,
@@ -34,7 +35,7 @@ const OnboardingModal = ({ bootData }) => {
 					selectOnMove={false}
 					shouldCloseOnClickOutside={false}
 				>
-					<OnboardingTabs bootData={bootData} closeModal={closeModal} />
+					<OnboardingTabs closeModal={closeModal} />
 				</Modal>
 			)}
 		</>

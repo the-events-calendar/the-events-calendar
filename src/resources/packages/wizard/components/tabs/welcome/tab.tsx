@@ -4,9 +4,11 @@ import SetupButton from '../../buttons/setup';
 import ExitButton from '../../buttons/exit';
 import OptInCheckbox from './inputs/opt-in';
 import Illustration from './img/wizard-welcome-img.png';
+import { useSelect } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 
-const WelcomeContent = ({closeModal, moveToNextTab, bootData}) => {
-	const {optin} = bootData;
+const WelcomeContent = ({closeModal, moveToNextTab}) => {
+	const optin = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('optin') || false, []);
 
 	return (
 		<>

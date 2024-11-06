@@ -5,6 +5,8 @@ import { __, _x } from '@wordpress/i18n';
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import GearIcon from './img/gear';
+import { useSelect } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 
 const dateFormatOptions = [
 	{ label: _x('October 29, 2024', 'example date in "F j, Y" format', 'the-events-calendar'), value: 'F j, Y' },
@@ -29,12 +31,26 @@ const currencyOptions = [
 	{ label: 'GBP', value: 'GBP' },
 ];
 
-const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
-	const {defaultCurrency, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones}: {defaultCurrency: string, defaultTimezone: string, defaultDateFormat: string, defaultWeekStart: string, timezones: {[key: string]: {[key: string]: string}}} = bootData;
+const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
+	const { defaultCurrency, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones } = useSelect(
+		(select) => {
+			const store = select(SETTINGS_STORE_KEY);
+			return {
+				defaultCurrency: store.getSetting('defaultCurrency'),
+				defaultTimezone: store.getSetting('defaultTimezone'),
+				defaultDateFormat: store.getSetting('defaultDateFormat'),
+				defaultWeekStart: store.getSetting('defaultWeekStart'),
+				timezones: store.getSetting('timezones'),
+			};
+		},
+		[]
+	);
 	const [ currency, setCurrency ] = useState( defaultCurrency );
 	const [ timeZone, setTimeZone ] = useState( defaultTimezone );
 	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat );
 	const [ weekStart, setWeekStart ] = useState( defaultWeekStart );
+
+	const timeZoneMessage = defaultTimezone && defaultTimezone.includes("UTC") ? __("Please select your time zone as UTC offsets are not supported.", "the-events-calendar") : __("Please select your time zone.", "the-events-calendar");
 
 	return (
 		<>
@@ -49,11 +65,11 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) =
 					onChange={ setCurrency }
 					options={currencyOptions}
 				/>
-				{!defaultTimezone && (
+				{(!defaultTimezone || defaultTimezone.includes("UTC")) && (
 					<SelectControl
 						__nextHasNoMarginBottom
 						label={__("Time Zone", "the-events-calendar")}
-						description={__("Please select your time zone as UTC offsets are not supported.", "the-events-calendar")}
+						description={timeZoneMessage}
 						value={ timeZone }
 						onChange={ setTimeZone }
 					>

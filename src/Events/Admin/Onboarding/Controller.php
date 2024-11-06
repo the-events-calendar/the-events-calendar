@@ -288,13 +288,12 @@ class Controller extends Controller_Contract {
 		printf(
 			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
 			. $default_button,
-			/*
-			. $null_button
-			. $opted_in_button
-			. $venued_button
-			. $organizered_button
-			. $tickets_button,
-			*/
+			//. $null_button,
+			// . $opted_in_button,
+			//. $venued_button,
+			//. $organizered_button,
+			//. $tickets_button,
+
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
 	}

@@ -5,9 +5,11 @@ import NextButton from "../../buttons/next";
 import SkipButton from "../../buttons/skip";
 import OrganizerIcon from "./img/organizer";
 import { _x } from "@wordpress/i18n";
+import { useSelect } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 
-const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab, bootData}) => {
-	const {organizer} = bootData;
+const OrganizerContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
+	const organizer = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("organizer") || false, []);
 	const disabled = !!organizer;
 
 	// Mocking data for now.
