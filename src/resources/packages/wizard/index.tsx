@@ -8,18 +8,17 @@ import OnboardingTabs from './components/Tabs';
 import { SETTINGS_STORE_KEY } from './data';
 import './index.css';
 
+
+
 const OnboardingModal = ({ bootData }) => {
 	const [isOpen, setOpen] = useState(true);
 	const closeModal = () => setOpen(false);
+	// Initialize the settings store.
+	const {
+		initializeSettings,
+	} = useDispatch(SETTINGS_STORE_KEY);
 
-	const settings = useSelect(select => {
-		return select(SETTINGS_STORE_KEY).getProducts();
-	  }, []);
-	  const { initializeSettings, createSetting, updateSetting, deleteSetting } = useDispatch(
-		SETTINGS_STORE_KEY
-	  );
-
-	  initializeSettings(bootData);
+	initializeSettings(bootData);
 
 	return (
 		<>

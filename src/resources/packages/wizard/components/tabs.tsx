@@ -9,9 +9,11 @@ import SettingsContent from "./tabs/settings/tab";
 import VenueContent from "./tabs/venue/tab";
 import TicketsContent from "./tabs/tickets/tab";
 import OrganizerContent from "./tabs/organizer/tab";
+import { useSelect } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "./data";
 
 
-const OnboardingTabs = ({ bootData, closeModal }) => {
+const OnboardingTabs = ({closeModal }) => {
 	const tabConfig = [
 		{ id: "welcome", title: __("Welcome", "the-events-calendar"), content: WelcomeContent, dataKey: "optin", ref: useRef(null) },
 		{ id: "display", title: __("Display", "the-events-calendar"), content: DisplayContent, dataKey: "activeViews", ref: useRef(null) },
