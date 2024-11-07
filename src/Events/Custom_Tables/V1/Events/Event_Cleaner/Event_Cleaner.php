@@ -36,7 +36,7 @@ class Event_Cleaner {
 			    	INNER JOIN {$occurrence_table} ON {$wpdb->posts}.ID = {$occurrence_table}.post_id
 				WHERE {$wpdb->posts}.post_type = %s
 					AND {$occurrence_table}.end_date_utc <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL %d %3s )
-					AND {$wpdb->posts}.post_status != 'trash'
+					AND {$wpdb->posts}.post_status NOT IN ( 'trash', 'tribe-ignored' )
 				GROUP BY {$occurrence_table}.post_id
 				HAVING COUNT(*) = 1
 				ORDER BY {$occurrence_table}.start_date_utc ASC, {$occurrence_table}.end_date_utc ASC
