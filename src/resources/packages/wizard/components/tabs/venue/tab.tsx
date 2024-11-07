@@ -1,33 +1,65 @@
 import React from "react";
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { TextControl, SelectControl, Button } from '@wordpress/components';
+import { useState } from '@wordpress/element';
+import { useSelect, useDispatch } from "@wordpress/data";
+import { SETTINGS_STORE_KEY } from "../../../data";
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
 import VenueIcon from './img/venue';
-import { _x } from '@wordpress/i18n';
-import { useSelect } from "@wordpress/data";
-import { SETTINGS_STORE_KEY } from "../../../data";
 
-const VenueContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
-	const venue = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("venue") || false, []);
-	const disabled = !!venue;
+interface Venue {
+	name: string;
+	address: string;
+	city: string;
+	state: string;
+	zip: string;
+	country: string;
+	phone: string;
+	website: string;
+}
 
-	// Mocking data for now.
-	const venueObj = venue ? {
-		name: "The Events Calendar",
-		address: "1600 Pennsylvania Ave NW",
-		city: "Washington",
-		state: "DC",
-		zip: "20500",
-		country: "US",
-		website: "https://theeventscalendar.com",
-		email: "venue@example.com",
-	} : null;
+const VenueContent = ({moveToNextTab, skipToNextTab}) => {
+	const venue: Venue = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("venue")
+		|| { name: "", address: "", city: "", state: "", zip: "", country: "", phone: "", website: "", }, []);
+
+	// Check if any fields are filled.
+	const disabled = !!venue.name || !!venue.address || !!venue.city || !!venue.state || !!venue.zip || !!venue.country || !!venue.phone || !!venue.website;
+
+	const { updateSettings } = useDispatch(SETTINGS_STORE_KEY);
+	const [name, setName] = useState(venue.name || "");
+	const [address, setAddress] = useState(venue.address || "");
+	const [city, setCity] = useState(venue.city || "");
+	const [state, setState] = useState(venue.state || "");
+	const [zip, setZip] = useState(venue.zip || "");
+	const [country, setCountry] = useState(venue.country || "");
+	const [phone, setPhone] = useState(venue.phone || "");
+	const [website, setWebsite] = useState(venue.website || "");
+
+	// Save the checked views to the store on "Continue" button click.
+	const handleContinue = () => {
+		const updates: Record<string, any> = {};
+
+	// Define the local state for the properties
+	const localState = { name, address, city, state, zip, country, phone, website };
+
+	// Loop through each key in the venue object to compare with localState
+	Object.keys(venue).forEach((key) => {
+		if (localState[key] !== venue[key]) {
+			updates[key] = localState[key];
+		}
+	});
+
+	// Dispatch updates if any changes were detected
+	if (Object.keys(updates).length > 0) {
+		updateSettings({ organizer: { ...venue, ...updates } });
+	}
+
+		moveToNextTab();
+	};
 
 	/**
 	 * Function to show hidden fields.
-	 *
-	 * @param {string} field The ID of the field to show.
 	 */
 	const showField = (event) => {
 		const ele = event.target;
@@ -44,39 +76,47 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("Venue Name", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
-					value={venueObj && venueObj.name ? venueObj.name : ""}
+					onChange={setName}
+					defaultValue={name}
 					disabled={disabled}
 				/>
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("Address", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
-					value={venueObj && venueObj.address ? venueObj.address : ""}
+					onChange={setAddress}
+					defaultValue={address}
+					disabled={disabled}
+					type="text"
+				/>
+				<TextControl
+					__nextHasNoMarginBottom
+					label={__("City", "the-events-calendar")}
+					onChange={setCity}
+					defaultValue={city}
 					disabled={disabled}
 					type="text"
 				/>
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("State or province", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
-					value={venueObj && venueObj.state ? venueObj.state : ""}
-					type="text"
+					onChange={setState}
+					defaultValue={state}
 					disabled={disabled}
+					type="text"
 				/>
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("Zip / Postal code", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
-					value={venueObj && venueObj.zip ? venueObj.zip : ""}
-					type="text"
+					onChange={setZip}
+					defaultValue={zip}
 					disabled={disabled}
+					type="text"
 				/>
 				<SelectControl
 					__nextHasNoMarginBottom
-					value={venueObj && venueObj.country ? venueObj.country : "US"}
 					label={__("Country", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
+					onChange={setCountry}
+					defaultValue={country}
 					disabled={disabled}
 					options={ [
 						// These don't need translations - they need to come from somewhere else - WP core has a list I believe.
@@ -100,15 +140,24 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 						{ label: 'United States', value: 'US' },
 					] }
 				/>
+				{phone ? "" :
+				<Button
+					onClick={showField}
+					variant="tertiary"
+				>
+					{_x("Add an phone +", "Direction to add an phone followed by a plus sign", "the-events-calendar")}
+				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					label={__("City", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
-					type="text"
-					value={venueObj && venueObj.city ? venueObj.city : ""}
+					className={phone ? "" : "tec-events-onboarding__form-field--hidden" }
+					id="venue-phone"
+					label={__("phone", "the-events-calendar")}
+					onChange={setPhone}
+					defaultValue={phone}
 					disabled={disabled}
+					type="phone"
 				/>
-				{venueObj && venueObj.website ? "" :
+				{website ? "" :
 				<Button
 					onClick={showField}
 					variant="tertiary"
@@ -117,30 +166,13 @@ const VenueContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className={venueObj && venueObj.website ? "" : "tec-events-onboarding__form-field--hidden" }
+					className={website ? "" : "tec-events-onboarding__form-field--hidden" }
 					id="venue-website"
 					label={__("Website", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
+					onChange={setWebsite}
+					defaultValue={website}
+					disabled={disabled}
 					type="url"
-					value={venueObj && venueObj.website ? venueObj.website : ""}
-					disabled={disabled}
-				/>
-				{venueObj&& venueObj.email ? "" :
-				<Button
-					onClick={showField}
-					variant="tertiary"
-				>
-					{_x("Add an email +", "Direction to add an email followed by a plus sign", "the-events-calendar")}
-				</Button>}
-				<TextControl
-					__nextHasNoMarginBottom
-					className={venueObj && venueObj.email ? "" : "tec-events-onboarding__form-field--hidden" }
-					id="venue-email"
-					label={__("Email", "the-events-calendar")}
-					onChange={function noRefCheck(){}}
-					type="email"
-					value={venueObj && venueObj.email ? venueObj.email : ""}
-					disabled={disabled}
 				/>
 			</div>
 			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} disabled={false}/></p>

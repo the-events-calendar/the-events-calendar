@@ -1,14 +1,15 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React from 'react';
 import {CheckboxControl} from '@wordpress/components';
 import {useState} from '@wordpress/element';
 import {__} from '@wordpress/i18n';
 
-const OptInCheckbox = forwardRef(({ initialOptin }, ref) => {
+const OptInCheckbox = ({ initialOptin, onChange }) => {
 	const [ isChecked, setChecked ] = useState( initialOptin );
 
-	useImperativeHandle(ref, () => ({
-		isChecked: () => isChecked,
-	  }));
+	const handleChange = (isChecked) => {
+        setChecked(isChecked);
+        onChange(isChecked);
+    };
 
 	return (
 		<div
@@ -21,7 +22,7 @@ const OptInCheckbox = forwardRef(({ initialOptin }, ref) => {
 				__nextHasNoMarginBottom
 				aria-describedby="tec-events-onboarding__checkbox-description"
 				checked={isChecked}
-				onChange={setChecked}
+				onChange={handleChange}
 				id="tec-events-onboarding__optin-checkbox-input"
 			/>
 			<div className="tec-events-onboarding__checkbox-description">
@@ -36,6 +37,6 @@ const OptInCheckbox = forwardRef(({ initialOptin }, ref) => {
 			</div>
 		</div>
 	);
-});
+};
 
 export default OptInCheckbox;

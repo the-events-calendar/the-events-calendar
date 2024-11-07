@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 import { useSelect, useDispatch } from "@wordpress/data";
 import { SETTINGS_STORE_KEY } from "../../../data";
 import NextButton from '../../buttons/next';
@@ -12,7 +13,7 @@ interface DisplayContentProps {
 	skipToNextTab: () => void;
 }
 
-const DisplayContent: React.FC<DisplayContentProps> = ({ closeModal, moveToNextTab, skipToNextTab }) => {
+const DisplayContent: React.FC<DisplayContentProps> = ({ moveToNextTab, skipToNextTab }) => {
 	const availableViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('availableViews') || [], []);
 	const activeViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('activeViews') || [], []);
 	const { updateSettings } = useDispatch(SETTINGS_STORE_KEY);

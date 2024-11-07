@@ -58,7 +58,6 @@ const OnboardingTabs = ({closeModal }) => {
 
 	const changeTab = (direction) => {
 		const newIndex = activeTab + direction;
-		console.log('change tab', newIndex);
 		if (newIndex >= 0 && newIndex < tabsState.length && !tabsState[newIndex].disabled) {
 			setActiveTab(newIndex);
 			tabsState[newIndex].ref.current.focus();
@@ -75,16 +74,25 @@ const OnboardingTabs = ({closeModal }) => {
 		if (activeTab < tabsState.length - 1) {
 			updateTabState(activeTab, { completed: true });
 			updateTabState(activeTab + 1, { disabled: false });
-			changeTab(1);
+			setActiveTab(prevActiveTab => {
+				const newTab = prevActiveTab + 1;
+				tabsState[newTab].ref.current.focus();  // Set focus here
+				return newTab;
+			});
 		} else {
 			closeModal();
 		}
 	};
 
+
 	const skipToNextTab = () => {
 		if (activeTab < tabsState.length - 1) {
 			updateTabState(activeTab + 1, { disabled: false });
-			changeTab(1);
+			setActiveTab(prevActiveTab => {
+				const newTab = prevActiveTab + 1;
+				tabsState[newTab].ref.current.focus();  // Set focus here
+				return newTab;
+			});
 		} else {
 			closeModal();
 		}
@@ -120,9 +128,9 @@ const OnboardingTabs = ({closeModal }) => {
 					activeTab={activeTab}
 				>
 					<tab.content
-						closeModal={closeModal}
 						moveToNextTab={moveToNextTab}
 						skipToNextTab={skipToNextTab}
+						closeModal={closeModal}
 					/>
 				</MemoizedTabPanel>
 			))}

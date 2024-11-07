@@ -3,8 +3,13 @@ import { CheckboxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-const TicketInstallCheckbox = () => {
+const TicketInstallCheckbox = ({onChange}) => {
 	const [ isChecked, setChecked ] = useState( false );
+
+	const handleChange = (isChecked) => {
+        setChecked(isChecked);
+        onChange(isChecked);
+    };
 
 	return (
 		<div
@@ -17,7 +22,7 @@ const TicketInstallCheckbox = () => {
 				__nextHasNoMarginBottom
 				aria-describedby="tec-events-onboarding__checkbox-description"
 				checked={isChecked}
-				onChange={ setChecked }
+				onChange={handleChange}
 				id="tec-events-onboarding__tickets-checkbox-input"
 			/>
 			<div className="tec-events-onboarding__checkbox-description">

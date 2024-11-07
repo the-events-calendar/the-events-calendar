@@ -167,9 +167,38 @@ class Controller extends Controller_Contract {
 		// phpcs:disable
 		$available_views = $this->get_available_views();
 		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$active_views     = array_keys( $view_manager->get_publicly_visible_views() );
+		$active_views    = array_keys( $view_manager->get_publicly_visible_views() );
 		$tz_choices      = $this->get_timezone_list();
 
+		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+		if ( ! empty($organizer_id)) {
+			$organizer = [
+				'id'          => $organizer_id,
+				'name'        => get_the_title( $organizer_id ),
+				'email'       => get_post_meta( $organizer_id, '_OrganizerEmail', true ),
+				'phone'       => get_post_meta( $organizer_id, '_OrganizerPhone', true ),
+				'website'     => get_post_meta( $organizer_id, '_OrganizerWebsite', true ),
+			];
+		} else {
+			$organizer = [];
+		}
+
+		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+		if( ! empty( $venue_id ) ) {
+			$venue = [
+				'id'          => $venue_id,
+				'name'        => get_the_title( $venue_id ),
+				'address'     => get_post_meta( $venue_id, '_VenueAddress', true ),
+				'city'        => get_post_meta( $venue_id, '_VenueCity', true ),
+				'country'     => get_post_meta( $venue_id, '_VenueCountry', true ),
+				'phone'       => get_post_meta( $venue_id, '_VenuePhone', true ),
+				'state'       => get_post_meta( $venue_id, '_VenueState', true ),
+				'website'     => get_post_meta( $venue_id, '_VenueWebsite', true ),
+				'zip'         => get_post_meta( $venue_id, '_VenueZip', true ),
+			];
+		} else {
+			$venue = [];
+		}
 
 		$first_boot_data = [
 			'availableViews'    => $available_views,
@@ -180,8 +209,8 @@ class Controller extends Controller_Contract {
 			'defaultWeekStart'  => get_option( 'start_of_week', false ),
 			'eventTickets'      => Installer::get()->is_installed( 'event-tickets' ),
 			'optin'             => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
-			'organizer'         => tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first(),
-			'venue'             => tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first(),
+			'organizer'         => $organizer,
+			'venue'             => $venue,
 			'timezones'         => $tz_choices,
 		];
 
@@ -221,61 +250,9 @@ class Controller extends Controller_Contract {
 			]
 		);
 
-		$opted_in_data          = $first_boot_data;
-		$opted_in_data['optin'] = true;
-		$opted_in_button        = get_submit_button(
-			'Open Opted-In Wizard',
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $opted_in_data ),
-			]
-		);
-
-		$venued_data          = $first_boot_data;
-		$venued_data['venue'] = true;
-		$venued_button        = get_submit_button(
-			'Open Wizard With Venue',
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $venued_data ),
-			]
-		);
-
-		$organizered_data              = $first_boot_data;
-		$organizered_data['organizer'] = true;
-		$organizered_button            = get_submit_button(
-			'Open Wizard With Organizer',
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $organizered_data ),
-			]
-		);
-
-		$tickets_data                 = $first_boot_data;
-		$tickets_data['eventTickets'] = true;
-		$tickets_button               = get_submit_button(
-			'Open Wizard With Tickets',
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $tickets_data ),
-			]
-		);
-
 		printf(
 			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
-			. $default_button,
+			. $null_button,
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
 
@@ -289,7 +266,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function get_available_views(): array {
 		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$available_views = array_keys( $view_manager->get_registered_views() ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+		$available_views = array_keys( $view_manager->get_registered_views() );
 		$remove          = [
 			'all',
 			'latest-past',
@@ -302,10 +279,8 @@ class Controller extends Controller_Contract {
 			'widget-week',
 		];
 
-		$cleaned_views   = array_flip( array_diff_key( array_flip( $available_views ), array_flip( $remove ) ) );
-		$available_views = array_values( $cleaned_views );
-
-		return $available_views;
+		$cleaned_views = array_flip( array_diff_key( array_flip( $available_views ), array_flip( $remove ) ) );
+		return array_values( $cleaned_views );
 	}
 
 	/**
@@ -350,6 +325,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function get_timezone_list(): array {
+		// phpcs:disable
 		static $mo_loaded = false, $locale_loaded = null;
 		$locale           = get_user_locale();
 		$continents       = [
@@ -393,7 +369,6 @@ class Controller extends Controller_Contract {
 			$exists[4] = ( $exists[1] && $exists[3] );
 			$exists[5] = ( $exists[2] && $exists[3] );
 
-			// phpcs:disable WordPress.WP.I18n.LowLevelTranslationFunction,WordPress.WP.I18n.NonSingularStringLiteralText
 			$zonen[] = [
 				'continent'   => ( $exists[0] ? $zone[0] : '' ),
 				'city'        => ( $exists[1] ? $zone[1] : '' ),
@@ -412,7 +387,7 @@ class Controller extends Controller_Contract {
 		}
 
 		foreach ( $zonen as $zone ) {
-			// Check if subcity is available (i.e. a state + city)
+			// Check if subcity is available (i.e. a state + city).
 			if ( ! empty( $zone['t_subcity'] ) ) {
 				$city    = str_replace( ' ', '_', $zone['t_city'] );
 				$subcity = str_replace( ' ', '_', $zone['t_subcity'] );
@@ -425,7 +400,7 @@ class Controller extends Controller_Contract {
 				$value = "{$zone['t_city']}";
 			}
 
-			// Format it as a new associative array
+			// Format it as a new associative array.
 			$zones[ $zone['t_continent'] ][ $key ] = $value;
 		}
 

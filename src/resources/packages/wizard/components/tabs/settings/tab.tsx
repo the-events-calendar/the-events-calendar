@@ -31,7 +31,7 @@ const currencyOptions = [
 	{ label: 'GBP', value: 'GBP' },
 ];
 
-const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
+const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	const { defaultCurrency, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones } = useSelect(
 		(select) => {
 			const store = select(SETTINGS_STORE_KEY);
@@ -53,15 +53,14 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 
 	const timeZoneMessage = defaultTimezone && defaultTimezone.includes("UTC") ? __("Please select your time zone as UTC offsets are not supported.", "the-events-calendar") : __("Please select your time zone.", "the-events-calendar");
 
-
 	// Save the checked views to the store on "Continue" button click
 	const handleContinue = () => {
-		const updates: Record<string, any> = {};
-
-		if (timeZone !== defaultTimezone) updates.defaultTimezone = timeZone;
-		if (currency !== defaultCurrency) updates.defaultCurrency = currency;
-		if (dateFormat !== defaultDateFormat) updates.defaultDateFormat = dateFormat;
-		if (weekStart !== defaultWeekStart) updates.defaultWeekStart = weekStart;
+		const updates: Record<string, any> = {
+			defaultCurrency: currency,
+			defaultTimezone: timeZone,
+			defaultDateFormat: dateFormat,
+			defaultWeekStart: weekStart,
+		};
 
 		// Only update if there are changes
 		if (Object.keys(updates).length > 0) {
@@ -79,7 +78,7 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 				<SelectControl
 					__nextHasNoMarginBottom
 					label={__("Currency", "the-events-calendar")}
-					value={ currency }
+					defaultValue={ currency }
 					onChange={ setCurrency }
 					options={currencyOptions}
 				/>
@@ -88,7 +87,7 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 						__nextHasNoMarginBottom
 						label={__("Time Zone", "the-events-calendar")}
 						description={timeZoneMessage}
-						value={ timeZone }
+						defaultValue={ timeZone }
 						onChange={ setTimeZone }
 					>
 						{Object.entries(timezones).map(([key, cities]) => (
@@ -104,7 +103,7 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 				<SelectControl
 					__nextHasNoMarginBottom
 					label={__("Date Format", "the-events-calendar")}
-					value={ dateFormat }
+					defaultValue={ dateFormat }
 					onChange={ setDateFormat }
 					options={dateFormatOptions}
 				/>
@@ -112,7 +111,7 @@ const SettingsContent = ({closeModal, moveToNextTab, skipToNextTab}) => {
 				<SelectControl
 					__nextHasNoMarginBottom
 					label={__("Your Week starts on", "the-events-calendar")}
-					value={ weekStart }
+					defaultValue={ weekStart }
 					onChange={ setWeekStart }
 					options={startDayOptions}
 				/>
