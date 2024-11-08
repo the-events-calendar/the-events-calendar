@@ -1,23 +1,23 @@
 <?php
 /**
- * Class that handles interfacing with TEC\Common\Ian.
+ * Class that handles interfacing with TEC\Common\Notifications.
  *
  * @since   TBD
  *
- * @package TEC\Events\Ian
+ * @package TEC\Events\Notifications
  */
 
-namespace TEC\Events\Ian;
+namespace TEC\Events\Notifications;
 
 use Tribe__Events__Main as TEC;
 
 /**
- * Class Ian
+ * Class Notifications
  *
  * @since   TBD
- * @package TEC\Events\Ian
+ * @package TEC\Events\Notifications
  */
-class Ian_Client {
+class Notifications {
 
 	/**
 	 * Determines if we are on a TEC admin page except the post edit page.
@@ -44,11 +44,11 @@ class Ian_Client {
 	}
 
 	/**
-	 * Outputs the hook that renders the IAN icon on all TEC admin pages.
+	 * Outputs the hook that renders the Notifications icon on all TEC admin pages.
 	 *
 	 * @since TBD
 	 */
-	public function inject_ian_icon() {
+	public function render_icon() {
 		if ( ! static::is_tec_admin_page() ) {
 			return;
 		}
