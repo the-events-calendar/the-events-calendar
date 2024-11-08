@@ -96,7 +96,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * @since 3.2.0
 	 *
 	 * @param integer             $post_id The event ID to update.
-	 * @param array<string|mixed> $record  An event record from the import.
+	 * @param array $record  An event record from the import.
 	 *
 	 * @return false False if the update authority is set to retain or void if the update completes.
 	 */
@@ -150,7 +150,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array<string|mixed> $record An event record from the import.
+	 * @param array $record An event record from the import.
 	 *
 	 * @return integer The new event's post id.
 	 */
@@ -184,7 +184,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array<string|mixed> $record    An event record from the import.
+	 * @param array $record    An event record from the import.
 	 * @param boolean             $date_only An optional setting to include the date only and no time.
 	 *
 	 * @return string $start_date The start date time string.
@@ -209,7 +209,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array<string|mixed> $record An event record from the import.
+	 * @param array $record An event record from the import.
 	 *
 	 * @return string $end_date The end date time string.
 	 */
@@ -239,7 +239,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * @since 3.2.0
 	 *
 	 * @param integer             $event_id The event ID to update.
-	 * @param array<string|mixed> $record   An event record from the import.
+	 * @param array $record   An event record from the import.
 	 *
 	 * @return array<string|mixed> An array of information to save or update an event.
 	 */
@@ -345,7 +345,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 * @since 5.12.4
 		 *
 		 * @param array<string|mixed> $event  An array event meta fields.
-		 * @param array<string|mixed> $record An event record from the import.
+		 * @param array $record An event record from the import.
 		 * @param object              $this   The class instance.
 		 *
 		 * @return array<string|mixed> An array of the autodetect results.
@@ -482,7 +482,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array<string|mixed> $record The event record from the import.
+	 * @param array $record The event record from the import.
 	 *
 	 * @return array An array of post IDs that match the organizer being imported.
 	 */
@@ -515,7 +515,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array<string|mixed> $record The event record from the import.
+	 * @param array $record The event record from the import.
 	 *
 	 * @return false|float|int|string|WP_Post 0 if $name is empty or there's no match.
 	 *                                        $name if it's numeric and there is a match.
