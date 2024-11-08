@@ -10,6 +10,12 @@ namespace TEC\Events\Admin\Onboarding;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Telemetry\Telemetry;
 use TEC\Common\StellarWP\Installer\Installer;
+use TEC\Events\Admin\Onboarding\Wizard;
+use TEC\Events\Admin\Onboarding\Optin;
+use TEC\Events\Admin\Onboarding\Settings;
+use TEC\Events\Admin\Onboarding\Organizer;
+use TEC\Events\Admin\Onboarding\Venue;
+use TEC\Events\Admin\Onboarding\Tickets;
 
 /**
  * Class Controller
@@ -113,7 +119,14 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since   TBD
 	 */
-	public function add_filters() {}
+	public function add_filters() {
+		// Add the step handlers.
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+	}
 
 	/**
 	 * Add the action hooks.
@@ -123,6 +136,7 @@ class Controller extends Controller_Contract {
 	public function add_actions() {
 		add_action( 'admin_menu', [ $this, 'settings_page' ] );
 		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
+		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 	}
 
 	/**
@@ -130,7 +144,14 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since   TBD
 	 */
-	public function remove_filters() {}
+	public function remove_filters() {
+		// Remove the step handlers.
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+	}
 
 	/**
 	 * Remove the action hooks.
@@ -140,6 +161,7 @@ class Controller extends Controller_Contract {
 	public function remove_actions() {
 		remove_action( 'admin_menu', [ $this, 'settings_page' ] );
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
+		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 	}
 
 	/**
@@ -154,133 +176,8 @@ class Controller extends Controller_Contract {
 			__( 'Onboarding Wizard', 'the-events-calendar' ),
 			'manage_options',
 			$this->get_page_slug(),
-			[ $this, 'tec_onboarding_wizard_html' ]
+			[ $this, 'tec_onboarding_wizard_button' ]
 		);
-	}
-
-	/**
-	 * Render the onboarding wizard HTML.
-	 *
-	 * @since   TBD
-	 */
-	public function tec_onboarding_wizard_html() {
-		// phpcs:disable
-		$available_views = $this->get_available_views();
-		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$active_views    = array_keys( $view_manager->get_publicly_visible_views() );
-		$tz_choices      = $this->get_timezone_list();
-
-		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
-		if ( ! empty($organizer_id)) {
-			$organizer = [
-				'id'          => $organizer_id,
-				'name'        => get_the_title( $organizer_id ),
-				'email'       => get_post_meta( $organizer_id, '_OrganizerEmail', true ),
-				'phone'       => get_post_meta( $organizer_id, '_OrganizerPhone', true ),
-				'website'     => get_post_meta( $organizer_id, '_OrganizerWebsite', true ),
-			];
-		} else {
-			$organizer = [];
-		}
-
-		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
-		if( ! empty( $venue_id ) ) {
-			$venue = [
-				'id'          => $venue_id,
-				'name'        => get_the_title( $venue_id ),
-				'address'     => get_post_meta( $venue_id, '_VenueAddress', true ),
-				'city'        => get_post_meta( $venue_id, '_VenueCity', true ),
-				'country'     => get_post_meta( $venue_id, '_VenueCountry', true ),
-				'phone'       => get_post_meta( $venue_id, '_VenuePhone', true ),
-				'state'       => get_post_meta( $venue_id, '_VenueState', true ),
-				'website'     => get_post_meta( $venue_id, '_VenueWebsite', true ),
-				'zip'         => get_post_meta( $venue_id, '_VenueZip', true ),
-			];
-		} else {
-			$venue = [];
-		}
-
-		$first_boot_data = [
-			'availableViews'    => $available_views,
-			'activeViews'       => $active_views,
-			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', false ),
-			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
-			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', false ) ),
-			'defaultWeekStart'  => get_option( 'start_of_week', false ),
-			'eventTickets'      => Installer::get()->is_installed( 'event-tickets' ),
-			'optin'             => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
-			'organizer'         => $organizer,
-			'venue'             => $venue,
-			'timezones'         => $tz_choices,
-		];
-
-		$default_button = get_submit_button(
-			'Open Install Wizard (current)',
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
-			]
-		);
-
-
-		$nulling     = [
-			'activeViews'       => false,
-			'defaultCurrency'   => false,
-			'defaultDateFormat' => false,
-			'defaultTimezone'   => false,
-			'defaultWeekStart'  => false,
-			'eventTickets'      => false,
-			'optin'             => false,
-			'organizer'         => false,
-			'venue'             => false,
-		];
-		$null_data   = $first_boot_data;
-		$null_data   = array_merge( $null_data, $nulling );
-		$null_button = get_submit_button(
-			'Open Wizard With No Data',
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $null_data ),
-			]
-		);
-
-		printf(
-			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
-			. $null_button,
-			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
-		);
-
-		// phpcs:enable
-	}
-
-	/**
-	 * Get the available views.
-	 *
-	 * @since TBD
-	 */
-	public function get_available_views(): array {
-		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$available_views = array_keys( $view_manager->get_registered_views() );
-		$remove          = [
-			'all',
-			'latest-past',
-			'organizer',
-			'reflector',
-			'venue',
-			'widget-countdown',
-			'widget-events-list',
-			'widget-featured-venue',
-			'widget-week',
-		];
-
-		$cleaned_views = array_flip( array_diff_key( array_flip( $available_views ), array_flip( $remove ) ) );
-		return array_values( $cleaned_views );
 	}
 
 	/**
@@ -313,6 +210,168 @@ class Controller extends Controller_Contract {
 			[],
 			$asset['version']
 		);
+	}
+
+	/**
+	 * Registers the REST endpoints that will be used to return the Views HTML.
+	 *
+	 * @since 4.9.2
+	 */
+	public function register_rest_endpoints() {
+		$this->container->make( Wizard::class )->register();
+	}
+
+	/**
+	 * Render the onboarding wizard button.
+	 *
+	 * @since   TBD
+	 */
+	public function tec_onboarding_wizard_button() {
+		// phpcs:disable
+		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$active_views    = array_keys( $view_manager->get_publicly_visible_views() );
+		$first_boot_data = [
+			'activeViews'       => $active_views,
+			'availableViews'    => $this->get_available_views(),
+			'defaultCurrency'   => tribe_get_option( 'defaultCurrencySymbol', false ),
+			'defaultDateFormat' => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
+			'defaultTimezone'   => tribe_get_option( 'timezone_string', get_option( 'timezone_string', false ) ),
+			'defaultWeekStart'  => get_option( 'start_of_week', false ),
+			'eventTickets'      => Installer::get()->is_installed( 'event-tickets' ),
+			'optin'             => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			'organizer'         => $this->get_organizer_data(),
+			'timezones'         => $this->get_timezone_list(),
+			'venue'             => $this->get_venue_data(),
+		];
+
+		printf(
+			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
+			. get_submit_button(
+				'Open Install Wizard (current)',
+				'secondary tec-events-onboarding-wizard',
+				'open',
+				true,
+				[
+					'data-container-element' => 'tec-events-onboarding-wizard-target',
+					'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
+				]
+			),
+			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
+		);
+
+		// phpcs:enable
+	}
+
+	/**
+	 * Render the a "nulled" (all info empty, ignoring site settings) onboarding wizard button.
+	 *
+	 * @since   TBD
+	 */
+	public function get_null_button() {
+		$null_data = [
+			'activeViews'       => false,
+			'availableViews'    => $this->get_available_views(),
+			'defaultCurrency'   => false,
+			'defaultDateFormat' => false,
+			'defaultTimezone'   => false,
+			'defaultWeekStart'  => false,
+			'eventTickets'      => false,
+			'optin'             => false,
+			'organizer'         => false,
+			'timezones'         => $this->get_timezone_list(),
+			'venue'             => false,
+		];
+
+		printf(
+			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>'
+			. get_submit_button(
+				'Open Install Wizard (current)',
+				'secondary tec-events-onboarding-wizard',
+				'open',
+				true,
+				[
+					'data-container-element' => 'tec-events-onboarding-wizard-target',
+					'data-wizard-boot-data'  => wp_json_encode( $null_data ),
+				]
+			),
+			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
+		);
+	}
+
+	/**
+	 * Get the organizer data.
+	 * Looks for a single existing organizer and returns the data.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function get_organizer_data() {
+		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+
+		if ( empty( $organizer_id ) ) {
+			return [];
+		}
+
+		return [
+			'id'      => $organizer_id,
+			'name'    => get_the_title( $organizer_id ),
+			'email'   => get_post_meta( $organizer_id, '_OrganizerEmail', true ),
+			'phone'   => get_post_meta( $organizer_id, '_OrganizerPhone', true ),
+			'website' => get_post_meta( $organizer_id, '_OrganizerWebsite', true ),
+		];
+	}
+
+	/**
+	 * Get the venue data.
+	 * Looks for a single existing venue and returns the data.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function get_venue_data(): array {
+		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+
+		if ( empty( $venue_id) ) {
+			return [];
+		}
+
+		return [
+			'id'      => $venue_id,
+			'name'    => get_the_title( $venue_id ),
+			'address' => get_post_meta( $venue_id, '_VenueAddress', true ),
+			'city'    => get_post_meta( $venue_id, '_VenueCity', true ),
+			'country' => get_post_meta( $venue_id, '_VenueCountry', true ),
+			'phone'   => get_post_meta( $venue_id, '_VenuePhone', true ),
+			'state'   => get_post_meta( $venue_id, '_VenueState', true ),
+			'website' => get_post_meta( $venue_id, '_VenueWebsite', true ),
+			'zip'     => get_post_meta( $venue_id, '_VenueZip', true ),
+		];
+	}
+
+	/**
+	 * Get the available views.
+	 *
+	 * @since TBD
+	 */
+	public function get_available_views(): array {
+		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$available_views = array_keys( $view_manager->get_registered_views() );
+		$remove          = [
+			'all',
+			'latest-past',
+			'organizer',
+			'reflector',
+			'venue',
+			'widget-countdown',
+			'widget-events-list',
+			'widget-featured-venue',
+			'widget-week',
+		];
+
+		$cleaned_views = array_flip( array_diff_key( array_flip( $available_views ), array_flip( $remove ) ) );
+		return array_values( $cleaned_views );
 	}
 
 	/**
