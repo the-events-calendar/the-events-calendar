@@ -39,8 +39,8 @@ class Tickets implements Step_Interface {
 		$data      = $response->get_data();
 
 		$new_message = $processed ?
-			__( 'Optin processed successfully.', 'the-events-calendar' )
-			: __( 'Failed to process optin.', 'the-events-calendar' );
+			__( 'Event Tickets installed successfully.', 'the-events-calendar' )
+			: __( 'Failed to install Event Tickets.', 'the-events-calendar' );
 
 		$response->set_data(
 			[

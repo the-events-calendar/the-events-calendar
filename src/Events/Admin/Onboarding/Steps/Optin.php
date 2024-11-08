@@ -37,7 +37,7 @@ class Optin implements Step_Interface {
 		}
 
 		$params    = $request->get_params();
-		$processed = $this->process( $params['optin'] ?? false );
+		$processed = $this->process( tribe_is_truthy( $params['optin'] ) );
 		$data      = $response->get_data();
 
 		$new_message = $processed ?

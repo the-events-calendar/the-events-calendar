@@ -63,11 +63,11 @@ class Settings implements Step_Interface {
 	 */
 	public function process( $params ): bool {
 		$settings = [
-			'defaultCurrency'   => $params['defaultCurrency'] ?? false,
-			'defaultDateFormat' => $params['defaultDateFormat'] ?? false,
-			'defaultTimezone'   => $params['defaultTimezone'] ?? false,
-			'defaultWeekStart'  => $params['defaultWeekStart'] ?? false,
-			'activeViews'       => $params['activeViews'] ?? false,
+			'defaultCurrencyCode' => $params['defaultCurrency'] ?? false,
+			'dateWithYearFormat'  => $params['defaultDateFormat'] ?? false,
+			'timezone_string'     => $params['defaultTimezone'] ?? false,
+			'start_of_week'       => $params['defaultWeekStart'] ?? false,
+			'tribeEnableViews'    => $params['activeViews'] ?? false,
 		];
 
 		foreach ( $settings as $key => $value ) {
@@ -76,8 +76,15 @@ class Settings implements Step_Interface {
 				continue;
 			}
 
-			$updated = tribe_update_option( $key, $value );
+			$updated = false;
 
+			if ( 'start_of_week' !== $key ) {
+				$updated = tribe_update_option( $key, $value );
+			} else {
+				$updated = update_option( $key, $value );
+			}
+
+			// If we failed, bail out now and return false.
 			if ( ! $updated ) {
 				return false;
 			}
