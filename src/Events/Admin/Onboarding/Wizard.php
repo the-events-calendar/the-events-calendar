@@ -66,16 +66,16 @@ class Wizard {
 			'/wizard',
 			[
 				'methods'  => Server::CREATABLE,
-				'callback' => [ $this, 'handle' ],
+				'callback' => [ $this, 'handle'],
 				'args'     => [
 					'nonce' => [
 						'type'        => 'string',
 						'description' => __( 'The nonce for the request.', 'the-events-calendar' ),
 						'required'    => true,
-						'validate_callback' => [ $this, 'check_nonce' ],
+						'validate_callback' => [ $this, 'check_nonce'],
 					],
 				],
-				'permissions_callback' => [ $this, 'check_permissions' ],
+				'permissions_callback' => [ $this, 'check_permissions'],
 			]
 		);
 	}
@@ -96,7 +96,7 @@ class Wizard {
 			return new WP_Error(
 				'tec_invalid_nonce',
 				__( 'Invalid nonce.', 'the-events-calendar' ),
-				[ 'status' => 403 ]
+				['status' => 403 ]
 			);
 		}
 

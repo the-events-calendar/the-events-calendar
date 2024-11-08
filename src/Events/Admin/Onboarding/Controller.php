@@ -2,7 +2,7 @@
 /**
  * Controller for interfacing with TEC\Common\Onboarding.
  *
- * @since   TBD
+ * @since TBD
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -20,7 +20,7 @@ use TEC\Events\Admin\Onboarding\Tickets;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Events\Admin\Onboarding
  */
 class Controller extends Controller_Contract {
@@ -29,6 +29,7 @@ class Controller extends Controller_Contract {
 	 * The slug for the admin menu.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	public static string $slug = 'onboarding-wizard';
@@ -52,7 +53,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function do_register(): void {
 		$this->add_filters();
@@ -65,7 +66,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function unregister(): void {
 		$this->remove_filters();
@@ -75,8 +76,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Should only be active if we are in the admin.
 	 *
-	 * @since   TBD
-	 * @return bool Only active during FS theme.
+	 * @since TBD
 	 */
 	public function is_active(): bool {
 		return is_admin();
@@ -86,8 +86,6 @@ class Controller extends Controller_Contract {
 	 * Defines wether the current page is the correct page.
 	 *
 	 * @since TBD
-	 *
-	 * @return boolean
 	 */
 	public function is_on_page(): bool {
 		$admin_pages = tribe( 'admin.pages' );
@@ -101,8 +99,6 @@ class Controller extends Controller_Contract {
 	 * Get the page slug.
 	 *
 	 * @since TBD
-	 *
-	 * @return string
 	 */
 	public function get_page_slug(): string {
 		if ( ! empty( static::$page_slug ) ) {
@@ -117,57 +113,57 @@ class Controller extends Controller_Contract {
 	/**
 	 * Add the filter hooks.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function add_filters() {
 		// Add the step handlers.
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle'], 10, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle'], 11, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle'], 12, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle'], 13, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle'], 14, 3 );
 	}
 
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function add_actions() {
-		add_action( 'admin_menu', [ $this, 'settings_page' ] );
-		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
-		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		add_action( 'admin_menu', [ $this, 'settings_page'] );
+		add_action( 'admin_init', [ $this, 'enqueue_assets'] );
+		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints'] );
 	}
 
 	/**
 	 * Remove the filter hooks.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function remove_filters() {
 		// Remove the step handlers.
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle'], 10, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle'], 11, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle'], 12, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle'], 13, 3 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle'], 14, 3 );
 	}
 
 	/**
 	 * Remove the action hooks.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function remove_actions() {
-		remove_action( 'admin_menu', [ $this, 'settings_page' ] );
-		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
-		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		remove_action( 'admin_menu', [ $this, 'settings_page'] );
+		remove_action( 'admin_init', [ $this, 'enqueue_scripts'] );
+		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints'] );
 	}
 
 	/**
 	 * Settings page callback.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function settings_page() {
 		add_submenu_page(
@@ -176,14 +172,14 @@ class Controller extends Controller_Contract {
 			__( 'Onboarding Wizard', 'the-events-calendar' ),
 			'manage_options',
 			$this->get_page_slug(),
-			[ $this, 'tec_onboarding_wizard_button' ]
+			[ $this, 'tec_onboarding_wizard_button']
 		);
 	}
 
 	/**
 	 * Enqueue scripts for the onboarding wizard.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
 	public function enqueue_assets() {
 		if ( ! $this->is_on_page() ) {
@@ -215,18 +211,18 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the REST endpoints that will be used to return the Views HTML.
 	 *
-	 * @since 4.9.2
+	 * @since TBD
 	 */
-	public function register_rest_endpoints() {
+	public function register_rest_endpoints(): void {
 		$this->container->make( Wizard::class )->register();
 	}
 
 	/**
 	 * Render the onboarding wizard button.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
-	public function tec_onboarding_wizard_button() {
+	public function tec_onboarding_wizard_button(): void {
 		// phpcs:disable
 		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
 		$active_views    = array_keys( $view_manager->get_publicly_visible_views() );
@@ -265,9 +261,10 @@ class Controller extends Controller_Contract {
 	/**
 	 * Render the a "nulled" (all info empty, ignoring site settings) onboarding wizard button.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 */
-	public function get_null_button() {
+	public function get_null_button(): void {
+		// phpcs:disable
 		$null_data = [
 			'activeViews'       => false,
 			'availableViews'    => $this->get_available_views(),
@@ -296,6 +293,7 @@ class Controller extends Controller_Contract {
 			),
 			esc_html__( 'Loading…', 'tec-events-onboarding-wizard' )
 		);
+		// phpcs:enable
 	}
 
 	/**
@@ -303,10 +301,8 @@ class Controller extends Controller_Contract {
 	 * Looks for a single existing organizer and returns the data.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
-	public function get_organizer_data() {
+	public function get_organizer_data(): array {
 		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
 
 		if ( empty( $organizer_id ) ) {
@@ -327,8 +323,6 @@ class Controller extends Controller_Contract {
 	 * Looks for a single existing venue and returns the data.
 	 *
 	 * @since TBD
-	 *
-	 * @return void
 	 */
 	public function get_venue_data(): array {
 		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();

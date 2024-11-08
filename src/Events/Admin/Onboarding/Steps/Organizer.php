@@ -44,10 +44,12 @@ class Organizer implements Step_Interface {
 			__( 'Optin processed successfully.', 'the-events-calendar' )
 			: __( 'Failed to process optin.', 'the-events-calendar' );
 
-		$response->set_data( [
-			'success' => $processed,
-			'message' => array_merge( $data['message'], [ $new_message ] ),
-		] );
+		$response->set_data(
+			[
+				'success' => $processed,
+				'message' => array_merge( $data['message'], [ $new_message ] ),
+			]
+		);
 
 		$response->set_status( $processed ? $response->get_status : 500 );
 
@@ -62,10 +64,10 @@ class Organizer implements Step_Interface {
 	 * @param bool $organizer The organizer request data.
 	 */
 	public function process( $organizer ): bool {
-		$organizer[ 'Organizer' ]         = $organizer[ 'name' ];
-		$organizer[ '_OrganizerPhone' ]   = $organizer[ 'phone' ];
-		$organizer[ '_OrganizerWebsite' ] = $organizer[ 'website' ];
-		$organizer[ '_OrganizerEmail' ]   = $organizer[ 'email' ];
+		$organizer['Organizer']         = $organizer['name'];
+		$organizer['_OrganizerPhone']   = $organizer['phone'];
+		$organizer['_OrganizerWebsite'] = $organizer['website'];
+		$organizer['_OrganizerEmail']   = $organizer['email'];
 
 		$postId = Tribe__Events__API::createOrganizer( $organizer );
 

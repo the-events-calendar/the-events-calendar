@@ -44,10 +44,12 @@ class Venue implements Step_Interface {
 			__( 'Optin processed successfully.', 'the-events-calendar' )
 			: __( 'Failed to process optin.', 'the-events-calendar' );
 
-		$response->set_data( [
-			'success' => $processed,
-			'message' => array_merge( $data['message'], [ $new_message ] ),
-		] );
+		$response->set_data(
+			[
+				'success' => $processed,
+				'message' => array_merge( $data['message'], [ $new_message ] ),
+			]
+		);
 
 		$response->set_status( $processed ? $response->get_status : 500 );
 
@@ -67,14 +69,14 @@ class Venue implements Step_Interface {
 		}
 
 		// Massage the data a bit.
-		$venue[ 'Venue' ]         = $venue[ 'name' ];
-		$venue[ '_VenueAddress' ] = $venue[ 'address' ];
-		$venue[ '_VenueCity' ]    = $venue[ 'city' ];
-		$venue[ '_VenueState' ]   = $venue[ 'state' ];
-		$venue[ '_VenueZip' ]     = $venue[ 'zip' ];
-		$venue[ '_VenueCountry' ] = $venue[ 'country' ];
-		$venue[ '_VenuePhone' ]   = $venue[ 'phone' ];
-		$venue[ '_VenueWebsite' ] = $venue[ 'website' ];
+		$venue['Venue']         = $venue['name'];
+		$venue['_VenueAddress'] = $venue['address'];
+		$venue['_VenueCity']    = $venue['city'];
+		$venue['_VenueState']   = $venue['state'];
+		$venue['_VenueZip']     = $venue['zip'];
+		$venue['_VenueCountry'] = $venue['country'];
+		$venue['_VenuePhone']   = $venue['phone'];
+		$venue['_VenueWebsite'] = $venue['website'];
 
 		$postId = Tribe__Events__API::createVenue( $venue );
 

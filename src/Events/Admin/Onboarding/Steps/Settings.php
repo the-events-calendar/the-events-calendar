@@ -42,10 +42,12 @@ class Settings implements Step_Interface {
 			__( 'Settings processed successfully.', 'the-events-calendar' )
 			: __( 'Failed to process settings.', 'the-events-calendar' );
 
-		$response->set_data( [
-			'success' => $processed,
-			'message' => array_merge( $data['message'], [ $new_message ] ),
-		] );
+		$response->set_data(
+			[
+				'success' => $processed,
+				'message' => array_merge( $data['message'], [ $new_message ] ),
+			]
+		);
 
 		$response->set_status( $processed ? $response->get_status : 500 );
 
