@@ -77,7 +77,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param array<mixed> $matches    Array with the duplicate matches.
+		 * @param array $matches    Array with the duplicate matches.
 		 * @param array $query_args Array with the arguments used to get the posts.
 		 */
 		$matches = (array) apply_filters( 'tribe_events_import_event_duplicate_matches', get_posts( $query_args ), $query_args );
@@ -95,8 +95,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param integer             $post_id The event ID to update.
-	 * @param array $record  An event record from the import.
+	 * @param integer $post_id The event ID to update.
+	 * @param array   $record  An event record from the import.
 	 *
 	 * @return false False if the update authority is set to retain or void if the update completes.
 	 */
@@ -184,8 +184,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array $record    An event record from the import.
-	 * @param boolean             $date_only An optional setting to include the date only and no time.
+	 * @param array   $record    An event record from the import.
+	 * @param boolean $date_only An optional setting to include the date only and no time.
 	 *
 	 * @return string $start_date The start date time string.
 	 */
@@ -238,8 +238,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param integer             $event_id The event ID to update.
-	 * @param array $record   An event record from the import.
+	 * @param integer $event_id The event ID to update.
+	 * @param array   $record   An event record from the import.
 	 *
 	 * @return array<string|mixed> An array of information to save or update an event.
 	 */
@@ -345,7 +345,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 * @since 5.12.4
 		 *
 		 * @param array<string|mixed> $event  An array event meta fields.
-		 * @param array $record An event record from the import.
+		 * @param array               $record An event record from the import.
 		 * @param object              $this   The class instance.
 		 *
 		 * @return array<string|mixed> An array of the autodetect results.
