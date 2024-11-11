@@ -3,21 +3,16 @@ import {CheckboxControl} from '@wordpress/components';
 import {useState} from '@wordpress/element';
 import {__} from '@wordpress/i18n';
 
-const OptInCheckbox = ({ initialOptin, onChange }) => {
+const OptInCheckbox = ({ initialOptin,onChange }) => {
 	const [ isChecked, setChecked ] = useState( initialOptin );
 
-	const handleChange = (isChecked) => {
-        setChecked(isChecked);
-        onChange(isChecked);
-    };
+	const handleChange = (newCheckedState) => {
+		setChecked(newCheckedState);
+		onChange(newCheckedState); // Call the onChange callback passed from the parent
+	};
 
 	return (
-		<div
-			alignment="top"
-			justify="center"
-			spacing={0}
-			className="tec-events-onboarding__checkbox tec-events-onboarding__checkbox--optin"
-		>
+		<div className="tec-events-onboarding__checkbox tec-events-onboarding__checkbox--optin">
 			<CheckboxControl
 				__nextHasNoMarginBottom
 				aria-describedby="tec-events-onboarding__checkbox-description"

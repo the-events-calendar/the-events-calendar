@@ -5,14 +5,13 @@ import { useState } from '@wordpress/element';
 import { Modal } from '@wordpress/components';
 import { useSelect, useDispatch } from "@wordpress/data";
 import OnboardingTabs from './components/Tabs';
-import { SETTINGS_STORE_KEY } from './data';
+import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from './data';
+
 import './index.css';
 
-
-
 const OnboardingModal = ({ bootData }) => {
-	const [isOpen, setOpen] = useState(true);
-	const closeModal = () => setOpen(false);
+	const isOpen = useSelect((select) => select(MODAL_STORE_KEY).getModalState(), []);
+	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 
 	// Initialize the settings store.
 	const {
@@ -35,7 +34,7 @@ const OnboardingModal = ({ bootData }) => {
 					selectOnMove={false}
 					shouldCloseOnClickOutside={false}
 				>
-					<OnboardingTabs closeModal={closeModal} />
+					<OnboardingTabs />
 				</Modal>
 			)}
 		</>

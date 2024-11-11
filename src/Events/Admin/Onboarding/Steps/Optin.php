@@ -7,9 +7,9 @@
  * @package TEC\Events\Admin\Onboarding\Steps
  */
 
-namespace TEC\Events\Admin\Onboarding;
+namespace TEC\Events\Admin\Onboarding\Steps;
 
-use TEC\Events\Telemetry\Telemetry;
+use TEC\Common\Telemetry\Telemetry as Common_Telemetry;
 
 /**
  * Class Optin
@@ -18,7 +18,7 @@ use TEC\Events\Telemetry\Telemetry;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Optin implements Step_Interface {
+class Optin implements Contracts\Step_Interface {
 	/**
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
@@ -31,13 +31,13 @@ class Optin implements Step_Interface {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function handle( $response, $request, $wizard ): \WP_REST_Response {
-		if ( ! $response->is_error() ) {
+	public static function handle( $response, $request, $wizard ): \WP_REST_Response {
+		if ( $response->is_error() ) {
 			return $response;
 		}
 
 		$params    = $request->get_params();
-		$processed = $this->process( tribe_is_truthy( $params['optin'] ) );
+		$processed = self::process( tribe_is_truthy( $params['optin'] ) );
 		$data      = $response->get_data();
 
 		$new_message = $processed ?
@@ -51,7 +51,7 @@ class Optin implements Step_Interface {
 			]
 		);
 
-		$response->set_status( $processed ? $response->get_status : 500 );
+		$response->set_status( $processed ? $response->get_status() : 500 );
 
 		return $response;
 	}
@@ -63,16 +63,18 @@ class Optin implements Step_Interface {
 	 *
 	 * @param bool $optin The optin request data.
 	 */
-	public function process( $optin ): bool {
-		try {
-			tribe( Telemetry::class )->save_opt_in_setting_field( $optin );
-		} catch ( \Exception $e ) {
-			return false;
+	public static function process( $optin ): bool {
+		$current_optin = tribe_get_option( 'opt-in-status', false );
+		if ( $current_optin === $optin ) {
+			return true;
 		}
 
-		// There's no return here, so let's just assume it succeeded.
-		return true;
+		// Save the option.
+		$option = tribe_update_option( 'opt-in-status', $optin );
+
+		// Tell Telemetry to update.
+		tribe( Common_Telemetry::class )->register_tec_telemetry_plugins( $optin );
+
+		return $option;
 	}
-
-
 }

@@ -1,25 +1,8 @@
 import React from "react";
 import { CheckboxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import DayViewIcon from '../img/day';
-import MonthViewIcon from '../img/month';
-import ListViewIcon from '../img/list';
-import PhotoViewIcon from '../img/photo';
-import MapViewIcon from '../img/map';
-import SummaryViewIcon from '../img/summary';
-import WeekViewIcon from '../img/week';
 
-const icons = new Map();
-icons.set('day', <DayViewIcon />);
-icons.set('month', <MonthViewIcon />);
-icons.set('list', <ListViewIcon />);
-// pro
-icons.set('map', <MapViewIcon />);
-icons.set('photo', <PhotoViewIcon />);
-icons.set('week', <WeekViewIcon />);
-icons.set('summary', <SummaryViewIcon />);
-
-const ViewCheckbox = ({ view, isChecked, onChange }) => {
+const ViewCheckbox = ({ view, isChecked, onChange, icon }) => {
 	return (
 		<div
 			id={`tec-events-onboarding__checkbox-${view}`}
@@ -40,7 +23,7 @@ const ViewCheckbox = ({ view, isChecked, onChange }) => {
 					htmlFor={`tec-events-onboarding__checkbox-input-${view}`}
 					className={isChecked ? "tec-events-onboarding__checkbox-label tec-events-onboarding__checkbox-label--checked" : "tec-events-onboarding__checkbox-label"}
 				>
-					{icons.get(view)}
+					{icon}
 					{'all' !== view ? view : __( 'Select all the views', 'the-events-calendar' )}
 				</label>
 			</div>

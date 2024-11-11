@@ -7,7 +7,7 @@
  * @package TEC\Events\Admin\Onboarding\Steps
  */
 
-namespace TEC\Events\Admin\Onboarding;
+namespace TEC\Events\Admin\Onboarding\Steps;
 
 /**
  * Class Settings
@@ -16,7 +16,7 @@ namespace TEC\Events\Admin\Onboarding;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Settings implements Step_Interface {
+class Settings implements Contracts\Step_Interface {
 	/**
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
@@ -29,13 +29,13 @@ class Settings implements Step_Interface {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function handle( $response, $request, $wizard ): \WP_REST_Response {
-		if ( ! $response->is_error() ) {
+	public static function handle( $response, $request, $wizard ): \WP_REST_Response {
+		if ( $response->is_error() ) {
 			return $response;
 		}
 
 		$params    = $request->get_params();
-		$processed = $this->process( $params );
+		$processed = self::process( $params );
 		$data      = $response->get_data();
 
 		$new_message = $processed ?
@@ -49,7 +49,7 @@ class Settings implements Step_Interface {
 			]
 		);
 
-		$response->set_status( $processed ? $response->get_status : 500 );
+		$response->set_status( $processed ? $response->get_status() : 500 );
 
 		return $response;
 	}
@@ -61,30 +61,51 @@ class Settings implements Step_Interface {
 	 *
 	 * @param bool $params The request params.
 	 */
-	public function process( $params ): bool {
+	public static function process( $params ): bool {
+		$enabled_views = $params['activeViews'] ?? false;
+
+		// Don't try to save "all".
+		if ( $enabled_views && in_array( 'all', $enabled_views ) ) {
+			$enabled_views = array_filter( $enabled_views, function ( $view ) {
+				return 'all' !== $view;
+			} );
+		}
+
 		$settings = [
 			'defaultCurrencyCode' => $params['defaultCurrency'] ?? false,
 			'dateWithYearFormat'  => $params['defaultDateFormat'] ?? false,
 			'timezone_string'     => $params['defaultTimezone'] ?? false,
 			'start_of_week'       => $params['defaultWeekStart'] ?? false,
-			'tribeEnableViews'    => $params['activeViews'] ?? false,
+			'tribeEnableViews'    => $enabled_views,
 		];
 
 		foreach ( $settings as $key => $value ) {
-			// Don't save a false here, as we don't want to override any defaults.
-			if ( empty( $value ) ) {
+			// Don't save a falsy value here, as we don't want to override any defaults.
+			// And values should all be strings/ints!
+			if ( empty( $value ) || ( 'start_of_week' === $key && $value === 0 ) ) {
 				continue;
 			}
 
 			$updated = false;
 
+			// Start of week is a WP option, the rest are TEC settings.
 			if ( 'start_of_week' !== $key ) {
-				$updated = tribe_update_option( $key, $value );
+				$temp = tribe_get_option( $key, $value );
+				if ( $temp === $value ) {
+					$updated = true;
+				} else {
+					$updated = tribe_update_option( $key, $value );
+				}
 			} else {
-				$updated = update_option( $key, $value );
+				$temp = get_option( $key, $value );
+				if ( $temp === $value ) {
+					$updated = true;
+				} else {
+					$updated = update_option( $key, $value );
+				}
 			}
 
-			// If we failed, bail out now and return false.
+			// If we failed, bail out immediately and return false.
 			if ( ! $updated ) {
 				return false;
 			}

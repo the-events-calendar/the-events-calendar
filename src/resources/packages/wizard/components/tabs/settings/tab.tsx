@@ -1,5 +1,5 @@
 import React from "react";
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, TextControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
 import { useSelect, useDispatch } from "@wordpress/data";
@@ -25,12 +25,6 @@ const startDayOptions = [
 	{ label: __('Saturday', 'the-events-calendar'), value: '6' },
 ];
 
-const currencyOptions = [
-	{ label: 'USD', value: 'USD' },
-	{ label: 'CAD', value: 'CAD' },
-	{ label: 'GBP', value: 'GBP' },
-];
-
 const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	const { defaultCurrency, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones } = useSelect(
 		(select) => {
@@ -45,28 +39,19 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 		},
 		[]
 	);
-	const { updateSettings } = useDispatch(SETTINGS_STORE_KEY);
-	const [ currency, setCurrency ] = useState( defaultCurrency );
+	const [ currency, setCurrency ] = useState( defaultCurrency || '' );
 	const [ timeZone, setTimeZone ] = useState( defaultTimezone );
-	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat );
-	const [ weekStart, setWeekStart ] = useState( defaultWeekStart );
+	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat || dateFormatOptions[0].value );
+	const [ weekStart, setWeekStart ] = useState( defaultWeekStart || 0 );
 
 	const timeZoneMessage = defaultTimezone && defaultTimezone.includes("UTC") ? __("Please select your time zone as UTC offsets are not supported.", "the-events-calendar") : __("Please select your time zone.", "the-events-calendar");
 
-	// Save the checked views to the store on "Continue" button click
-	const handleContinue = () => {
-		const updates: Record<string, any> = {
-			defaultCurrency: currency,
-			defaultTimezone: timeZone,
-			defaultDateFormat: dateFormat,
-			defaultWeekStart: weekStart,
-		};
-
-		// Only update if there are changes
-		if (Object.keys(updates).length > 0) {
-			updateSettings(updates);
-		}
-		moveToNextTab();
+	// Create tabSettings object to pass to NextButton.
+	const tabSettings = {
+		defaultCurrency: currency,
+		defaultTimezone: timeZone,
+		defaultDateFormat: dateFormat,
+		defaultWeekStart: weekStart,
 	};
 
 	return (
@@ -75,12 +60,11 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 			<h1 className="tec-events-onboarding__tab-header">{__("Event Settings", "the-events-calendar")}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{__("Let’s get your events with the correct basic settings.", "the-events-calendar")}</p>
 			<div className="tec-events-onboarding__form-wrapper">
-				<SelectControl
+				<TextControl
 					__nextHasNoMarginBottom
 					label={__("Currency", "the-events-calendar")}
 					defaultValue={ currency }
 					onChange={ setCurrency }
-					options={currencyOptions}
 				/>
 				{(!defaultTimezone || defaultTimezone.includes("UTC")) && (
 					<SelectControl
@@ -116,8 +100,8 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					options={startDayOptions}
 				/>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={handleContinue} disabled={false}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab}/></p>
+			 <p className="tec-events-onboarding__element--center"><NextButton disabled={false} moveToNextTab={moveToNextTab} tabSettings={tabSettings}/></p>
+			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} /></p>
 		</>
 	);
 };

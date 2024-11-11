@@ -2,13 +2,14 @@ import React from "react";
 import { __, _x } from "@wordpress/i18n";
 import { TextControl, Button } from "@wordpress/components";
 import { useState } from '@wordpress/element';
-import { useSelect, useDispatch } from "@wordpress/data";
+import { useSelect } from "@wordpress/data";
 import { SETTINGS_STORE_KEY } from "../../../data";
 import NextButton from "../../buttons/next";
 import SkipButton from "../../buttons/skip";
 import OrganizerIcon from "./img/organizer";
 
 interface Organizer {
+	id: number;
 	name: string;
 	phone: string;
 	website: string;
@@ -16,8 +17,8 @@ interface Organizer {
 }
 
 const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
-	const organizer: Organizer = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("organizer") || { name: "", phone: "", website: "", email: "" }, []);
-	const { updateSettings } = useDispatch(SETTINGS_STORE_KEY);
+	const organizer: Organizer = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("organizer") || { id: 0, name: "", phone: "", website: "", email: "" }, []);
+	const [id, setId] = useState(organizer.id || 0);
 	const [name, setName] = useState(organizer.name || "");
 	const [phone, setPhone] = useState(organizer.phone || "");
 	const [website, setWebsite] = useState(organizer.website || "");
@@ -25,28 +26,6 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	// Check if any fields are filled.
 	const disabled = !!organizer.name || !!organizer.phone || !!organizer.website || !!organizer.email;
-
-
-	// Save the checked views to the store on "Continue" button click
-	const handleContinue = () => {
-		const updates: Record<string, any> = {};
-
-		// Define the local state for the properties
-		const localState = { name, phone, website, email };
-
-		// Loop through each key in the venue object to compare with localState
-		Object.keys(organizer).forEach((key) => {
-			if (localState[key] !== organizer[key]) {
-				updates[key] = localState[key];
-			}
-		});
-
-		if (Object.keys(updates).length > 0) {
-			updateSettings({ organizer: { ...organizer, ...updates } });
-		}
-
-		moveToNextTab();
-	};
 
 	/**
 	 * Function to show hidden fields.
@@ -57,11 +36,26 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		ele.style.display = "none";
 	}
 
+	// Create tabSettings object to pass to NextButton.
+	const tabSettings = {
+		organizer: {
+			id,
+			name,
+			phone,
+			website,
+			email,
+		},
+	};
+
+	const subHeaderText = id !== 0 ?
+		__("Add an event organizer for your events. You can display this information for your event attendees on your website.", "the-events-calendar")
+		: __("Looks like you have already created your first organizer. Well done!", "the-events-calendar");
+
 	return (
 		<>
 			<OrganizerIcon />
 			<h1 className="tec-events-onboarding__tab-header">{__("Add your first event organizer.", "the-events-calendar")}</h1>
-			<p className="tec-events-onboarding__tab-subheader">{__("Add an event organizer for your events. You can display this information for your event attendees on your website.", "the-events-calendar")}</p>
+			<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<TextControl
 					__nextHasNoMarginBottom
@@ -125,8 +119,9 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 					disabled={disabled}
 				/>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={handleContinue} disabled={false}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab}/></p>
+
+			 <p className="tec-events-onboarding__element--center"><NextButton disabled={false} moveToNextTab={moveToNextTab}  tabSettings={tabSettings}/></p>
+			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} /></p>
 		</>
 	);
 };

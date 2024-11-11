@@ -1,14 +1,19 @@
 import { registerStore } from "@wordpress/data";
 import {
-	STORE_KEY as SETTINGS_STORE_KEY,
-	STORE_CONFIG as settingsConfig
+	SETTINGS_STORE_KEY,
+	SETTINGS_STORE_CONFIG
 } from "./settings";
 
+registerStore(SETTINGS_STORE_KEY, SETTINGS_STORE_CONFIG);
+
 import {
-	STORE_KEY as MODAL_STORE_KEY,
-	STORE_CONFIG as modalConfig
+	MODAL_STORE_KEY,
+	MODAL_STORE_CONFIG
 } from "./modal";
 
-registerStore(SETTINGS_STORE_KEY, settingsConfig);
+registerStore(MODAL_STORE_KEY, MODAL_STORE_CONFIG);
 
-export { SETTINGS_STORE_KEY, MODAL_STORE_KEY };
+export {
+	SETTINGS_STORE_KEY,
+	MODAL_STORE_KEY
+};

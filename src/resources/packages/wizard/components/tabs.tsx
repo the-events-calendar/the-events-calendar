@@ -1,20 +1,19 @@
 import React, { useRef, KeyboardEvent } from "react";
 import { __ } from "@wordpress/i18n";
-import { useState } from "@wordpress/element";
-import MemoizedTabPanel from "./tabs/TabPanel";
-import Tab from "./tabs/Tab";
+import { useState, useEffect } from "@wordpress/element";
+import { useSelect, useDispatch } from "@wordpress/data";
+import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from "../data";
 import TecIcon from "./img/tec";
+import MemoizedTabPanel from "./tabs/TabPanel";
+import Tab from "./tabs/tab";
 import WelcomeContent from "./tabs/welcome/tab";
 import DisplayContent from "./tabs/display/tab";
 import SettingsContent from "./tabs/settings/tab";
 import VenueContent from "./tabs/venue/tab";
 import TicketsContent from "./tabs/tickets/tab";
 import OrganizerContent from "./tabs/organizer/tab";
-import { useSelect } from "@wordpress/data";
-import { SETTINGS_STORE_KEY } from "../data";
 
-
-const OnboardingTabs = ({closeModal }) => {
+const OnboardingTabs = () => {
 	type TabConfig = {
 		id: string;
 		title: string;
@@ -31,6 +30,9 @@ const OnboardingTabs = ({closeModal }) => {
 		{ id: "venue", title: __("Venue", "the-events-calendar"), content: VenueContent, dataKey: "venue", ref: useRef(null) },
 		{ id: "tickets", title: __("Tickets", "the-events-calendar"), content: TicketsContent, dataKey: "eventTickets", ref: useRef(null) }
 	];
+
+	const { closeModal } = useDispatch(MODAL_STORE_KEY);
+
 	const settings = useSelect(select => {
 		return select(SETTINGS_STORE_KEY).getSettings();
 	}, []);
@@ -50,6 +52,10 @@ const OnboardingTabs = ({closeModal }) => {
 			setActiveTab(index);
 		}
 	};
+
+	useEffect(() => {
+		console.log("Updated Active Tab:", activeTab);
+	}, [activeTab]);
 
 	const handleKeyPress = (event) => {
 		if (event.key === "ArrowRight") changeTab(1);
@@ -83,7 +89,6 @@ const OnboardingTabs = ({closeModal }) => {
 			closeModal();
 		}
 	};
-
 
 	const skipToNextTab = () => {
 		if (activeTab < tabsState.length - 1) {
@@ -127,11 +132,7 @@ const OnboardingTabs = ({closeModal }) => {
 					tabId={tab.id}
 					activeTab={activeTab}
 				>
-					<tab.content
-						moveToNextTab={moveToNextTab}
-						skipToNextTab={skipToNextTab}
-						closeModal={closeModal}
-					/>
+					<tab.content moveToNextTab={moveToNextTab} skipToNextTab={skipToNextTab}  />
 				</MemoizedTabPanel>
 			))}
 		</section>

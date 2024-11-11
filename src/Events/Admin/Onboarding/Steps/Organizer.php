@@ -7,7 +7,7 @@
  * @package TEC\Events\Admin\Onboarding\Steps
  */
 
-namespace TEC\Events\Admin\Onboarding;
+namespace TEC\Events\Admin\Onboarding\Steps;
 
 use Tribe__Events__API;
 
@@ -18,7 +18,7 @@ use Tribe__Events__API;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Organizer implements Step_Interface {
+class Organizer implements Contracts\Step_Interface {
 	/**
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
@@ -31,13 +31,13 @@ class Organizer implements Step_Interface {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function handle( $response, $request, $wizard ): \WP_REST_Response {
-		if ( ! $response->is_error() ) {
+	public static function handle( $response, $request, $wizard ): \WP_REST_Response {
+		if ( $response->is_error() ) {
 			return $response;
 		}
 
 		$params    = $request->get_params();
-		$processed = $this->process( $params['organizer'] ?? false );
+		$processed = self::process( $params['organizer'] ?? false );
 		$data      = $response->get_data();
 
 		$new_message = $processed ?
@@ -51,7 +51,7 @@ class Organizer implements Step_Interface {
 			]
 		);
 
-		$response->set_status( $processed ? $response->get_status : 500 );
+		$response->set_status( $processed ? $response->get_status() : 500 );
 
 		return $response;
 	}
@@ -63,7 +63,17 @@ class Organizer implements Step_Interface {
 	 *
 	 * @param bool $organizer The organizer request data.
 	 */
-	public function process( $organizer ): bool {
+	public static function process( $organizer ): bool {
+		// No data to process, bail out.
+		if ( ! $organizer) {
+			return true;
+		}
+
+		// If we already have an organizer, we're not editing it here.
+		if ( ! empty( $organizer['id'] ) ) {
+			return true;
+		}
+
 		$organizer['Organizer' ]         = $organizer['name' ];
 		$organizer['_OrganizerPhone' ]   = $organizer['phone' ];
 		$organizer['_OrganizerWebsite' ] = $organizer['website' ];

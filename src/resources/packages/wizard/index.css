@@ -129,6 +129,12 @@
 	width: var(--tec-spacer-7);
 }
 
+.tec-events-onboarding_pro-icon {
+	height: 12px;
+	margin: 0 auto;
+	width: 12px;
+}
+
 @media (min-width: 1024px) {
 	.tec-events-onboarding__tabs-header {
 		flex-flow: row nowrap;
@@ -387,9 +393,29 @@
 	width: 100%;
 }
 
+.tec-events-onboarding__view_upsell {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.tec-events-onboarding__view_upsell-cell {
+	display: flex;
+	flex-direction: column;
+	padding: 12px 8px;
+	text-align: center;
+}
+
+.tec-events-onboarding__view_upsell-label {
+	color: var(--tec-wp-core-grey-50);
+	font-size: var(--tec-font-size-2);
+	line-height: var(--tec-line-height-2);
+	text-align: center;
+}
+
 @media (min-width: 1024px) {
 	.tec-events-onboarding__grid--view-checkbox {
-		grid-template-columns: repeat(4, 120px);
+		grid-template-columns: repeat(4, 128px);
 	}
 }
 
@@ -409,9 +435,9 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--tec-spacer-2);
-	height: 112px;
-	padding: var(--tec-spacer-2);
-	width: 112px;
+	height: 116px;
+	padding: var(--tec-spacer-2) var(--tec-spacer-4);
+	width: 128px;
 }
 
 .tec-events-onboarding__checkbox-label--checked {
@@ -463,8 +489,8 @@
 @media (min-width: 1024px) {
 	#venuePanel .tec-events-onboarding__form-wrapper {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
 		gap: var(--tec-spacer-2);
+		grid-template-columns: 1fr 1fr;
 	}
 
 	#venuePanel .tec-events-onboarding__form-wrapper .components-base-control:first-child,
@@ -472,7 +498,6 @@
 		grid-column: span 2;
 	}
 }
-
 
 .tec-events-onboarding__form-field--hidden {
 	display: none;
@@ -493,8 +518,8 @@
 	font-size: var(--tec-font-size-2);
 	font-style: normal;
 	font-weight: var(--tec-font-weight-regular);
-	line-height: var(--tec-line-height-2);
 	letter-spacing: -0.28px;
+	line-height: var(--tec-line-height-2);
 	text-transform: none;
 }
 

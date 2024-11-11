@@ -7,7 +7,7 @@
  * @package TEC\Events\Admin\Onboarding\Steps
  */
 
-namespace TEC\Events\Admin\Onboarding;
+namespace TEC\Events\Admin\Onboarding\Steps\Contracts;
 
 /**
  * Class Step_Interface
@@ -29,7 +29,7 @@ interface Step_Interface {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function handle( $response, $request, $wizard ): \WP_REST_Response;
+	public static function handle( $response, $request, $wizard ): \WP_REST_Response;
 
 	/**
 	 * Process the request data applicable to this step.
@@ -38,5 +38,5 @@ interface Step_Interface {
 	 *
 	 * @param bool $params The request data.
 	 */
-	public function process( $params ): bool;
+	public static function process( $params ): bool;
 }

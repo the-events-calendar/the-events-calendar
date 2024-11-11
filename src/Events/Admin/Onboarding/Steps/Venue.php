@@ -7,7 +7,7 @@
  * @package TEC\Events\Admin\Onboarding\Steps
  */
 
-namespace TEC\Events\Admin\Onboarding;
+namespace TEC\Events\Admin\Onboarding\Steps;
 
 use Tribe__Events__API;
 
@@ -18,7 +18,7 @@ use Tribe__Events__API;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Venue implements Step_Interface {
+class Venue implements Contracts\Step_Interface {
 	/**
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
@@ -31,13 +31,13 @@ class Venue implements Step_Interface {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function handle( $response, $request, $wizard ): \WP_REST_Response {
-		if ( ! $response->is_error() ) {
+	public static function handle( $response, $request, $wizard ): \WP_REST_Response {
+		if ( $response->is_error() ) {
 			return $response;
 		}
 
 		$params    = $request->get_params();
-		$processed = $this->process( $params['venue'] ?? false );
+		$processed = self::process( $params['venue'] ?? false );
 		$data      = $response->get_data();
 
 		$new_message = $processed ?
@@ -51,7 +51,7 @@ class Venue implements Step_Interface {
 			]
 		);
 
-		$response->set_status( $processed ? $response->get_status : 500 );
+		$response->set_status( $processed ? $response->get_status() : 500 );
 
 		return $response;
 	}
@@ -63,22 +63,28 @@ class Venue implements Step_Interface {
 	 *
 	 * @param bool $venue The venue data.
 	 */
-	public function process( $venue ): bool {
+	public static function process( $venue ): bool {
+		// No data to process, bail out.
 		if ( ! $venue ) {
 			return true;
 		}
 
-		// Massage the data a bit.
-		$venue['Venue' ]         = $venue['name' ];
-		$venue['_VenueAddress' ] = $venue['address' ];
-		$venue['_VenueCity' ]    = $venue['city' ];
-		$venue['_VenueState' ]   = $venue['state' ];
-		$venue['_VenueZip' ]     = $venue['zip' ];
-		$venue['_VenueCountry' ] = $venue['country' ];
-		$venue['_VenuePhone' ]   = $venue['phone' ];
-		$venue['_VenueWebsite' ] = $venue['website' ];
+		// If we already have a venue, we're not editing it here.
+		if ( ! empty( $venue['id'] ) ) {
+			return true;
+		}
 
-		$postId = Tribe__Events__API::createVenue( $venue );
+		// Massage the data a bit.
+		$newVenue['Venue' ]         = $venue['name' ];
+		$newVenue['_VenueAddress' ] = $venue['address' ];
+		$newVenue['_VenueCity' ]    = $venue['city' ];
+		$newVenue['_VenueState' ]   = $venue['state' ];
+		$newVenue['_VenueZip' ]     = $venue['zip' ];
+		$newVenue['_VenueCountry' ] = $venue['country' ];
+		$newVenue['_VenuePhone' ]   = $venue['phone' ];
+		$newVenue['_VenueWebsite' ] = $venue['website' ];
+
+		$postId = Tribe__Events__API::createVenue( $newVenue );
 
 		if ( ! $postId ) {
 			return false;

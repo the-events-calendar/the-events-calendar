@@ -7,7 +7,7 @@
  * @package TEC\Events\Admin\Onboarding\Steps
  */
 
-namespace TEC\Events\Admin\Onboarding;
+namespace TEC\Events\Admin\Onboarding\Steps;
 
 /**
  * Class Tickets
@@ -16,7 +16,7 @@ namespace TEC\Events\Admin\Onboarding;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Tickets implements Step_Interface {
+class Tickets implements Contracts\Step_Interface {
 	/**
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
@@ -29,13 +29,13 @@ class Tickets implements Step_Interface {
 	 *
 	 * @return \WP_REST_Response
 	 */
-	public function handle( $response, $request, $wizard ): \WP_REST_Response {
-		if ( ! $response->is_error() ) {
+	public static function handle( $response, $request, $wizard ): \WP_REST_Response {
+		if ( $response->is_error() ) {
 			return $response;
 		}
 
 		$params    = $request->get_params();
-		$processed = $this->process( $params['eventTickets'] ?? false );
+		$processed = self::process( $params['eventTickets'] ?? false );
 		$data      = $response->get_data();
 
 		$new_message = $processed ?
@@ -49,7 +49,7 @@ class Tickets implements Step_Interface {
 			]
 		);
 
-		$response->set_status( $processed ? $response->get_status : 500 );
+		$response->set_status( $processed ? $response->get_status() : 500 );
 
 		return $response;
 	}
@@ -61,8 +61,44 @@ class Tickets implements Step_Interface {
 	 *
 	 * @param bool $tickets The tickets data.
 	 */
-	public function process( $tickets ): bool {
-		// no-op for now.
+	public static function process( $tickets ): bool {
+		return self::install_event_tickets_plugin( $tickets);
+	}
+
+	public function install_event_tickets_plugin( $eventTickets ) {
+		// Check if 'eventTickets' param is true (adjust the source as needed)
+		if ( function_exists( 'tribe_tickets' ) ) {
+			return true;
+		}
+
+		$plugin_slug = 'event-tickets'; // Plugin slug for Event Tickets
+		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
+
+		// Fetch plugin information from the WordPress plugin repo
+		$response = wp_remote_get( $plugin_repo_url );
+		if ( is_wp_error( $response ) ) {
+			return false; // new WP_Error( 'plugin_install_failed', 'Failed to fetch plugin information.' );
+		}
+
+		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		if ( isset( $plugin_data['download_link'] ) ) {
+			$download_url = $plugin_data['download_link'];
+			$plugin_file = download_url( $download_url );
+
+			if ( is_wp_error( $plugin_file ) ) {
+				return false; // new WP_Error( 'plugin_download_failed', 'Failed to download plugin.' );
+			}
+
+			// Install the plugin
+			$install_result = install_plugin_install_status( $plugin_file );
+			if ( ! is_wp_error( $install_result ) ) {
+				// Activate the plugin
+				activate_plugin( 'event-tickets/event-tickets.php' );
+			}
+		} else {
+			return false; //new WP_Error( 'plugin_not_found', 'Plugin download URL not found.' );
+		}
 
 		return true;
 	}
