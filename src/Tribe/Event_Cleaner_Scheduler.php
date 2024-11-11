@@ -182,8 +182,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 				AND t2.meta_value IS NOT NULL
 				AND t1.post_parent = 0
 				AND t1.ID NOT IN ( $posts_with_parents_sql )
-			LIMIT " . '%3$d'
-		;
+			LIMIT " . '%3$d';
 
 		/**
 		 * Filter - Allows users to manipulate the cleanup query
