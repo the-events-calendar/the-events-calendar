@@ -174,16 +174,16 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			FROM {$wpdb->posts} AS t1
 			INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
 			WHERE
-				t1.post_type = %1s
+				t1.post_type = " . '"%1$s"' . "
 				AND t2.meta_key = '_EventEndDate'
-				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL %2d %4s )
+				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL " . '%2$d %4$s' . " )
 				AND t2.meta_value != 0
 				AND t2.meta_value != ''
 				AND t2.meta_value IS NOT NULL
 				AND t1.post_parent = 0
 				AND t1.ID NOT IN ( $posts_with_parents_sql )
-			LIMIT %3d
-		";
+			LIMIT " . '%3$d'
+		;
 
 		/**
 		 * Filter - Allows users to manipulate the cleanup query
@@ -197,10 +197,10 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
 		$args = [
-			'post_type' => $event_post_type,
+			'post_type' => esc_sql( $event_post_type ),
 			'date'      => $frequency,
 			'limit'     => 15,
-			'interval'  => $interval,
+			'interval'  => esc_sql( $interval ),
 		];
 
 		/**
