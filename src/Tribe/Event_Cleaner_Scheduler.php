@@ -198,8 +198,8 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		$args = [
 			'post_type' => $event_post_type,
 			'date'      => $frequency,
-			'interval'  => $interval,
 			'limit'     => 15,
+			'interval'  => $interval,
 		];
 
 		/**
