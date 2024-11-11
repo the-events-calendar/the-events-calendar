@@ -190,7 +190,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 *
 		 * @since 4.6.13
 		 * @since 6.0.13 Added a limit param to the default query.
-		 * @since 6.2.9 Added a mysql `interval` parameter (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
+		 * @since 6.2.9  Added a mysql `interval` parameter (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
 		 *
 		 * @param string $sql - The query statement.
 		 */
@@ -208,7 +208,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 *
 		 * @since 4.6.13
 		 * @since 6.0.13 Added a limit arg, defaulting to 100.
-		 * @since 6.2.9 Added a mysql `interval` field (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
+		 * @since 6.2.9  Added a mysql `interval` field (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
 		 *
 		 * @param array $args - The array of variables.
 		 */
