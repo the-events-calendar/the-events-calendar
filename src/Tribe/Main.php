@@ -167,6 +167,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * A Stored version of the Welcome and Update Pages.
 		 * @var Tribe__Admin__Activation_Page
+		 *
+		 * @deprecated TBD
 		 */
 		public $activation_page;
 
@@ -722,8 +724,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected function loadLibraries() {
 			// Setup the Activation page
-			$this->activation_page();
-			add_filter( 'tec_admin_update_page_bypass', '__return_false' );
+			// no. $this->activation_page();
+			add_filter( 'tec_admin_update_page_bypass', '__return_true' );
 
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
@@ -1084,8 +1086,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * @return Tribe__Admin__Activation_Page
+		 *
+		 * @deprecated TBD
 		 */
 		public function activation_page() {
+			_deprecated_function( __METHOD__, 'TBD', 'No replacement' );
+			return '';
 			// Setup the activation page only if the relevant class exists (in some edge cases, if another
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
 			// if we don't take this precaution).

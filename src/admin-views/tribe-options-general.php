@@ -38,13 +38,6 @@ $general_tab_fields = [
 		'html' => '<ul class="tec-settings-header-links-section__documentation">'
 			. '<li>' . esc_html__( 'Documentation', 'the-events-calendar' ) . '</li>',
 	],
-	'tec-documentation-section-welcome-page-link'    => [
-		'type' => 'html',
-		'html' => '<li><a href="'
-			. esc_url( tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ) ) . '">'
-			. esc_html__( 'View Welcome Page', 'the-events-calendar' )
-			. '</a></li>',
-	],
 	'tec-documentation-section-getting-started-link' => [
 		'type' => 'html',
 		'html' => '<li><a href="'
