@@ -704,6 +704,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register new Admin Settings system.
 			tribe_register_provider( TEC\Events\Admin\Settings\Provider::class );
 
+			// Register the Help Hub system.
+			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 *
