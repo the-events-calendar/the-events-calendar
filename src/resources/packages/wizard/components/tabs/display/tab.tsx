@@ -60,6 +60,7 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 	// Create tabSettings object to pass to NextButton.
 	const tabSettings = {
 		activeViews: checkedViews,
+		currentTab: 'display', // Include the current tab.
 	};
 
 	// Check if any checkboxes are selected.

@@ -59,6 +59,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			phone,
 			website,
 		},
+		currentTab: 'venue', // Include the current tab.
 	};
 
 	const subHeaderText = id !== 0 ?

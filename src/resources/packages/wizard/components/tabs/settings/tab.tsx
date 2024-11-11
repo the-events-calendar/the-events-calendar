@@ -52,6 +52,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 		defaultTimezone: timeZone,
 		defaultDateFormat: dateFormat,
 		defaultWeekStart: weekStart,
+		currentTab: 'settings', // Include the current tab.
 	};
 
 	return (

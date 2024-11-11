@@ -110,7 +110,7 @@ const OnboardingTabs = () => {
 				<ul
 					role="tablist"
 					className="tec-events-onboarding__tabs-list"
-					aria-label="Food Tabs"
+					aria-label="Onboarding Tabs"
 					onKeyDown={handleKeyPress}
 				>
 					{tabsState.map((tab, index) => (

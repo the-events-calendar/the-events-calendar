@@ -62,10 +62,10 @@ class Tickets implements Contracts\Step_Interface {
 	 * @param bool $tickets The tickets data.
 	 */
 	public static function process( $tickets ): bool {
-		return self::install_event_tickets_plugin( $tickets);
+		return $tickets ? self::install_event_tickets_plugin( $tickets) : true;
 	}
 
-	public function install_event_tickets_plugin( $eventTickets ) {
+	public static function install_event_tickets_plugin( $eventTickets ) {
 		// Check if 'eventTickets' param is true (adjust the source as needed)
 		if ( function_exists( 'tribe_tickets' ) ) {
 			return true;

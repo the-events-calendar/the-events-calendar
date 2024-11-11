@@ -137,6 +137,9 @@ class Wizard {
 			200
 		);
 
+
+		$current_tab = $request->get_param( 'currentTab' );
+
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
@@ -146,7 +149,24 @@ class Wizard {
 		 * @param Request          $request  The request object.
 		 * @param Wizard           $wizard   The wizard object.
 		 */
-		return apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
+		$response = apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
+
+
+
+		if ( ! $current_tab ) {
+			return $response;
+		}
+
+		/**
+		 * Each step hooks in here and potentially modifies the response.
+		 *
+		 * @since TBD
+		 *
+		 * @param WP_REST_Response $response The response object.
+		 * @param Request          $request  The request object.
+		 * @param Wizard           $wizard   The wizard object.
+		 */
+		return apply_filters( 'tec_events_onboarding_wizard_handle_' . $current_tab, $response, $request, $this );
 
 	}
 }

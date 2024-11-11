@@ -21,6 +21,7 @@ const TicketsContent = ({moveToNextTab, skipToNextTab}) => {
 	// Create tabSettings object to pass to NextButton.
 	const tabSettings = {
 		eventTickets: ticketValue,
+		currentTab: 'tickets', // Include the current tab.
 	}
 
 	return (
