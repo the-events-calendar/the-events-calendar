@@ -172,8 +172,8 @@ class Latest_Past_View extends List_View {
 	 */
 	protected function setup_repository_args( Tribe__Context $context = null ) {
 		$this->repository = tribe_events();
-		$context ??= $this->context;
-		$args    = parent::setup_repository_args( $context );
+		$context        ??= $this->context;
+		$args             = parent::setup_repository_args( $context );
 
 		$args['posts_per_page'] = $this->context->get( 'latest_past_per_page', 3 );
 		$args['order_by']       = 'event_date';
