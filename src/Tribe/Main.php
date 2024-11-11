@@ -726,10 +726,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Load all the required library files.
 		 */
 		protected function loadLibraries() {
-			// Setup the Activation page
-			// no. $this->activation_page();
-			add_filter( 'tec_admin_update_page_bypass', '__return_true' );
-
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
@@ -1094,7 +1090,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function activation_page() {
 			_deprecated_function( __METHOD__, 'TBD', 'No replacement' );
-			return '';
+
 			// Setup the activation page only if the relevant class exists (in some edge cases, if another
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
 			// if we don't take this precaution).
