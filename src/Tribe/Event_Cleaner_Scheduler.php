@@ -173,15 +173,15 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			FROM {$wpdb->posts} AS t1
 			INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
 			WHERE
-				t1.post_type = %s
+				t1.post_type = %1s
 				AND t2.meta_key = '_EventEndDate'
-				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL %d %3s )
+				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL %2d %4s )
 				AND t2.meta_value != 0
 				AND t2.meta_value != ''
 				AND t2.meta_value IS NOT NULL
 				AND t1.post_parent = 0
 				AND t1.ID NOT IN ( $posts_with_parents_sql )
-			LIMIT %d
+			LIMIT %3d
 		";
 
 		/**
