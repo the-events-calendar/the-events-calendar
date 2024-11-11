@@ -13,6 +13,14 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 	const [isClicked, setClicked] = useState(false);
 	const [isSaving, setSaving] = useState(false);
 
+	// Reset isSaving state when any field in tabSettings changes
+	useEffect(() => {
+		if (tabSettings) {
+			// If the user changes any field, we reset the saving state
+			setSaving(false);
+		}
+	}, [tabSettings]);
+
 	useEffect(() => {
 		const handleTabChange = async () => {
 			setSaving(true);
@@ -34,6 +42,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 				// Move to the next tab if API call was successful
 				moveToNextTab();
 			} else {
+				// Optionally, handle error feedback here.
 				console.error("Failed to save settings.");
 			}
 
