@@ -1086,7 +1086,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * @return Tribe__Admin__Activation_Page
 		 *
-		 * @deprecated TBD
+		 * @deprecated TBD Activation page no longer used.
 		 */
 		public function activation_page() {
 			_deprecated_function( __METHOD__, 'TBD', 'No replacement' );
