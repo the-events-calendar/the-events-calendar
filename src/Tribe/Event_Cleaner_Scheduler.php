@@ -144,6 +144,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @since 4.6.13
 	 * @since 6.0.13 Now batches each purge. By default, it limits to 15 occurrences.
+	 * @since 6.2.9  Add an optional 'frequency|interval' format for the events to retrieve field, e.g. '15|MINUTE'.
 	 *
 	 * @param int $month - The value chosen by user to purge all events older than x months
 	 *
