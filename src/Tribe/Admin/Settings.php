@@ -241,7 +241,7 @@ class Settings {
 		$post_type = tribe_get_request_var( 'post_type' );
 
 		// Check if the request is for the old help page.
-		if ( 'tribe_events' === $post_type && 'tec-events-help' === $page ) {
+		if ( Plugin::POSTTYPE === $post_type && 'tec-events-help' === $page ) {
 			// Build the new URL with wp_parse_args for security and consistency.
 			$new_url = add_query_arg(
 				[
