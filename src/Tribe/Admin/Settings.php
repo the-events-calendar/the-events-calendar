@@ -210,7 +210,7 @@ class Settings {
 		);
 
 		// Redirects users from the outdated Help page to the new Help Hub page if accessed.
-		$this->maybe_redirect_to_help_hub();
+		$this->redirect_to_help_hub();
 
 		// Instantiate necessary dependencies for the Help Hub.
 		$template      = tribe( Tribe__Template::class );
@@ -243,7 +243,7 @@ class Settings {
 	 *
 	 * @return void
 	 */
-	public function maybe_redirect_to_help_hub(): void {
+	public function redirect_to_help_hub(): void {
 		$page      = tribe_get_request_var( 'page' );
 		$post_type = tribe_get_request_var( 'post_type' );
 
