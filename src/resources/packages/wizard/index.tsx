@@ -1,7 +1,6 @@
 import React from "react";
 import domReady from '@wordpress/dom-ready';
-import { createRoot } from 'react-dom/client';
-import { useState } from '@wordpress/element';
+import ReactDOM from 'react-dom';
 import { Modal } from '@wordpress/components';
 import { useSelect, useDispatch } from "@wordpress/data";
 import OnboardingTabs from './components/Tabs';
@@ -42,9 +41,6 @@ const OnboardingModal = ({ bootData }) => {
 };
 
 domReady(() => {
-	// Store our created roots in a map so we can reuse them.
-	const roots = new Map<string, ReturnType<typeof createRoot>>();
-
 	document.querySelectorAll('.tec-events-onboarding-wizard').forEach((element) => {
 		const containerId = element.dataset.containerElement;
 		const bootData = element.dataset.wizardBootData;
@@ -60,19 +56,11 @@ domReady(() => {
 			return;
 		}
 
-		// Check if the root for this container already exists.
-		let root = roots.get(containerId);
-		if (!root) {
-			// Create and store the root only if it doesn’t already exist.
-			root = createRoot(rootContainer);
-			roots.set(containerId, root);
-		}
-
 		const parsedBootData = JSON.parse(bootData);
 
 		element.addEventListener('click', (event) => {
 			event.preventDefault();
-			root!.render(<OnboardingModal bootData={parsedBootData} />);
+			ReactDOM.render(<OnboardingModal bootData={parsedBootData} />, rootContainer);
 		});
 	});
 });

@@ -59,9 +59,9 @@ class Wizard {
 				'callback' => [ $this, 'handle' ],
 				'args'     => [
 					'nonce' => [
-						'type'        => 'string',
-						'description' => __( 'The nonce for the request.', 'the-events-calendar' ),
-						'required'    => true,
+						'type'              => 'string',
+						'description'       => __( 'The nonce for the request.', 'the-events-calendar' ),
+						'required'          => true,
 						'validate_callback' => [ $this, 'check_nonce' ],
 					],
 				],

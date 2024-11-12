@@ -62,13 +62,23 @@ class Tickets implements Contracts\Step_Interface {
 	 * @param bool $tickets The tickets data.
 	 */
 	public static function process( $tickets ): bool {
-		return $tickets ? self::install_event_tickets_plugin( $tickets) : true;
+		return $tickets ? self::install_event_tickets_plugin() : true;
 	}
 
-	public static function install_event_tickets_plugin( $eventTickets ) {
+	/**
+	 * Install and activate the Event Tickets plugin from the WordPress.org repo.
+	 *
+	 * @since TBD
+	 */
+	public static function install_event_tickets_plugin(): bool {
 		// Check if the plugin is already installed.
 		if ( function_exists( 'tribe_tickets' ) ) {
 			return true;
+		}
+
+		// Why, WP, why?
+		if ( ! function_exists( 'download_url' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
 		$plugin_slug = 'event-tickets'; // Plugin slug for Event Tickets.
@@ -90,10 +100,18 @@ class Tickets implements Contracts\Step_Interface {
 				return false;
 			}
 
-			// Install the plugin
+			if ( ! function_exists( 'install_plugin_install_status' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+			}
+
+			if ( ! function_exists( 'get_plugins' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+
+			// Install the plugin.
 			$install_result = install_plugin_install_status( $plugin_file );
 			if ( ! is_wp_error( $install_result ) ) {
-				// Activate the plugin
+				// Activate the plugin.
 				activate_plugin( 'event-tickets/event-tickets.php' );
 			}
 		} else {
