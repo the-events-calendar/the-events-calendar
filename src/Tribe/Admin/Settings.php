@@ -202,6 +202,9 @@ class Settings {
 			]
 		);
 
+		// Redirects users from the outdated Help page to the new Help Hub page if accessed.
+		$this->maybe_redirect_to_help_hub();
+
 		// Instantiate necessary dependencies for the Help Hub.
 		$template      = tribe( Tribe__Template::class );
 		$config        = tribe( Configuration::class );
@@ -222,6 +225,36 @@ class Settings {
 
 		$this->maybe_add_troubleshooting();
 		$this->maybe_add_app_shop();
+	}
+
+	/**
+	 * Redirects users from an outdated help page to the updated Help Hub page in the WordPress admin.
+	 *
+	 * Checks the `page` and `post_type` query parameters, and if they match the old help page slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function maybe_redirect_to_help_hub(): void {
+		$page      = tribe_get_request_var( 'page' );
+		$post_type = tribe_get_request_var( 'post_type' );
+
+		// Check if the request is for the old help page.
+		if ( 'tribe_events' === $post_type && 'tec-events-help' === $page ) {
+			// Build the new URL with wp_parse_args for security and consistency.
+			$new_url = add_query_arg(
+				[
+					'post_type' => 'tribe_events',
+					'page'      => 'tec-events-help-hub',
+				],
+				admin_url( 'edit.php' )
+			);
+
+			// Perform a safe redirect to the new Help Hub page.
+			wp_safe_redirect( $new_url );
+			exit;
+		}
 	}
 
 	/**
