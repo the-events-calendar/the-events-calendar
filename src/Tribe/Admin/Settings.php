@@ -25,6 +25,13 @@ class Settings {
 	public static $settings_page_id = 'tec-events-settings';
 
 	/**
+	 * The Help Hub page slug.
+	 *
+	 * @var string
+	 */
+	public static $help_hub_slug = 'tec-events-help-hub';
+
+	/**
 	 * Settings tabs
 	 */
 	public $tabs = [];
@@ -215,10 +222,10 @@ class Settings {
 
 		$admin_pages->register_page(
 			[
-				'id'       => 'tec-events-help-hub',
+				'id'       => self::$help_hub_slug,
 				'parent'   => $this->get_tec_events_menu_slug(),
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
-				'path'     => 'tec-events-help-hub',
+				'path'     => self::$help_hub_slug,
 				'callback' => [ $hub_instance, 'render' ],
 			]
 		);
@@ -240,19 +247,22 @@ class Settings {
 		$page      = tribe_get_request_var( 'page' );
 		$post_type = tribe_get_request_var( 'post_type' );
 
-		// Check if the request is for the old help page.
-		if ( Plugin::POSTTYPE === $post_type && 'tec-events-help' === $page ) {
-			$new_url = add_query_arg(
-				[
-					'post_type' => Plugin::POSTTYPE,
-					'page'      => 'tec-events-help-hub',
-				],
-				admin_url( 'edit.php' )
-			);
-
-			wp_safe_redirect( $new_url );
-			exit;
+		// Exit if the request is not for the old help page.
+		if ( Plugin::POSTTYPE !== $post_type || 'tec-events-help' !== $page ) {
+			return;
 		}
+
+		// Build the new URL for redirection.
+		$new_url = add_query_arg(
+			[
+				'post_type' => Plugin::POSTTYPE,
+				'page'      => self::$help_hub_slug,
+			],
+			admin_url( 'edit.php' )
+		);
+
+		wp_safe_redirect( $new_url );
+		exit;
 	}
 
 	/**
