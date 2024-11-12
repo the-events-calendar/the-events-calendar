@@ -76,7 +76,7 @@ $general_tab_fields = [
 		'html' => '<ul>'
 			. '<li>' . esc_html__( 'Having trouble?', 'the-events-calendar' ) . '</li>'
 			. '<li><a href="'
-			. esc_url( 'edit.php?post_type=tribe_events&page=tec-events-help' ) . '">'
+			. esc_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' ) . '">'
 			. esc_html__( 'Help', 'the-events-calendar' )
 			. '</a></li>'
 			. '<li><a href="'

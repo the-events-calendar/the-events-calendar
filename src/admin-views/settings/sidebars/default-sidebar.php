@@ -107,7 +107,7 @@ $hero_section->add_section(
 				),
 
 				new Link(
-					admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help' ),
+					admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' ),
 					__( 'Help', 'the-events-calendar' )
 				),
 				$break,
