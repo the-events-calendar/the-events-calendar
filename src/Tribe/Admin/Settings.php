@@ -245,7 +245,7 @@ class Settings {
 			// Build the new URL with wp_parse_args for security and consistency.
 			$new_url = add_query_arg(
 				[
-					'post_type' => 'tribe_events',
+					'post_type' => Plugin::POSTTYPE,
 					'page'      => 'tec-events-help-hub',
 				],
 				admin_url( 'edit.php' )
