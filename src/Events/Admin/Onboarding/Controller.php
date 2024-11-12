@@ -2,7 +2,7 @@
 /**
  * Controller for interfacing with TEC\Common\Onboarding.
  *
- * @since TBD
+ * @since 6.8.1
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -20,7 +20,7 @@ use TEC\Events\Admin\Onboarding\Data;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.8.1
  * @package TEC\Events\Admin\Onboarding
  */
 class Controller extends Controller_Contract {
@@ -28,7 +28,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The slug for the admin menu.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @var string
 	 */
@@ -37,14 +37,14 @@ class Controller extends Controller_Contract {
 	/**
 	 * The slug for the parent page.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public static string $parent_slug = 'tribe_events_page_';
 
 	/**
 	 * The slug for the admin page
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @var string
 	 */
@@ -53,7 +53,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function do_register(): void {
 		$this->add_filters();
@@ -66,7 +66,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function unregister(): void {
 		$this->remove_filters();
@@ -76,7 +76,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Should only be active if we are in the admin.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function is_active(): bool {
 		return true;
@@ -85,7 +85,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Defines wether the current page is the correct page.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function is_on_page(): bool {
 		$admin_pages = tribe( 'admin.pages' );
@@ -98,7 +98,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Get the page slug.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function get_page_slug(): string {
 		if ( ! empty( static::$page_slug ) ) {
@@ -113,7 +113,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Add the filter hooks.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function add_filters() {
 		// Add the step handlers.
@@ -127,7 +127,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function add_actions() {
 		add_action( 'admin_menu', [ $this, 'settings_page' ] );
@@ -138,7 +138,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Remove the filter hooks.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function remove_filters() {
 		// Remove the step handlers.
@@ -152,7 +152,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Remove the action hooks.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function remove_actions() {
 		remove_action( 'admin_menu', [ $this, 'settings_page' ] );
@@ -163,7 +163,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Settings page callback.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function settings_page() {
 		add_submenu_page(
@@ -179,7 +179,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Enqueue scripts for the onboarding wizard.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function enqueue_assets() {
 		if ( ! $this->is_on_page() ) {
@@ -211,7 +211,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the REST endpoints that will be used to return the Views HTML.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function register_rest_endpoints(): void {
 		$this->container->make( Wizard::class )->register();
@@ -220,7 +220,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Render the onboarding wizard button.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function tec_onboarding_wizard_button(): void {
 		// phpcs:disable
@@ -263,7 +263,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Render the a "nulled" (all info empty, ignoring site settings) onboarding wizard button.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function get_null_button(): void {
 		// phpcs:disable
@@ -304,7 +304,7 @@ class Controller extends Controller_Contract {
 	 * Get the organizer data.
 	 * Looks for a single existing organizer and returns the data.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function get_organizer_data(): array {
 		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
@@ -326,7 +326,7 @@ class Controller extends Controller_Contract {
 	 * Get the venue data.
 	 * Looks for a single existing venue and returns the data.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function get_venue_data(): array {
 		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
@@ -351,7 +351,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Get the available views.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public function get_available_views(): array {
 		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );

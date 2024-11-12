@@ -3,7 +3,7 @@
  * The REST API handler for the Onboarding Wizard.
  * Cleverly named...Wizard.
  *
- * @since TBD
+ * @since 6.8.1
  *
  * @package TEC\Events\Admin\Onboarding
  */
@@ -18,7 +18,7 @@ use WP_REST_Response;
 /**
  * Class Wizard
  *
- * @since TBD
+ * @since 6.8.1
  *
  * @package TEC\Events\Admin\Onboarding
  */
@@ -27,7 +27,7 @@ class Wizard {
 	/**
 	 * The action for this nonce.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Wizard {
 	/**
 	 * Rest Endpoint namespace
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @var  string
 	 */
@@ -45,7 +45,7 @@ class Wizard {
 	/**
 	 * Register the endpoint.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 *
 	 * @return boolean If we registered the endpoint.
@@ -73,7 +73,7 @@ class Wizard {
 	/**
 	 * Check the nonce.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @param string $nonce The nonce.
 	 *
@@ -98,7 +98,7 @@ class Wizard {
 	/**
 	 * Check the permissions.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @return boolean If the user has the correct permissions.
 	 */
@@ -108,7 +108,7 @@ class Wizard {
 		/**
 		 * Filter the required permission for the onboarding wizard.
 		 *
-		 * @since TBD
+		 * @since 6.8.1
 		 *
 		 * @param string $required_permission The required permission.
 		 * @param Wizard $wizard The wizard object.
@@ -123,7 +123,7 @@ class Wizard {
 	/**
 	 * Handle the request.
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 *
 	 * @param Request $request The request object.
 	 *
@@ -144,7 +144,7 @@ class Wizard {
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
-		 * @since TBD
+		 * @since 6.8.1
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.
@@ -161,7 +161,7 @@ class Wizard {
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
-		 * @since TBD
+		 * @since 6.8.1
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.

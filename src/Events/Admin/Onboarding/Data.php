@@ -2,7 +2,7 @@
 /**
  * Class that holds some data functions for the Wizard.
  *
- * @since TBD
+ * @since 6.8.1
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -10,7 +10,7 @@ namespace TEC\Events\Admin\Onboarding;
 /**
  * Class Data
  *
- * @since TBD
+ * @since 6.8.1
  * @package TEC\Events\Admin\Onboarding
  */
 class Data {
@@ -18,7 +18,7 @@ class Data {
 	/**
 	 * Get a list of countries. Grouped by continent/region.
 	 *
-	 * @since TBD.
+	 * @since 6.8.1.
 	 */
 	public static function get_country_list(): array {
 		$countries = [
@@ -265,7 +265,7 @@ class Data {
 		/**
 		 * Filter the list of countries.
 		 *
-		 * @since TBD
+		 * @since 6.8.1
 		 *
 		 * @param array $countries The list of countries. Grouped by continent/region.
 		 */
@@ -279,7 +279,7 @@ class Data {
 	 *
 	 * @todo Move this somewhere for reuse!
 	 *
-	 * @since TBD
+	 * @since 6.8.1
 	 */
 	public static function get_timezone_list(): array {
 		// phpcs:disable

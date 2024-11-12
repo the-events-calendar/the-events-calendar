@@ -1,33 +1,33 @@
 {
 	"build": [
-		"pup do build-common",
+		"@pup do build-common",
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
-		"pup npm run before-zip"
+		"npm run before-zip"
 	],
 	"build_dev": [
-		"pup do build-common",
+		"@pup do build-common",
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
-		"pup npm run before-zip"
+		"npm run before-zip"
 	],
 	"workflows": {
 		"build-common": [
 			"cd common && pup build"
 		],
 		"copy-common-includes": [
-			"sed 's|^|common/|' common/.distfiles >> .distfiles"
+			"sed 's|^/|common/|; s|^|common/|' common/.distfile >> .distfile"
 		],
 		"tec-zip": [
 			"git submodule update --recursive --init",
 			"pup build",
 			"pup check",
-			"pup-i18n",
-			"cd common && pup-i18n",
+			"pup i18n",
+			"cd common && pup i18n",
 			"pup do copy-common-includes",
-			"pup package",
+			"pup package $(pup get-version)",
 			"pup clean"
 		]
 	},
@@ -38,7 +38,10 @@
 				"common/src"
 			]
 		},
-		"version-conflict": {}
+		"version-conflict": {
+			"fail_method": "error",
+            "fail_method_dev": "warn"
+		}
 	},
 	"i18n": [
 		{
