@@ -7,6 +7,7 @@
  *
  * @package TEC\Events\Admin\Onboarding
  */
+
 namespace TEC\Events\Admin\Onboarding;
 
 use WP_REST_Request as Request;

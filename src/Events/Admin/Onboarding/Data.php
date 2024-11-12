@@ -22,7 +22,7 @@ class Data {
 	 */
 	public static function get_country_list(): array {
 		$countries = [
-			'Africa' => [
+			'Africa'     => [
 				'AO' => 'Angola',
 				'BF' => 'Burkina Faso',
 				'BI' => 'Burundi',
@@ -58,11 +58,11 @@ class Data {
 				'RW' => 'Rwanda',
 				'SC' => 'Seychelles',
 				'SD' => 'Sudan',
-				'SH' => 'Saint Helena', // Note: geographically in the Atlantic, but often grouped with Africa
+				'SH' => 'Saint Helena',
 				'SL' => 'Sierra Leone',
 				'SN' => 'Senegal',
 				'SO' => 'Somalia',
-				'ST' => 'São Tomé and Príncipe', // Also geographically in the Atlantic
+				'ST' => 'São Tomé and Príncipe',
 				'SZ' => 'Eswatini (Swaziland)',
 				'TG' => 'Togo',
 				'TZ' => 'Tanzania',
@@ -71,7 +71,7 @@ class Data {
 				'ZM' => 'Zambia',
 				'ZW' => 'Zimbabwe',
 			],
-			'Americas' => [
+			'Americas'   => [
 				'AG' => 'Antigua and Barbuda',
 				'AR' => 'Argentina',
 				'AW' => 'Aruba',
@@ -120,13 +120,13 @@ class Data {
 				'VE' => 'Venezuela',
 				'VG' => 'British Virgin Islands',
 				'VI' => 'U.S. Virgin Islands',
-				'FK' => 'Falkland Islands', // South Atlantic, but commonly grouped under South America
+				'FK' => 'Falkland Islands',
 				'GF' => 'French Guiana',
 			],
 			'Antarctica' => [
 				'AQ' => 'Antarctica',
 			],
-			'Asia' => [
+			'Asia'       => [
 				'AE' => 'United Arab Emirates',
 				'AF' => 'Afghanistan',
 				'AM' => 'Armenia',
@@ -134,9 +134,9 @@ class Data {
 				'BD' => 'Bangladesh',
 				'BN' => 'Brunei',
 				'BT' => 'Bhutan',
-				'CC' => 'Cocos [Keeling] Islands', // Often associated with Asia as an Australian territory in the Indian Ocean
+				'CC' => 'Cocos [Keeling] Islands',
 				'CN' => 'China',
-				'CX' => 'Christmas Island', // Also associated with Asia as an Australian territory
+				'CX' => 'Christmas Island',
 				'CY' => 'Cyprus',
 				'GE' => 'Georgia',
 				'HK' => 'Hong Kong',
@@ -178,7 +178,7 @@ class Data {
 				'VN' => 'Vietnam',
 				'YE' => 'Yemen',
 			],
-			'Oceania' => [
+			'Oceania'    => [
 				'AS' => 'American Samoa',
 				'AU' => 'Australia',
 				'CK' => 'Cook Islands',
@@ -206,7 +206,7 @@ class Data {
 				'WF' => 'Wallis and Futuna',
 				'WS' => 'Samoa',
 			],
-			'Europe' => [
+			'Europe'     => [
 				'AD' => 'Andorra',
 				'AL' => 'Albania',
 				'AT' => 'Austria',

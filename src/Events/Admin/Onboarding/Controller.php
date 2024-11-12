@@ -172,7 +172,7 @@ class Controller extends Controller_Contract {
 			__( 'Onboarding Wizard', 'the-events-calendar' ),
 			'manage_options',
 			$this->get_page_slug(),
-			[ $this, 'get_null_button' ] //[ $this, 'tec_onboarding_wizard_button' ]
+			[ $this, 'tec_onboarding_wizard_button' ]
 		);
 	}
 
@@ -331,7 +331,7 @@ class Controller extends Controller_Contract {
 	public function get_venue_data(): array {
 		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
 
-		if ( empty( $venue_id) ) {
+		if ( empty( $venue_id ) ) {
 			return [];
 		}
 

@@ -66,18 +66,18 @@ class Tickets implements Contracts\Step_Interface {
 	}
 
 	public static function install_event_tickets_plugin( $eventTickets ) {
-		// Check if 'eventTickets' param is true (adjust the source as needed)
+		// Check if the plugin is already installed.
 		if ( function_exists( 'tribe_tickets' ) ) {
 			return true;
 		}
 
-		$plugin_slug = 'event-tickets'; // Plugin slug for Event Tickets
+		$plugin_slug = 'event-tickets'; // Plugin slug for Event Tickets.
 		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
 
-		// Fetch plugin information from the WordPress plugin repo
+		// Fetch plugin information from the WordPress plugin repo.
 		$response = wp_remote_get( $plugin_repo_url );
 		if ( is_wp_error( $response ) ) {
-			return false; // new WP_Error( 'plugin_install_failed', 'Failed to fetch plugin information.' );
+			return false;
 		}
 
 		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -87,7 +87,7 @@ class Tickets implements Contracts\Step_Interface {
 			$plugin_file = download_url( $download_url );
 
 			if ( is_wp_error( $plugin_file ) ) {
-				return false; // new WP_Error( 'plugin_download_failed', 'Failed to download plugin.' );
+				return false;
 			}
 
 			// Install the plugin
@@ -97,7 +97,7 @@ class Tickets implements Contracts\Step_Interface {
 				activate_plugin( 'event-tickets/event-tickets.php' );
 			}
 		} else {
-			return false; //new WP_Error( 'plugin_not_found', 'Plugin download URL not found.' );
+			return false;
 		}
 
 		return true;

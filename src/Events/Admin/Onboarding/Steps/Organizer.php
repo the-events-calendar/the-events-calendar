@@ -79,9 +79,9 @@ class Organizer implements Contracts\Step_Interface {
 		$organizer['_OrganizerWebsite' ] = $organizer['website' ];
 		$organizer['_OrganizerEmail' ]   = $organizer['email' ];
 
-		$postId = Tribe__Events__API::createOrganizer( $organizer );
+		$post_id = Tribe__Events__API::createOrganizer( $organizer );
 
-		if ( ! $postId ) {
+		if ( ! $post_id ) {
 			return false;
 		}
 

@@ -66,9 +66,12 @@ class Settings implements Contracts\Step_Interface {
 
 		// Don't try to save "all".
 		if ( $enabled_views && in_array( 'all', $enabled_views ) ) {
-			$enabled_views = array_filter( $enabled_views, function ( $view ) {
-				return 'all' !== $view;
-			} );
+			$enabled_views = array_filter(
+				$enabled_views,
+				function ( $view ) {
+					return 'all' !== $view;
+				}
+			);
 		}
 
 		$settings = [
@@ -113,6 +116,4 @@ class Settings implements Contracts\Step_Interface {
 
 		return true;
 	}
-
-
 }

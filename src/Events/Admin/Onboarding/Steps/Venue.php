@@ -84,9 +84,9 @@ class Venue implements Contracts\Step_Interface {
 		$newVenue['_VenuePhone' ]   = $venue['phone' ];
 		$newVenue['_VenueWebsite' ] = $venue['website' ];
 
-		$postId = Tribe__Events__API::createVenue( $newVenue );
+		$post_id = Tribe__Events__API::createVenue( $newVenue );
 
-		if ( ! $postId ) {
+		if ( ! $post_id ) {
 			return false;
 		}
 
