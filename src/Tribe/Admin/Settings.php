@@ -242,7 +242,6 @@ class Settings {
 
 		// Check if the request is for the old help page.
 		if ( Plugin::POSTTYPE === $post_type && 'tec-events-help' === $page ) {
-			// Build the new URL with wp_parse_args for security and consistency.
 			$new_url = add_query_arg(
 				[
 					'post_type' => Plugin::POSTTYPE,
@@ -251,7 +250,6 @@ class Settings {
 				admin_url( 'edit.php' )
 			);
 
-			// Perform a safe redirect to the new Help Hub page.
 			wp_safe_redirect( $new_url );
 			exit;
 		}
