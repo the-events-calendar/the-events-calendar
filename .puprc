@@ -1,19 +1,35 @@
 {
 	"build": [
+		"git submodule update --recursive --init",
 		"pup do build-common",
 		"composer install --no-dev",
-		"npm ci",
-		"npm run build"
+		"npm ci --no-audit --no-fund",
+		"npm run build",
+		"pup do npm run before-zip"
 	],
 	"build_dev": [
+		"git submodule update --recursive --init",
 		"pup do build-common",
 		"composer install",
-		"npm ci",
-		"npm run build"
+		"npm ci --no-audit --no-fund",
+		"npm run build",
+		"pup do npm run before-zip"
 	],
 	"workflows": {
 		"build-common": [
 			"cd common && pup build"
+		],
+		"copy-common-includes": [
+			"sed 's|^|common/|' common/.distfile >> .distfile"
+		],
+		"tec-zip": [
+			"pup build",
+			"pup check",
+			"pup-i18n",
+			"cd common && pup-i18n",
+			"pup do copy-common-includes",
+			"pup package",
+			"pup clean"
 		]
 	},
 	"checks": {
