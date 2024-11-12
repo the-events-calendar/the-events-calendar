@@ -29,7 +29,14 @@ class Settings {
 	 *
 	 * @var string
 	 */
-	public static $help_hub_slug = 'tec-events-help-hub';
+	public static string $help_hub_slug = 'tec-events-help-hub';
+
+	/**
+	 * The Original Help page slug.
+	 *
+	 * @var string
+	 */
+	public static string $original_help_slug = 'tec-events-help';
 
 	/**
 	 * Settings tabs
@@ -248,7 +255,7 @@ class Settings {
 		$post_type = tribe_get_request_var( 'post_type' );
 
 		// Exit if the request is not for the old help page.
-		if ( Plugin::POSTTYPE !== $post_type || 'tec-events-help' !== $page ) {
+		if ( Plugin::POSTTYPE !== $post_type || self::$original_help_slug !== $page ) {
 			return;
 		}
 
