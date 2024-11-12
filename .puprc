@@ -17,22 +17,14 @@
 		"build-common": [
 			"cd common && pup build"
 		],
-		"copy-common-includes": [
-			"sed 's|^/|/common/|' common/.distfiles >> .distfiles"
-		],
-		"undo-copy-common-includes": [
-			"sed 's|^/common/||' .distfiles > temp.distfiles && mv temp.distfiles .distfiles"
-		],
 		"tec-zip": [
 			"git submodule update --recursive --init",
 			"pup build",
 			"pup check",
 			"pup i18n",
 			"cd common && pup i18n",
-			"pup do copy-common-includes",
 			"pup package $(pup get-version)",
-			"pup clean",
-			"pup do undo-copy-common-includes"
+			"pup clean"
 		]
 	},
 	"checks": {
