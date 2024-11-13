@@ -28,7 +28,7 @@ class Notifications {
 	 */
 	public static function is_tec_admin_page(): bool {
 		$current_screen = get_current_screen();
-		$helper = \Tribe__Admin__Helpers::instance();
+		$helper         = \Tribe__Admin__Helpers::instance();
 
 		// Are we on a tec post-type admin screen?
 		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
