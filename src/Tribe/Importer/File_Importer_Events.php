@@ -549,10 +549,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 5.1.6
 	 *
-	 * @param int    $event_id   The event id being updated by import.
-	 * @param array  $record     An event record from the import.
-	 * @param string $field      The import field name.
-	 * @param string $post_field The post field name.
+	 * @param int           $event_id   The event id being updated by import.
+	 * @param array<string> $record     An event record from the import.
+	 * @param string        $field      The import field name.
+	 * @param string        $post_field The post field name.
 	 *
 	 * @return string The description value to update the event with.
 	 */
