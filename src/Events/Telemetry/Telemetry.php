@@ -104,9 +104,7 @@ class Telemetry {
 			'type'            => 'checkbox_bool',
 			'label'           => $label,
 			'tooltip'         => sprintf(
-			/*
-			Translators:
-			Description of the Telemetry opt-in setting.
+			/* Translators: Description of the Telemetry optin setting.
 			%1$s: opening anchor tag for permissions link.
 			%2$s: opening anchor tag for terms of service link.
 			%3$s: opening anchor tag for privacy policy link.
@@ -125,8 +123,7 @@ class Telemetry {
 				'<a href="' . Common_Telemetry::get_terms_url() . '">',
 				'<a href="' . Common_Telemetry::get_privacy_url() . '">',
 				'</a>'
-			)
-		,
+			),
 			'default'         => false,
 			'validation_type' => 'boolean',
 		];
