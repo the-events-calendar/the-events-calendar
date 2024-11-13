@@ -359,7 +359,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 4.6.19
 	 *
-	 * @return mixed The separator used between organizers. Default is a comma (,).
+	 * @return string The separator used between organizers. Default is a comma (,).
 	 */
 	private function get_separator() {
 		/**
