@@ -19,6 +19,7 @@ tests/*.suite.yml
 .env*.local
 *.tric
 *.tric.yml
+.env.testing
 
 # Tests - local output files
 tests/_output
@@ -31,9 +32,9 @@ compiler.jar
 *.ps1
 *.code-workspace
 bun.lockb
+.vscode
 
 wpml-config.xml
-.env.testing
 
 # get from translate.wordpress.org as needed
 lang/*.po
@@ -50,5 +51,3 @@ files/
 
 # Misc
 bin/strauss.phar
-
-.vscode
