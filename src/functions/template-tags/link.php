@@ -6,11 +6,15 @@
  */
 
 /**
- * Link to Previous Event (Display)
+ * Displays a link to the previous event by start date.
  *
- * Displays a link to the previous post by start date for the given event
+ * The link text can be customized by passing a string to the `$anchor` parameter.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ *
+ * @param bool|string $anchor Optional. Custom link text. Use `%title%` to place the event title in the string. Default is false.
+ *
+ * @return void
  *
  * @see tribe_get_prev_event_link()
  */
