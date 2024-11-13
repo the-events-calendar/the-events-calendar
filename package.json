@@ -5,17 +5,6 @@
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
   "_resourcepath": "src/resources",
-  "_domainPath": "lang",
-  "_textDomain": "the-events-calendar",
-  "_glotPressUrl": "https://translate.wordpress.org",
-  "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
-  "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": ["po", "mo"],
-  "_glotPressFilter": {
-    "translation_sets": false,
-    "minimum_percentage": 30,
-    "waiting_strings": false
-  },
   "_filePath": {
     "eslint": [
       "src/modules/**/*.js",
@@ -66,7 +55,6 @@
     "jest": "TZ=UTC gulp jest",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress",
     "changelog": "./vendor/bin/changelogger add"
   },
   "engines": { "node": "18.13.0", "npm": "8.19.3" },
