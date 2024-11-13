@@ -36,14 +36,14 @@
 		},
 		"version-conflict": {
 			"fail_method": "error",
-            "fail_method_dev": "warn"
+			"fail_method_dev": "warn"
 		}
 	},
 	"i18n": [
 		{
+			"slug": "wp-plugins/the-events-calendar/stable",
 			"textdomain": "the-events-calendar",
-			"url": "https://translate.wordpress.org",
-			"slug": "wp-plugins/the-events-calendar/stable"
+			"url": "https://translate.wordpress.org"
 		}
 	],
 	"paths": {
