@@ -9,8 +9,9 @@ import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from './data';
 import './index.css';
 
 const OnboardingModal = ({ bootData }) => {
-	const isOpen = useSelect((select) => select(MODAL_STORE_KEY).getModalState(), []);
+	const isOpen = useSelect((select) => select(MODAL_STORE_KEY).getModalState());
 	const { closeModal } = useDispatch(MODAL_STORE_KEY);
+	const { openModal } = useDispatch(MODAL_STORE_KEY);
 
 	// Initialize the settings store.
 	const {
@@ -58,9 +59,14 @@ domReady(() => {
 
 		const parsedBootData = JSON.parse(bootData);
 
+		// Render the modal once in the container.
+		ReactDOM.render(<OnboardingModal bootData={parsedBootData} />, rootContainer);
+
+		// Add event listener to open the modal.
 		element.addEventListener('click', (event) => {
 			event.preventDefault();
-			ReactDOM.render(<OnboardingModal bootData={parsedBootData} />, rootContainer);
+			const { openModal } = wp.data.dispatch(MODAL_STORE_KEY); // Trigger the openModal action.
+			openModal();
 		});
 	});
 });

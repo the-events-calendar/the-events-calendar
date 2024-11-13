@@ -1,2 +1,4 @@
 
-export const getModalState = ( state ) => state.isModalOpen || [];
+export const getModalState = ( state ) => state.isOpen;
+
+export const getInitialState = () => true;
