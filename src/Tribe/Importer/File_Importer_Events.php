@@ -77,8 +77,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param array $matches    Array with the duplicate matches.
-		 * @param array $query_args Array with the arguments used to get the posts.
+		 * @param array<int> $matches    Array with the duplicate matches.
+		 * @param array<string,mixed> $query_args Array with the arguments used to get the posts.
 		 */
 		$matches = (array) apply_filters( 'tribe_events_import_event_duplicate_matches', get_posts( $query_args ), $query_args );
 		remove_filter( 'posts_search', [ $this, 'filter_query_for_title_search' ], 10 );
@@ -322,9 +322,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 *
 		 * @since 3.12.0
 		 *
-		 * @param array $additional_fields An array of additional fields for the event.
+		 * @param array<string,mixed> $additional_fields An array of additional fields for the event.
 		 *
-		 * @return array Modified list of additional fields.
+		 * @return array<string,mixed> Modified list of additional fields.
 		 */
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', [] );
 
@@ -344,11 +344,11 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 *
 		 * @since 5.12.4
 		 *
-		 * @param array<string|mixed> $event  An array event meta fields.
+		 * @param array<string,mixed> $event  An array of event meta fields.
 		 * @param array<mixed>        $record An event record from the import.
 		 * @param object              $this   The class instance.
 		 *
-		 * @return array<string|mixed> An array of the autodetect results.
+		 * @return array<string,mixed> An array of the autodetect results.
 		 */
 		return apply_filters( 'tec_events_csv_import_event_meta', $event, $record, $this );
 	}
