@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: recursive
@@ -20,9 +20,14 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Check for .nvmrc file
         id: check-nvmrc
-        run: echo "::set-output name=exists::$(test -f ${{ github.workspace }}/.nvmrc && echo 'true' || echo 'false')"
+        run: |
+          if [ -f "${{ github.workspace }}/.nvmrc" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         if: steps.check-nvmrc.outputs.exists == 'true'
         with:
           node-version-file: '.nvmrc'
