@@ -9,8 +9,11 @@ import { API_ENDPOINT } from "../../data/settings/constants";
 
 const EndButton = ({disabled}) => {
 	const settings = useSelect(select => select(SETTINGS_STORE_KEY).getSettings() || false, []);
+	const isSaving = useSelect(select => select(SETTINGS_STORE_KEY).getIsSaving() || false, []);
+	const setSaving = useDispatch(SETTINGS_STORE_KEY).setSaving;
 	const [isClicked, setClicked] = useState(false);
 
+	/*
 	useEffect(() => {
 		const fetchData = async () => {
 			const { timezones, availableViews, ...filteredSettings } = settings;
@@ -30,6 +33,7 @@ const EndButton = ({disabled}) => {
 		fetchData();
 	}, [isClicked]);
 
+
 	if ( isClicked ) {
 		return (
 			<Button
@@ -40,6 +44,7 @@ const EndButton = ({disabled}) => {
 			</Button>
 		)
 	}
+	*/
 
 	return(
 		<Button

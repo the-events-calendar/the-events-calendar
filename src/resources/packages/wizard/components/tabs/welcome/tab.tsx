@@ -20,7 +20,7 @@ const WelcomeContent = ({moveToNextTab, skipToNextTab}) => {
 	// Create tabSettings object to pass to NextButton
 	const tabSettings = {
 		optin: optinValue, // Include updated optin value
-		currentTab: 'welcome', // Include the current tab.
+		currentTab: 0, // Include the current tab index.
 	};
 
 	return (

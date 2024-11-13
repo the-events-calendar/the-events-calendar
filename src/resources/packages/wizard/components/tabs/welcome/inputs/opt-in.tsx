@@ -3,7 +3,7 @@ import {CheckboxControl} from '@wordpress/components';
 import {useState} from '@wordpress/element';
 import {__} from '@wordpress/i18n';
 
-const OptInCheckbox = ({ initialOptin,onChange }) => {
+const OptInCheckbox = ({ initialOptin, onChange }) => {
 	const [ isChecked, setChecked ] = useState( initialOptin );
 
 	const handleChange = (newCheckedState) => {

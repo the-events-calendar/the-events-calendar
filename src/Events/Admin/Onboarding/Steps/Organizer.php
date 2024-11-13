@@ -20,6 +20,15 @@ use Tribe__Events__API;
  */
 class Organizer implements Contracts\Step_Interface {
 	/**
+	 * The tab number for this step.
+	 *
+	 * @since 6.8.2
+	 *
+	 * @var int
+	 */
+	public const tabNumber = 3;
+
+	/**
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
 	 *
@@ -36,7 +45,13 @@ class Organizer implements Contracts\Step_Interface {
 			return $response;
 		}
 
-		$params    = $request->get_params();
+		$params = $request->get_params();
+
+		// If the current tab is less than this tab, we don't need to do anything yet.
+		if ( $params['currentTab'] < self::tabNumber ) {
+			return $response;
+		}
+
 		$processed = self::process( $params['organizer'] ?? false );
 		$data      = $response->get_data();
 

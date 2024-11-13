@@ -45,7 +45,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			website,
 			email,
 		},
-		currentTab: 'organizer', // Include the current tab.
+		currentTab: 3, // Include the current tab index.
 	};
 
 	const subHeaderText = id !== 0 ?

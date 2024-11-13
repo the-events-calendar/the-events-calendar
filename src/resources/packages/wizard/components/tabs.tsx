@@ -53,10 +53,6 @@ const OnboardingTabs = () => {
 		}
 	};
 
-	useEffect(() => {
-		console.log("Updated Active Tab:", activeTab);
-	}, [activeTab]);
-
 	const handleKeyPress = (event) => {
 		if (event.key === "ArrowRight") changeTab(1);
 		if (event.key === "ArrowLeft") changeTab(-1);

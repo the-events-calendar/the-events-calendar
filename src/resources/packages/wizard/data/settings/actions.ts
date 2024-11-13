@@ -6,13 +6,14 @@ import { apiFetch } from '@wordpress/data';
 
 
 const {
-	INITIALIZE,
 	CREATE,
-	UPDATE,
 	HYDRATE,
+	INITIALIZE,
+	IS_SAVING,
+	SAVE_SETTINGS_ERROR,
 	SAVE_SETTINGS_REQUEST,
 	SAVE_SETTINGS_SUCCESS,
-	SAVE_SETTINGS_ERROR,
+	UPDATE,
 } = TYPES;
 
 interface Settings {
@@ -56,6 +57,13 @@ export const hydrate = settings => {
 	return {
 		type: HYDRATE,
 		settings
+	};
+};
+
+export const setSaving = (isSaving) => {
+	return {
+		type: IS_SAVING,
+		isSaving
 	};
 };
 

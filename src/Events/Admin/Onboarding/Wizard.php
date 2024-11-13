@@ -55,12 +55,12 @@ class Wizard {
 			self::ROOT_NAMESPACE,
 			'/wizard',
 			[
-				'methods'  => [Server::CREATABLE, Server::READABLE],
+				'methods'  => [Server::CREATABLE],
 				'callback' => [ $this, 'handle' ],
 				'args'     => [
-					'nonce' => [
+					'action_nonce' => [
 						'type'              => 'string',
-						'description'       => __( 'The nonce for the request.', 'the-events-calendar' ),
+						'description'       => __( 'The action nonce for the request.', 'the-events-calendar' ),
 						'required'          => true,
 						'validate_callback' => [ $this, 'check_nonce' ],
 					],

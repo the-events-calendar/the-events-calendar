@@ -1,7 +1,16 @@
 /* Receives dispatched actions and determines what happens to the state as a result. */
 import TYPES from "./action-types";
 
-const { INITIALIZE, CREATE, UPDATE, HYDRATE, SAVE_SETTINGS_REQUEST, SAVE_SETTINGS_ERROR, SAVE_SETTINGS_SUCCESS } = TYPES;
+const {
+	CREATE,
+	HYDRATE,
+	INITIALIZE,
+	IS_SAVING,
+	SAVE_SETTINGS_ERROR,
+	SAVE_SETTINGS_REQUEST,
+	SAVE_SETTINGS_SUCCESS,
+	UPDATE,
+} = TYPES;
 
 interface Setting {
 	key: string;
@@ -26,32 +35,32 @@ const reducer = (
 ) => {
 switch (type) {
 	case INITIALIZE:
-	return { settings: settings || {} };
+		return { settings: settings || {} };
 
 	case CREATE:
-	return {
-		...state,
-		settings: {
-		...state.settings,
-		...(setting && setting.key ? { [setting.key]: setting.value } : {}),
-		},
-	};
+		return {
+			...state,
+			settings: {
+			...state.settings,
+			...(setting && setting.key ? { [setting.key]: setting.value } : {}),
+			},
+		};
 
 	case UPDATE:
-	if (settings) {
-		return {
-		...state,
-		isSaving: true,// Set isSaving to true when an update starts
-		settings: {
-			...state.settings,
-			...settings,// Spread the new settings to update them
-		},
-		};
-	}
-	return state;
+		if (settings) {
+			return {
+			...state,
+			isSaving: true,// Set isSaving to true when an update starts
+			settings: {
+				...state.settings,
+				...settings,// Spread the new settings to update them
+			},
+			};
+		}
+		return state;
 
 	case HYDRATE:
-	return { settings: settings || {} };
+		return { settings: settings || {} };
 
 	case SAVE_SETTINGS_REQUEST:
 		return { ...state, isSaving: true, error: null };
@@ -59,13 +68,16 @@ switch (type) {
 	case SAVE_SETTINGS_SUCCESS:
 		return {
 			...state,
-			isSaving: false,
-			settings: { ...state.settings, ...payload }// Merge successful update into settings
+			settings: { ...state.settings, ...payload }, // Merge successful update into settings
+			isSaving: false
 		};
 
 
 	case SAVE_SETTINGS_ERROR:
 		return { ...state, isSaving: false, error };
+
+	case IS_SAVING:
+		return { ...state, isSaving: payload };
 
 	default:
 		return state;

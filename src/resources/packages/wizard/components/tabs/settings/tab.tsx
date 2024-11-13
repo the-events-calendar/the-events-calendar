@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { SelectControl, TextControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
@@ -44,33 +44,36 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat || dateFormatOptions[0].value );
 	const [ weekStart, setWeekStart ] = useState( defaultWeekStart || 0 );
 
-	const timeZoneMessage = defaultTimezone && defaultTimezone.includes("UTC") ? __("Please select your time zone as UTC offsets are not supported.", "the-events-calendar") : __("Please select your time zone.", "the-events-calendar");
+	const timeZoneMessage = defaultTimezone && defaultTimezone.includes("UTC") ? __('Please select your time zone as UTC offsets are not supported.', 'the-events-calendar') : __("Please select your time zone.", 'the-events-calendar');
 
 	// Create tabSettings object to pass to NextButton.
 	const tabSettings = {
-		defaultCurrency: currency,
+		defaultCurrencyCode: currency,
 		defaultTimezone: timeZone,
 		defaultDateFormat: dateFormat,
 		defaultWeekStart: weekStart,
-		currentTab: 'settings', // Include the current tab.
+		currentTab: 2, // Include the current tab index.
 	};
 
 	return (
 		<>
 			<GearIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__("Event Settings", "the-events-calendar")}</h1>
-			<p className="tec-events-onboarding__tab-subheader">{__("Let’s get your events with the correct basic settings.", "the-events-calendar")}</p>
+			<h1 className="tec-events-onboarding__tab-header">{__('Event Settings', 'the-events-calendar')}</h1>
+			<p className="tec-events-onboarding__tab-subheader">{__('Let\’s get your events with the correct basic settings.', 'the-events-calendar')}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<TextControl
 					__nextHasNoMarginBottom
-					label={__("Currency", "the-events-calendar")}
-					defaultValue={ currency }
-					onChange={ setCurrency }
+					label={__('Currency', 'the-events-calendar')}
+					value={ currency }
+					onChange={ ( value ) => {
+						console.log("Setting currency:", value);
+						setCurrency( value ) }
+					}
 				/>
-				{(!defaultTimezone || defaultTimezone.includes("UTC")) && (
+				{(!defaultTimezone || defaultTimezone.includes('UTC')) && (
 					<SelectControl
 						__nextHasNoMarginBottom
-						label={__("Time Zone", "the-events-calendar")}
+						label={__('Time Zone', 'the-events-calendar')}
 						description={timeZoneMessage}
 						defaultValue={ timeZone }
 						onChange={ setTimeZone }
@@ -87,7 +90,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 
 				<SelectControl
 					__nextHasNoMarginBottom
-					label={__("Date Format", "the-events-calendar")}
+					label={__('Date Format', 'the-events-calendar')}
 					defaultValue={ dateFormat }
 					onChange={ setDateFormat }
 					options={dateFormatOptions}
@@ -95,7 +98,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 
 				<SelectControl
 					__nextHasNoMarginBottom
-					label={__("Your Week starts on", "the-events-calendar")}
+					label={__('Your Week starts on', 'the-events-calendar')}
 					defaultValue={ weekStart }
 					onChange={ setWeekStart }
 					options={startDayOptions}
