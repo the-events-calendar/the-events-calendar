@@ -103,13 +103,13 @@ class Telemetry {
 		$fields['opt-in-status'] = [
 			'type'            => 'checkbox_bool',
 			'label'           => $label,
-			sprintf(
-			/* Translators: Description of the Telemetry optin setting.
+			'tooltip'         => sprintf(
+			/*
+			Translators: Description of the Telemetry opt-in setting.
 			1: opening anchor tag.
 			2: opening anchor tag.
 			3: opening anchor tag.
 			4: closing anchor tags.
-			Note: URLs are already escaped in Common_Telemetry methods.
 			*/
 				_x(
 					'Enable this option to share usage data with The Events Calendar and StellarWP.
@@ -121,10 +121,11 @@ class Telemetry {
 					'the-events-calendar'
 				),
 				'<br/><a href="' . Common_Telemetry::get_permissions_url() . '">', // URL is escaped in method.
-				'<br/><a href="' . Common_Telemetry::get_terms_url() . '">',  // URL is escaped in method.
+				'<br/><a href="' . Common_Telemetry::get_terms_url() . '">', // URL is escaped in method.
 				'<br/><a href="' . Common_Telemetry::get_privacy_url() . '">', // URL is escaped in method.
 				'</a>'
-			)                 => 'tooltip',
+			)
+		,
 			'default'         => false,
 			'validation_type' => 'boolean',
 		];
