@@ -10,8 +10,8 @@ import {SETTINGS_STORE_KEY} from "../../data";
 const SetupButton = ({ tabSettings, moveToNextTab }) => {
 	const actionNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("action_nonce"), []);
 	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
-	const updateSettings = useDispatch(SETTINGS_STORE_KEY).updateSettings;
 	const isSaving = useSelect(select => select(SETTINGS_STORE_KEY).getIsSaving() || false, []);
+	const updateSettings = useDispatch(SETTINGS_STORE_KEY).updateSettings;
 	const setSaving = useDispatch(SETTINGS_STORE_KEY).setSaving;
 	const [isClicked, setClicked] = useState(false);
 
@@ -19,28 +19,25 @@ const SetupButton = ({ tabSettings, moveToNextTab }) => {
 		const handleTabChange = async () => {
 			setSaving(true);
 
-			// Dynamically update settings for the current tab
-			if (tabSettings) {
-				updateSettings(tabSettings);
-			}
+			// Add our action nonce.
+			tabSettings.action_nonce = actionNonce;
 
-			// Filter settings and make the API call
-			const { timezones, availableViews, countries, ...filteredSettings } = tabSettings;
-			filteredSettings.action_nonce = actionNonce;
-
+			// Add the wpnonce to the apiFetch middleware so we don't have to mess with it.
 			apiFetch.use( apiFetch.createNonceMiddleware( wpNonce ) );
 
 			const result = await apiFetch({
 				method: "POST",
-				data: filteredSettings,
+				data: tabSettings,
 				path: API_ENDPOINT,
 			});
 
 			if (result.success) {
-				// Move to the next tab if API call was successful
+				// Dynamically update settings Store for the current tab.
+				updateSettings(tabSettings);
+				// Move to the next tab.
 				moveToNextTab();
 			} else {
-				// Optionally, handle error feedback here.
+				// Optionally, add additional error handling here.
 				console.error("Failed to save settings.");
 			}
 

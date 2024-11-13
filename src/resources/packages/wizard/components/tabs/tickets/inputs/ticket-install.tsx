@@ -3,11 +3,12 @@ import { CheckboxControl } from '@wordpress/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-const TicketInstallCheckbox = () => {
+const TicketInstallCheckbox = (onChange) => {
 	const [ isChecked, setChecked ] = useState( false );
 
 	const handleChange = (isChecked) => {
         setChecked(isChecked);
+		onChange(isChecked); // Call the onChange callback passed from the parent
     };
 
 	return (

@@ -32,9 +32,9 @@ const TicketsContent = ({moveToNextTab, skipToNextTab}) => {
 					<h1 className="tec-events-onboarding__tab-header">{__("Event Tickets", "the-events-calendar")}</h1>
 					<p className="tec-events-onboarding__tab-subheader">{__("Will you be selling tickets or providing attendees the ability to RSVP to your events?", "the-events-calendar")}</p>
 					{!originalValue &&(
-						<TicketInstallCheckbox />
+						<TicketInstallCheckbox onChange={setTicketValue} />
 					)}
-					 <p className="tec-events-onboarding__element--center"><NextButton tabSettings={false} moveToNextTab={moveToNextTab} disabled={false}/></p>
+					 <p className="tec-events-onboarding__element--center"><NextButton tabSettings={tabSettings} moveToNextTab={moveToNextTab} disabled={false}/></p>
 					<p><SkipButton skipToNextTab={skipToNextTab} /></p>
 				</div>
 			</div>
