@@ -124,8 +124,7 @@ class Telemetry {
 				'<br/><a href="' . Common_Telemetry::get_terms_url() . '">', // URL is escaped in method.
 				'<br/><a href="' . Common_Telemetry::get_privacy_url() . '">', // URL is escaped in method.
 				'</a>'
-			)
-		,
+			),
 			'default'         => false,
 			'validation_type' => 'boolean',
 		];
