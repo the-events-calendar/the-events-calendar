@@ -6,11 +6,15 @@
  */
 
 /**
- * Link to Previous Event (Display)
+ * Displays a link to the previous event by start date.
  *
- * Displays a link to the previous post by start date for the given event
+ * The link text can be customized by passing a string to the `$anchor` parameter.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ *
+ * @param bool|string $anchor Optional. Custom link text. Use `%title%` to place the event title in the string. Default is false.
+ *
+ * @return void
  *
  * @see tribe_get_prev_event_link()
  */
@@ -22,7 +26,7 @@ function tribe_the_prev_event_link( $anchor = false ) {
  * Returns a link to the previous event by start date for the given event.
  *
  * @since 3.0
- * 
+ *
  * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
  *
  * @return string The link to the previous event.
@@ -42,13 +46,16 @@ function tribe_get_prev_event_link( $anchor = false ) {
 }
 
 /**
- * Link to Next Event (Display)
+ * Displays a link to the next event by start date.
  *
- * Display a link to the next post by start date for the given event
+ * The link text can be customized by passing a string to the `$anchor` parameter.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ *
+ * @param bool|string $anchor Optional. Custom link text. Use `%title%` to place the event title in the string. Default is false.
  *
  * @return void
+ *
  * @see tribe_get_next_event_link()
  */
 function tribe_the_next_event_link( $anchor = false ) {
@@ -265,7 +272,7 @@ function tribe_get_listview_dir_link( $direction = 'next', $term = null, $curren
  *
  * @return array {
  *      An associative array containing the updated display and page number.
- * 
+ *
  *      @type string $display The view to be displayed, either 'list' or 'past'.
  *      @type int    $page    The updated page number.
  * }
@@ -494,7 +501,7 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
  * @since 5.5.0
  *
  * @param null|int $post_id Optional. The event post object or event ID. Defaults to null.
- * 
+ *
  * @return string The formatted title for the event website link.
  */
 function tribe_events_get_event_website_title( $post_id = null ) {
