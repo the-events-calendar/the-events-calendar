@@ -40,6 +40,7 @@ lang/*.mo
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
+src/**/*.min.js
 files/
 
 # Local packaging files
