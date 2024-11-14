@@ -48,7 +48,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		currentTab: 3, // Include the current tab index.
 	};
 
-	const subHeaderText = id !== 0 ?
+	const subHeaderText = id ?
 		__("Add an event organizer for your events. You can display this information for your event attendees on your website.", "the-events-calendar")
 		: __("Looks like you have already created your first organizer. Well done!", "the-events-calendar");
 

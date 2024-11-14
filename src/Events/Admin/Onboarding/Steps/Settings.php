@@ -89,11 +89,11 @@ class Settings implements Contracts\Step_Interface {
 		}
 
 		$settings = [
-			'defaultCurrencyCode' => $params['defaultCurrencyCode'] ?? false,
-			'dateWithYearFormat'  => $params['defaultDateFormat'] ?? false,
-			'timezone_string'     => $params['defaultTimezone'] ?? false,
-			'start_of_week'       => $params['defaultWeekStart'] ?? false,
-			'tribeEnableViews'    => $enabled_views,
+			'defaultCurrencySymbol' => $params['defaultCurrencySymbol'] ?? false,
+			'dateWithYearFormat'    => $params['defaultDateFormat'] ?? false,
+			'timezone_string'       => $params['defaultTimezone'] ?? false,
+			'start_of_week'         => $params['defaultWeekStart'] ?? false,
+			'tribeEnableViews'      => $enabled_views,
 		];
 
 		foreach ( $settings as $key => $value ) {

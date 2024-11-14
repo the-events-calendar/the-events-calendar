@@ -46,12 +46,12 @@ export function createSetting(setting) {
 	};
 }
 
-export function updateSettings(settings: Settings): Action {
-	return {
-		type: UPDATE,
-		settings
-	};
-}
+export const updateSettings = settings => {
+    return{
+      type: UPDATE,
+      settings,
+    };
+};
 
 export const hydrate = settings => {
 	return {
@@ -66,25 +66,3 @@ export const setSaving = (isSaving) => {
 		isSaving
 	};
 };
-
-export const saveSettings = (settings) => async (dispatch) => {
-	dispatch({ type: SAVE_SETTINGS_REQUEST });
-
-	try {
-		const result = await apiFetch({
-			path: API_ENDPOINT,  // Update with your API path
-			method: 'POST',
-			data: settings,
-		});
-
-		dispatch({
-			type: SAVE_SETTINGS_SUCCESS,
-			payload: result
-		});
-
-		return true;
-	} catch (error) {
-		dispatch({ type: SAVE_SETTINGS_ERROR, error });
-		return false;
-	}
-}

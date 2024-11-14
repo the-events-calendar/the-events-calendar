@@ -62,7 +62,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		currentTab: 4, // Include the current tab index.
 	};
 
-	const subHeaderText = id !== 0 ?
+	const subHeaderText = id ?
 		__("Show your attendees where they need to go to get to your events. You can display the location using Google Maps on your event pages.", "the-events-calendar")
 		: __("Looks like you have already created your first venue. Well done!", "the-events-calendar");
 

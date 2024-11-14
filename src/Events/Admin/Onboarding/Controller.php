@@ -172,7 +172,7 @@ class Controller extends Controller_Contract {
 			__( 'Onboarding Wizard', 'the-events-calendar' ),
 			'manage_options',
 			$this->get_page_slug(),
-			[ $this, 'tec_onboarding_wizard_button' ]
+			[ $this, 'get_null_button' ]
 		);
 	}
 
@@ -276,7 +276,8 @@ class Controller extends Controller_Contract {
 			'defaultTimezone'   => false,
 			'defaultWeekStart'  => false,
 			'eventTickets'      => false,
-			'nonce'			    => wp_create_nonce( Wizard::NONCE_ACTION ),
+			'action_nonce'      => wp_create_nonce( Wizard::NONCE_ACTION ),
+			'_wpnonce'          => wp_create_nonce( 'wp_rest' ),
 			'optin'             => false,
 			'organizer'         => false,
 			'timezones'         => Data::get_timezone_list(),

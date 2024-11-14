@@ -48,7 +48,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 
 	// Create tabSettings object to pass to NextButton.
 	const tabSettings = {
-		defaultCurrencyCode: currency,
+		defaultCurrencySymbol: currency,
 		defaultTimezone: timeZone,
 		defaultDateFormat: dateFormat,
 		defaultWeekStart: weekStart,
