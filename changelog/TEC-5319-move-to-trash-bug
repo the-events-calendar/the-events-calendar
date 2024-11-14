@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+When using "Move to trash events older than", trashed imported events are now ignored. [TEC-5319]
