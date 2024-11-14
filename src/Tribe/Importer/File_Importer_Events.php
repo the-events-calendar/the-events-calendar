@@ -11,7 +11,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 * Searches the database for an existing event matching the one described
 	 * by the specified record.
 	 *
-	 * @param array $record An array of values from the Events CSV file.
+	 * @since 3.2.0
+	 *
+	 * @param array<mixed> $record An array of values from the Events CSV file.
 	 *
 	 * @return int An event matching the one described by the record or `0` if no matching
 	 *            events are found.
@@ -21,7 +23,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		$end_date   = $this->get_event_end_date( $record );
 		$all_day    = $this->get_boolean_value_by_key( $record, 'event_all_day' );
 
-		// Base query - only the meta query will be different
+		// Base query - only the meta query will be different.
 		$query_args = [
 			'post_type'        => Tribe__Events__Main::POSTTYPE,
 			'post_title'       => $this->get_value_by_key( $record, 'event_name' ),
@@ -33,7 +35,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 		// When trying to find matches for all day events, the comparison should only be against the date
 		// component only since a) the time is irrelevant and b) the time may have been adjusted to match
-		// the eod cutoff setting
+		// The end-of-day cutoff setting.
 		if ( Tribe__Date_Utils::is_all_day( $all_day ) ) {
 			$meta_query = [
 				[
@@ -46,7 +48,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 					'value' => 'yes',
 				],
 			];
-			// For regular, non-all day events, use the full date *and* time in the start date comparison
+			// For regular, non-all day events, use the full date *and* time in the start date comparison.
 		} else {
 			$meta_query = [
 				[
@@ -56,7 +58,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			];
 		}
 
-		// Optionally use the end date/time for matching, where available
+		// Optionally use the end date/time for matching, where available.
 		if ( ! empty( $end_date ) && ! $all_day ) {
 			$meta_query[] = [
 				'key'   => '_EventEndDate',
@@ -75,8 +77,8 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		 *
 		 * @since 4.6.15
 		 *
-		 * @param array $matches Array with the duplicate matches
-		 * @param array $query_args Array with the arguments used to get the posts.
+		 * @param array<int> $matches    Array with the duplicate matches.
+		 * @param array<string,mixed> $query_args Array with the arguments used to get the posts.
 		 */
 		$matches = (array) apply_filters( 'tribe_events_import_event_duplicate_matches', get_posts( $query_args ), $query_args );
 		remove_filter( 'posts_search', [ $this, 'filter_query_for_title_search' ], 10 );
@@ -91,8 +93,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Update an event with the imported information.
 	 *
-	 * @param integer             $post_id The event ID to update.
-	 * @param array<string|mixed> $record  An event record from the import.
+	 * @since 3.2.0
+	 *
+	 * @param integer      $post_id The event ID to update.
+	 * @param array<mixed> $record  An event record from the import.
 	 *
 	 * @return false False if the update authority is set to retain or void if the update completes.
 	 */
@@ -144,7 +148,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Create an event with the imported information.
 	 *
-	 * @param array<string|mixed> $record An event record from the import.
+	 * @since 3.2.0
+	 *
+	 * @param array<mixed> $record An event record from the import.
 	 *
 	 * @return integer The new event's post id.
 	 */
@@ -176,8 +182,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Get the event start date from the import record.
 	 *
-	 * @param array<string|mixed> $record    An event record from the import.
-	 * @param boolean             $date_only An optional setting to include the date only and no time.
+	 * @since 3.2.0
+	 *
+	 * @param array<mixed> $record    An event record from the import.
+	 * @param boolean      $date_only An optional setting to include the date only and no time.
 	 *
 	 * @return string $start_date The start date time string.
 	 */
@@ -199,7 +207,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Get the event end date from the import record.
 	 *
-	 * @param array<string|mixed> $record    An event record from the import.
+	 * @since 3.2.0
+	 *
+	 * @param array<mixed> $record An event record from the import.
 	 *
 	 * @return string $end_date The end date time string.
 	 */
@@ -226,8 +236,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Build an event array from import record.
 	 *
-	 * @param integer             $post_id The event ID to update.
-	 * @param array<string|mixed> $record  An event record from the import.
+	 * @since 3.2.0
+	 *
+	 * @param integer      $event_id The event ID to update.
+	 * @param array<mixed> $record   An event record from the import.
 	 *
 	 * @return array<string|mixed> An array of information to save or update an event.
 	 */
@@ -296,7 +308,7 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['tax_input']['post_tag'] = $tags;
 		}
 
-		// don't create the _EventHideFromUpcoming meta key/value pair if it doesn't need to be created
+		// Don't create the _EventHideFromUpcoming meta key/value pair if it doesn't need to be created.
 		if ( ! $event['EventHideFromUpcoming'] ) {
 			unset( $event['EventHideFromUpcoming'] );
 		}
@@ -305,6 +317,15 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 			$event['EventShowInCalendar'] = 'yes';
 		}
 
+		/**
+		 * Filters the additional fields available during the CSV import of events.
+		 *
+		 * @since 3.12.0
+		 *
+		 * @param array<string,mixed> $additional_fields An array of additional fields for the event.
+		 *
+		 * @return array<string,mixed> Modified list of additional fields.
+		 */
 		$additional_fields = apply_filters( 'tribe_events_csv_import_event_additional_fields', [] );
 
 		if ( ! empty ( $additional_fields ) ) {
@@ -319,40 +340,52 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		}
 
 		/**
-		 * Filter the csv event import event meta.
+		 * Filters the event metadata during CSV import, allowing developers to modify the event data before it's processed.
 		 *
 		 * @since 5.12.4
 		 *
-		 * @param array<string|mixed> $event        An array event meta fields.
+		 * @param array<string,mixed> $event  An array of event meta fields.
+		 * @param array<mixed>        $record An event record from the import.
+		 * @param object              $this   The class instance.
 		 *
-		 * @return array<string|mixed> An array of the autodetect results.
+		 * @return array<string,mixed> An array of the autodetect results.
 		 */
 		return apply_filters( 'tec_events_csv_import_event_meta', $event, $record, $this );
 	}
 
 	/**
-	 * Filter allowing user to customize the separator used for organizers
-	 * Defaults to comma ','
+	 * Retrieves the separator used between multiple organizers during event import.
+	 * Defaults to comma ','.
+	 *
 	 * @since 4.6.19
 	 *
-	 * @return mixed
+	 * @return string The separator used between organizers. Default is a comma (,).
 	 */
 	private function get_separator() {
+		/**
+		 * Filters the separator used between multiple organizers during event import.
+		 *
+		 * @param string $separator The separator used between organizers. Default is a comma (,).
+		 *
+		 * @return string Modified separator for multiple organizers.
+		 */
 		return apply_filters( 'tribe_get_event_import_organizer_separator', ',' );
 	}
 
 	/**
-	 * Find organizer matches from separated string
+	 * Find organizer matches from separated string.
 	 * Attempts to compensate for names with separators in them - Like "Woodhouse, Chelsea S."
-	 * @since 4.6.19
-	 * @param $organizers
 	 *
-	 * @return array
+	 * @since 4.6.19
+	 *
+	 * @param array<array<mixed>|string>|bool|false $organizers An array of organizers or false if empty.
+	 *
+	 * @return array An array of the post IDs of matching organizers.
 	 */
 	private function match_organizers( $organizers ) {
 		$matches   = [];
-		$separator = $this->get_separator(); // We allow this to be filtered
-		$skip      = false; // For concatenation checks
+		$separator = $this->get_separator(); // We allow this to be filtered.
+		$skip      = false; // For concatenation checks.
 
 		for ( $i = 0, $len = count( $organizers ); $i < $len; $i++ ) {
 			if ( $skip ) {
@@ -362,31 +395,31 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 
 			$potential_match = $this->find_matching_post_id( trim( $organizers[ $i ] ), Tribe__Events__Organizer::POSTTYPE, 'any' );
 
-			// We've got a match so we add it and move on
+			// We've got a match, so we add it and move on.
 			if ( ! empty( $potential_match ) ) {
 				$matches[] = $potential_match;
 				$skip      = false;
 				continue;
 			}
 
-			// No match - test for separator in name by grabbing the next item and concatenating
+			// No match - test for separator in name by grabbing the next item and concatenating.
 			$test_organizer  = trim( $organizers[ $i ] ) . $separator . ' ' . trim( $organizers[ $i + 1 ] );
 			$potential_match = $this->find_matching_post_id( $test_organizer, Tribe__Events__Organizer::POSTTYPE, 'any' );
 
-			// Still no match, skip this item and move on
+			// Still no match, skip this item and move on.
 			if ( empty( $potential_match ) ) {
 				$skip = false;
 				continue;
 			}
 
-			// we got a match when combined with the next, so we flag to skip the next item
+			// We got a match when combined with the next, so we flag to skip the next item.
 			$skip       = true;
 			$matches[] = $potential_match;
 		}
 
 		$matches = array_filter( array_unique( $matches ) );
 
-		// If we get something outlandish - like no organizers or more organizers than expected, bail
+		// Bail if we get something outlandish - like no organizers or more organizers than expected.
 		if ( empty( $matches ) || count( $matches ) > count( $organizers ) ) {
 			return [];
 		}
@@ -400,10 +433,13 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
-	 * Determine if organizer is a list of space-separated IDs
-	 * @param $organizer
+	 * Determine if organizer is a list of space-separated IDs.
 	 *
-	 * @return array[]|bool|false|string[]
+	 * @since 4.6.19
+	 *
+	 * @param string $organizer The organizer name(s) in the record.
+	 *
+	 * @return array<array<mixed>|string>|bool|false An array of organizer names, or false if empty.
 	 */
 	private function organizer_is_space_separated_ids( $organizer ) {
 		$pattern = '/\s+/';
@@ -418,19 +454,22 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
-	 * * Determine if organizer is a list of $separator-separated IDs
-	 * @param $organizer
+	 * Determine if organizer is a list of $separator-separated IDs.
 	 *
-	 * @return array[]|bool|false|string[]
+	 * @since 4.6.19
+	 *
+	 * @param string $organizer The organizer names in the record.
+	 *
+	 * @return array[]|bool|false|string[] An array of organizer names, or false if empty.
 	 */
 	private function maybe_organizer_is_separated_list( $organizer ) {
 		$separator = $this->get_separator();
 
-		// When we require php > 5.5 we can combine these
-		$cleared_separator = trim( $separator );// clear whitespace
+		// When we require php > 5.5 we can combine these.
+		$cleared_separator = trim( $separator ); // Clear whitespace.
 		$pattern           = ! empty( $cleared_separator ) ? '/' . $cleared_separator . '+/' : '/\s+/';
 
-		// event_organizer_name is a list of $separator-separated names and/or IDs
+		// event_organizer_name is a list of $separator-separated names and/or IDs.
 		if ( false !== stripos( $organizer, $separator ) ) {
 			return preg_split( $pattern, $organizer );
 		}
@@ -439,27 +478,29 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	}
 
 	/**
-	 * Handle finding the matching organizer(s) for the event
-	 * @since 4.6.19
-	 * @param $record - the event record from the import
+	 * Handle finding the matching organizer(s) for the event.
 	 *
-	 * @return array
+	 * @since 3.2.0
+	 *
+	 * @param array<mixed> $record The event record from the import.
+	 *
+	 * @return array An array of post IDs that match the organizer being imported.
 	 */
 	private function find_matching_organizer_id( $record ) {
 		$organizer = $this->get_value_by_key( $record, 'event_organizer_name' );
 
-		// Test for space-separated IDs separately
+		// Test for space-separated IDs separately.
 		if ( $maybe_spaced_organizers = $this->organizer_is_space_separated_ids( $organizer ) ) {
 			return $this->match_organizers( $maybe_spaced_organizers );
 		}
 
-		// Check for $separator list
+		// Check for $separator list.
 		if ( $maybe_separated_organizers = $this->maybe_organizer_is_separated_list( $organizer ) ) {
 			return $this->match_organizers( $maybe_separated_organizers );
 		}
 
-		// Just in case something went wrong
-		// We've likely got a single item - either a number or a name (with optional spaces)
+		// Just in case something went wrong.
+		// We've likely got a single item - either a number or a name (with optional spaces).
 		$matching_post_ids = $this->find_matching_post_id( $organizer, Tribe__Events__Organizer::POSTTYPE, 'any' );
 
 		if ( ! is_array( $matching_post_ids ) ) {
@@ -469,6 +510,17 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 		return [ 'OrganizerID' => $matching_post_ids ];
 	}
 
+	/**
+	 * Handle finding the matching venue(s) for the event.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param array<mixed> $record The event record from the import.
+	 *
+	 * @return false|float|int|string|WP_Post 0 if $name is empty or there's no match.
+	 *                                        $name if it's numeric and there is a match.
+	 *                                        An array of post IDs matching the venue being imported.
+	 */
 	private function find_matching_venue_id( $record ) {
 		$name = $this->get_value_by_key( $record, 'event_venue_name' );
 
@@ -478,7 +530,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Parses a timezone string candidate and returns a TEC supported timezone string.
 	 *
-	 * @param string $timezone_candidate
+	 * @since 4.2.0
+	 *
+	 * @param string $timezone_candidate The string representing the time zone of the event.
 	 *
 	 * @return bool|string Either the timezone string or `false` if the timezone candidate is invalid.
 	 */
@@ -495,10 +549,10 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	 *
 	 * @since 5.1.6
 	 *
-	 * @param int    $event_id   The event id being updated by import.
-	 * @param array  $record     An event record from the import.
-	 * @param string $field      The import field name.
-	 * @param string $post_field The post field name.
+	 * @param int           $event_id   The event id being updated by import.
+	 * @param array<string> $record     An event record from the import.
+	 * @param string        $field      The import field name.
+	 * @param string        $post_field The post field name.
 	 *
 	 * @return string The description value to update the event with.
 	 */
@@ -531,7 +585,9 @@ class Tribe__Events__Importer__File_Importer_Events extends Tribe__Events__Impor
 	/**
 	 * Allows the user to specify the currency position using alias terms.
 	 *
-	 * @param array $record
+	 * @since 4.2.0
+	 *
+	 * @param array<mixed> $record An event record from the import.
 	 *
 	 * @return string Either `prefix` or `suffix`; will fall back on the first if the specified position is not
 	 *                a recognized alias.
