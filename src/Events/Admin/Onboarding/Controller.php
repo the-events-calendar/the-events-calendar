@@ -172,7 +172,7 @@ class Controller extends Controller_Contract {
 			__( 'Onboarding Wizard', 'the-events-calendar' ),
 			'manage_options',
 			$this->get_page_slug(),
-			[ $this, 'get_null_button' ]
+			[ $this, 'tec_onboarding_wizard_button' ]
 		);
 	}
 
