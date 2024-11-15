@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutosizeInput from 'react-input-autosize-v2';
+import AutosizeInput from 'react-18-input-autosize';
 
 /**
  * WordPress dependencies
