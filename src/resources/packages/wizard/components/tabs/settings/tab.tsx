@@ -26,11 +26,11 @@ const startDayOptions = [
 ];
 
 const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
-	const { defaultCurrency, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones } = useSelect(
+	const { defaultCurrencySymbol, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones } = useSelect(
 		(select) => {
 			const store = select(SETTINGS_STORE_KEY);
 			return {
-				defaultCurrency: store.getSetting('defaultCurrency'),
+				defaultCurrencySymbol: store.getSetting('defaultCurrencySymbol'),
 				defaultTimezone: store.getSetting('defaultTimezone'),
 				defaultDateFormat: store.getSetting('defaultDateFormat'),
 				defaultWeekStart: store.getSetting('defaultWeekStart'),
@@ -39,7 +39,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 		},
 		[]
 	);
-	const [ currency, setCurrency ] = useState( defaultCurrency || '' );
+	const [ currency, setCurrency ] = useState( defaultCurrencySymbol );
 	const [ timeZone, setTimeZone ] = useState( defaultTimezone );
 	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat || dateFormatOptions[0].value );
 	const [ weekStart, setWeekStart ] = useState( defaultWeekStart || 0 );
@@ -64,7 +64,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__('Currency', 'the-events-calendar')}
-					value={ currency }
+					defaultValue={ currency }
 					onChange={ ( value ) => {
 						setCurrency( value ) }
 					}
