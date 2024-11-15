@@ -92,7 +92,7 @@
     "@wordpress/is-shallow-equal": "^5.11.0",
     "@wordpress/url": "^4.11.0",
     "bezier-easing": "^2.1.0",
-    "chrono-node": "^2.2.4",
+    "chrono-node": "^2.7.7",
     "classnames": "^2.2.6",
     "clipboard": "^2.0.10",
     "date-fns": "^3.6.0",
@@ -128,7 +128,8 @@
     "validator": "^13.7.0",
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3",
-    "@the-events-calendar/product-taskmaster": "github:the-events-calendar/product-taskmaster#fix/TEC-5322-wp-67-packages"
+    "@the-events-calendar/product-taskmaster": "github:the-events-calendar/product-taskmaster#fix/TEC-5322-wp-67-packages",
+    "@redux-devtools/extension": "^3.3.0"
   },
   "overrides": { "babel-plugin-lodash": { "@babel/types": "~7.20.0" } }
 }
