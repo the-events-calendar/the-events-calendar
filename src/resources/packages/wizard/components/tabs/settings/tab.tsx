@@ -66,7 +66,6 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					label={__('Currency', 'the-events-calendar')}
 					value={ currency }
 					onChange={ ( value ) => {
-						console.log("Setting currency:", value);
 						setCurrency( value ) }
 					}
 				/>

@@ -52,6 +52,10 @@ class Optin implements Contracts\Step_Interface {
 			return $response;
 		}
 
+		if ( ! isset( $params['optin'] ) ) {
+			return $response;
+		}
+
 		$processed = self::process( tribe_is_truthy( $params['optin'] ) );
 		$data      = $response->get_data();
 

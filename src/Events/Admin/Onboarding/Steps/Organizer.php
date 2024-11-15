@@ -52,6 +52,10 @@ class Organizer implements Contracts\Step_Interface {
 			return $response;
 		}
 
+		if ( ! isset( $params['organizer'] ) ) {
+			return $response;
+		}
+
 		$processed = self::process( $params['organizer'] ?? false );
 		$data      = $response->get_data();
 

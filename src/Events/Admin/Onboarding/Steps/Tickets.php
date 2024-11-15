@@ -50,6 +50,10 @@ class Tickets implements Contracts\Step_Interface {
 			return $response;
 		}
 
+		if ( ! isset( $params['eventTickets'] ) ) {
+			return $response;
+		}
+
 		$processed = self::process( $params['eventTickets'] ?? false );
 		$data      = $response->get_data();
 
@@ -107,29 +111,54 @@ class Tickets implements Contracts\Step_Interface {
 
 		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
 
-		if ( isset( $plugin_data['download_link'] ) ) {
-			$download_url = $plugin_data['download_link'];
-			$plugin_file = download_url( $download_url );
+		if ( ! isset( $plugin_data['download_link'] ) ) {
+			return false;
+		}
 
-			if ( is_wp_error( $plugin_file ) ) {
-				return false;
-			}
+		// Required stuff for download_url().
+		global $wp_filesystem;
 
-			if ( ! function_exists( 'install_plugin_install_status' ) ) {
-				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-			}
+		require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+		WP_Filesystem();
 
-			if ( ! function_exists( 'get_plugins' ) ) {
-				require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			}
+		$download_url = $plugin_data['download_link'];
+		$plugin_file = download_url( $download_url );
 
-			// Install the plugin.
-			$install_result = install_plugin_install_status( $plugin_file );
-			if ( ! is_wp_error( $install_result ) ) {
-				// Activate the plugin.
-				activate_plugin( 'event-tickets/event-tickets.php' );
-			}
-		} else {
+		if ( is_wp_error( $plugin_file ) ) {
+			return false;
+		}
+
+		if ( ! $wp_filesystem->exists( $plugin_file ) ) {
+			return false;
+		}
+
+		// Unzip the plugin into the plugins folder.
+		$unzip = unzip_file( $plugin_file, ABSPATH . 'wp-content/plugins' );
+
+		// CLean up after ourselves.
+		wp_delete_file( $plugin_file );
+
+		if ( is_wp_error( $unzip ) ) {
+			return false;
+		}
+
+		if ( ! function_exists( 'install_plugin_install_status' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+		}
+
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		// Install the plugin.
+		$install_result = install_plugin_install_status( $plugin_data );
+		if ( is_wp_error( $install_result ) ) {
+			return false;
+		}
+
+		// Activate the plugin.
+		$check = activate_plugin( 'event-tickets/event-tickets.php' );
+		if ( is_wp_error( $check ) ) {
 			return false;
 		}
 

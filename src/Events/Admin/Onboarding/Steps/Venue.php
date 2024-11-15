@@ -52,6 +52,10 @@ class Venue implements Contracts\Step_Interface {
 			return $response;
 		}
 
+		if ( ! isset( $params['venue'] ) ) {
+			return $response;
+		}
+
 		$processed = self::process( $params['venue'] ?? false );
 		$data      = $response->get_data();
 
