@@ -1,0 +1,4 @@
+Significance: patch
+Type: deprecated
+
+Deprecated the unused update/activation page [TEC-5311]

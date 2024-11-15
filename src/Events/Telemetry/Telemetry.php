@@ -104,20 +104,25 @@ class Telemetry {
 			'type'            => 'checkbox_bool',
 			'label'           => $label,
 			'tooltip'         => sprintf(
-				/* Translators: Description of the Telemetry optin setting.
-				%1$s: opening anchor tag for permissions link.
-				%2$s: opening anchor tag for terms of service link.
-				%3$s: opening anchor tag for privacy policy link.
-				%4$s: closing anchor tags.
-				*/
+			/*
+			Translators: Description of the Telemetry opt-in setting.
+			1: opening anchor tag.
+			2: opening anchor tag.
+			3: opening anchor tag.
+			4: closing anchor tags.
+			*/
 				_x(
-					'Enable this option to share usage data with The Events Calendar and StellarWP. %1$sWhat permissions are being granted?%4$s %2$sRead our terms of service%4$s. %3$sRead our privacy policy%4$s.',
-					'Description of optin setting.',
+					'Enable this option to share usage data with The Events Calendar and StellarWP.
+        This activates access to TEC AI chatbot and in-app priority support for premium users.
+        %1$sWhat permissions are being granted?%4$s
+        %2$sRead our terms of service%4$s.
+        %3$sRead our privacy policy%4$s.',
+					'Description of opt-in setting.',
 					'the-events-calendar'
 				),
-				'<a href=" ' . Common_Telemetry::get_permissions_url() . ' ">',
-				'<a href=" ' . Common_Telemetry::get_terms_url() . ' ">',
-				'<a href=" ' . Common_Telemetry::get_privacy_url() . ' ">',
+				'<br/><a href="' . Common_Telemetry::get_permissions_url() . '">', // URL is escaped in method.
+				'<br/><a href="' . Common_Telemetry::get_terms_url() . '">', // URL is escaped in method.
+				'<br/><a href="' . Common_Telemetry::get_privacy_url() . '">', // URL is escaped in method.
 				'</a>'
 			),
 			'default'         => false,
