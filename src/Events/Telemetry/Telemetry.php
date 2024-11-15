@@ -104,13 +104,7 @@ class Telemetry {
 			'type'            => 'checkbox_bool',
 			'label'           => $label,
 			'tooltip'         => sprintf(
-			/*
-			Translators: Description of the Telemetry opt-in setting.
-			1: opening anchor tag.
-			2: opening anchor tag.
-			3: opening anchor tag.
-			4: closing anchor tags.
-			*/
+				// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
 				_x(
 					'Enable this option to share usage data with The Events Calendar and StellarWP.
         This activates access to TEC AI chatbot and in-app priority support for premium users.
