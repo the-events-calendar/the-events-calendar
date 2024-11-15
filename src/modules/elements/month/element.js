@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { omit, noop } from 'lodash';
-import DayPicker, { DateUtils } from 'react-day-picker';
+import { DayPicker, DateUtils } from 'react-day-picker';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
