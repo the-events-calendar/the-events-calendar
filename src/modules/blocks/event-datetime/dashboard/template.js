@@ -58,12 +58,12 @@ const renderStartTimePicker = ( {
 	onStartTimePickerClick,
 } ) => {
 	const timePickerProps = {
-		current: startTimeInput,
-		start: time.START_OF_DAY,
-		end: time.END_OF_DAY,
-		onBlur: onStartTimePickerBlur,
-		onChange: onStartTimePickerChange,
-		onClick: onStartTimePickerClick,
+		current   : startTimeInput,
+		start     : time.START_OF_DAY,
+		end       : time.END_OF_DAY,
+		onBlur    : onStartTimePickerBlur,
+		onChange  : onStartTimePickerChange,
+		onClick   : onStartTimePickerClick,
 		timeFormat: FORMATS.WP.time,
 		showAllDay: true,
 		allDay,
@@ -107,12 +107,12 @@ const renderEndTimePicker = ( {
 	}
 
 	const timePickerProps = {
-		current: endTimeInput,
-		start: time.START_OF_DAY,
-		end: time.END_OF_DAY,
-		onBlur: onEndTimePickerBlur,
-		onChange: onEndTimePickerChange,
-		onClick: onEndTimePickerClick,
+		current   : endTimeInput,
+		start     : time.START_OF_DAY,
+		end       : time.END_OF_DAY,
+		onBlur    : onEndTimePickerBlur,
+		onChange  : onEndTimePickerChange,
+		onClick   : onEndTimePickerClick,
 		timeFormat: FORMATS.WP.time,
 		showAllDay: true,
 		allDay,
@@ -133,10 +133,10 @@ const renderEndTimePicker = ( {
 
 class Calendars extends PureComponent {
 	static propTypes = {
-		end: PropTypes.string,
-		multiDay: PropTypes.bool,
+		end        : PropTypes.string,
+		multiDay   : PropTypes.bool,
 		onSelectDay: PropTypes.func,
-		start: PropTypes.string,
+		start      : PropTypes.string,
 	}
 
 	constructor( props ) {
@@ -149,13 +149,14 @@ class Calendars extends PureComponent {
 	}
 
 	render() {
-		const { start, end, multiDay, onSelectDay } = this.props;
+		const { start, end, multiDay, onSelect } = this.props;
 
 		const monthProps = {
-			onSelectDay: onSelectDay,
-			withRange: multiDay,
-			from: toMoment( start ).toDate(),
-			month: this.state.visibleMonth,
+			className      : 'tribe-editor__calendars__month',
+			onSelect       : onSelect,
+			withRange      : multiDay,
+			from           : toMoment( start ).toDate(),
+			month          : this.state.visibleMonth,
 			setVisibleMonth: this.setVisibleMonth,
 		};
 
@@ -201,7 +202,7 @@ const EventDateTimeDashboard = ( props ) => {
 						</div>
 					</div>
 					{ renderDashboardHook( props ) }
-					{ ! shouldHideUpsell() && <Upsell /> }
+					{ ! shouldHideUpsell() && <Upsell/> }
 				</footer>
 			</Fragment>
 		</Dashboard>
@@ -209,22 +210,22 @@ const EventDateTimeDashboard = ( props ) => {
 };
 
 EventDateTimeDashboard.propTypes = {
-	allDay: PropTypes.bool,
-	end: PropTypes.string,
-	endTimeInput: PropTypes.string,
-	isOpen: PropTypes.bool,
-	multiDay: PropTypes.bool,
-	onEndTimePickerBlur: PropTypes.func,
-	onEndTimePickerChange: PropTypes.func,
-	onEndTimePickerClick: PropTypes.func,
-	onMultiDayToggleChange: PropTypes.func,
-	onSelectDay: PropTypes.func,
-	onStartTimePickerBlur: PropTypes.func,
+	allDay                 : PropTypes.bool,
+	end                    : PropTypes.string,
+	endTimeInput           : PropTypes.string,
+	isOpen                 : PropTypes.bool,
+	multiDay               : PropTypes.bool,
+	onEndTimePickerBlur    : PropTypes.func,
+	onEndTimePickerChange  : PropTypes.func,
+	onEndTimePickerClick   : PropTypes.func,
+	onMultiDayToggleChange : PropTypes.func,
+	onSelect               : PropTypes.func,
+	onStartTimePickerBlur  : PropTypes.func,
 	onStartTimePickerChange: PropTypes.func,
-	onStartTimePickerClick: PropTypes.func,
-	separatorTime: PropTypes.string,
-	start: PropTypes.string,
-	startTimeInput: PropTypes.string,
+	onStartTimePickerClick : PropTypes.func,
+	separatorTime          : PropTypes.string,
+	start                  : PropTypes.string,
+	startTimeInput         : PropTypes.string,
 };
 
 export default EventDateTimeDashboard;
