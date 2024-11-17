@@ -133,10 +133,10 @@ const renderEndTimePicker = ( {
 
 class Calendars extends PureComponent {
 	static propTypes = {
-		end        : PropTypes.string,
-		multiDay   : PropTypes.bool,
-		onSelectDay: PropTypes.func,
-		start      : PropTypes.string,
+		end     : PropTypes.string,
+		multiDay: PropTypes.bool,
+		onSelect: PropTypes.func,
+		start   : PropTypes.string,
 	}
 
 	constructor( props ) {
