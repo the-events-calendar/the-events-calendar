@@ -36,7 +36,7 @@ jobs:
       - name: Fetch Plugin Slug from .puprc
         id: puprc
         run: |
-          plugin_slug=$(jq -r '.i18n[0].slug' .puprc)
+          plugin_slug=$(jq '.i18n | map(select(.url | contains("translations.stellarwp.com")) | .slug) | first' .puprc)
           echo "plugin_slug=$plugin_slug" >> $GITHUB_ENV
           echo "plugin_slug=$plugin_slug" >> $GITHUB_OUTPUT
           echo "## Plugin Slug: \`$plugin_slug\`" >> $GITHUB_STEP_SUMMARY
