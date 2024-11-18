@@ -10,6 +10,11 @@ vendor
 !vendor/ForceUTF8
 !vendor/php-date-formatter
 
+# GitHub Actions
+DOCKER_ENV
+docker_tag
+output.log
+
 # Tests - local config files
 codeception.yml
 tests/*.suite.yml
