@@ -37,7 +37,7 @@ class Tickets implements Contracts\Step_Interface {
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard            $wizard   The wizard object.
+	 * @param Wizard           $wizard   The wizard object.
 	 *
 	 * @return WP_REST_Response
 	 */
@@ -121,11 +121,11 @@ class Tickets implements Contracts\Step_Interface {
 		// Required stuff for download_url().
 		global $wp_filesystem;
 
-		require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+		require_once( ABSPATH . '/wp-admin/includes/file.php' );
 		WP_Filesystem();
 
 		$download_url = $plugin_data['download_link'];
-		$plugin_file = download_url( $download_url );
+		$plugin_file  = download_url( $download_url );
 
 		if ( is_wp_error( $plugin_file ) ) {
 			return false;

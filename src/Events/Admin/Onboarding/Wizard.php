@@ -47,7 +47,6 @@ class Wizard {
 	 *
 	 * @since 7.0.0
 	 *
-	 *
 	 * @return bool If we registered the endpoint.
 	 */
 	public function register(): bool {

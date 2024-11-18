@@ -38,7 +38,7 @@ class Venue implements Contracts\Step_Interface {
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard            $wizard   The wizard object.
+	 * @param Wizard           $wizard   The wizard object.
 	 *
 	 * @return WP_REST_Response
 	 */

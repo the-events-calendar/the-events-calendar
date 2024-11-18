@@ -51,7 +51,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 			return $response;
 		}
 
-		$response = Static::process( $response, $request );
+		$response = static::process( $response, $request );
 
 		return $response;
 	}
@@ -82,10 +82,23 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 * @return WP_REST_Response
 	 */
 	public function add_message( $response, $message ) {
-		$data = $response->get_data();
+		$data            = $response->get_data();
 		$data['message'] = array_merge( (array) $data['message'], [ $message ] );
+
 		$response->set_data( $data );
 
 		return $response;
 	}
+
+	/**
+	 * Process the step.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Response $response The response object.
+	 * @param WP_REST_Request  $request  The request object.
+	 *
+	 * @return WP_REST_Response
+	 */
+	abstract public function process( $response, $request ): WP_REST_Response;
 }
