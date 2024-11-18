@@ -239,6 +239,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.8.2] 2024-11-19 =
+
+* Feature - Introduced Help Hub, a centralized support and resource interface for enhanced user guidance and plugin assistance.
+* Deprecated - Deprecated the unused update/activation page [TEC-5311]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
 = [6.8.1] 2024-11-04 =
 
 * Fix - Order of past events in the list view when no future events exist. [TEC-5309]
