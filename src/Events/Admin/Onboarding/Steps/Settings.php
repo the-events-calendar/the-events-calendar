@@ -105,20 +105,20 @@ class Settings implements Contracts\Step_Interface {
 
 			$updated = false;
 
-			// Start of week is a WP option, the rest are TEC settings.
-			if ( 'start_of_week' !== $key ) {
-				$temp = tribe_get_option( $key, $value );
-				if ( $temp === $value ) {
-					$updated = true;
-				} else {
-					$updated = tribe_update_option( $key, $value );
-				}
-			} else {
+			// Start of week and timezone are WP options, the rest are TEC settings.
+			if ( 'start_of_week' === $key || 'timezone_string' === $key ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
 					$updated = true;
 				} else {
 					$updated = update_option( $key, $value );
+				}
+			} else {
+				$temp = tribe_get_option( $key, $value );
+				if ( $temp === $value ) {
+					$updated = true;
+				} else {
+					$updated = tribe_update_option( $key, $value );
 				}
 			}
 

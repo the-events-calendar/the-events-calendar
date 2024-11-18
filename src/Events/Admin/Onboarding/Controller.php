@@ -231,7 +231,7 @@ class Controller extends Controller_Contract {
 			'availableViews'        => $this->get_available_views(),
 			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '' ),
 			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
-			'defaultTimezone'       => tribe_get_option( 'timezone_string', get_option( 'timezone_string', false ) ),
+			'defaultTimezone'       => get_option( 'timezone_string', false ),
 			'defaultWeekStart'      => get_option( 'start_of_week', false ),
 			'eventTickets'          => Installer::get()->is_installed( 'event-tickets' ),
 			'action_nonce'          => wp_create_nonce( Wizard::NONCE_ACTION ),
@@ -243,12 +243,15 @@ class Controller extends Controller_Contract {
 			'venue'                 => $this->get_venue_data(),
 		];
 
+		$first_boot_data = apply_filters( 'tribe_events_onboarding_wizard_first_boot_data', $first_boot_data, $this );
+
 		$button = get_submit_button(
 			esc_html__( 'Open Install Wizard (current)', 'the-events-calendar' ),
 			'secondary tec-events-onboarding-wizard',
 			'open',
 			true,
 			[
+				'id'                     => 'tec-events-onboarding-wizard',
 				'data-container-element' => 'tec-events-onboarding-wizard-target',
 				'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
 			]
@@ -261,50 +264,6 @@ class Controller extends Controller_Contract {
 
 		echo $button;
 
-		// phpcs:enable
-	}
-
-	/**
-	 * Render the a "nulled" (all info empty, ignoring site settings) onboarding wizard button.
-	 *
-	 * @since 6.8.1
-	 */
-	public function get_null_button(): void {
-		// phpcs:disable
-		$null_data = [
-			'activeViews'           => false,
-			'availableViews'        => $this->get_available_views(),
-			'defaultCurrencySymbol' => false,
-			'defaultDateFormat'     => false,
-			'defaultTimezone'       => false,
-			'defaultWeekStart'      => false,
-			'eventTickets'          => false,
-			'action_nonce'          => wp_create_nonce( Wizard::NONCE_ACTION ),
-			'_wpnonce'              => wp_create_nonce( 'wp_rest' ),
-			'optin'                 => false,
-			'organizer'             => false,
-			'timezones'             => Data::get_timezone_list(),
-			'countries'             => Data::get_country_list(),
-			'venue'                 => false,
-		];
-
-		$button = get_submit_button(
-			esc_html__( 'Open Install Wizard (nulled)', 'the-events-calendar' ),
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $null_data ),
-			]
-		);
-
-		$button .= sprintf(
-			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>',
-			esc_html__( 'Loading…', 'the-events-calendar' )
-		);
-
-		echo $button;
 		// phpcs:enable
 	}
 

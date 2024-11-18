@@ -42,31 +42,33 @@ const OnboardingModal = ({ bootData }) => {
 };
 
 domReady(() => {
-	document.querySelectorAll('.tec-events-onboarding-wizard').forEach((element) => {
-		const containerId = element.dataset.containerElement;
-		const bootData = element.dataset.wizardBootData;
+	const button = document.getElementById('tec-events-onboarding-wizard');
+	if ( ! button ) {
+		return;
+	}
+	const containerId = button.dataset.containerElement;
+	const bootData = button.dataset.wizardBootData;
 
-		if (!containerId || !bootData) {
-			console.warn("Container element or boot data is missing.");
-			return;
-		}
+	if (!containerId || !bootData) {
+		console.warn("Container element or boot data is missing.");
+		return;
+	}
 
-		const rootContainer = document.getElementById(containerId);
-		if (!rootContainer) {
-			console.warn(`Container with ID '${containerId}' not found.`);
-			return;
-		}
+	const rootContainer = document.getElementById(containerId);
+	if (!rootContainer) {
+		console.warn(`Container with ID '${containerId}' not found.`);
+		return;
+	}
 
-		const parsedBootData = JSON.parse(bootData);
+	const parsedBootData = JSON.parse(bootData);
 
-		// Render the modal once in the container.
-		ReactDOM.render(<OnboardingModal bootData={parsedBootData} />, rootContainer);
+	// Render the modal once in the container.
+	ReactDOM.render(<OnboardingModal bootData={parsedBootData} />, rootContainer);
 
-		// Add event listener to open the modal.
-		element.addEventListener('click', (event) => {
-			event.preventDefault();
-			const { openModal } = wp.data.dispatch(MODAL_STORE_KEY); // Trigger the openModal action.
-			openModal();
-		});
+	// Add event listener to open the modal.
+	button.addEventListener('click', (event) => {
+		event.preventDefault();
+		const { openModal } = wp.data.dispatch(MODAL_STORE_KEY); // Trigger the openModal action.
+		openModal();
 	});
 });

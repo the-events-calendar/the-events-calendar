@@ -70,21 +70,24 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					}
 				/>
 				{(!defaultTimezone || defaultTimezone.includes('UTC')) && (
-					<SelectControl
-						__nextHasNoMarginBottom
-						label={__('Time Zone', 'the-events-calendar')}
-						description={timeZoneMessage}
-						defaultValue={ timeZone }
-						onChange={ setTimeZone }
-					>
-						{Object.entries(timezones).map(([key, cities]) => (
-							<optgroup key={key} className="continent" label={key}>
-								{Object.entries(cities as {[key: string]: string}).map(([key, city]) => (
-									<option key={key}  value={key}>{city}</option>
-								))}
-							</optgroup>
-						))}
-					</SelectControl>
+					<>
+						<SelectControl
+							__nextHasNoMarginBottom
+							label={__('Time Zone', 'the-events-calendar')}
+							describedBy="time-zone-description"
+							defaultValue={ timeZone }
+							onChange={ setTimeZone }
+						>
+							{Object.entries(timezones).map(([key, cities]) => (
+								<optgroup key={key} className="continent" label={key}>
+									{Object.entries(cities as {[key: string]: string}).map(([key, city]) => (
+										<option key={key}  value={key}>{city}</option>
+									))}
+								</optgroup>
+							))}
+						</SelectControl>
+						<span id="time-zone-description">{timeZoneMessage}</span>
+					</>
 				)}
 
 				<SelectControl
