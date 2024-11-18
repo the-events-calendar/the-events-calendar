@@ -103,7 +103,7 @@ class Tickets implements Contracts\Step_Interface {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
-		$plugin_slug = 'event-tickets'; // Plugin slug for Event Tickets.
+		$plugin_slug     = 'event-tickets'; // Plugin slug for Event Tickets.
 		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
 
 		// Fetch plugin information from the WordPress plugin repo.
@@ -121,7 +121,7 @@ class Tickets implements Contracts\Step_Interface {
 		// Required stuff for download_url().
 		global $wp_filesystem;
 
-		require_once( ABSPATH . '/wp-admin/includes/file.php' );
+		require_once ABSPATH . '/wp-admin/includes/file.php';
 		WP_Filesystem();
 
 		$download_url = $plugin_data['download_link'];

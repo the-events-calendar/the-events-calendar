@@ -36,11 +36,11 @@ class Optin extends Abstract_Step {
 	 * @since 7.0.0
 	 *
 	 * @param WP_REST_Response $response The response object.
-	 * @param WP_REST_Request   $request  The request object.
+	 * @param WP_REST_Request  $request  The request object.
 	 */
-	public function process( $response,  $request ): WP_REST_Response {
+	public function process( $response, $request ): WP_REST_Response {
 		$current_optin = tribe_get_option( 'opt-in-status', false );
-		$optin = $request->get_param( 'optin' );
+		$optin         = $request->get_param( 'optin' );
 
 		if ( $current_optin === $optin ) {
 			return $response;

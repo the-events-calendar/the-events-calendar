@@ -78,7 +78,7 @@ class Wizard {
 	 *
 	 * @return bool|WP_Error True if the nonce is valid, WP_Error if not.
 	 */
-	public function check_nonce( $nonce ): bool|WP_Error {
+	public function check_nonce( $nonce ) {
 		$verified = wp_verify_nonce( $nonce, self::NONCE_ACTION );
 
 		if ( $verified ) {
