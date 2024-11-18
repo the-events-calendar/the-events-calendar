@@ -246,7 +246,7 @@ class Settings {
 	 *
 	 * Checks the `page` and `post_type` query parameters, and if they match the old help page slug.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return void
 	 */

@@ -6,7 +6,7 @@
  * the Help_Hub_Data_Interface and provides The Events Calendar-specific
  * resources, FAQs, and settings for the Help Hub functionality.
  *
- * @since   TBD
+ * @since   6.8.2
  * @package TEC\Events\Admin\Help_Hub
  */
 
@@ -23,7 +23,7 @@ use Tribe__PUE__Checker;
  * Implements the Help_Hub_Data_Interface, offering resources specific
  * to The Events Calendar, including FAQs, common issues, and customization guides.
  *
- * @since   TBD
+ * @since   6.8.2
  * @package TEC\Events\Admin\Help_Hub
  */
 class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
@@ -31,7 +31,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Holds the URLs for the necessary icons.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 * @var array
 	 */
 	protected array $icons = [];
@@ -48,7 +48,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 *
 	 * Initializes the icons array with URLs.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 */
 	public function __construct() {
 		$origin ??= Tribe__Main::instance();
@@ -71,7 +71,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * This method registers filters and actions required for the Help Hub,
 	 * such as adding custom body classes to the Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return void
 	 */
@@ -85,7 +85,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * This method allows the addition of `$admin_page_body_classes` to
 	 * the list of body classes for the Help Hub page.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @param array $classes The current array of body classes.
 	 *
@@ -100,7 +100,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 *
 	 * Each section can be filtered independently or as a complete set.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return array The filtered resource sections array.
 	 */
@@ -200,7 +200,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Retrieves the URL for a specified icon.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @param string $icon_name The name of the icon to retrieve.
 	 *
@@ -213,7 +213,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Get the license validity and telemetry opt-in status.
 	 *
-	 * @since TBD
+	 * @since 6.8.2
 	 *
 	 * @return array Contains 'has_valid_license' and 'is_opted_in' status.
 	 */

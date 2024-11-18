@@ -445,12 +445,12 @@ class Tribe__Events__Assets {
 	 *
 	 * @since  6.0.0
 	 *
-	 * @deprecated TBD The page this function is testing for no longer exists.
+	 * @deprecated 6.8.2 The page this function is testing for no longer exists.
 	 *
 	 * @return bool
 	 */
 	public function should_enqueue_admin_update_page_assets() {
-		_deprecated_function( __METHOD__, 'TBD', 'No alternative' );
+		_deprecated_function( __METHOD__, '6.8.2', 'No alternative' );
 
 		$should_enqueue = isset( $_GET[ 'update-message-the-events-calendar' ] );
 

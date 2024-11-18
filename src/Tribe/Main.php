@@ -168,7 +168,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * A Stored version of the Welcome and Update Pages.
 		 * @var Tribe__Admin__Activation_Page
 		 *
-		 * @deprecated TBD
+		 * @deprecated 6.8.2
 		 */
 		public $activation_page;
 
@@ -1086,10 +1086,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * @return Tribe__Admin__Activation_Page
 		 *
-		 * @deprecated TBD Activation page no longer used.
+		 * @deprecated 6.8.2 Activation page no longer used.
 		 */
 		public function activation_page() {
-			_deprecated_function( __METHOD__, 'TBD', 'No replacement' );
+			_deprecated_function( __METHOD__, '6.8.2', 'No replacement' );
 
 			// Setup the activation page only if the relevant class exists (in some edge cases, if another
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
