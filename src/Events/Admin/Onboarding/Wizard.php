@@ -48,10 +48,10 @@ class Wizard {
 	 * @since 7.0.0
 	 *
 	 *
-	 * @return boolean If we registered the endpoint.
+	 * @return bool If we registered the endpoint.
 	 */
-	public function register() {
-		register_rest_route(
+	public function register(): bool {
+		return register_rest_route(
 			self::ROOT_NAMESPACE,
 			'/wizard',
 			[
@@ -77,9 +77,9 @@ class Wizard {
 	 *
 	 * @param string $nonce The nonce.
 	 *
-	 * @return boolean|WP_Error True if the nonce is valid, WP_Error if not.
+	 * @return bool|WP_Error True if the nonce is valid, WP_Error if not.
 	 */
-	public function check_nonce( $nonce ) {
+	public function check_nonce( $nonce ): bool|WP_Error {
 		return true;
 
 		$verified = wp_verify_nonce( $nonce, self::NONCE_ACTION );
@@ -100,9 +100,9 @@ class Wizard {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @return boolean If the user has the correct permissions.
+	 * @return bool If the user has the correct permissions.
 	 */
-	public function check_permissions() {
+	public function check_permissions(): bool {
 		$required_permission = 'manage_options';
 
 		/**
@@ -127,9 +127,9 @@ class Wizard {
 	 *
 	 * @param Request $request The request object.
 	 *
-	 * @return array The response.
+	 * @return WP_REST_Response The response.
 	 */
-	public function handle( Request $request ) {
+	public function handle( Request $request ): WP_REST_Response {
 		$response = new WP_REST_Response(
 			[
 				'success' => true,
@@ -150,24 +150,6 @@ class Wizard {
 		 * @param Request          $request  The request object.
 		 * @param Wizard           $wizard   The wizard object.
 		 */
-		$response = apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
-
-
-
-		if ( ! $current_tab ) {
-			return $response;
-		}
-
-		/**
-		 * Each step hooks in here and potentially modifies the response.
-		 *
-		 * @since 7.0.0
-		 *
-		 * @param WP_REST_Response $response The response object.
-		 * @param Request          $request  The request object.
-		 * @param Wizard           $wizard   The wizard object.
-		 */
-		return apply_filters( 'tec_events_onboarding_wizard_handle_' . $current_tab, $response, $request, $this );
-
+		return apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
 	}
 }

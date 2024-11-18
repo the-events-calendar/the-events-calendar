@@ -115,7 +115,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 7.0.0
 	 */
-	public function add_filters() {
+	public function add_filters(): void {
 		// Add the step handlers.
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
@@ -129,7 +129,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 7.0.0
 	 */
-	public function add_actions() {
+	public function add_actions(): void {
 		add_action( 'admin_menu', [ $this, 'settings_page' ] );
 		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
@@ -140,7 +140,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 7.0.0
 	 */
-	public function remove_filters() {
+	public function remove_filters(): void {
 		// Remove the step handlers.
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
@@ -154,7 +154,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 7.0.0
 	 */
-	public function remove_actions() {
+	public function remove_actions(): void {
 		remove_action( 'admin_menu', [ $this, 'settings_page' ] );
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
@@ -165,7 +165,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 7.0.0
 	 */
-	public function settings_page() {
+	public function settings_page(): void {
 		add_submenu_page(
 			'edit.php?post_type=tribe_events',
 			__( 'TEC Onboarding Wizard', 'the-events-calendar' ),
@@ -181,7 +181,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 7.0.0
 	 */
-	public function enqueue_assets() {
+	public function enqueue_assets(): void {
 		if ( ! $this->is_on_page() ) {
 			return;
 		}

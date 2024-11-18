@@ -19,6 +19,8 @@ class Data {
 	 * Get a list of countries. Grouped by continent/region.
 	 *
 	 * @since 7.0.0.
+	 *
+	 * @return array<string,array<string,string>> The list of countries.
 	 */
 	public static function get_country_list(): array {
 		$countries = [
@@ -280,6 +282,8 @@ class Data {
 	 * @todo Move this somewhere for reuse!
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return array<string,string> The list of timezones.
 	 */
 	public static function get_timezone_list(): array {
 		// phpcs:disable
