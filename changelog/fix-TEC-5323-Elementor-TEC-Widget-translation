@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Used `date_i18n` to make sure date strings are translatable. [TEC-5323]
