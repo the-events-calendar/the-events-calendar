@@ -203,7 +203,7 @@ class Controller extends Controller_Contract {
 		wp_enqueue_style(
 			'tec-events-onboarding-wizard-style',
 			plugins_url( 'src/build/wizard/index.css', dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ),
-			['wp-components'],
+			[ 'wp-components' ],
 			$asset['version']
 		);
 	}

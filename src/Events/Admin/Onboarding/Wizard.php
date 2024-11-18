@@ -55,9 +55,10 @@ class Wizard {
 			self::ROOT_NAMESPACE,
 			'/wizard',
 			[
-				'methods'  => [Server::CREATABLE],
-				'callback' => [ $this, 'handle' ],
-				'args'     => [
+				'methods'              => [ Server::CREATABLE ],
+				'callback'             => [ $this, 'handle' ],
+				'permissions_callback' => [ $this, 'check_permissions' ],
+				'args'                 => [
 					'action_nonce' => [
 						'type'              => 'string',
 						'description'       => __( 'The action nonce for the request.', 'the-events-calendar' ),
@@ -65,7 +66,6 @@ class Wizard {
 						'validate_callback' => [ $this, 'check_nonce' ],
 					],
 				],
-				'permissions_callback' => [ $this, 'check_permissions' ],
 			]
 		);
 	}
@@ -80,19 +80,17 @@ class Wizard {
 	 * @return bool|WP_Error True if the nonce is valid, WP_Error if not.
 	 */
 	public function check_nonce( $nonce ): bool|WP_Error {
-		return true;
-
 		$verified = wp_verify_nonce( $nonce, self::NONCE_ACTION );
 
-		if ( ! $verified ) {
-			return new WP_Error(
-				'tec_invalid_nonce',
-				__( 'Invalid nonce.', 'the-events-calendar' ),
-				['status' => 403 ]
-			);
+		if ( $verified ) {
+			return true;
 		}
 
-		return true;
+		return new WP_Error(
+			'tec_invalid_nonce',
+			__( 'Invalid nonce.', 'the-events-calendar' ),
+			[ 'status' => 403 ]
+		);
 	}
 
 	/**
@@ -133,7 +131,7 @@ class Wizard {
 		$response = new WP_REST_Response(
 			[
 				'success' => true,
-				'message' => [__( 'Onboarding wizard completed successfully.', 'the-events-calendar' )]
+				'message' => [ __( 'Onboarding wizard completed successfully.', 'the-events-calendar' ) ],
 			],
 			200
 		);

@@ -28,7 +28,7 @@ class Venue implements Contracts\Step_Interface {
 	 *
 	 * @var int
 	 */
-	public const tabNumber = 4;
+	public const TAB_NUMBER = 4;
 
 	/**
 	 * Handles extracting and processing the pertinent data
@@ -50,7 +50,7 @@ class Venue implements Contracts\Step_Interface {
 		$params = $request->get_params();
 
 		// If the current tab is less than this tab, we don't need to do anything yet.
-		if ( $params['currentTab'] < self::tabNumber ) {
+		if ( $params['currentTab'] < self::TAB_NUMBER ) {
 			return $response;
 		}
 
