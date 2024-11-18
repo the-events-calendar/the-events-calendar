@@ -1,4 +1,4 @@
 Significance: minor
 Type: fix
 
-Used `date_i18n` to make sure date strings are translatable. [TEC-5323]
+Used `date_i18n` to make sure date strings are translatable in the TEC Elementor Widget. [TEC-5323]
