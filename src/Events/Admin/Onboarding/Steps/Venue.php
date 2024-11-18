@@ -96,14 +96,14 @@ class Venue implements Contracts\Step_Interface {
 		}
 
 		// Massage the data a bit.
-		$new_venue['Venue' ]         = $venue['name' ];
-		$new_venue['_VenueAddress' ] = $venue['address' ];
-		$new_venue['_VenueCity' ]    = $venue['city' ];
-		$new_venue['_VenueState' ]   = $venue['state' ];
-		$new_venue['_VenueZip' ]     = $venue['zip' ];
-		$new_venue['_VenueCountry' ] = $venue['country' ];
-		$new_venue['_VenuePhone' ]   = $venue['phone' ];
-		$new_venue['_VenueWebsite' ] = $venue['website' ];
+		$new_venue['Venue']         = $venue['name'];
+		$new_venue['_VenueAddress'] = $venue['address'];
+		$new_venue['_VenueCity']    = $venue['city'];
+		$new_venue['_VenueState']   = $venue['state'];
+		$new_venue['_VenueZip']     = $venue['zip'];
+		$new_venue['_VenueCountry'] = $venue['country'];
+		$new_venue['_VenuePhone']   = $venue['phone'];
+		$new_venue['_VenueWebsite'] = $venue['website'];
 
 		$post_id = Tribe__Events__API::createVenue( $new_venue );
 

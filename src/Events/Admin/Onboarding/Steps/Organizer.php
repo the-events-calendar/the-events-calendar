@@ -95,10 +95,10 @@ class Organizer implements Contracts\Step_Interface {
 			return true;
 		}
 
-		$organizer['Organizer' ]         = $organizer['name' ];
-		$organizer['_OrganizerPhone' ]   = $organizer['phone' ];
-		$organizer['_OrganizerWebsite' ] = $organizer['website' ];
-		$organizer['_OrganizerEmail' ]   = $organizer['email' ];
+		$organizer['Organizer']         = $organizer['name'];
+		$organizer['_OrganizerPhone']   = $organizer['phone'];
+		$organizer['_OrganizerWebsite'] = $organizer['website'];
+		$organizer['_OrganizerEmail']   = $organizer['email'];
 
 		$post_id = Tribe__Events__API::createOrganizer( $organizer );
 
