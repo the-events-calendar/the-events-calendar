@@ -223,9 +223,16 @@ class Telemetry {
 	 * Outputs the hook that renders the Telemetry action on all TEC admin pages.
 	 *
 	 * @since 6.1.0
+	 * @since 6.8.2
 	 */
 	public function inject_modal_link() {
 		if ( ! static::is_tec_admin_page() ) {
+			return;
+		}
+
+		$current_screen = get_current_screen();
+
+		if ( $current_screen->id === 'edit-tribe_events' ) {
 			return;
 		}
 
