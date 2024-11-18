@@ -2,7 +2,7 @@
 /**
  * Class that holds some data functions for the Wizard.
  *
- * @since 6.8.1
+ * @since 7.0.0
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -10,7 +10,7 @@ namespace TEC\Events\Admin\Onboarding;
 /**
  * Class Data
  *
- * @since 6.8.1
+ * @since 7.0.0
  * @package TEC\Events\Admin\Onboarding
  */
 class Data {
@@ -18,7 +18,7 @@ class Data {
 	/**
 	 * Get a list of countries. Grouped by continent/region.
 	 *
-	 * @since 6.8.1.
+	 * @since 7.0.0.
 	 */
 	public static function get_country_list(): array {
 		$countries = [
@@ -265,7 +265,7 @@ class Data {
 		/**
 		 * Filter the list of countries.
 		 *
-		 * @since 6.8.1
+		 * @since 7.0.0
 		 *
 		 * @param array $countries The list of countries. Grouped by continent/region.
 		 */
@@ -279,7 +279,7 @@ class Data {
 	 *
 	 * @todo Move this somewhere for reuse!
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 */
 	public static function get_timezone_list(): array {
 		// phpcs:disable
@@ -312,11 +312,11 @@ class Data {
 
 		foreach ( $tz_identifiers as $zone ) {
 			$zone = explode( '/', $zone );
-			if ( ! in_array( $zone[0], $continents, true ) ) {
+
+			if ( ! array_key_exists( $zone[0], $continents ) ) {
 				continue;
 			}
 
-			// This determines what gets set and translated - we don't translate Etc/* strings here, they are done later.
 			$exists    = [
 				0 => ( isset( $zone[0] ) && $zone[0] ),
 				1 => ( isset( $zone[1] ) && $zone[1] ),

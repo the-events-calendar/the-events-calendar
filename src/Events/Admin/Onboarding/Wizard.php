@@ -3,7 +3,7 @@
  * The REST API handler for the Onboarding Wizard.
  * Cleverly named...Wizard.
  *
- * @since 6.8.1
+ * @since 7.0.0
  *
  * @package TEC\Events\Admin\Onboarding
  */
@@ -18,7 +18,7 @@ use WP_REST_Response;
 /**
  * Class Wizard
  *
- * @since 6.8.1
+ * @since 7.0.0
  *
  * @package TEC\Events\Admin\Onboarding
  */
@@ -27,7 +27,7 @@ class Wizard {
 	/**
 	 * The action for this nonce.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class Wizard {
 	/**
 	 * Rest Endpoint namespace
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @var  string
 	 */
@@ -45,7 +45,7 @@ class Wizard {
 	/**
 	 * Register the endpoint.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 *
 	 * @return boolean If we registered the endpoint.
@@ -73,7 +73,7 @@ class Wizard {
 	/**
 	 * Check the nonce.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @param string $nonce The nonce.
 	 *
@@ -98,7 +98,7 @@ class Wizard {
 	/**
 	 * Check the permissions.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @return boolean If the user has the correct permissions.
 	 */
@@ -108,7 +108,7 @@ class Wizard {
 		/**
 		 * Filter the required permission for the onboarding wizard.
 		 *
-		 * @since 6.8.1
+		 * @since 7.0.0
 		 *
 		 * @param string $required_permission The required permission.
 		 * @param Wizard $wizard The wizard object.
@@ -123,7 +123,7 @@ class Wizard {
 	/**
 	 * Handle the request.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @param Request $request The request object.
 	 *
@@ -144,7 +144,7 @@ class Wizard {
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
-		 * @since 6.8.1
+		 * @since 7.0.0
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.
@@ -161,7 +161,7 @@ class Wizard {
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
-		 * @since 6.8.1
+		 * @since 7.0.0
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.

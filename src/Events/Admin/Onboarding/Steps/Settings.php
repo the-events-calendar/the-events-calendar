@@ -2,7 +2,7 @@
 /**
  * Handles the settings step of the onboarding wizard.
  *
- * @since 6.8.1
+ * @since 7.0.0
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -12,7 +12,7 @@ namespace TEC\Events\Admin\Onboarding\Steps;
 /**
  * Class Settings
  *
- * @since 6.8.1
+ * @since 7.0.0
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -20,7 +20,7 @@ class Settings implements Contracts\Step_Interface {
 	/**
 	 * The tab number for this step.
 	 *
-	 * @since 6.8.2
+	 * @since 7.0.0
 	 *
 	 * @var int
 	 */
@@ -29,7 +29,7 @@ class Settings implements Contracts\Step_Interface {
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @param \WP_REST_Response $response The response object.
 	 * @param \WP_REST_Request  $request  The request object.
@@ -71,7 +71,7 @@ class Settings implements Contracts\Step_Interface {
 	/**
 	 * Process the settings data.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @param bool $params The request params.
 	 */

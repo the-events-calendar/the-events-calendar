@@ -2,7 +2,7 @@
 /**
  * Handles the venue step of the onboarding wizard.
  *
- * @since 6.8.1
+ * @since 7.0.0
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -14,7 +14,7 @@ use Tribe__Events__API;
 /**
  * Class Venue
  *
- * @since 6.8.1
+ * @since 7.0.0
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -22,7 +22,7 @@ class Venue implements Contracts\Step_Interface {
 	/**
 	 * The tab number for this step.
 	 *
-	 * @since 6.8.2
+	 * @since 7.0.0
 	 *
 	 * @var int
 	 */
@@ -32,7 +32,7 @@ class Venue implements Contracts\Step_Interface {
 	 * Handles extracting and processing the pertinent data
 	 * for this step from the wizard request.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @param \WP_REST_Response $response The response object.
 	 * @param \WP_REST_Request  $request  The request object.
@@ -78,7 +78,7 @@ class Venue implements Contracts\Step_Interface {
 	/**
 	 * Process the venue data.
 	 *
-	 * @since 6.8.1
+	 * @since 7.0.0
 	 *
 	 * @param bool $venue The venue data.
 	 */
