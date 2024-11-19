@@ -67,11 +67,6 @@ $hero_section->add_section(
 		->add_elements(
 			[
 				new Link(
-					tribe( 'tec.main' )->settings()->get_url( [ Tribe__Events__Main::instance()->activation_page->welcome_slug => 1 ] ),
-					__( 'View Welcome Page', 'the-events-calendar' )
-				),
-				$break,
-				new Link(
 					'https://evnt.is/1bbv',
 					__( 'Getting started guide', 'the-events-calendar' ),
 					null,
@@ -112,7 +107,7 @@ $hero_section->add_section(
 				),
 
 				new Link(
-					admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help' ),
+					admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' ),
 					__( 'Help', 'the-events-calendar' )
 				),
 				$break,

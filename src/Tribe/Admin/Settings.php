@@ -5,11 +5,15 @@ namespace Tribe\Events\Admin;
  * Manages the admin settings UI in relation to events configuration.
  */
 
+use TEC\Common\Admin\Help_Hub\Hub;
+use TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data;
 use Tribe\Admin\Troubleshooting;
 use Tribe__App_Shop;
 use Tribe__Events__Main as Plugin;
 use Tribe__Main;
 use Tribe__Settings_Tab as Tab;
+use TEC\Common\Configuration\Configuration;
+use Tribe__Template;
 
 class Settings {
 
@@ -19,6 +23,20 @@ class Settings {
 	 * @var string
 	 */
 	public static $settings_page_id = 'tec-events-settings';
+
+	/**
+	 * The Help Hub page slug.
+	 *
+	 * @var string
+	 */
+	public static string $help_hub_slug = 'tec-events-help-hub';
+
+	/**
+	 * The Original Help page slug.
+	 *
+	 * @var string
+	 */
+	public static string $old_help_slug = 'tec-events-help';
 
 	/**
 	 * Settings tabs
@@ -198,21 +216,60 @@ class Settings {
 			]
 		);
 
+		// Redirects users from the outdated Help page to the new Help Hub page if accessed.
+		$this->redirect_to_help_hub();
+
+		// Instantiate necessary dependencies for the Help Hub.
+		$template      = tribe( Tribe__Template::class );
+		$config        = tribe( Configuration::class );
+		$resource_data = tribe( TEC_Hub_Resource_Data::class );
+
+		// Instantiate the Hub instance with all dependencies.
+		$hub_instance = new Hub( $resource_data, $config, $template );
+
 		$admin_pages->register_page(
 			[
-				'id'       => 'tec-events-help',
+				'id'       => self::$help_hub_slug,
 				'parent'   => $this->get_tec_events_menu_slug(),
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
-				'path'     => 'tec-events-help',
-				'callback' => [
-					tribe( 'settings.manager' ),
-					'do_help_tab',
-				],
+				'path'     => self::$help_hub_slug,
+				'callback' => [ $hub_instance, 'render' ],
 			]
 		);
 
 		$this->maybe_add_troubleshooting();
 		$this->maybe_add_app_shop();
+	}
+
+	/**
+	 * Redirects users from an outdated help page to the updated Help Hub page in the WordPress admin.
+	 *
+	 * Checks the `page` and `post_type` query parameters, and if they match the old help page slug.
+	 *
+	 * @since 6.8.2
+	 *
+	 * @return void
+	 */
+	public function redirect_to_help_hub(): void {
+		$page      = tribe_get_request_var( 'page' );
+		$post_type = tribe_get_request_var( 'post_type' );
+
+		// Exit if the request is not for the old help page.
+		if ( Plugin::POSTTYPE !== $post_type || self::$old_help_slug !== $page ) {
+			return;
+		}
+
+		// Build the new URL for redirection.
+		$new_url = add_query_arg(
+			[
+				'post_type' => Plugin::POSTTYPE,
+				'page'      => self::$help_hub_slug,
+			],
+			admin_url( 'edit.php' )
+		);
+
+		wp_safe_redirect( $new_url );
+		exit;
 	}
 
 	/**
