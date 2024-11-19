@@ -73,13 +73,20 @@ class Event_Datetime extends Abstract_Widget {
 		// Date and time settings.
 		$show_year   = tribe_is_truthy( $settings['show_year'] ?? false );
 		$date_format = tribe_get_date_format( $show_year );
-		$start_date  = date_i18n( $date_format, $event->dates->start->getTimestamp() ) ?? '';
-		$end_date    = date_i18n( $date_format, $event->dates->end->getTimestamp() ) ?? '';
+		$start_date  = $event->dates->start->format( $date_format ) ?? '';
+		$end_date    = $event->dates->end->format( $date_format ) ?? '';
+		// Make sure the dates are translatable if they are not empty.
+		$start_date = '' !== $start_date ? date_i18n( $date_format, $event->dates->start->getTimestamp() ) : '';
+		$end_date   = '' !== $end_date ? date_i18n( $date_format, $event->dates->end->getTimestamp() ) : '';
 
 		$time_format = tribe_get_time_format();
-		$start_time  = date_i18n( $time_format, $event->dates->start->getTimestamp() ) ?? '';
-		$end_time    = date_i18n( $time_format, $event->dates->end->getTimestamp() ) ?? '';
-		$show_tz     = tribe_is_truthy( $settings['show_timezone'] ?? tribe_get_option( 'tribe_events_timezones_show_zone', false ) );
+		$start_time  = $event->dates->start->format( $time_format ) ?? '';
+		$end_time    = $event->dates->end->format( $time_format ) ?? '';
+		// Make sure the times are translatable if they are not empty.
+		$start_time = '' !== $start_time ? date_i18n( $time_format, $event->dates->start->getTimestamp() ) : '';
+		$end_time   = '' !== $end_time ? date_i18n( $time_format, $event->dates->end->getTimestamp() ) : '';
+
+		$show_tz = tribe_is_truthy( $settings['show_timezone'] ?? tribe_get_option( 'tribe_events_timezones_show_zone', false ) );
 		if ( $show_tz ) {
 			$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $start_date ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event->ID );
 		}
