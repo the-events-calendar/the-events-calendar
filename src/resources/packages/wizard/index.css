@@ -77,6 +77,13 @@
 	background-color: var(--tec-wp-core-grey-2);
 }
 
+/* Make full-screen modals FULL SCREEN */
+.is-full-screen.components-modal__frame.tec-events-onboarding__modal {
+	border-radius: 0;
+	height: 100vh;
+	width: 100vw;
+}
+
 .tec-events-onboarding__modal .components-modal__content {
 	margin-top: 0;
 	padding-top: var(--tec-spacer-5);
@@ -382,7 +389,6 @@
 
 .tec-events-onboarding__welcome-header {
 	height: 180px;
-	margin-bottom: var(--tec-spacer-8);
 }
 
 .tec-events-onboarding__grid--view-checkbox {
@@ -532,4 +538,13 @@
 	line-height: normal;
 	padding: 12px 16px;
 	text-transform: none;
+}
+
+.components-button.is-primary {
+	background: none;
+	background-color: var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__modal a {
+	color: var(--tec-wp-core-blue-50);
 }
