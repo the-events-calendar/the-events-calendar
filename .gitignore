@@ -49,3 +49,9 @@ files/
 bin/strauss.phar
 
 .vscode
+
+# GitHub Actions
+DOCKER_ENV
+docker_tag
+output.log
+Dockerfile-php-build
