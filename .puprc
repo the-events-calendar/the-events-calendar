@@ -51,6 +51,11 @@
 			"slug": "wp-plugins/the-events-calendar/stable",
 			"textdomain": "the-events-calendar",
 			"url": "https://translate.wordpress.org"
+		},
+		{
+			"slug": "the-events-calendar",
+			"textdomain": "the-events-calendar",
+			"url": "https://translations.stellarwp.com"
 		}
 	],
 	"paths": {

@@ -3,23 +3,29 @@ vendor
 # ...but do not ignore the ones below; add to the safe list as the need arises
 !vendor/bootstrap-datepicker
 !vendor/chosen
+!vendor/ForceUTF8
 !vendor/jquery
 !vendor/jquery-placeholder
 !vendor/jquery-resize
-!vendor/tribe-common-libraries
-!vendor/ForceUTF8
 !vendor/php-date-formatter
+!vendor/tribe-common-libraries
+
+# GitHub Actions
+DOCKER_ENV
+docker_tag
+Dockerfile-php-build
+output.log
 
 # Build files - generated on packaging
 src/build
 
 # Tests - local config files
-codeception.yml
-tests/*.suite.yml
+.env.testing
 .env*.local
 *.tric
 *.tric.yml
-.env.testing
+codeception.yml
+tests/*.suite.yml
 
 # Tests - local output files
 tests/_output
@@ -27,24 +33,24 @@ tests/_output
 # General Purpose Ignored Files
 .DS_Store
 .idea
-node_modules
-compiler.jar
-*.ps1
-*.code-workspace
-bun.lockb
 .vscode
-
+*.code-workspace
+*.ps1
+bun.lockb
+compiler.jar
+node_modules
 wpml-config.xml
+
 
 # get from translate.wordpress.org as needed
 lang/*.po
 lang/*.mo
 
 # Resources Ignoring
+files/
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
-files/
 
 # Local packaging files
 .pup-*
