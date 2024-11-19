@@ -30,7 +30,6 @@ use TEC\Common\Contracts\Service_Provider;
  */
 class Hooks extends Service_Provider {
 
-
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -77,6 +76,23 @@ class Hooks extends Service_Provider {
 	 */
 	public function add_actions() {
 		add_action( 'customize_controls_enqueue_scripts', [ $this, 'enqueue_customizer_control_scripts'] );
+		add_action( 'after_setup_theme', [ $this, 'boot'] );
+	}
+
+	/**
+	 * Boot the Customizer as early as possible, do not try to register customizer sections before `after_setup_theme` as they need translations,
+	 * and after version 6.7 of WordPress it would throw a notice.
+	 *
+	 * @since 6.8.2
+	 *
+	 * @return void
+	 */
+	public function boot(): void {
+		tribe( 'events.views.v2.customizer.global-elements');
+		tribe( 'events.views.v2.customizer.month-view');
+		tribe( 'events.views.v2.customizer.events-bar');
+		tribe( 'events.views.v2.customizer.single-event' );
+		tribe( Notice::class );
 	}
 
 	/**

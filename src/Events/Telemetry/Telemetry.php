@@ -104,20 +104,19 @@ class Telemetry {
 			'type'            => 'checkbox_bool',
 			'label'           => $label,
 			'tooltip'         => sprintf(
-				/* Translators: Description of the Telemetry optin setting.
-				%1$s: opening anchor tag for permissions link.
-				%2$s: opening anchor tag for terms of service link.
-				%3$s: opening anchor tag for privacy policy link.
-				%4$s: closing anchor tags.
-				*/
+				// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
 				_x(
-					'Enable this option to share usage data with The Events Calendar and StellarWP. %1$sWhat permissions are being granted?%4$s %2$sRead our terms of service%4$s. %3$sRead our privacy policy%4$s.',
-					'Description of optin setting.',
+					'Enable this option to share usage data with The Events Calendar and StellarWP.
+        This activates access to TEC AI chatbot and in-app priority support for premium users.
+        %1$sWhat permissions are being granted?%4$s
+        %2$sRead our terms of service%4$s.
+        %3$sRead our privacy policy%4$s.',
+					'Description of opt-in setting.',
 					'the-events-calendar'
 				),
-				'<a href=" ' . Common_Telemetry::get_permissions_url() . ' ">',
-				'<a href=" ' . Common_Telemetry::get_terms_url() . ' ">',
-				'<a href=" ' . Common_Telemetry::get_privacy_url() . ' ">',
+				'<br/><a href="' . Common_Telemetry::get_permissions_url() . '">', // URL is escaped in method.
+				'<br/><a href="' . Common_Telemetry::get_terms_url() . '">', // URL is escaped in method.
+				'<br/><a href="' . Common_Telemetry::get_privacy_url() . '">', // URL is escaped in method.
 				'</a>'
 			),
 			'default'         => false,
@@ -224,9 +223,17 @@ class Telemetry {
 	 * Outputs the hook that renders the Telemetry action on all TEC admin pages.
 	 *
 	 * @since 6.1.0
+	 * @since 6.8.2 We are bailing on events list page.
 	 */
 	public function inject_modal_link() {
 		if ( ! static::is_tec_admin_page() ) {
+			return;
+		}
+
+		$current_screen = get_current_screen();
+
+		// The save action would perform a POST request against edit.php. So WP would assume we are editing a post throwing an error!
+		if ( isset( $current_screen->id ) && $current_screen->id === 'edit-tribe_events' ) {
 			return;
 		}
 

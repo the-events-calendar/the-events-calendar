@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.8.1
+Stable tag: 6.8.2
 Requires at least: 6.3
-Tested up to: 6.6.2
+Tested up to: 6.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -238,6 +238,13 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.8.2] 2024-11-19 =
+
+* Feature - Introduced Help Hub, a centralized support and resource interface for enhanced user guidance and plugin assistance.
+* Fix - Prevent a couple of instances where translations were loading too early, avoids notices with `_load_textdomain_just_in_time` on WordPress 6.7. [TEC-5325]
+* Deprecated - Deprecated the unused update/activation page [TEC-5311]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.8.1] 2024-11-04 =
 
