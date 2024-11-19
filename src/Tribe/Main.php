@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.8.1';
+		const VERSION             = '6.8.2';
 
 		/**
 		 * Min Pro Addon.
@@ -167,6 +167,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * A Stored version of the Welcome and Update Pages.
 		 * @var Tribe__Admin__Activation_Page
+		 *
+		 * @deprecated 6.8.2
 		 */
 		public $activation_page;
 
@@ -702,6 +704,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register new Admin Settings system.
 			tribe_register_provider( TEC\Events\Admin\Settings\Provider::class );
 
+			// Register the Help Hub system.
+			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 *
@@ -721,10 +726,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Load all the required library files.
 		 */
 		protected function loadLibraries() {
-			// Setup the Activation page
-			$this->activation_page();
-			add_filter( 'tec_admin_update_page_bypass', '__return_false' );
-
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
@@ -1084,8 +1085,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * @return Tribe__Admin__Activation_Page
+		 *
+		 * @deprecated 6.8.2 Activation page no longer used.
 		 */
 		public function activation_page() {
+			_deprecated_function( __METHOD__, '6.8.2', 'No replacement' );
+
 			// Setup the activation page only if the relevant class exists (in some edge cases, if another
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
 			// if we don't take this precaution).
