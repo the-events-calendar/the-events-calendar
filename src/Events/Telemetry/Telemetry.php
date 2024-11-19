@@ -233,7 +233,7 @@ class Telemetry {
 		$current_screen = get_current_screen();
 
 		// The save action would perform a POST request against edit.php. So WP would assume we are editing a post throwing an error!
-		if ( $current_screen->id === 'edit-tribe_events' ) {
+		if ( isset( $current_screen->id ) && $current_screen->id === 'edit-tribe_events' ) {
 			return;
 		}
 
