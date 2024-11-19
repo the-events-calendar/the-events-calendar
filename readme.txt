@@ -242,7 +242,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.8.2] 2024-11-19 =
 
 * Feature - Introduced Help Hub, a centralized support and resource interface for enhanced user guidance and plugin assistance.
-* Fix - Prevent a couple of instances where translations were loading too early, avoids notices with `_load_textdomain_just_in_time` on WordPress 6.7. []
+* Fix - Prevent a couple of instances where translations were loading too early, avoids notices with `_load_textdomain_just_in_time` on WordPress 6.7. [TEC-5325]
 * Deprecated - Deprecated the unused update/activation page [TEC-5311]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
