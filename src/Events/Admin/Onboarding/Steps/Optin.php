@@ -28,7 +28,7 @@ class Optin extends Abstract_Step {
 	 *
 	 * @var int
 	 */
-	public const TAB_NUMBER = 0;
+	public static $step_number = 0;
 
 	/**
 	 * Process the optin data.

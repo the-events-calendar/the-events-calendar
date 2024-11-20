@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------------------------------
  * Custom Properties: some are new, some are from the TEC common styles, reproduced here for the admin.
  * ----------------------------------------------------------------------------------------------------- */
-:root {
+ :root {
 	/* -----------------------------------------------------------------------------
 	 * Colors
 	 * ----------------------------------------------------------------------------- */
@@ -540,9 +540,13 @@
 	text-transform: none;
 }
 
-.components-button.is-primary {
+.tec-events-onboarding__modal .components-button.is-primary {
 	background: none;
 	background-color: var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__modal .components-button.is-tertiary {
+	color: var(--tec-wp-core-blue-50);
 }
 
 .tec-events-onboarding__modal a {

@@ -32,17 +32,12 @@ interface Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function handle( $response, $request, $wizard ): WP_REST_Response;
+	public function handle( $response, $request, $wizard ): WP_REST_Response;
 
 	/**
 	 * Process the step data.
 	 *
 	 * @since 7.0.0
-	 *
-	 * @param WP_REST_Request  $response The request object.
-	 * @param WP_REST_Response $request The response to be altered and returned.
-	 *
-	 * @return WP_REST_Response
 	 */
-	public function process( $response, $request ): WP_REST_Response;
+	public function process(): self;
 }
