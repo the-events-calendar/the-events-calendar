@@ -67,7 +67,6 @@
     "olp": "export NODE_OPTIONS=--openssl-legacy-provider",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
-    "prebuild": "node node_modules/@the-events-calendar/product-taskmaster/scripts/syncBrowserslistConfig.js",
     "rebuild": "rm -rf node_modules && npm install && npm run build"
   },
   "engines": { "node": "18.13.0", "npm": "8.19.3" },
