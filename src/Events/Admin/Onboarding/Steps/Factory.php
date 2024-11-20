@@ -9,7 +9,7 @@
 
 namespace TEC\Events\Admin\Onboarding\Steps;
 
-use \WP_Error;
+use WP_Error;
 /**
  * Class Factory
  *
@@ -96,8 +96,8 @@ class Factory {
 	 * @var array<string> $option_data
 	 */
 	protected static array $option_data = [
-		'key'    => '',
-		'value'  => '',
+		'key'   => '',
+		'value' => '',
 	];
 
 	/**
@@ -124,7 +124,7 @@ class Factory {
 		'plugin'   => '',
 		'required' => false,
 		'function' => '',
-		'class'	   => '',
+		'class'    => '',
 	];
 
 	/**
