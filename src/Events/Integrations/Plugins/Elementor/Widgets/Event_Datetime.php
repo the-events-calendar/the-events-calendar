@@ -58,6 +58,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * Get the template args for the widget.
 	 *
 	 * @since 6.4.0
+         * @since TBD Changed `format` method to `format_i18n` to allow for translations of dates.
 	 *
 	 * @return array The template args.
 	 */
