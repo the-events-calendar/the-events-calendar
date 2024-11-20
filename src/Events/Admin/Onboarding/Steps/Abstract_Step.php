@@ -149,6 +149,13 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 */
 	protected Wizard $wizard;
 
+	/**
+	 * Create the step object.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	public function create() {
 		$this->step = Factory::from_array( $this->get_data() );
 	}
@@ -159,7 +166,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 * In the format:
 	 * [
 	 *    'step_number' => int, required
-	 * 	  'options' => [],
+	 *    'options' => [],
 	 *    'settings' => [],
 	 *    'plugins' => [],
 	 * ]
@@ -318,19 +325,19 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 */
 	public function process(): self {
 		if ( $this->has_options() ) {
-			foreach( $this->options as $option ) {
+			foreach ( $this->options as $option ) {
 				$this->save_option( $option );
 			}
 		}
 
 		if ( $this->has_settings() ) {
-			foreach( $this->settings as $setting ) {
+			foreach ( $this->settings as $setting ) {
 				$this->save_setting( $setting );
 			}
 		}
 
 		if ( $this->is_install() ) {
-			foreach( $this->plugins as $plugin ) {
+			foreach ( $this->plugins as $plugin ) {
 				$this->install_plugin( $plugin );
 			}
 		}
@@ -356,7 +363,12 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 		$updated = update_option( $option['key'], $option['value'] );
 
 		if ( ! $updated ) {
-			$this->add_fail( __( 'Failed to update option ' . $option['key'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Failed to update option %1$s', 'the-events-calendar' ),
+					$option['key']
+				)
+			);
 		}
 
 		return $this;
@@ -380,7 +392,12 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 		$updated = tribe_update_option( $setting['key'], $setting['value'] );
 
 		if ( ! $updated ) {
-			$this->add_fail( __( 'Failed to update TEC setting ' . $setting['key'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Failed to updateTEC setting %1$s', 'the-events-calendar' ),
+					$setting['key']
+				)
+			);
 		}
 
 		return $this;
@@ -398,10 +415,15 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	protected function install_plugin( $plugin ): self {
 		// Check if the plugin is already installed.
 		if (
-			$plugin->function && function_exists( (string) $plugin->function )
-			|| $plugin->class && class_exists( (string) $plugin->class, false )
+			( $plugin->function && function_exists( (string) $plugin->function ) )
+			|| ( $plugin->class && class_exists( (string) $plugin->class, false ) )
 		) {
-			$this->add_fail( __( 'Plugin already installed ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( '%1$s already installed.', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		// Why, WP, why?
@@ -412,15 +434,25 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin->plugin . '.json';
 
 		// Fetch plugin information from the WordPress plugin repo.
-		$response = wp_remote_get( $plugin_repo_url );
+		$response = wp_safe_remote_get( $plugin_repo_url );
 		if ( is_wp_error( $response ) ) {
-			$this->add_fail( __( 'Could not fetch plugin info ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Could not fetch plugin info for %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( ! isset( $plugin_data['download_link'] ) ) {
-			$this->add_fail( __( 'Could not extract plugin download link ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Could not extract plugin download link for %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		// Required stuff for download_url().
@@ -433,25 +465,45 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 		$plugin_file  = download_url( $download_url );
 
 		if ( is_wp_error( $plugin_file ) ) {
-			$this->add_fail( __( 'Failed to download plugin ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Failed to download plugin: %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		if ( ! $wp_filesystem->exists( $plugin_file ) ) {
-			$this->add_fail( __( 'Downloaded plugin file does nto exist ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Downloaded plugin file does not exist for %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		// Unzip the plugin into the plugins folder.
 		$unzip = unzip_file( $plugin_file, ABSPATH . 'wp-content/plugins' );
 
 		if ( is_wp_error( $unzip ) ) {
-			$this->add_fail( __( 'Failed to unzip plugin ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Failed to unzip plugin: %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		// Clean up after ourselves.
 		$deleted = wp_delete_file( $plugin_file );
 
 		if ( ! $deleted ) {
-			$this->add_fail( __( 'Failed to delete plugin zip ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Failed to delete plugin zip file for %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		if ( ! function_exists( 'install_plugin_install_status' ) ) {
@@ -466,18 +518,24 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 		$install_result = install_plugin_install_status( $plugin_data );
 
 		if ( is_wp_error( $install_result ) ) {
-			$this->add_fail( __( 'Failed to install plugin ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Failed to install %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		// Activate the plugin.
 		$check = activate_plugin( 'event-tickets/event-tickets.php' );
 
 		if ( is_wp_error( $check ) ) {
-			$this->add_fail( __( 'Failed to activate plugin ' . $plugin['plugin'], 'the-events-calendar' ) );
-		}
-
-		if ( is_wp_error( $installed ) ) {
-			$this->add_fail( __( 'Failed to install plugin ' . $plugin['plugin'], 'the-events-calendar' ) );
+			$this->add_fail(
+				sprintf(
+					__( 'Failed to activate %1$s', 'the-events-calendar' ),
+					$plugin['plugin']
+				)
+			);
 		}
 
 		return $this;

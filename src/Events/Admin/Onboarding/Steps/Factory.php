@@ -135,10 +135,10 @@ class Factory {
 	 * @var array $data
 	 */
 	protected array $data = [
-		'step_number'  => 0,
-		'options'      => [],
-		'settings'     => [],
-		'plugins'      => [],
+		'step_number' => 0,
+		'options'     => [],
+		'settings'    => [],
+		'plugins'     => [],
 	];
 
 	/**
@@ -194,7 +194,8 @@ class Factory {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param array $option
+	 * @param array $option The option data to validate.
+	 *
 	 * @return boolean
 	 */
 	protected function validate_option( array $option ): bool {
@@ -212,7 +213,7 @@ class Factory {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param array $setting
+	 * @param array $setting The setting data to validate.
 	 * @return boolean
 	 */
 	protected function validate_setting( array $setting ): bool {
@@ -230,15 +231,15 @@ class Factory {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param array $plugin
+	 * @param array $plugin The plugin data to validate.
 	 * @return boolean
 	 */
 	protected function validate_plugin( array $plugin ): bool {
 		foreach ( static::$valid_plugin as $key ) {
 			if ( ! array_key_exists( $key, $plugin ) ) {
 				if (
-					$key === 'class' && array_key_exists( 'function', $plugin )
-					|| $key === 'function' && array_key_exists( 'class', $plugin )
+					( $key === 'class' && array_key_exists( 'function', $plugin ) )
+					|| ( $key === 'function' && array_key_exists( 'class', $plugin ) )
 				) {
 					// We need either class OR function to test for the plugin's existence.
 					continue;
