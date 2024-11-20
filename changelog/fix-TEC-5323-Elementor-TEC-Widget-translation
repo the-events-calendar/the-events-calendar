@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Changed `format` method to `format_i18n` to allow for translations of dates in the TEC Elementor Widget. [TEC-5323]
