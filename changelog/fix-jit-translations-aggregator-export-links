@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Prevent notices on `_load_textdomain_just_in_time` due to Aggregator and Export links code.
