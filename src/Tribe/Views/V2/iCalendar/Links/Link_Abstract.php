@@ -442,10 +442,10 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 */
 	public function jsonSerialize() {
 		return [
-			'block_slug'   => $this->block_slug,
-			'visible'      => $this->is_visible(),
 			'label'        => $this->get_label(),
 			'single_label' => $this->get_single_label(),
+			'visible'      => $this->is_visible(),
+			'block_slug'   => $this->block_slug,
 		];
 	}
 }
