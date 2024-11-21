@@ -277,7 +277,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @return string $label The label that will be displayed.
 		 */
-		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_single_label", $value, $this, $view );
+		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_label", $value, $this, $view );
 	}
 
 	/**
