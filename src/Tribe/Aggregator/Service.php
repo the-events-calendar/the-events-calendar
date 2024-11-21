@@ -75,7 +75,7 @@ class Tribe__Events__Aggregator__Service {
 	 * Constructor!
 	 */
 	public function __construct( Tribe__Events__Aggregator__API__Requests $requests ) {
-		$this->register_messages();
+		add_action( 'after_setup_theme', [ $this, 'register_messages' ] );
 		$this->requests = $requests;
 	}
 
