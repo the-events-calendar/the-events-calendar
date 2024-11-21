@@ -29,22 +29,11 @@ class iCal extends Link_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD
 	 */
-	public function register() {
-		// intentionally left blank.
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function label(): string {
-		return __( 'iCalendar', 'the-events-calendar' );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function single_label(): string {
-		return __( 'Add to iCalendar', 'the-events-calendar' );
+	public function i18n(): void {
+		$this->label        = __( 'iCalendar', 'the-events-calendar' );
+		$this->single_label = __( 'Add to iCalendar', 'the-events-calendar' );
 	}
 }

@@ -83,6 +83,26 @@ abstract class Link_Abstract implements Link_Interface {
 	}
 
 	/**
+	 * Registers the objects and filters required by the provider to manage subscribe links.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register() {
+		add_action( 'after_setup_theme', [ $this, 'i18n' ] );
+	}
+
+	/**
+	 * Translate the labels for the link.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	abstract public function i18n(): void;
+
+	/**
 	 * Sets the hooked param for flagging if the hooks were created.
 	 *
 	 * @since 5.12.3
@@ -198,29 +218,6 @@ abstract class Link_Abstract implements Link_Interface {
 	 * {@inheritDoc}
 	 */
 	public function get_label( View $view = null ): string {
-		return $this->filter_get_label( $this->label(), $view );
-	}
-
-	/**
-	 * Returns the label for the link.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	abstract protected function label(): string;
-
-	/**
-	 * Filters the label for the link.
-	 *
-	 * @since TBD
-	 *
-	 * @param string    $value The label to filter.
-	 * @param View|null $view  The current View object.
-	 *
-	 * @return string
-	 */
-	protected function filter_get_label( string $value, View $view = null ): string {
 		$slug = self::get_slug();
 
 		/**
@@ -234,36 +231,13 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @return string $label The label that will be displayed.
 		 */
-		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_label", $value, $this, $view );
+		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_label", $this->label, $this, $view );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public function get_single_label( View $view = null ): string {
-		return $this->filter_get_single_label( $this->single_label(), $view );
-	}
-
-	/**
-	 * Returns the label for the single event view.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	abstract protected function single_label(): string;
-
-	/**
-	 * Filters the single label for the link.
-	 *
-	 * @since TBD
-	 *
-	 * @param string    $value The label to filter.
-	 * @param View|null $view  The current View object.
-	 *
-	 * @return string
-	 */
-	protected function filter_get_single_label( string $value, View $view = null ): string {
 		$slug = self::get_slug();
 
 		/**
@@ -277,7 +251,7 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @return string $label The label that will be displayed.
 		 */
-		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_single_label", $value, $this, $view );
+		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_single_label", $this->single_label, $this, $view );
 	}
 
 	/**
@@ -406,29 +380,5 @@ abstract class Link_Abstract implements Link_Interface {
 		$passthrough_args = apply_filters( 'tec_views_v2_subscribe_links_url_args', $passthrough_args, $view );
 
 		return add_query_arg( urlencode_deep( $passthrough_args ), home_url( '/' ) );
-	}
-
-	/**
-	 * Magic method to allow getting the label and single_label properties.
-	 * These two params are deprecated and will be removed in a future release.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $name The property name.
-	 *
-	 * @return string|null
-	 */
-	public function __get( $name ) {
-		if ( 'label' === $name ) {
-			_doing_it_wrong( __METHOD__, 'The `label` property is deprecated and will be removed in a future release.', 'TBD' );
-			return $this->get_label();
-		}
-
-		if ( 'single_label' === $name ) {
-			_doing_it_wrong( __METHOD__, 'The `single_label` property is deprecated and will be removed in a future release.', 'TBD' );
-			return $this->get_single_label();
-		}
-
-		return null;
 	}
 }

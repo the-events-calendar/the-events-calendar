@@ -28,23 +28,19 @@ class Outlook_Export extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
+		parent::register();
 		add_filter( 'tec_views_v2_subscribe_link_outlook-ics_visibility', [ $this, 'filter_tec_views_v2_subscribe_link_outlook_ics_visibility'], 10, 2 );
 	}
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD
 	 */
-	protected function label(): string {
-		return __( 'Export Outlook .ics file', 'the-events-calendar' );
+	public function i18n(): void {
+		$this->label        = __( 'Export Outlook .ics file', 'the-events-calendar' );
+		$this->single_label = $this->label;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function single_label(): string {
-		return $this->label();
-	}
-
 
 	/**
 	 * Filters the is_visible() function to not display on single events.

@@ -39,23 +39,11 @@ class Outlook_Live extends Link_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @since TBD
 	 */
-	public function register() {
-		// intentionally left blank.
+	public function i18n(): void {
+		$this->label        = __( 'Outlook Live', 'the-events-calendar' );
+		$this->single_label = $this->label;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function label(): string {
-		return __( 'Outlook Live', 'the-events-calendar' );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function single_label(): string {
-		return $this->label();
-	}
-
 }
