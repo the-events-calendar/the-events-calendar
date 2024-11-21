@@ -205,7 +205,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	/**
 	 * Returns the label for the link.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @return string
 	 */
@@ -214,7 +214,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	/**
 	 * Filters the label for the link.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @param string    $value The label to filter.
 	 * @param View|null $view  The current View object.
@@ -248,7 +248,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	/**
 	 * Returns the label for the single event view.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @return string
 	 */
@@ -257,7 +257,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	/**
 	 * Filters the single label for the link.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @param string    $value The label to filter.
 	 * @param View|null $view  The current View object.
@@ -413,7 +413,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 * Magic method to allow getting the label and single_label properties.
 	 * These two params are deprecated and will be removed in a future release.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @param string $name The property name.
 	 *
@@ -421,12 +421,12 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 */
 	public function __get( $name ) {
 		if ( 'label' === $name ) {
-			_doing_it_wrong( __METHOD__, 'The `label` property is deprecated and will be removed in a future release.', 'TBD' );
+			_doing_it_wrong( __METHOD__, 'The `label` property is deprecated and will be removed in a future release.', '6.8.2.1' );
 			return $this->get_label();
 		}
 
 		if ( 'single_label' === $name ) {
-			_doing_it_wrong( __METHOD__, 'The `single_label` property is deprecated and will be removed in a future release.', 'TBD' );
+			_doing_it_wrong( __METHOD__, 'The `single_label` property is deprecated and will be removed in a future release.', '6.8.2.1' );
 			return $this->get_single_label();
 		}
 
@@ -436,7 +436,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	/**
 	 * Magic method surrounding the JSON serialization to enable the object to be serialized with all props.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @return array
 	 */
