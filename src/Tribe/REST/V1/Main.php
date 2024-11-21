@@ -67,7 +67,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Filters out content from password protected events from the REST API response.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @param array           $data    The events to be filtered.
 	 * @param WP_REST_Request $request The request object.
