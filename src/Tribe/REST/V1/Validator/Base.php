@@ -8,7 +8,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	/**
 	 * The event fields that are password protected when a password is required.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @var array
 	 */
@@ -211,7 +211,7 @@ class Tribe__Events__REST__V1__Validator__Base
 	/**
 	 * Removes password-protected content from the response.
 	 *
-	 * @since TBD
+	 * @since 6.8.2.1
 	 *
 	 * @return array
 	 */
@@ -219,7 +219,7 @@ class Tribe__Events__REST__V1__Validator__Base
 		/**
 		 * Filters the password-protected fields that should be removed from the response.
 		 *
-		 * @since TBD
+		 * @since 6.8.2.1
 		 *
 		 * @param array $password_protected_fields The password-protected fields to remove.
 		 */
