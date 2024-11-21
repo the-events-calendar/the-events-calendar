@@ -180,10 +180,12 @@ function tribe_get_view_permalink( $slug, $term = null ) {
 /**
  * Get a link to the Grid View.
  *
- * @hook   tribe_get_gridview_link Filters the URL to the grid view.
- * 
+ * @hook tribe_get_gridview_link Filters the URL to the grid view.
+ *
+ * @since 2.0.1
+ *
  * @param  string|null $term   Optional. Event category to link to. Default is null.
- * 
+ *
  * @return string      $output The generated URL to the grid view.
  */
 function tribe_get_gridview_link( $term = null ) {
