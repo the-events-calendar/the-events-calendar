@@ -13,28 +13,36 @@ class Tribe__Events__REST__V1__Validator__Base
 	 * @var array
 	 */
 	protected const PASSWORD_PROTECTED_FIELDS = [
-		'description'        => '',
-		'excerpt'            => '',
-		'image'              => false,
-		'all_day'            => 'null',
-		'cost'               => '',
-		'cost_details'       => [
+		'description'          => '',
+		'excerpt'              => '',
+		'image'                => false,
+		'all_day'              => 'null',
+		'cost'                 => '',
+		'cost_details'         => [
 			'currency_symbol'   => '',
 			'currency_position' => '',
 			'currency_code'     => '',
 			'values'            => [],
 		],
-		'website'            => '',
-		'show_map'           => 'null',
-		'show_map_link'      => 'null',
-		'hide_from_listings' => 'null',
-		'sticky'             => 'null',
-		'featured'           => 'null',
-		'categories'         => [],
-		'tags'               => [],
-		'venue'              => [],
-		'organizer'          => [],
-		'ticketed'           => 'null',
+		'website'              => '',
+		'show_map'             => 'null',
+		'show_map_link'        => 'null',
+		'hide_from_listings'   => 'null',
+		'sticky'               => 'null',
+		'featured'             => 'null',
+		'categories'           => [],
+		'tags'                 => [],
+		'venue'                => [],
+		'organizer'            => [],
+		'ticketed'             => 'null',
+		'is_virtual'           => 'null',
+		'virtual_url'          => '',
+		'virtual_video_source' => '',
+		'attendance'           => [
+			'total_attendees' => 'null',
+			'checked_in'      => 'null',
+			'not_checked_in'  => 'null',
+		],
 	];
 
 	/**
