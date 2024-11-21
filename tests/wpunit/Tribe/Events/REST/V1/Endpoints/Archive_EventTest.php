@@ -1058,6 +1058,22 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		$this->assertInstanceOf( \WP_REST_Response::class, $response );
 		$this->assertCount( 5, $data['events'] );
 
-		$this->assertMatchesJsonSnapshot( str_replace( array_map( static fn( $id ) => '"id": ' . $id, $event_ids ), '"id": "{EVENT_ID}"', wp_json_encode( $data, JSON_PRETTY_PRINT ) ) );
+		$json = wp_json_encode( $data, JSON_PRETTY_PRINT );
+		$json = str_replace(
+			array_map( static fn( $id ) => '"id": ' . $id, $event_ids ),
+			'"id": "{EVENT_ID}"',
+			$json
+		);
+		$json = str_replace(
+			array_map( static fn( $id ) => '?id=' . $id, $event_ids ),
+			'?id={EVENT_ID}',
+			$json
+		);
+		$json = str_replace(
+			array_map( static fn( $id ) => '\/events\/' . $id, $event_ids ),
+			'\/events\/{EVENT_ID}',
+			$json
+		);
+		$this->assertMatchesJsonSnapshot( $json );
 	}
 }
