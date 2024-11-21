@@ -18,17 +18,16 @@ const OnboardingTabs = () => {
 		id: string;
 		title: string;
 		content: React.ComponentType;
-		dataKey?: string;
 		ref: React.RefObject<HTMLDivElement>;
 	};
 
 	const tabConfig = [
-		{ id: "welcome", title: __("Welcome", "the-events-calendar"), content: WelcomeContent, dataKey: "optin", ref: useRef(null) },
-		{ id: "display", title: __("Display", "the-events-calendar"), content: DisplayContent, dataKey: "activeViews", ref: useRef(null) },
+		{ id: "welcome", title: __("Welcome", "the-events-calendar"), content: WelcomeContent, ref: useRef(null) },
+		{ id: "display", title: __("Display", "the-events-calendar"), content: DisplayContent, ref: useRef(null) },
 		{ id: "settings", title: __("Settings", "the-events-calendar"), content: SettingsContent, ref: useRef(null) },
-		{ id: "organizer", title: __("Organizer", "the-events-calendar"), content: OrganizerContent, dataKey: "organizer", ref: useRef(null) },
-		{ id: "venue", title: __("Venue", "the-events-calendar"), content: VenueContent, dataKey: "venue", ref: useRef(null) },
-		{ id: "tickets", title: __("Tickets", "the-events-calendar"), content: TicketsContent, dataKey: "eventTickets", ref: useRef(null) }
+		{ id: "organizer", title: __("Organizer", "the-events-calendar"), content: OrganizerContent, ref: useRef(null) },
+		{ id: "venue", title: __("Venue", "the-events-calendar"), content: VenueContent, ref: useRef(null) },
+		{ id: "tickets", title: __("Tickets", "the-events-calendar"), content: TicketsContent, ref: useRef(null) }
 	];
 
 	const { closeModal } = useDispatch(MODAL_STORE_KEY);
@@ -42,8 +41,7 @@ const OnboardingTabs = () => {
 	const [tabsState, setTabsState] = useState(() =>
 		tabConfig.map((tab: TabConfig, index) => ({
 			...tab,
-			disabled: index > 0 && !settings?.[tab.dataKey],  // Check if the setting exists
-			completed: !!settings?.[tab.dataKey],            // Mark as completed if setting is truthy
+			disabled: index > 0, // Disable all tabs except the first one
 		}))
 	);
 

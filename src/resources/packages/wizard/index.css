@@ -10,7 +10,6 @@
 	--tec-wp-core-grey-2: #f0f0f1;
 	--tec-wp-core-grey-50: #646970;
 	--tec-wp-core-grey-80: #2c3338;
-
 	--tec-scales-grey-200: #e0e0e0;
 
 	/* -----------------------------------------------------------------------------
@@ -86,7 +85,7 @@
 
 .tec-events-onboarding__modal .components-modal__content {
 	margin-top: 0;
-	padding-top: var(--tec-spacer-5);
+	padding-top: 0;
 }
 
 .tec-events-onboarding__modal .components-modal__header {
@@ -127,6 +126,8 @@
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-between;
+	padding-bottom: var(--tec-spacer-3);
+	padding-top: var(--tec-spacer-5);
 }
 
 /* Tab Container Header Brand Icon */
@@ -194,12 +195,6 @@
 	}
 }
 
-@media (min-width: 1024px) {
-	.tec-events-onboarding__tabs-list {
-		margin-bottom: var(--tec-spacer-3);
-	}
-}
-
 .tec-events-onboarding__tab {
 	align-items: center;
 	border: 1px solid var(--tec-wp-core-grey-50);
@@ -215,7 +210,7 @@
 	justify-content: center;
 	letter-spacing: -1px;
 	margin: 0;
-	padding: var(--tec-spacer-2) var(--tec-spacer-5);
+	padding: var(--tec-spacer-1) var(--tec-spacer-5);
 	position: relative;
 	white-space: nowrap;
 }
@@ -347,7 +342,7 @@
 .tec-events-onboarding__content-header-icon--brand {
 	display: block;
 	height: 38px;
-	margin: 0 auto 8px;
+	margin: 0 auto var(--tec-spacer-1);
 	width: 46px;
 }
 
@@ -408,7 +403,7 @@
 .tec-events-onboarding__view_upsell-cell {
 	display: flex;
 	flex-direction: column;
-	padding: 12px 8px;
+	padding: var(--tec-spacer-2) var(--tec-spacer-1);
 	text-align: center;
 }
 
@@ -448,6 +443,7 @@
 
 .tec-events-onboarding__checkbox-label--checked {
 	border: 2px solid var(--tec-wp-core-blue-50);
+	padding: calc(var(--tec-spacer-2) - 1px) calc(var(--tec-spacer-4) - 1px);
 }
 
 #tec-events-onboarding__checkbox-label-all {
@@ -478,6 +474,7 @@
 	font-size: var(--tec-font-size-2);
 	letter-spacing: -0.28px;
 	line-height: var(--tec-line-height-2);
+	margin-top: calc(-1 * var(--tec-spacer-0));
 	text-align: left;
 }
 
@@ -517,6 +514,13 @@
 
 .tec-events-onboarding__tab-header {
 	line-height: normal;
+	margin-bottom: var(--tec-spacer-3);
+	margin-top: 0;
+}
+
+.tec-events-onboarding__tab-subheader {
+	margin-bottom: var(--tec-spacer-5);
+	margin-top: 0;
 }
 
 /* Stupidly specific to overide component styles */
