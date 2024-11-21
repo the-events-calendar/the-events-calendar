@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Updated the docblock for the 'tribe_get_previous_events_link' function.
