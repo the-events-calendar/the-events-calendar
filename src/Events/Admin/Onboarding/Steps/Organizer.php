@@ -20,7 +20,7 @@ use WP_REST_Request;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Organizer implements Contracts\Step_Interface {
+class Organizer extends Abstract_Step {
 	/**
 	 * The tab number for this step.
 	 *
@@ -31,68 +31,24 @@ class Organizer implements Contracts\Step_Interface {
 	public const TAB_NUMBER = 3;
 
 	/**
-	 * Handles extracting and processing the pertinent data
-	 * for this step from the wizard request.
-	 *
-	 * @since 6.8.1
-	 *
-	 * @param WP_REST_Response $response The response object.
-	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard           $wizard   The wizard object.
-	 *
-	 * @return WP_REST_Response
-	 */
-	public static function handle( $response, $request, $wizard ): WP_REST_Response {
-		if ( $response->is_error() ) {
-			return $response;
-		}
-
-		$params = $request->get_params();
-
-		// If the current tab is less than this tab, we don't need to do anything yet.
-		if ( $params['currentTab'] < self::TAB_NUMBER ) {
-			return $response;
-		}
-
-		if ( ! isset( $params['organizer'] ) ) {
-			return $response;
-		}
-
-		$processed = self::process( $params['organizer'] ?? false );
-		$data      = $response->get_data();
-
-		$new_message = $processed ?
-			__( 'Organizer created successfully.', 'the-events-calendar' )
-			: __( 'Failed to create organizer.', 'the-events-calendar' );
-
-		$response->set_data(
-			[
-				'success' => $processed,
-				'message' => array_merge( $data['message'], [ $new_message ] ),
-			]
-		);
-
-		$response->set_status( $processed ? $response->get_status() : 500 );
-
-		return $response;
-	}
-
-	/**
 	 * Process the organizer data.
 	 *
 	 * @since 6.8.1
 	 *
 	 * @param bool $organizer The organizer request data.
 	 */
-	public static function process( $organizer ): bool {
+	public static function process( $response, $request ): WP_REST_Response {
+		$params = $request->get_params();
 		// No data to process, bail out.
-		if ( ! $organizer ) {
-			return true;
+		if ( ! $params['organizer'] ) {
+			return $response;
 		}
+
+		$organizer = $params['organizer'];
 
 		// If we already have an organizer, we're not editing it here.
 		if ( ! empty( $organizer['id'] ) ) {
-			return true;
+			return $response;
 		}
 
 		$organizer['Organizer']         = $organizer['name'];
@@ -103,9 +59,9 @@ class Organizer implements Contracts\Step_Interface {
 		$post_id = Tribe__Events__API::createOrganizer( $organizer );
 
 		if ( ! $post_id ) {
-			return false;
+			return self::add_fail_message( $response, __( 'Failed to create organizer.', 'the-events-calendar' ) );
 		}
 
-		return true;
+		return $response;
 	}
 }

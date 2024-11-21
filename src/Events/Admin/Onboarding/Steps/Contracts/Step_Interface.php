@@ -44,5 +44,5 @@ interface Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function process( $response, $request ): WP_REST_Response;
+	public static function process( $response, $request ): WP_REST_Response;
 }

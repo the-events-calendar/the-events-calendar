@@ -81,11 +81,31 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public function add_message( $response, $message ) {
+	public static function add_message( $response, $message ) {
 		$data            = $response->get_data();
 		$data['message'] = array_merge( (array) $data['message'], [ $message ] );
 
 		$response->set_data( $data );
+
+		return $response;
+	}
+
+	/**
+	 * Add a message to the response.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Response $response The response object.
+	 * @param string           $message  The message to add.
+	 *
+	 * @return WP_REST_Response
+	 */
+	public static function add_fail_message( $response, $message ) {
+		$data            = $response->get_data();
+		$data['message'] = array_merge( (array) $data['message'], [ $message ] );
+
+		$response->set_data( $data );
+		$response->set_status( 500 );
 
 		return $response;
 	}
@@ -100,5 +120,5 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	abstract public function process( $response, $request ): WP_REST_Response;
+	abstract static public function process( $response, $request ): WP_REST_Response;
 }

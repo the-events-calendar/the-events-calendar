@@ -19,7 +19,7 @@ use WP_REST_Request;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Settings implements Contracts\Step_Interface {
+class Settings extends Abstract_Step {
 	/**
 	 * The tab number for this step.
 	 *
@@ -28,57 +28,13 @@ class Settings implements Contracts\Step_Interface {
 	 * @var int
 	 */
 	public const TAB_NUMBER = 1;
-	/**
-	 * Handles extracting and processing the pertinent data
-	 * for this step from the wizard request.
-	 *
-	 * @since 7.0.0
-	 *
-	 * @param WP_REST_Response $response The response object.
-	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard           $wizard   The wizard object.
-	 *
-	 * @return WP_REST_Response
-	 */
-	public static function handle( $response, $request, $wizard ): WP_REST_Response {
-		if ( $response->is_error() ) {
-			return $response;
-		}
-
-		$params = $request->get_params();
-
-		// If the current tab is less than this tab, we don't need to do anything yet.
-		if ( $params['currentTab'] < self::TAB_NUMBER ) {
-			return $response;
-		}
-
-		$processed = self::process( $params );
-		$data      = $response->get_data();
-
-		$new_message = $processed ?
-			__( 'Settings processed successfully.', 'the-events-calendar' )
-			: __( 'Failed to process settings.', 'the-events-calendar' );
-
-		$response->set_data(
-			[
-				'success' => $processed,
-				'message' => array_merge( $data['message'], [ $new_message ] ),
-			]
-		);
-
-		$response->set_status( $processed ? $response->get_status() : 500 );
-
-		return $response;
-	}
 
 	/**
 	 * Process the settings data.
 	 *
 	 * @since 7.0.0
-	 *
-	 * @param bool $params The request params.
 	 */
-	public static function process( $params ): bool {
+	public static function process( $response, $request ): WP_REST_Response {
 		$enabled_views = $params['activeViews'] ?? false;
 
 		// Don't try to save "all".
@@ -112,25 +68,28 @@ class Settings implements Contracts\Step_Interface {
 			if ( 'start_of_week' === $key || 'timezone_string' === $key ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
-					$updated = true;
+					continue;
 				} else {
 					$updated = update_option( $key, $value );
+
+					if ( ! $updated ) {
+						return self::add_fail_message( $response, __( 'Failed to save option.', 'the-events-calendar' ) );
+					}
 				}
 			} else {
 				$temp = tribe_get_option( $key, $value );
 				if ( $temp === $value ) {
-					$updated = true;
+					continue;
 				} else {
 					$updated = tribe_update_option( $key, $value );
-				}
-			}
 
-			// If we failed, bail out immediately and return false.
-			if ( ! $updated ) {
-				return false;
+					if ( ! $updated ) {
+						return self::add_fail_message( $response, __( 'Failed to save setting.', 'the-events-calendar' ) );
+					}
+				}
 			}
 		}
 
-		return true;
+		return $response;
 	}
 }
