@@ -36,9 +36,6 @@ const SetupButton = ({ tabSettings, moveToNextTab }) => {
 				updateSettings(tabSettings);
 				// Move to the next tab.
 				moveToNextTab();
-			} else {
-				// Optionally, add additional error handling here.
-				console.error("Failed to save settings.");
 			}
 
 			setSaving(false);
