@@ -440,6 +440,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 *
 	 * @return array
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return [
 			'label'        => $this->get_label(),
