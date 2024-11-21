@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
+use JsonSerializable;
 use Tribe__Date_Utils as Dates;
 use \Tribe\Events\Views\V2\View;
 
@@ -17,7 +18,7 @@ use \Tribe\Events\Views\V2\View;
  * @since   5.12.0
  * @package Tribe\Events\Views\V2\iCalendar
  */
-abstract class Link_Abstract implements Link_Interface {
+abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 
 	/**
 	 * The (translated) text/label for the link.
@@ -430,5 +431,21 @@ abstract class Link_Abstract implements Link_Interface {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Magic method surrounding the JSON serialization to enable the object to be serialized with all props.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	public function jsonSerialize() {
+		return [
+			'block_slug'   => $this->block_slug,
+			'visible'      => $this->is_visible(),
+			'label'        => $this->get_label(),
+			'single_label' => $this->get_single_label(),
+		];
 	}
 }
