@@ -32,17 +32,39 @@ interface Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function handle( $response, $request, $wizard ): WP_REST_Response;
+	public function handle( $response, $request, $wizard ): WP_REST_Response;
 
 	/**
 	 * Process the step data.
 	 *
 	 * @since 7.0.0
-	 *
-	 * @param WP_REST_Request  $response The request object.
-	 * @param WP_REST_Response $request The response to be altered and returned.
-	 *
-	 * @return WP_REST_Response
 	 */
-	public function process( $response, $request ): WP_REST_Response;
+	public function process(): self;
+
+	/**
+	 * Get the step data.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array
+	 */
+	public static function get_data(): array;
+
+	/**
+	 * Get the step number.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return int
+	 */
+	public function get_step_number(): int;
+
+	/**
+	 * Add data the step data to the array for consumption by the wizard.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $data The data to add.
+	 */
+	public function add_data( array $data ): array;
 }

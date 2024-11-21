@@ -9,9 +9,6 @@
 
 namespace TEC\Events\Admin\Onboarding\Steps;
 
-use WP_REST_Response;
-use WP_REST_Request;
-
 /**
  * Class Settings
  *
@@ -19,7 +16,7 @@ use WP_REST_Request;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Settings implements Contracts\Step_Interface {
+class Settings extends Step {
 	/**
 	 * The tab number for this step.
 	 *
@@ -27,110 +24,61 @@ class Settings implements Contracts\Step_Interface {
 	 *
 	 * @var int
 	 */
-	public const TAB_NUMBER = 1;
+	public static $step_number = 2;
+
 	/**
-	 * Handles extracting and processing the pertinent data
-	 * for this step from the wizard request.
+	 * Get the data for the step.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param WP_REST_Response $response The response object.
-	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard           $wizard   The wizard object.
-	 *
-	 * @return WP_REST_Response
+	 * @return array
 	 */
-	public static function handle( $response, $request, $wizard ): WP_REST_Response {
-		if ( $response->is_error() ) {
-			return $response;
-		}
-
-		$params = $request->get_params();
-
-		// If the current tab is less than this tab, we don't need to do anything yet.
-		if ( $params['currentTab'] < self::TAB_NUMBER ) {
-			return $response;
-		}
-
-		$processed = self::process( $params );
-		$data      = $response->get_data();
-
-		$new_message = $processed ?
-			__( 'Settings processed successfully.', 'the-events-calendar' )
-			: __( 'Failed to process settings.', 'the-events-calendar' );
-
-		$response->set_data(
-			[
-				'success' => $processed,
-				'message' => array_merge( $data['message'], [ $new_message ] ),
+	public static function get_data(): array {
+		return [
+			'step_number'   => self::$step_number,
+			'has_organizer' => false,
+			'has_venue'     => false,
+			'is_install'    => false,
+			'settings'      => [
+				[
+					'plugin' => 'the-events-calendar',
+					'key'   => 'defaultCurrencySymbol',
+					'value' => tribe_get_option( 'defaultCurrencySymbol', null ),
+				],
+				[
+					'plugin' => 'the-events-calendar',
+					'key'   => 'defaultDateFormat',
+					'value' => tribe_get_option( 'dateWithYearFormat', null ),
+				],
+			],
+			'options'       => [
+				[
+					'key'   => 'timezone_string',
+					'value' => get_option( 'timezone_string', null ),
+				],
+				[
+					'key'   => 'start_of_week',
+					'value' => get_option( 'start_of_week', null ),
+				],
 			]
-		);
-
-		$response->set_status( $processed ? $response->get_status() : 500 );
-
-		return $response;
+		];
 	}
 
 	/**
-	 * Process the settings data.
+	 * Add data to the wizard for the step.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param bool $params The request params.
+	 * @param array $data The data for the step.
+	 *
+	 * @return array
 	 */
-	public static function process( $params ): bool {
-		$enabled_views = $params['activeViews'] ?? false;
+	public function add_data( array $data ): array {
+		$data['defaultCurrencySymbol'] = tribe_get_option( 'defaultCurrencySymbol', null );
+		$data['defaultDateFormat'] = tribe_get_option( 'dateWithYearFormat', null );
+		$data['timezone_string'] = get_option( 'timezone_string', null );
+		$data['start_of_week'] = get_option( 'start_of_week', null );
 
-		// Don't try to save "all".
-		if ( $enabled_views && in_array( 'all', $enabled_views ) ) {
-			$enabled_views = array_filter(
-				$enabled_views,
-				function ( $view ) {
-					return 'all' !== $view;
-				}
-			);
-		}
-
-		$settings = [
-			'defaultCurrencySymbol' => $params['defaultCurrencySymbol'] ?? false,
-			'dateWithYearFormat'    => $params['defaultDateFormat'] ?? false,
-			'timezone_string'       => $params['defaultTimezone'] ?? false,
-			'start_of_week'         => $params['defaultWeekStart'] ?? false,
-			'tribeEnableViews'      => $enabled_views,
-		];
-
-		foreach ( $settings as $key => $value ) {
-			// Don't save a falsy value here, as we don't want to override any defaults.
-			// And values should all be strings/ints!
-			if ( empty( $value ) || ( 'start_of_week' === $key && $value === 0 ) ) {
-				continue;
-			}
-
-			$updated = false;
-
-			// Start of week and timezone are WP options, the rest are TEC settings.
-			if ( 'start_of_week' === $key || 'timezone_string' === $key ) {
-				$temp = get_option( $key, $value );
-				if ( $temp === $value ) {
-					$updated = true;
-				} else {
-					$updated = update_option( $key, $value );
-				}
-			} else {
-				$temp = tribe_get_option( $key, $value );
-				if ( $temp === $value ) {
-					$updated = true;
-				} else {
-					$updated = tribe_update_option( $key, $value );
-				}
-			}
-
-			// If we failed, bail out immediately and return false.
-			if ( ! $updated ) {
-				return false;
-			}
-		}
-
-		return true;
+		return $data;
 	}
 }

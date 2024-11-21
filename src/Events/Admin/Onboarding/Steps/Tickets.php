@@ -19,7 +19,7 @@ use WP_REST_Request;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Tickets implements Contracts\Step_Interface {
+class Tickets extends Step {
 	/**
 	 * The tab number for this step.
 	 *
@@ -27,144 +27,83 @@ class Tickets implements Contracts\Step_Interface {
 	 *
 	 * @var int
 	 */
-	public const TAB_NUMBER = 5;
+	public static $step_number = 5;
 
 	/**
-	 * Handles extracting and processing the pertinent data
-	 * for this step from the wizard request.
+	 * Get the data for the step.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param WP_REST_Response $response The response object.
-	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard           $wizard   The wizard object.
-	 *
-	 * @return WP_REST_Response
+	 * @return array
 	 */
-	public static function handle( $response, $request, $wizard ): WP_REST_Response {
-		if ( $response->is_error() ) {
-			return $response;
-		}
-
-		$params = $request->get_params();
-
-		// If the current tab is less than this tab, we don't need to do anything yet.
-		if ( $params['currentTab'] < self::TAB_NUMBER ) {
-			return $response;
-		}
-
-		if ( ! isset( $params['eventTickets'] ) ) {
-			return $response;
-		}
-
-		$processed = self::process( $params['eventTickets'] ?? false );
-		$data      = $response->get_data();
-
-		$new_message = $processed ?
-			__( 'Event Tickets installed successfully.', 'the-events-calendar' )
-			: __( 'Failed to install Event Tickets.', 'the-events-calendar' );
-
-		$response->set_data(
-			[
-				'success' => $processed,
-				'message' => array_merge( $data['message'], [ $new_message ] ),
-			]
-		);
-
-		$response->set_status( $processed ? $response->get_status() : 500 );
-
-		return $response;
+	public static function get_data(): array {
+		return [
+			'step_number'   => self::$step_number,
+			'has_options'   => false,
+			'has_organizer' => false,
+			'has_settings'  => false,
+			'has_venue'     => false,
+			'is_install'    => true,
+			'plugins'       => [
+				[
+					'plugin'   => 'event-tickets',
+					'required' => false
+				]
+			],
+		];
 	}
 
 	/**
-	 * Process the tickets data.
+	 * Add data to the wizard for the step.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param bool $tickets The tickets data.
+	 * @param array $data The data for the step.
+	 *
+	 * @return array
 	 */
-	public static function process( $tickets ): bool {
-		return $tickets ? self::install_event_tickets_plugin() : true;
+	public function add_data( array $data ): array {
+		$data['tickets'] = $this->is_installed( $this->get_plugin() );
+
+		return $data;
 	}
 
 	/**
-	 * Install and activate the Event Tickets plugin from the WordPress.org repo.
+	 * Sugar function to get the plugin slug.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return string
 	 */
-	public static function install_event_tickets_plugin(): bool {
-		// Check if the plugin is already installed.
-		if ( function_exists( 'tribe_tickets' ) ) {
-			return true;
-		}
+	public function get_plugin(): string {
+		return 'event-tickets';
+	}
 
-		// Why, WP, why?
-		if ( ! function_exists( 'download_url' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-		}
-
-		$plugin_slug     = 'event-tickets'; // Plugin slug for Event Tickets.
-		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
-
-		// Fetch plugin information from the WordPress plugin repo.
-		$response = wp_remote_get( $plugin_repo_url );
-		if ( is_wp_error( $response ) ) {
-			return false;
-		}
-
-		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
-
-		if ( ! isset( $plugin_data['download_link'] ) ) {
-			return false;
-		}
-
-		// Required stuff for download_url().
-		global $wp_filesystem;
-
-		require_once ABSPATH . '/wp-admin/includes/file.php';
-		WP_Filesystem();
-
-		$download_url = $plugin_data['download_link'];
-		$plugin_file  = download_url( $download_url );
-
-		if ( is_wp_error( $plugin_file ) ) {
-			return false;
-		}
-
-		if ( ! $wp_filesystem->exists( $plugin_file ) ) {
-			return false;
-		}
-
-		// Unzip the plugin into the plugins folder.
-		$unzip = unzip_file( $plugin_file, ABSPATH . 'wp-content/plugins' );
-
-		// CLean up after ourselves.
-		wp_delete_file( $plugin_file );
-
-		if ( is_wp_error( $unzip ) ) {
-			return false;
-		}
-
-		if ( ! function_exists( 'install_plugin_install_status' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-		}
-
+	/**
+	 * Check if a plugin is installed.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $plugin The plugin data.
+	 *
+	 * @return array
+	 */
+	protected function is_installed( $plugin ) {
+		// Check if get_plugins() function exists.
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
 
-		// Install the plugin.
-		$install_result = install_plugin_install_status( $plugin_data );
-		if ( is_wp_error( $install_result ) ) {
-			return false;
-		}
+		$plugins = get_plugins();
 
-		// Activate the plugin.
-		$check = activate_plugin( 'event-tickets/event-tickets.php' );
-		if ( is_wp_error( $check ) ) {
-			return false;
-		}
+		$plugins = array_filter(
+			$plugins,
+			function ( $key ) use ( $plugin ) {
+				return false !== strpos( $key, $plugin['plugin'] );
+			},
+			ARRAY_FILTER_USE_KEY
+		);
 
-		return true;
+		return array_keys( $plugins );
 	}
 }

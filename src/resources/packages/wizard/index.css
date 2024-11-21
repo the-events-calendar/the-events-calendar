@@ -10,7 +10,6 @@
 	--tec-wp-core-grey-2: #f0f0f1;
 	--tec-wp-core-grey-50: #646970;
 	--tec-wp-core-grey-80: #2c3338;
-
 	--tec-scales-grey-200: #e0e0e0;
 
 	/* -----------------------------------------------------------------------------
@@ -519,7 +518,7 @@
 	line-height: normal;
 }
 
-/* Stupidly specific to overide component styles */
+/* Stupidly specific to override component styles */
 .tec-events-onboarding__modal .tec-events-onboarding__tabs .tec-events-onboarding__tabpanel-content .tec-events-onboarding__form-wrapper label {
 	font-size: var(--tec-font-size-2);
 	font-style: normal;
@@ -540,9 +539,13 @@
 	text-transform: none;
 }
 
-.components-button.is-primary {
+.tec-events-onboarding__modal .components-button.is-primary {
 	background: none;
 	background-color: var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__modal .components-button.is-tertiary {
+	color: var(--tec-wp-core-blue-50);
 }
 
 .tec-events-onboarding__modal a {
