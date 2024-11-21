@@ -42,10 +42,12 @@ class Factory {
 	 * @var array<string> $valid_arguments
 	 */
 	protected static array $valid_arguments = [
-		'step_number',
-		'options',
-		'settings',
-		'plugins',
+		'step_number' => true,
+		'options'     => true,
+		'settings'    => true,
+		'plugins'     => true,
+		'organizer'   => true,
+		'venue'       => true,
 	];
 
 	/**
@@ -56,8 +58,8 @@ class Factory {
 	 * @var array<string> $valid_option
 	 */
 	protected static array $valid_option = [
-		'key',
-		'value',
+		'key'   => true,
+		'value' => true,
 	];
 
 	/**
@@ -68,9 +70,9 @@ class Factory {
 	 * @var array<string> $valid_setting
 	 */
 	protected static array $valid_setting = [
-		'plugin',
-		'key',
-		'value',
+		'plugin' => true,
+		'key'    => true,
+		'value'  => true,
 	];
 
 	/**
@@ -81,11 +83,49 @@ class Factory {
 	 * @var array<string> $valid_plugin
 	 */
 	protected static array $valid_plugin = [
-		'class',
-		'function',
-		'plugin',
-		'required',
-		'version',
+		'plugin'   => true,
+		'required' => true,
+		'version'  => true,
+	];
+
+	/**
+	 * Which arguments are valid for an organizer.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var array<string> $valid_organizer
+	 */
+	protected static array $valid_organizer = [
+		'name' => true,
+		'data' => [
+			'id'                => true,
+			'Organizer'         => true,
+			'_OrganizerPhone'   => true,
+			'_OrganizerWebsite' => true,
+			'_OrganizerEmail'   => true,
+		],
+	];
+
+	/**
+	 * Which arguments are valid for a venue.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var array<string> $valid_venue
+	 */
+	protected static array $valid_venue = [
+		'name' => true,
+		'data' => [
+			'id'            => true,
+			'Venue'         => true,
+			'_VenueAddress' => true,
+			'_VenueCity'    => true,
+			'_VenueState'   => true,
+			'_VenueZip'     => true,
+			'_VenueCountry' => true,
+			'_VenuePhone'   => true,
+			'_VenueWebsite' => true,
+		],
 	];
 
 	/**
@@ -123,8 +163,6 @@ class Factory {
 	protected static array $plugin_data = [
 		'plugin'   => '',
 		'required' => false,
-		'function' => '',
-		'class'    => '',
 	];
 
 	/**
@@ -135,10 +173,28 @@ class Factory {
 	 * @var array $data
 	 */
 	protected array $data = [
-		'step_number' => 0,
-		'options'     => [],
-		'settings'    => [],
-		'plugins'     => [],
+		'step_number'  => 0,
+		'options'      => [],
+		'settings'     => [],
+		'plugins'      => [],
+		'organizer'    => [],
+		'venue'        => [],
+	];
+
+	/**
+	 * The steps that are available.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var array $steps
+	 */
+	public static array $steps = [
+		'Optin',
+		'Display',
+		'Settings',
+		'Organizer',
+		'Venue',
+		'Tickets',
 	];
 
 	/**
@@ -158,7 +214,7 @@ class Factory {
 				continue;
 			}
 
-			// Options, settings, and plugins are arrays of arrays.
+			// Options, settings, plugins, and linked posts are arrays of arrays.
 			if ( method_exists( $step, 'validate_' . $key ) && ! $step->{'validate_' . $key}( $value ) ) {
 				$step->error->add( 'invalid_' . $key, 'Invalid ' . $key . ' data' );
 				continue;
@@ -214,11 +270,52 @@ class Factory {
 	 * @since 7.0.0
 	 *
 	 * @param array $setting The setting data to validate.
+	 *
 	 * @return boolean
 	 */
 	protected function validate_setting( array $setting ): bool {
 		foreach ( static::$valid_setting as $key ) {
 			if ( ! array_key_exists( $key, $setting ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Validates a step organizer.
+	 * Note: we don't validate the data array, as it contains optional values.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $plugin The plugin data to validate.
+	 *
+	 * @return boolean
+	 */
+	protected function validate_organizer( array $organizer ): bool {
+		foreach ( static::$valid_organizer as $key ) {
+			if ( ! array_key_exists( $key, $organizer ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Validates a step venue.
+	 * Note: we don't validate the data array, as it contains optional values.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $venue The venue data to validate.
+	 *
+	 * @return boolean
+	 */
+	protected function validate_venue( array $venue ): bool {
+		foreach ( static::$valid_venue as $key ) {
+			if ( ! array_key_exists( $key, $venue ) ) {
 				return false;
 			}
 		}

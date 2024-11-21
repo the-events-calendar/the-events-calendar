@@ -8,14 +8,8 @@
 namespace TEC\Events\Admin\Onboarding;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\Telemetry\Telemetry;
-use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Events\Admin\Onboarding\Wizard;
-use TEC\Events\Admin\Onboarding\Steps\Optin;
-use TEC\Events\Admin\Onboarding\Steps\Settings;
-use TEC\Events\Admin\Onboarding\Steps\Organizer;
-use TEC\Events\Admin\Onboarding\Steps\Venue;
-use TEC\Events\Admin\Onboarding\Steps\Tickets;
+use TEC\Events\Admin\Onboarding\Steps\Step;
 use TEC\Events\Admin\Onboarding\Data;
 /**
  * Class Controller
@@ -51,11 +45,26 @@ class Controller extends Controller_Contract {
 	public static string $page_slug = 'tribe_events_page_onboarding-wizard';
 
 	/**
+	 * The step handlers.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var array
+	 */
+	protected $step_0;
+	protected $step_1;
+	protected $step_2;
+	protected $step_3;
+	protected $step_4;
+	protected $step_5;
+
+	/**
 	 * Register the provider.
 	 *
 	 * @since 7.0.0
 	 */
 	public function do_register(): void {
+		$this->create_steps();
 		$this->add_filters();
 		$this->add_actions();
 
@@ -116,12 +125,7 @@ class Controller extends Controller_Contract {
 	 * @since 7.0.0
 	 */
 	public function add_filters(): void {
-		// Add the step handlers.
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+		// no op
 	}
 
 	/**
@@ -142,11 +146,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_filters(): void {
 		// Remove the step handlers.
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+		remove_all_filters( 'tec_events_onboarding_wizard_handle' );
 	}
 
 	/**
@@ -158,6 +158,33 @@ class Controller extends Controller_Contract {
 		remove_action( 'admin_menu', [ $this, 'settings_page' ] );
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+	}
+
+	/**
+	 * Create the step objects.
+	 *
+	 * @since 7.0.0
+	 */
+	public function create_steps() {
+		$this->step_0 = Step::create( 0 );
+		$this->step_1 = Step::create( 1 );
+		$this->step_2 = Step::create( 2 );
+		$this->step_3 = Step::create( 3 );
+		$this->step_4 = Step::create( 4 );
+		$this->step_5 = Step::create( 5 );
+	}
+
+	public function get_button_data() {
+		$data = [
+			'action_nonce'          => wp_create_nonce( Wizard::NONCE_ACTION ),
+			'_wpnonce'              => wp_create_nonce( 'wp_rest' ),
+			'timezones'             => Data::get_timezone_list(),
+			'countries'             => Data::get_country_list(),
+		];
+
+		$data = apply_filters( 'tribe_events_onboarding_wizard_initial_data', $data, $this );
+
+		return $data;
 	}
 
 	/**
@@ -224,26 +251,8 @@ class Controller extends Controller_Contract {
 	 */
 	public function tec_onboarding_wizard_button(): void {
 		// phpcs:disable
-		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$active_views    = array_keys( $view_manager->get_publicly_visible_views() );
-		$first_boot_data = [
-			'activeViews'           => $active_views,
-			'availableViews'        => $this->get_available_views(),
-			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '' ),
-			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
-			'defaultTimezone'       => get_option( 'timezone_string', false ),
-			'defaultWeekStart'      => get_option( 'start_of_week', false ),
-			'eventTickets'          => Installer::get()->is_installed( 'event-tickets' ),
-			'action_nonce'          => wp_create_nonce( Wizard::NONCE_ACTION ),
-			'_wpnonce'              => wp_create_nonce( 'wp_rest' ),
-			'optin'                 => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
-			'organizer'             => $this->get_organizer_data(),
-			'timezones'             => Data::get_timezone_list(),
-			'countries'             => Data::get_country_list(),
-			'venue'                 => $this->get_venue_data(),
-		];
 
-		$first_boot_data = apply_filters( 'tribe_events_onboarding_wizard_first_boot_data', $first_boot_data, $this );
+		$first_boot_data = $this->get_button_data();
 
 		$button = get_submit_button(
 			esc_html__( 'Open Install Wizard (current)', 'the-events-calendar' ),

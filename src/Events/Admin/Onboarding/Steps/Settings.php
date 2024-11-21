@@ -9,9 +9,6 @@
 
 namespace TEC\Events\Admin\Onboarding\Steps;
 
-use WP_REST_Response;
-use WP_REST_Request;
-
 /**
  * Class Settings
  *
@@ -19,7 +16,7 @@ use WP_REST_Request;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Settings extends Abstract_Step {
+class Settings extends Step {
 	/**
 	 * The tab number for this step.
 	 *
@@ -27,87 +24,61 @@ class Settings extends Abstract_Step {
 	 *
 	 * @var int
 	 */
-	public static $step_number = 1;
+	public static $step_number = 2;
 
 	/**
-	 * Process the settings data.
+	 * Get the data for the step.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param WP_REST_Response $response The response object.
-	 * @param WP_REST_Request  $request  The request object.
+	 * @return array
 	 */
-	public function process( $response, $request ): WP_REST_Response {
-		$enabled_views = $params['activeViews'] ?? false;
-
-		// Don't try to save "all".
-		if ( $enabled_views && in_array( 'all', $enabled_views ) ) {
-			$enabled_views = array_filter(
-				$enabled_views,
-				function ( $view ) {
-					return 'all' !== $view;
-				}
-			);
-		}
-
-		$settings = [
-			'defaultCurrencySymbol' => $params['defaultCurrencySymbol'] ?? false,
-			'dateWithYearFormat'    => $params['defaultDateFormat'] ?? false,
-			'timezone_string'       => $params['defaultTimezone'] ?? false,
-			'start_of_week'         => $params['defaultWeekStart'] ?? false,
-			'tribeEnableViews'      => $enabled_views,
+	public static function get_data(): array {
+		return [
+			'step_number'   => self::$step_number,
+			'has_organizer' => false,
+			'has_venue'     => false,
+			'is_install'    => false,
+			'settings'      => [
+				[
+					'plugin' => 'the-events-calendar',
+					'key'   => 'defaultCurrencySymbol',
+					'value' => tribe_get_option( 'defaultCurrencySymbol', null ),
+				],
+				[
+					'plugin' => 'the-events-calendar',
+					'key'   => 'defaultDateFormat',
+					'value' => tribe_get_option( 'dateWithYearFormat', null ),
+				],
+			],
+			'options'       => [
+				[
+					'key'   => 'timezone_string',
+					'value' => get_option( 'timezone_string', null ),
+				],
+				[
+					'key'   => 'start_of_week',
+					'value' => get_option( 'start_of_week', null ),
+				],
+			]
 		];
-
-		foreach ( $settings as $key => $value ) {
-			// Don't save a falsy value here, as we don't want to override any defaults.
-			// And values should all be strings/ints!
-			if ( empty( $value ) || ( 'start_of_week' === $key && $value === 0 ) ) {
-				continue;
-			}
-
-			$updated = false;
-
-			// Start of week and timezone are WP options, the rest are TEC settings.
-			if ( 'start_of_week' === $key || 'timezone_string' === $key ) {
-				$temp = get_option( $key, $value );
-				if ( $temp === $value ) {
-					continue;
-				} else {
-					$updated = update_option( $key, $value );
-					if ( ! $updated ) {
-						$response = $this->update_failed( $key, $response );
-					}
-				}
-			} else {
-				$temp = tribe_get_option( $key, $value );
-				if ( $temp === $value ) {
-					continue;
-				} else {
-					$updated = tribe_update_option( $key, $value );
-
-					if ( ! $updated ) {
-						$response = $this->update_failed( $key, $response );
-					}
-				}
-			}
-		}
-
-		return $response;
 	}
 
 	/**
-	 * Update the settings.
+	 * Add data to the wizard for the step.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param string           $key The key we're updating.
-	 * @param WP_REST_Response $response The response object.
+	 * @param array $data The data for the step.
 	 *
-	 * @return bool
+	 * @return array
 	 */
-	private function update_failed( $key, $response ): WP_REST_Response {
-		$response->set_status( 500 );
-		$this->add_message( $response, sprintf( __( 'Failed to save %s.', 'the-events-calendar' ), $key ) );
-		return $response;
+	public function add_data( array $data ): array {
+		$data['defaultCurrencySymbol'] = tribe_get_option( 'defaultCurrencySymbol', null );
+		$data['defaultDateFormat'] = tribe_get_option( 'dateWithYearFormat', null );
+		$data['timezone_string'] = get_option( 'timezone_string', null );
+		$data['start_of_week'] = get_option( 'start_of_week', null );
+
+		return $data;
 	}
 }

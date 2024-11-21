@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract step-handler class for the onboarding wizard.
+ * Step-handler class for the onboarding wizard.
  *
  * @since 7.0.0
  *
@@ -11,9 +11,9 @@ namespace TEC\Events\Admin\Onboarding\Steps;
 
 use WP_REST_Request;
 use WP_REST_Response;
-use WP_Error;
 use TEC\Events\Admin\Onboarding\Steps\Factory;
 use TEC\Events\Admin\Onboarding\Wizard;
+use Tribe__Events__API;
 
 /**
  * Class Optin
@@ -22,7 +22,7 @@ use TEC\Events\Admin\Onboarding\Wizard;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-abstract class Abstract_Step implements Contracts\Step_Interface {
+class Step implements Contracts\Step_Interface {
 	/**
 	 * The tab number for this step.
 	 *
@@ -49,6 +49,24 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 * @var bool $has_settings
 	 */
 	public $has_settings;
+
+	/**
+	 * If the step has venue.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var bool $has_venue
+	 */
+	public $has_venue;
+
+	/**
+	 * If the step has organizer.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var bool $has_organizer
+	 */
+	public $has_organizer;
 
 	/**
 	 * If the step installs a plugin(s).
@@ -93,9 +111,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 * In the format:
 	 * [
 	 *    'plugin'   => '',
-	 *    'class'    => '',
 	 *    'required' => false,
-	 *    'function' => '',
 	 * ]
 	 *
 	 * @since 7.0.0
@@ -103,15 +119,6 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 * @var array<string,array<string,mixed>> $plugins
 	 */
 	public $plugins = [];
-
-	/**
-	 * Store all errors that happen during the last creation.
-	 *
-	 * @since 7.0.0
-	 *
-	 * @var ?WP_Error
-	 */
-	protected ?WP_Error $error;
 
 	/**
 	 * The response object.
@@ -134,7 +141,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * The step object.
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 *
 	 * @var [type]
 	 */
@@ -149,15 +156,29 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 */
 	protected Wizard $wizard;
 
+
+	public static function create( $key ) {
+		$classname = 'TEC\Events\Admin\Onboarding\Steps\\' . Factory::$steps[$key];
+
+		$step = Factory::from_array( $classname::get_data() );
+
+		static::register();
+
+		return $step;
+	}
+
 	/**
-	 * Create the step object.
+	 * Sets up needed bindings.
 	 *
-	 * @since TBD
-	 *
-	 * @return void
+	 * @since 7.0.0
 	 */
-	public function create() {
-		return Factory::from_array( $this->get_data() );
+	public function register() {
+		$this->add_filters();
+	}
+
+	public function add_filters() {
+		add_filter( 'tribe_events_onboarding_wizard_initial_data', [ $this, 'add_data' ] );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ $this, 'handle' ], 14, 3 );
 	}
 
 	/**
@@ -175,18 +196,38 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return array
 	 */
-	protected function get_data() {
+	public static function get_data(): array {
 		return [];
 	}
 
-	protected function get_step_number() {
+	/**
+	 * Add data to the wizard for the step.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $data The data for the step.
+	 *
+	 * @return array
+	 */
+	public function add_data( array $data ): array {
+		return $data;
+	}
+
+	/**
+	 * Get the step number.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return int
+	 */
+	public function get_step_number(): int {
 		return static::$step_number;
 	}
 
 	/**
 	 * Check if the step has options to save.
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 *
 	 * @return boolean
 	 */
@@ -207,7 +248,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Check if the step has settings to save.
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 *
 	 * @return boolean
 	 */
@@ -228,7 +269,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Check if the step is installing a plugin(s).
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 *
 	 * @return boolean
 	 */
@@ -244,6 +285,80 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 		}
 
 		return $this->is_install;
+	}
+
+	/**
+	 * Check if the step has an organizer.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return boolean
+	 */
+	protected function has_organizer() {
+		if ( ! is_null( $this->has_organizer ) ) {
+			return $this->has_organizer;
+		}
+
+		if ( ! empty( $this->organizer ) ) {
+			$this->has_organizer = true;
+		} else {
+			$this->has_organizer = false;
+		}
+
+		return $this->has_organizer;
+	}
+
+	/**
+	 * Check if the step has a venue.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return boolean
+	 */
+	protected function has_venue() {
+		if ( ! is_null( $this->has_venue ) ) {
+			return $this->has_venue;
+		}
+
+		if ( ! empty( $this->venue ) ) {
+			$this->has_venue = true;
+		} else {
+			$this->has_venue = false;
+		}
+
+		return $this->has_venue;
+	}
+
+	/**
+	 * Get the options for the step in a key->value format.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array
+	 */
+	public function get_options() {
+		$return = [];
+		foreach ( $this->options as $option ) {
+			$return[ $option['key'] ] = $option['value'];
+		}
+
+		return $return;
+	}
+
+	/**
+	 * Get the settings for the step in a key->value format.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array
+	 */
+	public function get_settings() {
+		$return = [];
+		foreach ( $this->settings as $setting ) {
+			$return[ $setting['key'] ] = $setting['value'];
+		}
+
+		return $return;
 	}
 
 	/**
@@ -359,8 +474,15 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 * @return self
 	 */
 	protected function save_option( $option ): self {
-		$current = get_option( $option['key'], false );
-		if ( $option['value'] === $current ) {
+		$params = $this->request->get_params();
+
+		if ( ! isset( $params[ $option['key'] ] ) ) {
+			return $this;
+		}
+
+		$option['value'] = $params[ $option['key'] ];
+
+		if ( $option['value'] === get_option( $option['key'], null ) ) {
 			return $this;
 		}
 
@@ -389,8 +511,15 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 * @return self
 	 */
 	protected function save_setting( $setting ): self {
-		$current = tribe_get_option( $setting['key'], false );
-		if ( $setting['value'] === $current ) {
+		$params = $this->request->get_params();
+
+		if ( ! isset( $params[ $setting['key'] ] ) ) {
+			return $this;
+		}
+
+		$option['value'] = $params[ $setting['key'] ];
+
+		if ( $option['value'] === tribe_get_option( $setting['key'], null ) ) {
 			return $this;
 		}
 
@@ -400,7 +529,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 			$this->add_fail(
 				sprintf(
 					/* Translators: %1$s: setting key */
-					__( 'Failed to update TEC setting %1$s', 'the-events-calendar' ),
+					__( 'Failed to update setting %1$s', 'the-events-calendar' ),
 					$setting['key']
 				)
 			);
@@ -410,27 +539,59 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	}
 
 	/**
+	 * Check if a plugin is installed.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $plugin The plugin data.
+	 *
+	 * @return array
+	 */
+	protected function is_installed( $plugin ) {
+		// Check if get_plugins() function exists.
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$plugins = get_plugins();
+
+		$plugins = array_filter(
+			$plugins,
+			function ( $key ) use ( $plugin ) {
+				return false !== strpos( $key, $plugin['plugin'] );
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+
+		return array_keys( $plugins );
+	}
+
+	/**
 	 * Install and activate the passed plugin from the WordPress.org repo.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param object $plugin The plugin data.
+	 * @param array $plugin The plugin data.
 	 *
 	 * @return self
 	 */
 	protected function install_plugin( $plugin ): self {
+		$params = $this->request->get_params();
+
+		if ( ! isset( $params[ $plugin['plugin'] ] ) ) {
+			return $this;
+		}
 		// Check if the plugin is already installed.
-		if (
-			( $plugin->function && function_exists( (string) $plugin->function ) )
-			|| ( $plugin->class && class_exists( (string) $plugin->class, false ) )
-		) {
-			$this->add_fail(
+		if ( ! empty( $this->is_installed( $plugin ) ) ) {
+			$this->add_success(
 				sprintf(
 					/* Translators: %1$s: plugin name */
 					__( '%1$s already installed.', 'the-events-calendar' ),
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		// Why, WP, why?
@@ -438,7 +599,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
-		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin->plugin . '.json';
+		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin['plugin'] . '.json';
 
 		// Fetch plugin information from the WordPress plugin repo.
 		$response = wp_safe_remote_get( $plugin_repo_url );
@@ -450,6 +611,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -462,6 +625,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		// Required stuff for download_url().
@@ -481,6 +646,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		if ( ! $wp_filesystem->exists( $plugin_file ) ) {
@@ -491,6 +658,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		// Unzip the plugin into the plugins folder.
@@ -504,6 +673,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		// Clean up after ourselves.
@@ -517,6 +688,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		if ( ! function_exists( 'install_plugin_install_status' ) ) {
@@ -538,6 +711,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					$plugin['plugin']
 				)
 			);
+
+			return $this;
 		}
 
 		// Activate the plugin.
@@ -550,6 +725,59 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 					__( 'Failed to activate %1$s', 'the-events-calendar' ),
 					$plugin['plugin']
 				)
+			);
+
+			return $this;
+		}
+
+		return $this;
+	}
+
+	protected function create_organizer( $organizer ): self {
+		// No data to process, bail out.
+		if ( ! $organizer ) {
+			return $this;
+		}
+
+		// If we already have an organizer, we're not editing it here.
+		if ( ! empty( $organizer['id'] ) ) {
+			return $this;
+		}
+
+		$organizer['Organizer'] = $organizer['name'];
+		unset( $organizer['name'] );
+
+		$post_id = Tribe__Events__API::createOrganizer( $organizer );
+
+		if ( ! $post_id ) {
+			$this->add_fail(
+				__( 'Failed to create organizer', 'the-events-calendar' )
+			);
+		}
+
+		return $this;
+	}
+
+	protected function create_venue( $venue ) {
+		// No data to process, bail out.
+		if ( ! $venue ) {
+			return true;
+		}
+
+		// If we already have a venue, we're not editing it here.
+		if ( ! empty( $venue['id'] ) ) {
+			return true;
+		}
+
+		// Massage the data a bit.
+		$new_venue['Venue'] = $venue['name'];
+		unset( $venue['name'] );
+
+		$post_id = Tribe__Events__API::createVenue( $new_venue );
+
+		if ( ! $post_id ) {
+			$this->add_fail(
+				__( 'Failed to create venue', 'the-events-calendar' )
 			);
 		}
 

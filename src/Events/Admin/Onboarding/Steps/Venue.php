@@ -20,7 +20,7 @@ use WP_REST_Request;
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
-class Venue extends Abstract_Step {
+class Venue extends Step {
 	/**
 	 * The tab number for this step.
 	 *
@@ -31,39 +31,61 @@ class Venue extends Abstract_Step {
 	public static $step_number = 4;
 
 	/**
-	 * Process the venue data.
+	 * Get the data for the step.
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param bool $venue The venue data.
+	 * @return array
 	 */
-	public function process( $venue ): bool {
-		// No data to process, bail out.
-		if ( ! $venue ) {
-			return true;
+	public static function get_data(): array {
+		return [
+			'step_number'   => self::$step_number,
+			'has_options'   => false,
+			'has_organizer' => false,
+			'has_settings'  => false,
+			'has_venue'     => true,
+			'is_install'    => false,
+		];
+	}
+
+	/**
+	 * Add data to the wizard for the step.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $data The data for the step.
+	 *
+	 * @return array
+	 */
+	public function add_data( array $data ): array {
+		$data['venue'] = $this->get_venue_data();
+
+		return $data;
+	}
+
+	/**
+	 * Get the venue data.
+	 * Looks for a single existing venue and returns the data.
+	 *
+	 * @since 7.0.0
+	 */
+	protected function get_venue_data(): array {
+		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+
+		if ( empty( $venue_id ) ) {
+			return [];
 		}
 
-		// If we already have a venue, we're not editing it here.
-		if ( ! empty( $venue['id'] ) ) {
-			return true;
-		}
-
-		// Massage the data a bit.
-		$new_venue['Venue']         = $venue['name'];
-		$new_venue['_VenueAddress'] = $venue['address'];
-		$new_venue['_VenueCity']    = $venue['city'];
-		$new_venue['_VenueState']   = $venue['state'];
-		$new_venue['_VenueZip']     = $venue['zip'];
-		$new_venue['_VenueCountry'] = $venue['country'];
-		$new_venue['_VenuePhone']   = $venue['phone'];
-		$new_venue['_VenueWebsite'] = $venue['website'];
-
-		$post_id = Tribe__Events__API::createVenue( $new_venue );
-
-		if ( ! $post_id ) {
-			return false;
-		}
-
-		return true;
+		return [
+			'id'            => $venue_id,
+			'Venue'         => get_the_title( $venue_id ),
+			'_VenueAddress' => get_post_meta( $venue_id, '_VenueAddress', true ),
+			'_VenueCity'    => get_post_meta( $venue_id, '_VenueCity', true ),
+			'_VenueCountry' => get_post_meta( $venue_id, '_VenueCountry', true ),
+			'_VenuePhone'   => get_post_meta( $venue_id, '_VenuePhone', true ),
+			'_VenueState'   => get_post_meta( $venue_id, '_VenueState', true ),
+			'_VenueWebsite' => get_post_meta( $venue_id, '_VenueWebsite', true ),
+			'_VenueZip'     => get_post_meta( $venue_id, '_VenueZip', true ),
+		];
 	}
 }
