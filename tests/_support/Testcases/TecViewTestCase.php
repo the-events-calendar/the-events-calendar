@@ -9,6 +9,13 @@ class TecViewTestCase extends ViewTestCase {
 
 	use With_Uopz;
 
+	/**
+	 * @before
+	 */
+	public function do_action_after_setup_theme() {
+		do_action( 'after_setup_theme' );
+	}
+
 	public function setUp() {
 		$this->set_fn_return(
 			'date',
