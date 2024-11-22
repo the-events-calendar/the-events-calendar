@@ -84,9 +84,14 @@ function tribe_get_next_event_link( $anchor = false ) {
 }
 
 /**
- * Get a link to the previous events
+ * Retrieves the URL for the previous events page.
  *
- * @return string
+ * This function generates a link to the previous events, considering whether the user is on the upcoming events view
+ * and which page they are currently on.
+ *
+ * @since 3.7
+ *
+ * @return string The URL to the previous events page.
  */
 function tribe_get_previous_events_link() {
 
