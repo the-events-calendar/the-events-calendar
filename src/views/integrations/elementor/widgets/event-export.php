@@ -70,14 +70,14 @@ if ( empty( $show ) ) {
 ?>
 <div <?php tribe_classes( $widget->get_widget_class() ); ?>>
 	<div <?php tribe_classes( $widget->get_dropdown_class() ); ?>>
-		<?php $this->template( 'views/integrations/elementor/widgets/event-export/button' ); ?>
+		<?php $this->template( 'widgets/event-export/button' ); ?>
 		<div
 			<?php tribe_classes( $widget->get_content_class() ); ?>
 			style="display: none;"
 		>
 			<ul <?php tribe_classes( $widget->get_list_class() ); ?>>
 				<?php foreach ( $links_list as $item ) : ?>
-					<?php $this->template( 'views/integrations/elementor/widgets/event-export/list-item', $item ); ?>
+					<?php $this->template( 'widgets/event-export/list-item', $item ); ?>
 				<?php endforeach; ?>
 			</ul>
 		</div>
