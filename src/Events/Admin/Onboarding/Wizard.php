@@ -56,8 +56,8 @@ class Wizard {
 			[
 				'methods'              => [ Server::CREATABLE ],
 				'callback'             => [ $this, 'handle' ],
-				'permissions_callback' => [ $this, 'check_permissions' ],
 				'args'                 => [
+					'permissions_callback' => [ $this, 'check_permissions' ],
 					'action_nonce' => [
 						'type'              => 'string',
 						'description'       => __( 'The action nonce for the request.', 'the-events-calendar' ),
