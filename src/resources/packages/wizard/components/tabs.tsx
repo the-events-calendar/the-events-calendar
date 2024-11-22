@@ -4,7 +4,7 @@ import { useState, useEffect } from "@wordpress/element";
 import { useSelect, useDispatch } from "@wordpress/data";
 import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from "../data";
 import TecIcon from "./img/tec";
-import MemoizedTabPanel from "./tabs/TabPanel";
+import MemoizedTabPanel from "./tabs/tabpanel";
 import Tab from "./tabs/tab";
 import WelcomeContent from "./tabs/welcome/tab";
 import DisplayContent from "./tabs/display/tab";
