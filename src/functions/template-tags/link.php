@@ -84,9 +84,14 @@ function tribe_get_next_event_link( $anchor = false ) {
 }
 
 /**
- * Get a link to the previous events
+ * Retrieves the URL for the previous events page.
  *
- * @return string
+ * This function generates a link to the previous events, considering whether the user is on the upcoming events view
+ * and which page they are currently on.
+ *
+ * @since 3.7
+ *
+ * @return string The URL to the previous events page.
  */
 function tribe_get_previous_events_link() {
 
@@ -178,14 +183,15 @@ function tribe_get_view_permalink( $slug, $term = null ) {
 }
 
 /**
- * Link to Grid View
+ * Get a link to the Grid View.
  *
- * Returns a link to the general or category calendar grid view
+ * @hook tribe_get_gridview_link Filters the URL to the grid view.
  *
- * @param string $term Optional event category to link to.
+ * @since 2.0.1
  *
- * @return string URL
- * @todo rename
+ * @param  string|null $term   Optional. Event category to link to. Default is null.
+ *
+ * @return string      $output The generated URL to the grid view.
  */
 function tribe_get_gridview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
