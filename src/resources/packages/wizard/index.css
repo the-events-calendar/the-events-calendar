@@ -248,8 +248,9 @@
 	height: 18px;
 	left: 50%;
 	line-height: var(--tec-admin-line-height-0);
-	padding: 0 4.5px;
+	padding: 0;
 	position: absolute;
+	text-align: center;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	width: 18px;
@@ -258,8 +259,6 @@
 @media (min-width: 1024px) {
 	.tec-events-onboarding__tab:before {
 		left: 0;
-		line-height: var(--tec-admin-line-height-0);
-		padding: 0 4.5px;
 		position: relative;
 		top: 0;
 		transform: none;
@@ -270,7 +269,6 @@
 	background-color: var(--tec-wp-core-grey-50);
 	color: var(--tec-wp-core-grey-0);
 	content: '✓';
-	padding: 1px 3px;
 }
 
 .tec-events-onboarding__tab--active {
@@ -395,6 +393,14 @@
 }
 
 .tec-events-onboarding__view_upsell {
+	padding-top: 24px;
+}
+
+.tec-events-onboarding__view_upsell_callout {
+	margin: 0;
+}
+
+.tec-events-onboarding__view_upsell_list {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -433,6 +439,7 @@
 	background: #fff;
 	border: 1.128px solid var(--tec-wp-core-grey-50);
 	border-radius: var(--tec-admin-border-radius-0);
+	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
 	gap: var(--tec-spacer-2);

@@ -29,7 +29,6 @@
 		"tec-zip-dev": [
 			"git submodule update --recursive --init",
 			"pup build",
-			"pup check",
 			"pup package $(pup get-version)",
 			"pup clean"
 		]

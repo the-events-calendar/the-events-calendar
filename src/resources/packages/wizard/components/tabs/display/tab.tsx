@@ -95,11 +95,11 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 				/>
 			</div>
 			{( !hasProViews && (
-				<div className="">
-					<p className="tec-events-onboarding__element--center">
+				<div className="tec-events-onboarding__view_upsell">
+					<p className=".tec-events-onboarding__view_upsell_callout tec-events-onboarding__element--center">
 					{__("More views available with", "the-events-calendar")} <BoltIcon className="tec-events-onboarding_pro-icon" /> {__("Events Calendar Pro", "the-events-calendar")}
 					</p>
-					<div className="tec-events-onboarding__view_upsell tec-events-onboarding__element--center">
+					<div className="tec-events-onboarding__view_upsell_list tec-events-onboarding__element--center">
 						<div className="tec-events-onboarding__view_upsell-cell">
 							{icons.get('map')}
 							<span className="tec-events-onboarding__view_upsell-label">{proViews.get('map')}</span>
