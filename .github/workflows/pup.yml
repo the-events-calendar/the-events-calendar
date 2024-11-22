@@ -17,6 +17,7 @@ on:
         type: string
       production:
         description: 'Is this a production build?'
+        required: false
         default: false
         type: boolean
       final:
@@ -37,7 +38,7 @@ jobs:
       - name: If a workflow_dispatch, set final based on input
         if: github.event_name == 'workflow_dispatch'
         run: |
-          echo "PRODUCTION_ZIP=${{ inputs.production }} || ${{ inputs.final == 1 }}" >> $GITHUB_ENV
+          echo "PRODUCTION_ZIP=${{ inputs.production || inputs.final == 1 }}" >> $GITHUB_ENV
 
       - name: If a pull_request, force final to 0
         if: github.event_name == 'pull_request'
@@ -126,7 +127,7 @@ jobs:
         working-directory: .
         run: |
           if [ "${{ !env.PRODUCTION_ZIP }}" ]; then
-             HASH=$(git rev-parse --short=8 HEAD)
+            HASH=$(git rev-parse --short=8 HEAD)
             TIMESTAMP=$(git --no-pager show -s --format=%ct HEAD)
             FILENAME="${ZIP_NAME}.${VERSION}-dev-${TIMESTAMP}-${HASH}.zip"
           else
@@ -140,7 +141,6 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Check if zip already exists
         uses: the-events-calendar/action-s3-utility@main
-        if: ${{ env.PRODUCTION_ZIP }}
         id: s3_zip
         continue-on-error: true
         env:
@@ -160,11 +160,11 @@ jobs:
         run: composer -- pup build
 
       - name: pup check
-        if: steps.s3_zip.outcome != 'success' && ${{ env.PRODUCTION_ZIP }}
+        if: ${{ steps.s3_zip.outcome != 'success' && env.PRODUCTION_ZIP == 'true' }}
         run: composer -- pup check
 
       - name: pup i18n
-        if: steps.s3_zip.outcome != 'success' &&  ${{ env.PRODUCTION_ZIP }}
+        if: ${{ steps.s3_zip.outcome != 'success' && env.PRODUCTION_ZIP == 'true' }}
         run: composer -- pup i18n
 
       - name: pup package
