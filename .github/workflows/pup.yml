@@ -105,7 +105,7 @@ jobs:
       # Get initial zip name
       # ------------------------------------------------------------------------------
       - name: get zip name
-        run: echo "ZIP_NAME=${{ pup zip-name }}" >> $GITHUB_ENV
+        run: echo "ZIP_NAME=$(composer -- pup zip-name ${{ env.VERSION }})" >> $GITHUB_ENV
 
       # ------------------------------------------------------------------------------
       # Get the version
