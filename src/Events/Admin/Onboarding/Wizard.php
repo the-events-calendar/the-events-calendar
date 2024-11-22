@@ -54,11 +54,11 @@ class Wizard {
 			self::ROOT_NAMESPACE,
 			'/wizard',
 			[
-				'methods'              => [ Server::CREATABLE ],
-				'callback'             => [ $this, 'handle' ],
-				'args'                 => [
+				'methods'  => [ Server::CREATABLE ],
+				'callback' => [ $this, 'handle' ],
+				'args'     => [
 					'permissions_callback' => [ $this, 'check_permissions' ],
-					'action_nonce' => [
+					'action_nonce'         => [
 						'type'              => 'string',
 						'description'       => __( 'The action nonce for the request.', 'the-events-calendar' ),
 						'required'          => true,
