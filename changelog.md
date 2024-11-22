@@ -4,6 +4,7 @@
 
 * Tweak - Introduced filter `tec_events_rest_api_password_protected_fields` which can be used to control which event fields should be hidden in the REST API for password protected events. [SVUL-8]
 * Security - Hide content fields from the archive REST endpoint for password protected events. [SVUL-8]
+* Fix - Prevent notices on `_load_textdomain_just_in_time` due to Aggregator and Export links code.
 
 ### [6.8.2] 2024-11-19
 
