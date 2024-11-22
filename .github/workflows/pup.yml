@@ -1,0 +1,202 @@
+name: Generate Zip
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      slack_channel:
+        description: 'Slack channel ID to post to'
+        required: false
+      slack_thread:
+        description: 'Slack thread to post to'
+        required: false
+      ref:
+        description: 'Git Commit Ref (branch, tag, or hash)'
+        default: 'master'
+        required: true
+        type: string
+      production:
+        description: 'Is this a production build?'
+        default: false
+        type: boolean
+      final:
+        description: 'Zip type: 0 = dev, 1 = production'
+        required: false
+        default: '0'
+jobs:
+  generate-zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      # ------------------------------------------------------------------------------
+      # Set branch to zip, includes Backwards compatibility for "final" vs. "production"
+      # ------------------------------------------------------------------------------
+      - name: If a workflow_dispatch, set final based on input
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "PRODUCTION_ZIP=${{ inputs.production }} || ${{ inputs.final == 1 }}" >> $GITHUB_ENV
+
+      - name: If a pull_request, force final to 0
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "PRODUCTION_ZIP=0" >> $GITHUB_ENV
+
+      # -----------------------------------------------------------------------------
+      # Setup SSH keys and known_hosts
+      # ------------------------------------------------------------------------------
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.GH_ACTIONS_SSH_KEY }}
+          name: id_rsa
+          known_hosts: github.com
+
+      # ------------------------------------------------------------------------------
+      # Checkout jenkins-scripts
+      # ------------------------------------------------------------------------------
+      - name: Checkout jenkins-scripts
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          repository: the-events-calendar/jenkins-scripts
+          ref: main
+          path: jenkins-scripts
+          fetch-depth: 1
+
+      # ------------------------------------------------------------------------------
+      # Checkout the repo
+      # ------------------------------------------------------------------------------
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          submodules: recursive
+          ref: ${{ inputs.ref }}
+
+      # ------------------------------------------------------------------------------
+      # Install and Setup NVM if .nvmrc exists.
+      # ------------------------------------------------------------------------------
+      - name: Check for .nvmrc file
+        id: check-nvmrc
+        run: |
+          if [ -f "${{ github.workspace }}/.nvmrc" ]; then
+            echo "nvmrc_exists=true" >> $GITHUB_ENV
+          else
+            echo "nvmrc_exists=false" >> $GITHUB_ENV
+          fi
+
+      - uses: actions/setup-node@v4
+        if: env.nvmrc_exists == 'true'
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      # ------------------------------------------------------------------------------
+      # Install Pup
+      # ------------------------------------------------------------------------------
+      - name: install pup
+        run: composer -- pup
+
+      # ------------------------------------------------------------------------------
+      # Get initial zip name
+      # ------------------------------------------------------------------------------
+      - name: get zip name
+        run: echo "ZIP_NAME=${{ pup zip-name }}" >> $GITHUB_ENV
+
+      # ------------------------------------------------------------------------------
+      # Get the version
+      # ------------------------------------------------------------------------------
+      - name: get version
+        if: ${{ env.PRODUCTION_ZIP }}
+        run: echo "VERSION=$(composer -- pup get-version)" >> $GITHUB_ENV
+
+      - name: get dev version
+        if: ${{ !env.PRODUCTION_ZIP }}
+        run: echo "VERSION=$(composer -- pup get-version --dev)" >> $GITHUB_ENV
+
+      # ------------------------------------------------------------------------------
+      # Get the s3 zip name
+      # ------------------------------------------------------------------------------
+      - name: Generate Zip Filename
+        id: zip_name
+        working-directory: .
+        run: |
+          if [ "${{ !env.PRODUCTION_ZIP }}" ]; then
+             HASH=$(git rev-parse --short=8 HEAD)
+            TIMESTAMP=$(git --no-pager show -s --format=%ct HEAD)
+            FILENAME="${ZIP_NAME}.${VERSION}-dev-${TIMESTAMP}-${HASH}.zip"
+          else
+            FILENAME="${ZIP_NAME}.${VERSION}.zip"
+          fi
+          echo "value=${FILENAME}" >> $GITHUB_OUTPUT
+          echo $FILENAME
+
+      # ------------------------------------------------------------------------------
+      # Check if zip already exists on s3
+      # ------------------------------------------------------------------------------
+      - name: Check if zip already exists
+        uses: the-events-calendar/action-s3-utility@main
+        if: ${{ env.PRODUCTION_ZIP }}
+        id: s3_zip
+        continue-on-error: true
+        env:
+          S3_BUCKET: ${{ secrets.PACKAGED_ZIP_BUCKET }}
+          S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+          S3_REGION: ${{ secrets.PACKAGED_ZIP_REGION }}
+          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          COMMAND: exists
+          FILE: ${{ steps.file_name.outputs.value }}
+
+      # ------------------------------------------------------------------------------
+      # Run Pup Packaging
+      # ------------------------------------------------------------------------------
+      - name: pup build
+        if: steps.s3_zip.outcome != 'success'
+        run: composer -- pup build
+
+      - name: pup check
+        if: steps.s3_zip.outcome != 'success' && ${{ env.PRODUCTION_ZIP }}
+        run: composer -- pup check
+
+      - name: pup i18n
+        if: steps.s3_zip.outcome != 'success' &&  ${{ env.PRODUCTION_ZIP }}
+        run: composer -- pup i18n
+
+      - name: pup package
+        if: steps.s3_zip.outcome != 'success'
+        run:  composer -- pup package ${{ env.VERSION }}
+
+      - name: Upload plugin artifact
+        uses: the-events-calendar/action-s3-utility@main
+        if: steps.s3_zip.outcome != 'success'
+        with:
+          args: --acl public-read --follow-symlinks
+        env:
+          S3_BUCKET: ${{ secrets.PACKAGED_ZIP_BUCKET }}
+          S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+          S3_REGION: ${{ secrets.PACKAGED_ZIP_REGION }}
+          S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
+          COMMAND: sync
+          SOURCE_DIR: /github/workspace/.pup-zip
+      - name: Maybe prep data for Slack message
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != '' && steps.s3_zip.outcome == 'success'
+        working-directory: ../
+        run: |
+          touch ${GITHUB_WORKSPACE}/results.txt
+          echo "Packaging results" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "-----------------" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "Successfully packaged:" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "* ./zip/\"${{ steps.file_name.outputs.value }}\"" >> ${GITHUB_WORKSPACE}/results.txt
+          echo "" >> ${GITHUB_WORKSPACE}/results.txt
+      - name: Maybe notify in Slack
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != ''
+        working-directory: ../
+        run: |
+          php ${GITHUB_WORKSPACE}/jenkins-scripts/mt-jenkins package:send-results --channel ${{ github.event.inputs.slack_channel }} --ts ${{ github.event.inputs.slack_thread }} --results-file "${GITHUB_WORKSPACE}/results.txt" --slack-token ${{ secrets.SLACK_TOKEN }} --build-url https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
