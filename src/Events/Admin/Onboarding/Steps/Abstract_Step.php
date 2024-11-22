@@ -65,7 +65,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return bool
 	 */
-	public function tab_check( $request ) {
+	public static function tab_check( $request ) {
 		$params = $request->get_params();
 		// If the current tab is less than this tab, we don't need to do anything yet.
 		return isset( $params['currentTab'] ) && $params['currentTab'] <= static::TAB_NUMBER;
