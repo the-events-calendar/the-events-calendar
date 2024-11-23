@@ -35,12 +35,12 @@ jobs:
       # ------------------------------------------------------------------------------
       # Set branch to zip, includes Backwards compatibility for "final" vs. "production"
       # ------------------------------------------------------------------------------
-      - name: If a workflow_dispatch, set final based on input
+      - name: If a workflow_dispatch, set PRODUCTION_ZIP based on input
         if: ${{github.event_name == 'workflow_dispatch'}}
         run: |
           echo "PRODUCTION_ZIP=${{ inputs.production == 'true' || inputs.final == 1 }}" >> $GITHUB_ENV
 
-      - name: If a pull_request, force final to 0
+      - name: If a pull_request, force PRODUCTION_ZIP to false
         if: ${{github.event_name == 'pull_request'}}
         run: |
           echo "PRODUCTION_ZIP=false" >> $GITHUB_ENV
@@ -106,7 +106,7 @@ jobs:
       # Get initial zip name - pup appends the version automatically
       # ------------------------------------------------------------------------------
       - name: get zip name
-        run: echo "PUP_ZIP_NAME=$(composer -- pup zip-name" >> $GITHUB_ENV
+        run: echo "PUP_ZIP_NAME=$(composer -- pup zip-name)" >> $GITHUB_ENV
 
       # ------------------------------------------------------------------------------
       # Get the version
