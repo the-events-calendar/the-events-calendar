@@ -103,12 +103,6 @@ jobs:
         run: composer -- pup
 
       # ------------------------------------------------------------------------------
-      # Get initial zip name - pup appends the version automatically
-      # ------------------------------------------------------------------------------
-      - name: get zip name
-        run: echo "PUP_ZIP_NAME=$(composer -- pup zip-name)" >> $GITHUB_ENV
-
-      # ------------------------------------------------------------------------------
       # Get the version
       # ------------------------------------------------------------------------------
       - name: get version
@@ -120,26 +114,34 @@ jobs:
         run: echo "VERSION=$(composer -- pup get-version --dev)" >> $GITHUB_ENV
 
       # ------------------------------------------------------------------------------
+      # Get initial dev zip name - pup appends the '-dev' and version automagically
+      # ------------------------------------------------------------------------------
+      - name: get zip name
+        id: initial_zip_name
+        if: ${{ env.PRODUCTION_ZIP == 'true' }}
+        run: echo "PUP_ZIP_NAME=$(composer -- pup zip-name ${{ env.VERSION }})" >> $GITHUB_ENV
+
+      # ------------------------------------------------------------------------------
       # Get the s3 zip name
       # ------------------------------------------------------------------------------
-      - name: Generate Zip Filename
+      - name: Generate Zip Filename for s3
         id: zip_name
         working-directory: .
         run: |
           if [ "${{ env.PRODUCTION_ZIP == 'false' }}" ]; then
             HASH=$(git rev-parse --short=8 HEAD)
             TIMESTAMP=$(git --no-pager show -s --format=%ct HEAD)
-            ZIP_NAME="${PUP_ZIP_NAME}.${VERSION}-dev-${TIMESTAMP}-${HASH}.zip"
+            ZIP_NAME="${PUP_ZIP_NAME}-dev-${TIMESTAMP}-${HASH}.zip"
           else
-            ZIP_NAME="${PUP_ZIP_NAME}.${VERSION}.zip"
+            ZIP_NAME="${PUP_ZIP_NAME}.zip"
           fi
           echo "value=${ZIP_NAME}" >> $GITHUB_OUTPUT
           echo $ZIP_NAME
 
       # ------------------------------------------------------------------------------
-      # Check if zip already exists on s3
+      # Check if the zip already exists on s3
       # ------------------------------------------------------------------------------
-      - name: Check if zip already exists
+      - name: Check if the zip already exists
         uses: the-events-calendar/action-s3-utility@main
         id: s3_zip
         continue-on-error: true
