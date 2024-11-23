@@ -191,25 +191,9 @@ jobs:
           SOURCE_DIR: zip_files
 
       # ------------------------------------------------------------------------------
-      # Prep data for Slack message if originating from Slack
+      # Send slack message
       # ------------------------------------------------------------------------------
-      - name: Maybe prep data for Slack message
-        if: ${{github.event_name == 'workflow_dispatch' && github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != '' && steps.s3_zip.outcome == 'success'}}
-        working-directory: ../
+      - name: Send Slack message
+        if: ${{ github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != '' }}
         run: |
-          touch ${GITHUB_WORKSPACE}/results.txt
-          echo "Packaging results" >> ${GITHUB_WORKSPACE}/results.txt
-          echo "-----------------" >> ${GITHUB_WORKSPACE}/results.txt
-          echo "" >> ${GITHUB_WORKSPACE}/results.txt
-          echo "Successfully packaged:" >> ${GITHUB_WORKSPACE}/results.txt
-          echo "* ./zip/\"${{ steps.file_name.outputs.value }}\"" >> ${GITHUB_WORKSPACE}/results.txt
-          echo "" >> ${GITHUB_WORKSPACE}/results.txt
-
-      # ------------------------------------------------------------------------------
-      # Notify in Slack if originating from Slack
-      # ------------------------------------------------------------------------------
-      - name: Maybe notify in Slack
-        if: ${{github.event_name == 'workflow_dispatch' && github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != ''}}
-        working-directory: ../
-        run: |
-          php ${GITHUB_WORKSPACE}/jenkins-scripts/mt-jenkins package:send-results --channel ${{ github.event.inputs.slack_channel }} --ts ${{ github.event.inputs.slack_thread }} --results-file "${GITHUB_WORKSPACE}/results.txt" --slack-token ${{ secrets.SLACK_TOKEN }} --build-url https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          curl -X GET "https://utility.theeventscalendar.com/slack-message.php?channel=${{ inputs.slack_channel }}&thread=${{ inputs.slack_thread }}&file=${{ env.ZIP_NAME }}.zip&secret=${{ secrets.SLACK_PACKAGING_SECRET }}&url=https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
