@@ -118,7 +118,6 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: get zip name
         id: initial_zip_name
-        if: ${{ env.PRODUCTION_ZIP == 'true' }}
         run: echo "PUP_ZIP_NAME=$(composer -- pup zip-name ${{ env.VERSION }})" >> $GITHUB_ENV
 
       # ------------------------------------------------------------------------------
