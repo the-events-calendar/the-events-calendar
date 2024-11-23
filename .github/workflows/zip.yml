@@ -179,7 +179,7 @@ jobs:
           S3_REGION: ${{ secrets.PACKAGED_ZIP_REGION }}
           S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           COMMAND: sync
-          SOURCE_DIR: /github/workspace/${{ env.PUP_ZIP_NAME }}.zip
+          FILE: ${{ env.PUP_ZIP_NAME }}.zip
 
       # ------------------------------------------------------------------------------
       # Prep data for Slack message if originating from Slack
