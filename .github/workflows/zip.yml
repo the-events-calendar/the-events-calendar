@@ -165,6 +165,13 @@ jobs:
         run:  composer -- pup package ${{ env.VERSION }}
 
       # ------------------------------------------------------------------------------
+      # Move the zip file
+      # ------------------------------------------------------------------------------
+      - name: Move the zip file
+        if: ${{steps.s3_zip.outcome != 'success'}}
+        run: mv ${{ env.PUP_ZIP_NAME }}.zip ${GITHUB_WORKSPACE}/zip
+
+      # ------------------------------------------------------------------------------
       # Upload the zip to S3
       # ------------------------------------------------------------------------------
       - name: Upload plugin artifact
@@ -179,7 +186,7 @@ jobs:
           S3_REGION: ${{ secrets.PACKAGED_ZIP_REGION }}
           S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           COMMAND: sync
-          FILE: ${{ env.PUP_ZIP_NAME }}.zip
+          SOURCE_DIR: /github/workspace/zip
 
       # ------------------------------------------------------------------------------
       # Prep data for Slack message if originating from Slack
