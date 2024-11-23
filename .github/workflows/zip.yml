@@ -165,17 +165,13 @@ jobs:
         run:  composer -- pup package ${{ env.VERSION }}
 
       # ------------------------------------------------------------------------------
-      # LS cwd
-      # ------------------------------------------------------------------------------
-      - name: find the zip
-        run: ls -la
-
-      # ------------------------------------------------------------------------------
       # Move the zip file
       # ------------------------------------------------------------------------------
-      - name: Move the zip file
-        if: ${{steps.s3_zip.outcome != 'success'}}
-        run: mv ${{ env.PUP_ZIP_NAME }}.zip ${GITHUB_WORKSPACE}/zip
+      - name: Create the zip_files folder
+        if: steps.s3_zip.outcome != 'success'
+        run: |
+          mkdir zip_files
+          cp ${{ env.PUP_ZIP_NAME }}.zip zip_files
 
       # ------------------------------------------------------------------------------
       # Upload the zip to S3
@@ -192,7 +188,7 @@ jobs:
           S3_REGION: ${{ secrets.PACKAGED_ZIP_REGION }}
           S3_ENDPOINT: ${{ secrets.S3_ENDPOINT }}
           COMMAND: sync
-          SOURCE_DIR: /github/workspace/zip
+          SOURCE_DIR: zip_files
 
       # ------------------------------------------------------------------------------
       # Prep data for Slack message if originating from Slack
