@@ -3,7 +3,7 @@ import domReady from '@wordpress/dom-ready';
 import ReactDOM from 'react-dom';
 import { Modal } from '@wordpress/components';
 import { useSelect, useDispatch } from "@wordpress/data";
-import OnboardingTabs from './components/Tabs';
+import OnboardingTabs from './components/tabs';
 import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from './data';
 
 import './index.css';
