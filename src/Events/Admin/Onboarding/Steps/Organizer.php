@@ -55,9 +55,9 @@ class Organizer extends Abstract_Step {
 		}
 
 		$organizer['Organizer']         = $organizer['name'];
-		$organizer['_OrganizerPhone']   = $organizer['phone'];
-		$organizer['_OrganizerWebsite'] = $organizer['website'];
-		$organizer['_OrganizerEmail']   = $organizer['email'];
+		$organizer['_OrganizerPhone']   = $organizer['_OrganizerPhone'];
+		$organizer['_OrganizerWebsite'] = $organizer['_OrganizerWebsite'];
+		$organizer['_OrganizerEmail']   = $organizer['_OrganizerEmail'];
 
 		$post_id = Tribe__Events__API::createOrganizer( $organizer );
 

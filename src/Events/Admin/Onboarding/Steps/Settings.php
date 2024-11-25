@@ -40,7 +40,7 @@ class Settings extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
-		$enabled_views = $params['activeViews'] ?? false;
+		$enabled_views = $params['tribeEnableViews'] ?? false;
 
 		// Don't try to save "all".
 		if ( $enabled_views && in_array( 'all', $enabled_views ) ) {
@@ -55,8 +55,8 @@ class Settings extends Abstract_Step {
 		$settings = [
 			'defaultCurrencySymbol' => $params['defaultCurrencySymbol'] ?? false,
 			'dateWithYearFormat'    => $params['defaultDateFormat'] ?? false,
-			'timezone_string'       => $params['defaultTimezone'] ?? false,
-			'start_of_week'         => $params['defaultWeekStart'] ?? false,
+			'timezone_string'       => $params['timezone_string'] ?? false,
+			'start_of_week'         => $params['start_of_week'] ?? false,
 			'tribeEnableViews'      => $enabled_views,
 		];
 
