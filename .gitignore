@@ -51,6 +51,8 @@ src/resources/js/**/*.min.js
 
 # Local packaging files
 .pup-*
+pup.phar
+.pup-zip
 
 # Misc
 bin/strauss.phar
