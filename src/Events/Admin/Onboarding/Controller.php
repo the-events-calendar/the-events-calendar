@@ -228,7 +228,7 @@ class Controller extends Controller_Contract {
 	public function get_initial_data(): array {
 		$initial_data = [
 			/* TEC settings */
-			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ]),
+			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
 			'availableViews'        => $this->get_available_views(),
 			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '' ),
 			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
@@ -285,7 +285,7 @@ class Controller extends Controller_Contract {
 			esc_html__( 'Loading…', 'the-events-calendar' )
 		);
 
-		echo $button;
+		echo $button; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
