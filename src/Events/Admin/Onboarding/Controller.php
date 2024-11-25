@@ -225,20 +225,26 @@ class Controller extends Controller_Contract {
 	public function tec_onboarding_wizard_button(): void {
 		// phpcs:disable
 		$first_boot_data = [
-			'tribeEnableViews'           => tribe_get_option( 'tribeEnableViews', [ 'list' ]),
+			/* TEC settings */
+			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ]),
 			'availableViews'        => $this->get_available_views(),
 			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '' ),
 			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
+			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			/* WP Settings */
 			'timezone_string'       => get_option( 'timezone_string', false ),
 			'start_of_week'         => get_option( 'start_of_week', false ),
+			/* ET install step */
 			'event-tickets'         => Installer::get()->is_installed( 'event-tickets' ),
+			/* nonces */
 			'action_nonce'          => wp_create_nonce( API::NONCE_ACTION ),
 			'_wpnonce'              => wp_create_nonce( 'wp_rest' ),
-			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			/* Linked posts */
 			'organizer'             => $this->get_organizer_data(),
+			'venue'                 => $this->get_venue_data(),
+			/* Data */
 			'timezones'             => Data::get_timezone_list(),
 			'countries'             => Data::get_country_list(),
-			'venue'                 => $this->get_venue_data(),
 		];
 
 		$first_boot_data = apply_filters( 'tribe_events_onboarding_wizard_first_boot_data', $first_boot_data, $this );
