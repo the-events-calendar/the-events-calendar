@@ -48,6 +48,7 @@ files/
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
+# src/build/
 
 # Local packaging files
 .pup-*
