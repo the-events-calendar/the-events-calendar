@@ -1,7 +1,7 @@
 <?php
 /**
  * The REST API handler for the Onboarding Wizard.
- * Cleverly named...Wizard.
+ * Cleverly named...API.
  *
  * @since 7.0.0
  *
@@ -16,13 +16,13 @@ use WP_Error;
 use WP_REST_Response;
 
 /**
- * Class Wizard
+ * Class API
  *
  * @since 7.0.0
  *
  * @package TEC\Events\Admin\Onboarding
  */
-class Wizard {
+class API {
 
 	/**
 	 * The action for this nonce.
@@ -108,7 +108,7 @@ class Wizard {
 		 * @since 7.0.0
 		 *
 		 * @param string $required_permission The required permission.
-		 * @param Wizard $wizard The wizard object.
+		 * @param API    $api The api object.
 		 *
 		 * @return string The required permission.
 		 */
@@ -145,7 +145,7 @@ class Wizard {
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.
-		 * @param Wizard           $wizard   The wizard object.
+		 * @param API              $api      The api object.
 		 */
 		return apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
 	}

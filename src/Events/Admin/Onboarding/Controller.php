@@ -10,7 +10,7 @@ namespace TEC\Events\Admin\Onboarding;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Telemetry\Telemetry;
 use TEC\Common\StellarWP\Installer\Installer;
-use TEC\Events\Admin\Onboarding\Wizard;
+use TEC\Events\Admin\Onboarding\API;
 use TEC\Events\Admin\Onboarding\Steps\Optin;
 use TEC\Events\Admin\Onboarding\Steps\Settings;
 use TEC\Events\Admin\Onboarding\Steps\Organizer;
@@ -214,7 +214,7 @@ class Controller extends Controller_Contract {
 	 * @since 7.0.0
 	 */
 	public function register_rest_endpoints(): void {
-		$this->container->make( Wizard::class )->register();
+		$this->container->make( API::class )->register();
 	}
 
 	/**
@@ -224,19 +224,17 @@ class Controller extends Controller_Contract {
 	 */
 	public function tec_onboarding_wizard_button(): void {
 		// phpcs:disable
-		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
-		$active_views    = array_keys( $view_manager->get_publicly_visible_views() );
 		$first_boot_data = [
-			'activeViews'           => $active_views,
+			'activeViews'           => tribe_get_option( 'tribeEnableViews', [ 'list' ]),
 			'availableViews'        => $this->get_available_views(),
 			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '' ),
 			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
-			'defaultTimezone'       => get_option( 'timezone_string', false ),
-			'defaultWeekStart'      => get_option( 'start_of_week', false ),
-			'eventTickets'          => Installer::get()->is_installed( 'event-tickets' ),
-			'action_nonce'          => wp_create_nonce( Wizard::NONCE_ACTION ),
+			'timezone_string'       => get_option( 'timezone_string', false ),
+			'start_of_week'         => get_option( 'start_of_week', false ),
+			'event-tickets'         => Installer::get()->is_installed( 'event-tickets' ),
+			'action_nonce'          => wp_create_nonce( API::NONCE_ACTION ),
 			'_wpnonce'              => wp_create_nonce( 'wp_rest' ),
-			'optin'                 => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			'organizer'             => $this->get_organizer_data(),
 			'timezones'             => Data::get_timezone_list(),
 			'countries'             => Data::get_country_list(),

@@ -42,7 +42,7 @@ class Optin extends Abstract_Step {
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
 		$current_optin = tribe_get_option( 'opt-in-status', false );
-		$optin         = $request->get_param( 'optin' );
+		$optin         = $request->get_param( 'opt-in-status' );
 
 		if ( $current_optin === $optin ) {
 			return $response;
