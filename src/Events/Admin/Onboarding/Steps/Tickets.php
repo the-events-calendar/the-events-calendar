@@ -39,13 +39,18 @@ class Tickets extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
-		return self::install_event_tickets_plugin(  $response, $request );
+		return self::install_event_tickets_plugin( $response, $request );
 	}
 
 	/**
 	 * Install and activate the Event Tickets plugin from the WordPress.org repo.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Response $response The response object.
+	 * @param WP_REST_Request  $request  The request object.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public static function install_event_tickets_plugin( $response, $request ): WP_REST_Response {
 		// Check if the plugin is already installed.
@@ -62,7 +67,7 @@ class Tickets extends Abstract_Step {
 		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
 
 		// Fetch plugin information from the WordPress plugin repo.
-		$response = wp_remote_get( $plugin_repo_url );
+		$response = wp_safe_remote_get( $plugin_repo_url );
 		if ( is_wp_error( $response ) ) {
 			return self::add_fail_message( $response, __( 'Failed to get plugin info.', 'the-events-calendar' ) );
 		}

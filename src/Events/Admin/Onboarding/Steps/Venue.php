@@ -37,6 +37,8 @@ class Venue extends Abstract_Step {
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
 		$params = $request->get_params();

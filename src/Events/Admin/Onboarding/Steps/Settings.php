@@ -33,6 +33,11 @@ class Settings extends Abstract_Step {
 	 * Process the settings data.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Response $response The response object.
+	 * @param WP_REST_Request  $request  The request object.
+	 *
+	 * @return WP_REST_Response
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
 		$enabled_views = $params['activeViews'] ?? false;
