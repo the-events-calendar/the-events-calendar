@@ -120,5 +120,5 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	abstract static public function process( $response, $request ): WP_REST_Response;
+	abstract public static function process( $response, $request ): WP_REST_Response;
 }
