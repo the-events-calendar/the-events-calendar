@@ -1,52 +1,561 @@
+/* -----------------------------------------------------------------------------------------------------
+ * Custom Properties: some are new, some are from the TEC common styles, reproduced here for the admin.
+ * ----------------------------------------------------------------------------------------------------- */
 :root {
-	--tec-onboarding-tab-panel-width: 635px;
+	/* -----------------------------------------------------------------------------
+	 * Colors
+	 * ----------------------------------------------------------------------------- */
+	--tec-wp-core-blue-50: #2271b1;
 	--tec-wp-core-grey-0: #f6f7f7;
+	--tec-wp-core-grey-2: #f0f0f1;
+	--tec-wp-core-grey-50: #646970;
+	--tec-wp-core-grey-80: #2c3338;
 	--tec-scales-grey-200: #e0e0e0;
-	--tec-admin-border-radius-0: 4px;
-	--tec-admin-border-radius-1: 8px;
-	--tec-admin-border-radius-2: 12px;
+
+	/* -----------------------------------------------------------------------------
+	 * Border Radius
+	 * ----------------------------------------------------------------------------- */
+	--tec-border-radius-default: 4px;
+	--tec-admin-border-radius-0: 8px;
+	--tec-admin-border-radius-1: 12px;
+	--tec-admin-border-radius-round: 100%;
+
+	/* -----------------------------------------------------------------------------
+	 * Spacing
+	 * ----------------------------------------------------------------------------- */
+	--tec-spacer-0: 4px;
+	--tec-spacer-1: 8px;
+	--tec-spacer-2: 12px;
+	--tec-spacer-3: 16px;
+	--tec-spacer-4: 20px;
+	--tec-spacer-5: 24px;
+	--tec-spacer-6: 28px;
+	--tec-spacer-7: 32px;
+	--tec-spacer-8: 40px;
+	--tec-spacer-9: 48px;
+	--tec-spacer-10: 56px;
+	--tec-spacer-11: 64px;
+	--tec-spacer-12: 80px;
+	--tec-spacer-13: 96px;
+
+	/* -----------------------------------------------------------------------------
+	 * Font Weight
+	 * ----------------------------------------------------------------------------- */
+	--tec-font-weight-regular: 400;
+	--tec-font-weight-bold: 700;
+
+	/* -----------------------------------------------------------------------------
+	 * Font Sizing
+	 * ----------------------------------------------------------------------------- */
+
+	--tec-font-size-0: 11px;
+	--tec-font-size-1: 12px;
+	--tec-font-size-2: 14px;
+	--tec-font-size-3: 16px;
+	--tec-font-size-4: 18px;
+	--tec-font-size-5: 20px;
+	--tec-font-size-6: 22px;
+	--tec-font-size-7: 24px;
+	--tec-font-size-8: 28px;
+	--tec-font-size-9: 32px;
+
+	/* -----------------------------------------------------------------------------
+	 * Line Height
+	 * ----------------------------------------------------------------------------- */
+
+	--tec-admin-line-height-0: 1.25;
+	--tec-line-height-0: 1.38;
+	--tec-line-height-1: 1.42;
+	--tec-line-height-2: 1.5;
+	--tec-line-height-3: 1.62;
 }
 
-.tec-events-onboarding__modal {}
+/* Modal Styles */
+.components-modal__frame.tec-events-onboarding__modal {
+	background: none;
+	background-color: var(--tec-wp-core-grey-2);
+}
 
-.tec-events-onboarding__modal-overlay {}
+/* Make full-screen modals FULL SCREEN */
+.is-full-screen.components-modal__frame.tec-events-onboarding__modal {
+	border-radius: 0;
+	height: 100vh;
+	width: 100vw;
+}
 
-.tec-events-onboarding__tab-panel {
+.tec-events-onboarding__modal .components-modal__content {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+.tec-events-onboarding__modal .components-modal__header {
+	display: none;
+}
+
+/* -----------------------------------------------------------------------------
+ * Tab Styles - until we change our build process to include multiple stylesheets.
+ * ----------------------------------------------------------------------------- */
+
+/* Tab Container */
+.tec-events-onboarding__tabs {
+	display: grid;
+	gap: var(--tec-spacer-5);
+	grid-template-columns: auto;
+	grid-template-rows: none;
+}
+
+.tec-events-onboarding__tabs.tec-events-onboarding__tab-welcome {
+	gap: var(--tec-spacer-8);
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__tabs {
+		gap: 100px;
+		grid-template-columns: none;
+		grid-template-rows: 84px auto;
+	}
+
+	.tec-events-onboarding__tabs.tec-events-onboarding__tab-welcome {
+		gap: var(--tec-spacer-9);
+	}
+}
+
+/* Tab Container Header */
+.tec-events-onboarding__tabs-header {
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	padding-bottom: var(--tec-spacer-3);
+	padding-top: var(--tec-spacer-5);
+}
+
+/* Tab Container Header Brand Icon */
+.tec-events-onboarding__header-icon {
+	height: var(--tec-spacer-7);
+	margin: 0 auto var(--tec-spacer-5);
+	width: var(--tec-spacer-7);
+}
+
+.tec-events-onboarding_pro-icon {
+	height: 12px;
+	margin: 0 auto;
+	width: 12px;
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__tabs-header {
+		flex-flow: row nowrap;
+	}
+
+	.tec-events-onboarding__header-icon {
+		margin: 0;
+	}
+}
+
+/* TabList & Tabs */
+.tec-events-onboarding__tabs-list {
+	border-radius: var(--tec-admin-border-radius-1);
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	justify-content: center;
+	list-style: none;
+	margin: 0 auto;
+	max-width: 800px;
+	width: 100%;
+}
+
+.tec-events-onboarding__tab-welcome .tec-events-onboarding__tabs-list {
+	display: none;
+}
+
+@media (max-width: 1024px) {
+	.tec-events-onboarding__tabs-list {
+		max-width: calc(100vw - 64px);
+	}
+
+	.tec-events-onboarding__tab-display .tec-events-onboarding__tabs-list {
+		grid-template-columns: 50% repeat(4, 10%);
+	}
+
+	.tec-events-onboarding__tab-settings .tec-events-onboarding__tabs-list {
+		grid-template-columns: 10% 50% repeat(3, 10%);
+	}
+
+	.tec-events-onboarding__tab-organizer .tec-events-onboarding__tabs-list {
+		grid-template-columns: repeat(2, 10%) 50% repeat(2, 10%);
+	}
+
+	.tec-events-onboarding__tab-venue .tec-events-onboarding__tabs-list {
+		grid-template-columns: repeat(3, 10%) 50% 10%;
+	}
+
+	.tec-events-onboarding__tab-tickets .tec-events-onboarding__tabs-list {
+		grid-template-columns: repeat(4, 10%) 50%;
+	}
+}
+
+.tec-events-onboarding__tab {
+	align-items: center;
+	border: 1px solid var(--tec-wp-core-grey-50);
+	border-collapse: collapse;
+	border-left-width: 0;
+	color: transparent;
+	counter-increment: tab;
+	display: flex;
+	flex-grow: 0;
+	font-size: 1px;
+	gap: var(--tec-spacer-2);
+	height: auto;
+	justify-content: center;
+	letter-spacing: -1px;
+	margin: 0;
+	padding: var(--tec-spacer-1) var(--tec-spacer-5);
+	position: relative;
+	white-space: nowrap;
+}
+
+.tec-events-onboarding__tab.tec-events-onboarding__tab--welcome {
+	display: none;
+}
+
+.tec-events-onboarding__tab:nth-child(2) {
+	border-bottom-left-radius: var(--tec-admin-border-radius-1);
+	border-left-width: 1px;
+	border-top-left-radius: var(--tec-admin-border-radius-1);
+}
+
+.tec-events-onboarding__tab:last-child {
+	border-bottom-right-radius: var(--tec-admin-border-radius-1);
+	border-top-right-radius: var(--tec-admin-border-radius-1);
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__tab {
+		color: var(--tec-wp-core-grey-50);
+		font-size: var(--tec-font-size-2);
+		letter-spacing: normal;
+	}
+}
+
+.tec-events-onboarding__tab:before {
+	border: 1px solid var(--tec-wp-core-grey-50);
+	border-radius: var(--tec-admin-border-radius-round);
+	bottom: var(--tec-spacer-2);
+	color: var(--tec-wp-core-grey-50);
+	content: counter(tab);
+	font-size: var(--tec-font-size-1);
+	height: 18px;
+	left: 50%;
+	line-height: var(--tec-admin-line-height-0);
+	padding: 0;
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 18px;
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__tab:before {
+		left: 0;
+		position: relative;
+		top: 0;
+		transform: none;
+	}
+}
+
+.tec-events-onboarding__tab--completed:before {
+	background-color: var(--tec-wp-core-grey-50);
+	color: var(--tec-wp-core-grey-0);
+	content: '✓';
+}
+
+.tec-events-onboarding__tab--active {
+	background-color: var(--tec-wp-core-blue-50);
+	border-left-color: var(--tec-wp-core-blue-50);
+	color: #fff;
+	font-size: var(--tec-font-size-2);
+	letter-spacing: normal;
+}
+
+.tec-events-onboarding__tab--active:hover {
+	color: #fff;
+}
+
+.tec-events-onboarding__tab--active:before {
+	background-color: #fff;
+	border: 1px solid #fff;
+	color: var(--tec-wp-core-blue-50);
+	left: 0;
+	position: relative;
+	top: 0;
+	transform: none;
+}
+
+.tec-events-onboarding__tab--disabled {
+	color: var(--tec-wp-core-grey-50);
+	cursor: not-allowed;
+}
+
+.tec-events-onboarding__tab-button {
+	background: none;
+	border: none;
+	color: inherit;
+	cursor: pointer;
+	font-size: var(--tec-font-size-2);
+	letter-spacing: normal;
+	padding: 0;
+	z-index: 1;
+}
+
+/* TabPanel Content */
+.tec-events-onboarding__tabpanel-content {
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
-	max-width: 100%;
-	text-align: center;
-	width: var(--tec-onboarding-tab-panel-width);
+	width: fit-content;
 }
 
-.tec-events-onboarding__header-icon {
-	height: 28px;
-	width: 24px;
+@media (min-width: 1024px) {
+	#settingsPanel .tec-events-onboarding__tabpanel-content,
+	#organizerPanel .tec-events-onboarding__tabpanel-content, {
+		max-width: 330px;
+	}
+
+	#ticketsPanel .tec-events-onboarding__tabpanel-content {
+		max-width: 440px;
+	}
+
+	#venuePanel .tec-events-onboarding__tabpanel-content {
+		max-width: 590px;
+	}
 }
 
-.tec-events-onboarding__header-icon--brand {
+.tec-events-onboarding__content-header-icon {
+	height: 36px;
+	margin: 0 auto;
+}
+
+.tec-events-onboarding__content-header-icon--brand {
+	display: block;
 	height: 38px;
+	margin: 0 auto var(--tec-spacer-1);
 	width: 46px;
 }
 
-.tec-events-onboarding__intro-header {
+.tec-events-onboarding__content-checkbox-grid {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-11);
+	margin: 0;
+	max-width: 525px;
+	width: 100%;
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__content-checkbox-grid {
+		margin: 0 auto;
+	}
+}
+
+.tec-events-onboarding__content-header-grid {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-8);
+	padding-bottom: var(--tec-spacer-5);
+}
+
+.tec-events-onboarding__content-grid {
+	align-items: center;
+	align-self: stretch;
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-5);
+}
+
+.tec-events-onboarding__content-grid > * {
+	margin: 0 auto;
+}
+
+.tec-events-onboarding__welcome-header {
 	height: 180px;
 }
 
-.tec-events-onboarding__opt-in-checkbox--wrapper {
-	background-color: var(--tec-wp-core-grey-0);
-	border: 1px solid var(--tec-scales-grey-200);
-	border-radius: var(--tec-admin-border-radius-2);
-	display: flex;
+.tec-events-onboarding__grid--view-checkbox {
+	display: grid;
+	gap: var(--tec-spacer-2);
+	grid-template-columns: repeat(3, 120px);
 	justify-content: center;
-	margin: 0 94px;
-	padding: 24px 32px;
+	width: 100%;
 }
 
-.tec-events-onboarding__opt-in-checkbox--description {
-	font-size: 14px;
-	letter-spacing: 0.28px;
-	line-height: 1.5;
+.tec-events-onboarding__view_upsell {
+	padding-top: 24px;
+}
+
+.tec-events-onboarding__view_upsell_callout {
+	margin: 0;
+}
+
+.tec-events-onboarding__view_upsell_list {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.tec-events-onboarding__view_upsell-cell {
+	display: flex;
+	flex-direction: column;
+	padding: var(--tec-spacer-2) var(--tec-spacer-1);
+	text-align: center;
+}
+
+.tec-events-onboarding__view_upsell-label {
+	color: var(--tec-wp-core-grey-50);
+	font-size: var(--tec-font-size-2);
+	line-height: var(--tec-line-height-2);
+	text-align: center;
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__grid--view-checkbox {
+		grid-template-columns: repeat(4, 128px);
+	}
+}
+
+.tec-events-onboarding__grid--view-checkbox .components-checkbox-control {
+	height: 0;
+	margin: 0;
+	padding: 0;
+	visibility: hidden;
+	width: 0;
+}
+
+.tec-events-onboarding__checkbox-label {
+	align-items: center;
+	background: #fff;
+	border: 1.128px solid var(--tec-wp-core-grey-50);
+	border-radius: var(--tec-admin-border-radius-0);
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-2);
+	height: 116px;
+	padding: var(--tec-spacer-2) var(--tec-spacer-4);
+	width: 128px;
+}
+
+.tec-events-onboarding__checkbox-label--checked {
+	border: 2px solid var(--tec-wp-core-blue-50);
+	padding: calc(var(--tec-spacer-2) - 1px) calc(var(--tec-spacer-4) - 1px);
+}
+
+#tec-events-onboarding__checkbox-label-all {
+	justify-content: center;
+}
+
+.tec-events-onboarding__checkbox--optin,
+.tec-events-onboarding__checkbox--tickets {
+	border: 1px solid var(--tec-scales-grey-200);
+	border-radius: var(--tec-admin-border-radius-1);
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+	max-width: 340px;
+	padding: var(--tec-spacer-5) var(--tec-spacer-7);
+}
+
+.tec-events-onboarding__checkbox--optin {
+	background-color: var(--tec-wp-core-grey-0);
+}
+
+.tec-events-onboarding__checkbox--tickets {
+	background-color: #fff;
+}
+
+.tec-events-onboarding__checkbox-description {
+	color: #000;
+	font-size: var(--tec-font-size-2);
+	letter-spacing: -0.28px;
+	line-height: var(--tec-line-height-2);
+	margin-top: calc(-1 * var(--tec-spacer-0));
 	text-align: left;
+}
+
+.tec-events-onboarding__form-wrapper {
+	background-color: #fff;
+	border-radius: var(--tec-admin-border-radius-1);
+	display: flex;
+	flex-direction: column;
+	gap: var(--tec-spacer-4);
+	margin: 0 auto;
+	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
+	width: 100%;
+}
+
+@media (min-width: 1024px) {
+	#venuePanel .tec-events-onboarding__form-wrapper {
+		display: grid;
+		gap: var(--tec-spacer-2);
+		grid-template-columns: 1fr 1fr;
+	}
+
+	#venuePanel .tec-events-onboarding__form-wrapper .components-base-control:first-child,
+	#venuePanel .tec-events-onboarding__form-wrapper .components-base-control:nth-child(2) {
+		grid-column: span 2;
+	}
+}
+
+.tec-events-onboarding__form-field--hidden {
+	display: none;
+}
+
+.tec-events-onboarding__tab-header,
+.tec-events-onboarding__tab-subheader,
+.tec-events-onboarding__element--center {
+	text-align: center;
+}
+
+.tec-events-onboarding__tab-header {
+	line-height: normal;
+	margin-bottom: var(--tec-spacer-3);
+	margin-top: 0;
+}
+
+.tec-events-onboarding__tab-subheader {
+	margin-bottom: var(--tec-spacer-5);
+	margin-top: 0;
+}
+
+/* Stupidly specific to overide component styles */
+.tec-events-onboarding__modal .tec-events-onboarding__tabs .tec-events-onboarding__tabpanel-content .tec-events-onboarding__form-wrapper label {
+	font-size: var(--tec-font-size-2);
+	font-style: normal;
+	font-weight: var(--tec-font-weight-regular);
+	letter-spacing: -0.28px;
+	line-height: var(--tec-line-height-2);
+	text-transform: none;
+}
+
+.tec-events-onboarding__modal .tec-events-onboarding__tabs .tec-events-onboarding__tabpanel-content .tec-events-onboarding__form-wrapper input,
+.tec-events-onboarding__modal .tec-events-onboarding__tabs .tec-events-onboarding__tabpanel-content .tec-events-onboarding__form-wrapper select {
+	font-size: var(--tec-font-size-2);
+	font-style: normal;
+	font-weight: var(--tec-font-weight-regular);
+	height: auto;
+	line-height: normal;
+	padding: 12px 16px;
+	text-transform: none;
+}
+
+.components-button.is-primary {
+	background: none;
+	background-color: var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__modal a {
+	color: var(--tec-wp-core-blue-50);
 }

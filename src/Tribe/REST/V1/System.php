@@ -39,7 +39,6 @@ class Tribe__Events__REST__V1__System extends Tribe__REST__System {
 		return apply_filters( 'tribe_events_rest_api_enabled', $enabled );
 	}
 
-
 	/**
 	 * Returns the name of the option used to indicate whether TEC REST API is enabled or not for
 	 * the WP installation.
