@@ -225,7 +225,7 @@ class Controller extends Controller_Contract {
 	public function tec_onboarding_wizard_button(): void {
 		// phpcs:disable
 		$first_boot_data = [
-			'activeViews'           => tribe_get_option( 'tribeEnableViews', [ 'list' ]),
+			'tribeEnableViews'           => tribe_get_option( 'tribeEnableViews', [ 'list' ]),
 			'availableViews'        => $this->get_available_views(),
 			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '' ),
 			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
