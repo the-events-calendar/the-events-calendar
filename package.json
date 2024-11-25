@@ -69,10 +69,7 @@
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "olp": "export NODE_OPTIONS=--openssl-legacy-provider",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
-    "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
-    "prebuild": "node node_modules/@the-events-calendar/product-taskmaster/scripts/syncBrowserslistConfig.js",
-    "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
-    "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js"
+    "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json"
   },
   "engines": {
     "node": "18.13.0",
