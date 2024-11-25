@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
+Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Stable tag: 7.0.0
 Requires at least: 6.3
-Tested up to: 6.7
+Tested up to: 6.7.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -90,14 +90,10 @@ Our Premium Plugins and Services:
 ⚡ [Events Calendar PRO](https://evnt.is/18wi)
 ↪️ [Event Aggregator](https://evnt.is/197u) (service)
 🎟️ [Event Tickets Plus](https://evnt.is/18wk)
-📱 [Event Tickets Wallet Plus](https://evnt.is/etwp)
 ✉️ [Promoter](https://evnt.is/1ajt)
 👥 [Community Events](https://evnt.is/2g)
-🎟️ [Community Tickets](https://evnt.is/18wl)
 ✏️ [Filter Bar](https://evnt.is/fa)
 🗓️ [Eventbrite Tickets](https://evnt.is/2e)
-📡 [Virtual Events](https://evnt.is/1aky)
-🔄 [Event Automator](https://evnt.is/1bdk)
 
 == Help ==
 
@@ -178,13 +174,10 @@ The following add-ons are available for The Events Calendar:
 
 * [Events Calendar Pro](https://evnt.is/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](https://evnt.is/1ajw), additional fields, and more!
 * [Event Aggregator](https://evnt.is/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
-* [Virtual Events](https://evnt.is/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://evnt.is/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
-* [Event Tickets Wallet Plus](https://evnt.is/etwp), for adding digital tickets like Apple Wallet passes and PDF tickets.
 * [Promoter](https://evnt.is/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
 * [Community Events](https://evnt.is/2g), for allowing frontend event submission from your readers.
-* [Community Tickets](https://evnt.is/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
 * [Filter Bar](https://evnt.is/fa), for adding advanced frontend filtering capabilities to your events calendar.
 * [Eventbrite Tickets](https://evnt.is/2e), for selling tickets to your event directly through Eventbrite.
 
@@ -238,6 +231,12 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.8.2.1] 2024-11-21 =
+
+* Tweak - Introduced filter `tec_events_rest_api_password_protected_fields` which can be used to control which event fields should be hidden in the REST API for password protected events. [SVUL-8]
+* Security - Hide content fields from the archive REST endpoint for password protected events. [SVUL-8]
+* Fix - Prevent notices on `_load_textdomain_just_in_time` due to Aggregator and Export links code.
 
 = [6.8.2] 2024-11-19 =
 
