@@ -196,4 +196,4 @@ jobs:
       - name: Send Slack message
         if: ${{ github.event.inputs.slack_channel != '' && github.event.inputs.slack_thread != '' }}
         run: |
-          curl -X GET "https://utility.theeventscalendar.com/slack-message.php?channel=${{ inputs.slack_channel }}&thread=${{ inputs.slack_thread }}&file=${{ env.ZIP_NAME }}.zip&secret=${{ secrets.SLACK_PACKAGING_SECRET }}&url=https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          curl -X GET "https://utility.theeventscalendar.com/slack-message.php?channel=${{ inputs.slack_channel }}&thread=${{ inputs.slack_thread }}&file=${{ env.PUP_ZIP_NAME }}.zip&secret=${{ secrets.SLACK_PACKAGING_SECRET }}&url=https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
