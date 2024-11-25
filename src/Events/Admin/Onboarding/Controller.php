@@ -32,7 +32,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @var string
 	 */
-	public static string $slug = 'onboarding-wizard';
+	public static string $slug = 'first-time-setup';
 
 	/**
 	 * The slug for the parent page.
@@ -48,7 +48,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @var string
 	 */
-	public static string $page_slug = 'tribe_events_page_onboarding-wizard';
+	public static string $page_slug = 'tribe_events_page_first-time-setup';
 
 	/**
 	 * Register the provider.
@@ -168,11 +168,12 @@ class Controller extends Controller_Contract {
 	public function settings_page(): void {
 		add_submenu_page(
 			'edit.php?post_type=tribe_events',
-			__( 'TEC Onboarding Wizard', 'the-events-calendar' ),
-			__( 'Onboarding Wizard', 'the-events-calendar' ),
+			__( 'TEC Onboarding Wizard and Setup Page', 'the-events-calendar' ),
+			__( 'First Time Setup', 'the-events-calendar' ),
 			'manage_options',
 			$this->get_page_slug(),
-			[ $this, 'tec_onboarding_wizard_button' ]
+			[ $this, 'tec_onboarding_wizard_button' ],
+			0
 		);
 	}
 
