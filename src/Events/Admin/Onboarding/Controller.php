@@ -218,13 +218,14 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Render the onboarding wizard button.
+	 * Get the initial data for the wizard.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return array<string, mixed> The initial data.
 	 */
-	public function tec_onboarding_wizard_button(): void {
-		// phpcs:disable
-		$first_boot_data = [
+	public function get_initial_data(): array {
+		$initial_data = [
 			/* TEC settings */
 			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ]),
 			'availableViews'        => $this->get_available_views(),
@@ -247,8 +248,25 @@ class Controller extends Controller_Contract {
 			'countries'             => Data::get_country_list(),
 		];
 
-		$first_boot_data = apply_filters( 'tribe_events_onboarding_wizard_first_boot_data', $first_boot_data, $this );
+		/**
+		 * Filter the initial data.
+		 *
+		 * @since 7.0.0
+		 *
+		 * @param array    $initial_data The initial data.
+		 * @param Controller $controller The controller object.
+		 *
+		 * @return array
+		 */
+		return (array) apply_filters( 'tribe_events_onboarding_wizard_initial_data', $initial_data, $this );
+	}
 
+	/**
+	 * Render the onboarding wizard button.
+	 *
+	 * @since 7.0.0
+	 */
+	public function tec_onboarding_wizard_button(): void {
 		$button = get_submit_button(
 			esc_html__( 'Open Install Wizard (current)', 'the-events-calendar' ),
 			'secondary tec-events-onboarding-wizard',
@@ -257,7 +275,7 @@ class Controller extends Controller_Contract {
 			[
 				'id'                     => 'tec-events-onboarding-wizard',
 				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $first_boot_data ),
+				'data-wizard-boot-data'  => wp_json_encode( $this->get_initial_data() ),
 			]
 		);
 
@@ -267,8 +285,6 @@ class Controller extends Controller_Contract {
 		);
 
 		echo $button;
-
-		// phpcs:enable
 	}
 
 	/**
