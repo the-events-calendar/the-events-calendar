@@ -247,6 +247,7 @@ class Controller extends Controller_Contract {
 			/* Data */
 			'timezones'             => Data::get_timezone_list(),
 			'countries'             => Data::get_country_list(),
+			'currencies'            => Data::get_currency_list(),
 		];
 
 		/**

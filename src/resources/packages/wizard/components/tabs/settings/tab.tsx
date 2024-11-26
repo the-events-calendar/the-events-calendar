@@ -12,6 +12,7 @@ const dateFormatOptions = [
 	{ label: _x('October 29, 2024', 'example date in "F j, Y" format', 'the-events-calendar'), value: 'F j, Y' },
 	{ label: _x('29 October, 2024', 'example date in "j F, Y" format', 'the-events-calendar'), value: 'j F, Y' },
 	{ label: _x('10/29/2024', 'example date in "m/d/Y" format', 'the-events-calendar'), value: 'm/d/Y' },
+	{ label: _x('29/10/2024', 'example date in "d/m/Y" format', 'the-events-calendar'), value: 'd/m/Y' },
 	{ label: _x('2024-10-29', 'example date in "Y-m-d" format', 'the-events-calendar'), value: 'Y-m-d' },
 ];
 
@@ -26,7 +27,7 @@ const startDayOptions = [
 ];
 
 const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
-	const { defaultCurrencySymbol, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones } = useSelect(
+	const { defaultCurrencySymbol, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones, currencies } = useSelect(
 		(select) => {
 			const store = select(SETTINGS_STORE_KEY);
 			return {
@@ -35,6 +36,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 				defaultDateFormat: store.getSetting('defaultDateFormat'),
 				defaultWeekStart: store.getSetting('defaultWeekStart'),
 				timezones: store.getSetting('timezones'),
+				currencies: store.getSetting('currencies'),
 			};
 		},
 		[]
@@ -61,14 +63,18 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 			<h1 className="tec-events-onboarding__tab-header">{__('Event Settings', 'the-events-calendar')}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{__('Let\’s get your events with the correct basic settings.', 'the-events-calendar')}</p>
 			<div className="tec-events-onboarding__form-wrapper">
-				<TextControl
+				<SelectControl
 					__nextHasNoMarginBottom
 					label={__('Currency', 'the-events-calendar')}
 					defaultValue={ currency }
 					onChange={ ( value ) => {
 						setCurrency( value ) }
 					}
-				/>
+				>
+					{Object.entries(currencies).map(([key, data]) => (
+						<option key={key} value={data['symbol']}>{data['symbol']} ({data['name']})</option>
+					))}
+				</SelectControl>
 				{(!defaultTimezone || defaultTimezone.includes('UTC')) && (
 					<>
 						<SelectControl
