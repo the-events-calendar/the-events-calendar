@@ -231,7 +231,7 @@ class Controller extends Controller_Contract {
 			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
 			'availableViews'        => $this->get_available_views(),
 			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '$' ),
-			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
+			'date_format'           => get_option( 'date_format', 'F j, Y' ),
 			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			/* WP Settings */
 			'timezone_string'       => get_option( 'timezone_string', false ),

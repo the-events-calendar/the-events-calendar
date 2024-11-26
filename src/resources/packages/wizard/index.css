@@ -80,6 +80,7 @@
 .is-full-screen.components-modal__frame.tec-events-onboarding__modal {
 	border-radius: 0;
 	height: 100vh;
+	max-width: 100vw;
 	width: 100vw;
 }
 
@@ -99,9 +100,10 @@
 /* Tab Container */
 .tec-events-onboarding__tabs {
 	display: grid;
-	gap: var(--tec-spacer-5);
 	grid-template-columns: auto;
 	grid-template-rows: none;
+	justify-content: center;
+	row-gap: var(--tec-spacer-5);
 }
 
 .tec-events-onboarding__tabs.tec-events-onboarding__tab-welcome {
@@ -317,6 +319,11 @@
 	}
 }
 
+.tec-events-onboarding__tabpanel {
+	margin: 0 auto;
+	width: min(100%, 100vw, 635px);
+}
+
 /* TabPanel Content */
 .tec-events-onboarding__tabpanel-content {
 	display: flex;
@@ -395,7 +402,7 @@
 .tec-events-onboarding__grid--view-checkbox {
 	display: grid;
 	gap: var(--tec-spacer-2);
-	grid-template-columns: repeat(3, 120px);
+	grid-template-columns: repeat(2, 120px);
 	justify-content: center;
 	width: 100%;
 }
@@ -448,6 +455,7 @@
 	border: 1.128px solid var(--tec-wp-core-grey-50);
 	border-radius: var(--tec-admin-border-radius-0);
 	box-sizing: border-box;
+	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	gap: var(--tec-spacer-2);
@@ -539,7 +547,7 @@
 	margin-top: 0;
 }
 
-/* Stupidly specific to overide component styles */
+/* Stupidly specific or important to override component styles */
 .tec-events-onboarding__modal .tec-events-onboarding__tabs .tec-events-onboarding__tabpanel-content .tec-events-onboarding__form-wrapper label {
 	font-size: var(--tec-font-size-2);
 	font-style: normal;
@@ -567,4 +575,9 @@
 
 .tec-events-onboarding__modal a {
 	color: var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__modal .components-select-control__input:focus ~ .components-input-control__backdrop {
+	border-color: var(--tec-wp-core-blue-50) !important;
+	box-shadow: 0 0 0 0.5px var(--tec-wp-core-blue-50) !important;
 }

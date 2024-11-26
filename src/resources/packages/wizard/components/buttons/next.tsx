@@ -20,6 +20,8 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 		if (tabSettings) {
 			// If the user changes any field, we reset the saving state
 			setSaving(false);
+			// and the button clicked state.
+			setClicked(false);
 		}
 	}, [tabSettings]);
 

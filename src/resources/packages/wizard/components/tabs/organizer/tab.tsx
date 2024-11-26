@@ -48,22 +48,23 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		currentTab: 3, // Include the current tab index.
 	};
 
-	const subHeaderText = id ?
-		__("Add an event organizer for your events. You can display this information for your event attendees on your website.", "the-events-calendar")
-		: __("Looks like you have already created your first organizer. Well done!", "the-events-calendar");
+	const subHeaderText = id > 0 ?
+		__("Looks like you have already created your first organizer. Well done!", "the-events-calendar") :
+		__("Add an event organizer for your events. You can display this information for your event attendees on your website.", "the-events-calendar");
 
 	return (
 		<>
 			<OrganizerIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__("Add your first event organizer.", "the-events-calendar")}</h1>
+			<h1 className="tec-events-onboarding__tab-header">{__("Add your first event organizer", "the-events-calendar")}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<TextControl
 					__nextHasNoMarginBottom
-					label={__("Organizer Name", "the-events-calendar")}
+					label={__("Organizer name", "the-events-calendar")}
 					onChange={setName}
 					defaultValue={name}
 					disabled={disabled}
+					placeholder={__("Enter organizer name", "the-events-calendar")}
 				/>
 				{phone ? "" :
 				<Button
@@ -82,6 +83,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 					type="tel"
 					defaultValue={phone}
 					disabled={disabled}
+					placeholder={__("Enter phone number", "the-events-calendar")}
 				/>
 				{website ? "" :
 				<Button
@@ -100,6 +102,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 					type="url"
 					defaultValue={website}
 					disabled={disabled}
+					placeholder={__("Enter website", "the-events-calendar")}
 				/>
 				{email ? "" :
 				<Button
@@ -118,6 +121,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 					type="email"
 					defaultValue={email}
 					disabled={disabled}
+					placeholder={__("Enter email", "the-events-calendar")}
 				/>
 			</div>
 

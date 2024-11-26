@@ -54,7 +54,7 @@ class Settings extends Abstract_Step {
 
 		$settings = [
 			'defaultCurrencySymbol' => $params['defaultCurrencySymbol'] ?? false,
-			'dateWithYearFormat'    => $params['defaultDateFormat'] ?? false,
+			'date_format'           => $params['date_format'] ?? false,
 			'timezone_string'       => $params['timezone_string'] ?? false,
 			'start_of_week'         => $params['start_of_week'] ?? false,
 			'tribeEnableViews'      => $enabled_views,
@@ -70,7 +70,7 @@ class Settings extends Abstract_Step {
 			$updated = false;
 
 			// Start of week and timezone are WP options, the rest are TEC settings.
-			if ( 'start_of_week' === $key || 'timezone_string' === $key ) {
+			if ( 'start_of_week' === $key || 'timezone_string' === $key || 'date_format' ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
 					continue;
