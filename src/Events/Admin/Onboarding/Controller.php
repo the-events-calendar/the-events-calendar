@@ -189,7 +189,13 @@ class Controller extends Controller_Contract {
 
 		$plugin     = tribe( 'tec.main' );
 		$asset_file = $plugin->plugin_path . 'src/build/wizard/index.asset.php';
-		$asset      = include $asset_file;
+
+		// Danger, Will Robinson.
+		if ( ! file_exists( $asset_file ) ) {
+			return;
+		}
+
+		$asset = include $asset_file;
 
 		wp_enqueue_script(
 			'tec-events-onboarding-wizard-script',
