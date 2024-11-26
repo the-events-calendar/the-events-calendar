@@ -46,6 +46,7 @@ class Telemetry {
 	/**
 	 * Get the plugin slug.
 	 *
+	 * @since TBD
 	 */
 	public static function get_plugin_slug() {
 		return static::$plugin_slug;
