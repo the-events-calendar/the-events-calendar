@@ -230,7 +230,7 @@ class Controller extends Controller_Contract {
 			/* TEC settings */
 			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
 			'availableViews'        => $this->get_available_views(),
-			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '' ),
+			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '$' ),
 			'defaultDateFormat'     => tribe_get_option( 'dateWithYearFormat', get_option( 'date_format', false ) ),
 			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			/* WP Settings */
