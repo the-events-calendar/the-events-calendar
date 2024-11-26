@@ -44,6 +44,14 @@ class Telemetry {
 	protected static $plugin_path = 'the-events-calendar.php';
 
 	/**
+	 * Get the plugin slug.
+	 *
+	 */
+	public static function get_plugin_slug() {
+		return static::$plugin_slug;
+	}
+
+	/**
 	 * Filters the modal optin args to be specific to TEC
 	 *
 	 * @since 6.1.1
@@ -95,13 +103,8 @@ class Telemetry {
 		switch( $opted ) {
 			case Status::STATUS_ACTIVE :
 				$label = esc_html_x( 'Opt out of Telemetry', 'Settings label for opting out of Telemetry.', 'the-events-calendar' );
-				$attributes = [
-					'disabled' => 'disabled',
-					'checked'  => 'checked',
-				];
 			default :
 				$label = esc_html_x( 'Opt in to Telemetry', 'the-events-calendar' );
-				$attributes = [];
 		}
 
 
@@ -126,15 +129,6 @@ class Telemetry {
 			),
 			'default'         => false,
 			'validation_type' => 'boolean',
-		];
-
-		$fields['ian-notifications-opt-in'] = [
-			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'In-App Notifications', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Enable this option to receive notifications about The Events Calendar, including updates, fixes, and features. This is enabled if you have opted in to Telemetry.', 'the-events-calendar' ),
-			'default'         => false,
-			'validation_type' => 'boolean',
-			'attributes'      => $attributes,
 		];
 
 		return $fields;
