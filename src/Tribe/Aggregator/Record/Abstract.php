@@ -1698,6 +1698,9 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 				unset( $event['Venue'] );
 			}
 
+			// Use Geocoding for imported venues.
+			add_filter( 'tec_events_pro_use_geocode_results', '__return_true' );
+
 			// if we should create a venue or use existing.
 			if ( ! empty( $event['Venue']['Venue'] ) ) {
 				$event['Venue']['Venue'] = trim( $event['Venue']['Venue'] );
