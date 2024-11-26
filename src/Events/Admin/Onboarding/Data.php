@@ -374,8 +374,226 @@ class Data {
 		}
 
 		$zones = array_filter( $zones );
-		error_log( print_r( $zones, true ) );
 
 		return apply_filters( 'tec_events_onboarding_wizard_timezone_list', $zones );
+	}
+
+	/**
+	 * Get a list of currencies.
+	 * Note: we don't currently use "code" or "entity", but they are included for future use.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array
+	 */
+	public static function get_currency_list(): array {
+		$default_currencies = [
+			'aud'     => [
+				'code'  => 'AUD',
+				'name'   => __( 'Australian Dollar', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'brl'     => [
+				'code'  => 'BRL',
+				'name'   => __( 'Brazilian Real', 'the-events-calendar' ),
+				'symbol'   => 'R$',
+				'entity' => 'R&#36;',
+			],
+			'gbp'     => [
+				'code'  => 'GBP',
+				'name'   => __( 'British Pound', 'the-events-calendar' ),
+				'symbol'   => '£',
+				'entity' => '&pound;',
+			],
+			'cad'     => [
+				'code'  => 'CAD',
+				'name'   => __( 'Canadian Dollar', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'cny'     => [
+				'code'  => 'CNY',
+				'name'   => __( 'Chinese Yen (¥)', 'the-events-calendar' ),
+				'symbol'   => '¥',
+				'entity' => '&yen;',
+			],
+			'cny2'    => [
+				'code'  => 'CNY',
+				'name'   => __( 'Chinese Yuan (元)', 'the-events-calendar' ),
+				'symbol'   => '元',
+				'entity' => '&#20803;',
+			],
+			'czk'     => [
+				'code'  => 'CZK',
+				'name'   => __( 'Czech Koruna', 'the-events-calendar' ),
+				'symbol'   => 'Kč',
+				'entity' => 'K&#x10D;',
+			],
+			'dkk'     => [
+				'code'  => 'DKK',
+				'name'   => __( 'Danish Krone', 'the-events-calendar' ),
+				'symbol'   => 'kr.',
+				'entity' => 'kr.',
+			],
+			'euro'    => [
+				'code'  => 'EUR',
+				'name'   => __( 'Euro', 'the-events-calendar' ),
+				'symbol'   => '€',
+				'entity' => '&euro;',
+			],
+			'hkd'     => [
+				'code'  => 'HKD',
+				'name'   => __( 'Hong Kong Dollar', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'huf'     => [
+				'code'  => 'HUF',
+				'name'   => __( 'Hungarian Forint', 'the-events-calendar' ),
+				'symbol'   => 'Ft',
+				'entity' => 'Ft',
+			],
+			'inr'     => [
+				'code'  => 'INR',
+				'name'   => __( 'Indian Rupee', 'the-events-calendar' ),
+				'symbol'   => '₹',
+				'entity' => '&#x20B9;',
+			],
+			'idr'     => [
+				'code'  => 'IDR',
+				'name'   => __( 'Indonesian Rupiah', 'the-events-calendar' ),
+				'symbol'   => 'Rp',
+				'entity' => 'Rp',
+			],
+			'ils'     => [
+				'code'  => 'ILS',
+				'name'   => __( 'Israeli New Sheqel', 'the-events-calendar' ),
+				'symbol'   => '₪',
+				'entity' => '&#x20AA;',
+			],
+			'jpy'     => [
+				'code'  => 'JPY',
+				'name'   => __( 'Japanese Yen', 'the-events-calendar' ),
+				'symbol'   => '¥',
+				'entity' => '&yen;',
+			],
+			'krw'     => [
+				'code'  => 'KRW',
+				'name'   => __( 'Korean Won', 'the-events-calendar' ),
+				'symbol'   => '₩',
+				'entity' => '&#8361;',
+			],
+			'myr'     => [
+				'code'  => 'MYR',
+				'name'   => __( 'Malaysian Ringgit', 'the-events-calendar' ),
+				'symbol'   => 'RM',
+				'entity' => 'RM',
+			],
+			'mxn'     => [
+				'code'  => 'MXN',
+				'name'   => __( 'Mexican Peso', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'ngn'     => [
+				'code'  => 'NGN',
+				'name'   => __( 'Nigerian Naira', 'the-events-calendar' ),
+				'symbol'   => '₦',
+				'entity' => '&#8358;',
+			],
+			'nzd'     => [
+				'code'  => 'NZD',
+				'name'   => __( 'New Zealand Dollar', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'nok'     => [
+				'code'  => 'NOK',
+				'name'   => __( 'Norwegian Krone', 'the-events-calendar' ),
+				'symbol'   => 'kr',
+				'entity' => 'kr',
+			],
+			'php'     => [
+				'code'  => 'PHP',
+				'name'   => __( 'Philippine Peso', 'the-events-calendar' ),
+				'symbol'   => '₱',
+				'entity' => '&#x20B1;',
+			],
+			'pln'     => [
+				'code'  => 'PLN',
+				'name'   => __( 'Polish Złoty', 'the-events-calendar' ),
+				'symbol'   => 'zł',
+				'entity' => 'z&#x142;',
+			],
+			'rub'     => [
+				'code'  => 'RUB',
+				'name'   => __( 'Russian Ruble', 'the-events-calendar' ),
+				'symbol'   => '₽',
+				'entity' => '&#8381;',
+			],
+			'sek'     => [
+				'code'  => 'SEK',
+				'name'   => __( 'Swedish Krona', 'the-events-calendar' ),
+				'symbol'   => 'kr',
+				'entity' => 'kr',
+			],
+			'sgd'     => [
+				'code'  => 'SGD',
+				'name'   => __( 'Singapore Dollar', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'zar'     => [
+				'code'  => 'ZAR',
+				'name'   => __( 'South African Rand', 'the-events-calendar' ),
+				'symbol'   => 'R',
+				'entity' => 'R',
+			],
+			'chf'     => [
+				'code'  => 'CHF',
+				'name'   => __( 'Swiss Franc', 'the-events-calendar' ),
+				'symbol'   => 'Fr',
+				'entity' => 'Fr',
+			],
+			'twd'     => [
+				'code'  => 'TWD',
+				'name'   => __( 'Taiwan New Dollar', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'thb'     => [
+				'code'  => 'THB',
+				'name'   => __( 'Thai Baht', 'the-events-calendar' ),
+				'symbol'   => '฿',
+				'entity' => '&#x0E3F;',
+			],
+			'trl'     => [
+				'code'  => 'TRL',
+				'name'   => __( 'Turkish Lira', 'the-events-calendar' ),
+				'symbol'   => '₺',
+				'entity' => '&#8378;',
+			],
+			'usd'     => [
+				'code'  => 'USD',
+				'name'   => __( 'US Dollar', 'the-events-calendar' ),
+				'symbol'   => '$',
+				'entity' => '&#36;',
+			],
+			'usdcent' => [
+				'code'  => 'USDCENT',
+				'name'   => __( 'US Cent', 'the-events-calendar' ),
+				'symbol'   => '¢',
+				'entity' => '&cent;',
+			],
+			'vnd'     => [
+				'code'  => 'VND',
+				'name'   => __( 'Vietnamese Dong', 'the-events-calendar' ),
+				'symbol'   => '₫',
+				'entity' => '&#8363;',
+			],
+		];
+
+		return (array) apply_filters( 'tec_events_onboarding_wizard_currencies_list', $default_currencies );
 	}
 }
