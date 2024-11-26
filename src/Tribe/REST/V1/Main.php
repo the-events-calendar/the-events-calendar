@@ -61,6 +61,45 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 
 		add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
 		add_filter( 'tribe_events_register_event_cat_type_args', [ $this, 'filter_taxonomy_args' ] );
+		add_filter( 'tribe_rest_events_archive_data', [ $this, 'filter_out_password_protected_events' ], 100, 2 );
+	}
+
+	/**
+	 * Filters out content from password protected events from the REST API response.
+	 *
+	 * @since 6.8.2.1
+	 *
+	 * @param array           $data    The events to be filtered.
+	 * @param WP_REST_Request $request The request object.
+	 *
+	 * @return array The filtered events.
+	 */
+	public function filter_out_password_protected_events( array $data, WP_REST_Request $request ): array {
+		foreach( $data['events'] as &$event ) {
+			if ( ! post_password_required( $event['id'] ) ) {
+				// No password required or password has been provided or requirement has been removed through filters.
+				continue;
+			}
+
+			$event_post = get_post( $event['id'] );
+
+			if ( ! ( $event_post instanceof WP_Post && $event_post->ID ) ) {
+				// No post object, weird but let's skip it.
+				continue;
+			}
+
+			$validator = tribe( 'tec.rest-v1.validator' );
+
+			if ( $validator->can_access_password_content( $event_post, $request ) ) {
+				// User has provided password and can see password protected content.
+				continue;
+			}
+
+			// User should not be able to see password protected content.
+			$event = $validator->remove_password_protected_content( $event );
+		}
+
+		return $data;
 	}
 
 	/**

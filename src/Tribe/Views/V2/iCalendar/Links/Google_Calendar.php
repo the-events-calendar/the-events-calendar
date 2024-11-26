@@ -45,8 +45,21 @@ class Google_Calendar extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		$this->label        = __( 'Google Calendar', 'the-events-calendar' );
-		$this->single_label = __( 'Add to Google Calendar', 'the-events-calendar' );
+		// intentionally left blank.
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function label(): string {
+		return __( 'Google Calendar', 'the-events-calendar' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function single_label(): string {
+		return __( 'Add to Google Calendar', 'the-events-calendar' );
 	}
 
 	/**
