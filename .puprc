@@ -1,13 +1,15 @@
 {
 	"build": [
-		"composer -- pup do build-common",
+		"composer -- pup",
+		"pup do build-common",
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
 		"npm run before-zip"
 	],
 	"build_dev": [
-		"composer -- pup do build-common",
+		"composer -- pup",
+		"pup do build-common",
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
@@ -15,22 +17,22 @@
 	],
 	"workflows": {
 		"build-common": [
-			"cd common && composer -- pup build"
+			"cd common && composer -- pup && pup build"
 		],
 		"tec-zip": [
 			"git submodule update --recursive --init",
-			"composer -- pup build",
-			"composer -- pup check",
-			"composer -- pup i18n",
-			"cd common && composer -- pup i18n",
-			"composer -- pup package $(pup get-version)",
-			"composer -- pup clean"
+			"pup build",
+			"pup check",
+			"pup i18n",
+			"cd common && composer -- pup && pup i18n",
+			"pup package $(pup get-version)",
+			"pup clean"
 		],
 		"tec-zip-dev": [
 			"git submodule update --recursive --init",
-			"composer -- pup build",
-			"composer -- pup package $(pup get-version)",
-			"composer -- pup clean"
+			"pup build",
+			"pup package $(pup get-version)",
+			"pup clean"
 		]
 	},
 	"checks": {
