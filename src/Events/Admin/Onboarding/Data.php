@@ -315,32 +315,40 @@ class Data {
 		$zonen          = [];
 
 		foreach ( $tz_identifiers as $zone ) {
-			$zone = explode( '/', $zone );
+			// Sections: Continent/City/Subcity.
+			$sections = substr_count( $zone, '/' ) + 1;
+			$zone     = explode( '/', $zone );
 
-			if ( ! array_key_exists( $zone[0], $continents ) ) {
+			if ( ! in_array( $zone[0], $continents ) ) {
 				continue;
 			}
 
-			$exists    = [
-				0 => ( isset( $zone[0] ) && $zone[0] ),
-				1 => ( isset( $zone[1] ) && $zone[1] ),
-				2 => ( isset( $zone[2] ) && $zone[2] ),
-			];
-			$exists[3] = ( $exists[0] && 'Etc' !== $zone[0] );
-			$exists[4] = ( $exists[1] && $exists[3] );
-			$exists[5] = ( $exists[2] && $exists[3] );
+			// Skip UTC offsets.
+			if ( $sections <= 1 ) {
+				continue;
+			}
 
-			$zonen[] = [
-				'continent'   => ( $exists[0] ? $zone[0] : '' ),
-				'city'        => ( $exists[1] ? $zone[1] : '' ),
-				'subcity'     => ( $exists[2] ? $zone[2] : '' ),
-				't_continent' => ( $exists[3] ? translate( str_replace( '_', ' ', $zone[0] ), 'continents-cities' ) : '' ),
-				't_city'      => ( $exists[4] ? translate( str_replace( '_', ' ', $zone[1] ), 'continents-cities' ) : '' ),
-				't_subcity'   => ( $exists[5] ? translate( str_replace( '_', ' ', $zone[2] ), 'continents-cities' ) : '' ),
-			];
+			$assemble = [];
+
+			if ( $sections > 0 ) {
+				$assemble['continent'] = translate( str_replace( '_', ' ', $zone[0] ), 'continents-cities' );
+			}
+
+			if ( $sections > 1 ) {
+				$assemble['city'] = translate( str_replace( '_', ' ', $zone[1] ), 'continents-cities' );
+			}
+
+			if ( $sections > 2 ) {
+				$assemble['subcity'] = translate( str_replace( '_', ' ', $zone[2] ), 'continents-cities' );
+			}
+
+			if ( empty( $assemble ) ) {
+				continue;
+			}
+
+			$zonen[] = $assemble;
 			// phpcs:enable
 		}
-		usort( $zonen, '_wp_timezone_choice_usort_callback' );
 
 		$zones = [];
 		foreach ( $continents as $continent ) {
@@ -349,21 +357,24 @@ class Data {
 
 		foreach ( $zonen as $zone ) {
 			// Check if subcity is available (i.e. a state + city).
-			if ( ! empty( $zone['t_subcity'] ) ) {
-				$city    = str_replace( ' ', '_', $zone['t_city'] );
-				$subcity = str_replace( ' ', '_', $zone['t_subcity'] );
-				$key     = "{$zone['t_continent']}/{$city}/{$subcity}";
-				$value   = "{$zone['t_city']} - {$zone['t_subcity']}";
+			if ( ! empty( $zone['subcity'] ) ) {
+				$city    = str_replace( ' ', '_', $zone['city'] );
+				$subcity = str_replace( ' ', '_', $zone['subcity'] );
+				$key     = "{$zone['continent']}/{$city}/{$subcity}";
+				$value   = "{$zone['city']} - {$zone['subcity']}";
 			} else {
 				// Format without subcity.
-				$city  = str_replace( ' ', '_', $zone['t_city'] );
-				$key   = "{$zone['t_continent']}/{$city}";
-				$value = "{$zone['t_city']}";
+				$city  = str_replace( ' ', '_', $zone['city'] );
+				$key   = "{$zone['continent']}/{$city}";
+				$value = "{$zone['city']}";
 			}
 
 			// Format it as a new associative array.
-			$zones[ $zone['t_continent'] ][ $key ] = $value;
+			$zones[ $zone['continent'] ][ $key ] = $value;
 		}
+
+		$zones = array_filter( $zones );
+		error_log( print_r( $zones, true ) );
 
 		return apply_filters( 'tec_events_onboarding_wizard_timezone_list', $zones );
 	}
