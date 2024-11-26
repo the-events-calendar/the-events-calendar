@@ -2,7 +2,7 @@
 /**
  * Controller for interfacing with TEC\Common\Onboarding.
  *
- * @since   TBD
+ * @since   7.0.0
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -12,7 +12,7 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since   7.0.0
  * @package TEC\Events\Admin\Onboarding
  */
 class Controller extends Controller_Contract {
@@ -20,7 +20,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The slug for the admin menu.
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 * @var string
 	 */
 	public static string $slug = 'onboarding-wizard';
@@ -28,14 +28,14 @@ class Controller extends Controller_Contract {
 	/**
 	 * The slug for the parent page.
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 */
 	public static string $parent_slug = 'tribe_events_page_';
 
 	/**
 	 * The slug for the admin page
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 *
 	 * @var string
 	 */
@@ -44,7 +44,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function do_register(): void {
 		$this->add_filters();
@@ -57,7 +57,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function unregister(): void {
 		$this->remove_filters();
@@ -67,7 +67,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Should only be active if we are in the admin.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 * @return bool Only active during FS theme.
 	 */
 	public function is_active(): bool {
@@ -77,7 +77,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Defines wether the current page is the correct page.
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 *
 	 * @return boolean
 	 */
@@ -92,7 +92,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Get the page slug.
 	 *
-	 * @since TBD
+	 * @since 7.0.0
 	 *
 	 * @return string
 	 */
@@ -109,14 +109,14 @@ class Controller extends Controller_Contract {
 	/**
 	 * Add the filter hooks.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function add_filters() {}
 
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function add_actions() {
 		add_action( 'admin_menu', [ $this, 'settings_page' ] );
@@ -126,14 +126,14 @@ class Controller extends Controller_Contract {
 	/**
 	 * Remove the filter hooks.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function remove_filters() {}
 
 	/**
 	 * Remove the action hooks.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function remove_actions() {
 		remove_action( 'admin_menu', [ $this, 'settings_page' ] );
@@ -143,7 +143,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Settings page callback.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function settings_page() {
 		add_submenu_page(
@@ -159,7 +159,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Render the onboarding wizard HTML.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function tec_onboarding_wizard_html() {
 		printf(
@@ -180,7 +180,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Enqueue scripts for the onboarding wizard.
 	 *
-	 * @since   TBD
+	 * @since   7.0.0
 	 */
 	public function enqueue_assets() {
 		if ( ! $this->is_on_page() ) {
