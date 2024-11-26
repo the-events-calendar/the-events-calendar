@@ -127,12 +127,19 @@ function tribe_get_next_events_link() {
 }
 
 /**
- * Link to All Events
+ * Get a link to all events.
  *
- * Returns a link to the events URL
+ * Returns the main URL for the events. The URL can be optionally returned in a format suitable for display,
+ * where non-Latin characters are not URL-encoded.
  *
- * @param string $context Optional; defaults to 'href'. Can be 'display', in which case non-latin chars are not url-encoded.
- * @return string URL
+ * @since 2.0.1
+ *
+ * @param  string $context Optional. Defaults to 'href'. Can be 'display', in which case non-Latin characters are not URL-encoded.
+ * @param  string $link    The main events link.
+ *
+ * @return string          The URL to the events page.
+ *
+ * @hook   tribe_get_events_link Filters the main events link.
  */
 function tribe_get_events_link( $context = 'href' ) {
 	$plugin = Tribe__Events__Main::instance();
@@ -140,6 +147,8 @@ function tribe_get_events_link( $context = 'href' ) {
 	 * Allows for filtering the main events link.
 	 *
 	 * Returns a link to the events URL
+	 *
+	 * @since 3.8
 	 *
 	 * @param string $link The main events link.
 	 * @param string $context Defaults to 'href'. Can also be 'display', in which case non-latin chars are not url-encoded.
