@@ -44,15 +44,6 @@ class Telemetry {
 	protected static $plugin_path = 'the-events-calendar.php';
 
 	/**
-	 * Get the plugin slug.
-	 *
-	 * @since TBD
-	 */
-	public static function get_plugin_slug() {
-		return static::$plugin_slug;
-	}
-
-	/**
 	 * Filters the modal optin args to be specific to TEC
 	 *
 	 * @since 6.1.1
