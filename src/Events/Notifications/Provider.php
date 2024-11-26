@@ -25,18 +25,8 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public function register() {
-		$this->add_actions();
-	}
-
-	/**
-	 * Handles the action hooks for this module.
-	 *
-	 * @since TBD
-	 */
-	public function add_actions() {
 		add_action( 'admin_footer', [ $this, 'render_icon' ] );
 	}
-
 
 	/**
 	 * Renders the Notification icon.
