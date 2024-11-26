@@ -18,6 +18,15 @@ namespace TEC\Events\Notifications;
 class Notifications {
 
 	/**
+	 * The slug of this plugin calling the Notifications class.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected static string $slug = 'the-events-calendar';
+
+	/**
 	 * Outputs the hook that renders the Notifications icon on all TEC admin pages.
 	 *
 	 * @since TBD
@@ -28,14 +37,11 @@ class Notifications {
 			return;
 		}
 
-		// 'the-events-calendar'
-		$plugin_slug = substr( basename( TRIBE_EVENTS_FILE ), 0, -4 );
-
 		/**
 		 * Fires to trigger the IAN icon on admin pages.
 		 *
 		 * @since TBD
 		 */
-		do_action( 'tec_ian_icon', $plugin_slug );
+		do_action( 'tec_ian_icon', static::$slug );
 	}
 }
