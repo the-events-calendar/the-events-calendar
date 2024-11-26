@@ -1,13 +1,13 @@
 {
 	"build": [
-		"pup do build-common",
+		"composer -- pup do build-common",
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
 		"npm run before-zip"
 	],
 	"build_dev": [
-		"pup do build-common",
+		"composer -- pup do build-common",
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
