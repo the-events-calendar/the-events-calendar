@@ -33,7 +33,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const [city, setCity] = useState(venue.city || "");
 	const [state, setState] = useState(venue.state || "");
 	const [zip, setZip] = useState(venue.zip || "");
-	const [country, setCountry] = useState(venue.country || "");
+	const [country, setCountry] = useState(venue.country || "US");
 	const [phone, setPhone] = useState(venue.phone || "");
 	const [website, setWebsite] = useState(venue.website || "");
 
@@ -62,14 +62,14 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		currentTab: 4, // Include the current tab index.
 	};
 
-	const subHeaderText = id ?
-		__("Show your attendees where they need to go to get to your events. You can display the location using Google Maps on your event pages.", "the-events-calendar")
-		: __("Looks like you have already created your first venue. Well done!", "the-events-calendar");
+	const subHeaderText = id > 0 ?
+		__("Looks like you have already created your first venue. Well done!", "the-events-calendar") :
+		__("Show your attendees where they need to go to get to your events. You can display the location using Google Maps on your event pages.", "the-events-calendar");
 
 	return (
 		<>
 			<VenueIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__("Add your first event venue.", "the-events-calendar")}</h1>
+			<h1 className="tec-events-onboarding__tab-header">{__("Add your first event venue", "the-events-calendar")}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<TextControl
@@ -78,6 +78,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 					onChange={setName}
 					defaultValue={name}
 					disabled={disabled}
+					placeholder={__("Enter venue name", "the-events-calendar")}
 				/>
 				<TextControl
 					__nextHasNoMarginBottom
@@ -86,6 +87,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 					defaultValue={address}
 					disabled={disabled}
 					type="text"
+					placeholder={__("Enter venue street address", "the-events-calendar")}
 				/>
 				<TextControl
 					__nextHasNoMarginBottom
@@ -94,6 +96,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 					defaultValue={city}
 					disabled={disabled}
 					type="text"
+					placeholder={__("Enter city", "the-events-calendar")}
 				/>
 				<TextControl
 					__nextHasNoMarginBottom
@@ -102,6 +105,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 					defaultValue={state}
 					disabled={disabled}
 					type="text"
+					placeholder={__("Enter state or province", "the-events-calendar")}
 				/>
 				<TextControl
 					__nextHasNoMarginBottom
@@ -110,6 +114,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 					defaultValue={zip}
 					disabled={disabled}
 					type="text"
+					placeholder={__("Enter zip or postal code", "the-events-calendar")}
 				/>
 				<SelectControl
 					__nextHasNoMarginBottom

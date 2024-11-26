@@ -27,14 +27,14 @@ const startDayOptions = [
 ];
 
 const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
-	const { defaultCurrencySymbol, defaultTimezone, defaultDateFormat, defaultWeekStart, timezones, currencies } = useSelect(
+	const { defaultCurrencySymbol, timezone_string, date_format, start_of_week, timezones, currencies } = useSelect(
 		(select) => {
 			const store = select(SETTINGS_STORE_KEY);
 			return {
 				defaultCurrencySymbol: store.getSetting('defaultCurrencySymbol'),
-				defaultTimezone: store.getSetting('defaultTimezone'),
-				defaultDateFormat: store.getSetting('defaultDateFormat'),
-				defaultWeekStart: store.getSetting('defaultWeekStart'),
+				timezone_string: store.getSetting('timezone_string'),
+				date_format: store.getSetting('date_format'),
+				start_of_week: store.getSetting('start_of_week'),
 				timezones: store.getSetting('timezones'),
 				currencies: store.getSetting('currencies'),
 			};
@@ -42,18 +42,18 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 		[]
 	);
 	const [ currency, setCurrency ] = useState( defaultCurrencySymbol );
-	const [ timeZone, setTimeZone ] = useState( defaultTimezone );
-	const [ dateFormat, setDateFormat ] = useState( defaultDateFormat || dateFormatOptions[0].value );
-	const [ weekStart, setWeekStart ] = useState( defaultWeekStart || 0 );
+	const [ timeZone, setTimeZone ] = useState( timezone_string );
+	const [ dateFormat, setDateFormat ] = useState( date_format || dateFormatOptions[0].value );
+	const [ weekStart, setWeekStart ] = useState( start_of_week || 0 );
 
-	const timeZoneMessage = defaultTimezone && defaultTimezone.includes("UTC") ? __('Please select your time zone as UTC offsets are not supported.', 'the-events-calendar') : __("Please select your time zone.", 'the-events-calendar');
+	const timeZoneMessage = timezone_string && timezone_string.includes("UTC") ? __('Please select your time zone as UTC offsets are not supported.', 'the-events-calendar') : __("Please select your time zone.", 'the-events-calendar');
 
 	// Create tabSettings object to pass to NextButton.
 	const tabSettings = {
 		defaultCurrencySymbol: currency,
-		defaultTimezone: timeZone,
-		defaultDateFormat: dateFormat,
-		defaultWeekStart: weekStart,
+		timezone_string: timeZone,
+		date_format: dateFormat,
+		start_of_week: weekStart,
 		currentTab: 2, // Include the current tab index.
 	};
 
@@ -65,7 +65,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 			<div className="tec-events-onboarding__form-wrapper">
 				<SelectControl
 					__nextHasNoMarginBottom
-					label={__('Currency', 'the-events-calendar')}
+					label={__('Currency symbol', 'the-events-calendar')}
 					defaultValue={ currency }
 					onChange={ ( value ) => {
 						setCurrency( value ) }
@@ -75,7 +75,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						<option key={key} value={data['symbol']}>{data['symbol']} ({data['name']})</option>
 					))}
 				</SelectControl>
-				{(!defaultTimezone || defaultTimezone.includes('UTC')) && (
+				{(!timezone_string || timezone_string.includes('UTC')) && (
 					<>
 						<SelectControl
 							__nextHasNoMarginBottom
@@ -84,6 +84,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 							defaultValue={ timeZone }
 							onChange={ setTimeZone }
 						>
+							<option value="">{__("Please select a non-UTC timezone.", 'the-events-calendar' )}</option>
 							{Object.entries(timezones).map(([key, cities]) => (
 								<optgroup key={key} className="continent" label={key}>
 									{Object.entries(cities as {[key: string]: string}).map(([key, city]) => (
