@@ -92,7 +92,7 @@ class Telemetry {
 
 		$fields['opt-in-status'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html_x( 'Data share consent', 'the-events-calendar' ),
+			'label'           => esc_html_x( 'Data share consent', 'Title for Data share section.', 'the-events-calendar' ),
 			'tooltip'         => sprintf(
 			// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
 				_x(
