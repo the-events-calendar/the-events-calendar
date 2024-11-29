@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------------------------------
  * Custom Properties: some are new, some are from the TEC common styles, reproduced here for the admin.
  * ----------------------------------------------------------------------------------------------------- */
-:root {
+ :root {
 	/* -----------------------------------------------------------------------------
 	 * Colors
 	 * ----------------------------------------------------------------------------- */
@@ -11,6 +11,7 @@
 	--tec-wp-core-grey-50: #646970;
 	--tec-wp-core-grey-80: #2c3338;
 	--tec-scales-grey-200: #e0e0e0;
+	--tec-color-icon-error: #da394d;
 
 	/* -----------------------------------------------------------------------------
 	 * Border Radius
@@ -332,7 +333,14 @@
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
+	max-width: min(100%, 100vw);
 	width: fit-content;
+}
+
+@media (min-width: 500px) {
+	.tec-events-onboarding__tabpanel-content {
+		max-width: min(100%, 100vw);
+	}
 }
 
 @media (min-width: 1024px) {
@@ -420,8 +428,14 @@
 
 .tec-events-onboarding__view_upsell_list {
 	display: flex;
-	flex-direction: row;
+	flex-flow: row wrap;
 	justify-content: center;
+}
+
+@media (min-width: 500px) {
+	.tec-events-onboarding__view_upsell_list {
+		flex-wrap: nowrap;
+	}
 }
 
 .tec-events-onboarding__view_upsell-cell {
@@ -495,11 +509,15 @@
 	background-color: #fff;
 }
 
+.tec-events-onboarding__tickets-checkbox-input {
+	margin-top: -2px;
+}
+
 .tec-events-onboarding__checkbox-description {
 	color: #000;
 	font-size: var(--tec-font-size-2);
 	letter-spacing: -0.28px;
-	line-height: var(--tec-line-height-2);
+	line-height: 2;
 	margin-top: calc(-1 * var(--tec-spacer-0));
 	text-align: left;
 }
@@ -516,6 +534,10 @@
 }
 
 @media (min-width: 1024px) {
+	.tec-events-onboarding__form-wrapper {
+		min-width: 260px;
+	}
+
 	#venuePanel .tec-events-onboarding__form-wrapper {
 		column-gap: var(--tec-spacer-4);
 		display: grid;
@@ -587,4 +609,8 @@
 .tec-events-onboarding__modal .components-select-control__input:focus ~ .components-input-control__backdrop {
 	border-color: var(--tec-wp-core-blue-50) !important;
 	box-shadow: 0 0 0 0.5px var(--tec-wp-core-blue-50) !important;
+}
+
+.tec-events-onboarding__form-field.invalid {
+	box-shadow: 0 0 0 0.5px red;
 }
