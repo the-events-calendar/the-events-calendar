@@ -51,9 +51,9 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const ele = document.getElementById("organizer-email");
 
 		if (showEmail && !isValid) {
-			ele?.classList.add("tec-events-onboarding__form-field--invalid");
+			ele?.classList.add("invalid");
 		} else if (showEmail) {
-			ele?.classList.remove("tec-events-onboarding__form-field--invalid");
+			ele?.classList.remove("invalid");
 		}
 
 		return isValid;
@@ -65,9 +65,9 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const ele = document.getElementById("organizer-phone");
 
 		if (showPhone && !isValid) {
-			ele?.classList.add("tec-events-onboarding__form-field--invalid");
+			ele?.classList.add("invalid");
 		} else if (showPhone) {
-			ele?.classList.remove("tec-events-onboarding__form-field--invalid");
+			ele?.classList.remove("invalid");
 		}
 
 		return isValid;
@@ -79,9 +79,9 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const ele = document.getElementById("organizer-website");
 
 		if (showWebsite && !isValid) {
-			ele?.classList.add("tec-events-onboarding__form-field--invalid");
+			ele?.classList.add("invalid");
 		} else if (showWebsite) {
-			ele?.classList.remove("tec-events-onboarding__form-field--invalid");
+			ele?.classList.remove("invalid");
 		}
 
 		return isValid;
@@ -120,6 +120,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					id="organizer-name"
+					className="tec-events-onboarding__form-field"
 					label={__("Organizer name", "the-events-calendar")}
 					onChange={setName}
 					defaultValue={name}
@@ -137,7 +138,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className={phone ? "" : "tec-events-onboarding__form-field--hidden" }
+					className={phone ? "tec-events-onboarding__form-field" : "tec-events-onboarding__form-field tec-events-onboarding__form-field--hidden" }
 					id="organizer-phone"
 					label={__("Phone", "the-events-calendar")}
 					onChange={setPhone}
@@ -157,7 +158,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className={website ? "" : "tec-events-onboarding__form-field--hidden" }
+					className={website ? "tec-events-onboarding__form-field" : "tec-events-onboarding__form-field tec-events-onboarding__form-field--hidden" }
 					id="organizer-website"
 					label={__("Website", "the-events-calendar")}
 					onChange={setWebsite}
@@ -177,7 +178,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 				</Button>}
 				<TextControl
 					__nextHasNoMarginBottom
-					className={email ? "" : "tec-events-onboarding__form-field--hidden" }
+					className={email ? "tec-events-onboarding__form-field" : "tec-events-onboarding__form-field tec-events-onboarding__form-field--hidden" }
 					id="organizer-email"
 					label={__("Email", "the-events-calendar")}
 					onChange={setEmail}

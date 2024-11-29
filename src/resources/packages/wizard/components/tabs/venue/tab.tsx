@@ -1,7 +1,7 @@
 import React from "react";
 import { __, _x } from '@wordpress/i18n';
 import { TextControl, SelectControl, Button } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { useSelect } from "@wordpress/data";
 import { SETTINGS_STORE_KEY } from "../../../data";
 import NextButton from '../../buttons/next';
@@ -36,6 +36,25 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const [country, setCountry] = useState(venue.country || "US");
 	const [phone, setPhone] = useState(venue.phone || "");
 	const [website, setWebsite] = useState(venue.website || "");
+	const [showWebsite, setShowWebsite] = useState(false);
+	const [showPhone, setShowPhone] = useState(false);
+	const [canContinue, setCanContinue] = useState(false);
+
+
+	// Compute whether the "Continue" button should be enabled
+    useEffect(() => {
+        const fieldsToCheck = {
+            'venue-name': isValidName(),
+			'venue-address': isValidAddress(),
+			'venue-city': isValidCity(),
+			'venue-state': isValidState(),
+			'venue-zip': isValidZip(),
+			'venue-country': isValidCountry(),
+            'venue-phone': isValidPhone(),
+            'venue-website': isValidWebsite(),
+		};
+		setCanContinue(Object.values(fieldsToCheck).every((field) => !!field));
+    }, [name, address, city, state, zip, country, phone, website, showPhone, showWebsite ]);
 
 	/**
 	 * Function to show hidden fields.
@@ -44,6 +63,113 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const ele = event.target;
 		ele.nextSibling.classList.remove("tec-events-onboarding__form-field--hidden");
 		ele.style.display = "none";
+	}
+
+	const isValidName = () => {
+		const isValid = !!name;
+		const ele = document.getElementById("venue-name");
+
+		if (!isValid) {
+			ele?.classList.add("invalid");
+		} else {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
+	}
+
+	const isValidAddress = () => {
+		const isValid = !!address;
+		const ele = document.getElementById("venue-address");
+
+		if (!isValid) {
+			ele?.classList.add("invalid");
+		} else {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
+	}
+
+	const isValidCity = () => {
+		const isValid = !!city;
+		const ele = document.getElementById("venue-city");
+
+		if (!isValid) {
+			ele?.classList.add("invalid");
+		} else {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
+	}
+
+	const isValidState = () => {
+		const isValid = !!state;
+		const ele = document.getElementById("venue-state");
+
+		if (!isValid) {
+			ele?.classList.add("invalid");
+		} else {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
+	}
+
+	const isValidZip = () => {
+		const zipPattern = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
+		const isValid = !!zip && zipPattern.test(zip);
+		const ele = document.getElementById("venue-zip");
+
+		if (!isValid) {
+			ele?.classList.add("invalid");
+		} else {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
+	}
+
+	const isValidCountry = () => {
+		const isValid = !!country;
+		const ele = document.getElementById("venue-country");
+
+		if (!isValid) {
+			ele?.classList.add("invalid");
+		} else {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
+	}
+
+	const isValidPhone = () => {
+		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
+		const isValid = !showPhone || ( !!phone && phonePattern.test(phone) );
+		const ele = document.getElementById("venue-phone");
+
+		if (showPhone && !isValid) {
+			ele?.classList.add("invalid");
+		} else if (showPhone) {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
+	}
+
+	const isValidWebsite = () => {
+		const websitePattern = /^(http|https):\/\/[^ "]+?$/;
+		const isValid = !showWebsite || ( !!website && websitePattern.test(website) );
+		const ele = document.getElementById("venue-website");
+
+		if (showWebsite && !isValid) {
+			ele?.classList.add("invalid");
+		} else if (showWebsite) {
+			ele?.classList.remove("invalid");
+		}
+
+		return isValid;
 	}
 
 	// Create tabSettings object to pass to NextButton.
@@ -75,6 +201,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("Venue Name", "the-events-calendar")}
+					id="venue-name"
 					onChange={setName}
 					defaultValue={name}
 					disabled={disabled}
@@ -83,6 +210,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("Address", "the-events-calendar")}
+					id="venue-address"
 					onChange={setAddress}
 					defaultValue={address}
 					disabled={disabled}
@@ -92,6 +220,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("City", "the-events-calendar")}
+					id="venue-city"
 					onChange={setCity}
 					defaultValue={city}
 					disabled={disabled}
@@ -101,6 +230,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("State or province", "the-events-calendar")}
+					id="venue-state"
 					onChange={setState}
 					defaultValue={state}
 					disabled={disabled}
@@ -110,6 +240,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				<TextControl
 					__nextHasNoMarginBottom
 					label={__("Zip / Postal code", "the-events-calendar")}
+					id="venue-zip"
 					onChange={setZip}
 					defaultValue={zip}
 					disabled={disabled}
@@ -119,6 +250,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				<SelectControl
 					__nextHasNoMarginBottom
 					label={__("Country", "the-events-calendar")}
+					id="venue-country"
 					onChange={setCountry}
 					defaultValue={country}
 					disabled={disabled}>
