@@ -43,11 +43,12 @@ class Organizer extends Abstract_Step {
 	public static function process( $response, $request ): WP_REST_Response {
 		$params = $request->get_params();
 		// No data to process, bail out.
-		if ( ! $params['organizer'] ) {
+		if ( empty( $params['organizer'] ) ) {
 			return $response;
 		}
 
 		$organizer = $params['organizer'];
+		error_log(print_r($organizer, true));
 
 		// If we already have an organizer, we're not editing it here.
 		if ( ! empty( $organizer['id'] ) ) {
@@ -55,9 +56,9 @@ class Organizer extends Abstract_Step {
 		}
 
 		$organizer['Organizer']         = $organizer['name'];
-		$organizer['_OrganizerPhone']   = $organizer['_OrganizerPhone'];
-		$organizer['_OrganizerWebsite'] = $organizer['_OrganizerWebsite'];
-		$organizer['_OrganizerEmail']   = $organizer['_OrganizerEmail'];
+		$organizer['_OrganizerPhone']   = $organizer['phone'] ?? '';
+		$organizer['_OrganizerWebsite'] = $organizer['website'] ?? '';
+		$organizer['_OrganizerEmail']   = $organizer['email'] ?? '';
 
 		$post_id = Tribe__Events__API::createOrganizer( $organizer );
 
