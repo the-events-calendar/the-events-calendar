@@ -48,7 +48,6 @@ class Organizer extends Abstract_Step {
 		}
 
 		$organizer = $params['organizer'];
-		error_log(print_r($organizer, true));
 
 		// If we already have an organizer, we're not editing it here.
 		if ( ! empty( $organizer['id'] ) ) {

@@ -49,8 +49,6 @@ class Venue extends Abstract_Step {
 
 		$venue = $params['venue'];
 
-		error_log(print_r($venue, true));
-
 		// If we already have a venue, we're not editing it here.
 		if ( ! empty( $venue['id'] ) ) {
 			return $response;

@@ -40,6 +40,7 @@ class Settings extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
+		$params = $request->get_params();
 		$enabled_views = $params['tribeEnableViews'] ?? false;
 
 		// Don't try to save "all".
@@ -59,6 +60,8 @@ class Settings extends Abstract_Step {
 			'start_of_week'         => $params['start_of_week'] ?? false,
 			'tribeEnableViews'      => $enabled_views,
 		];
+
+		error_log(print_r($settings, true));
 
 		foreach ( $settings as $key => $value ) {
 			// Don't save a falsy value here, as we don't want to override any defaults.
