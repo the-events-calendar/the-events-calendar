@@ -14,6 +14,78 @@ namespace TEC\Events\Admin\Onboarding;
  * @package TEC\Events\Admin\Onboarding
  */
 class Data {
+	/**
+	 * Get the organizer data.
+	 * Looks for a single existing organizer and returns the data.
+	 *
+	 * @since 7.0.0
+	 */
+	public function get_organizer_data(): array {
+		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+
+		if ( empty( $organizer_id ) ) {
+			return [];
+		}
+
+		return [
+			'id'      => $organizer_id,
+			'name'    => get_the_title( $organizer_id ),
+			'email'   => get_post_meta( $organizer_id, '_OrganizerEmail', true ),
+			'phone'   => get_post_meta( $organizer_id, '_OrganizerPhone', true ),
+			'website' => get_post_meta( $organizer_id, '_OrganizerWebsite', true ),
+		];
+	}
+
+	/**
+	 * Get the venue data.
+	 * Looks for a single existing venue and returns the data.
+	 *
+	 * @since 7.0.0
+	 */
+	public function get_venue_data(): array {
+		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+
+		if ( empty( $venue_id ) ) {
+			return [];
+		}
+
+		return [
+			'id'      => $venue_id,
+			'name'    => get_the_title( $venue_id ),
+			'address' => get_post_meta( $venue_id, '_VenueAddress', true ),
+			'city'    => get_post_meta( $venue_id, '_VenueCity', true ),
+			'country' => get_post_meta( $venue_id, '_VenueCountry', true ),
+			'phone'   => get_post_meta( $venue_id, '_VenuePhone', true ),
+			'state'   => get_post_meta( $venue_id, '_VenueState', true ),
+			'website' => get_post_meta( $venue_id, '_VenueWebsite', true ),
+			'zip'     => get_post_meta( $venue_id, '_VenueZip', true ),
+		];
+	}
+
+	/**
+	 * Get the available views.
+	 *
+	 * @since 7.0.0
+	 */
+	public function get_available_views(): array {
+		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$available_views = array_keys( $view_manager->get_registered_views() );
+		$remove          = [
+			'all',
+			'latest-past',
+			'organizer',
+			'reflector',
+			'venue',
+			'widget-countdown',
+			'widget-events-list',
+			'widget-featured-venue',
+			'widget-week',
+		];
+
+		$cleaned_views = array_flip( array_diff_key( array_flip( $available_views ), array_flip( $remove ) ) );
+
+		return array_values( $cleaned_views );
+	}
 
 	/**
 	 * Get a list of countries. Grouped by continent/region.
@@ -22,7 +94,7 @@ class Data {
 	 *
 	 * @return array<string,array<string,string>> The list of countries.
 	 */
-	public static function get_country_list(): array {
+	public function get_country_list(): array {
 		$countries = [
 			'Africa'     => [
 				'AO' => 'Angola',
@@ -285,7 +357,7 @@ class Data {
 	 *
 	 * @return array<string,string> The list of timezones.
 	 */
-	public static function get_timezone_list(): array {
+	public function get_timezone_list(): array {
 		// phpcs:disable
 		static $mo_loaded = false, $locale_loaded = null;
 		$locale           = get_user_locale();
@@ -386,7 +458,7 @@ class Data {
 	 *
 	 * @return array
 	 */
-	public static function get_currency_list(): array {
+	public function get_currency_list(): array {
 		$default_currencies = [
 			'aud'     => [
 				'code'   => 'AUD',
