@@ -82,8 +82,15 @@ class Landing_Page extends Abstract_Admin_Page {
 		return esc_html__( 'First Time Setup', 'the-events-calendar' );
 	}
 
-	public function content_wrapper_classes() : array {
-		$classes = parent::content_wrapper_classes();
+	/**
+	 * Add some wrapper classes to the admin page.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return string The class(es) string.
+	 */
+	public function content_wrapper_classes(): array {
+		$classes   = parent::content_wrapper_classes();
 		$classes[] = 'tec-events-admin__content';
 		$classes[] = 'tec-events__landing-page-content';
 
@@ -106,7 +113,7 @@ class Landing_Page extends Abstract_Admin_Page {
 				<p>Useful Resources</p>
 			</div>
 		<?php
-		echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -119,7 +126,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		?>
 			<p>Sidebar Content</p>
 		<?php
-echo ob_get_clean();
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -128,7 +135,7 @@ echo ob_get_clean();
 	 * @since 7.0.0
 	 */
 	public function admin_page_footer(): void {
-		// no -op
+		// No op.
 		return;
 	}
 

@@ -11,7 +11,6 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 	const actionNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("action_nonce"), []);
 	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
 	const [isClicked, setClicked] = useState(false);
-	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 
 	useEffect(() => {
 		const handleSkipWizard = async () => {
