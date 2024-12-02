@@ -463,7 +463,7 @@ class Data {
 			'aud'     => [
 				'code'   => 'AUD',
 				'name'   => __( 'Australian Dollar', 'the-events-calendar' ),
-				'$' => 'symbol',
+				'$'      => 'symbol',
 				'entity' => '&#36;',
 			],
 			'brl'     => [

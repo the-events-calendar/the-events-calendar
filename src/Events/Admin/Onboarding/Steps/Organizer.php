@@ -55,10 +55,10 @@ class Organizer extends Abstract_Step {
 			return self::add_message( $response, __( 'Existing organizer. Step skipped.', 'the-events-calendar' ) );
 		}
 
-		$organizer['Organizer']         = $organizer['name'];
-		$organizer['Phone']   = $organizer['phone'] ?? '';
-		$organizer['Website'] = $organizer['website'] ?? '';
-		$organizer['Email']   = $organizer['email'] ?? '';
+		$organizer['Organizer'] = $organizer['name'];
+		$organizer['Phone']     = $organizer['phone'] ?? '';
+		$organizer['Website']   = $organizer['website'] ?? '';
+		$organizer['Email']     = $organizer['email'] ?? '';
 
 		$post_id = Tribe__Events__API::createOrganizer( $organizer );
 

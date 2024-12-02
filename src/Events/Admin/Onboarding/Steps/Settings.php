@@ -40,7 +40,7 @@ class Settings extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
-		$params = $request->get_params();
+		$params        = $request->get_params();
 		$enabled_views = $params['tribeEnableViews'] ?? false;
 
 		// Don't try to save "all".
@@ -65,7 +65,14 @@ class Settings extends Abstract_Step {
 			// Don't save a falsy value here, as we don't want to override any defaults.
 			// And values should all be strings/ints!
 			if ( empty( $value ) || ( 'start_of_week' === $key && $value === 0 ) ) {
-				self::add_message( $response, __( "Did not attempt saving option {$key}.", 'the-events-calendar' ) );
+				self::add_message(
+					$response,
+					sprintf(
+						/* translators: %s: the key of the setting */
+						__( "Did not attempt saving option %s.", 'the-events-calendar' ),
+						$key
+					)
+				);
 				continue;
 			}
 
@@ -75,29 +82,68 @@ class Settings extends Abstract_Step {
 			if ( 'start_of_week' === $key || 'timezone_string' === $key || 'date_format' ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
-					self::add_message( $response, __( "The {$key} option is already set to the requested value.", 'the-events-calendar' ) );
+					self::add_message( $response, sprintf(
+						/* translators: %s: the key of the setting */
+						__( "The %s option is already set to the requested value.", 'the-events-calendar' ) ),
+						$key
+					);
 					continue;
 				} else {
 					$updated = update_option( $key, $value );
 
 					if ( ! $updated ) {
-						return self::add_fail_message( $response, __( "Failed to save option {$key}.", 'the-events-calendar' ) );
+						return self::add_fail_message(
+							$response,
+							sprintf(
+								/* translators: %s: the key of the setting */
+								__( "Failed to save option %s.", 'the-events-calendar' ),
+								$key
+							)
+						);
 					} else {
-						self::add_message( $response, __( "Successfully saved option {$key}.", 'the-events-calendar' ) );
+						self::add_message(
+							$response,
+							sprintf(
+								/* translators: %s: the key of the setting */
+								__( "Successfully saved option %s.", 'the-events-calendar' ),
+								$key
+							)
+						);
 					}
 				}
 			} else {
 				$temp = tribe_get_option( $key, $value );
 				if ( $temp === $value ) {
-					self::add_message( $response, __( "The {$key} setting is already set to the requested value.", 'the-events-calendar' ) );
+					self::add_message(
+						$response,
+						/* translators: %s: the key of the setting */
+						sprintf(
+							__( "The %s setting is already set to the requested value.", 'the-events-calendar' ),
+							$key
+						)
+					);
 					continue;
 				} else {
 					$updated = tribe_update_option( $key, $value );
 
 					if ( ! $updated ) {
-						return self::add_fail_message( $response, __( "Failed to save setting {$key}.", 'the-events-calendar' ) );
+						return self::add_fail_message(
+							$response,
+							sprintf(
+								/* translators: %s: the key of the setting */
+								__( "Failed to save setting %s.", 'the-events-calendar' ),
+								$key
+)
+						);
 					} else {
-						self::add_message( $response, __( "Successfully saved setting {$key}.", 'the-events-calendar' ) );
+						self::add_message(
+							$response,
+							sprintf(
+								/* translators: %s: the key of the setting */
+								__( "Successfully saved setting %s.", 'the-events-calendar' ),
+								$key
+							)
+						);
 					}
 				}
 			}
