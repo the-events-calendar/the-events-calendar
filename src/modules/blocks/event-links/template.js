@@ -188,21 +188,25 @@ const renderControls = ( {
 						label={ __( 'Google Calendar', 'the-events-calendar' ) }
 						checked={ hasGoogleCalendar }
 						onChange={ toggleGoogleCalendar }
+						__nextHasNoMarginBottom={true}
 					/>
 					<ToggleControl
 						label={ __( 'iCalendar', 'the-events-calendar' ) }
 						checked={ hasiCal }
 						onChange={ toggleIcalLabel }
+						__nextHasNoMarginBottom={true}
 					/>
 					<ToggleControl
 						label={ __( 'Outlook 365', 'the-events-calendar' ) }
 						checked={ hasOutlook365 }
 						onChange={ toggleOutlook365Label }
+						__nextHasNoMarginBottom={true}
 					/>
 					<ToggleControl
 						label={ __( 'Outlook Live', 'the-events-calendar' ) }
 						checked={ hasOutlookLive }
 						onChange={ toggleOutlookLiveLabel }
+						__nextHasNoMarginBottom={true}
 					/>
 				</PanelBody>
 			</InspectorControls>

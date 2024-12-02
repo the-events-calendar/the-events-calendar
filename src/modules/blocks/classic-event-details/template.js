@@ -180,6 +180,7 @@ const ClassicEventDetails = ( props ) => {
 						label={ __( 'Is All Day Event', 'the-events-calendar' ) }
 						checked={ allDay }
 						onChange={ setAllDay }
+						__nextHasNoMarginBottom={true}
 					/>
 				</PanelBody>
 				<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>
@@ -187,6 +188,7 @@ const ClassicEventDetails = ( props ) => {
 						label={ __( 'Show symbol before', 'the-events-calendar' ) }
 						checked={ 'prefix' === currencyPosition }
 						onChange={ setCurrencyPosition }
+						__nextHasNoMarginBottom={true}
 					/>
 					<TextControl
 						label={ __( ' Currency Symbol', 'the-events-calendar' ) }
