@@ -149,18 +149,6 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		// Admin update page CSS
-		tribe_asset(
-			$plugin,
-			'tribe-events-admin-update-page',
-			'admin-update-page.css',
-			[ ],
-			[ 'admin_enqueue_scripts', 'wp_enqueue_scripts' ],
-			[
-				'conditionals' => [ $this, 'should_enqueue_admin_update_page_assets' ],
-			]
-		);
-
 		// Setting page Assets
 		tribe_asset(
 			$plugin,
@@ -457,9 +445,13 @@ class Tribe__Events__Assets {
 	 *
 	 * @since  6.0.0
 	 *
+	 * @deprecated 6.8.2 The page this function is testing for no longer exists.
+	 *
 	 * @return bool
 	 */
 	public function should_enqueue_admin_update_page_assets() {
+		_deprecated_function( __METHOD__, '6.8.2', 'No alternative' );
+
 		$should_enqueue = isset( $_GET[ 'update-message-the-events-calendar' ] );
 
 		/**
