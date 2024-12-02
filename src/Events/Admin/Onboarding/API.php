@@ -130,13 +130,12 @@ class API {
 		$response = new WP_REST_Response(
 			[
 				'success' => true,
-				'message' => [ __( 'Onboarding wizard completed successfully.', 'the-events-calendar' ) ],
+				'message' => [ __( 'Onboarding wizard step completed successfully.', 'the-events-calendar' ) ],
 			],
 			200
 		);
 
-
-		$current_tab = $request->get_param( 'currentTab' );
+		$this->set_transients( $request );
 
 		/**
 		 * Each step hooks in here and potentially modifies the response.
@@ -148,5 +147,46 @@ class API {
 		 * @param API              $api      The api object.
 		 */
 		return apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
+	}
+
+	/**
+	 * Passes the request and data to the handler.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Response $response The response object.
+	 * @param WP_REST_Request  $request  The request object.
+	 * @param Wizard           $wizard   The wizard object.
+	 */
+	public function set_transients( $request ): void {
+		$params      = $request->get_params();
+		$skipped     = $params['skipped'] ?? false;
+		$begun       = $params['begun'] ?? true;
+		$finished    = $params['finished'] ?? false;
+		$current_tab = $params['currentTab'] ? absint( $params['currentTab'] ) : 0;
+
+		// Set the begun transient. Set to false if we skipped at the start.
+		set_transient( 'tec_onboarding_wizard_begun', $begun, 0 );
+
+		// Set the current step transient.
+		set_transient( 'tec_onboarding_wizard_current_step', $current_tab, 0 );
+
+		// Set skipped tabs.
+		if ( $skipped !== false ) {
+			$skipped_tabs = get_transient( 'tec_onboarding_wizard_skipped_tabs' ) ?: [];
+			$skipped_tabs[] = $skipped;
+			set_transient( 'tec_onboarding_wizard_skipped_tabs', array_unique( $skipped_tabs ), 0 );
+		} else {
+			$completed_tabs   = get_transient( 'tec_onboarding_wizard_completed_tabs' ) ?: [];
+			$completed_tabs[] = $current_tab;
+			set_transient( 'tec_onboarding_wizard_completed_tabs', array_unique( $completed_tabs ), 0 );
+		}
+
+		// If we're on the last tab, or told we finished (skipped at start) - set the finished transient.
+		if ( $current_tab === 5 || $finished ) {
+			// Set the finished transient.
+			set_transient( 'tec_onboarding_wizard_finished', true, 0 );
+		}
+
 	}
 }

@@ -14,17 +14,15 @@ const TabPanel: FunctionComponent<TabPanelProps> = ({
 	tabIndex,
 	activeTab,
 }) => {
-	const isActive = activeTab === tabIndex;
-
 	return (
 		<section
 			role="tabpanel"
 			id={id}
 			aria-labelledby={tabId}
-			aria-hidden={!isActive}
-			hidden={!isActive}
-			tabIndex={isActive ? 0 : -1}
-			className={`tec-events-onboarding__tabpanel ${isActive ? "active" : ""}`}
+			aria-hidden={activeTab !== tabIndex}
+			hidden={activeTab !== tabIndex}
+			tabIndex={activeTab === tabIndex ? 0 : -1}
+			className={`tec-events-onboarding__tabpanel ${activeTab === tabIndex ? "active" : ""}`}
 		>
 			<div className="tec-events-onboarding__tabpanel-content">
 				{children}

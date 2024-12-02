@@ -1,7 +1,7 @@
 import React from "react";
 import {__} from '@wordpress/i18n';
-import {useState, useEffect} from '@wordpress/element';
 import {useSelect} from "@wordpress/data";
+import {useState, useEffect} from '@wordpress/element';
 import {SETTINGS_STORE_KEY} from "../../../data";
 import NextButton from '../../buttons/next';
 import SkipButton from '../../buttons/skip';
@@ -12,6 +12,7 @@ const TicketsContent = ({moveToNextTab, skipToNextTab}) => {
 	const eventTickets = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("eventTickets") || false, []);
 	const [originalValue] = useState(eventTickets);
 	const [ticketValue, setTicketValue] = useState(eventTickets); // Store the updated ticket value.
+
 
 	useEffect(() => {
 		// Update the local state if the optin value changes
@@ -34,8 +35,10 @@ const TicketsContent = ({moveToNextTab, skipToNextTab}) => {
 					{!originalValue &&(
 						<TicketInstallCheckbox initialValue={eventTickets} onChange={setTicketValue} />
 					)}
-					 <p className="tec-events-onboarding__element--center"><NextButton tabSettings={tabSettings} moveToNextTab={moveToNextTab} disabled={false}/></p>
-					<p><SkipButton skipToNextTab={skipToNextTab} /></p>
+					 <p className="tec-events-onboarding__element--center">
+						<NextButton tabSettings={tabSettings} moveToNextTab={moveToNextTab} disabled={false}/>
+					</p>
+					<p><SkipButton skipToNextTab={skipToNextTab} currentTab={5} /></p>
 				</div>
 			</div>
 		</>

@@ -141,6 +141,10 @@ echo ob_get_clean();
 	 */
 	public function get_initial_data(): array {
 		$initial_data = [
+			/* Wizard History */
+			'begun'                 => (bool) get_transient( 'tec_onboarding_wizard_begun' ),
+			'current_step'          => absint( get_transient( 'tec_onboarding_wizard_current_step' ) ),
+			'finished'              => (bool) get_transient( 'tec_onboarding_wizard_finished' ),
 			/* TEC settings */
 			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
 			'availableViews'        => tribe( Data::class)->get_available_views(),
@@ -163,6 +167,7 @@ echo ob_get_clean();
 			'countries'             => tribe( Data::class)->get_country_list(),
 			'currencies'            => tribe( Data::class)->get_currency_list(),
 		];
+
 
 		/**
 		 * Filter the initial data.

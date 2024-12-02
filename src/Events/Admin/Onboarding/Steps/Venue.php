@@ -44,6 +44,7 @@ class Venue extends Abstract_Step {
 		$params = $request->get_params();
 		// No data to process, bail out.
 		if ( empty( $params['venue'] ) ) {
+			return self::add_message( $response, __( 'No venue to save. Step skipped', 'the-events-calendar' ) );
 			return $response;
 		}
 
@@ -51,25 +52,27 @@ class Venue extends Abstract_Step {
 
 		// If we already have a venue, we're not editing it here.
 		if ( ! empty( $venue['id'] ) ) {
-			return $response;
+			return self::add_message( $response, __( 'Existing venue. Step skipped.', 'the-events-calendar' ) );
 		}
 
 		// Massage the data a bit.
 		$new_venue['Venue']         = $venue['name'];
-		$new_venue['_VenueAddress'] = $venue['address'];
-		$new_venue['_VenueCity']    = $venue['city'];
-		$new_venue['_VenueState']   = $venue['state'];
-		$new_venue['_VenueZip']     = $venue['zip'];
-		$new_venue['_VenueCountry'] = $venue['country'];
-		$new_venue['_VenuePhone']   = $venue['phone'];
-		$new_venue['_VenueWebsite'] = $venue['website'];
+		$new_venue['Address'] = $venue['address'];
+		$new_venue['City']    = $venue['city'];
+		$new_venue['State']   = $venue['state'];
+		$new_venue['Zip']     = $venue['zip'];
+		$new_venue['Country'] = $venue['country'];
+		$new_venue['Phone']   = $venue['phone'];
+		$new_venue['Website'] = $venue['website'];
 
 		$post_id = Tribe__Events__API::createVenue( $new_venue );
 
 		if ( ! $post_id ) {
 			return self::add_fail_message( $response, __( 'Failed to create venue.', 'the-events-calendar' ) );
+		} else {
+			$response->data['venue_id'] = $post_id;
 		}
 
-		return $response;
+		return self::add_message( $response, __( 'Venue created.', 'the-events-calendar' ) );
 	}
 }

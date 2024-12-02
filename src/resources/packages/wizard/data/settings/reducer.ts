@@ -77,7 +77,10 @@ switch (type) {
 		return { ...state, isSaving: false, error };
 
 	case IS_SAVING:
-		return { ...state, isSaving: payload };
+		return {
+			...state,
+			isSaving: payload || false,
+		};
 
 	default:
 		return state;

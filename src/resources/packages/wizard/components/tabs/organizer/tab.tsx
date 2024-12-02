@@ -190,7 +190,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			</div>
 
 			 <p className="tec-events-onboarding__element--center"><NextButton disabled={!canContinue} moveToNextTab={moveToNextTab}  tabSettings={tabSettings}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} /></p>
+			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={3} /></p>
 		</>
 	);
 };
