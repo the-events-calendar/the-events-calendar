@@ -56,7 +56,7 @@ class Venue extends Abstract_Step {
 		}
 
 		// Massage the data a bit.
-		$new_venue['Venue']         = $venue['name'];
+		$new_venue['Venue']   = $venue['name'];
 		$new_venue['Address'] = $venue['address'];
 		$new_venue['City']    = $venue['city'];
 		$new_venue['State']   = $venue['state'];

@@ -66,7 +66,6 @@ class Tickets extends Abstract_Step {
 			} else {
 				return self::add_message( $response, __( 'Event Tickets plugin activated.', 'the-events-calendar' ) );
 			}
-
 		}
 
 		$plugin_info = self::get_plugin_info();
@@ -99,7 +98,7 @@ class Tickets extends Abstract_Step {
 			return self::add_fail_message( $response, __( 'Failed to unzip plugin.', 'the-events-calendar' ) );
 		}
 
-		$install_result = self::install_plugin( $plugin_data);
+		$install_result = self::install_plugin( $plugin_data );
 
 		if ( is_wp_error( $install_result ) ) {
 			return self::add_fail_message( $response, __( 'Failed to install plugin.', 'the-events-calendar' ) );
@@ -109,6 +108,13 @@ class Tickets extends Abstract_Step {
 		return activate_plugin( $response );
 	}
 
+	/**
+	 * Get the plugin information from the WordPress plugin repo.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array|WP_Error The plugin information.
+	 */
 	public static function get_plugin_info() {
 		$plugin_slug     = 'event-tickets'; // Plugin slug for Event Tickets.
 		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
@@ -117,10 +123,28 @@ class Tickets extends Abstract_Step {
 		$wp_get = wp_safe_remote_get( $plugin_repo_url );
 	}
 
+	/**
+	 * Get the plugin data from the plugin info.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array|WP_Error $plugin_info The plugin info.
+	 *
+	 * @return array The plugin data.
+	 */
 	public static function get_plugin_data( $plugin_info ) {
 		return json_decode( wp_remote_retrieve_body( $plugin_info ), true );
 	}
 
+	/**
+	 * Download the plugin zip file.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array|WP_Error $plugin_data The plugin data.
+	 *
+	 * @return string The plugin file path.
+	 */
 	public static function download_plugin() {
 		// Required stuff for download_url().
 		require_once ABSPATH . '/wp-admin/includes/file.php';
@@ -133,7 +157,15 @@ class Tickets extends Abstract_Step {
 		return download_url( $download_url );
 	}
 
-
+	/**
+	 * Unzip the plugin zip file.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param string $plugin_file The plugin file path.
+	 *
+	 * @return bool|WP_Error True if the plugin was unzipped, WP_Error if not.
+	 */
 	public static function unzip_plugin( $plugin_file ) {
 		// Unzip the plugin into the plugins folder.
 		$unzip = unzip_file( $plugin_file, ABSPATH . 'wp-content/plugins' );
@@ -144,6 +176,15 @@ class Tickets extends Abstract_Step {
 		return $unzip;
 	}
 
+	/**
+	 * Install the plugin.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array|WP_Error $plugin_data The plugin data.
+	 *
+	 * @return bool|WP_Error True if the plugin was installed, WP_Error if not.
+	 */
 	public static function install_plugin( $plugin_data ) {
 		if ( ! function_exists( 'install_plugin_install_status' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
@@ -157,6 +198,15 @@ class Tickets extends Abstract_Step {
 		return install_plugin_install_status( $plugin_data );
 	}
 
+	/**
+	 * Activate the plugin.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Response $response The response object.
+	 *
+	 * @return WP_REST_Response
+	 */
 	public static function activate_plugin( $response ) {
 		// Activate the plugin.
 		$check = activate_plugin( 'event-tickets/event-tickets.php' );

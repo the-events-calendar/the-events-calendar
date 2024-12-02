@@ -136,7 +136,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	 */
 	public function admin_page_footer(): void {
 		// No op.
-		return;
 	}
 
 	/**
@@ -154,7 +153,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			'finished'              => (bool) get_transient( 'tec_onboarding_wizard_finished' ),
 			/* TEC settings */
 			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
-			'availableViews'        => tribe( Data::class)->get_available_views(),
+			'availableViews'        => tribe( Data::class )->get_available_views(),
 			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '$' ),
 			'date_format'           => get_option( 'date_format', 'F j, Y' ),
 			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
@@ -167,12 +166,12 @@ class Landing_Page extends Abstract_Admin_Page {
 			'action_nonce'          => wp_create_nonce( API::NONCE_ACTION ),
 			'_wpnonce'              => wp_create_nonce( 'wp_rest' ),
 			/* Linked posts */
-			'organizer'             => tribe( Data::class)->get_organizer_data(),
-			'venue'                 => tribe( Data::class)->get_venue_data(),
+			'organizer'             => tribe( Data::class )->get_organizer_data(),
+			'venue'                 => tribe( Data::class )->get_venue_data(),
 			/* Data */
-			'timezones'             => tribe( Data::class)->get_timezone_list(),
-			'countries'             => tribe( Data::class)->get_country_list(),
-			'currencies'            => tribe( Data::class)->get_currency_list(),
+			'timezones'             => tribe( Data::class )->get_timezone_list(),
+			'countries'             => tribe( Data::class )->get_country_list(),
+			'currencies'            => tribe( Data::class )->get_currency_list(),
 		];
 
 

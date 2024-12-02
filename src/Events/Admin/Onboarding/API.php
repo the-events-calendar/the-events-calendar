@@ -154,9 +154,7 @@ class API {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard           $wizard   The wizard object.
 	 */
 	public function set_transients( $request ): void {
 		$params      = $request->get_params();
@@ -173,7 +171,7 @@ class API {
 
 		// Set skipped tabs.
 		if ( $skipped !== false ) {
-			$skipped_tabs = get_transient( 'tec_onboarding_wizard_skipped_tabs' ) ?: [];
+			$skipped_tabs   = get_transient( 'tec_onboarding_wizard_skipped_tabs' ) ?: [];
 			$skipped_tabs[] = $skipped;
 			set_transient( 'tec_onboarding_wizard_skipped_tabs', array_unique( $skipped_tabs ), 0 );
 		} else {
@@ -187,6 +185,5 @@ class API {
 			// Set the finished transient.
 			set_transient( 'tec_onboarding_wizard_finished', true, 0 );
 		}
-
 	}
 }
