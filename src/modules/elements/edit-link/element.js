@@ -17,7 +17,7 @@ import { globals } from '@moderntribe/common/utils';
 import './style.pcss';
 
 const EditLink = ( {
-	postId = 0,j
+	postId = 0,
 	label = __( 'Edit', 'the-events-calendar' ),
 	target = '_blank',
 } ) => {
