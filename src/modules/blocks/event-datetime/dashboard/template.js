@@ -88,6 +88,7 @@ const renderMultiDayToggle = ( { multiDay, onMultiDayToggleChange } ) => {
 			label={ __( 'Multi-Day', 'the-events-calendar' ) }
 			checked={ multiDay }
 			onChange={ onMultiDayToggleChange }
+			__nextHasNoMarginBottom={true}
 		/>
 	);
 };
