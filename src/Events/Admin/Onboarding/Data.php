@@ -346,6 +346,23 @@ class Data {
 		return apply_filters( 'tec_events_onboarding_wizard_country_list', $countries );
 	}
 
+	public function find_country_by_key( $key ) {
+		if ( empty( $key ) ) {
+			return null;
+		}
+
+		$countries = $this->get_country_list();
+		// Use array_filter to locate the array containing the key
+		$filtered = array_filter($countries, fn($countryList) => array_key_exists($key, $countryList));
+
+		// If the filtered array is not empty, fetch the value
+		if (!empty($filtered)) {
+			$continent = reset($filtered); // Get the first match
+			return $continent[$key];
+		}
+		return null;
+	}
+
 	/**
 	 * Get list of timezones. Excludes manual offsets.
 	 *

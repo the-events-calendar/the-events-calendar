@@ -157,7 +157,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 				<BaseControl
 					__nextHasNoMarginBottom
 					id="time-zone"
-					label={__('Time Zone', 'the-events-calendar')}
+					label={__('Time zone', 'the-events-calendar')}
 					className="tec-events-onboarding__form-field"
 					>
 					<select
@@ -183,7 +183,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 				<BaseControl
 					__nextHasNoMarginBottom
 					id="date-format"
-					label={__('Date Format', 'the-events-calendar')}
+					label={__('Date format', 'the-events-calendar')}
 					className="tec-events-onboarding__form-field"
 					>
 					<select
@@ -202,7 +202,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 				<BaseControl
 					__nextHasNoMarginBottom
 					id="week-starts"
-					label={__('Your Week starts on', 'the-events-calendar')}
+					label={__('Your week starts on', 'the-events-calendar')}
 					className="tec-events-onboarding__form-field"
 					>
 					<select

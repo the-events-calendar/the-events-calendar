@@ -240,7 +240,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			<div className="tec-events-onboarding__form-wrapper">
 				<BaseControl
 					__nextHasNoMarginBottom
-					label={__('Venue Name', 'the-events-calendar')}
+					label={__('Venue name', 'the-events-calendar')}
 					id="venue-name"
 					className="tec-events-onboarding__form-field"
 				>
@@ -309,7 +309,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				</BaseControl>
 				<BaseControl
 					__nextHasNoMarginBottom
-					label={__('Zip / Postal code', 'the-events-calendar')}
+					label={__('Zip / postal code', 'the-events-calendar')}
 					id="venue-zip"
 					className="tec-events-onboarding__form-field"
 				>
