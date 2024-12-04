@@ -72,8 +72,6 @@ class Settings extends Abstract_Step {
 			'tribeEnableViews'      => $enabled_views,
 		];
 
-		error_log(print_r($settings, true));
-
 		foreach ( $settings as $key => $value ) {
 			// Don't save a falsy value here, as we don't want to override any defaults.
 			// And values should all be strings/ints!
@@ -95,10 +93,6 @@ class Settings extends Abstract_Step {
 			if ( in_array( $key, [ 'start_of_week', 'timezone_string', 'date_format' ] ) ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
-					error_log( print_r([
-						'temp' => $temp,
-						'value' => $value
-					], true) );
 					self::add_message(
 						$response,
 						sprintf(
@@ -134,10 +128,6 @@ class Settings extends Abstract_Step {
 			} else {
 				$temp = tribe_get_option( $key, $value );
 				if ( $temp === $value ) {
-					error_log( print_r([
-						'temp' => $temp,
-						'value' => $value
-					], true) );
 					self::add_message(
 						$response,
 						sprintf(
