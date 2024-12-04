@@ -58,7 +58,7 @@ class Tickets extends Abstract_Step {
 			return self::add_message( $response, __( 'Event Tickets plugin already installed and activated.', 'the-events-calendar' ) );
 		}
 
-		// Required stuff for several of the core functions
+		// Required stuff for several of the core functions.
 		require_once ABSPATH . '/wp-admin/includes/file.php';
 		require_once ABSPATH . '/wp-admin/includes/plugin.php';
 
@@ -149,7 +149,7 @@ class Tickets extends Abstract_Step {
 	 *
 	 * @return string The plugin file path.
 	 */
-	public static function download_plugin($plugin_data ) {
+	public static function download_plugin( $plugin_data ) {
 		WP_Filesystem();
 
 
