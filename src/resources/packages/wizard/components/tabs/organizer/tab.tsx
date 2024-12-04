@@ -34,7 +34,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const disabled = !!organizer.name || !!organizer.phone || !!organizer.website || !!organizer.email;
 
 	useEffect(() => {
-		// Define the event listener function
+		// Define the event listener function.
 		const handleBlur = (event) => {
 			setVisitedField(event.target.id);
 		};
@@ -50,7 +50,6 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			});
 		};
 	}, []);
-
 
 	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
 		if ( !field ) {
@@ -72,10 +71,16 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			'organizer-phone': isValidPhone(),
 			'organizer-website': isValidWebsite(),
 			'organizer-email': isValidEmail(),
-			'visit-at-least-one': visitedFields,
+			'visit-at-least-one': hasVisitedHere(),
 		};
 		setCanContinue(Object.values(fieldsToCheck).every((field) => !!field));
 	}, [name, phone, website, email, showPhone, showWebsite, showEmail, visitedFields]);
+
+	const hasVisitedHere = () => {
+		const fields = ['organizer-name', 'organizer-phone', 'organizer-website', 'organizer-email'];
+		const visited = fields.map(field => visitedFields[field]);
+		return visited.some(Boolean);
+	}
 
 	const isValidName = () => {
 		const inputId = 'organizer-name';
@@ -111,7 +116,6 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const isVisited = Boolean(visitedFields[inputId]);
 		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
 		const isValid = !isVisited || phonePattern.test(phone);
-		console.log(phone, phonePattern.test(phone));
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 

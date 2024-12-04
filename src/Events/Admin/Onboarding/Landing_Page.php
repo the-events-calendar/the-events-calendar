@@ -154,7 +154,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			/* TEC settings */
 			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
 			'availableViews'        => tribe( Data::class )->get_available_views(),
-			'defaultCurrencySymbol' => tribe_get_option( 'defaultCurrencySymbol', '$' ),
+			'currency'              => strtolower( tribe_get_option( 'defaultCurrencyCode', 'usd' ) ),
 			'date_format'           => get_option( 'date_format', 'F j, Y' ),
 			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			/* WP Settings */

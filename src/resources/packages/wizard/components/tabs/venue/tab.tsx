@@ -53,9 +53,16 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			'venue-country': isValidCountry(),
             'venue-phone': isValidPhone(),
             'venue-website': isValidWebsite(),
+			'visit-at-least-one': hasVisitedHere(),
 		};
 		setCanContinue(Object.values(fieldsToCheck).every((field) => !!field));
     }, [visitedFields, name, address, city, state, zip, country, phone, website, showPhone, showWebsite]);
+
+	const hasVisitedHere = () => {
+		const fields = ['venue-name', 'venue-address', 'venue-city', 'venue-state', 'venue-zip', 'venue-country', 'venue-phone', 'venue-website'];
+		const visited = fields.map(field => visitedFields[field]);
+		return visited.some(Boolean);
+	}
 
 
     useEffect(() => {
@@ -327,6 +334,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 						onChange={(e) => setCountry(e.target.value)}
 						defaultValue={country}
 						disabled={disabled}
+						id="venue-country"
 						>
 						{Object.entries(countries).map(([key, continents]) => (
 							<optgroup key={key} className="continent" label={key}>
@@ -390,7 +398,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 					<span className="tec-events-onboarding__invalid-label">{__('Venue website is invalid.', 'the-events-calendar')}</span>
 				</BaseControl>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} tabSettings={tabSettings} disabled={false}/></p>
+			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} tabSettings={tabSettings} disabled={!canContinue}/></p>
 			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={4}/></p>
 		</>
 	);

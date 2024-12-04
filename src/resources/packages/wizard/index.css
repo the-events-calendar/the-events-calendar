@@ -530,7 +530,7 @@
 	gap: var(--tec-spacer-2);
 	margin: 0 auto;
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
-	width: fit-content;
+	width: 100%;
 }
 
 @media (min-width: 1024px) {
@@ -651,5 +651,10 @@
 }
 
 .tec-events-onboarding__form-field.empty .tec-events-onboarding__invalid-label {
+	display: none;
+}
+
+.tec-events-onboarding__form-field.empty .tec-events-onboarding__field-description,
+.tec-events-onboarding__form-field.invalid .tec-events-onboarding__field-description {
 	display: none;
 }
