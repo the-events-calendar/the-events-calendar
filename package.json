@@ -70,7 +70,6 @@
   },
   "engines": { "node": "18.17.0", "npm": "9.6.7" },
   "devDependencies": {
-    "@the-events-calendar/product-taskmaster": "github:the-events-calendar/product-taskmaster#fix/TEC-5322-wp-67-packages",
     "@wordpress/hooks": "^1.3.2",
     "cross-env": "^5.2.0",
     "enzyme-to-json": "^3.6.1",
