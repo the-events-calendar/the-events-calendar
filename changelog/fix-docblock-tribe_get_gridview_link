@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Improved docblock for 'tribe_get_gridview_link' function.

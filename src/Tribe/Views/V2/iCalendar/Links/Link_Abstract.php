@@ -8,6 +8,7 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
+use JsonSerializable;
 use Tribe__Date_Utils as Dates;
 use \Tribe\Events\Views\V2\View;
 
@@ -17,7 +18,7 @@ use \Tribe\Events\Views\V2\View;
  * @since   5.12.0
  * @package Tribe\Events\Views\V2\iCalendar
  */
-abstract class Link_Abstract implements Link_Interface {
+abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 
 	/**
 	 * The (translated) text/label for the link.
@@ -131,15 +132,15 @@ abstract class Link_Abstract implements Link_Interface {
 			return $links;
 		}
 
-		$label   = $this->get_single_label( null );
-		$uri     = $this->get_uri( null );
+		$label = $this->get_single_label( null );
+		$uri   = $this->get_uri( null );
 
 		// Don't add invalid or "invisible" links.
 		if ( empty( $label ) || empty( $uri ) ) {
 			return $links;
 		}
 
-		$class   = sanitize_html_class( 'tribe-events-' . self::get_slug() );
+		$class                     = sanitize_html_class( 'tribe-events-' . self::get_slug() );
 		$links[ self::get_slug() ] = sprintf(
 			'<a class="tribe-events-button %1$s" href="%2$s" title="%3$s"  rel="noopener noreferrer noindex">%4$s</a>',
 			$class,
@@ -197,27 +198,30 @@ abstract class Link_Abstract implements Link_Interface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function get_label( View $view = null ) {
-		$slug = self::get_slug();
-
-		/**
-		 * Allows filtering of the labels for the Calendar view labels.
-		 *
-		 * @since 5.12.0
-		 *
-		 * @param string        $label    The label that will be displayed.
-		 * @param Link_Abstract $link_obj The link object the label is for.
-		 * @param View          $view     The current View object.
-		 *
-		 * @return string $label The label that will be displayed.
-		 */
-		return apply_filters( "tec_views_v2_subscribe_links_{$slug}_label", $this->label, $this, $view );
+	public function get_label( View $view = null ): string {
+		return $this->filter_get_label( $this->label(), $view );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Returns the label for the link.
+	 *
+	 * @since 6.8.2.1
+	 *
+	 * @return string
 	 */
-	public function get_single_label( View $view = null ) {
+	abstract protected function label(): string;
+
+	/**
+	 * Filters the label for the link.
+	 *
+	 * @since 6.8.2.1
+	 *
+	 * @param string    $value The label to filter.
+	 * @param View|null $view  The current View object.
+	 *
+	 * @return string
+	 */
+	protected function filter_get_label( string $value, View $view = null ): string {
 		$slug = self::get_slug();
 
 		/**
@@ -231,7 +235,50 @@ abstract class Link_Abstract implements Link_Interface {
 		 *
 		 * @return string $label The label that will be displayed.
 		 */
-		return apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_label", $this->single_label, $this, $view );
+		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_label", $value, $this, $view );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_single_label( View $view = null ): string {
+		return $this->filter_get_single_label( $this->single_label(), $view );
+	}
+
+	/**
+	 * Returns the label for the single event view.
+	 *
+	 * @since 6.8.2.1
+	 *
+	 * @return string
+	 */
+	abstract protected function single_label(): string;
+
+	/**
+	 * Filters the single label for the link.
+	 *
+	 * @since 6.8.2.1
+	 *
+	 * @param string    $value The label to filter.
+	 * @param View|null $view  The current View object.
+	 *
+	 * @return string
+	 */
+	protected function filter_get_single_label( string $value, View $view = null ): string {
+		$slug = self::get_slug();
+
+		/**
+		 * Allows filtering of the labels for the Single Event view labels.
+		 *
+		 * @since 5.12.0
+		 *
+		 * @param string        $single_label The label that will be displayed.
+		 * @param Link_Abstract $link_obj     The link object the label is for.
+		 * @param View          $view         The current View object.
+		 *
+		 * @return string $label The label that will be displayed.
+		 */
+		return (string) apply_filters( "tec_views_v2_single_subscribe_links_{$slug}_label", $value, $this, $view );
 	}
 
 	/**
@@ -312,7 +359,6 @@ abstract class Link_Abstract implements Link_Interface {
 			$view_url_args['tribe-bar-date'] = $view_url_args['eventDate'];
 		}
 
-
 		// Clean query params to only contain canonical arguments.
 		$canonical_args = [ 'post_type', 'tribe-bar-date', 'tribe_events_cat', 'post_tag' ];
 
@@ -361,5 +407,46 @@ abstract class Link_Abstract implements Link_Interface {
 		$passthrough_args = apply_filters( 'tec_views_v2_subscribe_links_url_args', $passthrough_args, $view );
 
 		return add_query_arg( urlencode_deep( $passthrough_args ), home_url( '/' ) );
+	}
+
+	/**
+	 * Magic method to allow getting the label and single_label properties.
+	 * These two params are deprecated and will be removed in a future release.
+	 *
+	 * @since 6.8.2.1
+	 *
+	 * @param string $name The property name.
+	 *
+	 * @return string|null
+	 */
+	public function __get( $name ) {
+		if ( 'label' === $name ) {
+			_doing_it_wrong( __METHOD__, 'The `label` property is deprecated and will be removed in a future release.', '6.8.2.1' );
+			return $this->get_label();
+		}
+
+		if ( 'single_label' === $name ) {
+			_doing_it_wrong( __METHOD__, 'The `single_label` property is deprecated and will be removed in a future release.', '6.8.2.1' );
+			return $this->get_single_label();
+		}
+
+		return null;
+	}
+
+	/**
+	 * Magic method surrounding the JSON serialization to enable the object to be serialized with all props.
+	 *
+	 * @since 6.8.2.1
+	 *
+	 * @return array
+	 */
+	#[\ReturnTypeWillChange]
+	public function jsonSerialize() {
+		return [
+			'label'        => $this->get_label(),
+			'single_label' => $this->get_single_label(),
+			'visible'      => $this->is_visible(),
+			'block_slug'   => $this->block_slug,
+		];
 	}
 }

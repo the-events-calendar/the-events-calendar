@@ -86,9 +86,14 @@ function tribe_get_next_event_link( $anchor = false ) {
 }
 
 /**
- * Get a link to the previous events
+ * Retrieves the URL for the previous events page.
  *
- * @return string
+ * This function generates a link to the previous events, considering whether the user is on the upcoming events view
+ * and which page they are currently on.
+ *
+ * @since 3.7
+ *
+ * @return string The URL to the previous events page.
  */
 function tribe_get_previous_events_link() {
 
@@ -124,12 +129,19 @@ function tribe_get_next_events_link() {
 }
 
 /**
- * Link to All Events
+ * Get a link to all events.
  *
- * Returns a link to the events URL
+ * Returns the main URL for the events. The URL can be optionally returned in a format suitable for display,
+ * where non-Latin characters are not URL-encoded.
  *
- * @param string $context Optional; defaults to 'href'. Can be 'display', in which case non-latin chars are not url-encoded.
- * @return string URL
+ * @since 2.0.1
+ *
+ * @param  string $context Optional. Defaults to 'href'. Can be 'display', in which case non-Latin characters are not URL-encoded.
+ * @param  string $link    The main events link.
+ *
+ * @return string          The URL to the events page.
+ *
+ * @hook   tribe_get_events_link Filters the main events link.
  */
 function tribe_get_events_link( $context = 'href' ) {
 	$plugin = Tribe__Events__Main::instance();
@@ -137,6 +149,8 @@ function tribe_get_events_link( $context = 'href' ) {
 	 * Allows for filtering the main events link.
 	 *
 	 * Returns a link to the events URL
+	 *
+	 * @since 3.8
 	 *
 	 * @param string $link The main events link.
 	 * @param string $context Defaults to 'href'. Can also be 'display', in which case non-latin chars are not url-encoded.
@@ -180,14 +194,15 @@ function tribe_get_view_permalink( $slug, $term = null ) {
 }
 
 /**
- * Link to Grid View
+ * Get a link to the Grid View.
  *
- * Returns a link to the general or category calendar grid view
+ * @hook tribe_get_gridview_link Filters the URL to the grid view.
  *
- * @param string $term Optional event category to link to.
+ * @since 2.0.1
  *
- * @return string URL
- * @todo rename
+ * @param  string|null $term   Optional. Event category to link to. Default is null.
+ *
+ * @return string      $output The generated URL to the grid view.
  */
 function tribe_get_gridview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();

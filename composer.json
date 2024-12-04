@@ -42,7 +42,8 @@
     "phpstan/phpstan-deprecation-rules": "^1.1",
     "phpstan/extension-installer": "^1.3",
     "szepeviktor/phpstan-wordpress": "*",
-    "automattic/jetpack-changelogger": "^4.2"
+    "automattic/jetpack-changelogger": "^4.2",
+    "slope-it/clock-mock": "^0.4.0"
   },
   "config": {
     "preferred-install": "dist",

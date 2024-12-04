@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Correct template override path to match docblocks for `event-export` directory. [TEC-5326]
