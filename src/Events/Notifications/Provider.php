@@ -34,6 +34,11 @@ class Provider extends Service_Provider {
 	 * @since 6.4.0
 	 */
 	public function render_icon() {
+		// TODO: Remove this check when we have a proper way to register it, like register_on_action.
+		if ( ! class_exists( Notifications::class ) ) {
+			return;
+		}
+
 		return $this->container->get( Notifications::class )->render_icon();
 	}
 }
