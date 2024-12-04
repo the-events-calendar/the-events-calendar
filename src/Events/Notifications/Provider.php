@@ -2,7 +2,7 @@
 /**
  * Service Provider for interfacing with TEC\Common\Notifications.
  *
- * @since   TBD
+ * @since   6.4.0
  *
  * @package TEC\Events\Notifications
  */
@@ -14,7 +14,7 @@ use TEC\Common\Contracts\Service_Provider;
 /**
  * Class Provider
  *
- * @since   TBD
+ * @since   6.4.0
  * @package TEC\Events\Notifications
  */
 class Provider extends Service_Provider {
@@ -22,7 +22,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Handles the registering of the provider.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function register() {
 		add_action( 'admin_footer', [ $this, 'render_icon' ] );
@@ -31,7 +31,7 @@ class Provider extends Service_Provider {
 	/**
 	 * Renders the Notification icon.
 	 *
-	 * @since TBD
+	 * @since 6.4.0
 	 */
 	public function render_icon() {
 		return $this->container->get( Notifications::class )->render_icon();
