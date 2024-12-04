@@ -60,6 +60,8 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 						closeModal();
 					}, 1000);
 				} else {
+					setSaving(false);
+
 					moveToNextTab();
 				}
 			}
