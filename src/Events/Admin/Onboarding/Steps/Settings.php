@@ -11,6 +11,7 @@ namespace TEC\Events\Admin\Onboarding\Steps;
 
 use WP_REST_Response;
 use WP_REST_Request;
+use TEC\Events\Admin\Onboarding\Data;
 
 /**
  * Class Settings
@@ -53,8 +54,17 @@ class Settings extends Abstract_Step {
 			);
 		}
 
+		$currency_code = $params['defaultCurrencySymbol'] ?? '';
+
+		// Convert code to symbol.
+		if ( ! empty( $currency_code ) ) {
+			$currencies = tribe( Data::class )->get_currency_list();
+			$currency = $currencies[ $currency_code ]['symbol'] ?? '';
+		}
+
 		$settings = [
-			'defaultCurrencySymbol' => $params['defaultCurrencySymbol'] ?? false,
+			'defaultCurrencyCode'   => $currency_code,
+			'defaultCurrencySymbol' => $currency,
 			'date_format'           => $params['date_format'] ?? false,
 			'timezone_string'       => $params['timezone_string'] ?? false,
 			'start_of_week'         => $params['start_of_week'] ?? false,
@@ -69,7 +79,7 @@ class Settings extends Abstract_Step {
 					$response,
 					sprintf(
 						/* translators: %s: the key of the setting */
-						__( "Did not attempt saving option %s.", 'the-events-calendar' ),
+						__( 'Did not attempt saving option %s.', 'the-events-calendar' ),
 						$key
 					)
 				);
@@ -82,10 +92,13 @@ class Settings extends Abstract_Step {
 			if ( 'start_of_week' === $key || 'timezone_string' === $key || 'date_format' ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
-					self::add_message( $response, sprintf(
-						/* translators: %s: the key of the setting */
-						__( "The %s option is already set to the requested value.", 'the-events-calendar' ) ),
-						$key
+					self::add_message(
+						$response,
+						sprintf(
+							/* translators: %s: the key of the setting */
+							__( "The %s option is already set to the requested value.", 'the-events-calendar' ),
+							$key
+						),
 					);
 					continue;
 				} else {
@@ -96,7 +109,7 @@ class Settings extends Abstract_Step {
 							$response,
 							sprintf(
 								/* translators: %s: the key of the setting */
-								__( "Failed to save option %s.", 'the-events-calendar' ),
+								__( 'Failed to save option %s.', 'the-events-calendar' ),
 								$key
 							)
 						);
@@ -105,7 +118,7 @@ class Settings extends Abstract_Step {
 							$response,
 							sprintf(
 								/* translators: %s: the key of the setting */
-								__( "Successfully saved option %s.", 'the-events-calendar' ),
+								__( 'Successfully saved option %s.', 'the-events-calendar' ),
 								$key
 							)
 						);
@@ -118,7 +131,7 @@ class Settings extends Abstract_Step {
 						$response,
 						/* translators: %s: the key of the setting */
 						sprintf(
-							__( "The %s setting is already set to the requested value.", 'the-events-calendar' ),
+							__( 'The %s setting is already set to the requested value.', 'the-events-calendar' ),
 							$key
 						)
 					);
@@ -131,16 +144,16 @@ class Settings extends Abstract_Step {
 							$response,
 							sprintf(
 								/* translators: %s: the key of the setting */
-								__( "Failed to save setting %s.", 'the-events-calendar' ),
+								__( 'Failed to save setting %s.', 'the-events-calendar' ),
 								$key
-)
+							)
 						);
 					} else {
 						self::add_message(
 							$response,
 							sprintf(
 								/* translators: %s: the key of the setting */
-								__( "Successfully saved setting %s.", 'the-events-calendar' ),
+								__( 'Successfully saved setting %s.', 'the-events-calendar' ),
 								$key
 							)
 						);
