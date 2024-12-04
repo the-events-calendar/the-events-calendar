@@ -148,30 +148,30 @@ class Landing_Page extends Abstract_Admin_Page {
 	public function get_initial_data(): array {
 		$initial_data = [
 			/* Wizard History */
-			'begun'                 => (bool) get_transient( 'tec_onboarding_wizard_begun' ),
-			'current_step'          => absint( get_transient( 'tec_onboarding_wizard_current_step' ) ),
-			'finished'              => (bool) get_transient( 'tec_onboarding_wizard_finished' ),
+			'begun'            => (bool) get_transient( 'tec_onboarding_wizard_begun' ),
+			'current_step'     => absint( get_transient( 'tec_onboarding_wizard_current_step' ) ),
+			'finished'         => (bool) get_transient( 'tec_onboarding_wizard_finished' ),
 			/* TEC settings */
-			'tribeEnableViews'      => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
-			'availableViews'        => tribe( Data::class )->get_available_views(),
-			'currency'              => strtolower( tribe_get_option( 'defaultCurrencyCode', 'usd' ) ),
-			'date_format'           => get_option( 'date_format', 'F j, Y' ),
-			'opt-in-status'         => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			'tribeEnableViews' => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
+			'availableViews'   => tribe( Data::class )->get_available_views(),
+			'currency'         => strtolower( tribe_get_option( 'defaultCurrencyCode', 'usd' ) ),
+			'date_format'      => get_option( 'date_format', 'F j, Y' ),
+			'opt-in-status'    => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			/* WP Settings */
-			'timezone_string'       => get_option( 'timezone_string', false ),
-			'start_of_week'         => get_option( 'start_of_week', false ),
+			'timezone_string'  => get_option( 'timezone_string', false ),
+			'start_of_week'    => get_option( 'start_of_week', false ),
 			/* ET install step */
-			'event-tickets'         => Installer::get()->is_installed( 'event-tickets' ),
+			'event-tickets'    => Installer::get()->is_installed( 'event-tickets' ),
 			/* nonces */
-			'action_nonce'          => wp_create_nonce( API::NONCE_ACTION ),
-			'_wpnonce'              => wp_create_nonce( 'wp_rest' ),
+			'action_nonce'     => wp_create_nonce( API::NONCE_ACTION ),
+			'_wpnonce'         => wp_create_nonce( 'wp_rest' ),
 			/* Linked posts */
-			'organizer'             => tribe( Data::class )->get_organizer_data(),
-			'venue'                 => tribe( Data::class )->get_venue_data(),
+			'organizer'        => tribe( Data::class )->get_organizer_data(),
+			'venue'            => tribe( Data::class )->get_venue_data(),
 			/* Data */
-			'timezones'             => tribe( Data::class )->get_timezone_list(),
-			'countries'             => tribe( Data::class )->get_country_list(),
-			'currencies'            => tribe( Data::class )->get_currency_list(),
+			'timezones'        => tribe( Data::class )->get_timezone_list(),
+			'countries'        => tribe( Data::class )->get_country_list(),
+			'currencies'       => tribe( Data::class )->get_currency_list(),
 		];
 
 

@@ -154,7 +154,7 @@ class API {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param WP_REST_Request  $request  The request object.
+	 * @param WP_REST_Request $request The request object.
 	 */
 	public function set_transients( $request ): void {
 		$params      = $request->get_params();

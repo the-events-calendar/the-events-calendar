@@ -54,8 +54,8 @@ class Settings extends Abstract_Step {
 			);
 		}
 
-
 		$currency_code = $params['currency'] ?? '';
+		$currency 	   = '';
 
 		// Convert code to symbol.
 		if ( ! empty( $currency_code ) ) {
