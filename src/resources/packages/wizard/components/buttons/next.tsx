@@ -54,7 +54,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 				updateSettings(tabSettings);
 
 				// Move to the next tab.
-				if ( tabSettings.currentTab === 5) {
+				if ( tabSettings.currentTab === 5 ) {
 					setSaving(false);
 					setTimeout(() => {
 						closeModal();
@@ -64,6 +64,12 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 
 					moveToNextTab();
 				}
+			} else if ( tabSettings.currentTab === 5 ) {
+				// If we're on the last tab and the install fails, close the modal.
+				setSaving(false);
+				setTimeout(() => {
+					closeModal();
+				}, 1000);
 			}
 
 			setSaving(false);

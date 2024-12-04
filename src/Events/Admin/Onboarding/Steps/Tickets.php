@@ -58,6 +58,10 @@ class Tickets extends Abstract_Step {
 			return self::add_message( $response, __( 'Event Tickets plugin already installed and activated.', 'the-events-calendar' ) );
 		}
 
+		// Required stuff for several of the core functions
+		require_once ABSPATH . '/wp-admin/includes/file.php';
+		require_once ABSPATH . '/wp-admin/includes/plugin.php';
+
 		if ( file_exists( WP_PLUGIN_DIR . '/event-tickets/event-tickets.php' ) ) {
 			$activate = activate_plugin( 'event-tickets/event-tickets.php' );
 
@@ -82,7 +86,7 @@ class Tickets extends Abstract_Step {
 
 		global $wp_filesystem;
 
-		$plugin_file = self::download_plugin( $response );
+		$plugin_file = self::download_plugin( $plugin_data );
 
 		if ( is_wp_error( $plugin_file ) ) {
 			return self::add_fail_message( $response, __( 'Failed to download plugin zip.', 'the-events-calendar' ) );
@@ -105,7 +109,7 @@ class Tickets extends Abstract_Step {
 		}
 
 		// Activate the plugin.
-		return activate_plugin( $response );
+		return self::activate_plugin( $response );
 	}
 
 	/**
@@ -120,7 +124,7 @@ class Tickets extends Abstract_Step {
 		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
 
 		// Fetch plugin information from the WordPress plugin repo.
-		$wp_get = wp_safe_remote_get( $plugin_repo_url );
+		return wp_safe_remote_get( $plugin_repo_url );
 	}
 
 	/**
@@ -141,12 +145,11 @@ class Tickets extends Abstract_Step {
 	 *
 	 * @since 7.0.0
 	 *
+	 * @param array $plugin_data The plugin data.
+	 *
 	 * @return string The plugin file path.
 	 */
-	public static function download_plugin() {
-		// Required stuff for download_url().
-		require_once ABSPATH . '/wp-admin/includes/file.php';
-
+	public static function download_plugin($plugin_data ) {
 		WP_Filesystem();
 
 
@@ -206,6 +209,10 @@ class Tickets extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function activate_plugin( $response ) {
+		if ( ! function_exists( 'activate_plugin' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
 		// Activate the plugin.
 		$check = activate_plugin( 'event-tickets/event-tickets.php' );
 

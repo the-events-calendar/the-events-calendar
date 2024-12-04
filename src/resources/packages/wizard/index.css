@@ -600,17 +600,28 @@
 	width: 100%;
 }
 
+.tec-events-onboarding__form-wrapper .components-checkbox-control__input[type=checkbox]:checked,
+.tec-events-onboarding__form-wrapper .components-checkbox-control__input[type=checkbox]:indeterminate {
+	background: var(--tec-wp-core-blue-50);
+	border-color: var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__form-wrapper  .components-checkbox-control__input[type=checkbox]:focus {
+	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) #fff, 0 0 0 calc(var(--wp-admin-border-width-focus) * 2) var(--tec-wp-core-blue-50);
+}
+
 .components-button.is-primary {
 	background: none;
 	background-color: var(--tec-wp-core-blue-50);
 }
 
-.components-button.is-tertiary {
+.components-button.is-tertiary,
+.tec-events-onboarding__modal a {
 	color: var(--tec-wp-core-blue-50);
 }
 
-.tec-events-onboarding__modal a {
-	color: var(--tec-wp-core-blue-50);
+.components-button.is-tertiary:focus:not(:disabled) {
+	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--tec-wp-core-blue-50);
 }
 
 .tec-events-onboarding__modal .components-select-control__input:focus ~ .components-input-control__backdrop {
