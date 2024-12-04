@@ -141,8 +141,6 @@ class Tickets extends Abstract_Step {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param array|WP_Error $plugin_data The plugin data.
-	 *
 	 * @return string The plugin file path.
 	 */
 	public static function download_plugin() {
