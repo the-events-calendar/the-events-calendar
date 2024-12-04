@@ -54,22 +54,25 @@ class Settings extends Abstract_Step {
 			);
 		}
 
-		$currency_code = $params['defaultCurrencySymbol'] ?? '';
+
+		$currency_code = $params['currency'] ?? '';
 
 		// Convert code to symbol.
 		if ( ! empty( $currency_code ) ) {
 			$currencies = tribe( Data::class )->get_currency_list();
-			$currency = $currencies[ $currency_code ]['symbol'] ?? '';
+			$currency   = $currencies[ $currency_code ]['symbol'] ?? '';
 		}
 
 		$settings = [
-			'defaultCurrencyCode'   => $currency_code,
+			'defaultCurrencyCode'   => strtoupper( $currency_code ),
 			'defaultCurrencySymbol' => $currency,
 			'date_format'           => $params['date_format'] ?? false,
 			'timezone_string'       => $params['timezone_string'] ?? false,
 			'start_of_week'         => $params['start_of_week'] ?? false,
 			'tribeEnableViews'      => $enabled_views,
 		];
+
+		error_log(print_r($settings, true));
 
 		foreach ( $settings as $key => $value ) {
 			// Don't save a falsy value here, as we don't want to override any defaults.
@@ -88,15 +91,19 @@ class Settings extends Abstract_Step {
 
 			$updated = false;
 
-			// Start of week and timezone are WP options, the rest are TEC settings.
-			if ( 'start_of_week' === $key || 'timezone_string' === $key || 'date_format' ) {
+			// Start of week and timezone and date_format are WP options, the rest are TEC settings.
+			if ( in_array( $key, [ 'start_of_week', 'timezone_string', 'date_format' ] ) ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
+					error_log( print_r([
+						'temp' => $temp,
+						'value' => $value
+					], true) );
 					self::add_message(
 						$response,
 						sprintf(
 							/* translators: %s: the key of the setting */
-							__( "The %s option is already set to the requested value.", 'the-events-calendar' ),
+							__( 'The %s option is already set to the requested value.', 'the-events-calendar' ),
 							$key
 						),
 					);
@@ -127,10 +134,14 @@ class Settings extends Abstract_Step {
 			} else {
 				$temp = tribe_get_option( $key, $value );
 				if ( $temp === $value ) {
+					error_log( print_r([
+						'temp' => $temp,
+						'value' => $value
+					], true) );
 					self::add_message(
 						$response,
-						/* translators: %s: the key of the setting */
 						sprintf(
+							/* translators: %s: the key of the setting */
 							__( 'The %s setting is already set to the requested value.', 'the-events-calendar' ),
 							$key
 						)
