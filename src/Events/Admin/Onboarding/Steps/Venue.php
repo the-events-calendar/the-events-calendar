@@ -12,6 +12,7 @@ namespace TEC\Events\Admin\Onboarding\Steps;
 use Tribe__Events__API;
 use WP_REST_Response;
 use WP_REST_Request;
+use TEC\Events\Admin\Onboarding\Data;
 
 /**
  * Class Venue
@@ -55,15 +56,21 @@ class Venue extends Abstract_Step {
 			return self::add_message( $response, __( 'Existing venue. Step skipped.', 'the-events-calendar' ) );
 		}
 
+		$country = $venue['country'] ?? '';
+		$country = tribe( Data::class )->find_country_by_key( $country);
+
 		// Massage the data a bit.
-		$new_venue['Venue']   = $venue['name'];
-		$new_venue['Address'] = $venue['address'];
-		$new_venue['City']    = $venue['city'];
-		$new_venue['State']   = $venue['state'];
-		$new_venue['Zip']     = $venue['zip'];
-		$new_venue['Country'] = $venue['country'];
-		$new_venue['Phone']   = $venue['phone'];
-		$new_venue['Website'] = $venue['website'];
+		$new_venue['Origin']        = 'tec-onboarding';
+		$new_venue['Venue']         = $venue['name'];
+		$new_venue['Address']       = $venue['address'];
+		$new_venue['City']          = $venue['city'];
+		$new_venue['StateProvince'] = $venue['state'];
+		$new_venue['State']         = $venue['state'];
+		$new_venue['Province']      = $venue['state'];
+		$new_venue['Zip']           = $venue['zip'];
+		$new_venue['Country']       = $venue['country'];
+		$new_venue['Phone']         = $venue['phone'];
+		$new_venue['URL']           = $venue['website'];
 
 		$post_id = Tribe__Events__API::createVenue( $new_venue );
 
