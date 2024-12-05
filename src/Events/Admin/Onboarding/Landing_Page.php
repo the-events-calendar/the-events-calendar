@@ -102,7 +102,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @since 7.0.0
 	 */
-	public function admin_page_main(): void {
+	public function admin_page_main_content(): void {
 		ob_start();
 		?>
 			<div class="tec-admin-page__content-section">
