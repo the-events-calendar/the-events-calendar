@@ -166,6 +166,7 @@ class API {
 
 		// Set the begun transient. Set to false if we skipped at the start.
 		tribe_update_option( 'tec_onboarding_wizard_begun', (bool) $begun );
+		update_option( 'tec_onboarding_wizard_data', $params );
 
 		// Set the current step transient.
 		tribe_update_option( 'tec_onboarding_wizard_current_tab', absint( $current_tab ) );
