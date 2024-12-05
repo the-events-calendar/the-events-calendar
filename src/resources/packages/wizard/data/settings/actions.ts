@@ -7,7 +7,6 @@ import { apiFetch } from '@wordpress/data';
 
 const {
 	CREATE,
-	HYDRATE,
 	INITIALIZE,
 	IS_SAVING,
 	SAVE_SETTINGS_ERROR,
@@ -15,6 +14,8 @@ const {
 	SAVE_SETTINGS_SUCCESS,
 	UPDATE,
 	SET_VISITED_FIELDS,
+	SKIP_TAB,
+	COMPLETE_TAB,
 } = TYPES;
 
 interface Settings {
@@ -54,13 +55,6 @@ export const updateSettings = settings => {
     };
 };
 
-export const hydrate = settings => {
-	return {
-		type: HYDRATE,
-		settings
-	};
-};
-
 export const setSaving = (isSaving) => {
 	return {
 		type: IS_SAVING,
@@ -72,5 +66,19 @@ export const setVisitedField = (visitedFieldId) => {
 	return {
 		type: SET_VISITED_FIELDS,
 		payload: visitedFieldId
+	};
+}
+
+export const skipTab = (tabId) => {
+	return {
+		type: SKIP_TAB,
+		payload: tabId
+	};
+}
+
+export const completeTab = (tabId) => {
+	return {
+		type: COMPLETE_TAB,
+		payload: tabId
 	};
 }

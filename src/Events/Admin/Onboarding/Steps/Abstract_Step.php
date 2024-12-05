@@ -47,11 +47,24 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 		}
 
 		// Ensure we should be processing this step.
-		if ( ! static::tab_check( $request ) ) {
+		if ( ! static::should_process( $request ) ) {
 			return $response;
 		}
 
 		return static::process( $response, $request );
+	}
+
+	/**
+	 * Check if the current tab is one we should be processing.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 *
+	 * @return bool
+	 */
+	public static function should_process( $request ) {
+		return static::tab_check( $request );
 	}
 
 	/**

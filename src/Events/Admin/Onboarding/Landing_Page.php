@@ -148,15 +148,17 @@ class Landing_Page extends Abstract_Admin_Page {
 	public function get_initial_data(): array {
 		$initial_data = [
 			/* Wizard History */
-			'begun'            => (bool) get_transient( 'tec_onboarding_wizard_begun' ),
-			'current_step'     => absint( get_transient( 'tec_onboarding_wizard_current_step' ) ),
-			'finished'         => (bool) get_transient( 'tec_onboarding_wizard_finished' ),
+			'begun'            => (bool) tribe_get_option( 'tec_onboarding_wizard_begun', false ),
+			'currentTab'       => absint( tribe_get_option( 'tec_onboarding_wizard_current_tab', 0 ) ),
+			'finished'         => (bool) tribe_get_option( 'tec_onboarding_wizard_finished', false ),
+			'completedTabs'    => (array) tribe_get_option( 'tec_onboarding_wizard_completed_tabs', [] ),
+			'skippedTabs'      => (array) tribe_get_option( 'tec_onboarding_wizard_skipped_tabs', [] ),
 			/* TEC settings */
 			'tribeEnableViews' => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
 			'availableViews'   => tribe( Data::class )->get_available_views(),
 			'currency'         => strtolower( tribe_get_option( 'defaultCurrencyCode', 'usd' ) ),
 			'date_format'      => get_option( 'date_format', 'F j, Y' ),
-			'opt-in-status'    => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			'optin'    => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			/* WP Settings */
 			'timezone_string'  => get_option( 'timezone_string', false ),
 			'start_of_week'    => get_option( 'start_of_week', false ),

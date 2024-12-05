@@ -13,11 +13,9 @@ const OnboardingModal = ({ bootData }) => {
 	const { initializeSettings } = useDispatch(SETTINGS_STORE_KEY);
 	initializeSettings(bootData);
 
-	const begun = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("begun"));
 	const finished = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("finished"));
 	const isOpen = !finished ? true : useSelect((select) => select(MODAL_STORE_KEY).getModalState());
 	const { closeModal } = useDispatch(MODAL_STORE_KEY);
-	const { openModal } = useDispatch(MODAL_STORE_KEY);
 
 	return (
 		<>

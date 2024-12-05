@@ -42,7 +42,7 @@ class Optin extends Abstract_Step {
 	 */
 	public static function process( $response, $request ): WP_REST_Response {
 		$current_optin = tribe_get_option( 'opt-in-status', false );
-		$optin         = $request->get_param( 'opt-in-status' );
+		$optin         = $request->get_param( 'optin' );
 
 		if ( $current_optin === $optin ) {
 			return self::add_message( $response, __( 'Opt-in status is already set to the requested value.', 'the-events-calendar' ) );

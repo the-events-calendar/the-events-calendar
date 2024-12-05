@@ -9,7 +9,7 @@ import SkipButton from '../../buttons/skip';
 import VenueIcon from './img/venue';
 
 interface Venue {
-	id: number;
+	venueId: number;
 	name: string;
 	address: string;
 	city: string;
@@ -28,8 +28,8 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 
 	// Check if any fields are filled.
-	const disabled = !!venue.name || !!venue.address || !!venue.city || !!venue.state || !!venue.zip || !!venue.country || !!venue.phone || !!venue.website;
-	const [venueId, setId] = useState(venue.id || 0);
+	const disabled = !!venue.venueId;
+	const [venueId, setId] = useState(venue.venueId || false);
 	const [name, setName] = useState(venue.name || '');
 	const [address, setAddress] = useState(venue.address || '');
 	const [city, setCity] = useState(venue.city || '');
@@ -60,8 +60,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const hasVisitedHere = () => {
 		const fields = ['venue-name', 'venue-address', 'venue-city', 'venue-state', 'venue-zip', 'venue-country', 'venue-phone', 'venue-website'];
-		const visited = fields.map(field => visitedFields[field]);
-		return visited.some(Boolean);
+		return fields.some(field => visitedFields.includes(field));
 	}
 
 
@@ -85,7 +84,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidName = () => {
 		const inputId = 'venue-name';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || !!name;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -99,7 +98,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidAddress = () => {
 		const inputId = 'venue-address';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || !!address;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -113,7 +112,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidCity = () => {
 		const inputId = 'venue-city';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || !!city;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -127,7 +126,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidState = () => {
 		const inputId = 'venue-state';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || !!state;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -142,7 +141,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidZip = () => {
 		const inputId = 'venue-zip';
 		const zipPattern = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || ( !!zip && zipPattern.test(zip) );
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -156,7 +155,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidCountry = () => {
 		const inputId = 'venue-country';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || !!country;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -171,7 +170,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidPhone = () => {
 		const inputId = 'venue-phone';
 		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || (!showPhone || ( !!phone && phonePattern.test(phone) ));
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -186,7 +185,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidWebsite = () => {
 		const inputId = 'venue-website';
 		const websitePattern = /^(http|https):\/\/[^ "]+?$/;
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || (!showWebsite || ( !!website && websitePattern.test(website) ));
 		const fieldEle = document.getElementById('venue-website');
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -347,7 +346,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				</BaseControl>
 				<span className="tec-events-onboarding__required-label">{__('Venue country is required.', 'the-events-calendar')}</span>
 				<span className="tec-events-onboarding__invalid-label">{__('Venue country is invalid.', 'the-events-calendar')}</span>
-				{showPhone ? '' :
+				{!venueId && showPhone ? '' :
 				<Button
 					variant="tertiary"
 					className="tec-events-onboarding__form-field-trigger"
@@ -372,7 +371,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 					<span className="tec-events-onboarding__required-label">{__('Venue phone is required.', 'the-events-calendar')}</span>
 					<span className="tec-events-onboarding__invalid-label">{__('Venue phone is invalid.', 'the-events-calendar')}</span>
 				</BaseControl>
-				{showWebsite ? '' :
+				{!venueId && showWebsite ? '' :
 				<Button
 					variant="tertiary"
 					className="tec-events-onboarding__form-field-trigger"

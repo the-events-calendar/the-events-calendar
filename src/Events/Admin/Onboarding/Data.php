@@ -28,11 +28,11 @@ class Data {
 		}
 
 		return [
-			'id'      => $organizer_id,
-			'name'    => get_the_title( $organizer_id ),
-			'email'   => get_post_meta( $organizer_id, '_OrganizerEmail', true ),
-			'phone'   => get_post_meta( $organizer_id, '_OrganizerPhone', true ),
-			'website' => get_post_meta( $organizer_id, '_OrganizerWebsite', true ),
+			'organizerId' => $organizer_id,
+			'name'        => get_the_title( $organizer_id ),
+			'email'       => get_post_meta( $organizer_id, '_OrganizerEmail', true ),
+			'phone'       => get_post_meta( $organizer_id, '_OrganizerPhone', true ),
+			'website'     => get_post_meta( $organizer_id, '_OrganizerWebsite', true ),
 		];
 	}
 
@@ -50,7 +50,7 @@ class Data {
 		}
 
 		return [
-			'id'      => $venue_id,
+			'venueId' => $venue_id,
 			'name'    => get_the_title( $venue_id ),
 			'address' => get_post_meta( $venue_id, '_VenueAddress', true ),
 			'city'    => get_post_meta( $venue_id, '_VenueCity', true ),
