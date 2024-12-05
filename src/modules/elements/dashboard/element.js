@@ -16,7 +16,7 @@ import './style.pcss';
  * @type {{up: string, down: string}}
  */
 export const directions = {
-	up: 'up',
+	up  : 'up',
 	down: 'down',
 };
 
@@ -25,10 +25,15 @@ export const directions = {
  *
  * <Dashboard isOpen={true} className="custom" direction={directions.up}>
  *   <AnyComponent></AnyComponent>
- * </Dashboard
+ * </Dashboard>
  */
 
-const Dashboard = ( { className, direction, isOpen, children } ) => {
+const Dashboard = ( {
+	className = '',
+	direction = directions.down,
+	isOpen = false,
+	children = null
+} ) => {
 	const containerClasses = classNames(
 		'tribe-editor__dashboard__container',
 		`tribe-editor__dashboard__container--${ direction }`,
@@ -45,18 +50,11 @@ const Dashboard = ( { className, direction, isOpen, children } ) => {
 	);
 };
 
-Dashboard.defaultProps = {
-	isOpen: false,
-	className: '',
-	direction: directions.down,
-	children: null,
-};
-
 Dashboard.propTypes = {
-	isOpen: PropTypes.bool,
+	isOpen   : PropTypes.bool,
 	className: PropTypes.string,
 	direction: PropTypes.oneOf( Object.keys( directions ) ),
-	children: PropTypes.element,
+	children : PropTypes.element,
 };
 
 export default Dashboard;

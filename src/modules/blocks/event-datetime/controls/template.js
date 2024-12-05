@@ -54,6 +54,7 @@ const EventDateTimeControls = ( props ) => {
 					onChange={ setSeparatorDate }
 					className="tribe-editor__date-time__date-time-separator-setting"
 					maxLength="2"
+					__nextHasNoMarginBottom={true}
 				/>
 				<TextControl
 					label={ __( 'Time Range Separator', 'the-events-calendar' ) }
@@ -61,6 +62,7 @@ const EventDateTimeControls = ( props ) => {
 					onChange={ setSeparatorTime }
 					className="tribe-editor__date-time__time-range-separator-setting"
 					maxLength="2"
+					__nextHasNoMarginBottom={true}
 				/>
 				<SelectControl
 					label={ __( 'Time Zone', 'the-events-calendar' ) }
@@ -68,11 +70,13 @@ const EventDateTimeControls = ( props ) => {
 					onChange={ setTimeZone }
 					options={ timezonesAsSelectData() }
 					className="tribe-editor__date-time__time-zone-setting"
+					__nextHasNoMarginBottom={true}
 				/>
 				<ToggleControl
 					label={ __( 'Show Time Zone', 'the-events-calendar' ) }
 					checked={ attributes.showTimeZone }
 					onChange={ setShowTimeZone }
+					__nextHasNoMarginBottom={true}
 				/>
 			</PanelBody>
 		</InspectorControls>

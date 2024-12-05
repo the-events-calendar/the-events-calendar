@@ -49,7 +49,7 @@ class EventOrganizer extends PureComponent {
 		setSubmit: PropTypes.func,
 		fields: PropTypes.object,
 		organizers: PropTypes.array,
-		store: PropTypes.string,
+		store: PropTypes.object,
 		postType: PropTypes.string,
 		volatile: PropTypes.bool,
 		attributes: PropTypes.object,
