@@ -24,12 +24,13 @@ use TEC\Events\Admin\Onboarding\Data;
 class Venue extends Abstract_Step {
 	/**
 	 * The tab number for this step.
+	 * Note: this is set to the same as the Tickets tab as we don't want to process a venue until the end.
 	 *
 	 * @since 7.0.0
 	 *
 	 * @var int
 	 */
-	public const TAB_NUMBER = 4;
+	public const TAB_NUMBER = 5;
 
 	/**
 	 * Process the venue data.
@@ -52,12 +53,12 @@ class Venue extends Abstract_Step {
 		$venue = $params['venue'];
 
 		// If we already have a venue, we're not editing it here.
-		if ( ! empty( $venue['id'] ) ) {
+		if ( ! empty( $venue['venueId'] ) ) {
 			return self::add_message( $response, __( 'Existing venue. Step skipped.', 'the-events-calendar' ) );
 		}
 
 		$country = $venue['country'] ?? '';
-		$country = tribe( Data::class )->find_country_by_key( $country);
+		$country = tribe( Data::class )->find_country_by_key( $country );
 
 		// Massage the data a bit.
 		$new_venue['Origin']        = 'tec-onboarding';

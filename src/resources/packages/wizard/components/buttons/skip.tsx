@@ -8,33 +8,29 @@ import { MODAL_STORE_KEY, SETTINGS_STORE_KEY } from "../../data";
 import { API_ENDPOINT } from "../../data/settings/constants";
 
 const SkipButton = ({skipToNextTab, currentTab}) => {
-	const actionNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("action_nonce"), []);
-	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
+	const skipTab = useDispatch(SETTINGS_STORE_KEY).skipTab;
+	const getSettings = useSelect(select => select(SETTINGS_STORE_KEY).getSettings);
+	const getCompletedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getCompletedTabs);
+	const getSkippedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getSkippedTabs);
+	const getVisitedFields = useSelect(SETTINGS_STORE_KEY).getVisitedFields;
 	const [isClicked, setClicked] = useState(false);
-	const [isSaving, setSaving] = useState(false);
 
 	useEffect(() => {
 		const handleSkipWizard = async () => {
-			setSaving(true);
-			// Add the wpnonce to the apiFetch middleware so we don't have to mess with it.
-			apiFetch.use( apiFetch.createNonceMiddleware( wpNonce ) );
+			skipTab(currentTab);
 
 			const result = await apiFetch({
 				method: "POST",
 				data: {
-					skipped: currentTab,
-					action_nonce: actionNonce,
+					...getSettings(), // Add settings data
+					completedTabs: getCompletedTabs(), // Include completedTabs
+					skippedTabs: getSkippedTabs(),     // Include skippedTabs
+					visitedFields: getVisitedFields(), // Include visitedFields
 				},
 				path: API_ENDPOINT,
 			});
 
-			if (result.success) {
-				setSaving(false);
-
-				skipToNextTab();
-			}
-
-			setSaving(false);
+			skipToNextTab();
 		};
 
 		if (isClicked) {

@@ -158,32 +158,26 @@ class API {
 	 */
 	public function set_transients( $request ): void {
 		$params      = $request->get_params();
-		$skipped     = $params['skipped'] ?? false;
+		$skipped     = $params['skippedTabs'] ?? [];
 		$begun       = $params['begun'] ?? true;
+		$completed   = $params['completedTabs'] ?? [];
 		$finished    = $params['finished'] ?? false;
-		$current_tab = $params['currentTab'] ? absint( $params['currentTab'] ) : 0;
+		$current_tab = $params['currentTab'] ?? 0;
 
 		// Set the begun transient. Set to false if we skipped at the start.
-		set_transient( 'tec_onboarding_wizard_begun', $begun, 0 );
+		tribe_update_option( 'tec_onboarding_wizard_begun', (bool) $begun );
 
 		// Set the current step transient.
-		set_transient( 'tec_onboarding_wizard_current_step', $current_tab, 0 );
+		tribe_update_option( 'tec_onboarding_wizard_current_tab', absint( $current_tab ) );
 
-		// Set skipped tabs.
-		if ( $skipped !== false ) {
-			$skipped_tabs   = get_transient( 'tec_onboarding_wizard_skipped_tabs' ) ?: [];
-			$skipped_tabs[] = $skipped;
-			set_transient( 'tec_onboarding_wizard_skipped_tabs', array_unique( $skipped_tabs ), 0 );
-		} else {
-			$completed_tabs   = get_transient( 'tec_onboarding_wizard_completed_tabs' ) ?: [];
-			$completed_tabs[] = $current_tab;
-			set_transient( 'tec_onboarding_wizard_completed_tabs', array_unique( $completed_tabs ), 0 );
-		}
+		// Set skipped and completed tabs.
+		tribe_update_option( 'tec_onboarding_wizard_skipped_tabs', array_unique( $skipped ) );
+		tribe_update_option( 'tec_onboarding_wizard_completed_tabs', array_unique( $completed ) );
 
 		// If we're on the last tab, or told we finished (skipped at start) - set the finished transient.
 		if ( $current_tab === 5 || $finished ) {
 			// Set the finished transient.
-			set_transient( 'tec_onboarding_wizard_finished', true, 0 );
+			tribe_update_option( 'tec_onboarding_wizard_finished', true );
 		}
 	}
 }

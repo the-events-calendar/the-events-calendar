@@ -9,7 +9,7 @@ import SkipButton from "../../buttons/skip";
 import OrganizerIcon from "./img/organizer";
 
 interface Organizer {
-	id: number;
+	organizerId: number;
 	name: string;
 	phone: string;
 	website: string;
@@ -20,7 +20,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const organizer: Organizer = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('organizer') || { id: 0, name: '', phone: '', website: '', email: '' }, []);
 	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || {} );
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
-	const [organizerId, setId] = useState(organizer.id || 0);
+	const [organizerId, setId] = useState(organizer.organizerId || false);
 	const [name, setName] = useState(organizer.name || '');
 	const [phone, setPhone] = useState(organizer.phone || '');
 	const [website, setWebsite] = useState(organizer.website || '');
@@ -31,7 +31,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const [canContinue, setCanContinue] = useState(false);
 
 	// Check if any fields are pre-filled.
-	const disabled = !!organizer.name || !!organizer.phone || !!organizer.website || !!organizer.email;
+	const disabled = !!organizer.organizerId;
 
 	useEffect(() => {
 		// Define the event listener function.
@@ -78,13 +78,12 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const hasVisitedHere = () => {
 		const fields = ['organizer-name', 'organizer-phone', 'organizer-website', 'organizer-email'];
-		const visited = fields.map(field => visitedFields[field]);
-		return visited.some(Boolean);
+		return fields.some(field => visitedFields.includes(field));
 	}
 
 	const isValidName = () => {
 		const inputId = 'organizer-name';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || !!name;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -98,7 +97,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidEmail = () => {
 		const inputId = 'organizer-email';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		const isValid = !isVisited || emailPattern.test(email);
 		const fieldEle = document.getElementById(inputId);
@@ -113,7 +112,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidPhone = () => {
 		const inputId = 'organizer-phone';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
 		const isValid = !isVisited || phonePattern.test(phone);
 		const fieldEle = document.getElementById(inputId);
@@ -128,7 +127,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidWebsite = () => {
 		const inputId = 'organizer-website';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const websitePattern = /^(http|https):\/\/[^ "]+?$/;
 		const isValid = !isVisited || websitePattern.test(website);
 		const fieldEle = document.getElementById(inputId);
@@ -185,7 +184,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 					/>
 					<span className="tec-events-onboarding__required-label">{__('Organizer name is required.', 'the-events-calendar')}</span>
 				</BaseControl>
-				{showPhone ? '' :
+				{!organizerId && showPhone ? '' :
 				<Button
 					__next40pxDefaultSize
 					onClick={(event) => showField(event, setShowPhone)}
@@ -212,7 +211,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 					<span className="tec-events-onboarding__required-label">{__('Organizer phone is required.', 'the-events-calendar')}</span>
 					<span className="tec-events-onboarding__invalid-label">{__('Organizer phone is invalid.', 'the-events-calendar')}</span>
 				</BaseControl>
-				{showWebsite ? '' :
+				{!organizerId && showWebsite ? '' :
 				<Button
 					__next40pxDefaultSize
 					onClick={(event) => showField(event, setShowWebsite)}
@@ -238,7 +237,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 					<span className="tec-events-onboarding__required-label">{__('Organizer website is required.', 'the-events-calendar')}</span>
 					<span className="tec-events-onboarding__invalid-label">{__('Organizer website is invalid.', 'the-events-calendar')}</span>
 				</BaseControl>
-				{showEmail ? '' :
+				{!organizerId && showEmail ? '' :
 				<Button
 					__next40pxDefaultSize
 					onClick={(event) => showField(event, setShowEmail)}

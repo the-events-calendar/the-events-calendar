@@ -86,6 +86,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 
 	// Compute whether the "Continue" button should be enabled
 	useEffect(() => {
+		// Since most of these are selects, we just ensure there is a value.
 		const fieldsToCheck = {
 			"currencyCode": currencyCode,
 			"timeZone": isValidTimeZone(),
@@ -98,14 +99,14 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	}, [currencyCode, timeZone, dateFormat, weekStart, visitedFields]);
 
 	const hasVisitedHere = () => {
+		const values = [!!currencyCode && !!timeZone && !!dateFormat && !!weekStart];
 		const fields = ['currencyCode', 'timeZone', 'dateFormat', 'weekStart'];
-		const visited = fields.map(field => visitedFields[field]);
-		return visited.some(Boolean);
+		return fields.some(field => visitedFields.includes(field)) || values;
 	}
 
 	const isValidTimeZone = () => {
 		const inputId = 'time-zone';
-		const isVisited = Boolean(visitedFields[inputId]);
+		const isVisited = visitedFields.includes(inputId);
 		const isValid = !isVisited || !!timeZone;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');

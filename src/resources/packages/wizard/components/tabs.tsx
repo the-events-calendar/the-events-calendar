@@ -33,7 +33,7 @@ const OnboardingTabs = () => {
 	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 	const begun = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("begun"));
 	const finished = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("finished"));
-	const lastActiveTab = (begun && !finished) ? useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("current_step")) : 0;
+	const lastActiveTab = (begun && !finished) ? useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("currentTab")) : 0;
 
 
 	const [tabsState, setTabsState] = useState(() =>

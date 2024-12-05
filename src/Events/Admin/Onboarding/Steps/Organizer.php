@@ -23,12 +23,13 @@ use WP_REST_Request;
 class Organizer extends Abstract_Step {
 	/**
 	 * The tab number for this step.
+	 * Note: this is set to the same as the Tickets tab as we don't want to process an organizer until the end.
 	 *
-	 * @since 6.8.2
+	 * @since 7.0.0
 	 *
 	 * @var int
 	 */
-	public const TAB_NUMBER = 3;
+	public const TAB_NUMBER = 5;
 
 	/**
 	 * Process the organizer data.
@@ -51,7 +52,7 @@ class Organizer extends Abstract_Step {
 		$organizer = $params['organizer'];
 
 		// If we already have an organizer, we're not editing it here.
-		if ( ! empty( $organizer['id'] ) ) {
+		if ( ! empty( $organizer['organizerId'] ) ) {
 			return self::add_message( $response, __( 'Existing organizer. Step skipped.', 'the-events-calendar' ) );
 		}
 

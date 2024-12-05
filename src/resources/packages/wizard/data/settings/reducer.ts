@@ -3,7 +3,6 @@ import TYPES from "./action-types";
 
 const {
 	CREATE,
-	HYDRATE,
 	INITIALIZE,
 	IS_SAVING,
 	SAVE_SETTINGS_ERROR,
@@ -11,6 +10,8 @@ const {
 	SAVE_SETTINGS_SUCCESS,
 	UPDATE,
 	SET_VISITED_FIELDS,
+	SKIP_TAB,
+	COMPLETE_TAB,
 } = TYPES;
 
 interface Setting {
@@ -22,22 +23,40 @@ interface State {
 	settings: { [key: string]: any };// This should be an object, not an array
 	isSaving: boolean;
 	error: any;
+	visitedFields: [];
+	completedTabs: [];
+	skippedTabs: [];
 }
 
 const initialState = {
 	settings: {},
 	isSaving: false,
 	error: null,
-	visitedFields: {},
+	visitedFields: [],
+	completedTabs: [],
+	skippedTabs: [],
 };
 
 const reducer = (
 	state = initialState,
-	{ settings, setting, type, payload, error }: { settings?: { [key: string]: any }, setting?: Setting, type: string, payload?: any, error?: any }
+	{ settings, setting, type, payload, error }: {
+		settings?: { [key: string]: any },
+		setting?: Setting,
+		type: string,
+		payload?: any,
+		error?: any
+}
 ) => {
 	switch (type) {
 		case INITIALIZE:
-			return { settings: settings || {} };
+			const { completedTabs = [], skippedTabs = [], visitedFields = [], ...otherSettings } = settings || {};
+			return {
+				...state,
+				settings: otherSettings, // Populate settings without completedTabs and skippedTabs
+				completedTabs,          // Hydrate completedTabs into its separate property
+				skippedTabs,            // Hydrate skippedTabs into its separate property
+				visitedFields,          // Hydrate visitedFields into its separate property
+			};
 
 		case CREATE:
 			return {
@@ -59,9 +78,6 @@ const reducer = (
 				};
 			}
 			return state;
-
-		case HYDRATE:
-			return { settings: settings || {} };
 
 		case SAVE_SETTINGS_REQUEST:
 			return { ...state, isSaving: true, error: null };
@@ -86,7 +102,24 @@ const reducer = (
 		case SET_VISITED_FIELDS:
 			return {
 				...state,
-				visitedFields: { ...state.visitedFields, [payload]: true },
+				visitedFields: Array.from(new Set([...state.visitedFields || [], payload])),
+			};
+
+		case COMPLETE_TAB:
+			return {
+				...state,
+				completedTabs: Array.from(new Set([...state.completedTabs || [], payload])),
+				skippedTabs: state.skippedTabs.filter(tabId => tabId !== payload),
+			};
+
+		case SKIP_TAB:
+			// Only add to skippedTabs if not already completed
+			if (state.completedTabs.includes(payload)) {
+				return state;
+			}
+			return {
+				...state,
+				skippedTabs: Array.from(new Set([...state.skippedTabs || [], payload])),
 			};
 
 		default:
