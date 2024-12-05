@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.8.2.1';
+		const VERSION             = '6.8.3';
 
 		/**
 		 * Min Pro Addon.
@@ -677,10 +677,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
 
-			// Blocks
+			// Blocks.
 			tribe_register_provider( TEC\Events\Blocks\Controller::class );
 
-			// Site Editor
+			// Site Editor.
 			tribe_register_provider( TEC\Events\Block_Templates\Controller::class );
 
 			// Load the new third-party integration system.
@@ -689,11 +689,14 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Set up the installer.
 			tribe_register_provider( TEC\Events\Installer\Provider::class );
 
-			// Set up Site Health
+			// Set up Site Health.
 			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
 
-			// Set up Telemetry
+			// Set up Telemetry.
 			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
+
+			// Set up IAN Client - In-App Notifications.
+			tribe_register_provider( TEC\Events\Notifications\Provider::class );
 
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
