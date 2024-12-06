@@ -9,12 +9,14 @@ import { API_ENDPOINT } from "../../data/settings/constants";
 
 const SkipButton = ({skipToNextTab, currentTab}) => {
 	const skipTab = useDispatch(SETTINGS_STORE_KEY).skipTab;
+	const closeModal = useDispatch(MODAL_STORE_KEY).closeModal;
+
 	const getSettings = useSelect(select => select(SETTINGS_STORE_KEY).getSettings);
 	const getCompletedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getCompletedTabs);
 	const getSkippedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getSkippedTabs);
 	const getVisitedFields = useSelect(SETTINGS_STORE_KEY).getVisitedFields;
+
 	const [isClicked, setClicked] = useState(false);
-	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 
 	useEffect(() => {
 		const handleSkipWizard = async () => {
@@ -36,11 +38,13 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 				if ( currentTab < 5) {
 					skipToNextTab();
 				} else {
+					console.log('closing modal - success');
 					setTimeout(() => {
 						closeModal();
 					}, 1000);
 				}
 			} else {
+				console.log('closing modal - error');
 				// Handle error - close modal.
 				setTimeout(() => {
 					closeModal();

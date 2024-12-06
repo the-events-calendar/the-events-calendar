@@ -9,6 +9,9 @@ import { API_ENDPOINT } from "../../data/settings/constants";
 import { getVisitedFields } from "../../data/settings/selectors";
 
 const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
+	const completeTab = useDispatch(SETTINGS_STORE_KEY).completeTab;
+	const { closeModal } = useDispatch(MODAL_STORE_KEY);
+
 	const actionNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("action_nonce"), []);
 	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
 	const updateSettings = useDispatch(SETTINGS_STORE_KEY).updateSettings;
@@ -16,8 +19,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 	const getCompletedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getCompletedTabs);
 	const getSkippedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getSkippedTabs);
 	const getVisitedFields = useSelect(SETTINGS_STORE_KEY).getVisitedFields;
-	const completeTab = useDispatch(SETTINGS_STORE_KEY).completeTab;
-	const { closeModal } = useDispatch(MODAL_STORE_KEY);
+
 	const [isSaving, setSaving] = useState(false);
 	const [isClicked, setClicked] = useState(false);
 
