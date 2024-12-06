@@ -38,10 +38,9 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const [country, setCountry] = useState(venue.country || 'US');
 	const [phone, setPhone] = useState(venue.phone || '');
 	const [website, setWebsite] = useState(venue.website || '');
-	const [showWebsite, setShowWebsite] = useState(false);
-	const [showPhone, setShowPhone] = useState(false);
-	const [canContinue, setCanContinue] = useState(false);
-
+	const [showWebsite, setShowWebsite] = useState(!!venue.venueId ||!!venue.website || false);
+	const [showPhone, setShowPhone] = useState(!!venue.venueId || !!venue.phone || false);
+	const [canContinue, setCanContinue] = useState( false);
 	// Compute whether the "Continue" button should be enabled
     useEffect(() => {
         const fieldsToCheck = {

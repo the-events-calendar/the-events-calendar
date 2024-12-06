@@ -13,6 +13,7 @@ use TEC\Events\Telemetry\Telemetry;
 use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
+use TEC\Events\Admin\Onboarding\API;
 
 /**
  * Class Landing_Page
@@ -146,34 +147,36 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return array<string, mixed> The initial data.
 	 */
 	public function get_initial_data(): array {
+		$data  = tribe( Data::class );
 		$initial_data = [
 			/* Wizard History */
-			'begun'            => (bool) tribe_get_option( 'tec_onboarding_wizard_begun', false ),
-			'currentTab'       => absint( tribe_get_option( 'tec_onboarding_wizard_current_tab', 0 ) ),
-			'finished'         => (bool) tribe_get_option( 'tec_onboarding_wizard_finished', false ),
-			'completedTabs'    => (array) tribe_get_option( 'tec_onboarding_wizard_completed_tabs', [] ),
-			'skippedTabs'      => (array) tribe_get_option( 'tec_onboarding_wizard_skipped_tabs', [] ),
+			'begun'                   => (bool) $data->get_wizard_setting( 'begun', false ),
+			'currentTab'              => absint( $data->get_wizard_setting( 'current_tab', 0 ) ),
+			'finished'                => (bool) $data->get_wizard_setting( 'finished', false ),
+			'completedTabs'           => (array) $data->get_wizard_setting( 'completed_tabs', [] ),
+			'skippedTabs'             => (array) $data->get_wizard_setting( 'skipped_tabs', [] ),
 			/* TEC settings */
-			'tribeEnableViews' => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
-			'availableViews'   => tribe( Data::class )->get_available_views(),
-			'currency'         => strtolower( tribe_get_option( 'defaultCurrencyCode', 'usd' ) ),
-			'date_format'      => get_option( 'date_format', 'F j, Y' ),
-			'optin'    => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
+			'tribeEnableViews'        => tribe_get_option( 'tribeEnableViews', [ 'list' ] ),
+			'availableViews'          => tribe( Data::class )->get_available_views(),
+			'currency'                => strtolower( tribe_get_option( 'defaultCurrencyCode', 'usd' ) ),
+			'date_format'             => get_option( 'date_format', 'F j, Y' ),
+			'optin'                   => (bool) tribe( Telemetry::class )->get_reconciled_telemetry_opt_in(),
 			/* WP Settings */
-			'timezone_string'  => get_option( 'timezone_string', false ),
-			'start_of_week'    => get_option( 'start_of_week', false ),
+			'timezone_string'         => get_option( 'timezone_string', false ),
+			'start_of_week'           => get_option( 'start_of_week', false ),
 			/* ET install step */
-			'event-tickets'    => Installer::get()->is_installed( 'event-tickets' ),
+			'event-tickets-installed' => Installer::get()->is_installed( 'event-tickets' ),
+			'event-tickets-active'    => Installer::get()->is_active( 'event-tickets' ),
 			/* nonces */
-			'action_nonce'     => wp_create_nonce( API::NONCE_ACTION ),
-			'_wpnonce'         => wp_create_nonce( 'wp_rest' ),
+			'action_nonce'            => wp_create_nonce( API::NONCE_ACTION ),
+			'_wpnonce'                => wp_create_nonce( 'wp_rest' ),
 			/* Linked posts */
-			'organizer'        => tribe( Data::class )->get_organizer_data(),
-			'venue'            => tribe( Data::class )->get_venue_data(),
+			'organizer'               => tribe( Data::class )->get_organizer_data(),
+			'venue'                   => tribe( Data::class )->get_venue_data(),
 			/* Data */
-			'timezones'        => tribe( Data::class )->get_timezone_list(),
-			'countries'        => tribe( Data::class )->get_country_list(),
-			'currencies'       => tribe( Data::class )->get_currency_list(),
+			'timezones'               => tribe( Data::class )->get_timezone_list(),
+			'countries'               => tribe( Data::class )->get_country_list(),
+			'currencies'              => tribe( Data::class )->get_currency_list(),
 		];
 
 

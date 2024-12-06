@@ -14,6 +14,7 @@ use WP_REST_Request as Request;
 use WP_REST_Server as Server;
 use WP_Error;
 use WP_REST_Response;
+use TEC\Events\Admin\Onboarding\Data;
 
 /**
  * Class API
@@ -135,7 +136,7 @@ class API {
 			200
 		);
 
-		$this->set_transients( $request );
+		$this->set_tab_records( $request, $response );
 
 		/**
 		 * Each step hooks in here and potentially modifies the response.
@@ -156,29 +157,26 @@ class API {
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 */
-	public function set_transients( $request ): void {
-		$params      = $request->get_params();
-		$skipped     = $params['skippedTabs'] ?? [];
-		$begun       = $params['begun'] ?? true;
-		$completed   = $params['completedTabs'] ?? [];
-		$finished    = $params['finished'] ?? false;
-		$current_tab = $params['currentTab'] ?? 0;
+	public function set_tab_records( $request, $response ): void {
+		$settings = tribe(Data::class)->get_wizard_settings();
+		// Stuff we don't want/need to store in the settings.
+		$params = $request->get_params();
+		$settings['skipped']     = $params['skippedTabs'] ?? [];
+		$settings['begun']       = $params['begun'] ?? true;
+		$settings['completed']   = $params['completedTabs'] ?? [];
+		$settings['finished']    = $params['finished'] ?? false;
+		$settings['current_tab'] = $params['currentTab'] ?? 0;
+		unset(
+			$params['timezones'],
+			$params['countries'],
+			$params['currencies'],
+			$params['action_nonce'],
+			$params['_wpnonce']
+		);
+
+		$settings['last_send']   = $params;
 
 		// Set the begun transient. Set to false if we skipped at the start.
-		tribe_update_option( 'tec_onboarding_wizard_begun', (bool) $begun );
-		update_option( 'tec_onboarding_wizard_data', $params );
-
-		// Set the current step transient.
-		tribe_update_option( 'tec_onboarding_wizard_current_tab', absint( $current_tab ) );
-
-		// Set skipped and completed tabs.
-		tribe_update_option( 'tec_onboarding_wizard_skipped_tabs', array_unique( $skipped ) );
-		tribe_update_option( 'tec_onboarding_wizard_completed_tabs', array_unique( $completed ) );
-
-		// If we're on the last tab, or told we finished (skipped at start) - set the finished transient.
-		if ( $current_tab === 5 || $finished ) {
-			// Set the finished transient.
-			tribe_update_option( 'tec_onboarding_wizard_finished', true );
-		}
+		tribe(Data::class)->update_wizard_settings( $settings );
 	}
 }

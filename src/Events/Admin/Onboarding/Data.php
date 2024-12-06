@@ -346,6 +346,15 @@ class Data {
 		return apply_filters( 'tec_events_onboarding_wizard_country_list', $countries );
 	}
 
+	/**
+	 * Find a country by its key.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param string $key The country key.
+	 *
+	 * @return string|null The country name or null if not found.
+	 */
 	public function find_country_by_key( $key ) {
 		if ( empty( $key ) ) {
 			return null;
@@ -684,5 +693,58 @@ class Data {
 		];
 
 		return (array) apply_filters( 'tec_events_onboarding_wizard_currencies_list', $default_currencies );
+	}
+
+	/**
+	 * Get the saved wizard settings.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return array
+	 */
+	public function get_wizard_settings() {
+		return get_option( 'tec_onboarding_wizard_data', [] );
+	}
+
+	/**
+	 * Update the wizard settings.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param array $settings The settings to update.
+	 */
+	public function update_wizard_settings( $settings ) {
+		update_option( 'tec_onboarding_wizard_data', $settings );
+	}
+
+	/**
+	 * Get a specific wizard setting by key.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param string $key     The setting key.
+	 * @param mixed  $default The default value.
+	 *
+	 * @return mixed
+	 */
+	public function get_wizard_setting( $key, $default = null ) {
+		$settings = $this->get_wizard_settings();
+
+		return $settings[ $key ] ?? $default;
+	}
+
+	/**
+	 * Update a specific wizard setting.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param string $key   The setting key.
+	 * @param mixed  $value The setting value.
+	 */
+	public function update_wizard_setting( $key, $value ) {
+		$settings = $this->get_wizard_settings();
+		$settings[ $key ] = $value;
+
+		$this->update_wizard_settings( $settings );
 	}
 }

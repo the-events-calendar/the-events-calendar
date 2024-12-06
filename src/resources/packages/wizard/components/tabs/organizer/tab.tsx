@@ -25,9 +25,9 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const [phone, setPhone] = useState(organizer.phone || '');
 	const [website, setWebsite] = useState(organizer.website || '');
 	const [email, setEmail] = useState(organizer.email || '');
-	const [showPhone, setShowPhone] = useState(!!organizer.phone);
-	const [showWebsite, setShowWebsite] = useState(!!organizer.website);
-	const [showEmail, setShowEmail] = useState(!!organizer.email);
+	const [showPhone, setShowPhone] = useState(!!organizer.organizerId || !!organizer.phone || false);
+	const [showWebsite, setShowWebsite] = useState(!!organizer.organizerId || !!organizer.website || false);
+	const [showEmail, setShowEmail] = useState(!!organizer.organizerId || !!organizer.email || false);
 	const [canContinue, setCanContinue] = useState(false);
 
 	// Check if any fields are pre-filled.
