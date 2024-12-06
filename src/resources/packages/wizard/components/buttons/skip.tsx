@@ -14,9 +14,11 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 	const getSkippedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getSkippedTabs);
 	const getVisitedFields = useSelect(SETTINGS_STORE_KEY).getVisitedFields;
 	const [isClicked, setClicked] = useState(false);
+	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 
 	useEffect(() => {
 		const handleSkipWizard = async () => {
+			// Mark tab as skipped.
 			skipTab(currentTab);
 
 			const result = await apiFetch({
@@ -30,7 +32,21 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 				path: API_ENDPOINT,
 			});
 
-			skipToNextTab();
+			if (result.success) {
+				if ( currentTab < 5) {
+					skipToNextTab();
+				} else {
+					setTimeout(() => {
+						closeModal();
+					}, 1000);
+				}
+			} else {
+				// Handle error - close modal.
+				setTimeout(() => {
+					closeModal();
+				}, 1000);
+			}
+
 		};
 
 		if (isClicked) {

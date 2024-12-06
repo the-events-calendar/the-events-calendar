@@ -136,6 +136,7 @@ class API {
 			200
 		);
 
+		// Save our state in case we need to return to it.
 		$this->set_tab_records( $request, $response );
 
 		/**
@@ -158,14 +159,17 @@ class API {
 	 * @param WP_REST_Request $request The request object.
 	 */
 	public function set_tab_records( $request, $response ): void {
+		$params   = $request->get_params();
 		$settings = tribe(Data::class)->get_wizard_settings();
-		// Stuff we don't want/need to store in the settings.
-		$params = $request->get_params();
+
+		// Set up our data for a single save.
 		$settings['skipped']     = $params['skippedTabs'] ?? [];
 		$settings['begun']       = $params['begun'] ?? true;
 		$settings['completed']   = $params['completedTabs'] ?? [];
 		$settings['finished']    = $params['finished'] ?? false;
 		$settings['current_tab'] = $params['currentTab'] ?? 0;
+
+		// Stuff we don't want/need to store in the settings.
 		unset(
 			$params['timezones'],
 			$params['countries'],
@@ -174,9 +178,10 @@ class API {
 			$params['_wpnonce']
 		);
 
+		// Add a snapshot of the data from the last request.
 		$settings['last_send']   = $params;
 
-		// Set the begun transient. Set to false if we skipped at the start.
+		// Update the option.
 		tribe(Data::class)->update_wizard_settings( $settings );
 	}
 }

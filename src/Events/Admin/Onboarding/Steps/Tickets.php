@@ -55,18 +55,19 @@ class Tickets extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function install_event_tickets_plugin( $response, $request ): WP_REST_Response {
-		$params = $request->get_params();
 		$plugin_slug = 'event-tickets';
+		$params = $request->get_params();
 
+		if ( ! isset( $params['eventTickets'] ) || ! $params['eventTickets'] ) {
+			return self::add_message( $response, __( 'Event Tickets install not requested.', 'the-events-calendar' ) );
+		}
+
+		// Installer and Plugin classes needs these to be loaded for them to work.
 		require_once ABSPATH . '/wp-admin/includes/plugin.php';
 		require_once ABSPATH . '/wp-admin/includes/file.php';
 
 		$installed = Installer::get()->is_installed( $plugin_slug );
 		$activated = Installer::get()->is_active( $plugin_slug );
-
-		if ( ! isset( $params['eventTickets'] ) || ! $params['eventTickets'] ) {
-			return self::add_message( $response, __( 'Event Tickets install not requested.', 'the-events-calendar' ) );
-		}
 
 		// Check if the plugin is already installed and active.
 		if ( $installed && $activated ) {
