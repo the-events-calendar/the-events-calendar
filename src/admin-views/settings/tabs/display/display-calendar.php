@@ -36,9 +36,7 @@ $template_options = [
 $templates = get_page_templates();
 ksort( $templates );
 
-foreach ( array_keys( $templates ) as $template ) {
-	$template_options[ $templates[ $template ] ] = $template;
-}
+$template_options += array_flip( $templates );
 
 $posts_per_page_tooltip = apply_filters(
 	'tec_events_display_calendar_settings_posts_per_page_tooltip',
