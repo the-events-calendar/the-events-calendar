@@ -14,6 +14,7 @@ use WP_REST_Request as Request;
 use WP_REST_Server as Server;
 use WP_Error;
 use WP_REST_Response;
+use TEC\Events\Admin\Onboarding\Data;
 
 /**
  * Class API
@@ -130,13 +131,13 @@ class API {
 		$response = new WP_REST_Response(
 			[
 				'success' => true,
-				'message' => [ __( 'Onboarding wizard completed successfully.', 'the-events-calendar' ) ],
+				'message' => [ __( 'Onboarding wizard step completed successfully.', 'the-events-calendar' ) ],
 			],
 			200
 		);
 
-
-		$current_tab = $request->get_param( 'currentTab' );
+		// Save our state in case we need to return to it.
+		$this->set_tab_records( $request, $response );
 
 		/**
 		 * Each step hooks in here and potentially modifies the response.
@@ -148,5 +149,39 @@ class API {
 		 * @param API              $api      The api object.
 		 */
 		return apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
+	}
+
+	/**
+	 * Passes the request and data to the handler.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 */
+	public function set_tab_records( $request, $response ): void {
+		$params   = $request->get_params();
+		$settings = tribe(Data::class)->get_wizard_settings();
+
+		// Set up our data for a single save.
+		$settings['skipped']     = $params['skippedTabs'] ?? [];
+		$settings['begun']       = $params['begun'] ?? true;
+		$settings['completed']   = $params['completedTabs'] ?? [];
+		$settings['finished']    = $params['finished'] ?? false;
+		$settings['current_tab'] = $params['currentTab'] ?? 0;
+
+		// Stuff we don't want/need to store in the settings.
+		unset(
+			$params['timezones'],
+			$params['countries'],
+			$params['currencies'],
+			$params['action_nonce'],
+			$params['_wpnonce']
+		);
+
+		// Add a snapshot of the data from the last request.
+		$settings['last_send']   = $params;
+
+		// Update the option.
+		tribe(Data::class)->update_wizard_settings( $settings );
 	}
 }

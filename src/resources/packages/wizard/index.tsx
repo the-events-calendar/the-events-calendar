@@ -2,6 +2,7 @@ import React from "react";
 import domReady from '@wordpress/dom-ready';
 import ReactDOM from 'react-dom';
 import { Modal } from '@wordpress/components';
+import { useEffect } from "@wordpress/element";
 import { useSelect, useDispatch } from "@wordpress/data";
 import OnboardingTabs from './components/tabs';
 import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from './data';
@@ -9,16 +10,25 @@ import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from './data';
 import './index.css';
 
 const OnboardingModal = ({ bootData }) => {
-	const isOpen = useSelect((select) => select(MODAL_STORE_KEY).getModalState());
-	const { closeModal } = useDispatch(MODAL_STORE_KEY);
-	const { openModal } = useDispatch(MODAL_STORE_KEY);
-
 	// Initialize the settings store.
-	const {
-		initializeSettings,
-	} = useDispatch(SETTINGS_STORE_KEY);
-
+	const { initializeSettings } = useDispatch(SETTINGS_STORE_KEY);
 	initializeSettings(bootData);
+
+	const finished = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("finished"));
+	const begun = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("begun"));
+	const isOpen = useSelect((select) => select(MODAL_STORE_KEY).getIsOpen());
+	const { openModal } = useDispatch(MODAL_STORE_KEY); // Trigger the openModal action.
+	const { closeModal } = useDispatch(MODAL_STORE_KEY);
+
+	useEffect(() => {
+		if (!begun && ! finished) {
+			// If the onboarding has not been started OR finished, open the modal automatically.
+			openModal();
+		} else if (!finished) {
+			// Open the modal automatically if the onboarding has been started but not finished.
+			openModal();
+		}
+	}, [begun, finished, openModal]);
 
 	return (
 		<>
@@ -32,6 +42,7 @@ const OnboardingModal = ({ bootData }) => {
 					initialTabName="intro"
 					onRequestClose={closeModal}
 					selectOnMove={false}
+					shouldCloseOnEsc={false}
 					shouldCloseOnClickOutside={false}
 				>
 					<OnboardingTabs />

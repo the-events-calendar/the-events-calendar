@@ -1,22 +1,19 @@
 {
 	"build": [
-		"@pup do build-common",
+		"cd common && composer -- pup build",
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
 		"npm run before-zip"
 	],
 	"build_dev": [
-		"@pup do build-common",
+		"cd common && composer -- pup build",
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
 		"npm run before-zip"
 	],
 	"workflows": {
-		"build-common": [
-			"cd common && pup build"
-		],
 		"tec-zip": [
 			"git submodule update --recursive --init",
 			"pup build",

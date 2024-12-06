@@ -21,6 +21,7 @@ const WelcomeContent = ({moveToNextTab, skipToNextTab}) => {
 	const tabSettings = {
 		optin: optinValue, // Include updated optin value
 		currentTab: 0, // Include the current tab index.
+		begun: true, // Indicate that the user has started the wizard.
 	};
 
 	return (

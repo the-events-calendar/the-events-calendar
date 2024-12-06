@@ -129,7 +129,9 @@ class Settings {
 	 * @return string The source URL of the settings page logo.
 	 */
 	public function settings_page_logo_source( $source_url ): string {
-		if ( ! $this->is_tec_events_settings() ) {
+		$return = apply_filters( 'tec_settings_should_filter_page_logo_source', ( $this->is_tec_events_settings() ) );
+
+		if ( $return ) {
 			return $source_url;
 		}
 
