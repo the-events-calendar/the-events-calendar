@@ -54,18 +54,20 @@ class Settings extends Abstract_Step {
 			);
 		}
 
-		$currency_code = $params['currency'] ?? '';
-		$currency      = '';
+		$currency_key    = $params['currency'] ?? '';
+		$currencies      = tribe( Data::class )->get_currency_list();
+		$currency_symbol = $currencies[ $currency_key ]['symbol'] ?? '';
+		$currency_code   = $currencies[ $currency_key ]['code'] ?? '';
 
 		// Convert code to symbol.
-		if ( ! empty( $currency_code ) ) {
-			$currencies = tribe( Data::class )->get_currency_list();
-			$currency   = $currencies[ $currency_code ]['symbol'] ?? '';
+		if ( ! empty( $currency_key ) ) {
+
+			$currency   = $currencies[ $currency_code ]['entity'] ?? '';
 		}
 
 		$settings = [
-			'defaultCurrencyCode'   => strtoupper( $currency_code ),
-			'defaultCurrencySymbol' => $currency,
+			'defaultCurrencyCode'   => $currency_code,
+			'defaultCurrencySymbol' => $currency_symbol,
 			'date_format'           => $params['date_format'] ?? false,
 			'timezone_string'       => $params['timezone_string'] ?? false,
 			'start_of_week'         => $params['start_of_week'] ?? false,
@@ -75,7 +77,7 @@ class Settings extends Abstract_Step {
 		foreach ( $settings as $key => $value ) {
 			// Don't save a falsy value here, as we don't want to override any defaults.
 			// And values should all be strings/ints!
-			if ( empty( $value ) || ( 'start_of_week' === $key && $value === 0 ) ) {
+			if ( empty( $value ) ) {
 				self::add_message(
 					$response,
 					sprintf(
@@ -91,7 +93,7 @@ class Settings extends Abstract_Step {
 
 			// Start of week and timezone and date_format are WP options, the rest are TEC settings.
 			if ( in_array( $key, [ 'start_of_week', 'timezone_string', 'date_format' ] ) ) {
-				$temp = get_option( $key, $value );
+				$temp = get_option( $key );
 				if ( $temp === $value ) {
 					self::add_message(
 						$response,
@@ -126,7 +128,7 @@ class Settings extends Abstract_Step {
 					}
 				}
 			} else {
-				$temp = tribe_get_option( $key, $value );
+				$temp = tribe_get_option( $key );
 				if ( $temp === $value ) {
 					self::add_message(
 						$response,

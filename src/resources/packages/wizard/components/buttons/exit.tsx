@@ -28,9 +28,7 @@ const ExitButton = () => {
 				path: API_ENDPOINT,
 			});
 
-			if (result.success) {
-				closeModal();
-			}
+			closeModal();
 		};
 
 		if (isClicked) {
