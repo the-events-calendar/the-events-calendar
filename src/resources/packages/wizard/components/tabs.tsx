@@ -31,10 +31,9 @@ const OnboardingTabs = () => {
 	];
 
 	const { closeModal } = useDispatch(MODAL_STORE_KEY);
-	const begun = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("begun"));
-	const finished = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("finished"));
 	const lastActiveTab = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("currentTab")) || 0;
-
+	const skippedTabs = useSelect((select) => select(SETTINGS_STORE_KEY).getSkippedTabs) || [];
+	const completedTabs = useSelect((select) => select(SETTINGS_STORE_KEY).getCompletedTabs) || [];
 
 	const [tabsState, setTabsState] = useState(() =>
 		tabConfig.map((tab: TabConfig, index) => ({
@@ -60,7 +59,15 @@ const OnboardingTabs = () => {
 
 	const moveToTab = (index) => {
 		if (index > 0 && index < tabsState.length) {
-			updatePreviousTabStates(index, { completed: true, disabled: false });
+			const isCompleted = completedTabs.includes(index); // Check if tab is in completedTabs
+			const isSkipped = skippedTabs.includes(index);     // Check if tab is in skippedTabs
+
+			updatePreviousTabStates(index, {
+				completed: isCompleted,
+				skipped: isSkipped,
+				disabled: false
+			});
+
 			updateTabState(index, { disabled: false });
 			setActiveTab(index);
 		}
