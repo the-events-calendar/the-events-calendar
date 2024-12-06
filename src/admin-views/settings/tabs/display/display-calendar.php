@@ -30,6 +30,13 @@ $template_options = [
 	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 ];
 
+$templates = get_page_templates();
+ksort( $templates );
+
+foreach ( array_keys( $templates ) as $template ) {
+	$template_options[ $templates[ $template ] ] = $template;
+}
+
 $posts_per_page_tooltip = apply_filters(
 	'tec_events_display_calendar_settings_posts_per_page_tooltip',
 	esc_html__( 'The number of events per page on the List View. Does not affect other views.', 'the-events-calendar' )

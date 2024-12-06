@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Re-add logic to add page template options from theme to Display Settings. [TEC-5337]
