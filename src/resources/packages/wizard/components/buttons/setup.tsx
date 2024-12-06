@@ -8,13 +8,15 @@ import { API_ENDPOINT } from "../../data/settings/constants";
 import {SETTINGS_STORE_KEY} from "../../data";
 
 const SetupButton = ({ tabSettings, moveToNextTab }) => {
-	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
 	const completeTab = useDispatch(SETTINGS_STORE_KEY).completeTab;
 	const updateSettings = useDispatch(SETTINGS_STORE_KEY).updateSettings;
+
+	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
 	const getSettings = useSelect(select => select(SETTINGS_STORE_KEY).getSettings);
 	const getCompletedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getCompletedTabs);
 	const getSkippedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getSkippedTabs);
 	const getVisitedFields = useSelect(SETTINGS_STORE_KEY).getVisitedFields;
+
 	const [isClicked, setClicked] = useState(false);
 
 	useEffect(() => {
