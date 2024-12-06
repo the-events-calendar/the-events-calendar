@@ -38,8 +38,8 @@
 	--tec-spacer-11: 64px;
 	--tec-spacer-12: 80px;
 	--tec-spacer-13: 96px;
-
-	--tap-min-size: 44px;
+	--tec-spacer-tap-min-size: 44px;
+	--tec-spacer-content-min-width: 260px;
 
 	/* -----------------------------------------------------------------------------
 	 * Font Weight
@@ -140,7 +140,7 @@
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-between;
-	min-width: 260px;
+	min-width: var(--tec-spacer-content-min-width);
 	padding-bottom: var(--tec-spacer-3);
 	padding-top: var(--tec-spacer-5);
 }
@@ -180,7 +180,7 @@
 	list-style: none;
 	margin: 0 auto;
 	max-width: 800px;
-	min-width: 260px;
+	min-width: var(--tec-spacer-content-min-width);
 	width: 100%;
 }
 
@@ -194,23 +194,23 @@
 	}
 
 	.tec-events-onboarding__tab-display .tec-events-onboarding__tabs-list {
-		grid-template-columns: 33% repeat(4, var(--tap-min-size));
+		grid-template-columns: 33% repeat(4, var(--tec-spacer-tap-min-size));
 	}
 
 	.tec-events-onboarding__tab-settings .tec-events-onboarding__tabs-list {
-		grid-template-columns: var(--tap-min-size) 33% repeat(3, var(--tap-min-size));
+		grid-template-columns: var(--tec-spacer-tap-min-size) 33% repeat(3, var(--tec-spacer-tap-min-size));
 	}
 
 	.tec-events-onboarding__tab-organizer .tec-events-onboarding__tabs-list {
-		grid-template-columns: repeat(2, var(--tap-min-size)) 33% repeat(2, var(--tap-min-size));
+		grid-template-columns: repeat(2, var(--tec-spacer-tap-min-size)) 33% repeat(2, var(--tec-spacer-tap-min-size));
 	}
 
 	.tec-events-onboarding__tab-venue .tec-events-onboarding__tabs-list {
-		grid-template-columns: repeat(3, var(--tap-min-size)) 33% var(--tap-min-size);
+		grid-template-columns: repeat(3, var(--tec-spacer-tap-min-size)) 33% var(--tec-spacer-tap-min-size);
 	}
 
 	.tec-events-onboarding__tab-tickets .tec-events-onboarding__tabs-list {
-		grid-template-columns: repeat(4, var(--tap-min-size)) 33%;
+		grid-template-columns: repeat(4, var(--tec-spacer-tap-min-size)) 33%;
 	}
 }
 
@@ -347,6 +347,7 @@
 	flex-direction: column;
 	margin: 0 auto;
 	max-width: min(100%, 100vw);
+	min-width: var(--tec-spacer-content-min-width);
 	width: fit-content;
 }
 
@@ -543,7 +544,7 @@
 	flex-direction: column;
 	gap: var(--tec-spacer-2);
 	margin: 0 auto;
-	min-width: 260px;
+	min-width: var(--tec-spacer-content-min-width);
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
 	width: 100%;
 }
