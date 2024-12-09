@@ -122,6 +122,12 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 7.0.0
 	 */
 	public function admin_page_main_content(): void {
+		$this->admin_content_checklist_section();
+
+		$this->admin_content_resources_section();
+	}
+
+	public function admin_content_checklist_section() {
 		$settings_url = "edit.php?page=tec-events-settings&post_type=tribe_events";
 		$completed_tabs = array_flip( (array) tribe( Data::class)->get_wizard_setting( 'completed_tabs', [] ) );
 
@@ -246,25 +252,46 @@ class Landing_Page extends Abstract_Admin_Page {
 				</div>
 				<?php $this->tec_onboarding_wizard_button(); ?>
 			</div>
-			<div class="tec-admin-page__content-section">
-				<h2>
-					<?php esc_html_e( 'Useful Resources', 'the-events-calendar' ); ?>
-				</h2>
-				<ul>
-					<li>
-						<span class="tec-admin-page__icon tec-admin-page__icon--stars" role="presentation"></span>
-						<a href="#" class="tec-admin-page__link"><?php esc_html_e( 'Ask our AI Chatbot anything', 'the-events-calendar' ); ?></a>
-					</li>
-					<li>
-						<span class="tec-admin-page__icon tec-admin-page__icon--book" role="presentation"></span>
-						<span class="tec-admin-page__link--external"><a href="#" class="tec-admin-page__link"><?php esc_html_e( 'The Events Calendar guide', 'the-events-calendar' ); ?></a></span>
-					</li>
-					<li>
-						<span class="tec-admin-page__icon tec-admin-page__icon--customize" role="presentation"></span>
-						<span class="tec-admin-page__link--external"><a href="#" class="tec-admin-page__link"><?php esc_html_e( 'Customize styles and templates', 'the-events-calendar' ); ?></a></span>
-					</li>
-				</ul>
-			</div>
+		<?php
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	}
+
+	public function admin_content_resources_section() {
+		$chatbot_link = admin_url( "edit.php?post_type=tribe_events&page=tec-events-help-hub" );
+		$guide_link = "https://theeventscalendar.com/knowledgebase/guide/the-events-calendar/";
+		$customize_link = "https://theeventscalendar.com/knowledgebase/guide/customization/";
+
+		ob_start();
+		?>
+		<div class="tec-admin-page__content-section">
+			<h2>
+				<?php esc_html_e( 'Useful Resources', 'the-events-calendar' ); ?>
+			</h2>
+			<ul>
+				<li>
+					<span class="tec-admin-page__icon tec-admin-page__icon--stars" role="presentation"></span>
+					<a href="<?php echo esc_url( $chatbot_link ); ?>" class="tec-admin-page__link">
+						<?php esc_html_e( 'Ask our AI Chatbot anything', 'the-events-calendar' ); ?>
+					</a>
+				</li>
+				<li>
+					<span class="tec-admin-page__icon tec-admin-page__icon--book" role="presentation"></span>
+					<span class="tec-admin-page__link--external">
+						<a href="<?php echo esc_url( $guide_link ); ?>" class="tec-admin-page__link">
+							<?php esc_html_e( 'The Events Calendar guide', 'the-events-calendar' ); ?>
+						</a>
+					</span>
+				</li>
+				<li>
+					<span class="tec-admin-page__icon tec-admin-page__icon--customize" role="presentation"></span>
+					<span class="tec-admin-page__link--external">
+						<a href="<?php echo esc_url( $customize_link ); ?>" class="tec-admin-page__link">
+							<?php esc_html_e( 'Customize styles and templates', 'the-events-calendar' ); ?>
+						</a>
+					</span>
+				</li>
+			</ul>
+		</div>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
