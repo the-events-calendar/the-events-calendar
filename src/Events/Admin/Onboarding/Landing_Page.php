@@ -250,14 +250,15 @@ class Landing_Page extends Abstract_Admin_Page {
 						<?php esc_html_e( 'Are you planning to sell tickets to your events?', 'the-events-calendar' ); ?>
 					</h3>
 					<ul class="tec-admin-page__content-step-list">
-						<li id="tec-events-onboarding-wizard-tickets-item" class="step-list__item tec-events-onboarding-step-5 <?php echo ( isset( $completed_tabs[5] ) || ( $et_installed && $et_activated ) ) ? 'tec-admin-page__onboarding-step--completed' : ''; ?>">
+						<li id="tec-events-onboarding-wizard-tickets-item" class="step-list__item tec-events-onboarding-step-5 <?php echo ( $et_installed && $et_activated ) ? 'tec-admin-page__onboarding-step--completed' : ''; ?>">
 							<div class="step-list__item-left">
 								<span class="step-list__item-icon" role="presentation"></span>
 								<?php esc_html_e( 'Install Event Tickets', 'the-events-calendar' ); ?>
 							</div>
-							<?php if ( !$et_installed || !$et_activated ) : ?>
+							<?php if ( ! $et_installed || ! $et_activated ) : ?>
 							<div class="step-list__item-right">
-								<?php Installer::get()->render_plugin_button(
+								<?php
+								Installer::get()->render_plugin_button(
 									'event-tickets',
 									$et_installed ? 'install' : 'activate',
 									$et_installed ? __( 'Install Event Tickets', 'the-events-calendar' ) : __( 'Activate Event Tickets', 'the-events-calendar' ),
