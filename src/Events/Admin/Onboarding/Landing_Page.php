@@ -144,11 +144,11 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li id="tec-events-onboarding-wizard-views-item" class="step-list__item tec-events-onboarding-step-1 <?php echo isset( $completed_tabs[1] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
-							 <?php esc_html_e( 'Calendar Views', 'the-events-calendar' ); ?>
+								<?php esc_html_e( 'Calendar Views', 'the-events-calendar' ); ?>
 						</div>
 						<div class="step-list__item-right">
 							<a href="<?php echo esc_url( admin_url( "{$settings_url}&tab=display#tribe-field-tribeEnableViews" ) ); ?>" class="tec-admin-page__link">
-								<?php esc_html_e( 'Edit your calendar views', 'the-events-calendar'); ?>
+								<?php esc_html_e( 'Edit your calendar views', 'the-events-calendar' ); ?>
 							</a>
 						</div>
 					</li>
@@ -158,7 +158,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							<?php esc_html_e( 'Currency', 'the-events-calendar' ); ?>
 						</div>
 						<div class="step-list__item-right">
-							<a href="<?php echo admin_url("{$settings_url}&tab=display-currency-tab");?>" class="tec-admin-page__link">
+							<a href="<?php echo esc_url( admin_url( "{$settings_url}&tab=display-currency-tab" ) );?>" class="tec-admin-page__link">
 								<?php esc_html_e( 'Edit currency', 'the-events-calendar' ); ?>
 							</a>
 						</div>
@@ -169,7 +169,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							<?php esc_html_e( 'Date format', 'the-events-calendar' ); ?>
 						</div>
 						<div class="step-list__item-right">
-							<a href="<?php echo admin_url("{$settings_url}&tab=display-date-time-tab");?>" class="tec-admin-page__link">
+							<a href="<?php echo esc_url( admin_url( "{$settings_url}&tab=display-date-time-tab" ) );?>" class="tec-admin-page__link">
 								<?php esc_html_e( 'Edit date format', 'the-events-calendar' ); ?>
 							</a>
 						</div>
@@ -180,7 +180,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							<?php esc_html_e( 'Event Organizer', 'the-events-calendar' ); ?>
 						</div>
 						<div class="step-list__item-right">
-							<a href="<?php echo admin_url("post-new.php?post_type=tribe_organizer"); ?>" class="tec-admin-page__link">
+							<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=tribe_organizer' ) ); ?>" class="tec-admin-page__link">
 								<?php esc_html_e( 'Add Organizer', 'the-events-calendar' ); ?>
 							</a>
 						</div>
