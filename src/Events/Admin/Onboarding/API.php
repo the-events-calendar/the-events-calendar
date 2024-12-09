@@ -179,9 +179,9 @@ class API {
 		);
 
 		// Add a snapshot of the data from the last request.
-		$settings['last_send']   = $params;
+		$settings['last_send'] = $params;
 
 		// Update the option.
-		tribe(Data::class)->update_wizard_settings( $settings );
+		tribe( Data::class )->update_wizard_settings( $settings );
 	}
 }

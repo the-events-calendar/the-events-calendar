@@ -722,15 +722,15 @@ class Data {
 	 *
 	 * @since 7.0.0
 	 *
-	 * @param string $key     The setting key.
-	 * @param mixed  $default The default value.
+	 * @param string $key           The setting key.
+	 * @param mixed  $default_value The default value.
 	 *
 	 * @return mixed
 	 */
-	public function get_wizard_setting( $key, $default = null ) {
+	public function get_wizard_setting( $key, $default_value = null ) {
 		$settings = $this->get_wizard_settings();
 
-		return $settings[ $key ] ?? $default;
+		return $settings[ $key ] ?? $default_value;
 	}
 
 	/**
@@ -742,7 +742,7 @@ class Data {
 	 * @param mixed  $value The setting value.
 	 */
 	public function update_wizard_setting( $key, $value ) {
-		$settings = $this->get_wizard_settings();
+		$settings         = $this->get_wizard_settings();
 		$settings[ $key ] = $value;
 
 		$this->update_wizard_settings( $settings );
