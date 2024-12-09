@@ -56,7 +56,7 @@ class Tickets extends Abstract_Step {
 	 */
 	public static function install_event_tickets_plugin( $response, $request ): WP_REST_Response {
 		$plugin_slug = 'event-tickets';
-		$params = $request->get_params();
+		$params      = $request->get_params();
 
 		if ( ! isset( $params['eventTickets'] ) || ! $params['eventTickets'] ) {
 			return self::add_message( $response, __( 'Event Tickets install not requested.', 'the-events-calendar' ) );

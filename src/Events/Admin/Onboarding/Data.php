@@ -63,6 +63,17 @@ class Data {
 	}
 
 	/**
+	 * Check if there are any events.
+	 *
+	 * @since 7.0.0
+	 */
+	public function has_events() {
+		$events = tribe_events()->per_page( 1 )->fields('ids')->all();
+
+		return ! empty( $events );
+	}
+
+	/**
 	 * Get the available views.
 	 *
 	 * @since 7.0.0
