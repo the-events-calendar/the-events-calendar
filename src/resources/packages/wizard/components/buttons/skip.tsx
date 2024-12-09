@@ -38,13 +38,11 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 				if ( currentTab < 5) {
 					skipToNextTab();
 				} else {
-					console.log('closing modal - success');
 					setTimeout(() => {
 						closeModal();
 					}, 1000);
 				}
 			} else {
-				console.log('closing modal - error');
 				// Handle error - close modal.
 				setTimeout(() => {
 					closeModal();

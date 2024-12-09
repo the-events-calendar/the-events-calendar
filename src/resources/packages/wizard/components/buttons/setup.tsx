@@ -13,8 +13,8 @@ const SetupButton = ({ tabSettings, moveToNextTab }) => {
 
 	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
 	const getSettings = useSelect(select => select(SETTINGS_STORE_KEY).getSettings);
-	const getCompletedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getCompletedTabs);
-	const getSkippedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getSkippedTabs);
+	const completedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getCompletedTabs);
+	const skippedTabs = useSelect(select => select(SETTINGS_STORE_KEY).getSkippedTabs);
 	const getVisitedFields = useSelect(SETTINGS_STORE_KEY).getVisitedFields;
 
 	const [isClicked, setClicked] = useState(false);
@@ -34,8 +34,8 @@ const SetupButton = ({ tabSettings, moveToNextTab }) => {
 				method: "POST",
 				data: {
 					...getSettings(), // Add settings data
-					completedTabs: getCompletedTabs(), // Include completedTabs
-					skippedTabs: getSkippedTabs(),     // Include skippedTabs
+					completedTabs: completedTabs, // Include completedTabs
+					skippedTabs: skippedTabs,     // Include skippedTabs
 					visitedFields: getVisitedFields(), // Include visitedFields
 				},
 				path: API_ENDPOINT,

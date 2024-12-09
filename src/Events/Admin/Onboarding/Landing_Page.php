@@ -44,6 +44,15 @@ class Landing_Page extends Abstract_Admin_Page {
 	public static bool $is_dismissed = false;
 
 	/**
+	 * Whether the page has a header.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var bool
+	 */
+	public static bool $has_header = true;
+
+	/**
 	 * Whether the page has a sidebar.
 	 *
 	 * @since 7.0.0
@@ -60,6 +69,15 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @var bool
 	 */
 	public static bool $has_footer = false;
+
+	/**
+	 * The position of the submenu in the menu.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var int
+	 */
+	public int $menu_position = 0;
 
 	/**
 	 * Get the admin page title.
@@ -91,7 +109,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return string The class(es) string.
 	 */
 	public function content_wrapper_classes(): array {
-		$classes   = parent::content_wrapper_classes();
+		$classes   = parent::content_classes();
 		$classes[] = 'tec-events-admin__content';
 		$classes[] = 'tec-events__landing-page-content';
 
@@ -104,14 +122,146 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 7.0.0
 	 */
 	public function admin_page_main_content(): void {
+		$settings_url = "edit.php?page=tec-events-settings&post_type=tribe_events";
+		$completed_tabs = array_flip( (array) tribe( Data::class)->get_wizard_setting( 'completed_tabs', [] ) );
+
 		ob_start();
 		?>
-			<div class="tec-admin-page__content-section">
-				<p>Main</p>
+			<div class="tec-admin-page__content-section tec-events-admin-page__content-section">
+				<h2 class="tec-events-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
+				<h3 class="tec-events-admin-page__content-subheader">
+					<?php
+						printf(
+							/* translators: %s: dynamic of steps completed, wrapped in a span. */
+							__( '%s of 7 steps completed', 'the-events-calendar' ),
+							'<span id="tec-onboarding-wizard-completed-steps">0</span>'
+						)
+					?>
+				</h3>
+				<ul class="tec-events-admin-page__content-step-list">
+					<li id="tec-events-onboarding-wizard-views-item" class="step-list__item tec-events-onboarding-step-1 <?php echo isset( $completed_tabs[1] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							 Views
+						</div>
+						<div class="step-list__item-right">
+							<a href="<?php echo admin_url("{$settings_url}&tab=display#tribe-field-tribeEnableViews"); ?>" class="tec-admin-page__link">
+								<?php esc_html_e( 'Edit your calendar views', 'the-events-calendar'); ?>
+							</a>
+						</div>
+					</li>
+					<li id="tec-events-onboarding-wizard-currency-item" class="step-list__item tec-events-onboarding-step-2 <?php echo isset( $completed_tabs[2] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'Currency', 'the-events-calendar' ); ?>
+						</div>
+						<div class="step-list__item-right">
+							<a href="<?php echo admin_url("{$settings_url}&tab=display-currency-tab");?>" class="tec-admin-page__link">
+								<?php esc_html_e( 'Edit currency', 'the-events-calendar' ); ?>
+							</a>
+						</div>
+					</li>
+					<li id="tec-events-onboarding-wizard-date-item" class="step-list__item tec-events-onboarding-step-2 <?php echo isset( $completed_tabs[2] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'Date format', 'the-events-calendar' ); ?>
+						</div>
+						<div class="step-list__item-right">
+							<a href="<?php echo admin_url("{$settings_url}&tab=display-date-time-tab");?>" class="tec-admin-page__link">
+								<?php esc_html_e( 'Edit date format', 'the-events-calendar' ); ?>
+							</a>
+						</div>
+					</li>
+					<li id="tec-events-onboarding-wizard-organizer-item" class="step-list__item tec-events-onboarding-step-3 <?php echo isset( $completed_tabs[3] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'Event Organizer', 'the-events-calendar' ); ?>
+						</div>
+						<div class="step-list__item-right">
+							<a href="<?php echo admin_url("post-new.php?post_type=tribe_organizer"); ?>" class="tec-admin-page__link">
+								<?php esc_html_e( 'Add Organizer', 'the-events-calendar' ); ?>
+							</a>
+						</div>
+					</li>
+					<li id="tec-events-onboarding-wizard-venue-item" class="step-list__item tec-events-onboarding-step-4 <?php echo isset( $completed_tabs[4] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'Event Venue', 'the-events-calendar' ); ?>
+						</div>
+						<div class="step-list__item-right">
+							<a href="<?php echo admin_url("post-new.php?post_type=tribe_venue"); ?>" class="tec-admin-page__link">
+								<?php esc_html_e( 'Add Venue', 'the-events-calendar' ); ?>
+							</a>
+						</div>
+					</li>
+				</ul>
+				<h2 class="tec-events-admin-page__content-header">
+					<?php esc_html_e( 'Create an event', 'the-events-calendar' ); ?>
+				</h2>
+				<ul class="tec-events-admin-page__content-step-list">
+					<li id="tec-events-onboarding-wizard-event-item" class="step-list__item">
+						<div class="step-list__item-left">
+							<span class="step-list__item-icon" role="presentation"></span>
+							<?php esc_html_e( 'Ready to publish your fist event?', 'the-events-calendar' ); ?>
+					</div>
+						<div class="step-list__item-right">
+							<a href="<?php echo admin_url("post-new.php?post_type=tribe_events"); ?>" class="tec-admin-page__link">
+								<?php esc_html_e( 'Add new event', 'the-events-calendar' ); ?>
+							</a>
+						</div>
+					</li>
+					<li id="tec-events-onboarding-wizard-import-item" class="step-list__item">
+						<div class="step-list__item-left">
+							<?php esc_html_e( 'Do you already have events you want to import?', 'the-events-calendar' ); ?>
+						</div>
+						<div class="step-list__item-right">
+							<a href="<?php echo admin_url("edit.php?post_type=tribe_events&page=aggregator"); ?>" class="tec-admin-page__link">
+								<?php esc_html_e( 'Import events', 'the-events-calendar' ); ?>
+							</a>
+						</div>
+					</li>
+				</ul>
+				<div id="tec-events-onboarding-wizard-tickets">
+					<h2 class="tec-events-admin-page__content-header">
+						<?php esc_html_e( 'Event Tickets', 'the-events-calendar' ); ?>
+					</h2>
+					<h3 class="tec-events-admin-page__content-subheader">
+						<?php esc_html_e( 'Are you planning to sell tickets to your events?', 'the-events-calendar' ); ?>
+					</h3>
+					<ul class="tec-events-admin-page__content-step-list">
+						<li id="tec-events-onboarding-wizard-tickets-item" class="step-list__item tec-events-onboarding-step-5 <?php echo isset( $completed_tabs[5] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+							<div class="step-list__item-left">
+								<span class="step-list__item-icon" role="presentation"></span>
+								<?php esc_html_e( 'Install Event Tickets', 'the-events-calendar' ); ?>
+							</div>
+							<div class="step-list__item-right">
+								<a class="button button-primary">
+									<?php esc_html_e( 'Install Event Tickets', 'the-events-calendar' ); ?>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
 				<?php $this->tec_onboarding_wizard_button(); ?>
 			</div>
 			<div class="tec-admin-page__content-section">
-				<p>Useful Resources</p>
+				<h2>
+					<?php esc_html_e( 'Useful Resources', 'the-events-calendar' ); ?>
+				</h2>
+				<ul>
+					<li>
+						<span class="tec-admin-page__icon tec-admin-page__icon--stars" role="presentation"></span>
+						<a href="#" class="tec-admin-page__link"><?php esc_html_e( 'Ask our AI Chatbot anything', 'the-events-calendar' ); ?></a>
+					</li>
+					<li>
+						<span class="tec-admin-page__icon tec-admin-page__icon--book" role="presentation"></span>
+						<span class="tec-admin-page__link--external"><a href="#" class="tec-admin-page__link"><?php esc_html_e( 'The Events Calendar guide', 'the-events-calendar' ); ?></a></span>
+					</li>
+					<li>
+						<span class="tec-admin-page__icon tec-admin-page__icon--customize" role="presentation"></span>
+						<span class="tec-admin-page__link--external"><a href="#" class="tec-admin-page__link"><?php esc_html_e( 'Customize styles and templates', 'the-events-calendar' ); ?></a></span>
+					</li>
+				</ul>
 			</div>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
@@ -122,10 +272,25 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @since 7.0.0
 	 */
-	public function admin_page_sidebar(): void {
+	public function admin_page_sidebar_content(): void {
 		ob_start();
 		?>
-			<p>Sidebar Content</p>
+			<section class="tec-admin-page__sidebar-section has-icon">
+				<span class="tec-admin-page__icon tec-admin-page__sidebar-icon tec-admin-page__icon--stars" role="presentation"></span>
+				<div>
+					<h3 class="tec-admin-page__sidebar-header">Our AI Chatbot is here to help you</h2>
+					<p>You have questions? The TEC Chatbot has the answers.</p>
+					<p><a href="#" class="tec-admin-page__link">Talk to TEC Chatbot</a></p>
+				</div>
+			</section>
+			<section class="tec-admin-page__sidebar-section has-icon">
+				<span class="tec-admin-page__icon tec-admin-page__sidebar-icon tec-admin-page__icon--chat" role="presentation"></span>
+				<div>
+					<h2 class="tec-admin-page__sidebar-header">Get priority live support</h2>
+					<p>You can get live support from The Events Calendar team if you have an active license for one of our products.</p>
+					<p><span class="tec-admin-page__link--external"><a href="#" class="tec-admin-page__link">Learn how to get an active license</a></span></p>
+				</div>
+			</section>
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
@@ -135,7 +300,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @since 7.0.0
 	 */
-	public function admin_page_footer(): void {
+	public function admin_page_footer_content(): void {
 		// No op.
 	}
 
@@ -147,7 +312,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return array<string, mixed> The initial data.
 	 */
 	public function get_initial_data(): array {
-		$data  = tribe( Data::class );
+		$data         = tribe( Data::class );
 		$initial_data = [
 			/* Wizard History */
 			'begun'                   => (bool) $data->get_wizard_setting( 'begun', false ),
