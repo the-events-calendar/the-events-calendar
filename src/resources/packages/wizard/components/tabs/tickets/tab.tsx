@@ -38,8 +38,8 @@ const TicketsContent = ({moveToNextTab, skipToNextTab}) => {
 							<CheckboxControl
 								__nextHasNoMarginBottom
 								aria-describedby="tec-events-onboarding__checkbox-description"
-								checked={true}
-								onChange={(e) => setTicketValue(e.target.value)}
+								checked={ticketValue}
+								onChange={setTicketValue}
 								id="tec-events-onboarding__tickets-checkbox-input"
 							/>
 							<div className="tec-events-onboarding__checkbox-description">
