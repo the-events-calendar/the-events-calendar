@@ -49,8 +49,10 @@ const reducer = (
 ) => {
 	switch (type) {
 		case INITIALIZE:
+			if (state.settings && Object.keys(state.settings).length > 0) {
+				return state; // Prevent overwriting if already initialized
+			}
 			const { completedTabs = [], skippedTabs = [], visitedFields = [], ...otherSettings } = settings || {};
-
 			return {
 				...state,
 				settings: otherSettings, // Populate settings without completedTabs and skippedTabs
