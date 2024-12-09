@@ -235,11 +235,18 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 						placeholder={__('Enter website', 'the-events-calendar')}
 					/>
 					<span className="tec-events-onboarding__required-label">{__('Organizer website is required.', 'the-events-calendar')}</span>
-					if ( website && !website.toLowerCase().startsWith("http") ) {
-						<span className="tec-events-onboarding__invalid-label">{__('Organizer website must start with a protocol, i.e. "https://"', 'the-events-calendar')}</span>
-					} else {
-						<span className="tec-events-onboarding__invalid-label">{__('Organizer website is invalid.', 'the-events-calendar')}</span>
-					}
+
+					{website && !website.toLowerCase().startsWith("http") ? (
+						<span className="tec-events-onboarding__invalid-label">
+							{__('Organizer website must start with a protocol, i.e. "https://"', 'the-events-calendar')}
+						</span>
+					) : (
+						<span className="tec-events-onboarding__invalid-label">
+							{__('Organizer website is invalid.', 'the-events-calendar')}
+						</span>
+					)}
+
+
 				</BaseControl>
 				{!organizerId && showEmail ? '' :
 				<Button
