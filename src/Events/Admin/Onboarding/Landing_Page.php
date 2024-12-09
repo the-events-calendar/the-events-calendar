@@ -132,9 +132,11 @@ class Landing_Page extends Abstract_Admin_Page {
 				<h3 class="tec-admin-page__content-subheader">
 					<?php
 						printf(
-							/* translators: %s: dynamic of steps completed, wrapped in a span. */
-							__( '%s of 7 steps completed', 'the-events-calendar' ),
-							'<span id="tec-onboarding-wizard-completed-steps">0</span>'
+							/* translators: %1$s is the opening span tag used for dynamically changing the number, %2$d is the number of completed steps, %3$s is the closing span tag */
+							__( '%1$s%2$d%3$s of 7 steps completed', 'the-events-calendar' ),
+							'<span id="tec-onboarding-wizard-completed-steps">',
+							esc_html( count( $completed_tabs ) ),
+							'</span>'
 						)
 					?>
 				</h3>
@@ -142,10 +144,10 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li id="tec-events-onboarding-wizard-views-item" class="step-list__item tec-events-onboarding-step-1 <?php echo isset( $completed_tabs[1] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
-							 Views
+							 <?php esc_html_e( 'Calendar Views', 'the-events-calendar' ); ?>
 						</div>
 						<div class="step-list__item-right">
-							<a href="<?php echo admin_url("{$settings_url}&tab=display#tribe-field-tribeEnableViews"); ?>" class="tec-admin-page__link">
+							<a href="<?php echo esc_url( admin_url( "{$settings_url}&tab=display#tribe-field-tribeEnableViews" ) ); ?>" class="tec-admin-page__link">
 								<?php esc_html_e( 'Edit your calendar views', 'the-events-calendar'); ?>
 							</a>
 						</div>
@@ -189,7 +191,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							<?php esc_html_e( 'Event Venue', 'the-events-calendar' ); ?>
 						</div>
 						<div class="step-list__item-right">
-							<a href="<?php echo admin_url("post-new.php?post_type=tribe_venue"); ?>" class="tec-admin-page__link">
+							<a href="<?php echo admin_url( 'post-new.php?post_type=tribe_venue' ); ?>" class="tec-admin-page__link">
 								<?php esc_html_e( 'Add Venue', 'the-events-calendar' ); ?>
 							</a>
 						</div>
@@ -205,7 +207,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							<?php esc_html_e( 'Ready to publish your fist event?', 'the-events-calendar' ); ?>
 					</div>
 						<div class="step-list__item-right">
-							<a href="<?php echo admin_url("post-new.php?post_type=tribe_events"); ?>" class="tec-admin-page__link">
+							<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=tribe_events' ) ); ?>" class="tec-admin-page__link">
 								<?php esc_html_e( 'Add new event', 'the-events-calendar' ); ?>
 							</a>
 						</div>
@@ -215,7 +217,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							<?php esc_html_e( 'Do you already have events you want to import?', 'the-events-calendar' ); ?>
 						</div>
 						<div class="step-list__item-right">
-							<a href="<?php echo admin_url("edit.php?post_type=tribe_events&page=aggregator"); ?>" class="tec-admin-page__link">
+							<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ); ?>" class="tec-admin-page__link">
 								<?php esc_html_e( 'Import events', 'the-events-calendar' ); ?>
 							</a>
 						</div>
