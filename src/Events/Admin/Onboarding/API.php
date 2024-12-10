@@ -203,11 +203,12 @@ class API {
 	 *
 	 * @since TBD
 	 *
-	 * @param [type] $tabs
+	 * @param array<int> $tabs An array of tab indexes (int).
+	 *
 	 * @return array
 	 */
 	protected function normalize_tabs( $tabs ): array {
-		// Filter out dupes.
+		// Filter out duplicates.
 		$tabs = array_unique( $tabs, SORT_NUMERIC );
 
 		// Reindex the array.

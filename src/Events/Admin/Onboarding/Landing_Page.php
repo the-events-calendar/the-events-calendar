@@ -497,7 +497,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * $button = get_submit_button(
 	 *     esc_html__( 'Open Install Wizard (current)', 'the-events-calendar' ),
-	 *	   'secondary tec-events-onboarding-wizard',
+	 *     'secondary tec-events-onboarding-wizard',
 	 *     'open',
 	 *     true,
 	 *     [
