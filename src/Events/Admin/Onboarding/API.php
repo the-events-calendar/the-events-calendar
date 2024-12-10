@@ -162,17 +162,23 @@ class API {
 		$params   = $request->get_params();
 		$settings = tribe(Data::class)->get_wizard_settings();
 		$begun    = $settings['begun'] ?? false;
+		$finished = $settings['finished'] ?? false;
 		$skipped  = $params['skippedTabs'] ?? [];
 		$complete = $params['completedTabs'] ?? [];
+
 		if ( $begun ) {
 			$complete = array_push( $complete, 0 );
+		}
+
+		if ( $finished ) {
+			$begun = true;
 		}
 
 
 		// Set up our data for a single save.
 		$settings['begun']          = $begun;
 		$settings['current_tab']    = $params['currentTab'] ?? 0;
-		$settings['finished']       = $params['finished'] ?? false;
+		$settings['finished']       = $finished;
 		$settings['completed_tabs'] = $this->normalize_tabs( $complete );
 		$settings['skipped_tabs']   = $this->normalize_tabs( $skipped );
 

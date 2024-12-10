@@ -59,7 +59,6 @@ const OnboardingTabs = () => {
 
 	const moveToTab = (index) => {
 		if (index > 0 && index < tabsState.length) {
-			console.log( completedTabs );
 			const isCompleted = completedTabs.includes(index); // Check if tab is in completedTabs
 			const isSkipped = skippedTabs.includes(index);     // Check if tab is in skippedTabs
 

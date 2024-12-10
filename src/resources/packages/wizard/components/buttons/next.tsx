@@ -69,7 +69,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 			if (result.success) {
 				// Mark the step as completed on the landing page.
 				const stepIndicators = Array.from(document.getElementsByClassName(`tec-events-onboarding-step-${tabSettings.currentTab}`));
-				console.log( stepIndicators);
+
 				stepIndicators.map((stepIndicator: Element) => {
 					stepIndicator.classList.add('tec-admin-page__onboarding-step--completed');
 				});
