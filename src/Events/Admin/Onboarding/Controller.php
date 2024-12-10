@@ -72,6 +72,8 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+		add_filter( 'tec_events_admin_notice_utc_timezone_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
+		add_filter( 'tec_events_admin_notice_event_tickets_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 	}
 
 	/**
@@ -97,6 +99,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14 );
+		remove_filter( 'tec_events_admin_notice_utc_timezone_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 	}
 
 	/**
@@ -117,6 +120,19 @@ class Controller extends Controller_Contract {
 	 */
 	public function landing_page() {
 		$this->container->make( Landing_Page::class )->admin_page();
+	}
+
+	/**
+	 * Should not display notices on onboarding page.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param bool $should_display Whether the notices should display.
+	 *
+	 * @return bool
+	 */
+	public function should_not_display_notices_on_onboarding_page( bool $should_display ) {
+		return $this->container->make( Landing_Page::class )->should_not_display_notices_on_onboarding_page( $should_display );
 	}
 
 	/**
