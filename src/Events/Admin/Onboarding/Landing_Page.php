@@ -332,7 +332,7 @@ class Landing_Page extends Abstract_Admin_Page {
 								[
 									'step-list__item' => true,
 									'tec-events-onboarding-step-5' => true,
-									'tec-admin-page__onboarding-step--completed' => ( $et_installed && $et_activated ),
+									'tec-admin-page__onboarding-step--completed' => ( isset( $completed_tabs[5] ) || ( $et_installed && $et_activated ) ),
 								]
 							);
 							?>
@@ -346,8 +346,8 @@ class Landing_Page extends Abstract_Admin_Page {
 								<?php
 								Installer::get()->render_plugin_button(
 									'event-tickets',
-									$et_installed ? 'install' : 'activate',
-									$et_installed ? __( 'Install Event Tickets', 'the-events-calendar' ) : __( 'Activate Event Tickets', 'the-events-calendar' ),
+									$et_installed ? 'activate' : 'install',
+									$et_installed ? __( 'Activate Event Tickets', 'the-events-calendar' ) : __( 'Install Event Tickets', 'the-events-calendar' ),
 									admin_url( 'edit.php?post_type=tribe_events&page=first-time-setup' )
 								);
 								?>
