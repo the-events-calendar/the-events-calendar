@@ -125,6 +125,8 @@ class Landing_Page extends Abstract_Admin_Page {
 		$this->admin_content_checklist_section();
 
 		$this->admin_content_resources_section();
+
+		$this->tec_onboarding_wizard_target();
 	}
 
 	/**
@@ -432,7 +434,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 7.0.0
 	 */
 	public function admin_page_footer_content(): void {
-		// No op.
+		// no op.
 	}
 
 	/**
@@ -490,29 +492,34 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
-	 * Render the onboarding wizard button.
+	 * Render the onboarding wizard trigger.
+	 * To show a button, use code similar to below.
+	 *
+	 * $button = get_submit_button(
+	 *     esc_html__( 'Open Install Wizard (current)', 'the-events-calendar' ),
+	 *	   'secondary tec-events-onboarding-wizard',
+	 *     'open',
+	 *     true,
+	 *     [
+	 *         'id'                     => 'tec-events-onboarding-wizard',
+	 *         'data-container-element' => ,
+	 *         'data-wizard-boot-data'  => wp_json_encode( $this->get_initial_data() ),
+	 *     ]
+	 * );
 	 *
 	 * @since 7.0.0
 	 */
-	public function tec_onboarding_wizard_button(): void {
-		$button = get_submit_button(
-			esc_html__( 'Open Install Wizard (current)', 'the-events-calendar' ),
-			'secondary tec-events-onboarding-wizard',
-			'open',
-			true,
-			[
-				'id'                     => 'tec-events-onboarding-wizard',
-				'data-container-element' => 'tec-events-onboarding-wizard-target',
-				'data-wizard-boot-data'  => wp_json_encode( $this->get_initial_data() ),
-			]
-		);
-
-		$button .= sprintf(
-			'<div class="wrap" id="tec-events-onboarding-wizard-target">%s</div>',
-			esc_html__( 'Loading…', 'the-events-calendar' )
-		);
-
-		echo $button; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
+	public function tec_onboarding_wizard_target(): void {
+		ob_start();
+		?>
+		<span
+			id="tec-events-onboarding-wizard"
+			data-container-element="tec-events-onboarding-wizard-target"
+			data-wizard-boot-data="<?php echo esc_attr( wp_json_encode( $this->get_initial_data() ) ); ?>"
+		></span>
+		<div class="wrap" id="tec-events-onboarding-wizard-target"></div>
+		<?php
+		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

@@ -23,10 +23,16 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 			// Mark tab as skipped.
 			skipTab(currentTab);
 
+			const settings = getSettings();
+
+			if ( currentTab === 5) {
+				settings.finished = true;
+			}
+
 			const result = await apiFetch({
 				method: "POST",
 				data: {
-					...getSettings(), // Add settings data
+					...settings, // Add settings data
 					completedTabs: getCompletedTabs(), // Include completedTabs
 					skippedTabs: getSkippedTabs(),     // Include skippedTabs
 					visitedFields: getVisitedFields(), // Include visitedFields
