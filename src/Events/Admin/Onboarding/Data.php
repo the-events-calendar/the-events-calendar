@@ -68,7 +68,7 @@ class Data {
 	 * @since 7.0.0
 	 */
 	public function has_events() {
-		$events = tribe_events()->per_page( 1 )->fields('ids')->all();
+		$events = tribe_events()->per_page( 1 )->fields( 'ids' )->all();
 
 		return ! empty( $events );
 	}
@@ -372,13 +372,13 @@ class Data {
 		}
 
 		$countries = $this->get_country_list();
-		// Use array_filter to locate the array containing the key
-		$filtered = array_filter($countries, fn($countryList) => array_key_exists($key, $countryList));
+		// Use array_filter to locate the array containing the key.
+		$filtered = array_filter( $countries, fn( $country_list ) => array_key_exists( $key, $country_list ) );
 
-		// If the filtered array is not empty, fetch the value
-		if (!empty($filtered)) {
-			$continent = reset($filtered); // Get the first match
-			return $continent[$key];
+		// If the filtered array is not empty, fetch the value.
+		if ( ! empty( $filtered ) ) {
+			$continent = reset( $filtered ); // Get the first match.
+			return $continent[ $key ];
 		}
 		return null;
 	}
