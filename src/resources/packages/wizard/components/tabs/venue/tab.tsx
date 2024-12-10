@@ -183,11 +183,19 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidWebsite = () => {
 		const inputId = 'venue-website';
-		const websitePattern = /^(http|https):\/\/[^ "]+?$/;
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || (!showWebsite || ( !!website && websitePattern.test(website) ));
+
 		const fieldEle = document.getElementById('venue-website');
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
+
+		let isValid = false;
+
+		try {
+			const url = new URL(website);
+			isValid = url.protocol === 'http:' || url.protocol === 'https:';
+		} catch (e) {
+			isValid = false
+		}
 
 		if ( isVisited ) {
 			toggleClasses(website, fieldEle, parentEle, isValid);
