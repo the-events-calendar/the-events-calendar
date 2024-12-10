@@ -685,3 +685,16 @@
 .tec-events-onboarding__form-field.invalid .tec-events-onboarding__field-description {
 	display: none;
 }
+
+.tec-events-dismiss-onboarding-screen {
+	bottom: 2em;
+	display: none;
+	position: absolute;
+	right: 10em;
+}
+
+@media (min-width: 782px) {
+	.tec-events-dismiss-onboarding-screen {
+		display: inline-block;
+	}
+}
