@@ -23,6 +23,8 @@ const OnboardingModal = ({ bootData }) => {
         setIsInitialized(true); // Mark initialization as complete.
     }, []); // Empty dependency array ensures it runs only once.
 
+	console.log(bootData);
+
     // Select state
     const finished = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("finished"));
     const begun = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("begun"));
