@@ -165,6 +165,10 @@ class API {
 		$skipped  = $params['skippedTabs'] ?? [];
 		$complete = $params['completedTabs'] ?? [];
 
+		// Remove any elements in $completed from $skipped
+		$skipped = array_values( array_diff( $skipped, $complete ) );
+
+
 		if ( $begun ) {
 			$complete = array_push( $complete, 0 );
 		}
@@ -174,7 +178,7 @@ class API {
 		}
 
 		// Set up our data for a single save.
-		$settings                   = tribe(Data::class)->get_wizard_settings();
+		$settings                   = tribe( Data::class )->get_wizard_settings();
 		$settings['begun']          = $begun;
 		$settings['finished']       = $finished;
 		$settings['current_tab']    = $params['currentTab'] ?? 0;
