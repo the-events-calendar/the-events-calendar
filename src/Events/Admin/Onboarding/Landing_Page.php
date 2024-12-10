@@ -91,6 +91,23 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
+	 * Hides the notices on the onboarding page.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param bool $should_display Whether the notices should display.
+	 *
+	 * @return bool
+	 */
+	public function should_not_display_notices_on_onboarding_page( bool $should_display ): bool {
+		if ( ! $should_display ) {
+			return $should_display;
+		}
+
+		return ! $this->is_on_page();
+	}
+
+	/**
 	 * Get the admin menu title.
 	 *
 	 * @since 7.0.0
