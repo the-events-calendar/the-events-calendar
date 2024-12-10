@@ -10,6 +10,8 @@
 namespace TEC\Events\Admin\Onboarding\Steps;
 
 use WP_REST_Response;
+use TEC\Common\StellarWP\Installer\Installer;
+use TEC\Common\StellarWP\Installer\Handler\Plugin;
 
 /**
  * Class Tickets
@@ -53,78 +55,43 @@ class Tickets extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function install_event_tickets_plugin( $response, $request ): WP_REST_Response {
-		// Check if the plugin is already installed.
-		if ( function_exists( 'tribe_tickets' ) ) {
-			return $response;
+		$plugin_slug = 'event-tickets';
+		$params      = $request->get_params();
+
+		if ( ! isset( $params['eventTickets'] ) || ! $params['eventTickets'] ) {
+			return self::add_message( $response, __( 'Event Tickets install not requested.', 'the-events-calendar' ) );
 		}
 
-		// Why, WP, why?
-		if ( ! function_exists( 'download_url' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
-		}
-
-		$plugin_slug     = 'event-tickets'; // Plugin slug for Event Tickets.
-		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
-
-		// Fetch plugin information from the WordPress plugin repo.
-		$response = wp_safe_remote_get( $plugin_repo_url );
-		if ( is_wp_error( $response ) ) {
-			return self::add_fail_message( $response, __( 'Failed to get plugin info.', 'the-events-calendar' ) );
-		}
-
-		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
-
-		if ( ! isset( $plugin_data['download_link'] ) ) {
-			return self::add_fail_message( $response, __( 'Failed to extract diwnload link.', 'the-events-calendar' ) );
-		}
-
-		// Required stuff for download_url().
-		global $wp_filesystem;
-
+		// Installer and Plugin classes needs these to be loaded for them to work.
+		require_once ABSPATH . '/wp-admin/includes/plugin.php';
 		require_once ABSPATH . '/wp-admin/includes/file.php';
-		WP_Filesystem();
 
-		$download_url = $plugin_data['download_link'];
-		$plugin_file  = download_url( $download_url );
+		$installed = Installer::get()->is_installed( $plugin_slug );
+		$activated = Installer::get()->is_active( $plugin_slug );
 
-		if ( is_wp_error( $plugin_file ) ) {
-			return self::add_fail_message( $response, __( 'Failed to download plugin zip.', 'the-events-calendar' ) );
+		// Check if the plugin is already installed and active.
+		if ( $installed && $activated ) {
+			return self::add_message( $response, __( 'Event Tickets plugin already installed and activated.', 'the-events-calendar' ) );
 		}
 
-		if ( ! $wp_filesystem->exists( $plugin_file ) ) {
-			return self::add_fail_message( $response, __( 'Plugin zip does not exist.', 'the-events-calendar' ) );
+		$plugin = new Plugin( 'Event Tickets', 'event-tickets' );
+
+		if ( ! $installed ) {
+			$install = $plugin->install();
+
+			if ( ! $install ) {
+				return self::add_fail_message( $response, __( 'Failed to install plugin.', 'the-events-calendar' ) );
+			}
 		}
 
-		// Unzip the plugin into the plugins folder.
-		$unzip = unzip_file( $plugin_file, ABSPATH . 'wp-content/plugins' );
+		if ( ! $activated ) {
+			$active = $plugin->activate();
 
-		// CLean up after ourselves.
-		wp_delete_file( $plugin_file );
-
-		if ( is_wp_error( $unzip ) ) {
-			return self::add_fail_message( $response, __( 'Failed to unzip plugin.', 'the-events-calendar' ) );
+			if ( ! $active ) {
+				return self::add_fail_message( $response, __( 'Failed to activate plugin.', 'the-events-calendar' ) );
+			}
 		}
 
-		if ( ! function_exists( 'install_plugin_install_status' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-		}
-
-		if ( ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		// Install the plugin.
-		$install_result = install_plugin_install_status( $plugin_data );
-		if ( is_wp_error( $install_result ) ) {
-			return self::add_fail_message( $response, __( 'Failed to install plugin.', 'the-events-calendar' ) );
-		}
-
-		// Activate the plugin.
-		$check = activate_plugin( 'event-tickets/event-tickets.php' );
-		if ( is_wp_error( $check ) ) {
-			return self::add_fail_message( $response, __( 'Failed to activate plugin.', 'the-events-calendar' ) );
-		}
-
-		return $response;
+		return self::add_message( $response, __( 'Event Tickets plugin installed and activated.', 'the-events-calendar' ) );
 	}
 }
