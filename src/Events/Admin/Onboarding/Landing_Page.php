@@ -435,7 +435,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		ob_start();
 		?>
 		<div class="tec-admin-page__content-section">
-			<h2>
+			<h2 class="tec-admin-page__content-header">
 				<?php esc_html_e( 'Useful Resources', 'the-events-calendar' ); ?>
 			</h2>
 			<ul>

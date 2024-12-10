@@ -47,7 +47,6 @@ class Venue extends Abstract_Step {
 		// No data to process, bail out.
 		if ( empty( $params['venue'] ) ) {
 			return self::add_message( $response, __( 'No venue to save. Step skipped', 'the-events-calendar' ) );
-			return $response;
 		}
 
 		$venue = $params['venue'];

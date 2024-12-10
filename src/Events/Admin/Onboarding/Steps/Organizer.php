@@ -46,7 +46,6 @@ class Organizer extends Abstract_Step {
 		// No data to process, bail out.
 		if ( empty( $params['organizer'] ) ) {
 			return self::add_message( $response, __( 'No organizer to save. Step skipped', 'the-events-calendar' ) );
-			return $response;
 		}
 
 		$organizer = $params['organizer'];
