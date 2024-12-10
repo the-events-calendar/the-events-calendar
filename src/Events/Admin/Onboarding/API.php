@@ -14,6 +14,7 @@ use WP_REST_Request as Request;
 use WP_REST_Server as Server;
 use WP_Error;
 use WP_REST_Response;
+use TEC\Events\Admin\Onboarding\Data;
 
 /**
  * Class API
@@ -130,13 +131,13 @@ class API {
 		$response = new WP_REST_Response(
 			[
 				'success' => true,
-				'message' => [ __( 'Onboarding wizard completed successfully.', 'the-events-calendar' ) ],
+				'message' => [ __( 'Onboarding wizard step completed successfully.', 'the-events-calendar' ) ],
 			],
 			200
 		);
 
-
-		$current_tab = $request->get_param( 'currentTab' );
+		// Save our state in case we need to return to it.
+		$this->set_tab_records( $request, $response );
 
 		/**
 		 * Each step hooks in here and potentially modifies the response.
@@ -148,5 +149,69 @@ class API {
 		 * @param API              $api      The api object.
 		 */
 		return apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
+	}
+
+	/**
+	 * Passes the request and data to the handler.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param WP_REST_Request $request The request object.
+	 */
+	public function set_tab_records( $request, $response ): void {
+		$params   = $request->get_params();
+		$settings = tribe(Data::class)->get_wizard_settings();
+		$begun    = $settings['begun'] ?? false;
+		$finished = $settings['finished'] ?? false;
+		$skipped  = $params['skippedTabs'] ?? [];
+		$complete = $params['completedTabs'] ?? [];
+
+		if ( $begun ) {
+			$complete = array_push( $complete, 0 );
+		}
+
+		if ( $finished ) {
+			$begun = true;
+		}
+
+
+		// Set up our data for a single save.
+		$settings['begun']          = $begun;
+		$settings['current_tab']    = $params['currentTab'] ?? 0;
+		$settings['finished']       = $finished;
+		$settings['completed_tabs'] = $this->normalize_tabs( $complete );
+		$settings['skipped_tabs']   = $this->normalize_tabs( $skipped );
+
+		// Stuff we don't want/need to store in the settings.
+		unset(
+			$params['timezones'],
+			$params['countries'],
+			$params['currencies'],
+			$params['action_nonce'],
+			$params['_wpnonce']
+		);
+
+		// Add a snapshot of the data from the last request.
+		$settings['last_send'] = $params;
+
+		// Update the option.
+		tribe( Data::class )->update_wizard_settings( $settings );
+	}
+
+	/**
+	 * Normalize the tabs. Remove duplicates
+	 *
+	 * @since TBD
+	 *
+	 * @param array<int> $tabs An array of tab indexes (int).
+	 *
+	 * @return array
+	 */
+	protected function normalize_tabs( $tabs ): array {
+		// Filter out duplicates.
+		$tabs = array_unique( $tabs, SORT_NUMERIC );
+
+		// Reindex the array.
+		return array_values( $tabs );
 	}
 }

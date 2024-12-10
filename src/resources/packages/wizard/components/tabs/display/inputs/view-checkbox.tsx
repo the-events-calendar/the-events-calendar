@@ -3,6 +3,7 @@ import { CheckboxControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const ViewCheckbox = ({ view, isChecked, onChange, icon }) => {
+	const viewLabel = view === 'all' ? __( 'Select all the views', 'the-events-calendar' ) : view.charAt(0).toUpperCase() + view.slice(1);
 	return (
 		<div
 			id={`tec-events-onboarding__checkbox-${view}`}
@@ -24,7 +25,7 @@ const ViewCheckbox = ({ view, isChecked, onChange, icon }) => {
 					className={isChecked ? "tec-events-onboarding__checkbox-label tec-events-onboarding__checkbox-label--checked" : "tec-events-onboarding__checkbox-label"}
 				>
 					{icon}
-					{'all' !== view ? view : __( 'Select all the views', 'the-events-calendar' )}
+					{viewLabel}
 				</label>
 			</div>
 		</div>

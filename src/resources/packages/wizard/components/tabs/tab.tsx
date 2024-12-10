@@ -50,7 +50,7 @@ const Tab: FunctionComponent<TabProps> = ({
 				role="tab"
 				tabIndex={isActive ? 0 : -1}
 			>
-				{title}
+				<span className="tec-events-onboarding__tab-title">{title}</span>
 			</button>
 		</li>
 	);

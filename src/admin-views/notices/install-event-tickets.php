@@ -33,6 +33,6 @@ $button_classes = [
 		<?php echo wpautop( esc_html( $description ) ); ?>
 	</div>
 
-	<?php	Installer::get()->render_plugin_button( 'event-tickets', $action, $button_label, $redirect_url ); ?>
+	<?php Installer::get()->render_plugin_button( 'event-tickets', $action, $button_label, $redirect_url ); ?>
 
 </div>
