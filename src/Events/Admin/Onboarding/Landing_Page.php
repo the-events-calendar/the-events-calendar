@@ -150,17 +150,6 @@ class Landing_Page extends Abstract_Admin_Page {
 		?>
 			<div class="tec-admin-page__content-section tec-events-admin-page__content-section">
 				<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
-				<h3 class="tec-admin-page__content-subheader">
-					<?php
-						printf(
-							/* translators: %1$s is the opening span tag used for dynamically changing the number, %2$d is the number of completed steps, %3$s is the closing span tag */
-							wp_kses_post( __( '%1$s%2$d%3$s of 7 steps completed', 'the-events-calendar' ) ),
-							'<span id="tec-onboarding-wizard-completed-steps">',
-							esc_html( count( $completed_tabs ) ),
-							'</span>'
-						)
-					?>
-				</h3>
 				<ul class="tec-admin-page__content-step-list">
 					<li
 						id="tec-events-onboarding-wizard-views-item"
