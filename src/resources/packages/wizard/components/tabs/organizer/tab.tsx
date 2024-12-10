@@ -128,10 +128,18 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidWebsite = () => {
 		const inputId = 'organizer-website';
 		const isVisited = visitedFields.includes(inputId);
-		const websitePattern = /^(http|https):\/\/[^ "]+?$/;
-		const isValid = !isVisited || websitePattern.test(website);
+
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
+
+		let isValid = false;
+
+		try {
+			const url = new URL(website);
+			isValid = url.protocol === 'http:' || url.protocol === 'https:';
+		} catch (e) {
+			isValid = false
+		}
 
 		if ( isVisited ) {
 			toggleClasses(website, fieldEle, parentEle, isValid);
