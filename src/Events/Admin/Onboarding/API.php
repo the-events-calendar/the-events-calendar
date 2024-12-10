@@ -137,7 +137,7 @@ class API {
 		);
 
 		// Save our state in case we need to return to it.
-		$this->set_tab_records( $request, $response );
+		$this->set_tab_records( $request );
 
 		/**
 		 * Each step hooks in here and potentially modifies the response.
@@ -158,11 +158,10 @@ class API {
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 */
-	public function set_tab_records( $request, $response ): void {
+	public function set_tab_records( $request ): void {
 		$params   = $request->get_params();
-		$settings = tribe(Data::class)->get_wizard_settings();
-		$begun    = $settings['begun'] ?? false;
-		$finished = $settings['finished'] ?? false;
+		$begun    = $params['begun'] ?? false;
+		$finished = $params['finished'] ?? false;
 		$skipped  = $params['skippedTabs'] ?? [];
 		$complete = $params['completedTabs'] ?? [];
 
@@ -174,11 +173,11 @@ class API {
 			$begun = true;
 		}
 
-
 		// Set up our data for a single save.
+		$settings                   = tribe(Data::class)->get_wizard_settings();
 		$settings['begun']          = $begun;
-		$settings['current_tab']    = $params['currentTab'] ?? 0;
 		$settings['finished']       = $finished;
+		$settings['current_tab']    = $params['currentTab'] ?? 0;
 		$settings['completed_tabs'] = $this->normalize_tabs( $complete );
 		$settings['skipped_tabs']   = $this->normalize_tabs( $skipped );
 
@@ -209,7 +208,7 @@ class API {
 	 */
 	protected function normalize_tabs( $tabs ): array {
 		// Filter out duplicates.
-		$tabs = array_unique( $tabs, SORT_NUMERIC );
+		$tabs = array_unique( (array) $tabs, SORT_NUMERIC );
 
 		// Reindex the array.
 		return array_values( $tabs );

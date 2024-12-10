@@ -126,6 +126,8 @@ class Landing_Page extends Abstract_Admin_Page {
 
 		$this->admin_content_resources_section();
 
+
+		// Only show the wizard if we're doing a new install.
 		$this->tec_onboarding_wizard_target();
 	}
 
@@ -158,7 +160,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-1' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[1] ),
+								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[1] ) || ! empty( tribe_get_option( 'tribeEnableViews' ) ),
 							]
 						);
 						?>
@@ -180,7 +182,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ),
+								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'defaultCurrencyCode' ) ),
 							]
 						);
 						?>
@@ -202,7 +204,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ),
+								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'dateWithYearFormat' ) ),
 							]
 						);
 						?>
@@ -499,6 +501,12 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 7.0.0
 	 */
 	public function tec_onboarding_wizard_target(): void {
+		$data = tribe( Data::class );
+		// Don't display if we've finished the wizard.
+		if ( $data->get_wizard_setting( 'finished', false ) ) {
+			return;
+		}
+
 		ob_start();
 		?>
 		<span
