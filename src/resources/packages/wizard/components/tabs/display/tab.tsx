@@ -33,13 +33,13 @@ proViews.set('week', __("Week", "the-events-calendar"));
 
 const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 	const availableViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('availableViews') || [], []);
-	const activeViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('activeViews') || [], []);
+	const tribeEnableViews = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('tribeEnableViews') || [], []);
 
 	// If we have more than 3 views, we have ECP installed.
 	const hasProViews = availableViews.length > 3;
 
 	// Track which views are checked.
-	const [checkedViews, setCheckedViews] = useState<string[]>(activeViews);
+	const [checkedViews, setCheckedViews] = useState<string[]>(tribeEnableViews);
 
 	// Check if all views are selected.
 	const isAllChecked = availableViews.every(view => checkedViews.includes(view));
@@ -59,7 +59,7 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 
 	// Create tabSettings object to pass to NextButton.
 	const tabSettings = {
-		activeViews: checkedViews,
+		tribeEnableViews: checkedViews,
 		currentTab: 1, // Include the current tab index.
 	};
 
@@ -96,7 +96,7 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 			</div>
 			{( !hasProViews && (
 				<div className="tec-events-onboarding__view_upsell">
-					<p className=".tec-events-onboarding__view_upsell_callout tec-events-onboarding__element--center">
+					<p className="tec-events-onboarding__view_upsell_callout tec-events-onboarding__element--center">
 					{__("More views available with", "the-events-calendar")} <BoltIcon className="tec-events-onboarding_pro-icon" /> {__("Events Calendar Pro", "the-events-calendar")}
 					</p>
 					<div className="tec-events-onboarding__view_upsell_list tec-events-onboarding__element--center">
@@ -124,7 +124,7 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 				<NextButton disabled={!isAnyChecked} moveToNextTab={moveToNextTab} tabSettings={tabSettings} />
 			</p>
 			<p className="tec-events-onboarding__element--center">
-				<SkipButton skipToNextTab={skipToNextTab} />
+				<SkipButton skipToNextTab={skipToNextTab} currentTab={1} />
 			</p>
 		</>
 	);

@@ -1,4 +1,4 @@
-import React, { useRef, KeyboardEvent } from "react";
+import React, { useRef } from "react";
 import { __ } from "@wordpress/i18n";
 import { useState, useEffect } from "@wordpress/element";
 import { useSelect, useDispatch } from "@wordpress/data";
@@ -31,44 +31,54 @@ const OnboardingTabs = () => {
 	];
 
 	const { closeModal } = useDispatch(MODAL_STORE_KEY);
-
-	const settings = useSelect(select => {
-		return select(SETTINGS_STORE_KEY).getSettings();
-	}, []);
-
-	const [activeTab, setActiveTab] = useState(0);
+	const lastActiveTab = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("currentTab")) || 0;
+	const skippedTabs = useSelect((select) => select(SETTINGS_STORE_KEY).getSkippedTabs()) || [];
+	const completedTabs = useSelect((select) => select(SETTINGS_STORE_KEY).getCompletedTabs()) || [];
 
 	const [tabsState, setTabsState] = useState(() =>
 		tabConfig.map((tab: TabConfig, index) => ({
 			...tab,
-			disabled: index > 0, // Disable all tabs except the first one
+			disabled: index > lastActiveTab, // Disable all tabs except the last active one (default to 0)
 		}))
 	);
 
-	const handleClick = (index) => {
-		if (!tabsState[index].disabled) {
-			setActiveTab(index);
-		}
-	};
-
-	const handleKeyPress = (event) => {
-		if (event.key === "ArrowRight") changeTab(1);
-		if (event.key === "ArrowLeft") changeTab(-1);
-	};
-
-	const changeTab = (direction) => {
-		const newIndex = activeTab + direction;
-		if (newIndex >= 0 && newIndex < tabsState.length && !tabsState[newIndex].disabled) {
-			setActiveTab(newIndex);
-			tabsState[newIndex].ref.current.focus();
-		}
-	};
+	// Set the current active tab
+	const [activeTab, setActiveTab] = useState(0);
 
 	const updateTabState = (index, changes) => {
 		setTabsState((prevState) =>
 			prevState.map((tab, i) => (i === index ? { ...tab, ...changes } : tab))
 		);
 	};
+
+	const updatePreviousTabStates = (index, changes) => {
+		setTabsState((prevState) =>
+			prevState.map((tab, i) => (i < index ? { ...tab, ...changes } : tab))
+		);
+	};
+
+	const moveToTab = (index) => {
+		if (index > 0 && index < tabsState.length) {
+			const isCompleted = completedTabs.includes(index); // Check if tab is in completedTabs
+			const isSkipped = skippedTabs.includes(index);     // Check if tab is in skippedTabs
+
+			updatePreviousTabStates(index, {
+				completed: isCompleted,
+				skipped: isSkipped,
+				disabled: false
+			});
+
+			updateTabState(index, { disabled: false });
+			setActiveTab(index);
+		}
+	};
+
+	// If we are on the welcome tab, and we have a last active tab, move directly to that tab.
+	useEffect(() => {
+		if (lastActiveTab > 0) {
+			moveToTab(lastActiveTab); // Move to the correct tab after initialization
+		}
+	}, [lastActiveTab]);
 
 	const moveToNextTab = () => {
 		if (activeTab < tabsState.length - 1) {
@@ -95,7 +105,26 @@ const OnboardingTabs = () => {
 		} else {
 			closeModal();
 		}
-	}
+	};
+
+	const handleClick = (index) => {
+		if (!tabsState[index].disabled) {
+			setActiveTab(index);
+		}
+	};
+
+	const handleKeyPress = (event) => {
+		if (event.key === "ArrowRight") changeTab(1);
+		if (event.key === "ArrowLeft") changeTab(-1);
+	};
+
+	const changeTab = (direction) => {
+		const newIndex = activeTab + direction;
+		if (newIndex >= 0 && newIndex < tabsState.length && !tabsState[newIndex].disabled) {
+			setActiveTab(newIndex);
+			tabsState[newIndex].ref.current.focus();
+		}
+	};
 
 	return (
 		<section className={`tec-events-onboarding__tabs tec-events-onboarding__tab-${tabsState[activeTab].id}`}>

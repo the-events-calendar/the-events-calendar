@@ -100,7 +100,7 @@ jobs:
       # Install Pup
       # ------------------------------------------------------------------------------
       - name: install pup
-        run: composer -- pup
+        run: composer -- pup && cd common && composer -- pup
 
       # ------------------------------------------------------------------------------
       # Get the version

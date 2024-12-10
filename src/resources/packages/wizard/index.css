@@ -11,6 +11,7 @@
 	--tec-wp-core-grey-50: #646970;
 	--tec-wp-core-grey-80: #2c3338;
 	--tec-scales-grey-200: #e0e0e0;
+	--tec-color-wp-error: #d63638;
 
 	/* -----------------------------------------------------------------------------
 	 * Border Radius
@@ -37,6 +38,8 @@
 	--tec-spacer-11: 64px;
 	--tec-spacer-12: 80px;
 	--tec-spacer-13: 96px;
+	--tec-spacer-tap-min-size: 44px;
+	--tec-spacer-content-min-width: 260px;
 
 	/* -----------------------------------------------------------------------------
 	 * Font Weight
@@ -80,12 +83,22 @@
 .is-full-screen.components-modal__frame.tec-events-onboarding__modal {
 	border-radius: 0;
 	height: 100vh;
+	margin: 0;
+	max-width: 100vw;
+	min-height: 100%;
+	min-width: 100%;
 	width: 100vw;
 }
 
 .tec-events-onboarding__modal .components-modal__content {
-	margin-top: 0;
-	padding-top: 0;
+	margin: 0;
+	padding: 0 var(--tec-spacer-3);
+}
+
+@media (min-width: 350px) {
+	.tec-events-onboarding__modal .components-modal__content {
+		padding: 0 var(--tec-spacer-5);
+	}
 }
 
 .tec-events-onboarding__modal .components-modal__header {
@@ -99,9 +112,10 @@
 /* Tab Container */
 .tec-events-onboarding__tabs {
 	display: grid;
-	gap: var(--tec-spacer-5);
 	grid-template-columns: auto;
 	grid-template-rows: none;
+	justify-content: center;
+	row-gap: var(--tec-spacer-5);
 }
 
 .tec-events-onboarding__tabs.tec-events-onboarding__tab-welcome {
@@ -126,6 +140,7 @@
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: space-between;
+	min-width: var(--tec-spacer-content-min-width);
 	padding-bottom: var(--tec-spacer-3);
 	padding-top: var(--tec-spacer-5);
 }
@@ -149,7 +164,10 @@
 	}
 
 	.tec-events-onboarding__header-icon {
+		left: var(--tec-spacer-3);
 		margin: 0;
+		position: absolute;
+		top: var(--tes-spacer-7);
 	}
 }
 
@@ -162,6 +180,7 @@
 	list-style: none;
 	margin: 0 auto;
 	max-width: 800px;
+	min-width: var(--tec-spacer-content-min-width);
 	width: 100%;
 }
 
@@ -175,23 +194,23 @@
 	}
 
 	.tec-events-onboarding__tab-display .tec-events-onboarding__tabs-list {
-		grid-template-columns: 50% repeat(4, 10%);
+		grid-template-columns: 33% repeat(4, var(--tec-spacer-tap-min-size));
 	}
 
 	.tec-events-onboarding__tab-settings .tec-events-onboarding__tabs-list {
-		grid-template-columns: 10% 50% repeat(3, 10%);
+		grid-template-columns: var(--tec-spacer-tap-min-size) 33% repeat(3, var(--tec-spacer-tap-min-size));
 	}
 
 	.tec-events-onboarding__tab-organizer .tec-events-onboarding__tabs-list {
-		grid-template-columns: repeat(2, 10%) 50% repeat(2, 10%);
+		grid-template-columns: repeat(2, var(--tec-spacer-tap-min-size)) 33% repeat(2, var(--tec-spacer-tap-min-size));
 	}
 
 	.tec-events-onboarding__tab-venue .tec-events-onboarding__tabs-list {
-		grid-template-columns: repeat(3, 10%) 50% 10%;
+		grid-template-columns: repeat(3, var(--tec-spacer-tap-min-size)) 33% var(--tec-spacer-tap-min-size);
 	}
 
 	.tec-events-onboarding__tab-tickets .tec-events-onboarding__tabs-list {
-		grid-template-columns: repeat(4, 10%) 50%;
+		grid-template-columns: repeat(4, var(--tec-spacer-tap-min-size)) 33%;
 	}
 }
 
@@ -210,7 +229,7 @@
 	justify-content: center;
 	letter-spacing: -1px;
 	margin: 0;
-	padding: var(--tec-spacer-1) var(--tec-spacer-5);
+	padding: 0;
 	position: relative;
 	white-space: nowrap;
 }
@@ -238,39 +257,6 @@
 	}
 }
 
-.tec-events-onboarding__tab:before {
-	border: 1px solid var(--tec-wp-core-grey-50);
-	border-radius: var(--tec-admin-border-radius-round);
-	bottom: var(--tec-spacer-2);
-	color: var(--tec-wp-core-grey-50);
-	content: counter(tab);
-	font-size: var(--tec-font-size-1);
-	height: 18px;
-	left: 50%;
-	line-height: var(--tec-admin-line-height-0);
-	padding: 0;
-	position: absolute;
-	text-align: center;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 18px;
-}
-
-@media (min-width: 1024px) {
-	.tec-events-onboarding__tab:before {
-		left: 0;
-		position: relative;
-		top: 0;
-		transform: none;
-	}
-}
-
-.tec-events-onboarding__tab--completed:before {
-	background-color: var(--tec-wp-core-grey-50);
-	color: var(--tec-wp-core-grey-0);
-	content: '✓';
-}
-
 .tec-events-onboarding__tab--active {
 	background-color: var(--tec-wp-core-blue-50);
 	border-left-color: var(--tec-wp-core-blue-50);
@@ -283,30 +269,76 @@
 	color: #fff;
 }
 
-.tec-events-onboarding__tab--active:before {
-	background-color: #fff;
-	border: 1px solid #fff;
-	color: var(--tec-wp-core-blue-50);
-	left: 0;
-	position: relative;
-	top: 0;
-	transform: none;
-}
-
-.tec-events-onboarding__tab--disabled {
-	color: var(--tec-wp-core-grey-50);
-	cursor: not-allowed;
-}
-
 .tec-events-onboarding__tab-button {
+	align-items: center;
 	background: none;
 	border: none;
 	color: inherit;
 	cursor: pointer;
-	font-size: var(--tec-font-size-2);
+	display: flex;
+	flex-flow: row;
+	font-size: 0;
+	justify-content: center;
 	letter-spacing: normal;
-	padding: 0;
+	padding: var(--tec-spacer-1) var(--tec-spacer-5);
+	width: 100%;
 	z-index: 1;
+}
+
+.tec-events-onboarding__tab--active .tec-events-onboarding__tab-button {
+	font-size: var(--tec-font-size-2);
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__tab-button {
+		font-size: var(--tec-font-size-2);
+	}
+}
+
+.tec-events-onboarding__tab--disabled,
+.tec-events-onboarding__tab--disabled .tec-events-onboarding__tab-button {
+	color: var(--tec-wp-core-grey-50);
+	cursor: not-allowed;
+}
+
+.tec-events-onboarding__tab-title:before {
+	border: 1px solid var(--tec-wp-core-grey-50);
+	border-radius: var(--tec-admin-border-radius-round);
+	box-sizing: border-box;
+	color: var(--tec-wp-core-grey-50);
+	content: counter(tab);
+	display: inline-block;
+	font-size: var(--tec-font-size-1);
+	height: 18px;
+	line-height: var(--tec-admin-line-height-0);
+	padding: 0;
+	text-align: center;
+	vertical-align: middle;
+	width: 18px;
+}
+
+.tec-events-onboarding__tab--completed .tec-events-onboarding__tab-title:before {
+	background-color: var(--tec-wp-core-grey-50);
+	color: var(--tec-wp-core-grey-0);
+	content: '✓';
+}
+
+.tec-events-onboarding__tab--active .tec-events-onboarding__tab-title:before {
+	background-color: #fff;
+	border: 1px solid #fff;
+	color: var(--tec-wp-core-blue-50);
+	margin-right: var(--tec-spacer-2);
+}
+
+@media (min-width: 1024px) {
+	.tec-events-onboarding__tab-title:before {
+		margin-right: var(--tec-spacer-2);
+	}
+}
+
+.tec-events-onboarding__tabpanel {
+	margin: 0 auto;
+	width: min(100%, 100vw, 635px);
 }
 
 /* TabPanel Content */
@@ -314,7 +346,15 @@
 	display: flex;
 	flex-direction: column;
 	margin: 0 auto;
+	max-width: min(100%, 100vw);
+	min-width: var(--tec-spacer-content-min-width);
 	width: fit-content;
+}
+
+@media (min-width: 500px) {
+	.tec-events-onboarding__tabpanel-content {
+		max-width: min(100%, 100vw);
+	}
 }
 
 @media (min-width: 1024px) {
@@ -387,13 +427,13 @@
 .tec-events-onboarding__grid--view-checkbox {
 	display: grid;
 	gap: var(--tec-spacer-2);
-	grid-template-columns: repeat(3, 120px);
+	grid-template-columns: repeat(2, 120px);
 	justify-content: center;
 	width: 100%;
 }
 
 .tec-events-onboarding__view_upsell {
-	padding-top: 24px;
+	padding-top: var(--tec-spacer-5);
 }
 
 .tec-events-onboarding__view_upsell_callout {
@@ -402,8 +442,14 @@
 
 .tec-events-onboarding__view_upsell_list {
 	display: flex;
-	flex-direction: row;
+	flex-flow: row wrap;
 	justify-content: center;
+}
+
+@media (min-width: 500px) {
+	.tec-events-onboarding__view_upsell_list {
+		flex-wrap: nowrap;
+	}
 }
 
 .tec-events-onboarding__view_upsell-cell {
@@ -440,11 +486,13 @@
 	border: 1.128px solid var(--tec-wp-core-grey-50);
 	border-radius: var(--tec-admin-border-radius-0);
 	box-sizing: border-box;
+	cursor: pointer;
 	display: flex;
 	flex-direction: column;
 	gap: var(--tec-spacer-2);
 	height: 116px;
 	padding: var(--tec-spacer-2) var(--tec-spacer-4);
+	text-align: center;
 	width: 128px;
 }
 
@@ -476,6 +524,10 @@
 	background-color: #fff;
 }
 
+.tec-events-onboarding__tickets-checkbox-input {
+	margin-top: -2px;
+}
+
 .tec-events-onboarding__checkbox-description {
 	color: #000;
 	font-size: var(--tec-font-size-2);
@@ -490,17 +542,19 @@
 	border-radius: var(--tec-admin-border-radius-1);
 	display: flex;
 	flex-direction: column;
-	gap: var(--tec-spacer-4);
+	gap: var(--tec-spacer-2);
 	margin: 0 auto;
+	min-width: var(--tec-spacer-content-min-width);
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
 	width: 100%;
 }
 
 @media (min-width: 1024px) {
 	#venuePanel .tec-events-onboarding__form-wrapper {
+		column-gap: var(--tec-spacer-4);
 		display: grid;
-		gap: var(--tec-spacer-2);
 		grid-template-columns: 1fr 1fr;
+		row-gap: var(--tec-spacer-2);
 	}
 
 	#venuePanel .tec-events-onboarding__form-wrapper .components-base-control:first-child,
@@ -509,7 +563,13 @@
 	}
 }
 
-.tec-events-onboarding__form-field--hidden {
+.tec-events-onboarding__form-field-trigger {
+	line-height: var(--tec-line-height-2);
+	max-height: var(--tec-spacer-4);
+	padding: 0;
+}
+
+.tec-events-onboarding__form-field-trigger + .tec-events-onboarding__form-field {
 	display: none;
 }
 
@@ -530,7 +590,7 @@
 	margin-top: 0;
 }
 
-/* Stupidly specific to overide component styles */
+/* Stupidly specific or important to override component styles */
 .tec-events-onboarding__modal .tec-events-onboarding__tabs .tec-events-onboarding__tabpanel-content .tec-events-onboarding__form-wrapper label {
 	font-size: var(--tec-font-size-2);
 	font-style: normal;
@@ -547,8 +607,19 @@
 	font-weight: var(--tec-font-weight-regular);
 	height: auto;
 	line-height: normal;
-	padding: 12px 16px;
+	padding: var(--tec-spacer-2) var(--tec-spacer-3);
 	text-transform: none;
+	width: 100%;
+}
+
+.tec-events-onboarding__form-wrapper .components-checkbox-control__input[type=checkbox]:checked,
+.tec-events-onboarding__form-wrapper .components-checkbox-control__input[type=checkbox]:indeterminate {
+	background: var(--tec-wp-core-blue-50);
+	border-color: var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__form-wrapper  .components-checkbox-control__input[type=checkbox]:focus {
+	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) #fff, 0 0 0 calc(var(--wp-admin-border-width-focus) * 2) var(--tec-wp-core-blue-50);
 }
 
 .components-button.is-primary {
@@ -556,6 +627,74 @@
 	background-color: var(--tec-wp-core-blue-50);
 }
 
+.components-button.is-tertiary,
 .tec-events-onboarding__modal a {
 	color: var(--tec-wp-core-blue-50);
+}
+
+.components-button.is-tertiary:focus:not(:disabled) {
+	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--tec-wp-core-blue-50);
+}
+
+.tec-events-onboarding__modal .components-select-control__input:focus ~ .components-input-control__backdrop {
+	border-color: var(--tec-wp-core-blue-50) !important;
+	box-shadow: 0 0 0 0.5px var(--tec-wp-core-blue-50) !important;
+}
+
+/* Validation */
+
+.tec-events-onboarding__form-field.invalid input,
+.tec-events-onboarding__form-field.invalid select,
+.tec-events-onboarding__form-field.invalid textarea {
+	border: 1px solid var(--tec-color-wp-error) !important;
+	color: var(--tec-color-wp-error);
+	font-weight: var(--tec-font-weight-bold);
+}
+
+.tec-events-onboarding__form-field.invalid input:focus,
+.tec-events-onboarding__form-field.invalid select:focus,
+.tec-events-onboarding__form-field.invalid textarea:focus {
+	border-color: var(--tec-color-wp-error);
+	box-shadow: 0 0 0 0.5px var(--tec-color-wp-error);
+	outline: 1px solid var(--tec-color-wp-error);
+}
+
+.tec-events-onboarding__required-label,
+.tec-events-onboarding__invalid-label {
+	color: var(--tec-color-wp-error);
+	display: none;
+	font-size: var(--tec-font-size-1);
+	font-weight: var(--tec-font-weight-regular);
+	margin-top: var(--tec-spacer-1);
+}
+
+.tec-events-onboarding__form-field.empty .tec-events-onboarding__required-label,
+.tec-events-onboarding__form-field.invalid .tec-events-onboarding__invalid-label {
+	display: block;
+}
+
+.tec-events-onboarding__form-field.empty .tec-events-onboarding__invalid-label {
+	display: none;
+}
+
+.tec-events-onboarding__field-description {
+	display: inline-block;
+}
+
+.tec-events-onboarding__form-field.empty .tec-events-onboarding__field-description,
+.tec-events-onboarding__form-field.invalid .tec-events-onboarding__field-description {
+	display: none;
+}
+
+.tec-events-dismiss-onboarding-screen {
+	bottom: 2em;
+	display: none;
+	position: absolute;
+	right: 10em;
+}
+
+@media (min-width: 782px) {
+	.tec-events-dismiss-onboarding-screen {
+		display: inline-block;
+	}
 }

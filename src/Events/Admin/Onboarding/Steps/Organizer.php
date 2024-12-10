@@ -23,12 +23,13 @@ use WP_REST_Request;
 class Organizer extends Abstract_Step {
 	/**
 	 * The tab number for this step.
+	 * Note: this is set to the same as the Tickets tab as we don't want to process an organizer until the end.
 	 *
-	 * @since 6.8.2
+	 * @since 7.0.0
 	 *
 	 * @var int
 	 */
-	public const TAB_NUMBER = 3;
+	public const TAB_NUMBER = 5;
 
 	/**
 	 * Process the organizer data.
@@ -43,28 +44,31 @@ class Organizer extends Abstract_Step {
 	public static function process( $response, $request ): WP_REST_Response {
 		$params = $request->get_params();
 		// No data to process, bail out.
-		if ( ! $params['organizer'] ) {
+		if ( empty( $params['organizer'] ) ) {
+			return self::add_message( $response, __( 'No organizer to save. Step skipped', 'the-events-calendar' ) );
 			return $response;
 		}
 
 		$organizer = $params['organizer'];
 
 		// If we already have an organizer, we're not editing it here.
-		if ( ! empty( $organizer['id'] ) ) {
-			return $response;
+		if ( ! empty( $organizer['organizerId'] ) ) {
+			return self::add_message( $response, __( 'Existing organizer. Step skipped.', 'the-events-calendar' ) );
 		}
 
-		$organizer['Organizer']         = $organizer['name'];
-		$organizer['_OrganizerPhone']   = $organizer['_OrganizerPhone'];
-		$organizer['_OrganizerWebsite'] = $organizer['_OrganizerWebsite'];
-		$organizer['_OrganizerEmail']   = $organizer['_OrganizerEmail'];
+		$new_organizer['Organizer'] = $organizer['name'];
+		$new_organizer['Phone']     = $organizer['phone'] ?? '';
+		$new_organizer['Website']   = $organizer['website'] ?? '';
+		$new_organizer['Email']     = $organizer['email'] ?? '';
 
-		$post_id = Tribe__Events__API::createOrganizer( $organizer );
+		$post_id = Tribe__Events__API::createOrganizer( $new_organizer );
 
 		if ( ! $post_id ) {
 			return self::add_fail_message( $response, __( 'Failed to create organizer.', 'the-events-calendar' ) );
+		} else {
+			$response->data['organizer_id'] = $post_id;
 		}
 
-		return $response;
+		return self::add_message( $response, __( 'Organizer created.', 'the-events-calendar' ) );
 	}
 }
