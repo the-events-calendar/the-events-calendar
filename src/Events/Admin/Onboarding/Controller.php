@@ -85,6 +85,18 @@ class Controller extends Controller_Contract {
 		add_action( 'admin_menu', [ $this, 'landing_page' ] );
 		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		add_action( 'admin_post_' . Landing_Page::DISMISS_ONBOARDING_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
+	}
+
+	/**
+	 * Handle the onboarding page dismiss.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return void
+	 */
+	public function handle_onboarding_page_dismiss(): void {
+		$this->container->make( Landing_Page::class )->handle_onboarding_page_dismiss();
 	}
 
 	/**

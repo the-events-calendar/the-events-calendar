@@ -26,6 +26,15 @@ class Landing_Page extends Abstract_Admin_Page {
 	use Is_Events_Page;
 
 	/**
+	 * The action to dismiss the onboarding page.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @var string
+	 */
+	const DISMISS_ONBOARDING_PAGE_ACTION = 'tec_dismiss_onboarding_page';
+
+	/**
 	 * The slug for the admin menu.
 	 *
 	 * @since 7.0.0
@@ -108,6 +117,17 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
+	 * Has the page been dismissed?
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return bool
+	 */
+	public static function is_dismissed(): bool {
+		return (bool) tribe_get_option( 'tec_events_onboarding_page_dismissed', false );
+	}
+
+	/**
 	 * Get the admin menu title.
 	 *
 	 * @since 7.0.0
@@ -131,6 +151,45 @@ class Landing_Page extends Abstract_Admin_Page {
 		$classes[] = 'tec-events__landing-page-content';
 
 		return $classes;
+	}
+
+	/**
+	 * Render the admin page title.
+	 * In the header.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return void Renders the admin page title.
+	 */
+	public function admin_page_title(): void {
+		parent::admin_page_title();
+
+		$action_url = add_query_arg(
+			// We do not need a nonce. This page can be seen only by admins. see `required_capability` method.
+			[ 'action' => self::DISMISS_ONBOARDING_PAGE_ACTION ],
+			admin_url( '/admin-post.php' )
+		);
+		?>
+		<a class="tec-events-dismiss-onboarding-screen" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
+		<?php
+	}
+
+	/**
+	 * Get the required capability to view the page.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @return string The required capability.
+	 */
+	public function handle_onboarding_page_dismiss(): void {
+		if ( ! current_user_can( $this->required_capability() ) ) {
+			return;
+		}
+
+		tribe_update_option( 'tec_events_onboarding_page_dismissed', true );
+
+		wp_safe_redirect( admin_url( $this->get_parent_page_slug() ) );
+		exit;
 	}
 
 	/**
