@@ -91,6 +91,23 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
+	 * Hides the notices on the onboarding page.
+	 *
+	 * @since 7.0.0
+	 *
+	 * @param bool $should_display Whether the notices should display.
+	 *
+	 * @return bool
+	 */
+	public function should_not_display_notices_on_onboarding_page( bool $should_display ): bool {
+		if ( ! $should_display ) {
+			return $should_display;
+		}
+
+		return ! $this->is_on_page();
+	}
+
+	/**
 	 * Get the admin menu title.
 	 *
 	 * @since 7.0.0
@@ -402,17 +419,17 @@ class Landing_Page extends Abstract_Admin_Page {
 			<section class="tec-admin-page__sidebar-section has-icon">
 				<span class="tec-admin-page__icon tec-admin-page__sidebar-icon tec-admin-page__icon--stars" role="presentation"></span>
 				<div>
-					<h3 class="tec-admin-page__sidebar-header">Our AI Chatbot is here to help you</h2>
-					<p>You have questions? The TEC Chatbot has the answers.</p>
-					<p><a href="#" class="tec-admin-page__link">Talk to TEC Chatbot</a></p>
+					<h3 class="tec-admin-page__sidebar-header"><?php esc_html_e( 'Our AI Chatbot is here to help you', 'the-events-calendar' ); ?></h2>
+					<p><?php esc_html_e( 'You have questions? The TEC Chatbot has the answers.', 'the-events-calendar' ); ?></p>
+					<p><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' ) ); ?>" class="tec-admin-page__link"><?php esc_html_e( 'Talk to TEC Chatbot', 'the-events-calendar' ); ?></a></p>
 				</div>
 			</section>
 			<section class="tec-admin-page__sidebar-section has-icon">
 				<span class="tec-admin-page__icon tec-admin-page__sidebar-icon tec-admin-page__icon--chat" role="presentation"></span>
 				<div>
-					<h2 class="tec-admin-page__sidebar-header">Get priority live support</h2>
-					<p>You can get live support from The Events Calendar team if you have an active license for one of our products.</p>
-					<p><span class="tec-admin-page__link--external"><a href="#" class="tec-admin-page__link">Learn how to get an active license</a></span></p>
+					<h2 class="tec-admin-page__sidebar-header"><?php esc_html_e( 'Get priority live support', 'the-events-calendar' ); ?></h2>
+					<p><?php esc_html_e( 'You can get live support from The Events Calendar team if you have an active license for one of our products.', 'the-events-calendar' ); ?></p>
+					<p><span class="tec-admin-page__link--external"><a href="https://theeventscalendar.com/knowledgebase/priority-support-through-the-tec-support-hub" target="_blank" rel="nofollow noopener" class="tec-admin-page__link"><?php esc_html_e( 'Learn how to get an active license', 'the-events-calendar' ); ?></a></span></p>
 				</div>
 			</section>
 		<?php
