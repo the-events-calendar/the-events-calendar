@@ -232,6 +232,12 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.8.3] 2024-12-05 =
+
+* Feature - In-App Notifications system. [TEC-5165]
+* Tweak - Added actions: `tec_ian_icon`
+* Language - 0 new strings added, 118 updated, 0 fuzzied, and 1 obsoleted.
+
 = [6.8.2.1] 2024-11-21 =
 
 * Tweak - Introduced filter `tec_events_rest_api_password_protected_fields` which can be used to control which event fields should be hidden in the REST API for password protected events. [SVUL-8]
