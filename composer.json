@@ -33,6 +33,7 @@
     "mikey179/vfsstream": "^1.6",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "^1.0",
+    "slope-it/clock-mock": "^0.4.0",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
