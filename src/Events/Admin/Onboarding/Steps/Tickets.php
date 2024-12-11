@@ -53,39 +53,37 @@ class Tickets extends Abstract_Step {
 	 * @return WP_REST_Response
 	 */
 	public static function install_event_tickets_plugin( $response, $request ): WP_REST_Response {
-		// Check if the plugin is already installed.
+		// Check if the plugin is already installed and active.
 		if ( function_exists( 'tribe_tickets' ) ) {
-			return $response;
+			return self::add_message( $response, __( 'Event Tickets plugin already installed and activated.', 'the-events-calendar' ) );
 		}
 
-		// Why, WP, why?
-		if ( ! function_exists( 'download_url' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/file.php';
+		if ( file_exists( WP_PLUGIN_DIR . '/event-tickets/event-tickets.php' ) ) {
+			$activate = activate_plugin( 'event-tickets/event-tickets.php' );
+
+			if ( is_wp_error( $activate ) ) {
+				return self::add_fail_message( $response, __( 'Failed to activate plugin.', 'the-events-calendar' ) );
+			} else {
+				return self::add_message( $response, __( 'Event Tickets plugin activated.', 'the-events-calendar' ) );
+			}
+
 		}
 
-		$plugin_slug     = 'event-tickets'; // Plugin slug for Event Tickets.
-		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
+		$plugin_info = self::get_plugin_info();
 
-		// Fetch plugin information from the WordPress plugin repo.
-		$response = wp_safe_remote_get( $plugin_repo_url );
-		if ( is_wp_error( $response ) ) {
+		if ( is_wp_error( $plugin_info ) ) {
 			return self::add_fail_message( $response, __( 'Failed to get plugin info.', 'the-events-calendar' ) );
 		}
 
-		$plugin_data = json_decode( wp_remote_retrieve_body( $response ), true );
+		$plugin_data = self::get_plugin_data( $plugin_info );
 
 		if ( ! isset( $plugin_data['download_link'] ) ) {
-			return self::add_fail_message( $response, __( 'Failed to extract diwnload link.', 'the-events-calendar' ) );
+			return self::add_fail_message( $response, __( 'Failed to extract download link.', 'the-events-calendar' ) );
 		}
 
-		// Required stuff for download_url().
 		global $wp_filesystem;
 
-		require_once ABSPATH . '/wp-admin/includes/file.php';
-		WP_Filesystem();
-
-		$download_url = $plugin_data['download_link'];
-		$plugin_file  = download_url( $download_url );
+		$plugin_file = self::download_plugin( $response );
 
 		if ( is_wp_error( $plugin_file ) ) {
 			return self::add_fail_message( $response, __( 'Failed to download plugin zip.', 'the-events-calendar' ) );
@@ -95,16 +93,58 @@ class Tickets extends Abstract_Step {
 			return self::add_fail_message( $response, __( 'Plugin zip does not exist.', 'the-events-calendar' ) );
 		}
 
-		// Unzip the plugin into the plugins folder.
-		$unzip = unzip_file( $plugin_file, ABSPATH . 'wp-content/plugins' );
-
-		// CLean up after ourselves.
-		wp_delete_file( $plugin_file );
+		$unzip = self::unzip_plugin( $plugin_file );
 
 		if ( is_wp_error( $unzip ) ) {
 			return self::add_fail_message( $response, __( 'Failed to unzip plugin.', 'the-events-calendar' ) );
 		}
 
+		$install_result = self::install_plugin( $plugin_data);
+
+		if ( is_wp_error( $install_result ) ) {
+			return self::add_fail_message( $response, __( 'Failed to install plugin.', 'the-events-calendar' ) );
+		}
+
+		// Activate the plugin.
+		return activate_plugin( $response );
+	}
+
+	public static function get_plugin_info() {
+		$plugin_slug     = 'event-tickets'; // Plugin slug for Event Tickets.
+		$plugin_repo_url = 'https://api.wordpress.org/plugins/info/1.0/' . $plugin_slug . '.json';
+
+		// Fetch plugin information from the WordPress plugin repo.
+		$wp_get = wp_safe_remote_get( $plugin_repo_url );
+	}
+
+	public static function get_plugin_data( $plugin_info ) {
+		return json_decode( wp_remote_retrieve_body( $plugin_info ), true );
+	}
+
+	public static function download_plugin() {
+		// Required stuff for download_url().
+		require_once ABSPATH . '/wp-admin/includes/file.php';
+
+		WP_Filesystem();
+
+
+		$download_url = $plugin_data['download_link'];
+
+		return download_url( $download_url );
+	}
+
+
+	public static function unzip_plugin( $plugin_file ) {
+		// Unzip the plugin into the plugins folder.
+		$unzip = unzip_file( $plugin_file, ABSPATH . 'wp-content/plugins' );
+
+		// Clean up after ourselves.
+		wp_delete_file( $plugin_file );
+
+		return $unzip;
+	}
+
+	public static function install_plugin( $plugin_data ) {
 		if ( ! function_exists( 'install_plugin_install_status' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 		}
@@ -114,17 +154,17 @@ class Tickets extends Abstract_Step {
 		}
 
 		// Install the plugin.
-		$install_result = install_plugin_install_status( $plugin_data );
-		if ( is_wp_error( $install_result ) ) {
-			return self::add_fail_message( $response, __( 'Failed to install plugin.', 'the-events-calendar' ) );
-		}
+		return install_plugin_install_status( $plugin_data );
+	}
 
+	public static function activate_plugin( $response ) {
 		// Activate the plugin.
 		$check = activate_plugin( 'event-tickets/event-tickets.php' );
+
 		if ( is_wp_error( $check ) ) {
 			return self::add_fail_message( $response, __( 'Failed to activate plugin.', 'the-events-calendar' ) );
+		} else {
+			return self::add_message( $response, __( 'Event Tickets plugin installed and activated.', 'the-events-calendar' ) );
 		}
-
-		return $response;
 	}
 }

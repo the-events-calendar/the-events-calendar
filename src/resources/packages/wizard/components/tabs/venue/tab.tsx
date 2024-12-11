@@ -54,7 +54,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
             'venue-website': isValidWebsite(),
 		};
 		setCanContinue(Object.values(fieldsToCheck).every((field) => !!field));
-    }, [name, address, city, state, zip, country, phone, website, showPhone, showWebsite ]);
+    }, [name, address, city, state, zip, phone, website, showPhone, showWebsite ]);
 
 	/**
 	 * Function to show hidden fields.
@@ -298,7 +298,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				/>
 			</div>
 			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} tabSettings={tabSettings} disabled={false}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab}/></p>
+			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={4}/></p>
 		</>
 	);
 };

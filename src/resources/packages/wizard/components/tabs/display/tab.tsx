@@ -124,7 +124,7 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 				<NextButton disabled={!isAnyChecked} moveToNextTab={moveToNextTab} tabSettings={tabSettings} />
 			</p>
 			<p className="tec-events-onboarding__element--center">
-				<SkipButton skipToNextTab={skipToNextTab} />
+				<SkipButton skipToNextTab={skipToNextTab} currentTab={1} />
 			</p>
 		</>
 	);

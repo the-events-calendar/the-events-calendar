@@ -61,12 +61,11 @@ class Settings extends Abstract_Step {
 			'tribeEnableViews'      => $enabled_views,
 		];
 
-		error_log(print_r($settings, true));
-
 		foreach ( $settings as $key => $value ) {
 			// Don't save a falsy value here, as we don't want to override any defaults.
 			// And values should all be strings/ints!
 			if ( empty( $value ) || ( 'start_of_week' === $key && $value === 0 ) ) {
+				self::add_message( $response, __( "Did not attempt saving option {$key}.", 'the-events-calendar' ) );
 				continue;
 			}
 
@@ -76,28 +75,34 @@ class Settings extends Abstract_Step {
 			if ( 'start_of_week' === $key || 'timezone_string' === $key || 'date_format' ) {
 				$temp = get_option( $key, $value );
 				if ( $temp === $value ) {
+					self::add_message( $response, __( "The {$key} option is already set to the requested value.", 'the-events-calendar' ) );
 					continue;
 				} else {
 					$updated = update_option( $key, $value );
 
 					if ( ! $updated ) {
-						return self::add_fail_message( $response, __( 'Failed to save option.', 'the-events-calendar' ) );
+						return self::add_fail_message( $response, __( "Failed to save option {$key}.", 'the-events-calendar' ) );
+					} else {
+						self::add_message( $response, __( "Successfully saved option {$key}.", 'the-events-calendar' ) );
 					}
 				}
 			} else {
 				$temp = tribe_get_option( $key, $value );
 				if ( $temp === $value ) {
+					self::add_message( $response, __( "The {$key} setting is already set to the requested value.", 'the-events-calendar' ) );
 					continue;
 				} else {
 					$updated = tribe_update_option( $key, $value );
 
 					if ( ! $updated ) {
-						return self::add_fail_message( $response, __( 'Failed to save setting.', 'the-events-calendar' ) );
+						return self::add_fail_message( $response, __( "Failed to save setting {$key}.", 'the-events-calendar' ) );
+					} else {
+						self::add_message( $response, __( "Successfully saved setting {$key}.", 'the-events-calendar' ) );
 					}
 				}
 			}
 		}
 
-		return $response;
+		return self::add_message( $response, __( 'Successfully saved settings.', 'the-events-calendar' ) );
 	}
 }

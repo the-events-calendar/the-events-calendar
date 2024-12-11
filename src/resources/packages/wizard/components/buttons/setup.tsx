@@ -10,10 +10,9 @@ import {SETTINGS_STORE_KEY} from "../../data";
 const SetupButton = ({ tabSettings, moveToNextTab }) => {
 	const actionNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("action_nonce"), []);
 	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
-	const isSaving = useSelect(select => select(SETTINGS_STORE_KEY).getIsSaving() || false, []);
 	const updateSettings = useDispatch(SETTINGS_STORE_KEY).updateSettings;
-	const setSaving = useDispatch(SETTINGS_STORE_KEY).setSaving;
 	const [isClicked, setClicked] = useState(false);
+	const [isSaving, setSaving] = useState(false);
 
 	useEffect(() => {
 		const handleTabChange = async () => {
@@ -34,6 +33,8 @@ const SetupButton = ({ tabSettings, moveToNextTab }) => {
 			if (result.success) {
 				// Dynamically update settings Store for the current tab.
 				updateSettings(tabSettings);
+
+				setSaving(false);
 				// Move to the next tab.
 				moveToNextTab();
 			}

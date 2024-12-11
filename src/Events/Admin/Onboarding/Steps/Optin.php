@@ -45,7 +45,7 @@ class Optin extends Abstract_Step {
 		$optin         = $request->get_param( 'opt-in-status' );
 
 		if ( $current_optin === $optin ) {
-			return $response;
+			return self::add_message( $response, __( 'Opt-in status is already set to the requested value.', 'the-events-calendar' ) );
 		}
 
 		// Save the option.

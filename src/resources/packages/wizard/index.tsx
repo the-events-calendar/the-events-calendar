@@ -9,16 +9,15 @@ import { SETTINGS_STORE_KEY, MODAL_STORE_KEY } from './data';
 import './index.css';
 
 const OnboardingModal = ({ bootData }) => {
-	const isOpen = useSelect((select) => select(MODAL_STORE_KEY).getModalState());
+	// Initialize the settings store.
+	const { initializeSettings } = useDispatch(SETTINGS_STORE_KEY);
+	initializeSettings(bootData);
+
+	const begun = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("begun"));
+	const finished = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("finished"));
+	const isOpen = !finished ? true : useSelect((select) => select(MODAL_STORE_KEY).getModalState());
 	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 	const { openModal } = useDispatch(MODAL_STORE_KEY);
-
-	// Initialize the settings store.
-	const {
-		initializeSettings,
-	} = useDispatch(SETTINGS_STORE_KEY);
-
-	initializeSettings(bootData);
 
 	return (
 		<>
@@ -32,6 +31,7 @@ const OnboardingModal = ({ bootData }) => {
 					initialTabName="intro"
 					onRequestClose={closeModal}
 					selectOnMove={false}
+					shouldCloseOnEsc={false}
 					shouldCloseOnClickOutside={false}
 				>
 					<OnboardingTabs />
