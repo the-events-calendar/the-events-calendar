@@ -443,7 +443,7 @@ class Landing_Page extends Abstract_Admin_Page {
 				<li>
 					<span class="tec-admin-page__icon tec-admin-page__icon--book" role="presentation"></span>
 					<span class="tec-admin-page__link--external">
-						<a href="<?php echo esc_url( $guide_link ); ?>" class="tec-admin-page__link">
+						<a href="<?php echo esc_url( $guide_link ); ?>" class="tec-admin-page__link" target="_blank" rel="nofollow noopener">
 							<?php esc_html_e( 'The Events Calendar guide', 'the-events-calendar' ); ?>
 						</a>
 					</span>
@@ -451,7 +451,7 @@ class Landing_Page extends Abstract_Admin_Page {
 				<li>
 					<span class="tec-admin-page__icon tec-admin-page__icon--customize" role="presentation"></span>
 					<span class="tec-admin-page__link--external">
-						<a href="<?php echo esc_url( $customize_link ); ?>" class="tec-admin-page__link">
+						<a href="<?php echo esc_url( $customize_link ); ?>" class="tec-admin-page__link" target="_blank" rel="nofollow noopener">
 							<?php esc_html_e( 'Customize styles and templates', 'the-events-calendar' ); ?>
 						</a>
 					</span>
