@@ -7,7 +7,7 @@
 
 namespace TEC\Events\Admin\Onboarding;
 
-use \Tribe\Events\Views\V2\Manager as Views_Manager;
+use Tribe\Events\Views\V2\Manager as Views_Manager;
 
 /**
  * Class Data
