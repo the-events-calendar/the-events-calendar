@@ -222,9 +222,6 @@ class Landing_Page extends Abstract_Admin_Page {
 		$organizer_data = tribe( Data::class )->get_organizer_data();
 		$venue_data     = tribe( Data::class )->get_venue_data();
 		$has_event      = tribe( Data::class )->has_events();
-
-
-		ob_start();
 		?>
 			<div class="tec-admin-page__content-section tec-events-admin-page__content-section">
 				<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
@@ -417,7 +414,6 @@ class Landing_Page extends Abstract_Admin_Page {
 				</div>
 			</div>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -431,8 +427,6 @@ class Landing_Page extends Abstract_Admin_Page {
 		$chatbot_link   = admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' );
 		$guide_link     = 'https://theeventscalendar.com/knowledgebase/guide/the-events-calendar/';
 		$customize_link = 'https://theeventscalendar.com/knowledgebase/guide/customization/';
-
-		ob_start();
 		?>
 		<div class="tec-admin-page__content-section">
 			<h2 class="tec-admin-page__content-header">
@@ -464,7 +458,6 @@ class Landing_Page extends Abstract_Admin_Page {
 			</ul>
 		</div>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -473,7 +466,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 7.0.0
 	 */
 	public function admin_page_sidebar_content(): void {
-		ob_start();
 		?>
 			<section class="tec-admin-page__sidebar-section has-icon">
 				<span class="tec-admin-page__icon tec-admin-page__sidebar-icon tec-admin-page__icon--stars" role="presentation"></span>
@@ -492,7 +484,6 @@ class Landing_Page extends Abstract_Admin_Page {
 				</div>
 			</section>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped,StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -582,8 +573,6 @@ class Landing_Page extends Abstract_Admin_Page {
 		if ( $data->get_wizard_setting( 'finished', false ) ) {
 			return;
 		}
-
-		ob_start();
 		?>
 		<span
 			id="tec-events-onboarding-wizard"
@@ -592,7 +581,6 @@ class Landing_Page extends Abstract_Admin_Page {
 		></span>
 		<div class="wrap" id="tec-events-onboarding-wizard-target"></div>
 		<?php
-		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

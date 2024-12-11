@@ -25,7 +25,7 @@ class Data {
 	 * @return array<string,string> The organizer data.
 	 */
 	public function get_organizer_data(): array {
-		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+		$organizer_id = tribe( 'events.organizer-repository' )->get_ids( true )->first();
 
 		if ( empty( $organizer_id ) ) {
 			return [];
