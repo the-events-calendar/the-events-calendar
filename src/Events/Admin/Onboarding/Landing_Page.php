@@ -602,7 +602,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 */
 	public function register_assets() {
 		$plugin     = tribe( 'tec.main' );
-		$asset_file = $plugin->plugin_path . 'src/build/wizard/index.asset.php';
+		$asset_file = $plugin->plugin_path . 'build/wizard/index.asset.php';
 
 		// Danger, Will Robinson.
 		if ( ! file_exists( $asset_file ) ) {
@@ -614,7 +614,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		tribe_asset(
 			$plugin,
 			'tec-events-onboarding-wizard-script',
-			plugins_url( 'src/build/wizard/index.js', $plugin->plugin_file ),
+			plugins_url( 'build/wizard/index.js', $plugin->plugin_file ),
 			$asset['dependencies'],
 			'admin_enqueue_scripts',
 			[
@@ -627,7 +627,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		tribe_asset(
 			$plugin,
 			'tec-events-onboarding-wizard-style',
-			plugins_url( 'src/build/wizard/index.css', $plugin->plugin_file ),
+			plugins_url( 'build/wizard/index.css', $plugin->plugin_file ),
 			[ 'wp-components' ],
 			'admin_enqueue_scripts',
 			[
