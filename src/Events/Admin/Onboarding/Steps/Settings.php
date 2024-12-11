@@ -2,7 +2,7 @@
 /**
  * Handles the settings step of the onboarding wizard.
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -16,7 +16,7 @@ use TEC\Events\Admin\Onboarding\Data;
 /**
  * Class Settings
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -24,7 +24,7 @@ class Settings extends Abstract_Step {
 	/**
 	 * The tab number for this step.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var int
 	 */
@@ -33,7 +33,7 @@ class Settings extends Abstract_Step {
 	/**
 	 * Process the settings data.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.

@@ -25,7 +25,7 @@ class Organizer extends Abstract_Step {
 	 * The tab number for this step.
 	 * Note: this is set to the same as the Tickets tab as we don't want to process an organizer until the end.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var int
 	 */

@@ -3,7 +3,7 @@
  * The REST API handler for the Onboarding Wizard.
  * Cleverly named...API.
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding
  */
@@ -19,7 +19,7 @@ use TEC\Events\Admin\Onboarding\Data;
 /**
  * Class API
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding
  */
@@ -28,7 +28,7 @@ class API {
 	/**
 	 * The action for this nonce.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class API {
 	/**
 	 * Rest Endpoint namespace
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var  string
 	 */
@@ -46,7 +46,7 @@ class API {
 	/**
 	 * Register the endpoint.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return bool If we registered the endpoint.
 	 */
@@ -73,7 +73,7 @@ class API {
 	/**
 	 * Check the nonce.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param string $nonce The nonce.
 	 *
@@ -96,7 +96,7 @@ class API {
 	/**
 	 * Check the permissions.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return bool If the user has the correct permissions.
 	 */
@@ -106,7 +106,7 @@ class API {
 		/**
 		 * Filter the required permission for the onboarding wizard.
 		 *
-		 * @since 7.0.0
+		 * @since 6.8.4
 		 *
 		 * @param string $required_permission The required permission.
 		 * @param API    $api The api object.
@@ -121,7 +121,7 @@ class API {
 	/**
 	 * Handle the request.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param Request $request The request object.
 	 *
@@ -131,7 +131,7 @@ class API {
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
-		 * @since 7.0.0
+		 * @since 6.8.4
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.
@@ -142,7 +142,7 @@ class API {
 	/**
 	 * Passes the request and data to the handler.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *

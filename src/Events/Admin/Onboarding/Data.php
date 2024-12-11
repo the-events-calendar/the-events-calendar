@@ -2,7 +2,7 @@
 /**
  * Class that holds some data functions for the Wizard.
  *
- * @since 7.0.0
+ * @since 6.8.4
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\Manager as Views_Manager;
 /**
  * Class Data
  *
- * @since 7.0.0
+ * @since 6.8.4
  * @package TEC\Events\Admin\Onboarding
  */
 class Data {
@@ -20,7 +20,7 @@ class Data {
 	 * Get the organizer data.
 	 * Looks for a single existing organizer and returns the data.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string,string> The organizer data.
 	 */
@@ -44,7 +44,7 @@ class Data {
 	 * Get the venue data.
 	 * Looks for a single existing venue and returns the data.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string,string> The venue data.
 	 */
@@ -71,7 +71,7 @@ class Data {
 	/**
 	 * Check if there are any events.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return bool
 	 */
@@ -84,7 +84,7 @@ class Data {
 	/**
 	 * Get the available views.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string> The available views.
 	 */
@@ -111,7 +111,7 @@ class Data {
 	/**
 	 * Get a list of countries. Grouped by continent/region.
 	 *
-	 * @since 7.0.0.
+	 * @since 6.8.4.
 	 *
 	 * @return array<string,array<string,string>> The list of countries.
 	 */
@@ -360,7 +360,7 @@ class Data {
 		/**
 		 * Filter the list of countries.
 		 *
-		 * @since 7.0.0
+		 * @since 6.8.4
 		 *
 		 * @param array $countries The list of countries. Grouped by continent/region.
 		 */
@@ -370,7 +370,7 @@ class Data {
 	/**
 	 * Find a country by its key.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param string $key The country key.
 	 *
@@ -400,7 +400,7 @@ class Data {
 	 *
 	 * @todo Move this somewhere for reuse!
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string,string> The list of timezones.
 	 */
@@ -501,7 +501,7 @@ class Data {
 	 * Get a list of currencies.
 	 * Note: we don't currently use "code" or "entity", but they are included for future use.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array
 	 */
@@ -719,7 +719,7 @@ class Data {
 	/**
 	 * Get the saved wizard settings.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array
 	 */
@@ -730,7 +730,7 @@ class Data {
 	/**
 	 * Update the wizard settings.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param array $settings The settings to update.
 	 */
@@ -741,7 +741,7 @@ class Data {
 	/**
 	 * Get a specific wizard setting by key.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param string $key           The setting key.
 	 * @param mixed  $default_value The default value.
@@ -757,7 +757,7 @@ class Data {
 	/**
 	 * Update a specific wizard setting.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param string $key   The setting key.
 	 * @param mixed  $value The setting value.

@@ -2,7 +2,7 @@
 /**
  * Handles the venue step of the onboarding wizard.
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -17,7 +17,7 @@ use TEC\Events\Admin\Onboarding\Data;
 /**
  * Class Venue
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -26,7 +26,7 @@ class Venue extends Abstract_Step {
 	 * The tab number for this step.
 	 * Note: this is set to the same as the Tickets tab as we don't want to process a venue until the end.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var int
 	 */
@@ -35,7 +35,7 @@ class Venue extends Abstract_Step {
 	/**
 	 * Process the venue data.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.

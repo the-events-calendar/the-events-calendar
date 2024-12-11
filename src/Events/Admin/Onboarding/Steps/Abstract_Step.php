@@ -2,7 +2,7 @@
 /**
  * Abstract step-handler class for the onboarding wizard.
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -15,7 +15,7 @@ use WP_REST_Response;
 /**
  * Class Optin
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -23,7 +23,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * The tab number for this step.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var int
 	 */
@@ -32,7 +32,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Passes the request and data to the handler.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
@@ -56,7 +56,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Check if the current tab is one we should be processing.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -69,7 +69,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Check if the current tab is the one we should be processing.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Request $request The request object.
 	 *
@@ -84,7 +84,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Add a message to the response.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param string           $message  The message to add.
@@ -107,7 +107,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Add a message to the response.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param string           $message  The message to add.
@@ -121,7 +121,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	/**
 	 * Process the step.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.

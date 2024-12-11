@@ -2,7 +2,7 @@
 /**
  * Handles the landing page of the onboarding wizard.
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -18,7 +18,7 @@ use TEC\Events\Admin\Onboarding\API;
 /**
  * Class Landing_Page
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -28,7 +28,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * The action to dismiss the onboarding page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * The slug for the admin menu.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var string
 	 */
@@ -46,7 +46,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Whether the page has been dismissed.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var bool
 	 */
@@ -55,7 +55,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Whether the page has a header.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var bool
 	 */
@@ -64,7 +64,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Whether the page has a sidebar.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var bool
 	 */
@@ -73,7 +73,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Whether the page has a footer.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var bool
 	 */
@@ -82,7 +82,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * The position of the submenu in the menu.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var int
 	 */
@@ -91,7 +91,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Get the admin page title.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return string The page title.
 	 */
@@ -102,7 +102,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Hides the notices on the onboarding page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param bool $should_display Whether the notices should display.
 	 *
@@ -119,7 +119,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Has the page been dismissed?
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return bool
 	 */
@@ -130,7 +130,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Get the admin menu title.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return string The menu title.
 	 */
@@ -141,7 +141,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Add some wrapper classes to the admin page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return string The class(es) string.
 	 */
@@ -157,7 +157,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Render the admin page title.
 	 * In the header.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return void Renders the admin page title.
 	 */
@@ -177,7 +177,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Get the required capability to view the page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return string The required capability.
 	 */
@@ -195,7 +195,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Render the landing page content.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function admin_page_main_content(): void {
 		$this->admin_content_checklist_section();
@@ -210,7 +210,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Render the checklist section.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return void
 	 */
@@ -464,7 +464,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Render the admin page sidebar.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function admin_page_sidebar_content(): void {
 		?>
@@ -490,7 +490,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Render the admin page footer.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function admin_page_footer_content(): void {
 		// no op.
@@ -499,7 +499,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Get the initial data for the wizard.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string, mixed> The initial data.
 	 */
@@ -540,7 +540,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		/**
 		 * Filter the initial data.
 		 *
-		 * @since 7.0.0
+		 * @since 6.8.4
 		 *
 		 * @param array    $initial_data The initial data.
 		 * @param Controller $controller The controller object.
@@ -566,7 +566,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *     ]
 	 * );
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function tec_onboarding_wizard_target(): void {
 		$data = tribe( Data::class );
@@ -587,7 +587,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Register the assets for the landing page.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function register_assets() {
 		$plugin     = tribe( 'tec.main' );
