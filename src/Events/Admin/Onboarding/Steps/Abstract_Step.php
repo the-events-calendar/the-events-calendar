@@ -36,11 +36,10 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
-	 * @param Wizard           $wizard   The wizard object.
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function handle( $response, $request, $wizard ): WP_REST_Response {
+	public static function handle( $response, $request ): WP_REST_Response {
 		// If it's already an error, bail.
 		if ( $response->is_error() ) {
 			return $response;
