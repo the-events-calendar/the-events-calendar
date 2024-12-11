@@ -70,6 +70,8 @@ class Data {
 	 * Check if there are any events.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return bool
 	 */
 	public function has_events() {
 		$events = tribe_events()->get_ids( true )->first();
@@ -81,6 +83,8 @@ class Data {
 	 * Get the available views.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return array<string> The available views.
 	 */
 	public function get_available_views(): array {
 		$view_manager    = tribe( Views_Manager::class );
