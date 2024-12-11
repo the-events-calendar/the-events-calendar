@@ -49,24 +49,26 @@
     ]
   },
   "scripts": {
-    "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
     "analyze": "webpack-bundle-analyzer -m static stats.json",
+    "before-zip": "bash bin/action-before-zip.sh",
     "bootstrap": "./scripts/linkDependencies",
-    "build:webpack": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=production webpack -p",
-    "build:gulp": "cross-env NODE_ENV=production gulp",
     "build:common": "export NODE_OPTIONS=--openssl-legacy-provider && cd common && npm run build",
+    "build:gulp": "cross-env NODE_ENV=production gulp",
+    "build:webpack": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=production webpack -p",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run build:webpack && npm run build:gulp",
+    "changelog": "./vendor/bin/changelogger add",
     "dev": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
-    "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
-    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "glotpress": "gulp glotpress",
+    "jest": "TZ=UTC gulp jest",
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
-    "jest": "TZ=UTC gulp jest",
+    "lint": "npm run lint:eslint && npm run lint:stylelint",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
-    "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress",
-    "changelog": "./vendor/bin/changelogger add"
+    "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
+    "prebuild": "node node_modules/@the-events-calendar/product-taskmaster/scripts/syncBrowserslistConfig.js",
+    "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
+    "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js"
   },
   "engines": { "node": "18.13.0", "npm": "8.19.3" },
   "devDependencies": {
@@ -85,6 +87,7 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.29.12",
     "@babel/runtime": "^7.15.3",
     "@moderntribe/common": "file:common/src/modules",
     "@moderntribe/events": "file:src/modules",
