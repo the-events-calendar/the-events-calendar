@@ -46,14 +46,14 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 			// Add our action nonce.
 			tabSettings.action_nonce = actionNonce;
 
+			// Mark the tab as completed.
+			completeTab(tabSettings.currentTab);
+
 			// Update settings Store for the current tab.
 			updateSettings(tabSettings);
 
 			// Add the wpnonce to the apiFetch middleware so we don't have to mess with it.
 			apiFetch.use( apiFetch.createNonceMiddleware( wpNonce ) );
-
-			// Mark the tab as completed.
-			completeTab(tabSettings.currentTab);
 
 			const result = await apiFetch({
 				method: "POST",
@@ -67,21 +67,11 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 			});
 
 			if (result.success) {
-				// If we saved a venue or organizer, we need to update the ID in the settings store to prevent trying to save again.
-				if ( result.venue_id ) {
-					tabSettings.venue.venueId = result.venue_id;
-					updateSettings(tabSettings);
-				} else if ( result.organizer_id ) {
-					tabSettings.organizer.organizerId = result.organizer_id;
-					updateSettings(tabSettings);
-				}
-
-
 				// Mark the step as completed on the landing page.
 				const stepIndicators = Array.from(document.getElementsByClassName(`tec-events-onboarding-step-${tabSettings.currentTab}`));
 				console.log( stepIndicators);
 				stepIndicators.map((stepIndicator: Element) => {
-					stepIndicator.classList.add('tec-admin-page-onboarding-step--completed');
+					stepIndicator.classList.add('tec-admin-page__onboarding-step--completed');
 				});
 
 				// Reset the saving state.

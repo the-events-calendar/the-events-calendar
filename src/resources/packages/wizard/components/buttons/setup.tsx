@@ -21,11 +21,11 @@ const SetupButton = ({ tabSettings, moveToNextTab }) => {
 
 	useEffect(() => {
 		const handleTabChange = async () => {
+			// Mark the tab as completed.
+			completeTab(tabSettings.currentTab);
+
 			// Update settings Store for the current tab.
 			updateSettings(tabSettings);
-
-			// Mark the tab as completed.
-			completeTab(0);
 
 			// Add the wpnonce to the apiFetch middleware so we don't have to mess with it.
 			apiFetch.use( apiFetch.createNonceMiddleware( wpNonce ) );

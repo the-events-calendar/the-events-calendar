@@ -12,23 +12,23 @@ import './index.css';
 const OnboardingModal = ({ bootData }) => {
 	// Initialize the settings store.
 	const { initializeSettings } = useDispatch(SETTINGS_STORE_KEY);
-	initializeSettings(bootData);
+	const { openModal } = useDispatch(MODAL_STORE_KEY); // Trigger the openModal action.
+	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 
 	const finished = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("finished"));
 	const begun = useSelect((select) => select(SETTINGS_STORE_KEY).getSetting("begun"));
 	const isOpen = useSelect((select) => select(MODAL_STORE_KEY).getIsOpen());
-	const { openModal } = useDispatch(MODAL_STORE_KEY); // Trigger the openModal action.
-	const { closeModal } = useDispatch(MODAL_STORE_KEY);
 
 	useEffect(() => {
-		if (!begun && ! finished) {
-			// If the onboarding has not been started OR finished, open the modal automatically.
-			openModal();
-		} else if (!finished) {
+		initializeSettings(bootData);
+	}, []); // Empty dependency array ensures it runs only once
+
+	useEffect(() => {
+		if (!finished) {
 			// Open the modal automatically if the onboarding has been started but not finished.
 			openModal();
 		}
-	}, [begun, finished, openModal]);
+	}, [begun, finished]);
 
 	return (
 		<>
@@ -52,9 +52,11 @@ const OnboardingModal = ({ bootData }) => {
 	);
 };
 
+let isModalRendered = false;
+
 domReady(() => {
 	const button = document.getElementById('tec-events-onboarding-wizard');
-	if ( ! button ) {
+	if ( !button || isModalRendered ) {
 		return;
 	}
 	const containerId = button.dataset.containerElement;
@@ -71,10 +73,17 @@ domReady(() => {
 		return;
 	}
 
-	const parsedBootData = JSON.parse(bootData);
+	let parsedBootData;
+	try {
+		parsedBootData = JSON.parse(bootData);
+	} catch (error) {
+		console.error("Failed to parse bootData:", error);
+		return;
+	}
 
 	// Render the modal once in the container.
 	ReactDOM.render(<OnboardingModal bootData={parsedBootData} />, rootContainer);
+	isModalRendered = true;
 
 	// Add event listener to open the modal.
 	button.addEventListener('click', (event) => {

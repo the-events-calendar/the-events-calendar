@@ -161,13 +161,20 @@ class API {
 	public function set_tab_records( $request, $response ): void {
 		$params   = $request->get_params();
 		$settings = tribe(Data::class)->get_wizard_settings();
+		$begun    = $settings['begun'] ?? false;
+		$skipped  = $params['skippedTabs'] ?? [];
+		$complete = $params['completedTabs'] ?? [];
+		if ( $begun ) {
+			$complete = array_push( $complete, 0 );
+		}
+
 
 		// Set up our data for a single save.
-		$settings['skipped']     = $params['skippedTabs'] ?? [];
-		$settings['begun']       = $params['begun'] ?? true;
-		$settings['completed']   = $params['completedTabs'] ?? [];
-		$settings['finished']    = $params['finished'] ?? false;
-		$settings['current_tab'] = $params['currentTab'] ?? 0;
+		$settings['begun']          = $begun;
+		$settings['current_tab']    = $params['currentTab'] ?? 0;
+		$settings['finished']       = $params['finished'] ?? false;
+		$settings['completed_tabs'] = $this->normalize_tabs( $complete );
+		$settings['skipped_tabs']   = $this->normalize_tabs( $skipped );
 
 		// Stuff we don't want/need to store in the settings.
 		unset(
@@ -183,5 +190,21 @@ class API {
 
 		// Update the option.
 		tribe( Data::class )->update_wizard_settings( $settings );
+	}
+
+	/**
+	 * Normalize the tabs. Remove duplicates
+	 *
+	 * @since TBD
+	 *
+	 * @param [type] $tabs
+	 * @return array
+	 */
+	protected function normalize_tabs( $tabs ): array {
+		// Filter out dupes.
+		$tabs = array_unique( $tabs, SORT_NUMERIC );
+
+		// Reindex the array.
+		return array_values( $tabs );
 	}
 }
