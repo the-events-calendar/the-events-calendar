@@ -3,8 +3,8 @@
 /lang/*.txt
 /lang/*.mo
 /lang/*.pot
+/build/**/*
 /src/admin-views/**/*
-/src/build/**/*
 /src/deprecated/**/*
 /src/Events/**/*
 /src/functions/**/*
