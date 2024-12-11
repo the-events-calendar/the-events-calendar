@@ -7,7 +7,7 @@
 
 namespace TEC\Events\Admin\Onboarding;
 
-use \Tribe\Events\Views\V2\Manager as Views_Manager;
+use Tribe\Events\Views\V2\Manager as Views_Manager;
 
 /**
  * Class Data
@@ -25,7 +25,7 @@ class Data {
 	 * @return array<string,string> The organizer data.
 	 */
 	public function get_organizer_data(): array {
-		$organizer_id = tribe( 'events.organizer-repository' )->get_ids( true )->first();
+		$organizer_id = tribe( 'events.organizer-repository' )->fields( 'ids' )->first();
 
 		if ( empty( $organizer_id ) ) {
 			return [];
@@ -47,7 +47,7 @@ class Data {
 	 * @since 7.0.0
 	 */
 	public function get_venue_data(): array {
-		$venue_id = tribe( 'events.venue-repository' )->get_ids( true )->first();
+		$venue_id = tribe( 'events.venue-repository' )->fields( 'ids' )->first();
 
 		if ( empty( $venue_id ) ) {
 			return [];
@@ -70,9 +70,11 @@ class Data {
 	 * Check if there are any events.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return bool
 	 */
 	public function has_events() {
-		$events = tribe_events()->get_ids( true )->first();
+		$events = tribe_events()->fields( 'ids' )->first();
 
 		return ! empty( $events );
 	}
@@ -81,6 +83,8 @@ class Data {
 	 * Get the available views.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return array<string> The available views.
 	 */
 	public function get_available_views(): array {
 		$view_manager    = tribe( Views_Manager::class );

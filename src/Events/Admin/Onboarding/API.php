@@ -128,17 +128,6 @@ class API {
 	 * @return WP_REST_Response The response.
 	 */
 	public function handle( Request $request ): WP_REST_Response {
-		$response = new WP_REST_Response(
-			[
-				'success' => true,
-				'message' => [ __( 'Onboarding wizard step completed successfully.', 'the-events-calendar' ) ],
-			],
-			200
-		);
-
-		// Save our state in case we need to return to it.
-		$response = $this->set_tab_records( $request, $response );
-
 		/**
 		 * Each step hooks in here and potentially modifies the response.
 		 *
@@ -146,9 +135,8 @@ class API {
 		 *
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.
-		 * @param API              $api      The api object.
 		 */
-		return apply_filters( 'tec_events_onboarding_wizard_handle', $response, $request, $this );
+		return apply_filters( 'tec_events_onboarding_wizard_handle', $this->set_tab_records( $request ), $request );
 	}
 
 	/**
@@ -157,9 +145,10 @@ class API {
 	 * @since 7.0.0
 	 *
 	 * @param WP_REST_Request $request The request object.
-	 * @param WP_REST_Response $response The response object.
+	 *
+	 * @return WP_REST_Response The response.
 	 */
-	public function set_tab_records( $request, $response ): WP_REST_Response {
+	protected function set_tab_records( $request ): WP_REST_Response {
 		$params   = $request->get_params();
 		$begun    = $params['begun'] ?? false;
 		$finished = $params['finished'] ?? false;
@@ -202,17 +191,13 @@ class API {
 		$updated = tribe( Data::class )->update_wizard_settings( $settings );
 
 		// We want to record the issue but we *don't* want to send back a failure since this part is not required for the user.
-		if ( ! $updated ) {
-			$data            = $response->get_data();
-			$data['message'] = array_merge(
-				(array) $data['message'],
-				[ __( 'Failed to update wizard settings.', 'the-events-calendar' ) ]
-			);
-
-			$response->set_data( $data );
-		}
-
-		return $response;
+		return new WP_REST_Response(
+			[
+				'success' => true,
+				'message' => $updated ? [ __( 'Onboarding wizard step completed successfully.', 'the-events-calendar' ) ] : [ __( 'Failed to update wizard settings.', 'the-events-calendar' ) ],
+			],
+			200
+		);
 	}
 
 	/**

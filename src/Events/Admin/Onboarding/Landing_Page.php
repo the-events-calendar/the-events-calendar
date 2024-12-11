@@ -216,12 +216,13 @@ class Landing_Page extends Abstract_Admin_Page {
 	 */
 	public function admin_content_checklist_section() {
 		$settings_url   = 'edit.php?page=tec-events-settings&post_type=tribe_events';
-		$completed_tabs = array_flip( (array) tribe( Data::class )->get_wizard_setting( 'completed_tabs', [] ) );
+		$data           = tribe( Data::class );
+		$completed_tabs = array_flip( (array) $data->get_wizard_setting( 'completed_tabs', [] ) );
 		$et_installed   = Installer::get()->is_installed( 'event-tickets' );
 		$et_activated   = Installer::get()->is_active( 'event-tickets' );
-		$organizer_data = tribe( Data::class )->get_organizer_data();
-		$venue_data     = tribe( Data::class )->get_venue_data();
-		$has_event      = tribe( Data::class )->has_events();
+		$organizer_data = $data->get_organizer_data();
+		$venue_data     = $data->get_venue_data();
+		$has_event      = $data->has_events();
 		?>
 			<div class="tec-admin-page__content-section tec-events-admin-page__content-section">
 				<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
