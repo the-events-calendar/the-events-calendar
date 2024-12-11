@@ -4,6 +4,7 @@
 /lang/*.mo
 /lang/*.pot
 /build/**/*
+!/build/wizard/block.json
 /src/admin-views/**/*
 /src/deprecated/**/*
 /src/Events/**/*
