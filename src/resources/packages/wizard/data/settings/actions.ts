@@ -14,6 +14,7 @@ const {
 	SAVE_SETTINGS_REQUEST,
 	SAVE_SETTINGS_SUCCESS,
 	UPDATE,
+	SET_VISITED_FIELDS,
 } = TYPES;
 
 interface Settings {
@@ -66,3 +67,10 @@ export const setSaving = (isSaving) => {
 		isSaving
 	};
 };
+
+export const setVisitedField = (visitedFieldId) => {
+	return {
+		type: SET_VISITED_FIELDS,
+		payload: visitedFieldId
+	};
+}

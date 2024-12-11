@@ -1,7 +1,7 @@
 /* -----------------------------------------------------------------------------------------------------
  * Custom Properties: some are new, some are from the TEC common styles, reproduced here for the admin.
  * ----------------------------------------------------------------------------------------------------- */
- :root {
+:root {
 	/* -----------------------------------------------------------------------------
 	 * Colors
 	 * ----------------------------------------------------------------------------- */
@@ -11,7 +11,7 @@
 	--tec-wp-core-grey-50: #646970;
 	--tec-wp-core-grey-80: #2c3338;
 	--tec-scales-grey-200: #e0e0e0;
-	--tec-color-icon-error: #da394d;
+	--tec-color-wp-error: #d63638;
 
 	/* -----------------------------------------------------------------------------
 	 * Border Radius
@@ -527,7 +527,7 @@
 	border-radius: var(--tec-admin-border-radius-1);
 	display: flex;
 	flex-direction: column;
-	gap: var(--tec-spacer-4);
+	gap: var(--tec-spacer-2);
 	margin: 0 auto;
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
 	width: fit-content;
@@ -551,12 +551,14 @@
 	}
 }
 
-.tec-events-onboarding__form-field--hidden {
-	display: none;
+.tec-events-onboarding__form-field-trigger {
+	line-height: var(--tec-line-height-2);
+	max-height: var(--tec-spacer-4);
+	padding: 0;
 }
 
-.tec-events-onboarding__form-field-trigger {
-	margin-bottom: calc(-1 * var(--tec-spacer-4));
+.tec-events-onboarding__form-field-trigger + .tec-events-onboarding__form-field {
+	display: none;
 }
 
 .tec-events-onboarding__tab-header,
@@ -595,11 +597,16 @@
 	line-height: normal;
 	padding: var(--tec-spacer-2) var(--tec-spacer-3);
 	text-transform: none;
+	width: 100%;
 }
 
 .components-button.is-primary {
 	background: none;
 	background-color: var(--tec-wp-core-blue-50);
+}
+
+.components-button.is-tertiary {
+	color: var(--tec-wp-core-blue-50);
 }
 
 .tec-events-onboarding__modal a {
@@ -611,6 +618,38 @@
 	box-shadow: 0 0 0 0.5px var(--tec-wp-core-blue-50) !important;
 }
 
-.tec-events-onboarding__form-field.invalid {
-	box-shadow: 0 0 0 0.5px red;
+/* Validation */
+
+.tec-events-onboarding__form-field.invalid input,
+.tec-events-onboarding__form-field.invalid select,
+.tec-events-onboarding__form-field.invalid textarea {
+	border: 1px solid var(--tec-color-wp-error) !important;
+	color: var(--tec-color-wp-error);
+	font-weight: var(--tec-font-weight-bold);
+}
+
+.tec-events-onboarding__form-field.invalid input:focus,
+.tec-events-onboarding__form-field.invalid select:focus,
+.tec-events-onboarding__form-field.invalid textarea:focus {
+	border-color: var(--tec-color-wp-error);
+	box-shadow: 0 0 0 0.5px var(--tec-color-wp-error);
+	outline: 1px solid var(--tec-color-wp-error);
+}
+
+.tec-events-onboarding__required-label,
+.tec-events-onboarding__invalid-label {
+	color: var(--tec-color-wp-error);
+	display: none;
+	font-size: var(--tec-font-size-1);
+	font-weight: var(--tec-font-weight-regular);
+	margin-top: var(--tec-spacer-1);
+}
+
+.tec-events-onboarding__form-field.empty .tec-events-onboarding__required-label,
+.tec-events-onboarding__form-field.invalid .tec-events-onboarding__invalid-label {
+	display: block;
+}
+
+.tec-events-onboarding__form-field.empty .tec-events-onboarding__invalid-label {
+	display: none;
 }
