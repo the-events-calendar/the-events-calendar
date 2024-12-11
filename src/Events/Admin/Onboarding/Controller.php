@@ -34,8 +34,6 @@ class Controller extends Controller_Contract {
 		$this->add_filters();
 		$this->add_actions();
 
-		// Register the service provider itself on the container.
-		$this->container->singleton( static::class, $this );
 		$this->container->singleton( Landing_Page::class );
 		$this->container->singleton( Data::class );
 	}
