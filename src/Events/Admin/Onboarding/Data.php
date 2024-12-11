@@ -45,6 +45,8 @@ class Data {
 	 * Looks for a single existing venue and returns the data.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return array<string,string> The venue data.
 	 */
 	public function get_venue_data(): array {
 		$venue_id = tribe( 'events.venue-repository' )->fields( 'ids' )->first();

@@ -55,11 +55,11 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_filters(): void {
 		// Add the step handlers.
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 2 );
 		add_filter( 'tec_events_admin_notice_utc_timezone_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 		add_filter( 'tec_events_admin_notice_event_tickets_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 	}
