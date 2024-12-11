@@ -136,7 +136,7 @@ class API {
 		 * @param WP_REST_Response $response The response object.
 		 * @param Request          $request  The request object.
 		 */
-		return apply_filters( 'tec_events_onboarding_wizard_handle', $this->set_tab_records( $request ), $request );
+		return apply_filters( 'tec_events_onboarding_wizard_handle', $this->set_tab_records( $request ), $request, 200 );
 	}
 
 	/**
