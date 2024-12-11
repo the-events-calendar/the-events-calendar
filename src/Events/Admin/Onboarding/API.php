@@ -137,7 +137,7 @@ class API {
 		);
 
 		// Save our state in case we need to return to it.
-		$this->set_tab_records( $request );
+		$response = $this->set_tab_records( $request, $response );
 
 		/**
 		 * Each step hooks in here and potentially modifies the response.
@@ -157,8 +157,9 @@ class API {
 	 * @since 7.0.0
 	 *
 	 * @param WP_REST_Request $request The request object.
+	 * @param WP_REST_Response $response The response object.
 	 */
-	public function set_tab_records( $request ): void {
+	public function set_tab_records( $request, $response ): WP_REST_Response {
 		$params   = $request->get_params();
 		$begun    = $params['begun'] ?? false;
 		$finished = $params['finished'] ?? false;
@@ -198,7 +199,20 @@ class API {
 		$settings['last_send'] = $params;
 
 		// Update the option.
-		tribe( Data::class )->update_wizard_settings( $settings );
+		$updated = tribe( Data::class )->update_wizard_settings( $settings );
+
+		// We want to record the issue but we *don't* want to send back a failure since this part is not required for the user.
+		if ( ! $updated ) {
+			$data            = $response->get_data();
+			$data['message'] = array_merge(
+				(array) $data['message'],
+				[ __( 'Failed to update wizard settings.', 'the-events-calendar' ) ]
+			);
+
+			$response->set_data( $data );
+		}
+
+		return $response;
 	}
 
 	/**

@@ -7,6 +7,8 @@
 
 namespace TEC\Events\Admin\Onboarding;
 
+use \Tribe\Events\Views\V2\Manager as Views_Manager;
+
 /**
  * Class Data
  *
@@ -19,6 +21,8 @@ class Data {
 	 * Looks for a single existing organizer and returns the data.
 	 *
 	 * @since 7.0.0
+	 *
+	 * @return array<string,string> The organizer data.
 	 */
 	public function get_organizer_data(): array {
 		$organizer_id = tribe( 'events.organizer-repository' )->per_page( - 1 )->fields( 'ids' )->first();
@@ -43,7 +47,7 @@ class Data {
 	 * @since 7.0.0
 	 */
 	public function get_venue_data(): array {
-		$venue_id = tribe( 'events.venue-repository' )->per_page( - 1 )->fields( 'ids' )->first();
+		$venue_id = tribe( 'events.venue-repository' )->get_ids( true )->first();
 
 		if ( empty( $venue_id ) ) {
 			return [];
@@ -68,7 +72,7 @@ class Data {
 	 * @since 7.0.0
 	 */
 	public function has_events() {
-		$events = tribe_events()->per_page( 1 )->fields( 'ids' )->all();
+		$events = tribe_events()->get_ids( true )->first();
 
 		return ! empty( $events );
 	}
@@ -79,7 +83,7 @@ class Data {
 	 * @since 7.0.0
 	 */
 	public function get_available_views(): array {
-		$view_manager    = tribe( \Tribe\Events\Views\V2\Manager::class );
+		$view_manager    = tribe( Views_Manager::class );
 		$available_views = array_keys( $view_manager->get_registered_views() );
 		$remove          = [
 			'all',
@@ -724,8 +728,8 @@ class Data {
 	 *
 	 * @param array $settings The settings to update.
 	 */
-	public function update_wizard_settings( $settings ) {
-		update_option( 'tec_onboarding_wizard_data', $settings );
+	public function update_wizard_settings( $settings ): bool {
+		return update_option( 'tec_onboarding_wizard_data', $settings );
 	}
 
 	/**
