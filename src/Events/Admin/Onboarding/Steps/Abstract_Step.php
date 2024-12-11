@@ -63,7 +63,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return bool
 	 */
-	public static function should_process( $request ) {
+	public static function should_process( $request ): bool {
 		return static::tab_check( $request );
 	}
 
@@ -76,7 +76,7 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return bool
 	 */
-	public static function tab_check( $request ) {
+	public static function tab_check( $request ): bool {
 		$params = $request->get_params();
 		// If the current tab is less than this tab, we don't need to do anything yet.
 		return isset( $params['currentTab'] ) && absint( $params['currentTab'] ) >= static::TAB_NUMBER;
@@ -89,14 +89,18 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param string           $message  The message to add.
+	 * @param ?int             $status   The status code.
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function add_message( $response, $message ) {
+	public static function add_message( $response, $message, ?int $status = null ): WP_REST_Response {
 		$data            = $response->get_data();
 		$data['message'] = array_merge( (array) $data['message'], [ $message ] );
 
 		$response->set_data( $data );
+		if ( $status ) {
+			$response->set_status( $status );
+		}
 
 		return $response;
 	}
@@ -111,14 +115,8 @@ abstract class Abstract_Step implements Contracts\Step_Interface {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function add_fail_message( $response, $message ) {
-		$data            = $response->get_data();
-		$data['message'] = array_merge( (array) $data['message'], [ $message ] );
-
-		$response->set_data( $data );
-		$response->set_status( 500 );
-
-		return $response;
+	public static function add_fail_message( $response, $message ): WP_REST_Response {
+		return static::add_message( $response, $message, 500 );
 	}
 
 	/**
