@@ -77,7 +77,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 					}
 				>
 					{Object.entries(currencies).map(([key, data]) => (
-						<option key={key} value={data['symbol']}>{data['symbol']} ({data['name']})</option>
+						<option key={key} value={key}>{data['symbol']} ({data['name']})</option>
 					))}
 				</SelectControl>
 

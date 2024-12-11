@@ -29,7 +29,7 @@ const ExitButton = () => {
 			});
 
 			if (result.success) {
-				{closeModal}
+				closeModal();
 			}
 		};
 

@@ -11,9 +11,11 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 	const actionNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("action_nonce"), []);
 	const wpNonce = useSelect(select => select(SETTINGS_STORE_KEY).getSetting("_wpnonce"), []);
 	const [isClicked, setClicked] = useState(false);
+	const [isSaving, setSaving] = useState(false);
 
 	useEffect(() => {
 		const handleSkipWizard = async () => {
+			setSaving(true);
 			// Add the wpnonce to the apiFetch middleware so we don't have to mess with it.
 			apiFetch.use( apiFetch.createNonceMiddleware( wpNonce ) );
 
@@ -27,8 +29,12 @@ const SkipButton = ({skipToNextTab, currentTab}) => {
 			});
 
 			if (result.success) {
+				setSaving(false);
+
 				skipToNextTab();
 			}
+
+			setSaving(false);
 		};
 
 		if (isClicked) {
