@@ -72,7 +72,6 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 3 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 3 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 3 );
-		add_filter( 'tec_settings_should_filter_page_logo_source', [ Landing_Page::class, 'handle_logo' ] );
 	}
 
 	/**
