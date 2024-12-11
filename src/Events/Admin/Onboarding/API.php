@@ -165,7 +165,7 @@ class API {
 		$skipped  = $params['skippedTabs'] ?? [];
 		$complete = $params['completedTabs'] ?? [];
 
-		// Remove any elements in $completed from $skipped
+		// Remove any elements in $completed from $skipped.
 		$skipped = array_values( array_diff( $skipped, $complete ) );
 
 

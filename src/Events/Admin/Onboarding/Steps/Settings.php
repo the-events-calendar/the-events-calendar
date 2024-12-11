@@ -62,7 +62,7 @@ class Settings extends Abstract_Step {
 		// Convert code to symbol.
 		if ( ! empty( $currency_key ) ) {
 
-			$currency   = $currencies[ $currency_code ]['entity'] ?? '';
+			$currency = $currencies[ $currency_code ]['entity'] ?? '';
 		}
 
 		$settings = [
