@@ -51,15 +51,6 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Should only be active if we are in the admin.
-	 *
-	 * @since 7.0.0
-	 */
-	public function is_active(): bool {
-		return true;
-	}
-
-	/**
 	 * Add the filter hooks.
 	 *
 	 * @since 7.0.0
