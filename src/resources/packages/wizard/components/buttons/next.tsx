@@ -76,6 +76,14 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 					updateSettings(tabSettings);
 				}
 
+
+				// Mark the step as completed on the landing page.
+				const stepIndicators = Array.from(document.getElementsByClassName(`tec-events-onboarding-step-${tabSettings.currentTab}`));
+				console.log( stepIndicators);
+				stepIndicators.map((stepIndicator: Element) => {
+					stepIndicator.classList.add('tec-events-onboarding-step--completed');
+				});
+
 				// Reset the saving state.
 				setSaving(false);
 

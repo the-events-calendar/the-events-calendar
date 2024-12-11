@@ -50,6 +50,7 @@ const reducer = (
 	switch (type) {
 		case INITIALIZE:
 			const { completedTabs = [], skippedTabs = [], visitedFields = [], ...otherSettings } = settings || {};
+
 			return {
 				...state,
 				settings: otherSettings, // Populate settings without completedTabs and skippedTabs

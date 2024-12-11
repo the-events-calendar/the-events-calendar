@@ -30,7 +30,6 @@ const ExitButton = () => {
 				path: API_ENDPOINT,
 			});
 
-			console.log('closing modal');
 			setTimeout(() => {
 				closeModal();
 			}, 1000);
