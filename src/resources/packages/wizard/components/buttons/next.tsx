@@ -81,7 +81,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 				const stepIndicators = Array.from(document.getElementsByClassName(`tec-events-onboarding-step-${tabSettings.currentTab}`));
 				console.log( stepIndicators);
 				stepIndicators.map((stepIndicator: Element) => {
-					stepIndicator.classList.add('tec-events-onboarding-step--completed');
+					stepIndicator.classList.add('tec-admin-page-onboarding-step--completed');
 				});
 
 				// Reset the saving state.

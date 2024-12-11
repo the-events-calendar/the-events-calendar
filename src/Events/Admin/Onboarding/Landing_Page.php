@@ -128,8 +128,8 @@ class Landing_Page extends Abstract_Admin_Page {
 		ob_start();
 		?>
 			<div class="tec-admin-page__content-section tec-events-admin-page__content-section">
-				<h2 class="tec-events-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
-				<h3 class="tec-events-admin-page__content-subheader">
+				<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
+				<h3 class="tec-admin-page__content-subheader">
 					<?php
 						printf(
 							/* translators: %s: dynamic of steps completed, wrapped in a span. */
@@ -138,8 +138,8 @@ class Landing_Page extends Abstract_Admin_Page {
 						)
 					?>
 				</h3>
-				<ul class="tec-events-admin-page__content-step-list">
-					<li id="tec-events-onboarding-wizard-views-item" class="step-list__item tec-events-onboarding-step-1 <?php echo isset( $completed_tabs[1] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+				<ul class="tec-admin-page__content-step-list">
+					<li id="tec-events-onboarding-wizard-views-item" class="step-list__item tec-events-onboarding-step-1 <?php echo isset( $completed_tabs[1] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
 							 Views
@@ -150,7 +150,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							</a>
 						</div>
 					</li>
-					<li id="tec-events-onboarding-wizard-currency-item" class="step-list__item tec-events-onboarding-step-2 <?php echo isset( $completed_tabs[2] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+					<li id="tec-events-onboarding-wizard-currency-item" class="step-list__item tec-events-onboarding-step-2 <?php echo isset( $completed_tabs[2] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
 							<?php esc_html_e( 'Currency', 'the-events-calendar' ); ?>
@@ -161,7 +161,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							</a>
 						</div>
 					</li>
-					<li id="tec-events-onboarding-wizard-date-item" class="step-list__item tec-events-onboarding-step-2 <?php echo isset( $completed_tabs[2] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+					<li id="tec-events-onboarding-wizard-date-item" class="step-list__item tec-events-onboarding-step-2 <?php echo isset( $completed_tabs[2] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
 							<?php esc_html_e( 'Date format', 'the-events-calendar' ); ?>
@@ -172,7 +172,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							</a>
 						</div>
 					</li>
-					<li id="tec-events-onboarding-wizard-organizer-item" class="step-list__item tec-events-onboarding-step-3 <?php echo isset( $completed_tabs[3] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+					<li id="tec-events-onboarding-wizard-organizer-item" class="step-list__item tec-events-onboarding-step-3 <?php echo isset( $completed_tabs[3] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
 							<?php esc_html_e( 'Event Organizer', 'the-events-calendar' ); ?>
@@ -183,7 +183,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							</a>
 						</div>
 					</li>
-					<li id="tec-events-onboarding-wizard-venue-item" class="step-list__item tec-events-onboarding-step-4 <?php echo isset( $completed_tabs[4] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+					<li id="tec-events-onboarding-wizard-venue-item" class="step-list__item tec-events-onboarding-step-4 <?php echo isset( $completed_tabs[4] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
 							<?php esc_html_e( 'Event Venue', 'the-events-calendar' ); ?>
@@ -195,10 +195,10 @@ class Landing_Page extends Abstract_Admin_Page {
 						</div>
 					</li>
 				</ul>
-				<h2 class="tec-events-admin-page__content-header">
+				<h2 class="tec-admin-page__content-header">
 					<?php esc_html_e( 'Create an event', 'the-events-calendar' ); ?>
 				</h2>
-				<ul class="tec-events-admin-page__content-step-list">
+				<ul class="tec-admin-page__content-step-list">
 					<li id="tec-events-onboarding-wizard-event-item" class="step-list__item">
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
@@ -222,14 +222,14 @@ class Landing_Page extends Abstract_Admin_Page {
 					</li>
 				</ul>
 				<div id="tec-events-onboarding-wizard-tickets">
-					<h2 class="tec-events-admin-page__content-header">
+					<h2 class="tec-admin-page__content-header">
 						<?php esc_html_e( 'Event Tickets', 'the-events-calendar' ); ?>
 					</h2>
-					<h3 class="tec-events-admin-page__content-subheader">
+					<h3 class="tec-admin-page__content-subheader">
 						<?php esc_html_e( 'Are you planning to sell tickets to your events?', 'the-events-calendar' ); ?>
 					</h3>
-					<ul class="tec-events-admin-page__content-step-list">
-						<li id="tec-events-onboarding-wizard-tickets-item" class="step-list__item tec-events-onboarding-step-5 <?php echo isset( $completed_tabs[5] ) ? 'tec-events-onboarding-step--completed' : ''; ?>">
+					<ul class="tec-admin-page__content-step-list">
+						<li id="tec-events-onboarding-wizard-tickets-item" class="step-list__item tec-events-onboarding-step-5 <?php echo isset( $completed_tabs[5] ) ? 'tec-admin-page-onboarding-step--completed' : ''; ?>">
 							<div class="step-list__item-left">
 								<span class="step-list__item-icon" role="presentation"></span>
 								<?php esc_html_e( 'Install Event Tickets', 'the-events-calendar' ); ?>
