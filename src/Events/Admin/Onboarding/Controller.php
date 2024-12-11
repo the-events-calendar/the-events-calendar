@@ -36,9 +36,8 @@ class Controller extends Controller_Contract {
 
 		// Register the service provider itself on the container.
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( Landing_Page::class, Landing_Page::class );
-		$this->container->singleton( 'tec.events.onboarding.landing-page', Landing_Page::class );
-		$this->container->singleton( Data::class, Data::class );
+		$this->container->singleton( Landing_Page::class );
+		$this->container->singleton( Data::class );
 	}
 
 	/**
