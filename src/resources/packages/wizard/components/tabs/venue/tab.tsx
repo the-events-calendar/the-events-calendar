@@ -41,8 +41,15 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const [showWebsite, setShowWebsite] = useState(!!venue.venueId ||!!venue.website || false);
 	const [showPhone, setShowPhone] = useState(!!venue.venueId || !!venue.phone || false);
 	const [canContinue, setCanContinue] = useState( false);
+
 	// Compute whether the "Continue" button should be enabled
     useEffect(() => {
+		if (venueId) {
+			// If organizerId is set, bypass the check and enable "Continue"
+			setCanContinue(true);
+			return;
+		}
+
         const fieldsToCheck = {
             'venue-name': isValidName(),
 			'venue-address': isValidAddress(),

@@ -30,7 +30,6 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const [showEmail, setShowEmail] = useState(!!organizer.organizerId || !!organizer.email || false);
 	const [canContinue, setCanContinue] = useState(false);
 
-	// Check if any fields are pre-filled.
 	const disabled = !!organizer.organizerId;
 
 	useEffect(() => {
@@ -66,6 +65,12 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	// Compute whether the "Continue" button should be enabled
 	useEffect(() => {
+		if (organizerId) {
+			// If organizerId is set, bypass the check and enable "Continue"
+			setCanContinue(true);
+			return;
+		}
+
 		const fieldsToCheck = {
 			'organizer-name': isValidName(),
 			'organizer-phone': isValidPhone(),
