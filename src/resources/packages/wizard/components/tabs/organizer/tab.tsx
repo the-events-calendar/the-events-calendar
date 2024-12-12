@@ -89,7 +89,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidName = () => {
 		const inputId = 'organizer-name';
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || !!name;
+		const isValid = !!name;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -103,8 +103,12 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidEmail = () => {
 		const inputId = 'organizer-email';
 		const isVisited = visitedFields.includes(inputId);
+		if (!isVisited) {
+			return true;
+		}
+
 		const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		const isValid = !isVisited || emailPattern.test(email);
+		const isValid = emailPattern.test(email);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -118,8 +122,12 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidPhone = () => {
 		const inputId = 'organizer-phone';
 		const isVisited = visitedFields.includes(inputId);
+		if (!isVisited) {
+			return true;
+		}
+
 		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
-		const isValid = !isVisited || phonePattern.test(phone);
+		const isValid = phonePattern.test(phone);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -133,6 +141,9 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidWebsite = () => {
 		const inputId = 'organizer-website';
 		const isVisited = visitedFields.includes(inputId);
+		if (!isVisited) {
+			return true;
+		}
 
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
