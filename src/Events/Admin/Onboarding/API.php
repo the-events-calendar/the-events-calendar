@@ -158,7 +158,6 @@ class API {
 		// Remove any elements in $completed from $skipped.
 		$skipped = array_values( array_diff( $skipped, $complete ) );
 
-
 		if ( $begun ) {
 			$complete = array_push( $complete, 0 );
 		}
