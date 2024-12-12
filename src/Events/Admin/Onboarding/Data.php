@@ -393,6 +393,15 @@ class Data {
 		return null;
 	}
 
+	/**
+	 * Find a country key by its value.
+	 *
+	 * @since 6.8.4
+	 *
+	 * @param string $value The country value.
+	 *
+	 * @return string|null The country key or null if not found.
+	 */
 	public function find_country_by_value( $value ): ?string {
 		if ( empty( $value ) ) {
 			return null;
