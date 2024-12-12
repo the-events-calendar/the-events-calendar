@@ -2,7 +2,7 @@
 /**
  * Handles the organizer step of the onboarding wizard.
  *
- * @since 6.8.1
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -16,7 +16,7 @@ use WP_REST_Request;
 /**
  * Class Organizer
  *
- * @since 6.8.1
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -34,7 +34,7 @@ class Organizer extends Abstract_Step {
 	/**
 	 * Process the organizer data.
 	 *
-	 * @since 6.8.1
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
