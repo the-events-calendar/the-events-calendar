@@ -27,6 +27,6 @@ if ( empty( $link ) || ! $should_display ) {
 ?>
 <li <?php tribe_classes( $link['class'] ); ?>>
 	<?php
-	$this->template( 'views/integrations/elementor/widgets/event-export/link' );
+	$this->template( 'widgets/event-export/link' );
 	?>
 </li>

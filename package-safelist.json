@@ -5,6 +5,7 @@
   "lang/*.mo",
   "lang/*.pot",
   "src/admin-views/**/*",
+  "src/build/**/*",
   "src/deprecated/**/*",
   "src/functions/**/*",
   "src/modules/icons/*",
