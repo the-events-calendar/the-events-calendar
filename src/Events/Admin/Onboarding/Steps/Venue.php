@@ -68,7 +68,7 @@ class Venue extends Abstract_Step {
 		$new_venue['State']         = $venue['state'];
 		$new_venue['Province']      = $venue['state'];
 		$new_venue['Zip']           = $venue['zip'];
-		$new_venue['Country']       = $venue['country'];
+		$new_venue['Country']       = $country;
 		$new_venue['Phone']         = $venue['phone'];
 		$new_venue['URL']           = $venue['website'];
 
