@@ -60,7 +60,7 @@ class Data {
 			'name'    => get_the_title( $venue_id ),
 			'address' => get_post_meta( $venue_id, '_VenueAddress', true ),
 			'city'    => get_post_meta( $venue_id, '_VenueCity', true ),
-			'country' => get_post_meta( $venue_id, '_VenueCountry', true ),
+			'country' => $this->find_country_by_value( get_post_meta( $venue_id, '_VenueCountry', true ) ),
 			'phone'   => get_post_meta( $venue_id, '_VenuePhone', true ),
 			'state'   => get_post_meta( $venue_id, '_VenueState', true ),
 			'website' => get_post_meta( $venue_id, '_VenueWebsite', true ),
@@ -376,7 +376,7 @@ class Data {
 	 *
 	 * @return string|null The country name or null if not found.
 	 */
-	public function find_country_by_key( $key ) {
+	public function find_country_by_key( $key ): ?string {
 		if ( empty( $key ) ) {
 			return null;
 		}
@@ -390,6 +390,33 @@ class Data {
 			$continent = reset( $filtered ); // Get the first match.
 			return $continent[ $key ];
 		}
+		return null;
+	}
+
+	/**
+	 * Find a country key by its value.
+	 *
+	 * @since 6.8.4
+	 *
+	 * @param string $value The country value.
+	 *
+	 * @return string|null The country key or null if not found.
+	 */
+	public function find_country_by_value( $value ): ?string {
+		if ( empty( $value ) ) {
+			return null;
+		}
+
+		$countries = $this->get_country_list();
+		// Use array_filter to locate the array containing the key.
+		$filtered = array_filter( $countries, fn( $country_list ) => in_array( $value, $country_list ) );
+
+		// If the filtered array is not empty, fetch the value.
+		if ( ! empty( $filtered ) ) {
+			$continent = reset( $filtered ); // Get the first match.
+			return array_search( $value, $continent );
+		}
+
 		return null;
 	}
 
