@@ -569,6 +569,12 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 6.8.4
 	 */
 	public function tec_onboarding_wizard_target(): void {
+		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
+		// If there is more than one previous version, don't show the wizard.
+		if ( count( $tec_versions ) > 1 ) {
+			return;
+		}
+
 		$data = tribe( Data::class );
 		// Don't display if we've finished the wizard.
 		if ( $data->get_wizard_setting( 'finished', false ) ) {
