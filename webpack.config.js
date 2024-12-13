@@ -60,7 +60,7 @@ const targets = [
 	},
 	{
 		name: 'tec-events-onboarding-wizard-script',
-		entry: './src/resources/packages/wizard/index.tsx',
+		entry: './src/resources/packages/Wizard/index.tsx',
 		outputScript: './build/Wizard/onboarding.min.js',
 		outputStyle: `build/Wizard/onboarding.${postfix}`,
 		moveFromTo: {
