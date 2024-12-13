@@ -14,6 +14,7 @@ use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
 use TEC\Events\Admin\Onboarding\API;
+use TEC\Common\Asset;
 
 /**
  * Class Landing_Page
@@ -596,28 +597,19 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 6.8.4
 	 */
 	public function register_assets() {
-		$plugin     = tribe( 'tec.main' );
-		$asset_file = $plugin->plugin_path . 'build/wizard/index.asset.php';
+		$plugin = tribe( 'tec.main' );
 
-		// Danger, Will Robinson.
-		if ( ! file_exists( $asset_file ) ) {
-			return;
-		}
-
-		$asset = include $asset_file;
-
-		tribe_asset(
-			$plugin,
+		Asset::add(
 			'tec-events-onboarding-wizard-script',
-			plugins_url( 'build/wizard/index.js', $plugin->plugin_file ),
-			$asset['dependencies'],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'is_on_page' ],
-				'groups'       => [ 'tec-onboarding' ],
-				'in_footer'    => true,
-			]
-		);
+			'index.js'
+		)
+			->add_to_group_path( 'tec-onboarding' )
+			->add_to_group( 'tec-onboarding' )
+			->enqueue_on( 'admin_enqueue_scripts' )
+			->set_condition( [ $this, 'is_on_page' ] )
+			->use_asset_file( true )
+			->in_footer()
+			->register();
 
 		tribe_asset(
 			$plugin,
