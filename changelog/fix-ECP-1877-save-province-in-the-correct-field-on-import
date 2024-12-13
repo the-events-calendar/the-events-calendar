@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Provinces/States for non-US countries are saved to the correct field, when importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key. [ECP-1877]
