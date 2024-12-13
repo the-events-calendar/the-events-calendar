@@ -101,23 +101,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
-	 * Hides the notices on the onboarding page.
-	 *
-	 * @since 6.8.4
-	 *
-	 * @param bool $should_display Whether the notices should display.
-	 *
-	 * @return bool
-	 */
-	public function should_not_display_notices_on_onboarding_page( bool $should_display ): bool {
-		if ( ! $should_display ) {
-			return $should_display;
-		}
-
-		return ! $this->is_on_page();
-	}
-
-	/**
 	 * Has the page been dismissed?
 	 *
 	 * @since 6.8.4
@@ -604,7 +587,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			->add_to_group_path( 'tec-onboarding' )
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ $this, 'is_on_page' ] )
+			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->use_asset_file( true )
 			->in_footer()
 			->register();
@@ -616,7 +599,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			->add_to_group_path( 'tec-onboarding' )
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ $this, 'is_on_page' ] )
+			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->use_asset_file( false )
 			->set_dependencies( 'wp-components' )
 			->register();

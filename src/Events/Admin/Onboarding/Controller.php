@@ -62,8 +62,6 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 2 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 2 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 2 );
-		add_filter( 'tec_events_admin_notice_utc_timezone_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
-		add_filter( 'tec_events_admin_notice_event_tickets_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 	}
 
 	/**
@@ -76,6 +74,7 @@ class Controller extends Controller_Contract {
 		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'admin_post_' . Landing_Page::DISMISS_ONBOARDING_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
+		add_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 	}
 
 	/**
@@ -101,7 +100,6 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14 );
-		remove_filter( 'tec_events_admin_notice_utc_timezone_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 	}
 
 	/**
@@ -113,6 +111,20 @@ class Controller extends Controller_Contract {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ] );
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
+	}
+
+	/**
+	 * Remove all admin notices in the onboarding page.
+	 *
+	 * @since TBD
+	 */
+	public function remove_all_admin_notices_in_onboarding_page(): void {
+		if ( ! Landing_Page::is_on_page() ) {
+			return;
+		}
+
+		remove_all_actions( 'admin_notices' );
 	}
 
 	/**
@@ -122,19 +134,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function landing_page() {
 		$this->container->make( Landing_Page::class )->admin_page();
-	}
-
-	/**
-	 * Should not display notices on onboarding page.
-	 *
-	 * @since 6.8.4
-	 *
-	 * @param bool $should_display Whether the notices should display.
-	 *
-	 * @return bool
-	 */
-	public function should_not_display_notices_on_onboarding_page( bool $should_display ) {
-		return $this->container->make( Landing_Page::class )->should_not_display_notices_on_onboarding_page( $should_display );
 	}
 
 	/**
