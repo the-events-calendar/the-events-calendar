@@ -1,0 +1,4 @@
+Significance: minor
+Type: feature
+
+Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
