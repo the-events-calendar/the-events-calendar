@@ -65,9 +65,9 @@ const targets = [
 		outputStyle: `build/Wizard/onboarding.${postfix}`,
 		moveFromTo: {
 			'src/resources/js/app/tec-events-onboarding-wizard-script.js':
-				'build/Seating/onboarding.js',
+				'build/Wizard/onboarding.js',
 			'src/resources/css/app/tec-events-onboarding-wizard-script.css':
-				'build/Seating/onboarding.css',
+				'build/Wizard/onboarding.css',
 		},
 	},
 ];
