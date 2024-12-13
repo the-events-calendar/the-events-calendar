@@ -11,7 +11,7 @@ npx \
 	--package="@tanstack/react-query" \
 	--package="@wordpress/scripts@27.9.0" \
 	--yes -- \
-	wp-scripts build --webpack-src-dir=src/resources/packages/ --output-path=build/
+	wp-scripts build --webpack-src-dir=src/resources/packages/wizard/ --output-path=build/wizard
 
 echo "Moving the Webpack 4 directory back to node_modules."
 mv /tmp/_webpack node_modules/webpack
