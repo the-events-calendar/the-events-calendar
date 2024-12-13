@@ -602,7 +602,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			'onboarding.js',
 		)
 			->add_to_group_path( 'tec-onboarding' )
-			->add_dependency( 'wp-components' )
+			->add_dependency( 'react', 'react-dom', 'wp-api-fetch', 'wp-components', 'wp-data', 'wp-data-controls', 'wp-dom-ready', 'wp-element', 'wp-i18n' )
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ $this, 'is_on_page' ] )
