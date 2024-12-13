@@ -58,3 +58,6 @@ files/
 bin/strauss.phar
 
 .vscode
+
+# Packaged assets.
+build
