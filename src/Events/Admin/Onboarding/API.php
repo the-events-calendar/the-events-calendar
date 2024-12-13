@@ -202,7 +202,7 @@ class API {
 	/**
 	 * Normalize the tabs. Remove duplicates
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @param array<int> $tabs An array of tab indexes (int).
 	 *

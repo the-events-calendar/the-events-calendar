@@ -87,7 +87,7 @@ class Timezones {
 	 * the WordPress > Settings > General
 	 *
 	 * @since 4.6.17
-	 * @since TBD Added filter to allow control over the display of the notice.
+	 * @since 6.9.0 Added filter to allow control over the display of the notice.
 	 *
 	 * @return boolean
 	 */
@@ -112,7 +112,7 @@ class Timezones {
 		 *
 		 *  It should display if we're on a TEC page or over Settings > General
 
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param bool
 		 */

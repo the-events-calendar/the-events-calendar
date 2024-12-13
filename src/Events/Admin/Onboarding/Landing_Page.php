@@ -404,7 +404,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Render the resources section.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 *
 	 * @return void
 	 */

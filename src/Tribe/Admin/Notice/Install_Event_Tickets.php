@@ -188,7 +188,7 @@ class Install_Event_Tickets {
 		/**
 		 * Filters whether the `Event Tickets` admin notice should display.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param bool $should_display True if the notice should display.
 		 */

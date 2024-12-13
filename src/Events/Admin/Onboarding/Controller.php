@@ -117,7 +117,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Remove all admin notices in the onboarding page.
 	 *
-	 * @since TBD
+	 * @since 6.9.0
 	 */
 	public function remove_all_admin_notices_in_onboarding_page(): void {
 		if ( ! Landing_Page::is_on_page() ) {
