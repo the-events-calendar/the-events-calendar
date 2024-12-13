@@ -597,8 +597,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @since 6.8.4
 	 */
 	public function register_assets() {
-		$plugin = tribe( 'tec.main' );
-
 		Asset::add(
 			'tec-events-onboarding-wizard-script',
 			'index.js'
@@ -611,16 +609,16 @@ class Landing_Page extends Abstract_Admin_Page {
 			->in_footer()
 			->register();
 
-		tribe_asset(
-			$plugin,
+		Asset::add(
 			'tec-events-onboarding-wizard-style',
-			plugins_url( 'build/wizard/index.css', $plugin->plugin_file ),
-			[ 'wp-components' ],
-			'admin_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'is_on_page' ],
-				'groups'       => [ 'tec-onboarding' ],
-			]
-		);
+			'index.css'
+		)
+			->add_to_group_path( 'tec-onboarding' )
+			->add_to_group( 'tec-onboarding' )
+			->enqueue_on( 'admin_enqueue_scripts' )
+			->set_condition( [ $this, 'is_on_page' ] )
+			->use_asset_file( false )
+			->set_dependencies( 'wp-components' )
+			->register();
 	}
 }
