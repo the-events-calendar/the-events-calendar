@@ -124,6 +124,7 @@ jobs:
       # Check if the zip already exists on s3
       # ------------------------------------------------------------------------------
       - name: Check if the zip already exists
+        if: ${{ env.PRODUCTION_ZIP == 'false' }}
         uses: the-events-calendar/action-s3-utility@main
         id: s3_zip
         continue-on-error: true
@@ -140,21 +141,21 @@ jobs:
       # Run Pup Build
       # ------------------------------------------------------------------------------
       - name: pup build
-        if: ${{steps.s3_zip.outcome != 'success'}}
+        if: ${{ env.PRODUCTION_ZIP == 'true' && steps.s3_zip.outcome != 'success'}}
         run: composer -- pup build
 
       # ------------------------------------------------------------------------------
       # Run Pup Check on a production build
       # ------------------------------------------------------------------------------
       - name: pup check
-        if: ${{ steps.s3_zip.outcome != 'success' && env.PRODUCTION_ZIP == 'true' }}
+        if: ${{ env.PRODUCTION_ZIP == 'true' && steps.s3_zip.outcome != 'success' }}
         run: composer -- pup check
 
       # ------------------------------------------------------------------------------
       # Run Pup i18n on a production build (include translation files)
       # ------------------------------------------------------------------------------
       - name: pup i18n
-        if: ${{ steps.s3_zip.outcome != 'success' && env.PRODUCTION_ZIP == 'true' }}
+        if: ${{ env.PRODUCTION_ZIP == 'true' && steps.s3_zip.outcome != 'success' }}
         run: composer -- pup i18n
 
       # ------------------------------------------------------------------------------
@@ -178,7 +179,7 @@ jobs:
       # ------------------------------------------------------------------------------
       - name: Upload plugin artifact
         uses: the-events-calendar/action-s3-utility@main
-        if: ${{steps.s3_zip.outcome != 'success'}}
+        if: ${{env.PRODUCTION_ZIP == 'false' || steps.s3_zip.outcome != 'success'}}
         with:
           args: --acl public-read --follow-symlinks
         env:
