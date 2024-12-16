@@ -3,6 +3,8 @@
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use TEC\Common\StellarWP\Assets\Config;
+use Tribe__Events__Main as TEC;
 
 /**
  * Registers and Enqueues the assets
@@ -35,6 +37,9 @@ class Tribe__Events__Assets {
 		$plugin        = Tribe__Events__Main::instance();
 		$admin_helpers = Tribe__Admin__Helpers::instance();
 
+		// Register the `/build` directory assets as a different group to ensure back-compatibility.
+		Config::add_group_path( TEC::class, TEC::instance()->plugin_path . 'build', '', true );
+
 		// Vendor
 		tribe_assets(
 			$plugin,
@@ -64,7 +69,7 @@ class Tribe__Events__Assets {
 		);
 
 		// All post Type pages
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-admin',
 			'events-admin.js',
