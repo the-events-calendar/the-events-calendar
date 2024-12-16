@@ -162,14 +162,14 @@ jobs:
       # Run Pup Package - creates the zip file
       # ------------------------------------------------------------------------------
       - name: pup package
-        if: ${{steps.s3_zip.outcome != 'success'}}
+        if: ${{env.PRODUCTION_ZIP == 'false' || steps.s3_zip.outcome != 'success'}}
         run:  composer -- pup package ${{ env.VERSION }}
 
       # ------------------------------------------------------------------------------
       # Move the zip file
       # ------------------------------------------------------------------------------
       - name: Create the zip_files folder
-        if: steps.s3_zip.outcome != 'success'
+        if: ${{env.PRODUCTION_ZIP == 'false' || steps.s3_zip.outcome != 'success'}}
         run: |
           mkdir zip_files
           cp ${{ env.PUP_ZIP_NAME }}.zip zip_files
