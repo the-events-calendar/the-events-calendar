@@ -121,7 +121,7 @@ jobs:
         run: echo "PUP_ZIP_NAME=$(composer -- pup zip-name ${{ env.VERSION }})" >> $GITHUB_ENV
 
       # ------------------------------------------------------------------------------
-      # Check if the zip already exists on s3
+      # Check if the zip already exists on s3 - but NOT for production builds
       # ------------------------------------------------------------------------------
       - name: Check if the zip already exists
         if: ${{ env.PRODUCTION_ZIP == 'false' }}
@@ -138,48 +138,48 @@ jobs:
           FILE: ${{ env.PUP_ZIP_NAME }}.zip
 
       # ------------------------------------------------------------------------------
-      # Run Pup Build
+      # Run Pup Build on new OR production build
       # ------------------------------------------------------------------------------
       - name: pup build
-        if: ${{ env.PRODUCTION_ZIP == 'true' && steps.s3_zip.outcome != 'success'}}
+        if: ${{ env.PRODUCTION_ZIP == 'true' || steps.s3_zip.outcome != 'success'}}
         run: composer -- pup build
 
       # ------------------------------------------------------------------------------
-      # Run Pup Check on a production build
+      # Run Pup Check only on a production build (TBDs and version conflicts)
       # ------------------------------------------------------------------------------
       - name: pup check
-        if: ${{ env.PRODUCTION_ZIP == 'true' && steps.s3_zip.outcome != 'success' }}
+        if: ${{ env.PRODUCTION_ZIP == 'true' }}
         run: composer -- pup check
 
       # ------------------------------------------------------------------------------
-      # Run Pup i18n on a production build (include translation files)
+      # Run Pup i18n only on a production build (include translation files)
       # ------------------------------------------------------------------------------
       - name: pup i18n
-        if: ${{ env.PRODUCTION_ZIP == 'true' && steps.s3_zip.outcome != 'success' }}
+        if: ${{ env.PRODUCTION_ZIP == 'true' }}
         run: composer -- pup i18n
 
       # ------------------------------------------------------------------------------
-      # Run Pup Package - creates the zip file
+      # Run Pup Package - creates the zip file for new OR production builds
       # ------------------------------------------------------------------------------
       - name: pup package
-        if: ${{env.PRODUCTION_ZIP == 'false' || steps.s3_zip.outcome != 'success'}}
+        if: ${{env.PRODUCTION_ZIP == 'true' || steps.s3_zip.outcome != 'success'}}
         run:  composer -- pup package ${{ env.VERSION }}
 
       # ------------------------------------------------------------------------------
-      # Move the zip file
+      # Move the zip file for new OR production builds
       # ------------------------------------------------------------------------------
       - name: Create the zip_files folder
-        if: ${{env.PRODUCTION_ZIP == 'false' || steps.s3_zip.outcome != 'success'}}
+        if: ${{env.PRODUCTION_ZIP == 'true' || steps.s3_zip.outcome != 'success'}}
         run: |
           mkdir zip_files
           cp ${{ env.PUP_ZIP_NAME }}.zip zip_files
 
       # ------------------------------------------------------------------------------
-      # Upload the zip to S3
+      # Upload the zip to S3 for new OR production builds
       # ------------------------------------------------------------------------------
       - name: Upload plugin artifact
         uses: the-events-calendar/action-s3-utility@main
-        if: ${{env.PRODUCTION_ZIP == 'false' || steps.s3_zip.outcome != 'success'}}
+        if: ${{env.PRODUCTION_ZIP == 'true' || steps.s3_zip.outcome != 'success'}}
         with:
           args: --acl public-read --follow-symlinks
         env:
