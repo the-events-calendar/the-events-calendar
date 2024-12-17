@@ -15,24 +15,6 @@ const path = require('path');
  */
 
 /**
- * @type {LocationSchema}
- */
-const JsSchema = {
-	fileExtensions: ['.js'],
-	fileMatcher: (fileAbsolutePath) => !fileAbsolutePath.endsWith('.min.js'),
-	getEntryPointName: (fileRelativePath) => 'js/' + fileRelativePath.replace('.js','')
-};
-
-/**
- * @type {LocationSchema}
- */
-const PostcssSchema = {
-	fileExtensions: ['.pcss'],
-	fileMatcher: (fileAbsolutePath, fileName) => !fileName.startsWith('_'),
-	getEntryPointName: (fileRelativePath) => 'css/' + fileRelativePath.replace('.pcss','')
-};
-
-/**
  *
  * @param {Locations} locations A list of directories to search for entry points recursively.
  */
@@ -76,22 +58,50 @@ function getLegacyEntryPoints(locations) {
 
 	return entries;
 }
+
+/**
+ * @type {LocationSchema}
+ */
+const TECLegacyJsSchema = {
+	fileExtensions: ['.js'],
+	fileMatcher: (fileAbsolutePath) => !fileAbsolutePath.endsWith('.min.js'),
+	getEntryPointName: (fileRelativePath) => 'js/' + fileRelativePath.replace('.js','')
+};
+
+/**
+ * @type {LocationSchema}
+ */
+const TECLegacyPostcssSchema = {
+	fileExtensions: ['.pcss'],
+	fileMatcher: (fileAbsolutePath, fileName) => !fileName.startsWith('_'),
+	getEntryPointName: (fileRelativePath) => 'css/' + fileRelativePath.replace('.pcss','')
+};
+
+/**
+ * @type {LocationSchema}
+ */
+const TECLegacyBlocksFrontendPcssSchema = {
+	fileExtensions: ['.pcss'],
+	fileMatcher: (fileAbsolutePath, fileName) => fileName === 'frontend.pcss',
+	getEntryPointName: (fileRelativePath) => 'app/' + path.basename(path.dirname(fileRelativePath)) + '/frontend.css'
+};
 /// END TYSON
 
 // Ideal usage:
 // npm i @stellarwp/tyson --save-dev
 // tyson init (incl. namespace - dir?) - override in the webpack.config
 
-// @todo namespace for the project from dir or override from command
-
 
 // This is what would be imported from the `@stellarwp/tyson` package:
 // import {JsSchema, PostcssSchema, getLegacyEntryPoints} from '@stellarwp/tyson';
 
 const legacyEntryPoints = getLegacyEntryPoints({
-	'/src/resources/js': JsSchema,
-	'/src/resources/postcss': PostcssSchema,
+	'/src/resources/js': TECLegacyJsSchema,
+	'/src/resources/postcss': TECLegacyPostcssSchema,
+	'/src/styles': TECLegacyBlocksFrontendPcssSchema,
 });
+// Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
+legacyEntryPoints['app/main.js'] = __dirname + '/src/modules/index.js';
 
 module.exports = {
 	...defaultConfig,
@@ -99,8 +109,11 @@ module.exports = {
 		entry: (buildType) => {
 			const defaultEntryPoints = defaultConfig.entry(buildType);
 			return {
-				...defaultEntryPoints, ...legacyEntryPoints,
+				...defaultEntryPoints, ...legacyEntryPoints
 			};
 		},
 	},
 };
+
+// @todo namespace for the project from dir or override from command
+// @todo what to do with images moved/copied to /build/images?
