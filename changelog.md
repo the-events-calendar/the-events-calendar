@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.9.0] 20224-12-16
+### [6.9.0] 20224-12-17
 
 * Feature - Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
 * Fix - Provinces/States for non-US countries are saved to the correct field, when importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key. [ECP-1877]

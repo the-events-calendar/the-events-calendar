@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.9.0]  =
+= [6.9.0] 2024-12-17 =
 
 * Feature - Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
 * Fix - Provinces/States for non-US countries are saved to the correct field, when importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key. [ECP-1877]
