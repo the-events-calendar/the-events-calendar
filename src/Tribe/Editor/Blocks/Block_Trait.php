@@ -6,11 +6,11 @@
  */
 
 /**
- * Trait Block_Trait.
+ * Trait Tribe__Events__Editor__Blocks__Block_Trait.
  *
  * @since TBD
  */
-trait Block_Trait {
+trait Tribe__Events__Editor__Blocks__Block_Trait {
 
 	/**
 	 * Register the Assets for when this block is active

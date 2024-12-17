@@ -1,7 +1,7 @@
 <?php
 class Tribe__Events__Editor__Blocks__Event_Venue
 extends Tribe__Editor__Blocks__Abstract {
-	use Block_Trait;
+	use Tribe__Events__Editor__Blocks__Block_Trait;
 
 	/**
 	 * The ID of the venue to display.
