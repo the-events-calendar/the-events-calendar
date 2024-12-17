@@ -8,8 +8,8 @@
 * Fix - Changed `format` method to `format_i18n` to allow for translations of dates in the TEC Elementor Widget. [TEC-5323]
 * Fix - Correct template override path to match docblocks for `event-export` directory. [TEC-5326]
 * Fix - Correct application of upsell classes in settings page. [n/a]
-* Fix - Updated the docblock for the tribe_get_previous_events_link, tribe_get_next_event_link, and tribe_get_gridview_link functions.
-* Tweak - Improved documentation for the tribe_the_next_event_link, tribe_the_prev_event_link, and tribe_get_events_link functions.
+* Fix - Updated the docblock for the `tribe_get_previous_events_link`, `tribe_get_next_event_link`, and `tribe_get_gridview_link` functions.
+* Tweak - Improved documentation for the `tribe_the_next_event_link`, `tribe_the_prev_event_link`, and `tribe_get_events_link` functions.
 * Tweak - Update docblocks in the `Tribe__Events__Importer__File_Importer_Events` class. [n/a]
 * Tweak - Fix the integration with TEC Tweaks to avoid a fatal error when using the extension. [TEC-5316]
 * Language - 87 new strings added, 156 updated, 2 fuzzied, and 0 obsoleted.

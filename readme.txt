@@ -241,8 +241,8 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Correct template override path to match docblocks for `event-export` directory. [TEC-5326]
 * Fix - Correct application of upsell classes in settings page.
 * Tweak - Fix the integration with TEC Tweaks to avoid a fatal error when using the extension. [TEC-5316]
-* Tweak - Updated the docblock for the tribe_get_previous_events_link, tribe_get_next_event_link, and tribe_get_gridview_link functions.
-* Tweak - Improved documentation for the tribe_the_next_event_link, tribe_the_prev_event_link, and tribe_get_events_link functions.
+* Tweak - Updated the docblock for the `tribe_get_previous_events_link`, `tribe_get_next_event_link`, and `tribe_get_gridview_link` functions.
+* Tweak - Improved documentation for the `tribe_the_next_event_link`, `tribe_the_prev_event_link`, and `tribe_get_events_link` functions.
 * Tweak - Update docblocks in the `Tribe__Events__Importer__File_Importer_Events` class.
 * Tweak - Added filters: `tec_events_onboarding_wizard_permissions`, `tec_events_onboarding_wizard_handle`, `tec_events_onboarding_wizard_country_list`, `tec_events_onboarding_wizard_timezone_list`, `tec_events_onboarding_wizard_currencies_list`, `tribe_events_onboarding_wizard_initial_data`, `tec_events_admin_notice_event_tickets_should_display`, `tec_events_admin_notice_utc_timezone_should_display`, `tec_events_settings_should_filter_page_logo_source`
 * Tweak - Changed views: `integrations/elementor/widgets/event-export`, `integrations/elementor/widgets/event-export/list-item`
