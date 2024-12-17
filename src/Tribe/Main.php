@@ -3,6 +3,7 @@
  * Main Tribe Events Calendar class.
  */
 
+use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use Tribe\DB_Lock;
 use Tribe\Events\Views\V2;
 use Tribe\Events\Admin\Settings;
@@ -524,9 +525,19 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Load Text Domain on tribe_common_loaded as it requires common
 		 *
 		 * @since 4.8
-		 *
 		 */
 		public function bootstrap() {
+			/*
+			 * Register the `/build` directory assets as a different group to ensure back-compatibility.
+			 * This needs to happen here, early enough for the assets registration to find the group already defined.
+			 */
+			Assets_Config::add_group_path(
+				self::class,
+				self::instance()->plugin_path . 'build',
+				'',
+				true
+			);
+
 			$this->bind_implementations();
 			$this->loadLibraries();
 			$this->addHooks();
