@@ -1,0 +1,23 @@
+{
+  "name": "the-events-calendar/source-updater",
+  "autoload": {
+    "psr-4": {
+      "TEC\\Source_Updater\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "The Events Calendar Team",
+      "email": "info@theeventscalendar.com"
+    }
+  ],
+  "require": {
+    "rector/rector": "^2.0",
+    "php-stubs/wordpress-stubs": "^6.7"
+  },
+  "config": {
+    "platform": {
+      "php": "7.4"
+    }
+  }
+}
