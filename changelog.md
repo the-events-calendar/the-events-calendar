@@ -3,7 +3,7 @@
 ### [6.9.0] 20224-12-17
 
 * Feature - Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
-* Fix - Provinces/States for non-US countries are saved to the correct field, when importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key. [ECP-1877]
+* Fix - When importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key, Provinces/States for non-US countries are now saved to the correct field. [ECP-1877]
 * Fix - When using "Move to trash events older than", trashed imported events are now ignored. [TEC-5319]
 * Fix - Changed `format` method to `format_i18n` to allow for translations of dates in the TEC Elementor Widget. [TEC-5323]
 * Fix - Correct template override path to match docblocks for `event-export` directory. [TEC-5326]
