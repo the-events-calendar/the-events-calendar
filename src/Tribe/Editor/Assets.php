@@ -38,7 +38,7 @@ class Tribe__Events__Editor__Assets {
 
 		$plugin = tribe( 'tec.main' );
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-the-events-calendar-views',
 			'app/views.css',

@@ -21,7 +21,7 @@ trait Tribe__Events__Editor__Blocks__Block_Trait {
 	 * @return void
 	 */
 	public function assets() {
-		tribe_asset(
+		tec_asset(
 			tribe( 'tec.main' ),
 			'tribe-events-block-' . $this->slug(),
 			'app/' . $this->slug() . '/frontend.css',

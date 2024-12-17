@@ -41,7 +41,7 @@ class Tribe__Events__Assets {
 		Config::add_group_path( TEC::class, TEC::instance()->plugin_path . 'build', '', true );
 
 		// Vendor
-		tribe_assets(
+		tec_assets(
 			$plugin,
 			[
 				[ 'jquery-placeholder', 'vendor/jquery-placeholder/jquery.placeholder.js', [ 'jquery' ] ],
@@ -103,7 +103,7 @@ class Tribe__Events__Assets {
 		);
 
 		// Post Type admin page
-		tribe_assets(
+		tec_assets(
 			$plugin,
 			[
 				[ 'tribe-events-ecp-plugins', 'jquery-ecp-plugins.js', [ 'jquery' ] ],
@@ -143,7 +143,7 @@ class Tribe__Events__Assets {
 		);
 
 		// Admin Menu Assets
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-admin-menu',
 			'admin-menu.css',
@@ -155,7 +155,7 @@ class Tribe__Events__Assets {
 		);
 
 		// Setting page Assets
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-settings',
 			'tribe-settings.js',
@@ -187,7 +187,7 @@ class Tribe__Events__Assets {
 			 */
 			$google_maps_js_url = apply_filters( 'tribe_events_google_maps_api', $api_url );
 
-			tribe_asset(
+			tec_asset(
 				$plugin,
 				'tribe-events-google-maps',
 				$google_maps_js_url,
@@ -198,7 +198,7 @@ class Tribe__Events__Assets {
 				]
 			);
 
-			tribe_asset(
+			tec_asset(
 				$plugin,
 				Tribe__Events__Embedded_Maps::MAP_HANDLE,
 				'embedded-map.js',
@@ -210,7 +210,7 @@ class Tribe__Events__Assets {
 			);
 		}
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-dynamic',
 			'events-dynamic.js',
@@ -229,7 +229,7 @@ class Tribe__Events__Assets {
 		);
 
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-calendar-mobile-style',
 			'tribe-events-theme-mobile.css',
@@ -247,7 +247,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-calendar-full-mobile-style',
 			'tribe-events-full-mobile.css',
@@ -266,7 +266,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-full-calendar-style',
 			'tribe-events-full.css',
@@ -283,7 +283,7 @@ class Tribe__Events__Assets {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-calendar-style',
 			$this->get_style_file(),
@@ -299,7 +299,7 @@ class Tribe__Events__Assets {
 		$override_sheet = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 
 		if ( ! empty( $override_sheet ) && file_exists( $override_sheet ) ) {
-			tribe_asset(
+			tec_asset(
 				$plugin,
 				'tribe-events-calendar-override-style',
 				$override_sheet,

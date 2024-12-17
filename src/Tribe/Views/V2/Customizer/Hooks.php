@@ -37,19 +37,19 @@ class Hooks extends Service_Provider {
 	 */
 	public function register() {
 		// Register the Views V2 Customizer controls assets.
-		tribe_asset(
+		tec_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-controls',
 			'customizer-views-v2-controls.css'
 		);
 
-		tribe_asset(
+		tec_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-controls-js',
 			'customizer-views-v2-controls.js'
 		);
 
-		tribe_asset(
+		tec_asset(
 			TEC::instance(),
 			'tribe-customizer-views-v2-live-preview-js',
 			'customizer-views-v2-live-preview.js',

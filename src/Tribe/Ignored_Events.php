@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Events__Ignored_Events' ) ) {
 				}
 			];
 
-			tribe_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', [ 'jquery' ], 'admin_enqueue_scripts', $args );
+			tec_asset( $plugin, 'tribe-ignored-events', 'admin-ignored-events.js', [ 'jquery' ], 'admin_enqueue_scripts', $args );
 		}
 
 		/**

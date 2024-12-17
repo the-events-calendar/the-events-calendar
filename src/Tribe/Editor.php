@@ -437,7 +437,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 */
 		$gmaps_api_url = apply_filters( 'tribe_events_google_maps_api', $gmaps_api_url );
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-editor-blocks-gmaps-api',
 			$gmaps_api_url,
@@ -452,7 +452,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-the-events-calendar-vendor',
 			'app/vendor.js',
@@ -465,7 +465,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'priority'     => 100,
 			]
 		);
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-the-events-calendar-editor',
 			'app/main.js',
@@ -479,7 +479,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-widget-blocks',
 			'app/widgets.js',
@@ -507,7 +507,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-widget-blocks-styles',
 			'app/widgets.css',
@@ -521,7 +521,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-blocks-category-icon-styles',
 			'tribe-admin-block-category-icons.css',
@@ -533,7 +533,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			Tribe__Main::instance(),
 			'tribe-block-editor-vendor',
 			'app/vendor.css',
@@ -545,7 +545,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-block-editor-main',
 			'app/main.css',

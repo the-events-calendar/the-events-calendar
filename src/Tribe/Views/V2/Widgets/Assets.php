@@ -34,7 +34,7 @@ class Assets extends Service_Provider {
 	public function register() {
 		$plugin = Plugin::instance();
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-widgets-v2-events-list-skeleton',
 			'widget-events-list-skeleton.css',
@@ -54,7 +54,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-widgets-v2-events-list-full',
 			'widget-events-list-full.css',
