@@ -3,8 +3,8 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.8.3
-Requires at least: 6.3
+Stable tag: 6.9.0
+Requires at least: 6.5
 Tested up to: 6.7.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,22 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.9.0] 2024-12-17 =
+
+* Feature - Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
+* Fix - When importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key, Provinces/States for non-US countries are now saved to the correct field. [ECP-1877]
+* Fix - When using "Move to trash events older than", trashed imported events are now ignored. [TEC-5319]
+* Fix - Changed `format` method to `format_i18n` to allow for translations of dates in the TEC Elementor Widget. [TEC-5323]
+* Fix - Correct template override path to match docblocks for `event-export` directory. [TEC-5326]
+* Fix - Correct application of upsell classes in settings page.
+* Tweak - Fix the integration with TEC Tweaks to avoid a fatal error when using the extension. [TEC-5316]
+* Tweak - Updated the docblock for the `tribe_get_previous_events_link`, `tribe_get_next_event_link`, and `tribe_get_gridview_link` functions.
+* Tweak - Improved documentation for the `tribe_the_next_event_link`, `tribe_the_prev_event_link`, and `tribe_get_events_link` functions.
+* Tweak - Update docblocks in the `Tribe__Events__Importer__File_Importer_Events` class.
+* Tweak - Added filters: `tec_events_onboarding_wizard_permissions`, `tec_events_onboarding_wizard_handle`, `tec_events_onboarding_wizard_country_list`, `tec_events_onboarding_wizard_timezone_list`, `tec_events_onboarding_wizard_currencies_list`, `tribe_events_onboarding_wizard_initial_data`, `tec_events_admin_notice_event_tickets_should_display`, `tec_events_admin_notice_utc_timezone_should_display`, `tec_events_settings_should_filter_page_logo_source`
+* Tweak - Changed views: `integrations/elementor/widgets/event-export`, `integrations/elementor/widgets/event-export/list-item`
+* Language - 87 new strings added, 156 updated, 2 fuzzied, and 0 obsoleted.
 
 = [6.8.3] 2024-12-05 =
 

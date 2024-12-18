@@ -144,6 +144,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 *
 	 * @since 4.6.13
 	 * @since 6.0.13 Now batches each purge. By default, it limits to 15 occurrences.
+	 * @since 6.2.9  Add an optional 'frequency|interval' format for the events to retrieve field, e.g. '15|MINUTE'.
 	 *
 	 * @param int $month - The value chosen by user to purge all events older than x months
 	 *
@@ -173,33 +174,32 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			FROM {$wpdb->posts} AS t1
 			INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
 			WHERE
-				t1.post_type = %s
+				t1.post_type = " . '"%1$s"' . "
 				AND t2.meta_key = '_EventEndDate'
-				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL %d %3s )
+				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL " . '%2$d %4$s' . " )
 				AND t2.meta_value != 0
 				AND t2.meta_value != ''
 				AND t2.meta_value IS NOT NULL
 				AND t1.post_parent = 0
 				AND t1.ID NOT IN ( $posts_with_parents_sql )
-			LIMIT %d
-		";
+			LIMIT " . '%3$d';
 
 		/**
 		 * Filter - Allows users to manipulate the cleanup query
 		 *
 		 * @since 4.6.13
 		 * @since 6.0.13 Added a limit param to the default query.
-		 * @since 6.2.9 Added a mysql `interval` parameter (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
+		 * @since 6.2.9  Added a mysql `interval` parameter (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
 		 *
 		 * @param string $sql - The query statement.
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
 		$args = [
-			'post_type' => $event_post_type,
+			'post_type' => esc_sql( $event_post_type ),
 			'date'      => $frequency,
-			'interval'  => $interval,
 			'limit'     => 15,
+			'interval'  => esc_sql( $interval ),
 		];
 
 		/**
@@ -207,7 +207,7 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		 *
 		 * @since 4.6.13
 		 * @since 6.0.13 Added a limit arg, defaulting to 100.
-		 * @since 6.2.9 Added a mysql `interval` field (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
+		 * @since 6.2.9  Added a mysql `interval` field (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
 		 *
 		 * @param array $args - The array of variables.
 		 */

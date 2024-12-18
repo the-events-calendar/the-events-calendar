@@ -185,7 +185,14 @@ class Install_Event_Tickets {
 			return false;
 		}
 
-		return $this->is_installed() && ! $this->is_active() && ! $this->is_install_plugin_page();
+		/**
+		 * Filters whether the `Event Tickets` admin notice should display.
+		 *
+		 * @since 6.9.0
+		 *
+		 * @param bool $should_display True if the notice should display.
+		 */
+		return apply_filters( 'tec_events_admin_notice_event_tickets_should_display', $this->is_installed() && ! $this->is_active() && ! $this->is_install_plugin_page() );
 	}
 
 	/**

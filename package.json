@@ -1,6 +1,6 @@
 {
   "name": "the-events-calendar",
-  "version": "6.8.3",
+  "version": "6.9.0",
   "repository": "git@github.com:the-events-calendar/the-events-calendar.git",
   "_zipname": "the-events-calendar",
   "_zipfoldername": "the-events-calendar",
@@ -10,7 +10,10 @@
   "_glotPressUrl": "https://translate.wordpress.org",
   "_glotPressSlug": "wp-plugins/the-events-calendar/stable",
   "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
-  "_glotPressFormats": ["po", "mo"],
+  "_glotPressFormats": [
+    "po",
+    "mo"
+  ],
   "_glotPressFilter": {
     "translation_sets": false,
     "minimum_percentage": 30,
@@ -49,26 +52,29 @@
     ]
   },
   "scripts": {
-    "preinstall": "if [ -d node_modules/@the-events-calendar/product-taskmaster ]; then node node_modules/@the-events-calendar/product-taskmaster/scripts/syncPackageJSON.js; fi",
     "analyze": "webpack-bundle-analyzer -m static stats.json",
+    "before-zip": "bash bin/action-before-zip.sh",
     "bootstrap": "./scripts/linkDependencies",
-    "build:webpack": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=production webpack -p",
-    "build:gulp": "cross-env NODE_ENV=production gulp",
     "build:common": "export NODE_OPTIONS=--openssl-legacy-provider && cd common && npm run build",
+    "build:gulp": "cross-env NODE_ENV=production gulp",
+    "build:webpack": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=production webpack -p",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run build:webpack && npm run build:gulp",
+    "changelog": "./vendor/bin/changelogger add",
     "dev": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
-    "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
-    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "glotpress": "gulp glotpress",
+    "jest": "TZ=UTC gulp jest",
     "lint:eslint": "gulp eslint",
     "lint:stylelint": "gulp stylelint",
-    "jest": "TZ=UTC gulp jest",
+    "lint": "npm run lint:eslint && npm run lint:stylelint",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
-    "zip": "node node_modules/@the-events-calendar/product-taskmaster/util/zip.js",
-    "glotpress": "gulp glotpress",
-    "changelog": "./vendor/bin/changelogger add"
+    "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
+    "rebuild": "rm -rf node_modules && npm install && npm run build"
   },
-  "engines": { "node": "18.13.0", "npm": "8.19.3" },
+  "engines": {
+    "node": "18.13.0",
+    "npm": "8.19.3"
+  },
   "devDependencies": {
     "@the-events-calendar/product-taskmaster": "^3.0.0",
     "@wordpress/hooks": "^1.3.2",
@@ -85,10 +91,12 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/runtime": "^7.15.3",
     "@moderntribe/common": "file:common/src/modules",
     "@moderntribe/events": "file:src/modules",
     "@nfen/redux-reducer-injector": "0.0.3",
+    "@tanstack/react-query": "^4.36.1",
     "@wordpress/a11y": "1.0.3",
     "@wordpress/data": "^1.1.0",
     "@wordpress/i18n": "^1.2.2",
@@ -98,18 +106,19 @@
     "chrono-node": "^2.2.4",
     "classnames": "^2.2.6",
     "clipboard": "^2.0.10",
-    "date-fns-tz": "^3.1.3",
     "date-fns": "^3.6.0",
+    "date-fns-tz": "^3.1.3",
     "file-loader": "^1.1.6",
     "he": "^1.2.0",
     "intro.js": "^3.4.0",
     "jquery": "3.5.0",
     "lodash": "^4.17.21",
-    "moment-timezone": "^0.5.40",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.40",
     "mt-a11y-dialog": "^5.1.1",
     "prop-types": "^15.6.2",
     "querystringify": "^2.0.0",
+    "react": "^16.14.0",
     "react-day-picker": "^7.2.4",
     "react-dom": "^16.14.0",
     "react-iframe": "^1.8.0",
@@ -119,10 +128,9 @@
     "react-scroll-to": "^1.2.2",
     "react-select": "^2.1.2",
     "react-text-input": "^0.0.8",
-    "react": "^16.14.0",
+    "redux": "^4.0.0",
     "redux-saga": "^0.16.1",
     "redux-thunk": "^2.3.0",
-    "redux": "^4.0.0",
     "reselect": "^3.0.1",
     "uniqid": "^5.0.3",
     "url-loader": "^4.1.1",
@@ -130,5 +138,9 @@
     "whatwg-fetch": "^2.0.4",
     "zero-fill": "^2.2.3"
   },
-  "overrides": { "babel-plugin-lodash": { "@babel/types": "~7.20.0" } }
+  "overrides": {
+    "babel-plugin-lodash": {
+      "@babel/types": "~7.20.0"
+    }
+  }
 }

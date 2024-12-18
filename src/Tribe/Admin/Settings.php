@@ -129,11 +129,16 @@ class Settings {
 	 * @return string The source URL of the settings page logo.
 	 */
 	public function settings_page_logo_source( $source_url ): string {
-		if ( ! $this->is_tec_events_settings() ) {
-			return $source_url;
-		}
+		/**
+		 * Filters whether the source URL of the settings page logo should be replaced.
+		 *
+		 * @since 6.9.0
+		 *
+		 * @param bool $should_filter Whether the source URL of the settings page logo should be replaced.
+		 */
+		$should_filter = apply_filters( 'tec_events_settings_should_filter_page_logo_source', $this->is_tec_events_settings() );
 
-		return tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() );
+		return $should_filter ? tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() ) : $source_url;
 	}
 
 	/**
