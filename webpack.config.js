@@ -102,6 +102,7 @@ const legacyEntryPoints = getLegacyEntryPoints({
 });
 // Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
 legacyEntryPoints['app/main.js'] = __dirname + '/src/modules/index.js';
+legacyEntryPoints['app/widgets.js'] = __dirname + '/src/modules/widgets/index.js';
 
 module.exports = {
 	...defaultConfig,
