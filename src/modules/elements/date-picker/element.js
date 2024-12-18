@@ -26,13 +26,19 @@ const { toMoment, toDate, toDatePicker, toDateTime } = momentUtil;
 export default class DatePicker extends Component {
 	static propTypes = {
 		changeDatetime: PropTypes.func,
-		datetime: PropTypes.string,
+		datetime      : PropTypes.string,
 	};
 
-	static defaultProps = {
-		changeDatetime: noop,
-		datetime: toDatePicker(),
-	};
+	constructor( props ) {
+		super( props );
+
+		this.changeDatetime = props.changeDatetime.bind( this );
+
+		this.state = {
+			...props,
+			datetime: toDatePicker( toMoment( props.datetime ) ),
+		};
+	}
 
 	static getDerivedStateFromProps( nextProps, prevState ) {
 		const { datetime } = nextProps;
@@ -42,17 +48,6 @@ export default class DatePicker extends Component {
 
 		return {
 			datetime: toDatePicker( toMoment( datetime ) ),
-		};
-	}
-
-	constructor( props ) {
-		super( ...arguments );
-
-		this.changeDatetime = props.changeDatetime.bind( this );
-
-		this.state = {
-			...props,
-			datetime: toDatePicker( toMoment( props.datetime ) ),
 		};
 	}
 

@@ -311,12 +311,14 @@ class EventVenue extends Component {
 						label={ __( 'Show Google Maps Link', 'the-events-calendar' ) }
 						checked={ showMapLink }
 						onChange={ toggleVenueMapLink }
+						__nextHasNoMarginBottom={true}
 					/>
 					{ embedMap && (
 						<ToggleControl
 							label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
 							checked={ showMap }
 							onChange={ toggleVenueMap }
+							__nextHasNoMarginBottom={true}
 						/>
 					) }
 					<EditLink
