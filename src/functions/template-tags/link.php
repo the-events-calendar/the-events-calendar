@@ -6,11 +6,15 @@
  */
 
 /**
- * Link to Previous Event (Display)
+ * Displays a link to the previous event by start date.
  *
- * Displays a link to the previous post by start date for the given event
+ * The link text can be customized by passing a string to the `$anchor` parameter.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ *
+ * @param bool|string $anchor Optional. Custom link text. Use `%title%` to place the event title in the string. Default is false.
+ *
+ * @return void
  *
  * @see tribe_get_prev_event_link()
  */
@@ -21,11 +25,11 @@ function tribe_the_prev_event_link( $anchor = false ) {
 /**
  * Returns a link to the previous event by start date for the given event.
  *
- * @since 3.0
- * 
- * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
+ * @since 5.14.0
  *
- * @return string The link to the previous event.
+ * @param  bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
+ *
+ * @return string              The link to the previous event.
  */
 function tribe_get_prev_event_link( $anchor = false ) {
 	$event_id = get_the_ID();
@@ -42,13 +46,16 @@ function tribe_get_prev_event_link( $anchor = false ) {
 }
 
 /**
- * Link to Next Event (Display)
+ * Displays a link to the next event by start date.
  *
- * Display a link to the next post by start date for the given event
+ * The link text can be customized by passing a string to the `$anchor` parameter.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 3.0
+ *
+ * @param bool|string $anchor Optional. Custom link text. Use `%title%` to place the event title in the string. Default is false.
  *
  * @return void
+ *
  * @see tribe_get_next_event_link()
  */
 function tribe_the_next_event_link( $anchor = false ) {
@@ -56,11 +63,13 @@ function tribe_the_next_event_link( $anchor = false ) {
 }
 
 /**
- * Return a link to the next post by start date for the given event
+ * Returns a link to the next event by start date for the given event.
  *
- * @param bool|string $anchor link text. Use %title% to place the post title in your string.
+ * @since 5.14.0
  *
- * @return string
+ * @param bool|string $anchor (optional) The link text. Use %title% to place the post title in your string. Default is false.
+ *
+ * @return string The link to the next event.
  */
 function tribe_get_next_event_link( $anchor = false ) {
 	$event_id = get_the_ID();
@@ -77,9 +86,14 @@ function tribe_get_next_event_link( $anchor = false ) {
 }
 
 /**
- * Get a link to the previous events
+ * Retrieves the URL for the previous events page.
  *
- * @return string
+ * This function generates a link to the previous events, considering whether the user is on the upcoming events view
+ * and which page they are currently on.
+ *
+ * @since 3.7
+ *
+ * @return string The URL to the previous events page.
  */
 function tribe_get_previous_events_link() {
 
@@ -115,12 +129,18 @@ function tribe_get_next_events_link() {
 }
 
 /**
- * Link to All Events
+ * Get a link to all events.
  *
- * Returns a link to the events URL
+ * Returns the main URL for the events. The URL can be optionally returned in a format suitable for display,
+ * where non-Latin characters are not URL-encoded.
  *
- * @param string $context Optional; defaults to 'href'. Can be 'display', in which case non-latin chars are not url-encoded.
- * @return string URL
+ * @since 2.0.1
+ *
+ * @param  string $context Optional. Defaults to 'href'. Can be 'display', in which case non-Latin characters are not URL-encoded.
+ *
+ * @return string          The URL to the events page.
+ *
+ * @hook   tribe_get_events_link Filters the main events link.
  */
 function tribe_get_events_link( $context = 'href' ) {
 	$plugin = Tribe__Events__Main::instance();
@@ -128,6 +148,8 @@ function tribe_get_events_link( $context = 'href' ) {
 	 * Allows for filtering the main events link.
 	 *
 	 * Returns a link to the events URL
+	 *
+	 * @since 3.8
 	 *
 	 * @param string $link The main events link.
 	 * @param string $context Defaults to 'href'. Can also be 'display', in which case non-latin chars are not url-encoded.
@@ -171,14 +193,15 @@ function tribe_get_view_permalink( $slug, $term = null ) {
 }
 
 /**
- * Link to Grid View
+ * Get a link to the Grid View.
  *
- * Returns a link to the general or category calendar grid view
+ * @hook tribe_get_gridview_link Filters the URL to the grid view.
  *
- * @param string $term Optional event category to link to.
+ * @since 2.0.1
  *
- * @return string URL
- * @todo rename
+ * @param  string|null $term   Optional. Event category to link to. Default is null.
+ *
+ * @return string      $output The generated URL to the grid view.
  */
 function tribe_get_gridview_link( $term = null ) {
 	$tribe_ecp = Tribe__Events__Main::instance();
@@ -265,7 +288,7 @@ function tribe_get_listview_dir_link( $direction = 'next', $term = null, $curren
  *
  * @return array {
  *      An associative array containing the updated display and page number.
- * 
+ *
  *      @type string $display The view to be displayed, either 'list' or 'past'.
  *      @type int    $page    The updated page number.
  * }
@@ -494,7 +517,7 @@ function tribe_get_event_website_link( $event = null, $label = null, $target = '
  * @since 5.5.0
  *
  * @param null|int $post_id Optional. The event post object or event ID. Defaults to null.
- * 
+ *
  * @return string The formatted title for the event website link.
  */
 function tribe_events_get_event_website_title( $post_id = null ) {

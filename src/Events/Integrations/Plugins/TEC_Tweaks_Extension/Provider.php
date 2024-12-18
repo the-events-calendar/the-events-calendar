@@ -39,21 +39,28 @@ class Provider extends Integration_Abstract {
 
 	/**
 	 * This handles removing the end time extension settings from the tweaks extension.
+	 *
+	 * @since 6.5.0 The setting is moved to TEC, so we null the setting value and remove it
+	 *              from the settings page of the extension.
 	 */
 	public function remove_end_time_extension_settings() {
 		add_filter( 'tribe_get_option_tribe_ext_tec_tweaks_remove_event_end_time', '__return_empty_array' );
 		add_filter(
 			'tec_general_settings_viewing_section',
-			static function ( $fields, $id ) {
-				if ( $id !== 'tec-tweaks' ) {
+			static function ( $fields ) {
+				// Bail, if not on the Tweaks settings tab.
+				if ( tec_get_request_var( 'tab' ) !== 'tec-tweaks' ) {
 					return $fields;
 				}
+
+				// Remove settings on the Tweaks tab.
+				// Compatibility for TEC Tweaks 1.1.1 and before.
 				unset( $fields['tec_labs_tec_tweaks_remove_event_end_time'] );
 
 				return $fields;
 			},
 			10,
-			2
+			1
 		);
 	}
 }
