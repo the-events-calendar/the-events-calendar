@@ -42,3 +42,11 @@ Apply the changes to the source code:
 ```bash
 bin/source-updater/vendor/bin/rector process --config=bin/source-updater/rector.php ./src
 ```
+
+## Test scripts
+
+Scan the source directory to find assets registered using the `tec_asset` or `tec_assets` function that are not available:
+
+```bash
+php bin/source-updater/find-broken-assets.php ./src
+```
