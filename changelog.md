@@ -1,5 +1,25 @@
 # Changelog
 
+### [6.9.0] 20224-12-17
+
+* Feature - Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
+* Fix - When importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key, Provinces/States for non-US countries are now saved to the correct field. [ECP-1877]
+* Fix - When using "Move to trash events older than", trashed imported events are now ignored. [TEC-5319]
+* Fix - Changed `format` method to `format_i18n` to allow for translations of dates in the TEC Elementor Widget. [TEC-5323]
+* Fix - Correct template override path to match docblocks for `event-export` directory. [TEC-5326]
+* Fix - Correct application of upsell classes in settings page. [n/a]
+* Fix - Updated the docblock for the `tribe_get_previous_events_link`, `tribe_get_next_event_link`, and `tribe_get_gridview_link` functions.
+* Tweak - Improved documentation for the `tribe_the_next_event_link`, `tribe_the_prev_event_link`, and `tribe_get_events_link` functions.
+* Tweak - Update docblocks in the `Tribe__Events__Importer__File_Importer_Events` class. [n/a]
+* Tweak - Fix the integration with TEC Tweaks to avoid a fatal error when using the extension. [TEC-5316]
+* Language - 87 new strings added, 156 updated, 2 fuzzied, and 0 obsoleted.
+
+### [6.8.3] 2024-12-05
+
+* Feature - In-App Notifications system. [TEC-5165]
+* Tweak - Added actions: `tec_ian_icon`
+* Language - 0 new strings added, 118 updated, 0 fuzzied, and 1 obsoleted.
+
 ### [6.8.2.1] 2024-11-21
 
 * Tweak - Introduced filter `tec_events_rest_api_password_protected_fields` which can be used to control which event fields should be hidden in the REST API for password protected events. [SVUL-8]
@@ -44,7 +64,7 @@
 * Version - The Events Calendar 6.7.0 is only compatible with Events Filterbar 5.5.7 and higher
 * Version - The Events Calendar 6.7.0 is only compatible with Events Community 5.0.4 and higher
 * Feature - New and improved settings layout and styles. [TEC-5124]
-* Fix - Correct translation domains in a few templates. [TBD]
+* Fix - Correct translation domains in a few templates. [6.4.0]
 * Tweak - Added filters: `tec_settings_gmaps_js_api_start`, `tec_events_settings_display_calendar_display_section`, `tec_general_settings_viewing_section`, `tec_events_aggregator_show_all_settings`, `tec_events_settings_tab_imports_fields`
 * Tweak - Removed filters: `tec_events_should_display_events_template_setting`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
 * Tweak - Added actions: `tec_events_settings_tab_display_additional_content`, `tec_events_settings_tab_display_calendar`, `tec_events_settings_tab_display_date_time`, `tec_events_settings_tab_display_maps`, `tec_events_settings_tab_general_debugging`, `tec_events_settings_tab_general_editing`, `tec_events_settings_tab_general_maintenance`, `tec_events_settings_tab_general_viewing`, `tec_settings_tab_addons`, `tec_events_settings_tab_display`, `tec_events_settings_tab_general`, `tec_events_settings_tab_imports`

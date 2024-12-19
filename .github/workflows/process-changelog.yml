@@ -22,7 +22,6 @@ on:
         options:
           - amend
           - generate
-          - amend-version
 
 defaults:
   run:
@@ -49,7 +48,7 @@ jobs:
           php-version: 7.4
 
       - name: Set up Composer
-        run: composer install --no-progress --ignore-platform-reqs
+        run: composer install
 
       - name: Set Variables
         id: vars

@@ -58,6 +58,7 @@ class Event_Datetime extends Abstract_Widget {
 	 * Get the template args for the widget.
 	 *
 	 * @since 6.4.0
+	 * @since 6.9.0 Changed `format` method to `format_i18n` to allow for translations of dates.
 	 *
 	 * @return array The template args.
 	 */
@@ -73,13 +74,14 @@ class Event_Datetime extends Abstract_Widget {
 		// Date and time settings.
 		$show_year   = tribe_is_truthy( $settings['show_year'] ?? false );
 		$date_format = tribe_get_date_format( $show_year );
-		$start_date  = $event->dates->start->format( $date_format ) ?? '';
-		$end_date    = $event->dates->end->format( $date_format ) ?? '';
+		$start_date  = $event->dates->start->format_i18n( $date_format ) ?? '';
+		$end_date    = $event->dates->end->format_i18n( $date_format ) ?? '';
 
 		$time_format = tribe_get_time_format();
-		$start_time  = $event->dates->start->format( $time_format ) ?? '';
-		$end_time    = $event->dates->end->format( $time_format ) ?? '';
-		$show_tz     = tribe_is_truthy( $settings['show_timezone'] ?? tribe_get_option( 'tribe_events_timezones_show_zone', false ) );
+		$start_time  = $event->dates->start->format_i18n( $time_format ) ?? '';
+		$end_time    = $event->dates->end->format_i18n( $time_format ) ?? '';
+
+		$show_tz = tribe_is_truthy( $settings['show_timezone'] ?? tribe_get_option( 'tribe_events_timezones_show_zone', false ) );
 		if ( $show_tz ) {
 			$time_zone_label = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $start_date ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event->ID );
 		}
