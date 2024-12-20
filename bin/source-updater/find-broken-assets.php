@@ -15,7 +15,7 @@ if ( $argc < 1 ) {
 $directory = $argv[1];
 
 if ( ! is_dir( $directory ) ) {
-	printf( "The path %s is not a valid directory\n", $dir );
+	printf( "The path %s is not a valid directory\n", $directory );
 	exit( 1 );
 }
 
@@ -35,6 +35,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 $traverser = new NodeTraverser();
 $visitor   = new class extends NodeVisitorAbstract {
 	private ?SplFileInfo $currentFile = null;
+	/**
+	 * @var array<string,array{jsAssetFile: string, file: string, line: int}>
+	 */
+	private array $unregisteredCssAsset = [];
 
 	public function setCurrentFile( SplFileInfo $file ) {
 		$this->currentFile = $file;
@@ -65,6 +69,8 @@ $visitor   = new class extends NodeVisitorAbstract {
 			return;
 		}
 
+		$extension = substr( $match[2], 1 );
+
 		if (
 			str_starts_with( $match[0], 'vendor' )
 			|| str_starts_with( $match[0], 'node_modules' )
@@ -76,7 +82,6 @@ $visitor   = new class extends NodeVisitorAbstract {
 			// The /app bundle will be packaged in the `/build/app` directory.
 			$assetFile = '/build/' . $match[0];
 		} else {
-			$extension = substr( $match[2], 1 );
 			$assetFile = "/build/{$extension}/{$match[0]}";
 		}
 
@@ -90,6 +95,34 @@ $visitor   = new class extends NodeVisitorAbstract {
 				'.' . $assetFile
 			);
 		}
+
+		if ( $extension === 'js' ) {
+			// If the file is a .js file, check if a `style-<asset>.css` file exists: if it exists, collect it for later checking.
+			$basename = basename( $match[0]);
+			$cssFile = str_replace( $basename, 'style-' . substr($basename,0,-3) . '.css', $assetFile );
+			if(is_file(getcwd(). $cssFile)){
+				// There is a style file: make sure it's registered along with the JS asset.
+				$this->unregisteredCssAsset[ $cssFile ] = [
+					'jsAssetFile' => $assetFile,
+					'file'        => $this->currentFile->getRealPath(),
+					'line'        => $node->getLine()
+				];
+			}
+		} else {
+			// The file is a CSS file: remove it from the unregistered CSS assets list.
+			unset( $this->unregisteredCssAsset[ $assetFile ] );
+		}
+	}
+
+	/**
+	 * Return an array of unregistered CSS assets.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,array{jsAssetFile: string, file: string, line: int}>
+	 */
+	public function getUnregisteredCssAssets(): array {
+		return $this->unregisteredCssAsset;
 	}
 
 	private function checkAssetsCall( FuncCall $node ): Node {
@@ -136,5 +169,15 @@ foreach ( $files as $file ) {
 	$ast    = $parser->parse( $code );
 	$visitor->setCurrentFile( $file );
 	$traverser->traverse( $ast );
+}
+
+foreach ( $visitor->getUnregisteredCssAssets() as $cssFile => $cssFileData ) {
+	printf(
+		"Warning at %s:%d\n└── JS Asset %s is registered, but CSS asset %s is not.\n",
+		$cssFileData['file'],
+		$cssFileData['line'],
+		$cssFileData['jsAssetFile'],
+		getcwd() . $cssFile
+	);
 }
 
