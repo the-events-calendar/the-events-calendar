@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Fixes edge cases where the nonce_user_logged_out hook was returning a value when the user was logged out, causing the nonce validation to fail.
