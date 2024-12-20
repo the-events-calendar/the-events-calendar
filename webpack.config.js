@@ -162,8 +162,8 @@ const customEntryPoints = compileCustomEntryPoints({
 	'/src/resources/packages': TECPackageSchema,
 });
 // Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
-customEntryPoints['app/main.js'] = __dirname + '/src/modules/index.js';
-customEntryPoints['app/widgets.js'] = __dirname + '/src/modules/widgets/index.js';
+customEntryPoints['app/main'] = __dirname + '/src/modules/index.js';
+customEntryPoints['app/widgets'] = __dirname + '/src/modules/widgets/index.js';
 
 module.exports = {
 	...defaultConfig,
