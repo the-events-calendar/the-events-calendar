@@ -128,6 +128,15 @@ class Rest_Endpoint {
 	}
 
 	/**
+	 * Allows clearing the user to handle cases we are done with an old user.
+	 *
+	 * @since TBD
+	 */
+	public static function clear_stored_user_id() {
+		self::$user_id = null;
+	}
+
+	/**
 	 * Ensures the nonce(s) are valid.
 	 *
 	 * @since 6.2.3
