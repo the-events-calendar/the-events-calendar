@@ -39,9 +39,20 @@ $visitor   = new class extends NodeVisitorAbstract {
 	 * @var array<string,array{jsAssetFile: string, file: string, line: int}>
 	 */
 	private array $unregisteredCssAsset = [];
+	/**
+	 * @var array<string,true>
+	 */
+	private array $registeredAssets  = [];
 
 	public function setCurrentFile( SplFileInfo $file ) {
 		$this->currentFile = $file;
+	}
+
+	/**
+	 * @return array<string,true>
+	 */
+	public function getRegisteredAssets(): array {
+		return $this->registeredAssets;
 	}
 
 	public function enterNode( Node $node ) {
@@ -112,6 +123,7 @@ $visitor   = new class extends NodeVisitorAbstract {
 			// The file is a CSS file: remove it from the unregistered CSS assets list.
 			unset( $this->unregisteredCssAsset[ $assetFile ] );
 		}
+		$this->registeredAssets[$assetFile] = true;
 	}
 
 	/**
@@ -171,7 +183,11 @@ foreach ( $files as $file ) {
 	$traverser->traverse( $ast );
 }
 
+$registeredAssets = $visitor->getRegisteredAssets();
 foreach ( $visitor->getUnregisteredCssAssets() as $cssFile => $cssFileData ) {
+	if(isset($registeredAssets[$cssFile])){
+		continue;
+	}
 	printf(
 		"Warning at %s:%d\n└── JS Asset %s is registered, but CSS asset %s is not.\n",
 		$cssFileData['file'],
