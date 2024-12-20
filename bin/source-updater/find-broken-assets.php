@@ -72,6 +72,9 @@ $visitor   = new class extends NodeVisitorAbstract {
 		) {
 			// Assets loaded from vendor or node_modules don't need to be in ./build, but we still need to make sure they're not missing.
 			$assetFile = '/' . $match[0];
+		} else if ( str_starts_with( $match[0], 'app' ) ) {
+			// The /app bundle will be packaged in the `/build/app` directory.
+			$assetFile = '/build/' . $match[0];
 		} else {
 			$extension = substr( $match[2], 1 );
 			$assetFile = "/build/{$extension}/{$match[0]}";
