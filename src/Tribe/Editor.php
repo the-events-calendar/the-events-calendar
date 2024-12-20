@@ -454,19 +454,6 @@ class Tribe__Events__Editor extends Tribe__Editor {
 
 		tec_asset(
 			$plugin,
-			'tribe-the-events-calendar-vendor',
-			'app/vendor.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 100,
-			]
-		);
-		tec_asset(
-			$plugin,
 			'tribe-the-events-calendar-editor',
 			'app/main.js',
 			[ 'tec-common-php-date-formatter' ],
