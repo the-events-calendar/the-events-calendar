@@ -600,6 +600,8 @@ class Tribe__Events__Venue extends Tribe__Events__Linked_Posts__Base { // phpcs:
 
 			if ( ! is_wp_error( $venue_id ) ) {
 
+				$this->save_meta( $venue_id, $data );
+
 				/**
 				 * Fires immediately after a venue has been created.
 				 *
