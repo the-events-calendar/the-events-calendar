@@ -68,6 +68,7 @@ $visitor   = new class extends NodeVisitorAbstract {
 			return $this->checkAssetCall( $node );
 		}
 
+		// The called function is the `tec assets` one.
 		return $this->checkAssetsCall( $node );
 	}
 
