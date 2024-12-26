@@ -13,8 +13,8 @@ use TEC\Events\Telemetry\Telemetry;
 use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
-use TEC\Events\Admin\Onboarding\API;
 use TEC\Common\Asset;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Landing_Page
@@ -582,25 +582,23 @@ class Landing_Page extends Abstract_Admin_Page {
 	public function register_assets() {
 		Asset::add(
 			'tec-events-onboarding-wizard-script',
-			'index.js'
+			'wizard.js'
 		)
-			->add_to_group_path( 'tec-onboarding' )
+			->add_to_group_path( TEC::class . '-packages')
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
-			->use_asset_file( true )
 			->in_footer()
 			->register();
 
 		Asset::add(
 			'tec-events-onboarding-wizard-style',
-			'index.css'
+			'wizard.css'
 		)
-			->add_to_group_path( 'tec-onboarding' )
+			->add_to_group_path( TEC::class . '-packages')
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
-			->use_asset_file( false )
 			->set_dependencies( 'wp-components' )
 			->register();
 	}
