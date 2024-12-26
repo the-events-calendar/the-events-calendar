@@ -497,7 +497,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		tec_asset(
 			$plugin,
 			'tec-widget-blocks-styles',
-			'app/widgets.css',
+			'app/style-widgets.css',
 			[
 				'wp-widgets',
 			],
@@ -521,21 +521,9 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		);
 
 		tec_asset(
-			Tribe__Main::instance(),
-			'tribe-block-editor-vendor',
-			'app/vendor.css',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'conditionals' => [ $this, 'is_events_post_type' ],
-			]
-		);
-
-		tec_asset(
 			$plugin,
 			'tribe-block-editor-main',
-			'app/main.css',
+			'app/style-main.css',
 			[],
 			'enqueue_block_editor_assets',
 			[
