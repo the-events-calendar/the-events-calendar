@@ -173,12 +173,11 @@ $visitor   = new class extends NodeVisitorAbstract {
 	}
 };
 $traverser->addVisitor( $visitor );
+$parser = ( new ParserFactory )->createForNewestSupportedVersion();
 
 /** @var SplFileInfo $file */
 foreach ( $files as $file ) {
 	$code = file_get_contents( $file->getPathname() );
-
-	$parser = ( new ParserFactory )->createForNewestSupportedVersion();
 	$ast    = $parser->parse( $code );
 	$visitor->setCurrentFile( $file );
 	$traverser->traverse( $ast );

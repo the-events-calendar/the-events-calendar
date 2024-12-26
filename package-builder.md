@@ -50,3 +50,9 @@ Scan the source directory to find assets registered using the `tec_asset` or `te
 ```bash
 php bin/source-updater/find-broken-assets.php ./src
 ```
+
+Scan a directory to find any asset registration (done using any `wp_`, `tribe_`, or `tec_` function)  that requires a handle as a dependency:
+
+```bash
+php bin/source-updater/find-dependants.php tribe-events-admin ./..
+```
