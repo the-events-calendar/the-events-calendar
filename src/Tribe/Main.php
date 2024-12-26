@@ -538,6 +538,18 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				true
 			);
 
+			/*
+			 * Register the `/build` directory as root for packages.
+			 * The difference from the group registration above is that packages are not expected to use prefix directories
+			 * like `/js` or `/css`.
+			 */
+			Assets_Config::add_group_path(
+				self::class . '-packages',
+				self::instance()->plugin_path . 'build',
+				'',
+				false
+			);
+
 			$this->bind_implementations();
 			$this->loadLibraries();
 			$this->addHooks();
