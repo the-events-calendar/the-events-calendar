@@ -77,6 +77,26 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		);
 	}
 
+        protected function format_item( $id ) {
+                $formatted = null === $this->formatter
+                        ? tribe_get_venue_object( $id )
+                        : $this->formatter->format_item( $id );
+
+                /**
+                 * Filters a single formatted venue result.
+                 *
+                 * @since 4.9.11
+                 *
+                 * @param mixed|WP_Post                $formatted The formatted venue result, usually a post object.
+                 * @param int                          $id        The formatted post ID.
+                 * @param Tribe__Repository__Interface $this      The current repository object.
+                 */
+                $formatted = apply_filters( 'tribe_repository_venues_format_item', $formatted, $id, $this );
+
+                return $formatted;
+        }
+
+
 	/**
 	 * {@inheritdoc}
 	 */
