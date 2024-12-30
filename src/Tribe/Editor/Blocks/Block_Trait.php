@@ -5,6 +5,8 @@
  * @since TBD
  */
 
+use Tribe__Events__Main as TEC;
+
 /**
  * Trait Tribe__Events__Editor__Blocks__Block_Trait.
  *
@@ -29,6 +31,7 @@ trait Tribe__Events__Editor__Blocks__Block_Trait {
 			'wp_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'has_block' ],
+				'group_path' => TEC::class . '-packages',
 			]
 		);
 	}
