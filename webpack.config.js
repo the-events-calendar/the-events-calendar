@@ -128,7 +128,7 @@ const TECPostCssSchema = {
 const TECLegacyBlocksFrontendPostCssSchema = {
 	fileExtensions: ['.pcss'],
 	fileMatcher: (fileName) => fileName === 'frontend.pcss',
-	getEntryPointName: (fileRelativePath) => 'app/' + basename(dirname(fileRelativePath)) + '/frontend.css'
+	getEntryPointName: (fileRelativePath) => 'app/' + basename(dirname(fileRelativePath)) + '/frontend'
 };
 
 /**
