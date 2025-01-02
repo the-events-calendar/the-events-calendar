@@ -1,7 +1,7 @@
 /// START TYSON
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const {readdirSync, statSync, existsSync} = require('fs');
-const {dirname, basename,extname} = require('path');
+const {dirname, basename, extname} = require('path');
 
 /**
  * @typedef {Object} LocationSchema
@@ -18,17 +18,18 @@ const {dirname, basename,extname} = require('path');
 /**
  * Compiles a list of entry points for `@wordpress/scripts` to build.
  *
- * @param {Locations} locations A list of directories to search for entry points recursively.
+ * @param {Locations} locations A list of directories to search for entry points recursively.A
+ * @param {Object} config The webpack configuration object.
  *
  * @return {Object<string,string>} A map from entry points to the file to build.
  */
-function compileCustomEntryPoints(locations) {
+function compileCustomEntryPoints(locations,config) {
 	const entries = {};
-	Object.keys(locations).forEach(( location) => {
-		const schema = locations[ location];
+	Object.keys(locations).forEach((location) => {
+		const schema = locations[location];
 		const fileExtensions = schema.fileExtensions;
 		const fileMatcher = schema.fileMatcher;
-		const locationAbsolutePath = __dirname +  location;
+		const locationAbsolutePath = __dirname + location;
 
 		if (!existsSync(locationAbsolutePath)) {
 			return;
@@ -58,6 +59,11 @@ function compileCustomEntryPoints(locations) {
 			}
 
 			entries[schema.getEntryPointName(file)] = fileAbsolutePath;
+
+			if (schema.modifyConfig) {
+				// Modify the current WebPack configuration by reference.
+				schema.modifyConfig(config)
+			}
 		});
 	});
 
@@ -104,7 +110,7 @@ function isPackageRootIndex(fileRelativePath) {
 const TECLegacyJsSchema = {
 	fileExtensions: ['.js'],
 	fileMatcher: (filename) => !filename.endsWith('.min.js'),
-	getEntryPointName: (fileRelativePath) => 'js/' + fileRelativePath.replace('.js','')
+	getEntryPointName: (fileRelativePath) => 'js/' + fileRelativePath.replace('.js', ''),
 };
 
 /**
@@ -116,7 +122,30 @@ const TECLegacyJsSchema = {
 const TECPostCssSchema = {
 	fileExtensions: ['.pcss'],
 	fileMatcher: (fileName) => !fileName.startsWith('_'),
-	getEntryPointName: (fileRelativePath) => 'css/' + fileRelativePath.replace('.pcss','')
+	getEntryPointName: (fileRelativePath) => 'css/' + fileRelativePath.replace('.pcss', ''),
+	/**
+	 * PostCSS files in the `src/modules/blocks` directory use PostCSS nesting, where `&` indicates "this".
+	 * By default WordPress scripts would use new CSS nesting syntax where `&` indicates the parent.
+	 * We add here the `postcss-nested` plugin to allow the use of `&` to mean "this".
+	 * In webpack loaders are applied in LIFO order: this will prepare the PostCSS for the default `postcss-loader`.
+	 */
+	modifyConfig: (config) => config.module.rules.push(
+		{
+			test: /src\/modules\/blocks\/.*?\.pcss$/,
+			use: [
+				{
+					loader: 'postcss-loader',
+					options: {
+						postcssOptions: {
+							plugins: [
+								'postcss-nested',
+							],
+						},
+					},
+				},
+			],
+		},
+	)
 };
 
 /**
@@ -128,7 +157,7 @@ const TECPostCssSchema = {
 const TECLegacyBlocksFrontendPostCssSchema = {
 	fileExtensions: ['.pcss'],
 	fileMatcher: (fileName) => fileName === 'frontend.pcss',
-	getEntryPointName: (fileRelativePath) => 'app/' + basename(dirname(fileRelativePath)) + '/frontend'
+	getEntryPointName: (fileRelativePath) => 'app/' + basename(dirname(fileRelativePath)) + '/frontend',
 };
 
 /**
@@ -143,14 +172,13 @@ const TECPackageSchema = {
 	getEntryPointName: (fileRelativePath) => {
 		packageRoots.push(dirname(fileRelativePath));
 		return dirname(fileRelativePath);
-	}
-}
+	},
+};
 /// END TYSON
 
 // Ideal usage:
 // npm i @stellarwp/tyson --save-dev
 // tyson init (incl. namespace - dir?) - override in the webpack.config
-
 
 // This is what would be imported from the `@stellarwp/tyson` package:
 // import {TECLegacyJsSchema, TECPostCssSchema, TECLegacyBlocksFrontendPostCssSchema, TECPackageSchema, compileCustomEntryPoints} from '@stellarwp/tyson';
@@ -160,7 +188,7 @@ const customEntryPoints = compileCustomEntryPoints({
 	'/src/resources/postcss': TECPostCssSchema,
 	'/src/styles': TECLegacyBlocksFrontendPostCssSchema,
 	'/src/resources/packages': TECPackageSchema,
-});
+}, defaultConfig);
 // Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
 customEntryPoints['app/main'] = __dirname + '/src/modules/index.js';
 customEntryPoints['app/widgets'] = __dirname + '/src/modules/widgets/index.js';
@@ -168,10 +196,10 @@ customEntryPoints['app/widgets'] = __dirname + '/src/modules/widgets/index.js';
 module.exports = {
 	...defaultConfig,
 	...{
-		entry:(buildType) => {
+		entry: (buildType) => {
 			const defaultEntryPoints = defaultConfig.entry(buildType);
 			return {
-				...defaultEntryPoints, ...customEntryPoints
+				...defaultEntryPoints, ...customEntryPoints,
 			};
 		},
 	},
