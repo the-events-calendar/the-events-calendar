@@ -6,11 +6,11 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\Hide_End_Time_Provider;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\View;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 use Tribe__Events__Main as TEC;
 use Tribe__Settings_Manager;
 
-class Month_ViewTest extends ViewTestCase {
+class Month_ViewTest extends TecViewTestCase {
 	use MatchesSnapshots;
 
 	/**

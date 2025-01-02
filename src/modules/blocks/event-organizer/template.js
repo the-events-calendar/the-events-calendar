@@ -46,6 +46,13 @@ class EventOrganizer extends PureComponent {
 		onCreateNew: PropTypes.func,
 		onEdit: PropTypes.func,
 		onRemove: PropTypes.func,
+		setSubmit: PropTypes.func,
+		fields: PropTypes.object,
+		organizers: PropTypes.array,
+		store: PropTypes.string,
+		postType: PropTypes.string,
+		volatile: PropTypes.bool,
+		attributes: PropTypes.object,
 	};
 
 	componentDidUpdate( prevProps ) {

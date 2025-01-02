@@ -34,7 +34,7 @@ jobs:
           tools: composer
           coverage: none
       # Install composer packages.
-      - run: composer self-update && composer install --no-progress
+      - run: composer self-update && composer install --no-progress --ignore-platform-reqs
       # Fetch the target branch before running the check.
       - name: Fetch the target origin branch
         run: git fetch origin $GITHUB_BASE_REF

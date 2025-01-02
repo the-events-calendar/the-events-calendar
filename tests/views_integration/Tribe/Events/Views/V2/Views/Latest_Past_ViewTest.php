@@ -5,9 +5,9 @@ namespace Tribe\Events\Views\V2\Views;
 use Tribe\Events\Views\V2\Manager as View_Manager;
 use Tribe\Events\Views\V2\View;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 
-class Latest_Past_ViewTest extends ViewTestCase {
+class Latest_Past_ViewTest extends TecViewTestCase {
 	use With_Post_Remapping;
 
 	/**

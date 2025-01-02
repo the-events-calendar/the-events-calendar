@@ -218,7 +218,7 @@ class Event_Status extends Abstract_Widget {
 	protected function get_passed_label_text(): string {
 		$label_text = sprintf(
 			// Translators: %s is the singular lowercase label for an event, e.g., "event".
-			__( 'This %s has passed.', 'tribe-events-calendar-pro' ),
+			__( 'This %s has passed.', 'the-events-calendar' ),
 			tribe_get_event_label_singular_lowercase()
 		);
 

@@ -22,7 +22,7 @@
 
 		
 		<script data-js="tribe-events-view-data" type="application/json">
-	{"slug":"list","prev_url":"","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","title":"Events \\u2013 The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2020-03-01","url_event_date":"2019-06-01","bar":{"keyword":"","date":"2020-03-01"},"today":"2020-03-01","now":"2020-03-01 11:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","today_title":"Click to select today\'s date","today_label":"Today","prev_label":"","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","header_title":"","header_title_element":"h1","content_title":"","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2020-03-01&#038;ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2019-06-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2019-06\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2019-06-01\\/","view_label":"Day"}},"show_latest_past":true,"show_now":true,"now_label":"Upcoming","now_label_mobile":"Upcoming","show_end":false,"selected_start_datetime":"2019-06-01","selected_start_date_mobile":"6\\/1\\/2019","selected_start_date_label":"June 1","selected_end_datetime":"2019-06-01","selected_end_date_mobile":"6\\/1\\/2019","selected_end_date_label":"Now","datepicker_date":"6\\/1\\/2019","subscribe_links":{"gcal":{"block_slug":"hasGoogleCalendar","label":"Google Calendar","single_label":"Add to Google Calendar","visible":true},"ical":{"block_slug":"hasiCal","label":"iCalendar","single_label":"Add to iCalendar","visible":true},"outlook-365":{"block_slug":"hasOutlook365","label":"Outlook 365","single_label":"Outlook 365","visible":true},"outlook-live":{"block_slug":"hasOutlookLive","label":"Outlook Live","single_label":"Outlook Live","visible":true},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true,"block_slug":null},"outlook-ics":{"label":"Export Outlook .ics file","single_label":"Export Outlook .ics file","visible":true,"block_slug":null}},"_context":{"slug":"list"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
+	{"slug":"list","prev_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?eventDisplay=past","next_url":"","view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_slug":"list","view_label":"List","title":"Events \\u2013 The Events Calendar Tests","events":[],"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2020-03-01","url_event_date":"2020-03-01","bar":{"keyword":"","date":"2020-03-01"},"today":"2020-03-01","now":"2020-03-01 11:00:00","rest_url":"http:\\/\\/test.tri.be\\/wp-json\\/tribe\\/views\\/v2\\/html","rest_method":"POST","rest_nonce":"","should_manage_url":true,"today_url":"http:\\/\\/test.tri.be\\/events\\/list\\/","today_title":"Click to select today\'s date","today_label":"Today","prev_label":"2020-03-01","next_label":"","date_formats":{"compact":"n\\/j\\/Y","month_and_year_compact":"n\\/j\\/Y","month_and_year":"F Y","time_range_separator":" - ","date_time_separator":" @ "},"messages":{"notice":["There are no upcoming events."]},"start_of_week":"1","header_title":"","header_title_element":"h1","content_title":"","breadcrumbs":[],"before_events":"","after_events":"\\n<!--\\nThis calendar is powered by The Events Calendar.\\nhttp:\\/\\/evnt.is\\/18wn\\n-->\\n","display_events_bar":true,"disable_event_search":false,"live_refresh":true,"ical":{"display_link":true,"link":{"url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2020-03-01&#038;ical=1","text":"Export Events","title":"Use this to share calendar data with Google Calendar, Apple iCal and other compatible apps"}},"container_classes":["tribe-common","tribe-events","tribe-events-view","tribe-events-view--list"],"container_data":[],"is_past":false,"breakpoints":{"xsmall":500,"medium":768,"full":960},"breakpoint_pointer":"random-id","is_initial_load":true,"public_views":{"list":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\List_View","view_url":"http:\\/\\/test.tri.be\\/events\\/list\\/?tribe-bar-date=2020-03-01","view_label":"List"},"month":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Month_View","view_url":"http:\\/\\/test.tri.be\\/events\\/month\\/2020-03\\/","view_label":"Month"},"day":{"view_class":"Tribe\\\\Events\\\\Views\\\\V2\\\\Views\\\\Day_View","view_url":"http:\\/\\/test.tri.be\\/events\\/2020-03-01\\/","view_label":"Day"}},"show_latest_past":true,"show_now":true,"now_label":"Upcoming","now_label_mobile":"Upcoming","show_end":false,"selected_start_datetime":"2020-03-01","selected_start_date_mobile":"3\\/1\\/2020","selected_start_date_label":"March 1","selected_end_datetime":"2020-03-01","selected_end_date_mobile":"3\\/1\\/2020","selected_end_date_label":"Now","datepicker_date":"3\\/1\\/2020","subscribe_links":{"gcal":{"label":"Google Calendar","single_label":"Add to Google Calendar","visible":true,"block_slug":"hasGoogleCalendar"},"ical":{"label":"iCalendar","single_label":"Add to iCalendar","visible":true,"block_slug":"hasiCal"},"outlook-365":{"label":"Outlook 365","single_label":"Outlook 365","visible":true,"block_slug":"hasOutlook365"},"outlook-live":{"label":"Outlook Live","single_label":"Outlook Live","visible":true,"block_slug":"hasOutlookLive"},"ics":{"label":"Export .ics file","single_label":"Export .ics file","visible":true,"block_slug":null},"outlook-ics":{"label":"Export Outlook .ics file","single_label":"Export Outlook .ics file","visible":true,"block_slug":null}},"_context":{"slug":"list"},"text":"Loading...","classes":["tribe-common-c-loader__dot","tribe-common-c-loader__dot--third"]}</script>
 
 		
 		
@@ -141,7 +141,7 @@
 	<ul class="tribe-events-c-view-selector__list">
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--list tribe-events-c-view-selector__list-item--active">
 	<a
-		href="http://test.tri.be/events/list/?tribe-bar-date=2019-06-01"
+		href="http://test.tri.be/events/list/?tribe-bar-date=2020-03-01"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -154,7 +154,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--month">
 	<a
-		href="http://test.tri.be/events/month/2019-06/"
+		href="http://test.tri.be/events/month/2020-03/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -166,7 +166,7 @@
 </li>
 					<li class="tribe-events-c-view-selector__list-item tribe-events-c-view-selector__list-item--day">
 	<a
-		href="http://test.tri.be/events/2019-06-01/"
+		href="http://test.tri.be/events/2020-03-01/"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 	>
@@ -188,7 +188,18 @@
 
 	<nav class="tribe-events-c-top-bar__nav tribe-common-a11y-hidden">
 	<ul class="tribe-events-c-top-bar__nav-list">
-		
+		<li class="tribe-events-c-top-bar__nav-list-item">
+	<a
+		href="http://test.tri.be/events/list/?eventDisplay=past"
+		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
+		aria-label="Previous Events"
+		title="Previous Events"
+		data-js="tribe-events-view-link"
+	>
+		<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-left tribe-common-c-btn-icon__icon-svg tribe-events-c-top-bar__nav-link-icon-svg"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 16" aria-hidden="true"><path d="M9.7 14.4l-1.5 1.5L.3 8 8.2.1l1.5 1.5L3.3 8l6.4 6.4z"/></svg>
+	</a>
+</li>
+
 		<li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
@@ -220,7 +231,7 @@
 		title="Click to toggle datepicker"
 	>
 		<time
-			datetime="2019-06-01"
+			datetime="2020-03-01"
 			class="tribe-events-c-top-bar__datepicker-time"
 		>
 							<span class="tribe-events-c-top-bar__datepicker-mobile">
@@ -241,7 +252,7 @@
 		data-js="tribe-events-top-bar-date"
 		id="tribe-events-top-bar-date"
 		name="tribe-events-views[tribe-bar-date]"
-		value="6/1/2019"
+		value="3/1/2020"
 		tabindex="-1"
 		autocomplete="off"
 		readonly="readonly"
@@ -272,6 +283,96 @@
 
 	<h2 class="tribe-events-calendar-latest-past__heading tribe-common-h5 tribe-common-h3--min-medium">
 	Latest Past Events</h2>
+
+			
+		<div  class="tribe-common-g-row tribe-events-calendar-latest-past__event-row" >
+
+	<div class="tribe-events-calendar-latest-past__event-date-tag tribe-common-g-col">
+	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="2020-02-20" aria-hidden="true">
+		<span class="tribe-events-calendar-latest-past__event-date-tag-month">
+			Feb		</span>
+		<span class="tribe-events-calendar-latest-past__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			20		</span>
+		<span class="tribe-events-calendar-latest-past__event-date-tag-year">
+			2020		</span>
+	</time>
+</div>
+
+	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
+		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-89 tribe_events type-tribe_events status-publish hentry" >
+			
+			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
+
+				<header class="tribe-events-calendar-latest-past__event-header">
+					<div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-latest-past__event-datetime" datetime="2020-02-20">
+		<span class="tribe-event-date-start">February 20, 2020 @ 8:00 am</span> - <span class="tribe-event-time">5:00 pm</span>	</time>
+	</div>
+					<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-1"
+		title="Single Event 1"
+		rel="bookmark"
+		class="tribe-events-calendar-latest-past__event-title-link tribe-common-anchor-thin"
+	>
+		Single Event 1	</a>
+</h3>
+									</header>
+
+				<div class="tribe-events-calendar-latest-past__event-description tribe-common-b2 tribe-common-a11y-hidden">
+	<p>Snapshot event 89</p>
+</div>
+				
+			</div>
+		</article>
+	</div>
+
+</div>
+
+			
+		<div  class="tribe-common-g-row tribe-events-calendar-latest-past__event-row" >
+
+	<div class="tribe-events-calendar-latest-past__event-date-tag tribe-common-g-col">
+	<time class="tribe-events-calendar-latest-past__event-date-tag-datetime" datetime="2020-02-15" aria-hidden="true">
+		<span class="tribe-events-calendar-latest-past__event-date-tag-month">
+			Feb		</span>
+		<span class="tribe-events-calendar-latest-past__event-date-tag-daynum tribe-common-h5 tribe-common-h4--min-medium">
+			15		</span>
+		<span class="tribe-events-calendar-latest-past__event-date-tag-year">
+			2020		</span>
+	</time>
+</div>
+
+	<div class="tribe-events-calendar-latest-past__event-wrapper tribe-common-g-col">
+		<article  class="tribe-events-calendar-latest-past__event tribe-common-g-row tribe-common-g-row--gutters post-23 tribe_events type-tribe_events status-publish hentry" >
+			
+			<div class="tribe-events-calendar-latest-past__event-details tribe-common-g-col">
+
+				<header class="tribe-events-calendar-latest-past__event-header">
+					<div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
+		<time class="tribe-events-calendar-latest-past__event-datetime" datetime="2020-02-15">
+		<span class="tribe-event-date-start">February 15, 2020 @ 8:00 am</span> - <span class="tribe-event-time">5:00 pm</span>	</time>
+	</div>
+					<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium">
+	<a
+		href="http://test.tri.be/?tribe_events=single-event-1"
+		title="Single Event 1"
+		rel="bookmark"
+		class="tribe-events-calendar-latest-past__event-title-link tribe-common-anchor-thin"
+	>
+		Single Event 1	</a>
+</h3>
+									</header>
+
+				<div class="tribe-events-calendar-latest-past__event-description tribe-common-b2 tribe-common-a11y-hidden">
+	<p>Snapshot event 23</p>
+</div>
+				
+			</div>
+		</article>
+	</div>
+
+</div>
 
 	
 </div>

@@ -1,14 +1,6 @@
 name: 'Third-Party Integration Tests'
 on:
   pull_request:
-    paths:
-      - 'tests/**.php'
-      - 'src/**.php'
-      - '*.php'
-      - 'composer.json'
-      - 'composer.lock'
-      - 'codeception.dist.yml'
-      - '.github/workflows/tests-integrations.yaml'
 jobs:
   test:
     strategy:
@@ -21,7 +13,7 @@ jobs:
       # Checkout the repo
       # ------------------------------------------------------------------------------
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000
           token: ${{ secrets.GH_BOT_TOKEN }}
@@ -34,17 +26,20 @@ jobs:
         run: |
           num_php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -P "\.php" | wc -l)
           if [[ -z "$num_php_files" ]]; then
-            echo "::set-output name=value::1"
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
           elif [[ "$num_php_files" == "0" || "$num_php_files" == "" ]]; then
-            echo "::set-output name=value::1"
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
           else
-            echo "::set-output name=value::0"
+            echo "value=0" >> $GITHUB_OUTPUT
+            echo "## Found PHP file changes, running PHP tests." >> $GITHUB_STEP_SUMMARY
           fi
       # ------------------------------------------------------------------------------
       # Checkout slic
       # ------------------------------------------------------------------------------
       - name: Checkout slic
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
@@ -135,7 +130,7 @@ jobs:
         run: |
           ${SLIC_BIN} up wordpress
           ${SLIC_BIN} wp core version
-          ${SLIC_BIN} wp core update --force --version=6.4.1
+          ${SLIC_BIN} wp core update --force --version=6.5
           ${SLIC_BIN} wp core version
       # ------------------------------------------------------------------------------
       # Install and activate TwentyTwenty

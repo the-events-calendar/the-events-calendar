@@ -288,21 +288,26 @@ if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
 }
 
 /**
- * Event Type Test
+ * Checks if a given post ID or object is an Event post type.
  *
- * Checks type of $postId to determine if it is an Event
+ * This function tests whether the provided post ID or object corresponds to an Event.
  *
- * @param int|WP_Post The event/post id or object. (optional)
+ * @since 2.0.1
  *
- * @return bool true if this post is an Event post type
+ * @param int|WP_Post|null $postId Optional. The event/post ID or object. Default null.
+ *
+ * @return bool True if the post is of type 'Event', false otherwise.
+ *
  * @category Events
  */
 function tribe_is_event( $postId = null ) {
 	/**
-	 * Filter: 'tribe_is_event'.
+	 * Filters whether a post is an Event post type.
 	 *
-	 * @param bool $is_event
-	 * @param int|WP_Post $postId The event/post id or object. (optional)
+	 * @since 3.0
+	 *
+	 * @param bool             $is_event Whether the post is an Event.
+	 * @param int|WP_Post|null $postId   The event/post ID or object
 	 */
 	return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 }
@@ -1258,8 +1263,8 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
 		$time_format              = get_option( 'time_format' );
-		$datetime_separator       = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$datetime_separator       = tec_events_get_date_time_separator();
+		$time_range_separator     = tec_events_get_time_range_separator();
 
 		$settings = [
 			'show_end_time' => true,
@@ -1418,7 +1423,7 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
 				$inner .= tribe_get_start_date( $event, false, $time_format );
 			} else {
 				// Different start/end time.
-				$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+				$time_range_separator = tec_events_get_time_range_separator();
 
 				$inner .= tribe_get_start_date( $event, false, $time_format );
 				$inner .= $html ? '</span>' : '';

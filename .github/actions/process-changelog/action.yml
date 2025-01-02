@@ -1,0 +1,52 @@
+name: "Process the changelog"
+description: "Generate or amend the changelog entries"
+
+inputs:
+  release-version:
+    description: "The release version for which the action should generate the changelog (e.g. 4.5.0)"
+    required: true
+  release-date:
+    description: "The release date (format: YYYY-MM-DD) for which the action should generate the changelog (default: unreleased)"
+    required: false
+    default: "unreleased"
+  action-type:
+    description: 'Whether this is to generate or amend the changelog entries (generate or amend)'
+    required: false
+    default: "generate"
+
+outputs:
+  changelog:
+    description: "The escaped changelog content"
+    value: ${{ steps.process_changelog.outputs.CHANGELOG }}
+
+runs:
+  using: composite
+  steps:
+    - name: "Verify the action type"
+      id: verify_action_type
+      if: ${{ inputs.action-type == 'generate' }}
+      shell: bash
+      env:
+        RELEASE_VERSION: ${{ inputs.release-version }}
+        RELEASE_DATE: ${{ inputs.release-date }}
+        ACTION_TYPE: ${{ inputs.action-type }}
+      run: |
+        FINAL_RELEASE_VERSION=$(echo "$RELEASE_VERSION" | grep -Po '\d+\.\d+\.\d+(\.\d+)?') # Keep only x.y.z(.k) from x.y.z(.k)(-test-n)
+        CURRENT_RELEASE_VERSION=$(jq '.version' package.json -r)
+
+        # If the changelog directory is empty (except .gitkeep) and the final release version is already defined in package.json, we need to switch to amend
+        # This use case is mainly for the last test package created from the release branch, to avoid an empty changelog
+        if [ "$(ls -A changelog | wc -l)" -eq 1 ] && [[ "$FINAL_RELEASE_VERSION" == "$CURRENT_RELEASE_VERSION" ]]; then
+          echo "ACTION_TYPE=amend-version" >> $GITHUB_OUTPUT
+          echo "CURRENT_VERSION=$CURRENT_RELEASE_VERSION" >> $GITHUB_OUTPUT
+        fi
+
+    - name: "Process changelog for changelog.md"
+      id: process_changelog
+      shell: bash
+      env:
+        ACTION_TYPE: ${{ steps.verify_action_type.outputs.ACTION_TYPE || inputs.action-type }}
+        CURRENT_VERSION: ${{ steps.verify_action_type.outputs.CURRENT_VERSION || 'dont-care' }}
+        RELEASE_VERSION: ${{ inputs.release-version }}
+        RELEASE_DATE: ${{ inputs.release-date }}
+      run: ./bin/process-changelog.sh $RELEASE_VERSION $CURRENT_VERSION $ACTION_TYPE $RELEASE_DATE

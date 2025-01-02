@@ -47,16 +47,26 @@ class Input extends Component {
 	static propTypes = {
 		validate: PropTypes.bool,
 		required: PropTypes.bool,
+		onChange: PropTypes.any,
+		onComplete: PropTypes.any,
+		validateCallback: PropTypes.any,
+		type: PropTypes.string,
+		className: PropTypes.string,
 	}
 
 	/**
 	 * Set the default values for the required properties if not provided
 	 *
-	 * @type {{required: boolean, validate: boolean}}
+	 * @type {Object} The default properties for the component
 	 */
 	static defaultProps = {
 		required: false,
 		validate: false,
+		onChange: noop,
+		onComplete: noop,
+		validateCallback: null,
+		type: '',
+		className: '',
 	}
 
 	constructor() {

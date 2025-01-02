@@ -4,11 +4,16 @@ namespace Tribe\Events\Admin;
 /**
  * Manages the admin settings UI in relation to events configuration.
  */
+
+use TEC\Common\Admin\Help_Hub\Hub;
+use TEC\Events\Admin\Help_Hub\TEC_Hub_Resource_Data;
+use Tribe\Admin\Troubleshooting;
 use Tribe__App_Shop;
-use Tribe__Settings;
-use Tribe__Settings_Tab;
 use Tribe__Events__Main as Plugin;
-use Tribe\Admin\Troubleshooting as Troubleshooting;
+use Tribe__Main;
+use Tribe__Settings_Tab as Tab;
+use TEC\Common\Configuration\Configuration;
+use Tribe__Template;
 
 class Settings {
 
@@ -18,6 +23,20 @@ class Settings {
 	 * @var string
 	 */
 	public static $settings_page_id = 'tec-events-settings';
+
+	/**
+	 * The Help Hub page slug.
+	 *
+	 * @var string
+	 */
+	public static string $help_hub_slug = 'tec-events-help-hub';
+
+	/**
+	 * The Original Help page slug.
+	 *
+	 * @var string
+	 */
+	public static string $old_help_slug = 'tec-events-help';
 
 	/**
 	 * Settings tabs
@@ -44,6 +63,18 @@ class Settings {
 		$args = wp_parse_args( $args, $defaults );
 
 		$wp_url = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
+
+		if ( $args['anchor'] ?? false ) {
+			// Prepend hash character if needed.
+			if ( $args['anchor'][0] !== '#' ) {
+				$args['anchor'] = "#{$args['anchor']}";
+			}
+
+			$wp_url .= $args['anchor'];
+
+			// Don't pass this to add_query_arg(). Core will handle moving it as needed.
+			unset( $args['anchor'] );
+		}
 
 		// Keep the resulting URL args clean.
 		$url = add_query_arg( $args, $wp_url );
@@ -74,7 +105,7 @@ class Settings {
 	}
 
 	/**
-	 * Filter The Events CAlendar Settings page title
+	 * Filter The Events Calendar Settings page title
 	 *
 	 * @param string $title The title of the settings page.
 	 *
@@ -85,11 +116,29 @@ class Settings {
 			return $title;
 		}
 
-		return sprintf(
-			// Translators: %s is the `Events` in plural.
-			__( '%s Settings', 'the-events-calendar' ),
-			tribe_get_event_label_plural( 'tec_events_settings_title' )
-		);
+		return __( 'Settings', 'the-events-calendar' );
+	}
+
+	/**
+	 * Replaces the source URL of the settings page logo.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @param string $source_url The current source URL of the settings page logo.
+	 *
+	 * @return string The source URL of the settings page logo.
+	 */
+	public function settings_page_logo_source( $source_url ): string {
+		/**
+		 * Filters whether the source URL of the settings page logo should be replaced.
+		 *
+		 * @since 6.9.0
+		 *
+		 * @param bool $should_filter Whether the source URL of the settings page logo should be replaced.
+		 */
+		$should_filter = apply_filters( 'tec_events_settings_should_filter_page_logo_source', $this->is_tec_events_settings() );
+
+		return $should_filter ? tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, Tribe__Main::instance() ) : $source_url;
 	}
 
 	/**
@@ -167,26 +216,65 @@ class Settings {
 				'path'     => static::$settings_page_id,
 				'callback' => [
 					tribe( 'settings' ),
-					'generatePage',
+					'generate_page',
 				],
 			]
 		);
 
+		// Redirects users from the outdated Help page to the new Help Hub page if accessed.
+		$this->redirect_to_help_hub();
+
+		// Instantiate necessary dependencies for the Help Hub.
+		$template      = tribe( Tribe__Template::class );
+		$config        = tribe( Configuration::class );
+		$resource_data = tribe( TEC_Hub_Resource_Data::class );
+
+		// Instantiate the Hub instance with all dependencies.
+		$hub_instance = new Hub( $resource_data, $config, $template );
+
 		$admin_pages->register_page(
 			[
-				'id'       => 'tec-events-help',
+				'id'       => self::$help_hub_slug,
 				'parent'   => $this->get_tec_events_menu_slug(),
 				'title'    => esc_html__( 'Help', 'the-events-calendar' ),
-				'path'     => 'tec-events-help',
-				'callback' => [
-					tribe( 'settings.manager' ),
-					'do_help_tab',
-				],
+				'path'     => self::$help_hub_slug,
+				'callback' => [ $hub_instance, 'render' ],
 			]
 		);
 
 		$this->maybe_add_troubleshooting();
 		$this->maybe_add_app_shop();
+	}
+
+	/**
+	 * Redirects users from an outdated help page to the updated Help Hub page in the WordPress admin.
+	 *
+	 * Checks the `page` and `post_type` query parameters, and if they match the old help page slug.
+	 *
+	 * @since 6.8.2
+	 *
+	 * @return void
+	 */
+	public function redirect_to_help_hub(): void {
+		$page      = tribe_get_request_var( 'page' );
+		$post_type = tribe_get_request_var( 'post_type' );
+
+		// Exit if the request is not for the old help page.
+		if ( Plugin::POSTTYPE !== $post_type || self::$old_help_slug !== $page ) {
+			return;
+		}
+
+		// Build the new URL for redirection.
+		$new_url = add_query_arg(
+			[
+				'post_type' => Plugin::POSTTYPE,
+				'page'      => self::$help_hub_slug,
+			],
+			admin_url( 'edit.php' )
+		);
+
+		wp_safe_redirect( $new_url );
+		exit;
 	}
 
 	/**
@@ -196,7 +284,7 @@ class Settings {
 	 */
 	public function maybe_add_network_settings_page() {
 		$admin_pages = tribe( 'admin.pages' );
-		$settings    = Tribe__Settings::instance();
+		$settings    = tribe( 'settings' );
 
 		if ( ! is_plugin_active_for_network( 'the-events-calendar/the-events-calendar.php' ) ) {
 			return;
@@ -211,7 +299,7 @@ class Settings {
 				'capability' => $admin_pages->get_capability( 'manage_network_options' ),
 				'callback'   => [
 					$settings,
-					'generatePage',
+					'generate_page',
 				],
 			]
 		);
@@ -379,12 +467,22 @@ class Settings {
 			return;
 		}
 
-		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
+		$this->tabs['general'] = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-general.php';
+		$this->tabs['display'] = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-display.php';
 
-		$this->tabs['general'] = new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'the-events-calendar' ), $general_tab );
-		$this->tabs['display'] = new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'the-events-calendar' ), $tec_events_display_tab );
 		add_filter( 'tribe_settings_tabs', [ $this, 'sort_tabs' ], 100, 2 );
+	}
+
+	/**
+	 * Register the default settings tab sidebar.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @return void
+	 */
+	public function register_default_sidebar() {
+		$sidebar = include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/settings/sidebars/default-sidebar.php';
+		Tab::set_default_sidebar( $sidebar );
 	}
 
 	/**
@@ -405,37 +503,12 @@ class Settings {
 			return $tabs;
 		}
 
-		// Ensure these are the first tabs.
-		$first   = [ 'general', 'display' ];
-
-		// Reverse to maintain order when prepending
-		$reversed_arr = array_reverse( $first );
-
-		foreach ( $reversed_arr as $sort ) {
-			if ( ! isset( $tabs[ $sort ] ) ) {
-				continue;
+		uasort(
+			$tabs,
+			function ( $a, $b ) {
+				return $a->priority <=> $b->priority;
 			}
-
-			$temp = $tabs[ $sort ];
-
-			unset( $tabs[ $sort ] );
-			// Prepend the tab to the beginning of the array
-			$tabs = [ $sort => $temp ] + $tabs;
-		}
-
-		// Ensure these are the last tabs.
-		$last = [ 'licenses', 'addons', 'imports' ];
-
-
-		foreach( $last as $sort ) {
-			if ( ! isset( $tabs[ $sort ] ) ) {
-				continue;
-			}
-			// TL/DR: grab each tab, unset it and append it to the end of the array in order.
-			$temp = $tabs[ $sort ];
-			unset( $tabs[ $sort ] );
-			$tabs[ $sort ] = $temp;
-		}
+		);
 
 		return $tabs;
 	}
@@ -454,7 +527,7 @@ class Settings {
 
 		include_once tribe( 'tec.main' )->plugin_path . 'src/admin-views/tribe-options-network.php';
 
-		$this->tabs['network'] = new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $networkTab );
+		$this->tabs['network'] = new Tab( 'network', esc_html__( 'Network', 'the-events-calendar' ), $network_tab );
 	}
 
 	/**
@@ -731,7 +804,7 @@ class Settings {
 		 */
 		$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
-		new Tribe__Settings_Tab(
+		new Tab(
 			'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
 			[
 				'priority'      => 100,

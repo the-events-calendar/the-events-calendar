@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { isFunction, values } from 'lodash';
+import { PropTypes } from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -24,6 +25,12 @@ import { Input } from '@moderntribe/events/elements';
  */
 
 class OrganizerForm extends Component {
+	static propTypes = {
+		addOrganizer: PropTypes.func,
+		onClose: PropTypes.func,
+		postType: PropTypes.string,
+	};
+
 	static defaultProps = {
 		postType: 'tribe_organizer',
 	};

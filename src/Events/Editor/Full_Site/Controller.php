@@ -2,7 +2,6 @@
 
 namespace TEC\Events\Editor\Full_Site;
 
-use \Tribe__Events__Main as Events_Main;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 

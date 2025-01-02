@@ -143,56 +143,68 @@ function tribe_get_embedded_map( $post_id = null, $width = null, $height = null,
 }
 
 /**
- * Google Map Embed Test
- *
- * Check if embed google map is enabled for this event (or venue ).
+ * Check if the "Show Map" option is enabled for the event or venue.
  *
  * @category Events
  *
- * @param int $postId Id of the post, if none specified, current post is used
+ * @param int $post_id The Post ID. If none specified, current post is used.
  *
- * @return bool True if google map option is set to embed the map
+ * @return bool True if the "Show Map" option is enabled.
  */
-function tribe_embed_google_map( $postId = null ) {
+function tribe_embed_google_map( $post_id = null ) {
 
 	$output    = false;
-	$postId    = Tribe__Events__Main::postIdHelper( $postId );
-	$post_type = get_post_type( $postId );
+	$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
+	$post_type = get_post_type( $post_id );
 
 	if ( tribe_get_option( 'embedGoogleMaps', true ) ) {
 		if ( $post_type == Tribe__Events__Main::POSTTYPE ) {
-			$output = tribe_is_truthy( get_post_meta( $postId, '_EventShowMap', 1 ) );
+			$output = tribe_is_truthy( get_post_meta( $post_id, '_EventShowMap', 1 ) );
 		} elseif ( $post_type == Tribe__Events__Main::VENUE_POST_TYPE ) {
-			$output = tribe_is_truthy( get_post_meta( $postId, '_VenueShowMap', 1 ) );
+			$output = tribe_is_truthy( get_post_meta( $post_id, '_VenueShowMap', 1 ) );
 		}
 	}
 
+	/**
+	 * Allows filtering the "Show Map" setting globally.
+	 *
+	 * @since 4.6.24
+	 *
+	 * @param bool $output The value of the "Show Map" setting.
+	 */
 	return apply_filters( 'tribe_embed_google_map', $output );
 }
 
 /**
- * Google Map Link Test
+ * Check if the "Show Map Link" option is enabled for the event or venue.
  *
- * Check if google map link is enabled for this event
+ * @since 4.6.24
  *
  * @category Events
  *
- * @param int $postId Id of the post, if none specified, current post is used
+ * @param int $post_id The post ID. If none specified, current post is used.
  *
- * @return bool True if google map link is set to display the event
+ * @return bool True if the "Show Map Link" option is enabled.
  */
-function tribe_show_google_map_link( $postId = null ) {
+function tribe_show_google_map_link( $post_id = null ) {
 
 	$output    = false;
-	$postId    = Tribe__Events__Main::postIdHelper( $postId );
-	$post_type = get_post_type( $postId );
+	$post_id   = Tribe__Events__Main::postIdHelper( $post_id );
+	$post_type = get_post_type( $post_id );
 
 	if ( $post_type == Tribe__Events__Main::POSTTYPE ) {
-		$output = tribe_is_truthy( get_post_meta( $postId, '_EventShowMapLink', 1 ) );
+		$output = tribe_is_truthy( get_post_meta( $post_id, '_EventShowMapLink', 1 ) );
 	} elseif ( $post_type == Tribe__Events__Main::VENUE_POST_TYPE ) {
-		$output = tribe_is_truthy( get_post_meta( $postId, '_VenueShowMapLink', 1 ) );
+		$output = tribe_is_truthy( get_post_meta( $post_id, '_VenueShowMapLink', 1 ) );
 	}
 
+	/**
+	 * Allows filtering the "Show Map Link" setting globally.
+	 *
+	 * @since 4.6.24
+	 *
+	 * @param bool $output The value of the "Show Map Link" setting.
+	 */
 	return apply_filters( 'tribe_show_google_map_link', $output );
 }
 

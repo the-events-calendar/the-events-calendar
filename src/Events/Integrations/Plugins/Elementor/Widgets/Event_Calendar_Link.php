@@ -100,7 +100,7 @@ class Event_Calendar_Link extends Abstract_Widget {
 	protected function get_calendar_link_text(): string {
 		$label = sprintf(
 			/* Translators: %s: plural label for events */
-			esc_html__( 'All %s', 'tribe-events-calendar-pro' ),
+			esc_html__( 'All %s', 'the-events-calendar' ),
 			tribe_get_event_label_plural()
 		);
 
