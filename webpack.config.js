@@ -15,6 +15,78 @@ const {dirname, basename, extname} = require('path');
  * @typedef {Object<string, LocationSchema>} Locations
  */
 
+/// Utilities ///
+
+/**
+ * Prepends a rule to another rule in the WebPack configuration.
+ *
+ * @param {Object} config  WebPack configuration.
+ * @param {Object} rule    Rule to prepend.
+ * @param {function(rule: string): boolean} ruleMatcher A function that will be used to find the rule to prepend the rule to.
+ *
+ * @return {void} The configuration is modified in place.
+ */
+function prependRuleToRuleInConfig(config, rule, ruleMatcher) {
+	// Run direct access on the configuration: if the schema does not match this should crash.
+	const ruleIndex = config.module.rules.findIndex(ruleMatcher);
+
+	if (ruleIndex === undefined) {
+		throw new Error('No matching rule found');
+	}
+
+	config.module.rules.splice(ruleIndex, 0, rule);
+}
+
+/**
+ * Returns whether an object following the `module.rules` WebPack schema configuration format uses a loader or not.
+ *
+ * The loader could be still unresolved (e.g. `some-loader`) or resolved to an absolute path
+ * (e.g. `/home/User/some-loader/dist/index.js`). For this reason the comparison is not a strict ones,
+ * but a `loader.includes(candidate)` one.
+ *
+ * @param {Object} rule      A rule in the `module.rules` WebPack schema configuration format to check.
+ * @param {string} loader    The name of a loader to check.
+ *
+ * @returns {boolean} Whether the specified rule uses the specified loader or not.
+ */
+function ruleUsesLoader(rule, loader) {
+	if (!rule.use) {
+		// Not all rules will define a `use` property, so we can simply return false here.
+		return false;
+	}
+
+	// The rule.use property is a string.
+	if (typeof rule.use === 'string' && rule.use.includes(loader)) {
+		return true;
+	}
+
+	if (!Array.isArray(rule.use)) {
+		// If it's not an array, we cannot continue searching for our loader, so we can return false here.
+		return false;
+	}
+
+	for (let i = 0; i < rule.use.length; i++) {
+		const use = rule.use[i];
+
+		if (typeof use === 'string') {
+			if (use.includes(loader)) {
+				return true;
+			}
+
+			continue;
+		}
+
+		if (typeof use === 'object') {
+			if (use?.loader?.includes(loader)) {
+				return true;
+			}
+			continue;
+		}
+	}
+
+	return false;
+}
+
 /**
  * Compiles a list of entry points for `@wordpress/scripts` to build.
  *
@@ -23,7 +95,7 @@ const {dirname, basename, extname} = require('path');
  *
  * @return {Object<string,string>} A map from entry points to the file to build.
  */
-function compileCustomEntryPoints(locations,config) {
+function compileCustomEntryPoints(locations, config) {
 	const entries = {};
 	Object.keys(locations).forEach((location) => {
 		const schema = locations[location];
@@ -62,7 +134,7 @@ function compileCustomEntryPoints(locations,config) {
 
 			if (schema.modifyConfig) {
 				// Modify the current WebPack configuration by reference.
-				schema.modifyConfig(config)
+				schema.modifyConfig(config);
 			}
 		});
 	});
@@ -100,6 +172,8 @@ function isPackageRootIndex(fileRelativePath) {
 
 	return true;
 }
+
+/// Schemas ///
 
 /**
  * The Events Calendar legacy JavaScript asset files.
@@ -145,7 +219,7 @@ const TECPostCssSchema = {
 				},
 			],
 		},
-	)
+	),
 };
 
 /**
@@ -192,6 +266,43 @@ const customEntryPoints = compileCustomEntryPoints({
 // Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
 customEntryPoints['app/main'] = __dirname + '/src/modules/index.js';
 customEntryPoints['app/widgets'] = __dirname + '/src/modules/widgets/index.js';
+
+/*
+ * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
+ * in a LIFO queue in WebPack.
+ * By default `@wordpress/scripts` uses `@svgr/webpack` to handle SVG files and, together with it,
+ * the default SVGO (package `svgo/svgo-loader`) configuration that includes the `prefixIds` plugin.
+ * To avoid `id` and `class` attribute conflicts, the `prefixIds` plugin would prefix all `id` and
+ * `class` attributes in SVG tags with a generated prefix. This would break TEC classes (already
+ * namespaced) so here we prepend a rule to handle SVG files in the `src/modules` directory by
+ * disabling the `prefixIds` plugin.
+ */
+prependRuleToRuleInConfig(defaultConfig, {
+	test: /\/src\/modules\/.*?\.svg$/,
+	issuer: /\.(j|t)sx?$/,
+	use: [
+		{
+			loader: '@svgr/webpack',
+			options: {
+				svgoConfig: {
+					plugins: [
+						{
+							name: 'prefixIds',
+							params: {
+								prefixIds: false,
+								prefixClassNames: false,
+							},
+						},
+					],
+				},
+			},
+		},
+		{
+			loader: 'url-loader',
+		},
+	],
+	type: 'javascript/auto',
+}, (rule) => ruleUsesLoader(rule, '@svgr/webpack'));
 
 module.exports = {
 	...defaultConfig,
