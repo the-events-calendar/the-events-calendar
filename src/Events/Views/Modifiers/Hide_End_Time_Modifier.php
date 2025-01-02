@@ -63,7 +63,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	 */
 	public function get_defaults(): array {
 		$defaults = [
-			'recent'       => true,
+			'latest-past'  => true,
 			'single-event' => true,
 			'day'          => true,
 			'list'         => true,
@@ -101,7 +101,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 		}
 
 		// Recent past event view?
-		$area = ( $area === 'list' && $display_mode === 'past' ) ? 'recent' : $area;
+		$area = ( $area === 'list' && $display_mode === 'past' ) ? 'latest-past' : $area;
 
 		if ( isset( $views[ $area ] ) ) {
 			// Is this view flagged to hide the end time?
