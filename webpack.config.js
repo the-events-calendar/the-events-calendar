@@ -198,14 +198,14 @@ const TECPostCssSchema = {
 	fileMatcher: (fileName) => !fileName.startsWith('_'),
 	getEntryPointName: (fileRelativePath) => 'css/' + fileRelativePath.replace('.pcss', ''),
 	/**
-	 * PostCSS files in the `src/modules/blocks` directory use PostCSS nesting, where `&` indicates "this".
+	 * PostCSS files in the `src/modules` directory use PostCSS nesting, where `&` indicates "this".
 	 * By default WordPress scripts would use new CSS nesting syntax where `&` indicates the parent.
 	 * We add here the `postcss-nested` plugin to allow the use of `&` to mean "this".
 	 * In webpack loaders are applied in LIFO order: this will prepare the PostCSS for the default `postcss-loader`.
 	 */
 	modifyConfig: (config) => config.module.rules.push(
 		{
-			test: /src\/modules\/blocks\/.*?\.pcss$/,
+			test: /src\/modules\/.*?\.pcss$/,
 			use: [
 				{
 					loader: 'postcss-loader',
