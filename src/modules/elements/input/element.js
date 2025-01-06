@@ -190,6 +190,7 @@ class Input extends Component {
 				className={ `${ this.getClassName() }` }
 				ref={ ( input ) => this.input = input }
 				onChange={ this.onChange }
+				__nextHasNoMarginBottom={true}
 			/>
 		);
 	}

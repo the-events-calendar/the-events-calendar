@@ -213,7 +213,6 @@ export default class VenueForm extends Component {
 					onChange={ ( value ) => {
 						this.setState( { title: value } );
 					} }
-					formattingControls={ [] }
 				/>
 				<div className="tribe-editor__venue__fields">
 					<Input
@@ -223,6 +222,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						value={ address }
 						onChange={ this.onInputChange( 'address' ) }
+						__nextHasNoMarginBottom={true}
 					/>
 					<Input
 						type="text"
@@ -231,6 +231,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'city' ) }
 						value={ city }
+						__nextHasNoMarginBottom={true}
 					/>
 					<div className="row">
 						{ this.renderCountry() }
@@ -245,6 +246,7 @@ export default class VenueForm extends Component {
 							ref={ this.saveRef }
 							onChange={ this.onInputChange( 'zip' ) }
 							value={ zip }
+							__nextHasNoMarginBottom={true}
 						/>
 					</div>
 					<Input
@@ -254,6 +256,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'phone' ) }
 						value={ phone }
+						__nextHasNoMarginBottom={true}
 					/>
 					<Input
 						type="url"
@@ -262,6 +265,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'url' ) }
 						value={ url }
+						__nextHasNoMarginBottom={true}
 					/>
 				</div>
 			</div>
