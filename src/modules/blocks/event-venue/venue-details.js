@@ -20,7 +20,7 @@ import PropTypes from 'prop-types';
 
 export default class VenueDetails extends Component {
 	static propTypes = {
-		venue: PropTypes.number,
+		venue: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
 		isLoading: PropTypes.bool,
 		removeVenue: PropTypes.func,
 		beforeTitle: PropTypes.node,
