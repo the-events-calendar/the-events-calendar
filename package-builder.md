@@ -56,3 +56,9 @@ Scan a directory to find any asset registration (done using any `wp_`, `tribe_`,
 ```bash
 php bin/source-updater/find-dependants.php tribe-events-admin ./..
 ```
+
+Scan the `src/resources/images` directory and find whether images are used or not and, if used, report what files are
+using them:
+```bash
+node bin/listImagesByUse.js ./src/resources/images ./src
+```
