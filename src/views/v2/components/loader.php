@@ -23,12 +23,13 @@ $events ??= [];
 >
 	<span class="tribe-events-view-loader__text tribe-common-a11y-visual-hide">
 		<?php
+		$count = count( $events );
 		// @phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 		printf(
 			/* translators: 1: number of events found, 2: lowercased events text */
 			esc_html__( '%1$d %2$s found.', 'the-events-calendar' ),
-			count( $events ),
-			tribe_get_event_label_plural_lowercase()
+			$count,
+			$count === 1 ? tribe_get_event_label_singular_lowercase() : tribe_get_event_label_plural_lowercase()
 		);
 		// @phpcs:enable
 		?>
