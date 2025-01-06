@@ -11,7 +11,9 @@ import { decode } from 'he';
  */
 import { Dashicon } from '@wordpress/components';
 import { toFields } from '@moderntribe/events/elements/organizer-form/utils';
-import { Close as CloseIcon } from '@moderntribe/common/icons';
+import { ReactComponent as CloseIcon } from '@moderntribe/common/icons/close.svg';
+
+import './style.pcss';
 
 const OrganizerDetails = ( {
 	organizer = {},
