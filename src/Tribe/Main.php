@@ -1701,12 +1701,30 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Updates the start/end time on all day events to match the EOD cutoff
+		 * Fixes the "All Day" events' start and end times in the database when the "End of Day" (EOD) cutoff setting changes.
 		 *
-		 * @see 'update_option_'.Tribe__Main::OPTIONNAME
+		 * This function updates the `_tec_events` and `_postmeta` tables for events marked as "All Day" to ensure
+		 * their start and end times align with the new EOD cutoff time.
+		 *
+		 * @param array $old_value The previous settings for the EOD cutoff.
+		 * @param array $new_value The new settings for the EOD cutoff.
+		 *
+		 * @return void
 		 */
 		public function fix_all_day_events( $old_value, $new_value ) {
-			// avoid notices for missing indices
+			/**
+			 * Allows users to bypass the EOD cutoff fix function.
+			 *
+			 * Users who have a custom solution for handling "All Day" event updates can use this filter
+			 * to prevent this function from executing. Returning `true` will disable the function.
+			 *
+			 * Example usage:
+			 * add_filter('tec_ignore_all_day_event_fix', '__return_true');
+			 */
+			if (apply_filters('tec_ignore_all_day_event_fix', false)) {
+				return;
+			}
+			// Avoid PHP notices by ensuring the `multiDayCutoff` value is always set.
 			$default_value = '00:00';
 			if ( empty( $old_value['multiDayCutoff'] ) ) {
 				$old_value['multiDayCutoff'] = $default_value;
@@ -1715,35 +1733,61 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				$new_value['multiDayCutoff'] = $default_value;
 			}
 
+			// Exit early if the EOD cutoff setting has not changed.
 			if ( $old_value['multiDayCutoff'] == $new_value['multiDayCutoff'] ) {
-				// we only want to continue if the EOD cutoff was changed
 				return;
 			}
 			global $wpdb;
 			$event_start_time = $new_value['multiDayCutoff'] . ':00';
+			error_log( 'The new Cutoff Time is: ' . $event_start_time );
 
-			// mysql query to set the start times on all day events to the EOD cutoff
-			// this will fix all day events with any start time
-			$fix_start_dates = $wpdb->prepare( "UPDATE $wpdb->postmeta AS pm1
-				INNER JOIN $wpdb->postmeta pm2
-					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.`meta_value` = 'yes')
-				SET pm1.meta_value = CONCAT(DATE(pm1.meta_value), ' ', %s)
-				WHERE pm1.meta_key = '_EventStartDate'
-					AND DATE_FORMAT(pm1.meta_value, '%%H:%%i') <> %s", $event_start_time, $event_start_time );
+			//Update _tec_events table
+			$sql = "
+                UPDATE {$wpdb->tec_events} tec
+                INNER JOIN {$wpdb->postmeta} pm
+                    ON tec.post_id = pm.post_id
+                    AND pm.meta_key = '_EventAllDay'
+                    AND pm.meta_value = '1'
+                SET
+                    tec.start_date = CONCAT(DATE(tec.start_date), ' ', %s),
+                    tec.end_date = DATE_ADD(CONCAT(DATE(tec.start_date), ' ', %s), INTERVAL tec.duration SECOND),
+                    tec.start_date_utc = CONVERT_TZ(CONCAT(DATE(tec.start_date), ' ', %s), @@session.time_zone, '+00:00'),
+                    tec.end_date_utc = CONVERT_TZ(DATE_ADD(CONCAT(DATE(tec.start_date), ' ', %s), INTERVAL tec.duration SECOND), @@session.time_zone, '+00:00'),
+                    tec.updated_at = NOW()
+            ";
 
-			// mysql query to set the end time to the start time plus the duration on every all day event
-			$fix_end_dates      =
-				"UPDATE $wpdb->postmeta AS pm1
-				INNER JOIN $wpdb->postmeta pm2
-					ON (pm1.post_id = pm2.post_id AND pm2.meta_key = '_EventAllDay' AND pm2.meta_value = 'yes')
-				INNER JOIN $wpdb->postmeta pm3
-					ON (pm1.post_id = pm3.post_id AND pm3.meta_key = '_EventStartDate')
-				INNER JOIN $wpdb->postmeta pm4
-					ON (pm1.post_id = pm4.post_id AND pm4.meta_key = '_EventDuration')
-				SET pm1.meta_value = DATE_ADD(pm3.meta_value, INTERVAL pm4.meta_value SECOND )
-				WHERE pm1.meta_key = '_EventEndDate'";
-			$wpdb->query( $fix_start_dates );
-			$wpdb->query( $fix_end_dates );
+			$wpdb->query(
+				$wpdb->prepare($sql, $event_start_time, $event_start_time, $event_start_time, $event_start_time)
+			);
+
+			//Update _postmeta table
+			$sql_meta = "
+                UPDATE {$wpdb->postmeta} pm1
+                INNER JOIN {$wpdb->tec_events} tec
+                    ON pm1.post_id = tec.post_id
+                INNER JOIN {$wpdb->postmeta} pm_all_day
+                    ON pm1.post_id = pm_all_day.post_id
+                    AND pm_all_day.meta_key = '_EventAllDay'
+                    AND pm_all_day.meta_value = '1'
+                SET
+                    pm1.meta_value = CASE
+                        WHEN pm1.meta_key = '_EventStartDate' THEN CONCAT(DATE(tec.start_date), ' ', %s)
+                        WHEN pm1.meta_key = '_EventEndDate' THEN DATE_ADD(CONCAT(DATE(tec.start_date), ' ', %s), INTERVAL tec.duration SECOND)
+                        WHEN pm1.meta_key = '_EventStartDateUTC' THEN CONVERT_TZ(CONCAT(DATE(tec.start_date), ' ', %s), @@session.time_zone, '+00:00')
+                        WHEN pm1.meta_key = '_EventEndDateUTC' THEN CONVERT_TZ(DATE_ADD(CONCAT(DATE(tec.start_date), ' ', %s), INTERVAL tec.duration SECOND), @@session.time_zone, '+00:00')
+                        ELSE pm1.meta_value
+                    END
+                WHERE pm1.meta_key IN ('_EventStartDate', '_EventEndDate', '_EventStartDateUTC', '_EventEndDateUTC')
+            ";
+
+			$wpdb->query(
+				$wpdb->prepare($sql_meta, $event_start_time, $event_start_time, $event_start_time, $event_start_time)
+			);
+
+			// Flush the WordPress object cache to ensure updated data is visible immediately.
+			if (function_exists('wp_cache_flush')) {
+				wp_cache_flush();
+			}
 		}
 
 		/**
