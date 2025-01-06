@@ -22,7 +22,7 @@ export default class VenueDetails extends Component {
 	static propTypes = {
 		venue: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
 		isLoading: PropTypes.bool,
-		removeVenue: PropTypes.func,
+		removeVenue: PropTypes.node,
 		beforeTitle: PropTypes.node,
 		afterTitle: PropTypes.node,
 		maybeEdit: PropTypes.func,
