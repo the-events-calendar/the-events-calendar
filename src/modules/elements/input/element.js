@@ -183,7 +183,7 @@ class Input extends Component {
 
 	render() {
 		// Remove properties that are not part of the DOM.
-		const { onComplete, required, validate, ...properties } = this.props;
+		const { onComplete, required, validate, validateCallback, ...properties } = this.props;
 		return (
 			<TextControl
 				{ ...properties }
