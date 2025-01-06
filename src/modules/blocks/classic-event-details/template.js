@@ -195,12 +195,14 @@ const ClassicEventDetails = ( props ) => {
 						value={ currencySymbol }
 						placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 						onChange={ setSymbol }
+						__nextHasNoMarginBottom={true}
 					/>
 					<TextControl
 						label={ __( ' Currency Code', 'the-events-calendar' ) }
 						value={ currencyCode }
 						placeholder={ __( 'E.g.: USD', 'the-events-calendar' ) }
 						onChange={ setCode }
+						__nextHasNoMarginBottom={true}
 					/>
 				</PanelBody>
 			</InspectorControls>
