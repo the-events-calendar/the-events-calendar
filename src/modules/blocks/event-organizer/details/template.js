@@ -21,7 +21,6 @@ const OrganizerDetails = ( {
 	volatile
 } ) => {
 	const maybeEdit = () => {
-		const { volatile, edit } = props;
 		if ( ! volatile ) {
 			return;
 		}
@@ -29,8 +28,6 @@ const OrganizerDetails = ( {
 	};
 
 	const renderEdit = () => {
-		const { edit, selected, volatile } = props;
-
 		if ( ! selected || ! volatile ) {
 			return null;
 		}
@@ -43,13 +40,9 @@ const OrganizerDetails = ( {
 	};
 
 	const renderDetails = () => {
-		const { organizer } = props;
 		const fields = toFields( organizer );
 		const { title, website, email, phone } = fields;
 
-		/**
-		 * @todo: Set onClick to a button, not h3.
-		 */
 		return (
 			<Fragment>
 				<div className="tribe-editor__organizer__title">
@@ -69,8 +62,6 @@ const OrganizerDetails = ( {
 	};
 
 	const renderActions = () => {
-		const { remove, selected } = props;
-
 		if ( ! selected ) {
 			return null;
 		}
