@@ -252,8 +252,8 @@ const TECPackageSchema = {
 
 // Ideal usage:
 // npm i @stellarwp/tyson --save-dev
-// tyson init (incl. namespace - dir?) - override in the webpack.config
-
+// tyson init --configuration-preset TEC
+//
 // This is what would be imported from the `@stellarwp/tyson` package:
 // import {TECLegacyJsSchema, TECPostCssSchema, TECLegacyBlocksFrontendPostCssSchema, TECPackageSchema, compileCustomEntryPoints} from '@stellarwp/tyson';
 
