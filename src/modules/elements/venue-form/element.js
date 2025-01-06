@@ -193,12 +193,12 @@ export default class VenueForm extends Component {
 
 	render() {
 		const {
-			title,
-			address,
-			city,
-			zip,
-			phone,
-			url,
+			title = '',
+			address = '',
+			city = '',
+			zip = '',
+			phone = '',
+			url = '',
 		} = this.state;
 
 		return (
