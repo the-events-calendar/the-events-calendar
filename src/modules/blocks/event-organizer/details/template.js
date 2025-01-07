@@ -12,6 +12,7 @@ import { decode } from 'he';
 import { Dashicon } from '@wordpress/components';
 import { toFields } from '@moderntribe/events/elements/organizer-form/utils';
 import { Close as CloseIcon } from '@moderntribe/common/icons';
+import './style.pcss';
 
 const OrganizerDetails = ( {
 	organizer = {},
