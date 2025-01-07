@@ -1721,7 +1721,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Example usage:
 			 * add_filter('tec_ignore_all_day_event_fix', '__return_true');
 			 */
-			if (apply_filters('tec_ignore_all_day_event_fix', false)) {
+			if ( apply_filters( 'tec_ignore_all_day_event_fix', false ) ) {
 				return;
 			}
 			// Avoid PHP notices by ensuring the `multiDayCutoff` value is always set.
@@ -1739,9 +1739,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			}
 			global $wpdb;
 			$event_start_time = $new_value['multiDayCutoff'] . ':00';
-			error_log( 'The new Cutoff Time is: ' . $event_start_time );
 
-			//Update _tec_events table
+			//Update _tec_events table.
 			$sql = "
                 UPDATE {$wpdb->tec_events} tec
                 INNER JOIN {$wpdb->postmeta} pm
@@ -1757,10 +1756,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
             ";
 
 			$wpdb->query(
-				$wpdb->prepare($sql, $event_start_time, $event_start_time, $event_start_time, $event_start_time)
+				$wpdb->prepare( $sql, $event_start_time, $event_start_time, $event_start_time, $event_start_time )
 			);
 
-			//Update _postmeta table
+			// Update _postmeta table.
 			$sql_meta = "
                 UPDATE {$wpdb->postmeta} pm1
                 INNER JOIN {$wpdb->tec_events} tec
@@ -1781,11 +1780,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
             ";
 
 			$wpdb->query(
-				$wpdb->prepare($sql_meta, $event_start_time, $event_start_time, $event_start_time, $event_start_time)
+				$wpdb->prepare( $sql_meta, $event_start_time, $event_start_time, $event_start_time, $event_start_time )
 			);
 
 			// Flush the WordPress object cache to ensure updated data is visible immediately.
-			if (function_exists('wp_cache_flush')) {
+			if ( function_exists( 'wp_cache_flush' ) ) {
 				wp_cache_flush();
 			}
 		}
