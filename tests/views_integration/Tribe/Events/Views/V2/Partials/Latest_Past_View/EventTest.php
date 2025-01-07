@@ -2,9 +2,11 @@
 
 namespace Tribe\Events\Views\V2\Partials\Latest_Past_View;
 
+use Tribe\Events\Views\V2\Hide_End_Time_Provider;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use Tribe__Date_Utils as Dates;
+use Tribe__Settings_Manager;
 
 class EventTest extends HtmlPartialTestCase {
 	use With_Post_Remapping;
@@ -25,6 +27,31 @@ class EventTest extends HtmlPartialTestCase {
 				]
 			)
 		);
+	}
+
+	/**
+	 * Tests our hide end time setting for the past event view.
+	 *
+	 * @test
+	 */
+	public function test_render_with_event_and_hide_end_time() {
+		// Partial template, the context is 'list' by default and no View is assigned.
+		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [ 'list' ] );
+		tribe( Hide_End_Time_Provider::class )->hide_event_end_time();
+
+		$event        = $this->get_mock_event( 'events/single/1.json' );
+		$request_date = Dates::build_date_object( $event->dates->start_display->sub( new \DateInterval( 'P1D' ) ) );
+		$this->assertMatchesSnapshot(
+			$this->get_partial_html(
+				[
+					'request_date' => $request_date,
+					'event'        => $event,
+				]
+			)
+		);
+
+		// Remove option so flag doesn't bleed into other tests.
+		Tribe__Settings_Manager::set_option( 'remove_event_end_time', [] );
 	}
 
 	/**
