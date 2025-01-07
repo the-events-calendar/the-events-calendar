@@ -1,4 +1,4 @@
 Significance: patch
 Type: tweak
 
-Moved Action Scheduler loading into Common instead of TEC.
+Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
