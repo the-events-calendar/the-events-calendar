@@ -47,6 +47,7 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 			wp_set_current_user( $this->old_user );
 			$this->old_user = null;
 		}
+		Rest_Endpoint::clear_stored_user_id();
 	}
 
 	public function given_as_an_anonymous_user() {
@@ -182,6 +183,48 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 		         || wp_verify_nonce( $nonces[ Rest_Endpoint::PRIMARY_NONCE_KEY ], Rest_Endpoint::NONCE_ACTION );
 
 		$this->assertTrue( $valid );
+	}
+
+	/**
+	 * Validates wo/ user we exclude other filters when validating nonces.
+	 *
+	 * @test
+	 */
+	public function it_can_validate_no_user_generated_nonces() {
+		$user = wp_get_current_user();
+		wp_set_current_user( 0 );
+		add_filter( 'nonce_user_logged_out', function () {
+			return '127.0.0.1';
+		} );
+
+		// Get our nonces
+		$nonces = Rest_Endpoint::get_rest_nonces();
+
+		$rest_endpoint = new Rest_Endpoint();
+		$request       = new WP_REST_Request( 'POST' );
+		$request->set_body_params( $nonces );
+		$this->assertTrue( $rest_endpoint->is_valid_request( $request ) );
+		wp_set_current_user( $user->ID );
+	}
+
+	/**
+	 * Validates w/ user we exclude other filters when validating nonces.
+	 *
+	 * @test
+	 */
+	public function it_can_validate_with_user_generated_nonces() {
+		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
+		add_filter( 'nonce_user_logged_out', function () {
+			return '127.0.0.1';
+		} );
+
+		// Get our nonces
+		$nonces = Rest_Endpoint::get_rest_nonces();
+
+		$rest_endpoint = new Rest_Endpoint();
+		$request       = new WP_REST_Request( 'POST' );
+		$request->set_body_params( $nonces );
+		$this->assertTrue( $rest_endpoint->is_valid_request( $request ) );
 	}
 
 	/**
