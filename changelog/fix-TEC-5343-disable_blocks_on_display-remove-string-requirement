@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Added check to `disable_blocks_on_display` for if `$content` is `null`. [TEC-5343]
