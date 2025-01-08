@@ -68,7 +68,7 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 
 	return (
 		<>
-			<h1 className="tec-events-onboarding__tab-header">
+			<h1 className="tec-events-onboarding__tab-heading">
 				{__("How do you want people to view your calendar?", "the-events-calendar")}
 			</h1>
 			<p className="tec-events-onboarding__tab-subheader">
@@ -120,12 +120,9 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 				</div>
 
 			))}
-			<p className="tec-events-onboarding__element--center">
-				<NextButton disabled={!isAnyChecked} moveToNextTab={moveToNextTab} tabSettings={tabSettings} />
-			</p>
-			<p className="tec-events-onboarding__element--center">
-				<SkipButton skipToNextTab={skipToNextTab} currentTab={1} />
-			</p>
+			<NextButton disabled={!isAnyChecked} moveToNextTab={moveToNextTab} tabSettings={tabSettings} />
+
+			<SkipButton skipToNextTab={skipToNextTab} currentTab={1} />
 		</>
 	);
 };
