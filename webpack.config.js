@@ -173,6 +173,57 @@ function isPackageRootIndex(fileRelativePath) {
 	return true;
 }
 
+/**
+ * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
+ * in a LIFO queue in WebPack.
+ * By default `@wordpress/scripts` uses `@svgr/webpack` to handle SVG files and, together with it,
+ * the default SVGO (package `svgo/svgo-loader`) configuration that includes the `prefixIds` plugin.
+ * To avoid `id` and `class` attribute conflicts, the `prefixIds` plugin would prefix all `id` and
+ * `class` attributes in SVG tags with a generated prefix. This would break TEC classes (already
+ * namespaced) so here we prepend a rule to handle SVG files in the `src/modules` directory by
+ * disabling the `prefixIds` plugin.
+ *
+ * @param {Object} config The WebPack configuration to update.
+ */
+function doNotPrefixSVGIdsClasses(config){
+	/*
+	 * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
+	 * in a LIFO queue in WebPack.
+	 * By default `@wordpress/scripts` uses `@svgr/webpack` to handle SVG files and, together with it,
+	 * the default SVGO (package `svgo/svgo-loader`) configuration that includes the `prefixIds` plugin.
+	 * To avoid `id` and `class` attribute conflicts, the `prefixIds` plugin would prefix all `id` and
+	 * `class` attributes in SVG tags with a generated prefix. This would break TEC classes (already
+	 * namespaced) so here we prepend a rule to handle SVG files in the `src/modules` directory by
+	 * disabling the `prefixIds` plugin.
+	 */
+	prependRuleToRuleInConfig(config, {
+		test: /\/src\/modules\/.*?\.svg$/,
+		issuer: /\.(j|t)sx?$/,
+		use: [
+			{
+				loader: '@svgr/webpack',
+				options: {
+					svgoConfig: {
+						plugins: [
+							{
+								name: 'prefixIds',
+								params: {
+									prefixIds: false,
+									prefixClassNames: false,
+								},
+							},
+						],
+					},
+				},
+			},
+			{
+				loader: 'url-loader',
+			},
+		],
+		type: 'javascript/auto',
+	}, (rule) => ruleUsesLoader(rule, '@svgr/webpack'));
+}
+
 /// Schemas ///
 
 /**
@@ -267,42 +318,7 @@ const customEntryPoints = compileCustomEntryPoints({
 customEntryPoints['app/main'] = __dirname + '/src/modules/index.js';
 customEntryPoints['app/widgets'] = __dirname + '/src/modules/widgets/index.js';
 
-/*
- * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
- * in a LIFO queue in WebPack.
- * By default `@wordpress/scripts` uses `@svgr/webpack` to handle SVG files and, together with it,
- * the default SVGO (package `svgo/svgo-loader`) configuration that includes the `prefixIds` plugin.
- * To avoid `id` and `class` attribute conflicts, the `prefixIds` plugin would prefix all `id` and
- * `class` attributes in SVG tags with a generated prefix. This would break TEC classes (already
- * namespaced) so here we prepend a rule to handle SVG files in the `src/modules` directory by
- * disabling the `prefixIds` plugin.
- */
-prependRuleToRuleInConfig(defaultConfig, {
-	test: /\/src\/modules\/.*?\.svg$/,
-	issuer: /\.(j|t)sx?$/,
-	use: [
-		{
-			loader: '@svgr/webpack',
-			options: {
-				svgoConfig: {
-					plugins: [
-						{
-							name: 'prefixIds',
-							params: {
-								prefixIds: false,
-								prefixClassNames: false,
-							},
-						},
-					],
-				},
-			},
-		},
-		{
-			loader: 'url-loader',
-		},
-	],
-	type: 'javascript/auto',
-}, (rule) => ruleUsesLoader(rule, '@svgr/webpack'));
+doNotPrefixSVGIdsClasses(defaultConfig);
 
 module.exports = {
 	...defaultConfig,
@@ -316,11 +332,6 @@ module.exports = {
 	},
 };
 
-// @todo namespace for the project from dir or override from command
-// This will be addressed in the tyson binary, e.g. with `--namespace "@acme/project"
-// But is this required? This is a setting set in the `package.json` file I'm not sure
-// the packager/builder should touch at all.
-
 // @todo what to do with images moved/copied to /build/images?
 // images from the `src/resources/images` directory that are referenced in files (e.g. PCSS)
 // that are compiled are optimized and moved to the `build/images` directory. There is "duplication"
@@ -331,3 +342,5 @@ module.exports = {
 // @todo what to do with -rtl styles?
 // I _think_ they should be handled at the Assets level, loading the RTL styles on top of the existing
 // styles when `is_rtl` is true.
+
+// @todo externals?
