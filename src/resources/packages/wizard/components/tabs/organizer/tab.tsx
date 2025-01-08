@@ -189,7 +189,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	return (
 		<>
 			<OrganizerIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__('Add your first event organizer', 'the-events-calendar')}</h1>
+			<h1 className="tec-events-onboarding__tab-heading">{__('Add your first event organizer', 'the-events-calendar')}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<BaseControl
@@ -300,8 +300,8 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 				</BaseControl>
 			</div>
 
-			 <p className="tec-events-onboarding__element--center"><NextButton disabled={!canContinue} moveToNextTab={moveToNextTab}  tabSettings={tabSettings}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={3} /></p>
+			 <NextButton disabled={!canContinue} moveToNextTab={moveToNextTab}  tabSettings={tabSettings}/>
+			 <SkipButton skipToNextTab={skipToNextTab} currentTab={3} />
 		</>
 	);
 };

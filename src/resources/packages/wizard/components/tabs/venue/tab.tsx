@@ -282,8 +282,9 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	return (
 		<>
+
 			<VenueIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__('Add your first event venue', 'the-events-calendar')}</h1>
+			<h1 className="tec-events-onboarding__tab-heading">{__('Add your first event venue', 'the-events-calendar')}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<BaseControl
@@ -455,8 +456,8 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 				</BaseControl>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} tabSettings={tabSettings} disabled={!canContinue}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={4}/></p>
+			 <NextButton moveToNextTab={moveToNextTab} tabSettings={tabSettings} disabled={!canContinue}/>
+			 <SkipButton skipToNextTab={skipToNextTab} currentTab={4}/>
 		</>
 	);
 };

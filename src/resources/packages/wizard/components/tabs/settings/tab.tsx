@@ -134,7 +134,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	return (
 		<>
 			<GearIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__('Event Settings', 'the-events-calendar')}</h1>
+			<h1 className="tec-events-onboarding__tab-heading">{__('Event Settings', 'the-events-calendar')}</h1>
 			<p className="tec-events-onboarding__tab-subheader">{__('Let\’s get your events with the correct basic settings.', 'the-events-calendar')}</p>
 			<div className="tec-events-onboarding__form-wrapper">
 				<BaseControl
@@ -220,8 +220,8 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 				</BaseControl>
 
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton disabled={!canContinue} moveToNextTab={moveToNextTab} tabSettings={tabSettings}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={2} /></p>
+			 <NextButton disabled={!canContinue} moveToNextTab={moveToNextTab} tabSettings={tabSettings}/>
+			 <SkipButton skipToNextTab={skipToNextTab} currentTab={2} />
 		</>
 	);
 };
