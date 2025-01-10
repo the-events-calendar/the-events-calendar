@@ -115,7 +115,7 @@
 .rdp-month_caption
 {
 	padding: 0 8px;
-	display: table-caption;
+	display: flex;
 	margin-bottom: 8px;
 
 	& > div {
@@ -138,5 +138,15 @@
 		&:hover {
 			color: #007bb4;
 		}
+	}
+}
+
+.tribe-editor__date-input__popover {
+	.rdp-root {
+		width: 100%;
+		--rdp-day-height: 40px;
+		--rdp-day-width: 40px;
+		--rdp-day_button-height: 37px;
+		--rdp-day_button-width: 37px;
 	}
 }
