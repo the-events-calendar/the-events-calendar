@@ -1812,15 +1812,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 							if ( empty( $venue_unique_field ) || ( $lookup_venues_by_title && empty( $venue ) ) ) {
 								$venue_query = new WP_Query(
 									[
-										'post_type'              => Tribe__Events__Venue::POSTTYPE,
-										'title'                  => $event['Venue']['Venue'],
-										'post_status'            => 'all',
-										'posts_per_page'         => 1,
-										'no_found_rows'          => true,
-										'ignore_sticky_posts'    => true,
+										'post_type'      => Tribe__Events__Venue::POSTTYPE,
+										'title'          => $event['Venue']['Venue'],
+										'post_status'    => 'all',
+										'posts_per_page' => 1,
+										'no_found_rows'  => true,
+										'ignore_sticky_posts' => true,
 										'update_post_term_cache' => false,
-										'orderby'                => 'post_date ID',
-										'order'                  => 'ASC',
+										'orderby'        => 'post_date ID',
+										'order'          => 'ASC',
 
 									]
 								);
@@ -1996,15 +1996,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 									} else {
 										$organizer_query = new WP_Query(
 											[
-												'post_type'              => Tribe__Events__Organizer::POSTTYPE,
-												'title'                  => $organizer_data['Organizer'],
-												'post_status'            => 'all',
-												'posts_per_page'         => 1,
-												'no_found_rows'          => true,
-												'ignore_sticky_posts'    => true,
+												'post_type'      => Tribe__Events__Organizer::POSTTYPE,
+												'title'          => $organizer_data['Organizer'],
+												'post_status'    => 'all',
+												'posts_per_page' => 1,
+												'no_found_rows'  => true,
+												'ignore_sticky_posts' => true,
 												'update_post_term_cache' => false,
-												'orderby'                => 'post_date ID',
-												'order'                  => 'ASC',
+												'orderby'        => 'post_date ID',
+												'order'          => 'ASC',
 
 											]
 										);
