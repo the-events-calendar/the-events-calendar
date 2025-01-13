@@ -1996,15 +1996,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 									} else {
 										$organizer_query = new WP_Query(
 											[
-												'post_type'      => Tribe__Events__Organizer::POSTTYPE,
-												'title'          => $organizer_data['Organizer'],
-												'post_status'    => 'all',
+												'post_type' => Tribe__Events__Organizer::POSTTYPE,
+												'title'   => $organizer_data['Organizer'],
+												'post_status' => 'all',
 												'posts_per_page' => 1,
-												'no_found_rows'  => true,
+												'no_found_rows' => true,
 												'ignore_sticky_posts' => true,
 												'update_post_term_cache' => false,
-												'orderby'        => 'post_date ID',
-												'order'          => 'ASC',
+												'orderby' => 'post_date ID',
+												'order'   => 'ASC',
 
 											]
 										);
