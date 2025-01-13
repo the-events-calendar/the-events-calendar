@@ -25,8 +25,6 @@ class Provider extends Service_Provider {
 	 * @since 6.4.0
 	 */
 	public function register() {
-		$this->container->singleton( static::class, $this );
-
-		$this->container->register_on_action( 'tribe_plugins_loaded', Notifications::class );
+		$this->container->register_on_action( 'tec_common_ian_loaded', Notifications::class );
 	}
 }
