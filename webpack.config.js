@@ -130,7 +130,32 @@ function compileCustomEntryPoints(locations, config) {
 				return;
 			}
 
-			entries[schema.getEntryPointName(file)] = fileAbsolutePath;
+			const entryPointName = schema.getEntryPointName(file);
+
+			if ((schema?.expose || false) === false || !file.match(/(t|j)sx?$/)) {
+				// `schema.expose` is not set or set to `false`: do not expose.
+				entries[entryPointName] = fileAbsolutePath;
+			} else {
+				// If `schema.expose` is a string, then it's used as a namespace.
+				const exposeName = typeof schema.expose === 'string' ?
+					buildExternalName(schema.expose, entryPointName)
+					// Else build the name using `schema.expose` as a callback.
+					: schema.expose(entryPointName, fileAbsolutePath);
+
+				if (!exposeName) {
+					// The callback did not return a value, do not expose.
+					entries[entryPointName] = fileAbsolutePath;
+				} else {
+					// The callback did return a value, use it as expose name.
+					entries[entryPointName] = {
+						import: fileAbsolutePath,
+						library: {
+							name: exposeName,
+							type: 'assign-properties',
+						},
+					};
+				}
+			}
 
 			if (schema.modifyConfig) {
 				// Modify the current WebPack configuration by reference.
@@ -185,7 +210,7 @@ function isPackageRootIndex(fileRelativePath) {
  *
  * @param {Object} config The WebPack configuration to update.
  */
-function doNotPrefixSVGIdsClasses(config){
+function doNotPrefixSVGIdsClasses(config) {
 	/*
 	 * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
 	 * in a LIFO queue in WebPack.
@@ -234,8 +259,10 @@ function doNotPrefixSVGIdsClasses(config){
  */
 const TECLegacyJsSchema = {
 	fileExtensions: ['.js'],
-	fileMatcher: (filename) => !filename.endsWith('.min.js'),
+	fileMatcher: (filename, fileRelativePath) => !(filename.endsWith('.min.js') || fileRelativePath.includes('__tests__')),
 	getEntryPointName: (fileRelativePath) => 'js/' + fileRelativePath.replace('.js', ''),
+	// From 'js/customizer-views-v2-live-preview' to  'tec.customizerViewsV2LivePreview', from 'js/tec-update-6.0.0-notice' to 'tec.tecUpdate600Notice'.
+	expose: (entryPointName,fileAbsolutePath) => fileAbsolutePath.match(/frontend\.js$/) ? false : buildExternalName('tec', entryPointName, ['js']),
 };
 
 /**
@@ -293,12 +320,31 @@ const TECLegacyBlocksFrontendPostCssSchema = {
  */
 const TECPackageSchema = {
 	fileExtensions: ['.js', '.jsx', '.ts', '.tsx'],
-	fileMatcher: (fileName, fileRelativePath, fileAbsolutePath) => fileName.match(/index\.(js|jsx|ts|tsx)$/) && isPackageRootIndex(fileRelativePath),
+	fileMatcher: function(fileName, fileRelativePath, fileAbsolutePath) {
+		return;
+		!fileAbsolutePath.includes('__tests__')
+		&& fileName.match(/index\.(js|jsx|ts|tsx)$/)
+		&& isPackageRootIndex(fileRelativePath);
+	},
 	getEntryPointName: (fileRelativePath) => {
 		packageRoots.push(dirname(fileRelativePath));
 		return dirname(fileRelativePath);
 	},
 };
+
+function buildExternalName(namespace, name, dropFrags = []) {
+	if (!namespace) {
+		throw new Error('Namespace cannot be empty');
+	}
+
+	if (!name) {
+		throw new Error('Name cannot be empty');
+	}
+
+	// From `/app/feature/turbo-name-v6.0.0-deluxe-edition` to `app.feature.turboNameV600DeluxeEdition`.
+	return namespace + '.' + name.split('/').filter(frag => !dropFrags.includes(frag)).map(frag => frag.replace(/[\._-](\w)/g, match => match[1].toUpperCase())).join('.');
+}
+
 /// END TYSON
 
 // Ideal usage:
@@ -307,7 +353,6 @@ const TECPackageSchema = {
 //
 // This is what would be imported from the `@stellarwp/tyson` package:
 // import {TECLegacyJsSchema, TECPostCssSchema, TECLegacyBlocksFrontendPostCssSchema, TECPackageSchema, compileCustomEntryPoints} from '@stellarwp/tyson';
-
 const customEntryPoints = compileCustomEntryPoints({
 	'/src/resources/js': TECLegacyJsSchema,
 	'/src/resources/postcss': TECPostCssSchema,
@@ -317,6 +362,8 @@ const customEntryPoints = compileCustomEntryPoints({
 // Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
 customEntryPoints['app/main'] = __dirname + '/src/modules/index.js';
 customEntryPoints['app/widgets'] = __dirname + '/src/modules/widgets/index.js';
+
+console.log(customEntryPoints);
 
 doNotPrefixSVGIdsClasses(defaultConfig);
 
