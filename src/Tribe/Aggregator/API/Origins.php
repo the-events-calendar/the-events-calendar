@@ -30,6 +30,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	public function __construct() {
 		parent::__construct();
 
+		// Contains translated strings - must load after 'init'.
 		add_action( 'init', [ $this, 'set_origins' ] );
 
 		$this->is_ea_disabled = tribe_get_option( 'tribe_aggregator_disable', false );
