@@ -31,9 +31,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 		parent::__construct();
 
 		// Contains translated strings - must load after 'init'.
-		add_action( 'init', [ $this, 'set_origins' ] );
-
-		$this->is_ea_disabled = tribe_get_option( 'tribe_aggregator_disable', false );
+		add_action( 'init', [ $this, 'set_props' ] );
 	}
 
 	/**
@@ -42,7 +40,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @since TBD
 	 * 
 	 */
-	public function set_origins() {
+	public function set_props() {
 		$this->origins = [
 			'csv'        => (object) [
 				'id'       => 'csv',
@@ -86,6 +84,8 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 				'upsell'   => true,
 			],
 		];
+
+		$this->is_ea_disabled = tribe_get_option( 'tribe_aggregator_disable', false );
 	}
 
 	/**
