@@ -147,13 +147,7 @@ function compileCustomEntryPoints(locations, config) {
 					entries[entryPointName] = fileAbsolutePath;
 				} else {
 					// The callback did return a value, use it as expose name.
-					entries[entryPointName] = {
-						import: fileAbsolutePath,
-						library: {
-							name: exposeName,
-							type: 'assign-properties',
-						},
-					};
+					entries[entryPointName] = exposeEntry(exposeName, fileAbsolutePath);
 				}
 			}
 
@@ -262,7 +256,7 @@ const TECLegacyJsSchema = {
 	fileMatcher: (filename, fileRelativePath) => !(filename.endsWith('.min.js') || fileRelativePath.includes('__tests__')),
 	getEntryPointName: (fileRelativePath) => 'js/' + fileRelativePath.replace('.js', ''),
 	// From 'js/customizer-views-v2-live-preview' to  'tec.customizerViewsV2LivePreview', from 'js/tec-update-6.0.0-notice' to 'tec.tecUpdate600Notice'.
-	expose: (entryPointName,fileAbsolutePath) => fileAbsolutePath.match(/frontend\.js$/) ? false : buildExternalName('tec', entryPointName, ['js']),
+	expose: (entryPointName, fileAbsolutePath) => fileAbsolutePath.match(/frontend\.js$/) ? false : buildExternalName('tec', entryPointName, ['js']),
 };
 
 /**
@@ -345,6 +339,20 @@ function buildExternalName(namespace, name, dropFrags = []) {
 	return namespace + '.' + name.split('/').filter(frag => !dropFrags.includes(frag)).map(frag => frag.replace(/[\._-](\w)/g, match => match[1].toUpperCase())).join('.');
 }
 
+function exposeEntry(exposeName, path) {
+	if (!exposeName.startsWith('window.')) {
+		exposeName = `window.${exposeName}`;
+	}
+
+	return {
+		import: path,
+		library: {
+			name: exposeName,
+			type: 'assign-properties',
+		},
+	};
+}
+
 /// END TYSON
 
 // Ideal usage:
@@ -360,8 +368,8 @@ const customEntryPoints = compileCustomEntryPoints({
 	'/src/resources/packages': TECPackageSchema,
 }, defaultConfig);
 // Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
-customEntryPoints['app/main'] = __dirname + '/src/modules/index.js';
-customEntryPoints['app/widgets'] = __dirname + '/src/modules/widgets/index.js';
+customEntryPoints['app/main'] = exposeEntry('tec.app.main', __dirname + '/src/modules/index.js');
+customEntryPoints['app/widgets'] = exposeEntry('tec.app.widgets', __dirname + '/src/modules/widgets/index.js');
 
 console.log(customEntryPoints);
 
@@ -375,6 +383,12 @@ module.exports = {
 			return {
 				...defaultEntryPoints, ...customEntryPoints,
 			};
+		},
+		output: {
+			...defaultConfig.output,
+			...{
+				enabledLibraryTypes: ['assign-properties'],
+			},
 		},
 	},
 };
