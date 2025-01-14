@@ -62,6 +62,9 @@ class OriginsTest extends Aggregator_TestCase {
 
 		$sut = $this->make_instance();
 
+		// Contains translated strings so is now hooked to 'init'. Fake init firing here.
+		$sut->set_props();
+
 		$origins = $sut->get();
 
 		$this->assertArrayHasKey( 'url', $origins );
@@ -78,6 +81,10 @@ class OriginsTest extends Aggregator_TestCase {
 		$this->service->get_origins( true )->willReturn( [ $mock_origins, null ] );
 		$this->service->api()->willReturn( true );
 		$sut = $this->make_instance();
+		
+		// Contains translated strings so is now hooked to 'init'. Fake init firing here.
+		$sut->set_props();
+
 		delete_transient( $sut->cache_group . '_origin_limit' );
 		delete_transient( $sut->cache_group . '_origin_oauth' );
 		delete_transient( $sut->cache_group . '_origins' );
@@ -103,6 +110,9 @@ class OriginsTest extends Aggregator_TestCase {
 		] );
 		$this->service->api()->willReturn( true );
 		$sut = $this->make_instance();
+		// Contains translated strings so is now hooked to 'init'. Fake init firing here.
+		$sut->set_props();
+
 		delete_transient( $sut->cache_group . '_origin_limit' );
 		delete_transient( $sut->cache_group . '_origin_oauth' );
 		delete_transient( $sut->cache_group . '_origins' );
@@ -129,6 +139,10 @@ class OriginsTest extends Aggregator_TestCase {
 		$this->service->get_origins( Argument::any() )->willReturn( $mock_origins );
 		$this->service->api()->willReturn( true );
 		$sut = $this->make_instance();
+
+		// Contains translated strings so is now hooked to 'init'. Fake init firing here.
+		$sut->set_props();
+
 		delete_transient( $sut->cache_group . '_origin_limit' );
 		delete_transient( $sut->cache_group . '_origin_oauth' );
 		delete_transient( $sut->cache_group . '_origins' );
