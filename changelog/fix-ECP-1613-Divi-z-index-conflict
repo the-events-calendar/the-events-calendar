@@ -1,4 +1,4 @@
 Significance: minor
 Type: fix
 
-Increased z-index of admin dialouge box to not conflict with Divi loader. [ECP-1613]
+Increased z-index of admin dialog box to not conflict with Divi loader. [ECP-1613]
