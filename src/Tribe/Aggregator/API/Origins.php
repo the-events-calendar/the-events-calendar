@@ -30,12 +30,18 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	public function __construct() {
 		parent::__construct();
 
-		add_action('init', [ $this, 'set_originas' ] );
+		add_action( 'init', [ $this, 'set_origins' ] );
 
 		$this->is_ea_disabled = tribe_get_option( 'tribe_aggregator_disable', false );
 	}
 
-	public function set_originas() {
+	/**
+	 * Set the origins for the event aggregator
+	 * 
+	 * @since TBD
+	 * 
+	 */
+	public function set_origins() {
 		$this->origins = [
 			'csv'        => (object) [
 				'id'       => 'csv',
