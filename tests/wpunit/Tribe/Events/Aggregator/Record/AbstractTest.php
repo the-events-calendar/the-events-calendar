@@ -539,9 +539,7 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
-	 * It should correctly create and link new organizers to events
-	 *
-	 * When an organizer UID is not provided
+	 * It should correctly link existing organizers to events.
 	 *
 	 * @test
 	 */
@@ -577,9 +575,7 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
-	 * It should correctly create and link new organizers to events
-	 *
-	 * When an organizer UID is not provided
+	 * It should correctly link existing venues to events.
 	 *
 	 * @test
 	 */
