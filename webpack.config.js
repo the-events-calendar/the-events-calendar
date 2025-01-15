@@ -2,7 +2,7 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const {readdirSync, statSync, existsSync} = require('fs');
 const {dirname, basename, extname} = require('path');
-const SomeWebPackPlugin = require('./bin/tyson/SomeWebPackPlugin');
+const WindowAssignPropertiesPlugin = require('./bin/tyson/WindowAssignPropertiesPlugin');
 
 /**
  * @typedef {Object} LocationSchema
@@ -393,7 +393,7 @@ module.exports = {
 		},
 		plugins:[
 			...defaultConfig.plugins,
-			new SomeWebPackPlugin()
+			new WindowAssignPropertiesPlugin()
 		]
 	},
 };
