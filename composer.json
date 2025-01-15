@@ -10,9 +10,6 @@
   "license": "GPL-2.0",
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "require": {
-    "woocommerce/action-scheduler": "^3.4.0"
-  },
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
     "bordoni/phpass": "^0.3.5",
