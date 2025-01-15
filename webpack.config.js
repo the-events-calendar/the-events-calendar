@@ -2,6 +2,7 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const {readdirSync, statSync, existsSync} = require('fs');
 const {dirname, basename, extname} = require('path');
+const SomeWebPackPlugin = require('./bin/tyson/SomeWebPackPlugin');
 
 /**
  * @typedef {Object} LocationSchema
@@ -341,14 +342,14 @@ function buildExternalName(namespace, name, dropFrags = []) {
 
 function exposeEntry(exposeName, path) {
 	if (!exposeName.startsWith('window.')) {
-		exposeName = `window.${exposeName}`;
+		exposeName = `__tyson_window.${exposeName}`;
 	}
 
 	return {
 		import: path,
 		library: {
 			name: exposeName,
-			type: 'assign-properties',
+			type: 'window',
 		},
 	};
 }
@@ -387,9 +388,13 @@ module.exports = {
 		output: {
 			...defaultConfig.output,
 			...{
-				enabledLibraryTypes: ['assign-properties'],
+				enabledLibraryTypes: ['window'],
 			},
 		},
+		plugins:[
+			...defaultConfig.plugins,
+			new SomeWebPackPlugin()
+		]
 	},
 };
 
