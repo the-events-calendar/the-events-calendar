@@ -281,7 +281,7 @@ class I18n {
 		if ( false !== $domains ) {
 			foreach ( $domains as $domain => $file ) {
 				// Reload it with the correct language.
-				unload_textdomain( $domain );
+				unload_textdomain( $domain, true );
 
 				if ( 'default' === $domain ) {
 					load_default_textdomain();
@@ -339,7 +339,7 @@ class I18n {
 
 		foreach ( (array) $domains as $domain => $file ) {
 			// Reload it with the correct language.
-			unload_textdomain( $domain );
+			unload_textdomain( $domain, true );
 
 			if ( 'default' === $domain ) {
 				load_default_textdomain();
