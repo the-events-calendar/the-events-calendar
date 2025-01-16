@@ -11,7 +11,7 @@ const schema = {
 	additionalProperties: false,
 };
 
-class WindowAssignPropertiesPlugin {
+export class WindowAssignPropertiesPlugin {
 	static defaultOptions = {
 		name: 'WindowAssignPropertiesPlugin',
 		lineStart: '/******/        '
@@ -67,5 +67,3 @@ class WindowAssignPropertiesPlugin {
 		});
 	}
 }
-
-module.exports = WindowAssignPropertiesPlugin;

@@ -194,7 +194,7 @@ function isPackageRootIndex(fileRelativePath) {
 }
 
 /**
- * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
+ * Preggpends a loader for SVG files that will be applied after the default one. Loaders are applied
  * in a LIFO queue in WebPack.
  * By default `@wordpress/scripts` uses `@svgr/webpack` to handle SVG files and, together with it,
  * the default SVGO (package `svgo/svgo-loader`) configuration that includes the `prefixIds` plugin.
@@ -362,17 +362,16 @@ function exposeEntry(exposeName, path) {
 //
 // This is what would be imported from the `@stellarwp/tyson` package:
 // import {TECLegacyJsSchema, TECPostCssSchema, TECLegacyBlocksFrontendPostCssSchema, TECPackageSchema, compileCustomEntryPoints} from '@stellarwp/tyson';
+const { schema ,exposeEntry, doNotPrefixSVGIdsClasses} = require('@stellarwp/tyson');
 const customEntryPoints = compileCustomEntryPoints({
-	'/src/resources/js': TECLegacyJsSchema,
-	'/src/resources/postcss': TECPostCssSchema,
-	'/src/styles': TECLegacyBlocksFrontendPostCssSchema,
-	'/src/resources/packages': TECPackageSchema,
+	'/src/resources/js': schema.TECLegacyJs,
+	'/src/resources/postcss': schema.TECPostCss,
+	'/src/styles': schema.TECLegacyBlocksFrontendPostCss,
+	'/src/resources/packages': schema.TECPackage,
 }, defaultConfig);
 // Blocks from `/src/modules/index.js` are built to `/build/app/main.js`.
 customEntryPoints['app/main'] = exposeEntry('tec.app.main', __dirname + '/src/modules/index.js');
 customEntryPoints['app/widgets'] = exposeEntry('tec.app.widgets', __dirname + '/src/modules/widgets/index.js');
-
-console.log(customEntryPoints);
 
 doNotPrefixSVGIdsClasses(defaultConfig);
 
