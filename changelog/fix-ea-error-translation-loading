@@ -1,0 +1,4 @@
+Significance: patch
+Type: language
+
+Update Tribe__Events__Aggregator__Errors to ensure we don't load translations before `init`.
