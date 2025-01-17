@@ -98,7 +98,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 
 		$fields        = [];
 		$custom_fields = tribe_get_option( 'custom-fields', false );
-		if ( ! empty( $custom_fields && is_array( $custom_fields ) ) ) {
+		if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
 			foreach ( $custom_fields as $field ) {
 				$field_value = get_post_meta( $event_id, $field['name'], true );
 				if ( empty( $field_value ) ) {
