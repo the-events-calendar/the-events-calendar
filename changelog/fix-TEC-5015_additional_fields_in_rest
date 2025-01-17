@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Support Additional Fields in Events REST API [TEC-5015]
