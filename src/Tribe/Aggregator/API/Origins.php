@@ -36,8 +36,8 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 
 	/**
 	 * Set the origins for the event aggregator.
-	 * 
-	 * @since TBD
+	 *
+	 * @since 6.9.1
 	 */
 	public function set_props() {
 		$this->origins = [
