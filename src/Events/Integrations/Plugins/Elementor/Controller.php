@@ -301,7 +301,7 @@ class Controller extends Integration_Abstract {
 	 * By filtering them out of the post content on display.
 	 *
 	 * @since 6.4.0
-	 * @since TBD Added check that content is not null.
+	 * @since 6.9.1 Added check that content is not null.
 	 *
 	 * @param string $content The post content.
 	 *
