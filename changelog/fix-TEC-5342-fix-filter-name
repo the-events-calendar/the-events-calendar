@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Fix the filter name `tec_views_v2_subscribe_links_{$slug}_label` which was accidentally changed in a previous release. [TEC-5342]
