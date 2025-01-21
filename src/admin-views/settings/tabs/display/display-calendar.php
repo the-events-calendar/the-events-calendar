@@ -4,9 +4,9 @@
  * Subtab of the Display Tab.
  *
  * @since 6.7.0
- * @since TBD Added logic to include page templates from theme to template options.
+ * @since 6.9.1 Added logic to include page templates from theme to template options.
  *
- * @version TBD
+ * @version 6.9.1
  */
 
 use TEC\Common\Admin\Entities\Div;
