@@ -232,6 +232,21 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.9.1] 2025-01-22 =
+
+* Feature - Adding the Display setting to hide end time on the Latest Past event view.
+* Tweak - Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
+* Tweak - Updated Telemetry heading under Settings > Debugging. [TECTRIA-568]
+* Fix - Added check to `disable_blocks_on_display` for if `$content` is `null`. [TEC-5343]
+* Fix - Ensure Aggregator translations are not laoded before init. [TEC-5341]
+* Fix - Fixes edge cases where the nonce_user_logged_out hook was returning a value when the user was logged out, causing the nonce validation to fail.
+* Fix - Fix the filter name `tec_views_v2_subscribe_links_{$slug}_label` which was accidentally changed in a previous release. [TEC-5342]
+* Fix - Re-add logic to add page template options from theme to Display Settings. [TEC-5337]
+* Accessibility - Updated the event search page to handle search results better for screen readers, with alerts noting the results of the search.[TEC-5175]
+* Language - 3 new strings added, 84 updated, 0 fuzzied, and 2 obsoleted.
+* Language - Update Tribe__Events__Aggregator__Errors to ensure we don't load translations before `init`.
+* Language - Update uses of unload_textdomain to ensure they allow JIT loading of translations afterwards.
+
 = [6.9.0] 2024-12-17 =
 
 * Feature - Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
