@@ -8,7 +8,7 @@
   ],
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
