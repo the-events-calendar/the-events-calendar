@@ -3,8 +3,12 @@
 ### [6.9.1] 2025-01-22
 
 * Feature - Adding the Display setting to hide end time on the Latest Past event view.
+* Security - Ensure Elementor HTML tags are properly escaped to avoid potential Stored Cross Site Scripting. [SVUL-13]
 * Tweak - Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
 * Tweak - Updated Telemetry heading under Settings > Debugging. [TTEC-5335]
+* Tweak - Added filters: `tec_views_v2_subscribe_links_{$slug}_label`
+* Tweak - Removed filters: `tec_views_v2_single_subscribe_links_{$slug}_label`
+* Tweak - Changed views: `integrations/elementor/widgets/event-calendar-link`, `integrations/elementor/widgets/event-datetime/range-separator`, `v2/components/loader`, `v2/components/messages`
 * Fix - Added check to `disable_blocks_on_display` for if `$content` is `null`. [TEC-5343]
 * Fix - Ensure Aggregator translations are not loaded before init. [TEC-5341]
 * Fix - Fixes edge cases where the nonce_user_logged_out hook was returning a value when the user was logged out, causing the nonce validation to fail.
