@@ -1,4 +1,0 @@
-Significance: patch
-Type: language
-
-Update uses of unload_textdomain to ensure they allow JIT loading of translations afterwards.

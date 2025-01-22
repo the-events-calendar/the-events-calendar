@@ -298,10 +298,10 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 *
 	 * @since 6.0.0
 	 *
-	 * @deprecated TBD Deprecate this method in point to the AS included in common.
+	 * @deprecated 6.9.1 Deprecate this method in point to the AS included in common.
 	 */
 	public function load_action_scheduler_late() {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.9.1' );
 		$action_scheduler_file = TEC::instance()->plugin_path . '/common/vendor/woocommerce/action-scheduler/action-scheduler.php';
 		require_once $action_scheduler_file;
 	}
