@@ -16,7 +16,6 @@ $sample_date = strtotime( 'January 15 ' . gmdate( 'Y' ) );
 $site_time_format = get_option( 'time_format' );
 
 $end_time_options = [
-	'latest-past'  => esc_html_x( 'Recent past events list', 'The option to remove end times for the past events page view.', 'the-events-calendar' ),
 	'single-event' => esc_html__( 'Single event page', 'the-events-calendar' ),
 	'day'          => esc_html__( 'Day view', 'the-events-calendar' ),
 	'list'         => esc_html__( 'List view', 'the-events-calendar' ),

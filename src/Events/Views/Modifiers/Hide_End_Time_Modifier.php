@@ -63,7 +63,7 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	 */
 	public function get_defaults(): array {
 		$defaults = [
-			'latest-past'  => true,
+			'recent'       => true,
 			'single-event' => true,
 			'day'          => true,
 			'list'         => true,
@@ -92,16 +92,12 @@ class Hide_End_Time_Modifier extends Visibility_Modifier_Abstract {
 	 * @return bool Whether the end time should be hidden or visible.
 	 */
 	final public function check_visibility( string $area, $post = null ): bool {
-		$views        = $this->get_options();
-		$display_mode = $this->get_context()->get( 'event_display_mode' );
+		$views = $this->get_options();
 
 		// If the area is the default view, we need to replace 'default' with the actual view slug.
 		if ( $area === 'default' ) {
 			$area = tribe( Views_Manager::class )->get_default_view_slug();
 		}
-
-		// Recent past event view?
-		$area = ( $area === 'list' && $display_mode === 'past' ) ? 'latest-past' : $area;
 
 		if ( isset( $views[ $area ] ) ) {
 			// Is this view flagged to hide the end time?
