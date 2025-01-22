@@ -234,7 +234,6 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.9.1] 2025-01-22 =
 
-* Feature - Adding the Display setting to hide end time on the Latest Past event view. [TEC-5144]
 * Security - Ensure Elementor HTML tags are properly escaped to avoid potential Stored Cross Site Scripting. [SVUL-13]
 * Tweak - Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
 * Tweak - Updated Telemetry heading under Settings > Debugging. [TEC-5335]
