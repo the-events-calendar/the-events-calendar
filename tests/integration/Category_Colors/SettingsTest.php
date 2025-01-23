@@ -41,7 +41,7 @@ class SettingsTest extends WPTestCase {
 	 * @return \Generator
 	 */
 	public function initialize_terms_edgecases_data(): \Generator {
-		yield 'term with special characters' => [
+		yield 'Handles terms with special characters correctly' => [
 			function () {
 				wp_insert_term( 'Category@123', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'category-special' ] );
 
@@ -52,7 +52,7 @@ class SettingsTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'caching or state consistency' => [
+		yield 'Maintains consistent term state during caching' => [
 			function () {
 				$term = wp_insert_term( 'Category 1', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'category-1' ] );
 
@@ -64,7 +64,7 @@ class SettingsTest extends WPTestCase {
 				];
 			},
 		];
-		yield 'filter hidden terms' => [
+		yield 'Correctly filters out hidden terms' => [
 			function () {
 				wp_insert_term( 'Category 1', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'category-1' ] );
 				wp_insert_term( 'Category 2', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'category-2-hide' ] );
@@ -82,7 +82,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'term structure validation' => [
+		yield 'Ignores terms with invalid structures' => [
 			function () {
 				// Create a valid term.
 				wp_insert_term( 'Category 1', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'category-1' ] );
@@ -97,7 +97,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'no terms available' => [
+		yield 'Returns no terms when taxonomy is empty' => [
 			function () {
 				return [
 					'expected_terms'         => [],
@@ -180,7 +180,7 @@ class SettingsTest extends WPTestCase {
 	 * @return \Generator
 	 */
 	public function category_colors_save_data_provider(): \Generator {
-		yield 'valid data' => [
+		yield 'Saves valid category and color data' => [
 			function () {
 				// Insert valid terms into the taxonomy.
 				wp_insert_term( 'Family Fun', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'family-fun' ] );
@@ -221,7 +221,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'invalid categories' => [
+		yield 'Skips invalid categories during save' => [
 			function () {
 				// Insert only one valid term into the taxonomy.
 				wp_insert_term( 'Party', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'party' ] );
@@ -251,7 +251,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'duplicate categories' => [
+		yield 'Handles duplicate categories properly' => [
 			function () {
 				// Insert the term once into the taxonomy.
 				wp_insert_term( 'Party', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'party' ] );
@@ -281,7 +281,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'partially empty blueprint' => [
+		yield 'Saves partial color blueprint data' => [
 			function () {
 				// Insert the term into the taxonomy.
 				wp_insert_term( 'Family Fun', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'family-fun' ] );
@@ -311,7 +311,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'mixed valid and invalid categories' => [
+		yield 'Saves valid categories while skipping invalid ones' => [
 			function () {
 				// Insert valid terms into the taxonomy.
 				wp_insert_term( 'Family Fun', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'family-fun' ] );
@@ -352,7 +352,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'empty input' => [
+		yield 'Returns no saved data for empty input' => [
 			function () {
 				return [
 					'form_data' => [
@@ -367,7 +367,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'blueprint without categories' => [
+		yield 'Skips saving blueprint without selected categories' => [
 			function () {
 				wp_insert_term( 'Party', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'party' ] );
 
@@ -390,7 +390,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'categories without blueprint' => [
+		yield 'Saves only selected categories without blueprint' => [
 			function () {
 				wp_insert_term( 'Family Fun', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'family-fun' ] );
 
@@ -407,7 +407,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'non-string and invalid blueprint values' => [
+		yield 'Defaults to empty for invalid color values' => [
 			function () {
 				wp_insert_term( 'Party', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'party' ] );
 
@@ -436,7 +436,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'special characters in slugs' => [
+		yield 'Saves categories with special character slugs correctly' => [
 			function () {
 				wp_insert_term( 'Category with @special', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'category-with-special' ] );
 				wp_insert_term( 'Party', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'party' ] );
@@ -452,7 +452,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'duplicate slugs in blueprint' => [
+		yield 'Handles duplicate slugs in blueprint properly' => [
 			function () {
 				wp_insert_term( 'Party', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'party' ] );
 
@@ -481,7 +481,7 @@ class SettingsTest extends WPTestCase {
 			},
 		];
 
-		yield 'no nonce' => [
+		yield 'Fails to save without valid nonce' => [
 			function () {
 				wp_insert_term( 'Party', Tribe__Events__Main::TAXONOMY, [ 'slug' => 'party' ] );
 

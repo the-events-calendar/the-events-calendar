@@ -15,10 +15,10 @@ class Controller extends Controller_Contract {
 	public function do_register(): void {
 		$this->container->singleton( Category_Colors::class );
 		$this->container->singleton( Category_Colors_Settings::class );
+		$this->container->singleton( Quick_Edit::class );
 
 		$this->add_filters();
 	}
-
 
 	/**
 	 * Unhooks actions and filters.
@@ -48,11 +48,13 @@ class Controller extends Controller_Contract {
 			[ $this, 'save_category_colors' ]
 		);
 
-		add_filter( 'manage_edit-tribe_events_cat_columns', [ $this, 'add_custom_taxonomy_column' ] );
+		add_filter( 'manage_edit-tribe_events_cat_columns', [ $this, 'add_custom_taxonomy_columns' ] );
 
 		add_action( 'manage_tribe_events_cat_custom_column', [ $this, 'populate_custom_taxonomy_column' ], 10, 3 );
 
 		add_action( 'quick_edit_custom_box', [ $this, 'add_custom_quick_edit_field' ], 10, 3 );
+
+		add_action( 'edited_term_taxonomy', [ $this, 'save_quick_edit_custom_fields' ], 10, 2 );
 	}
 
 	/**
@@ -107,57 +109,57 @@ class Controller extends Controller_Contract {
 		$this->container->make( Category_Colors_Settings::class )->save_category_color_settings();
 	}
 
-	function add_custom_taxonomy_column( $columns ) {
-		$columns['custom_field'] = 'custom field';
-
-		return $columns;
+	/**
+	 * Adds custom taxonomy columns for Foreground, Background, and Text-Color.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $columns An array of existing taxonomy columns.
+	 *
+	 * @return void
+	 */
+	public function add_custom_taxonomy_columns( $columns ) {
+		return $this->container->make( Quick_Edit::class )->add_custom_taxonomy_columns( $columns );
 	}
 
-	function populate_custom_taxonomy_column( $output, $column_name, $term_id ) {
-		if ( 'custom_field' === $column_name ) {
-			// Get all term meta for the current term.
-			$term_meta = get_term_meta( $term_id );
-
-			// Filter for meta keys prefixed with 'tec-event-*'.
-			$filtered_meta = array_filter(
-				$term_meta,
-				function ( $key ) {
-					return str_starts_with( $key, 'tec-event-' );
-				},
-				ARRAY_FILTER_USE_KEY
-			);
-
-			if ( empty( $filtered_meta ) ) {
-				echo esc_html__( 'N/A', 'your-text-domain' );
-
-				return;
-			}
-
-			// Display meta key-value pairs.
-			foreach ( $filtered_meta as $key => $value ) {
-				echo '<strong>' . esc_html( $key ) . ':</strong> ' . esc_html( $value[0] ) . '<br>';
-			}
-		}
+	/**
+	 * Populates the values for the custom taxonomy columns.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $output      The current column output (default empty string).
+	 * @param string $column_name The name of the column being rendered.
+	 * @param int    $term_id     The ID of the term being rendered.
+	 *
+	 * @return void
+	 */
+	public function populate_custom_taxonomy_column( $output, $column_name, $term_id ) {
+		$this->container->make( Quick_Edit::class )->populate_custom_taxonomy_column( $output, $column_name, $term_id );
 	}
 
-	function add_custom_quick_edit_field( $column_name, $post_type, $taxonomy ) {
-		// Check that we're adding to the correct column and taxonomy.
-		if ( 'custom_field' !== $column_name || 'tribe_events_cat' !== $taxonomy ) {
-			return;
-		}
+	/**
+	 * Adds custom Quick Edit fields for Foreground, Background, and Text-Color.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $column_name The name of the column being edited.
+	 * @param string $post_type   The post type of the Quick Edit form.
+	 * @param string $taxonomy    The taxonomy being edited.
+	 *
+	 * @return void
+	 */
+	public function add_custom_quick_edit_field( $column_name, $post_type, $taxonomy ) {
+		$this->container->make( Quick_Edit::class )->add_custom_quick_edit_fields( $column_name, $post_type, $taxonomy );
+	}
 
-		?>
-		<fieldset>
-			<div class="inline-edit-col">
-				<label>
-					<span class="title"><?php esc_html_e( 'Custom Field', 'your-text-domain' ); ?></span>
-					<span class="input-text-wrap">
-                    <input type="text" name="custom_field" class="custom_field" value="">
-                </span>
-				</label>
-			</div>
-		</fieldset>
-		<?php
+	/**
+	 * Save custom fields from Quick Edit for taxonomy terms using `tec_get_request_var`.
+	 *
+	 * @param int    $term_id  The ID of the term being edited.
+	 * @param string $taxonomy The taxonomy being edited.
+	 */
+	public function save_quick_edit_custom_fields( $term_id, $taxonomy ) {
+		$this->container->make( Quick_Edit::class )->save_quick_edit_custom_fields( $term_id, $taxonomy );
 	}
 
 }
