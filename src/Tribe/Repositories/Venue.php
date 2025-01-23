@@ -82,7 +82,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	 *
 	 * @since TBD Added to Venue ORM.
 	 *
-	 * @param $id int The id of the current venue.
+	 * @param int $id The id of the current venue.
 	 */
 	protected function format_item( $id ) {
 		$formatted = null === $this->formatter
