@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Updated handling of "All Day" events to correctly adjust event start and end times when the "End of Day" (EOD) cutoff setting is changed. Introduced a filter (`tec_ignore_all_day_event_fix`) to allow custom solutions to override this functionality.
