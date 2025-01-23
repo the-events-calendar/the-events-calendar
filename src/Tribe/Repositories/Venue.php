@@ -26,6 +26,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	 * Sets up the repository default parameters and schema.
 	 *
 	 * @since 4.9
+	 * @since TBD Added `show_map` and `show_map_link` aliases.
 	 */
 	public function __construct() {
 		parent::__construct();
