@@ -8,7 +8,6 @@
 /**
  * Class Tribe__Events__Repositories__Venue
  *
- *
  * @since 4.9
  */
 class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Linked_Posts {
@@ -39,19 +38,22 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		];
 
 		// Add venue specific aliases.
-		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, [
-			'venue'         => 'post_title',
-			'address'       => '_VenueAddress',
-			'city'          => '_VenueCity',
-			'state'         => '_VenueState',
-			'province'      => '_VenueProvince',
-			'stateprovince' => '_VenueStateProvince',
-			'postal_code'   => '_VenueZip',
-			'zip'           => '_VenueZip',
-			'country'       => '_VenueCountry',
-			'phone'         => '_VenuePhone',
-			'website'       => '_VenueURL',
-		] );
+		$this->update_fields_aliases = array_merge(
+			$this->update_fields_aliases,
+			[
+				'venue'         => 'post_title',
+				'address'       => '_VenueAddress',
+				'city'          => '_VenueCity',
+				'state'         => '_VenueState',
+				'province'      => '_VenueProvince',
+				'stateprovince' => '_VenueStateProvince',
+				'postal_code'   => '_VenueZip',
+				'zip'           => '_VenueZip',
+				'country'       => '_VenueCountry',
+				'phone'         => '_VenuePhone',
+				'website'       => '_VenueURL',
+			]
+		);
 
 		$this->linked_id_meta_key = '_EventVenueID';
 
@@ -69,10 +71,32 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		$this->schema = array_merge(
 			$this->schema,
 			[
-				'has_events'          => [ $this, 'filter_by_has_events' ],
-				'has_no_events'       => [ $this, 'filter_by_has_no_events' ],
+				'has_events'    => [ $this, 'filter_by_has_events' ],
+				'has_no_events' => [ $this, 'filter_by_has_no_events' ],
 			]
 		);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function format_item( $id ) {
+		$formatted = null === $this->formatter
+			? tribe_get_venue_object( $id )
+			: $this->formatter->format_item( $id );
+
+		/**
+		 * Filters a single formatted venue result.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed|WP_Post                $formatted The formatted venue result, usually a post object.
+		 * @param int                          $id        The formatted post ID.
+		 * @param Tribe__Repository__Interface $this      The current repository object.
+		 */
+		$formatted = apply_filters( 'tribe_repository_venues_format_item', $formatted, $id, $this );
+
+		return $formatted;
 	}
 
 	/**
