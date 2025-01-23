@@ -51,6 +51,8 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 			'country'       => '_VenueCountry',
 			'phone'         => '_VenuePhone',
 			'website'       => '_VenueURL',
+			'show_map'      => '_VenueShowMap',
+			'show_map_link' => '_VenueShowMapLink',
 		] );
 
 		$this->linked_id_meta_key = '_EventVenueID';
