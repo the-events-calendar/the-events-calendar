@@ -1,15 +1,15 @@
-# Copyright (C) 2024 The Events Calendar
+# Copyright (C) 2025 The Events Calendar
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.9.0\n"
+"Project-Id-Version: The Events Calendar 6.9.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-13T19:53:35+00:00\n"
+"POT-Creation-Date: 2025-01-21T13:44:18+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: the-events-calendar\n"
@@ -1050,7 +1050,7 @@ msgid "CSV"
 msgstr ""
 
 #: src/admin-views/aggregator/settings.php:616
-#: src/Tribe/Aggregator/API/Origins.php:53
+#: src/Tribe/Aggregator/API/Origins.php:63
 #: src/Tribe/Aggregator/Record/iCal.php:14
 #: src/Tribe/Editor/Blocks/Event_Links.php:26
 #: src/Tribe/Views/V2/iCalendar/Links/iCal.php:41
@@ -1061,12 +1061,12 @@ msgid "iCalendar"
 msgstr ""
 
 #: src/admin-views/aggregator/settings.php:620
-#: src/Tribe/Aggregator/API/Origins.php:59
+#: src/Tribe/Aggregator/API/Origins.php:69
 msgid "ICS File"
 msgstr ""
 
 #: src/admin-views/aggregator/settings.php:624
-#: src/Tribe/Aggregator/API/Origins.php:47
+#: src/Tribe/Aggregator/API/Origins.php:57
 #: src/Tribe/Aggregator/Record/gCal.php:14
 #: src/Tribe/Editor/Blocks/Event_Links.php:25
 #: src/Tribe/iCal.php:138
@@ -1080,7 +1080,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:628
 #: src/admin-views/aggregator/status.php:210
 #: src/admin-views/tribe-options-addons-api.php:45
-#: src/Tribe/Aggregator/API/Origins.php:65
+#: src/Tribe/Aggregator/API/Origins.php:75
 #: src/Tribe/Aggregator/Record/Meetup.php:40
 msgid "Meetup"
 msgstr ""
@@ -1092,7 +1092,7 @@ msgstr ""
 #: src/admin-views/aggregator/settings.php:636
 #: src/admin-views/aggregator/status.php:183
 #: src/admin-views/tribe-options-addons-api.php:94
-#: src/Tribe/Aggregator/API/Origins.php:41
+#: src/Tribe/Aggregator/API/Origins.php:51
 #: src/Tribe/Aggregator/Record/Eventbrite.php:88
 msgid "Eventbrite"
 msgstr ""
@@ -1846,108 +1846,108 @@ msgstr ""
 msgid "Additional Content"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:29
+#: src/admin-views/settings/tabs/display/display-calendar.php:32
 msgid "Default Events Template"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:30
+#: src/admin-views/settings/tabs/display/display-calendar.php:33
 msgid "Default Page Template"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:35
+#: src/admin-views/settings/tabs/display/display-calendar.php:43
 msgid "The number of events per page on the List View. Does not affect other views."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:40
+#: src/admin-views/settings/tabs/display/display-calendar.php:48
 msgid "You must select at least one view."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:49
+#: src/admin-views/settings/tabs/display/display-calendar.php:57
 msgctxt "Calendar display settings header"
 msgid "Calendar"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:55
+#: src/admin-views/settings/tabs/display/display-calendar.php:63
 msgid "The settings below control the display of your calendar. If things don't look right, try switching between the two style sheet options or pick a page template from your theme (not available on block themes). Check out our customization guide for instructions on template modifications."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:69
+#: src/admin-views/settings/tabs/display/display-calendar.php:77
 msgctxt "Calendar template display settings header"
 msgid "Calendar Template"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:74
+#: src/admin-views/settings/tabs/display/display-calendar.php:82
 msgid "Default stylesheet used for events templates"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:78
+#: src/admin-views/settings/tabs/display/display-calendar.php:86
 msgid "Skeleton Styles"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:80
+#: src/admin-views/settings/tabs/display/display-calendar.php:88
 msgid "Only includes enough css to achieve complex layouts like calendar and week view."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:85
+#: src/admin-views/settings/tabs/display/display-calendar.php:93
 msgid "Default Styles"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:87
+#: src/admin-views/settings/tabs/display/display-calendar.php:95
 msgid "A fully designed and styled theme for your events pages."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:96
+#: src/admin-views/settings/tabs/display/display-calendar.php:104
 msgid "Events template"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:97
+#: src/admin-views/settings/tabs/display/display-calendar.php:105
 msgid "Page template to control the appearance of your calendar and event content."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:115
+#: src/admin-views/settings/tabs/display/display-calendar.php:123
 msgctxt "Calendar display display settings header"
 msgid "Calendar Display"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:120
+#: src/admin-views/settings/tabs/display/display-calendar.php:128
 msgid "Enable event views"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:133
+#: src/admin-views/settings/tabs/display/display-calendar.php:141
 #: src/Events/Site_Health/Info_Section.php:170
 msgid "Default view"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:146
+#: src/admin-views/settings/tabs/display/display-calendar.php:154
 msgid "Month view events per day"
 msgstr ""
 
 #. Translators: %s: URL to knowledgebase.
-#: src/admin-views/settings/tabs/display/display-calendar.php:152
+#: src/admin-views/settings/tabs/display/display-calendar.php:160
 msgid "Default is 3. To impose no limit, specify -1. Note that there may be performance issues if you allow too many events per day. <a href=\"%s\" rel=\"noopener\" target=\"_blank\">Read more</a>."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:158
+#: src/admin-views/settings/tabs/display/display-calendar.php:166
 msgid "Number of events to show per page"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:167
+#: src/admin-views/settings/tabs/display/display-calendar.php:175
 msgid "Show comments"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:168
+#: src/admin-views/settings/tabs/display/display-calendar.php:176
 msgid "Enable comments on event pages."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:174
+#: src/admin-views/settings/tabs/display/display-calendar.php:182
 msgid "Disable the event search bar"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:175
+#: src/admin-views/settings/tabs/display/display-calendar.php:183
 msgid "Hide the search field on all views."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-calendar.php:189
+#: src/admin-views/settings/tabs/display/display-calendar.php:197
 #: src/Tribe/Main.php:3705
 msgid "Calendar"
 msgstr ""
@@ -2000,102 +2000,107 @@ msgid "Currency"
 msgstr ""
 
 #: src/admin-views/settings/tabs/display/display-date-time.php:19
-msgid "Single event page"
+msgctxt "The option to remove end times for the past events page view."
+msgid "Recent past events list"
 msgstr ""
 
 #: src/admin-views/settings/tabs/display/display-date-time.php:20
-msgid "Day view"
+msgid "Single event page"
 msgstr ""
 
 #: src/admin-views/settings/tabs/display/display-date-time.php:21
-msgid "List view"
+msgid "Day view"
 msgstr ""
 
 #: src/admin-views/settings/tabs/display/display-date-time.php:22
+msgid "List view"
+msgstr ""
+
+#: src/admin-views/settings/tabs/display/display-date-time.php:23
 msgid "Month view tooltip"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:37
+#: src/admin-views/settings/tabs/display/display-date-time.php:38
 msgctxt "Date and Time settings section header"
 msgid "Date & Time"
 msgstr ""
 
 #. Translators: %1$s: PHP date function, %2$s: URL to WP knowledgebase.
-#: src/admin-views/settings/tabs/display/display-date-time.php:50
+#: src/admin-views/settings/tabs/display/display-date-time.php:51
 msgid "The following three fields accept the date format options available to the PHP %1$s function. <a href=\"%2$s\" target=\"_blank\">Learn how to make your own date format here</a>."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:62
+#: src/admin-views/settings/tabs/display/display-date-time.php:63
 msgid "Date with year format"
 msgstr ""
 
 #. Translators: %1$s: Example date with year format.
-#: src/admin-views/settings/tabs/display/display-date-time.php:68
+#: src/admin-views/settings/tabs/display/display-date-time.php:69
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a future year. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:80
+#: src/admin-views/settings/tabs/display/display-date-time.php:81
 msgid "Date without year format"
 msgstr ""
 
 #. Translators: %1$s: Example date without year format.
-#: src/admin-views/settings/tabs/display/display-date-time.php:86
+#: src/admin-views/settings/tabs/display/display-date-time.php:87
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:92
+#: src/admin-views/settings/tabs/display/display-date-time.php:93
 msgid "Month and year format"
 msgstr ""
 
 #. Translators: %1$s: Example month and year format.
-#: src/admin-views/settings/tabs/display/display-date-time.php:98
+#: src/admin-views/settings/tabs/display/display-date-time.php:99
 msgid "Enter the format to use for dates that show a month and year only. Used on month view. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:104
+#: src/admin-views/settings/tabs/display/display-date-time.php:105
 msgid "Compact date format"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:105
+#: src/admin-views/settings/tabs/display/display-date-time.php:106
 msgid "Select the date format used for elements with minimal space, such as in datepickers."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:125
+#: src/admin-views/settings/tabs/display/display-date-time.php:126
 msgid "Date time separator"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:126
+#: src/admin-views/settings/tabs/display/display-date-time.php:127
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:133
+#: src/admin-views/settings/tabs/display/display-date-time.php:134
 msgid "Time range separator"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:134
+#: src/admin-views/settings/tabs/display/display-date-time.php:135
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:141
+#: src/admin-views/settings/tabs/display/display-date-time.php:142
 msgid "End of day cutoff"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:142
+#: src/admin-views/settings/tabs/display/display-date-time.php:143
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:163
+#: src/admin-views/settings/tabs/display/display-date-time.php:164
 msgid "Remove event end time"
 msgstr ""
 
 #. Translators: %1$s - opening italics tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing italics tag
-#: src/admin-views/settings/tabs/display/display-date-time.php:170
+#: src/admin-views/settings/tabs/display/display-date-time.php:171
 msgid ""
 "When one of these boxes is checked, the end time will no longer display for events that end on the same day when viewing the specified view.\n"
 "\t\t\t\t%1$s Source: %2$s Remove the Event End Time in Views %3$s%4$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:185
+#: src/admin-views/settings/tabs/display/display-date-time.php:186
 msgid "Date & Time"
 msgstr ""
 
@@ -4709,13 +4714,13 @@ msgstr ""
 msgid "We hope you love The Events Calendar!"
 msgstr ""
 
-#: src/Events/Telemetry/Telemetry.php:96
-msgctxt "Settings label for opting out of Telemetry."
-msgid "Opt out of Telemetry"
+#: src/Events/Telemetry/Telemetry.php:94
+msgctxt "Title for Data share section."
+msgid "Data share consent"
 msgstr ""
 
 #. Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
-#: src/Events/Telemetry/Telemetry.php:107
+#: src/Events/Telemetry/Telemetry.php:97
 msgctxt "Description of opt-in setting."
 msgid ""
 "Enable this option to share usage data with The Events Calendar and StellarWP.\n"
@@ -4897,7 +4902,7 @@ msgstr ""
 #: src/Tribe/Organizer.php:103
 #: src/Tribe/Organizer.php:812
 #: src/Tribe/Venue.php:165
-#: src/Tribe/Venue.php:958
+#: src/Tribe/Venue.php:956
 msgid "Edit %s"
 msgstr ""
 
@@ -5067,7 +5072,7 @@ msgid "Event Aggregator System Status"
 msgstr ""
 
 #: src/Tribe/Aggregator.php:247
-#: src/Tribe/Aggregator/API/Origins.php:227
+#: src/Tribe/Aggregator/API/Origins.php:237
 msgid "Event Aggregator"
 msgstr ""
 
@@ -5106,12 +5111,12 @@ msgid "Renew your Event Aggregator Facebook token"
 msgstr ""
 
 #: src/Tribe/Aggregator/Admin_Bar.php:97
-#: src/Tribe/Aggregator/API/Origins.php:36
+#: src/Tribe/Aggregator/API/Origins.php:46
 #: src/Tribe/Aggregator/Service.php:929
 msgid "CSV File"
 msgstr ""
 
-#: src/Tribe/Aggregator/API/Origins.php:71
+#: src/Tribe/Aggregator/API/Origins.php:81
 #: src/Tribe/Aggregator/Record/Url.php:17
 msgid "Other URL"
 msgstr ""
@@ -5151,111 +5156,111 @@ msgctxt "aggregator schedule frequency"
 msgid "Every 15 minutes"
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:47
+#: src/Tribe/Aggregator/Errors.php:60
 msgid "The image associated with your event could not be attached to the event."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:51
+#: src/Tribe/Aggregator/Errors.php:64
 #: src/Tribe/Aggregator/Service.php:793
 msgid "The daily limit of %d import requests to the Event Aggregator service has been reached. Please try again later."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:58
+#: src/Tribe/Aggregator/Errors.php:71
 msgid "You cannot delete a history record (ID: \"%d\"). "
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:62
+#: src/Tribe/Aggregator/Errors.php:75
 msgid "You do not have permission to delete this record."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:66
+#: src/Tribe/Aggregator/Errors.php:79
 msgid "During scheduled import, the limit of HTTP requests was reached and the import was rescheduled."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:74
+#: src/Tribe/Aggregator/Errors.php:86
 msgid "An invalid import type was used when trying to create this import record."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:78
+#: src/Tribe/Aggregator/Errors.php:90
 msgid "You must provide a valid CSV file to perform a CSV import."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:82
+#: src/Tribe/Aggregator/Errors.php:94
 msgid "Invalid data provided for CSV import."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:86
+#: src/Tribe/Aggregator/Errors.php:98
 msgid "Only scheduled import records can be edited."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:90
+#: src/Tribe/Aggregator/Errors.php:102
 msgid "Unable to find an event with the ID of %s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:94
+#: src/Tribe/Aggregator/Errors.php:106
 msgid "The Event Aggregator API responded with bad data. Please <a href=\"https://theeventscalendar.com/support/post/\" target=\"_blank\">contact support</a>."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:101
+#: src/Tribe/Aggregator/Errors.php:113
 msgid "Unable to find an import record with the ID of %s."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:105
+#: src/Tribe/Aggregator/Errors.php:117
 msgid "Unable to attach an image to the event"
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:109
+#: src/Tribe/Aggregator/Errors.php:121
 msgid "An invalid frequency was used when trying to create this scheduled import."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:113
+#: src/Tribe/Aggregator/Errors.php:125
 msgid "Unable to find a matching post."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:117
+#: src/Tribe/Aggregator/Errors.php:129
 msgid "The import record is missing the origin."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:121
+#: src/Tribe/Aggregator/Errors.php:133
 msgid "Unable to get a post of the correct type."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:125
+#: src/Tribe/Aggregator/Errors.php:137
 msgid "You must enter an Event Aggregator license key in Events > Settings > Licenses before using this service."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:132
+#: src/Tribe/Aggregator/Errors.php:144
 #: src/Tribe/Aggregator/Service.php:249
 #: src/Tribe/Aggregator/Service.php:257
 #: src/Tribe/Aggregator/Service.php:313
 msgid "There may be an issue with the Event Aggregator server. Please try your import again later."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:139
+#: src/Tribe/Aggregator/Errors.php:151
 msgid "There is an JSON error with the Event Aggregator server. Please try your import again later."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:147
+#: src/Tribe/Aggregator/Errors.php:158
 msgid "You must map columns from the CSV file to specific fields in order to perform a CSV import."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:154
+#: src/Tribe/Aggregator/Errors.php:165
 msgid "The CSV file cannot be found. You may need to re-upload the file."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:158
+#: src/Tribe/Aggregator/Errors.php:169
 msgid "Import records must be finalized before posts can be inserted."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:162
+#: src/Tribe/Aggregator/Errors.php:173
 msgid "Unable to save scheduled import instance. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:166
+#: src/Tribe/Aggregator/Errors.php:177
 msgid "Unable to save scheduled import. Please try again."
 msgstr ""
 
-#: src/Tribe/Aggregator/Errors.php:170
+#: src/Tribe/Aggregator/Errors.php:181
 msgid "The records you were attempting to import were still not available when this queue was processed. Please try again."
 msgstr ""
 
@@ -9587,8 +9592,9 @@ msgstr ""
 msgid "%s Views Navigation"
 msgstr ""
 
-#: src/views/v2/components/loader.php:22
-msgid "Loading view."
+#. translators: 1: number of events found, 2: lowercased events text
+#: src/views/v2/components/loader.php:30
+msgid "%1$d %2$s found."
 msgstr ""
 
 #: src/views/v2/components/read-more.php:22
