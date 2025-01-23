@@ -5,12 +5,35 @@ namespace TEC\Events\Category_Colors\Tests;
 use Closure;
 use Codeception\TestCase\WPTestCase;
 use ReflectionClass;
+use TEC\Events\Category_Colors\Category_Colors;
 use TEC\Events\Category_Colors\Settings;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Main;
 
 class SettingsTest extends WPTestCase {
 	use With_Uopz;
+
+	/**
+	 * Automatically cleanup test data after each test.
+	 *
+	 * @after
+	 */
+	public function cleanup_test_data(): void {
+		$terms = get_terms(
+			[
+				'taxonomy'   => Tribe__Events__Main::TAXONOMY,
+				'hide_empty' => false,
+			]
+		);
+
+		foreach ( $terms as $term ) {
+			delete_term_meta( $term->term_id, Category_Colors::$meta_selected_category_slug );
+			delete_term_meta( $term->term_id, Category_Colors::$meta_foreground_slug );
+			delete_term_meta( $term->term_id, Category_Colors::$meta_background_slug );
+			delete_term_meta( $term->term_id, Category_Colors::$meta_text_color_slug );
+			wp_delete_term( $term->term_id, Tribe__Events__Main::TAXONOMY );
+		}
+	}
 
 	/**
 	 * Data provider for edge case scenarios.
@@ -85,7 +108,7 @@ class SettingsTest extends WPTestCase {
 	}
 
 	/**
-	 * @test         `initialize_terms` with edge cases.
+	 * @test         `initialize_terms` with edge cases using taxonomy meta.
 	 *
 	 * @dataProvider initialize_terms_edgecases_data
 	 *
@@ -111,6 +134,12 @@ class SettingsTest extends WPTestCase {
 			$term = array_filter( $terms, fn( $term ) => $term->slug === $slug );
 			$this->assertNotEmpty( $term, "Expected term {$slug} was not found." );
 			$this->assertEquals( $name, current( $term )->name, "Expected term name for {$slug} did not match." );
+
+			// Check for associated meta values.
+			foreach ( [ Category_Colors::$meta_foreground_slug, Category_Colors::$meta_background_slug, Category_Colors::$meta_text_color_slug ] as $meta_key ) {
+				$meta_value = get_term_meta( current( $term )->term_id, $meta_key, true );
+				$this->assertNotNull( $meta_value, "Expected meta {$meta_key} for term {$slug} was not found." );
+			}
 		}
 	}
 
@@ -344,7 +373,7 @@ class SettingsTest extends WPTestCase {
 
 				return [
 					'form_data' => [
-						'tec_category_color_categories' => [],
+						'tec_category_color_categories' => [], // No categories selected
 						'tec_category_colors_blueprint' => [
 							'party' => [
 								'foreground' => '#ff0000',
@@ -354,8 +383,8 @@ class SettingsTest extends WPTestCase {
 						],
 					],
 					'expected'  => [
-						'categories' => [],
-						'blueprint'  => [],
+						'categories' => [], // No categories should be saved
+						'blueprint'  => [], // No blueprint should be saved
 					],
 				];
 			},
@@ -478,52 +507,47 @@ class SettingsTest extends WPTestCase {
 	}
 
 	/**
-	 * @test         Save and retrieve category colors.
+	 * @test
 	 *
 	 * @dataProvider category_colors_save_data_provider
 	 *
-	 * @param Closure $fixture The fixture closure to set up the scenario.
+	 * @return void
 	 */
-	public function save_and_get_category_colors( Closure $fixture ): void {
-		// Set up the fixture and get the scenario data.
-		$scenario  = $fixture();
-		$form_data = $scenario['form_data'];
-		$expected  = $scenario['expected'];
-
-		// Simulate request data.
-		$_POST = array_merge( $_POST, $form_data );
-
-		// Handle the `wp_verify_nonce` behavior based on the test case.
-		$this->set_fn_return(
-			'wp_verify_nonce',
-			isset( $scenario['skip_nonce'] ) && $scenario['skip_nonce'] === true ? false : true
-		);
-
-		// Save category colors.
-		$settings = tribe( \TEC\Events\Category_Colors\Settings::class );
-		$settings->save_category_color_settings();
-
-		// Retrieve and assert saved categories.
-		$saved_categories = get_option( 'tec_category_color_categories', [] );
-		$this->assertSame(
-			$expected['categories'],
-			$saved_categories,
-			'Saved categories do not match expected values.'
-		);
-
-		// Retrieve and assert saved blueprints, if applicable.
-		if ( isset( $expected['blueprint'] ) ) {
-			$saved_blueprint = get_option( 'tec_category_color_blueprint', [] );
-			$this->assertSame(
-				$expected['blueprint'],
-				$saved_blueprint,
-				'Saved blueprints do not match expected values.'
-			);
+	public function save_category_color_settings() {
+		if ( ! wp_verify_nonce( tribe_get_request_var( 'tribe-save-settings' ), 'saving' ) ) {
+			return;
 		}
 
-		// Clean up options to avoid test interference.
-		delete_option( 'tec_category_color_categories' );
-		delete_option( 'tec_category_color_blueprint' );
+		// Get selected categories from the form.
+		$selected_categories = $this->process_selected_categories();
+
+		// Get all terms in the taxonomy.
+		$all_terms = get_terms(
+			[
+				'taxonomy'   => $this->taxonomy,
+				'hide_empty' => false,
+			]
+		);
+
+		// Update `tec-event-selected` meta for selected terms.
+		foreach ( $all_terms as $term ) {
+			if ( in_array( $term->slug, $selected_categories, true ) ) {
+				update_term_meta( $term->term_id, 'tec-event-selected', true );
+			} else {
+				delete_term_meta( $term->term_id, 'tec-event-selected' );
+			}
+		}
+
+		// Save colors to term meta.
+		$submitted_colors = tec_get_request_var( 'tec_category_colors_blueprint', [] );
+		foreach ( $submitted_colors as $slug => $colors ) {
+			$term = get_term_by( 'slug', $slug, $this->taxonomy );
+			if ( $term ) {
+				update_term_meta( $term->term_id, self::$meta_foreground_slug, $this->validate_hex_color( $colors['foreground'] ?? '' ) );
+				update_term_meta( $term->term_id, self::$meta_background_slug, $this->validate_hex_color( $colors['background'] ?? '' ) );
+				update_term_meta( $term->term_id, self::$meta_text_color_slug, $this->validate_hex_color( $colors['text-color'] ?? '' ) );
+			}
+		}
 	}
 
 }

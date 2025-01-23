@@ -17,37 +17,68 @@ use WP_Term;
  * @since TBD
  */
 class Settings {
-
-	public $taxonomy = Tribe__Events__Main::TAXONOMY;
+	/**
+	 * The taxonomy used for event categories.
+	 *
+	 * @var string
+	 */
+	public string $taxonomy = 'Tribe__Events__Main::TAXONOMY';
 
 	/**
 	 * Tab name identifier.
 	 *
-	 * @var string
-	 */
-	public static $tab_slug = 'category-colors';
-
-	protected $terms = [];
-
-	/**
-	 * Stores the instance of the template.
+	 * Used to register and identify the settings tab for category colors.
 	 *
 	 * @since TBD
-	 *
-	 * @var Tribe__Template|null
+	 * @var string
 	 */
-	protected $template = null;
+	public static string $tab_slug = 'category-colors';
 
-	protected $category_data = [];
+	/**
+	 * List of terms for the taxonomy.
+	 *
+	 * Contains an array of terms that are filtered and used within the class.
+	 *
+	 * @since TBD
+	 * @var WP_Term[]
+	 */
+	protected array $terms = [];
+
+	/**
+	 * Stores category data for the settings form.
+	 *
+	 * This includes both the list of categories and their associated blueprint data.
+	 *
+	 * @since TBD
+	 * @var array
+	 */
+	protected array $category_data = [];
+
+	/**
+	 * Instance of the Category_Colors class.
+	 *
+	 * This dependency provides access to shared logic and utilities for managing category colors.
+	 *
+	 * @since TBD
+	 * @var Category_Colors
+	 */
+	protected Category_Colors $category_colors;
 
 	/**
 	 * Class Constructor.
 	 *
-	 * Initializes terms and registers hooks.
+	 * Initializes the Category Colors settings functionality. This includes:
+	 * - Storing the provided Category_Colors instance for shared logic and utilities.
+	 * - Initializing the terms to be used in the settings.
+	 * - Populating the form data with saved settings and defaults.
 	 *
 	 * @since TBD
+	 *
+	 * @param Category_Colors $category_colors An instance of the Category_Colors class.
+	 *                                         This is used to access shared logic and utilities.
 	 */
-	public function __construct() {
+	public function __construct( Category_Colors $category_colors ) {
+		$this->category_colors = $category_colors;
 		$this->initialize_terms();
 		$this->populate_form();
 	}
@@ -55,16 +86,88 @@ class Settings {
 	/**
 	 * Populates the form data with the saved category color settings.
 	 *
-	 * This method retrieves the saved categories from the database option
-	 * and assigns them to the `category_data` property for use in the form.
+	 * This method retrieves the saved categories and their associated color blueprint data
+	 * from the database and assigns them to the `category_data` property for use in the form.
+	 * It uses helper methods to process selected categories and term blueprints.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
-	protected function populate_form() {
-		$this->category_data['categories'] = get_option( 'tec_category_color_categories', [] );
-		$this->category_data['blueprint']  = get_option( 'tec_category_color_blueprint', [] );
+	protected function populate_form(): void {
+		if ( empty( $this->terms ) ) {
+			return;
+		}
+
+		$this->category_data['categories'] = $this->get_selected_categories();
+		$this->category_data['blueprint']  = $this->get_term_blueprint();
+	}
+
+	/**
+	 * Retrieves the selected categories based on the stored metadata.
+	 *
+	 * This method validates the terms before processing and skips invalid or malformed data.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An array of slugs for the selected categories.
+	 */
+	private function get_selected_categories(): array {
+		if ( empty( $this->terms ) ) {
+			return [];
+		}
+
+		$valid_terms = $this->category_colors->get_valid_terms( $this->terms );
+
+		$selected_categories = [];
+
+		foreach ( $valid_terms as $term ) {
+			// Retrieve metadata and check if the category is selected.
+			$is_selected = get_term_meta( $term->term_id, $this->category_colors::$meta_selected_category_slug, true );
+
+			if ( $is_selected ) {
+				$selected_categories[] = sanitize_text_field( $term->slug );
+			}
+		}
+
+		return $selected_categories;
+	}
+
+	/**
+	 * Retrieves the color blueprint for each term.
+	 *
+	 * This method creates a blueprint for each term by fetching the associated
+	 * metadata for foreground, background, and text colors. If no metadata exists,
+	 * the values will default to an empty string.
+	 *
+	 * @since TBD
+	 *
+	 * @return array An associative array of term slugs mapped to their color blueprint data:
+	 *               - `foreground`: The hex color for the foreground.
+	 *               - `background`: The hex color for the background.
+	 *               - `text-color`: The hex color for the text.
+	 */
+	private function get_term_blueprint(): array {
+		if ( empty( $this->terms ) ) {
+			return [];
+		}
+
+		$valid_terms = $this->category_colors->get_valid_terms( $this->terms );
+
+		$blueprint = [];
+
+		foreach ( $valid_terms as $term ) {
+			$term_slug = sanitize_text_field( $term->slug );
+
+			// Retrieve metadata for each term and assign default empty strings if not found.
+			$blueprint[ $term_slug ] = [
+				'foreground' => $this->category_colors->validate_hex_color( get_term_meta( $term->term_id, $this->category_colors::$meta_foreground_slug, true ) ),
+				'background' => $this->category_colors->validate_hex_color( get_term_meta( $term->term_id, $this->category_colors::$meta_background_slug, true ) ),
+				'text-color' => $this->category_colors->validate_hex_color( get_term_meta( $term->term_id, $this->category_colors::$meta_text_color_slug, true ) ),
+			];
+		}
+
+		return $blueprint;
 	}
 
 	/**
@@ -97,33 +200,25 @@ class Settings {
 	public function render_fields(): string {
 		$categories = $this->get_filtered_terms();
 
-		return $this->get_template()->template(
+		$selected_category_slugs = $this->get_selected_categories();
+
+		$selected_categories = array_filter(
+			$categories,
+			function ( $term ) use ( $selected_category_slugs ) {
+				return in_array( $term->slug, $selected_category_slugs, true );
+			}
+		);
+
+		return $this->category_colors->get_template()->template(
 			'category-colors/settings',
 			[
-				'categories' => $categories,
-				'form_data'  => $this->category_data,
+				'categories'          => $categories,
+				'selected_categories' => $selected_categories,
+				'form_data'           => $this->category_data,
 			]
 		);
 	}
 
-	/**
-	 * Retrieves or initializes the template object.
-	 *
-	 * @since TBD
-	 *
-	 * @return Tribe__Template The initialized template object.
-	 */
-	public function get_template(): Tribe__Template {
-		if ( is_null( $this->template ) ) {
-			$this->template = ( new Tribe__Template() )
-				->set_template_origin( tribe( 'tec.main' ) )
-				->set_template_folder( 'src/admin-views' )
-				->set_template_context_extract( true )
-				->set_template_folder_lookup( false );
-		}
-
-		return $this->template;
-	}
 
 	/**
 	 * Initializes and filters category terms.
@@ -133,9 +228,15 @@ class Settings {
 	 * @return void
 	 */
 	protected function initialize_terms(): void {
+		if ( ! taxonomy_exists( $this->category_colors->taxonomy ) ) {
+			$this->terms = [];
+
+			return;
+		}
+
 		$all_terms = get_terms(
 			[
-				'taxonomy'   => $this->taxonomy,
+				'taxonomy'   => $this->category_colors->taxonomy,
 				'hide_empty' => false,
 			]
 		);
@@ -219,14 +320,14 @@ class Settings {
 			return;
 		}
 
-		// Process and save selected categories.
+		// Process the selected categories.
 		$selected_categories = $this->process_selected_categories();
-		update_option( 'tec_category_color_categories', array_values( $selected_categories ) );
 
-		// Process and save color blueprint.
+		// Process the color blueprint data.
 		$submitted_colors = tec_get_request_var( 'tec_category_colors_blueprint', [] );
-		$color_blueprint  = $this->process_color_blueprint( $submitted_colors, $selected_categories );
-		update_option( 'tec_category_color_blueprint', $color_blueprint );
+
+		// Update the metadata for all terms in the taxonomy.
+		$this->category_colors->update_terms_meta( $selected_categories, $submitted_colors );
 	}
 
 	/**
@@ -245,7 +346,7 @@ class Settings {
 		$valid_categories = array_column(
 			get_terms(
 				[
-					'taxonomy'   => $this->taxonomy,
+					'taxonomy'   => $this->category_colors->taxonomy,
 					'hide_empty' => false,
 				]
 			),
@@ -286,22 +387,4 @@ class Settings {
 		return $color_blueprint;
 	}
 
-	/**
-	 * Validates a hex color.
-	 *
-	 * Ensures the input is a valid hex color. If invalid, returns an empty string.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $color The color to validate.
-	 *
-	 * @return string The validated hex color or an empty string.
-	 */
-	private function validate_hex_color( $color ): string {
-		if ( ! is_string( $color ) ) {
-			return '';
-		}
-
-		return sanitize_hex_color( $color ) ?: '';
-	}
 }
