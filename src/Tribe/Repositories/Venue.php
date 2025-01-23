@@ -39,21 +39,24 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		];
 
 		// Add venue specific aliases.
-		$this->update_fields_aliases = array_merge( $this->update_fields_aliases, [
-			'venue'         => 'post_title',
-			'address'       => '_VenueAddress',
-			'city'          => '_VenueCity',
-			'state'         => '_VenueState',
-			'province'      => '_VenueProvince',
-			'stateprovince' => '_VenueStateProvince',
-			'postal_code'   => '_VenueZip',
-			'zip'           => '_VenueZip',
-			'country'       => '_VenueCountry',
-			'phone'         => '_VenuePhone',
-			'website'       => '_VenueURL',
-			'show_map'      => '_VenueShowMap',
-			'show_map_link' => '_VenueShowMapLink',
-		] );
+		$this->update_fields_aliases = array_merge(
+			$this->update_fields_aliases,
+			[
+				'venue'         => 'post_title',
+				'address'       => '_VenueAddress',
+				'city'          => '_VenueCity',
+				'state'         => '_VenueState',
+				'province'      => '_VenueProvince',
+				'stateprovince' => '_VenueStateProvince',
+				'postal_code'   => '_VenueZip',
+				'zip'           => '_VenueZip',
+				'country'       => '_VenueCountry',
+				'phone'         => '_VenuePhone',
+				'website'       => '_VenueURL',
+				'show_map'      => '_VenueShowMap',
+				'show_map_link' => '_VenueShowMapLink',
+			]
+		);
 
 		$this->linked_id_meta_key = '_EventVenueID';
 
@@ -78,11 +81,12 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Formats a venue handled by the repository to the expected format.
 	 *
 	 * @since TBD Added to Venue ORM.
 	 *
-	 * @param int|WP_Post $id The id or object of the venue to be formatted.
+	 * @param int|WP_Post $id The ID or object of the venue to be formatted.
+	 * @return WP_Post The formatted Venue object.
 	 */
 	protected function format_item( $id ) {
 		$formatted = null === $this->formatter
