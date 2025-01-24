@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Update asset, dependencies, customizations to align with WordPress 6.7 and React 18. [TEC-5322]
