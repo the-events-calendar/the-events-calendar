@@ -51,8 +51,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 		$this->container->singleton( Event_Report_Categories::class, Event_Report_Categories::class );
 		$this->container->register( Download_Report_Provider::class );
 
-		$this->load_action_scheduler();
-
 		add_action( 'init', [ $this, 'init' ] );
 
 		// Action Scheduler will fire this action: on it we'll migrate, or preview the migration of, an Event.
@@ -291,40 +289,6 @@ class Provider extends Service_Provider implements Provider_Contract {
 	}
 
 	/**
-	 * Loads the Action Scheduler library by loading the main plugin file shipped with
-	 * this plugin.
-	 *
-	 * This method would, usually, run on the `plugins_loaded` action and might, in that
-	 * case, further delay the loading of the Action Scheduler library to the `init` action.
-	 *
-	 * @since 6.0.0
-	 */
-	private function load_action_scheduler() {
-		$load_action_scheduler = [ $this, 'load_action_scheduler_late' ];
-
-		if ( ! has_action( 'tec_events_custom_tables_v1_load_action_scheduler', $load_action_scheduler ) ) {
-			// Add a custom action that will allow triggering the load of Action Scheduler.
-			add_action( 'tec_events_custom_tables_v1_load_action_scheduler', $load_action_scheduler );
-		}
-
-		/*
-		 * We do not sense around for of the functions defined by Action Scheduler by design:
-		 * Action Scheduler will take care of loading the most recent version. If we looked
-		 * for some of Action Scheduler API functions, then, we would let a possibly older
-		 * version load instead of ours just because it did init Action Scheduler before
-		 * this plugin.
-		 */
-		if ( did_action( 'plugins_loaded' ) || doing_action( 'plugins_loaded' ) ) {
-			add_action( 'init', $load_action_scheduler, - 99999 );
-
-			return;
-		}
-
-		$action_scheduler_file = TEC::instance()->plugin_path . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
-		require_once $action_scheduler_file;
-	}
-
-	/**
 	 * Loads Action Scheduler late, after the `plugins_loaded` hook, at the
 	 * start of the `init` one.
 	 *
@@ -333,9 +297,12 @@ class Provider extends Service_Provider implements Provider_Contract {
 	 * action, so we need to retry setting up Action Scheduler again.
 	 *
 	 * @since 6.0.0
+	 *
+	 * @deprecated 6.9.1 Deprecate this method in point to the AS included in common.
 	 */
 	public function load_action_scheduler_late() {
-		$action_scheduler_file = TEC::instance()->plugin_path . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
+		_deprecated_function( __METHOD__, '6.9.1' );
+		$action_scheduler_file = TEC::instance()->plugin_path . '/common/vendor/woocommerce/action-scheduler/action-scheduler.php';
 		require_once $action_scheduler_file;
 	}
 
