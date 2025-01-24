@@ -86,7 +86,8 @@ class Timezones {
 	 * Checks if we are in an TEC page or over
 	 * the WordPress > Settings > General
 	 *
-	 * @since  4.6.17
+	 * @since 4.6.17
+	 * @since 6.9.0 Added filter to allow control over the display of the notice.
 	 *
 	 * @return boolean
 	 */
@@ -106,9 +107,16 @@ class Timezones {
 			return false;
 		}
 
-		// It should display if we're on a TEC page or
-		// over Settings > General
-		return tribe( 'admin.helpers' )->is_screen() || 'options-general.php' === $pagenow;
+		/**
+		 * Filters whether the UTC Timezone notice should display.
+		 *
+		 *  It should display if we're on a TEC page or over Settings > General
+
+		 * @since 6.9.0
+		 *
+		 * @param bool
+		 */
+		return apply_filters( 'tec_events_admin_notice_utc_timezone_should_display', tribe( 'admin.helpers' )->is_screen() || 'options-general.php' === $pagenow );
 	}
 
 	/**

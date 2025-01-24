@@ -32,7 +32,7 @@ import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
-import { selectors, utils } from '@moderntribe/events/data/blocks/venue';
+import { utils } from '@moderntribe/events/data/blocks/venue';
 import { google, wpEditor, wpHooks } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
@@ -124,7 +124,7 @@ class EventVenue extends Component {
 		const {
 			isSelected,
 			fields,
-			onFormSubmit
+			onFormSubmit,
 		} = this.props;
 
 		if ( ! isSelected ) {

@@ -551,6 +551,7 @@ class CronTest extends Aggregator_TestCase {
 		$this->assertEmpty( $wp_post_delete_calls );
 		// The expired posts should be gone, with them the meta and comments, caches included.
 		foreach ( $expired_records as $expired_record ) {
+			codecept_debug( get_post_meta( $expired_record ) );
 			$this->assertEmpty( get_post_meta( $expired_record ) );
 			$this->assertEmpty( get_comments( [ 'post_id' => $expired_record ] ) );
 			$this->assertEmpty( get_post( $expired_record ) );

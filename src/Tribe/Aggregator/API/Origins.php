@@ -30,6 +30,16 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	public function __construct() {
 		parent::__construct();
 
+		// Contains translated strings - must load after 'init'.
+		add_action( 'init', [ $this, 'set_props' ] );
+	}
+
+	/**
+	 * Set the origins for the event aggregator.
+	 *
+	 * @since 6.9.1
+	 */
+	public function set_props() {
 		$this->origins = [
 			'csv'        => (object) [
 				'id'       => 'csv',

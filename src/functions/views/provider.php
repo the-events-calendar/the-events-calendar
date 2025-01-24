@@ -103,7 +103,7 @@ function tribe_events_settings_defaults_initializer() {
  *
  * @deprecated 6.0.0
  *
- * @return bool Wether we just activated the v2 on the database.
+ * @return bool Whether we just activated the v2 on the database.
  */
 function tribe_events_views_v2_smart_activation() {
 	return false;

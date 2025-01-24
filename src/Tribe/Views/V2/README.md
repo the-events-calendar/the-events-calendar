@@ -30,7 +30,7 @@ And this is just a simple example!
 The Context abstraction is hiding way more complex "locations" (as in "a location one reads a value from") than this.
 
 ### The View
-The view will look into the context, understand what's supposed to show and use that information to show the corect events.
+The view will look into the context, understand what's supposed to show and use that information to show the correct events.
 
 ## Implementing a View
 
@@ -111,7 +111,7 @@ class Three_Day_List_View extends View {
 		$temp_date = clone $start_date_object;
 		$temp_date->add( $two_days );
 
-		// Again: let's take the end of day cutoff into acount.
+		// Again: let's take the end of day cutoff into account.
 		$end_date_object = Dates::build_date_object( tribe_end_of_day( $temp_date->format( 'Y-m-d H:i:s' ) ) );
 
 		return [ $start_date_object, $end_date_object ];
@@ -225,7 +225,7 @@ Ideally (which means you should do anything in your power to make it so, and I b
 This means that any calculation, interpolation, and "look-around"  should be done **in the View class** and provided to the templates ready-to-run.
 Before diving into the template take a moment to go back to the View class and look at the `setup_template_vars` method: **anything** templates need should come from that method.
 
-> Do you want to quicky scaffold a View and put demo content in it? Look no further than the `View::setup_template_vars` method; filter the `tribe_events_views_v2_view_<view_slug>_template_vars` and add/modify any data you need.
+> Do you want to quickly scaffold a View and put demo content in it? Look no further than the `View::setup_template_vars` method; filter the `tribe_events_views_v2_view_<view_slug>_template_vars` and add/modify any data you need.
 
 #### Global and local template data
 When dealing with templates you will come across this distinction, willing and knowing or not, so it's worth taking some time to nail the basics:

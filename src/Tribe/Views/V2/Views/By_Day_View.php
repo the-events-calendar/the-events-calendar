@@ -798,7 +798,7 @@ abstract class By_Day_View extends View {
 
 	/**
 	 * Overrides the base View implementation to remove pagination from the URL.
-	 * 
+	 *
 	 * {@inheritdoc}
 	 */
 	public function url_for_query_args( $date = null, $query_args = [] ) {

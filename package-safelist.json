@@ -5,6 +5,7 @@
   "lang/*.mo",
   "lang/*.pot",
   "src/admin-views/**/*",
+  "src/build/**/*",
   "src/deprecated/**/*",
   "src/functions/**/*",
   "src/modules/icons/*",
@@ -38,6 +39,5 @@
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.min.js",
   "vendor/vendor-prefixed/**/*",
-  "vendor/woocommerce/action-scheduler/**/*",
   "uninstall.php"
 ]

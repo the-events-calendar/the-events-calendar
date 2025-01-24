@@ -17,6 +17,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use TEC\Events\Views\Modifiers\Hide_End_Time_Modifier;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
@@ -35,11 +36,15 @@ use TEC\Common\Contracts\Service_Provider;
  * Class Hooks
  *
  * @since 4.9.2
+ * @since 6.6.3 Moved Hide End Time feature into Hide_End_Time_Provider provider.
  *
  * @package Tribe\Events\Views\V2
  */
 class Hooks extends Service_Provider {
-
+	/**
+	 * @var Hide_End_Time_Modifier The modifier to hide the end time.
+	 */
+	protected Hide_End_Time_Modifier $end_time_modifier;
 
 	/**
 	 * Binds and sets up implementations.
@@ -47,6 +52,13 @@ class Hooks extends Service_Provider {
 	 * @since 4.9.2
 	 */
 	public function register() {
+		// Bind as singleton to maintain state in filters.
+		$this->container->singleton( Title::class );
+
+		// Register Hide End Time modifier provider.
+		$this->container->register( Hide_End_Time_Provider::class );
+
+		// Setup hooks.
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -71,6 +83,7 @@ class Hooks extends Service_Provider {
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		add_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ], 10, 2 );
 	}
 
 	/**
@@ -79,7 +92,7 @@ class Hooks extends Service_Provider {
 	 * @since 5.14.1
 	 */
 	public function enqueue_customizer_in_block_editor() {
-		// Make sure we're on the block edit screen
+		// Make sure we're on the block edit screen.
 		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
 			return;
 		}
@@ -94,12 +107,15 @@ class Hooks extends Service_Provider {
 			return;
 		}
 
-		// Append the customizer styles to the single block stylesheet
-		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
-			$sheets[] = 'tribe-admin-v2-single-blocks';
+		// Append the customizer styles to the single block stylesheet.
+		add_filter(
+			'tribe_customizer_inline_stylesheets',
+			static function ( $sheets ) {
+				$sheets[] = 'tribe-admin-v2-single-blocks';
 
-			return $sheets;
-		} );
+				return $sheets;
+			}
+		);
 
 		// Print the styles!
 		tribe( 'customizer' )->inline_style( true );
@@ -175,15 +191,33 @@ class Hooks extends Service_Provider {
 
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
-
 		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 5 );
-
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
-
-		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
-
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12, 2 );
 		add_filter( 'tec_events_view_month_today_button_label', [ $this, 'filter_view_month_today_button_label' ], 10, 2 );
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
+	}
+
+	/**
+	 * This retrieves the posts to be used on the rendered page, and stores them for use in title generation.
+	 *
+	 * @since 6.3.6
+	 *
+	 * @param WP_Post[] $events The list of tribe events for this page.
+	 * @param View      $view   The current view being rendered.
+	 */
+	public function action_set_title_events( $events, $view ) {
+		// Not a list? Bail.
+		if ( ! is_array( $events ) ) {
+			return;
+		}
+
+		// Trim to what is shown (we add one sometimes for pagination links).
+		$cnt = $view->get_context()->get( 'events_per_page' );
+		if ( $cnt ) {
+			$events = array_slice( $events, 0, $cnt );
+		}
+		$this->container->make( Title::class )->set_posts( $events );
 	}
 
 	/**
@@ -196,7 +230,7 @@ class Hooks extends Service_Provider {
 	 *
 	 * @return void
 	 */
-	public function action_include_filters_excerpt() {
+	public function action_include_filters_excerpt(): void {
 		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 50 );
 	}
 
@@ -937,7 +971,7 @@ class Hooks extends Service_Provider {
 			return $value;
 		}
 
-		// Note: backslash is hte escape character - so we need to escape it.
+		// Note: backslash is the escape character - so we need to escape it.
 		// This is the equivalent of replacing any occurrence of \\ with \
 		$value = str_replace( "\\\\", "\\", $value);
 		//$value = stripslashes( $value ); will strip out ones we want to keep!
@@ -1365,5 +1399,6 @@ class Hooks extends Service_Provider {
 		remove_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
 		remove_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		remove_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ] );
 	}
 }

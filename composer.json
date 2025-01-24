@@ -2,17 +2,14 @@
   "name": "the-events-calendar/the-events-calendar",
   "description": "The Events Calendar WordPress plugin by The Events Calendar",
   "type": "wordpress-plugin",
-  "homepage": "https://theeventscalendar.com",
-  "license": "GPL-2.0",
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "keywords": [
     "wordpress",
     "events"
   ],
-  "require": {
-    "woocommerce/action-scheduler": "^3.4.0"
-  },
+  "homepage": "https://theeventscalendar.com",
+  "license": "GPL-2.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require-dev": {
     "automattic/vipwpcs": "^3.0",
     "bordoni/phpass": "^0.3.5",
@@ -25,13 +22,15 @@
     "codeception/module-webdriver": "^1.0",
     "codeception/util-universalframework": "^1.0",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "lucatume/codeception-snapshot-assertions": "^0.3.0",
     "facebook/webdriver": "1.6.0",
     "lucatume/function-mocker": "^1.3.8",
-    "lucatume/wp-browser": "^3.1.4",
+    "lucatume/wp-browser": "3.2.3",
     "lucatume/wp-snaphot-assertions": "^1.1.0",
     "mikey179/vfsstream": "^1.6",
     "phpunit/phpunit": "~6.0",
     "scotteh/php-dom-wrapper": "^1.0",
+    "slope-it/clock-mock": "^0.4.0",
     "spatie/phpunit-snapshot-assertions": "^1.2",
     "stellarwp/coding-standards": "dev-main",
     "the-events-calendar/tec-testing-facilities": "dev-master",
@@ -40,7 +39,8 @@
     "phpstan/phpstan": "^1.10",
     "phpstan/phpstan-deprecation-rules": "^1.1",
     "phpstan/extension-installer": "^1.3",
-    "szepeviktor/phpstan-wordpress": "*"
+    "szepeviktor/phpstan-wordpress": "*",
+    "automattic/jetpack-changelogger": "^4.2"
   },
   "config": {
     "preferred-install": "dist",
@@ -52,6 +52,30 @@
       "phpstan/extension-installer": true
     }
   },
+  "extra": {
+    "changelogger": {
+      "changelog": "changelog.md",
+      "types": {
+        "version" : "Version",
+        "feat" : "Feature",
+        "tweak" : "Tweak",
+        "fix" : "Fix",
+        "performance" : "Performance",
+        "security" : "Security",
+        "accessibility" : "Accessibility",
+        "compatibility" : "Compatibility",
+        "deprecated" : "Deprecated",
+        "language" : "Language"
+      },
+      "versioning": {
+        "filename": "bin/ModifiedSemverVersioning.php"
+      },
+      "formatter": {
+        "filename": "bin/class-tec-changelog-formatter.php"
+      },
+      "changes-dir": "changelog"
+    }
+  },
   "autoload": {
     "psr-4": {
       "Tribe\\Events\\" : "src/Tribe",
@@ -61,12 +85,26 @@
   },
   "autoload-dev": {
     "psr-4": {
+      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views",
       "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules",
-      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views"
+      "TEC\\Tests\\Events\\Admin\\Notice\\": "tests/wpunit/TEC/Events/Admin/Notice"
     }
   },
+  "repositories": [
+    {
+      "name": "the-events-calendar/tec-testing-facilities",
+      "type": "github",
+      "url": "https://github.com/the-events-calendar/tec-testing-facilities",
+      "no-api": true
+    }
+  ],
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
-    "stop-chromedriver": "docker stop chromedriver"
+    "stop-chromedriver": "docker stop chromedriver",
+    "pup": [
+      "Composer\\Config::disableProcessTimeout",
+      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.8/pup.phar",
+      "@php bin/pup.phar"
+    ]
   }
 }

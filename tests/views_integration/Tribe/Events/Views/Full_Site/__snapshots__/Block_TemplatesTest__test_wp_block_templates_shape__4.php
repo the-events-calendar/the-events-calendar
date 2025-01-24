@@ -1,22 +1,22 @@
 <?php return array (
-  'origin' => NULL,
+  'modified' => NULL,
+  'has_theme_file' => false,
   'area' => NULL,
   'post_types' => NULL,
-  'has_theme_file' => false,
-  'wp_id' => NULL,
-  'is_custom' => true,
-  'modified' => NULL,
-  'author' => NULL,
-  'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentythree"} /-->
+  'origin' => NULL,
+  'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentyfour"} /-->
 <!-- wp:tec/single-event /-->
-<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentythree"} /-->
+<!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentyfour"} /-->
 ',
   'description' => 'Displays a single event.',
-  'title' => 'Event Single',
+  'title' => 'Single Event',
   'source' => 'custom',
   'status' => 'publish',
-  'slug' => 'single-event',
   'theme' => 'tec',
+  'wp_id' => NULL,
+  'is_custom' => true,
+  'author' => NULL,
+  'slug' => 'single-event',
   'id' => 'tec//single-event',
   'type' => 'wp_template',
 );

@@ -12,6 +12,7 @@ namespace Tribe\Events\Views\V2\iCalendar\Traits;
 use Tribe\Events\Views\V2\View as View;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Venue as Venue;
+use Tribe__Timezones;
 
 /**
  * Class Outlook_Methods
@@ -55,30 +56,34 @@ trait Outlook_Methods {
 	 * Generate the parameters for the Outlook export buttons.
 	 *
 	 * @since 5.16.0
+	 * @since 6.3.6 Adding timezone to the start and end dates generated.
 	 *
 	 * @param string $calendar Whether it's Outlook live or Outlook 365.
 	 *
-	 * @return string Part of the URL containing the event information.
+	 * @return array<string,string> Params for the URL containing the event information.
 	 */
 	protected function generate_outlook_add_url_parameters( $calendar = 'live' ) {
-		// Getting the event details
+		// Getting the event details.
 		$event = tribe_get_event();
+		if ( ! $event ) {
+			return [];
+		}
+
+		$path     = '/calendar/action/compose';
+		$rrv      = 'addevent';
+		$timezone = $event->timezone ?? Tribe__Timezones::wp_timezone_string();
 
 		/**
 		 * If event is an all day event, then adjust the end time.
 		 * Using the 'allday' parameter doesn't work well through time zones.
 		 */
 		if ( $event->all_day ) {
-			$end_datetime = Dates::build_date_object( $event->end_date )->format( 'Y-m-d' )
-				. 'T'
-				. Dates::build_date_object( $event->start_date )->format( 'H:i:s' );
+			$enddt = urlencode( Dates::build_date_object( $event->end_date, $timezone )->format( 'Y-m-d' ) . 'T' . Dates::build_date_object( $event->start_date, $timezone )->format( 'H:i:s' ) );
 		} else {
-			$end_datetime = Dates::build_date_object( $event->end_date )->format( 'c' );
-			$end_datetime = substr( $end_datetime, 0, -6 );
+			$enddt = urlencode( Dates::build_date_object( $event->end_date, $timezone )->format( 'c' ) );
 		}
 
-		$start_datetime = Dates::build_date_object( $event->start_date )->format( 'c' );
-		$start_datetime = substr( $start_datetime, 0, -6 );
+		$startdt = urlencode( Dates::build_date_object( $event->start_date, $timezone )->format( 'c' ) );
 
 		$params = [
 			'path'     => '/calendar/action/compose',
@@ -238,14 +243,9 @@ trait Outlook_Methods {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
 		}
 
-		// Remove ical query and add back after urlencoding the rest of the URL.
-		$feed_url = remove_query_arg( 'ical', $feed_url );
-
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
 
 		$feed_url = urlencode( $feed_url );
-
-		$feed_url = $feed_url . '&ical=1';
 
 		$params = [
 			'rru'  => 'addsubscription',
@@ -268,7 +268,7 @@ trait Outlook_Methods {
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_subscribe_url', $url, $base_url, $feed_url, $params, $this );
 
-		return $url;
+		return rawurldecode( $url );
 	}
 
 	/**

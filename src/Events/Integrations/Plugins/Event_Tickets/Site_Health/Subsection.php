@@ -76,7 +76,7 @@ class Subsection extends Abstract_Info_Subsection {
 	 * @return int Count of ticketed events currently happening.
 	 */
 	private function get_number_of_ticketed_events_happening_now(): int {
-		return tribe( 'tickets.event-repository' )->where(
+		return tribe( 'tickets.event-repository' )->where( 'has_tickets' )->where(
 			'ends_after',
 			'now'
 		)->count();

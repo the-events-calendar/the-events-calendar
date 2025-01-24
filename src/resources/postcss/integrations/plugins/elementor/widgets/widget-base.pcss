@@ -1,0 +1,49 @@
+/**
+ * Elementor Event Widget base styles.
+ *
+ * @since 6.4.0
+ */
+
+[class*="tec-events-elementor-event-widget"] {
+	color: var(--tec-color-text-primary);
+	font-family: var(--tec-font-family-sans-serif);
+	font-size: 1rem;
+	font-weight: var(--tec-font-weight-regular);
+	line-height: var(--tec-line-height-3);
+	margin: 0 0 var(--tec-spacer-0) 0;
+	padding: 0;
+
+	[class*="tec-events-elementor-event-widget"] {
+		color: inherit;
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+		line-height: inherit;
+		margin: inherit;
+		padding: inherit;
+	}
+}
+
+a[class*="tec-events-elementor-event-widget"],
+[class*="tec-events-elementor-event-widget"] a {
+	border-bottom-color: currentColor;
+	text-decoration: underline;
+}
+
+.e-con-inner,
+.elementor-section:not(.elementor-top-section) {
+	[class*="elementor-widget-tec_elementor_widget"]:not(:last-child) {
+		margin-block-end: var(--tec-spacer-3);
+	}
+}
+
+/* The empty widget styles */
+.tec-events-elementor-widget-empty {
+	background-color: var(--tec-color-background-secondary);
+	color: var(--tec-color-text-secondary);
+	font-size: 1rem;
+	font-weight: var(--tec-font-weight-regular);
+	line-height: var(--tec-line-height-3);
+	padding: 1em;
+	text-align: center;
+}

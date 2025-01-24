@@ -1,27 +1,26 @@
 <?php
 
-use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 /**
  * Object used to handle the linking/unlinking of post types for events
  */
 class Tribe__Events__Linked_Posts {
 	/**
-	 * @var string Meta key prefix for linked posts
+	 * @var string Meta key prefix for linked posts.
 	 */
 	const META_KEY_PREFIX = '_tribe_linked_post_';
 
 	/**
-	 * @var Tribe__Events__Linked_Posts Singleton instance of the class
+	 * @var Tribe__Events__Linked_Posts Singleton instance of the class.
 	 */
 	public static $instance;
 
 	/**
-	 * @var Tribe__Events__Main Singleton
+	 * @var Tribe__Events__Main Singleton.
 	 */
 	public $main;
 
 	/**
-	 * @var array Collection of post types that can be linked with events
+	 * @var array Collection of post types that can be linked with events.
 	 */
 	public $linked_post_types;
 
@@ -31,7 +30,7 @@ class Tribe__Events__Linked_Posts {
 	protected $cache;
 
 	/**
-	 * Returns a singleton of this class
+	 * Returns a singleton of this class.
 	 *
 	 * @return Tribe__Events__Linked_Posts
 	 */
@@ -63,7 +62,7 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Generates post_type => container key value pairs of linked post types for use on the front end
+	 * Generates post_type => container key value pairs of linked post types for use on the front end.
 	 */
 	public function get_post_type_container_data() {
 		$data       = [
@@ -84,7 +83,7 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Registers the default linked post types for events
+	 * Registers the default linked post types for events.
 	 *
 	 * @since 4.2
 	 */
@@ -95,7 +94,7 @@ class Tribe__Events__Linked_Posts {
 		];
 
 		/**
-		 * Filters the list of default registered linked post types
+		 * Filters the list of default registered linked post types.
 		 *
 		 * @since 4.2
 		 *
@@ -109,7 +108,7 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Registers a post type as a linked post type for events
+	 * Registers a post type as a linked post type for events.
 	 *
 	 * Notable arguments that can be passed/filtered while registering linked post types:
 	 * - labels['name']
@@ -119,8 +118,8 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @since 4.2
 	 *
-	 * @param string $post_type Post type slug
-	 * @param array $args Arguments for the linked post type - note: gets merged with get_post_type_object data
+	 * @param string $post_type Post type slug.
+	 * @param array  $args      Arguments for the linked post type - note: gets merged with get_post_type_object data.
 	 *
 	 * @return boolean
 	 */
@@ -148,8 +147,8 @@ class Tribe__Events__Linked_Posts {
 		 *
 		 * @since 4.2
 		 *
-		 * @param array Array of arguments for the post type
-		 * @param string Post type slug
+		 * @param array  $args      Array of arguments for the post type
+		 * @param string $post_type Post type slug
 		 */
 		$args = apply_filters( 'tribe_events_linked_post_type_args', $args, $post_type );
 
@@ -163,7 +162,7 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @since 4.2
 	 *
-	 * @param string $post_type Post Type
+	 * @param string $post_type Post type slug.
 	 *
 	 * @return string
 	 */
@@ -216,7 +215,7 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @since 4.2
 	 *
-	 * @param string $linked_post_type Linked post type
+	 * @param string $linked_post_type Linked post type slug.
 	 *
 	 * @return string
 	 */
@@ -231,7 +230,7 @@ class Tribe__Events__Linked_Posts {
 	}
 
 	/**
-	 * Returns the post type's ID field name
+	 * Returns the post type's ID field name.
 	 *
 	 * @since 4.2
 	 *
@@ -308,7 +307,7 @@ class Tribe__Events__Linked_Posts {
 		];
 
 		if ( Tribe__Events__Main::POSTTYPE === $post_id_post_type ) {
-			// if the post type that we're looking at is an event, we'll need to find all linked post types
+			// if the post type that we're looking at is an event, we'll need to find all linked post types.
 			foreach ( $post_types as $post_type => $post_type_data ) {
 				$args['meta_query'][] = [
 					'key'     => $this->get_meta_key( $post_type ),
@@ -316,7 +315,7 @@ class Tribe__Events__Linked_Posts {
 				];
 			}
 		} else {
-			// if the post type is NOT an event post type, we just want to find the associated event posts
+			// if the post type is NOT an event post type, we just want to find the associated event posts.
 			$args['meta_query'][] = [
 				'key'     => $this->get_meta_key( Tribe__Events__Main::POSTTYPE ),
 				'compare' => 'EXISTS',
@@ -521,7 +520,7 @@ class Tribe__Events__Linked_Posts {
 		 */
 		$return_all_if_none = (bool) apply_filters( 'tribe_events_return_all_linked_posts_if_none', false, $linked_post_type, $args, $linked_post_ids );
 
-		// Explicitly force zero results if appropriate. Necessary because passing an empty array will actually display all posts, per https://core.trac.wordpress.org/ticket/28099
+		// Explicitly force zero results if appropriate. Necessary because passing an empty array will actually display all posts, per https://core.trac.wordpress.org/ticket/28099.
 		if (
 			empty( $linked_post_ids )
 			&& false === $return_all_if_none
@@ -639,7 +638,7 @@ class Tribe__Events__Linked_Posts {
 			Tribe__Events__Main::POSTTYPE !== $target_post_type
 			&& Tribe__Events__Main::POSTTYPE === $subject_post_type
 		) {
-			// swap the post IDs and post types around so we are assigning in the correct direction
+			// swap the post IDs and post types around so we are assigning in the correct direction.
 			$temp_post_id    = $target_post_id;
 			$target_post_id  = $subject_post_id;
 			$subject_post_id = $temp_post_id;
@@ -656,17 +655,17 @@ class Tribe__Events__Linked_Posts {
 		$subject_meta_key  = $this->get_meta_key( $subject_post_type );
 		$target_link_posts = get_post_meta( $target_post_id, $subject_meta_key );
 
-		// if the subject isn't in the target's linked posts, add it
+		// if the subject isn't in the target's linked posts, add it.
 		if ( ! in_array( $subject_post_id, $target_link_posts ) ) {
-			// if multiples are not allowed, make sure we remove all linked posts of that type before we
-			// link the new one
+			// if multiples are not allowed, make sure we remove all linked posts of that type before we.
+			// link the new one.
 			if ( ! $this->allow_multiple( $subject_post_type ) ) {
 				foreach ( $target_link_posts as $attached_post ) {
 					$this->unlink_post( $target_post_id, $attached_post );
 				}
 			}
 
-			// add the subject to the target
+			// add the subject to the target.
 			$linked_posts = add_metadata( 'post', $target_post_id, $subject_meta_key, $subject_post_id );
 		}
 
@@ -723,7 +722,7 @@ class Tribe__Events__Linked_Posts {
 			Tribe__Events__Main::POSTTYPE !== $target_post_type
 			&& Tribe__Events__Main::POSTTYPE === $subject_post_type
 		) {
-			// swap the post IDs and post types around so we are assigning in the correct direction
+			// swap the post IDs and post types around so we are assigning in the correct direction.
 			$temp_post_id    = $target_post_id;
 			$target_post_id  = $subject_post_id;
 			$subject_post_id = $temp_post_id;
@@ -785,7 +784,7 @@ class Tribe__Events__Linked_Posts {
 	public function handle_submission_by_post_type( $event_id, $linked_post_type, $submission ) {
 		// If the submission isn't an array, bail.
 		// This is here to avoid unexpected data.
-		// And also to avoid errantly removing linked posts just because they were not part of the submission, in which case this will be `false` from `$this->get_linked_post_type_data()`
+		// And also to avoid errantly removing linked posts just because they were not part of the submission, in which case this will be `false` from `$this->get_linked_post_type_data()`.
 		if ( ! is_array( $submission ) ) {
 			return;
 		}
@@ -795,7 +794,7 @@ class Tribe__Events__Linked_Posts {
 		$post_ids_to_link          = [];
 		$event_post_status         = get_post_status( $event_id );
 
-		// Prevents Revisons from been Linked
+		// Prevents Revisions from been Linked.
 		if ( 'inherit' === $event_post_status ) {
 			return;
 		}
@@ -803,12 +802,12 @@ class Tribe__Events__Linked_Posts {
 		$temp_submission = $submission;
 		$submission      = [];
 
-		// make sure all elements are arrays
+		// make sure all elements are arrays.
 		foreach ( $temp_submission as $key => $value ) {
 			$submission[ $key ] = is_array( $value ) ? $value : [ $value ];
 		}
 
-		// setup key(s) if all new post(s)
+		// setup key(s) if all new post(s).
 		if ( ! isset( $submission[ $linked_post_type_id_field ] ) ) {
 			$first_item                               = current( $submission );
 			$multiple_posts                           = is_array( $first_item ) ? count( $first_item ) - 1 : 0;
@@ -849,12 +848,12 @@ class Tribe__Events__Linked_Posts {
 					// If allow_multiple is true then each submission field may be an array.
 					$data[ $field_name ] = isset( $submission[ $field_name ][ $key ] ) ? $submission[ $field_name ][ $key ] : null;
 				} else {
-					// In other cases, such as if multiple is false each submission field will contain a single value
+					// In other cases, such as if multiple is false each submission field will contain a single value.
 					$data[ $field_name ] = isset( $submission[ $field_name ] ) ? $submission[ $field_name ] : null;
 				}
 			}
 
-			// set the post status to the event post status
+			// set the post status to the event post status.
 			$post_status = $event_post_status;
 
 			/**
@@ -956,7 +955,7 @@ class Tribe__Events__Linked_Posts {
 				unset( $temp_old_order[ $key ] );
 			}
 
-			// Remove all pre-existing (and non-removed) linked posts to start fresh by re-adding below (for `meta_id` ordering purposes)
+			// Remove all pre-existing (and non-removed) linked posts to start fresh by re-adding below (for `meta_id` ordering purposes).
 			if ( ! empty( $temp_old_order ) ) {
 				delete_post_meta( $event_id, $linked_post_type_meta_key );
 			}
@@ -980,11 +979,11 @@ class Tribe__Events__Linked_Posts {
 	 *
 	 * @since 6.2.0
 	 *
-	 * @param int    $event_id Event ID.
+	 * @param int    $event_id         Event ID.
 	 * @param string $linked_post_type The post type of the linked post.
-	 * @param array  $original_order The original IDs/order stored in meta.
+	 * @param array  $original_order   The original IDs/order stored in meta.
 	 *
-	 * @return array
+	 * @return array The new order of blocks if modified.
 	 */
 	public function maybe_get_new_order_from_blocks( int $event_id, string $linked_post_type, array $original_order = [] ) {
 		// If the post has blocks, we need to update sorting of the post ids to link so it matches block order.
@@ -1003,7 +1002,7 @@ class Tribe__Events__Linked_Posts {
 		}
 
 		foreach ( $blocks as $block ) {
-			if ( $block['blockName'] === $block_name ) {
+			if ( $block['blockName'] === $block_name && isset( $block['attrs'][ $block_id_key ] ) ) {
 				$new_order[] = $block['attrs'][ $block_id_key ];
 			}
 		}
@@ -1077,7 +1076,7 @@ class Tribe__Events__Linked_Posts {
 			],
 		];
 
-		// backwards compatibility with old organizer filter
+		// backwards compatibility with old organizer filter.
 		if ( Tribe__Events__Organizer::POSTTYPE === $post_type ) {
 			/**
 			 * Filters the linked organizer dropdown optgroup label that holds organizers that have
@@ -1213,20 +1212,18 @@ class Tribe__Events__Linked_Posts {
 			}
 		}
 
-		// Clean Both Options
+		// Clean Both Options.
 		$options->owned['children']     = array_filter( $options->owned['children'] );
 		$options->available['children'] = array_filter( $options->available['children'] );
 
-		// When Owned is empty, we only use Available
 		if ( empty( $options->owned['children'] ) ) {
+			// When Owned is empty, we only use Available.
 			$data = $options->available['children'];
-
-		// When Available is empty, we only use Owned
 		} elseif ( empty( $options->available['children'] ) ) {
+			// When Available is empty, we only use Owned.
 			$data = $options->owned['children'];
-
-		// If we have both we make it an array
 		} else {
+			// If we have both we make it an array.
 			$data = array_values( (array) $options );
 		}
 
@@ -1341,12 +1338,12 @@ class Tribe__Events__Linked_Posts {
 			$indefinite_article = _x( 'an', 'Indefinite article for the phrase "Find a {post type name}" when the {post type name} starts with a vowel, e.g. "Find an Organizer".', 'the-events-calendar' );
 		}
 
-		// Here we render the main label string. The "core" linked post types (venue and organizer) are explicitly named to make
-		// translation a bit easier for the many languages where the words *around* the post type name may need to be different
+		// Here we render the main label string. The "core" linked post types (venue and organizer) are explicitly named to make.
+		// translation a bit easier for the many languages where the words *around* the post type name may need to be different.
 		// based on the specific post type name. For non-"core" post types, we just dynamically populate the post type name.
 		switch ( $post_type ) {
 
-			// Organizers
+			// Organizers.
 			case Tribe__Events__Organizer::POSTTYPE :
 
 				if ( tribe_is_organizer_label_customized() ) {
@@ -1374,7 +1371,7 @@ class Tribe__Events__Linked_Posts {
 
 				break;
 
-			// Venues
+			// Venues.
 			case Tribe__Events__Venue::POSTTYPE :
 
 				if ( tribe_is_venue_label_customized() ) {
@@ -1402,7 +1399,7 @@ class Tribe__Events__Linked_Posts {
 
 				break;
 
-			// Any other potential Linked Post types
+			// Any other potential Linked Post types.
 			default :
 				$label = esc_attr(
 					sprintf(
@@ -1433,7 +1430,7 @@ class Tribe__Events__Linked_Posts {
 	 * @param $submission
 	 * @param $linked_post_type
 	 *
-	 * @return bool|array False if linked post type is not part of thissubmission but linked posts exist prior to this
+	 * @return bool|array False if linked post type is not part of this submission but linked posts exist prior to this
 	 *                    submission. Else an array of the data specific to this linked post type, which may be empty.
 	 */
 	private function get_linked_post_type_data( $submission, $linked_post_type ) {
@@ -1458,12 +1455,12 @@ class Tribe__Events__Linked_Posts {
 		if ( false === $post_type_container ) {
 			$data = [];
 		} else {
-			// may be an empty array
+			// may be an empty array.
 			$data = $submission[ $post_type_container ];
 		}
 
-		// If the reason for the empty array is because this linked post type is not part of the submission
-		// Which is possible even if `$post_type_container` is not `false`
+		// If the reason for the empty array is because this linked post type is not part of the submission.
+		// Which is possible even if `$post_type_container` is not `false`.
 		if ( empty( $data ) ) {
 			if ( ! empty( $submission['ID'] ) ) {
 				$existing_posts = $this->get_linked_posts_by_post_type( $submission['ID'], $linked_post_type );

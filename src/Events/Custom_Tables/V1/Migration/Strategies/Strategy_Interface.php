@@ -1,6 +1,6 @@
 <?php
 /**
- * The API implemented by any implemetation of a Custom Tables v1 Event migration strategy.
+ * The API implemented by any implementation of a Custom Tables v1 Event migration strategy.
  *
  * @since   6.0.0
  *

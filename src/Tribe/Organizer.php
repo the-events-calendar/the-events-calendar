@@ -393,7 +393,7 @@ class Tribe__Events__Organizer extends Tribe__Events__Linked_Posts__Base {
 		 *
 		 * If a non `null` value is returned that will be returned and the organizer creation process will bail.
 		 *
-		 * @param mixed $check Whether the organizer insertion process should procede or not.
+		 * @param mixed $check Whether the organizer insertion process should proceed or not.
 		 * @param array $data The data provided to create the organizer.
 		 * @param string $post_status The post status that should be applied to the created organizer.
 		 *

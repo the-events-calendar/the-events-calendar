@@ -28,7 +28,7 @@ import './style.pcss';
  * - validate
  *
  * Both properties are helpful to provide validation based on the type of the element also has
- * the option to add a cusotm validation callback with the property validateCallback.
+ * the option to add a custom validation callback with the property validateCallback.
  *
  * <Input />
  *
@@ -47,16 +47,26 @@ class Input extends Component {
 	static propTypes = {
 		validate: PropTypes.bool,
 		required: PropTypes.bool,
+		onChange: PropTypes.any,
+		onComplete: PropTypes.any,
+		validateCallback: PropTypes.any,
+		type: PropTypes.string,
+		className: PropTypes.string,
 	}
 
 	/**
 	 * Set the default values for the required properties if not provided
 	 *
-	 * @type {{required: boolean, validate: boolean}}
+	 * @type {Object} The default properties for the component
 	 */
 	static defaultProps = {
 		required: false,
 		validate: false,
+		onChange: noop,
+		onComplete: noop,
+		validateCallback: null,
+		type: '',
+		className: '',
 	}
 
 	constructor() {

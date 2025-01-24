@@ -3,19 +3,17 @@
 namespace Tribe\Events\Views\V2\Partials\Day_View;
 
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
-use tad\FunctionMocker\FunctionMocker as Test;
+use Tribe\Tests\Traits\With_Uopz;
 
-class Top_BarTest extends HtmlPartialTestCase
-{
+class Top_BarTest extends HtmlPartialTestCase {
+	use With_Uopz;
 
 	protected $partial_path = 'day/top-bar';
 
 	public function setUp() {
 		parent::setUp();
-		// Start Function Mocker.
-		Test::setUp();
 		// Always return the same value when creating nonces.
-		Test::replace( 'wp_create_nonce', '2ab7cc6b39' );
+		$this->set_fn_return( 'wp_create_nonce', '2ab7cc6b39' );
 	}
 
 	/**
@@ -42,7 +40,7 @@ class Top_BarTest extends HtmlPartialTestCase
 	}
 
 	public function tearDown(){
-		Test::tearDown();
+		$this->unset_uopz_returns();
 		parent::tearDown();
 	}
 }

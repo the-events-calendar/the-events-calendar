@@ -279,7 +279,7 @@
 }
 
 .ui-front {
-	z-index: 1000000;
+	z-index: 3000000;
 }
 
 .events-cal .ui-widget-overlay.ui-front {
@@ -901,9 +901,9 @@ h3.tec-update-notice__title {
 	margin: 16px 0 4px 0;
 
 	img {
+		font-size: 0.8em;
 		height: 1em;
 		width: 1em;
-		font-size: 0.8em;
 	}
 }
 
@@ -912,10 +912,10 @@ h3.tec-update-notice__title {
 }
 
 .button.tec-update-notice__button {
-	background: #3352F5;
+	background: #3352f5;
 	border-color: transparent;
 	border-radius: 4px;
-	color: #ffffff;
+	color: #fff;
 	font-weight: bold;
 	margin-right: 12px;
 	padding: 4px 12px;
@@ -925,6 +925,14 @@ h3.tec-update-notice__title {
 	&:active,
 	&:focus {
 		background: #1f3ac9;
-		color: #ffffff;
+		color: #fff;
+	}
+}
+
+#tec-events-onboarding-wizard-tickets {
+	display: none;
+
+	@media (min-width: 783px) {
+		display: block;
 	}
 }

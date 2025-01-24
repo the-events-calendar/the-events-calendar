@@ -21,7 +21,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                 object to localize the event in a specific time-frame.
 	 * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
 	 *
-	 * @return array|mixed|void|WP_Post|null {
+	 * @return array|WP_Post|null {
 	 *                              The Event post object or array, `null` if not found.
 	 *
 	 *                              @type string $start_date The event start date, in `Y-m-d H:i:s` format.
@@ -186,11 +186,9 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 				return (array) $post;
 			case ARRAY_N:
 				return array_values( (array) $post );
-			case OBJECT:
-			default;
-				return $post;
 		}
 
+		// In case of output not ARRAY_A or ARRAY_N, we return the post object.
 		return $post;
 	}
 }

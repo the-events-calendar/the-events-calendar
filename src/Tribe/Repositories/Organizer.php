@@ -74,13 +74,11 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 	}
 
 	/**
-	 * Filters a organizer query by ones that have associated events.
+	 * Filters the organizer query by ones that have associated events.
 	 *
 	 * @since 5.5.0
-	 *
-	 * @return array An array of query arguments that will be added to the main query.
 	 */
-	public function filter_by_has_events() {
+	public function filter_by_has_events(): void {
 		global $wpdb;
 
 		$this->filter_query->join(
@@ -96,13 +94,11 @@ class Tribe__Events__Repositories__Organizer extends Tribe__Events__Repositories
 	}
 
 	/**
-	 * Filters a organizer query by ones that DO NOT have associated events.
+	 * Filters the organizer query by ones that DO NOT have associated events.
 	 *
 	 * @since 5.5.0
-	 *
-	 * @return array An array of query arguments that will be added to the main query.
 	 */
-	public function filter_by_has_no_events() {
+	public function filter_by_has_no_events(): void {
 		global $wpdb;
 
 		$this->filter_query->where(

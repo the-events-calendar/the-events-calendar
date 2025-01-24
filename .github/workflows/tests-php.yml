@@ -1,14 +1,6 @@
 name: 'Codeception Tests'
 on:
   pull_request:
-    paths:
-      - 'tests/**.php'
-      - 'src/**.php'
-      - '*.php'
-      - 'composer.json'
-      - 'composer.lock'
-      - 'codeception.dist.yml'
-      - '.github/workflows/tests-php.yaml'
 jobs:
   test:
     strategy:
@@ -39,7 +31,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000
           submodules: recursive
@@ -58,17 +50,20 @@ jobs:
         run: |
           num_php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -P "\.php" | wc -l)
           if [[ -z "$num_php_files" ]]; then
-            echo "::set-output name=value::1"
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
           elif [[ "$num_php_files" == "0" || "$num_php_files" == "" ]]; then
-            echo "::set-output name=value::1"
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
           else
-            echo "::set-output name=value::0"
+            echo "value=0" >> $GITHUB_OUTPUT
+            echo "## Found PHP file changes, running PHP tests." >> $GITHUB_STEP_SUMMARY
           fi
       # ------------------------------------------------------------------------------
       # Checkout slic
       # ------------------------------------------------------------------------------
       - name: Checkout slic
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         if: steps.skip.outputs.value != 1
         with:
           repository: stellarwp/slic
@@ -137,9 +132,16 @@ jobs:
         run: |
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
+      # ------------------------------------------------------------------------------
+      # Update WordPress version to our min required.
+      # ------------------------------------------------------------------------------
       - name: Init the WordPress container
         if: steps.skip.outputs.value != 1
-        run: ${SLIC_BIN} up wordpress
+        run: |
+          ${SLIC_BIN} up wordpress
+          ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp core update --force --version=6.5
+          ${SLIC_BIN} wp core version
       - name: Ensure Twenty-Twenty is installed
         if: steps.skip.outputs.value != 1
         run: |
@@ -168,7 +170,7 @@ jobs:
       - name: Install the plugins on this particular Test Suite
         if: steps.skip.outputs.value != 1 && steps.test_suite_plugins_required.outputs.content
         run: |
-          ${SLIC_BIN} wp core update --version=6.1
+          ${SLIC_BIN} wp core update --version=6.2
           ${SLIC_BIN} wp plugin install ${{ steps.test_suite_plugins_required.outputs.content }}
 
       # ------------------------------------------------------------------------------

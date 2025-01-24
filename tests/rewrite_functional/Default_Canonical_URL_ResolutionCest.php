@@ -490,7 +490,7 @@ class Default_Canonical_URL_Resolution_Cest {
 			$I->seeElement( $selector, [ 'href' => $expected_url ] );
 		}
 
-		// The resolution en_US should not change because the user has an it_IT locale, but should ue the custom slugs.
+		// The resolution en_US should not change because the user has an it_IT locale, but should use the custom slugs.
 		$eng_expected_canonical_url_mapping = str_replace(
 			[ 'events/', 'event/' ],
 			[ 'classes/', 'class/' ],

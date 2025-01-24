@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import classNames from 'classnames';
+import { PropTypes } from 'prop-types';
 
 /**
  * WordPress dependencies
@@ -17,9 +18,16 @@ import { Component } from '@wordpress/element';
  * Module Code
  */
 class MetaGroup extends Component {
+	static propTypes = {
+		className: PropTypes.string,
+		children: PropTypes.node,
+		groupKey: PropTypes.string,
+	};
+
 	static defaultProps = {
 		className: '',
 		children: null,
+		groupKey: '',
 	};
 
 	render() {

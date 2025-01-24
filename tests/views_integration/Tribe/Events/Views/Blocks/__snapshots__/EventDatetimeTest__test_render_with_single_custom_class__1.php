@@ -4,7 +4,7 @@
 					</span>
 
 					<span class="tribe-events-schedule__separator tribe-events-schedule__separator--date">
-				 - 			</span>
+				 @ 			</span>
 			<span class="tribe-events-schedule__time tribe-events-schedule__time--start">
 							</span>
 		
