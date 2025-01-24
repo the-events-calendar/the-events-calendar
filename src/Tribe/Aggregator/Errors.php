@@ -51,7 +51,7 @@ class Tribe__Events__Aggregator__Errors {
 	/**
 	 * Register our errors and their translated strings.
 	 *
-	 * @since TBD
+	 * @since 6.9.1
 	 */
 	public function register_errors(): void {
 		// Create the Errors

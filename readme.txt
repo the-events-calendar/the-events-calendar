@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.9.0
+Stable tag: 6.9.1
 Requires at least: 6.5
 Tested up to: 6.7.1
 Requires PHP: 7.4
@@ -231,6 +231,24 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.9.1] 2025-01-22 =
+
+* Security - Ensure Elementor HTML tags are properly escaped to avoid potential Stored Cross Site Scripting. [SVUL-13]
+* Tweak - Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
+* Tweak - Updated Telemetry heading under Settings > Debugging. [TEC-5335]
+* Tweak - Re-added filter: `tec_views_v2_subscribe_links_{$slug}_label`
+* Tweak - Tweak - Removed duplicate filter: `tec_views_v2_single_subscribe_links_{$slug}_label`
+* Tweak - Changed views: `integrations/elementor/widgets/event-calendar-link`, `integrations/elementor/widgets/event-datetime/range-separator`, `v2/components/loader`, `v2/components/messages`
+* Fix - Added check to `disable_blocks_on_display` for if `$content` is `null`. [TEC-5343]
+* Fix - Ensure Aggregator translations are not loaded before init. [TEC-5341]
+* Fix - Fixes edge cases where the nonce_user_logged_out hook was returning a value when the user was logged out, causing the nonce validation to fail. [TEC-5340]
+* Fix - Fix the filter name `tec_views_v2_subscribe_links_{$slug}_label` which was accidentally changed in a previous release. [TEC-5342]
+* Fix - Re-add logic to add page template options from theme to Display Settings. [TEC-5337]
+* Fix - Update Tribe__Events__Aggregator__Errors to ensure we don't load translations before `init`. [TEC-5341]
+* Fix - Update uses of unload_textdomain to ensure they allow JIT loading of translations afterwards. [TEC-5341]
+* Accessibility - Updated the event search page to handle search results better for screen readers, with alerts noting the results of the search.[TEC-5175]
+* Language - 3 new strings added, 84 updated, 0 fuzzied, and 2 obsoleted.
 
 = [6.9.0] 2024-12-17 =
 
