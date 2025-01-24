@@ -23,22 +23,207 @@ use Tribe__Context;
  * @package TEC\Events\SEO
  */
 class Controller extends Controller_Contract {
+
 	/**
-	 * @inerhitDoc
+	 * Stores the noindex decision for the current request
+	 *
+	 * @since TBD
+	 *
+	 * @var array|null
+	 */
+	protected $robots_directives = null;
+
+	/**
+	 * Current view instance
+	 *
+	 * @since TBD
+	 *
+	 * @var View_Interface|null
+	 */
+	protected $current_view = null;
+
+	/**
+	 * @inheritDoc
 	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
 
-		// We hook an extra layer
-		add_action( 'wp', [ $this, 'hook_issue_noindex' ] );
+		// Hook into WordPress's robots system.
+		add_filter( 'wp_robots', [ $this, 'filter_robots' ] );
+
+		// We still need to hook into wp to check initial conditions.
+		add_action( 'wp', [ $this, 'setup_robots_directives' ] );
+
+		// Hook into view setup to capture the current view.
+		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'capture_view' ] );
 	}
 
 	/**
-	 * @inerhitDoc
+	 * @inheritDoc
 	 */
 	public function unregister(): void {
-		remove_action( 'wp', [ $this, 'hook_issue_noindex' ] );
-		remove_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+		remove_filter( 'wp_robots', [ $this, 'filter_robots' ] );
+		remove_action( 'wp', [ $this, 'setup_robots_directives' ] );
+		remove_action( 'tribe_views_v2_after_setup_loop', [ $this, 'capture_view' ] );
+	}
+
+	/**
+	 * Captures the current view instance for later use
+	 *
+	 * @since 6.2.7
+	 *
+	 * @param View_Interface $view The current view instance
+	 *
+	 * @return void
+	 */
+	public function capture_view( View_Interface $view ): void {
+		$this->current_view = $view;
+		$this->setup_robots_directives();
+	}
+
+	/**
+	 * Sets up the robots directives based on current context
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function setup_robots_directives(): void {
+		// Bail if we've already made the decision
+		if ( null !== $this->robots_directives ) {
+			return;
+		}
+
+		// Initialize with empty directives
+		$this->robots_directives = [];
+
+		// Bail on home or front page
+		if ( is_home() || is_front_page() ) {
+			return;
+		}
+
+		// Handle single post views
+		if ( is_single() ) {
+			$post_type                 = get_post_type();
+			$linked_post_types         = (array) \Tribe__Events__Linked_Posts::instance()->get_linked_post_types();
+			$robots_enabled_post_types = array_keys( $linked_post_types );
+
+			/**
+			 * Filters post types that should allow robots meta modifications
+			 *
+			 * @since TBD
+			 *
+			 * @param array  $robots_enabled_post_types The post types that should allow robots meta modifications
+			 * @param string $post_type                 The current post type
+			 */
+			$robots_enabled_post_types = (array) apply_filters( 'tec_events_seo_robots_meta_allowable_post_types', $robots_enabled_post_types, $post_type );
+
+			if ( ! in_array( $post_type, $robots_enabled_post_types ) ) {
+				return;
+			}
+		}
+
+		// If we don't have a view yet, wait for it
+		if ( null === $this->current_view ) {
+			return;
+		}
+
+		$context = $this->current_view->get_context();
+		$view    = $context->get( 'view' );
+
+		// If we don't have a view slug or this is a shortcode, bail
+		if ( empty( $view ) || $context->get( 'shortcode' ) ) {
+			return;
+		}
+
+		// Default to not including noindex
+		$do_include = false;
+
+		// For grid views (By_Day_View), always include noindex and nofollow
+		if ( $this->current_view instanceof Views\By_Day_View ) {
+			$do_include              = true;
+			$this->robots_directives = [
+				'noindex'  => true,
+				'nofollow' => true,
+			];
+		} else {
+			// For list views, check if we have events
+			$do_include = $this->should_add_no_index_for_list_based_views( $this->current_view );
+			if ( $do_include ) {
+				$this->robots_directives = [
+					'noindex' => true,
+					'follow'  => true,
+				];
+			}
+		}
+
+		/**
+		 * Filters whether to include robots meta modifications
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $do_include        Whether to modify robots meta
+		 * @param string $view              The current view slug
+		 * @param array  $robots_directives The current robots directives
+		 */
+		$do_include = (bool) apply_filters( 'tec_events_seo_robots_meta_include', $do_include, $view, $this->robots_directives );
+
+		/**
+		 * Filters whether to include robots meta modifications for a specific view
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $do_include        Whether to modify robots meta
+		 * @param string $view              The current view slug
+		 * @param array  $robots_directives The current robots directives
+		 */
+		$do_include = (bool) apply_filters( "tec_events_seo_robots_meta_include_{$view}", $do_include, $view, $this->robots_directives );
+
+		// If we're not including robots meta, reset directives
+		if ( ! $do_include ) {
+			$this->robots_directives = [];
+		}
+	}
+
+	/**
+	 * Filters WordPress's robots array to add our directives
+	 *
+	 * @since TBD
+	 *
+	 * @param array $robots Existing robots directives
+	 *
+	 * @return array Modified robots directives
+	 */
+	public function filter_robots( array $robots ): array {
+		// If we haven't made a decision yet, do it now
+		if ( null === $this->robots_directives ) {
+			$this->setup_robots_directives();
+		}
+
+		// Merge our directives with existing ones, letting ours take precedence
+		return array_merge( $robots, $this->robots_directives );
+	}
+
+	/**
+	 * Determine if a nonindex should be added for list based views that don't have events.
+	 *
+	 * @since 6.2.6
+	 *
+	 * @param View_Interface $instance The view instance.
+	 *
+	 * @return bool
+	 */
+	protected function should_add_no_index_for_list_based_views( $instance ): bool {
+		$context = $instance->get_context();
+
+		if ( ! $context->is( 'tec_post_type' ) ) {
+			return false;
+		}
+
+		$events = $instance->get_repository();
+
+		// No posts = no index
+		return $events->count() <= 0;
 	}
 
 	/**
@@ -194,29 +379,6 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Determine if a nonindex should be added for list based views that don't have events.
-	 *
-	 * @since 6.2.6
-	 *
-	 * @param View_Interface $instance The view instance.
-	 *
-	 * @return bool
-	 */
-	protected function should_add_no_index_for_list_based_views( $instance ): bool {
-		$context = $instance->get_context();
-
-		if ( ! $context->is( 'tec_post_type' ) ) {
-			return false;
-		}
-
-		$events = $instance->get_repository();
-
-		// No posts = no index.
-		$count = $events->count();
-		return $count <= 0;
-	}
-
-	/**
 	 * Get the noindex, follow string.
 	 *
 	 * @since 6.2.6
@@ -304,21 +466,20 @@ class Controller extends Controller_Contract {
 			case 'day':
 				$end_date = clone $start_date;
 				$end_date->modify( '+1 day' );
+
 				return $end_date;
-				break;
 			case 'week':
 				$end_date = clone $start_date;
 				$end_date->modify( '+6 days' );
+
 				return $end_date;
-				break;
 			case 'month':
 				$end_date = clone $start_date;
 				$end_date->modify( '+1 month' );
+
 				return $end_date;
-				break;
 			default:
 				return Dates::build_date_object( $end_date );
-				break;
 		}
 	}
 }
