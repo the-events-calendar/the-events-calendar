@@ -65,7 +65,7 @@ class Single_Events {
 	 * @since TBD Added a check for `$subscribe_links` to avoid fataling.
 	 *
 	 * @param string $calendar_links The link content.
-	 * @param array $subscribe_links An array of subscription links.
+	 * @param array  $subscribe_links An array of subscription links.
 	 *
 	 * @return string The altered link content.
 	 */
