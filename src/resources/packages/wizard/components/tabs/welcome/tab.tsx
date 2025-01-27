@@ -26,10 +26,10 @@ const WelcomeContent = ({moveToNextTab, skipToNextTab}) => {
 
 	return (
 		<>
+			<div className="tec-events-onboarding__tab-hero">
+				<img src={Illustration} className="tec-events-onboarding__welcome-header" alt="Welcome" role="presentation" />
+			</div>
 			<div className="tec-events-onboarding__tab-header">
-				<div className="tec-events-onboarding__tab-hero">
-					<img src={Illustration} className="tec-events-onboarding__welcome-header" alt="Welcome" role="presentation" />
-				</div>
 				<h1 className="tec-events-onboarding__tab-heading">{__("Welcome to The Events Calendar", "the-events-calendar")}</h1>
 				<p className="tec-events-onboarding__tab-subheader">{__("Congratulations on installing the best event management solution for WordPress. Let’s tailor your experience to your needs.", "the-events-calendar")}</p>
 			</div>
