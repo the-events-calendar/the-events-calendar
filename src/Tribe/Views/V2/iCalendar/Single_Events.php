@@ -84,8 +84,8 @@ class Single_Events {
 		 */
 		apply_filters_deprecated( 'tec_views_v2_single_subscribe_links', [ [], null ], '5.16.0', '', 'Single event subscribe links use the subscribe dropdown, there is no replacement for this filter.' );
 
-		// If the subscribe links array is false, bail.
-		if ( false === $subscribe_links ) {
+		// If the subscribe links are not in an array, bail.
+		if ( ! is_array( $subscribe_links ) ) {
 			return '';
 		}
 
