@@ -168,8 +168,6 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		fieldSetter(true);
 	}
 
-
-
 	// Create tabSettings object to pass to NextButton.
 	const tabSettings = {
 		organizer: {
@@ -189,119 +187,123 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	return (
 		<>
 			<OrganizerIcon />
-			<h1 className="tec-events-onboarding__tab-heading">{__('Add your first event organizer', 'the-events-calendar')}</h1>
-			<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
-			<div className="tec-events-onboarding__form-wrapper">
-				<BaseControl
-					__nextHasNoMarginBottom
-					id="organizer-name"
-					className="tec-events-onboarding__form-field"
-					label={__('Organizer name', 'the-events-calendar')}
-				>
-					<input
-						type="text"
-						id="organizer-name"
-						onChange={(e) => setName(e.target.value)}
-						defaultValue={name}
-						disabled={disabled}
-						placeholder={__('Enter organizer name', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Organizer name is required.', 'the-events-calendar')}</span>
-				</BaseControl>
-				{!organizerId && showPhone ? '' :
-				<Button
-					__next40pxDefaultSize
-					onClick={(event) => showField(event, setShowPhone)}
-					variant="tertiary"
-					className="tec-events-onboarding__form-field-trigger"
-				>
-					{_x('Add a phone number +', 'Direction to add a phone number followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
-				</Button>}
-
-				<BaseControl
-					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field"
-					id="organizer-phone"
-					label={__('Phone', 'the-events-calendar')}
-				>
-					<input
-						id="organizer-phone"
-						onChange={(e) => setPhone(e.target.value)}
-						type="tel"
-						defaultValue={phone}
-						disabled={!showPhone || disabled}
-						placeholder={__('Enter phone number', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Organizer phone is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Organizer phone is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-				{!organizerId && showWebsite ? '' :
-				<Button
-					__next40pxDefaultSize
-					onClick={(event) => showField(event, setShowWebsite)}
-					variant="tertiary"
-					className="tec-events-onboarding__form-field-trigger"
-				>
-					{_x('Add a website +', 'Direction to add a website followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
-				</Button>}
-				<BaseControl
-					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field"
-					id="organizer-website"
-					label={__('Website', 'the-events-calendar')}
-				>
-					<input
-						id="organizer-website"
-						onChange={(e) => setWebsite(e.target.value)}
-						type="url"
-						defaultValue={website}
-						disabled={!showWebsite || disabled}
-						placeholder={__('Enter website', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Organizer website is required.', 'the-events-calendar')}</span>
-
-					{website && !website.toLowerCase().startsWith("http") ? (
-						<span className="tec-events-onboarding__invalid-label">
-							{__('Organizer website must start with a protocol, i.e. "https://"', 'the-events-calendar')}
-						</span>
-					) : (
-						<span className="tec-events-onboarding__invalid-label">
-							{__('Organizer website is invalid.', 'the-events-calendar')}
-						</span>
-					)}
-
-
-				</BaseControl>
-				{!organizerId && showEmail ? '' :
-				<Button
-					__next40pxDefaultSize
-					onClick={(event) => showField(event, setShowEmail)}
-					variant="tertiary"
-					className="tec-events-onboarding__form-field-trigger"
-				>
-					{_x('Add an email +', 'Direction to add an email followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
-				</Button>}
-				<BaseControl
-					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field"
-					id="organizer-email"
-					label={__("Email", 'the-events-calendar')}
-				>
-					<input
-						id="organizer-email"
-						onChange={(e) => setEmail(e.target.value)}
-						type="email"
-						defaultValue={email}
-						disabled={!showEmail || disabled}
-						placeholder={__('Enter email', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Organizer email is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Organizer email is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
+			<div className="tec-events-onboarding__tab-header">
+				<h1 className="tec-events-onboarding__tab-heading">{__('Add your first event organizer', 'the-events-calendar')}</h1>
+				<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			</div>
+			<div className="tec-events-onboarding__tab-content">
+				<div className="tec-events-onboarding__form-wrapper">
+					<BaseControl
+						__nextHasNoMarginBottom
+						id="organizer-name"
+						className="tec-events-onboarding__form-field"
+						label={__('Organizer name', 'the-events-calendar')}
+					>
+						<input
+							type="text"
+							id="organizer-name"
+							onChange={(e) => setName(e.target.value)}
+							defaultValue={name}
+							disabled={disabled}
+							placeholder={__('Enter organizer name', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Organizer name is required.', 'the-events-calendar')}</span>
+					</BaseControl>
+					{!organizerId && showPhone ? '' :
+					<Button
+						__next40pxDefaultSize
+						onClick={(event) => showField(event, setShowPhone)}
+						variant="tertiary"
+						className="tec-events-onboarding__form-field-trigger"
+					>
+						{_x('Add a phone number +', 'Direction to add a phone number followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
+					</Button>}
 
-			 <NextButton disabled={!canContinue} moveToNextTab={moveToNextTab}  tabSettings={tabSettings}/>
-			 <SkipButton skipToNextTab={skipToNextTab} currentTab={3} />
+					<BaseControl
+						__nextHasNoMarginBottom
+						className="tec-events-onboarding__form-field"
+						id="organizer-phone"
+						label={__('Phone', 'the-events-calendar')}
+					>
+						<input
+							id="organizer-phone"
+							onChange={(e) => setPhone(e.target.value)}
+							type="tel"
+							defaultValue={phone}
+							disabled={!showPhone || disabled}
+							placeholder={__('Enter phone number', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Organizer phone is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Organizer phone is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+					{!organizerId && showWebsite ? '' :
+					<Button
+						__next40pxDefaultSize
+						onClick={(event) => showField(event, setShowWebsite)}
+						variant="tertiary"
+						className="tec-events-onboarding__form-field-trigger"
+					>
+						{_x('Add a website +', 'Direction to add a website followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
+					</Button>}
+					<BaseControl
+						__nextHasNoMarginBottom
+						className="tec-events-onboarding__form-field"
+						id="organizer-website"
+						label={__('Website', 'the-events-calendar')}
+					>
+						<input
+							id="organizer-website"
+							onChange={(e) => setWebsite(e.target.value)}
+							type="url"
+							defaultValue={website}
+							disabled={!showWebsite || disabled}
+							placeholder={__('Enter website', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Organizer website is required.', 'the-events-calendar')}</span>
+
+						{website && !website.toLowerCase().startsWith("http") ? (
+							<span className="tec-events-onboarding__invalid-label">
+								{__('Organizer website must start with a protocol, i.e. "https://"', 'the-events-calendar')}
+							</span>
+						) : (
+							<span className="tec-events-onboarding__invalid-label">
+								{__('Organizer website is invalid.', 'the-events-calendar')}
+							</span>
+						)}
+
+
+					</BaseControl>
+					{!organizerId && showEmail ? '' :
+					<Button
+						__next40pxDefaultSize
+						onClick={(event) => showField(event, setShowEmail)}
+						variant="tertiary"
+						className="tec-events-onboarding__form-field-trigger"
+					>
+						{_x('Add an email +', 'Direction to add an email followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
+					</Button>}
+					<BaseControl
+						__nextHasNoMarginBottom
+						className="tec-events-onboarding__form-field"
+						id="organizer-email"
+						label={__("Email", 'the-events-calendar')}
+					>
+						<input
+							id="organizer-email"
+							onChange={(e) => setEmail(e.target.value)}
+							type="email"
+							defaultValue={email}
+							disabled={!showEmail || disabled}
+							placeholder={__('Enter email', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Organizer email is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Organizer email is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+				</div>
+
+				<NextButton disabled={!canContinue} moveToNextTab={moveToNextTab}  tabSettings={tabSettings}/>
+				<SkipButton skipToNextTab={skipToNextTab} currentTab={3} />
+			</div>
 		</>
 	);
 };

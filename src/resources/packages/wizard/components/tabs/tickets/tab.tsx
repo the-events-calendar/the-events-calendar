@@ -24,9 +24,11 @@ const TicketsContent = ({moveToNextTab, skipToNextTab}) => {
 	return (
 		<>
 			<TicketsIcon />
-			<div className="tec-events-onboarding__content-grid">
+			<div className="tec-events-onboarding__tab-header">
 				<h1 className="tec-events-onboarding__tab-heading">{__("Event Tickets", "the-events-calendar")}</h1>
 				<p className="tec-events-onboarding__tab-subheader">{__("Will you be selling tickets or providing attendees the ability to RSVP to your events?", "the-events-calendar")}</p>
+			</div>
+			<div className="tec-events-onboarding__tab-content">
 				{!eventTicketsActive &&(
 					<div
 						alignment="top"

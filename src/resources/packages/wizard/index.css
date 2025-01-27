@@ -92,12 +92,12 @@
 
 .tec-events-onboarding__modal .components-modal__content {
 	margin: 0;
-	padding: 0 var(--tec-spacer-5);
+	padding: var(--tec-spacer-7);
 }
 
-@media (min-width: 350px) {
+@media (min-width: 500px) {
 	.tec-events-onboarding__modal .components-modal__content {
-		padding: 0 var(--tec-spacer-3);
+		padding: 0 var(--tec-spacer-3) var(--tec-spacer-7);
 	}
 }
 
@@ -144,7 +144,7 @@
 	margin: 0 auto;
 	min-width: var(--tec-spacer-content-min-width);
 	padding-bottom: 0;
-	padding-top: var(--tec-spacer-5);
+	padding-top: 0;
 }
 
 @media (min-width: 1024px) {
@@ -360,8 +360,14 @@
 	display: flex;
 	flex-flow: column nowrap;
 	padding-bottom: var(--tec-spacer-5);
-	row-gap: var(--tec-spacer-5);
+	row-gap: var(--tec-spacer-1);
 	text-align: center;
+}
+
+@media (min-width: 500px) {
+	.tec-events-onboarding__tab-header {
+		padding-bottom: var(--tec-spacer-3);
+	}
 }
 
 .tec-events-onboarding__tab-header * {
@@ -626,6 +632,7 @@
 	margin: 0 auto;
 	min-width: var(--tec-spacer-content-min-width);
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
+	text-align: left;
 	width: 100%;
 }
 
