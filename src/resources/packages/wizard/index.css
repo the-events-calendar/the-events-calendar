@@ -202,13 +202,6 @@
 	display: none;
 }
 
-@media (max-width: 1024px) {
-	.tec-events-onboarding__tabs-list {
-		grid-template-columns: repeat(7, var(--tec-spacer-tap-min-size));
-		max-width: calc(100vw - 64px);
-	}
-}
-
 .tec-events-onboarding__tab {
 	align-items: center;
 	border: 1px solid var(--tec-wp-core-grey-50);
@@ -229,8 +222,15 @@
 	white-space: nowrap;
 }
 
-li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
-	grid-column: span 3;
+@media (max-width: 1024px) {
+	.tec-events-onboarding__tabs-list {
+		grid-template-columns: repeat(7, var(--tec-spacer-tap-min-size));
+		max-width: calc(100vw - 64px);
+	}
+
+	li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
+		grid-column: span 3;
+	}
 }
 
 .tec-events-onboarding__tab.tec-events-onboarding__tab--welcome {
@@ -347,23 +347,24 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 	display: none;
 }
 
-/* TabPanel Header section */
-.tec-events-onboarding__tab-header {
-	align-items: center;
-	display: flex;
-	flex-flow: column nowrap;
-	text-align: center;
-}
-
+/* TabPanel Hero - only used on Welcome tab */
 .tec-events-onboarding__tab-hero {
 	margin: 0 auto var(--tec-spacer-8);
 	max-width: 100%;
 	width: fit-content;
 }
 
-.tec-events-onboarding__tab-heading,
-.tec-events-onboarding__tab-subheader,
-.tec-events-onboarding__element--center {
+/* TabPanel Header section */
+.tec-events-onboarding__tab-header {
+	align-items: center;
+	display: flex;
+	flex-flow: column nowrap;
+	padding-bottom: var(--tec-spacer-5);
+	row-gap: var(--tec-spacer-5);
+	text-align: center;
+}
+
+.tec-events-onboarding__tab-header * {
 	text-align: center;
 }
 
@@ -375,7 +376,7 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 
 .tec-events-onboarding__tab-subheader {
 	font-size: var(--tec-font-size-2);
-	margin: var(--tec-spacer-5) auto;
+	margin: auto auto;
 }
 
 /* TabPanel Content section */
@@ -386,7 +387,8 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 	margin: 0 auto;
 	max-width: min(100%, 100vw);
 	min-width: var(--tec-spacer-content-min-width);
-	width: fit-content;
+	padding-bottom: var(--tec-spacer-5);
+	width: 100%;
 }
 
 .tec-events-onboarding__tab-content p:first-child {
@@ -405,18 +407,8 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 }
 
 @media (min-width: 500px) {
-	.tec-events-onboarding__button.tec-events-onboarding__button--setup,
-	.tec-events-onboarding__button.tec-events-onboarding__button--next {
-		margin-top: var(--tec-spacer-1);
-	}
-
 	.tec-events-onboarding__tab-content {
 		max-width: min(100%, 100vw);
-	}
-
-	.tec-events-onboarding__button--setup,
-	.tec-events-onboarding__button--next {
-		margin-top: var(--tec-spacer-2);
 	}
 }
 
@@ -437,7 +429,7 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 
 .tec-events-onboarding__content-header-icon {
 	height: 36px;
-	margin: 0 auto;
+	margin: 0 auto var(--tec-spacer-1);
 }
 
 .tec-events-onboarding__content-header-icon--brand {
@@ -498,13 +490,18 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 }
 
 .tec-events-onboarding__view_upsell_callout {
+	color: var(--tec-wp-core-grey-50);
 	margin: 0;
+	text-align: center;
 }
 
 .tec-events-onboarding__view_upsell_list {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	justify-content: center;
+	margin: auto auto;
+	text-align: center;
+	width: fit-content;
 }
 
 @media (min-width: 500px) {
@@ -519,8 +516,18 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	padding: var(--tec-spacer-2) var(--tec-spacer-1);
+	padding: var(--tec-spacer-2) var(--tec-spacer-0);
 	text-align: center;
+}
+
+.tec-events-onboarding__view_upsell-cell svg {
+	width: 66px;
+}
+
+@media (min-width: 500px) {
+	.tec-events-onboarding__view_upsell-cell {
+		padding: var(--tec-spacer-2) var(--tec-spacer-1);
+	}
 }
 
 .tec-events-onboarding__view_upsell-label {
@@ -651,13 +658,19 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 	margin-top: var(--tec-spacer-8);
 }
 
+@media (min-width: 500px) {
+	.tec-events-onboarding__tab-footer {
+		margin-top: var(--tec-spacer-11);
+	}
+}
+
 .tec-events-onboarding__tab-footer--boxed {
+	align-items: flex-start;
+	align-self: stretch;
 	border-radius: var(--tec-admin-border-radius-1);
 	display: flex;
-	padding: var(--tec-spacer-5) var(--tec-spacer-7);
-	align-items: flex-start;
 	gap: 12px;
-	align-self: stretch;
+	padding: var(--tec-spacer-5) var(--tec-spacer-7);
 }
 
 /* Stupidly specific or important to override component styles */
@@ -688,7 +701,7 @@ li.tec-events-onboarding__tab.tec-events-onboarding__tab--active {
 	border-color: var(--tec-wp-core-blue-50);
 }
 
-.tec-events-onboarding__form-wrapper  .components-checkbox-control__input[type=checkbox]:focus {
+.tec-events-onboarding__form-wrapper .components-checkbox-control__input[type=checkbox]:focus {
 	box-shadow: 0 0 0 var(--wp-admin-border-width-focus) #fff, 0 0 0 calc(var(--wp-admin-border-width-focus) * 2) var(--tec-wp-core-blue-50);
 }
 
