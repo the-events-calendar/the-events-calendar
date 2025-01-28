@@ -37,7 +37,7 @@ const WelcomeContent = ({moveToNextTab, skipToNextTab}) => {
 				<SetupButton
 					tabSettings={tabSettings}
 					moveToNextTab={moveToNextTab}
-					/>
+				/>
 				<ExitButton />
 			</div>
 			<div className="tec-events-onboarding__tab-footer">

@@ -136,7 +136,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 			<GearIcon />
 			<div className="tec-events-onboarding__tab-header">
 				<h1 className="tec-events-onboarding__tab-heading">{__('Event Settings', 'the-events-calendar')}</h1>
-				<p className="tec-events-onboarding__tab-subheader">{__('Let\’s get your events with the correct basic settings.', 'the-events-calendar')}</p>
+				<p className="tec-events-onboarding__tab-subheader">{__('Let\'s get your events with the correct basic settings.', 'the-events-calendar')}</p>
 			</div>
 			<div className="tec-events-onboarding__tab-content">
 				<div className="tec-events-onboarding__form-wrapper">
@@ -145,7 +145,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						id="currency-code"
 						label={__('Currency symbol', 'the-events-calendar')}
 						className="tec-events-onboarding__form-field"
-						>
+					>
 						<select
 							onChange={(e) => setCurrency(e.target.value)}
 							defaultValue={ currencyCode }
@@ -163,7 +163,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						id="time-zone"
 						label={__('Time zone', 'the-events-calendar')}
 						className="tec-events-onboarding__form-field"
-						>
+					>
 						<select
 							id="time-zone"
 							onChange={(e) => setTimeZone(e.target.value)}
@@ -189,7 +189,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						id="date-format"
 						label={__('Date format', 'the-events-calendar')}
 						className="tec-events-onboarding__form-field"
-						>
+					>
 						<select
 							id="date-format"
 							onChange={(e) => setDateFormat(e.target.value)}
@@ -208,7 +208,7 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 						id="week-starts"
 						label={__('Your week starts on', 'the-events-calendar')}
 						className="tec-events-onboarding__form-field"
-						>
+					>
 						<select
 							id="week-starts"
 							onChange={(e) => setWeekStart(e.target.value)}

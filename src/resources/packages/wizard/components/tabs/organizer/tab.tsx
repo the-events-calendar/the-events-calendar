@@ -271,7 +271,6 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 							</span>
 						)}
 
-
 					</BaseControl>
 					{!organizerId && showEmail ? '' :
 					<Button

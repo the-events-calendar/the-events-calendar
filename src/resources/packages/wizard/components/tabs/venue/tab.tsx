@@ -327,7 +327,6 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 						label={__('City', 'the-events-calendar')}
 						id="venue-city"
 						className="tec-events-onboarding__form-field"
-
 					>
 						<input
 							id="venue-city"
@@ -345,7 +344,6 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 						label={__('State or province', 'the-events-calendar')}
 						id="venue-state"
 						className="tec-events-onboarding__form-field"
-
 					>
 						<input
 							id="venue-state"
@@ -380,13 +378,13 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 						id="venue-country"
 						className="tec-events-onboarding__form-field"
 						label={__('Country', 'the-events-calendar')}
-						>
+					>
 						<select
 							onChange={(e) => setCountry(e.target.value)}
 							defaultValue={country}
 							disabled={disabled}
 							id="venue-country"
-							>
+						>
 							{Object.entries(countries).map(([key, continents]) => (
 								<optgroup key={key} className="continent" label={key}>
 									{Object.entries(continents as {[key: string]: string}).map(([key, country]) => (
