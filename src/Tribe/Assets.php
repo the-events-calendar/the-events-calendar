@@ -40,12 +40,12 @@ class Tribe__Events__Assets {
 			$plugin,
 			[
 				[ 'jquery-placeholder', 'vendor/jquery-placeholder/jquery.placeholder.js', [ 'jquery' ] ],
-				[ 'tribe-events-php-date-formatter', 'vendor/php-date-formatter/js/php-date-formatter.js', [] ],
+				// This does not come from TEC anymore, but from Common. It's still here to ensure back-compatibility.
+				[ 'tribe-events-php-date-formatter', 'common/node_modules/php-date-formatter/js/php-date-formatter.js', [] ],
 				[ 'tribe-events-custom-jquery-styles', 'vendor/jquery/smoothness/jquery-ui-1.8.23.custom.css', [] ],
 				[ 'tribe-events-jquery-resize', 'vendor/jquery-resize/jquery.ba-resize.js', [ 'jquery' ] ],
 				[ 'tribe-events-chosen-style', 'vendor/chosen/public/chosen.css', [] ],
 				[ 'tribe-events-chosen-jquery', 'vendor/chosen/public/chosen.jquery.js', [ 'jquery' ] ],
-				[ 'tribe-events-php-date-formatter', 'vendor/php-date-formatter/js/php-date-formatter.js', [] ],
 				[
 					'tribe-events-bootstrap-datepicker-css',
 					'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css',
@@ -211,7 +211,7 @@ class Tribe__Events__Assets {
 			'events-dynamic.js',
 			[
 				'jquery',
-				'tribe-events-php-date-formatter',
+				'tec-common-php-date-formatter',
 			],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[
