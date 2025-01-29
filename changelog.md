@@ -3,6 +3,7 @@
 ### [6.10.0] 2025-01-30
 
 * Fix - Update asset, dependencies, customizations to align with WordPress 6.7 and React 18. [TEC-5322]
+* Language - 0 new strings added, 44 updated, 0 fuzzied, and 1 obsoleted.
 
 ### [6.9.1] 2025-01-22
 
