@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Added a check for `$subscribe_links` in `single_event_links` function. [TEC-5357]
