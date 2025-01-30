@@ -208,7 +208,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			return false;
 		}
 
-		if ( 'eventbrite' === $origin && class_exists( 'Tribe__Events__Tickets__Eventbrite__Main',false ) ) {
+		if ( 'eventbrite' === $origin && class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) ) {
 			return true;
 		}
 
