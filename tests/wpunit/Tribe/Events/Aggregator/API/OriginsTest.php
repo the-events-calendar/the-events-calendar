@@ -163,4 +163,28 @@ class OriginsTest extends Aggregator_TestCase {
 
 		return new Origins();
 	}
+
+	/**
+	 * It should enable Eventbrite origin if the related class exists
+	 *
+	 * @test
+	 */
+	public function should_enable_eventbrite_origin_if_related_class_exists() {
+		$mock_origins = $this->factory()->ea_service->create_origins();
+		$this->service->get_origins( true )->willReturn( [ $mock_origins, null ] );
+		$this->service->api()->willReturn( true );
+		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins() );
+
+		$sut = $this->make_instance();
+
+		// Mock the existence of the Eventbrite class
+		eval('class Tribe__Events__Tickets__Eventbrite__Main {}');
+
+		$sut->set_props();
+
+		$origins = $sut->get();
+
+		$this->assertArrayHasKey( 'eventbrite', $origins );
+		$this->assertFalse( $origins['eventbrite']->disabled );
+	}
 }
