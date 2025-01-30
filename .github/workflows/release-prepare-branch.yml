@@ -1,4 +1,4 @@
-name: Release: Prepare Branch
+name: "Release: Prepare Branch"
 
 on:
   workflow_dispatch:
