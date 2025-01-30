@@ -81,7 +81,7 @@ class OriginsTest extends Aggregator_TestCase {
 		$this->service->get_origins( true )->willReturn( [ $mock_origins, null ] );
 		$this->service->api()->willReturn( true );
 		$sut = $this->make_instance();
-		
+
 		// Contains translated strings so is now hooked to 'init'. Fake init firing here.
 		$sut->set_props();
 
@@ -173,7 +173,7 @@ class OriginsTest extends Aggregator_TestCase {
 		$mock_origins = $this->factory()->ea_service->create_origins();
 		$this->service->get_origins( true )->willReturn( [ $mock_origins, null ] );
 		$this->service->api()->willReturn( true );
-		$this->service->get_origins()->willReturn( $this->factory()->ea_service->create_origins() );
+		$this->service->get_origins()->willReturn( $mock_origins );
 
 		$sut = $this->make_instance();
 
