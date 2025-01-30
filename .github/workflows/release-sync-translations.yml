@@ -1,4 +1,4 @@
-name: Release: Sync Translations
+name: "Release: Sync Translations"
 
 on:
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
