@@ -69,7 +69,7 @@ class Tribe__Events__Aggregator__Tabs extends Tribe__Tabbed_View  {
 	 */
 	public function register( $tab ) {
 		// If Obj is a string, check if it's existing class, then get an instance of it
-		if ( is_string( $tab ) && class_exists( $tab ) && method_exists( $tab, 'instance' ) ) {
+		if ( is_string( $tab ) && class_exists( $tab, false ) && method_exists( $tab, 'instance' ) ) {
 			$tab = call_user_func_array( [ $tab, 'instance' ], [] );
 		}
 
