@@ -42,3 +42,5 @@
 /vendor/php-date-formatter/js/*.min.js
 /vendor/vendor-prefixed/**/*
 /uninstall.php
+/common/node_modules/php-date-formatter/js/php-date-formatter.js
+/common/node_modules/php-date-formatter/js/php-date-formatter.min.js

@@ -67,7 +67,7 @@ const EventDetailsOrganizers = ( props ) => {
 				<Dropdown
 					key="organizer-create-dropdown"
 					className="tribe-editor__organizer__dropdown"
-					position="bottom center"
+					popoverProps={{placement: "bottom center"}}
 					contentClassName="tribe-editor-dropdown__dialog"
 					renderToggle={ renderDropdownToggle }
 					renderContent={ renderDropdownContent }
