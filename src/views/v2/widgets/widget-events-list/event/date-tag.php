@@ -1,15 +1,16 @@
 <?php
 /**
- * Widget: Events List Event Venue
+ * Widget: Events List - Event Date Tag.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/widget-events-list/event/venue.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list/event/date-tag.php
  *
  * See more documentation about our views templating system.
  *
  * @link http://evnt.is/1aiy
  *
  * @version 5.2.1
+ * @since TBD Corrected template override file path.
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
