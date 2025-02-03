@@ -469,7 +469,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			$plugin,
 			'tribe-the-events-calendar-editor',
 			'app/main.js',
-			[],
+			[ 'tec-common-php-date-formatter' ],
 			'enqueue_block_editor_assets',
 			[
 				'in_footer'    => false,
