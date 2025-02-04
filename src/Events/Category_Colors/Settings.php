@@ -5,7 +5,6 @@ namespace TEC\Events\Category_Colors;
 use Tribe__Field;
 use Tribe__Settings_Tab;
 use Tribe\Events\Admin\Settings as Admin_Settings;
-use WP_Term;
 use TEC\Common\Admin\Entities\Div;
 use TEC\Common\Admin\Entities\Field_Wrapper;
 use TEC\Common\Admin\Entities\Heading;
