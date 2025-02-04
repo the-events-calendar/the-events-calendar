@@ -1,4 +1,14 @@
 <?php
+/**
+ * Category Colors Management for Events.
+ *
+ * This class handles the logic for managing category colors within the Events Calendar plugin.
+ * It provides functionality for retrieving, validating, and updating category color metadata.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors
+ */
 
 namespace TEC\Events\Category_Colors;
 
@@ -50,6 +60,16 @@ class Category_Colors {
 	public static string $meta_selected_category_slug = 'tec-category-selected-category';
 
 	/**
+	 * Meta key for marking a priority.
+	 *
+	 * Used to track whether the priority of a category.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $meta_priority_slug = 'tec-category-color-priority';
+
+	/**
 	 * Stores the instance of the template class.
 	 *
 	 * Used for rendering templates within the settings tab.
@@ -76,6 +96,24 @@ class Category_Colors {
 		}
 
 		return $this->template;
+	}
+
+	/**
+	 * Retrieves category color meta values for a given term.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $term_id Term ID.
+	 *
+	 * @return array Associative array of color values.
+	 */
+	public function get_category_color_meta( int $term_id ): array {
+		return [
+			'foreground' => get_term_meta( $term_id, self::$meta_foreground_slug, true ),
+			'background' => get_term_meta( $term_id, self::$meta_background_slug, true ),
+			'text_color' => get_term_meta( $term_id, self::$meta_text_color_slug, true ),
+			'priority'   => get_term_meta( $term_id, self::$meta_priority_slug, true ),
+		];
 	}
 
 	/**

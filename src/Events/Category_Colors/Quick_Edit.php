@@ -53,28 +53,32 @@ class Quick_Edit {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $term_id Term ID.
+	 * @param string $output      Default column output.
+	 * @param string $column_name Column name.
+	 * @param int    $term_id     Term ID.
 	 *
 	 * @return void
 	 */
 	public function populate_custom_taxonomy_color_column( $output, $column_name, $term_id ): void {
-		$foreground = get_term_meta( $term_id, Category_Colors::$meta_foreground_slug, true );
-		$background = get_term_meta( $term_id, Category_Colors::$meta_background_slug, true );
-		$text_color = get_term_meta( $term_id, Category_Colors::$meta_text_color_slug, true );
-		$priority   = ''; //get_term_meta( $term_id, Category_Colors::$meta_priority_slug, true );
-
-		if(empty($background)){
+		if ( 'tec-category-colors-information' !== $column_name ) {
 			return;
 		}
-		// Display color box with inline styles.
+
+		$meta_values = $this->category_colors->get_category_color_meta( $term_id );
+
+		// If all values are empty, return early.
+		if ( empty( $meta_values['foreground'] ) && empty( $meta_values['background'] ) && empty( $meta_values['text_color'] ) ) {
+			return;
+		}
+
+		// Display color swatch.
 		printf(
 			'<div style="display: flex; align-items: center; gap: 8px;">
-				<span style="display: inline-block; width: 16px; height: 16px; background-color: %s; border: 2px solid %s; border-radius: 4px;"></span>
-				<strong>%s</strong>
-			</div>',
-			esc_attr( $background ?: '#FFFFFF' ), // Background color as default
-			esc_attr( $foreground ?: '#000000' ), // Foreground as border
-			esc_html( $priority ?: __( 'N/A', 'the-events-calendar' ) ) // Priority value
+			<span style="display: inline-block; width: 16px; height: 16px; background-color: %s; border: 2px solid %s; border-radius: 4px;"></span>
+		</div>',
+			esc_attr( $meta_values['background'] ?: 'transparent' ), // Background color
+			esc_attr( $meta_values['foreground'] ?: 'transparent' ), // Foreground (border)
+			esc_html( $meta_values['text_color'] ?: '' ) // Text Color
 		);
 	}
 
@@ -83,26 +87,29 @@ class Quick_Edit {
 	 *
 	 * @since TBD
 	 *
+	 * @param string $output      Default column output.
 	 * @param string $column_name Column name.
 	 * @param int    $term_id     Term ID.
 	 *
 	 * @return void
 	 */
 	public function populate_custom_taxonomy_hidden_columns( $output, $column_name, $term_id ): void {
-		$meta_key_map = [
-			'tec-category-colors-priority'   => '',//Category_Colors::$meta_priority_slug,
-			'tec-category-colors-primary'    => Category_Colors::$meta_foreground_slug,
-			'tec-category-colors-secondary'  => Category_Colors::$meta_background_slug,
-			'tec-category-colors-text-color' => Category_Colors::$meta_text_color_slug,
+		if ( 'tec-category-colors-information' === $column_name ) {
+			return;
+		}
+
+		$meta_values = $this->category_colors->get_category_color_meta( $term_id );
+
+		// Define column mapping for easy retrieval.
+		$column_meta_map = [
+			'tec-category-colors-priority'   => $meta_values['priority'],
+			'tec-category-colors-primary'    => $meta_values['foreground'],
+			'tec-category-colors-secondary'  => $meta_values['background'],
+			'tec-category-colors-text-color' => $meta_values['text_color'],
 		];
 
-		if ( isset( $meta_key_map[ $column_name ] ) ) {
-			$value = get_term_meta( $term_id, $meta_key_map[ $column_name ], true );
-			if ( is_array( $value ) ) {
-				// @todo - Do something here.
-				return;
-			}
-			echo esc_html( (string) $value ?: '' );
+		if ( isset( $column_meta_map[ $column_name ] ) ) {
+			echo esc_html( $column_meta_map[ $column_name ] ?: '' );
 		}
 	}
 
