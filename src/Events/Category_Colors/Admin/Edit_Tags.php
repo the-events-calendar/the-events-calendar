@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Edit tags page for Category Colors.
  *
@@ -13,16 +12,16 @@
  namespace TEC\Events\Category_Colors\Admin;
 
 use TEC\Events\Category_Colors\Category_Colors;
-use \Tribe__Events__Main as TEC;
+use Tribe__Events__Main as TEC;
 
- /**
-  * EditTags class.
-  *
-  * @since TBD
-  *
-  * @package Tribe\Events\Category_Colors\Admin
-  */
- class Edit_Tags {
+/**
+ * EditTags class.
+ *
+ * @since TBD
+ *
+ * @package Tribe\Events\Category_Colors\Admin
+ */
+class Edit_Tags {
 
 	/**
 	 * Add hooks for the edit tags page.
@@ -209,4 +208,4 @@ use \Tribe__Events__Main as TEC;
 			}
 		}
 	}
- }
+}
