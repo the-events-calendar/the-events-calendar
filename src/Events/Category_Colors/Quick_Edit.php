@@ -39,36 +39,70 @@ class Quick_Edit {
 	 * @return array Modified columns.
 	 */
 	public function add_custom_taxonomy_columns( $columns ): array {
-		$columns['tec-category-colors'] = __( 'Category Color Options', 'the-events-calendar' );
+		$columns['tec-category-colors-information'] = __( 'Color', 'the-events-calendar' );
+		$columns['tec-category-colors-priority']    = __( 'Priority', 'the-events-calendar' );
+		$columns['tec-category-colors-primary']     = __( 'Primary Color', 'the-events-calendar' );
+		$columns['tec-category-colors-secondary']   = __( 'Background Color', 'the-events-calendar' );
+		$columns['tec-category-colors-text-color']  = __( 'Text Color', 'the-events-calendar' );
 
 		return $columns;
 	}
 
 	/**
-	 * Populates the values for custom taxonomy columns.
+	 * Populates the main "Color" column with a formatted color swatch.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $output      Default column output.
+	 * @param int $term_id Term ID.
+	 *
+	 * @return void
+	 */
+	public function populate_custom_taxonomy_color_column( $output, $column_name, $term_id ): void {
+		$foreground = get_term_meta( $term_id, Category_Colors::$meta_foreground_slug, true );
+		$background = get_term_meta( $term_id, Category_Colors::$meta_background_slug, true );
+		$text_color = get_term_meta( $term_id, Category_Colors::$meta_text_color_slug, true );
+		$priority   = ''; //get_term_meta( $term_id, Category_Colors::$meta_priority_slug, true );
+
+		if(empty($background)){
+			return;
+		}
+		// Display color box with inline styles.
+		printf(
+			'<div style="display: flex; align-items: center; gap: 8px;">
+				<span style="display: inline-block; width: 16px; height: 16px; background-color: %s; border: 2px solid %s; border-radius: 4px;"></span>
+				<strong>%s</strong>
+			</div>',
+			esc_attr( $background ?: '#FFFFFF' ), // Background color as default
+			esc_attr( $foreground ?: '#000000' ), // Foreground as border
+			esc_html( $priority ?: __( 'N/A', 'the-events-calendar' ) ) // Priority value
+		);
+	}
+
+	/**
+	 * Populates hidden columns (Priority, Primary, Background, Text Color).
+	 *
+	 * @since TBD
+	 *
 	 * @param string $column_name Column name.
 	 * @param int    $term_id     Term ID.
 	 *
 	 * @return void
 	 */
-	public function populate_custom_taxonomy_column( $output, $column_name, $term_id ): void {
-		if ( 'tec-category-colors' !== $column_name ) {
-			return;
-		}
+	public function populate_custom_taxonomy_hidden_columns( $output, $column_name, $term_id ): void {
 		$meta_key_map = [
-			'foreground' => Category_Colors::$meta_foreground_slug,
-			'background' => Category_Colors::$meta_background_slug,
-			'text_color' => Category_Colors::$meta_text_color_slug,
+			'tec-category-colors-priority'   => '',//Category_Colors::$meta_priority_slug,
+			'tec-category-colors-primary'    => Category_Colors::$meta_foreground_slug,
+			'tec-category-colors-secondary'  => Category_Colors::$meta_background_slug,
+			'tec-category-colors-text-color' => Category_Colors::$meta_text_color_slug,
 		];
 
-		// @todo - Probably turn this into a template.
-		foreach ( $meta_key_map as $meta_key => $meta_value ) {
-			$value = get_term_meta( $term_id, $meta_value, true );
-			echo esc_html( $value ?: __( 'None', 'the-events-calendar' ) ) . '</br>';
+		if ( isset( $meta_key_map[ $column_name ] ) ) {
+			$value = get_term_meta( $term_id, $meta_key_map[ $column_name ], true );
+			if ( is_array( $value ) ) {
+				// @todo - Do something here.
+				return;
+			}
+			echo esc_html( (string) $value ?: '' );
 		}
 	}
 

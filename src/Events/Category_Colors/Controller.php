@@ -39,7 +39,8 @@ class Controller extends Controller_Contract {
 
 		add_filter( 'manage_edit-tribe_events_cat_columns', [ $this, 'add_custom_taxonomy_columns' ] );
 
-		add_action( 'manage_tribe_events_cat_custom_column', [ $this, 'populate_custom_taxonomy_column' ], 10, 3 );
+		add_action( 'manage_tribe_events_cat_custom_column', [ $this, 'populate_custom_taxonomy_color_column' ], 10, 3 );
+		add_action( 'manage_tribe_events_cat_custom_column', [ $this, 'populate_custom_taxonomy_hidden_columns' ], 10, 3 );
 
 		add_action( 'quick_edit_custom_box', [ $this, 'add_custom_quick_edit_field' ], 10, 3 );
 
@@ -77,6 +78,21 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Populates the values for the custom hidden taxonomy columns.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $output      The current column output (default empty string).
+	 * @param string $column_name The name of the column being rendered.
+	 * @param int    $term_id     The ID of the term being rendered.
+	 *
+	 * @return void
+	 */
+	public function populate_custom_taxonomy_hidden_columns( $output, $column_name, $term_id ) {
+		$this->container->make( Quick_Edit::class )->populate_custom_taxonomy_hidden_columns( $output, $column_name, $term_id );
+	}
+
+	/**
 	 * Populates the values for the custom taxonomy columns.
 	 *
 	 * @since TBD
@@ -87,8 +103,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	public function populate_custom_taxonomy_column( $output, $column_name, $term_id ) {
-		$this->container->make( Quick_Edit::class )->populate_custom_taxonomy_column( $output, $column_name, $term_id );
+	public function populate_custom_taxonomy_color_column( $output, $column_name, $term_id ) {
+		$this->container->make( Quick_Edit::class )->populate_custom_taxonomy_color_column( $output, $column_name, $term_id );
 	}
 
 	/**
