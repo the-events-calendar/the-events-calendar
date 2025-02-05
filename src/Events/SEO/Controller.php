@@ -177,6 +177,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
+	 * @param array<string|boolean> $robots The directives for the robots meta tag.
+	 *
 	 * @return array<string> The directives for the robots meta tag.
 	 */
 	public function set_nofollow( $robots ): array {
@@ -190,6 +192,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
+	 * @param array<string|boolean> $robots The directives for the robots meta tag.
+	 *
 	 * @return array<string> The directives for the robots meta tag.
 	 */
 	public function filter_robots_directives( $robots ) {
@@ -200,7 +204,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string> The directives for the robots meta tag.
+		 * @param array<string|boolean> $robots The directives for the robots meta tag.
 		 */
 		$robots = (array) apply_filters( 'tec_events_filter_wp_robots_meta_directives', $robots );
 
@@ -238,9 +242,9 @@ class Controller extends Controller_Contract {
 	 * @since      6.2.3
 	 * @deprecated TBD - No replacement, unused coding.
 	 *
-	 * @param string         $view       The current view slug
-	 * @param DateTime       $start_date The start date
-	 * @param Tribe__Context $context    The current context
+	 * @param string         $view       The current view slug.
+	 * @param DateTime       $start_date The start date.
+	 * @param Tribe__Context $context    The current context.
 	 *
 	 * @return DateTime|false A DateTime object or `false` if a DateTime object could not be built.
 	 * */
