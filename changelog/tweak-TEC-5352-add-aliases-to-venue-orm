@@ -1,4 +1,0 @@
-Significance: minor
-Type: tweak
-
-Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]

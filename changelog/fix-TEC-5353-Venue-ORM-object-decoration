@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Added `format_item()` function so venues read from ORM are decorated objects. (props to @m8nmueller) [TEC-5353]

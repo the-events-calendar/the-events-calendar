@@ -1,5 +1,16 @@
 # Changelog
 
+### [6.10.1] 2025-02-06
+
+* Tweak - Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]
+* Tweak - Remove class_exists() and use register_on_action() for Notifications [TEC-5336]
+* Fix - Added a check for `$subscribe_links` in `single_event_links` function. [TEC-5357]
+* Fix - Added `format_item()` function so venues read from ORM are decorated objects. (props to @m8nmueller) [TEC-5353]
+* Fix - Make Eventbrite import available when the Eventbrite Tickets plugin is installed [EBT-149]
+* Fix - Replaced deprecated functions with their modern equivalents to maintain compatibility. [EA-476]
+* Fix - Support Additional Fields in Events REST API [TEC-5015]
+* Accessibility - Increased pagination button sizes on the events page. [TEC-5176]
+
 ### [6.10.0] 2025-01-30
 
 * Fix - Update asset, dependencies, customizations to align with WordPress 6.7 and React 18. [TEC-5322]
