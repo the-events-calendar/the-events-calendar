@@ -49,7 +49,7 @@ class Requests {
 		$request = new WP_REST_Request( $method, $route );
 		$request->set_query_params( wp_unslash( $_GET ) );
 		$request->set_body_params( wp_unslash( $_POST ) );
-		$request->set_file_params($_FILES ?? []);
+		$request->set_file_params( $_FILES ?? [] );
 		$server = new WP_REST_Server();
 		$request->set_headers( $server->get_headers( wp_unslash( $_SERVER ) ) );
 		$request->set_body( WP_REST_Server::get_raw_data() );
