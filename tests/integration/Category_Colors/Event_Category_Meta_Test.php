@@ -4,7 +4,7 @@ namespace TEC\Events\Category_Colors\Tests;
 
 use Codeception\TestCase\WPTestCase;
 use InvalidArgumentException;
-use TEC\Events\Category_Colors\Meta;
+use TEC\Events\Category_Colors\Event_Category_Meta as Meta;
 use Tribe\Tests\Traits\With_Uopz;
 use WP_Error;
 use WP_Term;
