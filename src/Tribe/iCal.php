@@ -603,6 +603,8 @@ class Tribe__Events__iCal {
 				$transitions[] = array_values( $transitions )[ 0 ];
 			}
 
+			$item[] = 'BEGIN:VTIMEZONE';
+
 			$id = $timezone->getName();
 			$item[] = 'TZID:' .  $id;
 
@@ -630,6 +632,8 @@ class Tribe__Events__iCal {
 				$item[] = 'END:' . $type;
 				$last_transition = $transition;
 			}
+
+			$item[] = 'END:VTIMEZONE';
 		}
 
 		/**
@@ -642,7 +646,7 @@ class Tribe__Events__iCal {
 		 */
 		$item = apply_filters( 'tribe_ical_feed_vtimezone', $item, $timezones );
 
-		return "BEGIN:VTIMEZONE\r\n" . implode( "\r\n", $item ) . "\r\nEND:VTIMEZONE\r\n";
+		return implode( "\r\n", $item ) . "\r\n";
 	}
 
 	/**
