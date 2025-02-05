@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Corrected template override file path for Event List Widget date-tag. [ECP-1725]
