@@ -75,21 +75,6 @@ class Event_Category_Meta {
 	}
 
 	/**
-	 * Checks if the instance is valid.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool|WP_Error True if valid, WP_Error if not.
-	 */
-	public function is_valid() {
-		if ( $this->term_id <= 0 ) {
-			return new WP_Error( 'invalid_term', __( 'Invalid term ID or term does not exist.', 'the-events-calendar' ) );
-		}
-
-		return true;
-	}
-
-	/**
 	 * Validates a meta key.
 	 *
 	 * @since TBD
@@ -105,7 +90,15 @@ class Event_Category_Meta {
 			return new WP_Error( 'invalid_key', __( 'Meta key cannot be empty.', 'the-events-calendar' ) );
 		}
 
-		return $key;
+		/**
+		 * Filter the validated meta key before it is used.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $key     The sanitized meta key.
+		 * @param int    $term_id The term ID the meta key belongs to.
+		 */
+		return apply_filters( 'tec_events_category_validate_meta_key', $key, $this->term_id );
 	}
 
 	/**
@@ -122,7 +115,15 @@ class Event_Category_Meta {
 			return new WP_Error( 'invalid_value', __( 'Meta value cannot be null.', 'the-events-calendar' ) );
 		}
 
-		return $value;
+		/**
+		 * Filter the meta value before it is saved.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed $value   The sanitized meta value.
+		 * @param int   $term_id The term ID the meta value belongs to.
+		 */
+		return apply_filters( 'tec_events_category_validate_meta_value', $value, $this->term_id );
 	}
 
 	/**
@@ -135,14 +136,16 @@ class Event_Category_Meta {
 	 * @return mixed The meta value, or WP_Error if invalid.
 	 */
 	public function get( ?string $key = null ) {
-		if ( $this->is_valid() instanceof WP_Error ) {
-			return $this->is_valid();
-		}
-
 		if ( null === $key ) {
-			$all_meta = get_term_meta( $this->term_id );
+			$all_meta = $this->get_meta();
 
-			return array_map( fn( $values ) => $values[0] ?? null, $all_meta );
+			return array_map(
+				function ( $values ) {
+					return is_array( $values )
+						&& isset( $values[0] ) ? $values[0] : $values;
+				},
+				$all_meta
+			);
 		}
 
 		$key = $this->validate_key( $key );
@@ -150,16 +153,22 @@ class Event_Category_Meta {
 			return $key;
 		}
 
-		$value = get_term_meta( $this->term_id, $key, true );
+		$value = $this->get_meta( $key );
 
 		return ( '' !== $value ) ? $value : null;
 	}
 
+	/**
+	 * Sets metadata for the term.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key   The meta key to update.
+	 * @param mixed  $value The value to store.
+	 *
+	 * @return $this|WP_Error Returns the instance for chaining or WP_Error if invalid.
+	 */
 	public function set( string $key, $value ) {
-		if ( $this->is_valid() instanceof WP_Error ) {
-			return $this->is_valid();
-		}
-
 		$key   = $this->validate_key( $key );
 		$value = $this->validate_value( $value );
 
@@ -169,30 +178,105 @@ class Event_Category_Meta {
 
 		update_term_meta( $this->term_id, $key, $value );
 
+		/**
+		 * Fires after metadata has been updated.
+		 *
+		 * @since TBD
+		 *
+		 * @param int    $term_id The term ID where metadata was set.
+		 * @param string $key     The meta key that was updated.
+		 * @param mixed  $value   The new value that was stored.
+		 */
+		do_action( 'tec_events_category_set_meta', $this->term_id, $key, $value );
+
 		return $this;
 	}
 
+	/**
+	 * Deletes metadata for the term.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $key Optional. The meta key to delete.
+	 *
+	 * @return $this|WP_Error Returns the instance for chaining or WP_Error if invalid.
+	 */
 	public function delete( ?string $key = null ) {
-		if ( $this->is_valid() instanceof WP_Error ) {
-			return $this->is_valid();
-		}
+		$deleted_keys = [];
 
 		if ( null === $key ) {
-			$meta_keys = array_keys( get_term_meta( $this->term_id ) );
+			$meta_keys = array_keys( $this->get_meta() );
 			foreach ( $meta_keys as $meta_key ) {
-				delete_term_meta( $this->term_id, $meta_key );
+				if ( delete_term_meta( $this->term_id, $meta_key ) ) {
+					$deleted_keys[] = $meta_key;
+				}
+			}
+		}
+
+		if ( null !== $key ) {
+			$key = $this->validate_key( $key );
+			if ( is_wp_error( $key ) ) {
+				return $key;
 			}
 
-			return $this;
+			if ( delete_term_meta( $this->term_id, $key ) ) {
+				$deleted_keys[] = $key;
+			}
 		}
 
-		$key = $this->validate_key( $key );
-		if ( is_wp_error( $key ) ) {
-			return $key; // Stop chaining here
+		/**
+		 * Fires after one or more metadata keys have been deleted.
+		 *
+		 * @since TBD
+		 *
+		 * @param int      $term_id The term ID where metadata was deleted.
+		 * @param string[] $keys    The meta keys that were deleted.
+		 */
+		if ( ! empty( $deleted_keys ) ) {
+			do_action( 'tec_events_category_delete_meta', $this->term_id, $deleted_keys );
 		}
-
-		delete_term_meta( $this->term_id, $key );
 
 		return $this;
 	}
+
+	/**
+	 * Retrieves metadata for the term, with a filter hook for extensibility.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $key Optional. The meta key to retrieve.
+	 *
+	 * @return mixed The meta value or an array of all metadata if no key is provided.
+	 */
+	public function get_meta( ?string $key = null ) {
+		if ( null === $key ) {
+			$all_meta = get_term_meta( $this->term_id );
+
+			$filtered_meta = array_map( fn( $values ) => $values[0] ?? null, $all_meta );
+
+			/**
+			 * Filter all metadata before returning.
+			 *
+			 * @since TBD
+			 *
+			 * @param array $filtered_meta The retrieved metadata.
+			 * @param int   $term_id       The term ID.
+			 */
+			return apply_filters( 'tec_events_category_get_meta_all', $filtered_meta, $this->term_id );
+		}
+
+		$value = get_term_meta( $this->term_id, $key, true );
+
+		/**
+		 * Filter a specific meta key value before returning.
+		 *
+		 * @since TBD
+		 *
+		 * @param mixed  $value   The retrieved metadata value.
+		 * @param string $key     The meta key being retrieved.
+		 * @param int    $term_id The term ID.
+		 */
+		return apply_filters( 'tec_events_category_get_meta', ( '' !== $value ? $value : null ), $key, $this->term_id );
+	}
+
 }
