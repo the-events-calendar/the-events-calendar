@@ -49,6 +49,37 @@ class Top_BarTest extends HtmlPartialTestCase {
 
 	}
 
+	/**
+	 * Test render with context for past
+	 */
+	public function test_render_with_context_past() {
+
+		$date_formats = (object) [
+			'month_and_year'         => 'F Y',
+			'month_and_year_compact' => 'm/Y',
+			'time_range_separator'   => ' - ',
+			'date_time_separator'    => ' @ ',
+			'compact'                => 'm/d/Y',
+		];
+
+		$this->assertMatchesSnapshot( $this->get_partial_html( [
+			'now'                        => '2018-01-01 12:00:00',
+			'today_url'                  => 'http://test.tri.be',
+			'today_label'                => 'Today',
+			'today_title'                => 'Click to select today\'s date',
+			'is_now'                     => true,
+			'show_now'                   => true,
+			'formatted_grid_date'        => 'January 2018',
+			'formatted_grid_date_mobile' => '1/2018',
+			'the_date'                   => Dates::build_date_object( '2018-01' ),
+			'date_formats'               => $date_formats,
+			'past'                       => true,
+			'prev_rel'                   => 'noindex',
+			'next_rel'                   => 'noindex',
+		] ) );
+
+	}
+
 	public function tearDown(){
 		$this->unset_uopz_returns();
 		parent::tearDown();
