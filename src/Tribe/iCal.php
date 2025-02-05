@@ -560,13 +560,14 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Add the VTIMEZONE group to the file
+	 * Add the VTIMEZONE groups to the file.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Make sure that each time zone definition has its own group.
 	 *
-	 * @param array $events
+	 * @param array $events An array with all the events.
 	 *
-	 * @return string
+	 * @return string The string containing all the time zone information needed in the iCal feed/file.
 	 */
 	protected function get_timezones( $events = [] ) {
 		$timezones = $this->parse_timezones( $events );
@@ -637,12 +638,12 @@ class Tribe__Events__iCal {
 		}
 
 		/**
-		 * Allow for customization of an individual "VTIMEZONE" item to be rendered inside an iCal export file.
+		 * Allows customization of the "VTIMEZONE" items rendered inside an iCal export file.
 		 *
 		 * @since 4.9.4
 		 *
-		 * @param array $item The various iCal file format components of this specific event item.
-		 * @param array $timezones The various iCal timzone components of this specific event item.
+		 * @param array $item      The various iCal file format components of the time zones.
+		 * @param array $timezones The various iCal time zone components.
 		 */
 		$item = apply_filters( 'tribe_ical_feed_vtimezone', $item, $timezones );
 
