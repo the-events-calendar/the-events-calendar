@@ -278,5 +278,4 @@ class Event_Category_Meta {
 		 */
 		return apply_filters( 'tec_events_category_get_meta', ( '' !== $value ? $value : null ), $key, $this->term_id );
 	}
-
 }
