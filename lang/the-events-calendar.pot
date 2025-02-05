@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.9.1\n"
+"Project-Id-Version: The Events Calendar 6.10.0\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-21T13:44:18+00:00\n"
+"POT-Creation-Date: 2025-01-29T21:07:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: the-events-calendar\n"
@@ -1056,7 +1056,7 @@ msgstr ""
 #: src/Tribe/Views/V2/iCalendar/Links/iCal.php:41
 #: src/modules/blocks/event-links/index.js:42
 #: src/modules/blocks/event-links/template.js:28
-#: src/modules/blocks/event-links/template.js:193
+#: src/modules/blocks/event-links/template.js:194
 msgid "iCalendar"
 msgstr ""
 
@@ -2000,107 +2000,102 @@ msgid "Currency"
 msgstr ""
 
 #: src/admin-views/settings/tabs/display/display-date-time.php:19
-msgctxt "The option to remove end times for the past events page view."
-msgid "Recent past events list"
-msgstr ""
-
-#: src/admin-views/settings/tabs/display/display-date-time.php:20
 msgid "Single event page"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:21
+#: src/admin-views/settings/tabs/display/display-date-time.php:20
 msgid "Day view"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:22
+#: src/admin-views/settings/tabs/display/display-date-time.php:21
 msgid "List view"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:23
+#: src/admin-views/settings/tabs/display/display-date-time.php:22
 msgid "Month view tooltip"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:38
+#: src/admin-views/settings/tabs/display/display-date-time.php:37
 msgctxt "Date and Time settings section header"
 msgid "Date & Time"
 msgstr ""
 
 #. Translators: %1$s: PHP date function, %2$s: URL to WP knowledgebase.
-#: src/admin-views/settings/tabs/display/display-date-time.php:51
+#: src/admin-views/settings/tabs/display/display-date-time.php:50
 msgid "The following three fields accept the date format options available to the PHP %1$s function. <a href=\"%2$s\" target=\"_blank\">Learn how to make your own date format here</a>."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:63
+#: src/admin-views/settings/tabs/display/display-date-time.php:62
 msgid "Date with year format"
 msgstr ""
 
 #. Translators: %1$s: Example date with year format.
-#: src/admin-views/settings/tabs/display/display-date-time.php:69
+#: src/admin-views/settings/tabs/display/display-date-time.php:68
 msgid "Enter the format to use for displaying dates with the year. Used when showing an event from a future year. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:81
+#: src/admin-views/settings/tabs/display/display-date-time.php:80
 msgid "Date without year format"
 msgstr ""
 
 #. Translators: %1$s: Example date without year format.
-#: src/admin-views/settings/tabs/display/display-date-time.php:87
+#: src/admin-views/settings/tabs/display/display-date-time.php:86
 msgid "Enter the format to use for displaying dates without a year. Used when showing an event from the current year. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:93
+#: src/admin-views/settings/tabs/display/display-date-time.php:92
 msgid "Month and year format"
 msgstr ""
 
 #. Translators: %1$s: Example month and year format.
-#: src/admin-views/settings/tabs/display/display-date-time.php:99
+#: src/admin-views/settings/tabs/display/display-date-time.php:98
 msgid "Enter the format to use for dates that show a month and year only. Used on month view. Example: %1$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:105
+#: src/admin-views/settings/tabs/display/display-date-time.php:104
 msgid "Compact date format"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:106
+#: src/admin-views/settings/tabs/display/display-date-time.php:105
 msgid "Select the date format used for elements with minimal space, such as in datepickers."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:126
+#: src/admin-views/settings/tabs/display/display-date-time.php:125
 msgid "Date time separator"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:127
+#: src/admin-views/settings/tabs/display/display-date-time.php:126
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:134
+#: src/admin-views/settings/tabs/display/display-date-time.php:133
 msgid "Time range separator"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:135
+#: src/admin-views/settings/tabs/display/display-date-time.php:134
 msgid "Enter the separator that will be used between the start and end time of an event."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:142
+#: src/admin-views/settings/tabs/display/display-date-time.php:141
 msgid "End of day cutoff"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:143
+#: src/admin-views/settings/tabs/display/display-date-time.php:142
 msgid "Have an event that runs past midnight? Select a time after that event's end to avoid showing the event on the next day's calendar."
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:164
+#: src/admin-views/settings/tabs/display/display-date-time.php:163
 msgid "Remove event end time"
 msgstr ""
 
 #. Translators: %1$s - opening italics tag, %2$s - opening anchor tag, %3$s - closing anchor tag, %4$s - closing italics tag
-#: src/admin-views/settings/tabs/display/display-date-time.php:171
+#: src/admin-views/settings/tabs/display/display-date-time.php:170
 msgid ""
 "When one of these boxes is checked, the end time will no longer display for events that end on the same day when viewing the specified view.\n"
 "\t\t\t\t%1$s Source: %2$s Remove the Event End Time in Views %3$s%4$s"
 msgstr ""
 
-#: src/admin-views/settings/tabs/display/display-date-time.php:186
+#: src/admin-views/settings/tabs/display/display-date-time.php:185
 msgid "Date & Time"
 msgstr ""
 
@@ -5522,7 +5517,7 @@ msgid "# Imported"
 msgstr ""
 
 #: src/Tribe/Aggregator/Record/List_Table.php:392
-#: src/modules/elements/edit-link/element.js:49
+#: src/modules/elements/edit-link/element.js:21
 msgid "Edit"
 msgstr ""
 
@@ -6646,7 +6641,7 @@ msgstr ""
 #: src/Tribe/Views/V2/iCalendar/Links/Outlook_365.php:51
 #: src/modules/blocks/event-links/index.js:46
 #: src/modules/blocks/event-links/template.js:29
-#: src/modules/blocks/event-links/template.js:198
+#: src/modules/blocks/event-links/template.js:200
 msgid "Outlook 365"
 msgstr ""
 
@@ -6654,7 +6649,7 @@ msgstr ""
 #: src/Tribe/Views/V2/iCalendar/Links/Outlook_Live.php:51
 #: src/modules/blocks/event-links/index.js:50
 #: src/modules/blocks/event-links/template.js:30
-#: src/modules/blocks/event-links/template.js:203
+#: src/modules/blocks/event-links/template.js:206
 msgid "Outlook Live"
 msgstr ""
 
@@ -6714,7 +6709,7 @@ msgid "Event Date:"
 msgstr ""
 
 #: src/Tribe/Event_Tickets/Attendees_Report.php:62
-#: src/modules/blocks/event-venue/template.js:324
+#: src/modules/blocks/event-venue/template.js:326
 msgid "Edit Venue"
 msgstr ""
 
@@ -9813,32 +9808,32 @@ msgstr ""
 msgid "Is All Day Event"
 msgstr ""
 
-#: src/modules/blocks/classic-event-details/template.js:185
+#: src/modules/blocks/classic-event-details/template.js:186
 #: src/modules/blocks/event-price/template.js:158
 msgid "Price Settings"
 msgstr ""
 
-#: src/modules/blocks/classic-event-details/template.js:187
+#: src/modules/blocks/classic-event-details/template.js:188
 msgid "Show symbol before"
 msgstr ""
 
-#: src/modules/blocks/classic-event-details/template.js:192
+#: src/modules/blocks/classic-event-details/template.js:194
 #: src/modules/blocks/event-price/template.js:161
 msgid " Currency Symbol"
 msgstr ""
 
-#: src/modules/blocks/classic-event-details/template.js:194
+#: src/modules/blocks/classic-event-details/template.js:196
 #: src/modules/blocks/event-price/template.js:163
 msgid "E.g.: $"
 msgstr ""
 
-#: src/modules/blocks/classic-event-details/template.js:198
-#: src/modules/blocks/event-price/template.js:168
+#: src/modules/blocks/classic-event-details/template.js:201
+#: src/modules/blocks/event-price/template.js:169
 msgid " Currency Code"
 msgstr ""
 
-#: src/modules/blocks/classic-event-details/template.js:200
-#: src/modules/blocks/event-price/template.js:170
+#: src/modules/blocks/classic-event-details/template.js:203
+#: src/modules/blocks/event-price/template.js:171
 msgid "E.g.: USD"
 msgstr ""
 
@@ -9859,15 +9854,15 @@ msgstr ""
 msgid "Date Time Separator"
 msgstr ""
 
-#: src/modules/blocks/event-datetime/controls/template.js:59
+#: src/modules/blocks/event-datetime/controls/template.js:60
 msgid "Time Range Separator"
 msgstr ""
 
-#: src/modules/blocks/event-datetime/controls/template.js:66
+#: src/modules/blocks/event-datetime/controls/template.js:68
 msgid "Time Zone"
 msgstr ""
 
-#: src/modules/blocks/event-datetime/controls/template.js:73
+#: src/modules/blocks/event-datetime/controls/template.js:76
 msgid "Show Time Zone"
 msgstr ""
 
@@ -9895,15 +9890,15 @@ msgstr ""
 msgid "Share Settings"
 msgstr ""
 
-#: src/modules/blocks/event-organizer/form/template.js:77
+#: src/modules/blocks/event-organizer/form/template.js:76
 msgid "Add Phone"
 msgstr ""
 
-#: src/modules/blocks/event-organizer/form/template.js:84
+#: src/modules/blocks/event-organizer/form/template.js:83
 msgid "Add website"
 msgstr ""
 
-#: src/modules/blocks/event-organizer/form/template.js:91
+#: src/modules/blocks/event-organizer/form/template.js:90
 msgid "Add email"
 msgstr ""
 
@@ -9947,7 +9942,7 @@ msgstr ""
 msgid "Enter 0 as price for free events"
 msgstr ""
 
-#: src/modules/blocks/event-price/template.js:174
+#: src/modules/blocks/event-price/template.js:176
 msgid "Currency symbol follows price"
 msgstr ""
 
@@ -9984,7 +9979,7 @@ msgstr ""
 msgid "Show Google Maps Link"
 msgstr ""
 
-#: src/modules/blocks/event-venue/template.js:317
+#: src/modules/blocks/event-venue/template.js:318
 msgid "Show Google Maps Embed"
 msgstr ""
 
@@ -10069,7 +10064,7 @@ msgstr ""
 msgid "Add or Find"
 msgstr ""
 
-#: src/modules/elements/terms-list/element.js:189
+#: src/modules/elements/terms-list/element.js:75
 msgid ", "
 msgstr ""
 
@@ -10082,7 +10077,7 @@ msgctxt "linked text for plugin add-ons"
 msgid "Check 'em out!"
 msgstr ""
 
-#: src/modules/elements/venue-form/element.js:143
+#: src/modules/elements/venue-form/element.js:140
 msgid "Country"
 msgstr ""
 
