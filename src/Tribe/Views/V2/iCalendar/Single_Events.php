@@ -62,7 +62,7 @@ class Single_Events {
 	 * @see   `tribe_events_ical_single_event_links` filter.
 	 *
 	 * @since 5.16.0
-	 * @since TBD Added a check for `$subscribe_links` to avoid fataling.
+	 * @since 6.10.1 Added a check for `$subscribe_links` to avoid fataling.
 	 *
 	 * @param string $calendar_links The link content.
 	 * @param array  $subscribe_links An array of subscription links.
