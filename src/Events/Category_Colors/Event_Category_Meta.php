@@ -1,5 +1,5 @@
 <?php
-/** Meta class for taxonomy meta.
+/** Event_Category_Meta class for taxonomy meta.
  *
  * @since TBD
  */
@@ -14,7 +14,7 @@ use WP_Term;
 use WP_Error;
 
 /**
- * Class Meta
+ * Class Event_Category_Meta
  *
  * Handles metadata for terms within the `tribe_events_cat` taxonomy.
  *
@@ -24,7 +24,7 @@ use WP_Error;
  *
  * @since TBD
  */
-class Meta {
+class Event_Category_Meta {
 
 	/**
 	 * The taxonomy associated with event categories.

@@ -9,7 +9,7 @@ use Tribe\Tests\Traits\With_Uopz;
 use WP_Error;
 use WP_Term;
 
-class Meta_Test extends WPTestCase {
+class EventCategoryMeta_Test extends WPTestCase {
 	use With_Uopz;
 
 	/**
