@@ -16,6 +16,7 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Category_Colors::class );
 		$this->container->singleton( Category_Colors_Settings::class );
 		$this->container->singleton( Quick_Edit::class );
+		$this->container->bind( Meta::class );
 
 		$this->add_filters();
 	}
