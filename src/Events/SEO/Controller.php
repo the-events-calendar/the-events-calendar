@@ -169,23 +169,6 @@ class Controller extends Controller_Contract {
 
 		if ( $do_include ) {
 			add_filter( 'wp_robots', [ $this, 'filter_robots_directives' ] );
-/*				$robots['noindex'] = true;
-
-				return $robots;
-			}, 10, 1 );*/
-
-/*			if ( did_action( 'wp_head' ) ) {
-				ob_start();
-				$this->print_noindex_meta();
-				$meta_html = trim( ob_get_clean() );
-				*/?><!--
-				<script>
-					document.head.insertAdjacentHTML( 'beforeend', '<?php /*echo $meta_html; */?>' );
-				</script>
-				--><?php
-/*			} else {
-				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
-			}*/
 		}
 	}
 
@@ -252,15 +235,18 @@ class Controller extends Controller_Contract {
 	/**
 	 * Returns the end date time object read from the current context.
 	 *
-	 * @since 6.2.3
+	 * @since      6.2.3
+	 * @deprecated TBD - No replacement, unused coding.
 	 *
-	 * @param [type] $view
-	 * @param [type] $start_date
-	 * @param [type] $context
+	 * @param string         $view       The current view slug
+	 * @param DateTime       $start_date The start date
+	 * @param Tribe__Context $context    The current context
 	 *
 	 * @return DateTime|false A DateTime object or `false` if a DateTime object could not be built.
-	 */
+	 * */
 	public function get_end_date( $view, $start_date, $context ) {
+		_deprecated_function( __FUNCTION__, 'TBD' );
+
 		$end_date = $context->get( 'end_date' );
 
 		switch ( $view ) {
@@ -268,20 +254,16 @@ class Controller extends Controller_Contract {
 				$end_date = clone $start_date;
 				$end_date->modify( '+1 day' );
 				return $end_date;
-				break;
 			case 'week':
 				$end_date = clone $start_date;
 				$end_date->modify( '+6 days' );
 				return $end_date;
-				break;
 			case 'month':
 				$end_date = clone $start_date;
 				$end_date->modify( '+1 month' );
 				return $end_date;
-				break;
 			default:
 				return Dates::build_date_object( $end_date );
-				break;
 		}
 	}
 
