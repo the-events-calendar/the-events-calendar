@@ -107,6 +107,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 				variant="primary"
 				disabled={disabled || isSaving}
 				onClick={() => setClicked(true)}
+				className="tec-events-onboarding__button tec-events-onboarding__button--next"
 			>
 				{isSaving && __('Saving...', 'the-events-calendar')}{isSaving && <Spinner />}
 				{!isSaving && __('Continue', 'the-events-calendar')}

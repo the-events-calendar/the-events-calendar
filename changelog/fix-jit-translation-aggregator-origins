@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Ensure Aggregator translations are not laoded before init. [TEC-5341]

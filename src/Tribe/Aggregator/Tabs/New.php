@@ -560,7 +560,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 			return;
 		}
 
-		if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+		if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) ) {
 			return;
 		}
 
