@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Added check that `$_FILES` is set before setting the param on an HTTP request. [TEC-5363]
