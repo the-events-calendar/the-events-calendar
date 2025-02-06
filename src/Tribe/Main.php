@@ -10,6 +10,7 @@ use Tribe\Events\Admin\Settings;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use TEC\Events\New_Editor\Controller as New_Editor_Controller;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
@@ -500,6 +501,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			add_filter( 'tec_common_parent_plugin_file', [ $this, 'include_parent_plugin_path_to_common' ] );
 
+			// Feature detection for the new editor.
+			$new_editor_disabled = defined( 'TEC_NEW_EDITOR_DISABLE' ) && TEC_NEW_EDITOR_DISABLE;
+			add_filter( 'tec_using_new_editor', $new_editor_disabled ? '__return_false' : '__return_true' );
+
 			Tribe__Main::instance();
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
@@ -597,6 +602,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function bind_implementations(  ) {
 			tribe_singleton( 'tec.main', $this );
+
+			// New Editor.
+			tribe_register_provider( New_Editor_Controller::class );
 
 			// Admin provider.
 			tribe_register_provider( \Tribe\Events\Admin\Provider::class );
