@@ -3388,6 +3388,10 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 */
 		public function addEventBox() {
+			if ( tec_using_new_editor() ) {
+				return;
+			}
+
 			add_meta_box(
 				'tribe_events_event_options',
 				sprintf( esc_html__( '%s Options', 'the-events-calendar' ), $this->singular_event_label ),

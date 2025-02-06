@@ -505,21 +505,24 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tec_asset(
-			$plugin,
-			'tribe-admin-v2-single-blocks',
-			'tribe-admin-single-blocks.css',
-			[
-				'tec-variables-full',
-				'tec-variables-skeleton',
-			],
-			[ 'admin_enqueue_scripts' ],
-			[
-				'conditionals' => [
-					[ $this, 'should_enqueue_admin' ]
+		if ( ! tec_using_new_editor() ) {
+			// Do not load this asset if the legacy Block Editor support is not activated.
+			tec_asset(
+				$plugin,
+				'tribe-admin-v2-single-blocks',
+				'tribe-admin-single-blocks.css',
+				[
+					'tec-variables-full',
+					'tec-variables-skeleton',
 				],
-			]
-		);
+				[ 'admin_enqueue_scripts' ],
+				[
+					'conditionals' => [
+						[ $this, 'should_enqueue_admin' ]
+					],
+				]
+			);
+		}
 	}
 
 	/**
@@ -702,6 +705,10 @@ class Assets extends Service_Provider {
 			&& isset( $_GET[ 'elementor-preview' ] )
 		) {
 			return true;
+		}
+
+		if ( tec_using_new_editor() ) {
+			return;
 		}
 
 		// Bail if not Single Event.
