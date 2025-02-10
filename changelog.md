@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.10.1] 2025-02-06
+### [6.10.1] 2025-02-10
 
 * Tweak - Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]
 * Tweak - Remove class_exists() and use register_on_action() for Notifications [TEC-5336]
