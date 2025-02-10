@@ -234,14 +234,16 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.10.1] 2025-02-10 =
 
-* Tweak - Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]
-* Tweak - Remove class_exists() and use register_on_action() for Notifications [TEC-5336]
 * Fix - Added a check for `$subscribe_links` in `single_event_links` function. [TEC-5357]
 * Fix - Added `format_item()` function so venues read from ORM are decorated objects. (props to @m8nmueller) [TEC-5353]
 * Fix - Make Eventbrite import available when the Eventbrite Tickets plugin is installed [EBT-149]
 * Fix - Replaced deprecated functions with their modern equivalents to maintain compatibility. [EA-476]
 * Fix - Support Additional Fields in Events REST API [TEC-5015]
 * Accessibility - Increased pagination button sizes on the events page. [TEC-5176]
+* Tweak - Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]
+* Tweak - Remove class_exists() and use register_on_action() for Notifications [TEC-5336]
+* Tweak - Added filters: `tribe_repository_venues_format_item`
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted.
 
 = [6.10.0] 2025-01-30 =
 
@@ -251,11 +253,6 @@ Remember to always make a backup of your database and files before updating!
 = [6.9.1] 2025-01-22 =
 
 * Security - Ensure Elementor HTML tags are properly escaped to avoid potential Stored Cross Site Scripting. [SVUL-13]
-* Tweak - Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
-* Tweak - Updated Telemetry heading under Settings > Debugging. [TEC-5335]
-* Tweak - Re-added filter: `tec_views_v2_subscribe_links_{$slug}_label`
-* Tweak - Tweak - Removed duplicate filter: `tec_views_v2_single_subscribe_links_{$slug}_label`
-* Tweak - Changed views: `integrations/elementor/widgets/event-calendar-link`, `integrations/elementor/widgets/event-datetime/range-separator`, `v2/components/loader`, `v2/components/messages`
 * Fix - Added check to `disable_blocks_on_display` for if `$content` is `null`. [TEC-5343]
 * Fix - Ensure Aggregator translations are not loaded before init. [TEC-5341]
 * Fix - Fixes edge cases where the nonce_user_logged_out hook was returning a value when the user was logged out, causing the nonce validation to fail. [TEC-5340]
@@ -263,6 +260,11 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Re-add logic to add page template options from theme to Display Settings. [TEC-5337]
 * Fix - Update Tribe__Events__Aggregator__Errors to ensure we don't load translations before `init`. [TEC-5341]
 * Fix - Update uses of unload_textdomain to ensure they allow JIT loading of translations afterwards. [TEC-5341]
+* Tweak - Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
+* Tweak - Updated Telemetry heading under Settings > Debugging. [TEC-5335]
+* Tweak - Re-added filter: `tec_views_v2_subscribe_links_{$slug}_label`
+* Tweak - Tweak - Removed duplicate filter: `tec_views_v2_single_subscribe_links_{$slug}_label`
+* Tweak - Changed views: `integrations/elementor/widgets/event-calendar-link`, `integrations/elementor/widgets/event-datetime/range-separator`, `v2/components/loader`, `v2/components/messages`
 * Accessibility - Updated the event search page to handle search results better for screen readers, with alerts noting the results of the search.[TEC-5175]
 * Language - 3 new strings added, 84 updated, 0 fuzzied, and 2 obsoleted.
 

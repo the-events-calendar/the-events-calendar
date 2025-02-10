@@ -10,6 +10,8 @@
 * Fix - Replaced deprecated functions with their modern equivalents to maintain compatibility. [EA-476]
 * Fix - Support Additional Fields in Events REST API [TEC-5015]
 * Accessibility - Increased pagination button sizes on the events page. [TEC-5176]
+* Tweak - Added filters: `tribe_repository_venues_format_item`
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted.
 
 ### [6.10.0] 2025-01-30
 
