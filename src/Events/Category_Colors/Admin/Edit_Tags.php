@@ -143,24 +143,27 @@ class Edit_Tags {
 				<fieldset class="inline-edit-col-right">
 					<div class="inline-edit-col">
 						<label>
-							<div>Category Colors</div>
+							<div><b>Category Colors</b></div>
 							<input type="hidden" name="tec-category-colors-color" value="" />
 							<table>
 								<tr>
 									<td>
 										<div>Primary Color</div>
-										<input type="text" name="tec-category-color-foreground" class="tec-events-category-color-picker tec-category-color-foreground" value="" />
+										<input type="text" name="tec-category-color-primary" id="tec-category-color-primary" class="tec-category-color-picker-input tec-category-color-primary-input" value="" />
 									</td>
 									<td>
 									<div>Background Color</div>
-										<input type="text" name="tec-category-color-background" class="tec-events-category-color-picker tec-category-color-background" value="" />
+										<input type="text" name="tec-category-color-background" id="tec-category-color-background" class="tec-category-color-picker-input tec-category-color-background-input" value="" />
 									</td>
 									<td>
 									<div>Text Color</div>
-										<input type="text" name="tec-category-color-text-color" class="tec-events-category-color-picker tec-category-color-text-color" value="" />
+										<input type="text" name="tec-category-color-text" id="tec-category-color-text" class="tec-category-color-picker-input tec-category-color-text-input" value="" />
 									</td>
 								</tr>
 							</table>
+							<div>Note: Changing the primary color will update the background and font color to provide a recommended match. You can still update them individually afterwards. <a href="#">Learn more about color selection and accessibility.</a></div>
+							<div><b>Preview</b></div>
+							<div class="tec-category-colors-quick-edit-preview"></div>
 						</label>
 					</div>
 				</fieldset>
