@@ -713,6 +713,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register the Help Hub system.
 			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
 
+			// Register the Calendar Embeds feature.
+			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 *
