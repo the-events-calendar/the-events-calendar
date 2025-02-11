@@ -10,14 +10,7 @@
 namespace TEC\Events\SEO\Headers;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use Tribe__Settings_Manager;
 
-/**
- * Class Headers Controller
- *
- * @since   TBD
- * @package TEC\Events\SEO
- */
 class Controller extends Controller_Contract {
 
 	/**
@@ -47,44 +40,111 @@ class Controller extends Controller_Contract {
 	public function filter_headers() {
 		global $wp_query;
 
-		if ( ! isset( $wp_query->query['post_type'] ) || $wp_query->query['post_type'] !== 'tribe_events' || ! isset( $wp_query->query['eventDisplay'] ) || ! isset( $wp_query->query['eventDate'] ) ) {
+		if (
+			! isset( $wp_query->query['post_type'] )
+			|| $wp_query->query['post_type'] !== 'tribe_events'
+			|| ! isset( $wp_query->query['eventDisplay'] )
+			|| ! isset( $wp_query->query['eventDate'] )
+		) {
 			return;
 		}
 
-		$raw_options   = Tribe__Settings_Manager::get_options();
+		$enabled_views = tribe_get_option( 'tribeEnableViews' );
 		$event_display = $wp_query->query['eventDisplay'];
 
 		if ( 'day' === $event_display ) {
-			$this->check_day_view( $wp_query, $raw_options );
+			$this->check_day_view( $wp_query, $enabled_views );
 		}
 	}
 
+	/**
+	 * Prepare common date variables for view checks.
+	 *
+	 * This method collects variables needed for both day and month view checks.
+	 * For day view, it expects $date_format = 'Y-m-d' (and computes the event's month).
+	 * For month view, it expects $date_format = 'Y-m' (where eventDate is already in "Y-m" format).
+	 *
+	 * @param object $wp_query    The global WP_Query object.
+	 * @param string $date_format Format to use for tribe_events_* functions.
+	 *                            Use 'Y-m-d' for day view and 'Y-m' for month view.
+	 *
+	 * @return array An array with the following keys:
+	 *               - event_date_str: The raw event date from the query.
+	 *               - event_timestamp: (For day view) The event date as a timestamp.
+	 *               - event_month: The event's month in "Y-m" format.
+	 *               - current_month: The current month in "Y-m" format.
+	 *               - earliest_date_str: The earliest event date (in the specified format).
+	 *               - latest_date_str: The latest event date (in the specified format).
+	 */
+	private function prepare_date_check( object $wp_query, string $date_format ): array {
+		$event_date_str = $wp_query->query['eventDate'];
+		$current_month  = static::get_current_month();
+
+		if ( 'Y-m-d' === $date_format ) {
+			$event_timestamp = strtotime( $event_date_str );
+			$event_month     = date( 'Y-m', $event_timestamp );
+		} else {
+			$event_timestamp = null;
+			$event_month     = $event_date_str;
+		}
+
+		$earliest_date_str = tribe_events_earliest_date( $date_format );
+		$latest_date_str   = tribe_events_latest_date( $date_format );
+
+		return [
+			'event_date_str'    => $event_date_str,
+			'event_timestamp'   => $event_timestamp,
+			'current_month'     => $current_month,
+			'event_month'       => $event_month,
+			'earliest_date_str' => $earliest_date_str,
+			'latest_date_str'   => $latest_date_str,
+		];
+	}
 
 	/**
 	 * Check the conditions for the day view.
 	 *
-	 * @since TBD
+	 * If either tribe_events_earliest_date() or tribe_events_latest_date() returns false/empty
+	 * and the event's month is the current month, do not set a 404.
 	 *
-	 * @param object $wp_query    The global WP_Query object.
-	 * @param array  $raw_options The raw options from Tribe__Settings_Manager.
+	 * @param object $wp_query      The global WP_Query object.
+	 * @param array  $enabled_views An array of the enabled views.
 	 */
-	private function check_day_view( object $wp_query, array $raw_options ) {
-		if ( ! in_array( 'day', $raw_options['tribeEnableViews'] ) ) {
+	private function check_day_view( object $wp_query, array $enabled_views ) {
+		if ( ! in_array( 'day', $enabled_views, true ) ) {
 			$wp_query->set_404();
 
 			return;
 		}
 
-		if ( strtotime( tribe_events_earliest_date( 'Y-m-d' ) ) > strtotime( $wp_query->query['eventDate'] ) ) {
+		$data = $this->prepare_date_check( $wp_query, 'Y-m-d' );
+
+		// If either date is false/empty and the event's month matches the current month, skip further checks.
+		if ( ( ! $data['earliest_date_str'] || ! $data['latest_date_str'] ) && ( $data['event_month'] === $data['current_month'] ) ) {
+			return;
+		}
+
+		if ( strtotime( $data['earliest_date_str'] ) > $data['event_timestamp'] ) {
 			$wp_query->set_404();
 
 			return;
 		}
 
-		if ( strtotime( tribe_events_latest_date( 'Y-m-d' ) ) < strtotime( $wp_query->query['eventDate'] ) ) {
+		if ( strtotime( $data['latest_date_str'] ) < $data['event_timestamp'] ) {
 			$wp_query->set_404();
 
 			return;
 		}
+	}
+
+	/**
+	 * Get the current month.
+	 *
+	 * This method is used to determine the current month and can be overridden in tests.
+	 *
+	 * @return string The current month in "Y-m" format.
+	 */
+	protected static function get_current_month() {
+		return date( 'Y-m' );
 	}
 }
