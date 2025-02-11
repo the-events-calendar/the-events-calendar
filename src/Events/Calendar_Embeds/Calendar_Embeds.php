@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Manages the External Calendar Embeds Feature.
  *
@@ -108,7 +107,7 @@ class Calendar_Embeds {
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @return int
 	 */
 	public function register_menu_item() {
 		$cpt      = get_post_type_object( TEC::POSTTYPE );
