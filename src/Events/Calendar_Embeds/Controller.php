@@ -45,7 +45,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_actions() {
 		add_action( 'init', [ $this, 'register_post_type' ] );
-		add_action( 'admin_menu', [ $this, 'register_menu_item' ] );
+		add_action( 'tec_events_after_import_submenu_created', [ $this, 'register_menu_item' ] );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_actions() {
 		remove_action( 'init', [ $this, 'register_post_type' ] );
-		remove_action( 'admin_menu', [ $this, 'register_menu_item' ] );
+		remove_action( 'tec_events_after_import_submenu_created', [ $this, 'register_menu_item' ] );
 	}
 
 	/**

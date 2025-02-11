@@ -420,6 +420,13 @@ class Tribe__Events__Aggregator__Page {
 			[ $this, 'render' ]
 		);
 
+		/**
+		 * Fires an Action after the submenu item is created.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_events_after_import_submenu_created' );
+
 		return $this->ID;
 	}
 
