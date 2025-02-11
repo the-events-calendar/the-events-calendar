@@ -7,7 +7,7 @@
  * @package TEC\Events\Calendar_Embeds
  */
 
- namespace TEC\Events\Calendar_Embeds;
+namespace TEC\Events\Calendar_Embeds;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
