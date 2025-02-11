@@ -54,6 +54,8 @@ class Controller extends Controller_Contract {
 
 		if ( 'day' === $event_display ) {
 			$this->check_day_view( $wp_query, $enabled_views );
+		} elseif ( 'month' === $event_display ) {
+			$this->check_month_view( $wp_query, $enabled_views );
 		}
 	}
 
@@ -131,6 +133,43 @@ class Controller extends Controller_Contract {
 		}
 
 		if ( strtotime( $data['latest_date_str'] ) < $data['event_timestamp'] ) {
+			$wp_query->set_404();
+
+			return;
+		}
+	}
+
+	/**
+	 * Check the conditions for the month view.
+	 *
+	 * If either tribe_events_earliest_date() or tribe_events_latest_date() returns false/empty
+	 * and the eventDate equals the current month, do not set a 404.
+	 *
+	 * @param object $wp_query      The global WP_Query object.
+	 * @param array  $enabled_views An array of the enabled views.
+	 */
+	private function check_month_view( object $wp_query, array $enabled_views ) {
+		if ( ! in_array( 'month', $enabled_views, true ) ) {
+			$wp_query->set_404();
+
+			return;
+		}
+
+		$data = $this->prepare_date_check( $wp_query, 'Y-m' );
+		// For month view, eventDate is expected to be in "Y-m" format.
+
+		// If either date is false/empty and eventDate equals the current month, skip further checks.
+		if ( ( ! $data['earliest_date_str'] || ! $data['latest_date_str'] ) && ( $data['event_date_str'] === $data['current_month'] ) ) {
+			return;
+		}
+
+		if ( $data['earliest_date_str'] > $data['event_date_str'] ) {
+			$wp_query->set_404();
+
+			return;
+		}
+
+		if ( $data['latest_date_str'] < $data['event_date_str'] ) {
 			$wp_query->set_404();
 
 			return;
