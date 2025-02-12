@@ -18,7 +18,7 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 		$this->calendarEmbeds = new Calendar_Embeds();
 	}
-	
+
 	protected function tearDown() : void {
 		parent::tearDown();
 		$this->calendarEmbeds = null;
