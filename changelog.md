@@ -1,5 +1,9 @@
 # Changelog
 
+### [6.10.1.1] 2025-02-12
+
+* Fix - Updated common library to correct issues with notifications around licensing.
+
 ### [6.10.1] 2025-02-10
 
 * Tweak - Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]
@@ -9,6 +13,7 @@
 * Fix - Make Eventbrite import available when the Eventbrite Tickets plugin is installed [EBT-149]
 * Fix - Replaced deprecated functions with their modern equivalents to maintain compatibility. [EA-476]
 * Fix - Support Additional Fields in Events REST API [TEC-5015]
+* Fix - Changed the way translations are loaded to work with the latest WordPress language changes.
 * Accessibility - Increased pagination button sizes on the events page. [TEC-5176]
 * Tweak - Added filters: `tribe_repository_venues_format_item`
 * Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted.
