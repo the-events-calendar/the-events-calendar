@@ -3,6 +3,7 @@
 ### [6.10.1.1] 2025-02-12
 
 * Fix - Updated common library to correct issues with notifications around licensing.
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
 ### [6.10.1] 2025-02-10
 
