@@ -18,6 +18,12 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 		parent::setUp();
 		$this->calendarEmbeds = new Calendar_Embeds();
 	}
+	
+	protected function tearDown() : void {
+		parent::tearDown();
+		$this->calendarEmbeds = null;
+		$this->unset_uopz_functions();
+	}
 
 	public function testRegisterPostType() {
 		// Mock the WordPress functions
