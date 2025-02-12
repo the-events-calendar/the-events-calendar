@@ -3,6 +3,9 @@
 namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\Migration\Executor;
+use TEC\Events\Category_Colors\Migration\Preprocessor;
+use TEC\Events\Category_Colors\Migration\Validator;
 use TEC\Events\Category_Colors\Settings as Category_Colors_Settings;
 
 class Controller extends Controller_Contract {
@@ -16,6 +19,9 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Category_Colors::class );
 		$this->container->singleton( Category_Colors_Settings::class );
 		$this->container->singleton( Quick_Edit::class );
+		$this->container->singleton( Preprocessor::class );
+		$this->container->singleton( Validator::class );
+		$this->container->singleton( Executor::class );
 
 		$this->add_filters();
 	}
@@ -45,6 +51,35 @@ class Controller extends Controller_Contract {
 		add_action( 'quick_edit_custom_box', [ $this, 'add_custom_quick_edit_field' ], 10, 3 );
 
 		add_action( 'edited_term_taxonomy', [ $this, 'save_quick_edit_custom_fields' ], 10, 2 );
+
+		add_action('admin_init',[$this,'migrate']);
+
+
+
+	}
+
+	public function migrate() {
+		$preprocessor   = tribe( Preprocessor::class );
+		$processed_data = $preprocessor->process();
+		printr( $processed_data, 'Migration data' );
+		// Validate once.
+		$validator = new Validator( $preprocessor->get_original_settings(), $processed_data );
+		if ( ! $validator->validate() ) {
+			printr( $validator->get_errors(), 'Validation Errors' );
+			printr( $validator->get_warnings(), 'Validation Warnings' );
+
+			return; // Stop execution if validation fails.
+		}
+
+		// Execute migration in dry-run mode.
+		$executor = new Executor( $preprocessor->get_original_settings(), $processed_data, true ); // Enable dry run
+		$executor->execute();
+
+		// Log results.
+		printr( $executor->get_errors(), 'Executor Errors' );
+		printr( $executor->get_warnings(), 'Executor Warnings' );
+
+		die();
 	}
 
 	/**
