@@ -235,6 +235,9 @@ Remember to always make a backup of your database and files before updating!
 = [6.10.1.1] 2025-02-12 =
 
 * Fix - Updated common library to correct issues with notifications around licensing.
+* Fix - Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TEC-5384]
+* Fix - Adjustments were made to prevent a fatal error when tec_pue_checker_init was triggered too early, attempting to call tribe_is_truthy() before it was available. The license check and active plugin monitoring now run on admin_init to ensure proper loading. [TEC-5384]
+* Fix - Update the license checker to ignore empty licenses. [TEC-5385]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.10.1] 2025-02-10 =
