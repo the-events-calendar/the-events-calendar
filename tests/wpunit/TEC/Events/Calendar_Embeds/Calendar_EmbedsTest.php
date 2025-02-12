@@ -22,13 +22,12 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 	protected function tearDown() : void {
 		parent::tearDown();
 		$this->calendarEmbeds = null;
-		$this->unset_uopz_functions();
+		$this->unset_uopz_returns();
 	}
 
 	public function testRegisterPostType() {
 		// Mock the WordPress functions
 		global $wp_post_types;
-		$wp_post_types = [];
 
 		$this->calendarEmbeds->register_post_type();
 
@@ -40,20 +39,8 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 
 	public function testRegisterMenuItem() {
 		// Mock the WordPress functions
-		global $submenu, $menu;
-		$submenu = [];
-		$menu = [];
+		global $submenu;
 
-		$this->set_fn_return( 'get_post_type_object', function() {
-			return (object) [
-				'labels' => (object) [
-					'name' => 'Event',
-				],
-				'cap' => (object) [
-					'publish_posts' => 'publish_posts',
-				],
-			];
-		}, true );
 		$this->set_fn_return( 'current_user_can', true );
 
 		// Register the main post type so the menu exists.
@@ -71,7 +58,7 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 		[ $title, $cap, $url, $label ] = $submenu_data[0];
 
 		$this->assertEquals( 'Embed Calendar', $title );
-		$this->assertEquals( 'publish_posts', $cap );
+		$this->assertEquals( 'publish_tribe_events', $cap );
 		$this->assertEquals( 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE, $url );
 		$this->assertEquals( 'Embed Calendar', $label );
 	}
