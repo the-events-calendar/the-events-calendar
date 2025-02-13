@@ -160,6 +160,7 @@ class Calendar_Embeds {
 			return $submenu_file;
 		}
 
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$parent_file = 'edit.php?post_type=' . TEC::POSTTYPE;
 
 		return $submenu_file;
