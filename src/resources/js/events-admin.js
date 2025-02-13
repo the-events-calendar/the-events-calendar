@@ -778,14 +778,6 @@ jQuery( function( $ ) {
 			.parent()
 			.addClass( 'current' );
 	}
-	if ( $( 'body' ).hasClass( 'post-type-tec_calendar_embed') ) {
-		$( '#menu-posts-tribe_events, #menu-posts-tribe_events a.wp-has-submenu' )
-			.addClass( 'wp-menu-open wp-has-current-submenu wp-has-submenu' )
-			.removeClass( 'wp-not-current-submenu' )
-			.find( "li a[href='edit.php?post_type=tec_calendar_embed']" )
-			.parent()
-			.addClass( 'current' );
-	}
 
 	// Default Layout Settings
 	// shows / hides proper views that are to be used on front-end

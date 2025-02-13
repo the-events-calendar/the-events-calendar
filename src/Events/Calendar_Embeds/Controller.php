@@ -27,6 +27,7 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Calendar_Embeds::class );
 
 		$this->add_actions();
+		$this->add_filters();
 	}
 
 	/**
@@ -34,6 +35,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->remove_actions();
+		$this->remove_filters();
 	}
 
 	/**
@@ -61,6 +63,28 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Add filters for the feature.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function add_filters() {
+		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
+	}
+
+	/**
+	 * Remove filters for the feature.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function remove_filters() {
+		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
+	}
+
+	/**
 	 * Register custom post type.
 	 *
 	 * @since TBD
@@ -73,8 +97,25 @@ class Controller extends Controller_Contract {
 
 	/**
 	 * Create menu item.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function register_menu_item() {
 		$this->container->make( Calendar_Embeds::class )->register_menu_item();
+	}
+
+	/**
+	 * Keep parent menu open when viewing the calendar embeds page.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $parent_file
+	 *
+	 * @return string
+	 */
+	public function keep_parent_menu_open( $parent_file ) {
+		return $this->container->make( Calendar_Embeds::class )->keep_parent_menu_open( $parent_file );
 	}
 }

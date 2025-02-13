@@ -143,4 +143,25 @@ class Calendar_Embeds {
 	public function get_page_title() {
 		return __( 'Embed Calendar', 'the-events-calendar' );
 	}
+
+	/**
+	 * Keep parent menu open when adding and editing calendar embeds.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $submenu_file The current submenu file.
+	 *
+	 * @return string
+	 */
+	public function keep_parent_menu_open( $submenu_file ) {
+		global $parent_file;
+
+		if ( 'edit.php?post_type=' . self::POSTTYPE !== $parent_file ) {
+			return $submenu_file;
+		}
+
+		$parent_file = 'edit.php?post_type=' . TEC::POSTTYPE;
+
+		return $submenu_file;
+	}
 }
