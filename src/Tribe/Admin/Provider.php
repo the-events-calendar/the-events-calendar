@@ -28,6 +28,7 @@ class Provider extends Service_Provider {
 	 * Add hooks.
 	 *
 	 * @since 5.15.0
+	 * @since TBD Updated priority of adding admin pages to 12.
 	 */
 	public function add_hooks() {
 		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'settings_ui' ) );
