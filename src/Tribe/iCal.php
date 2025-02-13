@@ -345,7 +345,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 6.1.3 Adding access checks to the provided posts.
 	 *
-	 * @param int|null|array $post If you want the iCal file for a single event
+	 * @param int|null|array $post If you want the iCal file for a single event.
 	 * @param boolean        $echo Whether the content should be echoed or returned.
 	 *
 	 * @return string The complete iCal feed.
@@ -979,7 +979,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param $event \WP_Post The event post.
+	 * @param WP_Post $event The event post.
 	 *
 	 * @return string The time zone string of the event in the format of 'America/New_York'.
 	 */
