@@ -111,11 +111,11 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $parent_file
+	 * @param string $submenu_file The submenu file.
 	 *
 	 * @return string
 	 */
-	public function keep_parent_menu_open( $parent_file ) {
-		return $this->container->make( Calendar_Embeds::class )->keep_parent_menu_open( $parent_file );
+	public function keep_parent_menu_open( $submenu_file ) {
+		return $this->container->make( Calendar_Embeds::class )->keep_parent_menu_open( $submenu_file );
 	}
 }
