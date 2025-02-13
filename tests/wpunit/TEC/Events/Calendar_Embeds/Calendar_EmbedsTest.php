@@ -9,32 +9,16 @@ use Tribe__Events__Main as TEC;
 class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
-	/**
-	 * @var Calendar_Embeds
-	 */
-	protected $calendarEmbeds;
-
-	protected function setUp(): void {
-		parent::setUp();
-		$this->calendarEmbeds = new Calendar_Embeds();
-	}
-
-	protected function tearDown() : void {
-		parent::tearDown();
-		$this->calendarEmbeds = null;
-		$this->unset_uopz_returns();
-	}
-
 	public function testRegisterPostType() {
 		// Mock the WordPress functions
 		global $wp_post_types;
 
-		$this->calendarEmbeds->register_post_type();
+		tribe( Calendar_Embeds::class )->register_post_type();
 
 		$this->assertArrayHasKey( Calendar_Embeds::POSTTYPE, $wp_post_types );
-		$this->assertEquals( 'Calendar Embeds', $wp_post_types[Calendar_Embeds::POSTTYPE]->labels->name );
-		$this->assertFalse( $wp_post_types[Calendar_Embeds::POSTTYPE]->public );
-		$this->assertTrue( $wp_post_types[Calendar_Embeds::POSTTYPE]->show_ui );
+		$this->assertEquals( 'Calendar Embeds', $wp_post_types[ Calendar_Embeds::POSTTYPE ]->labels->name );
+		$this->assertFalse( $wp_post_types[ Calendar_Embeds::POSTTYPE ]->public );
+		$this->assertTrue( $wp_post_types[ Calendar_Embeds::POSTTYPE ]->show_ui );
 	}
 
 	public function testRegisterMenuItem() {
@@ -44,10 +28,11 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 		$this->set_fn_return( 'current_user_can', true );
 
 		// Register the main post type so the menu exists.
-		$tec_main = TEC::instance();
-		$tec_main->registerPostType();
+		tribe( 'tec.main' )->registerPostType();
 
-		$this->calendarEmbeds->register_menu_item();
+		tribe( Calendar_Embeds::class )->register_menu_item();
+
+		$this->unset_uopz_returns();
 
 		// Check if submenu was created within main menu.
 		$submenu_key = 'edit.php?post_type=' . TEC::POSTTYPE;
@@ -64,12 +49,12 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	public function testGetMenuLabel() {
-		$label = $this->calendarEmbeds->get_menu_label();
+		$label = tribe( Calendar_Embeds::class )->get_menu_label();
 		$this->assertEquals('Embed Calendar', $label);
 	}
 
 	public function testGetPageTitle() {
-		$title = $this->calendarEmbeds->get_page_title();
+		$title = tribe( Calendar_Embeds::class )->get_page_title();
 		$this->assertEquals('Embed Calendar', $title);
 	}
 }
