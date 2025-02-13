@@ -32,8 +32,6 @@ class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
 
 		tribe( Calendar_Embeds::class )->register_menu_item();
 
-		$this->unset_uopz_returns();
-
 		// Check if submenu was created within main menu.
 		$submenu_key = 'edit.php?post_type=' . TEC::POSTTYPE;
 		$this->assertArrayHasKey( $submenu_key, $submenu );
