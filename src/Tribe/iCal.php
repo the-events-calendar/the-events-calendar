@@ -10,7 +10,11 @@ use Tribe__Utils__Array as Arr;
 class Tribe__Events__iCal {
 
 	/**
-	 * @var int The number of events that will be exported when generating the iCal feed.
+	 * The number of events that will be exported when generating the iCal feed.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @var int
 	 */
 	protected $feed_default_export_count = 30;
 
@@ -43,6 +47,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
+	 *
+	 * @since 3.6.0
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
@@ -54,6 +60,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Outputs a <link> element for the iCal feed.
+	 *
+	 * @since 3.6.0
 	 */
 	public function set_feed_link() {
 		if ( ! current_theme_supports( 'automatic-feed-links' ) ) {
@@ -74,6 +82,8 @@ class Tribe__Events__iCal {
 	/**
 	 * Returns the URL for the iCal generator for lists of posts.
 	 *
+	 * @since 3.6.0
+	 *
 	 * @param string $type The type of iCal link to return, defaults to 'home'.
 	 *
 	 * @return string
@@ -86,6 +96,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Make sure when we grab a month link it includes the correct month.
+	 *
+	 * @since 5.1.0
 	 *
 	 * @param string $event_date Date of the month we are getting the link for.
 	 *
@@ -107,6 +119,8 @@ class Tribe__Events__iCal {
 	/**
 	 * Make sure iCal link has the date in the URL instead of "today" on day view.
 	 *
+	 * @since 3.6.0
+	 *
 	 * @param string $link The URL of the iCal feed for day view.
 	 *
 	 * @return string
@@ -127,6 +141,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Generates the markup for iCal and gCal single event links.
+	 *
+	 * @since 3.6.0
 	 */
 	public function single_event_links() {
 
@@ -144,6 +160,8 @@ class Tribe__Events__iCal {
 		 *
 		 * This allows for complete customization of the calendar links output.
 		 *
+		 * @since 4.6.2
+		 *
 		 * @param string $calendar_links The HTML markup of the iCal and gCal single-event link buttons.
 		 */
 		echo apply_filters( 'tribe_events_ical_single_event_links', $calendar_links );
@@ -152,6 +170,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Generates the markup for the "iCal Import" link for the views.
+	 *
+	 * @since 3.6.0
 	 */
 	public function maybe_add_link() {
 
@@ -161,6 +181,8 @@ class Tribe__Events__iCal {
 
 		/**
 		 * A filter to control whether the "iCal Import" link shows up or not.
+		 *
+		 * @since 4.6.2
 		 *
 		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
 		 */
@@ -188,6 +210,8 @@ class Tribe__Events__iCal {
 		/**
 		 * Allow the customization of the iCal export link "Export Events" text.
 		 *
+		 * @since 4.6.2
+		 *
 		 * @param string $text The default link text, which is "Export Events".
 		 */
 		$text  = apply_filters( 'tribe_events_ical_export_text', esc_html__( 'Export Events', 'the-events-calendar' ) );
@@ -203,6 +227,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Executes the iCal generator when the appropriate query_var or $_GET is set up.
+	 *
+	 * @since 3.6.0
 	 */
 	public function do_ical_template() {
 		// Bail if a relevant query string is not included.
@@ -426,6 +452,8 @@ class Tribe__Events__iCal {
 	 * main query since page spoofing can render the actual query and results
 	 * inaccessible (and it cannot be recovered via a query reset).
 	 *
+	 * @since 3.6.0
+	 *
 	 * @return array Events in the month.
 	 */
 	private function get_month_view_events() {
@@ -461,6 +489,8 @@ class Tribe__Events__iCal {
 		 * those events taking place in the specific month being viewed (rather than an exact
 		 * match of the events shown in month view itself, which may include events from
 		 * adjacent months).
+		 *
+		 * @since 3.10.1
 		 *
 		 * @var array  $args  The query arguments.
 		 * @var string $month The month the query is for in YYYY-MM-DD format for the first day of the month.
@@ -499,6 +529,8 @@ class Tribe__Events__iCal {
 
 		/**
 		 * Allows filtering the filename provided in the Content-Disposition header for iCal feeds.
+		 *
+		 * @since 4.9.4
 		 *
 		 * @var string       $filename
 		 * @var WP_Post|null $post
@@ -544,6 +576,8 @@ class Tribe__Events__iCal {
 		/**
 		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
 		 *
+		 * @since 4.9.4
+		 *
 		 * @param string $blog_name The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
 		 */
 		$x_wr_calname = apply_filters( 'tribe_ical_feed_calname', $blog_name );
@@ -557,6 +591,8 @@ class Tribe__Events__iCal {
 
 		/**
 		 * Allows for customization of the various properties at the top of the generated iCal file.
+		 *
+		 * @since 4.9.4
 		 *
 		 * @param string $content Existing properties atop the file; starts at "BEGIN:VCALENDAR", ends at "X-WR-CALDESC".
 		 */
@@ -875,6 +911,8 @@ class Tribe__Events__iCal {
 			/**
 			 * Allow for customization of an individual iCal-exported event's thumbnail.
 			 *
+			 * @since 4.6.2
+			 *
 			 * @param string $string  This thumbnail's iCal-formatted "ATTACH;" string with the thumbnail mime type and URL.
 			 * @param int    $post_id The ID of the event this thumbnail belongs to.
 			 */
@@ -897,6 +935,8 @@ class Tribe__Events__iCal {
 
 		/**
 		 * Allow for customization of an individual "VEVENT" item to be rendered inside an iCal export file.
+		 *
+		 * @since 4.6.2
 		 *
 		 * @param array  $item       The various iCal file format components of this specific event item.
 		 * @param object $event_post The WP_Post of this event.
@@ -1040,6 +1080,8 @@ class Tribe__Events__iCal {
 	/**
 	 * Gets the number of events that should be exported when generating the iCal feed.
 	 *
+	 * @since 4.3.3
+	 *
 	 * @return int
 	 */
 	public function get_feed_default_export_count() {
@@ -1048,6 +1090,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Sets the number of events that should be exported when generating the iCal feed.
+	 *
+	 * @since 4.3.3
 	 *
 	 * @param int $count
 	 */
