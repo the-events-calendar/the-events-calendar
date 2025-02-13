@@ -2,15 +2,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
-class Preprocessor {
+class Pre_Processor {
 	use Migration_Trait;
-
-	/**
-	 * Stores the original settings retrieved from the database (unchanged for reference).
-	 *
-	 * @var array<string, mixed>
-	 */
-	protected array $original_settings = [];
 
 	/**
 	 * A working copy of the settings, which gets modified during processing.
@@ -20,71 +13,35 @@ class Preprocessor {
 	protected array $processed_settings = [];
 
 	/**
-	 * Stores the extracted migration data.
-	 *
-	 * @var array<string, mixed>
-	 */
-	protected array $migration_data = [];
-
-	/**
-	 * List of original settings keys to remove after processing.
-	 *
-	 * @var array<string>
-	 */
-	protected array $original_keys_to_remove = [ 'terms', 'all_terms' ];
-
-	/**
-	 * Retrieves the original settings from the database.
-	 * If already loaded, it returns the cached version.
-	 *
-	 * @return array<string, mixed> The original settings.
-	 */
-	public function get_original_settings(): array {
-		if ( ! empty( $this->original_settings ) ) {
-			return $this->original_settings;
-		}
-
-		// Load original settings and ensure it's an array.
-		$this->original_settings = (array) get_option( 'teccc_options', [] );
-
-		return $this->original_settings;
-	}
-
-	/**
 	 * Processes category colors and settings for migration.
 	 *
 	 * @return array<string, mixed> Processed settings and valid category colors.
 	 */
 	public function process(): array {
-		$this->original_settings  = $this->get_original_settings();
-		$this->processed_settings = $this->original_settings;
+		// Load the original settings
+		$this->processed_settings = $this->get_original_settings();
 
+		printr($this->processed_settings,'Processed original settings');
+
+		// If there are no settings, return an empty migration data structure
 		if ( empty( $this->processed_settings ) ) {
-			$this->processed_settings = [];
+			$this->update_migration_data( $this->expected_structure );
 
-			return $this->migration_data;
+			return $this->expected_structure;
 		}
 
-		// Populate migration data.
-		$this->migration_data                  = $this->expected_structure;
-		$this->migration_data['categories']    = $this->get_category_values();
-		$this->migration_data['legend']        = $this->get_legend_values();
-		$this->migration_data['general']       = $this->get_general_settings();
-		$this->migration_data['ignored_terms'] = $this->process_ignored_terms();
+		// Populate migration data
+		$migration_data = [
+			'categories'    => $this->get_category_values(),
+			'legend'        => $this->get_legend_values(),
+			'general'       => $this->get_general_settings(),
+			'ignored_terms' => $this->process_ignored_terms(),
+		];
 
-		return $this->migration_data;
-	}
+		// Store processed data in the database
+		$this->update_migration_data( $migration_data );
 
-	/**
-	 * Removes unnecessary keys from processed settings.
-	 *
-	 * @return void
-	 */
-	protected function remove_original_keys(): void {
-		$this->processed_settings = array_diff_key(
-			$this->processed_settings,
-			array_flip( $this->original_keys_to_remove )
-		);
+		return $migration_data;
 	}
 
 	/**
@@ -100,6 +57,7 @@ class Preprocessor {
 
 		$filtered_settings = array_intersect_key( $this->processed_settings, array_flip( $category_keys ) );
 
+		// Remove category keys from processed settings
 		foreach ( $filtered_settings as $key => $_ ) {
 			unset( $this->processed_settings[ $key ] );
 		}
@@ -144,6 +102,7 @@ class Preprocessor {
 	protected function get_legend_values(): array {
 		$legend_data = array_intersect_key( $this->processed_settings, array_flip( $this->legend_keys ) );
 
+		// Ensure valid values only
 		foreach ( $legend_data as $key => $value ) {
 			if ( ! is_scalar( $value ) && ! is_array( $value ) ) {
 				unset( $legend_data[ $key ] );

@@ -3,8 +3,10 @@
 namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\Category_Colors\Migration\Executor;
-use TEC\Events\Category_Colors\Migration\Preprocessor;
+use TEC\Events\Category_Colors\Migration\Logger;
+use TEC\Events\Category_Colors\Migration\Migration_Runner;
+use TEC\Events\Category_Colors\Migration\Post_Processor;
+use TEC\Events\Category_Colors\Migration\Pre_Processor;
 use TEC\Events\Category_Colors\Migration\Validator;
 use TEC\Events\Category_Colors\Settings as Category_Colors_Settings;
 
@@ -19,9 +21,11 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Category_Colors::class );
 		$this->container->singleton( Category_Colors_Settings::class );
 		$this->container->singleton( Quick_Edit::class );
-		$this->container->singleton( Preprocessor::class );
+		$this->container->singleton( Pre_Processor::class );
 		$this->container->singleton( Validator::class );
-		$this->container->singleton( Executor::class );
+		$this->container->singleton( Migration_Runner::class );
+		$this->container->singleton( Post_Processor::class );
+		$this->container->singleton( Logger::class );
 
 		$this->add_filters();
 	}
@@ -52,32 +56,36 @@ class Controller extends Controller_Contract {
 
 		add_action( 'edited_term_taxonomy', [ $this, 'save_quick_edit_custom_fields' ], 10, 2 );
 
-		add_action('admin_init',[$this,'migrate']);
-
-
-
+		add_action( 'admin_init', [ $this, 'migrate' ] );
 	}
 
-	public function migrate() {
-		$preprocessor   = tribe( Preprocessor::class );
-		$processed_data = $preprocessor->process();
-		printr( $processed_data, 'Migration data' );
-		// Validate once.
-		$validator = new Validator( $preprocessor->get_original_settings(), $processed_data );
-		if ( ! $validator->validate() ) {
-			printr( $validator->get_errors(), 'Validation Errors' );
-			printr( $validator->get_warnings(), 'Validation Warnings' );
+	public function migrate(): void {
+		$dry_run = false;
+		$preprocessor = tribe( Pre_Processor::class );
 
-			return; // Stop execution if validation fails.
-		}
+		// Step 1: Process Data & Store It in an Option.
+		$preprocessor->process();
+		Logger::log( 'info', 'Preprocessing complete. Migration data prepared.' );
 
-		// Execute migration in dry-run mode.
-		$executor = new Executor( $preprocessor->get_original_settings(), $processed_data, true ); // Enable dry run
+		// Step 3: Execute Migration.
+		$executor = new Migration_Runner( $dry_run );
 		$executor->execute();
 
-		// Log results.
-		printr( $executor->get_errors(), 'Executor Errors' );
-		printr( $executor->get_warnings(), 'Executor Warnings' );
+		if ( ! empty( Logger::get_logs( 'error' ) ) ) {
+			Logger::log( 'error', 'Execution encountered errors. Stopping further processing.' );
+
+			return;
+		}
+
+		// Step 4: Post-Processing & Final Validation.
+		$post_processor = new Post_Processor( $dry_run );
+		$post_processor->verify_migration();
+
+		Logger::log( 'info', 'Migration complete. Post-processing finished.' );
+
+		// Output all logs at the end.
+		$all_logs = Logger::get_logs();
+		printr( $all_logs, 'Final Logs' );
 
 		die();
 	}
@@ -97,7 +105,6 @@ class Controller extends Controller_Contract {
 	public function add_category_colors_tab(): void {
 		$this->container->make( Category_Colors_Settings::class )->register_tab();
 	}
-
 
 	/**
 	 * Adds custom taxonomy columns for Foreground, Background, and Text-Color.

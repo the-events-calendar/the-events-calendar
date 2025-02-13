@@ -14,6 +14,20 @@ trait Migration_Trait {
 	public string $taxonomy = Tribe__Events__Main::TAXONOMY;
 
 	/**
+	 * Option name for storing original settings.
+	 *
+	 * @var string
+	 */
+	protected string $original_settings_option = 'teccc_options';
+
+	/**
+	 * Option name for storing migration data.
+	 *
+	 * @var string
+	 */
+	protected string $migration_data_option = 'tec_category_colors_migration_data';
+
+	/**
 	 * Expected structure for the migration data.
 	 *
 	 * @var array<string, mixed>
@@ -67,13 +81,8 @@ trait Migration_Trait {
 
 	/**
 	 * Mapping of old meta keys to new ones.
-	 * If additional items need to be extracted, add them here.
 	 * Keys represent the old names, and values represent the new names.
 	 * Any key not in this list will be ignored.
-	 * Example:
-	 * - 'border'     → 'primary'
-	 * - 'background' → 'secondary'
-	 * - 'text'       → 'text'
 	 *
 	 * @var array<string, string>
 	 */
@@ -82,6 +91,35 @@ trait Migration_Trait {
 		'background' => 'secondary',
 		'text'       => 'text',
 	];
+
+	/**
+	 * Retrieves the original settings from the database.
+	 *
+	 * @return array<string, mixed> The original settings.
+	 */
+	public function get_original_settings(): array {
+		return get_option( $this->original_settings_option, [] );
+	}
+
+	/**
+	 * Retrieves the migration data from the database.
+	 *
+	 * @return array<string, mixed> The migration data.
+	 */
+	public function get_migration_data(): array {
+		return get_option( $this->migration_data_option, [] );
+	}
+
+	/**
+	 * Stores the migration data in the database.
+	 *
+	 * @param array<string, mixed> $data The processed migration data to store.
+	 *
+	 * @return void
+	 */
+	public function update_migration_data( array $data ): void {
+		update_option( $this->migration_data_option, $data, false );
+	}
 
 	/**
 	 * Extracts the category ID from a category-related setting key.
@@ -104,7 +142,9 @@ trait Migration_Trait {
 	 * @return array<int, array<string, mixed>> The list of processed categories.
 	 */
 	public function get_categories(): array {
-		return $this->migration_data['categories'] ?? [];
+		$migration_data = $this->get_migration_data();
+
+		return $migration_data['categories'] ?? [];
 	}
 
 	/**
@@ -112,16 +152,18 @@ trait Migration_Trait {
 	 *
 	 * @param int    $category_id The category ID.
 	 * @param string $key         The key to retrieve.
-	 * @param mixed  $default     Default value if the key is not found.
+	 * @param mixed  $default_value     Default value if the key is not found.
 	 *
 	 * @return mixed The retrieved value or the default.
 	 */
-	public function get_meta( int $category_id, string $key, $default = '' ) {
-		if ( ! isset( $this->migration_data['categories'][ $category_id ] ) ) {
-			return $default;
+	public function get_meta( int $category_id, string $key, $default_value = '' ) {
+		$migration_data = $this->get_migration_data();
+
+		if ( ! isset( $migration_data['categories'][ $category_id ] ) ) {
+			return $default_value;
 		}
 
-		return $this->migration_data['categories'][ $category_id ][ $key ] ?? $default;
+		return $migration_data['categories'][ $category_id ][ $key ] ?? $default_value;
 	}
 
 	/**
