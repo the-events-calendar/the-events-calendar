@@ -30,7 +30,7 @@ class Calendar_Embeds {
 	const POSTTYPE = 'tec_calendar_embed';
 
 	/**
-	 * The page slug
+	 * The page slug.
 	 *
 	 * @since TBD
 	 *
@@ -39,7 +39,7 @@ class Calendar_Embeds {
 	public static $slug = 'calendar-embeds';
 
 	/**
-	 * Stores the Registered ID from `add_submenu_page`
+	 * Stores the Registered ID from `add_submenu_page`.
 	 *
 	 * @since TBD
 	 *
@@ -123,7 +123,7 @@ class Calendar_Embeds {
 	}
 
 	/**
-	 * Gets the Menu label for the Aggregator
+	 * Gets the Menu label for the Calendar Embeds.
 	 *
 	 * @since TBD
 	 *
@@ -134,7 +134,7 @@ class Calendar_Embeds {
 	}
 
 	/**
-	 * Gets the Page title for the Aggregator
+	 * Gets the Page title for the Calendar Embeds.
 	 *
 	 * @since TBD
 	 *
