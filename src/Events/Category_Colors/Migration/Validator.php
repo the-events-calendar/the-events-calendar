@@ -1,24 +1,53 @@
 <?php
+/**
+ * Handles validation of category color migration data.
+ * This class ensures that the processed migration data is correctly formatted,
+ * contains required fields, and aligns with expected data structures.
+ *
+ * @since   TBD
+ * @package TEC\Events\Category_Colors\Migration
+ */
 
 namespace TEC\Events\Category_Colors\Migration;
 
+/**
+ * Class Validator
+ * Validates the migration data before execution to prevent incorrect or incomplete imports.
+ * Checks data structure, required fields, existing categories, and unexpected meta keys.
+ *
+ * @since TBD
+ */
 class Validator {
-
 	use Migration_Trait;
 
 	/**
 	 * Number of random keys to validate.
 	 *
+	 * @since TBD
 	 * @var int
 	 */
 	protected int $validation_sample_size = 200;
 
 	/**
 	 * Runs the full validation process.
+	 * Fires an action before and after validation.
+	 * If validation fails, the end hook passes `false`.
+	 * If validation passes, the end hook passes `true`.
 	 *
+	 * @since TBD
 	 * @return bool True if validation passes, false otherwise.
 	 */
 	public function validate(): bool {
+		$this->update_migration_status( 'validation_in_progress' ); // Set migration status to validation started.
+
+		/**
+		 * Fires before the validation process begins.
+		 * Allows external systems to hook in and modify data before validation runs.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_events_category_colors_migration_validator_start' );
+
 		$migration_data = $this->get_migration_data();
 
 		$this->validate_structure( $migration_data );
@@ -28,11 +57,32 @@ class Validator {
 		$this->check_required_fields( $migration_data );
 		$this->validate_meta_keys( $migration_data['categories'] ?? [] );
 
-		return empty( $this->errors );
+		$validation_passed = empty( Logger::get_logs( 'error' ) );
+
+		if ( ! $validation_passed ) {
+			Logger::log( 'error', 'Validation encountered errors. Stopping further processing.' );
+			$this->update_migration_status( 'validation_failed' ); // Mark validation as failed.
+			return false;
+		}
+
+		$this->update_migration_status( 'validation_completed' ); // Mark validation as completed.
+
+		/**
+		 * Fires after the validation process completes.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $success True if validation passed, false otherwise.
+		 */
+		do_action( 'tec_events_category_colors_migration_validator_end', true );
+
+		return true;
 	}
 
 	/**
 	 * Validates that the migration data structure matches expectations.
+	 *
+	 * @since TBD
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
@@ -52,6 +102,8 @@ class Validator {
 
 	/**
 	 * Validates that all categories in migration data exist.
+	 *
+	 * @since TBD
 	 *
 	 * @param array<int, array<string, mixed>> $categories List of categories from migration data.
 	 *
@@ -84,6 +136,7 @@ class Validator {
 	/**
 	 * Validates a random sample of settings to ensure proper migration.
 	 *
+	 * @since TBD
 	 * @return void
 	 */
 	protected function validate_random_keys(): void {
@@ -112,6 +165,8 @@ class Validator {
 	/**
 	 * Validates that meta keys in category data match the expected mapping.
 	 *
+	 * @since TBD
+	 *
 	 * @param array<int, array<string, mixed>> $categories The categories array.
 	 *
 	 * @return void
@@ -138,6 +193,8 @@ class Validator {
 	/**
 	 * Detects unrecognized keys that should not be in migration data.
 	 *
+	 * @since TBD
+	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
 	 * @return void
@@ -156,6 +213,8 @@ class Validator {
 
 	/**
 	 * Checks that required fields are present before importing.
+	 *
+	 * @since TBD
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *

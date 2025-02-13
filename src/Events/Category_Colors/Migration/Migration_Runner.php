@@ -1,28 +1,30 @@
 <?php
+/**
+ * Executes the full category color migration process.
+ * Orchestrates preprocessing, validation, execution, and post-processing steps.
+ *
+ * @since   TBD
+ * @package TEC\Events\Category_Colors\Migration
+ */
 
 namespace TEC\Events\Category_Colors\Migration;
 
+/**
+ * Class Migration_Runner
+ * Controls the entire migration lifecycle for category colors.
+ * Runs preprocessing, validation, execution, and post-processing in sequence.
+ * Ensures data integrity and logs potential issues during migration.
+ *
+ * @since TBD
+ */
 class Migration_Runner {
 
 	use Migration_Trait;
 
 	/**
-	 * Stores any errors encountered during execution.
-	 *
-	 * @var array<string>
-	 */
-	protected array $errors = [];
-
-	/**
-	 * Stores warnings (non-critical issues that don't stop execution).
-	 *
-	 * @var array<string>
-	 */
-	protected array $warnings = [];
-
-	/**
 	 * Whether to perform a dry run (no actual DB modifications).
 	 *
+	 * @since TBD
 	 * @var bool
 	 */
 	protected bool $dry_run = false;
@@ -30,6 +32,7 @@ class Migration_Runner {
 	/**
 	 * List of meta keys that should be skipped (not inserted as term meta).
 	 *
+	 * @since TBD
 	 * @var array<string>
 	 */
 	protected array $skip_meta_keys = [
@@ -41,6 +44,8 @@ class Migration_Runner {
 	 * This ensures the migration data is validated before execution,
 	 * preventing accidental execution with invalid data.
 	 *
+	 * @since TBD
+	 *
 	 * @param bool $dry_run Whether to run in dry-run mode.
 	 */
 	public function __construct( bool $dry_run = false ) {
@@ -48,27 +53,47 @@ class Migration_Runner {
 	}
 
 	/**
-	 * Executes the migration process for categories.
+	 * Executes the category color migration process.
 	 *
-	 * This method retrieves migration data, validates it, and inserts meta values for categories.
-	 * If dry-run mode is enabled, it logs execution details without modifying the database.
+	 * This method orchestrates the entire migration process, including:
+	 * 1. Logging dry-run statistics (if applicable).
+	 * 2. Validating the migration data.
+	 * 3. Inserting meta values for categories.
+	 * 4. Handling the migration status (progress, success, or failure).
 	 *
-	 * Steps:
-	 * 1. Logs dry-run statistics (if applicable).
-	 * 2. Retrieves category migration data.
-	 * 3. Validates the data before execution.
-	 * 4. Logs existing meta data for reference.
-	 * 5. Inserts meta values for categories.
+	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function execute(): void {
+		$this->update_migration_status( 'execution_in_progress' ); // Set execution in progress.
+
+		/**
+		 * Fires before the migration execution begins.
+		 * Allows external systems to hook in before the process starts.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $dry_run Whether the migration is running in dry-run mode.
+		 */
+		do_action( 'tec_events_category_colors_migration_runner_start', $this->dry_run );
+
 		$this->dry_run_statistics(); // Log dry-run details before execution starts.
 
 		$migration_data = $this->get_migration_data();
 
 		if ( empty( $migration_data['categories'] ) ) {
 			Logger::log( 'error', 'No categories found for migration.' );
+			$this->update_migration_status( 'execution_skipped' ); // Mark execution as skipped.
+
+			/**
+			 * Fires when migration execution is stopped due to no data.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool $success False, indicating failure.
+			 */
+			do_action( 'tec_events_category_colors_migration_runner_end', false );
 
 			return;
 		}
@@ -77,10 +102,10 @@ class Migration_Runner {
 		$validator = new Validator();
 
 		if ( ! $validator->validate() ) {
-			$this->errors   = array_merge( $this->errors, $validator->get_errors() );
-			$this->warnings = array_merge( $this->warnings, $validator->get_warnings() );
-
 			Logger::log( 'error', 'Validation failed. Migration execution stopped.' );
+			$this->update_migration_status( 'execution_failed' ); // Mark execution as failed.
+
+			do_action( 'tec_events_category_colors_migration_runner_end', false );
 
 			return;
 		}
@@ -89,6 +114,19 @@ class Migration_Runner {
 
 		// Step 2: Insert meta values for valid categories (already validated).
 		$this->insert_categories( $migration_data['categories'] );
+
+		$execution_success = empty( Logger::get_logs( 'error' ) );
+
+		$this->update_migration_status( $execution_success ? 'execution_completed' : 'execution_failed' ); // Update final status.
+
+		/**
+		 * Fires after the migration execution completes.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $success True if execution was successful, false otherwise.
+		 */
+		do_action( 'tec_events_category_colors_migration_runner_end', $execution_success );
 	}
 
 	/**
@@ -133,6 +171,8 @@ class Migration_Runner {
 	/**
 	 * Logs what would be inserted or updated in dry-run mode.
 	 *
+	 * @since TBD
+	 *
 	 * @param int    $category_id The category ID.
 	 * @param string $meta_key    The meta key.
 	 * @param mixed  $value       The value to be inserted.
@@ -140,7 +180,7 @@ class Migration_Runner {
 	 * @return void
 	 */
 	protected function log_dry_run( int $category_id, string $meta_key, $value ): void {
-		$this->warnings[] = "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $value, JSON_PRETTY_PRINT );
+		Logger::log( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );
 	}
 
 	/**
@@ -148,6 +188,7 @@ class Migration_Runner {
 	 * If dry-run mode is enabled, this function outputs key execution details,
 	 * such as category counts and meta keys being skipped.
 	 *
+	 * @since TBD
 	 * @return void
 	 */
 	protected function dry_run_statistics(): void {
@@ -166,6 +207,8 @@ class Migration_Runner {
 
 	/**
 	 * Logs categories that already have the specified meta keys.
+	 *
+	 * @since TBD
 	 *
 	 * @param array<int, array<string, mixed>> $categories The categories and their meta data.
 	 *

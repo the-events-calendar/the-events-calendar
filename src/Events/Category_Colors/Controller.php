@@ -5,12 +5,15 @@ namespace TEC\Events\Category_Colors;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Category_Colors\Migration\Logger;
 use TEC\Events\Category_Colors\Migration\Migration_Runner;
+use TEC\Events\Category_Colors\Migration\Migration_Trait;
 use TEC\Events\Category_Colors\Migration\Post_Processor;
 use TEC\Events\Category_Colors\Migration\Pre_Processor;
 use TEC\Events\Category_Colors\Migration\Validator;
 use TEC\Events\Category_Colors\Settings as Category_Colors_Settings;
 
 class Controller extends Controller_Contract {
+
+	use Migration_Trait;
 
 	/**
 	 * Register the provider.
@@ -60,33 +63,63 @@ class Controller extends Controller_Contract {
 	}
 
 	public function migrate(): void {
-		$dry_run = false;
-		$preprocessor = tribe( Pre_Processor::class );
+		$migration_status = $this->get_migration_status();
+		$status           = $migration_status['status'] ?? 'not_started';
+		$dry_run          = false;
 
-		// Step 1: Process Data & Store It in an Option.
-		$preprocessor->process();
-		Logger::log( 'info', 'Preprocessing complete. Migration data prepared.' );
-
-		// Step 3: Execute Migration.
-		$executor = new Migration_Runner( $dry_run );
-		$executor->execute();
-
-		if ( ! empty( Logger::get_logs( 'error' ) ) ) {
-			Logger::log( 'error', 'Execution encountered errors. Stopping further processing.' );
+		// Stop if migration is already complete.
+		if ( $status === 'migration_completed' ) {
+			echo "It's done.\n";
+			die();
 
 			return;
 		}
 
-		// Step 4: Post-Processing & Final Validation.
-		$post_processor = new Post_Processor( $dry_run );
-		$post_processor->verify_migration();
+		Logger::log( 'info', "Migration starting. Current status: {$status}" );
 
+		// Step 1: Preprocess Data (Only if not already processed)
+		if ( $status === 'not_started' ) {
+			tribe( Pre_Processor::class )->process();
+			$status = 'preprocessing_completed';
+		}
+
+		// Step 2: Validate Migration Data
+		if ( $status === 'preprocessing_completed' || $status === 'validation_failed' ) {
+			$validator = new Validator();
+			if ( ! $validator->validate() ) {
+				return;
+			}
+			$status = 'validation_completed';
+		}
+
+		// Step 3: Execute Migration
+		if ( $status === 'validation_completed' || $status === 'execution_failed' ) {
+			$executor = new Migration_Runner( $dry_run );
+			$executor->execute();
+
+			if ( ! empty( Logger::get_logs( 'error' ) ) ) {
+				return;
+			}
+
+			$status = 'execution_completed';
+		}
+
+		// Step 4: Post-Processing Validation
+		if ( $status === 'execution_completed' || $status === 'postprocessing_failed' ) {
+			$post_processor = new Post_Processor( $dry_run );
+			$post_processor->verify_migration();
+
+			// Re-fetch the status to confirm migration completion
+			if ( $this->get_migration_status()['status'] !== 'migration_completed' ) {
+				return;
+			}
+		}
+
+		// Finalize Migration
 		Logger::log( 'info', 'Migration complete. Post-processing finished.' );
+		echo "Migration completed successfully.\n";
 
-		// Output all logs at the end.
-		$all_logs = Logger::get_logs();
-		printr( $all_logs, 'Final Logs' );
-
+		printr( Logger::get_logs() );
 		die();
 	}
 

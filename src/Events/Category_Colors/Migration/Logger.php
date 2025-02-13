@@ -1,11 +1,27 @@
 <?php
+/**
+ * Handles logging for the category color migration process.
+ * Provides structured logging for errors, warnings, and informational messages.
+ *
+ * @since   TBD
+ * @package TEC\Events\Category_Colors\Migration
+ */
 
 namespace TEC\Events\Category_Colors\Migration;
 
+/**
+ * Class Logger
+ * Manages logging throughout the migration process.
+ * Supports error, warning, and informational logs to track migration progress.
+ * Logs can be retrieved at any stage to assist with debugging.
+ *
+ * @since TBD
+ */
 class Logger {
 	/**
 	 * Stores log messages categorized by type.
 	 *
+	 * @since TBD
 	 * @var array<string, array<string>>
 	 */
 	protected static array $logs = [
@@ -16,6 +32,8 @@ class Logger {
 
 	/**
 	 * Adds a message to the log.
+	 *
+	 * @since TBD
 	 *
 	 * @param string $level   The log level (error, warning, info).
 	 * @param string $message The message to log.
@@ -33,6 +51,8 @@ class Logger {
 	/**
 	 * Retrieves logs by level.
 	 *
+	 * @since TBD
+	 *
 	 * @param string|null $level The log level (error, warning, info) or null for all.
 	 *
 	 * @return array<string, array<string>> The log messages.
@@ -43,6 +63,8 @@ class Logger {
 
 	/**
 	 * Clears all logs or logs of a specific type.
+	 *
+	 * @since TBD
 	 *
 	 * @param string|null $level The log level to clear or null for all logs.
 	 *
