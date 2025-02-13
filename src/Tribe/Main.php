@@ -569,6 +569,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Classes that should be built at `plugins_loaded` time are also instantiated.
 		 *
 		 * @since  4.4
+		 * @since TBD Add Calendar Embed functionality.
 		 *
 		 * @return void
 		 */
