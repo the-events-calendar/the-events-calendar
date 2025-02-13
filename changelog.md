@@ -1,5 +1,13 @@
 # Changelog
 
+### [6.10.1.1] 2025-02-12
+
+* Fix - Updated common library to correct issues with notifications around licensing.
+* Fix - Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TEC-5384]
+* Fix - Adjustments were made to prevent a fatal error when tec_pue_checker_init was triggered too early, attempting to call tribe_is_truthy() before it was available. The license check and active plugin monitoring now run on admin_init to ensure proper loading. [TEC-5384]
+* Fix - Update the license checker to ignore empty licenses. [TEC-5385]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.10.1] 2025-02-10
 
 * Tweak - Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]
@@ -9,6 +17,7 @@
 * Fix - Make Eventbrite import available when the Eventbrite Tickets plugin is installed [EBT-149]
 * Fix - Replaced deprecated functions with their modern equivalents to maintain compatibility. [EA-476]
 * Fix - Support Additional Fields in Events REST API [TEC-5015]
+* Fix - Changed the way translations are loaded to work with the latest WordPress language changes.
 * Accessibility - Increased pagination button sizes on the events page. [TEC-5176]
 * Tweak - Added filters: `tribe_repository_venues_format_item`
 * Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted.
