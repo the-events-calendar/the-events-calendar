@@ -40,32 +40,33 @@ class Controller_Day_View_Test extends \Codeception\TestCase\WPTestCase {
 	private function create_test_events( string $range_start, string $range_end, string $test_day ) {
 		$timezone_string = get_option( 'timezone_string' ) ?: 'UTC';
 
-		// Create event at the start of the range.
-		tribe_events()->set_args( [
-			'start_date' => $range_start . ' 09:00',
-			'timezone'   => $timezone_string,
-			'duration'   => 3 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event Start',
-			'status'     => 'publish',
-		] )->create();
+		$events = [
+			[
+				'date'  => $range_start,
+				'time'  => '09:00',
+				'title' => 'Test Event Start',
+			],
+			[
+				'date'  => $test_day,
+				'time'  => '12:00',
+				'title' => 'Test Event Test Day',
+			],
+			[
+				'date'  => $range_end,
+				'time'  => '12:30',
+				'title' => 'Test Event End',
+			],
+		];
 
-		// Create event on the test day.
-		tribe_events()->set_args( [
-			'start_date' => $test_day . ' 12:00',
-			'timezone'   => $timezone_string,
-			'duration'   => 3 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event Test Day',
-			'status'     => 'publish',
-		] )->create();
-
-		// Create event at the end of the range.
-		tribe_events()->set_args( [
-			'start_date' => $range_end . ' 12:30',
-			'timezone'   => $timezone_string,
-			'duration'   => 3 * HOUR_IN_SECONDS,
-			'title'      => 'Test Event End',
-			'status'     => 'publish',
-		] )->create();
+		foreach ( $events as $data ) {
+			tribe_events()->set_args( [
+				'start_date' => $data['date'] . ' ' . $data['time'],
+				'timezone'   => $timezone_string,
+				'duration'   => 3 * HOUR_IN_SECONDS,
+				'title'      => $data['title'],
+				'status'     => 'publish',
+			] )->create();
+		}
 	}
 
 	/**
