@@ -12,6 +12,7 @@ class Migration_Process {
 	 * Runs the migration process.
 	 */
 	public function migrate(): void {
+		Logger::clear_logs();
 		if ( $this->is_migration_complete() ) {
 			Logger::log( 'info', 'Migration has already been completed.' );
 
