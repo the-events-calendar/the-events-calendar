@@ -180,7 +180,7 @@ const ClassicEventDetails = ( props ) => {
 						label={ __( 'Is All Day Event', 'the-events-calendar' ) }
 						checked={ allDay }
 						onChange={ setAllDay }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 				</PanelBody>
 				<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>
@@ -188,21 +188,21 @@ const ClassicEventDetails = ( props ) => {
 						label={ __( 'Show symbol before', 'the-events-calendar' ) }
 						checked={ 'prefix' === currencyPosition }
 						onChange={ setCurrencyPosition }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 					<TextControl
 						label={ __( ' Currency Symbol', 'the-events-calendar' ) }
 						value={ currencySymbol }
 						placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 						onChange={ setSymbol }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 					<TextControl
 						label={ __( ' Currency Code', 'the-events-calendar' ) }
 						value={ currencyCode }
 						placeholder={ __( 'E.g.: USD', 'the-events-calendar' ) }
 						onChange={ setCode }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 				</PanelBody>
 			</InspectorControls>
