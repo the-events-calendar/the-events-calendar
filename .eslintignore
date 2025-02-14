@@ -1,1 +1,2 @@
 src/resources/js/**/*.min.js
+src/modules/**/__tests__/*
