@@ -1,0 +1,4 @@
+Significance: minor
+Type: compatibility
+
+Added 404 handling for month view when disabled or accessed outside the range of earliest and latest events, with an exception for the current year when no events exist. [TEC-5356]
