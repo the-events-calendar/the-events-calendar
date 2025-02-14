@@ -103,48 +103,25 @@ class Pre_Processor {
 	 * @return array<int, array<string, mixed>> Processed category data structured by category ID.
 	 */
 	protected function get_category_values(): array {
-		$category_keys = array_filter(
-			array_keys( $this->processed_settings ),
-			fn( $key ) => preg_match( $this->category_regex, $key )
-		);
+		$categories = [];
+		foreach ( $this->processed_settings['terms'] ?? [] as $term_id => [$slug, $name] ) {
+			foreach ( $this->processed_settings as $key => $value ) {
+				// Check if the key starts with the category slug followed by '-' or '_'.
+				if ( 0 === strpos( $key, $slug . '-' ) || 0 === strpos( $key, $slug . '_' ) ) {
+					$field_name = str_replace( [ $slug . '-', $slug . '_' ], '', $key );
+					$mapped_key = $this->get_mapped_meta_key( $field_name );
 
-		$filtered_settings = array_intersect_key( $this->processed_settings, array_flip( $category_keys ) );
-
-		// Remove category keys from processed settings.
-		foreach ( $filtered_settings as $key => $_ ) {
-			unset( $this->processed_settings[ $key ] );
+					// Ensure the mapped key is valid before assigning.
+					if ( null !== $mapped_key ) {
+						$categories[ $term_id ][ $this->meta_key_prefix . $mapped_key ] = ( 'no_color' === $value ) ? '' : $value;
+					}
+				}
+			}
+			// Store the taxonomy ID for reference.
+			$categories[ $term_id ]['taxonomy_id'] = $term_id;
 		}
 
-		return array_reduce(
-			array_keys( $filtered_settings ),
-			function ( $result, $key ) use ( $filtered_settings ) {
-				$category_id = $this->extract_category_id( $key );
-
-				if ( null === $category_id ) {
-					return $result;
-				}
-
-				preg_match( $this->category_regex, $key, $matches );
-				$field_name = $matches[2] ?? '';
-
-				// Ensure category key exists and add the taxonomy_id for reference.
-				if ( ! isset( $result[ $category_id ] ) ) {
-					$result[ $category_id ]['taxonomy_id'] = $category_id;
-				}
-
-				// Get mapped meta key.
-				$mapped_key = $this->get_mapped_meta_key( $field_name );
-
-				// Only store allowed meta keys.
-				if ( null !== $mapped_key ) {
-					$result[ $category_id ][ $this->meta_key_prefix . $mapped_key ] =
-						( 'no_color' === $filtered_settings[ $key ] ) ? '' : $filtered_settings[ $key ];
-				}
-
-				return $result;
-			},
-			[]
-		);
+		return $categories;
 	}
 
 	/**

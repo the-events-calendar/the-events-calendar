@@ -127,7 +127,7 @@ class Validator {
 		$valid_categories = array_map( 'intval', $valid_categories );
 
 		foreach ( $categories as $category_id => $_ ) {
-			if ( ! in_array( (int) $category_id, $valid_categories, true ) ) {
+			if ( ! in_array( $category_id, $valid_categories, true ) ) {
 				Logger::log( 'warning', "Category with ID {$category_id} does not exist in the taxonomy. Skipping." );
 			}
 		}

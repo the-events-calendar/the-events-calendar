@@ -95,14 +95,6 @@ trait Migration_Trait {
 	];
 
 	/**
-	 * Regular expression for matching category-related keys.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	protected string $category_regex = '/^category-(\d+)[-_](.+)$/';
-
-	/**
 	 * Prefix for storing category meta values.
 	 *
 	 * @since TBD
@@ -166,9 +158,21 @@ trait Migration_Trait {
 	 *
 	 * @return int|null The extracted category ID or null if not found.
 	 */
+	/**
+	 * Extracts the category ID from a category-related setting key.
+	 */
 	protected function extract_category_id( string $key ): ?int {
-		if ( preg_match( $this->category_regex, $key, $matches ) ) {
-			return (int) $matches[1];
+		$original_settings = $this->get_original_settings();
+
+		// Check if the key exists in the terms or all_terms mapping.
+		foreach ( [ 'terms', 'all_terms' ] as $term_group ) {
+			if ( isset( $original_settings[ $term_group ] ) ) {
+				foreach ( $original_settings[ $term_group ] as $term_id => [$slug, $name] ) {
+					if ( strpos( $key, $slug ) === 0 ) {
+						return (int) $term_id;
+					}
+				}
+			}
 		}
 
 		return null;

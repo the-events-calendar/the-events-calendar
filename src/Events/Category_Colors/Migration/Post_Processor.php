@@ -131,5 +131,4 @@ class Post_Processor {
 			$this->update_migration_status( 'migration_completed' );
 		}
 	}
-
 }
