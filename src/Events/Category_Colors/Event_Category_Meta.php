@@ -4,6 +4,8 @@
  * Handles metadata for terms within the `tribe_events_cat` taxonomy.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors
  */
 
 declare( strict_types=1 );
@@ -22,6 +24,8 @@ use WP_Error;
  * the `tribe_events_cat` taxonomy can have metadata operations performed on them.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors
  */
 class Event_Category_Meta {
 
@@ -29,6 +33,7 @@ class Event_Category_Meta {
 	 * The taxonomy associated with event categories.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected string $taxonomy = Tribe__Events__Main::TAXONOMY;
@@ -37,6 +42,7 @@ class Event_Category_Meta {
 	 * The ID of the term this instance operates on.
 	 *
 	 * @since TBD
+	 *
 	 * @var int
 	 */
 	protected int $term_id;
@@ -45,6 +51,7 @@ class Event_Category_Meta {
 	 * Stores pending metadata updates before saving.
 	 *
 	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected array $pending_meta = [];
@@ -53,6 +60,7 @@ class Event_Category_Meta {
 	 * Stores pending metadata deletions before saving.
 	 *
 	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected array $pending_deletes = [];
@@ -61,6 +69,7 @@ class Event_Category_Meta {
 	 * Stores pending metadata updates before saving.
 	 *
 	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected array $pending_updates = [];
@@ -203,6 +212,8 @@ class Event_Category_Meta {
 		 *
 		 * @param string $key     The sanitized meta key.
 		 * @param int    $term_id The term ID the meta key belongs to.
+		 *
+		 * @return string The filtered meta key.
 		 */
 		return apply_filters( 'tec_events_category_validate_meta_key', $key, $this->term_id );
 	}
@@ -228,6 +239,8 @@ class Event_Category_Meta {
 		 *
 		 * @param mixed $value   The sanitized meta value.
 		 * @param int   $term_id The term ID the meta value belongs to.
+		 *
+		 * @return mixed The filtered meta value.
 		 */
 		return apply_filters( 'tec_events_category_validate_meta_value', $value, $this->term_id );
 	}
