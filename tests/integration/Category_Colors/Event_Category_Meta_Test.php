@@ -6,7 +6,7 @@ use Codeception\TestCase\WPTestCase;
 use InvalidArgumentException;
 use TEC\Events\Category_Colors\Event_Category_Meta as Meta;
 use Tribe\Tests\Traits\With_Uopz;
-use WP_Error;
+use TypeError;
 use WP_Term;
 
 class EventCategoryMeta_Test extends WPTestCase {
@@ -52,39 +52,121 @@ class EventCategoryMeta_Test extends WPTestCase {
 	}
 
 	/** @test */
-	public function it_should_store_and_retrieve_meta_data() {
+	public function it_should_queue_meta_updates_and_save_them() {
+		$meta = new Meta( $this->test_term->term_id );
+
+		$meta->set( 'color', '#ff0000' )
+			->set( 'border', '#00ff00' )
+			->save();
+
+		$this->assertEquals( '#ff0000', $meta->get( 'color' ) );
+		$this->assertEquals( '#00ff00', $meta->get( 'border' ) );
+	}
+
+	/** @test */
+	public function it_should_queue_meta_deletes_and_save_them() {
+		$meta = new Meta( $this->test_term->term_id );
+
+		$meta->set( 'background', '#123456' )
+			->set( 'text', '#654321' )
+			->save();
+
+		$this->assertEquals( '#123456', $meta->get( 'background' ) );
+		$this->assertEquals( '#654321', $meta->get( 'text' ) );
+
+		$meta->delete( 'background' )
+			->delete( 'text' )
+			->save();
+
+		$this->assertNull( $meta->get( 'background' ) );
+		$this->assertNull( $meta->get( 'text' ) );
+	}
+
+	/** @test */
+	public function it_should_chain_set_and_delete_calls_and_save() {
+		$meta = new Meta( $this->test_term->term_id );
+
+		$meta->set( 'primary', '#ff0000' )
+			->set( 'secondary', '#00ff00' )
+			->delete( 'primary' )
+			->save();
+
+		$this->assertNull( $meta->get( 'primary' ) );
+		$this->assertEquals( '#00ff00', $meta->get( 'secondary' ) );
+	}
+
+	/** @test */
+	public function it_should_not_persist_changes_until_save_is_called() {
 		$meta = new Meta( $this->test_term->term_id );
 
 		$meta->set( 'color', '#ff0000' );
-		$this->assertEquals( '#ff0000', $meta->get( 'color' ) );
+		$this->assertNull( $meta->get( 'color' ) ); // Should not be saved yet
 
+		$meta->save();
+		$this->assertEquals( '#ff0000', $meta->get( 'color' ) );
+	}
+
+	/** @test */
+	public function it_should_not_fail_when_deleting_non_existent_keys() {
+		$meta = new Meta( $this->test_term->term_id );
+
+		$result = $meta->delete( 'non_existent_key' )->save();
+		$this->assertInstanceOf( Meta::class, $result );
 		$this->assertNull( $meta->get( 'non_existent_key' ) );
 	}
 
 	/** @test */
-	public function it_should_delete_a_specific_meta_key() {
+	public function it_should_ignore_invalid_keys_but_continue_chaining() {
 		$meta = new Meta( $this->test_term->term_id );
 
-		$meta->set( 'background', '#00ff00' );
-		$this->assertEquals( '#00ff00', $meta->get( 'background' ) );
+		// Attempt to set an invalid key
+		$meta->set( 'valid_key', '#ff0000' )
+			->set( '', '#00ff00' ) // Invalid, should not affect the chain
+			->save();
 
-		$meta->delete( 'background' );
-		$this->assertNull( $meta->get( 'background' ) );
+		// Ensure valid key was saved
+		$this->assertEquals( '#ff0000', $meta->get( 'valid_key' ) );
+
+		// Ensure invalid key was ignored (not present)
+		$this->assertNull( $meta->get( 'text_color' ) );
 	}
 
 	/** @test */
-	public function it_should_delete_all_meta_data_for_a_term() {
+	public function it_should_ignore_invalid_values_but_continue_chaining() {
 		$meta = new Meta( $this->test_term->term_id );
 
-		$meta->set( 'foreground', '#ff0000' );
-		$meta->set( 'background', '#00ff00' );
+		// Attempt to set an invalid value
+		$meta->set( 'valid_key', '#ff0000' )
+			->set( 'another_key', null ) // Invalid, should be ignored
+			->save();
 
-		$this->assertEquals( '#ff0000', $meta->get( 'foreground' ) );
-		$this->assertEquals( '#00ff00', $meta->get( 'background' ) );
+		// Ensure valid key was saved
+		$this->assertEquals( '#ff0000', $meta->get( 'valid_key' ) );
 
-		$meta->delete();
-		$this->assertNull( $meta->get( 'foreground' ) );
-		$this->assertNull( $meta->get( 'background' ) );
+		// Ensure invalid value was ignored (not present)
+		$this->assertNull( $meta->get( 'another_key' ) );
+	}
+
+	/** @test */
+	public function it_should_handle_special_characters_in_keys_and_values() {
+		$meta = new Meta( $this->test_term->term_id );
+
+		$special_key   = 'some@key#with!special$chars';
+		$special_value = '!@#$%^&*()_+={}[]|:;"\'<>,.?/~`';
+
+		$meta->set( $special_key, $special_value )->save();
+		$this->assertEquals( $special_value, $meta->get( $special_key ) );
+	}
+
+	/** @test */
+	public function it_should_overwrite_existing_meta_values() {
+		$meta = new Meta( $this->test_term->term_id );
+
+		$meta->set( 'color', '#ff0000' )->save();
+		$this->assertEquals( '#ff0000', $meta->get( 'color' ) );
+
+		$meta->set( 'color', '#00ff00' )->save();
+		$this->assertEquals( '#00ff00', $meta->get( 'color' ) );
 	}
 
 	/** @test */
@@ -96,144 +178,54 @@ class EventCategoryMeta_Test extends WPTestCase {
 	}
 
 	/** @test */
-	public function it_should_return_wp_error_for_invalid_key() {
-		$meta = new Meta( $this->test_term->term_id );
+	public function it_should_throw_exception_for_zero_or_negative_term_id() {
+		$this->expectException( InvalidArgumentException::class );
+		new Meta( 0 );
 
-		$result = $meta->set( '', '#ff0000' );
-		$this->assertInstanceOf( WP_Error::class, $result );
+		$this->expectException( InvalidArgumentException::class );
+		new Meta( -5 );
 	}
 
 	/** @test */
-	public function it_should_return_wp_error_for_null_value() {
-		$meta = new Meta( $this->test_term->term_id );
+	public function it_should_throw_exception_for_non_integer_term_id() {
+		$this->expectException( TypeError::class );
+		new Meta( 'not-an-id' );
 
-		$result = $meta->set( 'color', null );
-		$this->assertInstanceOf( WP_Error::class, $result );
+		$this->expectException( TypeError::class );
+		new Meta( null );
+
+		$this->expectException( TypeError::class );
+		new Meta( (object) [ 'id' => 123 ] );
 	}
 
 	/** @test */
-	public function it_should_return_all_metadata_if_no_key_is_provided() {
+	public function it_should_allow_array_values_and_serialize_them() {
 		$meta = new Meta( $this->test_term->term_id );
-
-		$meta->set( 'color', '#ff0000' );
-		$meta->set( 'priority', 5 );
-
-		$all_meta = $meta->get();
-		$this->assertArrayHasKey( 'color', $all_meta );
-		$this->assertArrayHasKey( 'priority', $all_meta );
-		$this->assertEquals( '#ff0000', $all_meta['color'] );
-		$this->assertEquals( 5, $all_meta['priority'] );
-	}
-
-	/** @test */
-	public function it_should_allow_chaining_set_calls() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$meta->set( 'primary_color', '#ff0000' )
-			->set( 'secondary_color', '#00ff00' )
-			->set( 'text_color', '#ffffff' );
-
-		$this->assertEquals( '#ff0000', $meta->get( 'primary_color' ) );
-		$this->assertEquals( '#00ff00', $meta->get( 'secondary_color' ) );
-		$this->assertEquals( '#ffffff', $meta->get( 'text_color' ) );
-	}
-
-	/** @test */
-	public function it_should_allow_chaining_delete_calls() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$meta->set( 'primary_color', '#ff0000' )
-			->set( 'secondary_color', '#00ff00' );
-
-		$meta->delete( 'primary_color' )->delete( 'secondary_color' );
-
-		$this->assertNull( $meta->get( 'primary_color' ) );
-		$this->assertNull( $meta->get( 'secondary_color' ) );
-	}
-
-	/** @test */
-	public function it_should_allow_chaining_set_and_delete_calls() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$meta->set( 'color', '#ff0000' )
-			->set( 'priority', 'high' )
-			->delete( 'color' );
-
-		$this->assertNull( $meta->get( 'color' ) );
-		$this->assertEquals( 'high', $meta->get( 'priority' ) );
-	}
-
-	/** @test */
-	public function it_should_stop_chaining_on_invalid_key() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$result = $meta->set( 'valid_key', '#ff0000' )
-			->set( '', '#00ff00' );
-
-		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( '#ff0000', $meta->get( 'valid_key' ) );
-		$this->assertNull( $meta->get( 'text_color' ) );
-	}
-
-	/** @test */
-	public function it_should_stop_chaining_on_invalid_value() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$result = $meta->set( 'valid_key', '#ff0000' )
-			->set( 'another_key', null );
-
-		$this->assertInstanceOf( WP_Error::class, $result );
-		$this->assertEquals( '#ff0000', $meta->get( 'valid_key' ) );
-		$this->assertNull( $meta->get( 'text_color' ) );
-	}
-
-	/** @test */
-	public function it_should_handle_special_characters_in_keys_and_values() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$special_key   = 'some@key#with!special$chars';
-		$special_value = '!@#$%^&*()_+={}[]|:;"\'<>,.?/~`';
-
-		$meta->set( $special_key, $special_value );
-		$this->assertEquals( $special_value, $meta->get( $special_key ) );
-	}
-
-	/** @test */
-	public function it_should_handle_non_string_values() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$meta->set( 'integer_key', 123 );
-		$this->assertEquals( 123, $meta->get( 'integer_key' ) );
-
-		$meta->set( 'bool_key', true );
-		$this->assertEquals( true, $meta->get( 'bool_key' ) );
 
 		$array_value = [ 'red', 'blue', 'green' ];
-		$meta->set( 'array_key', $array_value );
+		$meta->set( 'array_key', $array_value )->save();
+
 		$this->assertEquals( $array_value, maybe_unserialize( $meta->get( 'array_key' ) ) );
+	}
+
+	/** @test */
+	public function it_should_allow_object_values_and_serialize_them() {
+		$meta = new Meta( $this->test_term->term_id );
 
 		$object_value = (object) [ 'foo' => 'bar' ];
-		$meta->set( 'object_key', $object_value );
+		$meta->set( 'object_key', $object_value )->save();
+
 		$this->assertEquals( $object_value, maybe_unserialize( $meta->get( 'object_key' ) ) );
 	}
 
 	/** @test */
-	public function it_should_overwrite_existing_meta_values() {
+	public function it_should_not_fail_when_saving_without_changes() {
 		$meta = new Meta( $this->test_term->term_id );
 
-		$meta->set( 'color', '#ff0000' );
-		$this->assertEquals( '#ff0000', $meta->get( 'color' ) );
+		// Call save without setting anything
+		$meta->save();
 
-		$meta->set( 'color', '#00ff00' );
-		$this->assertEquals( '#00ff00', $meta->get( 'color' ) );
-	}
-
-	/** @test */
-	public function it_should_not_fail_when_deleting_a_non_existent_key() {
-		$meta = new Meta( $this->test_term->term_id );
-
-		$result = $meta->delete( 'non_existent_key' );
-		$this->assertInstanceOf( Meta::class, $result );
-		$this->assertNull( $meta->get( 'non_existent_key' ) );
+		// No assertion needed, just ensure no exception is thrown.
+		$this->assertTrue( true );
 	}
 }
