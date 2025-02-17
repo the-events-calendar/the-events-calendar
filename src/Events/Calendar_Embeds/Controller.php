@@ -25,6 +25,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->singleton( Calendar_Embeds::class );
+		$this->container->singleton( Admin\List_Table::class );
 
 		$this->add_actions();
 		$this->add_filters();
@@ -48,6 +49,12 @@ class Controller extends Controller_Contract {
 	public function add_actions() {
 		add_action( 'init', [ $this, 'register_post_type' ] );
 		add_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		add_action(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
+			[ $this, 'manage_table_column_content' ],
+			10,
+			2
+		);
 	}
 
 	/**
@@ -60,6 +67,11 @@ class Controller extends Controller_Contract {
 	public function remove_actions() {
 		remove_action( 'init', [ $this, 'register_post_type' ] );
 		remove_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		remove_action(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
+			[ $this, 'manage_table_column_content' ],
+			10
+		);
 	}
 
 	/**
@@ -71,6 +83,10 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_filters() {
 		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
+		add_filter(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
+			[ $this, 'manage_table_columns' ]
+		);
 	}
 
 	/**
@@ -82,6 +98,10 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_filters() {
 		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
+		remove_filter(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
+			[ $this, 'manage_table_columns' ]
+		);
 	}
 
 	/**
@@ -117,5 +137,32 @@ class Controller extends Controller_Contract {
 	 */
 	public function keep_parent_menu_open( $submenu_file ) {
 		return $this->container->make( Calendar_Embeds::class )->keep_parent_menu_open( $submenu_file );
+	}
+
+	/**
+	 * Manage column ids and headers for the admin list table.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $columns The columns.
+	 *
+	 * @return array
+	 */
+	public function manage_table_columns( $columns ): array {
+		return $this->container->make( Admin\List_Table::class )->manage_columns( $columns );
+	}
+
+	/**
+	 * Manage column content for the admin list table.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $column  The column name.
+	 * @param int    $post_id The post ID.
+	 *
+	 * @return void
+	 */
+	public function manage_table_column_content( $column, $post_id ): void {
+		$this->container->make( Admin\List_Table::class )->manage_column_content( $column, $post_id );
 	}
 }
