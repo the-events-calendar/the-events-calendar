@@ -11,6 +11,13 @@ namespace TEC\Events\SEO\Headers;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
+/**
+ * Class Controller
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\SEO\Headers
+ */
 class Controller extends Controller_Contract {
 
 	/**
@@ -84,7 +91,7 @@ class Controller extends Controller_Contract {
 
 		if ( 'Y-m-d' === $date_format ) {
 			$event_timestamp = strtotime( $event_date_str );
-			$event_month     = date( 'Y-m', $event_timestamp );
+			$event_month     = gmdate( 'Y-m', $event_timestamp );
 		} else {
 			$event_timestamp = null;
 			$event_month     = $event_date_str;
@@ -184,6 +191,6 @@ class Controller extends Controller_Contract {
 	 * @return string The current month in "Y-m" format.
 	 */
 	protected static function get_current_month() {
-		return date( 'Y-m' );
+		return gmdate( 'Y-m' );
 	}
 }
