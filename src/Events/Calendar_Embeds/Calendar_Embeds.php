@@ -30,22 +30,22 @@ class Calendar_Embeds {
 	const POSTTYPE = 'tec_calendar_embed';
 
 	/**
-	 * The page slug.
+	 * Stores the hook suffix from `add_submenu_page`.
 	 *
 	 * @since TBD
 	 *
 	 * @var string
 	 */
-	public static $slug = 'calendar-embeds';
+	protected $hook_suffix;
 
 	/**
-	 * Stores the Registered ID from `add_submenu_page`.
+	 * The post type object.
 	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @var \WP_Post_Type
 	 */
-	public $ID;
+	protected $post_type_object;
 
 	/**
 	 * Register custom post type for calendar embeds.
@@ -99,7 +99,22 @@ class Calendar_Embeds {
 		 */
 		$args = apply_filters( 'tec_events_calendar_embeds_post_type_args', $args );
 
-		register_post_type( static::POSTTYPE, $args );
+		$this->post_type_object = register_post_type( static::POSTTYPE, $args );
+	}
+
+	/**
+	 * Get the post type object.
+	 *
+	 * @since TBD
+	 *
+	 * @return \WP_Post_Type
+	 */
+	public function get_post_type_object() {
+		if ( ! $this->post_type_object ) {
+			throw new \RuntimeException( __( 'Attempted to get post type object before it was set.', 'the-events-calendar' ) );
+		}
+
+		return $this->post_type_object;
 	}
 
 	/**
@@ -110,8 +125,8 @@ class Calendar_Embeds {
 	 * @return int
 	 */
 	public function register_menu_item() {
-		$cpt      = get_post_type_object( TEC::POSTTYPE );
-		$this->ID = add_submenu_page(
+		$cpt               = get_post_type_object( TEC::POSTTYPE );
+		$this->hook_suffix = add_submenu_page(
 			'edit.php?post_type=' . TEC::POSTTYPE,
 			esc_html( $this->get_page_title() ),
 			esc_html( $this->get_menu_label() ),
@@ -119,7 +134,33 @@ class Calendar_Embeds {
 			'edit.php?post_type=' . self::POSTTYPE,
 		);
 
-		return $this->ID;
+		return $this->hook_suffix;
+	}
+
+	/**
+	 * Gets the hook suffix for the Calendar Embeds.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_hook_suffix() {
+		if ( ! $this->hook_suffix ) {
+			throw new \RuntimeException( __( 'Attempted to get hook suffix before it was set.', 'the-events-calendar' ) );
+		}
+
+		return $this->hook_suffix;
+	}
+
+	/**
+	 * Gets the URL for the Calendar Embeds.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	public function get_url() {
+		return admin_url( 'edit.php?post_type=' . self::POSTTYPE );
 	}
 
 	/**
