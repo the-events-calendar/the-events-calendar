@@ -51,7 +51,7 @@ class Notifications extends Integration_Abstract {
 	/**
 	 * Adds the Events pages to the list of allowed pages for Notifications
 	 *
-	 * @param array $allowed An array of allowed notifications.
+	 * @param array $allowed An array of pages where notifications will be displayed.
 	 * @since TBD
 	 */
 	public function add_allowed_pages( $allowed ) {
