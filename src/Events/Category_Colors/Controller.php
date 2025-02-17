@@ -3,6 +3,7 @@
 namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\CSS_Generator\Generator;
 use TEC\Events\Category_Colors\Settings as Category_Colors_Settings;
 
 class Controller extends Controller_Contract {
@@ -16,6 +17,9 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Category_Colors::class );
 		$this->container->singleton( Category_Colors_Settings::class );
 		$this->container->singleton( Quick_Edit::class );
+		$this->container->singleton( Quick_Edit::class );
+		$this->container->singleton( Generator::class );
+		$this->container->singleton( Category::class );
 
 		$this->add_filters();
 	}
