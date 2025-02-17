@@ -108,6 +108,7 @@ class Calendar_Embeds {
 	 * @since TBD
 	 *
 	 * @return \WP_Post_Type
+	 * @throws \RuntimeException If the post type object is not set.
 	 */
 	public function get_post_type_object() {
 		if ( ! $this->post_type_object ) {
@@ -143,6 +144,7 @@ class Calendar_Embeds {
 	 * @since TBD
 	 *
 	 * @return string
+	 * @throws \RuntimeException If the hook suffix is not set.
 	 */
 	public function get_hook_suffix() {
 		if ( ! $this->hook_suffix ) {
