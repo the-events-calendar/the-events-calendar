@@ -228,4 +228,30 @@ class EventCategoryMeta_Test extends WPTestCase {
 		// No assertion needed, just ensure no exception is thrown.
 		$this->assertTrue( true );
 	}
+
+	/** @test */
+	public function it_should_properly_handle_empty_values_when_retrieving_meta() {
+		$meta = new Meta( $this->test_term->term_id );
+
+		// Set different types of values.
+		$meta->set( 'zero_value', 0 )
+			->set( 'integer_value', 5 )
+			->set( 'false_value', false )
+			->set( 'null_value', null )
+			->set( 'empty_string', '' )
+			->set( 'empty_array', [] )
+			->set( 'non_empty_array', [ 'value' ] )
+			->set( 'non_empty_string', 'hello' )
+			->save();
+
+		// Assertions for expected behavior.
+		$this->assertSame( '0', $meta->get( 'zero_value' ) );
+		$this->assertSame( '5', $meta->get( 'integer_value' ) );
+		$this->assertSame( '', $meta->get( 'false_value' ) );
+		$this->assertNull( $meta->get( 'null_value' ) );
+		$this->assertSame( '', $meta->get( 'empty_string' ) );
+		$this->assertSame( [], $meta->get( 'empty_array' ) );
+		$this->assertSame( [ 'value' ], $meta->get( 'non_empty_array' ) );
+		$this->assertSame( 'hello', $meta->get( 'non_empty_string' ) );
+	}
 }

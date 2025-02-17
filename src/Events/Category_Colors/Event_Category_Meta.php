@@ -168,7 +168,6 @@ class Event_Category_Meta {
 		return $this;
 	}
 
-
 	/**
 	 * Retrieves metadata for the term.
 	 *
@@ -183,10 +182,32 @@ class Event_Category_Meta {
 			return get_term_meta( $this->term_id );
 		}
 
-		$key   = $this->validate_key( $key );
+		$key = $this->validate_key( $key );
+
+		// Check if the key exists before retrieving the value.
+		if ( ! metadata_exists( 'term', $this->term_id, $key ) ) {
+			return null;
+		}
+
 		$value = get_term_meta( $this->term_id, $key, true );
 
-		return ( '' !== $value ) ? $value : null;
+		// Ensure numbers are always returned as strings.
+		if ( is_numeric( $value ) ) {
+			return (string) $value;
+		}
+
+		// Ensure arrays remain unchanged.
+		if ( is_array( $value ) ) {
+			return $value;
+		}
+
+		// Ensure explicitly stored `false` returns an empty string.
+		if ( false === $value ) {
+			return '';
+		}
+
+		// Ensure empty strings remain empty.
+		return ( '' === $value ) ? '' : $value;
 	}
 
 	/**
