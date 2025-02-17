@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\V2\SEO\Headers;
 
 use TEC\Events\SEO\Headers\Controller;
 use Tribe\Tests\Traits\With_Uopz;
+use Tribe__Events__Main as TEC;
 
 /**
  * Tests for the month view behavior in the SEO Controller.
@@ -13,18 +14,29 @@ class Controller_Month_View_Test extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
-	 * Set up defaults.
-	 */
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
 	 * Clean up after each test.
 	 */
 	public function tearDown() {
 		remove_all_filters( 'tribe_settings_manager_get_options' );
 		parent::tearDown();
+		$this->remove_events();
+	}
+
+	/**
+	 * Remove all events before each test.
+	 *
+	 * @since TBD
+	 */
+	public function remove_events() {
+		global $wpdb;
+
+		// Delete all Event posts, as leakage from previous tests would cause failure from earliest/latest date checks.
+		$wpdb->query(
+			$wpdb->prepare(
+				"delete from $wpdb->posts where post_type = %s",
+				TEC::POSTTYPE
+			)
+		);
 	}
 
 	/**
