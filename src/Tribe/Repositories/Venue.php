@@ -25,7 +25,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	 * Sets up the repository default parameters and schema.
 	 *
 	 * @since 4.9
-	 * @since TBD Added `show_map` and `show_map_link` aliases.
+	 * @since 6.10.1 Added `show_map` and `show_map_link` aliases.
 	 */
 	public function __construct() {
 		parent::__construct();
@@ -83,7 +83,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 	/**
 	 * Formats a venue handled by the repository to the expected format.
 	 *
-	 * @since TBD Added to Venue ORM.
+	 * @since 6.10.1 Added to Venue ORM.
 	 *
 	 * @param int|WP_Post $id The ID or object of the venue to be formatted.
 	 * @return WP_Post The formatted Venue object.
@@ -96,7 +96,7 @@ class Tribe__Events__Repositories__Venue extends Tribe__Events__Repositories__Li
 		/**
 		 * Filters a single formatted venue result.
 		 *
-		 * @since TBD
+		 * @since 6.10.1
 		 *
 		 * @param mixed|WP_Post                $formatted The formatted venue result, usually a post object.
 		 * @param int                          $id        The formatted post ID.

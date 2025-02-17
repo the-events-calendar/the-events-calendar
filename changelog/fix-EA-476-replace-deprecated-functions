@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Replaced deprecated functions with their modern equivalents to maintain compatibility. [EA-476]

@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Make Eventbrite import available when the Eventbrite Tickets plugin is installed [EBT-149]
