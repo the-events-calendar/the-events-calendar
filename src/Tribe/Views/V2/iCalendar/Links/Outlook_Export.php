@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main;
+use Tribe\Events\Views\V2\iCalendar\Traits\Export_Link;
 
 /**
  * Class Outlook
@@ -19,8 +20,14 @@ use Tribe__Events__Main;
  * @package Tribe\Events\Views\V2\iCalendar
  */
 class Outlook_Export extends Link_Abstract {
+	use Export_Link;
+
 	/**
-	 * {@inheritDoc}
+	 * The link provider slug.
+	 *
+	 * @since 5.12.0
+	 *
+	 * @var string
 	 */
 	public static $slug = 'outlook-ics';
 
@@ -50,6 +57,7 @@ class Outlook_Export extends Link_Abstract {
 	 * Filters the is_visible() function to not display on single events.
 	 *
 	 * @since 5.16.0
+	 * @deprecated TBD
 	 *
 	 * @param boolean $visible Whether to display the link.
 	 * @param View    $view     The current View object.
@@ -57,35 +65,8 @@ class Outlook_Export extends Link_Abstract {
 	 * @return boolean $visible Whether to display the link.
 	 */
 	public function filter_tec_views_v2_subscribe_link_outlook_ics_visibility( $visible ) {
+		_deprecated_function( __METHOD__, 'TBD', 'Outlook_Export::filter_tec_views_v2_subscribe_link_visibility' );
 		// Don't display on single event by default.
-		return ! is_single();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_uri( View $view = null ) {
-		if ( null === $view || is_single( Tribe__Events__Main::POSTTYPE ) ) {
-			// Try to construct it for the event single.
-			return add_query_arg( [ 'outlook-ical' => 1 ], get_the_permalink() );
-		}
-
-		$template_vars = $view->get_template_vars();
-
-		$ical = ! empty( $template_vars['ical'] ) ? $template_vars['ical'] : $view->get_ical_data();
-
-		if ( empty( $ical->display_link ) ) {
-			return '';
-		}
-
-		if ( empty( $ical->link->url ) ) {
-			return '';
-		}
-
-		// Remove ical query argument and add Outlook.
-		$url = remove_query_arg( 'ical', $ical->link->url );
-		$url = add_query_arg( [ 'outlook-ical' => 1 ], $url );
-
-		return $url;
+		return self::filter_tec_views_v2_subscribe_link_visibility( $visible, $this );
 	}
 }
