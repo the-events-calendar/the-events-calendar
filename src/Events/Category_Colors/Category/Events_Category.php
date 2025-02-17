@@ -3,6 +3,7 @@
  * Class for handling event category colors.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Category
  */
 
@@ -16,6 +17,8 @@ use Tribe__Events__Main;
  * within the `tribe_events_cat` taxonomy.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Category
  */
 class Events_Category extends Category_Abstract {
 	/**

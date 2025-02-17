@@ -5,6 +5,7 @@
  * and providing structured output for category colors.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Traits
  */
 
@@ -18,12 +19,15 @@ use Tribe__Events__Main;
  * Provides methods for retrieving and processing category colors and metadata.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Traits
  */
 trait Category_Trait {
 	/**
 	 * Stores the fetched category metadata.
 	 *
 	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected array $categories = [];
@@ -32,6 +36,7 @@ trait Category_Trait {
 	 * Meta keys used for retrieving category colors.
 	 *
 	 * @since TBD
+	 *
 	 * @var array
 	 */
 	protected array $meta_keys = [
@@ -46,6 +51,7 @@ trait Category_Trait {
 	 * Retrieves metadata from the database in batches and organizes it by term ID.
 	 *
 	 * @since TBD
+	 *
 	 * @return void
 	 */
 	public function fetch_category_meta(): void {
@@ -58,8 +64,10 @@ trait Category_Trait {
 		 * @since TBD
 		 *
 		 * @param int $batch_size The number of records to fetch per batch. Default is 500.
+		 *
+		 * @return int The filtered batch size.
 		 */
-		$batch_size = apply_filters( 'tec_events_category_color_generator_batch_size', 500 );
+		$batch_size = (int) apply_filters( 'tec_events_category_color_generator_batch_size', 500 );
 
 		/**
 		 * Filter the meta keys used in category color queries.
@@ -67,8 +75,10 @@ trait Category_Trait {
 		 * @since TBD
 		 *
 		 * @param array $meta_keys The array of meta keys to retrieve.
+		 *
+		 * @return array The filtered meta key array.
 		 */
-		$this->meta_keys = apply_filters( 'tec_events_category_color_generator_meta_keys', $this->meta_keys );
+		$this->meta_keys = (array) apply_filters( 'tec_events_category_color_generator_meta_keys', $this->meta_keys );
 
 		do {
 			$results = $db->table( 'term_taxonomy', 'tt' )
@@ -148,6 +158,6 @@ trait Category_Trait {
 		 *
 		 * @param array $structured_data The structured array of categories.
 		 */
-		return apply_filters( 'tec_events_category_color_generator_final_data', $structured_data );
+		return (array) apply_filters( 'tec_events_category_color_generator_final_data', $structured_data );
 	}
 }

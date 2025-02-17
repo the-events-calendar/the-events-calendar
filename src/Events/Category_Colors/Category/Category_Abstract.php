@@ -3,6 +3,7 @@
  * Abstract class for category colors.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Category
  */
 
@@ -14,12 +15,15 @@ namespace TEC\Events\Category_Colors\Category;
  * including background, border, and text colors.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Category
  */
 abstract class Category_Abstract {
 	/**
 	 * Category term ID.
 	 *
 	 * @since TBD
+	 *
 	 * @var int
 	 */
 	protected $term_id;
@@ -28,6 +32,7 @@ abstract class Category_Abstract {
 	 * Category priority.
 	 *
 	 * @since TBD
+	 *
 	 * @var int
 	 */
 	protected $priority = -1;
@@ -36,6 +41,7 @@ abstract class Category_Abstract {
 	 * Background color.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $background = '';
@@ -44,6 +50,7 @@ abstract class Category_Abstract {
 	 * Border color.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $border = '';
@@ -52,6 +59,7 @@ abstract class Category_Abstract {
 	 * Text color.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected $text = '';
@@ -60,6 +68,7 @@ abstract class Category_Abstract {
 	 * Taxonomy name.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected static $taxonomy = '';
@@ -75,8 +84,8 @@ abstract class Category_Abstract {
 	public function __construct( int $term_id, array $data ) {
 		$this->term_id    = $term_id;
 		$this->priority   = $data['priority'] ?? -1;
-		$this->background = $data['primary'] ?? '';
-		$this->border     = $data['secondary'] ?? '';
+		$this->border     = $data['primary'] ?? '';
+		$this->background = $data['secondary'] ?? '';
 		$this->text       = $data['text'] ?? '';
 	}
 
@@ -84,6 +93,7 @@ abstract class Category_Abstract {
 	 * Retrieves the taxonomy this class is handling.
 	 *
 	 * @since TBD
+	 *
 	 * @return string The taxonomy name.
 	 */
 	public static function get_taxonomy(): string {
@@ -94,6 +104,7 @@ abstract class Category_Abstract {
 	 * Returns the CSS class name for the category.
 	 *
 	 * @since TBD
+	 *
 	 * @return string The generated CSS class name.
 	 */
 	public function get_css_class(): string {
@@ -104,6 +115,7 @@ abstract class Category_Abstract {
 	 * Retrieves the structured schema for the category.
 	 *
 	 * @since TBD
+	 *
 	 * @return array The structured category data.
 	 */
 	public function get_schema(): array {

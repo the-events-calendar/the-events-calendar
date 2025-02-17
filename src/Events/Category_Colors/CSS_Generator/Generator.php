@@ -5,8 +5,9 @@
  * This class retrieves category color settings, generates CSS rules, minifies the output,
  * and saves the final CSS in the WordPress options table.
  *
- * @package TEC\Events\Category_Colors\CSS_Generator
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\CSS_Generator
  */
 
 namespace TEC\Events\Category_Colors\CSS_Generator;
@@ -18,6 +19,8 @@ use Tribe__Utils__Color;
  * Class for generating, minifying, and storing category colors CSS.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\CSS_Generator
  */
 class Generator {
 	use Category_Trait;
@@ -26,6 +29,7 @@ class Generator {
 	 * Option key for storing generated CSS in wp_options.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected string $option_key = 'tec_events_category_color_css';
@@ -34,6 +38,7 @@ class Generator {
 	 * Stores the generated CSS before saving.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	protected string $generated_css = '';
@@ -75,6 +80,8 @@ class Generator {
 		 * @since TBD
 		 *
 		 * @param string $css The generated CSS string.
+		 *
+		 * @return string The filtered CSS string.
 		 */
 		$this->generated_css = apply_filters( 'tec_events_category_color_generator_final_css', implode( "\n", $css_rules ) );
 
@@ -114,7 +121,7 @@ class Generator {
 		$class = sanitize_html_class( $category['class'] );
 
 		$background = $this->sanitize_color( $category['background'], true );
-		$border     = $this->sanitize_color( $category['border'], true );
+		$border     = $this->sanitize_color( $category['primary'], true );
 		$text       = $this->sanitize_color( $category['text'], true );
 
 		$styles = array_filter(
@@ -163,13 +170,15 @@ class Generator {
 	 * @return bool True if valid, false otherwise.
 	 */
 	protected function is_valid_category( array $category ): bool {
-		return ! empty( $category['class'] ) &&
-				$this->is_valid_class( $category['class'] ) &&
-				is_numeric( $category['priority'] ) &&
-				(int) $category['priority'] >= -1 &&
-				( $this->sanitize_color( $category['background'], true ) ||
-				$this->sanitize_color( $category['border'], true ) ||
-				$this->sanitize_color( $category['text'], true ) );
+		return ! empty( $category['class'] )
+			&& $this->is_valid_class( $category['class'] )
+			&& is_numeric( $category['priority'] )
+			&& (int) $category['priority'] >= -1
+			&& (
+				$this->sanitize_color( $category['background'], true )
+				|| $this->sanitize_color( $category['border'], true )
+				|| $this->sanitize_color( $category['text'], true )
+			);
 	}
 
 	/**
