@@ -51,8 +51,11 @@ class Notifications extends Integration_Abstract {
 	/**
 	 * Adds the Events pages to the list of allowed pages for Notifications
 	 *
+ 	 * @since TBD
+	 *
 	 * @param array $allowed An array of pages where notifications will be displayed.
-	 * @since TBD
+	 *
+	 * @return array
 	 */
 	public function add_allowed_pages( $allowed ) {
 		$allowed[] = 'tribe_events_page_tec-events-settings';
