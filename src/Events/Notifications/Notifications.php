@@ -51,6 +51,7 @@ class Notifications extends Integration_Abstract {
 	/**
 	 * Adds the Tickets settings page to the list of allowed pages for Notifications.
 	 *
+	 * @param array $allowed An array of allowed notifications.
 	 * @since TBD
 	 */
 	public function add_allowed_pages( $allowed ) {
