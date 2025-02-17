@@ -4,6 +4,7 @@ namespace Tribe\Events\Views\V2\SEO\Headers;
 
 use TEC\Events\SEO\Headers\Controller;
 use Tribe\Tests\Traits\With_Uopz;
+use Tribe__Events__Main as TEC;
 
 /**
  * Tests for the day view behavior in the SEO Controller.
@@ -13,18 +14,29 @@ class Controller_Day_View_Test extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
-	 * Set up default dates.
-	 */
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
 	 * Clean up after each test.
 	 */
 	public function tearDown() {
 		remove_all_filters( 'tribe_settings_manager_get_options' );
 		parent::tearDown();
+		$this->remove_events();
+	}
+
+	/**
+	 * Remove all events before each test.
+	 *
+	 * @since TBD
+	 */
+	public function remove_events() {
+		global $wpdb;
+
+		// Delete all Event posts, as leakage from previous tests would cause failure from earliest/latest date checks.
+		$wpdb->query(
+			$wpdb->prepare(
+				"delete from $wpdb->posts where post_type = %s",
+				TEC::POSTTYPE
+			)
+		);
 	}
 
 	/**
@@ -38,6 +50,7 @@ class Controller_Day_View_Test extends \Codeception\TestCase\WPTestCase {
 	 * @param string $test_day    The specific day to test (format: Y-m-d).
 	 */
 	private function create_test_events( string $range_start, string $range_end, string $test_day ) {
+		$this->remove_events();
 		$timezone_string = get_option( 'timezone_string' ) ?: 'UTC';
 
 		$events = [
@@ -113,6 +126,8 @@ class Controller_Day_View_Test extends \Codeception\TestCase\WPTestCase {
 			'eventDate'    => '2023-05-15',
 		];
 
+		$events1 = tribe_events()->get_ids();
+
 		tribe_register_provider( Controller::class );
 		tribe( Controller::class )->filter_headers();
 
@@ -183,6 +198,8 @@ class Controller_Day_View_Test extends \Codeception\TestCase\WPTestCase {
 			'eventDisplay' => 'day',
 			'eventDate'    => '2023-06-16', // This falls in June 2023.
 		];
+
+		$events1 = tribe_events()->get_ids();
 
 		tribe_register_provider( Controller::class );
 		tribe( Controller::class )->filter_headers();
