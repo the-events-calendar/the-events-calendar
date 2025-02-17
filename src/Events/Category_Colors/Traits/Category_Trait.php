@@ -157,6 +157,8 @@ trait Category_Trait {
 		 * @since TBD
 		 *
 		 * @param array $structured_data The structured array of categories.
+		 *
+		 * @return array The filtered structured array of categories.
 		 */
 		return (array) apply_filters( 'tec_events_category_color_generator_final_data', $structured_data );
 	}
