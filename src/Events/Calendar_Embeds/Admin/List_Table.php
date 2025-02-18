@@ -9,6 +9,9 @@
 
 namespace TEC\Events\Calendar_Embeds\Admin;
 
+use Tribe__Template;
+use Tribe__Events__Main;
+
 /**
  * Class List_Table
  *
@@ -17,6 +20,15 @@ namespace TEC\Events\Calendar_Embeds\Admin;
  * @package TEC\Events\Calendar_Embeds\Admin
  */
 class List_Table {
+	/**
+	 * The template.
+	 *
+	 * @since TBD
+	 *
+	 * @var Tribe__Template
+	 */
+	protected $template;
+
 	/**
 	 * Customize columns for the table.
 	 *
@@ -35,7 +47,16 @@ class List_Table {
 			'snippet'          => __( 'Embed Snippet', 'the-events-calendar' ),
 		];
 
-		return $new_columns;
+		/**
+		 * Filters the columns for the calendar embeds list table.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $new_columns The columns.
+		 *
+		 * @return array The filtered columns.
+		 */
+		return (array) apply_filters( 'tec_events_calendar_embeds_list_table_columns', $new_columns );
 	}
 
 	/**
@@ -69,16 +90,36 @@ class List_Table {
 				}
 				break;
 			case 'snippet':
-				add_thickbox();
-
 				$permalink = get_permalink( $post_id );
 
-				$snippet = '<iframe src="' . esc_url( $permalink ) . '" width="800" height="600"></iframe>';
-				$html    = '<div id="snippet_' . $post_id . '" class="hidden"><p>Copy and paste this code to embed the calendar on your website:<br><textarea rows="3" style="width:100%" readonly="readonly">' . esc_html( $snippet ) . '</textarea></p></div>';
-				$html   .= '<a name="Embed Snippet" href="/?TB_inline?width=400&height=300&inlineId=snippet_' . $post_id . '" class="thickbox page-title-action">Get Embed Snippet</a>';
+				$admin_template =$this->get_template();
+				$admin_template->template( 'modal', [
+					'post_id'   => $post_id,
+					'permalink' => $permalink,
+				] );
 
-				echo wp_kses_post( $html );
 				break;
 		}
+	}
+
+	/**
+	 * Get the template.
+	 *
+	 * @since TBD
+	 *
+	 * @return Tribe__Template
+	 */
+	public function get_template(): Tribe__Template {
+		if ( ! empty( $this->template ) ) {
+			return $this->template;
+		}
+
+		$this->template = new Tribe__Template();
+		$this->template->set_template_origin( Tribe__Events__Main::instance() );
+		$this->template->set_template_folder( 'src/admin-views/calendar_embeds/' );
+		$this->template->set_template_context_extract( true );
+		$this->template->set_template_folder_lookup( false );
+
+		return $this->template;
 	}
 }
