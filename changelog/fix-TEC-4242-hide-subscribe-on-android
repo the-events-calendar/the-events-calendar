@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Hide the subscribe link for Google Calendar on Android devices to prevent unintended visibility. [TEC-4242]
