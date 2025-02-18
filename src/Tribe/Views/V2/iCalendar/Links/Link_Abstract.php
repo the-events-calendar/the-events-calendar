@@ -473,7 +473,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 		$show_gcal_on_android = apply_filters( 'tec_events_show_gcal_subscribe_on_android', false );
 
 		if (
-			$show_gcal_on_android
+			! $show_gcal_on_android
 			&& strstr( $_SERVER['HTTP_USER_AGENT'], 'Android' )
 		) {
 			add_filter( 'tec_views_v2_subscribe_link_gcal_visibility', '__return_false' );
