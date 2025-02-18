@@ -15,17 +15,17 @@ $snippet = '<iframe src="' . esc_url( $permalink ) . 'embed" width="100%" height
 ?>
 <div id="tec_events_calendar_embeds_snippet_<?php echo esc_attr( $post_id ); ?>" class="hidden">
 	<div>
-		<div class="tec-events-calendar-embeds-snippet-modal-text">
+		<div class="tec-events-calendar-embeds__snippet-modal-text">
 			<?php esc_html_e( 'Copy and paste this code to embed the calendar on your website:', 'the-events-calendar' ); ?>
 		</div>
 		<textarea
 			id="tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
-			class="tec-events-calendar-embeds-snippet-modal-textarea"
+			class="tec-events-calendar-embeds__snippet-modal-textarea"
 			aria-label="<?php esc_attr_e( 'Embed snippet code', 'the-events-calendar' ); ?>"
 			rows="3"
 			readonly><?php echo esc_html( $snippet ); ?></textarea>
 		<button
-			class="button button-primary tec-events-calendar-embeds-snippet-modal-copy-button"
+			class="button button-primary tec-events-calendar-embeds__snippet-modal-copy-button"
 			aria-controls="tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
 			data-clipboard-action="copy"
 			data-clipboard-target="#tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
