@@ -17,6 +17,10 @@
 if ( empty( $items ) ) {
 	return;
 }
+
+if ( strstr( $_SERVER['HTTP_USER_AGENT'], 'Android' ) ) {
+	return;
+}
 ?>
 <div class="tribe-events-c-subscribe-dropdown__container">
 	<div class="tribe-events-c-subscribe-dropdown">
