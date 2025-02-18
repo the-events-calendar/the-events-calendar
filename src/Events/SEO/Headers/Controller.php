@@ -10,6 +10,7 @@
 namespace TEC\Events\SEO\Headers;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller
@@ -49,7 +50,7 @@ class Controller extends Controller_Contract {
 
 		if (
 			! isset( $wp_query->query['post_type'] )
-			|| $wp_query->query['post_type'] !== 'tribe_events'
+			|| $wp_query->query['post_type'] !== TEC::POSTTYPE
 			|| ! isset( $wp_query->query['eventDisplay'] )
 			|| ! isset( $wp_query->query['eventDate'] )
 		) {
