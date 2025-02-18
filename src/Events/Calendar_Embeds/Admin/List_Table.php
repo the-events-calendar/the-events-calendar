@@ -28,7 +28,7 @@ class List_Table {
 	 */
 	public function manage_columns( $columns ): array {
 		$new_columns = [
-			'cb'               => isset( $columns['cb'] ) ? $columns['cb'] : '<input type="checkbox" />',
+			'cb'               => $columns['cb'] ?? '<input type="checkbox" />',
 			'title'            => __( 'Calendar Embeds', 'the-events-calendar' ),
 			'event_categories' => __( 'Categories', 'the-events-calendar' ),
 			'post_tags'        => __( 'Tags', 'the-events-calendar' ),
@@ -49,7 +49,6 @@ class List_Table {
 	 * @return void
 	 */
 	public function manage_column_content( $column_name, $post_id ): void {
-		error_log('testing');
 		switch ( $column_name ) {
 			case 'event_categories':
 				$categories = get_the_terms( $post_id, 'category' );
@@ -71,17 +70,12 @@ class List_Table {
 				break;
 			case 'snippet':
 				add_thickbox();
-				// get permalink
+
 				$permalink = get_permalink( $post_id );
 
-				// create snippet to show iframe
 				$snippet = '<iframe src="' . esc_url( $permalink ) . '" width="800" height="600"></iframe>';
-
-				// create html for modal to display snippet
-				$html = '<div id="snippet_' . $post_id . '" class="hidden"><p>Copy and paste this code to embed the calendar on your website:<br><textarea rows="3" style="width:100%" readonly="readonly">' . esc_html( $snippet ) . '</textarea></p></div>';
-
-				// create thickbox link to show modal
-				$html .= '<a name="Embed Snippet" href="/?TB_inline?width=400&height=300&inlineId=snippet_' . $post_id . '" class="thickbox page-title-action">Get Embed Snippet</a>';
+				$html    = '<div id="snippet_' . $post_id . '" class="hidden"><p>Copy and paste this code to embed the calendar on your website:<br><textarea rows="3" style="width:100%" readonly="readonly">' . esc_html( $snippet ) . '</textarea></p></div>';
+				$html   .= '<a name="Embed Snippet" href="/?TB_inline?width=400&height=300&inlineId=snippet_' . $post_id . '" class="thickbox page-title-action">Get Embed Snippet</a>';
 
 				echo wp_kses_post( $html );
 				break;
