@@ -108,7 +108,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 
 		$this->set_hooked();
 
-		$this->maybe_disable_gcal_subscribe_for_android();
+		$this->maybe_disable_gcal_subscribe_on_android();
 	}
 
 	/**
@@ -460,7 +460,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 	 *
 	 * @return void
 	 */
-	public function maybe_disable_gcal_subscribe_for_android(): void {
+	public function maybe_disable_gcal_subscribe_on_android(): void {
 		/**
 		 * Allows users to force-show the Google Calendar subscribe link.
 		 * Note: the filter should be placed in the mu-plugins folder.
