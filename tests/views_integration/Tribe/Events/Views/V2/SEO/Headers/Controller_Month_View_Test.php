@@ -19,24 +19,6 @@ class Controller_Month_View_Test extends \Codeception\TestCase\WPTestCase {
 	public function tearDown() {
 		remove_all_filters( 'tribe_settings_manager_get_options' );
 		parent::tearDown();
-		$this->remove_events();
-	}
-
-	/**
-	 * Remove all events before each test.
-	 *
-	 * @since TBD
-	 */
-	public function remove_events() {
-		global $wpdb;
-
-		// Delete all Event posts, as leakage from previous tests would cause failure from earliest/latest date checks.
-		$wpdb->query(
-			$wpdb->prepare(
-				"delete from $wpdb->posts where post_type = %s",
-				TEC::POSTTYPE
-			)
-		);
 	}
 
 	/**
