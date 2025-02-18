@@ -21,10 +21,12 @@ $snippet = '<iframe src="' . esc_url( $permalink ) . 'embed" width="100%" height
 		<textarea
 			id="tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
 			class="tec-events-calendar-embeds-snippet-modal-textarea"
+			aria-label="<?php esc_attr_e( 'Embed snippet code', 'the-events-calendar' ); ?>"
 			rows="3"
-			readonly="readonly"><?php echo esc_html( $snippet ); ?></textarea>
+			readonly><?php echo esc_html( $snippet ); ?></textarea>
 		<button
 			class="button button-primary tec-events-calendar-embeds-snippet-modal-copy-button"
+			aria-controls="tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
 			data-clipboard-action="copy"
 			data-clipboard-target="#tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
 		>

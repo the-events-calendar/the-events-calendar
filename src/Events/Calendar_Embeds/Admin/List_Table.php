@@ -93,7 +93,7 @@ class List_Table {
 				$permalink = get_permalink( $post_id );
 
 				$admin_template =$this->get_template();
-				$admin_template->template( 'modal', [
+				$admin_template->template( 'embed-snippet-content', [
 					'post_id'   => $post_id,
 					'permalink' => $permalink,
 				] );
@@ -116,7 +116,7 @@ class List_Table {
 
 		$this->template = new Tribe__Template();
 		$this->template->set_template_origin( Tribe__Events__Main::instance() );
-		$this->template->set_template_folder( 'src/admin-views/calendar_embeds/' );
+		$this->template->set_template_folder( 'src/admin-views/calendar-embeds/' );
 		$this->template->set_template_context_extract( true );
 		$this->template->set_template_folder_lookup( false );
 
