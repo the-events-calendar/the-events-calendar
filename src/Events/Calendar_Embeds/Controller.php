@@ -49,6 +49,7 @@ class Controller extends Controller_Contract {
 	public function add_actions() {
 		add_action( 'init', [ $this, 'register_post_type' ] );
 		add_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		add_action( 'admin_init', [ $this, 'enqueue_admin_page_assets' ] );
 		add_action(
 			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
 			[ $this, 'manage_table_column_content' ],
@@ -67,6 +68,7 @@ class Controller extends Controller_Contract {
 	public function remove_actions() {
 		remove_action( 'init', [ $this, 'register_post_type' ] );
 		remove_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		remove_action( 'admin_init', [ $this, 'enqueue_admin_page_assets' ] );
 		remove_action(
 			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
 			[ $this, 'manage_table_column_content' ],
@@ -123,7 +125,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function register_menu_item() {
-		$this->container->make( Calendar_Embeds::class )->register_menu_item();
+		$this->container->make( Admin\Page::class )->register_menu_item();
 	}
 
 	/**
@@ -136,7 +138,7 @@ class Controller extends Controller_Contract {
 	 * @return string
 	 */
 	public function keep_parent_menu_open( $submenu_file ) {
-		return $this->container->make( Calendar_Embeds::class )->keep_parent_menu_open( $submenu_file );
+		return $this->container->make( Admin\Page::class )->keep_parent_menu_open( $submenu_file );
 	}
 
 	/**
@@ -164,5 +166,16 @@ class Controller extends Controller_Contract {
 	 */
 	public function manage_table_column_content( $column, $post_id ): void {
 		$this->container->make( Admin\List_Table::class )->manage_column_content( $column, $post_id );
+	}
+
+	/**
+	 * Enqueue assets for the admin page.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function enqueue_admin_page_assets(): void {
+		$this->container->make( Admin\Page::class )->register_assets();
 	}
 }
