@@ -14,14 +14,6 @@ class Controller_Day_View_Test extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
-	 * Clean up after each test.
-	 */
-	public function tearDown() {
-		remove_all_filters( 'tribe_settings_manager_get_options' );
-		parent::tearDown();
-	}
-
-	/**
 	 * Create test events for the given date range.
 	 *
 	 * This method creates one event at the start of the range, one at the end,
