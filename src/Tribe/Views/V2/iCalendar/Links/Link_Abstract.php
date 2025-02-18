@@ -107,6 +107,8 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 		add_filter( 'tec_views_v2_subscribe_links', [ $this, 'filter_tec_views_v2_subscribe_links' ], 10 );
 
 		$this->set_hooked();
+
+		$this->maybe_disable_gcal_subscribe_for_android();
 	}
 
 	/**
@@ -448,5 +450,33 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 			'visible'      => $this->is_visible(),
 			'block_slug'   => $this->block_slug,
 		];
+	}
+
+	/**
+	 * Hides the subscribe link for Google calendar on Android devices.
+	 * The Google Calendar app on Android does not support the "Add calendar" or subscribe feature.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function maybe_disable_gcal_subscribe_for_android(): void {
+		/**
+		 * Allows users to force-show the Google Calendar subscribe link.
+		 * Note: the filter should be placed in the mu-plugins folder.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $disable_gcal_on_android Whether to show (true) or hide (false) the Google Calendar link on
+		 *                                      Android devices. Defaults to false.
+		 */
+		$show_gcal_on_android = apply_filters( 'tec_events_show_gcal_subscribe_on_android', false );
+
+		if (
+			$show_gcal_on_android
+			&& strstr( $_SERVER['HTTP_USER_AGENT'], 'Android' )
+		) {
+			add_filter( 'tec_views_v2_subscribe_link_gcal_visibility', '__return_false' );
+		}
 	}
 }
