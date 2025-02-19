@@ -1,4 +1,4 @@
-name: 🔁 Sync Translations
+name: "Release: Sync Translations"
 
 on:
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
@@ -75,7 +75,7 @@ jobs:
           token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
           base: ${{ github.head_ref || github.ref_name }} 
           branch: "task/i18n-update-${{ github.head_ref || github.ref_name }}-with-${{ steps.vars.outputs.sha_short }}"
-          title: "Generate Pot for ${{ github.head_ref || github.ref_name }}"
+          title: "[BOT] Generate POT file for '${{ github.head_ref || github.ref_name }}'"
           assignees: ${{ github.actor }}
           reviewers: the-events-calendar/engineers
           body: |

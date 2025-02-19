@@ -6,10 +6,10 @@
  *
  * @package TEC\Events\Integrations
  */
+
 namespace TEC\Events\Integrations;
 
 use TEC\Common\Contracts\Service_Provider;
-
 
 /**
  * Class Provider

@@ -48,6 +48,8 @@ files/
 src/resources/**/app
 src/resources/css
 src/resources/js/**/*.min.js
+src/**/*.min.js
+files/
 build/
 
 # Local packaging files
@@ -57,3 +59,5 @@ pup.phar
 
 # Misc
 bin/strauss.phar
+
+.vscode
