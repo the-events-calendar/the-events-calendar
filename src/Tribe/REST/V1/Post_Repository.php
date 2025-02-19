@@ -96,6 +96,22 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$venue     = $this->get_venue_data( $event_id, $context );
 		$organizer = $this->get_organizer_data( $event_id, $context );
 
+		$fields        = [];
+		$custom_fields = tribe_get_option( 'custom-fields', false );
+		if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
+			foreach ( $custom_fields as $field ) {
+				$field_value = get_post_meta( $event_id, $field['name'], true );
+				if ( empty( $field_value ) ) {
+					continue;
+				}
+
+				$fields[ $field['name'] ] = [
+					'label' => $field['label'] ?? '',
+					'value' => $field_value ?? '',
+				];
+			}
+		}
+
 		$data = array(
 			'id'                     => $event_id,
 			'global_id'              => false,
@@ -141,6 +157,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'tags'                   => $this->get_tags( $event_id ),
 			'venue'                  => is_wp_error( $venue ) ? array() : $venue,
 			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
+			'custom_fields'          => $fields,
 		);
 
 		/**
