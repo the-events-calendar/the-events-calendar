@@ -21,11 +21,12 @@ use TEC\Events\Category_Colors\Migration\Post_Processor;
 use TEC\Events\Category_Colors\Migration\Pre_Processor;
 use TEC\Events\Category_Colors\Migration\Validator;
 
-
 /**
  * Class Controller
  *
- * @since TBD
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors
  */
 class Controller extends Controller_Contract {
 
