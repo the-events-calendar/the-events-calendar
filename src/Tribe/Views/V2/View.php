@@ -661,7 +661,7 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * {@inheritDoc}v
+	 * {@inheritDoc}
 	 */
 	public function get_html() {
 		add_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
