@@ -14,11 +14,12 @@ namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
-
 /**
  * Class Controller
  *
- * @since TBD
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors
  */
 class Controller extends Controller_Contract {
 

@@ -90,7 +90,7 @@ class Event_Category_Meta {
 
 		$term = get_term( $term_id, $this->taxonomy );
 
-		if ( ! $term instanceof WP_Term || is_wp_error( $term ) ) {
+		if ( ! $term instanceof WP_Term ) {
 			throw new InvalidArgumentException(
 			/* translators: %1$d is the term ID, %2$s is the taxonomy name. */
 				sprintf( __( 'Term ID %1$d does not exist in taxonomy %2$s.', 'the-events-calendar' ), $term_id, $this->taxonomy )
@@ -191,23 +191,13 @@ class Event_Category_Meta {
 
 		$value = get_term_meta( $this->term_id, $key, true );
 
-		// Ensure numbers are always returned as strings.
-		if ( is_numeric( $value ) ) {
-			return (string) $value;
-		}
-
 		// Ensure arrays remain unchanged.
-		if ( is_array( $value ) ) {
+		if ( is_array( $value ) || is_object( $value ) ) {
 			return $value;
 		}
 
-		// Ensure explicitly stored `false` returns an empty string.
-		if ( false === $value ) {
-			return '';
-		}
-
-		// Ensure empty strings remain empty.
-		return ( '' === $value ) ? '' : $value;
+		// Ensure we return a string.
+		return (string) $value;
 	}
 
 	/**
