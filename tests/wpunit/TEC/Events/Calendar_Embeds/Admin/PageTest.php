@@ -42,4 +42,38 @@ class PageTest extends \Codeception\TestCase\WPTestCase {
 		$title = tribe( Page::class )->get_page_title();
 		$this->assertEquals('Embed Calendar', $title);
 	}
+
+	public function testKeepParentMenuOpen() {
+		global $parent_file, $submenu_file;
+
+		$page = tribe( Page::class );
+
+		// Test when parent file is not the Calendar Embeds post type.
+		$parent_file = 'edit.php?post_type=some_other_post_type';
+		$submenu_file = 'some_submenu_file';
+		$result = $page->keep_parent_menu_open( $submenu_file );
+		$this->assertEquals( 'some_submenu_file', $result );
+		$this->assertEquals( 'edit.php?post_type=some_other_post_type', $parent_file );
+
+		// Test when parent file is the Calendar Embeds post type.
+		$parent_file = 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE;
+		$submenu_file = 'some_submenu_file';
+		$result = $page->keep_parent_menu_open( $submenu_file );
+		$this->assertEquals( 'some_submenu_file', $result );
+		$this->assertEquals( 'edit.php?post_type=' . TEC::POSTTYPE, $parent_file );
+	}
+
+	public function testIsOnPage() {
+		// Mock the get_current_screen function
+		$this->set_fn_return('get_current_screen', (object) [ 'id' => 'edit-' . Calendar_Embeds::POSTTYPE ] );
+		$this->assertTrue( Page::is_on_page() );
+
+		// Mock the get_current_screen function to return null
+		$this->set_fn_return('get_current_screen', null );
+		$this->assertFalse( Page::is_on_page() );
+
+		// Mock the get_current_screen function to return a different screen id
+		$this->set_fn_return('get_current_screen', (object) [ 'id' => 'edit-other_posttype' ] );
+		$this->assertFalse( Page::is_on_page() );
+	}
 }
