@@ -2,7 +2,12 @@ import React from "react";
 
 const PhotoViewIcon = () => {
 	return (
-		<svg width="89" height="60" fill="none" xmlns="http://www.w3.org/2000/svg"  alt="a thumbnail representing the calendar photo view">
+		<svg
+			viewBox="0 0 89 60"
+			fill="none" 
+			xmlns="http://www.w3.org/2000/svg" 
+			alt="a thumbnail representing the calendar photo view"
+		>
 			<rect x="1" y=".5" width="87" height="59" rx="4.495" fill="#F6F7F7" />
 			<rect x="1" y=".5" width="87" height="59" rx="4.495" stroke="#DCDCDE" />
 			<rect x="7.666" y="12.5" width="30.669" height="23.001" rx="1.401" fill="#fff" />
