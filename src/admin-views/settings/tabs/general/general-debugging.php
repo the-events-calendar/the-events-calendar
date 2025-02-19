@@ -13,14 +13,14 @@ $tec_events_general_debugging = [
 	],
 	'debugEvents'                                 => [
 		'type'            => 'checkbox_bool',
-		'label'           => esc_html__( 'Debug mode', 'the-event-calendar' ),
+		'label'           => esc_html__( 'Debug mode', 'the-events-calendar' ),
 		'tooltip'         => sprintf(
 			/* Translators: %1$s - wordpress.org link to the Debug Bar Plugin */
 			esc_html__(
 				'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %1$s and look for the "Tribe" tab in the debug output.',
-				'the-event-calendar'
+				'the-events-calendar'
 			),
-			'<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/extend/plugins/debug-bar/">' . esc_html__( 'Debug Bar Plugin', 'the-event-calendar' ) . '</a>'
+			'<a target="_blank" rel="noopener noreferrer" href="https://wordpress.org/extend/plugins/debug-bar/">' . esc_html__( 'Debug Bar Plugin', 'the-events-calendar' ) . '</a>'
 		),
 		'default'         => false,
 		'validation_type' => 'boolean',

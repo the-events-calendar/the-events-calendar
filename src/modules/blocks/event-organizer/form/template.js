@@ -68,7 +68,6 @@ export default class OrganizerForm extends Component {
 						format="string"
 						value={ title }
 						onChange={ this.saveField( 'title' ) }
-						formattingControls={ [] }
 					/>
 					<input
 						type="tel"
