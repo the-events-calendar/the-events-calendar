@@ -1,7 +1,34 @@
 <?php
+/**
+ * Handles the category color migration process.
+ *
+ * This class manages the full lifecycle of the category color migration process,
+ * including preprocessing, validation, execution, and post-processing.
+ * It ensures that the migration runs sequentially, with proper logging and status checks.
+ *
+ * @since   TBD
+ * @package TEC\Events\Category_Colors\Migration
+ */
 
 namespace TEC\Events\Category_Colors\Migration;
 
+/**
+ * Class Migration_Process
+ *
+ * Orchestrates the category color migration process, ensuring that each step
+ * is executed in order and that the migration status is properly maintained.
+ * The migration consists of four main steps:
+ *
+ * 1. **Preprocessing** - Prepares the migration data.
+ * 2. **Validation** - Ensures the data is structured correctly.
+ * 3. **Execution** - Applies category colors to the database.
+ * 4. **Post-processing** - Verifies that the migration was successful.
+ *
+ * The process prevents duplicate migrations from running and handles failures
+ * gracefully by logging issues and stopping execution if errors are detected.
+ *
+ * @since TBD
+ */
 class Migration_Process {
 	use Migration_Trait;
 
@@ -19,7 +46,16 @@ class Migration_Process {
 			return;
 		}
 
-		Logger::log( 'info', "Migration starting. Current status: " . $this->get_status() );
+		// Prevent running if migration is already in progress.
+		$current_status = $this->get_migration_status()['status'];
+
+		if ( 'execution_in_progress' === $current_status ) {
+			Logger::log( 'info', 'Migration is already in progress.' );
+
+			return;
+		}
+
+		Logger::log( 'info', 'Migration starting. Current status: ' . $this->get_status() );
 
 		$this->preprocess();
 		$this->validate();

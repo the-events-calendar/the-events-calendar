@@ -191,27 +191,6 @@ trait Migration_Trait {
 	}
 
 	/**
-	 * Retrieves a specific meta value from a category.
-	 *
-	 * @since TBD
-	 *
-	 * @param int    $category_id   The category ID.
-	 * @param string $key           The key to retrieve.
-	 * @param mixed  $default_value Default value if the key is not found.
-	 *
-	 * @return mixed The retrieved value or the default.
-	 */
-	public function get_meta( int $category_id, string $key, $default_value = '' ) {
-		$migration_data = $this->get_migration_data();
-
-		if ( ! isset( $migration_data['categories'][ $category_id ] ) ) {
-			return $default_value;
-		}
-
-		return $migration_data['categories'][ $category_id ][ $key ] ?? $default_value;
-	}
-
-	/**
 	 * Retrieves the mapped meta key, or null if it is not recognized.
 	 *
 	 * @since TBD
@@ -277,7 +256,7 @@ trait Migration_Trait {
 	 * @return void
 	 */
 	public function reset_migration(): void {
-		// Delete migration data and reset status
+		// Delete migration data and reset status.
 		delete_option( $this->migration_data_option );
 		$this->update_migration_status( 'not_started' );
 

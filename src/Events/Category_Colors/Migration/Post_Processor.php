@@ -10,7 +10,7 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
-use TEC\Common\StellarWP\DB\DB;
+use TEC\Events\Category_Colors\Event_Category_Meta;
 
 /**
  * Class Post_Processor
@@ -62,6 +62,7 @@ class Post_Processor {
 		if ( $this->dry_run ) {
 			Logger::log( 'info', 'Dry run mode active. Skipping post-processing validation.' );
 			$this->update_migration_status( 'migration_completed' );
+
 			return;
 		}
 
@@ -74,45 +75,20 @@ class Post_Processor {
 			return;
 		}
 
-		$category_ids = array_keys( $migration_data['categories'] );
-
-		if ( empty( $category_ids ) ) {
-			Logger::log( 'warning', 'No category IDs found for validation.' );
-			$this->update_migration_status( 'migration_failed' );
-
-			return;
-		}
-
-		// Fetch all term meta.
-		$results = DB::table( 'termmeta' )
-			->select( 'term_id', 'meta_key', 'meta_value' )
-			->whereIn( 'term_id', $category_ids )
-			->getAll();
-
-		// Reformat results into an associative array for faster lookups.
-		$term_meta_map = [];
-
-		foreach ( $results as $row ) {
-			$term_meta_map[ $row->term_id ][ $row->meta_key ] = maybe_unserialize( $row->meta_value );
-		}
-
-		// Keep track of logged meta keys to prevent duplicate logging.
-		$logged_skipped_meta_keys = [];
-		$errors_found             = false;
+		$errors_found = false;
 
 		// Validate each category against expected migration data.
 		foreach ( $migration_data['categories'] as $category_id => $meta_data ) {
+			$category_meta = new Event_Category_Meta( $category_id );
+			$actual_meta   = $category_meta->get(); // Fetch stored metadata.
+
 			foreach ( $meta_data as $meta_key => $expected_value ) {
-				// Skip validation for excluded meta keys, but log only once.
+				// Skip validation for excluded meta keys.
 				if ( in_array( $meta_key, $this->skip_meta_keys, true ) ) {
-					if ( ! isset( $logged_skipped_meta_keys[ $meta_key ] ) ) {
-						Logger::log( 'info', "PostProcessing: Skipping validation for meta key '{$meta_key}'." );
-						$logged_skipped_meta_keys[ $meta_key ] = true;
-					}
 					continue;
 				}
 
-				$actual_value = $term_meta_map[ $category_id ][ $meta_key ] ?? null;
+				$actual_value = $actual_meta[ $meta_key ] ?? null;
 
 				if ( is_null( $actual_value ) ) {
 					Logger::log( 'warning', "Missing meta key '{$meta_key}' for category ID {$category_id}." );

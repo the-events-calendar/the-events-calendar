@@ -10,6 +10,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use TEC\Events\Category_Colors\Event_Category_Meta;
+
 /**
  * Class Pre_Processor
  * Prepares the migration data by extracting and formatting category settings.
@@ -104,21 +106,27 @@ class Pre_Processor {
 	 */
 	protected function get_category_values(): array {
 		$categories = [];
+
 		foreach ( $this->processed_settings['terms'] ?? [] as $term_id => [$slug, $name] ) {
+			$category_meta = new Event_Category_Meta( $term_id );
+
 			foreach ( $this->processed_settings as $key => $value ) {
-				// Check if the key starts with the category slug followed by '-' or '_'.
 				if ( 0 === strpos( $key, $slug . '-' ) || 0 === strpos( $key, $slug . '_' ) ) {
 					$field_name = str_replace( [ $slug . '-', $slug . '_' ], '', $key );
 					$mapped_key = $this->get_mapped_meta_key( $field_name );
 
-					// Ensure the mapped key is valid before assigning.
 					if ( null !== $mapped_key ) {
-						$categories[ $term_id ][ $this->meta_key_prefix . $mapped_key ] = ( 'no_color' === $value ) ? '' : $value;
+						$category_meta->set( $this->meta_key_prefix . $mapped_key, ( 'no_color' === $value ) ? '' : $value );
 					}
 				}
 			}
-			// Store the taxonomy ID for reference.
-			$categories[ $term_id ]['taxonomy_id'] = $term_id;
+
+			$category_meta->save(); // Save metadata in one batch.
+
+			// Store only the term_id reference in the migration data.
+			$categories[ $term_id ] = [
+				'taxonomy_id' => $term_id,
+			];
 		}
 
 		return $categories;

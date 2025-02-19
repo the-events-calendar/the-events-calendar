@@ -9,6 +9,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use TEC\Events\Category_Colors\Event_Category_Meta;
+
 /**
  * Class Migration_Runner
  * Controls the entire migration lifecycle for category colors.
@@ -146,14 +148,14 @@ class Migration_Runner {
 	 */
 	protected function insert_categories( array $categories ): void {
 		foreach ( $categories as $category_id => $meta_data ) {
+			$category_meta = new Event_Category_Meta( $category_id );
+
 			foreach ( $meta_data as $meta_key => $meta_value ) {
-				// Skip any keys that should not be inserted.
 				if ( in_array( $meta_key, $this->skip_meta_keys, true ) ) {
 					continue;
 				}
 
-				// Check existing meta.
-				$existing_value = get_term_meta( $category_id, $meta_key, true );
+				$existing_value = $category_meta->get( $meta_key );
 
 				if ( '' !== $existing_value ) {
 					continue; // Skip if already exists.
@@ -162,8 +164,12 @@ class Migration_Runner {
 				if ( $this->dry_run ) {
 					$this->log_dry_run( $category_id, $meta_key, $meta_value );
 				} else {
-					add_term_meta( $category_id, $meta_key, $meta_value, true );
+					$category_meta->set( $meta_key, $meta_value );
 				}
+			}
+
+			if ( ! $this->dry_run ) {
+				$category_meta->save(); // Batch save updates.
 			}
 		}
 	}

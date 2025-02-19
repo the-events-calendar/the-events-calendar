@@ -62,6 +62,23 @@ class Logger {
 	}
 
 	/**
+	 * Checks if there are any logs of a given level.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $level The log level to check ('error', 'warning', 'info').
+	 *
+	 * @return bool True if logs exist for the given level, false otherwise.
+	 */
+	public static function has_logs( string $level ): bool {
+		if ( ! isset( self::$logs[ $level ] ) ) {
+			return false;
+		}
+
+		return ! empty( self::$logs[ $level ] );
+	}
+
+	/**
 	 * Clears all logs or logs of a specific type.
 	 *
 	 * @since TBD
