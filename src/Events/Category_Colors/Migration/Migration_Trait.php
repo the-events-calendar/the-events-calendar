@@ -5,6 +5,7 @@
  * ensuring consistency across all migration-related classes.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Migration
  */
 
@@ -18,6 +19,8 @@ use Tribe__Events__Main;
  * and utility functions used across multiple migration classes.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
  */
 trait Migration_Trait {
 
@@ -158,9 +161,6 @@ trait Migration_Trait {
 	 *
 	 * @return int|null The extracted category ID or null if not found.
 	 */
-	/**
-	 * Extracts the category ID from a category-related setting key.
-	 */
 	protected function extract_category_id( string $key ): ?int {
 		$original_settings = $this->get_original_settings();
 
@@ -269,5 +269,4 @@ trait Migration_Trait {
 		 */
 		do_action( 'tec_events_category_colors_migration_reset' );
 	}
-
 }

@@ -4,6 +4,7 @@
  * Provides structured logging for errors, warnings, and informational messages.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Migration
  */
 
@@ -16,6 +17,8 @@ namespace TEC\Events\Category_Colors\Migration;
  * Logs can be retrieved at any stage to assist with debugging.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
  */
 class Logger {
 	/**

@@ -7,6 +7,7 @@
  * It ensures that the migration runs sequentially, with proper logging and status checks.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Migration
  */
 
@@ -28,6 +29,8 @@ namespace TEC\Events\Category_Colors\Migration;
  * gracefully by logging issues and stopping execution if errors are detected.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
  */
 class Migration_Process {
 	use Migration_Trait;

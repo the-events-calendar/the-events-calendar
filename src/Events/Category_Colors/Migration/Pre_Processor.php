@@ -5,6 +5,7 @@
  * before they are validated and executed in the migration process.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Migration
  */
 
@@ -18,6 +19,8 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
  * This class ensures the settings are structured correctly before validation.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
  */
 class Pre_Processor {
 	use Migration_Trait;

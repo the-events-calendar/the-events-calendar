@@ -5,6 +5,7 @@
  * contains required fields, and aligns with expected data structures.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Migration
  */
 
@@ -16,6 +17,8 @@ namespace TEC\Events\Category_Colors\Migration;
  * Checks data structure, required fields, existing categories, and unexpected meta keys.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
  */
 class Validator {
 	use Migration_Trait;

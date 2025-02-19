@@ -4,6 +4,7 @@
  * Orchestrates preprocessing, validation, execution, and post-processing steps.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Migration
  */
 
@@ -18,6 +19,8 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
  * Ensures data integrity and logs potential issues during migration.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
  */
 class Migration_Runner {
 

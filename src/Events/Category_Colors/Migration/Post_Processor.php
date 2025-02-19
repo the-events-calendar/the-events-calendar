@@ -5,6 +5,7 @@
  * This step is crucial to verify the success of the migration process.
  *
  * @since   TBD
+ *
  * @package TEC\Events\Category_Colors\Migration
  */
 
@@ -18,6 +19,8 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
  * was correctly stored in the database. Logs missing or mismatched data.
  *
  * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
  */
 class Post_Processor {
 
