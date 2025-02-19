@@ -661,7 +661,7 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritDoc}v
 	 */
 	public function get_html() {
 		add_filter( 'tec_events_get_current_view', [ $this, 'filter_set_current_view' ] );
@@ -701,6 +701,15 @@ class View implements View_Interface {
 		 * available.
 		 */
 		$this->repository_args = $repository_args;
+
+		/**
+		 * Fire before the view HTML cache check.
+		 *
+		 * @since TBD
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
+		 */
+		do_action( 'tribe_views_v2_before_view_html_cache', $this );
 
 		// If HTML_Cache is a class trait and we have content to display, display it.
 		if (

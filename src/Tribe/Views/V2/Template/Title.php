@@ -356,7 +356,7 @@ class Title {
 				 * setup_template_vars() in src/Tribe/Views/V2/View.php
 				 */
 				$view  = View::make( 'list' );
-				$html  = $view->get_html();
+				//$html  = $view->get_html();
 				$repo  = $view->get_repository();
 				$posts = $repo->all();
 

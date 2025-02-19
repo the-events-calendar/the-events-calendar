@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Hook the noindex directives into a new hook before the View HTML cache check. [TEC-5354]
