@@ -128,7 +128,7 @@ class SearchPosts extends Component {
 		return (
 			<Dropdown
 				className="tribe-editor__dropdown"
-				position="bottom center"
+				popoverProps={{placement: 'bottom center'}}
 				contentClassName="tribe-editor__dropdown-dialog"
 				onToggle={ this.props.onDropdownToggle }
 				renderToggle={ this.renderToggle }

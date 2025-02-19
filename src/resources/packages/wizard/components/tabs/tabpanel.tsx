@@ -22,11 +22,9 @@ const TabPanel: FunctionComponent<TabPanelProps> = ({
 			aria-hidden={activeTab !== tabIndex}
 			hidden={activeTab !== tabIndex}
 			tabIndex={activeTab === tabIndex ? 0 : -1}
-			className={`tec-events-onboarding__tabpanel ${activeTab === tabIndex ? "active" : ""}`}
+			className={`tec-events-onboarding__tabpanel tec-events-onboarding__tabpanel-${tabId} ${activeTab === tabIndex ? "active" : ""}`}
 		>
-			<div className="tec-events-onboarding__tabpanel-content">
-				{children}
-			</div>
+			{children}
 		</section>
 	);
 };
