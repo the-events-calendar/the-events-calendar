@@ -92,11 +92,14 @@ class List_Table {
 			case 'snippet':
 				$permalink = get_permalink( $post_id );
 
-				$admin_template =$this->get_template();
-				$admin_template->template( 'embed-snippet-content', [
-					'post_id'   => $post_id,
-					'permalink' => $permalink,
-				] );
+				$admin_template = $this->get_template();
+				$admin_template->template(
+					'embed-snippet-content',
+					[
+						'post_id'   => $post_id,
+						'permalink' => $permalink,
+					]
+				);
 
 				break;
 		}
