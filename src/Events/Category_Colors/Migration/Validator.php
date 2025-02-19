@@ -50,19 +50,20 @@ class Validator {
 
 		$migration_data = $this->get_migration_data();
 
-		$this->validate_structure( $migration_data );
-		$this->validate_category_existence( $migration_data['categories'] ?? [] );
-		$this->validate_random_keys();
-		$this->detect_unrecognized_keys( $migration_data );
-		$this->check_required_fields( $migration_data );
-		$this->validate_meta_keys( $migration_data['categories'] ?? [] );
+		// Run validation steps in sequence, stopping if an error occurs.
+		$validation_steps = [
+			[ 'Structure Validation', fn() => $this->validate_structure( $migration_data ) ],
+			[ 'Category Existence Validation', fn() => $this->validate_category_existence( $migration_data['categories'] ?? [] ) ],
+			[ 'Random Keys Validation', fn() => $this->validate_random_keys() ],
+			[ 'Unrecognized Keys Detection', fn() => $this->detect_unrecognized_keys( $migration_data ) ],
+			[ 'Required Fields Check', fn() => $this->check_required_fields( $migration_data ) ],
+			[ 'Meta Keys Validation', fn() => $this->validate_meta_keys( $migration_data['categories'] ?? [] ) ],
+		];
 
-		$validation_passed = empty( Logger::get_logs( 'error' ) );
-
-		if ( ! $validation_passed ) {
-			Logger::log( 'error', 'Validation encountered errors. Stopping further processing.' );
-			$this->update_migration_status( 'validation_failed' ); // Mark validation as failed.
-			return false;
+		foreach ( $validation_steps as [$step_name, $validation_step] ) {
+			if ( ! $this->run_validation_step( $validation_step, $step_name ) ) {
+				return false; // Stop execution if any validation step fails.
+			}
 		}
 
 		$this->update_migration_status( 'validation_completed' ); // Mark validation as completed.
@@ -80,6 +81,29 @@ class Validator {
 	}
 
 	/**
+	 * Runs a validation step and stops further execution if errors are logged.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $validation_step A function representing a validation step.
+	 * @param string   $step_name       (Optional) The name of the validation step.
+	 *
+	 * @return bool True if no errors, false if errors were logged.
+	 */
+	protected function run_validation_step( callable $validation_step, string $step_name = 'Unknown Step' ): bool {
+		$validation_step();
+
+		if ( Logger::has_logs( 'error' ) ) {
+			Logger::log( 'error', "Validation failed at step: {$step_name}. Stopping further processing." );
+			$this->update_migration_status( 'validation_failed' );
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Validates that the migration data structure matches expectations.
 	 *
 	 * @since TBD
@@ -89,6 +113,9 @@ class Validator {
 	 * @return void
 	 */
 	protected function validate_structure( array $migration_data ): void {
+		if ( ! [ $migration_data['categories'] ] ) {
+			Logger::log( 'error', 'Migration Categories should be an array, found ' . gettype( $migration_data['categories'] ) . '.' );
+		}
 		foreach ( $this->expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
 				Logger::log( 'error', "Invalid or missing key: '{$key}' in migration data." );
