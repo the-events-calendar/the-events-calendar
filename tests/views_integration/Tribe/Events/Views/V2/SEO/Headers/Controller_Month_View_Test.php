@@ -14,32 +14,6 @@ class Controller_Month_View_Test extends \Codeception\TestCase\WPTestCase {
 	use With_Uopz;
 
 	/**
-	 * Clean up after each test.
-	 */
-	public function tearDown() {
-		remove_all_filters( 'tribe_settings_manager_get_options' );
-		parent::tearDown();
-		$this->remove_events();
-	}
-
-	/**
-	 * Remove all events before each test.
-	 *
-	 * @since TBD
-	 */
-	public function remove_events() {
-		global $wpdb;
-
-		// Delete all Event posts, as leakage from previous tests would cause failure from earliest/latest date checks.
-		$wpdb->query(
-			$wpdb->prepare(
-				"delete from $wpdb->posts where post_type = %s",
-				TEC::POSTTYPE
-			)
-		);
-	}
-
-	/**
 	 * Create test events for the given date range.
 	 *
 	 * This method creates one event at the start of the range, one at the test day,
