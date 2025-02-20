@@ -1,6 +1,6 @@
 <?php
 /**
- * Modal for calendar embeds.
+ * Content for the Embed Snippet column within the Calendar Embeds List Table.
  *
  * @since TBD
  *
@@ -10,6 +10,7 @@
  * @var string $permalink The permalink.
  */
 
+ // @todo Maybe passed the snippet in as a variable instead of generating it here?
 $snippet = '<iframe src="' . esc_url( $permalink ) . '" width="100%" height="600" frameborder="0"></iframe>';
 
 ?>
