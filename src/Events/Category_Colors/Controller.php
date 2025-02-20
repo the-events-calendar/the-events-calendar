@@ -30,8 +30,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->bind( Event_Category_Meta::class );
-
-		$this->add_filters();
 	}
 
 	/**
@@ -40,20 +38,5 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {
-		$this->remove_filters();
 	}
-
-	/**
-	 * Adds the filters required.
-	 *
-	 * @since TBD
-	 */
-	protected function add_filters() {}
-
-	/**
-	 * Removes registered filters.
-	 *
-	 * @since TBD
-	 */
-	public function remove_filters() {}
 }
