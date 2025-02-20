@@ -94,10 +94,10 @@ class Post_Processor {
 				$actual_value = $actual_meta[ $meta_key ] ?? null;
 
 				if ( is_null( $actual_value ) ) {
-					Logger::log( 'warning', "Missing meta key '{$meta_key}' for category ID {$category_id}." );
+					Logger::log( 'error', "Missing meta key '{$meta_key}' for category ID {$category_id}." );
 					$errors_found = true;
 				} elseif ( $actual_value !== $expected_value ) {
-					Logger::log( 'warning', "Mismatched value for '{$meta_key}' on category {$category_id}. Expected: " . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) . ' | Found: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ) );
+					Logger::log( 'error', "Mismatched value for '{$meta_key}' on category {$category_id}. Expected: " . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) . ' | Found: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ) );
 					$errors_found = true;
 				}
 			}
