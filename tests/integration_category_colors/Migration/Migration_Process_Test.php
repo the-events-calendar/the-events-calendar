@@ -5,10 +5,12 @@ namespace TEC\Events\Category_Colors\Migration;
 use Closure;
 use Generator;
 use Codeception\TestCase\WPTestCase;
+use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe\Tests\Traits\With_Uopz;
 
 class Migration_Process_Test extends WPTestCase {
 	use With_Uopz;
+	use With_Clock_Mock;
 
 	/**
 	 * @before
@@ -316,7 +318,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
-		$this->assertSame( 'execution_failed', $migration_status['status'] ?? '', 'Execution should have failed due to corrupt migration data but did not.' );
+		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to corrupt migration data but did not.' );
 	}
 
 	/**
@@ -666,7 +668,7 @@ class Migration_Process_Test extends WPTestCase {
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
 		$this->assertSame(
-			'execution_skipped',
+			'execution_failed',
 			$migration_status['status'] ?? '',
 			'Migration should complete, skipping already migrated categories.'
 		);

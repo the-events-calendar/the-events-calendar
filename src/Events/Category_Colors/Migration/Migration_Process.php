@@ -28,21 +28,40 @@ namespace TEC\Events\Category_Colors\Migration;
  * The process prevents duplicate migrations from running and handles failures
  * gracefully by logging issues and stopping execution if errors are detected.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
 class Migration_Process {
 	use Migration_Trait;
 
-	/** @var bool Whether this is a dry run */
+	/**
+	 * Whether this is a dry run.
+	 *
+	 * A dry run allows testing the migration process without making actual changes.
+	 *
+	 * @since TBD
+	 *
+	 * @var bool
+	 */
 	private bool $dry_run = false;
 
 	/**
-	 * Runs the migration process.
+	 * Runs the migration process in sequential steps.
+	 *
+	 * Each step is executed in order, stopping if an error occurs.
+	 * This ensures that the migration does not continue if a previous step fails.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool $dry_run Optional. If true, the migration runs in dry-run mode.
+	 *
+	 * @return void
 	 */
-	public function migrate(): void {
+	public function migrate( bool $dry_run = false ): void {
 		Logger::clear_logs();
+		$this->dry_run = $dry_run;
+
 		if ( $this->is_migration_complete() ) {
 			Logger::log( 'info', 'Migration has already been completed.' );
 
@@ -50,9 +69,7 @@ class Migration_Process {
 		}
 
 		// Prevent running if migration is already in progress.
-		$current_status = $this->get_migration_status()['status'];
-
-		if ( 'execution_in_progress' === $current_status ) {
+		if ( 'execution_in_progress' === $this->get_status() ) {
 			Logger::log( 'info', 'Migration is already in progress.' );
 
 			return;
@@ -60,14 +77,52 @@ class Migration_Process {
 
 		Logger::log( 'info', 'Migration starting. Current status: ' . $this->get_status() );
 
-		$this->preprocess();
-		$this->validate();
-		$this->execute();
-		$this->postprocess();
+		// Define migration steps.
+		$migration_steps = [
+			'Preprocessing'   => fn() => $this->preprocess(),
+			'Validation'      => fn() => $this->validate(),
+			'Execution'       => fn() => $this->execute(),
+			'Post-processing' => fn() => $this->postprocess(),
+		];
+
+		// Execute each step in sequence and stop if a failure occurs.
+		foreach ( $migration_steps as $step_name => $step ) {
+			if ( ! $this->run_migration_step( $step, $step_name ) ) {
+				return;
+			}
+		}
 	}
 
 	/**
-	 * Checks if migration is complete.
+	 * Runs a single migration step and stops further execution if errors are logged.
+	 *
+	 * @since TBD
+	 *
+	 * @param callable $migration_step The function representing a migration step.
+	 * @param string   $step_name      The name of the migration step.
+	 *
+	 * @return bool True if the step succeeded, false if an error was logged.
+	 */
+	protected function run_migration_step( callable $migration_step, string $step_name ): bool {
+		$migration_step();
+
+		if ( Logger::has_logs( 'error' ) ) {
+			Logger::log( 'error', "Migration failed at step: {$step_name}. Stopping further processing." );
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Checks if the migration process has already been completed.
+	 *
+	 * This ensures that the migration does not run again once it has finished successfully.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the migration is already completed, false otherwise.
 	 */
 	private function is_migration_complete(): bool {
 		return $this->get_status() === 'migration_completed';
@@ -75,6 +130,20 @@ class Migration_Process {
 
 	/**
 	 * Retrieves the current migration status.
+	 *
+	 * The migration status indicates which phase the process is currently in.
+	 * Possible values:
+	 * - `not_started`
+	 * - `preprocess_completed`
+	 * - `validation_completed`
+	 * - `execution_completed`
+	 * - `migration_completed`
+	 * - `execution_failed`
+	 * - `postprocessing_failed`
+	 *
+	 * @since TBD
+	 *
+	 * @return string The current migration status.
 	 */
 	private function get_status(): string {
 		$migration_status = $this->get_migration_status();
@@ -83,7 +152,14 @@ class Migration_Process {
 	}
 
 	/**
-	 * Preprocesses data before migration.
+	 * Handles the preprocessing phase of the migration.
+	 *
+	 * The preprocessing phase prepares the migration data and ensures that the necessary
+	 * structures are in place before validation begins.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	private function preprocess(): void {
 		if ( $this->get_status() === 'not_started' ) {
@@ -92,7 +168,14 @@ class Migration_Process {
 	}
 
 	/**
-	 * Validates the migration data.
+	 * Runs validation checks on the migration data.
+	 *
+	 * Validation ensures that the data being migrated is correctly structured,
+	 * contains all required fields, and does not introduce inconsistencies.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	private function validate(): void {
 		if ( in_array( $this->get_status(), [ 'preprocess_completed', 'validation_failed' ], true ) ) {
@@ -103,13 +186,21 @@ class Migration_Process {
 	}
 
 	/**
-	 * Executes the migration.
+	 * Executes the migration process.
+	 *
+	 * This step applies the validated category colors data to the database.
+	 * If execution fails due to an error (e.g., database failure), it will be logged.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	private function execute(): void {
 		if ( in_array( $this->get_status(), [ 'validation_completed', 'execution_failed' ], true ) ) {
 			$executor = new Migration_Runner( $this->dry_run );
 			$executor->execute();
 
+			// Stop if there are errors logged during execution.
 			if ( ! empty( Logger::get_logs( 'error' ) ) ) {
 				return;
 			}
@@ -118,6 +209,14 @@ class Migration_Process {
 
 	/**
 	 * Handles post-processing validation.
+	 *
+	 * Post-processing ensures that the migration completed successfully by verifying
+	 * the applied data. If post-processing fails, it prevents the migration from
+	 * being marked as complete.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	private function postprocess(): void {
 		if ( in_array( $this->get_status(), [ 'execution_completed', 'postprocessing_failed' ], true ) ) {

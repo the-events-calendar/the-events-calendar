@@ -116,17 +116,28 @@ class Validator {
 	 * @return void
 	 */
 	protected function validate_structure( array $migration_data ): void {
+		if ( empty( $migration_data ) ) {
+			Logger::log( 'error', 'Migration contains no data.' );
+
+			return;
+		}
 		if ( ! [ $migration_data['categories'] ] ) {
 			Logger::log( 'error', 'Migration Categories should be an array, found ' . gettype( $migration_data['categories'] ) . '.' );
+
+			return;
 		}
 		foreach ( $this->expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
 				Logger::log( 'error', "Invalid or missing key: '{$key}' in migration data." );
+
+				return;
 			}
 		}
 
 		if ( isset( $migration_data['ignored_terms'] ) && ! is_array( $migration_data['ignored_terms'] ) ) {
 			Logger::log( 'error', "'ignored_terms' should be an array, found " . gettype( $migration_data['ignored_terms'] ) . '.' );
+
+			return;
 		}
 	}
 

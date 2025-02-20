@@ -60,22 +60,40 @@ class Migration_Runner {
 	/**
 	 * Executes the category color migration process.
 	 *
-	 * This method orchestrates the entire migration process, including:
-	 * 1. Logging dry-run statistics (if applicable).
-	 * 2. Validating the migration data.
-	 * 3. Inserting meta values for categories.
-	 * 4. Handling the migration status (progress, success, or failure).
+	 * This method orchestrates the entire migration process, ensuring:
+	 * 1. Validation is skipped if already completed.
+	 * 2. Execution only proceeds if validation passes.
+	 * 3. Proper logging and error handling.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function execute(): void {
-		$this->update_migration_status( 'execution_in_progress' ); // Set execution in progress.
+		// Step 1: Check if validation needs to run.
+		if ( 'validation_completed' !== $this->get_migration_status()['status'] ) {
+			Logger::log( 'info', 'Validation not completed. Running validation before execution.' );
+
+			$validator = new Validator();
+
+			if ( ! $validator->validate() ) {
+				Logger::log( 'error', 'Validation failed. Migration execution stopped.' );
+				$this->update_migration_status( 'execution_failed' ); // Mark execution as failed.
+
+				do_action( 'tec_events_category_colors_migration_runner_end', false );
+				return;
+			}
+
+			Logger::log( 'info', 'Validation completed successfully. Proceeding to execution.' );
+		} else {
+			Logger::log( 'info', 'Skipping validation step as it was already completed.' );
+		}
+
+		// Step 2: Mark execution in progress **only after validation passes**.
+		$this->update_migration_status( 'execution_in_progress' );
 
 		/**
 		 * Fires before the migration execution begins.
-		 * Allows external systems to hook in before the process starts.
 		 *
 		 * @since TBD
 		 *
@@ -87,7 +105,7 @@ class Migration_Runner {
 
 		$migration_data = $this->get_migration_data();
 
-		if ( empty( $migration_data['categories'] ) ) {
+		if ( empty( $migration_data['categories'] ) || ! is_array( $migration_data['categories'] ) ) {
 			Logger::log( 'error', 'No categories found for migration.' );
 			$this->update_migration_status( 'execution_skipped' ); // Mark execution as skipped.
 
@@ -103,21 +121,9 @@ class Migration_Runner {
 			return;
 		}
 
-		// Step 1: Validate the data before running the execution.
-		$validator = new Validator();
+		$this->log_existing_meta( (array) $migration_data['categories'] ); // Log existing category meta.
 
-		if ( ! $validator->validate() ) {
-			Logger::log( 'error', 'Validation failed. Migration execution stopped.' );
-			$this->update_migration_status( 'execution_failed' ); // Mark execution as failed.
-
-			do_action( 'tec_events_category_colors_migration_runner_end', false );
-
-			return;
-		}
-
-		$this->log_existing_meta( $migration_data['categories'] ); // Log existing category meta.
-
-		// Step 2: Insert meta values for valid categories (already validated).
+		// Step 3: Insert meta values for valid categories.
 		$this->insert_categories( $migration_data['categories'] );
 
 		$execution_success = empty( Logger::get_logs( 'error' ) );
@@ -225,6 +231,10 @@ class Migration_Runner {
 	 */
 	protected function log_existing_meta( array $categories ): void {
 		foreach ( $categories as $category_id => $meta_data ) {
+			if ( ! is_array( $meta_data ) ) {
+				continue;
+			}
+
 			foreach ( $meta_data as $meta_key => $meta_value ) {
 				$existing_value = get_term_meta( $category_id, $meta_key, true );
 

@@ -119,21 +119,26 @@ class Pre_Processor {
 					$mapped_key = $this->get_mapped_meta_key( $field_name );
 
 					if ( null !== $mapped_key ) {
-						$category_meta->set( $this->meta_key_prefix . $mapped_key, ( 'no_color' === $value ) ? '' : $value );
+						$meta_key   = $this->meta_key_prefix . $mapped_key;
+						$meta_value = ( 'no_color' === $value ) ? '' : $value;
+						$category_meta->set( $meta_key, $meta_value );
+
+						// Store meta directly under the term ID.
+						$categories[ $term_id ][ $meta_key ] = $meta_value;
 					}
 				}
 			}
 
 			$category_meta->save(); // Save metadata in one batch.
 
-			// Store only the term_id reference in the migration data.
-			$categories[ $term_id ] = [
-				'taxonomy_id' => $term_id,
-			];
+			// Store the term_id reference itself.
+			$categories[ $term_id ]['taxonomy_id'] = $term_id;
 		}
 
 		return $categories;
 	}
+
+
 
 	/**
 	 * Extracts legend-related values and removes them from processed settings.

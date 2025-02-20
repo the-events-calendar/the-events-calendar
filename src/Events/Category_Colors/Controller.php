@@ -63,7 +63,9 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	protected function add_filters() {}
+	protected function add_filters() {
+		add_action( 'admin_init', [ $this, 'debug_migration_process' ] );
+	}
 
 	/**
 	 * Removes registered filters.
@@ -71,4 +73,73 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function remove_filters() {}
+
+	/**
+	 * @TODO  - Remove when not needed anymore.
+	 * Handles debugging and manually triggering the category color migration process.
+	 * This method runs when the URL contains `category_color_migration=1`.
+	 *
+	 * Supports:
+	 * - `reset=1` → Resets migration before running.
+	 * - `dry_run=true/false` → Controls dry-run execution.
+	 *
+	 * @since TBD
+	 */
+	public function debug_migration_process(): void {
+		if ( '1' !== tec_get_request_var( 'category_color_migration', '' ) ) {
+			return;
+		}
+
+		// Retrieve all categories before reset (in case we need to delete meta).
+		$categories = get_terms( [ 'taxonomy' => 'tribe_events_cat', 'hide_empty' => false ] );
+
+		// Optional: Reset migration if requested.
+		if ( '1' === tec_get_request_var( 'reset', '' ) ) {
+			delete_option( $this->migration_data_option );
+			delete_option( $this->migration_status_option );
+			Logger::clear_logs();
+
+			// Remove all inserted category meta data.
+			foreach ( $categories as $category ) {
+				delete_term_meta( $category->term_id, 'tec-events-cat-colors-primary' );
+				delete_term_meta( $category->term_id, 'tec-events-cat-colors-secondary' );
+				delete_term_meta( $category->term_id, 'tec-events-cat-colors-text' );
+			}
+
+			echo 'Migration has been reset and all inserted meta data has been deleted.<br>';
+		}
+
+		// Determine if this is a dry run.
+		$dry_run = filter_var( tec_get_request_var( 'dry_run', 'true' ), FILTER_VALIDATE_BOOLEAN );
+		echo '<h2>Dry Mode Activated</h2>';
+
+		// Run the migration.
+		echo 'Starting migration process...<br>';
+		$migration = new Migration_Process();
+		$migration->migrate( $dry_run );
+
+		// Output logs for debugging.
+		$logs = Logger::get_logs();
+		echo '<h3>Logs:</h3><pre>' . print_r( $logs, true ) . '</pre>';
+
+		// Output inserted meta data for all categories.
+		$categories = get_terms( [ 'taxonomy' => 'tribe_events_cat', 'hide_empty' => false ] );
+		$meta_data  = [];
+
+		foreach ( $categories as $category ) {
+			$meta_data[ $category->term_id ] = [
+				'primary'   => get_term_meta( $category->term_id, 'tec-events-cat-colors-primary', true ),
+				'secondary' => get_term_meta( $category->term_id, 'tec-events-cat-colors-secondary', true ),
+				'text'      => get_term_meta( $category->term_id, 'tec-events-cat-colors-text', true ),
+			];
+		}
+
+		echo '<h3>Inserted Meta Data:</h3><textarea>' . print_r( $meta_data, true ) . '</textarea>';
+
+		// TODO: Output migrated options once implemented.
+		echo '<h3>TODO: Output migrated options</h3>';
+
+		// Terminate execution.
+		exit;
+	}
 }
