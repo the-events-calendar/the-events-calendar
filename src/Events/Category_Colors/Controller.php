@@ -97,14 +97,17 @@ class Controller extends Controller_Contract {
 		if ( '1' === tec_get_request_var( 'reset', '' ) ) {
 			delete_option( $this->migration_data_option );
 			delete_option( $this->migration_status_option );
-			Logger::clear_logs();
 
-			// Remove all inserted category meta data.
+			// Remove all inserted category meta data using the Event_Category_Meta class.
 			foreach ( $categories as $category ) {
-				delete_term_meta( $category->term_id, 'tec-events-cat-colors-primary' );
-				delete_term_meta( $category->term_id, 'tec-events-cat-colors-secondary' );
-				delete_term_meta( $category->term_id, 'tec-events-cat-colors-text' );
+				$category_meta = new Event_Category_Meta( $category->term_id );
+				$category_meta->delete( 'tec-events-cat-colors-primary' );
+				$category_meta->delete( 'tec-events-cat-colors-secondary' );
+				$category_meta->delete( 'tec-events-cat-colors-text' );
+				$category_meta->save();
 			}
+
+
 
 			echo 'Migration has been reset and all inserted meta data has been deleted.<br>';
 		}
