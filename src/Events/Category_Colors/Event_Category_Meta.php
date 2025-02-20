@@ -75,15 +75,17 @@ class Event_Category_Meta {
 	protected array $pending_updates = [];
 
 	/**
-	 * Constructor.
-	 * Ensures the term belongs to `tribe_events_cat` before initializing.
+	 * Sets the term ID for the instance, ensuring it exists within the taxonomy.
 	 *
 	 * @since TBD
-	 * @throws InvalidArgumentException Thrown when an invalid term ID is provided or the term does not exist.
 	 *
-	 * @param int $term_id The term ID.
+	 * @param int $term_id The term ID to be set.
+	 *
+	 * @throws InvalidArgumentException If the term ID is invalid or does not exist in the taxonomy.
+	 *
+	 * @return self Returns the current instance for method chaining.
 	 */
-	public function __construct( int $term_id ) {
+	public function set_term( int $term_id ): self {
 		if ( $term_id <= 0 ) {
 			throw new InvalidArgumentException( __( 'Invalid term ID.', 'the-events-calendar' ) );
 		}
@@ -98,6 +100,7 @@ class Event_Category_Meta {
 		}
 
 		$this->term_id = $term_id;
+		return $this;
 	}
 
 	/**
@@ -179,25 +182,38 @@ class Event_Category_Meta {
 	 */
 	public function get( ?string $key = null ) {
 		if ( null === $key ) {
-			return get_term_meta( $this->term_id );
+			$all_meta = get_term_meta( $this->term_id );
+
+			foreach ( $all_meta as $meta_key => &$value ) {
+				$value = $this->normalize_meta( $meta_key, $value );
+			}
+
+			return $all_meta;
 		}
 
 		$key = $this->validate_key( $key );
 
-		// Check if the key exists before retrieving the value.
-		if ( ! metadata_exists( 'term', $this->term_id, $key ) ) {
-			return null;
+		return metadata_exists( 'term', $this->term_id, $key )
+			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, false ) )
+			: null;
+	}
+
+	/**
+	 * Normalizes meta values to ensure consistency.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key   The meta key.
+	 * @param mixed  $value The raw value from get_term_meta().
+	 *
+	 * @return mixed The normalized value.
+	 */
+	protected function normalize_meta( string $key, $value ) {
+		if ( ! is_array( $value ) ) {
+			return is_scalar( $value ) ? (string) $value : $value;
 		}
 
-		$value = get_term_meta( $this->term_id, $key, true );
-
-		// Ensure arrays remain unchanged.
-		if ( is_array( $value ) || is_object( $value ) ) {
-			return $value;
-		}
-
-		// Ensure we return a string.
-		return (string) $value;
+		return count( $value ) > 1 ? $value : ( is_scalar( $value[0] ) ? (string) $value[0] : $value[0] );
 	}
 
 	/**
