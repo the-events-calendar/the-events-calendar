@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages the legacy view removal and messaging.
+ * Manages the noindex logic for the Events Calendar.
  *
  * @since 6.2.3
  *
@@ -57,7 +57,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( 'wp', [ $this, 'hook_issue_noindex' ] );
-		remove_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+		remove_action( 'tec_events_before_view_html_cache', [ $this, 'issue_noindex' ] );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class Controller extends Controller_Contract {
 			}
 		}
 
-		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+		add_action( 'tec_events_before_view_html_cache', [ $this, 'issue_noindex' ] );
 	}
 
 	/**

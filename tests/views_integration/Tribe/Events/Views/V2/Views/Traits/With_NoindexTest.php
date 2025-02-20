@@ -290,7 +290,7 @@ class With_NoindexTest extends TecViewTestCase {
 		$this->go_to( get_permalink( $post_id ) );
 
 		$this->controller->hook_issue_noindex();
-		$this->assertFalse( has_action( 'tribe_views_v2_after_setup_loop', [ $this->controller, 'issue_noindex' ] ) );
+		$this->assertFalse( has_action( 'tec_events_before_view_html_cache', [ $this->controller, 'issue_noindex' ] ) );
 	}
 
 	/**
@@ -298,11 +298,11 @@ class With_NoindexTest extends TecViewTestCase {
 	 */
 	public function test_unregister_removes_all_hooks() {
 		add_action( 'wp', [ $this->controller, 'hook_issue_noindex' ] );
-		add_action( 'tribe_views_v2_after_setup_loop', [ $this->controller, 'issue_noindex' ] );
+		add_action( 'tec_events_before_view_html_cache', [ $this->controller, 'issue_noindex' ] );
 
 		$this->controller->unregister();
 
 		$this->assertFalse( has_action( 'wp', [ $this->controller, 'hook_issue_noindex' ] ) );
-		$this->assertFalse( has_action( 'tribe_views_v2_after_setup_loop', [ $this->controller, 'issue_noindex' ] ) );
+		$this->assertFalse( has_action( 'tec_events_before_view_html_cache', [ $this->controller, 'issue_noindex' ] ) );
 	}
 }
