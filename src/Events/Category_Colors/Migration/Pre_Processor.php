@@ -102,38 +102,40 @@ class Pre_Processor {
 	}
 
 	/**
-	 * Extracts category-related values and removes them from processed settings.
+	 * Extracts category-related values from processed settings and removes them.
 	 *
 	 * @since TBD
 	 * @return array<int, array<string, mixed>> Processed category data structured by category ID.
 	 */
 	protected function get_category_values(): array {
-		$categories = [];
+		$categories        = [];
+		$filtered_settings = $this->processed_settings; // Create a copy to modify.
 
 		foreach ( $this->processed_settings['terms'] ?? [] as $term_id => [$slug, $name] ) {
-			$category_meta = new Event_Category_Meta( $term_id );
-
-			foreach ( $this->processed_settings as $key => $value ) {
-				if ( 0 === strpos( $key, $slug . '-' ) || 0 === strpos( $key, $slug . '_' ) ) {
+			foreach ( array_keys( $filtered_settings ) as $key ) {
+				if ( strpos( $key, $slug . '-' ) === 0 || strpos( $key, $slug . '_' ) === 0 ) {
 					$field_name = str_replace( [ $slug . '-', $slug . '_' ], '', $key );
 					$mapped_key = $this->get_mapped_meta_key( $field_name );
 
 					if ( null !== $mapped_key ) {
-						$meta_key   = $this->meta_key_prefix . $mapped_key;
-						$meta_value = ( 'no_color' === $value ) ? '' : $value;
-						$category_meta->set( $meta_key, $meta_value );
+						$meta_key = $this->meta_key_prefix . $mapped_key;
+						$value    = $filtered_settings[ $key ];
+						$value    = ( 'no_color' === $value ) ? '' : $value;
+						// Store processed setting under category.
+						$categories[ $term_id ][ $meta_key ] = $value;
 
-						// Store meta directly under the term ID.
-						$categories[ $term_id ][ $meta_key ] = $meta_value;
+						// Remove from copied array.
+						unset( $filtered_settings[ $key ] );
 					}
 				}
 			}
 
-			$category_meta->save(); // Save metadata in one batch.
-
 			// Store the term_id reference itself.
 			$categories[ $term_id ]['taxonomy_id'] = $term_id;
 		}
+
+		// Replace the original array with the filtered one.
+		$this->processed_settings = $filtered_settings;
 
 		return $categories;
 	}
