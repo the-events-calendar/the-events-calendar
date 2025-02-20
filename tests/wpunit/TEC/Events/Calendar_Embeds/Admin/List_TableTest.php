@@ -15,7 +15,7 @@ class List_TableTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '<input type="checkbox" />', $new_columns['cb'] );
 		$this->assertEquals( 'Calendar Embeds', $new_columns['title'] );
 		$this->assertEquals( 'Categories', $new_columns['event_categories'] );
-		$this->assertEquals( 'Tags', $new_columns['post_tags'] );
+		$this->assertEquals( 'Tags', $new_columns['event_tags'] );
 		$this->assertEquals( 'Embed Snippet', $new_columns['snippet'] );
 	}
 
@@ -31,7 +31,7 @@ class List_TableTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '<input type="checkbox" />', $new_columns['cb'] );
 		$this->assertEquals( 'Calendar Embeds', $new_columns['title'] );
 		$this->assertEquals( 'Categories', $new_columns['event_categories'] );
-		$this->assertEquals( 'Tags', $new_columns['post_tags'] );
+		$this->assertEquals( 'Tags', $new_columns['event_tags'] );
 		$this->assertEquals( 'Embed Snippet', $new_columns['snippet'] );
 		$this->assertEquals( 'Custom Column', $new_columns['custom_column'] );
 	}
@@ -43,7 +43,54 @@ class List_TableTest extends \Codeception\TestCase\WPTestCase {
 			'post_type'  => Calendar_Embeds::POSTTYPE,
 		] );
 
+		// Test before categories are set.
+		ob_start();
+		tribe( List_Table::class )->manage_column_content( 'event_categories', $post_id );
+		$category_output = ob_get_clean();
+		$this->assertEquals( 'All Categories', $category_output );
+
+		// Test before tags are set.
+		ob_start();
+		tribe( List_Table::class )->manage_column_content( 'event_tags', $post_id );
+		$tag_output = ob_get_clean();
+		$this->assertEquals( 'All Tags', $tag_output );
+
+		// Add categories and tags via meta.
+		update_post_meta( $post_id, Calendar_Embeds::$meta_key_categories, [
+			[
+				'id' => 1,
+				'name' => 'Category 1',
+			],
+			[
+				'id' => 2,
+				'name' => 'Category 2',
+			],
+		 ] );
+		update_post_meta( $post_id, Calendar_Embeds::$meta_key_tags, [
+			[
+				'id' => 1,
+				'name' => 'Tag 1',
+			],
+			[
+				'id' => 2,
+				'name' => 'Tag 2',
+			],
+		 ] );
+
+		// Mock get_permalink to return a permalink.
 		$this->set_fn_return( 'get_permalink', 'http://example.com/123456abcdef/embed' );
+
+		// Test categories.
+		ob_start();
+		tribe( List_Table::class )->manage_column_content( 'event_categories', $post_id );
+		$category_output = ob_get_clean();
+		$this->assertEquals( 'Category 1, Category 2', $category_output );
+
+		// Test tags.
+		ob_start();
+		tribe( List_Table::class )->manage_column_content( 'event_tags', $post_id );
+		$tag_output = ob_get_clean();
+		$this->assertEquals( 'Tag 1, Tag 2', $tag_output );
 
 		ob_start();
 		tribe( List_Table::class )->manage_column_content( 'snippet', $post_id );

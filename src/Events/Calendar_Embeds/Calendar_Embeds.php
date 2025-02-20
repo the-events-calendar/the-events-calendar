@@ -28,6 +28,24 @@ class Calendar_Embeds {
 	const POSTTYPE = 'tec_calendar_embed';
 
 	/**
+	 * The meta key for storing the event categories.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $meta_key_categories = 'event_categories';
+
+	/**
+	 * The meta key for storing the event tags.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $meta_key_tags = 'event_tags';
+
+	/**
 	 * Stores the hook suffix from `add_submenu_page`.
 	 *
 	 * @since TBD

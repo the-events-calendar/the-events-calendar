@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Calendar_Embeds\Admin;
 
+use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use Tribe__Template;
 use Tribe__Events__Main;
 
@@ -43,7 +44,7 @@ class List_Table {
 			'cb'               => $columns['cb'] ?? '<input type="checkbox" />',
 			'title'            => __( 'Calendar Embeds', 'the-events-calendar' ),
 			'event_categories' => __( 'Categories', 'the-events-calendar' ),
-			'post_tags'        => __( 'Tags', 'the-events-calendar' ),
+			'event_tags'       => __( 'Tags', 'the-events-calendar' ),
 			'snippet'          => __( 'Embed Snippet', 'the-events-calendar' ),
 		];
 
@@ -73,7 +74,8 @@ class List_Table {
 		// @todo Use post meta for categories and tags.
 		switch ( $column_name ) {
 			case 'event_categories':
-				$categories = get_the_terms( $post_id, 'category' );
+				// Get events categores from post meta.
+				$categories = get_post_meta( $post_id, Calendar_Embeds::$meta_key_categories, true );
 				if ( ! empty( $categories ) ) {
 					$categories = wp_list_pluck( $categories, 'name' );
 					echo esc_html( implode( ', ', $categories ) );
@@ -81,8 +83,9 @@ class List_Table {
 					echo esc_html( __( 'All Categories', 'the-events-calendar' ) );
 				}
 				break;
-			case 'post_tags':
-				$tags = get_the_terms( $post_id, 'post_tag' );
+			case 'event_tags':
+				// Get events tags from post meta.
+				$tags = get_post_meta( $post_id, Calendar_Embeds::$meta_key_tags, true );
 				if ( ! empty( $tags ) ) {
 					$tags = wp_list_pluck( $tags, 'name' );
 					echo esc_html( implode( ', ', $tags ) );
