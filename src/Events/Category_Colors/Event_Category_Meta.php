@@ -48,15 +48,6 @@ class Event_Category_Meta {
 	protected int $term_id;
 
 	/**
-	 * Stores pending metadata updates before saving.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	protected array $pending_meta = [];
-
-	/**
 	 * Stores pending metadata deletions before saving.
 	 *
 	 * @since TBD
@@ -101,6 +92,39 @@ class Event_Category_Meta {
 
 		$this->term_id = $term_id;
 		return $this;
+	}
+
+	/**
+	 * Retrieves metadata for the term.
+	 *
+	 * @since TBD
+	 *
+	 * @param string|null $key Optional. The meta key to retrieve.
+	 *
+	 * @return mixed The meta value, or an array of all metadata if no key is provided.
+	 *
+	 * @throws InvalidArgumentException If the key is invalid.
+	 */
+	public function get( ?string $key = null ) {
+		if ( null === $key ) {
+			$all_meta = get_term_meta( $this->term_id );
+
+			foreach ( $all_meta as $meta_key => &$value ) {
+				$value = $this->normalize_meta( $meta_key, $value );
+			}
+
+			return $all_meta;
+		}
+
+		$key = $this->validate_key( $key );
+
+		if ( is_wp_error( $key ) ) {
+			throw new InvalidArgumentException( $key->get_error_message() );
+		}
+
+		return metadata_exists( 'term', $this->term_id, $key )
+			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, false ) )
+			: null;
 	}
 
 	/**
@@ -179,39 +203,6 @@ class Event_Category_Meta {
 		$this->pending_deletes = [];
 
 		return $this;
-	}
-
-	/**
-	 * Retrieves metadata for the term.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|null $key Optional. The meta key to retrieve.
-	 *
-	 * @return mixed The meta value, or an array of all metadata if no key is provided.
-	 *
-	 * @throws InvalidArgumentException If the key is invalid.
-	 */
-	public function get( ?string $key = null ) {
-		if ( null === $key ) {
-			$all_meta = get_term_meta( $this->term_id );
-
-			foreach ( $all_meta as $meta_key => &$value ) {
-				$value = $this->normalize_meta( $meta_key, $value );
-			}
-
-			return $all_meta;
-		}
-
-		$key = $this->validate_key( $key );
-
-		if ( is_wp_error( $key ) ) {
-			throw new InvalidArgumentException( $key->get_error_message() );
-		}
-
-		return metadata_exists( 'term', $this->term_id, $key )
-			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, false ) )
-			: null;
 	}
 
 	/**
