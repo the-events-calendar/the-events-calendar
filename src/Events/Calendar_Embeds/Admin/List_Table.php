@@ -1,6 +1,6 @@
 <?php
 /**
- * Calendar Embedw List Table
+ * Calendar Embed List Table
  *
  * @since TBD
  *
@@ -71,7 +71,6 @@ class List_Table {
 	 * @return void
 	 */
 	public function manage_column_content( $column_name, $post_id ): void {
-		// @todo Use post meta for categories and tags.
 		switch ( $column_name ) {
 			case 'event_categories':
 				// Get events categores from post meta.
