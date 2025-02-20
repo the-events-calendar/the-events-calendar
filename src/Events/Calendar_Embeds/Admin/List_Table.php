@@ -70,6 +70,7 @@ class List_Table {
 	 * @return void
 	 */
 	public function manage_column_content( $column_name, $post_id ): void {
+		// @todo Use post meta for categories and tags.
 		switch ( $column_name ) {
 			case 'event_categories':
 				$categories = get_the_terms( $post_id, 'category' );
@@ -90,6 +91,7 @@ class List_Table {
 				}
 				break;
 			case 'snippet':
+				// @todo Create a class/method to get the embed link.
 				$permalink = get_permalink( $post_id );
 
 				$admin_template = $this->get_template();

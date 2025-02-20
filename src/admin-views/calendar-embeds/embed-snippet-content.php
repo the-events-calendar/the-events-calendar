@@ -10,7 +10,7 @@
  * @var string $permalink The permalink.
  */
 
-$snippet = '<iframe src="' . esc_url( $permalink ) . 'embed" width="100%" height="600" frameborder="0"></iframe>';
+$snippet = '<iframe src="' . esc_url( $permalink ) . '" width="100%" height="600" frameborder="0"></iframe>';
 
 ?>
 <div id="tec_events_calendar_embeds_snippet_<?php echo esc_attr( $post_id ); ?>" class="hidden">
