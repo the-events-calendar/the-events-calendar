@@ -124,7 +124,7 @@ class Migration_Runner {
 		$this->log_existing_meta( (array) $migration_data['categories'] ); // Log existing category meta.
 
 		// Step 3: Insert meta values for valid categories.
-		$this->insert_categories( $migration_data['categories'] );
+		$this->insert_category_meta( $migration_data['categories'] );
 
 		$execution_success = empty( Logger::get_logs( 'error' ) );
 
@@ -155,7 +155,10 @@ class Migration_Runner {
 	 *
 	 * @return void
 	 */
-	protected function insert_categories( array $categories ): void {
+	protected function insert_category_meta( array $categories ): void {
+		$migrated_category_meta_count = 0;
+		$migrated_category_count      = count( $categories );
+
 		foreach ( $categories as $category_id => $meta_data ) {
 			$category_meta = new Event_Category_Meta( $category_id );
 
@@ -169,6 +172,7 @@ class Migration_Runner {
 				if ( null !== $existing_value ) {
 					continue; // Skip if already exists.
 				}
+				++$migrated_category_meta_count;
 
 				if ( $this->dry_run ) {
 					$this->log_dry_run( $category_id, $meta_key, $meta_value );
@@ -181,6 +185,7 @@ class Migration_Runner {
 				$category_meta->save(); // Batch save updates.
 			}
 		}
+		Logger::log( 'info', "Migrated {$migrated_category_meta_count} category meta values across {$migrated_category_count} categories." );
 	}
 
 	/**
