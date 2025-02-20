@@ -26,6 +26,7 @@ class Controller extends Controller_Contract {
 	public function do_register(): void {
 		$this->container->singleton( Calendar_Embeds::class );
 		$this->container->singleton( Admin\List_Table::class );
+		$this->container->singleton( Admin\Page::class );
 
 		$this->add_actions();
 		$this->add_filters();
