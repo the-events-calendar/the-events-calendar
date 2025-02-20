@@ -166,7 +166,7 @@ class Migration_Runner {
 
 				$existing_value = $category_meta->get( $meta_key );
 
-				if ( '' !== $existing_value ) {
+				if ( null !== $existing_value ) {
 					continue; // Skip if already exists.
 				}
 
