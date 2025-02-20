@@ -709,7 +709,7 @@ class View implements View_Interface {
 		 *
 		 * @param View $this A reference to the View instance that is currently setting up the loop.
 		 */
-		do_action( 'tribe_views_v2_before_view_html_cache', $this );
+		do_action( 'tec_events_before_view_html_cache', $this );
 
 		// If HTML_Cache is a class trait and we have content to display, display it.
 		if (

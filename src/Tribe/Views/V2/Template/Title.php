@@ -153,7 +153,7 @@ class Title {
 		$this->events_label_plural = apply_filters( 'tribe_events_filter_views_v2_wp_title_plural_events_label', $this->events_label_plural, $context );
 
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events.
-		$event_date         = $context->get( 'event_date', false );
+		$event_date = $context->get( 'event_date', false );
 
 		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
