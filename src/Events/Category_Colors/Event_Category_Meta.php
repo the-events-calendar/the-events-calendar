@@ -108,18 +108,23 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the key or value is invalid.
+	 *
 	 * @param string $key   The meta key to update.
 	 * @param mixed  $value The value to store.
 	 *
-	 * @return $this Returns the instance for chaining.
+	 * @return self
 	 */
 	public function set( string $key, $value ): self {
 		$key   = $this->validate_key( $key );
 		$value = $this->validate_value( $value );
 
-		// If key or value is invalid, skip but don't break chaining.
-		if ( is_wp_error( $key ) || is_wp_error( $value ) ) {
-			return $this;
+		if ( is_wp_error( $key ) ) {
+			throw new InvalidArgumentException( $key->get_error_message() );
+		}
+
+		if ( is_wp_error( $value ) ) {
+			throw new InvalidArgumentException( $value->get_error_message() );
 		}
 
 		$this->pending_updates[ $key ] = $value;
@@ -132,18 +137,23 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the key is invalid.
+	 *
 	 * @param string $key The meta key to delete.
 	 *
-	 * @return $this|wp_error  Returns the instance for chaining.
+	 * @return self
 	 */
 	public function delete( string $key ): self {
 		$key = $this->validate_key( $key );
 
 		if ( is_wp_error( $key ) ) {
-			return $key;
+			throw new InvalidArgumentException( $key->get_error_message() );
 		}
 
 		$this->pending_deletes[] = $key;
+
+		// Remove from pending updates in case it was set before.
+		unset( $this->pending_updates[ $key ] );
 
 		return $this;
 	}
@@ -156,12 +166,12 @@ class Event_Category_Meta {
 	 * @return $this
 	 */
 	public function save(): self {
-		foreach ( $this->pending_updates as $key => $value ) {
-			update_term_meta( $this->term_id, $key, $value );
-		}
-
 		foreach ( $this->pending_deletes as $key ) {
 			delete_term_meta( $this->term_id, $key );
+		}
+
+		foreach ( $this->pending_updates as $key => $value ) {
+			update_term_meta( $this->term_id, $key, $value );
 		}
 
 		// Clear queues after saving.
@@ -179,6 +189,8 @@ class Event_Category_Meta {
 	 * @param string|null $key Optional. The meta key to retrieve.
 	 *
 	 * @return mixed The meta value, or an array of all metadata if no key is provided.
+	 *
+	 * @throws InvalidArgumentException If the key is invalid.
 	 */
 	public function get( ?string $key = null ) {
 		if ( null === $key ) {
@@ -192,6 +204,10 @@ class Event_Category_Meta {
 		}
 
 		$key = $this->validate_key( $key );
+
+		if ( is_wp_error( $key ) ) {
+			throw new InvalidArgumentException( $key->get_error_message() );
+		}
 
 		return metadata_exists( 'term', $this->term_id, $key )
 			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, false ) )
