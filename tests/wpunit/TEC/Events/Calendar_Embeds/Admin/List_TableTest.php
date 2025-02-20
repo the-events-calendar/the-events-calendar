@@ -43,9 +43,20 @@ class List_TableTest extends \Codeception\TestCase\WPTestCase {
 			'post_type'  => Calendar_Embeds::POSTTYPE,
 		] );
 
+		$this->set_fn_return( 'get_permalink', 'http://example.com/123456abcdef/embed' );
+
 		ob_start();
 		tribe( List_Table::class )->manage_column_content( 'snippet', $post_id );
 		$snippet = ob_get_clean();
+
+		$snippet = str_replace( [
+			'tec_events_calendar_embeds_snippet_code_' . $post_id,
+			'tec_events_calendar_embeds_snippet_' . $post_id,
+		], [
+			'tec_events_calendar_embeds_snippet_code_POSTID',
+			'tec_events_calendar_embeds_snippet_POSTID',
+		], $snippet );
+
 		$this->assertMatchesSnapshot( $snippet );
 	}
 }
