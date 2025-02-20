@@ -131,8 +131,8 @@ class Title {
 
 		// If the slug is `default`, get the slug another way.
 		if ( 'default' === $event_display_mode ) {
-			$manager      = tribe( Manager::class );
-			$event_display_mode  = $manager->get_default_view_option();
+			$manager            = tribe( Manager::class );
+			$event_display_mode = $manager->get_default_view_option();
 		}
 
 		$posts = [];
