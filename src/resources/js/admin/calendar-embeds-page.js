@@ -1,7 +1,7 @@
 /* global ClipboardJS */
-( function ( cb ) {
-		const btns = document.querySelectorAll(
+( function ( clipboard ) {
+		const buttons = document.querySelectorAll(
 			'.tec-events-calendar-embeds__snippet-modal-copy-button'
 		);
-		new cb( btns );
+		new clipboard( buttons );
 } )( ClipboardJS );
