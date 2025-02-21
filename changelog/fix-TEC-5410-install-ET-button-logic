@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Adjusted logic for when the Install Event Tickets button is rendered on the First Time Setup Page. [TEC-5410]
