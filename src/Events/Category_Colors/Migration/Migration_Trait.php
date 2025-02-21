@@ -64,38 +64,54 @@ trait Migration_Trait {
 	 */
 	protected array $expected_structure = [
 		'categories'    => [],
-		'legend'        => [],
-		'general'       => [],
+		'settings'      => [],
 		'ignored_terms' => [],
 	];
 
 	/**
-	 * List of legend-related settings to extract.
+	 * Mapping of old settings keys to new migrated keys, along with validation rules.
 	 *
 	 * @since TBD
-	 * @var array<string>
+	 * @var array<string, array<string, string>>
 	 */
-	protected array $legend_keys = [
-		'custom_legend_css',
-		'add_legend',
-		'show_ignored_cats_legend',
-		'legend_superpowers',
+	protected array $settings_mapping = [
+		'add_legend'               => [
+			'mapped_key' => 'category-color-legend-show',
+			'validation' => 'array',
+			'import'     => true,
+		],
+		'chk_default_options_db'   => [
+			'mapped_key' => 'chk_default_options_db',
+			'validation' => '',
+			'import'     => false,
+		],
+		'custom_legend_css'        => [
+			'mapped_key' => 'category-color-custom-CSS',
+			'validation' => 'boolean',
+			'import'     => true,
+		],
+		'font_weight'              => [
+			'mapped_key' => 'font_weight',
+			'validation' => '',
+			'import'     => false,
+		],
+		'legend_superpowers'       => [
+			'mapped_key' => 'category-color-legend-superpowers',
+			'validation' => 'boolean',
+			'import'     => true,
+		],
+		'reset_show'               => [
+			'mapped_key' => 'category-color-reset-button',
+			'validation' => 'boolean',
+			'import'     => true,
+		],
+		'show_ignored_cats_legend' => [
+			'mapped_key' => 'category-color-show-hidden-categories',
+			'validation' => 'boolean',
+			'import'     => true,
+		],
 	];
 
-	/**
-	 * List of general settings keys to extract.
-	 *
-	 * @since TBD
-	 * @var array<string>
-	 */
-	protected array $general_settings_keys = [
-		'reset_show',
-		'reset_label',
-		'reset_url',
-		'chk_default_options_db',
-		'font_weight',
-		'featured-event',
-	];
 
 	/**
 	 * Prefix for storing category meta values.
@@ -213,7 +229,7 @@ trait Migration_Trait {
 		return get_option(
 			$this->migration_status_option,
 			[
-				'status'    => 'not_started',
+				'status'    => Migration_Status::$not_started,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -258,7 +274,7 @@ trait Migration_Trait {
 	public function reset_migration(): void {
 		// Delete migration data and reset status.
 		delete_option( $this->migration_data_option );
-		$this->update_migration_status( 'not_started' );
+		$this->update_migration_status( Migration_Status::$not_started );
 
 		Logger::log( 'info', 'Migration has been reset to the initial state.' );
 

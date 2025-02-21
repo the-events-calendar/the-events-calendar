@@ -11,8 +11,6 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
-use TEC\Events\Category_Colors\Event_Category_Meta;
-
 /**
  * Class Pre_Processor
  * Prepares the migration data by extracting and formatting category settings.
@@ -44,7 +42,7 @@ class Pre_Processor {
 	 */
 	public function process(): array {
 		$start_time = $this->start_timer();
-		$this->update_migration_status( 'in_progress' ); // Set migration to in_progress.
+		$this->update_migration_status( Migration_Status::$in_progress ); // Set migration to in_progress.
 
 		/**
 		 * Fires before the preprocessor starts processing category color data.
@@ -77,15 +75,14 @@ class Pre_Processor {
 		// Populate migration data.
 		$migration_data = [
 			'categories'    => $this->get_category_values(),
-			'legend'        => $this->get_legend_values(),
-			'general'       => $this->get_general_settings(),
+			'settings'      => $this->get_settings_values(),
 			'ignored_terms' => $this->process_ignored_terms(),
 		];
 
 		// Store processed data in the database.
 		$this->update_migration_data( $migration_data );
 
-		$this->update_migration_status( 'preprocess_completed' ); // Mark as completed.
+		$this->update_migration_status( Migration_Status::$preprocess_completed ); // Mark as completed.
 
 		/**
 		 * Fires after the preprocessor completes.
@@ -143,53 +140,51 @@ class Pre_Processor {
 		return $categories;
 	}
 
-
-
 	/**
-	 * Extracts legend-related values and removes them from processed settings.
+	 * Extracts and maps settings while applying validation rules.
 	 *
 	 * @since TBD
-	 * @return array<string, mixed> Processed legend data.
+	 * @return array<string, mixed> Processed settings with proper validation.
 	 */
-	protected function get_legend_values(): array {
-		$legend_data = array_intersect_key( $this->processed_settings, array_flip( $this->legend_keys ) );
+	protected function get_settings_values(): array {
+		$mapped_settings = [];
 
-		// Ensure valid values only.
-		foreach ( $legend_data as $key => $value ) {
-			if ( ! is_scalar( $value ) && ! is_array( $value ) ) {
-				unset( $legend_data[ $key ] );
+		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+			if ( ! $mapping['import'] ) {
+				continue;
 			}
+			// Skip if the key doesn't exist in the processed settings.
+			if ( ! array_key_exists( $old_key, $this->processed_settings ) ) {
+				continue;
+			}
+
+			$value   = $this->processed_settings[ $old_key ];
+			$new_key = $mapping['mapped_key'];
+
+			// Apply validation rules.
+			switch ( $mapping['validation'] ) {
+				case 'boolean':
+					$value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+					if ( is_null( $value ) ) {
+						$value = false;
+					}
+					break;
+				case 'array':
+					$value = is_array( $value ) ? $value : [];
+					break;
+				default:
+					$value = is_scalar( $value ) ? $value : ''; // Default to empty if invalid.
+			}
+
+			if ( '' !== $value && [] !== $value ) { // Ignore empty values.
+				$mapped_settings[ $new_key ] = $value;
+			}
+
+			// Remove the key from the processed settings after mapping.
+			unset( $this->processed_settings[ $old_key ] );
 		}
 
-		$this->processed_settings = array_diff_key( $this->processed_settings, $legend_data );
-
-		return $legend_data;
-	}
-
-	/**
-	 * Extracts general settings and removes them from processed settings.
-	 *
-	 * @since TBD
-	 * @return array<string, mixed> Extracted general settings.
-	 */
-	protected function get_general_settings(): array {
-		$general_data = array_intersect_key( $this->processed_settings, array_flip( $this->general_settings_keys ) );
-
-		foreach ( $this->general_settings_keys as $key ) {
-			if ( ! array_key_exists( $key, $general_data ) ) {
-				$general_data[ $key ] = '';
-			}
-		}
-
-		foreach ( $general_data as $key => $value ) {
-			if ( ! is_scalar( $value ) && ! is_array( $value ) ) {
-				unset( $general_data[ $key ] );
-			}
-		}
-
-		$this->processed_settings = array_diff_key( $this->processed_settings, $general_data );
-
-		return $general_data;
+		return $mapped_settings;
 	}
 
 	/**

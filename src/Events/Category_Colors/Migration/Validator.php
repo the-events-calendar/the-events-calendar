@@ -71,7 +71,7 @@ class Validator {
 			}
 		}
 
-		$this->update_migration_status( 'validation_completed' ); // Mark validation as completed.
+		$this->update_migration_status( Migration_Status::$validation_completed ); // Mark validation as completed.
 
 		/**
 		 * Fires after the validation process completes.
@@ -255,7 +255,9 @@ class Validator {
 	}
 
 	/**
-	 * Checks that required fields are present before importing.
+	 * Checks that expected settings fields are present in the migration data.
+	 *
+	 * Logs a warning if any expected setting is missing, but does not fail validation.
 	 *
 	 * @since TBD
 	 *
@@ -264,15 +266,24 @@ class Validator {
 	 * @return void
 	 */
 	protected function check_required_fields( array $migration_data ): void {
-		$required_keys = [
-			'add_legend'  => 'legend',
-			'reset_show'  => 'general',
-			'font_weight' => 'general',
-		];
+		foreach ( $this->settings_mapping as $original_key => $mapped_data ) {
+			$mapped_key = $mapped_data['mapped_key'] ?? null;
 
-		foreach ( $required_keys as $key => $section ) {
-			if ( ! array_key_exists( $key, $migration_data[ $section ] ) ) {
-				Logger::log( 'error', "Required setting '{$key}' is missing in migration data." );
+			if ( ! $mapped_key ) {
+				continue; // Skip if no mapped key is defined.
+			}
+
+			// Check if the mapped key exists in any part of the migration data.
+			$exists = false;
+			foreach ( $migration_data as $section_data ) {
+				if ( is_array( $section_data ) && array_key_exists( $mapped_key, $section_data ) ) {
+					$exists = true;
+					break;
+				}
+			}
+
+			if ( ! $exists ) {
+				Logger::log( 'warning', "Expected setting '{$mapped_key}' is missing in migration data." );
 			}
 		}
 	}

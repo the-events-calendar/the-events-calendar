@@ -98,7 +98,22 @@ class Controller extends Controller_Contract {
 				$category_meta->save();
 			}
 
+			// Remove settings stored in tribe_events_calendar_options.
+			$existing_settings = get_option( 'tribe_events_calendar_options', [] );
 
+			foreach ( $this->settings_mapping as $mapping ) {
+				if ( ! $mapping['import'] ) {
+					continue; // Skip non-imported keys.
+				}
+
+				$mapped_key = $mapping['mapped_key'];
+
+				if ( isset( $existing_settings[ $mapped_key ] ) ) {
+					unset( $existing_settings[ $mapped_key ] );
+				}
+			}
+
+			update_option( 'tribe_events_calendar_options', $existing_settings );
 
 			echo 'Migration has been reset and all inserted meta data has been deleted.<br>';
 		}

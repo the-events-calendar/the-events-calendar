@@ -12,6 +12,7 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
+use Tribe__Events__Main;
 
 /**
  * Class Post_Processor
@@ -65,7 +66,7 @@ class Post_Processor {
 		$start_time = $this->start_timer();
 		if ( $this->dry_run ) {
 			Logger::log( 'info', 'Dry run mode active. Skipping post-processing validation.' );
-			$this->update_migration_status( 'migration_completed' );
+			$this->update_migration_status( Migration_Status::$postprocess_completed );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
 			return;
 		}
@@ -108,8 +109,74 @@ class Post_Processor {
 			$this->update_migration_status( 'migration_failed' );
 		} else {
 			Logger::log( 'info', 'Migration verification successful. Marking migration as completed.' );
-			$this->update_migration_status( 'migration_completed' );
+			$this->update_migration_status( Migration_Status::$postprocess_completed );
 		}
 		$this->log_elapsed_time( 'Post Processor', $start_time );
+	}
+
+	/**
+	 * Runs validation checks on migrated settings in tribe_events_calendar_options.
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	protected function verify_settings(): void {
+		$start_time = $this->start_timer();
+
+		if ( $this->dry_run ) {
+			Logger::log( 'info', 'Dry run mode active. Skipping settings validation.' );
+
+			return;
+		}
+
+		$existing_settings  = get_option( Tribe__Events__Main::OPTIONNAME, [] );
+		$original_settings  = $this->get_original_settings();
+		$migration_settings = $this->get_migration_data()['settings'] ?? [];
+
+		if ( empty( $migration_settings ) ) {
+			Logger::log( 'warning', 'No migrated settings found. Cannot validate settings.' );
+
+			return;
+		}
+
+		$errors_found = false;
+
+		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+			if ( ! $mapping['import'] ) {
+				continue; // Skip non-imported keys.
+			}
+
+			$expected_key   = $mapping['mapped_key'];
+			$expected_value = $migration_settings[ $expected_key ] ?? null;
+			$actual_value   = $existing_settings[ $expected_key ] ?? null;
+			$original_value = $original_settings[ $old_key ] ?? null;
+
+			// 1️⃣ Check if the setting exists at all.
+			if ( ! array_key_exists( $expected_key, $existing_settings ) ) {
+				Logger::log( 'error', "Missing expected setting '{$expected_key}' in tribe_events_calendar_options." );
+				$errors_found = true;
+				continue;
+			}
+
+			// 2️⃣ Compare actual vs. migrated value.
+			if ( $actual_value !== $expected_value ) {
+				if ( $original_value === $actual_value ) {
+					// It was already different before migration—log as info.
+					Logger::log( 'info', "Setting '{$expected_key}' has a pre-existing value. Migration did not change it. Expected: " . wp_json_encode( $expected_value ) . " | Found: " . wp_json_encode( $actual_value ) );
+				} else {
+					// Migration changed it—log as a warning.
+					Logger::log( 'warning', "Mismatch for '{$expected_key}'. Expected: " . wp_json_encode( $expected_value ) . " | Found: " . wp_json_encode( $actual_value ) );
+				}
+			}
+		}
+
+		if ( $errors_found ) {
+			Logger::log( 'error', 'Migration settings validation failed.' );
+			$this->update_migration_status( 'migration_failed' );
+		} else {
+			Logger::log( 'info', 'Migration settings successfully verified.' );
+		}
+
+		$this->log_elapsed_time( 'Settings Verification', $start_time );
 	}
 }

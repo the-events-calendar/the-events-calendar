@@ -127,7 +127,7 @@ class Migration_Process {
 	 * @return bool True if the migration is already completed, false otherwise.
 	 */
 	private function is_migration_complete(): bool {
-		return $this->get_status() === 'migration_completed';
+		return $this->get_status() === Migration_Status::$postprocess_completed;
 	}
 
 	/**
@@ -180,10 +180,8 @@ class Migration_Process {
 	 * @return void
 	 */
 	private function validate(): void {
-		if ( in_array( $this->get_status(), [ 'preprocess_completed', 'validation_failed' ], true ) ) {
-			if ( ! tribe( Validator::class )->validate() ) {
-				return;
-			}
+		if ( in_array( $this->get_status(), [ Migration_Status::$preprocess_completed, Migration_Status::$validation_failed ], true ) ) {
+			tribe( Validator::class )->validate();
 		}
 	}
 
@@ -198,7 +196,7 @@ class Migration_Process {
 	 * @return void
 	 */
 	private function execute(): void {
-		if ( in_array( $this->get_status(), [ 'validation_completed', 'execution_failed' ], true ) ) {
+		if ( in_array( $this->get_status(), [ Migration_Status::$validation_completed,Migration_Status::$execution_failed ], true ) ) {
 			$executor = new Migration_Runner( $this->dry_run );
 			$executor->execute();
 
@@ -221,7 +219,7 @@ class Migration_Process {
 	 * @return void
 	 */
 	private function postprocess(): void {
-		if ( in_array( $this->get_status(), [ 'execution_completed', 'postprocessing_failed' ], true ) ) {
+		if ( in_array( $this->get_status(), [ Migration_Status::$execution_completed, Migration_Status::$postprocess_failed ], true ) ) {
 			$post_processor = new Post_Processor( $this->dry_run );
 			$post_processor->verify_migration();
 		}

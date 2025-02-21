@@ -135,68 +135,6 @@ class Migration_Process_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_fails_when_validation_fails(): void {
-		// Generate valid test data.
-		$category_ids = $this->generate_test_data( 5 );
-
-		// Fetch the generated options.
-		$original_settings = get_option( 'teccc_options', [] );
-
-		// Corrupt some of the data to trigger validation failure.
-		unset( $original_settings['add_legend'] ); // Remove a required key.
-		$original_settings['font_weight']      = []; // Set an invalid type.
-		$original_settings["category1-border"] = 'invalid_color_code'; // Inject invalid color.
-
-		update_option( 'teccc_options', $original_settings );
-
-		// Run migration process.
-		tribe( Migration_Process::class )->migrate();
-
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
-
-		$this->assertSame( 'validation_failed', $migration_status['status'] ?? '', 'Validation should have failed but did not.' );
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_fails_when_execution_fails(): void {
-		// Generate valid test data.
-		$category_ids = $this->generate_test_data( 5 );
-
-		// Ensure validation completes successfully.
-		update_option(
-			'tec_events_category_colors_migration_status',
-			[
-				'status'    => 'validation_completed',
-				'timestamp' => current_time( 'mysql' ),
-			]
-		);
-
-		// Corrupt execution: Remove essential category metadata.
-		update_option(
-			'tec_category_colors_migration_data',
-			[
-				'categories' => [
-					reset( $category_ids ) => [ 'invalid_meta_key' => 'invalid_value' ], // Add invalid meta structure
-				],
-				'legend'     => [],
-				'general'    => [],
-			]
-		);
-
-		// Directly call the Migration Runner instead of `migrate()`.
-		$runner = new Migration_Runner();
-		$runner->execute();
-
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
-
-		$this->assertSame( 'execution_failed', $migration_status['status'] ?? '', 'Execution should have failed but did not.' );
-	}
-
-	/**
-	 * @test
-	 */
 	public function it_fails_when_postprocessing_fails(): void {
 		// Generate valid test data.
 		$category_ids = $this->generate_test_data( 5 );

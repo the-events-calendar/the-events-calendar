@@ -11,6 +11,7 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
+use Tribe__Events__Main;
 
 /**
  * Class Migration_Runner
@@ -71,15 +72,14 @@ class Migration_Runner {
 	 */
 	public function execute(): void {
 		$start_time = $this->start_timer();
-		// Step 1: Check if validation needs to run.
-		if ( 'validation_completed' !== $this->get_migration_status()['status'] ) {
+		if ( Migration_Status::$validation_completed !== $this->get_migration_status()['status'] ) {
 			Logger::log( 'info', 'Validation not completed. Running validation before execution.' );
 
 			$validator = new Validator();
 
 			if ( ! $validator->validate() ) {
 				Logger::log( 'error', 'Validation failed. Migration execution stopped.' );
-				$this->update_migration_status( 'execution_failed' ); // Mark execution as failed.
+				$this->update_migration_status( Migration_Status::$execution_failed ); // Mark execution as failed.
 
 				do_action( 'tec_events_category_colors_migration_runner_end', false );
 				$this->log_elapsed_time( 'Execution', $start_time );
@@ -91,7 +91,6 @@ class Migration_Runner {
 			Logger::log( 'info', 'Skipping validation step as it was already completed.' );
 		}
 
-		// Step 2: Mark execution in progress **only after validation passes**.
 		$this->update_migration_status( 'execution_in_progress' );
 
 		/**
@@ -125,12 +124,14 @@ class Migration_Runner {
 
 		$this->log_existing_meta( (array) $migration_data['categories'] ); // Log existing category meta.
 
-		// Step 3: Insert meta values for valid categories.
 		$this->insert_category_meta( $migration_data['categories'] );
+		if ( empty( $migration_data['settings'] ) ) {
+			$this->insert_settings( $migration_data['settings'] );
+		}
 
 		$execution_success = empty( Logger::get_logs( 'error' ) );
 
-		$this->update_migration_status( $execution_success ? 'execution_completed' : 'execution_failed' ); // Update final status.
+		$this->update_migration_status( $execution_success ? Migration_Status::$execution_completed : Migration_Status::$execution_failed ); // Update final status.
 
 		/**
 		 * Fires after the migration execution completes.
@@ -249,6 +250,69 @@ class Migration_Runner {
 				if ( '' !== $existing_value ) {
 					Logger::log( 'warning', "Category {$category_id} already has meta key '{$meta_key}' with value: " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ) );
 				}
+			}
+		}
+	}
+
+	/**
+	 * Inserts the migrated settings into the `tribe_events_calendar_options` option.
+	 * Ensures existing settings are not overwritten and logs changes.
+	 * Supports dry-run mode for safe testing.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, mixed> $settings The settings to insert.
+	 *
+	 * @return void
+	 */
+	protected function insert_settings( array $settings ): void {
+		if ( empty( $settings ) ) {
+			Logger::log( 'warning', 'No general settings found to migrate. Skipping settings update.' );
+			return;
+		}
+
+		// Fetch existing settings.
+		$existing_settings = get_option( 'tribe_events_calendar_options', [] );
+
+		if ( ! is_array( $existing_settings ) ) {
+			Logger::log( 'error', 'Existing settings are not an array. Skipping migration to prevent corruption.' );
+			return;
+		}
+
+		$new_settings     = [];
+		$skipped_settings = [];
+
+		foreach ( $settings as $key => $value ) {
+			// Skip updating if the setting already exists.
+			if ( array_key_exists( $key, $existing_settings ) ) {
+				$skipped_settings[ $key ] = $existing_settings[ $key ];
+				continue;
+			}
+
+			// Store new setting for update.
+			$new_settings[ $key ] = $value;
+		}
+
+		if ( empty( $new_settings ) ) {
+			Logger::log( 'info', 'No new settings needed migration. All settings already exist.' );
+			return;
+		}
+
+		if ( $this->dry_run ) {
+			foreach ( $new_settings as $key => $value ) {
+				Logger::log( 'info', "[DRY RUN] Would update `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );
+			}
+		} else {
+			update_option( 'tribe_events_calendar_options', array_merge( $existing_settings, $new_settings ) );
+
+			foreach ( $new_settings as $key => $value ) {
+				Logger::log( 'info', "Updated `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );
+			}
+		}
+
+		if ( ! empty( $skipped_settings ) ) {
+			foreach ( $skipped_settings as $key => $existing_value ) {
+				Logger::log( 'info', "Skipped updating setting '{$key}' (already exists) => " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ) );
 			}
 		}
 	}
