@@ -90,7 +90,8 @@ class Controller extends Controller_Contract {
 
 			// Remove all inserted category meta data using the Event_Category_Meta class.
 			foreach ( $categories as $category ) {
-				$category_meta = new Event_Category_Meta( $category->term_id );
+
+				$category_meta = tribe( Event_Category_Meta::class )->set_term( $category->term_id );
 				$category_meta->delete( 'tec-events-cat-colors-primary' );
 				$category_meta->delete( 'tec-events-cat-colors-secondary' );
 				$category_meta->delete( 'tec-events-cat-colors-text' );

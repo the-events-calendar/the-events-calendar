@@ -82,7 +82,7 @@ class Post_Processor {
 
 		// Validate each category against expected migration data.
 		foreach ( $migration_data['categories'] as $category_id => $meta_data ) {
-			$category_meta = new Event_Category_Meta( $category_id );
+			$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
 			$actual_meta   = $category_meta->get(); // Fetch stored metadata.
 
 			foreach ( $meta_data as $meta_key => $expected_value ) {

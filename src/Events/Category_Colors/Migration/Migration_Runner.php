@@ -160,7 +160,7 @@ class Migration_Runner {
 		$migrated_category_count      = count( $categories );
 
 		foreach ( $categories as $category_id => $meta_data ) {
-			$category_meta = new Event_Category_Meta( $category_id );
+			$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
 
 			foreach ( $meta_data as $meta_key => $meta_value ) {
 				if ( in_array( $meta_key, $this->skip_meta_keys, true ) ) {
