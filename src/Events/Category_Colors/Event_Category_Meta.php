@@ -194,6 +194,7 @@ class Event_Category_Meta {
 	 * @return $this
 	 */
 	public function save(): self {
+		$this->ensure_term_is_set();
 		foreach ( $this->pending_deletes as $key ) {
 			delete_term_meta( $this->term_id, $key );
 		}
@@ -291,8 +292,9 @@ class Event_Category_Meta {
 	 * @throws InvalidArgumentException If `set_term()` has not been called before using methods that require it.
 	 */
 	protected function ensure_term_is_set(): void {
-		if ( ! isset( $this->term_id ) ) {
-			throw new InvalidArgumentException( __( 'set_term() must be called before using this method.', 'the-events-calendar' ) );
+		if ( isset( $this->term_id ) ) {
+			return;
 		}
+		throw new InvalidArgumentException( __( 'set_term() must be called before using this method.', 'the-events-calendar' ) );
 	}
 }
