@@ -70,6 +70,7 @@ class Migration_Runner {
 	 * @return void
 	 */
 	public function execute(): void {
+		$start_time = $this->start_timer();
 		// Step 1: Check if validation needs to run.
 		if ( 'validation_completed' !== $this->get_migration_status()['status'] ) {
 			Logger::log( 'info', 'Validation not completed. Running validation before execution.' );
@@ -81,6 +82,7 @@ class Migration_Runner {
 				$this->update_migration_status( 'execution_failed' ); // Mark execution as failed.
 
 				do_action( 'tec_events_category_colors_migration_runner_end', false );
+				$this->log_elapsed_time( 'Execution', $start_time );
 				return;
 			}
 
@@ -117,7 +119,7 @@ class Migration_Runner {
 			 * @param bool $success False, indicating failure.
 			 */
 			do_action( 'tec_events_category_colors_migration_runner_end', false );
-
+			$this->log_elapsed_time( 'Execution', $start_time );
 			return;
 		}
 
@@ -138,6 +140,7 @@ class Migration_Runner {
 		 * @param bool $success True if execution was successful, false otherwise.
 		 */
 		do_action( 'tec_events_category_colors_migration_runner_end', $execution_success );
+		$this->log_elapsed_time( 'Execution', $start_time );
 	}
 
 	/**

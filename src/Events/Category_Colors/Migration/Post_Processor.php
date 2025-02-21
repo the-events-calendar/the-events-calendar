@@ -62,10 +62,11 @@ class Post_Processor {
 	 * @return void
 	 */
 	public function verify_migration(): void {
+		$start_time = $this->start_timer();
 		if ( $this->dry_run ) {
 			Logger::log( 'info', 'Dry run mode active. Skipping post-processing validation.' );
 			$this->update_migration_status( 'migration_completed' );
-
+			$this->log_elapsed_time( 'Post Processor', $start_time );
 			return;
 		}
 
@@ -74,7 +75,7 @@ class Post_Processor {
 		if ( empty( $migration_data['categories'] ) ) {
 			Logger::log( 'warning', 'No migration data found. Cannot validate migration results.' );
 			$this->update_migration_status( 'migration_failed' );
-
+			$this->log_elapsed_time( 'Post Processor', $start_time );
 			return;
 		}
 
@@ -109,5 +110,6 @@ class Post_Processor {
 			Logger::log( 'info', 'Migration verification successful. Marking migration as completed.' );
 			$this->update_migration_status( 'migration_completed' );
 		}
+		$this->log_elapsed_time( 'Post Processor', $start_time );
 	}
 }

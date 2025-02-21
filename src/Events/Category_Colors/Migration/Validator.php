@@ -41,6 +41,7 @@ class Validator {
 	 * @return bool True if validation passes, false otherwise.
 	 */
 	public function validate(): bool {
+		$start_time = $this->start_timer();
 		$this->update_migration_status( 'validation_in_progress' ); // Set migration status to validation started.
 
 		/**
@@ -65,6 +66,7 @@ class Validator {
 
 		foreach ( $validation_steps as [$step_name, $validation_step] ) {
 			if ( ! $this->run_validation_step( $validation_step, $step_name ) ) {
+				$this->log_elapsed_time( 'Validation', $start_time );
 				return false; // Stop execution if any validation step fails.
 			}
 		}
@@ -79,7 +81,7 @@ class Validator {
 		 * @param bool $success True if validation passed, false otherwise.
 		 */
 		do_action( 'tec_events_category_colors_migration_validator_end', true );
-
+		$this->log_elapsed_time( 'Validation', $start_time );
 		return true;
 	}
 

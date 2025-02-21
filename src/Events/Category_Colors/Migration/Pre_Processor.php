@@ -43,6 +43,7 @@ class Pre_Processor {
 	 * @return array<string, mixed> Processed settings and valid category colors.
 	 */
 	public function process(): array {
+		$start_time = $this->start_timer();
 		$this->update_migration_status( 'in_progress' ); // Set migration to in_progress.
 
 		/**
@@ -69,7 +70,7 @@ class Pre_Processor {
 			 * @param bool                 $success        Whether processing was successful.
 			 */
 			do_action( 'tec_events_category_colors_migration_preprocessor_end', $this->expected_structure, false );
-
+			$this->log_elapsed_time( 'Preprocessing', $start_time );
 			return $this->expected_structure;
 		}
 
@@ -97,6 +98,8 @@ class Pre_Processor {
 		do_action( 'tec_events_category_colors_migration_preprocessor_end', $migration_data, true );
 
 		Logger::log( 'info', 'Preprocessing complete. Migration data prepared.' );
+
+		$this->log_elapsed_time( 'Preprocessing', $start_time );
 
 		return $migration_data;
 	}

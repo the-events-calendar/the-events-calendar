@@ -61,17 +61,18 @@ class Migration_Process {
 	public function migrate( bool $dry_run = false ): void {
 		Logger::clear_logs();
 		$this->dry_run = $dry_run;
+		$start_time    = $this->start_timer();
 
 		if ( $this->is_migration_complete() ) {
 			Logger::log( 'info', 'Migration has already been completed.' );
-
+			$this->log_elapsed_time( 'Migration Process', $start_time );
 			return;
 		}
 
 		// Prevent running if migration is already in progress.
 		if ( 'execution_in_progress' === $this->get_status() ) {
 			Logger::log( 'info', 'Migration is already in progress.' );
-
+			$this->log_elapsed_time( 'Migration Process', $start_time );
 			return;
 		}
 
@@ -91,6 +92,7 @@ class Migration_Process {
 				return;
 			}
 		}
+		$this->log_elapsed_time( 'Migration Process', $start_time );
 	}
 
 	/**

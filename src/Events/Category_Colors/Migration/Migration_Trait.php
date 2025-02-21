@@ -269,4 +269,27 @@ trait Migration_Trait {
 		 */
 		do_action( 'tec_events_category_colors_migration_reset' );
 	}
+
+	/**
+	 * Starts a timer for tracking execution time.
+	 *
+	 * @since TBD
+	 * @return float The start time in microseconds.
+	 */
+	protected function start_timer(): float {
+		return microtime( true );
+	}
+
+	/**
+	 * Logs the elapsed time for a migration step.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $step       The name of the step (e.g., "Preprocessing", "Validation").
+	 * @param float  $start_time The timestamp when the step started.
+	 */
+	protected function log_elapsed_time( string $step, float $start_time ): void {
+		$elapsed_time = number_format( microtime( true ) - $start_time, 3 );
+		Logger::log( 'info', sprintf( '[Statistics] %s: duration: %s seconds.', $step, $elapsed_time ) );
+	}
 }
