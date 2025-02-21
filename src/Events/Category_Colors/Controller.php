@@ -38,24 +38,13 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->container->bind( Event_Category_Meta::class );
 		$this->container->singleton( Pre_Processor::class );
 		$this->container->singleton( Validator::class );
 		$this->container->singleton( Migration_Runner::class );
 		$this->container->singleton( Post_Processor::class );
 		$this->container->singleton( Logger::class );
 		$this->container->singleton( Migration_Process::class );
-
 		$this->add_filters();
-	}
-
-	/**
-	 * Unhooks actions and filters.
-	 *
-	 * @since TBD
-	 */
-	public function unregister(): void {
-		$this->remove_filters();
 	}
 
 	/**
@@ -68,11 +57,12 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Removes registered filters.
+	 * Unhooks actions and filters.
 	 *
 	 * @since TBD
 	 */
-	public function remove_filters() {}
+	public function unregister(): void {
+	}
 
 	/**
 	 * @TODO  - Remove when not needed anymore.

@@ -3,7 +3,7 @@
  * Event_Category_Meta class for taxonomy meta.
  * Handles metadata for terms within the `tribe_events_cat` taxonomy.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -23,7 +23,7 @@ use WP_Error;
  * associated with event categories. It ensures that only valid terms within
  * the `tribe_events_cat` taxonomy can have metadata operations performed on them.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -48,15 +48,6 @@ class Event_Category_Meta {
 	protected int $term_id;
 
 	/**
-	 * Stores pending metadata updates before saving.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	protected array $pending_meta = [];
-
-	/**
 	 * Stores pending metadata deletions before saving.
 	 *
 	 * @since TBD
@@ -75,15 +66,17 @@ class Event_Category_Meta {
 	protected array $pending_updates = [];
 
 	/**
-	 * Constructor.
-	 * Ensures the term belongs to `tribe_events_cat` before initializing.
+	 * Sets the term ID for the instance, ensuring it exists within the taxonomy.
 	 *
 	 * @since TBD
-	 * @throws InvalidArgumentException Thrown when an invalid term ID is provided or the term does not exist.
 	 *
-	 * @param int $term_id The term ID.
+	 * @throws InvalidArgumentException If the term ID is invalid or does not exist in the taxonomy.
+	 *
+	 * @param int $term_id The term ID to be set.
+	 *
+	 * @return self Returns the current instance for method chaining.
 	 */
-	public function __construct( int $term_id ) {
+	public function set_term( int $term_id ): self {
 		if ( $term_id <= 0 ) {
 			throw new InvalidArgumentException( __( 'Invalid term ID.', 'the-events-calendar' ) );
 		}
@@ -98,6 +91,42 @@ class Event_Category_Meta {
 		}
 
 		$this->term_id = $term_id;
+
+		return $this;
+	}
+
+	/**
+	 * Retrieves metadata for the term.
+	 *
+	 * @since TBD
+	 *
+	 * @throws InvalidArgumentException If the key is invalid.
+	 *
+	 * @param string|null $key Optional. The meta key to retrieve.
+	 *
+	 * @return mixed The meta value, or an array of all metadata if no key is provided.
+	 */
+	public function get( ?string $key = null ) {
+		$this->ensure_term_is_set();
+		if ( null === $key ) {
+			$all_meta = get_term_meta( $this->term_id );
+
+			foreach ( $all_meta as $meta_key => &$value ) {
+				$value = $this->normalize_meta( $meta_key, $value );
+			}
+
+			return $all_meta;
+		}
+
+		$key = $this->validate_key( $key );
+
+		if ( is_wp_error( $key ) ) {
+			throw new InvalidArgumentException( $key->get_error_message() );
+		}
+
+		return metadata_exists( 'term', $this->term_id, $key )
+			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, false ) )
+			: null;
 	}
 
 	/**
@@ -105,18 +134,24 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the key or value is invalid.
+	 *
 	 * @param string $key   The meta key to update.
 	 * @param mixed  $value The value to store.
 	 *
-	 * @return $this Returns the instance for chaining.
+	 * @return self
 	 */
 	public function set( string $key, $value ): self {
+		$this->ensure_term_is_set();
 		$key   = $this->validate_key( $key );
 		$value = $this->validate_value( $value );
 
-		// If key or value is invalid, skip but don't break chaining.
-		if ( is_wp_error( $key ) || is_wp_error( $value ) ) {
-			return $this;
+		if ( is_wp_error( $key ) ) {
+			throw new InvalidArgumentException( $key->get_error_message() );
+		}
+
+		if ( is_wp_error( $value ) ) {
+			throw new InvalidArgumentException( $value->get_error_message() );
 		}
 
 		$this->pending_updates[ $key ] = $value;
@@ -129,18 +164,24 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the key is invalid.
+	 *
 	 * @param string $key The meta key to delete.
 	 *
-	 * @return $this|wp_error  Returns the instance for chaining.
+	 * @return self
 	 */
 	public function delete( string $key ): self {
+		$this->ensure_term_is_set();
 		$key = $this->validate_key( $key );
 
 		if ( is_wp_error( $key ) ) {
-			return $key;
+			throw new InvalidArgumentException( $key->get_error_message() );
 		}
 
 		$this->pending_deletes[] = $key;
+
+		// Remove from pending updates in case it was set before.
+		unset( $this->pending_updates[ $key ] );
 
 		return $this;
 	}
@@ -153,6 +194,11 @@ class Event_Category_Meta {
 	 * @return $this
 	 */
 	public function save(): self {
+		$this->ensure_term_is_set();
+		foreach ( $this->pending_deletes as $key ) {
+			delete_term_meta( $this->term_id, $key );
+		}
+
 		foreach ( $this->pending_updates as $key => $value ) {
 			update_term_meta( $this->term_id, $key, $value );
 		}
@@ -166,33 +212,6 @@ class Event_Category_Meta {
 		$this->pending_deletes = [];
 
 		return $this;
-	}
-
-	/**
-	 * Retrieves metadata for the term.
-	 *
-	 * @since TBD
-	 *
-	 * @param string|null $key Optional. The meta key to retrieve.
-	 *
-	 * @return mixed The meta value, or an array of all metadata if no key is provided.
-	 */
-	public function get( ?string $key = null ) {
-		if ( null === $key ) {
-			$all_meta = get_term_meta( $this->term_id );
-
-			foreach ( $all_meta as $meta_key => &$value ) {
-				$value = $this->normalize_meta( $meta_key, $value );
-			}
-
-			return $all_meta;
-		}
-
-		$key = $this->validate_key( $key );
-
-		return metadata_exists( 'term', $this->term_id, $key )
-			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, false ) )
-			: null;
 	}
 
 	/**
@@ -267,5 +286,19 @@ class Event_Category_Meta {
 		 * @return mixed The filtered meta value.
 		 */
 		return apply_filters( 'tec_events_category_validate_meta_value', $value, $this->term_id );
+	}
+
+	/**
+	 * Ensures that a term ID is set before performing operations.
+	 *
+	 * @since TBD
+	 *
+	 * @throws InvalidArgumentException If `set_term()` has not been called before using methods that require it.
+	 */
+	protected function ensure_term_is_set(): void {
+		if ( isset( $this->term_id ) ) {
+			return;
+		}
+		throw new InvalidArgumentException( __( 'set_term() must be called before using this method.', 'the-events-calendar' ) );
 	}
 }
