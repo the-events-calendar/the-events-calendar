@@ -13,6 +13,7 @@
 namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\Settings\Settings;
 
 /**
  * Class Controller
@@ -29,13 +30,29 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
+		$this->add_hooks();
 	}
+
+	/**
+	 * Adds the filters required.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {}
 
 	/**
 	 * Unhooks actions and filters.
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {
+	public function unregister(): void {}
+
+	/**
+	 * Add Hooks
+	 *
+	 * @return void
+	 */
+	protected function add_hooks() {
+		$this->container->make( Settings::class )->add_hooks();
 	}
 }
