@@ -105,7 +105,6 @@ class Event_Category_Meta {
 	 * @param string|null $key Optional. The meta key to retrieve.
 	 *
 	 * @return mixed The meta value, or an array of all metadata if no key is provided.
-	 *
 	 */
 	public function get( ?string $key = null ) {
 		$this->ensure_term_is_set();
