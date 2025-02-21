@@ -3,7 +3,7 @@
  * Event_Category_Meta class for taxonomy meta.
  * Handles metadata for terms within the `tribe_events_cat` taxonomy.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -23,7 +23,7 @@ use WP_Error;
  * associated with event categories. It ensures that only valid terms within
  * the `tribe_events_cat` taxonomy can have metadata operations performed on them.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -70,9 +70,9 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $term_id The term ID to be set.
-	 *
 	 * @throws InvalidArgumentException If the term ID is invalid or does not exist in the taxonomy.
+	 *
+	 * @param int $term_id The term ID to be set.
 	 *
 	 * @return self Returns the current instance for method chaining.
 	 */
@@ -91,6 +91,7 @@ class Event_Category_Meta {
 		}
 
 		$this->term_id = $term_id;
+
 		return $this;
 	}
 
@@ -99,13 +100,15 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the key is invalid.
+	 *
 	 * @param string|null $key Optional. The meta key to retrieve.
 	 *
 	 * @return mixed The meta value, or an array of all metadata if no key is provided.
 	 *
-	 * @throws InvalidArgumentException If the key is invalid.
 	 */
 	public function get( ?string $key = null ) {
+		$this->ensure_term_is_set();
 		if ( null === $key ) {
 			$all_meta = get_term_meta( $this->term_id );
 
@@ -140,6 +143,7 @@ class Event_Category_Meta {
 	 * @return self
 	 */
 	public function set( string $key, $value ): self {
+		$this->ensure_term_is_set();
 		$key   = $this->validate_key( $key );
 		$value = $this->validate_value( $value );
 
@@ -168,6 +172,7 @@ class Event_Category_Meta {
 	 * @return self
 	 */
 	public function delete( string $key ): self {
+		$this->ensure_term_is_set();
 		$key = $this->validate_key( $key );
 
 		if ( is_wp_error( $key ) ) {
@@ -277,5 +282,18 @@ class Event_Category_Meta {
 		 * @return mixed The filtered meta value.
 		 */
 		return apply_filters( 'tec_events_category_validate_meta_value', $value, $this->term_id );
+	}
+
+	/**
+	 * Ensures that a term ID is set before performing operations.
+	 *
+	 * @since TBD
+	 *
+	 * @throws InvalidArgumentException If `set_term()` has not been called before using methods that require it.
+	 */
+	protected function ensure_term_is_set(): void {
+		if ( ! isset( $this->term_id ) ) {
+			throw new InvalidArgumentException( __( 'set_term() must be called before using this method.', 'the-events-calendar' ) );
+		}
 	}
 }

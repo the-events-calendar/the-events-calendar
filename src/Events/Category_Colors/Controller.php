@@ -29,7 +29,6 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->container->bind( Event_Category_Meta::class );
 	}
 
 	/**

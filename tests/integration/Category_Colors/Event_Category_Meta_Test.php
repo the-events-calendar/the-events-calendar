@@ -52,6 +52,58 @@ class EventCategoryMeta_Test extends WPTestCase {
 	}
 
 	/** @test */
+	public function it_should_throw_an_error_when_set_is_called_without_set_term() {
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'set_term() must be called before using this method.' );
+
+		$meta = tribe( Meta::class );
+		$meta->set( 'primary', '#ff0000' );
+	}
+
+	/** @test */
+	public function it_should_throw_an_error_when_get_is_called_without_set_term() {
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'set_term() must be called before using this method.' );
+
+		$meta = tribe( Meta::class );
+		$meta->get( 'primary' );
+	}
+
+	/** @test */
+	public function it_should_throw_an_error_when_delete_is_called_without_set_term() {
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'set_term() must be called before using this method.' );
+
+		$meta = tribe( Meta::class );
+		$meta->delete( 'primary' );
+	}
+
+	/** @test */
+	public function it_should_allow_setting_meta_after_set_term_is_called() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+		$meta->set( 'primary', '#ff0000' )->save();
+
+		$this->assertEquals( '#ff0000', $meta->get( 'primary' ) );
+	}
+
+	/** @test */
+	public function it_should_allow_deleting_meta_after_set_term_is_called() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+		$meta->set( 'primary', '#ff0000' )->save();
+		$meta->delete( 'primary' )->save();
+
+		$this->assertNull( $meta->get( 'primary' ) );
+	}
+
+	/** @test */
+	public function it_should_allow_getting_meta_after_set_term_is_called() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+		$meta->set( 'primary', '#ff0000' )->save();
+
+		$this->assertEquals( '#ff0000', $meta->get( 'primary' ) );
+	}
+
+	/** @test */
 	public function it_should_queue_meta_updates_and_save_them() {
 		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
 
@@ -117,8 +169,8 @@ class EventCategoryMeta_Test extends WPTestCase {
 
 	/** @test */
 	public function it_should_throw_an_error_when_invalid_key_is_passed() {
-		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage('Meta key cannot be empty.');
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'Meta key cannot be empty.' );
 
 		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
 
