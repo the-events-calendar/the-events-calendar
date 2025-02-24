@@ -1,8 +1,26 @@
 <?php
+/**
+ * Handles error tracking for the category color migration process.
+ * This class provides a centralized way to store, retrieve, and clear
+ * errors encountered during migration execution.
+ *
+ * @since   TBD
+ * @package TEC\Events\Category_Colors\Migration
+ */
 
 namespace TEC\Events\Category_Colors\Migration;
 
+/**
+ * Class Errors
+ *
+ * Manages a static collection of errors encountered during the migration process.
+ * This class allows tracking, retrieving, and clearing errors in a structured way.
+ *
+ * @since TBD
+ * @package TEC\Events\Category_Colors\Migration
+ */
 class Errors {
+
 
 	/**
 	 * Stores recorded errors across all instances.
