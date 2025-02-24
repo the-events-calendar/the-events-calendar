@@ -122,10 +122,10 @@ class Migration_Runner {
 			return;
 		}
 
-		$this->log_existing_meta( (array) $migration_data['categories'] ); // Log existing category meta.
+		$this->log_existing_meta( $migration_data['categories'] ); // Log existing category meta.
 
 		$this->insert_category_meta( $migration_data['categories'] );
-		if ( empty( $migration_data['settings'] ) ) {
+		if ( ! empty( $migration_data['settings'] ) ) {
 			$this->insert_settings( $migration_data['settings'] );
 		}
 
