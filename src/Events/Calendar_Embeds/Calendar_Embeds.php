@@ -34,7 +34,7 @@ class Calendar_Embeds {
 	 *
 	 * @var string
 	 */
-	public static $meta_key_categories = 'event_categories';
+	const META_KEY_CATEGORIES = 'event_categories';
 
 	/**
 	 * The meta key for storing the event tags.
@@ -43,7 +43,7 @@ class Calendar_Embeds {
 	 *
 	 * @var string
 	 */
-	public static $meta_key_tags = 'event_tags';
+	const META_KEY_TAGS = 'event_tags';
 
 	/**
 	 * Stores the hook suffix from `add_submenu_page`.

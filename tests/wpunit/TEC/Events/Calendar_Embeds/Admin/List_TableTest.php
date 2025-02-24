@@ -56,7 +56,7 @@ class List_TableTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( 'All Tags', $tag_output );
 
 		// Add categories and tags via meta.
-		update_post_meta( $post_id, Calendar_Embeds::$meta_key_categories, [
+		update_post_meta( $post_id, Calendar_Embeds::META_KEY_CATEGORIES, [
 			[
 				'id' => 1,
 				'name' => 'Category 1',
@@ -66,7 +66,7 @@ class List_TableTest extends \Codeception\TestCase\WPTestCase {
 				'name' => 'Category 2',
 			],
 		 ] );
-		update_post_meta( $post_id, Calendar_Embeds::$meta_key_tags, [
+		update_post_meta( $post_id, Calendar_Embeds::META_KEY_TAGS, [
 			[
 				'id' => 1,
 				'name' => 'Tag 1',

@@ -74,7 +74,7 @@ class List_Table {
 		switch ( $column_name ) {
 			case 'event_categories':
 				// Get events categores from post meta.
-				$categories = get_post_meta( $post_id, Calendar_Embeds::$meta_key_categories, true );
+				$categories = get_post_meta( $post_id, Calendar_Embeds::META_KEY_CATEGORIES, true );
 				if ( ! empty( $categories ) ) {
 					$categories = wp_list_pluck( $categories, 'name' );
 					echo esc_html( implode( ', ', $categories ) );
@@ -84,7 +84,7 @@ class List_Table {
 				break;
 			case 'event_tags':
 				// Get events tags from post meta.
-				$tags = get_post_meta( $post_id, Calendar_Embeds::$meta_key_tags, true );
+				$tags = get_post_meta( $post_id, Calendar_Embeds::META_KEY_TAGS, true );
 				if ( ! empty( $tags ) ) {
 					$tags = wp_list_pluck( $tags, 'name' );
 					echo esc_html( implode( ', ', $tags ) );
