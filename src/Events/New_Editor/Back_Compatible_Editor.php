@@ -2,7 +2,8 @@
 /**
  * An Editor implementation providing the feature detection methods required by existing implementations.
  *
- * This is used by the feature to replace the legacy `editor` binding in the container.
+ * This is used by the feature to replace the legacy `editor`, `events.editor` and `events.editor.compatibility` bindings
+ * in the container.
  *
  * @since   TBD
  *
@@ -31,7 +32,7 @@ class Back_Compatible_Editor {
 	 * @return bool Whether the Block Editor is being used.
 	 */
 	public function should_load_blocks(): bool {
-		return true;
+		return false;
 	}
 
 	/**
@@ -43,6 +44,14 @@ class Back_Compatible_Editor {
 	 * @return bool Hard-coded false to mean "never load legacy blocks on Events".
 	 */
 	public function is_events_using_blocks():bool{
-		return true;
+		return false;
+	}
+
+	public function is_blocks_editor_toggled_on():bool{
+		return false;
+	}
+
+	public function is_events_post_type():bool{
+		return false;
 	}
 }

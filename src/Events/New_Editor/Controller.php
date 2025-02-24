@@ -41,7 +41,10 @@ class Controller extends ControllerContract {
 	 */
 	protected function do_register(): void {
 		// Register the `editor` binding replacement for back-compatibility purposes.
-		$this->container->singleton( 'editor', Back_Compatible_Editor::class );
+		$back_compatible_editor = new Back_Compatible_Editor();
+		$this->container->singleton( 'editor', $back_compatible_editor );
+		$this->container->singleton( 'events.editor', $back_compatible_editor );
+		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 
 		// We're replacing the editor and loading the Block Editor in a controller mode.
 		add_filter( 'replace_editor', [ $this, 'replace_editor' ], 20, 2 );
