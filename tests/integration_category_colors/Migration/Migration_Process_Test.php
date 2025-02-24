@@ -11,6 +11,7 @@ use Tribe\Tests\Traits\With_Uopz;
 class Migration_Process_Test extends WPTestCase {
 	use With_Uopz;
 	use With_Clock_Mock;
+	use Migration_Trait;
 
 	/**
 	 * @before
@@ -42,8 +43,13 @@ class Migration_Process_Test extends WPTestCase {
 
 	/**
 	 * Generates test terms and options dynamically.
+	 *
+	 * @param int  $num_categories   Number of categories to generate.
+	 * @param bool $include_settings Whether to include settings data for migration.
+	 *
+	 * @return array<int, int> Array of term IDs indexed by slug.
 	 */
-	protected function generate_test_data( int $num_categories = 3 ): array {
+	protected function generate_test_data( int $num_categories = 3, bool $include_settings = false ): array {
 		$terms         = [];
 		$teccc_options = [
 			'terms'     => [],
@@ -53,9 +59,9 @@ class Migration_Process_Test extends WPTestCase {
 		for ( $i = 1; $i <= $num_categories; $i++ ) {
 			$slug       = "category{$i}";
 			$name       = "Category {$i}";
-			$border     = sprintf( "#%06X", mt_rand( 0, 0xFFFFFF ) );
-			$background = sprintf( "#%06X", mt_rand( 0, 0xFFFFFF ) );
-			$text       = mt_rand( 0, 1 ) ? 'no_color' : sprintf( "#%06X", mt_rand( 0, 0xFFFFFF ) );
+			$border     = sprintf( '#%06X', wp_rand( 0, 0xFFFFFF ) );
+			$background = sprintf( '#%06X', wp_rand( 0, 0xFFFFFF ) );
+			$text       = wp_rand( 0, 1 ) ? 'no_color' : sprintf( '#%06X', wp_rand( 0, 0xFFFFFF ) );
 
 			$term = wp_insert_term( $name, 'tribe_events_cat', [ 'slug' => $slug ] );
 			if ( is_wp_error( $term ) || ! isset( $term['term_id'] ) ) {
@@ -71,14 +77,23 @@ class Migration_Process_Test extends WPTestCase {
 			$teccc_options["{$slug}_text"]          = $text;
 		}
 
-		$required_keys = [
-			'add_legend'  => 'legend',
-			'reset_show'  => 'general',
-			'font_weight' => 'general',
-		];
-
-		foreach ( $required_keys as $key => $group ) {
-			$teccc_options[ $key ] = '';
+		if ( $include_settings ) {
+			foreach ( $this->settings_mapping as $old_key => $mapping ) {
+				if ( $mapping['import'] ) {
+					// Assign random or default values for settings being imported.
+					switch ( $mapping['validation'] ) {
+						case 'boolean':
+							$teccc_options[ $old_key ] = (bool) wp_rand( 0, 1 );
+							break;
+						case 'array':
+							$teccc_options[ $old_key ] = [ 'sample_value' ];
+							break;
+						default:
+							$teccc_options[ $old_key ] = 'sample_value';
+							break;
+					}
+				}
+			}
 		}
 
 		update_option( 'teccc_options', $teccc_options );
@@ -659,4 +674,106 @@ class Migration_Process_Test extends WPTestCase {
 		);
 	}
 
+	/**
+	 * @test
+	 */
+	public function it_correctly_stores_migrated_settings_in_tribe_events_calendar_options(): void {
+		// Step 1: Ensure mapped settings do not exist before migration.
+		$calendar_options = get_option( 'tribe_events_calendar_options', [] );
+		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+			if ( $mapping['import'] ) {
+				$this->assertArrayNotHasKey(
+					$mapping['mapped_key'],
+					$calendar_options,
+					"Mapped key '{$mapping['mapped_key']}' should not exist before migration."
+				);
+			}
+		}
+
+		// Step 2: Generate test data and run the migration.
+		$this->generate_test_data( 5, true );
+		tribe( Migration_Process::class )->migrate();
+
+		// Step 3: Retrieve updated calendar options and verify imported values.
+		$updated_options = get_option( 'tribe_events_calendar_options', [] );
+
+		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+			if ( ! $mapping['import'] ) {
+				// Skip settings that should not be imported.
+				continue;
+			}
+
+			$mapped_key     = $mapping['mapped_key'];
+			$expected_value = get_option( 'teccc_options', [] )[ $old_key ] ?? null;
+
+			$this->assertArrayHasKey(
+				$mapped_key,
+				$updated_options,
+				"Mapped key '{$mapped_key}' should exist in tribe_events_calendar_options."
+			);
+
+			$this->assertSame(
+				$expected_value,
+				$updated_options[ $mapped_key ] ?? null,
+				"Mismatch in stored value for '{$mapped_key}'."
+			);
+		}
+	}
+	/**
+	 * @test
+	 */
+	public function it_handles_empty_teccc_options_gracefully(): void {
+		// Ensure `teccc_options` is empty before migration.
+		delete_option( 'teccc_options' );
+
+		// Run the migration.
+		tribe( Migration_Process::class )->migrate();
+
+		// Verify that migration status is completed and no unexpected data is stored.
+		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$this->assertSame( 'preprocess_skipped', $migration_status['status'] ?? '', 'Migration should be skipped when there are no options.' );
+
+		// Check that no unexpected settings were stored.
+		$calendar_options = get_option( 'tribe_events_calendar_options', [] );
+		foreach ( $this->settings_mapping as $mapping ) {
+			if ( $mapping['import'] ) {
+				$this->assertArrayNotHasKey(
+					$mapping['mapped_key'],
+					$calendar_options,
+					"Mapped key '{$mapping['mapped_key']}' should not exist when no prior settings were available."
+				);
+			}
+		}
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_does_not_override_existing_settings_in_calendar_options(): void {
+		// Prepopulate `tribe_events_calendar_options` with existing settings.
+		$existing_options = [
+			'category-color-legend-show' => 'existing_value',
+			'category-color-custom-CSS' => true,
+		];
+		update_option( 'tribe_events_calendar_options', $existing_options );
+
+		// Generate test data and run migration.
+		$this->generate_test_data( 5, true );
+		tribe( Migration_Process::class )->migrate();
+
+		// Fetch updated options.
+		$updated_options = get_option( 'tribe_events_calendar_options', [] );
+
+		// Ensure existing values were NOT overwritten.
+		$this->assertSame(
+			'existing_value',
+			$updated_options['category-color-legend-show'] ?? null,
+			'Existing setting should not have been overwritten.'
+		);
+
+		$this->assertTrue(
+			$updated_options['category-color-custom-CSS'] ?? false,
+			'Existing boolean setting should not have been changed.'
+		);
+	}
 }
