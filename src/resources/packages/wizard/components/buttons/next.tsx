@@ -75,11 +75,11 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 				});
 
 				if ( tabSettings.currentTab === 5 ) {
-					// If we've already installed Event Tickets, temporarily hide the button to install Event Tickets.
+					// If we've already installed Event Tickets, temporarily remove the button to install Event Tickets.
 					const installButton = document.querySelector('.tec-event-tickets-install-button');
 
 					if ( installButton ) {
-						installButton.style.display = 'none';
+						installButton.parentNode.removeChild( installButton);
 					}
 				}
 
