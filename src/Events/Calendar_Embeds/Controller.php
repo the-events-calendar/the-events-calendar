@@ -25,6 +25,8 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->singleton( Calendar_Embeds::class );
+		$this->container->singleton( Admin\List_Table::class );
+		$this->container->singleton( Admin\Page::class );
 
 		$this->add_actions();
 		$this->add_filters();
@@ -46,8 +48,37 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function add_actions() {
-		add_action( 'init', [ $this, 'register_post_type' ] );
-		add_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		add_action(
+			'init',
+			[
+				$this->container->make( Calendar_Embeds::class ),
+				'register_post_type',
+			]
+		);
+		add_action(
+			'admin_menu',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_menu_item',
+			],
+			11
+		);
+		add_action(
+			'admin_init',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_assets',
+			]
+		);
+		add_action(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_column_content',
+			],
+			10,
+			2
+		);
 	}
 
 	/**
@@ -58,8 +89,36 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function remove_actions() {
-		remove_action( 'init', [ $this, 'register_post_type' ] );
-		remove_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		remove_action(
+			'init',
+			[
+				$this->container->make( Calendar_Embeds::class ),
+				'register_post_type',
+			]
+		);
+		remove_action(
+			'admin_menu',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_menu_item',
+			],
+			11
+		);
+		remove_action(
+			'admin_init',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_assets',
+			]
+		);
+		remove_action(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_column_content',
+			],
+			10
+		);
 	}
 
 	/**
@@ -70,7 +129,20 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function add_filters() {
-		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
+		add_filter(
+			'submenu_file',
+			[
+				$this->container->make( Admin\Page::class ),
+				'keep_parent_menu_open',
+			]
+		);
+		add_filter(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_columns',
+			]
+		);
 	}
 
 	/**
@@ -81,41 +153,19 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function remove_filters() {
-		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
-	}
-
-	/**
-	 * Register custom post type.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function register_post_type() {
-		$this->container->make( Calendar_Embeds::class )->register_post_type();
-	}
-
-	/**
-	 * Create menu item.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function register_menu_item() {
-		$this->container->make( Calendar_Embeds::class )->register_menu_item();
-	}
-
-	/**
-	 * Keep parent menu open when viewing the calendar embeds page.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $submenu_file The submenu file.
-	 *
-	 * @return string
-	 */
-	public function keep_parent_menu_open( $submenu_file ) {
-		return $this->container->make( Calendar_Embeds::class )->keep_parent_menu_open( $submenu_file );
+		remove_filter(
+			'submenu_file',
+			[
+				$this->container->make( Admin\Page::class ),
+				'keep_parent_menu_open',
+			]
+		);
+		remove_filter(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_columns',
+			]
+		);
 	}
 }

@@ -22,6 +22,7 @@ class Tribe__Events__Assets {
 		add_action( 'admin_enqueue_scripts', [ $this, 'dequeue_incompatible' ], 200 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_admin' ] );
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 10, 2 );
+		add_action( 'tribe_common_loaded', [ $this, 'configure_assets' ] );
 	}
 
 	/**
@@ -760,4 +761,14 @@ class Tribe__Events__Assets {
 		return array_merge( $sheets, $tec_sheets );
 	}
 
+	/**
+	 * Configure the group path for the resources assets folder.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function configure_assets() {
+		TEC\Common\StellarWP\Assets\Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path, 'src/resources/' );
+	}
 }
