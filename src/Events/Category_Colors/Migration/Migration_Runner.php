@@ -11,6 +11,7 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
+use Tribe__Events__Main;
 
 /**
  * Class Migration_Runner
@@ -271,7 +272,7 @@ class Migration_Runner {
 		}
 
 		// Fetch existing settings.
-		$existing_settings = get_option( 'tribe_events_calendar_options', [] );
+		$existing_settings = get_option( Tribe__Events__Main::OPTIONNAME, [] );
 
 		if ( ! is_array( $existing_settings ) ) {
 			Logger::log( 'error', 'Existing settings are not an array. Skipping migration to prevent corruption.' );
@@ -302,7 +303,7 @@ class Migration_Runner {
 				Logger::log( 'info', "[DRY RUN] Would update `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );
 			}
 		} else {
-			update_option( 'tribe_events_calendar_options', array_merge( $existing_settings, $new_settings ) );
+			update_option( Tribe__Events__Main::OPTIONNAME, array_merge( $existing_settings, $new_settings ) );
 
 			foreach ( $new_settings as $key => $value ) {
 				Logger::log( 'info', "Updated `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );

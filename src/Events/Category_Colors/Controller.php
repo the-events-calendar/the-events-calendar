@@ -150,9 +150,8 @@ class Controller extends Controller_Contract {
 
 		echo '<h3>Inserted Meta Data:</h3><textarea>' . print_r( $meta_data, true ) . '</textarea>';
 
-		// TODO: Output migrated options once implemented.
-		echo '<h3>TODO: Output migrated options</h3>';
-
+		$migrated_options = get_option('tribe_events_calendar_options',[]);
+		echo '<h3> Output migrated options</h3><textarea>' . print_r( $migrated_options, true ).'</textarea>';
 		// Terminate execution.
 		exit;
 		// phpcs:enable
