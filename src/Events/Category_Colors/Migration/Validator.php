@@ -41,6 +41,7 @@ class Validator {
 	 * @return bool True if validation passes, false otherwise.
 	 */
 	public function validate(): bool {
+		Errors::clear_errors();
 		$start_time = $this->start_timer();
 		$this->update_migration_status( 'validation_in_progress' ); // Set migration status to validation started.
 
@@ -98,8 +99,8 @@ class Validator {
 	protected function run_validation_step( callable $validation_step, string $step_name = 'Unknown Step' ): bool {
 		$validation_step();
 
-		if ( Logger::has_logs( 'error' ) ) {
-			Logger::log( 'error', "Validation failed at step: {$step_name}. Stopping further processing." );
+		if ( Errors::has_errors() ) {
+			$this->log_message( 'error', "Validation failed at step: {$step_name}. Stopping further processing.", [], 'Validator' );
 			$this->update_migration_status( 'validation_failed' );
 
 			return false;
@@ -119,27 +120,22 @@ class Validator {
 	 */
 	protected function validate_structure( array $migration_data ): void {
 		if ( empty( $migration_data ) ) {
-			Logger::log( 'error', 'Migration contains no data.' );
-
+			$this->log_message( 'error', 'Migration contains no data.', $migration_data, 'Validator' );
 			return;
 		}
 		if ( ! [ $migration_data['categories'] ] ) {
-			Logger::log( 'error', 'Migration Categories should be an array, found ' . gettype( $migration_data['categories'] ) . '.' );
-
+			$this->log_message( 'error', 'Migration Categories should be an array, found ' . gettype( $migration_data['categories'] ) . '.', [], 'Validator' );
 			return;
 		}
 		foreach ( $this->expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
-				Logger::log( 'error', "Invalid or missing key: '{$key}' in migration data." );
-
+				$this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [], 'Validator' );
 				return;
 			}
 		}
 
 		if ( isset( $migration_data['ignored_terms'] ) && ! is_array( $migration_data['ignored_terms'] ) ) {
-			Logger::log( 'error', "'ignored_terms' should be an array, found " . gettype( $migration_data['ignored_terms'] ) . '.' );
-
-			return;
+			$this->log_message( 'error', "'ignored_terms' should be an array, found " . gettype( $migration_data['ignored_terms'] ) . '.', [], 'Validator' );
 		}
 	}
 
@@ -162,7 +158,7 @@ class Validator {
 		);
 
 		if ( is_wp_error( $valid_categories ) ) {
-			Logger::log( 'error', 'Error fetching existing categories: ' . $valid_categories->get_error_message() );
+			$this->log_message( 'error', 'Error fetching existing categories: ' . $valid_categories->get_error_message(), [], 'Validator' );
 
 			return;
 		}
@@ -171,7 +167,7 @@ class Validator {
 
 		foreach ( $categories as $category_id => $_ ) {
 			if ( ! in_array( $category_id, $valid_categories, true ) ) {
-				Logger::log( 'warning', "Category with ID {$category_id} does not exist in the taxonomy. Skipping." );
+				$this->log_message( 'warning', "Category with ID {$category_id} does not exist in the taxonomy. Skipping.", [], 'Validator' );
 			}
 		}
 	}
@@ -186,8 +182,7 @@ class Validator {
 		$original_settings = $this->get_original_settings();
 
 		if ( empty( $original_settings ) ) {
-			Logger::log( 'error', 'Original settings are empty, cannot validate migration.' );
-
+			$this->log_message( 'error', 'Original settings are empty, cannot validate migration.', [], 'Validator' );
 			return;
 		}
 
@@ -200,7 +195,7 @@ class Validator {
 			$category_id = $this->extract_category_id( $key );
 
 			if ( null !== $category_id && ! isset( $migration_data['categories'][ $category_id ] ) ) {
-				Logger::log( 'error', "Category '{$category_id}' is missing in migration data." );
+				$this->log_message( 'error', "Category '{$category_id}' is missing in migration data.", [], 'Validator' );
 			}
 		}
 	}
@@ -227,7 +222,7 @@ class Validator {
 				}
 
 				if ( ! in_array( $key, $expected_meta_keys, true ) ) {
-					Logger::log( 'error', "Invalid meta key '{$key}' found in category '{$category_id}' migration data." );
+					$this->log_message( 'error', "Invalid meta key '{$key}' found in category '{$category_id}' migration data.", [], 'Validator' );
 				}
 			}
 		}
@@ -245,11 +240,11 @@ class Validator {
 	protected function detect_unrecognized_keys( array $migration_data ): void {
 		foreach ( $migration_data as $section => $values ) {
 			if ( ! isset( $this->expected_structure[ $section ] ) ) {
-				Logger::log( 'error', "Unexpected section found: '{$section}' in migration data." );
+				$this->log_message( 'error', "Unexpected section found: '{$section}' in migration data.", [], 'Validator' );
 				continue;
 			}
 			if ( ! is_array( $values ) ) {
-				Logger::log( 'error', "Invalid structure for section '{$section}'. Expected array, got " . gettype( $values ) . '.' );
+				$this->log_message( 'error', "Invalid structure for section '{$section}'. Expected array, got " . gettype( $values ) . '.', [], 'Validator' );
 			}
 		}
 	}
@@ -283,7 +278,7 @@ class Validator {
 			}
 
 			if ( ! $exists ) {
-				Logger::log( 'warning', "Expected setting '{$mapped_key}' is missing in migration data." );
+				$this->log_message( 'warning', "Expected setting '{$mapped_key}' is missing in migration data.", [], 'Validator' );
 			}
 		}
 	}

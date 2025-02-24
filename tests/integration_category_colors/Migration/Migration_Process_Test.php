@@ -18,6 +18,7 @@ class Migration_Process_Test extends WPTestCase {
 	 */
 	public function setup_environment(): void {
 		parent::setUp();
+		Errors::clear_errors();
 		delete_option( 'teccc_options' );
 		delete_option( 'tec_category_colors_migration_data' );
 		delete_option( 'tec_events_category_colors_migration_status' );
@@ -27,6 +28,7 @@ class Migration_Process_Test extends WPTestCase {
 	 * @after
 	 */
 	public function cleanup_environment(): void {
+		Errors::clear_errors();
 		delete_option( 'teccc_options' );
 		delete_option( 'tec_category_colors_migration_data' );
 		delete_option( 'tec_events_category_colors_migration_status' );
@@ -308,9 +310,7 @@ class Migration_Process_Test extends WPTestCase {
 		try {
 			$runner = new Migration_Runner();
 			$runner->execute();
-		} catch ( \Exception $e ) {
-			Logger::log( 'error', 'Migration execution was interrupted.' );
-		}
+		} catch ( \Exception $e ) {}
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -446,24 +446,16 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Capture logs before running migration.
-		Logger::clear_logs();
+		Errors::clear_errors();
 
 		// Attempt to run migration again.
 		tribe( Migration_Process::class )->migrate();
 
 		// Retrieve the migration status after rerunning.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
-		$logs             = Logger::get_logs();
 
 		// Ensure the migration status has not changed.
 		$this->assertSame( 'migration_completed', $migration_status['status'] ?? '', 'Migration should not have been rerun after completion.' );
-
-		// Ensure a log entry was added indicating the migration was already completed.
-		$this->assertContains(
-			'Migration has already been completed.',
-			$logs['info'],
-			'Migration should log a message stating it was skipped due to prior completion.'
-		);
 	}
 
 	/**
@@ -483,60 +475,16 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Capture logs before running migration.
-		Logger::clear_logs();
+		Errors::clear_errors();
 
 		// Attempt to run migration again.
 		tribe( Migration_Process::class )->migrate();
 
 		// Retrieve the migration status after rerunning.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
-		$logs             = Logger::get_logs();
 
 		// Ensure the migration status has not changed.
 		$this->assertSame( 'execution_in_progress', $migration_status['status'] ?? '', 'Migration should not have been allowed to start while another is in progress.' );
-
-		// Ensure a log entry was added indicating that migration was already in progress.
-		$this->assertContains(
-			'Migration is already in progress.',
-			$logs['info'],
-			'Migration should log a message stating it was skipped due to an ongoing process.'
-		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_allows_rerun_only_if_reset(): void {
-		// Generate valid test data.
-		$this->generate_test_data( 5 );
-
-		// Mark migration as completed.
-		update_option(
-			'tec_events_category_colors_migration_status',
-			[
-				'status'    => 'migration_completed',
-				'timestamp' => current_time( 'mysql' ),
-			]
-		);
-
-		// Attempt to reset the migration.
-		$process = new Migration_Process();
-		$process->reset_migration();
-
-		// Retrieve migration status after reset.
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
-
-		// Ensure migration status is reset to 'not_started'.
-		$this->assertSame( 'not_started', $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
-
-		// Run migration again.
-		tribe( Migration_Process::class )->migrate();
-
-		// Retrieve migration status after rerun.
-		$migration_status_after_rerun = get_option( 'tec_events_category_colors_migration_status', [] );
-
-		// Ensure migration has now completed successfully.
-		$this->assertSame( 'migration_completed', $migration_status_after_rerun['status'] ?? '', 'Migration should have been allowed to rerun after reset.' );
 	}
 
 	/**
@@ -661,9 +609,7 @@ class Migration_Process_Test extends WPTestCase {
 		try {
 			$runner = new Migration_Runner();
 			$runner->execute();
-		} catch ( \Error $e ) {
-			Logger::log( 'error', 'Unexpected fatal error during migration.' );
-		}
+		} catch ( \Error $e ) {}
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -775,5 +721,40 @@ class Migration_Process_Test extends WPTestCase {
 			$updated_options['category-color-custom-CSS'] ?? false,
 			'Existing boolean setting should not have been changed.'
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_allows_rerun_only_if_reset(): void {
+		// Generate valid test data.
+		$this->generate_test_data( 5 );
+
+		// Mark migration as completed.
+		update_option(
+			'tec_events_category_colors_migration_status',
+			[
+				'status'    => 'migration_completed',
+				'timestamp' => current_time( 'mysql' ),
+			]
+		);
+
+		// Attempt to reset the migration.
+		tribe( Migration_Process::class )->reset_migration();
+
+		// Retrieve migration status after reset.
+		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+
+		// Ensure migration status is reset to 'not_started'.
+		$this->assertSame( 'not_started', $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
+
+		// Run migration again.
+		tribe( Migration_Process::class )->migrate();
+
+		// Retrieve migration status after rerun.
+		$migration_status_after_rerun = get_option( 'tec_events_category_colors_migration_status', [] );
+
+		// Ensure migration has now completed successfully.
+		$this->assertSame( 'migration_completed', $migration_status_after_rerun['status'] ?? '', 'Migration should have been allowed to rerun after reset.' );
 	}
 }

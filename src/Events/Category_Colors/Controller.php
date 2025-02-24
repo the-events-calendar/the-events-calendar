@@ -13,6 +13,7 @@
 namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\Migration\Errors;
 use TEC\Events\Category_Colors\Migration\Logger;
 use TEC\Events\Category_Colors\Migration\Migration_Process;
 use TEC\Events\Category_Colors\Migration\Migration_Runner;
@@ -44,6 +45,7 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Post_Processor::class );
 		$this->container->singleton( Logger::class );
 		$this->container->singleton( Migration_Process::class );
+		$this->container->singleton( Errors::class );
 		$this->add_filters();
 	}
 

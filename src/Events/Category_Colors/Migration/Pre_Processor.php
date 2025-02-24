@@ -94,7 +94,7 @@ class Pre_Processor {
 		 */
 		do_action( 'tec_events_category_colors_migration_preprocessor_end', $migration_data, true );
 
-		Logger::log( 'info', 'Preprocessing complete. Migration data prepared.' );
+		$this->log_message( 'info', 'Preprocessing complete. Migration data prepared.', $migration_data, 'Pre_Processor' );
 
 		$this->log_elapsed_time( 'Preprocessing', $start_time );
 

@@ -59,24 +59,24 @@ class Migration_Process {
 	 * @return void
 	 */
 	public function migrate( bool $dry_run = false ): void {
-		Logger::clear_logs();
+		Errors::clear_errors();
 		$this->dry_run = $dry_run;
 		$start_time    = $this->start_timer();
 
 		if ( $this->is_migration_complete() ) {
-			Logger::log( 'info', 'Migration has already been completed.' );
+			$this->log_message( 'info', 'Migration has already been completed.' );
 			$this->log_elapsed_time( 'Migration Process', $start_time );
 			return;
 		}
 
 		// Prevent running if migration is already in progress.
 		if ( 'execution_in_progress' === $this->get_status() ) {
-			Logger::log( 'info', 'Migration is already in progress.' );
+			$this->log_message( 'info', 'Migration is already in progress.' );
 			$this->log_elapsed_time( 'Migration Process', $start_time );
 			return;
 		}
 
-		Logger::log( 'info', 'Migration starting. Current status: ' . $this->get_status() );
+		$this->log_message( 'info', 'Migration starting. Current status: ' . $this->get_status() );
 
 		// Define migration steps.
 		$migration_steps = [
@@ -108,9 +108,8 @@ class Migration_Process {
 	protected function run_migration_step( callable $migration_step, string $step_name ): bool {
 		$migration_step();
 
-		if ( Logger::has_logs( 'error' ) ) {
-			Logger::log( 'error', "Migration failed at step: {$step_name}. Stopping further processing." );
-
+		if ( Errors::has_errors() ) {
+			$this->log_message( 'error', "Migration failed at step: {$step_name}. Stopping further processing." );
 			return false;
 		}
 
@@ -199,11 +198,6 @@ class Migration_Process {
 		if ( in_array( $this->get_status(), [ Migration_Status::$validation_completed,Migration_Status::$execution_failed ], true ) ) {
 			$executor = new Migration_Runner( $this->dry_run );
 			$executor->execute();
-
-			// Stop if there are errors logged during execution.
-			if ( ! empty( Logger::get_logs( 'error' ) ) ) {
-				return;
-			}
 		}
 	}
 

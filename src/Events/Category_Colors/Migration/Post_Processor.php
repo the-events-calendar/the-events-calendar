@@ -19,7 +19,7 @@ use Tribe__Events__Main;
  * Validates migration execution results by checking if expected metadata
  * was correctly stored in the database. Logs missing or mismatched data.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -65,7 +65,7 @@ class Post_Processor {
 	public function verify_migration(): void {
 		$start_time = $this->start_timer();
 		if ( $this->dry_run ) {
-			Logger::log( 'info', 'Dry run mode active. Skipping post-processing validation.' );
+			$this->log_message( 'info', 'Dry run mode active. Skipping post-processing validation.', [], 'Post Processor' );
 			$this->update_migration_status( Migration_Status::$postprocess_completed );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
 			return;
@@ -74,7 +74,7 @@ class Post_Processor {
 		$migration_data = $this->get_migration_data();
 
 		if ( empty( $migration_data['categories'] ) ) {
-			Logger::log( 'warning', 'No migration data found. Cannot validate migration results.' );
+			$this->log_message( 'warning', 'No migration data found. Cannot validate migration results.', [], 'Post Processor' );
 			$this->update_migration_status( 'migration_failed' );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
 			return;
@@ -96,10 +96,10 @@ class Post_Processor {
 				$actual_value = $actual_meta[ $meta_key ] ?? null;
 
 				if ( is_null( $actual_value ) ) {
-					Logger::log( 'error', "Missing meta key '{$meta_key}' for category ID {$category_id}." );
+					$this->log_message( 'error', "Missing meta key '{$meta_key}' for category ID {$category_id}.", [], 'Post Processor' );
 					$errors_found = true;
 				} elseif ( $actual_value !== $expected_value ) {
-					Logger::log( 'error', "Mismatched value for '{$meta_key}' on category {$category_id}. Expected: " . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) . ' | Found: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ) );
+					$this->log_message( 'error', "Mismatched value for '{$meta_key}' on category {$category_id}. Expected: " . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) . ' | Found: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ), [], 'Post Processor' );
 					$errors_found = true;
 				}
 			}
@@ -109,6 +109,7 @@ class Post_Processor {
 			$this->update_migration_status( 'migration_failed' );
 		} else {
 			Logger::log( 'info', 'Migration verification successful. Marking migration as completed.' );
+			$this->log_message( 'info', 'Migration verification successful. Marking migration as completed.', [], 'Post Processor' );
 			$this->update_migration_status( Migration_Status::$postprocess_completed );
 		}
 		$this->log_elapsed_time( 'Post Processor', $start_time );
@@ -124,8 +125,7 @@ class Post_Processor {
 		$start_time = $this->start_timer();
 
 		if ( $this->dry_run ) {
-			Logger::log( 'info', 'Dry run mode active. Skipping settings validation.' );
-
+			$this->log_message( 'info', 'Dry run mode active. Skipping settings validation.', [], 'Post Processor' );
 			return;
 		}
 
@@ -134,8 +134,7 @@ class Post_Processor {
 		$migration_settings = $this->get_migration_data()['settings'] ?? [];
 
 		if ( empty( $migration_settings ) ) {
-			Logger::log( 'warning', 'No migrated settings found. Cannot validate settings.' );
-
+			$this->log_message( 'warning', 'No migrated settings found. Cannot validate settings.', [], 'Post Processor' );
 			return;
 		}
 
@@ -151,30 +150,30 @@ class Post_Processor {
 			$actual_value   = $existing_settings[ $expected_key ] ?? null;
 			$original_value = $original_settings[ $old_key ] ?? null;
 
-			// 1️⃣ Check if the setting exists at all.
+			// Check if the setting exists at all.
 			if ( ! array_key_exists( $expected_key, $existing_settings ) ) {
-				Logger::log( 'error', "Missing expected setting '{$expected_key}' in tribe_events_calendar_options." );
+				$this->log_message( 'error', "Missing expected setting '{$expected_key}' in tribe_events_calendar_options.", [], 'Post Processor' );
 				$errors_found = true;
 				continue;
 			}
 
-			// 2️⃣ Compare actual vs. migrated value.
+			// Compare actual vs. migrated value.
 			if ( $actual_value !== $expected_value ) {
 				if ( $original_value === $actual_value ) {
 					// It was already different before migration—log as info.
-					Logger::log( 'info', "Setting '{$expected_key}' has a pre-existing value. Migration did not change it. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ) );
+					$this->log_message( 'info', "Setting '{$expected_key}' has a pre-existing value. Migration did not change it. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ), [], 'Post Processor' );
 				} else {
 					// Migration changed it—log as a warning.
-					Logger::log( 'warning', "Mismatch for '{$expected_key}'. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ) );
+					$this->log_message( 'warning', "Mismatch for '{$expected_key}'. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ), [], 'Post Processor' );
 				}
 			}
 		}
 
 		if ( $errors_found ) {
-			Logger::log( 'error', 'Migration settings validation failed.' );
+			$this->log_message( 'error', 'Migration settings validation failed.', [], 'Post Processor' );
 			$this->update_migration_status( 'migration_failed' );
 		} else {
-			Logger::log( 'info', 'Migration settings successfully verified.' );
+			$this->log_message( 'info', 'Migration settings successfully verified.', [], 'Post Processor' );
 		}
 
 		$this->log_elapsed_time( 'Settings Verification', $start_time );

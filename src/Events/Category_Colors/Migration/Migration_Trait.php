@@ -253,7 +253,7 @@ trait Migration_Trait {
 			]
 		);
 
-		Logger::log( 'info', "Migration status updated to: {$status} at " . current_time( 'mysql' ) );
+		$this->log_message( 'info', "Migration status updated to: {$status} at " . current_time( 'mysql' ), [], 'Migration Status Updated' );
 
 		/**
 		 * Fires when the migration status is updated.
@@ -273,10 +273,12 @@ trait Migration_Trait {
 	 */
 	public function reset_migration(): void {
 		// Delete migration data and reset status.
+		Errors::clear_errors();
 		delete_option( $this->migration_data_option );
 		$this->update_migration_status( Migration_Status::$not_started );
 
-		Logger::log( 'info', 'Migration has been reset to the initial state.' );
+		$this->log_message( 'info', 'Migration has been reset to the initial state.', [], 'Migration Status Updated' );
+
 
 		/**
 		 * Fires when the migration is reset.
@@ -306,6 +308,42 @@ trait Migration_Trait {
 	 */
 	protected function log_elapsed_time( string $step, float $start_time ): void {
 		$elapsed_time = number_format( microtime( true ) - $start_time, 3 );
-		Logger::log( 'info', sprintf( '[Statistics] %s: duration: %s seconds.', $step, $elapsed_time ) );
+		$this->log_message( 'info', sprintf( '%s: duration: %s seconds.', $step, $elapsed_time ), [], 'Statistics' );
+	}
+
+	/**
+	 * Logs a message using the Tribe logging system.
+	 *
+	 * This function standardizes logging by wrapping `do_action( 'tribe_log' )`
+	 * and allowing an optional type prefix (e.g., `[Migration]`).
+	 * If the log level is 'error' or higher, it is also recorded in the `$errors` array.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $level   The log level (e.g., 'debug', 'info', 'warning', 'error').
+	 * @param string      $message The log message.
+	 * @param array       $context Additional context data (default: empty array).
+	 * @param string|null $type    Optional. A label to prepend to the message (e.g., 'Migration').
+	 *
+	 * @return void
+	 */
+	protected function log_message( string $level, string $message, array $context = [], ?string $type = null ): void {
+		if ( ! empty( $type ) ) {
+			$message = sprintf( '[%s] %s', $type, $message );
+		}
+
+		// Store error messages separately for status checking.
+		if ( in_array( strtolower( $level ), [ 'error', 'critical', 'alert', 'emergency' ], true ) ) {
+			Errors::add_error( $message );
+		}
+
+		$default_context = [
+			'type'    => $type,
+			'process' => 'Category Colors Migration',
+		];
+		$context         = wp_parse_args( $default_context, $context );
+
+
+		do_action( 'tribe_log', $level, $message, $context );
 	}
 }

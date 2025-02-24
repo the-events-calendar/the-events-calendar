@@ -19,7 +19,7 @@ use Tribe__Events__Main;
  * Runs preprocessing, validation, execution, and post-processing in sequence.
  * Ensures data integrity and logs potential issues during migration.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -73,12 +73,12 @@ class Migration_Runner {
 	public function execute(): void {
 		$start_time = $this->start_timer();
 		if ( Migration_Status::$validation_completed !== $this->get_migration_status()['status'] ) {
-			Logger::log( 'info', 'Validation not completed. Running validation before execution.' );
+			$this->log_message( 'info', 'Validation not completed. Running validation before execution.', [], 'Worker' );
 
 			$validator = new Validator();
 
 			if ( ! $validator->validate() ) {
-				Logger::log( 'error', 'Validation failed. Migration execution stopped.' );
+				$this->log_message( 'error', 'Validation failed. Migration execution stopped.', [], 'Worker' );
 				$this->update_migration_status( Migration_Status::$execution_failed ); // Mark execution as failed.
 
 				do_action( 'tec_events_category_colors_migration_runner_end', false );
@@ -86,9 +86,9 @@ class Migration_Runner {
 				return;
 			}
 
-			Logger::log( 'info', 'Validation completed successfully. Proceeding to execution.' );
+			$this->log_message( 'info', 'Validation completed successfully. Proceeding to execution.', [], 'Worker' );
 		} else {
-			Logger::log( 'info', 'Skipping validation step as it was already completed.' );
+			$this->log_message( 'info', 'Skipping validation step as it was already completed.', [], 'Worker' );
 		}
 
 		$this->update_migration_status( 'execution_in_progress' );
@@ -107,7 +107,7 @@ class Migration_Runner {
 		$migration_data = $this->get_migration_data();
 
 		if ( empty( $migration_data['categories'] ) || ! is_array( $migration_data['categories'] ) ) {
-			Logger::log( 'error', 'No categories found for migration.' );
+			$this->log_message( 'error', 'No categories found for migration.', [], 'Worker' );
 			$this->update_migration_status( 'execution_skipped' ); // Mark execution as skipped.
 
 			/**
@@ -129,9 +129,7 @@ class Migration_Runner {
 			$this->insert_settings( $migration_data['settings'] );
 		}
 
-		$execution_success = empty( Logger::get_logs( 'error' ) );
-
-		$this->update_migration_status( $execution_success ? Migration_Status::$execution_completed : Migration_Status::$execution_failed ); // Update final status.
+		$this->update_migration_status( ! Errors::has_errors() ? Migration_Status::$execution_completed : Migration_Status::$execution_failed ); // Update final status.
 
 		/**
 		 * Fires after the migration execution completes.
@@ -140,7 +138,7 @@ class Migration_Runner {
 		 *
 		 * @param bool $success True if execution was successful, false otherwise.
 		 */
-		do_action( 'tec_events_category_colors_migration_runner_end', $execution_success );
+		do_action( 'tec_events_category_colors_migration_runner_end', ! Errors::has_errors() );
 		$this->log_elapsed_time( 'Execution', $start_time );
 	}
 
@@ -189,7 +187,7 @@ class Migration_Runner {
 				$category_meta->save(); // Batch save updates.
 			}
 		}
-		Logger::log( 'info', "Migrated {$migrated_category_meta_count} category meta values across {$migrated_category_count} categories." );
+		$this->log_message( 'info', "Migrated {$migrated_category_meta_count} category meta values across {$migrated_category_count} categories.", [], 'Worker' );
 	}
 
 	/**
@@ -204,7 +202,7 @@ class Migration_Runner {
 	 * @return void
 	 */
 	protected function log_dry_run( int $category_id, string $meta_key, $value ): void {
-		Logger::log( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );
+		$this->log_message( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $value, JSON_PRETTY_PRINT ), [], 'Worker' );
 	}
 
 	/**
@@ -223,10 +221,9 @@ class Migration_Runner {
 		$migration_data = $this->get_migration_data();
 
 		$category_count = isset( $migration_data['categories'] ) ? count( $migration_data['categories'] ) : 0;
-		Logger::log( 'info', 'Dry Run Mode Active: No actual database modifications will be made.' );
-		Logger::log( 'info', "Total Categories to Process: {$category_count}" );
-		Logger::log( 'info', 'Skipped Meta Keys: ' . wp_json_encode( $this->skip_meta_keys ) );
-		// Output more details if necessary.
+		$this->log_message( 'info', 'Dry Run Mode Active: No actual database modifications will be made.', [], 'Worker' );
+		$this->log_message( 'info', "Total Categories to Process: {$category_count}", [], 'Worker' );
+		$this->log_message( 'info', 'Skipped Meta Keys: ' . wp_json_encode( $this->skip_meta_keys ), [], 'Worker' );
 	}
 
 	/**
@@ -248,7 +245,7 @@ class Migration_Runner {
 				$existing_value = get_term_meta( $category_id, $meta_key, true );
 
 				if ( '' !== $existing_value ) {
-					Logger::log( 'warning', "Category {$category_id} already has meta key '{$meta_key}' with value: " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ) );
+					$this->log_message( 'warning', "Category {$category_id} already has meta key '{$meta_key}' with value: " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ), [], 'Worker' );
 				}
 			}
 		}
@@ -267,7 +264,7 @@ class Migration_Runner {
 	 */
 	protected function insert_settings( array $settings ): void {
 		if ( empty( $settings ) ) {
-			Logger::log( 'warning', 'No general settings found to migrate. Skipping settings update.' );
+			$this->log_message( 'warning', 'No general settings found to migrate. Skipping settings update.', [], 'Worker' );
 			return;
 		}
 
@@ -275,7 +272,7 @@ class Migration_Runner {
 		$existing_settings = get_option( Tribe__Events__Main::OPTIONNAME, [] );
 
 		if ( ! is_array( $existing_settings ) ) {
-			Logger::log( 'error', 'Existing settings are not an array. Skipping migration to prevent corruption.' );
+			$this->log_message( 'error', 'Existing settings are not an array. Skipping migration to prevent corruption.', [], 'Worker' );
 			return;
 		}
 
@@ -294,25 +291,25 @@ class Migration_Runner {
 		}
 
 		if ( empty( $new_settings ) ) {
-			Logger::log( 'info', 'No new settings needed migration. All settings already exist.' );
+			$this->log_message( 'info', 'No new settings needed migration. All settings already exist.', [], 'Worker' );
 			return;
 		}
 
 		if ( $this->dry_run ) {
 			foreach ( $new_settings as $key => $value ) {
-				Logger::log( 'info', "[DRY RUN] Would update `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );
+				$this->log_message( 'info', "[DRY RUN] Would update `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ), [], 'Worker' );
 			}
 		} else {
 			update_option( Tribe__Events__Main::OPTIONNAME, array_merge( $existing_settings, $new_settings ) );
 
 			foreach ( $new_settings as $key => $value ) {
-				Logger::log( 'info', "Updated `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ) );
+				$this->log_message( 'info', "Updated `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ), [], 'Worker' );
 			}
 		}
 
 		if ( ! empty( $skipped_settings ) ) {
 			foreach ( $skipped_settings as $key => $existing_value ) {
-				Logger::log( 'info', "Skipped updating setting '{$key}' (already exists) => " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ) );
+				$this->log_message( 'info', "Skipped updating setting '{$key}' (already exists) => " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ), [], 'Worker' );
 			}
 		}
 	}
