@@ -133,7 +133,7 @@ class Controller extends Controller_Contract {
 			'submenu_file',
 			[
 				$this->container->make( Admin\Page::class ),
-				'keep_parent_menu_open'
+				'keep_parent_menu_open',
 			]
 		);
 		add_filter(
