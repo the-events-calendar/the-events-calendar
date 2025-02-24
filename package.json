@@ -71,7 +71,10 @@
     "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
     "rebuild": "rm -rf node_modules && npm install && npm run build"
   },
-  "engines": { "node": "18.17.0", "npm": "9.6.7" },
+  "engines": {
+    "node": "18.17.0",
+    "npm": "9.6.7"
+  },
   "devDependencies": {
     "@stellarwp/tyson": "*",
     "@wordpress/hooks": "^1.3.2",
