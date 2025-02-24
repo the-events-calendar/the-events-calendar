@@ -48,12 +48,34 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function add_actions() {
-		add_action( 'init', [ $this, 'register_post_type' ] );
-		add_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
-		add_action( 'admin_init', [ $this, 'enqueue_admin_page_assets' ] );
+		add_action(
+			'init',
+			[
+				$this->container->make( Calendar_Embeds::class ),
+				'register_post_type',
+			]
+		);
+		add_action(
+			'admin_menu',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_menu_item',
+			],
+			11
+		);
+		add_action(
+			'admin_init',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_assets',
+			]
+		);
 		add_action(
 			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
-			[ $this, 'manage_table_column_content' ],
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_column_content',
+			],
 			10,
 			2
 		);
@@ -67,12 +89,34 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function remove_actions() {
-		remove_action( 'init', [ $this, 'register_post_type' ] );
-		remove_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
-		remove_action( 'admin_init', [ $this, 'enqueue_admin_page_assets' ] );
+		remove_action(
+			'init',
+			[
+				$this->container->make( Calendar_Embeds::class ),
+				'register_post_type',
+			]
+		);
+		remove_action(
+			'admin_menu',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_menu_item',
+			],
+			11
+		);
+		remove_action(
+			'admin_init',
+			[
+				$this->container->make( Admin\Page::class ),
+				'register_assets',
+			]
+		);
 		remove_action(
 			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
-			[ $this, 'manage_table_column_content' ],
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_column_content',
+			],
 			10
 		);
 	}
@@ -85,10 +129,19 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function add_filters() {
-		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
+		add_filter(
+			'submenu_file',
+			[
+				$this->container->make( Admin\Page::class ),
+				'keep_parent_menu_open'
+			]
+		);
 		add_filter(
 			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
-			[ $this, 'manage_table_columns' ]
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_columns',
+			]
 		);
 	}
 
@@ -100,83 +153,19 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function remove_filters() {
-		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
+		remove_filter(
+			'submenu_file',
+			[
+				$this->container->make( Admin\Page::class ),
+				'keep_parent_menu_open',
+			]
+		);
 		remove_filter(
 			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
-			[ $this, 'manage_table_columns' ]
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_columns',
+			]
 		);
-	}
-
-	/**
-	 * Register custom post type.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function register_post_type() {
-		$this->container->make( Calendar_Embeds::class )->register_post_type();
-	}
-
-	/**
-	 * Create menu item.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function register_menu_item() {
-		$this->container->make( Admin\Page::class )->register_menu_item();
-	}
-
-	/**
-	 * Keep parent menu open when viewing the calendar embeds page.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $submenu_file The submenu file.
-	 *
-	 * @return string
-	 */
-	public function keep_parent_menu_open( $submenu_file ) {
-		return $this->container->make( Admin\Page::class )->keep_parent_menu_open( $submenu_file );
-	}
-
-	/**
-	 * Manage column ids and headers for the admin list table.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $columns The columns.
-	 *
-	 * @return array
-	 */
-	public function manage_table_columns( $columns ): array {
-		return $this->container->make( Admin\List_Table::class )->manage_columns( $columns );
-	}
-
-	/**
-	 * Manage column content for the admin list table.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $column  The column name.
-	 * @param int    $post_id The post ID.
-	 *
-	 * @return void
-	 */
-	public function manage_table_column_content( $column, $post_id ): void {
-		$this->container->make( Admin\List_Table::class )->manage_column_content( $column, $post_id );
-	}
-
-	/**
-	 * Enqueue assets for the admin page.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function enqueue_admin_page_assets(): void {
-		$this->container->make( Admin\Page::class )->register_assets();
 	}
 }
