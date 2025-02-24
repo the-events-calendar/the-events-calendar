@@ -10,7 +10,6 @@
 namespace TEC\Events\Calendar_Embeds\Admin;
 
 use TEC\Common\StellarWP\Assets\Asset;
-use TEC\Common\StellarWP\Assets\Config;
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use Tribe__Events__Main as TEC;
 
@@ -146,12 +145,11 @@ class Page {
 	 * @return void
 	 */
 	public function register_assets(): void {
-		Config::add_group_path( 'tec-calendar-embeds', TEC::instance()->plugin_path, 'src/resources/' );
 		Asset::add(
 			'tec-events-calendar-embeds-script',
 			'js/admin/calendar-embeds-page.js'
 		)
-			->add_to_group_path( 'tec-calendar-embeds' )
+			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->set_dependencies( 'thickbox', 'tribe-clipboard' )
@@ -162,7 +160,7 @@ class Page {
 			'tec-events-calendar-embeds-style',
 			'css/admin/calendar-embeds-page.css'
 		)
-			->add_to_group_path( 'tec-calendar-embeds' )
+			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->set_dependencies( 'thickbox', 'tribe-common-admin' )
