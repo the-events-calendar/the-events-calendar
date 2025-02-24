@@ -383,7 +383,7 @@ class Landing_Page extends Abstract_Admin_Page {
 								<?php esc_html_e( 'Install Event Tickets', 'the-events-calendar' ); ?>
 							</div>
 							<?php if ( ! $et_installed || ! $et_activated ) : ?>
-							<div class="step-list__item-right tec-event-tickets-install-button">
+							<div class="step-list__item-right">
 								<?php
 								Installer::get()->render_plugin_button(
 									'event-tickets',
