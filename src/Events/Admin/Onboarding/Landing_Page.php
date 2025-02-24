@@ -382,8 +382,8 @@ class Landing_Page extends Abstract_Admin_Page {
 								<span class="step-list__item-icon" role="presentation"></span>
 								<?php esc_html_e( 'Install Event Tickets', 'the-events-calendar' ); ?>
 							</div>
-							<?php if ( ! isset( $completed_tabs[5] ) && ( ! $et_installed || ! $et_activated ) ) : ?>
-							<div class="step-list__item-right">
+							<?php if ( ! $et_installed || ! $et_activated ) : ?>
+							<div class="step-list__item-right tec-event-tickets-install-button">
 								<?php
 								Installer::get()->render_plugin_button(
 									'event-tickets',

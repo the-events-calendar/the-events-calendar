@@ -74,6 +74,15 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 					stepIndicator.classList.add('tec-admin-page__onboarding-step--completed');
 				});
 
+				if ( tabSettings.currentTab === 5 ) {
+					// If we're on step 5, we should remove the button to install Event Tickets.
+					const installButton = document.querySelector('.tec-event-tickets-install-button');
+
+					if ( installButton ) {
+						installButton.style.display = 'none';
+					}
+				}
+
 				// Reset the saving state.
 				setSaving(false);
 
