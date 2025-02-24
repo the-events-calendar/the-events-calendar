@@ -526,8 +526,8 @@ class Landing_Page extends Abstract_Admin_Page {
 		 *
 		 * @since 6.8.4
 		 *
-		 * @param array    $initial_data The initial data.
-		 * @param Controller $controller The controller object.
+		 * @param array                   $initial_data The initial data.
+		 * @param Controller|Landing_Page $controller The controller object.
 		 *
 		 * @return array
 		 */

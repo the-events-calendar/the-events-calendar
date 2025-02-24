@@ -75,7 +75,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 				});
 
 				if ( tabSettings.currentTab === 5 ) {
-					// If we're on step 5, we should remove the button to install Event Tickets.
+					// If we've already installed Event Tickets, temporarily hide the button to install Event Tickets.
 					const installButton = document.querySelector('.tec-event-tickets-install-button');
 
 					if ( installButton ) {
