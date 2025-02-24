@@ -32,8 +32,8 @@ namespace TEC\Events\Category_Colors\Migration;
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-class Migration_Process {
-	use Migration_Trait;
+class Handler {
+	use Utilities;
 
 	/**
 	 * Whether this is a dry run.
@@ -126,7 +126,7 @@ class Migration_Process {
 	 * @return bool True if the migration is already completed, false otherwise.
 	 */
 	private function is_migration_complete(): bool {
-		return $this->get_status() === Migration_Status::$postprocess_completed;
+		return $this->get_status() === Status::$postprocess_completed;
 	}
 
 	/**
@@ -179,7 +179,7 @@ class Migration_Process {
 	 * @return void
 	 */
 	private function validate(): void {
-		if ( in_array( $this->get_status(), [ Migration_Status::$preprocess_completed, Migration_Status::$validation_failed ], true ) ) {
+		if ( in_array( $this->get_status(), [ Status::$preprocess_completed, Status::$validation_failed ], true ) ) {
 			tribe( Validator::class )->validate();
 		}
 	}
@@ -195,8 +195,8 @@ class Migration_Process {
 	 * @return void
 	 */
 	private function execute(): void {
-		if ( in_array( $this->get_status(), [ Migration_Status::$validation_completed,Migration_Status::$execution_failed ], true ) ) {
-			$executor = new Migration_Runner( $this->dry_run );
+		if ( in_array( $this->get_status(), [ Status::$validation_completed, Status::$execution_failed ], true ) ) {
+			$executor = new Worker( $this->dry_run );
 			$executor->execute();
 		}
 	}
@@ -213,7 +213,7 @@ class Migration_Process {
 	 * @return void
 	 */
 	private function postprocess(): void {
-		if ( in_array( $this->get_status(), [ Migration_Status::$execution_completed, Migration_Status::$postprocess_failed ], true ) ) {
+		if ( in_array( $this->get_status(), [ Status::$execution_completed, Status::$postprocess_failed ], true ) ) {
 			$post_processor = new Post_Processor( $this->dry_run );
 			$post_processor->verify_migration();
 		}

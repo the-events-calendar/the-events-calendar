@@ -25,7 +25,7 @@ use Tribe__Events__Main;
  */
 class Post_Processor {
 
-	use Migration_Trait;
+	use Utilities;
 
 	/**
 	 * List of meta keys that should be skipped (not inserted as term meta).
@@ -66,7 +66,7 @@ class Post_Processor {
 		$start_time = $this->start_timer();
 		if ( $this->dry_run ) {
 			$this->log_message( 'info', 'Dry run mode active. Skipping post-processing validation.', [], 'Post Processor' );
-			$this->update_migration_status( Migration_Status::$postprocess_completed );
+			$this->update_migration_status( Status::$postprocess_completed );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
 			return;
 		}
@@ -110,7 +110,7 @@ class Post_Processor {
 		} else {
 			Logger::log( 'info', 'Migration verification successful. Marking migration as completed.' );
 			$this->log_message( 'info', 'Migration verification successful. Marking migration as completed.', [], 'Post Processor' );
-			$this->update_migration_status( Migration_Status::$postprocess_completed );
+			$this->update_migration_status( Status::$postprocess_completed );
 		}
 		$this->log_elapsed_time( 'Post Processor', $start_time );
 	}

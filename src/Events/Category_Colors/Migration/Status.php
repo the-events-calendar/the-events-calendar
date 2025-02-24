@@ -18,7 +18,7 @@ namespace TEC\Events\Category_Colors\Migration;
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-class Migration_Status {
+class Status {
 
 	/**
 	 * Status when migration has not started.

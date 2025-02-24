@@ -11,7 +11,7 @@ use Tribe\Tests\Traits\With_Uopz;
 class Migration_Process_Test extends WPTestCase {
 	use With_Uopz;
 	use With_Clock_Mock;
-	use Migration_Trait;
+	use Utilities;
 
 	/**
 	 * @before
@@ -111,7 +111,7 @@ class Migration_Process_Test extends WPTestCase {
 		$this->set_fn_return( 'current_time', '{time}' );
 		$category_ids = $data_generator();
 
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		$migration_status  = get_option( 'tec_events_category_colors_migration_status', [] );
 		$original_settings = get_option( 'teccc_options', [] );
@@ -140,9 +140,9 @@ class Migration_Process_Test extends WPTestCase {
 	 * @test
 	 */
 	public function it_fails_when_preprocess_skipped(): void {
-		$this->set_class_fn_return( Migration_Process::class, 'get_migration_data', [] );
+		$this->set_class_fn_return( Handler::class, 'get_migration_data', [] );
 
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -202,7 +202,7 @@ class Migration_Process_Test extends WPTestCase {
 		}
 
 		// Directly run execution.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -236,7 +236,7 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -268,7 +268,7 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -308,7 +308,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Run migration execution.
 		try {
-			$runner = new Migration_Runner();
+			$runner = new Worker();
 			$runner->execute();
 		} catch ( \Exception $e ) {}
 
@@ -346,7 +346,7 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -383,7 +383,7 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -421,7 +421,7 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -449,7 +449,7 @@ class Migration_Process_Test extends WPTestCase {
 		Errors::clear_errors();
 
 		// Attempt to run migration again.
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		// Retrieve the migration status after rerunning.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -478,7 +478,7 @@ class Migration_Process_Test extends WPTestCase {
 		Errors::clear_errors();
 
 		// Attempt to run migration again.
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		// Retrieve the migration status after rerunning.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -515,7 +515,7 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Run migration execution.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -535,7 +535,7 @@ class Migration_Process_Test extends WPTestCase {
 		$category_ids = $this->generate_test_data( 5 );
 
 		// Enable dry run mode.
-		$runner = new Migration_Runner( true );
+		$runner = new Worker( true );
 		$runner->execute();
 
 		// Ensure migration status is unchanged.
@@ -563,7 +563,7 @@ class Migration_Process_Test extends WPTestCase {
 		}
 
 		// Run migration.
-		$runner = new Migration_Runner();
+		$runner = new Worker();
 		$runner->execute();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -607,7 +607,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Run migration execution.
 		try {
-			$runner = new Migration_Runner();
+			$runner = new Worker();
 			$runner->execute();
 		} catch ( \Error $e ) {}
 
@@ -638,7 +638,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Step 2: Generate test data and run the migration.
 		$this->generate_test_data( 5, true );
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		// Step 3: Retrieve updated calendar options and verify imported values.
 		$updated_options = get_option( 'tribe_events_calendar_options', [] );
@@ -673,7 +673,7 @@ class Migration_Process_Test extends WPTestCase {
 		delete_option( 'teccc_options' );
 
 		// Run the migration.
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		// Verify that migration status is completed and no unexpected data is stored.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -705,7 +705,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Generate test data and run migration.
 		$this->generate_test_data( 5, true );
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		// Fetch updated options.
 		$updated_options = get_option( 'tribe_events_calendar_options', [] );
@@ -740,7 +740,7 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Attempt to reset the migration.
-		tribe( Migration_Process::class )->reset_migration();
+		tribe( Handler::class )->reset_migration();
 
 		// Retrieve migration status after reset.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -749,7 +749,7 @@ class Migration_Process_Test extends WPTestCase {
 		$this->assertSame( 'not_started', $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
 
 		// Run migration again.
-		tribe( Migration_Process::class )->migrate();
+		tribe( Handler::class )->migrate();
 
 		// Retrieve migration status after rerun.
 		$migration_status_after_rerun = get_option( 'tec_events_category_colors_migration_status', [] );

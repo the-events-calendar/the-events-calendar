@@ -21,7 +21,7 @@ namespace TEC\Events\Category_Colors\Migration;
  * @package TEC\Events\Category_Colors\Migration
  */
 class Validator {
-	use Migration_Trait;
+	use Utilities;
 
 	/**
 	 * Number of random keys to validate.
@@ -72,7 +72,7 @@ class Validator {
 			}
 		}
 
-		$this->update_migration_status( Migration_Status::$validation_completed ); // Mark validation as completed.
+		$this->update_migration_status( Status::$validation_completed ); // Mark validation as completed.
 
 		/**
 		 * Fires after the validation process completes.

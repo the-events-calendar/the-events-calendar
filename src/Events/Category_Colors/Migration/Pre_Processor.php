@@ -21,7 +21,7 @@ namespace TEC\Events\Category_Colors\Migration;
  * @package TEC\Events\Category_Colors\Migration
  */
 class Pre_Processor {
-	use Migration_Trait;
+	use Utilities;
 
 	/**
 	 * A working copy of the settings, which gets modified during processing.
@@ -42,7 +42,7 @@ class Pre_Processor {
 	 */
 	public function process(): array {
 		$start_time = $this->start_timer();
-		$this->update_migration_status( Migration_Status::$in_progress ); // Set migration to in_progress.
+		$this->update_migration_status( Status::$in_progress ); // Set migration to in_progress.
 
 		/**
 		 * Fires before the preprocessor starts processing category color data.
@@ -82,7 +82,7 @@ class Pre_Processor {
 		// Store processed data in the database.
 		$this->update_migration_data( $migration_data );
 
-		$this->update_migration_status( Migration_Status::$preprocess_completed ); // Mark as completed.
+		$this->update_migration_status( Status::$preprocess_completed ); // Mark as completed.
 
 		/**
 		 * Fires after the preprocessor completes.

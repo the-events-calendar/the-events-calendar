@@ -23,9 +23,9 @@ use Tribe__Events__Main;
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-class Migration_Runner {
+class Worker {
 
-	use Migration_Trait;
+	use Utilities;
 
 	/**
 	 * Whether to perform a dry run (no actual DB modifications).
@@ -72,14 +72,14 @@ class Migration_Runner {
 	 */
 	public function execute(): void {
 		$start_time = $this->start_timer();
-		if ( Migration_Status::$validation_completed !== $this->get_migration_status()['status'] ) {
+		if ( Status::$validation_completed !== $this->get_migration_status()['status'] ) {
 			$this->log_message( 'info', 'Validation not completed. Running validation before execution.', [], 'Worker' );
 
 			$validator = new Validator();
 
 			if ( ! $validator->validate() ) {
 				$this->log_message( 'error', 'Validation failed. Migration execution stopped.', [], 'Worker' );
-				$this->update_migration_status( Migration_Status::$execution_failed ); // Mark execution as failed.
+				$this->update_migration_status( Status::$execution_failed ); // Mark execution as failed.
 
 				do_action( 'tec_events_category_colors_migration_runner_end', false );
 				$this->log_elapsed_time( 'Execution', $start_time );
@@ -129,7 +129,7 @@ class Migration_Runner {
 			$this->insert_settings( $migration_data['settings'] );
 		}
 
-		$this->update_migration_status( ! Errors::has_errors() ? Migration_Status::$execution_completed : Migration_Status::$execution_failed ); // Update final status.
+		$this->update_migration_status( ! Errors::has_errors() ? Status::$execution_completed : Status::$execution_failed ); // Update final status.
 
 		/**
 		 * Fires after the migration execution completes.

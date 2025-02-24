@@ -15,9 +15,9 @@ namespace TEC\Events\Category_Colors;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\Category_Colors\Migration\Errors;
 use TEC\Events\Category_Colors\Migration\Logger;
-use TEC\Events\Category_Colors\Migration\Migration_Process;
-use TEC\Events\Category_Colors\Migration\Migration_Runner;
-use TEC\Events\Category_Colors\Migration\Migration_Trait;
+use TEC\Events\Category_Colors\Migration\Handler;
+use TEC\Events\Category_Colors\Migration\Worker;
+use TEC\Events\Category_Colors\Migration\Utilities;
 use TEC\Events\Category_Colors\Migration\Post_Processor;
 use TEC\Events\Category_Colors\Migration\Pre_Processor;
 use TEC\Events\Category_Colors\Migration\Validator;
@@ -31,7 +31,7 @@ use TEC\Events\Category_Colors\Migration\Validator;
  */
 class Controller extends Controller_Contract {
 
-	use Migration_Trait;
+	use Utilities;
 
 	/**
 	 * Register the provider.
@@ -41,10 +41,10 @@ class Controller extends Controller_Contract {
 	public function do_register(): void {
 		$this->container->singleton( Pre_Processor::class );
 		$this->container->singleton( Validator::class );
-		$this->container->singleton( Migration_Runner::class );
+		$this->container->singleton( Worker::class );
 		$this->container->singleton( Post_Processor::class );
 		$this->container->singleton( Logger::class );
-		$this->container->singleton( Migration_Process::class );
+		$this->container->singleton( Handler::class );
 		$this->container->singleton( Errors::class );
 		$this->add_filters();
 	}
@@ -131,7 +131,7 @@ class Controller extends Controller_Contract {
 
 		// Run the migration.
 		echo 'Starting migration process...<br>';
-		$migration = new Migration_Process();
+		$migration = new Handler();
 		$migration->migrate( $dry_run );
 
 		// Output logs for debugging.

@@ -22,7 +22,7 @@ use Tribe__Events__Main;
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-trait Migration_Trait {
+trait Utilities {
 
 	/**
 	 * The taxonomy used for event categories.
@@ -229,7 +229,7 @@ trait Migration_Trait {
 		return get_option(
 			$this->migration_status_option,
 			[
-				'status'    => Migration_Status::$not_started,
+				'status'    => Status::$not_started,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -275,7 +275,7 @@ trait Migration_Trait {
 		// Delete migration data and reset status.
 		Errors::clear_errors();
 		delete_option( $this->migration_data_option );
-		$this->update_migration_status( Migration_Status::$not_started );
+		$this->update_migration_status( Status::$not_started );
 
 		$this->log_message( 'info', 'Migration has been reset to the initial state.', [], 'Migration Status Updated' );
 
