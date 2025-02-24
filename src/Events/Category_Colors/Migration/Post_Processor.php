@@ -162,10 +162,10 @@ class Post_Processor {
 			if ( $actual_value !== $expected_value ) {
 				if ( $original_value === $actual_value ) {
 					// It was already different before migration—log as info.
-					Logger::log( 'info', "Setting '{$expected_key}' has a pre-existing value. Migration did not change it. Expected: " . wp_json_encode( $expected_value ) . " | Found: " . wp_json_encode( $actual_value ) );
+					Logger::log( 'info', "Setting '{$expected_key}' has a pre-existing value. Migration did not change it. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ) );
 				} else {
 					// Migration changed it—log as a warning.
-					Logger::log( 'warning', "Mismatch for '{$expected_key}'. Expected: " . wp_json_encode( $expected_value ) . " | Found: " . wp_json_encode( $actual_value ) );
+					Logger::log( 'warning', "Mismatch for '{$expected_key}'. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ) );
 				}
 			}
 		}

@@ -76,12 +76,18 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function debug_migration_process(): void {
+		// phpcs:disable
 		if ( '1' !== tec_get_request_var( 'category_color_migration', '' ) ) {
 			return;
 		}
 
 		// Retrieve all categories before reset (in case we need to delete meta).
-		$categories = get_terms( [ 'taxonomy' => 'tribe_events_cat', 'hide_empty' => false ] );
+		$categories = get_terms(
+			[
+				'taxonomy'   => 'tribe_events_cat',
+				'hide_empty' => false,
+			]
+		);
 
 		// Optional: Reset migration if requested.
 		if ( '1' === tec_get_request_var( 'reset', '' ) ) {
@@ -90,7 +96,6 @@ class Controller extends Controller_Contract {
 
 			// Remove all inserted category meta data using the Event_Category_Meta class.
 			foreach ( $categories as $category ) {
-
 				$category_meta = tribe( Event_Category_Meta::class )->set_term( $category->term_id );
 				$category_meta->delete( 'tec-events-cat-colors-primary' );
 				$category_meta->delete( 'tec-events-cat-colors-secondary' );
@@ -150,5 +155,6 @@ class Controller extends Controller_Contract {
 
 		// Terminate execution.
 		exit;
+		// phpcs:enable
 	}
 }

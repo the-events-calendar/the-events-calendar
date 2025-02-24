@@ -11,7 +11,6 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
-use Tribe__Events__Main;
 
 /**
  * Class Migration_Runner
