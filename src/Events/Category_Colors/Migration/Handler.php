@@ -44,7 +44,7 @@ class Handler {
 	 *
 	 * @var bool
 	 */
-	private bool $dry_run = false;
+	protected bool $dry_run = false;
 
 	/**
 	 * Runs the migration process in sequential steps.
@@ -61,9 +61,9 @@ class Handler {
 	public function migrate( bool $dry_run = false ): void {
 		Errors::clear_errors();
 		$this->dry_run = $dry_run;
-		$start_time    = $this->start_timer();
+		$start_time    = microtime( true );
 
-		if ( $this->is_migration_complete() ) {
+		if ( $this->get_status() === Status::$postprocess_completed ) {
 			$this->log_message( 'info', 'Migration has already been completed.' );
 			$this->log_elapsed_time( 'Migration Process', $start_time );
 			return;
@@ -117,19 +117,6 @@ class Handler {
 	}
 
 	/**
-	 * Checks if the migration process has already been completed.
-	 *
-	 * This ensures that the migration does not run again once it has finished successfully.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool True if the migration is already completed, false otherwise.
-	 */
-	private function is_migration_complete(): bool {
-		return $this->get_status() === Status::$postprocess_completed;
-	}
-
-	/**
 	 * Retrieves the current migration status.
 	 *
 	 * The migration status indicates which phase the process is currently in.
@@ -146,7 +133,7 @@ class Handler {
 	 *
 	 * @return string The current migration status.
 	 */
-	private function get_status(): string {
+	protected function get_status(): string {
 		$migration_status = $this->get_migration_status();
 
 		return $migration_status['status'] ?? 'not_started';
@@ -162,10 +149,11 @@ class Handler {
 	 *
 	 * @return void
 	 */
-	private function preprocess(): void {
-		if ( $this->get_status() === 'not_started' ) {
-			tribe( Pre_Processor::class )->process();
+	protected function preprocess(): void {
+		if ( $this->get_status() !== 'not_started' ) {
+			return;
 		}
+		tribe( Pre_Processor::class )->process();
 	}
 
 	/**
@@ -178,10 +166,11 @@ class Handler {
 	 *
 	 * @return void
 	 */
-	private function validate(): void {
-		if ( in_array( $this->get_status(), [ Status::$preprocess_completed, Status::$validation_failed ], true ) ) {
-			tribe( Validator::class )->validate();
+	protected function validate(): void {
+		if ( ! in_array( $this->get_status(), [ Status::$preprocess_completed, Status::$validation_failed ], true ) ) {
+			return;
 		}
+		tribe( Validator::class )->validate();
 	}
 
 	/**
@@ -194,11 +183,12 @@ class Handler {
 	 *
 	 * @return void
 	 */
-	private function execute(): void {
-		if ( in_array( $this->get_status(), [ Status::$validation_completed, Status::$execution_failed ], true ) ) {
-			$executor = new Worker( $this->dry_run );
-			$executor->execute();
+	protected function execute(): void {
+		if ( ! in_array( $this->get_status(), [ Status::$validation_completed, Status::$execution_failed ], true ) ) {
+			return;
 		}
+
+		tribe( Worker::class )->set_dry_run( $this->dry_run )->execute();
 	}
 
 	/**
@@ -212,10 +202,10 @@ class Handler {
 	 *
 	 * @return void
 	 */
-	private function postprocess(): void {
-		if ( in_array( $this->get_status(), [ Status::$execution_completed, Status::$postprocess_failed ], true ) ) {
-			$post_processor = new Post_Processor( $this->dry_run );
-			$post_processor->verify_migration();
+	protected function postprocess(): void {
+		if ( ! in_array( $this->get_status(), [ Status::$execution_completed, Status::$postprocess_failed ], true ) ) {
+			return;
 		}
+		tribe( Post_Processor::class )->set_dry_run( $this->dry_run )->verify_migration();
 	}
 }

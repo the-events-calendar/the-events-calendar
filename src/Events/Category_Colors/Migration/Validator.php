@@ -42,7 +42,7 @@ class Validator {
 	 */
 	public function validate(): bool {
 		Errors::clear_errors();
-		$start_time = $this->start_timer();
+		$start_time = microtime( true );
 		$this->update_migration_status( 'validation_in_progress' ); // Set migration status to validation started.
 
 		/**

@@ -195,18 +195,6 @@ trait Utilities {
 	}
 
 	/**
-	 * Retrieves the processed categories.
-	 *
-	 * @since TBD
-	 * @return array<int, array<string, mixed>> The list of processed categories.
-	 */
-	public function get_categories(): array {
-		$migration_data = $this->get_migration_data();
-
-		return $migration_data['categories'] ?? [];
-	}
-
-	/**
 	 * Retrieves the mapped meta key, or null if it is not recognized.
 	 *
 	 * @since TBD
@@ -286,16 +274,6 @@ trait Utilities {
 		 * @since TBD
 		 */
 		do_action( 'tec_events_category_colors_migration_reset' );
-	}
-
-	/**
-	 * Starts a timer for tracking execution time.
-	 *
-	 * @since TBD
-	 * @return float The start time in microseconds.
-	 */
-	protected function start_timer(): float {
-		return microtime( true );
 	}
 
 	/**

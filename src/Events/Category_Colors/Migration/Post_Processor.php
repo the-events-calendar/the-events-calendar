@@ -46,14 +46,16 @@ class Post_Processor {
 	protected bool $dry_run = false;
 
 	/**
-	 * Constructor.
+	 * Allows for enabling Dry run mode.
 	 *
-	 * @since TBD
+	 * @param bool $dry_run Whether the worker should be in Dry Run mode.
 	 *
-	 * @param bool $dry_run Whether to skip post-processing in dry run mode.
+	 * @return self
 	 */
-	public function __construct( bool $dry_run = false ) {
+	public function set_dry_run( bool $dry_run = false ): self {
 		$this->dry_run = $dry_run;
+
+		return $this;
 	}
 
 	/**
@@ -63,7 +65,7 @@ class Post_Processor {
 	 * @return void
 	 */
 	public function verify_migration(): void {
-		$start_time = $this->start_timer();
+		$start_time = microtime( true );
 		if ( $this->dry_run ) {
 			$this->log_message( 'info', 'Dry run mode active. Skipping post-processing validation.', [], 'Post Processor' );
 			$this->update_migration_status( Status::$postprocess_completed );
@@ -122,7 +124,7 @@ class Post_Processor {
 	 * @return void
 	 */
 	protected function verify_settings(): void {
-		$start_time = $this->start_timer();
+		$start_time = microtime( true );
 
 		if ( $this->dry_run ) {
 			$this->log_message( 'info', 'Dry run mode active. Skipping settings validation.', [], 'Post Processor' );

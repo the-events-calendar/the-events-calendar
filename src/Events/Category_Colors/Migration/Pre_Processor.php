@@ -41,7 +41,7 @@ class Pre_Processor {
 	 * @return array<string, mixed> Processed settings and valid category colors.
 	 */
 	public function process(): array {
-		$start_time = $this->start_timer();
+		$start_time = microtime( true );
 		$this->update_migration_status( Status::$in_progress ); // Set migration to in_progress.
 
 		/**
