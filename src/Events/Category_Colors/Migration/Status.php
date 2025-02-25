@@ -91,4 +91,12 @@ class Status {
 	 * @var string
 	 */
 	public static string $postprocess_failed = 'postprocessing_failed';
+
+	/**
+	 * Status when execution is in progress.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $execution_in_progress = 'execution_in_progress';
 }

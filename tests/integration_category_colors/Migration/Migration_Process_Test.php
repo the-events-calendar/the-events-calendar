@@ -11,7 +11,6 @@ use Tribe\Tests\Traits\With_Uopz;
 class Migration_Process_Test extends WPTestCase {
 	use With_Uopz;
 	use With_Clock_Mock;
-	use Utilities;
 
 	/**
 	 * @before
@@ -111,7 +110,7 @@ class Migration_Process_Test extends WPTestCase {
 		$this->set_fn_return( 'current_time', '{time}' );
 		$category_ids = $data_generator();
 
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		$migration_status  = get_option( 'tec_events_category_colors_migration_status', [] );
 		$original_settings = get_option( 'teccc_options', [] );
@@ -142,7 +141,7 @@ class Migration_Process_Test extends WPTestCase {
 	public function it_fails_when_preprocess_skipped(): void {
 		$this->set_class_fn_return( Handler::class, 'get_migration_data', [] );
 
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -449,7 +448,7 @@ class Migration_Process_Test extends WPTestCase {
 		Errors::clear_errors();
 
 		// Attempt to run migration again.
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		// Retrieve the migration status after rerunning.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -478,7 +477,7 @@ class Migration_Process_Test extends WPTestCase {
 		Errors::clear_errors();
 
 		// Attempt to run migration again.
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		// Retrieve the migration status after rerunning.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -638,7 +637,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Step 2: Generate test data and run the migration.
 		$this->generate_test_data( 5, true );
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		// Step 3: Retrieve updated calendar options and verify imported values.
 		$updated_options = get_option( 'tribe_events_calendar_options', [] );
@@ -673,7 +672,7 @@ class Migration_Process_Test extends WPTestCase {
 		delete_option( 'teccc_options' );
 
 		// Run the migration.
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		// Verify that migration status is completed and no unexpected data is stored.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -705,7 +704,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Generate test data and run migration.
 		$this->generate_test_data( 5, true );
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		// Fetch updated options.
 		$updated_options = get_option( 'tribe_events_calendar_options', [] );
@@ -749,7 +748,7 @@ class Migration_Process_Test extends WPTestCase {
 		$this->assertSame( 'not_started', $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
 
 		// Run migration again.
-		tribe( Handler::class )->migrate();
+		tribe( Handler::class )->process();
 
 		// Retrieve migration status after rerun.
 		$migration_status_after_rerun = get_option( 'tec_events_category_colors_migration_status', [] );

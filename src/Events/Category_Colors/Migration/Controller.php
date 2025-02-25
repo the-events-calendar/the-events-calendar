@@ -24,17 +24,16 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
  */
 class Controller extends Controller_Contract {
 
-	use Utilities;
-
 	/**
 	 * Register the provider.
 	 *
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		if ( Status::$execution_completed === $this->get_migration_status()['status'] ) {
+		/*@todo Implement back after tests pass.
+		 * if ( Status::$execution_completed === $this->get_migration_status()['status'] ) {
 			return;
-		}
+		}*/
 		$this->container->singleton( Pre_Processor::class );
 		$this->container->singleton( Validator::class );
 		$this->container->singleton( Worker::class );
@@ -127,11 +126,7 @@ class Controller extends Controller_Contract {
 		// Run the migration.
 		echo 'Starting migration process...<br>';
 
-		tribe( Handler::class )->migrate( $dry_run );
-
-		// Output logs for debugging.
-		$logs = Logger::get_logs();
-		echo '<h3>Logs:</h3><pre>' . print_r( $logs, true ) . '</pre>';
+		tribe( Handler::class )->process( $dry_run );
 
 		// Output inserted meta data for all categories.
 		$categories = get_terms( [ 'taxonomy' => 'tribe_events_cat', 'hide_empty' => false ] );

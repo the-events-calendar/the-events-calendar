@@ -20,8 +20,21 @@ namespace TEC\Events\Category_Colors\Migration;
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-class Pre_Processor {
-	use Utilities;
+class Pre_Processor extends Abstract_Migration_Step {
+
+	/**
+	 * Determines whether the migration step is in a valid state to run.
+	 *
+	 * This method checks the current migration status and ensures the step
+	 * should only execute if the migration has not already started.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the migration step can run, false otherwise.
+	 */
+	public function is_runnable(): bool {
+		return Status::$not_started === $this->get_migration_status()['status'];
+	}
 
 	/**
 	 * A working copy of the settings, which gets modified during processing.
@@ -38,9 +51,9 @@ class Pre_Processor {
 	 * If processing is skipped due to empty settings, the end hook passes `false`.
 	 *
 	 * @since TBD
-	 * @return array<string, mixed> Processed settings and valid category colors.
+	 * @return bool
 	 */
-	public function process(): array {
+	public function process(): bool {
 		$start_time = microtime( true );
 		$this->update_migration_status( Status::$in_progress ); // Set migration to in_progress.
 
@@ -69,7 +82,7 @@ class Pre_Processor {
 			 */
 			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::$expected_structure, false );
 			$this->log_elapsed_time( 'Preprocessing', $start_time );
-			return Config::$expected_structure;
+			return false;
 		}
 
 		// Populate migration data.
@@ -98,7 +111,7 @@ class Pre_Processor {
 
 		$this->log_elapsed_time( 'Preprocessing', $start_time );
 
-		return $migration_data;
+		return true;
 	}
 
 	/**

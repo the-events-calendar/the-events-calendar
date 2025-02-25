@@ -23,9 +23,7 @@ use Tribe__Events__Main;
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-class Post_Processor {
-
-	use Utilities;
+class Post_Processor extends Abstract_Migration_Step {
 
 	/**
 	 * List of meta keys that should be skipped (not inserted as term meta).
@@ -46,6 +44,20 @@ class Post_Processor {
 	protected bool $dry_run = false;
 
 	/**
+	 * Determines whether the migration step is in a valid state to run.
+	 *
+	 * This method checks the current migration status and ensures the step
+	 * should only execute if the migration has not already started.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the migration step can run, false otherwise.
+	 */
+	public function is_runnable(): bool {
+		return in_array( $this->get_migration_status()['status'], [ Status::$execution_completed, Status::$postprocess_failed ], true );
+	}
+
+	/**
 	 * Allows for enabling Dry run mode.
 	 *
 	 * @param bool $dry_run Whether the worker should be in Dry Run mode.
@@ -62,15 +74,15 @@ class Post_Processor {
 	 * Runs validation checks on migrated category meta data.
 	 *
 	 * @since TBD
-	 * @return void
+	 * @return bool
 	 */
-	public function verify_migration(): void {
+	public function process() :bool {
 		$start_time = microtime( true );
 		if ( $this->dry_run ) {
 			$this->log_message( 'info', 'Dry run mode active. Skipping post-processing validation.', [], 'Post Processor' );
 			$this->update_migration_status( Status::$postprocess_completed );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
-			return;
+			return true;
 		}
 
 		$migration_data = $this->get_migration_data();
@@ -79,7 +91,7 @@ class Post_Processor {
 			$this->log_message( 'warning', 'No migration data found. Cannot validate migration results.', [], 'Post Processor' );
 			$this->update_migration_status( 'migration_failed' );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
-			return;
+			return false;
 		}
 
 		$errors_found = false;
@@ -109,11 +121,15 @@ class Post_Processor {
 
 		if ( $errors_found ) {
 			$this->update_migration_status( 'migration_failed' );
+			$this->log_elapsed_time( 'Post Processor', $start_time );
+
+			return false;
 		} else {
 			$this->log_message( 'info', 'Migration verification successful. Marking migration as completed.', [], 'Post Processor' );
 			$this->update_migration_status( Status::$postprocess_completed );
 		}
 		$this->log_elapsed_time( 'Post Processor', $start_time );
+		return true;
 	}
 
 	/**

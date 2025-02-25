@@ -23,9 +23,7 @@ use Tribe__Events__Main;
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-class Worker {
-
-	use Utilities;
+class Worker extends Abstract_Migration_Step {
 
 	/**
 	 * Whether to perform a dry run (no actual DB modifications).
@@ -44,6 +42,20 @@ class Worker {
 	protected array $skip_meta_keys = [
 		'taxonomy_id',
 	];
+
+	/**
+	 * Determines whether the migration step is in a valid state to run.
+	 *
+	 * This method checks the current migration status and ensures the step
+	 * should only execute if the migration has not already started.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the migration step can run, false otherwise.
+	 */
+	public function is_runnable(): bool {
+		return in_array( $this->get_migration_status()['status'], [ Status::$validation_completed, Status::$execution_failed ], true );
+	}
 
 	/**
 	 * Allows for enabling Dry run mode.
@@ -68,9 +80,9 @@ class Worker {
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @return bool
 	 */
-	public function execute(): void {
+	public function process(): bool {
 		$start_time = microtime( true );
 		if ( Status::$validation_completed !== $this->get_migration_status()['status'] ) {
 			$this->log_message( 'info', 'Validation not completed. Running validation before execution.', [], 'Worker' );
@@ -82,7 +94,7 @@ class Worker {
 				do_action( 'tec_events_category_colors_migration_runner_end', false );
 				$this->log_elapsed_time( 'Execution', $start_time );
 
-				return;
+				return false;
 			}
 
 			$this->log_message( 'info', 'Validation completed successfully. Proceeding to execution.', [], 'Worker' );
@@ -90,7 +102,7 @@ class Worker {
 			$this->log_message( 'info', 'Skipping validation step as it was already completed.', [], 'Worker' );
 		}
 
-		$this->update_migration_status( 'execution_in_progress' );
+		$this->update_migration_status( Status::$execution_in_progress );
 
 		/**
 		 * Fires before the migration execution begins.
@@ -118,7 +130,7 @@ class Worker {
 			 */
 			do_action( 'tec_events_category_colors_migration_runner_end', false );
 			$this->log_elapsed_time( 'Execution', $start_time );
-			return;
+			return true;
 		}
 
 		$this->log_existing_meta( $migration_data['categories'] ); // Log existing category meta.
@@ -139,6 +151,7 @@ class Worker {
 		 */
 		do_action( 'tec_events_category_colors_migration_runner_end', ! Errors::has_errors() );
 		$this->log_elapsed_time( 'Execution', $start_time );
+		return true;
 	}
 
 	/**

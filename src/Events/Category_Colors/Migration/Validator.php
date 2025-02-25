@@ -16,12 +16,11 @@ namespace TEC\Events\Category_Colors\Migration;
  * Validates the migration data before execution to prevent incorrect or incomplete imports.
  * Checks data structure, required fields, existing categories, and unexpected meta keys.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-class Validator {
-	use Utilities;
+class Validator extends Abstract_Migration_Step {
 
 	/**
 	 * Number of random keys to validate.
@@ -32,6 +31,20 @@ class Validator {
 	protected int $validation_sample_size = 200;
 
 	/**
+	 * Determines whether the migration step is in a valid state to run.
+	 *
+	 * This method checks the current migration status and ensures the step
+	 * should only execute if the migration has not already started.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the migration step can run, false otherwise.
+	 */
+	public function is_runnable(): bool {
+		return in_array( $this->get_migration_status()['status'], [ Status::$preprocess_completed, Status::$validation_failed ], true );
+	}
+
+	/**
 	 * Runs the full validation process.
 	 * Fires an action before and after validation.
 	 * If validation fails, the end hook passes `false`.
@@ -40,7 +53,7 @@ class Validator {
 	 * @since TBD
 	 * @return bool True if validation passes, false otherwise.
 	 */
-	public function validate(): bool {
+	public function process(): bool {
 		Errors::clear_errors();
 		$start_time = microtime( true );
 		$this->update_migration_status( 'validation_in_progress' ); // Set migration status to validation started.
@@ -68,6 +81,7 @@ class Validator {
 		foreach ( $validation_steps as [$step_name, $validation_step] ) {
 			if ( ! $this->run_validation_step( $validation_step, $step_name ) ) {
 				$this->log_elapsed_time( 'Validation', $start_time );
+
 				return false; // Stop execution if any validation step fails.
 			}
 		}
@@ -83,6 +97,7 @@ class Validator {
 		 */
 		do_action( 'tec_events_category_colors_migration_validator_end', true );
 		$this->log_elapsed_time( 'Validation', $start_time );
+
 		return true;
 	}
 
@@ -121,15 +136,18 @@ class Validator {
 	protected function validate_structure( array $migration_data ): void {
 		if ( empty( $migration_data ) ) {
 			$this->log_message( 'error', 'Migration contains no data.', $migration_data, 'Validator' );
+
 			return;
 		}
 		if ( ! [ $migration_data['categories'] ] ) {
 			$this->log_message( 'error', 'Migration Categories should be an array, found ' . gettype( $migration_data['categories'] ) . '.', [], 'Validator' );
+
 			return;
 		}
 		foreach ( Config::$expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
 				$this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [], 'Validator' );
+
 				return;
 			}
 		}
@@ -183,6 +201,7 @@ class Validator {
 
 		if ( empty( $original_settings ) ) {
 			$this->log_message( 'error', 'Original settings are empty, cannot validate migration.', [], 'Validator' );
+
 			return;
 		}
 

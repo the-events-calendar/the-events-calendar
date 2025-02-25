@@ -1,8 +1,9 @@
 <?php
 /**
- * Provides shared functionality for category color migration.
- * This trait includes reusable methods for retrieving and managing migration data,
- * ensuring consistency across all migration-related classes.
+ * Provides a base class for migration steps in the category color migration process.
+ *
+ * This abstract class implements the `Migration_Step_Interface` and provides shared functionality
+ * for all migration steps, ensuring consistency across the migration workflow.
  *
  * @since   TBD
  *
@@ -12,16 +13,19 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 /**
- * Trait Migration_Trait
- * Contains shared methods for handling migration data, taxonomy lookups,
- * and utility functions used across multiple migration classes.
+ * Class Abstract_Migration_Step
  *
- * @since TBD
+ * Serves as a base class for migration steps, enforcing a consistent structure.
+ * Implements `Migration_Step_Interface` and provides common methods that can be used
+ * by concrete migration steps such as `Pre_Processor`, `Validator`, `Worker`, and `Post_Processor`.
+ *
+ * Subclasses should implement the `process()` and `is_runnable()` methods according to their specific requirements.
+ *
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
-trait Utilities {
-
+abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 
 	/**
 	 * Retrieves the original settings from the database.
@@ -155,7 +159,6 @@ trait Utilities {
 
 		$this->log_message( 'info', 'Migration has been reset to the initial state.', [], 'Migration Status Updated' );
 
-
 		/**
 		 * Fires when the migration is reset.
 		 *
@@ -208,7 +211,6 @@ trait Utilities {
 			'process' => 'Category Colors Migration',
 		];
 		$context         = wp_parse_args( $default_context, $context );
-
 
 		do_action( 'tribe_log', $level, $message, $context );
 	}
