@@ -54,7 +54,7 @@ class Worker extends Abstract_Migration_Step {
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return in_array( $this->get_migration_status()['status'], [ Status::$validation_completed, Status::$execution_failed ], true );
+		return in_array( static::get_migration_status()['status'], [ Status::$validation_completed, Status::$execution_failed ], true );
 	}
 
 	/**
@@ -84,7 +84,7 @@ class Worker extends Abstract_Migration_Step {
 	 */
 	public function process(): bool {
 		$start_time = microtime( true );
-		if ( Status::$validation_completed !== $this->get_migration_status()['status'] ) {
+		if ( Status::$validation_completed !== static::get_migration_status()['status'] ) {
 			$this->log_message( 'info', 'Validation not completed. Running validation before execution.', [], 'Worker' );
 
 			if ( ! tribe( Validator::class )->validate() ) {

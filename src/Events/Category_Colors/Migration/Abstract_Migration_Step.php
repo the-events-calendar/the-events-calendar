@@ -105,7 +105,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @since TBD
 	 * @return array<string, mixed> The current migration status with timestamp.
 	 */
-	protected function get_migration_status(): array {
+	protected static function get_migration_status(): array {
 		return get_option(
 			Config::$migration_status_option,
 			[

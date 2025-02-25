@@ -84,7 +84,7 @@ class Handler extends Abstract_Migration_Step {
 		$this->dry_run = $dry_run;
 		$start_time    = microtime( true );
 
-		if ( Status::$postprocess_completed === $this->get_migration_status()['status'] ) {
+		if ( Status::$postprocess_completed === static::get_migration_status()['status'] ) {
 			$this->log_message( 'info', 'Migration has already been completed.' );
 			$this->log_elapsed_time( 'Migration Process', $start_time );
 
@@ -92,14 +92,14 @@ class Handler extends Abstract_Migration_Step {
 		}
 
 		// Prevent running if migration is already in progress.
-		if ( Status::$execution_in_progress === $this->get_migration_status()['status'] ) {
+		if ( Status::$execution_in_progress === static::get_migration_status()['status'] ) {
 			$this->log_message( 'info', 'Migration is already in progress.' );
 			$this->log_elapsed_time( 'Migration Process', $start_time );
 
 			return false;
 		}
 
-		$this->log_message( 'info', 'Migration starting. Current status: ' . $this->get_migration_status()['status'] );
+		$this->log_message( 'info', 'Migration starting. Current status: ' . static::get_migration_status()['status'] );
 
 		// Define migration steps.
 		$migration_steps = [

@@ -33,7 +33,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return Status::$not_started === $this->get_migration_status()['status'];
+		return Status::$not_started === static::get_migration_status()['status'];
 	}
 
 	/**

@@ -30,10 +30,9 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		/*@todo Implement back after tests pass.
-		 * if ( Status::$execution_completed === $this->get_migration_status()['status'] ) {
+		if ( Status::$execution_completed === Handler::get_migration_data()['status'] ) {
 			return;
-		}*/
+		}
 		$this->container->singleton( Pre_Processor::class );
 		$this->container->singleton( Validator::class );
 		$this->container->singleton( Worker::class );

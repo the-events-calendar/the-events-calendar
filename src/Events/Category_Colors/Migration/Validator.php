@@ -41,7 +41,7 @@ class Validator extends Abstract_Migration_Step {
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return in_array( $this->get_migration_status()['status'], [ Status::$preprocess_completed, Status::$validation_failed ], true );
+		return in_array( static::get_migration_status()['status'], [ Status::$preprocess_completed, Status::$validation_failed ], true );
 	}
 
 	/**
