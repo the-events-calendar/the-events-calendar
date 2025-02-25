@@ -203,10 +203,6 @@ class Event_Category_Meta {
 			update_term_meta( $this->term_id, $key, $value );
 		}
 
-		foreach ( $this->pending_deletes as $key ) {
-			delete_term_meta( $this->term_id, $key );
-		}
-
 		// Clear queues after saving.
 		$this->pending_updates = [];
 		$this->pending_deletes = [];
