@@ -76,7 +76,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 
 				if ( tabSettings.currentTab === 5 ) {
 					// If we've already installed Event Tickets, temporarily remove the button to install Event Tickets.
-					const installButton = document.querySelector('.stellarwp-installer-tec__install-button--event-tickets');
+					const installButton = document.querySelector( '.stellarwp-installer-tec__install-button--event-tickets' );
 
 					if ( installButton ) {
 						installButton.parentNode.removeChild( installButton );
