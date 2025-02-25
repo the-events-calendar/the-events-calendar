@@ -11,8 +11,6 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
-use Tribe__Events__Main;
-
 /**
  * Trait Migration_Trait
  * Contains shared methods for handling migration data, taxonomy lookups,
@@ -23,14 +21,6 @@ use Tribe__Events__Main;
  * @package TEC\Events\Category_Colors\Migration
  */
 trait Utilities {
-
-	/**
-	 * The taxonomy used for event categories.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	public string $taxonomy = Tribe__Events__Main::TAXONOMY;
 
 	/**
 	 * Option name for storing original settings.

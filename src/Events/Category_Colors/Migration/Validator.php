@@ -151,7 +151,7 @@ class Validator {
 	protected function validate_category_existence( array $categories ): void {
 		$valid_categories = get_terms(
 			[
-				'taxonomy'   => $this->taxonomy,
+				'taxonomy'   => Handler::$taxonomy,
 				'hide_empty' => false,
 				'fields'     => 'ids',
 			]

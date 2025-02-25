@@ -13,6 +13,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use Tribe__Events__Main;
+
 /**
  * Class Migration_Process
  *
@@ -34,6 +36,14 @@ namespace TEC\Events\Category_Colors\Migration;
  */
 class Handler {
 	use Utilities;
+
+	/**
+	 * The taxonomy used for event categories.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $taxonomy = Tribe__Events__Main::TAXONOMY;
 
 	/**
 	 * Whether this is a dry run.
