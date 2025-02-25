@@ -56,7 +56,7 @@ class Pre_Processor {
 		$this->processed_settings = $this->get_original_settings();
 
 		if ( empty( $this->processed_settings ) ) {
-			$this->update_migration_data( $this->expected_structure );
+			$this->update_migration_data( Config::$expected_structure );
 			$this->update_migration_status( 'preprocess_skipped' ); // Migration skipped due to no data.
 
 			/**
@@ -67,9 +67,9 @@ class Pre_Processor {
 			 * @param array<string, mixed> $migration_data The processed migration data.
 			 * @param bool                 $success        Whether processing was successful.
 			 */
-			do_action( 'tec_events_category_colors_migration_preprocessor_end', $this->expected_structure, false );
+			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::$expected_structure, false );
 			$this->log_elapsed_time( 'Preprocessing', $start_time );
-			return $this->expected_structure;
+			return Config::$expected_structure;
 		}
 
 		// Populate migration data.
@@ -118,7 +118,7 @@ class Pre_Processor {
 					$mapped_key = $this->get_mapped_meta_key( $field_name );
 
 					if ( null !== $mapped_key ) {
-						$meta_key = $this->meta_key_prefix . $mapped_key;
+						$meta_key = Config::$meta_key_prefix . $mapped_key;
 						$value    = $filtered_settings[ $key ];
 						$value    = ( 'no_color' === $value ) ? '' : $value;
 						// Store processed setting under category.
@@ -149,7 +149,7 @@ class Pre_Processor {
 	protected function get_settings_values(): array {
 		$mapped_settings = [];
 
-		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
 			if ( ! $mapping['import'] ) {
 				continue;
 			}

@@ -22,108 +22,6 @@ namespace TEC\Events\Category_Colors\Migration;
  */
 trait Utilities {
 
-	/**
-	 * Option name for storing original settings.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	protected string $original_settings_option = 'teccc_options';
-
-	/**
-	 * Option name for storing migration data.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	protected string $migration_data_option = 'tec_category_colors_migration_data';
-
-	/**
-	 * Option name for tracking the migration status.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	protected string $migration_status_option = 'tec_events_category_colors_migration_status';
-
-	/**
-	 * Expected structure for the migration data.
-	 *
-	 * @since TBD
-	 * @var array<string, mixed>
-	 */
-	protected array $expected_structure = [
-		'categories'    => [],
-		'settings'      => [],
-		'ignored_terms' => [],
-	];
-
-	/**
-	 * Mapping of old settings keys to new migrated keys, along with validation rules.
-	 *
-	 * @since TBD
-	 * @var array<string, array<string, string>>
-	 */
-	protected array $settings_mapping = [
-		'add_legend'               => [
-			'mapped_key' => 'category-color-legend-show',
-			'validation' => 'array',
-			'import'     => true,
-		],
-		'chk_default_options_db'   => [
-			'mapped_key' => 'chk_default_options_db',
-			'validation' => '',
-			'import'     => false,
-		],
-		'custom_legend_css'        => [
-			'mapped_key' => 'category-color-custom-CSS',
-			'validation' => 'boolean',
-			'import'     => true,
-		],
-		'font_weight'              => [
-			'mapped_key' => 'font_weight',
-			'validation' => '',
-			'import'     => false,
-		],
-		'legend_superpowers'       => [
-			'mapped_key' => 'category-color-legend-superpowers',
-			'validation' => 'boolean',
-			'import'     => true,
-		],
-		'reset_show'               => [
-			'mapped_key' => 'category-color-reset-button',
-			'validation' => 'boolean',
-			'import'     => true,
-		],
-		'show_ignored_cats_legend' => [
-			'mapped_key' => 'category-color-show-hidden-categories',
-			'validation' => 'boolean',
-			'import'     => true,
-		],
-	];
-
-
-	/**
-	 * Prefix for storing category meta values.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	protected string $meta_key_prefix = 'tec-events-cat-colors-';
-
-	/**
-	 * Mapping of old meta keys to new ones.
-	 * Keys represent the old names, and values represent the new names.
-	 * Any key not in this list will be ignored.
-	 *
-	 * @since TBD
-	 * @var array<string, string>
-	 */
-	protected array $meta_key_map = [
-		'border'     => 'primary',
-		'background' => 'secondary',
-		'text'       => 'text',
-	];
 
 	/**
 	 * Retrieves the original settings from the database.
@@ -132,7 +30,7 @@ trait Utilities {
 	 * @return array<string, mixed> The original settings.
 	 */
 	public function get_original_settings(): array {
-		return get_option( $this->original_settings_option, [] );
+		return get_option( Config::$original_settings_option, [] );
 	}
 
 	/**
@@ -142,7 +40,7 @@ trait Utilities {
 	 * @return array<string, mixed> The migration data.
 	 */
 	public function get_migration_data(): array {
-		return get_option( $this->migration_data_option, [] );
+		return get_option( Config::$migration_data_option, [] );
 	}
 
 	/**
@@ -155,7 +53,7 @@ trait Utilities {
 	 * @return void
 	 */
 	public function update_migration_data( array $data ): void {
-		update_option( $this->migration_data_option, $data, false );
+		update_option( Config::$migration_data_option, $data, false );
 	}
 
 	/**
@@ -194,7 +92,7 @@ trait Utilities {
 	 * @return string|null The mapped meta key, or null if it should be ignored.
 	 */
 	protected function get_mapped_meta_key( string $key ): ?string {
-		return $this->meta_key_map[ $key ] ?? null;
+		return Config::$meta_key_map[ $key ] ?? null;
 	}
 
 	/**
@@ -205,7 +103,7 @@ trait Utilities {
 	 */
 	protected function get_migration_status(): array {
 		return get_option(
-			$this->migration_status_option,
+			Config::$migration_status_option,
 			[
 				'status'    => Status::$not_started,
 				'timestamp' => current_time( 'mysql' ),
@@ -224,7 +122,7 @@ trait Utilities {
 	 */
 	protected function update_migration_status( string $status ): void {
 		update_option(
-			$this->migration_status_option,
+			Config::$migration_status_option,
 			[
 				'status'    => $status,
 				'timestamp' => current_time( 'mysql' ),
@@ -252,7 +150,7 @@ trait Utilities {
 	public function reset_migration(): void {
 		// Delete migration data and reset status.
 		Errors::clear_errors();
-		delete_option( $this->migration_data_option );
+		delete_option( Config::$migration_data_option );
 		$this->update_migration_status( Status::$not_started );
 
 		$this->log_message( 'info', 'Migration has been reset to the initial state.', [], 'Migration Status Updated' );

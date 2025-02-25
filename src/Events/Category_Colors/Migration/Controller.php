@@ -39,7 +39,6 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Validator::class );
 		$this->container->singleton( Worker::class );
 		$this->container->singleton( Post_Processor::class );
-		$this->container->singleton( Logger::class );
 		$this->container->singleton( Handler::class );
 		$this->container->singleton( Errors::class );
 		$this->add_filters();
@@ -89,8 +88,8 @@ class Controller extends Controller_Contract {
 
 		// Optional: Reset migration if requested.
 		if ( '1' === tec_get_request_var( 'reset', '' ) ) {
-			delete_option( $this->migration_data_option );
-			delete_option( $this->migration_status_option );
+			delete_option( Config::$migration_data_option );
+			delete_option( Config::$migration_status_option );
 
 			// Remove all inserted category meta data using the Event_Category_Meta class.
 			foreach ( $categories as $category ) {
@@ -104,7 +103,7 @@ class Controller extends Controller_Contract {
 			// Remove settings stored in tribe_events_calendar_options.
 			$existing_settings = get_option( 'tribe_events_calendar_options', [] );
 
-			foreach ( $this->settings_mapping as $mapping ) {
+			foreach ( Config::$settings_mapping as $mapping ) {
 				if ( ! $mapping['import'] ) {
 					continue; // Skip non-imported keys.
 				}

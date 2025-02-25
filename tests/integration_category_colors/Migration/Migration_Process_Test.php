@@ -80,7 +80,7 @@ class Migration_Process_Test extends WPTestCase {
 		}
 
 		if ( $include_settings ) {
-			foreach ( $this->settings_mapping as $old_key => $mapping ) {
+			foreach ( Config::$settings_mapping as $old_key => $mapping ) {
 				if ( $mapping['import'] ) {
 					// Assign random or default values for settings being imported.
 					switch ( $mapping['validation'] ) {
@@ -626,7 +626,7 @@ class Migration_Process_Test extends WPTestCase {
 	public function it_correctly_stores_migrated_settings_in_tribe_events_calendar_options(): void {
 		// Step 1: Ensure mapped settings do not exist before migration.
 		$calendar_options = get_option( 'tribe_events_calendar_options', [] );
-		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
 			if ( $mapping['import'] ) {
 				$this->assertArrayNotHasKey(
 					$mapping['mapped_key'],
@@ -643,7 +643,7 @@ class Migration_Process_Test extends WPTestCase {
 		// Step 3: Retrieve updated calendar options and verify imported values.
 		$updated_options = get_option( 'tribe_events_calendar_options', [] );
 
-		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
 			if ( ! $mapping['import'] ) {
 				// Skip settings that should not be imported.
 				continue;
@@ -681,7 +681,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Check that no unexpected settings were stored.
 		$calendar_options = get_option( 'tribe_events_calendar_options', [] );
-		foreach ( $this->settings_mapping as $mapping ) {
+		foreach ( Config::$settings_mapping as $mapping ) {
 			if ( $mapping['import'] ) {
 				$this->assertArrayNotHasKey(
 					$mapping['mapped_key'],

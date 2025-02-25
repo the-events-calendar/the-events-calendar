@@ -110,7 +110,6 @@ class Post_Processor {
 		if ( $errors_found ) {
 			$this->update_migration_status( 'migration_failed' );
 		} else {
-			Logger::log( 'info', 'Migration verification successful. Marking migration as completed.' );
 			$this->log_message( 'info', 'Migration verification successful. Marking migration as completed.', [], 'Post Processor' );
 			$this->update_migration_status( Status::$postprocess_completed );
 		}
@@ -142,7 +141,7 @@ class Post_Processor {
 
 		$errors_found = false;
 
-		foreach ( $this->settings_mapping as $old_key => $mapping ) {
+		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
 			if ( ! $mapping['import'] ) {
 				continue; // Skip non-imported keys.
 			}

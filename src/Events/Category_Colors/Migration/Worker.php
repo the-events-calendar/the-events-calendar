@@ -170,7 +170,7 @@ class Worker {
 
 				$existing_value = $category_meta->get( $meta_key );
 
-				if ( null !== $existing_value ) {
+				if ( empty( ! $existing_value ) ) {
 					continue; // Skip if already exists.
 				}
 				++$migrated_category_meta_count;

@@ -127,7 +127,7 @@ class Validator {
 			$this->log_message( 'error', 'Migration Categories should be an array, found ' . gettype( $migration_data['categories'] ) . '.', [], 'Validator' );
 			return;
 		}
-		foreach ( $this->expected_structure as $key => $_ ) {
+		foreach ( Config::$expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
 				$this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [], 'Validator' );
 				return;
@@ -211,8 +211,8 @@ class Validator {
 	 */
 	protected function validate_meta_keys( array $categories ): void {
 		$expected_meta_keys = array_map(
-			fn( $mapped ) => $this->meta_key_prefix . $mapped,
-			$this->meta_key_map
+			fn( $mapped ) => Config::$meta_key_prefix . $mapped,
+			Config::$meta_key_map
 		);
 
 		foreach ( $categories as $category_id => $data ) {
@@ -239,7 +239,7 @@ class Validator {
 	 */
 	protected function detect_unrecognized_keys( array $migration_data ): void {
 		foreach ( $migration_data as $section => $values ) {
-			if ( ! isset( $this->expected_structure[ $section ] ) ) {
+			if ( ! isset( Config::$expected_structure[ $section ] ) ) {
 				$this->log_message( 'error', "Unexpected section found: '{$section}' in migration data.", [], 'Validator' );
 				continue;
 			}
@@ -261,7 +261,7 @@ class Validator {
 	 * @return void
 	 */
 	protected function check_required_fields( array $migration_data ): void {
-		foreach ( $this->settings_mapping as $original_key => $mapped_data ) {
+		foreach ( Config::$settings_mapping as $original_key => $mapped_data ) {
 			$mapped_key = $mapped_data['mapped_key'] ?? null;
 
 			if ( ! $mapped_key ) {

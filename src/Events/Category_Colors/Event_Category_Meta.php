@@ -106,9 +106,9 @@ class Event_Category_Meta {
 	 *
 	 * @return mixed The meta value, or an array of all metadata if no key is provided.
 	 */
-	public function get( ?string $key = null ) {
+	public function get( ?string $key = '' ) {
 		$this->ensure_term_is_set();
-		if ( null === $key ) {
+		if ( empty( $key ) ) {
 			$all_meta = get_term_meta( $this->term_id );
 
 			foreach ( $all_meta as $meta_key => &$value ) {
@@ -125,8 +125,8 @@ class Event_Category_Meta {
 		}
 
 		return metadata_exists( 'term', $this->term_id, $key )
-			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, false ) )
-			: null;
+			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, true ) )
+			: '';
 	}
 
 	/**
@@ -143,12 +143,13 @@ class Event_Category_Meta {
 	 */
 	public function set( string $key, $value ): self {
 		$this->ensure_term_is_set();
-		$key   = $this->validate_key( $key );
-		$value = $this->validate_value( $value );
+		$key = $this->validate_key( $key );
 
 		if ( is_wp_error( $key ) ) {
 			throw new InvalidArgumentException( $key->get_error_message() );
 		}
+
+		$value = $this->validate_value( $value );
 
 		if ( is_wp_error( $value ) ) {
 			throw new InvalidArgumentException( $value->get_error_message() );
@@ -197,10 +198,13 @@ class Event_Category_Meta {
 		$this->ensure_term_is_set();
 		foreach ( $this->pending_deletes as $key ) {
 			delete_term_meta( $this->term_id, $key );
+			// Remove from pending deletes in case it was set before.
 		}
 
 		foreach ( $this->pending_updates as $key => $value ) {
 			update_term_meta( $this->term_id, $key, $value );
+			// Remove from pending deletes in case it was set before.
+			unset( $this->pending_deletes[ $key ] );
 		}
 
 		// Clear queues after saving.
@@ -211,14 +215,18 @@ class Event_Category_Meta {
 	}
 
 	/**
-	 * Normalizes meta values to ensure consistency.
+	 * Ensures meta values are consistently formatted.
+	 *
+	 * Due to a bug in WordPress 6.7.2, taxonomy meta values do not retain their original data type.
+	 * For example, inserting an integer `0` returns the string `'0'`, and inserting `false` returns an empty string `''`.
+	 * This method normalizes the values to maintain consistency.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $key   The meta key.
-	 * @param mixed  $value The raw value from get_term_meta().
+	 * @param mixed  $value The raw value retrieved from get_term_meta().
 	 *
-	 * @return mixed The normalized value.
+	 * @return mixed The normalized meta value.
 	 */
 	protected function normalize_meta( string $key, $value ) {
 		if ( ! is_array( $value ) ) {
