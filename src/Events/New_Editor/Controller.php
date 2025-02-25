@@ -63,6 +63,8 @@ class Controller extends ControllerContract {
 		// We're using TEC new editor.
 		add_filter( 'tec_using_new_editor', '__return_true' );
 
+		add_filter('block_editor_settings_all', [$this,'filter_block_editor_settings'],100,2);
+
 		// Apprach 1: leverage the Block Editor and customize it.
 		// Register the main assets entry point.
 		Asset::add(
@@ -73,8 +75,16 @@ class Controller extends ControllerContract {
 		     ->enqueue_on( 'enqueue_block_editor_assets' )
 		     ->add_localize_script( 'tec.newEditor', [
 			     '__experimentalApproach' => $this->__experimental_approach,
-			     'eventCategoryTaxonomyName' => TEC::TAXONOMY,
+			     'eventCategoryTaxonomyName' => TEC::TAXONOMY
 		     ] )
+		     ->register();
+
+		Asset::add(
+			'tec-new-editor-style',
+			'style-new-editor.css'
+		)->add_to_group_path( TEC::class . '-packages' )
+		     ->add_to_group( 'tec-new-editor' )
+		     ->enqueue_on( 'enqueue_block_editor_assets' )
 		     ->register();
 
 		// Approach 2: metabox.
@@ -93,8 +103,8 @@ class Controller extends ControllerContract {
 	public function unregister(): void {
 		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 		remove_filter( 'tec_using_new_editor', '__return_true' );
-		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ] );
 		remove_action('add_meta_boxes', [$this, 'add_meta_boxes']);
+		remove_filter('block_editor_settings_all', [$this,'filter_block_editor_settings'],100);
 	}
 
 	/**
@@ -110,6 +120,23 @@ class Controller extends ControllerContract {
 		$supported_post_types = $this->get_supported_post_types();
 
 		return in_array( $post->post_type, $supported_post_types, true );
+	}
+
+	public function filter_block_editor_settings(array $settings, WP_Block_Editor_Context $context){
+		if(!(
+			$context->post instanceof WP_Post
+			&& $this->post_uses_new_editor($context->post)
+		)){
+			return $settings;
+		}
+
+		// Lock the template.
+		$settings['templateLock'] = true;
+
+		// Ensure metaboxes are active for the post.
+		$settings['enableCustomFields'] = true;
+
+		return $settings;
 	}
 
 	/**
@@ -165,7 +192,6 @@ class Controller extends ControllerContract {
 	</div>
 </div>
 HTML;
-
 	}
 
 	public function the_metabox(): void {
@@ -173,7 +199,6 @@ HTML;
 	}
 
 	public function add_meta_boxes():void{
-		// Approach 2: metabox.
 		add_meta_box(
 			'tec-new-editor',
 			'TEC NEW EDITOR',

@@ -1,0 +1,29 @@
+.block-editor__container {
+	.editor-header {
+		/* Hide the preview button */
+		.editor-preview-dropdown {
+			display: none;
+		}
+
+		/* The Zoom Out button is hidden using its label in the JS code. */
+	}
+
+	.editor-visual-editor {
+		display: none;
+
+		&.tec-is-visible {
+			min-height: 100%;
+			display: block;
+			animation: fadeIn 0.35s forwards;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+	}
+}

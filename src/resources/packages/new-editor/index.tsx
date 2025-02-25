@@ -2,6 +2,10 @@ import {dispatch, select, subscribe} from "@wordpress/data";
 import {localizedData} from './localized-data';
 import {createBlock, registerBlockCollection, registerBlockType} from '@wordpress/blocks';
 import {useBlockProps} from '@wordpress/block-editor';
+import {__} from "@wordpress/i18n";
+import { Button } from '@wordpress/components';
+import {registerPlugin} from '@wordpress/plugins';
+import './style.pcss';
 
 console.log('Hello from the new editor!');
 
@@ -25,6 +29,7 @@ dispatch('core/editor').removeEditorPanel(`taxonomy-panel-${eventCategoryTaxonom
 
 // Remove the post tag sidebar element.
 dispatch('core/editor').removeEditorPanel('taxonomy-panel-post_tag');
+
 
 if (__experimentalApproach === 'block-editor') {
 	whenEditorIsReady().then(() => {
@@ -85,19 +90,59 @@ if (__experimentalApproach === 'block-editor') {
 	});
 } else {
 	whenEditorIsReady().then(()=>{
-		// Metabox.
-		// @todo move this to style
+		// Remove the resize control from the new editor metabox.
 		document.getElementById('tec-new-editor')
 			.querySelectorAll('.handle-actions')
 			.forEach((el: Element): void => el.remove());
 
-		// @todo move this to style
-		document.querySelectorAll('.editor-visual-editor').forEach((el: Element): void => el.style.display = 'none');
+		// Remove the Zoom Out button. The only way is by its aria label.
+		const zoomOutAriaLabel = __('Zoom Out');
+		document.querySelectorAll(`.components-button[aria-label="${zoomOutAriaLabel}"]`)
+			.forEach((el: Element)=>el.remove());
+
+		// Add editor tools.
+		let editorToolsAdded = false;
+		function togglePreview():void{
+			document.querySelectorAll('.editor-visual-editor')
+				.forEach((editor:Element)=>editor.classList.toggle('tec-is-visible'));
+		}
+
+		function EditorTools(): void {
+			if (editorToolsAdded) {
+				return;
+			}
+
+			const editorDocumentTools = document.querySelector('.editor-document-tools .editor-document-tools__left')
+
+			if (editorDocumentTools) {
+				console.log('adding button');
+				const previewButton = document.createElement('button')
+				previewButton.classList.add('tec-editor-tool', 'tec-editor-tool--preview', 'is-secondary');
+				previewButton.type = 'button';
+				previewButton.dataset.toolbarItem = 'true';
+				previewButton.innerHTML = `<span class="dashicons dashicons-visibility"></span> ${__('Visual', 'the-events-calendar')}`;
+				editorDocumentTools.append(previewButton);
+				editorToolsAdded = true;
+				previewButton.onclick = togglePreview;
+			}
+
+			return null;
+		}
+
+		registerPlugin('tec-editor-tools', {
+			render: EditorTools
+		});
 
 		// The metabox area height is hard-coded, refresh it.
+		// This will implicitly hide the block editor.
 		document
 			.querySelectorAll('.components-resizable-box__container.edit-post-meta-boxes-main')
 			.forEach((el: Element): void => el.style.height = 'auto');
+
+		// Prevent metabox area from being resizable.
+		document
+			.querySelectorAll('.edit-post-meta-boxes-main.is-resizable')
+			.forEach((el: Element)=>el.classList.remove('is-resizable'));
 
 		// @todo prevent lower metaboxes from getting in higher positions when using their sortable controls.
 	});
