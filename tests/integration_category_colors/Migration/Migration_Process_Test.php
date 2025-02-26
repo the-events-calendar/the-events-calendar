@@ -138,14 +138,15 @@ class Migration_Process_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function it_fails_when_preprocess_skipped(): void {
-		$this->set_class_fn_return( Handler::class, 'get_migration_data', [] );
+	public function it_skips_execution_when_no_data(): void {
+		$this->set_class_fn_return( Abstract_Migration_Step::class, 'get_migration_data', [] );
+		$this->set_class_fn_return( Validator::class, 'process', true );
 
 		tribe( Handler::class )->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
-		$this->assertSame( 'preprocess_skipped', $migration_status['status'] ?? '', 'Preprocessing should have been skipped but was not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Preprocessing should have been skipped but was not.' );
 	}
 
 	/**

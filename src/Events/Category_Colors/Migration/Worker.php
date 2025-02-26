@@ -12,6 +12,7 @@ namespace TEC\Events\Category_Colors\Migration;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use Tribe__Events__Main;
+use WP_Error;
 
 /**
  * Class Migration_Runner
@@ -73,11 +74,6 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Executes the category color migration process.
 	 *
-	 * This method orchestrates the entire migration process, ensuring:
-	 * 1. Validation is skipped if already completed.
-	 * 2. Execution only proceeds if validation passes.
-	 * 3. Proper logging and error handling.
-	 *
 	 * @since TBD
 	 *
 	 * @return bool
@@ -87,9 +83,10 @@ class Worker extends Abstract_Migration_Step {
 		if ( Status::$validation_completed !== static::get_migration_status()['status'] ) {
 			$this->log_message( 'info', 'Validation not completed. Running validation before execution.', [], 'Worker' );
 
-			if ( ! tribe( Validator::class )->validate() ) {
+			$error = tribe( Validator::class )->process();
+			if ( is_wp_error( $error ) ) {
 				$this->log_message( 'error', 'Validation failed. Migration execution stopped.', [], 'Worker' );
-				$this->update_migration_status( Status::$execution_failed ); // Mark execution as failed.
+				$this->update_migration_status( Status::$execution_failed );
 
 				do_action( 'tec_events_category_colors_migration_runner_end', false );
 				$this->log_elapsed_time( 'Execution', $start_time );
@@ -119,57 +116,55 @@ class Worker extends Abstract_Migration_Step {
 
 		if ( empty( $migration_data['categories'] ) || ! is_array( $migration_data['categories'] ) ) {
 			$this->log_message( 'error', 'No categories found for migration.', [], 'Worker' );
-			$this->update_migration_status( 'execution_skipped' ); // Mark execution as skipped.
+			$this->update_migration_status( Status::$execution_skipped );
 
-			/**
-			 * Fires when migration execution is stopped due to no data.
-			 *
-			 * @since TBD
-			 *
-			 * @param bool $success False, indicating failure.
-			 */
 			do_action( 'tec_events_category_colors_migration_runner_end', false );
 			$this->log_elapsed_time( 'Execution', $start_time );
-			return true;
+
+			return false;
 		}
 
-		$this->log_existing_meta( $migration_data['categories'] ); // Log existing category meta.
+		$this->log_existing_meta( $migration_data['categories'] );
 
-		$this->insert_category_meta( $migration_data['categories'] );
+		$error = $this->insert_category_meta( $migration_data['categories'] );
+		if ( is_wp_error( $error ) ) {
+			$this->log_message( 'error', 'Failed to insert category meta data.', [], 'Worker' );
+			$this->update_migration_status( Status::$execution_failed );
+			do_action( 'tec_events_category_colors_migration_runner_end', false );
+
+			return false;
+		}
+
 		if ( ! empty( $migration_data['settings'] ) ) {
-			$this->insert_settings( $migration_data['settings'] );
+			$error = $this->insert_settings( $migration_data['settings'] );
+			if ( is_wp_error( $error ) ) {
+				$this->log_message( 'error', 'Failed to insert settings.', [], 'Worker' );
+				$this->update_migration_status( Status::$execution_failed );
+				do_action( 'tec_events_category_colors_migration_runner_end', false );
+
+				return false;
+			}
 		}
 
-		$this->update_migration_status( ! Errors::has_errors() ? Status::$execution_completed : Status::$execution_failed ); // Update final status.
+		$this->update_migration_status( Status::$execution_completed );
 
-		/**
-		 * Fires after the migration execution completes.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $success True if execution was successful, false otherwise.
-		 */
-		do_action( 'tec_events_category_colors_migration_runner_end', ! Errors::has_errors() );
+		do_action( 'tec_events_category_colors_migration_runner_end', true );
 		$this->log_elapsed_time( 'Execution', $start_time );
+
 		return true;
 	}
 
 	/**
 	 * Inserts meta values for the given categories.
-	 * This method loops through each category and its associated meta data,
-	 * inserting meta values into the database unless they already exist
-	 * or are explicitly skipped.
-	 * If dry-run mode is enabled, no actual database modifications occur.
-	 * Instead, the potential insertions are logged for review.
 	 *
 	 * @since TBD
 	 *
 	 * @param array<int, array<string, mixed>> $categories An associative array where
 	 *                                                     the key is the category ID and the value is an array of meta keys and values.
 	 *
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error on failure.
 	 */
-	protected function insert_category_meta( array $categories ): void {
+	protected function insert_category_meta( array $categories ) {
 		$migrated_category_meta_count = 0;
 		$migrated_category_count      = count( $categories );
 
@@ -183,7 +178,7 @@ class Worker extends Abstract_Migration_Step {
 
 				$existing_value = $category_meta->get( $meta_key );
 
-				if ( empty( ! $existing_value ) ) {
+				if ( ! empty( $existing_value ) ) {
 					continue; // Skip if already exists.
 				}
 				++$migrated_category_meta_count;
@@ -191,15 +186,21 @@ class Worker extends Abstract_Migration_Step {
 				if ( $this->dry_run ) {
 					$this->log_dry_run( $category_id, $meta_key, $meta_value );
 				} else {
-					$category_meta->set( $meta_key, $meta_value );
+					$result = $category_meta->set( $meta_key, $meta_value );
+					if ( is_wp_error( $result ) ) {
+						return $this->log_message( 'error', "Failed to insert meta '{$meta_key}' for category {$category_id}.", [], 'Worker' );
+					}
 				}
 			}
 
 			if ( ! $this->dry_run ) {
-				$category_meta->save(); // Batch save updates.
+				$category_meta->save();
 			}
 		}
+
 		$this->log_message( 'info', "Migrated {$migrated_category_meta_count} category meta values across {$migrated_category_count} categories.", [], 'Worker' );
+
+		return true;
 	}
 
 	/**
@@ -266,45 +267,42 @@ class Worker extends Abstract_Migration_Step {
 	/**
 	 * Inserts the migrated settings into the `tribe_events_calendar_options` option.
 	 * Ensures existing settings are not overwritten and logs changes.
-	 * Supports dry-run mode for safe testing.
 	 *
 	 * @since TBD
 	 *
 	 * @param array<string, mixed> $settings The settings to insert.
 	 *
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error on failure.
 	 */
-	protected function insert_settings( array $settings ): void {
+	protected function insert_settings( array $settings ) {
 		if ( empty( $settings ) ) {
 			$this->log_message( 'warning', 'No general settings found to migrate. Skipping settings update.', [], 'Worker' );
-			return;
+
+			return true;
 		}
 
-		// Fetch existing settings.
 		$existing_settings = get_option( Tribe__Events__Main::OPTIONNAME, [] );
 
 		if ( ! is_array( $existing_settings ) ) {
-			$this->log_message( 'error', 'Existing settings are not an array. Skipping migration to prevent corruption.', [], 'Worker' );
-			return;
+			return $this->log_message( 'error', 'Existing settings are not an array. Skipping migration to prevent corruption.', [], 'Worker' );
 		}
 
 		$new_settings     = [];
 		$skipped_settings = [];
 
 		foreach ( $settings as $key => $value ) {
-			// Skip updating if the setting already exists.
 			if ( array_key_exists( $key, $existing_settings ) ) {
 				$skipped_settings[ $key ] = $existing_settings[ $key ];
 				continue;
 			}
 
-			// Store new setting for update.
 			$new_settings[ $key ] = $value;
 		}
 
 		if ( empty( $new_settings ) ) {
 			$this->log_message( 'info', 'No new settings needed migration. All settings already exist.', [], 'Worker' );
-			return;
+
+			return true;
 		}
 
 		if ( $this->dry_run ) {
@@ -312,7 +310,11 @@ class Worker extends Abstract_Migration_Step {
 				$this->log_message( 'info', "[DRY RUN] Would update `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ), [], 'Worker' );
 			}
 		} else {
-			update_option( Tribe__Events__Main::OPTIONNAME, array_merge( $existing_settings, $new_settings ) );
+			$result = update_option( Tribe__Events__Main::OPTIONNAME, array_merge( $existing_settings, $new_settings ) );
+
+			if ( ! $result ) {
+				return $this->log_message( 'error', 'Failed to update `tribe_events_calendar_options`.', [], 'Worker' );
+			}
 
 			foreach ( $new_settings as $key => $value ) {
 				$this->log_message( 'info', "Updated `tribe_events_calendar_options`: Setting '{$key}' => " . wp_json_encode( $value, JSON_PRETTY_PRINT ), [], 'Worker' );
@@ -324,5 +326,7 @@ class Worker extends Abstract_Migration_Step {
 				$this->log_message( 'info', "Skipped updating setting '{$key}' (already exists) => " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ), [], 'Worker' );
 			}
 		}
+
+		return true;
 	}
 }

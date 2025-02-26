@@ -74,6 +74,14 @@ class Status {
 	 * @since TBD
 	 * @var string
 	 */
+	public static string $execution_skipped = 'execution_skipped';
+
+	/**
+	 * Status when execution has failed.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
 	public static string $execution_failed = 'execution_failed';
 
 	/**
