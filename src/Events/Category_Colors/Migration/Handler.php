@@ -84,16 +84,14 @@ class Handler extends Abstract_Migration_Step {
 		$start_time    = microtime( true );
 
 		if ( Status::$postprocess_completed === static::get_migration_status()['status'] ) {
-			$this->log_message( 'info', 'Migration has already been completed.' );
-			$this->log_elapsed_time( 'Migration Process', $start_time );
+			$this->log_elapsed_time( 'Migration has already been completed.', $start_time );
 
 			return true;
 		}
 
 		// Prevent running if migration is already in progress.
 		if ( Status::$execution_in_progress === static::get_migration_status()['status'] ) {
-			$this->log_message( 'info', 'Migration is already in progress.' );
-			$this->log_elapsed_time( 'Migration Process', $start_time );
+			$this->log_elapsed_time( 'Migration is already in progress.', $start_time );
 
 			return false;
 		}
@@ -114,8 +112,7 @@ class Handler extends Abstract_Migration_Step {
 
 			if ( is_wp_error( $error ) ) {
 				$error_message = is_wp_error( $error ) ? $error->get_error_message() : 'Unknown error.';
-				$this->log_message( 'error', "Migration failed at step: {$step_name}. Error: {$error_message}", [], 'Handler' );
-				$this->log_elapsed_time( 'Migration Process', $start_time );
+				$this->log_elapsed_time( "Migration failed at step: {$step_name}. Error: {$error_message}", $start_time );
 
 				return false;
 			}

@@ -85,17 +85,22 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	/**
 	 * Gets the current migration status.
 	 *
+	 * Uses `wp_parse_args()` to merge the retrieved status with the default structure,
+	 * ensuring required keys (`status` and `timestamp`) are always present.
+	 *
 	 * @since TBD
-	 * @return array<string, mixed> The current migration status with timestamp.
+	 *
+	 * @return array<string, mixed> The current migration status with a timestamp.
 	 */
 	public static function get_migration_status(): array {
-		return (array) get_option(
-			Config::$migration_status_option,
-			[
-				'status'    => Status::$not_started,
-				'timestamp' => current_time( 'mysql' ),
-			]
-		);
+		$default_status = [
+			'status'    => Status::$not_started,
+			'timestamp' => current_time( 'mysql' ),
+		];
+
+		$stored_status = get_option( Config::$migration_status_option, [] );
+
+		return wp_parse_args( $stored_status, $default_status );
 	}
 
 	/**
