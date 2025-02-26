@@ -30,6 +30,13 @@ use WP_Error;
 abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 
 	/**
+	 * Whether this step should run in dry-run mode (no actual DB modifications).
+	 *
+	 * @var bool
+	 */
+	protected bool $dry_run = false;
+
+	/**
 	 * Retrieves the original settings from the database.
 	 *
 	 * @since TBD
@@ -221,5 +228,27 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 		}
 
 		return false; // For non-critical levels, return false (informational messages).
+	}
+
+	/**
+	 * Enables or disables Dry Run mode for this migration step.
+	 *
+	 * @param bool $dry_run Whether this step should be in dry-run mode.
+	 *
+	 * @return self
+	 */
+	public function set_dry_run( bool $dry_run = false ): self {
+		$this->dry_run = $dry_run;
+
+		return $this;
+	}
+
+	/**
+	 * Determines if the migration step is in dry-run mode.
+	 *
+	 * @return bool True if dry-run mode is active, false otherwise.
+	 */
+	public function is_dry_run(): bool {
+		return $this->dry_run;
 	}
 }

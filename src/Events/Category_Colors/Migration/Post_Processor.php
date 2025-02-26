@@ -36,14 +36,6 @@ class Post_Processor extends Abstract_Migration_Step {
 	];
 
 	/**
-	 * Whether to perform post-processing validation.
-	 *
-	 * @since TBD
-	 * @var bool
-	 */
-	protected bool $dry_run = false;
-
-	/**
 	 * Determines whether the migration step is in a valid state to run.
 	 *
 	 * This method checks the current migration status and ensures the step
@@ -55,19 +47,6 @@ class Post_Processor extends Abstract_Migration_Step {
 	 */
 	public function is_runnable(): bool {
 		return in_array( static::get_migration_status()['status'], [ Status::$execution_completed, Status::$postprocess_failed ], true );
-	}
-
-	/**
-	 * Allows for enabling Dry run mode.
-	 *
-	 * @param bool $dry_run Whether the worker should be in Dry Run mode.
-	 *
-	 * @return self
-	 */
-	public function set_dry_run( bool $dry_run = false ): self {
-		$this->dry_run = $dry_run;
-
-		return $this;
 	}
 
 	/**

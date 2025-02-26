@@ -27,14 +27,6 @@ use WP_Error;
 class Worker extends Abstract_Migration_Step {
 
 	/**
-	 * Whether to perform a dry run (no actual DB modifications).
-	 *
-	 * @since TBD
-	 * @var bool
-	 */
-	protected bool $dry_run = false;
-
-	/**
 	 * List of meta keys that should be skipped (not inserted as term meta).
 	 *
 	 * @since TBD
@@ -56,19 +48,6 @@ class Worker extends Abstract_Migration_Step {
 	 */
 	public function is_runnable(): bool {
 		return in_array( static::get_migration_status()['status'], [ Status::$validation_completed, Status::$execution_failed ], true );
-	}
-
-	/**
-	 * Allows for enabling Dry run mode.
-	 *
-	 * @param bool $dry_run Whether the worker should be in Dry Run mode.
-	 *
-	 * @return self
-	 */
-	public function set_dry_run( bool $dry_run = false ): self {
-		$this->dry_run = $dry_run;
-
-		return $this;
 	}
 
 	/**
