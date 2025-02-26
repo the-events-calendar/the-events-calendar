@@ -107,6 +107,10 @@ if (__experimentalApproach === 'block-editor') {
 				.forEach((editor:Element)=>editor.classList.toggle('tec-is-visible'));
 		}
 
+		// Remove the inserter toggle button.
+		document.querySelectorAll('.editor-document-tools__inserter-toggle')
+			.forEach((button: Element)=> button.remove());
+
 		function EditorTools(): void {
 			if (editorToolsAdded) {
 				return;
@@ -117,7 +121,7 @@ if (__experimentalApproach === 'block-editor') {
 			if (editorDocumentTools) {
 				console.log('adding button');
 				const previewButton = document.createElement('button')
-				previewButton.classList.add('tec-editor-tool', 'tec-editor-tool--preview', 'is-secondary');
+				previewButton.classList.add('tec-editor-tool', 'tec-editor-tool--preview', 'button');
 				previewButton.type = 'button';
 				previewButton.dataset.toolbarItem = 'true';
 				previewButton.innerHTML = `<span class="dashicons dashicons-visibility"></span> ${__('Visual', 'the-events-calendar')}`;

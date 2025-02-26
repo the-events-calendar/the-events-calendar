@@ -1,6 +1,7 @@
 .block-editor__container {
 	.editor-header {
 		/* Hide the preview button */
+
 		.editor-preview-dropdown {
 			display: none;
 		}
@@ -9,21 +10,26 @@
 	}
 
 	.editor-visual-editor {
-		display: none;
+		min-height: 0;
 
 		&.tec-is-visible {
 			min-height: 100%;
 			display: block;
-			animation: fadeIn 0.35s forwards;
 		}
+	}
 
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-			}
-			to {
-				opacity: 1;
-			}
+	.tec-editor-tool {
+		display: flex;
+		align-items: center;
+
+		.dashicons {
+			margin-right: 6px;
 		}
+	}
+}
+
+#tec-new-editor {
+	.postbox-header {
+		display: none;
 	}
 }
