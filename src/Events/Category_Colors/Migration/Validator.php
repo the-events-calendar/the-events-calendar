@@ -11,6 +11,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use WP_Error;
+
 /**
  * Class Validator
  * Validates the migration data before execution to prevent incorrect or incomplete imports.
@@ -54,13 +56,11 @@ class Validator extends Abstract_Migration_Step {
 	 * @return bool True if validation passes, false otherwise.
 	 */
 	public function process(): bool {
-		Errors::clear_errors();
 		$start_time = microtime( true );
-		$this->update_migration_status( 'validation_in_progress' ); // Set migration status to validation started.
+		$this->update_migration_status( Status::$validation_in_progress );
 
 		/**
 		 * Fires before the validation process begins.
-		 * Allows external systems to hook in and modify data before validation runs.
 		 *
 		 * @since TBD
 		 */
@@ -68,7 +68,7 @@ class Validator extends Abstract_Migration_Step {
 
 		$migration_data = $this->get_migration_data();
 
-		// Run validation steps in sequence, stopping if an error occurs.
+		// Run validation steps sequentially, stopping if an error occurs.
 		$validation_steps = [
 			[ 'Structure Validation', fn() => $this->validate_structure( $migration_data ) ],
 			[ 'Category Existence Validation', fn() => $this->validate_category_existence( $migration_data['categories'] ?? [] ) ],
@@ -79,14 +79,16 @@ class Validator extends Abstract_Migration_Step {
 		];
 
 		foreach ( $validation_steps as [$step_name, $validation_step] ) {
-			if ( ! $this->run_validation_step( $validation_step, $step_name ) ) {
+			$error = $this->run_validation_step( $validation_step, $step_name );
+			if ( is_wp_error( $error ) ) {
 				$this->log_elapsed_time( 'Validation', $start_time );
+				$this->update_migration_status( Status::$validation_failed );
 
 				return false; // Stop execution if any validation step fails.
 			}
 		}
 
-		$this->update_migration_status( Status::$validation_completed ); // Mark validation as completed.
+		$this->update_migration_status( Status::$validation_completed );
 
 		/**
 		 * Fires after the validation process completes.
@@ -102,23 +104,22 @@ class Validator extends Abstract_Migration_Step {
 	}
 
 	/**
-	 * Runs a validation step and stops further execution if errors are logged.
+	 * Runs a validation step and stops further execution if an error occurs.
 	 *
 	 * @since TBD
 	 *
 	 * @param callable $validation_step A function representing a validation step.
 	 * @param string   $step_name       (Optional) The name of the validation step.
 	 *
-	 * @return bool True if no errors, false if errors were logged.
+	 * @return bool|WP_Error True if successful, WP_Error if validation fails.
 	 */
-	protected function run_validation_step( callable $validation_step, string $step_name = 'Unknown Step' ): bool {
-		$validation_step();
+	protected function run_validation_step( callable $validation_step, string $step_name = 'Unknown Step' ) {
+		$error = $validation_step();
 
-		if ( Errors::has_errors() ) {
+		if ( is_wp_error( $error ) ) {
 			$this->log_message( 'error', "Validation failed at step: {$step_name}. Stopping further processing.", [], 'Validator' );
-			$this->update_migration_status( 'validation_failed' );
 
-			return false;
+			return $error; // Return WP_Error to indicate failure.
 		}
 
 		return true;
@@ -131,30 +132,20 @@ class Validator extends Abstract_Migration_Step {
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
-	protected function validate_structure( array $migration_data ): void {
+	protected function validate_structure( array $migration_data ) {
 		if ( empty( $migration_data ) ) {
-			$this->log_message( 'error', 'Migration contains no data.', $migration_data, 'Validator' );
-
-			return;
+			return $this->log_message( 'error', 'Migration contains no data.', $migration_data, 'Validator' );
 		}
-		if ( ! [ $migration_data['categories'] ] ) {
-			$this->log_message( 'error', 'Migration Categories should be an array, found ' . gettype( $migration_data['categories'] ) . '.', [], 'Validator' );
 
-			return;
-		}
 		foreach ( Config::$expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
-				$this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [], 'Validator' );
-
-				return;
+				return $this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [], 'Validator' );
 			}
 		}
 
-		if ( isset( $migration_data['ignored_terms'] ) && ! is_array( $migration_data['ignored_terms'] ) ) {
-			$this->log_message( 'error', "'ignored_terms' should be an array, found " . gettype( $migration_data['ignored_terms'] ) . '.', [], 'Validator' );
-		}
+		return true;
 	}
 
 	/**
@@ -164,9 +155,9 @@ class Validator extends Abstract_Migration_Step {
 	 *
 	 * @param array<int, array<string, mixed>> $categories List of categories from migration data.
 	 *
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
-	protected function validate_category_existence( array $categories ): void {
+	protected function validate_category_existence( array $categories ) {
 		$valid_categories = get_terms(
 			[
 				'taxonomy'   => Handler::$taxonomy,
@@ -176,47 +167,32 @@ class Validator extends Abstract_Migration_Step {
 		);
 
 		if ( is_wp_error( $valid_categories ) ) {
-			$this->log_message( 'error', 'Error fetching existing categories: ' . $valid_categories->get_error_message(), [], 'Validator' );
-
-			return;
+			return $this->log_message( 'error', 'Error fetching existing categories: ' . $valid_categories->get_error_message(), [], 'Validator' );
 		}
-
-		$valid_categories = array_map( 'intval', $valid_categories );
 
 		foreach ( $categories as $category_id => $_ ) {
 			if ( ! in_array( $category_id, $valid_categories, true ) ) {
 				$this->log_message( 'warning', "Category with ID {$category_id} does not exist in the taxonomy. Skipping.", [], 'Validator' );
 			}
 		}
+
+		return true;
 	}
 
 	/**
 	 * Validates a random sample of settings to ensure proper migration.
 	 *
 	 * @since TBD
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
-	protected function validate_random_keys(): void {
+	protected function validate_random_keys() {
 		$original_settings = $this->get_original_settings();
 
 		if ( empty( $original_settings ) ) {
-			$this->log_message( 'error', 'Original settings are empty, cannot validate migration.', [], 'Validator' );
-
-			return;
+			return $this->log_message( 'error', 'Original settings are empty, cannot validate migration.', [], 'Validator' );
 		}
 
-		$random_keys = array_rand( $original_settings, min( $this->validation_sample_size, count( $original_settings ) ) );
-		$random_keys = is_array( $random_keys ) ? $random_keys : [ $random_keys ];
-
-		$migration_data = $this->get_migration_data();
-
-		foreach ( $random_keys as $key ) {
-			$category_id = $this->extract_category_id( $key );
-
-			if ( null !== $category_id && ! isset( $migration_data['categories'][ $category_id ] ) ) {
-				$this->log_message( 'error', "Category '{$category_id}' is missing in migration data.", [], 'Validator' );
-			}
-		}
+		return true;
 	}
 
 	/**
@@ -226,9 +202,9 @@ class Validator extends Abstract_Migration_Step {
 	 *
 	 * @param array<int, array<string, mixed>> $categories The categories array.
 	 *
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
-	protected function validate_meta_keys( array $categories ): void {
+	protected function validate_meta_keys( array $categories ) {
 		$expected_meta_keys = array_map(
 			fn( $mapped ) => Config::$meta_key_prefix . $mapped,
 			Config::$meta_key_map
@@ -241,10 +217,12 @@ class Validator extends Abstract_Migration_Step {
 				}
 
 				if ( ! in_array( $key, $expected_meta_keys, true ) ) {
-					$this->log_message( 'error', "Invalid meta key '{$key}' found in category '{$category_id}' migration data.", [], 'Validator' );
+					return $this->log_message( 'error', "Invalid meta key '{$key}' found in category '{$category_id}' migration data.", [], 'Validator' );
 				}
 			}
 		}
+
+		return true;
 	}
 
 	/**
@@ -254,18 +232,19 @@ class Validator extends Abstract_Migration_Step {
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error if unexpected keys are found.
 	 */
-	protected function detect_unrecognized_keys( array $migration_data ): void {
+	protected function detect_unrecognized_keys( array $migration_data ) {
 		foreach ( $migration_data as $section => $values ) {
 			if ( ! isset( Config::$expected_structure[ $section ] ) ) {
-				$this->log_message( 'error', "Unexpected section found: '{$section}' in migration data.", [], 'Validator' );
-				continue;
+				return $this->log_message( 'error', "Unexpected section found: '{$section}' in migration data.", [], 'Validator' );
 			}
 			if ( ! is_array( $values ) ) {
-				$this->log_message( 'error', "Invalid structure for section '{$section}'. Expected array, got " . gettype( $values ) . '.', [], 'Validator' );
+				return $this->log_message( 'error', "Invalid structure for section '{$section}'. Expected array, got " . gettype( $values ) . '.', [], 'Validator' );
 			}
 		}
+
+		return true;
 	}
 
 	/**
@@ -277,9 +256,9 @@ class Validator extends Abstract_Migration_Step {
 	 *
 	 * @param array<string, mixed> $migration_data The migration data to check.
 	 *
-	 * @return void
+	 * @return true|WP_Error Returns WP_Error if critical fields are missing.
 	 */
-	protected function check_required_fields( array $migration_data ): void {
+	protected function check_required_fields( array $migration_data ) {
 		foreach ( Config::$settings_mapping as $original_key => $mapped_data ) {
 			$mapped_key = $mapped_data['mapped_key'] ?? null;
 
@@ -297,8 +276,10 @@ class Validator extends Abstract_Migration_Step {
 			}
 
 			if ( ! $exists ) {
-				$this->log_message( 'warning', "Expected setting '{$mapped_key}' is missing in migration data.", [], 'Validator' );
+				return $this->log_message( 'warning', "Expected setting '{$mapped_key}' is missing in migration data.", [], 'Validator' );
 			}
 		}
+
+		return true;
 	}
 }

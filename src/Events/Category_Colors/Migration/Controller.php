@@ -30,7 +30,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		if ( Status::$execution_completed === Handler::get_migration_data()['status'] ) {
+		if ( Status::$execution_completed === Handler::get_migration_status()['status'] ) {
 			return;
 		}
 		$this->container->singleton( Pre_Processor::class );

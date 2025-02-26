@@ -12,6 +12,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use WP_Error;
+
 /**
  * Class Abstract_Migration_Step
  *
@@ -105,7 +107,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @since TBD
 	 * @return array<string, mixed> The current migration status with timestamp.
 	 */
-	protected static function get_migration_status(): array {
+	public static function get_migration_status(): array {
 		return get_option(
 			Config::$migration_status_option,
 			[
@@ -185,7 +187,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 *
 	 * This function standardizes logging by wrapping `do_action( 'tribe_log' )`
 	 * and allowing an optional type prefix (e.g., `[Migration]`).
-	 * If the log level is 'error' or higher, it is also recorded in the `$errors` array.
+	 * If the log level is 'error' or higher, it returns a `WP_Error` to indicate failure.
 	 *
 	 * @since TBD
 	 *
@@ -194,18 +196,23 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @param array       $context Additional context data (default: empty array).
 	 * @param string|null $type    Optional. A label to prepend to the message (e.g., 'Migration').
 	 *
-	 * @return void
+	 * @return bool|WP_Error Returns `WP_Error` if the log level is 'error' or higher.
 	 */
-	protected function log_message( string $level, string $message, array $context = [], ?string $type = null ): void {
+	protected function log_message( string $level, string $message, array $context = [], ?string $type = null ) {
 		if ( ! empty( $type ) ) {
 			$message = sprintf( '[%s] %s', $type, $message );
 		}
 
+		// Define critical levels that should trigger WP_Error.
+		$critical_levels = [ 'error', 'critical', 'alert', 'emergency' ];
+		$is_critical     = in_array( strtolower( $level ), $critical_levels, true );
+
 		// Store error messages separately for status checking.
-		if ( in_array( strtolower( $level ), [ 'error', 'critical', 'alert', 'emergency' ], true ) ) {
+		if ( $is_critical ) {
 			Errors::add_error( $message );
 		}
 
+		// Prepare logging context.
 		$default_context = [
 			'type'    => $type,
 			'process' => 'Category Colors Migration',
@@ -213,5 +220,12 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 		$context         = wp_parse_args( $default_context, $context );
 
 		do_action( 'tribe_log', $level, $message, $context );
+
+		// Return WP_Error if critical.
+		if ( $is_critical ) {
+			return new WP_Error( 'migration_error', $message, $context );
+		}
+
+		return false; // For non-critical levels, return false (informational messages).
 	}
 }

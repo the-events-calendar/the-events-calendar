@@ -77,6 +77,14 @@ class Status {
 	public static string $execution_failed = 'execution_failed';
 
 	/**
+	 * Status when validation is in progress.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $validation_in_progress = 'validation_in_progress';
+
+	/**
 	 * Status when validation has failed.
 	 *
 	 * @since TBD
