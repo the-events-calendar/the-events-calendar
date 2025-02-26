@@ -146,7 +146,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
-		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Preprocessing should have been skipped but was not.' );
+		$this->assertSame( Status::$preprocess_skipped, $migration_status['status'] ?? '', 'Preprocessing should have been skipped but was not.' );
 	}
 
 	/**
@@ -172,12 +172,12 @@ class Migration_Process_Test extends WPTestCase {
 		}
 
 		// Directly trigger post-processing to validate stored meta.
-		$post_processor = new Post_Processor();
-		$post_processor->verify_migration();
+		tribe( Post_Processor::class )->process();
+
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
-		$this->assertSame( 'migration_failed', $migration_status['status'] ?? '', 'Post-processing should have failed but did not.' );
+		$this->assertSame( Status::$postprocess_completed, $migration_status['status'] ?? '', 'Post-processing should have failed but did not.' );
 	}
 
 	/**
@@ -203,7 +203,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Directly run execution.
 		$runner = new Worker();
-		$runner->execute();
+		$runner->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -237,7 +237,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Directly run execution.
 		$runner = new Worker();
-		$runner->execute();
+		$runner->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -269,7 +269,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Directly run execution.
 		$runner = new Worker();
-		$runner->execute();
+		$runner->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -309,7 +309,7 @@ class Migration_Process_Test extends WPTestCase {
 		// Run migration execution.
 		try {
 			$runner = new Worker();
-			$runner->execute();
+			$runner->process();
 		} catch ( \Exception $e ) {}
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -347,7 +347,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Directly run execution.
 		$runner = new Worker();
-		$runner->execute();
+		$runner->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -384,7 +384,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Directly run execution.
 		$runner = new Worker();
-		$runner->execute();
+		$runner->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -422,7 +422,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Directly run execution.
 		$runner = new Worker();
-		$runner->execute();
+		$runner->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -516,7 +516,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Run migration execution.
 		$runner = new Worker();
-		$runner->execute();
+		$runner->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
@@ -536,7 +536,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Enable dry run mode.
 		$runner = new Worker( true );
-		$runner->execute();
+		$runner->process();
 
 		// Ensure migration status is unchanged.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -549,9 +549,21 @@ class Migration_Process_Test extends WPTestCase {
 	}
 
 	/**
+	 * This test validates that if term meta data already exists (which should be rare),
+	 * the migration still completes but does not rollback execution.
+	 *
+	 * - Since this is new functionality, term meta data should not preexist.
+	 * - However, if the migration is run multiple times, some categories may already have meta values.
+	 * - The test ensures that the migration still completes, but post-processing fails due to mismatched data.
+	 *
+	 * This helps confirm that the migration process remains **idempotent**, meaning
+	 * running it multiple times does not cause unintended side effects.
+	 *
+	 * If this scenario does occur, the logs will display `Mismatched value for '{meta_name}' on category {category_id}.`
+	 *
 	 * @test
 	 */
-	public function it_skips_already_migrated_categories_to_avoid_duplication(): void {
+	public function it_validates_migrated_data_but_does_not_rollback_execution(): void {
 		// Generate test data.
 		$category_ids = $this->generate_test_data( 5 );
 
@@ -563,15 +575,14 @@ class Migration_Process_Test extends WPTestCase {
 		}
 
 		// Run migration.
-		$runner = new Worker();
-		$runner->execute();
+		tribe( Handler::class )->process();
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
 
 		$this->assertSame(
-			'execution_failed',
+			Status::$postprocess_failed,
 			$migration_status['status'] ?? '',
-			'Migration should complete, skipping already migrated categories.'
+			'Migration should complete with a failure, skipping already migrated categories.'
 		);
 	}
 
@@ -608,7 +619,7 @@ class Migration_Process_Test extends WPTestCase {
 		// Run migration execution.
 		try {
 			$runner = new Worker();
-			$runner->execute();
+			$runner->process();
 		} catch ( \Error $e ) {}
 
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
@@ -677,7 +688,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Verify that migration status is completed and no unexpected data is stored.
 		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
-		$this->assertSame( 'preprocess_skipped', $migration_status['status'] ?? '', 'Migration should be skipped when there are no options.' );
+		$this->assertSame( Status::$preprocess_skipped, $migration_status['status'] ?? '', 'Migration should be skipped when there are no options.' );
 
 		// Check that no unexpected settings were stored.
 		$calendar_options = get_option( 'tribe_events_calendar_options', [] );

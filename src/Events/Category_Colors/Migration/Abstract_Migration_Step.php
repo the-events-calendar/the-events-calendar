@@ -155,7 +155,6 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 */
 	public function reset_migration(): void {
 		// Delete migration data and reset status.
-		Errors::clear_errors();
 		delete_option( Config::$migration_data_option );
 		$this->update_migration_status( Status::$not_started );
 
@@ -206,11 +205,6 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 		// Define critical levels that should trigger WP_Error.
 		$critical_levels = [ 'error', 'critical', 'alert', 'emergency' ];
 		$is_critical     = in_array( strtolower( $level ), $critical_levels, true );
-
-		// Store error messages separately for status checking.
-		if ( $is_critical ) {
-			Errors::add_error( $message );
-		}
 
 		// Prepare logging context.
 		$default_context = [

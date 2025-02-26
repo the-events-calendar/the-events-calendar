@@ -70,7 +70,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 
 		if ( empty( $this->processed_settings ) ) {
 			$this->update_migration_data( Config::$expected_structure );
-			$this->update_migration_status( 'preprocess_skipped' ); // Migration skipped due to no data.
+			$this->update_migration_status( Status::$preprocess_skipped ); // Migration skipped due to no data.
 
 			/**
 			 * Fires after the preprocessor completes.

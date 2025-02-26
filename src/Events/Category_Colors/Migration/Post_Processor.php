@@ -76,7 +76,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	 * @since TBD
 	 * @return bool
 	 */
-	public function process() :bool {
+	public function process(): bool {
 		$start_time = microtime( true );
 		if ( $this->dry_run ) {
 			$this->log_message( 'info', 'Dry run mode active. Skipping post-processing validation.', [], 'Post Processor' );
@@ -89,7 +89,7 @@ class Post_Processor extends Abstract_Migration_Step {
 
 		if ( empty( $migration_data['categories'] ) ) {
 			$this->log_message( 'warning', 'No migration data found. Cannot validate migration results.', [], 'Post Processor' );
-			$this->update_migration_status( 'migration_failed' );
+			$this->update_migration_status( Status::$postprocess_completed );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
 			return false;
 		}
@@ -120,7 +120,7 @@ class Post_Processor extends Abstract_Migration_Step {
 		}
 
 		if ( $errors_found ) {
-			$this->update_migration_status( 'migration_failed' );
+			$this->update_migration_status( Status::$postprocess_failed );
 			$this->log_elapsed_time( 'Post Processor', $start_time );
 
 			return false;

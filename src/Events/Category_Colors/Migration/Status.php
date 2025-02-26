@@ -37,6 +37,15 @@ class Status {
 	public static string $in_progress = 'in_progress';
 
 	/**
+	 * Status when preprocessing is skipped.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $preprocess_skipped = 'preprocess_skipped';
+
+
+	/**
 	 * Status when preprocessing has completed.
 	 *
 	 * @since TBD

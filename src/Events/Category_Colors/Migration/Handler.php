@@ -14,6 +14,7 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use Tribe__Events__Main;
+use WP_Error;
 
 /**
  * Class Migration_Process
@@ -66,7 +67,6 @@ class Handler extends Abstract_Migration_Step {
 		return true;
 	}
 
-
 	/**
 	 * Runs the migration process in sequential steps.
 	 *
@@ -77,10 +77,9 @@ class Handler extends Abstract_Migration_Step {
 	 *
 	 * @param bool $dry_run Optional. If true, the migration runs in dry-run mode.
 	 *
-	 * @return bool
+	 * @return bool Returns true on success, false on failure.
 	 */
 	public function process( bool $dry_run = false ): bool {
-		Errors::clear_errors();
 		$this->dry_run = $dry_run;
 		$start_time    = microtime( true );
 
@@ -106,36 +105,42 @@ class Handler extends Abstract_Migration_Step {
 			'Preprocessing'   => fn() => tribe( Pre_Processor::class )->process(),
 			'Validation'      => fn() => tribe( Validator::class )->process(),
 			'Execution'       => fn() => tribe( Worker::class )->process(),
-			'Post-processing' => fn() => tribe( Post_processor::class )->process(),
+			'Post-processing' => fn() => tribe( Post_Processor::class )->process(),
 		];
 
 		// Execute each step in sequence and stop if a failure occurs.
 		foreach ( $migration_steps as $step_name => $step ) {
-			if ( ! $this->run_migration_step( $step, $step_name ) ) {
-				return false;
+			$error = $this->run_migration_step( $step, $step_name );
+
+			if ( is_wp_error( $error ) || false === $error ) {
+				$error_message = is_wp_error( $error ) ? $error->get_error_message() : 'Unknown error.';
+				$this->log_message( 'error', "Migration failed at step: {$step_name}. Error: {$error_message}", [], 'Handler' );
+				$this->log_elapsed_time( 'Migration Process', $start_time );
+
+				return false; // **Stop further execution**
 			}
 		}
+
 		$this->log_elapsed_time( 'Migration Process', $start_time );
 
 		return true;
 	}
 
 	/**
-	 * Runs a single migration step and stops further execution if errors are logged.
+	 * Runs a single migration step and stops further execution if an error occurs.
 	 *
 	 * @since TBD
 	 *
 	 * @param callable $migration_step The function representing a migration step.
 	 * @param string   $step_name      The name of the migration step.
 	 *
-	 * @return bool True if the step succeeded, false if an error was logged.
+	 * @return true|WP_Error Returns true on success, WP_Error on failure.
 	 */
-	protected function run_migration_step( callable $migration_step, string $step_name ): bool {
-		$migration_step();
+	protected function run_migration_step( callable $migration_step, string $step_name ) {
+		$result = $migration_step();
 
-		if ( Errors::has_errors() ) {
-			$this->log_message( 'error', "Migration failed at step: {$step_name}. Stopping further processing." );
-			return false;
+		if ( is_wp_error( $result ) || false === $result ) {
+			return $this->log_message( 'error', "Migration failed at step: {$step_name}. Stopping further processing." );
 		}
 
 		return true;
