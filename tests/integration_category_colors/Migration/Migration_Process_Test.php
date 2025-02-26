@@ -3,6 +3,8 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use Closure;
+use Error;
+use Exception;
 use Generator;
 use Codeception\TestCase\WPTestCase;
 use Tribe\Tests\Traits\With_Clock_Mock;
@@ -12,25 +14,30 @@ class Migration_Process_Test extends WPTestCase {
 	use With_Uopz;
 	use With_Clock_Mock;
 
+	protected $original_tribe_events_calendar_options = [];
+
 	/**
 	 * @before
 	 */
 	public function setup_environment(): void {
 		parent::setUp();
-		Errors::clear_errors();
-		delete_option( 'teccc_options' );
+		$this->original_tribe_events_calendar_options = get_option( 'events_calendar_options' );
+		$this->set_fn_return( 'current_time', '{time}' );
+		delete_option( Config::$original_settings_option );
 		delete_option( 'tec_category_colors_migration_data' );
-		delete_option( 'tec_events_category_colors_migration_status' );
+		delete_option( Config::$migration_status_option );
 	}
 
 	/**
 	 * @after
 	 */
 	public function cleanup_environment(): void {
-		Errors::clear_errors();
-		delete_option( 'teccc_options' );
+		tribe( Worker::class )->set_dry_run( false );
+		tribe( Post_Processor::class )->set_dry_run( false );
+		update_option( 'events_calendar_options', $this->original_tribe_events_calendar_options );
+		delete_option( Config::$original_settings_option );
 		delete_option( 'tec_category_colors_migration_data' );
-		delete_option( 'tec_events_category_colors_migration_status' );
+		delete_option( Config::$migration_status_option );
 		parent::tearDown();
 	}
 
@@ -97,7 +104,7 @@ class Migration_Process_Test extends WPTestCase {
 			}
 		}
 
-		update_option( 'teccc_options', $teccc_options );
+		update_option( Config::$original_settings_option, $teccc_options );
 
 		return $terms;
 	}
@@ -107,13 +114,12 @@ class Migration_Process_Test extends WPTestCase {
 	 * @dataProvider migration_scenarios
 	 */
 	public function it_transfers_category_colors_correctly( Closure $data_generator ): void {
-		$this->set_fn_return( 'current_time', '{time}' );
 		$category_ids = $data_generator();
 
 		tribe( Handler::class )->process();
 
-		$migration_status  = get_option( 'tec_events_category_colors_migration_status', [] );
-		$original_settings = get_option( 'teccc_options', [] );
+		$migration_status  = get_option( Config::$migration_status_option, [] );
+		$original_settings = get_option( Config::$original_settings_option, [] );
 
 		$this->assertSame( 'migration_completed', $migration_status['status'] ?? '', 'Migration did not complete successfully.' );
 
@@ -140,11 +146,10 @@ class Migration_Process_Test extends WPTestCase {
 	 */
 	public function it_skips_execution_when_no_data(): void {
 		$this->set_class_fn_return( Abstract_Migration_Step::class, 'get_migration_data', [] );
-		$this->set_class_fn_return( Validator::class, 'process', true );
 
 		tribe( Handler::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		$this->assertSame( Status::$preprocess_skipped, $migration_status['status'] ?? '', 'Preprocessing should have been skipped but was not.' );
 	}
@@ -158,9 +163,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure execution completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'execution_completed',
+				'status'    => Status::$execution_failed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -175,7 +180,7 @@ class Migration_Process_Test extends WPTestCase {
 		tribe( Post_Processor::class )->process();
 
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		$this->assertSame( Status::$postprocess_completed, $migration_status['status'] ?? '', 'Post-processing should have failed but did not.' );
 	}
@@ -189,9 +194,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -202,12 +207,11 @@ class Migration_Process_Test extends WPTestCase {
 		}
 
 		// Directly run execution.
-		$runner = new Worker();
-		$runner->process();
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
-		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to missing categories but did not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Execution should have failed due to missing categories but did not.' );
 	}
 
 	/**
@@ -219,9 +223,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -236,12 +240,11 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Worker();
-		$runner->process();
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
-		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to database errors but did not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Execution should have failed due to database errors but did not.' );
 	}
 
 	/**
@@ -260,20 +263,19 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation is marked as complete.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
 
 		// Directly run execution.
-		$runner = new Worker();
-		$runner->process();
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
-		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to corrupt migration data but did not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Execution should have failed due to corrupt migration data but did not.' );
 	}
 
 	/**
@@ -285,9 +287,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -298,7 +300,7 @@ class Migration_Process_Test extends WPTestCase {
 			function () {
 				static $call_count = 0;
 				if ( ++$call_count === 3 ) {
-					throw new \Exception( 'Unexpected error during execution.' );
+					throw new Exception( 'Unexpected error during execution.' );
 				}
 
 				return true;
@@ -308,13 +310,12 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Run migration execution.
 		try {
-			$runner = new Worker();
-			$runner->process();
-		} catch ( \Exception $e ) {}
+			tribe( Worker::class )->process();
+		} catch ( Exception $e ) {}
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
-		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to interruption but did not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Execution should have failed due to interruption but did not.' );
 	}
 
 	/**
@@ -326,9 +327,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -346,12 +347,11 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Worker();
-		$runner->process();
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
-		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to unexpected keys but did not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Execution should have failed due to unexpected keys but did not.' );
 	}
 
 	/**
@@ -363,9 +363,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -383,12 +383,11 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Worker();
-		$runner->process();
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
-		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to missing legend settings but did not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Execution should have failed due to missing legend settings but did not.' );
 	}
 
 	/**
@@ -400,9 +399,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -421,12 +420,11 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Directly run execution.
-		$runner = new Worker();
-		$runner->process();
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
-		$this->assertSame( 'execution_skipped', $migration_status['status'] ?? '', 'Execution should have failed due to a database rollback but did not.' );
+		$this->assertSame( Status::$execution_skipped, $migration_status['status'] ?? '', 'Execution should have failed due to a database rollback but did not.' );
 	}
 
 	/**
@@ -438,7 +436,7 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Mark migration as completed.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
 				'status'    => 'migration_completed',
 				'timestamp' => current_time( 'mysql' ),
@@ -452,7 +450,7 @@ class Migration_Process_Test extends WPTestCase {
 		tribe( Handler::class )->process();
 
 		// Retrieve the migration status after rerunning.
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		// Ensure the migration status has not changed.
 		$this->assertSame( 'migration_completed', $migration_status['status'] ?? '', 'Migration should not have been rerun after completion.' );
@@ -467,9 +465,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Mark migration as in progress.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'execution_in_progress',
+				'status'    => Status::$execution_in_progress,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -481,10 +479,10 @@ class Migration_Process_Test extends WPTestCase {
 		tribe( Handler::class )->process();
 
 		// Retrieve the migration status after rerunning.
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		// Ensure the migration status has not changed.
-		$this->assertSame( 'execution_in_progress', $migration_status['status'] ?? '', 'Migration should not have been allowed to start while another is in progress.' );
+		$this->assertSame( Status::$execution_in_progress, $migration_status['status'] ?? '', 'Migration should not have been allowed to start while another is in progress.' );
 	}
 
 	/**
@@ -496,9 +494,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -515,13 +513,12 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Run migration execution.
-		$runner = new Worker();
-		$runner->process();
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		$this->assertSame(
-			'execution_skipped',
+			Status::$execution_skipped,
 			$migration_status['status'] ?? '',
 			'Migration should be skipped, and log errors for failed term meta updates.'
 		);
@@ -535,17 +532,51 @@ class Migration_Process_Test extends WPTestCase {
 		$category_ids = $this->generate_test_data( 5 );
 
 		// Enable dry run mode.
-		$runner = new Worker( true );
-		$runner->process();
+		tribe( Worker::class )->set_dry_run( true )->process();
 
 		// Ensure migration status is unchanged.
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		$this->assertNotEquals(
-			'execution_completed',
+			Status::$execution_failed,
 			$migration_status['status'] ?? '',
 			'Migration should not complete in dry-run mode.'
 		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_allows_rerun_only_if_reset(): void {
+		// Generate valid test data.
+		$this->generate_test_data( 5 );
+
+		// Mark migration as completed.
+		update_option(
+			Config::$migration_status_option,
+			[
+				'status'    => 'migration_completed',
+				'timestamp' => current_time( 'mysql' ),
+			]
+		);
+
+		// Attempt to reset the migration.
+		tribe( Handler::class )->reset_migration();
+
+		// Retrieve migration status after reset.
+		$migration_status = get_option( Config::$migration_status_option, [] );
+
+		// Ensure migration status is reset to 'not_started'.
+		$this->assertSame( 'not_started', $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
+
+		// Run migration again.
+		tribe( Handler::class )->process();
+
+		// Retrieve migration status after rerun.
+		$migration_status_after_rerun = get_option( Config::$migration_status_option, [] );
+
+		// Ensure migration has now completed successfully.
+		$this->assertSame( 'migration_completed', $migration_status_after_rerun['status'] ?? '', 'Migration should have been allowed to rerun after reset.' );
 	}
 
 	/**
@@ -577,7 +608,7 @@ class Migration_Process_Test extends WPTestCase {
 		// Run migration.
 		tribe( Handler::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		$this->assertSame(
 			Status::$postprocess_failed,
@@ -595,9 +626,9 @@ class Migration_Process_Test extends WPTestCase {
 
 		// Ensure validation completes successfully.
 		update_option(
-			'tec_events_category_colors_migration_status',
+			Config::$migration_status_option,
 			[
-				'status'    => 'validation_completed',
+				'status'    => Status::$validation_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -608,7 +639,7 @@ class Migration_Process_Test extends WPTestCase {
 			function () {
 				static $fail_on_third = 0;
 				if ( ++$fail_on_third === 3 ) {
-					throw new \Error( 'Unexpected fatal error during migration.' );
+					throw new Error( 'Unexpected fatal error during migration.' );
 				}
 
 				return true;
@@ -617,15 +648,12 @@ class Migration_Process_Test extends WPTestCase {
 		);
 
 		// Run migration execution.
-		try {
-			$runner = new Worker();
-			$runner->process();
-		} catch ( \Error $e ) {}
+		tribe( Worker::class )->process();
 
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		$this->assertSame(
-			'execution_skipped',
+			Status::$execution_skipped,
 			$migration_status['status'] ?? '',
 			'Execution should fail due to fatal error.'
 		);
@@ -661,7 +689,7 @@ class Migration_Process_Test extends WPTestCase {
 			}
 
 			$mapped_key     = $mapping['mapped_key'];
-			$expected_value = get_option( 'teccc_options', [] )[ $old_key ] ?? null;
+			$expected_value = get_option( Config::$original_settings_option, [] )[ $old_key ] ?? null;
 
 			$this->assertArrayHasKey(
 				$mapped_key,
@@ -681,13 +709,13 @@ class Migration_Process_Test extends WPTestCase {
 	 */
 	public function it_handles_empty_teccc_options_gracefully(): void {
 		// Ensure `teccc_options` is empty before migration.
-		delete_option( 'teccc_options' );
+		delete_option( Config::$original_settings_option );
 
 		// Run the migration.
 		tribe( Handler::class )->process();
 
 		// Verify that migration status is completed and no unexpected data is stored.
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
+		$migration_status = get_option( Config::$migration_status_option, [] );
 		$this->assertSame( Status::$preprocess_skipped, $migration_status['status'] ?? '', 'Migration should be skipped when there are no options.' );
 
 		// Check that no unexpected settings were stored.
@@ -732,40 +760,5 @@ class Migration_Process_Test extends WPTestCase {
 			$updated_options['category-color-custom-CSS'] ?? false,
 			'Existing boolean setting should not have been changed.'
 		);
-	}
-
-	/**
-	 * @test
-	 */
-	public function it_allows_rerun_only_if_reset(): void {
-		// Generate valid test data.
-		$this->generate_test_data( 5 );
-
-		// Mark migration as completed.
-		update_option(
-			'tec_events_category_colors_migration_status',
-			[
-				'status'    => 'migration_completed',
-				'timestamp' => current_time( 'mysql' ),
-			]
-		);
-
-		// Attempt to reset the migration.
-		tribe( Handler::class )->reset_migration();
-
-		// Retrieve migration status after reset.
-		$migration_status = get_option( 'tec_events_category_colors_migration_status', [] );
-
-		// Ensure migration status is reset to 'not_started'.
-		$this->assertSame( 'not_started', $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
-
-		// Run migration again.
-		tribe( Handler::class )->process();
-
-		// Retrieve migration status after rerun.
-		$migration_status_after_rerun = get_option( 'tec_events_category_colors_migration_status', [] );
-
-		// Ensure migration has now completed successfully.
-		$this->assertSame( 'migration_completed', $migration_status_after_rerun['status'] ?? '', 'Migration should have been allowed to rerun after reset.' );
 	}
 }
