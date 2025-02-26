@@ -206,7 +206,7 @@ class Validator extends Abstract_Migration_Step {
 		$all_keys = array_keys( $original_settings );
 		shuffle( $all_keys );
 
-		// Limit to `validation_sample_size` (default: 200).
+		// Limit `validation_sample_size`.
 		$sample_keys = array_slice( $all_keys, 0, $this->validation_sample_size );
 
 		$errors_found = false;

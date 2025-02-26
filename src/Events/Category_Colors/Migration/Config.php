@@ -1,7 +1,29 @@
 <?php
+/**
+ * Configuration class for Category Colors migration.
+ *
+ * This class centralizes option names, expected structures, and key mappings
+ * used during the migration process. It ensures consistency and reduces
+ * hardcoded values across multiple migration steps.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
+ */
 
 namespace TEC\Events\Category_Colors\Migration;
 
+/**
+ * Class Config
+ *
+ * Provides configuration settings and mappings for the Category Colors migration.
+ * This includes option names for storing migration data, meta key mappings, and
+ * settings migration rules.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
+ */
 class Config {
 
 	/**
