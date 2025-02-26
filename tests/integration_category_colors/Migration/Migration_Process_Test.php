@@ -7,21 +7,19 @@ use Error;
 use Exception;
 use Generator;
 use Codeception\TestCase\WPTestCase;
-use Tribe\Tests\Traits\With_Clock_Mock;
 use Tribe\Tests\Traits\With_Uopz;
 
 class Migration_Process_Test extends WPTestCase {
 	use With_Uopz;
-	use With_Clock_Mock;
 
-	protected $original_tribe_events_calendar_options = [];
+	protected array $original_tribe_events_calendar_options = [];
 
 	/**
 	 * @before
 	 */
 	public function setup_environment(): void {
 		parent::setUp();
-		$this->original_tribe_events_calendar_options = get_option( 'events_calendar_options' );
+		$this->original_tribe_events_calendar_options = (array) get_option( 'events_calendar_options' );
 		$this->set_fn_return( 'current_time', '{time}' );
 		delete_option( Config::$original_settings_option );
 		delete_option( 'tec_category_colors_migration_data' );
@@ -443,9 +441,6 @@ class Migration_Process_Test extends WPTestCase {
 			]
 		);
 
-		// Capture logs before running migration.
-		Errors::clear_errors();
-
 		// Attempt to run migration again.
 		tribe( Handler::class )->process();
 
@@ -471,9 +466,6 @@ class Migration_Process_Test extends WPTestCase {
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
-
-		// Capture logs before running migration.
-		Errors::clear_errors();
 
 		// Attempt to run migration again.
 		tribe( Handler::class )->process();
