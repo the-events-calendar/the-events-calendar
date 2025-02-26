@@ -38,7 +38,6 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Worker::class );
 		$this->container->singleton( Post_Processor::class );
 		$this->container->singleton( Handler::class );
-		$this->container->singleton( Errors::class );
 		$this->add_filters();
 	}
 
@@ -103,7 +102,7 @@ class Controller extends Controller_Contract {
 
 			foreach ( Config::$settings_mapping as $mapping ) {
 				if ( ! $mapping['import'] ) {
-					continue; // Skip non-imported keys.
+					continue;
 				}
 
 				$mapped_key = $mapping['mapped_key'];

@@ -55,7 +55,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	 */
 	public function process(): bool {
 		$start_time = microtime( true );
-		$this->update_migration_status( Status::$in_progress ); // Set migration to in_progress.
+		$this->update_migration_status( Status::$in_progress );
 
 		/**
 		 * Fires before the preprocessor starts processing category color data.
@@ -70,7 +70,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 
 		if ( empty( $this->processed_settings ) ) {
 			$this->update_migration_data( Config::$expected_structure );
-			$this->update_migration_status( Status::$preprocess_skipped ); // Migration skipped due to no data.
+			$this->update_migration_status( Status::$preprocess_skipped );
 
 			/**
 			 * Fires after the preprocessor completes.
@@ -95,7 +95,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		// Store processed data in the database.
 		$this->update_migration_data( $migration_data );
 
-		$this->update_migration_status( Status::$preprocess_completed ); // Mark as completed.
+		$this->update_migration_status( Status::$preprocess_completed );
 
 		/**
 		 * Fires after the preprocessor completes.
@@ -122,7 +122,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	 */
 	protected function get_category_values(): array {
 		$categories        = [];
-		$filtered_settings = $this->processed_settings; // Create a copy to modify.
+		$filtered_settings = $this->processed_settings;
 
 		foreach ( $this->processed_settings['terms'] ?? [] as $term_id => [$slug, $name] ) {
 			foreach ( array_keys( $filtered_settings ) as $key ) {
@@ -189,7 +189,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 					$value = is_scalar( $value ) ? $value : ''; // Default to empty if invalid.
 			}
 
-			if ( '' !== $value && [] !== $value ) { // Ignore empty values.
+			if ( '' !== $value && [] !== $value ) {
 				$mapped_settings[ $new_key ] = $value;
 			}
 

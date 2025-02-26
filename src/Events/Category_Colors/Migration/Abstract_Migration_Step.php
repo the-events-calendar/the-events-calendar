@@ -43,7 +43,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @return array<string, mixed> The original settings.
 	 */
 	public function get_original_settings(): array {
-		return get_option( Config::$original_settings_option, [] );
+		return (array) get_option( Config::$original_settings_option, [] );
 	}
 
 	/**
@@ -53,7 +53,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @return array<string, mixed> The migration data.
 	 */
 	public function get_migration_data(): array {
-		return get_option( Config::$migration_data_option, [] );
+		return (array) get_option( Config::$migration_data_option, [] );
 	}
 
 	/**
@@ -67,32 +67,6 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 */
 	public function update_migration_data( array $data ): void {
 		update_option( Config::$migration_data_option, $data, false );
-	}
-
-	/**
-	 * Extracts the category ID from a category-related setting key.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $key The category setting key.
-	 *
-	 * @return int|null The extracted category ID or null if not found.
-	 */
-	protected function extract_category_id( string $key ): ?int {
-		$original_settings = $this->get_original_settings();
-
-		// Check if the key exists in the terms or all_terms mapping.
-		foreach ( [ 'terms', 'all_terms' ] as $term_group ) {
-			if ( isset( $original_settings[ $term_group ] ) ) {
-				foreach ( $original_settings[ $term_group ] as $term_id => [$slug, $name] ) {
-					if ( strpos( $key, $slug ) === 0 ) {
-						return (int) $term_id;
-					}
-				}
-			}
-		}
-
-		return null;
 	}
 
 	/**
@@ -115,7 +89,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @return array<string, mixed> The current migration status with timestamp.
 	 */
 	public static function get_migration_status(): array {
-		return get_option(
+		return (array) get_option(
 			Config::$migration_status_option,
 			[
 				'status'    => Status::$not_started,
@@ -227,7 +201,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 			return new WP_Error( 'migration_error', $message, $context );
 		}
 
-		return false; // For non-critical levels, return false (informational messages).
+		return false;
 	}
 
 	/**
@@ -241,14 +215,5 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 		$this->dry_run = $dry_run;
 
 		return $this;
-	}
-
-	/**
-	 * Determines if the migration step is in dry-run mode.
-	 *
-	 * @return bool True if dry-run mode is active, false otherwise.
-	 */
-	public function is_dry_run(): bool {
-		return $this->dry_run;
 	}
 }

@@ -112,12 +112,12 @@ class Handler extends Abstract_Migration_Step {
 		foreach ( $migration_steps as $step_name => $step ) {
 			$error = $this->run_migration_step( $step, $step_name );
 
-			if ( is_wp_error( $error ) || false === $error ) {
+			if ( is_wp_error( $error ) ) {
 				$error_message = is_wp_error( $error ) ? $error->get_error_message() : 'Unknown error.';
 				$this->log_message( 'error', "Migration failed at step: {$step_name}. Error: {$error_message}", [], 'Handler' );
 				$this->log_elapsed_time( 'Migration Process', $start_time );
 
-				return false; // **Stop further execution**
+				return false;
 			}
 		}
 

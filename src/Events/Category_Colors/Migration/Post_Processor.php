@@ -78,7 +78,7 @@ class Post_Processor extends Abstract_Migration_Step {
 		// Validate each category against expected migration data.
 		foreach ( $migration_data['categories'] as $category_id => $meta_data ) {
 			$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
-			$actual_meta   = $category_meta->get(); // Fetch stored metadata.
+			$actual_meta   = $category_meta->get();
 
 			foreach ( $meta_data as $meta_key => $expected_value ) {
 				// Skip validation for excluded meta keys.
@@ -138,7 +138,7 @@ class Post_Processor extends Abstract_Migration_Step {
 
 		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
 			if ( ! $mapping['import'] ) {
-				continue; // Skip non-imported keys.
+				continue;
 			}
 
 			$expected_key   = $mapping['mapped_key'];
