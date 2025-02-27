@@ -6,13 +6,16 @@ use Closure;
 use Error;
 use Exception;
 use Generator;
-use Codeception\TestCase\WPTestCase;
+use TEC\Common\Tests\Provider\Controller_Test_Case;
 use Tribe\Tests\Traits\With_Uopz;
+use TEC\Events\Category_Colors\Controller as Category_Color_Controller;
 
-class Migration_Process_Test extends WPTestCase {
+class Migration_Process_Test extends Controller_Test_Case {
 	use With_Uopz;
 
 	protected array $original_tribe_events_calendar_options = [];
+
+	protected string $controller_class = Category_Color_Controller::class;
 
 	/**
 	 * @before
