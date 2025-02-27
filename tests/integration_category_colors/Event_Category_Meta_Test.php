@@ -182,12 +182,16 @@ class EventCategoryMeta_Test extends WPTestCase {
 
 	/** @test */
 	public function it_should_throw_an_error_when_invalid_value_is_passed() {
-		add_filter( 'tec_events_category_validate_meta_value', function( $value ) {
-			if (null === $value ) {
-				return new WP_Error( 'invalid_meta', 'Meta value cannot be null.' );
+		add_filter(
+			'tec_events_category_validate_meta_value',
+			function ( $value ) {
+				if ( null === $value ) {
+					return new WP_Error( 'invalid_meta', 'Meta value cannot be null.' );
+				}
+
+				return $value;
 			}
-			return $value;
-		});
+		);
 
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'Meta value cannot be null.' );
@@ -392,5 +396,93 @@ class EventCategoryMeta_Test extends WPTestCase {
 		yield 'object_std' => [ 'object_std', (object) [ 'prop' => 'value' ], (object) [ 'prop' => 'value' ] ];
 	}
 
+	/** @test */
+	public function it_should_throw_an_error_when_setting_meta_for_a_shared_term() {
+		// Mock wp_term_is_shared() to return true for this test.
+		$this->set_fn_return( 'wp_term_is_shared', true );
+
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage(
+			sprintf( "Meta cannot be added to term ID %d because it's shared between taxonomies.", $this->test_term->term_id )
+		);
+
+		// Attempt to set a meta value, should trigger the shared term error.
+		$meta->set( 'shared_key', '#123456' );
+	}
+
+	/** @test */
+	public function it_should_treat_meta_keys_as_case_insensitive() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$meta->set( 'CaseTest', '#FF0000' )->save();
+		$this->assertEquals( '#FF0000', $meta->get( 'casetest' ) ); // Lowercase retrieval
+	}
+
+	/** @test */
+	public function it_should_not_fail_when_deleting_already_deleted_meta() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$meta->set( 'to_delete', '#ABCDEF' )->save();
+		$meta->delete( 'to_delete' )->save();
+
+		// Attempt to delete again
+		$result = $meta->delete( 'to_delete' )->save();
+
+		$this->assertInstanceOf( Meta::class, $result );
+		$this->assertEmpty( $meta->get( 'to_delete' ) );
+	}
+
+	/** @test */
+	public function it_should_handle_large_number_of_meta_entries() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$bulk_meta = [];
+		for ( $i = 0; $i < 250; $i++ ) {
+			$bulk_meta["key_{$i}"] = "value_{$i}";
+		}
+
+		foreach ( $bulk_meta as $key => $value ) {
+			$meta->set( $key, $value );
+		}
+
+		$meta->save();
+
+		foreach ( $bulk_meta as $key => $value ) {
+			$this->assertEquals( $value, $meta->get( $key ) );
+		}
+	}
+
+	/** @test */
+	public function it_should_do_nothing_if_save_is_called_without_any_pending_operations() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		// Call save without any `set()` or `delete()`
+		$result = $meta->save();
+
+		// Ensure the object is still valid and save doesn't break anything
+		$this->assertInstanceOf( Meta::class, $result );
+	}
+
+	/** @test */
+	public function it_should_not_persist_meta_if_deleted_before_saving() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		// Set a meta key but delete it before save
+		$meta->set( 'primary', '#FF0000' )->delete( 'primary' )->save();
+
+		// The meta key should be gone, since it was deleted before being committed
+		$this->assertEmpty( $meta->get( 'primary' ) );
+	}
+
+	/** @test */
+	public function it_should_throw_an_error_when_deleting_an_empty_meta_key() {
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'Meta key cannot be empty.' );
+
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+		$meta->delete( '' );
+	}
 
 }

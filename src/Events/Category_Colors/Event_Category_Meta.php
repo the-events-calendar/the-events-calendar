@@ -149,6 +149,13 @@ class Event_Category_Meta {
 			throw new InvalidArgumentException( $key->get_error_message() );
 		}
 
+		// Ensure we’re not setting term meta for a shared term.
+		if ( wp_term_is_shared( $this->term_id ) ) {
+			throw new InvalidArgumentException(
+				sprintf( "Meta cannot be added to term ID %d because it's shared between taxonomies.", $this->term_id )
+			);
+		}
+
 		$value = $this->validate_value( $value );
 
 		if ( is_wp_error( $value ) ) {
@@ -229,7 +236,7 @@ class Event_Category_Meta {
 	 * @return mixed The normalized meta value.
 	 */
 	protected function normalize_meta( string $key, $value ) {
-		if ( $value === null ) {
+		if ( null === $value ) {
 			return '';
 		}
 
