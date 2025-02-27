@@ -9,8 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
+ * @since 6.10.2 Corrected template override file path.
+ *
  * @version 5.2.1
- * @since TBD Corrected template override file path.
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *

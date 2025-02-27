@@ -603,7 +603,7 @@ class Tribe__Events__iCal {
 	 * Add the VTIMEZONE groups to the file.
 	 *
 	 * @since 4.9.4
-	 * @since TBD Make sure that each time zone definition has its own group.
+	 * @since 6.10.2 Make sure that each time zone definition has its own group.
 	 *
 	 * @param array $events An array with all the events.
 	 *

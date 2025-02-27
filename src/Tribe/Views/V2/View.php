@@ -705,7 +705,7 @@ class View implements View_Interface {
 		/**
 		 * Fire before the view HTML cache check.
 		 *
-		 * @since TBD
+		 * @since 6.10.2
 		 *
 		 * @param View $this A reference to the View instance that is currently setting up the loop.
 		 */
