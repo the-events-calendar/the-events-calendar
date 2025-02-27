@@ -38,7 +38,7 @@ class Requests {
 	 * Models the current HTTP request using a WP REST Request object.
 	 *
 	 * @since 6.0.0
-	 * @since TBD Added check that `$_FILES` exists, otherwise use an empty array.
+	 * @since 6.10.2 Added check that `$_FILES` exists, otherwise use an empty array.
 	 *
 	 * @return WP_REST_Request A reference to an instance of the WP_Rest_Request
 	 *                         set up to provide information about the current HTTP request.

@@ -2,7 +2,7 @@
 /**
  * Manages the legacy view removal and messaging.
  *
- * @since   TBD
+ * @since 6.10.2
  *
  * @package TEC\Events\SEO
  */
@@ -15,7 +15,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since 6.10.2
  *
  * @package TEC\Events\SEO\Headers
  */
@@ -24,7 +24,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register actions.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
@@ -34,7 +34,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregister actions.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 */
 	public function unregister(): void {
 		remove_action( 'send_headers', [ $this, 'filter_headers' ] );
@@ -43,7 +43,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Filter the headers based on the query.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 */
 	public function filter_headers() {
 		global $wp_query;

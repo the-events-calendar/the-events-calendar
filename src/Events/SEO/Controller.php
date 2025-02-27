@@ -27,7 +27,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Stores the noindex decision for the current request
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @var array|null
 	 */
@@ -36,7 +36,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Current view instance
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @var View_Interface|null
 	 */
@@ -103,7 +103,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 3.12.4
 	 * @since 6.0.0 Relies on v2 code.
-	 * @since TBD Hooks to wp_robots.
+	 * @since 6.10.2 Hooks to wp_robots.
 	 *
 	 * Disabling this behavior completely is possible with:
 	 *
@@ -175,7 +175,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Set nofollow in the robots directives.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param array<string|boolean> $robots The directives for the robots meta tag.
 	 *
@@ -190,7 +190,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Filter the robots directives for the current view.
 	 *
-	 * @since TBD
+	 * @since 6.10.2
 	 *
 	 * @param array<string|boolean> $robots The directives for the robots meta tag.
 	 *
@@ -202,7 +202,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filter wp robots directives on Views V2.
 		 *
-		 * @since TBD
+		 * @since 6.10.2
 		 *
 		 * @param array<string|boolean> $robots The directives for the robots meta tag.
 		 */
@@ -240,7 +240,7 @@ class Controller extends Controller_Contract {
 	 * Returns the end date time object read from the current context.
 	 *
 	 * @since      6.2.3
-	 * @deprecated TBD - No replacement, unused coding.
+	 * @deprecated 6.10.2 - No replacement, unused coding.
 	 *
 	 * @param string         $view       The current view slug.
 	 * @param DateTime       $start_date The start date.
@@ -249,7 +249,7 @@ class Controller extends Controller_Contract {
 	 * @return DateTime|false A DateTime object or `false` if a DateTime object could not be built.
 	 * */
 	public function get_end_date( $view, $start_date, $context ) {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.10.2' );
 
 		$end_date = $context->get( 'end_date' );
 
@@ -275,10 +275,10 @@ class Controller extends Controller_Contract {
 	 * Prints a "noindex,follow" robots tag.
 	 *
 	 * @since 6.2.3
-	 * @deprecated TBD - use filter_robots_directives instead to modify WordPress's wp_robots filter.
+	 * @deprecated 6.10.2 - use filter_robots_directives instead to modify WordPress's wp_robots filter.
 	 */
 	public function print_noindex_meta() :void {
-		_deprecated_function( __FUNCTION__, 'TBD', 'Use $this->>filter_robots_directives instead.' );
+		_deprecated_function( __FUNCTION__, '6.10.2', 'Use $this->>filter_robots_directives instead.' );
 
 		$robots_meta_content = $this->get_noindex_follow();
 
@@ -286,7 +286,7 @@ class Controller extends Controller_Contract {
 		 * Filter to disable the noindex meta tag on Views V2.
 		 *
 		 * @since 6.2.6
-		 * @deprecated TBD -
+		 * @deprecated 6.10.2 - No replacement
 		 *
 		 * @param string $robots_meta_content The contents of the robots meta tag.
 		 * @param string $view The current view slug.
@@ -306,7 +306,7 @@ class Controller extends Controller_Contract {
 		 * Filters the noindex meta tag.
 		 *
 		 * @since 6.2.3
-		 * @deprecated TBD -
+		 * @deprecated 6.10.2 - No replacement.
 		 *
 		 * @param string $noindex_meta
 		 */
@@ -328,12 +328,12 @@ class Controller extends Controller_Contract {
 	 * Get the noindex, follow string.
 	 *
 	 * @since 6.2.6
-	 * @deprecated TBD - No replacement.
+	 * @deprecated 6.10.2 - No replacement.
 	 *
 	 * @return string
 	 */
 	public function get_noindex_follow(): string {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.10.2' );
 
 		return 'noindex, follow';
 	}
@@ -342,12 +342,12 @@ class Controller extends Controller_Contract {
 	 * Get the noindex, nofollow string.
 	 *
 	 * @since 6.2.6
-	 * @deprecated TBD -  No replacement.
+	 * @deprecated 6.10.2 - No replacement.
 	 *
 	 * @return string
 	 */
 	public function get_noindex_nofollow(): string {
-		_deprecated_function( __FUNCTION__, 'TBD' );
+		_deprecated_function( __FUNCTION__, '6.10.2' );
 
 		return 'noindex, nofollow';
 	}
