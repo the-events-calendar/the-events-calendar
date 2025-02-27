@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Removed filters: `tec_events_seo_robots_meta_content`, `tec_events_no_index_meta`

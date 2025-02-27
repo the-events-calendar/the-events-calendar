@@ -1,4 +1,0 @@
-Significance: minor
-Type: compatibility
-
-Switched to using WordPress wp_robots for improved SEO plugin compatibility and to prevent duplicate meta robots tags. [TEC-5355]
