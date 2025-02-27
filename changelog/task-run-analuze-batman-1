@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added filters: `tec_events_filter_wp_robots_meta_directives`
