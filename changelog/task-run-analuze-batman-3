@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Added actions: `tec_events_before_view_html_cache`

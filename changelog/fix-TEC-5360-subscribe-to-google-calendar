@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Fix the time zone blocks in the iCal feed to make sure the iCal feed is valid and the calendar can be subscribed to. [TEC-5360]
