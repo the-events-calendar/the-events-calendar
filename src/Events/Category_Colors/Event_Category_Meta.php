@@ -205,7 +205,6 @@ class Event_Category_Meta {
 		$this->ensure_term_is_set();
 		foreach ( $this->pending_deletes as $key ) {
 			delete_term_meta( $this->term_id, $key );
-			// Remove from pending deletes in case it was set before.
 		}
 
 		foreach ( $this->pending_updates as $key => $value ) {
