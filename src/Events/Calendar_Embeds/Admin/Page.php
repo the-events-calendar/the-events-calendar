@@ -147,7 +147,7 @@ class Page {
 	public function register_assets(): void {
 		Asset::add(
 			'tec-events-calendar-embeds-script',
-			'js/admin/calendar-embeds-page.js'
+			'calendar-embeds/admin/page.js'
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )
@@ -158,7 +158,7 @@ class Page {
 
 		Asset::add(
 			'tec-events-calendar-embeds-style',
-			'css/admin/calendar-embeds-page.css'
+			'calendar-embeds/admin/page.css'
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )
