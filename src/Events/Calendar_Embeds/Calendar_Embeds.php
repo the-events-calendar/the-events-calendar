@@ -9,6 +9,9 @@
 
 namespace TEC\Events\Calendar_Embeds;
 
+use RuntimeException;
+use WP_Post_Type;
+
 /**
  * Class Calendar_Embeds
  *
@@ -52,16 +55,16 @@ class Calendar_Embeds {
 	 *
 	 * @var string
 	 */
-	protected $hook_suffix;
+	protected string $hook_suffix;
 
 	/**
 	 * The post type object.
 	 *
 	 * @since TBD
 	 *
-	 * @var \WP_Post_Type
+	 * @var WP_Post_Type
 	 */
-	protected $post_type_object;
+	protected WP_Post_Type $post_type_object;
 
 	/**
 	 * Register custom post type for calendar embeds.
@@ -70,7 +73,7 @@ class Calendar_Embeds {
 	 *
 	 * @return void
 	 */
-	public function register_post_type() {
+	public function register_post_type(): void {
 		$labels = [
 			'name'               => _x( 'Calendar Embeds', 'post type general name', 'the-events-calendar' ),
 			'singular_name'      => _x( 'Calendar Embed', 'post type singular name', 'the-events-calendar' ),
@@ -123,12 +126,12 @@ class Calendar_Embeds {
 	 *
 	 * @since TBD
 	 *
-	 * @return \WP_Post_Type
-	 * @throws \RuntimeException If the post type object is not set.
+	 * @return WP_Post_Type
+	 * @throws RuntimeException If the post type object is not set.
 	 */
-	public function get_post_type_object() {
+	public function get_post_type_object(): WP_Post_Type {
 		if ( ! $this->post_type_object ) {
-			throw new \RuntimeException( __( 'Attempted to get post type object before it was set.', 'the-events-calendar' ) );
+			throw new RuntimeException( __( 'Attempted to get post type object before it was set.', 'the-events-calendar' ) );
 		}
 
 		return $this->post_type_object;

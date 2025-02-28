@@ -28,7 +28,7 @@ class Page {
 	 *
 	 * @var string
 	 */
-	protected $hook_suffix;
+	protected string $hook_suffix;
 
 	/**
 	 * Register the Calendar Embeds menu item.
@@ -37,7 +37,7 @@ class Page {
 	 *
 	 * @return int
 	 */
-	public function register_menu_item() {
+	public function register_menu_item(): string {
 		$cpt               = get_post_type_object( TEC::POSTTYPE );
 		$this->hook_suffix = add_submenu_page(
 			'edit.php?post_type=' . TEC::POSTTYPE,
@@ -58,7 +58,7 @@ class Page {
 	 * @return string
 	 * @throws \RuntimeException If the hook suffix is not set.
 	 */
-	public function get_hook_suffix() {
+	public function get_hook_suffix(): string {
 		if ( ! $this->hook_suffix ) {
 			throw new \RuntimeException( __( 'Attempted to get hook suffix before it was set.', 'the-events-calendar' ) );
 		}
@@ -73,7 +73,7 @@ class Page {
 	 *
 	 * @return string
 	 */
-	public function get_url() {
+	public function get_url(): string {
 		return admin_url( 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE );
 	}
 
@@ -84,7 +84,7 @@ class Page {
 	 *
 	 * @return string
 	 */
-	public function get_menu_label() {
+	public function get_menu_label(): string {
 		return __( 'Embed Calendar', 'the-events-calendar' );
 	}
 
@@ -95,7 +95,7 @@ class Page {
 	 *
 	 * @return string
 	 */
-	public function get_page_title() {
+	public function get_page_title(): string {
 		return __( 'Embed Calendar', 'the-events-calendar' );
 	}
 
@@ -108,7 +108,7 @@ class Page {
 	 *
 	 * @return string
 	 */
-	public function keep_parent_menu_open( $submenu_file ) {
+	public function keep_parent_menu_open( $submenu_file ): string {
 		global $parent_file;
 
 		if ( 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE !== $parent_file ) {

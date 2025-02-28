@@ -28,26 +28,6 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Admin\List_Table::class );
 		$this->container->singleton( Admin\Page::class );
 
-		$this->add_actions();
-		$this->add_filters();
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function unregister(): void {
-		$this->remove_actions();
-		$this->remove_filters();
-	}
-
-	/**
-	 * Add actions for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function add_actions() {
 		add_action(
 			'init',
 			[
@@ -79,16 +59,26 @@ class Controller extends Controller_Contract {
 			10,
 			2
 		);
+		add_filter(
+			'submenu_file',
+			[
+				$this->container->make( Admin\Page::class ),
+				'keep_parent_menu_open',
+			]
+		);
+		add_filter(
+			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
+			[
+				$this->container->make( Admin\List_Table::class ),
+				'manage_columns',
+			]
+		);
 	}
 
 	/**
-	 * Add actions for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
+	 * @inheritDoc
 	 */
-	public function remove_actions() {
+	public function unregister(): void {
 		remove_action(
 			'init',
 			[
@@ -119,40 +109,6 @@ class Controller extends Controller_Contract {
 			],
 			10
 		);
-	}
-
-	/**
-	 * Add filters for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function add_filters() {
-		add_filter(
-			'submenu_file',
-			[
-				$this->container->make( Admin\Page::class ),
-				'keep_parent_menu_open',
-			]
-		);
-		add_filter(
-			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
-			[
-				$this->container->make( Admin\List_Table::class ),
-				'manage_columns',
-			]
-		);
-	}
-
-	/**
-	 * Remove filters for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function remove_filters() {
 		remove_filter(
 			'submenu_file',
 			[

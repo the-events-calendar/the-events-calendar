@@ -10,8 +10,8 @@
 namespace TEC\Events\Calendar_Embeds\Admin;
 
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
-use Tribe__Template;
-use Tribe__Events__Main;
+use Tribe__Template as Template;
+use Tribe__Events__Main as TEC_Plugin;
 
 /**
  * Class List_Table
@@ -26,9 +26,9 @@ class List_Table {
 	 *
 	 * @since TBD
 	 *
-	 * @var Tribe__Template
+	 * @var Template
 	 */
-	protected $template;
+	protected Template $template;
 
 	/**
 	 * Customize columns for the table.
@@ -114,15 +114,15 @@ class List_Table {
 	 *
 	 * @since TBD
 	 *
-	 * @return Tribe__Template
+	 * @return Template
 	 */
-	public function get_template(): Tribe__Template {
+	public function get_template(): Template {
 		if ( ! empty( $this->template ) ) {
 			return $this->template;
 		}
 
-		$this->template = new Tribe__Template();
-		$this->template->set_template_origin( Tribe__Events__Main::instance() );
+		$this->template = new Template();
+		$this->template->set_template_origin( TEC_Plugin::instance() );
 		$this->template->set_template_folder( 'src/admin-views/calendar-embeds/' );
 		$this->template->set_template_context_extract( true );
 		$this->template->set_template_folder_lookup( false );
