@@ -12,7 +12,7 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	 *
 	 */
 	public function register() {
-		if ( tec_using_new_editor() ) {
+		if ( tec_using_classy_editor() ) {
 			return;
 		}
 

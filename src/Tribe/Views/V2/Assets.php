@@ -505,7 +505,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		if ( ! tec_using_new_editor() ) {
+		if ( ! tec_using_classy_editor() ) {
 			// Do not load this asset if the legacy Block Editor support is not activated.
 			tec_asset(
 				$plugin,
@@ -707,7 +707,7 @@ class Assets extends Service_Provider {
 			return true;
 		}
 
-		if ( tec_using_new_editor() ) {
+		if ( tec_using_classy_editor() ) {
 			return;
 		}
 

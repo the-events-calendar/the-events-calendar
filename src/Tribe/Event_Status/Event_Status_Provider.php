@@ -141,7 +141,7 @@ class Event_Status_Provider extends Service_Provider {
 	 * @param int $post_id  The post ID of the event we are interested in.
 	 */
 	public function register_metabox( $post_id ) {
-		if ( tec_using_new_editor() ) {
+		if ( tec_using_classy_editor() ) {
 			return;
 		}
 		echo $this->container->make( Classic_Editor::class )->register_metabox( $post_id ); /* phpcs:ignore */

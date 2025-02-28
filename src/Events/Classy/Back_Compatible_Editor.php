@@ -7,17 +7,17 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\New_Editor;
+ * @package TEC\Events\Classy;
  */
 
-namespace TEC\Events\New_Editor;
+namespace TEC\Events\Classy;
 
 /**
  * Class Back_Compatible_Editor.
  *
  * @since   TBD
  *
- * @package TEC\Events\New_Editor;
+ * @package TEC\Events\Classy;
  */
 class Back_Compatible_Editor {
 	/**

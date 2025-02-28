@@ -4,10 +4,10 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\New_Editor;
+ * @package TEC\Events\Classy;
  */
 
-namespace TEC\Events\New_Editor;
+namespace TEC\Events\Classy;
 
 use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
@@ -20,27 +20,88 @@ use WP_Post;
  *
  * @since   TBD
  *
- * @package TEC\Events\New_Editor;
+ * @package TEC\Events\Classy;
  */
 class Controller extends ControllerContract {
 	/**
-	 * A flag property used during exploration to toggle between different approches.
+	 * The name of the constant that will be used to disable the feature.
+	 * Setting it to a truthy value will disable the feature.
 	 *
 	 * @since TBD
 	 *
-	 * @var string One of `block-editor` or `metabox`.
+	 * @var string
 	 */
-	private string $__experimental_approach = 'metabox';
+	public const DISABLED = 'TEC_CLASSY_EDITOR_DISABLED';
 
 	/**
-	 * Returns whether this feature is active or not.
+	 * Detects, based on constants, environment variables whether the feature is active or not.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool True if not deactivated via environment variable or a constant.
+	 * @return bool Whether the feature is active or not.
+	 */
+	private static function is_feature_active(): bool {
+		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
+			// The constant to disable the feature is defined and it's truthy.
+			return false;
+		}
+
+		if ( getenv( self::DISABLED ) ) {
+			// The environment variable to disable the feature is truthy.
+			return false;
+		}
+
+		// Finally read an option value to determine if the feature should be active or not.
+		$active = (bool) get_option( 'tec_events_classy_editor_enabled', true );
+
+		/**
+		 * Allows filtering whether the whole Seating feature
+		 * should be activated or not.
+		 *
+		 * Note: this filter will only apply if the disable constant or env var
+		 * are not set or are set to falsy values.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $active Defaults to `true`.
+		 */
+		return (bool) apply_filters( 'tec_events_classy_editor_enabled', $active );
+	}
+
+	/**
+	 * Registers required filters early, before other plugins load.
+	 *
+	 * The main function of this code is to filter the template tag that lets other plugins
+	 * and controllers know whether the Classy editor is being used or not.
+	 * This function is used in the `Tribe__Events__Main::plugins_loaded` method.
+	 *
+	 * @since TBD
+	 *
+	 * @see \Tribe__Events__Main::plugins_loaded()
+	 *
+	 * @return void The Classy template tag is filtered accordingly.
+	 */
+	public static function early_register():void{
+		if(!self::is_feature_active())	{
+			add_filter( 'tec_using_classy_editor', '__return_false' );
+			return;
+		}
+
+		add_filter( 'tec_using_classy_editor', '__return_true' );
+	}
+
+	/**
+	 * Determines if the feature is enabled or not.
+	 *
+	 * Since this class `early_register` method is already filtering the `tec_using_classy_editor` template
+	 * tag, this method will call the template tag to know whether it should activate or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the feature is enabled or not.
 	 */
 	public function is_active(): bool {
-		return tec_using_new_editor();
+		return tec_using_classy_editor();
 	}
 
 	/**
@@ -61,36 +122,32 @@ class Controller extends ControllerContract {
 		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 
 		// We're using TEC new editor.
-		add_filter( 'tec_using_new_editor', '__return_true' );
+		add_filter( 'tec_using_classy_editor', '__return_true' );
 
 		add_filter('block_editor_settings_all', [$this,'filter_block_editor_settings'],100,2);
 
-		// Apprach 1: leverage the Block Editor and customize it.
 		// Register the main assets entry point.
 		Asset::add(
-			'tec-new-editor',
-			'new-editor.js'
+			'tec-classy',
+			'classy.js'
 		)->add_to_group_path( TEC::class . '-packages' )
-		     ->add_to_group( 'tec-new-editor' )
+		     ->add_to_group( 'tec-classy' )
 		     ->enqueue_on( 'enqueue_block_editor_assets' )
-		     ->add_localize_script( 'tec.newEditor', [
-			     '__experimentalApproach' => $this->__experimental_approach,
-			     'eventCategoryTaxonomyName' => TEC::TAXONOMY
+			->set_condition(fn()=>$this->post_uses_new_editor(get_post_type()))
+		     ->add_localize_script( 'tec.classy', [
+			     'eventCategoryTaxonomyName' => TEC::TAXONOMY,
+			     ''
 		     ] )
 		     ->register();
 
 		Asset::add(
-			'tec-new-editor-style',
-			'style-new-editor.css'
+			'tec-classy-style',
+			'style-classy.css'
 		)->add_to_group_path( TEC::class . '-packages' )
-		     ->add_to_group( 'tec-new-editor' )
+		     ->add_to_group( 'tec-classy' )
 		     ->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition(fn()=>$this->post_uses_new_editor(get_post_type()))
 		     ->register();
-
-		// Approach 2: metabox.
-		if ($this->__experimental_approach === 'metabox') {
-			add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
-		}
 	}
 
 	/**
@@ -102,8 +159,7 @@ class Controller extends ControllerContract {
 	 */
 	public function unregister(): void {
 		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
-		remove_filter( 'tec_using_new_editor', '__return_true' );
-		remove_action('add_meta_boxes', [$this, 'add_meta_boxes']);
+		remove_filter( 'tec_using_classy_editor', '__return_true' );
 		remove_filter('block_editor_settings_all', [$this,'filter_block_editor_settings'],100);
 	}
 
@@ -116,25 +172,22 @@ class Controller extends ControllerContract {
 	 *
 	 * @return bool Whether the given Post uses the New Editor.
 	 */
-	public function post_uses_new_editor( WP_Post $post ): bool {
+	public function post_uses_new_editor( string $post_type ): bool {
 		$supported_post_types = $this->get_supported_post_types();
 
-		return in_array( $post->post_type, $supported_post_types, true );
+		return in_array( $post_type, $supported_post_types, true );
 	}
 
 	public function filter_block_editor_settings(array $settings, WP_Block_Editor_Context $context){
 		if(!(
 			$context->post instanceof WP_Post
-			&& $this->post_uses_new_editor($context->post)
+			&& $this->post_uses_new_editor($context->post->post_type)
 		)){
 			return $settings;
 		}
 
 		// Lock the template.
 		$settings['templateLock'] = true;
-
-		// Ensure metaboxes are active for the post.
-		$settings['enableCustomFields'] = true;
 
 		return $settings;
 	}
@@ -160,52 +213,5 @@ class Controller extends ControllerContract {
 		);
 
 		return (array)$supported_post_types;
-	}
-
-	public function get_metabox(): string {
-		return <<< HTML
-<div>
-	<div >
-	<h3 style="text-align: center">TEC New Editor</h3>
-	    <table class="form-table" style="display: flex; justify-content: center">
-	        <tr>
-	            <th><label for="event_title">Event Title:</label></th>
-	            <td><input type="text" id="event_title" name="event_title" value="" class="regular-text"></td>
-	        </tr>
-	        <tr>
-	            <th><label for="event_description">Event Description:</label></th>
-	            <td><textarea id="event_description" name="event_description" rows="4" cols="50"></textarea></td>
-	        </tr>
-	        <tr>
-	            <th><label for="event_date">Event Date:</label></th>
-	            <td><input type="date" id="event_date" name="event_date" value=""></td>
-	        </tr>
-	        <tr>
-	            <th><label for="event_time">Event Time:</label></th>
-	            <td><input type="time" id="event_time" name="event_time" value=""></td>
-	        </tr>
-	        <tr>
-	            <th><label for="event_location">Event Location:</label></th>
-	            <td><input type="text" id="event_location" name="event_location" value="" class="regular-text"></td>
-	        </tr>
-	    </table>
-	</div>
-</div>
-HTML;
-	}
-
-	public function the_metabox(): void {
-		echo $this->get_metabox();
-	}
-
-	public function add_meta_boxes():void{
-		add_meta_box(
-			'tec-new-editor',
-			'TEC NEW EDITOR',
-			[$this,'the_metabox'],
-			$this->get_supported_post_types(),
-			'normal',
-			'high'
-		);
 	}
 }
