@@ -119,7 +119,7 @@ class PageTest extends Controller_Test_Case {
 
 	/**
 	 * @test
-	 * @skip
+	 * @skip We will test when we have progressed a bit on their creation.
 	 */
 	public function it_should_render_the_expected_column_content() {
 
