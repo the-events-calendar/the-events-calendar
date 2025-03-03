@@ -10,7 +10,7 @@
 
 <?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
 
-<tr class="form-field">
+<tr class="form-field tec_category_colors_wrap">
 	<th scope="row">
 		<label for="tec-events-category-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
 	</th>
@@ -25,7 +25,7 @@
 	</td>
 </tr>
 
-<tr class="form-field">
+<tr class="form-field tec_category_colors_wrap">
 	<th scope="row">
 		<label for="tec-events-category-secondary"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
 	</th>
@@ -40,7 +40,7 @@
 	</td>
 </tr>
 
-<tr class="form-field">
+<tr class="form-field tec_category_colors_wrap">
 	<th scope="row">
 		<label for="tec-events-category-text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
 	</th>
@@ -55,7 +55,7 @@
 	</td>
 </tr>
 
-<tr class="form-field">
+<tr class="form-field tec_category_colors_wrap">
 	<th scope="row">
 		<label><?php esc_html_e( 'Preview', 'the-events-calendar' ); ?></label>
 	</th>
@@ -70,7 +70,7 @@
 	</td>
 </tr>
 
-<tr class="form-field">
+<tr class="form-field tec_category_colors_wrap">
 	<th scope="row">
 		<label for="tec-events-category-priority"><?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?></label>
 	</th>
