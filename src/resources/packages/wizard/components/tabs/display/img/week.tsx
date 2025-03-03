@@ -2,7 +2,12 @@ import React from "react";
 
 const WeekViewIcon = () => {
 	return (
-		<svg width="89" height="60" fill="none" xmlns="http://www.w3.org/2000/svg" alt="a thumbnail representing the calendar week view">
+		<svg
+			viewBox="0 0 89 60"
+			fill="none" 
+			xmlns="http://www.w3.org/2000/svg" 
+			alt="a thumbnail representing the calendar week view"
+		>
 			<rect x="1" y=".5" width="87" height="59" rx="4.495" fill="#F6F7F7" />
 			<rect x="1" y=".5" width="87" height="59" rx="4.495" stroke="#DCDCDE" />
 			<rect x="5" y="5.5" width="79" height="49" rx="1.5" fill="#fff" />

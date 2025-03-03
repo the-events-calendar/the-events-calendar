@@ -58,6 +58,7 @@ const SetupButton = ({ tabSettings, moveToNextTab }) => {
 			variant="primary"
 			onClick={setClicked}
 			disabled={false}
+			className="tec-events-onboarding__button tec-events-onboarding__button--setup"
 		>
 			{__("Set up my calendar", "the-events-calendar")}
 		</Button>

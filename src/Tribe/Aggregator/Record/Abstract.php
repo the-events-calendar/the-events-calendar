@@ -1810,7 +1810,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 							}
 
 							if ( empty( $venue_unique_field ) || ( $lookup_venues_by_title && empty( $venue ) ) ) {
-								$venue = get_page_by_title( $event['Venue']['Venue'], 'OBJECT', Tribe__Events__Venue::POSTTYPE );
+								$venue_query = new WP_Query(
+									[
+										'post_type'      => Tribe__Events__Venue::POSTTYPE,
+										'title'          => $event['Venue']['Venue'],
+										'post_status'    => 'any',
+										'posts_per_page' => 1,
+										'no_found_rows'  => true,
+										'ignore_sticky_posts' => true,
+										'update_post_term_cache' => false,
+										'update_post_meta_cache' => false,
+										'orderby'        => 'post_date ID',
+										'order'          => 'ASC',
+
+									]
+								);
+								$venue = ! empty( $venue_query->post ) ? $venue_query->post : null;
 							}
 
 							if ( $venue ) {
@@ -1980,7 +1995,22 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 										$value     = $organizer_data[ $target ];
 										$organizer = Tribe__Events__Aggregator__Event::get_post_by_meta( "_Organizer{$target}", $value );
 									} else {
-										$organizer = get_page_by_title( $organizer_data['Organizer'], 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+										$organizer_query = new WP_Query(
+											[
+												'post_type' => Tribe__Events__Organizer::POSTTYPE,
+												'title'   => $organizer_data['Organizer'],
+												'post_status' => 'any',
+												'posts_per_page' => 1,
+												'no_found_rows' => true,
+												'ignore_sticky_posts' => true,
+												'update_post_term_cache' => false,
+												'update_post_meta_cache' => false,
+												'orderby' => 'post_date ID',
+												'order'   => 'ASC',
+
+											]
+										);
+										$organizer = ! empty( $organizer_query->post ) ? $organizer_query->post : null;
 									}
 								}
 

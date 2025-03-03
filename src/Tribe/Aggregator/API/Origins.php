@@ -25,7 +25,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 	 * @var array An array of origins that will still be available when EA has
 	 *            been disabled by the user.
 	 */
-	protected $available_when_disabled = [ 'csv' ];
+	protected $available_when_disabled = [ 'csv', 'eventbrite' ];
 
 	public function __construct() {
 		parent::__construct();
@@ -49,8 +49,8 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			'eventbrite' => (object) [
 				'id'       => 'eventbrite',
 				'name'     => __( 'Eventbrite', 'the-events-calendar' ),
-				'disabled' => true,
-				'upsell'   => true,
+				'disabled' => ! class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ),
+				'upsell'   => ! class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ),
 			],
 			'gcal'       => (object) [
 				'id'       => 'gcal',
@@ -208,7 +208,7 @@ class Tribe__Events__Aggregator__API__Origins extends Tribe__Events__Aggregator_
 			return false;
 		}
 
-		if ( 'eventbrite' === $origin && class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) ) {
+		if ( 'eventbrite' === $origin && class_exists( 'Tribe__Events__Tickets__Eventbrite__Main', false ) ) {
 			return true;
 		}
 

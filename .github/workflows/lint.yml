@@ -9,6 +9,7 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.body, '[skip-lint]')"
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4

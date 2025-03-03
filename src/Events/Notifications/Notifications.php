@@ -9,22 +9,42 @@
 
 namespace TEC\Events\Notifications;
 
+use TEC\Events\Integrations\Integration_Abstract;
+use TEC\Common\Integrations\Traits\Plugin_Integration;
+
 /**
  * Class Notifications
  *
  * @since   6.4.0
  * @package TEC\Events\Notifications
  */
-class Notifications {
+class Notifications extends Integration_Abstract {
+	use Plugin_Integration;
 
 	/**
 	 * The slug of this plugin calling the Notifications class.
 	 *
 	 * @since 6.4.0
 	 *
-	 * @var string
+	 * @return string
 	 */
-	protected static string $slug = 'the-events-calendar';
+	public static function get_slug(): string {
+		return 'the-events-calendar';
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function load_conditionals(): bool {
+		return has_action( 'tribe_common_loaded' );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function load(): void {
+		add_action( 'admin_footer', [ $this, 'render_icon' ] );
+	}
 
 	/**
 	 * Outputs the hook that renders the Notifications icon on all TEC admin pages.
@@ -42,6 +62,6 @@ class Notifications {
 		 *
 		 * @since 6.4.0
 		 */
-		do_action( 'tec_ian_icon', static::$slug );
+		do_action( 'tec_ian_icon', $this->get_slug() );
 	}
 }

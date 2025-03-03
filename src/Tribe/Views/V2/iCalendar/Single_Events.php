@@ -62,8 +62,10 @@ class Single_Events {
 	 * @see   `tribe_events_ical_single_event_links` filter.
 	 *
 	 * @since 5.16.0
+	 * @since 6.10.1 Added a check for `$subscribe_links` to avoid fataling.
 	 *
 	 * @param string $calendar_links The link content.
+	 * @param array  $subscribe_links An array of subscription links.
 	 *
 	 * @return string The altered link content.
 	 */
@@ -81,6 +83,11 @@ class Single_Events {
 		 * @param View|null            $view            The current View implementation.
 		 */
 		apply_filters_deprecated( 'tec_views_v2_single_subscribe_links', [ [], null ], '5.16.0', '', 'Single event subscribe links use the subscribe dropdown, there is no replacement for this filter.' );
+
+		// If the subscribe links are not in an array, bail.
+		if ( ! is_array( $subscribe_links ) ) {
+			return '';
+		}
 
 		if ( 1 === count( $subscribe_links ) ) {
 			// If we only have one link in the list, show a "button".

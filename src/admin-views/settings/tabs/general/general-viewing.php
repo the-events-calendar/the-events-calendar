@@ -81,7 +81,7 @@ $tec_events_general_viewing_fields = [
 	],
 	'donate-link'                               => [
 		'type'            => 'checkbox_bool',
-		'tooltip'         => esc_html__( 'Show The Events Calendar link', 'the-event-calendar' ),
+		'tooltip'         => esc_html__( 'Show The Events Calendar link', 'the-events-calendar' ),
 		'label'           => esc_html__( 'If you’re enjoying The Events Calendar, give us kudos by including a link in the footer of calendar views. It really helps us a lot.', 'the-events-calendar' ),
 		'default'         => false,
 		'validation_type' => 'boolean',

@@ -2,6 +2,7 @@ name: 'PHPCS'
 on: [pull_request]
 jobs:
   conditional:
+    if: "!contains(github.event.pull_request.body, '[skip-phpcs]')"
     runs-on: ubuntu-latest
     outputs:
       has_no_php_changes: ${{ steps.skip.outputs.has_no_php_changes }}

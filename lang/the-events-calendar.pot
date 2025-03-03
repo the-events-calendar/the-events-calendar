@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.10.0\n"
+"Project-Id-Version: The Events Calendar 6.10.1.1\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-29T21:07:26+00:00\n"
+"POT-Creation-Date: 2025-02-12T17:17:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: the-events-calendar\n"
@@ -2138,6 +2138,19 @@ msgctxt "Title for the debugging section of the general settings."
 msgid "Debugging"
 msgstr ""
 
+#: src/admin-views/settings/tabs/general/general-debugging.php:16
+msgid "Debug mode"
+msgstr ""
+
+#. Translators: %1$s - wordpress.org link to the Debug Bar Plugin
+#: src/admin-views/settings/tabs/general/general-debugging.php:19
+msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %1$s and look for the \"Tribe\" tab in the debug output."
+msgstr ""
+
+#: src/admin-views/settings/tabs/general/general-debugging.php:23
+msgid "Debug Bar Plugin"
+msgstr ""
+
 #: src/admin-views/settings/tabs/general/general-debugging.php:42
 msgid "There is a solution for every problem"
 msgstr ""
@@ -2310,6 +2323,10 @@ msgstr ""
 #. Translators: %s - link to the Month View Cache documentation
 #: src/admin-views/settings/tabs/general/general-viewing.php:76
 msgid "Check this to cache your month view HTML in transients, which can help improve calendar speed on sites with many events. <a href=\"%s\" rel=\"noopener\" target=\"_blank\">Read more</a>."
+msgstr ""
+
+#: src/admin-views/settings/tabs/general/general-viewing.php:84
+msgid "Show The Events Calendar link"
 msgstr ""
 
 #: src/admin-views/settings/tabs/general/general-viewing.php:85
@@ -6417,24 +6434,24 @@ msgstr ""
 msgid "Enter Event Aggregator License"
 msgstr ""
 
-#: src/Tribe/API.php:822
+#: src/Tribe/API.php:830
 msgid "An event having a post meta value of `%s` meridian is not valid. Make sure it is either `am` or `pm`, or remove it entirely if using the 24-hour format."
 msgstr ""
 
-#: src/Tribe/API.php:850
+#: src/Tribe/API.php:858
 msgid "An event having a post meta value of `%s` hour (am/pm) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:867
+#: src/Tribe/API.php:875
 msgid "An event having a post meta value of `%s` hour (12-hour) is not valid. Make sure it is from 1 to 12."
 msgstr ""
 
-#: src/Tribe/API.php:874
+#: src/Tribe/API.php:882
 msgid "An event having a post meta value of `%s` hour (24-hour) is not valid. Make sure it is from 0 to 23."
 msgstr ""
 
-#: src/Tribe/API.php:904
-#: src/Tribe/API.php:915
+#: src/Tribe/API.php:912
+#: src/Tribe/API.php:923
 msgid "An event having a post meta value of `%s` minutes is not valid. Make sure it is from 0 to 59."
 msgstr ""
 

@@ -1076,4 +1076,74 @@ class Archive_EventTest extends \Codeception\TestCase\WPRestApiTestCase {
 		);
 		$this->assertMatchesJsonSnapshot( $json );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_show_additional_fields() {
+		$additional = [
+			[
+				"name" => "_ecp_custom_1",
+				"label" => "Cool Field",
+				"type" => "text",
+				"values" => "",
+				"gutenberg_editor" => false,
+			],
+			[
+				"name" => "_ecp_custom_2",
+				"label" => "Awesome Field",
+				"type" => "text",
+				"values" => "",
+				"gutenberg_editor" => false,
+			],
+		];
+
+		tribe_update_option( 'custom-fields', $additional );
+
+		$request = new \WP_REST_Request( 'GET', '' );
+		tribe_update_option( 'posts_per_page', 10 );
+		$this->freeze_time( Dates::immutable( '2084-06-13 17:25:00' ) );
+		$event_ids = [];
+		foreach( range( 1, 3 ) as $i ) {
+			$event_ids[] = tribe_events()->set_args(
+				[
+					'title'      => 'Test Event ' . $i,
+					'status'     => 'publish',
+					'start_date' => '2084-07-14 12:00:00',
+					'duration'   => 2 * HOUR_IN_SECONDS,
+				]
+			)->create()->ID;
+		}
+
+		$this->assertEquals( '2084-06-13 17:25:00', date( 'Y-m-d H:i:s' ) );
+
+		update_post_meta( $event_ids[0], '_ecp_custom_1', 'Cool Value' );
+
+		update_post_meta( $event_ids[1], '_ecp_custom_2', 'Awesome Value' );
+
+		$sut = $this->make_instance();
+		$response = $sut->get( $request );
+
+		$data = $response->get_data();
+		$this->assertInstanceOf( \WP_REST_Response::class, $response );
+		$this->assertCount( 3, $data['events'] );
+
+		$json = wp_json_encode( $data, JSON_PRETTY_PRINT );
+		$json = str_replace(
+			array_map( static fn( $id ) => '"id": ' . $id, $event_ids ),
+			'"id": "{EVENT_ID}"',
+			$json
+		);
+		$json = str_replace(
+			array_map( static fn( $id ) => '?id=' . $id, $event_ids ),
+			'?id={EVENT_ID}',
+			$json
+		);
+		$json = str_replace(
+			array_map( static fn( $id ) => '\/events\/' . $id, $event_ids ),
+			'\/events\/{EVENT_ID}',
+			$json
+		);
+		$this->assertMatchesJsonSnapshot( $json );
+	}
 }
