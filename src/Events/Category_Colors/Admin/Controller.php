@@ -1,0 +1,67 @@
+<?php
+/**
+ * Controller class for handling the category colors feature.
+ * This class acts as the main entry point for managing the lifecycle of
+ * category colors, including registering dependencies, adding filters, and
+ * unregistering actions when necessary.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
+ */
+
+namespace TEC\Events\Category_Colors\Admin;
+
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use Tribe__Events__Main;
+
+/**
+ * Class Controller
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors
+ */
+class Controller extends Controller_Contract {
+
+	/**
+	 * Register the provider.
+	 *
+	 * @since TBD
+	 */
+	public function do_register(): void {
+		$this->container->singleton( Add_Category::class );
+		$this->add_filters();
+		$this->enqueue_assets();
+	}
+
+	/**
+	 * Adds the filters required.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {
+		$taxonomy = Tribe__Events__Main::TAXONOMY;
+		add_action( "{$taxonomy}_add_form_fields", [ $this, 'display_category_fields' ] );
+		add_action( "created_{$taxonomy}", [ $this, 'save_category_fields' ] );
+	}
+
+	/**
+	 * Unhooks actions and filters.
+	 *
+	 * @since TBD
+	 */
+	public function unregister(): void {}
+
+	public function enqueue_assets() {
+		$this->container->make( Add_Category::class )->enqueue_assets();
+	}
+
+	public function display_category_fields( $taxonomy ) {
+		$this->container->make( Add_Category::class )->display_category_fields( $taxonomy );
+	}
+
+	public function save_category_fields( $taxonomy ) {
+		$this->container->make( Add_Category::class )->save_category_fields( $taxonomy );
+	}
+}
