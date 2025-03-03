@@ -33,6 +33,16 @@ tribe.events.admin.categoryColors = {};
 	const $document = $( document );
 
 	/**
+	 * Detects which page we are on.
+	 *
+	 * @since @TBD
+	 *
+	 * @type {boolean}
+	 */
+	obj.isAddPage = $( '#addtag' ).length > 0;
+	obj.isEditPage = $( '#edittag' ).length > 0;
+
+	/**
 	 * Selectors used for configuration and setup.
 	 *
 	 * @since @TBD
@@ -43,7 +53,9 @@ tribe.events.admin.categoryColors = {};
 		colorInput: '.tec-category-colors__input[type="text"]',
 		preview: '.tec-category-colors__preview span',
 		previewText: '.tec-category-colors__preview-text',
-		tagName: 'input[name="tag-name"]'
+		tagName: 'input[name="tag-name"], input[name="name"]', // Handles both add and edit
+		priorityField: 'input[name="tec_events_category-color[priority]"]',
+		form: obj.isAddPage ? '#addtag' : '#edittag', // Only select the correct form
 	};
 
 	/**
@@ -77,13 +89,59 @@ tribe.events.admin.categoryColors = {};
 	 * @return {void}
 	 */
 	obj.updatePreviewText = function () {
-		const $tagInput = $( obj.selectors.tagName );
+		const $tagInput = $( obj.selectors.tagName ).first(); // Ensure we only get the first available input
 		const $previewText = $( obj.selectors.previewText );
 		const defaultText = $previewText.data( 'default-text' ) || 'Empty';
 		const tagValue = $tagInput.val().trim();
 
 		// Update preview text
 		$previewText.text( tagValue.length ? tagValue : defaultText );
+	};
+
+	/**
+	 * Resets the form fields and preview on form submission (ONLY for Add Page).
+	 *
+	 * @since @TBD
+	 *
+	 * @return {void}
+	 */
+	obj.resetForm = function () {
+		// Only reset form if on the Add Page
+		if ( ! obj.isAddPage ) {
+			return;
+		}
+
+		// Reset all color fields properly
+		$( obj.selectors.colorInput ).each( function () {
+			const $input = $( this );
+			const $container = $input.closest( '.wp-picker-container' );
+
+			// Reset the input value
+			$input.val( '' ).change();
+
+			// Manually reset the Iris picker
+			$input.wpColorPicker(
+				'color',
+				false
+			);
+
+			// Reset WP Color Picker button styles
+			$container.find( '.wp-color-result' ).css( {
+														   'background-color': '',
+														   'border-color': '',
+													   } );
+		} );
+
+		// Reset priority field to 0
+		$( obj.selectors.priorityField ).val( 0 );
+
+		// Reset preview text to default
+		const $previewText = $( obj.selectors.previewText );
+		const defaultText = $previewText.data( 'default-text' ) || 'Example';
+		$previewText.text( defaultText );
+
+		// Reset preview styles
+		obj.updatePreview();
 	};
 
 	/**
@@ -113,7 +171,20 @@ tribe.events.admin.categoryColors = {};
 		obj.updatePreviewText(); // Ensure preview text is set on page load
 
 		// Attach event listener to the tag-name input field
-		$( obj.selectors.tagName ).on( 'input', obj.updatePreviewText );
+		$( obj.selectors.tagName )
+			.on(
+				'input',
+				obj.updatePreviewText
+			);
+
+		// Reset form fields on form submission (ONLY for Add Page)
+		if ( obj.isAddPage ) {
+			$( obj.selectors.form )
+				.on(
+					'submit',
+					obj.resetForm
+				);
+		}
 	};
 
 	// Configure on document ready.

@@ -22,10 +22,10 @@ class Meta_Keys {
 	 * @var array<string, string>
 	 */
 	protected static array $keys = [
-		'primary'    => 'primary',
-		'background' => 'background',
-		'text'       => 'text',
-		'priority'   => 'priority',
+		'primary'   => 'primary',
+		'secondary' => 'secondary',
+		'text'      => 'text',
+		'priority'  => 'priority',
 	];
 
 	/**
