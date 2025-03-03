@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages the External Calendar Embeds Feature.
+ * External Calendar Embeds Controller.
  *
  * @since TBD
  *
@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Calendar_Embeds;
 
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use RuntimeException;
 use WP_Post_Type;
 
@@ -19,7 +20,7 @@ use WP_Post_Type;
  *
  * @package TEC\Events\Calendar_Embeds
  */
-class Calendar_Embeds {
+class Calendar_Embeds extends Controller_Contract {
 
 	/**
 	 * Calendar Embeds post type slug.
@@ -37,7 +38,7 @@ class Calendar_Embeds {
 	 *
 	 * @var string
 	 */
-	const META_KEY_CATEGORIES = 'event_categories';
+	const META_KEY_CATEGORIES = 'tec_events_calendar_embeds_event_categories';
 
 	/**
 	 * The meta key for storing the event tags.
@@ -46,25 +47,38 @@ class Calendar_Embeds {
 	 *
 	 * @var string
 	 */
-	const META_KEY_TAGS = 'event_tags';
-
-	/**
-	 * Stores the hook suffix from `add_submenu_page`.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected string $hook_suffix;
+	const META_KEY_TAGS = 'tec_events_calendar_embeds_event_tags';
 
 	/**
 	 * The post type object.
 	 *
 	 * @since TBD
 	 *
-	 * @var WP_Post_Type
+	 * @var ?WP_Post_Type
 	 */
-	protected WP_Post_Type $post_type_object;
+	protected ?WP_Post_Type $post_type_object = null;
+
+	/**
+	 * Registers the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function do_register(): void {
+		add_action( 'init', [ $this, 'register_post_type' ] );
+	}
+
+	/**
+	 * Removes the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function unregister(): void {
+		remove_action( 'init', [ $this, 'register_post_type' ] );
+	}
 
 	/**
 	 * Register custom post type for calendar embeds.
