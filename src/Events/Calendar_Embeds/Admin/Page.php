@@ -200,17 +200,6 @@ class Page extends Controller_Contract {
 	}
 
 	/**
-	 * Gets the Menu label for the Calendar Embeds.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public function get_menu_label(): string {
-		return __( 'Embed Calendar', 'the-events-calendar' );
-	}
-
-	/**
 	 * Gets the Page title for the Calendar Embeds.
 	 *
 	 * @since TBD

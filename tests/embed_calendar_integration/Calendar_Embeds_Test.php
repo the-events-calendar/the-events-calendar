@@ -2,14 +2,16 @@
 
 namespace TEC\Events\Calendar_Embeds;
 
-use TEC\Events\Calendar_Embeds\Calendar_Embeds;
+use TEC\Common\Tests\Provider\Controller_Test_Case;
 
-class Calendar_EmbedsTest extends \Codeception\TestCase\WPTestCase {
-	public function testRegisterPostType() {
-		// Mock the WordPress functions
+class Calendar_Embeds_Test extends Controller_Test_Case {
+	protected string $controller_class = Calendar_Embeds::class;
+
+	/**
+	 * @test
+	 */
+	public function it_should_register_post_type() {
 		global $wp_post_types;
-
-		tribe( Calendar_Embeds::class )->register_post_type();
 
 		$this->assertArrayHasKey( Calendar_Embeds::POSTTYPE, $wp_post_types );
 		$this->assertEquals( 'Calendar Embeds', $wp_post_types[ Calendar_Embeds::POSTTYPE ]->labels->name );
