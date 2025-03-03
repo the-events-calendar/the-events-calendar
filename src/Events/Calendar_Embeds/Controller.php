@@ -30,7 +30,9 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->register( Calendar_Embeds::class );
-		$this->container->register( Page::class );
+		if ( is_admin() ) {
+			$this->container->register( Page::class );
+		}
 	}
 
 	/**
@@ -42,6 +44,8 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->container->get( Calendar_Embeds::class )->unregister();
-		$this->container->get( Page::class )->unregister();
+		if ( is_admin() ) {
+			$this->container->get( Page::class )->unregister();
+		}
 	}
 }

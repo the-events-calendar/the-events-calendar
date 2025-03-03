@@ -34,20 +34,11 @@ class Page extends Controller_Contract {
 	private Template $template;
 
 	/**
-	 * The menu hook suffix.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected string $hook_suffix;
-
-	/**
 	 * Page constructor.
 	 *
 	 * @since TBD
 	 *
-	 * @param Container $container The container.
+	 * @param Container $container  The container.
 	 * @param Template  $template   The template.
 	 */
 	public function __construct( Container $container, Template $template ) {
@@ -64,8 +55,8 @@ class Page extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
+		$this->register_assets();
 		add_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
-		add_action( 'admin_init', [ $this, 'register_assets' ] );
 		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
 		add_action( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', [ $this, 'manage_column_content' ], 10, 2 );
 		add_filter( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns', [ $this, 'manage_columns' ] );
@@ -80,7 +71,6 @@ class Page extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
-		remove_action( 'admin_init', [ $this, 'register_assets' ] );
 		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
 		remove_action( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', [ $this, 'manage_column_content' ] );
 		remove_filter( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns', [ $this, 'manage_columns' ] );
@@ -95,7 +85,7 @@ class Page extends Controller_Contract {
 	 *
 	 * @return array
 	 */
-	public function manage_columns( $columns ): array {
+	public function manage_columns( array $columns ): array {
 		$new_columns = [
 			'cb'               => $columns['cb'] ?? '<input type="checkbox" />',
 			'title'            => __( 'Calendar Embeds', 'the-events-calendar' ),
@@ -169,35 +159,23 @@ class Page extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @return int
+	 * @return void
 	 */
-	public function register_menu_item(): string {
-		$cpt               = get_post_type_object( TEC::POSTTYPE );
-		$this->hook_suffix = add_submenu_page(
-			'edit.php?post_type=' . TEC::POSTTYPE,
-			esc_html( $this->get_page_title() ),
-			esc_html( $this->get_menu_label() ),
-			$cpt->cap->publish_posts,
-			'edit.php?post_type=' . Calendar_Embeds::POSTTYPE,
+	public function register_menu_item(): void {
+		/** @var \Tribe\Admin\Pages */
+		$admin_pages = tribe( 'admin.pages' );
+
+		$admin_pages->register_page(
+			[
+				'id'         => 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE,
+				'path'       => 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE,
+				'parent'     => 'edit.php?post_type=' . TEC::POSTTYPE,
+				'title'      => $this->get_page_title(),
+				'position'   => 6.2,
+				'callback'   => null,
+				'capability' => 'edit_published_tribe_events',
+			]
 		);
-
-		return $this->hook_suffix;
-	}
-
-	/**
-	 * Gets the hook suffix for the Calendar Embeds.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 * @throws \RuntimeException If the hook suffix is not set.
-	 */
-	public function get_hook_suffix(): string {
-		if ( ! $this->hook_suffix ) {
-			throw new \RuntimeException( __( 'Attempted to get hook suffix before it was set.', 'the-events-calendar' ) );
-		}
-
-		return $this->hook_suffix;
 	}
 
 	/**
@@ -205,10 +183,20 @@ class Page extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
+	 * @param array $args The query args.
+	 *
 	 * @return string
 	 */
-	public function get_url(): string {
-		return admin_url( 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE );
+	public function get_url( array $args = [] ): string {
+		return add_query_arg(
+			array_merge(
+				[
+					'post_type' => Calendar_Embeds::POSTTYPE,
+				],
+				$args
+			),
+			admin_url( 'edit.php' )
+		);
 	}
 
 	/**
@@ -278,7 +266,7 @@ class Page extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	public function register_assets(): void {
+	protected function register_assets(): void {
 		Asset::add(
 			'tec-events-calendar-embeds-script',
 			'calendar-embeds/admin/page.js'
