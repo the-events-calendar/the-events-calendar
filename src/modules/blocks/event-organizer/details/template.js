@@ -16,10 +16,10 @@ import './style.pcss';
 
 const OrganizerDetails = ( {
 	organizer = {},
-	edit= noop,
+	edit = noop,
 	remove = noop,
 	selected = false,
-	volatile
+	volatile,
 } ) => {
 	const maybeEdit = () => {
 		if ( ! volatile ) {

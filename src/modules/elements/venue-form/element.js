@@ -44,10 +44,10 @@ export function toFields( venue ) {
 
 	const countryCode = getCountryCode( country );
 	return {
-		title        : get( title, 'rendered', '' ),
+		title: get( title, 'rendered', '' ),
 		address,
 		city,
-		country      : countryCode,
+		country: countryCode,
 		zip,
 		phone,
 		url,
@@ -61,18 +61,18 @@ export function toVenue( fields ) {
 	return {
 		title,
 		status: 'draft',
-		meta  : {
-			_VenueAddress      : address,
-			_VenueCity         : city,
-			_VenueCountry      : country,
-			_VenueProvince     : stateProvince,
-			_VenueZip          : zip,
-			_VenuePhone        : phone,
-			_VenueURL          : url,
-			_VenueState        : stateProvince,
+		meta: {
+			_VenueAddress: address,
+			_VenueCity: city,
+			_VenueCountry: country,
+			_VenueProvince: stateProvince,
+			_VenueZip: zip,
+			_VenuePhone: phone,
+			_VenueURL: url,
+			_VenueState: stateProvince,
 			_VenueStateProvince: stateProvince,
-			_VenueShowMap      : true,
-			_VenueShowMapLink  : true,
+			_VenueShowMap: true,
+			_VenueShowMapLink: true,
 		},
 	};
 }
@@ -90,13 +90,13 @@ export default class VenueForm extends Component {
 		super( ...arguments );
 
 		this.state = {
-			title        : '',
-			address      : '',
-			city         : '',
-			country      : '',
-			zip          : '',
-			phone        : '',
-			url          : '',
+			title: '',
+			address: '',
+			city: '',
+			country: '',
+			zip: '',
+			phone: '',
+			url: '',
 			stateProvince: '',
 			...props,
 		};
@@ -115,7 +115,7 @@ export default class VenueForm extends Component {
 
 	onInputChange = ( key ) => ( value ) => {
 		this.setState( { [ key ]: value } );
-	}
+	};
 
 	saveRef = ( input ) => {
 		if ( input ) {
@@ -123,7 +123,7 @@ export default class VenueForm extends Component {
 			const { name } = props || {};
 			this.fields[ name ] = input;
 		}
-	}
+	};
 
 	renderOption( element ) {
 		return (
@@ -222,7 +222,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						value={ address }
 						onChange={ this.onInputChange( 'address' ) }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 					<Input
 						type="text"
@@ -231,7 +231,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'city' ) }
 						value={ city }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 					<div className="row">
 						{ this.renderCountry() }
@@ -246,7 +246,7 @@ export default class VenueForm extends Component {
 							ref={ this.saveRef }
 							onChange={ this.onInputChange( 'zip' ) }
 							value={ zip }
-							__nextHasNoMarginBottom={true}
+							__nextHasNoMarginBottom={ true }
 						/>
 					</div>
 					<Input
@@ -256,7 +256,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'phone' ) }
 						value={ phone }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 					<Input
 						type="url"
@@ -265,7 +265,7 @@ export default class VenueForm extends Component {
 						ref={ this.saveRef }
 						onChange={ this.onInputChange( 'url' ) }
 						value={ url }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 				</div>
 			</div>
