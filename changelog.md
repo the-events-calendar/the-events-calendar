@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.10.2] 2025-03-03
+### [6.10.2] 2025-03-04
 
 * Feature - Use the filter hook in TCMN to define the pages to show IAN notifications [ET-2294]
 * Tweak - Added actions: `tec_events_before_view_html_cache`
