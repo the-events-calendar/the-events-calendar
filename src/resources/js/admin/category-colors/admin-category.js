@@ -50,9 +50,9 @@ tribe.events.admin.categoryColors = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		colorInput: '.tec-category-colors__input[type="text"]',
-		preview: '.tec-category-colors__preview span',
-		previewText: '.tec-category-colors__preview-text',
+		colorInput: '.tec-events-category-colors__grid input[type="text"].wp-color-picker',
+		preview: '.tec-events-category-colors__preview-box span',
+		previewText: '.tec-events-category-colors__preview-box-text',
 		tagName: 'input[name="tag-name"], input[name="name"]', // Handles both add and edit
 		priorityField: 'input[name="tec_events_category-color[priority]"]',
 		form: obj.isAddPage ? '#addtag' : '#edittag', // Only select the correct form
@@ -66,9 +66,9 @@ tribe.events.admin.categoryColors = {};
 	 * @return {void}
 	 */
 	obj.updatePreview = function () {
-		const primaryColor = $( '#tec-events-category-primary' ).val() || 'transparent';
-		const backgroundColor = $( '#tec-events-category-secondary' ).val() || 'transparent';
-		const fontColor = $( '#tec-events-category-text' ).val() || 'inherit';
+		const primaryColor = $( '#tec-events-category-colors__primary' ).val() || 'transparent';
+		const backgroundColor = $( '#tec-events-category-colors__background' ).val() || 'transparent';
+		const fontColor = $( '#tec-events-category-colors__text' ).val() || 'inherit';
 
 		// Apply styles dynamically
 		$( obj.selectors.preview ).css( {
@@ -159,6 +159,29 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
+	 * Closes color picker when clicking outside or after selecting a color.
+	 *
+	 * @since @TBD
+	 */
+	obj.closeColorPicker = function () {
+		$document.on(
+			'click',
+			function ( event ) {
+				// Check if the click target is outside our category color picker inputs
+				if ( ! $( event.target )
+					.closest( obj.selectors.colorInput + ', .wp-picker-container, .iris-picker' ).length ) {
+					// Only fade out pickers within our scoped category color inputs
+					$( obj.selectors.colorInput )
+						.closest( '.wp-picker-container' )
+						.find( '.iris-picker' )
+						.fadeOut();
+				}
+			}
+		);
+	};
+
+
+	/**
 	 * Handles the initialization when the document is ready.
 	 *
 	 * @since @TBD
@@ -169,6 +192,7 @@ tribe.events.admin.categoryColors = {};
 		obj.initColorPicker();
 		obj.updatePreview(); // Ensure preview is set on page load
 		obj.updatePreviewText(); // Ensure preview text is set on page load
+		obj.closeColorPicker();
 
 		// Attach event listener to the tag-name input field
 		$( obj.selectors.tagName )
