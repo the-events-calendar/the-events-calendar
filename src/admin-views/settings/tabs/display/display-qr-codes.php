@@ -9,7 +9,7 @@
 use TEC\Events\QR\Settings as QR_Settings;
 
 $tec_events_display_qr_codes = [
-	QR_Settings::get_enabled_option_slug() => [
+	QR_Settings::get_enabled_option_slug()          => [
 		'type'            => 'toggle',
 		'label'           => esc_html__( 'Use QR Codes', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enable QR Codes for Events', 'the-events-calendar' ),
@@ -37,6 +37,7 @@ $display_qr_codes = new Tribe__Settings_Tab(
 		),
 	]
 );
+
 
 /**
  * Fires after the QR Codes settings tab has been created.

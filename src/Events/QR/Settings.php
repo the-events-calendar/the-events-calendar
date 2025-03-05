@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * The Settings class for the QR module.
+ *
+ * @since TBD
+ */
 namespace TEC\Events\QR;
 
 /**
