@@ -339,7 +339,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					>
 						<div class="step-list__item-left">
 							<span class="step-list__item-icon" role="presentation"></span>
-							<?php esc_html_e( 'Ready to publish your fist event?', 'the-events-calendar' ); ?>
+							<?php esc_html_e( 'Ready to publish your first event?', 'the-events-calendar' ); ?>
 					</div>
 						<div class="step-list__item-right">
 							<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=tribe_events' ) ); ?>" class="tec-admin-page__link">
