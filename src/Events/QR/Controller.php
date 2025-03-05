@@ -1,8 +1,12 @@
 <?php
-
+/**
+ * The Controller class for the QR module.
+ *
+ * @since TBD
+ */
 namespace TEC\Events\QR;
 
-use \TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe__Main as Common;
 
 /**
