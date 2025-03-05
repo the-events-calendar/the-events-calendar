@@ -600,6 +600,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->set_dependencies( 'wp-components' )
+			->use_asset_file(false) // Do not use the asset file: it would use the JS file one.
 			->register();
 	}
 }
