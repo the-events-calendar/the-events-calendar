@@ -18,10 +18,10 @@
 			<div class="tec-events-category-colors__grid">
 				<!-- Primary Color -->
 				<div class="tec-events-category-colors__group">
-					<label for="tec-events-category-colors__primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
+					<label for="tec-events-category-colors-quick-edit__primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
 					<input
 						type="text"
-						id="tec-events-category-colors__primary"
+						id="tec-events-category-colors-quick-edit__primary"
 						name="tec_events_category-color[primary]"
 						value=""
 						class="tec-events-category-colors__input wp-color-picker"
@@ -30,10 +30,10 @@
 
 				<!-- Background Color -->
 				<div class="tec-events-category-colors__group">
-					<label for="tec-events-category-colors__background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
+					<label for="tec-events-category-colors-quick-edit__background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
 					<input
 						type="text"
-						id="tec-events-category-colors__background"
+						id="tec-events-category-colors-quick-edit__background"
 						name="tec_events_category-color[secondary]"
 						value=""
 						class="tec-events-category-colors__input wp-color-picker"
@@ -42,10 +42,10 @@
 
 				<!-- Font Color -->
 				<div class="tec-events-category-colors__group">
-					<label for="tec-events-category-colors__text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
+					<label for="tec-events-category-colors-quick-edit__text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
 					<input
 						type="text"
-						id="tec-events-category-colors__text"
+						id="tec-events-category-colors-quick-edit__text"
 						name="tec_events_category-color[text]"
 						value=""
 						class="tec-events-category-colors__input wp-color-picker"

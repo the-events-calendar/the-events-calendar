@@ -1,7 +1,7 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object.
+ * Ensures we have all required levels on the Tribe Object.
  *
- * @since @TBD
+ * @since TBD
  *
  * @type {PlainObject}
  */
@@ -11,19 +11,19 @@ tribe.events.admin = tribe.events.admin || {};
 /**
  * Configures the Category Colors Object in the Global Tribe variable.
  *
- * @since @TBD
+ * @since TBD
  *
  * @type {PlainObject}
  */
 tribe.events.admin.categoryColors = {};
 
 /**
- * Initializes the script in a Strict environment.
+ * Initializes the script in a strict environment.
  *
- * @since @TBD
+ * @since TBD
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.admin.categoryColors
+ * @param {PlainObject} $   jQuery.
+ * @param {PlainObject} obj tribe.events.admin.categoryColors.
  *
  * @return {void}
  */
@@ -35,7 +35,7 @@ tribe.events.admin.categoryColors = {};
 	/**
 	 * Detects which page we are on.
 	 *
-	 * @since @TBD
+	 * @since TBD
 	 *
 	 * @type {boolean}
 	 */
@@ -45,7 +45,7 @@ tribe.events.admin.categoryColors = {};
 	/**
 	 * Selectors used for configuration and setup.
 	 *
-	 * @since @TBD
+	 * @since TBD
 	 *
 	 * @type {PlainObject}
 	 */
@@ -53,195 +53,167 @@ tribe.events.admin.categoryColors = {};
 		colorInput: '.tec-events-category-colors__grid input[type="text"].wp-color-picker',
 		preview: '.tec-events-category-colors__preview-box span',
 		previewText: '.tec-events-category-colors__preview-box-text',
-		tagName: 'input[name="tag-name"], input[name="name"]', // Handles both add and edit
+		tagName: 'input[name="tag-name"], input[name="name"]',
 		priorityField: 'input[name="tec_events_category-color[priority]"]',
-		form: obj.isAddPage ? '#addtag' : '#edittag', // Only select the correct form
-		quickEditButton: '.editinline', // Quick Edit button
-		quickEditRow: '.inline-edit-row', // The Quick Edit row
+		form: obj.isAddPage ? '#addtag' : '#edittag',
+		quickEditButton: '.editinline',
+		quickEditRow: '.inline-edit-row',
+		colorContainer: '.tec-events-category-colors__container',
+		primaryColor: '[name="tec_events_category-color[primary]"]',
+		backgroundColor: '[name="tec_events_category-color[secondary]"]',
+		fontColor: '[name="tec_events_category-color[text]"]',
 	};
 
 	/**
 	 * Updates the preview text based on the tag name input.
 	 *
-	 * @since @TBD
+	 * @since TBD
+	 *
+	 * @param {Event} event The input event.
 	 *
 	 * @return {void}
 	 */
-	obj.updatePreviewText = function () {
-		const $tagInput = $( obj.selectors.tagName ).first(); // Ensure we only get the first available input
+	obj.updatePreviewText = function ( event ) {
+		const $tagInput = $( obj.selectors.tagName ).first();
 		const $previewText = $( obj.selectors.previewText );
 		const defaultText = $previewText.data( 'default-text' ) || 'Empty';
 		const tagValue = $tagInput.val().trim();
 
-		// Update preview text
+		// Update preview text.
 		$previewText.text( tagValue.length ? tagValue : defaultText );
 	};
 
 	/**
-	 * Resets the form fields and preview on form submission (ONLY for Add Page).
+	 * Updates the closest preview based on the changed input.
 	 *
-	 * @since @TBD
+	 * @since TBD
+	 *
+	 * @param {jQuery} $input The input field being modified.
 	 *
 	 * @return {void}
 	 */
-	obj.resetForm = function () {
-		// Only reset form if on the Add Page
-		if ( ! obj.isAddPage ) {
-			return;
-		}
+	obj.updateClosestPreview = function ( $input ) {
+		const $container = $input.closest( obj.selectors.colorContainer );
 
-		// Reset all color fields properly
-		$( obj.selectors.colorInput ).each( function () {
-			const $input = $( this );
-			const $container = $input.closest( '.wp-picker-container' );
+		const primaryColor = $container.find( obj.selectors.primaryColor ).val() || 'transparent';
+		const backgroundColor = $container.find( obj.selectors.backgroundColor ).val() || 'transparent';
+		const fontColor = $container.find( obj.selectors.fontColor ).val() || 'inherit';
 
-			// Reset the input value
-			$input.val( '' ).change();
+		$container.find( obj.selectors.preview ).css({
+														 'border-left': `5px solid ${primaryColor}`,
+														 'background-color': backgroundColor,
+													 });
 
-			// Manually reset the Iris picker
-			$input.wpColorPicker(
-				'color',
-				false
-			);
-
-			// Reset WP Color Picker button styles
-			$container.find( '.wp-color-result' ).css( {
-														   'background-color': '',
-														   'border-color': '',
-													   } );
-		} );
-
-		// Reset priority field to 0
-		$( obj.selectors.priorityField ).val( 0 );
-
-		// Reset preview text to default
-		const $previewText = $( obj.selectors.previewText );
-		const defaultText = $previewText.data( 'default-text' ) || 'Example';
-		$previewText.text( defaultText );
-
-		// Reset preview styles
-		obj.updatePreview();
-	};
-
-	obj.monitorInputChange = function () {
-		$(document).on('input', obj.selectors.colorInput, function () {
-			obj.updateClosestPreview($(this)); // Pass the changed input to update its closest preview
-		});
-	};
-
-	obj.colorPickerChange = function () {
-			obj.updateClosestPreview($(this)); // Pass the changed input to update its closest preview
-	};
-
-	obj.updateClosestPreview = function ($input) {
-		const $container = $input.closest('.tec-events-category-colors__container'); // Find the closest color container
-
-		const primaryColor = $container.find('[name="tec_events_category-color[primary]"]').val() || 'transparent';
-		const backgroundColor = $container.find('[name="tec_events_category-color[secondary]"]').val() || 'transparent';
-		const fontColor = $container.find('[name="tec_events_category-color[text]"]').val() || 'inherit';
-
-
-		// Apply styles dynamically to the closest preview
-		$container.find('.tec-events-category-colors__preview-box span').css({
-																			'border-left': `5px solid ${primaryColor}`,
-																			'background-color': backgroundColor,
-																		});
-
-		$container.find('.tec-events-category-colors__preview-box-text').css({
-																				 'color': fontColor,
-																			 });
+		$container.find( obj.selectors.previewText ).css({
+															 'color': fontColor,
+														 });
 	};
 
 	/**
-	 * Initializes the WordPress Color Picker on the category color inputs.
+	 * Monitors input changes in color fields and updates the preview.
 	 *
-	 * @since @TBD
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.monitorInputChange = function () {
+		let colorPickerTimer;
+		$( document ).on( 'input', obj.selectors.colorInput, function () {
+			const $input = $( this );
+
+			obj.updateClosestPreview( $input );
+
+			clearTimeout( colorPickerTimer )
+			colorPickerTimer = setTimeout( function () {
+				const newColor = $input.val().trim();
+
+				// Ensure it's a valid hex color before applying.
+				if ( /^#([0-9A-F]{3}){1,2}$/i.test( newColor ) ) {
+					$input.iris( 'color', newColor );
+				}
+			}, 500 );
+		});
+	};
+
+	/**
+	 * Handles changes from the WordPress color picker.
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.colorPickerChange = function () {
+			obj.updateClosestPreview( $( this ) );
+	};
+
+	/**
+	 * Initializes the WordPress Color Picker on visible category color inputs.
+	 *
+	 * @since TBD
 	 *
 	 * @return {void}
 	 */
 	obj.initColorPicker = function () {
-		$( obj.selectors.colorInput ).filter(':visible').wpColorPicker( {
-														 change: obj.colorPickerChange, // Update on color change
-														 clear: obj.colorPickerChange,  // Update when cleared
-													 } );
+		$( obj.selectors.colorInput ).filter( ':visible' ).wpColorPicker({
+																			 change: obj.colorPickerChange,
+																			 clear: obj.colorPickerChange,
+																		 });
 	};
 
 	/**
 	 * Reinitializes the color picker when Quick Edit is clicked.
 	 *
-	 * @since @TBD
+	 * @since TBD
 	 *
 	 * @return {void}
 	 */
 	obj.reInitColorPickerOnQuickEdit = function () {
 		$( document ).on( 'click', obj.selectors.quickEditButton, function () {
-			console.log( 'Quick Edit clicked, waiting for row to render...' );
-
-			// Wait for the Quick Edit row to become visible, then reinitialize color pickers
 			setTimeout( function () {
 				obj.initColorPicker();
-			}, 50 ); // Short delay to ensure Quick Edit row is fully rendered
+			}, 50 );
 		});
 	};
 
 	/**
-	 * Closes color picker when clicking outside or after selecting a color.
+	 * Closes the color picker when clicking outside or after selecting a color.
 	 *
-	 * @since @TBD
+	 * @since TBD
+	 *
+	 * @return {void}
 	 */
 	obj.closeColorPicker = function () {
-		$document.on(
-			'click',
-			function ( event ) {
-				// Check if the click target is outside our category color picker inputs
-				if ( ! $( event.target )
-					.closest( obj.selectors.colorInput + ', .wp-picker-container, .iris-picker' ).length ) {
-					// Only fade out pickers within our scoped category color inputs
-					$( obj.selectors.colorInput )
-						.closest( '.wp-picker-container' )
-						.find( '.iris-picker' )
-						.fadeOut();
-				}
+		$document.on( 'click', function ( event ) {
+			if ( ! $( event.target ).closest( obj.selectors.colorInput + ', .wp-picker-container, .iris-picker' ).length ) {
+				$( obj.selectors.colorInput ).closest( '.wp-picker-container' ).find( '.iris-picker' ).fadeOut();
 			}
-		);
+		});
 	};
 
-
 	/**
-	 * Handles the initialization when the document is ready.
+	 * Handles initialization when the document is ready.
 	 *
-	 * @since @TBD
+	 * @since TBD
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function () {
 		obj.initColorPicker();
-		obj.updatePreviewText(); // Ensure preview text is set on page load
+		obj.updatePreviewText();
 		obj.closeColorPicker();
 		obj.reInitColorPickerOnQuickEdit();
 		obj.monitorInputChange();
 
-		// Attach event listener to the tag-name input field
-		$( obj.selectors.tagName )
-			.on(
-				'input',
-				obj.updatePreviewText
-			);
+		$( obj.selectors.tagName ).on( 'input', obj.updatePreviewText );
 
-		// Reset form fields on form submission (ONLY for Add Page)
 		if ( obj.isAddPage ) {
-			$( obj.selectors.form )
-				.on(
-					'submit',
-					obj.resetForm
-				);
+			$( obj.selectors.form ).on( 'submit', obj.resetForm );
 		}
 	};
 
-	// Configure on document ready.
 	$document.ready( obj.ready );
 
-} )(
+})(
 	jQuery,
 	tribe.events.admin.categoryColors
 );
