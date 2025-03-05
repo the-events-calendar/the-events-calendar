@@ -185,7 +185,7 @@ class Tribe__Events__REST__V1__Endpoints__Archive_Event
 			$args['order']   = Tribe__Utils__Array::get( $args, 'order', 'ASC' );
 		}
 
-		$args = $this->parse_args( $args, $request->get_default_params() );
+		$args = $this->parse_args( $args, $request->get_default_params(), $request );
 
 		if ( $relative_dates ) {
 			$query_params = $request->get_query_params();

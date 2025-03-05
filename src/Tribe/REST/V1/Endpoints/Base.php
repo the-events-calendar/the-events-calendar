@@ -25,10 +25,11 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	/**
 	 * Returns a swagger structured array for the `requestBody` field.
 	 *
-	 * @param string              $contentType The Content-Type header.
-	 * @param array<string|mixed> $args The provided post args.
-	 *
 	 * @since 5.10.0
+	 *
+	 * @param array<string|mixed> $args        The provided post args.
+	 *
+	 * @param string              $contentType The Content-Type header.
 	 *
 	 * @return array<string|mixed> The array of arguments for the swagger `requestBody` field.
 	 */
@@ -56,18 +57,18 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 				$read['items'] = $arg['items'];
 			}
 
-			$swaggerized[ $name ] = array_merge( $defaults,  $read );
+			$swaggerized[ $name ] = array_merge( $defaults, $read );
 		}
 
 		return [
 			'content' => [
 				$contentType => [
 					'schema' => [
-						'type' => 'object',
+						'type'       => 'object',
 						'properties' => $swaggerized,
-					]
-				]
-			]
+					],
+				],
+			],
 		];
 	}
 
@@ -85,10 +86,10 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 		}
 
 		$no_description = __( 'No description provided', 'the-events-calendar' );
-		$defaults = array_merge( [
+		$defaults       = array_merge( [
 			'in'          => 'body',
-			'schema' => [
-				'type'        => 'string',
+			'schema'      => [
+				'type' => 'string',
 			],
 			'description' => $no_description,
 			'required'    => false,
@@ -109,13 +110,13 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 			$type = $this->convert_type( $type );
 
 			$read = [
-				'name'             => $name,
-				'in'               => isset( $info['in'] ) ? $info['in'] : false,
-				'description'      => isset( $info['description'] ) ? $info['description'] : false,
-				'schema' => [
-					'type'         => $type,
+				'name'        => $name,
+				'in'          => isset( $info['in'] ) ? $info['in'] : false,
+				'description' => isset( $info['description'] ) ? $info['description'] : false,
+				'schema'      => [
+					'type' => $type,
 				],
-				'required'         => isset( $info['required'] ) ? $info['required'] : false,
+				'required'    => isset( $info['required'] ) ? $info['required'] : false,
 			];
 
 			if ( isset( $info['items'] ) ) {
@@ -167,7 +168,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 	/**
 	 * Returns the default value of posts per page.
-	 an*
+	 * an*
 	 * Cascading fallback is TEC `posts_per_page` option, `posts_per_page` option and, finally, 20.
 	 *
 	 * @return int
@@ -181,9 +182,10 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	/**
 	 * Modifies a request argument marking it as not required.
 	 *
+	 * @since 4.6
+	 *
 	 * @param array $arg
 	 *
-	 * @since 4.6
 	 */
 	protected function unrequire_arg( array &$arg ) {
 		$arg['required'] = false;
@@ -192,14 +194,17 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 	/**
 	 * Parses the arguments populated parsing the request filling out with the defaults.
 	 *
-	 * @param array $args
-	 * @param array $defaults
+	 * @since 4.6
+	 *
+	 * @param array            $defaults
+	 * @param array            $args
+	 * @param ?WP_REST_Request $request The request object that originated the parsing.
 	 *
 	 * @return array
 	 *
-	 * @since 4.6
 	 */
-	protected function parse_args( array $args, array $defaults ) {
+	protected function parse_args( array $args, array $defaults, ?WP_REST_Request $request = null ) {
+		// Fill out the defaults with the supported query vars, does not remove based on supported Query Vars.
 		foreach ( $this->supported_query_vars as $request_key => $query_var ) {
 			if ( isset( $defaults[ $request_key ] ) ) {
 				$defaults[ $query_var ] = $defaults[ $request_key ];
@@ -208,17 +213,17 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 
 		$args = wp_parse_args( array_filter( $args, [ $this, 'is_not_null' ] ), $defaults );
 
-		return $args;
+		return $this->filter_args( $args, $request );
 	}
 
 	/**
 	 * Whether a value is null or not.
 	 *
+	 * @since 4.6
+	 *
 	 * @param mixed $value
 	 *
 	 * @return bool
-	 *
-	 * @since 4.6
 	 */
 	public function is_not_null( $value ) {
 		return null !== $value;
@@ -240,5 +245,36 @@ abstract class Tribe__Events__REST__V1__Endpoints__Base {
 		];
 
 		return Tribe__Utils__Array::get( $rest_to_swagger_type_map, $type, $type );
+	}
+
+	/**
+	 * Allow to filter the arguments used to query elements by our REST API.
+	 *
+	 * @since TBD
+	 *
+	 * @param array           $args
+	 * @param ?WP_REST_Request $request
+	 *
+	 * @return array
+	 */
+	protected function filter_args( array $args, ?WP_REST_Request $request ): array {
+		// We can only filter if you pass a request.
+		if ( $request === null ) {
+			return $args;
+		}
+
+		$route  = $request->get_route();
+		$method = $request->get_method();
+
+		/**
+		 * Filters the arguments used to query the organizers.
+		 *
+		 * @since TBD
+		 *
+		 * @param array           $args    The arguments used to query the organizers.
+		 * @param WP_REST_Request $request The request object.
+		 * @param self            $this    The current instance of the class.
+		 */
+		return (array) apply_filters( "tec_rest:{$method}:{$route}:args", $args, $request, $this );
 	}
 }

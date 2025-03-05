@@ -50,7 +50,7 @@ abstract class Tribe__Events__REST__V1__Endpoints__Term_Archive_Base
 			$request_params[ $destination ] = $request[ $origin ];
 		}
 
-		$params = $this->parse_args( $request_params, $request->get_default_params() );
+		$params = $this->parse_args( $request_params, $request->get_default_params(), $request );
 
 		foreach ( $params as $key => $value ) {
 			$request->set_param( $key, $value );
