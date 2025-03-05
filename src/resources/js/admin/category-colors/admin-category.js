@@ -169,71 +169,37 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.reInitColorPickerOnQuickEdit = function () {
 		$(document).on('click', obj.selectors.quickEditButton, function () {
-			const $quickEditBtn = $(this);
-			const $parentTr = $quickEditBtn.closest('tr');
-			const $categoryColorTd = $parentTr.find('.column-category_color');
-			const $colorPreview = $categoryColorTd.find('.tec-events-taxonomy-table__category-color-preview');
+			const $quickEditRow = $('.inline-edit-row');
+			if (!$quickEditRow.length) {
+				return;
+			}
 
-			const primaryColor = $colorPreview.data('primary') || '';
-			const secondaryColor = $colorPreview.data('secondary') || '';
-			const textColor = $colorPreview.data('text') || '';
+			const $parentTr = $(this).closest('tr');
+			const $colorPreview = $parentTr.find('.column-category_color .tec-events-taxonomy-table__category-color-preview');
 
-			console.log('Extracted Colors:', { primaryColor, secondaryColor, textColor });
+			const colors = {
+				primary: $colorPreview.data('primary') || '',
+				secondary: $colorPreview.data('secondary') || '',
+				text: $colorPreview.data('text') || ''
+			};
 
-			setTimeout(function () {
-				const $quickEditRow = $('.inline-edit-row');
 
-				if ($quickEditRow.length) {
-					console.log('Populating Quick Edit fields');
+			setTimeout(() => {
+				['primary', 'secondary', 'text'].forEach(colorType => {
+					const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
+					if (!$input.length) return;
 
-					// Select inputs inside the Quick Edit row
-					const $primaryInput = $quickEditRow.find('[name="tec_events_category-color[primary]"]');
-					const $secondaryInput = $quickEditRow.find('[name="tec_events_category-color[secondary]"]');
-					const $textInput = $quickEditRow.find('[name="tec_events_category-color[text]"]');
+					$input.val(colors[colorType]).wpColorPicker({
+																	change: obj.colorPickerChange,
+																	clear: obj.colorPickerChange
+																});
+					obj.updateClosestPreview( $input );
+				});
 
-					// Populate input fields before initializing the color picker
-					$primaryInput.val(primaryColor);
-					$secondaryInput.val(secondaryColor);
-					$textInput.val(textColor);
-
-					// Reinitialize Color Picker
-					obj.initColorPicker();
-
-					// Wait for WordPress Color Picker to be fully initialized
-					$primaryInput.wpColorPicker({
-													create: function () {
-														console.log('Primary Color Picker Initialized');
-														$primaryInput.iris('color', primaryColor);
-													},
-													change: obj.colorPickerChange,
-													clear: obj.colorPickerChange,
-												});
-
-					$secondaryInput.wpColorPicker({
-													  create: function () {
-														  console.log('Secondary Color Picker Initialized');
-														  $secondaryInput.iris('color', secondaryColor);
-													  },
-													  change: obj.colorPickerChange,
-													  clear: obj.colorPickerChange,
-												  });
-
-					$textInput.wpColorPicker({
-												 create: function () {
-													 console.log('Text Color Picker Initialized');
-													 $textInput.iris('color', textColor);
-												 },
-												 change: obj.colorPickerChange,
-												 clear: obj.colorPickerChange,
-											 });
-
-					console.log('Color Picker Reinitialized for Quick Edit');
-				} else {
-					console.warn('Quick Edit row not found.');
-				}
-			}, 50);
+			}, 25);
 		});
 	};
+
 
 
 
