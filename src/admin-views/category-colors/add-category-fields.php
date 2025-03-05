@@ -10,7 +10,6 @@
 
 <div class="tec_category_colors__wrap">
 	<h2>Category Colors</h2>
-	<div class="">
 		<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
 		<div class="tec-events-category-colors__container">
 <div class="tec-events-category-colors__grid">
@@ -62,5 +61,4 @@
 			>
 			<p>This is used to determine which category color is assigned to an event if the event has more than one category.</p>
 		</div>
-	</div>
 </div>

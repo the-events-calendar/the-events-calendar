@@ -56,29 +56,8 @@ tribe.events.admin.categoryColors = {};
 		tagName: 'input[name="tag-name"], input[name="name"]', // Handles both add and edit
 		priorityField: 'input[name="tec_events_category-color[priority]"]',
 		form: obj.isAddPage ? '#addtag' : '#edittag', // Only select the correct form
-	};
-
-	/**
-	 * Updates the preview styling based on selected colors.
-	 *
-	 * @since @TBD
-	 *
-	 * @return {void}
-	 */
-	obj.updatePreview = function () {
-		const primaryColor = $( '#tec-events-category-colors__primary' ).val() || 'transparent';
-		const backgroundColor = $( '#tec-events-category-colors__background' ).val() || 'transparent';
-		const fontColor = $( '#tec-events-category-colors__text' ).val() || 'inherit';
-
-		// Apply styles dynamically
-		$( obj.selectors.preview ).css( {
-											'border-left': `5px solid ${ primaryColor }`,
-											'background-color': backgroundColor,
-										} );
-
-		$( obj.selectors.previewText ).css( {
-												'color': fontColor,
-											} );
+		quickEditButton: '.editinline', // Quick Edit button
+		quickEditRow: '.inline-edit-row', // The Quick Edit row
 	};
 
 	/**
@@ -144,6 +123,35 @@ tribe.events.admin.categoryColors = {};
 		obj.updatePreview();
 	};
 
+	obj.monitorInputChange = function () {
+		$(document).on('input', obj.selectors.colorInput, function () {
+			obj.updateClosestPreview($(this)); // Pass the changed input to update its closest preview
+		});
+	};
+
+	obj.colorPickerChange = function () {
+			obj.updateClosestPreview($(this)); // Pass the changed input to update its closest preview
+	};
+
+	obj.updateClosestPreview = function ($input) {
+		const $container = $input.closest('.tec-events-category-colors__container'); // Find the closest color container
+
+		const primaryColor = $container.find('[name="tec_events_category-color[primary]"]').val() || 'transparent';
+		const backgroundColor = $container.find('[name="tec_events_category-color[secondary]"]').val() || 'transparent';
+		const fontColor = $container.find('[name="tec_events_category-color[text]"]').val() || 'inherit';
+
+
+		// Apply styles dynamically to the closest preview
+		$container.find('.tec-events-category-colors__preview-box span').css({
+																			'border-left': `5px solid ${primaryColor}`,
+																			'background-color': backgroundColor,
+																		});
+
+		$container.find('.tec-events-category-colors__preview-box-text').css({
+																				 'color': fontColor,
+																			 });
+	};
+
 	/**
 	 * Initializes the WordPress Color Picker on the category color inputs.
 	 *
@@ -152,10 +160,28 @@ tribe.events.admin.categoryColors = {};
 	 * @return {void}
 	 */
 	obj.initColorPicker = function () {
-		$( obj.selectors.colorInput ).wpColorPicker( {
-														 change: obj.updatePreview, // Update on color change
-														 clear: obj.updatePreview,  // Update when cleared
+		$( obj.selectors.colorInput ).filter(':visible').wpColorPicker( {
+														 change: obj.colorPickerChange, // Update on color change
+														 clear: obj.colorPickerChange,  // Update when cleared
 													 } );
+	};
+
+	/**
+	 * Reinitializes the color picker when Quick Edit is clicked.
+	 *
+	 * @since @TBD
+	 *
+	 * @return {void}
+	 */
+	obj.reInitColorPickerOnQuickEdit = function () {
+		$( document ).on( 'click', obj.selectors.quickEditButton, function () {
+			console.log( 'Quick Edit clicked, waiting for row to render...' );
+
+			// Wait for the Quick Edit row to become visible, then reinitialize color pickers
+			setTimeout( function () {
+				obj.initColorPicker();
+			}, 50 ); // Short delay to ensure Quick Edit row is fully rendered
+		});
 	};
 
 	/**
@@ -190,9 +216,10 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.ready = function () {
 		obj.initColorPicker();
-		obj.updatePreview(); // Ensure preview is set on page load
 		obj.updatePreviewText(); // Ensure preview text is set on page load
 		obj.closeColorPicker();
+		obj.reInitColorPickerOnQuickEdit();
+		obj.monitorInputChange();
 
 		// Attach event listener to the tag-name input field
 		$( obj.selectors.tagName )
