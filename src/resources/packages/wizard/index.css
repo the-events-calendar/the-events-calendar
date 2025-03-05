@@ -124,7 +124,8 @@
 
 @media (min-width: 1024px) {
 	.tec-events-onboarding__tabs {
-		gap: 100px;
+		column-gap: 100px;
+		row-gap: calc(20vh - 100px);
 		grid-template-columns: none;
 		grid-template-rows: 84px auto;
 	}
