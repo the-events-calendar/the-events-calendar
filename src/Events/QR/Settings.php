@@ -4,6 +4,7 @@
  *
  * @since TBD
  */
+
 namespace TEC\Events\QR;
 
 /**

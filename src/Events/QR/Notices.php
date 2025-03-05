@@ -4,6 +4,7 @@
  *
  * @since TBD
  */
+
 namespace TEC\Events\QR;
 
 /**
@@ -23,7 +24,6 @@ class Notices {
 	 * @return void
 	 */
 	public function register_admin_notices(): void {
-		var_dump('register_admin_notices'); die();
 		tribe_notice(
 			'tec-events-qr-dependency-notice',
 			[ $this, 'get_dependency_notice_contents' ],

@@ -4,6 +4,7 @@
  *
  * @since TBD
  */
+
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
