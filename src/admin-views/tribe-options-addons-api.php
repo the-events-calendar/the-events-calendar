@@ -111,10 +111,10 @@ $info_box = [
 		'type' => 'html',
 		'html' => '<div class="tec-settings-form__header-block tec-settings-form__header-block--horizontal">'
 				. '<h3 id="tec-settings-addons-title" class="tec-settings-form__section-header">'
-				. _x( 'Integrations', 'Integrations section header', 'tribe-common' )
+				. _x( 'Integrations', 'Integrations section header', 'the-events-calendar' )
 				. '</h3>'
 				. '<p class="tec-settings-form__section-description">'
-				. esc_html__( 'The Events Calendar, Event Tickets and their add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations.', 'tribe-common' )
+				. esc_html__( 'The Events Calendar, Event Tickets and their add-ons integrate with other online tools and services to bring you additional features. Use the settings below to connect to third-party APIs and manage your integrations.', 'the-events-calendar' )
 				. '</p>'
 				. '</div>',
 	],
