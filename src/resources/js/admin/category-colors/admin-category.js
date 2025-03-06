@@ -62,6 +62,7 @@ tribe.events.admin.categoryColors = {};
 		primaryColor: '[name="tec_events_category-color[primary]"]',
 		backgroundColor: '[name="tec_events_category-color[secondary]"]',
 		fontColor: '[name="tec_events_category-color[text]"]',
+		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
 	};
 
 	/**
@@ -175,14 +176,13 @@ tribe.events.admin.categoryColors = {};
 			}
 
 			const $parentTr = $(this).closest('tr');
-			const $colorPreview = $parentTr.find('.column-category_color .tec-events-taxonomy-table__category-color-preview');
+			const $colorPreview = $parentTr.find( obj.selectors.tableColorPreview );
 
 			const colors = {
 				primary: $colorPreview.data('primary') || '',
 				secondary: $colorPreview.data('secondary') || '',
 				text: $colorPreview.data('text') || ''
 			};
-
 
 			setTimeout(() => {
 				['primary', 'secondary', 'text'].forEach(colorType => {
@@ -200,8 +200,76 @@ tribe.events.admin.categoryColors = {};
 		});
 	};
 
+	/**
+	 * Initializes event listeners for Quick Edit interactions.
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.initQuickEditHandlers = function () {
+		// Handle clicks on Save and Cancel in Quick Edit
+		$(document).on('click', '.inline-edit-save .save, .inline-edit-save .cancel', obj.handleQuickEditClose);
 
+		// Handle Quick Edit AJAX completion
+		$(document).ajaxComplete(obj.handleQuickEditAjaxComplete);
+	};
 
+	/**
+	 * Handles the closing of Quick Edit via Save or Cancel buttons.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event The event object.
+	 * @return {void}
+	 */
+	obj.handleQuickEditClose = function (event) {
+		obj.cleanupColorPickers();
+
+		// Prevent potential conflicts with other scripts
+		event.stopImmediatePropagation();
+	};
+
+	/**
+	 * Handles AJAX completion for Quick Edit save.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event The event object.
+	 * @param {XMLHttpRequest} xhr The XMLHttpRequest object.
+	 * @param {Object} settings The settings object for the AJAX request.
+	 * @return {void}
+	 */
+	obj.handleQuickEditAjaxComplete = function (event, xhr, settings) {
+		if (settings.data && settings.data.includes("action=inline-save-tax")) {
+			obj.cleanupColorPickers();
+		}
+	};
+
+	/**
+	 * Cleans up and resets WP Color Pickers in Quick Edit.
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.cleanupColorPickers = function () {
+		const $quickEditRow = $('.inline-edit-row');
+
+		$quickEditRow.find(obj.selectors.colorInput).each(function () {
+			const $input = $(this);
+			const $wrapper = $input.closest('.wp-picker-container');
+
+			if ($wrapper.length) {
+				// Clone a fresh input
+				const $clone = $input.clone().removeClass('wp-color-picker').removeAttr('style');
+
+				// Replace the old input with a clean version
+				$wrapper.before($clone);
+				$wrapper.remove();
+			}
+		});
+	};
 
 	/**
 	 * Closes the color picker when clicking outside or after selecting a color.
@@ -230,6 +298,7 @@ tribe.events.admin.categoryColors = {};
 		obj.updatePreviewText();
 		obj.closeColorPicker();
 		obj.reInitColorPickerOnQuickEdit();
+		obj.initQuickEditHandlers();
 		obj.monitorInputChange();
 
 		$( obj.selectors.tagName ).on( 'input', obj.updatePreviewText );

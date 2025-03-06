@@ -111,33 +111,9 @@ class Quick_Edit extends Abstract_Admin {
 	 * @param string $screen      Current screen type.
 	 */
 	public function add_quick_edit_fields( $column_name, $screen ) {
-		if ( 'category_priority' === $column_name ) {
-			return $this->get_column_category_priority_field();
-		}
-
 		if ( 'category_color' === $column_name ) {
 			return $this->get_column_category_color_field();
 		}
-	}
-
-	/**
-	 * Generates the Quick Edit field for category priority.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	private function get_column_category_priority_field() {
-		?>
-		<fieldset class="inline-edit-col-right">
-			<div class="inline-edit-col">
-				<label>
-					<span class="title"><?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?></span>
-					<input type="number" name="tec_events_category-color[priority]" value="" min="0">
-				</label>
-			</div>
-		</fieldset>
-		<?php
 	}
 
 	/**
@@ -145,7 +121,7 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @since TBD
 	 *
-	 * @return void
+	 * @return string
 	 */
 	private function get_column_category_color_field() {
 		$context = [

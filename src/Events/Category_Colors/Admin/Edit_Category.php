@@ -65,7 +65,6 @@ class Edit_Category extends Abstract_Admin {
 		// Retrieve submitted category colors.
 		$category_colors = tribe_get_request_var( 'tec_events_category-color', false );
 
-		printr($category_colors,'cat colors');
 		// Bail early if data doesn't exist or isn't an array.
 		if ( empty( $category_colors ) || ! is_array( $category_colors ) ) {
 			return;
