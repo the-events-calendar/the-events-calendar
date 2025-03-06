@@ -60,7 +60,10 @@
 		</div>
 	</td>
 <tr>
-	<th scope="row"><label for="tec-events-category-colors__priority"><?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?></label>
+	<th scope="row">
+		<label for="tec-events-category-colors__priority">
+			<?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?>
+		</label>
 	</th>
 	<td class="form-wrap">
 		<input
@@ -69,20 +72,33 @@
 			name="tec_events_category-color[priority]"
 			value="<?php echo esc_attr( $category_colors['priority'] ?? '' ); ?>"
 			min="0"
+			class="tec-category-colors__input"
 		>
-		<p><?php esc_html_e( 'This is used to determine which category color is assigned to an event if the event has more than one category.', 'the-events-calendar' ); ?></p>
-
+		<p class="tec-category-colors__description">
+			<?php esc_html_e( 'This is used to determine which category color is assigned to an event if the event has more than one category.', 'the-events-calendar' ); ?>
+		</p>
 	</td>
 </tr>
+
 <tr>
-	<th scope="row">Category legend</th>
+	<th scope="row">
+		<label for="tec-events-category-colors__hide-legend">
+			<?php esc_html_e( 'Hide category from legend', 'the-events-calendar' ); ?>
+		</label>
+	</th>
 	<td class="form-wrap">
-		<input type="checkbox" id="tec-events-category-colors__hide-legend" name="tec_events_category-color[hide_from_legend]">
-		<label for="tec-events-category-colors__hide-legend">Hide category from legend</label>
-		<p>Do not show this category if legend shows on event listing views</p>
+		<label class="tec-category-colors__checkbox-label">
+			<input
+				type="checkbox"
+				id="tec-events-category-colors__hide-legend"
+				name="tec_events_category-color[hide_from_legend]"
+				value="1"
+				<?php checked( ! empty( $category_colors['hide_from_legend'] ) ); ?>
+			>
+			<?php esc_html_e( 'Hide category from legend', 'the-events-calendar' ); ?>
+		</label>
+		<p class="tec-category-colors__description">
+			<?php esc_html_e( 'Do not show this category if legend shows on event listing views.', 'the-events-calendar' ); ?>
+		</p>
 	</td>
-
 </tr>
-
-</tr>
-

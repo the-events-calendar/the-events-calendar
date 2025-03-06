@@ -68,22 +68,32 @@
 
 		<!-- Category Priority -->
 		<div class="tec-events-category-colors__priority">
-			<label for="tec-events-category-colors-quick-edit__priority"><?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?></label>
+			<label for="tec-events-category-colors-quick-edit__priority" class="tec-category-colors__label">
+				<?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?>
+			</label>
 			<input
 				type="number"
 				id="tec-events-category-colors-quick-edit__priority"
 				name="tec_events_category-color[priority]"
 				value=""
 				min="0"
+				class="tec-category-colors__input"
 			>
-			<p><?php esc_html_e( 'This is used to determine which category color is assigned to an event if the event has more than one category.', 'the-events-calendar' ); ?></p>
+			<p class="tec-category-colors__description">
+				<?php esc_html_e( 'This is used to determine which category color is assigned to an event if the event has more than one category.', 'the-events-calendar' ); ?>
+			</p>
 		</div>
+
 
 		<!-- Category Legend -->
 		<div class="tec-events-category-colors__legend">
-			<input type="checkbox" id="tec-events-category-colors-quick-edit__hide-legend" name="tec_events_category-color[hide_from_legend]">
-			<label for="tec-events-category-colors-quick-edit__hide-legend"><?php esc_html_e( 'Hide category from legend', 'the-events-calendar' ); ?></label>
-			<p><?php esc_html_e( 'Do not show this category if legend shows on event listing views.', 'the-events-calendar' ); ?></p>
+			<label for="tec-events-category-colors-quick-edit__hide-legend">Category legend</label>
+			<label class="tec-category-colors__checkbox-label">
+				<input type="checkbox" id="tec-events-category-colors-quick-edit__hide-legend" name="tec_events_category-color[hide_from_legend]">
+				Hide category from legend
+			</label>
+			<p>Do not show this category if legend shows on event listing views.</p>
 		</div>
+
 	</div>
 </fieldset>

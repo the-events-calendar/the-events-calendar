@@ -66,24 +66,26 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
-	 * Updates the preview text based on the tag name input.
+	 * Updates the preview text based on the closest tag name input.
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} event The input event.
+	 * @param {HTMLElement|jQuery} element The tag input element being modified.
 	 *
 	 * @return {void}
 	 */
-	obj.updatePreviewText = function ( event ) {
-		const $tagInput = $( obj.selectors.tagName ).first();
-		const $previewText = $( obj.selectors.previewText );
-		const defaultText = $previewText.data( 'default-text' ) || 'Empty';
+	obj.updatePreviewText = function ( element ) {
+		if ( typeof element === 'undefined' ) return;
+
+		const $tagInput = $( element ); // Convert to jQuery object if not already
+		const $container = $tagInput.closest('form'); // Find the closest edit container
+		const $previewText = $container.find( obj.selectors.previewText ); // Get associated preview text
+		const defaultText = $previewText.data('default-text') || '';
 		const tagValue = $tagInput.val().trim();
 
-		// Update preview text.
+		// Update preview text within the correct scope
 		$previewText.text( tagValue.length ? tagValue : defaultText );
 	};
-
 	/**
 	 * Updates the closest preview based on the changed input.
 	 *
@@ -132,7 +134,7 @@ tribe.events.admin.categoryColors = {};
 				if ( /^#([0-9A-F]{3}){1,2}$/i.test( newColor ) ) {
 					$input.iris( 'color', newColor );
 				}
-			}, 500 );
+			}, 200 );
 		});
 	};
 
@@ -159,6 +161,14 @@ tribe.events.admin.categoryColors = {};
 																			 change: obj.colorPickerChange,
 																			 clear: obj.colorPickerChange,
 																		 });
+
+		// Ensure closest preview updates correctly for each rendered color input
+		$( obj.selectors.colorInput ).each(function () {
+			obj.updateClosestPreview($(this));
+		});
+		$( obj.selectors.tagName ).each(function () {
+			obj.updatePreviewText(this);
+		});
 	};
 
 	/**
@@ -170,6 +180,8 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.reInitColorPickerOnQuickEdit = function () {
 		$(document).on('click', obj.selectors.quickEditButton, function () {
+			// Cleanup color pickers from any outlying quick edits.
+			obj.cleanupColorPickers();
 			const $quickEditRow = $('.inline-edit-row');
 			if (!$quickEditRow.length) {
 				return;
@@ -195,6 +207,12 @@ tribe.events.admin.categoryColors = {};
 																});
 					obj.updateClosestPreview( $input );
 				});
+
+				// Prepopulate preview text when Quick Edit opens
+				const $tagInput = $quickEditRow.find(obj.selectors.tagName);
+				if ($tagInput.length) {
+					obj.updatePreviewText($tagInput[0]);
+				}
 
 			}, 25);
 		});
@@ -295,13 +313,15 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.ready = function () {
 		obj.initColorPicker();
-		obj.updatePreviewText();
 		obj.closeColorPicker();
 		obj.reInitColorPickerOnQuickEdit();
 		obj.initQuickEditHandlers();
 		obj.monitorInputChange();
 
-		$( obj.selectors.tagName ).on( 'input', obj.updatePreviewText );
+		$( document ).on( 'input change', obj.selectors.tagName, function ( event ) {
+			obj.updatePreviewText(event.target);
+		});
+
 
 		if ( obj.isAddPage ) {
 			$( obj.selectors.form ).on( 'submit', obj.resetForm );
