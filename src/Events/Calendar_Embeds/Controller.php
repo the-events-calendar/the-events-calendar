@@ -10,7 +10,8 @@
 namespace TEC\Events\Calendar_Embeds;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\Calendar_Embeds\Admin\Page;
+use TEC\Events\Calendar_Embeds\Admin\List_Page;
+use TEC\Events\Calendar_Embeds\Admin\Singular_Page;
 
 /**
  * Class Controller
@@ -31,7 +32,8 @@ class Controller extends Controller_Contract {
 	public function do_register(): void {
 		$this->container->register( Calendar_Embeds::class );
 		if ( is_admin() ) {
-			$this->container->register( Page::class );
+			$this->container->register( List_Page::class );
+			$this->container->register( Singular_Page::class );
 		}
 	}
 
@@ -45,7 +47,8 @@ class Controller extends Controller_Contract {
 	public function unregister(): void {
 		$this->container->get( Calendar_Embeds::class )->unregister();
 		if ( is_admin() ) {
-			$this->container->get( Page::class )->unregister();
+			$this->container->get( List_Page::class )->unregister();
+			$this->container->get( Singular_Page::class )->unregister();
 		}
 	}
 }

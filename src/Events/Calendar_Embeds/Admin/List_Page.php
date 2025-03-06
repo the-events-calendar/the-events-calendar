@@ -1,6 +1,6 @@
 <?php
 /**
- * Calendar Embeds Admin Page.
+ * Calendar Embeds Admin List Page.
  *
  * @since TBD
  *
@@ -16,14 +16,17 @@ use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use TEC\Events\Calendar_Embeds\Template;
 use Tribe__Events__Main as TEC;
 
+
 /**
- * Class Page
+ * Class List_Page
  *
  * @since TBD
  *
  * @package TEC\Events\Calendar_Embeds\Admin
  */
-class Page extends Controller_Contract {
+class List_Page extends Controller_Contract {
+	use Restore_Menu_Trait;
+
 	/**
 	 * The template.
 	 *
@@ -57,6 +60,7 @@ class Page extends Controller_Contract {
 	public function do_register(): void {
 		$this->register_assets();
 		add_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		add_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
 		add_action( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', [ $this, 'manage_column_content' ], 10, 2 );
 		add_filter( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns', [ $this, 'manage_columns' ] );
@@ -171,7 +175,7 @@ class Page extends Controller_Contract {
 				'path'       => 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE,
 				'parent'     => 'edit.php?post_type=' . TEC::POSTTYPE,
 				'title'      => $this->get_page_title(),
-				'position'   => 6.2,
+				'position'   => 8.4,
 				'callback'   => null,
 				'capability' => 'edit_published_tribe_events',
 			]
@@ -226,6 +230,10 @@ class Page extends Controller_Contract {
 			return $submenu_file;
 		}
 
+		self::$stored_globals = [
+			'parent_file' => $parent_file,
+		];
+
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$parent_file = 'edit.php?post_type=' . TEC::POSTTYPE;
 
@@ -240,12 +248,11 @@ class Page extends Controller_Contract {
 	 * @return bool
 	 */
 	public static function is_on_page(): bool {
-		$screen = get_current_screen();
-		if ( ! $screen ) {
-			return false;
-		}
+		/** @var \Tribe\Admin\Pages */
+		$admin_pages = tribe( 'admin.pages' );
+		$admin_page  = $admin_pages->get_current_page();
 
-		return 'edit-' . Calendar_Embeds::POSTTYPE === $screen->id;
+		return ! empty( $admin_page ) && 'edit-' . Calendar_Embeds::POSTTYPE === $admin_page;
 	}
 
 	/**
