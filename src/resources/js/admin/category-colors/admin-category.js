@@ -64,7 +64,7 @@ tribe.events.admin.categoryColors = {};
 		if (!element) return;
 
 		const $tagInput = $(element);
-		const $container = $tagInput.closest('form');
+		const $container = $tagInput.closest('form, .inline-edit-row');
 		const $previewText = $container.find(obj.selectors.previewText);
 		const defaultText = $previewText.data('default-text') || '';
 		const tagValue = $tagInput.val().trim();
@@ -97,6 +97,15 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
+	 * Handles color picker changes.
+	 *
+	 * @since TBD
+	 */
+	obj.colorPickerChange = function () {
+		obj.updateClosestPreview($(this));
+	};
+
+	/**
 	 * Monitors color input changes and updates the preview.
 	 *
 	 * @since TBD
@@ -120,15 +129,6 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
-	 * Handles changes from the WordPress color picker.
-	 *
-	 * @since TBD
-	 */
-	obj.colorPickerChange = function () {
-		obj.updateClosestPreview($(this));
-	};
-
-	/**
 	 * Initializes the WordPress Color Picker on visible inputs.
 	 *
 	 * @since TBD
@@ -145,6 +145,39 @@ tribe.events.admin.categoryColors = {};
 
 		$(obj.selectors.tagName).each(function () {
 			obj.updatePreviewText(this);
+		});
+	};
+
+	/**
+	 * Initializes preview text and color previews on page load.
+	 *
+	 * @since TBD
+	 */
+	obj.initializePreviews = () => {
+		$(obj.selectors.tagName).each(function () {
+			obj.updatePreviewText(this);
+		});
+
+		$(obj.selectors.colorInput).each(function () {
+			obj.updateClosestPreview($(this));
+		});
+	};
+
+	/**
+	 * Cleans up and resets WP Color Pickers in Quick Edit.
+	 *
+	 * @since TBD
+	 */
+	obj.cleanupColorPickers = () => {
+		$(obj.selectors.quickEditRow).find(obj.selectors.colorInput).each(function () {
+			const $input = $(this);
+			const $wrapper = $input.closest(obj.selectors.wpPickerContainer);
+
+			if ($wrapper.length) {
+				const $clone = $input.clone().removeClass('wp-color-picker').removeAttr('style');
+				$wrapper.before($clone);
+				$wrapper.remove();
+			}
 		});
 	};
 
@@ -190,54 +223,29 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
-	 * Cleans up WP Color Pickers in Quick Edit.
+	 * Initializes event listeners.
 	 *
 	 * @since TBD
 	 */
-	obj.cleanupColorPickers = () => {
-		$(obj.selectors.quickEditRow).find(obj.selectors.colorInput).each(function () {
-			const $input = $(this);
-			const $wrapper = $input.closest(obj.selectors.wpPickerContainer);
-
-			if ($wrapper.length) {
-				const $clone = $input.clone().removeClass('wp-color-picker').removeAttr('style');
-				$wrapper.before($clone);
-				$wrapper.remove();
-			}
+	obj.initEventListeners = () => {
+		$document.on('input change', obj.selectors.tagName, (event) => {
+			obj.updatePreviewText(event.target);
 		});
+
+		$(obj.selectors.form).on('submit', obj.resetForm);
 	};
 
 	/**
-	 * Closes the color picker when clicking outside.
-	 *
-	 * @since TBD
-	 */
-	obj.closeColorPicker = () => {
-		$document.on('click', (event) => {
-			if (!$(event.target).closest(`${obj.selectors.colorInput}, ${obj.selectors.wpPickerContainer}, ${obj.selectors.irisPicker}`).length) {
-				$(obj.selectors.colorInput).closest(obj.selectors.wpPickerContainer).find(obj.selectors.irisPicker).fadeOut();
-			}
-		});
-	};
-
-	/**
-	 * Initializes all event listeners and components.
+	 * Handles initialization when the document is ready.
 	 *
 	 * @since TBD
 	 */
 	obj.ready = () => {
 		obj.initColorPicker();
-		obj.closeColorPicker();
 		obj.reInitColorPickerOnQuickEdit();
 		obj.monitorInputChange();
-
-		$document.on('input change', obj.selectors.tagName, (event) => {
-			obj.updatePreviewText(event.target);
-		});
-
-		if (obj.isAddPage) {
-			$(obj.selectors.form).on('submit', obj.resetForm);
-		}
+		obj.initEventListeners();
+		obj.initializePreviews();
 	};
 
 	$document.ready(obj.ready);
