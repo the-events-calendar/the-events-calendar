@@ -107,7 +107,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$|^$/;
 		const isValid = emailPattern.test(email);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -126,7 +126,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
+		const phonePattern = /^(?:\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}|)$/;
 		const isValid = phonePattern.test(phone);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -152,7 +152,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 		try {
 			const url = new URL(website);
-			isValid = url.protocol === 'http:' || url.protocol === 'https:';
+			isValid = website === '' || url.protocol === 'http:' || url.protocol === 'https:';
 		} catch (e) {
 			isValid = false
 		}
