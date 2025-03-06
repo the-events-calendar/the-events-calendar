@@ -1,53 +1,37 @@
 /**
- * Ensures we have all required levels on the Tribe Object.
+ * Ensures the Tribe object has the required levels.
  *
  * @since TBD
- *
- * @type {PlainObject}
  */
 tribe.events = tribe.events || {};
 tribe.events.admin = tribe.events.admin || {};
-
-/**
- * Configures the Category Colors Object in the Global Tribe variable.
- *
- * @since TBD
- *
- * @type {PlainObject}
- */
 tribe.events.admin.categoryColors = {};
 
 /**
- * Initializes the script in a strict environment.
+ * Initializes the script.
  *
  * @since TBD
  *
- * @param {PlainObject} $   jQuery.
- * @param {PlainObject} obj tribe.events.admin.categoryColors.
- *
- * @return {void}
+ * @param {PlainObject} $   jQuery instance.
+ * @param {PlainObject} obj The category colors object.
  */
-( function ( $, obj ) {
+(($, obj) => {
 	'use strict';
 
-	const $document = $( document );
+	const $document = $(document);
 
 	/**
-	 * Detects which page we are on.
+	 * Determines if the current page is the add or edit category page.
 	 *
 	 * @since TBD
-	 *
-	 * @type {boolean}
 	 */
-	obj.isAddPage = $( '#addtag' ).length > 0;
-	obj.isEditPage = $( '#edittag' ).length > 0;
+	obj.isAddPage = Boolean($('#addtag').length);
+	obj.isEditPage = Boolean($('#edittag').length);
 
 	/**
-	 * Selectors used for configuration and setup.
+	 * Selectors for targeting elements.
 	 *
 	 * @since TBD
-	 *
-	 * @type {PlainObject}
 	 */
 	obj.selectors = {
 		colorInput: '.tec-events-category-colors__grid input[type="text"].wp-color-picker',
@@ -70,71 +54,64 @@ tribe.events.admin.categoryColors = {};
 	 *
 	 * @since TBD
 	 *
-	 * @param {HTMLElement|jQuery} element The tag input element being modified.
-	 *
-	 * @return {void}
+	 * @param {HTMLElement} element The tag input element.
 	 */
-	obj.updatePreviewText = function ( element ) {
-		if ( typeof element === 'undefined' ) return;
+	obj.updatePreviewText = (element) => {
+		if (!element) return;
 
-		const $tagInput = $( element ); // Convert to jQuery object if not already
-		const $container = $tagInput.closest('form'); // Find the closest edit container
-		const $previewText = $container.find( obj.selectors.previewText ); // Get associated preview text
+		const $tagInput = $(element);
+		const $container = $tagInput.closest('form');
+		const $previewText = $container.find(obj.selectors.previewText);
 		const defaultText = $previewText.data('default-text') || '';
 		const tagValue = $tagInput.val().trim();
 
-		// Update preview text within the correct scope
-		$previewText.text( tagValue.length ? tagValue : defaultText );
+		$previewText.text(tagValue.length ? tagValue : defaultText);
 	};
+
 	/**
-	 * Updates the closest preview based on the changed input.
+	 * Updates the closest preview based on the input values.
 	 *
 	 * @since TBD
 	 *
 	 * @param {jQuery} $input The input field being modified.
-	 *
-	 * @return {void}
 	 */
-	obj.updateClosestPreview = function ( $input ) {
-		const $container = $input.closest( obj.selectors.colorContainer );
+	obj.updateClosestPreview = ($input) => {
+		const $container = $input.closest(obj.selectors.colorContainer);
 
-		const primaryColor = $container.find( obj.selectors.primaryColor ).val() || 'transparent';
-		const backgroundColor = $container.find( obj.selectors.backgroundColor ).val() || 'transparent';
-		const fontColor = $container.find( obj.selectors.fontColor ).val() || 'inherit';
+		const primaryColor = $container.find(obj.selectors.primaryColor).val() || 'transparent';
+		const backgroundColor = $container.find(obj.selectors.backgroundColor).val() || 'transparent';
+		const fontColor = $container.find(obj.selectors.fontColor).val() || 'inherit';
 
-		$container.find( obj.selectors.preview ).css({
-														 'border-left': `5px solid ${primaryColor}`,
-														 'background-color': backgroundColor,
-													 });
+		$container.find(obj.selectors.preview).css({
+													   'border-left': `5px solid ${primaryColor}`,
+													   'background-color': backgroundColor,
+												   });
 
-		$container.find( obj.selectors.previewText ).css({
-															 'color': fontColor,
-														 });
+		$container.find(obj.selectors.previewText).css({
+														   'color': fontColor,
+													   });
 	};
 
 	/**
-	 * Monitors input changes in color fields and updates the preview.
+	 * Monitors color input changes and updates the preview.
 	 *
 	 * @since TBD
-	 *
-	 * @return {void}
 	 */
-	obj.monitorInputChange = function () {
+	obj.monitorInputChange = () => {
 		let colorPickerTimer;
-		$( document ).on( 'input', obj.selectors.colorInput, function () {
-			const $input = $( this );
 
-			obj.updateClosestPreview( $input );
+		$document.on('input', obj.selectors.colorInput, function () {
+			const $input = $(this);
+			obj.updateClosestPreview($input);
 
-			clearTimeout( colorPickerTimer )
-			colorPickerTimer = setTimeout( function () {
+			clearTimeout(colorPickerTimer);
+			colorPickerTimer = setTimeout(() => {
 				const newColor = $input.val().trim();
 
-				// Ensure it's a valid hex color before applying.
-				if ( /^#([0-9A-F]{3}){1,2}$/i.test( newColor ) ) {
-					$input.iris( 'color', newColor );
+				if (/^#([0-9A-F]{3}){1,2}$/i.test(newColor)) {
+					$input.iris('color', newColor);
 				}
-			}, 200 );
+			}, 200);
 		});
 	};
 
@@ -142,58 +119,50 @@ tribe.events.admin.categoryColors = {};
 	 * Handles changes from the WordPress color picker.
 	 *
 	 * @since TBD
-	 *
-	 * @return {void}
 	 */
 	obj.colorPickerChange = function () {
-			obj.updateClosestPreview( $( this ) );
+		obj.updateClosestPreview($(this));
 	};
 
 	/**
-	 * Initializes the WordPress Color Picker on visible category color inputs.
+	 * Initializes the WordPress Color Picker on visible inputs.
 	 *
 	 * @since TBD
-	 *
-	 * @return {void}
 	 */
-	obj.initColorPicker = function () {
-		$( obj.selectors.colorInput ).filter( ':visible' ).wpColorPicker({
-																			 change: obj.colorPickerChange,
-																			 clear: obj.colorPickerChange,
-																		 });
+	obj.initColorPicker = () => {
+		$(obj.selectors.colorInput).filter(':visible').wpColorPicker({
+																		 change: obj.colorPickerChange,
+																		 clear: obj.colorPickerChange,
+																	 });
 
-		// Ensure closest preview updates correctly for each rendered color input
-		$( obj.selectors.colorInput ).each(function () {
+		$(obj.selectors.colorInput).each(function () {
 			obj.updateClosestPreview($(this));
 		});
-		$( obj.selectors.tagName ).each(function () {
+
+		$(obj.selectors.tagName).each(function () {
 			obj.updatePreviewText(this);
 		});
 	};
 
 	/**
-	 * Reinitializes the color picker when Quick Edit is clicked.
+	 * Handles Quick Edit interactions and reinitializes the color picker.
 	 *
 	 * @since TBD
-	 *
-	 * @return {void}
 	 */
-	obj.reInitColorPickerOnQuickEdit = function () {
-		$(document).on('click', obj.selectors.quickEditButton, function () {
-			// Cleanup color pickers from any outlying quick edits.
+	obj.reInitColorPickerOnQuickEdit = () => {
+		$document.on('click', obj.selectors.quickEditButton, function () {
 			obj.cleanupColorPickers();
-			const $quickEditRow = $('.inline-edit-row');
-			if (!$quickEditRow.length) {
-				return;
-			}
+
+			const $quickEditRow = $(obj.selectors.quickEditRow);
+			if (!$quickEditRow.length) return;
 
 			const $parentTr = $(this).closest('tr');
-			const $colorPreview = $parentTr.find( obj.selectors.tableColorPreview );
+			const $colorPreview = $parentTr.find(obj.selectors.tableColorPreview);
 
 			const colors = {
 				primary: $colorPreview.data('primary') || '',
 				secondary: $colorPreview.data('secondary') || '',
-				text: $colorPreview.data('text') || ''
+				text: $colorPreview.data('text') || '',
 			};
 
 			setTimeout(() => {
@@ -203,86 +172,31 @@ tribe.events.admin.categoryColors = {};
 
 					$input.val(colors[colorType]).wpColorPicker({
 																	change: obj.colorPickerChange,
-																	clear: obj.colorPickerChange
+																	clear: obj.colorPickerChange,
 																});
-					obj.updateClosestPreview( $input );
+					obj.updateClosestPreview($input);
 				});
 
-				// Prepopulate preview text when Quick Edit opens
 				const $tagInput = $quickEditRow.find(obj.selectors.tagName);
 				if ($tagInput.length) {
 					obj.updatePreviewText($tagInput[0]);
 				}
-
 			}, 25);
 		});
 	};
 
 	/**
-	 * Initializes event listeners for Quick Edit interactions.
+	 * Cleans up WP Color Pickers in Quick Edit.
 	 *
 	 * @since TBD
-	 *
-	 * @return {void}
 	 */
-	obj.initQuickEditHandlers = function () {
-		// Handle clicks on Save and Cancel in Quick Edit
-		$(document).on('click', '.inline-edit-save .save, .inline-edit-save .cancel', obj.handleQuickEditClose);
-
-		// Handle Quick Edit AJAX completion
-		$(document).ajaxComplete(obj.handleQuickEditAjaxComplete);
-	};
-
-	/**
-	 * Handles the closing of Quick Edit via Save or Cancel buttons.
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event The event object.
-	 * @return {void}
-	 */
-	obj.handleQuickEditClose = function (event) {
-		obj.cleanupColorPickers();
-
-		// Prevent potential conflicts with other scripts
-		event.stopImmediatePropagation();
-	};
-
-	/**
-	 * Handles AJAX completion for Quick Edit save.
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event The event object.
-	 * @param {XMLHttpRequest} xhr The XMLHttpRequest object.
-	 * @param {Object} settings The settings object for the AJAX request.
-	 * @return {void}
-	 */
-	obj.handleQuickEditAjaxComplete = function (event, xhr, settings) {
-		if (settings.data && settings.data.includes("action=inline-save-tax")) {
-			obj.cleanupColorPickers();
-		}
-	};
-
-	/**
-	 * Cleans up and resets WP Color Pickers in Quick Edit.
-	 *
-	 * @since TBD
-	 *
-	 * @return {void}
-	 */
-	obj.cleanupColorPickers = function () {
-		const $quickEditRow = $('.inline-edit-row');
-
-		$quickEditRow.find(obj.selectors.colorInput).each(function () {
+	obj.cleanupColorPickers = () => {
+		$(obj.selectors.quickEditRow).find(obj.selectors.colorInput).each(function () {
 			const $input = $(this);
 			const $wrapper = $input.closest('.wp-picker-container');
 
 			if ($wrapper.length) {
-				// Clone a fresh input
 				const $clone = $input.clone().removeClass('wp-color-picker').removeAttr('style');
-
-				// Replace the old input with a clean version
 				$wrapper.before($clone);
 				$wrapper.remove();
 			}
@@ -290,47 +204,65 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
-	 * Closes the color picker when clicking outside or after selecting a color.
+	 * Handles Quick Edit close events.
 	 *
 	 * @since TBD
 	 *
-	 * @return {void}
+	 * @param {Event} event The event object.
 	 */
-	obj.closeColorPicker = function () {
-		$document.on( 'click', function ( event ) {
-			if ( ! $( event.target ).closest( obj.selectors.colorInput + ', .wp-picker-container, .iris-picker' ).length ) {
-				$( obj.selectors.colorInput ).closest( '.wp-picker-container' ).find( '.iris-picker' ).fadeOut();
+	obj.handleQuickEditClose = (event) => {
+		obj.cleanupColorPickers();
+		event.stopImmediatePropagation();
+	};
+
+	/**
+	 * Handles Quick Edit AJAX completion events.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Event} event The event object.
+	 * @param {XMLHttpRequest} xhr The XMLHttpRequest object.
+	 * @param {Object} settings The settings object.
+	 */
+	obj.handleQuickEditAjaxComplete = (event, xhr, settings) => {
+		if (settings.data?.includes("action=inline-save-tax")) {
+			obj.cleanupColorPickers();
+		}
+	};
+
+	/**
+	 * Closes the color picker when clicking outside.
+	 *
+	 * @since TBD
+	 */
+	obj.closeColorPicker = () => {
+		$document.on('click', (event) => {
+			if (!$(event.target).closest(`${obj.selectors.colorInput}, .wp-picker-container, .iris-picker`).length) {
+				$(obj.selectors.colorInput).closest('.wp-picker-container').find('.iris-picker').fadeOut();
 			}
 		});
 	};
 
 	/**
-	 * Handles initialization when the document is ready.
+	 * Initializes all event listeners and components.
 	 *
 	 * @since TBD
-	 *
-	 * @return {void}
 	 */
-	obj.ready = function () {
+	obj.ready = () => {
 		obj.initColorPicker();
 		obj.closeColorPicker();
 		obj.reInitColorPickerOnQuickEdit();
-		obj.initQuickEditHandlers();
 		obj.monitorInputChange();
 
-		$( document ).on( 'input change', obj.selectors.tagName, function ( event ) {
+		$document.on('input change', obj.selectors.tagName, (event) => {
 			obj.updatePreviewText(event.target);
 		});
 
-
-		if ( obj.isAddPage ) {
-			$( obj.selectors.form ).on( 'submit', obj.resetForm );
+		if (obj.isAddPage) {
+			$(obj.selectors.form).on('submit', obj.resetForm);
 		}
 	};
 
-	$document.ready( obj.ready );
+	$document.ready(obj.ready);
 
-})(
-	jQuery,
-	tribe.events.admin.categoryColors
-);
+})(jQuery, tribe.events.admin.categoryColors);
