@@ -51,7 +51,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}, []);
 
 	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
-		if ( !field ) {
+		if ( !field && fieldEle.id === 'organizer-name' ) {
 			parentEle.classList.add('invalid', 'empty');
 			fieldEle.classList.add('invalid');
 		} else if ( !isValid ) {
@@ -150,11 +150,15 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 		let isValid = false;
 
-		try {
-			const url = new URL(website);
-			isValid = website === '' || url.protocol === 'http:' || url.protocol === 'https:';
-		} catch (e) {
-			isValid = false
+		if ( website === '' ) {
+			isValid = true;
+		} else {
+			try {
+				const url = new URL(website);
+				isValid = url.protocol === 'http:' || url.protocol === 'https:' || url == '';
+			} catch (e) {
+				isValid = false
+			}
 		}
 
 		if ( isVisited ) {
