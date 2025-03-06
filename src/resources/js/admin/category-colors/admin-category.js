@@ -42,11 +42,15 @@ tribe.events.admin.categoryColors = {};
 		form: obj.isAddPage ? '#addtag' : '#edittag',
 		quickEditButton: '.editinline',
 		quickEditRow: '.inline-edit-row',
+		quickEditSave: '.inline-edit-save .save',
+		quickEditCancel: '.inline-edit-save .cancel',
 		colorContainer: '.tec-events-category-colors__container',
 		primaryColor: '[name="tec_events_category-color[primary]"]',
 		backgroundColor: '[name="tec_events_category-color[secondary]"]',
 		fontColor: '[name="tec_events_category-color[text]"]',
 		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
+		wpPickerContainer: '.wp-picker-container',
+		irisPicker: '.iris-picker',
 	};
 
 	/**
@@ -193,7 +197,7 @@ tribe.events.admin.categoryColors = {};
 	obj.cleanupColorPickers = () => {
 		$(obj.selectors.quickEditRow).find(obj.selectors.colorInput).each(function () {
 			const $input = $(this);
-			const $wrapper = $input.closest('.wp-picker-container');
+			const $wrapper = $input.closest(obj.selectors.wpPickerContainer);
 
 			if ($wrapper.length) {
 				const $clone = $input.clone().removeClass('wp-color-picker').removeAttr('style');
@@ -204,41 +208,14 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
-	 * Handles Quick Edit close events.
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event The event object.
-	 */
-	obj.handleQuickEditClose = (event) => {
-		obj.cleanupColorPickers();
-		event.stopImmediatePropagation();
-	};
-
-	/**
-	 * Handles Quick Edit AJAX completion events.
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event The event object.
-	 * @param {XMLHttpRequest} xhr The XMLHttpRequest object.
-	 * @param {Object} settings The settings object.
-	 */
-	obj.handleQuickEditAjaxComplete = (event, xhr, settings) => {
-		if (settings.data?.includes("action=inline-save-tax")) {
-			obj.cleanupColorPickers();
-		}
-	};
-
-	/**
 	 * Closes the color picker when clicking outside.
 	 *
 	 * @since TBD
 	 */
 	obj.closeColorPicker = () => {
 		$document.on('click', (event) => {
-			if (!$(event.target).closest(`${obj.selectors.colorInput}, .wp-picker-container, .iris-picker`).length) {
-				$(obj.selectors.colorInput).closest('.wp-picker-container').find('.iris-picker').fadeOut();
+			if (!$(event.target).closest(`${obj.selectors.colorInput}, ${obj.selectors.wpPickerContainer}, ${obj.selectors.irisPicker}`).length) {
+				$(obj.selectors.colorInput).closest(obj.selectors.wpPickerContainer).find(obj.selectors.irisPicker).fadeOut();
 			}
 		});
 	};
