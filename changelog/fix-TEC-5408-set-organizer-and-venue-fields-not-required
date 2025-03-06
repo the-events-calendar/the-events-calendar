@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Changed some organizer and venue fields in the onboarding wizard to not be required. [TEC-5408]

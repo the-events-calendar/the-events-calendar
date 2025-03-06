@@ -110,7 +110,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const isValid = !!address;
+		const isValid = address === '' || !!address;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -129,7 +129,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const isValid = !!city;
+		const isValid = city === '' || !!city;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -148,7 +148,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const isValid = !!state;
+		const isValid = state === '' || !!state;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -168,7 +168,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const isValid = !!zip && zipPattern.test(zip);
+		const isValid = zip === '' || (!!zip && zipPattern.test(zip));
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -207,7 +207,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const isValid = !showPhone || ( !!phone && phonePattern.test(phone) );
+		const isValid = !showPhone || phone === '' || ( !!phone && phonePattern.test(phone) );
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -232,11 +232,15 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 		let isValid = false;
 
-		try {
-			const url = new URL(website);
-			isValid = url.protocol === 'http:' || url.protocol === 'https:';
-		} catch (e) {
-			isValid = false
+		if ( website === '' ) {
+			isValid = true;
+		} else {
+			try {
+				const url = new URL(website);
+				isValid = url.protocol === 'http:' || url.protocol === 'https:';
+			} catch (e) {
+				isValid = false
+			}
 		}
 
 		if ( isVisited ) {
@@ -247,7 +251,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
-		if ( !field ) {
+		if ( !field && fieldEle.id === 'venue-name' ) {
 			parentEle.classList.add('invalid', 'empty');
 			fieldEle.classList.add('invalid');
 		} else if ( !isValid ) {
@@ -287,7 +291,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 				<h1 className="tec-events-onboarding__tab-heading">{__('Add your first event venue', 'the-events-calendar')}</h1>
 				<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			</div>
-			<div className="tec-events-onboarding__tab-content">	
+			<div className="tec-events-onboarding__tab-content">
 				<div className="tec-events-onboarding__form-wrapper">
 					<BaseControl
 						__nextHasNoMarginBottom
