@@ -20,7 +20,7 @@ The second method is to manually initialize the accordion via the `tribe.events.
 
 ## Breakpoints
 
-The Breakpoints JavaScript is responsible for applying the correct container query classes to the container. See the [PostCSS README.md from The Events Calendar](https://github.com/moderntribe/the-events-calendar/blob/master/src/resources/postcss/README.md) on container queries for more information on the classes. The breakpoint values can also be filtered to customize the breakpoints.
+The Breakpoints JavaScript is responsible for applying the correct container query classes to the container. See the [PostCSS README.md from The Events Calendar](https://github.com/the-events-calendar/the-events-calendar/blob/master/src/resources/postcss/README.md) on container queries for more information on the classes. The breakpoint values can also be filtered to customize the breakpoints.
 
 This script is loaded in the header rather than the footer to prevent flash of unstyled content.
 
