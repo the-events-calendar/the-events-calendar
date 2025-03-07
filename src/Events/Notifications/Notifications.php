@@ -43,7 +43,26 @@ class Notifications extends Integration_Abstract {
 	 * @inheritDoc
 	 */
 	protected function load(): void {
+		add_filter( 'tec_common_ian_allowed_pages', [ $this, 'add_allowed_pages' ] );
+
 		add_action( 'admin_footer', [ $this, 'render_icon' ] );
+	}
+
+	/**
+	 * Adds the Events pages to the list of allowed pages for Notifications.
+	 *
+	 * @since 6.10.2
+	 *
+	 * @param array $allowed An array of pages where notifications will be displayed.
+	 *
+	 * @return array
+	 */
+	public function add_allowed_pages( $allowed ) {
+		$allowed[] = 'tribe_events_page_tec-events-settings';
+		$allowed[] = 'edit-tribe_events';
+		$allowed[] = 'tribe_events';
+
+		return $allowed;
 	}
 
 	/**
