@@ -91,9 +91,7 @@ tribe.events.admin.categoryColors = {};
 													   'background-color': backgroundColor,
 												   });
 
-		$container.find(obj.selectors.previewText).css({
-														   'color': fontColor,
-													   });
+		$container.find(obj.selectors.previewText).css({ 'color': fontColor });
 	};
 
 	/**
@@ -139,13 +137,7 @@ tribe.events.admin.categoryColors = {};
 																		 clear: obj.colorPickerChange,
 																	 });
 
-		$(obj.selectors.colorInput).each(function () {
-			obj.updateClosestPreview($(this));
-		});
-
-		$(obj.selectors.tagName).each(function () {
-			obj.updatePreviewText(this);
-		});
+		obj.initializePreviews();
 	};
 
 	/**
@@ -223,6 +215,90 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
+	 * Initializes event listeners for Quick Edit interactions.
+	 *
+	 * @since TBD
+	 */
+	obj.initQuickEditHandlers = () => {
+		$document.on('click', obj.selectors.quickEditSave + ', ' + obj.selectors.quickEditCancel, obj.cleanupColorPickers);
+		$document.ajaxComplete(obj.handleQuickEditAjaxComplete);
+	};
+
+	/**
+	 * Handles Quick Edit AJAX completion.
+	 *
+	 * @since TBD
+	 */
+	obj.handleQuickEditAjaxComplete = (event, xhr, settings) => {
+		if (settings.data && settings.data.includes("action=inline-save-tax")) {
+			if (obj.isAjaxSuccess(xhr)) {
+				obj.cleanupColorPickers();
+			}
+		}
+	};
+
+	/**
+	 * Resets the form fields to their default state.
+	 *
+	 * @since TBD
+	 *
+	 * @param {jQuery} $form The form element to reset.
+	 */
+	obj.resetForm = ($form) => {
+		if (!obj.isAddPage || !$form || !$form.length) {
+			return;
+		}
+
+		// Reset all color fields within the form.
+		$form.find(obj.selectors.colorInput).each(function () {
+			const $input = $(this);
+			const $container = $input.closest(obj.selectors.wpPickerContainer);
+
+			// Reset input value.
+			$input.val('').change();
+
+			// Manually reset the Iris picker.
+			$input.wpColorPicker('color', false);
+
+			// Reset WP Color Picker button styles.
+			$container.find('.wp-color-result').css({
+														'background-color': '',
+														'border-color': '',
+													});
+			$container.find('.iris-picker').hide();
+		});
+
+		// Reset priority field to 0.
+		$form.find(obj.selectors.priorityField).val(0);
+
+		// Reset preview text to default.
+		const $previewText = $form.find(obj.selectors.previewText);
+		const defaultText = $previewText.data('default-text') || 'Example';
+		$previewText.text(defaultText);
+	};
+
+	/**
+	 * Initializes AJAX listeners.
+	 *
+	 * @since TBD
+	 */
+	obj.initAjaxListeners = () => {
+		$document.ajaxComplete(function (event, xhr, settings) {
+			if (settings.data && settings.data.includes("action=add-tag")) {
+				const $form = $(obj.selectors.form);
+
+				if (!$form.length) {
+					return;
+				}
+
+				if (obj.isAjaxSuccess(xhr)) {
+					obj.resetForm($form);
+				}
+			}
+		});
+	};
+
+	/**
 	 * Initializes event listeners.
 	 *
 	 * @since TBD
@@ -231,8 +307,34 @@ tribe.events.admin.categoryColors = {};
 		$document.on('input change', obj.selectors.tagName, (event) => {
 			obj.updatePreviewText(event.target);
 		});
+	};
 
-		$(obj.selectors.form).on('submit', obj.resetForm);
+	/**
+	 * Checks if a WordPress AJAX response was successful.
+	 *
+	 * @since TBD
+	 *
+	 * @param {XMLHttpRequest} xhr The AJAX response object.
+	 * @return {boolean} True if the response was successful, false otherwise.
+	 */
+	obj.isAjaxSuccess = (xhr) => {
+		try {
+			const responseXML = xhr.responseXML;
+
+			if (!responseXML) {
+				return false;
+			}
+
+			const wpError = responseXML.querySelector('wp_error');
+
+			if (wpError) {
+				return false;
+			}
+
+			return true;
+		} catch (error) {
+			return false;
+		}
 	};
 
 	/**
@@ -245,7 +347,8 @@ tribe.events.admin.categoryColors = {};
 		obj.reInitColorPickerOnQuickEdit();
 		obj.monitorInputChange();
 		obj.initEventListeners();
-		obj.initializePreviews();
+		obj.initAjaxListeners();
+		obj.initQuickEditHandlers();
 	};
 
 	$document.ready(obj.ready);
