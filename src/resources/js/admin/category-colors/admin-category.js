@@ -310,6 +310,21 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
+	 * Closes the color picker when clicking outside of it.
+	 *
+	 * @since TBD
+	 */
+	obj.closeColorPicker = () => {
+		$document.on('click', (event) => {
+			// If the click is NOT inside the color picker, input, or the color picker container, hide it.
+			if (!$(event.target).closest(`${obj.selectors.colorInput}, ${obj.selectors.wpPickerContainer}, ${obj.selectors.irisPicker}`).length) {
+				$(obj.selectors.irisPicker).fadeOut();
+			}
+		});
+	};
+
+
+	/**
 	 * Checks if a WordPress AJAX response was successful.
 	 *
 	 * @since TBD
@@ -349,6 +364,7 @@ tribe.events.admin.categoryColors = {};
 		obj.initEventListeners();
 		obj.initAjaxListeners();
 		obj.initQuickEditHandlers();
+		obj.closeColorPicker();
 	};
 
 	$document.ready(obj.ready);
