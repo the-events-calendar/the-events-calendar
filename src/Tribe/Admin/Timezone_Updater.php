@@ -43,6 +43,11 @@ class Tribe__Events__Admin__Timezone_Updater {
 			 */
 			$batch_size = (int) apply_filters( 'tribe_events_timezone_updater_batch_size', 50 );
 			$this->initial_count = $this->count_ids();
+
+			if ( $this->initial_count <= 0 ) {
+				tec_timed_option()->set( $this->timed_option_key, false );
+			}
+
 			$this->process( $batch_size );
 		}
 
