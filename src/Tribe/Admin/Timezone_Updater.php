@@ -32,6 +32,8 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * Once these are processed, notices are set to communicate the state of the update
 	 * back to the user (which also serves as a vehicle for continuing the update via
 	 * an ajax loop).
+	 *
+	 * @since 4.0 0
 	 */
 	public function init_update() {
 		if ( $this->update_needed() ) {
@@ -39,7 +41,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 			 * Provides an opportunity to change the maximum number of events that will be
 			 * updated with timezone data in a single batch.
 			 *
-			 * @param int number of events to be processed in a single batch
+			 * @param int $batch_size Number of events to be processed in a single batch.
 			 */
 			$batch_size = (int) apply_filters( 'tribe_events_timezone_updater_batch_size', 50 );
 			$this->initial_count = $this->count_ids();
