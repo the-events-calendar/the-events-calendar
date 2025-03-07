@@ -113,7 +113,7 @@ The Events Calendar styles are broken into 4 main sections: utilities, base, com
 
 ### Utilities
 
-The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository. See [Tribe Common Styles](https://github.com/moderntribe/tribe-common-styles) for more details.
+The utilities are a set of common PostCSS variables, icons, and mixins used throughout the plugins. These come from the Tribe Common Styles repository. See [Tribe Common Styles](https://github.com/the-events-calendar/tribe-common-styles) for more details.
 
 ### Base
 
@@ -159,7 +159,7 @@ The specificity to override the styles are matched to those applied to the theme
 
 ## How to contribute
 
-You want to [contribute](https://github.com/moderntribe/the-events-calendar/blob/master/CONTRIBUTING.md) to these styles? Great! There are a few things to consider when making changes:
+You want to [contribute](https://github.com/the-events-calendar/the-events-calendar/blob/master/CONTRIBUTING.md) to these styles? Great! There are a few things to consider when making changes:
 
 ### Additions
 
