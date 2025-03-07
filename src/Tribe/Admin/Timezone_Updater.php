@@ -15,6 +15,15 @@ class Tribe__Events__Admin__Timezone_Updater {
 	protected $initial_count = 0;
 
 	/**
+	 * The name of the option used for tracking if a timezone update is needed.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	protected string $timed_option_key = 'events_timezone_update_needed';
+
+	/**
 	 * Initializes the update process.
 	 *
 	 * Determines if events are still in need of an update and triggers an update of an
@@ -177,8 +186,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 	 * @return bool
 	 */
 	public function update_needed() {
-		$timed_option_key = 'events_timezone_update_needed';
-		$update_needed = tec_timed_option()->get( $timed_option_key );
+		$update_needed = tec_timed_option()->get( $this->timed_option_key );
 
 		if ( null === $update_needed ) {
 			$update_needed = (bool) $this->find( 1, true );
