@@ -89,6 +89,7 @@ domReady(() => {
     }
 
     // Render the modal once in the container.
-    ReactDOM.render(<OnboardingModal bootData={parsedBootData} />, rootContainer);
+	const root = ReactDOM.createRoot(rootContainer!)
+    root.render(<OnboardingModal bootData={parsedBootData} />);
     isModalRendered = true;
 });

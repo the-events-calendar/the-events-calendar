@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages the legacy view removal and messaging.
+ * Manages the noindex logic for the Events Calendar.
  *
  * @since 6.2.3
  *
@@ -23,13 +23,32 @@ use Tribe__Context;
  * @package TEC\Events\SEO
  */
 class Controller extends Controller_Contract {
+
 	/**
-	 * @inerhitDoc
+	 * Stores the noindex decision for the current request
+	 *
+	 * @since 6.10.2
+	 *
+	 * @var array|null
+	 */
+	protected $robots_directives = null;
+
+	/**
+	 * Current view instance
+	 *
+	 * @since 6.10.2
+	 *
+	 * @var View_Interface|null
+	 */
+	protected $current_view = null;
+
+	/**
+	 * @inheritDoc
 	 */
 	public function do_register(): void {
 		$this->container->singleton( static::class, $this );
 
-		// We hook an extra layer
+		// Hook to determine robots noindex.
 		add_action( 'wp', [ $this, 'hook_issue_noindex' ] );
 	}
 
@@ -38,7 +57,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( 'wp', [ $this, 'hook_issue_noindex' ] );
-		remove_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+		remove_action( 'tec_events_before_view_html_cache', [ $this, 'issue_noindex' ] );
 	}
 
 	/**
@@ -74,7 +93,7 @@ class Controller extends Controller_Contract {
 			}
 		}
 
-		add_action( 'tribe_views_v2_after_setup_loop', [ $this, 'issue_noindex' ] );
+		add_action( 'tec_events_before_view_html_cache', [ $this, 'issue_noindex' ] );
 	}
 
 	/**
@@ -84,6 +103,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since 3.12.4
 	 * @since 6.0.0 Relies on v2 code.
+	 * @since 6.10.2 Hooks to wp_robots.
 	 *
 	 * Disabling this behavior completely is possible with:
 	 *
@@ -118,20 +138,10 @@ class Controller extends Controller_Contract {
 		// If we have a view class and it is a subclass of the By_Day_View class (grid views), default to including noindex, nofollow.
 		if ( $instance instanceof Views\By_Day_View ) {
 			$do_include = true;
-			add_filter( 'tec_events_seo_robots_meta_content', [ $this, 'get_noindex_nofollow' ] );
+			add_filter( 'tec_events_filter_wp_robots_meta_directives', [ $this, 'set_nofollow' ] );
 		} else {
 			$do_include = $this->should_add_no_index_for_list_based_views( $instance );
 		}
-
-		/**
-		 * Allows filtering of if a noindex meta tag will be set for the current event view.
-		 *
-		 * @since 6.2.3
-		 * @deprecated 6.2.6
-		 *
-		 * @var bool $do_include Whether to add the noindex meta tag.
-		 */
-		$do_include = (bool) apply_filters_deprecated( 'tec_events_add_no_index_meta_tag', [ $do_include ], '6.2.6', 'tec_events_seo_robots_meta_include' );
 
 		/**
 		 * Filter to disable the noindex meta tag on Views V2.
@@ -157,41 +167,51 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		/**
-		 * Determines if a noindex meta tag will be set for the current event view.
-		 *
-		 * @since  3.12.4
-		 *
-		 * @var bool $do_include
-		 * @var Tribe__Context $context The view context.
-		 */
-		$do_include = apply_filters_deprecated( 'tribe_events_add_no_index_meta', [ $do_include, $context ], '6.2.6', 'tec_events_seo_robots_meta_include' );
-
-		/**
-		 * Determines if a noindex meta tag will be set for a specific event view.
-		 *
-		 * @since 6.2.3
-		 *
-		 * @var bool $add_noindex
-		 * @var Tribe__Context $context The view context.
-		 */
-		$do_include = apply_filters_deprecated( "tec_events_{$view}_add_no_index_meta", [ $do_include, $context ], '6.2.6', "tec_events_seo_robots_meta_include_{$view}" );
-
 		if ( $do_include ) {
-			if ( did_action( 'wp_head' ) ) {
-				ob_start();
-				$this->print_noindex_meta();
-				$meta_html = trim( ob_get_clean() );
-				?>
-				<script>
-					document.head.insertAdjacentHTML( 'beforeend', '<?php echo $meta_html; ?>' );
-				</script>
-				<?php
-			} else {
-				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
-			}
+			add_filter( 'wp_robots', [ $this, 'filter_robots_directives' ] );
 		}
 	}
+
+	/**
+	 * Set nofollow in the robots directives.
+	 *
+	 * @since 6.10.2
+	 *
+	 * @param array<string|boolean> $robots The directives for the robots meta tag.
+	 *
+	 * @return array<string> The directives for the robots meta tag.
+	 */
+	public function set_nofollow( $robots ): array {
+		$robots['nofollow'] = true;
+
+		return $robots;
+	}
+
+	/**
+	 * Filter the robots directives for the current view.
+	 *
+	 * @since 6.10.2
+	 *
+	 * @param array<string|boolean> $robots The directives for the robots meta tag.
+	 *
+	 * @return array<string> The directives for the robots meta tag.
+	 */
+	public function filter_robots_directives( $robots ) {
+		$robots['noindex'] = true;
+
+		/**
+		 * Filter wp robots directives on Views V2.
+		 *
+		 * @since 6.10.2
+		 *
+		 * @param array<string|boolean> $robots The directives for the robots meta tag.
+		 */
+		$robots = (array) apply_filters( 'tec_events_filter_wp_robots_meta_directives', $robots );
+
+		return $robots;
+	}
+
+
 
 	/**
 	 * Determine if a nonindex should be added for list based views that don't have events.
@@ -217,44 +237,61 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Get the noindex, follow string.
+	 * Returns the end date time object read from the current context.
 	 *
-	 * @since 6.2.6
+	 * @since      6.2.3
+	 * @deprecated 6.10.2 - No replacement, unused coding.
 	 *
-	 * @return string
-	 */
-	public function get_noindex_follow(): string {
-		return 'noindex, follow';
-	}
+	 * @param string         $view       The current view slug.
+	 * @param DateTime       $start_date The start date.
+	 * @param Tribe__Context $context    The current context.
+	 *
+	 * @return DateTime|false A DateTime object or `false` if a DateTime object could not be built.
+	 * */
+	public function get_end_date( $view, $start_date, $context ) {
+		_deprecated_function( __FUNCTION__, '6.10.2' );
 
-	/**
-	 * Get the noindex, nofollow string.
-	 *
-	 * @since 6.2.6
-	 *
-	 * @return string
-	 */
-	public function get_noindex_nofollow(): string {
-		return 'noindex, nofollow';
+		$end_date = $context->get( 'end_date' );
+
+		switch ( $view ) {
+			case 'day':
+				$end_date = clone $start_date;
+				$end_date->modify( '+1 day' );
+				return $end_date;
+			case 'week':
+				$end_date = clone $start_date;
+				$end_date->modify( '+6 days' );
+				return $end_date;
+			case 'month':
+				$end_date = clone $start_date;
+				$end_date->modify( '+1 month' );
+				return $end_date;
+			default:
+				return Dates::build_date_object( $end_date );
+		}
 	}
 
 	/**
 	 * Prints a "noindex,follow" robots tag.
 	 *
 	 * @since 6.2.3
+	 * @deprecated 6.10.2 - use filter_robots_directives instead to modify WordPress's wp_robots filter.
 	 */
 	public function print_noindex_meta() :void {
+		_deprecated_function( __FUNCTION__, '6.10.2', 'Use $this->>filter_robots_directives instead.' );
+
 		$robots_meta_content = $this->get_noindex_follow();
 
 		/**
 		 * Filter to disable the noindex meta tag on Views V2.
 		 *
 		 * @since 6.2.6
+		 * @deprecated 6.10.2 - No replacement
 		 *
 		 * @param string $robots_meta_content The contents of the robots meta tag.
 		 * @param string $view The current view slug.
 		 */
-		$robots_meta_content = (string) apply_filters( 'tec_events_seo_robots_meta_content', $robots_meta_content );
+		$robots_meta_content = (string) apply_filters_deprecated( 'tec_events_seo_robots_meta_content', $robots_meta_content );
 
 		if ( ! $robots_meta_content ) {
 			return;
@@ -269,10 +306,11 @@ class Controller extends Controller_Contract {
 		 * Filters the noindex meta tag.
 		 *
 		 * @since 6.2.3
+		 * @deprecated 6.10.2 - No replacement.
 		 *
 		 * @param string $noindex_meta
 		 */
-		$noindex_meta = apply_filters( 'tec_events_no_index_meta', $noindex_meta );
+		$noindex_meta = apply_filters_deprecated( 'tec_events_no_index_meta', $noindex_meta );
 
 		echo wp_kses(
 			$noindex_meta,
@@ -287,38 +325,30 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Returns the end date time object read from the current context.
+	 * Get the noindex, follow string.
 	 *
-	 * @since 6.2.3
+	 * @since 6.2.6
+	 * @deprecated 6.10.2 - No replacement.
 	 *
-	 * @param [type] $view
-	 * @param [type] $start_date
-	 * @param [type] $context
-	 *
-	 * @return DateTime|false A DateTime object or `false` if a DateTime object could not be built.
+	 * @return string
 	 */
-	public function get_end_date( $view, $start_date, $context ) {
-		$end_date = $context->get( 'end_date' );
+	public function get_noindex_follow(): string {
+		_deprecated_function( __FUNCTION__, '6.10.2' );
 
-		switch ( $view ) {
-			case 'day':
-				$end_date = clone $start_date;
-				$end_date->modify( '+1 day' );
-				return $end_date;
-				break;
-			case 'week':
-				$end_date = clone $start_date;
-				$end_date->modify( '+6 days' );
-				return $end_date;
-				break;
-			case 'month':
-				$end_date = clone $start_date;
-				$end_date->modify( '+1 month' );
-				return $end_date;
-				break;
-			default:
-				return Dates::build_date_object( $end_date );
-				break;
-		}
+		return 'noindex, follow';
+	}
+
+	/**
+	 * Get the noindex, nofollow string.
+	 *
+	 * @since 6.2.6
+	 * @deprecated 6.10.2 - No replacement.
+	 *
+	 * @return string
+	 */
+	public function get_noindex_nofollow(): string {
+		_deprecated_function( __FUNCTION__, '6.10.2' );
+
+		return 'noindex, nofollow';
 	}
 }

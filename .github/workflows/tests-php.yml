@@ -28,7 +28,7 @@ jobs:
           - ct1_wp_json_api
           - ct1_migration
           - rewrite_functional
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -78,7 +78,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         id: composer-cache
         if: steps.skip.outputs.value != 1
         with:

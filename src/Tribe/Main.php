@@ -734,6 +734,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
 
+			// SEO Header support.
+			tribe_register_provider( TEC\Events\SEO\Headers\Controller::class );
+
 			// Register new Admin Notice system.
 			tribe_register_provider( TEC\Events\Admin\Notice\Provider::class );
 
