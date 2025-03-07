@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages the External Calendar Embeds Feature.
+ * External Calendar Embeds Controller.
  *
  * @since TBD
  *
@@ -9,6 +9,10 @@
 
 namespace TEC\Events\Calendar_Embeds;
 
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use RuntimeException;
+use WP_Post_Type;
+
 /**
  * Class Calendar_Embeds
  *
@@ -16,7 +20,7 @@ namespace TEC\Events\Calendar_Embeds;
  *
  * @package TEC\Events\Calendar_Embeds
  */
-class Calendar_Embeds {
+class Calendar_Embeds extends Controller_Contract {
 
 	/**
 	 * Calendar Embeds post type slug.
@@ -34,7 +38,7 @@ class Calendar_Embeds {
 	 *
 	 * @var string
 	 */
-	const META_KEY_CATEGORIES = 'event_categories';
+	const META_KEY_CATEGORIES = 'tec_events_calendar_embeds_event_categories';
 
 	/**
 	 * The meta key for storing the event tags.
@@ -43,25 +47,38 @@ class Calendar_Embeds {
 	 *
 	 * @var string
 	 */
-	const META_KEY_TAGS = 'event_tags';
-
-	/**
-	 * Stores the hook suffix from `add_submenu_page`.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected $hook_suffix;
+	const META_KEY_TAGS = 'tec_events_calendar_embeds_event_tags';
 
 	/**
 	 * The post type object.
 	 *
 	 * @since TBD
 	 *
-	 * @var \WP_Post_Type
+	 * @var ?WP_Post_Type
 	 */
-	protected $post_type_object;
+	protected ?WP_Post_Type $post_type_object = null;
+
+	/**
+	 * Registers the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function do_register(): void {
+		add_action( 'init', [ $this, 'register_post_type' ] );
+	}
+
+	/**
+	 * Removes the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function unregister(): void {
+		remove_action( 'init', [ $this, 'register_post_type' ] );
+	}
 
 	/**
 	 * Register custom post type for calendar embeds.
@@ -70,7 +87,7 @@ class Calendar_Embeds {
 	 *
 	 * @return void
 	 */
-	public function register_post_type() {
+	public function register_post_type(): void {
 		$labels = [
 			'name'               => _x( 'Calendar Embeds', 'post type general name', 'the-events-calendar' ),
 			'singular_name'      => _x( 'Calendar Embed', 'post type singular name', 'the-events-calendar' ),
@@ -123,12 +140,12 @@ class Calendar_Embeds {
 	 *
 	 * @since TBD
 	 *
-	 * @return \WP_Post_Type
-	 * @throws \RuntimeException If the post type object is not set.
+	 * @return WP_Post_Type
+	 * @throws RuntimeException If the post type object is not set.
 	 */
-	public function get_post_type_object() {
+	public function get_post_type_object(): WP_Post_Type {
 		if ( ! $this->post_type_object ) {
-			throw new \RuntimeException( __( 'Attempted to get post type object before it was set.', 'the-events-calendar' ) );
+			throw new RuntimeException( __( 'Attempted to get post type object before it was set.', 'the-events-calendar' ) );
 		}
 
 		return $this->post_type_object;

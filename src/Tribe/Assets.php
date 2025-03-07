@@ -3,6 +3,7 @@
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use TEC\Common\StellarWP\Assets\Config;
 
 /**
  * Registers and Enqueues the assets
@@ -768,7 +769,7 @@ class Tribe__Events__Assets {
 	 *
 	 * @return void
 	 */
-	public function configure_assets() {
-		TEC\Common\StellarWP\Assets\Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path, 'src/resources/' );
+	public function configure_assets(): void {
+		Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path, 'src/resources/', true );
 	}
 }
