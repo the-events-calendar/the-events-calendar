@@ -643,7 +643,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 	 *
 	 * This is something should be addressed on TEC as is affecting any new user installing the plugin.
 	 *
-	 * Code is located at: https://github.com/moderntribe/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
+	 * Code is located at: https://github.com/the-events-calendar/the-events-calendar/blob/f8af49bc41048e8632372fc8da77202d9cb98d86/src/Tribe/Admin/Event_Meta_Box.php#L345
 	 *
 	 * @since 4.7
 	 * @deprecated 0.3.2-alpha
