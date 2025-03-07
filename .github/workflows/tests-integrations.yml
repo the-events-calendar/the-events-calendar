@@ -104,9 +104,9 @@ jobs:
       - name: Set TEC with base branch
         if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome == 'success'
         run: echo "TEC_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
-      - name: Set TEC with master branch
+      - name: Set TEC with main branch
         if: steps.skip.outputs.value != 1 && steps.fetch-tec-head-branch.outcome != 'success' && steps.fetch-tec-base-branch.outcome != 'success'
-        run: echo "TEC_BRANCH=master" >> $GITHUB_ENV
+        run: echo "TEC_BRANCH=main" >> $GITHUB_ENV
       # ------------------------------------------------------------------------------
       # Clone and init TEC
       # ------------------------------------------------------------------------------
