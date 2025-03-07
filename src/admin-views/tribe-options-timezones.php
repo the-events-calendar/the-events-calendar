@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$enable_button_label  = esc_html__( 'Enable Time Zone support', 'the-events-calendar' );
-$args = [
+$enable_button_label = esc_html__( 'Enable Time Zone support', 'the-events-calendar' );
+$args                = [
 	'timezone-update' => '1',
-	'tab' => 'display-date-time-tab',
+	'tab'             => 'display-date-time-tab',
 ];
-$enable_button_url    = esc_url( wp_nonce_url( add_query_arg( $args, tribe( 'tec.main' )->settings()->get_url() ), 'timezone-settings' ) );
-$enable_button_text   = esc_html__( 'Update Time Zone Data', 'the-events-calendar' );
-$enable_button_help   = sprintf( __( 'Click this button to update your database and take advantage of additional time zone capabilities. Please <a href="%s" target="_blank">configure WordPress</a> to use the correct time zone before clicking this button!', 'the-events-calendar' ),
+$enable_button_url   = esc_url( wp_nonce_url( add_query_arg( $args, tribe( 'tec.main' )->settings()->get_url() ), 'timezone-settings' ) );
+$enable_button_text  = esc_html__( 'Update Time Zone Data', 'the-events-calendar' );
+$enable_button_help  = sprintf( __( 'Click this button to update your database and take advantage of additional time zone capabilities. Please <a href="%s" target="_blank">configure WordPress</a> to use the correct time zone before clicking this button!', 'the-events-calendar' ),
 	esc_url( get_admin_url( null, 'options-general.php' ) )
 );
 
