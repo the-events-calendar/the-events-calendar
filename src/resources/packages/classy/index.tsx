@@ -1,4 +1,4 @@
-import {dispatch, select, subscribe} from "@wordpress/data";
+import {dispatch} from "@wordpress/data";
 import {localizedData} from './localized-data';
 import {RichText} from '@wordpress/block-editor';
 import {__} from "@wordpress/i18n";
@@ -6,24 +6,12 @@ import {registerPlugin} from '@wordpress/plugins';
 import {createRoot} from '@wordpress/element';
 import { SlotFillProvider, Slot, Fill } from '@wordpress/components';
 import { addFilter, applyFilters } from '@wordpress/hooks';
+import {whenEditorIsReady} from "./functions/whenEditorIsReady";
 import './style.pcss';
 
 console.log('Classy!');
 
 const {eventCategoryTaxonomyName} = localizedData;
-
-function whenEditorIsReady(): Promise<void> {
-	return new Promise((resolve: Function) => {
-		const unsubscribe: Function = subscribe(() => {
-			// This will trigger after the initial render blocking, before the window load event
-			// This seems currently more reliable than using __unstableIsEditorReady
-			if (select('core/editor').isCleanNewPost() || select('core/block-editor').getBlockCount() > 0) {
-				unsubscribe()
-				resolve()
-			}
-		})
-	})
-}
 
 function createClassyElement(): Element {
 	const classy = document.createElement('div');
