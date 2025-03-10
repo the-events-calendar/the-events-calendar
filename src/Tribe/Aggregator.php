@@ -1,18 +1,41 @@
 <?php
-// Don't load directly
+/**
+ * The Events Calendar Aggregator main class
+ */
 
 use Tribe\Events\Admin\Settings;
 
-defined( 'WPINC' ) or die;
+// Don't load directly.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
-class Tribe__Events__Aggregator {
+/**
+ * Class Tribe__Events__Aggregator
+ *
+ * @since 4.3.0
+ */
+class Tribe__Events__Aggregator { // phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, Generic.Classes.OpeningBraceSameLine.ContentAfterBrace
 	/**
 	 * Cache key used to storage the services list returned by the call to:
 	 * - Tribe__Events__Aggregator__Service::instance()->get_origins();
 	 *
 	 * @since 4.6.12
+	 * @deprecated TBD use $key_cache_services instead.
+	 *
+	 * @var string
 	 */
-	public $KEY_CACHE_SERVICES = 'tribe_aggregator_services_list';
+	public $KEY_CACHE_SERVICES = 'tribe_aggregator_services_list'; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+
+	/**
+	 * Cache key used to storage the services list returned by the call to:
+	 * - Tribe__Events__Aggregator__Service::instance()->get_origins();
+	 *
+	 * @since 4.6.12
+	 *
+	 * @var string
+	 */
+	public $key_cache_services = 'tribe_aggregator_services_list';
 
 	/**
 	 * @var Tribe__Events__Aggregator__Meta_Box Event Aggregator Meta Box object
@@ -50,7 +73,7 @@ class Tribe__Events__Aggregator {
 	public $pue_checker;
 
 	/**
-	 * @var array Collection of API objects
+	 * @var Tribe__Events__Aggregator__API__Abstract|stdClass|null|array Collection of API objects
 	 */
 	protected $api;
 
@@ -62,8 +85,9 @@ class Tribe__Events__Aggregator {
 	private $daily_limit = 100;
 
 	/**
-	 * A variable holder if Aggregator is loaded
-	 * @var boolean
+	 * A variable holder if Aggregator is loaded.
+	 *
+	 * @var boolean Whether Events Aggregator is loaded or not.
 	 */
 	private $is_loaded = false;
 
@@ -99,17 +123,18 @@ class Tribe__Events__Aggregator {
 	public function add_status_to_help() {
 		global $plugin_page;
 
+		$page                   = tribe_get_request_var( 'page' );
 		$is_multisite_help_page = is_multisite()
-		                          && is_network_admin()
-		                          && ! empty( $_GET['page'] )
-		                          && $_GET['page'] === tribe( 'settings' )->get_help_slug();
+								&& is_network_admin()
+								&& ! empty( $page )
+								&& tribe( 'settings' )->get_help_slug() === $page;
 
 		if ( ! ( 'tribe-help' === $plugin_page || $is_multisite_help_page ) ) {
 			return;
 		}
 
-		$help = Tribe__Admin__Help_Page::instance();
-		$section_name = 'tribe-aggregator-status';
+		$help          = Tribe__Admin__Help_Page::instance();
+		$section_name  = 'tribe-aggregator-status';
 		$section_title = __( 'Event Aggregator System Status', 'the-events-calendar' );
 
 		ob_start();
@@ -131,22 +156,21 @@ class Tribe__Events__Aggregator {
 		if ( ! is_admin() || tribe( 'context' )->doing_ajax() ) {
 			return;
 		}
-
 	}
 
 	/**
 	 * Initializes and provides the API objects
 	 *
-	 * @param string $api Which API to provide
+	 * @param string $api Which API to provide.
 	 *
 	 * @return Tribe__Events__Aggregator__API__Abstract|stdClass|null
 	 */
 	public function api( $api = null ) {
 		if ( ! $this->api ) {
 			$this->api = (object) [
-				'origins' => new Tribe__Events__Aggregator__API__Origins,
-				'import'  => new Tribe__Events__Aggregator__API__Import,
-				'image'   => new Tribe__Events__Aggregator__API__Image,
+				'origins' => new Tribe__Events__Aggregator__API__Origins(),
+				'import'  => new Tribe__Events__Aggregator__API__Import(),
+				'image'   => new Tribe__Events__Aggregator__API__Image(),
 			];
 		}
 
@@ -164,21 +188,24 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Creates the Required Endpoint for the Aggregator Service to Query
 	 *
-	 * @param array $query_vars
+	 * @param Tribe__Events__Rewrite $rewrite Rewrite object.
 	 *
 	 * @return void
 	 */
 	public function action_endpoint_configuration( $rewrite ) {
 		$rewrite->add(
 			[ 'event-aggregator', '(insert)' ],
-			[ 'tribe-aggregator' => 1, 'tribe-action' => '%1' ]
+			[
+				'tribe-aggregator' => 1,
+				'tribe-action'     => '%1',
+			]
 		);
 	}
 
 	/**
 	 * Adds the required Query Vars for the Aggregator Endpoint to work
 	 *
-	 * @param array $query_vars
+	 * @param array $query_vars Query vars.
 	 *
 	 * @return array
 	 */
@@ -192,20 +219,20 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Allows the API to call the website
 	 *
-	 * @param  WP    $wp
+	 * @param  WP $wp WordPress object.
 	 *
 	 * @return void
 	 */
 	public function action_endpoint_parse_request( $wp ) {
-		// If we don't have both of these we bail
+		// If we don't have both of these we bail.
 		if ( ! isset( $wp->query_vars['tribe-aggregator'] ) || empty( $wp->query_vars['tribe-action'] ) ) {
 			return;
 		}
 
-		// Fetches which action we are talking about `/event-aggregator/{$action}`
+		// Fetches which action we are talking about `/event-aggregator/{$action}`.
 		$action = $wp->query_vars['tribe-action'];
 
-		// Bail if we don't have an action
+		// Bail if we don't have an action.
 		if ( ! $action ) {
 			return;
 		}
@@ -227,15 +254,15 @@ class Tribe__Events__Aggregator {
 		 */
 		do_action( "tribe_aggregator_endpoint_{$action}", $wp );
 
-		// If we reached this point this endpoint call was invalid
+		// If we reached this point this endpoint call was invalid.
 		return wp_send_json_error();
 	}
 
 	/**
 	 * Handles the filtering of the PUE "plugin name" for event aggregator which...isn't a plugin
 	 *
-	 * @param string $plugin_name Plugin name to filter
-	 * @param string $plugin_slug Plugin slug
+	 * @param string $plugin_name Plugin name to filter.
+	 * @param string $plugin_slug Plugin slug.
 	 *
 	 * @return string
 	 */
@@ -250,7 +277,7 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Filters the list of post types for Event Tickets to remove Import Records
 	 *
-	 * @param array $post_types Post Types
+	 * @param array $post_types Post Types.
 	 *
 	 * @return array
 	 */
@@ -265,7 +292,7 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Purges the aggregator transients that are tied to the event-aggregator license
 	 *
-	 * @param string $option Option key
+	 * @param string $option Option key.
 	 *
 	 * @return boolean
 	 */
@@ -276,7 +303,7 @@ class Tribe__Events__Aggregator {
 
 		$cache_group = $this->api( 'origins' )->cache_group;
 
-		$purged = true;
+		$purged  = true;
 		$purged &= (bool) delete_transient( "{$cache_group}_origins" );
 		$purged &= (bool) delete_transient( "{$cache_group}_origin_limit" );
 
@@ -286,12 +313,12 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Verify if Aggregator was fully loaded and is active
 	 *
-	 * @param  boolean $service  Should compare if the service is also active
+	 * @param  boolean $service  Should compare if the service is also active.
 	 *
 	 * @return boolean
 	 */
 	public function is_active( $service = false ) {
-		// If it's not loaded just bail false
+		// If it's not loaded just bail false.
 		if ( false === (bool) $this->is_loaded ) {
 			return false;
 		}
@@ -363,7 +390,7 @@ class Tribe__Events__Aggregator {
 	/**
 	 * Reduces the daily limit by the provided amount
 	 *
-	 * @param int $amount Amount to reduce the daily limit by
+	 * @param int $amount Amount to reduce the daily limit by.
 	 *
 	 * @return bool
 	 */
@@ -395,7 +422,8 @@ class Tribe__Events__Aggregator {
 	}
 
 	/**
-	 * Tells whether the legacy ical plugin is active
+	 * Tells whether the legacy ical plugin is active.
+	 * Still used to throw a notice in Tribe__Events__Aggregator__Page.
 	 *
 	 * @return boolean
 	 */
@@ -405,6 +433,7 @@ class Tribe__Events__Aggregator {
 
 	/**
 	 * Tells whether the legacy facebook plugin is active
+	 * Still used to throw a notice in Tribe__Events__Aggregator__Page.
 	 *
 	 * @return boolean
 	 */
@@ -427,32 +456,32 @@ class Tribe__Events__Aggregator {
 		 */
 		$should_load = (bool) apply_filters( 'tribe_aggregator_should_load', true );
 
-		// You shall not Load!
+		// You shall not Load!.
 		if ( true !== $should_load ) {
 			return false;
 		}
 
-		// Loads the Required Classes and saves them as proprieties
-		$this->meta_box = Tribe__Events__Aggregator__Meta_Box::instance();
-		$this->migrate = Tribe__Events__Aggregator__Migrate::instance();
-		$this->page = Tribe__Events__Aggregator__Page::instance();
-		$this->service = tribe( 'events-aggregator.service' );
-		$this->settings = tribe( 'events-aggregator.settings' );
-		$this->records = Tribe__Events__Aggregator__Records::instance();
-		$this->cron = Tribe__Events__Aggregator__Cron::instance();
-		$this->queue_processor = new Tribe__Events__Aggregator__Record__Queue_Processor;
-		$this->queue_realtime = new Tribe__Events__Aggregator__Record__Queue_Realtime( null, null, $this->queue_processor );
-		$this->errors = Tribe__Events__Aggregator__Errors::instance();
-		$this->pue_checker = new Tribe__PUE__Checker(
+		// Loads the Required Classes and saves them as proprieties.
+		$this->meta_box        = Tribe__Events__Aggregator__Meta_Box::instance();
+		$this->migrate         = Tribe__Events__Aggregator__Migrate::instance();
+		$this->page            = Tribe__Events__Aggregator__Page::instance();
+		$this->service         = tribe( 'events-aggregator.service' );
+		$this->settings        = tribe( 'events-aggregator.settings' );
+		$this->records         = Tribe__Events__Aggregator__Records::instance();
+		$this->cron            = Tribe__Events__Aggregator__Cron::instance();
+		$this->queue_processor = new Tribe__Events__Aggregator__Record__Queue_Processor();
+		$this->queue_realtime  = new Tribe__Events__Aggregator__Record__Queue_Realtime( null, null, $this->queue_processor );
+		$this->errors          = Tribe__Events__Aggregator__Errors::instance();
+		$this->pue_checker     = new Tribe__PUE__Checker(
 			'http://tri.be/',
 			'event-aggregator',
 			[ 'context' => 'service' ]
 		);
 
-		// Initializes the Classes related to the API
+		// Initializes the Classes related to the API.
 		$this->api();
 
-		// Flags that the Aggregator has been fully loaded
+		// Flags that the Aggregator has been fully loaded.
 		$this->is_loaded = true;
 
 		return $this->is_loaded;
@@ -463,27 +492,31 @@ class Tribe__Events__Aggregator {
 	 *
 	 * WordPress mime support requires a one to one mapping of an extension to a type, but CSV can come in multiple types
 	 *
-	 * @param  array $mimes supported mime types
+	 * @param  array  $info     file info.
+	 * @param  string $file     file path.
+	 * @param  string $filename file name.
+	 * @param  array  $mimes    supported mime types.
+	 *
 	 * @return array        mime types with expanded support
 	 */
 	public function add_csv_mimes( $info, $file, $filename, $mimes ) {
 		$wp_filetype = wp_check_filetype( $filename, $mimes );
-		$ext = $wp_filetype['ext'];
-		$type = $wp_filetype['type'];
+		$ext         = $wp_filetype['ext'];
+		$type        = $wp_filetype['type'];
 
-		if ( $ext !== 'csv' ) {
+		if ( 'csv' !== $ext ) {
 			return $info;
 		}
 
 		if ( function_exists( 'finfo_file' ) ) {
 			// Use finfo_file if available to validate non-image files.
-			$finfo = finfo_open( FILEINFO_MIME_TYPE );
+			$finfo     = finfo_open( FILEINFO_MIME_TYPE );
 			$real_mime = finfo_file( $finfo, $file );
 			finfo_close( $finfo );
 
-			// If the extension matches an alternate mime type, let's use it
+			// If the extension matches an alternate mime type, let's use it.
 			if ( in_array( $real_mime, [ 'text/plain', 'text/csv', 'text/comma-separated-values' ] ) ) {
-				$info['ext'] = $ext;
+				$info['ext']  = $ext;
 				$info['type'] = $type;
 			}
 		}
@@ -509,52 +542,42 @@ class Tribe__Events__Aggregator {
 
 	/**
 	 * Hooks all the filters and actions needed for Events Aggregator to work.
-     *
-     * No action or filter will be loaded if Events Aggregator has not loaded first.
-     *
-     * @return bool `true` if the hooks and filters were added, `false` otherwise.
+	 *
+	 * No action or filter will be loaded if Events Aggregator has not loaded first.
+	 *
+	 * @return bool `true` if the hooks and filters were added, `false` otherwise.
 	 */
 	public function hook() {
 		if ( ! $this->is_loaded ) {
 			return false;
 		}
 
-		// Register the Aggregator Endpoint
+		// Register the Aggregator Endpoint.
 		add_action( 'tribe_events_pre_rewrite', [ $this, 'action_endpoint_configuration' ] );
 
-		// Intercept the Endpoint and trigger actions
+		// Intercept the Endpoint and trigger actions.
 		add_action( 'parse_request', [ $this, 'action_endpoint_parse_request' ] );
 
-		// Add endpoint query vars
+		// Add endpoint query vars.
 		add_filter( 'query_vars', [ $this, 'filter_endpoint_query_vars' ] );
 
-		// Filter the "plugin name" for Event Aggregator
+		// Filter the "plugin name" for Event Aggregator.
 		add_filter( 'pue_get_plugin_name', [ $this, 'filter_pue_plugin_name' ], 10, 2 );
 
-		// To make sure that meaningful cache is purged when settings are changed
+		// To make sure that meaningful cache is purged when settings are changed.
 		add_action( 'updated_option', [ $this, 'action_purge_transients' ] );
 
-		// Remove aggregator records from ET
+		// Remove aggregator records from ET.
 		add_filter( 'tribe_tickets_settings_post_types', [ $this, 'filter_remove_record_post_type' ] );
 
-		// Notify users about expiring Facebook Token if oauth is enabled
+		// Notify users about expiring Facebook Token if oauth is enabled.
 		add_action( 'plugins_loaded', [ $this, 'setup_notices' ], 11 );
 
-		// Add admin bar items for Aggregator
+		// Add admin bar items for Aggregator.
 		add_action( 'wp_before_admin_bar_render', [ $this, 'add_admin_bar_items' ], 10 );
 
-		// Remove caches associated with the list of services
+		// Remove caches associated with the list of services.
 		add_action( 'tribe_settings_after_save', [ $this, 'clear_services_list_cache' ] );
-
-		// Let's prevent events-importer-ical from DESTROYING its saved recurring imports when it gets deactivated
-		if ( class_exists( 'Tribe__Events__Ical_Importer__Main' ) ) {
-			remove_action(
-				'deactivate_' . plugin_basename(
-					Tribe__Events__Ical_Importer__Main::$plugin_path . 'the-events-calendar-ical-importer.php'
-				),
-				'tribe_events_ical_deactivate'
-			);
-		}
 
 		add_action( 'admin_init', [ $this, 'add_status_to_help' ] );
 
@@ -571,84 +594,6 @@ class Tribe__Events__Aggregator {
 	 * @return boolean
 	 */
 	public function clear_services_list_cache() {
-		return delete_transient( $this->KEY_CACHE_SERVICES );
-	}
-
-	public function notice_facebook_oauth_feedback() {
-		_deprecated_function( __FUNCTION__, '4.6.24', 'Importing from Facebook is no longer supported in Event Aggregator.' );
-
-		if ( empty( $_GET['ea-auth'] ) || 'facebook' !== $_GET['ea-auth'] ) {
-			return false;
-		}
-
-		$html = '<p>' . esc_html__( 'Successfully connected Event Aggregator to Facebook', 'the-events-calendar' ) . '</p>';
-
-		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-oauth-feedback', $html );
-	}
-
-	public function notice_facebook_token_expired() {
-		_deprecated_function( __FUNCTION__, '4.6.24', 'Importing from Facebook is no longer supported in Event Aggregator.' );
-
-		if ( ! Tribe__Admin__Helpers::instance()->is_screen() ) {
-			return false;
-		}
-
-		$expires = tribe_get_option( 'fb_token_expires' );
-
-		// Empty Token
-		if ( empty( $expires ) ) {
-			return false;
-		}
-
-		/**
-		 * Allow developers to filter how many seconds they want to be warned about FB token expiring
-		 * @param int
-		 */
-		$boundary = apply_filters( 'tribe_aggregator_facebook_token_expire_notice_boundary', 4 * DAY_IN_SECONDS );
-
-		// Creates a Boundary for expire warning to appear, before the actual expiring of the token
-		$boundary = $expires - $boundary;
-
-		if ( time() < $boundary ) {
-			return false;
-		}
-
-		$diff = human_time_diff( time(), $boundary );
-		$passed = ( time() - $expires );
-		$original = date( 'Y-m-d H:i:s', $expires );
-
-		$time[] = '<span title="' . esc_attr( $original ) . '">';
-		if ( $passed > 0 ) {
-			$time[] = sprintf( esc_html_x( 'about %s ago', 'human readable time ago', 'the-events-calendar' ), $diff );
-		} else {
-			$time[] = sprintf( esc_html_x( 'in about %s', 'in human readable time', 'the-events-calendar' ), $diff );
-		}
-		$time[] = '</span>';
-		$time = implode( '', $time );
-
-		ob_start();
-		?>
-		<p>
-			<?php
-			if ( $passed > 0 ) {
-				printf( esc_html__( 'Your Event Aggregator Facebook token expired %s.', 'the-events-calendar' ), esc_html( $time ) );
-			} else {
-				printf( esc_html__( 'Your Event Aggregator Facebook token will expire %s.', 'the-events-calendar' ), esc_html( $time ) );
-			}
-			?>
-		</p>
-		<p>
-			<a
-				href="<?php echo esc_url( tribe( Settings::class )->get_url( [ 'tab' => 'addons' ] ) ); ?>"
-				class="tribe-license-link"
-			>
-				<?php esc_html_e( 'Renew your Event Aggregator Facebook token', 'the-events-calendar' ); ?>
-			</a>
-		</p>
-		<?php
-
-		$html = ob_get_clean();
-
-		return Tribe__Admin__Notices::instance()->render( 'tribe-aggregator-facebook-token-expired', $html );
+		return delete_transient( $this->key_cache_services );
 	}
 }

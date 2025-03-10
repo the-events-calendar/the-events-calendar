@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 use Tribe\Events\Views\V2\View;
 use Tribe__Events__Main;
+use Tribe\Events\Views\V2\iCalendar\Traits\Export_Link;
 
 /**
  * Class iCal
@@ -19,8 +20,14 @@ use Tribe__Events__Main;
  * @package Tribe\Events\Views\V2\iCalendar
  */
 class iCalendar_Export extends Link_Abstract {
+	use Export_Link;
+
 	/**
-	 * {@inheritDoc}
+	 * The link provider slug.
+	 *
+	 * @since 5.12.0
+	 *
+	 * @var string
 	 */
 	public static $slug = 'ics';
 
@@ -56,29 +63,8 @@ class iCalendar_Export extends Link_Abstract {
 	 * @return boolean $visible Whether to display the link.
 	 */
 	public function filter_tec_views_v2_subscribe_link_ics_visibility( $visible ) {
+		_deprecated_function( __METHOD__, 'TBD', 'iCalendar_Export::filter_tec_views_v2_subscribe_link_visibility' );
 		// Don't display on single event by default.
-		return ! is_single();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function get_uri( View $view = null ) {
-		if ( null === $view || is_single( Tribe__Events__Main::POSTTYPE ) ) {
-			// Try to construct it for the event single.
-			return add_query_arg( [ 'ical' => 1 ], get_the_permalink() );
-		}
-
-		$ical = $view->get_ical_data();
-
-		if ( empty( $ical->display_link ) ) {
-			return '';
-		}
-
-		if ( empty( $ical->link->url ) ) {
-			return '';
-		}
-
-		return $ical->link->url;
+		return self::filter_tec_views_v2_subscribe_link_visibility( $visible, $this );
 	}
 }
