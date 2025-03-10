@@ -698,6 +698,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Set up IAN Client - In-App Notifications.
 			tribe_register_provider( TEC\Events\Notifications\Provider::class );
 
+			// Set up the QR Code system.
+			tribe_register_provider( TEC\Events\QR\Provider::class );
+
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
 
