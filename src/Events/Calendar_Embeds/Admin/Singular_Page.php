@@ -17,7 +17,6 @@ use TEC\Events\Calendar_Embeds\Template;
 use Tribe__Events__Main as TEC;
 use WP_Post;
 
-
 /**
  * Class Singular_Page
  *
@@ -63,6 +62,7 @@ class Singular_Page extends Controller_Contract {
 		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ], 5 );
 		add_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		add_action( 'edit_form_after_title', [ $this, 'calendar_embeds_editor' ] );
+		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
 	}
 
 	/**
@@ -76,6 +76,52 @@ class Singular_Page extends Controller_Contract {
 		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ], 5 );
 		remove_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		remove_action( 'edit_form_after_title', [ $this, 'calendar_embeds_editor' ] );
+		remove_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+	}
+
+	/**
+	 * Adds the metaboxes to the order post type.
+	 *
+	 * @since 5.13.3
+	 *
+	 * @param string  $post_type The post type.
+	 * @param WP_Post $post The post object.
+	 *
+	 * @return void
+	 */
+	public function add_meta_boxes( $post_type, $post ): void {
+		if ( Calendar_Embeds::POSTTYPE !== $post_type ) {
+			return;
+		}
+
+		add_meta_box(
+			'tec-events-calendar-embeds-preview',
+			__( 'Embed Preview', 'the-events-calendar' ),
+			[ $this, 'render_embed_preview' ],
+			$post_type,
+			'normal',
+			'high'
+		);
+
+		global $wp_meta_boxes;
+
+		$meta_box = $wp_meta_boxes[ get_current_screen()->id ]['side']['core']['submitdiv'] ?? false;
+
+		// Remove core's Publish metabox and add our own.
+		// remove_meta_box( 'submitdiv', $post_type, 'side' );
+		// add_meta_box(
+		// 	'submitdiv',
+		// 	__( 'Actions', 'event-tickets' ),
+		// 	[ $this, 'render_actions' ],
+		// 	$post_type,
+		// 	'side',
+		// 	'high',
+		// 	$meta_box['args'] ?? []
+		// );
+	}
+
+	public function render_embed_preview( WP_Post $post ): void {
+		echo Calendar_Embeds::get_iframe( $post->ID );
 	}
 
 	/**
@@ -174,19 +220,22 @@ class Singular_Page extends Controller_Contract {
 	protected function register_assets(): void {
 		Asset::add(
 			'tec-events-calendar-embeds-single-script',
-			'calendar-embeds/admin/page.js'
+			'editor.js'
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( 'tec-events-calendar-embeds' )
 			->enqueue_on( 'tec_calendar_embeds_before_editor' )
-			->set_dependencies()
+			->set_dependencies(
+				'wp-hooks',
+			)
+			// ->add_localize_script( 'tec.main.ece.editor', [ $this, 'get_store_data' ] )
 			->in_footer()
 			->register();
 
 		Asset::add(
 			'tec-events-calendar-embeds-single-style',
-			'calendar-embeds/admin/single.css'
+			'editor.css'
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( 'tec-events-calendar-embeds' )
 			->enqueue_on( 'tec_calendar_embeds_before_editor' )
 			->set_dependencies( 'tribe-common-admin' )
 			->register();

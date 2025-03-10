@@ -770,6 +770,6 @@ class Tribe__Events__Assets {
 	 * @return void
 	 */
 	public function configure_assets(): void {
-		Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path, 'src/resources/', true );
+		Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path . 'src/', 'resources/' );
 	}
 }

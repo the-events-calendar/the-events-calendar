@@ -124,33 +124,49 @@ class List_Page extends Controller_Contract {
 		switch ( $column_name ) {
 			case 'event_categories':
 				// Get events categores from post meta.
-				$categories = get_post_meta( $post_id, Calendar_Embeds::META_KEY_CATEGORIES, true );
-				if ( ! empty( $categories ) ) {
-					$categories = wp_list_pluck( $categories, 'name' );
-					echo esc_html( implode( ', ', $categories ) );
-				} else {
+				$categories = Calendar_Embeds::get_event_categories( $post_id );
+				if ( empty( $categories ) ) {
 					echo esc_html( __( 'All Categories', 'the-events-calendar' ) );
+					break;
 				}
+
+				$cat_markup = [];
+				foreach ( $categories as $category ) {
+					ob_start();
+					?>
+					<a href="<?php echo esc_url( get_edit_term_link( $category, TEC::TAXONOMY ) ); ?>">
+						<?php echo trim( esc_html( $category->name ) ); ?></a>
+					<?php
+					$cat_markup[] = ob_get_clean();
+				}
+
+				echo implode( ', ', array_map( 'trim', $cat_markup ) );
 				break;
 			case 'event_tags':
 				// Get events tags from post meta.
-				$tags = get_post_meta( $post_id, Calendar_Embeds::META_KEY_TAGS, true );
-				if ( ! empty( $tags ) ) {
-					$tags = wp_list_pluck( $tags, 'name' );
-					echo esc_html( implode( ', ', $tags ) );
-				} else {
+				$tags = Calendar_Embeds::get_tags( $post_id );
+				if ( empty( $tags ) ) {
 					echo esc_html( __( 'All Tags', 'the-events-calendar' ) );
+					break;
 				}
+
+				$tag_markup = [];
+				foreach ( $tags as $tag ) {
+					ob_start();
+					?>
+					<a href="<?php echo esc_url( get_edit_term_link( $tag, 'post_tag' ) ); ?>">
+						<?php echo trim( esc_html( $tag->name ) ); ?></a>
+					<?php
+					$tag_markup[] = ob_get_clean();
+				}
+
+				echo implode( ', ', array_map( 'trim', $tag_markup ) );
 				break;
 			case 'snippet':
-				// @todo Create a class/method to get the embed link.
-				$permalink = get_permalink( $post_id );
-
 				$this->template->template(
 					'embed-snippet-content',
 					[
 						'post_id'   => $post_id,
-						'permalink' => $permalink,
 					]
 				);
 
@@ -265,7 +281,7 @@ class List_Page extends Controller_Contract {
 	protected function register_assets(): void {
 		Asset::add(
 			'tec-events-calendar-embeds-script',
-			'calendar-embeds/admin/page.js'
+			'js/calendar-embeds/admin/page.js'
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )
@@ -276,7 +292,7 @@ class List_Page extends Controller_Contract {
 
 		Asset::add(
 			'tec-events-calendar-embeds-style',
-			'calendar-embeds/admin/page.css'
+			'css/calendar-embeds/admin/page.css'
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )

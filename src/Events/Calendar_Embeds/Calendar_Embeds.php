@@ -11,7 +11,10 @@ namespace TEC\Events\Calendar_Embeds;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use RuntimeException;
+use WP_Post;
 use WP_Post_Type;
+use Tribe__Events__Main as TEC_Plugin;
+use WP_Term;
 
 /**
  * Class Calendar_Embeds
@@ -66,7 +69,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
-		add_action( 'init', [ $this, 'register_post_type' ] );
+		add_action( 'init', [ $this, 'register_post_type' ], 15 );
 	}
 
 	/**
@@ -77,7 +80,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @return void
 	 */
 	public function unregister(): void {
-		remove_action( 'init', [ $this, 'register_post_type' ] );
+		remove_action( 'init', [ $this, 'register_post_type' ], 15 );
 	}
 
 	/**
@@ -108,7 +111,7 @@ class Calendar_Embeds extends Controller_Contract {
 		$args = [
 			'labels'             => $labels,
 			'public'             => false,
-			'publicly_queryable' => false,
+			'publicly_queryable' => true,
 			'show_ui'            => true,
 			'show_in_menu'       => false,
 			'show_in_nav_menus'  => true,
@@ -119,6 +122,7 @@ class Calendar_Embeds extends Controller_Contract {
 			'hierarchical'       => false,
 			'supports'           => [ 'title' ],
 			'show_in_rest'       => true,
+			'taxonomies'         => [ TEC_Plugin::TAXONOMY, 'post_tag' ],
 		];
 
 		/**
@@ -133,6 +137,54 @@ class Calendar_Embeds extends Controller_Contract {
 		$args = apply_filters( 'tec_events_calendar_embeds_post_type_args', $args );
 
 		$this->post_type_object = register_post_type( static::POSTTYPE, $args );
+	}
+
+	public static function get_iframe( int $post_id ): string {
+		$embed = get_post( $post_id );
+
+		if ( ! $embed instanceof WP_Post ) {
+			return '';
+		}
+
+		if ( static::POSTTYPE !== $embed->post_type ) {
+			return '';
+		}
+
+		$embed_url = get_post_embed_url( $embed );
+
+		$iframe = '<iframe src="' . esc_url( $embed_url ) . '" width="100%" height="600" frameborder="0"></iframe>';
+
+		/**
+		 * Filter the iframe code for the calendar embed.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $iframe The iframe code.
+		 * @param int    $post_id The post ID.
+		 *
+		 * @return string
+		 */
+		return apply_filters( 'tec_events_calendar_embeds_iframe', $iframe, $post_id );
+	}
+
+	public static function get_event_categories( int $post_id ): array {
+		$categories = get_the_terms( $post_id, TEC_Plugin::TAXONOMY );
+
+		if ( ! is_array( $categories ) ) {
+			return [];
+		}
+
+		return array_filter( $categories, static fn ( $c ) => $c instanceof WP_Term );
+	}
+
+	public static function get_tags( int $post_id ): array {
+		$tags = get_the_terms( $post_id, 'post_tag' );
+
+		if ( ! is_array( $tags ) ) {
+			return [];
+		}
+
+		return array_filter( $tags, static fn ( $t ) => $t instanceof WP_Term );
 	}
 
 	/**
