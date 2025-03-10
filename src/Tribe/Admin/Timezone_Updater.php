@@ -197,7 +197,7 @@ class Tribe__Events__Admin__Timezone_Updater {
 
 		if ( null === $update_needed ) {
 			$update_needed = (bool) $this->find( 1, true );
-			tec_timed_option()->set( $timed_option_key, $update_needed );
+			tec_timed_option()->set( $this->timed_option_key, $update_needed );
 		}
 
 		return $update_needed;
