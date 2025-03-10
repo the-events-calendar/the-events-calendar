@@ -32,7 +32,6 @@ class Controller extends Controller_Contract {
 	 * @since 6.8.4
 	 */
 	public function do_register(): void {
-		Config::add_group_path( 'tec-onboarding', tribe( 'tec.main' )->plugin_path . 'build/', 'wizard' );
 		$this->add_filters();
 		$this->add_actions();
 
