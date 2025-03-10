@@ -69,6 +69,36 @@ class Controller extends ControllerContract {
 	}
 
 	/**
+	 * Returns true.
+	 *
+	 * The purpose of this method is to provide a uniquely identifiable method to be used in filters.
+	 * This will allow removing the method hooked by this provider from filters, in place of removing
+	 * a generic `__return_true` that might have been added by some other code.
+	 *
+	 * @since TBD
+	 *
+	 * @return true The boolean value `true`.
+	 */
+	public static function return_true(): bool {
+		return true;
+	}
+
+	/**
+	 * Return false.
+	 *
+	 * The purpose of this method is to provide a uniquely identifiable method to be used in filters.
+	 * This will allow removing the method hooked by this provider from filters, in place of removing
+	 * a generic `__return_false` that might have been added by some other code.
+	 *
+	 * @since TBD
+	 *
+	 * @return false The boolean value `false`.
+	 */
+	public static function return_false(): bool {
+		return false;
+	}
+
+	/**
 	 * Registers required filters early, before other plugins load.
 	 *
 	 * The main function of this code is to filter the template tag that lets other plugins
@@ -77,17 +107,18 @@ class Controller extends ControllerContract {
 	 *
 	 * @since TBD
 	 *
-	 * @see \Tribe__Events__Main::plugins_loaded()
-	 *
 	 * @return void The Classy template tag is filtered accordingly.
+	 * @see   \Tribe__Events__Main::plugins_loaded()
+	 *
 	 */
-	public static function early_register():void{
-		if(!self::is_feature_active())	{
-			add_filter( 'tec_using_classy_editor', '__return_false' );
+	public static function early_register(): void {
+		if ( ! self::is_feature_active() ) {
+			add_filter( 'tec_using_classy_editor', [ self::class, 'return_false' ] );
+
 			return;
 		}
 
-		add_filter( 'tec_using_classy_editor', '__return_true' );
+		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 	}
 
 	/**
@@ -124,7 +155,7 @@ class Controller extends ControllerContract {
 		// We're using TEC new editor.
 		add_filter( 'tec_using_classy_editor', '__return_true' );
 
-		add_filter('block_editor_settings_all', [$this,'filter_block_editor_settings'],100,2);
+		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
 
 		// Register the main assets entry point.
 		Asset::add(
@@ -133,7 +164,7 @@ class Controller extends ControllerContract {
 		)->add_to_group_path( TEC::class . '-packages' )
 		     ->add_to_group( 'tec-classy' )
 		     ->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition(fn()=>$this->post_uses_new_editor(get_post_type()))
+		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
 		     ->add_localize_script( 'tec.classy', [
 			     'eventCategoryTaxonomyName' => TEC::TAXONOMY,
 			     ''
@@ -146,7 +177,7 @@ class Controller extends ControllerContract {
 		)->add_to_group_path( TEC::class . '-packages' )
 		     ->add_to_group( 'tec-classy' )
 		     ->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition(fn()=>$this->post_uses_new_editor(get_post_type()))
+		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
 		     ->register();
 	}
 
@@ -160,7 +191,9 @@ class Controller extends ControllerContract {
 	public function unregister(): void {
 		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
 		remove_filter( 'tec_using_classy_editor', '__return_true' );
-		remove_filter('block_editor_settings_all', [$this,'filter_block_editor_settings'],100);
+		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
+		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
+		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 	}
 
 	/**
@@ -168,7 +201,7 @@ class Controller extends ControllerContract {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_Post $post The Post to check.
+	 * @param string $post_type The post type to check.
 	 *
 	 * @return bool Whether the given Post uses the New Editor.
 	 */
@@ -178,11 +211,21 @@ class Controller extends ControllerContract {
 		return in_array( $post_type, $supported_post_types, true );
 	}
 
-	public function filter_block_editor_settings(array $settings, WP_Block_Editor_Context $context){
-		if(!(
+	/**
+	 * Filters the Block Editor Settings for a given Post Type to lock the template.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,string> $settings The Block Editor settings.
+	 * @param WP_Block_Editor_Context $context
+	 *
+	 * @return array<string,string> The updated Block Editor settings.
+	 */
+	public function filter_block_editor_settings( array $settings, WP_Block_Editor_Context $context ) {
+		if ( ! (
 			$context->post instanceof WP_Post
-			&& $this->post_uses_new_editor($context->post->post_type)
-		)){
+			&& $this->post_uses_new_editor( $context->post->post_type )
+		) ) {
 			return $settings;
 		}
 
@@ -199,19 +242,19 @@ class Controller extends ControllerContract {
 	 *
 	 * @return list<string> The filtered list of Post Types that should be using the New Editor.
 	 */
-	protected function get_supported_post_types(): array {
+	private function get_supported_post_types(): array {
 		/**
 		 * Filters the list of post types that use the new editor.
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string> The list of post types that use the new editor.
+		 * @param array<string> $supported_post_types The list of post types that use the new editor.
 		 */
 		$supported_post_types = apply_filters(
-			'tec_events_new_editor_post_types',
+			'tec_events_classy_post_types',
 			[ TEC::POSTTYPE ]
 		);
 
-		return (array)$supported_post_types;
+		return (array) $supported_post_types;
 	}
 }
