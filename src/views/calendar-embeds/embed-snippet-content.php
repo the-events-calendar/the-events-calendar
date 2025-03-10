@@ -7,11 +7,11 @@
  * @version TBD
  *
  * @var int    $post_id   The post ID.
- * @var string $permalink The permalink.
  */
 
-// @todo Maybe passed the snippet in as a variable instead of generating it here?
-$snippet = '<iframe src="' . esc_url( $permalink ) . '" width="100%" height="600" frameborder="0"></iframe>';
+use TEC\Events\Calendar_Embeds\Calendar_Embeds;
+
+$snippet = Calendar_Embeds::get_iframe( $post_id );
 
 ?>
 <div id="tec_events_calendar_embeds_snippet_<?php echo esc_attr( $post_id ); ?>" class="hidden">
@@ -40,5 +40,5 @@ $snippet = '<iframe src="' . esc_url( $permalink ) . '" width="100%" height="600
 	href="/?TB_inline&width=370&height=200&inlineId=tec_events_calendar_embeds_snippet_<?php echo esc_attr( $post_id ); ?>"
 	class="thickbox button"
 >
-	Get Embed Snippet
+	<?php esc_html_e( 'Get Embed Snippet', 'the-events-calendar' ); ?>
 </a>
