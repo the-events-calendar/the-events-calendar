@@ -8,7 +8,7 @@
 namespace TEC\Events\QR;
 
 /**
- * Class Admin_Notice
+ * Class Notices
  *
  * @since   TBD
  *

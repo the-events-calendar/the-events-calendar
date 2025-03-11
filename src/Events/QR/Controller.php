@@ -18,6 +18,16 @@ use Tribe__Main as Common;
  * @package TEC\Events\QR
  */
 class Controller extends Controller_Contract {
+
+	/**
+	 * The shortcode tag.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	private $shortcode_tag = 'tec_event_qr';
+
 	/**
 	 * Register the controller.
 	 *
@@ -31,6 +41,7 @@ class Controller extends Controller_Contract {
 		$this->container->bind( QR::class, [ $this, 'bind_facade_or_error' ] );
 		$this->container->singleton( Settings::class );
 		$this->container->singleton( Notices::class );
+		$this->container->singleton( Shortcode::class );
 
 		// Register the Admin Notices right away.
 		$this->container->make( Notices::class )->register_admin_notices();
@@ -59,7 +70,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function add_actions(): void {
-		// @ToDo add the QR actions required by the controller.
+		add_action( 'init', [ $this, 'register_shortcode' ] );
 	}
 
 	/**
@@ -70,7 +81,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function remove_actions(): void {
-		// @ToDo remove the QR actions required by the controller.
+		remove_action( 'init', [ $this, 'register_shortcode' ] );
 	}
 
 	/**
@@ -145,5 +156,28 @@ class Controller extends Controller_Contract {
 		 * @param bool $can_use Whether the QR code can be used based on the current environment.
 		 */
 		return apply_filters( 'tec_events_qr_code_can_use', $can_use );
+	}
+
+	/**
+	 * Gets the shortcode tag.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The shortcode tag.
+	 */
+	public function get_shortcode_tag(): string {
+		return $this->shortcode_tag;
+	}
+
+	/**
+	 * This will be called at hook "init" to allow other plugins and themes to hook to shortcode easily
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	public function register_shortcode() {
+		$tag = $this->get_shortcode_tag();
+
+		add_shortcode( $tag, [ $this->container->make( Shortcode::class ), 'render' ] );
 	}
 }
