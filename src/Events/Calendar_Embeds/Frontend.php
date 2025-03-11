@@ -56,7 +56,6 @@ class Frontend extends Controller_Contract {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_filter( 'embed_template', [ $this, 'overwrite_embed_template' ] );
 		add_filter( 'the_content', [ $this, 'overwrite_content' ] );
-		add_filter( 'tribe_events_rewrite_rules_custom', [ $this, 'add_rewrite_rules' ] );
 	}
 
 	/**
@@ -70,14 +69,6 @@ class Frontend extends Controller_Contract {
 		remove_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		remove_filter( 'embed_template', [ $this, 'overwrite_embed_template' ] );
 		remove_filter( 'the_content', [ $this, 'overwrite_content' ] );
-		remove_filter( 'tribe_events_rewrite_rules_custom', [ $this, 'add_rewrite_rules' ] );
-	}
-
-	public function add_rewrite_rules( array $rules ): array {
-		$rules[ 'calendar-embed/([^/]+)/(\d{4}-\d{2})/?$' ]       = 'index.php?name=$matches[1]&post_type=' . Calendar_Embeds::POSTTYPE . '&eventDisplay=month&eventDate=$matches[2]';
-		$rules[ 'calendar-embed/([^/]+)/embed/(\d{4}-\d{2})/?$' ] = 'index.php?embed=1&name=$matches[1]&post_type=' . Calendar_Embeds::POSTTYPE . '&eventDisplay=month&eventDate=$matches[2]';
-
-		return $rules;
 	}
 
 	public function enqueue_scripts() {

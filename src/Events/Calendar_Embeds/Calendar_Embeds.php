@@ -70,6 +70,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		add_action( 'init', [ $this, 'register_post_type' ], 15 );
+		add_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ], 10, 2 );
 	}
 
 	/**
@@ -81,6 +82,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( 'init', [ $this, 'register_post_type' ], 15 );
+		remove_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ] );
 	}
 
 	/**
