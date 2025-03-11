@@ -102,25 +102,6 @@ class Singular_Page extends Controller_Contract {
 			'normal',
 			'high'
 		);
-
-		// phpcs:disable Squiz.Commenting.InlineComment.SpacingBeforeExpected, Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsedSpaces
-		global $wp_meta_boxes;
-
-		$meta_box = $wp_meta_boxes[ get_current_screen()->id ]['side']['core']['submitdiv'] ?? false;
-
-		// Remove core's Publish metabox and add our own.
-		// remove_meta_box( 'submitdiv', $post_type, 'side' );
-		// add_meta_box(
-		// 	'submitdiv',
-		// 	__( 'Actions', 'event-tickets' ),
-		// 	[ $this, 'render_actions' ],
-		// 	$post_type,
-		// 	'side',
-		// 	'high',
-		// 	$meta_box['args'] ?? []
-		// );
-
-		// phpcs:enable Squiz.Commenting.InlineComment.SpacingBeforeExpected, Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsedSpaces
 	}
 
 	/**
