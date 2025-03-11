@@ -73,18 +73,6 @@ const targets = [
 		outputScript: './src/resources/js/app/main.min.js',
 		outputStyle: `src/resources/css/app/[name].${postfix}`,
 	},
-	{
-		name: 'external-calendar-embeds-editor',
-		entry: './src/Events/Calendar_Embeds/app/editor/index.js',
-		outputScript: './build/Calendar_Embeds/editor.min.js',
-		outputStyle: `build/Calendar_Embeds/editor.${postfix}`,
-		moveFromTo: {
-			'src/resources/js/app/external-calendar-embeds-editor.js':
-				'build/Calendar_Embeds/editor.js',
-			'src/resources/css/app/external-calendar-embeds-editor.css':
-				'build/Calendar_Embeds/editor.css',
-		},
-	},
 ];
 
 // A function cannot be spread directly, we need this temporary variable.
