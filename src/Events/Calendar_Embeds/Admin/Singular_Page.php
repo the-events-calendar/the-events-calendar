@@ -103,7 +103,7 @@ class Singular_Page extends Controller_Contract {
 			'high'
 		);
 
-		// phpcs:disable
+		// phpcs:disable Squiz.Commenting.InlineComment.SpacingBeforeExpected, Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsedSpaces
 		global $wp_meta_boxes;
 
 		$meta_box = $wp_meta_boxes[ get_current_screen()->id ]['side']['core']['submitdiv'] ?? false;
@@ -120,7 +120,7 @@ class Singular_Page extends Controller_Contract {
 		// 	$meta_box['args'] ?? []
 		// );
 
-		// phpcs:enable
+		// phpcs:enable Squiz.Commenting.InlineComment.SpacingBeforeExpected, Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsedSpaces
 	}
 
 	/**

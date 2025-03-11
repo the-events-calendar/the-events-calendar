@@ -92,6 +92,8 @@ class Render {
 	 * Setup the arguments for the view.
 	 *
 	 * @since TBD
+	 *
+	 * @param array $arguments Arguments to be used to setup the view.
 	 */
 	public function setup( array $arguments ): void {
 		$this->arguments = wp_parse_args( $arguments, $this->default_arguments );
@@ -131,7 +133,7 @@ class Render {
 	 */
 	protected function add_shortcode_hooks(): void {
 		add_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15, 3 );
-		add_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_view_repository_args' ], 10, 3 );
+		add_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_view_repository_args' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_view_html_classes', [ $this, 'filter_view_html_classes' ], 10, 3 );
 		add_filter( 'tribe_events_views_v2_view_container_data', [ $this, 'filter_view_data' ], 10, 3 );
 		add_filter( 'tribe_events_views_v2_view_url_query_args', [ $this, 'filter_view_url_query_args' ], 10, 3 );
@@ -175,7 +177,7 @@ class Render {
 					'tribe_events_pro_shortcode_tribe_events_before_assets',
 					[ tribe( 'filterbar.views.v2_1.hooks' ), 'action_include_assets' ]
 				);
-			} else if ( tribe()->isBound( 'filterbar.views.v2.hooks' ) ) {
+			} elseif ( tribe()->isBound( 'filterbar.views.v2.hooks' ) ) {
 				remove_filter(
 					'tribe_events_pro_shortcode_tribe_events_before_assets',
 					[ tribe( 'filterbar.views.v2.hooks' ), 'action_include_assets' ]
@@ -278,10 +280,10 @@ class Render {
 	 *
 	 * @since TBD
 	 *
-	 * @param string           $slug    The current view Slug.
-	 * @param array            $params  Params so far that will be used to build this view.
+	 * @param string $slug   The current view Slug.
+	 * @param array  $params Params so far that will be used to build this view.
 	 */
-	public static function maybe_toggle_hooks_for_rest( $slug, $params ): void {
+	public static function maybe_toggle_hooks_for_rest( string $slug, array $params ): void {
 		$embed = Arr::get( $params, 'embed', false );
 		if ( ! $embed ) {
 			return;
@@ -464,8 +466,8 @@ class Render {
 	 *
 	 * @since TBD
 	 *
-	 * @param array   $locations An array of read and write location in the shape of the `Context::$locations` one,
-	 *                           `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
+	 * @param array $locations An array of read and write location in the shape of the `Context::$locations` one,
+	 *                         `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
 	 *
 	 * @return array Locations after removing the request based ones.
 	 */
@@ -585,7 +587,7 @@ class Render {
 			$container       = [ 'tribe-compatibility-container' ];
 			$classes         = array_merge( $container, $theme_compatibility::get_compatibility_classes() );
 			$element_classes = new Element_Classes( $classes );
-			$html            .= '<div ' . $element_classes->get_attribute() . '>';
+			$html           .= '<div ' . $element_classes->get_attribute() . '>';
 		}
 
 		$html .= $view->get_html();
@@ -612,13 +614,12 @@ class Render {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $repository_args An array of repository arguments that will be set for all Views.
-	 * @param Context        $context         The current render context object.
-	 * @param View_Interface $view            The View that will use the repository arguments.
+	 * @param array   $repository_args An array of repository arguments that will be set for all Views.
+	 * @param Context $context         The current render context object.
 	 *
-	 * @return array          Repository arguments after shortcode args added.
+	 * @return array Repository arguments after shortcode args added.
 	 */
-	public function filter_view_repository_args( $repository_args, $context, $view ): array {
+	public function filter_view_repository_args( array $repository_args, Context $context ): array {
 		if ( ! $context instanceof Context ) {
 			return $repository_args;
 		}
@@ -721,10 +722,12 @@ class Render {
 				$context_args['event_display_mode'] = $view_slug;
 
 			} elseif ( empty( $arguments['view'] ) ) {
-				$default_view_class   = tribe( Views_Manager::class )->get_default_view();
-				$context_args['view'] = $context_args['event_display_mode'] = tribe( Views_Manager::class )->get_view_slug_by_class( $default_view_class );
+				$default_view_class                 = tribe( Views_Manager::class )->get_default_view();
+				$context_args['event_display_mode'] = tribe( Views_Manager::class )->get_view_slug_by_class( $default_view_class );
+				$context_args['view']               = $context_args['event_display_mode'];
 			} else {
-				$context_args['view'] = $context_args['event_display_mode'] = $arguments['view'];
+				$context_args['event_display_mode'] = $arguments['view'];
+				$context_args['view'] = $context_args['event_display_mode'];
 			}
 		}
 
@@ -749,8 +752,8 @@ class Render {
 	 *
 	 * @since TBD
 	 *
-	 * @param array          $repository_args The current repository arguments.
-	 * @param array          $arguments       The shortcode arguments to translate.
+	 * @param array $repository_args The current repository arguments.
+	 * @param array $arguments       The shortcode arguments to translate.
 	 *
 	 * @return array The translated shortcode arguments.
 	 */
@@ -763,7 +766,7 @@ class Render {
 
 			// Makes sure tax query exists.
 			if ( empty( $repository_args['tax_query'] ) ) {
-				$repository_args['tax_query'] = [];
+				$repository_args['tax_query'] = []; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
 			}
 
 			$items = [
@@ -776,7 +779,7 @@ class Render {
 					continue;
 				}
 
-				$repository_args['tax_query'] = Arr::merge_recursive_query_vars(
+				$repository_args['tax_query'] = Arr::merge_recursive_query_vars( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
 					$repository_args['tax_query'],
 					Taxonomy::translate_to_repository_args( $taxonomy, $arguments[ $key ], $operand )
 				);
@@ -794,7 +797,7 @@ class Render {
 
 			// Makes sure tax query exists.
 			if ( empty( $repository_args['tax_query'] ) ) {
-				$repository_args['tax_query'] = [];
+				$repository_args['tax_query'] = []; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
 			}
 
 			$items = [
@@ -812,12 +815,11 @@ class Render {
 				$built_query = $repo->build_query();
 
 				if ( ! empty( $built_query->query_vars['tax_query'] ) ) {
-					$repository_args['tax_query'] = Arr::merge_recursive_query_vars(
+					$repository_args['tax_query'] = Arr::merge_recursive_query_vars( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
 						$repository_args['tax_query'],
 						$built_query->query_vars['tax_query']
 					);
 				}
-
 			}
 
 			$repository_args['tax_query']['relation'] = $operand;
@@ -939,7 +941,8 @@ class Render {
 	 * @return Context               Altered version of the context ready for shortcodes.
 	 */
 	public function filter_view_context( Context $view_context, string $view_slug ): Context {
-		if ( ! $shortcode_id = $view_context->get( 'embed' ) ) {
+		$shortcode_id = $view_context->get( 'embed' );
+		if ( ! $shortcode_id ) {
 			return $view_context;
 		}
 
@@ -1071,7 +1074,9 @@ class Render {
 			return $data;
 		}
 
-		if ( $shortcode = $context->get( 'embed', false ) ) {
+		$shortcode = $context->get( 'embed', false );
+
+		if ( $shortcode ) {
 			$data['embed'] = $shortcode;
 		}
 
@@ -1295,7 +1300,7 @@ class Render {
 	 *
 	 * @return mixed
 	 */
-	public function get_argument( string $index, $default = null ) {
+	public function get_argument( string $index, $default = null ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound
 		return Arr::get( $this->get_arguments(), $index, $default );
 	}
 }

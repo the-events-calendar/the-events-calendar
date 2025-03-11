@@ -140,7 +140,7 @@ class List_Page extends Controller_Contract {
 					$cat_markup[] = ob_get_clean();
 				}
 
-				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped
+				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				echo implode( ', ', array_map( 'trim', $cat_markup ) );
 				break;
 			case 'event_tags':
@@ -161,7 +161,7 @@ class List_Page extends Controller_Contract {
 					$tag_markup[] = ob_get_clean();
 				}
 
-				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped
+				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
 				echo implode( ', ', array_map( 'trim', $tag_markup ) );
 				break;
 			case 'snippet':
