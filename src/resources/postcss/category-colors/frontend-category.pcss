@@ -1,0 +1,87 @@
+/* Define expected custom properties for IDE support */
+@property --tec-category-bg {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: transparent;
+}
+
+@property --tec-category-text {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: inherit;
+}
+
+@property --tec-category-primary {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: transparent;
+}
+
+
+/**
+ * Event List Styling
+ */
+
+.tribe-events-calendar-list {
+
+	.tribe-events-calendar-list__event-date-tag{
+		.tribe-events-calendar-list__event-date-tag-datetime{
+			&:after {
+				background-color:var(--tec-category-primary);
+				border-radius: var(--tec-border-radius-default);
+				content: '';
+				height: 100%;
+				position: absolute;
+				right:-1px;
+				width: 4px;
+			}
+		}
+	}
+	/**
+	Add border to left side of event
+	 **/
+
+	/*.tribe-events-calendar-list__event {
+		border-left: 3px solid var(--tec-category-primary);
+	}*/
+
+	/**
+	Featured Event Area
+	**/
+
+	.tribe-events-calendar-list__event-datetime-wrapper {
+		.tribe-events-calendar-list__event-datetime-featured-icon-svg,
+		.tribe-events-calendar-list__event-datetime-featured-text {
+			color: var(--tec-category-primary);
+		}
+	}
+
+	/**
+	Category pill area
+	 **/
+
+	.tribe-events-calendar-list__event-categories {
+		display: inline;
+
+		.tribe-events-calendar-list__category {
+			background: var(--tec-category-bg);
+			color: var(--tec-category-text);
+			padding: var(--tec-spacer-1) var(--tec-spacer-2) var(--tec-spacer-1) var(--tec-spacer-1);
+			border-radius: var(--tec-spacer-3);
+			width: fit-content;
+			font-size: var(--tec-font-size-2);
+			line-height: var(--tec-line-height-3);
+
+			.tribe-events-calendar-list__category-icon {
+				background-color: var(--tec-category-primary);
+				width: 12px;
+				aspect-ratio: 1/1;
+				border-radius: 50%;
+				display: inline-block;
+				margin-right: 5px;
+			}
+		}
+	}
+
+
+}

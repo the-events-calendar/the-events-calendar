@@ -10,7 +10,7 @@
  * @package TEC\Events\Category_Colors
  */
 
-namespace TEC\Events\Category_Colors;
+namespace TEC\Events\Category_Colors\CSS;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
@@ -29,9 +29,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
-		$this->container->register_on_action( 'tribe_plugins_loaded', Admin\Controller::class );
-		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
+		$this->add_filters();
 	}
 
 	/**
@@ -40,7 +38,28 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	protected function add_filters() {
+		add_action( 'tec_events_category_colors_saved', [ $this, 'generate_css' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_scripts' ] );
 	}
+
+	/**
+	 * Generates and saves the category color CSS.
+	 *
+	 * @since TBD
+	 */
+	public function generate_css() {
+		$this->container->make( Generator::class )->generate_and_save_css();
+	}
+
+	/**
+	 * Enqueues the frontend styles for category colors.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_frontend_scripts() {
+		$this->container->make( Assets::class )->enqueue_frontend_scripts();
+	}
+
 
 
 	/**
