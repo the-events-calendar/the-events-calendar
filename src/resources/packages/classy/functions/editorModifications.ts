@@ -12,7 +12,7 @@ import {__} from '@wordpress/i18n';
  *
  * @return {number} The number of hidden elements.
  */
-export function hideZoomOutButton(document: Document|null): number {
+export function hideZoomOutButton(document: Document | null = null): number {
 	document = document || window.document;
 
 	// Remove the Zoom Out button. The only way is by its aria label.
@@ -36,12 +36,15 @@ export function hideZoomOutButton(document: Document|null): number {
  *
  * @return {number} The number of buttons hidden
  */
-export function hideInserterToggle(document: Document|null): void {
+export function hideInserterToggle(document: Document | null = null): number {
 	document = document || window.document;
+
 	let hidden = 0;
 	document.querySelectorAll('.editor-document-tools__inserter-toggle')
 		.forEach((button: HTMLElement) => {
 			hidden++;
 			return button.style.display = 'none';
 		});
+
+	return hidden;
 }

@@ -1,142 +1,99 @@
-import {whenEditorIsReady} from '../../../src/resources/packages/classy/functions/whenEditorIsReady';
-import {select, subscribe} from '@wordpress/data';
-import {beforeEach, describe, expect, it, jest} from '@jest/globals';
+import {
+	hideInserterToggle,
+	hideZoomOutButton
+} from '../../../src/resources/packages/classy/functions/editorModifications';
+import {afterEach, describe, expect, it, jest} from '@jest/globals';
 
-// Define a type for the callback that will be used to subscribe to the function.
-type SubscribeCallback = () => void;
-
-// Mock WordPress dependencies
-jest.mock('@wordpress/data', () => ({
-	subscribe: jest.fn(),
-	select: jest.fn(),
-	dispatch: jest.fn(),
+jest.mock('@wordpress/i18n', () => ({
+	__: jest.fn((text) => text),
 }));
 
-describe('whenEditorIsReady', () => {
-	let mockUnsubscribe: jest.Mock;
-	let subscribeCallback: SubscribeCallback;
-
-	beforeEach(() => {
-		jest.clearAllMocks();
-
-		// Setup mock unsubscribe function.
-		mockUnsubscribe = jest.fn();
-
-		// Capture the callback passed to subscribe.
-		(subscribe as jest.Mock).mockImplementation((callback: SubscribeCallback) => {
-			subscribeCallback = callback;
-			return mockUnsubscribe;
-		});
+describe('hideZoomOutButton', () => {
+	afterEach(() => {
+		jest.restoreAllMocks();
 	});
 
-	it('should resolve when isCleanNewPost returns true', async () => {
-		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue(true),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue(0),
-		};
+	it('should hide zoom out buttons', () => {
+		const mockDocument = (new DOMParser()).parseFromString( `
+		<html>
+			<body>
+			  <button id="button1" class="components-button" aria-label="Zoom Out">Button 1</button>
+			  <button id="button2" class="components-button" aria-label="Zoom In">Button 2</button>
+			  <button id="button3" class="components-button" aria-label="Zoom Out" data-test="target">Button 3</button>
+			  <button id="button4" class="some-other-button"></button>
+			</body>
+		</html>
+    	`, 'text/html'
+		);
 
-		(select as jest.Mock).mockImplementation((store: string) => {
-			if (store === 'core/editor') return mockCoreEditor;
-			if (store === 'core/block-editor') return mockBlockEditor;
-			return {};
-		});
+		const hidden = hideZoomOutButton(mockDocument);
 
-		const readyPromise: Promise<void> = whenEditorIsReady();
-		// Manually trigger the subscribe callback.
-		subscribeCallback();
-		await readyPromise;
-
-		expect(mockCoreEditor.isCleanNewPost).toHaveBeenCalled();
-		expect(mockBlockEditor.getBlockCount).not.toHaveBeenCalled();
-		expect(mockUnsubscribe).toHaveBeenCalledTimes(1);
+		expect(hidden).toBe(2);
+		expect(mockDocument.getElementById('button1').style.display).toBe('none');
+		expect(mockDocument.getElementById('button2').style.display).toBe('');
+		expect(mockDocument.getElementById('button3').style.display).toBe('none');
+		expect(mockDocument.getElementById('button4').style.display).toBe('');
 	});
 
-	it('should resolve when block count is greater than 0', async () => {
-		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue(false),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue(3),
-		};
+	it('should return 0 when there are no buttons to hide', () => {
+		const mockDocument = (new DOMParser()).parseFromString( `
+		<html>
+			<body>
+			  <button id="button1" class="components-button" aria-label="Zoom In">Button 1</button>
+			  <button id="button2" class="components-button" aria-label="Zoom Out Slightly">Button 2</button>
+			  <button id="button3" class="some-other-button"></button>
+			</body>
+		</html>
+    	`, 'text/html'
+		);
 
-		(select as jest.Mock).mockImplementation((store: string) => {
-			if (store === 'core/editor') return mockCoreEditor;
-			if (store === 'core/block-editor') return mockBlockEditor;
-			return {};
-		});
+		const hidden = hideZoomOutButton(mockDocument);
 
-		const readyPromise: Promise<void> = whenEditorIsReady();
-		// Manually trigger the subscribe callback.
-		subscribeCallback();
-		await readyPromise;
+		expect(hidden).toBe(0);
+		expect(mockDocument.getElementById('button1').style.display).toBe('');
+		expect(mockDocument.getElementById('button2').style.display).toBe('');
+		expect(mockDocument.getElementById('button3').style.display).toBe('');
+	});
+});
 
-		expect(mockCoreEditor.isCleanNewPost).toHaveBeenCalled();
-		expect(mockBlockEditor.getBlockCount).toHaveBeenCalled();
-		expect(mockUnsubscribe).toHaveBeenCalledTimes(1);
+describe('hideInserterToggle', () => {
+	afterEach(() => {
+		jest.restoreAllMocks();
 	});
 
-	it('should not resolve when conditions are not met', async () => {
-		// Setup mock selectors that will cause the promise not to resolve.
-		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue(false),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue(0),
-		};
+	it('should hide inserter toggle buttons', () => {
+		const mockDocument = new DOMParser().parseFromString(`
+		  <html>
+			<body>
+			  <button id="button1" class="editor-document-tools__inserter-toggle"></button>
+			  <button id="button2" class="editor-document-tools__inserter-toggle"></button>
+			  <button id="button3" class="some-other-button"></button>
+			</body>
+		  </html>
+		`, 'text/html');
 
-		(select as jest.Mock).mockImplementation((store: string) => {
-			if (store === 'core/editor') return mockCoreEditor;
-			if (store === 'core/block-editor') return mockBlockEditor;
-			return {};
-		});
+		const hidden = hideInserterToggle(mockDocument);
 
-		const readyPromise: Promise<void> = whenEditorIsReady();
-		// Manually trigger the subscribe callback
-		subscribeCallback();
-
-		// Put the readyPromise and a new promise that will resolve in 50ms in a race.
-		// The new promise should be resolved first.
-		expect(Promise.race([
-			readyPromise,
-			new Promise((resolve) => setTimeout(()=>resolve('not-ready'), 50))
-		] )).resolves.toBe('not-ready');
-		expect(mockCoreEditor.isCleanNewPost).toHaveBeenCalled();
-		expect(mockBlockEditor.getBlockCount).toHaveBeenCalled();
-		expect(mockUnsubscribe).not.toHaveBeenCalled();
+		expect(hidden).toBe(2);
+		expect(mockDocument.getElementById('button1').style.display).toBe('none');
+		expect(mockDocument.getElementById('button2').style.display).toBe('none');
+		expect(mockDocument.getElementById('button3').style.display).toBe('');
 	});
 
-	it('should eventually resolve after conditions become true', async () => {
-		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue(false),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue(0),
-		};
+	it('should return 0 when there are no buttons to hide', () => {
+		const mockDocument = new DOMParser().parseFromString(`
+		  <html>
+			<body>
+			  <button id="button1" class="some-other-button"></button>
+			  <button id="button2" class="some-other-button"></button>
+			</body>
+		  </html>
+		`, 'text/html');
 
-		(select as jest.Mock).mockImplementation((store: string) => {
-			if (store === 'core/editor') return mockCoreEditor;
-			if (store === 'core/block-editor') return mockBlockEditor;
-			return {};
-		});
+		const hidden = hideInserterToggle(mockDocument);
 
-		const readyPromise: Promise<void> = whenEditorIsReady();
-
-		// Trigger the callback once with conditions not met.
-		subscribeCallback();
-
-		// Change the return value of getBlockCount to simulate blocks being added.
-		mockBlockEditor.getBlockCount.mockReturnValue(2);
-
-		// Trigger the callback again now that conditions are met.
-		subscribeCallback();
-
-		// Wait for promise to resolve.
-		await readyPromise;
-
-		expect(mockCoreEditor.isCleanNewPost).toHaveBeenCalledTimes(2);
-		expect(mockBlockEditor.getBlockCount).toHaveBeenCalledTimes(2);
-		expect(mockUnsubscribe).toHaveBeenCalledTimes(1);
+		expect(hidden).toBe(0);
+		expect(mockDocument.getElementById('button1').style.display).toBe('');
+		expect(mockDocument.getElementById('button2').style.display).toBe('');
 	});
 });
