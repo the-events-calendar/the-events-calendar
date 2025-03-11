@@ -114,7 +114,7 @@ class Singular_Page extends Controller_Contract {
 	 * @return void
 	 */
 	public function render_embed_preview( WP_Post $post ): void {
-		// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected
+		// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped, WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo Calendar_Embeds::get_iframe( $post->ID );
 	}
 
