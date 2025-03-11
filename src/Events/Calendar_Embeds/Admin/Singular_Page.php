@@ -63,6 +63,7 @@ class Singular_Page extends Controller_Contract {
 		add_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		add_action( 'edit_form_after_title', [ $this, 'calendar_embeds_editor' ] );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
+		add_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ], 10, 2 );
 	}
 
 	/**
@@ -77,12 +78,35 @@ class Singular_Page extends Controller_Contract {
 		remove_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		remove_action( 'edit_form_after_title', [ $this, 'calendar_embeds_editor' ] );
 		remove_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+		remove_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ] );
+	}
+
+	/**
+	 * Replaces the iframe markup with a placeholder if the embed is not saved.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $iframe The iframe markup.
+	 * @param WP_Post $embed The embed post object.
+	 *
+	 * @return string
+	 */
+	public function replace_iframe_markup( string $iframe, WP_Post $embed ): string {
+		if ( ! $this->is_on_page() ) {
+			return $iframe;
+		}
+
+		if ( 'auto-draft' !== $embed->post_status ) {
+			return $iframe;
+		}
+
+		return '<p><strong>' . esc_html__( 'Please save the embed to see the preview.', 'the-events-calendar' ) . '</strong></p>';
 	}
 
 	/**
 	 * Adds the metaboxes to the order post type.
 	 *
-	 * @since 5.13.3
+	 * @since TBD
 	 *
 	 * @param string  $post_type The post type.
 	 * @param WP_Post $post The post object.
@@ -102,6 +126,9 @@ class Singular_Page extends Controller_Contract {
 			'normal',
 			'high'
 		);
+
+		// Removes not editable slug metabox to avoid confusion.
+		remove_meta_box( 'slugdiv', $post_type, 'normal' );
 	}
 
 	/**

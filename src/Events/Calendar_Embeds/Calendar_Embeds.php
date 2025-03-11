@@ -15,6 +15,7 @@ use WP_Post;
 use WP_Post_Type;
 use Tribe__Events__Main as TEC_Plugin;
 use WP_Term;
+use TEC\Common\StellarWP\DB\DB;
 
 /**
  * Class Calendar_Embeds
@@ -71,6 +72,7 @@ class Calendar_Embeds extends Controller_Contract {
 	public function do_register(): void {
 		add_action( 'init', [ $this, 'register_post_type' ], 15 );
 		add_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ], 10, 2 );
+		add_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ], 10, 4 );
 	}
 
 	/**
@@ -83,6 +85,44 @@ class Calendar_Embeds extends Controller_Contract {
 	public function unregister(): void {
 		remove_action( 'init', [ $this, 'register_post_type' ], 15 );
 		remove_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ] );
+		remove_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ] );
+	}
+
+	/**
+	 * Disables slug changes for the calendar embed post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data              The post data.
+	 * @param array $post_array        The post array.
+	 * @param array $unsafe_post_array The unsanitized post array.
+	 * @param bool  $update            Whether the post is being updated.
+	 *
+	 * @return array
+	 */
+	public function disable_slug_changes( array $data, array $post_array, array $unsafe_post_array, bool $update ): array {
+		if ( static::POSTTYPE !== $data['post_type'] ) {
+			return $data;
+		}
+
+		if ( $update ) {
+			// Ensure the post name is not updated.
+			$data['post_name'] = get_post( $post_array['ID'] )->post_name;
+
+			return $data;
+		}
+
+		do {
+			$slug = wp_generate_password( 11, false );
+
+			// The post_parent will always be 0 but ensures future compat if we go to hierarchical post type with almost no cost.
+			$check_sql       = "SELECT post_name FROM %i WHERE post_name = %s AND post_type IN ( %s, 'attachment' ) AND post_parent = %d LIMIT 1";
+			$post_name_check = DB::get_var( DB::prepare( $check_sql, DB::prefix( 'posts' ), $slug, static::POSTTYPE, $data['post_parent'] ?? 0 ) );
+		} while ( $post_name_check );
+
+		$data['post_name'] = $slug;
+
+		return $data;
 	}
 
 	/**
@@ -161,7 +201,7 @@ class Calendar_Embeds extends Controller_Contract {
 			return '';
 		}
 
-		$embed_url = get_post_embed_url( $embed );
+		$embed_url = 'publish' === $embed->post_status ? get_post_embed_url( $embed ) : get_preview_post_link( $embed, [ 'embed' => 1 ] );
 
 		$iframe = '<iframe src="' . esc_url( $embed_url ) . '" width="100%" height="600" frameborder="0"></iframe>';
 
@@ -171,11 +211,12 @@ class Calendar_Embeds extends Controller_Contract {
 		 * @since TBD
 		 *
 		 * @param string $iframe The iframe code.
-		 * @param int    $post_id The post ID.
+		 * @param WP_Post $embed The embed post object.
+		 * @param string $embed_url The embed URL.
 		 *
 		 * @return string
 		 */
-		return apply_filters( 'tec_events_calendar_embeds_iframe', $iframe, $post_id );
+		return (string) apply_filters( 'tec_events_calendar_embeds_iframe', $iframe, $embed, $embed_url );
 	}
 
 	/**
