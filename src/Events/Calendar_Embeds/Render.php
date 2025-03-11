@@ -727,7 +727,7 @@ class Render {
 				$context_args['view']               = $context_args['event_display_mode'];
 			} else {
 				$context_args['event_display_mode'] = $arguments['view'];
-				$context_args['view'] = $context_args['event_display_mode'];
+				$context_args['view']               = $context_args['event_display_mode'];
 			}
 		}
 
@@ -766,7 +766,7 @@ class Render {
 
 			// Makes sure tax query exists.
 			if ( empty( $repository_args['tax_query'] ) ) {
-				$repository_args['tax_query'] = []; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
+				$repository_args['tax_query'] = []; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			}
 
 			$items = [
@@ -779,7 +779,7 @@ class Render {
 					continue;
 				}
 
-				$repository_args['tax_query'] = Arr::merge_recursive_query_vars( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
+				$repository_args['tax_query'] = Arr::merge_recursive_query_vars( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 					$repository_args['tax_query'],
 					Taxonomy::translate_to_repository_args( $taxonomy, $arguments[ $key ], $operand )
 				);
@@ -797,7 +797,7 @@ class Render {
 
 			// Makes sure tax query exists.
 			if ( empty( $repository_args['tax_query'] ) ) {
-				$repository_args['tax_query'] = []; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
+				$repository_args['tax_query'] = []; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			}
 
 			$items = [
@@ -815,7 +815,7 @@ class Render {
 				$built_query = $repo->build_query();
 
 				if ( ! empty( $built_query->query_vars['tax_query'] ) ) {
-					$repository_args['tax_query'] = Arr::merge_recursive_query_vars( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_queryDetected
+					$repository_args['tax_query'] = Arr::merge_recursive_query_vars( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 						$repository_args['tax_query'],
 						$built_query->query_vars['tax_query']
 					);
