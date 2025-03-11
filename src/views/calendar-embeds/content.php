@@ -29,7 +29,6 @@ $render->setup(
 		'tag'           => $event_tags ? wp_list_pluck( $event_tags, 'term_id' ) : null,
 		'tribe-bar'     => false,
 	],
-	''
 );
 
 echo $render->get_html();
