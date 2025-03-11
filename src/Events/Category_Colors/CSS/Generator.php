@@ -141,7 +141,7 @@ class Generator {
 
 		return ".tribe-events-calendar-list__category--{$class} {\n"
 		       . "    --tec-category-primary: {$primary};\n"
-		       . "    --tec-category-bg: {$background};\n"
+		       . "    --tec-category-secondary: {$background};\n"
 		       . "    --tec-category-text: {$text};\n"
 		       . "}\n";
 	}
@@ -209,8 +209,8 @@ class Generator {
 			$offset += $batch_size;
 		} while ( ! empty( $results ) );
 
-		// Sort by priority descending (higher priority first).
-		usort( $categories, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
+		// Sort by priority ascending (lower priority first, highest priority last).
+		usort( $categories, fn( $a, $b ) => $a['priority'] <=> $b['priority'] );
 
 		return $categories;
 	}

@@ -7,22 +7,39 @@
  *
  * See more documentation about our views templating system.
  *
- * @link http://evnt.is/1aiy
+ * @link    http://evnt.is/1aiy
  *
  * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
- * @see tribe_get_event() For the format of the event object.
+ * @see     tribe_get_event() For the format of the event object.
  */
 
-$categories = get_the_terms( $event->ID, 'tribe_events_cat' );
+use TEC\Events\Category_Colors\Event_Category_Meta;
+use TEC\Events\Category_Colors\Meta_Keys;
 
+$categories = get_the_terms( $event->ID, 'tribe_events_cat' );
 
 if ( empty( $categories ) ) {
 	return;
 }
-// Get only the first category.
+
+// Retrieve priority values from the Meta class and sort by highest priority first.
+usort(
+	$categories,
+	function ( $a, $b ) {
+		$meta_a = tribe( Event_Category_Meta::class )->set_term( $a->term_id );
+		$meta_b = tribe( Event_Category_Meta::class )->set_term( $b->term_id );
+
+		$priority_a = $meta_a->get( Meta_Keys::get_key( 'priority' ) );
+		$priority_b = $meta_b->get( Meta_Keys::get_key( 'priority' ) );
+
+		return (int) $priority_b <=> (int) $priority_a;
+	}
+);
+
+// Get the highest-priority category.
 $category = reset( $categories );
 
 ?>
