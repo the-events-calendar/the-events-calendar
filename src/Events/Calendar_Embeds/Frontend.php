@@ -71,7 +71,14 @@ class Frontend extends Controller_Contract {
 		remove_filter( 'the_content', [ $this, 'overwrite_content' ] );
 	}
 
-	public function enqueue_scripts() {
+	/**
+	 * Enqueues the scripts and styles for the calendar embeds.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts(): void {
 		if ( ! is_singular( Calendar_Embeds::POSTTYPE ) ) {
 			return;
 		}
@@ -79,6 +86,15 @@ class Frontend extends Controller_Contract {
 		tribe_asset_enqueue_group( Event_Assets::$group_key );
 	}
 
+	/**
+	 * Overwrites the content of the calendar embeds.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content The content.
+	 *
+	 * @return string
+	 */
 	public function overwrite_content( string $content ): string {
 		if ( ! is_singular( Calendar_Embeds::POSTTYPE ) ) {
 			return $content;
@@ -97,6 +113,15 @@ class Frontend extends Controller_Contract {
 		);
 	}
 
+	/**
+	 * Overwrites the embed template for the calendar embeds.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $template The template.
+	 *
+	 * @return string
+	 */
 	public function overwrite_embed_template( string $template ): string {
 		if ( ! is_embed() ) {
 			return $template;

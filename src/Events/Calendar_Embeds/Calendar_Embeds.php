@@ -141,6 +141,15 @@ class Calendar_Embeds extends Controller_Contract {
 		$this->post_type_object = register_post_type( static::POSTTYPE, $args );
 	}
 
+	/**
+	 * Get the iframe code for the calendar embed.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return string
+	 */
 	public static function get_iframe( int $post_id ): string {
 		$embed = get_post( $post_id );
 
@@ -169,6 +178,15 @@ class Calendar_Embeds extends Controller_Contract {
 		return apply_filters( 'tec_events_calendar_embeds_iframe', $iframe, $post_id );
 	}
 
+	/**
+	 * Get the event categories for a calendar embed.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return array
+	 */
 	public static function get_event_categories( int $post_id ): array {
 		$categories = get_the_terms( $post_id, TEC_Plugin::TAXONOMY );
 
@@ -179,6 +197,15 @@ class Calendar_Embeds extends Controller_Contract {
 		return array_filter( $categories, static fn ( $c ) => $c instanceof WP_Term );
 	}
 
+	/**
+	 * Get the event tags for a calendar embed.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return array
+	 */
 	public static function get_tags( int $post_id ): array {
 		$tags = get_the_terms( $post_id, 'post_tag' );
 

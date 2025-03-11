@@ -103,6 +103,7 @@ class Singular_Page extends Controller_Contract {
 			'high'
 		);
 
+		// phpcs:disable
 		global $wp_meta_boxes;
 
 		$meta_box = $wp_meta_boxes[ get_current_screen()->id ]['side']['core']['submitdiv'] ?? false;
@@ -118,9 +119,21 @@ class Singular_Page extends Controller_Contract {
 		// 	'high',
 		// 	$meta_box['args'] ?? []
 		// );
+
+		// phpcs:enable
 	}
 
+	/**
+	 * Renders the preview of the embed metabox.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post object.
+	 *
+	 * @return void
+	 */
 	public function render_embed_preview( WP_Post $post ): void {
+		// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo Calendar_Embeds::get_iframe( $post->ID );
 	}
 
@@ -227,7 +240,6 @@ class Singular_Page extends Controller_Contract {
 			->set_dependencies(
 				'wp-hooks',
 			)
-			// ->add_localize_script( 'tec.main.ece.editor', [ $this, 'get_store_data' ] )
 			->in_footer()
 			->register();
 
