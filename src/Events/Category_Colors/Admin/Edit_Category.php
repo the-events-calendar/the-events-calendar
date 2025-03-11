@@ -111,5 +111,16 @@ class Edit_Category extends Abstract_Admin {
 			$meta->set( $meta_key, $sanitized_value );
 		}
 		$meta->save();
+		/**
+		 * Fires after category colors are saved.
+		 *
+		 * Allows additional actions to be performed after a category's color fields are stored.
+		 *
+		 * @since TBD
+		 *
+		 * @param int   $term_id          The ID of the updated term.
+		 * @param array $category_colors  The sanitized category color values that were saved.
+		 */
+		do_action( 'tec_events_category_colors_saved', $term_id, $category_colors );
 	}
 }
