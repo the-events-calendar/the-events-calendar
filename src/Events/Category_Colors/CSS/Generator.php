@@ -139,7 +139,7 @@ class Generator {
 		$background = $this->sanitize_color( $category['background'] ) ?: 'transparent';
 		$text       = $this->sanitize_color( $category['text'] ) ?: 'inherit';
 
-		return ".tribe-events-calendar-list__category--{$class} {\n"
+		return ".tribe-events-calendar__category--{$class} {\n"
 		       . "    --tec-category-primary: {$primary};\n"
 		       . "    --tec-category-secondary: {$background};\n"
 		       . "    --tec-category-text: {$text};\n"

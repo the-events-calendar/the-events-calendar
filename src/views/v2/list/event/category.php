@@ -45,7 +45,7 @@ $category = reset( $categories );
 ?>
 
 <div class="tribe-events-calendar-list__event-categories">
-	<div class="tribe-events-calendar-list__category tribe-events-calendar-list__category--<?php echo sanitize_html_class( $category->slug ); ?>">
+	<div class="tribe-events-calendar-list__category tribe-events-calendar__category--<?php echo sanitize_html_class( $category->slug ); ?>">
 		<span class="tribe-events-calendar-list__category-icon"></span>
 		<?php echo esc_html( $category->name ); ?>
 	</div>

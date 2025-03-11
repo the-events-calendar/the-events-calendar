@@ -23,7 +23,7 @@ $event_classes = tribe_get_post_class( [ 'tribe-events-calendar-list__event', 't
 
 $categories       = get_the_terms( $event->ID, 'tribe_events_cat' ) ?: [];
 $category_classes = array_map(
-	fn( $category ) => 'tribe-events-calendar-list__category--' . sanitize_html_class( $category->slug ),
+	fn( $category ) => 'tribe-events-calendar__category--' . sanitize_html_class( $category->slug ),
 	(array) $categories
 );
 
