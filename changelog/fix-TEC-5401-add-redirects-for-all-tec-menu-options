@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Added one time redirect to the First Time Setup page. [TEC-5401]

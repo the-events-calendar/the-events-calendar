@@ -188,14 +188,12 @@ class Settings {
 			return 'tec-events';
 		}
 
-		$menu_slug = add_query_arg(
+		return add_query_arg(
 			[
 				'post_type' => Plugin::POSTTYPE,
 			],
 			'edit.php'
 		);
-
-		return $menu_slug;
 	}
 
 	/**
@@ -221,6 +219,9 @@ class Settings {
 			]
 		);
 
+		// Redirect all TEC admin pages to First Time Setup.
+		$this->redirect_tec_pages_to_first_time_setup();
+
 		// Redirects users from the outdated Help page to the new Help Hub page if accessed.
 		$this->redirect_to_help_hub();
 
@@ -244,6 +245,75 @@ class Settings {
 
 		$this->maybe_add_troubleshooting();
 		$this->maybe_add_app_shop();
+	}
+
+	/**
+	 * Redirects users to the First Time Setup page when accessing any TEC settings or management page for the first time.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function redirect_tec_pages_to_first_time_setup(): void {
+		// If there is more than one previous version, don't redirect since they're probably already setup.
+		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
+		if ( count( $tec_versions ) > 1 ) {
+			return;
+		}
+
+		// Get some information about the page that we are trying to access.
+		$page      = tribe_get_request_var( 'page' );
+		$post_type = tribe_get_request_var( 'post_type' );
+		$taxonomy  = tribe_get_request_var( 'taxonomy' );
+
+		// Only target The Events Calendar-related admin pages.
+		if ( ! in_array( $post_type, [ 'tribe_events', 'tribe_event_series', 'tribe_venue', 'tribe_organizer' ], true ) ) {
+			return;
+		}
+
+		// Prevent infinite redirect: If already on the First Time Setup page, do nothing.
+		if ( 'first-time-setup' === $page ) {
+			return;
+		}
+
+		// Check if the user has already been redirected to the First Time Setup page.
+		$visited_first_time_setup = get_option( 'tec_onboarding_wizard_visited_first_time_setup', false );
+		if ( $visited_first_time_setup ) {
+			// If they already visited, no redirection is needed.
+			return;
+		}
+
+		// Define the base scripts that should trigger the redirect.
+		$redirect_scripts = [
+			'/wp-admin/edit.php',       // Main Events page, Series, Instructors, Venues, Organizers.
+			'/wp-admin/post-new.php',   // Add New Event.
+			'/wp-admin/edit-tags.php',  // Tags, Event Categories, Venue Categories, Organizer Categories.
+		];
+
+		// Define admin pages that use the 'page' parameter.
+		$redirect_admin_pages = [
+			'aggregator',         // Import.
+			'tec-events-settings', // Settings.
+		];
+
+		// Check if the current script is one of the redirect targets.
+		$current_script = $_SERVER['SCRIPT_NAME'] ?? '';
+
+		if ( in_array( $current_script, $redirect_scripts, true ) || in_array( $page, $redirect_admin_pages, true ) ) {
+			$setup_url = add_query_arg(
+				[
+					'post_type' => 'tribe_events',
+					'page'      => 'first-time-setup',
+				],
+				admin_url( 'edit.php' )
+			);
+
+			// Stop redirecting once we send the user to the First Time Setup page once.
+			update_option( 'tec_onboarding_wizard_visited_first_time_setup', true );
+
+			wp_safe_redirect( $setup_url );
+			exit;
+		}
 	}
 
 	/**
@@ -379,8 +449,8 @@ class Settings {
 		$current_page = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 		$url          = add_query_arg(
 			[
-				'page'      => $page,
-				'tab'       => $tab,
+				'page' => $page,
+				'tab'  => $tab,
 			],
 			$current_page
 		);
@@ -491,7 +561,7 @@ class Settings {
 	 * @since 6.0.5
 	 * @since 6.2.1 Correctly prepend 'general' and 'display' tabs to the beginning.
 	 *
-	 * @param array $tabs        The array of tabs.
+	 * @param array  $tabs        The array of tabs.
 	 * @param string $admin_page The ID of the admin page we are on.
 	 *
 	 * @todo deprecate this when we can get the tab priority working correctly, globally.
@@ -606,7 +676,7 @@ class Settings {
 			return $options;
 		}
 
-		$tec_tabs = $this->get_events_settings_tabs_ids();
+		$tec_tabs                         = $this->get_events_settings_tabs_ids();
 		$form_options['hideSettingsTabs'] = $_POST['hideSettingsTabs'];
 
 		// Iterate over the TEC settings tab ids and merge the network settings.
@@ -671,10 +741,10 @@ class Settings {
 		// Loop through the term array above and create teaser checkboxes.
 		ob_start();
 
-		foreach( $views as $name => $label ) { ?>
+		foreach ( $views as $name => $label ) { ?>
 			<label title="Summary" class="tec-disabled">
-				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled>
-				<?php echo esc_attr( $label ) ?>
+				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ); ?>" disabled>
+				<?php echo esc_attr( $label ); ?>
 				<a
 					href="https://evnt.is/1bb-"
 					class="tec-settings-teaser-pill"
@@ -682,14 +752,15 @@ class Settings {
 				><?php echo esc_html( $tooltip_label ); ?>
 				</a>
 			</label>
-		<?php }
+			<?php
+		}
 
 		$ecp_string = ob_get_clean();
 
 		// Insert the teaser checkboxes.
-		$pattern    = '/label><p/m';
-		$subst      = 'label>' . $ecp_string . '<p';
-		$output     = preg_replace($pattern, $subst, $output, 1);
+		$pattern = '/label><p/m';
+		$subst   = 'label>' . $ecp_string . '<p';
+		$output  = preg_replace( $pattern, $subst, $output, 1 );
 
 		return $output;
 	}
@@ -713,7 +784,7 @@ class Settings {
 	 * should we show the upgrade nags?
 	 *
 	 * @since 4.9.12
-	 * @since 6.0.5	 Moved to Settings class.
+	 * @since 6.0.5  Moved to Settings class.
 	 *
 	 * @return boolean
 	 */
@@ -732,7 +803,7 @@ class Settings {
 		 *
 		 * @param bool $can_show_tab True or False for showing the Upgrade Tab.
 		 */
-		$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
+		$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab );
 
 		if ( ! $can_show_tab ) {
 			return false;
@@ -780,7 +851,7 @@ class Settings {
 					'name' => 'tribe_upgrade',
 					'data' => [
 						'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
-						'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
+						'button_text'   => __( 'Upgrade your calendar views', 'the-events-calendar' ),
 					],
 				],
 			]
@@ -805,7 +876,8 @@ class Settings {
 		$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
 		new Tab(
-			'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
+			'upgrade',
+			esc_html__( 'Upgrade', 'the-events-calendar' ),
 			[
 				'priority'      => 100,
 				'fields'        => $upgrade_fields,
@@ -816,7 +888,7 @@ class Settings {
 
 		add_filter(
 			'tec_events_settings_tabs_ids',
-			function( $tabs ) {
+			function ( $tabs ) {
 				$tabs[] = 'upgrade';
 				return $tabs;
 			}
