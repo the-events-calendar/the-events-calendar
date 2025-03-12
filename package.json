@@ -70,7 +70,9 @@
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
-    "classy:format": "wp-scripts format src/resource/packages/classy tests/classy_jest"
+    "classy:format": "wp-scripts format src/resources/packages/classy tests/classy_jest",
+    "classy:test": "jest tests/classy_jest",
+    "classy:prepare": "npm run classy:format && npm run classy:test"
   },
   "engines": {
     "node": "18.17.0",
