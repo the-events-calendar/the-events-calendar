@@ -43,15 +43,15 @@ class Back_Compatible_Editor {
 	 *
 	 * @return bool Hard-coded false to mean "never load legacy blocks on Events".
 	 */
-	public function is_events_using_blocks():bool{
+	public function is_events_using_blocks(): bool {
 		return false;
 	}
 
-	public function is_blocks_editor_toggled_on():bool{
+	public function is_blocks_editor_toggled_on(): bool {
 		return false;
 	}
 
-	public function is_events_post_type():bool{
+	public function is_events_post_type(): bool {
 		return false;
 	}
 }

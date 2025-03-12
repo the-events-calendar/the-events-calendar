@@ -109,7 +109,6 @@ class Controller extends ControllerContract {
 	 *
 	 * @return void The Classy template tag is filtered accordingly.
 	 * @see   \Tribe__Events__Main::plugins_loaded()
-	 *
 	 */
 	public static function early_register(): void {
 		if ( ! self::is_feature_active() ) {
@@ -162,20 +161,20 @@ class Controller extends ControllerContract {
 			'tec-classy',
 			'classy.js'
 		)->add_to_group_path( TEC::class . '-packages' )
-		     ->add_to_group( 'tec-classy' )
-		     ->enqueue_on( 'enqueue_block_editor_assets' )
-		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-		     ->add_localize_script( 'tec.events.classy.data', [$this, 'get_data' ] )
-		     ->register();
+			->add_to_group( 'tec-classy' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
+			->register();
 
 		Asset::add(
 			'tec-classy-style',
 			'style-classy.css'
 		)->add_to_group_path( TEC::class . '-packages' )
-		     ->add_to_group( 'tec-classy' )
-		     ->enqueue_on( 'enqueue_block_editor_assets' )
-		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-		     ->register();
+			->add_to_group( 'tec-classy' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->register();
 	}
 
 	/**
@@ -213,7 +212,7 @@ class Controller extends ControllerContract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string,string> $settings The Block Editor settings.
+	 * @param array<string,string>    $settings The Block Editor settings.
 	 * @param WP_Block_Editor_Context $context
 	 *
 	 * @return array<string,string> The updated Block Editor settings.
