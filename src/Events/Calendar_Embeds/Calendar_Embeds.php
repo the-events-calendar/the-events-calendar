@@ -10,9 +10,7 @@
 namespace TEC\Events\Calendar_Embeds;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use RuntimeException;
 use WP_Post;
-use WP_Post_Type;
 use Tribe__Events__Main as TEC_Plugin;
 use WP_Term;
 use TEC\Common\StellarWP\DB\DB;
@@ -34,33 +32,6 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @var string
 	 */
 	const POSTTYPE = 'tec_calendar_embed';
-
-	/**
-	 * The meta key for storing the event categories.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	const META_KEY_CATEGORIES = 'tec_events_calendar_embeds_event_categories';
-
-	/**
-	 * The meta key for storing the event tags.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	const META_KEY_TAGS = 'tec_events_calendar_embeds_event_tags';
-
-	/**
-	 * The post type object.
-	 *
-	 * @since TBD
-	 *
-	 * @var ?WP_Post_Type
-	 */
-	protected ?WP_Post_Type $post_type_object = null;
 
 	/**
 	 * Registers the filters and actions hooks added by the controller.
@@ -231,7 +202,7 @@ class Calendar_Embeds extends Controller_Contract {
 		 */
 		$args = apply_filters( 'tec_events_calendar_embeds_post_type_args', $args );
 
-		$this->post_type_object = register_post_type( static::POSTTYPE, $args );
+		register_post_type( static::POSTTYPE, $args );
 	}
 
 	/**
@@ -308,21 +279,5 @@ class Calendar_Embeds extends Controller_Contract {
 		}
 
 		return array_filter( $tags, static fn ( $t ) => $t instanceof WP_Term );
-	}
-
-	/**
-	 * Get the post type object.
-	 *
-	 * @since TBD
-	 *
-	 * @return WP_Post_Type
-	 * @throws RuntimeException If the post type object is not set.
-	 */
-	public function get_post_type_object(): WP_Post_Type {
-		if ( ! $this->post_type_object ) {
-			throw new RuntimeException( __( 'Attempted to get post type object before it was set.', 'the-events-calendar' ) );
-		}
-
-		return $this->post_type_object;
 	}
 }
