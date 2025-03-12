@@ -1,22 +1,87 @@
 /**
+* Event Month Styling
+*/
+.tribe-events {
+	.tribe-events-calendar-month__calendar-event {
+		.tribe-events-calendar-month__calendar-event-details {
+			background-color: var(--tec-category-secondary);
+			border-left: 3px solid var(--tec-category-primary);
+			padding: var(--tec-spacer-1);
+			color: var(--tec-category-text);
+		}
+
+		.tribe-events-calendar-month__calendar-event-datetime {
+			color: var(--tec-category-text);
+		}
+
+		&.tribe-events-calendar-month__calendar-event--featured {
+			&:before {
+				background-color: transparent;
+				height: inherit;
+				left: inherit;
+				position: inherit;
+				width: inherit;
+			}
+		}
+
+		.tribe-events-calendar-month__calendar-event-datetime-featured-icon-svg {
+			color: var(--tec-category-primary);
+		}
+
+		.tribe-events-calendar-month__calendar-event-title {
+			color: var(--tec-category-text);
+
+			.tribe-events-calendar-month__calendar-event-title-link {
+				color: var(--tec-category-text);
+			}
+		}
+	}
+
+	.tribe-events-calendar-month__multiday-event-bar {
+		position: relative;
+		padding-left: var(--tec-spacer-1);
+
+		&:before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 50%;
+			transform: translateY(-50%);
+			width: .5em;
+			height: 100%;
+			background-color: var(--tec-category-primary);
+			border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
+		}
+
+		.tribe-events-calendar-month__multiday-event-bar-inner {
+			padding: 1px var(--tec-spacer-1);
+			background-color: var(--tec-category-secondary);
+			transition: none;
+		}
+	}
+
+}
+
+/**
  * Event List Styling
  */
 
 .tribe-events-calendar-list {
 
-	.tribe-events-calendar-list__event-date-tag{
-		.tribe-events-calendar-list__event-date-tag-datetime{
+	.tribe-events-calendar-list__event-date-tag {
+		.tribe-events-calendar-list__event-date-tag-datetime {
 			&:after {
-				background-color:var(--tec-category-primary);
+				background-color: var(--tec-category-primary);
 				border-radius: var(--tec-border-radius-default);
 				content: '';
 				height: 100%;
 				position: absolute;
-				right:-1px;
+				right: -1px;
 				width: 4px;
 			}
 		}
 	}
+
 	/**
 	Add border to left side of event
 	 **/

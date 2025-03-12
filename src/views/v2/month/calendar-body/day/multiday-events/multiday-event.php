@@ -29,6 +29,13 @@ $classes = \Tribe\Events\Views\V2\month_multiday_classes( $event, $day_date, $is
 
 $start_display_date = $event->dates->start_display->format( 'Y-m-d' );
 
+$categories       = get_the_terms( $event->ID, 'tribe_events_cat' ) ?: [];
+$category_classes = array_map(
+	fn( $category ) => 'tribe-events-calendar__category--' . sanitize_html_class( $category->slug ),
+	(array) $categories
+);
+
+$classes = array_merge( $classes, $category_classes );
 ?>
 <div class="tribe-events-calendar-month__multiday-event-wrapper">
 	<article <?php tribe_classes( $classes ); ?> data-event-id="<?php echo esc_attr( $event->ID ); ?>">
