@@ -7,17 +7,24 @@ const {readdirSync, statSync, existsSync} = require('fs');
  * See: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/#advanced-usage
  */
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const pluginNamespace = [ 'tec', 'events' ];
 
 const {
-	TECLegacyJs,
-	TECPostCss,
-	TECLegacyBlocksFrontendPostCss,
-	TECPackage,
+	createTECLegacyJs,
+	createTECPostCss,
+	createTECLegacyBlocksFrontendPostCss,
+	createTECPackage,
 	compileCustomEntryPoints,
 	exposeEntry,
 	doNotPrefixSVGIdsClasses,
 	WindowAssignPropertiesPlugin,
 } = require('@stellarwp/tyson');
+
+// Create schema instances with the "tec" namespace
+const TECLegacyJs = createTECLegacyJs(pluginNamespace);
+const TECPostCss = createTECPostCss(pluginNamespace);
+const TECLegacyBlocksFrontendPostCss = createTECLegacyBlocksFrontendPostCss(pluginNamespace);
+const TECPackage = createTECPackage(pluginNamespace);
 
 /**
  * Compile a list of entry points to be compiled to the format used by WebPack to define multiple entry points.
@@ -73,12 +80,12 @@ const customEntryPoints = compileCustomEntryPoints({
  * The existing Block Editor code is not follow the `block.json` based convention expected by
  * `@wordpress/scripts` so here we explicitly point out the root index.
  */
-customEntryPoints['app/main'] = exposeEntry('tec.app.main', __dirname + '/src/modules/index.js');
+customEntryPoints['app/main'] = exposeEntry('tec.events.app.main', __dirname + '/src/modules/index.js');
 
 /**
  * Same as above, widgets are built like legacy blocks and are not following the `block.json` convention.
  */
-customEntryPoints['app/widgets'] = exposeEntry('tec.app.widgets', __dirname + '/src/modules/widgets/index.js');
+customEntryPoints['app/widgets'] = exposeEntry('tec.events.app.widgets', __dirname + '/src/modules/widgets/index.js');
 
 /**
  * Prepends a loader for SVG files that will be applied after the default one. Loaders are applied
