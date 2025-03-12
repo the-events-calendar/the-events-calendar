@@ -296,8 +296,8 @@ class Settings {
 			'tec-events-settings', // Settings.
 		];
 
-		// Check if the current script is one of the redirect targets.
-		$current_script = $_SERVER['SCRIPT_NAME'] ?? '';
+		// Get the current script name and sanitize it.
+		$current_script = isset( $_SERVER['SCRIPT_NAME'] ) ? esc_url_raw( $_SERVER['SCRIPT_NAME'] ) : '';
 
 		if ( in_array( $current_script, $redirect_scripts, true ) || in_array( $page, $redirect_admin_pages, true ) ) {
 			$setup_url = add_query_arg(
