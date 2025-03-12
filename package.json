@@ -55,15 +55,13 @@
     ]
   },
   "scripts": {
-    "analyze": "webpack-bundle-analyzer -m static stats.json",
+    "analyze": "wp-scripts build --webpack-bundle-analyzer",
     "before-zip": "bash bin/action-before-zip.sh",
     "bootstrap": "./scripts/linkDependencies",
-    "build:common": "export NODE_OPTIONS=--openssl-legacy-provider && cd common && npm run build",
-    "build:gulp": "cross-env NODE_ENV=production gulp",
-    "build:webpack": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=production webpack -p",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && npm run build:webpack && npm run build:gulp",
+    "build:common": "cd common && npm run build",
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
     "changelog": "./vendor/bin/changelogger add",
-    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && cross-env NODE_ENV=development webpack -d --watch",
     "gettext-strings": "cross-env BABEL_ENV=gettext webpack",
     "glotpress": "gulp glotpress",
     "jest": "TZ=UTC gulp jest",
@@ -71,7 +69,6 @@
     "lint:stylelint": "gulp stylelint",
     "lint": "npm run lint:eslint && npm run lint:stylelint",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
-    "preanalyze": "cross-env NODE_ENV=production webpack -p --profile --json > stats.json",
     "rebuild": "rm -rf node_modules && npm install && npm run build"
   },
   "engines": {
@@ -80,7 +77,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@stellarwp/tyson": "^0.0.2",
+    "@stellarwp/tyson": "^0.0.3",
     "@types/wordpress__block-editor": "^11.5.16",
     "@types/wordpress__components": "^23.8.0",
     "@types/wordpress__data": "^7.0.0",
@@ -88,6 +85,7 @@
     "@types/wordpress__hooks": "^2.11.0",
     "@types/wordpress__i18n": "^3.11.0",
     "@types/wordpress__plugins": "^6.0.0",
+    "@wordpress/hooks": "^1.3.2",
     "@wordpress/scripts": "^30.7.0",
     "cross-env": "^5.2.0",
     "enzyme-to-json": "^3.6.1",
