@@ -113,7 +113,8 @@ Category pill area
 			background-color: var(--tec-category-primary);
 			border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
 		}
-		.tribe-events-calendar-month__multiday-event-bar-featured-icon-svg{
+
+		.tribe-events-calendar-month__multiday-event-bar-featured-icon-svg {
 			color: var(--tec-category-primary);
 		}
 
@@ -131,10 +132,6 @@ Category pill area
  */
 
 .tribe-events-calendar-list {
-	.tribe-events-calendar-list__event {
-		position: relative;
-	}
-
 	.tribe-events-calendar-list__event-row--featured {
 		.tribe-events-calendar-list__event-date-tag-datetime {
 			&:after {
@@ -145,6 +142,8 @@ Category pill area
 	}
 
 	.tribe-events-calendar-list__event {
+		position: relative;
+
 		&:after {
 			background-color: var(--tec-category-primary);
 			border-radius: var(--tec-border-radius-default);
@@ -192,6 +191,36 @@ Category pill area
 				display: inline-block;
 				margin-right: var(--tec-spacer-0);
 			}
+		}
+	}
+
+
+}
+
+/**
+ * Event Summary Styling
+ */
+
+.tribe-events-pro-summary {
+
+	.tribe-events-pro-summary__event {
+		.tribe-events-pro-summary__event-title {
+			position: relative;
+
+			&:after {
+				background-color: var(--tec-category-primary);
+				border-radius: var(--tec-border-radius-default);
+				content: '';
+				height: 100%;
+				position: absolute;
+				width: 4px;
+				left: -8px;
+				top: 0;
+			}
+		}
+
+		.tribe-events-pro-summary__event-title-featured-icon-svg {
+			color: var(--tec-category-primary);
 		}
 	}
 
