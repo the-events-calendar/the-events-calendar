@@ -128,4 +128,13 @@ class Controller_Test extends Controller_Test_Case {
 		$this->assertEquals( $expected, $controller->filter_block_editor_settings( [], $context ) );
 	}
 
+	public function test_get_data(): void {
+		$controller = $this->make_controller();
+
+		$data = $controller->get_data();
+
+		$this->assertEquals( [
+			'eventCategoryTaxonomyName' => TEC::TAXONOMY,
+		], $data );
+	}
 }

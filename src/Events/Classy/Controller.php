@@ -165,10 +165,7 @@ class Controller extends ControllerContract {
 		     ->add_to_group( 'tec-classy' )
 		     ->enqueue_on( 'enqueue_block_editor_assets' )
 		     ->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-		     ->add_localize_script( 'tec.classy', [
-			     'eventCategoryTaxonomyName' => TEC::TAXONOMY,
-			     ''
-		     ] )
+		     ->add_localize_script( 'tec.events.classy.data', [$this, 'get_data' ] )
 		     ->register();
 
 		Asset::add(
@@ -256,5 +253,20 @@ class Controller extends ControllerContract {
 		);
 
 		return (array) $supported_post_types;
+	}
+
+	/**
+	 * Returns the data that is localized on the page for the Classy app.
+	 *
+	 * @since TBD
+	 *
+	 * @return array{
+	 *   eventCategoryTaxonomyName: string,
+	 * }
+	 */
+	public function get_data(): array {
+		return [
+			'eventCategoryTaxonomyName' => TEC::TAXONOMY,
+		];
 	}
 }
