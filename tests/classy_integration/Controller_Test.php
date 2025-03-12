@@ -128,6 +128,9 @@ class Controller_Test extends Controller_Test_Case {
 		$this->assertEquals( $expected, $controller->filter_block_editor_settings( [], $context ) );
 	}
 
+	/**
+	 * @covers \TEC\Events\Classy\Controller::get_data
+	 */
 	public function test_get_data(): void {
 		$controller = $this->make_controller();
 
