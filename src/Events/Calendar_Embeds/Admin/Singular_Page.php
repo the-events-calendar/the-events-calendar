@@ -86,8 +86,8 @@ class Singular_Page extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $iframe The iframe markup.
-	 * @param WP_Post $embed The embed post object.
+	 * @param string  $iframe The iframe markup.
+	 * @param WP_Post $embed  The embed post object.
 	 *
 	 * @return string
 	 */
