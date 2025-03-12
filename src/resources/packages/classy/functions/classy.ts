@@ -1,6 +1,9 @@
-import {createRoot} from '@wordpress/element';
-import {Classy} from "../elements";
-import {getElement as getVisualEditorElement, toggleVisibility as toggleVisualEditorVisibility} from './visualEditor';
+import { createRoot } from '@wordpress/element';
+import { Classy } from '../elements';
+import {
+	getElement as getVisualEditorElement,
+	toggleVisibility as toggleVisualEditorVisibility,
+} from './visualEditor';
 
 /**
  * Cached instance of the classy element.
@@ -24,16 +27,18 @@ let classyElement: HTMLElement | null = null;
  *     If null, the global document will be used.
  * @returns {HTMLElement} The existing or newly created Classy element.
  */
-export function getOrCreateElement(document: Document | null = null): HTMLElement {
+export function getOrCreateElement(
+	document: Document | null = null
+): HTMLElement {
 	document = document ?? window.document;
 
-	if (classyElement !== null) {
+	if ( classyElement !== null ) {
 		return classyElement;
 	}
 
-	const element = document.createElement('div');
+	const element = document.createElement( 'div' );
 	element.id = 'tec-classy';
-	element.classList.add('classy-root', 'classy-root--admin');
+	element.classList.add( 'classy-root', 'classy-root--admin' );
 	classyElement = element;
 
 	return element;
@@ -53,17 +58,17 @@ export function getOrCreateElement(document: Document | null = null): HTMLElemen
  *
  * @returns {boolean} True if insertion was successful, false otherwise.
  */
-export function insertElement(document: Document | null = null): boolean {
+export function insertElement( document: Document | null = null ): boolean {
 	document = document ?? window.document;
-	const element = getOrCreateElement(document);
-	const visualEditor = getVisualEditorElement(document);
+	const element = getOrCreateElement( document );
+	const visualEditor = getVisualEditorElement( document );
 
-	if (visualEditor === null) {
+	if ( visualEditor === null ) {
 		return false;
 	}
 
-	visualEditor.parentNode.insertBefore(element, visualEditor.nextSibling);
-	toggleVisualEditorVisibility(document);
+	visualEditor.parentNode.insertBefore( element, visualEditor.nextSibling );
+	toggleVisualEditorVisibility( document );
 
 	return true;
 }
@@ -82,10 +87,12 @@ export function insertElement(document: Document | null = null): boolean {
  *
  * @returns {void}
  */
-export function toggleElementVisibility(document: Document | null = null): void {
+export function toggleElementVisibility(
+	document: Document | null = null
+): void {
 	document = document ?? window.document;
-	getOrCreateElement().classList.toggle('classy-root--hidden');
-	toggleVisualEditorVisibility(document);
+	getOrCreateElement().classList.toggle( 'classy-root--hidden' );
+	toggleVisualEditorVisibility( document );
 }
 
 /**
@@ -102,8 +109,8 @@ export function toggleElementVisibility(document: Document | null = null): void 
  *
  * @returns {void}
  */
-export function initApp(document: Document | null = null): void {
+export function initApp( document: Document | null = null ): void {
 	document = document ?? window.document;
-	const classyRoot = createRoot(getOrCreateElement(document));
-	classyRoot.render(Classy());
+	const classyRoot = createRoot( getOrCreateElement( document ) );
+	classyRoot.render( Classy() );
 }

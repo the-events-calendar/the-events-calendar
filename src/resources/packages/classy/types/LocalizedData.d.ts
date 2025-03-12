@@ -1,2 +1,1 @@
-export type LocalizedData = {
-}
+export type LocalizedData = {};

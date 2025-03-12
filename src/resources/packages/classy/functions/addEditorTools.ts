@@ -1,5 +1,5 @@
-import {__} from '@wordpress/i18n';
-import {registerPlugin} from '@wordpress/plugins';
+import { __ } from '@wordpress/i18n';
+import { registerPlugin } from '@wordpress/plugins';
 
 /**
  * Adds the Editor tools inserting them among the Block Editor tools.
@@ -18,23 +18,34 @@ import {registerPlugin} from '@wordpress/plugins';
  * @return {void} The Editor tools are added to the tools bar.
  */
 export function addEditorTools(
-	onClick: (this: GlobalEventHandlers, ev: MouseEvent) => void,
+	onClick: ( this: GlobalEventHandlers, ev: MouseEvent ) => void,
 	document: Document | null = null
 ): void {
 	document = document || window.document;
 
 	// 2. The function _should_ render a React component, but won't. It will insert a button.
 	function EditorTools() {
-		const editorDocumentTools = document.querySelector('.editor-document-tools .editor-document-tools__left')
-		const previewButton = document.querySelector('.tec-editor-tool--preview');
+		const editorDocumentTools = document.querySelector(
+			'.editor-document-tools .editor-document-tools__left'
+		);
+		const previewButton = document.querySelector(
+			'.tec-editor-tool--preview'
+		);
 
-		if (editorDocumentTools && previewButton === null) {
-			const previewButton = document.createElement('button')
-			previewButton.classList.add('tec-editor-tool', 'tec-editor-tool--preview', 'button');
+		if ( editorDocumentTools && previewButton === null ) {
+			const previewButton = document.createElement( 'button' );
+			previewButton.classList.add(
+				'tec-editor-tool',
+				'tec-editor-tool--preview',
+				'button'
+			);
 			previewButton.type = 'button';
 			previewButton.dataset.toolbarItem = 'true';
-			previewButton.innerHTML = `<span class="dashicons dashicons-visibility"></span>${__('Visual', 'the-events-calendar')}`;
-			editorDocumentTools.append(previewButton);
+			previewButton.innerHTML = `<span class="dashicons dashicons-visibility"></span>${ __(
+				'Visual',
+				'the-events-calendar'
+			) }`;
+			editorDocumentTools.append( previewButton );
 			previewButton.onclick = onClick;
 		}
 
@@ -43,7 +54,7 @@ export function addEditorTools(
 	}
 
 	// 1. When the time comes for plugin registration, it's the moment to insert the button.
-	registerPlugin('tec-editor-tools', {
-		render: EditorTools
-	});
+	registerPlugin( 'tec-editor-tools', {
+		render: EditorTools,
+	} );
 }

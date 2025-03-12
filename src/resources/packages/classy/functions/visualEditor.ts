@@ -15,9 +15,13 @@ let originalVisualEditorHeight: string | null = null;
  *
  * @return {HTMLElement|null} The visual editor element or null if it could not be found.
  */
-export function getElement(document: Document | null = null): HTMLElement | null {
+export function getElement(
+	document: Document | null = null
+): HTMLElement | null {
 	document = document ?? window.document;
-	return document.querySelector('.editor-visual-editor.edit-post-visual-editor') as HTMLElement | null;
+	return document.querySelector(
+		'.editor-visual-editor.edit-post-visual-editor'
+	) as HTMLElement | null;
 }
 
 /**
@@ -33,21 +37,22 @@ export function getElement(document: Document | null = null): HTMLElement | null
  *
  * @return {boolean} True if the Visual Editor visibility was toggled, false if the Visual Editor element was not found.
  */
-export function toggleVisibility(document: Document | null = null): boolean {
-	const visualEditor = getElement(document);
+export function toggleVisibility( document: Document | null = null ): boolean {
+	const visualEditor = getElement( document );
 
-	if (visualEditor === null) {
+	if ( visualEditor === null ) {
 		return false;
 	}
 
-	originalVisualEditorHeight = originalVisualEditorHeight ?? visualEditor.style.height;
+	originalVisualEditorHeight =
+		originalVisualEditorHeight ?? visualEditor.style.height;
 
-	if (visualEditor.style.height === originalVisualEditorHeight) {
+	if ( visualEditor.style.height === originalVisualEditorHeight ) {
 		visualEditor.style.height = '0';
-		visualEditor.setAttribute('aria-hidden', 'true');
+		visualEditor.setAttribute( 'aria-hidden', 'true' );
 	} else {
 		visualEditor.style.height = originalVisualEditorHeight;
-		visualEditor.removeAttribute('aria-hidden');
+		visualEditor.removeAttribute( 'aria-hidden' );
 	}
 
 	return true;

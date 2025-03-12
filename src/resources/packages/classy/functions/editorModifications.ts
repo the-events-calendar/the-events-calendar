@@ -1,4 +1,4 @@
-import {__} from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Hide the Zoom Out button in the editor toolbar.
@@ -12,17 +12,20 @@ import {__} from '@wordpress/i18n';
  *
  * @return {number} The number of hidden elements.
  */
-export function hideZoomOutButton(document: Document | null = null): number {
+export function hideZoomOutButton( document: Document | null = null ): number {
 	document = document || window.document;
 
 	// Remove the Zoom Out button. The only way is by its aria label.
-	const zoomOutAriaLabel = __('Zoom Out');
+	const zoomOutAriaLabel = __( 'Zoom Out' );
 	let hidden = 0;
-	document.querySelectorAll(`.components-button[aria-label="${zoomOutAriaLabel}"]`)
-		.forEach((el: HTMLElement) => {
+	document
+		.querySelectorAll(
+			`.components-button[aria-label="${ zoomOutAriaLabel }"]`
+		)
+		.forEach( ( el: HTMLElement ) => {
 			hidden++;
-			return el.style.display = 'none';
-		});
+			return ( el.style.display = 'none' );
+		} );
 
 	return hidden;
 }
@@ -36,15 +39,16 @@ export function hideZoomOutButton(document: Document | null = null): number {
  *
  * @return {number} The number of buttons hidden
  */
-export function hideInserterToggle(document: Document | null = null): number {
+export function hideInserterToggle( document: Document | null = null ): number {
 	document = document || window.document;
 
 	let hidden = 0;
-	document.querySelectorAll('.editor-document-tools__inserter-toggle')
-		.forEach((button: HTMLElement) => {
+	document
+		.querySelectorAll( '.editor-document-tools__inserter-toggle' )
+		.forEach( ( button: HTMLElement ) => {
 			hidden++;
-			return button.style.display = 'none';
-		});
+			return ( button.style.display = 'none' );
+		} );
 
 	return hidden;
 }
