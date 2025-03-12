@@ -73,6 +73,7 @@ class Calendar_Embeds extends Controller_Contract {
 		add_action( 'init', [ $this, 'register_post_type' ], 15 );
 		add_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ], 10, 2 );
 		add_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ], 10, 4 );
+		add_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table'], 10, 2 );
 	}
 
 	/**
@@ -86,6 +87,53 @@ class Calendar_Embeds extends Controller_Contract {
 		remove_action( 'init', [ $this, 'register_post_type' ], 15 );
 		remove_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ] );
 		remove_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ] );
+		remove_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table'] );
+	}
+
+	/**
+	 * Modifies the term count on the term list tables to ignore Calendar embeds from their count.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $terms      The terms.
+	 * @param array $taxonomies The taxonomies.
+	 *
+	 * @return array
+	 */
+	public function modify_term_count_on_term_list_table( array $terms, array $taxonomies ): array {
+		if ( ! in_array( TEC_Plugin::TAXONOMY, $taxonomies, true ) && ! in_array( 'post_tag', $taxonomies, true ) ) {
+			return $terms;
+		}
+
+		$screen = get_current_screen();
+
+		if ( ! $screen ) {
+			return $terms;
+		}
+
+		if ( $screen->id !== 'edit-' . TEC_Plugin::TAXONOMY && $screen->id !== 'edit-post_tag' ) {
+			return $terms;
+		}
+
+		foreach ( $terms as &$term ) {
+			if ( ! $term instanceof WP_Term ) {
+				continue;
+			}
+
+			$term->count -= (int) DB::get_var(
+				DB::prepare(
+					"SELECT COUNT( t.object_ID ) FROM %i t INNER JOIN %i p ON t.object_id = p.ID WHERE t.term_taxonomy_id = %d AND p.post_type = %s",
+					DB::prefix( 'term_relationships' ),
+					DB::prefix( 'posts' ),
+					$term->term_id,
+					static::POSTTYPE
+				)
+			);
+
+			$term->count = max( 0, $term->count );
+		}
+
+		return $terms;
 	}
 
 	/**
