@@ -1,4 +1,65 @@
 /**
+* Event Day Styling
+*/
+
+
+.tribe-events-calendar-day {
+	.tribe-events-calendar-day__event {
+		position: relative;
+
+		&:after {
+			background-color: var(--tec-category-primary);
+			content: '';
+			height: 100%;
+			position: absolute;
+			width: 4px;
+			left: calc(var(--tec-grid-width-1-of-9) - var(--tec-grid-gutter-half));
+		}
+	}
+
+	.tribe-events-calendar-day__event--featured {
+		.tribe-events-calendar-day__event-datetime-featured-icon-svg,
+		.tribe-events-calendar-day__event-datetime-featured-text {
+			color: var(--tec-category-primary);
+		}
+
+		&:after {
+			background-color: var(--tec-category-primary);
+		}
+	}
+
+	.tribe-events-calendar-day__event-categories {
+		display: inline;
+
+		/**
+Category pill area
+ **/
+
+		.tribe-events-calendar-day__category {
+			background: var(--tec-category-secondary);
+			color: var(--tec-category-text);
+			padding: 0 var(--tec-spacer-1);
+			border-radius: var(--tec-border-radius-pill);
+			width: fit-content;
+			font-size: var(--tec-font-size-2);
+			line-height: var(--tec-line-height-3);
+			display: flex;
+			align-items: center;
+
+			.tribe-events-calendar-day__category-icon {
+				background-color: var(--tec-category-primary);
+				width: 14px;
+				aspect-ratio: 1/1;
+				border-radius: 50%;
+				display: inline-block;
+				margin-right: var(--tec-spacer-0);
+			}
+		}
+	}
+}
+
+
+/**
 * Event Month Styling
 */
 .tribe-events {
@@ -52,6 +113,9 @@
 			background-color: var(--tec-category-primary);
 			border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
 		}
+		.tribe-events-calendar-month__multiday-event-bar-featured-icon-svg{
+			color: var(--tec-category-primary);
+		}
 
 		.tribe-events-calendar-month__multiday-event-bar-inner {
 			padding: 1px var(--tec-spacer-1);
@@ -67,28 +131,29 @@
  */
 
 .tribe-events-calendar-list {
+	.tribe-events-calendar-list__event {
+		position: relative;
+	}
 
-	.tribe-events-calendar-list__event-date-tag {
+	.tribe-events-calendar-list__event-row--featured {
 		.tribe-events-calendar-list__event-date-tag-datetime {
 			&:after {
-				background-color: var(--tec-category-primary);
-				border-radius: var(--tec-border-radius-default);
-				content: '';
-				height: 100%;
-				position: absolute;
-				right: -1px;
-				width: 4px;
+				width: 0;
+				background-color: transparent;
 			}
 		}
 	}
 
-	/**
-	Add border to left side of event
-	 **/
-
-	/*.tribe-events-calendar-list__event {
-		border-left: 3px solid var(--tec-category-primary);
-	}*/
+	.tribe-events-calendar-list__event {
+		&:after {
+			background-color: var(--tec-category-primary);
+			border-radius: var(--tec-border-radius-default);
+			content: '';
+			height: 100%;
+			position: absolute;
+			width: 4px;
+		}
+	}
 
 	/**
 	Featured Event Area

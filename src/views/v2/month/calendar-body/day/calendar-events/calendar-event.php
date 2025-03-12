@@ -20,14 +20,6 @@ $classes = tribe_get_post_class( [ 'tribe-events-calendar-month__calendar-event'
 
 $classes['tribe-events-calendar-month__calendar-event--featured'] = ! empty( $event->featured );
 $classes['tribe-events-calendar-month__calendar-event--sticky']   = ( -1 === $event->menu_order );
-
-$categories       = get_the_terms( $event->ID, 'tribe_events_cat' ) ?: [];
-$category_classes = array_map(
-	fn( $category ) => 'tribe-events-calendar__category--' . sanitize_html_class( $category->slug ),
-	(array) $categories
-);
-
-$classes = array_merge( $classes, $category_classes );
 ?>
 
 <article <?php tribe_classes( $classes ) ?>>
@@ -45,5 +37,5 @@ $classes = array_merge( $classes, $category_classes );
 
 
 
-	
+
 </article>

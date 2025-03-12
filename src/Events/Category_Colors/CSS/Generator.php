@@ -139,7 +139,8 @@ class Generator {
 		$background = $this->sanitize_color( $category['background'] ) ?: 'transparent';
 		$text       = $this->sanitize_color( $category['text'] ) ?: 'inherit';
 
-		return ".tribe-events-calendar__category--{$class} {\n"
+		// @todo - Look into changing `tribe_events_cat-` to be the taxonomy name instead of hard coding it.
+		return ".tribe_events_cat-{$class} {\n"
 		       . "    --tec-category-primary: {$primary};\n"
 		       . "    --tec-category-secondary: {$background};\n"
 		       . "    --tec-category-text: {$text};\n"

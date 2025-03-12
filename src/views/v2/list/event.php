@@ -20,14 +20,6 @@ $container_classes = [ 'tribe-common-g-row', 'tribe-events-calendar-list__event-
 $container_classes['tribe-events-calendar-list__event-row--featured'] = $event->featured;
 
 $event_classes = tribe_get_post_class( [ 'tribe-events-calendar-list__event', 'tribe-common-g-row', 'tribe-common-g-row--gutters' ], $event->ID );
-
-$categories       = get_the_terms( $event->ID, 'tribe_events_cat' ) ?: [];
-$category_classes = array_map(
-	fn( $category ) => 'tribe-events-calendar__category--' . sanitize_html_class( $category->slug ),
-	(array) $categories
-);
-
-$container_classes = array_merge( $container_classes, $category_classes );
 ?>
 <div <?php tribe_classes( $container_classes ); ?>>
 

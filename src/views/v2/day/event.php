@@ -21,6 +21,14 @@ $classes = tribe_get_post_class( [ 'tribe-common-g-row', 'tribe-common-g-row--gu
 if ( ! empty( $event->featured ) ) {
 	$classes[] = 'tribe-events-calendar-day__event--featured';
 }
+
+$categories       = get_the_terms( $event->ID, 'tribe_events_cat' ) ?: [];
+$category_classes = array_map(
+	fn( $category ) => 'tribe-events-calendar__category--' . sanitize_html_class( $category->slug ),
+	(array) $categories
+);
+
+$classes = array_merge( $classes, $category_classes );
 ?>
 <article <?php tribe_classes( $classes ); ?>>
 	<div class="tribe-events-calendar-day__event-content tribe-common-g-col">
@@ -33,6 +41,7 @@ if ( ! empty( $event->featured ) ) {
 				<?php $this->template( 'day/event/date', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/event/title', [ 'event' => $event ] ); ?>
 				<?php $this->template( 'day/event/venue', [ 'event' => $event ] ); ?>
+				<?php $this->template( 'day/event/category', [ 'event' => $event ] ); ?>
 			</header>
 
 			<?php $this->template( 'day/event/description', [ 'event' => $event ] ); ?>
