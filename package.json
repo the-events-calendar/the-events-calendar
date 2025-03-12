@@ -58,7 +58,7 @@
     "start": "wp-scripts start",
     "changelog": "./vendor/bin/changelogger add",
     "test": "jest",
-    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
+    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G"
   },
   "engines": { "node": "18.17.0", "npm": "9.6.7" },
   "devDependencies": {
