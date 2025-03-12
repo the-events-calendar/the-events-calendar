@@ -105,6 +105,11 @@ class Calendar_Embeds extends Controller_Contract {
 			return $terms;
 		}
 
+		if ( ! is_admin() ) {
+			// Should only run on BE.
+			return $terms;
+		}
+
 		$screen = get_current_screen();
 
 		if ( ! $screen ) {
