@@ -47,9 +47,9 @@ usort(
 $category = reset( $categories );
 ?>
 
-<div class="tribe-events-calendar-list__event-categories">
-	<div class="tribe-events-calendar-list__category tribe-events-calendar__category--<?php echo sanitize_html_class( $category->slug ); ?>">
-		<span class="tribe-events-calendar-list__category-icon"></span>
+<div class="tec-events-calendar-list__event-categories">
+	<div class="tec-events-calendar-list__category tribe-events-calendar__category--<?php echo sanitize_html_class( $category->slug ); ?>">
+		<span class="tec-events-calendar-list__category-icon"></span>
 		<?php echo esc_html( $category->name ); ?>
 	</div>
 </div>

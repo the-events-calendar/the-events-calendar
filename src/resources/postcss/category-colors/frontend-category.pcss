@@ -28,14 +28,14 @@
 		}
 	}
 
-	.tribe-events-calendar-day__event-categories {
+	.tec-events-calendar-day__event-categories {
 		display: inline;
 
 		/**
 Category pill area
  **/
 
-		.tribe-events-calendar-day__category {
+		.tec-events-calendar-day__category {
 			background: var(--tec-category-secondary);
 			color: var(--tec-category-text);
 			padding: 0 var(--tec-spacer-1);
@@ -46,7 +46,7 @@ Category pill area
 			display: flex;
 			align-items: center;
 
-			.tribe-events-calendar-day__category-icon {
+			.tec-events-calendar-day__category-icon {
 				background-color: var(--tec-category-primary);
 				width: 14px;
 				aspect-ratio: 1/1;
@@ -169,10 +169,10 @@ Category pill area
 	Category pill area
 	 **/
 
-	.tribe-events-calendar-list__event-categories {
+	.tec-events-calendar-list__event-categories {
 		display: inline;
 
-		.tribe-events-calendar-list__category {
+		.tec-events-calendar-list__category {
 			background: var(--tec-category-secondary);
 			color: var(--tec-category-text);
 			padding: 0 var(--tec-spacer-1);
@@ -183,7 +183,7 @@ Category pill area
 			display: flex;
 			align-items: center;
 
-			.tribe-events-calendar-list__category-icon {
+			.tec-events-calendar-list__category-icon {
 				background-color: var(--tec-category-primary);
 				width: 14px;
 				aspect-ratio: 1/1;
@@ -223,6 +223,47 @@ Category pill area
 			color: var(--tec-category-primary);
 		}
 	}
+}
 
+/**
+ * Event Photo Styling
+**/
+
+.tribe-events-pro-photo {
+	/**
+Category pill area
+**/
+
+	.tribe-events-pro-photo__event--featured {
+		.tribe-events-pro-photo__event-datetime-featured-icon-svg,
+		.tribe-events-pro-photo__event-datetime-featured-text {
+			color: var(--tec-category-primary);
+		}
+	}
+
+	.tec-events-calendar-photo__category {
+		background: var(--tec-category-secondary);
+		color: var(--tec-category-text);
+		padding: 0 var(--tec-spacer-1);
+		border-radius: var(--tec-border-radius-pill);
+		width: fit-content;
+		font-size: var(--tec-font-size-2);
+		line-height: var(--tec-line-height-3);
+		display: flex;
+		align-items: center;
+
+		.tec-events-calendar-photo__category-icon {
+			background-color: var(--tec-category-primary);
+			width: 14px;
+			aspect-ratio: 1/1;
+			border-radius: 50%;
+			display: inline-block;
+			margin-right: var(--tec-spacer-0);
+		}
+	}
 
 }
+
+/**
+ * Event Week Styling
+**/
