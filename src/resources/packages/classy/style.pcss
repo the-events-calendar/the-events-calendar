@@ -37,7 +37,7 @@
 
 .classy-root {
 	/* By default the root will cover the Block Editor by forcing it to a height of 0 */
-	background-color: aliceblue;
+	//background-color: aliceblue;
 	height: 100%;
 	opacity: 1;
 	transition: opacity .75s ease, height .35s ease;
@@ -54,40 +54,30 @@
 		justify-content: center;
 		align-items: center;
 		flex-wrap: wrap;
+		margin: 0 auto;
+		gap: var(--tec-spacer-8);
+		padding: var(--tec-spacer-9) 120px 106px 120px;
+		flex: 1 0 0;
+		align-self: stretch;
 	}
 
-	.classy-title {
-		text-align: center;
-	}
-
-	.classy-input {
-		flex-grow: 1;
+	.classy-field {
 		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		width: 50%;
-		flex-wrap: wrap;
-		align-items: baseline;
-		border: 1px solid aliceblue;
-		background-color: lightsteelblue;
-		padding: 20px;
+		width: 100%;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		gap: var(--tec-spacer-2);
+		flex: 1 0 0;
+	}
 
-		&:not(:first-of-type){
-			margin-top: 40px;
+	.classy-field__title{
+		h2, h3, h4 {
+			margin: 0;
 		}
+	}
 
-		.classy-input__label {
-			font-weight: bolder;
-			font-size: 16px;
-			flex-grow: .25;
-		}
-
-		.classy-input__input {
-			flex-grow: .75;
-
-			input[type="text"] {
-				width: 100%;
-			}
-		}
+	.classy-field__inputs{
+		align-self: stretch;
 	}
 }

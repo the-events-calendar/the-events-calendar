@@ -1,6 +1,8 @@
 import { RichText } from '@wordpress/block-editor';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';
+import { EventTitle } from './fields';
+import { _x } from '@wordpress/i18n';
 
 export function Classy() {
 	return (
@@ -18,27 +20,13 @@ export function Classy() {
 			}
 
 			<div className="classy-container">
-				<h3 className="classy-title">New Event</h3>
-
-				<div className="classy-input">
-					<div className="classy-input__label">Title</div>
-					<div className="classy-input__input">
-						<input type="text" placeholder="Your title" />
-					</div>
-				</div>
-
-				<div className="classy-input">
-					<div className="classy-input__label">Description</div>
-					<div className="classy-input__input">
-						<RichText
-							tagName="p"
-							value=""
-							allowedFormats={ [ 'core/bold', 'core/italic' ] }
-							placeholder="Your event description"
-							onChange={ () => null }
-						/>
-					</div>
-				</div>
+				<EventTitle
+					title={ _x(
+						'Event Title',
+						'The title of the Event Title field.',
+						'the-events-calendar'
+					) }
+				/>
 
 				<Slot name="classy.fields" />
 			</div>

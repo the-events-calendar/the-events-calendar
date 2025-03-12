@@ -16,5 +16,5 @@ whenEditorIsReady().then( () => {
 	hideInserterToggle();
 	initClassyApp();
 	insertClassyElement();
-	addEditorTools( toggleClassyElementVisibility );
+	addEditorTools( () => toggleClassyElementVisibility() );
 } );
