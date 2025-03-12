@@ -10,6 +10,7 @@ jest.mock('@wordpress/element', () => ({
 	createRoot: jest.fn()
 }));
 import {Classy} from '../../../src/resources/packages/classy/elements';
+import {getElement} from "../../../src/resources/packages/classy/functions/visualEditor";
 jest.mock('../../../src/resources/packages/classy/elements', () => ({
 	Classy: jest.fn()
 }))
@@ -36,11 +37,11 @@ describe('classy', () => {
 		expect(element2).toBe(element);
 	});
 
-	it('inject the element into the DOM', () => {
+	it('should inject the element into the DOM', () => {
 		const mockDocument = (new DOMParser()).parseFromString(
 			`<html>
 				<body>
-					<div class="editor-visual-editor"></div>
+					<div class="editor-visual-editor edit-post-visual-editor"></div>
 				</body>
 			</html>`,
 			'text/html'
@@ -49,14 +50,14 @@ describe('classy', () => {
 		const inserted = insertElement(mockDocument);
 
 		expect(inserted).toBe(true);
-		expect(mockDocument.querySelector('.editor-visual-editor').outerHTML).toMatchSnapshot();
+		expect(getElement(mockDocument).outerHTML).toMatchSnapshot();
 	})
 
 	it('should not inject the element into the DOM If visual editor is not present', () => {
 		const mockDocument = (new DOMParser()).parseFromString(
 			`<html>
 				<body>
-					<div class="not-the-visual-editor"></div>
+					<div class="not-the-visual-editor edit-post-visual-editor"></div>
 				</body>
 			</html>`,
 			'text/html'
@@ -71,7 +72,7 @@ describe('classy', () => {
 		const mockDocument = (new DOMParser()).parseFromString(
 			`<html>
 				<body>
-					<div class="editor-visual-editor"></div>
+					<div class="editor-visual-editor edit-post-visual-editor"></div>
 				</body>
 			</html>`,
 			'text/html'
@@ -94,7 +95,7 @@ describe('classy', () => {
 		const mockDocument = (new DOMParser()).parseFromString(
 			`<html>
 				<body>
-					<div class="editor-visual-editor"></div>
+					<div class="editor-visual-editor edit-post-visual-editor"></div>
 				</body>
 			</html>`,
 			'text/html'

@@ -1,5 +1,6 @@
 import {createRoot} from '@wordpress/element';
 import {Classy} from "../elements";
+import {getElement as getVisualEditorElement, toggleVisibility as toggleVisualEditorVisibility} from './visualEditor';
 
 /**
  * Cached instance of the classy element.
@@ -24,7 +25,7 @@ let classyElement: HTMLElement | null = null;
  * @returns {HTMLElement} The existing or newly created Classy element.
  */
 export function getOrCreateElement(document: Document | null = null): HTMLElement {
-	document = document || window.document;
+	document = document ?? window.document;
 
 	if (classyElement !== null) {
 		return classyElement;
@@ -53,15 +54,16 @@ export function getOrCreateElement(document: Document | null = null): HTMLElemen
  * @returns {boolean} True if insertion was successful, false otherwise.
  */
 export function insertElement(document: Document | null = null): boolean {
-	document = document || window.document;
+	document = document ?? window.document;
 	const element = getOrCreateElement(document);
-	const visualEditor = document.querySelector('.editor-visual-editor');
+	const visualEditor = getVisualEditorElement(document);
 
-	if (!visualEditor) {
+	if (visualEditor === null) {
 		return false;
 	}
 
 	visualEditor.parentNode.insertBefore(element, visualEditor.nextSibling);
+	toggleVisualEditorVisibility(document);
 
 	return true;
 }
@@ -75,10 +77,15 @@ export function insertElement(document: Document | null = null): boolean {
  *
  * @since TBD
  *
+ * @param {Document|null} document - The document to operate within.
+ *     If null, the global document will be used.
+ *
  * @returns {void}
  */
-export function toggleElementVisibility(): void {
+export function toggleElementVisibility(document: Document | null = null): void {
+	document = document ?? window.document;
 	getOrCreateElement().classList.toggle('classy-root--hidden');
+	toggleVisualEditorVisibility(document);
 }
 
 /**
@@ -96,7 +103,7 @@ export function toggleElementVisibility(): void {
  * @returns {void}
  */
 export function initApp(document: Document | null = null): void {
-	document = document || window.document;
+	document = document ?? window.document;
 	const classyRoot = createRoot(getOrCreateElement(document));
 	classyRoot.render(Classy());
 }
