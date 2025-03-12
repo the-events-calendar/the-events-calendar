@@ -7,7 +7,6 @@ const {readdirSync, statSync, existsSync} = require('fs');
  * See: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/#advanced-usage
  */
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
-const pluginNamespace = [ 'tec', 'events' ];
 
 const {
   createTECLegacyJs,
@@ -19,12 +18,6 @@ const {
   doNotPrefixSVGIdsClasses,
   WindowAssignPropertiesPlugin,
 } = require('@stellarwp/tyson');
-
-// Create schema instances with the "tec" namespace
-const TECLegacyJs = createTECLegacyJs(pluginNamespace);
-const TECPostCss = createTECPostCss(pluginNamespace);
-const TECLegacyBlocksFrontendPostCss = createTECLegacyBlocksFrontendPostCss(pluginNamespace);
-const TECPackage = createTECPackage(pluginNamespace);
 
 /**
  * Compile a list of entry points to be compiled to the format used by WebPack to define multiple entry points.
