@@ -202,7 +202,7 @@ class Settings {
 	 * Adds the menu and pages for The Events Calendar.
 	 *
 	 * @since 5.15.0
-	 * @since TBD Added 'tec_redirect_first_time_setup' to redirect users to the Guided Setup.
+	 * @since TBD Added 'tec_redirect_guided_time_setup' to redirect users to the Guided Setup.
 	 */
 	public function add_admin_pages() {
 		$admin_pages = tribe( 'admin.pages' );

@@ -89,14 +89,14 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Redirects users to the First Time Setup page when accessing any TEC settings or management page for the first time.
+	 * Redirects users to the Guided Setup page when accessing any TEC settings or management page for the first time.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function redirect_tec_pages_to_guided_setup(): void {
-		// If there is more than one previous version, don't redirect since they're probably already setup.
+		// If there is more than one previous version, don't redirect since they've probably already set up.
 		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
 		if ( count( $tec_versions ) > 1 ) {
 			return;
@@ -118,7 +118,7 @@ class Controller extends Controller_Contract {
 		}
 
 		// Check if the user has already been redirected to the First Time Setup page.
-		$visited_first_time_setup = get_option( 'tec_onboarding_wizard_visited_first_time_setup', false );
+		$visited_first_time_setup = tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false );
 		if ( $visited_first_time_setup ) {
 			// If they already visited, no redirection is needed.
 			return;
@@ -148,9 +148,6 @@ class Controller extends Controller_Contract {
 				],
 				admin_url( 'edit.php' )
 			);
-
-			// Stop redirecting once we send the user to the First Time Setup page once.
-			update_option( 'tec_onboarding_wizard_visited_first_time_setup', true );
 
 			wp_safe_redirect( $setup_url );
 			exit;
