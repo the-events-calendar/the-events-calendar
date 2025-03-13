@@ -82,14 +82,26 @@ trait ECE_Maker {
 	 * @param int   $ece_id The External Calendar Embeds object id.
 	 * @param array $tags   The tags to add to the External Calendar Embeds object.
 	 */
-	protected function add_tags_to_ece( $ece_id, $tags = [] ): void {
+	protected function add_tags_to_ece( $ece_id, $tags = [] ): array {
 		$tags = array_map( function( $tag ) {
 			return (string) $tag;
 		}, $tags );
 
-		$result = wp_set_post_tags( $ece_id, $tags, true );
+		$term_ids = [];
+		foreach ( $tags as $tag ) {
+			$tid = term_exists( $tag, 'post_tag' );
+			if ( $tid['term_id'] ?? $tid ) {
+				$term_ids[] = (int) $tid['term_id'] ?? $tid;
+				continue;
+			}
+			$term_ids[] = (int) $this->factory->tag->create( [ 'slug' => $tag, 'taxonomy' => 'post_tag', 'name' => ucfirst( $tag ) ] );
+		}
+
+		$result = wp_set_post_tags( $ece_id, $term_ids, true );
 
 		$this->assertTrue( $result && ! is_wp_error( $result ) );
+
+		return array_values( array_map( 'intval', $term_ids ) );
 	}
 
 	/**
@@ -98,7 +110,7 @@ trait ECE_Maker {
 	 * @param int   $ece_id     The External Calendar Embeds object id.
 	 * @param array $categories The categories to add to the External Calendar Embeds object.
 	 */
-	protected function add_categories_to_ece( $ece_id, $categories = [] ): void {
+	protected function add_categories_to_ece( $ece_id, $categories = [] ): array {
 		$categories = array_map( function( $category ) {
 			return (string) $category;
 		}, $categories );
@@ -107,14 +119,16 @@ trait ECE_Maker {
 		foreach ( $categories as $category ) {
 			$tid = term_exists( $category, TEC::TAXONOMY )['term_id'] ?? null;
 			if ( $tid ) {
-				$term_ids[] = $tid;
+				$term_ids[] = (int) $tid;
 				continue;
 			}
-			$term_ids[] = $this->factory->term->create( [ 'slug' => $category, 'taxonomy' => TEC::TAXONOMY ] );
+			$term_ids[] = (int) $this->factory->term->create( [ 'slug' => $category, 'taxonomy' => TEC::TAXONOMY, 'name' => ucfirst( $category ) ] );
 		}
 
 		$result = wp_set_post_terms( $ece_id, $term_ids, TEC::TAXONOMY, true );
 
 		$this->assertTrue( $result && ! is_wp_error( $result ) );
+
+		return array_values( array_map( 'intval', $term_ids ) );
 	}
 }

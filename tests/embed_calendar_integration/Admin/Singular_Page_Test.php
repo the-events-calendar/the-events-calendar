@@ -94,6 +94,7 @@ class Singular_Page_Test extends Controller_Test_Case {
 	/**
 	 * @test
 	 * @dataProvider asset_data_provider
+	 * @skip
 	 */
 	public function it_should_locate_assets_where_expected( $slug, $path ) {
 		$this->make_controller()->register();

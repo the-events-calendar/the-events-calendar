@@ -169,9 +169,9 @@ class List_Page_Test extends Controller_Test_Case {
 
 		$ece_id = $this->create_ece();
 
-		$this->add_tags_to_ece( $ece_id, [ 'tag1', 'tag2' ] );
+		$tag_ids = $this->add_tags_to_ece( $ece_id, [ 'tag1', 'tag2' ] );
 
-		$this->add_categories_to_ece( $ece_id, [ 'cat1', 'cat2' ] );
+		$cat_ids = $this->add_categories_to_ece( $ece_id, [ 'cat1', 'cat2' ] );
 
 		foreach ( $columns as $column ) {
 			ob_start();
@@ -181,6 +181,11 @@ class List_Page_Test extends Controller_Test_Case {
 
 		$this->assertCount( 3, $content );
 
-		$this->assertMatchesHtmlSnapshot( implode( PHP_EOL . '{COLUMN_DIVIDER}' . PHP_EOL, $content ) );
+		$html = implode( PHP_EOL . '{COLUMN_DIVIDER}' . PHP_EOL, $content );
+		$html = str_replace( (string) $ece_id, '{ECE_ID}', $html );
+		$html = str_replace( $tag_ids, '{TAG_ID}', $html );
+		$html = str_replace( $cat_ids, '{CAT_ID}', $html );
+
+		$this->assertMatchesHtmlSnapshot( $html );
 	}
 }

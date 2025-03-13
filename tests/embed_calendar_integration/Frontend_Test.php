@@ -12,7 +12,7 @@ use Tribe__Events__Main as TEC;
 use Generator;
 use Closure;
 
-class Controller_Test extends Controller_Test_Case {
+class Frontend_Test extends Controller_Test_Case {
 
 	use With_Uopz;
 	use ECE_Maker;

@@ -98,9 +98,10 @@ class Calendar_Embeds extends Controller_Contract {
 
 			$term->count -= (int) DB::get_var(
 				DB::prepare(
-					'SELECT COUNT( t.object_ID ) FROM %i t INNER JOIN %i p ON t.object_id = p.ID WHERE t.term_taxonomy_id = %d AND p.post_type = %s',
+					'SELECT COUNT( t.object_ID ) FROM %i t INNER JOIN %i p ON t.object_id = p.ID INNER JOIN %i tt ON tt.term_taxonomy_id = t.term_taxonomy_id WHERE tt.term_id = %d AND p.post_type = %s',
 					DB::prefix( 'term_relationships' ),
 					DB::prefix( 'posts' ),
+					DB::prefix( 'term_taxonomy' ),
 					$term->term_id,
 					static::POSTTYPE
 				)
