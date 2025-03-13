@@ -188,7 +188,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const isValid = (!!zip && zipPattern.test(zip));
+		const isValid = !!zip && zipPattern.test(zip);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
