@@ -14,6 +14,7 @@ use WP_Post;
 use Tribe__Events__Main as TEC_Plugin;
 use WP_Term;
 use TEC\Common\StellarWP\DB\DB;
+use WP_Screen;
 
 /**
  * Class Calendar_Embeds
@@ -110,7 +111,7 @@ class Calendar_Embeds extends Controller_Contract {
 
 		$screen = get_current_screen();
 
-		if ( ! $screen ) {
+		if ( ! $screen instanceof WP_Screen ) {
 			return $terms;
 		}
 
