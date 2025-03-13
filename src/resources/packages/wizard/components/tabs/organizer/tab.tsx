@@ -18,7 +18,7 @@ interface Organizer {
 
 const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const organizer: Organizer = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('organizer') || { id: 0, name: '', phone: '', website: '', email: '' }, []);
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || {} );
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || {});
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 	const [organizerId, setId] = useState(organizer.organizerId || false);
 	const [name, setName] = useState(organizer.name || '');
@@ -51,10 +51,10 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}, []);
 
 	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
-		if ( !field ) {
+		if (!field) {
 			parentEle.classList.add('invalid', 'empty');
 			fieldEle.classList.add('invalid');
-		} else if ( !isValid ) {
+		} else if (!isValid) {
 			parentEle.classList.add('invalid');
 			fieldEle.classList.add('invalid');
 		} else {
@@ -93,7 +93,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(name, fieldEle, parentEle, isValid);
 		}
 
@@ -117,7 +117,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(email, fieldEle, parentEle, isValid);
 		}
 
@@ -142,7 +142,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(phone, fieldEle, parentEle, isValid);
 		}
 
@@ -173,7 +173,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			isValid = false
 		}
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(website, fieldEle, parentEle, isValid);
 		}
 

@@ -40,7 +40,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const [website, setWebsite] = useState(venue.website || '');
 	const [showWebsite, setShowWebsite] = useState(!!venue.venueId ||!!venue.website || false);
 	const [showPhone, setShowPhone] = useState(!!venue.venueId || !!venue.phone || false);
-	const [canContinue, setCanContinue] = useState( false);
+	const [canContinue, setCanContinue] = useState(false);
 
 	// Compute whether the "Continue" button should be enabled
     useEffect(() => {
@@ -95,7 +95,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(name, fieldEle, parentEle, isValid);
 		}
 
@@ -104,7 +104,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidAddress = () => {
 		// Accept empty field as valid.
-		if(!address) {
+		if (!address) {
 			return true;
 		}
 
@@ -119,7 +119,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(address, fieldEle, parentEle, isValid);
 		}
 
@@ -128,7 +128,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidCity = () => {
 		// Accept empty field as valid.
-		if(!city) {
+		if (!city) {
 			return true;
 		}
 
@@ -143,7 +143,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(city, fieldEle, parentEle, isValid);
 		}
 
@@ -152,7 +152,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidState = () => {
 		// Accept empty field as valid.
-		if(!state) {
+		if (!state) {
 			return true;
 		}
 
@@ -167,7 +167,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(state, fieldEle, parentEle, isValid);
 		}
 
@@ -176,7 +176,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidZip = () => {
 		// Accept empty field as valid.
-		if(!zip) {
+		if (!zip) {
 			return true;
 		}
 
@@ -192,7 +192,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(zip, fieldEle, parentEle, isValid);
 		}
 
@@ -211,7 +211,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(country, fieldEle, parentEle, isValid);
 		}
 
@@ -220,7 +220,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidPhone = () => {
 		// Accept empty field as valid.
-		if(!phone) {
+		if (!phone) {
 			return true;
 		}
 
@@ -232,11 +232,11 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const isValid = !showPhone || ( !!phone && phonePattern.test(phone) );
+		const isValid = !showPhone || (!!phone && phonePattern.test(phone));
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(phone, fieldEle, parentEle, isValid);
 		}
 
@@ -268,7 +268,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 			isValid = false
 		}
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(website, fieldEle, parentEle, isValid);
 		}
 
@@ -276,10 +276,10 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
-		if ( !field ) {
+		if (!field) {
 			parentEle.classList.add('invalid', 'empty');
 			fieldEle.classList.add('invalid');
-		} else if ( !isValid ) {
+		} else if (!isValid) {
 			parentEle.classList.add('invalid');
 			fieldEle.classList.add('invalid');
 		} else {
