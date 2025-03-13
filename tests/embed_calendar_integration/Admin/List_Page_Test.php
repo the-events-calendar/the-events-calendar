@@ -188,4 +188,36 @@ class List_Page_Test extends Controller_Test_Case {
 
 		$this->assertMatchesHtmlSnapshot( $html );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_render_the_expected_column_content_when_unpublished() {
+		$columns = [ 'event_categories', 'event_tags', 'snippet' ];
+
+		$content = [];
+
+		$this->make_controller()->register();
+
+		$ece_id = $this->create_ece( ['post_status' => 'draft' ] );
+
+		$tag_ids = $this->add_tags_to_ece( $ece_id, [ 'tag1', 'tag2' ] );
+
+		$cat_ids = $this->add_categories_to_ece( $ece_id, [ 'cat1', 'cat2' ] );
+
+		foreach ( $columns as $column ) {
+			ob_start();
+			apply_filters( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', $column, $ece_id );
+			$content[ $column ] = ob_get_clean();
+		}
+
+		$this->assertCount( 3, $content );
+
+		$html = implode( PHP_EOL . '{COLUMN_DIVIDER}' . PHP_EOL, $content );
+		$html = str_replace( (string) $ece_id, '{ECE_ID}', $html );
+		$html = str_replace( $tag_ids, '{TAG_ID}', $html );
+		$html = str_replace( $cat_ids, '{CAT_ID}', $html );
+
+		$this->assertMatchesHtmlSnapshot( $html );
+	}
 }

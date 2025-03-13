@@ -58,11 +58,11 @@ class Singular_Page extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
-		$this->register_assets();
 		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ], 5 );
 		add_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
 		add_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ], 10, 2 );
+		add_action( 'post_submitbox_minor_actions', [ $this, 'add_copy_embed_button' ] );
 	}
 
 	/**
@@ -77,6 +77,25 @@ class Singular_Page extends Controller_Contract {
 		remove_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		remove_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
 		remove_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ] );
+		remove_action( 'post_submitbox_minor_actions', [ $this, 'add_copy_embed_button' ] );
+	}
+
+	/**
+	 * Adds the copy embed button to the post submitbox.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post object.
+	 *
+	 * @return void
+	 */
+	public function add_copy_embed_button( WP_Post $post ): void {
+		$this->template->template(
+			'copy-embed-button-in-metabox',
+			[
+				'post_id' => $post->ID,
+			]
+		);
 	}
 
 	/**
@@ -200,37 +219,5 @@ class Singular_Page extends Controller_Contract {
 		global $pagenow, $post_type;
 
 		return Calendar_Embeds::POSTTYPE === $post_type && ( 'post-new.php' === $pagenow || 'post.php' === $pagenow );
-	}
-
-	/**
-	 * Register assets for the Calendar Embeds page.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	protected function register_assets(): void {
-		Asset::add(
-			'tec-events-calendar-embeds-single-script',
-			'editor.js'
-		)
-			->add_to_group_path( 'tec-events-calendar-embeds' )
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ __CLASS__, 'is_on_page' ] )
-			->set_dependencies(
-				'wp-hooks',
-			)
-			->in_footer()
-			->register();
-
-		Asset::add(
-			'tec-events-calendar-embeds-single-style',
-			'editor.css'
-		)
-			->add_to_group_path( 'tec-events-calendar-embeds' )
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_dependencies( 'tribe-common-admin' )
-			->set_condition( [ __CLASS__, 'is_on_page' ] )
-			->register();
 	}
 }

@@ -6,12 +6,18 @@
  *
  * @version TBD
  *
- * @var int    $post_id   The post ID.
+ * @var int $post_id The post ID.
  */
 
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
+use TEC\Events\Calendar_Embeds\NotPublishedCalendarException;
 
-$snippet = Calendar_Embeds::get_iframe( $post_id );
+try {
+	$snippet = Calendar_Embeds::get_iframe( $post_id, true );
+} catch ( NotPublishedCalendarException $e ) {
+	// No snippet should be generated for unpublished ECEs.
+	return;
+}
 
 ?>
 <div id="tec_events_calendar_embeds_snippet_<?php echo esc_attr( $post_id ); ?>" class="hidden">

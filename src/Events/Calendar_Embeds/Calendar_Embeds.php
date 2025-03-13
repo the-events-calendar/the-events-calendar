@@ -214,8 +214,9 @@ class Calendar_Embeds extends Controller_Contract {
 	 * @param int $post_id The post ID.
 	 *
 	 * @return string
+	 * @throws NotPublishedCalendarException When the calendar is not published.
 	 */
-	public static function get_iframe( int $post_id ): string {
+	public static function get_iframe( int $post_id, bool $throw_when_not_published = false ): string {
 		$embed = get_post( $post_id );
 
 		if ( ! $embed instanceof WP_Post ) {
@@ -224,6 +225,10 @@ class Calendar_Embeds extends Controller_Contract {
 
 		if ( static::POSTTYPE !== $embed->post_type ) {
 			return '';
+		}
+
+		if ( $throw_when_not_published && 'publish' !== $embed->post_status ) {
+			throw new NotPublishedCalendarException();
 		}
 
 		$embed_url = 'publish' === $embed->post_status ? get_post_embed_url( $embed ) : get_preview_post_link( $embed, [ 'embed' => 1 ] );

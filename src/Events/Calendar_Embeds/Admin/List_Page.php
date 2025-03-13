@@ -288,7 +288,7 @@ class List_Page extends Controller_Contract {
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ __CLASS__, 'is_on_page' ] )
+			->set_condition( fn() => self::is_on_page() || Singular_Page::is_on_page() )
 			->set_dependencies( 'thickbox', 'tribe-clipboard' )
 			->in_footer()
 			->register();
@@ -299,7 +299,7 @@ class List_Page extends Controller_Contract {
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ __CLASS__, 'is_on_page' ] )
+			->set_condition( fn() => self::is_on_page() || Singular_Page::is_on_page() )
 			->set_dependencies( 'thickbox', 'tribe-common-admin' )
 			->register();
 	}
