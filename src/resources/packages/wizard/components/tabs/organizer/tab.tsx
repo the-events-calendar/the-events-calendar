@@ -51,7 +51,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}, []);
 
 	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
-		if ( !field && fieldEle.id === 'organizer-name' ) {
+		if ( !field ) {
 			parentEle.classList.add('invalid', 'empty');
 			fieldEle.classList.add('invalid');
 		} else if ( !isValid ) {
@@ -107,7 +107,12 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$|^$/;
+		// Accept empty field as valid.
+		if (!email || email === '') {
+			return true;
+		}
+
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		const isValid = emailPattern.test(email);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -126,7 +131,12 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const phonePattern = /^(?:\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}|)$/;
+		// Accept empty field as valid.
+		if (!phone || phone === '') {
+			return true;
+		}
+
+		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
 		const isValid = phonePattern.test(phone);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -148,17 +158,18 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
+		// Accept empty field as valid.
+		if (!website || website === '') {
+			return true;
+		}
+
 		let isValid = false;
 
-		if ( website === '' ) {
-			isValid = true;
-		} else {
-			try {
-				const url = new URL(website);
-				isValid = url.protocol === 'http:' || url.protocol === 'https:' || url == '';
-			} catch (e) {
-				isValid = false
-			}
+		try {
+			const url = new URL(website);
+			isValid = url.protocol === 'http:' || url.protocol === 'https:';
+		} catch (e) {
+			isValid = false
 		}
 
 		if ( isVisited ) {
