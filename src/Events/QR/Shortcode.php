@@ -29,6 +29,8 @@ class Shortcode extends Shortcode_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @var array
 	 */
 	protected $default_arguments = [
 		'mode' => 'current',
@@ -38,6 +40,8 @@ class Shortcode extends Shortcode_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @var array
 	 */
 	public $validate_arguments_map = [
 		'id'   => 'tribe_post_exists',
@@ -47,6 +51,11 @@ class Shortcode extends Shortcode_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @param array $attributes The shortcode attributes.
+	 * @param string $content The shortcode content.
+	 *
+	 * @return string
 	 */
 	public function get_html( $attributes = [], $content = '' ) {
 
