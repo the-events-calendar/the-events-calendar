@@ -105,10 +105,9 @@ class Controller extends Controller_Contract {
 		// Get some information about the page that we are trying to access.
 		$page      = tribe_get_request_var( 'page' );
 		$post_type = tribe_get_request_var( 'post_type' );
-		$taxonomy  = tribe_get_request_var( 'taxonomy' );
 
 		// Only target The Events Calendar-related admin pages.
-		if ( ! in_array( $post_type, [ 'tribe_events', 'tribe_event_series', 'tribe_venue', 'tribe_organizer' ], true ) ) {
+		if ( ! str_contains( $post_type, 'tribe' ) ) {
 			return;
 		}
 
@@ -117,10 +116,9 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		// Check if the user has already been redirected to the First Time Setup page.
+		// Do not redirect if they have already been to the Guided Setup page.
 		$visited_first_time_setup = tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false );
 		if ( $visited_first_time_setup ) {
-			// If they already visited, no redirection is needed.
 			return;
 		}
 
