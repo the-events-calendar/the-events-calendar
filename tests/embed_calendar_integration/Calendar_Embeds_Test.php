@@ -154,6 +154,47 @@ class Calendar_Embeds_Test extends Controller_Test_Case {
 	/**
 	 * @test
 	 */
+	public function it_should_redirect_from_singular_to_embed(): void {
+		$store = [];
+		$this->set_fn_return( 'wp_safe_redirect', function ( $url, $status = 302, $redirect_by = '' ) use (&$store) {
+			$store[] = [
+				'url'         => $url,
+				'status'      => $status,
+				'redirect_by' => $redirect_by,
+			];
+			return true;
+		}, true );
+		$this->set_fn_return( 'tribe_exit', true );
+
+		remove_all_actions( 'template_redirect' );
+		$this->make_controller()->register();
+
+		$ece_id = $this->create_ece();
+		global $post;
+
+		$post = get_post( $ece_id );
+		$this->set_fn_return( 'is_singular', true );
+		$this->set_fn_return( 'is_embed', false );
+		$this->set_fn_return( 'is_admin', false );
+
+		$this->assertCount( 0, $store );
+
+		do_action( 'template_redirect' );
+
+		$this->assertCount( 1, $store );
+
+		$this->assertEquals( get_post_embed_url( $ece_id ), $store[0]['url'] );
+
+		$this->set_fn_return( 'is_embed', true );
+
+		do_action( 'template_redirect' );
+
+		$this->assertCount( 1, $store );
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_retrieve_iframes_markup_not_published(): void {
 		$ece_id = $this->create_ece( [ 'post_title' => 'ECE' ] );
 
