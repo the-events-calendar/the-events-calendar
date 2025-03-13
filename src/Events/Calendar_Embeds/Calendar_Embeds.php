@@ -84,7 +84,7 @@ class Calendar_Embeds extends Controller_Contract {
 		}
 
 		$url = get_post_embed_url( get_queried_object_id() );
-		wp_safe_redirect( $url, 302, 'Calendar Embed Redirect' );
+		wp_safe_redirect( $url, 302, 'Calendar Embed Redirect' ); // phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 		tribe_exit();
 	}
 
