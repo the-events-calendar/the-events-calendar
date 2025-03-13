@@ -136,7 +136,8 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			return true;
 		}
 
-		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
+		// Generic phone number regex to allow different groupings.
+		const phonePattern = /^\+?\d{1,3}[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{1,4}[\s.-]?\d{1,4}[\s.-]?\d{1,4}$/;
 		const isValid = phonePattern.test(phone);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
