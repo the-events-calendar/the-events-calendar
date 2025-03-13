@@ -102,7 +102,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidEmail = () => {
 		// Accept empty field as valid.
-		if (!email || email === '') {
+		if (!email) {
 			return true;
 		}
 
@@ -126,7 +126,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidPhone = () => {
 		// Accept empty field as valid.
-		if (!phone || phone === '') {
+		if (!phone) {
 			return true;
 		}
 
@@ -151,7 +151,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidWebsite = () => {
 		// Accept empty field as valid.
-		if (!website || website === '') {
+		if (!website) {
 			return true;
 		}
 

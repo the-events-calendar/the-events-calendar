@@ -104,7 +104,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidAddress = () => {
 		// Accept empty field as valid.
-		if(!address || address === '') {
+		if(!address) {
 			return true;
 		}
 
@@ -128,7 +128,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidCity = () => {
 		// Accept empty field as valid.
-		if(!city || city === '') {
+		if(!city) {
 			return true;
 		}
 
@@ -152,7 +152,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidState = () => {
 		// Accept empty field as valid.
-		if(!state || state === '') {
+		if(!state) {
 			return true;
 		}
 
@@ -176,7 +176,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidZip = () => {
 		// Accept empty field as valid.
-		if(!zip || zip === '') {
+		if(!zip) {
 			return true;
 		}
 
@@ -220,7 +220,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidPhone = () => {
 		// Accept empty field as valid.
-		if(!phone || phone === '') {
+		if(!phone) {
 			return true;
 		}
 
@@ -245,7 +245,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidWebsite = () => {
 		// Accept empty field as valid.
-		if (!website || website === '') {
+		if (!website) {
 			return true;
 		}
 
