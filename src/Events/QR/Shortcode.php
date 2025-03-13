@@ -52,7 +52,7 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param array $attributes The shortcode attributes.
+	 * @param array  $attributes The shortcode attributes.
 	 * @param string $content The shortcode content.
 	 *
 	 * @return string
