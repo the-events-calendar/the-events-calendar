@@ -57,12 +57,12 @@
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "changelog": "./vendor/bin/changelogger add",
-    "jest": "TZ=UTC gulp jest",
-    "lint:eslint": "gulp eslint",
-    "lint:stylelint": "gulp stylelint",
-    "lint": "npm run lint:eslint && npm run lint:stylelint",
-    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
-    "rebuild": "rm -rf node_modules && npm install && npm run build"
+    "test": "jest",
+    "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G"
+  },
+  "engines": {
+    "node": "18.17.0",
+    "npm": "9.6.7"
   },
   "engines": {
     "node": "18.17.0",
