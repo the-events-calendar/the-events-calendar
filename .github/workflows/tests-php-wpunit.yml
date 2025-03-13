@@ -1,4 +1,4 @@
-name: 'SEO Plugin Tests'
+name: 'Codeception Tests'
 on:
   pull_request:
 jobs:
@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         suite:
-          - integrations_plugin_wordpress_seo
+          - wpunit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -112,8 +112,7 @@ jobs:
           ${SLIC_BIN} use the-events-calendar
           ${SLIC_BIN} composer install
       # ------------------------------------------------------------------------------
-      # Init WordPress container
-      # WP SEO requires 6.5+ to run
+      # Update WordPress version to our min required.
       # ------------------------------------------------------------------------------
       - name: Init the WordPress container
         if: steps.skip.outputs.value != 1
@@ -127,11 +126,12 @@ jobs:
         run: |
           ${SLIC_BIN} wp theme install twentytwenty --activate
 
-      - name: Install Yoast SEO
+      - name: Install the plugins on this particular Test Suite
         if: steps.skip.outputs.value != 1
         run: |
-          ${SLIC_BIN} wp core update --version=6.6
-          ${SLIC_BIN} wp plugin install wordpress-seo
+          ${SLIC_BIN} wp plugin install sitepress-multilingual-cms
+          ${SLIC_BIN} wp plugin install wpml-translation-management
+          ${SLIC_BIN} wp plugin install wpml-string-translation
 
       # ------------------------------------------------------------------------------
       # Run the Actual tests
