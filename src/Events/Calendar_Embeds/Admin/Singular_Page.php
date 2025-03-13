@@ -61,7 +61,6 @@ class Singular_Page extends Controller_Contract {
 		$this->register_assets();
 		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ], 5 );
 		add_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
-		add_action( 'edit_form_after_title', [ $this, 'calendar_embeds_editor' ] );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
 		add_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ], 10, 2 );
 	}
@@ -76,7 +75,6 @@ class Singular_Page extends Controller_Contract {
 	public function unregister(): void {
 		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ], 5 );
 		remove_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
-		remove_action( 'edit_form_after_title', [ $this, 'calendar_embeds_editor' ] );
 		remove_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
 		remove_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ] );
 	}
@@ -92,7 +90,7 @@ class Singular_Page extends Controller_Contract {
 	 * @return string
 	 */
 	public function replace_iframe_markup( string $iframe, WP_Post $embed ): string {
-		if ( ! $this->is_on_page() ) {
+		if ( ! self::is_on_page() ) {
 			return $iframe;
 		}
 
@@ -143,33 +141,6 @@ class Singular_Page extends Controller_Contract {
 	public function render_embed_preview( WP_Post $post ): void {
 		// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped, WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo Calendar_Embeds::get_iframe( $post->ID );
-	}
-
-	/**
-	 * Renders the Calendar Embeds editor.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function calendar_embeds_editor(): void {
-		if ( ! $this->is_on_page() ) {
-			return;
-		}
-
-		/**
-		 * Fires before the Calendar Embeds editor.
-		 *
-		 * @since TBD
-		 */
-		do_action( 'tec_calendar_embeds_before_editor' );
-
-		/**
-		 * Fires after the Calendar Embeds editor.
-		 *
-		 * @since TBD
-		 */
-		do_action( 'tec_calendar_embeds_after_editor' );
 	}
 
 	/**
@@ -225,7 +196,7 @@ class Singular_Page extends Controller_Contract {
 	 *
 	 * @return bool
 	 */
-	protected function is_on_page(): bool {
+	public static function is_on_page(): bool {
 		global $pagenow, $post_type;
 
 		return Calendar_Embeds::POSTTYPE === $post_type && ( 'post-new.php' === $pagenow || 'post.php' === $pagenow );
@@ -244,7 +215,8 @@ class Singular_Page extends Controller_Contract {
 			'editor.js'
 		)
 			->add_to_group_path( 'tec-events-calendar-embeds' )
-			->enqueue_on( 'tec_calendar_embeds_before_editor' )
+			->enqueue_on( 'admin_enqueue_scripts' )
+			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->set_dependencies(
 				'wp-hooks',
 			)
@@ -256,8 +228,9 @@ class Singular_Page extends Controller_Contract {
 			'editor.css'
 		)
 			->add_to_group_path( 'tec-events-calendar-embeds' )
-			->enqueue_on( 'tec_calendar_embeds_before_editor' )
+			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_dependencies( 'tribe-common-admin' )
+			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->register();
 	}
 }

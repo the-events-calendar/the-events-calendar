@@ -234,9 +234,9 @@ class Calendar_Embeds extends Controller_Contract {
 		 *
 		 * @since TBD
 		 *
-		 * @param string $iframe The iframe code.
-		 * @param WP_Post $embed The embed post object.
-		 * @param string $embed_url The embed URL.
+		 * @param string  $iframe    The iframe code.
+		 * @param WP_Post $embed     The embed post object.
+		 * @param string  $embed_url The embed URL.
 		 *
 		 * @return string
 		 */

@@ -75,6 +75,7 @@ class List_Page extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		remove_action( 'admin_menu', [ $this, 'register_menu_item' ], 11 );
+		remove_action( 'adminmenu', [ $this, 'restore_menu_globals' ] );
 		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
 		remove_action( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', [ $this, 'manage_column_content' ] );
 		remove_filter( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns', [ $this, 'manage_columns' ] );

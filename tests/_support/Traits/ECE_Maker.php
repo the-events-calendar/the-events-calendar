@@ -9,6 +9,7 @@
 namespace Tribe\Events\Test\Traits;
 
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -17,6 +18,15 @@ use Tribe__Events__Main as TEC;
  * @package Tribe\Events\Test\Traits;
  */
 trait ECE_Maker {
+
+	use With_Uopz;
+
+	/**
+	 * The counter used to generate External Calendar Embeds objects slugs.
+	 *
+	 * @var int
+	 */
+	protected static int $counter = 0;
 
 	/**
 	 * Creates an External Calendar Embeds object.
@@ -32,7 +42,21 @@ trait ECE_Maker {
 
 		$args = wp_parse_args( $args, $defaults );
 
+		$counter = &self::$counter;
+		$this->set_fn_return( 'wp_generate_password', function () use ( &$counter ) {
+			return 'ece-static-slug-' . ( ++$counter );
+		}, true );
+
 		return $this->factory->post->create( $args );
+	}
+
+	/**
+	 * Resets the counter used to generate External Calendar Embeds objects slugs.
+	 *
+	 * @after
+	 */
+	public function reset_counter() {
+		self::$counter = 0;
 	}
 
 	/**

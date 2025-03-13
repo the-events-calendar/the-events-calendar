@@ -2,8 +2,8 @@
 
 namespace TEC\Events\Calendar_Embeds;
 
-use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
+use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Events\Test\Traits\ECE_Maker;
 use Tribe__Events__Main as TEC;
 

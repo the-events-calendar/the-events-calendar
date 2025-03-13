@@ -2,17 +2,22 @@
 
 namespace TEC\Events\Calendar_Embeds\Admin;
 
-use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Main as TEC;
+use TEC\Common\StellarWP\Assets\Assets;
+use Tribe\Events\Test\Traits\ECE_Maker;
+use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 
-class PageTest extends Controller_Test_Case {
+class List_Page_Test extends Controller_Test_Case {
 	use With_Uopz;
 	use SnapshotAssertions;
+	use ECE_Maker;
+	use SnapshotAssertions;
 
-	protected string $controller_class = Page::class;
+
+	protected string $controller_class = List_Page::class;
 
 	protected static array $backups = [];
 
@@ -40,6 +45,39 @@ class PageTest extends Controller_Test_Case {
 		$parent_file    = self::$backups['parent_file'];
 		set_current_screen( $current_screen );
 		wp_set_current_user( 0 );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_get_lists_url(): void {
+		$controller = $this->make_controller();
+		$this->assertEquals( home_url( 'wp-admin/edit.php?post_type=' . Calendar_Embeds::POSTTYPE . '&whenever=wherever' ), $controller->get_url( [ 'whenever' => rawurlencode( 'wherever' ) ] ) );
+	}
+
+	/**
+	 * @test
+	 * @dataProvider asset_data_provider
+	 */
+	public function it_should_locate_assets_where_expected( $slug, $path ) {
+		$this->make_controller()->register();
+
+		$this->assertTrue( Assets::init()->exists( $slug ) );
+
+		// We use false, because in CI mode the assets are not build so min aren't available. Its enough to check that the non-min is as expected.
+		$asset_url = Assets::init()->get( $slug )->get_url( false );
+		$this->assertEquals( plugins_url( $path, TRIBE_EVENTS_FILE ), $asset_url );
+	}
+
+	public function asset_data_provider() {
+		$assets = [
+			'tec-events-calendar-embeds-script' => 'src/resources/js/calendar-embeds/admin/page.js',
+			'tec-events-calendar-embeds-style'  => 'src/resources/css/calendar-embeds/admin/page.css',
+		];
+
+		foreach ( $assets as $slug => $path ) {
+			yield $slug => [ $slug, $path ];
+		}
 	}
 
 	/**
@@ -95,13 +133,15 @@ class PageTest extends Controller_Test_Case {
 	 * @test
 	 */
 	public function it_should_return_whether_we_are_on_page() {
-		$this->assertTrue( Page::is_on_page() );
+		$this->assertTrue( List_Page::is_on_page() );
 
 		$this->set_fn_return('get_current_screen', null );
-		$this->assertFalse( Page::is_on_page() );
+		tribe( 'admin.pages' )->determine_current_page();
+		$this->assertFalse( List_Page::is_on_page() );
 
 		$this->set_fn_return('get_current_screen', (object) [ 'id' => 'edit-other_posttype' ] );
-		$this->assertFalse( Page::is_on_page() );
+		tribe( 'admin.pages' )->determine_current_page();
+		$this->assertFalse( List_Page::is_on_page() );
 	}
 
 	/**
@@ -119,9 +159,28 @@ class PageTest extends Controller_Test_Case {
 
 	/**
 	 * @test
-	 * @skip We will test when we have progressed a bit on their creation.
 	 */
 	public function it_should_render_the_expected_column_content() {
+		$columns = [ 'event_categories', 'event_tags', 'snippet' ];
 
+		$content = [];
+
+		$this->make_controller()->register();
+
+		$ece_id = $this->create_ece();
+
+		$this->add_tags_to_ece( $ece_id, [ 'tag1', 'tag2' ] );
+
+		$this->add_categories_to_ece( $ece_id, [ 'cat1', 'cat2' ] );
+
+		foreach ( $columns as $column ) {
+			ob_start();
+			apply_filters( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', $column, $ece_id );
+			$content[ $column ] = ob_get_clean();
+		}
+
+		$this->assertCount( 3, $content );
+
+		$this->assertMatchesHtmlSnapshot( implode( PHP_EOL . '{COLUMN_DIVIDER}' . PHP_EOL, $content ) );
 	}
 }

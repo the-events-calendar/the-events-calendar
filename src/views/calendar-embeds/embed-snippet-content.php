@@ -24,7 +24,7 @@ $snippet = Calendar_Embeds::get_iframe( $post_id );
 			class="tec-events-calendar-embeds__snippet-modal-textarea"
 			aria-label="<?php esc_attr_e( 'Embed snippet code', 'the-events-calendar' ); ?>"
 			rows="3"
-			readonly><?php echo esc_html( $snippet ); ?></textarea>
+			readonly><?php echo esc_textarea( $snippet ); ?></textarea>
 		<button
 			class="button button-primary tec-events-calendar-embeds__snippet-modal-copy-button"
 			aria-controls="tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
