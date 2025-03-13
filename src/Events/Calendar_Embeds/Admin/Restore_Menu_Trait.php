@@ -36,7 +36,7 @@ trait Restore_Menu_Trait {
 	 * @return void
 	 */
 	public function restore_menu_globals(): void {
-		if ( ! empty( self::$stored_globals ) ) {
+		if ( empty( self::$stored_globals ) ) {
 			return;
 		}
 
