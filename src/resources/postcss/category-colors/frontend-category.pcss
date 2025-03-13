@@ -267,3 +267,65 @@ Category pill area
 /**
  * Event Week Styling
 **/
+.tribe-events-pro.tribe-events-view--week{
+	.tribe-events-pro-week-grid__event-link {
+		background-color: var(--tec-category-secondary);
+		color: var(--tec-category-text);
+	}
+	.tribe-events-pro-week-grid__event--past{
+		.tribe-events-pro-week-grid__event-link-inner {
+			background-color: var(--tec-category-secondary);
+			color: var(--tec-category-text);
+			transition: var(--tec-transition-background-color);
+		}
+		.tribe-events-pro-week-grid__event-link {
+			.tribe-events-pro-week-grid__event-link-inner {
+				&:hover {
+					background-color: inherit;
+					filter: contrast(85%);
+				}
+			}
+		}
+	}
+
+	.tribe-events-pro-week-grid__event-title{
+		color: var(--tec-category-text);
+	}
+	.tribe-events-pro-week-grid__event-datetime{
+		color: var(--tec-category-text);
+	}
+
+	.tribe-events-pro-week-grid__event--featured{
+		.tribe-events-pro-week-grid__event-datetime-featured-icon-svg,
+		.tribe-events-pro-week-grid__event-datetime-featured-text {
+			color: var(--tec-category-primary);
+		}
+		.tribe-events-pro-week-grid__event-link-inner {
+			&:before {
+				background-color: var(--tec-category-primary);
+			}
+		}
+	}
+	.tribe-events-pro-week-grid__event-link-inner {
+		transition: var(--tec-transition-background-color);
+		background-color: var(--tec-category-secondary);
+	}
+
+	.tribe-events-pro-week-grid__event-link {
+		&:hover {
+			.tribe-events-pro-week-grid__event-link-inner {
+				filter: contrast(85%);
+				background-color: inherit;
+			}
+		}
+		&:before {
+			background-color: var(--tec-category-primary);
+			content: '';
+			height: 100%;
+			left: 0;
+			position: absolute;
+			top: 0;
+			width: 2px;
+		}
+	}
+}
