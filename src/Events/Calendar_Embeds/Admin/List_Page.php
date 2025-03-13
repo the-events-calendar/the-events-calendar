@@ -16,7 +16,6 @@ use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use TEC\Events\Calendar_Embeds\Template;
 use Tribe__Events__Main as TEC;
 
-
 /**
  * Class List_Page
  *
