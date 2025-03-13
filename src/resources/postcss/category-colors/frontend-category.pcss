@@ -376,7 +376,7 @@ Category pill area
 			left: 0;
 			position: absolute;
 			top: 0;
-			width: 2px;
+			width: 3px;
 		}
 	}
 }
@@ -397,7 +397,7 @@ Category pill area
 				left: 0;
 				position: absolute;
 				top: 0;
-				width: 2px;
+				width: 3px;
 			}
 		}
 
@@ -447,6 +447,43 @@ Category pill area
 					top: 0;
 				}
 			}
+		}
+	}
+}
+
+
+/**
+* Event Week (Mobile) Styling
+*/
+.tribe-events-view--week {
+	.tribe-events-pro-week-mobile-events__event {
+		&.tribe-events-pro-week-mobile-events__event--featured {
+			&:before {
+				background-color: inherit;
+				height: inherit;
+				left: inherit;
+				position: inherit;
+				width: inherit;
+			}
+		}
+		.tribe-events-pro-week-mobile-events__event-details {
+			position: relative;
+			padding-left: var(--tec-spacer-1);
+
+			&:before {
+				background-color: var(--tec-category-primary);
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 3px;
+			}
+		}
+
+		.tribe-events-pro-week-mobile-events__mobile-event-datetime-featured-text,
+		.tribe-events-pro-week-mobile-events__event-datetime-featured-icon-svg {
+			color: var(--tec-category-primary);
 		}
 	}
 }
