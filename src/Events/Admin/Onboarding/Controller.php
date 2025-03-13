@@ -75,7 +75,7 @@ class Controller extends Controller_Contract {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'admin_post_' . Landing_Page::DISMISS_ONBOARDING_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		add_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
-		add_action( 'tec_redirect_first_time_setup', [ $this, 'redirect_tec_pages_to_first_time_setup' ] ); }
+		add_action( 'tec_redirect_guided_time_setup', [ $this, 'redirect_tec_pages_to_guided_setup' ] ); }
 
 	/**
 	 * Handle the onboarding page dismiss.
@@ -95,7 +95,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	public function redirect_tec_pages_to_first_time_setup(): void {
+	public function redirect_tec_pages_to_guided_setup(): void {
 		// If there is more than one previous version, don't redirect since they're probably already setup.
 		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
 		if ( count( $tec_versions ) > 1 ) {
