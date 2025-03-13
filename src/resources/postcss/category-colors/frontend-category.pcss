@@ -268,6 +268,34 @@ Category pill area
  * Event Week Styling
 **/
 .tribe-events-pro.tribe-events-view--week{
+
+	.tribe-events-pro-week-grid__multiday-events-day{
+		.tribe-events-pro-week-grid__multiday-event-bar{
+			position: relative;
+			padding-left: var(--tec-spacer-1);
+
+			&:before {
+				content: "";
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: .5em;
+				height: 100%;
+				background-color: var(--tec-category-primary);
+				border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
+			}
+			.tribe-events-pro-week-grid__multiday-event-bar-inner {
+				padding: 1px var(--tec-spacer-1);
+				background-color: var(--tec-category-secondary);
+				transition: none;
+			}
+			.tribe-events-pro-week-grid__multiday-event-bar-featured-icon-svg{
+				color: var(--tec-category-primary);
+			}
+		}
+	}
+
 	.tribe-events-pro-week-grid__event-link {
 		background-color: var(--tec-category-secondary);
 		color: var(--tec-category-text);
