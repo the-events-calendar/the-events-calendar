@@ -45,6 +45,7 @@ class Calendar_Embeds extends Controller_Contract {
 		add_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ], 10, 2 );
 		add_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ], 10, 4 );
 		add_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table' ], 10, 2 );
+		add_action( 'template_redirect', [ $this, 'redirect_to_embed' ] );
 	}
 
 	/**
@@ -59,6 +60,32 @@ class Calendar_Embeds extends Controller_Contract {
 		remove_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ] );
 		remove_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ] );
 		remove_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table' ] );
+		remove_action( 'template_redirect', [ $this, 'redirect_to_embed' ] );
+	}
+
+	/**
+	 * Redirects to the embed URL when viewing a calendar embed post.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function redirect_to_embed(): void {
+		if ( ! is_singular( static::POSTTYPE ) ) {
+			return;
+		}
+
+		if ( is_admin() ) {
+			return;
+		}
+
+		if ( is_embed() ) {
+			return;
+		}
+
+		$url = get_post_embed_url( get_queried_object_id() );
+		wp_safe_redirect( $url, 302, 'Calendar Embed Redirect' );
+		tribe_exit();
 	}
 
 	/**
