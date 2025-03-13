@@ -101,14 +101,14 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const isValidEmail = () => {
-		const inputId = 'organizer-email';
-		const isVisited = visitedFields.includes(inputId);
-		if (!isVisited) {
+		// Accept empty field as valid.
+		if (!email || email === '') {
 			return true;
 		}
 
-		// Accept empty field as valid.
-		if (!email || email === '') {
+		const inputId = 'organizer-email';
+		const isVisited = visitedFields.includes(inputId);
+		if (!isVisited) {
 			return true;
 		}
 
@@ -125,14 +125,14 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const isValidPhone = () => {
-		const inputId = 'organizer-phone';
-		const isVisited = visitedFields.includes(inputId);
-		if (!isVisited) {
+		// Accept empty field as valid.
+		if (!phone || phone === '') {
 			return true;
 		}
 
-		// Accept empty field as valid.
-		if (!phone || phone === '') {
+		const inputId = 'organizer-phone';
+		const isVisited = visitedFields.includes(inputId);
+		if (!isVisited) {
 			return true;
 		}
 
