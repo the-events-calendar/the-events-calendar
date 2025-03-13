@@ -11,7 +11,6 @@ namespace TEC\Events\Calendar_Embeds\Admin;
 
 use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use TEC\Events\Calendar_Embeds\Template;
 use Tribe__Events__Main as TEC;

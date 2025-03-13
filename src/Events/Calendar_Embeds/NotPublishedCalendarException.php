@@ -1,5 +1,5 @@
 <?php
-/**
+/** //phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
  * Exception for when a calendar is not published.
  *
  * @since TBD
