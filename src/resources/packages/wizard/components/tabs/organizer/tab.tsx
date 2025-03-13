@@ -18,7 +18,7 @@ interface Organizer {
 
 const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const organizer: Organizer = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('organizer') || { id: 0, name: '', phone: '', website: '', email: '' }, []);
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || {});
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 	const [organizerId, setId] = useState(organizer.organizerId || false);
 	const [name, setName] = useState(organizer.name || '');

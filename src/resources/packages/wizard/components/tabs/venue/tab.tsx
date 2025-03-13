@@ -24,7 +24,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const venue: Venue = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('venue')
 		|| {id: 0,  name: '', address: '', city: '', state: '', zip: '', country: '', phone: '', website: '', }, []);
 	const countries = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('countries'), []);
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || [], []);
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 
 	// Check if any fields are filled.
