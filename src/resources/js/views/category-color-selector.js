@@ -44,6 +44,7 @@ tribe.events.categoryColors.picker = ( function () {
 	 * @return {void}
 	 */
 	obj.toggleDropdown = function ( event ) {
+		console.log('clicking on dropdown');
 		event.stopPropagation();
 		const picker = event.currentTarget;
 		const dropdown = picker.querySelector( obj.selectors.dropdown );
@@ -86,6 +87,10 @@ tribe.events.categoryColors.picker = ( function () {
 		const picker = document.querySelector( obj.selectors.picker );
 		const dropdown = document.querySelector( obj.selectors.dropdown );
 
+		if(!picker){
+			return;
+		}
+
 		// If the clicked element is inside the picker or the dropdown, do nothing
 		if ( picker.contains( event.target ) || dropdown.contains( event.target ) ) {
 			return;
@@ -108,7 +113,7 @@ tribe.events.categoryColors.picker = ( function () {
 	 */
 	obj.handleCheckboxChange = ({ target }) => {
 		const categorySlug = target.dataset.category;
-		const events = document.querySelectorAll('.tribe-events-calendar-list__event, .tribe-events-calendar-day__event, .tribe-events-calendar-month__calendar-event');
+		const events = document.querySelectorAll('.tribe-events-calendar-list__event, .tribe-events-calendar-day__event, .tribe-events-calendar-month__calendar-event, .tribe-events-pro-summary__event, .tribe-events-pro-photo__event, .tribe-events-pro-week-grid__event, .tribe-events-pro-week-grid__multiday-event');
 
 		// Maintain a Set of selected categories.
 		obj.selectedCategories = obj.selectedCategories ?? new Set();
@@ -139,6 +144,7 @@ tribe.events.categoryColors.picker = ( function () {
 		const picker = document.querySelector( obj.selectors.picker );
 		const checkboxes = document.querySelectorAll( obj.selectors.checkbox );
 
+		console.log("Binding on picker",picker);
 		if ( picker ) {
 			picker.addEventListener(
 				'click',
