@@ -151,6 +151,7 @@ Category pill area
 			height: 100%;
 			position: absolute;
 			width: 4px;
+			left: var(--tec-spacer-1);
 		}
 	}
 
@@ -178,7 +179,7 @@ Category pill area
 			padding: 0 var(--tec-spacer-1);
 			border-radius: var(--tec-border-radius-pill);
 			width: fit-content;
-			font-size: var(--tec-font-size-2);
+			font-size: var(--tec-font-size-1);
 			line-height: var(--tec-line-height-3);
 			display: flex;
 			align-items: center;
@@ -247,7 +248,7 @@ Category pill area
 		padding: 0 var(--tec-spacer-1);
 		border-radius: var(--tec-border-radius-pill);
 		width: fit-content;
-		font-size: var(--tec-font-size-2);
+		font-size: var(--tec-font-size-1);
 		line-height: var(--tec-line-height-3);
 		display: flex;
 		align-items: center;
@@ -267,10 +268,10 @@ Category pill area
 /**
  * Event Week Styling
 **/
-.tribe-events-pro.tribe-events-view--week{
+.tribe-events-pro.tribe-events-view--week {
 
-	.tribe-events-pro-week-grid__multiday-events-day{
-		.tribe-events-pro-week-grid__multiday-event-bar{
+	.tribe-events-pro-week-grid__multiday-events-day {
+		.tribe-events-pro-week-grid__multiday-event-bar {
 			position: relative;
 			padding-left: var(--tec-spacer-1);
 
@@ -285,12 +286,14 @@ Category pill area
 				background-color: var(--tec-category-primary);
 				border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
 			}
+
 			.tribe-events-pro-week-grid__multiday-event-bar-inner {
 				padding: 1px var(--tec-spacer-1);
 				background-color: var(--tec-category-secondary);
 				transition: none;
 			}
-			.tribe-events-pro-week-grid__multiday-event-bar-featured-icon-svg{
+
+			.tribe-events-pro-week-grid__multiday-event-bar-featured-icon-svg {
 				color: var(--tec-category-primary);
 			}
 		}
@@ -300,12 +303,14 @@ Category pill area
 		background-color: var(--tec-category-secondary);
 		color: var(--tec-category-text);
 	}
-	.tribe-events-pro-week-grid__event--past{
+
+	.tribe-events-pro-week-grid__event--past {
 		.tribe-events-pro-week-grid__event-link-inner {
 			background-color: var(--tec-category-secondary);
 			color: var(--tec-category-text);
 			transition: var(--tec-transition-background-color);
 		}
+
 		.tribe-events-pro-week-grid__event-link {
 			.tribe-events-pro-week-grid__event-link-inner {
 				&:hover {
@@ -316,24 +321,27 @@ Category pill area
 		}
 	}
 
-	.tribe-events-pro-week-grid__event-title{
-		color: var(--tec-category-text);
-	}
-	.tribe-events-pro-week-grid__event-datetime{
+	.tribe-events-pro-week-grid__event-title {
 		color: var(--tec-category-text);
 	}
 
-	.tribe-events-pro-week-grid__event--featured{
+	.tribe-events-pro-week-grid__event-datetime {
+		color: var(--tec-category-text);
+	}
+
+	.tribe-events-pro-week-grid__event--featured {
 		.tribe-events-pro-week-grid__event-datetime-featured-icon-svg,
 		.tribe-events-pro-week-grid__event-datetime-featured-text {
 			color: var(--tec-category-primary);
 		}
+
 		.tribe-events-pro-week-grid__event-link-inner {
 			&:before {
 				background-color: var(--tec-category-primary);
 			}
 		}
 	}
+
 	.tribe-events-pro-week-grid__event-link-inner {
 		transition: var(--tec-transition-background-color);
 		background-color: var(--tec-category-secondary);
@@ -346,6 +354,7 @@ Category pill area
 				background-color: inherit;
 			}
 		}
+
 		&:before {
 			background-color: var(--tec-category-primary);
 			content: '';
@@ -354,6 +363,41 @@ Category pill area
 			position: absolute;
 			top: 0;
 			width: 2px;
+		}
+	}
+}
+
+/**
+* Event Month (Mobile) Styling
+*/
+.tribe-events-view--month {
+	.tribe-events-calendar-month-mobile-events__mobile-event {
+		.tribe-events-calendar-month-mobile-events__mobile-event-details {
+			position: relative;
+			padding-left: var(--tec-spacer-1);
+
+			&:before {
+				background-color: var(--tec-category-primary);
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 2px;
+			}
+		}
+
+		.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text,
+		.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg {
+			color: var(--tec-category-primary);
+		}
+
+		.tribe-events-calendar-month-mobile-events__mobile-title {
+			color: var(--tec-category-text);
+
+			.tribe-events-calendar-month-mobile-events__mobile-title-link {
+				color: var(--tec-category-text);
+			}
 		}
 	}
 }
