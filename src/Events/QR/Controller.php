@@ -25,7 +25,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @var string
 	 */
-	private $shortcode_tag = 'tec_event_qr';
+	private $slug = 'tec_event_qr';
 
 	/**
 	 * Register the controller.
@@ -112,16 +112,15 @@ class Controller extends Controller_Contract {
 		// @TODO load our QR CSS and JS here using tribe_asset()
 	}
 
-
 	/**
-	 * Gets the shortcode tag.
+	 * Gets the shortcode slug.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The shortcode tag.
+	 * @return string The shortcode slug.
 	 */
-	public function get_shortcode_tag(): string {
-		return $this->shortcode_tag;
+	public function get_slug(): string {
+		return $this->slug;
 	}
 
 	/**
@@ -131,8 +130,8 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function register_shortcode() {
-		$tag = $this->get_shortcode_tag();
+		$slug = $this->get_slug();
 
-		add_shortcode( $tag, [ $this->container->make( Shortcode::class ), 'render' ] );
+		add_shortcode( $slug, [ $this->container->make( Shortcode::class ), 'get_html' ] );
 	}
 }

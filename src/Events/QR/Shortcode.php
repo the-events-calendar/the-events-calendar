@@ -7,6 +7,9 @@
 
 namespace TEC\Events\QR;
 
+use Tribe\Shortcode\Shortcode_Abstract;
+use TEC\Common\QR\QR;
+
 /**
  * Class Shortcode
  *
@@ -14,7 +17,7 @@ namespace TEC\Events\QR;
  *
  * @package TEC\Events\QR
  */
-class Shortcode {
+class Shortcode extends Shortcode_Abstract {
 	/**
 	 * The shortcode tag.
 	 *
@@ -22,32 +25,49 @@ class Shortcode {
 	 *
 	 * @var string
 	 */
-	private $shortcode_tag = 'tec_event_qr';
+	protected $slug = 'tec_event_qr';
 
 	/**
-	 * The callback to render the shortcode.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $atts The shortcode attributes.
-	 *
-	 * @return string The shortcode output.
+	 * {@inheritDoc}
 	 */
-	public function render( $atts ) {
-		$atts = shortcode_atts(
-			[
-				'mode' => 'current',
-				'id'   => '',
-				'size' => 150,
-			],
-			$atts,
-			$this->shortcode_tag
-		);
+	protected $default_arguments = [
+		'mode' => 'current',
+		'id'   => '',
+		'size' => 6,
+	];
 
-		$mode = in_array( $atts['mode'], [ 'current', 'next', 'id', 'series_next' ], true ) ? $atts['mode'] : 'current';
-		$id   = absint( $atts['id'] );
-		$size = absint( $atts['size'] );
+	/**
+	 * {@inheritDoc}
+	 */
+	public $validate_arguments_map = [
+		'id'   => 'tribe_post_exists',
+		'mode' => 'sanitize_title_with_dashes',
+		'size' => 'absint',
+	];
 
-		return '@TODO_ get the QR_' . $mode . ' of event with the ID: ' . $id . ' and size: ' . $size;
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_html( $attributes = [], $content = '' ) {
+
+		$this->setup( $attributes, $content );
+
+		$args = $this->get_arguments();
+
+		$mode = in_array( $args['mode'], [ 'current', 'next', 'id', 'series_next' ], true ) ? $args['mode'] : 'current';
+		$id   = absint( $args['id'] );
+		$size = absint( $args['size'] );
+
+		$qr_code = tribe( QR::class );
+
+		if ( is_wp_error( $qr_code ) ) {
+			return $qr_code;
+		}
+
+		$qr_img = $qr_code->size( $size )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
+
+		$this->content = '<img alt="qr_code_image" src="' . $qr_img . '">';
+
+		return $this->content;
 	}
 }
