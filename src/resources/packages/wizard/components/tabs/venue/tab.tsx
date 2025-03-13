@@ -200,7 +200,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 
 	const isValidPhone = () => {
 		const inputId = 'venue-phone';
-		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
+		const phonePattern = /^\+?\d{1,3}[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{1,4}[\s.-]?\d{1,4}[\s.-]?\d{1,4}$/;
 		const isVisited = visitedFields.includes(inputId);
 
 		if (!isVisited) {
