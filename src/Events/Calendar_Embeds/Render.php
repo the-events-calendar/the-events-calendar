@@ -37,7 +37,7 @@ class Render {
 	 *
 	 * @var string
 	 */
-	const TRANSIENT_PREFIX = 'tec_events_shortcode_tribe_events_params_';
+	const TRANSIENT_PREFIX = 'tec_events_calendar_embeds_view_params_';
 
 	/**
 	 * Arguments of the current view.
@@ -110,9 +110,9 @@ class Render {
 	 */
 	protected function toggle_view_hooks( $toggle ): void {
 		if ( $toggle ) {
-			$this->add_shortcode_hooks();
+			$this->add_view_hooks();
 		} else {
-			$this->remove_shortcode_hooks();
+			$this->remove_view_hooks();
 		}
 
 		/**
@@ -131,7 +131,7 @@ class Render {
 	 *
 	 * @since TBD
 	 */
-	protected function add_shortcode_hooks(): void {
+	protected function add_view_hooks(): void {
 		add_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15, 3 );
 		add_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_view_repository_args' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_view_html_classes', [ $this, 'filter_view_html_classes' ], 10, 3 );
@@ -236,7 +236,7 @@ class Render {
 	 *
 	 * @since TBD
 	 */
-	protected function remove_shortcode_hooks(): void {
+	protected function remove_view_hooks(): void {
 		remove_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15 );
 		remove_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_view_repository_args' ], 10 );
 		remove_filter( 'tribe_events_views_v2_view_html_classes', [ $this, 'filter_view_html_classes' ], 10 );
@@ -289,16 +289,16 @@ class Render {
 			return;
 		}
 
-		$shortcode_instance = new static();
-		$db_args            = $shortcode_instance->get_database_arguments( $embed );
+		$view_instance = new static();
+		$db_args       = $view_instance->get_database_arguments( $embed );
 
 		if ( empty( $db_args ) ) {
 			return;
 		}
 
-		$shortcode_instance->setup( $db_args, '' );
+		$view_instance->setup( $db_args, '' );
 
-		$shortcode_instance->toggle_view_hooks( true );
+		$view_instance->toggle_view_hooks( true );
 	}
 
 	/**
@@ -368,13 +368,13 @@ class Render {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $shortcode_id The identifier, or `null` to use the current one.
+	 * @param string $embed_id The identifier, or `null` to use the current one.
 	 *
 	 * @return array Array of params configuring the View.
 	 */
-	public function get_database_arguments( ?string $shortcode_id = null ): array {
-		$shortcode_id        = $shortcode_id ?: $this->get_id();
-		$transient_key       = static::TRANSIENT_PREFIX . $shortcode_id;
+	public function get_database_arguments( ?string $embed_id = null ): array {
+		$embed_id            = $embed_id ?: $this->get_id();
+		$transient_key       = static::TRANSIENT_PREFIX . $embed_id;
 		$transient_arguments = get_transient( $transient_key );
 
 		return (array) $transient_arguments;
@@ -389,10 +389,10 @@ class Render {
 	 * @return  bool  Return if we have the arguments configured or not.
 	 */
 	public function set_database_params(): bool {
-		$shortcode_id       = $this->get_id();
-		$transient_key      = static::TRANSIENT_PREFIX . $shortcode_id;
+		$embed_id           = $this->get_id();
+		$transient_key      = static::TRANSIENT_PREFIX . $embed_id;
 		$db_arguments       = $this->get_database_arguments();
-		$db_arguments['id'] = $shortcode_id;
+		$db_arguments['id'] = $embed_id;
 
 		// If the value is the same it's already in the Database.
 		if ( $db_arguments === $this->get_arguments() ) {
@@ -410,21 +410,21 @@ class Render {
 	 * @param Context $context Context we will use to build the view.
 	 * @param array   $arguments Arguments to be used to alter the context.
 	 *
-	 * @return Context Context after shortcodes changes.
+	 * @return Context Context after view changes.
 	 */
 	public function alter_context( Context $context, array $arguments = [] ): Context {
-		$shortcode_id = $context->get( 'id' );
+		$embed_id = $context->get( 'id' );
 
 		if ( empty( $arguments ) ) {
-			$arguments    = $this->get_arguments();
-			$shortcode_id = $this->get_id();
+			$arguments = $this->get_arguments();
+			$embed_id  = $this->get_id();
 		}
 
 		$alter_context = $this->args_to_context( $arguments, $context );
 
 		// The View will consume this information on initial state.
-		$alter_context['embed'] = $shortcode_id;
-		$alter_context['id']    = $shortcode_id;
+		$alter_context['embed'] = $embed_id;
+		$alter_context['id']    = $embed_id;
 
 		$context = $context->alter( $alter_context );
 
@@ -497,7 +497,7 @@ class Render {
 	}
 
 	/**
-	 * Determines if we should display the shortcode in a given page.
+	 * Determines if we should display the view in a given page.
 	 *
 	 * @since TBD
 	 *
@@ -505,20 +505,20 @@ class Render {
 	 */
 	public function should_display(): bool {
 		/**
-		 * On blocks editor shortcodes are being rendered in the screen which for some unknown reason makes the admin
-		 * URL soft redirect (browser history only) to the front-end view URL of that shortcode.
+		 * On blocks editor views are being rendered in the screen which for some unknown reason makes the admin
+		 * URL soft redirect (browser history only) to the front-end view URL of that view.
 		 *
 		 * @see TEC-3157
 		 */
 		$should_display = true;
 
 		/**
-		 * If we should display the shortcode.
+		 * If we should display the view.
 		 *
 		 * @since TBD
 		 *
 		 * @param bool   $should_display Whether we should display or not.
-		 * @param static $shortcode      Instance of the shortcode we are dealing with.
+		 * @param static $view           Instance of the view we are dealing with.
 		 */
 		$should_display = apply_filters( 'tec_events_calendar_embeds_render_should_display', $should_display, $this );
 
@@ -526,11 +526,11 @@ class Render {
 	}
 
 	/**
-	 * Renders the HTML for the shortcode.
+	 * Renders the HTML.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The HTML for the shortcode.
+	 * @return string The HTML.
 	 */
 	public function get_html(): string {
 		if ( ! $this->should_display() ) {
@@ -546,17 +546,17 @@ class Render {
 		$context->dangerously_repopulate_locations();
 		$context->refresh();
 
-		// Before anything happens we set a DB ID and value for this shortcode entry.
+		// Before anything happens we set a DB ID and value for this view entry.
 		$this->set_database_params();
 
-		// Modifies the Context for the shortcode params.
+		// Modifies the Context for the view params.
 		$context = $this->alter_context( $context );
 
 		// Fetches if we have a specific view are building.
 		$view_slug = $this->get_argument( 'view', $context->get( 'view' ) );
 
 
-		// Toggle the shortcode required modifications.
+		// Toggle the view required modifications.
 		$this->toggle_view_hooks( true );
 
 		// Setup the view instance.
@@ -574,8 +574,8 @@ class Render {
 		 *
 		 * @since TBD
 		 *
-		 * @param bool   $compatibility_required Is compatibility required for this shortcode.
-		 * @param static $shortcode              Shortcode instance that is being rendered.
+		 * @param bool   $compatibility_required Is compatibility required for this view.
+		 * @param static $view                   View instance that is being rendered.
 		 */
 		$compatibility_required = apply_filters(
 			'tec_events_calendar_embeds_render_compatibility_required',
@@ -596,7 +596,7 @@ class Render {
 			$html .= '</div>';
 		}
 
-		// Toggle the shortcode required modifications.
+		// Toggle the view required modifications.
 		$this->toggle_view_hooks( false );
 
 		/**
@@ -610,35 +610,35 @@ class Render {
 	}
 
 	/**
-	 * Filters the View repository args to add the ones required by shortcodes to work.
+	 * Filters the View repository args to add the ones required.
 	 *
 	 * @since TBD
 	 *
 	 * @param array   $repository_args An array of repository arguments that will be set for all Views.
 	 * @param Context $context         The current render context object.
 	 *
-	 * @return array Repository arguments after shortcode args added.
+	 * @return array Repository arguments after view args added.
 	 */
 	public function filter_view_repository_args( array $repository_args, Context $context ): array {
 		if ( ! $context instanceof Context ) {
 			return $repository_args;
 		}
 
-		$shortcode_id = $context->get( 'embed', false );
+		$embed_id = $context->get( 'embed', false );
 
-		if ( false === $shortcode_id ) {
+		if ( false === $embed_id ) {
 			return $repository_args;
 		}
 
-		$shortcode_args = $this->get_database_arguments( $shortcode_id );
+		$view_args = $this->get_database_arguments( $embed_id );
 
-		$repository_args = $this->args_to_repository( (array) $repository_args, (array) $shortcode_args );
+		$repository_args = $this->args_to_repository( (array) $repository_args, (array) $view_args );
 
 		return $repository_args;
 	}
 
 	/**
-	 * Filters the context locations to add the ones used by Shortcodes.
+	 * Filters the context locations to add the ones used by Views.
 	 *
 	 * @since TBD
 	 *
@@ -663,14 +663,14 @@ class Render {
 	}
 
 	/**
-	 * Translates shortcode arguments to their Context argument counterpart.
+	 * Translates view arguments to their Context argument counterpart.
 	 *
 	 * @since TBD
 	 *
-	 * @param array   $arguments The shortcode arguments to translate.
+	 * @param array   $arguments The view arguments to translate.
 	 * @param Context $context   The request context.
 	 *
-	 * @return array The translated shortcode arguments.
+	 * @return array The translated view arguments.
 	 */
 	protected function args_to_context( array $arguments, Context $context ): array {
 		$context_args = [];
@@ -748,14 +748,14 @@ class Render {
 	}
 
 	/**
-	 * Translates shortcode arguments to their Repository argument counterpart.
+	 * Translates view arguments to their Repository argument counterpart.
 	 *
 	 * @since TBD
 	 *
 	 * @param array $repository_args The current repository arguments.
-	 * @param array $arguments       The shortcode arguments to translate.
+	 * @param array $arguments       The view arguments to translate.
 	 *
-	 * @return array The translated shortcode arguments.
+	 * @return array The translated view arguments.
 	 */
 	public function args_to_repository( array $repository_args, array $arguments ): array {
 		if (
@@ -931,22 +931,22 @@ class Render {
 	}
 
 	/**
-	 * Alters the context of the view based on the shortcode params stored in the database based on the ID.
+	 * Alters the context of the view based on the view params stored in the database based on the ID.
 	 *
 	 * @since TBD
 	 *
 	 * @param Context $view_context Context for this request.
 	 * @param string  $view_slug    Slug of the view we are building.
 	 *
-	 * @return Context               Altered version of the context ready for shortcodes.
+	 * @return Context
 	 */
 	public function filter_view_context( Context $view_context, string $view_slug ): Context {
-		$shortcode_id = $view_context->get( 'embed' );
-		if ( ! $shortcode_id ) {
+		$embed_id = $view_context->get( 'embed' );
+		if ( ! $embed_id ) {
 			return $view_context;
 		}
 
-		$arguments = $this->get_database_arguments( $shortcode_id );
+		$arguments = $this->get_database_arguments( $embed_id );
 
 		if ( empty( $arguments ) ) {
 			return $view_context;
@@ -968,34 +968,34 @@ class Render {
 	}
 
 	/**
-	 * Filters the default view in the views manager for shortcodes navigation.
+	 * Filters the default view in the views manager for views navigation.
 	 *
 	 * @since TBD
 	 *
 	 * @param string $view_class Fully qualified class name for default view.
 	 *
-	 * @return string Fully qualified class name for default view of the shortcode in question.
+	 * @return string Fully qualified class name for default view of the view in question.
 	 */
 	public function filter_default_url( string $view_class ): string {
 		if ( tribe_context()->doing_php_initial_state() ) {
 			return $view_class;
 		}
 
-		// Use the global context here as we should be in the context of an AJAX shortcode request.
-		$shortcode_id = tribe_context()->get( 'embed', false );
+		// Use the global context here as we should be in the context of an AJAX view request.
+		$embed_id = tribe_context()->get( 'embed', false );
 
-		if ( false === $shortcode_id ) {
-			// If we're not in the context of an AJAX shortcode request, bail.
+		if ( false === $embed_id ) {
+			// If we're not in the context of an AJAX view request, bail.
 			return $view_class;
 		}
 
-		$shortcode_args = $this->get_database_arguments( $shortcode_id );
+		$view_args = $this->get_database_arguments( $embed_id );
 
-		if ( ! $shortcode_args['view'] ) {
+		if ( ! $view_args['view'] ) {
 			return $view_class;
 		}
 
-		return tribe( Views_Manager::class )->get_view_class_by_slug( $shortcode_args['view'] );
+		return tribe( Views_Manager::class )->get_view_class_by_slug( $view_args['view'] );
 	}
 
 	/**
@@ -1016,17 +1016,17 @@ class Render {
 			return $html_classes;
 		}
 
-		$shortcode = $context->get( 'embed', false );
+		$embed = $context->get( 'embed', false );
 
-		if ( ! $shortcode ) {
+		if ( ! $embed ) {
 			return $html_classes;
 		}
-		$shortcode_args = $this->get_database_arguments( $shortcode );
+		$view_args = $this->get_database_arguments( $embed );
 
 		$html_classes[] = 'tribe-events-view--embed';
-		$html_classes[] = 'tribe-events-view--embed-' . $shortcode;
+		$html_classes[] = 'tribe-events-view--embed-' . $embed;
 
-		$container_classes = Arr::get( $shortcode_args, 'container-classes', '' );
+		$container_classes = Arr::get( $view_args, 'container-classes', '' );
 
 		if ( ! empty( $container_classes ) ) {
 			$html_classes = array_merge( $html_classes, $container_classes );
@@ -1074,17 +1074,17 @@ class Render {
 			return $data;
 		}
 
-		$shortcode = $context->get( 'embed', false );
+		$embed = $context->get( 'embed', false );
 
-		if ( $shortcode ) {
-			$data['embed'] = $shortcode;
+		if ( $embed ) {
+			$data['embed'] = $embed;
 		}
 
 		return $data;
 	}
 
 	/**
-	 * Filters the View URL to add the shortcode query arg, if required.
+	 * Filters the View URL to add the embed query arg, if required.
 	 *
 	 * @since TBD
 	 *
@@ -1092,7 +1092,7 @@ class Render {
 	 * @param bool           $canonical Whether to return the canonical version of the URL or the normal one.
 	 * @param View_Interface $view      This view instance.
 	 *
-	 * @return string The URL for the view shortcode.
+	 * @return string The URL for the view embed.
 	 */
 	public function filter_view_url( string $url, bool $canonical, View_Interface $view ): string {
 		$context = $view->get_context();
@@ -1105,17 +1105,17 @@ class Render {
 			return $url;
 		}
 
-		$shortcode_id = $context->get( 'embed', false );
+		$embed_id = $context->get( 'embed', false );
 
-		if ( false === $shortcode_id ) {
+		if ( false === $embed_id ) {
 			return $url;
 		}
 
-		return add_query_arg( [ 'embed' => $shortcode_id ], $url );
+		return add_query_arg( [ 'embed' => $embed_id ], $url );
 	}
 
 	/**
-	 * Filters the query arguments array and add the Shortcodes.
+	 * Filters the query arguments array and add the Embeds.
 	 *
 	 * @since TBD
 	 *
@@ -1123,7 +1123,7 @@ class Render {
 	 * @param string         $view_slug The current view slug.
 	 * @param View_Interface $view      The current View object.
 	 *
-	 * @return  array  Filtered the query arguments for shortcodes.
+	 * @return  array  Filtered the query arguments for embeds.
 	 */
 	public function filter_view_url_query_args( array $query, string $view_slug, View_Interface $view ): array {
 		$context = $view->get_context();
@@ -1132,13 +1132,13 @@ class Render {
 			return $query;
 		}
 
-		$shortcode = $context->get( 'embed', false );
+		$embed = $context->get( 'embed', false );
 
-		if ( false === $shortcode ) {
+		if ( false === $embed ) {
 			return $query;
 		}
 
-		$query['embed'] = $shortcode;
+		$query['embed'] = $embed;
 
 		return $query;
 	}
@@ -1156,25 +1156,25 @@ class Render {
 	public function filter_week_view_breakpoints( array $breakpoints, View $view ): array {
 		$context   = $view->get_context();
 		$widget    = $context->get( 'is-widget', false );
-		$shortcode = $context->get( 'embed', false );
+		$embed = $context->get( 'embed', false );
 
 		if ( false === $widget ) {
 			return $breakpoints;
 		}
 
-		if ( false === $shortcode ) {
+		if ( false === $embed ) {
 			return $breakpoints;
 		}
 
-		$shortcode_args = $this->get_database_arguments( $shortcode );
-		if ( ! $shortcode_args ) {
+		$view_args = $this->get_database_arguments( $embed );
+		if ( ! $view_args ) {
 			return $breakpoints;
 		}
 
-		if ( 'vertical' === $shortcode_args['layout'] ) {
+		if ( 'vertical' === $view_args['layout'] ) {
 			// Remove all breakpoints to remain in "mobile view".
 			return [];
-		} elseif ( 'horizontal' === $shortcode_args['layout'] ) {
+		} elseif ( 'horizontal' === $view_args['layout'] ) {
 			// Simplify breakpoints to remain in "desktop view".
 			unset( $breakpoints['xsmall'] );
 			$breakpoints['medium'] = 0;
@@ -1187,7 +1187,7 @@ class Render {
 	}
 
 	/**
-	 * Modify the Week events per day of a given view based on arguments from Shortcode.
+	 * Modify the Week events per day of a given view based on arguments from View.
 	 *
 	 * @since TBD
 	 *
@@ -1198,18 +1198,18 @@ class Render {
 	 */
 	public function filter_week_events_per_day( $events_per_day, View $view ) {
 		$context   = $view->get_context();
-		$shortcode = $context->get( 'embed', false );
+		$embed = $context->get( 'embed', false );
 
-		if ( false === $shortcode ) {
+		if ( false === $embed ) {
 			return $events_per_day;
 		}
 
-		$shortcode_args = $this->get_database_arguments( $shortcode );
-		if ( ! $shortcode_args || ! isset( $shortcode_args['count'] ) ) {
+		$view_args = $this->get_database_arguments( $embed );
+		if ( ! $view_args || ! isset( $view_args['count'] ) ) {
 			return $events_per_day;
 		}
 
-		return $shortcode_args['count'];
+		return $view_args['count'];
 	}
 
 	/**
@@ -1223,12 +1223,12 @@ class Render {
 	 * @return Repository_Interface $next_event The modified repository instance.
 	 */
 	public function filter_ff_link_next_event( Repository_Interface $next_event, View_Interface $view ): Repository_Interface {
-		$shortcode = $view->get_context()->get( 'embed' );
-		if ( empty( $shortcode ) ) {
+		$embed = $view->get_context()->get( 'embed' );
+		if ( empty( $embed ) ) {
 			return $next_event;
 		}
 
-		$args = $this->get_database_arguments( $shortcode );
+		$args = $this->get_database_arguments( $embed );
 
 		if ( ! empty( $args['category'] ) ) {
 			$next_event = $next_event->where( 'category', (array) $args['category'] );
