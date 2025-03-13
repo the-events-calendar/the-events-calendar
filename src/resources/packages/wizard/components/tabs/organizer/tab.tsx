@@ -150,6 +150,11 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const isValidWebsite = () => {
+		// Accept empty field as valid.
+		if (!website || website === '') {
+			return true;
+		}
+
 		const inputId = 'organizer-website';
 		const isVisited = visitedFields.includes(inputId);
 		if (!isVisited) {
@@ -158,11 +163,6 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
-
-		// Accept empty field as valid.
-		if (!website || website === '') {
-			return true;
-		}
 
 		let isValid = false;
 
