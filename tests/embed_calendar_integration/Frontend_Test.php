@@ -30,6 +30,8 @@ class Frontend_Test extends Controller_Test_Case {
 		global $post;
 
 		self::$back_up['post'] = $post;
+
+		$this->set_fn_return( 'is_admin', false );
 	}
 
 	/**
@@ -94,7 +96,7 @@ class Frontend_Test extends Controller_Test_Case {
 	public function ece_data_provider(): Generator {
 		yield 'no tags - no cats' => [
 			function () {
-
+				$event_ids = [];
 				for ( $i = 1; $i < 10; $i++ ) {
 					$args       = [
 						'start_date'  => '2025-03-0' . $i . ' 09:00:00',
@@ -103,16 +105,19 @@ class Frontend_Test extends Controller_Test_Case {
 						'title'       => 'A test event ' . $i,
 						'post_status' => 'publish',
 					];
-					tribe_events()->set_args( $args )->create();
+					$event_ids[] = tribe_events()->set_args( $args )->create()->ID;
 				}
 
-				return [ [], [] ];
+				return [ $event_ids, [], [] ];
 			}
 		];
 
 		yield 'tags - no cats' => [
 			function () {
-
+				$term_ids = [];
+				$term_ids[] = self::factory()->tag->create( [ 'slug' => 'tag1' ] );
+				$term_ids[] = self::factory()->tag->create( [ 'slug' => 'tag2' ] );
+				$event_ids  = [];
 				for ( $i = 1; $i < 10; $i++ ) {
 					$args       = [
 						'start_date' => '2025-03-0' . $i . ' 09:00:00',
@@ -122,14 +127,15 @@ class Frontend_Test extends Controller_Test_Case {
 						'post_status' => 'publish',
 					];
 					$id = tribe_events()->set_args( $args )->create()->ID;
+					$event_ids[] = $id;
 
 					if ( $i === 3 || $i === 7 ) {
 						continue;
 					}
-					wp_set_post_tags( $id, [ 'tag1', 'tag2' ] );
+					wp_set_post_terms( $id, $term_ids, 'post_tag' );
 				}
 
-				return [ [ 'tag1', 'tag2' ], [] ];
+				return [ $event_ids, [ 'tag1', 'tag2' ], [] ];
 			}
 		];
 
@@ -138,6 +144,7 @@ class Frontend_Test extends Controller_Test_Case {
 				$term_ids = [];
 				$term_ids[] = self::factory()->term->create( [ 'slug' => 'cat1', 'taxonomy' => TEC::TAXONOMY ] );
 				$term_ids[] = self::factory()->term->create( [ 'slug' => 'cat2', 'taxonomy' => TEC::TAXONOMY ] );
+				$event_ids  = [];
 				for ( $i = 1; $i < 10; $i++ ) {
 					$args       = [
 						'start_date' => '2025-03-0' . $i . ' 09:00:00',
@@ -147,6 +154,7 @@ class Frontend_Test extends Controller_Test_Case {
 						'post_status' => 'publish',
 					];
 					$id = tribe_events()->set_args( $args )->create()->ID;
+					$event_ids[] = $id;
 
 					if ( $i === 2 || $i === 5 ) {
 						continue;
@@ -154,7 +162,7 @@ class Frontend_Test extends Controller_Test_Case {
 					wp_set_post_terms( $id, $term_ids );
 				}
 
-				return [ [], [ 'cat1', 'cat2' ] ];
+				return [ $event_ids, [], [ 'cat1', 'cat2' ] ];
 			}
 		];
 
@@ -163,6 +171,10 @@ class Frontend_Test extends Controller_Test_Case {
 				$term_ids = [];
 				$term_ids[] = self::factory()->term->create( [ 'slug' => 'cat1', 'taxonomy' => TEC::TAXONOMY ] );
 				$term_ids[] = self::factory()->term->create( [ 'slug' => 'cat2', 'taxonomy' => TEC::TAXONOMY ] );
+				$tag_ids = [];
+				$tag_ids[] = self::factory()->tag->create( [ 'slug' => 'tag1' ] );
+				$tag_ids[] = self::factory()->tag->create( [ 'slug' => 'tag2' ] );
+				$event_ids = [];
 				for ( $i = 1; $i < 10; $i++ ) {
 					$args       = [
 						'start_date' => '2025-03-0' . $i . ' 09:00:00',
@@ -172,9 +184,10 @@ class Frontend_Test extends Controller_Test_Case {
 						'post_status' => 'publish',
 					];
 					$id = tribe_events()->set_args( $args )->create()->ID;
+					$event_ids[] = $id;
 
 					if ( $i === 2 || $i === 3 || $i === 7 ) {
-						wp_set_post_tags( $id, [ 'tag1', 'tag2' ] );
+						wp_set_post_terms( $id, $tag_ids, 'post_tag' );
 					}
 
 					if ( $i === 2 || $i === 5 ) {
@@ -183,24 +196,22 @@ class Frontend_Test extends Controller_Test_Case {
 					wp_set_post_terms( $id, $term_ids );
 				}
 
-				return [ [ 'tag1', 'tag2' ], [ 'cat1', 'cat2' ] ];
+				return [ $event_ids, [ 'tag1', 'tag2' ], [ 'cat1', 'cat2' ] ];
 			}
 		];
 	}
 
 	/**
 	 * @test
-	 * @skip
 	 * @dataProvider ece_data_provider
 	 */
 	public function it_should_overwrite_content( Closure $fixture ): void {
-		$now = date( 'Y-m-d H:i:s' );
 		$this->freeze_time( Dates::immutable( '2025-03-03 10:00:00' ) );
 		remove_all_filters( 'the_content' );
 		$controller = $this->make_controller();
 		$controller->register();
 
-		[ $tags, $cats ] = $fixture();
+		[ $event_ids, $tags, $cats ] = $fixture();
 
 		$ece_id = $this->create_ece( [ 'post_content' => '' ] );
 		if ( ! empty( $tags ) ) {
@@ -231,12 +242,13 @@ class Frontend_Test extends Controller_Test_Case {
 		add_filter( 'tribe_events_views_v2_view_breakpoint_pointer', fn() => 'breakpoint-pointer' );
 
 		$filtered = apply_filters( 'the_content', $ece->post_content );
-		$directly_fitlered = $controller->overwrite_content( $ece->post_content );
 
-		$this->assertEquals( $filtered, $directly_fitlered );
+		$this->assertNotEquals( $ece->post_content, $filtered );
 
-		$this->assertNotEquals( $ece->post_content, $directly_fitlered );
+		$filtered = preg_replace( '/"now":"[^"]*"/', '"now":"' . date( 'Y-m-d H:i:s' ) . '"', $filtered );
+		$filtered = str_replace( (string) $ece_id, '{ECE_ID}', $filtered );
+		$filtered = str_replace( $event_ids, '{EVENT_ID}', $filtered );
 
-		$this->assertMatchesHtmlSnapshot( str_replace( '"now":"' . $now . '"', '"now":"' . date( 'Y-m-d H:i:s' ) . '"', $directly_fitlered ) );
+		$this->assertMatchesHtmlSnapshot( $filtered );
 	}
 }

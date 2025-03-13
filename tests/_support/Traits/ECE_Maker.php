@@ -94,7 +94,8 @@ trait ECE_Maker {
 				$term_ids[] = (int) $tid['term_id'] ?? $tid;
 				continue;
 			}
-			$term_ids[] = (int) $this->factory->tag->create( [ 'slug' => $tag, 'taxonomy' => 'post_tag', 'name' => ucfirst( $tag ) ] );
+			$result = $this->factory->tag->create( [ 'slug' => $tag, 'taxonomy' => 'post_tag', 'name' => ucfirst( $tag ) ] );
+			$term_ids[] = (int) $result;
 		}
 
 		$result = wp_set_post_tags( $ece_id, $term_ids, true );
