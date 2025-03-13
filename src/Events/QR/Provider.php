@@ -25,6 +25,6 @@ class Provider extends Service_Provider {
 	 * @since TBD
 	 */
 	public function register() {
-		$this->container->register_on_action( 'tribe_plugins_loaded', Controller::class );
+		$this->container->register_on_action( 'tec_qr_code_loaded', Controller::class );
 	}
 }

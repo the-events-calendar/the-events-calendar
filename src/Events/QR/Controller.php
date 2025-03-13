@@ -8,7 +8,6 @@
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use Tribe__Main as Common;
 
 /**
  * Class Controller.
@@ -38,13 +37,8 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
-		$this->container->bind( QR::class, [ $this, 'bind_facade_or_error' ] );
 		$this->container->singleton( Settings::class );
-		$this->container->singleton( Notices::class );
 		$this->container->singleton( Shortcode::class );
-
-		// Register the Admin Notices right away.
-		$this->container->make( Notices::class )->register_admin_notices();
 
 		$this->add_actions();
 
@@ -71,6 +65,8 @@ class Controller extends Controller_Contract {
 	 */
 	protected function add_actions(): void {
 		add_action( 'init', [ $this, 'register_shortcode' ] );
+
+		add_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
 	}
 
 	/**
@@ -82,6 +78,27 @@ class Controller extends Controller_Contract {
 	 */
 	protected function remove_actions(): void {
 		remove_action( 'init', [ $this, 'register_shortcode' ] );
+
+		remove_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
+	}
+
+	/**
+	 * Adds the TEC pages to the list for the QR code notice.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $valid_pages An array of pages where notice will be displayed.
+	 *
+	 * @return array
+	 */
+	public function add_valid_pages( $valid_pages ) {
+		$tec_pages = [
+			'tec-events-settings',
+			'tec-events-help-hub',
+			'tec-troubleshooting',
+		];
+
+		return array_merge( $valid_pages, $tec_pages );
 	}
 
 	/**
@@ -92,71 +109,9 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		// @ToDo load our QR CSS and JS here using tribe_asset()
+		// @TODO load our QR CSS and JS here using tribe_asset()
 	}
 
-	/**
-	 * Binds the facade or throws an error.
-	 *
-	 * @since TBD
-	 *
-	 * @return \WP_Error|QR Either the build QR façade, or an error to detail the failure.
-	 */
-	public function bind_facade_or_error() {
-		if ( ! $this->can_use() ) {
-			return new \WP_Error(
-				'tec_events_qr_code_cannot_use',
-				__( 'The QR code cannot be used, please contact your host and ask for `gzip` and `gd` support.', 'the-events-calendar' )
-			);
-		}
-
-		// Load the library if it's not loaded already.
-		$this->load_library();
-
-		return new QR();
-	}
-
-	/**
-	 * Determines if the QR code library is loaded.
-	 *
-	 * @since TBD
-	 */
-	public function has_library_loaded(): bool {
-		return defined( 'TEC_COMMON_QR_CACHEABLE' );
-	}
-
-	/**
-	 * Loads the QR code library if it's not loaded already.
-	 *
-	 * @since TBD
-	 */
-	protected function load_library(): void {
-		if ( $this->has_library_loaded() ) {
-			return;
-		}
-
-		require_once Common::instance()->plugin_path . 'vendor/phpqrcode/qrlib.php';
-	}
-
-	/**
-	 * Determines if the QR code can be used.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the current server configuration supports the QR functionality.
-	 */
-	public function can_use(): bool {
-		$can_use = function_exists( 'gzuncompress' ) && function_exists( 'ImageCreate' );
-
-		/**
-		 * Filter to determine if the QR code can be used.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $can_use Whether the QR code can be used based on the current environment.
-		 */
-		return apply_filters( 'tec_events_qr_code_can_use', $can_use );
-	}
 
 	/**
 	 * Gets the shortcode tag.
