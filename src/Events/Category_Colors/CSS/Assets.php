@@ -38,6 +38,15 @@ class Assets {
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 
+		Asset::add(
+			'tec-category-colors-frontend-scripts',
+			'/js/views/category-color-selector.js',
+			Tribe__Events__Main::VERSION
+		)
+			->add_to_group_path( 'tec-category-colors' )
+			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
+			->register();
+
 		// Retrieve the dynamically generated category color CSS.
 		$css = get_option( 'tec_events_category_color_css', '' );
 

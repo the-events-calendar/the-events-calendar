@@ -235,8 +235,9 @@ Category pill area
 Category pill area
 **/
 
-	.tribe-events-pro-photo__event-date-tag{
+	.tribe-events-pro-photo__event-date-tag {
 		position: relative;
+
 		&:after {
 			background-color: var(--tec-category-primary);
 			border-radius: var(--tec-border-radius-default);
@@ -420,10 +421,10 @@ Category pill area
 /**
 * Event Summary (Medium+ screens) Styling
 */
-.tribe-common--breakpoint-medium{
+.tribe-common--breakpoint-medium {
 	.tribe-events-pro-summary {
 		.tribe-events-pro-summary__event {
-			.tribe-events-pro-summary__event-details{
+			.tribe-events-pro-summary__event-details {
 				&:after {
 					border-radius: inherit;
 					height: inherit;
@@ -433,6 +434,7 @@ Category pill area
 					top: inherit;
 				}
 			}
+
 			.tribe-events-pro-summary__event-title {
 				position: relative;
 
@@ -466,6 +468,7 @@ Category pill area
 				width: inherit;
 			}
 		}
+
 		.tribe-events-pro-week-mobile-events__event-details {
 			position: relative;
 			padding-left: var(--tec-spacer-1);
@@ -485,5 +488,191 @@ Category pill area
 		.tribe-events-pro-week-mobile-events__event-datetime-featured-icon-svg {
 			color: var(--tec-category-primary);
 		}
+	}
+}
+
+/**
+Category Colors Legend Styles
+ */
+.tec-category-color-picker {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 5px; /* Space between colors and dropdown */
+	cursor: pointer;
+
+	&.tec-category-color-picker--align-right {
+		.tec-category-color-picker__dropdown {
+			left: auto;
+			right: 0;
+		}
+	}
+
+	/* Wrap the colors inside a flex container */
+
+	.tec-category-color-picker__colors {
+		display: flex;
+		align-items: center;
+
+
+		/* Style each color circle */
+
+		.tec-category-color-picker__color-circle {
+			aspect-ratio: 1/1;
+			border-radius: 50%;
+			width: 20px;
+			border: 2px solid #ffffff;
+			position: relative;
+			margin-left: -10px;
+		}
+
+
+		/* Ensure the first circle doesn’t shift */
+
+		.tec-category-color-picker__color-circle:first-child {
+			margin-left: 0;
+		}
+	}
+
+	/* Dropdown icon alignment */
+
+	.tec-category-color-picker__dropdown-icon {
+		.tec-category-colors-picker__dropdown-icon-svg {
+			height: 8px;
+			width: 11px;
+		}
+	}
+
+	/* Dropdown */
+
+	.tec-category-color-picker__dropdown {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: auto;
+		background: #fff;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		border-radius: var(--tec-border-radius-default);
+		padding: var(--tec-spacer-2);
+		min-width: 220px;
+		z-index: 100;
+		display: none;
+		flex-direction: column;
+		overflow-y: auto;
+		max-height: 250px;
+		white-space: nowrap;
+		/* Ensure dropdown never overflows horizontally */
+		max-width: min(100vw, 300px);
+		overflow-x: hidden;
+
+		&:after {
+			content: "";
+			position: absolute;
+			width: 100vw;
+			height: 100%;
+			left: 0;
+			top: 0;
+			max-width: 100%;
+			overflow: hidden;
+			pointer-events: none;
+		}
+
+		&.tec-category-color-picker__dropdown--visible {
+			display: block;
+		}
+
+		/* Header */
+
+		.tec-category-color-picker__dropdown-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: var(--tec-spacer-1);
+
+			.tec-category-color-picker__dropdown-close {
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				font-size: 18px;
+				color: #555;
+
+				&:hover {
+					color: #000;
+				}
+			}
+		}
+
+		/* List */
+
+		.tec-category-color-picker__dropdown-list {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: var(--tec-spacer-1);
+		}
+
+		/* List Item */
+
+		.tec-category-color-picker__dropdown-item {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			border-radius: var(--tec-border-radius-default);
+			transition: background-color 0.2s ease;
+
+			label {
+				&:hover {
+					background-color: var(--tec-color-background-secondary);
+				}
+				display: flex;
+				align-items: center;
+				gap: var(--tec-spacer-1);
+				padding: var(--tec-spacer-1);
+				cursor: pointer;
+				width: 100%;
+			}
+		}
+
+		/* Checkbox */
+
+		.tec-category-color-picker__checkbox {
+			cursor: pointer;
+		}
+
+		/* Category Label */
+
+		.tec-category-color-picker__label {
+			flex-grow: 1;
+			font-size: var(--tec-font-size-2);
+		}
+
+		/* Color Dot */
+
+		.tec-category-color-picker__color-dot {
+			aspect-ratio: 1/1;
+			width: 12px;
+			border-radius: 50%;
+			display: inline-block;
+		}
+	}
+
+	/* Show dropdown when open */
+
+	&.tec-category-color-picker--open {
+		.tec-category-color-picker__dropdown {
+			display: flex;
+		}
+	}
+}
+
+.tribe-events {
+	/* Events that don’t match the selected filters */
+
+	.tec-category-filtered-hide {
+		opacity: 0.4;
+		filter: grayscale(60%);
+		transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
 	}
 }
