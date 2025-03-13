@@ -220,7 +220,7 @@ class Settings {
 		);
 
 		// Redirect all TEC admin pages to First Time Setup.
-		$this->redirect_tec_pages_to_first_time_setup();
+		do_action( 'tec_redirect_first_time_setup' );
 
 		// Redirects users from the outdated Help page to the new Help Hub page if accessed.
 		$this->redirect_to_help_hub();
@@ -245,75 +245,6 @@ class Settings {
 
 		$this->maybe_add_troubleshooting();
 		$this->maybe_add_app_shop();
-	}
-
-	/**
-	 * Redirects users to the First Time Setup page when accessing any TEC settings or management page for the first time.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function redirect_tec_pages_to_first_time_setup(): void {
-		// If there is more than one previous version, don't redirect since they're probably already setup.
-		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
-		if ( count( $tec_versions ) > 1 ) {
-			return;
-		}
-
-		// Get some information about the page that we are trying to access.
-		$page      = tribe_get_request_var( 'page' );
-		$post_type = tribe_get_request_var( 'post_type' );
-		$taxonomy  = tribe_get_request_var( 'taxonomy' );
-
-		// Only target The Events Calendar-related admin pages.
-		if ( ! in_array( $post_type, [ 'tribe_events', 'tribe_event_series', 'tribe_venue', 'tribe_organizer' ], true ) ) {
-			return;
-		}
-
-		// Prevent infinite redirect: If already on the First Time Setup page, do nothing.
-		if ( 'first-time-setup' === $page ) {
-			return;
-		}
-
-		// Check if the user has already been redirected to the First Time Setup page.
-		$visited_first_time_setup = get_option( 'tec_onboarding_wizard_visited_first_time_setup', false );
-		if ( $visited_first_time_setup ) {
-			// If they already visited, no redirection is needed.
-			return;
-		}
-
-		// Define the base scripts that should trigger the redirect.
-		$redirect_scripts = [
-			'/wp-admin/edit.php',       // Main Events page, Series, Instructors, Venues, Organizers.
-			'/wp-admin/post-new.php',   // Add New Event.
-			'/wp-admin/edit-tags.php',  // Tags, Event Categories, Venue Categories, Organizer Categories.
-		];
-
-		// Define admin pages that use the 'page' parameter.
-		$redirect_admin_pages = [
-			'aggregator',         // Import.
-			'tec-events-settings', // Settings.
-		];
-
-		// Get the current script name and sanitize it.
-		$current_script = isset( $_SERVER['SCRIPT_NAME'] ) ? esc_url_raw( $_SERVER['SCRIPT_NAME'] ) : '';
-
-		if ( in_array( $current_script, $redirect_scripts, true ) || in_array( $page, $redirect_admin_pages, true ) ) {
-			$setup_url = add_query_arg(
-				[
-					'post_type' => 'tribe_events',
-					'page'      => 'first-time-setup',
-				],
-				admin_url( 'edit.php' )
-			);
-
-			// Stop redirecting once we send the user to the First Time Setup page once.
-			update_option( 'tec_onboarding_wizard_visited_first_time_setup', true );
-
-			wp_safe_redirect( $setup_url );
-			exit;
-		}
 	}
 
 	/**
