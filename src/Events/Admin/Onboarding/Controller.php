@@ -96,60 +96,43 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function redirect_tec_pages_to_guided_setup(): void {
-		// If there is more than one previous version, don't redirect since they've probably already set up.
+		// Get some information about the page that we are trying to access.
+		$page      = tribe_get_request_var( 'page' );
+		$post_type = tribe_get_request_var( 'post_type' );
+
+		// Do not redirect if they have older versions and are probably already set up.
 		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
 		if ( count( $tec_versions ) > 1 ) {
 			return;
 		}
 
-		// Get some information about the page that we are trying to access.
-		$page      = tribe_get_request_var( 'page' );
-		$post_type = tribe_get_request_var( 'post_type' );
-
-		// Only target The Events Calendar-related admin pages.
+		// Do not redirect if the target is not The Events Calendar-related admin pages.
 		if ( ! str_contains( $post_type, 'tribe' ) ) {
 			return;
 		}
 
-		// Prevent infinite redirect: If already on the First Time Setup page, do nothing.
+		// Do not redirect if they are already on the Guided Setup page.
 		if ( 'first-time-setup' === $page ) {
 			return;
 		}
 
-		// Do not redirect if they have already been to the Guided Setup page.
+		// Do not redirect if they have been to the Guided Setup page already.
 		$visited_first_time_setup = tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false );
 		if ( $visited_first_time_setup ) {
 			return;
 		}
 
-		// Define the base scripts that should trigger the redirect.
-		$redirect_scripts = [
-			'/wp-admin/edit.php',       // Main Events page, Series, Instructors, Venues, Organizers.
-			'/wp-admin/post-new.php',   // Add New Event.
-			'/wp-admin/edit-tags.php',  // Tags, Event Categories, Venue Categories, Organizer Categories.
-		];
+		// If we're still here, redirect to the Guided Setup page.
+		$setup_url = add_query_arg(
+			[
+				'post_type' => 'tribe_events',
+				'page'      => 'first-time-setup',
+			],
+			admin_url( 'edit.php' )
+		);
 
-		// Define admin pages that use the 'page' parameter.
-		$redirect_admin_pages = [
-			'aggregator',         // Import.
-			'tec-events-settings', // Settings.
-		];
-
-		// Get the current script name and sanitize it.
-		$current_script = isset( $_SERVER['SCRIPT_NAME'] ) ? esc_url_raw( $_SERVER['SCRIPT_NAME'] ) : '';
-
-		if ( in_array( $current_script, $redirect_scripts, true ) || in_array( $page, $redirect_admin_pages, true ) ) {
-			$setup_url = add_query_arg(
-				[
-					'post_type' => 'tribe_events',
-					'page'      => 'first-time-setup',
-				],
-				admin_url( 'edit.php' )
-			);
-
-			wp_safe_redirect( $setup_url );
-			exit;
-		}
+		wp_safe_redirect( $setup_url );
+		exit;
 	}
 
 	/**
