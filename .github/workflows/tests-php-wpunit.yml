@@ -126,13 +126,6 @@ jobs:
         run: |
           ${SLIC_BIN} wp theme install twentytwenty --activate
 
-      - name: Install the plugins on this particular Test Suite
-        if: steps.skip.outputs.value != 1
-        run: |
-          ${SLIC_BIN} wp plugin install sitepress-multilingual-cms
-          ${SLIC_BIN} wp plugin install wpml-translation-management
-          ${SLIC_BIN} wp plugin install wpml-string-translation
-
       # ------------------------------------------------------------------------------
       # Run the Actual tests
       # ------------------------------------------------------------------------------
