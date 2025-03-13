@@ -155,7 +155,7 @@ class Tribe__Events__Aggregator__Page {
 		};
 
 		// Load these on all the pages
-		tribe_assets(
+		tec_assets(
 			$plugin,
 			[
 				[
@@ -185,7 +185,7 @@ class Tribe__Events__Aggregator__Page {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-ea-styles',
 			'aggregator-page.css',
@@ -200,7 +200,7 @@ class Tribe__Events__Aggregator__Page {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-ea-notice',
 			'aggregator-notice.js',
