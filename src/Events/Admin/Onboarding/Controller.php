@@ -102,22 +102,29 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
+		// Do not redirect if the target is not The Events Calendar-related admin pages.
+		$post_type = tec_get_request_var( 'post_type' );
+
+		/**
+		 * Filters the list of post types associated with The Events Calendar admin pages.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $post_types An array of post type slugs associated with The Events Calendar admin.
+		 */
+		$post_types = apply_filters( 'tec_events_admin_post_types', [ 'tribe_events', 'tribe_event_series', 'tribe_venue', 'tribe_organizer' ] );
+
+		if ( ! in_array( $post_type, $post_types, true ) ) {
+			return;
+		}
+
 		// Do not redirect if they have been to the Guided Setup page already.
 		if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
 			return;
 		}
 
 		// Do not redirect if they dismissed the Guided Setup page.
-		if ( (bool) Landing_Page::is_dismissed() ) {
-			return;
-		}
-
-		// Do not redirect if the target is not The Events Calendar-related admin pages.
-		$post_types = apply_filters( 'tec_events_admin_post_types', [ 'tribe_events', 'tribe_event_series', 'tribe_venue', 'tribe_organizer' ] );
-
-		$post_type = tec_get_request_var( 'post_type' );
-
-		if ( ! in_array( $post_type, $post_types, true ) ) {
+		if ( Landing_Page::is_dismissed() ) {
 			return;
 		}
 
@@ -165,7 +172,8 @@ class Controller extends Controller_Contract {
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
-	}
+		remove_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
+}
 
 	/**
 	 * Remove all admin notices in the onboarding page.
