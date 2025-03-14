@@ -120,8 +120,8 @@ class Render {
 		 *
 		 * @since TBD
 		 *
-		 * @param bool   $toggle Whether the hooks should be turned on or off.
-		 * @param static $this   The instance that is toggling the View hooks.
+		 * @param bool   $toggle   Whether the hooks should be turned on or off.
+		 * @param static $instance The instance that is toggling the View hooks.
 		 */
 		do_action( 'tec_events_calendar_embeds_render_toggle_view_hooks', $toggle, $this );
 	}
