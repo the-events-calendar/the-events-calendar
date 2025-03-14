@@ -173,7 +173,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 		remove_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
-}
+	}
 
 	/**
 	 * Remove all admin notices in the onboarding page.
