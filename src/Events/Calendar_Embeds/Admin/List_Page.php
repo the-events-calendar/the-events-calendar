@@ -273,7 +273,7 @@ class List_Page extends Controller_Contract {
 		$categories = Calendar_Embeds::get_event_categories( $post_id );
 		if ( empty( $categories ) ) {
 			echo esc_html( __( 'All Categories', 'the-events-calendar' ) );
-			break;
+			return;
 		}
 
 		$cat_markup = [];
@@ -303,7 +303,7 @@ class List_Page extends Controller_Contract {
 		$tags = Calendar_Embeds::get_tags( $post_id );
 		if ( empty( $tags ) ) {
 			echo esc_html( __( 'All Tags', 'the-events-calendar' ) );
-			break;
+			return;
 		}
 
 		$tag_markup = [];
