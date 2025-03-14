@@ -132,7 +132,7 @@ class Render {
 	 * @since TBD
 	 */
 	protected function add_view_hooks(): void {
-		add_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15, 3 );
+		add_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15 );
 		add_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_view_repository_args' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_view_html_classes', [ $this, 'filter_view_html_classes' ], 10, 3 );
 		add_filter( 'tribe_events_views_v2_view_container_data', [ $this, 'filter_view_data' ], 10, 3 );
@@ -289,7 +289,7 @@ class Render {
 			return;
 		}
 
-		$view_instance = new static();
+		$view_instance = new self();
 		$db_args       = $view_instance->get_database_arguments( $embed );
 
 		if ( empty( $db_args ) ) {
@@ -740,8 +740,6 @@ class Render {
 			$context_args['past']              = tribe_is_truthy( $arguments['past'] );
 			$context_args['ends_before']       = tribe_end_of_day( current_time( 'mysql' ) );
 			$context_args['latest_event_date'] = tribe_end_of_day( current_time( 'mysql' ) );
-			// Make sure this isn't set to avoid logic conflicts.
-			unset( $context_args['starts_after'] );
 		}
 
 		return $context_args;
