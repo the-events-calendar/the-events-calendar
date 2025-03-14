@@ -136,6 +136,7 @@ class Controller extends Controller_Contract {
 			admin_url( 'edit.php' )
 		);
 
+		// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
 		wp_safe_redirect( $setup_url );
 		tribe_exit();
 	}
