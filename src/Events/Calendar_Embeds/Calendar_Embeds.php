@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages the External Calendar Embeds Feature.
+ * External Calendar Embeds Controller.
  *
  * @since TBD
  *
@@ -9,6 +9,13 @@
 
 namespace TEC\Events\Calendar_Embeds;
 
+use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use WP_Post;
+use Tribe__Events__Main as TEC_Plugin;
+use WP_Term;
+use TEC\Common\StellarWP\DB\DB;
+use WP_Screen;
+
 /**
  * Class Calendar_Embeds
  *
@@ -16,7 +23,7 @@ namespace TEC\Events\Calendar_Embeds;
  *
  * @package TEC\Events\Calendar_Embeds
  */
-class Calendar_Embeds {
+class Calendar_Embeds extends Controller_Contract {
 
 	/**
 	 * Calendar Embeds post type slug.
@@ -28,40 +35,148 @@ class Calendar_Embeds {
 	const POSTTYPE = 'tec_calendar_embed';
 
 	/**
-	 * The meta key for storing the event categories.
+	 * Registers the filters and actions hooks added by the controller.
 	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @return void
 	 */
-	const META_KEY_CATEGORIES = 'event_categories';
+	public function do_register(): void {
+		add_action( 'init', [ $this, 'register_post_type' ], 15 );
+		add_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ], 10, 2 );
+		add_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ], 10, 4 );
+		add_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table' ], 10, 2 );
+		add_action( 'template_redirect', [ $this, 'redirect_to_embed' ] );
+	}
 
 	/**
-	 * The meta key for storing the event tags.
+	 * Removes the filters and actions hooks added by the controller.
 	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @return void
 	 */
-	const META_KEY_TAGS = 'event_tags';
+	public function unregister(): void {
+		remove_action( 'init', [ $this, 'register_post_type' ], 15 );
+		remove_action( 'tribe_events_views_v2_before_make_view_for_rest', [ Render::class, 'maybe_toggle_hooks_for_rest' ] );
+		remove_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ] );
+		remove_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table' ] );
+		remove_action( 'template_redirect', [ $this, 'redirect_to_embed' ] );
+	}
 
 	/**
-	 * Stores the hook suffix from `add_submenu_page`.
+	 * Redirects to the embed URL when viewing a calendar embed post.
 	 *
 	 * @since TBD
 	 *
-	 * @var string
+	 * @return void
 	 */
-	protected $hook_suffix;
+	public function redirect_to_embed(): void {
+		if ( ! is_singular( static::POSTTYPE ) ) {
+			return;
+		}
+
+		if ( is_admin() ) {
+			return;
+		}
+
+		if ( is_embed() ) {
+			return;
+		}
+
+		$url = get_post_embed_url( get_queried_object_id() );
+		wp_safe_redirect( $url, 302, 'Calendar Embed Redirect' ); // phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
+		tribe_exit();
+	}
 
 	/**
-	 * The post type object.
+	 * Modifies the term count on the term list tables to ignore Calendar embeds from their count.
 	 *
 	 * @since TBD
 	 *
-	 * @var \WP_Post_Type
+	 * @param array $terms      The terms.
+	 * @param array $taxonomies The taxonomies.
+	 *
+	 * @return array
 	 */
-	protected $post_type_object;
+	public function modify_term_count_on_term_list_table( array $terms, array $taxonomies ): array {
+		if ( ! in_array( TEC_Plugin::TAXONOMY, $taxonomies, true ) && ! in_array( 'post_tag', $taxonomies, true ) ) {
+			return $terms;
+		}
+
+		if ( ! is_admin() ) {
+			// Should only run on BE.
+			return $terms;
+		}
+
+		$screen = get_current_screen();
+
+		if ( ! $screen instanceof WP_Screen ) {
+			return $terms;
+		}
+
+		if ( $screen->id !== 'edit-' . TEC_Plugin::TAXONOMY && $screen->id !== 'edit-post_tag' ) {
+			return $terms;
+		}
+
+		foreach ( $terms as &$term ) {
+			if ( ! $term instanceof WP_Term ) {
+				continue;
+			}
+
+			$term->count -= (int) DB::get_var(
+				DB::prepare(
+					'SELECT COUNT( t.object_ID ) FROM %i t INNER JOIN %i p ON t.object_id = p.ID INNER JOIN %i tt ON tt.term_taxonomy_id = t.term_taxonomy_id WHERE tt.term_id = %d AND p.post_type = %s',
+					DB::prefix( 'term_relationships' ),
+					DB::prefix( 'posts' ),
+					DB::prefix( 'term_taxonomy' ),
+					$term->term_id,
+					static::POSTTYPE
+				)
+			);
+
+			$term->count = max( 0, $term->count );
+		}
+
+		return $terms;
+	}
+
+	/**
+	 * Disables slug changes for the calendar embed post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $data              The post data.
+	 * @param array $post_array        The post array.
+	 * @param array $unsafe_post_array The unsanitized post array.
+	 * @param bool  $update            Whether the post is being updated.
+	 *
+	 * @return array
+	 */
+	public function disable_slug_changes( array $data, array $post_array, array $unsafe_post_array, bool $update ): array {
+		if ( static::POSTTYPE !== $data['post_type'] ) {
+			return $data;
+		}
+
+		if ( $update ) {
+			// Ensure the post name is not updated.
+			$data['post_name'] = get_post( $post_array['ID'] )->post_name;
+
+			return $data;
+		}
+
+		do {
+			$slug = wp_generate_password( 11, false );
+
+			// The post_parent will always be 0 but ensures future compat if we go to hierarchical post type with almost no cost.
+			$check_sql       = "SELECT post_name FROM %i WHERE post_name = %s AND post_type IN ( %s, 'attachment' ) AND post_parent = %d LIMIT 1";
+			$post_name_check = DB::get_var( DB::prepare( $check_sql, DB::prefix( 'posts' ), $slug, static::POSTTYPE, $data['post_parent'] ?? 0 ) );
+		} while ( $post_name_check );
+
+		$data['post_name'] = $slug;
+
+		return $data;
+	}
 
 	/**
 	 * Register custom post type for calendar embeds.
@@ -70,7 +185,7 @@ class Calendar_Embeds {
 	 *
 	 * @return void
 	 */
-	public function register_post_type() {
+	public function register_post_type(): void {
 		$labels = [
 			'name'               => _x( 'Calendar Embeds', 'post type general name', 'the-events-calendar' ),
 			'singular_name'      => _x( 'Calendar Embed', 'post type singular name', 'the-events-calendar' ),
@@ -91,7 +206,7 @@ class Calendar_Embeds {
 		$args = [
 			'labels'             => $labels,
 			'public'             => false,
-			'publicly_queryable' => false,
+			'publicly_queryable' => true,
 			'show_ui'            => true,
 			'show_in_menu'       => false,
 			'show_in_nav_menus'  => true,
@@ -102,6 +217,7 @@ class Calendar_Embeds {
 			'hierarchical'       => false,
 			'supports'           => [ 'title' ],
 			'show_in_rest'       => true,
+			'taxonomies'         => [ TEC_Plugin::TAXONOMY, 'post_tag' ],
 		];
 
 		/**
@@ -115,22 +231,87 @@ class Calendar_Embeds {
 		 */
 		$args = apply_filters( 'tec_events_calendar_embeds_post_type_args', $args );
 
-		$this->post_type_object = register_post_type( static::POSTTYPE, $args );
+		register_post_type( static::POSTTYPE, $args );
 	}
 
 	/**
-	 * Get the post type object.
+	 * Get the iframe code for the calendar embed.
 	 *
 	 * @since TBD
 	 *
-	 * @return \WP_Post_Type
-	 * @throws \RuntimeException If the post type object is not set.
+	 * @param int $post_id The post ID.
+	 *
+	 * @return string
+	 * @throws NotPublishedCalendarException When the calendar is not published.
 	 */
-	public function get_post_type_object() {
-		if ( ! $this->post_type_object ) {
-			throw new \RuntimeException( __( 'Attempted to get post type object before it was set.', 'the-events-calendar' ) );
+	public static function get_iframe( int $post_id, bool $throw_when_not_published = false ): string {
+		$embed = get_post( $post_id );
+
+		if ( ! $embed instanceof WP_Post ) {
+			return '';
 		}
 
-		return $this->post_type_object;
+		if ( static::POSTTYPE !== $embed->post_type ) {
+			return '';
+		}
+
+		if ( $throw_when_not_published && 'publish' !== $embed->post_status ) {
+			throw new NotPublishedCalendarException();
+		}
+
+		$embed_url = 'publish' === $embed->post_status ? get_post_embed_url( $embed ) : get_preview_post_link( $embed, [ 'embed' => 1 ] );
+
+		$iframe = '<iframe src="' . esc_url( $embed_url ) . '" width="100%" height="600" style="max-width:100%;" frameborder="0"></iframe>';
+
+		/**
+		 * Filter the iframe code for the calendar embed.
+		 *
+		 * @since TBD
+		 *
+		 * @param string  $iframe    The iframe code.
+		 * @param WP_Post $embed     The embed post object.
+		 * @param string  $embed_url The embed URL.
+		 *
+		 * @return string
+		 */
+		return (string) apply_filters( 'tec_events_calendar_embeds_iframe', $iframe, $embed, $embed_url );
+	}
+
+	/**
+	 * Get the event categories for a calendar embed.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return array
+	 */
+	public static function get_event_categories( int $post_id ): array {
+		$categories = get_the_terms( $post_id, TEC_Plugin::TAXONOMY );
+
+		if ( ! is_array( $categories ) ) {
+			return [];
+		}
+
+		return array_filter( $categories, static fn ( $c ) => $c instanceof WP_Term );
+	}
+
+	/**
+	 * Get the event tags for a calendar embed.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return array
+	 */
+	public static function get_tags( int $post_id ): array {
+		$tags = get_the_terms( $post_id, 'post_tag' );
+
+		if ( ! is_array( $tags ) ) {
+			return [];
+		}
+
+		return array_filter( $tags, static fn ( $t ) => $t instanceof WP_Term );
 	}
 }

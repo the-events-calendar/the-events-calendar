@@ -10,6 +10,10 @@
 namespace TEC\Events\Calendar_Embeds;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Calendar_Embeds\Admin\List_Page;
+use TEC\Events\Calendar_Embeds\Admin\Singular_Page;
+use TEC\Common\StellarWP\Assets\Config;
+use Tribe__Events__Main as TEC_Plugin;
 
 /**
  * Class Controller
@@ -21,151 +25,35 @@ use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 class Controller extends Controller_Contract {
 
 	/**
-	 * @inheritDoc
+	 * Registers the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function do_register(): void {
-		$this->container->singleton( Calendar_Embeds::class );
-		$this->container->singleton( Admin\List_Table::class );
-		$this->container->singleton( Admin\Page::class );
-
-		$this->add_actions();
-		$this->add_filters();
+		Config::add_group_path( 'tec-events-calendar-embeds', TEC_Plugin::instance()->plugin_path, 'build/Calendar_Embeds/' );
+		$this->container->register( Calendar_Embeds::class );
+		$this->container->register( Frontend::class );
+		if ( is_admin() ) {
+			$this->container->register( List_Page::class );
+			$this->container->register( Singular_Page::class );
+		}
 	}
 
 	/**
-	 * @inheritDoc
+	 * Removes the filters and actions hooks added by the controller.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
 	 */
 	public function unregister(): void {
-		$this->remove_actions();
-		$this->remove_filters();
-	}
-
-	/**
-	 * Add actions for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function add_actions() {
-		add_action(
-			'init',
-			[
-				$this->container->make( Calendar_Embeds::class ),
-				'register_post_type',
-			]
-		);
-		add_action(
-			'admin_menu',
-			[
-				$this->container->make( Admin\Page::class ),
-				'register_menu_item',
-			],
-			11
-		);
-		add_action(
-			'admin_init',
-			[
-				$this->container->make( Admin\Page::class ),
-				'register_assets',
-			]
-		);
-		add_action(
-			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
-			[
-				$this->container->make( Admin\List_Table::class ),
-				'manage_column_content',
-			],
-			10,
-			2
-		);
-	}
-
-	/**
-	 * Add actions for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function remove_actions() {
-		remove_action(
-			'init',
-			[
-				$this->container->make( Calendar_Embeds::class ),
-				'register_post_type',
-			]
-		);
-		remove_action(
-			'admin_menu',
-			[
-				$this->container->make( Admin\Page::class ),
-				'register_menu_item',
-			],
-			11
-		);
-		remove_action(
-			'admin_init',
-			[
-				$this->container->make( Admin\Page::class ),
-				'register_assets',
-			]
-		);
-		remove_action(
-			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column',
-			[
-				$this->container->make( Admin\List_Table::class ),
-				'manage_column_content',
-			],
-			10
-		);
-	}
-
-	/**
-	 * Add filters for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function add_filters() {
-		add_filter(
-			'submenu_file',
-			[
-				$this->container->make( Admin\Page::class ),
-				'keep_parent_menu_open',
-			]
-		);
-		add_filter(
-			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
-			[
-				$this->container->make( Admin\List_Table::class ),
-				'manage_columns',
-			]
-		);
-	}
-
-	/**
-	 * Remove filters for the feature.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function remove_filters() {
-		remove_filter(
-			'submenu_file',
-			[
-				$this->container->make( Admin\Page::class ),
-				'keep_parent_menu_open',
-			]
-		);
-		remove_filter(
-			'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns',
-			[
-				$this->container->make( Admin\List_Table::class ),
-				'manage_columns',
-			]
-		);
+		$this->container->get( Calendar_Embeds::class )->unregister();
+		$this->container->get( Frontend::class )->unregister();
+		if ( is_admin() ) {
+			$this->container->get( List_Page::class )->unregister();
+			$this->container->get( Singular_Page::class )->unregister();
+		}
 	}
 }
