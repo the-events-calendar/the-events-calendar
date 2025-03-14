@@ -121,59 +121,16 @@ class List_Page extends Controller_Contract {
 	 * @return void
 	 */
 	public function manage_column_content( $column_name, $post_id ): void {
-		switch ( $column_name ) {
-			case 'event_categories':
-				// Get events categores from post meta.
-				$categories = Calendar_Embeds::get_event_categories( $post_id );
-				if ( empty( $categories ) ) {
-					echo esc_html( __( 'All Categories', 'the-events-calendar' ) );
-					break;
-				}
-
-				$cat_markup = [];
-				foreach ( $categories as $category ) {
-					ob_start();
-					?>
-					<a href="<?php echo esc_url( get_edit_term_link( $category, TEC::TAXONOMY ) ); ?>">
-						<?php echo esc_html( trim( $category->name ) ); ?></a>
-					<?php
-					$cat_markup[] = ob_get_clean();
-				}
-
-				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
-				echo implode( ', ', array_map( 'trim', $cat_markup ) );
-				break;
-			case 'event_tags':
-				// Get events tags from post meta.
-				$tags = Calendar_Embeds::get_tags( $post_id );
-				if ( empty( $tags ) ) {
-					echo esc_html( __( 'All Tags', 'the-events-calendar' ) );
-					break;
-				}
-
-				$tag_markup = [];
-				foreach ( $tags as $tag ) {
-					ob_start();
-					?>
-					<a href="<?php echo esc_url( get_edit_term_link( $tag, 'post_tag' ) ); ?>">
-						<?php echo esc_html( trim( $tag->name ) ); ?></a>
-					<?php
-					$tag_markup[] = ob_get_clean();
-				}
-
-				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
-				echo implode( ', ', array_map( 'trim', $tag_markup ) );
-				break;
-			case 'snippet':
-				$this->template->template(
-					'embed-snippet-content',
-					[
-						'post_id' => $post_id,
-					]
-				);
-
-				break;
+		if ( ! in_array( $column_name, [ 'event_categories', 'event_tags', 'snippet' ], true ) ) {
+			return;
 		}
+
+		if ( Calendar_Embeds::POSTTYPE !== get_post_type( $post_id ) ) {
+			return;
+		}
+
+		$method = 'render_' . $column_name;
+		$this->$method( $post_id );
 	}
 
 	/**
@@ -301,5 +258,83 @@ class List_Page extends Controller_Contract {
 			->set_condition( fn() => self::is_on_page() || Singular_Page::is_on_page() )
 			->set_dependencies( 'thickbox', 'tribe-common-admin' )
 			->register();
+	}
+
+	/**
+	 * Render the event categories column.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return void
+	 */
+	protected function render_event_categories( int $post_id ): void {
+		$categories = Calendar_Embeds::get_event_categories( $post_id );
+		if ( empty( $categories ) ) {
+			echo esc_html( __( 'All Categories', 'the-events-calendar' ) );
+			break;
+		}
+
+		$cat_markup = [];
+		foreach ( $categories as $category ) {
+			ob_start();
+			?>
+			<a href="<?php echo esc_url( get_edit_term_link( $category, TEC::TAXONOMY ) ); ?>">
+				<?php echo esc_html( trim( $category->name ) ); ?></a>
+			<?php
+			$cat_markup[] = ob_get_clean();
+		}
+
+		// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
+		echo implode( ', ', array_map( 'trim', $cat_markup ) );
+	}
+
+	/**
+	 * Render the event tags column.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return void
+	 */
+	protected function render_event_tags( int $post_id ): void {
+		$tags = Calendar_Embeds::get_tags( $post_id );
+		if ( empty( $tags ) ) {
+			echo esc_html( __( 'All Tags', 'the-events-calendar' ) );
+			break;
+		}
+
+		$tag_markup = [];
+		foreach ( $tags as $tag ) {
+			ob_start();
+			?>
+			<a href="<?php echo esc_url( get_edit_term_link( $tag, 'post_tag' ) ); ?>">
+				<?php echo esc_html( trim( $tag->name ) ); ?></a>
+			<?php
+			$tag_markup[] = ob_get_clean();
+		}
+
+		// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscapedExpected, WordPress.Security.EscapeOutput.OutputNotEscaped, StellarWP.XSS.EscapeOutput.OutputNotEscaped
+		echo implode( ', ', array_map( 'trim', $tag_markup ) );
+	}
+
+	/**
+	 * Render the embed snippet column.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $post_id The post ID.
+	 *
+	 * @return void
+	 */
+	protected function render_snippet( int $post_id ): void {
+		$this->template->template(
+			'embed-snippet-content',
+			[
+				'post_id' => $post_id,
+			]
+		);
 	}
 }
