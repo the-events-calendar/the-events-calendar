@@ -108,7 +108,7 @@ class Controller extends Controller_Contract {
 	 * @since 6.8.4
 	 */
 	public function remove_actions(): void {
-		remove_action( 'admin_menu', [ $this, 'landing_page' ] );
+		remove_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
