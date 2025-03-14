@@ -12,6 +12,7 @@ namespace TEC\Events\Calendar_Embeds;
 use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe\Events\Views\V2\Assets as Event_Assets;
+use TEC\Common\StellarWP\Assets\Asset;
 
 /**
  * Class Controller
@@ -53,6 +54,7 @@ class Frontend extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
+		$this->register_assets();
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_filter( 'embed_template', [ $this, 'overwrite_embed_template' ] );
 		add_filter( 'the_content', [ $this, 'overwrite_content' ] );
@@ -84,6 +86,15 @@ class Frontend extends Controller_Contract {
 		}
 
 		tribe_asset_enqueue_group( Event_Assets::$group_key );
+
+		/**
+		 * Fires when the calendar embeds scripts are enqueued.
+		 *
+		 * Applicable to frontend and only singular screen.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_events_calendar_embeds_enqueue_scripts' );
 	}
 
 	/**
@@ -132,5 +143,32 @@ class Frontend extends Controller_Contract {
 		}
 
 		return $this->template->get_template_file( 'embed' );
+	}
+
+	/**
+	 * Register assets for the Calendar Embeds singular Frontend page.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function register_assets(): void {
+		Asset::add(
+			'tec-events-calendar-embeds-frontend-script',
+			'js/calendar-embeds/page.js'
+		)
+			->add_to_group_path( 'tec-events-resources' )
+			->enqueue_on( 'tec_events_calendar_embeds_enqueue_scripts' )
+			->set_dependencies( 'jquery' )
+			->in_footer()
+			->register();
+
+		Asset::add(
+			'tec-events-calendar-embeds-frontend-style',
+			'css/calendar-embeds/page.css'
+		)
+			->add_to_group_path( 'tec-events-resources' )
+			->enqueue_on( 'tec_events_calendar_embeds_enqueue_scripts' )
+			->register();
 	}
 }

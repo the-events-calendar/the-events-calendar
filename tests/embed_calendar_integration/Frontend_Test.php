@@ -7,6 +7,7 @@ use Tribe\Tests\Traits\With_Uopz;
 use tad\Codeception\SnapshotAssertions\SnapshotAssertions;
 use Tribe\Events\Test\Traits\ECE_Maker;
 use Tribe\Tests\Traits\With_Clock_Mock;
+use TEC\Common\StellarWP\Assets\Assets;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Generator;
@@ -252,5 +253,30 @@ class Frontend_Test extends Controller_Test_Case {
 		$filtered = str_replace( $date, date( 'Y-m-d' ), $filtered );
 
 		$this->assertMatchesHtmlSnapshot( $filtered );
+	}
+
+	/**
+	 * @test
+	 * @dataProvider asset_data_provider
+	 */
+	public function it_should_locate_assets_where_expected( $slug, $path ) {
+		$this->make_controller()->register();
+
+		$this->assertTrue( Assets::init()->exists( $slug ) );
+
+		// We use false, because in CI mode the assets are not build so min aren't available. Its enough to check that the non-min is as expected.
+		$asset_url = Assets::init()->get( $slug )->get_url( false );
+		$this->assertEquals( plugins_url( $path, TRIBE_EVENTS_FILE ), $asset_url );
+	}
+
+	public function asset_data_provider() {
+		$assets = [
+			'tec-events-calendar-embeds-frontend-script' => 'src/resources/js/calendar-embeds/page.js',
+			'tec-events-calendar-embeds-frontend-style'  => 'src/resources/css/calendar-embeds/page.css',
+		];
+
+		foreach ( $assets as $slug => $path ) {
+			yield $slug => [ $slug, $path ];
+		}
 	}
 }
