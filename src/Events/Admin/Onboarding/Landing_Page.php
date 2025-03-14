@@ -166,7 +166,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @since 6.8.4
 	 *
-	 * @return void The required capability.
+	 * @return void
 	 */
 	public function handle_onboarding_page_dismiss(): void {
 		if ( ! current_user_can( $this->required_capability() ) ) {
