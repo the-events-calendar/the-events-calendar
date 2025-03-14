@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`classy should create the element if not already existing 1`] = `"<div id="tec-classy" class="classy-root classy-root--admin"></div>"`;
+
+exports[`classy should inject the element into the DOM 1`] = `"<div class="editor-visual-editor edit-post-visual-editor" style="height: 0px;" aria-hidden="true"></div>"`;
