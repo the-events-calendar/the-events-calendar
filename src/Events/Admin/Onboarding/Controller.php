@@ -68,6 +68,7 @@ class Controller extends Controller_Contract {
 	 * Add the action hooks.
 	 *
 	 * @since 6.8.4
+	 * @since TBD Changed the priority of `admin_menu` to reposition menu item.
 	 */
 	public function add_actions(): void {
 		add_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -106,6 +107,7 @@ class Controller extends Controller_Contract {
 	 * Remove the action hooks.
 	 *
 	 * @since 6.8.4
+	 * @since TBD Changed the priority of `admin_menu`.
 	 */
 	public function remove_actions(): void {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
