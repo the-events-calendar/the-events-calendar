@@ -215,6 +215,7 @@ class Tribe__Events__Editor__Compatibility {
 		deactivate_plugins( $gutenberg_extension_plugin, true );
 
 		if ( $needs_redirect ) {
+			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, StellarWP.CodeAnalysis.RedirectAndDie.Error
 			wp_safe_redirect( admin_url( 'plugins.php' ) );
 			tribe_exit();
 		}
