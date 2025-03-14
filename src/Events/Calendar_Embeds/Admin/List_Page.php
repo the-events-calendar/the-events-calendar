@@ -85,7 +85,7 @@ class List_Page extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $columns The columns.
+	 * @param array<string,string> $columns The columns.
 	 *
 	 * @return array
 	 */
