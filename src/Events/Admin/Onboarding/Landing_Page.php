@@ -90,6 +90,66 @@ class Landing_Page extends Abstract_Admin_Page {
 	public int $menu_position = 0;
 
 	/**
+	 * Constructor.
+	 *
+	 * @since 6.8.4
+	 */
+	public function __construct() {
+		// Add our custom menu registration.
+		add_action( 'admin_menu', [ $this, 'register_menu_item' ], 51 );
+	}
+
+	/**
+	 * Register the menu item in the correct position.
+	 *
+	 * @since 6.8.4
+	 */
+	public function register_menu_item(): void {
+		global $submenu;
+
+		if ( static::is_dismissed() ) {
+			return;
+		}
+
+		// Wait until Settings is registered.
+		if ( ! isset( $submenu['edit.php?post_type=tribe_events'] ) ) {
+			return;
+		}
+
+		// Find the Settings position.
+		$settings_position = null;
+		foreach ( $submenu['edit.php?post_type=tribe_events'] as $position => $item ) {
+			// Remove the original submenu item
+			if ( isset( $item[2] ) && $item[2] === 'first-time-setup' ) {
+				unset( $submenu['edit.php?post_type=tribe_events'][ $position ] );
+			}
+
+			// Reindex the array.
+			$submenu['edit.php?post_type=tribe_events'] = array_values( $submenu['edit.php?post_type=tribe_events'] );
+
+			if ( isset( $item[2] ) && $item[2] === 'tec-events-settings' ) {
+				$settings_position = $position;
+				break;
+			}
+		}
+
+		if ( $settings_position === null ) {
+			return;
+		}
+
+		// Register our menu item right before Settings.
+		add_submenu_page(
+			'edit.php?post_type=tribe_events',
+			$this->get_the_page_title(),
+			$this->get_the_menu_title(),
+			$this->required_capability(),
+			static::$slug,
+			[ $this, 'admin_page_content' ],
+			$settings_position - 1
+		);
+	}
+
+	/**
 	 * Get the admin page title.
 	 *
 	 * @since 6.8.4
