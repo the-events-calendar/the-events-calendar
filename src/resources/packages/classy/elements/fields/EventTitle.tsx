@@ -1,11 +1,21 @@
 import { EventTitleProps } from '../../types/EventTitleProps';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { usePostEdits } from '../../hooks';
+import { UsePostEditsReturn } from '../../types/UsePostEditsReturn';
 
 export function EventTitle( props: EventTitleProps ) {
-	const [ value, setValue ] = useState< string >(
-		'Cutting onions like a pro'
-	);
+	const { postTitle, editPost } = usePostEdits() as UsePostEditsReturn;
+	const [ value, setValue ] = useState< string >( postTitle || '' );
+
+	useEffect( () => {
+		setValue( postTitle );
+	}, [ postTitle ] );
+
+	const onChange = ( nextValue: string ): void => {
+		setValue( nextValue ?? '' );
+		editPost( { title: nextValue } );
+	};
 
 	return (
 		<div className="classy-field">
@@ -17,7 +27,7 @@ export function EventTitle( props: EventTitleProps ) {
 				<InputControl
 					__next40pxDefaultSize
 					value={ value }
-					onChange={ ( nextValue ) => setValue( nextValue ?? '' ) }
+					onChange={ onChange }
 				/>
 			</div>
 		</div>

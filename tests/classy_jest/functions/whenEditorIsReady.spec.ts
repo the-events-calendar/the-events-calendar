@@ -31,17 +31,13 @@ describe( 'whenEditorIsReady', () => {
 		);
 	} );
 
-	it( 'should resolve when isCleanNewPost returns true', async () => {
+	it( 'should resolve when __unstableIsEditorReady returns true', async () => {
 		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue( true ),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue( 0 ),
+			__unstableIsEditorReady: jest.fn().mockReturnValue( true ),
 		};
 
-		( select as jest.Mock ).mockImplementation( ( store: string ) => {
+		( select as jest.Mock ).mockImplementation( ( store ) => {
 			if ( store === 'core/editor' ) return mockCoreEditor;
-			if ( store === 'core/block-editor' ) return mockBlockEditor;
 			return {};
 		} );
 
@@ -50,47 +46,17 @@ describe( 'whenEditorIsReady', () => {
 		subscribeCallback();
 		await readyPromise;
 
-		expect( mockCoreEditor.isCleanNewPost ).toHaveBeenCalled();
-		expect( mockBlockEditor.getBlockCount ).not.toHaveBeenCalled();
-		expect( mockUnsubscribe ).toHaveBeenCalledTimes( 1 );
-	} );
-
-	it( 'should resolve when block count is greater than 0', async () => {
-		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue( false ),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue( 3 ),
-		};
-
-		( select as jest.Mock ).mockImplementation( ( store: string ) => {
-			if ( store === 'core/editor' ) return mockCoreEditor;
-			if ( store === 'core/block-editor' ) return mockBlockEditor;
-			return {};
-		} );
-
-		const readyPromise: Promise< void > = whenEditorIsReady();
-		// Manually trigger the subscribe callback.
-		subscribeCallback();
-		await readyPromise;
-
-		expect( mockCoreEditor.isCleanNewPost ).toHaveBeenCalled();
-		expect( mockBlockEditor.getBlockCount ).toHaveBeenCalled();
+		expect( mockCoreEditor.__unstableIsEditorReady ).toHaveBeenCalled();
 		expect( mockUnsubscribe ).toHaveBeenCalledTimes( 1 );
 	} );
 
 	it( 'should not resolve when conditions are not met', async () => {
-		// Setup mock selectors that will cause the promise not to resolve.
 		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue( false ),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue( 0 ),
+			__unstableIsEditorReady: jest.fn().mockReturnValue( false ),
 		};
 
 		( select as jest.Mock ).mockImplementation( ( store: string ) => {
 			if ( store === 'core/editor' ) return mockCoreEditor;
-			if ( store === 'core/block-editor' ) return mockBlockEditor;
 			return {};
 		} );
 
@@ -108,22 +74,17 @@ describe( 'whenEditorIsReady', () => {
 				),
 			] )
 		).resolves.toBe( 'not-ready' );
-		expect( mockCoreEditor.isCleanNewPost ).toHaveBeenCalled();
-		expect( mockBlockEditor.getBlockCount ).toHaveBeenCalled();
+		expect( mockCoreEditor.__unstableIsEditorReady ).toHaveBeenCalled();
 		expect( mockUnsubscribe ).not.toHaveBeenCalled();
 	} );
 
 	it( 'should eventually resolve after conditions become true', async () => {
 		const mockCoreEditor = {
-			isCleanNewPost: jest.fn().mockReturnValue( false ),
-		};
-		const mockBlockEditor = {
-			getBlockCount: jest.fn().mockReturnValue( 0 ),
+			__unstableIsEditorReady: jest.fn().mockReturnValue( false ),
 		};
 
 		( select as jest.Mock ).mockImplementation( ( store: string ) => {
 			if ( store === 'core/editor' ) return mockCoreEditor;
-			if ( store === 'core/block-editor' ) return mockBlockEditor;
 			return {};
 		} );
 
@@ -132,8 +93,8 @@ describe( 'whenEditorIsReady', () => {
 		// Trigger the callback once with conditions not met.
 		subscribeCallback();
 
-		// Change the return value of getBlockCount to simulate blocks being added.
-		mockBlockEditor.getBlockCount.mockReturnValue( 2 );
+		// Change the return value of the __unstableIsEditorReady function to return true.
+		mockCoreEditor.__unstableIsEditorReady.mockReturnValue( true );
 
 		// Trigger the callback again now that conditions are met.
 		subscribeCallback();
@@ -141,8 +102,9 @@ describe( 'whenEditorIsReady', () => {
 		// Wait for promise to resolve.
 		await readyPromise;
 
-		expect( mockCoreEditor.isCleanNewPost ).toHaveBeenCalledTimes( 2 );
-		expect( mockBlockEditor.getBlockCount ).toHaveBeenCalledTimes( 2 );
+		expect( mockCoreEditor.__unstableIsEditorReady ).toHaveBeenCalledTimes(
+			2
+		);
 		expect( mockUnsubscribe ).toHaveBeenCalledTimes( 1 );
 	} );
 } );
