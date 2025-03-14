@@ -455,7 +455,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			<section class="tec-admin-page__sidebar-section has-icon">
 				<span class="tec-admin-page__icon tec-admin-page__sidebar-icon tec-admin-page__icon--stars" role="presentation"></span>
 				<div>
-					<h3 class="tec-admin-page__sidebar-header"><?php esc_html_e( 'Our AI Chatbot is here to help you', 'the-events-calendar' ); ?></h2>
+					<h3 class="tec-admin-page__sidebar-header"><?php esc_html_e( 'Our AI Chatbot is here to help you', 'the-events-calendar' ); ?></h3>
 					<p><?php esc_html_e( 'You have questions? The TEC Chatbot has the answers.', 'the-events-calendar' ); ?></p>
 					<p><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' ) ); ?>" class="tec-admin-page__link"><?php esc_html_e( 'Talk to TEC Chatbot', 'the-events-calendar' ); ?></a></p>
 				</div>
