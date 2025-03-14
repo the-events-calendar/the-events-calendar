@@ -70,7 +70,7 @@ class Controller extends Controller_Contract {
 	 * @since 6.8.4
 	 */
 	public function add_actions(): void {
-		add_action( 'admin_menu', [ $this, 'landing_page' ] );
+		add_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
 		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'admin_post_' . Landing_Page::DISMISS_ONBOARDING_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
