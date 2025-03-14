@@ -188,21 +188,18 @@ class Settings {
 			return 'tec-events';
 		}
 
-		$menu_slug = add_query_arg(
+		return add_query_arg(
 			[
 				'post_type' => Plugin::POSTTYPE,
 			],
 			'edit.php'
 		);
-
-		return $menu_slug;
 	}
 
 	/**
 	 * Adds the menu and pages for The Events Calendar.
 	 *
 	 * @since 5.15.0
-	 * @since TBD Added 'tec_redirect_guided_time_setup' to redirect users to the Guided Setup.
 	 */
 	public function add_admin_pages() {
 		$admin_pages = tribe( 'admin.pages' );
@@ -221,9 +218,6 @@ class Settings {
 				],
 			]
 		);
-
-		// Redirects users from any TEC setting to the Guided Setup page on first visit.
-		do_action( 'tec_redirect_guided_time_setup' );
 
 		// Redirects users from the outdated Help page to the new Help Hub page if accessed.
 		$this->redirect_to_help_hub();
@@ -383,8 +377,8 @@ class Settings {
 		$current_page = is_network_admin() ? network_admin_url( 'settings.php' ) : admin_url( 'edit.php' );
 		$url          = add_query_arg(
 			[
-				'page'      => $page,
-				'tab'       => $tab,
+				'page' => $page,
+				'tab'  => $tab,
 			],
 			$current_page
 		);
@@ -495,7 +489,7 @@ class Settings {
 	 * @since 6.0.5
 	 * @since 6.2.1 Correctly prepend 'general' and 'display' tabs to the beginning.
 	 *
-	 * @param array $tabs        The array of tabs.
+	 * @param array  $tabs        The array of tabs.
 	 * @param string $admin_page The ID of the admin page we are on.
 	 *
 	 * @todo deprecate this when we can get the tab priority working correctly, globally.
@@ -610,7 +604,7 @@ class Settings {
 			return $options;
 		}
 
-		$tec_tabs = $this->get_events_settings_tabs_ids();
+		$tec_tabs                         = $this->get_events_settings_tabs_ids();
 		$form_options['hideSettingsTabs'] = $_POST['hideSettingsTabs'];
 
 		// Iterate over the TEC settings tab ids and merge the network settings.
@@ -675,10 +669,10 @@ class Settings {
 		// Loop through the term array above and create teaser checkboxes.
 		ob_start();
 
-		foreach( $views as $name => $label ) { ?>
+		foreach ( $views as $name => $label ) { ?>
 			<label title="Summary" class="tec-disabled">
-				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ) ?>" disabled>
-				<?php echo esc_attr( $label ) ?>
+				<input type="checkbox" name="tribeEnableViews[]" value="<?php echo esc_attr( $name ); ?>" disabled>
+				<?php echo esc_attr( $label ); ?>
 				<a
 					href="https://evnt.is/1bb-"
 					class="tec-settings-teaser-pill"
@@ -686,14 +680,15 @@ class Settings {
 				><?php echo esc_html( $tooltip_label ); ?>
 				</a>
 			</label>
-		<?php }
+			<?php
+		}
 
 		$ecp_string = ob_get_clean();
 
 		// Insert the teaser checkboxes.
-		$pattern    = '/label><p/m';
-		$subst      = 'label>' . $ecp_string . '<p';
-		$output     = preg_replace($pattern, $subst, $output, 1);
+		$pattern = '/label><p/m';
+		$subst   = 'label>' . $ecp_string . '<p';
+		$output  = preg_replace( $pattern, $subst, $output, 1 );
 
 		return $output;
 	}
@@ -717,7 +712,7 @@ class Settings {
 	 * should we show the upgrade nags?
 	 *
 	 * @since 4.9.12
-	 * @since 6.0.5	 Moved to Settings class.
+	 * @since 6.0.5  Moved to Settings class.
 	 *
 	 * @return boolean
 	 */
@@ -736,7 +731,7 @@ class Settings {
 		 *
 		 * @param bool $can_show_tab True or False for showing the Upgrade Tab.
 		 */
-		$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab  );
+		$can_show_tab = apply_filters( 'tribe_events_show_upgrade_tab', $can_show_tab );
 
 		if ( ! $can_show_tab ) {
 			return false;
@@ -784,7 +779,7 @@ class Settings {
 					'name' => 'tribe_upgrade',
 					'data' => [
 						'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
-						'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
+						'button_text'   => __( 'Upgrade your calendar views', 'the-events-calendar' ),
 					],
 				],
 			]
@@ -809,7 +804,8 @@ class Settings {
 		$upgrade_fields = apply_filters( 'tribe_upgrade_fields', $upgrade_tab );
 
 		new Tab(
-			'upgrade', esc_html__( 'Upgrade', 'the-events-calendar' ),
+			'upgrade',
+			esc_html__( 'Upgrade', 'the-events-calendar' ),
 			[
 				'priority'      => 100,
 				'fields'        => $upgrade_fields,
@@ -820,7 +816,7 @@ class Settings {
 
 		add_filter(
 			'tec_events_settings_tabs_ids',
-			function( $tabs ) {
+			function ( $tabs ) {
 				$tabs[] = 'upgrade';
 				return $tabs;
 			}

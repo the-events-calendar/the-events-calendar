@@ -75,7 +75,7 @@ class Controller extends Controller_Contract {
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'admin_post_' . Landing_Page::DISMISS_ONBOARDING_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		add_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
-		add_action( 'tec_redirect_guided_time_setup', [ $this, 'redirect_tec_pages_to_guided_setup' ] ); }
+		add_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] ); }
 
 	/**
 	 * Handle the onboarding page dismiss.
@@ -96,9 +96,30 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function redirect_tec_pages_to_guided_setup(): void {
-		// Get some information about the page that we are trying to access.
-		$page      = tribe_get_request_var( 'page' );
-		$post_type = tribe_get_request_var( 'post_type' );
+		// Do not redirect if they are already on the Guided Setup page.
+		$page = tec_get_request_var( 'page' );
+		if ( Landing_Page::$slug === $page ) {
+			return;
+		}
+
+		// Do not redirect if they have been to the Guided Setup page already.
+		if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
+			return;
+		}
+
+		// Do not redirect if they dismissed the Guided Setup page.
+		if ( (bool) Landing_Page::is_dismissed() ) {
+			return;
+		}
+
+		// Do not redirect if the target is not The Events Calendar-related admin pages.
+		$post_types = apply_filters( 'tec_events_admin_post_types', [ 'tribe_events', 'tribe_event_series', 'tribe_venue', 'tribe_organizer' ] );
+
+		$post_type = tec_get_request_var( 'post_type' );
+
+		if ( ! in_array( $post_type, $post_types, true ) ) {
+			return;
+		}
 
 		// Do not redirect if they have older versions and are probably already set up.
 		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
@@ -106,33 +127,17 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		// Do not redirect if the target is not The Events Calendar-related admin pages.
-		if ( ! str_contains( $post_type, 'tribe' ) ) {
-			return;
-		}
-
-		// Do not redirect if they are already on the Guided Setup page.
-		if ( 'first-time-setup' === $page ) {
-			return;
-		}
-
-		// Do not redirect if they have been to the Guided Setup page already.
-		$visited_first_time_setup = tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false );
-		if ( $visited_first_time_setup ) {
-			return;
-		}
-
 		// If we're still here, redirect to the Guided Setup page.
 		$setup_url = add_query_arg(
 			[
 				'post_type' => 'tribe_events',
-				'page'      => 'first-time-setup',
+				'page'      => Landing_Page::$slug,
 			],
 			admin_url( 'edit.php' )
 		);
 
 		wp_safe_redirect( $setup_url );
-		exit;
+		tribe_exit();
 	}
 
 	/**
