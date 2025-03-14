@@ -108,7 +108,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return bool
 	 */
 	public static function is_dismissed(): bool {
-		return false && (bool) tribe_get_option( 'tec_events_onboarding_page_dismissed', false );
+		return (bool) tribe_get_option( 'tec_events_onboarding_page_dismissed', false );
 	}
 
 	/**
