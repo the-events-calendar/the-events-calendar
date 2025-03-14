@@ -87,7 +87,7 @@ class List_Page extends Controller_Contract {
 	 *
 	 * @param array<string,string> $columns The columns.
 	 *
-	 * @return array
+	 * @return array<string,string> Filtered columns.
 	 */
 	public function manage_columns( array $columns ): array {
 		$new_columns = [
