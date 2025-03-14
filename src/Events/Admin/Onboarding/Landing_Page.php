@@ -194,6 +194,9 @@ class Landing_Page extends Abstract_Admin_Page {
 
 		// Only show the wizard if we're doing a new installation.
 		$this->tec_onboarding_wizard_target();
+
+		// Stop redirecting if the user has visited the Guided Setup page.
+		tribe_update_option( 'tec_onboarding_wizard_visited_guided_setup', true );
 	}
 
 	/**
