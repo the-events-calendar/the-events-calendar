@@ -239,7 +239,8 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $post_id The post ID.
+	 * @param int  $post_id                  The post ID.
+	 * @param bool $throw_when_not_published Whether to throw an exception if the calendar is not published.
 	 *
 	 * @return string
 	 * @throws NotPublishedCalendarException When the calendar is not published.
@@ -261,7 +262,7 @@ class Calendar_Embeds extends Controller_Contract {
 
 		$embed_url = 'publish' === $embed->post_status ? get_post_embed_url( $embed ) : get_preview_post_link( $embed, [ 'embed' => 1 ] );
 
-		$iframe = '<iframe src="' . esc_url( $embed_url ) . '" width="100%" height="600" style="max-width:100%;" frameborder="0"></iframe>';
+		$iframe = '<iframe src="' . esc_url( $embed_url ) . '" width="100%" height="1065" style="max-width:100%;" frameborder="0"></iframe>';
 
 		/**
 		 * Filter the iframe code for the calendar embed.
