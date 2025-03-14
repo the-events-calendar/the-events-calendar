@@ -97,7 +97,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return string The page title.
 	 */
 	public function get_the_page_title(): string {
-		return esc_html__( 'TEC First Time Setup Page', 'the-events-calendar' );
+		return esc_html__( 'TEC Setup Guide', 'the-events-calendar' );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return string The menu title.
 	 */
 	public function get_the_menu_title(): string {
-		return esc_html__( 'First Time Setup', 'the-events-calendar' );
+		return esc_html__( 'Setup Guide', 'the-events-calendar' );
 	}
 
 	/**
