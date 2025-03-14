@@ -1154,9 +1154,9 @@ class Render {
 	 * @return array Modified array of available breakpoints.
 	 */
 	public function filter_week_view_breakpoints( array $breakpoints, View $view ): array {
-		$context   = $view->get_context();
-		$widget    = $context->get( 'is-widget', false );
-		$embed = $context->get( 'embed', false );
+		$context = $view->get_context();
+		$widget  = $context->get( 'is-widget', false );
+		$embed   = $context->get( 'embed', false );
 
 		if ( false === $widget ) {
 			return $breakpoints;
@@ -1197,8 +1197,8 @@ class Render {
 	 * @return mixed
 	 */
 	public function filter_week_events_per_day( $events_per_day, View $view ) {
-		$context   = $view->get_context();
-		$embed = $context->get( 'embed', false );
+		$context = $view->get_context();
+		$embed   = $context->get( 'embed', false );
 
 		if ( false === $embed ) {
 			return $events_per_day;
