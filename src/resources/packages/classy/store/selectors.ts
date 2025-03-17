@@ -6,7 +6,8 @@ import { StoreState } from '../types/StoreState';
  *
  * @since TBD
  *
- * @param {StoreState} The current store state.
+ * @param {StoreState} state The current store state.
+ * @param {string}     attribute The attribute to fetch from the store.
  *
  * @return {any} The attribute value fetched from the `core/editor` store if available, else the `tec/classy` store.
  */
@@ -16,7 +17,7 @@ export function getEditedPostAttribute(
 ): string {
 	const coreEditor = select( 'core/editor' );
 
-	if ( coreEditor !== null ) {
+	if ( coreEditor ) {
 		// @ts-ignore
 		return coreEditor.getEditedPostAttribute( attribute ) ?? null;
 	}

@@ -10,16 +10,16 @@ import { Action, EditPostAction } from '../types/Actions';
  *
  * @return {StoreState} The updated store state.
  */
-export const editPost = (
+export const reducer = (
 	state: StoreState = {},
 	action: Action
 ): StoreState => {
-	if ( action.type !== ACTION_CLASSY_EDIT_POST ) {
-		return state;
+	if ( action.type === ACTION_CLASSY_EDIT_POST ) {
+		return {
+			...state,
+			...( action as EditPostAction ).updates,
+		};
 	}
 
-	return {
-		...state,
-		...( action as EditPostAction ).updates,
-	};
+	return state;
 };

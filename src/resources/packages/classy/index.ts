@@ -9,10 +9,10 @@ import {
 	insertElement as insertClassyElement,
 	toggleElementVisibility as toggleClassyElementVisibility,
 } from './functions/classy';
-import { init as initStore } from './store';
+import { registerStore } from './store';
 import './style.pcss';
 
-initStore();
+registerStore();
 
 whenEditorIsReady().then( () => {
 	hideZoomOutButton();

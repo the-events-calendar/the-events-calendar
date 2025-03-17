@@ -1,5 +1,5 @@
-import { createReduxStore, register, combineReducers } from '@wordpress/data';
-import * as reducers from './reducers';
+import { createReduxStore, register } from '@wordpress/data';
+import { reducer } from './reducer';
 import * as actions from './actions';
 import * as selectors from './selectors';
 
@@ -8,13 +8,16 @@ import * as selectors from './selectors';
  *
  * @since TBD
  *
+ * @param {Object} initialState The initial state to be passed to the redux store.
+ *
  * @return {void} The store is initialized and registered under the 'tec/classy' namespace.
  */
-export function init(): void {
+export function registerStore( initialState: Object = {} ): void {
 	const store = createReduxStore( 'tec/classy', {
-		reducer: combineReducers( reducers ),
+		reducer,
 		actions,
 		selectors,
+		initialState,
 	} );
 	register( store );
 }
