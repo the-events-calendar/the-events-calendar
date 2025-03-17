@@ -13,6 +13,7 @@
 namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\Settings\Settings;
 
 /**
  * Class Controller
@@ -32,6 +33,7 @@ class Controller extends Controller_Contract {
 		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
+		$this->add_hooks();
 	}
 
 	/**
@@ -48,7 +50,15 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {
+	public function unregister(): void {}
+
+	/**
+	 * Add Hooks
+	 *
+	 * @return void
+	 */
+	protected function add_hooks() {
+		$this->container->make( Settings::class )->add_hooks();
 	}
 
 }
