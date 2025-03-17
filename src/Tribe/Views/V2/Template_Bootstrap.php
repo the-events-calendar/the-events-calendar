@@ -133,13 +133,13 @@ class Template_Bootstrap {
 	 * @return bool Whether the current request is for the single organizer template or not.
 	 */
 	public function is_single_organizer() {
-		if( ! did_action( 'parse_query' ) ) {
+		if ( ! did_action( 'parse_query' ) ) {
 			return false;
 		}
 
 		$conditions = [
 			tribe_context()->get( 'tec_post_type' ),
-			is_singular( TEC::ORGANIZER_POST_TYPE )
+			is_singular( TEC::ORGANIZER_POST_TYPE ),
 		];
 
 		return in_array( true, $conditions, true );
@@ -153,33 +153,13 @@ class Template_Bootstrap {
 	 * @return bool Whether the current request is for the single venue template or not.
 	 */
 	public function is_single_venue() {
-		if( ! did_action( 'parse_query' ) ) {
+		if ( ! did_action( 'parse_query' ) ) {
 			return false;
 		}
 
 		$conditions = [
 			tribe_context()->get( 'tec_post_type' ),
-			is_singular( TEC::VENUE_POST_TYPE )
-		];
-
-		return in_array( true, $conditions, true );
-	}
-
-	/**
-	 * Determines whether we are in event category term page or not, base only on global context.
-	 *
-	 * @since  TBD
-	 *
-	 * @return bool Whether the current request is for the event category term or not.
-	 */
-	public function is_event_category() {
-		if( ! did_action( 'parse_query' ) ) {
-			return false;
-		}
-
-		$conditions = [
-			tribe_context()->get( 'event_category' ),
-			is_tax( TEC::TAXONOMY )
+			is_singular( TEC::VENUE_POST_TYPE ),
 		];
 
 		return in_array( true, $conditions, true );
