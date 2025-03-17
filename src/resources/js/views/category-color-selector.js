@@ -15,7 +15,7 @@ tribe.events.categoryColors = tribe.events.categoryColors || {};
  *
  * @type   {PlainObject}
  */
-tribe.events.categoryColors.picker = ( function () {
+tribe.events.categoryColors.picker = (function() {
 	'use strict';
 
 	const obj = {};
@@ -28,11 +28,25 @@ tribe.events.categoryColors.picker = ( function () {
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		picker: '.tec-category-color-picker',
-		dropdown: '.tec-category-color-picker__dropdown',
-		checkbox: '.tec-category-color-picker__checkbox',
-		dropdownIcon: '.tec-category-color-picker__dropdown-icon',
-	};
+		picker: '.tec-category-color-picker'
+		, dropdown: '.tec-category-color-picker__dropdown'
+		, checkbox: '.tec-category-color-picker__checkbox'
+		, dropdownIcon: '.tec-category-color-picker__dropdown-icon'
+		, dropdownVisible: 'tec-category-color-picker__dropdown--visible'
+		, pickerOpen: 'tec-category-color-picker--open'
+		, pickerAlignRight: 'tec-category-color-picker--align-right'
+		, events: [
+			'.tribe-events-calendar-list__event'
+			, '.tribe-events-calendar-day__event'
+			, '.tribe-events-calendar-month__calendar-event'
+			, '.tribe-events-pro-summary__event'
+			, '.tribe-events-pro-photo__event'
+			, '.tribe-events-pro-week-grid__event'
+			, '.tribe-events-pro-week-grid__multiday-event'
+			, '.tribe-events-calendar-month__multiday-event'
+		]
+		, filteredHide: 'tec-category-filtered-hide'
+		, };
 
 	/**
 	 * Toggles the dropdown visibility
@@ -43,35 +57,58 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.toggleDropdown = function ( event ) {
+	obj.toggleDropdown = event => {
 		event.stopPropagation();
+
 		const picker = event.currentTarget;
-		const dropdown = picker.querySelector( obj.selectors.dropdown );
+		const dropdown = picker.querySelector(obj.selectors.dropdown);
 
-		if ( ! dropdown ) {
+		if (!dropdown || obj.isDropdownOpen(dropdown)) {
 			return;
 		}
 
-		// If dropdown is already open, do nothing
-		const isOpen = dropdown.classList.contains( 'tec-category-color-picker__dropdown--visible' );
-		if ( isOpen ) {
-			return;
-		}
+		// Open dropdown.
+		dropdown.classList.add(obj.selectors.dropdownVisible);
+		picker.classList.add(obj.selectors.pickerOpen);
 
-		// Otherwise, open the dropdown
-		dropdown.classList.add( 'tec-category-color-picker__dropdown--visible' );
-		picker.classList.add('tec-category-color-picker--open');
+		// Adjust positioning.
+		obj.adjustDropdownPosition(
+			picker
+			, dropdown
+		);
+	};
 
-		// Get dropdown position.
-		const rect = dropdown.getBoundingClientRect();
-		const isOffScreen = rect.right > window.innerWidth;
+	/**
+	 * Checks if the dropdown is already open.
+	 *
+	 * @since TBD
+	 *
+	 * @param {HTMLElement} dropdown - The dropdown element
+	 *
+	 * @return {boolean}
+	 */
+	obj.isDropdownOpen = dropdown => dropdown.classList.contains(obj.selectors.dropdownVisible);
 
-		// Apply class if dropdown would overflow.
-		if ( isOffScreen ) {
-			picker.classList.add( 'tec-category-color-picker--align-right' );
-		} else {
-			picker.classList.remove( 'tec-category-color-picker--align-right' );
-		}
+	/**
+	 * Adjusts dropdown position to prevent overflow.
+	 *
+	 * @since TBD
+	 *
+	 * @param {HTMLElement} picker - The dropdown's parent container
+	 * @param {HTMLElement} dropdown - The dropdown element
+	 *
+	 * @return {void}
+	 */
+	obj.adjustDropdownPosition = (picker, dropdown) => {
+		const {
+			right
+		} = dropdown.getBoundingClientRect();
+		const isOffScreen = right > window.innerWidth;
+
+		picker.classList.toggle(
+			obj.selectors.pickerAlignRight
+			, isOffScreen
+		);
 	};
 
 	/**
@@ -83,23 +120,22 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.handleOutsideClick = function ( event ) {
-		const picker = document.querySelector( obj.selectors.picker );
-		const dropdown = document.querySelector( obj.selectors.dropdown );
+	obj.handleOutsideClick = event => {
+		const picker = document.querySelector(obj.selectors.picker);
+		const dropdown = document.querySelector(obj.selectors.dropdown);
 
-		if ( ! picker ) {
+		if (!picker || !dropdown) {
 			return;
 		}
 
-		// If the clicked element is inside the picker or the dropdown, do nothing
-		if ( picker.contains( event.target ) || dropdown.contains( event.target ) ) {
+		// If the clicked element is inside the picker or the dropdown, do nothing.
+		if (picker.contains(event.target) || dropdown.contains(event.target)) {
 			return;
 		}
 
-
-		// Otherwise, close the dropdown
-		dropdown.classList.remove( 'tec-category-color-picker__dropdown--visible' );
-		picker.classList.remove( 'tec-category-color-picker--open' );
+		// Otherwise, close the dropdown.
+		dropdown.classList.remove(obj.selectors.dropdownVisible);
+		picker.classList.remove(obj.selectors.pickerOpen);
 	};
 
 
@@ -112,28 +148,48 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.handleCheckboxChange = ( { target } ) => {
+	obj.handleCheckboxChange = ({
+		target
+	}) => {
 		const categorySlug = target.dataset.category;
-		const events = document.querySelectorAll( '.tribe-events-calendar-list__event, .tribe-events-calendar-day__event, .tribe-events-calendar-month__calendar-event, .tribe-events-pro-summary__event, .tribe-events-pro-photo__event, .tribe-events-pro-week-grid__event, .tribe-events-pro-week-grid__multiday-event, .tribe-events-calendar-month__multiday-event' );
+		const events = document.querySelectorAll(obj.selectors.events.join(', '));
 
 		// Maintain a Set of selected categories.
 		obj.selectedCategories = obj.selectedCategories ?? new Set();
 
 		// Update the Set based on checkbox state.
-		target.checked ? obj.selectedCategories.add( categorySlug ) : obj.selectedCategories.delete( categorySlug );
+		target.checked ? obj.selectedCategories.add(categorySlug) : obj.selectedCategories.delete(categorySlug);
 
-		const selectedCategoriesArray = [ ...obj.selectedCategories ];
+		// Convert Set to an array for easier iteration.
+		const selectedCategoriesArray = [...obj.selectedCategories];
 
-		events.forEach( event => {
-			const eventCategories = [ ...event.classList ].filter( cls => cls.startsWith( 'tribe_events_cat-' ) );
-			const hasMatch = selectedCategoriesArray.some( cat => eventCategories.includes( `tribe_events_cat-${ cat }` ) );
+		events.forEach(event => {
+			const hasMatch = obj.eventHasMatchingCategory(
+				event
+				, selectedCategoriesArray
+			);
 
 			// Apply filtering classes.
 			event.classList.toggle(
-				'tec-category-filtered-hide',
-				selectedCategoriesArray.length > 0 && ! hasMatch
+				obj.selectors.filteredHide
+				, selectedCategoriesArray.length > 0 && !hasMatch
 			);
-		} );
+		});
+	};
+
+	/**
+	 * Checks if an event matches any selected categories.
+	 *
+	 * @since TBD
+	 *
+	 * @param {HTMLElement} event - The event element.
+	 * @param {Array} selectedCategories - Array of selected category slugs.
+	 *
+	 * @return {boolean} - True if the event matches a selected category.
+	 */
+	obj.eventHasMatchingCategory = (event, selectedCategories) => {
+		const eventCategories = [...event.classList].filter(cls => cls.startsWith('tribe_events_cat-'));
+		return selectedCategories.some(cat => eventCategories.includes(`tribe_events_cat-${ cat }`));
 	};
 
 	/**
@@ -143,16 +199,21 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.monitorTECAjax = function () {
+	obj.monitorTECAjax = function() {
+		if (obj.ajaxHooked) {
+			return;
+		}
+		obj.ajaxHooked = true;
+
 		const originalOpen = XMLHttpRequest.prototype.open;
 
-		XMLHttpRequest.prototype.open = function ( method, url, ...args ) {
+		XMLHttpRequest.prototype.open = function(method, url, ...args) {
 			// Check if this is a TEC-related AJAX request.
-			if ( url.includes( '/wp-json/tribe/views/v2/html' ) ) {
+			if (url.includes('/wp-json/tribe/views/v2/html')) {
 				this.addEventListener(
-					"load",
-					function () {
-						if ( this.readyState === 4 && this.status === 200 ) {
+					'load'
+					, function() {
+						if (this.readyState === 4 && this.status === 200) {
 							obj.ensureBindings();
 						}
 					}
@@ -161,11 +222,11 @@ tribe.events.categoryColors.picker = ( function () {
 
 			// Call the original open method.
 			return originalOpen.apply(
-				this,
-				[ method, url, ...args ]
+				this
+				, [method, url, ...args]
 			);
 		};
-	}
+	};
 
 
 	/**
@@ -175,31 +236,35 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.ensureBindings = function () {
-		// Wait for the next frame to ensure the DOM has settled.
-		requestAnimationFrame( () => {
-			const picker = document.querySelector( obj.selectors.picker );
+	obj.ensureBindings = function(retryCount = 0) {
+		// Limit retries to avoid infinite loops.
+		if (retryCount > 5) {
+			return;
+		}
 
-			if ( ! picker ) {
-				console.warn( "Picker not found, trying again..." );
+		requestAnimationFrame(() => {
+			const picker = document.querySelector(obj.selectors.picker);
+
+			if (!picker) {
+				console.warn(`Picker not found, retrying... (${ retryCount + 1 }/5)`);
 				setTimeout(
-					obj.ensureBindings,
-					50
+					() => obj.ensureBindings(retryCount + 1)
+					, 50
 				);
 				return;
 			}
 
 			obj.cleanupBindings(); // Cleanup first to avoid duplicates.
 
-			if ( ! picker.hasAttribute( 'data-bound' ) ) {
+			if (!picker.hasAttribute('data-bound')) {
 				obj.bindEvents();
 				// Prevent duplicate bindings.
 				picker.setAttribute(
-					'data-bound',
-					'true'
+					'data-bound'
+					, 'true'
 				);
 			}
-		} );
+		});
 	};
 
 
@@ -210,76 +275,150 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.cleanupBindings = function () {
-		const picker = document.querySelector( obj.selectors.picker );
+	obj.cleanupBindings = () => {
+		const picker = document.querySelector(obj.selectors.picker);
 
-		if ( picker && picker.hasAttribute( 'data-bound' ) ) {
-			obj.unbindEvents();
-			picker.removeAttribute( 'data-bound' ); // Ensure we reset bindings properly
+		if (!picker || !obj.isBound(picker)) {
+			return;
 		}
+
+		obj.unbindEvents();
+		picker.removeAttribute(obj.selectors.dataBound);
 	};
 
+	/**
+	 * Checks if the picker has already been bound.
+	 *
+	 * @since TBD
+	 *
+	 * @param {HTMLElement} element - The picker element.
+	 *
+	 * @return {boolean} - True if the picker is already bound.
+	 */
+	obj.isBound = element => element.hasAttribute(obj.selectors.dataBound);
 
 	/**
-	 * Binds events for the category color picker
+	 * Binds events for the category color picker.
 	 *
 	 * @since TBD
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function () {
-		const picker = document.querySelector( obj.selectors.picker );
-		const checkboxes = document.querySelectorAll( obj.selectors.checkbox );
+	obj.bindEvents = () => {
+		const picker = document.querySelector(obj.selectors.picker);
+		const checkboxes = document.querySelectorAll(obj.selectors.checkbox);
 
-		if ( picker ) {
-			picker.addEventListener(
-				'click',
-				obj.toggleDropdown
-			);
-		}
-
-		document.addEventListener(
-			'click',
-			obj.handleOutsideClick
+		obj.addEventListeners(
+			picker
+			, [{
+				event: 'click'
+				, handler: obj.toggleDropdown
+			}]
 		);
 
-		checkboxes.forEach( checkbox => {
-			checkbox.addEventListener(
-				'change',
-				obj.handleCheckboxChange
-			);
-		} );
+		obj.addEventListeners(
+			document
+			, [{
+				event: 'click'
+				, handler: obj.handleOutsideClick
+			}]
+		);
+
+		document.addEventListener('change', event => {
+			if (event.target.matches(obj.selectors.checkbox)) {
+				obj.handleCheckboxChange(event);
+			}
+		});
 	};
 
 	/**
-	 * Unbinds events for the category color picker
+	 * Adds multiple event listeners to an element.
+	 *
+	 * @since TBD
+	 *
+	 * @param {HTMLElement|Document} element - The target element.
+	 * @param {Array} events - An array of event-handler pairs.
+	 *
+	 * @return {void}
+	 */
+	obj.addEventListeners = (element, events) => {
+		if (!element) {
+			return;
+		}
+
+		events.forEach(({
+						   event
+						   , handler
+					   }) =>
+						   element.addEventListener(
+							   event
+							   , handler
+						   )
+		);
+	};
+
+	/**
+	 * Unbinds events for the category color picker.
 	 *
 	 * @since TBD
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function () {
-		const picker = document.querySelector( obj.selectors.picker );
-		const checkboxes = document.querySelectorAll( obj.selectors.checkbox );
+	obj.unbindEvents = () => {
+		const picker = document.querySelector(obj.selectors.picker);
+		const checkboxes = document.querySelectorAll(obj.selectors.checkbox);
 
-		if ( picker ) {
-			picker.removeEventListener(
-				'click',
-				obj.toggleDropdown
-			);
-		}
-
-		document.removeEventListener(
-			'click',
-			obj.handleOutsideClick
+		obj.removeEventListeners(
+			picker
+			, [{
+				event: 'click'
+				, handler: obj.toggleDropdown
+			}]
 		);
 
-		checkboxes.forEach( checkbox => {
-			checkbox.removeEventListener(
-				'change',
-				obj.handleCheckboxChange
-			);
-		} );
+		obj.removeEventListeners(
+			document
+			, [{
+				event: 'click'
+				, handler: obj.handleOutsideClick
+			}]
+		);
+
+		checkboxes.forEach(checkbox =>
+							   obj.removeEventListeners(
+								   checkbox
+								   , [{
+									   event: 'change'
+									   , handler: obj.handleCheckboxChange
+								   }]
+							   )
+		);
+	};
+
+	/**
+	 * Removes multiple event listeners from an element.
+	 *
+	 * @since TBD
+	 *
+	 * @param {HTMLElement|Document} element - The target element.
+	 * @param {Array} events - An array of event-handler pairs.
+	 *
+	 * @return {void}
+	 */
+	obj.removeEventListeners = (element, events) => {
+		if (!element) {
+			return;
+		}
+
+		events.forEach(({
+						   event
+						   , handler
+					   }) =>
+						   element.removeEventListener(
+							   event
+							   , handler
+						   )
+		);
 	};
 
 	/**
@@ -289,7 +428,7 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.init = function () {
+	obj.init = function() {
 		obj.monitorTECAjax();
 		obj.bindEvents();
 	};
@@ -302,9 +441,9 @@ tribe.events.categoryColors.picker = ( function () {
 	 * @return {void}
 	 */
 	document.addEventListener(
-		'DOMContentLoaded',
-		obj.init
+		'DOMContentLoaded'
+		, obj.init
 	);
 
 	return obj;
-} )();
+})();
