@@ -1,4 +1,3 @@
-import { RichText } from '@wordpress/block-editor';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';
 import { EventTitle } from './fields';
