@@ -1,7 +1,6 @@
 /* -----------------------------------------------------------------------------
  * Event Day
  * ----------------------------------------------------------------------------- */
-
 .tribe-events-calendar-day {
 	.tribe-events-calendar-day__event {
 		position: relative;
@@ -33,7 +32,6 @@
 		/* -----------------------------------------------------------------------------
 		 * Category Pill
 		 * ----------------------------------------------------------------------------- */
-
 		.tec-events-calendar-day__category {
 			align-items: center;
 			background: var(--tec-category-secondary);
@@ -199,7 +197,6 @@
 	/* -----------------------------------------------------------------------------
 	 * Category Pill
 	 * ----------------------------------------------------------------------------- */
-
 	.tec-events-calendar-list__event-categories {
 		display: inline;
 
@@ -295,25 +292,6 @@
  * Event Photo
  * ----------------------------------------------------------------------------- */
 .tribe-events-pro-photo {
-	/* -----------------------------------------------------------------------------
-	 * Category Pill
-	 * ----------------------------------------------------------------------------- */
-
-	.tribe-events-pro-photo__event-date-tag {
-		position: relative;
-
-		&:after {
-			background-color: var(--tec-category-primary);
-			border-radius: var(--tec-border-radius-default);
-			content: '';
-			height: 100%;
-			position: absolute;
-			right: calc(-1 * var(--tec-spacer-0));
-			top: 0;
-			width: 4px;
-		}
-	}
-
 	.tribe-events-pro-photo__event--featured {
 		.tribe-events-pro-photo__event-datetime-featured-icon-svg,
 		.tribe-events-pro-photo__event-datetime-featured-text {
@@ -342,6 +320,23 @@
 		}
 	}
 
+	/* -----------------------------------------------------------------------------
+	 * Category Pill
+	 * ----------------------------------------------------------------------------- */
+	.tribe-events-pro-photo__event-date-tag {
+		position: relative;
+
+		&:after {
+			background-color: var(--tec-category-primary);
+			border-radius: var(--tec-border-radius-default);
+			content: '';
+			height: 100%;
+			position: absolute;
+			right: calc(-1 * var(--tec-spacer-0));
+			top: 0;
+			width: 4px;
+		}
+	}
 }
 
 /* -----------------------------------------------------------------------------
@@ -506,7 +501,7 @@
 		.tec-category-color-picker__color-circle {
 			aspect-ratio: 1/1;
 			border-radius: 50%;
-			border: 2px solid #ffffff;
+			border: 2px solid var(--tec-color-background);
 			margin-left: -10px;
 			position: relative;
 			width: 20px;
@@ -540,7 +535,7 @@
 		/* Ensure dropdown never overflows horizontally */
 		background: #fff;
 		border-radius: var(--tec-border-radius-default);
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		box-shadow: var(--tec-box-shadow-tooltip);
 		display: none;
 		flex-direction: column;
 		left: 0;
@@ -579,6 +574,7 @@
 			display: flex;
 			justify-content: space-between;
 			margin-bottom: var(--tec-spacer-1);
+			cursor: default;
 
 			.tec-category-color-picker__dropdown-close {
 				background: transparent;
@@ -606,7 +602,7 @@
 			border-radius: var(--tec-border-radius-default);
 			display: flex;
 			justify-content: space-between;
-			transition: background-color 0.2s ease;
+			transition: var(--tec-transition-background-color);
 
 			label {
 				&:hover {
@@ -660,6 +656,6 @@
 	.tec-category-filtered-hide {
 		filter: grayscale(60%);
 		opacity: 0.4;
-		transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
+		transition: var(--tec-transition-opacity);
 	}
 }

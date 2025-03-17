@@ -35,6 +35,7 @@ tribe.events.categoryColors.picker = (function() {
 		, dropdownVisible: 'tec-category-color-picker__dropdown--visible'
 		, pickerOpen: 'tec-category-color-picker--open'
 		, pickerAlignRight: 'tec-category-color-picker--align-right'
+		, dropdownClose: '.tec-category-color-picker__dropdown-close'
 		, events: [
 			'.tribe-events-calendar-list__event'
 			, '.tribe-events-calendar-day__event'
@@ -90,6 +91,30 @@ tribe.events.categoryColors.picker = (function() {
 	obj.isDropdownOpen = dropdown => dropdown.classList.contains(obj.selectors.dropdownVisible);
 
 	/**
+	 * Closes the dropdown when the close button is clicked
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.handleDropdownClose = () => {
+		const picker = document.querySelector(obj.selectors.picker);
+		const dropdown = document.querySelector(obj.selectors.dropdown);
+
+
+		if (!picker || !dropdown) {
+			return;
+		}
+
+		setTimeout(() => {
+			dropdown.classList.remove(obj.selectors.dropdownVisible);
+			picker.classList.remove(obj.selectors.pickerOpen);
+
+		}, 100);
+	};
+
+
+	/**
 	 * Adjusts dropdown position to prevent overflow.
 	 *
 	 * @since TBD
@@ -109,33 +134,6 @@ tribe.events.categoryColors.picker = (function() {
 			obj.selectors.pickerAlignRight
 			, isOffScreen
 		);
-	};
-
-	/**
-	 * Closes the dropdown when clicking outside
-	 *
-	 * @since TBD
-	 *
-	 * @param {Event} event - The click event
-	 *
-	 * @return {void}
-	 */
-	obj.handleOutsideClick = event => {
-		const picker = document.querySelector(obj.selectors.picker);
-		const dropdown = document.querySelector(obj.selectors.dropdown);
-
-		if (!picker || !dropdown) {
-			return;
-		}
-
-		// If the clicked element is inside the picker or the dropdown, do nothing.
-		if (picker.contains(event.target) || dropdown.contains(event.target)) {
-			return;
-		}
-
-		// Otherwise, close the dropdown.
-		dropdown.classList.remove(obj.selectors.dropdownVisible);
-		picker.classList.remove(obj.selectors.pickerOpen);
 	};
 
 
@@ -246,7 +244,6 @@ tribe.events.categoryColors.picker = (function() {
 			const picker = document.querySelector(obj.selectors.picker);
 
 			if (!picker) {
-				console.warn(`Picker not found, retrying... (${ retryCount + 1 }/5)`);
 				setTimeout(
 					() => obj.ensureBindings(retryCount + 1)
 					, 50
@@ -306,7 +303,7 @@ tribe.events.categoryColors.picker = (function() {
 	 */
 	obj.bindEvents = () => {
 		const picker = document.querySelector(obj.selectors.picker);
-		const checkboxes = document.querySelectorAll(obj.selectors.checkbox);
+		const closeButton = document.querySelector(obj.selectors.dropdownClose);
 
 		obj.addEventListeners(
 			picker
@@ -320,7 +317,7 @@ tribe.events.categoryColors.picker = (function() {
 			document
 			, [{
 				event: 'click'
-				, handler: obj.handleOutsideClick
+				, handler: obj.handleDropdownClose
 			}]
 		);
 
@@ -329,6 +326,10 @@ tribe.events.categoryColors.picker = (function() {
 				obj.handleCheckboxChange(event);
 			}
 		});
+
+		if (closeButton) {
+			closeButton.addEventListener('click', obj.handleDropdownClose);
+		}
 	};
 
 	/**
@@ -367,6 +368,7 @@ tribe.events.categoryColors.picker = (function() {
 	obj.unbindEvents = () => {
 		const picker = document.querySelector(obj.selectors.picker);
 		const checkboxes = document.querySelectorAll(obj.selectors.checkbox);
+		const closeButton = document.querySelector(obj.selectors.dropdownClose);
 
 		obj.removeEventListeners(
 			picker
@@ -393,6 +395,10 @@ tribe.events.categoryColors.picker = (function() {
 								   }]
 							   )
 		);
+
+		if (closeButton) {
+			closeButton.removeEventListener('click', obj.handleDropdownClose);
+		}
 	};
 
 	/**
