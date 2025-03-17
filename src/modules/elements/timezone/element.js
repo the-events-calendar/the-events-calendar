@@ -27,10 +27,10 @@ const Timezone = ( {
 );
 
 Timezone.propTypes = {
-	value      : PropTypes.string,
+	value: PropTypes.string,
 	placeholder: PropTypes.string,
-	onChange   : PropTypes.func,
-	className  : PropTypes.oneOfType( [
+	onChange: PropTypes.func,
+	className: PropTypes.oneOfType( [
 		PropTypes.string,
 		PropTypes.arrayOf( PropTypes.string ),
 	] ),
