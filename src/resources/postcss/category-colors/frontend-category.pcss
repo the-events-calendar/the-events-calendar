@@ -1,7 +1,6 @@
-/**
-* Event Day Styling
-*/
-
+/* -----------------------------------------------------------------------------
+ * Event Day
+ * ----------------------------------------------------------------------------- */
 
 .tribe-events-calendar-day {
 	.tribe-events-calendar-day__event {
@@ -11,9 +10,9 @@
 			background-color: var(--tec-category-primary);
 			content: '';
 			height: 100%;
+			left: calc(var(--tec-grid-width-1-of-9) - var(--tec-grid-gutter-half));
 			position: absolute;
 			width: 4px;
-			left: calc(var(--tec-grid-width-1-of-9) - var(--tec-grid-gutter-half));
 		}
 	}
 
@@ -31,44 +30,43 @@
 	.tec-events-calendar-day__event-categories {
 		display: inline;
 
-		/**
-Category pill area
- **/
+		/* -----------------------------------------------------------------------------
+		 * Category Pill
+		 * ----------------------------------------------------------------------------- */
 
 		.tec-events-calendar-day__category {
+			align-items: center;
 			background: var(--tec-category-secondary);
-			color: var(--tec-category-text);
-			padding: 0 var(--tec-spacer-1);
 			border-radius: var(--tec-border-radius-pill);
-			width: fit-content;
+			color: var(--tec-category-text);
+			display: flex;
 			font-size: var(--tec-font-size-2);
 			line-height: var(--tec-line-height-3);
-			display: flex;
-			align-items: center;
+			padding: 0 var(--tec-spacer-1);
+			width: fit-content;
 
 			.tec-events-calendar-day__category-icon {
-				background-color: var(--tec-category-primary);
-				width: 14px;
 				aspect-ratio: 1/1;
+				background-color: var(--tec-category-primary);
 				border-radius: 50%;
 				display: inline-block;
 				margin-right: var(--tec-spacer-0);
+				width: 14px;
 			}
 		}
 	}
 }
 
-
-/**
-* Event Month Styling
-*/
+/* -----------------------------------------------------------------------------
+ * Event Month
+ * ----------------------------------------------------------------------------- */
 .tribe-events {
 	.tribe-events-calendar-month__calendar-event {
 		.tribe-events-calendar-month__calendar-event-details {
 			background-color: var(--tec-category-secondary);
 			border-left: 3px solid var(--tec-category-primary);
-			padding: var(--tec-spacer-1);
 			color: var(--tec-category-text);
+			padding: var(--tec-spacer-1);
 		}
 
 		.tribe-events-calendar-month__calendar-event-datetime {
@@ -99,19 +97,19 @@ Category pill area
 	}
 
 	.tribe-events-calendar-month__multiday-event-bar {
-		position: relative;
 		padding-left: var(--tec-spacer-1);
+		position: relative;
 
 		&:before {
+			background-color: var(--tec-category-primary);
+			border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday);
 			content: "";
-			position: absolute;
+			height: 100%;
 			left: 0;
+			position: absolute;
 			top: 50%;
 			transform: translateY(-50%);
 			width: .5em;
-			height: 100%;
-			background-color: var(--tec-category-primary);
-			border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
 		}
 
 		.tribe-events-calendar-month__multiday-event-bar-featured-icon-svg {
@@ -119,24 +117,60 @@ Category pill area
 		}
 
 		.tribe-events-calendar-month__multiday-event-bar-inner {
-			padding: 1px var(--tec-spacer-1);
 			background-color: var(--tec-category-secondary);
+			padding: 1px var(--tec-spacer-1);
 			transition: none;
 		}
 	}
 
+	/* -----------------------------------------------------------------------------
+	 * Event Month - Mobile
+	 * ----------------------------------------------------------------------------- */
+
+	.tribe-events-view--month {
+		.tribe-events-calendar-month-mobile-events__mobile-event {
+			.tribe-events-calendar-month-mobile-events__mobile-event-details {
+				padding-left: var(--tec-spacer-1);
+				position: relative;
+
+				&:before {
+					background-color: var(--tec-category-primary);
+					content: '';
+					height: 100%;
+					left: 0;
+					position: absolute;
+					top: 0;
+					width: 3px;
+				}
+			}
+
+			.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text,
+			.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg {
+				color: var(--tec-category-primary);
+			}
+
+			.tribe-events-calendar-month-mobile-events__mobile-title {
+				color: var(--tec-category-text);
+
+				.tribe-events-calendar-month-mobile-events__mobile-title-link {
+					color: var(--tec-category-text);
+				}
+			}
+		}
+	}
+
+
 }
 
-/**
- * Event List Styling
- */
-
+/* -----------------------------------------------------------------------------
+ * Event List
+ * ----------------------------------------------------------------------------- */
 .tribe-events-calendar-list {
 	.tribe-events-calendar-list__event-row--featured {
 		.tribe-events-calendar-list__event-date-tag-datetime {
 			&:after {
-				width: 0;
 				background-color: transparent;
+				width: 0;
 			}
 		}
 	}
@@ -149,15 +183,11 @@ Category pill area
 			border-radius: var(--tec-border-radius-default);
 			content: '';
 			height: 100%;
+			left: var(--tec-spacer-2);
 			position: absolute;
 			width: 4px;
-			left: var(--tec-spacer-2);
 		}
 	}
-
-	/**
-	Featured Event Area
-	**/
 
 	.tribe-events-calendar-list__event-datetime-wrapper {
 		.tribe-events-calendar-list__event-datetime-featured-icon-svg,
@@ -166,31 +196,31 @@ Category pill area
 		}
 	}
 
-	/**
-	Category pill area
-	 **/
+	/* -----------------------------------------------------------------------------
+	 * Category Pill
+	 * ----------------------------------------------------------------------------- */
 
 	.tec-events-calendar-list__event-categories {
 		display: inline;
 
 		.tec-events-calendar-list__category {
+			align-items: center;
 			background: var(--tec-category-secondary);
-			color: var(--tec-category-text);
-			padding: 0 var(--tec-spacer-1);
 			border-radius: var(--tec-border-radius-pill);
-			width: fit-content;
+			color: var(--tec-category-text);
+			display: flex;
 			font-size: var(--tec-font-size-1);
 			line-height: var(--tec-line-height-3);
-			display: flex;
-			align-items: center;
+			padding: 0 var(--tec-spacer-1);
+			width: fit-content;
 
 			.tec-events-calendar-list__category-icon {
-				background-color: var(--tec-category-primary);
-				width: 14px;
 				aspect-ratio: 1/1;
+				background-color: var(--tec-category-primary);
 				border-radius: 50%;
 				display: inline-block;
 				margin-right: var(--tec-spacer-0);
+				width: 14px;
 			}
 		}
 	}
@@ -198,10 +228,9 @@ Category pill area
 
 }
 
-/**
- * Event Summary Styling
- */
-
+/* -----------------------------------------------------------------------------
+ * Event Summary
+ * ----------------------------------------------------------------------------- */
 .tribe-events-pro-summary {
 
 	.tribe-events-pro-summary__event {
@@ -213,10 +242,10 @@ Category pill area
 				border-radius: var(--tec-border-radius-default);
 				content: '';
 				height: 100%;
-				position: absolute;
-				width: 4px;
 				left: var(--tec-spacer-1);
+				position: absolute;
 				top: 0;
+				width: 4px;
 			}
 		}
 
@@ -226,14 +255,49 @@ Category pill area
 	}
 }
 
-/**
- * Event Photo Styling
-**/
+/* -----------------------------------------------------------------------------
+ * Event Summary - Medium + screens
+ * ----------------------------------------------------------------------------- */
+.tribe-common--breakpoint-medium {
+	.tribe-events-pro-summary {
+		.tribe-events-pro-summary__event {
+			.tribe-events-pro-summary__event-details {
+				&:after {
+					border-radius: inherit;
+					height: inherit;
+					left: inherit;
+					position: inherit;
+					top: inherit;
+					width: inherit;
+				}
+			}
 
+			.tribe-events-pro-summary__event-title {
+				position: relative;
+
+				&:after {
+					background-color: var(--tec-category-primary);
+					border-radius: var(--tec-border-radius-default);
+					content: '';
+					height: 100%;
+					left: calc(-1 * var(--tec-spacer-1));
+					position: absolute;
+					top: 0;
+					width: 4px;
+				}
+			}
+		}
+	}
+}
+
+
+/* -----------------------------------------------------------------------------
+ * Event Photo
+ * ----------------------------------------------------------------------------- */
 .tribe-events-pro-photo {
-	/**
-Category pill area
-**/
+	/* -----------------------------------------------------------------------------
+	 * Category Pill
+	 * ----------------------------------------------------------------------------- */
 
 	.tribe-events-pro-photo__event-date-tag {
 		position: relative;
@@ -244,9 +308,9 @@ Category pill area
 			content: '';
 			height: 100%;
 			position: absolute;
-			width: 4px;
 			right: calc(-1 * var(--tec-spacer-0));
 			top: 0;
+			width: 4px;
 		}
 	}
 
@@ -258,53 +322,52 @@ Category pill area
 	}
 
 	.tec-events-calendar-photo__category {
+		align-items: center;
 		background: var(--tec-category-secondary);
-		color: var(--tec-category-text);
-		padding: 0 var(--tec-spacer-1);
 		border-radius: var(--tec-border-radius-pill);
-		width: fit-content;
+		color: var(--tec-category-text);
+		display: flex;
 		font-size: var(--tec-font-size-1);
 		line-height: var(--tec-line-height-3);
-		display: flex;
-		align-items: center;
+		padding: 0 var(--tec-spacer-1);
+		width: fit-content;
 
 		.tec-events-calendar-photo__category-icon {
-			background-color: var(--tec-category-primary);
-			width: 14px;
 			aspect-ratio: 1/1;
+			background-color: var(--tec-category-primary);
 			border-radius: 50%;
 			display: inline-block;
 			margin-right: var(--tec-spacer-0);
+			width: 14px;
 		}
 	}
 
 }
 
-/**
- * Event Week Styling
-**/
+/* -----------------------------------------------------------------------------
+ * Event Week
+ * ----------------------------------------------------------------------------- */
 .tribe-events-pro.tribe-events-view--week {
-
 	.tribe-events-pro-week-grid__multiday-events-day {
 		.tribe-events-pro-week-grid__multiday-event-bar {
-			position: relative;
 			padding-left: var(--tec-spacer-1);
+			position: relative;
 
 			&:before {
+				background-color: var(--tec-category-primary);
+				border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
 				content: "";
-				position: absolute;
+				height: 100%;
 				left: 0;
+				position: absolute;
 				top: 50%;
 				transform: translateY(-50%);
 				width: .5em;
-				height: 100%;
-				background-color: var(--tec-category-primary);
-				border-radius: var(--tec-border-radius-month-multiday) 0 0 var(--tec-border-radius-month-multiday); /* Create a rounded left edge */
 			}
 
 			.tribe-events-pro-week-grid__multiday-event-bar-inner {
-				padding: 1px var(--tec-spacer-1);
 				background-color: var(--tec-category-secondary);
+				padding: 1px var(--tec-spacer-1);
 				transition: none;
 			}
 
@@ -358,15 +421,15 @@ Category pill area
 	}
 
 	.tribe-events-pro-week-grid__event-link-inner {
-		transition: var(--tec-transition-background-color);
 		background-color: var(--tec-category-secondary);
+		transition: var(--tec-transition-background-color);
 	}
 
 	.tribe-events-pro-week-grid__event-link {
 		&:hover {
 			.tribe-events-pro-week-grid__event-link-inner {
-				filter: contrast(85%);
 				background-color: inherit;
+				filter: contrast(85%);
 			}
 		}
 
@@ -382,81 +445,9 @@ Category pill area
 	}
 }
 
-/**
-* Event Month (Mobile) Styling
-*/
-.tribe-events-view--month {
-	.tribe-events-calendar-month-mobile-events__mobile-event {
-		.tribe-events-calendar-month-mobile-events__mobile-event-details {
-			position: relative;
-			padding-left: var(--tec-spacer-1);
-
-			&:before {
-				background-color: var(--tec-category-primary);
-				content: '';
-				height: 100%;
-				left: 0;
-				position: absolute;
-				top: 0;
-				width: 3px;
-			}
-		}
-
-		.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-text,
-		.tribe-events-calendar-month-mobile-events__mobile-event-datetime-featured-icon-svg {
-			color: var(--tec-category-primary);
-		}
-
-		.tribe-events-calendar-month-mobile-events__mobile-title {
-			color: var(--tec-category-text);
-
-			.tribe-events-calendar-month-mobile-events__mobile-title-link {
-				color: var(--tec-category-text);
-			}
-		}
-	}
-}
-
-
-/**
-* Event Summary (Medium+ screens) Styling
-*/
-.tribe-common--breakpoint-medium {
-	.tribe-events-pro-summary {
-		.tribe-events-pro-summary__event {
-			.tribe-events-pro-summary__event-details {
-				&:after {
-					border-radius: inherit;
-					height: inherit;
-					position: inherit;
-					width: inherit;
-					left: inherit;
-					top: inherit;
-				}
-			}
-
-			.tribe-events-pro-summary__event-title {
-				position: relative;
-
-				&:after {
-					background-color: var(--tec-category-primary);
-					border-radius: var(--tec-border-radius-default);
-					content: '';
-					height: 100%;
-					position: absolute;
-					width: 4px;
-					left: calc(-1 * var(--tec-spacer-1));
-					top: 0;
-				}
-			}
-		}
-	}
-}
-
-
-/**
-* Event Week (Mobile) Styling
-*/
+/* -----------------------------------------------------------------------------
+ * Event Week - Mobile
+ * ----------------------------------------------------------------------------- */
 .tribe-events-view--week {
 	.tribe-events-pro-week-mobile-events__event {
 		&.tribe-events-pro-week-mobile-events__event--featured {
@@ -470,8 +461,8 @@ Category pill area
 		}
 
 		.tribe-events-pro-week-mobile-events__event-details {
-			position: relative;
 			padding-left: var(--tec-spacer-1);
+			position: relative;
 
 			&:before {
 				background-color: var(--tec-category-primary);
@@ -491,15 +482,15 @@ Category pill area
 	}
 }
 
-/**
-Category Colors Legend Styles
- */
+/* -----------------------------------------------------------------------------
+ * Category Legend
+ * ----------------------------------------------------------------------------- */
 .tec-category-color-picker {
-	position: relative;
-	display: flex;
 	align-items: center;
-	gap: 5px; /* Space between colors and dropdown */
 	cursor: pointer;
+	display: flex;
+	gap: 5px;
+	position: relative;
 
 	&.tec-category-color-picker--align-right {
 		.tec-category-color-picker__dropdown {
@@ -508,24 +499,18 @@ Category Colors Legend Styles
 		}
 	}
 
-	/* Wrap the colors inside a flex container */
-
 	.tec-category-color-picker__colors {
-		display: flex;
 		align-items: center;
-
-
-		/* Style each color circle */
+		display: flex;
 
 		.tec-category-color-picker__color-circle {
 			aspect-ratio: 1/1;
 			border-radius: 50%;
-			width: 20px;
 			border: 2px solid #ffffff;
-			position: relative;
 			margin-left: -10px;
+			position: relative;
+			width: 20px;
 		}
-
 
 		/* Ensure the first circle doesn’t shift */
 
@@ -536,50 +521,51 @@ Category Colors Legend Styles
 
 	/* Dropdown icon alignment */
 
-	&.tec-category-color-picker--open{
+	&.tec-category-color-picker--open {
 		.tec-category-color-picker__dropdown-icon {
 			.tec-category-color-picker__dropdown-icon-svg {
 				transform: rotate(180deg);
 			}
 		}
 	}
+
 	.tec-category-color-picker__dropdown-icon {
-		width: 12px;
 		aspect-ratio: 1/1;
+		width: 12px;
 	}
 
 	/* Dropdown */
 
 	.tec-category-color-picker__dropdown {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		right: auto;
+		/* Ensure dropdown never overflows horizontally */
 		background: #fff;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		border-radius: var(--tec-border-radius-default);
-		padding: var(--tec-spacer-2);
-		min-width: 220px;
-		z-index: 100;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		display: none;
 		flex-direction: column;
-		overflow-y: auto;
+		left: 0;
 		max-height: 250px;
-		white-space: nowrap;
-		/* Ensure dropdown never overflows horizontally */
 		max-width: min(100vw, 300px);
+		min-width: 220px;
 		overflow-x: hidden;
+		overflow-y: auto;
+		padding: var(--tec-spacer-2);
+		position: absolute;
+		right: auto;
+		top: 100%;
+		white-space: nowrap;
+		z-index: 100;
 
 		&:after {
 			content: "";
-			position: absolute;
-			width: 100vw;
 			height: 100%;
 			left: 0;
-			top: 0;
 			max-width: 100%;
 			overflow: hidden;
 			pointer-events: none;
+			position: absolute;
+			top: 0;
+			width: 100vw;
 		}
 
 		&.tec-category-color-picker__dropdown--visible {
@@ -589,53 +575,49 @@ Category Colors Legend Styles
 		/* Header */
 
 		.tec-category-color-picker__dropdown-header {
+			align-items: center;
 			display: flex;
 			justify-content: space-between;
-			align-items: center;
 			margin-bottom: var(--tec-spacer-1);
 
 			.tec-category-color-picker__dropdown-close {
 				background: transparent;
 				border: none;
 				cursor: pointer;
-				font-size: 18px;
-				color: #555;
-
-				&:hover {
-					color: #000;
-				}
+				font-size: var(--tec-font-size-5);
 			}
 		}
 
 		/* List */
 
 		.tec-category-color-picker__dropdown-list {
-			list-style: none;
-			margin: 0;
-			padding: 0;
 			display: flex;
 			flex-direction: column;
 			gap: var(--tec-spacer-1);
+			list-style: none;
+			margin: 0;
+			padding: 0;
 		}
 
 		/* List Item */
 
 		.tec-category-color-picker__dropdown-item {
-			display: flex;
 			align-items: center;
-			justify-content: space-between;
 			border-radius: var(--tec-border-radius-default);
+			display: flex;
+			justify-content: space-between;
 			transition: background-color 0.2s ease;
 
 			label {
 				&:hover {
 					background-color: var(--tec-color-background-secondary);
 				}
-				display: flex;
+
 				align-items: center;
+				cursor: pointer;
+				display: flex;
 				gap: var(--tec-spacer-1);
 				padding: var(--tec-spacer-1);
-				cursor: pointer;
 				width: 100%;
 			}
 		}
@@ -657,9 +639,9 @@ Category Colors Legend Styles
 
 		.tec-category-color-picker__color-dot {
 			aspect-ratio: 1/1;
-			width: 12px;
 			border-radius: 50%;
 			display: inline-block;
+			width: 12px;
 		}
 	}
 
@@ -676,8 +658,8 @@ Category Colors Legend Styles
 	/* Events that don’t match the selected filters */
 
 	.tec-category-filtered-hide {
-		opacity: 0.4;
 		filter: grayscale(60%);
+		opacity: 0.4;
 		transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
 	}
 }
