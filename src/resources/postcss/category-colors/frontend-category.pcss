@@ -536,11 +536,16 @@ Category Colors Legend Styles
 
 	/* Dropdown icon alignment */
 
-	.tec-category-color-picker__dropdown-icon {
-		.tec-category-colors-picker__dropdown-icon-svg {
-			height: 8px;
-			width: 11px;
+	&.tec-category-color-picker--open{
+		.tec-category-color-picker__dropdown-icon {
+			.tec-category-color-picker__dropdown-icon-svg {
+				transform: rotate(180deg);
+			}
 		}
+	}
+	.tec-category-color-picker__dropdown-icon {
+		width: 12px;
+		aspect-ratio: 1/1;
 	}
 
 	/* Dropdown */

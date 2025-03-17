@@ -44,7 +44,6 @@ tribe.events.categoryColors.picker = ( function () {
 	 * @return {void}
 	 */
 	obj.toggleDropdown = function ( event ) {
-		console.log('clicking on dropdown');
 		event.stopPropagation();
 		const picker = event.currentTarget;
 		const dropdown = picker.querySelector( obj.selectors.dropdown );
@@ -61,6 +60,7 @@ tribe.events.categoryColors.picker = ( function () {
 
 		// Otherwise, open the dropdown
 		dropdown.classList.add( 'tec-category-color-picker__dropdown--visible' );
+		picker.classList.add('tec-category-color-picker--open');
 
 		// Get dropdown position.
 		const rect = dropdown.getBoundingClientRect();
@@ -87,7 +87,7 @@ tribe.events.categoryColors.picker = ( function () {
 		const picker = document.querySelector( obj.selectors.picker );
 		const dropdown = document.querySelector( obj.selectors.dropdown );
 
-		if(!picker){
+		if ( ! picker ) {
 			return;
 		}
 
@@ -99,6 +99,7 @@ tribe.events.categoryColors.picker = ( function () {
 
 		// Otherwise, close the dropdown
 		dropdown.classList.remove( 'tec-category-color-picker__dropdown--visible' );
+		picker.classList.remove( 'tec-category-color-picker--open' );
 	};
 
 
@@ -111,25 +112,111 @@ tribe.events.categoryColors.picker = ( function () {
 	 *
 	 * @return {void}
 	 */
-	obj.handleCheckboxChange = ({ target }) => {
+	obj.handleCheckboxChange = ( { target } ) => {
 		const categorySlug = target.dataset.category;
-		const events = document.querySelectorAll('.tribe-events-calendar-list__event, .tribe-events-calendar-day__event, .tribe-events-calendar-month__calendar-event, .tribe-events-pro-summary__event, .tribe-events-pro-photo__event, .tribe-events-pro-week-grid__event, .tribe-events-pro-week-grid__multiday-event');
+		const events = document.querySelectorAll( '.tribe-events-calendar-list__event, .tribe-events-calendar-day__event, .tribe-events-calendar-month__calendar-event, .tribe-events-pro-summary__event, .tribe-events-pro-photo__event, .tribe-events-pro-week-grid__event, .tribe-events-pro-week-grid__multiday-event, .tribe-events-calendar-month__multiday-event' );
 
 		// Maintain a Set of selected categories.
 		obj.selectedCategories = obj.selectedCategories ?? new Set();
 
 		// Update the Set based on checkbox state.
-		target.checked ? obj.selectedCategories.add(categorySlug) : obj.selectedCategories.delete(categorySlug);
+		target.checked ? obj.selectedCategories.add( categorySlug ) : obj.selectedCategories.delete( categorySlug );
 
-		const selectedCategoriesArray = [...obj.selectedCategories];
+		const selectedCategoriesArray = [ ...obj.selectedCategories ];
 
-		events.forEach(event => {
-			const eventCategories = [...event.classList].filter(cls => cls.startsWith('tribe_events_cat-'));
-			const hasMatch = selectedCategoriesArray.some(cat => eventCategories.includes(`tribe_events_cat-${cat}`));
+		events.forEach( event => {
+			const eventCategories = [ ...event.classList ].filter( cls => cls.startsWith( 'tribe_events_cat-' ) );
+			const hasMatch = selectedCategoriesArray.some( cat => eventCategories.includes( `tribe_events_cat-${ cat }` ) );
 
 			// Apply filtering classes.
-			event.classList.toggle('tec-category-filtered-hide', selectedCategoriesArray.length > 0 && !hasMatch);
-		});
+			event.classList.toggle(
+				'tec-category-filtered-hide',
+				selectedCategoriesArray.length > 0 && ! hasMatch
+			);
+		} );
+	};
+
+	/**
+	 * Hooks into XMLHttpRequest to detect AJAX completion.
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.monitorTECAjax = function () {
+		const originalOpen = XMLHttpRequest.prototype.open;
+
+		XMLHttpRequest.prototype.open = function ( method, url, ...args ) {
+			// Check if this is a TEC-related AJAX request.
+			if ( url.includes( '/wp-json/tribe/views/v2/html' ) ) {
+				this.addEventListener(
+					"load",
+					function () {
+						if ( this.readyState === 4 && this.status === 200 ) {
+							obj.ensureBindings();
+						}
+					}
+				);
+			}
+
+			// Call the original open method.
+			return originalOpen.apply(
+				this,
+				[ method, url, ...args ]
+			);
+		};
+	}
+
+
+	/**
+	 * Ensures event bindings persist after AJAX updates.
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.ensureBindings = function () {
+		// Wait for the next frame to ensure the DOM has settled.
+		requestAnimationFrame( () => {
+			const picker = document.querySelector( obj.selectors.picker );
+
+			if ( ! picker ) {
+				console.warn( "Picker not found, trying again..." );
+				setTimeout(
+					obj.ensureBindings,
+					50
+				);
+				return;
+			}
+
+			obj.cleanupBindings(); // Cleanup first to avoid duplicates.
+
+			if ( ! picker.hasAttribute( 'data-bound' ) ) {
+				obj.bindEvents();
+				// Prevent duplicate bindings.
+				picker.setAttribute(
+					'data-bound',
+					'true'
+				);
+			}
+		} );
+	};
+
+
+	/**
+	 * Removes old event bindings to prevent duplicate listeners.
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.cleanupBindings = function () {
+		const picker = document.querySelector( obj.selectors.picker );
+
+		if ( picker && picker.hasAttribute( 'data-bound' ) ) {
+			obj.unbindEvents();
+			picker.removeAttribute( 'data-bound' ); // Ensure we reset bindings properly
+		}
 	};
 
 
@@ -144,7 +231,6 @@ tribe.events.categoryColors.picker = ( function () {
 		const picker = document.querySelector( obj.selectors.picker );
 		const checkboxes = document.querySelectorAll( obj.selectors.checkbox );
 
-		console.log("Binding on picker",picker);
 		if ( picker ) {
 			picker.addEventListener(
 				'click',
@@ -204,6 +290,7 @@ tribe.events.categoryColors.picker = ( function () {
 	 * @return {void}
 	 */
 	obj.init = function () {
+		obj.monitorTECAjax();
 		obj.bindEvents();
 	};
 
