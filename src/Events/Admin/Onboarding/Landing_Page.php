@@ -152,7 +152,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		parent::admin_page_title();
 
 		$action_url = add_query_arg(
-			// We do not need a nonce. This page can be seen only by admins. see `required_capability` method.
+			// We do not need a nonce. This page can be seen only by admins. See `required_capability` method.
 			[ 'action' => self::DISMISS_ONBOARDING_PAGE_ACTION ],
 			admin_url( '/admin-post.php' )
 		);
