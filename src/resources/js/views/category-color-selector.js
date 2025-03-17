@@ -62,7 +62,7 @@ tribe.events.categoryColors.picker = (function() {
 		event.stopPropagation();
 
 		const picker = event.currentTarget;
-		const dropdown = picker.querySelector(obj.selectors.dropdown);
+		const dropdown = document.querySelector(obj.selectors.dropdown);
 
 		if (!dropdown || obj.isDropdownOpen(dropdown)) {
 			return;
