@@ -67,7 +67,7 @@
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G",
     "rebuild": "rm -rf node_modules && npm install && npm run build",
     "classy:format": "wp-scripts format src/resources/packages/classy tests/classy_jest && composer run classy:format",
-    "classy:test": "jest tests/classy_jest && slic run classy_integration",
+    "classy:test": "jest --config tests/classy_jest/jest.config.js tests/classy_jest && slic run classy_integration",
     "classy:pre-commit": "npm run classy:format && npm run classy:test",
     "test": "jest"
   },
