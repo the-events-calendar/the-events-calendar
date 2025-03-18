@@ -11,6 +11,7 @@
  *
  * @version TBD
  *
+ * @var string  $category_colors_enabled           Whether the category colors view should display.
  * @var array[] $category_colors_category_dropdown Array of categories with metadata.
  *                                                 Each category contains:
  *                                                 - 'slug' (string)      Category slug.
@@ -22,6 +23,10 @@
  * @var bool    $category_colors_super_power       Whether the super power mode is enabled.
  * @var bool    $category_colors_show_reset_button Whether to show the reset button.
  */
+
+if ( ! $category_colors_enabled ) {
+	return;
+}
 
 ?>
 <div class="tec-category-color-picker"

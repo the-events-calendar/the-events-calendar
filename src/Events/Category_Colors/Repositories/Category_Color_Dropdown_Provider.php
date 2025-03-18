@@ -26,6 +26,25 @@ use Tribe__Events__Main;
 class Category_Color_Dropdown_Provider {
 
 	/**
+	 * Determines if the category color legend should be displayed on a given view.
+	 *
+	 * This checks if the provided template slug is in the enabled views list.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $template_slug The slug of the template/view being checked.
+	 *
+	 * @return bool True if the legend should be displayed, false otherwise.
+	 */
+	public function should_display_on_view( string $template_slug ): bool {
+		$enabled_views = tribe_get_option( 'category-color-legend-show', [] );
+
+		// Check if the template slug is in the enabled views array.
+		return in_array( $template_slug, $enabled_views, true );
+	}
+
+
+	/**
 	 * Retrieves categories and their colors for the dropdown.
 	 *
 	 * @since TBD
