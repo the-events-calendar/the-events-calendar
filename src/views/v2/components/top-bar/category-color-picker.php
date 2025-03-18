@@ -1,38 +1,27 @@
 <?php
-
-use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
-
-$super_power_mode       = tribe_get_option( 'category-color-legend-superpowers', false );
-$show_hidden_categories = tribe_get_option( 'category-color-show-hidden-categories', false );
-$show_reset_button      = tribe_get_option( 'category-color-reset-button', false );
-
-// Fetch all categories with colors.
-$categories = get_terms(
-	[
-		'taxonomy'   => Tribe__Events__Main::TAXONOMY,
-		'hide_empty' => false,
-	]
-);
-
-// Retrieve category colors, priorities, and visibility.
-$meta_instance   = tribe( Event_Category_Meta::class );
-$category_colors = array_filter(
-	array_map(
-		fn( $category ) => [
-			'slug'     => $category->slug,
-			'name'     => $category->name,
-			'priority' => is_numeric( $priority = $meta_instance->set_term( $category->term_id )->get( Meta_Keys::get_key( 'priority' ) ) ) ? (int) $priority : -1,
-			'primary'  => $meta_instance->set_term( $category->term_id )->get( Meta_Keys::get_key( 'primary' ) ),
-			'hidden'   => (bool) $meta_instance->set_term( $category->term_id )->get( Meta_Keys::get_key( 'hidden' ) ),
-		],
-		$categories
-	),
-	fn( $category ) => ! empty( $category['primary'] ) && ( $show_hidden_categories || ! $category['hidden'] )
-);
-
-// Sort by priority (highest first).
-usort( $category_colors, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
+/**
+ * View: Top Bar - Category Color Picker
+ *
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe/events/v2/components/top-bar/category-color-picker.php
+ *
+ * See more documentation about our views templating system.
+ *
+ * @link    http://evnt.is/1aiy
+ *
+ * @version TBD
+ *
+ * @var array[] $category_colors_category_dropdown Array of categories with metadata.
+ *                                                 Each category contains:
+ *                                                 - 'slug' (string)      Category slug.
+ *                                                 - 'name' (string)      Category name.
+ *                                                 - 'priority' (int)     Priority for sorting.
+ *                                                 - 'primary' (string)   Primary color in hex format.
+ *                                                 - 'hidden' (bool)      Whether the category is hidden.
+ *
+ * @var bool    $category_colors_super_power       Whether the super power mode is enabled.
+ * @var bool    $category_colors_show_reset_button Whether to show the reset button.
+ */
 
 ?>
 <div class="tec-category-color-picker"
@@ -43,7 +32,7 @@ usort( $category_colors, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
 	aria-label="<?php esc_attr_e( 'Select categories to highlight', 'the-events-calendar' ); ?>">
 
 	<div class="tec-category-color-picker__colors">
-		<?php foreach ( array_slice( $category_colors, 0, 5 ) as $category ) : ?>
+		<?php foreach ( array_slice( $category_colors_category_dropdown, 0, 5 ) as $category ) : ?>
 			<span class="tec-category-color-picker__color-circle"
 				style="background-color: <?php echo esc_attr( $category['primary'] ); ?>;">
 			</span>
@@ -59,10 +48,10 @@ usort( $category_colors, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
 			<button class="tec-category-color-picker__dropdown-close" aria-label="<?php esc_attr_e( 'Close category selection', 'the-events-calendar' ); ?>">✕</button>
 		</div>
 		<ul class="tec-category-color-picker__dropdown-list">
-			<?php foreach ( $category_colors as $category ) : ?>
+			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
 				<li class="tec-category-color-picker__dropdown-item" role="option">
 					<label>
-						<?php if ( $super_power_mode ) { ?>
+						<?php if ( $category_colors_super_power ) { ?>
 							<input type="checkbox"
 								class="tec-category-color-picker__checkbox"
 								data-category="<?php echo esc_attr( $category['slug'] ); ?>"
@@ -76,7 +65,7 @@ usort( $category_colors, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
 			<?php endforeach; ?>
 		</ul>
 
-		<?php if ( $super_power_mode && $show_reset_button ) : ?>
+		<?php if ( $category_colors_super_power && $category_colors_show_reset_button ) : ?>
 			<div class="tec-category-color-picker__reset-wrapper">
 				<button type="button" class="tec-category-color-picker__reset tribe-common-c-btn-border-small"
 					aria-label="<?php esc_attr_e( 'Reset category selection', 'the-events-calendar' ); ?>">
