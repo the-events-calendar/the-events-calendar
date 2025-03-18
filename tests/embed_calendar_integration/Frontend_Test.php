@@ -254,7 +254,6 @@ class Frontend_Test extends Controller_Test_Case {
 		$filtered = preg_replace( '/"now":"[^"]*"/', '"now":"' . date( 'Y-m-d H:i:s' ) . '"', $filtered );
 		$filtered = str_replace( (string) $ece_id, '{ECE_ID}', $filtered );
 		$filtered = str_replace( $event_ids, '{EVENT_ID}', $filtered );
-		// $filtered = str_replace( $date, date( 'Y-m-d' ), $filtered );
 
 		$this->assertMatchesHtmlSnapshot( $filtered );
 	}
