@@ -5,6 +5,7 @@ namespace TEC\Events\Category_Colors\Admin;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
 use Tribe__Events__Main;
+use InvalidArgumentException;
 
 class Quick_Edit extends Abstract_Admin {
 	/**
@@ -35,7 +36,11 @@ class Quick_Edit extends Abstract_Admin {
 	 * @return string Updated content.
 	 */
 	public function add_custom_column_data( $content, $column_name, $term_id ) {
-		$meta = tribe( Event_Category_Meta::class )->set_term( $term_id );
+		try {
+			$meta = tribe( Event_Category_Meta::class )->set_term( $term_id );
+		} catch ( InvalidArgumentException $e ) {
+			return $content;
+		}
 
 		if ( 'category_priority' === $column_name ) {
 			$content = $this->get_column_category_priority( $meta );
@@ -108,12 +113,19 @@ class Quick_Edit extends Abstract_Admin {
 	 * @since TBD
 	 *
 	 * @param string $column_name Column name being processed.
-	 * @param string $screen      Current screen type.
+	 * @param string|object $screen Current screen type.
 	 */
 	public function add_quick_edit_fields( $column_name, $screen ) {
-		if ( 'category_color' === $column_name ) {
-			return $this->get_column_category_color_field();
+		if ( 'category_color' !== $column_name ) {
+			return;
 		}
+
+		// Check if screen is an object and has the correct taxonomy
+		if ( ! is_object( $screen ) || ! isset( $screen->taxonomy ) || $screen->taxonomy !== Tribe__Events__Main::TAXONOMY ) {
+			return;
+		}
+
+		return $this->get_column_category_color_field();
 	}
 
 	/**
