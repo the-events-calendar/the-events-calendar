@@ -99,8 +99,8 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @return array
 	 */
-	public function modify_term_count_on_term_list_table( array $terms, ?array $taxonomies ): array {
-		if ( empty( $taxonomies ) ) {
+	public function modify_term_count_on_term_list_table( array $terms, ?array $taxonomies = null ): array {
+		if ( null === $taxonomies ) {
 			return $terms;
 		}
 
