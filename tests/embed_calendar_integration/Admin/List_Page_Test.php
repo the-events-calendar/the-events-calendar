@@ -71,7 +71,6 @@ class List_Page_Test extends Controller_Test_Case {
 
 	public function asset_data_provider() {
 		$assets = [
-			'tec-events-calendar-embeds-script' => 'src/resources/js/calendar-embeds/admin/page.js',
 			'tec-events-calendar-embeds-style'  => 'src/resources/css/calendar-embeds/admin/page.css',
 		];
 
