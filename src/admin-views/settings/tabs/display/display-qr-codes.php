@@ -11,11 +11,11 @@ use TEC\Events\QR\Settings as QR_Settings;
 $slug = QR_Settings::get_option_slugs();
 
 $tec_events_display_qr_codes = [
-	$slug['title']   => [
+	$slug['title']       => [
 		'type' => 'html',
 		'html' => '<h3 id="tec-settings-events-settings-display-additional" class="tec-settings-form__section-header">' . esc_html_x( 'QR Codes', 'QR Codes settings section header', 'the-events-calendar' ) . '</h3>',
 	],
-	$slug['enabled'] => [
+	$slug['enabled']     => [
 		'type'            => 'toggle',
 		'label'           => esc_html__( 'Use QR Codes', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enable QR Codes for Events', 'the-events-calendar' ),
@@ -23,7 +23,7 @@ $tec_events_display_qr_codes = [
 		'validation_type' => 'boolean',
 		'classes'         => 'tec-events-qr-codes',
 	],
-	$slug['prefix']  => [
+	$slug['prefix']      => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'QR Code Prefix', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'The prefix to be used for the permalinks.', 'the-events-calendar' ),
@@ -31,7 +31,7 @@ $tec_events_display_qr_codes = [
 		'validation_type' => 'string',
 		'classes'         => 'tec-events-qr-codes',
 	],
-	$slug['size']  => [
+	$slug['size']        => [
 		'type'            => 'dropdown',
 		'label'           => esc_html__( 'QR Code Size', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Select the default dimensions of the generated QR image.', 'the-events-calendar' ),
@@ -59,7 +59,7 @@ $tec_events_display_qr_codes = [
 		'validation_type' => 'string',
 		'classes'         => 'tec-events-qr-codes',
 	],
-	$slug['specific'] => [
+	$slug['specific']    => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Specific Event ID', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enter the event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
@@ -67,7 +67,7 @@ $tec_events_display_qr_codes = [
 		'validation_type' => 'integer',
 		'classes'         => 'tec-events-qr-codes',
 	],
-	$slug['fallback'] => [
+	$slug['fallback']    => [
 		'type'            => 'text',
 		'label'           => esc_html__( 'Error Handling Page', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Redirect to this URL if QR code is invalid or the event is not found.', 'the-events-calendar' ),
