@@ -93,7 +93,8 @@ class Service_Provider extends Provider_Contract {
 	 * @return array<string,string> An array of registered widget classes.
 	 */
 	public function register_widget( $widgets ) {
-		$widgets[ Widget_List::get_widget_slug() ] = Widget_List::class;
+		$widgets[ Widget_List::get_widget_slug() ]    = Widget_List::class;
+		$widgets[ Widget_QR_Code::get_widget_slug() ] = Widget_QR_Code::class;
 
 		return $widgets;
 	}
