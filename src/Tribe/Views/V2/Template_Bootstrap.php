@@ -138,7 +138,6 @@ class Template_Bootstrap {
 		}
 
 		$conditions = [
-			tribe_context()->get( 'tec_post_type' ),
 			is_singular( TEC::ORGANIZER_POST_TYPE ),
 		];
 
@@ -158,7 +157,6 @@ class Template_Bootstrap {
 		}
 
 		$conditions = [
-			tribe_context()->get( 'tec_post_type' ),
 			is_singular( TEC::VENUE_POST_TYPE ),
 		];
 
