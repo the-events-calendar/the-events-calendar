@@ -126,7 +126,7 @@ class Template_Bootstrap {
 	}
 
 	/**
-	 * Determines whether we are in a Single organizer page or not, base only on global context.
+	 * Determines whether we are in a Single organizer page or not, based only on global context.
 	 *
 	 * @since  TBD
 	 *
@@ -145,7 +145,7 @@ class Template_Bootstrap {
 	}
 
 	/**
-	 * Determines whether we are in a Single Venue page or not, base only on global context.
+	 * Determines whether we are in a Single Venue page or not, based only on global context.
 	 *
 	 * @since  TBD
 	 *
