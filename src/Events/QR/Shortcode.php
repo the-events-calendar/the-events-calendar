@@ -13,7 +13,7 @@ use TEC\Common\QR\QR;
 /**
  * Class Shortcode
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\QR
  */
@@ -52,14 +52,11 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param array  $attributes The shortcode attributes.
-	 * @param string $content The shortcode content.
+	 * @since TBD
 	 *
 	 * @return string
 	 */
-	public function get_html( $attributes = [], $content = '' ) {
-
-		$this->setup( $attributes, $content );
+	public function get_html() {
 
 		$args = $this->get_arguments();
 
@@ -75,8 +72,6 @@ class Shortcode extends Shortcode_Abstract {
 
 		$qr_img = $qr_code->size( $size )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
 
-		$this->content = '<img alt="qr_code_image" src="' . $qr_img . '">';
-
-		return $this->content;
+		return '<img alt="qr_code_image" src="' . $qr_img . '">';
 	}
 }
