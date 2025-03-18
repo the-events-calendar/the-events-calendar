@@ -35,6 +35,7 @@ class Assets {
 			Tribe__Events__Main::VERSION
 		)
 			->add_to_group_path( 'tec-category-colors' )
+			->set_condition( [$this,'should_enqueue_frontend_styles'] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 
@@ -54,5 +55,20 @@ class Assets {
 		if ( ! empty( $css ) ) {
 			wp_add_inline_style( 'tec-category-colors-frontend-styles', $css );
 		}
+	}
+
+	/**
+	 * Determines whether to enqueue the frontend styles for category colors.
+	 *
+	 * If the `category-color-custom-css` option is enabled (true), this function returns false,
+	 * preventing the default styles from being enqueued. If the option is disabled (false),
+	 * it returns true, allowing the styles to be enqueued.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if frontend styles should be enqueued, false otherwise.
+	 */
+	public function should_enqueue_frontend_styles(): bool {
+		return ! tribe_get_option( 'category-color-custom-css', true );
 	}
 }

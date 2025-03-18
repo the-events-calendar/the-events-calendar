@@ -33,6 +33,7 @@ tribe.events.categoryColors.picker = (function() {
 		, checkbox: '.tec-category-color-picker__checkbox'
 		, dropdownIcon: '.tec-category-color-picker__dropdown-icon'
 		, dropdownVisible: 'tec-category-color-picker__dropdown--visible'
+		, resetButton: '.tec-category-color-picker__reset'
 		, pickerOpen: 'tec-category-color-picker--open'
 		, pickerAlignRight: 'tec-category-color-picker--align-right'
 		, dropdownClose: '.tec-category-color-picker__dropdown-close'
@@ -142,38 +143,56 @@ tribe.events.categoryColors.picker = (function() {
 	 *
 	 * @since TBD
 	 *
-	 * @param {Event} event - The change event.
+	 * @param {Event|null} event - The change event, or null when resetting.
 	 *
 	 * @return {void}
 	 */
-	obj.handleCheckboxChange = ({
-		target
-	}) => {
-		const categorySlug = target.dataset.category;
-		const events = document.querySelectorAll(obj.selectors.events.join(', '));
+	obj.handleCheckboxChange = event => {
+		// If event is null (reset case), clear all selected categories.
+		if (!event || !event.target) {
+			obj.selectedCategories = obj.selectedCategories ?? new Set();
+			obj.selectedCategories.clear();
+		} else {
+			const categorySlug = event.target.dataset.category;
+			obj.selectedCategories = obj.selectedCategories ?? new Set();
 
-		// Maintain a Set of selected categories.
-		obj.selectedCategories = obj.selectedCategories ?? new Set();
-
-		// Update the Set based on checkbox state.
-		target.checked ? obj.selectedCategories.add(categorySlug) : obj.selectedCategories.delete(categorySlug);
+			// Update the Set based on checkbox state.
+			event.target.checked
+				? obj.selectedCategories.add(categorySlug)
+				: obj.selectedCategories.delete(categorySlug);
+		}
 
 		// Convert Set to an array for easier iteration.
 		const selectedCategoriesArray = [...obj.selectedCategories];
+		const events = document.querySelectorAll(obj.selectors.events.join(', '));
 
 		events.forEach(event => {
-			const hasMatch = obj.eventHasMatchingCategory(
-				event
-				, selectedCategoriesArray
-			);
+			const hasMatch = obj.eventHasMatchingCategory(event, selectedCategoriesArray);
 
 			// Apply filtering classes.
-			event.classList.toggle(
-				obj.selectors.filteredHide
-				, selectedCategoriesArray.length > 0 && !hasMatch
-			);
+			event.classList.toggle(obj.selectors.filteredHide, selectedCategoriesArray.length > 0 && !hasMatch);
 		});
 	};
+
+	/**
+	 * Handles reset button click event.
+	 *
+	 * @since TBD
+	 *
+	 * @return {void}
+	 */
+	obj.handleResetButtonClick = () => {
+		const checkboxes = document.querySelectorAll(obj.selectors.checkbox);
+
+		// Uncheck all checkboxes.
+		checkboxes.forEach(checkbox => {
+			checkbox.checked = false;
+		});
+
+		// Call handleCheckboxChange with no event to reset visibility.
+		obj.handleCheckboxChange(null);
+	};
+
 
 	/**
 	 * Checks if an event matches any selected categories.
@@ -304,6 +323,7 @@ tribe.events.categoryColors.picker = (function() {
 	obj.bindEvents = () => {
 		const picker = document.querySelector(obj.selectors.picker);
 		const closeButton = document.querySelector(obj.selectors.dropdownClose);
+		const resetButton = document.querySelector( obj.selectors.resetButton );
 
 		obj.addEventListeners(
 			picker
@@ -329,6 +349,10 @@ tribe.events.categoryColors.picker = (function() {
 
 		if (closeButton) {
 			closeButton.addEventListener('click', obj.handleDropdownClose);
+		}
+
+		if (resetButton) {
+			resetButton.addEventListener('click', obj.handleResetButtonClick);
 		}
 	};
 

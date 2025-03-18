@@ -3,6 +3,10 @@
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
 
+$super_power_mode       = tribe_get_option( 'category-color-legend-superpowers', false );
+$show_hidden_categories = tribe_get_option( 'category-color-show-hidden-categories', false );
+$show_reset_button      = tribe_get_option( 'category-color-reset-button', false );
+
 // Fetch all categories with colors.
 $categories = get_terms(
 	[
@@ -24,7 +28,7 @@ $category_colors = array_filter(
 		$categories
 	),
 	fn( $category ) => ! empty( $category['primary'] )
-); // Only keep categories with primary color
+);
 
 // Sort by priority (highest first).
 usort( $category_colors, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
@@ -57,15 +61,26 @@ usort( $category_colors, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
 			<?php foreach ( $category_colors as $category ) : ?>
 				<li class="tec-category-color-picker__dropdown-item" role="option">
 					<label>
-						<input type="checkbox"
-							class="tec-category-color-picker__checkbox"
-							data-category="<?php echo esc_attr( $category['slug'] ); ?>"
-							aria-label="<?php echo esc_attr( sprintf( __( 'Highlight events in %s', 'the-events-calendar' ), $category['name'] ) ); ?>">
+						<?php if ( $super_power_mode ) { ?>
+							<input type="checkbox"
+								class="tec-category-color-picker__checkbox"
+								data-category="<?php echo esc_attr( $category['slug'] ); ?>"
+								aria-label="<?php echo /* translators: %s is the category name. */ esc_attr( sprintf( __( 'Highlight events in %s', 'the-events-calendar' ), $category['name'] ) ); ?>">
+						<?php } ?>
 						<span class="tec-category-color-picker__label"><?php echo esc_html( $category['name'] ); ?></span>
 						<span class="tec-category-color-picker__color-dot" style="background-color: <?php echo esc_attr( $category['primary'] ); ?>;"></span>
 					</label>
 				</li>
 			<?php endforeach; ?>
 		</ul>
+
+		<?php if ( $super_power_mode && $show_reset_button ) : ?>
+			<div class="tec-category-color-picker__reset-wrapper">
+				<button type="button" class="tec-category-color-picker__reset"
+					aria-label="<?php esc_attr_e( 'Reset category selection', 'the-events-calendar' ); ?>">
+					<?php esc_html_e( 'Reset', 'the-events-calendar' ); ?>
+				</button>
+			</div>
+		<?php endif; ?>
 	</div>
 </div>
