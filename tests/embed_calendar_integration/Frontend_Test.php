@@ -243,6 +243,10 @@ class Frontend_Test extends Controller_Test_Case {
 		$this->set_fn_return( 'wp_create_nonce', 'hdas64538ahda' );
 		add_filter( 'tribe_events_views_v2_view_breakpoint_pointer', fn() => 'breakpoint-pointer' );
 
+		add_filter( 'tribe_context_pre_today', fn() => date( 'Y-m-d' ) );
+		add_filter( 'tribe_context_pre_now', fn() => date( 'Y-m-d H:i:s' ) );
+		add_filter( 'tribe_context_event_date', fn() => date( 'Y-m-d H:i:s' ) );
+
 		$filtered = apply_filters( 'the_content', $ece->post_content );
 
 		$this->assertNotEquals( $ece->post_content, $filtered );
@@ -250,7 +254,6 @@ class Frontend_Test extends Controller_Test_Case {
 		$filtered = preg_replace( '/"now":"[^"]*"/', '"now":"' . date( 'Y-m-d H:i:s' ) . '"', $filtered );
 		$filtered = str_replace( (string) $ece_id, '{ECE_ID}', $filtered );
 		$filtered = str_replace( $event_ids, '{EVENT_ID}', $filtered );
-		$filtered = str_replace( $date, date( 'Y-m-d' ), $filtered );
 
 		$this->assertMatchesHtmlSnapshot( $filtered );
 	}

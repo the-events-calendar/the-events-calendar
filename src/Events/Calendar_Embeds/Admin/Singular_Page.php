@@ -89,6 +89,14 @@ class Singular_Page extends Controller_Contract {
 	 * @return void
 	 */
 	public function add_copy_embed_button( WP_Post $post ): void {
+		if ( ! self::is_on_page() ) {
+			return;
+		}
+
+		if ( 'publish' !== $post->post_status ) {
+			return;
+		}
+
 		$this->template->template(
 			'copy-embed-button-in-metabox',
 			[

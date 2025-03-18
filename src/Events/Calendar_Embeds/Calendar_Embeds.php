@@ -94,12 +94,16 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $terms      The terms.
-	 * @param array $taxonomies The taxonomies.
+	 * @param array  $terms      The terms.
+	 * @param ?array $taxonomies The taxonomies.
 	 *
 	 * @return array
 	 */
-	public function modify_term_count_on_term_list_table( array $terms, array $taxonomies ): array {
+	public function modify_term_count_on_term_list_table( array $terms, ?array $taxonomies = null ): array {
+		if ( null === $taxonomies ) {
+			return $terms;
+		}
+
 		if ( ! in_array( TEC_Plugin::TAXONOMY, $taxonomies, true ) && ! in_array( 'post_tag', $taxonomies, true ) ) {
 			return $terms;
 		}
@@ -262,7 +266,31 @@ class Calendar_Embeds extends Controller_Contract {
 
 		$embed_url = 'publish' === $embed->post_status ? get_post_embed_url( $embed ) : get_preview_post_link( $embed, [ 'embed' => 1 ] );
 
-		$iframe = '<iframe src="' . esc_url( $embed_url ) . '" width="100%" height="1065" style="max-width:100%;" frameborder="0"></iframe>';
+		$iframe_attributes = [
+			'width'       => '100%',
+			'height'      => '1065',
+			'style'       => 'max-width:100%;',
+			'frameborder' => '0',
+		];
+
+		/**
+		 * Filter the iframe attributes for the calendar embed.
+		 *
+		 * @since TBD
+		 *
+		 * @param array   $iframe_attributes The iframe attributes.
+		 * @param WP_Post $embed             The embed post object.
+		 * @param string  $embed_url         The embed URL.
+		 *
+		 * @return array
+		 */
+		$iframe_attributes = (array) apply_filters( 'tec_events_calendar_embeds_iframe_attributes', $iframe_attributes, $embed, $embed_url );
+
+		ob_start();
+		?>
+		<iframe src="<?php echo esc_url( $embed_url ); ?>" <?php tribe_attributes( $iframe_attributes ); ?>></iframe>
+		<?php
+		$iframe = ob_get_clean();
 
 		/**
 		 * Filter the iframe code for the calendar embed.
