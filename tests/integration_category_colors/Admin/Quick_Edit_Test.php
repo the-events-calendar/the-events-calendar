@@ -149,18 +149,7 @@ class Quick_Edit_Test extends WPTestCase {
 			],
 			'expected_columns' => [
 				'category_priority' => '1',
-				'category_color' => [
-					'class' => 'tec-events-taxonomy-table__category-color-preview',
-					'style' => [
-						'background-color' => '#invalid',
-						'border' => '3px solid invalid-color',
-					],
-					'data' => [
-						'primary' => 'invalid-color',
-						'secondary' => '#invalid',
-						'text' => 'not-a-color',
-					],
-				],
+				'category_color' => '-',         // Invalid colors should display as dash
 			],
 		];
 
@@ -394,5 +383,148 @@ class Quick_Edit_Test extends WPTestCase {
 		$this->assertStringContainsString('tec-events-category-colors__group', $output);
 		$this->assertStringContainsString('tec-events-category-colors__preview', $output);
 		$this->assertStringContainsString('tec-events-category-colors__priority', $output);
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Category_Colors\Admin\Quick_Edit::add_quick_edit_fields
+	 */
+	public function should_handle_invalid_screen_parameters() {
+		// Test with non-object screen
+		ob_start();
+		$this->quick_edit->add_quick_edit_fields('category_color', 'not_an_object');
+		$output = ob_get_clean();
+		$this->assertEmpty(trim($output), 'Should not output anything for non-object screen');
+
+		// Test with screen missing taxonomy
+		$screen = new \stdClass();
+		ob_start();
+		$this->quick_edit->add_quick_edit_fields('category_color', $screen);
+		$output = ob_get_clean();
+		$this->assertEmpty(trim($output), 'Should not output anything for screen missing taxonomy');
+
+		// Test with empty screen
+		ob_start();
+		$this->quick_edit->add_quick_edit_fields('category_color', null);
+		$output = ob_get_clean();
+		$this->assertEmpty(trim($output), 'Should not output anything for empty screen');
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Category_Colors\Admin\Quick_Edit::add_custom_column_data
+	 */
+	public function should_handle_edge_case_priority_values() {
+		$term_id = $this->factory()->term->create([
+			'taxonomy' => Tribe__Events__Main::TAXONOMY,
+			'name' => 'Test Category',
+		]);
+
+		$meta = $this->meta->set_term($term_id);
+		$priority_key = $this->meta_keys->get_key('priority');
+
+		// Test with PHP_INT_MAX
+		$meta->set($priority_key, PHP_INT_MAX);
+		$meta->save();
+		$content = $this->quick_edit->add_custom_column_data('', 'category_priority', $term_id);
+		$this->assertEquals((string)PHP_INT_MAX, $content, 'Should handle PHP_INT_MAX priority value');
+
+		// Test with negative value
+		$meta->set($priority_key, -1);
+		$meta->save();
+		$content = $this->quick_edit->add_custom_column_data('', 'category_priority', $term_id);
+		$this->assertEquals('1', $content, 'Should convert negative priority to positive');
+
+		// Test with non-numeric value
+		$meta->set($priority_key, 'not_a_number');
+		$meta->save();
+		$content = $this->quick_edit->add_custom_column_data('', 'category_priority', $term_id);
+		$this->assertEquals('0', $content, 'Should handle non-numeric priority value');
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Category_Colors\Admin\Quick_Edit::add_custom_column_data
+	 */
+	public function should_handle_html_entities_in_color_values() {
+		$term_id = $this->factory()->term->create([
+			'taxonomy' => Tribe__Events__Main::TAXONOMY,
+			'name' => 'Test Category',
+		]);
+
+		$meta = $this->meta->set_term($term_id);
+		$primary_key = $this->meta_keys->get_key('primary');
+		$secondary_key = $this->meta_keys->get_key('secondary');
+		$text_key = $this->meta_keys->get_key('text');
+
+		// Set colors with HTML entities
+		$meta->set($primary_key, '#ff&gt;00');
+		$meta->set($secondary_key, '#00&lt;ff');
+		$meta->set($text_key, '#000&quot;00');
+		$meta->save();
+
+		$content = $this->quick_edit->add_custom_column_data('', 'category_color', $term_id);
+		
+		// Since the colors are invalid, we should get a dash
+		$this->assertEquals('-', $content, 'Should return dash for invalid color values');
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Category_Colors\Admin\Quick_Edit::add_custom_column_data
+	 */
+	public function should_handle_empty_color_values() {
+		$term_id = $this->factory()->term->create([
+			'taxonomy' => Tribe__Events__Main::TAXONOMY,
+			'name' => 'Test Category',
+		]);
+
+		$meta = $this->meta->set_term($term_id);
+		$primary_key = $this->meta_keys->get_key('primary');
+		$secondary_key = $this->meta_keys->get_key('secondary');
+		$text_key = $this->meta_keys->get_key('text');
+
+		// Set empty color values
+		$meta->set($primary_key, '');
+		$meta->set($secondary_key, '');
+		$meta->set($text_key, '');
+		$meta->save();
+
+		$content = $this->quick_edit->add_custom_column_data('', 'category_color', $term_id);
+		$this->assertEquals('-', $content, 'Should display dash for empty color values');
+	}
+
+	/**
+	 * @test
+	 * @covers \TEC\Events\Category_Colors\Admin\Quick_Edit::add_custom_column_data
+	 */
+	public function should_handle_valid_color_values() {
+		$term_id = $this->factory()->term->create([
+			'taxonomy' => Tribe__Events__Main::TAXONOMY,
+			'name' => 'Test Category',
+		]);
+
+		$meta = $this->meta->set_term($term_id);
+		$primary_key = $this->meta_keys->get_key('primary');
+		$secondary_key = $this->meta_keys->get_key('secondary');
+		$text_key = $this->meta_keys->get_key('text');
+
+		// Set valid color values
+		$meta->set($primary_key, '#ff0000');
+		$meta->set($secondary_key, '#00ff00');
+		$meta->set($text_key, '#0000ff');
+		$meta->save();
+
+		$content = $this->quick_edit->add_custom_column_data('', 'category_color', $term_id);
+
+		// Parse the HTML content
+		$dom = new \DOMDocument();
+		$dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		$span = $dom->getElementsByTagName('span')->item(0);
+
+		// Check that colors are properly set
+		$this->assertEquals('#ff0000', $span->getAttribute('data-primary'), 'Should set primary color correctly');
+		$this->assertEquals('#00ff00', $span->getAttribute('data-secondary'), 'Should set secondary color correctly');
+		$this->assertEquals('#0000ff', $span->getAttribute('data-text'), 'Should set text color correctly');
 	}
 } 

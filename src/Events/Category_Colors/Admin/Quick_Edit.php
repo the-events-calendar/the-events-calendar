@@ -66,7 +66,7 @@ class Quick_Edit extends Abstract_Admin {
 		$meta_key = tribe( Meta_Keys::class )->get_key( 'priority' );
 		$priority = $meta_key ? $meta->get( $meta_key ) : '0';
 
-		return esc_html( $priority ?: '0' );
+		return esc_html( absint( $priority ) ?: '0' );
 	}
 
 	/**
@@ -84,9 +84,9 @@ class Quick_Edit extends Abstract_Admin {
 		$secondary_key = $meta_keys->get_key( 'secondary' );
 		$text_key      = $meta_keys->get_key( 'text' );
 
-		$primary   = $primary_key ? $meta->get( $primary_key ) : '';
-		$secondary = $secondary_key ? $meta->get( $secondary_key ) : '';
-		$text      = $text_key ? $meta->get( $text_key ) : '';
+		$primary   = $primary_key ? sanitize_hex_color( $meta->get( $primary_key ) ) : '';
+		$secondary = $secondary_key ? sanitize_hex_color( $meta->get( $secondary_key ) ) : '';
+		$text      = $text_key ? sanitize_hex_color( $meta->get( $text_key ) ) : '';
 
 		// If no primary or secondary color is set, return `-`.
 		if ( empty( $primary ) || empty( $secondary ) ) {
