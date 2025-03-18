@@ -17,34 +17,22 @@ namespace TEC\Events\QR;
 class Settings {
 
 	/**
-	 * The option key that will be used to store the value.
+	 * An array of option keys that will be used to store the values.
 	 *
 	 * @since TBD
 	 *
-	 * @var string The option key.
+	 * @return array
 	 */
-	protected static string $enabled_option_key = 'events-enable-qr-codes';
-
-	/**
-	 * The option key that will be used to store the value.
-	 *
-	 * @since TBD
-	 *
-	 * @var string The option key.
-	 */
-	protected static string $enable_shortcode_option_key = 'events-enable-qr-shortcode';
-
-	/**
-	 * Get the option key that will be used to store the value.
-	 *
-	 * Option keys that are user controlled, need to be kept as public.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public static function get_enabled_option_slug(): string {
-		return static::$enabled_option_key;
+	public static function get_option_slugs(): array {
+		return [
+			'title'       => 'tribe-events-qr-code-settings',
+			'enabled'     => 'tribe-events-qr-code-enabled',
+			'prefix'      => 'tribe-events-qr-prefix',
+			'size'        => 'tribe-events-qr-size',
+			'redirection' => 'tribe-events-qr-redirection-behavior',
+			'specific'    => 'tribe-events-qr-specific-event-id',
+			'fallback'    => 'tribe-events-qr-fallback',
+		];
 	}
 
 	/**
