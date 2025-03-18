@@ -94,12 +94,16 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $terms      The terms.
-	 * @param array $taxonomies The taxonomies.
+	 * @param array  $terms      The terms.
+	 * @param ?array $taxonomies The taxonomies.
 	 *
 	 * @return array
 	 */
-	public function modify_term_count_on_term_list_table( array $terms, array $taxonomies ): array {
+	public function modify_term_count_on_term_list_table( array $terms, ?array $taxonomies ): array {
+		if ( empty( $taxonomies ) ) {
+			return $terms;
+		}
+
 		if ( ! in_array( TEC_Plugin::TAXONOMY, $taxonomies, true ) && ! in_array( 'post_tag', $taxonomies, true ) ) {
 			return $terms;
 		}
