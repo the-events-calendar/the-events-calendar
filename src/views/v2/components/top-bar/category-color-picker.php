@@ -60,8 +60,12 @@ if ( ! $category_colors_enabled ) {
 							<input type="checkbox"
 								class="tec-category-color-picker__checkbox"
 								data-category="<?php echo esc_attr( $category['slug'] ); ?>"
-								aria-label="<?php echo /* translators: %s is the category name. */
-								esc_attr( sprintf( __( 'Highlight events in %s', 'the-events-calendar' ), $category['name'] ) ); ?>">
+								aria-label="
+								<?php
+								echo /* translators: %s is the category name. */
+								esc_attr( sprintf( __( 'Highlight events in %s', 'the-events-calendar' ), $category['name'] ) );
+								?>
+">
 						<?php } ?>
 						<span class="tec-category-color-picker__label"><?php echo esc_html( $category['name'] ); ?></span>
 						<span class="tec-category-color-picker__color-dot" style="background-color: <?php echo esc_attr( $category['primary'] ); ?>;"></span>
