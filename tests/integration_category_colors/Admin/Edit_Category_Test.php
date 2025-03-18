@@ -206,6 +206,9 @@ class Edit_Category_Test extends WPTestCase {
 		// Simulate POST data
 		$_POST['tec_events_category-color'] = $post_data;
 
+		// Generate a valid nonce.
+		$_POST['tec_category_colors_nonce'] = wp_create_nonce( 'save_category_colors' );
+
 		// Save the fields
 		$this->edit_category->save_category_fields($term_id);
 
@@ -219,4 +222,4 @@ class Edit_Category_Test extends WPTestCase {
 			);
 		}
 	}
-} 
+}

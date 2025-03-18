@@ -7,11 +7,10 @@
  */
 
 ?>
-
+<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
 <tr class="form-field tec_category_colors__wrap">
 	<th scope="row">Category Colors</th>
 	<td class="form-wrap">
-		<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
 		<div class="tec-events-category-colors__container">
 		<div class="tec-events-category-colors__grid">
 			<div class="tec-events-category-colors__group">

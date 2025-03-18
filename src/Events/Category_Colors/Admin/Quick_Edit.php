@@ -6,6 +6,8 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
 use Tribe__Events__Main;
 use InvalidArgumentException;
+use WP_Term;
+use WP_Screen;
 
 class Quick_Edit extends Abstract_Admin {
 	/**
@@ -13,11 +15,11 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $columns Existing columns in the category table.
+	 * @param array<string,string> $columns Existing columns in the category table.
 	 *
-	 * @return array Modified columns with added color fields.
+	 * @return array<string,string> Modified columns with added color fields.
 	 */
-	public function add_columns( $columns ) {
+	public function add_columns( array $columns ): array {
 		$columns['category_priority'] = __( 'Priority', 'the-events-calendar' );
 		$columns['category_color']    = __( 'Category Color', 'the-events-calendar' );
 
@@ -35,7 +37,7 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @return string Updated content.
 	 */
-	public function add_custom_column_data( $content, $column_name, $term_id ) {
+	public function add_custom_column_data( string $content, string $column_name, int $term_id ): string {
 		try {
 			$meta = tribe( Event_Category_Meta::class )->set_term( $term_id );
 		} catch ( InvalidArgumentException $e ) {
@@ -62,7 +64,7 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @return string Priority value.
 	 */
-	private function get_column_category_priority( Event_Category_Meta $meta ) {
+	protected function get_column_category_priority( Event_Category_Meta $meta ): string {
 		$meta_key = tribe( Meta_Keys::class )->get_key( 'priority' );
 		$priority = $meta_key ? $meta->get( $meta_key ) : '0';
 
@@ -78,7 +80,7 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @return string HTML for color preview or `-` if no colors exist.
 	 */
-	private function get_column_category_color_preview( Event_Category_Meta $meta ) {
+	protected function get_column_category_color_preview( Event_Category_Meta $meta ): string {
 		$meta_keys     = tribe( Meta_Keys::class );
 		$primary_key   = $meta_keys->get_key( 'primary' );
 		$secondary_key = $meta_keys->get_key( 'secondary' );
@@ -93,18 +95,13 @@ class Quick_Edit extends Abstract_Admin {
 			return '-';
 		}
 
-		return sprintf(
-			'<span class="tec-events-taxonomy-table__category-color-preview"
-        style="background-color: %1$s;
-               border: 3px solid %2$s;"
-        data-primary="%2$s"
-        data-secondary="%1$s"
-        data-text="%3$s">
-    </span>',
-			esc_attr( $secondary ),
-			esc_attr( $primary ),
-			esc_attr( $text )
-		);
+		$context = [
+			'primary'   => esc_attr( $primary ),
+			'secondary' => esc_attr( $secondary ),
+			'text'      => esc_attr( $text ),
+		];
+
+		return $this->get_template()->template( 'category-color-preview', $context, false );
 	}
 
 	/**
@@ -113,16 +110,17 @@ class Quick_Edit extends Abstract_Admin {
 	 * @since TBD
 	 *
 	 * @param string $column_name Column name being processed.
-	 * @param string|object $screen Current screen type.
+	 * @param string $screen      Current screen type.
+	 *
+	 * @return string
 	 */
-	public function add_quick_edit_fields( $column_name, $screen ) {
+	public function add_quick_edit_fields( string $column_name, string $screen ): string {
 		if ( 'category_color' !== $column_name ) {
-			return;
+			return '';
 		}
 
-		// Check if screen is an object and has the correct taxonomy
-		if ( ! is_object( $screen ) || ! isset( $screen->taxonomy ) || $screen->taxonomy !== Tribe__Events__Main::TAXONOMY ) {
-			return;
+		if ( 'edit-tags' !== $screen ) {
+			return '';
 		}
 
 		return $this->get_column_category_color_field();
@@ -135,7 +133,7 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @return string
 	 */
-	private function get_column_category_color_field() {
+	protected function get_column_category_color_field(): string {
 		$context = [
 			'taxonomy'        => Tribe__Events__Main::TAXONOMY,
 			'category_colors' => [],

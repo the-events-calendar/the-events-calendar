@@ -8,39 +8,40 @@
 
 ?>
 
+<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
+
 <div class="tec_category_colors__wrap">
 	<h2>Category Colors</h2>
-		<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
 		<div class="tec-events-category-colors__container">
 <div class="tec-events-category-colors__grid">
 		<div class="form-field">
-			<label for="tec-events-category-colors__primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
+			<label for="tec_events_category-color-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
 			<input
 				type="text"
-				id="tec-events-category-colors__primary"
+				id="tec_events_category-color-primary"
 				name="tec_events_category-color[primary]"
-				value="<?php echo esc_attr( $category_colors['primary'] ?? '' ); ?>"
-				class="tec-events-category-colors__input wp-color-picker"
+				value="<?php echo esc_attr( $category_colors['primary'] ); ?>"
+				class="tec-admin-color-picker"
 			>
 		</div>
 		<div class="form-field">
-			<label for="tec-events-category-colors__background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
+			<label for="tec_events_category-color-secondary"><?php esc_html_e( 'Secondary Color', 'the-events-calendar' ); ?></label>
 			<input
 				type="text"
-				id="tec-events-category-colors__background"
+				id="tec_events_category-color-secondary"
 				name="tec_events_category-color[secondary]"
-				value="<?php echo esc_attr( $category_colors['secondary'] ?? '' ); ?>"
-				class="tec-events-category-colors__input wp-color-picker"
+				value="<?php echo esc_attr( $category_colors['secondary'] ); ?>"
+				class="tec-admin-color-picker"
 			>
 		</div>
 		<div class="form-field">
-			<label for="tec-events-category-colors__text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
+			<label for="tec_events_category-color-text"><?php esc_html_e( 'Text Color', 'the-events-calendar' ); ?></label>
 			<input
 				type="text"
-				id="tec-events-category-colors__text"
+				id="tec_events_category-color-text"
 				name="tec_events_category-color[text]"
-				value="<?php echo esc_attr( $category_colors['text'] ?? '' ); ?>"
-				class="tec-events-category-colors__input wp-color-picker"
+				value="<?php echo esc_attr( $category_colors['text'] ); ?>"
+				class="tec-admin-color-picker"
 			>
 		</div>
 		<div class="form-field  tec-events-category-colors__preview">
@@ -52,16 +53,15 @@
 		</div>
 </div></div>
 	<div class="form-field tec-events-category-colors__priority">
-		<label for="tec-events-category-colors__priority">
-			<?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?>
+		<label for="tec_events_category-color-priority">
+			<?php esc_html_e( 'Priority', 'the-events-calendar' ); ?>
 		</label>
 		<input
 			type="number"
-			id="tec-events-category-colors__priority"
+			id="tec_events_category-color-priority"
 			name="tec_events_category-color[priority]"
-			value="<?php echo esc_attr( $category_colors['priority'] ?? '' ); ?>"
+			value="<?php echo esc_attr( $category_colors['priority'] ); ?>"
 			min="0"
-			class="tec-category-colors__input"
 		>
 		<p class="tec-category-colors__description">
 			<?php esc_html_e( 'This is used to determine which category color is assigned to an event if the event has more than one category.', 'the-events-calendar' ); ?>

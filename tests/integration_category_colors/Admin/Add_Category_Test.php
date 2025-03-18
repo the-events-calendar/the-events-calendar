@@ -90,7 +90,7 @@ class Add_Category_Test extends WPTestCase {
 			],
 			'expected_values' => [
 				'primary' => '',                 // Not a hex format
-				'secondary' => '#invalid',       // Matches hex format
+				'secondary' => '',       // Matches hex format
 				'text' => '',                    // Not a hex format
 				'priority' => '0',               // Invalid priority defaults to 0
 			],
@@ -180,6 +180,10 @@ class Add_Category_Test extends WPTestCase {
 
 		// Simulate POST data
 		$_POST['tec_events_category-color'] = $post_data;
+		// Generate a valid nonce.
+		$_POST['tec_category_colors_nonce'] = wp_create_nonce( 'save_category_colors' );
+
+
 
 		// Save the fields
 		$this->add_category->save_category_fields($term_id);
@@ -194,4 +198,4 @@ class Add_Category_Test extends WPTestCase {
 			);
 		}
 	}
-} 
+}

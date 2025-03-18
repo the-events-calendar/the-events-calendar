@@ -62,34 +62,95 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {}
 
+	/**
+	 * Enqueues assets required for category colors functionality.
+	 *
+	 * @since TBD
+	 */
 	public function enqueue_assets() {
 		$this->container->make( Add_Category::class )->enqueue_assets();
 	}
 
+	/**
+	 * Displays the category color fields when adding a new category.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $taxonomy The taxonomy slug.
+	 */
 	public function display_add_category_fields( $taxonomy ) {
 		$this->container->make( Add_Category::class )->display_category_fields( $taxonomy );
 	}
 
+	/**
+	 * Displays the category color fields when editing an existing category.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Term $tag      The term object.
+	 * @param string  $taxonomy The taxonomy slug.
+	 */
 	public function display_edit_category_fields( $tag, $taxonomy ) {
 		$this->container->make( Edit_Category::class )->display_category_fields( $tag, $taxonomy );
 	}
 
+	/**
+	 * Saves the category color fields when adding a new category.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $taxonomy The taxonomy slug.
+	 */
 	public function save_add_category_fields( $taxonomy ) {
 		$this->container->make( Add_Category::class )->save_category_fields( $taxonomy );
 	}
 
+	/**
+	 * Saves the category color fields when editing an existing category.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $taxonomy The taxonomy slug.
+	 */
 	public function save_edit_category_fields( $taxonomy ) {
 		$this->container->make( Edit_Category::class )->save_category_fields( $taxonomy );
 	}
 
+	/**
+	 * Adds custom columns to the category table.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $columns The existing columns.
+	 * @return array Modified columns array.
+	 */
 	public function add_columns( $columns ) {
 		return $this->container->make( Quick_Edit::class )->add_columns( $columns );
 	}
+
+	/**
+	 * Adds custom column data to the category table.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content     The column content.
+	 * @param string $column_name The name of the column.
+	 * @param int    $term_id     The term ID.
+	 * @return string Modified column content.
+	 */
 	public function add_column_data( $content, $column_name, $term_id ) {
 		return $this->container->make( Quick_Edit::class )->add_custom_column_data( $content, $column_name, $term_id );
 	}
 
-	public function add_quick_edit_fields($column_name,$screen){
-		$this->container->make( Quick_Edit::class )->add_quick_edit_fields( $column_name,$screen );
+	/**
+	 * Adds custom fields to the Quick Edit interface.
+	 *
+	 * @since TBD
+	 *
+	 * @param string       $column_name The name of the column.
+	 * @param string|object $screen     The current screen.
+	 */
+	public function add_quick_edit_fields( $column_name, $screen ) {
+		$this->container->make( Quick_Edit::class )->add_quick_edit_fields( $column_name, $screen );
 	}
 }
