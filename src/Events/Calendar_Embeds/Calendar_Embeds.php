@@ -303,7 +303,7 @@ class Calendar_Embeds extends Controller_Contract {
 		?>
 		<iframe src="<?php echo esc_url( $embed_url ); ?>" <?php tribe_attributes( $iframe_attributes ); ?>></iframe>
 		<?php
-		$iframe = ob_get_clean();
+		$iframe = trim( ob_get_clean() );
 
 		/**
 		 * Filter the iframe code for the calendar embed.

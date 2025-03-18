@@ -31,11 +31,16 @@ try {
 			aria-label="<?php esc_attr_e( 'Embed snippet code', 'the-events-calendar' ); ?>"
 			rows="3"
 			readonly><?php echo esc_textarea( $snippet ); ?></textarea>
+		<?php
+		$copy_button_target = tec_copy_to_clipboard_button( $snippet, false );
+		$notice_target      = str_replace( 'tec-copy-text-target-', 'tec-copy-to-clipboard-notice-content-', $copy_button_target );
+		?>
 		<button
-			class="button button-primary tec-events-calendar-embeds__snippet-modal-copy-button"
+			data-notice-target=".<?php echo esc_attr( $notice_target ); ?>"
+			class="button button-primary tec-events-calendar-embeds__snippet-modal-copy-button tec-copy-to-clipboard"
 			aria-controls="tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
 			data-clipboard-action="copy"
-			data-clipboard-target="#tec_events_calendar_embeds_snippet_code_<?php echo esc_attr( $post_id ); ?>"
+			data-clipboard-target=".<?php echo esc_attr( $copy_button_target ); ?>"
 		>
 			<?php esc_html_e( 'Copy Embed Snippet', 'the-events-calendar' ); ?>
 		</button>

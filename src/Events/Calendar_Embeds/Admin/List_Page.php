@@ -12,6 +12,7 @@ namespace TEC\Events\Calendar_Embeds\Admin;
 use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Common\StellarWP\Assets\Assets;
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use TEC\Events\Calendar_Embeds\Template;
 use Tribe__Events__Main as TEC;
@@ -63,6 +64,7 @@ class List_Page extends Controller_Contract {
 		add_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
 		add_action( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', [ $this, 'manage_column_content' ], 10, 2 );
 		add_filter( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns', [ $this, 'manage_columns' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_clipboard_script' ] );
 	}
 
 	/**
@@ -78,6 +80,7 @@ class List_Page extends Controller_Contract {
 		remove_filter( 'submenu_file', [ $this, 'keep_parent_menu_open' ] );
 		remove_action( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_custom_column', [ $this, 'manage_column_content' ] );
 		remove_filter( 'manage_' . Calendar_Embeds::POSTTYPE . '_posts_columns', [ $this, 'manage_columns' ] );
+		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_clipboard_script' ] );
 	}
 
 	/**
@@ -231,6 +234,22 @@ class List_Page extends Controller_Contract {
 	}
 
 	/**
+	 * Enqueue the clipboard script.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function enqueue_clipboard_script(): void {
+		if ( ! self::is_on_page() && ! Singular_Page::is_on_page() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'thickbox' );
+		Assets::init()->get( 'tec-copy-to-clipboard' )->enqueue();
+	}
+
+	/**
 	 * Register assets for the Calendar Embeds page.
 	 *
 	 * @since TBD
@@ -238,17 +257,6 @@ class List_Page extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		Asset::add(
-			'tec-events-calendar-embeds-script',
-			'js/calendar-embeds/admin/page.js'
-		)
-			->add_to_group_path( 'tec-events-resources' )
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( fn() => self::is_on_page() || Singular_Page::is_on_page() )
-			->set_dependencies( 'thickbox', 'tribe-clipboard' )
-			->in_footer()
-			->register();
-
 		Asset::add(
 			'tec-events-calendar-embeds-style',
 			'css/calendar-embeds/admin/page.css'
