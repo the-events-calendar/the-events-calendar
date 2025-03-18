@@ -26,6 +26,7 @@ class Meta_Keys {
 		'secondary' => 'secondary',
 		'text'      => 'text',
 		'priority'  => 'priority',
+		'hidden'    => 'hide_from_legend',
 	];
 
 	/**

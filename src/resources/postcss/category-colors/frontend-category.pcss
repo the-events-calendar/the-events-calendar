@@ -32,6 +32,7 @@
 		/* -----------------------------------------------------------------------------
 		 * Category Pill
 		 * ----------------------------------------------------------------------------- */
+
 		.tec-events-calendar-day__category {
 			align-items: center;
 			background: var(--tec-category-secondary);
@@ -197,6 +198,7 @@
 	/* -----------------------------------------------------------------------------
 	 * Category Pill
 	 * ----------------------------------------------------------------------------- */
+
 	.tec-events-calendar-list__event-categories {
 		display: inline;
 
@@ -323,6 +325,7 @@
 	/* -----------------------------------------------------------------------------
 	 * Category Pill
 	 * ----------------------------------------------------------------------------- */
+
 	.tribe-events-pro-photo__event-date-tag {
 		position: relative;
 
@@ -532,24 +535,19 @@
 	/* Dropdown */
 
 	.tec-category-color-picker__dropdown {
-		/* Ensure dropdown never overflows horizontally */
-		background: #fff;
+		display: none;
+		background: var(--tec-color-background);
 		border-radius: var(--tec-border-radius-default);
 		box-shadow: var(--tec-box-shadow-tooltip);
-		display: none;
-		flex-direction: column;
 		left: 0;
-		max-height: 250px;
 		max-width: min(100vw, 300px);
 		min-width: 220px;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding: var(--tec-spacer-2);
 		position: absolute;
 		right: auto;
 		top: 100%;
 		white-space: nowrap;
 		z-index: 100;
+		overflow: hidden;
 
 		&:after {
 			content: "";
@@ -564,17 +562,21 @@
 		}
 
 		&.tec-category-color-picker__dropdown--visible {
-			display: block;
+			display: flex;
+			flex-direction: column;
 		}
 
 		/* Header */
 
 		.tec-category-color-picker__dropdown-header {
 			align-items: center;
+			background: var(--tec-color-background);
+			cursor: default;
 			display: flex;
+			flex-shrink: 0;
 			justify-content: space-between;
 			margin-bottom: var(--tec-spacer-1);
-			cursor: default;
+			padding: var(--tec-spacer-1);
 
 			.tec-category-color-picker__dropdown-close {
 				background: transparent;
@@ -582,6 +584,17 @@
 				cursor: pointer;
 				font-size: var(--tec-font-size-5);
 			}
+		}
+
+		/* Reset Button */
+
+		.tec-category-color-picker__reset-wrapper {
+			flex-shrink: 0;
+			padding: var(--tec-spacer-1);
+			background: var(--tec-color-background);
+			display: flex;
+			justify-content: center;
+			border-top: 1px solid var(--tec-color-background-view-selector-list-item-hover);
 		}
 
 		/* List */
@@ -592,7 +605,9 @@
 			gap: var(--tec-spacer-1);
 			list-style: none;
 			margin: 0;
-			padding: 0;
+			overflow-y: auto;
+			max-height: 250px;
+			padding: var(--tec-spacer-1);
 		}
 
 		/* List Item */
@@ -659,17 +674,19 @@
 		transition: var(--tec-transition-opacity);
 	}
 
-/* -----------------------------------------------------------------------------
- * Top Bar - Alignment
- * ----------------------------------------------------------------------------- */
+	/* -----------------------------------------------------------------------------
+	 * Top Bar - Alignment
+	 * ----------------------------------------------------------------------------- */
+
 	.tec-category-color-picker {
 		flex: 0 1 auto;
 	}
+
 	.tribe-events-c-top-bar__datepicker {
 		flex: 0 1 auto;
 	}
 
-	&.tribe-common--breakpoint-medium{
+	&.tribe-common--breakpoint-medium {
 		.tec-category-color-picker {
 			margin-left: var(--tec-spacer-1);
 			padding-left: var(--tec-spacer-1);
