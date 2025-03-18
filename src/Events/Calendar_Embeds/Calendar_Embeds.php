@@ -286,7 +286,11 @@ class Calendar_Embeds extends Controller_Contract {
 		 */
 		$iframe_attributes = (array) apply_filters( 'tec_events_calendar_embeds_iframe_attributes', $iframe_attributes, $embed, $embed_url );
 
-		$iframe = '<iframe src="' . esc_url( $embed_url ) . '" ' . tribe_attributes( $iframe_attributes ) . '></iframe>';
+		ob_start();
+		?>
+		<iframe src="<?php echo esc_url( $embed_url ); ?>" <?php tribe_attributes( $iframe_attributes ); ?>></iframe>
+		<?php
+		$iframe = ob_get_clean();
 
 		/**
 		 * Filter the iframe code for the calendar embed.
