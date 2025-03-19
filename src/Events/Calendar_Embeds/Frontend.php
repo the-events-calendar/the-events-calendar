@@ -84,7 +84,7 @@ class Frontend extends Controller_Contract {
 	 *
 	 * @return array The query args.
 	 */
-	public function filter_repository_events_query_args( $args ) {
+	public function filter_repository_events_query_args( $args ): array {
 		$context = tribe_context();
 		if ( 'month' !== $context->get( 'view' ) ) {
 			return $args;
