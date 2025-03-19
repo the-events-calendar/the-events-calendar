@@ -48,6 +48,6 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {
-		$this->container->make( Settings::class )->remove_hooks();
+		$this->container->make( Settings::class )->unregister_hooks();
 	}
 }
