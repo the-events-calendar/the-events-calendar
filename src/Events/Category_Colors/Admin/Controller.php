@@ -30,10 +30,6 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		/*This may not be needed*/
-		$this->container->singleton( Add_Category::class );
-		$this->container->singleton( Edit_Category::class );
-		$this->container->singleton( Quick_Edit::class );
 		$this->add_filters();
 		$this->enqueue_assets();
 	}
@@ -49,9 +45,11 @@ class Controller extends Controller_Contract {
 		add_action( "{$taxonomy}_edit_form_fields", [ $this, 'display_edit_category_fields' ], 10, 2 );
 		add_action( "created_{$taxonomy}", [ $this, 'save_add_category_fields' ] );
 		add_action( "edited_{$taxonomy}", [ $this, 'save_edit_category_fields' ] );
+		add_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
+
 		add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
-		add_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
+
 	}
 
 	/**
@@ -59,7 +57,18 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {}
+	public function unregister(): void {
+		$taxonomy = Tribe__Events__Main::TAXONOMY;
+
+		remove_action( "{$taxonomy}_add_form_fields", [ $this, 'display_add_category_fields' ] );
+		remove_action( "{$taxonomy}_edit_form_fields", [ $this, 'display_edit_category_fields' ], 10, 2 );
+		remove_action( "created_{$taxonomy}", [ $this, 'save_add_category_fields' ] );
+		remove_action( "edited_{$taxonomy}", [ $this, 'save_edit_category_fields' ] );
+		remove_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
+
+		remove_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
+		remove_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
+	}
 
 	/**
 	 * Enqueues assets required for category colors functionality.
