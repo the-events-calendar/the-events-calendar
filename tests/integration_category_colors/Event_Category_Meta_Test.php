@@ -1,6 +1,13 @@
 <?php
+/**
+ * Test the Event Category Meta functionality.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors
+ */
 
-namespace TEC\Events\Category_Colors\Tests;
+namespace TEC\Events\Category_Colors;
 
 use Codeception\TestCase\WPTestCase;
 use Generator;
@@ -10,8 +17,9 @@ use Tribe\Tests\Traits\With_Uopz;
 use TypeError;
 use WP_Error;
 use WP_Term;
+use Tribe__Events__Main;
 
-class EventCategoryMeta_Test extends WPTestCase {
+class Event_Category_Meta_Test extends WPTestCase {
 	use With_Uopz;
 
 	/**
@@ -20,6 +28,18 @@ class EventCategoryMeta_Test extends WPTestCase {
 	 * @var WP_Term
 	 */
 	protected $test_term;
+
+	/**
+	 * @var Event_Category_Meta
+	 */
+	protected $category_meta;
+
+	/**
+	 * @before
+	 */
+	public function setup_test_environment(): void {
+		$this->category_meta = tribe(Event_Category_Meta::class);
+	}
 
 	/**
 	 * Creates a test category before each test.
@@ -485,4 +505,79 @@ class EventCategoryMeta_Test extends WPTestCase {
 		$meta->delete( '' );
 	}
 
+	/** @test */
+	public function should_store_and_retrieve_correctly($meta_data, $expected) {
+		// Create a test category
+		$term_id = $this->factory()->term->create([
+			'taxonomy' => Tribe__Events__Main::TAXONOMY,
+			'name' => 'Test Category',
+		]);
+
+		// Set color meta using the meta class
+		$this->category_meta
+			->set_term($term_id);
+
+		foreach ($meta_data as $key => $value) {
+			$this->category_meta->set($key, $value);
+		}
+
+		$this->category_meta->save();
+
+		// Get meta
+		$meta = $this->category_meta->get();
+
+		// Assert meta values
+		foreach ($expected as $key => $value) {
+			$this->assertEquals($value, $meta[$key]);
+		}
+	}
+
+	/** @test */
+	public function should_handle_errors_correctly($operation, $expected_exception) {
+		$this->expectException($expected_exception);
+
+		$operation($this->category_meta);
+	}
+
+	/**
+	 * Data provider for category meta tests
+	 */
+	public function category_meta_data_provider() {
+		yield 'complete meta data' => [
+			'meta_data' => [
+				Category_Colors::$meta_foreground_slug => '#ff0000',
+				Category_Colors::$meta_background_slug => '#00ff00',
+				Category_Colors::$meta_text_color_slug => '#0000ff',
+				Category_Colors::$meta_priority_slug => 1,
+			],
+			'expected' => [
+				Category_Colors::$meta_foreground_slug => '#ff0000',
+				Category_Colors::$meta_background_slug => '#00ff00',
+				Category_Colors::$meta_text_color_slug => '#0000ff',
+				Category_Colors::$meta_priority_slug => '1',
+			],
+		];
+	}
+
+	/**
+	 * Data provider for meta validation tests
+	 */
+	public function meta_validation_data_provider() {
+		yield 'invalid term ID' => [
+			'operation' => fn($meta) => $meta->set_term(0),
+			'expected_exception' => \InvalidArgumentException::class,
+		];
+		yield 'non-existent term' => [
+			'operation' => fn($meta) => $meta->set_term(999999),
+			'expected_exception' => \InvalidArgumentException::class,
+		];
+		yield 'set without term' => [
+			'operation' => fn($meta) => $meta->set(Category_Colors::$meta_foreground_slug, '#ff0000'),
+			'expected_exception' => \InvalidArgumentException::class,
+		];
+		yield 'get without term' => [
+			'operation' => fn($meta) => $meta->get(Category_Colors::$meta_foreground_slug),
+			'expected_exception' => \InvalidArgumentException::class,
+		];
+	}
 }

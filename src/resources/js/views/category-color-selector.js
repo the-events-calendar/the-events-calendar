@@ -47,6 +47,7 @@ tribe.events.categoryColors.picker = (function() {
 			, '.tribe-events-pro-week-grid__multiday-event'
 			, '.tribe-events-calendar-month__multiday-event'
 			, '.tribe-events-calendar-month-mobile-events__mobile-event'
+			, '.tribe-events-pro-week-mobile-events__event'
 		]
 		, filteredHide: 'tec-category-filtered-hide'
 		, };
