@@ -28,6 +28,7 @@ $render->setup(
 		TEC::TAXONOMY => $event_categories ? wp_list_pluck( $event_categories, 'term_id' ) : null,
 		'tag'         => $event_tags ? wp_list_pluck( $event_tags, 'term_id' ) : null,
 		'tribe-bar'   => false,
+		'hide-export' => true,
 	],
 );
 

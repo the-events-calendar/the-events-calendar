@@ -159,6 +159,10 @@ class Frontend extends Controller_Contract {
 			return $content;
 		}
 
+		if ( post_password_required() ) {
+			return $content;
+		}
+
 		$calendar_embed_id = get_the_ID();
 
 		return $this->template->template(

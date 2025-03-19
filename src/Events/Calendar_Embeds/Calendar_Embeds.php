@@ -277,6 +277,10 @@ class Calendar_Embeds extends Controller_Contract {
 			throw new NotPublishedCalendarException();
 		}
 
+		if ( $throw_when_not_published && post_password_required( $embed ) ) {
+			throw new NotPublishedCalendarException();
+		}
+
 		$embed_url = 'publish' === $embed->post_status ? get_post_embed_url( $embed ) : get_preview_post_link( $embed, [ 'embed' => 1 ] );
 
 		$iframe_attributes = [
