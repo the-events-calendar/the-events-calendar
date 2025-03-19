@@ -62,6 +62,7 @@ class Singular_Page extends Controller_Contract {
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
 		add_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ], 10, 2 );
 		add_action( 'post_submitbox_minor_actions', [ $this, 'add_copy_embed_button' ] );
+		add_filter( 'post_updated_messages', [ $this, 'modify_post_updated_messages' ] );
 	}
 
 	/**
@@ -77,6 +78,62 @@ class Singular_Page extends Controller_Contract {
 		remove_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
 		remove_filter( 'tec_events_calendar_embeds_iframe', [ $this, 'replace_iframe_markup' ] );
 		remove_action( 'post_submitbox_minor_actions', [ $this, 'add_copy_embed_button' ] );
+		remove_filter( 'post_updated_messages', [ $this, 'modify_post_updated_messages' ] );
+	}
+
+	/**
+	 * Modifies the post updated messages for the calendar embed post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $messages The post updated messages.
+	 *
+	 * @return array
+	 */
+	public function modify_post_updated_messages( array $messages ): array {
+		if ( ! self::is_on_page() ) {
+			return $messages;
+		}
+
+		global $post;
+
+		$permalink = get_permalink( $post->ID );
+		if ( ! $permalink ) {
+			$permalink = '';
+		}
+
+		$view_post_link_html = sprintf(
+			' <a href="%1$s">%2$s</a>',
+			esc_url( $permalink ),
+			__( 'View Calendar Embed', 'the-events-calendar' )
+		);
+
+		$scheduled_date = sprintf(
+			/* translators: Publish box date string. 1: Date, 2: Time. */
+			__( '%1$s at %2$s', 'the-events-calendar' ),
+			/* translators: Publish box date format, see https://www.php.net/manual/datetime.format.php */
+			date_i18n( _x( 'M j, Y', 'publish box date format', 'the-events-calendar' ), strtotime( $post->post_date ) ),
+			/* translators: Publish box time format, see https://www.php.net/manual/datetime.format.php */
+			date_i18n( _x( 'H:i', 'publish box time format', 'the-events-calendar' ), strtotime( $post->post_date ) )
+		);
+
+		$messages[ Calendar_Embeds::POSTTYPE ] = [
+			0  => '', // Unused. Messages start at index 1.
+			1  => __( 'Calendar Embed updated.', 'the-events-calendar' ) . $view_post_link_html,
+			2  => __( 'Custom field updated.', 'the-events-calendar' ),
+			3  => __( 'Custom field deleted.', 'the-events-calendar' ),
+			4  => __( 'Calendar Embed updated.', 'the-events-calendar' ),
+			/* translators: %s: Date and time of the revision. */
+			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Calendar Embed restored to revision from %s.', 'the-events-calendar' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			6  => __( 'Calendar Embed published.', 'the-events-calendar' ) . $view_post_link_html,
+			7  => __( 'Calendar Embed saved.', 'the-events-calendar' ),
+			8  => __( 'Calendar Embed submitted.', 'the-events-calendar' ),
+			/* translators: %s: Scheduled date for the Calendar Embed. */
+			9  => sprintf( __( 'Calendar Embed scheduled for: %s.', 'the-events-calendar' ), '<strong>' . $scheduled_date . '</strong>' ),
+			10 => __( 'Calendar Embed draft updated.', 'the-events-calendar' ),
+		];
+
+		return $messages;
 	}
 
 	/**
