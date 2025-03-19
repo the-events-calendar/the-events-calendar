@@ -13,6 +13,7 @@ module.exports = {
 					esModuleInterop: true,
 					jsx: 'react-jsx',
 					allowUmdGlobalAccess: true,
+					sourceMap: true,
 				},
 			},
 		],
