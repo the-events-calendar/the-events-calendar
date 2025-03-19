@@ -33,7 +33,8 @@ class Controller extends Controller_Contract {
 		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
-		$this->add_hooks();
+
+		$this->add_filters();
 	}
 
 	/**
@@ -42,23 +43,16 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	protected function add_filters() {
+		$this->container->make( Settings::class )->add_hooks();
 	}
-
 
 	/**
 	 * Unhooks actions and filters.
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {}
-
-	/**
-	 * Add Hooks
-	 *
-	 * @return void
-	 */
-	protected function add_hooks() {
-		$this->container->make( Settings::class )->add_hooks();
+	public function unregister(): void {
+		$this->container->make( Settings::class )->unregister_hooks();
 	}
 
 }
