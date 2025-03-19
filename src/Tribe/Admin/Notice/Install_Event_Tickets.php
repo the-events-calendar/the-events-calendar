@@ -221,12 +221,12 @@ class Install_Event_Tickets {
 		
 		// Match any TEC post type screens (events, organizers, venues).
 		$tec_post_types = [
-			\Tribe__Events__Main::POSTTYPE      => true,
-			\Tribe__Events__Organizer::POSTTYPE => true,
-			\Tribe__Events__Venue::POSTTYPE     => true,
+			\Tribe__Events__Main::POSTTYPE,
+			\Tribe__Events__Organizer::POSTTYPE,
+			\Tribe__Events__Venue::POSTTYPE
 		];
 		
-		if ( isset( $tec_post_types[ $current_screen->post_type ] ) ) {
+		if ( in_array( $current_screen->post_type, $tec_post_types, true ) ) {
 			return true;
 		}
 		
@@ -235,18 +235,18 @@ class Install_Event_Tickets {
 			return true;
 		}
 		
-		// Match any screen ID containing 'tec-'.
-		if ( false !== strpos( $current_screen->id, 'tec-' ) ) {
+		// Match any screen ID starting with 'tec-'.
+		if ( str_starts_with( $current_screen->id, 'tec-' ) ) {
 			return true;
 		}
 		
-		// Match TEC settings pages.
+		// Match TEC settings pages.         w
 		if ( false !== strpos( $current_screen->id, 'tribe-common' ) ) {
 			return true;
 		}
 		
 		// If Admin Helpers class is available, use it for more comprehensive check.
-		if ( class_exists( 'Tribe__Admin__Helpers' ) ) {
+		if ( class_exists( 'Tribe__Admin__Helpers', false ) ) {
 			$admin_helpers = tribe( 'admin.helpers' );
 			if ( method_exists( $admin_helpers, 'is_screen' ) && $admin_helpers->is_screen() ) {
 				return true;
