@@ -88,9 +88,9 @@ tribe.events.admin.categoryColors = {};
 		const fontColor = $container.find(obj.selectors.fontColor).val() || 'inherit';
 
 		$container.find( obj.selectors.preview ).css( {
-														'border-left': `5px solid ${ primaryColor }`,
-														'background-color': backgroundColor,
-													} );
+												'border-left': `5px solid ${ primaryColor }`,
+												'background-color': backgroundColor,
+												} );
 
 		$container.find(obj.selectors.previewText).css({ 'color': fontColor });
 	};
@@ -134,9 +134,9 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.initColorPicker = () => {
 		$(obj.selectors.colorInput).filter(':visible').wpColorPicker({
-																		change: obj.colorPickerChange,
-																		clear: obj.colorPickerChange,
-																	});
+												change: obj.colorPickerChange,
+												clear: obj.colorPickerChange,
+												});
 
 		obj.initializePreviews();
 	};
@@ -206,9 +206,9 @@ tribe.events.admin.categoryColors = {};
 					if (!$input.length) return;
 
 					$input.val(colors[colorType]).wpColorPicker({
-																	change: obj.colorPickerChange,
-																	clear: obj.colorPickerChange,
-																});
+												change: obj.colorPickerChange,
+												clear: obj.colorPickerChange,
+												});
 					obj.updateClosestPreview($input);
 				});
 
@@ -286,9 +286,9 @@ tribe.events.admin.categoryColors = {};
 
 			// Reset WP Color Picker button styles.
 			$container.find('.wp-color-result').css({
-														'background-color': '',
-														'border-color': '',
-													});
+									'background-color': '',
+									'border-color': '',
+									});
 			$container.find('.iris-picker').hide();
 		});
 
