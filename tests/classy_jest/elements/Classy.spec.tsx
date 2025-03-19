@@ -1,5 +1,7 @@
 import {
 	afterEach,
+	beforeAll,
+	afterAll,
 	beforeEach,
 	describe,
 	expect,
@@ -8,9 +10,20 @@ import {
 } from '@jest/globals';
 import { Classy } from '../../../src/resources/packages/classy/elements';
 import { render } from '@testing-library/react';
-import { registerStore } from '../../../src/resources/packages/classy/store';
+import { select, dispatch } from '@wordpress/data';
+import { store } from '../../../src/resources/packages/classy/store';
+import {
+	registerStoreIfNotRegistered,
+	resetAllStores,
+	registerMockStore,
+	unregisterStore,
+} from '../__support__/store-mocks';
 
 describe( 'Classy', () => {
+	beforeAll( () => {
+		registerStoreIfNotRegistered( 'tec/classy', store );
+	} );
+
 	beforeEach( () => {
 		global.mockWindowMatchMedia();
 	} );
@@ -18,21 +31,74 @@ describe( 'Classy', () => {
 	afterEach( () => {
 		jest.resetAllMocks();
 		jest.restoreAllMocks();
+		resetAllStores();
 	} );
 
-	test( 'initial state render for new post', () => {
-		registerStore( { title: '' } );
+	describe( 'core/editor store available', () => {
+		test( 'initial state render for new post', () => {
+			const store = registerMockStore( 'core/editor', {
+				selectors: {
+					getEditedPostAttribute( state, attribute: string ) {
+						if ( attribute === 'title' ) {
+							return '';
+						}
 
-		const { container } = render( <Classy /> );
+						return null;
+					},
+				},
+			} );
+			expect(
+				select( 'core/editor' ).getEditedPostAttribute( 'title' )
+			).toBe( '' );
 
-		expect( container ).toMatchSnapshot();
+			const { container } = render( <Classy /> );
+
+			expect( container ).toMatchSnapshot();
+		} );
+
+		test( 'initial state render with title for existing post', () => {
+			registerMockStore( 'core/editor', {
+				selectors: {
+					getEditedPostAttribute( state, attribute: string ) {
+						if ( attribute === 'title' ) {
+							return 'Event title';
+						}
+
+						return null;
+					},
+				},
+			} );
+			expect(
+				select( 'core/editor' ).getEditedPostAttribute( 'title' )
+			).toBe( 'Event title' );
+
+			const { container } = render( <Classy /> );
+
+			expect( container ).toMatchSnapshot();
+		} );
 	} );
 
-	test( 'initial state render with title for existing post', () => {
-		registerStore( { title: 'Test Event' } );
+	describe( 'core/editor store not available', () => {
+		beforeAll( () => {
+			unregisterStore( 'core/editor' );
+		} );
 
-		const { container } = render( <Classy /> );
+		test( 'initial state render for new post', () => {
+			// @ts-ignore
+			dispatch( 'tec/classy' ).editPost( { title: '' } );
 
-		expect( container ).toMatchSnapshot();
+			const { container } = render( <Classy /> );
+
+			expect( container ).toMatchSnapshot();
+		} );
+
+		test( 'initial state render with title for existing post', () => {
+			// @ts-ignore
+			dispatch( 'tec/classy' ).editPost( { title: 'Classy title' } );
+
+			const { container } = render( <Classy /> );
+
+			expect( container ).toMatchSnapshot();
+		} );
 	} );
 } );
