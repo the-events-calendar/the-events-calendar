@@ -248,7 +248,7 @@ class Install_Event_Tickets {
 		}
 		
 		// If Admin Helpers class is available, use it for more comprehensive check.
-		if ( class_exists( 'Tribe__Admin__Helpers', false ) ) {
+		if ( class_exists( \Tribe__Admin__Helpers::class, false ) ) {
 			$admin_helpers = tribe( 'admin.helpers' );
 			if ( method_exists( $admin_helpers, 'is_screen' ) && $admin_helpers->is_screen() ) {
 				return true;
