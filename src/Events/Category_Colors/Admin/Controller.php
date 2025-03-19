@@ -49,7 +49,6 @@ class Controller extends Controller_Contract {
 
 		add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
-
 	}
 
 	/**
