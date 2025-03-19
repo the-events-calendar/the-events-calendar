@@ -186,7 +186,7 @@ class Install_Event_Tickets {
 			return false;
 		}
 
-		$plugin_status_check = $this->is_installed() && ! $this->is_active();
+		$plugin_status_check    = $this->is_installed() && ! $this->is_active();
 		$is_admin_relevant_page = $this->is_tec_related_page();
 
 		/**
