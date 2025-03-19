@@ -194,6 +194,11 @@ tribe.events.admin.categoryColors = {};
 				text: $colorPreview.data('text') || '',
 			};
 
+			const data ={
+				priority: $colorPreview.data('priority') || '',
+				hide_from_legend: $colorPreview.data('hidden') || '',
+			}
+
 			setTimeout(() => {
 				['primary', 'secondary', 'text'].forEach(colorType => {
 					const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
@@ -205,6 +210,20 @@ tribe.events.admin.categoryColors = {};
 																});
 					obj.updateClosestPreview($input);
 				});
+
+				// Populate priority field
+				const $priorityInput = $quickEditRow.find('[name="tec_events_category-color[priority]"]');
+				if ($priorityInput.length) {
+					$priorityInput.val(data.priority);
+				}
+
+				// Populate "Hide from legend" checkbox
+				const $hideLegendCheckbox = $quickEditRow.find('[name="tec_events_category-color[hide_from_legend]"]');
+				console.log($hideLegendCheckbox,'Checkbox');
+				if ($hideLegendCheckbox.length) {
+					console.log("Checkbox Exists, Setting Value to: ",data.hide_from_legend);
+					$hideLegendCheckbox.prop('checked', !!data.hide_from_legend);
+				}
 
 				const $tagInput = $quickEditRow.find(obj.selectors.tagName);
 				if ($tagInput.length) {

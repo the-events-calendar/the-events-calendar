@@ -94,27 +94,23 @@ class Quick_Edit extends Abstract_Admin {
 	 * @return string HTML for color preview or `-` if no colors exist.
 	 */
 	protected function get_column_category_color_preview( Event_Category_Meta $meta ): string {
-		$meta_keys     = tribe( Meta_Keys::class );
-		$primary_key   = $meta_keys->get_key( 'primary' );
-		$secondary_key = $meta_keys->get_key( 'secondary' );
-		$text_key      = $meta_keys->get_key( 'text' );
+		$meta_keys = tribe( Meta_Keys::class )->get_all_keys();
+		
+		$category_color_fields = array_map( function( $key, $meta_key ) use ( $meta ) {
+			$value = esc_attr( $meta->get( $meta_key ) );
+			return in_array( $key, [ 'primary', 'secondary', 'text' ], true ) 
+				? sanitize_hex_color( $value )
+				: $value;
+		}, array_keys( $meta_keys ), $meta_keys );
 
-		$primary   = $primary_key ? sanitize_hex_color( $meta->get( $primary_key ) ) : '';
-		$secondary = $secondary_key ? sanitize_hex_color( $meta->get( $secondary_key ) ) : '';
-		$text      = $text_key ? sanitize_hex_color( $meta->get( $text_key ) ) : '';
+		$category_color_fields = array_combine( array_keys( $meta_keys ), $category_color_fields );
 
-		// If no primary or secondary color is set, return `-`.
-		if ( empty( $primary ) || empty( $secondary ) ) {
-			return '-';
+		// If no primary or secondary color is set, return transparent
+		if ( empty( $category_color_fields['primary'] ) || empty( $category_color_fields['secondary'] ) ) {
+			return 'transparent';
 		}
 
-		$context = [
-			'primary'   => esc_attr( $primary ),
-			'secondary' => esc_attr( $secondary ),
-			'text'      => esc_attr( $text ),
-		];
-
-		return $this->get_template()->template( 'category-color-preview', $context, false );
+		return $this->get_template()->template( 'category-color-preview', $category_color_fields, false );
 	}
 
 	/**
