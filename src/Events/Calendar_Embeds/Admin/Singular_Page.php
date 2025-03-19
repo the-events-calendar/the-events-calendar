@@ -124,7 +124,7 @@ class Singular_Page extends Controller_Contract {
 			3  => __( 'Custom field deleted.', 'the-events-calendar' ),
 			4  => __( 'Calendar Embed updated.', 'the-events-calendar' ),
 			/* translators: %s: Date and time of the revision. */
-			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Calendar Embed restored to revision from %s.', 'the-events-calendar' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false, // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			5  => tec_get_request_var_raw( 'revision', 0 ) ? sprintf( __( 'Calendar Embed restored to revision from %s.', 'the-events-calendar' ), wp_post_revision_title( (int) tec_get_request_var_raw( 'revision', 0 ), false ) ) : false,
 			6  => __( 'Calendar Embed published.', 'the-events-calendar' ) . $view_post_link_html,
 			7  => __( 'Calendar Embed saved.', 'the-events-calendar' ),
 			8  => __( 'Calendar Embed submitted.', 'the-events-calendar' ),
