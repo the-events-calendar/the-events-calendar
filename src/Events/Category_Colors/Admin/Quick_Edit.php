@@ -1,4 +1,11 @@
 <?php
+/**
+ * Handles quick edit functionality for category colors in the WordPress admin.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Admin
+ */
 
 namespace TEC\Events\Category_Colors\Admin;
 
@@ -6,9 +13,15 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
 use Tribe__Events__Main;
 use InvalidArgumentException;
-use WP_Term;
-use WP_Screen;
 
+/**
+ * Class Quick_Edit
+ *
+ * Provides functionality for editing category color settings via Quick Edit in the WordPress admin.
+ * Handles displaying and saving color fields in the Quick Edit interface of the category list table.
+ *
+ * @since TBD
+ */
 class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Adds custom columns to the Category Table.

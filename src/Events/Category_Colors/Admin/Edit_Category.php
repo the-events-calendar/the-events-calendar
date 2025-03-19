@@ -1,12 +1,24 @@
 <?php
+/**
+ * Handles the editing of category colors in the WordPress admin.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Admin
+ */
 
 namespace TEC\Events\Category_Colors\Admin;
 
-use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
-use Tribe__Events__Main;
 use WP_Term;
 
+/**
+ * Class Edit_Category
+ *
+ * Provides functionality for editing category color settings in the WordPress admin.
+ * Handles displaying and saving color fields when editing existing event categories.
+ *
+ * @since TBD
+ */
 class Edit_Category extends Abstract_Admin {
 
 	/**

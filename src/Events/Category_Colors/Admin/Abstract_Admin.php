@@ -1,4 +1,11 @@
 <?php
+/**
+ * Abstract base class for category color admin functionality.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Admin
+ */
 
 namespace TEC\Events\Category_Colors\Admin;
 
@@ -9,6 +16,14 @@ use TEC\Events\Category_Colors\Meta_Keys;
 use Tribe__Events__Main;
 use Tribe__Template;
 
+/**
+ * Class Abstract_Admin
+ *
+ * Abstract base class that provides shared functionality for handling category colors
+ * in the WordPress admin. Includes methods for template rendering and default values.
+ *
+ * @since TBD
+ */
 abstract class Abstract_Admin {
 
 	/**

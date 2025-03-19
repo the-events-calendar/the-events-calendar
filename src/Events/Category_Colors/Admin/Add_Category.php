@@ -1,4 +1,11 @@
 <?php
+/**
+ * Handles the addition of category colors in the WordPress admin.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Admin
+ */
 
 namespace TEC\Events\Category_Colors\Admin;
 
@@ -6,6 +13,14 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
 use Tribe__Events__Main;
 
+/**
+ * Class Add_Category
+ *
+ * Provides functionality for adding category color settings in the WordPress admin.
+ * Handles displaying and saving color fields when creating new event categories.
+ *
+ * @since TBD
+ */
 class Add_Category extends Abstract_Admin {
 
 	/**
