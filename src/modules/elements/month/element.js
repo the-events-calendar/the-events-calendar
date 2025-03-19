@@ -16,7 +16,6 @@ import { Component } from '@wordpress/element';
 /**
  * Internal dependencies
  */
-import { YearMonthForm } from '@moderntribe/events/elements';
 import './style.pcss';
 
 const today = new Date();
@@ -27,14 +26,14 @@ const fromMonth = new Date( currentYear - yearsBack, currentMonth );
 const toMonth = new Date( currentYear + 10, 11 );
 const getDatesBetween = ( startDate, endDate ) => {
 	// Remove the time part by setting to midnight
-	let start = new Date( startDate );
+	const start = new Date( startDate );
 	start.setHours( 0, 0, 0, 0 );
-	let end = new Date( endDate );
+	const end = new Date( endDate );
 	end.setHours( 0, 0, 0, 0 );
 
-	let currentDate = new Date( start );
+	const currentDate = new Date( start );
 	currentDate.setDate( currentDate.getDate() + 1 ); // Start from the day after startDate
-	let dates = [];
+	const dates = [];
 
 	while ( currentDate < end ) {
 		dates.push( new Date( currentDate ) );
@@ -42,23 +41,23 @@ const getDatesBetween = ( startDate, endDate ) => {
 	}
 
 	return dates;
-}
+};
 
 export default class Month extends Component {
 	static propTypes = {
-		withRange      : PropTypes.bool,
-		onSelect       : PropTypes.func,
-		from           : PropTypes.instanceOf( Date ),
-		to             : PropTypes.instanceOf( Date ),
-		month          : PropTypes.instanceOf( Date ),
+		withRange: PropTypes.bool,
+		onSelect: PropTypes.func,
+		from: PropTypes.instanceOf( Date ),
+		to: PropTypes.instanceOf( Date ),
+		month: PropTypes.instanceOf( Date ),
 		setVisibleMonth: PropTypes.func,
 	};
 
 	static defaultProps = {
-		onSelect       : noop,
-		from           : today,
-		to             : undefined,
-		month          : fromMonth,
+		onSelect: noop,
+		from: today,
+		to: undefined,
+		month: fromMonth,
 		setVisibleMonth: noop,
 	};
 
@@ -67,8 +66,8 @@ export default class Month extends Component {
 
 		this.state = {
 			toMonth: toMonth,
-			from   : null,
-			to     : null,
+			from: null,
+			to: null,
 		};
 	}
 
