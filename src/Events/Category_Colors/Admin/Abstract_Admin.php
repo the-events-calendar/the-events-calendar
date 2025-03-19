@@ -67,6 +67,7 @@ abstract class Abstract_Admin {
 			'secondary' => '',
 			'text'      => '',
 			'priority'  => 0,
+			'hide_from_legend' => '',
 		];
 	}
 
