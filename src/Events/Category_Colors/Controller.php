@@ -29,6 +29,15 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
+		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
+	}
+
+	/**
+	 * Adds the filters required.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {
 	}
 
 	/**
@@ -38,4 +47,5 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 	}
+
 }
