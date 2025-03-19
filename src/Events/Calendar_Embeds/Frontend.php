@@ -80,7 +80,7 @@ class Frontend extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $args The query args.
+	 * @param array<string,mixed> $args The query args.
 	 *
 	 * @return array<string,mixed> The query args.
 	 */
