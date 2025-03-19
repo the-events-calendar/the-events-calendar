@@ -97,10 +97,7 @@ class Frontend extends Controller_Contract {
 		$embed = '';
 		if ( $view_url ) {
 			wp_parse_str( wp_parse_url( $view_url, PHP_URL_QUERY ), $embed );
-
-			if ( ! empty( $embed['embed'] ) ) {
-				$embed = $embed['embed'];
-			}
+			$embed = $embed['embed'] ?? '';
 		}
 
 		static $is_ece = null;
@@ -113,8 +110,8 @@ class Frontend extends Controller_Contract {
 			return $args;
 		}
 
-		if ( ! empty( $args['tax_query'][ TEC::TAXONOMY . '_term_id_in' ] ) ) {
-			$args['tax_query'][ TEC::TAXONOMY . '_term_id_in' ]['operator'] = 'AND';
+		if ( ! empty( $args['tax_query']['post_tag_term_id_and'] ) ) {
+			$args['tax_query']['post_tag_term_id_and']['operator'] = 'IN';
 		}
 
 		return $args;
