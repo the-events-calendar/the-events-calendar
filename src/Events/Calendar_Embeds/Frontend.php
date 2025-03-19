@@ -13,8 +13,6 @@ use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe\Events\Views\V2\Assets as Event_Assets;
 use TEC\Common\StellarWP\Assets\Asset;
-use Tribe\Events\Views\V2\View;
-use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller
