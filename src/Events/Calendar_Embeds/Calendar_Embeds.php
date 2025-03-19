@@ -277,7 +277,7 @@ class Calendar_Embeds extends Controller_Contract {
 			throw new NotPublishedCalendarException();
 		}
 
-		if ( post_password_required( $embed ) ) {
+		if ( $throw_when_not_published && post_password_required( $embed ) ) {
 			throw new NotPublishedCalendarException();
 		}
 
