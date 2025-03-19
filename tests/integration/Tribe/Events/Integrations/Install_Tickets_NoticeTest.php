@@ -56,7 +56,7 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		remove_filter( 'is_admin', '__return_false' );
 		
 		// Assert
-		$this->assertSame( false, $result );
+		$this->assertFalse( $result );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		// Restore the global
 		$GLOBALS['current_screen'] = $original_screen;
 		
-		$this->assertSame( false, $result );
+		$this->assertFalse( $result );
 	}
 
 	/**
@@ -141,6 +141,102 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		$screen = WP_Screen::get( 'edit-post' );
 		$screen->post_type = 'post';
 		$screen->id = 'edit-post';
+		
+		// Save the current global
+		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
+		
+		// Set the global to our instance
+		$GLOBALS['current_screen'] = $screen;
+		
+		$result = $et_notice->is_tec_related_page();
+		
+		// Restore the global
+		$GLOBALS['current_screen'] = $original_screen;
+		
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_is_tec_related_page_with_dashboard() {
+		$et_notice = tribe( Install_Event_Tickets::class );
+		
+		// Create a WP_Screen instance for WordPress dashboard
+		$screen = WP_Screen::get( 'dashboard' );
+		$screen->id = 'dashboard';
+		
+		// Save the current global
+		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
+		
+		// Set the global to our instance
+		$GLOBALS['current_screen'] = $screen;
+		
+		$result = $et_notice->is_tec_related_page();
+		
+		// Restore the global
+		$GLOBALS['current_screen'] = $original_screen;
+		
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_is_tec_related_page_with_plugins_page() {
+		$et_notice = tribe( Install_Event_Tickets::class );
+		
+		// Create a WP_Screen instance for plugins page
+		$screen = WP_Screen::get( 'plugins' );
+		$screen->id = 'plugins';
+		
+		// Save the current global
+		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
+		
+		// Set the global to our instance
+		$GLOBALS['current_screen'] = $screen;
+		
+		$result = $et_notice->is_tec_related_page();
+		
+		// Restore the global
+		$GLOBALS['current_screen'] = $original_screen;
+		
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_is_tec_related_page_with_users_page() {
+		$et_notice = tribe( Install_Event_Tickets::class );
+		
+		// Create a WP_Screen instance for users page
+		$screen = WP_Screen::get( 'users' );
+		$screen->id = 'users';
+		
+		// Save the current global
+		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
+		
+		// Set the global to our instance
+		$GLOBALS['current_screen'] = $screen;
+		
+		$result = $et_notice->is_tec_related_page();
+		
+		// Restore the global
+		$GLOBALS['current_screen'] = $original_screen;
+		
+		$this->assertFalse( $result );
+	}
+
+	/**
+	 * @test
+	 */
+	public function test_is_tec_related_page_with_media_page() {
+		$et_notice = tribe( Install_Event_Tickets::class );
+		
+		// Create a WP_Screen instance for media library page
+		$screen = WP_Screen::get( 'upload' );
+		$screen->id = 'upload';
 		
 		// Save the current global
 		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
