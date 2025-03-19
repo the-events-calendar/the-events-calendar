@@ -242,7 +242,7 @@ class Install_Event_Tickets {
 			return true;
 		}
 		
-		// Match TEC settings pages.         w
+		// Match TEC settings pages.
 		if ( false !== strpos( $current_screen->id, 'tribe-common' ) ) {
 			return true;
 		}
