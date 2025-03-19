@@ -60,14 +60,11 @@ class Controller extends Controller_Contract {
 		$this->container->make( Assets::class )->enqueue_frontend_scripts();
 	}
 
-
-
 	/**
 	 * Unhooks actions and filters.
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {
-	}
+	public function unregister(): void {}
 
 }

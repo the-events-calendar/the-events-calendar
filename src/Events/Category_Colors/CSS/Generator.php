@@ -141,11 +141,12 @@ class Generator {
 
 		// @todo - Look into changing `tribe_events_cat-` to be the taxonomy name instead of hard coding it.
 		$taxonomy = Tribe__Events__Main::TAXONOMY;
+
 		return ".{$taxonomy}-{$class} {\n"
-		       . "    --tec-category-primary: {$primary};\n"
-		       . "    --tec-category-secondary: {$background};\n"
-		       . "    --tec-category-text: {$text};\n"
-		       . "}\n";
+			. "    --tec-category-primary: {$primary};\n"
+			. "    --tec-category-secondary: {$background};\n"
+			. "    --tec-category-text: {$text};\n"
+			. "}\n";
 	}
 
 	/**
