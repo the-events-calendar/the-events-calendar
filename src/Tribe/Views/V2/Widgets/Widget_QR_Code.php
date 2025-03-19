@@ -61,11 +61,10 @@ class Widget_QR_Code extends Widget_Abstract {
 		'id'                   => null,
 		'alias-slugs'          => null,
 		'title'                => '',
-		'limit'                => 5,
 		'no_upcoming_events'   => false,
 		'featured_events_only' => false,
 		'jsonld_enable'        => true,
-		'tribe_is_list_widget' => true,
+		'tribe_is_qr_widget'   => true,
 	];
 
 	/**
@@ -155,7 +154,6 @@ class Widget_QR_Code extends Widget_Abstract {
 
 		/* Strip tags (if needed) and update the widget settings. */
 		$updated_instance['title']                = wp_strip_all_tags( $new_instance['title'] );
-		$updated_instance['limit']                = $new_instance['limit'];
 		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
 		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
 		$updated_instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] );
@@ -172,14 +170,6 @@ class Widget_QR_Code extends Widget_Abstract {
 			'title'                => [
 				'label' => _x( 'WWW Title:', 'The label for the field of the title of the List Widget.', 'the-events-calendar' ),
 				'type'  => 'text',
-			],
-			'limit'                => [
-				'label'   => _x( 'QQQ Show:', 'The label for the amount of events to show in the List Widget.', 'the-events-calendar' ),
-				'type'    => 'number',
-				'default' => $this->default_arguments['limit'],
-				'min'     => 1,
-				'max'     => 10,
-				'step'    => 1,
 			],
 			'no_upcoming_events'   => [
 				'label' => _x( 'XXX Hide this widget if there are no upcoming events.', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
@@ -215,11 +205,6 @@ class Widget_QR_Code extends Widget_Abstract {
 
 		// Hide widget if no events.
 		$alterations['no_upcoming_events'] = tribe_is_truthy( $arguments['no_upcoming_events'] );
-
-		// Add posts per page.
-		$alterations['events_per_page'] = (int) isset( $arguments['limit'] ) && $arguments['limit'] > 0 ?
-			(int) $arguments['limit'] :
-			5;
 
 		return $this->filter_args_to_context( $alterations, $arguments );
 	}
