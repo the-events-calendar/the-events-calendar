@@ -9,10 +9,11 @@ import {
 	insertElement as insertClassyElement,
 	toggleElementVisibility as toggleClassyElementVisibility,
 } from './functions/classy';
-import { registerStore } from './store';
+import { store } from './store';
 import './style.pcss';
+import { register } from '@wordpress/data';
 
-registerStore();
+register( store );
 
 whenEditorIsReady().then( () => {
 	hideZoomOutButton();
