@@ -301,7 +301,7 @@ class CSS_Generator_Test extends WPTestCase {
 			->set( Meta_Keys::get_key( 'primary' ), '#0000ff' )
 			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
 			->set( Meta_Keys::get_key( 'text' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'hidden' ), true )
+			->set( Meta_Keys::get_key( 'hide_from_legend' ), '1' )
 			->save();
 
 		$css = $this->css_generator->generate_css();

@@ -66,5 +66,4 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {}
-
 }
