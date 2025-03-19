@@ -110,8 +110,14 @@ class Frontend extends Controller_Contract {
 			return $args;
 		}
 
-		if ( ! empty( $args['tax_query']['post_tag_term_id_and'] ) ) {
-			$args['tax_query']['post_tag_term_id_and']['operator'] = 'IN';
+		if ( isset( $args['tax_query']['post_tag_term_id_and'] ) ) {
+			$args['tax_query']['post_tag_term_id_in'] = $args['tax_query']['post_tag_term_id_and'];
+			unset( $args['tax_query']['post_tag_term_id_and'] );
+			$args['tax_query']['post_tag_term_id_in']['operator'] = 'IN';
+		}
+
+		if ( isset( $args['tax_query']['relation'] ) ) {
+			$args['tax_query']['relation'] = 'OR';
 		}
 
 		return $args;
