@@ -1,4 +1,13 @@
 <?php
+/**
+ * Category Colors Settings.
+ *
+ * This file manages the settings for Category Colors, including registering a settings tab
+ * and rendering the necessary fields within the admin interface.
+ *
+ * @since   TBD
+ * @package TEC\Events\Category_Colors\Settings
+ */
 
 namespace TEC\Events\Category_Colors\Settings;
 
