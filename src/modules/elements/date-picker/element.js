@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import moment from 'moment';
-import { noop } from 'lodash';
 import { PropTypes } from 'prop-types';
 
 /**
@@ -26,7 +25,7 @@ const { toMoment, toDate, toDatePicker, toDateTime } = momentUtil;
 export default class DatePicker extends Component {
 	static propTypes = {
 		changeDatetime: PropTypes.func,
-		datetime      : PropTypes.string,
+		datetime: PropTypes.string,
 	};
 
 	constructor( props ) {
