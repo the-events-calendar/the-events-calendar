@@ -49,6 +49,21 @@ class Settings {
 	}
 
 	/**
+	 * Unregisters the hooks added by this class.
+	 *
+	 * This method removes the previously registered action and filter
+	 * to ensure they do not persist when the functionality is disabled.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function unregister_hooks() {
+		remove_action( 'tribe_settings_do_tabs', [ $this, 'register_tab' ] );
+		remove_filter( 'tribe_field_start', [ $this, 'customize_legend_superpowers_label' ], 10 );
+	}
+
+	/**
 	 * Customizes the "Legend Superpowers" checkbox field by appending additional tooltip text.
 	 *
 	 * This method modifies the field structure by injecting a description paragraph

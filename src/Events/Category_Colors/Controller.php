@@ -39,7 +39,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	protected function add_filters() {
-		$this->add_hooks();
+		$this->container->make( Settings::class )->add_hooks();
 	}
 
 	/**
@@ -47,14 +47,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {}
-
-	/**
-	 * Add Hooks
-	 *
-	 * @return void
-	 */
-	protected function add_hooks() {
-		$this->container->make( Settings::class )->add_hooks();
+	public function unregister(): void {
+		$this->container->make( Settings::class )->remove_hooks();
 	}
 }
