@@ -40,7 +40,7 @@ class Settings {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $tab_slug = 'category-colors-settings';
+	public static string $tab_slug = 'display-category-colors-settings';
 
 	/**
 	 * Registers necessary hooks for modifying settings and fields.
@@ -53,7 +53,7 @@ class Settings {
 	 * @return void
 	 */
 	public function add_hooks() {
-		add_action( 'tribe_settings_do_tabs', [ $this, 'register_tab' ] );
+		add_action( 'tec_events_settings_tab_display', [ $this, 'register_tab' ] );
 		add_filter( 'tribe_field_start', [ $this, 'customize_legend_superpowers_label' ], 10, 2 );
 	}
 
@@ -101,23 +101,41 @@ class Settings {
 	/**
 	 * Registers the Category Colors tab to the settings page.
 	 *
-	 * @since TBD
+	 * @since  TBD
+	 *
+	 * @param Tribe__Settings_Tab $display_tab The display settings tab.
 	 *
 	 * @return void
 	 */
-	public function register_tab(): void {
+	public function register_tab( Tribe__Settings_Tab $display_tab ): void {
 		// Only load the tab for event settings, not ticket settings.
 		if ( ! tribe( Admin_Settings::class )->is_tec_events_settings() ) {
 			return;
 		}
 
-		new Tribe__Settings_Tab(
+		// Create the tab instance under "Display".
+		$display_category_colors_tab = new Tribe__Settings_Tab(
 			self::$tab_slug,
 			esc_html__( 'Category Colors', 'the-events-calendar' ),
 			[
-				'fields' => $this->generate_settings(),
+				'priority' => 5.30,
+				'fields'   => apply_filters(
+					'tec_events_settings_display_category_colors_section',
+					$this->generate_settings()
+				),
 			]
 		);
+
+		/**
+		 * Fires after the display category colors settings tab has been created.
+		 *
+		 * @since TBD
+		 *
+		 * @param Tribe__Settings_Tab $display_category_colors_tab The display category colors settings tab.
+		 */
+		do_action( 'tec_events_settings_tab_display_category_colors', $display_category_colors_tab );
+
+		$display_tab->add_child( $display_category_colors_tab );
 	}
 
 	/**
