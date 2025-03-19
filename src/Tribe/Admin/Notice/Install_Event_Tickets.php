@@ -196,7 +196,7 @@ class Install_Event_Tickets {
 		 *
 		 * @param bool $should_display True if the notice should display.
 		 */
-		return apply_filters(  'tec_events_admin_notice_event_tickets_should_display', $plugin_status_check && $is_admin_relevant_page );
+		return apply_filters( 'tec_events_admin_notice_event_tickets_should_display', $plugin_status_check && $is_admin_relevant_page );
 	}
 
 	/**
