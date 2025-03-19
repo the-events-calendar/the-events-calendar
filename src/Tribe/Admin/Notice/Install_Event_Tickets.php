@@ -207,19 +207,19 @@ class Install_Event_Tickets {
 	 * @return bool True if the current admin page is TEC related.
 	 */
 	public function is_tec_related_page(): bool {
-		// Not in the admin we don't even care
+		// Not in the admin we don't even care.
 		if ( ! is_admin() ) {
 			return false;
 		}
 
 		global $current_screen;
 		
-		// No screen, bail
+		// No screen, bail.
 		if ( empty( $current_screen ) ) {
 			return false;
 		}
 		
-		// Match any TEC post type screens (events, organizers, venues)
+		// Match any TEC post type screens (events, organizers, venues).
 		$tec_post_types = [
 			\Tribe__Events__Main::POSTTYPE,
 			\Tribe__Events__Organizer::POSTTYPE,
@@ -230,22 +230,22 @@ class Install_Event_Tickets {
 			return true;
 		}
 		
-		// Match any screen ID containing 'tribe_events'
+		// Match any screen ID containing 'tribe_events'.
 		if ( false !== strpos( $current_screen->id, \Tribe__Events__Main::POSTTYPE ) ) {
 			return true;
 		}
 		
-		// Match any screen ID containing 'tec-'
+		// Match any screen ID containing 'tec-'.
 		if ( false !== strpos( $current_screen->id, 'tec-' ) ) {
 			return true;
 		}
 		
-		// Match TEC settings pages
+		// Match TEC settings pages.
 		if ( false !== strpos( $current_screen->id, 'tribe-common' ) ) {
 			return true;
 		}
 		
-		// If Admin Helpers class is available, use it for more comprehensive check
+		// If Admin Helpers class is available, use it for more comprehensive check.
 		if ( class_exists( 'Tribe__Admin__Helpers' ) ) {
 			$admin_helpers = tribe( 'admin.helpers' );
 			if ( method_exists( $admin_helpers, 'is_screen' ) && $admin_helpers->is_screen() ) {
