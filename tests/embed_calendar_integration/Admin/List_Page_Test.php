@@ -94,7 +94,7 @@ class List_Page_Test extends Controller_Test_Case {
 
 		// Check submenu data.
 		$submenu_data = $submenu[ $submenu_key ];
-		$data = [ 'Embed Calendar', 'edit_published_tribe_events', 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE, 'Embed Calendar' ];
+		$data = [ 'Calendar Embeds', 'edit_published_tribe_events', 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE, 'Calendar Embeds' ];
 		$this->assertContains( $data, $submenu_data );
 	}
 
@@ -102,7 +102,7 @@ class List_Page_Test extends Controller_Test_Case {
 	 * @test
 	 */
 	public function it_should_get_page_title() {
-		$this->assertEquals('Embed Calendar', $this->make_controller()->get_page_title() );
+		$this->assertEquals( 'Calendar Embeds', $this->make_controller()->get_page_title() );
 	}
 
 	/**

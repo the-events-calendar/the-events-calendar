@@ -189,7 +189,7 @@ class List_Page extends Controller_Contract {
 	 * @return string
 	 */
 	public function get_page_title(): string {
-		return __( 'Embed Calendar', 'the-events-calendar' );
+		return __( 'Calendar Embeds', 'the-events-calendar' );
 	}
 
 	/**
