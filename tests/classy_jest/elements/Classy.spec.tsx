@@ -10,7 +10,7 @@ import {
 } from '@jest/globals';
 import { Classy } from '../../../src/resources/packages/classy/elements';
 import { render } from '@testing-library/react';
-import { select, dispatch } from '@wordpress/data';
+import { dispatch } from '@wordpress/data';
 import { store } from '../../../src/resources/packages/classy/store';
 import {
 	registerStoreIfNotRegistered,
@@ -36,7 +36,7 @@ describe( 'Classy', () => {
 
 	describe( 'core/editor store available', () => {
 		test( 'initial state render for new post', () => {
-			const store = registerMockStore( 'core/editor', {
+			registerMockStore( 'core/editor', {
 				selectors: {
 					getEditedPostAttribute( state, attribute: string ) {
 						if ( attribute === 'title' ) {
@@ -47,9 +47,6 @@ describe( 'Classy', () => {
 					},
 				},
 			} );
-			expect(
-				select( 'core/editor' ).getEditedPostAttribute( 'title' )
-			).toBe( '' );
 
 			const { container } = render( <Classy /> );
 
@@ -68,9 +65,6 @@ describe( 'Classy', () => {
 					},
 				},
 			} );
-			expect(
-				select( 'core/editor' ).getEditedPostAttribute( 'title' )
-			).toBe( 'Event title' );
 
 			const { container } = render( <Classy /> );
 
