@@ -82,7 +82,7 @@ class Frontend extends Controller_Contract {
 	 *
 	 * @param array $args The query args.
 	 *
-	 * @return array The query args.
+	 * @return array<string,mixed> The query args.
 	 */
 	public function filter_repository_events_query_args( $args ): array {
 		$context = tribe_context();
