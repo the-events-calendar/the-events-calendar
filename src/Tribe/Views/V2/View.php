@@ -1756,6 +1756,7 @@ class View implements View_Interface {
 			'is_initial_load'                   => $this->context->doing_php_initial_state(),
 			'public_views'                      => $this->get_public_views( $url_event_date ),
 			'show_latest_past'                  => $this->should_show_latest_past_events_view(),
+			'past'                              => $this->context->get( 'past', false ),
 			'category_colors_enabled'           => tribe( Category_Color_Dropdown_Provider::class )->should_display_on_view( self::get_template_slug() ),
 			'category_colors_category_dropdown' => tribe( Category_Color_Dropdown_Provider::class )->get_dropdown_categories(),
 			'category_colors_priority_category' => tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $this->context->get( 'id', false ) ),

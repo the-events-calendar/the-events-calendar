@@ -24,10 +24,9 @@
  * @var bool    $category_colors_show_reset_button Whether to show the reset button.
  */
 
-if ( ! $category_colors_enabled ) {
+if ( empty( $category_colors_enabled ) ) {
 	return;
 }
-
 ?>
 <div class="tec-category-color-picker"
 	role="button"
