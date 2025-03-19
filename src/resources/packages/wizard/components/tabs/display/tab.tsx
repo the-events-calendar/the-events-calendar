@@ -100,7 +100,11 @@ const DisplayContent: React.FC = ({moveToNextTab, skipToNextTab}) => {
 				{( !hasProViews && (
 					<div className="tec-events-onboarding__view_upsell">
 						<p className="tec-events-onboarding__view_upsell_callout">
-						{__("More views available with", "the-events-calendar")} <BoltIcon className="tec-events-onboarding_pro-icon" /> {__("Events Calendar Pro", "the-events-calendar")}
+							{__("More views available with", "the-events-calendar")} <BoltIcon
+							className="tec-events-onboarding_pro-icon"/>
+							<a href="https://evnt.is/ecp" target="_blank" rel="noopener noreferrer">
+								{__("Events Calendar Pro", "the-events-calendar")}
+							</a>
 						</p>
 						<div className="tec-events-onboarding__view_upsell_list">
 							<div className="tec-events-onboarding__view_upsell-cell">

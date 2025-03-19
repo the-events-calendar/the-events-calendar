@@ -9,7 +9,7 @@
 ?>
 
 <tr class="form-field tec_category_colors__wrap">
-	<th scope="row">Category Colors</th>
+	<th scope="row"><?php esc_html_e( 'Category Colors', 'the-events-calendar' ); ?></th>
 	<td class="form-wrap">
 		<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
 		<div class="tec-events-category-colors__container">
@@ -49,7 +49,7 @@
 			<div class="tec-events-category-colors__preview">
 				<label><?php esc_html_e( 'Preview', 'the-events-calendar' ); ?></label>
 				<div class="tec-events-category-colors__preview-box">
-					<span class="tec-events-category-colors__preview-box-text" data-default-text="Example"></span>
+					<span class="tec-events-category-colors__preview-box-text" data-default-text="<?php esc_attr_e( 'Example', 'the-events-calendar' ); ?>"></span>
 				</div>
 				<p>
 					<?php esc_html_e( 'Select a primary color of your choice and a recommended background and font color will be generated. You can further customize your color choices afterwards.', 'the-events-calendar' ); ?>

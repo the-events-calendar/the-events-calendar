@@ -9,48 +9,56 @@
 ?>
 
 <div class="tec_category_colors__wrap">
-	<h2>Category Colors</h2>
-		<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
-		<div class="tec-events-category-colors__container">
-<div class="tec-events-category-colors__grid">
-		<div class="form-field">
-			<label for="tec-events-category-colors__primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
-			<input
-				type="text"
-				id="tec-events-category-colors__primary"
-				name="tec_events_category-color[primary]"
-				value="<?php echo esc_attr( $category_colors['primary'] ?? '' ); ?>"
-				class="tec-events-category-colors__input wp-color-picker"
-			>
-		</div>
-		<div class="form-field">
-			<label for="tec-events-category-colors__background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
-			<input
-				type="text"
-				id="tec-events-category-colors__background"
-				name="tec_events_category-color[secondary]"
-				value="<?php echo esc_attr( $category_colors['secondary'] ?? '' ); ?>"
-				class="tec-events-category-colors__input wp-color-picker"
-			>
-		</div>
-		<div class="form-field">
-			<label for="tec-events-category-colors__text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
-			<input
-				type="text"
-				id="tec-events-category-colors__text"
-				name="tec_events_category-color[text]"
-				value="<?php echo esc_attr( $category_colors['text'] ?? '' ); ?>"
-				class="tec-events-category-colors__input wp-color-picker"
-			>
-		</div>
-		<div class="form-field  tec-events-category-colors__preview">
-			<label><?php esc_html_e( 'Preview', 'the-events-calendar' ); ?></label>
-			<div class="tec-events-category-colors__preview-box">
-				<span class="tec-events-category-colors__preview-box-text" data-default-text="Example"></span>
+	<h2><?php esc_html_e( 'Category Colors', 'the-events-calendar' ); ?></h2>
+	<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
+	<div class="tec-events-category-colors__container">
+		<div class="tec-events-category-colors__grid">
+			<div class="form-field">
+				<label for="tec-events-category-colors__primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
+				<input
+					type="text"
+					id="tec-events-category-colors__primary"
+					name="tec_events_category-color[primary]"
+					value="<?php echo esc_attr( $category_colors['primary'] ?? '' ); ?>"
+					class="tec-events-category-colors__input wp-color-picker"
+				>
 			</div>
-			<p>Select a primary color of your choice and a recommended background and font color will be generated. You can further customize your color choices afterwards. <a href="#">Learn more about color selection and accessibility</a>.</p>
+			<div class="form-field">
+				<label for="tec-events-category-colors__background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
+				<input
+					type="text"
+					id="tec-events-category-colors__background"
+					name="tec_events_category-color[secondary]"
+					value="<?php echo esc_attr( $category_colors['secondary'] ?? '' ); ?>"
+					class="tec-events-category-colors__input wp-color-picker"
+				>
+			</div>
+			<div class="form-field">
+				<label for="tec-events-category-colors__text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
+				<input
+					type="text"
+					id="tec-events-category-colors__text"
+					name="tec_events_category-color[text]"
+					value="<?php echo esc_attr( $category_colors['text'] ?? '' ); ?>"
+					class="tec-events-category-colors__input wp-color-picker"
+				>
+			</div>
+			<div class="form-field  tec-events-category-colors__preview">
+				<label><?php esc_html_e( 'Preview', 'the-events-calendar' ); ?></label>
+				<div class="tec-events-category-colors__preview-box">
+					<span class="tec-events-category-colors__preview-box-text" data-default-text="<?php esc_attr_e( 'Example', 'the-events-calendar' ); ?>"></span>
+				</div>
+				<p>
+					<?php
+					esc_html_e( 'Select a primary color of your choice and a recommended background and font color will be generated. You can further customize your color choices afterwards.', 'the-events-calendar' );
+					?>
+					<a href="#">
+						<?php esc_html_e( 'Learn more about color selection and accessibility', 'the-events-calendar' ); ?>
+					</a>.
+				</p>
+			</div>
 		</div>
-</div></div>
+	</div>
 	<div class="form-field tec-events-category-colors__priority">
 		<label for="tec-events-category-colors__priority">
 			<?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?>
@@ -83,6 +91,4 @@
 			<?php esc_html_e( 'Do not show this category if legend shows on event listing views.', 'the-events-calendar' ); ?>
 		</p>
 	</div>
-
-
 </div>

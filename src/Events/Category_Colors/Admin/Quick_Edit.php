@@ -1,22 +1,38 @@
 <?php
+/**
+ * Handles quick edit functionality for category colors in the WordPress admin.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Admin
+ */
 
 namespace TEC\Events\Category_Colors\Admin;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
 use Tribe__Events__Main;
+use InvalidArgumentException;
 
+/**
+ * Class Quick_Edit
+ *
+ * Provides functionality for editing category color settings via Quick Edit in the WordPress admin.
+ * Handles displaying and saving color fields in the Quick Edit interface of the category list table.
+ *
+ * @since TBD
+ */
 class Quick_Edit extends Abstract_Admin {
 	/**
 	 * Adds custom columns to the Category Table.
 	 *
 	 * @since TBD
 	 *
-	 * @param array $columns Existing columns in the category table.
+	 * @param array<string,string> $columns Existing columns in the category table.
 	 *
-	 * @return array Modified columns with added color fields.
+	 * @return array<string,string> Modified columns with added color fields.
 	 */
-	public function add_columns( $columns ) {
+	public function add_columns( array $columns ): array {
 		$columns['category_priority'] = __( 'Priority', 'the-events-calendar' );
 		$columns['category_color']    = __( 'Category Color', 'the-events-calendar' );
 
@@ -34,8 +50,12 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @return string Updated content.
 	 */
-	public function add_custom_column_data( $content, $column_name, $term_id ) {
-		$meta = tribe( Event_Category_Meta::class )->set_term( $term_id );
+	public function add_custom_column_data( string $content, string $column_name, int $term_id ): string {
+		try {
+			$meta = tribe( Event_Category_Meta::class )->set_term( $term_id );
+		} catch ( InvalidArgumentException $e ) {
+			return $content;
+		}
 
 		if ( 'category_priority' === $column_name ) {
 			$content = $this->get_column_category_priority( $meta );
@@ -57,11 +77,11 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @return string Priority value.
 	 */
-	private function get_column_category_priority( Event_Category_Meta $meta ) {
+	protected function get_column_category_priority( Event_Category_Meta $meta ): string {
 		$meta_key = tribe( Meta_Keys::class )->get_key( 'priority' );
 		$priority = $meta_key ? $meta->get( $meta_key ) : '0';
 
-		return esc_html( $priority ?: '0' );
+		return esc_html( absint( $priority ) ?: '0' );
 	}
 
 	/**
@@ -71,35 +91,31 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @param Event_Category_Meta $meta The metadata handler.
 	 *
-	 * @return string HTML for color preview or `-` if no colors exist.
+	 * @return string HTML for color preview square.
 	 */
-	private function get_column_category_color_preview( Event_Category_Meta $meta ) {
-		$meta_keys     = tribe( Meta_Keys::class );
-		$primary_key   = $meta_keys->get_key( 'primary' );
-		$secondary_key = $meta_keys->get_key( 'secondary' );
-		$text_key      = $meta_keys->get_key( 'text' );
+	protected function get_column_category_color_preview( Event_Category_Meta $meta ): string {
+		$meta_keys = tribe( Meta_Keys::class )->get_all_keys();
 
-		$primary   = $primary_key ? $meta->get( $primary_key ) : '';
-		$secondary = $secondary_key ? $meta->get( $secondary_key ) : '';
-		$text      = $text_key ? $meta->get( $text_key ) : '';
+		$category_color_fields = array_map(
+			function ( $key, $meta_key ) use ( $meta ) {
+				$value = esc_attr( $meta->get( $meta_key ) );
 
-		// If no primary or secondary color is set, return `-`.
-		if ( empty( $primary ) || empty( $secondary ) ) {
-			return '-';
+				return in_array( $key, [ 'primary', 'secondary', 'text' ], true )
+					? sanitize_hex_color( $value )
+					: $value;
+			},
+			array_keys( $meta_keys ),
+			$meta_keys
+		);
+
+		$category_color_fields = array_combine( array_keys( $meta_keys ), $category_color_fields );
+
+		// If no primary or secondary color is set, return transparent.
+		if ( empty( $category_color_fields['primary'] ) || empty( $category_color_fields['secondary'] ) ) {
+			return 'transparent';
 		}
 
-		return sprintf(
-			'<span class="tec-events-taxonomy-table__category-color-preview"
-        style="background-color: %1$s;
-               border: 3px solid %2$s;"
-        data-primary="%2$s"
-        data-secondary="%1$s"
-        data-text="%3$s">
-    </span>',
-			esc_attr( $secondary ),
-			esc_attr( $primary ),
-			esc_attr( $text )
-		);
+		return $this->get_template()->template( 'category-color-preview', $category_color_fields, false );
 	}
 
 	/**
@@ -109,11 +125,19 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @param string $column_name Column name being processed.
 	 * @param string $screen      Current screen type.
+	 *
+	 * @return string
 	 */
-	public function add_quick_edit_fields( $column_name, $screen ) {
-		if ( 'category_color' === $column_name ) {
-			return $this->get_column_category_color_field();
+	public function add_quick_edit_fields( string $column_name, string $screen ): string {
+		if ( 'category_color' !== $column_name ) {
+			return '';
 		}
+
+		if ( 'edit-tags' !== $screen ) {
+			return '';
+		}
+
+		return $this->get_column_category_color_field();
 	}
 
 	/**
@@ -123,7 +147,7 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @return string
 	 */
-	private function get_column_category_color_field() {
+	protected function get_column_category_color_field(): string {
 		$context = [
 			'taxonomy'        => Tribe__Events__Main::TAXONOMY,
 			'category_colors' => [],

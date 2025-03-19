@@ -51,6 +51,7 @@ tribe.events.admin.categoryColors = {};
 		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
 		wpPickerContainer: '.wp-picker-container',
 		irisPicker: '.iris-picker',
+		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]',
 	};
 
 	/**
@@ -86,10 +87,10 @@ tribe.events.admin.categoryColors = {};
 		const backgroundColor = $container.find(obj.selectors.backgroundColor).val() || 'transparent';
 		const fontColor = $container.find(obj.selectors.fontColor).val() || 'inherit';
 
-		$container.find(obj.selectors.preview).css({
-													   'border-left': `5px solid ${primaryColor}`,
-													   'background-color': backgroundColor,
-												   });
+		$container.find( obj.selectors.preview ).css( {
+												'border-left': `5px solid ${ primaryColor }`,
+												'background-color': backgroundColor,
+												} );
 
 		$container.find(obj.selectors.previewText).css({ 'color': fontColor });
 	};
@@ -133,9 +134,9 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.initColorPicker = () => {
 		$(obj.selectors.colorInput).filter(':visible').wpColorPicker({
-																		 change: obj.colorPickerChange,
-																		 clear: obj.colorPickerChange,
-																	 });
+												change: obj.colorPickerChange,
+												clear: obj.colorPickerChange,
+												});
 
 		obj.initializePreviews();
 	};
@@ -194,17 +195,34 @@ tribe.events.admin.categoryColors = {};
 				text: $colorPreview.data('text') || '',
 			};
 
+			const data ={
+				priority: $colorPreview.data('priority') || '',
+				hide_from_legend: $colorPreview.data('hidden') || '',
+			}
+
 			setTimeout(() => {
 				['primary', 'secondary', 'text'].forEach(colorType => {
 					const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
 					if (!$input.length) return;
 
 					$input.val(colors[colorType]).wpColorPicker({
-																	change: obj.colorPickerChange,
-																	clear: obj.colorPickerChange,
-																});
+												change: obj.colorPickerChange,
+												clear: obj.colorPickerChange,
+												});
 					obj.updateClosestPreview($input);
 				});
+
+				// Populate priority field
+				const $priorityInput = $quickEditRow.find(obj.selectors.priorityField);
+				if ($priorityInput.length) {
+					$priorityInput.val(data.priority);
+				}
+
+				// Populate "Hide from legend" checkbox
+				const $hideLegendCheckbox = $quickEditRow.find( obj.selectors.hideFromLegendField );
+				if ($hideLegendCheckbox.length) {
+					$hideLegendCheckbox.prop('checked', !!data.hide_from_legend);
+				}
 
 				const $tagInput = $quickEditRow.find(obj.selectors.tagName);
 				if ($tagInput.length) {
@@ -220,7 +238,13 @@ tribe.events.admin.categoryColors = {};
 	 * @since TBD
 	 */
 	obj.initQuickEditHandlers = () => {
-		$document.on('click', obj.selectors.quickEditSave + ', ' + obj.selectors.quickEditCancel, obj.cleanupColorPickers);
+		$document.on(
+			'click',
+			obj.selectors.quickEditSave + ', ' +
+				obj.selectors.quickEditCancel
+			,
+			obj.cleanupColorPickers
+		);
 		$document.ajaxComplete(obj.handleQuickEditAjaxComplete);
 	};
 
@@ -262,9 +286,9 @@ tribe.events.admin.categoryColors = {};
 
 			// Reset WP Color Picker button styles.
 			$container.find('.wp-color-result').css({
-														'background-color': '',
-														'border-color': '',
-													});
+									'background-color': '',
+									'border-color': '',
+									});
 			$container.find('.iris-picker').hide();
 		});
 
@@ -315,12 +339,19 @@ tribe.events.admin.categoryColors = {};
 	 * @since TBD
 	 */
 	obj.closeColorPicker = () => {
-		$document.on('click', (event) => {
-			// If the click is NOT inside the color picker, input, or the color picker container, hide it.
-			if (!$(event.target).closest(`${obj.selectors.colorInput}, ${obj.selectors.wpPickerContainer}, ${obj.selectors.irisPicker}`).length) {
-				$(obj.selectors.irisPicker).fadeOut();
+		$document.on(
+			'click',
+			( event ) => {
+				// If the click is NOT inside the color picker, input, or the color picker container, hide it.
+				if ( ! $( event.target ).closest(
+					`${ obj.selectors.colorInput },
+						${ obj.selectors.wpPickerContainer },
+						${ obj.selectors.irisPicker }` )
+					.length ) {
+					$( obj.selectors.irisPicker ).fadeOut();
+				}
 			}
-		});
+		);
 	};
 
 

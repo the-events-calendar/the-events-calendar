@@ -7,7 +7,7 @@ jobs:
       matrix:
         suite:
           - integrations_plugin_wordpress_seo
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
@@ -139,19 +139,11 @@ jobs:
           file: tests/${{ matrix.suite }}.suite.dist.yml
           key-path: '[ "external_plugins" ]'
 
-      - name: Prepare variable for
-        if: steps.skip.outputs.value != 1 && steps.yml-test-suite-data.outputs.data
-        id: test_suite_plugins_required
+      - name: Install Yoast SEO
+        if: steps.skip.outputs.value != 1
         run: |
-          TEST_SUITE_DATA="${{ steps.yml-test-suite-data.outputs.data }}"
-          TEST_SUITE_DATA=$(echo ${TEST_SUITE_DATA} | sed "s|,||g" | sed "s|\[| |g" | sed "s|\]||g")
-          echo "::set-output name=content::$TEST_SUITE_DATA"
-
-      - name: Install the plugins on this particular Test Suite
-        if: steps.skip.outputs.value != 1 && steps.test_suite_plugins_required.outputs.content
-        run: |
-          ${SLIC_BIN} wp core update --version=6.5
-          ${SLIC_BIN} wp plugin install ${{ steps.test_suite_plugins_required.outputs.content }}
+          ${SLIC_BIN} wp core update --version=6.6
+          ${SLIC_BIN} wp plugin install wordpress-seo
 
       # ------------------------------------------------------------------------------
       # Run the Actual tests
