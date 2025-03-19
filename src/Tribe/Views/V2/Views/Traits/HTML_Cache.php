@@ -40,8 +40,6 @@ trait HTML_Cache {
 			return false;
 		}
 
-		return false;
-
 		$cache_key   = $this->get_cache_html_key();
 		$cached_html = tribe( 'cache' )->get_chunkable_transient( $cache_key, $this->cache_html_triggers() );
 
