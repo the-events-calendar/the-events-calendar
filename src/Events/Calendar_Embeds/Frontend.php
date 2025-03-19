@@ -59,10 +59,6 @@ class Frontend extends Controller_Contract {
 		add_filter( 'embed_template', [ $this, 'overwrite_embed_template' ] );
 		add_filter( 'the_content', [ $this, 'overwrite_content' ] );
 		add_filter( 'tribe_repository_events_query_args', [ $this, 'filter_repository_events_query_args' ] );
-		add_filter( 'tec_views_v2_subscribe_links_gcal_feed_url', [ $this, 'filter_feed_url' ], 10, 2 );
-		add_filter( 'tec_views_v2_subscribe_links_ics_feed_url', [ $this, 'filter_feed_url' ], 10, 2 );
-		add_filter( 'tec_views_v2_subscribe_links_feed_url', [ $this, 'filter_feed_url' ], 10, 2 );
-		add_filter( 'tec_views_v2_subscribe_links_outlook_export_url', [ $this, 'filter_feed_url' ], 10, 2 );
 	}
 
 	/**
@@ -77,50 +73,6 @@ class Frontend extends Controller_Contract {
 		remove_filter( 'embed_template', [ $this, 'overwrite_embed_template' ] );
 		remove_filter( 'the_content', [ $this, 'overwrite_content' ] );
 		remove_filter( 'tribe_repository_events_query_args', [ $this, 'filter_repository_events_query_args' ] );
-		remove_filter( 'tec_views_v2_subscribe_links_gcal_feed_url', [ $this, 'filter_feed_url' ] );
-		remove_filter( 'tec_views_v2_subscribe_links_ics_feed_url', [ $this, 'filter_feed_url' ] );
-		remove_filter( 'tec_views_v2_subscribe_links_feed_url', [ $this, 'filter_feed_url' ] );
-		remove_filter( 'tec_views_v2_subscribe_links_outlook_export_url', [ $this, 'filter_feed_url' ] );
-	}
-
-	/**
-	 * Filters the feed URL.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $url The URL.
-	 * @param ?View  $view The view.
-	 *
-	 * @return string The URL.
-	 */
-	public function filter_feed_url( string $url, ?View $view = null ): string {
-		if ( ! $view instanceof View ) {
-			return $url;
-		}
-
-		$context = $view->get_context();
-
-		if ( ! $context->get( 'embed' ) ) {
-			return $url;
-		}
-
-		$calendar_embed_id = $context->get( 'post_id' );
-
-		$permalink = get_post_embed_url( $calendar_embed_id );
-
-		if ( empty( $permalink ) ) {
-			return $url;
-		}
-
-		$permalink = str_replace( [ 'http://', 'https://' ], '', $permalink );
-
-		$protocol = wp_parse_url( $url, PHP_URL_SCHEME );
-
-		if ( empty( $protocol ) ) {
-			$protocol = 'webcal';
-		}
-
-		return $protocol . '://' . $permalink;
 	}
 
 	/**
