@@ -10,6 +10,7 @@ namespace Tribe\Events\Views\V2;
 
 use TEC\Common\Configuration\Configuration;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
+use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
@@ -1757,6 +1758,7 @@ class View implements View_Interface {
 			'show_latest_past'                  => $this->should_show_latest_past_events_view(),
 			'category_colors_enabled'           => tribe( Category_Color_Dropdown_Provider::class )->should_display_on_view( self::get_template_slug() ),
 			'category_colors_category_dropdown' => tribe( Category_Color_Dropdown_Provider::class )->get_dropdown_categories(),
+			'category_colors_priority_category' => tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $this->context->get( 'id', false ) ),
 			'category_colors_super_power'       => tribe_get_option( 'category-color-legend-superpowers', false ),
 			'category_colors_show_reset_button' => tribe_get_option( 'category-color-reset-button', false ),
 		];

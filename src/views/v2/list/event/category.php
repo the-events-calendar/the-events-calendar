@@ -11,40 +11,17 @@
  *
  * @version TBD
  *
- * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
+ * @var object|null $category_colors_priority_category The highest-priority category for the event, determined using the
+ *                                                     `Category_Color_Priority_Category_Provider` class.
  *
  * @see     tribe_get_event() For the format of the event object.
  */
 
-use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
-
-// @todo - Move this logic somewhere else.
-$categories = get_the_terms( $event->ID, 'tribe_events_cat' );
-
-if ( empty( $categories ) || ! is_array( $categories ) ) {
+if ( empty( $category_colors_priority_category ) ) {
 	return;
 }
 
-// Retrieve all category priorities at once.
-$meta_instance = tribe( Event_Category_Meta::class );
-$priorities    = [];
-
-// Get priorities and set default to -1 if missing.
-foreach ( $categories as $category ) {
-	$priority                         = $meta_instance->set_term( $category->term_id )->get( Meta_Keys::get_key( 'priority' ) );
-	$priorities[ $category->term_id ] = is_numeric( $priority ) ? (int) $priority : -1;
-}
-
-// Sort categories by priority (descending, highest first).
-usort(
-	$categories,
-	fn( $a, $b ) => $priorities[ $b->term_id ] <=> $priorities[ $a->term_id ]
-);
-
-// Get the most important category.
-
-$category = reset( $categories );
+$category = $category_colors_priority_category;
 ?>
 
 <div class="tec-events-calendar-list__event-categories">
