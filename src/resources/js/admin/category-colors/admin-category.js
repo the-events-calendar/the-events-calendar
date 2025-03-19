@@ -51,6 +51,7 @@ tribe.events.admin.categoryColors = {};
 		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
 		wpPickerContainer: '.wp-picker-container',
 		irisPicker: '.iris-picker',
+		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]',
 	};
 
 	/**
@@ -86,10 +87,10 @@ tribe.events.admin.categoryColors = {};
 		const backgroundColor = $container.find(obj.selectors.backgroundColor).val() || 'transparent';
 		const fontColor = $container.find(obj.selectors.fontColor).val() || 'inherit';
 
-		$container.find(obj.selectors.preview).css({
-													   'border-left': `5px solid ${primaryColor}`,
-													   'background-color': backgroundColor,
-												   });
+		$container.find( obj.selectors.preview ).css( {
+														'border-left': `5px solid ${ primaryColor }`,
+														'background-color': backgroundColor,
+													} );
 
 		$container.find(obj.selectors.previewText).css({ 'color': fontColor });
 	};
@@ -133,9 +134,9 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.initColorPicker = () => {
 		$(obj.selectors.colorInput).filter(':visible').wpColorPicker({
-																		 change: obj.colorPickerChange,
-																		 clear: obj.colorPickerChange,
-																	 });
+																		change: obj.colorPickerChange,
+																		clear: obj.colorPickerChange,
+																	});
 
 		obj.initializePreviews();
 	};
@@ -212,16 +213,14 @@ tribe.events.admin.categoryColors = {};
 				});
 
 				// Populate priority field
-				const $priorityInput = $quickEditRow.find('[name="tec_events_category-color[priority]"]');
+				const $priorityInput = $quickEditRow.find(obj.selectors.priorityField);
 				if ($priorityInput.length) {
 					$priorityInput.val(data.priority);
 				}
 
 				// Populate "Hide from legend" checkbox
-				const $hideLegendCheckbox = $quickEditRow.find('[name="tec_events_category-color[hide_from_legend]"]');
-				console.log($hideLegendCheckbox,'Checkbox');
+				const $hideLegendCheckbox = $quickEditRow.find( obj.selectors.hideFromLegendField );
 				if ($hideLegendCheckbox.length) {
-					console.log("Checkbox Exists, Setting Value to: ",data.hide_from_legend);
 					$hideLegendCheckbox.prop('checked', !!data.hide_from_legend);
 				}
 
@@ -239,7 +238,13 @@ tribe.events.admin.categoryColors = {};
 	 * @since TBD
 	 */
 	obj.initQuickEditHandlers = () => {
-		$document.on('click', obj.selectors.quickEditSave + ', ' + obj.selectors.quickEditCancel, obj.cleanupColorPickers);
+		$document.on(
+			'click',
+			obj.selectors.quickEditSave + ', ' +
+				obj.selectors.quickEditCancel
+			,
+			obj.cleanupColorPickers
+		);
 		$document.ajaxComplete(obj.handleQuickEditAjaxComplete);
 	};
 
@@ -334,12 +339,19 @@ tribe.events.admin.categoryColors = {};
 	 * @since TBD
 	 */
 	obj.closeColorPicker = () => {
-		$document.on('click', (event) => {
-			// If the click is NOT inside the color picker, input, or the color picker container, hide it.
-			if (!$(event.target).closest(`${obj.selectors.colorInput}, ${obj.selectors.wpPickerContainer}, ${obj.selectors.irisPicker}`).length) {
-				$(obj.selectors.irisPicker).fadeOut();
+		$document.on(
+			'click',
+			( event ) => {
+				// If the click is NOT inside the color picker, input, or the color picker container, hide it.
+				if ( ! $( event.target ).closest(
+					`${ obj.selectors.colorInput },
+						${ obj.selectors.wpPickerContainer },
+						${ obj.selectors.irisPicker }` )
+					.length ) {
+					$( obj.selectors.irisPicker ).fadeOut();
+				}
 			}
-		});
+		);
 	};
 
 
