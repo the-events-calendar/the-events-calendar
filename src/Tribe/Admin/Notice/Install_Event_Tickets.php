@@ -9,7 +9,9 @@ namespace Tribe\Events\Admin\Notice;
 use TEC\Common\StellarWP\Installer\Installer;
 use Tribe__Main;
 use Tribe__Template;
-
+use Tribe__Events__Main as Events_Main;
+use Tribe__Events__Organizer as Events_Organizer;
+use Tribe__Events__Venue as Events_Venue;
 /**
 
  */
@@ -221,9 +223,9 @@ class Install_Event_Tickets {
 		
 		// Match any TEC post type screens (events, organizers, venues).
 		$tec_post_types = [
-			\Tribe__Events__Main::POSTTYPE,
-			\Tribe__Events__Organizer::POSTTYPE,
-			\Tribe__Events__Venue::POSTTYPE
+			Events_Main::POSTTYPE,
+			Events_Organizer::POSTTYPE,
+			Events_Venue::POSTTYPE,
 		];
 		
 		if ( in_array( $current_screen->post_type, $tec_post_types, true ) ) {
@@ -231,7 +233,7 @@ class Install_Event_Tickets {
 		}
 		
 		// Match any screen ID containing 'tribe_events'.
-		if ( false !== strpos( $current_screen->id, \Tribe__Events__Main::POSTTYPE ) ) {
+		if ( false !== strpos( $current_screen->id, Events_Main::POSTTYPE ) ) {
 			return true;
 		}
 		
