@@ -30,7 +30,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->add_hooks();
+		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
 	}
 
 	/**
@@ -38,7 +38,9 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	protected function add_filters() {}
+	protected function add_filters() {
+		$this->add_hooks();
+	}
 
 	/**
 	 * Unhooks actions and filters.

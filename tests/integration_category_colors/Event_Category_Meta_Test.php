@@ -3,10 +3,12 @@
 namespace TEC\Events\Category_Colors\Tests;
 
 use Codeception\TestCase\WPTestCase;
+use Generator;
 use InvalidArgumentException;
 use TEC\Events\Category_Colors\Event_Category_Meta as Meta;
 use Tribe\Tests\Traits\With_Uopz;
 use TypeError;
+use WP_Error;
 use WP_Term;
 
 class EventCategoryMeta_Test extends WPTestCase {
@@ -92,7 +94,7 @@ class EventCategoryMeta_Test extends WPTestCase {
 		$meta->set( 'primary', '#ff0000' )->save();
 		$meta->delete( 'primary' )->save();
 
-		$this->assertNull( $meta->get( 'primary' ) );
+		$this->assertEmpty( $meta->get( 'primary' ) );
 	}
 
 	/** @test */
@@ -130,8 +132,8 @@ class EventCategoryMeta_Test extends WPTestCase {
 			->delete( 'text' )
 			->save();
 
-		$this->assertNull( $meta->get( 'background' ) );
-		$this->assertNull( $meta->get( 'text' ) );
+		$this->assertEmpty( $meta->get( 'background' ) );
+		$this->assertEmpty( $meta->get( 'text' ) );
 	}
 
 	/** @test */
@@ -143,7 +145,7 @@ class EventCategoryMeta_Test extends WPTestCase {
 			->delete( 'primary' )
 			->save();
 
-		$this->assertNull( $meta->get( 'primary' ) );
+		$this->assertEmpty( $meta->get( 'primary' ) );
 		$this->assertEquals( '#00ff00', $meta->get( 'secondary' ) );
 	}
 
@@ -152,7 +154,7 @@ class EventCategoryMeta_Test extends WPTestCase {
 		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
 
 		$meta->set( 'color', '#ff0000' );
-		$this->assertNull( $meta->get( 'color' ) ); // Should not be saved yet
+		$this->assertEmpty( $meta->get( 'color' ) ); // Should not be saved yet
 
 		$meta->save();
 		$this->assertEquals( '#ff0000', $meta->get( 'color' ) );
@@ -164,7 +166,7 @@ class EventCategoryMeta_Test extends WPTestCase {
 
 		$result = $meta->delete( 'non_existent_key' )->save();
 		$this->assertInstanceOf( Meta::class, $result );
-		$this->assertNull( $meta->get( 'non_existent_key' ) );
+		$this->assertEmpty( $meta->get( 'non_existent_key' ) );
 	}
 
 	/** @test */
@@ -180,13 +182,27 @@ class EventCategoryMeta_Test extends WPTestCase {
 
 	/** @test */
 	public function it_should_throw_an_error_when_invalid_value_is_passed() {
+		add_filter(
+			'tec_events_category_validate_meta_value',
+			function ( $value ) {
+				if ( null === $value ) {
+					return new WP_Error( 'invalid_meta', 'Meta value cannot be null.' );
+				}
+
+				return $value;
+			}
+		);
+
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage( 'Meta value cannot be null.' );
 
 		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
 
-		// Attempt to set an invalid value, should throw an exception
+		// Attempt to set an invalid value, should trigger the filter and throw an exception
 		$meta->set( 'another_key', null );
+
+		// Unhook filter after test
+		remove_filter( 'tec_events_category_validate_meta_value', '__return_null' );
 	}
 
 	/** @test */
@@ -270,27 +286,203 @@ class EventCategoryMeta_Test extends WPTestCase {
 		$this->assertTrue( true );
 	}
 
-	/** @test */
-	public function it_should_properly_handle_empty_values_when_retrieving_meta() {
+	/**
+	 * We are testing WordPress's native `update_term_meta()` and `get_term_meta()` behavior.
+	 * Ideally, WordPress should store and retrieve values exactly as they were saved.
+	 * However, as of WordPress version `6.7.2`, data is being altered during storage and retrieval.
+	 *
+	 * This test ensures we have a baseline understanding of how WordPress processes meta values.
+	 * If future WordPress versions fix this issue, these tests may need to be updated.
+	 *
+	 * @test
+	 * @dataProvider meta_value_provider
+	 */
+	public function it_should_properly_store_and_retrieve_meta_values_using_wordpress( $key, $input, $expected ) {
+		$term_id = $this->test_term->term_id;
+
+		// Store the value using WordPress function
+		update_term_meta( $term_id, $key, $input );
+
+		// Retrieve the value
+		$retrieved = get_term_meta( $term_id, $key, true );
+
+		// Assert that the retrieved value matches the expected transformed value
+		if ( is_object( $expected ) ) {
+			$this->assertEquals( $expected, $retrieved, "Failed for key: $key in WordPress." );
+		} else {
+			$this->assertSame( $expected, $retrieved, "Failed for key: $key in WordPress." );
+		}
+	}
+
+	/**
+	 * This test ensures that our custom meta handling class behaves exactly like WordPress.
+	 * Now that we know WordPress alters values, our class must do the same for consistency.
+	 *
+	 * @test
+	 * @dataProvider meta_value_provider
+	 */
+	public function it_should_properly_store_and_retrieve_meta_values_using_our_class( $key, $input, $expected ) {
 		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
 
-		// Set different types of values.
-		$meta->set( 'zero_value', 0 )
-			->set( 'integer_value', 5 )
-			->set( 'false_value', false )
-			->set( 'empty_string', '' )
-			->set( 'empty_array', [] )
-			->set( 'non_empty_array', [ 'value' ] )
-			->set( 'non_empty_string', 'hello' )
-			->save();
+		// Store the value using our class
+		$meta->set( $key, $input )->save();
 
-		// Assertions for expected behavior.
-		$this->assertSame( '0', $meta->get( 'zero_value' ) );
-		$this->assertSame( '5', $meta->get( 'integer_value' ) );
-		$this->assertSame( '', $meta->get( 'false_value' ) );
-		$this->assertSame( '', $meta->get( 'empty_string' ) );
-		$this->assertSame( [], $meta->get( 'empty_array' ) );
-		$this->assertSame( [ 'value' ], $meta->get( 'non_empty_array' ) );
-		$this->assertSame( 'hello', $meta->get( 'non_empty_string' ) );
+		// Retrieve the value using our class
+		$retrieved = $meta->get( $key );
+
+		// Assert that our class matches WordPress behavior exactly
+		if ( is_object( $expected ) ) {
+			$this->assertEquals( $expected, $retrieved, "Failed for key: $key in our class." );
+		} else {
+			$this->assertSame( $expected, $retrieved, "Failed for key: $key in our class." );
+		}
 	}
+
+	/**
+	 * Data provider for meta value tests.
+	 *
+	 * @return Generator
+	 */
+	public function meta_value_provider() {
+		yield 'bool_true' => [ 'bool_true', true, '1' ];
+		yield 'bool_false' => [ 'bool_false', false, '' ];
+		yield 'int_zero' => [ 'int_zero', 0, '0' ];
+		yield 'int_positive' => [ 'int_positive', 123, '123' ];
+		yield 'int_negative' => [ 'int_negative', -123, '-123' ];
+		yield 'float_zero' => [ 'float_zero', 0.0, '0' ];
+		yield 'float_positive' => [ 'float_positive', 3.14, '3.14' ];
+		yield 'float_negative' => [ 'float_negative', -3.14, '-3.14' ];
+		yield 'string_empty' => [ 'string_empty', '', '' ];
+		yield 'string_numeric' => [ 'string_numeric', '123', '123' ];
+		yield 'string_alpha' => [ 'string_alpha', 'abc', 'abc' ];
+		yield 'string_bool' => [ 'string_bool', 'true', 'true' ];
+		yield 'null_value' => [ 'null_value', null, '' ];
+		yield 'empty_array' => [ 'empty_array', [], [] ];
+		yield 'array_strings' => [ 'array_strings', [ 'one', 'two', 'three' ], [ 'one', 'two', 'three' ] ];
+		yield 'array_mixed' => [ 'array_mixed', [ 1, 'one', 1.5, true, false ], [ 1, 'one', 1.5, true, false ] ];
+		yield 'array_nested' => [ 'array_nested', [ [ 'nested' => 'array' ] ], [ [ 'nested' => 'array' ] ] ];
+		yield 'json_encoded' => [
+			'json_encoded',
+			wp_json_encode(
+				[
+					'json' => 'object',
+				]
+			),
+			'{"json":"object"}',
+		];
+		yield 'json_decoded' => [
+			'json_decoded',
+			json_decode(
+				wp_json_encode(
+					[
+						'json' => 'object',
+					]
+				),
+				true
+			),
+			[ 'json' => 'object' ],
+		];
+		yield 'array_assoc' => [
+			'array_assoc',
+			[
+				'key' => 'value',
+				'num' => 123,
+			],
+			[
+				'key' => 'value',
+				'num' => 123,
+			],
+		];
+		yield 'object_std' => [ 'object_std', (object) [ 'prop' => 'value' ], (object) [ 'prop' => 'value' ] ];
+	}
+
+	/** @test */
+	public function it_should_throw_an_error_when_setting_meta_for_a_shared_term() {
+		// Mock wp_term_is_shared() to return true for this test.
+		$this->set_fn_return( 'wp_term_is_shared', true );
+
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage(
+			sprintf( "Meta cannot be added to term ID %d because it's shared between taxonomies.", $this->test_term->term_id )
+		);
+
+		// Attempt to set a meta value, should trigger the shared term error.
+		$meta->set( 'shared_key', '#123456' );
+	}
+
+	/** @test */
+	public function it_should_treat_meta_keys_as_case_insensitive() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$meta->set( 'CaseTest', '#FF0000' )->save();
+		$this->assertEquals( '#FF0000', $meta->get( 'casetest' ) ); // Lowercase retrieval
+	}
+
+	/** @test */
+	public function it_should_not_fail_when_deleting_already_deleted_meta() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$meta->set( 'to_delete', '#ABCDEF' )->save();
+		$meta->delete( 'to_delete' )->save();
+
+		// Attempt to delete again
+		$result = $meta->delete( 'to_delete' )->save();
+
+		$this->assertInstanceOf( Meta::class, $result );
+		$this->assertEmpty( $meta->get( 'to_delete' ) );
+	}
+
+	/** @test */
+	public function it_should_handle_large_number_of_meta_entries() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		$bulk_meta = [];
+		for ( $i = 0; $i < 250; $i++ ) {
+			$bulk_meta["key_{$i}"] = "value_{$i}";
+		}
+
+		foreach ( $bulk_meta as $key => $value ) {
+			$meta->set( $key, $value );
+		}
+
+		$meta->save();
+
+		foreach ( $bulk_meta as $key => $value ) {
+			$this->assertEquals( $value, $meta->get( $key ) );
+		}
+	}
+
+	/** @test */
+	public function it_should_do_nothing_if_save_is_called_without_any_pending_operations() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		// Call save without any `set()` or `delete()`
+		$result = $meta->save();
+
+		// Ensure the object is still valid and save doesn't break anything
+		$this->assertInstanceOf( Meta::class, $result );
+	}
+
+	/** @test */
+	public function it_should_not_persist_meta_if_deleted_before_saving() {
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+
+		// Set a meta key but delete it before save
+		$meta->set( 'primary', '#FF0000' )->delete( 'primary' )->save();
+
+		// The meta key should be gone, since it was deleted before being committed
+		$this->assertEmpty( $meta->get( 'primary' ) );
+	}
+
+	/** @test */
+	public function it_should_throw_an_error_when_deleting_an_empty_meta_key() {
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage( 'Meta key cannot be empty.' );
+
+		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
+		$meta->delete( '' );
+	}
+
 }

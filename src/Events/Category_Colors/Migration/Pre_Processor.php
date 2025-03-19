@@ -1,0 +1,218 @@
+<?php
+/**
+ * Handles the preprocessing of category color migration data.
+ * This class extracts, formats, and stores category-related settings
+ * before they are validated and executed in the migration process.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
+ */
+
+namespace TEC\Events\Category_Colors\Migration;
+
+/**
+ * Class Pre_Processor
+ * Prepares the migration data by extracting and formatting category settings.
+ * This class ensures the settings are structured correctly before validation.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration
+ */
+class Pre_Processor extends Abstract_Migration_Step {
+
+	/**
+	 * Determines whether the migration step is in a valid state to run.
+	 *
+	 * This method checks the current migration status and ensures the step
+	 * should only execute if the migration has not already started.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the migration step can run, false otherwise.
+	 */
+	public function is_runnable(): bool {
+		return Status::$not_started === static::get_migration_status()['status'];
+	}
+
+	/**
+	 * A working copy of the settings, which gets modified during processing.
+	 *
+	 * @since TBD
+	 * @var array<string, mixed>
+	 */
+	protected array $processed_settings = [];
+
+	/**
+	 * Processes category colors and settings for migration.
+	 * Fires an action before and after processing.
+	 * If the process completes successfully, the end hook passes `true`.
+	 * If processing is skipped due to empty settings, the end hook passes `false`.
+	 *
+	 * @since TBD
+	 * @return bool
+	 */
+	public function process(): bool {
+		$start_time = microtime( true );
+		$this->update_migration_status( Status::$in_progress );
+
+		/**
+		 * Fires before the preprocessor starts processing category color data.
+		 * Allows logging or hooking into the process before any changes are made.
+		 *
+		 * @since TBD
+		 */
+		do_action( 'tec_events_category_colors_migration_preprocessor_start' );
+
+		// Load the original settings.
+		$this->processed_settings = $this->get_original_settings();
+
+		if ( empty( $this->processed_settings ) ) {
+			$this->update_migration_data( Config::$expected_structure );
+			$this->update_migration_status( Status::$preprocess_skipped );
+
+			/**
+			 * Fires after the preprocessor completes.
+			 *
+			 * @since TBD
+			 *
+			 * @param array<string, mixed> $migration_data The processed migration data.
+			 * @param bool                 $success        Whether processing was successful.
+			 */
+			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::$expected_structure, false );
+			$this->log_elapsed_time( 'Preprocessing', $start_time );
+			return false;
+		}
+
+		// Populate migration data.
+		$migration_data = [
+			'categories'    => $this->get_category_values(),
+			'settings'      => $this->get_settings_values(),
+			'ignored_terms' => $this->process_ignored_terms(),
+		];
+
+		// Store processed data in the database.
+		$this->update_migration_data( $migration_data );
+
+		$this->update_migration_status( Status::$preprocess_completed );
+
+		/**
+		 * Fires after the preprocessor completes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string, mixed> $migration_data The processed migration data.
+		 * @param bool                 $success        Whether processing was successful.
+		 */
+		do_action( 'tec_events_category_colors_migration_preprocessor_end', $migration_data, true );
+
+		$this->log_message( 'info', 'Preprocessing complete. Migration data prepared.', $migration_data, 'Pre_Processor' );
+
+		$this->log_elapsed_time( 'Preprocessing', $start_time );
+
+		return true;
+	}
+
+	/**
+	 * Extracts category-related values from processed settings and removes them.
+	 *
+	 * @since TBD
+	 * @return array<int, array<string, mixed>> Processed category data structured by category ID.
+	 */
+	protected function get_category_values(): array {
+		$categories        = [];
+		$filtered_settings = $this->processed_settings;
+
+		foreach ( $this->processed_settings['terms'] ?? [] as $term_id => [$slug, $name] ) {
+			foreach ( array_keys( $filtered_settings ) as $key ) {
+				if ( strpos( $key, $slug . '-' ) === 0 || strpos( $key, $slug . '_' ) === 0 ) {
+					$field_name = str_replace( [ $slug . '-', $slug . '_' ], '', $key );
+					$mapped_key = $this->get_mapped_meta_key( $field_name );
+
+					if ( null !== $mapped_key ) {
+						$meta_key = Config::$meta_key_prefix . $mapped_key;
+						$value    = $filtered_settings[ $key ];
+						$value    = ( 'no_color' === $value ) ? '' : $value;
+						// Store processed setting under category.
+						$categories[ $term_id ][ $meta_key ] = $value;
+
+						// Remove from copied array.
+						unset( $filtered_settings[ $key ] );
+					}
+				}
+			}
+
+			// Store the term_id reference itself.
+			$categories[ $term_id ]['taxonomy_id'] = $term_id;
+		}
+
+		// Replace the original array with the filtered one.
+		$this->processed_settings = $filtered_settings;
+
+		return $categories;
+	}
+
+	/**
+	 * Extracts and maps settings while applying validation rules.
+	 *
+	 * @since TBD
+	 * @return array<string, mixed> Processed settings with proper validation.
+	 */
+	protected function get_settings_values(): array {
+		$mapped_settings = [];
+
+		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
+			if ( ! $mapping['import'] ) {
+				continue;
+			}
+			// Skip if the key doesn't exist in the processed settings.
+			if ( ! array_key_exists( $old_key, $this->processed_settings ) ) {
+				continue;
+			}
+
+			$value   = $this->processed_settings[ $old_key ];
+			$new_key = $mapping['mapped_key'];
+
+			// Apply validation rules.
+			switch ( $mapping['validation'] ) {
+				case 'boolean':
+					$value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+					if ( is_null( $value ) ) {
+						$value = false;
+					}
+					break;
+				case 'array':
+					$value = is_array( $value ) ? $value : [];
+					break;
+				default:
+					$value = is_scalar( $value ) ? $value : ''; // Default to empty if invalid.
+			}
+
+			if ( '' !== $value && [] !== $value ) {
+				$mapped_settings[ $new_key ] = $value;
+			}
+
+			// Remove the key from the processed settings after mapping.
+			unset( $this->processed_settings[ $old_key ] );
+		}
+
+		return $mapped_settings;
+	}
+
+	/**
+	 * Processes ignored terms data.
+	 *
+	 * @since TBD
+	 * @return array<string, mixed> Processed ignored terms.
+	 */
+	protected function process_ignored_terms(): array {
+		$ignored_terms = $this->processed_settings['ignored_terms'] ?? [];
+
+		$ignored_terms = is_array( $ignored_terms ) ? $ignored_terms : [];
+
+		unset( $this->processed_settings['ignored_terms'] );
+
+		return $ignored_terms;
+	}
+}
