@@ -372,4 +372,85 @@ class CSS_Generator_Test extends WPTestCase {
 
 		$this->assertMatchesSnapshot( $css );
 	}
+
+	/**
+	 * @test
+	 */
+	public function should_refresh_css_when_categories_change() {
+		// Generate initial CSS
+		$this->css_generator->generate_css();
+		$initial_css = get_option( 'tec_events_category_color_css' );
+
+		// Create a new category
+		$term_id = $this->factory()->term->create(
+			[
+				'taxonomy' => Tribe__Events__Main::TAXONOMY,
+				'name'     => 'New Category',
+			]
+		);
+
+		// Assign color meta
+		$this->category_meta->set_term( $term_id )
+			->set( Meta_Keys::get_key( 'primary' ), '#123456' )
+			->save();
+
+		// Regenerate CSS
+		$this->css_generator->generate_and_save_css();
+		$updated_css = get_option( 'tec_events_category_color_css' );
+
+		// Ensure CSS has changed
+		$this->assertNotEquals( $initial_css, $updated_css, 'CSS should update when new categories are added.' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_save_css_in_wp_options() {
+		// Create multiple categories
+		$categories = [
+			[ 'name' => 'Category One', 'primary' => '#ff0000', 'secondary' => '#00ff00', 'text' => '#0000ff', 'priority' => 5 ],
+			[ 'name' => 'Category Two', 'primary' => '#abcdef', 'secondary' => '#123456', 'text' => '#654321', 'priority' => 10 ],
+			[ 'name' => 'Category Three', 'primary' => '#222222', 'secondary' => '#333333', 'text' => '#444444', 'priority' => 1 ],
+		];
+
+		$term_ids = [];
+
+		// Create and set up meta for each category
+		foreach ( $categories as $category ) {
+			$term_id = $this->factory()->term->create(
+				[
+					'taxonomy' => Tribe__Events__Main::TAXONOMY,
+					'name'     => $category['name'],
+				]
+			);
+
+			$this->category_meta
+				->set_term( $term_id )
+				->set( Meta_Keys::get_key( 'primary' ), $category['primary'] )
+				->set( Meta_Keys::get_key( 'secondary' ), $category['secondary'] )
+				->set( Meta_Keys::get_key( 'text' ), $category['text'] )
+				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
+				->save();
+
+			$term_ids[] = $term_id;
+		}
+
+		// Generate CSS
+		$this->css_generator->generate_and_save_css();
+
+		// Retrieve saved CSS
+		$saved_css = get_option( 'tec_events_category_color_css' );
+
+		// Ensure the CSS is saved
+		$this->assertNotEmpty( $saved_css, 'Generated CSS should be saved in wp_options.' );
+
+		// Replace term IDs in the CSS to make the snapshot stable
+		foreach ( $term_ids as $index => $term_id ) {
+			$saved_css = str_replace( (string) $term_id, "{TERM_ID_$index}", $saved_css );
+		}
+
+		// Assert against snapshot
+		$this->assertMatchesSnapshot( $saved_css );
+	}
+
 }
