@@ -91,21 +91,26 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @param Event_Category_Meta $meta The metadata handler.
 	 *
-	 * @return string HTML for color preview or `-` if no colors exist.
+	 * @return string HTML for color preview square.
 	 */
 	protected function get_column_category_color_preview( Event_Category_Meta $meta ): string {
 		$meta_keys = tribe( Meta_Keys::class )->get_all_keys();
-		
-		$category_color_fields = array_map( function( $key, $meta_key ) use ( $meta ) {
-			$value = esc_attr( $meta->get( $meta_key ) );
-			return in_array( $key, [ 'primary', 'secondary', 'text' ], true ) 
-				? sanitize_hex_color( $value )
-				: $value;
-		}, array_keys( $meta_keys ), $meta_keys );
+
+		$category_color_fields = array_map(
+			function ( $key, $meta_key ) use ( $meta ) {
+				$value = esc_attr( $meta->get( $meta_key ) );
+
+				return in_array( $key, [ 'primary', 'secondary', 'text' ], true )
+					? sanitize_hex_color( $value )
+					: $value;
+			},
+			array_keys( $meta_keys ),
+			$meta_keys
+		);
 
 		$category_color_fields = array_combine( array_keys( $meta_keys ), $category_color_fields );
 
-		// If no primary or secondary color is set, return transparent
+		// If no primary or secondary color is set, return transparent.
 		if ( empty( $category_color_fields['primary'] ) || empty( $category_color_fields['secondary'] ) ) {
 			return 'transparent';
 		}

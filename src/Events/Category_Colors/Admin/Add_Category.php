@@ -9,9 +9,7 @@
 
 namespace TEC\Events\Category_Colors\Admin;
 
-use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
-use Tribe__Events__Main;
 
 /**
  * Class Add_Category
@@ -29,7 +27,7 @@ class Add_Category extends Abstract_Admin {
 	 * @since TBD
 	 *
 	 * @param string $taxonomy The taxonomy slug.
-	 * 
+	 *
 	 * @return string The rendered template HTML.
 	 */
 	public function display_category_fields( string $taxonomy ): string {

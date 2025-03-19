@@ -1,4 +1,13 @@
 <?php
+/**
+ * Meta Keys Helper for Category Colors.
+ *
+ * This class manages the meta keys used for storing category color data.
+ * It provides utility methods for retrieving prefixed meta keys and a list of all available keys.
+ *
+ * @since   TBD
+ * @package TEC\Events\Category_Colors
+ */
 
 namespace TEC\Events\Category_Colors;
 
@@ -50,11 +59,11 @@ class Meta_Keys {
 	 * @return array<string, string> List of all meta keys with their full values.
 	 */
 	public static function get_all_keys(): array {
-		$full_keys = [];
-		foreach ( self::$keys as $key => $value ) {
-			$full_keys[ $key ] = self::$meta_key_prefix . $value;
-		}
-
-		return $full_keys;
+		return array_map(
+			function ( $value ) {
+				return self::$meta_key_prefix . $value;
+			},
+			self::$keys
+		);
 	}
 }

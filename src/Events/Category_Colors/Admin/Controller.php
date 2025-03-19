@@ -50,9 +50,8 @@ class Controller extends Controller_Contract {
 		add_action( "created_{$taxonomy}", [ $this, 'save_add_category_fields' ] );
 		add_action( "edited_{$taxonomy}", [ $this, 'save_edit_category_fields' ] );
 		add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
-		add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ],10 , 3 );
+		add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
 		add_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
-
 	}
 
 	/**
@@ -147,8 +146,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 *
-	 * @param string       $column_name The name of the column.
-	 * @param string|object $screen     The current screen.
+	 * @param string        $column_name The name of the column.
+	 * @param string|object $screen      The current screen.
 	 */
 	public function add_quick_edit_fields( $column_name, $screen ) {
 		$this->container->make( Quick_Edit::class )->add_quick_edit_fields( $column_name, $screen );

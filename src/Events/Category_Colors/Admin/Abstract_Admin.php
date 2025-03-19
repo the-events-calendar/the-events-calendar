@@ -63,10 +63,10 @@ abstract class Abstract_Admin {
 	 */
 	protected function get_default_values(): array {
 		return [
-			'primary'    => '',
-			'secondary' => '',
-			'text'      => '',
-			'priority'  => 0,
+			'primary'          => '',
+			'secondary'        => '',
+			'text'             => '',
+			'priority'         => 0,
 			'hide_from_legend' => '',
 		];
 	}
