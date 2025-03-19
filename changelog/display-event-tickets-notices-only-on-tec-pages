@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Improved user experience by ensuring Event Tickets installation and activation notices only appear on TEC-related admin pages.
