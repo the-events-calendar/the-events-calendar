@@ -7,6 +7,7 @@ use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 use tad\WP\Snapshots\WPHtmlOutputDriver;
 use PHPUnit\Framework\MockObject\MockObject;
+use WP_Screen;
 
 /**
  * Tests for the Install_Event_Tickets class
@@ -55,7 +56,7 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		remove_filter( 'is_admin', '__return_false' );
 		
 		// Assert
-		$this->assertEquals( false, $result );
+		$this->assertSame( false, $result );
 	}
 
 	/**
@@ -75,7 +76,7 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		// Restore the global
 		$GLOBALS['current_screen'] = $original_screen;
 		
-		$this->assertEquals( false, $result );
+		$this->assertSame( false, $result );
 	}
 
 	/**
@@ -85,16 +86,15 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 	public function test_is_tec_related_page_with_tec_post_types( $post_type ) {
 		$et_notice = tribe( Install_Event_Tickets::class );
 		
-		// Create a mock screen object
-		$screen = (object) [
-			'post_type' => $post_type,
-			'id' => 'edit-' . $post_type
-		];
+		// Create a WP_Screen instance
+		$screen = WP_Screen::get( 'edit-' . $post_type );
+		$screen->post_type = $post_type;
+		$screen->id = 'edit-' . $post_type;
 		
 		// Save the current global
 		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
 		
-		// Set the global to our mock
+		// Set the global to our instance
 		$GLOBALS['current_screen'] = $screen;
 		
 		$result = $et_notice->is_tec_related_page();
@@ -102,7 +102,7 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		// Restore the global
 		$GLOBALS['current_screen'] = $original_screen;
 		
-		$this->assertEquals( true, $result );
+		$this->assertTrue( $result );
 	}
 
 	/**
@@ -112,16 +112,15 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 	public function test_is_tec_related_page_with_tec_screen_ids( $screen_id ) {
 		$et_notice = tribe( Install_Event_Tickets::class );
 		
-		// Create a mock screen object
-		$screen = (object) [
-			'post_type' => '',
-			'id' => $screen_id
-		];
+		// Create a WP_Screen instance
+		$screen = WP_Screen::get( $screen_id );
+		$screen->post_type = '';
+		$screen->id = $screen_id;
 		
 		// Save the current global
 		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
 		
-		// Set the global to our mock
+		// Set the global to our instance
 		$GLOBALS['current_screen'] = $screen;
 		
 		$result = $et_notice->is_tec_related_page();
@@ -129,7 +128,7 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		// Restore the global
 		$GLOBALS['current_screen'] = $original_screen;
 		
-		$this->assertEquals( true, $result );
+		$this->assertTrue( $result );
 	}
 
 	/**
@@ -138,16 +137,15 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 	public function test_is_tec_related_page_with_non_tec_screen() {
 		$et_notice = tribe( Install_Event_Tickets::class );
 		
-		// Create a mock screen object
-		$screen = (object) [
-			'post_type' => 'post',
-			'id' => 'edit-post'
-		];
+		// Create a WP_Screen instance
+		$screen = WP_Screen::get( 'edit-post' );
+		$screen->post_type = 'post';
+		$screen->id = 'edit-post';
 		
 		// Save the current global
 		$original_screen = isset( $GLOBALS['current_screen'] ) ? $GLOBALS['current_screen'] : null;
 		
-		// Set the global to our mock
+		// Set the global to our instance
 		$GLOBALS['current_screen'] = $screen;
 		
 		$result = $et_notice->is_tec_related_page();
@@ -155,7 +153,7 @@ class Install_Tickets_NoticeTest extends HtmlPartialTestCase {
 		// Restore the global
 		$GLOBALS['current_screen'] = $original_screen;
 		
-		$this->assertEquals( false, $result );
+		$this->assertFalse( $result );
 	}
 
 	/**
