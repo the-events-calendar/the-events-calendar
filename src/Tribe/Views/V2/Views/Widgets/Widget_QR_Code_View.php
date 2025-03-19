@@ -40,7 +40,7 @@ class Widget_QR_Code_View extends Widget_View {
 	 */
 	protected function setup_repository_args( Context $context = null ) {
 		$context ??= $this->context;
-		$args               = parent::setup_repository_args( $context );
+		$args      = parent::setup_repository_args( $context );
 
 		$args['ends_after'] = 'now';
 
