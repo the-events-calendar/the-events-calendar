@@ -21,6 +21,8 @@ use Tribe__Context as Context;
 class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @var string
 	 */
 	protected static $widget_in_use;
 
@@ -84,6 +86,8 @@ class Widget_QR_Code extends Widget_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @param array<string,mixed> $_deprecated The widget arguments, as set by the user in the widget string.
 	 */
 	public function setup_view( $_deprecated ) {
 		parent::setup_view( $_deprecated );
@@ -120,7 +124,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	protected function remove_hooks() {
 		parent::remove_hooks();
 
-		remove_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups'] );
+		remove_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups' ] );
 	}
 
 	/**
@@ -128,7 +132,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<string> $widgets The list of widgets
+	 * @param array<string> $groups The list of widget groups.
 	 *
 	 * @return array<string> The modified list of widgets.
 	 */
@@ -140,6 +144,11 @@ class Widget_QR_Code extends Widget_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @param array $new_instance New settings for this instance as input by the user via WP_Widget::form().
+	 * @param array $old_instance Old settings for this instance.
+	 *
+	 * @return array<string,mixed> Updated settings to save.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$updated_instance = $old_instance;
@@ -189,6 +198,11 @@ class Widget_QR_Code extends Widget_Abstract {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @param array<string, mixed> $arguments — Current set of arguments.
+	 * @param \Tribe__Context      $context — The request context.
+	 *
+	 * @return array<string, mixed> — The translated widget arguments.
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {
 		$alterations = parent::args_to_context( $arguments, $context );
