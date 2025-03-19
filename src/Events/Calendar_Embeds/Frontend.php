@@ -13,6 +13,8 @@ use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe\Events\Views\V2\Assets as Event_Assets;
 use TEC\Common\StellarWP\Assets\Asset;
+use Tribe\Events\Views\V2\View;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller
@@ -58,6 +60,7 @@ class Frontend extends Controller_Contract {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_filter( 'embed_template', [ $this, 'overwrite_embed_template' ] );
 		add_filter( 'the_content', [ $this, 'overwrite_content' ] );
+		add_filter( 'tribe_repository_events_query_args', [ $this, 'filter_repository_events_query_args' ] );
 	}
 
 	/**
@@ -71,6 +74,50 @@ class Frontend extends Controller_Contract {
 		remove_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		remove_filter( 'embed_template', [ $this, 'overwrite_embed_template' ] );
 		remove_filter( 'the_content', [ $this, 'overwrite_content' ] );
+		remove_filter( 'tribe_repository_events_query_args', [ $this, 'filter_repository_events_query_args' ] );
+	}
+
+	/**
+	 * Filters the repository events query args.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $args The query args.
+	 *
+	 * @return array The query args.
+	 */
+	public function filter_repository_events_query_args( $args ) {
+		$context = tribe_context();
+		if ( 'month' !== $context->get( 'view' ) ) {
+			return $args;
+		}
+
+		$view_url = $context->get( 'view_prev_url' );
+
+		$embed = '';
+		if ( $view_url ) {
+			wp_parse_str( wp_parse_url( $view_url, PHP_URL_QUERY ), $embed );
+
+			if ( ! empty( $embed['embed'] ) ) {
+				$embed = $embed['embed'];
+			}
+		}
+
+		static $is_ece = null;
+
+		if ( null === $is_ece ) {
+			$is_ece = is_singular( Calendar_Embeds::POSTTYPE );
+		}
+
+		if ( ! $is_ece && ! $embed ) {
+			return $args;
+		}
+
+		if ( ! empty( $args['tax_query'][ TEC::TAXONOMY . '_term_id_in' ] ) ) {
+			$args['tax_query'][ TEC::TAXONOMY . '_term_id_in' ]['operator'] = 'AND';
+		}
+
+		return $args;
 	}
 
 	/**
