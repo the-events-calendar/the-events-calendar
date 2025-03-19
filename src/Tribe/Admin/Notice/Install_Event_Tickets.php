@@ -221,12 +221,12 @@ class Install_Event_Tickets {
 		
 		// Match any TEC post type screens (events, organizers, venues).
 		$tec_post_types = [
-			\Tribe__Events__Main::POSTTYPE,
-			\Tribe__Events__Organizer::POSTTYPE,
-			\Tribe__Events__Venue::POSTTYPE
+			\Tribe__Events__Main::POSTTYPE      => true,
+			\Tribe__Events__Organizer::POSTTYPE => true,
+			\Tribe__Events__Venue::POSTTYPE     => true,
 		];
 		
-		if ( in_array( $current_screen->post_type, $tec_post_types, true ) ) {
+		if ( isset( $tec_post_types[ $current_screen->post_type ] ) ) {
 			return true;
 		}
 		
