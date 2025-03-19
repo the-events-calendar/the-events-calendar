@@ -169,8 +169,8 @@ class Install_Event_Tickets {
 
 		return ! $this->is_installed()
 			&& empty( tribe_get_request_var( 'welcome-message-the-events-calendar' ) )
-			&& ! $this->is_install_plugin_page()
-			&& $this->is_tec_related_page();
+			&& $this->is_tec_related_page()
+			&& ! $this->is_install_plugin_page();
 	}
 
 	/**
@@ -186,6 +186,9 @@ class Install_Event_Tickets {
 			return false;
 		}
 
+		$plugin_status_check = $this->is_installed() && ! $this->is_active();
+		$is_admin_relevant_page = $this->is_tec_related_page();
+
 		/**
 		 * Filters whether the `Event Tickets` admin notice should display.
 		 *
@@ -193,10 +196,7 @@ class Install_Event_Tickets {
 		 *
 		 * @param bool $should_display True if the notice should display.
 		 */
-		return apply_filters( 
-			'tec_events_admin_notice_event_tickets_should_display', 
-			$this->is_installed() && ! $this->is_active() && ! $this->is_install_plugin_page() && $this->is_tec_related_page()
-		);
+		return apply_filters(  'tec_events_admin_notice_event_tickets_should_display',  $plugin_status_check && $is_admin_relevant_page );
 	}
 
 	/**
