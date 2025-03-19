@@ -177,7 +177,7 @@ class EventVenue extends Component {
 				removeVenue={ this.renderRemoveAction() }
 			/>
 		);
-	}
+	};
 
 	renderSearchOrCreate() {
 		// @todo [BTRIA-618]: The store should not be passed through like this as a prop.
@@ -311,14 +311,14 @@ class EventVenue extends Component {
 						label={ __( 'Show Google Maps Link', 'the-events-calendar' ) }
 						checked={ showMapLink }
 						onChange={ toggleVenueMapLink }
-						__nextHasNoMarginBottom={true}
+						__nextHasNoMarginBottom={ true }
 					/>
 					{ embedMap && (
 						<ToggleControl
 							label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
 							checked={ showMap }
 							onChange={ toggleVenueMap }
-							__nextHasNoMarginBottom={true}
+							__nextHasNoMarginBottom={ true }
 						/>
 					) }
 					<EditLink
@@ -411,7 +411,7 @@ class EventVenue extends Component {
 		const { venue } = this.props;
 
 		return isInteger( venue ) && venue === this.getVenueId();
-	}
+	};
 
 	/**
 	 * Once withDetails is decoupled from state, this should move to container.
@@ -424,7 +424,7 @@ class EventVenue extends Component {
 		if ( this.hasVenue() && volatile ) {
 			return onEdit;
 		}
-	}
+	};
 
 	/**
 	 * Get the coordinates according to the venue address
@@ -458,7 +458,7 @@ class EventVenue extends Component {
 				derivedAddressString: address,
 			} );
 		} );
-	}
+	};
 }
 
 export default EventVenue;
