@@ -15,8 +15,46 @@
 			class="tec-events-calendar-embeds__snippet-modal-textarea"
 			aria-label="Embed snippet code"
 			rows="3"
-			readonly>&lt;iframe src=&quot;http://wordpress.test/?tec_calendar_embed=ece-static-slug-1&amp;#038;embed=true&quot;  width=&quot;100%&quot; height=&quot;1065&quot; style=&quot;max-width:100%;&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;</textarea>
-					<span class="screen-reader-text tec-copy-text-target-1">&lt;iframe src=&quot;http://wordpress.test/?tec_calendar_embed=ece-static-slug-1&#038;embed=true&quot;  width=&quot;100%&quot; height=&quot;1065&quot; style=&quot;max-width:100%;&quot; frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;</span>
+			readonly>&lt;style scoped&gt;
+	iframe[data-tec-events-ece-iframe=&quot;true&quot;] {
+		width: 100%;
+		height: calc( 100vw + 100px );
+		max-width: 100%;
+	}
+
+	@media screen and (min-width: 600px) {
+		iframe[data-tec-events-ece-iframe=&quot;true&quot;] {
+			height: 100vw;
+		}
+	}
+
+	@media screen and (min-width: 853px) {
+		iframe[data-tec-events-ece-iframe=&quot;true&quot;] {
+			height: 1065px;
+		}
+	}
+&lt;/style&gt;
+&lt;iframe data-tec-events-ece-iframe=&quot;true&quot; src=&quot;http://wordpress.test/?tec_calendar_embed=ece-static-slug-1&amp;#038;embed=true&quot;  frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;</textarea>
+					<span class="screen-reader-text tec-copy-text-target-1">&lt;style scoped&gt;
+	iframe[data-tec-events-ece-iframe=&quot;true&quot;] {
+		width: 100%;
+		height: calc( 100vw + 100px );
+		max-width: 100%;
+	}
+
+	@media screen and (min-width: 600px) {
+		iframe[data-tec-events-ece-iframe=&quot;true&quot;] {
+			height: 100vw;
+		}
+	}
+
+	@media screen and (min-width: 853px) {
+		iframe[data-tec-events-ece-iframe=&quot;true&quot;] {
+			height: 1065px;
+		}
+	}
+&lt;/style&gt;
+&lt;iframe data-tec-events-ece-iframe=&quot;true&quot; src=&quot;http://wordpress.test/?tec_calendar_embed=ece-static-slug-1&#038;embed=true&quot;  frameborder=&quot;0&quot; &gt;&lt;/iframe&gt;</span>
 			<div class="tec-copy-to-clipboard-notice">
 				<div class="tec-copy-to-clipboard-notice-content tec-copy-to-clipboard-notice-content-1" aria-live="polite">
 				</div>
