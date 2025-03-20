@@ -11,6 +11,8 @@ namespace TEC\Events\Classy;
 
 use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Events\Custom_Tables\V1\Models\Event;
+use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
 use WP_Block_Editor_Context;
 use WP_Post;
@@ -175,6 +177,54 @@ class Controller extends ControllerContract {
 			->enqueue_on( 'enqueue_block_editor_assets' )
 			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
 			->register();
+
+		// TESTING
+		if ( str_starts_with( $_SERVER['REQUEST_URI'] ?? '', '/wp-admin/post-new.php' ) ) {
+			add_filter( 'save_post_' . TEC::POSTTYPE, [ $this, 'test_filter_post_data' ], 0, 2 );
+		}
+		// END TESTING
+	}
+
+	/**
+	 *
+	 * Filters the data that is passed to the `wp_insert_post` function to add missing fields to an Event saved from
+	 * the Classy Editor context while the feature and fields are developed.
+	 *
+	 * @param int     $post_id The ID of the post being saved.
+	 * @param WP_Post $post    The post object.
+	 *
+	 * @return void The post is updated with the missing fields.
+	 */
+	public function test_filter_post_data( $post_id, $post ): void {
+		if ( $post->post_type !== TEC::POSTTYPE ) {
+			return;
+		}
+
+		$occurrence_count = Occurrence::where( 'post_id', '=', $post_id )->count();
+
+		if ( $occurrence_count > 0 ) {
+			return;
+		}
+
+		$meta = [
+			'_EventStartDate'    => '2025-09-14 10:00:00',
+			'_EventDuration'     => '7200',
+			'_EventStartDateUTC' => '2025-09-14 08:00:00',
+			'_EventEndDate'      => '2025-09-14 12:00:00',
+			'_EventEndDateUTC'   => '2025-09-14 10:00:00',
+			'_EventTimezoneAbbr' => 'CEST',
+			'_EventTimezone'     => 'Europe/Paris',
+		];
+
+		foreach ( $meta as $meta_key => $meta_value ) {
+			update_post_meta( $post_id, $meta_key, $meta_value );
+		}
+
+		$event_data = Event::data_from_post( $post_id );
+		Event::upsert( [ 'post_id' ], $event_data );
+		$event = Event::where( 'post_id', '=', $post_id )->first();
+		/** @var Event $event */
+		$event->occurrences()->save_occurrences();
 	}
 
 	/**
@@ -190,6 +240,10 @@ class Controller extends ControllerContract {
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
+
+		// TESTING
+		remove_filter( 'wp_insert_post_data', [ $this, 'test_filter_post_data' ], 0 );
+		// END TESTING
 	}
 
 	/**
