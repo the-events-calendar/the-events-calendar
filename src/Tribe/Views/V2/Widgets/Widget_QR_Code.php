@@ -60,7 +60,7 @@ class Widget_QR_Code extends Widget_Abstract {
 		// Event widget options.
 		'id'                => null,
 		'alias-slugs'       => null,
-		'title'             => '',
+		'widget_title'      => '',
 		'qr_code_size'      => '6',
 		'redirection'       => 'current',
 		'specific_event_id' => '',
@@ -102,7 +102,7 @@ class Widget_QR_Code extends Widget_Abstract {
 		parent::setup_default_arguments();
 
 		// Setup default title.
-		$this->default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the QR Code Widget.', 'the-events-calendar' );
+		$this->default_arguments['widget_title'] = _x( 'QR Code', 'The default title of the QR Code Widget.', 'the-events-calendar' );
 
 		return $this->default_arguments;
 	}
@@ -153,7 +153,7 @@ class Widget_QR_Code extends Widget_Abstract {
 		$updated_instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$updated_instance['title']             = wp_strip_all_tags( $new_instance['title'] );
+		$updated_instance['widget_title']      = wp_strip_all_tags( $new_instance['widget_title'] );
 		$updated_instance['qr_code_size']      = sanitize_text_field( $new_instance['qr_code_size'] );
 		$updated_instance['redirection']       = sanitize_text_field( $new_instance['redirection'] );
 		$updated_instance['specific_event_id'] = absint( $new_instance['specific_event_id'] );
@@ -166,8 +166,8 @@ class Widget_QR_Code extends Widget_Abstract {
 	 */
 	public function setup_admin_fields() {
 		return [
-			'title'             => [
-				'id'    => 'title',
+			'widget_title'      => [
+				'id'    => 'widget_title',
 				'label' => _x( 'Title:', 'The label for the widget title setting.', 'the-events-calendar' ),
 				'type'  => 'text',
 			],
@@ -235,6 +235,9 @@ class Widget_QR_Code extends Widget_Abstract {
 	 */
 	protected function args_to_context( array $arguments, Context $context ) {
 		$alterations = parent::args_to_context( $arguments, $context );
+
+		// Widget title.
+		$alterations['widget_title'] = sanitize_text_field( $arguments['widget_title'] );
 
 		// QR Code Size.
 		$alterations['qr_code_size'] = sanitize_text_field( $arguments['qr_code_size'] );
