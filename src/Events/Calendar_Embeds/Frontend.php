@@ -211,7 +211,7 @@ class Frontend extends Controller_Contract {
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->enqueue_on( 'tec_events_calendar_embeds_enqueue_scripts' )
-			->set_dependencies( 'jquery', 'tribe-events-views-v2-manager' )
+			->set_dependencies( 'jquery', 'tribe-events-views-v2-manager', 'wp-hooks' )
 			->in_footer()
 			->register();
 

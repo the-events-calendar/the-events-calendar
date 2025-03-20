@@ -63,6 +63,16 @@ window.tec.main.ece = window.tec.main.ece || {};
 	};
 
 	/**
+	 * Refresh the more events links.
+	 *
+	 * @since TBD
+	 */
+	obj.refreshMoreEventsLinks = () => {
+		obj.openMoreEventsLinkInNewTab( obj.selectors.moreEventsLink );
+		obj.openMoreEventsLinkInNewTab( obj.selectors.moreEventsLinkMobile );
+	};
+
+	/**
 	 * Ready function.
 	 *
 	 * @since TBD
@@ -80,8 +90,8 @@ window.tec.main.ece = window.tec.main.ece || {};
 		$document.on( 'click', obj.selectors.eventsInDay, obj.openEventInNewTab );
 		$document.on( 'click', obj.selectors.eventsInToolTip, obj.openEventInNewTab );
 		$document.on( 'click', obj.selectors.eventsInMobile, obj.openEventInNewTab );
-		obj.openMoreEventsLinkInNewTab( obj.selectors.moreEventsLink );
-		obj.openMoreEventsLinkInNewTab( obj.selectors.moreEventsLinkMobile );
+		obj.refreshMoreEventsLinks();
+		wp.hooks.addAction( 'tec.events.afterRequest', 'tec.events.ece', obj.refreshMoreEventsLinks );
 	};
 
 	// Init on dom ready.
