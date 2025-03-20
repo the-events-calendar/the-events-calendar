@@ -12,6 +12,8 @@
 use TEC\Events\Calendar_Embeds\Calendar_Embeds;
 use TEC\Events\Calendar_Embeds\NotPublishedCalendarException;
 
+defined( 'ABSPATH' ) || exit;
+
 try {
 	$snippet = Calendar_Embeds::get_iframe( $post_id, true );
 } catch ( NotPublishedCalendarException $e ) {

@@ -20,7 +20,9 @@ window.tec.main.ece = window.tec.main.ece || {};
 		container: '[data-js="tribe-events-view"]',
 		eventsInDay: '.tribe-events-calendar-month__calendar-event a',
 		eventsInToolTip: '.tribe-events-tooltip-theme a',
+		eventsInMobile: '.tribe-events-calendar-month-mobile-events__mobile-event-title a',
 		moreEventsLink: '.tribe-events-calendar-month__more-events-link',
+		moreEventsLinkMobile: '.tribe-events-calendar-month-mobile-events__more-events-link',
 	};
 
 	/**
@@ -40,6 +42,27 @@ window.tec.main.ece = window.tec.main.ece || {};
 	};
 
 	/**
+	 * Open the more events link in a new tab.
+	 *
+	 * @since TBD
+	 * @param {string} selector
+	 */
+	obj.openMoreEventsLinkInNewTab = ( selector ) => {
+		const moreLinkTargets = $document.find( selector );
+		if ( ! moreLinkTargets.length ) {
+			return;
+		}
+
+		// Remove the AJAX handler from the more link.
+		$( obj.selectors.container ).find( selector ).off( 'click.tribeEvents', tribe.events.views.manager.onLinkClick );
+
+		// Add the new handler to the more link.
+		moreLinkTargets.each( ( index, element ) => {
+			$( element ).on( 'click.tribeEvents', obj.openEventInNewTab );
+		} );
+	};
+
+	/**
 	 * Ready function.
 	 *
 	 * @since TBD
@@ -56,19 +79,9 @@ window.tec.main.ece = window.tec.main.ece || {};
 
 		$document.on( 'click', obj.selectors.eventsInDay, obj.openEventInNewTab );
 		$document.on( 'click', obj.selectors.eventsInToolTip, obj.openEventInNewTab );
-
-		const moreLinkTargets = $document.find( obj.selectors.moreEventsLink );
-		if ( ! moreLinkTargets.length ) {
-			return;
-		}
-
-		// Remove the AJAX handler from the more link.
-		$( obj.selectors.container ).find( obj.selectors.moreEventsLink ).off( 'click.tribeEvents', tribe.events.views.manager.onLinkClick );
-
-		// Add the new handler to the more link.
-		moreLinkTargets.each( ( index, element ) => {
-			$( element ).on( 'click.tribeEvents', obj.openEventInNewTab );
-		} );
+		$document.on( 'click', obj.selectors.eventsInMobile, obj.openEventInNewTab );
+		obj.openMoreEventsLinkInNewTab( obj.selectors.moreEventsLink );
+		obj.openMoreEventsLinkInNewTab( obj.selectors.moreEventsLinkMobile );
 	};
 
 	// Init on dom ready.
