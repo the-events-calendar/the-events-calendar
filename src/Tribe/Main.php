@@ -699,7 +699,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( TEC\Events\Notifications\Provider::class );
 
 			// Set up the QR Code system.
-			tribe_register_provider( TEC\Events\QR\Provider::class );
+			tribe_register_provider( TEC\Events\QR\Controller::class );
 
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );

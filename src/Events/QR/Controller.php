@@ -8,11 +8,12 @@
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\QR\Shortcode;
 
 /**
  * Class Controller.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\QR
  */
@@ -25,12 +26,12 @@ class Controller extends Controller_Contract {
 	 *
 	 * @var string
 	 */
-	private $shortcode_tag = 'tec_event_qr';
+	private $slug = 'tec_event_qr';
 
 	/**
 	 * Register the controller.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 *
 	 * @uses  Notices::register_admin_notices()
 	 *
@@ -38,9 +39,8 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->singleton( Settings::class );
-		$this->container->singleton( Shortcode::class );
 
-		$this->add_actions();
+		$this->add_hooks();
 
 		$this->register_assets();
 	}
@@ -48,23 +48,23 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since   TBD
+	 * @since TBD
 	 *
 	 * @return void
 	 */
 	public function unregister(): void {
-		$this->remove_actions();
+		$this->remove_hooks();
 	}
 
 	/**
 	 * Adds the actions required by the controller.
 	 *
-	 * @since 5.7.0
+	 * @since TBD
 	 *
 	 * @return void
 	 */
-	protected function add_actions(): void {
-		add_action( 'init', [ $this, 'register_shortcode' ] );
+	protected function add_hooks(): void {
+		add_filter( 'tribe_shortcodes', [ $this, 'filter_register_shortcodes' ] );
 
 		add_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
 	}
@@ -72,12 +72,12 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes the actions required by the controller.
 	 *
-	 * @since 5.7.0
+	 * @since TBD
 	 *
 	 * @return void
 	 */
-	protected function remove_actions(): void {
-		remove_action( 'init', [ $this, 'register_shortcode' ] );
+	protected function remove_hooks(): void {
+		remove_filter( 'tribe_shortcodes', [ $this, 'filter_register_shortcodes' ] );
 
 		remove_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
 	}
@@ -104,7 +104,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the assets related to the QR module.
 	 *
-	 * @since 5.7.0
+	 * @since TBD
 	 *
 	 * @return void
 	 */
@@ -112,27 +112,33 @@ class Controller extends Controller_Contract {
 		// @TODO load our QR CSS and JS here using tribe_asset()
 	}
 
-
 	/**
-	 * Gets the shortcode tag.
+	 * Gets the shortcode slug.
 	 *
 	 * @since TBD
 	 *
-	 * @return string The shortcode tag.
+	 * @return string The shortcode slug.
 	 */
-	public function get_shortcode_tag(): string {
-		return $this->shortcode_tag;
+	public function get_slug(): string {
+		return $this->slug;
 	}
 
 	/**
-	 * This will be called at hook "init" to allow other plugins and themes to hook to shortcode easily
+	 * Register shortcodes.
+	 *
+	 * @see   \Tribe\Shortcode\Manager::get_registered_shortcodes()
 	 *
 	 * @since TBD
-	 * @return void
+	 *
+	 * @param array $shortcodes An associative array of shortcodes in the shape `[ <slug> => <class> ]`.
+	 *
+	 * @return array
 	 */
-	public function register_shortcode() {
-		$tag = $this->get_shortcode_tag();
+	public function filter_register_shortcodes( array $shortcodes ) {
+		$slug = $this->get_slug();
 
-		add_shortcode( $tag, [ $this->container->make( Shortcode::class ), 'render' ] );
+		$shortcodes[ $slug ] = Shortcode::class;
+
+		return $shortcodes;
 	}
 }
