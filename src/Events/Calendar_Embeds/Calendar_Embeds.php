@@ -284,9 +284,6 @@ class Calendar_Embeds extends Controller_Contract {
 		$embed_url = 'publish' === $embed->post_status ? get_post_embed_url( $embed ) : get_preview_post_link( $embed, [ 'embed' => 1 ] );
 
 		$iframe_attributes = [
-			'width'       => '100%',
-			'height'      => '1065',
-			'style'       => 'max-width:100%;',
 			'frameborder' => '0',
 		];
 
@@ -305,10 +302,8 @@ class Calendar_Embeds extends Controller_Contract {
 
 		ob_start();
 		?>
-		<iframe src="<?php echo esc_url( $embed_url ); ?>" <?php tribe_attributes( $iframe_attributes ); ?>></iframe>
+		<iframe data-tec-events-ece-iframe="true" src="<?php echo esc_url( $embed_url ); ?>" <?php tribe_attributes( $iframe_attributes ); ?>></iframe>
 		<?php
-		$iframe = trim( ob_get_clean() );
-
 		/**
 		 * Filter the iframe code for the calendar embed.
 		 *
@@ -320,9 +315,32 @@ class Calendar_Embeds extends Controller_Contract {
 		 *
 		 * @return string
 		 */
-		return (string) apply_filters( 'tec_events_calendar_embeds_iframe', $iframe, $embed, $embed_url );
+		$iframe = (string) apply_filters( 'tec_events_calendar_embeds_iframe', trim( ob_get_clean() ), $embed, $embed_url );
+
+		/**
+		 * Filter the iframe and styles for the calendar embed.
+		 *
+		 * @since TBD
+		 *
+		 * @param string  $iframe    The iframe code.
+		 * @param WP_Post $embed     The embed post object.
+		 * @param string  $embed_url The embed URL.
+		 *
+		 * @return string
+		 */
+		return (string) apply_filters( 'tec_events_calendar_embeds_iframe_and_styles', self::print_iframe_styles() . $iframe, $embed, $embed_url );
 	}
 
+	/**
+	 * Prints the iframe styles.
+	 *
+	 * @since TBD
+	 *
+	 * @return string
+	 */
+	protected static function print_iframe_styles(): string {
+		return tribe( Template::class )->template( 'iframe-stylesheet', [], false );
+	}
 	/**
 	 * Get the event categories for a calendar embed.
 	 *

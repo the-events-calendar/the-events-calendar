@@ -1,3 +1,14 @@
+<?php
+/**
+ * Iframe stylesheet for a calendar embed.
+ *
+ * @since TBD
+ *
+ * @version TBD
+ */
+
+defined( 'ABSPATH' ) || exit;
+?>
 <style scoped>
 	iframe[data-tec-events-ece-iframe="true"] {
 		width: 100%;
@@ -17,4 +28,3 @@
 		}
 	}
 </style>
-<iframe data-tec-events-ece-iframe="true" src="http://wordpress.test/?tec_calendar_embed=ece&#038;embed=true"  frameborder="0" ></iframe>

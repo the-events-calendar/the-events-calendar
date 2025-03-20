@@ -9,6 +9,7 @@
  * @var int $post_id The post ID.
  */
 
+defined( 'ABSPATH' ) || exit;
 ?>
 <div>
 	<?php $this->template( 'embed-snippet-content' ); ?>
