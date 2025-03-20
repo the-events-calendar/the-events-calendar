@@ -54,16 +54,16 @@ class Widget_QR_Code extends Widget_Abstract {
 	 */
 	protected $default_arguments = [
 		// View options.
-		'view'                 => null,
-		'should_manage_url'    => false,
+		'view'              => null,
+		'should_manage_url' => false,
 
 		// Event widget options.
-		'id'                   => null,
-		'alias-slugs'          => null,
-		'title'                => '',
-		'qr_code_size'         => '6',
-		'redirection'          => 'current',
-		'specific_event_id'    => '',
+		'id'                => null,
+		'alias-slugs'       => null,
+		'title'             => '',
+		'qr_code_size'      => '6',
+		'redirection'       => 'current',
+		'specific_event_id' => '',
 	];
 
 	/**
