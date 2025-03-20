@@ -70,7 +70,7 @@ class Shortcode extends Shortcode_Abstract {
 			return $qr_code;
 		}
 
-		$qr_img = $qr_code->size( $size )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
+		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
 
 		return '<img alt="qr_code_image" src="' . $qr_img . '">';
 	}

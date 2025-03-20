@@ -61,10 +61,9 @@ class Widget_QR_Code extends Widget_Abstract {
 		'id'                   => null,
 		'alias-slugs'          => null,
 		'title'                => '',
-		'no_upcoming_events'   => false,
-		'featured_events_only' => false,
-		'jsonld_enable'        => true,
-		'tribe_is_qr_widget'   => true,
+		'qr_code_size'         => '6',
+		'redirection'          => 'current',
+		'specific_event_id'    => '',
 	];
 
 	/**
@@ -99,10 +98,11 @@ class Widget_QR_Code extends Widget_Abstract {
 	 * {@inheritDoc}
 	 */
 	protected function setup_default_arguments() {
+		// Call parent first to set up admin fields.
 		parent::setup_default_arguments();
 
 		// Setup default title.
-		$this->default_arguments['title'] = _x( 'Upcoming Events AAAAA', 'The default title of the List Widget.', 'the-events-calendar' );
+		$this->default_arguments['title'] = _x( 'Upcoming Events', 'The default title of the QR Code Widget.', 'the-events-calendar' );
 
 		return $this->default_arguments;
 	}
@@ -153,11 +153,10 @@ class Widget_QR_Code extends Widget_Abstract {
 		$updated_instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$updated_instance['title']                = wp_strip_all_tags( $new_instance['title'] );
-		$updated_instance['no_upcoming_events']   = ! empty( $new_instance['no_upcoming_events'] );
-		$updated_instance['featured_events_only'] = ! empty( $new_instance['featured_events_only'] );
-		$updated_instance['jsonld_enable']        = ! empty( $new_instance['jsonld_enable'] );
-		$updated_instance['tribe_is_list_widget'] = ! empty( $new_instance['tribe_is_list_widget'] );
+		$updated_instance['title']             = wp_strip_all_tags( $new_instance['title'] );
+		$updated_instance['qr_code_size']      = sanitize_text_field( $new_instance['qr_code_size'] );
+		$updated_instance['redirection']       = sanitize_text_field( $new_instance['redirection'] );
+		$updated_instance['specific_event_id'] = absint( $new_instance['specific_event_id'] );
 
 		return $this->filter_updated_instance( $updated_instance, $new_instance );
 	}
@@ -167,21 +166,61 @@ class Widget_QR_Code extends Widget_Abstract {
 	 */
 	public function setup_admin_fields() {
 		return [
-			'title'                => [
-				'label' => _x( 'WWW Title:', 'The label for the field of the title of the List Widget.', 'the-events-calendar' ),
+			'title'             => [
+				'id'    => 'title',
+				'label' => _x( 'Title:', 'The label for the widget title setting.', 'the-events-calendar' ),
 				'type'  => 'text',
 			],
-			'no_upcoming_events'   => [
-				'label' => _x( 'XXX Hide this widget if there are no upcoming events.', 'The label for the option to hide the List Widget if no upcoming events.', 'the-events-calendar' ),
-				'type'  => 'checkbox',
+			'qr_code_size'      => [
+				'id'      => 'qr_code_size',
+				'label'   => _x( 'QR Code Size:', 'The label for the QR code size setting.', 'the-events-calendar' ),
+				'type'    => 'dropdown',
+				'options' => [
+					[
+						'value' => '4',
+						'text'  => _x( '125x125', 'Small QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '8',
+						'text'  => _x( '250x250', 'Medium QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '21',
+						'text'  => _x( '650x650', 'Large QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '32',
+						'text'  => _x( '1000x1000', 'Extra large QR code size option', 'the-events-calendar' ),
+					],
+				],
 			],
-			'featured_events_only' => [
-				'label' => _x( 'FFF Limit to featured events only', 'The label for the option to only show featured events in the List Widget', 'the-events-calendar' ),
-				'type'  => 'checkbox',
+			'redirection'       => [
+				'id'      => 'redirection',
+				'label'   => _x( 'Redirection Behavior:', 'The label for the redirection behavior setting.', 'the-events-calendar' ),
+				'type'    => 'dropdown',
+				'options' => [
+					[
+						'value' => 'current',
+						'text'  => _x( 'Redirect to the current event', 'Current event redirection option', 'the-events-calendar' ),
+					],
+					[
+						'value' => 'next',
+						'text'  => _x( 'Redirect to the next upcoming event', 'Upcoming event redirection option', 'the-events-calendar' ),
+					],
+					[
+						'value' => 'id',
+						'text'  => _x( 'Redirect to a specific event ID', 'Specific event redirection option', 'the-events-calendar' ),
+					],
+					[
+						'value' => 'series_next',
+						'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
+					],
+				],
 			],
-			'jsonld_enable'        => [
-				'label' => _x( 'VVV Generate JSON-LD data', 'The label for the option to enable JSON-LD in the List Widget.', 'the-events-calendar' ),
-				'type'  => 'checkbox',
+			'specific_event_id' => [
+				'id'    => 'specific_event_id',
+				'label' => _x( 'Specific Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
+				'type'  => 'text',
 			],
 		];
 	}
@@ -197,14 +236,14 @@ class Widget_QR_Code extends Widget_Abstract {
 	protected function args_to_context( array $arguments, Context $context ) {
 		$alterations = parent::args_to_context( $arguments, $context );
 
-		// Only Featured Events.
-		$alterations['featured'] = tribe_is_truthy( $arguments['featured_events_only'] );
+		// QR Code Size.
+		$alterations['qr_code_size'] = sanitize_text_field( $arguments['qr_code_size'] );
 
-		// Enable JSON-LD?
-		$alterations['jsonld_enable'] = (int) tribe_is_truthy( $arguments['jsonld_enable'] );
+		// Redirection behavior.
+		$alterations['redirection'] = sanitize_text_field( $arguments['redirection'] );
 
-		// Hide widget if no events.
-		$alterations['no_upcoming_events'] = tribe_is_truthy( $arguments['no_upcoming_events'] );
+		// Specific event ID.
+		$alterations['specific_event_id'] = absint( $arguments['specific_event_id'] );
 
 		return $this->filter_args_to_context( $alterations, $arguments );
 	}
@@ -221,5 +260,20 @@ class Widget_QR_Code extends Widget_Abstract {
 	 */
 	public function add_full_stylesheet_to_customizer( $sheets, $css_template ) {
 		return array_merge( $sheets, [ 'tribe-events-widgets-v2-events-qr-code-full' ] );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_admin_fields() {
+		$fields    = $this->setup_admin_fields();
+		$arguments = $this->get_arguments();
+		$fields    = $this->filter_admin_fields( $fields );
+
+		foreach ( $fields as $field_name => $field ) {
+			$fields[ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
+		}
+
+		return $fields;
 	}
 }
