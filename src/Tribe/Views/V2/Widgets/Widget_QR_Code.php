@@ -1,0 +1,282 @@
+<?php
+/**
+ * QR Code Widget
+ *
+ * @since   TBD
+ *
+ * @package Tribe\Events\Views\V2\Widgets
+ */
+
+namespace Tribe\Events\Views\V2\Widgets;
+
+use Tribe__Context as Context;
+
+/**
+ * Class for the QR Code Widget.
+ *
+ * @since   TBD
+ *
+ * @package Tribe\Events\Views\V2\Widgets
+ */
+class Widget_QR_Code extends Widget_Abstract {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
+	protected static $widget_in_use;
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
+	protected static $widget_slug = 'events-qr-code';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
+	protected $view_slug = 'widget-events-qr-code';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var string
+	 */
+	protected static $widget_css_group = 'events-qr-code-widget';
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @var array<string,mixed>
+	 */
+	protected $default_arguments = [
+		// View options.
+		'view'              => null,
+		'should_manage_url' => false,
+
+		// Event widget options.
+		'id'                => null,
+		'alias-slugs'       => null,
+		'widget_title'      => '',
+		'qr_code_size'      => '6',
+		'redirection'       => 'current',
+		'specific_event_id' => '',
+	];
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_default_widget_name() {
+		return esc_html_x( 'Events QR Code', 'The name of the QR Code Widget.', 'the-events-calendar' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public static function get_default_widget_options() {
+		return [
+			'description' => esc_html_x( 'Shows a QR Code for an event.', 'The description of the QR Code Widget.', 'the-events-calendar' ),
+		];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param array<string,mixed> $_deprecated The widget arguments, as set by the user in the widget string.
+	 */
+	public function setup_view( $_deprecated ) {
+		parent::setup_view( $_deprecated );
+
+		add_filter( 'tribe_customizer_should_print_widget_customizer_styles', '__return_true' );
+		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'add_full_stylesheet_to_customizer' ], 12, 2 );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function setup_default_arguments() {
+		// Call parent first to set up admin fields.
+		parent::setup_default_arguments();
+
+		// Setup default title.
+		$this->default_arguments['widget_title'] = _x( 'QR Code', 'The default title of the QR Code Widget.', 'the-events-calendar' );
+
+		return $this->default_arguments;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function add_hooks() {
+		parent::add_hooks();
+
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_styles', '__return_true' );
+		add_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups' ] );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function remove_hooks() {
+		parent::remove_hooks();
+
+		remove_filter( 'tribe_events_virtual_assets_should_enqueue_widget_groups', [ $this, 'add_self_to_virtual_widget_groups' ] );
+	}
+
+	/**
+	 * Add this widget's css group to the VE list of widget groups to load icon styles for.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string> $groups The list of widget groups.
+	 *
+	 * @return array<string> The modified list of widgets.
+	 */
+	public function add_self_to_virtual_widget_groups( $groups ) {
+		$groups[] = static::get_css_group();
+
+		return $groups;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param array $new_instance New settings for this instance as input by the user via WP_Widget::form().
+	 * @param array $old_instance Old settings for this instance.
+	 *
+	 * @return array<string,mixed> Updated settings to save.
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$updated_instance = $old_instance;
+
+		/* Strip tags (if needed) and update the widget settings. */
+		$updated_instance['widget_title']      = wp_strip_all_tags( $new_instance['widget_title'] );
+		$updated_instance['qr_code_size']      = sanitize_text_field( $new_instance['qr_code_size'] );
+		$updated_instance['redirection']       = sanitize_text_field( $new_instance['redirection'] );
+		$updated_instance['specific_event_id'] = absint( $new_instance['specific_event_id'] );
+
+		return $this->filter_updated_instance( $updated_instance, $new_instance );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setup_admin_fields() {
+		return [
+			'widget_title'      => [
+				'id'    => 'widget_title',
+				'label' => _x( 'Title:', 'The label for the widget title setting.', 'the-events-calendar' ),
+				'type'  => 'text',
+			],
+			'qr_code_size'      => [
+				'id'      => 'qr_code_size',
+				'label'   => _x( 'QR Code Size:', 'The label for the QR code size setting.', 'the-events-calendar' ),
+				'type'    => 'dropdown',
+				'options' => [
+					[
+						'value' => '4',
+						'text'  => _x( '125x125', 'Small QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '8',
+						'text'  => _x( '250x250', 'Medium QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '21',
+						'text'  => _x( '650x650', 'Large QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '32',
+						'text'  => _x( '1000x1000', 'Extra large QR code size option', 'the-events-calendar' ),
+					],
+				],
+			],
+			'redirection'       => [
+				'id'      => 'redirection',
+				'label'   => _x( 'Redirection Behavior:', 'The label for the redirection behavior setting.', 'the-events-calendar' ),
+				'type'    => 'dropdown',
+				'options' => [
+					[
+						'value' => 'current',
+						'text'  => _x( 'Redirect to the current event', 'Current event redirection option', 'the-events-calendar' ),
+					],
+					[
+						'value' => 'next',
+						'text'  => _x( 'Redirect to the next upcoming event', 'Upcoming event redirection option', 'the-events-calendar' ),
+					],
+					[
+						'value' => 'id',
+						'text'  => _x( 'Redirect to a specific event ID', 'Specific event redirection option', 'the-events-calendar' ),
+					],
+					[
+						'value' => 'series_next',
+						'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
+					],
+				],
+			],
+			'specific_event_id' => [
+				'id'    => 'specific_event_id',
+				'label' => _x( 'Specific Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
+				'type'  => 'text',
+			],
+		];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param array<string, mixed> $arguments — Current set of arguments.
+	 * @param \Tribe__Context      $context — The request context.
+	 *
+	 * @return array<string, mixed> — The translated widget arguments.
+	 */
+	protected function args_to_context( array $arguments, Context $context ) {
+		$alterations = parent::args_to_context( $arguments, $context );
+
+		// Widget title.
+		$alterations['widget_title'] = sanitize_text_field( $arguments['widget_title'] );
+
+		// QR Code Size.
+		$alterations['qr_code_size'] = sanitize_text_field( $arguments['qr_code_size'] );
+
+		// Redirection behavior.
+		$alterations['redirection'] = sanitize_text_field( $arguments['redirection'] );
+
+		// Specific event ID.
+		$alterations['specific_event_id'] = absint( $arguments['specific_event_id'] );
+
+		return $this->filter_args_to_context( $alterations, $arguments );
+	}
+
+	/**
+	 * Add full events list widget stylesheets to customizer styles array to check.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param array<string> $sheets       Array of sheets to search for.
+	 * @param string        $css_template String containing the inline css to add.
+	 *
+	 * @return array Modified array of sheets to search for.
+	 */
+	public function add_full_stylesheet_to_customizer( $sheets, $css_template ) {
+		return array_merge( $sheets, [ 'tribe-events-widgets-v2-events-qr-code-full' ] );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function get_admin_fields() {
+		$fields    = $this->setup_admin_fields();
+		$arguments = $this->get_arguments();
+		$fields    = $this->filter_admin_fields( $fields );
+
+		foreach ( $fields as $field_name => $field ) {
+			$fields[ $field_name ] = $this->get_admin_data( $arguments, $field_name, $field );
+		}
+
+		return $fields;
+	}
+}
