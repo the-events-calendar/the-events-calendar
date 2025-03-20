@@ -13,6 +13,7 @@ namespace TEC\Events\Category_Colors\Repositories;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys;
+use WP_Post;
 
 /**
  * Provides the highest-priority event category based on category metadata.
@@ -29,12 +30,12 @@ class Category_Color_Priority_Category_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param int $event_id The ID of the event.
+	 * @param WP_Post $event The post object of the event.
 	 *
 	 * @return object|null The highest-priority category object, or null if none found.
 	 */
-	public function get_highest_priority_category( int $event_id ): ?object {
-		$categories = $this->get_event_categories( $event_id );
+	public function get_highest_priority_category( WP_Post $event ): ?object {
+		$categories = $this->get_event_categories( $event->ID );
 
 		if ( empty( $categories ) ) {
 			return null;

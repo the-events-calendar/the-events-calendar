@@ -1701,6 +1701,11 @@ class View implements View_Interface {
 		/** @var Rest_Endpoint $endpoint */
 		$endpoint = tribe( Rest_Endpoint::class );
 
+		$category_colors_priority_category = ( tribe_get_event() instanceof WP_Post )
+			? tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( tribe_get_event() )
+			: [];
+
+
 		$template_vars = [
 			'title'                             => $this->get_title( $events ),
 			'events'                            => $events,
@@ -1759,7 +1764,7 @@ class View implements View_Interface {
 			'past'                              => $this->context->get( 'past', false ),
 			'category_colors_enabled'           => tribe( Category_Color_Dropdown_Provider::class )->should_display_on_view( self::get_template_slug() ),
 			'category_colors_category_dropdown' => tribe( Category_Color_Dropdown_Provider::class )->get_dropdown_categories(),
-			'category_colors_priority_category' => tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $this->context->get( 'id', false ) ),
+			'category_colors_priority_category' => $category_colors_priority_category,
 			'category_colors_super_power'       => tribe_get_option( 'category-color-legend-superpowers', false ),
 			'category_colors_show_reset_button' => tribe_get_option( 'category-color-reset-button', false ),
 		];
