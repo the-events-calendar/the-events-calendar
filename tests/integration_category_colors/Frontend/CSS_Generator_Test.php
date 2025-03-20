@@ -214,7 +214,7 @@ class CSS_Generator_Test extends WPTestCase {
 
 		// Replace dynamic values with placeholders
 		foreach ( $term_ids as $index => $term_id ) {
-			$css = str_replace( (string) $term_id, "{TERM_ID_$index}", $css );
+			$css = str_replace( ".tribe_events_cat-category-{$term_id}", ".tribe_events_cat-category-{TERM_ID_$index}", $css );
 		}
 
 		$this->assertMatchesSnapshot( $css );
