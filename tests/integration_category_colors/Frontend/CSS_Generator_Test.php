@@ -33,8 +33,28 @@ class CSS_Generator_Test extends WPTestCase {
 	 * @before
 	 */
 	public function setup_test_environment(): void {
-		$this->css_generator = tribe( CSS_Generator::class );
-		$this->category_meta = tribe( Event_Category_Meta::class );
+		$this->css_generator    = tribe( CSS_Generator::class );
+		$this->category_meta    = tribe( Event_Category_Meta::class );
+		$this->created_term_ids = []; // Initialize term tracking
+	}
+
+	/**
+	 * @after
+	 */
+	public function cleanup_created_terms(): void {
+		foreach ( $this->created_term_ids as $term_id ) {
+			wp_delete_term( $term_id, Tribe__Events__Main::TAXONOMY );
+		}
+	}
+
+	/**
+	 * Helper function to create a term and track it for cleanup.
+	 */
+	protected function create_test_term( array $args ): int {
+		$term_id                  = $this->factory()->term->create( $args );
+		$this->created_term_ids[] = $term_id; // Track term for deletion
+
+		return $term_id;
 	}
 
 	/**
@@ -42,7 +62,7 @@ class CSS_Generator_Test extends WPTestCase {
 	 */
 	public function should_generate_correct_css() {
 		// Create a test category with color meta
-		$term_id = $this->factory()->term->create(
+		$term_id = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'Test Category',
@@ -91,7 +111,7 @@ class CSS_Generator_Test extends WPTestCase {
 
 		yield 'category with only primary color' => [
 			'fixture' => function () {
-				$term_id = $this->factory()->term->create(
+				$term_id = $this->create_test_term(
 					[
 						'taxonomy' => Tribe__Events__Main::TAXONOMY,
 						'name'     => 'Primary Only',
@@ -108,7 +128,7 @@ class CSS_Generator_Test extends WPTestCase {
 
 		yield 'category with invalid colors' => [
 			'fixture' => function () {
-				$term_id = $this->factory()->term->create(
+				$term_id = $this->create_test_term(
 					[
 						'taxonomy' => Tribe__Events__Main::TAXONOMY,
 						'name'     => 'Invalid Colors',
@@ -127,7 +147,7 @@ class CSS_Generator_Test extends WPTestCase {
 
 		yield 'category with special characters in name' => [
 			'fixture' => function () {
-				$term_id = $this->factory()->term->create(
+				$term_id = $this->create_test_term(
 					[
 						'taxonomy' => Tribe__Events__Main::TAXONOMY,
 						'name'     => 'Special @#$%^&*()',
@@ -146,7 +166,7 @@ class CSS_Generator_Test extends WPTestCase {
 
 		yield 'category with very long name' => [
 			'fixture' => function () {
-				$term_id = $this->factory()->term->create(
+				$term_id = $this->create_test_term(
 					[
 						'taxonomy' => Tribe__Events__Main::TAXONOMY,
 						'name'     => str_repeat( 'Very Long Category Name ', 5 ),
@@ -169,7 +189,7 @@ class CSS_Generator_Test extends WPTestCase {
 				$term_ids       = [];
 
 				for ( $i = 0; $i < $num_categories; $i++ ) {
-					$term_id = $this->factory()->term->create(
+					$term_id = $this->create_test_term(
 						[
 							'taxonomy' => Tribe__Events__Main::TAXONOMY,
 							'name'     => "Category $i",
@@ -212,10 +232,15 @@ class CSS_Generator_Test extends WPTestCase {
 			$term_ids = [ $term_ids ];
 		}
 
-		// Replace dynamic values with placeholders
-		foreach ( $term_ids as $index => $term_id ) {
-			$css = str_replace( ".tribe_events_cat-category-{$term_id}", ".tribe_events_cat-category-{TERM_ID_$index}", $css );
-		}
+		$replacement_count = 1;
+
+		$css = preg_replace_callback(
+			'/\.tribe_events_cat-[^\s{]+/', // Matches `.tribe_events_cat-` followed by any non-whitespace/non-{ characters
+			function () use ( &$replacement_count ) {
+				return ".tribe_events_cat-{Placeholder-" . $replacement_count++ . "}";
+			},
+			$css
+		);
 
 		$this->assertMatchesSnapshot( $css );
 	}
@@ -225,7 +250,7 @@ class CSS_Generator_Test extends WPTestCase {
 	 */
 	public function should_respect_category_priority() {
 		// Create categories with different priorities
-		$high_priority = $this->factory()->term->create(
+		$high_priority = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'High Priority',
@@ -239,7 +264,7 @@ class CSS_Generator_Test extends WPTestCase {
 			->set( Meta_Keys::get_key( 'priority' ), '999999' )
 			->save();
 
-		$low_priority = $this->factory()->term->create(
+		$low_priority = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'Low Priority',
@@ -276,7 +301,7 @@ class CSS_Generator_Test extends WPTestCase {
 	 */
 	public function should_handle_hidden_categories() {
 		// Create a visible category
-		$visible = $this->factory()->term->create(
+		$visible = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'Visible Category',
@@ -290,7 +315,7 @@ class CSS_Generator_Test extends WPTestCase {
 			->save();
 
 		// Create a hidden category
-		$hidden = $this->factory()->term->create(
+		$hidden = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'Hidden Category',
@@ -327,7 +352,7 @@ class CSS_Generator_Test extends WPTestCase {
 	 */
 	public function should_handle_multiple_categories_with_same_priority() {
 		// Create categories with same priority
-		$category1 = $this->factory()->term->create(
+		$category1 = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'Category One',
@@ -341,7 +366,7 @@ class CSS_Generator_Test extends WPTestCase {
 			->set( Meta_Keys::get_key( 'priority' ), '100' )
 			->save();
 
-		$category2 = $this->factory()->term->create(
+		$category2 = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'Category Two',
@@ -382,7 +407,7 @@ class CSS_Generator_Test extends WPTestCase {
 		$initial_css = get_option( 'tec_events_category_color_css' );
 
 		// Create a new category
-		$term_id = $this->factory()->term->create(
+		$term_id = $this->create_test_term(
 			[
 				'taxonomy' => Tribe__Events__Main::TAXONOMY,
 				'name'     => 'New Category',
@@ -406,6 +431,9 @@ class CSS_Generator_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_save_css_in_wp_options() {
+		update_option( 'tec_events_category_color_css', '', true );
+
+		$this->assertEmpty( get_option( 'tec_events_category_color_css' ) );
 		// Create multiple categories
 		$categories = [
 			[ 'name' => 'Category One', 'primary' => '#ff0000', 'secondary' => '#00ff00', 'text' => '#0000ff', 'priority' => 5 ],
@@ -417,7 +445,7 @@ class CSS_Generator_Test extends WPTestCase {
 
 		// Create and set up meta for each category
 		foreach ( $categories as $category ) {
-			$term_id = $this->factory()->term->create(
+			$term_id = $this->create_test_term(
 				[
 					'taxonomy' => Tribe__Events__Main::TAXONOMY,
 					'name'     => $category['name'],
@@ -431,8 +459,6 @@ class CSS_Generator_Test extends WPTestCase {
 				->set( Meta_Keys::get_key( 'text' ), $category['text'] )
 				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
 				->save();
-
-			$term_ids[] = $term_id;
 		}
 
 		// Generate CSS
@@ -440,14 +466,18 @@ class CSS_Generator_Test extends WPTestCase {
 
 		// Retrieve saved CSS
 		$saved_css = get_option( 'tec_events_category_color_css' );
-
 		// Ensure the CSS is saved
 		$this->assertNotEmpty( $saved_css, 'Generated CSS should be saved in wp_options.' );
 
-		// Replace term IDs in the CSS to make the snapshot stable
-		foreach ( $term_ids as $index => $term_id ) {
-			$saved_css = str_replace( (string) $term_id, "{TERM_ID_$index}", $saved_css );
-		}
+		$replacement_count = 1;
+
+		$saved_css = preg_replace_callback(
+			'/\.tribe_events_cat-[^\s{]+/', // Matches `.tribe_events_cat-` followed by any non-whitespace/non-{ characters
+			function () use ( &$replacement_count ) {
+				return ".tribe_events_cat-{Placeholder-" . $replacement_count++ . "}";
+			},
+			$saved_css
+		);
 
 		// Assert against snapshot
 		$this->assertMatchesSnapshot( $saved_css );
