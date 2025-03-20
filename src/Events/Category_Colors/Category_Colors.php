@@ -1,5 +1,7 @@
 <?php
 /**
+ * @todo Remove this class.
+ * @deprecated
  * Category Colors Management for Events.
  *
  * This class handles the logic for managing category colors within the Events Calendar plugin.

@@ -1,6 +1,13 @@
 <?php
+/**
+ * Test the Event Category Meta functionality.
+ *
+ * @since TBD
+ *
+ * @package TEC\Events\Category_Colors
+ */
 
-namespace TEC\Events\Category_Colors\Tests;
+namespace TEC\Events\Category_Colors;
 
 use Codeception\TestCase\WPTestCase;
 use Generator;
@@ -10,8 +17,9 @@ use Tribe\Tests\Traits\With_Uopz;
 use TypeError;
 use WP_Error;
 use WP_Term;
+use Tribe__Events__Main;
 
-class EventCategoryMeta_Test extends WPTestCase {
+class Event_Category_Meta_Test extends WPTestCase {
 	use With_Uopz;
 
 	/**
@@ -20,6 +28,18 @@ class EventCategoryMeta_Test extends WPTestCase {
 	 * @var WP_Term
 	 */
 	protected $test_term;
+
+	/**
+	 * @var Event_Category_Meta
+	 */
+	protected $category_meta;
+
+	/**
+	 * @before
+	 */
+	public function setup_test_environment(): void {
+		$this->category_meta = tribe(Event_Category_Meta::class);
+	}
 
 	/**
 	 * Creates a test category before each test.
@@ -484,5 +504,4 @@ class EventCategoryMeta_Test extends WPTestCase {
 		$meta = tribe( Meta::class )->set_term( $this->test_term->term_id );
 		$meta->delete( '' );
 	}
-
 }
