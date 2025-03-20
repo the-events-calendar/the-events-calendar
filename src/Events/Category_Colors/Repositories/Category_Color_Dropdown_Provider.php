@@ -117,7 +117,7 @@ class Category_Color_Dropdown_Provider {
 			'name'     => $category->name,
 			'priority' => is_numeric( $priority ) ? (int) $priority : -1,
 			'primary'  => $meta_instance->get( Meta_Keys::get_key( 'primary' ) ),
-			'hidden'   => (bool) $meta_instance->get( Meta_Keys::get_key( 'hidden' ) ),
+			'hidden'   => (bool) $meta_instance->get( Meta_Keys::get_key( 'hide_from_legend' ) ),
 		];
 
 		/**

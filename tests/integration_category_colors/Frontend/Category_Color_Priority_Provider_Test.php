@@ -140,7 +140,7 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 			$this->category_meta
 				->set_term( $term_id )
 				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
-				->set( Meta_Keys::get_key( 'hidden' ), $category['hidden'] )
+				->set( Meta_Keys::get_key( 'hide_from_legend' ), $category['hidden'] )
 				->save();
 
 			$term_ids[] = $term_id;
