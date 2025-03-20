@@ -6,7 +6,7 @@ exports[`Classy core/editor store available initial state render for new post 1`
     class="classy-container"
   >
     <div
-      class="classy-field"
+      class="classy-field classy-field--event-title"
     >
       <div
         class="classy-field__title"
@@ -57,7 +57,7 @@ exports[`Classy core/editor store available initial state render with title for 
     class="classy-container"
   >
     <div
-      class="classy-field"
+      class="classy-field classy-field--event-title"
     >
       <div
         class="classy-field__title"
@@ -108,7 +108,7 @@ exports[`Classy core/editor store not available initial state render for new pos
     class="classy-container"
   >
     <div
-      class="classy-field"
+      class="classy-field classy-field--event-title"
     >
       <div
         class="classy-field__title"
@@ -159,7 +159,7 @@ exports[`Classy core/editor store not available initial state render with title 
     class="classy-container"
   >
     <div
-      class="classy-field"
+      class="classy-field classy-field--event-title"
     >
       <div
         class="classy-field__title"

@@ -3,7 +3,7 @@
 exports[`EventTitle  core/editor store available initial state render for new post 1`] = `
 <div>
   <div
-    class="classy-field"
+    class="classy-field classy-field--event-title"
   >
     <div
       class="classy-field__title"
@@ -50,7 +50,7 @@ exports[`EventTitle  core/editor store available initial state render for new po
 exports[`EventTitle  core/editor store available initial state render with title for existing post 1`] = `
 <div>
   <div
-    class="classy-field"
+    class="classy-field classy-field--event-title"
   >
     <div
       class="classy-field__title"
@@ -97,7 +97,7 @@ exports[`EventTitle  core/editor store available initial state render with title
 exports[`EventTitle  core/editor store not available initial state render for new post 1`] = `
 <div>
   <div
-    class="classy-field"
+    class="classy-field classy-field--event-title"
   >
     <div
       class="classy-field__title"
@@ -144,7 +144,7 @@ exports[`EventTitle  core/editor store not available initial state render for ne
 exports[`EventTitle  core/editor store not available initial state render with title for existing post 1`] = `
 <div>
   <div
-    class="classy-field"
+    class="classy-field classy-field--event-title"
   >
     <div
       class="classy-field__title"

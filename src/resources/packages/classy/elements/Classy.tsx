@@ -1,7 +1,7 @@
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';
-import { EventTitle } from './fields';
 import { _x } from '@wordpress/i18n';
+import { EventTitle } from './fields';
 
 export function Classy() {
 	return (
@@ -22,7 +22,7 @@ export function Classy() {
 				<EventTitle
 					title={ _x(
 						'Event Title',
-						'The title of the Event Title field.',
+						'The title of the event title field.',
 						'the-events-calendar'
 					) }
 				/>

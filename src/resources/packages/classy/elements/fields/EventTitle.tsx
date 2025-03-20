@@ -18,7 +18,7 @@ export function EventTitle( props: EventTitleProps ) {
 	};
 
 	return (
-		<div className="classy-field">
+		<div className="classy-field classy-field--event-title">
 			<div className="classy-field__title">
 				<h3>{ props.title }</h3>
 			</div>
