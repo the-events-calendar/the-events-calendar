@@ -204,4 +204,44 @@ class Calendar_Embeds_Test extends Controller_Test_Case {
 
 		$this->assertMatchesHtmlSnapshot( str_replace( (string) $ece_id, '{ECE_ID}', $markup ) );
 	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_preserve_post_name_after_trash_and_restore(): void {
+		// Create an ECE
+		$ece_id = $this->create_ece( [ 'post_title' => 'Calendar Embed Test' ] );
+
+		// Get the post and store its original post_name
+		$ece = get_post( $ece_id );
+		$original_post_name = $ece->post_name;
+
+		// Trash the post
+		wp_trash_post( $ece_id );
+
+		// Verify it's in trash
+		$trashed_post = get_post( $ece_id );
+		$this->assertEquals( 'trash', $trashed_post->post_status );
+
+		// Restore the post from trash
+		wp_untrash_post( $ece_id );
+
+		// Get the restored post
+		$restored_post = get_post( $ece_id );
+
+		// Verify it's draft
+		$this->assertEquals( 'draft', $restored_post->post_status );
+
+		// Assert that the post_name has not changed
+		$this->assertEquals( $original_post_name, $restored_post->post_name );
+
+		// Publish the post
+		wp_publish_post( $ece_id );
+
+		// Get the published post
+		$published_post = get_post( $ece_id );
+
+		// Assert that the post_name has not changed
+		$this->assertEquals( $original_post_name, $published_post->post_name );
+	}
 }

@@ -47,6 +47,7 @@ class Calendar_Embeds extends Controller_Contract {
 		add_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ], 10, 4 );
 		add_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table' ], 10, 2 );
 		add_action( 'template_redirect', [ $this, 'redirect_to_embed' ] );
+		add_filter( 'add_trashed_suffix_to_trashed_posts', [ $this, 'do_not_add_trashed_suffix_to_trashed_calendar_embeds' ], 10, 3 );
 	}
 
 	/**
@@ -62,6 +63,7 @@ class Calendar_Embeds extends Controller_Contract {
 		remove_filter( 'wp_insert_post_data', [ $this, 'disable_slug_changes' ] );
 		remove_filter( 'get_terms', [ $this, 'modify_term_count_on_term_list_table' ] );
 		remove_action( 'template_redirect', [ $this, 'redirect_to_embed' ] );
+		remove_filter( 'add_trashed_suffix_to_trashed_posts', [ $this, 'do_not_add_trashed_suffix_to_trashed_calendar_embeds' ] );
 	}
 
 	/**
@@ -164,7 +166,7 @@ class Calendar_Embeds extends Controller_Contract {
 
 		if ( $update ) {
 			// Ensure the post name is not updated.
-			$data['post_name'] = get_post( $post_array['ID'] )->post_name;
+			$data['post_name'] = str_replace( '__trashed', '', get_post( $post_array['ID'] )->post_name );
 
 			return $data;
 		}
@@ -377,5 +379,24 @@ class Calendar_Embeds extends Controller_Contract {
 		}
 
 		return array_filter( $tags, static fn ( $t ) => $t instanceof WP_Term );
+	}
+
+	/**
+	 * Do not add trashed suffix to trashed calendar embeds.
+	 *
+	 * @since TBD
+	 *
+	 * @param bool   $add_trashed_suffix Whether to add the trashed suffix.
+	 * @param string $post_name          The post name.
+	 * @param int    $post_id            The post ID.
+	 *
+	 * @return bool
+	 */
+	public function do_not_add_trashed_suffix_to_trashed_calendar_embeds( bool $add_trashed_suffix, string $post_name, int $post_id ): bool {
+		if ( static::POSTTYPE !== get_post_type( $post_id ) ) {
+			return $add_trashed_suffix;
+		}
+
+		return false;
 	}
 }
