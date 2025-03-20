@@ -63,10 +63,11 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 				'post_title' => 'Test Event',
 			]
 		);
+		$event = get_post( $event_id );
 		wp_set_object_terms( $event_id, $term_ids, Tribe__Events__Main::TAXONOMY );
 
 		// Get highest priority category
-		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event_id );
+		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event );
 
 		// Assert we got the highest priority category
 		$this->assertNotNull( $highest_priority_category );
@@ -153,10 +154,11 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 				'post_title' => 'Test Event',
 			]
 		);
+		$event    = get_post( $event_id );
 		wp_set_object_terms( $event_id, $term_ids, Tribe__Events__Main::TAXONOMY );
 
 		// Get highest priority category
-		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event_id );
+		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event );
 
 		// Hidden categories do not function for the Priority Provider.
 		$this->assertNotNull( $highest_priority_category );
@@ -174,9 +176,10 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 				'post_title' => 'Test Event',
 			]
 		);
+		$event    = get_post( $event_id );
 
 		// Get highest priority category
-		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event_id );
+		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event );
 
 		// Assert we got null since there are no categories
 		$this->assertNull( $highest_priority_category );
@@ -216,10 +219,11 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 				'post_title' => 'Test Event',
 			]
 		);
+		$event    = get_post( $event_id );
 		wp_set_object_terms( $event_id, $term_ids, Tribe__Events__Main::TAXONOMY );
 
 		// Get highest priority category
-		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event_id );
+		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event );
 
 		// Assert we got the first category since invalid priorities are treated as equal
 		$this->assertNotNull( $highest_priority_category );
@@ -260,10 +264,12 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 				'post_title' => 'Test Event',
 			]
 		);
+		$event    = get_post( $event_id );
+
 		wp_set_object_terms( $event_id, $term_ids, Tribe__Events__Main::TAXONOMY );
 
 		// Get highest priority category
-		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event_id );
+		$highest_priority_category = $this->priority_provider->get_highest_priority_category( $event );
 
 		// Assert we got the category with valid priority
 		$this->assertNotNull( $highest_priority_category );
