@@ -137,7 +137,7 @@ class Controller extends Integration_Abstract {
 	 */
 	protected function register_assets(): void {
 		$plugin = tribe( 'tec.main' );
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-events-elementor-admin',
 			'integrations/plugins/elementor/admin.css',

@@ -1,0 +1,55 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "the-events-calendar/some-block",
+	"title": "Some Block",
+	"category": "text",
+	"parent": [ "core/group" ],
+	"icon": "star",
+	"description": "Shows warning, error or success notices...",
+	"keywords": [ "alert", "message" ],
+	"version": "1.0.3",
+	"textdomain": "my-plugin",
+	"attributes": {
+		"message": {
+			"type": "string",
+			"source": "html",
+			"selector": ".message"
+		}
+	},
+	"providesContext": {
+		"my-plugin/message": "message"
+	},
+	"usesContext": [ "groupId" ],
+	"selectors": {
+		"root": ".wp-block-my-plugin-notice"
+	},
+	"supports": {
+		"align": true
+	},
+	"styles": [
+		{ "name": "default", "label": "Default", "isDefault": true },
+		{ "name": "other", "label": "Other" }
+	],
+	"example": {
+		"attributes": {
+			"message": "This is a notice!"
+		}
+	},
+	"variations": [
+		{
+			"name": "example",
+			"title": "Example",
+			"attributes": {
+				"message": "This is an example!"
+			}
+		}
+	],
+	"editorScript": "file:./index.js",
+	"script": "file:./script.js",
+	"viewScript": [ "file:./view.js", "example-shared-view-script" ],
+	"editorStyle": "file:./index.css",
+	"style": [ "file:./style.css", "example-shared-style" ],
+	"viewStyle": [ "file:./view.css", "example-view-style" ],
+	"render": "file:./render.php"
+}
