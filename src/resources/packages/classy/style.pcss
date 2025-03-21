@@ -1,3 +1,8 @@
+:root {
+	--classy-gray: #CCC;
+    --classy-white: #FFF;
+}
+
 .block-editor__container {
     .editor-header {
         /* Hide the preview button */
@@ -25,13 +30,6 @@
         .dashicons {
             margin-right: 6px;
         }
-    }
-}
-
-/* Metabox approach - 2 */
-#tec-classy {
-    .postbox-header {
-        display: none;
     }
 }
 
@@ -83,5 +81,22 @@
 
     .classy-field__inputs {
         align-self: stretch;
+    }
+
+    .classy-field__input-title {
+        font-size: var(--tec-font-size-1);
+        text-transform: uppercase;
+    }
+
+    .classy-field__input{
+        background: var(--classy-white);
+
+        &.classy-field__input--rich-text{
+            border-top: 1px solid var(--classy-gray);
+            border-right: 1px solid var(--classy-gray);
+            border-left: 1px solid var(--classy-gray);
+            border-bottom: 1px solid var(--classy-gray);
+            padding: var(--tec-spacer-2);
+        }
     }
 }
