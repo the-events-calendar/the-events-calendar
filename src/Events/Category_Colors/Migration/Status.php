@@ -1,9 +1,8 @@
 <?php
 /**
- * Centralizes migration status values.
- * Provides a single source of truth for migration status management.
+ * Status constants for the category colors migration process.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -11,27 +10,63 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 /**
- * Centralizes migration status values.
- * Provides a single source of truth for migration status management.
+ * Class Status
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
 class Status {
-
 	/**
 	 * Status when migration has not started.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	public static string $not_started = 'not_started';
 
 	/**
-	 * Status when migration is in progress.
+	 * Status when preprocessing is scheduled.
 	 *
 	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $preprocessing_scheduled = 'preprocessing_scheduled';
+
+	/**
+	 * Status when validation is scheduled.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $validation_scheduled = 'validation_scheduled';
+
+	/**
+	 * Status when execution is scheduled.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $execution_scheduled = 'execution_scheduled';
+
+	/**
+	 * Status when postprocessing is scheduled.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $postprocessing_scheduled = 'postprocessing_scheduled';
+
+	/**
+	 * Generic in-progress state for the overall migration.
+	 *
+	 * @since TBD
+	 *
 	 * @var string
 	 */
 	public static string $in_progress = 'in_progress';
@@ -40,88 +75,180 @@ class Status {
 	 * Status when preprocessing is skipped.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
-	public static string $preprocess_skipped = 'preprocess_skipped';
-
+	public static string $preprocessing_skipped = 'preprocessing_skipped';
 
 	/**
-	 * Status when preprocessing has completed.
+	 * Status when preprocessing is in progress.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
-	public static string $preprocess_completed = 'preprocess_completed';
+	public static string $preprocessing_in_progress = 'preprocessing_in_progress';
 
 	/**
-	 * Status when validation has completed successfully.
+	 * Status when preprocessing has completed successfully.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
-	public static string $validation_completed = 'validation_completed';
+	public static string $preprocessing_completed = 'preprocessing_completed';
 
 	/**
-	 * Status when execution has been completed.
+	 * Status when preprocessing has failed.
 	 *
 	 * @since TBD
-	 * @var string
-	 */
-	public static string $execution_completed = 'execution_completed';
-
-	/**
-	 * Status when post-processing has been completed successfully.
 	 *
-	 * @since TBD
 	 * @var string
 	 */
-	public static string $postprocess_completed = 'migration_completed';
-
-	/**
-	 * Status when execution has failed.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	public static string $execution_skipped = 'execution_skipped';
-
-	/**
-	 * Status when execution has failed.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	public static string $execution_failed = 'execution_failed';
+	public static string $preprocessing_failed = 'preprocessing_failed';
 
 	/**
 	 * Status when validation is in progress.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	public static string $validation_in_progress = 'validation_in_progress';
 
 	/**
+	 * Status when validation has completed successfully.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $validation_completed = 'validation_completed';
+
+	/**
 	 * Status when validation has failed.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	public static string $validation_failed = 'validation_failed';
 
 	/**
-	 * Status when post-processing has failed.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	public static string $postprocess_failed = 'postprocessing_failed';
-
-	/**
 	 * Status when execution is in progress.
 	 *
 	 * @since TBD
+	 *
 	 * @var string
 	 */
 	public static string $execution_in_progress = 'execution_in_progress';
+
+	/**
+	 * Status when execution has completed successfully.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $execution_completed = 'execution_completed';
+
+	/**
+	 * Status when execution has failed.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $execution_failed = 'execution_failed';
+
+	/**
+	 * Status when postprocessing is in progress.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $postprocessing_in_progress = 'postprocessing_in_progress';
+
+	/**
+	 * Status when postprocessing has completed successfully.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $postprocessing_completed = 'postprocessing_completed';
+
+	/**
+	 * Status when postprocessing has failed.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $postprocessing_failed = 'postprocessing_failed';
+
+	/**
+	 * Status when migration has completed successfully.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $migration_completed = 'migration_completed';
+
+	/**
+	 * Get the current migration status.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, mixed> The current migration status.
+	 */
+	public static function get_migration_status(): array {
+		$status = get_option( Config::$migration_status_option, [] );
+		return array_merge(
+			[
+				'status' => self::$not_started,
+				'timestamp' => '',
+				'error' => '',
+			],
+			$status
+		);
+	}
+
+	/**
+	 * Update the migration status.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $status    The new status.
+	 * @param string $error     Optional. Error message if any.
+	 * @param string $timestamp Optional. Timestamp of the status change.
+	 *
+	 * @return bool Whether the status was updated successfully.
+	 */
+	public static function update_migration_status( string $status, string $error = '', string $timestamp = '' ): bool {
+		$current_status = self::get_migration_status();
+		$new_status = array_merge(
+			$current_status,
+			[
+				'status' => $status,
+				'error' => $error,
+				'timestamp' => $timestamp ?: current_time( 'mysql' ),
+			]
+		);
+
+		return update_option( Config::$migration_status_option, $new_status );
+	}
+
+	/**
+	 * Reset the migration status.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the status was reset successfully.
+	 */
+	public static function reset_migration_status(): bool {
+		return delete_option( Config::$migration_status_option );
+	}
 }

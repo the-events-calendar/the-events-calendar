@@ -135,4 +135,12 @@ class Config {
 	 * @var string
 	 */
 	public static string $migration_action_group = 'tec_events_category_colors_migration';
+
+	/**
+	 * Option name for tracking the current migration batch.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $migration_batch_option = 'tec_events_category_colors_migration_batch';
 }

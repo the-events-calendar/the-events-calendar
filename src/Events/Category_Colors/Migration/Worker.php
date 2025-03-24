@@ -11,11 +11,16 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
+use TEC\Events\Category_Colors\Migration\Scheduler\Action_Interface;
+use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
+use TEC\Events\Category_Colors\Migration\Scheduler\Postprocessing_Action;
+use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
+use TEC\Events\Category_Colors\Migration\Scheduler\Validation_Action;
 use Tribe__Events__Main;
 use WP_Error;
 
 /**
- * Class Migration_Runner
+ * Class Worker
  * Controls the entire migration lifecycle for category colors.
  * Runs preprocessing, validation, execution, and post-processing in sequence.
  * Ensures data integrity and logs potential issues during migration.
@@ -37,27 +42,181 @@ class Worker extends Abstract_Migration_Step {
 	];
 
 	/**
-	 * Determines whether the migration step is in a valid state to run.
+	 * Whether to use scheduled execution.
 	 *
-	 * This method checks the current migration status and ensures the step
-	 * should only execute if the migration has not already started.
+	 * @since TBD
+	 * @var bool
+	 */
+	protected bool $use_scheduler = false;
+
+	/**
+	 * Constructor.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool True if the migration step can run, false otherwise.
+	 * @param bool $use_scheduler Whether to use scheduled execution.
 	 */
-	public function is_runnable(): bool {
-		return in_array( static::get_migration_status()['status'], [ Status::$validation_completed, Status::$execution_failed ], true );
+	public function __construct( bool $use_scheduler = false ) {
+		$this->use_scheduler = $use_scheduler;
 	}
 
 	/**
-	 * Executes the category color migration process.
+	 * Start the migration process.
 	 *
 	 * @since TBD
 	 *
-	 * @return bool
+	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
-	public function process(): bool {
+	public function start_migration() {
+		if ( $this->use_scheduler ) {
+			return $this->start_scheduled_migration();
+		}
+
+		return $this->start_immediate_migration();
+	}
+
+	/**
+	 * Start the migration process using scheduled actions.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 */
+	protected function start_scheduled_migration() {
+		$preprocessing = tribe( Preprocessing_Action::class );
+		return $preprocessing->schedule();
+	}
+
+	/**
+	 * Start the migration process using immediate execution.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 */
+	protected function start_immediate_migration() {
+		$start_time = microtime( true );
+
+		// Run preprocessing
+		$pre_processor = tribe( Pre_Processor::class );
+		$result = $pre_processor->process();
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		// Run validation
+		$validator = tribe( Validator::class );
+		$result = $validator->process();
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		// Run execution
+		$result = $this->process();
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		// Run post-processing
+		$post_processor = tribe( Post_Processor::class );
+		$result = $post_processor->process();
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		$this->log_elapsed_time( 'Migration', $start_time );
+		return true;
+	}
+
+	/**
+	 * Cancel the migration process.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if cancelled successfully.
+	 */
+	public function cancel_migration(): bool {
+		if ( ! $this->use_scheduler ) {
+			return false;
+		}
+
+		$actions = [
+			tribe( Preprocessing_Action::class ),
+			tribe( Validation_Action::class ),
+			tribe( Execution_Action::class ),
+			tribe( Postprocessing_Action::class ),
+		];
+
+		$cancelled = true;
+		foreach ( $actions as $action ) {
+			if ( ! $action->cancel() ) {
+				$cancelled = false;
+			}
+		}
+
+		return $cancelled;
+	}
+
+	/**
+	 * Process a batch of categories.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<int, array<string, mixed>> $categories The categories to process.
+	 *
+	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 */
+	public function process_batch( array $categories ) {
+		$migrated_category_meta_count = 0;
+		$migrated_category_count      = count( $categories );
+
+		foreach ( $categories as $category_id => $meta_data ) {
+			try {
+				$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
+				
+				foreach ( $meta_data as $meta_key => $meta_value ) {
+					if ( in_array( $meta_key, $this->skip_meta_keys, true ) ) {
+						continue;
+					}
+
+					$existing_value = $category_meta->get( $meta_key );
+
+					if ( ! empty( $existing_value ) ) {
+						continue; // Skip if already exists.
+					}
+					++$migrated_category_meta_count;
+
+					if ( $this->dry_run ) {
+						$this->log_dry_run( $category_id, $meta_key, $meta_value );
+					} else {
+						$result = $category_meta->set( $meta_key, $meta_value );
+						if ( is_wp_error( $result ) ) {
+							return $this->log_message( 'error', "Failed to insert meta '{$meta_key}' for category {$category_id}.", [], 'Worker' );
+						}
+					}
+				}
+
+				if ( ! $this->dry_run ) {
+					$category_meta->save();
+				}
+			} catch ( \InvalidArgumentException $e ) {
+				return $this->log_message( 'error', "Failed to process category {$category_id}: {$e->getMessage()}", [], 'Worker' );
+			}
+		}
+
+		$this->log_message( 'info', "Migrated {$migrated_category_meta_count} category meta values across {$migrated_category_count} categories.", [], 'Worker' );
+
+		return true;
+	}
+
+	/**
+	 * Process the execution step.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 */
+	public function process() {
 		$start_time = microtime( true );
 		if ( Status::$validation_completed !== static::get_migration_status()['status'] ) {
 			$this->log_message( 'info', 'Validation not completed. Running validation before execution.', [], 'Worker' );
@@ -134,6 +293,76 @@ class Worker extends Abstract_Migration_Step {
 	}
 
 	/**
+	 * Get the migration data.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string, mixed> The migration data.
+	 */
+	public function get_migration_data(): array {
+		return get_option( Config::$migration_data_option, [] );
+	}
+
+	/**
+	 * Logs what would be inserted or updated in dry-run mode.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $category_id The category ID.
+	 * @param string $meta_key    The meta key.
+	 * @param mixed  $value       The value to be inserted.
+	 *
+	 * @return void
+	 */
+	protected function log_dry_run( int $category_id, string $meta_key, $value ): void {
+		$this->log_message( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $value, JSON_PRETTY_PRINT ), [], 'Worker' );
+	}
+
+	/**
+	 * Logs dry-run statistics, summarizing the execution plan.
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	protected function dry_run_statistics(): void {
+		if ( ! $this->dry_run ) {
+			return;
+		}
+
+		$migration_data = $this->get_migration_data();
+
+		$category_count = isset( $migration_data['categories'] ) ? count( $migration_data['categories'] ) : 0;
+		$this->log_message( 'info', 'Dry Run Mode Active: No actual database modifications will be made.', [], 'Worker' );
+		$this->log_message( 'info', "Total Categories to Process: {$category_count}", [], 'Worker' );
+		$this->log_message( 'info', 'Skipped Meta Keys: ' . wp_json_encode( $this->skip_meta_keys ), [], 'Worker' );
+	}
+
+	/**
+	 * Logs categories that already have the specified meta keys.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<int, array<string, mixed>> $categories The categories and their meta data.
+	 *
+	 * @return void
+	 */
+	protected function log_existing_meta( array $categories ): void {
+		foreach ( $categories as $category_id => $meta_data ) {
+			if ( ! is_array( $meta_data ) ) {
+				continue;
+			}
+
+			foreach ( $meta_data as $meta_key => $meta_value ) {
+				$existing_value = get_term_meta( $category_id, $meta_key, true );
+
+				if ( '' !== $existing_value ) {
+					$this->log_message( 'warning', "Category {$category_id} already has meta key '{$meta_key}' with value: " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ), [], 'Worker' );
+				}
+			}
+		}
+	}
+
+	/**
 	 * Inserts meta values for the given categories.
 	 *
 	 * @since TBD
@@ -180,67 +409,6 @@ class Worker extends Abstract_Migration_Step {
 		$this->log_message( 'info', "Migrated {$migrated_category_meta_count} category meta values across {$migrated_category_count} categories.", [], 'Worker' );
 
 		return true;
-	}
-
-	/**
-	 * Logs what would be inserted or updated in dry-run mode.
-	 *
-	 * @since TBD
-	 *
-	 * @param int    $category_id The category ID.
-	 * @param string $meta_key    The meta key.
-	 * @param mixed  $value       The value to be inserted.
-	 *
-	 * @return void
-	 */
-	protected function log_dry_run( int $category_id, string $meta_key, $value ): void {
-		$this->log_message( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $value, JSON_PRETTY_PRINT ), [], 'Worker' );
-	}
-
-	/**
-	 * Logs dry-run statistics, summarizing the execution plan.
-	 * If dry-run mode is enabled, this function outputs key execution details,
-	 * such as category counts and meta keys being skipped.
-	 *
-	 * @since TBD
-	 * @return void
-	 */
-	protected function dry_run_statistics(): void {
-		if ( ! $this->dry_run ) {
-			return;
-		}
-
-		$migration_data = $this->get_migration_data();
-
-		$category_count = isset( $migration_data['categories'] ) ? count( $migration_data['categories'] ) : 0;
-		$this->log_message( 'info', 'Dry Run Mode Active: No actual database modifications will be made.', [], 'Worker' );
-		$this->log_message( 'info', "Total Categories to Process: {$category_count}", [], 'Worker' );
-		$this->log_message( 'info', 'Skipped Meta Keys: ' . wp_json_encode( $this->skip_meta_keys ), [], 'Worker' );
-	}
-
-	/**
-	 * Logs categories that already have the specified meta keys.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<int, array<string, mixed>> $categories The categories and their meta data.
-	 *
-	 * @return void
-	 */
-	protected function log_existing_meta( array $categories ): void {
-		foreach ( $categories as $category_id => $meta_data ) {
-			if ( ! is_array( $meta_data ) ) {
-				continue;
-			}
-
-			foreach ( $meta_data as $meta_key => $meta_value ) {
-				$existing_value = get_term_meta( $category_id, $meta_key, true );
-
-				if ( '' !== $existing_value ) {
-					$this->log_message( 'warning', "Category {$category_id} already has meta key '{$meta_key}' with value: " . wp_json_encode( $existing_value, JSON_PRETTY_PRINT ), [], 'Worker' );
-				}
-			}
-		}
 	}
 
 	/**
@@ -306,6 +474,17 @@ class Worker extends Abstract_Migration_Step {
 			}
 		}
 
+		return true;
+	}
+
+	/**
+	 * Determines if the migration step should run.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the step is ready to run, false otherwise.
+	 */
+	public function is_runnable(): bool {
 		return true;
 	}
 }

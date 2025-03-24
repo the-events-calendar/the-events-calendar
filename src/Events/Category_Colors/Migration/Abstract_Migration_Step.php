@@ -112,7 +112,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 *
 	 * @return void
 	 */
-	protected function update_migration_status( string $status ): void {
+	public function update_migration_status( string $status ): void {
 		update_option(
 			Config::$migration_status_option,
 			[

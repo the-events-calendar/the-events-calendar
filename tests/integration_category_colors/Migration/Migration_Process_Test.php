@@ -122,7 +122,7 @@ class Migration_Process_Test extends Controller_Test_Case {
 		$migration_status  = get_option( Config::$migration_status_option, [] );
 		$original_settings = get_option( Config::$original_settings_option, [] );
 
-		$this->assertSame( 'migration_completed', $migration_status['status'] ?? '', 'Migration did not complete successfully.' );
+		$this->assertSame( Status::$postprocessing_completed, $migration_status['status'] ?? '', 'Migration did not complete successfully.' );
 
 		// Verify term meta values.
 		foreach ( $category_ids as $slug => $term_id ) {
@@ -439,7 +439,7 @@ class Migration_Process_Test extends Controller_Test_Case {
 		update_option(
 			Config::$migration_status_option,
 			[
-				'status'    => 'migration_completed',
+				'status'    => Status::$postprocessing_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -451,7 +451,7 @@ class Migration_Process_Test extends Controller_Test_Case {
 		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		// Ensure the migration status has not changed.
-		$this->assertSame( 'migration_completed', $migration_status['status'] ?? '', 'Migration should not have been rerun after completion.' );
+		$this->assertSame( Status::$postprocessing_completed, $migration_status['status'] ?? '', 'Migration should not have been rerun after completion.' );
 	}
 
 	/**
@@ -550,7 +550,7 @@ class Migration_Process_Test extends Controller_Test_Case {
 		update_option(
 			Config::$migration_status_option,
 			[
-				'status'    => 'migration_completed',
+				'status'    => Status::$postprocessing_completed,
 				'timestamp' => current_time( 'mysql' ),
 			]
 		);
@@ -562,7 +562,7 @@ class Migration_Process_Test extends Controller_Test_Case {
 		$migration_status = get_option( Config::$migration_status_option, [] );
 
 		// Ensure migration status is reset to 'not_started'.
-		$this->assertSame( 'not_started', $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
+		$this->assertSame( Status::$not_started, $migration_status['status'] ?? '', 'Migration should be allowed to rerun only after a reset.' );
 
 		// Run migration again.
 		tribe( Handler::class )->process();
@@ -571,7 +571,7 @@ class Migration_Process_Test extends Controller_Test_Case {
 		$migration_status_after_rerun = get_option( Config::$migration_status_option, [] );
 
 		// Ensure migration has now completed successfully.
-		$this->assertSame( 'migration_completed', $migration_status_after_rerun['status'] ?? '', 'Migration should have been allowed to rerun after reset.' );
+		$this->assertSame( Status::$postprocessing_completed, $migration_status_after_rerun['status'] ?? '', 'Migration should have been allowed to rerun after reset.' );
 	}
 
 	/**
