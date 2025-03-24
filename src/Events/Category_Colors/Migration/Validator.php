@@ -246,12 +246,20 @@ class Validator extends Abstract_Migration_Step {
 	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
 	protected function validate_meta_keys( array $categories ) {
+		if ( empty( $categories ) || ! is_array( $categories ) ) {
+			return $this->log_message( 'error', 'Invalid or empty categories array provided for validation.', [], 'Validator' );
+		}
+
 		$expected_meta_keys = array_map(
 			fn( $mapped ) => Config::$meta_key_prefix . $mapped,
 			Config::$meta_key_map
 		);
 
 		foreach ( $categories as $category_id => $data ) {
+			if ( empty( $data ) || ! is_array( $data ) ) {
+				return $this->log_message( 'error', "Invalid data structure for category '{$category_id}'.", [], 'Validator' );
+			}
+
 			foreach ( $data as $key => $_ ) {
 				if ( 'taxonomy_id' === $key ) {
 					continue;
