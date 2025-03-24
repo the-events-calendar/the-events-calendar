@@ -1,6 +1,6 @@
-:root {
-	--classy-gray: #CCC;
-    --classy-white: #FFF;
+:root{
+	--classy-border-color: #949494;
+	--classy-background-color: #fff;
 }
 
 .block-editor__container {
@@ -69,7 +69,7 @@
         flex: 1 0 0;
     }
 
-    .classy-field__title {
+    .classy-field__title, .classy-field__input-title {
         h2, h3, h4 {
             margin: 0;
         }
@@ -81,21 +81,27 @@
 
     .classy-field__inputs {
         align-self: stretch;
+
+		/* Apply padding and border only if there is more than one input. */
+		&:has(> *:nth-child(2)) {
+			padding: var(--tec-spacer-5) var(--tec-spacer-3);
+			border: 1px solid var(--wp-components-color-gray-600, var(--classy-border-color));
+		}
     }
 
     .classy-field__input-title {
         font-size: var(--tec-font-size-1);
         text-transform: uppercase;
+		margin: 0;
+		margin-bottom: var(--tec-spacer-1);
     }
 
     .classy-field__input{
-        background: var(--classy-white);
+        background: var(--wp-components-color-background, var(--classy-background-color));
 
         &.classy-field__input--rich-text{
-            border-top: 1px solid var(--classy-gray);
-            border-right: 1px solid var(--classy-gray);
-            border-left: 1px solid var(--classy-gray);
-            border-bottom: 1px solid var(--classy-gray);
+			border-radius: 2px;
+			border: 1px solid var(--wp-components-color-gray-600, var(--classy-border-color));
             padding: var(--tec-spacer-2);
         }
     }
