@@ -12,6 +12,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use WP_Error;
+
 /**
  * Interface Migration_Step_Interface
  *
@@ -28,9 +30,9 @@ interface Migration_Step_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool True if the step was successful, false otherwise.
+	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
-	public function process(): bool;
+	public function process();
 
 	/**
 	 * Determines if the migration step should run.
