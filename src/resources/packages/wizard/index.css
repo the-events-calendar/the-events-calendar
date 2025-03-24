@@ -634,7 +634,7 @@
 	min-width: var(--tec-spacer-content-min-width);
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
 	text-align: left;
-	width: 100%;
+	max-width: 100%;
 }
 
 @media (min-width: 1024px) {
