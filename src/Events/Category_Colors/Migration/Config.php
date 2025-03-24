@@ -127,4 +127,12 @@ class Config {
 		'background' => 'secondary',
 		'text'       => 'text',
 	];
+
+	/**
+	 * The action group name for migration actions.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $migration_action_group = 'tec_events_category_colors_migration';
 }
