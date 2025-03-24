@@ -1,0 +1,108 @@
+:root{
+	--classy-border-color: #949494;
+	--classy-background-color: #fff;
+}
+
+.block-editor__container {
+    .editor-header {
+        /* Hide the preview button */
+
+        .editor-preview-dropdown {
+            display: none;
+        }
+
+        /* The Zoom Out button is hidden using its label in the JS code. */
+    }
+
+    .editor-visual-editor {
+        min-height: 0;
+
+        &.tec-is-visible {
+            min-height: 100%;
+            display: block;
+        }
+    }
+
+    .tec-editor-tool {
+        display: flex;
+        align-items: center;
+
+        .dashicons {
+            margin-right: 6px;
+        }
+    }
+}
+
+.classy-root {
+    /* By default the root will cover the Block Editor by forcing it to a height of 0 */
+    //background-color: aliceblue;
+    height: 100%;
+    opacity: 1;
+    transition: opacity .75s ease, height .35s ease;
+
+    &.classy-root--hidden {
+        opacity: 0;
+        height: 0;
+        transition: opacity .35s ease, height .75s ease;
+    }
+
+    .classy-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        gap: var(--tec-spacer-8);
+        padding: var(--tec-spacer-9) 120px 106px 120px;
+        flex: 1 0 0;
+        align-self: stretch;
+    }
+
+    .classy-field {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: var(--tec-spacer-2);
+        flex: 1 0 0;
+    }
+
+    .classy-field__title, .classy-field__input-title {
+        h2, h3, h4 {
+            margin: 0;
+        }
+
+        h3 {
+            font-size: var(--tec-font-size-5);
+        }
+    }
+
+    .classy-field__inputs {
+        align-self: stretch;
+
+		/* Apply padding and border only if there is more than one input. */
+		&:has(> *:nth-child(2)) {
+			padding: var(--tec-spacer-5) var(--tec-spacer-3);
+			border: 1px solid var(--wp-components-color-gray-600, var(--classy-border-color));
+		}
+    }
+
+    .classy-field__input-title {
+        font-size: var(--tec-font-size-1);
+        text-transform: uppercase;
+		margin: 0;
+		margin-bottom: var(--tec-spacer-1);
+    }
+
+    .classy-field__input{
+        background: var(--wp-components-color-background, var(--classy-background-color));
+
+        &.classy-field__input--rich-text{
+			border-radius: 2px;
+			border: 1px solid var(--wp-components-color-gray-600, var(--classy-border-color));
+            padding: var(--tec-spacer-2);
+        }
+    }
+}

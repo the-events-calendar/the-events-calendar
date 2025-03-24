@@ -35,20 +35,7 @@ class Tribe__Events__Editor__Assets {
 	 * @return boolean
 	 */
 	public function register() {
-
 		$plugin = tribe( 'tec.main' );
-
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-views',
-			'app/views.css',
-			[],
-			'wp_enqueue_scripts',
-			[
-				'groups'       => [ 'events-views' ],
-				'conditionals' => [ $this, 'should_enqueue_frontend' ],
-			]
-		);
 	}
 
 	/**

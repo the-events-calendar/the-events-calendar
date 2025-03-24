@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addEditorTools should add editor tools 1`] = `"<button class="tec-editor-tool tec-editor-tool--preview button" type="button" data-toolbar-item="true"><span class="dashicons dashicons-visibility"></span>Visual</button>"`;
