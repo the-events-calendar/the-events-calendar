@@ -136,8 +136,6 @@ class Controller_Test extends Controller_Test_Case {
 
 		$data = $controller->get_data();
 
-		$this->assertEquals( [
-			'eventCategoryTaxonomyName' => TEC::TAXONOMY,
-		], $data );
+		$this->assertEquals( [], $data );
 	}
 }
