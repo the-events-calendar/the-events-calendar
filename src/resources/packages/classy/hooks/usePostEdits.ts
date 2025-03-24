@@ -6,7 +6,7 @@ import { UsePostEditsReturn } from '../types/UsePostEditsReturn';
  *
  * @since TBD
  *
- * This hook exposes an API that mimice the `core/editor` one and acts as a middleware
+ * This hook exposes an API that mimics the `core/editor` one and acts as a middleware
  * that will store and retrieve information from both the `core/editor` and the `tec/classy` stores.
  * The `core/editor` store, though, might not be available (e.g. in Community Events); in this case
  * the hook will store and retrieve information from the `tec/classy` store.
@@ -14,19 +14,25 @@ import { UsePostEditsReturn } from '../types/UsePostEditsReturn';
  * @returns {UsePostEditsReturn} The hook API.
  */
 export function usePostEdits(): UsePostEditsReturn {
-	const postTitle: string = useSelect(
-		// @ts-ignore - no types available.
-		( select ): string => {
+	const { postTitle, postContent, meta } = useSelect( ( select ) => {
+		const classySelect = select( 'tec/classy' );
+
+		return {
 			// @ts-ignore
-			return select( 'tec/classy' ).getEditedPostAttribute( 'title' );
-		},
-		[]
-	);
+			postTitle: classySelect.getEditedPostAttribute( 'title' ) || '',
+			// @ts-ignore
+			postContent: classySelect.getEditedPostContent() || '',
+			// @ts-ignore
+			meta: classySelect.getEditedPostAttribute( 'meta' ) || '',
+		};
+	}, [] );
 
 	const { editPost } = useDispatch( 'tec/classy' );
 
 	return {
 		postTitle,
+		postContent,
+		meta,
 		editPost,
 	};
 }

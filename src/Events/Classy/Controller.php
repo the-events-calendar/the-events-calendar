@@ -158,6 +158,8 @@ class Controller extends ControllerContract {
 
 		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
 
+		add_action( 'init', [ $this, 'register_post_meta' ] );
+
 		// Register the main assets entry point.
 		Asset::add(
 			'tec-classy',
@@ -241,6 +243,8 @@ class Controller extends ControllerContract {
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 
+		remove_action( 'init', [ $this, 'register_post_meta' ] );
+
 		// TESTING
 		remove_filter( 'wp_insert_post_data', [ $this, 'test_filter_post_data' ], 0 );
 		// END TESTING
@@ -318,8 +322,34 @@ class Controller extends ControllerContract {
 	 * }
 	 */
 	public function get_data(): array {
-		return [
-			'eventCategoryTaxonomyName' => TEC::TAXONOMY,
-		];
+		return [];
+	}
+
+	/**
+	 * Registers the meta fields for the Classy app.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function register_post_meta(): void {
+		foreach (
+			[
+				'_EventURL',
+			] as $meta_key
+		) {
+			register_post_meta(
+				TEC::POSTTYPE,
+				$meta_key,
+				[
+					'show_in_rest'  => true,
+					'single'        => true,
+					'type'          => 'string',
+					'auth_callback' => static function () {
+						return current_user_can( 'edit_posts' );
+					},
+				]
+			);
+		}
 	}
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { EventTitleProps } from '../../types/FieldProps';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { useState, useEffect } from 'react';
@@ -7,6 +6,7 @@ import { UsePostEditsReturn } from '../../types/UsePostEditsReturn';
 
 export function EventTitle( props: EventTitleProps ) {
 	const { postTitle, editPost } = usePostEdits() as UsePostEditsReturn;
+
 	const [ value, setValue ] = useState< string >( postTitle || '' );
 
 	useEffect( () => {
@@ -26,7 +26,7 @@ export function EventTitle( props: EventTitleProps ) {
 
 			<div className="classy-field__inputs">
 				<InputControl
-					className='classy-field__input'
+					className="classy-field__input"
 					__next40pxDefaultSize
 					value={ value }
 					onChange={ onChange }
