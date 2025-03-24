@@ -5,6 +5,7 @@ module.exports = {
 	setupFiles: [ __dirname + '/jest.setup.js' ],
 	testEnvironment: 'jest-environment-jsdom-global',
 	testMatch: [ '**/*.spec.ts', '**/*.spec.tsx' ],
+	resolver: __dirname  + '/jest-resolver.js',
 	transform: {
 		'^.+.tsx?$': [
 			'ts-jest',
@@ -14,6 +15,7 @@ module.exports = {
 					jsx: 'react-jsx',
 					allowUmdGlobalAccess: true,
 					sourceMap: true,
+					allowJs: true
 				},
 			},
 		],
