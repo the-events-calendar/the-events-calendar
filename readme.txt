@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.10.3] 2025-03-25 =
+
+* Fix - Improved user experience by ensuring Event Tickets installation and activation notices only appear on TEC-related admin pages.
+* Language - 0 new strings added, 5 updated, 0 fuzzied, and 0 obsoleted.
+
 = [6.10.2] 2025-03-04 =
 
 * Feature - Use the filter hook in TCMN to define the pages to show IAN notifications [ET-2294]
