@@ -232,6 +232,7 @@ class Tribe__Events__Aggregator__Records {
 		// Register the Failed post status.
 		$args   = [
 			'label'               => esc_html_x( 'Failed', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of failed records.
 			'label_count'         => _nx_noop(
 				'Failed <span class="count">(%s)</span>',
 				'Failed <span class="count">(%s)</span>',
