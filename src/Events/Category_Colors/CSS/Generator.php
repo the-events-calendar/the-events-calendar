@@ -142,9 +142,9 @@ class Generator {
 		$taxonomy = Tribe__Events__Main::TAXONOMY;
 
 		return ".{$taxonomy}-{$class} {\n"
-			. "    --tec-category-primary: {$primary};\n"
-			. "    --tec-category-secondary: {$background};\n"
-			. "    --tec-category-text: {$text};\n"
+			. "    --tec-color-category-primary: {$primary};\n"
+			. "    --tec-color-category-secondary: {$background};\n"
+			. "    --tec-color-category-text: {$text};\n"
 			. "}\n";
 	}
 

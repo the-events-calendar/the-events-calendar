@@ -5,7 +5,7 @@
 	align-items: center;
 	cursor: pointer;
 	display: flex;
-	gap: 5px;
+	gap: var(--tec-spacer-1);
 	position: relative;
 
 	&.tec-category-color-picker--align-right {
@@ -21,22 +21,20 @@
 
 		.tec-category-color-picker__color-circle {
 			aspect-ratio: 1/1;
-			border-radius: 50%;
 			border: 2px solid var(--tec-color-background);
-			margin-left: -10px;
+			border-radius: var(--tec-events-border-radius-circle);
+			margin-left: calc(-1 * var(--tec-spacer-2));
 			position: relative;
 			width: 20px;
 		}
 
-		/* Ensure the first circle doesn’t shift */
-
+		/* Ensure the first circle doesn't shift */
 		.tec-category-color-picker__color-circle:first-child {
 			margin-left: 0;
 		}
 	}
 
 	/* Dropdown icon alignment */
-
 	&.tec-category-color-picker--open {
 		.tec-category-color-picker__dropdown-icon {
 			.tec-category-color-picker__dropdown-icon-svg {
@@ -51,21 +49,20 @@
 	}
 
 	/* Dropdown */
-
 	.tec-category-color-picker__dropdown {
-		display: none;
-		background: var(--tec-color-background);
+		background-color: var(--tec-color-background);
 		border-radius: var(--tec-border-radius-default);
 		box-shadow: var(--tec-box-shadow-tooltip);
+		display: none;
 		left: 0;
 		max-width: min(100vw, 300px);
 		min-width: 220px;
+		overflow: hidden;
 		position: absolute;
 		right: auto;
 		top: 100%;
 		white-space: nowrap;
 		z-index: 100;
-		overflow: hidden;
 
 		&:after {
 			content: "";
@@ -85,10 +82,9 @@
 		}
 
 		/* Header */
-
 		.tec-category-color-picker__dropdown-header {
 			align-items: center;
-			background: var(--tec-color-background);
+			background-color: var(--tec-color-background);
 			cursor: default;
 			display: flex;
 			flex-shrink: 0;
@@ -105,31 +101,28 @@
 		}
 
 		/* Reset Button */
-
 		.tec-category-color-picker__reset-wrapper {
-			flex-shrink: 0;
-			padding: var(--tec-spacer-1);
-			background: var(--tec-color-background);
+			background-color: var(--tec-color-background);
+			border-top: var(--tec-border-width-1) solid var(--tec-color-background-view-selector-list-item-hover);
 			display: flex;
+			flex-shrink: 0;
 			justify-content: center;
-			border-top: 1px solid var(--tec-color-background-view-selector-list-item-hover);
+			padding: var(--tec-spacer-1);
 		}
 
 		/* List */
-
 		.tec-category-color-picker__dropdown-list {
 			display: flex;
 			flex-direction: column;
 			gap: var(--tec-spacer-1);
 			list-style: none;
 			margin: 0;
-			overflow-y: auto;
 			max-height: 250px;
+			overflow-y: auto;
 			padding: var(--tec-spacer-1);
 		}
 
 		/* List Item */
-
 		.tec-category-color-picker__dropdown-item {
 			align-items: center;
 			border-radius: var(--tec-border-radius-default);
@@ -138,44 +131,40 @@
 			transition: var(--tec-transition-background-color);
 
 			label {
-				&:hover {
-					background-color: var(--tec-color-background-secondary);
-				}
-
 				align-items: center;
 				cursor: pointer;
 				display: flex;
 				gap: var(--tec-spacer-1);
 				padding: var(--tec-spacer-1);
 				width: 100%;
+
+				&:hover {
+					background-color: var(--tec-color-background-secondary);
+				}
 			}
 		}
 
 		/* Checkbox */
-
 		.tec-category-color-picker__checkbox {
 			cursor: pointer;
 		}
 
 		/* Category Label */
-
 		.tec-category-color-picker__label {
 			flex-grow: 1;
 			font-size: var(--tec-font-size-2);
 		}
 
 		/* Color Dot */
-
 		.tec-category-color-picker__color-dot {
 			aspect-ratio: 1/1;
-			border-radius: 50%;
+			border-radius: var(--tec-events-border-radius-circle);
 			display: inline-block;
 			width: 12px;
 		}
 	}
 
 	/* Show dropdown when open */
-
 	&.tec-category-color-picker--open {
 		.tec-category-color-picker__dropdown {
 			display: flex;
@@ -184,18 +173,16 @@
 }
 
 .tribe-events {
-	/* Events that don’t match the selected filters */
-
+	/* Events that don't match the selected filters */
 	.tec-category-filtered-hide {
 		filter: grayscale(60%);
-		opacity: 0.4;
+		opacity: var(--tec-opacity-select-highlighted);
 		transition: var(--tec-transition-opacity);
 	}
 
 	/* -----------------------------------------------------------------------------
 	 * Top Bar - Alignment
 	 * ----------------------------------------------------------------------------- */
-
 	.tec-category-color-picker {
 		flex: 0 1 auto;
 	}

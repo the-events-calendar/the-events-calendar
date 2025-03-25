@@ -164,6 +164,15 @@ abstract class Abstract_Admin {
 		}
 
 		$meta->save();
+
+		/**
+		 * Fires after category colors have been saved.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $term_id The term ID that was updated.
+		 */
+		do_action( 'tec_events_category_colors_saved', $term_id );
 	}
 
 	/**
