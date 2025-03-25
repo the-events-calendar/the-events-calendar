@@ -38,7 +38,7 @@ class Execution_Action extends Abstract_Action {
 	 * @since TBD
 	 * @var int
 	 */
-	protected const BATCH_SIZE = 100;
+	public const BATCH_SIZE = 100;
 
 	/**
 	 * Constructor.
@@ -46,7 +46,7 @@ class Execution_Action extends Abstract_Action {
 	 * @since TBD
 	 */
 	public function __construct() {
-		add_action( self::HOOK, [ $this, 'execute' ] );
+		// Hook registration is now handled in the Controller
 	}
 
 	/**
@@ -113,6 +113,7 @@ class Execution_Action extends Abstract_Action {
 	 */
 	public function can_schedule(): bool {
 		$current_status = $this->get_migration_status()['status'];
+
 		return in_array( $current_status, [ Status::$validation_completed, Status::$execution_failed ], true );
 	}
 
@@ -124,53 +125,55 @@ class Execution_Action extends Abstract_Action {
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
 	public function process() {
-		$worker = tribe( Worker::class );
+		$worker         = tribe( Worker::class );
 		$migration_data = $this->get_migration_data();
-		
+
 		if ( empty( $migration_data['categories'] ) || ! is_array( $migration_data['categories'] ) ) {
 			$error = new \WP_Error(
 				'tec_events_category_colors_migration_no_categories',
 				'No categories found for migration.'
 			);
 			Status::update_migration_status( Status::$execution_failed, $error->get_error_message() );
-			codecept_debug("Here 1");
+
 			return $error;
 		}
 
-		$categories = array_chunk( $migration_data['categories'], self::BATCH_SIZE, true );
-		$total_batches = count( $categories );
+		$categories        = array_chunk( $migration_data['categories'], self::BATCH_SIZE, true );
+		$total_batches     = count( $categories );
 		$remaining_batches = get_option( Config::$migration_batch_option, $total_batches );
 
-		codecept_debug("Categories: " .count($migration_data['categories']));
-		codecept_debug("Total Batches: " . $total_batches);
-		codecept_debug("Remaining Batches: " . $remaining_batches);
-
 		if ( $remaining_batches <= 0 ) {
-			// All batches processed
 			delete_option( Config::$migration_batch_option );
 			Status::update_migration_status( Status::$execution_completed );
-			codecept_debug("Here 2");
+
 			return true;
 		}
 
 		$current_batch_index = $total_batches - $remaining_batches;
+
+		if ( ! isset( $categories[ $current_batch_index ] ) ) {
+			$error = new \WP_Error(
+				'execution_invalid_batch_index',
+				"Invalid batch index {$current_batch_index} out of {$total_batches}."
+			);
+			Status::update_migration_status( Status::$execution_failed, $error->get_error_message() );
+
+			return $error;
+		}
+
 		$result = $worker->process_batch( $categories[ $current_batch_index ] );
 
 		if ( is_wp_error( $result ) || false === $result ) {
 			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Execution failed';
 			Status::update_migration_status( Status::$execution_failed, $error_message );
-			codecept_debug("Here 3");
+
 			return is_wp_error( $result ) ? $result : new \WP_Error( 'execution_failed', $error_message );
 		}
 
-		// Only decrement batch counter and schedule next batch if processing was successful
+// All good — decrement
 		update_option( Config::$migration_batch_option, $remaining_batches - 1 );
-		codecept_debug("Remaining Batches: " . ($remaining_batches - 1 ));
-		
-		// Schedule the next batch
 		$this->schedule_next_action();
-		
-		codecept_debug("Here 4");
+
 		return true;
 	}
 
@@ -202,4 +205,24 @@ class Execution_Action extends Abstract_Action {
 	public function get_migration_data(): array {
 		return get_option( Config::$migration_data_option, [] );
 	}
-} 
+
+	/**
+	 * Whether this action uses batching.
+	 *
+	 * @since TBD
+	 *
+	 * @return int|false Number of batches if batching is used, false otherwise.
+	 */
+	public function get_batching(): ?int {
+		$migration_data = $this->get_migration_data();
+
+		if ( empty( $migration_data['categories'] ) || ! is_array( $migration_data['categories'] ) ) {
+			return false;
+		}
+
+		$batches = array_chunk( $migration_data['categories'], static::BATCH_SIZE, true );
+
+		return count( $batches );
+	}
+
+}

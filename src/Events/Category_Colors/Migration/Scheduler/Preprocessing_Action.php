@@ -33,6 +33,15 @@ class Preprocessing_Action extends Abstract_Action {
 	protected const HOOK = 'tec_events_category_colors_migration_preprocess';
 
 	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 */
+	public function __construct() {
+		// Hook registration is now handled in the Controller
+	}
+
+	/**
 	 * Get the hook name for this action.
 	 *
 	 * @since TBD
@@ -96,7 +105,11 @@ class Preprocessing_Action extends Abstract_Action {
 	 */
 	public function can_schedule(): bool {
 		$current_status = $this->get_migration_status()['status'];
-		return in_array( $current_status, [ Status::$not_started, Status::$preprocessing_failed ], true );
+		return in_array( $current_status, [ 
+			Status::$not_started, 
+			Status::$preprocessing_failed,
+			Status::$execution_scheduled 
+		], true );
 	}
 
 	/**
@@ -107,8 +120,15 @@ class Preprocessing_Action extends Abstract_Action {
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
 	public function process() {
+		$start_time = microtime(true);
+		error_log('Preprocessing started at: ' . date('Y-m-d H:i:s'));
+
 		$preprocessor = tribe( Pre_Processor::class );
 		$result = $preprocessor->process();
+		
+		$end_time = microtime(true);
+		$duration = round($end_time - $start_time, 2);
+		error_log('Preprocessing ended at: ' . date('Y-m-d H:i:s') . ' (Duration: ' . $duration . ' seconds)');
 		
 		// Check if the status is preprocessing_skipped (valid state)
 		$current_status = $this->get_migration_status()['status'];

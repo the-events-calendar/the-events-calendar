@@ -84,6 +84,15 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 	abstract public function can_schedule(): bool;
 
 	/**
+	 * Register the action hook.
+	 *
+	 * @since TBD
+	 */
+	public function hook(): void {
+		add_action( $this->get_hook(), [ $this, 'execute' ] );
+	}
+
+	/**
 	 * Schedule this action to run.
 	 *
 	 * @since TBD
@@ -111,7 +120,20 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 			return $pre_schedule;
 		}
 
-		$action_id = as_enqueue_async_action(
+		$batch_count = $this->get_batching();
+
+		if ( empty( $batch_count ) ) {
+			// Clean up the batch option on steps that don't use it to prevent leaking.
+			delete_option( Config::$migration_batch_option );
+		}
+
+
+		// Unschedule any existing actions to avoid duplicates
+		as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
+
+		// Schedule for immediate execution
+		$action_id = as_schedule_single_action(
+			time(), // Run immediately
 			$this->get_hook(),
 			[],
 			Config::$migration_action_group
@@ -165,6 +187,7 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 			$this->update_migration_status( $this->get_failed_status(), $result->get_error_message() );
 			return $result;
 		}
+
 
 		// Only set completed status if there are no more batches
 		if ( ! get_option( Config::$migration_batch_option, 0 ) ) {
@@ -296,4 +319,16 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 	public function update_migration_status( string $status ): void {
 		parent::update_migration_status( $status );
 	}
+
+	/**
+	 * Whether this action uses batching.
+	 *
+	 * @since TBD
+	 *
+	 * @return int|false Number of batches if batching is used, false otherwise.
+	 */
+	public function get_batching(): ?int {
+		return false;
+	}
+
 }

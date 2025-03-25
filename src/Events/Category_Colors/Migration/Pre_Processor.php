@@ -95,7 +95,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		// Store processed data in the database.
 		$this->update_migration_data( $migration_data );
 
-		$this->update_migration_status( Status::$preprocess_completed );
+		$this->update_migration_status( Status::$preprocessing_completed );
 
 		/**
 		 * Fires after the preprocessor completes.

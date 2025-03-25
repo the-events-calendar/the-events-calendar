@@ -15,6 +15,7 @@ namespace TEC\Events\Category_Colors\Migration;
 
 use Tribe__Events__Main;
 use WP_Error;
+use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
 
 /**
  * Class Migration_Process
@@ -139,6 +140,56 @@ class Handler extends Abstract_Migration_Step {
 		if ( is_wp_error( $result ) || false === $result ) {
 			return $this->log_message( 'error', "Migration failed at step: {$step_name}. Stopping further processing." );
 		}
+
+		return true;
+	}
+
+	/**
+	 * Initializes the migration process.
+	 *
+	 * This method prepares the migration by:
+	 * 1. Setting the initial migration status
+	 * 2. Collecting all categories that need to be migrated
+	 * 3. Calculating the total number of batches needed
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True on success, false on failure.
+	 */
+	public function initialize_migration(): bool {
+		// Set initial migration status
+		$this->update_migration_status(Status::$execution_scheduled);
+
+		// Get all categories that need to be migrated
+		$categories = get_terms([
+			'taxonomy' => self::$taxonomy,
+			'hide_empty' => false,
+		]);
+
+		if (is_wp_error($categories)) {
+			$this->log_message('error', 'Failed to get categories: ' . $categories->get_error_message());
+			return false;
+		}
+
+		// Calculate total batches needed
+		$total_categories = count($categories);
+		$total_batches = ceil($total_categories / Execution_Action::BATCH_SIZE);
+
+		// Store migration data
+		$migration_data = [
+			'total_categories' => $total_categories,
+			'total_batches' => $total_batches,
+			'batch_counter' => 0,
+			'processed_categories' => [],
+		];
+
+		update_option(Config::$migration_data_option, $migration_data);
+
+		$this->log_message('info', sprintf(
+			'Migration initialized. Total categories: %d, Total batches: %d',
+			$total_categories,
+			$total_batches
+		));
 
 		return true;
 	}

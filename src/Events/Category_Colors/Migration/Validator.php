@@ -43,7 +43,7 @@ class Validator extends Abstract_Migration_Step {
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return in_array( static::get_migration_status()['status'], [ Status::$preprocess_completed, Status::$validation_failed ], true );
+		return in_array( static::get_migration_status()['status'], [ Status::$preprocessing_completed, Status::$validation_failed ], true );
 	}
 
 	/**
@@ -135,13 +135,14 @@ class Validator extends Abstract_Migration_Step {
 	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
 	protected function validate_structure( array $migration_data ) {
+		error_log(print_r($migration_data));
 		if ( empty( $migration_data ) ) {
 			return $this->log_message( 'error', 'Migration contains no data.', $migration_data, 'Validator' );
 		}
 
 		foreach ( Config::$expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
-				return $this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [], 'Validator' );
+				return $this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [$migration_data], 'Validator' );
 			}
 		}
 
