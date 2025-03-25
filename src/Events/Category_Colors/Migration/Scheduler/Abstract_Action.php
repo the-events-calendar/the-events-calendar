@@ -113,6 +113,7 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 		 * @since TBD
 		 *
 		 * @param Abstract_Action $action The action being scheduled.
+		 *
 		 * @return bool|WP_Error True to allow scheduling, WP_Error to prevent it.
 		 */
 		$pre_schedule = apply_filters( 'tec_events_category_colors_migration_pre_schedule_action', true, $this );
@@ -127,7 +128,6 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 			delete_option( Config::$migration_batch_option );
 		}
 
-
 		// Unschedule any existing actions to avoid duplicates
 		as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
 
@@ -135,7 +135,7 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 		$action_id = as_schedule_single_action(
 			time(), // Run immediately
 			$this->get_hook(),
-			[],
+			[ 'batch' => get_option( (int) Config::$migration_batch_option ) ],
 			Config::$migration_action_group
 		);
 
@@ -151,8 +151,8 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 		 *
 		 * @since TBD
 		 *
-		 * @param Abstract_Action $action The action that was scheduled.
-		 * @param int $action_id The ID of the scheduled action.
+		 * @param Abstract_Action $action    The action that was scheduled.
+		 * @param int             $action_id The ID of the scheduled action.
 		 */
 		do_action( 'tec_events_category_colors_migration_post_schedule_action', $this, $action_id );
 
@@ -170,12 +170,14 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 		$pre_execute = apply_filters( 'tec_events_category_colors_migration_pre_execute_action', true );
 		if ( is_wp_error( $pre_execute ) ) {
 			Status::update_migration_status( $this->get_failed_status(), $pre_execute->get_error_message() );
+
 			return $pre_execute;
 		}
 
 		$pre_execute = apply_filters( 'tec_events_category_colors_migration_' . $this->get_hook() . '_pre_execute', true );
 		if ( is_wp_error( $pre_execute ) ) {
 			Status::update_migration_status( $this->get_failed_status(), $pre_execute->get_error_message() );
+
 			return $pre_execute;
 		}
 
@@ -185,9 +187,9 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 
 		if ( is_wp_error( $result ) ) {
 			$this->update_migration_status( $this->get_failed_status(), $result->get_error_message() );
+
 			return $result;
 		}
-
 
 		// Only set completed status if there are no more batches
 		if ( ! get_option( Config::$migration_batch_option, 0 ) ) {
@@ -219,6 +221,7 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 		 * @since TBD
 		 *
 		 * @param Abstract_Action $action The action being cancelled.
+		 *
 		 * @return bool True to allow cancellation, false to prevent it.
 		 */
 		$pre_cancel = apply_filters( 'tec_events_category_colors_migration_pre_cancel_action', true, $this );
@@ -226,7 +229,7 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 			return false;
 		}
 
-		$cancelled = as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
+		$cancelled       = as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
 		$this->action_id = null;
 
 		/**
@@ -234,8 +237,8 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 		 *
 		 * @since TBD
 		 *
-		 * @param Abstract_Action $action The action that was cancelled.
-		 * @param bool $cancelled Whether the action was successfully cancelled.
+		 * @param Abstract_Action $action    The action that was cancelled.
+		 * @param bool            $cancelled Whether the action was successfully cancelled.
 		 */
 		do_action( 'tec_events_category_colors_migration_post_cancel_action', $this, $cancelled );
 
@@ -273,12 +276,17 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 	 */
 	public function is_runnable(): bool {
 		$current_status = static::get_migration_status()['status'];
-		return ! in_array( $current_status, [
-			Status::$preprocessing_in_progress,
-			Status::$validation_in_progress,
-			Status::$execution_in_progress,
-			Status::$postprocessing_in_progress,
-		], true );
+
+		return ! in_array(
+			$current_status,
+			[
+				Status::$preprocessing_in_progress,
+				Status::$validation_in_progress,
+				Status::$execution_in_progress,
+				Status::$postprocessing_in_progress,
+			],
+			true
+		);
 	}
 
 	/**

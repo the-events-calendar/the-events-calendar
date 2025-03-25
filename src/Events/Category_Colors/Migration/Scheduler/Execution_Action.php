@@ -38,7 +38,7 @@ class Execution_Action extends Abstract_Action {
 	 * @since TBD
 	 * @var int
 	 */
-	public const BATCH_SIZE = 100;
+	public const BATCH_SIZE = 10;
 
 	/**
 	 * Constructor.
@@ -141,6 +141,12 @@ class Execution_Action extends Abstract_Action {
 		$categories        = array_chunk( $migration_data['categories'], self::BATCH_SIZE, true );
 		$total_batches     = count( $categories );
 		$remaining_batches = get_option( Config::$migration_batch_option, $total_batches );
+
+		// Rewrite this, Once the batch is done, remove the first chunk of data to continue.
+
+		// Two options, hjere is my to do items.
+		// Second item, started to be worked on.
+		// Throw an exception for try/catch
 
 		if ( $remaining_batches <= 0 ) {
 			delete_option( Config::$migration_batch_option );

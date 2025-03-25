@@ -105,11 +105,16 @@ class Preprocessing_Action extends Abstract_Action {
 	 */
 	public function can_schedule(): bool {
 		$current_status = $this->get_migration_status()['status'];
-		return in_array( $current_status, [ 
-			Status::$not_started, 
-			Status::$preprocessing_failed,
-			Status::$execution_scheduled 
-		], true );
+
+		return in_array(
+			$current_status,
+			[
+				Status::$not_started,
+				Status::$preprocessing_failed,
+				Status::$execution_scheduled,
+			],
+			true
+		);
 	}
 
 	/**
@@ -120,30 +125,32 @@ class Preprocessing_Action extends Abstract_Action {
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
 	public function process() {
-		$start_time = microtime(true);
-		error_log('Preprocessing started at: ' . date('Y-m-d H:i:s'));
+		$start_time = microtime( true );
+		error_log( 'Preprocessing started at: ' . date( 'Y-m-d H:i:s' ) );
 
 		$preprocessor = tribe( Pre_Processor::class );
-		$result = $preprocessor->process();
-		
-		$end_time = microtime(true);
-		$duration = round($end_time - $start_time, 2);
-		error_log('Preprocessing ended at: ' . date('Y-m-d H:i:s') . ' (Duration: ' . $duration . ' seconds)');
-		
+		$result       = $preprocessor->process();
+
+		$end_time = microtime( true );
+		$duration = round( $end_time - $start_time, 2 );
+		error_log( 'Preprocessing ended at: ' . date( 'Y-m-d H:i:s' ) . ' (Duration: ' . $duration . ' seconds)' );
+
 		// Check if the status is preprocessing_skipped (valid state)
 		$current_status = $this->get_migration_status()['status'];
 		if ( Status::$preprocessing_skipped === $current_status ) {
 			return true;
 		}
-		
+
 		// Handle actual failures
 		if ( is_wp_error( $result ) || false === $result ) {
 			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Preprocessing failed';
 			Status::update_migration_status( Status::$preprocessing_failed, $error_message );
+
 			return is_wp_error( $result ) ? $result : new \WP_Error( 'preprocessing_failed', $error_message );
 		}
-		
+
 		Status::update_migration_status( Status::$preprocessing_completed );
+
 		return true;
 	}
 
@@ -158,4 +165,4 @@ class Preprocessing_Action extends Abstract_Action {
 		$validator = tribe( Validation_Action::class );
 		$validator->schedule();
 	}
-} 
+}

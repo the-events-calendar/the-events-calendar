@@ -135,7 +135,6 @@ class Validator extends Abstract_Migration_Step {
 	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
 	protected function validate_structure( array $migration_data ) {
-		error_log(print_r($migration_data));
 		if ( empty( $migration_data ) ) {
 			return $this->log_message( 'error', 'Migration contains no data.', $migration_data, 'Validator' );
 		}
