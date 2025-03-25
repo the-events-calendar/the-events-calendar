@@ -269,7 +269,12 @@ EOS;
 	}
 
 	/**
-	 * Validate and convert color formats (HEX, RGB, HSL) into HEX.
+	 * Sanitizes a HEX color string and optionally validates its format.
+	 *
+	 *  Accepts a HEX, RGB, or HSL color input and attempts to parse it as a HEX color using
+	 *  the Tribe Color utility. Returns a sanitized HEX color with a leading hash (`#`) if valid.
+	 *
+	 *  If `$validate` is true, the resulting HEX value is checked for proper format before returning.
 	 *
 	 * @since TBD
 	 *
@@ -298,11 +303,11 @@ EOS;
 	 *
 	 * @since TBD
 	 *
-	 * @param string $color The color string.
+	 * @param string|null $color The color string.
 	 *
 	 * @return bool True if valid, false otherwise.
 	 */
 	protected function is_valid_hex( ?string $color ): bool {
-		return ! empty( $color ) && preg_match( '/^#([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$/', $color );
+		return ! empty( $color ) && preg_match( '/^#([0-9a-f]{6}|[0-9a-f]{3})$/i', $color );
 	}
 }

@@ -695,6 +695,15 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
+		/**
+		 * Fire before the view HTML cache check.
+		 *
+		 * @since 6.10.2
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
+		 */
+		do_action( 'tec_events_before_view_html_cache', $this );
+
 		// Need our nonces for AJAX requests.
 		$nonce_html = Rest_Endpoint::get_rest_nonce_html( Rest_Endpoint::get_rest_nonces() );
 
