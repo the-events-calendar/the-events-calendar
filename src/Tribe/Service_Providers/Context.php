@@ -41,18 +41,16 @@ class Context extends Service_Provider {
 	}
 
 	/**
-	 * Filters the context locations to add the ones used by The Events Calendar.
+	 * Get the locations array for filtering.
 	 *
-	 * @since 4.9.4
+	 * This function makes sure it is only initialized once.
 	 *
-	 * @param array $locations The array of context locations.
-	 *
-	 * @return array The modified context locations.
+	 * @return array The array of context locations.
 	 */
-	public function filter_context_locations( array $locations = [] ) {
-		$locations = array_merge(
-			$locations,
-			[
+	private static function context_locations_array() {
+		static $locations_array = [];
+		if ( empty( $locations_array ) ) {
+			$locations_array = [
 				'event_display'        => [
 					'read'  => [
 						Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
@@ -162,8 +160,8 @@ class Context extends Service_Provider {
 						Tribe__Context::WP_MATCHED_QUERY => 'featured',
 					],
 					'write' => [
-						Tribe__Context::REQUEST_VAR      => 'featured',
-						Tribe__Context::QUERY_VAR        => 'featured',
+						Tribe__Context::REQUEST_VAR => 'featured',
+						Tribe__Context::QUERY_VAR   => 'featured',
 					],
 				],
 				TEC::TAXONOMY          => [
@@ -198,12 +196,12 @@ class Context extends Service_Provider {
 						Tribe__Context::QUERY_VAR   => [ 'eventDisplay', 'tribe_event_display' ],
 					],
 				],
-				'tribe_event_display'   => [
+				'tribe_event_display'  => [
 					/**
 					 * On V1 we depend on `tribe_event_display` to handle Plain permalink usage of `past` events.
 					 * The context need to be aware of where to read and write this from.
 					 */
-					'read' => [
+					'read'  => [
 						Tribe__Context::REQUEST_VAR => [ 'tribe_event_display' ],
 						Tribe__Context::WP_PARSED   => [ 'tribe_event_display' ],
 						Tribe__Context::QUERY_VAR   => [ 'tribe_event_display' ],
@@ -215,12 +213,12 @@ class Context extends Service_Provider {
 				],
 				'keyword'              => [
 					'read' => [
-						Tribe__Context::FUNC        => [
+						Tribe__Context::FUNC          => [
 							static function () {
 								return Utils\View::get_data( 'bar-keyword', Tribe__Context::NOT_FOUND );
 							},
 						],
-						Tribe__Context::REQUEST_VAR => [ 's', 'search', 'tribe-bar-search' ],
+						Tribe__Context::REQUEST_VAR   => [ 's', 'search', 'tribe-bar-search' ],
 						Tribe__Context::LOCATION_FUNC => [
 							'view_data',
 							static function ( $data ) {
@@ -256,8 +254,8 @@ class Context extends Service_Provider {
 					'read' => [
 						Tribe__Context::FUNC => static function () {
 							return Dates::build_date_object()
-										->setTime( 0, 0, 0 )
-										->format( Dates::DBDATETIMEFORMAT );
+							            ->setTime( 0, 0, 0 )
+							            ->format( Dates::DBDATETIMEFORMAT );
 						},
 					],
 				],
@@ -295,6 +293,7 @@ class Context extends Service_Provider {
 										[ TEC::POSTTYPE, Venue::POSTTYPE, Organizer::POSTTYPE, ]
 									)
 								);
+
 								return $found ?: Tribe__Context::NOT_FOUND;
 							},
 						],
@@ -386,7 +385,7 @@ class Context extends Service_Provider {
 					],
 				],
 				'view_request'         => [
-					'read'  => [
+					'read' => [
 						Tribe__Context::WP_MATCHED_QUERY => [ 'eventDisplay' ],
 						Tribe__Context::WP_PARSED        => [ 'eventDisplay' ],
 						Tribe__Context::REQUEST_VAR      => [ 'view', 'tribe_view', 'tribe_event_display', 'eventDisplay' ],
@@ -409,9 +408,26 @@ class Context extends Service_Provider {
 						Tribe__Context::TRIBE_OPTION => [ 'earliest_date' ],
 					],
 				],
-			]
+			];
+		}
+
+		return $locations_array;
+	}
+
+	/**
+	 * Filters the context locations to add the ones used by The Events Calendar.
+	 *
+	 * @since 4.9.4
+	 *
+	 * @param array $locations The array of context locations.
+	 *
+	 * @return array The modified context locations.
+	 */
+	public function filter_context_locations( array $locations = [] ) {
+		return array_merge(
+			$locations,
+			self::context_locations_array()
 		);
 
-		return $locations;
 	}
 }
