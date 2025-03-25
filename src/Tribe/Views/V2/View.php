@@ -695,6 +695,15 @@ class View implements View_Interface {
 
 		$repository_args = $this->filter_repository_args( $this->setup_repository_args() );
 
+		// Need our nonces for AJAX requests.
+		$nonce_html = Rest_Endpoint::get_rest_nonce_html( Rest_Endpoint::get_rest_nonces() );
+
+		/*
+		 * Some Views might need to access this out of this method, let's make the filtered repository arguments
+		 * available.
+		 */
+		$this->repository_args = $repository_args;
+
 		/**
 		 * Fire before the view HTML cache check.
 		 *
