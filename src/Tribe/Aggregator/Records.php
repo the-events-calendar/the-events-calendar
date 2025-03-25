@@ -215,6 +215,7 @@ class Tribe__Events__Aggregator__Records {
 		// Register the Success post status.
 		$args   = [
 			'label'               => esc_html_x( 'Imported', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of imported records
 			'label_count'         => _nx_noop(
 				'Imported <span class="count">(%s)</span>',
 				'Imported <span class="count">(%s)</span>',
@@ -247,6 +248,7 @@ class Tribe__Events__Aggregator__Records {
 		// Register the Schedule post status.
 		$args   = [
 			'label'               => esc_html_x( 'Schedule', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of schedule records
 			'label_count'         => _nx_noop(
 				'Schedule <span class="count">(%s)</span>',
 				'Schedule <span class="count">(%s)</span>',
@@ -263,6 +265,7 @@ class Tribe__Events__Aggregator__Records {
 		// Register the Pending post status.
 		$args   = [
 			'label'               => esc_html_x( 'Pending', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of pending records
 			'label_count'         => _nx_noop(
 				'Pending <span class="count">(%s)</span>',
 				'Pending <span class="count">(%s)</span>',
@@ -279,6 +282,7 @@ class Tribe__Events__Aggregator__Records {
 		// Register the Pending post status.
 		$args   = [
 			'label'               => esc_html_x( 'Draft', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of draft records
 			'label_count'         => _nx_noop(
 				'Draft <span class="count">(%s)</span>',
 				'Draft <span class="count">(%s)</span>',
