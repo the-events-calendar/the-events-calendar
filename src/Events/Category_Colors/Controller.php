@@ -50,6 +50,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->container->make( Admin\Controller::class )->unregister();
+		$this->container->make( Settings::class )->unregister();
 	}
-
 }
