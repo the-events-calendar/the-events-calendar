@@ -65,8 +65,5 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {
-		remove_action( 'tec_events_category_colors_saved', [ $this, 'generate_css' ] );
-		remove_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_scripts' ] );
-	}
+	public function unregister(): void {}
 }

@@ -30,6 +30,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
+		$this->container->register_on_action( 'tribe_plugins_loaded', Admin\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
 
 		$this->add_filters();
@@ -50,7 +51,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {
+		$this->container->make( Admin\Controller::class )->unregister();
 		$this->container->make( Settings::class )->unregister();
-		$this->container->make( CSS\Controller::class )->unregister();
 	}
 }
