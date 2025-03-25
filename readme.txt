@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.10.2
+Stable tag: 6.10.3
 Requires at least: 6.5
-Tested up to: 6.7.1
+Tested up to: 6.7.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.10.3] 2025-03-25 =
+
+* Fix - Improved user experience by ensuring Event Tickets installation and activation notices only appear on TEC-related admin pages.
+* Language - 0 new strings added, 5 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.10.2] 2025-03-04 =
 
