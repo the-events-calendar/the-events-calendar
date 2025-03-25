@@ -9,7 +9,9 @@ namespace Tribe\Events\Admin\Notice;
 use TEC\Common\StellarWP\Installer\Installer;
 use Tribe__Main;
 use Tribe__Template;
-
+use Tribe__Events__Main as Events_Main;
+use Tribe__Events__Organizer as Events_Organizer;
+use Tribe__Events__Venue as Events_Venue;
 /**
 
  */
@@ -169,6 +171,7 @@ class Install_Event_Tickets {
 
 		return ! $this->is_installed()
 			&& empty( tribe_get_request_var( 'welcome-message-the-events-calendar' ) )
+			&& $this->is_tec_related_page()
 			&& ! $this->is_install_plugin_page();
 	}
 
@@ -185,6 +188,9 @@ class Install_Event_Tickets {
 			return false;
 		}
 
+		$plugin_status_check    = $this->is_installed() && ! $this->is_active();
+		$is_admin_relevant_page = $this->is_tec_related_page();
+
 		/**
 		 * Filters whether the `Event Tickets` admin notice should display.
 		 *
@@ -192,7 +198,64 @@ class Install_Event_Tickets {
 		 *
 		 * @param bool $should_display True if the notice should display.
 		 */
-		return apply_filters( 'tec_events_admin_notice_event_tickets_should_display', $this->is_installed() && ! $this->is_active() && ! $this->is_install_plugin_page() );
+		return apply_filters( 'tec_events_admin_notice_event_tickets_should_display', $plugin_status_check && $is_admin_relevant_page );
+	}
+
+	/**
+	 * Checks if the current admin page is TEC related.
+	 *
+	 * @since 6.10.3
+	 *
+	 * @return bool True if the current admin page is TEC related.
+	 */
+	public function is_tec_related_page(): bool {
+		// Not in the admin we don't even care.
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		global $current_screen;
+
+		// No screen, bail.
+		if ( empty( $current_screen ) ) {
+			return false;
+		}
+
+		// Match any TEC post type screens (events, organizers, venues).
+		$tec_post_types = [
+			Events_Main::POSTTYPE      => true,
+			Events_Organizer::POSTTYPE => true,
+			Events_Venue::POSTTYPE     => true,
+		];
+
+		if ( isset( $tec_post_types[ $current_screen->post_type ] ) ) {
+			return true;
+		}
+
+		// Match any screen ID containing 'tribe_events'.
+		if ( false !== strpos( $current_screen->id, Events_Main::POSTTYPE ) ) {
+			return true;
+		}
+
+		// Match any screen ID starting with 'tec-'.
+		if ( str_starts_with( $current_screen->id, 'tec-' ) ) {
+			return true;
+		}
+
+		// Match TEC settings pages.
+		if ( false !== strpos( $current_screen->id, 'tribe-common' ) ) {
+			return true;
+		}
+
+		// If Admin Helpers class is available, use it for more comprehensive check.
+		if ( class_exists( \Tribe__Admin__Helpers::class, false ) ) {
+			$admin_helpers = tribe( 'admin.helpers' );
+			if ( method_exists( $admin_helpers, 'is_screen' ) && $admin_helpers->is_screen() ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
