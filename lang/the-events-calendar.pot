@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.10.2\n"
+"Project-Id-Version: The Events Calendar 6.10.3\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-27T17:17:53+00:00\n"
+"POT-Creation-Date: 2025-03-24T22:29:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: the-events-calendar\n"
@@ -3017,12 +3017,12 @@ msgstr ""
 
 #: src/Events/Admin/Onboarding/Landing_Page.php:383
 #: src/Events/Admin/Onboarding/Landing_Page.php:391
-#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:266
+#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:329
 msgid "Install Event Tickets"
 msgstr ""
 
 #: src/Events/Admin/Onboarding/Landing_Page.php:391
-#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:236
+#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:299
 msgid "Activate Event Tickets"
 msgstr ""
 
@@ -4933,15 +4933,15 @@ msgstr ""
 msgid "Read more."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:235
+#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:298
 msgid "You're almost there! Activate Event Tickets for free and you'll be able to sell tickets, collect RSVPs, and manage attendees all from your Dashboard."
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:264
+#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:327
 msgid "Start selling tickets to your Events"
 msgstr ""
 
-#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:265
+#: src/Tribe/Admin/Notice/Install_Event_Tickets.php:328
 msgid "Sell tickets, collect RSVPs, and manage attendees for free with Event Tickets."
 msgstr ""
 
