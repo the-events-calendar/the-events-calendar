@@ -14,6 +14,7 @@ namespace TEC\Events\Category_Colors\Admin;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe__Events__Main;
+use WP_Term;
 
 /**
  * Class Controller
@@ -75,7 +76,9 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function enqueue_assets() {
-		$this->container->make( Add_Category::class )->enqueue_assets();
+		/** @var Add_Category $instance */
+		$instance = $this->container->make( Add_Category::class );
+		$instance->enqueue_assets();
 	}
 
 	/**
@@ -86,7 +89,9 @@ class Controller extends Controller_Contract {
 	 * @param string $taxonomy The taxonomy slug.
 	 */
 	public function display_add_category_fields( $taxonomy ) {
-		$this->container->make( Add_Category::class )->display_category_fields( $taxonomy );
+		/** @var Add_Category $instance */
+		$instance = $this->container->make( Add_Category::class );
+		$instance->display_category_fields( $taxonomy );
 	}
 
 	/**
@@ -98,7 +103,9 @@ class Controller extends Controller_Contract {
 	 * @param string  $taxonomy The taxonomy slug.
 	 */
 	public function display_edit_category_fields( $tag, $taxonomy ) {
-		$this->container->make( Edit_Category::class )->display_category_fields( $tag, $taxonomy );
+		/** @var Edit_Category $instance */
+		$instance = $this->container->make( Edit_Category::class );
+		$instance->display_category_fields( $tag, $taxonomy );
 	}
 
 	/**
@@ -109,7 +116,9 @@ class Controller extends Controller_Contract {
 	 * @param string $taxonomy The taxonomy slug.
 	 */
 	public function save_add_category_fields( $taxonomy ) {
-		$this->container->make( Add_Category::class )->save_category_fields( $taxonomy );
+		/** @var Add_Category $instance */
+		$instance = $this->container->make( Add_Category::class );
+		$instance->save_category_fields( $taxonomy );
 	}
 
 	/**
@@ -120,7 +129,9 @@ class Controller extends Controller_Contract {
 	 * @param string $taxonomy The taxonomy slug.
 	 */
 	public function save_edit_category_fields( $taxonomy ) {
-		$this->container->make( Edit_Category::class )->save_category_fields( $taxonomy );
+		/** @var Edit_Category $instance */
+		$instance = $this->container->make( Edit_Category::class );
+		$instance->save_category_fields( $taxonomy );
 	}
 
 	/**
@@ -132,7 +143,9 @@ class Controller extends Controller_Contract {
 	 * @return array Modified columns array.
 	 */
 	public function add_columns( $columns ) {
-		return $this->container->make( Quick_Edit::class )->add_columns( $columns );
+		/** @var Quick_Edit $instance */
+		$instance = $this->container->make( Quick_Edit::class );
+		return $instance->add_columns( $columns );
 	}
 
 	/**
@@ -146,7 +159,9 @@ class Controller extends Controller_Contract {
 	 * @return string Modified column content.
 	 */
 	public function add_column_data( $content, $column_name, $term_id ) {
-		return $this->container->make( Quick_Edit::class )->add_custom_column_data( $content, $column_name, $term_id );
+		/** @var Quick_Edit $instance */
+		$instance = $this->container->make( Quick_Edit::class );
+		return $instance->add_custom_column_data( $content, $column_name, $term_id );
 	}
 
 	/**
@@ -158,6 +173,8 @@ class Controller extends Controller_Contract {
 	 * @param string|object $screen      The current screen.
 	 */
 	public function add_quick_edit_fields( $column_name, $screen ) {
-		$this->container->make( Quick_Edit::class )->add_quick_edit_fields( $column_name, $screen );
+		/** @var Quick_Edit $instance */
+		$instance = $this->container->make( Quick_Edit::class );
+		$instance->add_quick_edit_fields( $column_name, $screen );
 	}
 }

@@ -12,12 +12,13 @@ namespace TEC\Events\Tests\Integration\Category_Colors\Admin;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Category_Colors\Admin\Quick_Edit;
 use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
 use Spatie\Snapshots\MatchesSnapshots;
 
 class Quick_Edit_Test extends WPTestCase {
 	use MatchesSnapshots;
+	use Meta_Keys_Trait;
 
 	/**
 	 * @var Quick_Edit
@@ -30,11 +31,6 @@ class Quick_Edit_Test extends WPTestCase {
 	protected $meta;
 
 	/**
-	 * @var Meta_Keys
-	 */
-	protected $meta_keys;
-
-	/**
 	 * @var array
 	 */
 	protected $original_post;
@@ -45,7 +41,6 @@ class Quick_Edit_Test extends WPTestCase {
 	public function setup_test() {
 		$this->quick_edit = tribe( Quick_Edit::class );
 		$this->meta       = tribe( Event_Category_Meta::class );
-		$this->meta_keys  = tribe( Meta_Keys::class );
 
 		// Store original $_POST state
 		$this->original_post = $_POST;
@@ -57,7 +52,6 @@ class Quick_Edit_Test extends WPTestCase {
 	public function cleanup_test() {
 		$this->quick_edit = null;
 		$this->meta       = null;
-		$this->meta_keys  = null;
 
 		// Restore original $_POST state
 		$_POST = $this->original_post;
@@ -210,7 +204,7 @@ class Quick_Edit_Test extends WPTestCase {
 		// Set initial meta values
 		$meta = $this->meta->set_term( $term_id );
 		foreach ( $initial_values as $key => $value ) {
-			$meta->set( $this->meta_keys->get_key( $key ), $value );
+			$meta->set( $this->get_key( $key ), $value );
 		}
 		$meta->save();
 
@@ -377,7 +371,7 @@ class Quick_Edit_Test extends WPTestCase {
 		);
 
 		$meta         = $this->meta->set_term( $term_id );
-		$priority_key = $this->meta_keys->get_key( 'priority' );
+		$priority_key = $this->get_key( 'priority' );
 
 		// Test with PHP_INT_MAX
 		$meta->set( $priority_key, PHP_INT_MAX );
@@ -411,9 +405,9 @@ class Quick_Edit_Test extends WPTestCase {
 		);
 
 		$meta          = $this->meta->set_term( $term_id );
-		$primary_key   = $this->meta_keys->get_key( 'primary' );
-		$secondary_key = $this->meta_keys->get_key( 'secondary' );
-		$text_key      = $this->meta_keys->get_key( 'text' );
+		$primary_key   = $this->get_key( 'primary' );
+		$secondary_key = $this->get_key( 'secondary' );
+		$text_key      = $this->get_key( 'text' );
 
 		// Set colors with HTML entities
 		$meta->set( $primary_key, '#ff&gt;00' );
@@ -440,9 +434,9 @@ class Quick_Edit_Test extends WPTestCase {
 		);
 
 		$meta          = $this->meta->set_term( $term_id );
-		$primary_key   = $this->meta_keys->get_key( 'primary' );
-		$secondary_key = $this->meta_keys->get_key( 'secondary' );
-		$text_key      = $this->meta_keys->get_key( 'text' );
+		$primary_key   = $this->get_key( 'primary' );
+		$secondary_key = $this->get_key( 'secondary' );
+		$text_key      = $this->get_key( 'text' );
 
 		// Set empty color values
 		$meta->set( $primary_key, '' );
@@ -467,9 +461,9 @@ class Quick_Edit_Test extends WPTestCase {
 		);
 
 		$meta          = $this->meta->set_term( $term_id );
-		$primary_key   = $this->meta_keys->get_key( 'primary' );
-		$secondary_key = $this->meta_keys->get_key( 'secondary' );
-		$text_key      = $this->meta_keys->get_key( 'text' );
+		$primary_key   = $this->get_key( 'primary' );
+		$secondary_key = $this->get_key( 'secondary' );
+		$text_key      = $this->get_key( 'text' );
 
 		// Set valid color values
 		$meta->set( $primary_key, '#ff0000' );

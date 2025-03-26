@@ -12,10 +12,12 @@ namespace TEC\Events\Tests\Integration\Category_Colors\Admin;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Category_Colors\Admin\Add_Category;
 use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
 
 class Add_Category_Test extends WPTestCase {
+	use Meta_Keys_Trait;
+
 	/**
 	 * @var Add_Category
 	 */
@@ -25,11 +27,6 @@ class Add_Category_Test extends WPTestCase {
 	 * @var Event_Category_Meta
 	 */
 	protected $meta;
-
-	/**
-	 * @var Meta_Keys
-	 */
-	protected $meta_keys;
 
 	/**
 	 * @var array
@@ -42,7 +39,6 @@ class Add_Category_Test extends WPTestCase {
 	public function setup_test() {
 		$this->add_category = tribe( Add_Category::class );
 		$this->meta         = tribe( Event_Category_Meta::class );
-		$this->meta_keys    = tribe( Meta_Keys::class );
 
 		// Store original $_POST state
 		$this->original_post = $_POST;
@@ -54,7 +50,6 @@ class Add_Category_Test extends WPTestCase {
 	public function cleanup_test() {
 		$this->add_category = null;
 		$this->meta         = null;
-		$this->meta_keys    = null;
 
 		// Restore original $_POST state
 		$_POST = $this->original_post;
@@ -193,7 +188,7 @@ class Add_Category_Test extends WPTestCase {
 		foreach ( $expected_values as $key => $expected_value ) {
 			$this->assertEquals(
 				$expected_value,
-				$meta->get( $this->meta_keys->get_key( $key ) ),
+				$meta->get( $this->get_key( $key ) ),
 				sprintf( 'Failed asserting that %s value matches expected value', $key )
 			);
 		}

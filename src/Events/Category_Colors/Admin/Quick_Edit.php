@@ -2,17 +2,18 @@
 /**
  * Handles quick edit functionality for category colors in the WordPress admin.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Admin
  */
 
 namespace TEC\Events\Category_Colors\Admin;
 
-use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
-use Tribe__Events__Main;
 use InvalidArgumentException;
+use TEC\Events\Category_Colors\Event_Category_Meta;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
+use Tribe__Events__Main;
+use Tribe__Template;
 
 /**
  * Class Quick_Edit
@@ -23,6 +24,8 @@ use InvalidArgumentException;
  * @since TBD
  */
 class Quick_Edit extends Abstract_Admin {
+	use Meta_Keys_Trait;
+
 	/**
 	 * Adds custom columns to the Category Table.
 	 *
@@ -78,10 +81,15 @@ class Quick_Edit extends Abstract_Admin {
 	 * @return string Priority value.
 	 */
 	protected function get_column_category_priority( Event_Category_Meta $meta ): string {
-		$meta_key = tribe( Meta_Keys::class )->get_key( 'priority' );
-		$priority = $meta_key ? $meta->get( $meta_key ) : '0';
+		try {
+			$meta_key = $this->get_key( 'priority' );
+			$priority = $meta->get( $meta_key );
 
-		return esc_html( absint( $priority ) ?: '0' );
+			return esc_html( absint( $priority ) ?: '0' );
+		} catch ( InvalidArgumentException $e ) {
+			// If priority key is invalid, return default value.
+			return '0';
+		}
 	}
 
 	/**
@@ -94,28 +102,35 @@ class Quick_Edit extends Abstract_Admin {
 	 * @return string HTML for color preview square.
 	 */
 	protected function get_column_category_color_preview( Event_Category_Meta $meta ): string {
-		$meta_keys = tribe( Meta_Keys::class )->get_all_keys();
+		static $color_fields = null;
 
-		$category_color_fields = array_map(
-			function ( $key, $meta_key ) use ( $meta ) {
-				$value = esc_attr( $meta->get( $meta_key ) );
+		static $meta_keys = null;
 
-				return in_array( $key, [ 'primary', 'secondary', 'text' ], true )
-					? sanitize_hex_color( $value )
-					: $value;
-			},
-			array_keys( $meta_keys ),
-			$meta_keys
-		);
-
-		$category_color_fields = array_combine( array_keys( $meta_keys ), $category_color_fields );
-
-		// If no primary or secondary color is set, return transparent.
-		if ( empty( $category_color_fields['primary'] ) || empty( $category_color_fields['secondary'] ) ) {
-			return 'transparent';
+		// Initialize static arrays only once.
+		if ( null === $color_fields ) {
+			$color_fields = [
+				'primary'   => true,
+				'secondary' => true,
+				'text'      => true,
+			];
+		}
+		if ( null === $meta_keys ) {
+			$meta_keys = $this->get_all_keys();
 		}
 
-		return $this->get_template()->template( 'category-color-preview', $category_color_fields, false );
+		// Get values in a single pass.
+		$fields = [];
+		foreach ( $meta_keys as $key => $meta_key ) {
+			$value          = $meta->get( $meta_key );
+			$fields[ $key ] = isset( $color_fields[ $key ] ) ? sanitize_hex_color( $value ) : $value;
+		}
+
+		// Early return if no colors.
+		if ( empty( $fields['primary'] ) || empty( $fields['secondary'] ) ) {
+			return __( 'transparent', 'tribe-events-calendar' );
+		}
+
+		return $this->get_template()->template( 'category-color-preview', $fields, false );
 	}
 
 	/**

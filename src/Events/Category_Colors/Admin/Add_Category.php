@@ -9,7 +9,8 @@
 
 namespace TEC\Events\Category_Colors\Admin;
 
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
+use Tribe__Template;
 
 /**
  * Class Add_Category
@@ -20,6 +21,18 @@ use TEC\Events\Category_Colors\Meta_Keys;
  * @since TBD
  */
 class Add_Category extends Abstract_Admin {
+	use Meta_Keys_Trait;
+
+	/**
+	 * Constructor for the Add_Category class.
+	 *
+	 * @since TBD
+	 *
+	 * @param Tribe__Template|null $template The template instance to use for rendering.
+	 */
+	public function __construct( ?Tribe__Template $template = null ) {
+		parent::__construct( $template );
+	}
 
 	/**
 	 * Displays custom fields in the "Add New Category" form.
@@ -32,7 +45,7 @@ class Add_Category extends Abstract_Admin {
 	 */
 	public function display_category_fields( string $taxonomy ): string {
 		// Get all keys from Meta_Keys.
-		$meta_keys = tribe( Meta_Keys::class )->get_all_keys();
+		$meta_keys = $this->get_all_keys();
 
 		// Prepare empty defaults for each key.
 		$category_colors = array_fill_keys( array_keys( $meta_keys ), '' );

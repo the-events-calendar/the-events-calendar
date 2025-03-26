@@ -40,7 +40,9 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	protected function add_filters() {
-		$this->container->make( Settings::class )->add_hooks();
+		/** @var Settings $instance */
+		$instance = $this->container->make( Settings::class );
+		$instance->add_hooks();
 	}
 
 	/**
@@ -49,7 +51,12 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {
-		$this->container->make( Admin\Controller::class )->unregister();
-		$this->container->make( Settings::class )->unregister();
+		/** @var Admin\Controller $admin_controller */
+		$admin_controller = $this->container->make( Admin\Controller::class );
+		$admin_controller->unregister();
+
+		/** @var Settings $settings */
+		$settings = $this->container->make( Settings::class );
+		$settings->unregister();
 	}
 }
