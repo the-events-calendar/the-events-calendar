@@ -39,14 +39,14 @@ class ShortcodeTest extends WPTestCase {
 		$this->slugs = Settings::get_option_slugs();
 
 		// Enable QR
-		tribe_update_option($this->slugs['enabled'], true);
+		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller to ensure shortcode is available
-		$controller = tribe(Controller::class);
+		$controller = tribe( Controller::class );
 		$controller->do_register();
 
 		// Initialize shortcode
-		$this->shortcode = tribe(Shortcode::class);
+		$this->shortcode = tribe( Shortcode::class );
 
 		// Create a test event that can be used across tests
 		$this->test_event_id = $this->factory->post->create([
@@ -61,7 +61,7 @@ class ShortcodeTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_shortcode_slug() {
-		$this->assertEquals('tec_event_qr', $this->shortcode->get_registration_slug());
+		$this->assertEquals( 'tec_event_qr', $this->shortcode->get_registration_slug() );
 	}
 
 	/**
@@ -72,13 +72,13 @@ class ShortcodeTest extends WPTestCase {
 	public function test_default_arguments() {
 		$defaults = $this->shortcode->get_default_arguments();
 
-		$this->assertArrayHasKey('mode', $defaults);
-		$this->assertArrayHasKey('id', $defaults);
-		$this->assertArrayHasKey('size', $defaults);
+		$this->assertArrayHasKey( 'mode', $defaults );
+		$this->assertArrayHasKey( 'id', $defaults );
+		$this->assertArrayHasKey( 'size', $defaults );
 
-		$this->assertEquals('current', $defaults['mode']);
-		$this->assertEquals('', $defaults['id']);
-		$this->assertEquals(6, $defaults['size']);
+		$this->assertEquals( 'current', $defaults['mode'] );
+		$this->assertEquals( '', $defaults['id'] );
+		$this->assertEquals( 6, $defaults['size'] );
 	}
 
 	/**
@@ -89,12 +89,12 @@ class ShortcodeTest extends WPTestCase {
 	public function test_argument_validation() {
 		$validation_map = $this->shortcode->validate_arguments_map;
 
-		$this->assertArrayHasKey('id', $validation_map);
-		$this->assertArrayHasKey('mode', $validation_map);
-		$this->assertArrayHasKey('size', $validation_map);
+		$this->assertArrayHasKey( 'id', $validation_map );
+		$this->assertArrayHasKey( 'mode', $validation_map );
+		$this->assertArrayHasKey( 'size', $validation_map );
 
-		$this->assertEquals('tribe_post_exists', $validation_map['id']);
-		$this->assertEquals('sanitize_title_with_dashes', $validation_map['mode']);
-		$this->assertEquals('absint', $validation_map['size']);
+		$this->assertEquals( 'tribe_post_exists', $validation_map['id'] );
+		$this->assertEquals( 'sanitize_title_with_dashes', $validation_map['mode'] );
+		$this->assertEquals( 'absint', $validation_map['size'] );
 	}
 }

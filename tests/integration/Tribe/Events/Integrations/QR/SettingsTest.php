@@ -33,14 +33,14 @@ class SettingsTest extends WPTestCase {
 		$this->slugs = Settings::get_option_slugs();
 
 		// Enable QR
-		tribe_update_option($this->slugs['enabled'], true);
+		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller first
-		$controller = tribe(Controller::class);
+		$controller = tribe( Controller::class );
 		$controller->do_register();
 
 		// Initialize settings
-		$this->settings = tribe(Settings::class);
+		$this->settings = tribe( Settings::class );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_class_exists() {
-		$this->assertInstanceOf(Settings::class, $this->settings);
+		$this->assertInstanceOf( Settings::class, $this->settings );
 	}
 
 	/**
@@ -58,18 +58,18 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_option_slugs() {
-		$this->assertArrayHasKey('enabled', $this->slugs);
-		$this->assertEquals('tribe-events-qr-code-enabled', $this->slugs['enabled']);
-		$this->assertArrayHasKey('prefix', $this->slugs);
-		$this->assertEquals('tribe-events-qr-prefix', $this->slugs['prefix']);
-		$this->assertArrayHasKey('size', $this->slugs);
-		$this->assertEquals('tribe-events-qr-size', $this->slugs['size']);
-		$this->assertArrayHasKey('redirection', $this->slugs);
-		$this->assertEquals('tribe-events-qr-redirection-behavior', $this->slugs['redirection']);
-		$this->assertArrayHasKey('specific', $this->slugs);
-		$this->assertEquals('tribe-events-qr-specific-event-id', $this->slugs['specific']);
-		$this->assertArrayHasKey('fallback', $this->slugs);
-		$this->assertEquals('tribe-events-qr-fallback', $this->slugs['fallback']);
+		$this->assertArrayHasKey( 'enabled', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-code-enabled', $this->slugs['enabled'] );
+		$this->assertArrayHasKey( 'prefix', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-prefix', $this->slugs['prefix'] );
+		$this->assertArrayHasKey( 'size', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-size', $this->slugs['size'] );
+		$this->assertArrayHasKey( 'redirection', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-redirection-behavior', $this->slugs['redirection'] );
+		$this->assertArrayHasKey( 'specific', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-specific-event-id', $this->slugs['specific'] );
+		$this->assertArrayHasKey( 'fallback', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-fallback', $this->slugs['fallback'] );
 	}
 
 	/**
@@ -78,19 +78,19 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_default_values() {
-		$enabled = tribe_get_option($this->slugs['enabled'], true);
-		$prefix = tribe_get_option($this->slugs['prefix'], 'qr');
-		$size = tribe_get_option($this->slugs['size'], '250x250');
-		$redirection = tribe_get_option($this->slugs['redirection'], 'current_event');
-		$specific = tribe_get_option($this->slugs['specific'], '');
-		$fallback = tribe_get_option($this->slugs['fallback'], '');
+		$enabled = tribe_get_option( $this->slugs['enabled'], true );
+		$prefix = tribe_get_option( $this->slugs['prefix'], 'qr' );
+		$size = tribe_get_option( $this->slugs['size'], '250x250' );
+		$redirection = tribe_get_option( $this->slugs['redirection'], 'current_event' );
+		$specific = tribe_get_option( $this->slugs['specific'], '' );
+		$fallback = tribe_get_option( $this->slugs['fallback'], '' );
 
-		$this->assertTrue($enabled);
-		$this->assertEquals('qr', $prefix);
-		$this->assertEquals('250x250', $size);
-		$this->assertEquals('current_event', $redirection);
-		$this->assertEquals('', $specific);
-		$this->assertEquals('', $fallback);
+		$this->assertTrue( $enabled );
+		$this->assertEquals( 'qr', $prefix );
+		$this->assertEquals( '250x250', $size );
+		$this->assertEquals( 'current_event', $redirection );
+		$this->assertEquals( '', $specific );
+		$this->assertEquals( '', $fallback );
 	}
 
 	/**
@@ -99,7 +99,7 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_can_be_enabled() {
-		$this->assertTrue($this->settings->is_enabled());
+		$this->assertTrue( $this->settings->is_enabled() );
 	}
 
 	/**
@@ -108,9 +108,9 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_can_be_disabled() {
-		tribe_update_option($this->slugs['enabled'], false);
+		tribe_update_option( $this->slugs['enabled'], false );
 
-		$this->assertFalse($this->settings->is_enabled());
+		$this->assertFalse( $this->settings->is_enabled() );
 	}
 
 	/**
@@ -119,11 +119,11 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_enabled_state_can_be_filtered() {
-		add_filter('tec_events_qr_code_enabled', '__return_true');
+		add_filter( 'tec_events_qr_code_enabled', '__return_true' );
 
-		$this->assertTrue($this->settings->is_enabled());
+		$this->assertTrue( $this->settings->is_enabled() );
 
-		remove_filter('tec_events_qr_code_enabled', '__return_true');
+		remove_filter( 'tec_events_qr_code_enabled', '__return_true' );
 	}
 
 	/**
@@ -132,8 +132,8 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_enabled_state_is_sanitized() {
-		tribe_update_option($this->slugs['enabled'], 'invalid_value');
+		tribe_update_option( $this->slugs['enabled'], 'invalid_value' );
 
-		$this->assertFalse($this->settings->is_enabled());
+		$this->assertFalse( $this->settings->is_enabled() );
 	}
 }

@@ -29,13 +29,13 @@ class ControllerTest extends WPTestCase {
 
 	function setUp() {
 		parent::setUp();
-		$this->controller = tribe(Controller::class);
+		$this->controller = tribe( Controller::class );
 
 		// Get option slugs once
 		$this->slugs = Settings::get_option_slugs();
 
 		// Enable QR by default
-		tribe_update_option($this->slugs['enabled'], true);
+		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller by default
 		$this->controller->do_register();
@@ -47,7 +47,7 @@ class ControllerTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_controller_slug() {
-		$this->assertEquals('tec_event_qr', $this->controller->get_slug());
+		$this->assertEquals( 'tec_event_qr', $this->controller->get_slug() );
 	}
 
 	/**
@@ -57,9 +57,9 @@ class ControllerTest extends WPTestCase {
 	 */
 	public function test_controller_registers_shortcode() {
 		// Check that the shortcode is registered
-		$shortcodes = apply_filters('tribe_shortcodes', []);
-		$this->assertArrayHasKey('tec_event_qr', $shortcodes);
-		$this->assertEquals(Shortcode::class, $shortcodes['tec_event_qr']);
+		$shortcodes = apply_filters( 'tribe_shortcodes', [] );
+		$this->assertArrayHasKey( 'tec_event_qr', $shortcodes );
+		$this->assertEquals( Shortcode::class, $shortcodes['tec_event_qr'] );
 	}
 
 	/**
@@ -68,11 +68,11 @@ class ControllerTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_controller_adds_valid_pages() {
-		$valid_pages = apply_filters('tec_qr_notice_valid_pages', []);
+		$valid_pages = apply_filters( 'tec_qr_notice_valid_pages', [] );
 
-		$this->assertContains('tec-events-settings', $valid_pages);
-		$this->assertContains('tec-events-help-hub', $valid_pages);
-		$this->assertContains('tec-troubleshooting', $valid_pages);
+		$this->assertContains( 'tec-events-settings', $valid_pages );
+		$this->assertContains( 'tec-events-help-hub', $valid_pages );
+		$this->assertContains( 'tec-troubleshooting', $valid_pages );
 	}
 
 	/**
@@ -82,8 +82,8 @@ class ControllerTest extends WPTestCase {
 	 */
 	public function test_controller_registers_settings() {
 		// Check that the settings are registered
-		$settings = tribe(Settings::class);
-		$this->assertInstanceOf(Settings::class, $settings);
+		$settings = tribe( Settings::class );
+		$this->assertInstanceOf( Settings::class, $settings );
 	}
 
 	/**
@@ -96,14 +96,14 @@ class ControllerTest extends WPTestCase {
 		$this->controller->unregister();
 
 		// Check that the shortcode is no longer registered
-		$shortcodes = apply_filters('tribe_shortcodes', []);
-		$this->assertArrayNotHasKey('tec_event_qr', $shortcodes);
+		$shortcodes = apply_filters( 'tribe_shortcodes', []);
+		$this->assertArrayNotHasKey( 'tec_event_qr', $shortcodes);
 
 		// Check that the valid pages filter is removed
-		$valid_pages = apply_filters('tec_qr_notice_valid_pages', []);
-		$this->assertNotContains('tec-events-settings', $valid_pages);
-		$this->assertNotContains('tec-events-help-hub', $valid_pages);
-		$this->assertNotContains('tec-troubleshooting', $valid_pages);
+		$valid_pages = apply_filters( 'tec_qr_notice_valid_pages', [] );
+		$this->assertNotContains( 'tec-events-settings', $valid_pages );
+		$this->assertNotContains( 'tec-events-help-hub', $valid_pages );
+		$this->assertNotContains( 'tec-troubleshooting', $valid_pages );
 	}
 
 	/**
@@ -113,8 +113,8 @@ class ControllerTest extends WPTestCase {
 	 */
 	public function test_controller_can_use_when_qr_enabled() {
 		// Check that the shortcode is registered
-		$shortcodes = apply_filters('tribe_shortcodes', []);
-		$this->assertArrayHasKey('tec_event_qr', $shortcodes);
+		$shortcodes = apply_filters( 'tribe_shortcodes', [] );
+		$this->assertArrayHasKey( 'tec_event_qr', $shortcodes );
 	}
 
 	/**
@@ -123,13 +123,13 @@ class ControllerTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_controller_cannot_use_when_qr_disabled() {
-		tribe_update_option($this->slugs['enabled'], false);
+		tribe_update_option( $this->slugs['enabled'], false );
 
 		// Re-register the controller to test disabled state
 		$this->controller->do_register();
 
 		// Check that the shortcode is not registered
-		$shortcodes = apply_filters('tribe_shortcodes', []);
-		$this->assertArrayNotHasKey('tec_event_qr', $shortcodes);
+		$shortcodes = apply_filters( 'tribe_shortcodes', [] );
+		$this->assertArrayNotHasKey( 'tec_event_qr', $shortcodes );
 	}
 }
