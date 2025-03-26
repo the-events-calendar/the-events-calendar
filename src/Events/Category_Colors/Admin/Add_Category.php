@@ -24,17 +24,6 @@ class Add_Category extends Abstract_Admin {
 	use Meta_Keys_Trait;
 
 	/**
-	 * Constructor for the Add_Category class.
-	 *
-	 * @since TBD
-	 *
-	 * @param Tribe__Template|null $template The template instance to use for rendering.
-	 */
-	public function __construct( ?Tribe__Template $template = null ) {
-		parent::__construct( $template );
-	}
-
-	/**
 	 * Displays custom fields in the "Add New Category" form.
 	 *
 	 * @since TBD
