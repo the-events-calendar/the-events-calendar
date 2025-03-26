@@ -117,10 +117,10 @@ class Event_Category_Meta {
 			return $all_meta;
 		}
 
-		$key = $this->validate_key( $key );
-
-		if ( is_wp_error( $key ) ) {
-			throw new InvalidArgumentException( $key->get_error_message() );
+		try {
+			$key = $this->validate_key( $key );
+		} catch ( InvalidArgumentException $e ) {
+			throw $e;
 		}
 
 		return metadata_exists( 'term', $this->term_id, $key )
@@ -142,10 +142,10 @@ class Event_Category_Meta {
 	 */
 	public function set( string $key, $value ): self {
 		$this->ensure_term_is_set();
-		$key = $this->validate_key( $key );
-
-		if ( is_wp_error( $key ) ) {
-			throw new InvalidArgumentException( $key->get_error_message() );
+		try {
+			$key = $this->validate_key( $key );
+		} catch ( InvalidArgumentException $e ) {
+			throw $e;
 		}
 
 		// Ensure we're not setting term meta for a shared term.
@@ -155,10 +155,10 @@ class Event_Category_Meta {
 			);
 		}
 
-		$value = $this->validate_value( $value );
-
-		if ( is_wp_error( $value ) ) {
-			throw new InvalidArgumentException( $value->get_error_message() );
+		try {
+			$value = $this->validate_value( $value );
+		} catch ( InvalidArgumentException $e ) {
+			throw $e;
 		}
 
 		$this->pending_updates[ $key ] = $value;

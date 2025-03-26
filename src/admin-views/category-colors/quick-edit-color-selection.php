@@ -13,30 +13,30 @@
 	<div class="tec-events-category-colors__container">
 		<div class="tec-events-category-colors__grid">
 			<div class="tec-events-category-colors__field">
-				<label for="tec-category-colors-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
+				<label for="tec-events-category-colors-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
 				<input
 					type="text"
-					id="tec-category-colors-primary"
+					id="tec-events-category-colors-primary"
 					name="tec_events_category-color[primary]"
 					value="<?php echo esc_attr( $category_colors['primary'] ?? '' ); ?>"
 					class="tec-events-category-colors__input wp-color-picker"
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
-				<label for="tec-category-colors-background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
+				<label for="tec-events-category-colors-background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
 				<input
 					type="text"
-					id="tec-category-colors-background"
+					id="tec-events-category-colors-background"
 					name="tec_events_category-color[secondary]"
 					value="<?php echo esc_attr( $category_colors['secondary'] ?? '' ); ?>"
 					class="tec-events-category-colors__input wp-color-picker"
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
-				<label for="tec-category-colors-text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
+				<label for="tec-events-category-colors-text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
 				<input
 					type="text"
-					id="tec-category-colors-text"
+					id="tec-events-category-colors-text"
 					name="tec_events_category-color[text]"
 					value="<?php echo esc_attr( $category_colors['text'] ?? '' ); ?>"
 					class="tec-events-category-colors__input wp-color-picker"
@@ -57,12 +57,12 @@
 </div>
 
 <div class="tec-events-category-colors__field">
-	<label for="tec-category-colors-priority">
+	<label for="tec-events-category-colors-priority">
 		<?php esc_html_e( 'Category Priority', 'the-events-calendar' ); ?>
 	</label>
 	<input
 		type="number"
-		id="tec-category-colors-priority"
+		id="tec-events-category-colors-priority"
 		name="tec_events_category-color[priority]"
 		value="<?php echo esc_attr( $category_colors['priority'] ?? '' ); ?>"
 		min="0"
@@ -77,10 +77,11 @@
 	<label class="tec-events-category-colors__checkbox-label">
 		<input
 			type="checkbox"
-			id="tec-category-colors-hide-legend"
+			id="tec-events-category-colors-hide-legend"
 			name="tec_events_category-color[hide_from_legend]"
 			value="1"
 			<?php checked( ! empty( $category_colors['hide_from_legend'] ) ); ?>
+			class="tec-events-category-colors__hide-legend"
 		>
 		<?php esc_html_e( 'Hide category from legend', 'the-events-calendar' ); ?>
 	</label>
