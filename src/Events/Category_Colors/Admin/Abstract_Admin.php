@@ -189,14 +189,13 @@ abstract class Abstract_Admin {
 	 * @return void
 	 */
 	public function enqueue_assets(): void {
-		Assets_Config::add_group_path( 'tec-category-colors', Tribe__Events__Main::instance()->plugin_path, 'src/resources' );
-
 		Asset::add(
 			'tec-category-colors-admin-js',
 			'/js/admin/category-colors/admin-category.js',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-category-colors' )
+			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ $this, 'is_category_page' ] )
 			->set_dependencies( 'jquery', 'wp-color-picker' )
@@ -207,7 +206,8 @@ abstract class Abstract_Admin {
 			'/css/admin/category-colors/admin-category.css',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-category-colors' )
+			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ $this, 'is_category_page' ] )
 			->register();
