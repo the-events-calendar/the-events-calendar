@@ -97,12 +97,14 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @since TBD
 	 *
-	 * @param Event_Category_Meta $meta The metadata handler.
+	 * @param Event_Category_Meta $meta    The metadata handler.
 	 * @param int                 $term_id The category term ID.
+	 *
 	 * @return string HTML for color preview square.
 	 */
 	protected function get_column_category_color_preview( Event_Category_Meta $meta, int $term_id ): string {
 		static $color_fields = null;
+
 		static $meta_keys = null;
 
 		// Initialize static arrays only once.
