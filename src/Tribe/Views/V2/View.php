@@ -985,6 +985,7 @@ class View implements View_Interface {
 		}
 
 		$event_display_mode = $this->context->get( 'event_display_mode', false );
+
 		if (
 			'past' === $event_display_mode
 			&& $event_display_mode !== $this->context->get( 'eventDisplay' )

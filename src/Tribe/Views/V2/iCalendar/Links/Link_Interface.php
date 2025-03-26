@@ -8,7 +8,7 @@
 
 namespace Tribe\Events\Views\V2\iCalendar\Links;
 
-use \Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\View;
 
 /**
  * Class Link_Interface
@@ -61,7 +61,7 @@ interface Link_Interface {
 	 *
 	 * @since 5.12.0
 	 *
-	 * @param boolean $visible
+	 * @param boolean $visible The new value for the visibility property.
 	 */
 	public function set_visibility( bool $visible );
 

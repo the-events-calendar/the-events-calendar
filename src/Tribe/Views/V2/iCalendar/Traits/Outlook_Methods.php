@@ -42,6 +42,17 @@ trait Outlook_Methods {
 	protected static $outlook_temp_space = 'TEC_OUTLOOK_SPACE';
 
 	/**
+	 * Holds the slug for the service we're sending to (i.e. live or office).
+	 * Used in the outlook URLs.
+	 *
+	 * @since 5.16.0
+	 * @since TBD Renamed from $calendar_slug to $service_slug. Protected, moved into the trait from the classes.
+	 *
+	 * @var string
+	 */
+	protected static $service_slug;
+
+	/**
 	 * Generate the parameters for the Outlook export buttons.
 	 *
 	 * @since 5.16.0
@@ -55,7 +66,6 @@ trait Outlook_Methods {
 		// Getting the event details.
 		$event = tribe_get_event();
 		if ( ! $event ) {
-
 			return [];
 		}
 
@@ -75,10 +85,53 @@ trait Outlook_Methods {
 
 		$startdt = urlencode( Dates::build_date_object( $event->start_date, $timezone )->format( 'c' ) );
 
-		$location = Venue::generate_string_address( $event );
+		$params = [
+			'path'     => '/calendar/action/compose',
+			'rrv'      => 'addevent',
+			'startdt'  => $start_datetime,
+			'enddt'    => $end_datetime,
+			'location' => Venue::generate_string_address( $event ),
+			'subject'  => $this->space_replace_and_encode( wp_strip_all_tags( $event->post_title ) ),
+			'body'     => $this->generate_outlook_event_description( $event ),
+		];
 
-		$subject = $this->space_replace_and_encode( strip_tags( $event->post_title ) );
+		/**
+		 * Allow users to filter the params for our Outlook links before constructing the URL.
+		 *
+		 * @since TBD
+		 *
+		 * @var array    $params   The params used in the add_query_arg.
+		 * @var /WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
+		 * @var string   $calendar The slug of the calendar. Values can be "outlook-365" and "outlook-live".
+		 */
+		$params = apply_filters( 'tec_events_single_event_outlook_link_parameters', $params, $event, $calendar );
 
+		$service_slug = static::get_service_slug();
+
+		/**
+		 * Allow users to filter the params for a specific Outlook link before constructing the URL.
+		 *
+		 * @since TBD
+		 *
+		 * @var array    $params   The params used in the add_query_arg.
+		 * @var /WP_Post $event    The Event the link is for. As decorated by tribe_get_event().
+		 * @var string   $calendar The slug of the calendar. Values can be "outlook-365" and "outlook-live".
+		 */
+		$params = apply_filters( "tec_events_single_event_outlook_link_parameters_{$service_slug}", $params, $event, $calendar );
+
+		return $params;
+	}
+
+	/**
+	 * Generate the event description for Outlook.
+	 *
+	 * @since TBD
+	 *
+	 * @param /WP_Post $event The Event the link is for. As decorated by tribe_get_event().
+	 *
+	 * @return string The event description.
+	 */
+	public function generate_outlook_event_description( $event ) {
 		/**
 		 * A filter to hide or show the event description.
 		 *
@@ -88,56 +141,65 @@ trait Outlook_Methods {
 		 */
 		$include_event_description = (bool) apply_filters( 'tec_events_ical_outlook_include_event_description', true );
 
-		if ( $include_event_description ) {
-			$body = $event->post_content;
-
-			// Stripping tags
-			$body = strip_tags( $body, '<p>' );
-
-			// Truncate Event Description and add permalink if greater than 900 characters
-			if ( strlen( $body ) > 900 ) {
-
-				$body = substr( $body, 0, 900 );
-
-				$event_url = get_permalink( $event->ID );
-
-				//Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits (~2000)
-				if ( strlen( $event_url ) < 900 ) {
-					$body .= ' ' . sprintf( esc_html__( '(View Full %1$s Description Here: %2$s)', 'the-events-calendar' ), tribe_get_event_label_singular(), $event_url );
-				}
-			}
-
-			/**
-			 * Allows filtering the length of the event description.
-			 *
-			 * @since 5.16.0
-			 *
-			 * @param bool|int $num_words
-			 */
-			$num_words = apply_filters( 'tec_events_ical_outlook_event_description_num_words', false );
-
-			// Encoding and trimming
-			if ( (int) $num_words > 0 ) {
-				$body = wp_trim_words( $body, $num_words );
-			}
-
-			// Changing the spaces to %20, Outlook can take that.
-			$body = $this->space_replace_and_encode( $body );
-		} else {
-			$body = false;
+		if ( ! $include_event_description ) {
+			return '';
 		}
 
-		$params = [
-			'path'     => $path,
-			'rrv'      => $rrv,
-			'startdt'  => $startdt,
-			'enddt'    => $enddt,
-			'location' => $location,
-			'subject'  => $subject,
-			'body'     => $body,
-		];
+		$body = $event->post_content;
 
-		return $params;
+		// Stripping most tags.
+		$body = wp_kses_post( $body );
+
+		/**
+		 * Allows filtering the content of the event description.
+		 * Note: This happens before space conversion and truncation happens!
+		 *
+		 * @since TBD
+		 *
+		 * @param string $body The event description.
+		 */
+		$body = apply_filters( 'tec_events_ical_outlook_event_description_content', $body );
+
+		// Truncate the Event description and add permalink if greater than 900 characters.
+		if ( strlen( $body ) > 900 ) {
+
+			$body = substr( $body, 0, 900 );
+
+			$event_url = get_permalink( $event->ID );
+
+			// Only add the permalink if it's shorter than 900 characters, so we don't exceed the browser's URL limits (~2000).
+			if ( strlen( $event_url ) < 900 ) {
+				$body .= ' ' . sprintf(
+					/* Translators: %1$s singular event label %2$s URL */
+					esc_html_x(
+						'(View Full %1$s Description Here: %2$s)',
+						'Link text to full post description.',
+						'the-events-calendar'
+					),
+					tribe_get_event_label_singular(),
+					$event_url
+				);
+			}
+		}
+
+		/**
+		 * Allows filtering the length of the event description.
+		 *
+		 * @since 5.16.0
+		 *
+		 * @param bool|int $num_words
+		 */
+		$num_words = apply_filters( 'tec_events_ical_outlook_event_description_num_words', false );
+
+		// Encoding and trimming.
+		if ( (int) $num_words > 0 ) {
+			$body = wp_trim_words( $body, $num_words );
+		}
+
+		// Changing the spaces to %20, Outlook can take that.
+		$body = $this->space_replace_and_encode( $body );
+
+		return $body;
 	}
 
 	/**
@@ -145,21 +207,21 @@ trait Outlook_Methods {
 	 *
 	 * @since 5.16.0
 	 *
-	 * @return string The singe event add to calendar URL.
+	 * @return string The single event add to calendar URL.
 	 */
 	public function generate_outlook_full_url() {
 		$params   = $this->generate_outlook_add_url_parameters();
-		$base_url = 'https://outlook.' . static::$calendar_slug . '.com/owa/';
+		$base_url = 'https://outlook.' . static::get_service_slug() . '.com/owa/';
 		$url      = add_query_arg( $params, $base_url );
 
 		/**
-		 * Filter the Outlook single event import url.
+		 * Filter the Outlook single event import URL.
 		 *
 		 * @since 5.16.0
 		 *
-		 * @param string               $url      The url used to subscribe to a calendar in Outlook.
-		 * @param string               $base_url The base url used to subscribe in Outlook.
-		 * @param array<string|string> $params   An array of parameters added to the base url.
+		 * @param string               $url      The URL used to subscribe to a calendar in Outlook.
+		 * @param string               $base_url The base URL used to subscribe in Outlook.
+		 * @param array<string|string> $params   An array of parameters added to the base URL.
 		 * @param Outlook_Methods      $this     An instance of the link abstract.
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_single_event_import_url', $url, $base_url, $params, $this );
@@ -172,10 +234,10 @@ trait Outlook_Methods {
 	 *
 	 * @since 5.16.0
 	 *
-	 * @return string The subscribe url.
+	 * @return string The subscribe URL.
 	 */
 	public function generate_outlook_subscribe_url( View $view = null ) {
-		$base_url = 'https://outlook.' . static::$calendar_slug . '.com/owa?path=/calendar/action/compose';
+		$base_url = 'https://outlook.' . static::get_service_slug() . '.com/owa?path=/calendar/action/compose';
 
 		if ( null !== $view ) {
 			$feed_url = $this->get_canonical_ics_feed_url( $view );
@@ -194,14 +256,14 @@ trait Outlook_Methods {
 		$url = add_query_arg( $params, $base_url );
 
 		/**
-		 * Filter the Outlook subscribe url.
+		 * Filter the Outlook subscribe URL.
 		 *
 		 * @since 5.16.0
 		 *
-		 * @param string                  $url      The url used to subscribe to a calendar in Outlook.
-		 * @param string                  $base_url The base url used to subscribe in Outlook.
-		 * @param string                  $feed_url The subscribe url used on the site.
-		 * @param array<string|string>    $params   An array of parameters added to the base url.
+		 * @param string                  $url      The URL used to subscribe to a calendar in Outlook.
+		 * @param string                  $base_url The base URL used to subscribe in Outlook.
+		 * @param string                  $feed_url The subscribe URL used on the site.
+		 * @param array<string|string>    $params   An array of parameters added to the base URL.
 		 * @param Outlook_Abstract_Export $this     An instance of the link abstract.
 		 */
 		$url = apply_filters( 'tec_events_ical_outlook_subscribe_url', $url, $base_url, $feed_url, $params, $this );
@@ -241,5 +303,16 @@ trait Outlook_Methods {
 		}
 
 		return $this->generate_outlook_subscribe_url( $view );
+	}
+
+	/**
+	 * Public getter for protected service slug property.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The service slug.
+	 */
+	public static function get_service_slug(): string {
+		return static::$service_slug;
 	}
 }
