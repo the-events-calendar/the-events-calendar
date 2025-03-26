@@ -15,10 +15,10 @@
 		<div class="tec-events-category-colors__container">
 			<div class="tec-events-category-colors__grid">
 				<div class="tec-events-category-colors__field">
-					<label for="tec-events-category-colors__primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
+					<label for="tec-category-colors-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
 					<input
 						type="text"
-						id="tec-events-category-colors__primary"
+						id="tec-category-colors-primary"
 						name="tec_events_category-color[primary]"
 						value="<?php echo esc_attr( $category_colors['primary'] ?? '' ); ?>"
 						class="tec-events-category-colors__input wp-color-picker"

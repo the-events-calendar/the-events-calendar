@@ -13,7 +13,6 @@ use InvalidArgumentException;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
-use Tribe__Template;
 
 /**
  * Class Quick_Edit
@@ -127,7 +126,7 @@ class Quick_Edit extends Abstract_Admin {
 
 		// Early return if no colors.
 		if ( empty( $fields['primary'] ) || empty( $fields['secondary'] ) ) {
-			return __( 'transparent', 'tribe-events-calendar' );
+			return __( 'transparent', 'the-events-calendar' );
 		}
 
 		return $this->get_template()->template( 'category-color-preview', $fields, false );

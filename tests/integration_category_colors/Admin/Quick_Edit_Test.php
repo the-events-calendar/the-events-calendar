@@ -15,10 +15,12 @@ use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
 use Spatie\Snapshots\MatchesSnapshots;
+use Tribe\Tests\Traits\With_Uopz;
 
 class Quick_Edit_Test extends WPTestCase {
 	use MatchesSnapshots;
 	use Meta_Keys_Trait;
+	use With_Uopz;
 
 	/**
 	 * @var Quick_Edit
@@ -264,17 +266,16 @@ class Quick_Edit_Test extends WPTestCase {
 			]
 		);
 
+		// Mock the nonce for consistent snapshot testing
+		$this->set_fn_return( 'wp_create_nonce', '12345678' );
+
 		// Capture the output
 		ob_start();
 		$this->quick_edit->add_quick_edit_fields( 'category_color', 'edit-tags' );
 		$output = ob_get_clean();
 
-		// Verify the output contains the expected elements
-		$this->assertStringContainsString( 'tec-events-category-colors__container', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__grid', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__group', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__preview', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__priority', $output );
+		// Create snapshot
+		$this->assertMatchesSnapshot( $output );
 	}
 
 	/**
@@ -345,17 +346,16 @@ class Quick_Edit_Test extends WPTestCase {
 	 * @covers \TEC\Events\Category_Colors\Admin\Quick_Edit::add_quick_edit_fields
 	 */
 	public function should_add_quick_edit_fields_for_category_color_column() {
+		// Mock the nonce for consistent snapshot testing
+		$this->set_fn_return( 'wp_create_nonce', '12345678' );
+
 		// Capture the output
 		ob_start();
 		$this->quick_edit->add_quick_edit_fields( 'category_color', 'edit-tags' );
 		$output = ob_get_clean();
 
-		// Verify the output contains the expected elements
-		$this->assertStringContainsString( 'tec-events-category-colors__container', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__grid', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__group', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__preview', $output );
-		$this->assertStringContainsString( 'tec-events-category-colors__priority', $output );
+		// Create snapshot
+		$this->assertMatchesSnapshot( $output );
 	}
 
 	/**

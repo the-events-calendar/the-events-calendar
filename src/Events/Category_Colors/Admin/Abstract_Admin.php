@@ -11,7 +11,6 @@ namespace TEC\Events\Category_Colors\Admin;
 
 use InvalidArgumentException;
 use TEC\Common\StellarWP\Assets\Asset;
-use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;

@@ -9,7 +9,6 @@
 
 namespace TEC\Events\Category_Colors\Admin;
 
-use Tribe__Template;
 use WP_Term;
 
 /**

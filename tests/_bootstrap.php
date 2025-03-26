@@ -7,10 +7,8 @@ Autoload::addNamespace( 'Tribe\Events\Test', __DIR__ . '/_support' );
 Autoload::addNamespace( 'Tribe\Events\Test', __DIR__ . '/_support/classes' );
 Autoload::addNamespace( 'Tribe\Events\Test\Acceptance\Steps', __DIR__ . '/acceptance/_steps' );
 
-$common_tests_dir   = __DIR__ . '/../common/tests/';
-$common_support_dir = $common_tests_dir . '/_support';
+$common_support_dir = __DIR__ . '/../common/tests/_support';
 Autoload::addNamespace( '\\TEC\\Common\\Tests', $common_support_dir );
-
 
 /**
  * Codeception will regenerate snapshots on `--debug`, while the `spatie/snapshot-assertions`
