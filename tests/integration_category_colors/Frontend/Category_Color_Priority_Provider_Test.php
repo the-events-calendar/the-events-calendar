@@ -12,9 +12,11 @@ namespace TEC\Events\Category_Colors;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use Tribe__Events__Main;
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 
 class Category_Color_Priority_Provider_Test extends WPTestCase {
+	use Meta_Keys_Trait;
+
 	/**
 	 * @var Category_Color_Priority_Category_Provider
 	 */
@@ -50,7 +52,7 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 
 			$this->category_meta
 				->set_term( $term_id )
-				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
+				->set( $this->get_key( 'priority' ), $category['priority'] )
 				->save();
 
 			$term_ids[] = $term_id;
@@ -140,8 +142,8 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 
 			$this->category_meta
 				->set_term( $term_id )
-				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
-				->set( Meta_Keys::get_key( 'hide_from_legend' ), $category['hidden'] )
+				->set( $this->get_key( 'priority' ), $category['priority'] )
+				->set( $this->get_key( 'hide_from_legend' ), $category['hidden'] )
 				->save();
 
 			$term_ids[] = $term_id;
@@ -206,7 +208,7 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 
 			$this->category_meta
 				->set_term( $term_id )
-				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
+				->set( $this->get_key( 'priority' ), $category['priority'] )
 				->save();
 
 			$term_ids[] = $term_id;
@@ -251,7 +253,7 @@ class Category_Color_Priority_Provider_Test extends WPTestCase {
 
 			$this->category_meta
 				->set_term( $term_id )
-				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
+				->set( $this->get_key( 'priority' ), $category['priority'] )
 				->save();
 
 			$term_ids[] = $term_id;

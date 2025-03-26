@@ -11,8 +11,7 @@
 
 namespace TEC\Events\Category_Colors\Repositories;
 
-use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use WP_Post;
 
 /**
@@ -24,6 +23,7 @@ use WP_Post;
  * @since TBD
  */
 class Category_Color_Priority_Category_Provider {
+	use Meta_Keys_Trait;
 
 	/**
 	 * Retrieves the highest-priority category for a given event.
@@ -90,11 +90,10 @@ class Category_Color_Priority_Category_Provider {
 	 * @return array Associative array of category term ID => priority.
 	 */
 	protected function get_category_priorities( array $categories ): array {
-		$meta_instance = tribe( Event_Category_Meta::class );
-		$priorities    = [];
+		$priorities = [];
 
 		foreach ( $categories as $category ) {
-			$priority                         = $meta_instance->set_term( $category->term_id )->get( Meta_Keys::get_key( 'priority' ) );
+			$priority                         = get_term_meta( $category->term_id, $this->get_key( 'priority' ), true );
 			$priorities[ $category->term_id ] = is_numeric( $priority ) ? (int) $priority : -1;
 		}
 

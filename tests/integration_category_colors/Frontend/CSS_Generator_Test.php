@@ -15,9 +15,11 @@ use Tribe__Events__Main;
 use Spatie\Snapshots\MatchesSnapshots;
 use Closure;
 use Generator;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 
 class CSS_Generator_Test extends WPTestCase {
 	use MatchesSnapshots;
+	use Meta_Keys_Trait;
 
 	/**
 	 * @var Generator
@@ -72,9 +74,9 @@ class CSS_Generator_Test extends WPTestCase {
 		// Set color meta using the meta class
 		$this->category_meta
 			->set_term( $term_id )
-			->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#0000ff' )
+			->set( $this->get_key( 'primary' ), '#ff0000' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#0000ff' )
 			->save();
 
 		// Generate CSS
@@ -119,7 +121,7 @@ class CSS_Generator_Test extends WPTestCase {
 				);
 				$this->category_meta
 					->set_term( $term_id )
-					->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
+					->set( $this->get_key( 'primary' ), '#ff0000' )
 					->save();
 
 				return $term_id;
@@ -136,9 +138,9 @@ class CSS_Generator_Test extends WPTestCase {
 				);
 				$this->category_meta
 					->set_term( $term_id )
-					->set( Meta_Keys::get_key( 'primary' ), 'invalid-color' )
-					->set( Meta_Keys::get_key( 'secondary' ), 'not-a-color' )
-					->set( Meta_Keys::get_key( 'text' ), 'wrong' )
+					->set( $this->get_key( 'primary' ), 'invalid-color' )
+					->set( $this->get_key( 'secondary' ), 'not-a-color' )
+					->set( $this->get_key( 'text' ), 'wrong' )
 					->save();
 
 				return $term_id;
@@ -155,9 +157,9 @@ class CSS_Generator_Test extends WPTestCase {
 				);
 				$this->category_meta
 					->set_term( $term_id )
-					->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
-					->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-					->set( Meta_Keys::get_key( 'text' ), '#0000ff' )
+					->set( $this->get_key( 'primary' ), '#ff0000' )
+					->set( $this->get_key( 'secondary' ), '#00ff00' )
+					->set( $this->get_key( 'text' ), '#0000ff' )
 					->save();
 
 				return $term_id;
@@ -174,9 +176,9 @@ class CSS_Generator_Test extends WPTestCase {
 				);
 				$this->category_meta
 					->set_term( $term_id )
-					->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
-					->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-					->set( Meta_Keys::get_key( 'text' ), '#0000ff' )
+					->set( $this->get_key( 'primary' ), '#ff0000' )
+					->set( $this->get_key( 'secondary' ), '#00ff00' )
+					->set( $this->get_key( 'text' ), '#0000ff' )
 					->save();
 
 				return $term_id;
@@ -202,10 +204,10 @@ class CSS_Generator_Test extends WPTestCase {
 
 					// Assign sequential, predictable values
 					$this->category_meta->set_term( $term_id )
-						->set( Meta_Keys::get_key( 'primary' ), $colors[ $color_index ] )
-						->set( Meta_Keys::get_key( 'secondary' ), $colors[ ( $color_index + 1 ) % count( $colors ) ] ) // Next color
-						->set( Meta_Keys::get_key( 'text' ), $colors[ ( $color_index + 2 ) % count( $colors ) ] ) // Next-next color
-						->set( Meta_Keys::get_key( 'priority' ), $i + 1 ) // Incremental priority
+						->set( $this->get_key( 'primary' ), $colors[ $color_index ] )
+						->set( $this->get_key( 'secondary' ), $colors[ ( $color_index + 1 ) % count( $colors ) ] ) // Next color
+						->set( $this->get_key( 'text' ), $colors[ ( $color_index + 2 ) % count( $colors ) ] ) // Next-next color
+						->set( $this->get_key( 'priority' ), $i + 1 ) // Incremental priority
 						->save();
 
 					$term_ids[] = $term_id;
@@ -258,10 +260,10 @@ class CSS_Generator_Test extends WPTestCase {
 		);
 		$this->category_meta
 			->set_term( $high_priority )
-			->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#0000ff' )
-			->set( Meta_Keys::get_key( 'priority' ), '999999' )
+			->set( $this->get_key( 'primary' ), '#ff0000' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#0000ff' )
+			->set( $this->get_key( 'priority' ), '999999' )
 			->save();
 
 		$low_priority = $this->create_test_term(
@@ -272,10 +274,10 @@ class CSS_Generator_Test extends WPTestCase {
 		);
 		$this->category_meta
 			->set_term( $low_priority )
-			->set( Meta_Keys::get_key( 'primary' ), '#0000ff' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'priority' ), '1' )
+			->set( $this->get_key( 'primary' ), '#0000ff' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#ff0000' )
+			->set( $this->get_key( 'priority' ), '1' )
 			->save();
 
 		$css = $this->css_generator->generate_css();
@@ -309,9 +311,9 @@ class CSS_Generator_Test extends WPTestCase {
 		);
 		$this->category_meta
 			->set_term( $visible )
-			->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#0000ff' )
+			->set( $this->get_key( 'primary' ), '#ff0000' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#0000ff' )
 			->save();
 
 		// Create a hidden category
@@ -323,10 +325,10 @@ class CSS_Generator_Test extends WPTestCase {
 		);
 		$this->category_meta
 			->set_term( $hidden )
-			->set( Meta_Keys::get_key( 'primary' ), '#0000ff' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'hide_from_legend' ), '1' )
+			->set( $this->get_key( 'primary' ), '#0000ff' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#ff0000' )
+			->set( $this->get_key( 'hide_from_legend' ), '1' )
 			->save();
 
 		$css = $this->css_generator->generate_css();
@@ -360,10 +362,10 @@ class CSS_Generator_Test extends WPTestCase {
 		);
 		$this->category_meta
 			->set_term( $category1 )
-			->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#0000ff' )
-			->set( Meta_Keys::get_key( 'priority' ), '100' )
+			->set( $this->get_key( 'primary' ), '#ff0000' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#0000ff' )
+			->set( $this->get_key( 'priority' ), '100' )
 			->save();
 
 		$category2 = $this->create_test_term(
@@ -374,10 +376,10 @@ class CSS_Generator_Test extends WPTestCase {
 		);
 		$this->category_meta
 			->set_term( $category2 )
-			->set( Meta_Keys::get_key( 'primary' ), '#0000ff' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'priority' ), '100' )
+			->set( $this->get_key( 'primary' ), '#0000ff' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#ff0000' )
+			->set( $this->get_key( 'priority' ), '100' )
 			->save();
 
 		$css = $this->css_generator->generate_css();
@@ -416,7 +418,7 @@ class CSS_Generator_Test extends WPTestCase {
 
 		// Assign color meta
 		$this->category_meta->set_term( $term_id )
-			->set( Meta_Keys::get_key( 'primary' ), '#123456' )
+			->set( $this->get_key( 'primary' ), '#123456' )
 			->save();
 
 		// Regenerate CSS
@@ -454,10 +456,10 @@ class CSS_Generator_Test extends WPTestCase {
 
 			$this->category_meta
 				->set_term( $term_id )
-				->set( Meta_Keys::get_key( 'primary' ), $category['primary'] )
-				->set( Meta_Keys::get_key( 'secondary' ), $category['secondary'] )
-				->set( Meta_Keys::get_key( 'text' ), $category['text'] )
-				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
+				->set( $this->get_key( 'primary' ), $category['primary'] )
+				->set( $this->get_key( 'secondary' ), $category['secondary'] )
+				->set( $this->get_key( 'text' ), $category['text'] )
+				->set( $this->get_key( 'priority' ), $category['priority'] )
 				->save();
 		}
 

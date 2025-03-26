@@ -15,6 +15,7 @@ namespace TEC\Events\Category_Colors\CSS;
 use TEC\Common\StellarWP\DB\DB;
 use Tribe__Events__Main;
 use Tribe__Utils__Color;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 
 /**
  * Class for generating, minifying, and storing category colors CSS.
@@ -24,6 +25,8 @@ use Tribe__Utils__Color;
  * @package TEC\Events\Category_Colors\CSS_Generator
  */
 class Generator {
+	use Meta_Keys_Trait;
+
 	/**
 	 * Option key for storing generated CSS in wp_options.
 	 *
@@ -41,20 +44,6 @@ class Generator {
 	 * @var string
 	 */
 	protected string $generated_css = '';
-
-	/**
-	 * Meta keys used for retrieving category colors.
-	 *
-	 * @since TBD
-	 *
-	 * @var array
-	 */
-	protected array $meta_keys = [
-		'tec-events-cat-colors-primary',
-		'tec-events-cat-colors-secondary',
-		'tec-events-cat-colors-text',
-		'tec-events-cat-colors-priority',
-	];
 
 	/**
 	 * Generate, minify, and save category colors CSS.
@@ -169,7 +158,7 @@ class Generator {
 				->innerJoin( 'termmeta', 'tt.term_id', 'tm.term_id', 'tm' )
 				->innerJoin( 'terms', 'tt.term_id', 't.term_id', 't' )
 				->where( 'tt.taxonomy', Tribe__Events__Main::TAXONOMY )
-				->whereIn( 'tm.meta_key', $this->meta_keys )
+				->whereIn( 'tm.meta_key', $this->get_all_keys() )
 				->limit( $batch_size )
 				->offset( $offset )
 				->getAll();
@@ -192,16 +181,16 @@ class Generator {
 					}
 
 					switch ( $meta_key ) {
-						case 'tec-events-cat-colors-primary':
+						case $this->get_key( 'primary' ):
 							$categories[ $term_id ]['primary'] = $meta_value;
 							break;
-						case 'tec-events-cat-colors-secondary':
+						case $this->get_key( 'secondary' ):
 							$categories[ $term_id ]['background'] = $meta_value;
 							break;
-						case 'tec-events-cat-colors-text':
+						case $this->get_key( 'text' ):
 							$categories[ $term_id ]['text'] = $meta_value;
 							break;
-						case 'tec-events-cat-colors-priority':
+						case $this->get_key( 'priority' ):
 							$categories[ $term_id ]['priority'] = is_numeric( $meta_value ) ? (int) $meta_value : -1;
 							break;
 					}

@@ -12,9 +12,11 @@ namespace TEC\Events\Category_Colors;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use Tribe__Events__Main;
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 
 class Category_Color_Dropdown_Provider_Test extends WPTestCase {
+	use Meta_Keys_Trait;
+
 	/**
 	 * @var Category_Color_Dropdown_Provider
 	 */
@@ -51,13 +53,13 @@ class Category_Color_Dropdown_Provider_Test extends WPTestCase {
 			->set_term( $term_id );
 
 		if ( ! $skip_primary ) {
-			$this->category_meta->set( Meta_Keys::get_key( 'primary' ), $colors['foreground'] );
+			$this->category_meta->set( $this->get_key( 'primary' ), $colors['foreground'] );
 		}
 		$this->category_meta
-			->set( Meta_Keys::get_key( 'secondary' ), $colors['background'] )
-			->set( Meta_Keys::get_key( 'text' ), $colors['foreground'] )
-			->set( Meta_Keys::get_key( 'priority' ), $priority )
-			->set( Meta_Keys::get_key( 'hide_from_legend' ), $hidden )
+			->set( $this->get_key( 'secondary' ), $colors['background'] )
+			->set( $this->get_key( 'text' ), $colors['foreground'] )
+			->set( $this->get_key( 'priority' ), $priority )
+			->set( $this->get_key( 'hide_from_legend' ), $hidden )
 			->save();
 
 		// Get dropdown options
@@ -153,11 +155,11 @@ class Category_Color_Dropdown_Provider_Test extends WPTestCase {
 
 			$this->category_meta
 				->set_term( $term_id )
-				->set( Meta_Keys::get_key( 'primary' ), $category['color'] )
-				->set( Meta_Keys::get_key( 'secondary' ), '#ffffff' )
-				->set( Meta_Keys::get_key( 'text' ), '#000000' )
-				->set( Meta_Keys::get_key( 'priority' ), $category['priority'] )
-				->set( Meta_Keys::get_key( 'hide_from_legend' ), false )
+				->set( $this->get_key( 'primary' ), $category['color'] )
+				->set( $this->get_key( 'secondary' ), '#ffffff' )
+				->set( $this->get_key( 'text' ), '#000000' )
+				->set( $this->get_key( 'priority' ), $category['priority'] )
+				->set( $this->get_key( 'hide_from_legend' ), false )
 				->save();
 
 			$term_ids[] = $term_id;
@@ -187,11 +189,11 @@ class Category_Color_Dropdown_Provider_Test extends WPTestCase {
 
 		$this->category_meta
 			->set_term( $term_id )
-			->set( Meta_Keys::get_key( 'primary' ), '#ff0000' )
-			->set( Meta_Keys::get_key( 'secondary' ), '#00ff00' )
-			->set( Meta_Keys::get_key( 'text' ), '#000000' )
-			->set( Meta_Keys::get_key( 'priority' ), 1 )
-			->set( Meta_Keys::get_key( 'hide_from_legend' ), false )
+			->set( $this->get_key( 'primary' ), '#ff0000' )
+			->set( $this->get_key( 'secondary' ), '#00ff00' )
+			->set( $this->get_key( 'text' ), '#000000' )
+			->set( $this->get_key( 'priority' ), 1 )
+			->set( $this->get_key( 'hide_from_legend' ), false )
 			->save();
 
 		// Get dropdown options

@@ -5,15 +5,17 @@
  * This class retrieves and processes event categories with associated color metadata
  * to be used in the frontend dropdown selection.
  *
- * @since TBD
+ * @since   TBD
  * @package TEC\Events\Category_Colors\Repositories
  */
 
 namespace TEC\Events\Category_Colors\Repositories;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
+use Tribe\Events\Views\V2\View;
+use WP_Term;
 
 /**
  * Provides event categories with color metadata for the dropdown.
@@ -24,19 +26,35 @@ use Tribe__Events__Main;
  * @since TBD
  */
 class Category_Color_Dropdown_Provider {
+	use Meta_Keys_Trait;
+
+	/**
+	 * List of shortcode values that should not display the category colors.
+	 * Empty shortcode values are allowed by default.
+	 *
+	 * @since TBD
+	 *
+	 * @var array<string> Array of shortcode identifiers that should not display category colors.
+	 */
+	protected array $blacklisted_shortcodes = [
+		'admin-manager',
+	];
 
 	/**
 	 * Determines if the category color legend should be displayed on a given view.
 	 *
-	 * This checks if the provided template slug is in the enabled views list.
-	 *
 	 * @since TBD
 	 *
-	 * @param string $template_slug The slug of the template/view being checked.
+	 * @param View $view The View object.
 	 *
 	 * @return bool True if the legend should be displayed, false otherwise.
 	 */
-	public function should_display_on_view( string $template_slug ): bool {
+	public function should_display_on_view( View $view = null ): bool {
+		// Only check shortcode context if we have a view object.
+		if ( $view !== null && ! $this->is_valid_shortcode_context( $view ) ) {
+			return false;
+		}
+
 		$enabled_views = tribe_get_option( 'category-color-legend-show', [] );
 
 		/**
@@ -44,12 +62,47 @@ class Category_Color_Dropdown_Provider {
 		 *
 		 * @since TBD
 		 *
-		 * @param array  $enabled_views List of enabled views.
-		 * @param string $template_slug The current view being checked.
+		 * @param array<string> $enabled_views List of enabled view slugs.
+		 * @param View          $view          The View object.
 		 */
-		$enabled_views = (array) apply_filters( 'tec_events_category_color_enabled_views', $enabled_views, $template_slug );
+		$enabled_views = (array) apply_filters( 'tec_events_category_color_enabled_views', $enabled_views, $view );
 
-		return in_array( $template_slug, $enabled_views, true );
+		return in_array( $view->get_template_slug(), $enabled_views, true );
+	}
+
+	/**
+	 * Checks if the current shortcode context is valid for displaying category colors.
+	 *
+	 * @since TBD
+	 *
+	 * @param View $view The view object.
+	 *
+	 * @return bool True if the shortcode context is valid, false otherwise.
+	 */
+	protected function is_valid_shortcode_context( $view ): bool {
+		$context   = $view->get_context();
+		$shortcode = $context->get( 'shortcode' );
+
+		// Empty shortcode is allowed.
+		if ( empty( $shortcode ) ) {
+			return true;
+		}
+
+		/**
+		 * Filters the list of blacklisted shortcodes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string> $blacklisted_shortcodes List of shortcode values that should not display category colors.
+		 * @param View          $view                   The current view object.
+		 */
+		$blacklisted_shortcodes = apply_filters(
+			'tec_events_category_color_blacklisted_shortcodes',
+			$this->blacklisted_shortcodes,
+			$view
+		);
+
+		return ! in_array( $shortcode, $blacklisted_shortcodes, true );
 	}
 
 	/**
@@ -57,7 +110,13 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @return array[]
+	 * @return array<array{
+	 *     slug: string,
+	 *     name: string,
+	 *     priority: int,
+	 *     primary: string,
+	 *     hidden: bool
+	 * }> Array of category data with their associated colors and metadata.
 	 */
 	public function get_dropdown_categories(): array {
 		$categories           = $this->get_categories();
@@ -69,7 +128,13 @@ class Category_Color_Dropdown_Provider {
 		 *
 		 * @since TBD
 		 *
-		 * @param array $filtered_categories The final processed categories.
+		 * @param array<array{
+		 *     slug: string,
+		 *     name: string,
+		 *     priority: int,
+		 *     primary: string,
+		 *     hidden: bool
+		 * }> $filtered_categories The final processed categories.
 		 */
 		return (array) apply_filters( 'tec_events_category_color_dropdown_categories', $this->sort_by_priority( $filtered_categories ) );
 	}
@@ -79,7 +144,7 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @return array
+	 * @return array<WP_Term> Array of WordPress term objects representing event categories.
 	 */
 	protected function get_categories(): array {
 		$categories = get_terms(
@@ -94,7 +159,7 @@ class Category_Color_Dropdown_Provider {
 		 *
 		 * @since TBD
 		 *
-		 * @param array $categories The retrieved categories.
+		 * @param array<WP_Term> $categories The retrieved categories.
 		 */
 		return (array) apply_filters( 'tec_events_category_color_raw_categories', $categories );
 	}
@@ -104,20 +169,26 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param object $category The category term object.
+	 * @param WP_Term $category The category term object.
 	 *
-	 * @return array
+	 * @return array{
+	 *     slug: string,
+	 *     name: string,
+	 *     priority: int,
+	 *     primary: string,
+	 *     hidden: bool
+	 * } Array containing the category's metadata.
 	 */
 	protected function get_category_meta( object $category ): array {
 		$meta_instance = tribe( Event_Category_Meta::class )->set_term( $category->term_id );
-		$priority      = $meta_instance->get( Meta_Keys::get_key( 'priority' ) );
+		$priority      = $meta_instance->get( $this->get_key( 'priority' ) );
 
 		$category_meta = [
 			'slug'     => $category->slug,
 			'name'     => $category->name,
 			'priority' => is_numeric( $priority ) ? (int) $priority : -1,
-			'primary'  => $meta_instance->get( Meta_Keys::get_key( 'primary' ) ),
-			'hidden'   => (bool) $meta_instance->get( Meta_Keys::get_key( 'hide_from_legend' ) ),
+			'primary'  => $meta_instance->get( $this->get_key( 'primary' ) ),
+			'hidden'   => (bool) $meta_instance->get( $this->get_key( 'hide_from_legend' ) ),
 		];
 
 		/**
@@ -125,8 +196,14 @@ class Category_Color_Dropdown_Provider {
 		 *
 		 * @since TBD
 		 *
-		 * @param array  $category_meta The metadata of the category.
-		 * @param object $category      The category term object.
+		 * @param array{
+		 *     slug: string,
+		 *     name: string,
+		 *     priority: int,
+		 *     primary: string,
+		 *     hidden: bool
+		 * }              $category_meta The metadata of the category.
+		 * @param WP_Term $category      The category term object.
 		 */
 		return (array) apply_filters( 'tec_events_category_color_category_meta', $category_meta, $category );
 	}
@@ -136,9 +213,21 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $categories The list of categories.
+	 * @param array<array{
+	 *     slug: string,
+	 *     name: string,
+	 *     priority: int,
+	 *     primary: string,
+	 *     hidden: bool
+	 * }> $categories The list of categories to filter.
 	 *
-	 * @return array
+	 * @return array<array{
+	 *     slug: string,
+	 *     name: string,
+	 *     priority: int,
+	 *     primary: string,
+	 *     hidden: bool
+	 * }> Filtered array of categories.
 	 */
 	protected function filter_categories( array $categories ): array {
 		$show_hidden_categories = tribe_get_option( 'category-color-show-hidden-categories', false );
@@ -155,7 +244,13 @@ class Category_Color_Dropdown_Provider {
 		 *
 		 * @since TBD
 		 *
-		 * @param array $filtered The filtered categories list.
+		 * @param array<array{
+		 *     slug: string,
+		 *     name: string,
+		 *     priority: int,
+		 *     primary: string,
+		 *     hidden: bool
+		 * }> $filtered The filtered categories list.
 		 */
 		return (array) apply_filters( 'tec_events_category_color_filtered_categories', $filtered );
 	}
@@ -165,20 +260,47 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $categories The list of categories.
+	 * @param array<array{
+	 *     slug: string,
+	 *     name: string,
+	 *     priority: int,
+	 *     primary: string,
+	 *     hidden: bool
+	 * }> $categories The list of categories to sort.
 	 *
-	 * @return array
+	 * @return array<array{
+	 *     slug: string,
+	 *     name: string,
+	 *     priority: int,
+	 *     primary: string,
+	 *     hidden: bool
+	 * }> Sorted array of categories.
 	 */
 	protected function sort_by_priority( array $categories ): array {
-		usort( $categories, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
+		// Validate that all categories have a priority key
+		$valid_categories = array_filter(
+			$categories,
+			fn( $category ) => isset( $category['priority'] ) && is_numeric( $category['priority'] )
+		);
+
+		// Only sort if we have valid categories
+		if ( ! empty( $valid_categories ) ) {
+			usort( $valid_categories, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
+		}
 
 		/**
 		 * Filters the sorted list of categories.
 		 *
 		 * @since TBD
 		 *
-		 * @param array $categories The sorted categories list.
+		 * @param array<array{
+		 *     slug: string,
+		 *     name: string,
+		 *     priority: int,
+		 *     primary: string,
+		 *     hidden: bool
+		 * }> $categories The sorted categories list.
 		 */
-		return (array) apply_filters( 'tec_events_category_color_sorted_categories', $categories );
+		return (array) apply_filters( 'tec_events_category_color_sorted_categories', $valid_categories );
 	}
 }

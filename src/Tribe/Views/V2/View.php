@@ -1615,6 +1615,7 @@ class View implements View_Interface {
 	 *
 	 * @since 4.9.4
 	 * @since 5.2.1 Add the `rest_method` to the template variables.
+	 * @since TBD Added filter `tec_events_views_v2_view_template_vars` to filter the template variables.
 	 *
 	 * @return array An array of Template variables for the View Template.
 	 */
@@ -1719,11 +1720,6 @@ class View implements View_Interface {
 		/** @var Rest_Endpoint $endpoint */
 		$endpoint = tribe( Rest_Endpoint::class );
 
-		$category_colors_priority_category = ( tribe_get_event() instanceof WP_Post )
-			? tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( tribe_get_event() )
-			: [];
-
-
 		$template_vars = [
 			'title'                             => $this->get_title( $events ),
 			'events'                            => $events,
@@ -1780,12 +1776,17 @@ class View implements View_Interface {
 			'public_views'                      => $this->get_public_views( $url_event_date ),
 			'show_latest_past'                  => $this->should_show_latest_past_events_view(),
 			'past'                              => $this->context->get( 'past', false ),
-			'category_colors_enabled'           => tribe( Category_Color_Dropdown_Provider::class )->should_display_on_view( self::get_template_slug() ),
-			'category_colors_category_dropdown' => tribe( Category_Color_Dropdown_Provider::class )->get_dropdown_categories(),
-			'category_colors_priority_category' => $category_colors_priority_category,
-			'category_colors_super_power'       => tribe_get_option( 'category-color-legend-superpowers', false ),
-			'category_colors_show_reset_button' => tribe_get_option( 'category-color-reset-button', false ),
 		];
+
+		/**
+		 * Filters the template variables for the view.
+		 *
+		 * @since TBD
+		 *
+		 * @param array<string,mixed> $template_vars The template variables.
+		 * @param View               $view          The current view instance.
+		 */
+		$template_vars = apply_filters( 'tec_events_views_v2_view_template_vars', $template_vars, $this );
 
 		if ( ! $this->config->get( 'TEC_NO_MEMOIZE_VIEW_VARS' ) ) {
 			tribe_cache()->set( $memoize_key, $template_vars, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
@@ -3022,3 +3023,4 @@ class View implements View_Interface {
 		return [ static::$view_slug, translate( static::$view_slug, 'the-events-calendar' ) ];
 	}
 }
+
