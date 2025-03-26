@@ -99,7 +99,7 @@ class UrlTest extends \Codeception\TestCase\WPTestCase {
 					Context::QUERY_VAR => [ 'carriage', 'vehicle', 'transport' ],
 				],
 			],
-		], false );
+		] );
 
 		$found = $url->get_query_arg_alias_of( $key, $context );
 
