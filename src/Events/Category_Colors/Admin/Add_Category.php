@@ -10,7 +10,6 @@
 namespace TEC\Events\Category_Colors\Admin;
 
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
-use Tribe__Template;
 
 /**
  * Class Add_Category
