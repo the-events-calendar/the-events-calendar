@@ -11,7 +11,6 @@
 namespace TEC\Events\Custom_Tables\V1\Views\V2;
 
 use stdClass;
-use TEC\Events\Custom_Tables\V1\Models\Builder;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe\Events\Models\Post_Types\Event;
 use Tribe__Timezones as Timezones;
@@ -44,11 +43,13 @@ class By_Day_View_Compatibility {
 		$start_date_prop   = $use_site_timezone ? 'start_date_utc' : 'start_date';
 		$end_date_prop     = $use_site_timezone ? 'end_date_utc' : 'end_date';
 		$ids_chunk_size    = tec_query_batch_size( __METHOD__ );
+		$ids_count         = count( $ids );
 
 		$prepared = [];
 
-		while ( count( $ids ) ) {
+		while ( $ids_count ) {
 			$ids_chunk   = array_splice( $ids, 0, $ids_chunk_size );
+			$ids_count   = count( $ids );
 			$occurrences = Occurrence::where_in( 'post_id', $ids_chunk )->all();
 
 			foreach ( $occurrences as $occurrence ) {
