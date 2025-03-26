@@ -2,6 +2,11 @@
 
 namespace Tribe\Events\Integrations\QR;
 
+use Codeception\TestCase\WPTestCase;
+use TEC\Events\QR\Settings;
+use TEC\Events\QR\Controller;
+use TEC\Events\QR\Shortcode;
+
 /**
  * Tests QR Controller functionality
  *
@@ -10,20 +15,27 @@ namespace Tribe\Events\Integrations\QR;
  *
  * @package TribeEvents
  */
-class ControllerTest extends \Codeception\TestCase\WPTestCase {
+class ControllerTest extends WPTestCase {
 
 	/**
 	 * @var \TEC\Events\QR\Controller
 	 */
 	protected $controller;
 
+	/**
+	 * @var array
+	 */
+	protected $slugs;
+
 	function setUp() {
 		parent::setUp();
-		$this->controller = tribe(\TEC\Events\QR\Controller::class);
+		$this->controller = tribe(Controller::class);
+
+		// Get option slugs once
+		$this->slugs = Settings::get_option_slugs();
 
 		// Enable QR by default
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		tribe_update_option($slugs['enabled'], true);
+		tribe_update_option($this->slugs['enabled'], true);
 
 		// Register the controller by default
 		$this->controller->do_register();
@@ -47,7 +59,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 		// Check that the shortcode is registered
 		$shortcodes = apply_filters('tribe_shortcodes', []);
 		$this->assertArrayHasKey('tec_event_qr', $shortcodes);
-		$this->assertEquals(\TEC\Events\QR\Shortcode::class, $shortcodes['tec_event_qr']);
+		$this->assertEquals(Shortcode::class, $shortcodes['tec_event_qr']);
 	}
 
 	/**
@@ -70,8 +82,8 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function test_controller_registers_settings() {
 		// Check that the settings are registered
-		$settings = tribe(\TEC\Events\QR\Settings::class);
-		$this->assertInstanceOf(\TEC\Events\QR\Settings::class, $settings);
+		$settings = tribe(Settings::class);
+		$this->assertInstanceOf(Settings::class, $settings);
 	}
 
 	/**
@@ -111,8 +123,7 @@ class ControllerTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_controller_cannot_use_when_qr_disabled() {
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		tribe_update_option($slugs['enabled'], false);
+		tribe_update_option($this->slugs['enabled'], false);
 
 		// Re-register the controller to test disabled state
 		$this->controller->do_register();

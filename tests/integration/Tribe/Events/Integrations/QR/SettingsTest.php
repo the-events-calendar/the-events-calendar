@@ -2,6 +2,10 @@
 
 namespace Tribe\Events\Integrations\QR;
 
+use Codeception\TestCase\WPTestCase;
+use TEC\Events\QR\Settings;
+use TEC\Events\QR\Controller;
+
 /**
  * Tests QR Settings functionality
  *
@@ -10,26 +14,33 @@ namespace Tribe\Events\Integrations\QR;
  *
  * @package TribeEvents
  */
-class SettingsTest extends \Codeception\TestCase\WPTestCase {
+class SettingsTest extends WPTestCase {
 
 	/**
 	 * @var \TEC\Events\QR\Settings
 	 */
 	protected $settings;
 
+	/**
+	 * @var array
+	 */
+	protected $slugs;
+
 	function setUp() {
 		parent::setUp();
 
+		// Get option slugs once
+		$this->slugs = Settings::get_option_slugs();
+
 		// Enable QR
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		tribe_update_option($slugs['enabled'], true);
+		tribe_update_option($this->slugs['enabled'], true);
 
 		// Register the controller first
-		$controller = tribe(\TEC\Events\QR\Controller::class);
+		$controller = tribe(Controller::class);
 		$controller->do_register();
 
 		// Initialize settings
-		$this->settings = tribe(\TEC\Events\QR\Settings::class);
+		$this->settings = tribe(Settings::class);
 	}
 
 	/**
@@ -38,7 +49,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_settings_class_exists() {
-		$this->assertInstanceOf(\TEC\Events\QR\Settings::class, $this->settings);
+		$this->assertInstanceOf(Settings::class, $this->settings);
 	}
 
 	/**
@@ -47,20 +58,18 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_settings_option_slugs() {
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-
-		$this->assertArrayHasKey('enabled', $slugs);
-		$this->assertEquals('tribe-events-qr-code-enabled', $slugs['enabled']);
-		$this->assertArrayHasKey('prefix', $slugs);
-		$this->assertEquals('tribe-events-qr-prefix', $slugs['prefix']);
-		$this->assertArrayHasKey('size', $slugs);
-		$this->assertEquals('tribe-events-qr-size', $slugs['size']);
-		$this->assertArrayHasKey('redirection', $slugs);
-		$this->assertEquals('tribe-events-qr-redirection-behavior', $slugs['redirection']);
-		$this->assertArrayHasKey('specific', $slugs);
-		$this->assertEquals('tribe-events-qr-specific-event-id', $slugs['specific']);
-		$this->assertArrayHasKey('fallback', $slugs);
-		$this->assertEquals('tribe-events-qr-fallback', $slugs['fallback']);
+		$this->assertArrayHasKey('enabled', $this->slugs);
+		$this->assertEquals('tribe-events-qr-code-enabled', $this->slugs['enabled']);
+		$this->assertArrayHasKey('prefix', $this->slugs);
+		$this->assertEquals('tribe-events-qr-prefix', $this->slugs['prefix']);
+		$this->assertArrayHasKey('size', $this->slugs);
+		$this->assertEquals('tribe-events-qr-size', $this->slugs['size']);
+		$this->assertArrayHasKey('redirection', $this->slugs);
+		$this->assertEquals('tribe-events-qr-redirection-behavior', $this->slugs['redirection']);
+		$this->assertArrayHasKey('specific', $this->slugs);
+		$this->assertEquals('tribe-events-qr-specific-event-id', $this->slugs['specific']);
+		$this->assertArrayHasKey('fallback', $this->slugs);
+		$this->assertEquals('tribe-events-qr-fallback', $this->slugs['fallback']);
 	}
 
 	/**
@@ -69,13 +78,12 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_settings_default_values() {
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		$enabled = tribe_get_option($slugs['enabled'], true);
-		$prefix = tribe_get_option($slugs['prefix'], 'qr');
-		$size = tribe_get_option($slugs['size'], '250x250');
-		$redirection = tribe_get_option($slugs['redirection'], 'current_event');
-		$specific = tribe_get_option($slugs['specific'], '');
-		$fallback = tribe_get_option($slugs['fallback'], '');
+		$enabled = tribe_get_option($this->slugs['enabled'], true);
+		$prefix = tribe_get_option($this->slugs['prefix'], 'qr');
+		$size = tribe_get_option($this->slugs['size'], '250x250');
+		$redirection = tribe_get_option($this->slugs['redirection'], 'current_event');
+		$specific = tribe_get_option($this->slugs['specific'], '');
+		$fallback = tribe_get_option($this->slugs['fallback'], '');
 
 		$this->assertTrue($enabled);
 		$this->assertEquals('qr', $prefix);
@@ -91,9 +99,6 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_settings_can_be_enabled() {
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		tribe_update_option($slugs['enabled'], true);
-
 		$this->assertTrue($this->settings->is_enabled());
 	}
 
@@ -103,8 +108,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_settings_can_be_disabled() {
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		tribe_update_option($slugs['enabled'], false);
+		tribe_update_option($this->slugs['enabled'], false);
 
 		$this->assertFalse($this->settings->is_enabled());
 	}
@@ -128,8 +132,7 @@ class SettingsTest extends \Codeception\TestCase\WPTestCase {
 	 * @test
 	 */
 	public function test_settings_enabled_state_is_sanitized() {
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		tribe_update_option($slugs['enabled'], 'invalid_value');
+		tribe_update_option($this->slugs['enabled'], 'invalid_value');
 
 		$this->assertFalse($this->settings->is_enabled());
 	}

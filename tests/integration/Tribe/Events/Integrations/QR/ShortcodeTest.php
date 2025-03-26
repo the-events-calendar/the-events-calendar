@@ -2,6 +2,11 @@
 
 namespace Tribe\Events\Integrations\QR;
 
+use Codeception\TestCase\WPTestCase;
+use TEC\Events\QR\Settings;
+use TEC\Events\QR\Controller;
+use TEC\Events\QR\Shortcode;
+
 /**
  * Tests QR Shortcode functionality
  *
@@ -10,7 +15,7 @@ namespace Tribe\Events\Integrations\QR;
  *
  * @package TribeEvents
  */
-class ShortcodeTest extends \Codeception\TestCase\WPTestCase {
+class ShortcodeTest extends WPTestCase {
 
 	/**
 	 * @var \TEC\Events\QR\Shortcode
@@ -22,19 +27,26 @@ class ShortcodeTest extends \Codeception\TestCase\WPTestCase {
 	 */
 	protected $test_event_id;
 
+	/**
+	 * @var array
+	 */
+	protected $slugs;
+
 	function setUp() {
 		parent::setUp();
 
+		// Get option slugs once
+		$this->slugs = Settings::get_option_slugs();
+
 		// Enable QR
-		$slugs = \TEC\Events\QR\Settings::get_option_slugs();
-		tribe_update_option($slugs['enabled'], true);
+		tribe_update_option($this->slugs['enabled'], true);
 
 		// Register the controller to ensure shortcode is available
-		$controller = tribe(\TEC\Events\QR\Controller::class);
+		$controller = tribe(Controller::class);
 		$controller->do_register();
 
 		// Initialize shortcode
-		$this->shortcode = tribe(\TEC\Events\QR\Shortcode::class);
+		$this->shortcode = tribe(Shortcode::class);
 
 		// Create a test event that can be used across tests
 		$this->test_event_id = $this->factory->post->create([

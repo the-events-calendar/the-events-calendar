@@ -21,7 +21,6 @@ $tec_events_display_qr_codes = [
 		'tooltip'         => esc_html__( 'Enable QR Codes for Events', 'the-events-calendar' ),
 		'default'         => true,
 		'validation_type' => 'boolean',
-		'classes'         => 'tec-events-qr-codes',
 	],
 	$slug['prefix']      => [
 		'type'            => 'text',
@@ -29,7 +28,6 @@ $tec_events_display_qr_codes = [
 		'tooltip'         => esc_html__( 'The prefix to be used for the permalinks.', 'the-events-calendar' ),
 		'default'         => 'qr',
 		'validation_type' => 'string',
-		'classes'         => 'tec-events-qr-codes',
 	],
 	$slug['size']        => [
 		'type'            => 'dropdown',
@@ -43,7 +41,6 @@ $tec_events_display_qr_codes = [
 			'1000' => esc_html__( '1000x1000', 'the-events-calendar' ),
 		],
 		'validation_type' => 'string',
-		'classes'         => 'tec-events-qr-codes',
 	],
 	$slug['redirection'] => [
 		'type'            => 'dropdown',
@@ -57,7 +54,6 @@ $tec_events_display_qr_codes = [
 			'next'     => esc_html__( 'Redirect to the next event in a series', 'the-events-calendar' ),
 		],
 		'validation_type' => 'string',
-		'classes'         => 'tec-events-qr-codes',
 	],
 	$slug['specific']    => [
 		'type'            => 'text',
@@ -65,7 +61,6 @@ $tec_events_display_qr_codes = [
 		'tooltip'         => esc_html__( 'Enter the event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
 		'default'         => '',
 		'validation_type' => 'integer',
-		'classes'         => 'tec-events-qr-codes',
 	],
 	$slug['fallback']    => [
 		'type'            => 'text',
@@ -73,7 +68,6 @@ $tec_events_display_qr_codes = [
 		'tooltip'         => esc_html__( 'Redirect to this URL if QR code is invalid or the event is not found.', 'the-events-calendar' ),
 		'default'         => '',
 		'validation_type' => 'url',
-		'classes'         => 'tec-events-qr-codes',
 	],
 ];
 

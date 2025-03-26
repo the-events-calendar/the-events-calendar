@@ -109,7 +109,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		// @TODO load our QR CSS and JS here using tribe_asset()
+		// @TODO load our QR CSS and JS here using TEC\Common\StellarWP\Asset
 	}
 
 	/**
