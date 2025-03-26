@@ -7,13 +7,20 @@
  */
 
 use TEC\Events\QR\Settings as QR_Settings;
+use TEC\Common\Admin\Entities\H3;
+use Tribe\Utils\Element_Classes;
+use Tribe\Utils\Element_Attributes;
 
 $slug = QR_Settings::get_option_slugs();
 
 $tec_events_display_qr_codes = [
 	$slug['title']       => [
 		'type' => 'html',
-		'html' => '<h3 id="tec-settings-events-settings-display-additional" class="tec-settings-form__section-header">' . esc_html_x( 'QR Codes', 'QR Codes settings section header', 'the-events-calendar' ) . '</h3>',
+		'html' => new H3(
+			esc_html_x( 'QR Codes', 'QR Codes settings section header', 'the-events-calendar' ),
+			new Element_Classes( [ 'tec-settings-form__section-header' ] ),
+			new Element_Attributes( [ 'id' => 'tec-settings-events-settings-display-additional' ] )
+		),
 	],
 	$slug['enabled']     => [
 		'type'            => 'toggle',
@@ -56,11 +63,16 @@ $tec_events_display_qr_codes = [
 		'validation_type' => 'string',
 	],
 	$slug['specific']    => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'Specific Event ID', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Enter the event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
-		'default'         => '',
-		'validation_type' => 'integer',
+		'type'                => 'text',
+		'label'               => esc_html__( 'Specific Event ID', 'the-events-calendar' ),
+		'tooltip'             => esc_html__( 'Enter the event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
+		'default'             => '',
+		'validation_type'     => 'integer',
+		'class'               => 'tribe-dependent',
+		'fieldset_attributes' => [
+			'data-depends'   => '#' . $slug['redirection'] . '-select',
+			'data-condition' => 'specific',
+		],
 	],
 	$slug['fallback']    => [
 		'type'            => 'text',
