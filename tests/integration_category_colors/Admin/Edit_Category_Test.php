@@ -12,10 +12,12 @@ namespace TEC\Events\Tests\Integration\Category_Colors\Admin;
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\Category_Colors\Admin\Edit_Category;
 use TEC\Events\Category_Colors\Event_Category_Meta;
-use TEC\Events\Category_Colors\Meta_Keys;
+use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
 
 class Edit_Category_Test extends WPTestCase {
+	use Meta_Keys_Trait;
+
 	/**
 	 * @var Edit_Category
 	 */
@@ -25,11 +27,6 @@ class Edit_Category_Test extends WPTestCase {
 	 * @var Event_Category_Meta
 	 */
 	protected $meta;
-
-	/**
-	 * @var Meta_Keys
-	 */
-	protected $meta_keys;
 
 	/**
 	 * @var array
@@ -42,7 +39,6 @@ class Edit_Category_Test extends WPTestCase {
 	public function setup_test() {
 		$this->edit_category = tribe( Edit_Category::class );
 		$this->meta          = tribe( Event_Category_Meta::class );
-		$this->meta_keys     = tribe( Meta_Keys::class );
 
 		// Store original $_POST state
 		$this->original_post = $_POST;
@@ -54,7 +50,6 @@ class Edit_Category_Test extends WPTestCase {
 	public function cleanup_test() {
 		$this->edit_category = null;
 		$this->meta          = null;
-		$this->meta_keys     = null;
 
 		// Restore original $_POST state
 		$_POST = $this->original_post;
@@ -200,7 +195,7 @@ class Edit_Category_Test extends WPTestCase {
 		if ( ! empty( $initial_values ) ) {
 			$meta = $this->meta->set_term( $term_id );
 			foreach ( $initial_values as $key => $value ) {
-				$meta->set( $this->meta_keys->get_key( $key ), $value );
+				$meta->set( $this->get_key( $key ), $value );
 			}
 			$meta->save();
 		}
@@ -219,7 +214,7 @@ class Edit_Category_Test extends WPTestCase {
 		foreach ( $expected_values as $key => $expected_value ) {
 			$this->assertEquals(
 				$expected_value,
-				$meta->get( $this->meta_keys->get_key( $key ) ),
+				$meta->get( $this->get_key( $key ) ),
 				sprintf( 'Failed asserting that %s value matches expected value', $key )
 			);
 		}

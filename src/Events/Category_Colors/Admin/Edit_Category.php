@@ -2,7 +2,7 @@
 /**
  * Handles the editing of category colors in the WordPress admin.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Admin
  */
@@ -20,7 +20,6 @@ use WP_Term;
  * @since TBD
  */
 class Edit_Category extends Abstract_Admin {
-
 	/**
 	 * Displays custom fields in the "Edit Category" form.
 	 *

@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -18,7 +18,7 @@ use TEC\Events\Category_Colors\Settings\Settings;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -33,16 +33,9 @@ class Controller extends Controller_Contract {
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
 
-		$this->add_filters();
-	}
-
-	/**
-	 * Adds the filters required.
-	 *
-	 * @since TBD
-	 */
-	protected function add_filters() {
-		$this->container->make( Settings::class )->add_hooks();
+		/** @var Settings $instance */
+		$instance = $this->container->make( Settings::class );
+		$instance->add_hooks();
 	}
 
 	/**
@@ -51,7 +44,12 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function unregister(): void {
-		$this->container->make( Admin\Controller::class )->unregister();
-		$this->container->make( Settings::class )->unregister();
+		/** @var Admin\Controller $admin_controller */
+		$admin_controller = $this->container->make( Admin\Controller::class );
+		$admin_controller->unregister();
+
+		/** @var Settings $settings */
+		$settings = $this->container->make( Settings::class );
+		$settings->unregister();
 	}
 }

@@ -15,7 +15,6 @@ namespace TEC\Events\Category_Colors;
 use InvalidArgumentException;
 use Tribe__Events__Main;
 use WP_Term;
-use WP_Error;
 
 /**
  * Class Event_Category_Meta
@@ -149,7 +148,7 @@ class Event_Category_Meta {
 			throw new InvalidArgumentException( $key->get_error_message() );
 		}
 
-		// Ensure we’re not setting term meta for a shared term.
+		// Ensure we're not setting term meta for a shared term.
 		if ( wp_term_is_shared( $this->term_id ) ) {
 			throw new InvalidArgumentException(
 				sprintf( "Meta cannot be added to term ID %d because it's shared between taxonomies.", $this->term_id )
@@ -243,30 +242,25 @@ class Event_Category_Meta {
 			return (string) $value;
 		}
 
-		if ( is_object( $value ) || ( is_array( $value ) && ! empty( $value ) ) ) {
-			return $value;
-		}
-
-		return is_array( $value ) ? [] : $value;
+		return $value;
 	}
-
-
-
 
 	/**
 	 * Validates a meta key.
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the key is invalid.
+	 *
 	 * @param string $key The meta key.
 	 *
-	 * @return string|WP_Error The sanitized key or WP_Error if invalid.
+	 * @return string The sanitized key.
 	 */
-	protected function validate_key( string $key ) {
+	protected function validate_key( string $key ): string {
 		$key = strtolower( trim( $key ) );
 
 		if ( '' === $key ) {
-			return new WP_Error( 'invalid_key', __( 'Meta key cannot be empty.', 'the-events-calendar' ) );
+			throw new InvalidArgumentException( __( 'Meta key cannot be empty.', 'the-events-calendar' ) );
 		}
 
 		/**
@@ -287,31 +281,29 @@ class Event_Category_Meta {
 	 *
 	 * @since TBD
 	 *
+	 * @throws InvalidArgumentException If the value is invalid.
+	 *
 	 * @param mixed $value The meta value.
 	 *
-	 * @return mixed|WP_Error The validated value or WP_Error if invalid.
+	 * @return mixed The validated value.
 	 */
 	protected function validate_value( $value ) {
 		/**
 		 * Filter the meta value before it is saved.
 		 *
-		 * Developers can return a `WP_Error` to indicate validation failure.
+		 * Developers can throw an InvalidArgumentException to indicate validation failure.
 		 *
 		 * @since TBD
 		 *
-		 * @param mixed $value   The sanitized meta value.
+		 * @throws InvalidArgumentException If the value is invalid.
+		 *
 		 * @param int   $term_id The term ID the meta value belongs to.
 		 *
-		 * @return mixed|WP_Error The validated meta value or `WP_Error` if invalid.
+		 * @param mixed $value   The sanitized meta value.
+		 *
+		 * @return mixed The validated meta value.
 		 */
-		$validated_value = apply_filters( 'tec_events_category_validate_meta_value', $value, $this->term_id );
-
-		// If a filter returns a WP_Error, return it as validation failed.
-		if ( is_wp_error( $validated_value ) ) {
-			return $validated_value;
-		}
-
-		return $validated_value;
+		return apply_filters( 'tec_events_category_validate_meta_value', $value, $this->term_id );
 	}
 
 	/**
