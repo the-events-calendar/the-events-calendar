@@ -29,15 +29,6 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->add_filters();
-	}
-
-	/**
-	 * Adds the filters required.
-	 *
-	 * @since TBD
-	 */
-	protected function add_filters() {
 		add_action( 'tec_events_category_colors_saved', [ $this, 'generate_css' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_scripts' ] );
 	}
@@ -65,5 +56,8 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {}
+	public function unregister(): void {
+		remove_action( 'tec_events_category_colors_saved', [ $this, 'generate_css' ] );
+		remove_action( 'wp_enqueue_scripts', [ $this, 'enqueue_frontend_scripts' ] );
+	}
 }

@@ -67,7 +67,12 @@ class Category_Color_Dropdown_Provider {
 		 */
 		$enabled_views = (array) apply_filters( 'tec_events_category_color_enabled_views', $enabled_views, $view );
 
-		return in_array( $view->get_template_slug(), $enabled_views, true );
+		$template_slug = $view ? $view->get_template_slug() : '';
+		if ( empty( $template_slug ) ) {
+			return false;
+		}
+
+		return in_array( $template_slug, $enabled_views, true );
 	}
 
 	/**
@@ -79,8 +84,16 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @return bool True if the shortcode context is valid, false otherwise.
 	 */
-	protected function is_valid_shortcode_context( $view ): bool {
-		$context   = $view->get_context();
+	protected function is_valid_shortcode_context( View $view ): bool {
+		if ( ! $view instanceof View ) {
+			return false;
+		}
+
+		$context = $view->get_context();
+		if ( ! $context ) {
+			return false;
+		}
+
 		$shortcode = $context->get( 'shortcode' );
 
 		// Empty shortcode is allowed.
@@ -102,6 +115,10 @@ class Category_Color_Dropdown_Provider {
 			$view
 		);
 
+		if ( ! is_array( $blacklisted_shortcodes ) ) {
+			$blacklisted_shortcodes = [];
+		}
+
 		return ! in_array( $shortcode, $blacklisted_shortcodes, true );
 	}
 
@@ -119,9 +136,17 @@ class Category_Color_Dropdown_Provider {
 	 * }> Array of category data with their associated colors and metadata.
 	 */
 	public function get_dropdown_categories(): array {
-		$categories           = $this->get_categories();
-		$categories_with_meta = array_map( fn( $category ) => $this->get_category_meta( $category ), $categories );
-		$filtered_categories  = $this->filter_categories( $categories_with_meta );
+		$categories = $this->get_categories();
+		if ( empty( $categories ) ) {
+			return [];
+		}
+
+		$categories_with_meta = array_map(
+			fn( $category ) => $this->get_category_meta( $category ),
+			$categories
+		);
+
+		$filtered_categories = $this->filter_categories( $categories_with_meta );
 
 		/**
 		 * Filters the final list of categories shown in the dropdown.
@@ -147,12 +172,17 @@ class Category_Color_Dropdown_Provider {
 	 * @return array<WP_Term> Array of WordPress term objects representing event categories.
 	 */
 	protected function get_categories(): array {
-		$categories = get_terms(
+		$terms = get_terms(
 			[
 				'taxonomy'   => Tribe__Events__Main::TAXONOMY,
 				'hide_empty' => false,
 			]
 		);
+
+		// Handle potential WP_Error.
+		if ( is_wp_error( $terms ) ) {
+			return [];
+		}
 
 		/**
 		 * Filters the raw list of event categories before processing.
@@ -161,7 +191,7 @@ class Category_Color_Dropdown_Provider {
 		 *
 		 * @param array<WP_Term> $categories The retrieved categories.
 		 */
-		return (array) apply_filters( 'tec_events_category_color_raw_categories', $categories );
+		return (array) apply_filters( 'tec_events_category_color_raw_categories', $terms );
 	}
 
 	/**
@@ -179,15 +209,15 @@ class Category_Color_Dropdown_Provider {
 	 *     hidden: bool
 	 * } Array containing the category's metadata.
 	 */
-	protected function get_category_meta( object $category ): array {
+	protected function get_category_meta( WP_Term $category ): array {
 		$meta_instance = tribe( Event_Category_Meta::class )->set_term( $category->term_id );
 		$priority      = $meta_instance->get( $this->get_key( 'priority' ) );
 
 		$category_meta = [
-			'slug'     => $category->slug,
-			'name'     => $category->name,
+			'slug'     => $category->slug ?? '',
+			'name'     => $category->name ?? '',
 			'priority' => is_numeric( $priority ) ? (int) $priority : -1,
-			'primary'  => $meta_instance->get( $this->get_key( 'primary' ) ),
+			'primary'  => $meta_instance->get( $this->get_key( 'primary' ) ) ?? '',
 			'hidden'   => (bool) $meta_instance->get( $this->get_key( 'hide_from_legend' ) ),
 		];
 
@@ -213,7 +243,7 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<array{
+	 * @param array $categories {
 	 *     slug: string,
 	 *     name: string,
 	 *     priority: int,
@@ -230,7 +260,14 @@ class Category_Color_Dropdown_Provider {
 	 * }> Filtered array of categories.
 	 */
 	protected function filter_categories( array $categories ): array {
+		if ( empty( $categories ) ) {
+			return [];
+		}
+
 		$show_hidden_categories = tribe_get_option( 'category-color-show-hidden-categories', false );
+		if ( ! is_bool( $show_hidden_categories ) ) {
+			$show_hidden_categories = false;
+		}
 
 		$filtered = array_values(
 			array_filter(
@@ -260,7 +297,7 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @since TBD
 	 *
-	 * @param array<array{
+	 * @param array $categories {
 	 *     slug: string,
 	 *     name: string,
 	 *     priority: int,
@@ -277,13 +314,17 @@ class Category_Color_Dropdown_Provider {
 	 * }> Sorted array of categories.
 	 */
 	protected function sort_by_priority( array $categories ): array {
-		// Validate that all categories have a priority key
+		if ( empty( $categories ) ) {
+			return [];
+		}
+
+		// Validate that all categories have a priority key and it's numeric.
 		$valid_categories = array_filter(
 			$categories,
 			fn( $category ) => isset( $category['priority'] ) && is_numeric( $category['priority'] )
 		);
 
-		// Only sort if we have valid categories
+		// Only sort if we have valid categories.
 		if ( ! empty( $valid_categories ) ) {
 			usort( $valid_categories, fn( $a, $b ) => $b['priority'] <=> $a['priority'] );
 		}
