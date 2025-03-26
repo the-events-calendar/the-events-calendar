@@ -5,7 +5,7 @@
  * This class retrieves and processes event categories to determine the highest-priority category
  * based on predefined category metadata.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Events\Category_Colors\Repositories
  */
 

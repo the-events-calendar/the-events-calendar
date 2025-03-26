@@ -3,7 +3,7 @@
  * Event_Category_Meta class for taxonomy meta.
  * Handles metadata for terms within the `tribe_events_cat` taxonomy.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -23,7 +23,7 @@ use WP_Error;
  * associated with event categories. It ensures that only valid terms within
  * the `tribe_events_cat` taxonomy can have metadata operations performed on them.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors
  */

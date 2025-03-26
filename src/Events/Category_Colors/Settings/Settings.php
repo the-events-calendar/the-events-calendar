@@ -5,7 +5,7 @@
  * This file manages the settings for Category Colors, including registering a settings tab
  * and rendering the necessary fields within the admin interface.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Events\Category_Colors\Settings
  */
 
@@ -101,7 +101,7 @@ class Settings {
 	/**
 	 * Registers the Category Colors tab to the settings page.
 	 *
-	 * @since  TBD
+	 * @since TBD
 	 *
 	 * @param Tribe__Settings_Tab $display_tab The display settings tab.
 	 *

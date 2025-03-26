@@ -5,7 +5,7 @@
  * This class retrieves category color settings, generates CSS rules, minifies the output,
  * and saves the final CSS in the WordPress options table.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\CSS_Generator
  */
@@ -19,7 +19,7 @@ use Tribe__Utils__Color;
 /**
  * Class for generating, minifying, and storing category colors CSS.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\CSS_Generator
  */

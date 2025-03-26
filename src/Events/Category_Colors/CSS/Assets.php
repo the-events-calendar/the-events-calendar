@@ -2,7 +2,7 @@
 /**
  * Handles the enqueueing of category color CSS assets.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\CSS
  */
