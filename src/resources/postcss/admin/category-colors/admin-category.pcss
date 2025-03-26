@@ -8,7 +8,7 @@
 
 		.tec-events-taxonomy-table__category-color-preview {
 			aspect-ratio: 1/1;
-			border-radius: 6px;
+			border-radius: var(--tec-border-radius-default);
 			display: inline-block;
 			width: 20px;
 		}
@@ -18,29 +18,31 @@
 /** Quick Edit section **/
 .inline-edit-row {
 	.tec-events-category-colors__wrap {
-		line-height: 1;
+		line-height: var(--tec-line-height-normal);
+
 		label {
-			line-height: 1;
+			line-height: var(--tec-line-height-normal);
 			margin: 0;
-			padding: 2px 0;
+			padding: var(--tec-spacer-0) 0;
 		}
 	}
 }
 
 .tec-events-category-colors {
 	&__wrap {
-		line-height: 1;
+		line-height: var(--tec-line-height-normal);
 
 		.tec-events-category-colors__container {
 			container-type: inline-size;
 		}
 
 		/* 1-column layout */
+
 		.tec-events-category-colors__grid {
 			display: grid;
 			grid-template-columns: 1fr;
 			grid-template-rows: repeat(4, auto);
-			gap: 1rem;
+			gap: var(--tec-spacer-3);
 			grid-template-areas:
 				"color-picker-1"
 				"color-picker-2"
@@ -70,6 +72,7 @@
 		}
 
 		/* Category preview styles */
+
 		.tec-events-category-colors__preview-box {
 			display: inline-block;
 			max-width: fit-content;
@@ -79,7 +82,7 @@
 				box-sizing: border-box;
 				display: inline-block;
 				max-width: 100%;
-				padding: 3px 6px;
+				padding: var(--tec-spacer-0) var(--tec-spacer-1);
 			}
 		}
 	}

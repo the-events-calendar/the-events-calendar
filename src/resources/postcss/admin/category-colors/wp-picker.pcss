@@ -13,9 +13,9 @@
 			position: absolute !important;
 			top: 100%;
 			left: 0;
-			z-index: 1000;
-			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-			border-radius: 6px;
+			z-index: var(--tec-z-index-dropdown);
+			box-shadow: var(--tec-shadow-dropdown);
+			border-radius: var(--tec-border-radius-default);
 		}
 
 		.wp-color-result-text {
@@ -23,13 +23,13 @@
 		}
 
 		.wp-color-result {
+			aspect-ratio: 1/1;
 			position: relative;
 			width: 40px;
-			height: 40px;
-			border-radius: 4px 0 0 4px;
-			border: 1px solid #ccc;
+			border-radius: var(--tec-border-radius-default);
+			border: 1px solid var(--tec-form-color-border);
 			cursor: pointer;
-			background-color: white;
+			background-color: var(--tec-color-background);
 			margin-bottom: 0;
 
 			&:not([style*="background-color"])::before {
@@ -52,43 +52,33 @@
 		.wp-picker-input-wrap {
 			display: flex;
 			align-items: center;
-			gap: 3px;
-			margin-left: -2px;
+			gap: var(--tec-spacer-1);
+			margin-left: calc(var(--tec-spacer-1) * -1);
 			position: relative;
-			z-index: 10;
-			line-height: inherit;
+			z-index: var(--tec-z-index-dropdown);
+			line-height: var(--tec-line-height-normal);
 		}
 
 		input.wp-color-picker {
 			width: 6em;
 			height: 32px;
-			padding: 5px;
+			padding: var(--tec-spacer-0);
 			text-transform: uppercase;
-			border: 1px solid #ccc;
-			border-radius: 0 4px 4px 0;
+			border: 1px solid var(--tec-form-color-border);
+			border-radius: 0 var(--tec-border-radius-default) var(--tec-border-radius-default) 0;
+			font-size: var(--tec-font-size-1);
+			line-height: var(--tec-line-height-normal);
 		}
 	}
 
 	.wp-picker-clear {
-		margin-left: 6px;
-		padding: 5px 8px;
-		font-size: 12px;
-		line-height: 1;
+		margin-left: var(--tec-spacer-2);
+		padding: var(--tec-spacer-0) var(--tec-spacer-1);
+		font-size: var(--tec-font-size-1);
+		line-height: var(--tec-line-height-normal);
 		height: 32px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
 }
-
-/* Adjustments for medium viewports */
-@media (--viewport-medium) {
-	.tec-events-category-colors__wrap {
-		.wp-picker-container {
-			.wp-color-result {
-				width: 32px;
-				height: 32px;
-			}
-		}
-	}
-} 
