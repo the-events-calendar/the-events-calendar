@@ -9,8 +9,6 @@
 namespace Tribe\Events\Views\V2;
 
 use TEC\Common\Configuration\Configuration;
-use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
-use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use Tribe\Events\Models\Post_Types\Event;
 use Tribe\Events\Views\V2\Template\Settings\Advanced_Display;
 use Tribe\Events\Views\V2\Template\Title;
