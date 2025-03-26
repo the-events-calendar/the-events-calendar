@@ -34,9 +34,9 @@ tribe.events.admin.categoryColors = {};
 	 * @since TBD
 	 */
 	obj.selectors = {
-		colorInput: '.tec-events-category-colors__grid input[type="text"].wp-color-picker',
-		preview: '.tec-events-category-colors__preview-box span',
-		previewText: '.tec-events-category-colors__preview-box-text',
+		colorInput: '.tec-events-category-colors__input.wp-color-picker',
+		preview: '.tec-events-category-colors__preview-text',
+		previewText: '.tec-events-category-colors__preview-text',
 		tagName: 'input[name="tag-name"], input[name="name"]',
 		priorityField: 'input[name="tec_events_category-color[priority]"]',
 		form: obj.isAddPage ? '#addtag' : '#edittag',
@@ -51,7 +51,7 @@ tribe.events.admin.categoryColors = {};
 		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
 		wpPickerContainer: '.wp-picker-container',
 		irisPicker: '.iris-picker',
-		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]',
+		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]"]',
 	};
 
 	/**

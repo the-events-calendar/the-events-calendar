@@ -211,6 +211,18 @@ abstract class Abstract_Admin {
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ $this, 'is_category_page' ] )
 			->register();
+
+		Asset::add(
+			'tec-category-colors-wp-picker-style',
+			'/css/admin/category-colors/wp-picker.css',
+			Tribe__Events__Main::VERSION
+		)
+			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group( 'tec-events-category-colors' )
+			->enqueue_on( 'admin_enqueue_scripts' )
+			->set_condition( [ $this, 'is_category_page' ] )
+			->set_dependencies( 'tec-category-colors-admin-style' )
+			->register();
 	}
 
 	/**

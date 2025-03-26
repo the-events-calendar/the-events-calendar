@@ -242,11 +242,7 @@ class Event_Category_Meta {
 			return (string) $value;
 		}
 
-		if ( is_object( $value ) || ( is_array( $value ) && ! empty( $value ) ) ) {
-			return $value;
-		}
-
-		return is_array( $value ) ? [] : $value;
+		return $value;
 	}
 
 	/**

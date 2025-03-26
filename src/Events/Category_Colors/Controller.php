@@ -31,15 +31,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin\Controller::class );
-		$this->add_filters();
-	}
-
-	/**
-	 * Adds the filters required.
-	 *
-	 * @since TBD
-	 */
-	protected function add_filters() {
+		
 		/** @var Settings $instance */
 		$instance = $this->container->make( Settings::class );
 		$instance->add_hooks();
