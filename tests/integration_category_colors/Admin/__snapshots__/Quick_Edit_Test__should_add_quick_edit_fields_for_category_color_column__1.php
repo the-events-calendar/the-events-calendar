@@ -1,6 +1,6 @@
 <?php return '
 <div class="tec-events-category-colors__wrap">
-	<input type="hidden" id="tec-category-colors-nonce" name="tec-category-colors-nonce" value="12345678" /><input type="hidden" name="_wp_http_referer" value="" />	<div class="tec-events-category-colors__container">
+	<input type="hidden" id="tec_category_colors_nonce" name="tec_category_colors_nonce" value="12345678" /><input type="hidden" name="_wp_http_referer" value="" />	<div class="tec-events-category-colors__container">
 		<div class="tec-events-category-colors__grid">
 			<div class="tec-events-category-colors__field">
 				<label for="tec-events-category-colors-primary">Primary Color</label>
