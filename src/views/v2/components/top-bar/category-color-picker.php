@@ -37,11 +37,17 @@ if ( empty( $category_colors_enabled ) ) {
 
 	<div class="tec-events-category-color-filter__colors">
 		<?php foreach ( array_slice( $category_colors_category_dropdown, 0, 5 ) as $index => $category ) : ?>
-			<span <?php tribe_classes( [
-				'tec-events-category-color-filter__color-circle',
-				'tribe_events_cat-' . $category['slug'],
-				empty( $category['primary'] ) ? 'tec-events-category-color-filter__color-circle--default' : '',
-			] ); ?> >
+			<span
+				<?php
+				tribe_classes(
+					[
+						'tec-events-category-color-filter__color-circle',
+						'tribe_events_cat-' . $category['slug'],
+						empty( $category['primary'] ) ? 'tec-events-category-color-filter__color-circle--default' : '',
+					]
+				);
+				?>
+			>
 			</span>
 		<?php endforeach; ?>
 	</div>
@@ -70,10 +76,16 @@ if ( empty( $category_colors_enabled ) ) {
 ">
 						<?php } ?>
 						<span class="tec-events-category-color-filter__label"><?php echo esc_html( $category['name'] ); ?></span>
-						<span <?php tribe_classes( [
-							'tec-events-category-color-filter__color-dot',
-							'tribe_events_cat-' . $category['slug']
-						] ); ?>></span>
+						<span
+							<?php
+							tribe_classes(
+								[
+									'tec-events-category-color-filter__color-dot',
+									'tribe_events_cat-' . $category['slug'],
+								]
+							);
+							?>
+						></span>
 					</label>
 				</li>
 			<?php endforeach; ?>
