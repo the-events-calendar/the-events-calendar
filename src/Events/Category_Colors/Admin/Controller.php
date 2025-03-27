@@ -47,6 +47,7 @@ class Controller extends Controller_Contract {
 		add_action( "created_{$taxonomy}", [ $this, 'save_add_category_fields' ] );
 		add_action( "edited_{$taxonomy}", [ $this, 'save_edit_category_fields' ] );
 		add_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'maybe_add_inline_styles' ] );
 
 		add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
@@ -65,6 +66,7 @@ class Controller extends Controller_Contract {
 		remove_action( "created_{$taxonomy}", [ $this, 'save_add_category_fields' ] );
 		remove_action( "edited_{$taxonomy}", [ $this, 'save_edit_category_fields' ] );
 		remove_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
+		remove_action( 'admin_enqueue_scripts', [ $this, 'maybe_add_inline_styles' ] );
 
 		remove_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		remove_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
@@ -76,8 +78,8 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function enqueue_assets() {
-		/** @var Add_Category $instance */
-		$instance = $this->container->make( Add_Category::class );
+		/** @var Category_Colors_Styles $instance */
+		$instance = $this->container->make( Category_Colors_Styles::class );
 		$instance->enqueue_assets();
 	}
 
@@ -123,6 +125,7 @@ class Controller extends Controller_Contract {
 
 	/**
 	 * Saves the category color fields when editing an existing category.
+	 * This method runs for both Edit and Quick Edit.
 	 *
 	 * @since TBD
 	 *
@@ -176,5 +179,18 @@ class Controller extends Controller_Contract {
 		/** @var Quick_Edit $instance */
 		$instance = $this->container->make( Quick_Edit::class );
 		$instance->add_quick_edit_fields( $column_name, $screen );
+	}
+
+	/**
+	 * Maybe adds inline styles for category colors.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function maybe_add_inline_styles(): void {
+		/** @var Category_Colors_Styles $instance */
+		$instance = $this->container->make( Category_Colors_Styles::class );
+		$instance->maybe_add_inline_styles();
 	}
 }

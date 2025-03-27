@@ -13,6 +13,7 @@ use InvalidArgumentException;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
+use WP_Term;
 
 /**
  * Class Quick_Edit
@@ -64,7 +65,7 @@ class Quick_Edit extends Abstract_Admin {
 		}
 
 		if ( 'category_color' === $column_name ) {
-			$content = $this->get_column_category_color_preview( $meta );
+			$content = $this->get_column_category_color_preview( $meta, $term_id );
 		}
 
 		return $content;
@@ -96,11 +97,12 @@ class Quick_Edit extends Abstract_Admin {
 	 *
 	 * @since TBD
 	 *
-	 * @param Event_Category_Meta $meta The metadata handler.
+	 * @param Event_Category_Meta $meta    The metadata handler.
+	 * @param int                 $term_id The category term ID.
 	 *
 	 * @return string HTML for color preview square.
 	 */
-	protected function get_column_category_color_preview( Event_Category_Meta $meta ): string {
+	protected function get_column_category_color_preview( Event_Category_Meta $meta, int $term_id ): string {
 		static $color_fields = null;
 
 		static $meta_keys = null;
@@ -128,6 +130,15 @@ class Quick_Edit extends Abstract_Admin {
 		if ( empty( $fields['primary'] ) || empty( $fields['secondary'] ) ) {
 			return __( 'transparent', 'the-events-calendar' );
 		}
+
+		// Get the term to access its slug.
+		$term = get_term( $term_id, Tribe__Events__Main::TAXONOMY );
+		if ( ! $term instanceof WP_Term ) {
+			return __( 'transparent', 'the-events-calendar' );
+		}
+
+		// Add the category class identifier.
+		$fields['category_class'] = 'tribe_events_cat-' . $term->slug;
 
 		return $this->get_template()->template( 'category-color-preview', $fields, false );
 	}

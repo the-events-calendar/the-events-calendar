@@ -10,7 +10,6 @@
 namespace TEC\Events\Category_Colors\Admin;
 
 use InvalidArgumentException;
-use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
 use Tribe__Events__Main;
@@ -187,62 +186,5 @@ abstract class Abstract_Admin {
 		 * @param int $term_id The term ID that was updated.
 		 */
 		do_action( 'tec_events_category_colors_saved', $term_id );
-	}
-
-	/**
-	 * Enqueues admin assets for category colors.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	public function enqueue_assets(): void {
-		Asset::add(
-			'tec-category-colors-admin-js',
-			'/js/admin/category-colors/admin-category.js',
-			Tribe__Events__Main::VERSION
-		)
-			->add_to_group_path( 'tec-events-resources' )
-			->add_to_group( 'tec-events-category-colors' )
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ $this, 'is_category_page' ] )
-			->set_dependencies( 'jquery', 'wp-color-picker' )
-			->register();
-
-		Asset::add(
-			'tec-category-colors-admin-style',
-			'/css/admin/category-colors/admin-category.css',
-			Tribe__Events__Main::VERSION
-		)
-			->add_to_group_path( 'tec-events-resources' )
-			->add_to_group( 'tec-events-category-colors' )
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ $this, 'is_category_page' ] )
-			->register();
-
-		Asset::add(
-			'tec-category-colors-wp-picker-style',
-			'/css/admin/category-colors/wp-picker.css',
-			Tribe__Events__Main::VERSION
-		)
-			->add_to_group_path( 'tec-events-resources' )
-			->add_to_group( 'tec-events-category-colors' )
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->set_condition( [ $this, 'is_category_page' ] )
-			->set_dependencies( 'tec-category-colors-admin-style' )
-			->register();
-	}
-
-	/**
-	 * Checks if the current page is a category management page.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the current page is a category management page.
-	 */
-	public function is_category_page(): bool {
-		$screen = get_current_screen();
-
-		return isset( $screen->taxonomy ) && Tribe__Events__Main::TAXONOMY === $screen->taxonomy;
 	}
 }

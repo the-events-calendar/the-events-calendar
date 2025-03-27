@@ -206,7 +206,7 @@ class Event_Category_Meta_Test extends WPTestCase {
 			'tec_events_category_validate_meta_value',
 			function ( $value ) {
 				if ( null === $value ) {
-					return new WP_Error( 'invalid_meta', 'Meta value cannot be null.' );
+					throw new InvalidArgumentException( 'Meta value cannot be null.' );
 				}
 
 				return $value;

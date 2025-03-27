@@ -4,16 +4,16 @@
  *
  * @since TBD
  *
- * @var string $primary   The primary color hex value.
- * @var string $secondary The secondary color hex value.
- * @var string $text      The text color hex value.
- * @var string $priority  The priority of the category.
- * @var string $hide_from_legend    Whether the category is hidden.
+ * @var string $primary          The primary color hex value.
+ * @var string $secondary        The secondary color hex value.
+ * @var string $text             The text color hex value.
+ * @var string $priority         The priority of the category.
+ * @var string $hide_from_legend Whether the category is hidden.
+ * @var string $category_class   The category class identifier (e.g. tribe_events_cat-category-1).
  */
 
 ?>
-<span class="tec-events-taxonomy-table__category-color-preview"
-	style="background-color: <?php echo esc_attr( $secondary ); ?>; border: 3px solid <?php echo esc_attr( $primary ); ?>;"
+<span <?php tribe_classes( 'tec-events-taxonomy-table__category-color-preview', esc_attr( $category_class ) ); ?>
 	data-primary="<?php echo esc_attr( $primary ); ?>"
 	data-secondary="<?php echo esc_attr( $secondary ); ?>"
 	data-text="<?php echo esc_attr( $text ); ?>"
