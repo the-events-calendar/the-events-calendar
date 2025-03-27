@@ -18,7 +18,7 @@ use Tribe__Context as Context;
  * @package Tribe\Events\Views\V2
  * @since   4.9.2
  */
-interface View_Interface  extends View_Url_Provider_Interface, Repository_User_Interface {
+interface View_Interface extends View_Url_Provider_Interface, Repository_User_Interface {
 
 	/**
 	 * Returns a View HTML code.
@@ -28,6 +28,17 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return string
 	 */
 	public function get_html();
+
+	/**
+	 * Sends, echoing it and exiting, the view HTML on the page.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
+	 *                          `get_html` method.
+	 *
+	 */
+	public function send_html( ?string $html = null );
 
 	/**
 	 * Returns the view label.

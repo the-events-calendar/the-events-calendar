@@ -476,12 +476,13 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {object}         data       DOM Event related to the Click action
-	 * @param  {Element|jQuery} $container Which container we are dealing with
+	 * @param  {object}         data              DOM Event related to the Click action
+	 * @param  {Element|jQuery} $container        Which container we are dealing with
+	 * @param  {object}         overwriteSettings Options for the request
 	 *
 	 * @return {void}
 	 */
-	obj.request = function( data, $container ) {
+	obj.request = function( data, $container, overwriteSettings = {} ) {
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
 
 		var settings = obj.getAjaxSettings( $container );
@@ -489,10 +490,40 @@ tribe.events.views.manager = {};
 		// Pass the data setup to the $.ajax settings
 		settings.data = obj.setupRequestData( data, $container );
 
-		obj.currentAjaxRequest = $.ajax( settings );
+		settings.data = obj.shirinkUrlComponents( $container, settings.data );
+
+		obj.currentAjaxRequest = $.ajax( $.extend( settings, overwriteSettings ) );
 
 		$container.trigger( 'afterRequest.tribeEvents', [ data, $container ] );
 	};
+
+	/**
+	 * Shrink the URL components to the minimum required to identify the view.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Element|jQuery} $container  Which container we are dealing with
+	 * @param {object}          components The components to shrink.
+	 *
+	 * @return {object} The shrunken components.
+	 */
+	obj.shirinkUrlComponents = ( $container, components ) => {
+		const { home_url, rest_url, rest_nonce, rest_method } = obj.getContainerData( $container );
+		
+		return _.reduce( components, ( acc, value, key ) => {
+
+			if ( key === 'prev_url' ) {
+				acc['pu'] = value.replace( home_url, '' );
+			} else if ( key === 'url' ) {
+				acc['u'] = value.replace( home_url, '' );
+			} else if ( key === 'should_manage_url' ) {
+				acc['smu'] = value;
+			} else {
+				acc[ key ] = value
+			}
+			return acc;
+		}, {} );
+	}
 
 	/**
 	 * Gets the jQuery.ajax() settings provided a views container

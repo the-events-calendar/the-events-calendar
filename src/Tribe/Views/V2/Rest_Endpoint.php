@@ -35,19 +35,21 @@ class Rest_Endpoint {
 	 * The field name for the primary nonce.
 	 *
 	 * @since 6.1.4
+	 * @since TBD Changed to `tvn1` from `_tec_view_rest_nonce_primary`.
 	 *
 	 * @var string
 	 */
-	const PRIMARY_NONCE_KEY = '_tec_view_rest_nonce_primary';
+	const PRIMARY_NONCE_KEY = 'tvn1';
 
 	/**
 	 * The field name for the secondary nonce.
 	 *
 	 * @since 6.1.4
-	 *
+	 * @since TBD Changed to `tvn2` from `_tec_view_rest_nonce_secondary`.
+	 * 
 	 * @var string
 	 */
-	const SECONDARY_NONCE_KEY = '_tec_view_rest_nonce_secondary';
+	const SECONDARY_NONCE_KEY = 'tvn2';
 
 	/**
 	 * Rest Endpoint namespace
@@ -309,7 +311,7 @@ class Rest_Endpoint {
 	 */
 	public function get_request_arguments() {
 		$arguments = [
-			'url' => [
+			'u' => [
 				'required'          => true,
 				'validate_callback' => static function ( $url ) {
 					return is_string( $url );
@@ -394,14 +396,38 @@ class Rest_Endpoint {
 			'methods'             => [ Server::READABLE, Server::CREATABLE ],
 			// @todo [BTRIA-600]: Make sure we do proper handling of caches longer then 12h.
 			'permission_callback' => [ $this, 'is_valid_request' ],
-			'callback'            => static function ( Request $request ) {
-				if ( ! headers_sent() ) {
-					header( 'Content-Type: text/html; charset=' . esc_attr( get_bloginfo( 'charset' ) ) );
-				}
-				View::make_for_rest( $request )->send_html();
-			},
+			'callback'            => [ $this, 'send_html' ],
 			'args'                => $this->get_request_arguments(),
 		] );
+	}
+
+	/**
+	 * Sends the HTML for the view.
+	 *
+	 * @since TBD
+	 *
+	 * @param Request $request The request object.
+	 */
+	public function send_html( Request $request ) {
+		if ( ! headers_sent() ) {
+			header( 'Content-Type: text/html; charset=' . esc_attr( get_bloginfo( 'charset' ) ) );
+		}
+
+		$request = $this->unshrink_url_components( $request );
+
+		View::make_for_rest( $request )->send_html();
+	}
+
+	public function unshrink_url_components( Request $request ) {
+		$request->set_param( 'url', $request->get_param( 'u' ) );
+		$request->set_param( 'prev_url', $request->get_param( 'pu' ) );
+		$request->set_param( 'should_manage_url', $request->get_param( 'smu' ) );
+
+		$request->set_param( 'u', null );
+		$request->set_param( 'pu', null );
+		$request->set_param( 'smu', null );
+
+		return $request;
 	}
 
 	/**
@@ -550,11 +576,12 @@ class Rest_Endpoint {
 		 * Filters the HTTP method Views should use to fetch their contents calling the back-end endpoint.
 		 *
 		 * @since 5.2.1
+		 * @since TBD Changed default to `GET`, for performance reasons.
 		 *
 		 * @param string $method The HTTP method Views will use to fetch their content. Either `POST` (default) or
 		 *                       `GET`. Invalid values will be set to the default `POST`.
 		 */
-		$method = strtoupper( (string) apply_filters( 'tribe_events_views_v2_endpoint_method', 'POST' ) );
+		$method = strtoupper( (string) apply_filters( 'tribe_events_views_v2_endpoint_method', 'GET' ) );
 
 		$method = in_array( $method, [ 'POST', 'GET' ], true ) ? $method : 'POST';
 
