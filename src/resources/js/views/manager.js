@@ -512,6 +512,7 @@ tribe.events.views.manager = {};
 		} catch ( error ) {
 		}
 		
+		// Make the request.
 		obj.currentAjaxRequest = $.ajax( $.extend( settings, overwriteSettings ) );
 
 		/**
