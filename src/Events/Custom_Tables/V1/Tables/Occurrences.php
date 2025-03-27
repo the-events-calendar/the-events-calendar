@@ -69,6 +69,7 @@ class Occurrences extends Abstract_Custom_Table {
 			`start_date_utc` datetime NOT NULL,
 			`end_date` datetime NOT NULL,
 			`end_date_utc` datetime NOT NULL,
+			`duration` mediumint(30) DEFAULT 7200,
 			`hash` varchar(40) NOT NULL,
 			`updated_at` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 			PRIMARY KEY  (`occurrence_id`)
