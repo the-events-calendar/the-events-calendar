@@ -60,7 +60,7 @@ class Shortcode extends Shortcode_Abstract {
 
 		$args = $this->get_arguments();
 
-		$mode = in_array( $args['mode'], [ 'current', 'next', 'id', 'series_next' ], true ) ? $args['mode'] : 'current';
+		$mode = in_array( $args['mode'], [ 'current', 'upcoming', 'specific', 'next' ], true ) ? $args['mode'] : 'current';
 		$id   = absint( $args['id'] );
 		$size = absint( $args['size'] );
 

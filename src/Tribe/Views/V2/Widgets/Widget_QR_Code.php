@@ -239,27 +239,27 @@ class Widget_QR_Code extends Widget_Abstract {
 						'text'  => _x( 'Redirect to the current event', 'Current event redirection option', 'the-events-calendar' ),
 					],
 					[
-						'value' => 'next',
-						'text'  => _x( 'Redirect to the next upcoming event', 'Upcoming event redirection option', 'the-events-calendar' ),
+						'value' => 'upcoming',
+						'text'  => _x( 'Redirect to the first upcoming event', 'Upcoming event redirection option', 'the-events-calendar' ),
 					],
 					[
-						'value' => 'id',
+						'value' => 'specific',
 						'text'  => _x( 'Redirect to a specific event ID', 'Specific event redirection option', 'the-events-calendar' ),
 					],
 					[
-						'value' => 'series_next',
+						'value' => 'next',
 						'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
 					],
 				],
 			],
 			'specific_event_id' => [
 				'id'         => 'specific_event_id',
-				'label'      => _x( 'Specific Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
+				'label'      => _x( 'Specific ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
 				'type'       => 'text',
 				'classes'    => 'tribe-dependent',
 				'dependency' => [
 					'ID' => 'redirection',
-					'is' => 'id',
+					'is' => 'specific',
 				],
 			],
 		];

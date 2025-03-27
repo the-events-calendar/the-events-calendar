@@ -52,7 +52,7 @@ $tec_events_display_qr_codes = [
 		'default'         => 'current_event',
 		'options'         => [
 			'current'  => esc_html__( 'Redirect to the current event', 'the-events-calendar' ),
-			'upcoming' => esc_html__( 'Redirect to the next upcoming event', 'the-events-calendar' ),
+			'upcoming' => esc_html__( 'Redirect to the first upcoming event', 'the-events-calendar' ),
 			'specific' => esc_html__( 'Redirect to a specific event ID', 'the-events-calendar' ),
 			'next'     => esc_html__( 'Redirect to the next event in a series', 'the-events-calendar' ),
 		],
