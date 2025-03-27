@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Add check for single venue and single organizer to the Template_Bootstrap class. Use those checks for SEO titles and enable SEO plugins to overwrite their respective titles. [ECP-1059]

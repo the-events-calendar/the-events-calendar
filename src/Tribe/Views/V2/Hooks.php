@@ -531,7 +531,12 @@ class Hooks extends Service_Provider {
 	 */
 	public function pre_get_document_title( $title ) {
 		$bootstrap = $this->container->make( Template_Bootstrap::class );
-		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
+		if (
+			! $bootstrap->should_load()
+			|| $bootstrap->is_single_event()
+			|| $bootstrap->is_single_organizer()
+			|| $bootstrap->is_single_venue()
+		) {
 			return $title;
 		}
 
