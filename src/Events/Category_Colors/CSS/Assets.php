@@ -25,16 +25,13 @@ class Assets {
 	 * @since TBD
 	 */
 	public function enqueue_frontend_scripts(): void {
-		// Register asset group path.
-		Assets_Config::add_group_path( 'tec-category-colors', Tribe__Events__Main::instance()->plugin_path, 'src/resources' );
-
 		// Add main CSS file.
 		Asset::add(
 			'tec-category-colors-frontend-styles',
 			'/css/category-colors/frontend-category.css',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-category-colors' )
+			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 		Asset::add(
@@ -42,7 +39,7 @@ class Assets {
 			'/css/category-colors/category-legend.css',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-category-colors' )
+			->add_to_group( 'tec-events-category-colors' )
 			->set_condition( [ $this, 'should_enqueue_frontend_styles' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
@@ -51,7 +48,7 @@ class Assets {
 			'/js/views/category-color-selector.js',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-category-colors' )
+			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 
