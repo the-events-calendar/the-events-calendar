@@ -422,7 +422,7 @@ class Worker extends Abstract_Migration_Step {
 	 * @return int The total number of categories.
 	 */
 	public function get_total_categories(): int {
-		$processing_data = $this->get_processing_data();
+		$processing_data = $this->get_migration_data();
 		return isset( $processing_data['categories'] ) ? count( $processing_data['categories'] ) : 0;
 	}
 

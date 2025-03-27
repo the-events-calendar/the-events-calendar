@@ -64,6 +64,8 @@ class Migration_Notice {
 	 * @since TBD
 	 */
 	public function maybe_show_migration_notice(): void {
+
+		printr(Status::get_migration_status(),'Migration Status');
 		// Check if we should force show the notice.
 		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', true );
 

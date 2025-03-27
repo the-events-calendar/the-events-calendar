@@ -10,9 +10,9 @@
 
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
-use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Migration\Processors\Worker;
+use TEC\Events\Category_Colors\Migration\Scheduler\Postprocessing_Action;
 
 /**
  * Class Execution_Action
@@ -130,14 +130,18 @@ class Execution_Action extends Abstract_Action {
 			return $result;
 		}
 
-		// Check if there are more categories to process
+		// Check if there are more categories to process.
 		$remaining_categories = $this->worker->get_remaining_categories();
 		if ( $remaining_categories > 0 ) {
-			// Schedule the next batch
+			// Schedule the next batch.
 			$this->schedule_next_batch();
 		} else {
-			// No more categories, mark execution as completed
+			// No more categories, mark execution as completed and schedule postprocessing.
 			$this->update_migration_status( Status::$execution_completed );
+
+			// Schedule the postprocessing action.
+			$postprocessing = tribe( Postprocessing_Action::class );
+			$postprocessing->schedule();
 		}
 
 		return true;
@@ -151,7 +155,6 @@ class Execution_Action extends Abstract_Action {
 	 * @return void
 	 */
 	protected function schedule_next_batch(): void {
-		$processing_data      = $this->worker->get_processing_data();
 		$total_categories     = $this->worker->get_total_categories();
 		$remaining_categories = $this->worker->get_remaining_categories();
 		$processed_categories = $total_categories - $remaining_categories;

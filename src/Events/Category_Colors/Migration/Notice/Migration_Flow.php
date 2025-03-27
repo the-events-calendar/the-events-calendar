@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
+use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
 use TEC\Events\Category_Colors\Migration\Status;
 use WP_Error;
@@ -31,7 +32,7 @@ class Migration_Flow {
 	public function initialize() {
 		try {
 			// Set initial migration status
-			Status::update_migration_status( Status::$execution_scheduled );
+			Status::update_migration_status( Status::$preprocessing_scheduled );
 
 			// Get all categories that need to be migrated
 			$categories = get_terms( [
