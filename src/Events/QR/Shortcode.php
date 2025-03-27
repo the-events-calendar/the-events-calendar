@@ -76,6 +76,9 @@ class Shortcode extends Shortcode_Abstract {
 
 		$qr_img = $qr_code->size( $size )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
 
+		// @TODO Add filters to allow for customizing the QR code image.
+		// @TODO Add proper alt text to the image.
+
 		return '<img alt="qr_code_image" src="' . $qr_img . '">';
 	}
 }
