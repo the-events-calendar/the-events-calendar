@@ -11,7 +11,6 @@ namespace TEC\Events\Blocks;
 
 use TEC\Events\Blocks\Archive_Events\Block as Archive_Events_Block;
 use TEC\Events\Blocks\Single_Event\Block as Single_Event_Block;
-use TEC\Events\Blocks\QR_Code\Block as QR_Code_Block;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
 /**
@@ -50,7 +49,6 @@ class Controller extends Controller_Contract {
 	protected function add_actions() {
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
 		add_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
-		add_action( 'tribe_editor_register_blocks', [ $this, 'register_qr_code_block' ] );
 	}
 
 	/**
@@ -61,7 +59,6 @@ class Controller extends Controller_Contract {
 	public function remove_actions() {
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_archive_events_block' ] );
 		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_single_event_block' ] );
-		remove_action( 'tribe_editor_register_blocks', [ $this, 'register_qr_code_block' ] );
 	}
 
 	/**
@@ -82,15 +79,6 @@ class Controller extends Controller_Contract {
 	 */
 	public function register_single_event_block() {
 		return $this->container->make( Single_Event_Block::class )->register();
-	}
-
-	/**
-	 * Registers the QR Code block.
-	 *
-	 * @since 6.2.7
-	 */
-	public function register_qr_code_block() {
-		return $this->container->make( QR_Code_Block::class )->register();
 	}
 
 	/**
