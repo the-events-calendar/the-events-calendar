@@ -483,6 +483,14 @@ tribe.events.views.manager = {};
 	 * @return {void}
 	 */
 	obj.request = function( data, $container, overwriteSettings = {} ) {
+		/**
+		 * Trigger the beforeRequest event.
+		 * 
+		 * @since 4.9.2
+		 * 
+		 * @param {object} data The data passed to the request.
+		 * @param {Element|jQuery} $container The container we are dealing with.
+		 */
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
 
 		var settings = obj.getAjaxSettings( $container );
@@ -490,10 +498,30 @@ tribe.events.views.manager = {};
 		// Pass the data setup to the $.ajax settings
 		settings.data = obj.setupRequestData( data, $container );
 
+		// Shrink the URL components, to try to avoid the URL length limit.
 		settings.data = obj.shirinkUrlComponents( $container, settings.data );
 
+		// Try to avoid the URL length limit for GET requests.
+		try {
+			const fullURL = new URL( settings.url, window.location.origin );
+			fullURL.search = new URLSearchParams( settings.data ).toString();
+
+			if ( fullURL.toString().length > 2048 ) {
+				settings.method = 'POST';
+			}
+		} catch ( error ) {
+		}
+		
 		obj.currentAjaxRequest = $.ajax( $.extend( settings, overwriteSettings ) );
 
+		/**
+		 * Trigger the afterRequest event.
+		 * 
+		 * @since 4.9.2
+		 * 
+		 * @param {object} data The data passed to the request.
+		 * @param {Element|jQuery} $container The container we are dealing with.
+		 */
 		$container.trigger( 'afterRequest.tribeEvents', [ data, $container ] );
 	};
 
@@ -511,7 +539,6 @@ tribe.events.views.manager = {};
 		const { home_url, rest_url, rest_nonce, rest_method } = obj.getContainerData( $container );
 		
 		return _.reduce( components, ( acc, value, key ) => {
-
 			if ( key === 'prev_url' ) {
 				acc['pu'] = value.replace( home_url, '' );
 			} else if ( key === 'url' ) {
