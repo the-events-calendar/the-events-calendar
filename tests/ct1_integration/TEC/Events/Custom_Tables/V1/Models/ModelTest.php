@@ -238,7 +238,7 @@ class ModelTest extends WPTestCase {
 		$this->assertEquals(
 			6,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 5 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to count results, 5 queries to fetch.'
 		);
 		$this->assertCount( 10, $results );
 		$this->assertEquals(
@@ -254,9 +254,9 @@ class ModelTest extends WPTestCase {
 		$wpdb_queries = $wpdb->num_queries;
 		$results = iterator_to_array( $all, true );
 		$this->assertEquals(
-			3,
+			4,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 2 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to run results, 3 queries to fetch.'
 		);
 		$this->assertCount( 5, $results );
 		$this->assertEquals(
@@ -272,9 +272,9 @@ class ModelTest extends WPTestCase {
 		$wpdb_queries = $wpdb->num_queries;
 		$results = iterator_to_array( $all, true );
 		$this->assertEquals(
-			3,
+			4,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 2 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to count results, 3 queries to fetch.'
 		);
 		$this->assertCount( 5, $results );
 		$this->assertEquals(
@@ -293,7 +293,7 @@ class ModelTest extends WPTestCase {
 		$this->assertEquals(
 			3,
 			$wpdb->num_queries - $wpdb_queries,
-			'Should run 2 queries to fetch, 1 to find out there are no more results.'
+			'Should run 1 query to count results, 2 queries to fetch.'
 		);
 		$this->assertCount( 4, $results );
 		$this->assertEquals(
