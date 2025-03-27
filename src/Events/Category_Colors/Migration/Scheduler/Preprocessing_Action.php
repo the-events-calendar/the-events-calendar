@@ -11,9 +11,9 @@
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Config;
-use TEC\Events\Category_Colors\Migration\Pre_Processor;
+use TEC\Events\Category_Colors\Migration\Processors\Pre_Processor;
 use TEC\Events\Category_Colors\Migration\Status;
-use TEC\Events\Category_Colors\Migration\Validator;
+use TEC\Events\Category_Colors\Migration\Processors\Validator;
 
 /**
  * Handles the preprocessing phase of the migration.
@@ -104,17 +104,9 @@ class Preprocessing_Action extends Abstract_Action {
 	 * @return bool True if the action can be scheduled.
 	 */
 	public function can_schedule(): bool {
-		$current_status = $this->get_migration_status()['status'];
-
-		return in_array(
-			$current_status,
-			[
-				Status::$not_started,
-				Status::$preprocessing_failed,
-				Status::$execution_scheduled,
-			],
-			true
-		);
+		// Check if we're in a valid state to schedule preprocessing
+		$current_status = Status::get_migration_status()['status'];
+		return in_array( $current_status, [ Status::$not_started, Status::$preprocessing_failed ], true );
 	}
 
 	/**
@@ -136,7 +128,7 @@ class Preprocessing_Action extends Abstract_Action {
 		error_log( 'Preprocessing ended at: ' . date( 'Y-m-d H:i:s' ) . ' (Duration: ' . $duration . ' seconds)' );
 
 		// Check if the status is preprocessing_skipped (valid state)
-		$current_status = $this->get_migration_status()['status'];
+		$current_status = Status::get_migration_status()['status'];
 		if ( Status::$preprocessing_skipped === $current_status ) {
 			return true;
 		}
@@ -164,5 +156,17 @@ class Preprocessing_Action extends Abstract_Action {
 	protected function schedule_next_action(): void {
 		$validator = tribe( Validation_Action::class );
 		$validator->schedule();
+	}
+
+	/**
+	 * Whether this action is in a valid state to run.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the action can run, false otherwise.
+	 */
+	public function is_runnable(): bool {
+		$current_status = Status::get_migration_status()['status'];
+		return in_array( $current_status, [ Status::$preprocessing_scheduled, Status::$preprocessing_in_progress ], true );
 	}
 }

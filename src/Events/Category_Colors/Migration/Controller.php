@@ -18,6 +18,8 @@ use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Postprocessing_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Validation_Action;
+use TEC\Events\Category_Colors\Migration\Notice\Migration_Flow;
+use TEC\Events\Category_Colors\Migration\Notice\Migration_Notice;
 
 /**
  * Class Controller
@@ -34,23 +36,22 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		if ( Status::$execution_completed === Handler::get_migration_status()['status'] ) {
+		if ( Status::$postprocessing_completed === Status::get_migration_status()['status'] ) {
 			return;
 		}
-		$this->container->singleton( Pre_Processor::class );
-		$this->container->singleton( Validator::class );
-		$this->container->singleton( Worker::class );
-		$this->container->singleton( Post_Processor::class );
-		$this->container->singleton( Handler::class );
-		$this->container->singleton( Execution_Action::class );
-		$this->container->singleton( Preprocessing_Action::class );
-		$this->container->singleton( Validation_Action::class );
-		$this->container->singleton( Postprocessing_Action::class );
-		
+
 		// Register action hooks
 		$this->register_action_hooks();
-		
-		$this->add_filters();
+
+		// Register Migration_Flow as a singleton
+		$this->container->singleton( Migration_Flow::class );
+
+		// Register Migration_Notice with Migration_Flow dependency
+		$this->container->singleton( Migration_Notice::class, function() {
+			return new Migration_Notice( $this->container->make( Migration_Flow::class ) );
+		});
+
+		$this->container->make( Migration_Notice::class )->hook();
 	}
 
 	/**
@@ -70,15 +71,6 @@ class Controller extends Controller_Contract {
 			$action = $this->container->make($action_class);
 			add_action( $action->get_hook(), [ $action, 'execute' ] );
 		}
-	}
-
-	/**
-	 * Adds the filters required.
-	 *
-	 * @since TBD
-	 */
-	public function add_filters() {
-		$this->container->make( Admin_UI::class )->hook();
 	}
 
 	/**

@@ -11,7 +11,7 @@
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Config;
-use TEC\Events\Category_Colors\Migration\Post_Processor;
+use TEC\Events\Category_Colors\Migration\Processors\Post_Processor;
 use TEC\Events\Category_Colors\Migration\Status;
 
 /**
@@ -94,7 +94,7 @@ class Postprocessing_Action extends Abstract_Action {
 	 * @return bool True if the action can be scheduled.
 	 */
 	public function can_schedule(): bool {
-		$current_status = $this->get_migration_status()['status'];
+		$current_status = Status::get_migration_status()['status'];
 		return in_array( $current_status, [ Status::$execution_completed, Status::$postprocessing_failed ], true );
 	}
 

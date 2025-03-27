@@ -6,13 +6,15 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 
-namespace TEC\Events\Category_Colors\Migration;
+namespace TEC\Events\Category_Colors\Migration\Processors;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use Tribe__Events__Main;
+use TEC\Events\Category_Colors\Migration\Config;
+use TEC\Events\Category_Colors\Migration\Status;
 
 /**
  * Class Post_Processor
@@ -21,7 +23,7 @@ use Tribe__Events__Main;
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 class Post_Processor extends Abstract_Migration_Step {
 
@@ -46,7 +48,55 @@ class Post_Processor extends Abstract_Migration_Step {
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return in_array( static::get_migration_status()['status'], [ Status::$execution_completed, Status::$postprocess_failed ], true );
+		$status = Status::get_migration_status()['status'];
+		$processing_data = get_option( Config::$migration_processing_option, [] );
+
+		// First check if we're in a valid state to run post-processing
+		if (!in_array($status, [Status::$execution_completed, Status::$postprocess_failed], true)) {
+			$this->log_message(
+				'warning',
+				"Cannot run post-processing. Current status: {$status}",
+				[],
+				'Post Processor'
+			);
+			return false;
+		}
+
+		// Check if we have any processing data at all
+		if (empty($processing_data)) {
+			$this->log_message(
+				'error',
+				'No processing data found. Migration may be in an inconsistent state.',
+				[],
+				'Post Processor'
+			);
+			return false;
+		}
+
+		// Check if we have any categories still to process
+		if (!empty($processing_data['categories'])) {
+			$this->log_message(
+				'warning',
+				'Categories still exist in processing data. Execution may not be complete.',
+				['remaining_categories' => count($processing_data['categories'])],
+				'Post Processor'
+			);
+			return false;
+		}
+
+		// Verify we have migration data to validate against
+		$migration_data = $this->get_migration_data();
+		if (empty($migration_data['categories'])) {
+			$this->log_message(
+				'error',
+				'No migration data found to validate against.',
+				[],
+				'Post Processor'
+			);
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

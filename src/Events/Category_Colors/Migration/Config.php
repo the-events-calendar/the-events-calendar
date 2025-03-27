@@ -13,6 +13,8 @@
 
 namespace TEC\Events\Category_Colors\Migration;
 
+use Tribe__Events__Main;
+
 /**
  * Class Config
  *
@@ -25,6 +27,14 @@ namespace TEC\Events\Category_Colors\Migration;
  * @package TEC\Events\Category_Colors\Migration
  */
 class Config {
+
+	/**
+	 * The taxonomy used for event categories.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $taxonomy = Tribe__Events__Main::TAXONOMY;
 
 	/**
 	 * Option name for storing original settings.
@@ -41,6 +51,15 @@ class Config {
 	 * @var string
 	 */
 	public static string $migration_data_option = 'tec_category_colors_migration_data';
+
+	/**
+	 * Option name for storing migration processing data.
+	 * This is a working copy of the migration data that gets modified as items are processed.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	public static string $migration_processing_option = 'tec_category_colors_migration_processing';
 
 	/**
 	 * Option name for tracking the migration status.

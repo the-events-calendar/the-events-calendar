@@ -6,10 +6,13 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 
-namespace TEC\Events\Category_Colors\Migration;
+namespace TEC\Events\Category_Colors\Migration\Processors;
+
+use TEC\Events\Category_Colors\Migration\Config;
+use TEC\Events\Category_Colors\Migration\Status;
 
 /**
  * Class Pre_Processor
@@ -18,7 +21,7 @@ namespace TEC\Events\Category_Colors\Migration;
  *
  * @since TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 class Pre_Processor extends Abstract_Migration_Step {
 
@@ -33,7 +36,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return Status::$not_started === static::get_migration_status()['status'];
+		return Status::$not_started === Status::get_migration_status()['status'];
 	}
 
 	/**
@@ -94,6 +97,9 @@ class Pre_Processor extends Abstract_Migration_Step {
 
 		// Store processed data in the database.
 		$this->update_migration_data( $migration_data );
+
+		// Initialize the processing data as a copy of the migration data
+		update_option( Config::$migration_processing_option, $migration_data );
 
 		$this->update_migration_status( Status::$preprocessing_completed );
 

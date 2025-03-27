@@ -11,9 +11,8 @@
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use ActionScheduler_Action;
-use TEC\Events\Category_Colors\Migration\Abstract_Migration_Step;
+use TEC\Events\Category_Colors\Migration\Processors\Abstract_Migration_Step;
 use TEC\Events\Category_Colors\Migration\Config;
-use TEC\Events\Category_Colors\Migration\Handler;
 use TEC\Events\Category_Colors\Migration\Status;
 use WP_Error;
 
@@ -24,7 +23,7 @@ use WP_Error;
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
-abstract class Abstract_Action extends Abstract_Migration_Step implements Action_Interface {
+abstract class Abstract_Action implements Action_Interface {
 
 	/**
 	 * The Action Scheduler action ID.
@@ -121,13 +120,6 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 			return $pre_schedule;
 		}
 
-		$batch_count = $this->get_batching();
-
-		if ( empty( $batch_count ) ) {
-			// Clean up the batch option on steps that don't use it to prevent leaking.
-			delete_option( Config::$migration_batch_option );
-		}
-
 		// Unschedule any existing actions to avoid duplicates
 		as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
 
@@ -135,7 +127,7 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 		$action_id = as_schedule_single_action(
 			time(), // Run immediately
 			$this->get_hook(),
-			[ 'batch' => get_option( (int) Config::$migration_batch_option ) ],
+			[],
 			Config::$migration_action_group
 		);
 
@@ -169,38 +161,23 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 	public function execute() {
 		$pre_execute = apply_filters( 'tec_events_category_colors_migration_pre_execute_action', true );
 		if ( is_wp_error( $pre_execute ) ) {
-			Status::update_migration_status( $this->get_failed_status(), $pre_execute->get_error_message() );
-
 			return $pre_execute;
 		}
 
 		$pre_execute = apply_filters( 'tec_events_category_colors_migration_' . $this->get_hook() . '_pre_execute', true );
 		if ( is_wp_error( $pre_execute ) ) {
-			Status::update_migration_status( $this->get_failed_status(), $pre_execute->get_error_message() );
-
 			return $pre_execute;
 		}
 
-		$this->update_migration_status( $this->get_in_progress_status() );
-
+		// Let the concrete action handle its own execution
 		$result = $this->process();
 
-		if ( is_wp_error( $result ) ) {
-			$this->update_migration_status( $this->get_failed_status(), $result->get_error_message() );
-
-			return $result;
+		// If processing was successful, schedule the next action
+		if ( true === $result ) {
+			$this->schedule_next_action();
 		}
 
-		// Only set completed status if there are no more batches
-		if ( ! get_option( Config::$migration_batch_option, 0 ) ) {
-			$this->update_migration_status( $this->get_completed_status() );
-		} else {
-			$this->update_migration_status( $this->get_scheduled_status() );
-		}
-
-		$this->schedule_next_action();
-
-		return true;
+		return $result;
 	}
 
 	/**
@@ -261,32 +238,10 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 	 *
 	 * @since TBD
 	 *
-	 * @return bool True if the action is scheduled, false otherwise.
+	 * @return bool True if the action is scheduled.
 	 */
 	public function is_scheduled(): bool {
-		return $this->action_id !== null;
-	}
-
-	/**
-	 * Determines if the migration step should run.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool True if the step is ready to run, false otherwise.
-	 */
-	public function is_runnable(): bool {
-		$current_status = static::get_migration_status()['status'];
-
-		return ! in_array(
-			$current_status,
-			[
-				Status::$preprocessing_in_progress,
-				Status::$validation_in_progress,
-				Status::$execution_in_progress,
-				Status::$postprocessing_in_progress,
-			],
-			true
-		);
+		return as_next_scheduled_action( $this->get_hook(), [], Config::$migration_action_group ) !== false;
 	}
 
 	/**
@@ -297,35 +252,37 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 	 * @return int|false The timestamp of the next scheduled run, or false if not scheduled.
 	 */
 	public function get_next_scheduled_time() {
-		if ( ! $this->action_id ) {
-			return false;
-		}
-
 		return as_next_scheduled_action( $this->get_hook(), [], Config::$migration_action_group );
 	}
 
 	/**
-	 * Get the migration status.
+	 * Updates the migration status and triggers an action.
 	 *
 	 * @since TBD
 	 *
-	 * @return array<string, mixed> The current migration status.
-	 */
-	public static function get_migration_status(): array {
-		return Handler::get_migration_status();
-	}
-
-	/**
-	 * Update the migration status.
-	 *
-	 * @since TBD
-	 *
-	 * @param string $status The new status.
+	 * @param string $status The new migration status.
 	 *
 	 * @return void
 	 */
 	public function update_migration_status( string $status ): void {
-		parent::update_migration_status( $status );
+		update_option(
+			Config::$migration_status_option,
+			[
+				'status'    => $status,
+				'timestamp' => current_time( 'mysql' ),
+			]
+		);
+
+		$this->log_message( 'info', "Migration status updated to: {$status} at " . current_time( 'mysql' ), [], 'Migration Status Updated' );
+
+		/**
+		 * Fires when the migration status is updated.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $status The new migration status.
+		 */
+		do_action( 'tec_events_category_colors_migration_status_updated', $status );
 	}
 
 	/**
@@ -336,6 +293,48 @@ abstract class Abstract_Action extends Abstract_Migration_Step implements Action
 	 * @return int|false Number of batches if batching is used, false otherwise.
 	 */
 	public function get_batching(): ?int {
+		return false;
+	}
+
+	/**
+	 * Logs a message using the Tribe logging system.
+	 *
+	 * This function standardizes logging by wrapping `do_action( 'tribe_log' )`
+	 * and allowing an optional type prefix (e.g., `[Migration]`).
+	 * If the log level is 'error' or higher, it returns a `WP_Error` to indicate failure.
+	 *
+	 * @since TBD
+	 *
+	 * @param string      $level   The log level (e.g., 'debug', 'info', 'warning', 'error').
+	 * @param string      $message The log message.
+	 * @param array       $context Additional context data (default: empty array).
+	 * @param string|null $type    Optional. A label to prepend to the message (e.g., 'Migration').
+	 *
+	 * @return bool|WP_Error Returns `WP_Error` if the log level is 'error' or higher.
+	 */
+	protected function log_message( string $level, string $message, array $context = [], ?string $type = null ) {
+		if ( ! empty( $type ) ) {
+			$message = sprintf( '[%s] %s', $type, $message );
+		}
+
+		// Define critical levels that should trigger WP_Error.
+		$critical_levels = [ 'error', 'critical', 'alert', 'emergency' ];
+		$is_critical     = in_array( strtolower( $level ), $critical_levels, true );
+
+		// Prepare logging context.
+		$default_context = [
+			'type'    => $type,
+			'process' => 'Category Colors Migration',
+		];
+		$context         = wp_parse_args( $context, $default_context );
+
+		do_action( 'tribe_log', $level, $message, $context );
+
+		// Return WP_Error if critical.
+		if ( $is_critical ) {
+			return new WP_Error( 'migration_error', $message, $context );
+		}
+
 		return false;
 	}
 

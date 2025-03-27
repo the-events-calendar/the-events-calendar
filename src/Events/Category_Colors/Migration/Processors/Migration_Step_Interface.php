@@ -7,10 +7,10 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 
-namespace TEC\Events\Category_Colors\Migration;
+namespace TEC\Events\Category_Colors\Migration\Processors;
 
 use WP_Error;
 

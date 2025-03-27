@@ -12,11 +12,12 @@ namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Status;
-use TEC\Events\Category_Colors\Migration\Worker;
-use TEC\Events\Category_Colors\Migration\Executor;
+use TEC\Events\Category_Colors\Migration\Processors\Worker;
 
 /**
- * Handles the execution phase of the migration.
+ * Class Execution_Action
+ * Handles the execution phase of the migration process.
+ * Schedules and manages the processing of categories in batches.
  *
  * @since   TBD
  *
@@ -25,20 +26,20 @@ use TEC\Events\Category_Colors\Migration\Executor;
 class Execution_Action extends Abstract_Action {
 
 	/**
+	 * The Worker instance.
+	 *
+	 * @since TBD
+	 * @var Worker
+	 */
+	protected Worker $worker;
+
+	/**
 	 * The hook name for this action.
 	 *
 	 * @since TBD
 	 * @var string
 	 */
-	protected const HOOK = 'tec_events_category_colors_migration_execute';
-
-	/**
-	 * The number of categories to process in each batch.
-	 *
-	 * @since TBD
-	 * @var int
-	 */
-	public const BATCH_SIZE = 10;
+	protected const HOOK = 'tec_events_category_colors_migration_execution';
 
 	/**
 	 * Constructor.
@@ -46,7 +47,7 @@ class Execution_Action extends Abstract_Action {
 	 * @since TBD
 	 */
 	public function __construct() {
-		// Hook registration is now handled in the Controller
+		$this->worker = tribe( Worker::class );
 	}
 
 	/**
@@ -105,6 +106,71 @@ class Execution_Action extends Abstract_Action {
 	}
 
 	/**
+	 * Determines if the action is in a valid state to run.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the action can run, false otherwise.
+	 */
+	public function is_runnable(): bool {
+		return Status::$validation_completed === Status::get_migration_status()['status'];
+	}
+
+	/**
+	 * Executes the action.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 */
+	public function execute() {
+		// Let the Worker handle the processing
+		$result = $this->worker->process();
+		if ( is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		// Check if there are more categories to process
+		$remaining_categories = $this->worker->get_remaining_categories();
+		if ( $remaining_categories > 0 ) {
+			// Schedule the next batch
+			$this->schedule_next_batch();
+		} else {
+			// No more categories, mark execution as completed
+			$this->update_migration_status( Status::$execution_completed );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Schedules the next batch to be processed.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function schedule_next_batch(): void {
+		$processing_data      = $this->worker->get_processing_data();
+		$total_categories     = $this->worker->get_total_categories();
+		$remaining_categories = $this->worker->get_remaining_categories();
+		$processed_categories = $total_categories - $remaining_categories;
+
+		$args = [
+			'processed_categories' => $processed_categories,
+			'remaining_categories' => $remaining_categories,
+			'total_categories'     => $total_categories,
+			'scheduled_at'         => time(),
+		];
+
+		as_enqueue_async_action(
+			self::HOOK,
+			$args,
+			'tec_events_category_colors_migration'
+		);
+	}
+
+	/**
 	 * Whether this action can be scheduled.
 	 *
 	 * @since TBD
@@ -112,123 +178,6 @@ class Execution_Action extends Abstract_Action {
 	 * @return bool True if the action can be scheduled.
 	 */
 	public function can_schedule(): bool {
-		$current_status = $this->get_migration_status()['status'];
-
-		return in_array( $current_status, [ Status::$validation_completed, Status::$execution_failed ], true );
-	}
-
-	/**
-	 * Process the execution step.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool|WP_Error True on success, WP_Error on failure.
-	 */
-	public function process() {
-		$worker         = tribe( Worker::class );
-		$migration_data = $this->get_migration_data();
-
-		if ( empty( $migration_data['categories'] ) || ! is_array( $migration_data['categories'] ) ) {
-			$error = new \WP_Error(
-				'tec_events_category_colors_migration_no_categories',
-				'No categories found for migration.'
-			);
-			Status::update_migration_status( Status::$execution_failed, $error->get_error_message() );
-
-			return $error;
-		}
-
-		$categories        = array_chunk( $migration_data['categories'], self::BATCH_SIZE, true );
-		$total_batches     = count( $categories );
-		$remaining_batches = get_option( Config::$migration_batch_option, $total_batches );
-
-		// Rewrite this, Once the batch is done, remove the first chunk of data to continue.
-
-		// Two options, hjere is my to do items.
-		// Second item, started to be worked on.
-		// Throw an exception for try/catch
-
-		if ( $remaining_batches <= 0 ) {
-			delete_option( Config::$migration_batch_option );
-			Status::update_migration_status( Status::$execution_completed );
-
-			return true;
-		}
-
-		$current_batch_index = $total_batches - $remaining_batches;
-
-		if ( ! isset( $categories[ $current_batch_index ] ) ) {
-			$error = new \WP_Error(
-				'execution_invalid_batch_index',
-				"Invalid batch index {$current_batch_index} out of {$total_batches}."
-			);
-			Status::update_migration_status( Status::$execution_failed, $error->get_error_message() );
-
-			return $error;
-		}
-
-		$result = $worker->process_batch( $categories[ $current_batch_index ] );
-
-		if ( is_wp_error( $result ) || false === $result ) {
-			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Execution failed';
-			Status::update_migration_status( Status::$execution_failed, $error_message );
-
-			return is_wp_error( $result ) ? $result : new \WP_Error( 'execution_failed', $error_message );
-		}
-
-// All good — decrement
-		update_option( Config::$migration_batch_option, $remaining_batches - 1 );
-		$this->schedule_next_action();
-
 		return true;
 	}
-
-	/**
-	 * Schedule the next action in the sequence.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	protected function schedule_next_action(): void {
-		// Only schedule postprocessing when all batches are done
-		if ( get_option( Config::$migration_batch_option, 0 ) <= 0 ) {
-			$post_processor = tribe( Postprocessing_Action::class );
-			$post_processor->schedule();
-		} else {
-			// Schedule the next batch of execution
-			$this->schedule();
-		}
-	}
-
-	/**
-	 * Get the migration data.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string, mixed> The migration data.
-	 */
-	public function get_migration_data(): array {
-		return get_option( Config::$migration_data_option, [] );
-	}
-
-	/**
-	 * Whether this action uses batching.
-	 *
-	 * @since TBD
-	 *
-	 * @return int|false Number of batches if batching is used, false otherwise.
-	 */
-	public function get_batching(): ?int {
-		$migration_data = $this->get_migration_data();
-
-		if ( empty( $migration_data['categories'] ) || ! is_array( $migration_data['categories'] ) ) {
-			return false;
-		}
-
-		$batches = array_chunk( $migration_data['categories'], static::BATCH_SIZE, true );
-
-		return count( $batches );
-	}
-
 }

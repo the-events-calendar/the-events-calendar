@@ -6,12 +6,15 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 
-namespace TEC\Events\Category_Colors\Migration;
+namespace TEC\Events\Category_Colors\Migration\Processors;
 
+use TEC\Events\Category_Colors\Migration\Config;
+use TEC\Events\Category_Colors\Migration\Status;
 use WP_Error;
+use Tribe__Events__Main;
 
 /**
  * Class Validator
@@ -20,7 +23,7 @@ use WP_Error;
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 class Validator extends Abstract_Migration_Step {
 
@@ -43,7 +46,7 @@ class Validator extends Abstract_Migration_Step {
 	 * @return bool True if the migration step can run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return in_array( static::get_migration_status()['status'], [ Status::$preprocessing_completed, Status::$validation_failed ], true );
+		return in_array( Status::get_migration_status()['status'], [ Status::$preprocessing_completed, Status::$validation_failed ], true );
 	}
 
 	/**
@@ -141,7 +144,7 @@ class Validator extends Abstract_Migration_Step {
 
 		foreach ( Config::$expected_structure as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
-				return $this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [$migration_data], 'Validator' );
+				return $this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [ $migration_data ], 'Validator' );
 			}
 		}
 
@@ -160,7 +163,7 @@ class Validator extends Abstract_Migration_Step {
 	protected function validate_category_existence( array $categories ) {
 		$valid_categories = get_terms(
 			[
-				'taxonomy'   => Handler::$taxonomy,
+				'taxonomy'   => Tribe__Events__Main::TAXONOMY,
 				'hide_empty' => false,
 				'fields'     => 'ids',
 			]
@@ -194,6 +197,7 @@ class Validator extends Abstract_Migration_Step {
 		// If there are no migrated settings, validation is not needed.
 		if ( empty( $migrated_settings ) ) {
 			$this->log_message( 'info', 'No migrated settings found. Skipping random settings validation.', [], 'Validator' );
+
 			return true;
 		}
 

@@ -7,12 +7,14 @@
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 
-namespace TEC\Events\Category_Colors\Migration;
+namespace TEC\Events\Category_Colors\Migration\Processors;
 
 use WP_Error;
+use TEC\Events\Category_Colors\Migration\Status;
+use TEC\Events\Category_Colors\Migration\Config;
 
 /**
  * Class Abstract_Migration_Step
@@ -25,7 +27,7 @@ use WP_Error;
  *
  * @since   TBD
  *
- * @package TEC\Events\Category_Colors\Migration
+ * @package TEC\Events\Category_Colors\Migration\Processors
  */
 abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 
@@ -80,27 +82,6 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 */
 	protected function get_mapped_meta_key( string $key ): ?string {
 		return Config::$meta_key_map[ $key ] ?? null;
-	}
-
-	/**
-	 * Gets the current migration status.
-	 *
-	 * Uses `wp_parse_args()` to merge the retrieved status with the default structure,
-	 * ensuring required keys (`status` and `timestamp`) are always present.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string, mixed> The current migration status with a timestamp.
-	 */
-	public static function get_migration_status(): array {
-		$default_status = [
-			'status'    => Status::$not_started,
-			'timestamp' => current_time( 'mysql' ),
-		];
-
-		$stored_status = get_option( Config::$migration_status_option, [] );
-
-		return wp_parse_args( $stored_status, $default_status );
 	}
 
 	/**

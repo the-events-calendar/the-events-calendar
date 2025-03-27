@@ -10,9 +10,8 @@
 
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
-use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Status;
-use TEC\Events\Category_Colors\Migration\Validator;
+use TEC\Events\Category_Colors\Migration\Processors\Validator;
 
 /**
  * Handles the validation phase of the migration.
@@ -94,7 +93,8 @@ class Validation_Action extends Abstract_Action {
 	 * @return bool True if the action can be scheduled.
 	 */
 	public function can_schedule(): bool {
-		$current_status = $this->get_migration_status()['status'];
+		$current_status = Status::get_migration_status()['status'];
+
 		return in_array( $current_status, [ Status::$preprocessing_completed, Status::$validation_failed ], true );
 	}
 
@@ -107,15 +107,17 @@ class Validation_Action extends Abstract_Action {
 	 */
 	public function process() {
 		$validator = tribe( Validator::class );
-		$result = $validator->process();
-		
+		$result    = $validator->process();
+
 		if ( is_wp_error( $result ) || false === $result ) {
 			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Validation failed';
 			Status::update_migration_status( Status::$validation_failed, $error_message );
+
 			return is_wp_error( $result ) ? $result : new \WP_Error( 'validation_failed', $error_message );
 		}
-		
+
 		Status::update_migration_status( Status::$validation_completed );
+
 		return true;
 	}
 
@@ -130,4 +132,4 @@ class Validation_Action extends Abstract_Action {
 		$execution = tribe( Execution_Action::class );
 		$execution->schedule();
 	}
-} 
+}
