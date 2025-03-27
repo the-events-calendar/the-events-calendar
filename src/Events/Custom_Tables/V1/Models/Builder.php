@@ -195,7 +195,8 @@ class Builder {
 	 * @param Model $model The model using this builder.
 	 */
 	public function __construct( Model $model ) {
-		$this->model = $model;
+		$this->model      = $model;
+		$this->batch_size = tec_query_batch_size( __METHOD__ );
 	}
 
 	/**
@@ -314,11 +315,16 @@ class Builder {
 		}
 
 		if ( $model->is_invalid() ) {
-			do_action( 'tribe_log', 'error', implode( ' : ', $model->errors() ), [
-				'method' => __METHOD__,
-				'line'   => __LINE__,
-				'model'  => get_class( $model )
-			] );
+			do_action(
+				'tribe_log',
+				'error',
+				implode( ' : ', $model->errors() ),
+				[
+					'method' => __METHOD__,
+					'line'   => __LINE__,
+					'model'  => get_class( $model ),
+				]
+			);
 
 			return false;
 		}
@@ -344,7 +350,7 @@ class Builder {
 			if ( in_array( $column, $unique_by, true ) ) {
 				continue;
 			}
-			$value_placeholder = isset( $format[ $column ] ) ? $format[ $column ] : '%s';
+			$value_placeholder = $format[ $column ] ?? '%s';
 			$update_sql[]      = "{$column}={$value_placeholder}";
 			$update_value[]    = $value;
 		}
@@ -444,7 +450,7 @@ class Builder {
 			$this->queries[] = $sql;
 			if ( $this->execute_queries ) {
 				$query_result = $this->query( $sql );
-				$result       += (int) $query_result;
+				$result      += (int) $query_result;
 			}
 		} while ( count( $data ) );
 
@@ -515,7 +521,7 @@ class Builder {
 
 		$pieces = [
 			$this->operation,
-			"SET " . $wpdb->prepare( implode( ', ', $columns ), $replacements_values ),
+			'SET ' . $wpdb->prepare( implode( ', ', $columns ), $replacements_values ),
 		];
 
 		$where = $this->get_where_clause();
@@ -590,8 +596,8 @@ class Builder {
 	 * @return Model|null Returns a single record where if the model is found, `null` otherwise.
 	 */
 	public function find( $value, $column = null ) {
-		$column = null === $column ? $this->model->primary_key_name() : $column;
-		$conf   = tribe( Configuration::class );
+		$column ??= $this->model->primary_key_name();
+		$conf     = tribe( Configuration::class );
 
 		// Memoize disabled?
 		if ( $conf->get( 'TEC_NO_MEMOIZE_CT1_MODELS' ) ) {
@@ -599,12 +605,12 @@ class Builder {
 		}
 
 		// Check if we memoized this instance.
-		$key    = self::generate_cache_key( $this->model, $column, $value );
+		$key  = self::generate_cache_key( $this->model, $column, $value );
 		$data = tribe_cache()->get( $key, Tribe__Cache_Listener::TRIGGER_SAVE_POST, null, Tribe__Cache::NON_PERSISTENT );
 
 		if ( $data ) {
-			$model_class = get_class( $this->model );
-			$result = new $model_class( $data );
+			$model_class       = get_class( $this->model );
+			$result            = new $model_class( $data );
 			$result->cache_key = $key;
 
 			return $result;
@@ -656,21 +662,21 @@ class Builder {
 			return $this;
 		}
 
-		if ( empty ( $result['placeholders'] ) || empty( $result['values'] ) ) {
+		if ( empty( $result['placeholders'] ) || empty( $result['values'] ) ) {
 			return $this;
 		}
 
 		global $wpdb;
 
-		$placeholders   = implode( ',', $result['placeholders'] );
-		$where_args = [
+		$placeholders       = implode( ',', $result['placeholders'] );
+		$where_args         = [
 			'field'          => $column,
 			'operator'       => 'IN',
 			'prepare_format' => $result['placeholders'],
-			'value'          => $result['values']
+			'value'          => $result['values'],
 		];
 		$this->where_args[] = $where_args;
-		$this->wheres[] = $wpdb->prepare( "(`{$column}` IN ({$placeholders}))", $result['values'] );
+		$this->wheres[]     = $wpdb->prepare( "(`{$column}` IN ({$placeholders}))", $result['values'] );
 
 		return $this;
 	}
@@ -692,21 +698,21 @@ class Builder {
 			return $this;
 		}
 
-		if ( empty ( $result['placeholders'] ) || empty( $result['values'] ) ) {
+		if ( empty( $result['placeholders'] ) || empty( $result['values'] ) ) {
 			return $this;
 		}
 
 		global $wpdb;
 
-		$placeholders   = implode( ',', $result['placeholders'] );
-		$where_args = [
+		$placeholders       = implode( ',', $result['placeholders'] );
+		$where_args         = [
 			'field'          => $column,
 			'operator'       => 'NOT IN',
 			'prepare_format' => $result['placeholders'],
-			'value'          => $result['values']
+			'value'          => $result['values'],
 		];
 		$this->where_args[] = $where_args;
-		$this->wheres[] = $wpdb->prepare( "(`{$column}` NOT IN ({$placeholders}))", $result['values'] );
+		$this->wheres[]     = $wpdb->prepare( "(`{$column}` NOT IN ({$placeholders}))", $result['values'] );
 
 		return $this;
 	}
@@ -756,6 +762,7 @@ class Builder {
 	/**
 	 * Checks the value and columns requested for a GET operation on the
 	 * Model to make sure they are coherent and valid.
+	 *
 	 * @since 6.0.0
 	 *
 	 * @param mixed|array<mixed> $value  The value, or values, of the column we are looking for.
@@ -766,7 +773,7 @@ class Builder {
 	 *                            will be array if the input `$value` is an array.
 	 */
 	private function check_find_value_column( $value, $column = null ) {
-		$column        = null === $column ? $this->model->primary_key_name() : $column;
+		$column      ??= $this->model->primary_key_name();
 		$data_buffer   = [];
 		$format_buffer = [];
 
@@ -838,14 +845,19 @@ class Builder {
 				// Run a fetch if we're out of results to return, maybe get some results.
 				$results = $wpdb->get_results( $semi_prepared . " OFFSET {$offset}", ARRAY_A );
 				if ( $results === false || $wpdb->last_error ) {
-					do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
-						'source' => __METHOD__ . ':' . __LINE__,
-						'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-						'error'  => $wpdb->last_error
-					] );
+					do_action(
+						'tribe_log',
+						'debug',
+						'Builder: query failure.',
+						[
+							'source' => __METHOD__ . ':' . __LINE__,
+							'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+						'error'      => $wpdb->last_error,
+						]
+					);
 				}
 
-				$offset  += $batch_size;
+				$offset += $batch_size;
 				$found   = count( $results );
 				$results = array_reverse( $results );
 			}
@@ -1058,11 +1070,16 @@ class Builder {
 			);
 
 			if ( $results === false || $wpdb->last_error ) {
-				do_action( 'tribe_log', 'debug', 'Builder: query failure.', [
-					'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
-					'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-					'error'  => $wpdb->last_error
-				] );
+				do_action(
+					'tribe_log',
+					'debug',
+					'Builder: query failure.',
+					[
+						'source' => __CLASS__ . ' ' . __METHOD__ . ' ' . __LINE__,
+						'trace'  => debug_backtrace( 2, 5 ), // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
+					'error'      => $wpdb->last_error,
+					]
+				);
 			}
 		}
 
@@ -1129,11 +1146,11 @@ class Builder {
 		}
 
 		if ( isset( $this->limit ) ) {
-			$pieces[] = $wpdb->prepare( "LIMIT %d", (int) $this->limit );
+			$pieces[] = $wpdb->prepare( 'LIMIT %d', (int) $this->limit );
 		}
 
 		if ( isset( $this->offset ) ) {
-			$pieces[] = $wpdb->prepare( "OFFSET %d", (int) $this->offset );
+			$pieces[] = $wpdb->prepare( 'OFFSET %d', (int) $this->offset );
 		}
 
 		return implode( "\n", $pieces );
@@ -1149,7 +1166,7 @@ class Builder {
 	 */
 	private function get_where_clause() {
 		if ( ! empty( $this->wheres ) ) {
-			return "WHERE " . implode( ' AND ', $this->wheres );
+			return 'WHERE ' . implode( ' AND ', $this->wheres );
 		}
 
 		// Add a where clause with the primary key of the model if no where was specified.
@@ -1165,7 +1182,7 @@ class Builder {
 				return '';
 			}
 
-			return "WHERE " . implode( ' AND ', $this->wheres );
+			return 'WHERE ' . implode( ' AND ', $this->wheres );
 		}
 
 		return '';
@@ -1184,7 +1201,7 @@ class Builder {
 	 */
 	public function where( $column, $operator = null, $value = null ) {
 		$this->invalid = false;
-		$where_args = null;
+		$where_args    = null;
 
 		// If only 2 arguments are provided use the second argument as the value and assume the operator is "="
 		if ( func_num_args() === 2 ) {
@@ -1222,7 +1239,7 @@ class Builder {
 				'field'          => $column,
 				'operator'       => $operator,
 				'prepare_format' => $format,
-				'value'          => $data[ $column ]
+				'value'          => $data[ $column ],
 			];
 
 			$this->where_args[] = $where_args;
@@ -1235,7 +1252,7 @@ class Builder {
 			$where_args         = [
 				'field'    => $column,
 				'operator' => $operator,
-				'value'    => null
+				'value'    => null,
 			];
 			$this->where_args[] = $where_args;
 			$this->wheres[]     = "(`{$column}` {$operator} NULL)";
@@ -1271,7 +1288,7 @@ class Builder {
 	public function order_by( $column = null, $order = 'ASC' ) {
 		if ( in_array( strtoupper( $order ), [ 'ASC', 'DESC' ], true ) ) {
 			$this->order[] = [
-				'column' => null === $column ? $this->model->primary_key_name() : $column,
+				'column' => $column ?? $this->model->primary_key_name(),
 				'order'  => $order,
 			];
 		}
@@ -1337,7 +1354,7 @@ class Builder {
 			}
 
 			if ( $value === null ) {
-				$placeholder_values[] = "NULL";
+				$placeholder_values[] = 'NULL';
 				continue;
 			}
 		}
@@ -1526,7 +1543,7 @@ class Builder {
 		global $wpdb;
 		$where_args         = [
 			'operator' => 'raw',
-			'value'    => $query
+			'value'    => $query,
 		];
 		$this->where_args[] = $where_args;
 		$this->wheres[]     = '(' . $wpdb->prepare( $query, ...$args ) . ')';
@@ -1570,8 +1587,19 @@ class Builder {
 		$query_offset   = (int) $this->offset;
 		$query_limit    = $this->limit ?: PHP_INT_MAX;
 		$running_offset = $query_offset;
-		$running_limit  = $query_limit;
-		$running_tally  = 0;
+		/** @var \wdpb $wpdb */
+		global $wpdb;
+		$running_limit = $query_limit;
+		$running_tally = 0;
+		$found_rows    = (int) $wpdb->get_var( $this->get_count_rows_sql() );
+
+		if ( $found_rows === 0 ) {
+			// Nothing to return.
+			return;
+		}
+
+		// The found rows value does take into account the offset, include it here.
+		$found_results = $found_rows - $query_offset;
 
 		do {
 			$this->limit    = min( $this->batch_size, $running_limit );
@@ -1579,12 +1607,11 @@ class Builder {
 			$running_limit  -= $this->batch_size;
 			$running_offset += $this->batch_size;
 			$batch_results  = $this->get();
-			$found          = count( $batch_results );
 			foreach ( $batch_results as $batch_result ) {
 				// Yields with a set key to avoid calls to `iterator_to_array` overriding the values on each pass.
 				yield $running_tally ++ => $batch_result;
 			}
-		} while ( $found === $this->batch_size );
+		} while ( $running_tally < $found_results && $running_tally < $query_limit );
 	}
 
 	/**
@@ -1618,7 +1645,7 @@ class Builder {
 		do {
 			$batch         = array_splice( $keys, 0, $this->batch_size );
 			$keys_interval = implode( ',', array_map( 'absint', $batch ) );
-			$deleted       += $this->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
+			$deleted      += $this->query( "DELETE FROM {$table} WHERE {$primary_key} IN ({$keys_interval})" );
 
 			// If we have a cache, let's clear it.
 			foreach ( $models as $model ) {
@@ -1630,36 +1657,49 @@ class Builder {
 
 		if ( $deleted !== $expected_count ) {
 			// There might be legit reasons, like another process running on the same table, but let's log it.
-			do_action( 'tribe_log', 'warning', 'Mismatching number of deletions.', [
-				'source'      => __CLASS__,
-				'slug'        => 'delete-in-upsert-set',
-				'table'       => $table,
-				'primary_key' => $primary_key,
-				'expected'    => $expected_count,
-				'deleted'     => $deleted,
-			] );
+			do_action(
+				'tribe_log',
+				'warning',
+				'Mismatching number of deletions.',
+				[
+					'source'      => __CLASS__,
+					'slug'        => 'delete-in-upsert-set',
+					'table'       => $table,
+					'primary_key' => $primary_key,
+					'expected'    => $expected_count,
+					'deleted'     => $deleted,
+				]
+			);
 		}
 
 		$updates = $models;
 		// Here we make the assumptions the models will not be mixed bag, but either all arrays or all Models.
 		if ( ! is_array( reset( $models ) ) ) {
-			$updates = array_map( static function ( Model $model ) {
-				return $model->to_array();
-			}, $models );
+			$updates = array_map(
+				static function ( Model $model ) {
+					return $model->to_array();
+				},
+				$models
+			);
 		}
 
 		$inserted = $this->insert( $updates );
 
 		if ( $inserted !== $expected_count ) {
 			// There might be legit reasons, like another process running on the same table, but let's log it.
-			do_action( 'tribe_log', 'warning', 'Mismatching number of insertions.', [
-				'source'      => __CLASS__,
-				'slug'        => 'delete-in-upsert-set',
-				'table'       => $table,
-				'primary_key' => $primary_key,
-				'expected'    => $expected_count,
-				'inserted'    => $inserted,
-			] );
+			do_action(
+				'tribe_log',
+				'warning',
+				'Mismatching number of insertions.',
+				[
+					'source'      => __CLASS__,
+					'slug'        => 'delete-in-upsert-set',
+					'table'       => $table,
+					'primary_key' => $primary_key,
+					'expected'    => $expected_count,
+					'inserted'    => $inserted,
+				]
+			);
 		}
 
 		return $inserted;
@@ -1689,5 +1729,48 @@ class Builder {
 	 */
 	public function map( callable $callback ): array {
 		return array_map( $callback, $this->get() );
+	}
+
+	/**
+	 * Returns the SQL query to fetch the number of found rows.
+	 *
+	 * This builds a query without LIMIT that uses `SELECT COUNT(*)` as
+	 * recommended by MySQL in place of using `SQL_CALC_FOUND_ROWS`.
+	 *
+	 * @see   https://dev.mysql.com/doc/refman/8.4/en/information-functions.html#function_found-rows
+	 *
+	 * @since TBD
+	 *
+	 * @return string The SQL query to fetch the number of found rows.
+	 */
+	private function get_count_rows_sql(): string {
+		// If this query is already invalid return an empty string.
+		if ( $this->invalid ) {
+			return '';
+		}
+
+		global $wpdb;
+		$pieces = [
+			'SELECT COUNT(*)',
+			"FROM `{$wpdb->prefix}{$this->model->table_name()}`",
+		];
+
+		foreach ( $this->joins as $joins ) {
+			foreach ( $joins as $line ) {
+				$pieces[] = $line;
+			}
+		}
+
+		$where = $this->get_where_clause();
+		if ( $where !== '' ) {
+			$pieces[] = $where;
+		}
+
+		$order_by = $this->get_order_by_clause();
+		if ( $order_by !== '' ) {
+			$pieces[] = $order_by;
+		}
+
+		return implode( "\n", $pieces );
 	}
 }
