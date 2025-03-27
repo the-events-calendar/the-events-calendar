@@ -161,24 +161,7 @@ class Controller extends ControllerContract {
 		add_action( 'init', [ $this, 'register_post_meta' ] );
 
 		// Register the main assets entry point.
-		Asset::add(
-			'tec-classy',
-			'classy.js'
-		)->add_to_group_path( TEC::class . '-packages' )
-			->add_to_group( 'tec-classy' )
-			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
-			->register();
-
-		Asset::add(
-			'tec-classy-style',
-			'style-classy.css'
-		)->add_to_group_path( TEC::class . '-packages' )
-			->add_to_group( 'tec-classy' )
-			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-			->register();
+		$this->register_assets();
 
 		// TESTING
 		if ( str_starts_with( $_SERVER['REQUEST_URI'] ?? '', '/wp-admin/post-new.php' ) ) {
@@ -248,6 +231,34 @@ class Controller extends ControllerContract {
 		// TESTING
 		remove_filter( 'wp_insert_post_data', [ $this, 'test_filter_post_data' ], 0 );
 		// END TESTING
+	}
+
+	/**
+	 * Registers the assets required for the Classy app.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function register_assets() {
+		Asset::add(
+			'tec-classy',
+			'classy.js'
+		)->add_to_group_path( TEC::class . '-packages' )
+			->add_to_group( 'tec-classy' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
+			->register();
+
+		Asset::add(
+			'tec-classy-style',
+			'style-classy.css'
+		)->add_to_group_path( TEC::class . '-packages' )
+			->add_to_group( 'tec-classy' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->register();
 	}
 
 	/**
