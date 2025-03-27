@@ -41,8 +41,15 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const [showWebsite, setShowWebsite] = useState(!!venue.venueId ||!!venue.website || false);
 	const [showPhone, setShowPhone] = useState(!!venue.venueId || !!venue.phone || false);
 	const [canContinue, setCanContinue] = useState( false);
+
 	// Compute whether the "Continue" button should be enabled
     useEffect(() => {
+		if (venueId) {
+			// If organizerId is set, bypass the check and enable "Continue"
+			setCanContinue(true);
+			return;
+		}
+
         const fieldsToCheck = {
             'venue-name': isValidName(),
 			'venue-address': isValidAddress(),
@@ -84,7 +91,7 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidName = () => {
 		const inputId = 'venue-name';
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || !!name;
+		const isValid = !!name;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -98,7 +105,12 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidAddress = () => {
 		const inputId = 'venue-address';
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || !!address;
+
+		if (!isVisited) {
+			return true;
+		}
+
+		const isValid = !!address;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -112,7 +124,12 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidCity = () => {
 		const inputId = 'venue-city';
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || !!city;
+
+		if (!isVisited) {
+			return true;
+		}
+
+		const isValid = !!city;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -126,7 +143,12 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidState = () => {
 		const inputId = 'venue-state';
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || !!state;
+
+		if (!isVisited) {
+			return true;
+		}
+
+		const isValid = !!state;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -141,7 +163,12 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const inputId = 'venue-zip';
 		const zipPattern = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || ( !!zip && zipPattern.test(zip) );
+
+		if (!isVisited) {
+			return true;
+		}
+
+		const isValid = !!zip && zipPattern.test(zip);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -155,7 +182,12 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidCountry = () => {
 		const inputId = 'venue-country';
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || !!country;
+
+		if (!isVisited) {
+			return true;
+		}
+
+		const isValid = !!country;
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -170,7 +202,12 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		const inputId = 'venue-phone';
 		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
 		const isVisited = visitedFields.includes(inputId);
-		const isValid = !isVisited || (!showPhone || ( !!phone && phonePattern.test(phone) ));
+
+		if (!isVisited) {
+			return true;
+		}
+
+		const isValid = !showPhone || ( !!phone && phonePattern.test(phone) );
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
@@ -184,6 +221,11 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 	const isValidWebsite = () => {
 		const inputId = 'venue-website';
 		const isVisited = visitedFields.includes(inputId);
+
+		if (!isVisited) {
+			return true;
+		}
+
 
 		const fieldEle = document.getElementById('venue-website');
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
@@ -237,184 +279,186 @@ const VenueContent = ({moveToNextTab, skipToNextTab}) => {
 		__('Looks like you have already created your first venue. Well done!', 'the-events-calendar') :
 		__('Show your attendees where they need to go to get to your events. You can display the location using Google Maps on your event pages.', 'the-events-calendar');
 
-
 	return (
 		<>
+
 			<VenueIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__('Add your first event venue', 'the-events-calendar')}</h1>
-			<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
-			<div className="tec-events-onboarding__form-wrapper">
-				<BaseControl
-					__nextHasNoMarginBottom
-					label={__('Venue name', 'the-events-calendar')}
-					id="venue-name"
-					className="tec-events-onboarding__form-field"
-				>
-					<input
-						id="venue-name"
-						type="text"
-						onChange={(e) => setName(e.target.value)}
-						defaultValue={name}
-						disabled={disabled}
-						placeholder={__('Enter venue name', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Venue name is required.', 'the-events-calendar')}</span>
-				</BaseControl>
-				<BaseControl
-					__nextHasNoMarginBottom
-					label={__('Address', 'the-events-calendar')}
-					id="venue-address"
-					className="tec-events-onboarding__form-field"
-				>
-					<input
-						id="venue-address"
-						type="text"
-						onChange={(e) => setAddress(e.target.value)}
-						defaultValue={address}
-						disabled={disabled}
-						placeholder={__('Enter venue street address', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Venue address is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Venue address is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-				<BaseControl
-					__nextHasNoMarginBottom
-					label={__('City', 'the-events-calendar')}
-					id="venue-city"
-					className="tec-events-onboarding__form-field"
-
-				>
-					<input
-						id="venue-city"
-						type="text"
-						onChange={(e) => setCity(e.target.value)}
-						defaultValue={city}
-						disabled={disabled}
-						placeholder={__("Enter city", 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Venue city is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Venue city is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-				<BaseControl
-					__nextHasNoMarginBottom
-					label={__('State or province', 'the-events-calendar')}
-					id="venue-state"
-					className="tec-events-onboarding__form-field"
-
-				>
-					<input
-						id="venue-state"
-						onChange={(e) => setState(e.target.value)}
-						defaultValue={state}
-						disabled={disabled}
-						type="text"
-						placeholder={__('Enter state or province', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Venue state is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Venue state is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-				<BaseControl
-					__nextHasNoMarginBottom
-					label={__('Zip / postal code', 'the-events-calendar')}
-					id="venue-zip"
-					className="tec-events-onboarding__form-field"
-				>
-					<input
-						id="venue-zip"
-						onChange={(e) => setZip(e.target.value)}
-						defaultValue={zip}
-						disabled={disabled}
-						type="text"
-						placeholder={__('Enter zip or postal code', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Venue zip/postal code is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Venue zip/postal code is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-				<BaseControl
-					__nextHasNoMarginBottom
-					id="venue-country"
-					className="tec-events-onboarding__form-field"
-					label={__('Country', 'the-events-calendar')}
-					>
-					<select
-						onChange={(e) => setCountry(e.target.value)}
-						defaultValue={country}
-						disabled={disabled}
-						id="venue-country"
-						>
-						{Object.entries(countries).map(([key, continents]) => (
-							<optgroup key={key} className="continent" label={key}>
-								{Object.entries(continents as {[key: string]: string}).map(([key, country]) => (
-									<option key={key}  value={key}>{country}</option>
-								))}
-							</optgroup>
-						))}
-					</select>
-				</BaseControl>
-				<span className="tec-events-onboarding__required-label">{__('Venue country is required.', 'the-events-calendar')}</span>
-				<span className="tec-events-onboarding__invalid-label">{__('Venue country is invalid.', 'the-events-calendar')}</span>
-				{!venueId && showPhone ? '' :
-				<Button
-					variant="tertiary"
-					className="tec-events-onboarding__form-field-trigger"
-					onClick={(event) => setShowPhone(true)}
-				>
-					{_x('Add a phone +', 'Direction to add an phone followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
-				</Button>}
-				<BaseControl
-					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field"
-					id="venue-phone"
-					label={__('Phone', 'the-events-calendar')}
-				>
-					<input
-						id="venue-phone"
-						onChange={(e) => setPhone(e.target.value)}
-						defaultValue={phone}
-						disabled={disabled}
-						type="phone"
-						placeholder={__('Enter phone number', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Venue phone is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Venue phone is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-				{!venueId && showWebsite ? '' :
-				<Button
-					variant="tertiary"
-					className="tec-events-onboarding__form-field-trigger"
-					onClick={() => setShowWebsite(true)}
-				>
-					{_x('Add a website +', 'Direction to add a website followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
-				</Button>}
-				<BaseControl
-					__nextHasNoMarginBottom
-					className="tec-events-onboarding__form-field"
-					id="venue-website"
-					label={__('Website', 'the-events-calendar')}
-				>
-					<input
-						id="venue-website"
-						onChange={(e) => setWebsite(e.target.value)}
-						defaultValue={website}
-						disabled={disabled}
-						type="url"
-						placeholder={__('Enter website', 'the-events-calendar')}
-					/>
-					<span className="tec-events-onboarding__required-label">{__('Venue website is required.', 'the-events-calendar')}</span>
-					{website && !website.toLowerCase().startsWith("http") ? (
-						<span className="tec-events-onboarding__invalid-label">
-							{__('Venue website must start with a protocol, i.e. "https://"', 'the-events-calendar')}
-						</span>
-					) : (
-						<span className="tec-events-onboarding__invalid-label">
-							{__('Venue website is invalid.', 'the-events-calendar')}
-						</span>
-					)}
-
-				</BaseControl>
+			<div className="tec-events-onboarding__tab-header">
+				<h1 className="tec-events-onboarding__tab-heading">{__('Add your first event venue', 'the-events-calendar')}</h1>
+				<p className="tec-events-onboarding__tab-subheader">{subHeaderText}</p>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton moveToNextTab={moveToNextTab} tabSettings={tabSettings} disabled={!canContinue}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={4}/></p>
+			<div className="tec-events-onboarding__tab-content">	
+				<div className="tec-events-onboarding__form-wrapper">
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__('Venue name', 'the-events-calendar')}
+						id="venue-name"
+						className="tec-events-onboarding__form-field"
+					>
+						<input
+							id="venue-name"
+							type="text"
+							onChange={(e) => setName(e.target.value)}
+							defaultValue={name}
+							disabled={disabled}
+							placeholder={__('Enter venue name', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Venue name is required.', 'the-events-calendar')}</span>
+					</BaseControl>
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__('Address', 'the-events-calendar')}
+						id="venue-address"
+						className="tec-events-onboarding__form-field"
+					>
+						<input
+							id="venue-address"
+							type="text"
+							onChange={(e) => setAddress(e.target.value)}
+							defaultValue={address}
+							disabled={disabled}
+							placeholder={__('Enter venue street address', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Venue address is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Venue address is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__('City', 'the-events-calendar')}
+						id="venue-city"
+						className="tec-events-onboarding__form-field"
+					>
+						<input
+							id="venue-city"
+							type="text"
+							onChange={(e) => setCity(e.target.value)}
+							defaultValue={city}
+							disabled={disabled}
+							placeholder={__("Enter city", 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Venue city is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Venue city is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__('State or province', 'the-events-calendar')}
+						id="venue-state"
+						className="tec-events-onboarding__form-field"
+					>
+						<input
+							id="venue-state"
+							onChange={(e) => setState(e.target.value)}
+							defaultValue={state}
+							disabled={disabled}
+							type="text"
+							placeholder={__('Enter state or province', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Venue state is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Venue state is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__('Zip / postal code', 'the-events-calendar')}
+						id="venue-zip"
+						className="tec-events-onboarding__form-field"
+					>
+						<input
+							id="venue-zip"
+							onChange={(e) => setZip(e.target.value)}
+							defaultValue={zip}
+							disabled={disabled}
+							type="text"
+							placeholder={__('Enter zip or postal code', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Venue zip/postal code is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Venue zip/postal code is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+					<BaseControl
+						__nextHasNoMarginBottom
+						id="venue-country"
+						className="tec-events-onboarding__form-field"
+						label={__('Country', 'the-events-calendar')}
+					>
+						<select
+							onChange={(e) => setCountry(e.target.value)}
+							defaultValue={country}
+							disabled={disabled}
+							id="venue-country"
+						>
+							{Object.entries(countries).map(([key, continents]) => (
+								<optgroup key={key} className="continent" label={key}>
+									{Object.entries(continents as {[key: string]: string}).map(([key, country]) => (
+										<option key={key}  value={key}>{country}</option>
+									))}
+								</optgroup>
+							))}
+						</select>
+					</BaseControl>
+					<span className="tec-events-onboarding__required-label">{__('Venue country is required.', 'the-events-calendar')}</span>
+					<span className="tec-events-onboarding__invalid-label">{__('Venue country is invalid.', 'the-events-calendar')}</span>
+					{!venueId && showPhone ? '' :
+					<Button
+						variant="tertiary"
+						className="tec-events-onboarding__form-field-trigger"
+						onClick={(event) => setShowPhone(true)}
+					>
+						{_x('Add a phone +', 'Direction to add an phone followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
+					</Button>}
+					<BaseControl
+						__nextHasNoMarginBottom
+						className="tec-events-onboarding__form-field"
+						id="venue-phone"
+						label={__('Phone', 'the-events-calendar')}
+					>
+						<input
+							id="venue-phone"
+							onChange={(e) => setPhone(e.target.value)}
+							defaultValue={phone}
+							disabled={disabled}
+							type="phone"
+							placeholder={__('Enter phone number', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Venue phone is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Venue phone is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+					{!venueId && showWebsite ? '' :
+					<Button
+						variant="tertiary"
+						className="tec-events-onboarding__form-field-trigger"
+						onClick={() => setShowWebsite(true)}
+					>
+						{_x('Add a website +', 'Direction to add a website followed by a plus sign to indicate it shows a visually hidden field.', 'the-events-calendar')}
+					</Button>}
+					<BaseControl
+						__nextHasNoMarginBottom
+						className="tec-events-onboarding__form-field"
+						id="venue-website"
+						label={__('Website', 'the-events-calendar')}
+					>
+						<input
+							id="venue-website"
+							onChange={(e) => setWebsite(e.target.value)}
+							defaultValue={website}
+							disabled={disabled}
+							type="url"
+							placeholder={__('Enter website', 'the-events-calendar')}
+						/>
+						<span className="tec-events-onboarding__required-label">{__('Venue website is required.', 'the-events-calendar')}</span>
+						{website && !website.toLowerCase().startsWith("http") ? (
+							<span className="tec-events-onboarding__invalid-label">
+								{__('Venue website must start with a protocol, i.e. "https://"', 'the-events-calendar')}
+							</span>
+						) : (
+							<span className="tec-events-onboarding__invalid-label">
+								{__('Venue website is invalid.', 'the-events-calendar')}
+							</span>
+						)}
+
+					</BaseControl>
+				</div>
+				<NextButton moveToNextTab={moveToNextTab} tabSettings={tabSettings} disabled={!canContinue}/>
+				<SkipButton skipToNextTab={skipToNextTab} currentTab={4}/>
+			</div>
 		</>
 	);
 };

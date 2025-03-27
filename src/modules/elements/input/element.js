@@ -52,7 +52,7 @@ class Input extends Component {
 		validateCallback: PropTypes.any,
 		type: PropTypes.string,
 		className: PropTypes.string,
-	}
+	};
 
 	/**
 	 * Set the default values for the required properties if not provided
@@ -67,7 +67,7 @@ class Input extends Component {
 		validateCallback: null,
 		type: '',
 		className: '',
-	}
+	};
 
 	constructor() {
 		super( ...arguments );
@@ -95,7 +95,7 @@ class Input extends Component {
 			completeCallback();
 			callback( input );
 		}
-	}
+	};
 
 	/**
 	 * Validates the component using validateCallback if provided or using the logic based on the type inferring
@@ -139,7 +139,7 @@ class Input extends Component {
 				break;
 		}
 		return isValid;
-	}
+	};
 
 	/**
 	 * If the component is valid or not based on the validation logic
@@ -183,13 +183,14 @@ class Input extends Component {
 
 	render() {
 		// Remove properties that are not part of the DOM.
-		const { onComplete, required, validate, ...properties } = this.props;
+		const { onComplete, required, validate, validateCallback, ...properties } = this.props;
 		return (
 			<TextControl
 				{ ...properties }
 				className={ `${ this.getClassName() }` }
 				ref={ ( input ) => this.input = input }
 				onChange={ this.onChange }
+				__nextHasNoMarginBottom={ true }
 			/>
 		);
 	}

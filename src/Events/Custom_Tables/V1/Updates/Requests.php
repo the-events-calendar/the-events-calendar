@@ -38,6 +38,7 @@ class Requests {
 	 * Models the current HTTP request using a WP REST Request object.
 	 *
 	 * @since 6.0.0
+	 * @since 6.10.2 Added check that `$_FILES` exists, otherwise use an empty array.
 	 *
 	 * @return WP_REST_Request A reference to an instance of the WP_Rest_Request
 	 *                         set up to provide information about the current HTTP request.
@@ -48,7 +49,9 @@ class Requests {
 		$request = new WP_REST_Request( $method, $route );
 		$request->set_query_params( wp_unslash( $_GET ) );
 		$request->set_body_params( wp_unslash( $_POST ) );
-		$request->set_file_params( $_FILES );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		$request->set_file_params( $_FILES ?? [] );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 		$server = new WP_REST_Server();
 		$request->set_headers( $server->get_headers( wp_unslash( $_SERVER ) ) );
 		$request->set_body( WP_REST_Server::get_raw_data() );

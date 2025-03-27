@@ -3,6 +3,7 @@
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use TEC\Common\StellarWP\Assets\Config;
 
 /**
  * Registers and Enqueues the assets
@@ -22,6 +23,7 @@ class Tribe__Events__Assets {
 		add_action( 'admin_enqueue_scripts', [ $this, 'dequeue_incompatible' ], 200 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_admin' ] );
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 10, 2 );
+		add_action( 'tribe_common_loaded', [ $this, 'configure_assets' ] );
 	}
 
 	/**
@@ -40,12 +42,12 @@ class Tribe__Events__Assets {
 			$plugin,
 			[
 				[ 'jquery-placeholder', 'vendor/jquery-placeholder/jquery.placeholder.js', [ 'jquery' ] ],
-				[ 'tribe-events-php-date-formatter', 'vendor/php-date-formatter/js/php-date-formatter.js', [] ],
+				// This does not come from TEC anymore, but from Common. It's still here to ensure back-compatibility.
+				[ 'tribe-events-php-date-formatter', 'common/node_modules/php-date-formatter/js/php-date-formatter.js', [] ],
 				[ 'tribe-events-custom-jquery-styles', 'vendor/jquery/smoothness/jquery-ui-1.8.23.custom.css', [] ],
 				[ 'tribe-events-jquery-resize', 'vendor/jquery-resize/jquery.ba-resize.js', [ 'jquery' ] ],
 				[ 'tribe-events-chosen-style', 'vendor/chosen/public/chosen.css', [] ],
 				[ 'tribe-events-chosen-jquery', 'vendor/chosen/public/chosen.jquery.js', [ 'jquery' ] ],
-				[ 'tribe-events-php-date-formatter', 'vendor/php-date-formatter/js/php-date-formatter.js', [] ],
 				[
 					'tribe-events-bootstrap-datepicker-css',
 					'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css',
@@ -211,7 +213,7 @@ class Tribe__Events__Assets {
 			'events-dynamic.js',
 			[
 				'jquery',
-				'tribe-events-php-date-formatter',
+				'tec-common-php-date-formatter',
 			],
 			[ 'wp_enqueue_scripts', 'admin_enqueue_scripts' ],
 			[
@@ -760,4 +762,14 @@ class Tribe__Events__Assets {
 		return array_merge( $sheets, $tec_sheets );
 	}
 
+	/**
+	 * Configure the group path for the resources assets folder.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function configure_assets(): void {
+		Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path . 'src/', 'resources/' );
+	}
 }

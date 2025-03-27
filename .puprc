@@ -1,6 +1,7 @@
 {
 	"build": [
 		"cd common && composer -- pup build",
+		"composer pup",
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
@@ -93,5 +94,6 @@
 			"common/src/views"
 		]
 	},
+	"zip_use_default_ignore": false,
 	"zip_name": "the-events-calendar"
 }

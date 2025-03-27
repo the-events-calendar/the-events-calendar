@@ -26,24 +26,22 @@ const WelcomeContent = ({moveToNextTab, skipToNextTab}) => {
 
 	return (
 		<>
-			<div className="tec-events-onboarding__content-checkbox-grid">
-			<div className="tec-events-onboarding__content-header-grid">
+			<div className="tec-events-onboarding__tab-hero">
 				<img src={Illustration} className="tec-events-onboarding__welcome-header" alt="Welcome" role="presentation" />
-				<div className="tec-events-onboarding__content-grid">
-				<h1 className="tec-events-onboarding__tab-header">{__("Welcome to The Events Calendar", "the-events-calendar")}</h1>
+			</div>
+			<div className="tec-events-onboarding__tab-header">
+				<h1 className="tec-events-onboarding__tab-heading">{__("Welcome to The Events Calendar", "the-events-calendar")}</h1>
 				<p className="tec-events-onboarding__tab-subheader">{__("Congratulations on installing the best event management solution for WordPress. Let’s tailor your experience to your needs.", "the-events-calendar")}</p>
-				<p>
-					<SetupButton
+			</div>
+			<div className="tec-events-onboarding__tab-content">
+				<SetupButton
 					tabSettings={tabSettings}
 					moveToNextTab={moveToNextTab}
-					/>
-				</p>
-				<p>
-					<ExitButton />
-				</p>
-				</div>
+				/>
+				<ExitButton />
 			</div>
-			{!originalValue && <OptInCheckbox initialOptin={optin} onChange={setOptinValue} />}
+			<div className="tec-events-onboarding__tab-footer">
+				{!originalValue && <OptInCheckbox initialOptin={optin} onChange={setOptinValue} />}
 			</div>
 		</>
 	);

@@ -137,7 +137,6 @@ function tribe_get_next_events_link() {
  * @since 2.0.1
  *
  * @param  string $context Optional. Defaults to 'href'. Can be 'display', in which case non-Latin characters are not URL-encoded.
- * @param  string $link    The main events link.
  *
  * @return string          The URL to the events page.
  *

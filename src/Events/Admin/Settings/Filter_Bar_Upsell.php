@@ -73,7 +73,7 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 * @since 6.7.0
 	 */
 	public function add_filters(): void {
-		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ] );
+		add_filter( 'tribe_settings_form_class', [ $this, 'filter_tribe_settings_form_classes' ], 10, 3 );
 		add_filter( 'tribe_settings_no_save_tabs', [ $this, 'filter_tribe_settings_no_save_tabs' ] );
 	}
 
@@ -86,9 +86,14 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @return array The modified classes for the settings form.
 	 */
-	public function filter_tribe_settings_form_classes( $classes ): array {
+	public function filter_tribe_settings_form_classes( $classes, $admin_page, $tab_object ): array {
 		if ( ! in_array( "tec-settings-form__{$this->slug}-tab--active", $classes ) ) {
 			return $classes;
+		}
+
+		if ( $tab_object->id !== $this->slug ) {
+			return $classes;
+
 		}
 
 		$classes[] = 'tec-events-settings__upsell-form';

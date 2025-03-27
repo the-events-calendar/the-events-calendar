@@ -27,7 +27,7 @@ const OptInCheckbox = ({ initialOptin, onChange }) => {
 				<div
 					id="tec-events-onboarding__checkbox-description"
 				>
-				<a href="#" target="_blank">{__("What permissions are being granted?", "the-events-calendar")}</a>
+				<a href="https://evnt.is/1bcl" target="_blank">{__("What permissions are being granted?", "the-events-calendar")}</a>
 				</div>
 			</div>
 		</div>

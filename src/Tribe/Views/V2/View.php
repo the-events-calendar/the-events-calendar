@@ -702,6 +702,15 @@ class View implements View_Interface {
 		 */
 		$this->repository_args = $repository_args;
 
+		/**
+		 * Fire before the view HTML cache check.
+		 *
+		 * @since 6.10.2
+		 *
+		 * @param View $this A reference to the View instance that is currently setting up the loop.
+		 */
+		do_action( 'tec_events_before_view_html_cache', $this );
+
 		// If HTML_Cache is a class trait and we have content to display, display it.
 		if (
 			method_exists( $this, 'maybe_get_cached_html' )
@@ -1754,6 +1763,7 @@ class View implements View_Interface {
 			'is_initial_load'      => $this->context->doing_php_initial_state(),
 			'public_views'         => $this->get_public_views( $url_event_date ),
 			'show_latest_past'     => $this->should_show_latest_past_events_view(),
+			'past'                 => $this->context->get( 'past', false ),
 		];
 
 		if ( ! $this->config->get( 'TEC_NO_MEMOIZE_VIEW_VARS' ) ) {

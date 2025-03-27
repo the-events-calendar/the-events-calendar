@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import AutosizeInput from 'react-input-autosize';
+import AutosizeInput from 'react-18-input-autosize';
 import { noop } from 'lodash';
 
 /**
@@ -12,7 +12,12 @@ import { noop } from 'lodash';
 import { input } from '@moderntribe/common/utils';
 import './style.pcss';
 
-const Timezone = ( { value, placeholder, className, onChange } ) => (
+const Timezone = ( {
+	value = '',
+	placeholder = '',
+	className = 'tribe-editor__timezone-input',
+	onChange = noop,
+} ) => (
 	<AutosizeInput
 		className={ className }
 		value={ value }
@@ -29,13 +34,6 @@ Timezone.propTypes = {
 		PropTypes.string,
 		PropTypes.arrayOf( PropTypes.string ),
 	] ),
-};
-
-Timezone.defaultProps = {
-	value: '',
-	placeholder: '',
-	onChange: noop,
-	className: 'tribe-editor__timezone-input',
 };
 
 export default Timezone;

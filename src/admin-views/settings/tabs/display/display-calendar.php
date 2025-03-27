@@ -4,6 +4,9 @@
  * Subtab of the Display Tab.
  *
  * @since 6.7.0
+ * @since 6.9.1 Added logic to include page templates from theme to template options.
+ *
+ * @version 6.9.1
  */
 
 use TEC\Common\Admin\Entities\Div;
@@ -29,6 +32,11 @@ $template_options = [
 	''        => esc_html__( 'Default Events Template', 'the-events-calendar' ),
 	'default' => esc_html__( 'Default Page Template', 'the-events-calendar' ),
 ];
+
+$templates = get_page_templates();
+ksort( $templates );
+
+$template_options += array_flip( $templates );
 
 $posts_per_page_tooltip = apply_filters(
 	'tec_events_display_calendar_settings_posts_per_page_tooltip',

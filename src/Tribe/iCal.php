@@ -5,17 +5,21 @@ use Tribe__Utils__Array as Arr;
 
 /**
  *  Class that implements the export to iCal functionality
- *  both for list and single events
+ *  both for views and single events.
  */
 class Tribe__Events__iCal {
 
 	/**
-	 * @var int The number of events that will be exported when generating the iCal feed.
+	 * The number of events that will be exported when generating the iCal feed.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @var int
 	 */
 	protected $feed_default_export_count = 30;
 
 	/**
-	 * The $post where the *.ics file is generated
+	 * The $post where the *.ics file is generated.
 	 *
 	 * @since 4.9.4
 	 *
@@ -24,7 +28,7 @@ class Tribe__Events__iCal {
 	protected $post = null;
 
 	/**
-	 * An array with all the events that are part of the *.ics file
+	 * An array with all the events that are part of the *.ics file.
 	 *
 	 * @since 4.9.4
 	 *
@@ -33,7 +37,7 @@ class Tribe__Events__iCal {
 	protected $events = [];
 
 	/**
-	 * The type of iCal Feed ( ical|outlook)
+	 * The type of iCal Feed (ical|outlook).
 	 *
 	 * @since 5.16.0
 	 *
@@ -43,6 +47,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Set all the filters and actions necessary for the operation of the iCal generator.
+	 *
+	 * @since 3.6.0
 	 */
 	public function hook() {
 		add_action( 'tribe_events_after_footer', [ $this, 'maybe_add_link' ], 10, 1 );
@@ -53,7 +59,9 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * outputs a <link> element for the ical feed
+	 * Outputs a <link> element for the iCal feed.
+	 *
+	 * @since 3.6.0
 	 */
 	public function set_feed_link() {
 		if ( ! current_theme_supports( 'automatic-feed-links' ) ) {
@@ -72,7 +80,9 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Returns the url for the iCal generator for lists of posts.
+	 * Returns the URL for the iCal generator for lists of posts.
+	 *
+	 * @since 3.6.0
 	 *
 	 * @param string $type The type of iCal link to return, defaults to 'home'.
 	 *
@@ -86,6 +96,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Make sure when we grab a month link it includes the correct month.
+	 *
+	 * @since 5.1.0
 	 *
 	 * @param string $event_date Date of the month we are getting the link for.
 	 *
@@ -105,9 +117,11 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Make sure ical link has the date in the URL instead of "today" on day view
+	 * Make sure iCal link has the date in the URL instead of "today" on day view.
 	 *
-	 * @param $link
+	 * @since 3.6.0
+	 *
+	 * @param string $link The URL of the iCal feed for day view.
 	 *
 	 * @return string
 	 */
@@ -126,11 +140,13 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Generates the markup for iCal and gCal single event links
-	 **/
+	 * Generates the markup for iCal and gCal single event links.
+	 *
+	 * @since 3.6.0
+	 */
 	public function single_event_links() {
 
-		// don't show on password protected posts
+		// Don't show on password protected posts.
 		if ( is_single() && post_password_required() ) {
 			return;
 		}
@@ -140,9 +156,13 @@ class Tribe__Events__iCal {
 		$calendar_links .= '</div><!-- .tribe-events-cal-links -->';
 
 		/**
-		 * Allow for complete customization of the iCal and gCal single-event links.
+		 * Filters the HTML for the iCal and gCal single-event link buttons.
 		 *
-		 * @param string $calendar_links The HTML of the iCal and gCal single-event link buttons.
+		 * This allows for complete customization of the calendar links output.
+		 *
+		 * @since 4.6.2
+		 *
+		 * @param string $calendar_links The HTML markup of the iCal and gCal single-event link buttons.
 		 */
 		echo apply_filters( 'tribe_events_ical_single_event_links', $calendar_links );
 	}
@@ -150,6 +170,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Generates the markup for the "iCal Import" link for the views.
+	 *
+	 * @since 3.6.0
 	 */
 	public function maybe_add_link() {
 
@@ -159,6 +181,8 @@ class Tribe__Events__iCal {
 
 		/**
 		 * A filter to control whether the "iCal Import" link shows up or not.
+		 *
+		 * @since 4.6.2
 		 *
 		 * @param boolean $show Whether to show the "iCal Import" link; defaults to true.
 		 */
@@ -184,7 +208,9 @@ class Tribe__Events__iCal {
 		}
 
 		/**
-		 * Allow for customization of the iCal export link "Export Events" text.
+		 * Allow the customization of the iCal export link "Export Events" text.
+		 *
+		 * @since 4.6.2
 		 *
 		 * @param string $text The default link text, which is "Export Events".
 		 */
@@ -200,10 +226,13 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Executes the iCal generator when the appropriate query_var or $_GET is setup.
+	 * Executes the iCal generator when the appropriate query_var or $_GET is set up.
+	 *
+	 * @since 3.6.0
 	 */
 	public function do_ical_template() {
-		// hijack to iCal template if query string included.
+		// Bail if a relevant query string is not included.
+		// Otherwise, hijack to the iCal template.
 		if (
 			! get_query_var( 'ical' )
 			&& ! isset( $_GET['ical'] )
@@ -213,6 +242,7 @@ class Tribe__Events__iCal {
 			return;
 		}
 
+		// Change the type, if it's an Outlook export.
 		if (
 			get_query_var( 'outlook-ical' )
 			|| isset( $_GET['outlook-ical'] )
@@ -240,16 +270,16 @@ class Tribe__Events__iCal {
 		 *
 		 * @since 4.6.0
 		 *
-		 * @param array<int>|false Either a list of requested event post IDs or `false`
-		 *                         if the current request does not specify the event post
-		 *                         IDs to fetch.
+		 * @param array<int>|false $event_ids Either a list of requested event post IDs or `false`
+		 *                                    if the current request does not specify the event post
+		 *                                    IDs to fetch.
 		 */
 		$event_ids = apply_filters( 'tribe_ical_template_event_ids', $event_ids );
 
 		if ( false !== $event_ids ) {
 			$event_ids = Arr::list_to_array( $event_ids );
 
-			// Exit or the feed will still generate.
+			// Exit if there are no events, or the feed will still generate.
 			if ( empty( $event_ids ) ) {
 				die();
 			}
@@ -271,7 +301,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @param numeric|WP_Post $post The post to evaluate our access to.
 	 *
-	 * @return bool
+	 * @return bool True if a post should be shown, false if it should be hidden or password protected.
 	 */
 	public static function has_access_to_see_event_content( $post ): bool {
 		// Can we see it at all?
@@ -290,7 +320,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @param numeric|WP_Post $post The post to evaluate our access to.
 	 *
-	 * @return bool
+	 * @return bool True if the post can be accessed, false if not.
 	 */
 	public static function has_access_to_see_event_exists( $post ): bool {
 		$post = get_post( $post );
@@ -311,14 +341,14 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Generates the iCal file
+	 * Generates the iCal file.
 	 *
 	 * @since 6.1.3 Adding access checks to the provided posts.
 	 *
-	 * @param int|null|array $post If you want the ical file for a single event
-	 * @param boolean  $echo Whether the content should be echoed or returned
+	 * @param int|null|array $post If you want the iCal file for a single event.
+	 * @param boolean        $echo Whether the content should be echoed or returned.
 	 *
-	 * @return string
+	 * @return string The complete iCal feed.
 	 */
 	public function generate_ical_feed( $post = null, $echo = true ) {
 		// If we are searching via a single numeric/post, turn into an array.
@@ -341,7 +371,7 @@ class Tribe__Events__iCal {
 			$post = array_map( 'get_post', $post );
 		}
 
-		// Now setup to do our search.
+		// Now set up to do our search.
 		$this->post   = $post;
 		$this->events = $this->get_event_posts();
 
@@ -356,11 +386,11 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Get an array with all the Events to be used to process the *.ics file
+	 * Get an array with all the Events to be used to process the *.ics file.
 	 *
 	 * @since 4.9.4
 	 *
-	 * @return array|null
+	 * @return array|null An array of events or null.
 	 */
 	protected function get_event_posts() {
 		if ( $this->post ) {
@@ -398,7 +428,7 @@ class Tribe__Events__iCal {
 		$args = $wp_query->query_vars;
 
 		if ( $list_view_slug === $args['eventDisplay'] ) {
-			// When producing a List view iCal feed the `eventDate` is misleading.
+			// When producing a List view iCal feed the `eventDate` is misleading, so we remove it.
 			unset( $args['eventDate'] );
 
 			// If passed a date, only observe it if it's in the future.
@@ -422,7 +452,9 @@ class Tribe__Events__iCal {
 	 * main query since page spoofing can render the actual query and results
 	 * inaccessible (and it cannot be recovered via a query reset).
 	 *
-	 * @return array events in the month
+	 * @since 3.6.0
+	 *
+	 * @return array Events in the month.
 	 */
 	private function get_month_view_events() {
 
@@ -458,8 +490,10 @@ class Tribe__Events__iCal {
 		 * match of the events shown in month view itself, which may include events from
 		 * adjacent months).
 		 *
-		 * @var array  $args
-		 * @var string $month
+		 * @since 3.10.1
+		 *
+		 * @var array  $args  The query arguments.
+		 * @var string $month The month the query is for in YYYY-MM-DD format for the first day of the month.
 		 */
 		$args = (array) apply_filters( 'tribe_ical_feed_month_view_query_args', $args, $month );
 
@@ -480,12 +514,12 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Get the file name of the *.ics file
+	 * Get the file name of the *.ics file.
 	 *
 	 * @since 4.9.4
 	 * @since 5.16.0 - Add the iCal type to the filename so both ics and outlook ics are unique names.
 	 *
-	 * @return mixed The calendar name
+	 * @return mixed The calendar name.
 	 */
 	protected function get_file_name() {
 		$event_ids = wp_list_pluck( $this->events, 'ID' );
@@ -494,7 +528,9 @@ class Tribe__Events__iCal {
 		$filename  = sprintf( '%s-%s.ics', $site, $hash );
 
 		/**
-		 * Modifies the filename provided in the Content-Disposition header for iCal feeds.
+		 * Allows filtering the filename provided in the Content-Disposition header for iCal feeds.
+		 *
+		 * @since 4.9.4
 		 *
 		 * @var string       $filename
 		 * @var WP_Post|null $post
@@ -507,7 +543,7 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 4.9.4
 	 *
-	 * @return string
+	 * @return string The full content of the *.ics file.
 	 */
 	protected function get_content() {
 		$parts = [
@@ -520,12 +556,12 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Get the start of the .ics File
+	 * Get the start of the .ics file.
 	 *
 	 * @since 4.9.4
-	 * @since 5.16.0 - Add a check for iCAL type to prevent Outlook ics from including X-WR-CALNAME.
+	 * @since 5.16.0 - Add a check for iCal type to prevent Outlook ics from including X-WR-CALNAME.
 	 *
-	 * @return mixed
+	 * @return string The beginning of the iCal feed containing calendar information.
 	 */
 	protected function get_start() {
 		$blog_home    = get_bloginfo( 'url' );
@@ -539,6 +575,8 @@ class Tribe__Events__iCal {
 
 		/**
 		 * Allows for customizing the value of the generated iCal file's "X-WR-CALNAME:" property.
+		 *
+		 * @since 4.9.4
 		 *
 		 * @param string $blog_name The value to use for "X-WR-CALNAME"; defaults to value of get_bloginfo( 'name' ).
 		 */
@@ -554,19 +592,22 @@ class Tribe__Events__iCal {
 		/**
 		 * Allows for customization of the various properties at the top of the generated iCal file.
 		 *
+		 * @since 4.9.4
+		 *
 		 * @param string $content Existing properties atop the file; starts at "BEGIN:VCALENDAR", ends at "X-WR-CALDESC".
 		 */
 		return apply_filters( 'tribe_ical_properties', $content );
 	}
 
 	/**
-	 * Add the VTIMEZONE group to the file
+	 * Add the VTIMEZONE groups to the file.
 	 *
 	 * @since 4.9.4
+	 * @since 6.10.2 Make sure that each time zone definition has its own group.
 	 *
-	 * @param array $events
+	 * @param array $events An array with all the events.
 	 *
-	 * @return string
+	 * @return string The string containing all the time zone information needed in the iCal feed/file.
 	 */
 	protected function get_timezones( $events = [] ) {
 		$timezones = $this->parse_timezones( $events );
@@ -603,6 +644,8 @@ class Tribe__Events__iCal {
 				$transitions[] = array_values( $transitions )[ 0 ];
 			}
 
+			$item[] = 'BEGIN:VTIMEZONE';
+
 			$id = $timezone->getName();
 			$item[] = 'TZID:' .  $id;
 
@@ -630,33 +673,35 @@ class Tribe__Events__iCal {
 				$item[] = 'END:' . $type;
 				$last_transition = $transition;
 			}
+
+			$item[] = 'END:VTIMEZONE';
 		}
 
 		/**
-		 * Allow for customization of an individual "VTIMEZONE" item to be rendered inside an iCal export file.
+		 * Allows customization of the "VTIMEZONE" items rendered inside an iCal export file.
 		 *
 		 * @since 4.9.4
 		 *
-		 * @param array $item The various iCal file format components of this specific event item.
-		 * @param array $timezones The various iCal timzone components of this specific event item.
+		 * @param array $item      The various iCal file format components of the time zones.
+		 * @param array $timezones The various iCal time zone components.
 		 */
 		$item = apply_filters( 'tribe_ical_feed_vtimezone', $item, $timezones );
 
-		return "BEGIN:VTIMEZONE\r\n" . implode( "\r\n", $item ) . "\r\nEND:VTIMEZONE\r\n";
+		return implode( "\r\n", $item ) . "\r\n";
 	}
 
 	/**
-	 * Create an array of arrays with unique Timezones for all the events, every timezone has
+	 * Create an array of arrays with unique time zones for all the events, every time zone has
 	 * the following fields:
 	 *
-	 * - timezone. The Timezone Object
-	 * - events. List with all the events
+	 * - timezone - The Timezone Object.
+	 * - events - List with all the events.
 	 *
 	 * @since 4.9.4
 	 *
 	 * @param $events array An array with all the events to parse the timezones.
 	 *
-	 * @return array
+	 * @return array An array with all time zones as keys, and array of events in the respective time zones as values.
 	 */
 	protected function parse_timezones( $events ) {
 		$data = [];
@@ -684,13 +729,13 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Format the offset into Hours and minutes from seconds.
+	 * Format the offset into hours and minutes from seconds.
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param $offset
+	 * @param int $offset Offset to UTC in seconds.
 	 *
-	 * @return string
+	 * @return string The offset to UTC in hours and minutes in ±HHMM format.
 	 */
 	protected function format_offset( $offset ) {
 		$hours   = intval( $offset / 60 / 60 );
@@ -704,14 +749,14 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Get the Body With all the events of the .ics file
+	 * Get the body with all the events of the .ics file.
 	 *
 	 * @since 4.9.4
-	 * @since5.1.6 - Utilize get_ical_output_for_an_event() to get the iCal output.
+	 * @since 5.1.6 - Utilize get_ical_output_for_an_event() to get the iCal output.
 	 *
-	 * @param array $posts
+	 * @param array $posts The array of events to generate the iCal content for.
 	 *
-	 * @return string
+	 * @return string A string containing all the event information needed in the iCal feed/file.
 	 */
 	protected function get_body( $posts = [] ) {
 		$tec         = Tribe__Events__Main::instance();
@@ -732,9 +777,9 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 6.2.2
 	 *
-	 * @param string $name
+	 * @param string $name The organizer name (post title).
 	 *
-	 * @return string
+	 * @return string The sanitized organizer name.
 	 */
 	private function sanitize_organizer_name( string $name ): string {
 		// Characters not allowed in organizer name: CTLs, DQUOTE, ";", ":", ","
@@ -760,7 +805,7 @@ class Tribe__Events__iCal {
 	 * @param \WP_Post             $event_post The event post object.
 	 * @param \Tribe__Events__Main $tec        An instance of the main TEC Class.
 	 *
-	 * @return array  An array of iCal output fields.
+	 * @return array An array of iCal output fields.
 	 */
 	public function get_ical_output_for_an_event( $event_post, Tribe__Events__Main $tec ) {
 		// Add fields to iCal output.
@@ -803,7 +848,7 @@ class Tribe__Events__iCal {
 			$item['DTSTART'] = 'DTSTART;VALUE=' . $type . ':' . $dtstart;
 			$item['DTEND']   = 'DTEND;VALUE=' . $type . ':' . $dtend;
 		} else {
-			// Are we using the sitewide timezone or the local event timezone?
+			// Are we using the site-wide timezone or the local event timezone?
 			$timezone_name = $this->get_timezone( $event_post );
 			$timezone      = Tribe__Events__Timezones::build_timezone_object( $timezone_name );
 
@@ -818,15 +863,22 @@ class Tribe__Events__iCal {
 		$item['SUMMARY']       = 'SUMMARY:' . $this->replace( wp_strip_all_tags( $event_post->post_title ) );
 
 		if ( $access_to_content ) {
+			/**
+			 * Allows filtering the event description in the iCal feed.
+			 *
+			 * @since 4.9.4
+			 *
+			 * @param string $content The event description (post content).
+			 */
 			$content = apply_filters( 'the_content', tribe( 'editor.utils' )->exclude_tribe_blocks( $event_post->post_content ) );
 		} else {
 			$content = _x( 'Content is protected.', 'Description in iCal content for events with hidden/protected content.', 'the-events-calendar' );
 			/**
-			 * Filters the password protected description for ical event descriptions that are displayed in the output.
+			 * Filters the password protected description for iCal event descriptions that are displayed in the output.
 			 *
 			 * @since 6.1.3
 			 *
-			 * @param string The replaced message that will display in the ical event description.
+			 * @param string $content The replaced message that will display in the ical event description.
 			 */
 			$content = apply_filters( 'tec_events_ical_protected_content_description', $content );
 		}
@@ -859,6 +911,8 @@ class Tribe__Events__iCal {
 			/**
 			 * Allow for customization of an individual iCal-exported event's thumbnail.
 			 *
+			 * @since 4.6.2
+			 *
 			 * @param string $string  This thumbnail's iCal-formatted "ATTACH;" string with the thumbnail mime type and URL.
 			 * @param int    $post_id The ID of the event this thumbnail belongs to.
 			 */
@@ -882,6 +936,8 @@ class Tribe__Events__iCal {
 		/**
 		 * Allow for customization of an individual "VEVENT" item to be rendered inside an iCal export file.
 		 *
+		 * @since 4.6.2
+		 *
 		 * @param array  $item       The various iCal file format components of this specific event item.
 		 * @param object $event_post The WP_Post of this event.
 		 */
@@ -893,8 +949,8 @@ class Tribe__Events__iCal {
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param string $text The text to be replaced.
-	 * @param array  $search What elements to search to replace.
+	 * @param string $text        The text to be replaced.
+	 * @param array  $search      What elements to search to replace.
 	 * @param array  $replacement New values used to replace.
 	 *
 	 * @return mixed
@@ -906,26 +962,26 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Apply html_entity_decode on a string using ENT_QUOTES style
+	 * Apply html_entity_decode on a string using ENT_QUOTES style.
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param string $text
+	 * @param string $text The text to be encoded.
 	 *
-	 * @return string
+	 * @return string The encoded text.
 	 */
 	protected function html_decode( $text = '' ) {
 		return html_entity_decode( $text, ENT_QUOTES );
 	}
 
 	/**
-	 * Return the timezone name associated with the event
+	 * Return the time zone name associated with the event.
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param $event \WP_Post The $event post
+	 * @param WP_Post $event The event post.
 	 *
-	 * @return string
+	 * @return string The time zone string of the event in the format of 'America/New_York'.
 	 */
 	protected function get_timezone( $event ) {
 		return Tribe__Events__Timezones::EVENT_TIMEZONE === Tribe__Events__Timezones::mode()
@@ -934,7 +990,7 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Return the end of the .ics file
+	 * Return the end of the .ics file.
 	 *
 	 * @since 4.9.4
 	 *
@@ -945,14 +1001,15 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Get a list of events, the function make sure it uses the default values used on the main events page
+	 * Get a list of events, the function makes sure it uses the default values used on the main events page,
 	 * so if is called from a different location like a page or post (shortcode) it will retain the original values
 	 * to generate the events feed.
 	 *
 	 * @since 4.6.11
 	 *
-	 * @param array $args The WP_Query arguments.
+	 * @param array $args  The WP_Query arguments.
 	 * @param mixed $query A WP_Query object or null if none.
+	 *
 	 * @return array
 	 */
 	protected function get_events_list( $args = [], $query = null ) {
@@ -993,7 +1050,7 @@ class Tribe__Events__iCal {
 	}
 
 	/**
-	 * Get the number of posts per page to be used on the feed of the iCal, make sure it passes the value via the filter
+	 * Get the number of posts per page to be used in the iCal feed, make sure it passes the value via the filter
 	 * tribe_ical_feed_posts_per_page and validates the number is greater than 0.
 	 *
 	 * @since 4.6.11
@@ -1004,9 +1061,11 @@ class Tribe__Events__iCal {
 		/**
 		 * Filters the number of upcoming events the iCal feed should export.
 		 *
-		 * This filter allows developer to override the pagination setting and the default value
+		 * This filter allows developers to override the pagination setting and the default value
 		 * to export a number of events that's inferior or superior to the one shown on the page.
 		 * The minimum value is 1.
+		 *
+		 * @since 4.6.11
 		 *
 		 * @param int $count The number of upcoming events that should be exported in the
 		 *                   feed, defaults to 30.
@@ -1021,6 +1080,8 @@ class Tribe__Events__iCal {
 	/**
 	 * Gets the number of events that should be exported when generating the iCal feed.
 	 *
+	 * @since 4.3.3
+	 *
 	 * @return int
 	 */
 	public function get_feed_default_export_count() {
@@ -1029,6 +1090,8 @@ class Tribe__Events__iCal {
 
 	/**
 	 * Sets the number of events that should be exported when generating the iCal feed.
+	 *
+	 * @since 4.3.3
 	 *
 	 * @param int $count
 	 */

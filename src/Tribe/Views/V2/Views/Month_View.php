@@ -246,7 +246,7 @@ class Month_View extends By_Day_View {
 		$date         = $this->context->get( 'event_date', $default_date );
 		$current_date = Dates::build_date_object( $date );
 
-		if ( $this->skip_empty() ) {
+		if ( $this->skip_empty() && ! $this->context->get( 'past', false ) ) {
 			// At a minimum pick the next month or the month the next event starts in.
 			$next_date = $this->get_next_event_date( $current_date, $canonical );
 			if ( ! $next_date ) {

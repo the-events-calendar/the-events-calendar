@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Fix the integration with TEC Tweaks to avoid a fatal error when using the extenison. [TEC-5316]

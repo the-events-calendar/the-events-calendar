@@ -44,7 +44,7 @@ const termName = ( term = {} ) => {
 		: __( '(Untitled)', 'the-events-calendar' );
 };
 
-const Label = ( { text } ) => (
+const Label = ( { text = '' } ) => (
 	<strong className="tribe-editor__terms__label" key="terms-label">
 		{ text }
 		{ ' ' }
@@ -72,7 +72,7 @@ Empty.propTypes = {
 
 const List = ( {
 	terms = [],
-	termSeparator = ', ',
+	termSeparator = __( ', ', 'the-events-calendar' ),
 	isLoading = false,
 	id = '',
 	className = '',
@@ -152,17 +152,19 @@ Loading.propTypes = {
 };
 
 export const TaxonomiesElement = ( {
-	className,
-	slug,
-	label,
-	renderEmpty,
-	isRequesting,
+	className = '',
+	slug = '',
+	label = '',
+	renderEmpty = null,
+	isRequesting = false,
+	// eslint-disable-next-line no-unused-vars
+	terms = [],
 	...rest
 } ) => {
-	const terms = getTerms( rest.terms );
+	const termsList = getTerms( rest.terms );
 	const key = `tribe-terms-${ slug }`;
 
-	if ( ! terms.length && ! isRequesting ) {
+	if ( ! termsList.length && ! isRequesting ) {
 		return <Empty id={ key } renderEmpty={ renderEmpty } label={ label } />;
 	}
 
@@ -170,7 +172,7 @@ export const TaxonomiesElement = ( {
 		<div key={ key } className={ `tribe-editor__terms ${ className }` }>
 			<Label text={ label } />
 			<div key="terms" className="tribe-editor__terms__list-wrapper">
-				<List terms={ terms } className={ className } id={ key } isLoading={ isRequesting } />
+				<List terms={ termsList } className={ className } id={ key } isLoading={ isRequesting } />
 			</div>
 		</div>
 	);
@@ -183,13 +185,6 @@ TaxonomiesElement.propTypes = {
 	renderEmpty: PropTypes.node,
 	isRequesting: PropTypes.bool,
 	terms: PropTypes.array,
-};
-
-TaxonomiesElement.defaultProps = {
-	termSeparator: __( ', ', 'the-events-calendar' ),
-	className: '',
-	terms: [],
-	isRequesting: false,
 };
 
 const applySelect = withSelect( ( select, props ) => {

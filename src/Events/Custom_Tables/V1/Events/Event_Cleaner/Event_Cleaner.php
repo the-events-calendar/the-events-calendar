@@ -20,7 +20,7 @@ class Event_Cleaner {
 	 * recurring events.
 	 *
 	 * @since 6.0.13
-	 * @since TBD Adjust SQL to ignore trashed imported events during cleanup.
+	 * @since 6.9.0 Adjust SQL to ignore trashed imported events during cleanup.
 	 *
 	 * @param string $sql The original query to retrieve expired events.
 	 *

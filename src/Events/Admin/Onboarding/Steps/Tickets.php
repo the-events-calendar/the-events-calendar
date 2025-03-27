@@ -2,7 +2,7 @@
 /**
  * Handles the tickets step of the onboarding wizard.
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -16,7 +16,7 @@ use TEC\Common\StellarWP\Installer\Handler\Plugin;
 /**
  * Class Tickets
  *
- * @since 7.0.0
+ * @since 6.8.4
  *
  * @package TEC\Events\Admin\Onboarding\Steps
  */
@@ -24,7 +24,7 @@ class Tickets extends Abstract_Step {
 	/**
 	 * The tab number for this step.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @var int
 	 */
@@ -33,7 +33,7 @@ class Tickets extends Abstract_Step {
 	/**
 	 * Process the tickets data.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.
@@ -47,7 +47,7 @@ class Tickets extends Abstract_Step {
 	/**
 	 * Install and activate the Event Tickets plugin from the WordPress.org repo.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param WP_REST_Response $response The response object.
 	 * @param WP_REST_Request  $request  The request object.

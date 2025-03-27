@@ -41,4 +41,3 @@ $symbol = tribe_get_option( 'timeRangeSeparator', '-' );
 	);
 	?>
 </span>
-</span>

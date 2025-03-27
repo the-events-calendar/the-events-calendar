@@ -11,10 +11,10 @@
  * @var string $calendar_link_label Label for the link.
  * @var string $calendar_link_class CSS classes.
  * @var string $calendar_link       URL to the events page.
- * @var Tribe\Events\Integrations\Elementor\Widgets\Event_Backlink $widget The widget instance.
+ * @var Event_Calendar_Link $widget The widget instance.
  */
-
+use TEC\Events\Integrations\Plugins\Elementor\Widgets\Event_Calendar_Link;
 ?>
-<<?php echo esc_attr( $calendar_link_tag ); ?> <?php tribe_classes( $calendar_link_class ); ?>>
+<<?php echo tag_escape( $calendar_link_tag ); ?> <?php tribe_classes( $calendar_link_class ); ?>>
 	<a href="<?php echo esc_url( $calendar_link ); ?>" >&laquo; <?php echo wp_kses_post( $calendar_link_label ); ?></a>
-</<?php echo esc_attr( $calendar_link_tag ) . '>'; ?>
+</<?php echo tag_escape( $calendar_link_tag ) . '>'; ?>

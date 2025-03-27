@@ -2,7 +2,7 @@
 /**
  * Controller for interfacing with TEC\Common\Onboarding.
  *
- * @since 7.0.0
+ * @since 6.8.4
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -16,11 +16,12 @@ use TEC\Events\Admin\Onboarding\Steps\Venue;
 use TEC\Events\Admin\Onboarding\Steps\Tickets;
 use TEC\Events\Admin\Onboarding\Data;
 use TEC\Events\Admin\Onboarding\Landing_Page;
+use TEC\Common\StellarWP\Assets\Config;
 
 /**
  * Class Controller
  *
- * @since 7.0.0
+ * @since 6.8.4
  * @package TEC\Events\Admin\Onboarding
  */
 class Controller extends Controller_Contract {
@@ -28,9 +29,10 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the provider.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function do_register(): void {
+		Config::add_group_path( 'tec-onboarding', tribe( 'tec.main' )->plugin_path . 'build/', 'wizard' );
 		$this->add_filters();
 		$this->add_actions();
 
@@ -41,7 +43,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unhooks actions and filters.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function unregister(): void {
 		$this->remove_filters();
@@ -51,7 +53,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Add the filter hooks.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function add_filters(): void {
 		// Add the step handlers.
@@ -60,26 +62,25 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 2 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 2 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 2 );
-		add_filter( 'tec_events_admin_notice_utc_timezone_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
-		add_filter( 'tec_events_admin_notice_event_tickets_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 	}
 
 	/**
 	 * Add the action hooks.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function add_actions(): void {
 		add_action( 'admin_menu', [ $this, 'landing_page' ] );
 		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
 		add_action( 'admin_post_' . Landing_Page::DISMISS_ONBOARDING_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
+		add_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 	}
 
 	/**
 	 * Handle the onboarding page dismiss.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return void
 	 */
@@ -90,7 +91,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Remove the filter hooks.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function remove_filters(): void {
 		// Remove the step handlers.
@@ -99,46 +100,46 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14 );
-		remove_filter( 'tec_events_admin_notice_utc_timezone_should_display', [ $this, 'should_not_display_notices_on_onboarding_page' ] );
 	}
 
 	/**
 	 * Remove the action hooks.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function remove_actions(): void {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ] );
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
+	}
+
+	/**
+	 * Remove all admin notices in the onboarding page.
+	 *
+	 * @since 6.9.0
+	 */
+	public function remove_all_admin_notices_in_onboarding_page(): void {
+		if ( ! Landing_Page::is_on_page() ) {
+			return;
+		}
+
+		remove_all_actions( 'admin_notices' );
 	}
 
 	/**
 	 * Settings page callback.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function landing_page() {
 		$this->container->make( Landing_Page::class )->admin_page();
 	}
 
 	/**
-	 * Should not display notices on onboarding page.
-	 *
-	 * @since 7.0.0
-	 *
-	 * @param bool $should_display Whether the notices should display.
-	 *
-	 * @return bool
-	 */
-	public function should_not_display_notices_on_onboarding_page( bool $should_display ) {
-		return $this->container->make( Landing_Page::class )->should_not_display_notices_on_onboarding_page( $should_display );
-	}
-
-	/**
 	 * Enqueue scripts for the onboarding wizard.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function enqueue_assets(): void {
 		$this->container->make( Landing_Page::class )->register_assets();
@@ -147,7 +148,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the REST endpoints that will be used to return the Views HTML.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 */
 	public function register_rest_endpoints(): void {
 		$this->container->make( API::class )->register();

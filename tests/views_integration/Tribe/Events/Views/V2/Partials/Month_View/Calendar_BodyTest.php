@@ -18,6 +18,14 @@ class Calendar_BodyTest extends HtmlPartialTestCase {
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 
+	/**
+	 * Test static render for past
+	 */
+	public function test_static_render_past() {
+		$this->given_month_data();
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'past' => true ] ) );
+	}
+
 	public function setUp() {
 		parent::setUp();
 		// Always return the same value when creating nonces.

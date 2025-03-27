@@ -86,6 +86,14 @@ class Outlook_Export extends Link_Abstract {
 		$url = remove_query_arg( 'ical', $ical->link->url );
 		$url = add_query_arg( [ 'outlook-ical' => 1 ], $url );
 
-		return $url;
+		/**
+		 * Filters the Outlook export URL.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $url The URL.
+		 * @param View   $view The view.
+		 */
+		return (string) apply_filters( 'tec_views_v2_subscribe_links_outlook_export_url', $url, $view );
 	}
 }

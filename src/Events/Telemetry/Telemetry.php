@@ -88,22 +88,12 @@ class Telemetry {
 	public function filter_tribe_general_settings_debugging_section( $fields ): array {
 		$telemetry = tribe( Common_Telemetry::class );
 		$telemetry->init();
-		$status = $telemetry::get_status_object();
-		$opted = $status->get( self::$plugin_slug );
-
-		switch( $opted ) {
-			case Status::STATUS_ACTIVE :
-				$label = esc_html_x( 'Opt out of Telemetry', 'Settings label for opting out of Telemetry.', 'the-events-calendar' );
-			default :
-				$label = esc_html_x( 'Opt in to Telemetry', 'the-events-calendar' );
-		}
-
 
 		$fields['opt-in-status'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => $label,
+			'label'           => esc_html_x( 'Data share consent', 'Title for Data share section.', 'the-events-calendar' ),
 			'tooltip'         => sprintf(
-				// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
+			// Translators: 1: opening anchor tag, 2: opening anchor tag, 3: opening anchor tag, 4: closing anchor tags.
 				_x(
 					'Enable this option to share usage data with The Events Calendar and StellarWP.
         This activates access to TEC AI chatbot and in-app priority support for premium users.

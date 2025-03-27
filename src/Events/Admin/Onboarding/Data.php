@@ -2,7 +2,7 @@
 /**
  * Class that holds some data functions for the Wizard.
  *
- * @since 7.0.0
+ * @since 6.8.4
  */
 
 namespace TEC\Events\Admin\Onboarding;
@@ -12,7 +12,7 @@ use Tribe\Events\Views\V2\Manager as Views_Manager;
 /**
  * Class Data
  *
- * @since 7.0.0
+ * @since 6.8.4
  * @package TEC\Events\Admin\Onboarding
  */
 class Data {
@@ -20,7 +20,7 @@ class Data {
 	 * Get the organizer data.
 	 * Looks for a single existing organizer and returns the data.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string,string> The organizer data.
 	 */
@@ -44,7 +44,7 @@ class Data {
 	 * Get the venue data.
 	 * Looks for a single existing venue and returns the data.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string,string> The venue data.
 	 */
@@ -60,7 +60,7 @@ class Data {
 			'name'    => get_the_title( $venue_id ),
 			'address' => get_post_meta( $venue_id, '_VenueAddress', true ),
 			'city'    => get_post_meta( $venue_id, '_VenueCity', true ),
-			'country' => get_post_meta( $venue_id, '_VenueCountry', true ),
+			'country' => $this->find_country_by_value( get_post_meta( $venue_id, '_VenueCountry', true ) ),
 			'phone'   => get_post_meta( $venue_id, '_VenuePhone', true ),
 			'state'   => get_post_meta( $venue_id, '_VenueState', true ),
 			'website' => get_post_meta( $venue_id, '_VenueWebsite', true ),
@@ -71,7 +71,7 @@ class Data {
 	/**
 	 * Check if there are any events.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return bool
 	 */
@@ -84,7 +84,7 @@ class Data {
 	/**
 	 * Get the available views.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string> The available views.
 	 */
@@ -111,7 +111,7 @@ class Data {
 	/**
 	 * Get a list of countries. Grouped by continent/region.
 	 *
-	 * @since 7.0.0.
+	 * @since 6.8.4.
 	 *
 	 * @return array<string,array<string,string>> The list of countries.
 	 */
@@ -360,7 +360,7 @@ class Data {
 		/**
 		 * Filter the list of countries.
 		 *
-		 * @since 7.0.0
+		 * @since 6.8.4
 		 *
 		 * @param array $countries The list of countries. Grouped by continent/region.
 		 */
@@ -370,13 +370,13 @@ class Data {
 	/**
 	 * Find a country by its key.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param string $key The country key.
 	 *
 	 * @return string|null The country name or null if not found.
 	 */
-	public function find_country_by_key( $key ) {
+	public function find_country_by_key( $key ): ?string {
 		if ( empty( $key ) ) {
 			return null;
 		}
@@ -394,13 +394,40 @@ class Data {
 	}
 
 	/**
+	 * Find a country key by its value.
+	 *
+	 * @since 6.8.4
+	 *
+	 * @param string $value The country value.
+	 *
+	 * @return string|null The country key or null if not found.
+	 */
+	public function find_country_by_value( $value ): ?string {
+		if ( empty( $value ) ) {
+			return null;
+		}
+
+		$countries = $this->get_country_list();
+		// Use array_filter to locate the array containing the key.
+		$filtered = array_filter( $countries, fn( $country_list ) => in_array( $value, $country_list ) );
+
+		// If the filtered array is not empty, fetch the value.
+		if ( ! empty( $filtered ) ) {
+			$continent = reset( $filtered ); // Get the first match.
+			return array_search( $value, $continent );
+		}
+
+		return null;
+	}
+
+	/**
 	 * Get list of timezones. Excludes manual offsets.
 	 *
 	 * Ruthlessly lifted in part from `wp_timezone_choice()`
 	 *
 	 * @todo Move this somewhere for reuse!
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array<string,string> The list of timezones.
 	 */
@@ -501,7 +528,7 @@ class Data {
 	 * Get a list of currencies.
 	 * Note: we don't currently use "code" or "entity", but they are included for future use.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array
 	 */
@@ -719,7 +746,7 @@ class Data {
 	/**
 	 * Get the saved wizard settings.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @return array
 	 */
@@ -730,7 +757,7 @@ class Data {
 	/**
 	 * Update the wizard settings.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param array $settings The settings to update.
 	 */
@@ -741,7 +768,7 @@ class Data {
 	/**
 	 * Get a specific wizard setting by key.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param string $key           The setting key.
 	 * @param mixed  $default_value The default value.
@@ -757,7 +784,7 @@ class Data {
 	/**
 	 * Update a specific wizard setting.
 	 *
-	 * @since 7.0.0
+	 * @since 6.8.4
 	 *
 	 * @param string $key   The setting key.
 	 * @param mixed  $value The setting value.

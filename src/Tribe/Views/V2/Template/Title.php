@@ -9,6 +9,7 @@
 
 namespace Tribe\Events\Views\V2\Template;
 
+use Tribe\Events\Views\V2\Manager;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\Month_View;
@@ -125,8 +126,19 @@ class Title {
 	 * @return string The page title.
 	 */
 	public function build_title( $current_title = '', $depth = true, $sep = null ) {
-		$context = $this->context ?: tribe_context();
-		$posts   = $this->get_posts();
+		$context            = $this->context ?: tribe_context();
+		$event_display_mode = $context->get( 'event_display_mode' );
+
+		// If the slug is `default`, get the slug another way.
+		if ( 'default' === $event_display_mode ) {
+			$manager            = tribe( Manager::class );
+			$event_display_mode = $manager->get_default_view_option();
+		}
+
+		$posts = [];
+		if ( $event_display_mode !== 'month' && $event_display_mode !== 'day' ) {
+			$posts = $this->get_posts();
+		}
 
 		/**
 		 * Filter the plural Events label for Views Title.
@@ -141,8 +153,7 @@ class Title {
 		$this->events_label_plural = apply_filters( 'tribe_events_filter_views_v2_wp_title_plural_events_label', $this->events_label_plural, $context );
 
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events.
-		$event_date         = $context->get( 'event_date', false );
-		$event_display_mode = $context->get( 'event_display_mode' );
+		$event_date = $context->get( 'event_date', false );
 
 		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
@@ -356,7 +367,6 @@ class Title {
 				 * setup_template_vars() in src/Tribe/Views/V2/View.php
 				 */
 				$view  = View::make( 'list' );
-				$html  = $view->get_html();
 				$repo  = $view->get_repository();
 				$posts = $repo->all();
 

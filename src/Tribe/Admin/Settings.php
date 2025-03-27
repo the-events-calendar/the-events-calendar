@@ -132,7 +132,7 @@ class Settings {
 		/**
 		 * Filters whether the source URL of the settings page logo should be replaced.
 		 *
-		 * @since TBD
+		 * @since 6.9.0
 		 *
 		 * @param bool $should_filter Whether the source URL of the settings page logo should be replaced.
 		 */
