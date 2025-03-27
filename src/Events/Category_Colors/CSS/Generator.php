@@ -37,6 +37,17 @@ class Generator {
 	protected string $option_key = 'tec_events_category_color_css';
 
 	/**
+	 * Get the option key for storing generated CSS.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The option key.
+	 */
+	public function get_option_key(): string {
+		return $this->option_key;
+	}
+
+	/**
 	 * Stores the generated CSS before saving.
 	 *
 	 * @since TBD

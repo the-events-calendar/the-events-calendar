@@ -10,7 +10,6 @@
 namespace TEC\Events\Category_Colors\CSS;
 
 use TEC\Common\StellarWP\Assets\Asset;
-use TEC\Common\StellarWP\Assets\Config as Assets_Config;
 use Tribe__Events__Main;
 
 /**
@@ -19,6 +18,26 @@ use Tribe__Events__Main;
  * @since TBD
  */
 class Assets {
+	/**
+	 * The Generator instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Generator
+	 */
+	protected Generator $generator;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Generator $generator The Generator instance.
+	 */
+	public function __construct( Generator $generator ) {
+		$this->generator = $generator;
+	}
+
 	/**
 	 * Enqueues frontend styles and inline category color CSS.
 	 *
@@ -31,6 +50,7 @@ class Assets {
 			'/css/category-colors/frontend-category.css',
 			Tribe__Events__Main::VERSION
 		)
+			->add_to_group_path( 'tec-events-resources' )
 			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
@@ -39,6 +59,7 @@ class Assets {
 			'/css/category-colors/category-legend.css',
 			Tribe__Events__Main::VERSION
 		)
+			->add_to_group_path( 'tec-events-resources' )
 			->add_to_group( 'tec-events-category-colors' )
 			->set_condition( [ $this, 'should_enqueue_frontend_styles' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
@@ -48,12 +69,13 @@ class Assets {
 			'/js/views/category-color-selector.js',
 			Tribe__Events__Main::VERSION
 		)
+			->add_to_group_path( 'tec-events-resources' )
 			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 
 		// Retrieve the dynamically generated category color CSS.
-		$css = get_option( 'tec_events_category_color_css', '' );
+		$css = get_option( $this->generator->get_option_key(), '' );
 
 		// Add inline styles if available.
 		if ( ! empty( $css ) ) {
@@ -73,6 +95,6 @@ class Assets {
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_styles(): bool {
-		return ! tribe_get_option( 'category-color-custom-css', true );
+		return ! tribe_get_option( $this->generator->get_option_key(), true );
 	}
 }
