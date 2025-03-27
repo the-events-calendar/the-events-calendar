@@ -34,7 +34,7 @@ $tec_events_display_qr_codes = [
 		'label'           => esc_html__( 'QR Code Prefix', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'The prefix to be used for the permalinks.', 'the-events-calendar' ),
 		'default'         => 'qr',
-		'validation_type' => 'string',
+		'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
 	],
 	$slug['size']        => [
 		'type'            => 'dropdown',
@@ -47,7 +47,7 @@ $tec_events_display_qr_codes = [
 			'500'  => esc_html__( '500x500', 'the-events-calendar' ),
 			'1000' => esc_html__( '1000x1000', 'the-events-calendar' ),
 		],
-		'validation_type' => 'string',
+		'validation_type' => 'options',
 	],
 	$slug['redirection'] => [
 		'type'            => 'dropdown',
@@ -60,14 +60,15 @@ $tec_events_display_qr_codes = [
 			'specific' => esc_html__( 'Redirect to a specific event ID', 'the-events-calendar' ),
 			'next'     => esc_html__( 'Redirect to the next event in a series', 'the-events-calendar' ),
 		],
-		'validation_type' => 'string',
+		'validation_type' => 'options',
 	],
 	$slug['specific']    => [
 		'type'                => 'text',
 		'label'               => esc_html__( 'Specific Event ID', 'the-events-calendar' ),
 		'tooltip'             => esc_html__( 'Enter the event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
 		'default'             => '',
-		'validation_type'     => 'integer',
+		'validation_type'     => 'int',
+		'can_be_empty'        => true,
 		'class'               => 'tribe-dependent',
 		'fieldset_attributes' => [
 			'data-depends'   => '#' . $slug['redirection'] . '-select',
@@ -80,6 +81,7 @@ $tec_events_display_qr_codes = [
 		'tooltip'         => esc_html__( 'Redirect to this URL if QR code is invalid or the event is not found.', 'the-events-calendar' ),
 		'default'         => '',
 		'validation_type' => 'url',
+		'can_be_empty'    => true,
 	],
 ];
 
