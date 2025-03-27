@@ -93,6 +93,7 @@ class Occurrences extends Abstract_Custom_Table {
 			$updated_index_queries = true;
 			$index_queries         = [
 				'event_id'                                 => "ALTER TABLE {$this_table} ADD INDEX (event_id)",
+
 				/*
 				 * The post_id is always part of the queries.
 				 * The order matters in indexes; end_date is used alone in some queries, while the start_date is mostly used
