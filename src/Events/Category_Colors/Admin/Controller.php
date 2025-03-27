@@ -125,6 +125,7 @@ class Controller extends Controller_Contract {
 
 	/**
 	 * Saves the category color fields when editing an existing category.
+	 * This method runs for both Edit and Quick Edit.
 	 *
 	 * @since TBD
 	 *
