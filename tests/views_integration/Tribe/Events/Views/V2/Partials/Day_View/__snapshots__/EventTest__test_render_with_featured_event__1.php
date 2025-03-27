@@ -29,7 +29,7 @@
 	>
 		Test Event &#8211; +9 days	</a>
 </h3>
-							</header>
+											</header>
 
 						
 		</div>

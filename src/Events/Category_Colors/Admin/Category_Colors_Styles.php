@@ -11,6 +11,7 @@ namespace TEC\Events\Category_Colors\Admin;
 
 use TEC\Common\StellarWP\Assets\Asset;
 use Tribe__Events__Main;
+use TEC\Events\Category_Colors\CSS\Generator;
 
 /**
  * Class Category_Colors_Styles
@@ -21,6 +22,25 @@ use Tribe__Events__Main;
  * @since TBD
  */
 class Category_Colors_Styles {
+	/**
+	 * The Generator instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Generator
+	 */
+	protected Generator $generator;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Generator $generator The Generator instance.
+	 */
+	public function __construct( Generator $generator ) {
+		$this->generator = $generator;
+	}
 
 	/**
 	 * Enqueues admin assets for category colors.
@@ -80,7 +100,7 @@ class Category_Colors_Styles {
 		}
 
 		// Retrieve the dynamically generated category color CSS.
-		$css = get_option( 'tec_events_category_color_css', '' );
+		$css = get_option( $this->generator->get_option_key(), '' );
 
 		// Add inline styles if available.
 		if ( ! empty( $css ) ) {

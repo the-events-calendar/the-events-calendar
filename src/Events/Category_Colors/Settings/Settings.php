@@ -5,7 +5,7 @@
  * This file manages the settings for Category Colors, including registering a settings tab
  * and rendering the necessary fields within the admin interface.
  *
- * @since   TBD
+ * @since TBD
  * @package TEC\Events\Category_Colors\Settings
  */
 
@@ -101,7 +101,7 @@ class Settings {
 	/**
 	 * Registers the Category Colors tab to the settings page.
 	 *
-	 * @since  TBD
+	 * @since TBD
 	 *
 	 * @param Tribe__Settings_Tab $display_tab The display settings tab.
 	 *
@@ -146,7 +146,14 @@ class Settings {
 	 * @return array The structured settings array for Category Colors.
 	 */
 	public function generate_settings(): array {
-		$category_color_title = new Div( new Element_Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) );
+		$category_color_title = new Div(
+			new Element_Classes(
+				[
+					'tec-settings-form__header-block',
+					'tec-settings-form__header-block--horizontal',
+				]
+			)
+		);
 		$category_color_title->add_child(
 			new Heading(
 				_x( 'Category Colors', 'Category Colors section header', 'the-events-calendar' ),
