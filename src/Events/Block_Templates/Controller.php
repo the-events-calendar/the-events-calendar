@@ -4,6 +4,7 @@ namespace TEC\Events\Block_Templates;
 
 use TEC\Events\Block_Templates\Archive_Events\Archive_Block_Template;
 use TEC\Events\Block_Templates\Single_Event\Single_Block_Template;
+use TEC\Events\Block_Templates\QR_Code\QR_Block_Template;
 use WP_Block_Template;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 
@@ -262,6 +263,18 @@ class Controller extends Controller_Contract {
 			$allow_single = apply_filters( 'tec_events_allow_single_block_template', true );
 			if ( $allow_single ) {
 				$templates[] = tribe( Single_Block_Template::class );
+			}
+
+			/**
+			 * Filter whether the QR code block template should be used.
+			 *
+			 * @since TBD
+			 *
+			 * @param bool $allow_qr Whether the QR code block template should be used.
+			 */
+			$allow_qr = apply_filters( 'tec_events_allow_qr_block_template', true );
+			if ( $allow_qr ) {
+				$templates[] = tribe( QR_Block_Template::class );
 			}
 
 			return $templates;
