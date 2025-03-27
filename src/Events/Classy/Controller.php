@@ -25,6 +25,7 @@ use WP_Post;
  * @package TEC\Events\Classy;
  */
 class Controller extends ControllerContract {
+
 	/**
 	 * The name of the constant that will be used to disable the feature.
 	 * Setting it to a truthy value will disable the feature.
@@ -43,22 +44,21 @@ class Controller extends ControllerContract {
 	 * @return bool Whether the feature is active or not.
 	 */
 	private static function is_feature_active(): bool {
+		// The constant to disable the feature is defined and it's truthy.
 		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
-			// The constant to disable the feature is defined and it's truthy.
 			return false;
 		}
 
+		// The environment variable to disable the feature is truthy.
 		if ( getenv( self::DISABLED ) ) {
-			// The environment variable to disable the feature is truthy.
 			return false;
 		}
 
-		// Finally read an option value to determine if the feature should be active or not.
+		// Read an option value to determine if the feature should be active or not.
 		$active = (bool) get_option( 'tec_events_classy_editor_enabled', true );
 
 		/**
-		 * Allows filtering whether the whole Seating feature
-		 * should be activated or not.
+		 * Allows filtering whether the whole Classy feature should be activated or not.
 		 *
 		 * Note: this filter will only apply if the disable constant or env var
 		 * are not set or are set to falsy values.
