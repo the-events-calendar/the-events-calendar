@@ -28,18 +28,20 @@ class Shortcode extends Shortcode_Abstract {
 	protected $slug = 'tec_event_qr';
 
 	/**
-	 * {@inheritDoc}
+	 * Default arguments to be merged into final arguments of the shortcode.
+	 *
+	 * @since TBD
 	 *
 	 * @var array
 	 */
 	protected $default_arguments = [
-		'mode' => 'current',
 		'id'   => '',
+		'mode' => 'current',
 		'size' => 6,
 	];
 
 	/**
-	 * {@inheritDoc}
+	 * Array of callbacks for arguments validation.
 	 *
 	 * @var array
 	 */
@@ -50,13 +52,15 @@ class Shortcode extends Shortcode_Abstract {
 	];
 
 	/**
-	 * {@inheritDoc}
+	 * Returns a shortcode's HTML.
 	 *
 	 * @since TBD
 	 *
 	 * @return string
 	 */
 	public function get_html() {
+
+		// @TODO This is a temporary solution to ensure the shortcode is working.
 
 		$args = $this->get_arguments();
 
