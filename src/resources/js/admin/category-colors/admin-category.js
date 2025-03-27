@@ -249,15 +249,144 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
+	 * Updates the inline styles for a specific category.
+	 *
+	 * @since TBD
+	 *
+	 * @param {string} categoryClass The category class (e.g. tribe_events_cat-category-1).
+	 * @param {Object} colors The color values to update.
+	 */
+	obj.updateInlineStyles = (categoryClass, colors) => {
+		// Find the inline style element by its ID
+		const styleElement = document.getElementById('tec-events-category-colors-admin-style-inline-css');
+		if (!styleElement) {
+			return;
+		}
+
+		// Get the current CSS content and trim any whitespace
+		let css = styleElement.textContent.trim();
+
+		// Create the new CSS rule with consistent formatting
+		const newRule = `${categoryClass}{--tec-color-category-primary:${colors.primary || 'inherit'};--tec-color-category-secondary:${colors.secondary || 'inherit'};--tec-color-category-text:${colors.text || 'inherit'}}`;
+
+		// Check if the category rule already exists
+		const categoryRegex = new RegExp(`${categoryClass}\\s*{[^}]*}`, 'g');
+		const existingRule = css.match(categoryRegex);
+
+		if (existingRule) {
+			// Replace existing rule
+			css = css.replace(categoryRegex, newRule);
+		} else {
+			// Add new rule without extra whitespace
+			css += newRule;
+		}
+
+		// Update the style element
+		styleElement.textContent = css;
+	};
+
+	/**
+	 * Checks if a WordPress AJAX response was successful.
+	 *
+	 * @since TBD
+	 *
+	 * @param {XMLHttpRequest} xhr The AJAX response object.
+	 * @return {boolean} True if the response was successful, false otherwise.
+	 */
+	obj.isAjaxSuccess = (xhr) => {
+		try {
+			// For inline-save-tax, a 200 status with HTML response means success
+			if (xhr.status === 200 && xhr.responseText.includes('<tr id="tag-')) {
+				return true;
+			}
+
+			// Try to parse as JSON first
+			const contentType = xhr.getResponseHeader('content-type');
+			if (contentType && contentType.includes('application/json')) {
+				const response = JSON.parse(xhr.responseText);
+				return response.success === true || response.success === 1;
+			}
+
+			// Fall back to XML parsing
+			const responseXML = xhr.responseXML;
+			if (!responseXML) {
+				return false;
+			}
+
+			const wpError = responseXML.querySelector('wp_error');
+			if (wpError) {
+				return false;
+			}
+
+			// For inline-save-tax, we need to check for success in the response
+			const success = responseXML.querySelector('success')?.textContent;
+			return success === '1' || success === 'true';
+		} catch (error) {
+			return false;
+		}
+	};
+
+	/**
 	 * Handles Quick Edit AJAX completion.
 	 *
 	 * @since TBD
 	 */
 	obj.handleQuickEditAjaxComplete = (event, xhr, settings) => {
-		if (settings.data && settings.data.includes("action=inline-save-tax")) {
-			if (obj.isAjaxSuccess(xhr)) {
-				obj.cleanupColorPickers();
+		try {
+			// Only proceed if this is a taxonomy inline save.
+			if (!settings.data || !settings.data.includes("action=inline-save-tax")) {
+				return;
 			}
+
+			// Check if the AJAX request was successful.
+			if (!obj.isAjaxSuccess(xhr)) {
+				return;
+			}
+
+			// Clean up any existing color pickers
+			obj.cleanupColorPickers();
+
+			// Safely create a temporary div for parsing the response.
+			const tempDiv = document.createElement('div');
+			if (!xhr.responseText) {
+				return;
+			}
+			tempDiv.innerHTML = xhr.responseText;
+
+			// Find the color preview span in the response.
+			const colorPreview = tempDiv.querySelector('.tec-events-taxonomy-table__category-color-preview');
+			if (!colorPreview) {
+				return;
+			}
+
+			// Safely get the category class.
+			const categoryClass = colorPreview.className
+				.split(' ')
+				.find(cls => cls && cls.startsWith('tribe_events_cat-'));
+
+			if (!categoryClass) {
+				return;
+			}
+
+			// Safely get color values with fallbacks.
+			const colors = {
+				primary: colorPreview.getAttribute('data-primary') || 'inherit',
+				secondary: colorPreview.getAttribute('data-secondary') || 'inherit',
+				text: colorPreview.getAttribute('data-text') || 'inherit',
+			};
+
+			// Validate color values are valid hex colors or 'inherit'.
+			const isValidHex = (color) => /^#([0-9A-F]{3}){1,2}$/i.test(color);
+			const sanitizedColors = {
+				primary: isValidHex(colors.primary) ? colors.primary : 'inherit',
+				secondary: isValidHex(colors.secondary) ? colors.secondary : 'inherit',
+				text: isValidHex(colors.text) ? colors.text : 'inherit',
+			};
+
+			obj.updateInlineStyles(categoryClass, sanitizedColors);
+
+		} catch (error) {
+			// Silently handle any errors.
 		}
 	};
 
@@ -352,35 +481,6 @@ tribe.events.admin.categoryColors = {};
 				}
 			}
 		);
-	};
-
-
-	/**
-	 * Checks if a WordPress AJAX response was successful.
-	 *
-	 * @since TBD
-	 *
-	 * @param {XMLHttpRequest} xhr The AJAX response object.
-	 * @return {boolean} True if the response was successful, false otherwise.
-	 */
-	obj.isAjaxSuccess = (xhr) => {
-		try {
-			const responseXML = xhr.responseXML;
-
-			if (!responseXML) {
-				return false;
-			}
-
-			const wpError = responseXML.querySelector('wp_error');
-
-			if (wpError) {
-				return false;
-			}
-
-			return true;
-		} catch (error) {
-			return false;
-		}
 	};
 
 	/**
