@@ -20,35 +20,45 @@ use Tribe__Context as Context;
  */
 class Widget_QR_Code extends Widget_Abstract {
 	/**
-	 * {@inheritDoc}
+	 * If this Widget was rendered on the screen, often useful for Assets.
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
 	protected static $widget_in_use;
 
 	/**
-	 * {@inheritDoc}
+	 * Slug of the current widget.
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
 	protected static $widget_slug = 'events-qr-code';
 
 	/**
-	 * {@inheritDoc}
+	 * The slug of the widget view.
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
 	protected $view_slug = 'widget-events-qr-code';
 
 	/**
-	 * {@inheritDoc}
+	 * Widget css group slug.
+	 *
+	 * @since TBD
 	 *
 	 * @var string
 	 */
 	protected static $widget_css_group = 'events-qr-code-widget';
 
 	/**
-	 * {@inheritDoc}
+	 * Default arguments to be merged into final arguments of the widget.
+	 *
+	 * @since TBD
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -67,14 +77,22 @@ class Widget_QR_Code extends Widget_Abstract {
 	];
 
 	/**
-	 * {@inheritDoc}
+	 * Gets the default widget name.
+	 *
+	 * @since TBD
+	 *
+	 * @return string Returns the default widget name.
 	 */
 	public static function get_default_widget_name() {
 		return esc_html_x( 'Events QR Code', 'The name of the QR Code Widget.', 'the-events-calendar' );
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Gets the default widget options.
+	 *
+	 * @since TBD
+	 *
+	 * @return array Default widget options.
 	 */
 	public static function get_default_widget_options() {
 		return [
@@ -83,7 +101,9 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Setup the view for the widget.
+	 *
+	 * @since TBD
 	 *
 	 * @param array<string,mixed> $_deprecated The widget arguments, as set by the user in the widget string.
 	 */
@@ -95,7 +115,11 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Setup the widgets default arguments.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The array of widget default arguments.
 	 */
 	protected function setup_default_arguments() {
 		// Call parent first to set up admin fields.
@@ -108,7 +132,9 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Add hooks for the widget.
+	 *
+	 * @since TBD
 	 */
 	protected function add_hooks() {
 		parent::add_hooks();
@@ -118,7 +144,9 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Remove hooks for the widget.
+	 *
+	 * @since TBD
 	 */
 	protected function remove_hooks() {
 		parent::remove_hooks();
@@ -142,7 +170,9 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sanitizes the widget form values as they are saved.
+	 *
+	 * @since TBD
 	 *
 	 * @param array $new_instance New settings for this instance as input by the user via WP_Widget::form().
 	 * @param array $old_instance Old settings for this instance.
@@ -162,7 +192,11 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Sets up the widgets default admin fields.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The array of widget admin fields.
 	 */
 	public function setup_admin_fields() {
 		return [
@@ -226,7 +260,9 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Translates widget arguments to context.
+	 *
+	 * @since TBD
 	 *
 	 * @param array<string, mixed> $arguments — Current set of arguments.
 	 * @param \Tribe__Context      $context — The request context.
@@ -254,7 +290,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Add full events list widget stylesheets to customizer styles array to check.
 	 *
-	 * @since 5.3.0
+	 * @since TBD
 	 *
 	 * @param array<string> $sheets       Array of sheets to search for.
 	 * @param string        $css_template String containing the inline css to add.
@@ -266,7 +302,11 @@ class Widget_QR_Code extends Widget_Abstract {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Gets the admin fields for the widget.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string,mixed> The array of widget admin fields.
 	 */
 	public function get_admin_fields() {
 		$fields    = $this->setup_admin_fields();
