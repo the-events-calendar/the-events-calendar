@@ -151,10 +151,10 @@ class Controller extends ControllerContract {
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 
 		// Tell Common, TEC, ET and so on NOT to load blocks.
-		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );
+		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 
 		// We're using TEC new editor.
-		add_filter( 'tec_using_classy_editor', '__return_true' );
+		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 
 		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
 
@@ -237,8 +237,8 @@ class Controller extends ControllerContract {
 	 * @return void The hooked actions and filters are removed.
 	 */
 	public function unregister(): void {
-		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
-		remove_filter( 'tec_using_classy_editor', '__return_true' );
+		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
+		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
