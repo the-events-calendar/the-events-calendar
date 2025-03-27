@@ -33,9 +33,9 @@ class Shortcode extends Shortcode_Abstract {
 	 * @var array
 	 */
 	protected $default_arguments = [
-		'mode' => 'current',
 		'id'   => '',
-		'size' => 6,
+		'mode' => 'current',
+		'size' => 4,
 	];
 
 	/**

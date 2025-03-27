@@ -62,7 +62,7 @@ class Widget_QR_Code_View extends Widget_View {
 
 		// Add our widget-specific variables.
 		$template_vars['widget_title']      = $this->context->get( 'widget_title' );
-		$template_vars['qr_code_size']      = $this->context->get( 'qr_code_size', '250' );
+		$template_vars['qr_code_size']      = $this->context->get( 'qr_code_size', '125' );
 		$template_vars['redirection']       = $this->context->get( 'redirection', 'current' );
 		$template_vars['specific_event_id'] = $this->context->get( 'specific_event_id' );
 
