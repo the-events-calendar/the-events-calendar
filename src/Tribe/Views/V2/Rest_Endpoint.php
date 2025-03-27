@@ -310,52 +310,61 @@ class Rest_Endpoint {
 	 * @return array $arguments Request arguments following the WP_REST API Standards [ name => options, ... ]
 	 */
 	public function get_request_arguments() {
-		$arguments = [
-			'u' => [
-				'required'          => true,
-				'validate_callback' => static function ( $url ) {
-					return is_string( $url );
-				},
-				'sanitize_callback' => static function ( $url ) {
-					return filter_var( $url, FILTER_SANITIZE_URL );
-				},
-			],
-			'view' => [
-				'required'          => false,
-				'validate_callback' => static function ( $view ) {
-					return is_string( $view );
-				},
-				'sanitize_callback' => static function ( $view ) {
-					return tec_sanitize_string( $view );
-				},
-			],
-			static::PRIMARY_NONCE_KEY => [
-				'required'          => false,
-				'validate_callback' => static function ( $nonce ) {
-					return is_string( $nonce );
-				},
-				'sanitize_callback' => static function ( $nonce ) {
-					return tec_sanitize_string( $nonce );
-				},
-			],
-			static::SECONDARY_NONCE_KEY => [
-				'required'          => false,
-				'validate_callback' => static function ( $nonce ) {
-					return is_string( $nonce );
-				},
-				'sanitize_callback' => static function ( $nonce ) {
-					return tec_sanitize_string( $nonce );
-				},
-			],
-			'view_data' => [
-				'required'          => false,
-				'validate_callback' => static function ( $view_data ) {
-					return is_array( $view_data );
-				},
-				'sanitize_callback' => static function ( $view_data ) {
-					return is_array( $view_data ) ? $view_data : [];
-				},
-			],
+		$arguments = [];
+
+		// URL is required, and should be a string.
+		$arguments['u'] = [
+			'required'          => true,
+			'validate_callback' => static function ( $url ) {
+				return is_string( $url );
+			},
+			'sanitize_callback' => static function ( $url ) {
+				return filter_var( $url, FILTER_SANITIZE_URL );
+			},
+		];
+
+		// View is not required, but if it is passed, it should be a string.
+		$arguments['view'] = [
+			'required'          => false,
+			'validate_callback' => static function ( $view ) {
+				return is_string( $view );
+			},
+			'sanitize_callback' => static function ( $view ) {
+				return tec_sanitize_string( $view );
+			},
+		];
+
+		// Primary nonce is not required, but if it is passed, it should be a string.
+		$arguments[ static::PRIMARY_NONCE_KEY ] = [
+			'required'          => false,
+			'validate_callback' => static function ( $nonce ) {
+				return is_string( $nonce );
+			},
+			'sanitize_callback' => static function ( $nonce ) {
+				return tec_sanitize_string( $nonce );
+			},
+		];
+
+		// Secondary nonce is not required, but if it is passed, it should be a string.
+		$arguments[ static::SECONDARY_NONCE_KEY ] = [
+			'required'          => false,
+			'validate_callback' => static function ( $nonce ) {
+				return is_string( $nonce );
+			},
+			'sanitize_callback' => static function ( $nonce ) {
+				return tec_sanitize_string( $nonce );
+			},
+		];
+
+		// View data is not required, but if it is passed, it should be an array.
+		$arguments['view_data'] = [
+			'required'          => false,
+			'validate_callback' => static function ( $view_data ) {
+				return is_array( $view_data );
+			},
+			'sanitize_callback' => static function ( $view_data ) {
+				return is_array( $view_data ) ? $view_data : [];
+			},
 		];
 
 		// Arguments specific to AJAX requests; we add them to all requests as long as the argument is not required.
@@ -418,6 +427,15 @@ class Rest_Endpoint {
 		View::make_for_rest( $request )->send_html();
 	}
 
+	/**
+	 * Unshrink the URL components.
+	 *
+	 * @since TBD
+	 *
+	 * @param Request $request The request object.
+	 *
+	 * @return Request The request object.
+	 */
 	public function unshrink_url_components( Request $request ) {
 		$request->set_param( 'url', $request->get_param( 'u' ) );
 		$request->set_param( 'prev_url', $request->get_param( 'pu' ) );
