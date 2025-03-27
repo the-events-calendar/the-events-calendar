@@ -232,6 +232,7 @@ class Widget_QR_Code extends Widget_Abstract {
 				'id'      => 'redirection',
 				'label'   => _x( 'Redirection Behavior:', 'The label for the redirection behavior setting.', 'the-events-calendar' ),
 				'type'    => 'dropdown',
+				'classes' => 'tribe-dependency',
 				'options' => [
 					[
 						'value' => 'current',
@@ -252,9 +253,14 @@ class Widget_QR_Code extends Widget_Abstract {
 				],
 			],
 			'specific_event_id' => [
-				'id'    => 'specific_event_id',
-				'label' => _x( 'Specific Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
-				'type'  => 'text',
+				'id'         => 'specific_event_id',
+				'label'      => _x( 'Specific Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
+				'type'       => 'text',
+				'classes'    => 'tribe-dependent',
+				'dependency' => [
+					'ID' => 'redirection',
+					'is' => 'id',
+				],
 			],
 		];
 	}
