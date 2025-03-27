@@ -100,4 +100,4 @@ class Category_Colors_Styles {
 
 		return isset( $screen->taxonomy ) && Tribe__Events__Main::TAXONOMY === $screen->taxonomy;
 	}
-} 
+}
