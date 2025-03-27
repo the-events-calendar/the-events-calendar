@@ -95,6 +95,6 @@ class Assets {
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_styles(): bool {
-		return ! tribe_get_option( $this->generator->get_option_key(), true );
+		return tribe_get_option( $this->generator->get_option_key(), true );
 	}
 }

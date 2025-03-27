@@ -28,36 +28,39 @@ if ( empty( $category_colors_enabled ) ) {
 	return;
 }
 ?>
-<div class="tec-category-color-picker"
+<div class="tec-events-category-color-filter"
 	role="button"
 	tabindex="0"
 	aria-haspopup="listbox"
 	aria-expanded="false"
 	aria-label="<?php esc_attr_e( 'Select categories to highlight', 'the-events-calendar' ); ?>">
 
-	<div class="tec-category-color-picker__colors">
-		<?php foreach ( array_slice( $category_colors_category_dropdown, 0, 5 ) as $category ) : ?>
-			<span class="tec-category-color-picker__color-circle"
-				style="background-color: <?php echo esc_attr( $category['primary'] ); ?>;">
+	<div class="tec-events-category-color-filter__colors">
+		<?php foreach ( array_slice( $category_colors_category_dropdown, 0, 5 ) as $index => $category ) : ?>
+			<span <?php tribe_classes( [
+				'tec-events-category-color-filter__color-circle',
+				'tribe_events_cat-' . $category['slug'],
+				empty( $category['primary'] ) ? 'tec-events-category-color-filter__color-circle--default' : '',
+			] ); ?> >
 			</span>
 		<?php endforeach; ?>
 	</div>
 
-	<span class="tec-category-color-picker__dropdown-icon">
-		<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tec-category-color-picker__dropdown-icon-svg' ] ] ); ?>
+	<span class="tec-events-category-color-filter__dropdown-icon">
+		<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tec-events-category-color-filter__dropdown-icon-svg' ] ] ); ?>
 	</span>
-	<div class="tec-category-color-picker__dropdown" role="listbox" aria-label="<?php esc_attr_e( 'Category selection', 'the-events-calendar' ); ?>">
-		<div class="tec-category-color-picker__dropdown-header">
+	<div class="tec-events-category-color-filter__dropdown" role="listbox" aria-label="<?php esc_attr_e( 'Category selection', 'the-events-calendar' ); ?>">
+		<div class="tec-events-category-color-filter__dropdown-header">
 			<span><?php esc_html_e( 'Highlight a category', 'the-events-calendar' ); ?></span>
-			<button class="tec-category-color-picker__dropdown-close" aria-label="<?php esc_attr_e( 'Close category selection', 'the-events-calendar' ); ?>">✕</button>
+			<button class="tec-events-category-color-filter__dropdown-close" aria-label="<?php esc_attr_e( 'Close category selection', 'the-events-calendar' ); ?>">✕</button>
 		</div>
-		<ul class="tec-category-color-picker__dropdown-list">
+		<ul class="tec-events-category-color-filter__dropdown-list">
 			<?php foreach ( $category_colors_category_dropdown as $category ) : ?>
-				<li class="tec-category-color-picker__dropdown-item" role="option">
+				<li class="tec-events-category-color-filter__dropdown-item" role="option">
 					<label>
 						<?php if ( $category_colors_super_power ) { ?>
 							<input type="checkbox"
-								class="tec-category-color-picker__checkbox"
+								class="tec-events-category-color-filter__checkbox"
 								data-category="<?php echo esc_attr( $category['slug'] ); ?>"
 								aria-label="
 								<?php
@@ -66,16 +69,19 @@ if ( empty( $category_colors_enabled ) ) {
 								?>
 ">
 						<?php } ?>
-						<span class="tec-category-color-picker__label"><?php echo esc_html( $category['name'] ); ?></span>
-						<span class="tec-category-color-picker__color-dot" style="background-color: <?php echo esc_attr( $category['primary'] ); ?>;"></span>
+						<span class="tec-events-category-color-filter__label"><?php echo esc_html( $category['name'] ); ?></span>
+						<span <?php tribe_classes( [
+							'tec-events-category-color-filter__color-dot',
+							'tribe_events_cat-' . $category['slug']
+						] ); ?>></span>
 					</label>
 				</li>
 			<?php endforeach; ?>
 		</ul>
 
 		<?php if ( $category_colors_super_power && $category_colors_show_reset_button ) : ?>
-			<div class="tec-category-color-picker__reset-wrapper">
-				<button type="button" class="tec-category-color-picker__reset tribe-common-c-btn-border-small"
+			<div class="tec-events-category-color-filter__reset-wrapper">
+				<button type="button" class="tec-events-category-color-filter__reset tribe-common-c-btn-border-small"
 					aria-label="<?php esc_attr_e( 'Reset category selection', 'the-events-calendar' ); ?>">
 					<?php esc_html_e( 'Reset', 'the-events-calendar' ); ?>
 				</button>

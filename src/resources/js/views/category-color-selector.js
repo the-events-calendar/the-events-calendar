@@ -30,15 +30,15 @@ tribe.events.categoryColors.picker = ( function() {
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		picker: '.tec-category-color-picker',
-		dropdown: '.tec-category-color-picker__dropdown',
-		checkbox: '.tec-category-color-picker__checkbox',
-		dropdownIcon: '.tec-category-color-picker__dropdown-icon',
-		dropdownVisible: 'tec-category-color-picker__dropdown--visible',
-		resetButton: '.tec-category-color-picker__reset',
-		pickerOpen: 'tec-category-color-picker--open',
-		pickerAlignRight: 'tec-category-color-picker--align-right',
-		dropdownClose: '.tec-category-color-picker__dropdown-close',
+		picker: '.tec-events-category-color-filter',
+		dropdown: '.tec-events-category-color-filter__dropdown',
+		checkbox: '.tec-events-category-color-filter__checkbox',
+		dropdownIcon: '.tec-events-category-color-filter__dropdown-icon',
+		dropdownVisible: 'tec-events-category-color-filter__dropdown--visible',
+		resetButton: '.tec-events-category-color-filter__reset',
+		pickerOpen: 'tec-events-category-color-filter--open',
+		pickerAlignRight: 'tec-events-category-color-filter--align-right',
+		dropdownClose: '.tec-events-category-color-filter__dropdown-close',
 		dataBound: 'data-bound',
 		events: [
 			'.tribe-events-calendar-list__event',
