@@ -9,7 +9,7 @@ const QR_CODE_TEMPLATE = [
 	[
 		'core/legacy-widget',
 		{
-			idBase: 'tribe-widget-qr-code',
+			idBase: 'tribe-widget-events-qr-code',
 			instance: {},
 		},
 	],
