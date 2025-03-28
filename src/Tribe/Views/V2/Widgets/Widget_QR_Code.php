@@ -71,9 +71,10 @@ class Widget_QR_Code extends Widget_Abstract {
 		'id'                => null,
 		'alias-slugs'       => null,
 		'widget_title'      => '',
-		'qr_code_size'      => '6',
+		'qr_code_size'      => '4',
 		'redirection'       => 'current',
-		'specific_event_id' => '',
+		'event_id'          => '',
+		'series_id'         => '',
 	];
 
 	/**
@@ -183,11 +184,11 @@ class Widget_QR_Code extends Widget_Abstract {
 		$updated_instance = $old_instance;
 
 		/* Strip tags (if needed) and update the widget settings. */
-		$updated_instance['widget_title']      = wp_strip_all_tags( $new_instance['widget_title'] );
-		$updated_instance['qr_code_size']      = sanitize_text_field( $new_instance['qr_code_size'] );
-		$updated_instance['redirection']       = sanitize_text_field( $new_instance['redirection'] );
-		$updated_instance['specific_event_id'] = absint( $new_instance['specific_event_id'] );
-
+		$updated_instance['widget_title'] = wp_strip_all_tags( $new_instance['widget_title'] );
+		$updated_instance['qr_code_size'] = sanitize_text_field( $new_instance['qr_code_size'] );
+		$updated_instance['redirection']  = sanitize_text_field( $new_instance['redirection'] );
+		$updated_instance['event_id']     = absint( $new_instance['event_id'] );
+		$updated_instance['series_id']    = absint( $new_instance['series_id'] );
 		return $this->filter_updated_instance( $updated_instance, $new_instance );
 	}
 
@@ -200,12 +201,12 @@ class Widget_QR_Code extends Widget_Abstract {
 	 */
 	public function setup_admin_fields() {
 		return [
-			'widget_title'      => [
+			'widget_title' => [
 				'id'    => 'widget_title',
 				'label' => _x( 'Title:', 'The label for the widget title setting.', 'the-events-calendar' ),
 				'type'  => 'text',
 			],
-			'qr_code_size'      => [
+			'qr_code_size' => [
 				'id'      => 'qr_code_size',
 				'label'   => _x( 'QR Code Size:', 'The label for the QR code size setting.', 'the-events-calendar' ),
 				'type'    => 'dropdown',
@@ -228,7 +229,7 @@ class Widget_QR_Code extends Widget_Abstract {
 					],
 				],
 			],
-			'redirection'       => [
+			'redirection'  => [
 				'id'      => 'redirection',
 				'label'   => _x( 'Redirection Behavior:', 'The label for the redirection behavior setting.', 'the-events-calendar' ),
 				'type'    => 'dropdown',
@@ -252,14 +253,24 @@ class Widget_QR_Code extends Widget_Abstract {
 					],
 				],
 			],
-			'specific_event_id' => [
-				'id'         => 'specific_event_id',
-				'label'      => _x( 'Specific ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
+			'event_id'     => [
+				'id'         => 'event_id',
+				'label'      => _x( 'Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
 				'type'       => 'text',
 				'classes'    => 'tribe-dependent',
 				'dependency' => [
 					'ID' => 'redirection',
 					'is' => 'specific',
+				],
+			],
+			'series_id'    => [
+				'id'         => 'series_id',
+				'label'      => _x( 'Series ID:', 'The label for the series ID setting.', 'the-events-calendar' ),
+				'type'       => 'text',
+				'classes'    => 'tribe-dependent',
+				'dependency' => [
+					'ID' => 'redirection',
+					'is' => 'next',
 				],
 			],
 		];
@@ -288,7 +299,7 @@ class Widget_QR_Code extends Widget_Abstract {
 		$alterations['redirection'] = sanitize_text_field( $arguments['redirection'] );
 
 		// Specific event ID.
-		$alterations['specific_event_id'] = absint( $arguments['specific_event_id'] );
+		$alterations['event_id'] = absint( $arguments['event_id'] );
 
 		return $this->filter_args_to_context( $alterations, $arguments );
 	}

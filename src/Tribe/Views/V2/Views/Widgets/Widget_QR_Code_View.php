@@ -44,7 +44,7 @@ class Widget_QR_Code_View extends Widget_View {
 
 		// If we're redirecting to a specific event, we need to get that event.
 		if ( $context->get( 'redirection' ) === 'specific' ) {
-			$args['post__in'] = [ (int) $context->get( 'specific_event_id' ) ];
+			$args['post__in'] = [ (int) $context->get( 'event_id' ) ];
 		}
 
 		return $args;
@@ -61,11 +61,11 @@ class Widget_QR_Code_View extends Widget_View {
 		$template_vars = parent::setup_template_vars();
 
 		// Add our widget-specific variables.
-		$template_vars['widget_title']      = $this->context->get( 'widget_title' );
-		$template_vars['qr_code_size']      = $this->context->get( 'qr_code_size', '250' );
-		$template_vars['redirection']       = $this->context->get( 'redirection', 'current' );
-		$template_vars['specific_event_id'] = $this->context->get( 'specific_event_id' );
-
+		$template_vars['widget_title'] = $this->context->get( 'widget_title' );
+		$template_vars['qr_code_size'] = $this->context->get( 'qr_code_size', '250' );
+		$template_vars['redirection']  = $this->context->get( 'redirection', 'current' );
+		$template_vars['event_id']     = $this->context->get( 'event_id' );
+		$template_vars['series_id']    = $this->context->get( 'series_id' );
 		return $template_vars;
 	}
 
