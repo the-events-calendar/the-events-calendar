@@ -54,7 +54,8 @@ class Worker extends Abstract_Migration_Step {
 	 * @return bool True if the step is ready to run, false otherwise.
 	 */
 	public function is_runnable(): bool {
-		return true;
+		$status = Status::get_migration_status();
+		return Status::$validation_completed === $status['status'];
 	}
 
 	/**

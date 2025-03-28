@@ -34,6 +34,10 @@ class Worker_Test extends WPTestCase {
 
 		// Create test categories
 		$this->create_test_categories();
+
+		// Copy migration data to processing option
+		$migration_data = get_option( Config::$migration_data_option, [] );
+		update_option( Config::$migration_processing_option, $migration_data );
 	}
 
 	/**
@@ -257,6 +261,7 @@ class Worker_Test extends WPTestCase {
 		];
 
 		update_option( Config::$migration_data_option, $migration_data );
+		update_option( Config::$migration_processing_option, $migration_data );
 
 		add_action(
 			'tec_events_category_colors_migration_runner_start',
@@ -301,6 +306,7 @@ class Worker_Test extends WPTestCase {
 		];
 
 		update_option( Config::$migration_data_option, $migration_data );
+		update_option( Config::$migration_processing_option, $migration_data );
 
 		// Set a small batch size for testing
 		$this->set_class_fn_return( Worker::class, 'get_batch_size', 2 );
@@ -354,6 +360,7 @@ class Worker_Test extends WPTestCase {
 		];
 
 		update_option( Config::$migration_data_option, $migration_data );
+		update_option( Config::$migration_processing_option, $migration_data );
 
 		// Mock get_terms to return an error
 		$this->set_fn_return( 'get_terms', new \WP_Error( 'test_error', 'Test error message' ) );
