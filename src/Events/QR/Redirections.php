@@ -70,12 +70,7 @@ class Redirections extends Controller {
 	 * @return void
 	 */
 	public function handle_qr_redirect(): void {
-		var_dump('HERE'); die();
-
 		$hash = get_query_var( 'tec_qr_hash' );
-		var_dump( $hash );
-		die();
-
 		if ( ! $hash ) {
 			return;
 		}
