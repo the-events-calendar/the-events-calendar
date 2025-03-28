@@ -66,10 +66,10 @@ class SettingsTest extends WPTestCase {
 		$this->assertEquals( 'tribe-events-qr-size', $this->slugs['size'] );
 		$this->assertArrayHasKey( 'redirection', $this->slugs );
 		$this->assertEquals( 'tribe-events-qr-redirection-behavior', $this->slugs['redirection'] );
-		$this->assertArrayHasKey( 'specific', $this->slugs );
-		$this->assertEquals( 'tribe-events-qr-specific-event-id', $this->slugs['specific'] );
-		$this->assertArrayHasKey( 'fallback', $this->slugs );
-		$this->assertEquals( 'tribe-events-qr-fallback', $this->slugs['fallback'] );
+		$this->assertArrayHasKey( 'event_id', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-specific-event-id', $this->slugs['event_id'] );
+		$this->assertArrayHasKey( 'series_id', $this->slugs );
+		$this->assertEquals( 'tribe-events-qr-next-event-in-series-id', $this->slugs['series_id'] );
 	}
 
 	/**
@@ -78,19 +78,19 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_default_values() {
-		$enabled = tribe_get_option( $this->slugs['enabled'], true );
-		$prefix = tribe_get_option( $this->slugs['prefix'], 'qr' );
-		$size = tribe_get_option( $this->slugs['size'], '250x250' );
+		$enabled     = tribe_get_option( $this->slugs['enabled'], true );
+		$prefix      = tribe_get_option( $this->slugs['prefix'], 'qr' );
+		$size        = tribe_get_option( $this->slugs['size'], '250x250' );
 		$redirection = tribe_get_option( $this->slugs['redirection'], 'current_event' );
-		$specific = tribe_get_option( $this->slugs['specific'], '' );
-		$fallback = tribe_get_option( $this->slugs['fallback'], '' );
+		$event_id    = tribe_get_option( $this->slugs['event_id'], '' );
+		$series_id   = tribe_get_option( $this->slugs['series_id'], '' );
 
 		$this->assertTrue( $enabled );
 		$this->assertEquals( 'qr', $prefix );
 		$this->assertEquals( '250x250', $size );
 		$this->assertEquals( 'current_event', $redirection );
-		$this->assertEquals( '', $specific );
-		$this->assertEquals( '', $fallback );
+		$this->assertEquals( '', $event_id );
+		$this->assertEquals( '', $series_id );
 	}
 
 	/**
