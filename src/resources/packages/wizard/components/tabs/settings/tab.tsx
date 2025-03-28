@@ -27,7 +27,7 @@ const startDayOptions = [
 ];
 
 const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || {} );
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 	const { currency, timezone_string, date_format, start_of_week, timezones, currencies }: { currency: string, timezone_string: string, date_format: string, start_of_week: number, timezones: Record<string, Record<string, string>>, currencies: Record<string, { symbol: string, name: string }> } = useSelect(
 		(select) => {

@@ -124,7 +124,8 @@
 
 @media (min-width: 1024px) {
 	.tec-events-onboarding__tabs {
-		gap: 100px;
+		column-gap: 100px;
+		row-gap: calc(20vh - 100px);
 		grid-template-columns: none;
 		grid-template-rows: 84px auto;
 	}
@@ -633,7 +634,7 @@
 	min-width: var(--tec-spacer-content-min-width);
 	padding: var(--tec-spacer-5) var(--tec-spacer-7) var(--tec-spacer-7);
 	text-align: left;
-	width: 100%;
+	max-width: 100%;
 }
 
 @media (min-width: 1024px) {
@@ -756,6 +757,14 @@
 	font-size: var(--tec-font-size-1);
 	font-weight: var(--tec-font-weight-regular);
 	margin-top: var(--tec-spacer-1);
+}
+
+.tec-events-onboarding__view_required_notice {
+	color: var(--tec-color-wp-error);
+	font-size: var(--tec-font-size-1);
+	font-weight: var(--tec-font-weight-regular);
+	margin-top: var(--tec-spacer-1);
+	margin: auto;
 }
 
 .tec-events-onboarding__form-field.empty .tec-events-onboarding__required-label,

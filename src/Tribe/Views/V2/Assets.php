@@ -207,6 +207,7 @@ class Assets extends Service_Provider {
 				'tribe-common',
 				'tribe-query-string',
 				'underscore',
+				'wp-hooks',
 			],
 			'wp_print_footer_scripts',
 			[

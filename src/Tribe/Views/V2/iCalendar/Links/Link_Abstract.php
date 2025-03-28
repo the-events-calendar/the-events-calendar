@@ -318,7 +318,15 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 
 		$feed_url = str_replace( [ 'http://', 'https://' ], 'webcal://', $feed_url );
 
-		return $feed_url;
+		/**
+		 * Filters the feed URL for the subscribe link.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $feed_url The feed URL.
+		 * @param View   $view The view.
+		 */
+		return (string) apply_filters( 'tec_views_v2_subscribe_links_feed_url', $feed_url, $view );
 	}
 
 	/**
