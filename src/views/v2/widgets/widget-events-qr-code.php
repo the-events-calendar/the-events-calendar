@@ -45,6 +45,7 @@
 
 			<div class="tribe-events-widget-events-qr-code__content">
 				<?php
+				// phpcs:ignore StellarWP.XSS.EscapeOutput.OutputNotEscaped -- Shortcode output is safe to be rendered.
 				echo do_shortcode( '[tec_event_qr mode="' . esc_attr( $redirection ) . '" id="' . esc_attr( $event_id ? $event_id : $series_id ) . '" size="' . esc_attr( $qr_code_size ) . '"]' );
 				?>
 			</div>
