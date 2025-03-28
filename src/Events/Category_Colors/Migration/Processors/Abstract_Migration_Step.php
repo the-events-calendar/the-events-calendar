@@ -5,7 +5,7 @@
  * This abstract class implements the `Migration_Step_Interface` and provides shared functionality
  * for all migration steps, ensuring consistency across the migration workflow.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -25,7 +25,7 @@ use TEC\Events\Category_Colors\Migration\Config;
  *
  * Subclasses should implement the `process()` and `is_runnable()` methods according to their specific requirements.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */

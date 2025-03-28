@@ -3,7 +3,7 @@
  * Executes the full category color migration process.
  * Orchestrates preprocessing, validation, execution, and post-processing steps.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -22,7 +22,7 @@ use WP_Error;
  * Runs preprocessing, validation, execution, and post-processing in sequence.
  * Ensures data integrity and logs potential issues during migration.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */

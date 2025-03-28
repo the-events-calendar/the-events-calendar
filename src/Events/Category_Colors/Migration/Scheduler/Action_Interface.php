@@ -3,7 +3,7 @@
  * Interface for all migration scheduler actions.
  * Defines the contract that all scheduler actions must follow.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -15,7 +15,7 @@ use WP_Error;
 /**
  * Interface for all migration scheduler actions.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -128,4 +128,4 @@ interface Action_Interface {
 	 * @return int|false The timestamp of the next scheduled run, or false if not scheduled.
 	 */
 	public function get_next_scheduled_time();
-} 
+}

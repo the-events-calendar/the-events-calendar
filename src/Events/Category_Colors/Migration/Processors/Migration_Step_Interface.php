@@ -5,7 +5,7 @@
  * This interface ensures that all migration steps follow a standardized structure,
  * allowing them to be executed consistently within the migration workflow.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */

@@ -4,7 +4,7 @@
  * This class extracts, formats, and stores category-related settings
  * before they are validated and executed in the migration process.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -19,7 +19,7 @@ use TEC\Events\Category_Colors\Migration\Status;
  * Prepares the migration data by extracting and formatting category settings.
  * This class ensures the settings are structured correctly before validation.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */

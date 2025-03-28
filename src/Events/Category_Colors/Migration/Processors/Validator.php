@@ -4,7 +4,7 @@
  * This class ensures that the processed migration data is correctly formatted,
  * contains required fields, and aligns with expected data structures.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -21,7 +21,7 @@ use Tribe__Events__Main;
  * Validates the migration data before execution to prevent incorrect or incomplete imports.
  * Checks data structure, required fields, existing categories, and unexpected meta keys.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */

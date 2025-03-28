@@ -3,7 +3,7 @@
  * Handles the validation phase of the migration.
  * Validates preprocessed data before execution.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -17,7 +17,7 @@ use WP_Error;
 /**
  * Handles the validation phase of the migration.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */

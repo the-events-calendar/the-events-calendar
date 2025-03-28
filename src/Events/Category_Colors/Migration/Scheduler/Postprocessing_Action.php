@@ -3,7 +3,7 @@
  * Handles the postprocessing phase of the migration.
  * Performs final cleanup and verification.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -18,7 +18,7 @@ use WP_Error;
 /**
  * Handles the postprocessing phase of the migration.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */

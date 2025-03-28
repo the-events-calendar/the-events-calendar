@@ -4,7 +4,7 @@
  * Ensures that all expected meta values exist and logs any inconsistencies.
  * This step is crucial to verify the success of the migration process.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -21,7 +21,7 @@ use TEC\Events\Category_Colors\Migration\Status;
  * Validates migration execution results by checking if expected metadata
  * was correctly stored in the database. Logs missing or mismatched data.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */

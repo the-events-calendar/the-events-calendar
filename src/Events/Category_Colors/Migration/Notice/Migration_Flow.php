@@ -2,7 +2,7 @@
 /**
  * Handles the migration process initialization and flow control.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -21,7 +21,7 @@ use WP_Error;
 /**
  * Class Migration_Flow
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */

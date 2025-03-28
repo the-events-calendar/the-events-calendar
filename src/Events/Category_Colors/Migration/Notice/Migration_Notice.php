@@ -2,7 +2,7 @@
 /**
  * Handles the migration notice UI and user interaction for the Category Colors migration.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -15,7 +15,7 @@ use TEC\Events\Category_Colors\Migration\Status;
 /**
  * Class Migration_Notice
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */

@@ -3,7 +3,7 @@
  * Handles the execution phase of the migration.
  * Processes categories in batches of 100.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -19,7 +19,7 @@ use WP_Error;
  * Handles the execution phase of the migration process.
  * Schedules and manages the processing of categories in batches.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */

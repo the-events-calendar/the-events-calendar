@@ -3,7 +3,7 @@
  * Abstract base class for all migration scheduler actions.
  * Provides common functionality and interfaces for all migration steps.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -16,7 +16,7 @@ use WP_Error;
 /**
  * Abstract base class for all migration scheduler actions.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */

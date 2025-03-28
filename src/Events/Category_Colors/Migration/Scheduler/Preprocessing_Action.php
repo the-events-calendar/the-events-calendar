@@ -3,7 +3,7 @@
  * Handles the preprocessing phase of the migration.
  * Prepares and formats data for migration.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
@@ -17,7 +17,7 @@ use WP_Error;
 /**
  * Handles the preprocessing phase of the migration.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Scheduler
  */
