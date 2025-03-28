@@ -340,9 +340,9 @@ class Hooks extends Service_Provider {
 	 * 
 	 * @since TBD
 	 * 
-	 * @param array $allowed_endpoints The allowed endpoints.
+	 * @param array[] $allowed_endpoints The allowed endpoints.
 	 * 
-	 * @return array The allowed endpoints.
+	 * @return array[] The allowed endpoints.
 	 */
 	public function include_rest_for_caching( $allowed_endpoints ): array {
 		return $this->container->make( Rest_Endpoint::class )->include_rest_for_caching( $allowed_endpoints );
