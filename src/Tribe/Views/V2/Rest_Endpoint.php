@@ -8,8 +8,8 @@
  */
 namespace Tribe\Events\Views\V2;
 
-use WP_REST_Request;
 use WP_REST_Request as Request;
+use WP_REST_Response as Response;
 use WP_REST_Server as Server;
 use WP_User;
 
@@ -394,7 +394,7 @@ class Rest_Endpoint {
 	/**
 	 * Register the endpoint if available.
 	 *
-	 * @since  4.9.7
+	 * @since 4.9.7
 	 * @since 5.2.1 Add support for the POST method.
 	 *
 	 * @return boolean If we registered the endpoint.
@@ -418,13 +418,31 @@ class Rest_Endpoint {
 	 * @param Request $request The request object.
 	 */
 	public function send_html( Request $request ) {
-		if ( ! headers_sent() ) {
-			header( 'Content-Type: text/html; charset=' . esc_attr( get_bloginfo( 'charset' ) ) );
+		$request = $this->unshrink_url_components( $request );
+		$html = View::make_for_rest( $request )->get_html();
+		$data = [
+			'html' => $html,
+		];
+
+		return new Response( $data );
+	}
+
+	/**
+	 * Register the endpoint so it will be cached.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param array $allowed_endpoints The allowed endpoints.
+	 * 
+	 * @return array The allowed endpoints.
+	 */
+	public function include_rest_for_caching( $allowed_endpoints ): array {
+		$namespace = static::ROOT_NAMESPACE;
+		if ( ! isset( $allowed_endpoints[ $namespace ] ) || ! in_array( 'html', $allowed_endpoints[ $namespace ] ) ) {
+			$allowed_endpoints[ $namespace ][] = 'html';
 		}
 
-		$request = $this->unshrink_url_components( $request );
-
-		View::make_for_rest( $request )->send_html();
+		return $allowed_endpoints;
 	}
 
 	/**

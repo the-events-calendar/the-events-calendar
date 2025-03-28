@@ -662,7 +662,7 @@ tribe.events.views.manager = {};
 		var $container = this;
 		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
-		var $html = $( data );
+		var $html = $( data.html );
 
 		// Let's pull out our nonce data.
 		var $nonces = $html.find( obj.selectors.nonceScript );
