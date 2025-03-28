@@ -12,6 +12,7 @@ namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Migration\Processors\Validator;
+use WP_Error;
 
 /**
  * Handles the validation phase of the migration.
@@ -113,7 +114,7 @@ class Validation_Action extends Abstract_Action {
 			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Validation failed';
 			Status::update_migration_status( Status::$validation_failed, $error_message );
 
-			return is_wp_error( $result ) ? $result : new \WP_Error( 'validation_failed', $error_message );
+			return is_wp_error( $result ) ? $result : new WP_Error( 'validation_failed', $error_message );
 		}
 
 		Status::update_migration_status( Status::$validation_completed );

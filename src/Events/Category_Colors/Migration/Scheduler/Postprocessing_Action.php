@@ -13,6 +13,7 @@ namespace TEC\Events\Category_Colors\Migration\Scheduler;
 use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Processors\Post_Processor;
 use TEC\Events\Category_Colors\Migration\Status;
+use WP_Error;
 
 /**
  * Handles the postprocessing phase of the migration.
@@ -95,6 +96,7 @@ class Postprocessing_Action extends Abstract_Action {
 	 */
 	public function can_schedule(): bool {
 		$current_status = Status::get_migration_status()['status'];
+
 		return in_array( $current_status, [ Status::$execution_completed, Status::$postprocessing_failed ], true );
 	}
 
@@ -107,15 +109,17 @@ class Postprocessing_Action extends Abstract_Action {
 	 */
 	public function process() {
 		$postprocessor = tribe( Post_Processor::class );
-		$result = $postprocessor->process();
-		
+		$result        = $postprocessor->process();
+
 		if ( is_wp_error( $result ) || false === $result ) {
 			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Postprocessing failed';
 			Status::update_migration_status( Status::$postprocessing_failed, $error_message );
-			return is_wp_error( $result ) ? $result : new \WP_Error( 'postprocessing_failed', $error_message );
+
+			return is_wp_error( $result ) ? $result : new WP_Error( 'postprocessing_failed', $error_message );
 		}
-		
+
 		Status::update_migration_status( Status::$postprocessing_completed );
+
 		return true;
 	}
 
@@ -130,4 +134,4 @@ class Postprocessing_Action extends Abstract_Action {
 	protected function schedule_next_action(): void {
 		// No next action to schedule.
 	}
-} 
+}

@@ -138,7 +138,7 @@ class Preprocessing_Action extends Abstract_Action {
 			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Preprocessing failed';
 			Status::update_migration_status( Status::$preprocessing_failed, $error_message );
 
-			return is_wp_error( $result ) ? $result : new \WP_Error( 'preprocessing_failed', $error_message );
+			return is_wp_error( $result ) ? $result : new WP_Error( 'preprocessing_failed', $error_message );
 		}
 
 		Status::update_migration_status( Status::$preprocessing_completed );

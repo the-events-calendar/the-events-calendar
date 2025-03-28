@@ -12,6 +12,7 @@ namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Migration\Processors\Worker;
+use WP_Error;
 
 /**
  * Class Execution_Action

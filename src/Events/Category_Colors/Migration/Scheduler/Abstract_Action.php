@@ -10,10 +10,7 @@
 
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
-use ActionScheduler_Action;
-use TEC\Events\Category_Colors\Migration\Processors\Abstract_Migration_Step;
 use TEC\Events\Category_Colors\Migration\Config;
-use TEC\Events\Category_Colors\Migration\Status;
 use WP_Error;
 
 /**
@@ -120,12 +117,12 @@ abstract class Abstract_Action implements Action_Interface {
 			return $pre_schedule;
 		}
 
-		// Unschedule any existing actions to avoid duplicates
+		// Unschedule any existing actions to avoid duplicates.
 		as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
 
-		// Schedule for immediate execution
+		// Schedule for immediate execution.
 		$action_id = as_schedule_single_action(
-			time(), // Run immediately
+			time(), // Run immediately.
 			$this->get_hook(),
 			[],
 			Config::$migration_action_group
@@ -169,10 +166,10 @@ abstract class Abstract_Action implements Action_Interface {
 			return $pre_execute;
 		}
 
-		// Let the concrete action handle its own execution
+		// Let the concrete action handle its own execution.
 		$result = $this->process();
 
-		// If processing was successful, schedule the next action
+		// If processing was successful, schedule the next action.
 		if ( true === $result ) {
 			$this->schedule_next_action();
 		}
