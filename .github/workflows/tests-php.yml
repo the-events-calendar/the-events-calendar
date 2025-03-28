@@ -10,6 +10,7 @@ jobs:
           - blocks_editor_integration
           - event_status
           - integration
+          - integration_category_colors
           - muintegration
           - restv1
           - views_integration

@@ -1,0 +1,1 @@
+<?php return '<div class=\'notice notice-error is-dismissible inline\' data-stellarwp-tec_common-notice-id=\'tec_category_colors_migration_error\'><p><strong>Migration Error</strong></p><p>Test error message</p></div>';
