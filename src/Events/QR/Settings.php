@@ -30,22 +30,10 @@ class Settings {
 			'prefix'      => 'tribe-events-qr-prefix',
 			'size'        => 'tribe-events-qr-size',
 			'redirection' => 'tribe-events-qr-redirection-behavior',
-			'specific'    => 'tribe-events-qr-specific-event-id',
+			'event_id'    => 'tribe-events-qr-specific-event-id',
+			'series_id'   => 'tribe-events-qr-next-event-in-series-id',
 			'fallback'    => 'tribe-events-qr-fallback',
 		];
-	}
-
-	/**
-	 * Get the option key that will be used to store the value.
-	 *
-	 * Option keys that are user controlled, need to be kept as public.
-	 *
-	 * @since TBD
-	 *
-	 * @return string
-	 */
-	public static function get_enable_shortcode_option_slug(): string {
-		return static::$enable_shortcode_option_key;
 	}
 
 	/**
@@ -53,27 +41,19 @@ class Settings {
 	 *
 	 * @since TBD
 	 *
-	 * @param mixed $context The context of the check.
-	 *
 	 * @return bool
 	 */
-	public function is_enabled( $context = null ): bool {
-		$controller = tribe( Controller::class );
-		$enabled    = false;
-
-		// Only if the controller can use the QR code.
-		if ( $controller->can_use() ) {
-			$enabled = tribe_is_truthy( tribe_get_option( static::get_enabled_option_slug(), true ) );
-		}
+	public function is_enabled(): bool {
+		$slugs   = static::get_option_slugs();
+		$enabled = tribe_is_truthy( tribe_get_option( $slugs['enabled'], true ) );
 
 		/**
 		 * Filters the QR enabled value.
 		 *
 		 * @since TBD
 		 *
-		 * @param bool  $enabled The bool that comes from the options.
-		 * @param array $context Context for this check, normally the event.
+		 * @param bool $enabled The bool that comes from the options.
 		 */
-		return apply_filters( 'tec_events_qr_code_enabled', $enabled, $context );
+		return (bool) apply_filters( 'tec_events_qr_code_enabled', $enabled );
 	}
 }

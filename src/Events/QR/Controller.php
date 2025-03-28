@@ -109,7 +109,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		// @TODO load our QR CSS and JS here using tribe_asset()
+		// @TODO load our QR CSS and JS here using TEC\Common\StellarWP\Asset
 	}
 
 	/**
@@ -135,9 +135,15 @@ class Controller extends Controller_Contract {
 	 * @return array
 	 */
 	public function filter_register_shortcodes( array $shortcodes ) {
-		$slug = $this->get_slug();
+		// Check if QR is enabled.
+		$slugs   = Settings::get_option_slugs();
+		$enabled = tribe_get_option( $slugs['enabled'], false );
 
-		$shortcodes[ $slug ] = Shortcode::class;
+		if ( ! $enabled ) {
+			return $shortcodes;
+		}
+
+		$shortcodes[ $this->get_slug() ] = Shortcode::class;
 
 		return $shortcodes;
 	}

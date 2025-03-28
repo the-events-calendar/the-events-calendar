@@ -20,7 +20,8 @@
  * @var string               $widget_title               The title of the widget.
  * @var string               $qr_code_size               The size of the QR code.
  * @var string               $redirection                The redirection behavior.
- * @var string               $specific_event_id          The specific event ID if redirection is set to specific.
+ * @var string               $event_id                   The specific event ID if redirection is set to specific.
+ * @var string               $series_id                  The series ID if redirection is set to next.
  */
 
 ?>
@@ -44,7 +45,7 @@
 
 			<div class="tribe-events-widget-events-qr-code__content">
 				<?php
-				echo do_shortcode( '[tec_event_qr mode="' . esc_attr( $redirection ) . '" id="' . esc_attr( $specific_event_id ) . '" size="' . esc_attr( $qr_code_size ) . '"]' );
+				echo do_shortcode( '[tec_event_qr mode="' . esc_attr( $redirection ) . '" id="' . esc_attr( $event_id ? $event_id : $series_id ) . '" size="' . esc_attr( $qr_code_size ) . '"]' );
 				?>
 			</div>
 		</div>
