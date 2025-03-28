@@ -62,16 +62,28 @@ $tec_events_display_qr_codes = [
 		],
 		'validation_type' => 'string',
 	],
-	$slug['specific']    => [
+	$slug['event_id']    => [
 		'type'                => 'text',
-		'label'               => esc_html__( 'Specific Event ID', 'the-events-calendar' ),
-		'tooltip'             => esc_html__( 'Enter the event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
+		'label'               => esc_html__( 'Event ID', 'the-events-calendar' ),
+		'tooltip'             => esc_html__( 'Event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
 		'default'             => '',
 		'validation_type'     => 'integer',
 		'class'               => 'tribe-dependent',
 		'fieldset_attributes' => [
 			'data-depends'   => '#' . $slug['redirection'] . '-select',
 			'data-condition' => 'specific',
+		],
+	],
+	$slug['series_id']   => [
+		'type'                => 'text',
+		'label'               => esc_html__( 'Series ID', 'the-events-calendar' ),
+		'tooltip'             => esc_html__( 'Series ID for when "Next Event in Series" is selected above.', 'the-events-calendar' ),
+		'default'             => '',
+		'validation_type'     => 'integer',
+		'class'               => 'tribe-dependent',
+		'fieldset_attributes' => [
+			'data-depends'   => '#' . $slug['redirection'] . '-select',
+			'data-condition' => 'next',
 		],
 	],
 	$slug['fallback']    => [
