@@ -162,13 +162,12 @@ class Validator extends Abstract_Migration_Step {
 	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
 	protected function validate_category_existence( array $categories ) {
-		$valid_categories = get_terms(
-			[
-				'taxonomy'   => Tribe__Events__Main::TAXONOMY,
-				'hide_empty' => false,
-				'fields'     => 'ids',
-			]
-		);
+		$valid_categories = get_terms( [
+			'taxonomy'   => Tribe__Events__Main::TAXONOMY,
+			'hide_empty' => false,
+			'fields'     => 'ids',
+			'include'    => array_keys( $categories ),
+		] );
 
 		if ( is_wp_error( $valid_categories ) ) {
 			return $this->log_message( 'error', 'Error fetching existing categories: ' . $valid_categories->get_error_message(), [], 'Validator' );
@@ -208,11 +207,7 @@ class Validator extends Abstract_Migration_Step {
 		}
 
 		// Get a list of all setting keys and shuffle them to randomize selection.
-		$all_keys = array_keys( $original_settings );
-		shuffle( $all_keys );
-
-		// Limit `validation_sample_size`.
-		$sample_keys = array_slice( $all_keys, 0, $this->validation_sample_size );
+		$sample_keys = array_rand( $original_settings, min( $this->validation_sample_size, count( $original_settings ) ) );
 
 		foreach ( $sample_keys as $key ) {
 			// If the key doesn't exist in migrated settings, it's fine—skip validation.
@@ -315,13 +310,10 @@ class Validator extends Abstract_Migration_Step {
 			}
 
 			// Check if the mapped key exists in any part of the migration data.
-			$exists = false;
-			foreach ( $migration_data as $section_data ) {
-				if ( is_array( $section_data ) && array_key_exists( $mapped_key, $section_data ) ) {
-					$exists = true;
-					break;
-				}
-			}
+			$exists = array_reduce( $migration_data, 
+				fn( $exists, $section ) => $exists || ( is_array( $section ) && array_key_exists( $mapped_key, $section ) ),
+				false
+			);
 
 			if ( ! $exists ) {
 				return $this->log_message( 'warning', "Expected setting '{$mapped_key}' is missing in migration data.", [], 'Validator' );
