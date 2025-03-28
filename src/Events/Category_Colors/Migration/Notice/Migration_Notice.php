@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles the migration notice and user interaction for the Category Colors migration.
+ * Handles the migration notice UI and user interaction for the Category Colors migration.
  *
  * @since   TBD
  *
@@ -10,8 +10,6 @@
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
-use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
-use TEC\Events\Category_Colors\Migration\Status;
 
 /**
  * Class Migration_Notice
@@ -21,6 +19,24 @@ use TEC\Events\Category_Colors\Migration\Status;
  * @package TEC\Events\Category_Colors\Migration
  */
 class Migration_Notice {
+	/**
+	 * @since TBD
+	 *
+	 * @var Migration_Flow
+	 */
+	private Migration_Flow $flow;
+
+	/**
+	 * Constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Migration_Flow $flow The migration flow controller.
+	 */
+	public function __construct( Migration_Flow $flow ) {
+		$this->flow = $flow;
+	}
+
 	/**
 	 * The notice ID for the migration prompt.
 	 *
@@ -64,13 +80,11 @@ class Migration_Notice {
 	 * @since TBD
 	 */
 	public function maybe_show_migration_notice(): void {
-
-		printr(Status::get_migration_status(),'Migration Status');
 		// Check if we should force show the notice.
 		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', true );
 
 		// Only show if forced or if conditions are met.
-		if ( ! $force_show && ! $this->should_show_migration_notice() ) {
+		if ( ! $force_show && ! $this->flow->should_show_migration() ) {
 			return;
 		}
 
@@ -96,18 +110,13 @@ class Migration_Notice {
 		check_admin_referer( 'tec_start_category_colors_migration' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( __( 'You do not have sufficient permissions to perform this action.', 'the-events-calendar' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to perform this action.', 'the-events-calendar' ) );
 		}
 
-		// Reset migration status to not_started
-		Status::update_migration_status( Status::$not_started );
-
-		// Schedule the preprocessing action
-		$preprocessing_action = tribe( Preprocessing_Action::class );
-		$result               = $preprocessing_action->schedule();
+		$result = $this->flow->initialize();
 
 		if ( is_wp_error( $result ) ) {
-			// Show error notice
+			// Show error notice.
 			AdminNotices::show(
 				$this->error_notice_id,
 				sprintf(
@@ -119,48 +128,17 @@ class Migration_Notice {
 				->urgency( 'error' )
 				->dismissible( true )
 				->inline( true );
-
-			wp_safe_redirect( admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) );
-			exit;
+		} else {
+			// Show success notice.
+			AdminNotices::show( $this->success_notice_id, $this->get_success_message() )
+				->urgency( 'success' )
+				->dismissible( true )
+				->inline( true );
 		}
 
-		// Show success notice
-		AdminNotices::show( $this->success_notice_id, $this->get_success_message() )
-			->urgency( 'success' )
-			->dismissible( true )
-			->inline( true );
-
+		//phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 		wp_safe_redirect( admin_url( 'edit-tags.php?taxonomy=tribe_events_cat&post_type=tribe_events' ) );
-		exit;
-	}
-
-	/**
-	 * Checks if the migration notice should be shown.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the migration notice should be shown.
-	 */
-	protected function should_show_migration_notice(): bool {
-		$status = Status::get_migration_status();
-
-		// Don't show if migration is already completed
-		if ( Status::$postprocessing_completed === $status['status'] ) {
-			return false;
-		}
-
-		// Check if old plugin data exists (teccc_options)
-		$old_options = get_option( 'teccc_options' );
-		if ( empty( $old_options ) ) {
-			return false;
-		}
-
-		// Check if old plugin is active
-		if ( ! is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
-			return false;
-		}
-
-		return true;
+		tribe_exit();
 	}
 
 	/**

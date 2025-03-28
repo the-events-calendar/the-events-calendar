@@ -31,44 +31,20 @@ class Migration_Flow {
 	 */
 	public function initialize() {
 		try {
-			// Set initial migration status
-			Status::update_migration_status( Status::$preprocessing_scheduled );
-
-			// Get all categories that need to be migrated
-			$categories = get_terms( [
-				'taxonomy' => Config::$taxonomy,
-				'hide_empty' => false,
-			] );
-
-			if ( is_wp_error( $categories ) ) {
-				return $this->handle_error( $categories->get_error_message() );
-			}
-
-			// Calculate total batches needed
-			$total_categories = count( $categories );
-			$batch_size = Config::$batch_size;
-			$total_batches = ceil( $total_categories / $batch_size );
-
-			// Store migration data
-			$migration_data = [
-				'total_categories' => $total_categories,
-				'total_batches' => $total_batches,
-				'processed_categories' => 0,
-				'current_batch' => 0,
-				'started_at' => time(),
-			];
-
-			$updated = update_option( Config::$migration_data_option, $migration_data );
-			if ( false === $updated ) {
-				return $this->handle_error( 'Failed to store migration data' );
-			}
-
-			// Schedule the preprocessing action
+			// Schedule the preprocessing action.
 			$preprocessing_action = tribe( Preprocessing_Action::class );
-			$scheduled = $preprocessing_action->schedule();
+			$scheduled            = $preprocessing_action->schedule();
+
+			if ( is_wp_error( $scheduled ) ) {
+				return $this->handle_error( $scheduled->get_error_message() );
+			}
+
 			if ( false === $scheduled ) {
 				return $this->handle_error( 'Failed to schedule preprocessing action' );
 			}
+
+			// Set migration status only after successful scheduling.
+			Status::update_migration_status( Status::$preprocessing_scheduled );
 
 			return true;
 		} catch ( \Exception $e ) {
@@ -93,12 +69,15 @@ class Migration_Flow {
 	 */
 	public function get_progress(): array {
 		$migration_data = get_option( Config::$migration_data_option, [] );
-		$status = Status::get_migration_status();
+		$status         = Status::get_migration_status();
 
-		return array_merge( $migration_data, [
-			'status' => $status['status'],
-			'error_message' => $status['error_message'] ?? null,
-		] );
+		return array_merge(
+			$migration_data,
+			[
+				'status'        => $status['status'],
+				'error_message' => $status['error_message'] ?? null,
+			]
+		);
 	}
 
 	/**
@@ -110,7 +89,7 @@ class Migration_Flow {
 	 */
 	public function cancel() {
 		try {
-			// Cancel any scheduled actions
+			// Cancel any scheduled actions.
 			$actions = [
 				Preprocessing_Action::class,
 				Validation_Action::class,
@@ -123,10 +102,10 @@ class Migration_Flow {
 				$action->cancel();
 			}
 
-			// Reset migration status
+			// Reset migration status.
 			Status::update_migration_status( Status::$not_started );
 
-			// Clear migration data
+			// Clear migration data.
 			delete_option( Config::$migration_data_option );
 
 			return true;
@@ -145,18 +124,18 @@ class Migration_Flow {
 	public function should_show_migration(): bool {
 		$status = Status::get_migration_status();
 
-		// Don't show if migration is already completed
+		// Don't show if migration is already completed.
 		if ( Status::$postprocessing_completed === $status['status'] ) {
 			return false;
 		}
 
-		// Check if old plugin data exists (teccc_options)
+		// Check if old plugin data exists (teccc_options).
 		$old_options = get_option( 'teccc_options' );
 		if ( empty( $old_options ) ) {
 			return false;
 		}
 
-		// Check if old plugin is active
+		// Check if old plugin is active.
 		if ( ! is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
 			return false;
 		}
@@ -170,10 +149,12 @@ class Migration_Flow {
 	 * @since TBD
 	 *
 	 * @param string $message The error message.
+	 *
 	 * @return WP_Error
 	 */
 	protected function handle_error( string $message ): WP_Error {
 		Status::update_migration_status( Status::$preprocessing_failed, $message );
+
 		return new WP_Error( 'migration_error', $message );
 	}
 }
