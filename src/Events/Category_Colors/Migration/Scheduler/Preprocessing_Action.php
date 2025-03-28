@@ -10,10 +10,9 @@
 
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
-use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Processors\Pre_Processor;
 use TEC\Events\Category_Colors\Migration\Status;
-use TEC\Events\Category_Colors\Migration\Processors\Validator;
+use WP_Error;
 
 /**
  * Handles the preprocessing phase of the migration.
@@ -31,15 +30,6 @@ class Preprocessing_Action extends Abstract_Action {
 	 * @var string
 	 */
 	protected const HOOK = 'tec_events_category_colors_migration_preprocess';
-
-	/**
-	 * Constructor.
-	 *
-	 * @since TBD
-	 */
-	public function __construct() {
-		// Hook registration is now handled in the Controller
-	}
 
 	/**
 	 * Get the hook name for this action.
@@ -104,8 +94,9 @@ class Preprocessing_Action extends Abstract_Action {
 	 * @return bool True if the action can be scheduled.
 	 */
 	public function can_schedule(): bool {
-		// Check if we're in a valid state to schedule preprocessing
+		// Check if we're in a valid state to schedule preprocessing.
 		$current_status = Status::get_migration_status()['status'];
+
 		return in_array( $current_status, [ Status::$not_started, Status::$preprocessing_failed ], true );
 	}
 
@@ -118,22 +109,20 @@ class Preprocessing_Action extends Abstract_Action {
 	 */
 	public function process() {
 		$start_time = microtime( true );
-		error_log( 'Preprocessing started at: ' . date( 'Y-m-d H:i:s' ) );
 
 		$preprocessor = tribe( Pre_Processor::class );
 		$result       = $preprocessor->process();
 
 		$end_time = microtime( true );
 		$duration = round( $end_time - $start_time, 2 );
-		error_log( 'Preprocessing ended at: ' . date( 'Y-m-d H:i:s' ) . ' (Duration: ' . $duration . ' seconds)' );
 
-		// Check if the status is preprocessing_skipped (valid state)
+		// Check if the status is preprocessing_skipped (valid state).
 		$current_status = Status::get_migration_status()['status'];
 		if ( Status::$preprocessing_skipped === $current_status ) {
 			return true;
 		}
 
-		// Handle actual failures
+		// Handle actual failures.
 		if ( is_wp_error( $result ) || false === $result ) {
 			$error_message = is_wp_error( $result ) ? $result->get_error_message() : 'Preprocessing failed';
 			Status::update_migration_status( Status::$preprocessing_failed, $error_message );
@@ -167,6 +156,7 @@ class Preprocessing_Action extends Abstract_Action {
 	 */
 	public function is_runnable(): bool {
 		$current_status = Status::get_migration_status()['status'];
+
 		return in_array( $current_status, [ Status::$preprocessing_scheduled, Status::$preprocessing_in_progress ], true );
 	}
 }
