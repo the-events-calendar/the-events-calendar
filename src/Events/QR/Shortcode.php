@@ -9,6 +9,7 @@ namespace TEC\Events\QR;
 
 use Tribe\Shortcode\Shortcode_Abstract;
 use TEC\Common\QR\QR;
+use TEC\Events\QR\Routes;
 
 /**
  * Class Shortcode
@@ -25,7 +26,7 @@ class Shortcode extends Shortcode_Abstract {
 	 *
 	 * @var string
 	 */
-	protected $slug = 'tec_event_qr';
+	protected $slug;
 
 	/**
 	 * Default arguments to be merged into final arguments of the shortcode.
@@ -59,22 +60,20 @@ class Shortcode extends Shortcode_Abstract {
 	 * @return string
 	 */
 	public function get_html() {
-
-		// @TODO This is a temporary solution to ensure the shortcode is working.
-
-		$args = $this->get_arguments();
-
-		$mode = in_array( $args['mode'], [ 'current', 'upcoming', 'specific', 'next' ], true ) ? $args['mode'] : 'current';
-		$id   = absint( $args['id'] );
-		$size = absint( $args['size'] );
-
+		$routes  = tribe( Routes::class );
 		$qr_code = tribe( QR::class );
+		$args    = $this->get_arguments();
+		$mode    = $args['mode'] ?? 'current';
+		$id      = $args['id'] ?? '';
+		$size    = $args['size'] ?? 4;
 
 		if ( is_wp_error( $qr_code ) ) {
 			return $qr_code;
 		}
 
-		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
+		$qr_url = $routes->get_qr_url( $id, $mode );
+
+		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( $qr_url );
 
 		// @TODO Add filters to allow for customizing the QR code image.
 		// @TODO Add proper alt text to the image.

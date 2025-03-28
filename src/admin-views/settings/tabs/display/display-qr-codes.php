@@ -44,6 +44,7 @@ $tec_events_display_qr_codes = [
 		'options'         => [
 			'4'  => esc_html__( '125x125', 'the-events-calendar' ),
 			'8'  => esc_html__( '250x250', 'the-events-calendar' ),
+			'12' => esc_html__( '420x420', 'the-events-calendar' ),
 			'21' => esc_html__( '650x650', 'the-events-calendar' ),
 			'32' => esc_html__( '1000x1000', 'the-events-calendar' ),
 		],

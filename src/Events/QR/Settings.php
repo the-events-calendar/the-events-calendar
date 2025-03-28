@@ -15,6 +15,25 @@ namespace TEC\Events\QR;
  * @package TEC\Events\QR
  */
 class Settings {
+	/**
+	 * The QR code slug used for shortcodes and hashing.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public const QR_SLUG = 'tec_event_qr';
+
+	/**
+	 * Get the QR code slug.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The QR code slug.
+	 */
+	public static function get_qr_slug(): string {
+		return static::QR_SLUG;
+	}
 
 	/**
 	 * An array of option keys that will be used to store the values.
@@ -44,8 +63,8 @@ class Settings {
 	 * @return bool
 	 */
 	public function is_enabled(): bool {
-		$slugs   = static::get_option_slugs();
-		$enabled = tribe_is_truthy( tribe_get_option( $slugs['enabled'], true ) );
+		$options = static::get_option_slugs();
+		$enabled = tribe_is_truthy( tribe_get_option( $options['enabled'], true ) );
 
 		/**
 		 * Filters the QR enabled value.

@@ -9,6 +9,7 @@ namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\QR\Shortcode;
+use TEC\Events\QR\Redirections;
 
 /**
  * Class Controller.
@@ -26,7 +27,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @var string
 	 */
-	private $slug = 'tec_event_qr';
+	private $slug;
 
 	/**
 	 * Register the controller.
@@ -39,6 +40,10 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->singleton( Settings::class );
+		$this->container->singleton( Routes::class );
+		$this->container->singleton( Redirections::class );
+
+		$this->slug = Settings::get_qr_slug();
 
 		$this->add_hooks();
 
@@ -136,14 +141,14 @@ class Controller extends Controller_Contract {
 	 */
 	public function filter_register_shortcodes( array $shortcodes ) {
 		// Check if QR is enabled.
-		$slugs   = Settings::get_option_slugs();
-		$enabled = tribe_get_option( $slugs['enabled'], false );
+		$options = Settings::get_option_slugs();
+		$enabled = tribe_get_option( $options['enabled'], false );
 
 		if ( ! $enabled ) {
 			return $shortcodes;
 		}
 
-		$shortcodes[ $this->get_slug() ] = Shortcode::class;
+		$shortcodes[ Settings::get_qr_slug() ] = Shortcode::class;
 
 		return $shortcodes;
 	}
