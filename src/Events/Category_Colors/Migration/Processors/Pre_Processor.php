@@ -19,7 +19,7 @@ use TEC\Events\Category_Colors\Migration\Status;
  * Prepares the migration data by extracting and formatting category settings.
  * This class ensures the settings are structured correctly before validation.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Migration\Processors
  */
@@ -243,16 +243,21 @@ class Pre_Processor extends Abstract_Migration_Step {
 					if ( is_null( $value ) ) {
 						$value = false;
 					}
+					// Convert boolean to string '1' or ''.
+					$value                       = $value ? '1' : '';
+					$mapped_settings[ $new_key ] = $value;
 					break;
 				case 'array':
 					$value = is_array( $value ) ? $value : [];
+					if ( [] !== $value ) {
+						$mapped_settings[ $new_key ] = $value;
+					}
 					break;
 				default:
 					$value = is_scalar( $value ) ? $value : ''; // Default to empty if invalid.
-			}
-
-			if ( '' !== $value && [] !== $value ) {
-				$mapped_settings[ $new_key ] = $value;
+					if ( '' !== $value ) {
+						$mapped_settings[ $new_key ] = $value;
+					}
 			}
 
 			// Remove the key from the processed settings after mapping.
