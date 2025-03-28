@@ -162,12 +162,14 @@ class Validator extends Abstract_Migration_Step {
 	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
 	protected function validate_category_existence( array $categories ) {
-		$valid_categories = get_terms( [
-			'taxonomy'   => Tribe__Events__Main::TAXONOMY,
-			'hide_empty' => false,
-			'fields'     => 'ids',
-			'include'    => array_keys( $categories ),
-		] );
+		$valid_categories = get_terms(
+			[
+				'taxonomy'   => Tribe__Events__Main::TAXONOMY,
+				'hide_empty' => false,
+				'fields'     => 'ids',
+				'include'    => array_keys( $categories ),
+			]
+		);
 
 		if ( is_wp_error( $valid_categories ) ) {
 			return $this->log_message( 'error', 'Error fetching existing categories: ' . $valid_categories->get_error_message(), [], 'Validator' );
@@ -310,7 +312,8 @@ class Validator extends Abstract_Migration_Step {
 			}
 
 			// Check if the mapped key exists in any part of the migration data.
-			$exists = array_reduce( $migration_data,
+			$exists = array_reduce(
+				$migration_data,
 				fn( $exists, $section ) => $exists || ( is_array( $section ) && array_key_exists( $mapped_key, $section ) ),
 				false
 			);

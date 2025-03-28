@@ -12,7 +12,6 @@
 namespace TEC\Events\Category_Colors\Migration\Processors;
 
 use TEC\Events\Category_Colors\Event_Category_Meta;
-use Tribe__Events__Main;
 use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Status;
 
@@ -175,7 +174,7 @@ class Post_Processor extends Abstract_Migration_Step {
 		);
 
 		foreach ( $meta_keys_to_validate as $meta_key ) {
-			$actual_value = $actual_meta[ $meta_key ] ?? null;
+			$actual_value   = $actual_meta[ $meta_key ] ?? null;
 			$expected_value = $meta_data[ $meta_key ];
 
 			if ( is_null( $actual_value ) ) {

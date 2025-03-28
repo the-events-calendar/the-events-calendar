@@ -256,7 +256,7 @@ class Migration_Notice {
 	 * @since TBD
 	 *
 	 * @param string|null $text  Optional. Button text override.
-	 * @param string      $class Optional. Button class.
+	 * @param string      $style_class Optional. Button class.
 	 *
 	 * @return string Button HTML.
 	 */

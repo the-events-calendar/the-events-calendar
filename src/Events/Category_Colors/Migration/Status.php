@@ -215,11 +215,12 @@ class Status {
 	 */
 	public static function get_migration_status(): array {
 		$status = get_option( Config::$migration_status_option, [] );
+
 		return array_merge(
 			[
-				'status' => self::$not_started,
+				'status'    => self::$not_started,
 				'timestamp' => '',
-				'error' => '',
+				'error'     => '',
 			],
 			$status
 		);
@@ -238,11 +239,11 @@ class Status {
 	 */
 	public static function update_migration_status( string $status, string $error = '', string $timestamp = '' ): bool {
 		$current_status = self::get_migration_status();
-		$new_status = array_merge(
+		$new_status     = array_merge(
 			$current_status,
 			[
-				'status' => $status,
-				'error' => $error,
+				'status'    => $status,
+				'error'     => $error,
 				'timestamp' => $timestamp ?: current_time( 'mysql' ),
 			]
 		);

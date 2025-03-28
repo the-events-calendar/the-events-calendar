@@ -334,5 +334,4 @@ abstract class Abstract_Action implements Action_Interface {
 
 		return false;
 	}
-
 }
