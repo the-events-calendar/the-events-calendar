@@ -119,6 +119,7 @@ const config = merge( common, {
 	entry: targetEntries,
 	output: {
 		path: __dirname,
+		library: [ 'tribe', PLUGIN_SCOPE ],
 		filename: './src/resources/js/app/[name].min.js',
 	},
 } );
