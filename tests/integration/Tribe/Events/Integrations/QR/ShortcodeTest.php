@@ -49,10 +49,12 @@ class ShortcodeTest extends WPTestCase {
 		$this->shortcode = tribe( Shortcode::class );
 
 		// Create a test event that can be used across tests
-		$this->test_event_id = $this->factory->post->create([
-			'post_type' => 'tribe_events',
-			'post_status' => 'publish'
-		]);
+		$this->test_event_id = $this->factory->post->create(
+			[
+				'post_type'   => 'tribe_events',
+				'post_status' => 'publish',
+			]
+		);
 	}
 
 	/**
@@ -78,7 +80,7 @@ class ShortcodeTest extends WPTestCase {
 
 		$this->assertEquals( 'current', $defaults['mode'] );
 		$this->assertEquals( '', $defaults['id'] );
-		$this->assertEquals( 6, $defaults['size'] );
+		$this->assertEquals( 4, $defaults['size'] );
 	}
 
 	/**
