@@ -488,7 +488,7 @@ tribe.events.views.manager = {};
 		 * 
 		 * @since 4.9.2
 		 * 
-		 * @param {object} data The data passed to the request.
+		 * @param {Object} data The data passed to the request.
 		 * @param {Element|jQuery} $container The container we are dealing with.
 		 */
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
@@ -520,7 +520,7 @@ tribe.events.views.manager = {};
 		 * 
 		 * @since 4.9.2
 		 * 
-		 * @param {object} data The data passed to the request.
+		 * @param {Object} data The data passed to the request.
 		 * @param {Element|jQuery} $container The container we are dealing with.
 		 */
 		$container.trigger( 'afterRequest.tribeEvents', [ data, $container ] );
