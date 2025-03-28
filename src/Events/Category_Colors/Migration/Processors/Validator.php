@@ -197,7 +197,7 @@ class Validator extends Abstract_Migration_Step {
 
 		// If there are no migrated settings, validation is not needed.
 		if ( empty( $migrated_settings ) ) {
-			$this->log_message( 'info', 'No migrated settings found. Skipping random settings validation.', [], 'Validator' );
+			$this->log_message( 'info', 'No migrated settings found. Skipping settings validation.', [], 'Validator' );
 
 			return true;
 		}
@@ -233,10 +233,10 @@ class Validator extends Abstract_Migration_Step {
 		}
 
 		if ( $errors_found ) {
-			return $this->log_message( 'error', 'Random settings validation failed.', [], 'Validator' );
+			return $this->log_message( 'error', 'Settings validation failed.', [], 'Validator' );
 		}
 
-		$this->log_message( 'info', 'Random settings validation passed.', [], 'Validator' );
+		$this->log_message( 'info', 'Settings validation passed.', [], 'Validator' );
 
 		return true;
 	}
@@ -352,12 +352,12 @@ class Validator extends Abstract_Migration_Step {
 			$validation = $mapped_data['validation'] ?? '';
 			$import     = $mapped_data['import'] ?? false;
 
-			// Skip if no mapped key or validation rule, or if not meant to be imported
+			// Skip if no mapped key or validation rule, or if not meant to be imported.
 			if ( ! $mapped_key || ! $validation || ! $import ) {
 				continue;
 			}
 
-			// Skip if the key doesn't exist in settings
+			// Skip if the key doesn't exist in settings.
 			if ( ! isset( $settings[ $mapped_key ] ) ) {
 				continue;
 			}
@@ -378,7 +378,7 @@ class Validator extends Abstract_Migration_Step {
 					break;
 
 				default:
-					// Unknown validation rule, skip
+					// Unknown validation rule, skip.
 					break;
 			}
 		}

@@ -55,6 +55,7 @@ class Worker extends Abstract_Migration_Step {
 	 */
 	public function is_runnable(): bool {
 		$status = Status::get_migration_status();
+
 		return Status::$validation_completed === $status['status'];
 	}
 
@@ -69,7 +70,7 @@ class Worker extends Abstract_Migration_Step {
 		try {
 			$start_time = microtime( true );
 
-			// Ensure we're in a valid state to run
+			// Ensure we're in a valid state to run.
 			if ( ! $this->validate_execution_state() ) {
 				return false;
 			}
@@ -77,24 +78,24 @@ class Worker extends Abstract_Migration_Step {
 			$this->update_migration_status( Status::$execution_in_progress );
 			do_action( 'tec_events_category_colors_migration_runner_start', $this->dry_run );
 
-			// Get and validate processing data
+			// Get and validate processing data.
 			$processing_data = $this->get_processing_data();
 			if ( ! $this->validate_processing_data( $processing_data ) ) {
 				return false;
 			}
 
-			// Process settings if they haven't been processed yet
+			// Process settings if they haven't been processed yet.
 			if ( ! empty( $processing_data['settings'] ) ) {
 				$result = $this->process_settings( $processing_data['settings'] );
 				if ( is_wp_error( $result ) ) {
 					return $result;
 				}
-				// Remove settings from processing data after successful processing
+				// Remove settings from processing data after successful processing.
 				unset( $processing_data['settings'] );
 				update_option( Config::$migration_processing_option, $processing_data );
 			}
 
-			// Process categories if any remain
+			// Process categories if any remain.
 			if ( ! empty( $processing_data['categories'] ) ) {
 				$result = $this->process_categories( $processing_data );
 				if ( is_wp_error( $result ) ) {
@@ -106,12 +107,13 @@ class Worker extends Abstract_Migration_Step {
 			do_action( 'tec_events_category_colors_migration_runner_end', true );
 
 			$this->log_elapsed_time( 'Execution', $start_time );
-			return true;
 
+			return true;
 		} catch ( \Exception $e ) {
 			$this->log_message( 'error', 'Unexpected error during migration: ' . $e->getMessage(), [], 'Worker' );
 			$this->update_migration_status( Status::$execution_failed );
 			do_action( 'tec_events_category_colors_migration_runner_end', false );
+
 			return new WP_Error( 'migration_error', $e->getMessage() );
 		}
 	}
@@ -131,6 +133,7 @@ class Worker extends Abstract_Migration_Step {
 			if ( is_wp_error( $error ) ) {
 				$this->log_message( 'error', 'Validation failed. Migration execution stopped.', [], 'Worker' );
 				$this->update_migration_status( Status::$execution_failed );
+
 				return false;
 			}
 
@@ -153,6 +156,7 @@ class Worker extends Abstract_Migration_Step {
 		if ( empty( $processing_data['categories'] ) && empty( $processing_data['settings'] ) ) {
 			$this->log_message( 'error', 'No data found for migration.', [], 'Worker' );
 			$this->update_migration_status( Status::$execution_skipped );
+
 			return false;
 		}
 
@@ -169,29 +173,30 @@ class Worker extends Abstract_Migration_Step {
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
 	protected function process_categories( array &$processing_data ) {
-		// Get the batch size from the class method
+		// Get the batch size from the class method.
 		$batch_size = $this->get_batch_size();
 
-		// Ensure batch size is a positive integer
+		// Ensure batch size is a positive integer.
 		$batch_size = max( 1, absint( $batch_size ) );
 
-		// Take a batch of categories
+		// Take a batch of categories.
 		$batch = array_slice( $processing_data['categories'], 0, $batch_size, true );
 
-		// Process this batch
+		// Process this batch.
 		$error = $this->process_batch( $batch );
 		if ( is_wp_error( $error ) ) {
 			$this->log_message( 'error', 'Failed to process category batch.', [], 'Worker' );
 			$this->update_migration_status( Status::$execution_failed );
+
 			return $error;
 		}
 
-		// Remove processed categories from processing data
+		// Remove processed categories from processing data.
 		foreach ( $batch as $category_id => $_ ) {
 			unset( $processing_data['categories'][ $category_id ] );
 		}
 
-		// Update the processing data
+		// Update the processing data.
 		update_option( Config::$migration_processing_option, $processing_data );
 
 		return true;
@@ -207,40 +212,42 @@ class Worker extends Abstract_Migration_Step {
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
 	protected function process_batch( array $categories ) {
-		// Get all terms at once for better performance
-		$term_ids = array_keys($categories);
-		$terms = get_terms([
-			'taxonomy' => 'tribe_events_cat',
-			'include' => $term_ids,
-			'hide_empty' => false,
-			'fields' => 'ids' // Only get IDs for better performance
-		]);
+		// Get all terms at once for better performance.
+		$term_ids = array_keys( $categories );
+		$terms    = get_terms(
+			[
+				'taxonomy'   => 'tribe_events_cat',
+				'include'    => $term_ids,
+				'hide_empty' => false,
+				'fields'     => 'ids',
+			]
+		);
 
 		if ( is_wp_error( $terms ) ) {
 			return $this->log_message( 'error', 'Failed to fetch categories: ' . $terms->get_error_message(), [], 'Worker' );
 		}
 
-		// Create a lookup array for faster validation
-		$valid_terms = array_flip($terms);
+		// Create a lookup array for faster validation.
+		$valid_terms = array_flip( $terms );
 
 		$migrated_category_meta_count = 0;
 		$migrated_category_count      = count( $categories );
 
 		$dry_run_summary = [
 			'categories' => 0,
-			'meta_keys' => 0,
-			'changes' => []
+			'meta_keys'  => 0,
+			'changes'    => [],
 		];
 
 		foreach ( $categories as $category_id => $meta_data ) {
-			// Validate category exists using our lookup array
-			if (!isset($valid_terms[$category_id])) {
+			// Validate category exists using our lookup array.
+			if ( ! isset( $valid_terms[ $category_id ] ) ) {
 				$this->log_message( 'warning', "Category {$category_id} no longer exists. Skipping.", [], 'Worker' );
 				continue;
 			}
 
-			// Validate meta_data is an array
-			if (!is_array($meta_data)) {
+			// Validate meta_data is an array.
+			if ( ! is_array( $meta_data ) ) {
 				$this->log_message( 'warning', "Invalid meta data for category {$category_id}. Skipping.", [], 'Worker' );
 				continue;
 			}
@@ -261,11 +268,11 @@ class Worker extends Abstract_Migration_Step {
 					++$migrated_category_meta_count;
 
 					if ( $this->dry_run ) {
-						$dry_run_summary['categories']++;
+						++$dry_run_summary['categories'];
 						$dry_run_summary['meta_keys'] += $migrated_category_meta_count;
-						$dry_run_summary['changes'][] = [
+						$dry_run_summary['changes'][]  = [
 							'category_id' => $category_id,
-							'meta_keys' => array_keys( $meta_data )
+							'meta_keys'   => array_keys( $meta_data ),
 						];
 						$this->log_message( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $meta_value, JSON_PRETTY_PRINT ), [], 'Worker' );
 					} else {
@@ -305,6 +312,7 @@ class Worker extends Abstract_Migration_Step {
 	protected function process_settings( array $settings ) {
 		if ( empty( $settings ) ) {
 			$this->log_message( 'warning', 'No general settings found to migrate. Skipping settings update.', [], 'Worker' );
+
 			return true;
 		}
 
@@ -314,7 +322,7 @@ class Worker extends Abstract_Migration_Step {
 			return $this->log_message( 'error', 'Existing settings are not an array. Skipping migration to prevent corruption.', [], 'Worker' );
 		}
 
-		$new_settings = [];
+		$new_settings     = [];
 		$skipped_settings = [];
 
 		foreach ( $settings as $key => $value ) {
@@ -328,6 +336,7 @@ class Worker extends Abstract_Migration_Step {
 
 		if ( empty( $new_settings ) ) {
 			$this->log_message( 'info', 'No new settings needed migration. All settings already exist.', [], 'Worker' );
+
 			return true;
 		}
 
@@ -410,6 +419,7 @@ class Worker extends Abstract_Migration_Step {
 		 * @since TBD
 		 *
 		 * @param int $batch_size The number of categories to process at once.
+		 *
 		 * @return int The validated batch size.
 		 */
 		return apply_filters( 'tec_events_category_colors_migration_batch_size', self::BATCH_SIZE );
@@ -424,6 +434,7 @@ class Worker extends Abstract_Migration_Step {
 	 */
 	public function get_total_categories(): int {
 		$processing_data = $this->get_migration_data();
+
 		return isset( $processing_data['categories'] ) ? count( $processing_data['categories'] ) : 0;
 	}
 
@@ -436,6 +447,7 @@ class Worker extends Abstract_Migration_Step {
 	 */
 	public function get_remaining_categories(): int {
 		$processing_data = $this->get_processing_data();
+
 		return isset( $processing_data['categories'] ) ? count( $processing_data['categories'] ) : 0;
 	}
 }

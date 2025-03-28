@@ -152,12 +152,16 @@ class Post_Processor extends Abstract_Migration_Step {
 					$errors_found = true;
 				} elseif ( $actual_value !== $expected_value ) {
 					// If the actual value exists but doesn't match expected, this is okay
-					// because we intentionally don't overwrite existing values during migration
-					$this->log_message( 'info', "Found different value for '{$meta_key}' on category {$category_id}. " .
+					// because we intentionally don't overwrite existing values during migration.
+					$this->log_message(
+						'info',
+						"Found different value for '{$meta_key}' on category {$category_id}. " .
 						"This is expected as we don't overwrite existing values. " .
-						"Migration value: " . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) . 
-						' | Existing value: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ), 
-						[], 'Post Processor' );
+						'Migration value: ' . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) .
+						' | Existing value: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ),
+						[],
+						'Post Processor'
+					);
 				}
 			}
 		}
@@ -174,71 +178,5 @@ class Post_Processor extends Abstract_Migration_Step {
 		$this->log_elapsed_time( 'Post Processor', $start_time );
 
 		return true;
-	}
-
-	/**
-	 * Runs validation checks on migrated settings in tribe_events_calendar_options.
-	 *
-	 * @since TBD
-	 * @return void
-	 */
-	protected function verify_settings(): void {
-		$start_time = microtime( true );
-
-		if ( $this->dry_run ) {
-			$this->log_message( 'info', 'Dry run mode active. Skipping settings validation.', [], 'Post Processor' );
-
-			return;
-		}
-
-		$existing_settings  = get_option( Tribe__Events__Main::OPTIONNAME, [] );
-		$original_settings  = $this->get_original_settings();
-		$migration_settings = $this->get_migration_data()['settings'] ?? [];
-
-		if ( empty( $migration_settings ) ) {
-			$this->log_message( 'warning', 'No migrated settings found. Cannot validate settings.', [], 'Post Processor' );
-
-			return;
-		}
-
-		$errors_found = false;
-
-		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
-			if ( ! $mapping['import'] ) {
-				continue;
-			}
-
-			$expected_key   = $mapping['mapped_key'];
-			$expected_value = $migration_settings[ $expected_key ] ?? null;
-			$actual_value   = $existing_settings[ $expected_key ] ?? null;
-			$original_value = $original_settings[ $old_key ] ?? null;
-
-			// Check if the setting exists at all.
-			if ( ! array_key_exists( $expected_key, $existing_settings ) ) {
-				$this->log_message( 'error', "Missing expected setting '{$expected_key}' in tribe_events_calendar_options.", [], 'Post Processor' );
-				$errors_found = true;
-				continue;
-			}
-
-			// Compare actual vs. migrated value.
-			if ( $actual_value !== $expected_value ) {
-				if ( $original_value === $actual_value ) {
-					// It was already different before migration—log as info.
-					$this->log_message( 'info', "Setting '{$expected_key}' has a pre-existing value. Migration did not change it. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ), [], 'Post Processor' );
-				} else {
-					// Migration changed it—log as a warning.
-					$this->log_message( 'warning', "Mismatch for '{$expected_key}'. Expected: " . wp_json_encode( $expected_value ) . ' | Found: ' . wp_json_encode( $actual_value ), [], 'Post Processor' );
-				}
-			}
-		}
-
-		if ( $errors_found ) {
-			$this->log_message( 'error', 'Migration settings validation failed.', [], 'Post Processor' );
-			$this->update_migration_status( 'migration_failed' );
-		} else {
-			$this->log_message( 'info', 'Migration settings successfully verified.', [], 'Post Processor' );
-		}
-
-		$this->log_elapsed_time( 'Settings Verification', $start_time );
 	}
 }
