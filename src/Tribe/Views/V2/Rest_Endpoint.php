@@ -416,14 +416,19 @@ class Rest_Endpoint {
 	 * @since TBD
 	 *
 	 * @param Request $request The request object.
+	 * 
+	 * @return Response The response object.
 	 */
 	public function send_html( Request $request ) {
 		$request = $this->unshrink_url_components( $request );
-		$html = View::make_for_rest( $request )->get_html();
+		$html    = View::make_for_rest( $request )->get_html();
+
+		// Setup the response data.
 		$data = [
 			'html' => $html,
 		];
 
+		// Return the response, a 200 status code is set by default.
 		return new Response( $data );
 	}
 
