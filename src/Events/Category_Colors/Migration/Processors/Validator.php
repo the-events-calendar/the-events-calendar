@@ -88,7 +88,7 @@ class Validator extends Abstract_Migration_Step {
 				$this->log_elapsed_time( 'Validation', $start_time );
 				$this->update_migration_status( Status::$validation_failed );
 
-				return false; // Stop execution if any validation step fails.
+				return false;
 			}
 		}
 
@@ -123,7 +123,7 @@ class Validator extends Abstract_Migration_Step {
 		if ( is_wp_error( $error ) ) {
 			$this->log_message( 'error', "Validation failed at step: {$step_name}. Stopping further processing.", [], 'Validator' );
 
-			return $error; // Return WP_Error to indicate failure.
+			return $error;
 		}
 
 		return true;
@@ -306,11 +306,11 @@ class Validator extends Abstract_Migration_Step {
 			$mapped_key = $mapped_data['mapped_key'] ?? null;
 
 			if ( ! $mapped_key ) {
-				continue; // Skip if no mapped key is defined.
+				continue;
 			}
 
 			// Check if the mapped key exists in any part of the migration data.
-			$exists = array_reduce( $migration_data, 
+			$exists = array_reduce( $migration_data,
 				fn( $exists, $section ) => $exists || ( is_array( $section ) && array_key_exists( $mapped_key, $section ) ),
 				false
 			);

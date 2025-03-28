@@ -202,7 +202,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 				$meta_key = Config::$meta_key_prefix . $mapped_key;
 				$value    = $filtered_settings[ $key ];
 				$value    = ( 'no_color' === $value ) ? '' : $value;
-				
+
 				// Store processed setting under category.
 				$categories[ $term_id ][ $meta_key ] = $value;
 
@@ -259,7 +259,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 					}
 					break;
 				default:
-					$value = is_scalar( $value ) ? $value : ''; // Default to empty if invalid.
+					$value = is_scalar( $value ) ? $value : '';
 					if ( '' !== $value ) {
 						$mapped_settings[ $new_key ] = $value;
 					}

@@ -263,7 +263,7 @@ class Worker extends Abstract_Migration_Step {
 					$existing_value = $category_meta->get( $meta_key );
 
 					if ( ! empty( $existing_value ) ) {
-						continue; // Skip if already exists.
+						continue;
 					}
 					++$migrated_category_meta_count;
 
