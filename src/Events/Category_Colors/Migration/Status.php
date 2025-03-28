@@ -162,6 +162,15 @@ class Status {
 	public static string $execution_failed = 'execution_failed';
 
 	/**
+	 * Status when execution is skipped due to no data.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static string $execution_skipped = 'execution_skipped';
+
+	/**
 	 * Status when postprocessing is in progress.
 	 *
 	 * @since TBD
