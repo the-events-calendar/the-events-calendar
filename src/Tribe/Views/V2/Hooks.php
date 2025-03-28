@@ -196,6 +196,8 @@ class Hooks extends Service_Provider {
 		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12, 2 );
 		add_filter( 'tec_events_view_month_today_button_label', [ $this, 'filter_view_month_today_button_label' ], 10, 2 );
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
+
+		add_filter( 'wp_rest_cache/allowed_endpoints', [ $this, 'include_rest_for_caching' ], 10, 1 );
 	}
 
 	/**
@@ -332,6 +334,20 @@ class Hooks extends Service_Provider {
 		$this->container->make( Rest_Endpoint::class )->register();
 	}
 
+
+	/**
+	 * Include the REST endpoint so it will be cached.
+	 * 
+	 * @since TBD
+	 * 
+	 * @param array[] $allowed_endpoints The allowed endpoints.
+	 * 
+	 * @return array[] The allowed endpoints.
+	 */
+	public function include_rest_for_caching( $allowed_endpoints ): array {
+		return $this->container->make( Rest_Endpoint::class )->include_rest_for_caching( $allowed_endpoints );
+	}
+	
 	/**
 	 * Filters the posts before the query runs but after its SQL and arguments are finalized to
 	 * inject posts in it, if needed.
