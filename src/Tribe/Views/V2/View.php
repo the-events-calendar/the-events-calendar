@@ -646,13 +646,7 @@ class View implements View_Interface {
 	}
 
 	/**
-	 * Sends, echoing it and exiting, the view HTML on the page.
-	 *
-	 * @since 4.9.2
-	 *
-	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
-	 *                          `get_html` method.
-	 *
+	 * {@inheritDoc}
 	 */
 	public function send_html( $html = null ) {
 		$html = null === $html ? $this->get_html() : $html;
@@ -1722,6 +1716,7 @@ class View implements View_Interface {
 			'today'                => $today,
 			'now'                  => $this->context->get( 'now', 'now' ),
 			'request_date'         => Dates::build_date_object( $this->context->get( 'event_date', $today ) ),
+			'home_url'             => home_url(),
 			'rest_url'             => $endpoint->get_url(),
 			'rest_method'          => $endpoint->get_method(),
 			'rest_nonce'           => '', // For backwards compatibility in views. No longer used.
