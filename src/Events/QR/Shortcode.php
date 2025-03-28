@@ -10,6 +10,7 @@ namespace TEC\Events\QR;
 use Tribe\Shortcode\Shortcode_Abstract;
 use TEC\Common\QR\QR;
 use TEC\Events\QR\Routes;
+use Tribe\Utils\Element_Attributes;
 
 /**
  * Class Shortcode
@@ -60,12 +61,12 @@ class Shortcode extends Shortcode_Abstract {
 	 * @return string
 	 */
 	public function get_html() {
-		$routes  = tribe( Routes::class );
-		$qr_code = tribe( QR::class );
 		$args    = $this->get_arguments();
 		$mode    = $args['mode'] ?? 'current';
 		$id      = $args['id'] ?? '';
 		$size    = $args['size'] ?? 4;
+		$routes  = tribe( Routes::class );
+		$qr_code = tribe( QR::class );
 
 		if ( is_wp_error( $qr_code ) ) {
 			return $qr_code;
@@ -75,9 +76,72 @@ class Shortcode extends Shortcode_Abstract {
 
 		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( $qr_url );
 
-		// @TODO Add filters to allow for customizing the QR code image.
-		// @TODO Add proper alt text to the image.
+		/**
+		 * Filters the QR code image HTML attributes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $attributes The HTML attributes for the QR code image.
+		 * @param array $args       The shortcode arguments.
+		 * @param self  $context    The Shortcode instance.
+		 */
+		$attributes = apply_filters(
+			'tec_events_qr_code_image_attributes',
+			[
+				'alt'      => sprintf(
+					/* translators: %s: The event title or type of QR code */
+					esc_attr__( 'QR Code for %s', 'the-events-calendar' ),
+					$this->get_qr_code_alt_text( $id, $mode )
+				),
+				'class'    => 'tec-events-qr-code__image',
+				'data-url' => esc_url( $qr_url ),
+			],
+			$args,
+			$this
+		);
 
-		return '<img alt="qr_code_image" src="' . $qr_img . '">';
+		$html = '<img src="' . $qr_img . '" ' . ( new Element_Attributes( $attributes ) )->get_attributes() . '>';
+
+		/**
+		 * Filters the complete QR code HTML output.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $html    The complete HTML output for the QR code.
+		 * @param array  $args    The shortcode arguments.
+		 * @param self   $context The Shortcode instance.
+		 */
+		return apply_filters(
+			'tec_events_qr_code_html',
+			$html,
+			$args,
+			$this
+		);
+	}
+
+	/**
+	 * Get a descriptive text for the QR code based on its type and event.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $post_id The post ID.
+	 * @param string $mode    The QR code mode.
+	 *
+	 * @return string The descriptive text for the QR code.
+	 */
+	private function get_qr_code_alt_text( int $post_id, string $mode ): string {
+		switch ( $mode ) {
+			case 'current':
+				return esc_html__( 'current event', 'the-events-calendar' );
+			case 'upcoming':
+				return esc_html__( 'next upcoming event', 'the-events-calendar' );
+			case 'specific':
+				$title = get_the_title( $post_id );
+				return $title ?: esc_html__( 'specific event', 'the-events-calendar' );
+			case 'next':
+				return esc_html__( 'next event in series', 'the-events-calendar' );
+			default:
+				return esc_html__( 'event', 'the-events-calendar' );
+		}
 	}
 }

@@ -7,8 +7,8 @@
 
 namespace TEC\Events\QR;
 
+use TEC\Common\Contracts\Provider\Controller;
 use Tribe__Events__Rewrite;
-use Tribe__Events__Main as TEC;
 
 /**
  * Class Routes.
@@ -178,32 +178,20 @@ class Routes extends Controller {
 	}
 
 	/**
-	 * Decode a QR code URL and return its information.
+	 * Decode a QR code hash and return its information.
 	 *
 	 * @since TBD
 	 *
-	 * @param string $url The QR code URL to decode.
+	 * @param string $hash The QR code hash to decode.
 	 *
-	 * @throws \InvalidArgumentException If the URL is not a valid QR code URL or the hash is invalid.
+	 * @throws \InvalidArgumentException If the hash is invalid.
 	 *
 	 * @return array{
 	 *     post_id: int,
 	 *     qr_type: string,
 	 * } The decoded QR code information.
 	 */
-	public function decode_qr_url( string $url ): array {
-		$path = wp_parse_url( $url, PHP_URL_PATH );
-		if ( ! $path ) {
-			throw new \InvalidArgumentException( 'Invalid QR code URL.' );
-		}
-
-		$parts = explode( '/', trim( $path, '/' ) );
-		if ( count( $parts ) !== 3 || $parts[0] !== 'events' || $parts[1] !== $this->route_prefix ) {
-			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: events/' . $this->route_prefix . '/{hash}, Got: ' . $path );
-		}
-
-		$hash = $parts[2];
-
+	public function decode_qr_hash( string $hash ): array {
 		// Convert from base64url back to standard base64.
 		$hash = strtr( $hash, '-_', '+/' );
 
@@ -236,5 +224,33 @@ class Routes extends Controller {
 			'post_id' => $post_id,
 			'qr_type' => $qr_type,
 		];
+	}
+
+	/**
+	 * Decode a QR code URL and return its information.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $url The QR code URL to decode.
+	 *
+	 * @throws \InvalidArgumentException If the URL is not a valid QR code URL or the hash is invalid.
+	 *
+	 * @return array{
+	 *     post_id: int,
+	 *     qr_type: string,
+	 * } The decoded QR code information.
+	 */
+	public function decode_qr_url( string $url ): array {
+		$path = wp_parse_url( $url, PHP_URL_PATH );
+		if ( ! $path ) {
+			throw new \InvalidArgumentException( 'Invalid QR code URL.' );
+		}
+
+		$parts = explode( '/', trim( $path, '/' ) );
+		if ( count( $parts ) !== 3 || $parts[0] !== 'events' || $parts[1] !== $this->route_prefix ) {
+			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: events/' . $this->route_prefix . '/{hash}, Got: ' . $path );
+		}
+
+		return $this->decode_qr_hash( $parts[2] );
 	}
 }
