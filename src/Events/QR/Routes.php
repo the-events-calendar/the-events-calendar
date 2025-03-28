@@ -122,34 +122,6 @@ class Routes extends Controller {
 	}
 
 	/**
-	 * Add base slugs for QR code routes.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $base_slugs The base slugs.
-	 *
-	 * @return array The modified base slugs.
-	 */
-	public function filter_add_base_slugs( array $base_slugs ): array {
-		$base_slugs['qr'] = $this->route_prefix;
-		return $base_slugs;
-	}
-
-	/**
-	 * Add matchers to query vars map for QR code routes.
-	 *
-	 * @since TBD
-	 *
-	 * @param array $matchers The matchers to query vars map.
-	 *
-	 * @return array The modified matchers.
-	 */
-	public function filter_add_matchers_to_query_vars_map( array $matchers ): array {
-		$matchers['qr'] = 'tec_qr_hash';
-		return $matchers;
-	}
-
-	/**
 	 * Adds the required Query Vars for QR code routes.
 	 *
 	 * @param array $query_vars The array of query variables to add to.
