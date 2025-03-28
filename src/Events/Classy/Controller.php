@@ -25,6 +25,7 @@ use WP_Post;
  * @package TEC\Events\Classy;
  */
 class Controller extends ControllerContract {
+
 	/**
 	 * The name of the constant that will be used to disable the feature.
 	 * Setting it to a truthy value will disable the feature.
@@ -43,22 +44,21 @@ class Controller extends ControllerContract {
 	 * @return bool Whether the feature is active or not.
 	 */
 	private static function is_feature_active(): bool {
+		// The constant to disable the feature is defined and it's truthy.
 		if ( defined( self::DISABLED ) && constant( self::DISABLED ) ) {
-			// The constant to disable the feature is defined and it's truthy.
 			return false;
 		}
 
+		// The environment variable to disable the feature is truthy.
 		if ( getenv( self::DISABLED ) ) {
-			// The environment variable to disable the feature is truthy.
 			return false;
 		}
 
-		// Finally read an option value to determine if the feature should be active or not.
+		// Read an option value to determine if the feature should be active or not.
 		$active = (bool) get_option( 'tec_events_classy_editor_enabled', true );
 
 		/**
-		 * Allows filtering whether the whole Seating feature
-		 * should be activated or not.
+		 * Allows filtering whether the whole Classy feature should be activated or not.
 		 *
 		 * Note: this filter will only apply if the disable constant or env var
 		 * are not set or are set to falsy values.
@@ -151,34 +151,17 @@ class Controller extends ControllerContract {
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
 
 		// Tell Common, TEC, ET and so on NOT to load blocks.
-		add_filter( 'tribe_editor_should_load_blocks', '__return_false' );
+		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 
 		// We're using TEC new editor.
-		add_filter( 'tec_using_classy_editor', '__return_true' );
+		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 
 		add_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100, 2 );
 
 		add_action( 'init', [ $this, 'register_post_meta' ] );
 
 		// Register the main assets entry point.
-		Asset::add(
-			'tec-classy',
-			'classy.js'
-		)->add_to_group_path( TEC::class . '-packages' )
-			->add_to_group( 'tec-classy' )
-			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
-			->register();
-
-		Asset::add(
-			'tec-classy-style',
-			'style-classy.css'
-		)->add_to_group_path( TEC::class . '-packages' )
-			->add_to_group( 'tec-classy' )
-			->enqueue_on( 'enqueue_block_editor_assets' )
-			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
-			->register();
+		$this->register_assets();
 
 		// TESTING
 		if ( str_starts_with( $_SERVER['REQUEST_URI'] ?? '', '/wp-admin/post-new.php' ) ) {
@@ -237,8 +220,8 @@ class Controller extends ControllerContract {
 	 * @return void The hooked actions and filters are removed.
 	 */
 	public function unregister(): void {
-		remove_filter( 'tribe_editor_should_load_blocks', '__return_false' );
-		remove_filter( 'tec_using_classy_editor', '__return_true' );
+		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
+		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
@@ -248,6 +231,34 @@ class Controller extends ControllerContract {
 		// TESTING
 		remove_filter( 'wp_insert_post_data', [ $this, 'test_filter_post_data' ], 0 );
 		// END TESTING
+	}
+
+	/**
+	 * Registers the assets required for the Classy app.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function register_assets() {
+		Asset::add(
+			'tec-classy',
+			'classy.js'
+		)->add_to_group_path( TEC::class . '-packages' )
+			->add_to_group( 'tec-classy' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )
+			->register();
+
+		Asset::add(
+			'tec-classy-style',
+			'style-classy.css'
+		)->add_to_group_path( TEC::class . '-packages' )
+			->add_to_group( 'tec-classy' )
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
+			->register();
 	}
 
 	/**

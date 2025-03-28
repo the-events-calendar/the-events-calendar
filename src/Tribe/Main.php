@@ -507,7 +507,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 * Feature detection for the Classy editor; it needs to happen early in the loading process to prevent other
 			 * plugins and legacy Block Editor controllers from starting.
 			 */
-			\TEC\Events\Classy\Controller::early_register();
+			New_Editor_Controller::early_register();
 
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
 		}
@@ -602,7 +602,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @return void
 		 */
-		public function bind_implementations(  ) {
+		public function bind_implementations() {
 			tribe_singleton( 'tec.main', $this );
 
 			// New Editor.
