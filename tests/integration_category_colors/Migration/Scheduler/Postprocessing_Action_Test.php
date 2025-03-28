@@ -1,4 +1,10 @@
-<?php
+/**
+ * Tests for the Postprocessing_Action class.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Scheduler
+ */
 
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
@@ -8,6 +14,13 @@ use TEC\Events\Category_Colors\Migration\Scheduler\Abstract_Action;
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
 
+/**
+ * Class Postprocessing_Action_Test
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Scheduler
+ */
 class Postprocessing_Action_Test extends WPTestCase {
 	use With_Uopz;
 
@@ -24,9 +37,9 @@ class Postprocessing_Action_Test extends WPTestCase {
 		$this->action = new Postprocessing_Action();
 
 		// Mock action scheduler functions
-		$this->set_fn_return('as_schedule_single_action', 123);
-		$this->set_fn_return('as_unschedule_action', true);
-		$this->set_fn_return('as_next_scheduled_action', null);
+		$this->set_fn_return( 'as_schedule_single_action', 123 );
+		$this->set_fn_return( 'as_unschedule_action', true );
+		$this->set_fn_return( 'as_next_scheduled_action', null );
 
 		// By default, allow scheduling
 		$this->set_class_fn_return( Postprocessing_Action::class, 'can_schedule', true );
@@ -63,12 +76,12 @@ class Postprocessing_Action_Test extends WPTestCase {
 		delete_option( Config::$migration_processing_option );
 
 		// Clean up test terms
-		$terms = get_terms([
+		$terms = get_terms( [
 			'taxonomy' => 'tribe_events_cat',
 			'hide_empty' => false,
-		]);
-		foreach ($terms as $term) {
-			wp_delete_term($term->term_id, 'tribe_events_cat');
+		] );
+		foreach ( $terms as $term ) {
+			wp_delete_term( $term->term_id, 'tribe_events_cat' );
 		}
 	}
 
@@ -104,8 +117,8 @@ class Postprocessing_Action_Test extends WPTestCase {
 		Status::update_migration_status( Status::$execution_completed );
 
 		// Create a test term
-		$term = wp_insert_term('Test Category', 'tribe_events_cat');
-		$this->assertNotWPError($term);
+		$term = wp_insert_term( 'Test Category', 'tribe_events_cat' );
+		$this->assertNotWPError( $term );
 		$term_id = $term['term_id'];
 
 		// Set up test data
@@ -141,8 +154,8 @@ class Postprocessing_Action_Test extends WPTestCase {
 		Status::update_migration_status( Status::$execution_completed );
 
 		// Create a test term
-		$term = wp_insert_term('Test Category', 'tribe_events_cat');
-		$this->assertNotWPError($term);
+		$term = wp_insert_term( 'Test Category', 'tribe_events_cat' );
+		$this->assertNotWPError( $term );
 		$term_id = $term['term_id'];
 
 		// Set up test data with invalid category
@@ -161,7 +174,7 @@ class Postprocessing_Action_Test extends WPTestCase {
 		update_option( Config::$migration_processing_option, $migration_data );
 
 		// Mock the process method to return WP_Error
-		$this->set_class_fn_return( Postprocessing_Action::class, 'process', new \WP_Error('postprocessing_failed', 'Postprocessing failed') );
+		$this->set_class_fn_return( Postprocessing_Action::class, 'process', new \WP_Error( 'postprocessing_failed', 'Postprocessing failed' ) );
 
 		$this->action->schedule();
 		$result = $this->action->process();

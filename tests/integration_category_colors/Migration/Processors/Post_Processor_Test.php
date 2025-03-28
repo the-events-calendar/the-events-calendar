@@ -102,42 +102,45 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 			$migration_data = [
 				'categories' => [
 					(string) self::$test_categories[0] => [
-						'taxonomy_id' => self::$test_categories[0],
-						'tec-events-cat-colors-primary' => '#ff0000',
+						'taxonomy_id'                     => self::$test_categories[0],
+						'tec-events-cat-colors-primary'   => '#ff0000',
 						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+						'tec-events-cat-colors-text'      => '#000000',
 					],
 					(string) self::$test_categories[1] => [
-						'taxonomy_id' => self::$test_categories[1],
-						'tec-events-cat-colors-primary' => '#00ff00',
+						'taxonomy_id'                     => self::$test_categories[1],
+						'tec-events-cat-colors-primary'   => '#00ff00',
 						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+						'tec-events-cat-colors-text'      => '#000000',
 					],
 				],
-				'settings' => [
-					'category-color-legend-show' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-					'category-color-legend-superpowers' => '1',
+				'settings'   => [
+					'category-color-legend-show'            => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
+					'category-color-legend-superpowers'     => '1',
 					'category-color-show-hidden-categories' => '1',
-					'category-color-custom-CSS' => '1',
-					'category-color-reset-button' => '1',
+					'category-color-custom-CSS'             => '1',
+					'category-color-reset-button'           => '1',
 				],
 			];
 
 			// Set up original settings
 			$original_settings = [
-				'add_legend' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-				'legend_superpowers' => '1',
+				'add_legend'               => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
+				'legend_superpowers'       => '1',
 				'show_ignored_cats_legend' => '1',
-				'custom_legend_css' => '1',
-				'reset_show' => '1',
+				'custom_legend_css'        => '1',
+				'reset_show'               => '1',
 			];
 			update_option( 'teccc_options', $original_settings );
 
 			update_option( Config::$migration_data_option, $migration_data );
-			update_option( Config::$migration_processing_option, [
-				'settings' => [],
-				'categories' => [],
-			] );
+			update_option(
+				Config::$migration_processing_option,
+				[
+					'settings'   => [],
+					'categories' => [],
+				]
+			);
 			Status::update_migration_status( Status::$execution_completed );
 
 			// Set up the actual meta values
@@ -150,22 +153,19 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 				}
 				$category_meta->save();
 			}
-
-			// Set up the settings
-			update_option( Tribe__Events__Main::OPTIONNAME, $migration_data['settings'] );
 		};
 
 		$setup_dry_run = function ( Post_Processor $processor ) {
 			$migration_data = [
 				'categories' => [
 					(string) self::$test_categories[0] => [
-						'taxonomy_id' => self::$test_categories[0],
-						'tec-events-cat-colors-primary' => '#ff0000',
+						'taxonomy_id'                     => self::$test_categories[0],
+						'tec-events-cat-colors-primary'   => '#ff0000',
 						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+						'tec-events-cat-colors-text'      => '#000000',
 					],
 				],
-				'settings' => [
+				'settings'   => [
 					'category-color-legend-show' => [ 'month', 'list', 'day' ],
 				],
 			];
@@ -187,19 +187,18 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 			$migration_data = [
 				'categories' => [
 					(string) self::$test_categories[0] => [
-						'taxonomy_id' => self::$test_categories[0],
-						'tec-events-cat-colors-primary' => '#ff0000',
+						'taxonomy_id'                     => self::$test_categories[0],
+						'tec-events-cat-colors-primary'   => '#ff0000',
 						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+						'tec-events-cat-colors-text'      => '#000000',
 					],
 				],
-				'settings' => [],
+				'settings'   => [],
 			];
 
 			update_option( Config::$migration_data_option, $migration_data );
 			update_option( Config::$migration_processing_option, [] );
 			Status::update_migration_status( Status::$execution_completed );
-
 			// Don't set up any meta values to test missing meta detection
 		};
 
@@ -209,17 +208,17 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 				true,
 				Status::$postprocessing_completed,
 			],
-			'dry run' => [
+			'dry run'          => [
 				$setup_dry_run,
 				true,
 				Status::$postprocessing_completed,
 			],
-			'no data' => [
+			'no data'          => [
 				$setup_no_data,
 				false,
 				Status::$postprocessing_completed,
 			],
-			'missing meta' => [
+			'missing meta'     => [
 				$setup_missing_meta,
 				false,
 				Status::$postprocessing_failed,
@@ -249,18 +248,21 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 		$migration_data = [
 			'categories' => [
 				(string) self::$test_categories[0] => [
-					'taxonomy_id' => self::$test_categories[0],
+					'taxonomy_id'                   => self::$test_categories[0],
 					'tec-events-cat-colors-primary' => '#ff0000',
 				],
 			],
-			'settings' => [],
+			'settings'   => [],
 		];
 
 		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, [
-			'settings' => [],
-			'categories' => [],
-		] );
+		update_option(
+			Config::$migration_processing_option,
+			[
+				'settings'   => [],
+				'categories' => [],
+			]
+		);
 
 		// Test when execution is not completed
 		Status::update_migration_status( Status::$execution_in_progress );
@@ -282,11 +284,11 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 		$migration_data = [
 			'categories' => [
 				(string) self::$test_categories[0] => [
-					'taxonomy_id' => self::$test_categories[0],
+					'taxonomy_id'                   => self::$test_categories[0],
 					'tec-events-cat-colors-primary' => '#ff0000',
 				],
 			],
-			'settings' => [],
+			'settings'   => [],
 		];
 
 		update_option( Config::$migration_data_option, $migration_data );

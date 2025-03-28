@@ -1,4 +1,10 @@
-<?php
+/**
+ * Tests for the Execution_Action class.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Scheduler
+ */
 
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
@@ -10,6 +16,13 @@ use TEC\Events\Category_Colors\Migration\Scheduler\Abstract_Action;
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
 
+/**
+ * Class Execution_Action_Test
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Scheduler
+ */
 class Execution_Action_Test extends WPTestCase {
 	use With_Uopz;
 
@@ -26,10 +39,10 @@ class Execution_Action_Test extends WPTestCase {
 		$this->action = new Execution_Action();
 
 		// Mock action scheduler functions
-		$this->set_fn_return('as_schedule_single_action', 123);
-		$this->set_fn_return('as_unschedule_action', true);
-		$this->set_fn_return('as_next_scheduled_action', null);
-		$this->set_fn_return('as_enqueue_async_action', 123);
+		$this->set_fn_return( 'as_schedule_single_action', 123 );
+		$this->set_fn_return( 'as_unschedule_action', true );
+		$this->set_fn_return( 'as_next_scheduled_action', null );
+		$this->set_fn_return( 'as_enqueue_async_action', 123 );
 
 		// By default, allow scheduling
 		$this->set_class_fn_return( Execution_Action::class, 'can_schedule', true );

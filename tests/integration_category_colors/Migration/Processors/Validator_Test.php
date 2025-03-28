@@ -1,4 +1,10 @@
-<?php
+/**
+ * Tests for the Validator class.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Processors
+ */
 
 namespace TEC\Events\Category_Colors\Migration\Processors;
 
@@ -12,6 +18,13 @@ use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
 use Tribe__Events__Main;
 
+/**
+ * Class Validator_Test
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Processors
+ */
 class Validator_Test extends WPTestCase {
 	use With_Uopz;
 	use MatchesSnapshots;
@@ -42,11 +55,14 @@ class Validator_Test extends WPTestCase {
 	public function tear_down(): void {
 		parent::tearDown();
 		delete_option( Config::$migration_data_option );
+		delete_option( Config::$migration_processing_option );
 		Status::update_migration_status( Status::$not_started );
 	}
 
 	/**
-	 * Data provider for validation scenarios
+	 * Data provider for test cases.
+	 *
+	 * @since TBD
 	 *
 	 * @return Generator
 	 */
@@ -119,14 +135,10 @@ class Validator_Test extends WPTestCase {
 				'categories' => [
 					'1' => [
 						'taxonomy_id' => 1,
-						'invalid-meta-key' => '#ff0000',
+						'invalid-key' => '#ff0000',
 					],
 				],
-				'settings' => [
-					'category-color-legend-show' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-					'category-color-legend-superpowers' => '1',
-					'category-color-show-hidden-categories' => '1',
-				],
+				'settings' => [],
 				'ignored_terms' => [],
 			];
 
@@ -136,18 +148,14 @@ class Validator_Test extends WPTestCase {
 		$setup_invalid_category_ids = function () {
 			$migration_data = [
 				'categories' => [
-					'999' => [ // Non-existent category ID
-						'taxonomy_id' => 999,
+					'999999' => [ // Invalid category ID
+						'taxonomy_id' => 999999,
 						'tec-events-cat-colors-primary' => '#ff0000',
 						'tec-events-cat-colors-secondary' => '#ffffff',
 						'tec-events-cat-colors-text' => '#000000',
 					],
 				],
-				'settings' => [
-					'category-color-legend-show' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-					'category-color-legend-superpowers' => '1',
-					'category-color-show-hidden-categories' => '1',
-				],
+				'settings' => [],
 				'ignored_terms' => [],
 			];
 
@@ -156,29 +164,16 @@ class Validator_Test extends WPTestCase {
 
 		$setup_invalid_settings_values = function () {
 			$migration_data = [
-				'categories' => [
-					'1' => [
-						'taxonomy_id' => 1,
-						'tec-events-cat-colors-primary' => '#ff0000',
-						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
-					],
-				],
+				'categories' => [],
 				'settings' => [
-					'category-color-legend-show' => 'not-an-array', // Should be an array
-					'category-color-legend-superpowers' => 'invalid', // Should be '1' or ''
-					'category-color-show-hidden-categories' => 'invalid', // Should be '1' or ''
+					'category-color-legend-show' => 'not-an-array',
+					'category-color-legend-superpowers' => 'invalid',
+					'category-color-show-hidden-categories' => 'invalid',
+					'category-color-custom-CSS' => 'invalid',
+					'category-color-reset-button' => 'invalid',
 				],
 				'ignored_terms' => [],
 			];
-
-			// Set up original settings for validation
-			$original_settings = [
-				'add_legend' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-				'legend_superpowers' => '1',
-				'show_ignored_cats_legend' => '1',
-			];
-			update_option( 'teccc_options', $original_settings );
 
 			update_option( Config::$migration_data_option, $migration_data );
 		};
@@ -188,16 +183,12 @@ class Validator_Test extends WPTestCase {
 				'categories' => [
 					'1' => [
 						'taxonomy_id' => 1,
-						'tec-events-cat-colors-primary' => 'not-a-color', // Invalid color value
-						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+						'tec-events-cat-colors-primary' => 'invalid-color',
+						'tec-events-cat-colors-secondary' => 'invalid-color',
+						'tec-events-cat-colors-text' => 'invalid-color',
 					],
 				],
-				'settings' => [
-					'category-color-legend-show' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-					'category-color-legend-superpowers' => '1',
-					'category-color-show-hidden-categories' => '1',
-				],
+				'settings' => [],
 				'ignored_terms' => [],
 			];
 
@@ -348,26 +339,22 @@ class Validator_Test extends WPTestCase {
 		update_option( 'teccc_options', $original_settings );
 		update_option( Config::$migration_data_option, $migration_data );
 
-		add_action(
-			'tec_events_category_colors_migration_validator_start',
-			function () use ( &$pre_hook_fired ) {
-				$pre_hook_fired = true;
-			}
-		);
+		// Add hooks to track firing
+		add_action( 'tec_events_category_colors_migration_validator_pre_process', function() use ( &$pre_hook_fired ) {
+			$pre_hook_fired = true;
+		} );
 
-		add_action(
-			'tec_events_category_colors_migration_validator_end',
-			function ( $data ) use ( &$post_hook_fired, &$post_hook_data ) {
-				$post_hook_fired = true;
-				$post_hook_data  = $data;
-			}
-		);
+		add_action( 'tec_events_category_colors_migration_validator_post_process', function( $data ) use ( &$post_hook_fired, &$post_hook_data ) {
+			$post_hook_fired = true;
+			$post_hook_data  = $data;
+		} );
 
-		$this->processor->process();
+		$result = $this->processor->process();
 
+		$this->assertTrue( $result );
 		$this->assertTrue( $pre_hook_fired );
 		$this->assertTrue( $post_hook_fired );
-		$this->assertIsBool( $post_hook_data );
+		$this->assertEquals( $migration_data, $post_hook_data );
 	}
 
 	/**

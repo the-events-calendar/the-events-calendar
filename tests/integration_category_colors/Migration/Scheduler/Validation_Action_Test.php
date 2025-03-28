@@ -1,12 +1,26 @@
-<?php
+/**
+ * Tests for the Validation_Action class.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Scheduler
+ */
 
 namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Migration\Config;
+use TEC\Events\Category_Colors\Migration\Scheduler\Abstract_Action;
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
 
+/**
+ * Class Validation_Action_Test
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Scheduler
+ */
 class Validation_Action_Test extends WPTestCase {
 	use With_Uopz;
 
@@ -23,12 +37,32 @@ class Validation_Action_Test extends WPTestCase {
 		$this->action = new Validation_Action();
 
 		// Mock action scheduler functions
-		$this->set_fn_return('as_schedule_single_action', 123);
-		$this->set_fn_return('as_unschedule_action', true);
-		$this->set_fn_return('as_next_scheduled_action', null);
+		$this->set_fn_return( 'as_schedule_single_action', 123 );
+		$this->set_fn_return( 'as_unschedule_action', true );
+		$this->set_fn_return( 'as_next_scheduled_action', null );
 
 		// By default, allow scheduling
 		$this->set_class_fn_return( Validation_Action::class, 'can_schedule', true );
+
+		// Mock the update_migration_status method on the parent class to actually update the status
+		$this->set_class_fn_return( Abstract_Action::class, 'update_migration_status', function( $status ) {
+			Status::update_migration_status( $status );
+			return true;
+		}, true );
+
+		// Mock the schedule method on the parent class to update status
+		$action = $this->action;
+		$this->set_class_fn_return( Abstract_Action::class, 'schedule', function() use ( $action ) {
+			if ( ! $action->can_schedule() ) {
+				return new \WP_Error(
+					'tec_events_category_colors_migration_cannot_schedule',
+					'Cannot schedule the action.'
+				);
+			}
+			$status = $action->get_scheduled_status();
+			Status::update_migration_status( $status );
+			return 123;
+		}, true );
 	}
 
 	/**
@@ -39,6 +73,7 @@ class Validation_Action_Test extends WPTestCase {
 		$this->action->cancel();
 		Status::update_migration_status( Status::$not_started );
 		delete_option( Config::$migration_data_option );
+		delete_option( Config::$migration_processing_option );
 	}
 
 	/**
@@ -115,8 +150,8 @@ class Validation_Action_Test extends WPTestCase {
 		];
 		update_option( Config::$migration_data_option, $migration_data );
 
-		// Mock the process method to return WP_Error for failed validation
-		$this->set_class_fn_return( Validation_Action::class, 'process', new \WP_Error('validation_failed', 'Validation failed') );
+		// Mock the process method to return WP_Error
+		$this->set_class_fn_return( Validation_Action::class, 'process', new \WP_Error( 'validation_failed', 'Validation failed' ) );
 
 		// Mock the get_failed_status method to return the correct status
 		$this->set_class_fn_return( Validation_Action::class, 'get_failed_status', Status::$validation_failed );

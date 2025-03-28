@@ -1,15 +1,29 @@
-<?php
+/**
+ * Tests for the Migration_Notice class.
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Notice
+ */
 
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use TEC\Common\StellarWP\AdminNotices\AdminNotices;
 use TEC\Events\Category_Colors\Migration\Status;
+use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Scheduler\Abstract_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
 
+/**
+ * Class Migration_Notice_Test
+ *
+ * @since   TBD
+ *
+ * @package TEC\Events\Category_Colors\Migration\Notice
+ */
 class Migration_Notice_Test extends WPTestCase
 {
     use With_Uopz;
@@ -18,7 +32,7 @@ class Migration_Notice_Test extends WPTestCase
     /**
      * @var Migration_Notice
      */
-    private $notice;
+    private Migration_Notice $notice;
 
     /**
      * @var array<string> List of notice IDs used in tests
@@ -44,7 +58,7 @@ class Migration_Notice_Test extends WPTestCase
         // Clear any existing notices
         $this->clear_admin_notices();
 
-        $this->notice = tribe(Migration_Notice::class);
+        $this->notice = new Migration_Notice();
 
         // Reset migration status before each test
         Status::update_migration_status(Status::$not_started);
@@ -70,6 +84,12 @@ class Migration_Notice_Test extends WPTestCase
         $this->set_fn_return('check_admin_referer', function ($action, $nonce = null) {
             return $nonce === $this->test_nonce || $nonce === null;
         });
+
+        // Mock the schedule method on the parent class to update status
+        $this->set_class_fn_return(Abstract_Action::class, 'schedule', function() {
+            Status::update_migration_status(Status::$preprocessing_scheduled);
+            return 123;
+        }, true);
     }
 
     /**
@@ -81,6 +101,8 @@ class Migration_Notice_Test extends WPTestCase
         delete_option('teccc_options');
         Status::update_migration_status(Status::$not_started);
         $this->clear_admin_notices();
+        delete_option(Config::$migration_data_option);
+        delete_option(Config::$migration_processing_option);
     }
 
     /**
