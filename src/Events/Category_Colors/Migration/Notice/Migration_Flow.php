@@ -10,7 +10,10 @@
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
 use TEC\Events\Category_Colors\Migration\Config;
+use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
+use TEC\Events\Category_Colors\Migration\Scheduler\Postprocessing_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
+use TEC\Events\Category_Colors\Migration\Scheduler\Validation_Action;
 use TEC\Events\Category_Colors\Migration\Status;
 use WP_Error;
 
