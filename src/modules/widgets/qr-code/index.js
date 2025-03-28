@@ -17,11 +17,11 @@ const { InnerBlocks } = wp.blockEditor;
  */
 export default {
 	id: 'qr-code',
-	title: __('QR Code', 'the-events-calendar'),
-	description: __('Display a QR code for an event.', 'the-events-calendar'),
+	title: __( 'QR Code', 'the-events-calendar' ),
+	description: __( 'Display a QR code for an event.', 'the-events-calendar' ),
 	icon: <QrCodeIcon />,
 	category: 'tribe-events',
-	keywords: ['event', 'qr code', 'events-gutenberg', 'tribe'],
+	keywords: [ 'event', 'qr code', 'events-gutenberg', 'tribe' ],
 	example: {},
 
 	edit: QrCode,
