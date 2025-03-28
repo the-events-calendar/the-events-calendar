@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Category_Colors\Migration\Notice;
 
+use Exception;
 use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Postprocessing_Action;
@@ -112,7 +113,7 @@ class Migration_Flow {
 			delete_option( Config::$migration_data_option );
 
 			return true;
-		} catch ( \Exception $e ) {
+		} catch ( Exception $e ) {
 			return $this->handle_error( $e->getMessage() );
 		}
 	}
@@ -125,6 +126,12 @@ class Migration_Flow {
 	 * @return bool Whether the migration notice should be shown.
 	 */
 	public function should_show_migration(): bool {
+		// First check if original settings exist - if not, no migration needed.
+		$old_options = get_option( Config::$original_settings_option );
+		if ( empty( $old_options ) ) {
+			return false;
+		}
+
 		$status = Status::get_migration_status();
 
 		// Don't show if migration is already completed.
@@ -132,18 +139,13 @@ class Migration_Flow {
 			return false;
 		}
 
-		// Check if old plugin data exists (teccc_options).
-		$old_options = get_option( 'teccc_options' );
-		if ( empty( $old_options ) ) {
-			return false;
+		// If migration has started (status is past not_started), show the notice.
+		if ( Status::$not_started !== $status['status'] ) {
+			return true;
 		}
 
-		// Check if old plugin is active.
-		if ( ! is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
-			return false;
-		}
-
-		return true;
+		// For not started migrations, only show if old plugin is active.
+		return is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
 	}
 
 	/**

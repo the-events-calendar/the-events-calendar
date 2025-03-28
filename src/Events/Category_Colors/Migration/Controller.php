@@ -13,7 +13,6 @@
 namespace TEC\Events\Category_Colors\Migration;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Migration\Scheduler\Execution_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Postprocessing_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
@@ -36,20 +35,27 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		if ( Status::$postprocessing_completed === Status::get_migration_status()['status'] ) {
+		// Check if we should force show the notice.
+		$force_show = apply_filters( 'tec_events_category_colors_force_migration_notice', false );
+
+		// Only skip registration if migration is completed and we're not forcing.
+		if ( ! $force_show && Status::$postprocessing_completed === Status::get_migration_status()['status'] ) {
 			return;
 		}
 
-		// Register action hooks
+		// Register action hooks.
 		$this->register_action_hooks();
 
-		// Register Migration_Flow as a singleton
+		// Register Migration_Flow as a singleton.
 		$this->container->singleton( Migration_Flow::class );
 
-		// Register Migration_Notice with Migration_Flow dependency
-		$this->container->singleton( Migration_Notice::class, function() {
-			return new Migration_Notice( $this->container->make( Migration_Flow::class ) );
-		});
+		// Register Migration_Notice with Migration_Flow dependency.
+		$this->container->singleton(
+			Migration_Notice::class,
+			function () {
+				return new Migration_Notice( $this->container->make( Migration_Flow::class ) );
+			}
+		);
 
 		$this->container->make( Migration_Notice::class )->hook();
 	}
@@ -67,8 +73,8 @@ class Controller extends Controller_Contract {
 			Postprocessing_Action::class,
 		];
 
-		foreach ($actions as $action_class) {
-			$action = $this->container->make($action_class);
+		foreach ( $actions as $action_class ) {
+			$action = $this->container->make( $action_class );
 			add_action( $action->get_hook(), [ $action, 'execute' ] );
 		}
 	}
@@ -78,6 +84,5 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {
-	}
+	public function unregister(): void {}
 }
