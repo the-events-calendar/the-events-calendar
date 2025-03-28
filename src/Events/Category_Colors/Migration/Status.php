@@ -198,15 +198,6 @@ class Status {
 	public static string $postprocessing_failed = 'postprocessing_failed';
 
 	/**
-	 * Status when migration has completed successfully.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	public static string $migration_completed = 'migration_completed';
-
-	/**
 	 * Get the current migration status.
 	 *
 	 * @since TBD
