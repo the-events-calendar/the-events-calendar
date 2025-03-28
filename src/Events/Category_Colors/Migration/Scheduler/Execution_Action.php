@@ -12,7 +12,6 @@ namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Migration\Processors\Worker;
-use TEC\Events\Category_Colors\Migration\Scheduler\Postprocessing_Action;
 
 /**
  * Class Execution_Action
@@ -124,7 +123,7 @@ class Execution_Action extends Abstract_Action {
 	 * @return bool|WP_Error True on success, WP_Error on failure.
 	 */
 	public function execute() {
-		// Let the Worker handle the processing
+		// Let the Worker handle the processing.
 		$result = $this->worker->process();
 		if ( is_wp_error( $result ) ) {
 			return $result;
