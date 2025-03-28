@@ -85,18 +85,23 @@ $tec_events_display_qr_codes = [
 	],
 ];
 
+/**
+ * Filters the QR codes settings section fields.
+ *
+ * @since TBD
+ *
+ * @param array $tec_events_display_qr_codes Array of settings fields for the QR codes section.
+ */
+$fields = apply_filters( 'tec_events_settings_display_qr_codes_section', $tec_events_display_qr_codes );
+
 $display_qr_codes = new Tribe__Settings_Tab(
 	$slug['title'],
 	esc_html__( 'QR Codes', 'the-events-calendar' ),
 	[
 		'priority' => 5.25,
-		'fields'   => apply_filters(
-			'tec_events_settings_display_qr_codes_section',
-			$tec_events_display_qr_codes
-		),
+		'fields'   => $fields,
 	]
 );
-
 
 /**
  * Fires after the QR Codes settings tab has been created.
