@@ -85,6 +85,17 @@ class Pre_Processor extends Abstract_Migration_Step {
 			 */
 			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::$expected_structure, false );
 			$this->log_elapsed_time( 'Preprocessing', $start_time );
+
+			return false;
+		}
+
+		// Validate terms data structure.
+		if ( ! $this->validate_terms_structure() ) {
+			$this->update_migration_data( Config::$expected_structure );
+			$this->update_migration_status( Status::$preprocessing_skipped );
+			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::$expected_structure, false );
+			$this->log_elapsed_time( 'Preprocessing', $start_time );
+
 			return false;
 		}
 
@@ -98,7 +109,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		// Store processed data in the database.
 		$this->update_migration_data( $migration_data );
 
-		// Initialize the processing data as a copy of the migration data
+		// Initialize the processing data as a copy of the migration data.
 		update_option( Config::$migration_processing_option, $migration_data );
 
 		$this->update_migration_status( Status::$preprocessing_completed );
@@ -116,6 +127,51 @@ class Pre_Processor extends Abstract_Migration_Step {
 		$this->log_message( 'info', 'Preprocessing complete. Migration data prepared.', $migration_data, 'Pre_Processor' );
 
 		$this->log_elapsed_time( 'Preprocessing', $start_time );
+
+		return true;
+	}
+
+	/**
+	 * Validates the structure of terms data.
+	 *
+	 * @since TBD
+	 * @return bool True if the terms data structure is valid, false otherwise.
+	 */
+	protected function validate_terms_structure(): bool {
+		$terms = $this->processed_settings['terms'] ?? [];
+
+		if ( ! is_array( $terms ) ) {
+			$this->log_message( 'error', 'Terms data is not an array.', [], 'Pre_Processor' );
+
+			return false;
+		}
+
+		$seen_term_ids = [];
+		$seen_slugs    = [];
+		foreach ( $terms as $term_id => $term_data ) {
+			if ( ! is_array( $term_data ) || count( $term_data ) < 2 ) {
+				$this->log_message( 'error', 'Invalid term data structure for term ID: ' . $term_id, $term_data, 'Pre_Processor' );
+
+				return false;
+			}
+
+			// Check for duplicate term IDs.
+			if ( isset( $seen_term_ids[ $term_id ] ) ) {
+				$this->log_message( 'error', 'Duplicate term ID found: ' . $term_id, [], 'Pre_Processor' );
+
+				return false;
+			}
+			$seen_term_ids[ $term_id ] = true;
+
+			// Check for duplicate slugs.
+			$slug = $term_data[0];
+			if ( isset( $seen_slugs[ $slug ] ) ) {
+				$this->log_message( 'error', 'Duplicate term slug found: ' . $slug, [], 'Pre_Processor' );
+
+				return false;
+			}
+			$seen_slugs[ $slug ] = true;
+		}
 
 		return true;
 	}
