@@ -79,6 +79,7 @@ class Validator extends Abstract_Migration_Step {
 			[ 'Unrecognized Keys Detection', fn() => $this->detect_unrecognized_keys( $migration_data ) ],
 			[ 'Required Fields Check', fn() => $this->check_required_fields( $migration_data ) ],
 			[ 'Meta Keys Validation', fn() => $this->validate_meta_keys( $migration_data['categories'] ?? [] ) ],
+			[ 'Settings Values Validation', fn() => $this->validate_settings_values( $migration_data['settings'] ?? [] ) ],
 		];
 
 		foreach ( $validation_steps as [$step_name, $validation_step] ) {
@@ -330,6 +331,55 @@ class Validator extends Abstract_Migration_Step {
 
 			if ( ! $exists ) {
 				return $this->log_message( 'warning', "Expected setting '{$mapped_key}' is missing in migration data.", [], 'Validator' );
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Validates that settings values match their expected types and formats.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string, mixed> $settings The settings to validate.
+	 *
+	 * @return true|WP_Error Returns WP_Error if validation fails.
+	 */
+	protected function validate_settings_values( array $settings ) {
+		foreach ( Config::$settings_mapping as $original_key => $mapped_data ) {
+			$mapped_key = $mapped_data['mapped_key'] ?? null;
+			$validation = $mapped_data['validation'] ?? '';
+			$import     = $mapped_data['import'] ?? false;
+
+			// Skip if no mapped key or validation rule, or if not meant to be imported
+			if ( ! $mapped_key || ! $validation || ! $import ) {
+				continue;
+			}
+
+			// Skip if the key doesn't exist in settings
+			if ( ! isset( $settings[ $mapped_key ] ) ) {
+				continue;
+			}
+
+			$value = $settings[ $mapped_key ];
+
+			switch ( $validation ) {
+				case 'array':
+					if ( ! is_array( $value ) ) {
+						return $this->log_message( 'error', "Setting '{$mapped_key}' should be an array, got " . gettype( $value ) . '.', [], 'Validator' );
+					}
+					break;
+
+				case 'boolean':
+					if ( ! in_array( $value, [ '1', '' ], true ) ) {
+						return $this->log_message( 'error', "Setting '{$mapped_key}' should be a boolean value ('1' or ''), got '{$value}'.", [], 'Validator' );
+					}
+					break;
+
+				default:
+					// Unknown validation rule, skip
+					break;
 			}
 		}
 
