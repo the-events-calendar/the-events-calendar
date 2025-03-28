@@ -30,7 +30,8 @@ class Settings {
 			'prefix'      => 'tribe-events-qr-prefix',
 			'size'        => 'tribe-events-qr-size',
 			'redirection' => 'tribe-events-qr-redirection-behavior',
-			'specific'    => 'tribe-events-qr-specific-event-id',
+			'event_id'    => 'tribe-events-qr-specific-event-id',
+			'series_id'   => 'tribe-events-qr-next-event-in-series-id',
 			'fallback'    => 'tribe-events-qr-fallback',
 		];
 	}
