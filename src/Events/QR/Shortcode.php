@@ -64,7 +64,7 @@ class Shortcode extends Shortcode_Abstract {
 
 		$args = $this->get_arguments();
 
-		$mode = in_array( $args['mode'], [ 'current', 'next', 'id', 'series_next' ], true ) ? $args['mode'] : 'current';
+		$mode = in_array( $args['mode'], [ 'current', 'upcoming', 'specific', 'next' ], true ) ? $args['mode'] : 'current';
 		$id   = absint( $args['id'] );
 		$size = absint( $args['size'] );
 
@@ -74,7 +74,7 @@ class Shortcode extends Shortcode_Abstract {
 			return $qr_code;
 		}
 
-		$qr_img = $qr_code->size( $size )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
+		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
 
 		// @TODO Add filters to allow for customizing the QR code image.
 		// @TODO Add proper alt text to the image.
