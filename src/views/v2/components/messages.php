@@ -31,19 +31,19 @@ $attributes = isset( $attributes ) ? (array) $attributes : [];
 
 ?>
 <div <?php tribe_classes( $classes ); ?> <?php tribe_attributes( $attributes ); ?>>
-    <?php foreach ( $messages as $message_type => $message_group ) : ?>
-        <div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
-            <?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
-            <div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
-                <?php foreach ( $message_group as $key => $message ) : ?>
-                    <div
-                        class="tribe-events-c-messages__message-list-item"
-                        <?php tribe_attributes( [ 'data-key' => (string) $key ] ); ?>
-                    >
-                    <?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : $message; ?>
-                </div>
-                <?php endforeach; ?>
-                </div>
-        </div>
-    <?php endforeach; ?>
+	<?php foreach ( $messages as $message_type => $message_group ) : ?>
+		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
+			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
+			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+				<?php foreach ( $message_group as $key => $message ) : ?>
+					<div
+						class="tribe-events-c-messages__message-list-item"
+						<?php tribe_attributes( [ 'data-key' => (string) $key ] ); ?>
+					>
+						<?php echo version_compare( $wp_version, '5.0', '>=' ) ? wp_kses_post( $message ) : $message; ?>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	<?php endforeach; ?>
 </div>
