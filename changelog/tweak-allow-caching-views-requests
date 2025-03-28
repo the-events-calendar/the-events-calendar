@@ -1,0 +1,4 @@
+Significance: minor
+Type: tweak
+
+Modify the URL params for Views HTML REST Requests to enable usage of GET requests enabling caching

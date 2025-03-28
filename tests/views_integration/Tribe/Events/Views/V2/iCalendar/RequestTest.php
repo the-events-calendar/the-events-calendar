@@ -234,7 +234,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 			'without_date_month_view' => [
 				[
 					'view' => 'month',
-				],
+a				],
 				[], // This gets populated in the calling method below, since ical feeds for month defaults to the current day forward.
 				'create_and_get_month_events',
 			], */
@@ -292,7 +292,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 			'with_date_day_view' => [
 				[
 					'view' => 'day',
-					'event_date' => date( 'Y-m-d', strtotime( 'next week tuesday' ) ),
+					'event_date' => gmdate( 'Y-m-d', strtotime( 'next week tuesday' ) ),
 				],
 				[
 					'next week tuesday',
@@ -396,6 +396,9 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 		foreach ( $expected_events_index as $event_index ) {
 			$expected_events[] = $events_indexed[ $event_index ];
 		}
+
+		codecept_debug( $expected_events );
+		codecept_debug( $event_ids );
 
 		$this->assertEqualsCanonicalizing( $expected_events, $event_ids );
 	}
