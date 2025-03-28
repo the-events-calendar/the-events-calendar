@@ -129,54 +129,87 @@ class Post_Processor extends Abstract_Migration_Step {
 			return false;
 		}
 
-		$errors_found = false;
+		$validation_result = $this->validate_categories( $migration_data['categories'] );
+		$this->update_migration_status( $validation_result ? Status::$postprocessing_completed : Status::$postprocessing_failed );
+		$this->log_elapsed_time( 'Post Processor', $start_time );
 
-		// Validate each category against expected migration data.
-		foreach ( $migration_data['categories'] as $category_id => $meta_data ) {
-			$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
-			$actual_meta   = array_map(
-				static fn( $value ) => is_array( $value ) && count( $value ) === 1 ? $value[0] : $value,
-				$category_meta->get()
-			);
+		return $validation_result;
+	}
 
-			foreach ( $meta_data as $meta_key => $expected_value ) {
-				// Skip validation for excluded meta keys.
-				if ( in_array( $meta_key, $this->skip_meta_keys, true ) ) {
-					continue;
-				}
-
-				$actual_value = $actual_meta[ $meta_key ] ?? null;
-
-				if ( is_null( $actual_value ) ) {
-					$this->log_message( 'error', "Missing meta key '{$meta_key}' for category ID {$category_id}.", [], 'Post Processor' );
-					$errors_found = true;
-				} elseif ( $actual_value !== $expected_value ) {
-					// If the actual value exists but doesn't match expected, this is okay
-					// because we intentionally don't overwrite existing values during migration.
-					$this->log_message(
-						'info',
-						"Found different value for '{$meta_key}' on category {$category_id}. " .
-						"This is expected as we don't overwrite existing values. " .
-						'Migration value: ' . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) .
-						' | Existing value: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ),
-						[],
-						'Post Processor'
-					);
-				}
+	/**
+	 * Validates all categories against their expected meta data.
+	 *
+	 * @since TBD
+	 * @param array<int, array<string, mixed>> $categories The categories to validate.
+	 * @return bool True if all validations pass, false otherwise.
+	 */
+	protected function validate_categories( array $categories ): bool {
+		foreach ( $categories as $category_id => $meta_data ) {
+			if ( ! $this->validate_category( $category_id, $meta_data ) ) {
+				return false;
 			}
 		}
 
-		if ( $errors_found ) {
-			$this->update_migration_status( Status::$postprocessing_failed );
-			$this->log_elapsed_time( 'Post Processor', $start_time );
+		$this->log_message( 'info', 'Migration verification successful. Marking migration as completed.', [], 'Post Processor' );
+		return true;
+	}
 
-			return false;
-		} else {
-			$this->log_message( 'info', 'Migration verification successful. Marking migration as completed.', [], 'Post Processor' );
-			$this->update_migration_status( Status::$postprocessing_completed );
+	/**
+	 * Validates a single category's meta data.
+	 *
+	 * @since TBD
+	 * @param int   $category_id The category ID to validate.
+	 * @param array $meta_data   The expected meta data for the category.
+	 * @return bool True if validation passes, false otherwise.
+	 */
+	protected function validate_category( int $category_id, array $meta_data ): bool {
+		$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
+		$actual_meta   = array_map(
+			static fn( $value ) => is_array( $value ) && count( $value ) === 1 ? $value[0] : $value,
+			$category_meta->get()
+		);
+
+		$meta_keys_to_validate = array_filter(
+			array_keys( $meta_data ),
+			fn( $key ) => ! in_array( $key, $this->skip_meta_keys, true )
+		);
+
+		foreach ( $meta_keys_to_validate as $meta_key ) {
+			$actual_value = $actual_meta[ $meta_key ] ?? null;
+			$expected_value = $meta_data[ $meta_key ];
+
+			if ( is_null( $actual_value ) ) {
+				$this->log_message( 'error', "Missing meta key '{$meta_key}' for category ID {$category_id}.", [], 'Post Processor' );
+				return false;
+			}
+
+			if ( $actual_value !== $expected_value ) {
+				$this->log_mismatched_value( $category_id, $meta_key, $expected_value, $actual_value );
+			}
 		}
-		$this->log_elapsed_time( 'Post Processor', $start_time );
 
 		return true;
+	}
+
+	/**
+	 * Logs information about mismatched meta values.
+	 *
+	 * @since TBD
+	 * @param int    $category_id    The category ID.
+	 * @param string $meta_key       The meta key that has mismatched values.
+	 * @param mixed  $expected_value The expected value.
+	 * @param mixed  $actual_value   The actual value.
+	 * @return void
+	 */
+	protected function log_mismatched_value( int $category_id, string $meta_key, $expected_value, $actual_value ): void {
+		$this->log_message(
+			'info',
+			"Found different value for '{$meta_key}' on category {$category_id}. " .
+			"This is expected as we don't overwrite existing values. " .
+			'Migration value: ' . wp_json_encode( $expected_value, JSON_PRETTY_PRINT ) .
+			' | Existing value: ' . wp_json_encode( $actual_value, JSON_PRETTY_PRINT ),
+			[],
+			'Post Processor'
+		);
 	}
 }

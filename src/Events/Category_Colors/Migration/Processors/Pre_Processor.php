@@ -188,21 +188,26 @@ class Pre_Processor extends Abstract_Migration_Step {
 
 		foreach ( $this->processed_settings['terms'] ?? [] as $term_id => [$slug, $name] ) {
 			foreach ( array_keys( $filtered_settings ) as $key ) {
-				if ( strpos( $key, $slug . '-' ) === 0 || strpos( $key, $slug . '_' ) === 0 ) {
-					$field_name = str_replace( [ $slug . '-', $slug . '_' ], '', $key );
-					$mapped_key = $this->get_mapped_meta_key( $field_name );
-
-					if ( null !== $mapped_key ) {
-						$meta_key = Config::$meta_key_prefix . $mapped_key;
-						$value    = $filtered_settings[ $key ];
-						$value    = ( 'no_color' === $value ) ? '' : $value;
-						// Store processed setting under category.
-						$categories[ $term_id ][ $meta_key ] = $value;
-
-						// Remove from copied array.
-						unset( $filtered_settings[ $key ] );
-					}
+				if ( strpos( $key, $slug . '-' ) !== 0 && strpos( $key, $slug . '_' ) !== 0 ) {
+					continue;
 				}
+
+				$field_name = str_replace( [ $slug . '-', $slug . '_' ], '', $key );
+				$mapped_key = $this->get_mapped_meta_key( $field_name );
+
+				if ( null === $mapped_key ) {
+					continue;
+				}
+
+				$meta_key = Config::$meta_key_prefix . $mapped_key;
+				$value    = $filtered_settings[ $key ];
+				$value    = ( 'no_color' === $value ) ? '' : $value;
+				
+				// Store processed setting under category.
+				$categories[ $term_id ][ $meta_key ] = $value;
+
+				// Remove from copied array.
+				unset( $filtered_settings[ $key ] );
 			}
 
 			// Store the term_id reference itself.

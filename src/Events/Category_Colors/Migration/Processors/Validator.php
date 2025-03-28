@@ -198,13 +198,13 @@ class Validator extends Abstract_Migration_Step {
 		// If there are no migrated settings, validation is not needed.
 		if ( empty( $migrated_settings ) ) {
 			$this->log_message( 'info', 'No migrated settings found. Skipping settings validation.', [], 'Validator' );
-
 			return true;
 		}
 
 		// Ensure we have original settings to compare.
 		if ( empty( $original_settings ) ) {
-			return $this->log_message( 'error', 'Original settings are empty, cannot validate migration.', [], 'Validator' );
+			$this->log_message( 'error', 'Original settings are empty, cannot validate migration. No need for migration.', [], 'Validator' );
+			return false;
 		}
 
 		// Get a list of all setting keys and shuffle them to randomize selection.
@@ -214,30 +214,24 @@ class Validator extends Abstract_Migration_Step {
 		// Limit `validation_sample_size`.
 		$sample_keys = array_slice( $all_keys, 0, $this->validation_sample_size );
 
-		$errors_found = false;
-
 		foreach ( $sample_keys as $key ) {
-			$original_value = $original_settings[ $key ] ?? null;
-			$migrated_value = $migrated_settings[ $key ] ?? null;
-
 			// If the key doesn't exist in migrated settings, it's fine—skip validation.
 			if ( ! array_key_exists( $key, $migrated_settings ) ) {
 				continue;
 			}
 
+			$original_value = $original_settings[ $key ] ?? null;
+			$migrated_value = $migrated_settings[ $key ] ?? null;
+
 			// Compare original and migrated values.
 			if ( $original_value !== $migrated_value ) {
 				$this->log_message( 'warning', "Mismatch for '{$key}'. Expected: " . wp_json_encode( $original_value ) . ' | Found: ' . wp_json_encode( $migrated_value ), [], 'Validator' );
-				$errors_found = true;
+				$this->log_message( 'error', 'Settings validation failed.', [], 'Validator' );
+				return false;
 			}
 		}
 
-		if ( $errors_found ) {
-			return $this->log_message( 'error', 'Settings validation failed.', [], 'Validator' );
-		}
-
 		$this->log_message( 'info', 'Settings validation passed.', [], 'Validator' );
-
 		return true;
 	}
 
