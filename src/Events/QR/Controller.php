@@ -40,8 +40,8 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->singleton( Settings::class );
-		$this->container->singleton( Routes::class );
-		$this->container->singleton( Redirections::class );
+		$this->container->register( Routes::class );
+		$this->container->register( Redirections::class );
 
 		$this->slug = Settings::get_qr_slug();
 

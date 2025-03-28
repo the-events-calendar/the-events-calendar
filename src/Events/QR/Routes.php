@@ -7,7 +7,6 @@
 
 namespace TEC\Events\QR;
 
-use TEC\Common\Contracts\Provider\Controller;
 use Tribe__Events__Rewrite;
 use Tribe__Events__Main as TEC;
 
@@ -47,17 +46,6 @@ class Routes extends Controller {
 	private $salt;
 
 	/**
-	 * Constructor.
-	 *
-	 * @since TBD
-	 */
-	public function __construct() {
-		$this->options      = Settings::get_option_slugs();
-		$this->route_prefix = tribe_get_option( $this->options['prefix'], $this->route_prefix );
-		$this->salt         = substr( wp_salt( Settings::get_qr_slug() ), 0, 8 );
-	}
-
-	/**
 	 * Register the routes.
 	 *
 	 * @since TBD
@@ -65,6 +53,10 @@ class Routes extends Controller {
 	 * @return void
 	 */
 	public function do_register(): void {
+		$this->options      = Settings::get_option_slugs();
+		$this->route_prefix = tribe_get_option( $this->options['prefix'], $this->route_prefix );
+		$this->salt         = substr( wp_salt( Settings::get_qr_slug() ), 0, 8 );
+
 		$this->add_hooks();
 	}
 
