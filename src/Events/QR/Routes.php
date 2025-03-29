@@ -97,6 +97,17 @@ class Routes extends Controller {
 		remove_filter( 'tribe_rewrite_parse_query_vars', [ $this, 'filter_parse_query_vars' ] );
 	}
 
+  /**
+	 * Get the route prefix.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The route prefix.
+	 */
+	public function get_route_prefix(): string {
+		return $this->route_prefix;
+	}
+
 	/**
 	 * Add QR code rewrite rules.
 	 *

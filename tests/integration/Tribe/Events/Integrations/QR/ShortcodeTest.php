@@ -63,7 +63,7 @@ class ShortcodeTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_shortcode_slug() {
-		$this->assertEquals( 'tec_event_qr', $this->shortcode->get_registration_slug() );
+		$this->assertEquals( 'tec_event_qr', Settings::get_qr_slug() );
 	}
 
 	/**
