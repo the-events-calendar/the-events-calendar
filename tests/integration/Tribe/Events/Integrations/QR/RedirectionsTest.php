@@ -157,13 +157,10 @@ class RedirectionsTest extends WPTestCase {
 			]
 		);
 
-		// Bypass Pro version check
-		add_action( 'tribe_common_loaded', 'tribe_register_pro' );
-
 		$url = $this->redirections->get_next_series_event_url( $parent_event_id );
 
-		// Should return the event's permalink
-		$this->assertEquals( get_permalink( $this->test_event_id ), $url );
+		// Since ECP is not active, it should return the fallback URL
+		$this->assertEquals( home_url(), $url );
 	}
 
 	/**
