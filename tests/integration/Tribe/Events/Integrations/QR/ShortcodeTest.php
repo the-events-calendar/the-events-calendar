@@ -89,9 +89,14 @@ class ShortcodeTest extends WPTestCase {
 		$this->assertArrayHasKey( 'id', $defaults );
 		$this->assertArrayHasKey( 'size', $defaults );
 
-		$this->assertEquals( 'current', $defaults['mode'] );
+		$this->assertEquals( '', $defaults['mode'] );
 		$this->assertEquals( '', $defaults['id'] );
-		$this->assertEquals( 4, $defaults['size'] );
+		$this->assertEquals( '', $defaults['size'] );
+
+		$this->assertEquals( tribe_get_option( $this->slugs['redirection'] ), '', 'Redirection should be empty' );
+		$this->assertEquals( tribe_get_option( $this->slugs['size'] ), '', 'Size should be empty' );
+		$this->assertEquals( tribe_get_option( $this->slugs['event_id'] ), '', 'Event ID should be empty' );
+		$this->assertEquals( tribe_get_option( $this->slugs['series_id'] ), '', 'Series ID should be empty' );
 	}
 
 	/**
