@@ -397,9 +397,6 @@ a				],
 			$expected_events[] = $events_indexed[ $event_index ];
 		}
 
-		codecept_debug( $expected_events );
-		codecept_debug( $event_ids );
-
 		$this->assertEqualsCanonicalizing( $expected_events, $event_ids );
 	}
 
