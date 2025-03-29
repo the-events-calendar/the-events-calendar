@@ -190,44 +190,10 @@ class Redirections extends Controller {
 			return $this->get_fallback_url();
 		}
 
-		// Get the next upcoming event in the series.
-		$args   = [
-			'posts_per_page' => 1,
-			'post_type'      => TEC::POSTTYPE,
-			'post_status'    => 'publish',
-			'post_parent'    => $post_id,
-			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-			'meta_query'     => [
-				[
-					'key'     => '_EventStartDate',
-					'value'   => current_time( 'mysql' ),
-					'compare' => '>',
-					'type'    => 'DATETIME',
-				],
-			],
-			'orderby'        => 'meta_value',
-			'meta_key'       => '_EventStartDate',
-			'order'          => 'ASC',
-		];
-		$events = tribe_get_events( $args );
+		// Get the next event in the series using the Series_Relationship class.
+		$next_event = \TEC\Events_Pro\Custom_Tables\V1\Models\Series_Relationship::next( $post_id );
 
-		if ( ! empty( $events ) ) {
-			$url = get_permalink( $events[0]->ID );
-		} else {
-			// No upcoming events found, get the last event in the series.
-			$args   = [
-				'posts_per_page' => 1,
-				'post_type'      => TEC::POSTTYPE,
-				'post_status'    => 'publish',
-				'post_parent'    => $post_id,
-				'orderby'        => 'meta_value',
-				'meta_key'       => '_EventStartDate',
-				'order'          => 'DESC',
-			];
-			$events = tribe_get_events( $args );
-
-			$url = empty( $events ) ? $this->get_fallback_url() : get_permalink( $events[0]->ID );
-		}
+		$url = $next_event ? get_permalink( $next_event->post_id ) : $this->get_fallback_url();
 
 		/**
 		 * Filters the URL for the next event in a series redirection.
@@ -239,7 +205,7 @@ class Redirections extends Controller {
 		 * @param int    $post_id The post ID of the series.
 		 * @param self   $context The Redirections instance.
 		 */
-		return apply_filters( 'tec_events_qr_next_series_event_url', $url, $events, $post_id, $this );
+		return apply_filters( 'tec_events_qr_next_series_event_url', $url, [ $next_event ], $post_id, $this );
 	}
 
 	/**
