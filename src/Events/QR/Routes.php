@@ -97,7 +97,7 @@ class Routes extends Controller {
 		remove_filter( 'tribe_rewrite_parse_query_vars', [ $this, 'filter_parse_query_vars' ] );
 	}
 
-  /**
+	/**
 	 * Get the route prefix.
 	 *
 	 * @since TBD
