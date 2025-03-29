@@ -11,6 +11,7 @@ use Tribe\Shortcode\Shortcode_Abstract;
 use TEC\Common\QR\QR;
 use TEC\Events\QR\Routes;
 use Tribe\Utils\Element_Attributes;
+use TEC\Events\QR\Settings;
 
 /**
  * Class Shortcode
@@ -36,8 +37,8 @@ class Shortcode extends Shortcode_Abstract {
 	 */
 	protected $default_arguments = [
 		'id'   => '',
-		'mode' => 'current',
-		'size' => 4,
+		'mode' => '',
+		'size' => '',
 	];
 
 	/**
@@ -59,10 +60,17 @@ class Shortcode extends Shortcode_Abstract {
 	 * @return string
 	 */
 	public function get_html() {
+		$options = tribe( Settings::class )->get_option_slugs();
 		$args    = $this->get_arguments();
-		$mode    = $args['mode'] ?? 'current';
-		$id      = $args['id'] ?? '';
-		$size    = $args['size'] ?? 4;
+		$mode    = $args['mode'] ?: tribe_get_option( $options['redirection'], 'current' );
+		$size    = $args['size'] ?: tribe_get_option( $options['size'], 4 );
+		$id      = 0;
+		if ( 'specific' === $mode ) {
+			$id = absint( $args['id'] ?: tribe_get_option( $options['event_id'], '' ) );
+		} elseif ( 'next' === $mode ) {
+			$id = absint( $args['id'] ?: tribe_get_option( $options['series_id'], '' ) );
+		}
+
 		$routes  = tribe( Routes::class );
 		$qr_code = tribe( QR::class );
 
@@ -70,7 +78,7 @@ class Shortcode extends Shortcode_Abstract {
 			return $qr_code;
 		}
 
-		$qr_url = $routes->get_qr_url( $id, $mode );
+		$qr_url = $routes->get_qr_url( (int) $id, $mode );
 
 		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( $qr_url );
 
@@ -89,7 +97,7 @@ class Shortcode extends Shortcode_Abstract {
 				'alt'      => sprintf(
 					/* translators: %s: The event title or type of QR code */
 					esc_attr__( 'QR Code for %s', 'the-events-calendar' ),
-					$this->get_qr_code_alt_text( $id, $mode )
+					$this->get_qr_code_alt_text( (int) $id, $args['mode'] )
 				),
 				'class'    => 'tec-events-qr-code__image',
 				'data-url' => esc_url( $qr_url ),
