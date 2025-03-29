@@ -71,8 +71,8 @@ class Redirections extends Controller {
 	 *
 	 * @return string The fallback URL.
 	 */
-	private function get_fallback_url(): string {
-		return tribe_get_option( Settings::get_option_slugs()['fallback'] ) ?: home_url();
+	public function get_fallback_url(): string {
+		return (string) ( tribe_get_option( Settings::get_option_slugs()['fallback'] ) ?: home_url() );
 	}
 
 	/**
@@ -82,7 +82,7 @@ class Redirections extends Controller {
 	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
-	private function get_current_event_url(): string {
+	public function get_current_event_url(): string {
 		$args   = [
 			'posts_per_page' => 1,
 			'post_type'      => TEC::POSTTYPE,
@@ -123,7 +123,7 @@ class Redirections extends Controller {
 	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
-	private function get_upcoming_event_url(): string {
+	public function get_upcoming_event_url(): string {
 		$args   = [
 			'posts_per_page' => 1,
 			'post_type'      => TEC::POSTTYPE,
@@ -166,7 +166,7 @@ class Redirections extends Controller {
 	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
-	private function get_specific_event_url( int $post_id ): string {
+	public function get_specific_event_url( int $post_id ): string {
 		$post_type = get_post_type( $post_id );
 		if ( ! $post_type || TEC::POSTTYPE !== $post_type ) {
 			return $this->get_fallback_url();
@@ -195,14 +195,14 @@ class Redirections extends Controller {
 	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
-	private function get_next_series_event_url( int $post_id ): string {
+	public function get_next_series_event_url( int $post_id ): string {
 		// If we don't have the Pro version, return the fallback URL.
 		if ( ! has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
 			return $this->get_fallback_url();
 		}
 
 		// Get the next upcoming event in the series.
-		$args = [
+		$args   = [
 			'posts_per_page' => 1,
 			'post_type'      => TEC::POSTTYPE,
 			'post_status'    => 'publish',
@@ -226,7 +226,7 @@ class Redirections extends Controller {
 			$url = get_permalink( $events[0]->ID );
 		} else {
 			// No upcoming events found, get the last event in the series.
-			$args = [
+			$args   = [
 				'posts_per_page' => 1,
 				'post_type'      => TEC::POSTTYPE,
 				'post_status'    => 'publish',
