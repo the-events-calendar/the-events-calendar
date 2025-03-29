@@ -9,6 +9,9 @@ namespace TEC\Events\QR;
 
 use Tribe\Shortcode\Shortcode_Abstract;
 use TEC\Common\QR\QR;
+use TEC\Events\QR\Routes;
+use Tribe\Utils\Element_Attributes;
+use TEC\Events\QR\Settings;
 
 /**
  * Class Shortcode
@@ -22,27 +25,26 @@ class Shortcode extends Shortcode_Abstract {
 	 * The shortcode tag.
 	 *
 	 * @since TBD
-	 *
 	 * @var string
 	 */
-	protected $slug = 'tec_event_qr';
+	protected $slug;
 
 	/**
 	 * Default arguments to be merged into final arguments of the shortcode.
 	 *
 	 * @since TBD
-	 *
 	 * @var array
 	 */
 	protected $default_arguments = [
 		'id'   => '',
-		'mode' => 'current',
-		'size' => 4,
+		'mode' => '',
+		'size' => '',
 	];
 
 	/**
 	 * Array of callbacks for arguments validation.
 	 *
+	 * @since TBD
 	 * @var array
 	 */
 	public $validate_arguments_map = [
@@ -55,30 +57,95 @@ class Shortcode extends Shortcode_Abstract {
 	 * Returns a shortcode's HTML.
 	 *
 	 * @since TBD
-	 *
 	 * @return string
 	 */
 	public function get_html() {
+		$options = tribe( Settings::class )->get_option_slugs();
+		$args    = $this->get_arguments();
+		$mode    = $args['mode'] ?: tribe_get_option( $options['redirection'], 'current' );
+		$size    = $args['size'] ?: tribe_get_option( $options['size'], 4 );
+		$id      = 0;
+		if ( 'specific' === $mode ) {
+			$id = absint( $args['id'] ?: tribe_get_option( $options['event_id'], '' ) );
+		} elseif ( 'next' === $mode ) {
+			$id = absint( $args['id'] ?: tribe_get_option( $options['series_id'], '' ) );
+		}
 
-		// @TODO This is a temporary solution to ensure the shortcode is working.
-
-		$args = $this->get_arguments();
-
-		$mode = in_array( $args['mode'], [ 'current', 'upcoming', 'specific', 'next' ], true ) ? $args['mode'] : 'current';
-		$id   = absint( $args['id'] );
-		$size = absint( $args['size'] );
-
+		$routes  = tribe( Routes::class );
 		$qr_code = tribe( QR::class );
 
 		if ( is_wp_error( $qr_code ) ) {
 			return $qr_code;
 		}
 
-		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( wp_json_encode( get_permalink( $id ) ) );
+		$qr_url = $routes->get_qr_url( (int) $id, $mode );
 
-		// @TODO Add filters to allow for customizing the QR code image.
-		// @TODO Add proper alt text to the image.
+		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( $qr_url );
 
-		return '<img alt="qr_code_image" src="' . $qr_img . '">';
+		/**
+		 * Filters the QR code image HTML attributes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $attributes The HTML attributes for the QR code image.
+		 * @param array $args       The shortcode arguments.
+		 * @param self  $context    The Shortcode instance.
+		 */
+		$attributes = apply_filters(
+			'tec_events_qr_code_image_attributes',
+			[
+				'alt'      => sprintf(
+					/* translators: %s: The event title or type of QR code */
+					esc_attr__( 'QR Code for %s', 'the-events-calendar' ),
+					$this->get_qr_code_alt_text( (int) $id, $args['mode'] )
+				),
+				'class'    => 'tec-events-qr-code__image',
+				'data-url' => esc_url( $qr_url ),
+			],
+			$args,
+			$this
+		);
+
+		$html = '<img src="' . $qr_img . '" ' . ( new Element_Attributes( $attributes ) )->get_attributes() . '>';
+
+		/**
+		 * Filters the complete QR code HTML output.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $html    The complete HTML output for the QR code.
+		 * @param array  $args    The shortcode arguments.
+		 * @param self   $context The Shortcode instance.
+		 */
+		return apply_filters(
+			'tec_events_qr_code_html',
+			$html,
+			$args,
+			$this
+		);
+	}
+
+	/**
+	 * Get a descriptive text for the QR code based on its type and event.
+	 *
+	 * @since TBD
+	 * @param int    $post_id The post ID.
+	 * @param string $mode    The QR code mode.
+	 * @return string The descriptive text for the QR code.
+	 */
+	private function get_qr_code_alt_text( int $post_id, string $mode ): string {
+		switch ( $mode ) {
+			case 'current':
+				return esc_html__( 'current event', 'the-events-calendar' );
+			case 'upcoming':
+				return esc_html__( 'next upcoming event', 'the-events-calendar' );
+			case 'specific':
+				$title = get_the_title( $post_id );
+				return $title ?: esc_html__( 'specific event', 'the-events-calendar' );
+			case 'next':
+				return esc_html__( 'next event in series', 'the-events-calendar' );
+			default:
+				return esc_html__( 'event', 'the-events-calendar' );
+		}
 	}
 }

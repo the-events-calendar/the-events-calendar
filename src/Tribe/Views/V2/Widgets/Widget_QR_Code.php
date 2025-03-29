@@ -213,11 +213,15 @@ class Widget_QR_Code extends Widget_Abstract {
 				'options' => [
 					[
 						'value' => '4',
-						'text'  => _x( '125x125', 'Small QR code size option', 'the-events-calendar' ),
+						'text'  => _x( '125x125', 'Tiny QR code size option', 'the-events-calendar' ),
 					],
 					[
 						'value' => '8',
-						'text'  => _x( '250x250', 'Medium QR code size option', 'the-events-calendar' ),
+						'text'  => _x( '250x250', 'Small QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '12',
+						'text'  => _x( '420x420', 'Medium QR code size option', 'the-events-calendar' ),
 					],
 					[
 						'value' => '21',
