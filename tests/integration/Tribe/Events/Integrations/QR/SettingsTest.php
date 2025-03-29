@@ -17,15 +17,24 @@ use TEC\Events\QR\Controller;
 class SettingsTest extends WPTestCase {
 
 	/**
+	 * The settings instance.
+	 *
 	 * @var \TEC\Events\QR\Settings
 	 */
 	protected $settings;
 
 	/**
+	 * The option slugs.
+	 *
 	 * @var array
 	 */
 	protected $slugs;
 
+	/**
+	 * Set up the test.
+	 *
+	 * @return void
+	 */
 	function setUp() {
 		parent::setUp();
 

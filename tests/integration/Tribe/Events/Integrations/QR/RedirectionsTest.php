@@ -19,25 +19,38 @@ use Tribe__Events__Main as TEC;
 class RedirectionsTest extends WPTestCase {
 
 	/**
+	 * The redirections instance.
+	 *
 	 * @var \TEC\Events\QR\Redirections
 	 */
 	protected $redirections;
 
 	/**
+	 * The routes instance.
+	 *
 	 * @var \TEC\Events\QR\Routes
 	 */
 	protected $routes;
 
 	/**
+	 * The test event ID.
+	 *
 	 * @var int
 	 */
 	protected $test_event_id;
 
 	/**
+	 * The option slugs.
+	 *
 	 * @var array
 	 */
 	protected $slugs;
 
+	/**
+	 * Set up the test.
+	 *
+	 * @return void
+	 */
 	function setUp() {
 		parent::setUp();
 

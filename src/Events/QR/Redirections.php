@@ -24,7 +24,6 @@ class Redirections extends Controller {
 	 * Register the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	public function do_register(): void {
@@ -35,7 +34,6 @@ class Redirections extends Controller {
 	 * Unregister the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	public function unregister(): void {
@@ -46,7 +44,6 @@ class Redirections extends Controller {
 	 * Adds the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function add_hooks(): void {
@@ -57,7 +54,6 @@ class Redirections extends Controller {
 	 * Removes the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function remove_hooks(): void {
@@ -68,7 +64,6 @@ class Redirections extends Controller {
 	 * Get the fallback URL for redirections.
 	 *
 	 * @since TBD
-	 *
 	 * @return string The fallback URL.
 	 */
 	public function get_fallback_url(): string {
@@ -79,7 +74,6 @@ class Redirections extends Controller {
 	 * Get the URL for the current event or next upcoming event.
 	 *
 	 * @since TBD
-	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
 	public function get_current_event_url(): string {
@@ -120,7 +114,6 @@ class Redirections extends Controller {
 	 * Get the URL for the next upcoming event that hasn't started yet.
 	 *
 	 * @since TBD
-	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
 	public function get_upcoming_event_url(): string {
@@ -161,9 +154,7 @@ class Redirections extends Controller {
 	 * Get the URL for a specific event.
 	 *
 	 * @since TBD
-	 *
 	 * @param int $post_id The post ID of the event.
-	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
 	public function get_specific_event_url( int $post_id ): string {
@@ -190,9 +181,7 @@ class Redirections extends Controller {
 	 * Get the URL for the next event in a series.
 	 *
 	 * @since TBD
-	 *
 	 * @param int $post_id The post ID of the series.
-	 *
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
 	public function get_next_series_event_url( int $post_id ): string {
@@ -254,10 +243,9 @@ class Redirections extends Controller {
 	}
 
 	/**
-	 * Handle QR code redirection.
+	 * Handle QR code redirections.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	public function handle_qr_redirect(): void {

@@ -22,7 +22,6 @@ class Routes extends Controller {
 	 * The route prefix for QR codes.
 	 *
 	 * @since TBD
-	 *
 	 * @var string
 	 */
 	private $route_prefix = 'qr';
@@ -31,7 +30,6 @@ class Routes extends Controller {
 	 * The settings options.
 	 *
 	 * @since TBD
-	 *
 	 * @var array
 	 */
 	private $options;
@@ -40,7 +38,6 @@ class Routes extends Controller {
 	 * The salt for QR code generation.
 	 *
 	 * @since TBD
-	 *
 	 * @var string
 	 */
 	private $salt;
@@ -49,7 +46,6 @@ class Routes extends Controller {
 	 * Register the routes.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	public function do_register(): void {
@@ -64,7 +60,6 @@ class Routes extends Controller {
 	 * Unregister the routes.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	public function unregister(): void {
@@ -75,7 +70,6 @@ class Routes extends Controller {
 	 * Adds the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function add_hooks(): void {
@@ -88,7 +82,6 @@ class Routes extends Controller {
 	 * Removes the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function remove_hooks(): void {
@@ -101,7 +94,6 @@ class Routes extends Controller {
 	 * Get the route prefix.
 	 *
 	 * @since TBD
-	 *
 	 * @return string The route prefix.
 	 */
 	public function get_route_prefix(): string {
@@ -112,9 +104,7 @@ class Routes extends Controller {
 	 * Add QR code rewrite rules.
 	 *
 	 * @since TBD
-	 *
 	 * @param Tribe__Events__Rewrite $rewrite The TEC rewrite instance.
-	 *
 	 * @return void
 	 */
 	public function add_qr_rules( Tribe__Events__Rewrite $rewrite ): void {
@@ -127,8 +117,8 @@ class Routes extends Controller {
 	/**
 	 * Adds the required Query Vars for QR code routes.
 	 *
+	 * @since TBD
 	 * @param array $query_vars The array of query variables to add to.
-	 *
 	 * @return array The modified query vars.
 	 */
 	public function filter_add_query_vars( $query_vars = [] ) {

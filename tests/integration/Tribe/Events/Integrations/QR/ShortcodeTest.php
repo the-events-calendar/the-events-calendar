@@ -18,20 +18,31 @@ use TEC\Events\QR\Shortcode;
 class ShortcodeTest extends WPTestCase {
 
 	/**
+	 * The shortcode instance.
+	 *
 	 * @var \TEC\Events\QR\Shortcode
 	 */
 	protected $shortcode;
 
 	/**
+	 * The test event ID.
+	 *
 	 * @var int
 	 */
 	protected $test_event_id;
 
 	/**
+	 * The option slugs.
+	 *
 	 * @var array
 	 */
 	protected $slugs;
 
+	/**
+	 * Set up the test.
+	 *
+	 * @return void
+	 */
 	function setUp() {
 		parent::setUp();
 

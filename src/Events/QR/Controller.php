@@ -8,8 +8,6 @@
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\QR\Shortcode;
-use TEC\Events\QR\Redirections;
 
 /**
  * Class Controller.
@@ -17,6 +15,8 @@ use TEC\Events\QR\Redirections;
  * @since TBD
  *
  * @package TEC\Events\QR
+ *
+ * @property \TEC\Common\Contracts\Provider\Container $container
  */
 class Controller extends Controller_Contract {
 
@@ -24,7 +24,6 @@ class Controller extends Controller_Contract {
 	 * The shortcode tag.
 	 *
 	 * @since TBD
-	 *
 	 * @var string
 	 */
 	private $slug;
@@ -33,9 +32,6 @@ class Controller extends Controller_Contract {
 	 * Register the controller.
 	 *
 	 * @since TBD
-	 *
-	 * @uses  Notices::register_admin_notices()
-	 *
 	 * @return void
 	 */
 	public function do_register(): void {
@@ -54,7 +50,6 @@ class Controller extends Controller_Contract {
 	 * Unregister the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	public function unregister(): void {
@@ -65,7 +60,6 @@ class Controller extends Controller_Contract {
 	 * Adds the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function add_hooks(): void {
@@ -78,7 +72,6 @@ class Controller extends Controller_Contract {
 	 * Removes the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function remove_hooks(): void {
@@ -91,9 +84,7 @@ class Controller extends Controller_Contract {
 	 * Adds the TEC pages to the list for the QR code notice.
 	 *
 	 * @since TBD
-	 *
 	 * @param array $valid_pages An array of pages where notice will be displayed.
-	 *
 	 * @return array
 	 */
 	public function add_valid_pages( $valid_pages ) {
@@ -110,7 +101,6 @@ class Controller extends Controller_Contract {
 	 * Register the assets related to the QR module.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function register_assets(): void {
@@ -121,7 +111,6 @@ class Controller extends Controller_Contract {
 	 * Gets the shortcode slug.
 	 *
 	 * @since TBD
-	 *
 	 * @return string The shortcode slug.
 	 */
 	public function get_slug(): string {
@@ -132,11 +121,8 @@ class Controller extends Controller_Contract {
 	 * Register shortcodes.
 	 *
 	 * @see   \Tribe\Shortcode\Manager::get_registered_shortcodes()
-	 *
 	 * @since TBD
-	 *
 	 * @param array $shortcodes An associative array of shortcodes in the shape `[ <slug> => <class> ]`.
-	 *
 	 * @return array
 	 */
 	public function filter_register_shortcodes( array $shortcodes ) {

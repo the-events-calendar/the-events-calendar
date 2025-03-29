@@ -16,15 +16,24 @@ use TEC\Events\QR\Routes;
 class RoutesTest extends WPTestCase {
 
 	/**
+	 * The routes instance.
+	 *
 	 * @var \TEC\Events\QR\Routes
 	 */
 	protected $routes;
 
 	/**
+	 * The test event ID.
+	 *
 	 * @var int
 	 */
 	protected $test_event_id;
 
+	/**
+	 * Set up the test.
+	 *
+	 * @return void
+	 */
 	function setUp() {
 		parent::setUp();
 

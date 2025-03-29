@@ -18,15 +18,24 @@ use TEC\Events\QR\Shortcode;
 class ControllerTest extends WPTestCase {
 
 	/**
+	 * The controller instance.
+	 *
 	 * @var \TEC\Events\QR\Controller
 	 */
 	protected $controller;
 
 	/**
+	 * The option slugs.
+	 *
 	 * @var array
 	 */
 	protected $slugs;
 
+	/**
+	 * Set up the test.
+	 *
+	 * @return void
+	 */
 	function setUp() {
 		parent::setUp();
 		$this->controller = tribe( Controller::class );

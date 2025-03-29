@@ -24,7 +24,6 @@ class Shortcode extends Shortcode_Abstract {
 	 * The shortcode tag.
 	 *
 	 * @since TBD
-	 *
 	 * @var string
 	 */
 	protected $slug;
@@ -33,7 +32,6 @@ class Shortcode extends Shortcode_Abstract {
 	 * Default arguments to be merged into final arguments of the shortcode.
 	 *
 	 * @since TBD
-	 *
 	 * @var array
 	 */
 	protected $default_arguments = [
@@ -45,6 +43,7 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * Array of callbacks for arguments validation.
 	 *
+	 * @since TBD
 	 * @var array
 	 */
 	public $validate_arguments_map = [
@@ -57,7 +56,6 @@ class Shortcode extends Shortcode_Abstract {
 	 * Returns a shortcode's HTML.
 	 *
 	 * @since TBD
-	 *
 	 * @return string
 	 */
 	public function get_html() {
@@ -123,10 +121,8 @@ class Shortcode extends Shortcode_Abstract {
 	 * Get a descriptive text for the QR code based on its type and event.
 	 *
 	 * @since TBD
-	 *
 	 * @param int    $post_id The post ID.
 	 * @param string $mode    The QR code mode.
-	 *
 	 * @return string The descriptive text for the QR code.
 	 */
 	private function get_qr_code_alt_text( int $post_id, string $mode ): string {
