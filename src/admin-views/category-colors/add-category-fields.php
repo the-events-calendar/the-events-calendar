@@ -34,7 +34,7 @@
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
-				<label for="tec-events-category-colors-text"><?php esc_html_e( 'Font Color', 'the-events-calendar' ); ?></label>
+				<label for="tec-events-category-colors-text"><?php esc_html_e( 'Text Color', 'the-events-calendar' ); ?></label>
 				<input
 					type="text"
 					id="tec-events-category-colors-text"

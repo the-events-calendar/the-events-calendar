@@ -46,7 +46,7 @@ class Controller extends Controller_Contract {
 		add_action( "{$taxonomy}_edit_form_fields", [ $this, 'display_edit_category_fields' ], 10, 2 );
 		add_action( "created_{$taxonomy}", [ $this, 'save_add_category_fields' ] );
 		add_action( "edited_{$taxonomy}", [ $this, 'save_edit_category_fields' ] );
-		add_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
+		add_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'maybe_add_inline_styles' ] );
 
 		add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
@@ -62,14 +62,14 @@ class Controller extends Controller_Contract {
 		$taxonomy = Tribe__Events__Main::TAXONOMY;
 
 		remove_action( "{$taxonomy}_add_form_fields", [ $this, 'display_add_category_fields' ] );
-		remove_action( "{$taxonomy}_edit_form_fields", [ $this, 'display_edit_category_fields' ], 10, 2 );
+		remove_action( "{$taxonomy}_edit_form_fields", [ $this, 'display_edit_category_fields' ] );
 		remove_action( "created_{$taxonomy}", [ $this, 'save_add_category_fields' ] );
 		remove_action( "edited_{$taxonomy}", [ $this, 'save_edit_category_fields' ] );
-		remove_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ], 10, 2 );
+		remove_action( 'quick_edit_custom_box', [ $this, 'add_quick_edit_fields' ] );
 		remove_action( 'admin_enqueue_scripts', [ $this, 'maybe_add_inline_styles' ] );
 
 		remove_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
-		remove_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
+		remove_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ] );
 	}
 
 	/**

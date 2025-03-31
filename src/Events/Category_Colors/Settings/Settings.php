@@ -11,15 +11,13 @@
 
 namespace TEC\Events\Category_Colors\Settings;
 
-use Tribe__Field;
 use Tribe__Settings_Tab;
 use Tribe\Events\Admin\Settings as Admin_Settings;
 use TEC\Common\Admin\Entities\Div;
-use TEC\Common\Admin\Entities\Field_Wrapper;
-use TEC\Common\Admin\Entities\Heading;
+use TEC\Common\Admin\Entities\Plain_Text;
+use TEC\Common\Admin\Entities\H3;
 use Tribe\Utils\Element_Classes;
 use TEC\Common\Admin\Entities\Paragraph;
-use TEC\Common\Admin\Entities\Plain_Text;
 use Tribe\Events\Views\V2\Manager;
 
 /**
@@ -69,7 +67,7 @@ class Settings {
 	 */
 	public function unregister_hooks() {
 		remove_action( 'tribe_settings_do_tabs', [ $this, 'register_tab' ] );
-		remove_filter( 'tribe_field_start', [ $this, 'customize_legend_superpowers_label' ], 10 );
+		remove_filter( 'tribe_field_start', [ $this, 'customize_legend_superpowers_label' ] );
 	}
 
 	/**
@@ -86,16 +84,16 @@ class Settings {
 	 * @return string Modified field start HTML with additional description.
 	 */
 	public function customize_legend_superpowers_label( string $field_start, string $field_id ): string {
-		if ( 'category-color-legend-superpowers' === $field_id ) {
-			$tooltip_text = esc_html__( 'This feature helps your users highlight events belonging to a specific category.', 'the-events-calendar' );
+		if ( 'category-color-legend-superpowers' !== $field_id ) {
+			return $field_start;
+		}
 
-			$field_start .= sprintf(
+		$tooltip_text = esc_html__( 'This feature helps your users highlight events belonging to a specific category.', 'the-events-calendar' );
+
+		return $field_start . sprintf(
 				'<p class="tooltip description">%s</p>',
 				$tooltip_text
 			);
-		}
-
-		return $field_start;
 	}
 
 	/**
@@ -146,11 +144,12 @@ class Settings {
 	 * @return array The structured settings array for Category Colors.
 	 */
 	public function generate_settings(): array {
+		/* @var Manager $manager */
+		$manager              = tribe( Manager::class );
 		$category_color_title = new Div( new Element_Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) );
 		$category_color_title->add_child(
-			new Heading(
+			new H3(
 				_x( 'Category Colors', 'Category Colors section header', 'the-events-calendar' ),
-				3,
 				new Element_Classes( 'tec-settings-form__section-header' )
 			)
 		);
@@ -166,64 +165,55 @@ class Settings {
 			'tec-events-category-colors' => $category_color_title,
 		];
 		$category_colors_section = [
-			'category-color-header'                 => ( new Div( new Element_Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
+			'category-color-header'       => ( new Div( new Element_Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
 				[
-					new Heading(
+					new H3(
 						_x( 'Category Legend', 'Category Legend settings section header', 'the-events-calendar' ),
-						2,
 						new Element_Classes( [ 'tec-settings-form__section-header' ] )
 					),
-					( new Field_Wrapper(
-						new Tribe__Field(
-							'categoryLegendExplanation',
-							[
-								'type' => 'html',
-								'html' => esc_html__( 'The category legend provides labels for the colors that appear on your events on event listing pages.', 'the-events-calendar' ),
-							]
-						)
-					) ),
+					( new Plain_Text( esc_html__( 'The category legend provides labels for the colors that appear on your events on event listing pages.', 'the-events-calendar' ) ) ),
 				]
 			),
-			'category-color-legend-show'            => [
+			'category-color-leFgend-show' => [
 				'type'            => 'checkbox_list',
 				'label'           => __( 'Show Category Legend in these Event Views', 'the-events-calendar' ),
-				'default'         => array_keys( tribe( Manager::class )->get_publicly_visible_views() ),
+				'default'         => array_keys( $manager->get_publicly_visible_views() ),
 				'validation_type' => 'options_multi',
 				'options'         => array_map(
-					static function ( $view ) {
-						return tribe( Manager::class )->get_view_label_by_class( $view );
+					static function ( $view ) use ( $manager ) {
+						return $manager->get_view_label_by_class( $view );
 					},
-					tribe( Manager::class )->get_publicly_visible_views( false )
+					$manager->get_publicly_visible_views( false )
 				),
 			],
 			'category-color-legend-superpowers'     => [
-				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Legend Superpowers', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
-				'default'         => false,
-				'validation_type' => 'boolean',
-			],
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'Legend Superpowers', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
+			'default'         => false,
+			'validation_type' => 'boolean',
+		],
 			'category-color-show-hidden-categories' => [
-				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Show hidden categories in legend', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Show only the next event in each Series', 'the-events-calendar' ),
-				'default'         => false,
-				'validation_type' => 'boolean',
-			],
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'Show hidden categories in legend', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Show only the next event in each Series', 'the-events-calendar' ),
+			'default'         => false,
+			'validation_type' => 'boolean',
+		],
 			'category-color-custom-css'             => [
-				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Custom CSS', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Use your own CSS for category legend', 'the-events-calendar' ),
-				'default'         => false,
-				'validation_type' => 'boolean',
-			],
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'Custom CSS', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Use your own CSS for category legend', 'the-events-calendar' ),
+			'default'         => false,
+			'validation_type' => 'boolean',
+		],
 			'category-color-reset-button'           => [
-				'type'            => 'checkbox_bool',
-				'label'           => esc_html__( 'Reset Button', 'the-events-calendar' ),
-				'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
-				'default'         => false,
-				'validation_type' => 'boolean',
-			],
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html__( 'Reset Button', 'the-events-calendar' ),
+			'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
+			'default'         => false,
+			'validation_type' => 'boolean',
+		],
 		];
 
 		$category_colors_section = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-calendar-template', $category_colors_section );
