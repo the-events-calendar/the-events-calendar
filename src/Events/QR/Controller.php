@@ -8,6 +8,9 @@
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\QR\Routes;
+use TEC\Common\lucatume\DI52\Container;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller.
@@ -27,6 +30,27 @@ class Controller extends Controller_Contract {
 	 * @var string
 	 */
 	private $slug;
+
+	/**
+	 * The QR code instance.
+	 *
+	 * @since TBD
+	 * @var QR_Code
+	 */
+	private $qr_code;
+
+	/**
+	 * Controller constructor.
+	 *
+	 * @since TBD
+	 *
+	 * @param Container $container   The DI container.
+	 * @param QR_Code   $qr_code     The QR code instance.
+	 */
+	public function __construct( Container $container, QR_Code $qr_code ) {
+		parent::__construct( $container );
+		$this->qr_code = $qr_code;
+	}
 
 	/**
 	 * Register the controller.
@@ -64,8 +88,9 @@ class Controller extends Controller_Contract {
 	 */
 	protected function add_hooks(): void {
 		add_filter( 'tribe_shortcodes', [ $this, 'filter_register_shortcodes' ] );
-
+		add_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ], 10, 2 );
 		add_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
+		add_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
 	}
 
 	/**
@@ -76,8 +101,9 @@ class Controller extends Controller_Contract {
 	 */
 	protected function remove_hooks(): void {
 		remove_filter( 'tribe_shortcodes', [ $this, 'filter_register_shortcodes' ] );
-
+		remove_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ] );
 		remove_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
+		remove_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
 	}
 
 	/**
@@ -104,7 +130,23 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		// @TODO load our QR CSS and JS here using TEC\Common\StellarWP\Asset
+		tribe_asset(
+			TEC::instance(),
+			'tec-events-qr-code-styles',
+			'qr-code.css',
+			[ 'wp-components' ],
+			'admin_enqueue_scripts',
+			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
+		);
+
+		tribe_asset(
+			TEC::instance(),
+			'tec-events-qr-code-scripts',
+			'qr-code.min.js',
+			[ 'jquery' ],
+			'admin_enqueue_scripts',
+			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
+		);
 	}
 
 	/**
@@ -115,6 +157,32 @@ class Controller extends Controller_Contract {
 	 */
 	public function get_slug(): string {
 		return $this->slug;
+	}
+
+	/**
+	 * If we should enqueue assets.
+	 *
+	 * @since TBD
+	 * @return bool Whether we should enqueue assets.
+	 */
+	public function should_enqueue_assets(): bool {
+		$screen = get_current_screen();
+		if ( ! $screen ) {
+			return false;
+		}
+
+		$valid_screens = [ 'edit-tribe_events', 'tribe_events' ];
+		/**
+		 * Filters the list of valid screen IDs where QR code assets should be enqueued.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $valid_screens Array of screen IDs where QR code assets should be loaded.
+		 *                             Default: ['edit-tribe_events', 'tribe_events']
+		 */
+		$valid_screens = apply_filters( 'tec_events_qr_valid_screens', $valid_screens );
+
+		return in_array( $screen->id, $valid_screens, true );
 	}
 
 	/**

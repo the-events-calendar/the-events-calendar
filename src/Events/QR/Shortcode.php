@@ -80,7 +80,7 @@ class Shortcode extends Shortcode_Abstract {
 
 		$qr_url = $routes->get_qr_url( (int) $id, $mode );
 
-		$qr_img = $qr_code->size( $size )->margin( 1 )->get_png_as_base64( $qr_url );
+		$qr_img = $qr_code->level( 1 )->size( $size )->margin( 1 )->get_png_as_base64( $qr_url );
 
 		/**
 		 * Filters the QR code image HTML attributes.
