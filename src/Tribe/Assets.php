@@ -3,6 +3,7 @@
 use Tribe\Events\Views\V2\Views\Day_View;
 use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Events\Views\V2\Views\Month_View;
+use TEC\Common\StellarWP\Assets\Config;
 
 /**
  * Registers and Enqueues the assets
@@ -22,6 +23,7 @@ class Tribe__Events__Assets {
 		add_action( 'admin_enqueue_scripts', [ $this, 'dequeue_incompatible' ], 200 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_admin' ] );
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 10, 2 );
+		add_action( 'tribe_common_loaded', [ $this, 'configure_assets' ] );
 	}
 
 	/**
@@ -618,10 +620,10 @@ class Tribe__Events__Assets {
 		 * @since 4.8.1
 		 *
 		 * @param array $data {
-	     *     These items exist on the TEC object in admin JS.
-	     *
-	     *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
-	     *     @type string post_type The Event post type.
+		 *     These items exist on the TEC object in admin JS.
+		 *
+		 *     @type string ajaxurl The default URL to wp-admin's AJAX endpoint.
+		 *     @type string post_type The Event post type.
 		 * }
 		 */
 		return apply_filters( 'tribe_events_admin_js_ajax_url_data', $data );
@@ -760,4 +762,14 @@ class Tribe__Events__Assets {
 		return array_merge( $sheets, $tec_sheets );
 	}
 
+	/**
+	 * Configure the group path for the resources assets folder.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function configure_assets(): void {
+		Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path . 'src/', 'resources/' );
+	}
 }
