@@ -109,7 +109,7 @@ abstract class Abstract_Action implements Action_Interface {
 		 * @since TBD
 		 *
 		 * @param bool            $pre_schedule Whether to allow scheduling.
-		 * @param Abstract_Action $this         The action being scheduled.
+		 * @param Abstract_Action $action         The action being scheduled.
 		 *
 		 * @return bool True to allow scheduling, false to prevent it.
 		 */
@@ -195,11 +195,12 @@ abstract class Abstract_Action implements Action_Interface {
 		 *
 		 * @since TBD
 		 *
+		 * @param bool $pre_cancel Whether the action should be canceled or not.
 		 * @param Abstract_Action $action The action being cancelled.
 		 *
 		 * @return bool True to allow cancellation, false to prevent it.
 		 */
-		$pre_cancel = apply_filters( 'tec_events_category_colors_migration_pre_cancel_action', true, $this );
+		$pre_cancel = (bool) apply_filters( 'tec_events_category_colors_migration_pre_cancel_action', true, $this );
 		if ( ! $pre_cancel ) {
 			return false;
 		}
