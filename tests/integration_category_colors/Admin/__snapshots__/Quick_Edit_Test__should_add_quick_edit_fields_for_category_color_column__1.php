@@ -23,7 +23,7 @@
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
-				<label for="tec-events-category-colors-text">Font Color</label>
+				<label for="tec-events-category-colors-text">Text Color</label>
 				<input
 					type="text"
 					id="tec-events-category-colors-text"

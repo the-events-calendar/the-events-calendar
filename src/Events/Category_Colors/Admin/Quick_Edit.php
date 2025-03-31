@@ -122,7 +122,7 @@ class Quick_Edit extends Abstract_Admin {
 		// Get values in a single pass.
 		$fields = [];
 		foreach ( $meta_keys as $key => $meta_key ) {
-			$value = $meta->get( $meta_key );
+			$value          = $meta->get( $meta_key );
 			$fields[ $key ] = $this->sanitize_value( $key, $value );
 		}
 

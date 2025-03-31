@@ -165,7 +165,7 @@ class Settings {
 			'tec-events-category-colors' => $category_color_title,
 		];
 		$category_colors_section = [
-			'category-color-header'       => ( new Div( new Element_Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
+			'category-color-header'                 => ( new Div( new Element_Classes( [ 'tec-settings-form__header-block' ] ) ) )->add_children(
 				[
 					new H3(
 						_x( 'Category Legend', 'Category Legend settings section header', 'the-events-calendar' ),
@@ -174,7 +174,7 @@ class Settings {
 					( new Plain_Text( esc_html__( 'The category legend provides labels for the colors that appear on your events on event listing pages.', 'the-events-calendar' ) ) ),
 				]
 			),
-			'category-color-leFgend-show' => [
+			'category-color-leFgend-show'           => [
 				'type'            => 'checkbox_list',
 				'label'           => __( 'Show Category Legend in these Event Views', 'the-events-calendar' ),
 				'default'         => array_keys( $manager->get_publicly_visible_views() ),
@@ -187,33 +187,33 @@ class Settings {
 				),
 			],
 			'category-color-legend-superpowers'     => [
-			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Legend Superpowers', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
-			'default'         => false,
-			'validation_type' => 'boolean',
-		],
+				'type'            => 'checkbox_bool',
+				'label'           => esc_html__( 'Legend Superpowers', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
+			],
 			'category-color-show-hidden-categories' => [
-			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Show hidden categories in legend', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Show only the next event in each Series', 'the-events-calendar' ),
-			'default'         => false,
-			'validation_type' => 'boolean',
-		],
+				'type'            => 'checkbox_bool',
+				'label'           => esc_html__( 'Show hidden categories in legend', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Show only the next event in each Series', 'the-events-calendar' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
+			],
 			'category-color-custom-css'             => [
-			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Custom CSS', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Use your own CSS for category legend', 'the-events-calendar' ),
-			'default'         => false,
-			'validation_type' => 'boolean',
-		],
+				'type'            => 'checkbox_bool',
+				'label'           => esc_html__( 'Custom CSS', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Use your own CSS for category legend', 'the-events-calendar' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
+			],
 			'category-color-reset-button'           => [
-			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Reset Button', 'the-events-calendar' ),
-			'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
-			'default'         => false,
-			'validation_type' => 'boolean',
-		],
+				'type'            => 'checkbox_bool',
+				'label'           => esc_html__( 'Reset Button', 'the-events-calendar' ),
+				'tooltip'         => esc_html__( 'Enable', 'the-events-calendar' ),
+				'default'         => false,
+				'validation_type' => 'boolean',
+			],
 		];
 
 		$category_colors_section = tribe( 'settings' )->wrap_section_content( 'tec-events-settings-calendar-template', $category_colors_section );
