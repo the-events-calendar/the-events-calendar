@@ -188,10 +188,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function filter_register_shortcodes( array $shortcodes ) {
 		// Check if QR is enabled.
-		$options = Settings::get_option_slugs();
-		$enabled = tribe_get_option( $options['enabled'], false );
-
-		if ( ! $enabled ) {
+		if ( ! $this->qr_code->is_enabled() ) {
 			return $shortcodes;
 		}
 

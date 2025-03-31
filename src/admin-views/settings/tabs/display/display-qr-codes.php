@@ -23,7 +23,7 @@ $tec_events_display_qr_codes = [
 		),
 	],
 	$slug['enabled']     => [
-		'type'            => 'toggle',
+		'type'            => 'checkbox_bool',
 		'label'           => esc_html__( 'Use QR Codes', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Enable QR Codes for Events', 'the-events-calendar' ),
 		'default'         => true,
