@@ -229,16 +229,11 @@ class Event_Category_Meta {
 		if ( null === $value ) {
 			return '';
 		}
-
 		if ( is_bool( $value ) || is_numeric( $value ) ) {
 			return (string) $value;
 		}
 
-		if ( is_object( $value ) || ( is_array( $value ) && ! empty( $value ) ) ) {
-			return $value;
-		}
-
-		return is_array( $value ) ? [] : $value;
+		return $value;
 	}
 
 	/**
