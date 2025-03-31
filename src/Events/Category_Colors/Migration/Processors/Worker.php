@@ -42,7 +42,7 @@ class Worker extends Abstract_Migration_Step {
 	 * @since TBD
 	 * @var array<string>
 	 */
-	protected array $skip_meta_keys = [
+	protected const SKIP_META_KEYS = [
 		'taxonomy_id',
 	];
 
@@ -255,11 +255,12 @@ class Worker extends Abstract_Migration_Step {
 			try {
 				$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
 
-				foreach ( $meta_data as $meta_key => $meta_value ) {
-					if ( in_array( $meta_key, $this->skip_meta_keys, true ) ) {
-						continue;
-					}
+				$meta_keys_to_process = array_filter(
+					array_keys( $meta_data ),
+					fn( $key ) => ! in_array( $key, self::SKIP_META_KEYS, true )
+				);
 
+				foreach ( $meta_keys_to_process as $meta_key ) {
 					$existing_value = $category_meta->get( $meta_key );
 
 					if ( ! empty( $existing_value ) ) {
@@ -274,9 +275,9 @@ class Worker extends Abstract_Migration_Step {
 							'category_id' => $category_id,
 							'meta_keys'   => array_keys( $meta_data ),
 						];
-						$this->log_message( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $meta_value, JSON_PRETTY_PRINT ), [], 'Worker' );
+						$this->log_message( 'info', "[DRY RUN] Would insert meta key '{$meta_key}' for category {$category_id} with value: " . wp_json_encode( $meta_data[ $meta_key ], JSON_PRETTY_PRINT ), [], 'Worker' );
 					} else {
-						$result = $category_meta->set( $meta_key, $meta_value );
+						$result = $category_meta->set( $meta_key, $meta_data[ $meta_key ] );
 						if ( is_wp_error( $result ) ) {
 							return $this->log_message( 'error', "Failed to insert meta '{$meta_key}' for category {$category_id}.", [], 'Worker' );
 						}
@@ -395,7 +396,7 @@ class Worker extends Abstract_Migration_Step {
 
 		$this->log_message( 'info', 'Dry Run Mode Active: No actual database modifications will be made.', [], 'Worker' );
 		$this->log_message( 'info', "Total Categories to Process: {$category_count}", [], 'Worker' );
-		$this->log_message( 'info', 'Skipped Meta Keys: ' . wp_json_encode( $this->skip_meta_keys ), [], 'Worker' );
+		$this->log_message( 'info', 'Skipped Meta Keys: ' . wp_json_encode( self::SKIP_META_KEYS ), [], 'Worker' );
 
 		if ( ! empty( $dry_run_summary['changes'] ) ) {
 			$this->log_message( 'info', 'Categories that would be modified:', [], 'Worker' );

@@ -93,7 +93,7 @@ abstract class Abstract_Action implements Action_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return int|WP_Error The action ID on success, WP_Error on failure.
+	 * @return int|WP_Error|false The action ID on success, WP_Error on failure, false if prevented.
 	 */
 	public function schedule() {
 		if ( ! $this->can_schedule() ) {
@@ -108,13 +108,14 @@ abstract class Abstract_Action implements Action_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param Abstract_Action $action The action being scheduled.
+		 * @param bool            $pre_schedule Whether to allow scheduling.
+		 * @param Abstract_Action $this         The action being scheduled.
 		 *
-		 * @return bool|WP_Error True to allow scheduling, WP_Error to prevent it.
+		 * @return bool True to allow scheduling, false to prevent it.
 		 */
 		$pre_schedule = apply_filters( 'tec_events_category_colors_migration_pre_schedule_action', true, $this );
-		if ( is_wp_error( $pre_schedule ) ) {
-			return $pre_schedule;
+		if ( false === $pre_schedule ) {
+			return false;
 		}
 
 		// Unschedule any existing actions to avoid duplicates.

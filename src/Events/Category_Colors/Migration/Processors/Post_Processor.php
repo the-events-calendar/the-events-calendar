@@ -32,7 +32,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	 * @since TBD
 	 * @var array<string>
 	 */
-	protected array $skip_meta_keys = [
+	protected const SKIP_META_KEYS = [
 		'taxonomy_id',
 	];
 
@@ -179,14 +179,14 @@ class Post_Processor extends Abstract_Migration_Step {
 
 		$meta_keys_to_validate = array_filter(
 			array_keys( $meta_data ),
-			fn( $key ) => ! in_array( $key, $this->skip_meta_keys, true )
+			fn( $key ) => ! in_array( $key, self::SKIP_META_KEYS, true )
 		);
 
 		foreach ( $meta_keys_to_validate as $meta_key ) {
 			$actual_value   = $actual_meta[ $meta_key ] ?? null;
 			$expected_value = $meta_data[ $meta_key ];
 
-			if ( is_null( $actual_value ) ) {
+			if ( null === $actual_value ) {
 				$this->log_message( 'error', "Missing meta key '{$meta_key}' for category ID {$category_id}.", [], 'Post Processor' );
 				return false;
 			}

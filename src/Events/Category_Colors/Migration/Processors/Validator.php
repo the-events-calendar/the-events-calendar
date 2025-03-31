@@ -33,7 +33,7 @@ class Validator extends Abstract_Migration_Step {
 	 * @since TBD
 	 * @var int
 	 */
-	protected int $validation_sample_size = 200;
+	protected const VALIDATION_SAMPLE_SIZE = 200;
 
 	/**
 	 * Determines whether the migration step is in a valid state to run.
@@ -209,7 +209,8 @@ class Validator extends Abstract_Migration_Step {
 		}
 
 		// Get a list of all setting keys and shuffle them to randomize selection.
-		$sample_keys = array_rand( $original_settings, min( $this->validation_sample_size, count( $original_settings ) ) );
+		$sample_size = min( self::VALIDATION_SAMPLE_SIZE, count( $migrated_settings ) );
+		$sample_keys = array_rand( $original_settings, $sample_size );
 
 		foreach ( $sample_keys as $key ) {
 			// If the key doesn't exist in migrated settings, it's fine—skip validation.

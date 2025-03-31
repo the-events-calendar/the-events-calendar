@@ -245,7 +245,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 			switch ( $mapping['validation'] ) {
 				case 'boolean':
 					$value = filter_var( $value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
-					if ( is_null( $value ) ) {
+					if ( null === $value ) {
 						$value = false;
 					}
 					// Convert boolean to string '1' or ''.
