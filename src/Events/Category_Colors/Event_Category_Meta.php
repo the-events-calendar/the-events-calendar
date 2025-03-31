@@ -30,15 +30,6 @@ use WP_Error;
 class Event_Category_Meta {
 
 	/**
-	 * The taxonomy associated with event categories.
-	 *
-	 * @since TBD
-	 *
-	 * @var string
-	 */
-	protected string $taxonomy = Tribe__Events__Main::TAXONOMY;
-
-	/**
 	 * The ID of the term this instance operates on.
 	 *
 	 * @since TBD
@@ -81,12 +72,12 @@ class Event_Category_Meta {
 			throw new InvalidArgumentException( __( 'Invalid term ID.', 'the-events-calendar' ) );
 		}
 
-		$term = get_term( $term_id, $this->taxonomy );
+		$term = get_term( $term_id, Tribe__Events__Main::TAXONOMY );
 
 		if ( ! $term instanceof WP_Term ) {
 			throw new InvalidArgumentException(
 			/* translators: %1$d is the term ID, %2$s is the taxonomy name. */
-				sprintf( __( 'Term ID %1$d does not exist in taxonomy %2$s.', 'the-events-calendar' ), $term_id, $this->taxonomy )
+				sprintf( __( 'Term ID %1$d does not exist in taxonomy %2$s.', 'the-events-calendar' ), $term_id, Tribe__Events__Main::TAXONOMY )
 			);
 		}
 
@@ -149,7 +140,7 @@ class Event_Category_Meta {
 			throw new InvalidArgumentException( $key->get_error_message() );
 		}
 
-		// Ensure we’re not setting term meta for a shared term.
+		// Ensure we're not setting term meta for a shared term.
 		if ( wp_term_is_shared( $this->term_id ) ) {
 			throw new InvalidArgumentException(
 				sprintf( "Meta cannot be added to term ID %d because it's shared between taxonomies.", $this->term_id )
@@ -249,9 +240,6 @@ class Event_Category_Meta {
 
 		return is_array( $value ) ? [] : $value;
 	}
-
-
-
 
 	/**
 	 * Validates a meta key.

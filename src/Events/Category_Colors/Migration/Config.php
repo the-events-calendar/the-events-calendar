@@ -29,14 +29,6 @@ use Tribe__Events__Main;
 class Config {
 
 	/**
-	 * The taxonomy used for event categories.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	public static string $taxonomy = Tribe__Events__Main::TAXONOMY;
-
-	/**
 	 * Option name for storing original settings.
 	 *
 	 * @since TBD
