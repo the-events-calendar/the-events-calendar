@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -20,11 +20,12 @@ use TEC\Events\Category_Colors\Migration\Scheduler\Preprocessing_Action;
 use TEC\Events\Category_Colors\Migration\Scheduler\Validation_Action;
 use TEC\Events\Category_Colors\Migration\Notice\Migration_Flow;
 use TEC\Events\Category_Colors\Migration\Notice\Migration_Notice;
+use Tribe__Events__Main;
 
 /**
  * Class Controller
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors
  */
@@ -107,51 +108,58 @@ class Controller extends Controller_Contract {
 			'plugin_action_links_the-events-calendar-category-colors/the-events-calendar-category-colors.php',
 			function ( $actions ) {
 				unset( $actions['activate'] );
+
 				return $actions;
 			}
 		);
 
-		// Check if the plugin is currently active
+		// Check if the plugin is currently active.
 		if ( ! is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
 			return;
 		}
 
-		// Case 1: If teccc_options doesn't exist, the plugin has never been used
+		// Case 1: If teccc_options doesn't exist, the plugin has never been used.
 		if ( ! get_option( Config::ORIGINAL_SETTINGS_OPTION ) ) {
 			deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+
 			return;
 		}
 
-		// Case 2: Check migration status
+		// Case 2: Check migration status.
 		$status = Status::get_migration_status();
 		if ( Status::$postprocessing_completed === $status['status'] ) {
 			deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+
 			return;
 		}
 
-		// Case 3: If no migration status exists, check if we have any category meta values
+		// Case 3: If no migration status exists, check if we have any category meta values.
 		if ( empty( $status ) ) {
-			$categories = get_terms( [
-				'taxonomy' => Event_Category_Meta::TAXONOMY,
-				'hide_empty' => false,
-				'number' => 1,
-			] );
+			$categories = get_terms(
+				[
+					'taxonomy'   => Tribe__Events__Main::TAXONOMY,
+					'hide_empty' => false,
+					'number'     => 1,
+				]
+			);
 
 			if ( empty( $categories ) ) {
 				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+
 				return;
 			}
 
-			// Check for border color meta (primary in new system)
+			// Check for border color meta (primary in new system).
 			$has_meta = ! empty( get_term_meta( $categories[0]->term_id, Config::META_KEY_PREFIX . Config::META_KEY_MAP['border'], true ) );
 
 			if ( ! $has_meta ) {
 				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+
 				return;
 			}
 		}
 
-		// Show notice if plugin is deactivated
+		// Show notice if plugin is deactivated.
 		$screen = get_current_screen();
 		if ( $screen && 'plugins' === $screen->id ) {
 			AdminNotices::show(
