@@ -155,7 +155,7 @@ class Occurrence extends Model {
 	 */
 	public function save_occurrences( ...$args ) {
 		$insertions = $this->get_occurrences( ...$args );
-		$post_id = $this->event->post_id;
+		$post_id    = $this->event->post_id;
 
 		if ( count( $insertions ) ) {
 			self::insert( $insertions );
