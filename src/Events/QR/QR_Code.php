@@ -56,8 +56,11 @@ class QR_Code {
 	 * Constructor.
 	 *
 	 * @since TBD
+	 *
+	 * @param QR     $qr      The QR code instance.
+	 * @param Routes $routes  The routes instance.
 	 */
-	public function __construct(QR $qr, Routes $routes) {
+	public function __construct( QR $qr, Routes $routes ) {
 		$this->qr_code = $qr;
 		$this->routes  = $routes;
 
