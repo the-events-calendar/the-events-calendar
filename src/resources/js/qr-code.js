@@ -13,6 +13,6 @@
 	 * @since TBD
 	 */
 	$( document ).ready( function() {
-		// Initialize the QR code modal.
+		// alert( 'QR code functionality initialized' );
 	} );
 })( jQuery );

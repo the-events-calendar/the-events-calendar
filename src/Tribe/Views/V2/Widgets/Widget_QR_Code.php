@@ -213,23 +213,31 @@ class Widget_QR_Code extends Widget_Abstract {
 				'options' => [
 					[
 						'value' => '4',
-						'text'  => _x( '125x125', 'Tiny QR code size option', 'the-events-calendar' ),
+						'text'  => _x( '140x140', 'Tiny QR code size option', 'the-events-calendar' ),
 					],
 					[
 						'value' => '8',
-						'text'  => _x( '250x250', 'Small QR code size option', 'the-events-calendar' ),
+						'text'  => _x( '280x280', 'Extra small QR code size option', 'the-events-calendar' ),
 					],
 					[
 						'value' => '12',
-						'text'  => _x( '420x420', 'Medium QR code size option', 'the-events-calendar' ),
+						'text'  => _x( '420x420', 'Small QR code size option', 'the-events-calendar' ),
 					],
 					[
-						'value' => '21',
-						'text'  => _x( '650x650', 'Large QR code size option', 'the-events-calendar' ),
+						'value' => '16',
+						'text'  => _x( '560x560', 'Medium QR code size option', 'the-events-calendar' ),
 					],
 					[
-						'value' => '32',
-						'text'  => _x( '1000x1000', 'Extra large QR code size option', 'the-events-calendar' ),
+						'value' => '20',
+						'text'  => _x( '700x700', 'Regular QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '24',
+						'text'  => _x( '840x840', 'Large QR code size option', 'the-events-calendar' ),
+					],
+					[
+						'value' => '28',
+						'text'  => _x( '980x980', 'Extra large QR code size option', 'the-events-calendar' ),
 					],
 				],
 			],

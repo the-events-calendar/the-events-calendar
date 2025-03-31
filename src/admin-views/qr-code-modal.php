@@ -3,6 +3,12 @@
  * QR Code Modal Template
  *
  * @since TBD
+ *
+ * @var string $title The title of the event.
+ * @var string $placeholder The placeholder QR code image URL.
+ * @var array  $qr_images The uploaded QR code images.
+ * @var string $qr_url The QR code redirect URL.
+ * @var string $atts The attributes for the QR code image.
  */
 
 // Don't load directly.
@@ -14,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="tec-events-qr-modal">
 	<div class="tec-events-qr-modal__container">
 		<div class="tec-events-qr-modal__left">
-			<img src="<?php echo wp_kses_data( $qr_img ); ?>" <?php echo esc_attr( $atts ); ?> class="tec-events-qr-modal__image">
+			<img src="<?php echo wp_kses_data( $placeholder ); ?>" <?php echo esc_attr( $atts ); ?> class="tec-events-qr-modal__image">
 		</div>
 		<div class="tec-events-qr-modal__right">
 		<div><?php esc_html_e( 'EVENT', 'the-events-calendar' ); ?></div>
@@ -25,21 +31,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php esc_html_e( 'QR Code Size', 'the-events-calendar' ); ?>
 				</label>
 				<div class="tec-events-qr-modal__select-wrapper">
-					<select id="tec-events-qr-code-size" class="tec-events-qr-modal__select-input">
-						<option value="4" selected><?php esc_html_e( '125 x 125', 'the-events-calendar' ); ?></option>
-						<option value="8"><?php esc_html_e( '250 x 250', 'the-events-calendar' ); ?></option>
-						<option value="12"><?php esc_html_e( '420 x 420', 'the-events-calendar' ); ?></option>
-						<option value="21"><?php esc_html_e( '650 x 650', 'the-events-calendar' ); ?></option>
-						<option value="32"><?php esc_html_e( '1000 x 1000', 'the-events-calendar' ); ?></option>
+					<select class="tec-events-qr-code__size-select" id="tec-events-qr-code-size">
+						<?php foreach ( $qr_images as $size => $url ) : ?>
+							<option value="<?php echo esc_attr( $url ); ?>" <?php selected( $size, 8 ); ?>>
+								<?php echo (int) $size * 35; ?> x <?php echo (int) $size * 35; ?>
+							</option>
+						<?php endforeach; ?>
 					</select>
 					<span class="tec-events-qr-modal__select-unit">px</span>
 				</div>
 			</div>
-			<div><?php esc_html_e( 'The value corresponds to the width and height of the QR code.', 'the-events-calendar' ); ?></div>
+			<div><?php esc_html_e( 'The value corresponds to the width and height of the QR code image in pixels.', 'the-events-calendar' ); ?></div>
 		</div>
 	</div>
 	<div class="tec-events-qr-modal__buttons">
 		<button type="button" class="button js-tec-close-modal"><?php esc_html_e( 'Cancel', 'the-events-calendar' ); ?></button>
-		<button type="button" class="button button-primary" download="<?php echo esc_url( $qr_url ); ?>"><?php esc_html_e( 'Download', 'the-events-calendar' ); ?></button>
+		<a type="button" class="button button-primary js-tec-download-qr-code" href="<?php echo esc_url( $qr_images[8] ); ?>" download target="_blank"><?php esc_html_e( 'Download', 'the-events-calendar' ); ?></a>
 	</div>
 </div>
+
+<?php /* The above template is dynamically injected by Thickbox thus we need to inline the script. */ ?>
+<script>
+jQuery( document ).ready( function( $ ) {
+	$( '.js-tec-close-modal' ).on( 'click', function( e ) {
+		e.preventDefault();
+		$( '.tb-close-icon' ).trigger( 'click' );
+	} );
+	$( '#tec-events-qr-code-size' ).on( 'change', function( e ) {
+		$( '.js-tec-download-qr-code' ).attr( 'href', $( this ).val() );
+	} );
+} );
+</script>

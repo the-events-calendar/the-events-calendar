@@ -37,6 +37,22 @@ class QR_Code {
 	private $routes;
 
 	/**
+	 * The QR codes upload directory path.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	private $qr_dir;
+
+	/**
+	 * The QR codes upload directory URL.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	private $qr_url;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since TBD
@@ -44,6 +60,10 @@ class QR_Code {
 	public function __construct() {
 		$this->qr_code = tribe( QR::class );
 		$this->routes  = tribe( Routes::class );
+
+		$upload_dir   = wp_upload_dir();
+		$this->qr_dir = $upload_dir['basedir'] . '/tec-qr-codes/';
+		$this->qr_url = $upload_dir['baseurl'] . '/tec-qr-codes/';
 	}
 
 	/**
@@ -97,7 +117,11 @@ class QR_Code {
 		}
 
 		$qr_url = $this->routes->get_qr_url( $post->ID, 'specific' );
-		$qr_img = $this->qr_code->size( 6 )->margin( 1 )->get_png_as_base64( $qr_url );
+
+		$qr_images = [];
+		for ( $i = 4; $i <= 28; $i += 4 ) {
+			$qr_images[$i] = $this->generate_qr_image( $post->ID, $qr_url, $i )['url'];
+		}
 
 		$attributes = [
 			'alt'      => sprintf(
@@ -110,11 +134,11 @@ class QR_Code {
 		];
 
 		$template_vars = [
-			'title'      => get_the_title( $post ),
-			'qr_img'     => $qr_img,
-			'qr_url'     => $qr_url,
-			'atts'       => ( new Element_Attributes( $attributes ) )->get_attributes(),
-			'stylesheet' => TEC::instance()->plugin_url . 'src/resources/css/qr-code.min.css',
+			'title'       => get_the_title( $post ),
+			'placeholder' => $this->qr_code->level( 1 )->size( 6 )->margin( 1 )->get_png_as_base64( $qr_url ),
+			'qr_images'   => $qr_images,
+			'qr_url'      => $qr_url,
+			'atts'        => ( new Element_Attributes( $attributes ) )->get_attributes(),
 		];
 
 		/**
@@ -135,5 +159,47 @@ class QR_Code {
 
 		$template->template( 'qr-code-modal', $template_vars );
 		wp_die();
+	}
+
+	/**
+	 * Generates the QR image for a given link and stores it in /wp-content/uploads.
+	 * Returns the uploaded image information.
+	 *
+	 * @param int    $post_id The event/series ID.
+	 * @param string $link The QR link.
+	 * @param int    $size The size of the QR image.
+	 *
+	 * @return ?array {
+	 *     @type string $file The path to the QR code image file.
+	 *     @type string $url The URL to the QR code image file.
+	 *     @type string $type The MIME type of the QR code image file.
+	 *     @type string $error The error message if the QR code image file could not be generated.
+	 * }
+	 */
+	public function generate_qr_image( int $post_id, string $link, int $size = 6 ): ?array {
+		if ( empty( $link ) ) {
+			return null;
+		}
+
+		$file_name = 'qr_' . $post_id . '_' . (int) $size * 35;
+		$file_path = $this->qr_dir . $file_name . '.png';
+		$file_url  = $this->qr_url . $file_name . '.png';
+
+		if ( file_exists( $file_path ) ) {
+			return [
+				'file'  => $file_path,
+				'url'   => $file_url,
+				'type'  => 'image/png',
+				'error' => '',
+			];
+		}
+
+		$upload = $this->qr_code->level( 1 )->size( $size )->margin( 1 )->get_png_as_file( $link, $file_name );
+
+		if ( ! empty( $upload['error'] ) ) {
+			return null;
+		}
+
+		return $upload;
 	}
 }
