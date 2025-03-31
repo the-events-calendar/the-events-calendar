@@ -137,7 +137,8 @@ class QR_Code {
 
 		$qr_images = [];
 		for ( $i = 4; $i <= 28; $i += 4 ) {
-			$qr_images[ $i ] = $this->generate_qr_image( $post->ID, $qr_url, $i )['url'];
+			$uploaded        = $this->generate_qr_image( $post->ID, $qr_url, $i );
+			$qr_images[ $i ] = $uploaded['error'] ? '' : $uploaded['url'];
 		}
 
 		$attributes = [
@@ -211,12 +212,6 @@ class QR_Code {
 			];
 		}
 
-		$upload = $this->qr_code->level( 1 )->size( $size )->margin( 1 )->get_png_as_file( $link, $file_name );
-
-		if ( ! empty( $upload['error'] ) ) {
-			return null;
-		}
-
-		return $upload;
+		return $this->qr_code->level( 1 )->size( $size )->margin( 1 )->get_png_as_file( $link, $file_name );
 	}
 }
