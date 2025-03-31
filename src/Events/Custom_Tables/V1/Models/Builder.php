@@ -548,6 +548,9 @@ class Builder {
 
 		$this->queries[] = $sql;
 
+		// Trigger the save post cache invalidation.
+		tribe_cache()->set_last_occurrence( Cache_Triggers::TRIGGER_SAVE_POST );
+
 		// If we have a cache, let's clear it.
 		$model->flush_cache();
 
