@@ -43,6 +43,14 @@ class Routes extends Controller {
 	private $salt;
 
 	/**
+	 * The base for the routes.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	private $base = 'events';
+
+	/**
 	 * The query variable name for QR code hash.
 	 *
 	 * @since TBD
@@ -117,7 +125,7 @@ class Routes extends Controller {
 	 */
 	public function add_qr_rules( Tribe__Events__Rewrite $rewrite ): void {
 		$rewrite->add(
-			[ 'events', $this->route_prefix, '([^/]+)' ],
+			[ $this->base, $this->route_prefix, '([^/]+)' ],
 			[ $this->qr_hash_var => '%1' ]
 		);
 	}
@@ -183,7 +191,7 @@ class Routes extends Controller {
 	public function get_qr_url( int $post_id, string $qr_type ): string {
 		$hash = $this->generate_hash( $post_id, $qr_type );
 
-		return home_url( "events/{$this->route_prefix}/{$hash}/" );
+		return home_url( "{$this->base}/{$this->route_prefix}/{$hash}/" );
 	}
 
 	/**
@@ -256,8 +264,8 @@ class Routes extends Controller {
 		}
 
 		$parts = explode( '/', trim( $path, '/' ) );
-		if ( count( $parts ) !== 3 || $parts[0] !== 'events' || $parts[1] !== $this->route_prefix ) {
-			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: events/' . $this->route_prefix . '/{hash}, Got: ' . $path );
+		if ( count( $parts ) !== 3 || $parts[0] !== $this->base || $parts[1] !== $this->route_prefix ) {
+			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: ' . $this->base . '/' . $this->route_prefix . '/{hash}, Got: ' . $path );
 		}
 
 		return $this->decode_qr_hash( $parts[2] );
