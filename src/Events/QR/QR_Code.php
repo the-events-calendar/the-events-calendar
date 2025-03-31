@@ -120,7 +120,7 @@ class QR_Code {
 
 		$qr_images = [];
 		for ( $i = 4; $i <= 28; $i += 4 ) {
-			$qr_images[$i] = $this->generate_qr_image( $post->ID, $qr_url, $i )['url'];
+			$qr_images[ $i ] = $this->generate_qr_image( $post->ID, $qr_url, $i )['url'];
 		}
 
 		$attributes = [
