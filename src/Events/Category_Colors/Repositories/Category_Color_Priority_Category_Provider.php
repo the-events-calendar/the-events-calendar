@@ -69,6 +69,7 @@ class Category_Color_Priority_Category_Provider {
 	protected function get_event_categories( int $event_id ): array {
 		$categories = get_the_terms( $event_id, 'tribe_events_cat' );
 
+		$categories = is_array( $categories ) ? $categories : [];
 		/**
 		 * Filters the raw list of event categories before processing.
 		 *
@@ -77,7 +78,7 @@ class Category_Color_Priority_Category_Provider {
 		 * @param array $categories The retrieved categories.
 		 * @param int   $event_id   The event ID.
 		 */
-		return apply_filters( 'tec_events_category_color_event_categories', is_array( $categories ) ? $categories : [], $event_id );
+		return apply_filters( 'tec_events_category_color_event_categories', $categories, $event_id );
 	}
 
 	/**

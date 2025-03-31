@@ -99,7 +99,7 @@ class Assets {
 		 * @since TBD
 		 *
 		 * @param bool   $should_enqueue Whether the styles should be enqueued.
-		 * @param Assets $this           The Assets instance.
+		 * @param Assets $assets           The Assets instance.
 		 */
 		return (bool) apply_filters(
 			'tec_events_category_colors_should_enqueue_frontend_styles',
@@ -122,7 +122,7 @@ class Assets {
 		 * @since TBD
 		 *
 		 * @param bool   $should_enqueue Whether the legend styles should be enqueued.
-		 * @param Assets $this           The Assets instance.
+		 * @param Assets $assets           The Assets instance.
 		 */
 		return (bool) apply_filters(
 			'tec_events_category_colors_should_enqueue_frontend_legend',

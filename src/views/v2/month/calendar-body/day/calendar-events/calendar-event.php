@@ -35,7 +35,4 @@ $classes['tribe-events-calendar-month__calendar-event--sticky']   = ( -1 === $ev
 
 	</div>
 
-
-
-
 </article>

@@ -36,7 +36,7 @@ class Category_Color_Dropdown_Provider {
 	 *
 	 * @var array<string> Array of shortcode identifiers that should not display category colors.
 	 */
-	protected array $blacklisted_shortcodes = [
+	protected array $disallowed_shortcodes = [
 		'admin-manager',
 	];
 
@@ -106,20 +106,20 @@ class Category_Color_Dropdown_Provider {
 		 *
 		 * @since TBD
 		 *
-		 * @param array<string> $blacklisted_shortcodes List of shortcode values that should not display category colors.
+		 * @param array<string> $disallowed_shortcodes List of shortcode values that should not display category colors.
 		 * @param View          $view                   The current view object.
 		 */
-		$blacklisted_shortcodes = apply_filters(
+		$disallowed_shortcodes = apply_filters(
 			'tec_events_category_color_blacklisted_shortcodes',
-			$this->blacklisted_shortcodes,
+			$this->disallowed_shortcodes,
 			$view
 		);
 
-		if ( ! is_array( $blacklisted_shortcodes ) ) {
+		if ( ! is_array( $disallowed_shortcodes ) ) {
 			$blacklisted_shortcodes = [];
 		}
 
-		return ! in_array( $shortcode, $blacklisted_shortcodes, true );
+		return ! in_array( $shortcode, $disallowed_shortcodes, true );
 	}
 
 	/**
