@@ -66,16 +66,6 @@ class Migration_Notice {
 	protected const ERROR_NOTICE_ID = 'tec_category_colors_migration_error';
 
 	/**
-	 * Sets up the admin UI hooks.
-	 *
-	 * @since TBD
-	 */
-	public function hook(): void {
-		add_action( 'admin_init', [ $this, 'maybe_show_migration_notice' ] );
-		add_action( 'admin_post_tec_start_category_colors_migration', [ $this, 'handle_migration' ] );
-	}
-
-	/**
 	 * Shows the migration notice if needed.
 	 *
 	 * @since TBD

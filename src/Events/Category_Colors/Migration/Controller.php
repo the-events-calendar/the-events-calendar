@@ -29,6 +29,14 @@ use TEC\Events\Category_Colors\Migration\Notice\Migration_Notice;
  * @package TEC\Events\Category_Colors
  */
 class Controller extends Controller_Contract {
+	/**
+	 * The migration notice instance.
+	 *
+	 * @since TBD
+	 *
+	 * @var Migration_Notice
+	 */
+	private Migration_Notice $notice;
 
 	/**
 	 * Register the provider.
@@ -61,7 +69,10 @@ class Controller extends Controller_Contract {
 			}
 		);
 
-		$this->container->make( Migration_Notice::class )->hook();
+		// Store the notice instance.
+		$this->notice = $this->container->make( Migration_Notice::class );
+
+		$this->hook();
 	}
 
 	/**
@@ -161,5 +172,20 @@ class Controller extends Controller_Contract {
 	 *
 	 * @since TBD
 	 */
-	public function unregister(): void {}
+	public function unregister(): void {
+		remove_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );
+		remove_action( 'admin_init', [ $this->notice, 'maybe_show_migration_notice' ] );
+		remove_action( 'admin_post_tec_start_category_colors_migration', [ $this->notice, 'handle_migration' ] );
+	}
+
+	/**
+	 * Sets up the admin UI hooks.
+	 *
+	 * @since TBD
+	 */
+	public function hook(): void {
+		add_action( 'admin_init', [ $this, 'maybe_disable_category_colors_plugin' ] );
+		add_action( 'admin_init', [ $this->notice, 'maybe_show_migration_notice' ] );
+		add_action( 'admin_post_tec_start_category_colors_migration', [ $this->notice, 'handle_migration' ] );
+	}
 }
