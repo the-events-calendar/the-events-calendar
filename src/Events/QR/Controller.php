@@ -171,7 +171,7 @@ class Controller extends Controller_Contract {
 			return false;
 		}
 
-		return $screen->post_type === TEC::POSTTYPE;
+		return in_array( $screen->id, [ 'edit-tribe_events', 'tribe_events' ], true );
 	}
 
 	/**
