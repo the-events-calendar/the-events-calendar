@@ -2,7 +2,7 @@
 /**
  * Calendar Embeds Admin List Page.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds\Admin
  */
@@ -20,7 +20,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class List_Page
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds\Admin
  */
@@ -30,7 +30,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * The template.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var Template
 	 */
@@ -39,7 +39,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Page constructor.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Container $container  The container.
 	 * @param Template  $template   The template.
@@ -53,7 +53,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -70,7 +70,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Removes the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -86,7 +86,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Customize columns for the table.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array<string,string> $columns The columns.
 	 *
@@ -104,7 +104,7 @@ class List_Page extends Controller_Contract {
 		/**
 		 * Filters the columns for the calendar embeds list table.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param array $new_columns The columns.
 		 *
@@ -116,7 +116,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Customize the content of the columns.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $column_name The name of the column.
 	 * @param int    $post_id     The post ID.
@@ -139,7 +139,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Register the Calendar Embeds menu item.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -163,7 +163,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Gets the URL for the Calendar Embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $args The query args.
 	 *
@@ -184,7 +184,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Gets the Page title for the Calendar Embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return string
 	 */
@@ -195,7 +195,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Keep parent menu open when adding and editing calendar embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $submenu_file The current submenu file.
 	 *
@@ -221,7 +221,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Check if the current screen is the Calendar Embeds page.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return bool
 	 */
@@ -236,7 +236,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Enqueue the clipboard script.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -252,7 +252,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Register assets for the Calendar Embeds page.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -271,7 +271,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Render the event categories column.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int $post_id The post ID.
 	 *
@@ -301,7 +301,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Render the event tags column.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int $post_id The post ID.
 	 *
@@ -331,7 +331,7 @@ class List_Page extends Controller_Contract {
 	/**
 	 * Render the embed snippet column.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int $post_id The post ID.
 	 *

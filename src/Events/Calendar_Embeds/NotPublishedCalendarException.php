@@ -2,7 +2,7 @@
 /** //phpcs:disable StellarWP.Classes.ValidClassName.NotSnakeCase
  * Exception for when a calendar is not published.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds
  */
@@ -14,7 +14,7 @@ use Exception;
 /**
  * Class NotPublishedCalendarException
  *
- * @since TBD
+ * @since 6.11.0
 
  * @package TEC\Events\Calendar_Embeds
  */

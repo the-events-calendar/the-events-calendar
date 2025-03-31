@@ -84,7 +84,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * The position of the submenu in the menu.
 	 *
 	 * @since 6.8.4
-	 * @since TBD Changed menu position.
+	 * @since 6.11.0 Changed menu position.
 	 *
 	 * @var int
 	 */
@@ -94,7 +94,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Get the admin page title.
 	 *
 	 * @since 6.8.4
-	 * @since TBD Changed page title.
+	 * @since 6.11.0 Changed page title.
 	 *
 	 * @return string The page title.
 	 */
@@ -117,7 +117,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Get the admin menu title.
 	 *
 	 * @since 6.8.4
-	 * @since TBD Changed menu title.
+	 * @since 6.11.0 Changed menu title.
 	 *
 	 * @return string The menu title.
 	 */

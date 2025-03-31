@@ -2,9 +2,9 @@
 /**
  * Content for the Embed Snippet column within the Calendar Embeds List Table.
  *
- * @since TBD
+ * @since 6.11.0
  *
- * @version TBD
+ * @version 6.11.0
  *
  * @var int $post_id The post ID.
  */

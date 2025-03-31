@@ -2,9 +2,9 @@
 /**
  * Iframe stylesheet for a calendar embed.
  *
- * @since TBD
+ * @since 6.11.0
  *
- * @version TBD
+ * @version 6.11.0
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -2,7 +2,7 @@
 /**
  * Render External Embed Calendars.
  *
- * @since TBD
+ * @since 6.11.0
  * @package TEC/Events/Calendar_Embeds
  */
 
@@ -24,7 +24,7 @@ use Tribe__Repository__Interface as Repository_Interface;
 /**
  * Class for rendering the External Calendar Embeds.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC/Events/Calendar_Embeds
  */
@@ -33,7 +33,7 @@ class Render {
 	 * Prefix for the transient where we will save the base values for the
 	 * setup of the context of the embed.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var string
 	 */
@@ -42,7 +42,7 @@ class Render {
 	/**
 	 * Arguments of the current view.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var array
 	 */
@@ -51,7 +51,7 @@ class Render {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var array
 	 */
@@ -91,7 +91,7 @@ class Render {
 	/**
 	 * Setup the arguments for the view.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $arguments Arguments to be used to setup the view.
 	 */
@@ -102,7 +102,7 @@ class Render {
 	/**
 	 * Toggles the filtering of URLs to match the place where this is called.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param bool $toggle Whether to turn the hooks on or off.
 	 *
@@ -118,7 +118,7 @@ class Render {
 		/**
 		 * Fires after View hooks have been toggled while rendering.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param bool   $toggle   Whether the hooks should be turned on or off.
 		 * @param static $instance The instance that is toggling the View hooks.
@@ -129,7 +129,7 @@ class Render {
 	/**
 	 * Toggles on portions of the template based on the params.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 */
 	protected function add_view_hooks(): void {
 		add_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15 );
@@ -216,7 +216,7 @@ class Render {
 	/**
 	 * Hide weekends.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param mixed  $value       The value for the option.
 	 * @param string $option_name The name of the option.
@@ -234,7 +234,7 @@ class Render {
 	/**
 	 * Toggles off portions of the template that were toggled on above.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 */
 	protected function remove_view_hooks(): void {
 		remove_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15 );
@@ -278,7 +278,7 @@ class Render {
 	/**
 	 * Maybe toggles the hooks on a rest request.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $slug   The current view Slug.
 	 * @param array  $params Params so far that will be used to build this view.
@@ -304,7 +304,7 @@ class Render {
 	/**
 	 * Verifies if we should allow View URL management.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return bool
 	 */
@@ -319,7 +319,7 @@ class Render {
 		/**
 		 * Allows filtering of the disallowed locations for URL management.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param mixed  $disallowed_locations Which filters we don't allow URL management.
 		 * @param static $instance             Which instance we are dealing with.
@@ -337,7 +337,7 @@ class Render {
 		/**
 		 * Allows filtering if URL management is active.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param mixed  $should_manage_url Should we manage the URL for this views instance.
 		 * @param static $instance          Which instance we are dealing with.
@@ -350,7 +350,7 @@ class Render {
 	/**
 	 * Changes the URL to match this view if needed.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $query_args Current URL for this view.
 	 *
@@ -366,7 +366,7 @@ class Render {
 	/**
 	 * Fetches from the database the params of a given view based on the ID created.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $embed_id The identifier, or `null` to use the current one.
 	 *
@@ -384,7 +384,7 @@ class Render {
 	 * Configures the Relationship between view ID and their params in the database
 	 * allowing us to pass the URL as the base for the Queries.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return  bool  Return if we have the arguments configured or not.
 	 */
@@ -405,7 +405,7 @@ class Render {
 	/**
 	 * Alters the context with its arguments.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Context $context Context we will use to build the view.
 	 * @param array   $arguments Arguments to be used to alter the context.
@@ -437,7 +437,7 @@ class Render {
 	 * of the params sent to the view we will create/get an ID for this
 	 * instance of the view
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return string The view unique(ish) identifier.
 	 */
@@ -464,7 +464,7 @@ class Render {
 	/**
 	 * Should not be used carelessly this will remove all request based locations from the read of the context.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $locations An array of read and write location in the shape of the `Context::$locations` one,
 	 *                         `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
@@ -499,7 +499,7 @@ class Render {
 	/**
 	 * Determines if we should display the view in a given page.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return bool
 	 */
@@ -515,7 +515,7 @@ class Render {
 		/**
 		 * If we should display the view.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param bool   $should_display Whether we should display or not.
 		 * @param static $view           Instance of the view we are dealing with.
@@ -528,7 +528,7 @@ class Render {
 	/**
 	 * Renders the HTML.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return string The HTML.
 	 */
@@ -572,7 +572,7 @@ class Render {
 		/**
 		 * Allows removing the compatibility container.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param bool   $compatibility_required Is compatibility required for this view.
 		 * @param static $view                   View instance that is being rendered.
@@ -612,7 +612,7 @@ class Render {
 	/**
 	 * Filters the View repository args to add the ones required.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array   $repository_args An array of repository arguments that will be set for all Views.
 	 * @param Context $context         The current render context object.
@@ -640,7 +640,7 @@ class Render {
 	/**
 	 * Filters the context locations to add the ones used by Views.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $locations The array of context locations.
 	 *
@@ -665,7 +665,7 @@ class Render {
 	/**
 	 * Translates view arguments to their Context argument counterpart.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array   $arguments The view arguments to translate.
 	 * @param Context $context   The request context.
@@ -748,7 +748,7 @@ class Render {
 	/**
 	 * Translates view arguments to their Repository argument counterpart.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $repository_args The current repository arguments.
 	 * @param array $arguments       The view arguments to translate.
@@ -931,7 +931,7 @@ class Render {
 	/**
 	 * Alters the context of the view based on the view params stored in the database based on the ID.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Context $view_context Context for this request.
 	 * @param string  $view_slug    Slug of the view we are building.
@@ -968,7 +968,7 @@ class Render {
 	/**
 	 * Filters the default view in the views manager for views navigation.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $view_class Fully qualified class name for default view.
 	 *
@@ -999,7 +999,7 @@ class Render {
 	/**
 	 * Filters the View HTML classes to add some related to PRO features.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array<string>  $html_classes The current View HTML classes.
 	 * @param string         $slug         The View registered slug.
@@ -1036,7 +1036,7 @@ class Render {
 	/**
 	 * Cleans up an array of values as html classes.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param mixed $value Which classes we are cleaning up.
 	 *
@@ -1053,7 +1053,7 @@ class Render {
 	/**
 	 * Filters the View data attributes to add some related to PRO features.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array<string,string> $data The current View data attributes classes.
 	 * @param string               $slug The View registered slug.
@@ -1084,7 +1084,7 @@ class Render {
 	/**
 	 * Filters the View URL to add the embed query arg, if required.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string         $url       The View current URL.
 	 * @param bool           $canonical Whether to return the canonical version of the URL or the normal one.
@@ -1115,7 +1115,7 @@ class Render {
 	/**
 	 * Filters the query arguments array and add the Embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array          $query     Arguments used to build the URL.
 	 * @param string         $view_slug The current view slug.
@@ -1144,7 +1144,7 @@ class Render {
 	/**
 	 * Filter the breakpoints for the week view widget based on layout.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $breakpoints All breakpoints available.
 	 * @param View  $view        The current View instance being rendered.
@@ -1187,7 +1187,7 @@ class Render {
 	/**
 	 * Modify the Week events per day of a given view based on arguments from View.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int|string $events_per_day Number of events per day.
 	 * @param View       $view           Current view being rendered.
@@ -1213,7 +1213,7 @@ class Render {
 	/**
 	 * Modify the events repository query for the fast-forward link.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Repository_Interface $next_event Current instance of the events repository class.
 	 * @param View_Interface       $view       The View currently rendering.
@@ -1262,7 +1262,7 @@ class Render {
 	/**
 	 * Allows the user to specify that they want to skip empty views.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param bool $skip Whether to skip empty views.
 	 *
@@ -1280,7 +1280,7 @@ class Render {
 	/**
 	 * Get the arguments for this view.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return array
 	 */
@@ -1291,7 +1291,7 @@ class Render {
 	/**
 	 * Get a specific argument for this view.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $index   The index of the argument to get.
 	 * @param mixed  $default The default value to return if the argument is not set.

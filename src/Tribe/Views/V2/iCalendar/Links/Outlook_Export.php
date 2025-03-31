@@ -89,7 +89,7 @@ class Outlook_Export extends Link_Abstract {
 		/**
 		 * Filters the Outlook export URL.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param string $url The URL.
 		 * @param View   $view The view.

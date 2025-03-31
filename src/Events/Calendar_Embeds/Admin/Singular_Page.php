@@ -2,7 +2,7 @@
 /**
  * Calendar Embeds Admin Singular Page.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds\Admin
  */
@@ -19,7 +19,7 @@ use WP_Post;
 /**
  * Class Singular_Page
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds\Admin
  */
@@ -29,7 +29,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * The template.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var Template
 	 */
@@ -38,7 +38,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Page constructor.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Container $container  The container.
 	 * @param Template  $template   The template.
@@ -52,7 +52,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -68,7 +68,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Removes the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -84,7 +84,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Modifies the post updated messages for the calendar embed post type.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $messages The post updated messages.
 	 *
@@ -139,7 +139,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Adds the copy embed button to the post submitbox.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param WP_Post $post The post object.
 	 *
@@ -165,7 +165,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Replaces the iframe markup with a placeholder if the embed is not saved.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string  $iframe The iframe markup.
 	 * @param WP_Post $embed  The embed post object.
@@ -187,7 +187,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Adds the metaboxes to the order post type.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string  $post_type The post type.
 	 * @param WP_Post $post The post object.
@@ -215,7 +215,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Renders the preview of the embed metabox.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param WP_Post $post The post object.
 	 *
@@ -229,7 +229,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Gets the URL for a Calendar Embed.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int $id The embed id.
 	 *
@@ -248,7 +248,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Keep parent menu open when adding and editing calendar embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $submenu_file The current submenu file.
 	 *
@@ -275,7 +275,7 @@ class Singular_Page extends Controller_Contract {
 	/**
 	 * Check if the current screen is the Calendar Embeds page.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return bool
 	 */

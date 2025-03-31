@@ -68,7 +68,7 @@ class Controller extends Controller_Contract {
 	 * Add the action hooks.
 	 *
 	 * @since 6.8.4
-	 * @since TBD Changed the priority of `admin_menu` to reposition menu item.
+	 * @since 6.11.0 Changed the priority of `admin_menu` to reposition menu item.
 	 */
 	public function add_actions(): void {
 		add_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
@@ -92,7 +92,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Redirects users to the Guided Setup page when accessing any TEC settings or management page for the first time.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -109,7 +109,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters the list of post types associated with The Events Calendar admin pages.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param array $post_types An array of post type slugs associated with The Events Calendar admin.
 		 */
@@ -167,7 +167,7 @@ class Controller extends Controller_Contract {
 	 * Remove the action hooks.
 	 *
 	 * @since 6.8.4
-	 * @since TBD Changed the priority of `admin_menu`.
+	 * @since 6.11.0 Changed the priority of `admin_menu`.
 	 */
 	public function remove_actions(): void {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ], 20 );

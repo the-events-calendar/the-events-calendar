@@ -2,7 +2,7 @@
 /**
  * External Calendar Embeds Controller.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds
  */
@@ -19,7 +19,7 @@ use WP_Screen;
 /**
  * Class Calendar_Embeds
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds
  */
@@ -28,7 +28,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Calendar Embeds post type slug.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var string
 	 */
@@ -37,7 +37,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -53,7 +53,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Removes the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -69,7 +69,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Redirects to the embed URL when viewing a calendar embed post.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -94,7 +94,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Modifies the term count on the term list tables to ignore Calendar embeds from their count.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array  $terms      The terms.
 	 * @param ?array $taxonomies The taxonomies.
@@ -150,7 +150,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Disables slug changes for the calendar embed post type.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array $data              The post data.
 	 * @param array $post_array        The post array.
@@ -187,7 +187,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Register custom post type for calendar embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -242,7 +242,7 @@ class Calendar_Embeds extends Controller_Contract {
 		/**
 		 * Filter the arguments for the Calendar Embeds post type.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param array $args The arguments for the Calendar Embeds post type.
 		 *
@@ -256,7 +256,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Get the iframe code for the calendar embed.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int  $post_id                  The post ID.
 	 * @param bool $throw_when_not_published Whether to throw an exception if the calendar is not published.
@@ -292,7 +292,7 @@ class Calendar_Embeds extends Controller_Contract {
 		/**
 		 * Filter the iframe attributes for the calendar embed.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param array   $iframe_attributes The iframe attributes.
 		 * @param WP_Post $embed             The embed post object.
@@ -309,7 +309,7 @@ class Calendar_Embeds extends Controller_Contract {
 		/**
 		 * Filter the iframe code for the calendar embed.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param string  $iframe    The iframe code.
 		 * @param WP_Post $embed     The embed post object.
@@ -322,7 +322,7 @@ class Calendar_Embeds extends Controller_Contract {
 		/**
 		 * Filter the iframe and styles for the calendar embed.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param string  $iframe    The iframe code.
 		 * @param WP_Post $embed     The embed post object.
@@ -336,7 +336,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Prints the iframe styles.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return string
 	 */
@@ -346,7 +346,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Get the event categories for a calendar embed.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int $post_id The post ID.
 	 *
@@ -365,7 +365,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Get the event tags for a calendar embed.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param int $post_id The post ID.
 	 *
@@ -384,7 +384,7 @@ class Calendar_Embeds extends Controller_Contract {
 	/**
 	 * Do not add trashed suffix to trashed calendar embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param bool   $add_trashed_suffix Whether to add the trashed suffix.
 	 * @param string $post_name          The post name.

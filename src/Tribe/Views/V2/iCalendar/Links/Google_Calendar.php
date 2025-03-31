@@ -90,7 +90,7 @@ class Google_Calendar extends Link_Abstract {
 		/**
 		 * Filters the Google Calendar feed URL.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param string $feed_url The Google Calendar feed URL.
 		 * @param View   $view The view.

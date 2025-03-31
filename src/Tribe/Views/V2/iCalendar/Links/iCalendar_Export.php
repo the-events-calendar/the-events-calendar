@@ -82,7 +82,7 @@ class iCalendar_Export extends Link_Abstract {
 		/**
 		 * Filters the iCalendar export URL.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param string $feed_url The iCalendar export URL.
 		 * @param View   $view The view.

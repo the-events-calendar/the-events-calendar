@@ -2,7 +2,7 @@
 /**
  * Calendar Embeds Template class.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC/Events/Calendar_Embeds
  */
@@ -15,7 +15,7 @@ use Tribe__Events__Main as TEC_Plugin;
 /**
  * Waitlist Template class.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC/Tickets_Plus/Waitlist
  */
@@ -23,7 +23,7 @@ class Template extends Base_Template {
 	/**
 	 * Template constructor.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 */
 	public function __construct() {
 		$this->set_template_origin( tribe( TEC_Plugin::instance() ) );

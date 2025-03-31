@@ -2,7 +2,7 @@
 /**
  * Trait Restore_Menu_Trait
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds\Admin
  */
@@ -12,14 +12,14 @@ namespace TEC\Events\Calendar_Embeds\Admin;
 /**
  * Trait Restore_Menu_Trait
  *
- * @since TBD
+ * @since 6.11.0
  */
 trait Restore_Menu_Trait {
 
 	/**
 	 * The stored globals.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var array
 	 */
@@ -31,7 +31,7 @@ trait Restore_Menu_Trait {
 	/**
 	 * Restores the current parent file.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */

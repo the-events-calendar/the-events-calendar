@@ -2,9 +2,9 @@
 /**
  * Content for a calendar embed.
  *
- * @since TBD
+ * @since 6.11.0
  *
- * @version TBD
+ * @version 6.11.0
  *
  * @var int   $calendar_embed_id The ID of the calendar embed.
  * @var array $event_categories  The event categories.

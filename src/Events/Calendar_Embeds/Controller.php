@@ -2,7 +2,7 @@
 /**
  * Manages the External Calendar Embeds Feature.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds
  */
@@ -18,7 +18,7 @@ use Tribe__Events__Main as TEC_Plugin;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.11.0
 
  * @package TEC\Events\Calendar_Embeds
  */
@@ -27,7 +27,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -44,7 +44,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */

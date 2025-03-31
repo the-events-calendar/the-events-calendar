@@ -1,7 +1,7 @@
 /**
  * Init the tec.main.ece object.
  *
- * @since TBD
+ * @since 6.11.0
  */
 window.tec = window.tec || {};
 window.tec.main = window.tec.main || {};
@@ -13,7 +13,7 @@ window.tec.main.ece = window.tec.main.ece || {};
 	/**
 	 * Selectors used to attach listeners.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 * @type {Object}
 	 */
 	obj.selectors = {
@@ -28,7 +28,7 @@ window.tec.main.ece = window.tec.main.ece || {};
 	/**
 	 * Open the event in a new tab.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 * @param {Event} e
 	 */
 	obj.openEventInNewTab = ( e ) => {
@@ -44,7 +44,7 @@ window.tec.main.ece = window.tec.main.ece || {};
 	/**
 	 * Open the more events link in a new tab.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 * @param {string} selector
 	 */
 	obj.openMoreEventsLinkInNewTab = ( selector ) => {
@@ -65,7 +65,7 @@ window.tec.main.ece = window.tec.main.ece || {};
 	/**
 	 * Refresh the more events links.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 */
 	obj.refreshMoreEventsLinks = () => {
 		obj.openMoreEventsLinkInNewTab( obj.selectors.moreEventsLink );
@@ -75,7 +75,7 @@ window.tec.main.ece = window.tec.main.ece || {};
 	/**
 	 * Ready function.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 * @type {Function}
 	 */
 	obj.ready = () => {

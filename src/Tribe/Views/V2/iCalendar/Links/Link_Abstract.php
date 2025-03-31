@@ -321,7 +321,7 @@ abstract class Link_Abstract implements Link_Interface, JsonSerializable {
 		/**
 		 * Filters the feed URL for the subscribe link.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 *
 		 * @param string $feed_url The feed URL.
 		 * @param View   $view The view.

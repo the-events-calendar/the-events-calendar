@@ -2,7 +2,7 @@
 /**
  * Manages the External Calendar Embeds Feature.
  *
- * @since TBD
+ * @since 6.11.0
  *
  * @package TEC\Events\Calendar_Embeds
  */
@@ -17,7 +17,7 @@ use TEC\Common\StellarWP\Assets\Asset;
 /**
  * Class Controller
  *
- * @since TBD
+ * @since 6.11.0
 
  * @package TEC\Events\Calendar_Embeds
  */
@@ -26,7 +26,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * The template.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @var Template
 	 */
@@ -35,7 +35,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Page constructor.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param Container $container  The container.
 	 * @param Template  $template   The template.
@@ -49,7 +49,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Registers the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -64,7 +64,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Removes the filters and actions hooks added by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -78,7 +78,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Filters the repository events query args.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param array<string,mixed> $args The query args.
 	 *
@@ -124,7 +124,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Enqueues the scripts and styles for the calendar embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
@@ -140,7 +140,7 @@ class Frontend extends Controller_Contract {
 		 *
 		 * Applicable to frontend and only singular screen.
 		 *
-		 * @since TBD
+		 * @since 6.11.0
 		 */
 		do_action( 'tec_events_calendar_embeds_enqueue_scripts' );
 	}
@@ -148,7 +148,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Overwrites the content of the calendar embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $content The content.
 	 *
@@ -179,7 +179,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Overwrites the embed template for the calendar embeds.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @param string $template The template.
 	 *
@@ -200,7 +200,7 @@ class Frontend extends Controller_Contract {
 	/**
 	 * Register assets for the Calendar Embeds singular Frontend page.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */

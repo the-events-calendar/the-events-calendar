@@ -765,7 +765,7 @@ class Tribe__Events__Assets {
 	/**
 	 * Configure the group path for the resources assets folder.
 	 *
-	 * @since TBD
+	 * @since 6.11.0
 	 *
 	 * @return void
 	 */
