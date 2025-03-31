@@ -43,6 +43,14 @@ class Routes extends Controller {
 	private $salt;
 
 	/**
+	 * The query variable name for QR code hash.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	private $qr_hash_var = 'tec_qr_hash';
+
+	/**
 	 * Register the routes.
 	 *
 	 * @since TBD
@@ -110,7 +118,7 @@ class Routes extends Controller {
 	public function add_qr_rules( Tribe__Events__Rewrite $rewrite ): void {
 		$rewrite->add(
 			[ 'events', $this->route_prefix, '([^/]+)' ],
-			[ 'tec_qr_hash' => '%1' ]
+			[ $this->qr_hash_var => '%1' ]
 		);
 	}
 
@@ -122,7 +130,7 @@ class Routes extends Controller {
 	 * @return array The modified query vars.
 	 */
 	public function filter_add_query_vars( $query_vars = [] ) {
-		$query_vars[] = 'tec_qr_hash';
+		$query_vars[] = $this->qr_hash_var;
 
 		return $query_vars;
 	}
@@ -137,8 +145,8 @@ class Routes extends Controller {
 	 * @return array The modified query vars.
 	 */
 	public function filter_parse_query_vars( array $query_vars ): array {
-		if ( isset( $query_vars['tec_qr_hash'] ) ) {
-			$query_vars['tec_qr_hash'] = sanitize_text_field( $query_vars['tec_qr_hash'] );
+		if ( isset( $query_vars[ $this->qr_hash_var ] ) ) {
+			$query_vars[ $this->qr_hash_var ] = sanitize_text_field( $query_vars[ $this->qr_hash_var ] );
 		}
 
 		return $query_vars;
