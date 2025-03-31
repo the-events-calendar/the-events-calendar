@@ -144,8 +144,9 @@ class Settings {
 	 * @return array The structured settings array for Category Colors.
 	 */
 	public function generate_settings(): array {
-		/* @var Manager $manager */
-		$manager              = tribe( Manager::class );
+		/** @var Manager $manager */
+		$manager = tribe( Manager::class );
+
 		$category_color_title = new Div( new Element_Classes( [ 'tec-settings-form__header-block', 'tec-settings-form__header-block--horizontal' ] ) );
 		$category_color_title->add_child(
 			new H3(
