@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Integrations\QR;
 
-use Codeception\TestCase\WPTestCase;
+use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\QR\Routes;
 
 /**
@@ -13,7 +13,14 @@ use TEC\Events\QR\Routes;
  *
  * @package TribeEvents
  */
-class RoutesTest extends WPTestCase {
+class RoutesTest extends Controller_Test_Case {
+
+	/**
+	 * The controller class to test.
+	 *
+	 * @var string
+	 */
+	protected $controller_class = Routes::class;
 
 	/**
 	 * The routes instance.
@@ -39,7 +46,7 @@ class RoutesTest extends WPTestCase {
 
 		// Register the routes
 		$this->routes = tribe( Routes::class );
-		$this->routes->do_register();
+		$this->routes->register();
 
 		// Create a test event
 		$this->test_event_id = $this->factory->post->create(
