@@ -9,7 +9,6 @@ namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\QR\Routes;
-use TEC\Common\Asset;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -118,19 +117,23 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		Asset::add(
+		tribe_asset(
+			TEC::instance(),
 			'tec-events-qr-code-styles',
-			TEC::instance()->plugin_url . 'src/resources/css/qr-code.css'
-		)
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->register();
+			'qr-code.css',
+			[ 'wp-components' ],
+			'admin_enqueue_scripts',
+			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
+		);
 
-		Asset::add(
+		tribe_asset(
+			TEC::instance(),
 			'tec-events-qr-code-scripts',
-			TEC::instance()->plugin_url . 'src/resources/js/qr-code.js'
-		)
-			->enqueue_on( 'admin_enqueue_scripts' )
-			->register();
+			'qr-code.min.js',
+			[ 'jquery' ],
+			'admin_enqueue_scripts',
+			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
+		);
 	}
 
 	/**
@@ -141,6 +144,21 @@ class Controller extends Controller_Contract {
 	 */
 	public function get_slug(): string {
 		return $this->slug;
+	}
+
+	/**
+	 * If we should enqueue assets.
+	 *
+	 * @since TBD
+	 * @return bool Whether we should enqueue assets.
+	 */
+	public function should_enqueue_assets(): bool {
+		$screen = get_current_screen();
+		if ( ! $screen ) {
+			return false;
+		}
+
+		return $screen->post_type === TEC::POSTTYPE;
 	}
 
 	/**
