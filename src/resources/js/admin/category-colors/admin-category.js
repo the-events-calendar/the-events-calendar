@@ -18,7 +18,7 @@ tribe.events.admin.categoryColors = {};
 (($, obj) => {
 	'use strict';
 
-	const $document = $(document);
+	let $document = $(document);
 
 	/**
 	 * Determines if the current page is the add or edit category page.
@@ -52,6 +52,7 @@ tribe.events.admin.categoryColors = {};
 		wpPickerContainer: '.wp-picker-container',
 		irisPicker: '.iris-picker',
 		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]"]',
+		inlineAdminCssID: 'tec-events-category-colors-admin-style-inline-css'
 	};
 
 	/**
@@ -258,30 +259,33 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.updateInlineStyles = (categoryClass, colors) => {
 		// Find the inline style element by its ID
-		const styleElement = document.getElementById('tec-events-category-colors-admin-style-inline-css');
+		const styleElement = document.getElementById( obj.selectors.inlineAdminCssID );
 		if (!styleElement) {
 			return;
 		}
 
-		// Get the current CSS content and trim any whitespace
+		// Get the current CSS content and trim any whitespace.
 		let css = styleElement.textContent.trim();
 
-		// Create the new CSS rule with consistent formatting
-		const newRule = `${categoryClass}{--tec-color-category-primary:${colors.primary || 'inherit'};--tec-color-category-secondary:${colors.secondary || 'inherit'};--tec-color-category-text:${colors.text || 'inherit'}}`;
+		// Create the new CSS rule with consistent formatting.
+		const newRule = `${categoryClass}{` +
+			`--tec-color-category-primary:${colors.primary || 'inherit'};` +
+			`--tec-color-category-secondary:${colors.secondary || 'inherit'};` +
+			`--tec-color-category-text:${colors.text || 'inherit'}}`;
 
-		// Check if the category rule already exists
+		// Check if the category rule already exists.
 		const categoryRegex = new RegExp(`${categoryClass}\\s*{[^}]*}`, 'g');
 		const existingRule = css.match(categoryRegex);
 
 		if (existingRule) {
-			// Replace existing rule
+			// Replace existing rule.
 			css = css.replace(categoryRegex, newRule);
 		} else {
-			// Add new rule without extra whitespace
+			// Add new rule without extra whitespace.
 			css += newRule;
 		}
 
-		// Update the style element
+		// Update the style element.
 		styleElement.textContent = css;
 	};
 
@@ -295,19 +299,19 @@ tribe.events.admin.categoryColors = {};
 	 */
 	obj.isAjaxSuccess = (xhr) => {
 		try {
-			// For inline-save-tax, a 200 status with HTML response means success
+			// For inline-save-tax, a 200 status with HTML response means success.
 			if (xhr.status === 200 && xhr.responseText.includes('<tr id="tag-')) {
 				return true;
 			}
 
-			// Try to parse as JSON first
+			// Try to parse as JSON first.
 			const contentType = xhr.getResponseHeader('content-type');
 			if (contentType && contentType.includes('application/json')) {
 				const response = JSON.parse(xhr.responseText);
 				return response.success === true || response.success === 1;
 			}
 
-			// Fall back to XML parsing
+			// Fall back to XML parsing.
 			const responseXML = xhr.responseXML;
 			if (!responseXML) {
 				return false;
@@ -318,8 +322,10 @@ tribe.events.admin.categoryColors = {};
 				return false;
 			}
 
-			// For inline-save-tax, we need to check for success in the response
-			const success = responseXML.querySelector('success')?.textContent;
+			// For inline-save-tax, we need to check for success in the response.
+			const successEl = responseXML.querySelector('success');
+			const success = successEl ? successEl.textContent : null;
+
 			return success === '1' || success === 'true';
 		} catch (error) {
 			return false;
@@ -343,7 +349,7 @@ tribe.events.admin.categoryColors = {};
 				return;
 			}
 
-			// Clean up any existing color pickers
+			// Clean up any existing color pickers.
 			obj.cleanupColorPickers();
 
 			// Safely create a temporary div for parsing the response.
@@ -354,7 +360,7 @@ tribe.events.admin.categoryColors = {};
 			tempDiv.innerHTML = xhr.responseText;
 
 			// Find the color preview span in the response.
-			const colorPreview = tempDiv.querySelector('.tec-events-taxonomy-table__category-color-preview');
+			const colorPreview = tempDiv.querySelector( obj.selectors.tableColorPreview );
 			if (!colorPreview) {
 				return;
 			}
