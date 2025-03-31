@@ -8,6 +8,9 @@
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\QR\Routes;
+use TEC\Common\Asset;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller.
@@ -29,6 +32,14 @@ class Controller extends Controller_Contract {
 	private $slug;
 
 	/**
+	 * The QR code instance.
+	 *
+	 * @since TBD
+	 * @var QR_Code
+	 */
+	private $qr_code;
+
+	/**
 	 * Register the controller.
 	 *
 	 * @since TBD
@@ -38,6 +49,7 @@ class Controller extends Controller_Contract {
 		$this->container->singleton( Settings::class );
 		$this->container->register( Routes::class );
 		$this->container->register( Redirections::class );
+		$this->qr_code = tribe( QR_Code::class );
 
 		$this->slug = Settings::get_qr_slug();
 
@@ -64,8 +76,9 @@ class Controller extends Controller_Contract {
 	 */
 	protected function add_hooks(): void {
 		add_filter( 'tribe_shortcodes', [ $this, 'filter_register_shortcodes' ] );
-
+		add_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ], 10, 2 );
 		add_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
+		add_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
 	}
 
 	/**
@@ -76,8 +89,9 @@ class Controller extends Controller_Contract {
 	 */
 	protected function remove_hooks(): void {
 		remove_filter( 'tribe_shortcodes', [ $this, 'filter_register_shortcodes' ] );
-
+		remove_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ] );
 		remove_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
+		remove_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
 	}
 
 	/**
@@ -104,7 +118,19 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		// @TODO load our QR CSS and JS here using TEC\Common\StellarWP\Asset
+		Asset::add(
+			'tec-events-qr-code-styles',
+			TEC::instance()->plugin_url . 'src/resources/css/qr-code.css'
+		)
+			->enqueue_on( 'admin_enqueue_scripts' )
+			->register();
+
+		Asset::add(
+			'tec-events-qr-code-scripts',
+			TEC::instance()->plugin_url . 'src/resources/js/qr-code.js'
+		)
+			->enqueue_on( 'admin_enqueue_scripts' )
+			->register();
 	}
 
 	/**
