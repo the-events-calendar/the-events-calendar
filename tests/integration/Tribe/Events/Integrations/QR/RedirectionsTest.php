@@ -2,9 +2,8 @@
 
 namespace Tribe\Events\Integrations\QR;
 
-use Codeception\TestCase\WPTestCase;
+use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\QR\Redirections;
-use TEC\Events\QR\Routes;
 use TEC\Events\QR\Settings;
 use Tribe__Events__Main as TEC;
 
@@ -16,7 +15,14 @@ use Tribe__Events__Main as TEC;
  *
  * @package TribeEvents
  */
-class RedirectionsTest extends WPTestCase {
+class RedirectionsTest extends Controller_Test_Case {
+
+	/**
+	 * The controller class to test.
+	 *
+	 * @var string
+	 */
+	protected $controller_class = Redirections::class;
 
 	/**
 	 * The redirections instance.
@@ -24,13 +30,6 @@ class RedirectionsTest extends WPTestCase {
 	 * @var \TEC\Events\QR\Redirections
 	 */
 	protected $redirections;
-
-	/**
-	 * The routes instance.
-	 *
-	 * @var \TEC\Events\QR\Routes
-	 */
-	protected $routes;
 
 	/**
 	 * The test event ID.
@@ -59,10 +58,6 @@ class RedirectionsTest extends WPTestCase {
 
 		// Enable QR
 		tribe_update_option( $this->slugs['enabled'], true );
-
-		// Register the routes
-		$this->routes = tribe( Routes::class );
-		$this->routes->register();
 
 		// Register the redirections
 		$this->redirections = tribe( Redirections::class );

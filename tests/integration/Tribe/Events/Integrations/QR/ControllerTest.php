@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Integrations\QR;
 
-use Codeception\TestCase\WPTestCase;
+use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\QR\Settings;
 use TEC\Events\QR\Controller;
 use TEC\Events\QR\Shortcode;
@@ -15,7 +15,14 @@ use TEC\Events\QR\Shortcode;
  *
  * @package TribeEvents
  */
-class ControllerTest extends WPTestCase {
+class ControllerTest extends Controller_Test_Case {
+
+	/**
+	 * The controller class to test.
+	 *
+	 * @var string
+	 */
+	protected $controller_class = \TEC\Events\QR\Controller::class;
 
 	/**
 	 * The controller instance.
