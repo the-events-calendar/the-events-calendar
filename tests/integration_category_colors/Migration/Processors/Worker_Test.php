@@ -49,8 +49,8 @@ class Worker_Test extends WPTestCase {
 		$this->create_test_categories();
 
 		// Copy migration data to processing option
-		$migration_data = get_option( Config::$migration_data_option, [] );
-		update_option( Config::$migration_processing_option, $migration_data );
+		$migration_data = get_option( Config::MIGRATION_DATA_OPTION, [] );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 	}
 
 	/**
@@ -58,8 +58,8 @@ class Worker_Test extends WPTestCase {
 	 */
 	public function tear_down(): void {
 		parent::tearDown();
-		delete_option( Config::$migration_data_option );
-		delete_option( Config::$migration_processing_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
+		delete_option( Config::MIGRATION_PROCESSING_OPTION );
 		Status::update_migration_status( Status::$not_started );
 		$this->delete_test_categories();
 	}
@@ -137,11 +137,11 @@ class Worker_Test extends WPTestCase {
 				],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_empty_data = function () {
-			update_option( Config::$migration_data_option, [] );
+			update_option( Config::MIGRATION_DATA_OPTION, [] );
 		};
 
 		$setup_invalid_data = function () {
@@ -157,7 +157,7 @@ class Worker_Test extends WPTestCase {
 				'settings' => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		yield 'valid data' => [
@@ -245,7 +245,7 @@ class Worker_Test extends WPTestCase {
 			],
 		];
 
-		update_option( Config::$migration_data_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 
 		// Add hooks to track firing
 		add_action( 'tec_events_category_colors_migration_worker_pre_process', function() use ( &$pre_hook_fired ) {

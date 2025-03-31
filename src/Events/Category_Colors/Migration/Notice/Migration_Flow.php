@@ -72,7 +72,7 @@ class Migration_Flow {
 	 * }
 	 */
 	public function get_progress(): array {
-		$migration_data = get_option( Config::$migration_data_option, [] );
+		$migration_data = get_option( Config::MIGRATION_DATA_OPTION, [] );
 		$status         = Status::get_migration_status();
 
 		return array_merge(
@@ -110,7 +110,7 @@ class Migration_Flow {
 			Status::update_migration_status( Status::$not_started );
 
 			// Clear migration data.
-			delete_option( Config::$migration_data_option );
+			delete_option( Config::MIGRATION_DATA_OPTION );
 
 			return true;
 		} catch ( Exception $e ) {
@@ -127,7 +127,7 @@ class Migration_Flow {
 	 */
 	public function should_show_migration(): bool {
 		// First check if original settings exist - if not, no migration needed.
-		$old_options = get_option( Config::$original_settings_option );
+		$old_options = get_option( Config::ORIGINAL_SETTINGS_OPTION );
 		if ( empty( $old_options ) ) {
 			return false;
 		}

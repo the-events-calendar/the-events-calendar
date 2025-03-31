@@ -34,7 +34,7 @@ class Config {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $original_settings_option = 'teccc_options';
+	public const ORIGINAL_SETTINGS_OPTION = 'teccc_options';
 
 	/**
 	 * Option name for storing migration data.
@@ -42,7 +42,7 @@ class Config {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $migration_data_option = 'tec_category_colors_migration_data';
+	public const MIGRATION_DATA_OPTION = 'tec_category_colors_migration_data';
 
 	/**
 	 * Option name for storing migration processing data.
@@ -51,7 +51,7 @@ class Config {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $migration_processing_option = 'tec_category_colors_migration_processing';
+	public const MIGRATION_PROCESSING_OPTION = 'tec_category_colors_migration_processing';
 
 	/**
 	 * Option name for tracking the migration status.
@@ -59,7 +59,7 @@ class Config {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $migration_status_option = 'tec_events_category_colors_migration_status';
+	public const MIGRATION_STATUS_OPTION = 'tec_events_category_colors_migration_status';
 
 	/**
 	 * Expected structure for the migration data.
@@ -67,7 +67,7 @@ class Config {
 	 * @since TBD
 	 * @var array<string, mixed>
 	 */
-	public static array $expected_structure = [
+	public const EXPECTED_STRUCTURE = [
 		'categories'    => [],
 		'settings'      => [],
 		'ignored_terms' => [],
@@ -79,7 +79,7 @@ class Config {
 	 * @since TBD
 	 * @var array<string, array<string, string>>
 	 */
-	public static array $settings_mapping = [
+	public const SETTINGS_MAPPING = [
 		'add_legend'               => [
 			'mapped_key' => 'category-color-legend-show',
 			'validation' => 'array',
@@ -123,7 +123,7 @@ class Config {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $meta_key_prefix = 'tec-events-cat-colors-';
+	public const META_KEY_PREFIX = 'tec-events-cat-colors-';
 
 	/**
 	 * Mapping of old meta keys to new ones.
@@ -133,7 +133,7 @@ class Config {
 	 * @since TBD
 	 * @var array<string, string>
 	 */
-	public static array $meta_key_map = [
+	public const META_KEY_MAP = [
 		'border'     => 'primary',
 		'background' => 'secondary',
 		'text'       => 'text',
@@ -145,7 +145,7 @@ class Config {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $migration_action_group = 'tec_events_category_colors_migration';
+	public const MIGRATION_ACTION_GROUP = 'tec_events_category_colors_migration';
 
 	/**
 	 * Option name for tracking the current migration batch.
@@ -153,5 +153,5 @@ class Config {
 	 * @since TBD
 	 * @var string
 	 */
-	public static string $migration_batch_option = 'tec_events_category_colors_migration_batch';
+	public const MIGRATION_BATCH_OPTION = 'tec_events_category_colors_migration_batch';
 }

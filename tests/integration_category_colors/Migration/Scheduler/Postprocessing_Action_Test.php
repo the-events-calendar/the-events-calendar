@@ -72,8 +72,8 @@ class Postprocessing_Action_Test extends WPTestCase {
 		parent::tearDown();
 		$this->action->cancel();
 		Status::update_migration_status( Status::$not_started );
-		delete_option( Config::$migration_data_option );
-		delete_option( Config::$migration_processing_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
+		delete_option( Config::MIGRATION_PROCESSING_OPTION );
 
 		// Clean up test terms
 		$terms = get_terms( [
@@ -133,8 +133,8 @@ class Postprocessing_Action_Test extends WPTestCase {
 			],
 			'settings' => [],
 		];
-		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 
 		// Mock the process method to return true for successful processing
 		$this->set_class_fn_return( Postprocessing_Action::class, 'process', true );
@@ -170,8 +170,8 @@ class Postprocessing_Action_Test extends WPTestCase {
 			],
 			'settings' => [],
 		];
-		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 
 		// Mock the process method to return WP_Error
 		$this->set_class_fn_return( Postprocessing_Action::class, 'process', new \WP_Error( 'postprocessing_failed', 'Postprocessing failed' ) );

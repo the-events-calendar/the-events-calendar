@@ -71,8 +71,8 @@ class Migration_Flow_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function cleanup_test(): void {
 		$this->delete_test_categories();
-		delete_option( Config::$migration_data_option );
-		delete_option( Config::$migration_processing_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
+		delete_option( Config::MIGRATION_PROCESSING_OPTION );
 		delete_option( 'teccc_options' );
 		Status::reset_migration_status();
 	}
@@ -149,10 +149,10 @@ class Migration_Flow_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( Status::$preprocessing_completed, $status['status'] );
 
 		// Add the chk_default_options_db setting to the migration data
-		$migration_data                                       = get_option( Config::$migration_data_option );
+		$migration_data                                       = get_option( Config::MIGRATION_DATA_OPTION );
 		$migration_data['settings']['chk_default_options_db'] = '1';
-		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 
 		// Step 2: Validation
 		$validation_result = $this->validator->process();
@@ -173,7 +173,7 @@ class Migration_Flow_Test extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( Status::$postprocessing_completed, $status['status'] );
 
 		// Verify final state
-		$migration_data = get_option( Config::$migration_data_option );
+		$migration_data = get_option( Config::MIGRATION_DATA_OPTION );
 		$this->assertNotEmpty( $migration_data['categories'], 'Migration data should have categories' );
 		$this->assertNotEmpty( $migration_data['settings'], 'Migration data should have settings' );
 

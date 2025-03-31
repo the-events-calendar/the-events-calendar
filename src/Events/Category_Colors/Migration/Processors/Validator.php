@@ -143,7 +143,7 @@ class Validator extends Abstract_Migration_Step {
 			return $this->log_message( 'error', 'Migration contains no data.', $migration_data, 'Validator' );
 		}
 
-		foreach ( Config::$expected_structure as $key => $_ ) {
+		foreach ( Config::EXPECTED_STRUCTURE as $key => $_ ) {
 			if ( ! isset( $migration_data[ $key ] ) || ! is_array( $migration_data[ $key ] ) ) {
 				return $this->log_message( 'error', "Invalid or missing key: '{$key}' in migration data.", [ $migration_data ], 'Validator' );
 			}
@@ -247,8 +247,8 @@ class Validator extends Abstract_Migration_Step {
 		}
 
 		$expected_meta_keys = array_map(
-			fn( $mapped ) => Config::$meta_key_prefix . $mapped,
-			Config::$meta_key_map
+			fn( $mapped ) => Config::META_KEY_PREFIX . $mapped,
+			Config::META_KEY_MAP
 		);
 
 		foreach ( $categories as $category_id => $data ) {
@@ -281,7 +281,7 @@ class Validator extends Abstract_Migration_Step {
 	 */
 	protected function detect_unrecognized_keys( array $migration_data ) {
 		foreach ( $migration_data as $section => $values ) {
-			if ( ! isset( Config::$expected_structure[ $section ] ) ) {
+			if ( ! isset( Config::EXPECTED_STRUCTURE[ $section ] ) ) {
 				return $this->log_message( 'error', "Unexpected section found: '{$section}' in migration data.", [], 'Validator' );
 			}
 			if ( ! is_array( $values ) ) {
@@ -304,7 +304,7 @@ class Validator extends Abstract_Migration_Step {
 	 * @return true|WP_Error Returns WP_Error if critical fields are missing.
 	 */
 	protected function check_required_fields( array $migration_data ) {
-		foreach ( Config::$settings_mapping as $original_key => $mapped_data ) {
+		foreach ( Config::SETTINGS_MAPPING as $original_key => $mapped_data ) {
 			$mapped_key = $mapped_data['mapped_key'] ?? null;
 
 			if ( ! $mapped_key ) {
@@ -336,7 +336,7 @@ class Validator extends Abstract_Migration_Step {
 	 * @return true|WP_Error Returns WP_Error if validation fails.
 	 */
 	protected function validate_settings_values( array $settings ) {
-		foreach ( Config::$settings_mapping as $original_key => $mapped_data ) {
+		foreach ( Config::SETTINGS_MAPPING as $original_key => $mapped_data ) {
 			$mapped_key = $mapped_data['mapped_key'] ?? null;
 			$validation = $mapped_data['validation'] ?? '';
 			$import     = $mapped_data['import'] ?? false;

@@ -101,8 +101,8 @@ class Migration_Notice_Test extends WPTestCase
         delete_option('teccc_options');
         Status::update_migration_status(Status::$not_started);
         $this->clear_admin_notices();
-        delete_option(Config::$migration_data_option);
-        delete_option(Config::$migration_processing_option);
+        delete_option(Config::MIGRATION_DATA_OPTION);
+        delete_option(Config::MIGRATION_PROCESSING_OPTION);
     }
 
     /**

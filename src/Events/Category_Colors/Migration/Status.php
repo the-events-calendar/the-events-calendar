@@ -205,7 +205,7 @@ class Status {
 	 * @return array<string, mixed> The current migration status.
 	 */
 	public static function get_migration_status(): array {
-		$status = get_option( Config::$migration_status_option, [] );
+		$status = get_option( Config::MIGRATION_STATUS_OPTION, [] );
 
 		return array_merge(
 			[
@@ -239,7 +239,7 @@ class Status {
 			]
 		);
 
-		return update_option( Config::$migration_status_option, $new_status );
+		return update_option( Config::MIGRATION_STATUS_OPTION, $new_status );
 	}
 
 	/**
@@ -250,6 +250,6 @@ class Status {
 	 * @return bool Whether the status was reset successfully.
 	 */
 	public static function reset_migration_status(): bool {
-		return delete_option( Config::$migration_status_option );
+		return delete_option( Config::MIGRATION_STATUS_OPTION );
 	}
 }

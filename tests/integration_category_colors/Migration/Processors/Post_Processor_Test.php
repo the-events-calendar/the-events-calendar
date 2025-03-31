@@ -49,8 +49,8 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 	 */
 	public function cleanup_test(): void {
 		$this->delete_test_categories();
-		delete_option( Config::$migration_data_option );
-		delete_option( Config::$migration_processing_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
+		delete_option( Config::MIGRATION_PROCESSING_OPTION );
 		Status::reset_migration_status();
 	}
 
@@ -133,9 +133,9 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 			];
 			update_option( 'teccc_options', $original_settings );
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 			update_option(
-				Config::$migration_processing_option,
+				Config::MIGRATION_PROCESSING_OPTION,
 				[
 					'settings'   => [],
 					'categories' => [],
@@ -170,16 +170,16 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 				],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
-			update_option( Config::$migration_processing_option, [] );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+			update_option( Config::MIGRATION_PROCESSING_OPTION, [] );
 			Status::update_migration_status( Status::$execution_completed );
 
 			$processor->set_dry_run( true );
 		};
 
 		$setup_no_data = function ( Post_Processor $processor ) {
-			update_option( Config::$migration_data_option, [] );
-			update_option( Config::$migration_processing_option, [] );
+			update_option( Config::MIGRATION_DATA_OPTION, [] );
+			update_option( Config::MIGRATION_PROCESSING_OPTION, [] );
 			Status::update_migration_status( Status::$execution_completed );
 		};
 
@@ -196,8 +196,8 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 				'settings'   => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
-			update_option( Config::$migration_processing_option, [] );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+			update_option( Config::MIGRATION_PROCESSING_OPTION, [] );
 			Status::update_migration_status( Status::$execution_completed );
 			// Don't set up any meta values to test missing meta detection
 		};
@@ -255,9 +255,9 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 			'settings'   => [],
 		];
 
-		update_option( Config::$migration_data_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		update_option(
-			Config::$migration_processing_option,
+			Config::MIGRATION_PROCESSING_OPTION,
 			[
 				'settings'   => [],
 				'categories' => [],
@@ -291,8 +291,8 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 			'settings'   => [],
 		];
 
-		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 		Status::update_migration_status( Status::$execution_completed );
 
 		$this->assertFalse( $this->processor->is_runnable() );

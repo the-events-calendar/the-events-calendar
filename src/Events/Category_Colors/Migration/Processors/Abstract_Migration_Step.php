@@ -45,7 +45,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @return array<string, mixed> The original settings.
 	 */
 	public function get_original_settings(): array {
-		return (array) get_option( Config::$original_settings_option, [] );
+		return (array) get_option( Config::ORIGINAL_SETTINGS_OPTION, [] );
 	}
 
 	/**
@@ -55,7 +55,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @return array<string, mixed> The migration data.
 	 */
 	public function get_migration_data(): array {
-		return (array) get_option( Config::$migration_data_option, [] );
+		return (array) get_option( Config::MIGRATION_DATA_OPTION, [] );
 	}
 
 	/**
@@ -68,7 +68,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @return void
 	 */
 	public function update_migration_data( array $data ): void {
-		update_option( Config::$migration_data_option, $data, false );
+		update_option( Config::MIGRATION_DATA_OPTION, $data, false );
 	}
 
 	/**
@@ -81,7 +81,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 * @return string|null The mapped meta key, or null if it should be ignored.
 	 */
 	protected function get_mapped_meta_key( string $key ): ?string {
-		return Config::$meta_key_map[ $key ] ?? null;
+		return Config::META_KEY_MAP[ $key ] ?? null;
 	}
 
 	/**
@@ -95,7 +95,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 */
 	public function update_migration_status( string $status ): void {
 		update_option(
-			Config::$migration_status_option,
+			Config::MIGRATION_STATUS_OPTION,
 			[
 				'status'    => $status,
 				'timestamp' => current_time( 'mysql' ),
@@ -122,7 +122,7 @@ abstract class Abstract_Migration_Step implements Migration_Step_Interface {
 	 */
 	public function reset_migration(): void {
 		// Delete migration data and reset status.
-		delete_option( Config::$migration_data_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
 		$this->update_migration_status( Status::$not_started );
 
 		$this->log_message( 'info', 'Migration has been reset to the initial state.', [], 'Migration Status Updated' );

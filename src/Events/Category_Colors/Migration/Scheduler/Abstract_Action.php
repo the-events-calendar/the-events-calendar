@@ -118,14 +118,14 @@ abstract class Abstract_Action implements Action_Interface {
 		}
 
 		// Unschedule any existing actions to avoid duplicates.
-		as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
+		as_unschedule_action( $this->get_hook(), [], Config::MIGRATION_ACTION_GROUP );
 
 		// Schedule for immediate execution.
 		$action_id = as_schedule_single_action(
 			time(), // Run immediately.
 			$this->get_hook(),
 			[],
-			Config::$migration_action_group
+			Config::MIGRATION_ACTION_GROUP
 		);
 
 		if ( is_wp_error( $action_id ) ) {
@@ -203,7 +203,7 @@ abstract class Abstract_Action implements Action_Interface {
 			return false;
 		}
 
-		$cancelled       = as_unschedule_action( $this->get_hook(), [], Config::$migration_action_group );
+		$cancelled       = as_unschedule_action( $this->get_hook(), [], Config::MIGRATION_ACTION_GROUP );
 		$this->action_id = null;
 
 		/**
@@ -238,7 +238,7 @@ abstract class Abstract_Action implements Action_Interface {
 	 * @return bool True if the action is scheduled.
 	 */
 	public function is_scheduled(): bool {
-		return as_next_scheduled_action( $this->get_hook(), [], Config::$migration_action_group ) !== false;
+		return as_next_scheduled_action( $this->get_hook(), [], Config::MIGRATION_ACTION_GROUP ) !== false;
 	}
 
 	/**
@@ -249,7 +249,7 @@ abstract class Abstract_Action implements Action_Interface {
 	 * @return int|false The timestamp of the next scheduled run, or false if not scheduled.
 	 */
 	public function get_next_scheduled_time() {
-		return as_next_scheduled_action( $this->get_hook(), [], Config::$migration_action_group );
+		return as_next_scheduled_action( $this->get_hook(), [], Config::MIGRATION_ACTION_GROUP );
 	}
 
 	/**
@@ -263,7 +263,7 @@ abstract class Abstract_Action implements Action_Interface {
 	 */
 	public function update_migration_status( string $status ): void {
 		update_option(
-			Config::$migration_status_option,
+			Config::MIGRATION_STATUS_OPTION,
 			[
 				'status'    => $status,
 				'timestamp' => current_time( 'mysql' ),

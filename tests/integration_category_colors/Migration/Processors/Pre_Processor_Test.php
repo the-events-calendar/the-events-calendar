@@ -38,8 +38,8 @@ class Pre_Processor_Test extends WPTestCase {
 	public function tear_down(): void {
 		parent::tearDown();
 		delete_option( 'teccc_options' );
-		delete_option( Config::$migration_data_option );
-		delete_option( Config::$migration_processing_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
+		delete_option( Config::MIGRATION_PROCESSING_OPTION );
 		Status::update_migration_status( Status::$not_started );
 	}
 
@@ -61,10 +61,10 @@ class Pre_Processor_Test extends WPTestCase {
 				]
 			);
 
-			$teccc_options[ 'category-1-' . Config::$meta_key_prefix . 'color' ]      = '#ff0000';
-			$teccc_options[ 'category-1-' . Config::$meta_key_prefix . 'text_color' ] = '#ffffff';
-			$teccc_options[ 'category-2-' . Config::$meta_key_prefix . 'color' ]      = '#00ff00';
-			$teccc_options[ 'category-2-' . Config::$meta_key_prefix . 'text_color' ] = '#000000';
+			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'color' ]      = '#ff0000';
+			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'text_color' ] = '#ffffff';
+			$teccc_options[ 'category-2-' . Config::META_KEY_PREFIX . 'color' ]      = '#00ff00';
+			$teccc_options[ 'category-2-' . Config::META_KEY_PREFIX . 'text_color' ] = '#000000';
 
 			update_option( 'teccc_options', $teccc_options );
 		};
@@ -82,7 +82,7 @@ class Pre_Processor_Test extends WPTestCase {
 					],
 				]
 			);
-			$teccc_options[ 'category-1-' . Config::$meta_key_prefix . 'color' ] = 'no_color';
+			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'color' ] = 'no_color';
 
 			update_option( 'teccc_options', $teccc_options );
 		};
@@ -96,7 +96,7 @@ class Pre_Processor_Test extends WPTestCase {
 					],
 				]
 			);
-			$teccc_options[ 'category-1-' . Config::$meta_key_prefix . 'color' ] = 'invalid-color';
+			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'color' ] = 'invalid-color';
 
 			update_option( 'teccc_options', $teccc_options );
 		};
@@ -110,7 +110,7 @@ class Pre_Processor_Test extends WPTestCase {
 					],
 				]
 			);
-			$teccc_options[ 'category-1-' . Config::$meta_key_prefix . 'color' ] = '#ff0000';
+			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'color' ] = '#ff0000';
 
 			update_option( 'teccc_options', $teccc_options );
 		};
@@ -125,7 +125,7 @@ class Pre_Processor_Test extends WPTestCase {
 					],
 				]
 			);
-			$teccc_options[ 'category-1-' . Config::$meta_key_prefix . 'color' ] = '#ff0000';
+			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'color' ] = '#ff0000';
 
 			update_option( 'teccc_options', $teccc_options );
 		};
@@ -139,7 +139,7 @@ class Pre_Processor_Test extends WPTestCase {
 					],
 				]
 			);
-			$teccc_options[ 'category-1-' . Config::$meta_key_prefix . 'color' ] = '#ff0000';
+			$teccc_options[ 'category-1-' . Config::META_KEY_PREFIX . 'color' ] = '#ff0000';
 			$teccc_options['terms']                                              = 'not-an-array'; // Corrupt the terms data
 
 			update_option( 'teccc_options', $teccc_options );
@@ -240,7 +240,7 @@ class Pre_Processor_Test extends WPTestCase {
 		$this->assertEquals( $expected_status, $status['status'] );
 
 		if ( $expected_result ) {
-			$migration_data = get_option( Config::$migration_data_option );
+			$migration_data = get_option( Config::MIGRATION_DATA_OPTION );
 			$this->assertEquals( $expected_data, $migration_data );
 		}
 	}

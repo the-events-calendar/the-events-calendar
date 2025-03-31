@@ -54,8 +54,8 @@ class Validator_Test extends WPTestCase {
 	 */
 	public function tear_down(): void {
 		parent::tearDown();
-		delete_option( Config::$migration_data_option );
-		delete_option( Config::$migration_processing_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
+		delete_option( Config::MIGRATION_PROCESSING_OPTION );
 		Status::update_migration_status( Status::$not_started );
 	}
 
@@ -103,11 +103,11 @@ class Validator_Test extends WPTestCase {
 			];
 			update_option( 'teccc_options', $original_settings );
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_empty_data = function () {
-			update_option( Config::$migration_data_option, [] );
+			update_option( Config::MIGRATION_DATA_OPTION, [] );
 		};
 
 		$setup_invalid_structure = function () {
@@ -117,7 +117,7 @@ class Validator_Test extends WPTestCase {
 				'ignored_terms' => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_missing_required_fields = function () {
@@ -127,7 +127,7 @@ class Validator_Test extends WPTestCase {
 				'ignored_terms' => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_invalid_meta_keys = function () {
@@ -142,7 +142,7 @@ class Validator_Test extends WPTestCase {
 				'ignored_terms' => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_invalid_category_ids = function () {
@@ -159,7 +159,7 @@ class Validator_Test extends WPTestCase {
 				'ignored_terms' => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_invalid_settings_values = function () {
@@ -175,7 +175,7 @@ class Validator_Test extends WPTestCase {
 				'ignored_terms' => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_invalid_color_values = function () {
@@ -192,7 +192,7 @@ class Validator_Test extends WPTestCase {
 				'ignored_terms' => [],
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		$setup_duplicate_ignored_terms = function () {
@@ -213,7 +213,7 @@ class Validator_Test extends WPTestCase {
 				'ignored_terms' => [ '1', '1' ], // Duplicate term ID
 			];
 
-			update_option( Config::$migration_data_option, $migration_data );
+			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 		};
 
 		yield 'valid data' => [
@@ -337,7 +337,7 @@ class Validator_Test extends WPTestCase {
 			'reset_show' => '1',
 		];
 		update_option( 'teccc_options', $original_settings );
-		update_option( Config::$migration_data_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 
 		// Add hooks to track firing
 		add_action( 'tec_events_category_colors_migration_validator_pre_process', function() use ( &$pre_hook_fired ) {
@@ -381,7 +381,7 @@ class Validator_Test extends WPTestCase {
 			'ignored_terms' => [],
 		];
 
-		update_option( Config::$migration_data_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 
 		$result = $this->processor->process();
 

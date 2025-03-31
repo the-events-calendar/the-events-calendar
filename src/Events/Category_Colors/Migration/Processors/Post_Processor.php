@@ -48,7 +48,7 @@ class Post_Processor extends Abstract_Migration_Step {
 	 */
 	public function is_runnable(): bool {
 		$status          = Status::get_migration_status()['status'];
-		$processing_data = get_option( Config::$migration_processing_option, [] );
+		$processing_data = get_option( Config::MIGRATION_PROCESSING_OPTION, [] );
 
 		// First check if we're in a valid state to run post-processing.
 		if ( ! in_array( $status, [ Status::$execution_completed, Status::$postprocessing_failed ], true ) ) {

@@ -92,7 +92,7 @@ class Worker extends Abstract_Migration_Step {
 				}
 				// Remove settings from processing data after successful processing.
 				unset( $processing_data['settings'] );
-				update_option( Config::$migration_processing_option, $processing_data );
+				update_option( Config::MIGRATION_PROCESSING_OPTION, $processing_data );
 			}
 
 			// Process categories if any remain.
@@ -197,7 +197,7 @@ class Worker extends Abstract_Migration_Step {
 		}
 
 		// Update the processing data.
-		update_option( Config::$migration_processing_option, $processing_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $processing_data );
 
 		return true;
 	}
@@ -373,7 +373,7 @@ class Worker extends Abstract_Migration_Step {
 	 * @return array<string, mixed> The processing data.
 	 */
 	public function get_processing_data(): array {
-		return get_option( Config::$migration_processing_option, [] );
+		return get_option( Config::MIGRATION_PROCESSING_OPTION, [] );
 	}
 
 	/**

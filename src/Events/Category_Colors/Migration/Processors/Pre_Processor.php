@@ -72,7 +72,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		$this->processed_settings = $this->get_original_settings();
 
 		if ( empty( $this->processed_settings ) ) {
-			$this->update_migration_data( Config::$expected_structure );
+			$this->update_migration_data( Config::EXPECTED_STRUCTURE );
 			$this->update_migration_status( Status::$preprocessing_skipped );
 
 			/**
@@ -83,7 +83,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 			 * @param array<string, mixed> $migration_data The processed migration data.
 			 * @param bool                 $success        Whether processing was successful.
 			 */
-			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::$expected_structure, false );
+			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::EXPECTED_STRUCTURE, false );
 			$this->log_elapsed_time( 'Preprocessing', $start_time );
 
 			return false;
@@ -91,9 +91,9 @@ class Pre_Processor extends Abstract_Migration_Step {
 
 		// Validate terms data structure.
 		if ( ! $this->validate_terms_structure() ) {
-			$this->update_migration_data( Config::$expected_structure );
+			$this->update_migration_data( Config::EXPECTED_STRUCTURE );
 			$this->update_migration_status( Status::$preprocessing_skipped );
-			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::$expected_structure, false );
+			do_action( 'tec_events_category_colors_migration_preprocessor_end', Config::EXPECTED_STRUCTURE, false );
 			$this->log_elapsed_time( 'Preprocessing', $start_time );
 
 			return false;
@@ -110,7 +110,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 		$this->update_migration_data( $migration_data );
 
 		// Initialize the processing data as a copy of the migration data.
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 
 		$this->update_migration_status( Status::$preprocessing_completed );
 
@@ -199,7 +199,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 					continue;
 				}
 
-				$meta_key = Config::$meta_key_prefix . $mapped_key;
+				$meta_key = Config::META_KEY_PREFIX . $mapped_key;
 				$value    = $filtered_settings[ $key ];
 				$value    = ( 'no_color' === $value ) ? '' : $value;
 
@@ -229,7 +229,7 @@ class Pre_Processor extends Abstract_Migration_Step {
 	protected function get_settings_values(): array {
 		$mapped_settings = [];
 
-		foreach ( Config::$settings_mapping as $old_key => $mapping ) {
+		foreach ( Config::SETTINGS_MAPPING as $old_key => $mapping ) {
 			if ( ! $mapping['import'] ) {
 				continue;
 			}

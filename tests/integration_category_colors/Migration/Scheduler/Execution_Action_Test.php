@@ -75,8 +75,8 @@ class Execution_Action_Test extends WPTestCase {
 		parent::tearDown();
 		$this->action->cancel();
 		Status::update_migration_status( Status::$not_started );
-		delete_option( Config::$migration_data_option );
-		delete_option( Config::$migration_processing_option );
+		delete_option( Config::MIGRATION_DATA_OPTION );
+		delete_option( Config::MIGRATION_PROCESSING_OPTION );
 	}
 
 	/**
@@ -122,8 +122,8 @@ class Execution_Action_Test extends WPTestCase {
 			],
 			'settings' => [],
 		];
-		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 
 		// Mock the worker to return true for successful processing
 		$this->set_class_fn_return( Worker::class, 'process', true );
@@ -158,8 +158,8 @@ class Execution_Action_Test extends WPTestCase {
 			],
 			'settings' => [],
 		];
-		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 
 		// Mock the worker to return WP_Error for failed processing
 		$this->set_class_fn_return( Worker::class, 'process', new \WP_Error('execution_failed', 'Execution failed') );
@@ -193,8 +193,8 @@ class Execution_Action_Test extends WPTestCase {
 			'categories' => $categories,
 			'settings' => [],
 		];
-		update_option( Config::$migration_data_option, $migration_data );
-		update_option( Config::$migration_processing_option, $migration_data );
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 
 		// Mock the worker to return true for successful processing and indicate more categories to process
 		$this->set_class_fn_return( Worker::class, 'process', true );
