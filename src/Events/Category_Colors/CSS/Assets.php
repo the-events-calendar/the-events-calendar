@@ -2,7 +2,7 @@
 /**
  * Handles the enqueueing of category color CSS assets.
  *
- * @since TBD
+ * @since   TBD
  *
  * @package TEC\Events\Category_Colors\CSS
  */
@@ -52,6 +52,7 @@ class Assets {
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->add_to_group( 'tec-events-category-colors' )
+			->set_condition( [ $this, 'should_enqueue_frontend_styles' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 		Asset::add(
@@ -61,7 +62,7 @@ class Assets {
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->add_to_group( 'tec-events-category-colors' )
-			->set_condition( [ $this, 'should_enqueue_frontend_styles' ] )
+			->set_condition( [ $this, 'should_enqueue_frontend_legend' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 		Asset::add(
@@ -71,6 +72,7 @@ class Assets {
 		)
 			->add_to_group_path( 'tec-events-resources' )
 			->add_to_group( 'tec-events-category-colors' )
+			->set_condition( [ $this, 'should_enqueue_frontend_styles' ] )
 			->enqueue_on( 'tribe_events_views_v2_after_make_view' )
 			->register();
 
@@ -86,15 +88,46 @@ class Assets {
 	/**
 	 * Determines whether to enqueue the frontend styles for category colors.
 	 *
-	 * If the `category-color-custom-css` option is enabled (true), this function returns false,
-	 * preventing the default styles from being enqueued. If the option is disabled (false),
-	 * it returns true, allowing the styles to be enqueued.
-	 *
 	 * @since TBD
 	 *
 	 * @return bool True if frontend styles should be enqueued, false otherwise.
 	 */
 	public function should_enqueue_frontend_styles(): bool {
-		return tribe_get_option( $this->generator->get_option_key(), true );
+		/**
+		 * Filter whether the category colors frontend styles should be enqueued.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $should_enqueue Whether the styles should be enqueued.
+		 * @param Assets $this           The Assets instance.
+		 */
+		return (bool) apply_filters(
+			'tec_events_category_colors_should_enqueue_frontend_styles',
+			true,
+			$this
+		);
+	}
+
+	/**
+	 * Determines whether to enqueue the frontend legend styles for category colors.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if frontend legend styles should be enqueued, false otherwise.
+	 */
+	public function should_enqueue_frontend_legend(): bool {
+		/**
+		 * Filter whether the category colors frontend legend styles should be enqueued.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool   $should_enqueue Whether the legend styles should be enqueued.
+		 * @param Assets $this           The Assets instance.
+		 */
+		return (bool) apply_filters(
+			'tec_events_category_colors_should_enqueue_frontend_legend',
+			tribe_get_option( $this->generator->get_option_key(), true ),
+			$this
+		);
 	}
 }
