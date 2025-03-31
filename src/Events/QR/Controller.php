@@ -171,7 +171,18 @@ class Controller extends Controller_Contract {
 			return false;
 		}
 
-		return in_array( $screen->id, [ 'edit-tribe_events', 'tribe_events' ], true );
+		$valid_screens = [ 'edit-tribe_events', 'tribe_events' ];
+		/**
+		 * Filters the list of valid screen IDs where QR code assets should be enqueued.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $valid_screens Array of screen IDs where QR code assets should be loaded.
+		 *                             Default: ['edit-tribe_events', 'tribe_events']
+		 */
+		$valid_screens = apply_filters( 'tec_events_qr_valid_screens', $valid_screens );
+
+		return in_array( $screen->id, $valid_screens, true );
 	}
 
 	/**
