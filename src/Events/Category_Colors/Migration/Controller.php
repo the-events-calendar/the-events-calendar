@@ -91,42 +91,68 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function maybe_disable_category_colors_plugin(): void {
-		// Only proceed if migration is completed.
-		$status = Status::get_migration_status();
-		if ( Status::$postprocessing_completed !== $status['status'] ) {
-			return;
-		}
-
 		// Add a filter to prevent reactivation.
 		add_filter(
 			'plugin_action_links_the-events-calendar-category-colors/the-events-calendar-category-colors.php',
 			function ( $actions ) {
 				unset( $actions['activate'] );
-
 				return $actions;
 			}
 		);
 
-		// Show notice if plugin is deactivated.
+		// Check if the plugin is currently active
 		if ( ! is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
-			$screen = get_current_screen();
-			if ( $screen && 'plugins' === $screen->id ) {
-				AdminNotices::show(
-					'tec_category_colors_plugin_deactivated',
-					sprintf(
-						'<p>%s</p>',
-						esc_html__( 'The Events Calendar Category Colors plugin has been deactivated because its functionality is now included in The Events Calendar core.', 'the-events-calendar' )
-					)
-				)
-					->urgency( 'warning' )
-					->dismissible( true )
-					->inline( true );
+			return;
+		}
+
+		// Case 1: If teccc_options doesn't exist, the plugin has never been used
+		if ( ! get_option( Config::ORIGINAL_SETTINGS_OPTION ) ) {
+			deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+			return;
+		}
+
+		// Case 2: Check migration status
+		$status = Status::get_migration_status();
+		if ( Status::$postprocessing_completed === $status['status'] ) {
+			deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+			return;
+		}
+
+		// Case 3: If no migration status exists, check if we have any category meta values
+		if ( empty( $status ) ) {
+			$categories = get_terms( [
+				'taxonomy' => Event_Category_Meta::TAXONOMY,
+				'hide_empty' => false,
+				'number' => 1,
+			] );
+
+			if ( empty( $categories ) ) {
+				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+				return;
+			}
+
+			// Check for border color meta (primary in new system)
+			$has_meta = ! empty( get_term_meta( $categories[0]->term_id, Config::META_KEY_PREFIX . Config::META_KEY_MAP['border'], true ) );
+
+			if ( ! $has_meta ) {
+				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+				return;
 			}
 		}
 
-		// Deactivate the plugin if it's still active.
-		if ( is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
-			deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+		// Show notice if plugin is deactivated
+		$screen = get_current_screen();
+		if ( $screen && 'plugins' === $screen->id ) {
+			AdminNotices::show(
+				'tec_category_colors_plugin_deactivated',
+				sprintf(
+					'<p>%s</p>',
+					esc_html__( 'The Events Calendar Category Colors plugin has been deactivated because its functionality is now included in The Events Calendar core.', 'the-events-calendar' )
+				)
+			)
+				->urgency( 'warning' )
+				->dismissible( true )
+				->inline( true );
 		}
 	}
 

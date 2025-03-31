@@ -130,6 +130,15 @@ class Post_Processor extends Abstract_Migration_Step {
 
 		$validation_result = $this->validate_categories( $migration_data['categories'] );
 		$this->update_migration_status( $validation_result ? Status::$postprocessing_completed : Status::$postprocessing_failed );
+
+		// If validation passed and the plugin was previously active, deactivate it.
+		if ( $validation_result && isset( $migration_data['was_plugin_active'] ) && $migration_data['was_plugin_active'] ) {
+			if ( is_plugin_active( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' ) ) {
+				deactivate_plugins( 'the-events-calendar-category-colors/the-events-calendar-category-colors.php' );
+				$this->log_message( 'info', 'Category Colors plugin deactivated after successful migration.', [], 'Post Processor' );
+			}
+		}
+
 		$this->log_elapsed_time( 'Post Processor', $start_time );
 
 		return $validation_result;
