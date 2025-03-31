@@ -8,7 +8,6 @@
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
-use TEC\Events\QR\Shortcode;
 
 /**
  * Class Controller.
@@ -16,6 +15,8 @@ use TEC\Events\QR\Shortcode;
  * @since TBD
  *
  * @package TEC\Events\QR
+ *
+ * @property \TEC\Common\Contracts\Provider\Container $container
  */
 class Controller extends Controller_Contract {
 
@@ -23,22 +24,22 @@ class Controller extends Controller_Contract {
 	 * The shortcode tag.
 	 *
 	 * @since TBD
-	 *
 	 * @var string
 	 */
-	private $slug = 'tec_event_qr';
+	private $slug;
 
 	/**
 	 * Register the controller.
 	 *
 	 * @since TBD
-	 *
-	 * @uses  Notices::register_admin_notices()
-	 *
 	 * @return void
 	 */
 	public function do_register(): void {
 		$this->container->singleton( Settings::class );
+		$this->container->register( Routes::class );
+		$this->container->register( Redirections::class );
+
+		$this->slug = Settings::get_qr_slug();
 
 		$this->add_hooks();
 
@@ -49,7 +50,6 @@ class Controller extends Controller_Contract {
 	 * Unregister the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	public function unregister(): void {
@@ -60,7 +60,6 @@ class Controller extends Controller_Contract {
 	 * Adds the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function add_hooks(): void {
@@ -73,7 +72,6 @@ class Controller extends Controller_Contract {
 	 * Removes the actions required by the controller.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function remove_hooks(): void {
@@ -86,9 +84,7 @@ class Controller extends Controller_Contract {
 	 * Adds the TEC pages to the list for the QR code notice.
 	 *
 	 * @since TBD
-	 *
 	 * @param array $valid_pages An array of pages where notice will be displayed.
-	 *
 	 * @return array
 	 */
 	public function add_valid_pages( $valid_pages ) {
@@ -105,7 +101,6 @@ class Controller extends Controller_Contract {
 	 * Register the assets related to the QR module.
 	 *
 	 * @since TBD
-	 *
 	 * @return void
 	 */
 	protected function register_assets(): void {
@@ -116,7 +111,6 @@ class Controller extends Controller_Contract {
 	 * Gets the shortcode slug.
 	 *
 	 * @since TBD
-	 *
 	 * @return string The shortcode slug.
 	 */
 	public function get_slug(): string {
@@ -127,23 +121,20 @@ class Controller extends Controller_Contract {
 	 * Register shortcodes.
 	 *
 	 * @see   \Tribe\Shortcode\Manager::get_registered_shortcodes()
-	 *
 	 * @since TBD
-	 *
 	 * @param array $shortcodes An associative array of shortcodes in the shape `[ <slug> => <class> ]`.
-	 *
 	 * @return array
 	 */
 	public function filter_register_shortcodes( array $shortcodes ) {
 		// Check if QR is enabled.
-		$slugs   = Settings::get_option_slugs();
-		$enabled = tribe_get_option( $slugs['enabled'], false );
+		$options = Settings::get_option_slugs();
+		$enabled = tribe_get_option( $options['enabled'], false );
 
 		if ( ! $enabled ) {
 			return $shortcodes;
 		}
 
-		$shortcodes[ $this->get_slug() ] = Shortcode::class;
+		$shortcodes[ Settings::get_qr_slug() ] = Shortcode::class;
 
 		return $shortcodes;
 	}

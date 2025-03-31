@@ -2,7 +2,7 @@
 
 namespace Tribe\Events\Integrations\QR;
 
-use Codeception\TestCase\WPTestCase;
+use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\QR\Settings;
 use TEC\Events\QR\Controller;
 use TEC\Events\QR\Shortcode;
@@ -15,18 +15,34 @@ use TEC\Events\QR\Shortcode;
  *
  * @package TribeEvents
  */
-class ControllerTest extends WPTestCase {
+class ControllerTest extends Controller_Test_Case {
 
 	/**
+	 * The controller class to test.
+	 *
+	 * @var string
+	 */
+	protected $controller_class = \TEC\Events\QR\Controller::class;
+
+	/**
+	 * The controller instance.
+	 *
 	 * @var \TEC\Events\QR\Controller
 	 */
 	protected $controller;
 
 	/**
+	 * The option slugs.
+	 *
 	 * @var array
 	 */
 	protected $slugs;
 
+	/**
+	 * Set up the test.
+	 *
+	 * @return void
+	 */
 	function setUp() {
 		parent::setUp();
 		$this->controller = tribe( Controller::class );
@@ -38,7 +54,7 @@ class ControllerTest extends WPTestCase {
 		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller by default
-		$this->controller->do_register();
+		$this->controller->register();
 	}
 
 	/**
@@ -126,7 +142,7 @@ class ControllerTest extends WPTestCase {
 		tribe_update_option( $this->slugs['enabled'], false );
 
 		// Re-register the controller to test disabled state
-		$this->controller->do_register();
+		$this->controller->register();
 
 		// Check that the shortcode is not registered
 		$shortcodes = apply_filters( 'tribe_shortcodes', [] );

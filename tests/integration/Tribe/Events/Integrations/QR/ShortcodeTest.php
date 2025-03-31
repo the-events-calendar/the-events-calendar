@@ -18,20 +18,31 @@ use TEC\Events\QR\Shortcode;
 class ShortcodeTest extends WPTestCase {
 
 	/**
+	 * The shortcode instance.
+	 *
 	 * @var \TEC\Events\QR\Shortcode
 	 */
 	protected $shortcode;
 
 	/**
+	 * The test event ID.
+	 *
 	 * @var int
 	 */
 	protected $test_event_id;
 
 	/**
+	 * The option slugs.
+	 *
 	 * @var array
 	 */
 	protected $slugs;
 
+	/**
+	 * Set up the test.
+	 *
+	 * @return void
+	 */
 	function setUp() {
 		parent::setUp();
 
@@ -43,7 +54,7 @@ class ShortcodeTest extends WPTestCase {
 
 		// Register the controller to ensure shortcode is available
 		$controller = tribe( Controller::class );
-		$controller->do_register();
+		$controller->register();
 
 		// Initialize shortcode
 		$this->shortcode = tribe( Shortcode::class );
@@ -63,7 +74,7 @@ class ShortcodeTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_shortcode_slug() {
-		$this->assertEquals( 'tec_event_qr', $this->shortcode->get_registration_slug() );
+		$this->assertEquals( 'tec_event_qr', Settings::get_qr_slug() );
 	}
 
 	/**
@@ -78,9 +89,14 @@ class ShortcodeTest extends WPTestCase {
 		$this->assertArrayHasKey( 'id', $defaults );
 		$this->assertArrayHasKey( 'size', $defaults );
 
-		$this->assertEquals( 'current', $defaults['mode'] );
+		$this->assertEquals( '', $defaults['mode'] );
 		$this->assertEquals( '', $defaults['id'] );
-		$this->assertEquals( 4, $defaults['size'] );
+		$this->assertEquals( '', $defaults['size'] );
+
+		$this->assertEquals( tribe_get_option( $this->slugs['redirection'] ), '', 'Redirection should be empty' );
+		$this->assertEquals( tribe_get_option( $this->slugs['size'] ), '', 'Size should be empty' );
+		$this->assertEquals( tribe_get_option( $this->slugs['event_id'] ), '', 'Event ID should be empty' );
+		$this->assertEquals( tribe_get_option( $this->slugs['series_id'] ), '', 'Series ID should be empty' );
 	}
 
 	/**
