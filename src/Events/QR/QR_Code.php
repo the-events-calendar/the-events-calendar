@@ -57,9 +57,9 @@ class QR_Code {
 	 *
 	 * @since TBD
 	 */
-	public function __construct() {
-		$this->qr_code = tribe( QR::class );
-		$this->routes  = tribe( Routes::class );
+	public function __construct(QR $qr, Routes $routes) {
+		$this->qr_code = $qr;
+		$this->routes  = $routes;
 
 		$upload_dir   = wp_upload_dir();
 		$this->qr_dir = $upload_dir['basedir'] . '/tec-qr-codes/';
