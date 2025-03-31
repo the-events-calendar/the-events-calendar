@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Adjusted logic for when to reset isSaving state for Onboarding Wizard. [TEC-5409]
