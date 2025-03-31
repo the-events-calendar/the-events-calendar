@@ -91,6 +91,7 @@ class Controller extends Controller_Contract {
 		add_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ], 10, 2 );
 		add_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
 		add_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
+		add_action( 'add_meta_boxes', [ $this->qr_code, 'add_qr_code_meta_box' ] );
 	}
 
 	/**
@@ -104,6 +105,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ] );
 		remove_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
 		remove_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
+		remove_action( 'add_meta_boxes', [ $this->qr_code, 'add_qr_code_meta_box' ] );
 	}
 
 	/**
