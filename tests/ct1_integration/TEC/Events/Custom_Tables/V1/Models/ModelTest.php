@@ -17,6 +17,12 @@ class ModelTest extends WPTestCase {
 		Builder::use_query_cache( false );
 	}
 
+	protected function _after() {
+		parent::_after();
+		// Restore the use of cache in the builder.
+		Builder::use_query_cache( true );
+	}
+
 	/**
 	 * It should allow using raw WHERE clauses for filtering
 	 *
