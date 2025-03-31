@@ -249,7 +249,7 @@ class QR_Code {
 	 * }
 	 */
 	public function generate_qr_image( int $post_id, string $link, int $size = 6 ): ?array {
-		if ( empty( $link ) ) {
+		if ( empty( $link ) || ! tribe( Controller::class )->is_active() ) {
 			return null;
 		}
 

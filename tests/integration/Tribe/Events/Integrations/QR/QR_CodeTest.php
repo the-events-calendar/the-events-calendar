@@ -8,8 +8,6 @@ use TEC\Events\QR\Settings;
 use TEC\Events\QR\Controller;
 use Tribe__Events__Main as TEC;
 
-use function Codeception\Extension\codecept_log;
-
 /**
  * Tests QR Code functionality
  *
@@ -34,6 +32,13 @@ class QR_CodeTest extends WPTestCase {
 	 */
 	protected $slugs;
 
+  /**
+   * The controller instance.
+   *
+   * @var \TEC\Events\QR\Controller
+   */
+	protected $controller;
+
 	/**
 	 * Set up the test.
 	 */
@@ -47,8 +52,8 @@ class QR_CodeTest extends WPTestCase {
 		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller first
-		$controller = tribe( Controller::class );
-		$controller->register();
+		$this->controller = tribe( Controller::class );
+		$this->controller->register();
 
 		// Initialize QR Code
 		$this->qr_code = tribe( QR_Code::class );
@@ -142,6 +147,8 @@ class QR_CodeTest extends WPTestCase {
 	public function test_image_is_not_generated_when_qr_disabled(): void {
 		// Disable QR
 		tribe_update_option( $this->slugs['enabled'], false );
+
+    $this->controller->register();
 
 		// Try to generate the image
 		$img = $this->qr_code->generate_qr_image( 100, 'https://www.google.com' );
