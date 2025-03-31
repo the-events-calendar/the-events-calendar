@@ -27,7 +27,7 @@ class Redirections extends Controller {
 	 * @return void
 	 */
 	public function do_register(): void {
-		$this->add_hooks();
+		add_action( 'template_redirect', [ $this, 'handle_qr_redirect' ] );
 	}
 
 	/**
@@ -37,26 +37,6 @@ class Redirections extends Controller {
 	 * @return void
 	 */
 	public function unregister(): void {
-		$this->remove_hooks();
-	}
-
-	/**
-	 * Adds the actions required by the controller.
-	 *
-	 * @since TBD
-	 * @return void
-	 */
-	protected function add_hooks(): void {
-		add_action( 'template_redirect', [ $this, 'handle_qr_redirect' ] );
-	}
-
-	/**
-	 * Removes the actions required by the controller.
-	 *
-	 * @since TBD
-	 * @return void
-	 */
-	protected function remove_hooks(): void {
 		remove_action( 'template_redirect', [ $this, 'handle_qr_redirect' ] );
 	}
 
@@ -226,26 +206,37 @@ class Redirections extends Controller {
 		try {
 			$data = $routes->decode_qr_hash( $hash );
 		} catch ( \InvalidArgumentException $e ) {
+			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 			wp_safe_redirect( esc_url( $this->get_fallback_url() ) );
-			exit;
+			tribe_exit();
 		}
 
 		switch ( $data['qr_type'] ) {
+			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'current':
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 				wp_safe_redirect( esc_url( $this->get_current_event_url() ) );
-				exit;
+				tribe_exit();
+			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'upcoming':
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 				wp_safe_redirect( esc_url( $this->get_upcoming_event_url() ) );
-				exit;
+				tribe_exit();
+			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'specific':
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 				wp_safe_redirect( esc_url( $this->get_specific_event_url( $data['post_id'] ) ) );
-				exit;
+				tribe_exit();
+			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'next':
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 				wp_safe_redirect( esc_url( $this->get_next_series_event_url( $data['post_id'] ) ) );
-				exit;
+				tribe_exit();
+			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			default:
+			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
 				wp_safe_redirect( esc_url( $this->get_fallback_url() ) );
-				exit;
+				tribe_exit();
 		}
 	}
 }
