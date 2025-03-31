@@ -116,7 +116,7 @@ class Category_Color_Dropdown_Provider {
 		);
 
 		if ( ! is_array( $disallowed_shortcodes ) ) {
-			$blacklisted_shortcodes = [];
+			$disallowed_shortcodes = [];
 		}
 
 		return ! in_array( $shortcode, $disallowed_shortcodes, true );
