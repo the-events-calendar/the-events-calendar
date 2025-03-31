@@ -112,7 +112,7 @@ class QR_Code {
 			admin_url( 'admin-ajax.php' )
 		);
 
-		$actions['custom_action'] = sprintf(
+		$actions['tec_qr_code_modal'] = sprintf(
 			'<a href="%s" class="thickbox" title="%s">%s</a>',
 			esc_url( $url ),
 			esc_attr__( 'QR Code', 'the-events-calendar' ),
@@ -272,6 +272,10 @@ class QR_Code {
 	 * }
 	 */
 	public function generate_qr_image( int $post_id, string $link, int $size = 6 ): ?array {
+		if ( ! $this->is_enabled() ) {
+			return null;
+		}
+
 		if ( empty( $link ) ) {
 			return null;
 		}
