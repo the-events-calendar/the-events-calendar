@@ -79,6 +79,10 @@ class QR_Code {
 			return $actions;
 		}
 
+		$label = $this->qr_code_exists( $post->ID )
+			? esc_html__( 'View QR Code', 'the-events-calendar' )
+			: esc_html__( 'Generate QR Code', 'the-events-calendar' );
+
 		$url = add_query_arg(
 			[
 				'action'   => 'tec_qr_code_modal',
@@ -94,10 +98,23 @@ class QR_Code {
 			'<a href="%s" class="thickbox" title="%s">%s</a>',
 			esc_url( $url ),
 			esc_attr__( 'QR Code', 'the-events-calendar' ),
-			esc_html__( 'Generate QR Code', 'the-events-calendar' )
+			$label
 		);
 
 		return $actions;
+	}
+
+	/**
+	 * Checks if QR code images exist for a given post ID.
+	 *
+	 * @since TBD
+	 * @param int $post_id The post ID to check.
+	 * @return bool Whether QR code images exist.
+	 */
+	private function qr_code_exists( int $post_id ): bool {
+		$file_name = 'qr_' . $post_id . '_140';
+		$file_path = $this->qr_dir . $file_name . '.png';
+		return file_exists( $file_path );
 	}
 
 	/**
