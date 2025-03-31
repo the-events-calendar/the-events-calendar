@@ -195,10 +195,11 @@ abstract class Abstract_Action implements Action_Interface {
 		 *
 		 * @since TBD
 		 *
-		 * @param bool $pre_cancel Whether the action should be canceled or not.
+		 * @param bool $pre_cancel Whether the action should be canceled or not. Defaults to true,
+		 *                         meaning cancellation is allowed unless explicitly prevented.
 		 * @param Abstract_Action $action The action being cancelled.
 		 *
-		 * @return bool True to allow cancellation, false to prevent it.
+		 * @return bool True to allow cancellation (default), false to prevent cancellation.
 		 */
 		$pre_cancel = (bool) apply_filters( 'tec_events_category_colors_migration_pre_cancel_action', true, $this );
 		if ( ! $pre_cancel ) {
