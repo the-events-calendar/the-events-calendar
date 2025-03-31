@@ -13,6 +13,7 @@
 namespace TEC\Events\Category_Colors;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\Admin\Controller as Admin_Controller;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Dropdown_Provider;
 use TEC\Events\Category_Colors\Repositories\Category_Color_Priority_Category_Provider;
 use TEC\Events\Category_Colors\Settings\Settings;
@@ -34,7 +35,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
-		$this->container->register_on_action( 'tribe_plugins_loaded', Admin\Controller::class );
+		$this->container->register_on_action( 'tribe_plugins_loaded', Admin_Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
 
 		/** @var Settings $instance */

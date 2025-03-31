@@ -84,7 +84,7 @@ class Event_Category_Meta {
 
 		if ( ! $term instanceof WP_Term ) {
 			throw new InvalidArgumentException(
-			/* translators: %1$d is the term ID, %2$s is the taxonomy name. */
+				/* translators: 1: term ID, 2: taxonomy name */
 				sprintf( __( 'Term ID %1$d does not exist in taxonomy %2$s.', 'the-events-calendar' ), $term_id, $this->taxonomy )
 			);
 		}
@@ -92,6 +92,37 @@ class Event_Category_Meta {
 		$this->term_id = $term_id;
 
 		return $this;
+	}
+
+	/**
+	 * Sanitizes and validates a meta key.
+	 *
+	 * @since TBD
+	 *
+	 * @throws InvalidArgumentException If the key is invalid.
+	 *
+	 * @param string $key The meta key to sanitize and validate.
+	 *
+	 * @return string The sanitized and validated key.
+	 */
+	protected function sanitize_and_validate_key( string $key ): string {
+		$key = strtolower( trim( $key ) );
+
+		if ( '' === $key ) {
+			throw new InvalidArgumentException( __( 'Meta key cannot be empty.', 'the-events-calendar' ) );
+		}
+
+		/**
+		 * Filter the validated meta key before it is used.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $key     The sanitized meta key.
+		 * @param int    $term_id The term ID the meta key belongs to.
+		 *
+		 * @return string The filtered meta key.
+		 */
+		return apply_filters( 'tec_events_category_validate_meta_key', $key, $this->term_id );
 	}
 
 	/**
@@ -117,11 +148,7 @@ class Event_Category_Meta {
 			return $all_meta;
 		}
 
-		try {
-			$key = $this->validate_key( $key );
-		} catch ( InvalidArgumentException $e ) {
-			throw $e;
-		}
+		$key = $this->sanitize_and_validate_key( $key );
 
 		return metadata_exists( 'term', $this->term_id, $key )
 			? $this->normalize_meta( $key, get_term_meta( $this->term_id, $key, true ) )
@@ -142,11 +169,7 @@ class Event_Category_Meta {
 	 */
 	public function set( string $key, $value ): self {
 		$this->ensure_term_is_set();
-		try {
-			$key = $this->validate_key( $key );
-		} catch ( InvalidArgumentException $e ) {
-			throw $e;
-		}
+		$key = $this->sanitize_and_validate_key( $key );
 
 		// Ensure we're not setting term meta for a shared term.
 		if ( wp_term_is_shared( $this->term_id ) ) {
@@ -155,11 +178,7 @@ class Event_Category_Meta {
 			);
 		}
 
-		try {
-			$value = $this->validate_value( $value );
-		} catch ( InvalidArgumentException $e ) {
-			throw $e;
-		}
+		$value = $this->validate_value( $value );
 
 		$this->pending_updates[ $key ] = $value;
 
@@ -179,11 +198,7 @@ class Event_Category_Meta {
 	 */
 	public function delete( string $key ): self {
 		$this->ensure_term_is_set();
-		$key = $this->validate_key( $key );
-
-		if ( is_wp_error( $key ) ) {
-			throw new InvalidArgumentException( $key->get_error_message() );
-		}
+		$key = $this->sanitize_and_validate_key( $key );
 
 		$this->pending_deletes[] = $key;
 
@@ -206,9 +221,9 @@ class Event_Category_Meta {
 			delete_term_meta( $this->term_id, $key );
 		}
 
+		// Update meta and remove from pending deletes in case it was set before.
 		foreach ( $this->pending_updates as $key => $value ) {
 			update_term_meta( $this->term_id, $key, $value );
-			// Remove from pending deletes in case it was set before.
 			unset( $this->pending_deletes[ $key ] );
 		}
 
@@ -246,37 +261,6 @@ class Event_Category_Meta {
 	}
 
 	/**
-	 * Validates a meta key.
-	 *
-	 * @since TBD
-	 *
-	 * @throws InvalidArgumentException If the key is invalid.
-	 *
-	 * @param string $key The meta key.
-	 *
-	 * @return string The sanitized key.
-	 */
-	protected function validate_key( string $key ): string {
-		$key = strtolower( trim( $key ) );
-
-		if ( '' === $key ) {
-			throw new InvalidArgumentException( __( 'Meta key cannot be empty.', 'the-events-calendar' ) );
-		}
-
-		/**
-		 * Filter the validated meta key before it is used.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $key     The sanitized meta key.
-		 * @param int    $term_id The term ID the meta key belongs to.
-		 *
-		 * @return string The filtered meta key.
-		 */
-		return apply_filters( 'tec_events_category_validate_meta_key', $key, $this->term_id );
-	}
-
-	/**
 	 * Validates a meta value.
 	 *
 	 * @since TBD
@@ -298,7 +282,6 @@ class Event_Category_Meta {
 		 * @throws InvalidArgumentException If the value is invalid.
 		 *
 		 * @param int   $term_id The term ID the meta value belongs to.
-		 *
 		 * @param mixed $value   The sanitized meta value.
 		 *
 		 * @return mixed The validated meta value.

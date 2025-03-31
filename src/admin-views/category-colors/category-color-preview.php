@@ -13,7 +13,7 @@
  */
 
 ?>
-<span <?php tribe_classes( 'tec-events-taxonomy-table__category-color-preview', esc_attr( $category_class ) ); ?>
+<span <?php tribe_classes( 'tec-events-taxonomy-table__category-color-preview', $category_class ); ?>
 	data-primary="<?php echo esc_attr( $primary ); ?>"
 	data-secondary="<?php echo esc_attr( $secondary ); ?>"
 	data-text="<?php echo esc_attr( $text ); ?>"

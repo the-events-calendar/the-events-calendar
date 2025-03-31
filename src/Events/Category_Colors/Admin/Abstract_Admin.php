@@ -43,7 +43,7 @@ abstract class Abstract_Admin {
 	 * @param Tribe__Template|null $template The template instance to use for rendering.
 	 */
 	public function __construct( ?Tribe__Template $template = null ) {
-		if ( ! $template instanceof Tribe__Template || empty( $template->get_template_folder() ) ) {
+		if ( null === $template || empty( $template->get_template_folder() ) ) {
 			$template = new Tribe__Template();
 			$template->set_template_origin( Tribe__Events__Main::instance() );
 			$template->set_template_folder( 'src/admin-views/category-colors/' );
@@ -83,17 +83,6 @@ abstract class Abstract_Admin {
 	}
 
 	/**
-	 * Gets the color field keys that should be validated as hex colors.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string>
-	 */
-	protected function get_color_fields(): array {
-		return [ 'primary', 'secondary', 'text' ];
-	}
-
-	/**
 	 * Gets the category colors for a term.
 	 *
 	 * @since TBD
@@ -118,10 +107,30 @@ abstract class Abstract_Admin {
 		// Loop through meta keys and fetch values.
 		foreach ( $meta_keys as $key => $full_key ) {
 			// Ensure we store the value using the correct short key (primary, secondary, text, etc.).
-			$category_colors[ $key ] = $meta->get( $full_key, '' );
+			$category_colors[ $key ] = $meta->get( $full_key );
 		}
 
 		return $category_colors;
+	}
+
+	/**
+	 * Sanitizes a value based on its key.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $key   The key identifying the type of value.
+	 * @param mixed  $value The value to sanitize.
+	 *
+	 * @return mixed The sanitized value.
+	 */
+	protected function sanitize_value( string $key, $value ) {
+		if ( 'hide_from_legend' === $key ) {
+			return sanitize_text_field( $value );
+		} elseif ( 'priority' === $key ) {
+			return absint( $value );
+		} else {
+			return sanitize_hex_color( $value );
+		}
 	}
 
 	/**
@@ -140,7 +149,7 @@ abstract class Abstract_Admin {
 		}
 
 		// Retrieve submitted category colors.
-		$category_colors = tribe_get_request_var( 'tec_events_category-color', false );
+		$category_colors = tec_get_request_var( 'tec_events_category-color', false );
 
 		// Bail early if data doesn't exist or isn't an array.
 		if ( empty( $category_colors ) || ! is_array( $category_colors ) ) {
@@ -159,17 +168,8 @@ abstract class Abstract_Admin {
 				// Retrieve the full meta key using Meta_Keys helper.
 				$meta_key = $this->get_key( $key );
 
-				// Sanitize values based on type.
-				if ( in_array( $key, $this->get_color_fields(), true ) ) {
-					$sanitized_value = sanitize_hex_color( $value );
-				} elseif ( 'priority' === $key ) {
-					$sanitized_value = absint( $value );
-				} else {
-					$sanitized_value = sanitize_text_field( $value );
-				}
-
-				// Store in meta.
-				$meta->set( $meta_key, $sanitized_value );
+				// Sanitize and store the value.
+				$meta->set( $meta_key, $this->sanitize_value( $key, $value ) );
 			} catch ( InvalidArgumentException $e ) {
 				// Skip invalid keys silently.
 				continue;
