@@ -126,6 +126,36 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Gets the shortcode slug.
+	 *
+	 * @since TBD
+	 * @return string The shortcode slug.
+	 */
+	public function get_slug(): string {
+		return $this->slug;
+	}
+
+	/**
+	 * Checks if the QR module is active.
+	 *
+	 * @since TBD
+	 * @return bool Whether the QR module is active.
+	 */
+	public function is_active(): bool {
+		$options = Settings::get_option_slugs();
+		$enabled = tribe_is_truthy( tribe_get_option( $options['enabled'], false ) );
+
+		/**
+		 * Filter whether QR functionality is enabled.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $enabled Whether QR functionality is enabled.
+		 */
+		return apply_filters( 'tec_events_qr_enabled', $enabled );
+	}
+
+	/**
 	 * Register the assets related to the QR module.
 	 *
 	 * @since TBD
@@ -140,16 +170,6 @@ class Controller extends Controller_Contract {
 			'admin_enqueue_scripts',
 			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
 		);
-	}
-
-	/**
-	 * Gets the shortcode slug.
-	 *
-	 * @since TBD
-	 * @return string The shortcode slug.
-	 */
-	public function get_slug(): string {
-		return $this->slug;
 	}
 
 	/**
@@ -188,7 +208,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function filter_register_shortcodes( array $shortcodes ) {
 		// Check if QR is enabled.
-		if ( ! $this->qr_code->is_enabled() ) {
+		if ( ! $this->is_active() ) {
 			return $shortcodes;
 		}
 

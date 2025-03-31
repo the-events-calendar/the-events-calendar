@@ -53,17 +53,6 @@ class QR_Code {
 	private $qr_url;
 
 	/**
-	 * Check if QR functionality is enabled.
-	 *
-	 * @since TBD
-	 * @return bool Whether QR functionality is enabled.
-	 */
-	public function is_enabled(): bool {
-		$options = Settings::get_option_slugs();
-		return tribe_is_truthy( tribe_get_option( $options['enabled'], false ) );
-	}
-
-	/**
 	 * Constructor.
 	 *
 	 * @since TBD
@@ -89,10 +78,6 @@ class QR_Code {
 	 * @return array
 	 */
 	public function add_admin_table_action( $actions, $post ) {
-		if ( ! $this->is_enabled() ) {
-			return $actions;
-		}
-
 		if ( $post->post_type !== 'tribe_events' ) {
 			return $actions;
 		}
@@ -129,10 +114,6 @@ class QR_Code {
 	 * @return void
 	 */
 	public function add_qr_code_meta_box(): void {
-		if ( ! $this->is_enabled() ) {
-			return;
-		}
-
 		add_meta_box(
 			'tec-events-qr-code',
 			esc_html__( 'QR Code', 'the-events-calendar' ),
@@ -197,10 +178,6 @@ class QR_Code {
 	 * @return void
 	 */
 	public function render_modal(): void {
-		if ( ! $this->is_enabled() ) {
-			return;
-		}
-
 		$post = get_post( tec_get_request_var( 'post_id' ) );
 		if ( ! $post || ! tribe_is_event( $post ) ) {
 			wp_die( esc_html__( 'Invalid event.', 'the-events-calendar' ) );
@@ -272,10 +249,6 @@ class QR_Code {
 	 * }
 	 */
 	public function generate_qr_image( int $post_id, string $link, int $size = 6 ): ?array {
-		if ( ! $this->is_enabled() ) {
-			return null;
-		}
-
 		if ( empty( $link ) ) {
 			return null;
 		}
