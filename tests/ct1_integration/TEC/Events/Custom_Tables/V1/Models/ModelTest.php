@@ -8,6 +8,15 @@ use TEC\Events\Custom_Tables\V1\Tables\Events;
 use WP_Post;
 
 class ModelTest extends WPTestCase {
+	protected function _before() {
+		parent::_before();
+		/**
+		 * For the purpose of this test, we do not want to use the cache query.
+		 * Other tests are covering correct and timely cache invalidation on update and insert of rows.
+		 */
+		Builder::use_query_cache( false );
+	}
+
 	/**
 	 * It should allow using raw WHERE clauses for filtering
 	 *
