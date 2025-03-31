@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.10.3
+Stable tag: 6.11.0
 Requires at least: 6.5
 Tested up to: 6.7.2
 Requires PHP: 7.4
@@ -231,6 +231,20 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.11.0] 2025-03-31 =
+
+* Feature - Added External Calendar Embeds functionality. [TEC-5359]
+* Tweak - Add auto-width to Subscribe to Calendar button to accommodate translations. Props to @huubl [TEC-5430]
+* Tweak - Adjust CSS to make sure that onboarding wizard form elements are properly aligned on all WordPress versions. [TEC-5402]
+* Tweak - Adjusted vertical spacing in the onboarding wizard to better fit the content on the screen. [TEC-5402]
+* Tweak - Changed some organizer and venue fields in the onboarding wizard to not be required. [TEC-5408]
+* Tweak - Make sure the Setup Guide page shows up only when asked for. [TEC-5411]
+* Fix - Add check for single venue and single organizer to the Template_Bootstrap class. Use those checks for SEO titles and enable SEO plugins to overwrite their respective titles. [ECP-1059]
+* Fix - Add notice that at least one view is required for Onboarding Wizard display tab. [TEC-5398]
+* Fix - Add one time redirect to the Guided Setup page. [TEC-5401]
+* Fix - Adjusted logic for when to reset isSaving state for Onboarding Wizard. [TEC-5409]
+* Language - 49 new strings added, 158 updated, 0 fuzzied, and 2 obsoleted.
 
 = [6.10.3] 2025-03-25 =
 
