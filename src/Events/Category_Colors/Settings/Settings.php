@@ -175,7 +175,7 @@ class Settings {
 					( new Plain_Text( esc_html__( 'The category legend provides labels for the colors that appear on your events on event listing pages.', 'the-events-calendar' ) ) ),
 				]
 			),
-			'category-color-legend-show'           => [
+			'category-color-legend-show'            => [
 				'type'            => 'checkbox_list',
 				'label'           => __( 'Show Category Legend in these Event Views', 'the-events-calendar' ),
 				'default'         => array_keys( $manager->get_publicly_visible_views() ),
