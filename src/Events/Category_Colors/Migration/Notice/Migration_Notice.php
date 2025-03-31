@@ -45,7 +45,7 @@ class Migration_Notice {
 	 *
 	 * @var string
 	 */
-	protected string $migration_notice_id = 'tec_category_colors_migration_notice';
+	protected const MIGRATION_NOTICE_ID = 'tec_category_colors_migration_notice';
 
 	/**
 	 * The notice ID for the migration success.
@@ -54,7 +54,7 @@ class Migration_Notice {
 	 *
 	 * @var string
 	 */
-	protected string $success_notice_id = 'tec_category_colors_migration_success';
+	protected const SUCCESS_NOTICE_ID = 'tec_category_colors_migration_success';
 
 	/**
 	 * The notice ID for the migration error.
@@ -63,7 +63,7 @@ class Migration_Notice {
 	 *
 	 * @var string
 	 */
-	protected string $error_notice_id = 'tec_category_colors_migration_error';
+	protected const ERROR_NOTICE_ID = 'tec_category_colors_migration_error';
 
 	/**
 	 * Sets up the admin UI hooks.
@@ -92,7 +92,7 @@ class Migration_Notice {
 		$status  = $this->flow->get_progress();
 		$message = $this->get_notice_message( $status );
 
-		AdminNotices::show( $this->migration_notice_id, $message )
+		AdminNotices::show( self::MIGRATION_NOTICE_ID, $message )
 			->urgency( 'warning' )
 			->dismissible( false )
 			->inline( true );
@@ -227,7 +227,7 @@ class Migration_Notice {
 		if ( is_wp_error( $result ) ) {
 			// Show error notice.
 			AdminNotices::show(
-				$this->error_notice_id,
+				self::ERROR_NOTICE_ID,
 				sprintf(
 					'<p><strong>%s</strong></p><p>%s</p>',
 					__( 'Migration Error', 'the-events-calendar' ),
@@ -239,7 +239,7 @@ class Migration_Notice {
 				->inline( true );
 		} else {
 			// Show success notice.
-			AdminNotices::show( $this->success_notice_id, $this->get_success_message() )
+			AdminNotices::show( self::SUCCESS_NOTICE_ID, $this->get_success_message() )
 				->urgency( 'success' )
 				->dismissible( true )
 				->inline( true );
