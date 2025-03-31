@@ -39,7 +39,7 @@ class RoutesTest extends WPTestCase {
 
 		// Register the routes
 		$this->routes = tribe( Routes::class );
-		$this->routes->do_register();
+		$this->routes->register();
 
 		// Create a test event
 		$this->test_event_id = $this->factory->post->create(

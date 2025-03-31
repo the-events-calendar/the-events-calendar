@@ -47,7 +47,7 @@ class ControllerTest extends WPTestCase {
 		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller by default
-		$this->controller->do_register();
+		$this->controller->register();
 	}
 
 	/**
@@ -135,7 +135,7 @@ class ControllerTest extends WPTestCase {
 		tribe_update_option( $this->slugs['enabled'], false );
 
 		// Re-register the controller to test disabled state
-		$this->controller->do_register();
+		$this->controller->register();
 
 		// Check that the shortcode is not registered
 		$shortcodes = apply_filters( 'tribe_shortcodes', [] );

@@ -24,7 +24,7 @@ class Routes extends Controller {
 	 * @since TBD
 	 * @var string
 	 */
-	private $route_prefix = 'qr';
+	private $route_prefix;
 
 	/**
 	 * The settings options.
@@ -58,7 +58,7 @@ class Routes extends Controller {
 	 */
 	public function do_register(): void {
 		$this->options      = Settings::get_option_slugs();
-		$this->route_prefix = tribe_get_option( $this->options['prefix'], $this->route_prefix );
+		$this->route_prefix = tribe_get_option( $this->options['prefix'], 'qr' );
 		$this->salt         = substr( wp_salt( Settings::get_qr_slug() ), 0, 8 );
 
 		$this->add_hooks();

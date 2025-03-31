@@ -46,7 +46,7 @@ class SettingsTest extends WPTestCase {
 
 		// Register the controller first
 		$controller = tribe( Controller::class );
-		$controller->do_register();
+		$controller->register();
 
 		// Initialize settings
 		$this->settings = tribe( Settings::class );

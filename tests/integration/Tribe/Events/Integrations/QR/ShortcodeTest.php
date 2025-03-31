@@ -54,7 +54,7 @@ class ShortcodeTest extends WPTestCase {
 
 		// Register the controller to ensure shortcode is available
 		$controller = tribe( Controller::class );
-		$controller->do_register();
+		$controller->register();
 
 		// Initialize shortcode
 		$this->shortcode = tribe( Shortcode::class );
