@@ -140,15 +140,6 @@ class Controller extends Controller_Contract {
 			'admin_enqueue_scripts',
 			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
 		);
-
-		tribe_asset(
-			TEC::instance(),
-			'tec-events-qr-code-scripts',
-			'qr-code.min.js',
-			[ 'jquery' ],
-			'admin_enqueue_scripts',
-			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
-		);
 	}
 
 	/**
