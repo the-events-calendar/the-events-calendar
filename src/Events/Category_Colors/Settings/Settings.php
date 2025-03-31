@@ -91,9 +91,9 @@ class Settings {
 		$tooltip_text = esc_html__( 'This feature helps your users highlight events belonging to a specific category.', 'the-events-calendar' );
 
 		return $field_start . sprintf(
-				'<p class="tooltip description">%s</p>',
-				$tooltip_text
-			);
+			'<p class="tooltip description">%s</p>',
+			$tooltip_text
+		);
 	}
 
 	/**

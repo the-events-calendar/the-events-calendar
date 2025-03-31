@@ -78,16 +78,16 @@ class Add_Category_Test extends WPTestCase {
 
 		yield 'should sanitize color values according to WordPress behavior' => [
 			'post_data'       => [
-				'primary'   => 'invalid-color',    // Not a hex color format, should be empty
-				'secondary' => '#invalid',       // Invalid hex color but matches format, should pass through
-				'text'      => 'not-a-color',         // Not a hex color format, should be empty
-				'priority'  => 'invalid',         // Invalid priority, should default to 0
+				'primary'   => 'invalid-color',
+				'secondary' => '#invalid',
+				'text'      => 'not-a-color',
+				'priority'  => 'invalid',
 			],
 			'expected_values' => [
-				'primary'   => '',                 // Not a hex format
-				'secondary' => '',       // Matches hex format
-				'text'      => '',                    // Not a hex format
-				'priority'  => '0',               // Invalid priority defaults to 0
+				'primary'   => '',
+				'secondary' => '',
+				'text'      => '',
+				'priority'  => '0',
 			],
 		];
 
@@ -97,7 +97,7 @@ class Add_Category_Test extends WPTestCase {
 				'primary'   => '',
 				'secondary' => '',
 				'text'      => '',
-				'priority'  => '',                // Empty string for empty POST data
+				'priority'  => '',
 			],
 		];
 
@@ -109,8 +109,8 @@ class Add_Category_Test extends WPTestCase {
 			],
 			'expected_values' => [
 				'primary'   => '#ff0000',
-				'secondary' => '',               // Missing key defaults to empty
-				'text'      => '',                    // Missing key defaults to empty
+				'secondary' => '',
+				'text'      => '',
 				'priority'  => '2',
 			],
 		];
@@ -120,13 +120,13 @@ class Add_Category_Test extends WPTestCase {
 				'primary'   => '#ff0000',
 				'secondary' => '#00ff00',
 				'text'      => '#000000',
-				'priority'  => (string) PHP_INT_MAX, // Maximum integer value
+				'priority'  => (string) PHP_INT_MAX,
 			],
 			'expected_values' => [
 				'primary'   => '#ff0000',
 				'secondary' => '#00ff00',
 				'text'      => '#000000',
-				'priority'  => (string) PHP_INT_MAX, // Should handle max integer value
+				'priority'  => (string) PHP_INT_MAX,
 			],
 		];
 
@@ -141,7 +141,7 @@ class Add_Category_Test extends WPTestCase {
 				'primary'   => '#ff0000',
 				'secondary' => '#00ff00',
 				'text'      => '#000000',
-				'priority'  => '1',               // Negative values should be the absolute value of the priority entered
+				'priority'  => '1',
 			],
 		];
 
@@ -156,7 +156,7 @@ class Add_Category_Test extends WPTestCase {
 				'primary'   => '#ff0000',
 				'secondary' => '#00ff00',
 				'text'      => '#000000',
-				'priority'  => '0',               // Non-numeric values should default to 0
+				'priority'  => '0',
 			],
 		];
 	}
