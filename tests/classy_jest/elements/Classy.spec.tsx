@@ -1,7 +1,6 @@
 import {
 	afterEach,
 	beforeAll,
-	afterAll,
 	beforeEach,
 	describe,
 	expect,
@@ -11,17 +10,20 @@ import {
 import { Classy } from '../../../src/resources/packages/classy/elements';
 import { render } from '@testing-library/react';
 import { dispatch } from '@wordpress/data';
-import { store } from '../../../src/resources/packages/classy/store';
 import {
+	store,
+	STORE_NAME,
+} from '../../../src/resources/packages/classy/store';
+import {
+	registerMockStore,
 	registerStoreIfNotRegistered,
 	resetAllStores,
-	registerMockStore,
 	unregisterStore,
 } from '../__support__/store-mocks';
 
 describe( 'Classy', () => {
 	beforeAll( () => {
-		registerStoreIfNotRegistered( 'tec/classy', store );
+		registerStoreIfNotRegistered( STORE_NAME, store );
 	} );
 
 	beforeEach( () => {
@@ -38,13 +40,8 @@ describe( 'Classy', () => {
 		test( 'initial state render for new post', () => {
 			registerMockStore( 'core/editor', {
 				selectors: {
-					getEditedPostAttribute( state, attribute: string ) {
-						if ( attribute === 'title' ) {
-							return '';
-						}
-
-						return null;
-					},
+					getEditedPostAttribute: () => '',
+					getEditedPostContent: () => '',
 				},
 			} );
 
@@ -58,11 +55,20 @@ describe( 'Classy', () => {
 				selectors: {
 					getEditedPostAttribute( state, attribute: string ) {
 						if ( attribute === 'title' ) {
-							return 'Event title';
+							return 'Some Event';
 						}
 
-						return null;
+						if ( attribute === 'meta' ) {
+							return {
+								METADATA_EVENT_URL: 'https://example-event.com',
+							};
+						}
+
+						throw new Error(
+							`Unexpected attribute fetch for ${ attribute }`
+						);
 					},
+					getEditedPostContent: (): string => 'Lorem dolor',
 				},
 			} );
 
@@ -79,7 +85,11 @@ describe( 'Classy', () => {
 
 		test( 'initial state render for new post', () => {
 			// @ts-ignore
-			dispatch( 'tec/classy' ).editPost( { title: '' } );
+			dispatch( STORE_NAME ).editPost( {
+				title: '',
+				content: '',
+				meta: {},
+			} );
 
 			const { container } = render( <Classy /> );
 
@@ -88,7 +98,13 @@ describe( 'Classy', () => {
 
 		test( 'initial state render with title for existing post', () => {
 			// @ts-ignore
-			dispatch( 'tec/classy' ).editPost( { title: 'Classy title' } );
+			dispatch( STORE_NAME ).editPost( {
+				title: 'Classy title',
+				content: 'Classy content',
+				meta: {
+					METADATA_EVENT_URL: 'https://example-event.com',
+				},
+			} );
 
 			const { container } = render( <Classy /> );
 

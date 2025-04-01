@@ -19,7 +19,7 @@ exports[`Classy core/editor store available initial state render for new post 1`
         class="classy-field__inputs"
       >
         <div
-          class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
         >
           <div
             class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
@@ -35,6 +35,78 @@ exports[`Classy core/editor store available initial state render for new post 1`
                 <input
                   class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
                   id="inspector-input-control-0"
+                  value=""
+                />
+                <div
+                  aria-hidden="true"
+                  class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="classy-field classy-field--event-details"
+    >
+      <div
+        class="classy-field__title"
+      >
+        <h3>
+          Event Details
+        </h3>
+      </div>
+      <div
+        class="classy-field__inputs"
+      >
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Description
+          </h4>
+        </div>
+        <p
+          aria-label="Describe your event"
+          aria-multiline="true"
+          class="block-editor-rich-text__editable classy-field__input classy-field__input--rich-text rich-text"
+          contenteditable="true"
+          role="textbox"
+          style="white-space: pre-wrap; min-width: 1px;"
+        >
+          
+          ﻿
+          <span
+            data-rich-text-placeholder="Describe your event"
+            style="pointer-events:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;"
+          />
+        </p>
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Event website
+          </h4>
+        </div>
+        <div
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        >
+          <div
+            class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+          >
+            <div
+              class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+              data-wp-c16t="true"
+              data-wp-component="InputBase"
+            >
+              <div
+                class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+              >
+                <input
+                  class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+                  id="inspector-input-control-1"
+                  placeholder="www.example.com"
                   value=""
                 />
                 <div
@@ -70,7 +142,7 @@ exports[`Classy core/editor store available initial state render with title for 
         class="classy-field__inputs"
       >
         <div
-          class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
         >
           <div
             class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
@@ -85,8 +157,75 @@ exports[`Classy core/editor store available initial state render with title for 
               >
                 <input
                   class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
-                  id="inspector-input-control-1"
-                  value="Event title"
+                  id="inspector-input-control-2"
+                  value="Some Event"
+                />
+                <div
+                  aria-hidden="true"
+                  class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="classy-field classy-field--event-details"
+    >
+      <div
+        class="classy-field__title"
+      >
+        <h3>
+          Event Details
+        </h3>
+      </div>
+      <div
+        class="classy-field__inputs"
+      >
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Description
+          </h4>
+        </div>
+        <p
+          aria-label="Describe your event"
+          aria-multiline="true"
+          class="block-editor-rich-text__editable classy-field__input classy-field__input--rich-text rich-text"
+          contenteditable="true"
+          role="textbox"
+          style="white-space: pre-wrap; min-width: 1px;"
+        >
+          Lorem dolor
+        </p>
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Event website
+          </h4>
+        </div>
+        <div
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        >
+          <div
+            class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+          >
+            <div
+              class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+              data-wp-c16t="true"
+              data-wp-component="InputBase"
+            >
+              <div
+                class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+              >
+                <input
+                  class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+                  id="inspector-input-control-3"
+                  placeholder="www.example.com"
+                  value=""
                 />
                 <div
                   aria-hidden="true"
@@ -121,7 +260,7 @@ exports[`Classy core/editor store not available initial state render for new pos
         class="classy-field__inputs"
       >
         <div
-          class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
         >
           <div
             class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
@@ -136,7 +275,79 @@ exports[`Classy core/editor store not available initial state render for new pos
               >
                 <input
                   class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
-                  id="inspector-input-control-2"
+                  id="inspector-input-control-4"
+                  value=""
+                />
+                <div
+                  aria-hidden="true"
+                  class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="classy-field classy-field--event-details"
+    >
+      <div
+        class="classy-field__title"
+      >
+        <h3>
+          Event Details
+        </h3>
+      </div>
+      <div
+        class="classy-field__inputs"
+      >
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Description
+          </h4>
+        </div>
+        <p
+          aria-label="Describe your event"
+          aria-multiline="true"
+          class="block-editor-rich-text__editable classy-field__input classy-field__input--rich-text rich-text"
+          contenteditable="true"
+          role="textbox"
+          style="white-space: pre-wrap; min-width: 1px;"
+        >
+          
+          ﻿
+          <span
+            data-rich-text-placeholder="Describe your event"
+            style="pointer-events:none;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;"
+          />
+        </p>
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Event website
+          </h4>
+        </div>
+        <div
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        >
+          <div
+            class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+          >
+            <div
+              class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+              data-wp-c16t="true"
+              data-wp-component="InputBase"
+            >
+              <div
+                class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+              >
+                <input
+                  class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+                  id="inspector-input-control-5"
+                  placeholder="www.example.com"
                   value=""
                 />
                 <div
@@ -172,7 +383,7 @@ exports[`Classy core/editor store not available initial state render with title 
         class="classy-field__inputs"
       >
         <div
-          class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
         >
           <div
             class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
@@ -187,8 +398,75 @@ exports[`Classy core/editor store not available initial state render with title 
               >
                 <input
                   class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
-                  id="inspector-input-control-3"
+                  id="inspector-input-control-6"
                   value="Classy title"
+                />
+                <div
+                  aria-hidden="true"
+                  class="components-input-control__backdrop css-13crio-BackdropUI-rtl em5sgkm6"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="classy-field classy-field--event-details"
+    >
+      <div
+        class="classy-field__title"
+      >
+        <h3>
+          Event Details
+        </h3>
+      </div>
+      <div
+        class="classy-field__inputs"
+      >
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Description
+          </h4>
+        </div>
+        <p
+          aria-label="Describe your event"
+          aria-multiline="true"
+          class="block-editor-rich-text__editable classy-field__input classy-field__input--rich-text rich-text"
+          contenteditable="true"
+          role="textbox"
+          style="white-space: pre-wrap; min-width: 1px;"
+        >
+          Classy content
+        </p>
+        <div
+          class="classy-field__input-title"
+        >
+          <h4>
+            Event website
+          </h4>
+        </div>
+        <div
+          class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        >
+          <div
+            class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
+          >
+            <div
+              class="components-flex components-input-base em5sgkm5 css-8kwvf6-PolymorphicDiv-Flex-base-ItemsColumn-Root e19lxcc00"
+              data-wp-c16t="true"
+              data-wp-component="InputBase"
+            >
+              <div
+                class="components-input-control__container css-1x6d9pt-Container-containerDisabledStyles-containerWidthStyles em5sgkm4"
+              >
+                <input
+                  class="components-input-control__input css-19kifla-Input-dragStyles-fontSizeStyles-sizeStyles-customPaddings em5sgkm3"
+                  id="inspector-input-control-7"
+                  placeholder="www.example.com"
+                  value=""
                 />
                 <div
                   aria-hidden="true"

@@ -16,7 +16,7 @@ exports[`EventTitle  core/editor store available initial state render for new po
       class="classy-field__inputs"
     >
       <div
-        class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
       >
         <div
           class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
@@ -63,7 +63,7 @@ exports[`EventTitle  core/editor store available initial state render with title
       class="classy-field__inputs"
     >
       <div
-        class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
       >
         <div
           class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
@@ -110,7 +110,7 @@ exports[`EventTitle  core/editor store not available initial state render for ne
       class="classy-field__inputs"
     >
       <div
-        class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
       >
         <div
           class="components-base-control__field css-2txpkp-StyledField ej5x27r3"
@@ -157,7 +157,7 @@ exports[`EventTitle  core/editor store not available initial state render with t
       class="classy-field__inputs"
     >
       <div
-        class="components-base-control components-input-control css-fothu4-Wrapper-boxSizingReset ej5x27r4"
+        class="components-base-control components-input-control classy-field__input css-fothu4-Wrapper-boxSizingReset ej5x27r4"
       >
         <div
           class="components-base-control__field css-2txpkp-StyledField ej5x27r3"

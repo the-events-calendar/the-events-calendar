@@ -1,5 +1,6 @@
 import { useDispatch, useSelect } from '@wordpress/data';
 import { UsePostEditsReturn } from '../types/UsePostEditsReturn';
+import { STORE_NAME } from '../store';
 
 /**
  * Custom hook to get and set the post attributes.
@@ -23,11 +24,11 @@ export function usePostEdits(): UsePostEditsReturn {
 			// @ts-ignore
 			postContent: classySelect.getEditedPostContent() || '',
 			// @ts-ignore
-			meta: classySelect.getEditedPostAttribute( 'meta' ) || '',
+			meta: classySelect.getEditedPostAttribute( 'meta' ) || {},
 		};
 	}, [] );
 
-	const { editPost } = useDispatch( 'tec/classy' );
+	const { editPost } = useDispatch( STORE_NAME );
 
 	return {
 		postTitle,
