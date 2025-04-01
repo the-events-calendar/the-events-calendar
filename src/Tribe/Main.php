@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.10.3';
+		const VERSION             = '6.11.0.1';
 
 		/**
 		 * Min Pro Addon.
@@ -569,6 +569,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Classes that should be built at `plugins_loaded` time are also instantiated.
 		 *
 		 * @since  4.4
+		 * @since 6.11.0 Add Calendar Embed functionality.
 		 *
 		 * @return void
 		 */
@@ -718,6 +719,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Register Category Colors.
 			tribe_register_provider( TEC\Events\Category_Colors\Controller::class );
+			// Register the Calendar Embeds feature.
+			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
