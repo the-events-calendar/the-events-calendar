@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Ensures `get_current_screen()` function is only called if it exists, avoiding fatal error if called too early. [TEC-5439]
