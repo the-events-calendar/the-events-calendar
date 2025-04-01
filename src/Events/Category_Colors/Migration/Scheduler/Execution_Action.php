@@ -183,4 +183,25 @@ class Execution_Action extends Abstract_Action {
 	public function can_schedule(): bool {
 		return true;
 	}
+
+	/**
+	 * Process a step. This method does nothing for the Execution_action class.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 */
+	public function process() {
+		return true;
+	}
+
+	/**
+	 * Schedule the next action, this method does nothing for the Execution_action class.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function schedule_next_action(): void {
+	}
 }

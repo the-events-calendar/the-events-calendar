@@ -341,4 +341,22 @@ abstract class Abstract_Action implements Action_Interface {
 
 		return false;
 	}
+
+	/**
+	 * Process a step.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 */
+	abstract public function process();
+
+	/**
+	 * Schedule the next action, if needed.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	abstract protected function schedule_next_action(): void;
 }
