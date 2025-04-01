@@ -128,7 +128,7 @@ class Template_Bootstrap {
 	/**
 	 * Determines whether we are in a Single organizer page or not, based only on global context.
 	 *
-	 * @since  TBD
+	 * @since  6.11.0
 	 *
 	 * @return bool Whether the current request is for the single organizer template or not.
 	 */
@@ -147,7 +147,7 @@ class Template_Bootstrap {
 	/**
 	 * Determines whether we are in a Single Venue page or not, based only on global context.
 	 *
-	 * @since  TBD
+	 * @since  6.11.0
 	 *
 	 * @return bool Whether the current request is for the single venue template or not.
 	 */

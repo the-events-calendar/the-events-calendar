@@ -84,20 +84,22 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * The position of the submenu in the menu.
 	 *
 	 * @since 6.8.4
+	 * @since 6.11.0 Changed menu position.
 	 *
 	 * @var int
 	 */
-	public int $menu_position = 0;
+	public int $menu_position = 21;
 
 	/**
 	 * Get the admin page title.
 	 *
 	 * @since 6.8.4
+	 * @since 6.11.0 Changed page title.
 	 *
 	 * @return string The page title.
 	 */
 	public function get_the_page_title(): string {
-		return esc_html__( 'TEC First Time Setup Page', 'the-events-calendar' );
+		return esc_html__( 'TEC Setup Guide', 'the-events-calendar' );
 	}
 
 	/**
@@ -115,11 +117,12 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Get the admin menu title.
 	 *
 	 * @since 6.8.4
+	 * @since 6.11.0 Changed menu title.
 	 *
 	 * @return string The menu title.
 	 */
 	public function get_the_menu_title(): string {
-		return esc_html__( 'First Time Setup', 'the-events-calendar' );
+		return esc_html__( 'Setup Guide', 'the-events-calendar' );
 	}
 
 	/**
@@ -127,7 +130,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @since 6.8.4
 	 *
-	 * @return string The class(es) string.
+	 * @return array The class(es) array.
 	 */
 	public function content_wrapper_classes(): array {
 		$classes   = parent::content_classes();
@@ -159,11 +162,11 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
-	 * Get the required capability to view the page.
+	 * Handle the dismissal of the onboarding page.
 	 *
 	 * @since 6.8.4
 	 *
-	 * @return string The required capability.
+	 * @return void
 	 */
 	public function handle_onboarding_page_dismiss(): void {
 		if ( ! current_user_can( $this->required_capability() ) ) {
@@ -180,6 +183,8 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Render the landing page content.
 	 *
 	 * @since 6.8.4
+	 *
+	 * @return void
 	 */
 	public function admin_page_main_content(): void {
 		$this->admin_content_checklist_section();
@@ -187,8 +192,11 @@ class Landing_Page extends Abstract_Admin_Page {
 		$this->admin_content_resources_section();
 
 
-		// Only show the wizard if we're doing a new install.
+		// Only show the wizard if we're doing a new installation.
 		$this->tec_onboarding_wizard_target();
+
+		// Stop redirecting if the user has visited the Guided Setup page.
+		tribe_update_option( 'tec_onboarding_wizard_visited_guided_setup', true );
 	}
 
 	/**
@@ -198,7 +206,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @return void
 	 */
-	public function admin_content_checklist_section() {
+	public function admin_content_checklist_section(): void {
 		$settings_url   = 'edit.php?page=tec-events-settings&post_type=tribe_events';
 		$data           = tribe( Data::class );
 		$completed_tabs = array_flip( (array) $data->get_wizard_setting( 'completed_tabs', [] ) );
@@ -408,7 +416,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @return void
 	 */
-	public function admin_content_resources_section() {
+	public function admin_content_resources_section(): void {
 		$chatbot_link   = admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' );
 		$guide_link     = 'https://theeventscalendar.com/knowledgebase/guide/the-events-calendar/';
 		$customize_link = 'https://theeventscalendar.com/knowledgebase/guide/customization/';
@@ -449,13 +457,15 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Render the admin page sidebar.
 	 *
 	 * @since 6.8.4
+	 *
+	 * @return void
 	 */
 	public function admin_page_sidebar_content(): void {
 		?>
 			<section class="tec-admin-page__sidebar-section has-icon">
 				<span class="tec-admin-page__icon tec-admin-page__sidebar-icon tec-admin-page__icon--stars" role="presentation"></span>
 				<div>
-					<h3 class="tec-admin-page__sidebar-header"><?php esc_html_e( 'Our AI Chatbot is here to help you', 'the-events-calendar' ); ?></h2>
+					<h3 class="tec-admin-page__sidebar-header"><?php esc_html_e( 'Our AI Chatbot is here to help you', 'the-events-calendar' ); ?></h3>
 					<p><?php esc_html_e( 'You have questions? The TEC Chatbot has the answers.', 'the-events-calendar' ); ?></p>
 					<p><a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tec-events-help-hub' ) ); ?>" class="tec-admin-page__link"><?php esc_html_e( 'Talk to TEC Chatbot', 'the-events-calendar' ); ?></a></p>
 				</div>
@@ -475,6 +485,8 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Render the admin page footer.
 	 *
 	 * @since 6.8.4
+	 *
+	 * @return void
 	 */
 	public function admin_page_footer_content(): void {
 		// no op.
@@ -526,8 +538,8 @@ class Landing_Page extends Abstract_Admin_Page {
 		 *
 		 * @since 6.8.4
 		 *
-		 * @param array    $initial_data The initial data.
-		 * @param Controller $controller The controller object.
+		 * @param array      $initial_data The initial data.
+		 * @param Controller $controller   The controller object.
 		 *
 		 * @return array
 		 */
@@ -551,6 +563,8 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * );
 	 *
 	 * @since 6.8.4
+	 *
+	 * @return void
 	 */
 	public function tec_onboarding_wizard_target(): void {
 		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
@@ -578,8 +592,10 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Register the assets for the landing page.
 	 *
 	 * @since 6.8.4
+	 *
+	 * @return void
 	 */
-	public function register_assets() {
+	public function register_assets(): void {
 		Asset::add(
 			'tec-events-onboarding-wizard-script',
 			'index.js'
