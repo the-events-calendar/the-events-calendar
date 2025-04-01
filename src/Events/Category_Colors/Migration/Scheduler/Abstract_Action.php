@@ -156,7 +156,6 @@ abstract class Abstract_Action implements Action_Interface {
 	 * @since TBD
 	 *
 	 * @throws Exception If execution fails.
-	 * @return bool True on success.
 	 */
 	public function execute() {
 		$pre_execute = apply_filters( 'tec_events_category_colors_migration_pre_execute_action', true );
@@ -178,7 +177,6 @@ abstract class Abstract_Action implements Action_Interface {
 		} elseif ( is_wp_error( $result ) ) {
 			throw new Exception( $result->get_error_message(), (int) $result->get_error_code() );
 		}
-
 	}
 
 	/**
