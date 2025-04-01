@@ -95,6 +95,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 * Modifies the term count on the term list tables to ignore Calendar embeds from their count.
 	 *
 	 * @since 6.11.0
+	 * @since 6.11.0.1 Added check to ensure ABSPATH/wp-admin/includes/screen.php is loaded before running.
 	 *
 	 * @param array  $terms      The terms.
 	 * @param ?array $taxonomies The taxonomies.
@@ -110,8 +111,8 @@ class Calendar_Embeds extends Controller_Contract {
 			return $terms;
 		}
 
-		if ( ! is_admin() ) {
-			// Should only run on BE.
+		if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
+			// Should only run on BE and after ABSPATH/wp-admin/includes/screen.php is loaded.
 			return $terms;
 		}
 
