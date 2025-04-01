@@ -10,7 +10,7 @@
  * @package TEC\Events\Classy;
  */
 
-namespace TEC\Events\Classy;
+namespace TEC\Events\Classy\Back_Compat;
 
 /**
  * Class Back_Compatible_Editor.
@@ -19,7 +19,7 @@ namespace TEC\Events\Classy;
  *
  * @package TEC\Events\Classy;
  */
-class Back_Compatible_Editor {
+class Editor {
 	/**
 	 * Returns whether the editor should load Blocks.
 	 *
