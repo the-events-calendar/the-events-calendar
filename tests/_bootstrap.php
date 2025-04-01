@@ -1,5 +1,4 @@
 <?php
-// This is global bootstrap for autoloading
 use Codeception\Util\Autoload;
 
 Autoload::addNamespace( 'Tribe\Tests', dirname(__DIR__) . '/common/tests/_support' );
