@@ -12,6 +12,7 @@ namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Config;
 use WP_Error;
+use Exception;
 
 /**
  * Abstract base class for all migration scheduler actions.
@@ -154,17 +155,18 @@ abstract class Abstract_Action implements Action_Interface {
 	 *
 	 * @since TBD
 	 *
-	 * @return bool|WP_Error True on success, WP_Error on failure.
+	 * @throws Exception If execution fails.
+	 * @return bool True on success.
 	 */
 	public function execute() {
 		$pre_execute = apply_filters( 'tec_events_category_colors_migration_pre_execute_action', true );
 		if ( is_wp_error( $pre_execute ) ) {
-			return $pre_execute;
+			throw new Exception( $pre_execute->get_error_message(), (int) $pre_execute->get_error_code() );
 		}
 
 		$pre_execute = apply_filters( 'tec_events_category_colors_migration_' . $this->get_hook() . '_pre_execute', true );
 		if ( is_wp_error( $pre_execute ) ) {
-			return $pre_execute;
+			throw new Exception( $pre_execute->get_error_message(), (int) $pre_execute->get_error_code() );
 		}
 
 		// Let the concrete action handle its own execution.
@@ -173,9 +175,11 @@ abstract class Abstract_Action implements Action_Interface {
 		// If processing was successful, schedule the next action.
 		if ( true === $result ) {
 			$this->schedule_next_action();
+		} elseif ( is_wp_error( $result ) ) {
+			throw new Exception( $result->get_error_message(), (int) $result->get_error_code() );
 		}
 
-		return $result;
+		return true;
 	}
 
 	/**
