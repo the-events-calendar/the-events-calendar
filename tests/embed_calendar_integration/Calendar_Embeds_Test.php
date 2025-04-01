@@ -100,6 +100,106 @@ class Calendar_Embeds_Test extends Controller_Test_Case {
 	/**
 	 * @test
 	 */
+	public function it_should_not_attempt_to_modify_term_count_prior_screen_php_is_loaded(): void {
+		$listener = [];
+		$this->set_fn_return( 'function_exists', function ( $function ) {
+			return $function === 'get_current_screen' ? false : function_exists( $function );
+		}, true );
+
+		$this->set_fn_return( 'get_current_screen', function () use (&$listener) {
+			$listener[] = 'get_current_screen_called';
+			return get_current_screen();
+		}, true );
+
+		$this->make_controller()->register();
+		$args       = [
+			'start_date' => '2058-01-01 09:00:00',
+			'end_date'   => '2058-01-01 11:00:00',
+			'timezone'   => 'Europe/Paris',
+			'title'      => 'A test event',
+		];
+		$post = tribe_events()->set_args( $args )->create()->ID;
+		wp_update_post( [ 'ID' => $post, 'post_status' => 'publish' ] );
+
+		wp_set_post_tags( $post, [ 'tag1', 'tag2' ] );
+
+		$term_ids = [];
+		$term_ids[] = $this->factory->term->create( [ 'slug' => 'cat1', 'taxonomy' => TEC::TAXONOMY ] );
+		$term_ids[] = $this->factory->term->create( [ 'slug' => 'cat2', 'taxonomy' => TEC::TAXONOMY ] );
+
+		wp_set_post_terms( $post, $term_ids, TEC::TAXONOMY, true );
+
+		$this->assertEquals( [ 'tag1', 'tag2' ], wp_list_pluck( get_the_terms( $post, 'post_tag' ), 'slug' ) );
+		$this->assertEquals( [ 'cat1', 'cat2' ], wp_list_pluck( get_the_terms( $post, TEC::TAXONOMY ), 'slug' ) );
+
+		$terms = get_terms( [ 'taxonomy' => 'post_tag', 'hide_empty' => false ] );
+		$cats  = get_terms( [ 'taxonomy' => TEC::TAXONOMY, 'hide_empty' => false ] );
+
+		$this->assertCount( 2, $terms );
+		$this->assertCount( 2, $cats );
+
+		foreach ( $terms as $term ) {
+			$this->assertEquals( 1, $term->count );
+		}
+
+		foreach ( $cats as $cat ) {
+			$this->assertEquals( 1, $cat->count );
+		}
+
+		$ece_id = $this->create_ece();
+		$this->add_tags_to_ece( $ece_id, [ 'tag1' ] );
+		$this->add_categories_to_ece( $ece_id, [ 'cat1' ] );
+
+		$terms = get_terms( 'post_tag' );
+		$cats  = get_terms( TEC::TAXONOMY );
+
+		$this->assertCount( 2, $terms );
+		$this->assertCount( 2, $cats );
+
+		$this->assertEquals( 2, $terms['0']->count );
+		$this->assertEquals( 1, $terms['1']->count );
+		$this->assertEquals( 2, $cats['0']->count );
+		$this->assertEquals( 1, $cats['1']->count );
+
+		// Verify get_current_screen was not called
+		$this->assertEmpty( $listener, 'get_current_screen should not be called when it returns false' );
+
+		// Now set up a screen to verify the behavior changes
+		set_current_screen( 'edit-post_tag' );
+
+		// Reset the listener because its being called by set_current_screen.
+		$listener = [];
+
+		$terms = get_terms( 'post_tag' );
+		$cats  = get_terms( TEC::TAXONOMY );
+
+		// Verify get_current_screen was not called
+		$this->assertEmpty( $listener, 'get_current_screen should not be called when it returns false' );
+
+		$this->set_fn_return( 'function_exists', function ( $function ) {
+			return function_exists( $function );
+		}, true );
+
+		$terms = get_terms( 'post_tag' );
+		$cats  = get_terms( TEC::TAXONOMY );
+
+		// Verify get_current_screen was called
+		$this->assertCount( 2, $listener, 'get_current_screen should be called' );
+
+		$this->assertCount( 2, $terms );
+		$this->assertCount( 2, $cats );
+
+		foreach ( $terms as $term ) {
+			$this->assertEquals( 1, $term->count );
+		}
+		foreach ( $cats as $cat ) {
+			$this->assertEquals( 1, $cat->count );
+		}
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_disable_slug_changes(): void {
 		$this->make_controller()->register();
 
