@@ -232,6 +232,10 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.11.0.1] 2025-04-01 =
+
+* Fix - Ensures `get_current_screen()` function is only called if it exists, avoiding fatal error if called too early. [TEC-5439]
+
 = [6.11.0] 2025-03-31 =
 
 * Feature - Added External Calendar Embeds functionality. [TEC-5359]
