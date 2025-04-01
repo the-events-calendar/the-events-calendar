@@ -12,6 +12,7 @@ namespace TEC\Events\Classy;
 use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Classy\Back_Compat\Editor;
+use TEC\Events\Classy\Back_Compat\Editor_Utils;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -150,6 +151,7 @@ class Controller extends ControllerContract {
 		$this->container->singleton( 'editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor', $back_compatible_editor );
 		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
+		$this->container->singleton( 'editor.utils', new Editor_Utils() );
 
 		// Tell Common, TEC, ET and so on NOT to load blocks.
 		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
