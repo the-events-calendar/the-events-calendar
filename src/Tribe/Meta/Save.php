@@ -103,7 +103,7 @@ class Tribe__Events__Meta__Save {
 	public function save() {
 		// Save only the meta that does not have blocks when the Gutenberg editor is present.
 		if ( tribe( 'editor' )->should_load_blocks() && has_blocks( $this->post_id ) ) {
-			// This is a rest editor save request, so we need to grab the post date from the request's body.
+			// This is a rest editor save request, so we need to grab the post data from the request's body.
 			$request_body = json_decode( WP_REST_Server::get_raw_data(), true );
 			$request_body = isset( $request_body['meta'] ) && is_array( $request_body['meta'] ) ? $request_body['meta'] : [];
 
