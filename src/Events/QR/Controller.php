@@ -91,6 +91,7 @@ class Controller extends Controller_Contract {
 		add_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ], 10, 2 );
 		add_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
 		add_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
+		add_action( 'add_meta_boxes', [ $this->qr_code, 'add_qr_code_meta_box' ] );
 	}
 
 	/**
@@ -104,6 +105,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'post_row_actions', [ $this->qr_code, 'add_admin_table_action' ] );
 		remove_filter( 'tec_qr_notice_valid_pages', [ $this, 'add_valid_pages' ] );
 		remove_action( 'wp_ajax_tec_qr_code_modal', [ $this->qr_code, 'render_modal' ] );
+		remove_action( 'add_meta_boxes', [ $this->qr_code, 'add_qr_code_meta_box' ] );
 	}
 
 	/**
@@ -124,6 +126,36 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
+	 * Gets the shortcode slug.
+	 *
+	 * @since TBD
+	 * @return string The shortcode slug.
+	 */
+	public function get_slug(): string {
+		return $this->slug;
+	}
+
+	/**
+	 * Checks if the QR module is active.
+	 *
+	 * @since TBD
+	 * @return bool Whether the QR module is active.
+	 */
+	public function is_active(): bool {
+		$options = Settings::get_option_slugs();
+		$enabled = tribe_is_truthy( tribe_get_option( $options['enabled'], false ) );
+
+		/**
+		 * Filter whether QR functionality is enabled.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $enabled Whether QR functionality is enabled.
+		 */
+		return apply_filters( 'tec_events_qr_enabled', $enabled );
+	}
+
+	/**
 	 * Register the assets related to the QR module.
 	 *
 	 * @since TBD
@@ -138,25 +170,6 @@ class Controller extends Controller_Contract {
 			'admin_enqueue_scripts',
 			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
 		);
-
-		tribe_asset(
-			TEC::instance(),
-			'tec-events-qr-code-scripts',
-			'qr-code.min.js',
-			[ 'jquery' ],
-			'admin_enqueue_scripts',
-			[ 'conditionals' => [ $this, 'should_enqueue_assets' ] ]
-		);
-	}
-
-	/**
-	 * Gets the shortcode slug.
-	 *
-	 * @since TBD
-	 * @return string The shortcode slug.
-	 */
-	public function get_slug(): string {
-		return $this->slug;
 	}
 
 	/**
@@ -195,10 +208,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function filter_register_shortcodes( array $shortcodes ) {
 		// Check if QR is enabled.
-		$options = Settings::get_option_slugs();
-		$enabled = tribe_get_option( $options['enabled'], false );
-
-		if ( ! $enabled ) {
+		if ( ! $this->is_active() ) {
 			return $shortcodes;
 		}
 

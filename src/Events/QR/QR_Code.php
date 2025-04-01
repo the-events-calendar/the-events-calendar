@@ -97,7 +97,7 @@ class QR_Code {
 			admin_url( 'admin-ajax.php' )
 		);
 
-		$actions['custom_action'] = sprintf(
+		$actions['tec_qr_code_modal'] = sprintf(
 			'<a href="%s" class="thickbox" title="%s">%s</a>',
 			esc_url( $url ),
 			esc_attr__( 'QR Code', 'the-events-calendar' ),
@@ -105,6 +105,57 @@ class QR_Code {
 		);
 
 		return $actions;
+	}
+
+	/**
+	 * Adds the QR code meta box.
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	public function add_qr_code_meta_box(): void {
+		add_meta_box(
+			'tec-events-qr-code',
+			esc_html__( 'QR Code', 'the-events-calendar' ),
+			[ $this, 'render_qr_code_meta_box' ],
+			TEC::POSTTYPE,
+			'side',
+			'default'
+		);
+	}
+
+	/**
+	 * Renders the QR code meta box.
+	 *
+	 * @since TBD
+	 * @return void
+	 */
+	public function render_qr_code_meta_box(): void {
+		$label = $this->qr_code_exists( get_the_ID() ) ? esc_html__( 'View QR Code', 'the-events-calendar' ) : esc_html__( 'Generate QR Code', 'the-events-calendar' );
+
+		$url = add_query_arg(
+			[
+				'action'   => 'tec_qr_code_modal',
+				'post_id'  => get_the_ID(),
+				'width'    => '572',
+				'height'   => '350',
+				'_wpnonce' => wp_create_nonce( 'tec_qr_code_modal' ),
+			],
+			admin_url( 'admin-ajax.php' )
+		);
+
+		$template_vars = [
+			'url'   => $url,
+			'label' => $label,
+		];
+
+		$template = new \Tribe__Template();
+		$template->set_template_origin( TEC::instance() );
+		$template->set_template_folder( 'src/admin-views' );
+		$template->set_template_folder_lookup( true );
+		$template->set_template_context_extract( true );
+
+		$template->template( 'qr-code-metabox', $template_vars );
 	}
 
 	/**
@@ -198,7 +249,7 @@ class QR_Code {
 	 * }
 	 */
 	public function generate_qr_image( int $post_id, string $link, int $size = 6 ): ?array {
-		if ( empty( $link ) ) {
+		if ( empty( $link ) || ! tribe( Controller::class )->is_active() ) {
 			return null;
 		}
 
