@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Ensure that postmeta is properly handled when saving an event using the block editor. [ECP-1899]
