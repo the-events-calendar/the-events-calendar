@@ -1896,7 +1896,7 @@
 * Fix - Updated the Events Gutenberg extension install check to show only when the extension is not active [114577]
 * Fix - Stop potential fatal errors from debug logging when running EA import actions from command line [114555]
 * Fix - Fixed a bug where it was often not possible to un-check the "Enable JSON-LD" option in the Events List Widget (thanks to @myrunningresource and @craigwilcox for reporting this!) [113541]
-* Fix - Ensure that the `tribe-events-bar-should-show` filter functions as aspected; if `__return_false` is passed, the Tribe Bar will be totally hidden (thanks @debranettles for reporting this!) [112260]
+* Fix - Ensure that the `tribe-events-bar-should-show` filter functions as expected; if `__return_false` is passed, the Tribe Bar will be totally hidden (thanks @debranettles for reporting this!) [112260]
 * Fix - Added checks to prevent JS Type Error in mobile view. Thanks szenenight, agrilife and others for flagging this! [113524]
 * Tweak - Added the `tribe_events_month_daily_events` filter to the Month view [114041]
 * Tweak - Move Google Maps API loading to tribe_assets and only load once on single views when PRO is active, thanks to info2grow first reporting [112221]
@@ -2497,7 +2497,7 @@
 
 ### [4.5.2.1] 2017-05-19
 
-* Fix - Prevent fatal errors occuring in PHP 5.5 and earlier [79208]
+* Fix - Prevent fatal errors occurring in PHP 5.5 and earlier [79208]
 
 ### [4.5.2] 2017-05-17
 
@@ -2587,7 +2587,7 @@
 * Fix - Prevent Third Party notes to be escaped, anchor link working again [71872]
 * Fix - Google Maps now are using HTTPS instead of HTTP (props @cliffordp)
 * Fix - Prevent Fatals on Event Aggregator Cron, due to Activity logging failure [71904]
-* Fix - Elminate some cases of problem with Facebook manual import on Event Aggregator [69137]
+* Fix - Eliminate some cases of problem with Facebook manual import on Event Aggregator [69137]
 * Fix - WPML integration smaller incompatibilities [70520, 70522]
 
 ### [4.4.0.1] 2017-01-09
@@ -2691,8 +2691,8 @@
 * Feature - Added Event Aggregator to enable service-based event imports from iCal feeds, Facebook, and Meetup
 * Feature - Revamped the CSV import screens to work within the new Event Aggregator pages
 * Tweak - Adjusted some view logic to support the new Event Views shortcode in Pro [44800]
-* Tweak - Added a button to copy the system infomation on the help tab [43709]
-* Tweak - Added an option for users to opt into automatic system infomation so our support system can grab the system information found on the help tab automatically [31645]
+* Tweak - Added a button to copy the system information on the help tab [43709]
+* Tweak - Added an option for users to opt into automatic system information so our support system can grab the system information found on the help tab automatically [31645]
 * Tweak - Use an earlier hook for iCal feed generation (props @jlambe) [64141]
 * Tweak - Revise and simplify integration with Event Tickets attendee screen [61992]
 * Tweak - Added context to a set of strings to make translation easier (props @pedro-mendonca) [64586]

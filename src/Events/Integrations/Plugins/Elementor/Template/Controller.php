@@ -153,7 +153,7 @@ class Controller extends Controller_Contract {
 	 * @return mixed results of option query.
 	 */
 	public function filter_tribe_get_single_option( $option, $default_value, $option_name ) {
-		// ONly this option.
+		// Only this option.
 		if ( 'tribeEventsTemplate' !== $option_name ) {
 			return $option;
 		}

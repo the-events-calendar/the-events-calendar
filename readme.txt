@@ -472,7 +472,7 @@ Remember to always make a backup of your database and files before updating!
 * Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
 * Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [EA-485]
 * Tweak - Update many docblock typos - credit goes to @szepeviktor.
-* Tweak - Correct some variables with typos, such as `$ics_filname` to `$ics_filename` and `$deleteable_statuses_interval` to `$deletable_statuses_interval` and `$delimter` to `$delimiter. Credit goes to @szepeviktor.
+* Tweak - Correct some variables with typos, such as `$ics_filename` to `$ics_filename` and `$deletable_statuses_interval` to `$deletable_statuses_interval` and `$delimiter` to `$delimiter. Credit goes to @szepeviktor.
 * Tweak - Add filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
 * Tweak - Update docblock for hooks: `month_multiday_classes`, `month_day_classes`, `get_before_events_html`, `get_after_events_html`, `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` to provide more clarity.
 * Tweak - Update docblock for methods/functions: `tec_views_v2_subscribe_link_visibility`, `tec_views_v2_subscribe_link_{$slug}_visibility`, `tribe_get_view_permalink()`, `tribe_get_basic_gmap_embed_url()`, `tribe_event_featured_image()`, `tribe_get_map_link()` and `tribe_get_map_link_html()` methods and add docblocks for the `tribe_events_google_map_link`, `tribe_get_map_link` and `tribe_get_map_link_html` filters.
