@@ -29,6 +29,7 @@ use TEC\Events\Custom_Tables\V1\Models\Validators\Start_Date_UTC;
 use TEC\Events\Custom_Tables\V1\Models\Validators\String_Validator;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Date;
 use TEC\Events\Custom_Tables\V1\Models\Validators\Valid_Event;
+use Tribe__Cache_Listener as Cache_Listener;
 use Tribe__Date_Utils as Dates;
 use Tribe__Events__Main as TEC;
 use Tribe__Timezones as Timezones;
@@ -154,6 +155,7 @@ class Occurrence extends Model {
 	 */
 	public function save_occurrences( ...$args ) {
 		$insertions = $this->get_occurrences( ...$args );
+		$post_id    = $this->event->post_id;
 
 		if ( count( $insertions ) ) {
 			self::insert( $insertions );
@@ -166,7 +168,7 @@ class Occurrence extends Model {
 			 * @param int   $post_id    The ID of the Event post the Occurrences are being saved for.
 			 * @param array $insertions The inserted Occurrences.
 			 */
-			do_action( 'tec_events_custom_tables_v1_after_insert_occurrences', $this->event->post_id, $insertions );
+			do_action( 'tec_events_custom_tables_v1_after_insert_occurrences', $post_id, $insertions );
 		}
 
 		/**
@@ -177,7 +179,10 @@ class Occurrence extends Model {
 		 *
 		 * @param int $post_id The ID of the Event post the Occurrences are being saved for.
 		 */
-		do_action( 'tec_events_custom_tables_v1_after_save_occurrences', $this->event->post_id );
+		do_action( 'tec_events_custom_tables_v1_after_save_occurrences', $post_id );
+
+		// After saving occurrences invalidate caches for this post.
+		Cache_Listener::instance()->save_post( $post_id, get_post( $post_id ) );
 	}
 
 	/**

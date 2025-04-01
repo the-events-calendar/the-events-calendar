@@ -1,5 +1,30 @@
 # Changelog
 
+### [6.10.3] 2025-03-25
+
+* Fix - Improved user experience by ensuring Event Tickets installation and activation notices only appear on TEC-related admin pages.
+* Language - 0 new strings added, 5 updated, 0 fuzzied, and 0 obsoleted.
+
+### [6.10.2] 2025-03-04
+
+* Feature - Use the filter hook in TCMN to define the pages to show IAN notifications [ET-2294]
+* Tweak - Added actions: `tec_events_before_view_html_cache`
+* Tweak - Added check that `$_FILES` is set before setting the param on an HTTP request. [TEC-5363]
+* Tweak - Added filters: `tec_events_filter_wp_robots_meta_directives`
+* Tweak - Added link to Events Calendar Pro in onboarding wizard. [TEC-5397]
+* Tweak - Changed views: `v2/month/top-bar/datepicker`, `v2/widgets/widget-events-list/event/date-tag`
+* Tweak - Removed filters: `tec_events_seo_robots_meta_content`, `tec_events_no_index_meta`
+* Tweak - Update docblocks in the `Tribe__Events__iCal` class.
+* Fix - Corrected template override file path for Event List Widget date-tag. [ECP-1725]
+* Fix - Fix past events shortcode attribute [TEC-5348]
+* Fix - Fix the time zone blocks in the iCal feed to make sure the iCal feed is valid and the calendar can be subscribed to. [TEC-5360]
+* Fix - Hide Not-Found notice in Astra Theme archive page [TEC-4853]
+* Fix - Hook the noindex directives into a new hook before the View HTML cache check. [TEC-5354]
+* Compatibility - Added 404 handling for day view when disabled or accessed outside the range of earliest and latest events, with an exception for the current month when no events exist. [TEC-5356]
+* Compatibility - Added 404 handling for month view when disabled or accessed outside the range of earliest and latest events, with an exception for the current month when no events exist. [TEC-5356]
+* Compatibility - Switched to using WordPress wp_robots for improved SEO plugin compatibility and to prevent duplicate meta robots tags. [TEC-5355]
+* Language - 0 new strings added, 129 updated, 0 fuzzied, and 0 obsoleted.
+
 ### [6.10.1.1] 2025-02-12
 
 * Fix - Updated common library to correct issues with notifications around licensing.

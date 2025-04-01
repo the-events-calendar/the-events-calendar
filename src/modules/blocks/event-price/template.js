@@ -162,7 +162,7 @@ const renderControls = ( {
 					value={ currencySymbol }
 					placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 					onChange={ setSymbol }
-					__nextHasNoMarginBottom={true}
+					__nextHasNoMarginBottom={ true }
 				/>
 				<TextControl
 					className="tribe-editor__event-price__currency-code-setting"
@@ -170,13 +170,13 @@ const renderControls = ( {
 					value={ currencyCode }
 					placeholder={ __( 'E.g.: USD', 'the-events-calendar' ) }
 					onChange={ setCode }
-					__nextHasNoMarginBottom={true}
+					__nextHasNoMarginBottom={ true }
 				/>
 				<CheckboxControl
 					label={ __( 'Currency symbol follows price', 'the-events-calendar' ) }
 					checked={ 'suffix' === currencyPosition }
 					onChange={ setCurrencyPosition }
-					__nextHasNoMarginBottom={true}
+					__nextHasNoMarginBottom={ true }
 				/>
 			</PanelBody>
 		</InspectorControls>
