@@ -25,7 +25,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 
 	// Reset isSaving state when any field in tabSettings changes
 	useEffect(() => {
-		if (tabSettings) {
+		if (tabSettings && !isSaving) {
 			// If the user changes any field, we reset the saving state
 			setSaving(false);
 			// and the button clicked state.
