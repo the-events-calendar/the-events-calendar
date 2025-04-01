@@ -5,7 +5,7 @@
  * category colors, including registering dependencies, adding filters, and
  * unregistering actions when necessary.
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors\Migration
  */
@@ -19,7 +19,7 @@ use WP_Term;
 /**
  * Class Controller
  *
- * @since   TBD
+ * @since TBD
  *
  * @package TEC\Events\Category_Colors
  */
