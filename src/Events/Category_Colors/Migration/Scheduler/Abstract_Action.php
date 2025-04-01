@@ -179,7 +179,7 @@ abstract class Abstract_Action implements Action_Interface {
 			throw new Exception( $result->get_error_message(), (int) $result->get_error_code() );
 		}
 
-		return true;
+		return;
 	}
 
 	/**
