@@ -36,6 +36,7 @@ class Controller extends Controller_Contract {
 	 */
 	public function do_register(): void {
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin_Controller::class );
+		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
 
 		/** @var Settings $instance */

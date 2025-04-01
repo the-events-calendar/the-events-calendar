@@ -84,7 +84,7 @@ class Event_Category_Meta {
 
 		if ( ! $term instanceof WP_Term ) {
 			throw new InvalidArgumentException(
-				/* translators: 1: term ID, 2: taxonomy name */
+			/* translators: 1: term ID, 2: taxonomy name */
 				sprintf( __( 'Term ID %1$d does not exist in taxonomy %2$s.', 'the-events-calendar' ), $term_id, $this->taxonomy )
 			);
 		}
