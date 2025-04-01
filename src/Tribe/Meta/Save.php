@@ -1,6 +1,7 @@
 <?php
 
 use Tribe__Events__Venue as Venue;
+use WP_REST_Server;
 
 /**
  * Class Tribe__Events__Meta__Save
@@ -102,7 +103,15 @@ class Tribe__Events__Meta__Save {
 	public function save() {
 		// Save only the meta that does not have blocks when the Gutenberg editor is present.
 		if ( tribe( 'editor' )->should_load_blocks() && has_blocks( $this->post_id ) ) {
-			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
+			// This is a rest editor save request, so we need to grab the post date from the request's body.
+			$request_body = json_decode( WP_REST_Server::get_raw_data(), true );
+			$request_body = isset( $request_body['meta'] ) && is_array( $request_body['meta'] ) ? $request_body['meta'] : [];
+
+			$complete_request = array_merge( $_POST, $request_body ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+			Tribe__Events__API::saveEventMeta( $this->post_id, $complete_request, $this->post );
+
+			return $this->save_block_editor_metadata( $this->post_id, $complete_request, $this->post );
 		}
 
 		if ( ! $this->context->has_nonce() ) {
