@@ -533,8 +533,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			Assets_Config::add_group_path(
 				self::class,
-				self::instance()->plugin_path . 'build',
-				'',
+				self::instance()->plugin_path,
+				'build/',
 				true
 			);
 
@@ -545,8 +545,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			Assets_Config::add_group_path(
 				self::class . '-packages',
-				self::instance()->plugin_path . 'build',
-				'',
+				self::instance()->plugin_path,
+				'build/',
 				false
 			);
 
