@@ -699,10 +699,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Set up IAN Client - In-App Notifications.
 			tribe_register_provider( TEC\Events\Notifications\Provider::class );
 
-			// If Common QR is loaded, we can set up the QR Code system.
-			if ( has_action( 'tribe_common_loaded', 'tec_qr_code_can_use' ) ) {
-				tribe_register_provider( TEC\Events\QR\Controller::class );
-			}
+			// Set up the QR Code system.
+			tribe_register_provider( TEC\Events\QR\Provider::class );
 
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
