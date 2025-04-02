@@ -60,7 +60,7 @@ class Routes extends Controller {
 		/**
 		 * Filter the base route for QR codes.
 		 *
-		 * @since 6.4.0
+		 * @since TBD
 		 *
 		 * @param string $base The base route for QR codes. Default: 'events'.
 		 */
@@ -69,7 +69,7 @@ class Routes extends Controller {
 		/**
 		 * Filter the route prefix for QR codes.
 		 *
-		 * @since 6.4.0
+		 * @since TBD
 		 *
 		 * @param string $prefix The route prefix for QR codes. Default: 'qr'.
 		 */
