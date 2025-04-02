@@ -7,7 +7,7 @@ jobs:
       matrix:
         suite:
           - elementor_integration
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       # ------------------------------------------------------------------------------
       # Checkout the repo
@@ -54,7 +54,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         id: composer-cache
         if: steps.skip.outputs.value != 1
         with:

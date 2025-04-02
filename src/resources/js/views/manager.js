@@ -316,7 +316,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {boolean}
 	 */
-	obj.onLinkClick = function( event ) {
+	obj.onLinkClick = async function( event ) {
 		var $container = obj.getContainer( this );
 
 		$container.trigger( 'beforeOnLinkClick.tribeEvents', event );
@@ -341,7 +341,7 @@ tribe.events.views.manager = {};
 			data.shortcode = shortcodeId;
 		}
 
-		obj.request( data, $container );
+		await obj.request( data, $container );
 
 		$container.trigger( 'afterOnLinkClick.tribeEvents', event );
 
@@ -359,7 +359,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {boolean}
 	 */
-	obj.onSubmit = function( event ) {
+	obj.onSubmit = async function( event ) {
 		var $container = obj.getContainer( this );
 		$container.trigger( 'beforeOnSubmit.tribeEvents', event );
 
@@ -375,7 +375,7 @@ tribe.events.views.manager = {};
 		};
 
 		// Pass the data to the request reading it from `tribe-events-views`.
-		obj.request( data, $container );
+		await obj.request( data, $container );
 
 		$container.trigger( 'afterOnSubmit.tribeEvents', event );
 
@@ -393,7 +393,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {boolean}     Will always return false on this one.
 	 */
-	obj.onPopState = function( event ) {
+	obj.onPopState = async function( event ) {
 		var target = event.originalEvent.target;
 		var url = target.location.href;
 		var $container = obj.getLastContainer();
@@ -426,7 +426,7 @@ tribe.events.views.manager = {};
 			url: url,
 		};
 
-		obj.request( data, $container );
+		await obj.request( data, $container );
 
 		return false;
 	};
@@ -481,7 +481,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {void}
 	 */
-	obj.request = function( data, $container ) {
+	obj.request = async function( data, $container ) {
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
 
 		var settings = obj.getAjaxSettings( $container );
@@ -489,9 +489,11 @@ tribe.events.views.manager = {};
 		// Pass the data setup to the $.ajax settings
 		settings.data = obj.setupRequestData( data, $container );
 
-		obj.currentAjaxRequest = $.ajax( settings );
+		obj.currentAjaxRequest = await $.ajax( settings );
 
 		$container.trigger( 'afterRequest.tribeEvents', [ data, $container ] );
+
+		wp.hooks.doAction( 'tec.events.afterRequest', data, $container );
 	};
 
 	/**

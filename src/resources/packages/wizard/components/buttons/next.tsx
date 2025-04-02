@@ -25,7 +25,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 
 	// Reset isSaving state when any field in tabSettings changes
 	useEffect(() => {
-		if (tabSettings) {
+		if (tabSettings && !isSaving) {
 			// If the user changes any field, we reset the saving state
 			setSaving(false);
 			// and the button clicked state.
@@ -107,6 +107,7 @@ const NextButton = ({ disabled, moveToNextTab, tabSettings }) => {
 				variant="primary"
 				disabled={disabled || isSaving}
 				onClick={() => setClicked(true)}
+				className="tec-events-onboarding__button tec-events-onboarding__button--next"
 			>
 				{isSaving && __('Saving...', 'the-events-calendar')}{isSaving && <Spinner />}
 				{!isSaving && __('Continue', 'the-events-calendar')}

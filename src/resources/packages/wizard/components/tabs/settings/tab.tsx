@@ -27,7 +27,7 @@ const startDayOptions = [
 ];
 
 const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || {} );
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 	const { currency, timezone_string, date_format, start_of_week, timezones, currencies }: { currency: string, timezone_string: string, date_format: string, start_of_week: number, timezones: Record<string, Record<string, string>>, currencies: Record<string, { symbol: string, name: string }> } = useSelect(
 		(select) => {
@@ -134,94 +134,98 @@ const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
 	return (
 		<>
 			<GearIcon />
-			<h1 className="tec-events-onboarding__tab-header">{__('Event Settings', 'the-events-calendar')}</h1>
-			<p className="tec-events-onboarding__tab-subheader">{__('Let\’s get your events with the correct basic settings.', 'the-events-calendar')}</p>
-			<div className="tec-events-onboarding__form-wrapper">
-				<BaseControl
-					__nextHasNoMarginBottom
-					id="currency-code"
-					label={__('Currency symbol', 'the-events-calendar')}
-					className="tec-events-onboarding__form-field"
-					>
-					<select
-						onChange={(e) => setCurrency(e.target.value)}
-						defaultValue={ currencyCode }
-					>
-						{Object.entries(currencies).map(([key, data]) => (
-							<option key={key} value={key}>{data['symbol']} ({data['name']})</option>
-						))}
-					</select>
-					<span className="tec-events-onboarding__required-label">{__('Currency symbol is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Currency symbol is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-
-				<BaseControl
-					__nextHasNoMarginBottom
-					id="time-zone"
-					label={__('Time zone', 'the-events-calendar')}
-					className="tec-events-onboarding__form-field"
-					>
-					<select
-						id="time-zone"
-						onChange={(e) => setTimeZone(e.target.value)}
-						describedby="time-zone-description"
-						defaultValue={ timeZone }
-					>
-						<option value="">{__("Select a non-UTC timezone.", 'the-events-calendar' )}</option>
-						{Object.entries(timezones).map(([key, cities]) => (
-							<optgroup key={key} className="continent" label={key}>
-								{Object.entries(cities as {[key: string]: string}).map(([key, city]) => (
-									<option key={key} value={key}>{city}</option>
-								))}
-							</optgroup>
-						))}
-					</select>
-					<span id="time-zone-description" className="tec-events-onboarding__field-description">{timeZoneMessage}</span>
-					<span className="tec-events-onboarding__required-label">{__('A non-UTC time zone is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Time zone is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-
-				<BaseControl
-					__nextHasNoMarginBottom
-					id="date-format"
-					label={__('Date format', 'the-events-calendar')}
-					className="tec-events-onboarding__form-field"
-					>
-					<select
-						id="date-format"
-						onChange={(e) => setDateFormat(e.target.value)}
-						defaultValue={ dateFormat }
-					>
-						{dateFormatOptions.map(({label, value}) => (
-							<option key={value} value={value}>{label}</option>
-						))}
-					</select>
-					<span className="tec-events-onboarding__required-label">{__('Date format is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Date format is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-
-				<BaseControl
-					__nextHasNoMarginBottom
-					id="week-starts"
-					label={__('Your week starts on', 'the-events-calendar')}
-					className="tec-events-onboarding__form-field"
-					>
-					<select
-						id="week-starts"
-						onChange={(e) => setWeekStart(e.target.value)}
-						defaultValue={ weekStart }
-					>
-						{startDayOptions.map(({label, value}) => (
-							<option key={value} value={value}>{label}</option>
-						))}
-					</select>
-					<span className="tec-events-onboarding__required-label">{__('Currency symbol is required.', 'the-events-calendar')}</span>
-					<span className="tec-events-onboarding__invalid-label">{__('Currency symbol is invalid.', 'the-events-calendar')}</span>
-				</BaseControl>
-
+			<div className="tec-events-onboarding__tab-header">
+				<h1 className="tec-events-onboarding__tab-heading">{__('Event Settings', 'the-events-calendar')}</h1>
+				<p className="tec-events-onboarding__tab-subheader">{__('Let\'s get your events with the correct basic settings.', 'the-events-calendar')}</p>
 			</div>
-			 <p className="tec-events-onboarding__element--center"><NextButton disabled={!canContinue} moveToNextTab={moveToNextTab} tabSettings={tabSettings}/></p>
-			 <p className="tec-events-onboarding__element--center"><SkipButton skipToNextTab={skipToNextTab} currentTab={2} /></p>
+			<div className="tec-events-onboarding__tab-content">
+				<div className="tec-events-onboarding__form-wrapper">
+					<BaseControl
+						__nextHasNoMarginBottom
+						id="currency-code"
+						label={__('Currency symbol', 'the-events-calendar')}
+						className="tec-events-onboarding__form-field"
+					>
+						<select
+							onChange={(e) => setCurrency(e.target.value)}
+							defaultValue={ currencyCode }
+						>
+							{Object.entries(currencies).map(([key, data]) => (
+								<option key={key} value={key}>{data['symbol']} ({data['name']})</option>
+							))}
+						</select>
+						<span className="tec-events-onboarding__required-label">{__('Currency symbol is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Currency symbol is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+
+					<BaseControl
+						__nextHasNoMarginBottom
+						id="time-zone"
+						label={__('Time zone', 'the-events-calendar')}
+						className="tec-events-onboarding__form-field"
+					>
+						<select
+							id="time-zone"
+							onChange={(e) => setTimeZone(e.target.value)}
+							describedby="time-zone-description"
+							defaultValue={ timeZone }
+						>
+							<option value="">{__("Select a non-UTC timezone.", 'the-events-calendar' )}</option>
+							{Object.entries(timezones).map(([key, cities]) => (
+								<optgroup key={key} className="continent" label={key}>
+									{Object.entries(cities as {[key: string]: string}).map(([key, city]) => (
+										<option key={key} value={key}>{city}</option>
+									))}
+								</optgroup>
+							))}
+						</select>
+						<span id="time-zone-description" className="tec-events-onboarding__field-description">{timeZoneMessage}</span>
+						<span className="tec-events-onboarding__required-label">{__('A non-UTC time zone is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Time zone is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+
+					<BaseControl
+						__nextHasNoMarginBottom
+						id="date-format"
+						label={__('Date format', 'the-events-calendar')}
+						className="tec-events-onboarding__form-field"
+					>
+						<select
+							id="date-format"
+							onChange={(e) => setDateFormat(e.target.value)}
+							defaultValue={ dateFormat }
+						>
+							{dateFormatOptions.map(({label, value}) => (
+								<option key={value} value={value}>{label}</option>
+							))}
+						</select>
+						<span className="tec-events-onboarding__required-label">{__('Date format is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Date format is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+
+					<BaseControl
+						__nextHasNoMarginBottom
+						id="week-starts"
+						label={__('Your week starts on', 'the-events-calendar')}
+						className="tec-events-onboarding__form-field"
+					>
+						<select
+							id="week-starts"
+							onChange={(e) => setWeekStart(e.target.value)}
+							defaultValue={ weekStart }
+						>
+							{startDayOptions.map(({label, value}) => (
+								<option key={value} value={value}>{label}</option>
+							))}
+						</select>
+						<span className="tec-events-onboarding__required-label">{__('Currency symbol is required.', 'the-events-calendar')}</span>
+						<span className="tec-events-onboarding__invalid-label">{__('Currency symbol is invalid.', 'the-events-calendar')}</span>
+					</BaseControl>
+
+				</div>
+				<NextButton disabled={!canContinue} moveToNextTab={moveToNextTab} tabSettings={tabSettings}/>
+				<SkipButton skipToNextTab={skipToNextTab} currentTab={2} />
+			 </div>
 		</>
 	);
 };

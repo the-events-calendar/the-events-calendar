@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.10.0';
+		const VERSION             = '6.11.0.1';
 
 		/**
 		 * Min Pro Addon.
@@ -569,6 +569,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Classes that should be built at `plugins_loaded` time are also instantiated.
 		 *
 		 * @since  4.4
+		 * @since 6.11.0 Add Calendar Embed functionality.
 		 *
 		 * @return void
 		 */
@@ -701,6 +702,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
 
+			// SEO Header support.
+			tribe_register_provider( TEC\Events\SEO\Headers\Controller::class );
+
 			// Register new Admin Notice system.
 			tribe_register_provider( TEC\Events\Admin\Notice\Provider::class );
 
@@ -712,6 +716,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Register the Help Hub system.
 			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
+
+			// Register the Calendar Embeds feature.
+			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

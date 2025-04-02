@@ -88,6 +88,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$args['edit_date'] = true;
 			}
 
+			// Support the additional fields.
+			$custom_fields = tribe_get_option( 'custom-fields', false );
+			if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
+				foreach ( $custom_fields as $field ) {
+					$args[ $field['name'] ] = get_post_meta( $event_id, $field['name'], true );
+				}
+			}
+
 			/**
 			 * Allow hooking prior the update of an event and meta fields.
 			 *
