@@ -114,7 +114,7 @@ class QR_Code {
 	 */
 	public function add_qr_code_meta_box(): void {
 		$screen = get_current_screen();
-		if ( 'add' !== $screen->action ) {
+		if ( ! $screen || 'add' !== $screen->action ) {
 			add_meta_box(
 				'tec-events-qr-code',
 				esc_html__( 'QR Code', 'the-events-calendar' ),
