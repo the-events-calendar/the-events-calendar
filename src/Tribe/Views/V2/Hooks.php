@@ -217,7 +217,7 @@ class Hooks extends Service_Provider {
 		// Trim to what is shown (we add one sometimes for pagination links).
 		$cnt = $view->get_context()->get( 'events_per_page' );
 		if ( $cnt ) {
-			$events = array_slice( $events, 0, $cnt );
+			$events = array_slice( $events, 0, (int) $cnt );
 		}
 		$this->container->make( Title::class )->set_posts( $events );
 	}
