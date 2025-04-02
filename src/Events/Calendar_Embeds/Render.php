@@ -462,41 +462,6 @@ class Render {
 	}
 
 	/**
-	 * Should not be used carelessly this will remove all request based locations from the read of the context.
-	 *
-	 * @since 6.11.0
-	 *
-	 * @param array $locations An array of read and write location in the shape of the `Context::$locations` one,
-	 *                         `[ <location> => [ 'read' => <read_locations>, 'write' => <write_locations> ] ]`.
-	 *
-	 * @return array Locations after removing the request based ones.
-	 */
-	public function remove_request_based_context_locations( array $locations ): array {
-		foreach ( $locations as $key => $location ) {
-			// no read locations we bail.
-			if ( empty( $location['read'] ) ) {
-				continue;
-			}
-
-			// Check if this location has a read for.
-			if ( ! empty( $location['read'][ Context::REQUEST_VAR ] ) ) {
-				unset( $locations[ $key ]['read'][ Context::REQUEST_VAR ] );
-			}
-			if ( ! empty( $location['read'][ Context::QUERY_VAR ] ) ) {
-				unset( $locations[ $key ]['read'][ Context::QUERY_VAR ] );
-			}
-			if ( ! empty( $location['read'][ Context::WP_MATCHED_QUERY ] ) ) {
-				unset( $locations[ $key ]['read'][ Context::WP_MATCHED_QUERY ] );
-			}
-			if ( ! empty( $location['read'][ Context::WP_PARSED ] ) ) {
-				unset( $locations[ $key ]['read'][ Context::WP_PARSED ] );
-			}
-		}
-
-		return $locations;
-	}
-
-	/**
 	 * Determines if we should display the view in a given page.
 	 *
 	 * @since 6.11.0
@@ -537,14 +502,10 @@ class Render {
 			return '';
 		}
 
-		$context = new Context();
-
 		/**
 		 * Please if you don't understand what these are doing, don't touch this.
 		 */
-		add_filter( 'tribe_context_locations', [ $this, 'remove_request_based_context_locations' ], 1000 );
-		$context->dangerously_repopulate_locations();
-		$context->refresh();
+		$context = tribe_context();
 
 		// Before anything happens we set a DB ID and value for this view entry.
 		$this->set_database_params();
@@ -552,9 +513,10 @@ class Render {
 		// Modifies the Context for the view params.
 		$context = $this->alter_context( $context );
 
+		$context->disable_read_from( [ Context::REQUEST_VAR, Context::QUERY_VAR, Context::WP_MATCHED_QUERY, Context::WP_PARSED ] );
+
 		// Fetches if we have a specific view are building.
 		$view_slug = $this->get_argument( 'view', $context->get( 'view' ) );
-
 
 		// Toggle the view required modifications.
 		$this->toggle_view_hooks( true );
@@ -602,8 +564,6 @@ class Render {
 		/**
 		 * Please if you don't understand what these are doing, don't touch this.
 		 */
-		remove_filter( 'tribe_context_locations', [ $this, 'remove_request_based_context_locations' ], 1000 );
-		$context->dangerously_repopulate_locations();
 		$context->refresh();
 
 		return $html;
