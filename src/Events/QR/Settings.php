@@ -43,7 +43,6 @@ class Settings {
 		return [
 			'title'       => 'tribe-events-qr-code-settings',
 			'enabled'     => 'tribe-events-qr-code-enabled',
-			'prefix'      => 'tribe-events-qr-prefix',
 			'size'        => 'tribe-events-qr-size',
 			'redirection' => 'tribe-events-qr-redirection-behavior',
 			'event_id'    => 'tribe-events-qr-specific-event-id',
