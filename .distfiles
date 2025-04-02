@@ -17,6 +17,13 @@
 /src/resources/images/**/*
 /src/resources/js/*.js
 /src/resources/js/**/.js
+/src/resources/js/admin/*.js
+/src/resources/js/admin/**/*.js
+/src/resources/js/app/main.min.js
+/src/resources/js/app/vendor.min.js
+/src/resources/js/app/widgets.min.js
+/src/resources/js/calendar-embeds/**/*.js
+/src/resources/js/custom-tables-v1/*.js
 /src/resources/js/views/*
 /src/Tribe/**/*
 /src/views/**/*
