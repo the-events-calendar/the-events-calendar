@@ -87,7 +87,15 @@ class Google_Calendar extends Link_Abstract {
 			}
 		}
 
-		$feed_url = parent::get_uri( $view );
+		/**
+		 * Filters the Google Calendar feed URL.
+		 *
+		 * @since 6.11.0
+		 *
+		 * @param string $feed_url The Google Calendar feed URL.
+		 * @param View   $view The view.
+		 */
+		$feed_url = (string) apply_filters( 'tec_views_v2_subscribe_links_gcal_feed_url', parent::get_uri( $view ), $view );
 
 		return add_query_arg(
 			[ 'cid' => urlencode( $feed_url ) ],

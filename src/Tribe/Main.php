@@ -76,7 +76,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.16.0-dev';
+		protected $min_et_version = '5.20.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -569,6 +569,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Classes that should be built at `plugins_loaded` time are also instantiated.
 		 *
 		 * @since  4.4
+		 * @since 6.11.0 Add Calendar Embed functionality.
 		 *
 		 * @return void
 		 */
@@ -715,6 +716,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Register the Help Hub system.
 			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
+
+			// Register the Calendar Embeds feature.
+			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.

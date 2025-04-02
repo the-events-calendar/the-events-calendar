@@ -1340,11 +1340,18 @@ class View implements View_Interface {
 		 * @since 5.0.0
 		*/
 		$args = [
-			'posts_per_page'       => $context_arr['events_per_page'] + 1,
-			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
-				'paged',
-				'page',
-			], 1 ), 1 ),
+			'posts_per_page'       => (int) $context_arr['events_per_page'] + 1,
+			'paged'                => max(
+				(int) Arr::get_first_set(
+					array_filter( $context_arr ),
+					[
+						'paged',
+						'page',
+					],
+					1
+				),
+				1
+			),
 			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
 			/*
@@ -1409,7 +1416,7 @@ class View implements View_Interface {
 			1
 		);
 
-		return ( $current_page - 1 ) * $context->get( 'events_per_page' );
+		return ( $current_page - 1 ) * (int) $context->get( 'events_per_page' );
 	}
 
 	/**
@@ -1574,7 +1581,7 @@ class View implements View_Interface {
 	 * @return mixed                   Weather the array of events has a next page.
 	 */
 	public function has_next_event( array $events, $overwrite_flag = true ) {
-		$has_next_events = count( $events ) > $this->get_context()->get( 'events_per_page', 12 );
+		$has_next_events = count( $events ) > (int) $this->get_context()->get( 'events_per_page', 12 );
 		if ( (bool) $overwrite_flag ) {
 			$this->set_has_next_event( $has_next_events );
 		}
