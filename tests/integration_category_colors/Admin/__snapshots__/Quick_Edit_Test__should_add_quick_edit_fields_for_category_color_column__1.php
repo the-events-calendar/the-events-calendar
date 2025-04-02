@@ -38,7 +38,7 @@
 					<span class="tec-events-category-colors__preview-text" data-default-text="Example"></span>
 				</div>
 				<p class="tec-events-category-colors__description">
-					Select a primary color of your choice and a recommended background and font color will be generated. You can further customize your color choices afterwards.					<a href="#">Learn more about color selection and accessibility</a>
+					Select a primary color of your choice. You can further customize your color choices afterwards.					<a href="#">Learn more about color selection and accessibility</a>
 				</p>
 			</div>
 		</div>
