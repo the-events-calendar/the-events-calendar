@@ -19,6 +19,17 @@ namespace TEC\Events\Classy\Back_Compat;
  */
 class Editor_Utils {
 
+	/**
+	 * Placeholder for the Editor_Utils instance.
+	 *
+	 * This just returns the content as-is.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $content The content to be processed.
+	 *
+	 * @return string The content as-is.
+	 */
 	public function exclude_tribe_blocks( string $content ): string {
 		return $content;
 	}
