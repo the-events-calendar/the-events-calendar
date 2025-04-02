@@ -114,16 +114,18 @@ class QR_Code {
 	 */
 	public function add_qr_code_meta_box(): void {
 		$screen = get_current_screen();
-		if ( ! $screen || 'add' !== $screen->action ) {
-			add_meta_box(
-				'tec-events-qr-code',
-				esc_html__( 'QR Code', 'the-events-calendar' ),
-				[ $this, 'render_qr_code_meta_box' ],
-				TEC::POSTTYPE,
-				'side',
-				'default'
-			);
+		if ( $screen && 'add' === $screen->action ) {
+			return;
 		}
+
+		add_meta_box(
+			'tec-events-qr-code',
+			esc_html__( 'QR Code', 'the-events-calendar' ),
+			[ $this, 'render_qr_code_meta_box' ],
+			TEC::POSTTYPE,
+			'side',
+			'default'
+		);
 	}
 
 	/**
