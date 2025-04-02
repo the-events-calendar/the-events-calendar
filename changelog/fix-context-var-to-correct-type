@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Prevent fatal when certain varibles from context are not numeric. [TEC-5442]
