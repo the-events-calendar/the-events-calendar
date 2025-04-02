@@ -10,7 +10,7 @@
  * @package TEC\Events\Classy;
  */
 
-namespace TEC\Events\Classy\Back_Compat;
+namespace TEC\Events\Classy\Back_Compatibility;
 
 /**
  * Class Back_Compatible_Editor.

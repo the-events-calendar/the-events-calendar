@@ -11,8 +11,8 @@ namespace TEC\Events\Classy;
 
 use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
-use TEC\Events\Classy\Back_Compat\Editor;
-use TEC\Events\Classy\Back_Compat\Editor_Utils;
+use TEC\Events\Classy\Back_Compatibility\Editor;
+use TEC\Events\Classy\Back_Compatibility\Editor_Utils;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;

@@ -3,12 +3,12 @@
  * Editor_Utils implementation that provides compatibility with the legacy editor.
  *
  * @since TBD
- * @package TEC\Events\Classy\Back_Compat
+ * @package TEC\Events\Classy\Back_Compatibility
  */
 
 declare( strict_types=1 );
 
-namespace TEC\Events\Classy\Back_Compat;
+namespace TEC\Events\Classy\Back_Compatibility;
 
 /**
  * Class Editor_Utils
@@ -18,7 +18,6 @@ namespace TEC\Events\Classy\Back_Compat;
  * @since TBD
  */
 class Editor_Utils {
-
 	/**
 	 * Placeholder for the Editor_Utils instance.
 	 *
