@@ -59,7 +59,10 @@ if ( empty( $disable_event_search ) ) {
 
 		<div 
 			class="tribe-events-calendar-list"
-			aria-label="<?php echo esc_attr( sprintf( __( 'List of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>"
+			aria-label="<?php 
+				/* translators: %s: Events (plural) */
+				echo esc_attr( sprintf( __( 'List of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); 
+			?>"
 		>
 
 			<?php foreach ( $events as $event ) : ?>
