@@ -646,8 +646,18 @@ tribe.events.views.manager = {};
 		// Update the global set of containers with all of the manager object.
 		obj.selectContainers();
 
-		// Trigger the browser pushState
+		// Trigger the browser pushState.
 		obj.updateUrl( $container );
+
+		// Focus on either the events list or the no results message for improved accessibility.
+		var $eventsList = $container.find('.tribe-events-calendar-list');
+		var $noResults = $container.find('.tribe-events-c-messages__message--notice');
+				
+		if ($eventsList.length && $eventsList.find('.tribe-events-calendar-list__event-row').length) {
+			$eventsList.attr('tabindex', '-1').trigger('focus');
+		} else if ($noResults.length) {
+			$noResults.attr('tabindex', '-1').trigger('focus');
+		}
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 

@@ -56,7 +56,10 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/filter-bar' ); ?>
 
-		<div class="tribe-events-calendar-list">
+		<div 
+			class="tribe-events-calendar-list"
+			aria-label="<?php echo esc_attr( sprintf( __( 'List of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); ?>"
+		>
 
 			<?php foreach ( $events as $event ) : ?>
 				<?php $this->setup_postdata( $event ); ?>
