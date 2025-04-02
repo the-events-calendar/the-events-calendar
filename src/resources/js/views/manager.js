@@ -594,6 +594,7 @@ tribe.events.views.manager = {};
 	 * Context with the View container used to fire this AJAX call
 	 *
 	 * @since 4.9.2
+	 * @since TBD Add focus on events list or no results message for improved accessibility.
 	 *
 	 * @param  {String} html       HTML sent from the REST API
 	 * @param  {String} textStatus Status for the request
@@ -654,7 +655,10 @@ tribe.events.views.manager = {};
 		var $noResults = $container.find('.tribe-events-c-messages__message--notice');
 				
 		if ($eventsList.length && $eventsList.find('.tribe-events-calendar-list__event-row').length) {
-			$eventsList.attr('tabindex', '-1').trigger('focus');
+			$eventsList
+				.attr('tabindex', '-1')
+				.attr('aria-label', tribe_events_views_strings.listOfEvents || 'List of Events')
+				.trigger('focus');
 		} else if ($noResults.length) {
 			$noResults.attr('tabindex', '-1').trigger('focus');
 		}
