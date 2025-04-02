@@ -9,7 +9,6 @@ namespace TEC\Events\QR;
 
 use TEC\Common\QR\QR;
 use TEC\Events\QR\Routes;
-use Tribe\Utils\Element_Attributes;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -114,14 +113,17 @@ class QR_Code {
 	 * @return void
 	 */
 	public function add_qr_code_meta_box(): void {
-		add_meta_box(
-			'tec-events-qr-code',
-			esc_html__( 'QR Code', 'the-events-calendar' ),
-			[ $this, 'render_qr_code_meta_box' ],
-			TEC::POSTTYPE,
-			'side',
-			'default'
-		);
+		$screen = get_current_screen();
+		if ( 'add' !== $screen->action ) {
+			add_meta_box(
+				'tec-events-qr-code',
+				esc_html__( 'QR Code', 'the-events-calendar' ),
+				[ $this, 'render_qr_code_meta_box' ],
+				TEC::POSTTYPE,
+				'side',
+				'default'
+			);
+		}
 	}
 
 	/**
@@ -195,22 +197,16 @@ class QR_Code {
 			$qr_images[ $i ] = $uploaded['error'] ? '' : $uploaded['url'];
 		}
 
-		$attributes = [
-			'alt'      => sprintf(
-				/* translators: %s: The event title or type of QR code */
-				esc_attr__( 'QR Code for %s', 'the-events-calendar' ),
-				get_the_title( $post )
-			),
-			'class'    => 'tec-events-qr-code__image',
-			'data-url' => esc_url( $qr_url ),
-		];
-
 		$template_vars = [
 			'title'       => get_the_title( $post ),
 			'placeholder' => $this->qr_code->level( 1 )->size( 6 )->margin( 1 )->get_png_as_base64( $qr_url ),
 			'qr_images'   => $qr_images,
 			'qr_url'      => $qr_url,
-			'atts'        => ( new Element_Attributes( $attributes ) )->get_attributes(),
+			'alt'         => sprintf(
+				/* translators: %s: The event title or type of QR code */
+				esc_attr__( 'QR Code for %s', 'the-events-calendar' ),
+				get_the_title( $post )
+			),
 		];
 
 		/**

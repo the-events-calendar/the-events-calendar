@@ -8,7 +8,7 @@
  * @var string $placeholder The placeholder QR code image URL.
  * @var array  $qr_images The uploaded QR code images.
  * @var string $qr_url The QR code redirect URL.
- * @var string $atts The attributes for the QR code image.
+ * @var string $alt The alt text for the QR code image.
  */
 
 // Don't load directly.
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="tec-events-qr-modal">
 	<div class="tec-events-qr-modal__container">
 		<div class="tec-events-qr-modal__left">
-			<img src="<?php echo wp_kses_data( $placeholder ); ?>" <?php echo esc_attr( $atts ); ?> class="tec-events-qr-modal__image">
+			<img src="<?php echo wp_kses_data( $placeholder ); ?>" alt="<?php echo esc_attr( $alt ); ?>" class="tec-events-qr-modal__image">
 		</div>
 		<div class="tec-events-qr-modal__right">
 		<div><?php esc_html_e( 'EVENT', 'the-events-calendar' ); ?></div>
