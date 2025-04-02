@@ -10,6 +10,7 @@
  * @link    http://evnt.is/1aiy
  *
  * @since   6.1.4 Changing our nonce verification structures.
+ * @since   TBD Add aria-label to events list for improved accessibility.
  *
  * @version 6.2.0
  * @since 6.2.0 Moved the header information into a new components/header.php template.
