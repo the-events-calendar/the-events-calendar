@@ -1344,12 +1344,12 @@ class View implements View_Interface {
 			'paged'                => max(
 				(int) Arr::get_first_set(
 					array_filter( $context_arr ),
-						[
-							'paged',
-							'page',
-						],
-						1
-					),
+					[
+						'paged',
+						'page',
+					],
+					1
+				),
 				1
 			),
 			'search'               => $context->get( 'keyword', '' ),
