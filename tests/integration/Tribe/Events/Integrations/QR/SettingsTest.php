@@ -69,8 +69,6 @@ class SettingsTest extends WPTestCase {
 	public function test_settings_option_slugs() {
 		$this->assertArrayHasKey( 'enabled', $this->slugs );
 		$this->assertEquals( 'tribe-events-qr-code-enabled', $this->slugs['enabled'] );
-		$this->assertArrayHasKey( 'prefix', $this->slugs );
-		$this->assertEquals( 'tribe-events-qr-prefix', $this->slugs['prefix'] );
 		$this->assertArrayHasKey( 'size', $this->slugs );
 		$this->assertEquals( 'tribe-events-qr-size', $this->slugs['size'] );
 		$this->assertArrayHasKey( 'redirection', $this->slugs );
@@ -88,14 +86,12 @@ class SettingsTest extends WPTestCase {
 	 */
 	public function test_settings_default_values() {
 		$enabled     = tribe_get_option( $this->slugs['enabled'], true );
-		$prefix      = tribe_get_option( $this->slugs['prefix'], 'qr' );
 		$size        = tribe_get_option( $this->slugs['size'], '250x250' );
 		$redirection = tribe_get_option( $this->slugs['redirection'], 'current_event' );
 		$event_id    = tribe_get_option( $this->slugs['event_id'], '' );
 		$series_id   = tribe_get_option( $this->slugs['series_id'], '' );
 
 		$this->assertTrue( $enabled );
-		$this->assertEquals( 'qr', $prefix );
 		$this->assertEquals( '250x250', $size );
 		$this->assertEquals( 'current_event', $redirection );
 		$this->assertEquals( '', $event_id );

@@ -29,13 +29,6 @@ $tec_events_display_qr_codes = [
 		'default'         => true,
 		'validation_type' => 'boolean',
 	],
-	$slug['prefix']      => [
-		'type'            => 'text',
-		'label'           => esc_html__( 'QR Code Prefix', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'The prefix to be used for the permalinks.', 'the-events-calendar' ),
-		'default'         => 'qr',
-		'validation_type' => 'alpha_numeric_with_dashes_and_underscores',
-	],
 	$slug['size']        => [
 		'type'            => 'dropdown',
 		'label'           => esc_html__( 'QR Code Size', 'the-events-calendar' ),

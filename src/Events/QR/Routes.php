@@ -19,6 +19,14 @@ use Tribe__Events__Rewrite;
  */
 class Routes extends Controller {
 	/**
+	 * The base for the routes.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	private $route_base;
+
+	/**
 	 * The route prefix for QR codes.
 	 *
 	 * @since TBD
@@ -27,28 +35,12 @@ class Routes extends Controller {
 	private $route_prefix;
 
 	/**
-	 * The settings options.
-	 *
-	 * @since TBD
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * The salt for QR code generation.
 	 *
 	 * @since TBD
 	 * @var string
 	 */
 	private $salt;
-
-	/**
-	 * The base for the routes.
-	 *
-	 * @since TBD
-	 * @var string
-	 */
-	const ROUTE_BASE = 'events';
 
 	/**
 	 * The query variable name for QR code hash.
@@ -65,9 +57,25 @@ class Routes extends Controller {
 	 * @return void
 	 */
 	public function do_register(): void {
-		$this->options      = Settings::get_option_slugs();
-		$this->route_prefix = tribe_get_option( $this->options['prefix'], 'qr' );
-		$this->salt         = substr( wp_salt( Settings::get_qr_slug() ), 0, 8 );
+		/**
+		 * Filter the base route for QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $base The base route for QR codes. Default: 'events'.
+		 */
+		$this->route_base = apply_filters( 'tec_events_qr_route_base', 'events' );
+
+		/**
+		 * Filter the route prefix for QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $prefix The route prefix for QR codes. Default: 'qr'.
+		 */
+		$this->route_prefix = apply_filters( 'tec_events_qr_route_prefix', 'qr' );
+
+		$this->salt = substr( wp_salt( Settings::get_qr_slug() ), 0, 8 );
 
 		$this->add_hooks();
 	}
@@ -125,7 +133,7 @@ class Routes extends Controller {
 	 */
 	public function add_qr_rules( Tribe__Events__Rewrite $rewrite ): void {
 		$rewrite->add(
-			[ self::ROUTE_BASE, $this->route_prefix, '([^/]+)' ],
+			[ $this->route_base, $this->route_prefix, '([^/]+)' ],
 			[ self::QR_HASH_VAR => '%1' ]
 		);
 	}
@@ -191,7 +199,7 @@ class Routes extends Controller {
 	public function get_qr_url( int $post_id, string $qr_type ): string {
 		$hash = $this->generate_hash( $post_id, $qr_type );
 
-		return home_url( self::ROUTE_BASE . "/{$this->route_prefix}/{$hash}/" );
+		return home_url( $this->route_base . "/{$this->route_prefix}/{$hash}/" );
 	}
 
 	/**
@@ -264,8 +272,8 @@ class Routes extends Controller {
 		}
 
 		$parts = explode( '/', trim( $path, '/' ) );
-		if ( count( $parts ) !== 3 || $parts[0] !== self::ROUTE_BASE || $parts[1] !== $this->route_prefix ) {
-			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: ' . self::ROUTE_BASE . '/' . $this->route_prefix . '/{hash}, Got: ' . $path );
+		if ( count( $parts ) !== 3 || $parts[0] !== $this->route_base || $parts[1] !== $this->route_prefix ) {
+			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: ' . $this->route_base . '/' . $this->route_prefix . '/{hash}, Got: ' . $path );
 		}
 
 		return $this->decode_qr_hash( $parts[2] );
