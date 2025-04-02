@@ -50,7 +50,7 @@
 						<span class="tec-events-category-colors__preview-text" data-default-text="<?php esc_attr_e( 'Example', 'the-events-calendar' ); ?>"></span>
 					</div>
 					<p class="tec-events-category-colors__description">
-						<?php esc_html_e( 'Select a primary color of your choice and a recommended background and font color will be generated. You can further customize your color choices afterwards.', 'the-events-calendar' ); ?>
+						<?php esc_html_e( 'Select a primary color of your choice. You can further customize your color choices afterwards.', 'the-events-calendar' ); ?>
 						<a href="#"><?php esc_html_e( 'Learn more about color selection and accessibility', 'the-events-calendar' ); ?></a>
 					</p>
 				</div>
