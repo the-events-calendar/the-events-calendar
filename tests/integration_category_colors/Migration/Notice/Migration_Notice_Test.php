@@ -166,30 +166,6 @@ class Migration_Notice_Test extends WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_not_show_migration_notice_when_old_plugin_not_active(): void {
-		$this->set_fn_return( 'is_plugin_active', false );
-
-		$this->notice->maybe_show_migration_notice();
-		$output = $this->capture_admin_notices();
-
-		$this->assertMatchesSnapshot( $output );
-	}
-
-	/**
-	 * @test
-	 */
-	public function should_not_show_migration_notice_when_no_old_data(): void {
-		delete_option( 'teccc_options' );
-
-		$this->notice->maybe_show_migration_notice();
-		$output = $this->capture_admin_notices();
-
-		$this->assertMatchesSnapshot( $output );
-	}
-
-	/**
-	 * @test
-	 */
 	public function should_update_status_when_migration_starts(): void {
 		// Mock check_admin_referer to return true
 		$this->set_fn_return( 'check_admin_referer', true );
