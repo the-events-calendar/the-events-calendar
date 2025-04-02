@@ -1,7 +1,6 @@
 <?php
 
 use Tribe__Events__Venue as Venue;
-use WP_REST_Server;
 
 /**
  * Class Tribe__Events__Meta__Save
