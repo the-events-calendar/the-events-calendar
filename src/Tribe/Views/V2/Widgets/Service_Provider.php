@@ -137,7 +137,7 @@ class Service_Provider extends Provider_Contract {
 		if ( ! isset( $request['instance']['encoded'], $request['instance']['hash'] ) ) {
 			return $result;
 		}
-		
+
 		global $wp_widget_factory;
 
 		$widget_object = $wp_widget_factory->get_widget_object( $widget_type_id );
@@ -146,7 +146,6 @@ class Service_Provider extends Provider_Contract {
 		if ( ! $widget_object ) {
 			return $result;
 		}
-
 
 		// Set the new instance.
 		$new_instance         = $request['instance'];
