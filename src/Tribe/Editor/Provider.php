@@ -1,6 +1,9 @@
 <?php
+use TEC\Common\Contracts\Service_Provider;
 
-class Tribe__Events__Editor__Provider extends tad_DI52_ServiceProvider {
+
+class Tribe__Events__Editor__Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.

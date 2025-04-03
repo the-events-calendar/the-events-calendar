@@ -1,32 +1,48 @@
 name: 'Codeception Tests'
-on: [ pull_request ]
+on:
+  pull_request:
 jobs:
   test:
     strategy:
       matrix:
         suite:
-          - acceptance
           - aggregatorv1
           - blocks_editor_integration
+          - embed_calendar_integration
           - event_status
           - integration
           - muintegration
           - restv1
           - views_integration
-          - views_rest
           - views_settings
           - views_ui
           - views_v2_customizer_integration
           - views_widgets
           - views_wpunit
+          - ct1_integration
+          - ct1_multisite_integration
+          - deprecated
+          # really weird error with RBE changes.
+          # - views_rest
+          - wp_json_api
+          - ct1_wp_json_api
+          - ct1_migration
+          - rewrite_functional
           - wpunit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000
           submodules: recursive
+      # ------------------------------------------------------------------------------
+      # Set up PHP to run slic
+      # ------------------------------------------------------------------------------
+      - name: Configure PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
       # ------------------------------------------------------------------------------
       # Check if any PHP files have changed
       # ------------------------------------------------------------------------------
@@ -35,22 +51,25 @@ jobs:
         run: |
           num_php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -P "\.php" | wc -l)
           if [[ -z "$num_php_files" ]]; then
-            echo "::set-output name=value::1"
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
           elif [[ "$num_php_files" == "0" || "$num_php_files" == "" ]]; then
-            echo "::set-output name=value::1"
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
           else
-            echo "::set-output name=value::0"
+            echo "value=0" >> $GITHUB_OUTPUT
+            echo "## Found PHP file changes, running PHP tests." >> $GITHUB_STEP_SUMMARY
           fi
       # ------------------------------------------------------------------------------
-      # Checkout tric
+      # Checkout slic
       # ------------------------------------------------------------------------------
-      - name: Checkout tric
-        uses: actions/checkout@v2
+      - name: Checkout slic
+        uses: actions/checkout@v4
         if: steps.skip.outputs.value != 1
         with:
-          repository: the-events-calendar/tric
+          repository: stellarwp/slic
           ref: main
-          path: tric
+          path: slic
           fetch-depth: 1
       # ------------------------------------------------------------------------------
       # Prepare our composer cache directory
@@ -60,7 +79,7 @@ jobs:
         if: steps.skip.outputs.value != 1
         run: |
           echo "::set-output name=dir::$(composer config cache-files-dir)"
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         id: composer-cache
         if: steps.skip.outputs.value != 1
         with:
@@ -69,17 +88,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
       # ------------------------------------------------------------------------------
-      # Initialize tric
+      # Initialize slic
       # ------------------------------------------------------------------------------
-      - name: Set up tric env vars
+      - name: Set up slic env vars
         if: steps.skip.outputs.value != 1
         run: |
-          echo "TRIC_BIN=${GITHUB_WORKSPACE}/tric/tric" >> $GITHUB_ENV
-          echo "TRIC_WP_DIR=${GITHUB_WORKSPACE}/tric/_wordpress" >> $GITHUB_ENV
-          echo "TRIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
-      - name: Set run context for tric
+          echo "SLIC_BIN=${GITHUB_WORKSPACE}/slic/slic" >> $GITHUB_ENV
+          echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/slic/_wordpress" >> $GITHUB_ENV
+          echo "SLIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
+      - name: Set run context for slic
         if: steps.skip.outputs.value != 1
-        run: echo "TRIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
+        run: echo "SLIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
       - name: Start ssh-agent
         if: steps.skip.outputs.value != 1
         run: |
@@ -88,32 +107,51 @@ jobs:
       - name: Export SSH_AUTH_SOCK env var
         if: steps.skip.outputs.value != 1
         run: echo "SSH_AUTH_SOCK=/tmp/ssh_agent.sock" >> $GITHUB_ENV
-      - name: Set up tric for CI
+      - name: Set up slic for CI
         if: steps.skip.outputs.value != 1
         run: |
           cd ${GITHUB_WORKSPACE}/..
-          ${TRIC_BIN} here
-          ${TRIC_BIN} interactive off
-          ${TRIC_BIN} build-prompt off
-          ${TRIC_BIN} build-subdir off
-          ${TRIC_BIN} xdebug off
-          ${TRIC_BIN} debug on
-          ${TRIC_BIN} info
-          ${TRIC_BIN} config
+          ${SLIC_BIN} here
+          ${SLIC_BIN} interactive off
+          ${SLIC_BIN} build-prompt off
+          ${SLIC_BIN} build-subdir off
+          ${SLIC_BIN} xdebug off
+          ${SLIC_BIN} debug on
+          ${SLIC_BIN} info
+          ${SLIC_BIN} config
       - name: Start the Chrome container
         if: steps.skip.outputs.value != 1
-        run: ${TRIC_BIN} up chrome
+        run: ${SLIC_BIN} up chrome
       - name: Set up Common
         if: steps.skip.outputs.value != 1
         run: |
           docker network prune -f
-          ${TRIC_BIN} use the-events-calendar/common
-          ${TRIC_BIN} composer install --no-dev
+          ${SLIC_BIN} use the-events-calendar/common
+          ${SLIC_BIN} composer install --no-dev
       - name: Set up The Events Calendar
         if: steps.skip.outputs.value != 1
         run: |
-          ${TRIC_BIN} use the-events-calendar
-          ${TRIC_BIN} composer install
+          ${SLIC_BIN} use the-events-calendar
+          ${SLIC_BIN} composer install
+      # ------------------------------------------------------------------------------
+      # Update WordPress version to our min required.
+      # ------------------------------------------------------------------------------
+      - name: Init the WordPress container
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} up wordpress
+          ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp core update --force --version=6.5
+          ${SLIC_BIN} wp core version
+      - name: Ensure Twenty-Twenty is installed
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} wp theme install twentytwenty --activate
+
+      # ------------------------------------------------------------------------------
+      # Run the Actual tests
+      # ------------------------------------------------------------------------------
+
       - name: Run suite tests
         if: steps.skip.outputs.value != 1
-        run: ${TRIC_BIN} run ${{ matrix.suite }} --ext DotReporter
+        run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter

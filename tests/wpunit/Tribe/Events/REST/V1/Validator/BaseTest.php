@@ -25,7 +25,7 @@ class BaseTest extends Events_Testcase {
 	public function test_is_venue_id_or_entry( $input ) {
 		$sut = $this->make_instance();
 
-		$this->assertFalse( $sut->is_venue_id_or_entry( $input ) );
+		$this->assertFalse( $sut->is_linked_post_id_or_entry( 'venue', $input ) );
 	}
 
 	/**
@@ -46,14 +46,14 @@ class BaseTest extends Events_Testcase {
 		$venue_response = $this->factory()->rest_venue_response->create();
 
 		$sut = $this->make_instance();
-		$this->assertTrue( $sut->is_venue_id_or_entry( $venue->ID ) );
-		$this->assertTrue( $sut->is_venue_id_or_entry( [ 'id' => $venue->ID ] ) );
-		$this->assertTrue( $sut->is_venue_id_or_entry( $venue_response['id'] ) );
-		$this->assertTrue( $sut->is_venue_id_or_entry( $venue_response ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'venue', $venue->ID ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'venue', [ 'id' => $venue->ID ] ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'venue', $venue_response['id'] ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'venue', $venue_response ) );
 		$venue_data = [
 			'venue' => 'Some venue', // the only required param
 		];
-		$this->assertTrue( $sut->is_venue_id_or_entry( $venue_data ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'venue', $venue_data ) );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class BaseTest extends Events_Testcase {
 	public function test_is_organizer_id_or_entry_with_bad_inputs( $input ) {
 		$sut = $this->make_instance();
 
-		$this->assertFalse( $sut->is_organizer_id_or_entry( $input ) );
+		$this->assertFalse( $sut->is_linked_post_id_or_entry( 'organizer', $input ) );
 	}
 
 	/**
@@ -82,8 +82,8 @@ class BaseTest extends Events_Testcase {
 
 		$sut = $this->make_instance();
 
-		$this->assertTrue( $sut->is_organizer_id_or_entry( $ids_array ) );
-		$this->assertTrue( $sut->is_organizer_id_or_entry( $ids_comma_separated_list ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'organizer', $ids_array ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'organizer', $ids_comma_separated_list ) );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class BaseTest extends Events_Testcase {
 			[ 'organizer' => 'foo' ], // minimum required parameter
 		];
 
-		$this->assertTrue( $sut->is_organizer_id_or_entry( $organizers ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'organizer', $organizers ) );
 	}
 
 	/**
@@ -115,7 +115,7 @@ class BaseTest extends Events_Testcase {
 			[ 'organizer' => 'bar' ], // minimum required parameter
 		];
 
-		$this->assertTrue( $sut->is_organizer_id_or_entry( $organizers ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'organizer', $organizers ) );
 
 		$bad_organizers = [
 			[ 'organizer' => 'foo' ], // minimum required parameter
@@ -123,7 +123,7 @@ class BaseTest extends Events_Testcase {
 			[ 'website' => 'http://example.com' ], // missing required parameter
 		];
 
-		$this->assertFalse( $sut->is_organizer_id_or_entry( $bad_organizers ) );
+		$this->assertFalse( $sut->is_linked_post_id_or_entry( 'organizer', $bad_organizers ) );
 	}
 
 	/**
@@ -144,6 +144,6 @@ class BaseTest extends Events_Testcase {
 			[ 'organizer' => 'bar' ], // minimum required parameter
 		];
 
-		$this->assertTrue( $sut->is_organizer_id_or_entry( $organizers ) );
+		$this->assertTrue( $sut->is_linked_post_id_or_entry( 'organizer', $organizers ) );
 	}
 }

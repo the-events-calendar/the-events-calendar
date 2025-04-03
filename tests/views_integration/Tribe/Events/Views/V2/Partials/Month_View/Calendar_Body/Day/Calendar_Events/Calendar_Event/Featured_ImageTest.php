@@ -42,4 +42,22 @@ class Featured_ImageTest extends HtmlPartialTestCase
 		$event = $this->mock_event( 'events/featured/1.json' )->with_thumbnail()->get();
 		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
 	}
+
+	/**
+	 * Test render event with featured image with alt text.
+	 */
+	public function test_render_with_event_with_featured_image_with_alt() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$event->thumbnail->alt = "Featured Image";
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
+
+	/**
+	 * Test render event with featured image without alt text.
+	 */
+	public function test_render_with_event_with_featured_image_without_alt() {
+		$event = $this->mock_event( 'events/single/1.json' )->with_thumbnail()->get();
+		$event->thumbnail->alt = "";
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'event' => $event ] ) );
+	}
 }

@@ -50,7 +50,7 @@ $frequencies = $cron->get_frequency();
 			<select
 				name="aggregator[gcal][import_frequency]"
 				id="tribe-ea-field-gcal_import_frequency"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-dependent"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 				placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
 				data-hide-search
 				data-prevent-clear

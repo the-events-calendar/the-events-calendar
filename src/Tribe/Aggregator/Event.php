@@ -5,7 +5,7 @@ defined( 'WPINC' ) or die;
 class Tribe__Events__Aggregator__Event {
 
 	/**
-	 * Slug used to mark Event Orgin on `_EventOrigin` meta
+	 * Slug used to mark Event Origin on `_EventOrigin` meta
 	 *
 	 * @var string
 	 */
@@ -257,14 +257,14 @@ class Tribe__Events__Aggregator__Event {
 			$keys[] = $key;
 			$keys[] = "_{$fields[ $origin ]['legacy']}";
 			$combined_keys = implode(
-				 ', ',
-				 array_map(
-					 function ( $meta_key ) {
+			', ',
+				array_map(
+					function ( $meta_key ) {
 						$meta_key = esc_sql( $meta_key );
 
 						return "'{$meta_key}'";
 					},
-					 $keys
+					$keys
 				)
 			);
 

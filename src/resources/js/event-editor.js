@@ -3,21 +3,57 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 /**
  * Implements behaviours that are specific to the event editor.
  */
-jQuery( function( $ ) {
-	var obj = tribe_events_event_editor,
-		$sticky_in_month_view_checkbox = $( 'input[name="EventShowInCalendar"]' ),
-		$featured_event_checkbox = $( 'input[name="feature_event"]' );
+( function ( $, obj ) {
+	'use strict';
+
+	/**
+	 * Setup our selectors.
+	 *
+	 * @since 6.0.1
+	 */
+	obj.selectors = {
+		featuredEventCheckbox: 'input[name="feature_event"]',
+		stickyInMonthViewCheckbox: 'input[name="EventShowInCalendar"]',
+	};
 
 	/**
 	 * If the 'feature event' box is checked, automatically check the
 	 * sticky-in-month-view box also.
+	 *
+	 * @since 6.0.1
+	 *
 	 */
-	obj.auto_enable_sticky_field = function() {
+	obj.auto_enable_sticky_field = function () {
 		if ( $( this ).prop( 'checked' ) ) {
-			$sticky_in_month_view_checkbox.prop( 'checked', true );
+			$( obj.selectors.stickyInMonthViewCheckbox ).prop( 'checked', true );
 		}
 	};
 
-	$featured_event_checkbox.on( 'change', obj.auto_enable_sticky_field );
-	$( obj ).trigger( 'event-editor-post-init.tribe' );
-} );
+	/**
+	 * Bind featured events logic.
+	 *
+	 * @since 6.0.1
+	 */
+	obj.bindFeaturedEvents = function () {
+		$( obj.selectors.featuredEventCheckbox ).on( 'change', obj.auto_enable_sticky_field );
+		$( obj ).trigger( 'event-editor-post-init.tribe' );
+	};
+
+	/**
+	 * Initialize
+	 *
+	 * @since 6.0.1
+	 */
+	obj.init = function () {
+		obj.bindFeaturedEvents();
+
+		// We need to register core/legacy-widget block to support
+		// earlier versions of WP which don't have it registered by default.
+		if ( wp.widgets && wp.blocks && ! wp.blocks.getBlockType( 'core/legacy-widget' ) ) {
+			wp.widgets.registerLegacyWidgetBlock();
+		}
+	};
+
+	// Init our main object.
+	$( obj.init );
+} )( jQuery, tribe_events_event_editor );

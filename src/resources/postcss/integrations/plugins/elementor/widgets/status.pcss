@@ -1,0 +1,45 @@
+/**
+ * Elementor Event Status Widget styles.
+ *
+ * @since 6.4.0
+ */
+
+.tec-events-elementor-event-widget__status {
+	border: 1px solid var(--tec-color-border-active);
+	border-left-color: var(--tec-color-icon-error);
+	border-left-width: var(--tec-spacer-0);
+	display: inline-flex;
+	flex-direction: column;
+	font-size: var(--tec-font-size-2);
+	margin-bottom: var(--tec-spacer-4);
+	padding: var(--tec-spacer-2) var(--tec-spacer-4);
+
+	/*
+	 * the actualk status is apended as a modifier on a second class.
+	 * i.e. tec-events-elementor-event-widget__status-label tec-events-elementor-event-widget__status-label--canceled
+	 */
+	.tec-events-elementor-event-widget__status-label {
+		align-items: center;
+		color: var(--tec-color-icon-error);
+		display: inline-flex;
+		font-weight: var(--tec-font-weight-bold);
+		line-height: var(--tec-line-height-0);
+
+		&:before {
+			background-image: url('../../../../../images/alert.svg');
+			background-repeat: no-repeat;
+			background-size: var(--tec-spacer-3);
+			content: '';
+			display: inline-block;
+			height: var(--tec-spacer-3);
+			margin-right: var(--tec-spacer-1);
+			min-width: var(--tec-spacer-3);
+		}
+	}
+
+	.tec-events-elementor-event-widget__status--description {
+		color: var(--tec-color-text-primary);
+		font-weight: var(--tec-font-weight-regular);
+		padding-left: var(--tec-spacer-5);
+	}
+}

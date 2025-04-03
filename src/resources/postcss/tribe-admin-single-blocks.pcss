@@ -41,33 +41,44 @@
 /* = Venue block view styles
 ============================================= */
 .tribe-editor__venue {
-	border-top: 1px solid var(--tec-color-border-default);
-	flex-direction: column-reverse;
+	border: 1px solid var(--tec-color-border-secondary);
+	border-radius: var(--tec-border-radius-default);
+	flex-direction: column;
 	font-family: var(--tec-font-family-sans-serif);
 	justify-content: flex-start;
-	padding: 22.5px 0;
+	margin-top: var(--tec-spacer-6);
+	max-width: 580px;
+	padding: var(--tec-spacer-2);
 
 	@media screen and (min-width: 768px) {
 		flex-direction: row;
-		padding: 32px 0;
+		padding: var(--tec-spacer-5);
 	}
 
 	&.tribe-editor__venue--has-map {
 
-		.tribe-editor__venue--current,
-		.tribe-editor__map {
+		.tribe-block__venue__meta,
+		.tribe-block__venue__map {
 			flex: none;
 			width: 100%;
+		}
 
+		.tribe-block__venue__map {
 			@media screen and (min-width: 768px) {
-				width: 50%;
+				width: 53%;
+			}
+
+			iframe {
+				width: 100%;
 			}
 		}
 
-		.tribe-editor__venue--current {
-			@media screen and (min-width: 1200px) {
-				margin-right: 100px;
-				width: 35%;
+		.tribe-block__venue__meta {
+			margin-bottom: var(--tec-spacer-1);
+
+			@media screen and (min-width: 768px) {
+				margin-right: var(--tec-spacer-1);
+				width: 47%;
 			}
 		}
 	}

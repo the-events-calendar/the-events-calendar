@@ -18,7 +18,7 @@ use Tribe__Context as Context;
  * @package Tribe\Events\Views\V2
  * @since   4.9.2
  */
-interface View_Interface  extends View_Url_Provider_Interface, Repository_User_Interface {
+interface View_Interface extends View_Url_Provider_Interface, Repository_User_Interface {
 
 	/**
 	 * Returns a View HTML code.
@@ -28,6 +28,27 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return string
 	 */
 	public function get_html();
+
+	/**
+	 * Sends, echoing it and exiting, the view HTML on the page.
+	 *
+	 * @since TBD
+	 *
+	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
+	 *                          `get_html` method.
+	 */
+	public function send_html( ?string $html = null );
+
+	/**
+	 * Returns the view label.
+	 *
+	 * It is different from the dynamic get_label because it avoids building a whole instance just for the base label.
+	 *
+	 * @since  6.0.4
+	 *
+	 * @return string
+	 */
+	public static function get_view_label(): string;
 
 	/**
 	 * Returns a View label.
@@ -75,6 +96,7 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * Sets the View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
 	 * @since 4.9.2
+	 * @deprecated 6.0.7
 	 *
 	 * @param string $slug The slug to set for the View instance.
 	 */
@@ -84,10 +106,21 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * Returns a View slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 *
 	 * @since 4.9.2
+	 * @deprecated 6.0.7
 	 *
 	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
 	 */
 	public function get_slug();
+
+	/**
+	 * Statically returns the View slug, thus not requiring the View be instantiated first.
+	 * Usually this is the one it was registered with in the `tribe_events_views` filter.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @return string The view slug, usually the one it was registered with in the `tribe_events_views` filter.
+	 */
+	public static function get_view_slug(): string;
 
 	/**
 	 * Returns a View template path, usually a prefix for the template slug.
@@ -252,4 +285,13 @@ interface View_Interface  extends View_Url_Provider_Interface, Repository_User_I
 	 * @return View_Interface A reference to the View-like that is being directed.
 	 */
 	public function disable_url_management();
+
+	/**
+	 * Returns the View `en_US` and localized rewrite slugs.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @return array<string> The View `en_US` and localized rewrite slugs.
+	 */
+	public function get_rewrite_slugs(): array;
 }

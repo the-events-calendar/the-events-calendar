@@ -183,11 +183,13 @@ class EventArchiveCest extends BaseRestCest {
 	 * it should allow requesting events ending after a date in the future
 	 */
 	public function it_should_allow_requesting_events_ending_after_a_date_in_the_future( Tester $I ) {
+		$duration = 7200;
 		// 10 events each 1 week apart starting now
-		$I->haveManyEventsInDatabase( 10, [], 24 * 7 );
+		$I->haveManyEventsInDatabase( 10, [ 'duration' => $duration ], 24 * 7 );
 		$I->haveOptionInDatabase( 'posts_per_page', 20 );
 
-		$I->sendGET( $this->events_url . '?end_date=' . date( 'U', strtotime( '+5 weeks' ) ) );
+		// Add duration, because our end date may go over a day so adjust our search to match the events end dates.
+		$I->sendGET( $this->events_url . '?end_date=' . date( 'U', strtotime( "+5 weeks +$duration seconds" ) ) );
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();

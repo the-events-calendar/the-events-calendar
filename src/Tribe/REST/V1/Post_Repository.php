@@ -96,6 +96,22 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$venue     = $this->get_venue_data( $event_id, $context );
 		$organizer = $this->get_organizer_data( $event_id, $context );
 
+		$fields        = [];
+		$custom_fields = tribe_get_option( 'custom-fields', false );
+		if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
+			foreach ( $custom_fields as $field ) {
+				$field_value = get_post_meta( $event_id, $field['name'], true );
+				if ( empty( $field_value ) ) {
+					continue;
+				}
+
+				$fields[ $field['name'] ] = [
+					'label' => $field['label'] ?? '',
+					'value' => $field_value ?? '',
+				];
+			}
+		}
+
 		$data = array(
 			'id'                     => $event_id,
 			'global_id'              => false,
@@ -141,6 +157,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			'tags'                   => $this->get_tags( $event_id ),
 			'venue'                  => is_wp_error( $venue ) ? array() : $venue,
 			'organizer'              => is_wp_error( $organizer ) ? array() : $organizer,
+			'custom_fields'          => $fields,
 		);
 
 		/**
@@ -165,7 +182,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		$data = $this->add_global_id_fields( $data, $event_id );
 
 		/**
-		 * Filters the data that will be returnedf for a single event.
+		 * Filters the data that will be returned for a single event.
 		 *
 		 * @param array   $data  The data that will be returned in the response.
 		 * @param WP_Post $event The requested event.
@@ -188,93 +205,22 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @since 4.6 Added $context param
 	 */
 	public function get_venue_data( $event_or_venue_id, $context = '' ) {
-		if ( $event_or_venue_id instanceof WP_Post ) {
-			$event_or_venue_id = tribe_get_venue_id( $event_or_venue_id->ID );
-		}
-
-		/** @var Tribe__Cache $cache */
-		$cache     = tribe( 'cache' );
-		$cache_key = 'rest_get_venue_data_' . get_current_user_id() . '_' . $event_or_venue_id . '_' . $context;
-
-		$data = $cache->get( $cache_key, 'save_post' );
-
-		if ( is_array( $data ) ) {
-			return $data;
-		}
+		$data = [];
 
 		if ( tribe_is_event( $event_or_venue_id ) ) {
-			$venue = get_post( tribe_get_venue_id( $event_or_venue_id ) );
-			if ( empty( $venue ) ) {
+			$venues = tec_get_venue_ids( $event_or_venue_id );
+			if ( empty( $venues ) ) {
 				return new WP_Error( 'event-no-venue', $this->messages->get_message( 'event-no-venue' ) );
 			}
+			// serializing happens...
+			if ( is_array( reset( $venues ) ) ) {
+				$venues = reset( $venues );
+			}
 		} elseif ( tribe_is_venue( $event_or_venue_id ) ) {
-			$venue = get_post( $event_or_venue_id );
+			$venues = [ get_post( $event_or_venue_id ) ];
 		} else {
 			return new WP_Error( 'venue-not-found', $this->messages->get_message( 'venue-not-found' ) );
 		}
-
-		$meta = array_map( function ( $item ) {
-			return reset( $item );
-		}, get_post_custom( $venue->ID ) );
-
-		$data = array(
-			'id'            => $venue->ID,
-			'author'        => $venue->post_author,
-			'status'        => $venue->post_status,
-			'date'          => $venue->post_date,
-			'date_utc'      => $venue->post_date_gmt,
-			'modified'      => $venue->post_modified,
-			'modified_utc'  => $venue->post_modified_gmt,
-			'url'           => get_the_permalink( $venue->ID ),
-			'venue'         => trim( apply_filters( 'the_title', $venue->post_title, $venue->ID ) ),
-			'description'   => trim( apply_filters( 'the_content', $venue->post_content ) ),
-			'excerpt'       => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
-			'slug'          => $venue->post_name,
-			'image'         => $this->get_featured_image( $venue->ID ),
-			'address'       => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
-			'city'          => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
-			'country'       => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
-			'province'      => isset( $meta['_VenueProvince'] ) ? $meta['_VenueProvince'] : '',
-			'state'         => isset( $meta['_VenueState'] ) ? $meta['_VenueState'] : '',
-			'zip'           => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
-			'phone'         => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
-			'website'       => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
-			'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
-		);
-
-		// Add geo coordinates (if any)
-		$geo = tribe_get_coordinates( $venue->ID );
-
-		if ( ! empty( $geo['lat'] ) && ! empty( $geo['lng'] ) ) {
-			$data['geo_lat'] = $geo['lat'];
-			$data['geo_lng'] = $geo['lng'];
-		}
-
-		/**
-		 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the venue
-		 * REST representation.
-		 *
-		 * @since 4.6
-		 *
-		 * @param array $json_ld_contexts An array of contexts.
-		 */
-		$json_ld_contexts = apply_filters( 'tribe_rest_venue_json_ld_data_contexts', array( 'single' ) );
-
-		if ( in_array( $context, $json_ld_contexts, true ) ) {
-			$json_ld_data = tribe( 'tec.json-ld.venue' )->get_data( $venue );
-
-			if ( $json_ld_data ) {
-				$data['json_ld'] = $json_ld_data[ $venue->ID ];
-			}
-		}
-
-		$data = array_filter( $data );
-
-		$data['show_map']      = isset( $meta['_VenueShowMap'] ) ? tribe_is_truthy( $meta['_VenueShowMap'] ) : true;
-		$data['show_map_link'] = isset( $meta['_VenueShowMapLink'] ) ? tribe_is_truthy( $meta['_VenueShowMapLink'] ) : true;
-
-		// Add the Global ID fields
-		$data = $this->add_global_id_fields( $data, $venue->ID );
 
 		$event = null;
 
@@ -282,18 +228,125 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 			$event = get_post( $event_or_venue_id );
 		}
 
+		/** @var Tribe__Cache $cache */
+		$cache = tribe( 'cache' );
+
+		foreach ( $venues as $venue_id ) {
+			if ( is_object( $venue_id ) ) {
+				$venue    = $venue_id;
+				$venue_id = $venue->ID;
+			}
+
+			$cache_key = sprintf(
+				'rest_get_venue_data_%d_%d_%s',
+				get_current_user_id(),
+				$venue_id,
+				$context
+			);
+
+			$this_data = $cache->get( $cache_key, 'save_post' );
+
+			if ( is_array( $this_data ) ) {
+				$data[] = $this_data;
+
+				continue;
+			}
+
+			$venue = get_post( $venue_id );
+
+			if ( empty( $venue ) ) {
+				continue;
+			}
+
+			$meta = array_map( function ( $item ) {
+				return reset( $item );
+			}, get_post_custom( $venue->ID ) );
+
+			$this_data = [
+				'id'            => $venue->ID,
+				'author'        => $venue->post_author,
+				'status'        => $venue->post_status,
+				'date'          => $venue->post_date,
+				'date_utc'      => $venue->post_date_gmt,
+				'modified'      => $venue->post_modified,
+				'modified_utc'  => $venue->post_modified_gmt,
+				'url'           => get_the_permalink( $venue->ID ),
+				'venue'         => trim( apply_filters( 'the_title', $venue->post_title, $venue->ID ) ),
+				'description'   => trim( apply_filters( 'the_content', $venue->post_content ) ),
+				'excerpt'       => trim( apply_filters( 'the_excerpt', $venue->post_excerpt ) ),
+				'slug'          => $venue->post_name,
+				'image'         => $this->get_featured_image( $venue->ID ),
+				'address'       => isset( $meta['_VenueAddress'] ) ? $meta['_VenueAddress'] : '',
+				'city'          => isset( $meta['_VenueCity'] ) ? $meta['_VenueCity'] : '',
+				'country'       => isset( $meta['_VenueCountry'] ) ? $meta['_VenueCountry'] : '',
+				'province'      => isset( $meta['_VenueProvince'] ) ? $meta['_VenueProvince'] : '',
+				'state'         => isset( $meta['_VenueState'] ) ? $meta['_VenueState'] : '',
+				'zip'           => isset( $meta['_VenueZip'] ) ? $meta['_VenueZip'] : '',
+				'phone'         => isset( $meta['_VenuePhone'] ) ? $meta['_VenuePhone'] : '',
+				'website'       => isset( $meta['_VenueURL'] ) ? $meta['_VenueURL'] : '',
+				'stateprovince' => isset( $meta['_VenueStateProvince'] ) ? $meta['_VenueStateProvince'] : '',
+			];
+
+			// Add geo coordinates (if any)
+			$geo = tribe_get_coordinates( $venue->ID );
+
+			if ( ! empty( $geo['lat'] ) && ! empty( $geo['lng'] ) ) {
+				$this_data['geo_lat'] = $geo['lat'];
+				$this_data['geo_lng'] = $geo['lng'];
+			}
+
+			/**
+			 * Filters the list of contexts that should trigger the attachment of the JSON LD information to the venue
+			 * REST representation.
+			 *
+			 * @since 4.6
+			 *
+			 * @param array $json_ld_contexts An array of contexts.
+			 */
+			$json_ld_contexts = apply_filters( 'tribe_rest_venue_json_ld_data_contexts', array( 'single' ) );
+
+			if ( in_array( $context, $json_ld_contexts, true ) ) {
+				$json_ld_data = tribe( 'tec.json-ld.venue' )->get_data( $venue );
+
+				if ( $json_ld_data ) {
+					$this_data['json_ld'] = $json_ld_data[ $venue->ID ];
+				}
+			}
+
+			$this_data = array_filter( $this_data );
+
+			$this_data['show_map']      = isset( $meta['_VenueShowMap'] ) ? tribe_is_truthy( $meta['_VenueShowMap'] ) : true;
+			$this_data['show_map_link'] = isset( $meta['_VenueShowMapLink'] ) ? tribe_is_truthy( $meta['_VenueShowMapLink'] ) : true;
+
+			// Add the Global ID fields
+			$this_data = $this->add_global_id_fields( $this_data, $venue->ID );
+
+			/**
+			 * Filters the data that will be returned for a single venue.
+			 *
+			 * @param array        $data  The data that will be returned in the response.
+			 * @param WP_Post      $venue The requested venue.
+			 * @param WP_Post|null $event The requested event, if event ID was used.
+			 */
+			$this_data = apply_filters( 'tribe_rest_venue_data', $this_data, $venue, $event );
+
+			$cache->set( $cache_key, $this_data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
+
+			$data[] = $this_data;
+		}
+
 		/**
-		 * Filters the data that will be returned for a single venue.
+		 * Filters the data that will be returned for all the venues of an event.
 		 *
-		 * @param array        $data  The data that will be returned in the response.
-		 * @param WP_Post      $venue The requested venue.
-		 * @param WP_Post|null $event The requested event, if event ID was used.
+		 * @param array   $data            The data that will be returned in the response; this is
+		 *                                 an array of venue data arrays.
+		 * @param WP_Post $event           The requested event.
 		 */
-		$data = apply_filters( 'tribe_rest_venue_data', $data, $venue, $event );
+		$data = apply_filters( 'tribe_rest_event_venue_data', array_filter( $data ), get_post( $event_or_venue_id ) );
 
-		$cache->set( $cache_key, $data, Tribe__Cache::NON_PERSISTENT, 'save_post' );
+		$data = array_filter( $data );
 
-		return $data;
+		return count( $data ) === 1 ? reset( $data ) : $data;
 	}
 
 	protected function get_featured_image( $id ) {
@@ -368,7 +421,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	 * @param string $context               Context of data.
 	 *
 	 * @return array|WP_Error Either an the array representation of an orgnanizer, an
-	 *                        arrya of array representations of an event organizer or
+	 *                        array of array representations of an event organizer or
 	 *                        an error object.
 	 *
 	 * @since 4.6 Added $context param
@@ -575,6 +628,14 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 	public function get_terms( $event_id, $taxonomy ) {
 		$terms = wp_get_post_terms( $event_id, $taxonomy );
 
+		if ( $terms instanceof WP_Error ) {
+			return [];
+		}
+
+		$terms = array_values( array_filter( $terms, static function ( $term ) {
+			return $term instanceof WP_Term;
+		} ) );
+
 		if ( empty( $terms ) || is_wp_error( $terms ) ) {
 			return array();
 		}
@@ -618,7 +679,7 @@ class Tribe__Events__REST__V1__Post_Repository implements Tribe__Events__REST__I
 		 * Filters the data that will be returned for an event tags.
 		 *
 		 * @param array   $data  The data that will be returned in the response.
-		 * @param WP_Post $event The requsted event.
+		 * @param WP_Post $event The requested event.
 		 */
 		$data = apply_filters( 'tribe_rest_event_tags_data', $data, get_post( $event_id ) );
 

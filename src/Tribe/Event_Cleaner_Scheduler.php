@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Event_Cleaner_Scheduler
  *
@@ -85,7 +84,15 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 */
 	public function add_hooks() {
 		if ( ! wp_next_scheduled( self::$trash_cron_hook ) && $this->trash_new_date != null ) {
-			wp_schedule_event( time(), 'daily', self::$trash_cron_hook );
+			/**
+			 * Allows adjusting the frequency the trash old events cron will run.
+			 *
+			 * @since 6.0.13
+			 *
+			 * @param string The frequency that the trash old events cleaner will run. Defaults to `twicedaily`.
+			 */
+			$frequency = apply_filters( 'tec_events_event_cleaner_trash_cron_frequency', 'twicedaily' );
+			wp_schedule_event( time(), $frequency, self::$trash_cron_hook );
 		}
 
 		if ( ! wp_next_scheduled( self::$del_cron_hook ) && $this->del_new_date != null ) {
@@ -136,6 +143,8 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Selects events to be moved to trash or permanently deleted.
 	 *
 	 * @since 4.6.13
+	 * @since 6.0.13 Now batches each purge. By default, it limits to 15 occurrences.
+	 * @since 6.2.9  Add an optional 'frequency|interval' format for the events to retrieve field, e.g. '15|MINUTE'.
 	 *
 	 * @param int $month - The value chosen by user to purge all events older than x months
 	 *
@@ -144,6 +153,11 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	public function select_events_to_purge( $month ) {
 		/** @var wpdb $wpdb */
 		global $wpdb;
+
+		// An optional 'frequency|interval' format for the events to retrieve field, e.g. '15|MINUTE'.
+		$frequency_struct = explode( '|', $month );
+		$frequency        = $frequency_struct[0];
+		$interval         = $frequency_struct[1] ?? 'MONTH';
 
 		$event_post_type = Tribe__Events__Main::POSTTYPE;
 
@@ -160,36 +174,42 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 			FROM {$wpdb->posts} AS t1
 			INNER JOIN {$wpdb->postmeta} AS t2 ON t1.ID = t2.post_id
 			WHERE
-				t1.post_type = %s
+				t1.post_type = " . '"%1$s"' . "
 				AND t2.meta_key = '_EventEndDate'
-				AND t2.meta_value <= DATE_SUB( CURDATE(), INTERVAL %d MONTH )
+				AND t2.meta_value <= DATE_SUB( CURRENT_TIMESTAMP(), INTERVAL " . '%2$d %4$s' . " )
 				AND t2.meta_value != 0
 				AND t2.meta_value != ''
 				AND t2.meta_value IS NOT NULL
 				AND t1.post_parent = 0
 				AND t1.ID NOT IN ( $posts_with_parents_sql )
-		";
+			LIMIT " . '%3$d';
 
 		/**
 		 * Filter - Allows users to manipulate the cleanup query
 		 *
-		 * @param string $sql - The query statement
-		 *
 		 * @since 4.6.13
+		 * @since 6.0.13 Added a limit param to the default query.
+		 * @since 6.2.9  Added a mysql `interval` parameter (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
+		 *
+		 * @param string $sql - The query statement.
 		 */
 		$sql = apply_filters( 'tribe_events_delete_old_events_sql', $sql );
 
 		$args = [
-			'post_type' => $event_post_type,
-			'date'      => $month,
+			'post_type' => esc_sql( $event_post_type ),
+			'date'      => $frequency,
+			'limit'     => 15,
+			'interval'  => esc_sql( $interval ),
 		];
 
 		/**
 		 * Filter - Allows users to modify the query's placeholders
 		 *
-		 * @param array $args - The array of variables
-		 *
 		 * @since 4.6.13
+		 * @since 6.0.13 Added a limit arg, defaulting to 100.
+		 * @since 6.2.9  Added a mysql `interval` field (e.g. 'MONTH' or 'MINUTE'), to go in hand with the `date` field.
+		 *
+		 * @param array $args - The array of variables.
 		 */
 		$args = apply_filters( 'tribe_events_delete_old_events_sql_args', $args );
 
@@ -205,22 +225,60 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 	 * Moves to trash events that ended before a date specified by user
 	 *
 	 * @since 4.6.13
+	 * @since 6.0.13 Added a return value, and suspends Tribe__Events__Dates__Known_Range::rebuild_known_range() until batch is complete.
 	 *
-	 * @return mixed
+	 * @return array<string,WP_Post|false|null> An associative array of ID to the result of wp_trash_post().
 	 */
-	public function move_old_events_to_trash() {
-
-		$month = $this->trash_new_date;
-
+	public function move_old_events_to_trash(): array {
+		$month    = $this->trash_new_date;
 		$post_ids = $this->select_events_to_purge( $month );
+		$results  = [];
 
 		if ( empty( $post_ids ) ) {
-			return;
+			return $results;
 		}
 
+		$this->unhook_rebuild_known_range();
 		foreach ( $post_ids as $post_id ) {
-			wp_trash_post( $post_id );
+			$results[ $post_id ] = wp_trash_post( $post_id );
+			clean_post_cache( $post_id );
 		}
+		Tribe__Events__Dates__Known_Range::instance()->rebuild_known_range();
+		$this->hook_rebuild_known_range();
+
+		return $results;
+	}
+
+	/**
+	 * Will add the hooks for the Tribe__Events__Dates__Known_Range::rebuild_known_range() callbacks.
+	 *
+	 * @since 6.0.13
+	 */
+	public function hook_rebuild_known_range() {
+		add_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_update_known_range'
+		] );
+		add_action( 'delete_post', [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_rebuild_known_range'
+		] );
+	}
+
+	/**
+	 * Will remove the hooks for the Tribe__Events__Dates__Known_Range::rebuild_known_range() callbacks.
+	 *
+	 * @since 6.0.13
+	 */
+	public function unhook_rebuild_known_range() {
+		remove_action( 'save_post_' . Tribe__Events__Main::POSTTYPE, [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_update_known_range'
+		] );
+		remove_action( 'delete_post', [
+			Tribe__Events__Dates__Known_Range::instance(),
+			'maybe_rebuild_known_range'
+		] );
 	}
 
 	/**
@@ -245,4 +303,3 @@ class Tribe__Events__Event_Cleaner_Scheduler {
 		}
 	}
 }
-

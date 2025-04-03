@@ -31,6 +31,11 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 */
 	protected $singular_name;
 
+	/**
+	 * @var string
+	 */
+	protected string $singular_name_lowercase;
+
 	public function __construct( $event = null, $post_type = null ) {
 		$this->tribe                   = Tribe__Events__Main::instance();
 		$this->linked_posts            = Tribe__Events__Linked_Posts::instance();
@@ -71,8 +76,9 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	 * Render the chooser section for the events meta box
 	 */
 	public function render() {
+
 		$this->render_dropdowns();
-		$this->render_add_post_button();
+		$this->render_footer();
 
 		/**
 		 * Make this Template filterable, used for Community Facing templates.
@@ -186,22 +192,28 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	/**
 	 * Render a link to edit the linked post
 	 *
+	 * @since 6.0.1 Reversed check for editing posts. Added check if the $edit_link is empty.
 	 * @since 3.0
 	 *
 	 * @param int $linked_post_id
 	 */
 	protected function edit_post_link( $linked_post_id ) {
 		$linked_post_pto = get_post_type_object( $this->post_type );
-		$cannot_edit_others_posts = (
+
+		// Bail if the user is unable to edit the type of post.
+		if (
 			empty( $linked_post_pto->cap->edit_others_posts )
 			|| ! current_user_can( $linked_post_pto->cap->edit_others_posts )
-		);
-
-		if ( is_admin() && $cannot_edit_others_posts ) {
+		) {
 			return;
 		}
 
 		$edit_link = get_edit_post_link( $linked_post_id );
+
+		// Bail if $edit_link is empty.
+		if ( empty( $edit_link ) ) {
+			return;
+		}
 
 		printf(
 			'<div class="edit-linked-post-link"><a style="%1$s"  href="%2$s" target="_blank">%3$s</a></div>',
@@ -234,10 +246,26 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 	}
 
 	/**
+	 * Renders the footer for the linked post area.
+	 *
+	 * @since 6.2.0
+	 */
+	protected function render_footer() {
+		?>
+		<tfoot>
+		<?php
+		$this->render_add_post_button();
+		$this->render_map_fields();
+		?>
+		</tfoot>
+		<?php
+	}
+
+	/**
 	 * Renders the "Add Another Organizer" button
 	 */
 	protected function render_add_post_button() {
-		if ( empty( $this->linked_posts->linked_post_types[ $this->post_type ]['allow_multiple'] ) ) {
+		if ( ! $this->linked_posts->allow_multiple( $this->post_type ) ) {
 			return;
 		}
 
@@ -251,13 +279,24 @@ class Tribe__Events__Linked_Posts__Chooser_Meta_Box {
 		}
 
 		?>
-		<tfoot>
-			<tr>
-				<td></td>
-				<td><a class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
-			</tr>
-		</tfoot>
+		<tr>
+			<td></td>
+			<td><a class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" href="#"><?php echo esc_html( sprintf( __( 'Add another %s', 'the-events-calendar' ), $this->singular_name_lowercase ) ); ?></a></td>
+		</tr>
 		<?php
+	}
+
+	/**
+	 * Renders the map fields if necessary.
+	 *
+	 * @since 6.2.0
+	 */
+	protected function render_map_fields() {
+		if ( $this->post_type !== Tribe__Events__Venue::POSTTYPE ) {
+			return;
+		}
+
+		require_once $this->tribe->pluginPath . 'src/admin-views/venue-map-fields.php';
 	}
 
 	/**

@@ -104,9 +104,18 @@
 		position: absolute;
 		width: 363px;
 
+		.dropdown-menu {
+			min-width: 100%;
+			width: 100%;
+		}
+
 		.tribe-common--breakpoint-medium& {
 			max-width: none;
-			min-width: 363px;
+			min-width: min-content;
+
+			.dropdown-menu {
+				max-width: 100%;
+			}
 		}
 	}
 

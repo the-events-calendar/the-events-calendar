@@ -1,0 +1,50 @@
+/**
+ * Elementor Event Website Widget styles.
+ *
+ * @since 6.4.0
+ */
+
+.tec-events-elementor-event-widget__navigation,
+.tribe-events-content .tec-events-elementor-event-widget__navigation,
+#tribe-events-pg-template .tec-events-elementor-event-widget__navigation {
+	.tec-events-elementor-event-widget__navigation--subnav {
+		display: flex;
+		justify-content: space-between;
+		list-style: none;
+	}
+
+	.tec-events-elementor-event-widget__navigation--next,
+	.tec-events-elementor-event-widget__navigation--previous {
+		a {
+			border-bottom: 0;
+			color: var(--tec-color-accent-primary);
+			text-decoration: underline;
+		}
+
+		a > span {
+			display: none;
+		}
+
+		svg {
+			height: 1.25em;
+			vertical-align: text-top;
+			width: 0.75em;
+
+			> path {
+				fill: currentColor;
+			}
+		}
+	}
+
+	.tec-events-elementor-event-widget__navigation--previous {
+		svg {
+			margin-right: var(--tec-spacer-0);
+		}
+	}
+
+	.tec-events-elementor-event-widget__navigation--next {
+		svg {
+			margin-left: var(--tec-spacer-0);
+		}
+	}
+}

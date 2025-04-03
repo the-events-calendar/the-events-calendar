@@ -1,0 +1,55 @@
+name: 'PHPStan Tests'
+on:
+  pull_request:
+    paths:
+      - '.github/**/*'
+      - '*.php'
+      - 'src/**.php'
+jobs:
+  phpstan:
+    strategy:
+      matrix:
+        phpVersion: [
+            "7.4",
+            # ----------------------------------------
+            # Disabled until we get all of 7.4 passing
+            # "8.0",
+            # "8.1",
+            # "8.2",
+            # "8.3",
+            # ----------------------------------------
+        ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          submodules: recursive
+      # ------------------------------------------------------------------------------
+      # Set up PHP and run phpstan
+      # ------------------------------------------------------------------------------
+      - name: Configure PHP environment to run phpstan
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.phpVersion }}
+      # ------------------------------------------------------------------------------
+      # Override composer php version
+      # ------------------------------------------------------------------------------
+      - name: Set php version ${{ matrix.phpVersion }} in composer
+        run: composer config platform.php ${{ matrix.phpVersion }}
+      # ------------------------------------------------------------------------------
+      # Install dependencies in common - ignoring php requirements
+      # ------------------------------------------------------------------------------
+      - name: Install common dependencies
+        run: cd common &&  composer i --ignore-platform-reqs && cd ../
+      # ------------------------------------------------------------------------------
+      # Install dependencies - ignoring php requirements
+      # ------------------------------------------------------------------------------
+      - name: Install dependencies
+        run: composer i --ignore-platform-reqs
+      # ------------------------------------------------------------------------------
+      # Run phpstan
+      # ------------------------------------------------------------------------------
+      - name: Run phpstan
+        run: ./vendor/bin/phpstan analyse --error-format=table

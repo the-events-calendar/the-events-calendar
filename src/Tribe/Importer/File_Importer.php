@@ -16,9 +16,35 @@ abstract class Tribe__Events__Importer__File_Importer {
 
 	/** @var Tribe__Events__Importer__File_Reader */
 	private $reader   = null;
+
+	/**
+	 * Stores the column names being imported in an indexed array where the indices are the positions of the columns
+	 * in the file being imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var array
+	 */
 	private $map = [];
-	private $type     = '';
-	private $limit    = 100;
+
+	/**
+	 * Stores the post type that is being imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var string
+	 */
+	private $type = '';
+
+	/**
+	 * Stores the batch size that is being processed in one run during an import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var int
+	 */
+	private $limit = 100;
+
 	private $offset   = 0;
 	private $errors = [];
 	private $updated  = 0;
@@ -27,6 +53,15 @@ abstract class Tribe__Events__Importer__File_Importer {
 	protected $log = [];
 
 	protected $skipped = [];
+
+	/**
+	 * Stores the column names being imported in an associative array where the keys are the column names,
+	 * and the values are the positions of the columns in the file being imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @var array
+	 */
 	protected $inverted_map = [];
 
 	public $is_aggregator = false;
@@ -40,10 +75,14 @@ abstract class Tribe__Events__Importer__File_Importer {
 	protected $featured_image_uploader;
 
 	/**
-	 * @param string                         $type
-	 * @param Tribe__Events__Importer__File_Reader $file_reader
+	 * Instantiate the relevant importer class.
 	 *
-	 * @return Tribe__Events__Importer__File_Importer
+	 * @since 3.2.0
+	 *
+	 * @param string                               $type        The post type being imported.
+	 * @param Tribe__Events__Importer__File_Reader $file_reader The file reader.
+	 *
+	 * @return Tribe__Events__Importer__File_Importer The importer instance.
 	 * @throws InvalidArgumentException
 	 */
 	public static function get_importer( $type, Tribe__Events__Importer__File_Reader $file_reader ) {
@@ -61,8 +100,8 @@ abstract class Tribe__Events__Importer__File_Importer {
 				/**
 				 * Allows developers to return an importer instance to use for unsupported import types.
 				 *
-				 * @param bool|mixed An importer instance or `false` if not found or not supported.
-				 * @param Tribe__Events__Importer__File_Reader $file_reader
+				 * @param bool|mixed                           $importer    An importer instance or `false` if not found or not supported.
+				 * @param Tribe__Events__Importer__File_Reader $file_reader The file reader.
 				 */
 				$importer = apply_filters( "tribe_events_import_{$type}_importer", false, $file_reader );
 
@@ -75,7 +114,12 @@ abstract class Tribe__Events__Importer__File_Importer {
 	}
 
 	/**
-	 * @param Tribe__Events__Importer__File_Reader $file_reader
+	 * Constructor.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param Tribe__Events__Importer__File_Reader                  $file_reader             The file reader class.
+	 * @param Tribe__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader The featured image uploader class.
 	 */
 	public function __construct( Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null ) {
 		$this->reader                  = $file_reader;
@@ -83,15 +127,42 @@ abstract class Tribe__Events__Importer__File_Importer {
 		$this->limit                   = apply_filters( 'tribe_aggregator_batch_size', Tribe__Events__Aggregator__Record__Queue_Processor::$batch_size );
 	}
 
+	/**
+	 * Create a map and an inverted map of the columns to be imported.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param array $map_array The array of columns that are being used in the import.
+	 *
+	 * @return void
+	 */
 	public function set_map( array $map_array ) {
 		$this->map          = $map_array;
 		$this->inverted_map = array_flip( $this->map );
 	}
 
+	/**
+	 * Sets the post type of the import.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param string $type The post type being imported.
+	 *
+	 * @return void
+	 */
 	public function set_type( $type ) {
 		$this->type = $type;
 	}
 
+	/**
+	 * Set the batch size for imports.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param int $limit The batch size to be processed in one run. Default is 100.
+	 *
+	 * @return void
+	 */
 	public function set_limit( $limit ) {
 		$this->limit = (int) $limit;
 	}

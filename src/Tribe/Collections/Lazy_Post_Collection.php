@@ -62,7 +62,9 @@ class Lazy_Post_Collection extends Lazy_Collection {
 	protected function before_serialize( array $items ) {
 		return [
 			'callback' => $this->unserialize_callback,
-			'ids'      => wp_list_pluck( $items, 'ID' ),
+			'ids'      => array_map( static function ( $item ): int {
+				return $item instanceof \WP_Post ? $item->ID : (int) $item;
+			}, $items ),
 		];
 	}
 

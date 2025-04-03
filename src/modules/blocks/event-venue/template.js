@@ -3,8 +3,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
-import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
+import { isEmpty, isInteger, get } from 'lodash';
 import classNames from 'classnames';
 
 /**
@@ -29,13 +28,16 @@ import {
 	GoogleMap,
 	EditLink,
 } from '@moderntribe/events/elements';
+import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
 import { utils } from '@moderntribe/events/data/blocks/venue';
-import { google, wpEditor } from '@moderntribe/common/utils/globals';
+import { google, wpEditor, wpHooks } from '@moderntribe/common/utils/globals';
 import './style.pcss';
+
 const { InspectorControls } = wpEditor;
+const { getAddress } = utils;
 
 /**
  * Module Code
@@ -65,8 +67,13 @@ class EventVenue extends Component {
 		onFormSubmit: PropTypes.func,
 		onItemSelect: PropTypes.func,
 		onCreateNew: PropTypes.func,
-		removeVenue: PropTypes.func,
-		editVenue: PropTypes.func,
+		onRemove: PropTypes.func,
+		onEdit: PropTypes.func,
+		volatile: PropTypes.any,
+		name: PropTypes.any,
+		store: PropTypes.any,
+		fields: PropTypes.any,
+		setSubmit: PropTypes.any,
 	};
 
 	constructor( props ) {
@@ -75,19 +82,55 @@ class EventVenue extends Component {
 		/**
 		 * @todo move this into the Store
 		 */
-		this.state = { coords: { lat: null, lng: null } };
+		this.state = { coords: { lat: null, lng: null }, derivedAddressString: '' };
+	}
+
+	componentDidMount() {
+		let { details } = this.props;
+
+		if ( this.hasVenue() ) {
+			details = this.getVenueDetails();
+		}
+
+		const address = addressToMapString( getAddress( details ) );
+		if ( address ) {
+			this.setCoordinatesState( address );
+		}
 	}
 
 	componentDidUpdate( prevProps ) {
 		const { isSelected, edit, create, setSubmit } = this.props;
+		let { details } = this.props;
+
+		if ( this.hasVenue() ) {
+			details = this.getVenueDetails();
+		}
+
 		const unSelected = prevProps.isSelected && ! isSelected;
+		const address = addressToMapString( getAddress( details ) );
+		const { derivedAddressString } = this.state;
+
 		if ( unSelected && ( edit || create ) ) {
 			setSubmit();
+		}
+		// Did we change?
+		if ( derivedAddressString !== address ) {
+			// Get coords if we did.
+			this.setCoordinatesState( address );
 		}
 	}
 
 	renderForm() {
-		const { fields, onFormSubmit } = this.props;
+		const {
+			isSelected,
+			fields,
+			onFormSubmit,
+		} = this.props;
+
+		if ( ! isSelected ) {
+			return null;
+		}
+
 		return (
 			<VenueForm
 				{ ...toFields( fields ) }
@@ -104,24 +147,25 @@ class EventVenue extends Component {
 			isLoading,
 			submit,
 			volatile,
-			editVenue,
+			onEdit,
 		} = this.props;
 
 		const idle = edit || create || isLoading || submit;
-		if ( ! this.hasVenue() || ! isSelected || ! volatile || idle ) {
+		if ( ! isSelected || ! volatile || idle ) {
 			return null;
 		}
 
 		return (
-			<button onClick={ editVenue }>
+			<button onClick={ onEdit }>
 				<Dashicon icon="edit" />
 			</button>
 		);
 	}
 
 	renderDetails = () => {
-		const { showMapLink, details } = this.props;
-		const { getAddress } = utils;
+		const { showMapLink } = this.props;
+
+		const details = this.getVenueDetails();
 
 		return (
 			<VenueDetails
@@ -133,7 +177,7 @@ class EventVenue extends Component {
 				removeVenue={ this.renderRemoveAction() }
 			/>
 		);
-	}
+	};
 
 	renderSearchOrCreate() {
 		// @todo [BTRIA-618]: The store should not be passed through like this as a prop.
@@ -153,38 +197,42 @@ class EventVenue extends Component {
 		);
 	}
 
+	renderLoading = () => (
+		<Placeholder key="loading">
+			<Spinner />
+		</Placeholder>
+	);
+
 	renderContainer() {
-		const { isLoading, edit, create, submit } = this.props;
+		const { isSelected, isLoading, edit, create, submit } = this.props;
 
 		if ( isLoading || submit ) {
-			return (
-				<Placeholder key="loading">
-					<Spinner />
-				</Placeholder>
-			);
+			return this.renderLoading();
 		}
 
-		if ( edit || create ) {
+		if ( isSelected && ( edit || create ) ) {
 			return this.renderForm();
 		}
 
-		return this.hasVenue() ? this.renderDetails() : this.renderSearchOrCreate();
+		if ( ! this.hasVenue() ) {
+			return this.renderSearchOrCreate();
+		}
+
+		return this.renderDetails();
 	}
 
 	renderMap() {
-		const { details, edit, create, isLoading, submit, showMap } = this.props;
+		const { edit, create, isLoading, submit, showMap } = this.props;
+		const details = this.getVenueDetails();
 
 		if ( ! showMap || isEmpty( details ) || edit || create || isLoading || submit ) {
 			return null;
 		}
 
-		const { getAddress } = utils;
-
-		this.getCoordinates( details );
 		const { coords } = this.state;
 		return (
 			<GoogleMap
-				size={ { width: 450, height: 353 } }
+				size={ { width: 450, height: 220 } }
 				coordinates={ coords }
 				address={ addressToMapString( getAddress( details ) ) }
 				interactive={ true }
@@ -199,10 +247,14 @@ class EventVenue extends Component {
 			create,
 			isLoading,
 			submit,
-			removeVenue,
+			onRemove,
 		} = this.props;
 
 		if ( ! this.hasVenue() || ! isSelected || edit || create || isLoading || submit ) {
+			return null;
+		}
+
+		if ( ! this.isAuthoritativeVenue() ) {
 			return null;
 		}
 
@@ -210,7 +262,7 @@ class EventVenue extends Component {
 			<div className="tribe-editor__venue__actions">
 				<button
 					className="tribe-editor__venue__actions--close"
-					onClick={ removeVenue }
+					onClick={ onRemove }
 				>
 					{ __( 'Remove venue', 'the-events-calendar' ) }
 				</button>
@@ -219,6 +271,12 @@ class EventVenue extends Component {
 	}
 
 	renderBlock() {
+		const { isLoading } = this.props;
+
+		if ( isLoading ) {
+			return this.renderLoading();
+		}
+
 		const containerClass = classNames( {
 			'tribe-editor__venue': this.hasVenue(),
 			'tribe-editor__venue--has-map': this.hasVenue() && this.props.showMap,
@@ -253,12 +311,14 @@ class EventVenue extends Component {
 						label={ __( 'Show Google Maps Link', 'the-events-calendar' ) }
 						checked={ showMapLink }
 						onChange={ toggleVenueMapLink }
+						__nextHasNoMarginBottom={ true }
 					/>
 					{ embedMap && (
 						<ToggleControl
 							label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
 							checked={ showMap }
 							onChange={ toggleVenueMap }
+							__nextHasNoMarginBottom={ true }
 						/>
 					) }
 					<EditLink
@@ -275,16 +335,83 @@ class EventVenue extends Component {
 	}
 
 	/**
+	 * Gets the venue details for the block.
+	 *
+	 * @since 6.2.0
+	 * @returns {Object} Venue details.
+	 */
+	getVenueDetails() {
+		const venueId = this.getVenueId();
+
+		if ( ! isInteger( venueId ) ) {
+			return {};
+		}
+
+		const state = this.props.store.getState();
+
+		return get( state, `events.details[${ venueId }].details`, {} );
+	}
+
+	/**
+	 * Gets the venue ID for the block.
+	 *
+	 * @since 6.2.0
+	 * @since 6.3.1 This will now return the value of the `venue` prop.
+	 * @returns {number|null} Venue ID or null.
+	 */
+	getVenueId() {
+		const state = this.props.store.getState();
+		let venueId = this.props.venue;
+
+		/**
+		 * Filters the venue ID to be used for the block.
+		 *
+		 * @since 6.2.0
+		 * @param {number} venueId The venue ID.
+		 * @param {Object} props The block props.
+		 * @param {Object} state The tribe common state.
+		 * @return {number} The venue ID.
+		 */
+		venueId = wpHooks.applyFilters(
+			'tec.events.blocks.tribe_event_venue.getVenueId',
+			venueId,
+			this.props,
+			state,
+		);
+
+		if ( ! isInteger( venueId ) ) {
+			return null;
+		}
+
+		return venueId;
+	}
+
+	/**
 	 * Given how withDetails is currently tightly coupled with the state, this cannot
 	 * be moved to the container. withDetails should be decoupled from state.
 	 *
-	 * @todo  this hasVenue is coupled to the existence of details, not the venue ID.
 	 * @return {boolean}
 	 */
 	hasVenue() {
-		const { details } = this.props;
-		return ! isEmpty( details );
+		const details = this.getVenueDetails();
+
+		return ! isEmpty( details ) && isInteger( this.getVenueId() );
 	}
+
+	/**
+	 * Whether or not the venue block is an authoritative one.
+	 *
+	 * Authoritative means it is a block that is showing the venue that was explicitly selected for it rather
+	 * than a cloned representation of a venue from another block.
+	 *
+	 * @since 6.2.0
+	 * @returns {boolean} Whether the venue is authoritative.
+	 */
+	isAuthoritativeVenue = () => {
+		const { venue } = this.props;
+
+		return isInteger( venue ) && venue === this.getVenueId();
+	};
 
 	/**
 	 * Once withDetails is decoupled from state, this should move to container.
@@ -293,11 +420,11 @@ class EventVenue extends Component {
 	 * @return {void}
 	 */
 	maybeEdit = () => {
-		const { volatile, editVenue } = this.props;
+		const { volatile, onEdit } = this.props;
 		if ( this.hasVenue() && volatile ) {
-			return editVenue;
+			return onEdit;
 		}
-	}
+	};
 
 	/**
 	 * Get the coordinates according to the venue address
@@ -305,30 +432,33 @@ class EventVenue extends Component {
 	 *
 	 * @todo  We need to save the data into Meta Fields to avoid redoing the Geocode
 	 * @todo  Move the Maps into Pro
-	 * @param  {object} details Information to pass along to the geocoder
+	 * @param  {string} address Address string for geocode query.
 	 * @return {void}
 	 */
-	getCoordinates = ( details ) => {
+	setCoordinatesState = ( address ) => {
 		const { maps } = google();
 		const geocoder = new maps.Geocoder();
-		const { getAddress } = utils;
 
-		const address = addressToMapString( getAddress( details ) );
+		// Clear our state?
+		if ( ! address ) {
+			this.setState( { coords: { lat: null, lng: null }, derivedAddressString: '' } );
+			return;
+		}
 
-		/**
-		 * @todo Need to move this out of the template
-		 */
+		// Fetch coords.
 		geocoder.geocode( { address: address }, ( results, status ) => {
 			if ( 'OK' !== status ) {
+				this.setState( ( state ) => ( { ...state, derivedAddressString: address } ) );
 				return;
 			}
 
 			const { location } = results[ 0 ].geometry;
-
-			this.setState( { coords: { lat: location.lat(), lng: location.lng() } } );
-			return;
+			this.setState( {
+				coords: { lat: location.lat(), lng: location.lng() },
+				derivedAddressString: address,
+			} );
 		} );
-	}
+	};
 }
 
 export default EventVenue;

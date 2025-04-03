@@ -27,8 +27,8 @@ class Tribe__Events__Importer__File_Reader {
 		/*
 		 * In PHP 8.0.15 to 8.0.17 or 8.1.2 to 8.1.4 the use of seek() and then key() returns 0 when using the flag SplFileObject::READ_CSV.
 		 * This bug is fixed in PHP 8.0.18 and 8.1.5.
-		 * @see https://github.com/php/php-src/issues/8236 - outlines the issue with seek()
-		 * @see https://github.com/php/php-src/pull/8138 - PR to fix the issue
+		 * @see https://github.com/php/php-src/issues/8236 - outlines the issue with seek().
+		 * @see https://github.com/php/php-src/pull/8138 - PR to fix the issue.
 		 */
 		if ( 0 === $total_lines ) {
 			$total_lines = iterator_count( $this->file );
@@ -108,7 +108,7 @@ class Tribe__Events__Importer__File_Reader {
 	 */
 	public function get_csv_params() {
 		$csv_params = [
-			'delimter'  => ',',
+			'delimiter' => ',',
 			'enclosure' => '"',
 			'escape'    => '\\',
 		];
@@ -116,17 +116,15 @@ class Tribe__Events__Importer__File_Reader {
 		/**
 		 * Set the parameters used for reading and importing CSV files.
 		 *
-		 * @see `SplFileObject::setCsvControl()`
+		 * @see `SplFileObject::setCsvControl()`.
 		 *
 		 * @since 4.6.1
 		 *
-		 * @param array $csv_params (
-		 *      The parameters
-		 *
-		 *      @param string $delimter  The field delimiter (one character only).
-		 *      @param string $enclosure The field enclosure character (one character only).
-		 *      @param string $escape    The field escape character (one character only).
-		 * }
+		 * @param array $csv_params params [
+		 *      string $delimiter  The field delimiter (one character only).
+		 *      string $enclosure The field enclosure character (one character only).
+		 *      string $escape    The field escape character (one character only).
+		 * ]
 		 * @param string $file_path The path to the CSV file
 		 */
 		return apply_filters( 'tribe_events_csv_import_file_parameters', $csv_params, $this->path );
@@ -137,17 +135,16 @@ class Tribe__Events__Importer__File_Reader {
 	 *
 	 * @since 4.6.1
 	 *
-	 * @param array $params (
-	 *      The parameters
+	 * @param array $params [
+	 *      string $delimiter  The field delimiter (one character only).
+	 *      string $enclosure The field enclosure character (one character only).
+	 *      string $escape    The field escape character (one character only).
+	 * ]
 	 *
-	 *      @param string $delimter  The field delimiter (one character only).
-	 *      @param string $enclosure The field enclosure character (one character only).
-	 *      @param string $escape    The field escape character (one character only).
-	 * }
 	 */
 	private function set_csv_params( $params ) {
 		$this->file->setCsvControl(
-			$params['delimter'],
+			$params['delimiter'],
 			$params['enclosure'],
 			$params['escape']
 		);

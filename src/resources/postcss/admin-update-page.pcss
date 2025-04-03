@@ -1,0 +1,242 @@
+/* Update Message page */
+
+body.tribe-update {
+	#wpcontent {
+		padding-left: 0;
+	}
+}
+
+.tribe_update_page {
+	margin: 0;
+	max-width: none;
+
+	.notice {
+		box-sizing: border-box;
+		margin: 0 auto 20px;
+		max-width: 1060px;
+		width: 100%;
+	}
+
+	h1 {
+		display: none;
+	}
+
+	/* This overrides update page styles in common. */
+
+	h4 {
+		&:before {
+			content: none;
+		}
+	}
+
+	.tec-update-page-block {
+		p,
+		a,
+		li {
+			font-size: 16px;
+			line-height: 1.6;
+
+			@media (min-width: 710px) {
+				font-size: 18px;
+			}
+		}
+	}
+
+	img {
+		max-width: 100%;
+	}
+
+	.tribe-events-admin-content-wrapper {
+		margin: 0 auto;
+		width: calc(100% - 48px);
+	}
+
+	.tribe-events-admin-title {
+		align-items: flex-end;
+		display: flex;
+		margin-bottom: 32px;
+	}
+
+	.tribe-events-admin-title__heading-wrapper {
+		flex-grow: 1;
+	}
+
+	.tribe-events-admin-title__sub-heading {
+		margin: 0;
+	}
+
+	.tribe-events-admin-title__heading {
+		margin: 0;
+	}
+
+	.tribe-events-admin-title__link {
+		font-size: 18px;
+		margin-left: 10px;
+	}
+
+	.tec-update-notice__link {
+		font-size: inherit;
+	}
+}
+
+/* Page intro */
+.tec-update-page-intro {
+	margin: 48px auto 64px auto;
+	max-width: 712px;
+
+	h3 {
+		color: #0f1031;
+		font-size: 24px;
+		font-weight: bold;
+		line-height: 27px;
+		margin-bottom: 8px;
+	}
+
+	p {
+		margin-bottom: 40px;
+	}
+}
+
+/* Page content grid */
+.tec-update-page-grid {
+	display: grid;
+	gap: 32px;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto;
+	margin: 32px 0;
+
+	@media (min-width: 710px) {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	@media (min-width: 1217px) {
+		gap: 64px;
+		margin: 50px 0;
+	}
+}
+
+.tec-update-page-grid__item.has-media {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: 500px) and (max-width: 709px) {
+		flex-direction: row;
+	}
+
+	@media (min-width: 710px) and (max-width: 1216px) {
+		flex-direction: column;
+	}
+
+	@media (min-width: 1217px) {
+		flex-direction: row;
+	}
+
+	img {
+		margin-right: 24px;
+	}
+}
+
+.tec-update-page__row {
+	display: flex;
+	gap: 24px;
+}
+
+/* Upgrade message section */
+.tec-update-page-upgrade-notice {
+	display: flex;
+
+	p {
+		margin: 0;
+	}
+
+	img {
+		margin-right: 12px;
+	}
+}
+
+/* Upgrade message section */
+.tec-update-page-callout {
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: 1217px) {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.tribe-events-admin-title__link {
+		margin-left: 0;
+
+		@media (min-width: 1217px) {
+			margin-left: 10px;
+		}
+	}
+}
+
+/* Series details section */
+.tec-update-page-block {
+	margin-bottom: 100px;
+
+	h3 {
+		font-size: 2.3rem;
+		font-weight: bold;
+		line-height: 3rem;
+		margin: 1em 0;
+
+		@media (max-width: 710px) {
+			font-size: 1.6rem;
+		}
+	}
+
+	.tec-update-page-grid:first-of-type {
+		grid-template-columns: 1fr;
+
+		@media (min-width: 1217px) {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		.tec-update-page-grid__item:last-of-type {
+			order: -1;
+
+			@media (min-width: 1217px) {
+				order: 2;
+			}
+		}
+	}
+}
+
+/* Page resources section */
+.tec-update-page-resources {
+	.tec-update-page-grid__item {
+		&:first-of-type {
+			a {
+				margin-right: 12px;
+			}
+		}
+	}
+}
+
+/* utility class for box styles */
+.tec-update-page-box {
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 32px;
+
+	h3 {
+		font-size: 1.5rem;
+		margin-top: 0;
+	}
+}
+
+/* Icons */
+.tec-inline-icon {
+	font-size: 0.8em;
+	height: 1em;
+	width: 1em;
+}

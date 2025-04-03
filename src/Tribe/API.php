@@ -88,6 +88,14 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$args['edit_date'] = true;
 			}
 
+			// Support the additional fields.
+			$custom_fields = tribe_get_option( 'custom-fields', false );
+			if ( ! empty( $custom_fields ) && is_array( $custom_fields ) ) {
+				foreach ( $custom_fields as $field ) {
+					$args[ $field['name'] ] = get_post_meta( $event_id, $field['name'], true );
+				}
+			}
+
 			/**
 			 * Allow hooking prior the update of an event and meta fields.
 			 *
@@ -223,7 +231,7 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				$htmlElement = ltrim( $tag, '_' );
 				if ( isset( $data[ $htmlElement ] ) && $tag != Tribe__Events__Main::EVENTSERROROPT ) {
 					if ( is_string( $data[ $htmlElement ] ) ) {
-						$data[ $htmlElement ] = filter_var( $data[ $htmlElement ], FILTER_SANITIZE_STRING );
+						$data[ $htmlElement ] = tec_sanitize_string( $data[ $htmlElement ] );
 					}
 					// Fields with multiple values per key
 					if ( is_array( $data[ $htmlElement ] ) ) {
@@ -452,13 +460,30 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				return $data;
 			}
 
+			$utc_tz = new DateTimeZone( 'UTC' );
+			$is_utc_offset = Tribe__Events__Timezones::is_utc_offset( $data['EventTimezone'] );
+
 			// Additionally store datetimes in UTC
 			if ( empty( $data['EventStartDateUTC'] ) ) {
-				$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+				if ( $is_utc_offset ) {
+					// Convert a UTC offset timezone to a localized timezone, e.g. UTC-5 to America/New_York.
+					$data['EventStartDateUTC'] = Tribe__Date_Utils::immutable( $data['EventStartDate'], $data['EventTimezone'] )
+					                                              ->setTimezone( $utc_tz )
+					                                              ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+				} else {
+					$data['EventStartDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventStartDate'], $data['EventTimezone'] );
+				}
 			}
 
 			if ( empty( $data['EventEndDateUTC'] ) ) {
-				$data['EventEndDateUTC']   = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+				if ( $is_utc_offset ) {
+					// Convert a UTC offset timezone to a localized timezone, e.g. UTC-5 to America/New_York.
+					$data['EventEndDateUTC'] = Tribe__Date_Utils::immutable( $data['EventEndDate'], $data['EventTimezone'] )
+					                                            ->setTimezone( $utc_tz )
+					                                            ->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+				} else {
+					$data['EventEndDateUTC'] = Tribe__Events__Timezones::to_utc( $data['EventEndDate'], $data['EventTimezone'] );
+				}
 			}
 
 			// sanity check that start date < end date
@@ -768,6 +793,13 @@ if ( ! class_exists( 'Tribe__Events__API' ) ) {
 				if ( is_wp_error( $value ) ) {
 					return $value;
 				}
+			}
+
+			$is_post_editor = ! empty( $args['action'] ) && $args['action'] === 'editpost';
+
+			if ( $is_post_editor ) {
+				$args['EventShowMap']     = ! empty( $args['EventShowMap'] );
+				$args['EventShowMapLink'] = ! empty( $args['EventShowMapLink'] );
 			}
 
 			return $args;

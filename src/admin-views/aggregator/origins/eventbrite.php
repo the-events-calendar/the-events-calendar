@@ -79,7 +79,7 @@ if ( $missing_eventbrite_credentials ) :
 			<select
 				name="aggregator[eventbrite][import_frequency]"
 				id="tribe-ea-field-eventbrite_import_frequency"
-				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large tribe-dependent"
+				class="tribe-ea-field tribe-ea-dropdown tribe-ea-size-large"
 				placeholder="<?php echo esc_attr( $frequency->placeholder ); ?>"
 				data-hide-search
 				data-prevent-clear

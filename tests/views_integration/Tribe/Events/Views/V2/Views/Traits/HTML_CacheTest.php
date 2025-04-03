@@ -23,7 +23,7 @@ class HTML_CacheTest extends \Codeception\TestCase\WPTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->implementation = new class extends View {
-			protected $slug = 'month';
+			protected static $view_slug = 'month';
 
 			use HTML_Cache;
 		};

@@ -1,13 +1,15 @@
 <?php
 /**
- * Widget: Events List Event Venue
+ * Widget: Events List - Event Date Tag.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/widgets/widget-events-list/event/venue.php
+ * [your-theme]/tribe/events/v2/widgets/widget-events-list/event/date-tag.php
  *
  * See more documentation about our views templating system.
  *
  * @link http://evnt.is/1aiy
+ *
+ * @since 6.10.2 Corrected template override file path.
  *
  * @version 5.2.1
  *
@@ -18,13 +20,7 @@
 
 use Tribe__Date_Utils as Dates;
 
-/*
- * If the request date is after the event start date, show the request date to avoid users from seeing dates "in the
- * past" in relation to the date they requested (or today's date).
- */
-$display_date = empty( $is_past ) && ! empty( $request_date )
-	? max( $event->dates->start_display, $request_date )
-	: $event->dates->start_display;
+$display_date    = $event->dates->start_display;
 
 $event_month     = $display_date->format_i18n( 'M' );
 $event_day_num   = $display_date->format_i18n( 'j' );

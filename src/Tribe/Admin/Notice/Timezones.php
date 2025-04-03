@@ -1,13 +1,15 @@
 <?php
+namespace Tribe\Events\Admin\Notice;
+
 use Tribe__Date_Utils as Dates;
-use Tribe__Timezones as Timezones;
+use Tribe__Timezones;
 use Tribe__Events__Timezones as Event_Timezones;
 
 /**
  * Shows an admin notice for Timezones
  * (When using UTC and on TEC Pages or WordPress > General Settings)
  */
-class Tribe__Events__Admin__Notice__Timezones {
+class Timezones {
 
 	/**
 	 * Notice Slug on the user options
@@ -84,7 +86,8 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 * Checks if we are in an TEC page or over
 	 * the WordPress > Settings > General
 	 *
-	 * @since  4.6.17
+	 * @since 4.6.17
+	 * @since 6.9.0 Added filter to allow control over the display of the notice.
 	 *
 	 * @return boolean
 	 */
@@ -104,9 +107,16 @@ class Tribe__Events__Admin__Notice__Timezones {
 			return false;
 		}
 
-		// It should display if we're on a TEC page or
-		// over Settings > General
-		return tribe( 'admin.helpers' )->is_screen() || 'options-general.php' === $pagenow;
+		/**
+		 * Filters whether the UTC Timezone notice should display.
+		 *
+		 *  It should display if we're on a TEC page or over Settings > General
+
+		 * @since 6.9.0
+		 *
+		 * @param bool
+		 */
+		return apply_filters( 'tec_events_admin_notice_utc_timezone_should_display', tribe( 'admin.helpers' )->is_screen() || 'options-general.php' === $pagenow );
 	}
 
 	/**
@@ -117,7 +127,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 	 * @return boolean
 	 */
 	public function is_utc_timezone( $event = 0 ) {
-		$timezone = Timezones::wp_timezone_string();
+		$timezone = Tribe__Timezones::wp_timezone_string();
 		if ( $event ) {
 			$timezone = Event_Timezones::get_event_timezone_string( $event );
 		}
@@ -140,7 +150,7 @@ class Tribe__Events__Admin__Notice__Timezones {
 		}
 
 		$text = [];
-		$current_utc = Timezones::wp_timezone_string();
+		$current_utc = Tribe__Timezones::wp_timezone_string();
 
 		$url = 'http://evnt.is/1ad3';
 		$link = sprintf(
@@ -153,6 +163,5 @@ class Tribe__Events__Admin__Notice__Timezones {
 		$text[] = __( 'Choosing a UTC timezone for your site or individual events may cause problems when importing events or with Daylight Saving Time. %1$s', 'the-events-calendar' );
 
 		return sprintf( implode( '<br />', $text ), $link, $current_utc );
-
 	}
 }

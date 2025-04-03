@@ -17,6 +17,8 @@ use Tribe\Events\Views\V2\iCalendar\Links\Outlook_365;
 use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Export;
 use Tribe\Events\Views\V2\iCalendar\Links\Outlook_Live;
 use Tribe\Events\Views\V2\View;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class iCalendar_Handler
@@ -25,7 +27,8 @@ use Tribe\Events\Views\V2\View;
  *
  * @package Tribe\Events\Views\V2\iCalendar
  */
-class iCalendar_Handler extends \tad_DI52_ServiceProvider {
+class iCalendar_Handler extends Service_Provider {
+
 	/**
 	 * Which classes we will load for links by default.
 	 *
@@ -80,6 +83,7 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 	 */
 	public function register_hooks() {
 		add_action( 'tribe_events_views_v2_before_make_view', [ $this, 'get_feeds' ] );
+		add_action( 'send_headers', [ $this, 'ical_header_properties' ] );
 
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_template_vars' ], 10, 2 );
 		add_filter( 'tribe_events_ical_single_event_links', [ $this, 'single_event_links' ], 20 );
@@ -227,5 +231,29 @@ class iCalendar_Handler extends \tad_DI52_ServiceProvider {
 		$content .= "X-PUBLISHED-TTL:PT1H\r\n";
 
 		return $content;
+	}
+
+	/**
+	 * Add x-robots tag to response headers for ical download links.
+	 *
+	 * @since 6.2.6
+	 */
+	public function ical_header_properties() {
+		/**
+		 * Allows short-circuiting the logic to prevent the x-robots tag from being added to the response headers.
+		 *
+		 * @param bool $add If the x-robots tag should be added to the response headers.
+		 */
+		$add = (bool) apply_filters( 'tec_events_ical_header_noindex', true );
+
+		if ( ! $add ) {
+			return;
+		}
+
+		if ( ! tribe_get_request_var( 'ical' ) && ! tribe_get_request_var( 'outlook-ical' ) ) {
+			return;
+		}
+
+		header( 'X-Robots-Tag:noindex, nofollow' );
 	}
 }

@@ -37,7 +37,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 	const meta = { setAttributes: ownProps.setAttributes };
 
 	return {
-		onSelectDay: ( { from, to } ) => (
+		onSelect: ( { from, to } ) => (
 			dispatch( dateTimeActions.setDateRange( { from, to }, meta ) )
 		),
 		onStartTimePickerBlur: ( e ) => {

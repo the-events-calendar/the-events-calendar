@@ -22,8 +22,13 @@ if ( ! $organizer ) {
 $phone   = tribe_get_organizer_phone( $organizer );
 $website = tribe_get_organizer_website_link( $organizer );
 $email   = tribe_get_organizer_email( $organizer );
+
+$default_classes = [ 'tribe-block', 'tribe-block__organizer__details', 'tribe-clearfix' ];
+
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div class="tribe-block tribe-block__organizer__details tribe-clearfix">
+<div <?php tribe_classes( $classes ); ?>>
 	<div class="tribe-block__organizer__title">
 		<h3><?php echo tribe_get_organizer_link( $organizer ); ?></h3>
 	</div>
