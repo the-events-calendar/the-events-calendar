@@ -85,7 +85,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
-    "@babel/runtime": "^7.15.3",
+    "@babel/runtime": "^7.26.10",
     "@moderntribe/common": "file:common/src/modules",
     "@moderntribe/events": "file:src/modules",
     "@nfen/redux-reducer-injector": "0.0.3",
