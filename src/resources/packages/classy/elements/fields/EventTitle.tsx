@@ -26,7 +26,7 @@ export function EventTitle( props: EventTitleProps ) {
 
 			<div className="classy-field__inputs">
 				<InputControl
-					className="classy-field__input"
+					className="classy-field__control classy-field__control--input"
 					__next40pxDefaultSize
 					value={ value }
 					onChange={ onChange }

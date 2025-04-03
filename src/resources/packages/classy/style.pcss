@@ -1,108 +1,155 @@
-:root{
-	--classy-border-color: #949494;
-	--classy-background-color: #fff;
+:root {
+	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
+	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
 }
 
 .block-editor__container {
-    .editor-header {
-        /* Hide the preview button */
+	.editor-header {
+		/* Hide the preview button */
 
-        .editor-preview-dropdown {
-            display: none;
-        }
+		.editor-preview-dropdown {
+			display: none;
+		}
 
-        /* The Zoom Out button is hidden using its label in the JS code. */
-    }
+		/* The Zoom Out button is hidden using its label in the JS code. */
+	}
 
-    .editor-visual-editor {
-        min-height: 0;
+	.editor-visual-editor {
+		min-height: 0;
 
-        &.tec-is-visible {
-            min-height: 100%;
-            display: block;
-        }
-    }
+		&.tec-is-visible {
+			min-height: 100%;
+			display: block;
+		}
+	}
 
-    .tec-editor-tool {
-        display: flex;
-        align-items: center;
+	.tec-editor-tool {
+		display: flex;
+		align-items: center;
 
-        .dashicons {
-            margin-right: 6px;
-        }
-    }
+		.dashicons {
+			margin-right: 6px;
+		}
+	}
 }
 
 .classy-root {
-    /* By default the root will cover the Block Editor by forcing it to a height of 0 */
-    //background-color: aliceblue;
-    height: 100%;
-    opacity: 1;
-    transition: opacity .75s ease, height .35s ease;
+	/* By default the root will cover the Block Editor by forcing it to a height of 0 */
+	//background-color: aliceblue;
+	height: 100%;
+	opacity: 1;
+	transition: opacity .75s ease, height .35s ease;
 
-    &.classy-root--hidden {
-        opacity: 0;
-        height: 0;
-        transition: opacity .35s ease, height .75s ease;
-    }
+	&.classy-root--hidden {
+		opacity: 0;
+		height: 0;
+		transition: opacity .35s ease, height .75s ease;
+	}
 
-    .classy-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        margin: 0 auto;
-        gap: var(--tec-spacer-8);
-        padding: var(--tec-spacer-9) 120px 106px 120px;
-        flex: 1 0 0;
-        align-self: stretch;
-    }
+	.classy-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		margin: 0 auto;
+		gap: var(--tec-spacer-8);
+		padding: var(--tec-spacer-9) 120px 106px 120px;
+		flex: 1 0 0;
+		align-self: stretch;
+	}
 
-    .classy-field {
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: var(--tec-spacer-2);
-        flex: 1 0 0;
-    }
+	.classy-field {
+		display: flex;
+		width: 100%;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		gap: var(--tec-spacer-2);
+		flex: 1 0 0;
+	}
 
-    .classy-field__title, .classy-field__input-title {
-        h2, h3, h4 {
-            margin: 0;
-        }
+	.classy-field__title, .classy-field__input-title {
+		h2, h3, h4 {
+			margin: 0;
+		}
 
-        h3 {
-            font-size: var(--tec-font-size-5);
-        }
-    }
+		h3 {
+			font-size: var(--tec-font-size-5);
+			font-weight: var(--tec-font-weight-regular);
+		}
+	}
 
-    .classy-field__inputs {
-        align-self: stretch;
+	.classy-field__inputs {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		gap: var(--tec-spacer-5);
 
 		/* Apply padding and border only if there is more than one input. */
+
 		&:has(> *:nth-child(2)) {
 			padding: var(--tec-spacer-5) var(--tec-spacer-3);
-			border: 1px solid var(--wp-components-color-gray-600, var(--classy-border-color));
+			border: 1px solid var(--tec-color-gutenberg-grey-600);
 		}
-    }
+	}
 
-    .classy-field__input-title {
-        font-size: var(--tec-font-size-1);
-        text-transform: uppercase;
-		margin: 0;
-		margin-bottom: var(--tec-spacer-1);
-    }
 
-    .classy-field__input{
-        background: var(--wp-components-color-background, var(--classy-background-color));
+	.classy-field__input {
+		display: flex;
+		flex-direction: column;
+		gap: var(--tec-spacer-2);
+		background: var(--tec-color-gutenberg-white);
 
-        &.classy-field__input--rich-text{
+		.classy-field__input-title {
+			font-size: var(--tec-font-size-2);
+			font-weight: var(--tec-font-weight-regular);
+			margin: 0;
+		}
+
+		.classy-field__input-note{
+			color: var(--tec-color-gutenberg-grey-600);
+			font-size: var(--classy-font-size-13);
+			font-weight: var(--tec-font-weight-regular);
+		}
+	}
+
+	.classy-field__control {
+		/* @todo This is not being respected by controller inputs */
+		font-size: var(--classy-font-size-15);
+
+		&.classy-field__control--input{
+			input.components-input-control__input{
+				font-size: var(--classy-font-size-15);
+			}
+		}
+
+		&.classy-field__control--rich-text {
 			border-radius: 2px;
-			border: 1px solid var(--wp-components-color-gray-600, var(--classy-border-color));
-            padding: var(--tec-spacer-2);
-        }
-    }
+			border: 1px solid var(--tec-color-gutenberg-grey-600);
+			padding: var(--tec-spacer-2);
+			font-size: var(--classy-font-size-15);
+			margin: 0;
+		}
+
+		&.classy-field__control--featured-image {
+			.editor-post-featured-image__toggle {
+				width: 192px;
+				height: 108px;
+				/* This hides the button label to align with design without compromising accessibility. */
+				font-size: 0;
+				background-image: url("../../icons/camera.svg");
+				background-repeat: no-repeat;
+				background-position: center;
+				border: 1px solid var(--tec-color-gutenberg-grey-600);
+			}
+
+			.editor-post-featured-image__actions{
+				box-sizing: border-box;
+				.editor-post-featured-image__action{
+					flex-grow: 1;
+				}
+			}
+		}
+	}
 }

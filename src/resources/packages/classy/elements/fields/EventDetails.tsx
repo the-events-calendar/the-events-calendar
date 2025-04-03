@@ -1,11 +1,12 @@
 import { _x } from '@wordpress/i18n';
 import { EventDetailsProps } from '../../types/FieldProps';
-import { RichText } from '@wordpress/block-editor';
+import { RichText} from '@wordpress/block-editor';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { usePostEdits } from '../../hooks';
 import { UsePostEditsReturn } from '../../types/UsePostEditsReturn';
 import { useEffect, useState } from 'react';
 import { METADATA_EVENT_URL } from '../../constants';
+import { PostFeaturedImage } from '@wordpress/editor';
 
 export function EventDetails( props: EventDetailsProps ) {
 	const { postContent, meta, editPost } =
@@ -36,6 +37,8 @@ export function EventDetails( props: EventDetailsProps ) {
 		editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
 	};
 
+	console.log('hello from classy');
+
 	return (
 		<div className="classy-field classy-field--event-details">
 			<div className="classy-field__title">
@@ -43,48 +46,75 @@ export function EventDetails( props: EventDetailsProps ) {
 			</div>
 
 			<div className="classy-field__inputs">
-				<div className="classy-field__input-title">
-					<h4>
-						{ _x(
-							'Description',
-							'Event details description input title',
+				<div className="classy-field__input">
+					<div className="classy-field__input-title">
+						<h4>
+							{ _x(
+								'Description',
+								'Event details description input title',
+								'the-events-calendar'
+							) }
+						</h4>
+					</div>
+
+					<RichText
+						className="classy-field__control classy-field__control--rich-text"
+						tagName="p"
+						value={ description }
+						inlineToolbar={ true }
+						allowedFormats={ [ 'core/bold', 'core/italic' ] }
+						onChange={ onDescriptionChange }
+						placeholder={ _x(
+							'Describe your event',
+							'Event description placeholder text',
 							'the-events-calendar'
 						) }
-					</h4>
+					></RichText>
 				</div>
 
-				<RichText
-					className="classy-field__input classy-field__input--rich-text"
-					tagName="p"
-					value={ description }
-					allowedFormats={ [ 'core/bold', 'core/italic' ] }
-					onChange={ onDescriptionChange }
-					placeholder={ _x(
-						'Describe your event',
-						'Event description placeholder text',
-						'the-events-calendar'
-					) }
-				></RichText>
+				<div className="classy-field__input">
+					<div className="classy-field__input-title">
+						<h4>
+							{ _x(
+								'Featured Image',
+								'Event details featured image input title',
+								'the-events-calendar'
+							) }
+						</h4>
+					</div>
 
-				{ /* add the featured image here */ }
+					<div className="classy-field__control classy-field__control--featured-image">
+						<PostFeaturedImage />
+					</div>
 
-				<div className="classy-field__input-title">
-					<h4>
+					<div className="classy-field__input-note">
 						{ _x(
-							'Event website',
-							'Event details website URL input title',
+							'We recommend a 16:9 aspect ratio for featured images.',
+							'Event details featured image input note',
 							'the-events-calendar'
 						) }
-					</h4>
+					</div>
 				</div>
 
-				<InputControl
-					className="classy-field__input"
-					__next40pxDefaultSize
-					value={ eventUrlValue }
-					onChange={ onUrlChange }
-					placeholder="www.example.com"
-				/>
+				<div className="classy-field__input">
+					<div className="classy-field__input-title">
+						<h4>
+							{ _x(
+								'Event website',
+								'Event details website URL input title',
+								'the-events-calendar'
+							) }
+						</h4>
+					</div>
+
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						__next40pxDefaultSize
+						value={ eventUrlValue }
+						onChange={ onUrlChange }
+						placeholder="www.example.com"
+					/>
+				</div>
 			</div>
 		</div>
 	);
