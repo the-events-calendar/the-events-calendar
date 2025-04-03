@@ -68,6 +68,8 @@ class Controller extends Controller_Contract {
 		$this->add_hooks();
 
 		$this->register_assets();
+
+		Settings::init_settings();
 	}
 
 	/**

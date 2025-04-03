@@ -52,22 +52,17 @@ class Settings {
 	}
 
 	/**
-	 * Check if the QR code is enabled.
+	 * Initialize the QR Settings.
 	 *
 	 * @since TBD
-	 * @return bool
+	 * @return void
 	 */
-	public function is_enabled(): bool {
+	public static function init_settings(): void {
 		$options = static::get_option_slugs();
-		$enabled = tribe_is_truthy( tribe_get_option( $options['enabled'], true ) );
 
-		/**
-		 * Filters the QR enabled value.
-		 *
-		 * @since TBD
-		 *
-		 * @param bool $enabled The bool that comes from the options.
-		 */
-		return (bool) apply_filters( 'tec_events_qr_code_enabled', $enabled );
+		// If the option never existed, we initialize it to true.
+		if ( 'not-set' === tribe_get_option( $options['enabled'], 'not-set' ) ) {
+			tribe_update_option( $options['enabled'], true );
+		}
 	}
 }
