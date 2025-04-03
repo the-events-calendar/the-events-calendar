@@ -372,7 +372,7 @@ function tribe_display_the_event_meta() {
 }
 
 /**
- *  Simple diplay of meta group tag
+ *  Simple display of meta group tag
  *
  * @uses tribe_get_meta_group()
  * @deprecated 4.3
@@ -388,7 +388,7 @@ function tribe_display_meta_group( $meta_group_id ) {
 }
 
 /**
- *  Simple diplay of meta tag
+ *  Simple display of meta tag
  *
  * @uses tribe_get_meta()
  * @deprecated 4.3

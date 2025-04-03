@@ -288,21 +288,26 @@ if ( ! function_exists( 'tribe_is_ajax_view_request' ) ) {
 }
 
 /**
- * Event Type Test
+ * Checks if a given post ID or object is an Event post type.
  *
- * Checks type of $postId to determine if it is an Event
+ * This function tests whether the provided post ID or object corresponds to an Event.
  *
- * @param int|WP_Post The event/post id or object. (optional)
+ * @since 2.0.1
  *
- * @return bool true if this post is an Event post type
+ * @param int|WP_Post|null $postId Optional. The event/post ID or object. Default null.
+ *
+ * @return bool True if the post is of type 'Event', false otherwise.
+ *
  * @category Events
  */
 function tribe_is_event( $postId = null ) {
 	/**
-	 * Filter: 'tribe_is_event'.
+	 * Filters whether a post is an Event post type.
 	 *
-	 * @param bool $is_event
-	 * @param int|WP_Post $postId The event/post id or object. (optional)
+	 * @since 3.0
+	 *
+	 * @param bool             $is_event Whether the post is an Event.
+	 * @param int|WP_Post|null $postId   The event/post ID or object
 	 */
 	return apply_filters( 'tribe_is_event', Tribe__Events__Main::instance()->isEvent( $postId ), $postId );
 }
@@ -1129,19 +1134,19 @@ function tribe_event_in_category( $event_cat_slug, $event_id = null ) {
 }
 
 /**
- * Return the featured image for an event (within the loop automatically will get event ID).
+ * Return the featured image for an event. (Within the loop it will automatically get event ID).
  *
- * Where possible, the image will be returned as a well formed <img> tag contained in a link
- * element and wrapped in a div used for targetting featured images from stylesheet. By setting
+ * Where possible, the image will be returned as a well-formed <img> tag contained in a link
+ * element and wrapped in a div used for targeting featured images from a stylesheet. By setting
  * the two final and optional parameters to false, however, it is possible to retrieve only
  * the image URL itself.
  *
- * @param int    $post_id
- * @param string $size
- * @param bool   $link
- * @param bool   $wrapper
+ * @param int    $post_id The post ID of the event.
+ * @param string $size    The size of the featured image.
+ * @param bool   $link    Whether the featured image should be wrapped in a link.
+ * @param bool   $wrapper Whether to wrap the featured image in our standard div.
  *
- * @return string
+ * @return string The featured image HTML.
  * @category Events
  *
  */
@@ -1153,8 +1158,8 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
 	/**
 	 * Provides an opportunity to modify the featured image size.
 	 *
-	 * @param string $size
-	 * @param int    $post_id
+	 * @param string $size    The size of the featured image.
+	 * @param int    $post_id The post ID of the event.
 	 */
 	$size = apply_filters( 'tribe_event_featured_image_size', $size, $post_id );
 
@@ -1189,9 +1194,9 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
 	/**
 	 * Provides an opportunity to modify the featured image HTML.
 	 *
-	 * @param string $featured_image
-	 * @param int    $post_id
-	 * @param string $size
+	 * @param string $featured_image The featured image HTML.
+	 * @param int    $post_id        The post ID of the event.
+	 * @param string $size           The size of the featured image.
 	 */
 	return apply_filters( 'tribe_event_featured_image', $featured_image, $post_id, $size );
 }
@@ -1258,8 +1263,8 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 		$date_without_year_format = tribe_get_date_format();
 		$date_with_year_format    = tribe_get_date_format( true );
 		$time_format              = get_option( 'time_format' );
-		$datetime_separator       = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$datetime_separator       = tec_events_get_date_time_separator();
+		$time_range_separator     = tec_events_get_time_range_separator();
 
 		$settings = [
 			'show_end_time' => true,
@@ -1277,7 +1282,8 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 		 */
 		extract( $settings );
 
-		$format = $date_with_year_format;
+		$show_end_time ??= true;
+		$format          = $date_with_year_format;
 
 		/**
 		 * If a yearless date format should be preferred.
@@ -1417,7 +1423,7 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
 				$inner .= tribe_get_start_date( $event, false, $time_format );
 			} else {
 				// Different start/end time.
-				$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+				$time_range_separator = tec_events_get_time_range_separator();
 
 				$inner .= tribe_get_start_date( $event, false, $time_format );
 				$inner .= $html ? '</span>' : '';
@@ -1495,7 +1501,7 @@ function tec_events_get_current_view() {
 	 *
 	 * @since  6.0.0
 	 *
-	 * @pararm null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
+	 * @param null|\Tribe\Events\Views\V2\View_Interface $view Which view instance we are currently rendering.
 	 */
 	return apply_filters( 'tec_events_get_current_view', null );
 }

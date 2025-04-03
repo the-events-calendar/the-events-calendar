@@ -1,11 +1,11 @@
 === The Events Calendar ===
 
-Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell, juanfra
+Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Requires at least: 6.3
-Stable tag: 6.5.1.3
-Tested up to: 6.5.3
+Stable tag: 6.11.0.1
+Requires at least: 6.5
+Tested up to: 6.7.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -90,14 +90,10 @@ Our Premium Plugins and Services:
 ⚡ [Events Calendar PRO](https://evnt.is/18wi)
 ↪️ [Event Aggregator](https://evnt.is/197u) (service)
 🎟️ [Event Tickets Plus](https://evnt.is/18wk)
-📱 [Event Tickets Wallet Plus](https://evnt.is/etwp)
 ✉️ [Promoter](https://evnt.is/1ajt)
 👥 [Community Events](https://evnt.is/2g)
-🎟️ [Community Tickets](https://evnt.is/18wl)
 ✏️ [Filter Bar](https://evnt.is/fa)
 🗓️ [Eventbrite Tickets](https://evnt.is/2e)
-📡 [Virtual Events](https://evnt.is/1aky)
-🔄 [Event Automator](https://evnt.is/1bdk)
 
 == Help ==
 
@@ -178,13 +174,10 @@ The following add-ons are available for The Events Calendar:
 
 * [Events Calendar Pro](https://evnt.is/18wi), for adding premium calendar features like recurring events, advanced views, cool widgets, [shortcodes](https://evnt.is/1ajw), additional fields, and more!
 * [Event Aggregator](https://evnt.is/197u), a service that effortlessly fills your calendar with events from Meetup, Google Calendar, iCalendar, Eventbrite, CSV, and ICS.
-* [Virtual Events](https://evnt.is/1aky), which optimizes your calendar for virtual events including Zoom integration, video and livestream embeds, SEO optimization for online events and more.
 * [Event Tickets](https://wordpress.org/plugins/event-tickets/) (free), which allows you to sell tickets and collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds ticket and RSVP functionality to WordPress posts and pages.
 * [Event Tickets Plus](https://evnt.is/18wk), which allows you to sell tickets for your events using your favorite e-commerce platform.
-* [Event Tickets Wallet Plus](https://evnt.is/etwp), for adding digital tickets like Apple Wallet passes and PDF tickets.
 * [Promoter](https://evnt.is/1ajt), automated email communication made just for The Events Calendar and Event Tickets. Stay in touch with your attendees every step of the way.
 * [Community Events](https://evnt.is/2g), for allowing frontend event submission from your readers.
-* [Community Tickets](https://evnt.is/18wl), which allows event organizers to sell tickets to the events they submit via Community Events.
 * [Filter Bar](https://evnt.is/fa), for adding advanced frontend filtering capabilities to your events calendar.
 * [Eventbrite Tickets](https://evnt.is/2e), for selling tickets to your event directly through Eventbrite.
 
@@ -214,6 +207,13 @@ The Events Calendar is our cornerstone plugin, and it’s required in order to r
 
 In other words, Events Calendar Pro runs alongside The Events Calendar and enhances it with extra features, including recurring events and event Series, additional calendar views, calendar shortcodes, advanced widgets, custom event fields, a duplicate event tool, and more.
 
+= Found a security vulnerability? =
+
+Make sure you are reporting in a safe and responsible way. We take security very seriously. If you discover a security issue, please bring it to our attention right away! Below you will find all the methods to report security vulnerabilities:
+
+* [Report security bugs through the Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/vdp/the-events-calendar)
+* Check our [Bug Bounty Program](https://www.liquidweb.com/policies/bug-bounty-program/)
+* Reach out directly to us on `security [at] stellarwp.com`.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
@@ -232,34 +232,301 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.11.0.1] 2025-04-01 =
+
+* Fix - Ensures `get_current_screen()` function is only called if it exists, avoiding fatal error if called too early. [TEC-5439]
+
+= [6.11.0] 2025-03-31 =
+
+* Feature - Added External Calendar Embeds functionality. [TEC-5359]
+* Tweak - Add auto-width to Subscribe to Calendar button to accommodate translations. Props to @huubl [TEC-5430]
+* Tweak - Adjust CSS to make sure that onboarding wizard form elements are properly aligned on all WordPress versions. [TEC-5402]
+* Tweak - Adjusted vertical spacing in the onboarding wizard to better fit the content on the screen. [TEC-5402]
+* Tweak - Changed some organizer and venue fields in the onboarding wizard to not be required. [TEC-5408]
+* Tweak - Make sure the Setup Guide page shows up only when asked for. [TEC-5411]
+* Fix - Add check for single venue and single organizer to the Template_Bootstrap class. Use those checks for SEO titles and enable SEO plugins to overwrite their respective titles. [ECP-1059]
+* Fix - Add notice that at least one view is required for Onboarding Wizard display tab. [TEC-5398]
+* Fix - Add one time redirect to the Guided Setup page. [TEC-5401]
+* Fix - Adjusted logic for when to reset isSaving state for Onboarding Wizard. [TEC-5409]
+* Language - 49 new strings added, 158 updated, 0 fuzzied, and 2 obsoleted.
+
+= [6.10.3] 2025-03-25 =
+
+* Fix - Improved user experience by ensuring Event Tickets installation and activation notices only appear on TEC-related admin pages.
+* Language - 0 new strings added, 5 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.10.2] 2025-03-04 =
+
+* Feature - Use the filter hook in TCMN to define the pages to show IAN notifications [ET-2294]
+* Tweak - Added actions: `tec_events_before_view_html_cache`
+* Tweak - Added check that `$_FILES` is set before setting the param on an HTTP request. [TEC-5363]
+* Tweak - Added filters: `tec_events_filter_wp_robots_meta_directives`
+* Tweak - Added link to Events Calendar Pro in onboarding wizard. [TEC-5397]
+* Tweak - Changed views: `v2/month/top-bar/datepicker`, `v2/widgets/widget-events-list/event/date-tag`
+* Tweak - Removed filters: `tec_events_seo_robots_meta_content`, `tec_events_no_index_meta`
+* Tweak - Update docblocks in the `Tribe__Events__iCal` class.
+* Fix - Corrected template override file path for Event List Widget date-tag. [ECP-1725]
+* Fix - Fix past events shortcode attribute [TEC-5348]
+* Fix - Fix the time zone blocks in the iCal feed to make sure the iCal feed is valid and the calendar can be subscribed to. [TEC-5360]
+* Fix - Hide Not-Found notice in Astra Theme archive page [TEC-4853]
+* Fix - Hook the noindex directives into a new hook before the View HTML cache check. [TEC-5354]
+* Compatibility - Added 404 handling for day view when disabled or accessed outside the range of earliest and latest events, with an exception for the current month when no events exist. [TEC-5356]
+* Compatibility - Added 404 handling for month view when disabled or accessed outside the range of earliest and latest events, with an exception for the current month when no events exist. [TEC-5356]
+* Compatibility - Switched to using WordPress wp_robots for improved SEO plugin compatibility and to prevent duplicate meta robots tags. [TEC-5355]
+* Language - 0 new strings added, 129 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.10.1.1] 2025-02-12 =
+
+* Fix - Updated common library to correct issues with notifications around licensing.
+* Fix - Add a callback to remove the `tribe_pue_key_notices` once on upgrade to version 6.5.1.1 [TEC-5384]
+* Fix - Adjustments were made to prevent a fatal error when tec_pue_checker_init was triggered too early, attempting to call tribe_is_truthy() before it was available. The license check and active plugin monitoring now run on admin_init to ensure proper loading. [TEC-5384]
+* Fix - Update the license checker to ignore empty licenses. [TEC-5385]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.10.1] 2025-02-10 =
+
+* Fix - Added a check for `$subscribe_links` in `single_event_links` function. [TEC-5357]
+* Fix - Added `format_item()` function so venues read from ORM are decorated objects. (props to @m8nmueller) [TEC-5353]
+* Fix - Make Eventbrite import available when the Eventbrite Tickets plugin is installed [EBT-149]
+* Fix - Replaced deprecated functions with their modern equivalents to maintain compatibility. [EA-476]
+* Fix - Support Additional Fields in Events REST API [TEC-5015]
+* Fix - Changed the way translations are loaded to work with the latest WordPress language changes.
+* Accessibility - Increased pagination button sizes on the events page. [TEC-5176]
+* Tweak - Added aliases for Venue ORM for `show_map` and `show_map_link`. (props to @m8nmueller) [TEC-5352]
+* Tweak - Remove class_exists() and use register_on_action() for Notifications [TEC-5336]
+* Tweak - Added filters: `tribe_repository_venues_format_item`
+* Language - 0 new strings added, 8 updated, 1 fuzzied, and 0 obsoleted.
+
+= [6.10.0] 2025-01-30 =
+
+* Fix - Update asset, dependencies, customizations to align with WordPress 6.7 and React 18. [TEC-5322]
+* Language - 0 new strings added, 44 updated, 0 fuzzied, and 1 obsoleted.
+
+= [6.9.1] 2025-01-22 =
+
+* Security - Ensure Elementor HTML tags are properly escaped to avoid potential Stored Cross Site Scripting. [SVUL-13]
+* Fix - Added check to `disable_blocks_on_display` for if `$content` is `null`. [TEC-5343]
+* Fix - Ensure Aggregator translations are not loaded before init. [TEC-5341]
+* Fix - Fixes edge cases where the nonce_user_logged_out hook was returning a value when the user was logged out, causing the nonce validation to fail. [TEC-5340]
+* Fix - Fix the filter name `tec_views_v2_subscribe_links_{$slug}_label` which was accidentally changed in a previous release. [TEC-5342]
+* Fix - Re-add logic to add page template options from theme to Display Settings. [TEC-5337]
+* Fix - Update Tribe__Events__Aggregator__Errors to ensure we don't load translations before `init`. [TEC-5341]
+* Fix - Update uses of unload_textdomain to ensure they allow JIT loading of translations afterwards. [TEC-5341]
+* Tweak - Moved Action Scheduler loading into Common instead of TEC. [TEC-5345]
+* Tweak - Updated Telemetry heading under Settings > Debugging. [TEC-5335]
+* Tweak - Re-added filter: `tec_views_v2_subscribe_links_{$slug}_label`
+* Tweak - Tweak - Removed duplicate filter: `tec_views_v2_single_subscribe_links_{$slug}_label`
+* Tweak - Changed views: `integrations/elementor/widgets/event-calendar-link`, `integrations/elementor/widgets/event-datetime/range-separator`, `v2/components/loader`, `v2/components/messages`
+* Accessibility - Updated the event search page to handle search results better for screen readers, with alerts noting the results of the search.[TEC-5175]
+* Language - 3 new strings added, 84 updated, 0 fuzzied, and 2 obsoleted.
+
+= [6.9.0] 2024-12-17 =
+
+* Feature - Added new Onboarding Wizard and First Time Setup admin page for new installs. [TEC-5285]
+* Fix - When importing events from Google Calendar when using Events Calendar Pro with a custom Google Maps API key, Provinces/States for non-US countries are now saved to the correct field. [ECP-1877]
+* Fix - When using "Move to trash events older than", trashed imported events are now ignored. [TEC-5319]
+* Fix - Changed `format` method to `format_i18n` to allow for translations of dates in the TEC Elementor Widget. [TEC-5323]
+* Fix - Correct template override path to match docblocks for `event-export` directory. [TEC-5326]
+* Fix - Correct application of upsell classes in settings page.
+* Tweak - Fix the integration with TEC Tweaks to avoid a fatal error when using the extension. [TEC-5316]
+* Tweak - Updated the docblock for the `tribe_get_previous_events_link`, `tribe_get_next_event_link`, and `tribe_get_gridview_link` functions.
+* Tweak - Improved documentation for the `tribe_the_next_event_link`, `tribe_the_prev_event_link`, and `tribe_get_events_link` functions.
+* Tweak - Update docblocks in the `Tribe__Events__Importer__File_Importer_Events` class.
+* Tweak - Added filters: `tec_events_onboarding_wizard_permissions`, `tec_events_onboarding_wizard_handle`, `tec_events_onboarding_wizard_country_list`, `tec_events_onboarding_wizard_timezone_list`, `tec_events_onboarding_wizard_currencies_list`, `tribe_events_onboarding_wizard_initial_data`, `tec_events_admin_notice_event_tickets_should_display`, `tec_events_admin_notice_utc_timezone_should_display`, `tec_events_settings_should_filter_page_logo_source`
+* Tweak - Changed views: `integrations/elementor/widgets/event-export`, `integrations/elementor/widgets/event-export/list-item`
+* Language - 87 new strings added, 156 updated, 2 fuzzied, and 0 obsoleted.
+
+= [6.8.3] 2024-12-05 =
+
+* Feature - In-App Notifications system. [TEC-5165]
+* Tweak - Added actions: `tec_ian_icon`
+* Language - 0 new strings added, 118 updated, 0 fuzzied, and 1 obsoleted.
+
+= [6.8.2.1] 2024-11-21 =
+
+* Tweak - Introduced filter `tec_events_rest_api_password_protected_fields` which can be used to control which event fields should be hidden in the REST API for password protected events. [SVUL-8]
+* Security - Hide content fields from the archive REST endpoint for password protected events. [SVUL-8]
+* Fix - Prevent notices on `_load_textdomain_just_in_time` due to Aggregator and Export links code.
+
+= [6.8.2] 2024-11-19 =
+
+* Feature - Introduced Help Hub, a centralized support and resource interface for enhanced user guidance and plugin assistance.
+* Fix - Prevent a couple of instances where translations were loading too early, avoids notices with `_load_textdomain_just_in_time` on WordPress 6.7. [TEC-5325]
+* Deprecated - Deprecated the unused update/activation page [TEC-5311]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.8.1] 2024-11-04 =
+
+* Fix - Order of past events in the list view when no future events exist. [TEC-5309]
+* Fix - Prevent new Settings pages from over-sanitizing textarea fields, thus removing HTML from before/after in the Events UI. [TEC-5283]
+* Fix - Include backwards compatibility for deprecated proprieties in the Settings class used in The Events Calendar and Event Tickets [TEC-5312]
+
+= [6.8.0] 2024-10-30 =
+
+* Version - The Events Calendar 6.8.0 is only compatible with Events Calendar Pro 7.3.0 and higher.
+* Version - The Events Calendar 6.8.0 is only compatible with Events Tickets Plus 6.1.0 or higher.
+* Version - The Events Calendar 6.8.0 is only compatible with Event Tickets 5.16.0 or higher.
+* Feature - Added integration with new premium Seating product for Event Tickets.
+* Language - 0 new strings added, 6 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.7.1] 2024-10-21 =
+
+* Feature - Allow importing custom data when importing Organizers from a CSV file. [TEC-4846]
+* Feature - Allow importing custom data when importing Venues from a CSV file. [TEC-5138]
+* Security - Ensure restoring events from trash does not allow for unauthorized access. [SVUL-7] (props @patchstack)
+* Fix - Ensure Latest Past Events appear properly in Category views [TEC-4991]
+* Fix - Cast theme object to string to avoid a deprecation notice. [TEC-5062]
+* Tweak - Removed the 6.0 welcome message. [TEC-5166]
+* Tweak - Added filters: `tribe_events_csv_import_organizer_additional_fields`, `tribe_events_csv_import_venue_additional_fields`
+* Tweak - Changed views: `v2/latest-past`
+* Tweak - Updated docblocks in the `Tribe__Events__Aggregator__Records`, `Tribe__Events__Importer__File_Importer`, and `Tribe__Events__Repositories__Organizer` classes.
+* Tweak - Improved documentation for the `tribe_is_event`, `tribe_get_event_link`, `tribe_events_get_event_website_title`, `tribe_get_event_website_link`, `tribe_get_listview_display`, `tribe_get_listview_args`, and `tribe_get_listview_prev_link` functions.
+* Language - 3 new strings added, 218 updated, 0 fuzzied, and 32 obsoleted
+
+= [6.7.0] 2024-09-26 =
+
+* Version - The Events Calendar 6.7.0 is only compatible with Events Calendar Pro 7.1.0 and higher
+* Version - The Events Calendar 6.7.0 is only compatible with Events Filterbar 5.5.7 and higher
+* Version - The Events Calendar 6.7.0 is only compatible with Events Community 5.0.4 and higher
+* Feature - New and improved settings layout and styles. [TEC-5124]
+* Fix - Correct translation domains in a few templates. [6.7.2]
+* Tweak - Added filters: `tec_settings_gmaps_js_api_start`, `tec_events_settings_display_calendar_display_section`, `tec_general_settings_viewing_section`, `tec_events_aggregator_show_all_settings`, `tec_events_settings_tab_imports_fields`
+* Tweak - Removed filters: `tec_events_should_display_events_template_setting`, `tec_events_display_settings_tab_fields`, `tribe_general_settings_tab_fields`
+* Tweak - Added actions: `tec_events_settings_tab_display_additional_content`, `tec_events_settings_tab_display_calendar`, `tec_events_settings_tab_display_date_time`, `tec_events_settings_tab_display_maps`, `tec_events_settings_tab_general_debugging`, `tec_events_settings_tab_general_editing`, `tec_events_settings_tab_general_maintenance`, `tec_events_settings_tab_general_viewing`, `tec_settings_tab_addons`, `tec_events_settings_tab_display`, `tec_events_settings_tab_general`, `tec_events_settings_tab_imports`
+* Tweak - Changed views: `v2/latest-past/event/venue`
+* Language - 6 new strings added, 356 updated, 3 fuzzied, and 29 obsoleted
+
+= [6.6.4.2] 2024-09-17 =
+
+* Fix - Resolve fatal errors happening when Events search was being used alongside query ordering. [TEC-5155]
+
+= [6.6.4.1] 2024-09-16 =
+
+* Security - Improve general escaping for ORM queries to prevent legacy Events methods to be used for SQL injections.
+
+= [6.6.4] 2024-09-11 =
+
+* Security - Improve handling of Date/Time Separator settings to prevent potential XSS vulnerabilities.
+* Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events.
+* Fix - Adding small adjustment to WPML integration to allow for location searches on a translated site. (props to @dgwatkins) [BTRIA-2353]
+* Fix - Changed logic within the custom tables query to avoid a database error. (props @datadiver0x0) [ECP-1562]
+* Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
+* Tweak - Include methods `tec_events_get_date_time_separator` and `tec_events_get_time_range_separator` and it's respective filters.
+* Tweak - Add docblock for make_select_box()
+* Tweak - Add docblock for `set_defaults()` in the `Tribe__Events__Importer__Column_Mapper` class.
+* Tweak - Add docblocks to the methods in the `Tribe__Events__Importer__Column_Mapper` class.
+* Tweak - Add information and missing tags to `tribe_get_listview_args()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_dir_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_listview_past_link()` docblock.
+* Tweak - Add information and missing tags to `tribe_get_prev_event_link()`.
+* Tweak - Made a string translatable in `settings.php` file. (props to @DAnn2012) [TEC-5142]
+* Tweak - Update the docblock of the `tribe_embed_google_map()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map` filter.
+* Tweak - Update the docblock of the `tribe_embed_google_map_link()` method, change a variable name to match current naming conventions, and added a docblock to the `tribe_embed_google_map_link` filter.
+* Tweak - Changed views: `silence`, `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 0 new strings added, 46 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.6.3] 2024-08-29 =
+
+* Fix - Add an option to allow for duplicate Venue creation as part of creating/editing Events. [TEC-4941]
+* Fix - Character encoding issues on subscribe URLs for Outlook. [TEC-5085, TEC-5094, TEC-5136]
+* Fix - Update the logic that displays the "REST API blocked" banner to reduce false positives. [TEC-5105]
+* Tweak - Add docblock for make_select_box()
+* Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.6.2] 2024-09-20 =
+
+* Feature - Adding the Remove Event End Time feature from the Tweaks addon to the Month view. [TEC-5080]
+* Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
+* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TEC-5146]
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
+* Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
+* Tweak - Added filters: `tec_events_rest_api_response_blocked`, `tec_events_rest_api_response_blocked_due_to_timeout`, `tec_events_site_is_development_mode`, `tec_events_hide_end_time_modifier_defaults`
+* Tweak - Added actions: `tec_events_views_v2_hide_end_time_init`
+* Tweak - Changed views: `v2/month/calendar-body/day/calendar-events/calendar-event/date`
+* Language - 6 new strings added, 81 updated, 0 fuzzied, and 4 obsoleted
+
+= [6.6.1] 2024-08-06 =
+
+* Fix - Ensure we don't try to enqueue nonexistent override stylesheets. [ECP-1811]
+* Tweak - Changed views: `single-event`, `v2/widgets/widget-events-list/view-more`
+* Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.6.0.2] 2024-07-24 =
+
+* Fix - Stellar Sale's banner links, details, and HTML tags handling. [TEC-5121]
+
+= [6.6.0.1] 2024-07-23 =
+
+* Fix - Prevent fatal on WooCommerce Order transition when Event Tickets plugin is not present. [EVA-166]
+
+= [6.6.0] 2024-07-22 =
+
+* Feature - Included compatibility with Events Calendar Pro 7.0.0 for integrations with Zapier and Power Automate.
+* Fix - Properly handle custom theme assets when files are not present, prevents errors on Query Monitor and some notices. [ECP-1811]
+* Tweak - Added filters: `tec_events_integration_elementor_bypass_template_override`, `tec_events_display_settings_toc`, `tec_events_general_settings_toc`
+* Tweak - Changed views: `single-event-blocks`, `v2/month/mobile-events/mobile-day/day-marker`
+* Language - 1 new strings added, 172 updated, 1 fuzzied, and 1 obsoleted
+
+= [6.5.2] 2024-07-18 =
+
+* Fix - Add `@param` and corrected `@return` to docblock for `filter_display_events_bar()` - credit goes to @IanDelMar
+* Fix - Correct docblocks in the file `Tribe\Events\Views\V2\Views\Traits\Breakpoint_Behavior.php` - credit goes to @IanDelMar
+* Fix - Add missing closing tags on some admin pages to ensure valid HTML markup. [TEC-4807]
+* Fix - Fix an issue where the import screen broke when the import limit type was set to "date range". [EA-485]
+* Tweak - Update many docblock typos - credit goes to @szepeviktor.
+* Tweak - Correct some variables with typos, such as `$ics_filname` to `$ics_filename` and `$deleteable_statuses_interval` to `$deletable_statuses_interval` and `$delimter` to `$delimiter. Credit goes to @szepeviktor.
+* Tweak - Add filters `tec_events_general_settings_toc`, `tec_events_display_settings_toc`.
+* Tweak - Update docblock for hooks: `month_multiday_classes`, `month_day_classes`, `get_before_events_html`, `get_after_events_html`, `tribe_events_views_v2_month_multiday_classes` and `tec_events_month_day_classes_comparison_date` to provide more clarity.
+* Tweak - Update docblock for methods/functions: `tec_views_v2_subscribe_link_visibility`, `tec_views_v2_subscribe_link_{$slug}_visibility`, `tribe_get_view_permalink()`, `tribe_get_basic_gmap_embed_url()`, `tribe_event_featured_image()`, `tribe_get_map_link()` and `tribe_get_map_link_html()` methods and add docblocks for the `tribe_events_google_map_link`, `tribe_get_map_link` and `tribe_get_map_link_html` filters.
+* Tweak - Added filters: `tec_events_integration_elementor_bypass_template_override`, `tec_events_display_settings_toc`, `tec_events_general_settings_toc`
+* Tweak - Changed views: `single-event-blocks`, `v2/month/mobile-events/mobile-day/day-marker`
+* Language - 0 new strings added, 222 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.6] 2024-07-11 =
+
+* Fix - Ensure compatibility with WordPress 6.6 for removed polyfill `regenerator-runtime`. [TEC-5120]
+
+= [6.5.1.5] 2024-06-27 =
+
+* Security - Added additional security check when an ignored event is restored. [SVUL-3]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [6.5.1.4] 2024-06-18 =
+
+* Fix - In installations where the plugins or wp-content directories were symbolic linked, assets would fail to be located.[TEC-5106]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
 = [6.5.1.3] 2024-06-14 =
 
-* Fix - Issue where scripts would not be enqueued as modules. [TECTRIA-86]
+* Fix - Issue where scripts would not be enqueued as modules. [ET-2136]
 * Language - 0 new strings added, 109 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.1.2] 2024-06-14 =
 
-* Fix - Windows Server compatibility issues with updated Assets handling. [TECTRIA-83]
+* Fix - Windows Server compatibility issues with updated Assets handling. [TEC-5104]
 * Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.1.1] 2024-06-13 =
 
-* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TECTRIA-83]
+* Fix - Issue on which some assets (css,js) would not be located in WP installs which could have some WP constant modified (WP_CONTENT_DIR, WP_PLUGIN_DIR)[TEC-5104]
 * Language - 0 new strings added, 0 updated, 1 fuzzied, and 0 obsoleted
 
 = [6.5.1] 2024-06-11 =
 
 * Feature - Adapt to using the refactored tribe_asset. Remove some unused asset calls. [TCMN-172]
-* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TECTRIA-40]
-* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()`, and `tribe_delete_venue()` docblocks to indicate future deprecation.
+* Fix - Remove automatic capitalization for 'View Calendar' text on Calendar List Widget. [TEC-5146]
+* Tweak - Include a filter to the Elementor integration `tec_events_integration_elementor_bypass_template_override` to allow users to bypass the single event template. [TEC-5102]
+* Tweak - Add note to `tribe_create_venue()`, `tribe_create_organizer()`, `tribe_create_event()`, `tribe_update_event()`, `tribe_update_venue()`, `tribe_update_organizer()`, `tribe_delete_organizer()` and `tribe_delete_venue()` docblocks to indicate future deprecation.
 * Tweak - Add docblocks to `src/Tribe/Featured_Events/Permalinks_Helper.php` and `src/Tribe/Featured_Events/Query_Helper.php`.
 * Tweak - Changed views: `single-event`
 * Language: 2 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted
 
 = [6.5.0.1] 2024-06-04 =
 
-* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TECTRIA-43]
-* Security - Ensure the Events REST API respects the individual post access restrictions. [TECTRIA-49]
+* Fix - Ensure REST API notice only checks on Events admin pages and once every 48 hours regardless of transients rules. [TEC-5147]
+* Security - Ensure the Events REST API respects the individual post access restrictions. [TEC-5148]
 
 = [6.5.0] 2024-05-14 =
 

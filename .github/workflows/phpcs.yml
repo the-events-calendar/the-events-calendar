@@ -1,7 +1,44 @@
 name: 'PHPCS'
 on: [pull_request]
 jobs:
+  conditional:
+    if: "!contains(github.event.pull_request.body, '[skip-phpcs]')"
+    runs-on: ubuntu-latest
+    outputs:
+      has_no_php_changes: ${{ steps.skip.outputs.has_no_php_changes }}
+    steps:
+      # ------------------------------------------------------------------------------
+      # Checkout the repo
+      # ------------------------------------------------------------------------------
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          token: ${{ secrets.GH_BOT_TOKEN }}
+          submodules: recursive
+      # ------------------------------------------------------------------------------
+      # Check if any PHP files have changed
+      # ------------------------------------------------------------------------------
+      - name: Check PHP file changes
+        id: skip
+        run: |
+          php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -E '\.php$' || true)
+          num_php_files=$(echo "$php_files" | grep -c '^' || echo 0)
+      
+          if [[ -z "$php_files" || "$num_php_files" -eq 0 ]]; then
+            echo "has_no_php_changes=1" >> $GITHUB_OUTPUT
+            echo "## No PHP files changed" >> $GITHUB_STEP_SUMMARY
+            echo "PHPCS will not run." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "has_no_php_changes=0" >> $GITHUB_OUTPUT
+            echo "## Found PHP file changes" >> $GITHUB_STEP_SUMMARY
+            echo "Total changed PHP files: $num_php_files" >> $GITHUB_STEP_SUMMARY
+            echo "$php_files" | sed 's/^/- /' >> $GITHUB_STEP_SUMMARY
+          fi
   phpcs:
+    needs:
+      - conditional
+    if: needs.conditional.outputs.has_no_php_changes == '0'
     uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
     with:
       ref: ${{ github.event.inputs.ref }}

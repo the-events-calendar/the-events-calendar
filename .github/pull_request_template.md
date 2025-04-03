@@ -17,7 +17,7 @@ Include any important information for reviewers
 <!-- 🎥 screencast(s) or 📷 screenshot(s) -->
 
 ### ✔️ Checklist
-- [ ] Changelog entry in the `readme.txt` file.
+- [ ] Ran `npm run changelog` to add changelog file(s). More info [here](https://docs.theeventscalendar.com/developer/git/changelogs/#process)
 - [ ] Code is covered by **NEW** `wpunit` or `integration` tests.
 - [ ] Code is covered by **EXISTING** `wpunit` or `integration` tests.
 - [ ] Are all the **required** tests passing?

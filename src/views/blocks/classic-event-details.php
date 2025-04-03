@@ -16,7 +16,7 @@
 $event_id = $this->get( 'post_id' );
 
 $time_format          = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
-$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+$time_range_separator = tec_events_get_time_range_separator();
 
 $start_datetime = tribe_get_start_date();
 $start_date     = tribe_get_start_date( null, false );

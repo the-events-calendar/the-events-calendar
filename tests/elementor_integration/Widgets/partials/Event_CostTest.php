@@ -33,12 +33,6 @@ class Event_CostTest extends WPTestCase {
 		);
 	}
 
-	public function tearDown(){
-		$this->unset_uopz_returns();
-
-		parent::_tearDown();
-	}
-
 	/**
 	 * Data provider for tests.
 	 * label is the key to be used in the filter.

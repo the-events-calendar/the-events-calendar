@@ -20,9 +20,9 @@ import PropTypes from 'prop-types';
 
 export default class VenueDetails extends Component {
 	static propTypes = {
-		venue: PropTypes.number,
+		venue: PropTypes.oneOfType( [ PropTypes.number, PropTypes.object ] ),
 		isLoading: PropTypes.bool,
-		removeVenue: PropTypes.func,
+		removeVenue: PropTypes.node,
 		beforeTitle: PropTypes.node,
 		afterTitle: PropTypes.node,
 		maybeEdit: PropTypes.func,
@@ -78,7 +78,7 @@ export default class VenueDetails extends Component {
 				{ removeVenue }
 			</div>
 		);
-	}
+	};
 
 	renderVenueName() {
 		const { beforeTitle, afterTitle, maybeEdit } = this.props;

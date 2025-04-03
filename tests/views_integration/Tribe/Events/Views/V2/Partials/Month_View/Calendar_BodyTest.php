@@ -2,10 +2,11 @@
 
 namespace Tribe\Events\Views\V2\Partials\Month_View;
 
-use tad\FunctionMocker\FunctionMocker as Test;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe\Test\Products\WPBrowser\Views\V2\HtmlPartialTestCase;
 
 class Calendar_BodyTest extends HtmlPartialTestCase {
+	use With_Uopz;
 
 	protected $partial_path = 'month/calendar-body';
 
@@ -17,12 +18,18 @@ class Calendar_BodyTest extends HtmlPartialTestCase {
 		$this->assertMatchesSnapshot( $this->get_partial_html() );
 	}
 
+	/**
+	 * Test static render for past
+	 */
+	public function test_static_render_past() {
+		$this->given_month_data();
+		$this->assertMatchesSnapshot( $this->get_partial_html( [ 'past' => true ] ) );
+	}
+
 	public function setUp() {
 		parent::setUp();
-		// Start Function Mocker.
-		Test::setUp();
 		// Always return the same value when creating nonces.
-		Test::replace( 'wp_create_nonce', '2ab7cc6b39' );
+		$this->set_fn_return( 'wp_create_nonce', '2ab7cc6b39' );
 	}
 
 	protected function given_month_data() {
@@ -64,7 +71,7 @@ class Calendar_BodyTest extends HtmlPartialTestCase {
 	}
 
 	public function tearDown(){
-		Test::tearDown();
+		$this->unset_uopz_returns();
 		parent::tearDown();
 	}
 }

@@ -32,7 +32,7 @@ import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
 import { Venue as VenueIcon } from '@moderntribe/events/icons';
-import { selectors, utils } from '@moderntribe/events/data/blocks/venue';
+import { utils } from '@moderntribe/events/data/blocks/venue';
 import { google, wpEditor, wpHooks } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
@@ -124,7 +124,7 @@ class EventVenue extends Component {
 		const {
 			isSelected,
 			fields,
-			onFormSubmit
+			onFormSubmit,
 		} = this.props;
 
 		if ( ! isSelected ) {
@@ -177,7 +177,7 @@ class EventVenue extends Component {
 				removeVenue={ this.renderRemoveAction() }
 			/>
 		);
-	}
+	};
 
 	renderSearchOrCreate() {
 		// @todo [BTRIA-618]: The store should not be passed through like this as a prop.
@@ -311,12 +311,14 @@ class EventVenue extends Component {
 						label={ __( 'Show Google Maps Link', 'the-events-calendar' ) }
 						checked={ showMapLink }
 						onChange={ toggleVenueMapLink }
+						__nextHasNoMarginBottom={ true }
 					/>
 					{ embedMap && (
 						<ToggleControl
 							label={ __( 'Show Google Maps Embed', 'the-events-calendar' ) }
 							checked={ showMap }
 							onChange={ toggleVenueMap }
+							__nextHasNoMarginBottom={ true }
 						/>
 					) }
 					<EditLink
@@ -409,7 +411,7 @@ class EventVenue extends Component {
 		const { venue } = this.props;
 
 		return isInteger( venue ) && venue === this.getVenueId();
-	}
+	};
 
 	/**
 	 * Once withDetails is decoupled from state, this should move to container.
@@ -422,7 +424,7 @@ class EventVenue extends Component {
 		if ( this.hasVenue() && volatile ) {
 			return onEdit;
 		}
-	}
+	};
 
 	/**
 	 * Get the coordinates according to the venue address
@@ -456,7 +458,7 @@ class EventVenue extends Component {
 				derivedAddressString: address,
 			} );
 		} );
-	}
+	};
 }
 
 export default EventVenue;

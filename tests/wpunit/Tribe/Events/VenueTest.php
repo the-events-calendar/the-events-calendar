@@ -11,6 +11,14 @@ use Tribe__Events__Venue as Venue;
  * Really a proxy to test the base class.
  */
 class VenueTest extends Events_TestCase {
+
+	/**
+	 * Cleanup after the tests finish running.
+	 */
+	public static function wpTearDownAfterClass() {
+		remove_all_filters( 'tribe_get_option_allow_duplicate_venues' );
+	}
+
 	/**
 	 * It should allow searching like in title
 	 * @test
@@ -313,5 +321,51 @@ class VenueTest extends Events_TestCase {
 
 		$this->assertEquals( $venue_3, $venue_4, 'Venue should be updated keeping the same ID' );
 		$this->assertEquals( tribe_get_address( $venue_3 ), tribe_get_address( $venue_4 ), 'Venue address should be updated properly' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_create_duplicate_venues_when_the_option_is_enabled() {
+		$venue = $this->make_instance();
+
+		add_filter( 'tribe_get_option_allow_duplicate_venues', '__return_true' );
+
+		$data = [
+			'Venue'         => 'Test Venue A',
+			'Description'   => 'This is Venue A ',
+			'Address'       => 'Road A',
+			'City'          => 'Providence',
+			'Province'      => 'Rhode Island',
+			'State'         => 'NewYork',
+			'StateProvince' => '',
+			'Zip'           => '09090',
+			'Phone'         => 883383,
+		];
+
+		// Using same data should return different venues.
+		$venue_1 = $venue->save( false, $data, false, 'publish' );
+		$venue_2 = $venue->save( false, $data, false, 'publish' );
+
+		$this->assertNotEquals( $venue_1, $venue_2, 'Venue ID should not be same for same data when duplicates are allowed.' );
+
+		// Using same title with different address should NOT update the existing venue.
+		$data['City']  = 'Austin';
+		$data['State'] = 'Texas';
+		$data['Zip']   = '123';
+		$venue_3       = $venue->save( false, $data, false, 'publish' );
+
+		$this->assertNotEquals( $venue_1, $venue_3, 'Venue should not have the same ID' );
+
+		// Address of 1 and 2 should still be the same
+		$this->assertEquals( tribe_get_full_address( $venue_1 ), tribe_get_full_address( $venue_2 ), 'Venue address should be the same' );
+
+		// City, State, and Zip of 1 and 3 should be different.
+		$this->assertNotEquals( tribe_get_city( $venue_1 ), tribe_get_city( $venue_3 ), 'Venue city should be different' );
+		$this->assertNotEquals( tribe_get_state( $venue_1 ), tribe_get_state( $venue_3 ), 'Venue state should be different' );
+		$this->assertNotEquals( tribe_get_zip( $venue_1 ), tribe_get_zip( $venue_3 ), 'Venue zip should be different' );
+
+		// Disable the filter after we're done.
+		remove_filter( 'tribe_get_option_allow_duplicate_venues', '__return_true' );
 	}
 }

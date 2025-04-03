@@ -2,8 +2,9 @@ name: 'PHPStan Tests'
 on:
   pull_request:
     paths:
-      - 'src/**.php'
+      - '.github/**/*'
       - '*.php'
+      - 'src/**.php'
 jobs:
   phpstan:
     strategy:
@@ -18,10 +19,10 @@ jobs:
             # "8.3",
             # ----------------------------------------
         ]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1000
           submodules: recursive
@@ -41,12 +42,12 @@ jobs:
       # Install dependencies in common - ignoring php requirements
       # ------------------------------------------------------------------------------
       - name: Install common dependencies
-        run: cd common &&  composer i --ignore-platform-req=php+ && cd ../
+        run: cd common &&  composer i --ignore-platform-reqs && cd ../
       # ------------------------------------------------------------------------------
       # Install dependencies - ignoring php requirements
       # ------------------------------------------------------------------------------
       - name: Install dependencies
-        run: composer i --ignore-platform-req=php+
+        run: composer i --ignore-platform-reqs
       # ------------------------------------------------------------------------------
       # Run phpstan
       # ------------------------------------------------------------------------------

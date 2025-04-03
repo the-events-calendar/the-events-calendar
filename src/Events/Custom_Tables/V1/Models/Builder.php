@@ -1591,7 +1591,7 @@ class Builder {
 	 * Bulk updates instances of the Model.
 	 *
 	 * Since MySQL does not come with a bulk update feature, this code will actually
-	 * delete the exising model entries and re-insert them, by primary key, using the
+	 * delete the existing model entries and re-insert them, by primary key, using the
 	 * updated data.
 	 *
 	 * @since 6.1.3 Integration with memoization.

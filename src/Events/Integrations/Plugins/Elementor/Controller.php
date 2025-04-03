@@ -301,6 +301,7 @@ class Controller extends Integration_Abstract {
 	 * By filtering them out of the post content on display.
 	 *
 	 * @since 6.4.0
+	 * @since 6.9.1 Added check that content is not null.
 	 *
 	 * @param string $content The post content.
 	 *
@@ -308,6 +309,11 @@ class Controller extends Integration_Abstract {
 	 */
 	public function disable_blocks_on_display( $content ): string {
 		global $post;
+
+		// Check that content is not null.
+		if ( null === $content ) {
+			return '';
+		}
 
 		// Not a post.
 		if ( ! $post instanceof WP_Post ) {

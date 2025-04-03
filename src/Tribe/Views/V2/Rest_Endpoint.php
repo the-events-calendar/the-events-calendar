@@ -128,6 +128,15 @@ class Rest_Endpoint {
 	}
 
 	/**
+	 * Allows clearing the user to handle cases we are done with an old user.
+	 *
+	 * @since 6.9.1
+	 */
+	public static function clear_stored_user_id() {
+		self::$user_id = null;
+	}
+
+	/**
 	 * Ensures the nonce(s) are valid.
 	 *
 	 * @since 6.2.3
@@ -148,7 +157,7 @@ class Rest_Endpoint {
 
 		if ( self::$user_id && ! is_user_logged_in() ) {
 			/**
-			 * This user was set but lost, because we use custom nonces which can not be handled by Wordpress auth.
+			 * This user was set but lost, because we use custom nonces which can not be handled by WordPress auth.
 			 *
 			 */
 			wp_set_current_user( self::$user_id );
@@ -166,8 +175,13 @@ class Rest_Endpoint {
 		}
 
 		// Did either our unauth or authed nonce pass? If neither, something is fishy.
-		$nonce_check = wp_verify_nonce( $request->get_param( static::PRIMARY_NONCE_KEY ), static::NONCE_ACTION )
-		               || wp_verify_nonce( $request->get_param( static::SECONDARY_NONCE_KEY ), static::NONCE_ACTION );
+		$nonce_check = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			function () use ( $request ) {
+				return wp_verify_nonce( $request->get_param( static::PRIMARY_NONCE_KEY ), static::NONCE_ACTION )
+					|| wp_verify_nonce( $request->get_param( static::SECONDARY_NONCE_KEY ), static::NONCE_ACTION );
+			}
+		);
 
 		return ( $auth || is_null( $auth ) )
 		       && ! is_wp_error( $auth )

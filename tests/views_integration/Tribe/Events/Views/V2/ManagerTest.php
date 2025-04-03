@@ -42,7 +42,7 @@ class ManagerTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
-	public function should_default_to_the_reflector_view_when_no_views_are_availble() {
+	public function should_default_to_the_reflector_view_when_no_views_are_available() {
 		tribe_update_option( Manager::$option_default, 'test' );
 
 		add_filter( 'tribe_events_views', '__return_empty_array' );

@@ -27,7 +27,7 @@ trait Tribe__Events__Query_Deprecated {
 		_deprecated_function(
 			'Tribe__Events__Query::pre_get_posts',
 			'6.0.0',
-			'No replacement avaialble.'
+			'No replacement available.'
 		);
 	}
 }

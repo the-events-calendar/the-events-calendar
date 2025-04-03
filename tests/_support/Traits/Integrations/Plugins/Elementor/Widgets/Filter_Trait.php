@@ -2,7 +2,7 @@
 /**
  * Provides test methods for Elementor widget using the TEC templating engine.
  *
- * @since   TBD
+ * @since   6.6.0
  *
  * @package Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets;
  */
@@ -14,7 +14,7 @@ use TEC\Events\Integrations\Plugins\Elementor\Widgets\Contracts\Abstract_Widget;
 /**
  * Trait for Elementor widget template tests.
  *
- * @since   TBD
+ * @since   6.6.0
  *
  * @package Tribe\Events\Test\Traits\Integrations\Plugins\Elementor\Widgets;
  */
@@ -22,7 +22,7 @@ trait Filter_Trait {
 	/**
 	 * Filters the template data for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.5.2
 	 *
 	 * @param array $override The data to override with.
 	 * @param array $passed   The data passed to the template.

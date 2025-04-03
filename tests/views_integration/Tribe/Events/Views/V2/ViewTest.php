@@ -77,7 +77,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should print a view HTML on the page when caling send_html
+	 * It should print a view HTML on the page when calling send_html
 	 *
 	 * @test
 	 */

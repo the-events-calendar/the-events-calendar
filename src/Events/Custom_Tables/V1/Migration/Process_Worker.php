@@ -610,7 +610,7 @@ class Process_Worker {
 	 * @param string $errstr  The error message.
 	 * @param string $errfile The file the error occurred in.
 	 *
-	 * @return bool A value indicating whether the error handler handled the erorr or not..
+	 * @return bool A value indicating whether the error handler handled the error or not..
 	 *
 	 * @throws Migration_Exception A reference to an exception wrapping the error.
 	 */

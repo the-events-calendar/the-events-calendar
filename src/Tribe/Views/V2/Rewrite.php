@@ -42,7 +42,7 @@ class Rewrite {
 	 * Adds the URL encoded version of the slugs to the rewrite rules to ensure rewrites will keep working
 	 * in localized installations.
 	 *
-	 * This method wil "fill-in" wrongly formatted or encoded bases too and order bases so that the `Tribe__Rewrite`
+	 * This method will "fill-in" wrongly formatted or encoded bases too and order bases so that the `Tribe__Rewrite`
 	 * URL resolving methods will, preferably, resolve to the "pretty" (non URL-encoded) and human readable version.
 	 *
 	 * @since 5.0.0

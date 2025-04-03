@@ -99,7 +99,7 @@ class Tribe__Events__Admin__Bar__Default_Configurator implements Tribe__Events__
 			if ( ! in_array( 'help', $hidden_settings_tabs ) ) {
 				$href = esc_url( add_query_arg( [
 					'post_type' => Tribe__Events__Main::POSTTYPE,
-					'page'      => 'tribe-help',
+					'page'      => 'tec-events-help-hub',
 				], admin_url( 'edit.php' ) ) );
 				$wp_admin_bar->add_menu( [
 					'id'     => 'tribe-events-help',
