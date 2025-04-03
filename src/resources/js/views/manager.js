@@ -528,6 +528,9 @@ tribe.events.views.manager = {};
       $.extend(settings, overwriteSettings)
     );
 
+		// Since we await the ajax request, we need to call the complete event manually.
+		obj.ajaxComplete( $container );
+
     /**
      * Trigger the afterRequest event.
      *
@@ -592,7 +595,6 @@ tribe.events.views.manager = {};
       method: $container.data("view-rest-method") || "POST",
       async: true, // async is keyword
       beforeSend: obj.ajaxBeforeSend,
-      complete: obj.ajaxComplete,
       success: obj.ajaxSuccess,
       error: obj.ajaxError,
       context: $container
@@ -639,23 +641,22 @@ tribe.events.views.manager = {};
    * Context with the View container used to fire this AJAX call
    *
    * @since 4.9.2
-   *
-   * @param  {jqXHR}  qXHR       Request object
-   * @param  {String} textStatus Status for the request
+	 * @since TBD Remove not needed parameters. Hook into the success event instead for those.
+	 *
+	 * @param {Element|jQuery} $container The container we are dealing with
    *
    * @return {void}
    */
-  obj.ajaxComplete = function(jqXHR, textStatus) {
-    var $container = this;
+  obj.ajaxComplete = function( $container ) {
     var $loader = $container.find(obj.selectors.loader);
 
-    $container.trigger("beforeAjaxComplete.tribeEvents", [jqXHR, textStatus]);
+    $container.trigger("beforeAjaxComplete.tribeEvents", []);
 
     if ($loader.length) {
       $loader.addClass(obj.selectors.hiddenElement.className());
     }
 
-    $container.trigger("afterAjaxComplete.tribeEvents", [jqXHR, textStatus]);
+    $container.trigger("afterAjaxComplete.tribeEvents", []);
 
     // Flag that we are done with popstate if that was the case.
     if (obj.doingPopstate) {
