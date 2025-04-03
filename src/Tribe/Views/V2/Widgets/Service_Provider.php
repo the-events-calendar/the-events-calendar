@@ -120,7 +120,7 @@ class Service_Provider extends Provider_Contract {
 		// Get the route being requested.
 		$route = $request->get_route();
 		
-		// Check if this matches our target endpoint
+		// Check if this matches our target endpoint.
 		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/encode$#', $route, $matches ) ) {
 			return $result;
 		}
