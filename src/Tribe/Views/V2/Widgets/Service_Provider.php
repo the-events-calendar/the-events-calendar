@@ -132,6 +132,11 @@ class Service_Provider extends Provider_Contract {
 
 		$widget_object = $wp_widget_factory->get_widget_object( $widget_type_id );
 
+		// Bail if the widget object is not found.
+		if ( ! $widget_object ) {
+			return $result;
+		}
+
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
 			return $result;
