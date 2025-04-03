@@ -641,9 +641,9 @@ tribe.events.views.manager = {};
    * Context with the View container used to fire this AJAX call
    *
    * @since 4.9.2
-	 * @since TBD Remove not needed parameters. Hook into the success event instead for those.
-	 *
-	 * @param {Element|jQuery} $container The container we are dealing with
+   * @since TBD Remove not needed parameters. Hook into the success event instead for those.
+   *
+   * @param {Element|jQuery} $container The container we are dealing with
    *
    * @return {void}
    */
