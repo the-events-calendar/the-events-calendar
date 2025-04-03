@@ -10,6 +10,9 @@
 namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe__Context as Context;
+use Tribe__Events__Main as TEC;
+use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
+
 
 /**
  * Class for the QR Code Widget.
@@ -220,7 +223,44 @@ class Widget_QR_Code extends Widget_Abstract {
 				'value' => 'next',
 				'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
 			];
+
+			$series_options = [];
+
+			$args = [
+				'posts_per_page' => -1,
+				'post_type'      => Series::POSTTYPE,
+				'post_status'    => 'publish',
+				'orderby'        => 'ID',
+				'order'          => 'DESC',
+			];
+
+			$series = get_posts( $args );
+			foreach ( $series as $series ) {
+				$series_options[] = [
+					'value' => $series->ID,
+					'text'  => $series->ID . ' - ' . $series->post_title,
+				];
+			}
 		}
+
+		$event_options = [];
+
+		$args = [
+			'posts_per_page' => -1,
+			'post_type'      => TEC::POSTTYPE,
+			'post_status'    => 'publish',
+			'orderby'        => 'ID',
+			'order'          => 'DESC',
+		];
+
+		$events = tribe_get_events( $args );
+		foreach ( $events as $event ) {
+			$event_options[] = [
+				'value' => $event->ID,
+				'text'  => $event->ID . ' - ' . $event->post_title,
+			];
+		}
+
 
 		return [
 			'widget_title' => [
@@ -273,8 +313,9 @@ class Widget_QR_Code extends Widget_Abstract {
 			'event_id'     => [
 				'id'         => 'event_id',
 				'label'      => _x( 'Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
-				'type'       => 'text',
+				'type'       => 'dropdown',
 				'classes'    => 'tribe-dependent',
+				'options'    => $event_options,
 				'dependency' => [
 					'ID' => 'redirection',
 					'is' => 'specific',
@@ -283,8 +324,9 @@ class Widget_QR_Code extends Widget_Abstract {
 			'series_id'    => [
 				'id'         => 'series_id',
 				'label'      => _x( 'Series ID:', 'The label for the series ID setting.', 'the-events-calendar' ),
-				'type'       => 'text',
+				'type'       => 'dropdown',
 				'classes'    => 'tribe-dependent',
+				'options'    => $series_options,
 				'dependency' => [
 					'ID' => 'redirection',
 					'is' => 'next',

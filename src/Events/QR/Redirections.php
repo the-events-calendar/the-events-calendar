@@ -76,7 +76,7 @@ class Redirections extends Controller {
 		];
 		$events = tribe_get_events( $args );
 
-		$url = empty( $events ) ? $this->get_fallback_url() : get_permalink( $events[0]->ID );
+		$url = ! empty( $events ) ? get_permalink( $events[0]->ID ) : $this->get_fallback_url();
 
 		/**
 		 * Filters the URL for the current event redirection.
@@ -116,7 +116,7 @@ class Redirections extends Controller {
 		];
 		$events = tribe_get_events( $args );
 
-		$url = empty( $events ) ? $this->get_fallback_url() : get_permalink( $events[0]->ID );
+		$url = ! empty( $events ) ? get_permalink( $events[0]->ID ) : $this->get_fallback_url();
 
 		/**
 		 * Filters the URL for the upcoming event redirection.
@@ -203,40 +203,33 @@ class Redirections extends Controller {
 
 		$routes = tribe( Routes::class );
 
+		// phpcs:disable PSR2.ControlStructures.SwitchDeclaration.TerminatingComment, WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+
 		try {
 			$data = $routes->decode_qr_hash( $hash );
 		} catch ( \InvalidArgumentException $e ) {
-			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 			wp_redirect( esc_url( $this->get_fallback_url() ) );
 			tribe_exit();
 		}
 
 		switch ( $data['qr_type'] ) {
-			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'current':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				wp_redirect( esc_url( $this->get_current_event_url() ) );
 				tribe_exit();
-			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'upcoming':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				wp_redirect( esc_url( $this->get_upcoming_event_url() ) );
 				tribe_exit();
-			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'specific':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				wp_redirect( esc_url( $this->get_specific_event_url( $data['post_id'] ) ) );
 				tribe_exit();
-			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'next':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				wp_redirect( esc_url( $this->get_next_series_event_url( $data['post_id'] ) ) );
 				tribe_exit();
-			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			default:
-			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 				wp_redirect( esc_url( $this->get_fallback_url() ) );
 				tribe_exit();
 		}
+
+		// phpcs:enable PSR2.ControlStructures.SwitchDeclaration.TerminatingComment, WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 	}
 }
