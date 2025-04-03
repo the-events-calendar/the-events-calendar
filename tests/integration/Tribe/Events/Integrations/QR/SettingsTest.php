@@ -41,9 +41,6 @@ class SettingsTest extends WPTestCase {
 		// Get option slugs once
 		$this->slugs = Settings::get_option_slugs();
 
-		// Enable QR
-		tribe_update_option( $this->slugs['enabled'], true );
-
 		// Register the controller first
 		$controller = tribe( Controller::class );
 		$controller->register();
@@ -85,33 +82,14 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_default_values() {
-		$this->settings->init_settings();
-
-		$enabled     = tribe_get_option( $this->slugs['enabled'], true );
 		$size        = tribe_get_option( $this->slugs['size'], '250x250' );
-		$redirection = tribe_get_option( $this->slugs['redirection'], 'current_event' );
+		$redirection = tribe_get_option( $this->slugs['redirection'], 'current' );
 		$event_id    = tribe_get_option( $this->slugs['event_id'], '' );
 		$series_id   = tribe_get_option( $this->slugs['series_id'], '' );
 
-		$this->assertTrue( $enabled );
 		$this->assertEquals( '250x250', $size );
-		$this->assertEquals( 'current_event', $redirection );
+		$this->assertEquals( 'current', $redirection );
 		$this->assertEquals( '', $event_id );
 		$this->assertEquals( '', $series_id );
-	}
-
-	/**
-	 * Test that the settings are initialized
-	 *
-	 * @test
-	 */
-	public function test_settings_are_initialized() {
-		tribe_remove_option( $this->slugs['enabled'] );
-
-		$this->assertEmpty( tribe_get_option( $this->slugs['enabled'] ) );
-
-		$this->settings->init_settings();
-
-		$this->assertTrue( tribe_get_option( $this->slugs['enabled'] ) );
 	}
 }

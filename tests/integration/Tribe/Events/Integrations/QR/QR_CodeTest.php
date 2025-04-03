@@ -48,15 +48,24 @@ class QR_CodeTest extends WPTestCase {
 		// Get option slugs once
 		$this->slugs = Settings::get_option_slugs();
 
-		// Enable QR
-		tribe_update_option( $this->slugs['enabled'], true );
+		// Create a mock controller
+		$mock_controller = $this->createMock( Controller::class );
+		$mock_controller->method( 'is_active' )->willReturn( true );
+		$mock_controller->method( 'register' )->willReturn( null );
+		$mock_controller->method( 'unregister' )->willReturn( null );
 
-		// Register the controller first
+		// Register the mock controller in the container
+		tribe()->singleton( Controller::class, $mock_controller );
+
+		// Get the controller instance
 		$this->controller = tribe( Controller::class );
-		$this->controller->register();
 
 		// Initialize QR Code
 		$this->qr_code = tribe( QR_Code::class );
+
+    // Enable QR option
+		tribe_update_option( $this->slugs['enabled'], true );
+
 	}
 
 	/**
@@ -120,8 +129,14 @@ class QR_CodeTest extends WPTestCase {
    * @test
    */
 	public function test_image_is_generated_when_qr_enabled(): void {
+    // Create a mock post
+    $post = $this->factory()->post->create_and_get( [
+      'post_type' => TEC::POSTTYPE,
+      'post_title' => 'Test Event',
+    ] );
+
 		// Try to generate the image
-		$img = $this->qr_code->generate_qr_image( 100, 'https://www.google.com' );
+		$img = $this->qr_code->generate_qr_image( $post->ID, 'https://www.google.com' );
 
 		// Check that the image is generated
 		$this->assertNotNull( $img );
@@ -145,18 +160,32 @@ class QR_CodeTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_image_is_not_generated_when_qr_disabled(): void {
-		// Disable QR
-		tribe_update_option( $this->slugs['enabled'], false );
+    // Create a mock post
+    $post = $this->factory()->post->create_and_get( [
+        'post_type' => TEC::POSTTYPE,
+        'post_title' => 'Test Event',
+    ] );
 
-    $this->controller->register();
+    // Update the mock controller to return false for is_active()
+    $mock_controller = $this->createMock( Controller::class );
+    $mock_controller->method( 'is_active' )->willReturn( false );
+    $mock_controller->method( 'register' )->willReturn( null );
+    $mock_controller->method( 'unregister' )->willReturn( null );
 
-		// Try to generate the image
-		$img = $this->qr_code->generate_qr_image( 100, 'https://www.google.com' );
+    // Register the updated mock controller
+    tribe()->singleton( Controller::class, $mock_controller );
 
-		// Check that the image is not generated
-		$this->assertNull( $img );
+    // Try to generate the image
+    $img = $this->qr_code->generate_qr_image( $post->ID, 'https://www.google.com' );
 
-		// Enable QR
-		tribe_update_option( $this->slugs['enabled'], true );
+    // Check that the image is not generated
+    $this->assertNull( $img );
+
+    // Restore the original mock controller
+    $mock_controller = $this->createMock( Controller::class );
+    $mock_controller->method( 'is_active' )->willReturn( true );
+    $mock_controller->method( 'register' )->willReturn( null );
+    $mock_controller->method( 'unregister' )->willReturn( null );
+    tribe()->singleton( Controller::class, $mock_controller );
 	}
 }

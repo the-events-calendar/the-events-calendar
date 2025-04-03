@@ -206,36 +206,36 @@ class Redirections extends Controller {
 		try {
 			$data = $routes->decode_qr_hash( $hash );
 		} catch ( \InvalidArgumentException $e ) {
-			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
-			wp_safe_redirect( esc_url( $this->get_fallback_url() ) );
+			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+			wp_redirect( esc_url( $this->get_fallback_url() ) );
 			tribe_exit();
 		}
 
 		switch ( $data['qr_type'] ) {
 			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'current':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
-				wp_safe_redirect( esc_url( $this->get_current_event_url() ) );
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				wp_redirect( esc_url( $this->get_current_event_url() ) );
 				tribe_exit();
 			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'upcoming':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
-				wp_safe_redirect( esc_url( $this->get_upcoming_event_url() ) );
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				wp_redirect( esc_url( $this->get_upcoming_event_url() ) );
 				tribe_exit();
 			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'specific':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
-				wp_safe_redirect( esc_url( $this->get_specific_event_url( $data['post_id'] ) ) );
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				wp_redirect( esc_url( $this->get_specific_event_url( $data['post_id'] ) ) );
 				tribe_exit();
 			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			case 'next':
-				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
-				wp_safe_redirect( esc_url( $this->get_next_series_event_url( $data['post_id'] ) ) );
+				// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				wp_redirect( esc_url( $this->get_next_series_event_url( $data['post_id'] ) ) );
 				tribe_exit();
 			// phpcs:ignore PSR2.ControlStructures.SwitchDeclaration.TerminatingComment
 			default:
-			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit
-				wp_safe_redirect( esc_url( $this->get_fallback_url() ) );
+			// phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
+				wp_redirect( esc_url( $this->get_fallback_url() ) );
 				tribe_exit();
 		}
 	}
