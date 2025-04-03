@@ -1314,7 +1314,7 @@ class View implements View_Interface {
 		$template_vars = apply_filters( "tribe_events_views_v2_view_{$view_slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
-	}
+	} 
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
@@ -1341,17 +1341,10 @@ class View implements View_Interface {
 		*/
 		$args = [
 			'posts_per_page'       => (int) $context_arr['events_per_page'] + 1,
-			'paged'                => max(
-				(int) Arr::get_first_set(
-					array_filter( $context_arr ),
-					[
-						'paged',
-						'page',
-					],
-					1
-				),
-				1
-			),
+			'paged'                => max( Arr::get_first_set( array_filter( $context_arr ), [
+				'paged',
+				'page',
+			], 1 ), 1 ),
 			'search'               => $context->get( 'keyword', '' ),
 			'hidden_from_upcoming' => false,
 			/*
