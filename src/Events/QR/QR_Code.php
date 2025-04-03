@@ -187,6 +187,7 @@ class QR_Code {
 		$file_name = 'qr_' . $post_id . '_' . (int) $size * 35;
 		$file_path = $this->qr_dir . $file_name . '.png';
 		if ( file_exists( $file_path ) ) {
+			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink
 			unlink( $file_path );
 		}
 	}
