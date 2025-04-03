@@ -105,19 +105,19 @@ class Service_Provider extends Provider_Contract {
 	 * 
 	 * @since TBD
 	 * 
-	 * @param mixed $result The result of the rest request.
-	 * @param WP_REST_Server $server The REST server.
+	 * @param mixed           $result  The result of the rest request.
+	 * @param WP_REST_Server  $server  The REST server.
 	 * @param WP_REST_Request $request The REST request.
 	 * 
 	 * @return mixed The result of the rest request.
 	 */
 	public function enable_widget_copy_paste( $result, $server, $request ) {
-		// Bail if result is already set
+		// Bail if result is already set.
 		if ( null !== $result ) {
 			return $result;
 		}
 	
-		// Get the route being requested
+		// Get the route being requested.
 		$route = $request->get_route();
 		
 		// Check if this matches our target endpoint
@@ -125,23 +125,30 @@ class Service_Provider extends Provider_Contract {
 			return $result;
 		}
 	
-		// Get the widget type ID from the route
+		// Get the widget type ID from the route.
 		$widget_type_id = $matches[1];
 	
 		global $wp_widget_factory;
 
 		$widget_object = $wp_widget_factory->get_widget_object( $widget_type_id );
 
+		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
 			return $result;
 		}
 
-		if ( isset( $request['instance']['encoded'], $request['instance']['hash'] ) ) {
-			$new_instance = $request['instance'];
-			$serialized_instance = base64_decode( $request['instance']['encoded'] );
-			$new_instance['hash'] = wp_hash( $serialized_instance );
-			$request->set_param( 'instance', $new_instance );
+		// Bail if the widget instance is not set.
+		if ( ! isset( $request['instance']['encoded'], $request['instance']['hash'] ) ) {
+			return $result;
 		}
+
+		// Set the new instance.
+		$new_instance         = $request['instance'];
+		$serialized_instance  = base64_decode( $request['instance']['encoded'] );
+		$new_instance['hash'] = wp_hash( $serialized_instance );
+
+		// Override the instance.
+		$request->set_param( 'instance', $new_instance );
 
 		return $result;
 	}
