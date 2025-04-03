@@ -54,7 +54,7 @@ class Controller {
 	 * @since 6.0.0
 	 *
 	 * @param Meta_Watcher $meta_watcher A reference to the current Meta Watcher service implementation.
-	 * @param Requests     $requests     A reference to the curret Request factory and repository implementation.
+	 * @param Requests     $requests     A reference to the current Request factory and repository implementation.
 	 * @param Events       $events       A reference to the current Events implementation.
 	 */
 	public function __construct( Meta_Watcher $meta_watcher, Requests $requests, Events $events ) {
