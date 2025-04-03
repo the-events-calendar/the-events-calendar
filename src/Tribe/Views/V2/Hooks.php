@@ -198,6 +198,41 @@ class Hooks extends Service_Provider {
 		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
 
 		add_filter( 'wp_rest_cache/allowed_endpoints', [ $this, 'include_rest_for_caching' ], 10, 1 );
+
+		add_filter( 'rest_pre_dispatch', function( $result, $server, $request ) {
+			// Bail if result is already set
+			if ( null !== $result ) {
+				return $result;
+			}
+		
+			// Get the route being requested
+			$route = $request->get_route();
+			
+			// Check if this matches our target endpoint
+			if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/encode$#', $route, $matches ) ) {
+				return $result;
+			}
+		
+			// Get the widget type ID from the route
+			$widget_type_id = $matches[1];
+		
+			global $wp_widget_factory;
+
+			$widget_object = $wp_widget_factory->get_widget_object( $widget_type_id );
+
+			if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
+				return $result;
+			}
+
+			if ( isset( $request['instance']['encoded'], $request['instance']['hash'] ) ) {
+				$new_instance = $request['instance'];
+				$serialized_instance = base64_decode( $request['instance']['encoded'] );
+				$new_instance['hash'] = wp_hash( $serialized_instance );
+				$request->set_param( 'instance', $new_instance );
+			}
+
+			return $result;
+		}, 10, 3 );
 	}
 
 	/**
