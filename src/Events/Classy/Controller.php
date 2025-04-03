@@ -223,6 +223,18 @@ class Controller extends ControllerContract {
 	 * @return void The hooked actions and filters are removed.
 	 */
 	public function unregister(): void {
+		// Unregister the back-compat editor and utils.
+		if ( $this->container->has( 'editor' ) && $this->container->get( 'editor' ) instanceof Editor ) {
+			unset( $this->container['editor'] );
+			unset( $this->container['events.editor'] );
+			unset( $this->container['events.editor.compatibility'] );
+		}
+
+		if ( $this->container->has( 'editor.utils' ) && $this->container->get( 'editor.utils' ) instanceof Editor_Utils ) {
+			unset( $this->container['editor.utils'] );
+		}
+
+		// Remove filters and actions.
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
