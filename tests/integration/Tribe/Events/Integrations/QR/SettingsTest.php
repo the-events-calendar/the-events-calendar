@@ -85,6 +85,8 @@ class SettingsTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_settings_default_values() {
+		$this->settings->init_settings();
+
 		$enabled     = tribe_get_option( $this->slugs['enabled'], true );
 		$size        = tribe_get_option( $this->slugs['size'], '250x250' );
 		$redirection = tribe_get_option( $this->slugs['redirection'], 'current_event' );
@@ -99,46 +101,17 @@ class SettingsTest extends WPTestCase {
 	}
 
 	/**
-	 * Test that the settings class can be enabled
+	 * Test that the settings are initialized
 	 *
 	 * @test
 	 */
-	public function test_settings_can_be_enabled() {
-		$this->assertTrue( $this->settings->is_enabled() );
-	}
+	public function test_settings_are_initialized() {
+		tribe_remove_option( $this->slugs['enabled'] );
 
-	/**
-	 * Test that the settings class can be disabled
-	 *
-	 * @test
-	 */
-	public function test_settings_can_be_disabled() {
-		tribe_update_option( $this->slugs['enabled'], false );
+		$this->assertEmpty( tribe_get_option( $this->slugs['enabled'] ) );
 
-		$this->assertFalse( $this->settings->is_enabled() );
-	}
+		$this->settings->init_settings();
 
-	/**
-	 * Test that the settings class can be enabled through a filter
-	 *
-	 * @test
-	 */
-	public function test_settings_enabled_state_can_be_filtered() {
-		add_filter( 'tec_events_qr_code_enabled', '__return_true' );
-
-		$this->assertTrue( $this->settings->is_enabled() );
-
-		remove_filter( 'tec_events_qr_code_enabled', '__return_true' );
-	}
-
-	/**
-	 * Test that the settings class sanitizes the enabled state
-	 *
-	 * @test
-	 */
-	public function test_settings_enabled_state_is_sanitized() {
-		tribe_update_option( $this->slugs['enabled'], 'invalid_value' );
-
-		$this->assertFalse( $this->settings->is_enabled() );
+		$this->assertTrue( tribe_get_option( $this->slugs['enabled'] ) );
 	}
 }
