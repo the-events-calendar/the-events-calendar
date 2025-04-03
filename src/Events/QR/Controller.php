@@ -142,6 +142,8 @@ class Controller extends Controller_Contract {
 	 * @return bool Whether the QR module is active.
 	 */
 	public function is_active(): bool {
+		Settings::init_settings();
+
 		$options = Settings::get_option_slugs();
 		$enabled = tribe_is_truthy( tribe_get_option( $options['enabled'], false ) );
 
