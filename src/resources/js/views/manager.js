@@ -318,6 +318,12 @@ tribe.events.views.manager = {};
 	 */
 	obj.onLinkClick = async function( event ) {
 		var $container = obj.getContainer( this );
+        
+        // Remove language code from url variable to make calendar work on translated versions, done by GTranslate team 19.06.2024
+       function removeLanguageCode(url) {
+           var langCodeRegex = /\/[a-z]{2}(?:-[A-Z]{2})?\//;
+           return url.replace(langCodeRegex, '/');
+        }
 
 		$container.trigger( 'beforeOnLinkClick.tribeEvents', event );
 
@@ -327,13 +333,14 @@ tribe.events.views.manager = {};
 
 		var $link = $( this );
 		var url = $link.attr( 'href' );
+        var cleanedUrl = removeLanguageCode(url);
 		var prevUrl = containerData.prev_url;
 		var shouldManageUrl = obj.shouldManageUrl( $container );
 		var shortcodeId = $container.data( 'view-shortcode' );
 
 		var data = {
 			prev_url: encodeURI( decodeURI( prevUrl ) ),
-			url: encodeURI( decodeURI( url ) ),
+			url: encodeURI( decodeURI( cleanedUrl ) ),
 			should_manage_url: shouldManageUrl,
 		};
 
