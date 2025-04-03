@@ -58,8 +58,8 @@
       "types": {
         "version" : "Version",
         "feat" : "Feature",
-        "tweak" : "Tweak",
         "fix" : "Fix",
+        "tweak" : "Tweak",
         "performance" : "Performance",
         "security" : "Security",
         "accessibility" : "Accessibility",
