@@ -355,7 +355,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	 */
 	protected function build_type_casted_table_column( $table, $column, $meta_type ) {
 		$table_and_column = "{$table}.{$column}";
-		if ( 'CHAR' !== $meta_type ) {
+		if ( 'CHAR' !== $meta_type && $meta_type !== 'DATETIME' ) {
 			$table_and_column = "CAST({$table}.{$column} AS {$meta_type})";
 		}
 
@@ -376,7 +376,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	protected function build_where_operator_sql( $table_and_column, $meta_compare, $value ) {
 		global $wpdb;
 
-		return $wpdb->prepare( "{$table_and_column} ${meta_compare} %s", $value );
+		return $wpdb->prepare( "{$table_and_column} {$meta_compare} %s", $value );
 	}
 
 	/**

@@ -12,8 +12,10 @@
 
 namespace TEC\Events\Custom_Tables\V1;
 
-use tad_DI52_Container as Container;
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Container;
+
+use TEC\Common\Contracts\Service_Provider;
+
 use TEC\Events\Custom_Tables\V1\Migration\State;
 
 /**
@@ -25,6 +27,15 @@ use TEC\Events\Custom_Tables\V1\Migration\State;
  */
 class Provider extends Service_Provider {
 	const DISABLED = 'TEC_CUSTOM_TABLES_V1_DISABLED';
+
+	/**
+	 * The custom action that will be fired when the provider registers.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @return void
+	 */
+	public static string $registration_action = 'tec_ct1_provider_registered';
 
 	/**
 	 * A flag property indicating whether the Service Provide did register or not.
@@ -61,6 +72,8 @@ class Provider extends Service_Provider {
 			// Let's avoid double filtering by making sure we're registering at most once.
 			return true;
 		}
+
+		add_action( 'tec_events_custom_tables_v1_error', [ $this, 'log_errors' ] );
 
 		$this->did_register = true;
 
@@ -227,5 +240,24 @@ class Provider extends Service_Provider {
 		}
 
 		return $removed;
+	}
+
+	/**
+	 * Logs the error.
+	 *
+	 * @since 6.1.3
+	 *
+	 * @param \Throwable $error The error to log.
+	 */
+	public function log_errors( $error ): void {
+		if ( ! $error instanceof \Throwable ) {
+			return;
+		}
+
+		do_action( 'tribe_log', 'error', 'Caught Custom Tables V1 activation error.', [
+			'message' => $error->getMessage(),
+			'file'    => $error->getFile(),
+			'line'    => $error->getLine(),
+		] );
 	}
 }

@@ -39,7 +39,7 @@ class Tribe__Events__Aggregator__Service {
 	public static $auth_transient_meetup = 'tribe_aggregator_has_meetup_authorized_response';
 
 	/**
-	 * API varibles stored in a single Object
+	 * API variables stored in a single Object
 	 *
 	 * @var array $api {
 	 *     @type string     $key         License key for the API (PUE)
@@ -75,7 +75,7 @@ class Tribe__Events__Aggregator__Service {
 	 * Constructor!
 	 */
 	public function __construct( Tribe__Events__Aggregator__API__Requests $requests ) {
-		$this->register_messages();
+		add_action( 'after_setup_theme', [ $this, 'register_messages' ] );
 		$this->requests = $requests;
 	}
 
@@ -213,7 +213,7 @@ class Tribe__Events__Aggregator__Service {
 
 		/**
 		 * Length of time to wait when initially connecting to Event Aggregator before abandoning the attempt.
-		 * default is 60 seconds. We set this high so large files can be transfered on slow connections
+		 * default is 60 seconds. We set this high so large files can be transferred on slow connections
 		 *
 		 * @var int $timeout_in_seconds
 		 */
@@ -759,7 +759,7 @@ class Tribe__Events__Aggregator__Service {
 	 * These messages are delivered by the EA service and don't need to be registered. They just need to exist
 	 * here so that they can be translated.
 	 */
-	protected function register_messages() {
+	public function register_messages() {
 		$ical_uid_specification_link = sprintf(
 			'<a target="_blank" href="https://tools.ietf.org/html/rfc5545#section-3.8.4.7">%s</a>',
 			esc_html__( 'the UID part of the iCalendar Specification', 'the-events-calendar' )

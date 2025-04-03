@@ -96,6 +96,14 @@ class Tribe__Events__Embedded_Maps {
 
 		ob_start();
 
+		if ( is_numeric( $width ) ) {
+			$width .= 'px';
+		}
+
+		if ( is_numeric( $height ) ) {
+			$height .= 'px';
+		}
+
 		if ( tribe_is_using_basic_gmaps_api() ) {
 
 			// Get a basic embed that doesn't use the JavaScript API
@@ -103,6 +111,7 @@ class Tribe__Events__Embedded_Maps {
 				'modules/map-basic',
 				null,
 				[
+					'venue'     => esc_html( get_the_title( $this->venue_id ) ),
 					'embed_url' => tribe_get_basic_gmap_embed_url( $this->address ),
 					'address'   => $this->address,
 					'index'     => $index,

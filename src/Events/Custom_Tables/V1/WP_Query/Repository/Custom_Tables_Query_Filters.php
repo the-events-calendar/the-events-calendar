@@ -200,6 +200,7 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 	 * to the custom tables.
 	 *
 	 * @since 6.0.0
+	 * @since 6.0.3 Changed from 'else if' to `if` for handling deduplication of join clauses.
 	 *
 	 * {@inheritdoc}
 	 */
@@ -220,9 +221,15 @@ class Custom_Tables_Query_Filters extends Query_Filters {
 			 * table as that is the only way to represent Occurrences.
 			 */
 			global $wpdb;
-			$occurrences                = Occurrences::table_name( true );
-			$this->query_vars['join'][] = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
-		} else if ( ! empty( $this->query_vars['join'] ) ) {
+			$occurrences = Occurrences::table_name( true );
+			$join_clause = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+
+			if ( ! in_array( $join_clause, $this->query_vars['join'], true ) ) {
+				$this->query_vars['join'][] = $join_clause;
+			}
+		}
+
+		if ( ! empty( $this->query_vars['join'] ) ) {
 			$join = $this->deduplicate_joins( $join );
 		}
 

@@ -209,7 +209,7 @@ class Event extends Base {
 				'excerpt'                => (
 					new Lazy_String(
 						static function () use ( $post_id ) {
-							return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ) );
+							return tribe_events_get_the_excerpt( $post_id, wp_kses_allowed_html( 'post' ), true );
 						},
 						false
 					)
@@ -337,7 +337,7 @@ class Event extends Base {
 	}
 
 	/**
-	 * Overrides the base method to conver the I18n Dates to PHP built-in Date types.
+	 * Overrides the base method to convert the I18n Dates to PHP built-in Date types.
 	 *
 	 * @since 6.0.3.1
 	 *

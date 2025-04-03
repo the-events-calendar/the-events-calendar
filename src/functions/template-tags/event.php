@@ -21,7 +21,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 	 *                                 object to localize the event in a specific time-frame.
 	 * @param bool             $force  Whether to force a re-fetch ignoring cached results or not.
 	 *
-	 * @return array|mixed|void|WP_Post|null {
+	 * @return array|WP_Post|null {
 	 *                              The Event post object or array, `null` if not found.
 	 *
 	 *                              @type string $start_date The event start date, in `Y-m-d H:i:s` format.
@@ -124,12 +124,10 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			// Use the `post_password` field as we show/hide some information depending on that.
 			$cache_post->post_password,
 			// We must include options on cache key, because options influence the hydrated data on the Event object.
-			wp_json_encode( Tribe__Settings_Manager::get_options() ),
-			wp_json_encode( [
-				$cache['option_start_of_week'],
-				$cache['option_timezone_string'],
-				$cache['option_gmt_offset']
-			] ),
+			Tribe__Settings_Manager::get_options(),
+			$cache['option_start_of_week'],
+			$cache['option_timezone_string'],
+			$cache['option_gmt_offset'],
 			$output,
 			$filter,
 		];
@@ -137,7 +135,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 		$cache_key = 'tribe_get_event_' . md5( wp_json_encode( $key_fields ) );
 
 		// Try getting the memoized value.
-		$post = $cache[ $cache_key ];
+		$post = $cache->get( $cache_key, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 
 		if ( $post === false ) {
 			// No memoized value, build from properties.
@@ -159,7 +157,7 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 			$post = apply_filters( 'tribe_get_event', $post, $output, $filter );
 
 			// Memoize the value.
-			$cache[ $cache_key ] = $post;
+			$cache->set( $cache_key, $post, Tribe__Cache::NON_PERSISTENT, Tribe__Cache_Listener::TRIGGER_SAVE_POST );
 		}
 
 		if ( empty( $post ) ) {
@@ -188,11 +186,9 @@ if ( ! function_exists( 'tribe_get_event' ) ) {
 				return (array) $post;
 			case ARRAY_N:
 				return array_values( (array) $post );
-			case OBJECT:
-			default;
-				return $post;
 		}
 
+		// In case of output not ARRAY_A or ARRAY_N, we return the post object.
 		return $post;
 	}
 }

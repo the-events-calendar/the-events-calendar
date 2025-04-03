@@ -539,6 +539,76 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
+	 * It should correctly link existing organizers to events.
+	 *
+	 * @test
+	 */
+	public function should_correctly_link_existing_organizers_to_events() {
+		// Create existing organizer.
+		$organizer_name = 'Organizer-1';
+		$original_organizer_id = $this->factory()->organizer->create();
+		wp_update_post( [
+			'ID'         => $original_organizer_id,
+			'post_title' => $organizer_name,
+		] );
+
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'ical' );
+		$event_data->organizer = [
+			(object) [
+				'organizer' => $organizer_name,
+			],
+		];
+
+		$this->track_last_inserted_or_updated();
+
+		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'ical' );
+		$record->insert_posts( [ $event_data ] );
+
+		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
+		$organizers = (array) get_post_meta( $this->last_inserted_or_updated, '_EventOrganizerID', true );
+		$this->assertNotEmpty( $organizers );
+		$assigned_organizer_id = reset( $organizers );
+		$this->assertEquals( $original_organizer_id, $assigned_organizer_id );
+		$organizer = get_post( $assigned_organizer_id );
+		$this->assertEquals( $organizer_name, $organizer->post_title );
+	}
+
+	/**
+	 * It should correctly link existing venues to events.
+	 *
+	 * @test
+	 */
+	public function should_correctly_link_existing_venues_to_events() {
+		// Create existing organizer.
+		$venue_name = 'Venue-1';
+		$original_venue_id = $this->factory()->venue->create();
+		wp_update_post( [
+			'ID'         => $original_venue_id,
+			'post_title' => $venue_name,
+		] );
+
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'ical' );
+		$event_data->venue = (object) [
+			'venue' => $venue_name,
+		];
+
+		$this->track_last_inserted_or_updated();
+
+		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'ical' );
+		$record->insert_posts( [ $event_data ] );
+
+		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
+		$venues = (array) get_post_meta( $this->last_inserted_or_updated, '_EventVenueID', true );
+		$this->assertNotEmpty( $venues );
+		$assigned_venue_id = reset( $venues );
+		$this->assertEquals( $original_venue_id, $assigned_venue_id );
+		$venue = get_post( $assigned_venue_id );
+		$this->assertEquals( $venue_name, $venue->post_title );
+	}
+
+	/**
 	 * It should not track modified fields when creating events no matter the authority
 	 *
 	 * @test I should
@@ -557,7 +627,7 @@ class AbstractTest extends Events_TestCase {
 
 		$this->assertEmpty( get_post_meta( $post_id, \Tribe__Tracker::$field_key, true ) );
 
-		// run the import a second time ot update the event
+		// run the import a second time to update the event
 		/** @var Base $record */
 		$record_2 = $this->extend_base_w_origin( 'gcal' );
 		$record_2->insert_posts( [ $event_data ] );

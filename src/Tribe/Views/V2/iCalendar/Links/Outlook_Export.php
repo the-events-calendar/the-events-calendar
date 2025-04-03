@@ -28,11 +28,23 @@ class Outlook_Export extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		$this->label = __( 'Export Outlook .ics file', 'the-events-calendar' );
-		$this->single_label = $this->label;
-
 		add_filter( 'tec_views_v2_subscribe_link_outlook-ics_visibility', [ $this, 'filter_tec_views_v2_subscribe_link_outlook_ics_visibility'], 10, 2 );
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function label(): string {
+		return __( 'Export Outlook .ics file', 'the-events-calendar' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function single_label(): string {
+		return $this->label();
+	}
+
 
 	/**
 	 * Filters the is_visible() function to not display on single events.
@@ -55,7 +67,7 @@ class Outlook_Export extends Link_Abstract {
 	public function get_uri( View $view = null ) {
 		if ( null === $view || is_single( Tribe__Events__Main::POSTTYPE ) ) {
 			// Try to construct it for the event single.
-			return add_query_arg( [ 'ical' => 1 ], get_the_permalink() );
+			return add_query_arg( [ 'outlook-ical' => 1 ], get_the_permalink() );
 		}
 
 		$template_vars = $view->get_template_vars();
@@ -74,6 +86,14 @@ class Outlook_Export extends Link_Abstract {
 		$url = remove_query_arg( 'ical', $ical->link->url );
 		$url = add_query_arg( [ 'outlook-ical' => 1 ], $url );
 
-		return $url;
+		/**
+		 * Filters the Outlook export URL.
+		 *
+		 * @since 6.11.0
+		 *
+		 * @param string $url The URL.
+		 * @param View   $view The view.
+		 */
+		return (string) apply_filters( 'tec_views_v2_subscribe_links_outlook_export_url', $url, $view );
 	}
 }

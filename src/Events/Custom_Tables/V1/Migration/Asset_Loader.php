@@ -49,8 +49,7 @@ class Asset_Loader {
 		$on_settings_page         = tribe( Plugin_Settings::class )->is_tec_events_settings();
 		$on_maintenance_mode_page = tribe( Progress_Modal::class )->should_render();
 
-
-		if ( ! $on_settings_page && ! $on_maintenance_mode_page ) {
+		if ( ! ( $on_settings_page || $on_maintenance_mode_page ) ) {
 			return;
 		}
 

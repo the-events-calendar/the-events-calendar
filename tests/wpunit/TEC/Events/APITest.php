@@ -7,6 +7,13 @@ use Tribe__Events__Main as TEC;
 
 class APITest extends \Codeception\TestCase\WPTestCase {
 	/**
+	 * @after
+	 */
+	public function reregister_taxonomies(): void {
+		TEC::instance()->register_taxonomy();
+	}
+
+	/**
 	 * It should correctly handle daylight saving hours
 	 *
 	 * @test
@@ -56,5 +63,24 @@ class APITest extends \Codeception\TestCase\WPTestCase {
 		] );
 
 		$this->assertEquals( 3 * HOUR_IN_SECONDS, (int) get_post_meta( $id, '_EventDuration', true ) );
+	}
+
+	public function get_event_terms_will_work_when_cat_tax_unregistered(): void {
+		unregister_taxonomy( TEC::TAXONOMY );
+		$post_id = tribe_events()->set_args( [
+			'title'      => 'Test Event',
+			'status'     => 'publish',
+			'start_date' => '2018-01-01 08:00:00',
+			'end_date'   => '2018-01-01 10:00:00',
+			'tax_input'  => [
+				'post_tag' => [ 'tag1', 'tag2' ],
+			]
+		] )->create()->ID;
+
+		$event_terms = API::get_event_terms( $post_id );
+
+		$this->assertEquals( [
+			'post_tag' => [ 'tag-1', 'tag-2' ]
+		], $event_terms );
 	}
 }

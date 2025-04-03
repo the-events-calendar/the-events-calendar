@@ -147,7 +147,6 @@ class Event_Report implements JsonSerializable {
 	 * @param WP_Post $source_post
 	 */
 	public function __construct( $source_post ) {
-		// @todo Construct override ? Allow for passing report data directly..?
 		if ( $source_post instanceof WP_Post ) {
 			$post_title = $source_post->post_title;
 
@@ -526,9 +525,8 @@ class Event_Report implements JsonSerializable {
 	 * The JSON serializer logic.
 	 *
 	 * @since 6.0.0
-	 *
-	 * @return mixed
 	 */
+	#[\ReturnTypeWillChange]
 	public function jsonSerialize() {
 		return $this->data;
 	}

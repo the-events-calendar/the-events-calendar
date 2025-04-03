@@ -5,6 +5,7 @@
   "lang/*.mo",
   "lang/*.pot",
   "src/admin-views/**/*",
+  "src/build/**/*",
   "src/deprecated/**/*",
   "src/functions/**/*",
   "src/modules/icons/*",
@@ -14,6 +15,7 @@
   "src/resources/css/custom-tables-v1/*.css",
   "src/resources/js/views/*",
   "src/resources/js/*",
+  "src/resources/js/admin/*",
   "src/resources/images/**/*",
   "src/resources/icons/**/*",
   "src/resources/deprecated/**/*",
@@ -36,6 +38,6 @@
   "vendor/jquery/smoothness/*.css",
   "vendor/jquery/smoothness/images/*.png",
   "vendor/php-date-formatter/js/*.min.js",
-  "vendor/woocommerce/action-scheduler/**/*",
+  "vendor/vendor-prefixed/**/*",
   "uninstall.php"
 ]

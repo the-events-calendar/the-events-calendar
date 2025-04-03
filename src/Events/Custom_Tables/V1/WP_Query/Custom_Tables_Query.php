@@ -363,6 +363,8 @@ class Custom_Tables_Query extends WP_Query {
 				$occurrences = Occurrences::table_name( true );
 				$order = $normalized_order_by['ID'] ?? $normalized_order_by[ $wpdb->posts . '.ID' ] ?? 'DESC';
 
+				$order = $this->sanitize_order( $order );
+
 				// The second `order` is omitted: it will be added by the following `parse_order` call.
 				$parsed = "ID $order, $occurrences.occurrence_id";
 				break;
@@ -385,6 +387,10 @@ class Custom_Tables_Query extends WP_Query {
 		if ( $orderby === 'meta_value' ) {
 			// Handle the case where the order is by a meta key and value couple.
 			$meta_query_orderby = $this->get( 'meta_key' );
+			// If we have a list of meta query args.
+			if ( ! $meta_query_orderby && isset( reset( $meta_query_clauses )['original_meta_key'] ) ) {
+				$meta_query_orderby = reset( $meta_query_clauses )['original_meta_key'];
+			}
 		} else if ( isset( $meta_query_clauses[ $orderby ]['original_meta_key'] ) ) {
 			// Handle the case where the order is by the meta query key.
 			$meta_query_orderby = $meta_query_clauses[ $orderby ]['original_meta_key'];
@@ -437,7 +443,7 @@ class Custom_Tables_Query extends WP_Query {
 		 *
 		 * @param string              $where    The `WHERE` statement produced by the Custom Tables Query.
 		 * @param WP_Query            $query    The query object being filtered.
-		 * @param Custom_Tables_Query $ct_query A reference to the Custom Tables Query instance that is appplying
+		 * @param Custom_Tables_Query $ct_query A reference to the Custom Tables Query instance that is applying
 		 *                                      the filter.
 		 */
 		return apply_filters( 'tec_events_custom_tables_v1_custom_tables_query_where', $where, $query, $this );
@@ -518,11 +524,11 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		global $wpdb;
-		$str = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
+		$join_clause = "JOIN {$occurrences} ON {$wpdb->posts}.ID = {$occurrences}.post_id";
 
-		if ( strpos( $join, $str ) === false ) {
+		if ( strpos( $join, $join_clause ) === false ) {
 			// Let's add the JOIN clause only if we did not already.
-			$join .= ' ' . $str;
+			$join .= ' ' . $join_clause;
 		}
 
 		return $join;
@@ -694,9 +700,9 @@ class Custom_Tables_Query extends WP_Query {
 			}
 
 			// Each `ORDER BY` entry could specify an order (DESC|ASC) or not.
-			if ( preg_match( '~(?<orderby>.*?)\s?(?<order>ASC|DESC)$~i', $orderby_frag, $m ) ) {
+			if ( preg_match( '~(?<orderby>.+)\s+(?<order>ASC|DESC)$~i', $orderby_frag, $m ) ) {
 				$orderby = trim( $m['orderby'] );
-				$order = trim( $m['order'] );
+				$order   = $this->sanitize_order( $m['order'] );
 			} else {
 				// Follow the WordPress default and use DESC if no order is specified.
 				$orderby = $orderby_frag;
@@ -716,5 +722,18 @@ class Custom_Tables_Query extends WP_Query {
 		}
 
 		return $redirected_orderbys;
+	}
+
+	/**
+	 * Sanitizes the order direction.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @param string $order The order direction to sanitize.
+	 *
+	 * @return string The sanitized order direction.
+	 */
+	protected function sanitize_order( $order ) {
+		return strtoupper( trim( $order ) ) === 'DESC' ? 'DESC' : 'ASC';
 	}
 }

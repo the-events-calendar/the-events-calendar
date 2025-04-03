@@ -8,7 +8,7 @@ import { list } from '@moderntribe/common/utils/globals';
 /**
  * Convert data from an array with different keys and values into a unified shape of object.
  *
- * @param {object} data An object with the data used to retrieve the data
+ * @param {Object} data An object with the data used to retrieve the data
  * @returns {{code: string, name: *}[]} Return an object with code, name values
  */
 function toObject( data = {} ) {

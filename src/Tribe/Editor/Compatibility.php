@@ -49,7 +49,7 @@ class Tribe__Events__Editor__Compatibility {
 	public function hook() {
 		add_filter( 'tribe_editor_should_load_blocks', [ $this, 'filter_tribe_editor_should_load_blocks' ], 100 );
 		add_filter( 'classic_editor_enabled_editors_for_post_type', [ $this, 'filter_classic_editor_enabled_editors_for_post_type' ], 10, 2 );
-		add_filter( 'tribe_general_settings_tab_fields', [ $this, 'insert_toggle_blocks_editor_field' ] );
+		add_filter( 'tribe_general_settings_editing_section', [ $this, 'insert_toggle_blocks_editor_field' ] );
 	}
 
 	/**
@@ -60,11 +60,11 @@ class Tribe__Events__Editor__Compatibility {
 	 * @return bool
 	 */
 	public function is_blocks_editor_toggled_on() {
-		$cache     = tribe( 'cache' );
+		$cache     = tribe_cache();
 		$cache_key = 'tec_editor_compatibility_' . static::$blocks_editor_key;
 
 		$is_on = $cache->get( $cache_key, '', null );
-		if ( $is_on !== null ) {
+		if ( $is_on !== '' && $is_on !== null ) {
 			return tribe_is_truthy( $is_on );
 		}
 
@@ -79,7 +79,7 @@ class Tribe__Events__Editor__Compatibility {
 		 */
 		$is_on = (bool) apply_filters( 'tribe_events_blocks_editor_is_on', $is_on );
 
-		$cache->set( $cache_key, $is_on, \Tribe__Cache::NON_PERSISTENT );
+		$cache->set( $cache_key, (int) $is_on, \Tribe__Cache::NON_PERSISTENT );
 
 		return tribe_is_truthy( $is_on );
 	}

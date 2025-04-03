@@ -8,7 +8,8 @@
  */
 namespace TEC\Events\Custom_Tables\V1\Schema_Builder;
 
-use tad_DI52_ServiceProvider as Service_Provider;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Abstract class Schema_Provider
@@ -24,6 +25,7 @@ abstract class Abstract_Schema_Provider extends Service_Provider implements Sche
 	public function register() {
 		add_filter( 'tec_events_custom_tables_v1_table_schemas', [ $this, 'filter_table_schemas' ] );
 		add_filter( 'tec_events_custom_tables_v1_field_schemas', [ $this, 'filter_field_schemas' ] );
+		$this->container->singleton( static::class, $this );
 	}
 
 	/**

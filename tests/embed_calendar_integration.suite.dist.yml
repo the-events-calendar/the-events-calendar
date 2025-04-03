@@ -1,0 +1,20 @@
+actor: Embed_calendar_integrationTester
+bootstrap: _bootstrap.php
+modules:
+  enabled:
+    - \Helper\Embed_calendar_integration
+    - WPLoader:
+  config:
+    WPLoader:
+      wpRootFolder: "%WP_ROOT_FOLDER%"
+      dbName: "%WP_TEST_DB_NAME%"
+      dbHost: "%WP_TEST_DB_HOST%"
+      dbUser: "%WP_TEST_DB_USER%"
+      dbPassword: "%WP_TEST_DB_PASSWORD%"
+      tablePrefix: test_
+      domain: "%WP_DOMAIN%"
+      adminEmail: admin@%WP_DOMAIN%
+      title: 'Calendar Embed Integration'
+      plugins:
+        - the-events-calendar/the-events-calendar.php
+      theme: twentytwenty

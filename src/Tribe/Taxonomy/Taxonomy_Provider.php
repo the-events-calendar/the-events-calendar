@@ -9,6 +9,8 @@
 namespace Tribe\Events\Taxonomy;
 
 use WP_Term;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class Taxonomy_Provider
@@ -17,7 +19,8 @@ use WP_Term;
  *
  * @package Tribe\Events\Taxonomy
  */
-class Taxonomy_Provider extends \tad_DI52_ServiceProvider {
+class Taxonomy_Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.

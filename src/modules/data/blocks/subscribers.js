@@ -13,7 +13,6 @@ import {
 	selectors as priceSelectors,
 } from './price';
 import {
-	reducer as venueReducer,
 	selectors as venueSelectors,
 } from './venue';
 import {
@@ -31,10 +30,10 @@ const {
  * Set meta for given key.
  *
  * @exports
- * @param {object}   map      Map of state key to meta key.
+ * @param {Object}   map      Map of state key to meta key.
  * @param {string}   mapKey   State key for map.
  * @param {Function} selector Selector to get block state.
- * @returns {object} Object of post meta to be saved.
+ * @returns {Object} Object of post meta to be saved.
  */
 export const setMeta = ( map, mapKey, selector ) => {
 	const metaKey = map[ mapKey ];
@@ -45,9 +44,9 @@ export const setMeta = ( map, mapKey, selector ) => {
 /**
  * Set meta for given block.
  *
- * @param {object} blockToMapAndSelectorMap Map of block to state and meta map and selector.
+ * @param {Object} blockToMapAndSelectorMap Map of block to state and meta map and selector.
  * @param {string} blockKey                 Block key for map.
- * @returns {object} Object of post meta to be saved for given block.
+ * @returns {Object} Object of post meta to be saved for given block.
  */
 export const setBlockMeta = ( blockToMapAndSelectorMap, blockKey ) => {
 	const [ map, selector ] = blockToMapAndSelectorMap[ blockKey ];
@@ -77,7 +76,7 @@ const subscribe = () => {
 		const blockToMapAndSelectorMap = {
 			datetime: [ datetimeReducer.defaultStateToMetaMap, datetimeSelectors.datetimeSelector ],
 			price: [ priceReducer.defaultStateToMetaMap, priceSelectors.getPriceBlock ],
-			venue: [ venueReducer.defaultStateToMetaMap, venueSelectors.venueBlockSelector ],
+			venue: [ venueSelectors.venueBlockSelector ],
 			website: [ websiteReducer.defaultStateToMetaMap, websiteSelectors.getWebsiteBlock ],
 		};
 		const blockKeys = Object.keys( blockToMapAndSelectorMap );

@@ -172,7 +172,6 @@ class Tribe__Events__Aggregator__Page {
 						'tribe-dropdowns',
 					],
 				],
-				[ 'tribe-ea-page', 'datatables-css' ],
 			],
 			'admin_enqueue_scripts',
 			[
@@ -190,7 +189,7 @@ class Tribe__Events__Aggregator__Page {
 			$plugin,
 			'tribe-ea-styles',
 			'aggregator-page.css',
-			[],
+			[ 'datatables-css' ],
 			'admin_enqueue_scripts',
 			[
 				'conditionals' => [

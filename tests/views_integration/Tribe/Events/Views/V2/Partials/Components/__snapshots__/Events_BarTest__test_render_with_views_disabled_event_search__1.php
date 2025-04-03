@@ -11,7 +11,7 @@
 		Event Views Navigation	</h3>
 	<div  class="tribe-events-c-view-selector"  data-js="tribe-events-view-selector">
 		<button
-			class="tribe-events-c-view-selector__button"
+			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">
@@ -19,7 +19,7 @@
 			</span>
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				List			</span>
-			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-view-selector__button-icon-caret-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
+			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-view-selector__button-icon-caret-svg"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
 		</button>
 		<div
 	class="tribe-events-c-view-selector__content"

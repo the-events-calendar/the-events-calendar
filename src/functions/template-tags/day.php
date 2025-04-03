@@ -7,16 +7,19 @@ if ( ! function_exists( 'tribe_is_day' ) ) {
 	 *
 	 * @return bool
 	 */
-	function tribe_is_day() {
-		$view_slug = tribe_context()->get( 'view', 'default' );
+	function tribe_is_day(): bool {
+		$context  = tribe_context();
+		$is_day = tec_is_view( \Tribe\Events\Views\V2\Views\Day_View::get_view_slug() );
 
-		if ( 'default' === $view_slug ) {
-			$view_slug = tribe( \Tribe\Events\Views\V2\Manager::class )->get_default_view_slug();
-		}
-
-		$is_day = 'day' === $view_slug;
-
-		return apply_filters( 'tribe_is_day', $is_day );
+		/**
+		 * Allows filtering of the tribe_is_day boolean value.
+		 *
+		 * @since 6.0.7 Added context to parameters.
+		 *
+		 * @param bool           $is_day  If we're on the Day View
+		 * @param Tribe__Context $context The current context
+		 */
+		return apply_filters( 'tribe_is_day', $is_day, $context );
 	}
 }
 
@@ -30,7 +33,10 @@ if ( ! function_exists( 'tribe_get_day_link' ) ) {
 	 */
 	function tribe_get_day_link( $date = null ) {
 		$date_obj = Tribe__Date_Utils::build_date_object( $date );
-		$url      = tribe_events_get_url( [ 'eventDisplay' => 'day', 'eventDate' => $date_obj->format( Tribe__Date_Utils::DBDATEFORMAT ) ] );
+		$url      = tribe_events_get_url( [
+			'eventDisplay' => \Tribe\Events\Views\V2\Views\Day_View::get_view_slug(),
+			'eventDate' => $date_obj->format( Tribe__Date_Utils::DBDATEFORMAT )
+		] );
 
 		/**
 		 * Allows the filtering of a given day link to our views.

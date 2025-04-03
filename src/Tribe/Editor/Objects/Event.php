@@ -94,7 +94,7 @@ class Event implements Editor_Object_Interface {
 					'_EventCost'        => static function () use ( $post_id ) {
 						return tribe_get_cost( $post_id );
 					},
-					'_EventVenueID'     => 'absint',
+					'_EventVenueID'     => [ Arr::class, 'list_to_array' ],
 					'_EventShowMap'     => 'tribe_is_truthy',
 					'_EventShowMapLink' => 'tribe_is_truthy',
 				];

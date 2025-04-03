@@ -1,7 +1,11 @@
 <?php
 namespace Tribe\Events\Admin;
 
-class Provider extends \tad_DI52_ServiceProvider {
+use TEC\Common\Contracts\Service_Provider;
+
+
+class Provider extends Service_Provider {
+
 	/**
 	 * Register implementations.
 	 *
@@ -15,6 +19,7 @@ class Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( 'tec.admin.notice.timezones', Notice\Timezones::class );
 		$this->container->singleton( 'tec.admin.notice.marketing', Notice\Marketing::class );
 		$this->container->singleton( 'tec.admin.notice.update', Notice\Update::class );
+		$this->container->singleton( Notice\Install_Event_Tickets::class, Notice\Install_Event_Tickets::class );
 
 		$this->add_hooks();
 	}
@@ -23,16 +28,19 @@ class Provider extends \tad_DI52_ServiceProvider {
 	 * Add hooks.
 	 *
 	 * @since 5.15.0
+	 * @since 6.11.0 Updated priority of adding admin pages to 12.
 	 */
 	public function add_hooks() {
 		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'settings_ui' ) );
-		add_action( 'admin_menu', $this->container->callback( Settings::class, 'add_admin_pages' ), 11 );
-		add_action( 'tribe_settings_do_tabs', $this->container->callback(  Settings::class, 'do_addons_api_settings_tab' ) );
-		add_action( 'tribe_settings_do_tabs', $this->container->callback(  Settings::class, 'do_upgrade_tab' ) );
-		add_filter( 'tribe_settings_url', $this->container->callback(  Settings::class, 'filter_url' ) );
+		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'register_default_sidebar' ) );
+		add_action( 'admin_menu', $this->container->callback( Settings::class, 'add_admin_pages' ), 12 );
+		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_addons_api_settings_tab' ) );
+		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_upgrade_tab' ) );
+		add_filter( 'tribe_settings_url', $this->container->callback( Settings::class, 'filter_url' ) );
 		add_action( 'network_admin_menu', $this->container->callback( Settings::class, 'maybe_add_network_settings_page' ) );
 		add_action( 'tribe_settings_do_tabs', $this->container->callback( Settings::class, 'do_network_settings_tab' ), 400 );
 		add_filter( 'tribe_settings_page_title', $this->container->callback( Settings::class, 'settings_page_title' ) );
+		add_filter( 'tec_settings_page_logo_source', $this->container->callback( Settings::class, 'settings_page_logo_source' ) );
 		add_filter( 'tec_settings_tab_url', $this->container->callback( Settings::class, 'filter_settings_tab_url' ), 50, 3 );
 		add_filter( 'tec_admin_pages_with_tabs', $this->container->callback( Settings::class, 'add_to_pages_with_tabs' ), 20, 1 );
 		add_filter( 'tribe_settings_page_url', $this->container->callback( Settings::class, 'filter_settings_page_url' ), 50, 3 );
@@ -46,5 +54,6 @@ class Provider extends \tad_DI52_ServiceProvider {
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.legacy-views', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( 'tec.admin.notice.fse', 'hook' ) );
 		add_action( 'admin_init', $this->container->callback( Notice\Legacy_Views_Updated::class, 'hook' ) );
+		add_action( 'admin_init', $this->container->callback( Notice\Install_Event_Tickets::class, 'hook' ) );
 	}
 }

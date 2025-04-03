@@ -15,10 +15,7 @@
 		name="tribe-events-status[status]"
 		class="tribe-dropdown tribe-events-status__status-select"
 		value=""
-		 data-placeholder="Select an Event Status" data-hide-search data-prevent-clear data-options="[{&quot;text&quot;:&quot;Scheduled&quot;,&quot;id&quot;:&quot;scheduled&quot;,&quot;value&quot;:&quot;scheduled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Canceled&quot;,&quot;id&quot;:&quot;canceled&quot;,&quot;value&quot;:&quot;canceled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Postponed&quot;,&quot;id&quot;:&quot;postponed&quot;,&quot;value&quot;:&quot;postponed&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Scheduled&quot;,&quot;id&quot;:&quot;scheduled&quot;,&quot;value&quot;:&quot;scheduled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Canceled&quot;,&quot;id&quot;:&quot;canceled&quot;,&quot;value&quot;:&quot;canceled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Postponed&quot;,&quot;id&quot;:&quot;postponed&quot;,&quot;value&quot;:&quot;postponed&quot;,&quot;selected&quot;:false}]" 	>
-					<option value="scheduled" >Scheduled</option>
-					<option value="canceled" >Canceled</option>
-					<option value="postponed" >Postponed</option>
+		 data-placeholder="Select an Event Status" data-hide-search data-prevent-clear data-options="[{&quot;text&quot;:&quot;Scheduled&quot;,&quot;id&quot;:&quot;scheduled&quot;,&quot;value&quot;:&quot;scheduled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Canceled&quot;,&quot;id&quot;:&quot;canceled&quot;,&quot;value&quot;:&quot;canceled&quot;,&quot;selected&quot;:false},{&quot;text&quot;:&quot;Postponed&quot;,&quot;id&quot;:&quot;postponed&quot;,&quot;value&quot;:&quot;postponed&quot;,&quot;selected&quot;:false}]" 	>
 					<option value="scheduled" >Scheduled</option>
 					<option value="canceled" >Canceled</option>
 					<option value="postponed" >Postponed</option>

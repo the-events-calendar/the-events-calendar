@@ -3,9 +3,9 @@ namespace Tribe\Events\Views\V2\Views\Widgets;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Views\V2\View;
-use Tribe\Test\Products\WPBrowser\Views\V2\ViewTestCase;
+use Tribe\Events\Test\Testcases\TecViewTestCase;
 
-class Widget_ListTest extends ViewTestCase {
+class Widget_ListTest extends TecViewTestCase {
 
 	use MatchesSnapshots;
 

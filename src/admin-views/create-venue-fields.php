@@ -5,7 +5,7 @@ $post_id = Tribe__Events__Main::postIdHelper();
 $is_auto_draft = get_post_status( $post_id ) === 'auto-draft';
 
 // If not $_POST and if this is not an auto-draft then get the current values to edit
-if ( ! $_POST && is_admin() ) {
+if ( ! $_POST ) {
 
 	$venue_name             = tribe_get_venue();
 
@@ -24,7 +24,7 @@ if ( ! $_POST && is_admin() ) {
 
 	} else {
 		$_VenuePhone            = tribe_get_phone();
-		$_VenueURL              = strip_tags( tribe_get_venue_link( null, false ) );
+		$_VenueURL              = tribe_get_venue_website_url();
 		$_VenueAddress          = tribe_get_address();
 		$_VenueCity             = tribe_get_city();
 		$_VenueProvince         = tribe_get_province();
@@ -149,7 +149,7 @@ if ( ! $_POST && is_admin() ) {
 			class="tribe-dropdown"
 			tabindex="<?php tribe_events_tab_index(); ?>"
 			id="StateProvinceSelect"
-			name="venue[State]"
+			name="venue[State][]"
 			aria-label="<?php esc_html_e( 'Venue State', 'the-events-calendar' ); ?>"
 			data-prevent-clear
 		>
@@ -206,50 +206,4 @@ if ( ! $_POST && is_admin() ) {
 	</td>
 </tr>
 
-<?php
-
-/**
- * Only show the Google map toggles on the admin screens
- * @since 4.5.4
- *
- */
-if ( ! is_admin() ) {
-	return;
-}
-
-$google_map_toggle = ( tribe_embed_google_map( $post->ID ) || get_post_status( $post->ID ) == 'auto-draft' ) ? true : false;
-$google_map_link_toggle = ( get_post_status( $post->ID ) == 'auto-draft' && $google_map_toggle ) ? true : get_post_meta( $post->ID, '_EventShowMapLink', true );
-
- // Only show if embed option selected.
-if ( tribe_get_option( 'embedGoogleMaps', true ) ) : ?>
-	<tr id="google_map_toggle" class="remain-visible tribe-linked-type-venue-googlemap">
-		<td class='tribe-table-field-label'><?php esc_html_e( 'Show Map:', 'the-events-calendar' ); ?></td>
-		<td>
-			<input
-				tabindex="<?php tribe_events_tab_index(); ?>"
-				type="checkbox"
-				id="EventShowMap"
-				name="venue[EventShowMap][]"
-				value="1"
-				<?php checked( $google_map_toggle ); ?>
-				aria-label="<?php esc_html_e( 'Show Map?', 'the-events-calendar' ); ?>"
-			/>
-		</td>
-	</tr>
-<?php endif; ?>
-
-<tr id="google_map_link_toggle" class="remain-visible tribe-linked-type-venue-googlemap-link">
-	<td class='tribe-table-field-label'><?php esc_html_e( 'Show Map Link:', 'the-events-calendar' ); ?></td>
-	<td>
-		<input
-			tabindex="<?php tribe_events_tab_index(); ?>"
-			type="checkbox"
-			id="EventShowMapLink"
-			name="venue[EventShowMapLink][]"
-			value="1"
-			<?php checked( $google_map_link_toggle ); ?>
-			aria-label="<?php esc_html_e( 'Show Map Link?', 'the-events-calendar' ); ?>"
-		/>
-	</td>
-</tr>
 <?php

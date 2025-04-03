@@ -4,7 +4,7 @@ namespace Tribe\Events;
 
 use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Testcases\Events_TestCase;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Events__Main as Main;
 use Tribe__Events__Query as Query;
 use Tribe__Events__Organizer as Organizer;
@@ -214,7 +214,7 @@ class QueryTest extends Events_TestCase {
 	 */
 	public function should_not_parse_query_in_admin_context(): void {
 		// Simulate an admin context request.
-		$this->uopz_set_return( 'is_admin', true );
+		$this->set_fn_return( 'is_admin', true );
 		$wp_query = new WP_Query( [ 'post_type' => 'tribe_events' ] );
 
 		$this->assertFalse( isset( $wp_query->tribe_is_event ) );
@@ -307,7 +307,7 @@ class QueryTest extends Events_TestCase {
 		$this->assertEquals(
 			10,
 			has_filter( 'option_page_on_front', [ Query::class, 'default_page_on_front' ] ),
-			'Page on front should be filterd for home queries.'
+			'Page on front should be filtered for home queries.'
 		);
 	}
 
@@ -356,11 +356,15 @@ class QueryTest extends Events_TestCase {
 	 */
 	public function should_not_add_events_to_tag_archives_when_looking_at_admin_screen_for_posts(): void {
 		// Simulate the fact we're looking at an admin tag archive for posts.
-		$this->uopz_set_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
-			public function is_post_type_screen( $post_type = null ) {
-				return true;
+		$this->set_fn_return(
+			Admin_Helpers::class,
+			'instance',
+			new class extends Admin_Helpers {
+				public function is_post_type_screen( $post_type = null ) {
+					return true;
+				}
 			}
-		} );
+		);
 
 		// Create a query for a tag archive.
 		$tag   = static::factory()->tag->create();
@@ -375,24 +379,47 @@ class QueryTest extends Events_TestCase {
 	 * @test
 	 */
 	public function should_add_events_to_tag_archives_when_not_looking_at_admin_screen_for_posts(): void {
+		$old_wp_query            = clone $GLOBALS['wp_query'];
+		$old_wp_the_query        = clone $GLOBALS['wp_the_query'];
+		// Detach the main query from the global wp_query.
+		$GLOBALS['wp_the_query'] = new WP_Query( [] );
 		// Simulate the fact we're looking at an admin tag archive for posts.
-		$this->uopz_set_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
-			public function is_post_type_screen( $post_type = null ) {
-				return false;
+		$this->set_fn_return(
+			Admin_Helpers::class,
+			'instance',
+			new class extends Admin_Helpers {
+				public function is_post_type_screen( $post_type = null ) {
+					return false;
+				}
 			}
-		} );
+		);
 
 		// Create a query for a tag archive.
 		$tag   = static::factory()->tag->create();
 		$query = new WP_Query( [ 'post_type' => 'post', 'tag_id' => $tag ] );
 
-		$this->assertEquals( [ Main::POSTTYPE, 'post' ], $query->get( 'post_type' ) );
+		$this->assertEquals( 'post', $query->get( 'post_type' ) );
+
+		// This should only affect the global wp_the_query.
+		$GLOBALS['wp_query']->set( 'tag_id', $tag );
+		$GLOBALS['wp_query']->set( 'post_type', 'post' );
+		$GLOBALS['wp_query']->parse_query_vars();
+		$GLOBALS['wp_the_query']->set( 'tag_id', $tag );
+		$GLOBALS['wp_the_query']->set( 'post_type', 'post' );
+		$GLOBALS['wp_the_query']->parse_query_vars();
+
+		$this->assertEquals( [ Main::POSTTYPE, 'post' ], $GLOBALS['wp_the_query']->get( 'post_type' ) );
+		$this->assertEquals( 'post', $GLOBALS['wp_query']->get( 'post_type', ) );
 
 		// Create a query for tag archive for any post (already filtered, probably by a plugin).
 		$tag   = static::factory()->tag->create();
 		$query = new WP_Query( [ 'post_type' => 'any', 'tag_id' => $tag ] );
 
 		$this->assertEquals( 'any', $query->get( 'post_type' ) );
+
+		// Put globals back
+		$GLOBALS['wp_query']     = $old_wp_query;
+		$GLOBALS['wp_the_query'] = $old_wp_the_query;
 	}
 
 	/**
@@ -542,7 +569,7 @@ class QueryTest extends Events_TestCase {
 		// Simulate a main query for posts, WordPress would NOT specify the `post_type`.
 		global $wp_the_query;
 		$wp_the_query = new WP_Query();
-		$wp_the_query->query([]);
+		$wp_the_query->query( [] );
 
 		$this->assertEquals( [ Main::POSTTYPE, 'post' ], $wp_the_query->get( 'post_type' ) );
 		$this->assertFalse( $wp_the_query->tribe_is_event );
@@ -551,5 +578,70 @@ class QueryTest extends Events_TestCase {
 		$this->assertFalse( $wp_the_query->tribe_is_event_venue );
 		$this->assertFalse( $wp_the_query->tribe_is_event_organizer );
 		$this->assertFalse( $wp_the_query->tribe_is_event_query );
+	}
+
+	/**
+	 * Validates that we inject our post type for tags query in the correct scenarios.
+	 *
+	 * @test
+	 */
+	public function should_filter_on_tags_archive() {
+		// Store old wp query for reset later
+		$old_wp_the_query = clone $GLOBALS['wp_the_query']; // is main query
+		$old_wp_query     = clone $GLOBALS['wp_query']; // tag archive page
+
+		// Given not on a particular page
+		$GLOBALS['wp_the_query'] = new WP_Query( [] );
+		// Test terms
+		$show_slugs = [ 'transformers', 'gi-joe', 'he-man' ];
+		foreach ( $show_slugs as $show ) {
+			$term = get_term_by( 'slug', $show, 'tribe_events_cat' );
+			if ( ! $term ) {
+				wp_insert_term(
+					ucwords( str_replace( '-', ' ', $show ) ), // the term name
+					'tribe_events_cat', // the taxonomy
+					[
+						'slug' => $show // the term slug
+					]
+				);
+			}
+		}
+
+		$tax_query   = [ 'relation' => 'AND' ];
+		$tax_query[] = [
+			'taxonomy' => 'post_tag',
+			'field'    => 'slug',
+			'terms'    => $show_slugs
+		];
+		$args        = [
+			'post_type'      => 'post',
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+			'posts_per_page' => 4,
+			'tax_query'      => $tax_query
+		];
+
+		$tax_query = new WP_Query( $args );
+
+		// We are not on tag page, this should not have our events post type
+		$this->assertNotContains( Main::POSTTYPE, (array) $tax_query->get( 'post_type' ) );
+
+		// Try again with archive page + main query, it should inject our events post type
+		$GLOBALS['wp_query']->query( $args );
+		$GLOBALS['wp_the_query']->query( $args );
+		$this->assertContains( Main::POSTTYPE, (array) $GLOBALS['wp_the_query']->get( 'post_type' ) );
+
+		// Someone calling early, should return gracefully.
+		$GLOBALS['wp_query'] = null;
+		$did_fail            = false;
+		add_action( 'doing_it_wrong_run', function ( $function, $message, $version ) use ( &$did_fail ) {
+			$did_fail = true;
+		}, 10, 3 );
+		$tax_query3 = new WP_Query( $args );
+		$this->assertFalse( $did_fail, 'Should not have hit doing it wrong action.' );
+
+		// Cleanup
+		$GLOBALS['wp_query']     = $old_wp_query;
+		$GLOBALS['wp_the_query'] = $old_wp_the_query;
 	}
 }

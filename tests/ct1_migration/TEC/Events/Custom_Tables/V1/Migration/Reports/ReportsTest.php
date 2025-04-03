@@ -300,7 +300,7 @@ class ReportsTest extends \CT1_Migration_Test_Case {
 			->set_tickets_provider( 'woocommerce' )
 			->add_created_event( $post4, 1 )
 			->add_strategy( 'split' );
-		$event_report1->migration_failed( 'Something broked.' );
+		$event_report1->migration_failed( 'Something broken.' );
 
 		$site_report = Site_Report::build();
 		$this->assertEquals( 4, $site_report->total_events );

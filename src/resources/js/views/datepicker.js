@@ -156,14 +156,13 @@ tribe.events.views.datepicker = {};
 	obj.request = function( viewData, $container ) {
 		var data = {
 			view_data: viewData,
-			_wpnonce: $container.data( 'view-rest-nonce' ),
 		};
 
 		tribe.events.views.manager.request( data, $container );
 	};
 
 	/**
-	 * Create the Date input that will be preprended on the form created.
+	 * Create the Date input that will be prepended on the form created.
 	 *
 	 * @since 4.9.11
 	 *

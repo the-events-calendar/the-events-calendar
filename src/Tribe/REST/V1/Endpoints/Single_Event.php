@@ -78,6 +78,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return new WP_Error( 'event-not-accessible', $message, [ 'status' => 403 ] );
 		}
 
+		if ( ! $this->validator->can_access_password_content( $event, $request ) ) {
+			$message = $this->messages->get_message( 'event-password-protected' );
+
+			return new WP_Error( 'event-password-protected', $message, [ 'status' => 403 ] );
+		}
+
 		$data = $this->post_repository->get_event_data( $request['id'], 'single' );
 
 		/**
@@ -98,7 +104,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
 	 * or that of a document part.
-	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
+	 * The intelligence lies in the "gatherer" of information rather than in the single "providers" implementing this
 	 * interface.
 	 *
 	 * @link http://swagger.io/
@@ -209,6 +215,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'description'       => __( 'the event post ID', 'the-events-calendar' ),
 				'required'          => true,
 				'validate_callback' => [ $this->validator, 'is_event_id' ],
+			],
+			'password' => [
+				'in'                => 'path',
+				'type'              => 'string',
+				'description'       => __( 'The event password', 'the-events-calendar' ),
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_string' ],
 			],
 		];
 	}
@@ -361,7 +374,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'validate_callback' => [ $this->validator, 'is_venue_id_or_entry_or_empty' ],
 				'swagger_type'      => 'array',
 				'items'             => [ 'type' => 'integer' ],
-				'description'       => __( 'The event venue ID or data', 'the-events-calendar' ),
+				'description'       => __( 'The event venue IDs or data', 'the-events-calendar' ),
 			],
 			'organizer'          => [
 				'required'          => false,
@@ -387,6 +400,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 
 		$postarr = $this->prepare_postarr( $request );
 
+
 		if ( is_wp_error( $postarr ) ) {
 			return $postarr;
 		}
@@ -402,7 +416,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		}
 
 		$data = $this->post_repository->get_event_data( $id );
-
 		$response = new WP_REST_Response( $data );
 		$response->set_status( 201 );
 
@@ -562,12 +575,27 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 		$events_cat            = Tribe__Events__Main::TAXONOMY;
 
 		$post_date     = isset( $request['date'] )
-			? Tribe__Date_Utils::reformat( $request['date'], 'Y-m-d H:i:s' )
+			? Tribe__Date_Utils::build_date_object( $request['date'], $request['timezone'] )->format( 'Y-m-d H:i:s' )
 			: false;
 		$post_date_gmt = isset( $request['date_utc'] )
 			? Tribe__Timezones::localize_date( 'Y-m-d H:i:s', $request['date_utc'], 'UTC' )
 			: false;
 
+		// Resolve our dates based on timezone if available.
+		$event_start_date = null;
+		$event_start_time = null;
+		$event_end_date   = null;
+		$event_end_time   = null;
+		if ( $request['start_date'] ) {
+			$start_date_obj   = Tribe__Date_Utils::build_date_object( $request['start_date'], $request['timezone'] );
+			$event_start_date = $start_date_obj->format( 'Y-m-d' );
+			$event_start_time = $start_date_obj->format( 'H:i:s' );
+		}
+		if ( $request['end_date'] ) {
+			$end_date_obj   = Tribe__Date_Utils::build_date_object( $request['end_date'], $request['timezone'] );
+			$event_end_date = $end_date_obj->format( 'Y-m-d' );
+			$event_end_time = $end_date_obj->format( 'H:i:s' );
+		}
 		$postarr = [
 			// Post fields
 			'post_author'           => $request['author'],
@@ -581,10 +609,10 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Event data
 			'EventTimezone'         => $request['timezone'],
 			'EventAllDay'           => isset( $request['all_day'] ) ? tribe_is_truthy( $request['all_day'] ) : null,
-			'EventStartDate'        => $request['start_date'] ? Tribe__Date_Utils::reformat( $request['start_date'], 'Y-m-d' ) : null,
-			'EventStartTime'        => $request['start_date'] ? Tribe__Date_Utils::reformat( $request['start_date'], 'H:i:s' ) : null,
-			'EventEndDate'          => $request['end_date'] ? Tribe__Date_Utils::reformat( $request['end_date'], 'Y-m-d' ) : null,
-			'EventEndTime'          => $request['end_date'] ? Tribe__Date_Utils::reformat( $request['end_date'], 'H:i:s' ) : null,
+			'EventStartDate'        => $event_start_date,
+			'EventStartTime'        => $event_start_time,
+			'EventEndDate'          => $event_end_date,
+			'EventEndTime'          => $event_end_time,
 			'FeaturedImage'         => tribe_upload_image( $request['image'] ),
 			'EventCost'             => $request['cost'],
 			'EventCurrencyPosition' => tribe( 'cost-utils' )->parse_currency_position( $request['cost'] ),
@@ -593,7 +621,6 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			// Taxonomies
 			'tax_input'             => [],
 		];
-
 		// Check if categories is provided (allowing for empty array to remove categories).
 		if ( isset( $request['categories'] ) ) {
 			$postarr['tax_input'][ $events_cat ] = [];

@@ -2,12 +2,16 @@
 
 namespace Tribe\Events\Editor;
 
+use TEC\Common\Contracts\Service_Provider;
+
+
 /**
  * Events block editor hooks.
  *
  * @since 5.12.0
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends Service_Provider {
+
 	/**
 	 * Binds and sets up implementations.
 	 *

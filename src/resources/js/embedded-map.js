@@ -80,7 +80,7 @@ if ( "function" === typeof jQuery ) jQuery( function( $ ) {
 
 		/**
 		 * Trigger a new event when the Map is created in order to allow Users option to customize the map by listening
-		 * to the correct event and having an instance of the Map variable avialable to modify if required.
+		 * to the correct event and having an instance of the Map variable available to modify if required.
 		 *
 		 * @param {Object} map An instance of the Google Map.
 		 * @param {Element} el The DOM Element where the map is attached.

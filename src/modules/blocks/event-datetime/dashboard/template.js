@@ -88,6 +88,7 @@ const renderMultiDayToggle = ( { multiDay, onMultiDayToggleChange } ) => {
 			label={ __( 'Multi-Day', 'the-events-calendar' ) }
 			checked={ multiDay }
 			onChange={ onMultiDayToggleChange }
+			__nextHasNoMarginBottom={ true }
 		/>
 	);
 };
@@ -135,9 +136,9 @@ class Calendars extends PureComponent {
 	static propTypes = {
 		end: PropTypes.string,
 		multiDay: PropTypes.bool,
-		onSelectDay: PropTypes.func,
+		onSelect: PropTypes.func,
 		start: PropTypes.string,
-	}
+	};
 
 	constructor( props ) {
 		super( props );
@@ -146,13 +147,14 @@ class Calendars extends PureComponent {
 
 	setVisibleMonth = ( visibleMonth ) => {
 		this.setState( { visibleMonth } );
-	}
+	};
 
 	render() {
-		const { start, end, multiDay, onSelectDay } = this.props;
+		const { start, end, multiDay, onSelect } = this.props;
 
 		const monthProps = {
-			onSelectDay: onSelectDay,
+			className: 'tribe-editor__calendars__month',
+			onSelect: onSelect,
 			withRange: multiDay,
 			from: toMoment( start ).toDate(),
 			month: this.state.visibleMonth,
@@ -218,7 +220,7 @@ EventDateTimeDashboard.propTypes = {
 	onEndTimePickerChange: PropTypes.func,
 	onEndTimePickerClick: PropTypes.func,
 	onMultiDayToggleChange: PropTypes.func,
-	onSelectDay: PropTypes.func,
+	onSelect: PropTypes.func,
 	onStartTimePickerBlur: PropTypes.func,
 	onStartTimePickerChange: PropTypes.func,
 	onStartTimePickerClick: PropTypes.func,

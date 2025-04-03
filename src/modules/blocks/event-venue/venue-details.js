@@ -16,8 +16,20 @@ import {
 	Spinner,
 	Placeholder,
 } from '@wordpress/components';
+import PropTypes from 'prop-types';
 
 export default class VenueDetails extends Component {
+	static propTypes = {
+		venue: PropTypes.oneOfType( [ PropTypes.number, PropTypes.object ] ),
+		isLoading: PropTypes.bool,
+		removeVenue: PropTypes.node,
+		beforeTitle: PropTypes.node,
+		afterTitle: PropTypes.node,
+		maybeEdit: PropTypes.func,
+		address: PropTypes.object,
+		showMapLink: PropTypes.bool,
+	};
+
 	static defaultProps = {
 		beforeTitle: null,
 		afterTitle: null,
@@ -66,7 +78,7 @@ export default class VenueDetails extends Component {
 				{ removeVenue }
 			</div>
 		);
-	}
+	};
 
 	renderVenueName() {
 		const { beforeTitle, afterTitle, maybeEdit } = this.props;

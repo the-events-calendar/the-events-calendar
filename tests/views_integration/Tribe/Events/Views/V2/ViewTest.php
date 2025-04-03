@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Context as Context;
@@ -10,6 +11,7 @@ use Tribe__Date_Utils as Dates;
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
+	use MatchesSnapshots;
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
@@ -75,7 +77,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should print a view HTML on the page when caling send_html
+	 * It should print a view HTML on the page when calling send_html
 	 *
 	 * @test
 	 */
@@ -87,10 +89,12 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return '__return_true';
 		} );
 
+		ob_start();
 		$view = View::make( 'test' );
 		$view->send_html();
+		$content = ob_get_clean();
 
-		$this->expectOutputString( Test_View::class );
+		$this->assertMatchesSnapshot( $content );
 	}
 
 	/**
@@ -106,10 +110,12 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return '__return_true';
 		} );
 
+		ob_start();
 		$view = View::make( 'test' );
 		$view->send_html( 'Alice in Wonderland' );
+		$content = ob_get_clean();
 
-		$this->expectOutputString( 'Alice in Wonderland' );
+		$this->assertMatchesSnapshot( $content );
 	}
 
 	/**
@@ -161,7 +167,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 
 		$view = View::make( 'test' );
 
-		$this->assertEquals( 'test', $view->get_slug() );
+		$this->assertEquals( 'test', $view::get_view_slug() );
 	}
 
 	/**
@@ -257,7 +263,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			'2019-10-11' => [ '2019-10-11', '2019-10-11' ],
 			'false'      => [ false, false ],
 			'now'        => [ 'now', false ],
-			'today'      => [ 'today', date( Dates::DBDATEFORMAT ) ],
+			'today'      => [ 'today', gmdate( Dates::DBDATEFORMAT ) ],
 		];
 	}
 

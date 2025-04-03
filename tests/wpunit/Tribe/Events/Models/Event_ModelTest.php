@@ -6,7 +6,7 @@ use Tribe\Events\Models\Post_Types\Event;
 use Tribe__Events__Main as Main;
 use Tribe__Date_Utils as Dates;
 use Tribe\Test\PHPUnit\Traits\With_Post_Remapping;
-use Tribe\Events\Test\Traits\With_Uopz;
+use Tribe\Tests\Traits\With_Uopz;
 
 /**
  * Test that Common is being loaded correctly

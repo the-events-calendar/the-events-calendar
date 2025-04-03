@@ -421,9 +421,31 @@ class Schema_BuilderTest extends \CT1_Migration_Test_Case {
 			}
 		};
 		$tables      = [ $fodz_table, $klutz_table, $zorps_table ];
+
 		add_filter( 'tec_events_custom_tables_v1_table_schemas', static function () use ( $tables ) {
 			return $tables;
 		} );
+		// Mock the values returned by the query to fetch the tables.
+		// @see TEC\Events\Custom_Tables\V1\Schema_Builder\Schema_Builder::all_tables_exist()
+		add_filter( 'query', static function ( $query ) {
+			if ( stripos( $query, 'table_name IN ( "fodz", "klutz", "zorps" )' ) !== false ) {
+				return 'SELECT "fodz" UNION ALL SELECT "klutz" UNION ALL SELECT "zorps"';
+			}
+
+			// Same for fodz and klutz, group one.
+			if ( stripos( $query, 'table_name IN ( "fodz", "klutz" )' ) !== false ) {
+				return 'SELECT "fodz" UNION ALL SELECT "klutz"';
+			}
+
+			// Same for zorps, group two.
+			if ( stripos( $query, 'table_name IN ( "zorps" )' ) !== false ) {
+				return 'SELECT "zorps"';
+			}
+
+			// No need to mock anything for group 3.
+
+			return $query;
+		}, 100 );
 
 		$schema_builder = new Schema_Builder;
 

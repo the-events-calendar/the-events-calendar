@@ -43,7 +43,7 @@ class String_Validator extends Validator {
 	public function validate( Model $model, $name, $value ) {
 
 		if ( ! $this->present->validate( $model, $name, $value ) ) {
-			$this->add_error_message( $this->present->message() );
+			$this->add_error_message( implode( ', ', $this->present->get_error_messages() ) );
 
 			return false;
 		}

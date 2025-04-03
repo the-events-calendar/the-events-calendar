@@ -1,7 +1,6 @@
 <?php return '<div  class="tribe-compatibility-container" >
 	<div
 		 class="tribe-common tribe-events tribe-events-widget" 		data-js="tribe-events-view"
-		data-view-rest-nonce="1122334455"
 		data-view-rest-url="https://rest.tri.be/"
 		data-view-manage-url=""
 							data-view-breakpoint-pointer="aabbccddee"

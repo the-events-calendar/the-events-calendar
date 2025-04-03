@@ -9,6 +9,9 @@
 
 namespace Tribe\Events\Integrations\Divi;
 
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+
+
 /**
  * Class Service_Provider
  *
@@ -16,7 +19,8 @@ namespace Tribe\Events\Integrations\Divi;
  *
  * @package Tribe\Events\Integrations\Divi
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends Provider_Contract {
+
 
 	/**
 	 * Binds and sets up implementations.

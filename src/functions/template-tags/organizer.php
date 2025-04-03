@@ -154,6 +154,32 @@ function tribe_get_organizer_label_plural() {
 }
 
 /**
+ * Get Organizer Label Singular lowercase.
+ * Returns the lowercase singular version of the Organizer Label.
+ *
+ * Note: the output of this function is not escaped.
+ * You should escape it wherever you use it!
+ *
+ * @since 6.2.1
+ *
+ * @return string The lowercase singular version of the Organizer Label.
+ */
+function tribe_get_organizer_label_singular_lowercase() {
+	/**
+	 * Allows customization of the singular lowercase version of the Organizer Label.
+	 * Note: the output of this filter is not escaped!
+	 *
+	 * @since 6.2.1
+	 *
+	 * @param string $label The singular lowercase version of the Organizer label, defaults to "organizer" (lowercase)
+	 */
+	return apply_filters(
+		'tribe_organizer_label_singular_lowercase',
+		__( 'organizer', 'the-events-calendar' )
+	);
+}
+
+/**
  * Get the organizer label.
  *
  * Note: the output of this function is not escaped.
@@ -269,7 +295,7 @@ function tribe_get_organizer_email( $postId = null, $antispambot = true ) {
 	/**
 	 * Allows for the organizer email to be filtered.
 	 *
-	 * Please note that obfuscation of email is done in subsequent line using the `antispambot` function.
+	 * Please note that obfuscation of email is already done in a previous line using the `antispambot` function.
 	 *
 	 * @param string $filtered_email   The organizer email obfuscated using the `antispambot` function.
 	 * @param string $unfiltered_email The organizer email as stored in the database before any filtering or obfuscation is applied.
@@ -344,7 +370,10 @@ function tribe_get_organizer_link( $post_id = null, $full_link = true, $echo = f
 		 *
 		 * @since 4.0
 		 *
-		 * @param string the link HTML.
+		 * @param string $link      The link HTML.
+		 * @param int    $post_id   The post ID.
+		 * @param bool   $full_link If true outputs a complete HTML <a> link, otherwise only the URL is output.
+		 * @param string $url       The link URL.
 		 */
 		return apply_filters( 'tribe_get_organizer_link', $link, $post_id, $full_link, $url );
 	}
@@ -392,12 +421,15 @@ if ( ! function_exists( 'tribe_get_organizer_website_url' ) ) { // wrapped in if
  *
  * Returns the event Organizer Name with a link to their supplied website
  *
- * @param null|int    $post_id The post ID for an event.
- * @param null|string $label   The text for the link.
+ * @since 3.0
+ *
+ * @param ?int    $post_id The post ID for an event.
+ * @param ?string $label   The text for the link.
+ * @param ?string $target  The target attribute for the link.
  *
  * @return string
  **/
-function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
+function tribe_get_organizer_website_link( $post_id = null, $label = null, $target = '_self' ): string {
 	$post_id = tribe_get_organizer_id( $post_id );
 	$url     = tribe_get_event_meta( $post_id, '_OrganizerWebsite', true );
 
@@ -410,15 +442,23 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 	 * @param string   $url     The link URL.
 	 * @param null|int $post_id post ID for the organizer.
 	 */
-	$target = apply_filters( 'tribe_get_event_organizer_link_target', '_self', $url, $post_id );
-	$rel    = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
+	$target = apply_filters( 'tribe_get_event_organizer_link_target', $target, $url, $post_id );
+
+	// Ensure the target is given a valid value.
+	$allowed = [ '_self', '_blank', '_parent', '_top', '_unfencedTop' ];
+	if ( ! in_array( $target, $allowed ) ) {
+		$target = '_self';
+	}
+
+	$rel = ( '_blank' === $target ) ? 'noopener noreferrer' : 'external';
 
 	/**
 	 * Filter the organizer link label
 	 *
 	 * @since 5.1.0
 	 *
-	 * @param string the link label/text.
+	 * @param string $label   The link label/text.
+	 * @param int    $post_id The post ID.
 	 */
 	$label = apply_filters( 'tribe_get_organizer_website_link_label', $label, $post_id );
 
@@ -426,8 +466,8 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 		$label = is_null( $label ) ? $url : $label;
 
 		if ( ! empty( $url ) ) {
-			$parseUrl = parse_url( $url );
-			if ( empty( $parseUrl['scheme'] ) ) {
+			$parse_url = parse_url( $url );
+			if ( empty( $parse_url['scheme'] ) ) {
 				$url = "http://$url";
 			}
 		}
@@ -447,7 +487,7 @@ function tribe_get_organizer_website_link( $post_id = null, $label = null ) {
 	 *
 	 * @since 3.0
 	 *
-	 * @param string the link HTML.
+	 * @param string $html The link HTML.
 	 */
 	return apply_filters( 'tribe_get_organizer_website_link', $html );
 }
@@ -471,7 +511,7 @@ function tribe_events_get_organizer_website_title( $post_id = null ) {
 	 * @param string $title The title of the organizer's website link.
 	 * @param int 	 $post_id The organizer ID.
 	 */
-	return apply_filters( 'tribe_events_get_organizer_website_title', __( 'Website:', 'the-events-calendar' ), $post_id );
+	return apply_filters( 'tribe_events_get_organizer_website_title', __( 'Website', 'the-events-calendar' ), $post_id );
 }
 
 /**
@@ -642,6 +682,7 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *
 	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
 	 *
+	 * @deprecated 6.1.4
 	 * @since 6.0.3.1
 	 *
 	 * @param WP_Post     $post        The organizer post object to filter and return.
@@ -651,7 +692,23 @@ function tribe_get_organizer_object( $organizer = null, $output = OBJECT, $filte
 	 *                                 respectively. Defaults to `OBJECT`.
 	 * @param string      $filter      The filter, or context of the fetch.
 	 */
-	$post = apply_filters( 'tribe_get_organiser_object_after', $post, $organizer, $output, $filter );
+	$post = apply_filters_deprecated( 'tribe_get_organiser_object_after', [ $post, $organizer, $output, $filter ], '6.1.4', 'tribe_get_organizer_object_after', 'Deprecated due to misspelling in filter.');
+
+	/**
+	 * Filters the organizer result after the organizer has been built from the function.
+	 *
+	 * Note: this value will not be cached and the caching of this value is a duty left to the filtering function.
+	 *
+	 * @since 6.1.4
+	 *
+	 * @param WP_Post     $post        The organizer post object to filter and return.
+	 * @param int|WP_Post $organizer   The organizer object to fetch.
+	 * @param string|null $output      The required return type. One of OBJECT, ARRAY_A, or ARRAY_N, which
+	 *                                 correspond to a `WP_Post` object, an associative array, or a numeric array,
+	 *                                 respectively. Defaults to `OBJECT`.
+	 * @param string      $filter      The filter, or context of the fetch.
+	 */
+	$post = apply_filters( 'tribe_get_organizer_object_after', $post, $organizer, $output, $filter );
 
 	if ( OBJECT !== $output ) {
 		$post = ARRAY_A === $output ? (array) $post : array_values( (array) $post );

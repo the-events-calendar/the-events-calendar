@@ -11,6 +11,7 @@
  *
  * @version 4.6.24
  *
+ * @var string $venue The venue name.
  * @var string $embed_url The full embed URL.
  * @var string $address The venue's address as entered by the user.
  * @var int $index The array key associated with this map; will usually be 0 unless there's multiple maps on the page.
@@ -22,9 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
+if ( empty( $venue ) ) {
+	$venue = tribe_get_venue();
+}
 ?>
 
 <iframe
+  title="<?php echo sprintf( __( "Google maps iframe displaying the address to %s", 'the-events-calendar' ), $venue ); ?>"
   aria-label="<?php esc_attr_e( 'Venue location map', 'the-events-calendar' ); ?>"
   width="<?php echo esc_attr( $width ); ?>"
   height="<?php echo esc_attr( $height ); ?>"

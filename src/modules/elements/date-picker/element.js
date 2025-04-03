@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import moment from 'moment';
-import { noop } from 'lodash';
 import { PropTypes } from 'prop-types';
 
 /**
@@ -29,10 +28,16 @@ export default class DatePicker extends Component {
 		datetime: PropTypes.string,
 	};
 
-	static defaultProps = {
-		changeDatetime: noop,
-		datetime: toDatePicker(),
-	};
+	constructor( props ) {
+		super( props );
+
+		this.changeDatetime = props.changeDatetime.bind( this );
+
+		this.state = {
+			...props,
+			datetime: toDatePicker( toMoment( props.datetime ) ),
+		};
+	}
 
 	static getDerivedStateFromProps( nextProps, prevState ) {
 		const { datetime } = nextProps;
@@ -42,17 +47,6 @@ export default class DatePicker extends Component {
 
 		return {
 			datetime: toDatePicker( toMoment( datetime ) ),
-		};
-	}
-
-	constructor( props ) {
-		super( ...arguments );
-
-		this.changeDatetime = props.changeDatetime.bind( this );
-
-		this.state = {
-			...props,
-			datetime: toDatePicker( toMoment( props.datetime ) ),
 		};
 	}
 

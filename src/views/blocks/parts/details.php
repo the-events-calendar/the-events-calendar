@@ -15,7 +15,7 @@
 
 $event_id             = Tribe__Main::post_id_helper();
 $time_format          = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
-$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+$time_range_separator = tec_events_get_time_range_separator();
 $show_time_zone       = tribe_get_option( 'tribe_events_timezones_show_zone', false );
 $local_start_time     = tribe_get_start_date( $event_id, true, Tribe__Date_Utils::DBDATETIMEFORMAT );
 $time_zone_label      = Tribe__Events__Timezones::is_mode( 'site' ) ? Tribe__Events__Timezones::wp_timezone_abbr( $local_start_time ) : Tribe__Events__Timezones::get_event_timezone_abbr( $event_id );
@@ -132,7 +132,7 @@ $website = tribe_get_event_website_link( $event_id );
 				<div class="tribe-events-abbr tribe-events-start-time published dtstart" title="<?php echo esc_attr( $end_ts ); ?>">
 					<?php echo $time_formatted; ?>
 					<?php if ( $show_time_zone ) : ?>
-						<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>w
+						<span class="tribe-events-abbr tribe-events-time-zone published"><?php echo esc_html( $time_zone_label ); ?></span>
 					<?php endif; ?>
 				</div>
 			</dd>
@@ -173,7 +173,7 @@ $website = tribe_get_event_website_link( $event_id );
 
 		<?php
 		/* Translators: %s: Event (singular) */
-		tribe_meta_event_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true );
+		tribe_meta_event_archive_tags( sprintf( esc_html__( '%s Tags:', 'the-events-calendar' ), tribe_get_event_label_singular() ), ', ', true );
 		?>
 
 		<?php

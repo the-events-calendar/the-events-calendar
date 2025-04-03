@@ -14,16 +14,16 @@
  * @return bool
  */
 function tribe_is_month() {
-	$context = tribe_context();
-	$is_month  = ( 'month' === $context->get( 'view', 'default' ) );
+	$context  = tribe_context();
+	$is_month = tec_is_view( \Tribe\Events\Views\V2\Views\Month_View::get_view_slug() );
 
 	/**
 	 * Allows filtering of the tribe_is_month boolean value.
 	 *
 	 * @since 4.6.15 Added inline documentation for this filter.
 	 *
-	 * @param boolean $is_month Whether you're on the main Month View or not
-	 * @param Tribe__Context The global context object.
+	 * @param boolean        $is_month Whether you're on the main Month View or not
+	 * @param Tribe__Context $context  The global context object.
 	 */
 	return apply_filters( 'tribe_is_month', $is_month, $context );
 }
