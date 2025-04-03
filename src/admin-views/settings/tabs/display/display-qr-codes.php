@@ -13,6 +13,17 @@ use Tribe\Utils\Element_Attributes;
 
 $slug = QR_Settings::get_option_slugs();
 
+$options = [
+	'current'  => esc_html__( 'Current Event', 'the-events-calendar' ),
+	'upcoming' => esc_html__( 'Redirect to the first upcoming event', 'the-events-calendar' ),
+	'specific' => esc_html__( 'Specific Event', 'the-events-calendar' ),
+];
+
+
+if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
+	$options['next'] = esc_html__( 'Redirect to the next event in a series', 'the-events-calendar' );
+}
+
 $tec_events_display_qr_codes = [
 	$slug['title']       => [
 		'type' => 'html',
@@ -50,12 +61,7 @@ $tec_events_display_qr_codes = [
 		'label'           => esc_html__( 'Default Redirection Behavior', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Set the default behavior for QR code redirection.', 'the-events-calendar' ),
 		'default'         => 'current',
-		'options'         => [
-			'current'  => esc_html__( 'Redirect to the current event', 'the-events-calendar' ),
-			'upcoming' => esc_html__( 'Redirect to the first upcoming event', 'the-events-calendar' ),
-			'specific' => esc_html__( 'Redirect to a specific event ID', 'the-events-calendar' ),
-			'next'     => esc_html__( 'Redirect to the next event in a series', 'the-events-calendar' ),
-		],
+		'options'         => $options,
 		'validation_type' => 'options',
 	],
 	$slug['event_id']    => [

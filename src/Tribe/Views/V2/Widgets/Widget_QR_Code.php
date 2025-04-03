@@ -200,6 +200,28 @@ class Widget_QR_Code extends Widget_Abstract {
 	 * @return array<string,mixed> The array of widget admin fields.
 	 */
 	public function setup_admin_fields() {
+		$options = [
+			[
+				'value' => 'current',
+				'text'  => _x( 'Redirect to the current event', 'Current event redirection option', 'the-events-calendar' ),
+			],
+			[
+				'value' => 'upcoming',
+				'text'  => _x( 'Redirect to the first upcoming event', 'Upcoming event redirection option', 'the-events-calendar' ),
+			],
+			[
+				'value' => 'specific',
+				'text'  => _x( 'Redirect to a specific event ID', 'Specific event redirection option', 'the-events-calendar' ),
+			],
+		];
+
+		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
+			$options[] = [
+				'value' => 'next',
+				'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
+			];
+		}
+
 		return [
 			'widget_title' => [
 				'id'    => 'widget_title',
@@ -246,24 +268,7 @@ class Widget_QR_Code extends Widget_Abstract {
 				'label'   => _x( 'Redirection Behavior:', 'The label for the redirection behavior setting.', 'the-events-calendar' ),
 				'type'    => 'dropdown',
 				'classes' => 'tribe-dependency',
-				'options' => [
-					[
-						'value' => 'current',
-						'text'  => _x( 'Redirect to the current event', 'Current event redirection option', 'the-events-calendar' ),
-					],
-					[
-						'value' => 'upcoming',
-						'text'  => _x( 'Redirect to the first upcoming event', 'Upcoming event redirection option', 'the-events-calendar' ),
-					],
-					[
-						'value' => 'specific',
-						'text'  => _x( 'Redirect to a specific event ID', 'Specific event redirection option', 'the-events-calendar' ),
-					],
-					[
-						'value' => 'next',
-						'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
-					],
-				],
+				'options' => $options,
 			],
 			'event_id'     => [
 				'id'         => 'event_id',
