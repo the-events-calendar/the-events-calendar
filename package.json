@@ -59,6 +59,7 @@
     "build:common": "cd common && npm run build",
     "build": "wp-scripts build",
     "start": "wp-scripts start",
+    "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
     "changelog": "./vendor/bin/changelogger add",
     "jest": "TZ=UTC gulp jest",
     "lint:eslint": "gulp eslint",
