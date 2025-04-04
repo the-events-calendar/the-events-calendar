@@ -1,4 +1,4 @@
 Significance: minor
 Type: accessibility
 
-Change focus to results after filtering events/ [FBAR-332]
+Change focus to results after filtering `events/`. [FBAR-332]
