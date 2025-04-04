@@ -37,8 +37,6 @@ export function EventDetails( props: EventDetailsProps ) {
 		editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
 	};
 
-	console.log('hello from classy');
-
 	return (
 		<div className="classy-field classy-field--event-details">
 			<div className="classy-field__title">
