@@ -206,7 +206,7 @@ class Builder {
 	 */
 	public function __construct( Model $model ) {
 		$this->model      = $model;
-		$this->batch_size = tec_query_batch_size( __METHOD__ );
+		$this->batch_size = function_exists( 'tec_query_batch_size' ) ? tec_query_batch_size( __METHOD__ ) : 50;
 	}
 
 	/**
