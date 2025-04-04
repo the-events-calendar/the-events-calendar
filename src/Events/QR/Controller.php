@@ -9,7 +9,6 @@ namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Events\QR\Routes;
-use TEC\Common\lucatume\DI52\Container;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -40,19 +39,6 @@ class Controller extends Controller_Contract {
 	private $qr_code;
 
 	/**
-	 * Controller constructor.
-	 *
-	 * @since TBD
-	 *
-	 * @param Container $container   The DI container.
-	 * @param QR_Code   $qr_code     The QR code instance.
-	 */
-	public function __construct( Container $container, QR_Code $qr_code ) {
-		parent::__construct( $container );
-		$this->qr_code = $qr_code;
-	}
-
-	/**
 	 * Register the controller.
 	 *
 	 * @since TBD
@@ -63,13 +49,13 @@ class Controller extends Controller_Contract {
 		$this->container->register( Routes::class );
 		$this->container->register( Redirections::class );
 
+		$this->qr_code = $this->container->make( QR_Code::class );
+
 		$this->slug = Settings::get_qr_slug();
 
 		$this->add_hooks();
 
 		$this->register_assets();
-
-		Settings::init_settings();
 	}
 
 	/**
@@ -145,7 +131,12 @@ class Controller extends Controller_Contract {
 	 */
 	public function is_active(): bool {
 		$options = Settings::get_option_slugs();
-		$enabled = tribe_is_truthy( tribe_get_option( $options['enabled'], false ) );
+		$enabled = tribe_get_option( $options['enabled'], 'not-set' );
+
+		if ( 'not-set' === $enabled ) {
+			tribe_update_option( $options['enabled'], true );
+			$enabled = true;
+		}
 
 		/**
 		 * Filter whether QR functionality is enabled.
@@ -154,7 +145,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param bool $enabled Whether QR functionality is enabled.
 		 */
-		return apply_filters( 'tec_events_qr_enabled', $enabled );
+		return (bool) apply_filters( 'tec_events_qr_enabled', $enabled );
 	}
 
 	/**

@@ -50,19 +50,4 @@ class Settings {
 			'fallback'    => 'tribe-events-qr-fallback',
 		];
 	}
-
-	/**
-	 * Initialize the QR Settings.
-	 *
-	 * @since TBD
-	 * @return void
-	 */
-	public static function init_settings(): void {
-		$options = static::get_option_slugs();
-
-		// If the option never existed, we initialize it to true.
-		if ( 'not-set' === tribe_get_option( $options['enabled'], 'not-set' ) ) {
-			tribe_update_option( $options['enabled'], true );
-		}
-	}
 }

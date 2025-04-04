@@ -10,8 +10,52 @@ use TEC\Events\QR\Settings as QR_Settings;
 use TEC\Common\Admin\Entities\H3;
 use Tribe\Utils\Element_Classes;
 use Tribe\Utils\Element_Attributes;
+use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
+use Tribe__Events__Main as TEC;
 
 $slug = QR_Settings::get_option_slugs();
+
+$options = [
+	'current'  => esc_html__( 'Redirect to Current Event', 'the-events-calendar' ),
+	'upcoming' => esc_html__( 'Redirect to First Upcoming Event', 'the-events-calendar' ),
+	'specific' => esc_html__( 'Redirect to Specific Event', 'the-events-calendar' ),
+];
+
+
+if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
+	$options['next'] = esc_html__( 'Redirect to Next Event in Series', 'the-events-calendar' );
+
+	$series_options = [];
+
+	$args = [
+		'posts_per_page' => -1,
+		'post_type'      => Series::POSTTYPE,
+		'post_status'    => 'publish',
+		'orderby'        => 'ID',
+		'order'          => 'DESC',
+	];
+
+	$series = get_posts( $args );
+	foreach ( $series as $series ) {
+		$series_options[ $series->ID ] = $series->ID . ' - ' . $series->post_title;
+	}
+}
+
+$event_options = [];
+
+$args = [
+	'posts_per_page' => -1,
+	'post_type'      => TEC::POSTTYPE,
+	'post_status'    => 'publish',
+	'orderby'        => 'ID',
+	'order'          => 'DESC',
+];
+
+$events = get_posts( $args );
+foreach ( $events as $event ) {
+	$event_options[ $event->ID ] = $event->ID . ' - ' . $event->post_title;
+}
+
 
 $tec_events_display_qr_codes = [
 	$slug['title']       => [
@@ -31,8 +75,8 @@ $tec_events_display_qr_codes = [
 	],
 	$slug['size']        => [
 		'type'            => 'dropdown',
-		'label'           => esc_html__( 'QR Code Size', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Select the default dimensions of the generated QR image.', 'the-events-calendar' ),
+		'label'           => esc_html__( 'Fallback Image Dimensions', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Set the default dimensions for the generated QR Code when they are not provided.', 'the-events-calendar' ),
 		'default'         => '4',
 		'options'         => [
 			'4'  => esc_html__( '140 x 140 px', 'the-events-calendar' ),
@@ -47,22 +91,18 @@ $tec_events_display_qr_codes = [
 	],
 	$slug['redirection'] => [
 		'type'            => 'dropdown',
-		'label'           => esc_html__( 'Default Redirection Behavior', 'the-events-calendar' ),
-		'tooltip'         => esc_html__( 'Set the default behavior for QR code redirection.', 'the-events-calendar' ),
+		'label'           => esc_html__( 'Fallback Redirection Behavior', 'the-events-calendar' ),
+		'tooltip'         => esc_html__( 'Set the default redirection behavior for the generated QR Code when it is not provided.', 'the-events-calendar' ),
 		'default'         => 'current',
-		'options'         => [
-			'current'  => esc_html__( 'Redirect to the current event', 'the-events-calendar' ),
-			'upcoming' => esc_html__( 'Redirect to the first upcoming event', 'the-events-calendar' ),
-			'specific' => esc_html__( 'Redirect to a specific event ID', 'the-events-calendar' ),
-			'next'     => esc_html__( 'Redirect to the next event in a series', 'the-events-calendar' ),
-		],
+		'options'         => $options,
 		'validation_type' => 'options',
 	],
 	$slug['event_id']    => [
-		'type'                => 'text',
+		'type'                => 'dropdown',
 		'label'               => esc_html__( 'Event ID', 'the-events-calendar' ),
 		'tooltip'             => esc_html__( 'Event ID for when "Specific Event" is selected above.', 'the-events-calendar' ),
 		'default'             => '',
+		'options'             => $event_options,
 		'validation_type'     => 'int',
 		'can_be_empty'        => true,
 		'class'               => 'tribe-dependent',
@@ -72,10 +112,11 @@ $tec_events_display_qr_codes = [
 		],
 	],
 	$slug['series_id']   => [
-		'type'                => 'text',
+		'type'                => 'dropdown',
 		'label'               => esc_html__( 'Series ID', 'the-events-calendar' ),
 		'tooltip'             => esc_html__( 'Series ID for when "Next Event in Series" is selected above.', 'the-events-calendar' ),
 		'default'             => '',
+		'options'             => $series_options,
 		'validation_type'     => 'int',
 		'can_be_empty'        => true,
 		'class'               => 'tribe-dependent',
@@ -86,7 +127,7 @@ $tec_events_display_qr_codes = [
 	],
 	$slug['fallback']    => [
 		'type'            => 'text',
-		'label'           => esc_html__( 'Error Handling Page', 'the-events-calendar' ),
+		'label'           => esc_html__( 'Fallback URL', 'the-events-calendar' ),
 		'tooltip'         => esc_html__( 'Redirect to this URL if QR code is invalid or the event is not found.', 'the-events-calendar' ),
 		'default'         => '',
 		'validation_type' => 'url',

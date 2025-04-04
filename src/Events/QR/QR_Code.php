@@ -176,6 +176,23 @@ class QR_Code {
 	}
 
 	/**
+	 * Deletes a QR code image for a given post ID and size.
+	 *
+	 * @since TBD
+	 * @param int $post_id The post ID.
+	 * @param int $size The size of the QR code image.
+	 * @return void
+	 */
+	private function delete_qr_image( int $post_id, int $size ): void {
+		$file_name = 'qr_' . $post_id . '_' . (int) $size * 35;
+		$file_path = $this->qr_dir . $file_name . '.png';
+		if ( file_exists( $file_path ) ) {
+			// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.file_ops_unlink
+			unlink( $file_path );
+		}
+	}
+
+	/**
 	 * Renders the QR code modal.
 	 *
 	 * @since TBD
@@ -255,13 +272,26 @@ class QR_Code {
 		$file_path = $this->qr_dir . $file_name . '.png';
 		$file_url  = $this->qr_url . $file_name . '.png';
 
-		if ( file_exists( $file_path ) ) {
+		/**
+		 * Filters whether to regenerate the QR code image.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $regenerate Whether to regenerate the QR code image.
+		 * @param int  $post_id    The post ID.
+		 * @param int  $size       The size of the QR code image.
+		 */
+		$regenerate = apply_filters( 'tec_events_qr_code_regenerate', false, $post_id, $size );
+
+		if ( file_exists( $file_path ) && ! $regenerate ) {
 			return [
 				'file'  => $file_path,
 				'url'   => $file_url,
 				'type'  => 'image/png',
 				'error' => '',
 			];
+		} elseif ( $regenerate ) {
+			$this->delete_qr_image( $post_id, $size );
 		}
 
 		return $this->qr_code->level( 1 )->size( $size )->margin( 1 )->get_png_as_file( $link, $file_name );

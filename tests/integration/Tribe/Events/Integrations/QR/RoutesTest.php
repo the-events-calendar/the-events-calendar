@@ -46,7 +46,7 @@ class RoutesTest extends Controller_Test_Case {
 
 		// Register the routes
 		$this->routes = tribe( Routes::class );
-		$this->routes->register();
+		$this->routes->do_register();
 
 		// Create a test event
 		$this->test_event_id = $this->factory->post->create(
@@ -146,5 +146,28 @@ class RoutesTest extends Controller_Test_Case {
 		$this->expectException( \InvalidArgumentException::class );
 
 		$this->routes->decode_qr_url( 'https://example.com/invalid-url' );
+	}
+
+	/**
+	 * Test decode QR hash
+	 *
+	 * @test
+	 */
+	public function test_decode_qr_hash(): void {
+		$post_id = 123;
+		$qr_type = 'specific';
+
+		// Get the salt using reflection
+		$reflection = new \ReflectionClass( $this->routes );
+		$salt_property = $reflection->getProperty( 'salt' );
+		$salt_property->setAccessible( true );
+		$salt_property->getValue( $this->routes );
+
+		$hash = $this->routes->generate_hash( $post_id, $qr_type );
+
+		$decoded = $this->routes->decode_qr_hash( $hash );
+
+		$this->assertEquals( $post_id, $decoded['post_id'] );
+		$this->assertEquals( $qr_type, $decoded['qr_type'] );
 	}
 }
