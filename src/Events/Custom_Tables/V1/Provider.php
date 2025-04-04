@@ -95,8 +95,15 @@ class Provider extends Service_Provider {
 			// versus most features that should go in the `Full_Activation_Provider`.
 
 			$state = $this->container->make( State::class );
+			$is_in_upgrade = (
+				did_action( 'upgrader_process_complete' ) ||
+				did_action( 'upgrader_pre_install' ) ||
+				did_action( 'upgrader_post_install' ) ||
+				did_action( 'upgrader_clear_destination' )
+			);
+
 			// Should we fully activate?
-			if ( $state->is_migrated() ) {
+			if ( $state->is_migrated() && ! $is_in_upgrade ) {
 				/**
 				 * These providers should be the ones that extend the bulk of features for CT1,
 				 * with only the bare minimum of providers registered above, to determine important state information.
