@@ -145,6 +145,7 @@ tribe.events.views.manager = {};
 	 * Setup the container for views management
 	 *
 	 * @since 4.9.2
+	 * @since TBD Add focus on events list or no results message for improved accessibility.
 	 *
 	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
 	 *
@@ -175,10 +176,43 @@ tribe.events.views.manager = {};
 		$container.trigger( 'beforeSetup.tribeEvents', [ index, $container, data ] );
 		$container.find( obj.selectors.link ).on( 'click.tribeEvents', obj.onLinkClick );
 
-		// Only catch the submit if properly setup on a form
+		// Only catch the submit if properly setup on a form.
 		if ( $form.length ) {
 			$form.on( 'submit.tribeEvents', obj.onSubmit );
 		}
+
+		/**
+		 * Sets focus on either the events list or no results message for accessibility.
+		 *
+		 * @since TBD
+		 *
+		 * @param {jQuery} $container The container element.
+		 *
+		 * @return {void}
+		 */
+		const setResultsFocus = function( $container ) {
+			const $eventsList = $container.find( '.tribe-events-calendar-list' );
+			const $noResults = $container.find( '.tribe-events-c-messages__message--notice' );
+			
+			if ( 
+				$eventsList.length 
+				&& $eventsList.find( '.tribe-events-calendar-list__event-row' ).length 
+			) {
+				$eventsList
+					.attr( 'tabindex', '-1' )
+					.attr( 'aria-label', $container.data( 'events-list-aria-label' ) )
+					.trigger( 'focus' );
+			} else if ( $noResults.length ) {
+				$noResults
+					.attr( 'tabindex', '-1' )
+					.trigger( 'focus' );
+			}
+		};
+
+		// Handle focus after AJAX success.
+		$container.on( 'afterAjaxSuccess.tribeEvents', function( event, html ) {
+			setResultsFocus( $container );
+		} );
 
 		$container.trigger( 'afterSetup.tribeEvents', [ index, $container, data ] );
 	};
@@ -594,7 +628,6 @@ tribe.events.views.manager = {};
 	 * Context with the View container used to fire this AJAX call
 	 *
 	 * @since 4.9.2
-	 * @since TBD Add focus on events list or no results message for improved accessibility.
 	 *
 	 * @param  {String} html       HTML sent from the REST API
 	 * @param  {String} textStatus Status for the request
@@ -649,19 +682,6 @@ tribe.events.views.manager = {};
 
 		// Trigger the browser pushState.
 		obj.updateUrl( $container );
-
-		// Focus on either the events list or the no results message for improved accessibility.
-		var $eventsList = $container.find('.tribe-events-calendar-list');
-		var $noResults = $container.find('.tribe-events-c-messages__message--notice');
-				
-		if ($eventsList.length && $eventsList.find('.tribe-events-calendar-list__event-row').length) {
-			$eventsList
-				.attr('tabindex', '-1')
-				.attr('aria-label', tribe_events_views_strings.listOfEvents || 'List of Events')
-				.trigger('focus');
-		} else if ($noResults.length) {
-			$noResults.attr('tabindex', '-1').trigger('focus');
-		}
 
 		$container.trigger( 'afterAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
