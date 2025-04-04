@@ -17,6 +17,7 @@ use TEC\Events\Custom_Tables\V1\Models\Formatters\Formatter;
 use TEC\Events\Custom_Tables\V1\Models\Validators\ValidatorInterface;
 use Tribe__Cache_Listener;
 use TEC\Common\Monolog\Logger;
+use TEC\Common\Monolog\Handler\Handler;
 
 /**
  * Class Model
@@ -282,7 +283,7 @@ abstract class Model implements Serializable {
 
 		if ( ! empty( $this->errors() ) ) {
 			// If here too early, bail instead. Can happen in the upgrade process.
-			if ( ! tribe()->isBound( Logger::class ) ) {
+			if ( ! class_exists( Handler::class ) || ! tribe()->isBound( Logger::class ) ) {
 				return false;
 			}
 
