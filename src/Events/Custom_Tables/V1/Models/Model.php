@@ -280,6 +280,11 @@ abstract class Model implements Serializable {
 		}
 
 		if ( ! empty( $this->errors() ) ) {
+			// If here too early, bail instead. Can happen in the upgrade process.
+			if ( ! did_action( 'tribe_common_loaded' ) ) {
+				return false;
+			}
+
 			// For debug purposes, log validation errors.
 			// These will fail update/insertions on the database.
 			do_action( 'tribe_log',
