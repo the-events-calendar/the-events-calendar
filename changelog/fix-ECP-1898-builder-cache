@@ -1,0 +1,4 @@
+Significance: patch
+Type: performance
+
+Avoid duplicate queries by caching model queries results. [ECP-1898]

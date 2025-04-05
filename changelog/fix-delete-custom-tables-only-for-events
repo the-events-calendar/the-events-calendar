@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Ensures `delete_custom_tables_data` method is called only for events. [TEC-5445]

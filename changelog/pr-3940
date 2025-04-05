@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Prevent invalid argument supplied for foreach() warning, props to @zosterops-lateralis

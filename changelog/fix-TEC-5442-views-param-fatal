@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Ensures `events_per_page` is type casted to int before used. [TEC-5442]

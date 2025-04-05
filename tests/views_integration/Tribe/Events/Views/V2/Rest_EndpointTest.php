@@ -103,10 +103,10 @@ class Rest_EndpointTest extends \Codeception\TestCase\WPTestCase {
 			'not_supported_param_should_be_excluded' => [
 				[
 					'not-support' => true,
-					'url'         => home_url(),
+					'u'         => home_url(),
 				],
 				[
-					'url' => home_url(),
+					'u' => home_url(),
 				],
 			],
 		];

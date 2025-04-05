@@ -22,7 +22,7 @@ class Tribe__Events__Linked_Posts {
 	/**
 	 * @var array Collection of post types that can be linked with events.
 	 */
-	public $linked_post_types;
+	public $linked_post_types = [];
 
 	/**
 	 * @var Tribe__Cache

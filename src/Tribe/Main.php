@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.11.0.1';
+		const VERSION             = '6.11.1';
 
 		/**
 		 * Min Pro Addon.
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.16.0-dev';
+		protected $min_et_version = '5.20.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -100,7 +100,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'author',
 				'thumbnail',
 				'custom-fields',
-				'comments',
 				'revisions',
 			],
 			'taxonomies'      => [ 'post_tag' ],
@@ -675,7 +674,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Custom tables v1 implementation.
 			if ( class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' ) ) {
-				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
+				tribe()->register_on_action( 'tribe_common_loaded', '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
 
 			// Blocks.
@@ -2116,6 +2115,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'view_item'                => sprintf(
 						esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'view_items'                => sprintf(
+						esc_html__( 'View %s', 'the-events-calendar' ), $this->plural_event_label
 					),
 					'search_items'             => sprintf(
 						esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label

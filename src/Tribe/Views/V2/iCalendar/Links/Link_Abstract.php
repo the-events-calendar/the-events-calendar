@@ -10,7 +10,8 @@ namespace Tribe\Events\Views\V2\iCalendar\Links;
 
 use JsonSerializable;
 use Tribe__Date_Utils as Dates;
-use \Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\View;
+
 
 /**
  * Class Abstract_Link

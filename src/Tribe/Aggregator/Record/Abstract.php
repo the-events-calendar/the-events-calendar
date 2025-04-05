@@ -2617,11 +2617,15 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 		}
 
 		// let's try and find a legit author among the available event authors.
-		$authors = get_users( [ 'who' => 'authors' ] );
-		foreach ( $authors as $author ) {
-			if ( user_can( $author, $post_type_object->cap->edit_posts ) ) {
-				return $author->ID;
-			}
+		$authors = get_users(
+			[
+				'capability' => $post_type_object->cap->edit_posts,
+				'fields'     => 'ID',
+			]
+		);
+		
+		if ( ! empty( $authors ) ) {
+			return reset( $authors );
 		}
 
 		return 0;
