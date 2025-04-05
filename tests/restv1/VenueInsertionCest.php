@@ -49,8 +49,9 @@ class VenueInsertionCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
-		$date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'America/New_York' ) );
+		$date = new DateTime( 'tomorrow 9am', wp_timezone() );
 		$utc_date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'UTC' ) );
+
 
 		$I->sendPOST( $this->venues_url, [
 			'venue'       => 'A venue',
@@ -59,17 +60,18 @@ class VenueInsertionCest extends BaseRestCest {
 			'date_utc'    => $utc_date->format( 'U' ),
 			'description' => 'Venue description',
 			'status'      => 'draft',
+			'timezone'    => 'America/New_York',
 		] );
 
 		$I->seeResponseCodeIs( 201 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
-			'venue'       => 'A venue',
-			'author'      => (string) $editor,
-			'date'        => date( 'Y-m-d H:i:s', $date->format( 'U' ) ),
-			'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
-			'description' => trim( apply_filters( 'the_content', 'Venue description' ) ),
-		] );
+			                                'venue'       => 'A venue',
+			                                'author'      => (string) $editor,
+			                                'date'        => $date->format( 'Y-m-d H:i:s' ),
+			                                'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
+			                                'description' => trim( apply_filters( 'the_content', 'Venue description' ) ),
+		                                ] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
 		$id = $response['id'];
@@ -201,7 +203,7 @@ class VenueInsertionCest extends BaseRestCest {
 		$I->assertArrayHasKey( 'image', $response );
 		$I->assertEquals( $image_id, $response['image']['id'] );
 	}
-	
+
 	/**
 	 * It should avoid inserting a venue with identical fields twice
 	 * @test

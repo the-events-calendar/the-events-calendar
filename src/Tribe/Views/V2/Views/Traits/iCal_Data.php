@@ -30,7 +30,7 @@ trait iCal_Data {
 	 * @return object
 	 */
 	public function get_ical_data() {
-		$slug         = $this->slug;
+		$slug         = static::get_view_slug();
 		$display_ical = true;
 
 		/**

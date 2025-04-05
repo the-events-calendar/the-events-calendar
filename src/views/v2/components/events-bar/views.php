@@ -30,7 +30,7 @@ $view_selector_classes = [
 	</h3>
 	<div <?php tribe_classes( $view_selector_classes ); ?> data-js="tribe-events-view-selector">
 		<button
-			class="tribe-events-c-view-selector__button"
+			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">

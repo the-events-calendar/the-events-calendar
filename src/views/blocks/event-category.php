@@ -12,8 +12,14 @@
  * @version 4.7
  *
  */
+
+$default_classes = [ 'tribe-events-single-section', 'tribe-events-section-category', 'tribe-clearfix' ];
+
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
+
 ?>
-<div class="tribe-events-single-section tribe-events-section-category tribe-clearfix">
+<div <?php tribe_classes( $classes ); ?>>
 	<?php
 	echo tribe_get_event_categories(
 		$this->get( 'post_id' ),

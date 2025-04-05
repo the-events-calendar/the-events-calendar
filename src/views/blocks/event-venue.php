@@ -9,15 +9,24 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 4.9.14
+ * @version 6.2.0
+ * @since 6.2.0 Reworked class handling.
  *
+ * @var bool $show_map Whether to show the map or not.
  */
 
-$event_id = $this->get( 'post_id' );
+$event_id        = $this->get( 'post_id' );
+$default_classes = [
+	'tribe-block',
+	'tribe-block__venue',
+	'tribe-clearfix',
+	'tribe-block__venue--has-map' => $show_map,
+];
 
-$map = tribe_embed_google_map() ? 'tribe-block__venue--has-map' : '';
+// Add the custom classes from the block attributes.
+$classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ $attributes['className'] ] ) : $default_classes;
 ?>
-<div class="tribe-block tribe-block__venue <?php echo esc_attr( $map ); ?>">
+<div <?php tribe_classes( $classes ); ?>>
 	<?php do_action( 'tribe_events_single_event_meta_secondary_section_start' ); ?>
 
 	<?php $this->template( 'blocks/parts/venue' ); ?>

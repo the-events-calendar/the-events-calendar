@@ -1,6 +1,10 @@
 <?php
 
-class Tribe__Events__Aggregator__CLI__Service_Provider extends tad_DI52_ServiceProvider {
+use TEC\Common\Contracts\Service_Provider;
+
+
+class Tribe__Events__Aggregator__CLI__Service_Provider extends Service_Provider {
+
 
 	/**
 	 * Binds and sets up implementations.
@@ -18,8 +22,8 @@ class Tribe__Events__Aggregator__CLI__Service_Provider extends tad_DI52_ServiceP
 			'event-aggregator',
 			'Tribe__Events__Aggregator__CLI__Command',
 			[
-				'shortdesc' => __( 'Create, run and manage Event Aggregator imports.', 'the-events-calendar' ),
-				'longdesc'  => __( 'If required the commands will use the API keys and licenses set for the current site.' ),
+				'shortdesc' => 'Create, run and manage Event Aggregator imports.', // Intentionally not translated, so it can load as early as possible.
+				'longdesc'  => 'If required the commands will use the API keys and licenses set for the current site.', // Intentionally not translated, so it can load as early as possible.
 			]
 		);
 	}

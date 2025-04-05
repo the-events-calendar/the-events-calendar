@@ -19,6 +19,9 @@ use Tribe__Timezones as Timezones;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
 
+// Remove when BTRIA-595 is dealt with.
+// phpcs:disable Squiz.Commenting.FunctionComment.InvalidNoReturn
+
 /**
  * Class Event_Period
  *
@@ -39,7 +42,7 @@ class Event_Period implements Core_Read_Interface {
 	protected static $filter_args_map = [
 		'period' => [
 			'start date' => [ Dates::class, 'is_valid_date' ],
-			'end date'   => [ Dates::class, 'is_valid_date' ]
+			'end date'   => [ Dates::class, 'is_valid_date' ],
 		],
 	];
 	/**
@@ -112,8 +115,9 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param array $args An associative array of arguments to filter
-	 *                    the posts by in the shape [ <key>, <value> ]. * * @return Tribe__Repository__Read_Interface
+	 * @param array $args An associative array of arguments to filter the posts by in the shape [ <key>, <value> ].
+	 *
+	 * @return Tribe__Repository__Read_Interface
 	 */
 	public function by_args( array $args ) {
 		// @todo [BTRIA-595]: Implement by_args() method.
@@ -124,8 +128,8 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $key
-	 * @param mixed  $value
+	 * @param string $key   The key to filter by.
+	 * @param mixed  $value The value to filter by.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -137,12 +141,15 @@ class Event_Period implements Core_Read_Interface {
 	 * {@inheritDoc}
 	 *
 	 * @since 4.9.13
+	 *
+	 * @param string $key   The key to filter by.
+	 * @param mixed  $value The value to filter by.
 	 */
 	public function by( $key, $value = null ) {
+		$call_args = func_get_args();
+
 		$original_by_key = $key;
 		$key             = preg_replace( '/^(on|in)_/', '', $key );
-
-		$call_args = func_get_args();
 
 		$method = 'by_' . $key;
 
@@ -186,7 +193,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param int $page
+	 * @param int $page The page number to fetch.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -201,7 +208,7 @@ class Event_Period implements Core_Read_Interface {
 	 * filter to force more readable code; by default posts per page is set to
 	 * the pagination defaults for the post type.
 	 *
-	 * @param int $per_page
+	 * @param int $per_page The number of posts to retrieve per page.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -217,7 +224,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @return int
+	 * @return int The number of posts found matching the query.
 	 */
 	public function found() {
 		// @todo [BTRIA-595]: Implement found() method.
@@ -228,10 +235,16 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * Mind that "all" means "all the posts matching all the filters" so pagination applies.
 	 *
-	 * @return array
+	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
+	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
+	 *                               if `$return_generator` is false.
+	 *
+	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
+	 *                                   if `$return_generator` is true.
 	 */
-	public function all() {
+	public function all( $return_generator = false, int $batch_size = 50 ) {
 		// @todo [BTRIA-595]: Implement all() method.
+		return [];
 	}
 
 	/**
@@ -242,7 +255,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param int  $offset
+	 * @param int  $offset    The offset to set.
 	 * @param bool $increment Whether to increment the offset by the value
 	 *                        or replace it.
 	 *
@@ -260,7 +273,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $order
+	 * @param string $order The order direction; optional; defaults to `ASC`.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -294,7 +307,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param string $fields
+	 * @param string $fields The fields to return.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -309,7 +322,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param array|int $post_ids
+	 * @param array|int $post_ids The post IDs to filter by.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -324,7 +337,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param array|int $post_ids
+	 * @param array|int $post_ids The post IDs to filter by.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -339,7 +352,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param array|int $post_id
+	 * @param array|int $post_id The post ID to filter by.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -354,7 +367,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param array $post_ids
+	 * @param array $post_ids The post IDs to filter by.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -369,7 +382,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param array $post_ids
+	 * @param array $post_ids The post IDs to filter by.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -381,10 +394,10 @@ class Event_Period implements Core_Read_Interface {
 	 * Sugar method to set the `s` argument.
 	 *
 	 * Successive calls will replace the search string.
-	 * This is the default WordPress searh, to search by title,
+	 * This is the default WordPress search, to search by title,
 	 * content or excerpt only use the `title`, `content`, `excerpt` filters.
 	 *
-	 * @param $search
+	 * @param string $search The search string.
 	 *
 	 * @return Tribe__Repository__Read_Interface
 	 */
@@ -403,7 +416,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @return int
+	 * @return int The number of posts found matching the query in the current page.
 	 */
 	public function count() {
 		// @todo [BTRIA-595]: Implement count() method.
@@ -453,7 +466,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.7.19
 	 *
-	 * @param int $n
+	 * @param int $n The 1-based index of the post to return.
 	 *
 	 * @return WP_Post|mixed|null
 	 *
@@ -471,6 +484,8 @@ class Event_Period implements Core_Read_Interface {
 	 * return the first n posts of all those matching the query.
 	 *
 	 * @since 4.7.19
+	 *
+	 * @param int $n The number of posts to return.
 	 *
 	 * @return array An array of posts matching the query.
 	 *
@@ -517,7 +532,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @see   \wp_list_filter()
 	 */
-	public function filter( $args = array(), $operator = 'AND' ) {
+	public function filter( $args = [], $operator = 'AND' ) {
 		// @todo [BTRIA-595]: Implement filter() method.
 	}
 
@@ -539,7 +554,7 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @see   \wp_list_sort()
 	 */
-	public function sort( $orderby = array(), $order = 'ASC', $preserve_keys = false ) {
+	public function sort( $orderby = [], $order = 'ASC', $preserve_keys = false ) {
 		// @todo [BTRIA-595]: Implement sort() method.
 	}
 
@@ -558,10 +573,16 @@ class Event_Period implements Core_Read_Interface {
 	 * Gets the ids of the posts matching the query.
 	 *
 	 * @since 4.9.13
+	 * @since 5.2.0 Added the `$return_generator` and `$batch_size` parameters.
 	 *
-	 * @return array An array containing the post IDs to update.
+	 * @param bool $return_generator Whether to return a generator of post IDs instead of an array of post IDs.
+	 * @param int  $batch_size       The number of post IDs to fetch at a time when using a generator; ignored
+	 *                               if `$return_generator` is false.
+	 *
+	 * @return array<int>|Generator<int> An array of all the matching post IDs, or a generator of them
+	 *                                   if `$return_generator` is true.
 	 */
-	public function get_ids() {
+	public function get_ids( $return_generator = false, int $batch_size = 50 ) {
 		return $this->get_sets_ids( $this->get_sets() );
 	}
 
@@ -575,12 +596,14 @@ class Event_Period implements Core_Read_Interface {
 	 * @return int[] An array of the sets post IDs.
 	 */
 	protected function get_sets_ids( array $sets ) {
-		$ids = array_filter( array_map(
-			static function ( Events_Result_Set $set ) {
-				return $set->pluck( 'ID' );
-			},
-			$sets
-		) );
+		$ids = array_filter(
+			array_map(
+				static function ( Events_Result_Set $set ) {
+					return $set->pluck( 'ID' );
+				},
+				$sets
+			)
+		);
 
 		if ( ! count( $ids ) ) {
 			return [];
@@ -671,6 +694,9 @@ class Event_Period implements Core_Read_Interface {
 	 *
 	 * @since 4.9.13
 	 *
+	 * @param \DateTimeInterface $start The period start date.
+	 * @param \DateTimeInterface $end   The period end date.
+	 *
 	 * @return array|false Either the results of the query, or `false` on error.
 	 */
 	protected function query_for_sets( \DateTimeInterface $start, \DateTimeInterface $end ) {
@@ -679,8 +705,8 @@ class Event_Period implements Core_Read_Interface {
 		$feature_detection = tribe( 'feature-detection' );
 		// Results will not be JSON, but this is a good approximation.
 		$example = '{"ID":"23098402348023849","start_date":"2019-11-18 08:00:00",' .
-		           '"end_date":"2019-11-18 17:00:00","timezone":"America\/New_York","all_day":null,' .
-		           '"post_status":"publish"}';
+					'"end_date":"2019-11-18 17:00:00","timezone":"America\/New_York","all_day":null,' .
+					'"post_status":"publish"}';
 		$limit   = $feature_detection->mysql_limit_for_string( $example );
 
 		/**
@@ -730,8 +756,8 @@ class Event_Period implements Core_Read_Interface {
 		$all_day_details  = $this->query_for_meta( $limit, '_EventAllDay', $post_ids, 'LEFT' );
 
 		foreach ( $results as &$result ) {
-			$result ['timezone'] = $timezone_details[ $result['ID'] ]['_EventTimezone'];
-			$result ['all_day']  = (bool) $all_day_details[ $result['ID'] ]['_EventAllDay'];
+			$result['timezone'] = $timezone_details[ $result['ID'] ]['_EventTimezone'];
+			$result['all_day']  = (bool) $all_day_details[ $result['ID'] ]['_EventAllDay'];
 		}
 		unset( $result );
 
@@ -816,7 +842,7 @@ class Event_Period implements Core_Read_Interface {
 
 		$post_in = array_filter( array_unique( array_map( 'absint', $post_in ) ) );
 
-		$prepared = $wpdb->prepare( $query, ...$prepare_args );
+		$prepared = $wpdb->prepare( $query, ...$prepare_args ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		$page    = 0;
 		$results = [];
@@ -830,13 +856,14 @@ class Event_Period implements Core_Read_Interface {
 
 				$limit_clause = sprintf( 'LIMIT %d,%d', $page * $limit, $limit );
 
-				$page ++;
+				++$page;
 
 				$this_query    = $prepared . ' ' . $interval_where_clause . ' ' . $limit_clause;
-				$these_results = (array) $wpdb->get_results( $this_query, ARRAY_A );
+				$these_results = (array) $wpdb->get_results( $this_query, ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 				$results[]     = $these_results;
 			} while ( $chunk = array_splice( $post_in, 0, $limit ) );
-		} while ( ! empty( $these_results ) && is_array( $these_results ) && count( $these_results ) === $limit );
+			$result_count = count( $these_results );
+		} while ( ! empty( $these_results ) && is_array( $these_results ) && $result_count === $limit );
 
 		return array_merge( ...$results );
 	}
@@ -880,14 +907,14 @@ class Event_Period implements Core_Read_Interface {
 
 		$prepare_args = [
 			$this->use_site_timezone ? '_EventEndDateUTC' : '_EventEndDate',
-			$start->format( Dates::DBDATETIMEFORMAT )
+			$start->format( Dates::DBDATETIMEFORMAT ),
 		];
 
 		return $this->query_w_limit( $limit, $query, $prepare_args, $post_in );
 	}
 
 	/**
-	 * Queries the database to fetch all the values of a single meta entry for all the post IDs in the datatbase or in
+	 * Queries the database to fetch all the values of a single meta entry for all the post IDs in the database or in
 	 * a defined interval.
 	 *
 	 * @since 4.9.13
@@ -949,7 +976,8 @@ class Event_Period implements Core_Read_Interface {
 
 		$one_day = Dates::interval( 'P1D' );
 
-		$sets_by_day = array_reduce( $results,
+		return array_reduce(
+			$results,
 			static function ( array $buffer, array $result ) use ( $use_site_timezone, $site_timezone, $one_day ) {
 				$display_timezone = $use_site_timezone
 					? $site_timezone
@@ -975,7 +1003,7 @@ class Event_Period implements Core_Read_Interface {
 						$overlapping_days[] = $d->format( Dates::DBDATEFORMAT );
 						// Sanity check: break when the current day is equal to the event end date.
 						$reached_end = $d->format( Dates::DBDATEFORMAT )
-						               === $end_date->format( Dates::DBDATEFORMAT );
+									=== $end_date->format( Dates::DBDATEFORMAT );
 						if ( $reached_end ) {
 							break;
 						}
@@ -995,10 +1023,9 @@ class Event_Period implements Core_Read_Interface {
 				}
 
 				return $buffer;
-			}, [] );
-
-
-		return $sets_by_day;
+			},
+			[]
+		);
 	}
 
 	/**
@@ -1011,14 +1038,15 @@ class Event_Period implements Core_Read_Interface {
 	 * @return array The set, each element cast to an `Event_Result_Set`.
 	 */
 	protected function cast_sets( array $raw_sets ) {
-		$sets = array_combine(
+		return array_combine(
 			array_keys( $raw_sets ),
-			array_map( static function ( $raw_set ) {
-				return Events_Result_Set::from_value( $raw_set );
-			}, $raw_sets )
+			array_map(
+				static function ( $raw_set ) {
+					return Events_Result_Set::from_value( $raw_set );
+				},
+				$raw_sets
+			)
 		);
-
-		return $sets;
 	}
 
 	/**
@@ -1112,13 +1140,16 @@ class Event_Period implements Core_Read_Interface {
 		}
 
 		/** @var Events_Result_Set $set */
-		$filtered_sets = array_map( static function ( Events_Result_Set $set ) use ( $matching_ids ) {
-			return $set->filter( static function ( Event_Result $result ) use ( $matching_ids ) {
-				return in_array( $result->id(), $matching_ids, true );
-			} );
-		}, $sets );
-
-		return $filtered_sets;
+		return array_map(
+			static function ( Events_Result_Set $set ) use ( $matching_ids ) {
+				return $set->filter(
+					static function ( Event_Result $result ) use ( $matching_ids ) {
+						return in_array( $result->id(), $matching_ids, true );
+					}
+				);
+			},
+			$sets
+		);
 	}
 
 	/**
@@ -1206,30 +1237,31 @@ class Event_Period implements Core_Read_Interface {
 		// Try and fetch them from the shared cache.
 		$periods_key = static::get_cache_key( 'periods' );
 
-		$cached_periods = (array)$cache->get_transient( $periods_key, $trigger );
+		$cached_periods = (array) $cache->get_transient( $periods_key, $trigger );
 
 		foreach ( $cached_periods as list( $start_date, $end_date ) ) {
 			if (
-				$this->period_start->format( Dates::DBDATEFORMAT ) <= $end_date
-				&& $this->period_end->format( Dates::DBDATEFORMAT ) >= $start_date
+				$this->period_start->format( Dates::DBDATEFORMAT ) > $end_date
+				|| $this->period_end->format( Dates::DBDATEFORMAT ) < $start_date
 			) {
-				$sets   = [];
-				$period = new \DatePeriod(
-					$this->period_start,
-					Dates::interval( 'P1D' ),
-					$this->period_end
-				);
-				/** @var \DateTimeInterface $day */
-				foreach ( $period as $day ) {
-					$day_string = $day->format( Dates::DBDATEFORMAT );
-					$cached     = $cache->get_transient( static::get_cache_key( $day_string . '_set' ), $trigger );
-
-					$sets[ $day_string ] = Events_Result_Set::from_value( $cached );
-				}
-
-				return $sets;
-				break;
+				continue;
 			}
+
+			$sets   = [];
+			$period = new \DatePeriod(
+				$this->period_start,
+				Dates::interval( 'P1D' ),
+				$this->period_end
+			);
+			/** @var \DateTimeInterface $day */
+			foreach ( $period as $day ) {
+				$day_string = $day->format( Dates::DBDATEFORMAT );
+				$cached     = $cache->get_transient( static::get_cache_key( $day_string . '_set' ), $trigger );
+
+				$sets[ $day_string ] = Events_Result_Set::from_value( $cached );
+			}
+
+			return $sets;
 		}
 
 		return null;
@@ -1245,7 +1277,7 @@ class Event_Period implements Core_Read_Interface {
 	public function get_set() {
 		$sets = $this->get_sets();
 
-		return count( $sets ) ? reset( $sets ) : new Events_Result_Set;
+		return count( $sets ) ? reset( $sets ) : new Events_Result_Set();
 	}
 
 	/**

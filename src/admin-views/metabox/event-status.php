@@ -23,7 +23,7 @@ $current_status = empty( $event->event_status ) ? '' : $event->event_status;
  *
  * @since 5.11.0
  *
- * @param array<string|string> 					An array of video sources.
+ * @param array<string|string> 					An array of event statuses.
  * @param string 				$current_status The current event status for the event or empty string if none.
  */
 $statuses = (array) apply_filters( 'tec_event_statuses', [], $current_status );

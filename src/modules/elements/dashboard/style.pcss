@@ -62,3 +62,9 @@
 		top: 15px;
 	}
 }
+
+/* This is necessary to ensure the block editor UI can handle an unlimited 
+number of recurrence rules when users create recurring events. */
+.tribe-editor__dashboard__container.tribe-editor__dashboard__container--open .tribe-editor__dashboard {
+	position: static;
+}

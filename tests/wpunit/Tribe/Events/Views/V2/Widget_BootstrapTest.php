@@ -13,17 +13,8 @@ class Widget_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		tribe_set_var( Settings::OPTION_CACHE_VAR_NAME, null );
 	}
 
-	public function make_v1() {
-		putenv( 'TRIBE_EVENTS_V2_VIEWS=0' );
-	}
-
 	public function make_v2() {
 		putenv( 'TRIBE_EVENTS_V2_VIEWS=1' );
-	}
-
-	public function make_widget_v1() {
-		putenv( 'TRIBE_EVENTS_WIDGETS_V2_DISABLED=1' );
-
 	}
 
 	public function make_widget_v2() {
@@ -71,64 +62,6 @@ class Widget_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$this->make_widget_v2();
 
 		$this->assertTrue( tribe_events_widgets_v2_is_enabled() );
-	}
-
-	/**
-	 * @test
-	 *
-	 * It should return false when v2 view is disabled.
-	 */
-	public function it_should_return_false_when_view_disabled() {
-		$this->make_v1();
-
-		$this->assertFalse( tribe_events_widgets_v2_is_enabled() );
-	}
-
-	/**
-	 * @test
-	 *
-	 * It should return false when v2 widget is disabled.
-	 */
-	public function it_should_return_false_when_widget_disabled() {
-		$this->make_widget_v1();
-
-		$this->assertFalse( tribe_events_widgets_v2_is_enabled() );
-	}
-
-	/**
-	 * @test
-	 *
-	 * It should return false when v2 view and widget are disabled.
-	 */
-	public function it_should_return_false_when_view_and_widget_disabled() {
-		$this->make_v1();
-		$this->make_widget_v1();
-
-		$this->assertFalse( tribe_events_widgets_v2_is_enabled() );
-	}
-
-	/**
-	 * @test
-	 *
-	 * It should return false when v2 view is disabled and v2 widget is enabled.
-	 */
-	public function it_should_return_false_when_view_disabled_and_widget_enabled() {
-		$this->make_v1();
-		$this->make_widget_v2();
-
-		$this->assertFalse( tribe_events_widgets_v2_is_enabled() );
-	}
-
-	/**
-	 * @test
-	 *
-	 * It should return false when v2 view is enabled and v2 widget is disabled.
-	 */
-	public function it_should_return_false_when_view_enabled_and_widget_disabled() {
-		$this->make_v2();
-		$this->make_widget_v1();
-
-		$this->assertFalse( tribe_events_widgets_v2_is_enabled() );
 	}
 
 }

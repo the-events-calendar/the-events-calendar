@@ -31,7 +31,6 @@ if( ! $item->is_visible( $view ) ) {
 	<a
 		href="<?php echo esc_url( $item->get_uri( $view ) ); ?>"
 		class="tribe-events-c-subscribe-dropdown__list-item-link"
-		tabindex="0"
 		target="_blank"
 		rel="noopener noreferrer nofollow noindex"
 	>

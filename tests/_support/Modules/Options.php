@@ -29,6 +29,7 @@ class Options extends \Codeception\Module {
 			'singleEventSlug'                  => 'event',
 			'multiDayCutoff'                   => '00:00',
 			'defaultCurrencySymbol'            => '$',
+			'defaultCurrencyCode'              => 'USD',
 			'reverseCurrencyPosition'          => false,
 			'embedGoogleMaps'                  => true,
 			'embedGoogleMapsZoom'              => '10',

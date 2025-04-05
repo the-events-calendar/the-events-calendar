@@ -24,7 +24,6 @@
 		data-js="tribe-events-view-form"
 		role="search"
 	>
-		<?php wp_nonce_field( 'wp_rest', 'tribe-events-views[_wpnonce]' ); ?>
 		<input type="hidden" name="tribe-events-views[url]" value="<?php echo esc_url( $this->get( 'url' ) ); ?>" />
 
 		<div class="tribe-events-c-search__input-group">

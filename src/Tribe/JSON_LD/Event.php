@@ -166,7 +166,7 @@ class Tribe__Events__JSON_LD__Event extends Tribe__JSON_LD__Abstract {
 	protected function normalize_price( $price ) {
 
 		// Make it work with different languages
-		$regex_free  = '/^\s*' . __( 'Free', 'the-events-calendar' ) . '\s*$/i';
+		$regex_free  = '/^\s*' . preg_quote( __( 'Free', 'the-events-calendar' ), '/' ) . '\s*$/i';
 
 		// Replace free with 0 (in any language)
 		$map = [

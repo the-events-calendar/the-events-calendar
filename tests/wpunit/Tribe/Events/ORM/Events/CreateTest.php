@@ -57,11 +57,11 @@ class CreateTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow seting meta using pretty names
+	 * It should allow setting meta using pretty names
 	 *
 	 * @test
 	 */
-	public function should_allow_seting_meta_using_pretty_names() {
+	public function should_allow_setting_meta_using_pretty_names() {
 		$venue     = $this->factory()->venue->create();
 		$organizer = $this->factory()->organizer->create();
 		$args      = [

@@ -41,7 +41,20 @@ class Outlook_365 extends Link_Abstract {
 	 * {@inheritDoc}
 	 */
 	public function register() {
-		$this->label        = __( 'Outlook 365', 'the-events-calendar' );
-		$this->single_label = $this->label;
+		// intentionally left blank.
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function label(): string {
+		return __( 'Outlook 365', 'the-events-calendar' );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function single_label(): string {
+		return $this->label();
 	}
 }

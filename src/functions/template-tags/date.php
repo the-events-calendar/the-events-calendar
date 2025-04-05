@@ -5,14 +5,6 @@
  * Display functions (template-tags) for use in WordPress templates.
  */
 
-// Don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
-}
-
-if ( ! class_exists( 'Tribe__Events__Main' ) ) {
-	return;
-}
 
 use Tribe__Date_Utils as Dates;
 use Tribe__Timezones as Timezones;
@@ -101,10 +93,10 @@ if ( ! function_exists( 'tribe_event_is_on_date' ) ) {
 		}
 
 		/*
-		 * Note:
-		 * events that start exactly on the EOD cutoff will count on the following day
-		 * events that end exactly on the EOD cutoff will count on the previous day
-		 */
+		* Note:
+		* events that start exactly on the EOD cutoff will count on the following day
+		* events that end exactly on the EOD cutoff will count on the previous day
+		*/
 
 		$event_is_on_date = Tribe__Date_Utils::range_coincides( $start_of_day, $end_of_day, $event_start, $event_end );
 
@@ -179,5 +171,89 @@ if ( ! function_exists( 'tribe_event_ends_on' ) ) {
 		$formatted_date = Dates::build_date_object( $date, $timezone )->format( 'Y-m-d' );
 
 		return $formatted_date === $end_date;
+	}
+}
+
+if ( ! function_exists( 'tec_events_get_time_range_separator' ) ) {
+	/**
+	 * Gets the separator used between the start and end time of an event.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @return string Time Range separator.
+	 */
+	function tec_events_get_time_range_separator(): string {
+		$cache                = tribe_cache();
+		$is_cache_set         = isset( $cache['tec_events_get_time_range_separator'] );
+		$time_range_separator = $cache['tec_events_get_time_range_separator'];
+
+		if ( $is_cache_set && is_string( $time_range_separator ) ) {
+			return $time_range_separator;
+		}
+
+		$default              = ' - ';
+		$time_range_separator = tribe_get_option( 'timeRangeSeparator', $default );
+
+		/**
+		 * Opportunity to modify the separator used between the start and end time of an event.
+		 *
+		 * @since 6.7.0
+		 *
+		 * @param string $time_range_separator
+		 * @param string $default
+		 */
+		$time_range_separator = apply_filters(
+			'tec_events_get_time_range_separator',
+			$time_range_separator,
+			$default
+		);
+
+		$time_range_separator = wp_kses_post( $time_range_separator );
+
+		$cache['tec_events_get_time_range_separator'] = $time_range_separator;
+
+		return $time_range_separator;
+	}
+}
+
+if ( ! function_exists( 'tec_events_get_date_time_separator' ) ) {
+	/**
+	 * Gets the separator used between the start and end datetime of an event.
+	 *
+	 * @since 6.7.0
+	 *
+	 * @return string Time Range separator.
+	 */
+	function tec_events_get_date_time_separator(): string {
+		$cache                    = tribe_cache();
+		$is_cache_set             = isset( $cache['tec_events_get_date_time_separator'] );
+		$datetime_range_separator = $cache['tec_events_get_date_time_separator'];
+
+		if ( $is_cache_set && is_string( $datetime_range_separator ) ) {
+			return $datetime_range_separator;
+		}
+
+		$default              = ' @ ';
+		$datetime_range_separator = tribe_get_option( 'dateTimeSeparator', $default );
+
+		/**
+		 * Opportunity to modify the separator used between the start and end date time of an event.
+		 *
+		 * @since 6.7.0
+		 *
+		 * @param string $datetime_range_separator Separator used between the start and end date time of an event.
+		 * @param string $default                  Default separator.
+		 */
+		$datetime_range_separator = apply_filters(
+			'tec_events_get_date_time_separator',
+			$datetime_range_separator,
+			$default
+		);
+
+		$datetime_range_separator = wp_kses_post( $datetime_range_separator );
+
+		$cache['tec_events_get_date_time_separator'] = $datetime_range_separator;
+
+		return $datetime_range_separator;
 	}
 }

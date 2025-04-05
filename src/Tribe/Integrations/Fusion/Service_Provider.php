@@ -9,6 +9,9 @@
 
 namespace Tribe\Events\Integrations\Fusion;
 
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+
+
 /**
  * Class Service_Provider
  *
@@ -16,7 +19,8 @@ namespace Tribe\Events\Integrations\Fusion;
  *
  * @package Tribe\Events\Integrations\Fusion
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends Provider_Contract {
+
 
 	/**
 	 * Registers the bindings and hooks the filters required for the Fusion Core integration to work.
@@ -50,7 +54,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Builds and hooks the class that will handle shortcode support in the context of Fusipn Core.
+	 * Builds and hooks the class that will handle shortcode support in the context of Fusion Core.
 	 *
 	 * @since 5.5.0
 	 *

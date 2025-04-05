@@ -8,9 +8,11 @@
   ],
   "homepage": "https://theeventscalendar.com",
   "license": "GPL-2.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require-dev": {
-    "bordoni/phpass": "0.3.5",
-    "automattic/vipwpcs": "^2.0",
+    "automattic/vipwpcs": "^3.0",
+    "bordoni/phpass": "^0.3.5",
     "codeception/module-asserts": "^1.0",
     "codeception/module-cli": "^1.0",
     "codeception/module-db": "^1.0",
@@ -19,38 +21,73 @@
     "codeception/module-rest": "^1.0",
     "codeception/module-webdriver": "^1.0",
     "codeception/util-universalframework": "^1.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+    "lucatume/codeception-snapshot-assertions": "^0.3.0",
     "facebook/webdriver": "1.6.0",
-    "lucatume/function-mocker": "^1.0",
-    "lucatume/wp-browser": "^3.0.14",
-    "lucatume/wp-snaphot-assertions": "1.1.0",
+    "lucatume/function-mocker": "^1.3.8",
+    "lucatume/wp-browser": "3.2.3",
+    "lucatume/wp-snaphot-assertions": "^1.1.0",
     "mikey179/vfsstream": "^1.6",
-    "the-events-calendar/tribalscents": "dev-master",
-    "the-events-calendar/tec-testing-facilities": "dev-master",
     "phpunit/phpunit": "~6.0",
-    "scotteh/php-dom-wrapper": "0.7.3",
+    "scotteh/php-dom-wrapper": "^1.0",
+    "slope-it/clock-mock": "^0.4.0",
     "spatie/phpunit-snapshot-assertions": "^1.2",
-    "wp-coding-standards/wpcs": "^2.1",
-    "vlucas/phpdotenv": "^4.1"
+    "stellarwp/coding-standards": "dev-main",
+    "the-events-calendar/tec-testing-facilities": "dev-master",
+    "vlucas/phpdotenv": "^4.1",
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpstan/phpstan": "^1.10",
+    "phpstan/phpstan-deprecation-rules": "^1.1",
+    "phpstan/extension-installer": "^1.3",
+    "szepeviktor/phpstan-wordpress": "*",
+    "automattic/jetpack-changelogger": "^4.2"
   },
-  "minimum-stability": "stable",
-  "prefer-stable": true,
   "config": {
     "preferred-install": "dist",
     "platform": {
-      "php": "7.0.33"
+      "php": "7.4"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpstan/extension-installer": true
+    }
+  },
+  "extra": {
+    "changelogger": {
+      "changelog": "changelog.md",
+      "types": {
+        "version": "Version",
+        "feat": "Feature",
+        "fix": "Fix",
+        "tweak": "Tweak",
+        "performance": "Performance",
+        "security": "Security",
+        "accessibility": "Accessibility",
+        "compatibility": "Compatibility",
+        "deprecated": "Deprecated",
+        "language": "Language"
+      },
+      "versioning": {
+        "filename": "bin/ModifiedSemverVersioning.php"
+      },
+      "formatter": {
+        "filename": "bin/class-tec-changelog-formatter.php"
+      },
+      "changes-dir": "changelog"
     }
   },
   "autoload": {
     "psr-4": {
-      "Tribe\\Events\\" : "src/Tribe",
-      "TEC\\Events\\" : "src/Events"
-    }
+      "Tribe\\Events\\": "src/Tribe",
+      "TEC\\Events\\": "src/Events"
+    },
+    "classmap": ["src/deprecated/Traits/"]
   },
   "autoload-dev": {
     "psr-4": {
+      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views",
       "Tribe\\Tests\\Modules\\Core\\": "tests/_support/Modules",
-      "Tribe\\Events\\Views\\": "tests/views_integration/Tribe/Events/Views"
+      "TEC\\Tests\\Events\\Admin\\Notice\\": "tests/wpunit/TEC/Events/Admin/Notice"
     }
   },
   "repositories": [
@@ -59,18 +96,15 @@
       "type": "github",
       "url": "https://github.com/the-events-calendar/tec-testing-facilities",
       "no-api": true
-    },
-    {
-      "name": "the-events-calendar/TribalScents",
-      "type": "github",
-      "url": "https://github.com/the-events-calendar/TribalScents",
-      "no-api": true
     }
   ],
-  "require": {
-  },
   "scripts": {
     "start-chromedriver": "docker run --rm -d --name chromedriver -p 4444:4444 selenium/standalone-chrome",
-    "stop-chromedriver": "docker stop chromedriver"
+    "stop-chromedriver": "docker stop chromedriver",
+    "pup": [
+      "Composer\\Config::disableProcessTimeout",
+      "test -f ./bin/pup.phar || curl -o ./bin/pup.phar -L -C - https://github.com/stellarwp/pup/releases/download/1.3.8/pup.phar",
+      "@php bin/pup.phar"
+    ]
   }
 }

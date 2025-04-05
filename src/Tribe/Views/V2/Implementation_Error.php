@@ -28,7 +28,7 @@ class Implementation_Error extends \Exception {
 	 */
 	public static function because_extending_view_should_define_this_method( $method, $object ) {
 		$class = get_class( $object );
-		$message = "Any class extending the base View classs should implement the {$method} method; {$class} does not.";
+		$message = "Any class extending the base View class should implement the {$method} method; {$class} does not.";
 
 		return new static( $message );
 	}

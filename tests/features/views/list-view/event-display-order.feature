@@ -66,4 +66,4 @@ Scenario: List View order of events with different time zones
 
 # As per the above, we list events by the start time, even if different time zones mean that technically the events are not listed in the order in which they happen. This is a deliberate choice in order to avoid the intense complications that a true chronological listing with multiple timezones would create in time-based views (Month, Day, Week). If a user has events in multiple time zones, they should be encouraged to use something like Filter Bar to help their visitors see a list of events within only the relevant time zone(s).
 
-# At this time, events may also be listed based on publish date. However, time zone relationships should supercede publish date in the hierarchy of how to define event order.
+# At this time, events may also be listed based on publish date. However, time zone relationships should supersede publish date in the hierarchy of how to define event order.

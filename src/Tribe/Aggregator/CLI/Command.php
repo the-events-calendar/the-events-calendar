@@ -99,7 +99,7 @@ class Tribe__Events__Aggregator__CLI__Command {
 	 * ---
 	 *
 	 * [--column_map=<column_map>]
-	 * : the column mapping that should be used for CSV imports; required when runnin CSV imports. A comma separated
+	 * : the column mapping that should be used for CSV imports; required when running CSV imports. A comma separated
 	 * list where the order counts.
 	 * For events the available columns are: name, description, excerpt, start_date, start_time, end_date, end_time,
 	 * timezone, all_day, hide, sticky, venue_name, organizer_name, show_map_link, show_map, cost, currency_symbol,

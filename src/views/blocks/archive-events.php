@@ -16,9 +16,8 @@ use Tribe\Events\Views\V2\Assets as Event_Assets;
 use Tribe\Events\Views\V2\Template_Bootstrap;
 
 tribe_asset_enqueue_group( Event_Assets::$group_key );
-tribe_asset_enqueue( 'tec-events-iframe-content-resizer' );
 ?>
 
-<div class="tribe-block tribe-block__archive-events">
+<div class="tribe-block tec-block__archive-events">
 	<?php echo tribe( Template_Bootstrap::class )->get_view_html(); ?>
 </div>

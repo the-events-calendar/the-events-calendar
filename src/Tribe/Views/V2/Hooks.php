@@ -17,7 +17,7 @@
 
 namespace Tribe\Events\Views\V2;
 
-use Tribe\Events\Views\V2\Query\Abstract_Query_Controller;
+use TEC\Events\Views\Modifiers\Hide_End_Time_Modifier;
 use Tribe\Events\Views\V2\Query\Event_Query_Controller;
 use Tribe\Events\Views\V2\Repository\Event_Period;
 use Tribe\Events\Views\V2\Template\Featured_Title;
@@ -29,15 +29,22 @@ use Tribe__Events__Main as TEC;
 use Tribe__Rewrite as TEC_Rewrite;
 use Tribe__Utils__Array as Arr;
 use WP_Post;
+use TEC\Common\Contracts\Service_Provider;
+
 
 /**
  * Class Hooks
  *
  * @since 4.9.2
+ * @since 6.6.3 Moved Hide End Time feature into Hide_End_Time_Provider provider.
  *
  * @package Tribe\Events\Views\V2
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends Service_Provider {
+	/**
+	 * @var Hide_End_Time_Modifier The modifier to hide the end time.
+	 */
+	protected Hide_End_Time_Modifier $end_time_modifier;
 
 	/**
 	 * Binds and sets up implementations.
@@ -45,8 +52,13 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 4.9.2
 	 */
 	public function register() {
-		$this->container->tag( [ Event_Query_Controller::class, ], 'query_controllers' );
+		// Bind as singleton to maintain state in filters.
+		$this->container->singleton( Title::class );
 
+		// Register Hide End Time modifier provider.
+		$this->container->register( Hide_End_Time_Provider::class );
+
+		// Setup hooks.
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -69,7 +81,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'get_header', [ $this, 'print_single_json_ld' ] );
 		add_action( 'tribe_template_after_include:events/v2/components/after', [ $this, 'action_add_promo_banner' ], 10, 3 );
 		add_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
+		add_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		add_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ], 10, 2 );
 	}
 
 	/**
@@ -78,7 +92,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 5.14.1
 	 */
 	public function enqueue_customizer_in_block_editor() {
-		// Make sure we're on the block edit screen
+		// Make sure we're on the block edit screen.
 		if ( ! is_admin() || ! get_current_screen()->is_block_editor ) {
 			return;
 		}
@@ -93,12 +107,15 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		// Append the customizer styles to the single block stylesheet
-		add_filter( 'tribe_customizer_inline_stylesheets', static function( $sheets ) {
-			$sheets[] = 'tribe-admin-v2-single-blocks';
+		// Append the customizer styles to the single block stylesheet.
+		add_filter(
+			'tribe_customizer_inline_stylesheets',
+			static function ( $sheets ) {
+				$sheets[] = 'tribe-admin-v2-single-blocks';
 
-			return $sheets;
-		} );
+				return $sheets;
+			}
+		);
 
 		// Print the styles!
 		tribe( 'customizer' )->inline_style( true );
@@ -126,6 +143,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
 		// 100 is the WordPress cookie-based auth check.
 		add_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
+
+		// Need to handle our custom nonce user auth.
+		add_filter( 'rest_allowed_cors_headers', [ Rest_Endpoint::class, 'preserve_user_for_custom_nonces' ], 10, 1 );
+
 		add_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
 		add_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ], 10, 3 );
 
@@ -170,10 +191,33 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// iCalendar export request handling.
 		add_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
-
+		add_filter( 'tec_events_noindex', [ $this, 'filter_tec_events_noindex' ], 10, 5 );
 		add_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
+		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12, 2 );
+		add_filter( 'tec_events_view_month_today_button_label', [ $this, 'filter_view_month_today_button_label' ], 10, 2 );
+		add_filter( 'tec_events_view_month_today_button_title', [ $this, 'filter_view_month_today_button_title' ], 10, 2 );
+	}
 
-		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts'], 12, 2 );
+	/**
+	 * This retrieves the posts to be used on the rendered page, and stores them for use in title generation.
+	 *
+	 * @since 6.3.6
+	 *
+	 * @param WP_Post[] $events The list of tribe events for this page.
+	 * @param View      $view   The current view being rendered.
+	 */
+	public function action_set_title_events( $events, $view ) {
+		// Not a list? Bail.
+		if ( ! is_array( $events ) ) {
+			return;
+		}
+
+		// Trim to what is shown (we add one sometimes for pagination links).
+		$cnt = $view->get_context()->get( 'events_per_page' );
+		if ( $cnt ) {
+			$events = array_slice( $events, 0, $cnt );
+		}
+		$this->container->make( Title::class )->set_posts( $events );
 	}
 
 	/**
@@ -186,7 +230,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return void
 	 */
-	public function action_include_filters_excerpt() {
+	public function action_include_filters_excerpt(): void {
 		add_filter( 'excerpt_more', [ $this, 'filter_excerpt_more' ], 50 );
 	}
 
@@ -204,6 +248,19 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		$assets->disable_v1();
+	}
+
+	/**
+	 * Initializes the legacy Views for Single and Embed.
+	 *
+	 * @since 6.0.0
+	 */
+	public function action_initialize_legacy_views() {
+		if ( tribe( Template_Bootstrap::class )->is_single_event() ) {
+			new \Tribe__Events__Template__Single_Event();
+		} elseif ( is_embed() || 'embed' === tribe( 'context' )->get( 'view' ) ) {
+			new \Tribe__Events__Template__Embed();
+		}
 	}
 
 	/**
@@ -263,7 +320,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_template_include( $template ) {
 		return $this->container->make( Template_Bootstrap::class )
-		                       ->filter_template_include( $template );
+							   ->filter_template_include( $template );
 	}
 
 	/**
@@ -309,10 +366,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $posts;
 		}
 
-		foreach ( $this->container->tagged( 'query_controllers' ) as $controller ) {
-			/** @var Abstract_Query_Controller $controller */
-			$posts = $controller->inject_posts( $posts, $query );
-		}
+		/** @var Event_Query_Controller $controller */
+		$controller = $this->container->make( Event_Query_Controller::class );
+		$posts      = $controller->inject_posts( $posts, $query );
+
+		// There is only one main query: the filter should run once.
+		remove_filter( current_filter(), [ $this, 'filter_posts_pre_query' ] );
 
 		return $posts;
 	}
@@ -472,7 +531,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function pre_get_document_title( $title ) {
 		$bootstrap = $this->container->make( Template_Bootstrap::class );
-		if ( ! $bootstrap->should_load() || $bootstrap->is_single_event() ) {
+		if (
+			! $bootstrap->should_load()
+			|| $bootstrap->is_single_event()
+			|| $bootstrap->is_single_organizer()
+			|| $bootstrap->is_single_venue()
+		) {
 			return $title;
 		}
 
@@ -595,11 +659,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		$parsed = \Tribe__Events__Rewrite::instance()->parse_request( $redirect_url );
 
-		if (
-			empty( $parsed['tribe_redirected'] )
-			&& $view !== Arr::get( (array) $parsed, 'eventDisplay' )
-		) {
+		// Event Tickets will set this to flag a redirected request.
+		$is_redirected = ! empty( $parsed['tribe_redirected'] );
 
+		/**
+		 * Filters whether the current request is being redirected or not.
+		 *
+		 * The initial value is set by looking up the `tribe_redirected` query argument.
+		 *
+		 * @since 6.0.9
+		 *
+		 * @param bool $is_redirected Whether the current request is being redirected by TEC or not.
+		 */
+		$is_redirected = apply_filters( 'tec_events_views_v2_redirected', $is_redirected );
+
+		if ( ! $is_redirected && $view !== Arr::get( (array) $parsed, 'eventDisplay' ) ) {
 			/*
 			 * If we're here we know we should be looking at a View URL.
 			 * If the proposed URL does not resolve to a View, do not redirect.
@@ -902,7 +976,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			return $value;
 		}
 
-		// Note: backslash is hte escape character - so we need to escape it.
+		// Note: backslash is the escape character - so we need to escape it.
 		// This is the equivalent of replacing any occurrence of \\ with \
 		$value = str_replace( "\\\\", "\\", $value);
 		//$value = stripslashes( $value ); will strip out ones we want to keep!
@@ -1064,6 +1138,71 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $this->container->make( iCalendar\Request::class )->get_event_ids();
 	}
 
+	/**
+	 * Filters the Today button label to change the text to something appropriate for Week View.
+	 *
+	 * @since 6.0.2
+	 *
+	 * @param string $today The string used for the "Today" button on calendar views.
+	 * @param \Tribe\Events\Views\V2\View_Interface $view The View currently rendering.
+	 *
+	 * @return string $today
+	 */
+	public function filter_view_month_today_button_label( $today, $view ) {
+		$today = esc_html_x(
+			'This Month',
+			'The default text label for the "today" button on the Month View.',
+			'the-events-calendar'
+		);
+
+		return $today;
+	}
+
+	/**
+	 * Filters the Today button title and aria-label to change the text to something appropriate for Month View.
+	 *
+	 * @since 6.0.2
+	 *
+	 * @param string                                $label The title string.
+	 * @param \Tribe\Events\Views\V2\View_Interface $view  The View currently rendering.
+	 *
+	 * @return string $label
+	 */
+	public function filter_view_month_today_button_title( $label, $view ) {
+		$label = esc_html_x(
+			'Click to select the current month',
+			"The default text for the 'today' button's title and aria-label on the Week View.",
+			'the-events-calendar'
+		);
+
+		return $label;
+	}
+
+	/**
+	 * Allow specific views to hook in and add their own calculated events.
+	 *
+	 * @since 6.2.3
+	 * @since 6.2.3.1 Added a check for function existence.
+	 *
+	 * @param Tribe__Repository|false $events     The events repository. False by default.
+	 * @param DateTime                $start_date The start date (object) of the query.
+	 * @param \Tribe__Context         $context    The current context.
+	 * @param View_Interface          $instance   The current view instance.
+	 *
+	 * @return \Tribe__Repository|false $events     The events repository results.
+	 */
+	public function filter_tec_events_noindex( $events, $start_date, $end_date, $context, $view ) {
+		//$view_slug = $context->get( 'view' );
+		//$view = View::make( tribe( Manager::class )->get_view_class_by_slug( $view_slug ), $context );
+
+		// If ECP has not been updated, the function won't exist for ECP views. Bail.
+		if ( ! method_exists( $view, 'get_noindex_events' ) ) {
+			return $events;
+		}
+
+		return $view->get_noindex_events( $events, $start_date, $end_date, $context );
+	}
+
 	/* DEPRECATED */
 
 	/**
@@ -1173,5 +1312,98 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$params[ 'eventDate'] = $params['tribe-bar-date'];
 
 		return $params;
+	}
+
+	/**
+	 * Unregisters all the filters and action handled by the class.
+	 *
+	 * @since 6.0.2
+	 *
+	 * @return void Filters and actions will be unregistered.
+	 */
+	public function unregister(): void {
+		remove_filter( 'tec_system_information', [ $this, 'filter_system_information' ] );
+		remove_filter( 'wp_redirect', [ $this, 'filter_redirect_canonical' ] );
+		remove_filter( 'redirect_canonical', [ $this, 'filter_redirect_canonical' ] );
+		remove_filter( 'template_include', [ $this, 'filter_template_include' ], 50 );
+		remove_filter( 'embed_template', [ $this, 'filter_template_include' ], 50 );
+		remove_filter( 'posts_pre_query', [ $this, 'filter_posts_pre_query' ], 20 );
+		remove_filter( 'body_class', [ $this, 'filter_body_classes' ] );
+		remove_filter( 'tribe_body_class_should_add_to_queue', [ $this, 'body_class_should_add_to_queue' ] );
+		remove_filter( 'tribe_body_classes_should_add', [ $this, 'body_classes_should_add' ] );
+		remove_filter( 'query_vars', [ $this, 'filter_query_vars' ], 15 );
+		remove_filter( 'tribe_rewrite_canonical_query_args', [ $this, 'filter_map_canonical_query_args' ], 15 );
+		remove_filter( 'admin_post_thumbnail_html', [ $this, 'filter_admin_post_thumbnail_html' ] );
+		remove_filter( 'excerpt_length', [ $this, 'filter_excerpt_length' ] );
+		remove_filter( 'tribe_events_views_v2_after_make_view', [ $this, 'action_include_filters_excerpt' ] );
+		remove_filter( 'rest_authentication_errors', [ Rest_Endpoint::class, 'did_rest_authentication_errors' ], 150 );
+		remove_filter( 'tribe_support_registered_template_systems', [ $this, 'filter_register_template_updates' ] );
+		remove_filter( 'tribe_events_event_repository_map', [ $this, 'add_period_repository' ] );
+		remove_filter( 'tribe_general_settings_tab_fields', [ $this, 'filter_general_settings_tab_live_update' ], 20 );
+		remove_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $this, 'filter_rewrite_i18n_slugs_raw' ], 50 );
+		remove_filter( 'tribe_get_event_after', [ $this, 'filter_events_properties' ] );
+		remove_filter( 'tribe_template_file', [ $this, 'filter_template_file' ] );
+		remove_filter( 'tribe_get_option', [ $this, 'filter_get_stylesheet_option' ] );
+		remove_filter( 'option_liveFiltersUpdate', [ $this, 'filter_live_filters_option_value' ] );
+		remove_filter( 'tribe_get_option', [ $this, 'filter_live_filters_option_value' ] );
+		remove_filter( 'tribe_field_value', [ $this, 'filter_live_filters_option_value' ] );
+		remove_filter( 'tribe_get_option', [ $this, 'filter_date_escaping' ] );
+		remove_filter( 'tribe_events_filter_views_v2_wp_title_plural_events_label', [
+			$this,
+			'filter_wp_title_plural_events_label'
+		] );
+		remove_filter( 'wp_title', [ $this, 'filter_wp_title' ] );
+		remove_filter( 'document_title_parts', [ $this, 'filter_document_title_parts' ] );
+		remove_filter( 'pre_get_document_title', [ $this, 'pre_get_document_title' ], 20 );
+		remove_filter( 'get_post_time', [ 'Tribe__Events__Templates', 'event_date_to_pubDate' ] );
+		remove_filter( 'tribe_events_views_v2_view_data', [ View_Utils::class, 'clean_data' ] );
+		remove_filter( 'tribe_customizer_print_styles_action', [ $this, 'print_inline_styles_in_footer' ] );
+		remove_filter( 'tribe_customizer_global_elements_css_template', [
+			$this,
+			'filter_global_elements_css_template'
+		] );
+		remove_filter( 'tribe_customizer_single_event_css_template', [
+			$this,
+			'filter_single_event_css_template'
+		] );
+		remove_filter( 'tribe_get_event_website_link_label', [
+			$this,
+			'filter_single_event_details_event_website_label'
+		] );
+		remove_filter( 'tribe_get_venue_website_link_label', [
+			$this,
+			'filter_single_event_details_venue_website_label'
+		] );
+		remove_filter( 'tribe_events_get_venue_website_title', '__return_empty_string' );
+		remove_filter( 'tribe_get_organizer_website_link_label', [
+			$this,
+			'filter_single_event_details_organizer_website_label'
+		] );
+		remove_filter( 'tribe_events_get_organizer_website_title', '__return_empty_string' );
+		remove_filter( 'tribe_ical_template_event_ids', [ $this, 'inject_ical_event_ids' ] );
+		remove_filter( 'tec_events_query_default_view', [ $this, 'filter_tec_events_query_default_view' ] );
+		remove_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_url_date_conflicts' ], 12 );
+
+		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		remove_action( 'tribe_common_loaded', [ $this, 'on_tribe_common_loaded' ], 1 );
+		remove_action( 'parse_query', [ $this, 'add_body_classes' ], 55 );
+		remove_action( 'wp_head', [ $this, 'on_wp_head' ], 1000 );
+		remove_action( 'tribe_events_pre_rewrite', [ $this, 'on_tribe_events_pre_rewrite' ] );
+		remove_action( 'wp_enqueue_scripts', [ $this, 'action_disable_assets_v1' ], 0 );
+		remove_action( 'tribe_events_pro_shortcode_tribe_events_after_assets', [
+			$this,
+			'action_disable_shortcode_assets_v1'
+		] );
+		remove_action( 'updated_option', [ $this, 'action_save_wplang' ], 10, 3 );
+		remove_action( 'the_post', [ $this, 'manage_sensitive_info' ] );
+		remove_action( 'get_header', [ $this, 'print_single_json_ld' ] );
+		remove_action( 'tribe_template_after_include:events/v2/components/after', [
+			$this,
+			'action_add_promo_banner'
+		], 10, 3 );
+		remove_action( 'tribe_events_parse_query', [ $this, 'parse_query' ] );
+		remove_action( 'template_redirect', [ $this, 'action_initialize_legacy_views' ] );
+		remove_action( 'admin_enqueue_scripts', [ $this, 'enqueue_customizer_in_block_editor' ] );
+		remove_action( 'tec_events_views_v2_after_get_events', [ $this, 'action_set_title_events' ] );
 	}
 }

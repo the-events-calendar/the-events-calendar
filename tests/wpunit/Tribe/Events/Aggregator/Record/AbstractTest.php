@@ -3,13 +3,13 @@
 namespace Tribe\Events\Aggregator\Record;
 
 include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Scheduled_Test.php' ) );
+include_once( codecept_data_dir( 'classes/Tribe__Events__Aggregator__Record__Manual_Test.php' ) );
 
 use Prophecy\Argument;
 use Tribe\Events\Test\Factories\Aggregator\V1\Import_Record;
 use Tribe\Events\Test\Testcases\Events_TestCase;
 use Tribe__Events__Aggregator__Record__Abstract as Base;
-use Tribe__Events__Aggregator__Record__Activity as Activity;
-use Tribe__Events__Aggregator__Record__Facebook as FB_Record;
+use Tribe__Events__Aggregator__Record__Manual_Test as Manual_Test_Record;
 use Tribe__Events__Aggregator__Record__Scheduled_Test as Record;
 use Tribe__Events__Aggregator__Record__Url as Url_Import_Record;
 use Tribe__Events__Aggregator__Records as Records;
@@ -283,6 +283,117 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function should_not_duplicate_when_uid_is_already_present() {
+		// Insert Manual Test as a valid UNIQUE ID field source.
+		Base::$unique_id_fields['manual-test'] = [
+			'source' => 'uid',
+			'target' => 'uid',
+		];
+
+		$post = $this->factory()->post->create_and_get( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => 'ea/manual-test',
+		] );
+
+		$record = new Record();
+		$record->set_post( $post );
+		$record->frequency             = (object) [
+			'id'       => 'on_demand',
+			'interval' => 0,
+		];
+		$record->meta['post_status']   = 'publish';
+		$record->meta['origin']        = 'manual-test';
+		$record->meta['ids_to_import'] = 'all';
+
+		$uid = '__unique_uuid_for_manual_test__' . time();
+
+		$successful_child_record = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => $record->post->post_mime_type,
+		] );
+
+		$event_id = $this->factory()->event->create( [
+			'meta_input' => [
+				'_uid' => $uid,
+			]
+		] );
+
+		$manual_test_record = new Manual_Test_Record( $record );
+		$manual_test_record->meta['origin'] = 'manual-test';
+
+		// Enforce this particular Static variable.
+		Manual_Test_Record::$unique_id_fields = Base::$unique_id_fields;
+
+		$data = [
+			[ 'uid' => $uid, ]
+		];
+
+		$existing_ids = $manual_test_record->get_existing_ids_from_import_data( $data );
+		$this->assertCount( 1, $existing_ids );
+		$existing_id = reset( $existing_ids );
+
+		$this->assertEquals( $existing_id->post_id, $event_id );
+	}
+
+	/**
+	 * @test
+	 */
+	public function should_not_duplicate_when_uid_is_not_present() {
+		// Insert Manual Test as a valid UNIQUE ID field source.
+		Base::$unique_id_fields['manual-test'] = [
+			'source' => 'uid',
+			'target' => 'uid',
+		];
+
+		$post = $this->factory()->post->create_and_get( [
+			'post_type'      => Records::$post_type,
+			'post_status'    => Records::$status->schedule,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => 'ea/manual-test',
+		] );
+
+		$record = new Record();
+		$record->set_post( $post );
+		$record->frequency             = (object) [
+			'id'       => 'on_demand',
+			'interval' => 0,
+		];
+		$record->meta['post_status']   = 'publish';
+		$record->meta['origin']        = 'manual-test';
+		$record->meta['ids_to_import'] = 'all';
+
+		$uid = '__unique_uuid_for_manual_test_not_present__' . time();
+
+		$successful_child_record = $this->factory()->post->create( [
+			'post_type'      => Records::$post_type,
+			'post_parent'    => $record->post->ID,
+			'post_status'    => Records::$status->success,
+			'post_date'      => date( 'Y-m-d H:i:s' ),
+			'post_mime_type' => $record->post->post_mime_type,
+		] );
+
+		$manual_test_record = new Manual_Test_Record( $record );
+		$manual_test_record->meta['origin'] = 'manual-test';
+
+		// Enforce this particular Static variable.
+		Manual_Test_Record::$unique_id_fields = Base::$unique_id_fields;
+
+		$data = [
+			[ 'uid' => $uid, ]
+		];
+
+		$existing_ids = $manual_test_record->get_existing_ids_from_import_data( $data );
+		$this->assertCount( 0, $existing_ids );
+	}
+
+	/**
 	 * It should allow filtering the venue id when global ID does not provide a match
 	 *
 	 * @test
@@ -302,6 +413,8 @@ class AbstractTest extends Events_TestCase {
 			return $venue_id;
 		}, 10, 2 );
 		$sut = new Url_Import_Record();
+		$sut->meta['origin'] = 'url';
+		$sut->meta['post_status'] = 'publish';
 
 		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
 		$activity       = $sut->insert_posts( [ $item ] );
@@ -325,6 +438,8 @@ class AbstractTest extends Events_TestCase {
 			return $organizer_ids[ $i ++ ];
 		}, 10, 2 );
 		$sut = new Url_Import_Record();
+		$sut->meta['origin'] = 'url';
+		$sut->meta['post_status'] = 'publish';
 
 		/** @var \Tribe__Events__Aggregator__Record__Activity $activity */
 		$activity           = $sut->insert_posts( [ $item ] );
@@ -424,6 +539,76 @@ class AbstractTest extends Events_TestCase {
 	}
 
 	/**
+	 * It should correctly link existing organizers to events.
+	 *
+	 * @test
+	 */
+	public function should_correctly_link_existing_organizers_to_events() {
+		// Create existing organizer.
+		$organizer_name = 'Organizer-1';
+		$original_organizer_id = $this->factory()->organizer->create();
+		wp_update_post( [
+			'ID'         => $original_organizer_id,
+			'post_title' => $organizer_name,
+		] );
+
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'ical' );
+		$event_data->organizer = [
+			(object) [
+				'organizer' => $organizer_name,
+			],
+		];
+
+		$this->track_last_inserted_or_updated();
+
+		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'ical' );
+		$record->insert_posts( [ $event_data ] );
+
+		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
+		$organizers = (array) get_post_meta( $this->last_inserted_or_updated, '_EventOrganizerID', true );
+		$this->assertNotEmpty( $organizers );
+		$assigned_organizer_id = reset( $organizers );
+		$this->assertEquals( $original_organizer_id, $assigned_organizer_id );
+		$organizer = get_post( $assigned_organizer_id );
+		$this->assertEquals( $organizer_name, $organizer->post_title );
+	}
+
+	/**
+	 * It should correctly link existing venues to events.
+	 *
+	 * @test
+	 */
+	public function should_correctly_link_existing_venues_to_events() {
+		// Create existing organizer.
+		$venue_name = 'Venue-1';
+		$original_venue_id = $this->factory()->venue->create();
+		wp_update_post( [
+			'ID'         => $original_venue_id,
+			'post_title' => $venue_name,
+		] );
+
+		$event_data = $this->factory()->import_record->create_and_get_event_data( 'ical' );
+		$event_data->venue = (object) [
+			'venue' => $venue_name,
+		];
+
+		$this->track_last_inserted_or_updated();
+
+		/** @var Base $record */
+		$record = $this->extend_base_w_origin( 'ical' );
+		$record->insert_posts( [ $event_data ] );
+
+		$this->assertNotEmpty( get_post( $this->last_inserted_or_updated ) );
+		$venues = (array) get_post_meta( $this->last_inserted_or_updated, '_EventVenueID', true );
+		$this->assertNotEmpty( $venues );
+		$assigned_venue_id = reset( $venues );
+		$this->assertEquals( $original_venue_id, $assigned_venue_id );
+		$venue = get_post( $assigned_venue_id );
+		$this->assertEquals( $venue_name, $venue->post_title );
+	}
+
+	/**
 	 * It should not track modified fields when creating events no matter the authority
 	 *
 	 * @test I should
@@ -442,7 +627,7 @@ class AbstractTest extends Events_TestCase {
 
 		$this->assertEmpty( get_post_meta( $post_id, \Tribe__Tracker::$field_key, true ) );
 
-		// run the import a second time ot update the event
+		// run the import a second time to update the event
 		/** @var Base $record */
 		$record_2 = $this->extend_base_w_origin( 'gcal' );
 		$record_2->insert_posts( [ $event_data ] );
@@ -477,6 +662,9 @@ class AbstractTest extends Events_TestCase {
 				return 'test';
 			}
 		};
+
+		$test_record->meta['origin'] = $origin;
+		$test_record->meta['post_status'] = 'publish';
 
 		return $test_record;
 	}

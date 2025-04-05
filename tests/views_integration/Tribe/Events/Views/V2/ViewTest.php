@@ -2,6 +2,7 @@
 
 namespace Tribe\Events\Views\V2;
 
+use Spatie\Snapshots\MatchesSnapshots;
 use Tribe\Events\Test\Factories\Event;
 use Tribe\Events\Views\V2\Views\Reflector_View;
 use Tribe__Context as Context;
@@ -10,6 +11,7 @@ use Tribe__Date_Utils as Dates;
 require_once codecept_data_dir( 'Views/V2/classes/Test_View.php' );
 
 class ViewTest extends \Codeception\TestCase\WPTestCase {
+	use MatchesSnapshots;
 	public function setUp() {
 		parent::setUp();
 		static::factory()->event = new Event();
@@ -75,7 +77,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should print a view HTML on the page when caling send_html
+	 * It should print a view HTML on the page when calling send_html
 	 *
 	 * @test
 	 */
@@ -87,10 +89,12 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return '__return_true';
 		} );
 
+		ob_start();
 		$view = View::make( 'test' );
 		$view->send_html();
+		$content = ob_get_clean();
 
-		$this->expectOutputString( Test_View::class );
+		$this->assertMatchesSnapshot( $content );
 	}
 
 	/**
@@ -106,10 +110,12 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 			return '__return_true';
 		} );
 
+		ob_start();
 		$view = View::make( 'test' );
 		$view->send_html( 'Alice in Wonderland' );
+		$content = ob_get_clean();
 
-		$this->expectOutputString( 'Alice in Wonderland' );
+		$this->assertMatchesSnapshot( $content );
 	}
 
 	/**
@@ -161,7 +167,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 
 		$view = View::make( 'test' );
 
-		$this->assertEquals( 'test', $view->get_slug() );
+		$this->assertEquals( 'test', $view::get_view_slug() );
 	}
 
 	/**
@@ -247,7 +253,7 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 		$this->assertEquals( '', $page_1_view->prev_url() );
 	}
 
-	public function wpSetUpBeforeClass() {
+	public static function wpSetUpBeforeClass() {
 		static::factory()->event = new Event();
 	}
 
@@ -398,5 +404,52 @@ class ViewTest extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertSame( $original_wp_query, $GLOBALS['wp_query'] );
 		$this->assertEquals( $original_request_uri, $_SERVER['REQUEST_URI'] );
+	}
+
+
+	/**
+	 * Should correctly filter the two repository args.
+	 *
+	 * @test
+	 */
+	public function should_correctly_filter_repository_args() {
+		$expected_primary_args = [ 'primary_test_arg' => 'fake' ];
+		$expected_global_args  = [ 'global_test_arg' => 'fake' ];
+		add_filter( 'tribe_events_views', static function () {
+			return [ 'test' => Test_View::class ];
+		} );
+		// Add a global arg.
+		add_filter( 'tec_events_views_v2_view_global_repository_args',
+			function ( $args, $view ) use ( $expected_global_args ) {
+				return array_merge( $args, $expected_global_args );
+			}, 10, 2 );
+		// Add a primary arg.
+		add_filter( 'tribe_events_views_v2_view_repository_args',
+			function ( $args, $context ) use ( $expected_primary_args ) {
+				return array_merge( $args, $expected_primary_args );
+			}, 10, 2 );
+		$view = View::make( 'test' );
+
+		// Primary should fetch properly.
+		$primary_args = $view->_public_repository_args();
+		foreach ( $expected_primary_args as $expected_key => $expected_value ) {
+			$this->assertArrayHasKey( $expected_key, $primary_args );
+			$this->assertEquals( $expected_value, $primary_args[ $expected_key ] );
+		}
+		// Primary should also fetch the global arg.
+		foreach ( $expected_global_args as $expected_key => $expected_value ) {
+			$this->assertArrayHasKey( $expected_key, $primary_args );
+			$this->assertEquals( $expected_value, $primary_args[ $expected_key ] );
+		}
+		// Globals should fetch properly.
+		$global_args = $view->_public_global_repository_args();
+		foreach ( $expected_global_args as $expected_key => $expected_value ) {
+			$this->assertArrayHasKey( $expected_key, $global_args );
+			$this->assertEquals( $expected_value, $global_args[ $expected_key ] );
+		}
+		// Globals should not contain primary.
+		foreach ( $expected_primary_args as $expected_key => $expected_value ) {
+			$this->assertArrayNotHasKey( $expected_key, $global_args );
+		}
 	}
 }

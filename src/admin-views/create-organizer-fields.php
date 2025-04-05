@@ -7,7 +7,7 @@
 <tr class="linked-post organizer tribe-linked-type-organizer-website">
 	<td><label for="organizer-website"><?php esc_html_e( 'Website:', 'the-events-calendar' ); ?></label></td>
 	<td>
-		<input id="organizer-website" type='text' name='organizer[Website][]' class='organizer-website' size='25' value='' />
+		<input id="organizer-website" type='url' name='organizer[Website][]' class='organizer-website' size='25' value='' />
 	</td>
 </tr>
 <tr class="linked-post organizer tribe-linked-type-organizer-email">

@@ -1,6 +1,7 @@
 <?php
 
 use Tribe\Events\Integrations\WPML\Views\V2\Filters as Views_V2_Filters;
+use Tribe\Events\Views\V2\Hooks;
 
 /**
  * Class Tribe__Events__Integrations__WPML__WPML
@@ -54,12 +55,6 @@ class Tribe__Events__Integrations__WPML__WPML {
 	}
 
 	protected function hook_filters() {
-		$filters = Tribe__Events__Integrations__WPML__Filters::instance();
-		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [
-			$filters,
-			'filter_tribe_events_rewrite_i18n_slugs_raw',
-		], 100, 3 );
-
 		$linked_posts = Tribe__Events__Integrations__WPML__Linked_Posts::instance();
 		add_filter( 'tribe_events_linked_posts_query', [
 			$linked_posts,
@@ -73,6 +68,18 @@ class Tribe__Events__Integrations__WPML__WPML {
 		$rewrites = Tribe__Events__Integrations__WPML__Rewrites::instance();
 		add_filter( 'rewrite_rules_array', [ $rewrites, 'filter_rewrite_rules_array' ], 20, 1 );
 		add_filter( 'tribe_events_rewrite_i18n_slugs_raw', [ $rewrites, 'filter_tax_base_slug' ], 10, 2 );
+		add_filter(
+			'tribe_events_rewrite_i18n_slugs_raw',
+			[
+				$rewrites,
+				'filter_tribe_events_rewrite_i18n_slugs_raw',
+			],
+			100,
+			3
+		);
+		add_filter( 'tec_common_rewrite_localize_matcher', [ $rewrites, 'localize_matcher' ], 10, 2 );
+		// Ensure the base slugs are urldecoded before they are used to build the rewrite rules, go after all the plugins.
+		add_filter( 'tribe_events_rewrite_base_slugs', [ $rewrites, 'urldecode_base_slugs' ], 100 );
 
 		$permalinks = Tribe__Events__Integrations__WPML__Permalinks::instance();
 		add_filter( 'post_type_link', [ $permalinks, 'filter_post_type_link' ], 20, 2 );
@@ -81,7 +88,7 @@ class Tribe__Events__Integrations__WPML__WPML {
 		add_filter( 'icl_ls_languages', [ $language_switcher, 'filter_icl_ls_languages' ], 5 );
 
 		$meta = tribe( 'tec.integrations.wpml.meta' );
-		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 3 );
+		add_filter( 'get_post_metadata', tribe_callback( $meta, 'translate_post_id' ), 10, 4 );
 		add_filter( 'pre_get_posts', tribe_callback( $meta, 'include_all_languages' ) );
 
 		// Disable month view caching when WPML is activated for now, until we
@@ -106,6 +113,21 @@ class Tribe__Events__Integrations__WPML__WPML {
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_template_vars_urls' ] );
 		add_filter( 'tribe_events_views_v2_view_public_views', [ Views_V2_Filters::class, 'translate_public_views_urls' ] );
 		add_filter( 'tribe_events_views_v2_request_uri', [ Views_V2_Filters::class, 'translate_view_request_uri' ] );
+
+		if ( tribe()->getVar( 'ct1_fully_activated' ) ) {
+			// Rewrite bases should not be encoded when using WPML.
+			remove_filter( 'tribe_events_rewrite_i18n_slugs_raw', [
+				tribe( Hooks::class ),
+				'filter_rewrite_i18n_slugs_raw'
+			], 50 );
+			// Handle the translation of the Events permalinks in Views v2 and Custom Tables V1 context.
+			add_filter( 'tribe_events_views_v2_view_template_vars', [ Views_V2_Filters::class, 'translate_events_permalinks' ] );
+			// Filter the tracked meta keys to trigger the update of the custom tables when duplicating events.
+			add_filter( 'tec_events_custom_tables_v1_tracked_meta_keys', [
+				Tribe__Events__Integrations__WPML__Meta::class,
+				'filter_ct1_update_meta_keys'
+			] );
+		}
 	}
 
 	protected function setup_cache_expiration_triggers() {

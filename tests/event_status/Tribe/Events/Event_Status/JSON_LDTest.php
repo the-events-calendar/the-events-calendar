@@ -53,6 +53,27 @@ class JSON_LDTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 * @test
 	 */
+	public function it_should_have_default_event_status() {
+		$event = $this->get_mock_event( 'events/single/1.json' );
+		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );
+		$object    = array_shift( $json_data );
+
+		$this->assertObjectHasAttribute(
+			'eventStatus',
+			$object,
+			'Missing default eventStatus.'
+		);
+
+		$this->assertEquals(
+			JSON_LD::SCHEDULED_SCHEMA,
+			$object->eventStatus,
+			'Default eventStatus should be EventScheduled status.'
+		);
+	}
+
+	/**
+	 * @test
+	 */
 	public function it_should_have_event_status_for_canceled() {
 		$event = $this->get_mock_event( 'events/single/canceled_status.json' );
 		$json_data = \Tribe__Events__JSON_LD__Event::instance()->get_data( $event->ID );

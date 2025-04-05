@@ -8,8 +8,10 @@
  */
 namespace Tribe\Events\Views\V2;
 
+use WP_REST_Request;
 use WP_REST_Request as Request;
 use WP_REST_Server as Server;
+use WP_User;
 
 /**
  * Class Rest_Endpoint
@@ -19,6 +21,33 @@ use WP_REST_Server as Server;
  * @package Tribe\Events\Views\V2
  */
 class Rest_Endpoint {
+
+	/**
+	 * The action for this nonce.
+	 *
+	 * @since 6.1.4
+	 *
+	 * @var string
+	 */
+	const NONCE_ACTION = '_view_rest';
+
+	/**
+	 * The field name for the primary nonce.
+	 *
+	 * @since 6.1.4
+	 *
+	 * @var string
+	 */
+	const PRIMARY_NONCE_KEY = '_tec_view_rest_nonce_primary';
+
+	/**
+	 * The field name for the secondary nonce.
+	 *
+	 * @since 6.1.4
+	 *
+	 * @var string
+	 */
+	const SECONDARY_NONCE_KEY = '_tec_view_rest_nonce_secondary';
 
 	/**
 	 * Rest Endpoint namespace
@@ -46,6 +75,193 @@ class Rest_Endpoint {
 	 * @var bool
 	 */
 	protected static $did_rest_authentication_errors;
+
+	/**
+	 * When in a REST request, store the authenticated user ID for use later.
+	 *
+	 * @since 6.2.3
+	 *
+	 * @var null|int The authenticated user ID.
+	 */
+	protected static $user_id;
+
+	/**
+	 * Due to our custom nonce usage on the REST auth, the _wpnonce is missing and WP core
+	 * will fail to retain the authenticated user and removes it.
+	 *
+	 * This stores the user (if authenticated) for use when we check that our custom nonce(s) are valid.
+	 *
+	 * @since 6.2.3
+	 * @since 6.2.7 Moved to new hook with new params in order to intercede in user auth flow for REST requests.
+	 *
+	 * @param array $cors_headers List of headers to be filtered.
+	 *
+	 * @return array List of headers.
+	 * @see   rest_cookie_check_errors()
+	 *
+	 */
+	public static function preserve_user_for_custom_nonces( $cors_headers ) {
+		if ( ! is_user_logged_in() ) {
+			return $cors_headers;
+		}
+
+		$user = wp_get_current_user();
+		if ( ! $user instanceof WP_User || ! $user->ID ) {
+			return $cors_headers;
+		}
+
+		// Save user for our nonce checks.
+		self::$user_id = (int) $user->ID;
+
+		return $cors_headers;
+	}
+
+	/**
+	 * Returns the user ID, if we successfully stored it during a REST request.
+	 *
+	 * @since 6.2.3
+	 *
+	 * @return int|null The user ID or null if none stored.
+	 */
+	public static function get_stored_user_id(): ?int {
+		return self::$user_id;
+	}
+
+	/**
+	 * Allows clearing the user to handle cases we are done with an old user.
+	 *
+	 * @since 6.9.1
+	 */
+	public static function clear_stored_user_id() {
+		self::$user_id = null;
+	}
+
+	/**
+	 * Ensures the nonce(s) are valid.
+	 *
+	 * @since 6.2.3
+	 *
+	 * @param Request $request
+	 *
+	 * @return bool
+	 */
+	public function is_valid_request( Request $request ): bool {
+		/*
+		* Since WordPress 4.7 the REST API cannot be disabled completely.
+		* The "disabling" happens by returning falsy or error values from the `rest_authentication_errors`
+		* filter.
+		* If false or error, we follow through and and do not authorize the callback.
+		* If null, the site is using alternate authentication such as SAML
+		*/
+		$auth = apply_filters( 'rest_authentication_errors', null );
+
+		if ( self::$user_id && ! is_user_logged_in() ) {
+			/**
+			 * This user was set but lost, because we use custom nonces which can not be handled by WordPress auth.
+			 *
+			 */
+			wp_set_current_user( self::$user_id );
+			// We have a valid user, we should not fail on the cookie check anymore.
+			$user_valid = static function ( $valid ) {
+				if ( is_null( $valid ) ) {
+					return true;
+				}
+
+				return $valid;
+			};
+			if ( ! has_filter( 'rest_authentication_errors', $user_valid ) ) {
+				add_filter( 'rest_authentication_errors', $user_valid );
+			}
+		}
+
+		// Did either our unauth or authed nonce pass? If neither, something is fishy.
+		$nonce_check = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			function () use ( $request ) {
+				return wp_verify_nonce( $request->get_param( static::PRIMARY_NONCE_KEY ), static::NONCE_ACTION )
+					|| wp_verify_nonce( $request->get_param( static::SECONDARY_NONCE_KEY ), static::NONCE_ACTION );
+			}
+		);
+
+		return ( $auth || is_null( $auth ) )
+		       && ! is_wp_error( $auth )
+		       && $nonce_check;
+	}
+
+	/**
+	 * Get the nonces being passed to the V2 views used for our REST requests.
+	 *
+	 * @since 6.1.4
+	 *
+	 * @return array<string,string> The field => nonce array.
+	 */
+	public static function get_rest_nonces(): array {
+		$generated_nonces = [];
+
+		/*
+		 * Some plugins, like WooCommerce, will modify the UID of logged out users; avoid that filtering here.
+		 *
+		 * @see TEC-3579
+		 */
+		$generated_nonces[ static::PRIMARY_NONCE_KEY ] = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			function () {
+				// Our current users' nonce.
+				return wp_create_nonce( static::NONCE_ACTION );
+			}
+		);
+		$generated_nonces[ static::SECONDARY_NONCE_KEY ] = tribe_without_filters(
+			[ 'nonce_user_logged_out' ],
+			function () {
+				// In case nonce A is a logged in user and cached and served for visitors,
+				// provide a valid fallback for unauthenticated visitors in B.
+				$uid = get_current_user_id();
+				// If not logged in, we already created this nonce in A.
+				if ( ! $uid ) {
+					return '';
+				}
+
+				// We are logged in, now generate an unauthenticated user nonce.
+				wp_set_current_user( 0 );
+				$nonce = wp_create_nonce( static::NONCE_ACTION );
+				wp_set_current_user( $uid );
+
+				return $nonce;
+			}
+		);
+
+		/**
+		 * Filter the list of nonces being used on REST requests for V2 views.
+		 *
+		 * @since 6.1.4
+		 *
+		 * @param array<string,string> The field => nonce array.
+		 */
+		return (array) apply_filters( 'tec_events_views_v2_get_rest_nonces', $generated_nonces );
+	}
+
+	/**
+	 * Fetches and filters the HTML tag with the encoded nonces to be output on the view markup.
+	 *
+	 * @since 6.2.7
+	 *
+	 * @param array $nonces The array of nonces that are being encoded in the HTML output.
+	 *
+	 * @return string The HTML for the nonces.
+	 */
+	public static function get_rest_nonce_html( array $nonces ): string {
+		$html = "<script data-js='tribe-events-view-nonce-data' type='application/json'>" . wp_json_encode( $nonces ) . "</script>";
+
+		/**
+		 * This allows filtering of the nonce script tag being appended to the various views that utilize AJAX requests.
+		 *
+		 * @since 6.2.7
+		 *
+		 * @param string               $html   The script tag that has JSON encoded nonces.
+		 * @param array<string,string> $nonces The associative array of nonces being generated.
+		 */
+		return (string) apply_filters( 'tec_events_views_v2_get_rest_nonce_html', $html, $nonces );
+	}
 
 	/**
 	 * Returns the URL View will use to fetch their content.
@@ -108,16 +324,25 @@ class Rest_Endpoint {
 					return is_string( $view );
 				},
 				'sanitize_callback' => static function ( $view ) {
-					return filter_var( $view, FILTER_SANITIZE_STRING );
+					return tec_sanitize_string( $view );
 				},
 			],
-			'_wpnonce' => [
+			static::PRIMARY_NONCE_KEY => [
 				'required'          => false,
 				'validate_callback' => static function ( $nonce ) {
 					return is_string( $nonce );
 				},
 				'sanitize_callback' => static function ( $nonce ) {
-					return filter_var( $nonce, FILTER_SANITIZE_STRING );
+					return tec_sanitize_string( $nonce );
+				},
+			],
+			static::SECONDARY_NONCE_KEY => [
+				'required'          => false,
+				'validate_callback' => static function ( $nonce ) {
+					return is_string( $nonce );
+				},
+				'sanitize_callback' => static function ( $nonce ) {
+					return tec_sanitize_string( $nonce );
 				},
 			],
 			'view_data' => [
@@ -138,7 +363,7 @@ class Rest_Endpoint {
 				return is_string( $action );
 			},
 			'sanitize_callback' => static function ( $action ) {
-				return filter_var( $action, FILTER_SANITIZE_STRING );
+				return tec_sanitize_string( $action );
 			},
 		];
 
@@ -167,22 +392,8 @@ class Rest_Endpoint {
 		return register_rest_route( static::ROOT_NAMESPACE, '/html', [
 			// Support both GET and POST HTTP methods: we originally used GET.
 			'methods'             => [ Server::READABLE, Server::CREATABLE ],
-			 // @todo [BTRIA-600]: Make sure we do proper handling of caches longer then 12h.
-			'permission_callback' => static function ( Request $request ) {
-
-				/*
-				 * Since WordPress 4.7 the REST API cannot be disabled completely.
-				 * The "disabling" happens by returning falsy or error values from the `rest_authentication_errors`
-				 * filter.
-				 * If false or error, we follow through and and do not authorize the callback.
-				 * If null, the site is using alternate authentication such as SAML
-				 */
-				$auth = apply_filters( 'rest_authentication_errors', null );
-
-				return ( $auth || is_null( $auth ) )
-				       && ! is_wp_error( $auth )
-				       && wp_verify_nonce( $request->get_param( '_wpnonce' ), 'wp_rest' );
-			},
+			// @todo [BTRIA-600]: Make sure we do proper handling of caches longer then 12h.
+			'permission_callback' => [ $this, 'is_valid_request' ],
 			'callback'            => static function ( Request $request ) {
 				if ( ! headers_sent() ) {
 					header( 'Content-Type: text/html; charset=' . esc_attr( get_bloginfo( 'charset' ) ) );

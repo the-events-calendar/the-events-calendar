@@ -29,7 +29,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 *
 	 */
-	public function test_append_timzeone_should_append_correct_abbreviation_in_sitewide_mode() {
+	public function test_append_timezone_should_append_correct_abbreviation_in_sitewide_mode() {
 
 		$event_id = $this->factory()->event->create( [
 			'when'       => '2018-05-01 08:00:00',
@@ -53,7 +53,7 @@ class TimezonesTest extends \Codeception\TestCase\WPTestCase {
 	/**
 	 *
 	 */
-	public function test_append_timzeone_should_append_correct_abbreviation_in_event_mode() {
+	public function test_append_timezone_should_append_correct_abbreviation_in_event_mode() {
 
 		$event_id = $this->factory()->event->create( [
 			'when'       => '2018-05-01 08:00:00',

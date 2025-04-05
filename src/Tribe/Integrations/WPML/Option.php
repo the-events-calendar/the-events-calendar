@@ -53,15 +53,15 @@ class Tribe__Events__Integrations__WPML__Option {
 	 * @see   https://wpml.org/wpml-hook/wpml_translate_single_string/
 	 */
 	public function translate( $option_value, $default, $option_name ) {
-		if ( is_string( $option_value ) ) {
-			$option_value = apply_filters(
-				'wpml_translate_single_string',
-				$option_value,
-				'admin_texts_tribe_events_calendar_options',
-				'[tribe_events_calendar_options]' . $option_name
-			);
+		if ( is_numeric( $option_value ) || ! is_string( $option_value ) ) {
+			return $option_value;
 		}
 
-		return $option_value;
+		return apply_filters(
+			'wpml_translate_single_string',
+			$option_value,
+			'admin_texts_tribe_events_calendar_options',
+			'[tribe_events_calendar_options]' . $option_name
+		);
 	}
 }

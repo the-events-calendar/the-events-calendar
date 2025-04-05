@@ -14,18 +14,33 @@ use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\With_Fast_Forward_Link;
 use Tribe__Date_Utils as Dates;
 use Tribe__Utils__Array as Arr;
+use Tribe__Context;
+use Tribe\Events\Views\V2\Views\Traits\With_Noindex;
+
+use DateTime;
 
 class Day_View extends View {
 	use With_Fast_Forward_Link;
+	use With_Noindex;
 
 	/**
 	 * Slug for this view
 	 *
 	 * @since 4.9.4
+	 * @deprecated 6.0.7
 	 *
 	 * @var string
 	 */
 	protected $slug = 'day';
+
+	/**
+	 * Statically accessible slug for this view.
+	 *
+	 * @since 6.0.7
+	 *
+	 * @var string
+	 */
+	protected static $view_slug = 'day';
 
 	/**
 	 * Cached dates for the prev/next links.
@@ -34,7 +49,7 @@ class Day_View extends View {
 	 *
 	 * @var array
 	 */
-	protected $cached_event_dates = [];
+	protected array $memoized_dates = [];
 
 	/**
 	 * Visibility for this view.
@@ -45,6 +60,24 @@ class Day_View extends View {
 	 * @var bool
 	 */
 	protected static $publicly_visible = true;
+
+	/**
+	 * Default untranslated value for the label of this view.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @var string
+	 */
+	protected static $label = 'Day';
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function get_view_label(): string {
+		static::$label = _x( 'Day', 'The text label for the Day View.', 'the-events-calendar' );
+
+		return static::filter_view_label( static::$label );
+	}
 
 	/**
 	 * Get the date of the event immediately previous to the current view date.
@@ -64,9 +97,12 @@ class Day_View extends View {
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
-		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
-			return $this->cached_event_dates[ $cache_key ];
+		if ( isset( $this->memoized_dates[ $cache_key ] ) ) {
+			return $this->memoized_dates[ $cache_key ];
 		}
+
+		// When dealing with previous event date we only fetch one.
+		$args['posts_per_page'] = 1;
 
 		// Find the first event that starts before the start of today.
 		$prev_event = tribe_events()
@@ -76,6 +112,8 @@ class Day_View extends View {
 			->first();
 
 		if ( ! $prev_event instanceof \WP_Post ) {
+			$this->memoized_dates[ $cache_key ] = false;
+
 			return false;
 		}
 
@@ -86,7 +124,7 @@ class Day_View extends View {
 			$current_date->sub( new \DateInterval( 'P1D' ) )
 		);
 
-		$this->cached_event_dates[ $cache_key ] = $prev_date;
+		$this->memoized_dates[ $cache_key ] = $prev_date;
 
 		return $prev_date;
 	}
@@ -139,9 +177,16 @@ class Day_View extends View {
 		// Use cache to reduce the performance impact.
 		$cache_key = __METHOD__ . '_' . substr( md5( wp_json_encode( [ $current_date, $args ] ) ), 10 );
 
-		if ( isset( $this->cached_event_dates[ $cache_key ] ) ) {
-			return $this->cached_event_dates[ $cache_key ];
+		if ( isset( $this->memoized_dates[ $cache_key ] ) ) {
+			return $this->memoized_dates[ $cache_key ];
 		}
+
+		if ( isset( $args['past'] ) && tribe_is_truthy( $args['past'] ) ) {
+			return false;
+		}
+
+		// For the next event date we only care about 1 item.
+		$args['posts_per_page'] = 1;
 
 		// The first event that ends after the end of the month; it could still begin in this month.
 		$next_event = tribe_events()
@@ -151,6 +196,8 @@ class Day_View extends View {
 			->first();
 
 		if ( ! $next_event instanceof \WP_Post ) {
+			$this->memoized_dates[ $cache_key ] = false;
+
 			return false;
 		}
 
@@ -160,7 +207,7 @@ class Day_View extends View {
 			$current_date->add( new \DateInterval( 'P1D' ) )
 		);
 
-		$this->cached_event_dates[ $cache_key ] = $next_date;
+		$this->memoized_dates[ $cache_key ] = $next_date;
 
 		return $next_date;
 	}
@@ -255,7 +302,7 @@ class Day_View extends View {
 			}
 
 			// Make sure the view slug is always set to correctly match rewrites.
-			$input_url     = add_query_arg( [ 'eventDisplay' => $this->slug ], $input_url );
+			$input_url     = add_query_arg( [ 'eventDisplay' => static::$view_slug ], $input_url );
 			$canonical_url = tribe( 'events.rewrite' )->get_clean_url( $input_url );
 
 			if ( ! empty( $passthru_vars ) ) {

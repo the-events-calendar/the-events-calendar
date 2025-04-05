@@ -1,0 +1,28 @@
+actor: Rewrite_functionalTester
+bootstrap: _bootstrap.php
+modules:
+  enabled:
+    - \Helper\Rewrite_functional
+    - WPDb
+    - WPBrowser
+    - Asserts
+    - WPFilesystem
+  config:
+    WPDb:
+      dsn: "mysql:host=%WP_DB_HOST%;dbname=%WP_DB_NAME%"
+      user: "%WP_DB_USER%"
+      password: "%WP_DB_PASSWORD%"
+      dump: "tests/_data/rewrite_functional_dump.sql"
+      populate: true
+      cleanup: true
+      url: "%WP_URL%"
+      originalUrl: "http://wordpress.test"
+      tablePrefix: "%WP_TABLE_PREFIX%"
+      waitlock: 10
+    WPBrowser:
+      url: "%WP_URL%"
+      adminUsername: "%WP_ADMIN_USERNAME%"
+      adminPassword: "%WP_ADMIN_PASSWORD%"
+      adminUrl: /wp-admin
+    WPFilesystem:
+      wpRootFolder: "%WP_ROOT_FOLDER%"

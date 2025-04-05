@@ -9,6 +9,8 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe\Events\Event_Status\Event_Status_Provider;
+use TEC\Common\Contracts\Service_Provider as Provider_Contract;
+
 
 /**
  * Class Service_Provider
@@ -17,7 +19,8 @@ use Tribe\Events\Event_Status\Event_Status_Provider;
  *
  * @package Tribe\Events\Views\V2
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends Provider_Contract {
+
 
 	/**
 	 * Binds and sets up implementations.
@@ -41,16 +44,17 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$this->container->singleton( Rest_Endpoint::class, Rest_Endpoint::class );
 		$this->container->singleton( Template\Settings\Advanced_Display::class, Template\Settings\Advanced_Display::class );
 		$this->container->singleton( Template\JSON_LD::class, Template\JSON_LD::class );
+		$this->container->singleton( Query\Event_Query_Controller::class, Query\Event_Query_Controller::class );
+		$this->container->singleton( Query\Hide_From_Upcoming_Controller::class, Query\Hide_From_Upcoming_Controller::class );
 
-		tribe_register_provider( Widgets\Service_Provider::class );
-		tribe_register_provider( Customizer\Service_Provider::class );
-		tribe_register_provider( iCalendar\iCalendar_Handler::class );
-		tribe_register_provider( Event_Status_Provider::class );
+
+		$this->container->register( Widgets\Service_Provider::class );
+		$this->container->register( Customizer\Service_Provider::class );
+		$this->container->register( iCalendar\iCalendar_Handler::class );
+		$this->container->register( Event_Status_Provider::class );
 
 		$this->register_hooks();
 		$this->register_assets();
-
-		$this->register_v1_compat();
 
 		// Register the SP on the container
 		$this->container->singleton( 'events.views.v2.provider', $this );
@@ -80,21 +84,8 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
-		// Allow Hooks to be removed, by having the them registred to the container
+		// Allow Hooks to be removed, by having the them registered to the container.
 		$this->container->singleton( Hooks::class, $hooks );
 		$this->container->singleton( 'events.views.v2.hooks', $hooks );
-	}
-
-	/**
-	 * Registers the provider handling compatibility with v1 of the View system.
-	 *
-	 * @since 4.9.2
-	 */
-	protected function register_v1_compat() {
-		$v1_compat = new V1_Compat( $this->container );
-		$v1_compat->register();
-
-		$this->container->singleton( V1_Compat::class, $v1_compat );
-		$this->container->singleton( 'events.views.v1-compat', $v1_compat );
 	}
 }

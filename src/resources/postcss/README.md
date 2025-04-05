@@ -59,7 +59,7 @@ Given the above structure of using a wrapper class, we've increased the [CSS spe
 
 In this case, the day date is an element of the month day. However, the `--current` modifier is applied to the top level element day. Given this structure, our minimum specificity becomes 3 classes.
 
-For overriding styles, it is recommended to only use classes to keep overriding specificity consistent. All elements should have classes and should be targetted using those classes.
+For overriding styles, it is recommended to only use classes to keep overriding specificity consistent. All elements should have classes and should be targeted using those classes.
 
 ## Modifiers, pseudo-classes, and container query classes
 

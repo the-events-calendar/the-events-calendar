@@ -156,14 +156,13 @@ tribe.events.views.datepicker = {};
 	obj.request = function( viewData, $container ) {
 		var data = {
 			view_data: viewData,
-			_wpnonce: $container.data( 'view-rest-nonce' ),
 		};
 
 		tribe.events.views.manager.request( data, $container );
 	};
 
 	/**
-	 * Create the Date input that will be preprended on the form created.
+	 * Create the Date input that will be prepended on the form created.
 	 *
 	 * @since 4.9.11
 	 *
@@ -642,6 +641,16 @@ tribe.events.views.datepicker = {};
 		obj.options.beforeShowMonth = obj.filterMonthCells;
 		obj.options.beforeShowYear = obj.filterYearCells;
 
+		// A tweak for RTL languages.
+		if (  document.dir && document.dir === 'rtl' ) {
+			obj.options.rtl = true;
+		}
+
+		// ...and for document language.
+		if ( document.lang ) {
+			obj.options.language = document.lang;
+		}
+
 		$input
 			.bootstrapDatepicker( obj.options )
 			.on( changeEvent, { container: $container }, changeHandler )
@@ -708,13 +717,8 @@ tribe.events.views.datepicker = {};
 	 * @return {void}
 	 */
 	obj.initDatepicker = function() {
-		if ( $.fn.datepicker && $.fn.datepicker.noConflict ) {
-			var datepicker = $.fn.datepicker.noConflict();
-			$.fn.bootstrapDatepicker = datepicker;
-
-			obj.initDatepickerI18n();
-			obj.state.initialized = true;
-		}
+		obj.initDatepickerI18n();
+		obj.state.initialized = true;
 	};
 
 	/**

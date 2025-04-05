@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import moment from 'moment/moment';
+import moment from 'moment';
 
 /**
  * Internal dependencies

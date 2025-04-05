@@ -3,7 +3,7 @@
 use Tribe\Events\Event_Status\Status_Labels;
 
 /**
- * A mock class to test the compatibility with Fitler Bar
+ * A mock class to test the compatibility with Filter Bar
  */
 
 class Tribe__Events__Filterbar__Filter {

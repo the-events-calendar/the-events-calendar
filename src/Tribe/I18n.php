@@ -26,28 +26,42 @@ class I18n {
 	 *
 	 * @since 5.1.5
 	 */
-	const COMPILE_INPUT = 1;
+	public const COMPILE_INPUT = 1;
 
 	/**
 	 * A flag to require translation compilation of the lower-case version of the input.
 	 *
 	 * @since 5.1.5
 	 */
-	const COMPILE_STRTOLOWER = 2;
+	public const COMPILE_STRTOLOWER = 2;
 
 	/**
 	 * A flag to require translation compilation of the input in its title form.
 	 *
 	 * @since 5.1.5
 	 */
-	const COMPILE_UCFIRST = 4;
+	public const COMPILE_UCFIRST = 4;
 
 	/**
 	 * A flag to require translation compilation of the input in all the available forms.
 	 *
 	 * @since 5.1.5
 	 */
-	const COMPILE_ALL = 7;
+	public const COMPILE_ALL = 7;
+
+	/**
+	 * A flag to require the translations to be returned indexed by language.
+	 *
+	 * @since 6.0.13
+	 */
+	public const RETURN_BY_LANGUAGE = 8;
+
+	/**
+	 * A flag to require the translations to include the slug version of the translation.
+	 *
+	 * @since 6.0.13
+	 */
+	public const COMPILE_SLUG =  9;
 
 	/**
 	 * An instance of the The Events Calendar main class.
@@ -86,6 +100,7 @@ class I18n {
 	 *                                 lowercase version.
 	 *                                 `static::COMPILE_UCFIRST` will compile the translation for the string in its
 	 *                                 title version.
+	 *                                 `static::RETURN_BY_LANGUAGE` will return the translations indexed by language.
 	 *
 	 * @return array<array<string>> A multi level array with the possible translations for the given strings
 	 */
@@ -103,13 +118,14 @@ class I18n {
 	}
 
 	/**
-	 * Get all possible translations for a String based on the given Languages and Domains
+	 * Get all possible translations for a String based on the given Languages and Domains.
 	 *
 	 * WARNING: This function is slow because it deals with files, so don't overuse it!
 	 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
 	 *
 	 * @since 5.1.1
 	 * @since 5.1.5   Add support for the $flags argument.
+	 * @since 6.0.13     Add support for the `RETURN_BY_LANGUAGE` and `COMPILE_SLUG` flags.
 	 *
 	 * @param array $strings    An array of strings (required).
 	 * @param array $languages Which l10n to fetch the string (required).
@@ -121,12 +137,83 @@ class I18n {
 	 *                         version.
 	 *                         `static::COMPILE_UCFIRST` will compile the translation for the string in its title
 	 *                         version.
+	 *                         `static::RETURN_BY_LANGUAGE` will return the translations indexed by language.
 	 *
 	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
-	 *
-	 * @todo Include support for the `load_theme_textdomain` + `load_muplugin_textdomain`
 	 */
 	public function get_i18n_strings_for_domains( $strings, $languages, $domains = [ 'default' ], $flags = 7 ) {
+		sort( $languages );
+		$strings_buffer = [ $strings ];
+
+		foreach ( $languages as $language ) {
+			// Override the current locale w/ the one we need to compile the translations.
+			$language_strings            = $this->with_locale(
+				$language,
+				[ $this, 'compile_translations' ],
+				[ $strings, $domains, $flags ]
+			);
+			$strings_buffer[ $language ] = $language_strings;
+		}
+
+		foreach ( $strings_buffer as $language => $language_strings ) {
+			foreach ( $language_strings as &$set ) {
+				$set = array_map( 'sanitize_text_field', array_unique( array_filter( (array) $set ) ) );
+			}
+			$strings_buffer[ $language ] = $language_strings;
+		}
+
+		if ( $flags & static::RETURN_BY_LANGUAGE ) {
+			foreach ( $strings_buffer as &$entries ) {
+				foreach ( $entries as &$entry ) {
+					$entry = array_values( $entry );
+				}
+			}
+
+			return $strings_buffer;
+		}
+
+		if ( count( $strings_buffer ) === 1 ) {
+			return reset( $strings_buffer );
+		}
+
+		$merged = array_merge_recursive( ... array_values( $strings_buffer ) );
+
+		// Deduplicate each set of translations.
+		foreach ( $merged as &$set ) {
+			$set = array_unique( $set );
+		}
+
+		return $merged;
+	}
+
+	/**
+	 * Get all possible translations for a URL String based on the given Languages and Domains.
+	 *
+	 * WARNING: This function is slow because it deals with files, so don't overuse it!
+	 * Differently from the `get_i18n_strings` method this will not use any domain that's not specified.
+	 *
+	 * This function is same as above one, but instead of sanitizing with 'sanitize_key()' which removes '%',
+	 * it uses 'sanitize_title()'.
+	 *
+	 * @since 6.0.2
+	 * @since 6.0.13  Add support for `static::COMPILE_SLUG` flag.
+	 *
+	 * @param array<string> $strings   An array of strings (required).
+	 * @param array<string> $languages Which l10n to fetch the string (required).
+	 * @param array<string> $domains   Possible domains to re-load.
+	 * @param int           $flags     An integer resulting from the combination of compilation flags;
+	 *                                 defaults to `static::COMPILE_ALL` to compile all versions of the translations.
+	 *                                 `static::COMPILE_INPUT` will compile the translation for the string, as input.
+	 *                                 `static::COMPILE_STRTOLOWER` will compile the translation for the string in its
+	 *                                 lowercase version.
+	 *                                 `static::COMPILE_UCFIRST` will compile the translation for the string in its title
+	 *                                 version.
+	 *                                 `static::COMPILE_SLUG` will compile the translation for the string in its slug
+	 *                                 version.
+	 *
+	 * @return array<string,array|string> A multi level array with the possible translations for the given strings.
+	 */
+	public function get_i18n_url_strings_for_domains( $strings, $languages, $domains = [ 'default' ], $flags = 7 ) {
 		sort( $languages );
 		$strings_buffer = [ $strings ];
 
@@ -148,7 +235,7 @@ class I18n {
 		foreach ( $strings as $key => $value ) {
 			$strings[ $key ] = array_filter(
 				array_unique(
-					array_map( 'sanitize_key', (array) $value )
+					array_map( 'sanitize_title', (array) $value )
 				)
 			);
 		}
@@ -185,14 +272,16 @@ class I18n {
 		};
 
 		add_filter( 'locale', $force_locale );
+		add_filter( 'pre_determine_locale', $force_locale );
 		$result = $do( ...$args );
 		remove_filter( 'locale', $force_locale );
+		remove_filter( 'pre_determine_locale', $force_locale );
 
 		$domains = isset( $args[1] ) ? (array) $args[1] : false;
 		if ( false !== $domains ) {
 			foreach ( $domains as $domain => $file ) {
 				// Reload it with the correct language.
-				unload_textdomain( $domain );
+				unload_textdomain( $domain, true );
 
 				if ( 'default' === $domain ) {
 					load_default_textdomain();
@@ -219,6 +308,7 @@ class I18n {
 	 *
 	 * @since 5.1.1
 	 * @since 5.1.5   Add support for the $flags argument.
+	 * @since 6.0.13     Add support for the `static::COMPILE_SLUG` flag.
 	 *
 	 * @param array<string,array|string> $strings The set of strings to compile the translations for.
 	 * @param string|array<string>       $domains The domain(s) that should be used to compile the string translations.
@@ -231,6 +321,8 @@ class I18n {
 	 *                                            string in its lowercase version.
 	 *                                            `static::COMPILE_UCFIRST` will compile the translation for the string
 	 *                                            in its title version.
+	 *                                            `static::COMPILE_SLUG` will compile the translation for the string in
+	 *                                            its slug version.
 	 *
 	 * @return array<string|array> A map of the compiled string translations.
 	 */
@@ -247,7 +339,7 @@ class I18n {
 
 		foreach ( (array) $domains as $domain => $file ) {
 			// Reload it with the correct language.
-			unload_textdomain( $domain );
+			unload_textdomain( $domain, true );
 
 			if ( 'default' === $domain ) {
 				load_default_textdomain();
@@ -267,6 +359,9 @@ class I18n {
 
 				// Grab the possible strings for default and any other domain.
 				if ( 'default' === $domain ) {
+					if ( $flags & static::COMPILE_SLUG ) {
+						$strings[ $key ][] = sanitize_key( __( $value ) );
+					}
 					if ( $flags & static::COMPILE_INPUT ) {
 						$strings[ $key ][] = __( $value );
 					}
@@ -277,6 +372,9 @@ class I18n {
 						$strings[ $key ][] = __( ucfirst( $value ) );
 					}
 				} else {
+					if ( $flags & static::COMPILE_SLUG ) {
+						$strings[ $key ][] = sanitize_key( __( $value, $domain ) );
+					}
 					if ( $flags & static::COMPILE_INPUT ) {
 						$strings[ $key ][] = __( $value, $domain );
 					}

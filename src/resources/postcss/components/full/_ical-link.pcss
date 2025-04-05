@@ -55,10 +55,28 @@
 				background-color: var(--tec-color-accent-primary);
 				color: var(--tec-color-background);
 			}
+
+			button {
+				background: transparent;
+			}
 		}
 
-		.tribe-events-c-subscribe-dropdown__button-text {
+		.tribe-events-c-subscribe-dropdown__button-text,
+		button.tribe-events-c-subscribe-dropdown__button-text {
+			background-color: transparent;
+			background-image: none;
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			color: currentColor;
 			cursor: pointer;
+			font-size: inherit;
+			padding: 0;
+			text-shadow: none;
+
+			&:focus {
+				outline: auto;
+			}
 		}
 
 		.tribe-events-c-subscribe-dropdown__button-icon {
@@ -148,7 +166,8 @@
 	.tribe-events {
 
 		.tribe-events-c-subscribe-dropdown__container {
-			width: 200px;
+			min-width: 200px;
+			width: auto;
 		}
 
 		.tribe-events-c-subscribe-dropdown {
@@ -169,7 +188,8 @@
 
 	.tribe-events-c-subscribe-dropdown__button {
 		padding: var(--tec-spacer-1) var(--tec-spacer-2);
-		width: 200px;
+		min-width: 200px;
+		width: auto;
 	}
 
 	.tribe-events-c-subscribe-dropdown__export-icon {

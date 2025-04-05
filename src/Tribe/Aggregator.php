@@ -68,6 +68,23 @@ class Tribe__Events__Aggregator {
 	private $is_loaded = false;
 
 	/**
+	 * @var Tribe__Events__Aggregator__Migrate Event Aggregator migration object.
+	 */
+	public $migrate;
+	/**
+	 * @var Tribe__Events__Aggregator__Records Event Aggregator records object.
+	 */
+	public $records;
+	/**
+	 * @var Tribe__Events__Aggregator__Cron Event Aggregator cron object.
+	 */
+	public $cron;
+	/**
+	 * @var Tribe__Events__Aggregator__Errors Event Aggregator errors object.
+	 */
+	public $errors;
+
+	/**
 	 * Static Singleton Factory Method
 	 *
 	 * @return Tribe__Events__Aggregator
