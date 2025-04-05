@@ -376,7 +376,7 @@ class Custom_Tables_Meta_Query extends WP_Meta_Query {
 	protected function build_where_operator_sql( $table_and_column, $meta_compare, $value ) {
 		global $wpdb;
 
-		return $wpdb->prepare( "{$table_and_column} ${meta_compare} %s", $value );
+		return $wpdb->prepare( "{$table_and_column} {$meta_compare} %s", $value );
 	}
 
 	/**

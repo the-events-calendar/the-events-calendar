@@ -139,7 +139,7 @@ class Events_Schema extends Abstract_Schema_Piece {
 		/**
 		 * Allows the event data to be modified by themes and other plugins.
 		 *
-		 * @depecated 6.0.4
+		 * @deprecated 6.0.4
 		 *
 		 * @param array $tribe_data objects representing the Google Markup for each event.
 		 * @param array $args       the arguments used to get data

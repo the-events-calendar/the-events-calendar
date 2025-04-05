@@ -43,13 +43,6 @@ class Service_Provider extends Provider_Contract {
 
 		// Notice for extension incompatibility
 		tribe_singleton( Notice::class, Notice::class, [ 'hook' ] );
-
-		tribe( 'events.views.v2.customizer.global-elements');
-		tribe( 'events.views.v2.customizer.month-view');
-		tribe( 'events.views.v2.customizer.events-bar');
-		tribe( 'events.views.v2.customizer.single-event' );
-		tribe( Notice::class );
-
 	}
 
 	public function register_hooks() {

@@ -57,10 +57,10 @@ $separator_date       = get_post_meta( $event_id, '_EventDateTimeSeparator', tru
 $separator_time       = get_post_meta( $event_id, '_EventTimeRangeSeparator', true );
 
 if ( empty( $separator_time ) ) {
-	$separator_time = tribe_get_option( 'timeRangeSeparator', ' - ' );
+	$separator_time = tec_events_get_time_range_separator();
 }
 if ( empty( $separator_date ) ) {
-	$separator_date = tribe_get_option( 'dateTimeSeparator', ' - ' );
+	$separator_date = tec_events_get_date_time_separator();
 }
 
 $is_all_day        = tribe_event_is_all_day( $event_id );

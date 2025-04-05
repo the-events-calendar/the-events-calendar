@@ -1,0 +1,142 @@
+name: 'SEO Plugin Tests'
+on:
+  pull_request:
+jobs:
+  test:
+    strategy:
+      matrix:
+        suite:
+          - integrations_plugin_wordpress_seo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1000
+          submodules: recursive
+      # ------------------------------------------------------------------------------
+      # Set up PHP to run slic
+      # ------------------------------------------------------------------------------
+      - name: Configure PHP environment
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      # ------------------------------------------------------------------------------
+      # Check if any PHP files have changed
+      # ------------------------------------------------------------------------------
+      - name: Check changed files
+        id: skip
+        run: |
+          num_php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -P "\.php" | wc -l)
+          if [[ -z "$num_php_files" ]]; then
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
+          elif [[ "$num_php_files" == "0" || "$num_php_files" == "" ]]; then
+            echo "value=1" >> $GITHUB_OUTPUT
+            echo "## No PHP Files changed, PHP tests automatically pass." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "value=0" >> $GITHUB_OUTPUT
+            echo "## Found PHP file changes, running PHP tests." >> $GITHUB_STEP_SUMMARY
+          fi
+      # ------------------------------------------------------------------------------
+      # Checkout slic
+      # ------------------------------------------------------------------------------
+      - name: Checkout slic
+        uses: actions/checkout@v4
+        if: steps.skip.outputs.value != 1
+        with:
+          repository: stellarwp/slic
+          ref: main
+          path: slic
+          fetch-depth: 1
+      # ------------------------------------------------------------------------------
+      # Prepare our composer cache directory
+      # ------------------------------------------------------------------------------
+      - name: Get Composer Cache Directory
+        id: get-composer-cache-dir
+        if: steps.skip.outputs.value != 1
+        run: |
+          echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - uses: actions/cache@v4
+        id: composer-cache
+        if: steps.skip.outputs.value != 1
+        with:
+          path: ${{ steps.get-composer-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      # ------------------------------------------------------------------------------
+      # Initialize slic
+      # ------------------------------------------------------------------------------
+      - name: Set up slic env vars
+        if: steps.skip.outputs.value != 1
+        run: |
+          echo "SLIC_BIN=${GITHUB_WORKSPACE}/slic/slic" >> $GITHUB_ENV
+          echo "SLIC_WP_DIR=${GITHUB_WORKSPACE}/slic/_wordpress" >> $GITHUB_ENV
+          echo "SLIC_WORDPRESS_DOCKERFILE=Dockerfile.base" >> $GITHUB_ENV
+      - name: Set run context for slic
+        if: steps.skip.outputs.value != 1
+        run: echo "SLIC=1" >> $GITHUB_ENV && echo "CI=1" >> $GITHUB_ENV
+      - name: Start ssh-agent
+        if: steps.skip.outputs.value != 1
+        run: |
+          mkdir -p "${HOME}/.ssh";
+          ssh-agent -a /tmp/ssh_agent.sock;
+      - name: Export SSH_AUTH_SOCK env var
+        if: steps.skip.outputs.value != 1
+        run: echo "SSH_AUTH_SOCK=/tmp/ssh_agent.sock" >> $GITHUB_ENV
+      - name: Set up slic for CI
+        if: steps.skip.outputs.value != 1
+        run: |
+          cd ${GITHUB_WORKSPACE}/..
+          ${SLIC_BIN} here
+          ${SLIC_BIN} interactive off
+          ${SLIC_BIN} build-prompt off
+          ${SLIC_BIN} build-subdir off
+          ${SLIC_BIN} xdebug off
+          ${SLIC_BIN} debug on
+          ${SLIC_BIN} info
+          ${SLIC_BIN} config
+      - name: Start the Chrome container
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} up chrome
+      - name: Set up Common
+        if: steps.skip.outputs.value != 1
+        run: |
+          docker network prune -f
+          ${SLIC_BIN} use the-events-calendar/common
+          ${SLIC_BIN} composer install --no-dev
+      - name: Set up The Events Calendar
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} use the-events-calendar
+          ${SLIC_BIN} composer install
+      # ------------------------------------------------------------------------------
+      # Init WordPress container
+      # WP SEO requires 6.5+ to run
+      # ------------------------------------------------------------------------------
+      - name: Init the WordPress container
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} up wordpress
+          ${SLIC_BIN} wp core version
+          ${SLIC_BIN} wp core update --force --version=6.5
+          ${SLIC_BIN} wp core version
+      - name: Ensure Twenty-Twenty is installed
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} wp theme install twentytwenty --activate
+
+      - name: Install Yoast SEO
+        if: steps.skip.outputs.value != 1
+        run: |
+          ${SLIC_BIN} wp core update --version=6.6
+          ${SLIC_BIN} wp plugin install wordpress-seo
+
+      # ------------------------------------------------------------------------------
+      # Run the Actual tests
+      # ------------------------------------------------------------------------------
+
+      - name: Run suite tests
+        if: steps.skip.outputs.value != 1
+        run: ${SLIC_BIN} run ${{ matrix.suite }} --ext DotReporter

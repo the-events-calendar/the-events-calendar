@@ -28,7 +28,7 @@ import './style.pcss';
  * - validate
  *
  * Both properties are helpful to provide validation based on the type of the element also has
- * the option to add a cusotm validation callback with the property validateCallback.
+ * the option to add a custom validation callback with the property validateCallback.
  *
  * <Input />
  *
@@ -47,17 +47,27 @@ class Input extends Component {
 	static propTypes = {
 		validate: PropTypes.bool,
 		required: PropTypes.bool,
-	}
+		onChange: PropTypes.any,
+		onComplete: PropTypes.any,
+		validateCallback: PropTypes.any,
+		type: PropTypes.string,
+		className: PropTypes.string,
+	};
 
 	/**
 	 * Set the default values for the required properties if not provided
 	 *
-	 * @type {{required: boolean, validate: boolean}}
+	 * @type {Object} The default properties for the component
 	 */
 	static defaultProps = {
 		required: false,
 		validate: false,
-	}
+		onChange: noop,
+		onComplete: noop,
+		validateCallback: null,
+		type: '',
+		className: '',
+	};
 
 	constructor() {
 		super( ...arguments );
@@ -85,7 +95,7 @@ class Input extends Component {
 			completeCallback();
 			callback( input );
 		}
-	}
+	};
 
 	/**
 	 * Validates the component using validateCallback if provided or using the logic based on the type inferring
@@ -129,7 +139,7 @@ class Input extends Component {
 				break;
 		}
 		return isValid;
-	}
+	};
 
 	/**
 	 * If the component is valid or not based on the validation logic
@@ -173,13 +183,14 @@ class Input extends Component {
 
 	render() {
 		// Remove properties that are not part of the DOM.
-		const { onComplete, required, validate, ...properties } = this.props;
+		const { onComplete, required, validate, validateCallback, ...properties } = this.props;
 		return (
 			<TextControl
 				{ ...properties }
 				className={ `${ this.getClassName() }` }
 				ref={ ( input ) => this.input = input }
 				onChange={ this.onChange }
+				__nextHasNoMarginBottom={ true }
 			/>
 		);
 	}

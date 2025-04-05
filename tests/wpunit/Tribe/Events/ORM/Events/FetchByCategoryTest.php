@@ -46,11 +46,11 @@ class FetchByCategoryTest extends \Codeception\TestCase\WPTestCase {
 	}
 
 	/**
-	 * It should allow fetching events by category useing tribe_events_cat
+	 * It should allow fetching events by category using tribe_events_cat
 	 *
 	 * @test
 	 */
-	public function should_allow_fetching_events_by_category_useing_tribe_events_cat() {
+	public function should_allow_fetching_events_by_category_using_tribe_events_cat() {
 		list( $cat1, $no_cat_events, $cat1_events, $cat2_events, $cat1_and_cat2_events ) = $this->given_some_terms_and_events();
 
 		$this->assertEqualSets(

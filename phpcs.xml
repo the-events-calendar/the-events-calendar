@@ -1,20 +1,29 @@
 <?xml version="1.0"?>
 <ruleset name="The Events Calendar Coding Standards">
+	<rule ref="StellarWP"/>
 	<rule ref="WordPress-VIP-Go"/>
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Core"/>
 	<rule ref="WordPress-Docs">
 		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
-	<rule ref="TEC"/>
 
-	<!--exclude the rule for violation of direct DB calls as some have no alternative-->
-	<rule ref="WordPress.DB.DirectDatabaseQuery">
-		<exclude-pattern>src/Test.php</exclude-pattern>
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+
+	<!-- Enforce our specific plugin's text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="the-events-calendar" />
+		</properties>
 	</rule>
 
-	<exclude-pattern>*/tests/_support/_generated/*</exclude-pattern>
+	<exclude-pattern>*/common/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/views/integrations/elementor/templates/*</exclude-pattern>
 </ruleset>

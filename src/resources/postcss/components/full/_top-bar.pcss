@@ -9,6 +9,14 @@
 }
 
 .tribe-events {
+	.tribe-events-c-top-bar__nav-link--next,
+	.tribe-events-c-top-bar__nav-link--prev {
+		align-items: center;
+		display: flex;
+		height: 24px;
+		justify-content: center;
+		width: 24px;
+	}
 
 	button.tribe-events-c-top-bar__nav-link--prev:disabled,
 	button.tribe-events-c-top-bar__nav-link--next:disabled {
@@ -50,6 +58,10 @@
 			opacity: var(--tec-opacity-icon-hover);
 			outline: none;
 			text-shadow: none;
+		}
+
+		&:focus {
+			outline: auto;
 		}
 
 		&:active {

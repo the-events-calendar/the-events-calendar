@@ -1,7 +1,7 @@
 <?php
 /**
  * Redirects internal WordPress calls to `http://localhost:port` removing the port to work around
- * the fact that WordPress will not be able to reach its own address at `http://locahost:port`.
+ * the fact that WordPress will not be able to reach its own address at `http://localhost:port`.
  */
 add_action( 'pre_http_request', function ( $result, $r, $url ) {
 	$http = _wp_http_get_object();

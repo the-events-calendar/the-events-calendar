@@ -329,11 +329,14 @@ HTML;
 
 	public function test_tribe_get_event_cat_works_with_bad_terms(): void {
 		$good_term = static::factory()->term->create_and_get( [ 'taxonomy' => TEC::TAXONOMY, 'slug' => 'good-term' ] );
-		$this->set_fn_return( 'get_the_terms', [
-			null,
-			$good_term,
-			new \WP_Error( 'bad_term', 'bad_term' ),
-		] );
+		$this->set_fn_return(
+			'get_the_terms',
+			[
+				null,
+				$good_term,
+				new \WP_Error( 'bad_term', 'bad_term' ),
+			]
+		);
 		$post_id = tribe_events()->set_args( [
 			'title'      => 'Test Event',
 			'start_date' => 'tomorrow 9am',
@@ -368,11 +371,14 @@ HTML;
 			'taxonomy' => TEC::TAXONOMY,
 			'slug'     => 'good-term'
 		] );
-		$this->set_fn_return( 'get_the_terms', [
-			null,
-			$good_term,
-			new \WP_Error( 'bad_term', 'bad_term' ),
-		] );
+		$this->set_fn_return(
+			'get_the_terms',
+			[
+				null,
+				$good_term,
+				new \WP_Error( 'bad_term', 'bad_term' ),
+			]
+		);
 		global $post;
 		$post = tribe_events()->set_args( [
 			'title'      => 'Test Event',

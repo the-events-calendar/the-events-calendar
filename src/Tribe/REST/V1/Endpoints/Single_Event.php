@@ -78,6 +78,12 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 			return new WP_Error( 'event-not-accessible', $message, [ 'status' => 403 ] );
 		}
 
+		if ( ! $this->validator->can_access_password_content( $event, $request ) ) {
+			$message = $this->messages->get_message( 'event-password-protected' );
+
+			return new WP_Error( 'event-password-protected', $message, [ 'status' => 403 ] );
+		}
+
 		$data = $this->post_repository->get_event_data( $request['id'], 'single' );
 
 		/**
@@ -98,7 +104,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 	 *
 	 * While the structure must conform to that used by v2.0 of Swagger the structure can be that of a full document
 	 * or that of a document part.
-	 * The intelligence lies in the "gatherer" of informations rather than in the single "providers" implementing this
+	 * The intelligence lies in the "gatherer" of information rather than in the single "providers" implementing this
 	 * interface.
 	 *
 	 * @link http://swagger.io/
@@ -209,6 +215,13 @@ class Tribe__Events__REST__V1__Endpoints__Single_Event
 				'description'       => __( 'the event post ID', 'the-events-calendar' ),
 				'required'          => true,
 				'validate_callback' => [ $this->validator, 'is_event_id' ],
+			],
+			'password' => [
+				'in'                => 'path',
+				'type'              => 'string',
+				'description'       => __( 'The event password', 'the-events-calendar' ),
+				'required'          => false,
+				'validate_callback' => [ $this->validator, 'is_string' ],
 			],
 		];
 	}

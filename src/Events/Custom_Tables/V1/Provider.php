@@ -29,6 +29,15 @@ class Provider extends Service_Provider {
 	const DISABLED = 'TEC_CUSTOM_TABLES_V1_DISABLED';
 
 	/**
+	 * The custom action that will be fired when the provider registers.
+	 *
+	 * @since 6.3.0
+	 *
+	 * @return void
+	 */
+	public static string $registration_action = 'tec_ct1_provider_registered';
+
+	/**
 	 * A flag property indicating whether the Service Provide did register or not.
 	 *
 	 * @since 6.0.0

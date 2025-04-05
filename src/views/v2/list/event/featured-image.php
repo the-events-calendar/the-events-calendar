@@ -28,6 +28,7 @@ if ( ! $event->thumbnail->exists ) {
 		rel="bookmark"
 		class="tribe-events-calendar-list__event-featured-image-link"
 		tabindex="-1"
+		aria-hidden="true"
 	>
 		<img
 			src="<?php echo esc_url( $event->thumbnail->full->url ); ?>"
@@ -43,6 +44,8 @@ if ( ! $event->thumbnail->exists ) {
 				title="<?php echo esc_attr( $event->thumbnail->title ); ?>"
 			<?php endif; ?>
 			class="tribe-events-calendar-list__event-featured-image"
+			width="<?php echo esc_attr( $event->thumbnail->full->width ); ?>"
+			height="<?php echo esc_attr( $event->thumbnail->full->height ); ?>"
 		/>
 	</a>
 </div>

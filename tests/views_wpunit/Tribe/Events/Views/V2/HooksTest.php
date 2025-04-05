@@ -3,6 +3,8 @@
 namespace Tribe\Events\Views\V2;
 
 
+use Tribe\Events\Views\V2\Template\Title;
+use Tribe\Events\Views\V2\Views\List_View;
 use Tribe\Tests\Traits\With_Uopz;
 use Tribe__Context as Context;
 
@@ -112,5 +114,40 @@ class HooksTest extends \Codeception\TestCase\WPTestCase {
 		$filtered = $hooks->filter_redirect_canonical( $redirect_url );
 
 		$this->assertEquals( $expected, $filtered );
+	}
+
+	/**
+	 * Validate the posts in the title are stored from the view repository search.
+	 * This is done via the hooks in the Views/Hooks class.
+	 */
+	public function test_events_for_title_stored() {
+		for ( $i = 1; $i < 20; $i ++ ) {
+			$date = "2020-06-$i 08:00:00";
+			tribe_events()->set_args(
+				[
+					'start_date' => $date,
+					'timezone'   => 'America/New_York',
+					'duration'   => 3 * HOUR_IN_SECONDS,
+					'title'      => 'Test Event',
+					'status'     => 'publish',
+				]
+			)->create();
+		}
+
+		$title = tribe( Title::class );
+		$this->assertEmpty( $title->get_posts() );
+		$context = tribe_context()->alter(
+			[
+				'single' => false,
+				'event_post_type' => true,
+				'event_display' => 'list',
+				'event_date'    => '2020-06-01',
+			]
+		);
+		$view    = View::make( List_View::class );
+		$view->set_context( $context );
+		$view->get_html();
+		$this->assertNotEmpty( $title->get_posts() );
+		$this->assertEquals( $view->get_context()->get( 'events_per_page' ), count( $title->get_posts() ) );
 	}
 }

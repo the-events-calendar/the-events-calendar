@@ -29,7 +29,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	protected $activities = [];
 
 	/**
-	 * @var int The maximum number of times and item should be requed due to unmet dependencies.
+	 * @var int The maximum number of times and item should be requeued due to unmet dependencies.
 	 */
 	protected $requeue_limit = 5;
 
@@ -112,7 +112,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	}
 
 	/**
-	 * Overrides the parent `save` method to save some additonal data.
+	 * Overrides the parent `save` method to save some additional data.
 	 *
 	 * @since 4.6.16
 	 *
@@ -125,7 +125,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 	}
 
 	/**
-	 * Overrides the parent `update` method to save some additonal data.
+	 * Overrides the parent `update` method to save some additional data.
 	 *
 	 * @since 4.6.16
 	 *
@@ -211,7 +211,7 @@ class Tribe__Events__Aggregator__Processes__Import_Events extends Tribe__Process
 
 		/*
 		 * Make sure the import is happening in the context of the same site that started it.
-		 * This deals with mis-handling and orphaned calls to the the `switch_to_blog` function.
+		 * This deals with mishandling and orphaned calls to the the `switch_to_blog` function.
 		 */
 		$current_blog_id = is_multisite() ? get_current_blog_id() : 1;
 		$task_blog_id = isset( $item['blog_id'] ) ? (int) $item['blog_id'] : $current_blog_id;

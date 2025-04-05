@@ -242,9 +242,12 @@ class Schema_Builder {
 	public function up( $force = false ) {
 		global $wpdb;
 
+		$suppress = $wpdb->suppress_errors();
 		//phpcs:ignore
 		$wpdb->get_results( "SELECT 1 FROM {$wpdb->posts} LIMIT 1" );
 		$posts_table_exists = '' === $wpdb->last_error;
+		$wpdb->suppress_errors( $suppress );
+
 		// Let's not try to create the tables on a blog that's missing the basic ones.
 		if ( ! $posts_table_exists ) {
 			return [];

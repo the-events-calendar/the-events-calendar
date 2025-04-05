@@ -483,9 +483,9 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 
 		$alt_where = $wpdb->prepare(
 			"(
-				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '${upper_string}' ) >= %d
+				TIMESTAMPDIFF ( SECOND, {$join_start_key}.meta_value, '{$upper_string}' ) >= %d
 				AND
-				TIMESTAMPDIFF ( SECOND, '${lower_string}', {$join_end_key}.meta_value ) >= %d
+				TIMESTAMPDIFF ( SECOND, '{$lower_string}', {$join_end_key}.meta_value ) >= %d
 			)",
 			$min_sec_overlap,
 			$min_sec_overlap
@@ -1479,7 +1479,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 	 *
 	 * @since 4.9
 	 *
-	 * @param bool $use_utc Whether ot use the UTC dates and times to read events or not. If `true` then the
+	 * @param bool $use_utc Whether to use the UTC dates and times to read events or not. If `true` then the
 	 *                      `_EventStartDateUTC` and `_EventEndDateUTC` meta keys will be used, if `false` then the
 	 *                      `_EventStartDate` and `_EventEndDate` meta keys will be used.
 	 *
@@ -1572,7 +1572,7 @@ class Tribe__Events__Repositories__Event extends Tribe__Repository {
 				default:
 					$after = $after || 1 === $loop;
 					if ( empty( $this->query_args['orderby'] ) ) {
-						// In some versions of WP, [ $order_by, $order ] doesn't work as expected. Using explict value setting instead.
+						// In some versions of WP, [ $order_by, $order ] doesn't work as expected. Using explicit value setting instead.
 						$this->query_args['orderby'] = $order_by;
 						$this->query_args['order']   = $order;
 					} else {

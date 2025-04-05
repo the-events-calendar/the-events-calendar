@@ -307,7 +307,7 @@ class QueryTest extends Events_TestCase {
 		$this->assertEquals(
 			10,
 			has_filter( 'option_page_on_front', [ Query::class, 'default_page_on_front' ] ),
-			'Page on front should be filterd for home queries.'
+			'Page on front should be filtered for home queries.'
 		);
 	}
 
@@ -356,11 +356,15 @@ class QueryTest extends Events_TestCase {
 	 */
 	public function should_not_add_events_to_tag_archives_when_looking_at_admin_screen_for_posts(): void {
 		// Simulate the fact we're looking at an admin tag archive for posts.
-		$this->set_fn_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
-			public function is_post_type_screen( $post_type = null ) {
-				return true;
+		$this->set_fn_return(
+			Admin_Helpers::class,
+			'instance',
+			new class extends Admin_Helpers {
+				public function is_post_type_screen( $post_type = null ) {
+					return true;
+				}
 			}
-		} );
+		);
 
 		// Create a query for a tag archive.
 		$tag   = static::factory()->tag->create();
@@ -380,11 +384,15 @@ class QueryTest extends Events_TestCase {
 		// Detach the main query from the global wp_query.
 		$GLOBALS['wp_the_query'] = new WP_Query( [] );
 		// Simulate the fact we're looking at an admin tag archive for posts.
-		$this->set_fn_return( Admin_Helpers::class, 'instance', new class extends Admin_Helpers {
-			public function is_post_type_screen( $post_type = null ) {
-				return false;
+		$this->set_fn_return(
+			Admin_Helpers::class,
+			'instance',
+			new class extends Admin_Helpers {
+				public function is_post_type_screen( $post_type = null ) {
+					return false;
+				}
 			}
-		} );
+		);
 
 		// Create a query for a tag archive.
 		$tag   = static::factory()->tag->create();

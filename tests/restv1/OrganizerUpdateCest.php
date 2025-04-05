@@ -57,20 +57,28 @@ class OrganizerUpdateCest extends BaseRestCest {
 
 		$editor = $I->haveUserInDatabase( 'author', 'editor' );
 
+		$date = new DateTime( 'tomorrow 9am', wp_timezone() );
+		$utc_date = new DateTime( 'tomorrow 9am', new DateTimeZone( 'UTC' ) );
+
 		$I->sendPOST( $this->organizers_url . "/{$organizer_id}", [
 			'organizer'   => 'A organizer',
 			'author'      => $editor,
+			'date'        => $date->format( 'U' ),
+			'date_utc'    => $utc_date->format( 'U' ),
 			'description' => 'Organizer description',
 			'status'      => 'draft',
+			'timezone'    => 'America/New_York',
 		] );
 
 		$I->seeResponseCodeIs( 200 );
 		$I->seeResponseIsJson();
 		$I->canSeeResponseContainsJson( [
-			'organizer'   => 'A organizer',
-			'author'      => (string) $editor,
-			'description' => trim( apply_filters( 'the_content', 'Organizer description' ) ),
-		] );
+			                                'organizer'   => 'A organizer',
+			                                'author'      => (string) $editor,
+			                                'date'        => $date->format( 'Y-m-d H:i:s' ),
+			                                'date_utc'    => $utc_date->format( 'Y-m-d H:i:s' ),
+			                                'description' => trim( apply_filters( 'the_content', 'Organizer description' ) ),
+		                                ] );
 		$response = json_decode( $I->grabResponse(), true );
 		$I->assertArrayHasKey( 'id', $response );
 		$id = $response['id'];

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Main Tribe Events Calendar class.
  */
@@ -40,45 +39,44 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-
-		const VERSION             = '6.2.0';
+		const VERSION             = '6.11.0.1';
 
 		/**
-		 * Min Pro Addon
+		 * Min Pro Addon.
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_ADDON_VERSION   = '6.1.0-dev';
+		const MIN_ADDON_VERSION = '6.7.0';
 
 		/**
-		 * Min Common
+		 * Min Common.
 		 *
 		 * @deprecated 4.8
 		 */
-		const MIN_COMMON_VERSION  = '4.9.2-dev';
+		const MIN_COMMON_VERSION = '5.2.7-dev';
 
-		const WP_PLUGIN_URL       = 'https://wordpress.org/extend/plugins/the-events-calendar/';
+		const WP_PLUGIN_URL = 'https://wordpress.org/extend/plugins/the-events-calendar/';
 
 		/**
 		 * Min Version of WordPress
 		 *
 		 * @since 4.8
 		 */
-		protected $min_wordpress = '5.6';
+		protected $min_wordpress = '6.2';
 
 		/**
 		 * Min Version of PHP
 		 *
 		 * @since 4.8
 		 */
-		protected $min_php = '5.6.0';
+		protected $min_php = '7.4.0';
 
 		/**
 		 * Min Version of Event Tickets
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.6.1-dev';
+		protected $min_et_version = '5.16.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -141,6 +139,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		public $featured_slug       = 'featured';
 
 		/**
+		 * @var Tribe__Events__Event_Cleaner_Scheduler $scheduler
+		 */
+		public $scheduler;
+
+		/**
 		 * @deprecated 5.14.0 use Tribe__Events__Venue::$valid_venue_keys instead.
 		*/
 		public $valid_venue_keys = [];
@@ -164,6 +167,8 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * A Stored version of the Welcome and Update Pages.
 		 * @var Tribe__Admin__Activation_Page
+		 *
+		 * @deprecated 6.8.2
 		 */
 		public $activation_page;
 
@@ -399,7 +404,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		}
 
 		/**
-		 * Resets the global common info back to ET's common path
+		 * Resets the global common info back to ET's common path.
 		 *
 		 * @since 4.9.3.2
 		 */
@@ -564,6 +569,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Classes that should be built at `plugins_loaded` time are also instantiated.
 		 *
 		 * @since  4.4
+		 * @since 6.11.0 Add Calendar Embed functionality.
 		 *
 		 * @return void
 		 */
@@ -602,7 +608,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Editor__Provider' );
 			tribe_register_provider( TEC\Events\Configuration\Provider::class );
 
-			// @todo After version 6.0.0 this needs to move to the Events folder provider.
 			tribe_register_provider( TEC\Events\Legacy\Views\V1\Provider::class );
 
 			// Shortcodes
@@ -673,9 +678,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
 
-			// Filter Bar.
-			tribe_register_provider( Tribe\Events\Admin\Filter_Bar\Provider::class );
-			tribe_register_provider( TEC\Events\Editor\Full_Site\Provider::class );
+			// Blocks.
+			tribe_register_provider( TEC\Events\Blocks\Controller::class );
+
+			// Site Editor.
+			tribe_register_provider( TEC\Events\Block_Templates\Controller::class );
 
 			// Load the new third-party integration system.
 			tribe_register_provider( TEC\Events\Integrations\Provider::class );
@@ -683,11 +690,35 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Set up the installer.
 			tribe_register_provider( TEC\Events\Installer\Provider::class );
 
-			// Set up Site Health
+			// Set up Site Health.
 			tribe_register_provider( TEC\Events\Site_Health\Provider::class );
 
-			// Set up Telemetry
+			// Set up Telemetry.
 			tribe_register_provider( TEC\Events\Telemetry\Provider::class );
+
+			// Set up IAN Client - In-App Notifications.
+			tribe_register_provider( TEC\Events\Notifications\Provider::class );
+
+			// SEO support.
+			tribe_register_provider( TEC\Events\SEO\Controller::class );
+
+			// SEO Header support.
+			tribe_register_provider( TEC\Events\SEO\Headers\Controller::class );
+
+			// Register new Admin Notice system.
+			tribe_register_provider( TEC\Events\Admin\Notice\Provider::class );
+
+			// Register new Admin Settings system.
+			tribe_register_provider( TEC\Events\Admin\Settings\Provider::class );
+
+			// Register the Onboarding Wizard.
+			tribe_register_provider( TEC\Events\Admin\Onboarding\Controller::class );
+
+			// Register the Help Hub system.
+			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
+
+			// Register the Calendar Embeds feature.
+			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -708,9 +739,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Load all the required library files.
 		 */
 		protected function loadLibraries() {
-			// Setup the Activation page
-			$this->activation_page();
-
 			// Tribe common resources
 			require_once $this->plugin_path . 'vendor/tribe-common-libraries/tribe-common-libraries.class.php';
 
@@ -887,9 +915,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Upgrade material.
 			add_action( 'init', [ $this, 'run_updates' ], 0, 0 );
 
-			// Include a noindex.
-			add_action( 'wp', [ $this, 'issue_noindex' ] );
-
 			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
 				add_filter( 'wp_import_post_data_raw', [ $this, 'filter_wp_import_data_before' ], 10, 1 );
 				add_filter( 'wp_import_post_data_processed', [ $this, 'filter_wp_import_data_after' ], 10, 1 );
@@ -920,7 +945,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_events_google_maps_api', [ $google_maps_api_key, 'filter_tribe_events_google_maps_api' ] );
 			add_filter( 'tribe_events_pro_google_maps_api', [ $google_maps_api_key, 'filter_tribe_events_google_maps_api' ] );
 			add_filter( 'tribe_field_value', [ $google_maps_api_key, 'populate_field_with_default_api_key' ], 10, 2 );
-			add_filter( 'tribe_field_tooltip', [ $google_maps_api_key, 'populate_field_tooltip_with_helper_text' ], 10, 2 );
+			add_filter( 'tribe_field_append', [ $google_maps_api_key, 'populate_field_tooltip_with_helper_text' ], 10, 2 );
 
 			// Preview handling
 			add_action( 'template_redirect', [ Tribe__Events__Revisions__Preview::instance(), 'hook' ] );
@@ -962,7 +987,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			tribe( 'tec.rest-v1.main' );
 			tribe( 'tec.privacy' );
 			tribe( Tribe__Events__Capabilities::class );
-			tribe( Tribe\Events\Admin\Filter_Bar\Provider::class );
 		}
 
 		/**
@@ -984,8 +1008,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
 			$this->category_slug                              = $this->get_category_slug();
 			$this->tag_slug                                   = $this->get_tag_slug();
-			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
-			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
 			$this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
 			$this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
 			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
@@ -993,7 +1015,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
 			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
 			$this->featured_slug                              = sanitize_title( _x( 'featured', 'featured events slug', 'the-events-calendar' ) );
-			$this->all_slug                                   = sanitize_title( _x( 'all', 'all events slug', 'the-events-calendar' ) );
 
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
@@ -1010,6 +1031,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->errors                                     = '';
 
 			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
+
+			/* Deprecated 4.0 */
+			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
+			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
+			$this->all_slug                                   = sanitize_title( _x( 'all', 'all events slug', 'the-events-calendar' ) );
 
 			Tribe__Credits::init();
 			Tribe__Events__Timezones::init();
@@ -1072,8 +1098,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * @return Tribe__Admin__Activation_Page
+		 *
+		 * @deprecated 6.8.2 Activation page no longer used.
 		 */
 		public function activation_page() {
+			_deprecated_function( __METHOD__, '6.8.2', 'No replacement' );
+
 			// Setup the activation page only if the relevant class exists (in some edge cases, if another
 			// plugin hosting an earlier version of tribe-common is already active we could hit fatals
 			// if we don't take this precaution).
@@ -1090,7 +1120,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 						'plugin_path'           => $this->plugin_dir . 'the-events-calendar.php',
 						'version_history_slug'  => 'previous_ecp_versions',
 						'update_page_title'     => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
-						'update_page_template'  => $this->plugin_path . 'src/admin-views/updates/6.0.0.php',
+						'update_page_template'  => $this->plugin_path . 'src/admin-views/admin-update-message.php',
 						'welcome_page_title'    => __( 'Welcome to The Events Calendar!', 'the-events-calendar' ),
 						'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
 					]
@@ -1252,7 +1282,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$edit_settings_link = __( ' ask the site administrator to set a different Events URL slug.', 'the-events-calendar' );
 
 			if ( current_user_can( $settings_cap ) ) {
-				$setting_page_link  = tribe( Tribe\Events\Admin\Settings::class )->get_url() . '#tribe-field-eventsSlug';
+				$setting_page_link = tribe( Tribe\Events\Admin\Settings::class )->get_url(
+					[
+						'anchor' => 'tribe-field-eventsSlug',
+						'tab'    => 'general-viewing-tab',
+					]
+				);
+
 				$edit_settings_link = sprintf( '<a href="%1$s">%2$s</a>', $setting_page_link, __( 'edit Events settings.', 'the-events-calendar' ) );
 			}
 
@@ -1502,15 +1538,41 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * @since ??
 		 * @since 6.0.0 Relies on √2 code.
 		 *
-		 * Disabling this behavior always is possible with:
+		 * Disabling this behavior completely is possible with:
 		 *
-		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_false' );
+		 *     add_filter( 'tec_events_add_no_index_meta_tag', '__return_false' );
 		 *
-		 *  Enabling it for all event views is possible with:
+		 *  Always adding the noindex meta tag for all event views is possible with:
 		 *
 		 *     add_filter( 'tribe_events_add_no_index_meta', '__return_true' );
+		 *
+		 *  Always adding the noindex meta tag for a specific event view is possible with:
+		 *
+		 *     add_filter( "tribe_events_{$view}_add_no_index_meta", '__return_true' );
+		 *
+		 *  Where `$view` above is the view slug, e.g. `month`, `day`, `list`, etc.
 		 */
 		public function issue_noindex() {
+			_deprecated_function( __METHOD__, '6.2.3', 'TEC\Events\SEO\Controller::issue_noindex()' );
+
+			global $wp_query;
+
+			/**
+			 * Allows filtering of if a noindex meta tag will be set for the current event view.
+			 *
+			 * @since 6.2.3
+			 *
+			 * @var bool $do_noindex_meta Whether to add the noindex meta tag.
+			 */
+			$do_noindex_meta = apply_filters( 'tec_events_add_no_index_meta_tag', true );
+
+			if ( ! tribe_is_truthy( $do_noindex_meta ) ) {
+				return;
+			}
+
+			if ( is_home() || is_front_page() ) {
+				return;
+			}
 
 			if ( ! $wp_query = tribe_get_global_query_object() ) {
 				return;
@@ -1522,18 +1584,67 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			// By default, we add a noindex tag for all month view requests and any other
-			// event views that are devoid of events
-			$add_noindex  = ( ! $wp_query->have_posts() || Month_View::get_view_slug() === $context->get( 'view' ) );
+			$view = $context->get( 'view' );
+
+			$start_date = ! empty( $wp_query->query[ 'eventDate' ] ) ? $wp_query->get( 'eventDate' ) : $context->get( 'now' );
+			$start_date = Tribe__Date_Utils::build_date_object( $start_date );
+
+			/**
+			 * Allow specific views to hook in and add their own calculated events.
+			 * This *bypasses* the cached query immediately after it.
+			 *
+			 * @since 6.2.3
+			 *
+			 * @param ?Tribe__Repository|null $events     The events repository. False if not hooked in to.
+			 * @param DateTime                $start_date The start date (object) of the query.
+			 * @param Tribe__Context          $context    The current context.
+			 *
+			 */
+			$events = apply_filters( 'tec_events_noindex', null, $start_date, $context );
+
+			// If nothing has hooked in ($events is boolean false), we assume a list-style view (no end-date limiter)
+			//  with no params and do a quick query for a single event after the start date.
+			if ( null === $events ) {
+				$cache     = tribe_cache();
+				$trigger   = Tribe__Cache_Listener::TRIGGER_SAVE_POST;
+				$cache_key = $cache->make_key(
+					[
+						'context' => $context->get( 'view_data' ),
+						'view'    => $view,
+						'start'   => $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ),
+					],
+					'tec_noindex_'
+				);
+
+				$events = $cache->get( $cache_key, $trigger );
+
+				if ( ! $events ) {
+					$events = tribe_events()->per_page( 1 )->where( 'ends_after', $start_date->format( Tribe__Date_Utils::DBDATEFORMAT ) );
+				}
+			}
+
+			// No posts = no index.
+			$add_noindex = empty( $events->found() );
 
 			/**
 			 * Determines if a noindex meta tag will be set for the current event view.
 			 *
-			 * @since  ??
+			 * @since  3.12.4
 			 *
 			 * @var bool $add_noindex
+			 * @var Tribe__Context $context The view context.
 			 */
-			$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex );
+			$add_noindex = apply_filters( 'tribe_events_add_no_index_meta', $add_noindex, $context );
+
+			/**
+			 * Determines if a noindex meta tag will be set for a specific event view.
+			 *
+			 * @since 6.2.3
+			 *
+			 * @var bool $add_noindex
+			 * @var Tribe__Context $context The view context.
+			 */
+			$add_noindex = apply_filters( "tec_events_{$view}_add_no_index_meta", $add_noindex, $context );
 
 			if ( $add_noindex ) {
 				add_action( 'wp_head', [ $this, 'print_noindex_meta' ] );
@@ -1543,11 +1654,22 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Prints a "noindex,follow" robots tag.
 		 *
-		 * @since ??
+		 * @since 6.2.3
 		 *
 		 */
 		public function print_noindex_meta() {
-			echo ' <meta name="robots" content="noindex,follow" />' . "\n";
+			$noindex_meta = ' <meta name="robots" id="tec_noindex" content="noindex,follow" />' . "\n";
+
+			/**
+			 * Filters the noindex meta tag.
+			 *
+			 * @since 6.2.3
+			 *
+			 * @param string $noindex_meta
+			 */
+			$noindex_meta = apply_filters( 'tec_events_no_index_meta', $noindex_meta );
+
+			echo $noindex_meta;
 		}
 
 		/**
@@ -2882,19 +3004,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				return;
 			}
 
-			$avoid_recursion = true;
-
-			$original_post     = wp_is_post_revision( $post );
-			$is_event_revision = $original_post && tribe_is_event( $original_post );
-
-			if ( $is_event_revision ) {
-				$revision = Tribe__Events__Revisions__Post::new_from_post( $post );
-				$revision->save();
-
-				$avoid_recursion = false;
-
+			if ( wp_is_post_revision( $postId ) ) {
+				// Do not save meta for revisions: it would be saved to the original post anyway.
 				return;
 			}
+
+			$avoid_recursion = true;
 
 			// When not an instance of Post we bail to avoid revision problems.
 			if ( ! $post instanceof WP_Post ) {
@@ -3884,7 +3999,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		/**
 		 * Specify the "preview venue" to link to an event.
 		 *
-		 *
 		 * @since 4.5.1
 		 *
 		 * @param int $event_id The ID of the event being previewed.
@@ -3913,7 +4027,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 		/**
 		 * Specify the "preview organizer" to link to an event.
-		 *
 		 *
 		 * @since 4.5.1
 		 *

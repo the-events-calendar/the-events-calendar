@@ -3,20 +3,19 @@
  */
 import React from 'react';
 import { omit, noop } from 'lodash';
-import DayPicker, { DateUtils } from 'react-day-picker';
+import { DayPicker, addToRange } from 'react-day-picker';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import moment from 'moment';
 
 /**
- * Wordpress dependencies
+ * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
 
 /**
  * Internal dependencies
  */
-import { YearMonthForm } from '@moderntribe/events/elements';
 import './style.pcss';
 
 const today = new Date();
@@ -25,11 +24,29 @@ const currentMonth = today.getMonth();
 const yearsBack = 5;
 const fromMonth = new Date( currentYear - yearsBack, currentMonth );
 const toMonth = new Date( currentYear + 10, 11 );
+const getDatesBetween = ( startDate, endDate ) => {
+	// Remove the time part by setting to midnight
+	const start = new Date( startDate );
+	start.setHours( 0, 0, 0, 0 );
+	const end = new Date( endDate );
+	end.setHours( 0, 0, 0, 0 );
+
+	const currentDate = new Date( start );
+	currentDate.setDate( currentDate.getDate() + 1 ); // Start from the day after startDate
+	const dates = [];
+
+	while ( currentDate < end ) {
+		dates.push( new Date( currentDate ) );
+		currentDate.setDate( currentDate.getDate() + 1 );
+	}
+
+	return dates;
+};
 
 export default class Month extends Component {
 	static propTypes = {
 		withRange: PropTypes.bool,
-		onSelectDay: PropTypes.func,
+		onSelect: PropTypes.func,
 		from: PropTypes.instanceOf( Date ),
 		to: PropTypes.instanceOf( Date ),
 		month: PropTypes.instanceOf( Date ),
@@ -37,7 +54,7 @@ export default class Month extends Component {
 	};
 
 	static defaultProps = {
-		onSelectDay: noop,
+		onSelect: noop,
 		from: today,
 		to: undefined,
 		month: fromMonth,
@@ -59,7 +76,7 @@ export default class Month extends Component {
 		let range = {};
 
 		if ( withRange ) {
-			range = DateUtils.addDayToRange( day, this.state );
+			range = addToRange( day, this.state );
 
 			// if the range was unselected we fallback to the first available day
 			if ( range.from === null && range.to === null ) {
@@ -88,59 +105,43 @@ export default class Month extends Component {
 	};
 
 	onSelectCallback = () => {
-		const { onSelectDay } = this.props;
-		onSelectDay( omit( this.state, [ 'withRange' ] ) );
+		const { onSelect } = this.props;
+		onSelect( omit( this.state, [ 'withRange' ] ) );
 	};
 
 	getSelectedDays = () => {
 		const { withRange, from, to } = this.props;
 		if ( withRange ) {
-			return [ from, { from, to } ];
+			return { from: from, to: to };
 		}
 		return from;
 	};
 
-	getCaptionElement = ( { date, localeUtils } ) => {
-		const { month, setVisibleMonth } = this.props;
+	render() {
+		const { from, to, month, withRange, setVisibleMonth } = this.props;
+		const containerClass = classNames( { 'tribe-editor__calendars--range': withRange } );
+		const modifiers = {
+			selected: this.getSelectedDays(),
+		};
 
-		if ( date.getMonth() !== month.getMonth() ) {
-			return this.renderCaption( date, localeUtils );
+		if ( withRange && from && to ) {
+			modifiers.range_start = from;
+			modifiers.range_middle = getDatesBetween( from, to );
+			modifiers.range_end = to;
 		}
 
 		return (
-			<YearMonthForm
-				today={ today }
-				date={ date }
-				localeUtils={ localeUtils }
-				onChange={ setVisibleMonth }
-			/>
-		);
-	};
-
-	renderCaption = ( date, localeUtils ) => (
-		<div className={ 'tribe-editor__daypicker-caption' }>
-			<div>
-				{ localeUtils.formatMonthTitle( date ) }
-			</div>
-		</div>
-	);
-
-	render() {
-		const { from, to, month, withRange, setVisibleMonth } = this.props;
-		const modifiers = withRange ? { start: from, end: to } : {};
-		const containerClass = classNames( { 'tribe-editor__calendars--range': withRange } );
-		return (
 			<DayPicker
+				mode={ withRange ? 'range' : 'single' }
 				className={ containerClass }
-				fromMonth={ fromMonth }
-				toMonth={ this.state.toMonth }
+				startMonth={ fromMonth }
+				endMonth={ this.state.toMonth }
 				month={ month }
 				numberOfMonths={ 2 }
 				modifiers={ modifiers }
-				selectedDays={ this.getSelectedDays() }
 				onDayClick={ this.selectDay }
 				onMonthChange={ setVisibleMonth }
-				captionElement={ this.getCaptionElement }
+				captionLayout="dropdown"
 			/>
 		);
 	}

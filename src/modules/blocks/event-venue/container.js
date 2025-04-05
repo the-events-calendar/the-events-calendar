@@ -16,7 +16,7 @@ import { withDetails } from '@moderntribe/events/hoc';
 import { actions, selectors } from '@moderntribe/events/data/blocks/venue';
 import { actions as detailsActions } from '@moderntribe/events/data/details';
 import { editor } from '@moderntribe/common/data';
-import { syncVenuesWithPost } from "./data/meta-sync";
+import { syncVenuesWithPost } from './data/meta-sync';
 import { globals } from '@moderntribe/common/utils';
 const { getState } = store;
 
@@ -29,12 +29,12 @@ const { getState } = store;
  *
  * Sets the attributes, updates state, updates details, and syncs with post meta.
  *
- * @param {Object} params
- * @param {Object} params.state
- * @param {Function} params.dispatch
- * @param {Object} params.ownProps
- * @param {number} params.venueID
- * @param {Object} params.details
+ * @param {Object} params - The parameters.
+ * @param {Object} params.state - The state.
+ * @param {Function} params.dispatch - The dispatch function.
+ * @param {Object} params.ownProps - The ownProps.
+ * @param {number} params.venueID - The venue ID.
+ * @param {Object} params.details - The details.
  */
 const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
 	const venues = selectors.getVenuesInBlock( state );
@@ -52,10 +52,10 @@ const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
 /**
  * One the venue form has been filled out, set the venue in the block.
  *
- * @param {Object} state
- * @param {Function} dispatch
- * @param {Object} ownProps
- * @returns {(function(*): void)|*}
+ * @param {Object} state - The state.
+ * @param {Function} dispatch - The dispatch function.
+ * @param {Object} ownProps - The ownProps.
+ * @returns {(function(*): void)|*} - The function to call when the form is complete.
  */
 const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
 	setVenue( { state, dispatch, ownProps, venueID: body.id, details: body } );
@@ -64,9 +64,9 @@ const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
 /**
  * Handles form submission.
  *
- * @param {Function} dispatch
- * @param {Object} ownProps
- * @returns {(function(*): void)|*}
+ * @param {Function} dispatch - The dispatch function.
+ * @param {Object} ownProps - The ownProps.
+ * @returns {(function(*): void)|*} - The function to call when the form is submitted.
  */
 const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => {
 	ownProps.sendForm( toVenue( fields ), onFormComplete( getState(), dispatch, ownProps ) );
@@ -75,8 +75,8 @@ const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => {
 /**
  * Creates a draft venue.
  *
- * @param {Object} ownProps
- * @returns {Function}
+ * @param {Object} ownProps - The ownProps.
+ * @returns {Function} - The function to call to create a draft venue.
  */
 const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 	title: {
@@ -87,7 +87,7 @@ const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
 /**
  * Triggers the editEntry operation.
  *
- * @param {Object} ownProps
+ * @param {Object} ownProps - The ownProps.
  */
 const onEdit = ( ownProps ) => () => {
 	const { details, editEntry } = ownProps;
@@ -143,9 +143,9 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 			setVenue( { state, dispatch, ownProps, venueID, details } );
 		},
 		onRemove: () => {
-			const { clientId, venue } = ownProps;
+			const { venue, clientId } = ownProps;
 
-			ownProps.setAttributes( { venue: 0 } );
+			ownProps.setAttributes( { venue: null } );
 			dispatch( actions.removeVenueInBlock( clientId, venue ) );
 
 			/**

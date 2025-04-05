@@ -41,6 +41,19 @@ class Tribe__Events__Aggregator__Errors {
 		add_filter( 'comment_feed_where', [ $this, 'hide_error_comments_from_feeds' ], 10, 2 );
 		add_filter( 'wp_count_comments', [ $this, 'remove_error_comments_from_wp_counts' ], 10, 2 );
 
+		if ( did_action( 'init' ) || doing_action( 'init' ) ) {
+			$this->register_errors();
+		} else {
+			add_action( 'init', [ $this, 'register_errors' ] );
+		}
+	}
+
+	/**
+	 * Register our errors and their translated strings.
+	 *
+	 * @since 6.9.1
+	 */
+	public function register_errors(): void {
 		// Create the Errors
 		tribe_register_error(
 			'core:aggregator:attachment-error',
@@ -68,7 +81,6 @@ class Tribe__Events__Aggregator__Errors {
 				'the-events-calendar'
 			)
 		);
-
 		tribe_register_error(
 			'core:aggregator:invalid-create-record-type',
 			__( 'An invalid import type was used when trying to create this import record.', 'the-events-calendar' )
@@ -141,7 +153,6 @@ class Tribe__Events__Aggregator__Errors {
 				'the-events-calendar'
 			)
 		);
-
 		tribe_register_error(
 			'core:aggregator:missing-csv-column-map',
 			__(

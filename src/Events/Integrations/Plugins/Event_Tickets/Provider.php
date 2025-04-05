@@ -35,5 +35,6 @@ class Provider extends Integration_Abstract {
 	protected function load(): void {
 		// Loads Tickets Emails.
 		$this->container->register( Emails\Provider::class );
+		$this->container->register( Site_Health\Controller::class );
 	}
 }

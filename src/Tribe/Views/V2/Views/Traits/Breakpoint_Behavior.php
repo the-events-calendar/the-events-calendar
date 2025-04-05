@@ -22,11 +22,11 @@ use Tribe\Events\Views\V2\View;
  */
 trait Breakpoint_Behavior {
 	/**
-	 * Default breakpoints used by TEC views.
+	 * Associative array of default breakpoints used by TEC views keyed by breakpoints.
 	 *
 	 * @since 5.0.0
 	 *
-	 * @var array
+	 * @var array<string, int>
 	 */
 	protected $default_breakpoints = [
 		'xsmall' => 500,
@@ -39,9 +39,9 @@ trait Breakpoint_Behavior {
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param string $name Which index we getting the breakpoint for.
+	 * @param string $name Which index we are getting the breakpoint for.
 	 *
-	 * @return int   Returns the breakpoint with that given name or 0 when not available.
+	 * @return int The breakpoint with that given name or 0 when not available.
 	 */
 	public function get_breakpoint( $name ) {
 		$breakpoints = $this->get_breakpoints();
@@ -59,7 +59,7 @@ trait Breakpoint_Behavior {
 	 *
 	 * @since 5.0.0.2
 	 *
-	 * @return int   Returns the breakpoint with that given name or 0 when not available.
+	 * @return string Breakpoint pointer as a random UUID (version 4).
 	 */
 	public function get_breakpoint_pointer() {
 		$pointer = wp_generate_uuid4();
@@ -69,7 +69,7 @@ trait Breakpoint_Behavior {
 		 *
 		 * @since 5.0.0.2
 		 *
-		 * @param string $breakpoints Current pointer value.
+		 * @param string $pointer Current pointer value (UUID4).
 		 * @param View   $this        The current View instance being rendered.
 		 */
 		$pointer = apply_filters( "tribe_events_views_v2_view_breakpoint_pointer", $pointer, $this );
@@ -81,7 +81,7 @@ trait Breakpoint_Behavior {
 		 *
 		 * @since 5.0.0.2
 		 *
-		 * @param string $pointer   Current pointer value.
+		 * @param string $pointer   Current pointer value (UUID4).
 		 * @param View   $this      The current View instance being rendered.
 		 */
 		$pointer = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breakpoint_pointer", $pointer, $this );
@@ -90,11 +90,11 @@ trait Breakpoint_Behavior {
 	}
 
 	/**
-	 * Returns all of the available breakpoints.
+	 * Returns all the available breakpoints.
 	 *
 	 * @since 5.0.0
 	 *
-	 * @return array Indexed array of all available breakpoints.
+	 * @return array<string, int> Associative array of all breakpoints available keyed by breakpoint name.
 	 */
 	public function get_breakpoints() {
 		$breakpoints = $this->default_breakpoints;
@@ -104,8 +104,8 @@ trait Breakpoint_Behavior {
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param array  $breakpoints All breakpoints available.
-		 * @param View   $this        The current View instance being rendered.
+		 * @param array<string, int> $breakpoints Associative array of all breakpoints available keyed by breakpoint name.
+		 * @param View               $this        The current View instance being rendered.
 		 */
 		$breakpoints = apply_filters( "tribe_events_views_v2_view_breakpoints", $breakpoints, $this );
 
@@ -116,8 +116,8 @@ trait Breakpoint_Behavior {
 		 *
 		 * @since 5.0.0
 		 *
-		 * @param array  $breakpoints All breakpoints available.
-		 * @param View   $this        The current View instance being rendered.
+		 * @param array<string, int> $breakpoints Associative array of all breakpoints available keyed by breakpoint name.
+		 * @param View               $this        The current View instance being rendered.
 		 */
 		$breakpoints = apply_filters( "tribe_events_views_v2_view_{$view_slug}_breakpoints", $breakpoints, $this );
 

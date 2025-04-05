@@ -159,6 +159,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 			'without_date_list_view' => [
 				[
 					'view' => 'list',
+					'timezone' => 'Europe/Paris',
 				],
 				[ // Expected events.
 					'this week sunday',
@@ -241,6 +242,7 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 				[
 					'view' => 'month',
 					'event_date' => date( 'Y-m', strtotime( 'next month' ) ),
+					'timezone' => 'Europe/Paris',
 				],
 				[
 					date( 'Y-m-01', strtotime( 'next month' ) ),
@@ -263,16 +265,16 @@ class RequestTest extends \Codeception\TestCase\WPTestCase {
 					'view' => 'month',
 					'featured' => true,
 					'event_date' => date( 'Y-m-10', strtotime( 'last month' ) ),
+					'timezone' => 'Europe/Paris',
 				],
 				[],
 				[],
 				'create_and_get_month_events',
 			],
-
-
 			'without_date_day_view' => [
 				[
 					'view' => 'day',
+					'timezone' => 'Europe/Paris',
 				],
 				[ // Expected events.
 					'today',
