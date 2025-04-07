@@ -218,6 +218,9 @@ class Widget_QR_Code extends Widget_Abstract {
 			],
 		];
 
+		$series_options = [];
+		$event_options  = [];
+
 		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
 			$options[] = [
 				'value' => 'next',
@@ -234,22 +237,19 @@ class Widget_QR_Code extends Widget_Abstract {
 
 			$series = get_posts( $args );
 			if ( ! empty( $series ) ) {
-				$series_options = [];
-				foreach ( $series as $series ) {
+				foreach ( $series as $s ) {
 					$series_options[] = [
-						'value' => $series->ID,
-						'text'  => $series->ID . ' - ' . $series->post_title,
+						'value' => $s->ID,
+						'text'  => $s->ID . ' - ' . $s->post_title,
 					];
 				}
 			} else {
 				$series_options[] = [
 					'value' => '',
-					'text'  => _x( 'There are no Series created yet.', 'No series created yet', 'the-events-calendar' ),
+					'text'  => esc_html__( 'No Series have been created yet.', 'the-events-calendar' ),
 				];
 			}
 		}
-
-		$event_options = [];
 
 		$args = [
 			'posts_per_page' => -1,
@@ -261,19 +261,18 @@ class Widget_QR_Code extends Widget_Abstract {
 
 		$events = tribe_get_events( $args );
 		if ( ! empty( $events ) ) {
-			foreach ( $events as $event ) {
+			foreach ( $events as $e ) {
 				$event_options[] = [
-					'value' => $event->ID,
-					'text'  => $event->ID . ' - ' . $event->post_title,
+					'value' => $e->ID,
+					'text'  => $e->ID . ' - ' . $e->post_title,
 				];
 			}
 		} else {
 			$event_options[] = [
 				'value' => '',
-				'text'  => _x( 'There are no Events created yet.', 'No events created yet', 'the-events-calendar' ),
+				'text'  => esc_html__( 'No Events have been created yet.', 'the-events-calendar' ),
 			];
 		}
-
 
 		return [
 			'widget_title' => [
