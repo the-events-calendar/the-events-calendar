@@ -235,12 +235,12 @@ class Widget_QR_Code extends Widget_Abstract {
 				'order'          => 'DESC',
 			];
 
-			$series = get_posts( $args );
-			if ( ! empty( $series ) ) {
-				foreach ( $series as $s ) {
+			$series_query = get_posts( $args );
+			if ( ! empty( $series_query ) ) {
+				foreach ( $series_query as $series ) {
 					$series_options[] = [
-						'value' => $s->ID,
-						'text'  => $s->ID . ' - ' . $s->post_title,
+						'value' => $series->ID,
+						'text'  => "{$series->ID} - {$series->post_title}",
 					];
 				}
 			} else {
@@ -261,10 +261,10 @@ class Widget_QR_Code extends Widget_Abstract {
 
 		$events = tribe_get_events( $args );
 		if ( ! empty( $events ) ) {
-			foreach ( $events as $e ) {
+			foreach ( $events as $event ) {
 				$event_options[] = [
-					'value' => $e->ID,
-					'text'  => $e->ID . ' - ' . $e->post_title,
+					'value' => $event->ID,
+					'text'  => "{$event->ID} - {$event->post_title}",
 				];
 			}
 		} else {
