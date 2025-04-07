@@ -261,6 +261,7 @@ class Controller extends ControllerContract {
 			'classy.js'
 		)->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-classy' )
+			->add_dependency('wp-tinymce')
 			->enqueue_on( 'enqueue_block_editor_assets' )
 			->set_condition( fn() => $this->post_uses_new_editor( get_post_type() ) )
 			->add_localize_script( 'tec.events.classy.data', [ $this, 'get_data' ] )

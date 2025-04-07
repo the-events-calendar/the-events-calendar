@@ -151,5 +151,38 @@
 				}
 			}
 		}
+
+		&.classy-field__control--tinymce-editor{
+			color: var(--tec-color-gutenberg-grey-600);
+
+			iframe{
+				min-height: 200px;
+			}
+			.mce-top-part{
+				border-top: 1px solid var(--tec-color-gutenberg-grey-400);
+				border-bottom: 1px solid var(--tec-color-gutenberg-grey-400);
+
+				&::before{
+					box-shadow: none;
+				}
+			}
+
+			.mce-toolbar-grp {
+				border-bottom: none;
+
+				.mce-container-body.mce-stack-layout {
+					padding: var(--tec-spacer-2);
+					background-color: var(--tec-color-gutenberg-white);
+				}
+			}
+
+			.mce-container.mce-edit-area {
+				border-top: none;
+			}
+
+			.mce-btn-group:not(:first-of-type){
+				margin-left: var(--tec-spacer-1);
+			}
+		}
 	}
 }

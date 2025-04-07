@@ -1,12 +1,12 @@
 import { _x } from '@wordpress/i18n';
 import { EventDetailsProps } from '../../types/FieldProps';
-import { RichText} from '@wordpress/block-editor';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { usePostEdits } from '../../hooks';
 import { UsePostEditsReturn } from '../../types/UsePostEditsReturn';
 import { useEffect, useState } from 'react';
 import { METADATA_EVENT_URL } from '../../constants';
 import { PostFeaturedImage } from '@wordpress/editor';
+import {TinyMceEditor} from '../components/TinyMceEditor';
 
 export function EventDetails( props: EventDetailsProps ) {
 	const { postContent, meta, editPost } =
@@ -47,27 +47,27 @@ export function EventDetails( props: EventDetailsProps ) {
 				<div className="classy-field__input">
 					<div className="classy-field__input-title">
 						<h4>
-							{ _x(
-								'Description',
-								'Event details description input title',
+							{ _x( 'Description', 'Event details description input title',
 								'the-events-calendar'
 							) }
 						</h4>
 					</div>
 
-					<RichText
-						className="classy-field__control classy-field__control--rich-text"
-						tagName="p"
-						value={ description }
-						inlineToolbar={ true }
-						allowedFormats={ [ 'core/bold', 'core/italic' ] }
-						onChange={ onDescriptionChange }
-						placeholder={ _x(
-							'Describe your event',
-							'Event description placeholder text',
-							'the-events-calendar'
+					<div className="classy-field__control classy-field__control--tinymce-editor">
+						<TinyMceEditor
+							content={description}
+							onChange={onDescriptionChange}
+							id="classy-event-details-description-editor"
+						/>
+					</div>
+
+					<div className="classy-field__input-note">
+						{ _x(
+									'Describe your event',
+									'Event description placeholder text',
+									'the-events-calendar'
 						) }
-					></RichText>
+					</div>
 				</div>
 
 				<div className="classy-field__input">
