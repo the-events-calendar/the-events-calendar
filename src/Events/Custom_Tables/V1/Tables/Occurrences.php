@@ -80,7 +80,7 @@ class Occurrences extends Abstract_Custom_Table {
 	 * Overrides the base method to add `event_id`, `post_id` as kesys.
 	 *
 	 * @since 6.0.6 Will now create an `event_id` index, removes the foreign key from the previous version.
-	 * @since TBD   Will now create an `post_id, start_date, end_date` and `post_id, start_date_utc, end_date_utc` indexes.
+	 * @since 6.11.1   Will now create an `post_id, start_date, end_date` and `post_id, start_date_utc, end_date_utc` indexes.
 	 *
 	 * {@inheritdoc}
 	 */

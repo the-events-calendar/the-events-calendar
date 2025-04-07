@@ -338,7 +338,7 @@ class Hooks extends Service_Provider {
 	/**
 	 * Include the REST endpoint so it will be cached.
 	 * 
-	 * @since TBD
+	 * @since 6.11.1
 	 * 
 	 * @param array[] $allowed_endpoints The allowed endpoints.
 	 * 

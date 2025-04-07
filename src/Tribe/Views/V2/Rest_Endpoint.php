@@ -35,7 +35,7 @@ class Rest_Endpoint {
 	 * The field name for the primary nonce.
 	 *
 	 * @since 6.1.4
-	 * @since TBD Changed to `tvn1` from `_tec_view_rest_nonce_primary`.
+	 * @since 6.11.1 Changed to `tvn1` from `_tec_view_rest_nonce_primary`.
 	 *
 	 * @var string
 	 */
@@ -45,7 +45,7 @@ class Rest_Endpoint {
 	 * The field name for the secondary nonce.
 	 *
 	 * @since 6.1.4
-	 * @since TBD Changed to `tvn2` from `_tec_view_rest_nonce_secondary`.
+	 * @since 6.11.1 Changed to `tvn2` from `_tec_view_rest_nonce_secondary`.
 	 * 
 	 * @var string
 	 */
@@ -413,7 +413,7 @@ class Rest_Endpoint {
 	/**
 	 * Sends the HTML for the view.
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @param Request $request The request object.
 	 * 
@@ -435,7 +435,7 @@ class Rest_Endpoint {
 	/**
 	 * Register the endpoint so it will be cached.
 	 * 
-	 * @since TBD
+	 * @since 6.11.1
 	 * 
 	 * @param array $allowed_endpoints The allowed endpoints.
 	 * 
@@ -453,7 +453,7 @@ class Rest_Endpoint {
 	/**
 	 * Unshrink the URL components.
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @param Request $request The request object.
 	 *
@@ -617,7 +617,7 @@ class Rest_Endpoint {
 		 * Filters the HTTP method Views should use to fetch their contents calling the back-end endpoint.
 		 *
 		 * @since 5.2.1
-		 * @since TBD Changed default to `GET`, for performance reasons.
+		 * @since 6.11.1 Changed default to `GET`, for performance reasons.
 		 *
 		 * @param string $method The HTTP method Views will use to fetch their content. Either `POST` (default) or
 		 *                       `GET`. Invalid values will be set to the default `POST`.

@@ -103,7 +103,7 @@ class Service_Provider extends Provider_Contract {
 	/**
 	 * Enable widget copy paste for the Legacy Widgets that we are registering.
 	 * 
-	 * @since TBD
+	 * @since 6.11.1
 	 * 
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Server  $server  The REST server.

@@ -32,7 +32,7 @@ interface View_Interface extends View_Url_Provider_Interface, Repository_User_In
 	/**
 	 * Sends, echoing it and exiting, the view HTML on the page.
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @param null|string $html A specific HTML string to print on the page or the HTML produced by the view
 	 *                          `get_html` method.

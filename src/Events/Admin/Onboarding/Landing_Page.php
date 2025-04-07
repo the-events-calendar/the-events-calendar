@@ -203,7 +203,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * Render the checklist section.
 	 *
 	 * @since 6.8.4
-	 * @since TBD Fixed a typo.
+	 * @since 6.11.1 Fixed a typo.
 	 *
 	 * @return void
 	 */

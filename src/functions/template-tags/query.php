@@ -70,7 +70,7 @@ if ( ! function_exists( 'tec_query_batch_size' ) ) {
 	 * This value will be used by the Builder in "all" type of queries.
 	 * This value should be adjusted depending on the host and database server performance.
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @param string $context The context for which the chunk size will be used.
 	 *
@@ -82,7 +82,7 @@ if ( ! function_exists( 'tec_query_batch_size' ) ) {
 		 * to fetch data with unbounded queries in chunks.
 		 * This value should be adjusted depending on the host and database server performance.
 		 *
-		 * @since TBD
+		 * @since 6.11.1
 		 *
 		 * @param int    $chunk_size The chunk size that will be used to fetch elements in unbounded queries.
 		 * @param string $context    The context for which the chunk size will be used.

@@ -547,7 +547,7 @@ tribe.events.views.manager = {};
   /**
    * Shrink the URL components to the minimum required to identify the view.
    *
-   * @since TBD
+   * @since 6.11.1
    *
    * @param {Element|jQuery} $container  Which container we are dealing with
    * @param {object}          components The components to shrink.
@@ -641,7 +641,7 @@ tribe.events.views.manager = {};
    * Context with the View container used to fire this AJAX call
    *
    * @since 4.9.2
-   * @since TBD Remove not needed parameters. Hook into the success event instead for those.
+   * @since 6.11.1 Remove not needed parameters. Hook into the success event instead for those.
    *
    * @param {Element|jQuery} $container The container we are dealing with
    *

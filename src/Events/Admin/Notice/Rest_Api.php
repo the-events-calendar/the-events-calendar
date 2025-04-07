@@ -89,7 +89,7 @@ class Rest_Api {
 	/**
 	 * Marks the REST API as unblocked.
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @return void
 	 */

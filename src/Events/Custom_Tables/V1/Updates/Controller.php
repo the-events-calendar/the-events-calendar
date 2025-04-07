@@ -305,7 +305,7 @@ class Controller {
 	 * Deletes an Event custom tables information.
 	 *
 	 * @since 6.0.0
-	 * @since TBD - Ensures this is only called for Events.
+	 * @since 6.11.1 - Ensures this is only called for Events.
 	 *
 	 * @param int                  $post_id The deleted Event post ID.
 	 * @param WP_REST_Request|null $request A reference to the request object triggering the deletion, if any.

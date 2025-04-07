@@ -54,7 +54,7 @@ class Builder {
 	 * Whether the results of fetch methods should be cached for the duration of the request or not.
 	 * When active results will be memoized using the SQL query as key in the non-persistent cache (i.e. memoized).
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @var bool
 	 */
@@ -1772,7 +1772,7 @@ class Builder {
 	 *
 	 * @see   https://dev.mysql.com/doc/refman/8.4/en/information-functions.html#function_found-rows
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @return string The SQL query to fetch the number of found rows.
 	 */
@@ -1810,7 +1810,7 @@ class Builder {
 	/**
 	 * Controls whether the Builder class should use the query cache in the fetch methods or not.
 	 *
-	 * @since TBD
+	 * @since 6.11.1
 	 *
 	 * @param bool $use_query_cache Whether the Builder class should use the query cache in the fetch methods or not.
 	 */
