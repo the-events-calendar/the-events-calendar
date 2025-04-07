@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Ensures the ajaxComplete callback is fired after AJAX has actually completed. [FBAR-344]

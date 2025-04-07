@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Avoid running unbound queries, avoid too long queries being killed. [ECP-1898]

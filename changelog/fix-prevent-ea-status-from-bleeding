@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Modify the visibility of tribe-ea- statuses to prevent them from slowing down WP_Query that are unrelated to Aggregator
