@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Makes sure that Custom Tables are loaded after our Common library is loaded. [TEC-5445]

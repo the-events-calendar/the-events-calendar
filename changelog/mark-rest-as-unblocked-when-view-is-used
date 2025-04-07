@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Prevent REST API notice from showing in certain cases of false positives.
