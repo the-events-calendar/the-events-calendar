@@ -251,7 +251,7 @@ class Service_Provider extends Provider_Contract {
 		}
 
 		$serialized_instance = base64_decode( $instance['encoded'] );
-		$instance['hash'] = wp_hash( $serialized_instance );
+		$instance['hash']    = wp_hash( $serialized_instance );
 		
 		$parsed_block['attrs']['instance'] = $instance;
 		
