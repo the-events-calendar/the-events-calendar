@@ -23,10 +23,14 @@ trait Tribe__Events__Editor__Blocks__Block_Trait {
 	 * @return void
 	 */
 	public function assets() {
+		if ( ! $this->should_register_assets() ) {
+			return;
+		}
+
 		tec_asset(
 			tribe( 'tec.main' ),
 			'tribe-events-block-' . $this->slug(),
-			'app/' . $this->slug() . '/frontend.css',
+			$this->slug() . '/frontend.css',
 			[],
 			'wp_enqueue_scripts',
 			[
