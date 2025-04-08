@@ -73,6 +73,7 @@ class Service_Provider extends Provider_Contract {
 		add_filter( 'option_sidebars_widgets', [ $compatibility, 'remap_list_widget_id_bases' ] );
 
 		add_filter( 'rest_pre_dispatch', [ $this, 'enable_widget_copy_paste' ], 10, 3 );
+		add_filter( 'rest_dispatch_request', [ $this, 'enable_saving_widget_copied' ], 10, 4 );
 	}
 
 	/**
@@ -121,12 +122,76 @@ class Service_Provider extends Provider_Contract {
 		$route = $request->get_route();
 		
 		// Check if this matches our target endpoint.
-		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/encode$#', $route, $matches ) ) {
+		if (
+			! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/encode$#', $route, $matches_encode )
+			&& ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/render$#', $route, $matches_render )
+		) {
 			return $result;
 		}
 	
 		// Get the widget type ID from the route.
-		$widget_type_id = $matches[1];
+		$widget_type_id = $matches_encode[1];
+
+		if ( $matches_render ) {
+			$widget_type_id = $matches_render[1];
+		}
+	
+		// Bail if the widget is not a tribe widget.
+		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
+			return $result;
+		}
+
+		$instance = $request->get_param( 'instance' );
+
+		// Bail if the widget instance is not set.
+		if ( ! isset( $request['instance']['encoded'], $request['instance']['hash'] ) ) {
+			return $result;
+		}
+
+		global $wp_widget_factory;
+
+		$widget_object = $wp_widget_factory->get_widget_object( $widget_type_id );
+
+		// Bail if the widget object is not found.
+		if ( ! $widget_object ) {
+			return $result;
+		}
+
+		// Set the new instance.
+		$new_instance         = $request['instance'];
+		$serialized_instance  = base64_decode( $request['instance']['encoded'] );
+		$new_instance['hash'] = wp_hash( $serialized_instance );
+
+		// Override the instance.
+		$request->set_param( 'instance', $new_instance );
+
+		return $result;
+	}
+
+	/**
+	 * Enable widget copy paste for the Legacy Widgets that we are registering.
+	 * 
+	 * @since 6.11.2
+	 * 
+	 * @param mixed           $result  The result of the rest request.
+	 * @param WP_REST_Request $request The REST request.
+	 * @param string          $route   The route of the request.
+	 * @param array           $handler The handler of the request.
+	 * 
+	 * @return mixed The result of the rest request.
+	 */
+	public function enable_saving_widget_copied( $result, $request, $route, $handler ) {
+		// Bail if result is already set.
+		if ( null !== $result ) {
+			return $result;
+		}
+
+		// Check if this matches our target endpoint.
+		if ( ! str_starts_with( $route, '/wp/v2/widgets' ) ) {
+			return $result;
+		}
+		
+		$widget_type_id = $request->get_param( 'id_base' );
 	
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
