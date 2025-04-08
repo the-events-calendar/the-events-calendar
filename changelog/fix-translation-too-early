@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Prevent language notice when loading Aggregator cron interval too early. props @peter8nss
