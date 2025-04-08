@@ -142,8 +142,6 @@ class Service_Provider extends Provider_Contract {
 			return $result;
 		}
 
-		$instance = $request->get_param( 'instance' );
-
 		// Bail if the widget instance is not set.
 		if ( ! isset( $request['instance']['encoded'], $request['instance']['hash'] ) ) {
 			return $result;
@@ -229,9 +227,9 @@ class Service_Provider extends Provider_Contract {
 	 * 
 	 * @since 6.11.2
 	 * 
-	 * @param array           $parsed_block The parsed block.
-	 * @param array           $source_block The source block.
-	 * @param WP_Block|null   $parent_block The parent block.
+	 * @param array         $parsed_block The parsed block.
+	 * @param array         $source_block The source block.
+	 * @param WP_Block|null $parent_block The parent block.
 	 * 
 	 * @return array The parsed block.
 	 */
