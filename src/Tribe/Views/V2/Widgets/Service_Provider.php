@@ -74,6 +74,7 @@ class Service_Provider extends Provider_Contract {
 
 		add_filter( 'rest_pre_dispatch', [ $this, 'enable_widget_copy_paste' ], 10, 3 );
 		add_filter( 'rest_dispatch_request', [ $this, 'enable_saving_widget_copied' ], 10, 4 );
+		add_filter( 'render_block_data', [ $this, 'enable_rendering_widget_copied' ], 10, 3 );
 	}
 
 	/**
@@ -221,6 +222,42 @@ class Service_Provider extends Provider_Contract {
 		$request->set_param( 'instance', $new_instance );
 
 		return $result;
+	}
+
+	/**
+	 * Enable widget copy paste for the Legacy Widgets that we are registering.
+	 * 
+	 * @since 6.11.2
+	 * 
+	 * @param array           $parsed_block The parsed block.
+	 * @param array           $source_block The source block.
+	 * @param WP_Block|null   $parent_block The parent block.
+	 * 
+	 * @return array The parsed block.
+	 */
+	public function enable_rendering_widget_copied( $parsed_block, $source_block, $parent_block ) {
+		if ( ! isset( $parsed_block['attrs']['idBase'] ) ) {
+			return $parsed_block;
+		}
+
+		$widget_id = $parsed_block['attrs']['idBase'];
+
+		if ( ! str_starts_with( $widget_id, 'tribe-widget-' ) ) {
+			return $parsed_block;
+		}
+
+		$instance = $parsed_block['attrs']['instance'];
+		
+		if ( ! isset( $instance['encoded'], $instance['hash'] ) ) {
+			return $parsed_block;
+		}
+
+		$serialized_instance = base64_decode( $instance['encoded'] );
+		$instance['hash'] = wp_hash( $serialized_instance );
+		
+		$parsed_block['attrs']['instance'] = $instance;
+		
+		return $parsed_block;
 	}
 
 	/**
