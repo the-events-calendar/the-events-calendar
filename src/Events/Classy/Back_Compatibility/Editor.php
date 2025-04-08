@@ -2,8 +2,8 @@
 /**
  * An Editor implementation providing the feature detection methods required by existing implementations.
  *
- * This is used by the feature to replace the legacy `editor`, `events.editor` and `events.editor.compatibility` bindings
- * in the container.
+ * This is used by the feature to replace the legacy `editor`, `events.editor` and `events.editor.compatibility`
+ * bindings in the container.
  *
  * @since   TBD
  *
@@ -47,10 +47,32 @@ class Editor {
 		return false;
 	}
 
+	/**
+	 * Checks if the Block Editor toggle is enabled for the current context.
+	 *
+	 * This method determines whether the Block Editor has been toggled on, which could be based
+	 * on user settings or other conditions. In this implementation, it always returns false,
+	 * indicating that the Block Editor is not toggled on.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the Block Editor is toggled on, false otherwise.
+	 */
 	public function is_blocks_editor_toggled_on(): bool {
 		return false;
 	}
 
+	/**
+	 * Checks if the current post type is an Event.
+	 *
+	 * This method determines whether the post being edited or viewed is of the Events post type.
+	 * In this implementation, it always returns false, indicating that the current post is not
+	 * an Event.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool True if the current post is an Event, false otherwise.
+	 */
 	public function is_events_post_type(): bool {
 		return false;
 	}

@@ -36,6 +36,7 @@ export function Classy() {
 					) }
 				/>
 
+				{ /* @ts-ignore */ }
 				<Slot name="classy.fields" />
 			</div>
 		</SlotFillProvider>

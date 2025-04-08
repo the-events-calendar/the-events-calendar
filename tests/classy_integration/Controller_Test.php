@@ -114,16 +114,22 @@ class Controller_Test extends Controller_Test_Case {
 
 	/**
 	 * @dataProvider block_editor_settings_provider
+	 * @covers       \TEC\Events\Classy\Controller::early_register
 	 * @covers       \TEC\Events\Classy\Controller::filter_block_editor_settings
 	 */
 	public function test_filter_block_editor_settings( \Closure $fixture, array $expected ): void {
 		// Become a user that can edit posts.
 		wp_set_current_user( static::factory()->user->create( [ 'role' => 'administrator' ] ) );
 		add_filter( 'tec_events_classy_post_types', fn() => [ 'page', TEC::POSTTYPE ] );
+
+		// Run the controller early registration now: it would have run at the request start.
+		Controller::early_register();
+		// Register the controller before setting up the fixture to ensure bindings are in place for TEC APIs using them.
+		$controller = $this->make_controller();
+		$controller->register();
+
 		/** @var \WP_Block_Editor_Context $context */
 		$context = $fixture();
-
-		$controller = $this->make_controller();
 
 		$this->assertEquals( $expected, $controller->filter_block_editor_settings( [], $context ) );
 	}

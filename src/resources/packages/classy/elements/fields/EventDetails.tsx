@@ -6,7 +6,7 @@ import { UsePostEditsReturn } from '../../types/UsePostEditsReturn';
 import { useEffect, useState } from 'react';
 import { METADATA_EVENT_URL } from '../../constants';
 import { PostFeaturedImage } from '@wordpress/editor';
-import {TinyMceEditor} from '../components/TinyMceEditor';
+import { TinyMceEditor } from '../components/TinyMceEditor';
 
 export function EventDetails( props: EventDetailsProps ) {
 	const { postContent, meta, editPost } =
@@ -47,7 +47,9 @@ export function EventDetails( props: EventDetailsProps ) {
 				<div className="classy-field__input">
 					<div className="classy-field__input-title">
 						<h4>
-							{ _x( 'Description', 'Event details description input title',
+							{ _x(
+								'Description',
+								'Event details description input title',
 								'the-events-calendar'
 							) }
 						</h4>
@@ -55,17 +57,17 @@ export function EventDetails( props: EventDetailsProps ) {
 
 					<div className="classy-field__control classy-field__control--tinymce-editor">
 						<TinyMceEditor
-							content={description}
-							onChange={onDescriptionChange}
+							content={ description }
+							onChange={ onDescriptionChange }
 							id="classy-event-details-description-editor"
 						/>
 					</div>
 
 					<div className="classy-field__input-note">
 						{ _x(
-									'Describe your event',
-									'Event description placeholder text',
-									'the-events-calendar'
+							'Describe your event',
+							'Event description placeholder text',
+							'the-events-calendar'
 						) }
 					</div>
 				</div>
@@ -82,6 +84,7 @@ export function EventDetails( props: EventDetailsProps ) {
 					</div>
 
 					<div className="classy-field__control classy-field__control--featured-image">
+						{ /* @ts-ignore */ }
 						<PostFeaturedImage />
 					</div>
 

@@ -27,10 +27,6 @@ describe( 'EventTitle ', () => {
 		registerStoreIfNotRegistered( STORE_NAME, store );
 	} );
 
-	beforeEach( () => {
-		global.mockWindowMatchMedia();
-	} );
-
 	afterEach( () => {
 		jest.resetAllMocks();
 		jest.restoreAllMocks();

@@ -42,3 +42,21 @@ export function getEditedPostContent( state: StoreState ): string {
 		return coreEditor.getEditedPostContent() ?? '';
 	} else return state?.content ?? '';
 }
+
+/**
+ * Returns the ID of the currently edited post.
+ *
+ * @since TBD
+ *
+ * @param {StoreState} state The current store state.
+ *
+ * @returns {number} The ID of the currently edited post.
+ */
+export function getCurrentPostId( state: StoreState ): number {
+	const coreEditor = select( 'core/editor' );
+
+	if ( coreEditor ) {
+		// @ts-ignore
+		return coreEditor.getCurrentPostId() ?? 0;
+	} else return state?.currentPostId ?? 0;
+}
