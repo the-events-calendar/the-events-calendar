@@ -111,7 +111,7 @@ class ShortcodeTest extends WPTestCase {
 		$this->assertArrayHasKey( 'mode', $validation_map );
 		$this->assertArrayHasKey( 'size', $validation_map );
 
-		$this->assertEquals( 'tribe_post_exists', $validation_map['id'] );
+		$this->assertEquals( 'absint', $validation_map['id'] );
 		$this->assertEquals( 'sanitize_title_with_dashes', $validation_map['mode'] );
 		$this->assertEquals( 'absint', $validation_map['size'] );
 	}

@@ -48,7 +48,7 @@ class Shortcode extends Shortcode_Abstract {
 	 * @var array
 	 */
 	public $validate_arguments_map = [
-		'id'   => 'tribe_post_exists',
+		'id'   => 'absint',
 		'mode' => 'sanitize_title_with_dashes',
 		'size' => 'absint',
 	];

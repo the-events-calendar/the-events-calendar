@@ -21,11 +21,11 @@ $options = [
 	'specific' => esc_html__( 'Redirect to Specific Event', 'the-events-calendar' ),
 ];
 
+$series_options = [];
+$event_options  = [];
 
 if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
 	$options['next'] = esc_html__( 'Redirect to Next Event in Series', 'the-events-calendar' );
-
-	$series_options = [];
 
 	$args = [
 		'posts_per_page' => -1,
@@ -35,13 +35,15 @@ if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
 		'order'          => 'DESC',
 	];
 
-	$series = get_posts( $args );
-	foreach ( $series as $series ) {
-		$series_options[ $series->ID ] = $series->ID . ' - ' . $series->post_title;
+	$series_query = get_posts( $args );
+	if ( ! empty( $series_query ) ) {
+		foreach ( $series_query as $series ) {
+			$series_options[ $series->ID ] = "{$series->ID} - {$series->post_title}";
+		}
+	} else {
+		$series_options[0] = esc_html__( 'No Series have been created yet.', 'the-events-calendar' );
 	}
 }
-
-$event_options = [];
 
 $args = [
 	'posts_per_page' => -1,
@@ -52,8 +54,12 @@ $args = [
 ];
 
 $events = get_posts( $args );
-foreach ( $events as $event ) {
-	$event_options[ $event->ID ] = $event->ID . ' - ' . $event->post_title;
+if ( ! empty( $events ) ) {
+	foreach ( $events as $e ) {
+		$event_options[ $e->ID ] = "{$e->ID} - {$e->post_title}";
+	}
+} else {
+	$event_options[0] = esc_html__( 'No Events have been created yet.', 'the-events-calendar' );
 }
 
 
