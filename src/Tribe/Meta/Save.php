@@ -155,7 +155,7 @@ class Tribe__Events__Meta__Save {
 			return false;
 		}
 
-		// don't do anything on autosave or auto-draft either or massupdates
+		// Don't do anything on autosave or auto-draft either or massupdates.
 		if ( $this->is_autosave() || $this->is_auto_draft() || $this->context->is_bulk_editing() || $this->context->is_inline_save() ) {
 			return false;
 		}
