@@ -200,7 +200,6 @@ tribe.events.views.manager = {};
 			) {
 				$eventsList
 					.attr( 'tabindex', '-1' )
-					.attr( 'aria-label', $container.data( 'events-list-aria-label' ) )
 					.trigger( 'focus' );
 			} else if ( $noResults.length ) {
 				$noResults
