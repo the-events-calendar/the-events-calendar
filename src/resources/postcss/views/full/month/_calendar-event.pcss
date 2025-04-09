@@ -1,4 +1,5 @@
 .tribe-events {
+
 	/* -----------------------------------------------------------------------------
 	 * Calendar Event
 	 * ----------------------------------------------------------------------------- */
@@ -29,6 +30,7 @@
 	}
 
 	.tribe-events-calendar-month__calendar-event-datetime {
+
 		@mixin mobile-body-3;
 
 		color: var(--tec-color-text-secondary-event-date);
@@ -36,9 +38,9 @@
 
 	.tribe-events-calendar-month__calendar-event--featured {
 
-		&:before {
+		&::before {
 			background-color: var(--tec-color-accent-primary);
-			content: '';
+			content: "";
 			height: 100%;
 			left: 7px;
 			position: absolute;
@@ -47,7 +49,7 @@
 
 		&:last-child {
 
-			&:before {
+			&::before {
 				height: calc(100% - var(--tec-spacer-3));
 			}
 		}
@@ -55,6 +57,7 @@
 
 	.tribe-events-calendar-month__calendar-event-title-link,
 	.tribe-events-calendar-month__calendar-event-tooltip-title-link {
+
 		@mixin event-title-link-color;
 	}
 
@@ -76,6 +79,7 @@
 	}
 
 	.tribe-events-calendar-month__calendar-event-tooltip-datetime {
+
 		@mixin mobile-body-3;
 
 		color: var(--tec-color-text-event-date);

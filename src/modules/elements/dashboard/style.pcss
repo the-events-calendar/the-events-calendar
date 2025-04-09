@@ -1,6 +1,6 @@
 .tribe-editor__dashboard__container {
-	pointer-events: none;
 	display: none;
+	pointer-events: none;
 	position: relative;
 
 	&--open {
@@ -11,8 +11,8 @@
 }
 
 .tribe-editor__dashboard {
-	background-color: #F8F9F9;
-	border: 1px solid #E3E4E8;
+	background-color: #f8f9f9;
+	border: 1px solid #e3e4e8;
 	left: 0;
 	margin-left: -29px;
 	margin-right: -29px;
@@ -20,37 +20,37 @@
 	right: 0;
 	z-index: 100;
 
-	&:before {
-		content: '';
+	&::before {
+		content: "";
 		display: block;
 		height: 50px;
-		top: -34px;
 		left: 0;
-		right: 0;
 		position: absolute;
+		right: 0;
+		top: -34px;
 		z-index: 2;
 	}
 
-	&:after {
+	&::after {
+		bottom: -20px;
+		content: "";
 		height: 20px;
 		left: 0;
-		right: 0;
 		position: absolute;
-		content: '';
-		bottom: -20px;
+		right: 0;
 	}
 
 	.tribe-editor__time-picker__separator {
-		color: #545D66;
+		color: #545d66;
 		margin-left: 8px;
 		margin-right: 6px;
 	}
 
 	.tribe-editor__time-picker__label {
-		color: #545D66;
+		color: #545d66;
 		font-family: Helvetica, Arial, sans-serif;
 		font-size: 16px;
-		font-weight: normal;
+		font-weight: 400;
 		margin-right: 8px;
 	}
 
@@ -63,7 +63,7 @@
 	}
 }
 
-/* This is necessary to ensure the block editor UI can handle an unlimited 
+/* This is necessary to ensure the block editor UI can handle an unlimited
 number of recurrence rules when users create recurring events. */
 .tribe-editor__dashboard__container.tribe-editor__dashboard__container--open .tribe-editor__dashboard {
 	position: static;
