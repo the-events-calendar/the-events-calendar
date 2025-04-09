@@ -73,10 +73,6 @@
     "classy:pre-commit": "npm run classy:format && npm run classy:test",
     "test": "jest"
   },
-  "engines": {
-    "node": "18.17.0",
-    "npm": "9.6.7"
-  },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@stellarwp/tyson": "*",

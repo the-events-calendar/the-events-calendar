@@ -465,7 +465,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'localize'     => [],
 				'conditionals' => [ $this, 'is_events_post_type' ],
 				'priority'     => 101,
-				'group_path' => TEC::class . '-packages',
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 
@@ -494,7 +494,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'localize'     => [],
 				'priority'     => 106,
 				'conditionals' => [ $this, 'is_edit_screen' ],
-				'group_path' => TEC::class . '-packages',
+				'group_path'   => TEC::class . '-packages',
 			],
 		);
 
@@ -509,7 +509,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			[
 				'in_footer'    => false,
 				'conditionals' => [ $this, 'is_edit_screen' ],
-				'group_path' => TEC::class . '-packages',
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 
@@ -534,7 +534,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			[
 				'in_footer'    => false,
 				'conditionals' => [ $this, 'is_events_post_type' ],
-				'group_path' => TEC::class . '-packages',
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 	}
