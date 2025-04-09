@@ -57,6 +57,7 @@
     "postcss-nested": "^7.0.2",
     "postcss-preset-env": "^10.1.5",
     "redux-mock-store": "^1.5.3",
+    "stylelint-order": "^6.0.4",
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
