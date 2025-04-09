@@ -73,8 +73,8 @@ class Service_Provider extends Provider_Contract {
 		add_filter( 'option_sidebars_widgets', [ $compatibility, 'remap_list_widget_id_bases' ] );
 
 		add_filter( 'rest_pre_dispatch', [ $this, 'enable_widget_copy_paste' ], 10, 3 );
-		add_filter( 'rest_dispatch_request', [ $this, 'enable_saving_widget_copied' ], 10, 4 );
-		add_filter( 'render_block_data', [ $this, 'enable_rendering_widget_copied' ], 10, 3 );
+		add_filter( 'rest_dispatch_request', [ $this, 'enable_saving_widget_copied' ], 10, 3 );
+		add_filter( 'render_block_data', [ $this, 'enable_rendering_widget_copied' ], 10 );
 	}
 
 	/**
@@ -168,11 +168,10 @@ class Service_Provider extends Provider_Contract {
 	 * @param mixed           $result  The result of the rest request.
 	 * @param WP_REST_Request $request The REST request.
 	 * @param string          $route   The route of the request.
-	 * @param array           $handler The handler of the request.
 	 * 
 	 * @return mixed The result of the rest request.
 	 */
-	public function enable_saving_widget_copied( $result, $request, $route, $handler ) {
+	public function enable_saving_widget_copied( $result, $request, $route ) {
 		// Bail if result is already set.
 		if ( null !== $result ) {
 			return $result;
@@ -221,12 +220,10 @@ class Service_Provider extends Provider_Contract {
 	 * @since 6.11.2
 	 * 
 	 * @param array         $parsed_block The parsed block.
-	 * @param array         $source_block The source block.
-	 * @param WP_Block|null $parent_block The parent block.
 	 * 
 	 * @return array The parsed block.
 	 */
-	public function enable_rendering_widget_copied( $parsed_block, $source_block, $parent_block ) {
+	public function enable_rendering_widget_copied( $parsed_block ) {
 		if ( ! isset( $parsed_block['attrs']['idBase'] ) ) {
 			return $parsed_block;
 		}
