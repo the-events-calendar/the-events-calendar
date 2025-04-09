@@ -45,9 +45,9 @@ class With_NoindexTest extends TecViewTestCase {
 	}
 
 	public function view_data_set() {
-		yield 'month_view' => [ Month_View::class ];
-		yield 'list_view' => [ List_View::class ];
-		yield 'day_view' => [ Day_View::class ];
+		yield 'month_view' => [ Month_View::class, true ];
+		yield 'list_view' => [ List_View::class, false ];
+		yield 'day_view' => [ Day_View::class, false ];
 	}
 
 	/**
@@ -55,10 +55,10 @@ class With_NoindexTest extends TecViewTestCase {
 	 *
 	 * @dataProvider view_data_set
 	 */
-	public function test_noindex_render_empty( $class ) {
+	public function test_noindex_render_empty( $class, $noindex_value ) {
 		$tester = $this;
-		add_filter( 'tec_events_seo_robots_meta_include', function ( $add_noindex ) use ( $tester ) {
-			$tester->assertTrue( $add_noindex );
+		add_filter( 'tec_events_seo_robots_meta_include', function ( $add_noindex ) use ( $tester, $noindex_value ) {
+			$tester->assertEquals( $noindex_value, $add_noindex );
 
 			return $add_noindex;
 		} );
