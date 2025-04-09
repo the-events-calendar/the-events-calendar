@@ -5,14 +5,12 @@
 		"composer install --no-dev",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
-		"npm run before-zip"
 	],
 	"build_dev": [
 		"cd common && composer -- pup build",
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
-		"npm run before-zip"
 	],
 	"workflows": {
 		"tec-zip": [
