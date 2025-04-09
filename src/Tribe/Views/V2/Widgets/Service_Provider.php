@@ -123,19 +123,12 @@ class Service_Provider extends Provider_Contract {
 		$route = $request->get_route();
 		
 		// Check if this matches our target endpoint.
-		if (
-			! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/encode$#', $route, $matches_encode )
-			&& ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/render$#', $route, $matches_render )
-		) {
+		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/(?:encode|render)$#', $route, $matches ) ) {
 			return $result;
 		}
 	
 		// Get the widget type ID from the route.
-		$widget_type_id = $matches_encode[1];
-
-		if ( $matches_render ) {
-			$widget_type_id = $matches_render[1];
-		}
+		$widget_type_id = $matches[1];
 	
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
@@ -244,7 +237,7 @@ class Service_Provider extends Provider_Contract {
 			return $parsed_block;
 		}
 
-		$instance = $parsed_block['attrs']['instance'];
+		$instance = $parsed_block['attrs']['instance'] ?? [];
 		
 		if ( ! isset( $instance['encoded'], $instance['hash'] ) ) {
 			return $parsed_block;
