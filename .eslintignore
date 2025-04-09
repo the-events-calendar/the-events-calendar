@@ -3,4 +3,5 @@ vendor/
 build/
 node_modules/
 tests/
+common/
 **/__tests__/**
