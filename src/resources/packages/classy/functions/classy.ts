@@ -4,6 +4,7 @@ import {
 	getElement as getVisualEditorElement,
 	toggleVisibility as toggleVisualEditorVisibility,
 } from './visualEditor';
+import { createRegistry as createClassyRegistry } from '../store';
 
 /**
  * Cached instance of the classy element.
@@ -112,5 +113,6 @@ export function toggleElementVisibility(
 export function initApp( document: Document | null = null ): void {
 	document = document ?? window.document;
 	const classyRoot = createRoot( getOrCreateElement( document ) );
-	classyRoot.render( Classy() );
+	const registry = createClassyRegistry();
+	classyRoot.render( Classy( { registry } ) );
 }
