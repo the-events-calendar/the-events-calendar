@@ -4,6 +4,7 @@
 
 * Fix - Ensure that Copy and Render for our Legacy Widgets works for all Event related widgets [TEC-5447]
 * Fix - Prevent language notice when loading Aggregator cron interval too early. props @peter8nss
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
 
 ### [6.11.1] 2025-04-07
 
