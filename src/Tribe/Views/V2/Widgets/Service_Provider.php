@@ -219,7 +219,7 @@ class Service_Provider extends Provider_Contract {
 	 * 
 	 * @since 6.11.2
 	 * 
-	 * @param array         $parsed_block The parsed block.
+	 * @param array $parsed_block The parsed block.
 	 * 
 	 * @return array The parsed block.
 	 */
