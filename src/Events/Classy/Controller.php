@@ -13,6 +13,7 @@ use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Classy\Back_Compatibility\Editor;
 use TEC\Events\Classy\Back_Compatibility\Editor_Utils;
+use TEC\Events\Classy\Back_Compatibility\EditorProvider;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -148,11 +149,7 @@ class Controller extends ControllerContract {
 	 */
 	protected function do_register(): void {
 		// Register the `editor` binding replacement for back-compatibility purposes.
-		$back_compatible_editor = new Editor();
-		$this->container->singleton( 'editor', $back_compatible_editor );
-		$this->container->singleton( 'events.editor', $back_compatible_editor );
-		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
-		$this->container->singleton( 'editor.utils', new Editor_Utils() );
+		tribe_register_provider( EditorProvider::class );
 
 		// Tell Common, TEC, ET and so on NOT to load blocks.
 		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
@@ -224,16 +221,7 @@ class Controller extends ControllerContract {
 	 * @return void The hooked actions and filters are removed.
 	 */
 	public function unregister(): void {
-		// Unregister the back-compat editor and utils.
-		if ( $this->container->has( 'editor' ) && $this->container->get( 'editor' ) instanceof Editor ) {
-			unset( $this->container['editor'] );
-			unset( $this->container['events.editor'] );
-			unset( $this->container['events.editor.compatibility'] );
-		}
-
-		if ( $this->container->has( 'editor.utils' ) && $this->container->get( 'editor.utils' ) instanceof Editor_Utils ) {
-			unset( $this->container['editor.utils'] );
-		}
+		$this->container->get( EditorProvider::class )->unregister();
 
 		// Remove filters and actions.
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
