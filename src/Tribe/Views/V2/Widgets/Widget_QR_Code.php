@@ -323,23 +323,25 @@ class Widget_QR_Code extends Widget_Abstract {
 				'options' => $options,
 			],
 			'event_id'     => [
-				'id'         => 'event_id',
-				'label'      => _x( 'Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
-				'type'       => 'dropdown',
-				'classes'    => 'tribe-dependent',
-				'options'    => $event_options,
-				'dependency' => [
+				'id'             => 'event_id',
+				'label'          => _x( 'Event ID:', 'The label for the specific event ID setting.', 'the-events-calendar' ),
+				'type'           => 'dropdown',
+				'parent_classes' => 'hidden',
+				'classes'        => 'tribe-dependent',
+				'options'        => $event_options,
+				'dependency'     => [
 					'ID' => 'redirection',
 					'is' => 'specific',
 				],
 			],
 			'series_id'    => [
-				'id'         => 'series_id',
-				'label'      => _x( 'Series ID:', 'The label for the series ID setting.', 'the-events-calendar' ),
-				'type'       => 'dropdown',
-				'classes'    => 'tribe-dependent',
-				'options'    => $series_options,
-				'dependency' => [
+				'id'             => 'series_id',
+				'label'          => _x( 'Series ID:', 'The label for the series ID setting.', 'the-events-calendar' ),
+				'type'           => 'dropdown',
+				'parent_classes' => 'hidden',
+				'classes'        => 'tribe-dependent',
+				'options'        => $series_options,
+				'dependency'     => [
 					'ID' => 'redirection',
 					'is' => 'next',
 				],

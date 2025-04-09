@@ -52,13 +52,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php /* The above template is dynamically injected by Thickbox thus we need to inline the script. */ ?>
 <script>
-jQuery( document ).ready( function( $ ) {
-	$( '.js-tec-close-modal' ).on( 'click', function( e ) {
+jQuery(document).ready(function($) {
+	const responsiveModal = () => {
+		$('#TB_window').css('width', ($(window).width()));
+		$('#TB_ajaxContent').css('width', ($(window).width()));
+	}
+	$('.js-tec-close-modal').on('click', function(e) {
 		e.preventDefault();
-		$( '.tb-close-icon' ).trigger( 'click' );
-	} );
-	$( '#tec-events-qr-code-size' ).on( 'change', function( e ) {
-		$( '.js-tec-download-qr-code' ).attr( 'href', $( this ).val() );
-	} );
-} );
+		$('.tb-close-icon').trigger('click');
+	});
+	$('#tec-events-qr-code-size').on('change', function(e) {
+		$('.js-tec-download-qr-code').attr('href', $(this).val());
+	});
+	$(window).resize(function() {
+		responsiveModal();
+	});
+	responsiveModal();
+});
 </script>
