@@ -10,6 +10,7 @@
  * @link    http://evnt.is/1aiy
  *
  * @since   6.1.4 Changing our nonce verification structures.
+ * @since   TBD Add aria-label to events list for improved accessibility.
  *
  * @version 6.2.0
  * @since 6.2.0 Moved the header information into a new components/header.php template.
@@ -56,7 +57,15 @@ if ( empty( $disable_event_search ) ) {
 
 		<?php $this->template( 'components/filter-bar' ); ?>
 
-		<div class="tribe-events-calendar-list">
+		<div 
+			class="tribe-events-calendar-list"
+			aria-label="
+			<?php 
+				/* translators: %s: Events (plural) */
+				echo esc_attr( sprintf( __( 'List of %s', 'the-events-calendar' ), tribe_get_event_label_plural() ) ); 
+			?>
+			"
+		>
 
 			<?php foreach ( $events as $event ) : ?>
 				<?php $this->setup_postdata( $event ); ?>
