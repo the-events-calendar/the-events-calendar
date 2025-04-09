@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Ensure that Copy and Render for our Legacy Widgets works for all Event related widgets [TEC-5447]
