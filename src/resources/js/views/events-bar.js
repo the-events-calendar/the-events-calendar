@@ -22,14 +22,14 @@ tribe.events.views.eventsBar = {};
  *
  * @since 4.9.4
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.eventsBar
+ * @param {PlainObject} $   jQuery
+ * @param {PlainObject} obj tribe.events.views.eventsBar
  *
  * @return {void}
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Selectors used for configuration and setup
@@ -64,12 +64,12 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $header jQuery object of header
+	 * @param {jQuery} $header  jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
 	 *
 	 * @return {void}
 	 */
-	obj.deinitAccordion = function( $header, $content ) {
+	obj.deinitAccordion = function ( $header, $content ) {
 		tribe.events.views.accordion.deinitAccordion( 0, $header );
 		tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
 		$content.css( 'display', '' );
@@ -81,12 +81,12 @@ tribe.events.views.eventsBar = {};
 	 * @since 4.9.7
 	 *
 	 * @param {jQuery} $container jQuery object of view container
-	 * @param {jQuery} $header jQuery object of header
-	 * @param {jQuery} $content jQuery object of contents
+	 * @param {jQuery} $header    jQuery object of header
+	 * @param {jQuery} $content   jQuery object of contents
 	 *
 	 * @return {void}
 	 */
-	obj.initAccordion = function( $container, $header, $content ) {
+	obj.initAccordion = function ( $container, $header, $content ) {
 		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
 		tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
 	};
@@ -100,7 +100,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleSearchButtonClick = function( event ) {
+	obj.handleSearchButtonClick = function ( event ) {
 		event.data.target.toggleClass( obj.selectors.searchButtonActiveClass.className() );
 	};
 
@@ -113,10 +113,10 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinitSearchAccordion = function( $container ) {
-		var $searchButton = $container.find( obj.selectors.searchButton );
+	obj.deinitSearchAccordion = function ( $container ) {
+		const $searchButton = $container.find( obj.selectors.searchButton );
 		$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
-		var $searchContainer = $container.find( obj.selectors.searchContainer );
+		const $searchContainer = $container.find( obj.selectors.searchContainer );
 		obj.deinitAccordion( $searchButton, $searchContainer );
 		$searchButton.off( 'click', obj.handleSearchButtonClick );
 	};
@@ -130,9 +130,9 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.initSearchAccordion = function( $container ) {
-		var $searchButton = $container.find( obj.selectors.searchButton );
-		var $searchContainer = $container.find( obj.selectors.searchContainer );
+	obj.initSearchAccordion = function ( $container ) {
+		const $searchButton = $container.find( obj.selectors.searchButton );
+		const $searchContainer = $container.find( obj.selectors.searchContainer );
 		obj.initAccordion( $container, $searchButton, $searchContainer );
 		$searchButton.on( 'click', { target: $searchButton }, obj.handleSearchButtonClick );
 	};
@@ -146,9 +146,9 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.initState = function( $container ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
-		var state = {
+	obj.initState = function ( $container ) {
+		const $eventsBar = $container.find( obj.selectors.eventsBar );
+		const state = {
 			mobileInitialized: false,
 			desktopInitialized: false,
 		};
@@ -165,7 +165,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinitEventsBar = function( $container ) {
+	obj.deinitEventsBar = function ( $container ) {
 		obj.deinitSearchAccordion( $container );
 	};
 
@@ -178,13 +178,13 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.initEventsBar = function( $container ) {
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
+	obj.initEventsBar = function ( $container ) {
+		const $eventsBar = $container.find( obj.selectors.eventsBar );
 
 		if ( $eventsBar.length ) {
-			var state = $eventsBar.data( 'tribeEventsState' );
-			var containerState = $container.data( 'tribeEventsState' );
-			var isMobile = containerState.isMobile;
+			const state = $eventsBar.data( 'tribeEventsState' );
+			const containerState = $container.data( 'tribeEventsState' );
+			const isMobile = containerState.isMobile;
 
 			// If viewport is mobile and mobile state is not initialized
 			if ( isMobile && ! state.mobileInitialized ) {
@@ -193,7 +193,7 @@ tribe.events.views.eventsBar = {};
 				state.mobileInitialized = true;
 				$eventsBar.data( 'tribeEventsState', state );
 
-			// If viewport is desktop and desktop state is not initialized
+				// If viewport is desktop and desktop state is not initialized
 			} else if ( ! isMobile && ! state.desktopInitialized ) {
 				obj.deinitSearchAccordion( $container );
 				state.mobileInitialized = false;
@@ -212,7 +212,7 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleResize = function( event ) {
+	obj.handleResize = function ( event ) {
 		obj.initEventsBar( event.data.container );
 	};
 
@@ -225,18 +225,18 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleClick = function( event ) {
-		var $target = $( event.target );
-		var isParentSearchButton = Boolean( $target.closest( obj.selectors.searchButton ).length );
-		var isParentSearchContainer = Boolean( $target.closest( obj.selectors.searchContainer ).length ); // eslint-disable-line max-len
+	obj.handleClick = function ( event ) {
+		const $target = $( event.target );
+		const isParentSearchButton = Boolean( $target.closest( obj.selectors.searchButton ).length );
+		const isParentSearchContainer = Boolean( $target.closest( obj.selectors.searchContainer ).length ); // eslint-disable-line max-len
 
 		if ( ! ( isParentSearchButton || isParentSearchContainer ) ) {
-			var $container = event.data.container;
-			var $eventsBar = $container.find( obj.selectors.eventsBar );
-			var $searchButton = $eventsBar.find( obj.selectors.searchButton );
+			const $container = event.data.container;
+			const $eventsBar = $container.find( obj.selectors.eventsBar );
+			const $searchButton = $eventsBar.find( obj.selectors.searchButton );
 
 			if ( $searchButton.hasClass( obj.selectors.searchButtonActiveClass.className() ) ) {
-				var $searchContainer = $eventsBar.find( obj.selectors.searchContainer );
+				const $searchContainer = $eventsBar.find( obj.selectors.searchContainer );
 				$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
 				tribe.events.views.accordion.closeAccordion( $searchButton, $searchContainer );
 			}
@@ -248,11 +248,11 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param {jQuery} $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( $container ) {
+	obj.unbindEvents = function ( $container ) {
 		$container.off( 'resize.tribeEvents', obj.handleResize );
 		$document.off( 'click', obj.handleClick );
 	};
@@ -262,11 +262,11 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param  {jQuery}  $container jQuery object of view container
+	 * @param {jQuery} $container jQuery object of view container
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( $container ) {
+	obj.bindEvents = function ( $container ) {
 		$container.on( 'resize.tribeEvents', { container: $container }, obj.handleResize );
 		$document.on( 'click', { container: $container }, obj.handleClick );
 	};
@@ -276,14 +276,15 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {jqXHR}       jqXHR    Request object
+	 * @param {PlainObject} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
-		var $container = event.data.container;
+	obj.deinit = function ( event, jqXHR, settings ) {
+		// eslint-disable-line no-unused-vars
+		const $container = event.data.container;
 		obj.deinitEventsBar( $container );
 		obj.unbindEvents( $container );
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
@@ -294,15 +295,16 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @since  4.9.8
 	 *
-	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param  {jQuery}  $container jQuery object of view container
-	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery}  $container jQuery object of view container
+	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
-		var $eventsBar = $container.find( obj.selectors.eventsBar );
+	obj.init = function ( event, index, $container, data ) {
+		// eslint-disable-line no-unused-vars
+		const $eventsBar = $container.find( obj.selectors.eventsBar );
 
 		if ( ! $eventsBar.length ) {
 			return;
@@ -321,12 +323,8 @@ tribe.events.views.eventsBar = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
-		$document.on(
-			'afterSetup.tribeEvents',
-			tribe.events.views.manager.selectors.container,
-			obj.init
-		);
+	obj.ready = function () {
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready

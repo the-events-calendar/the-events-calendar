@@ -43,9 +43,7 @@ export const DEFAULT_STATE = {
 		: __( '-', 'the-events-calendar' ),
 	allDay: false,
 	multiDay: false,
-	timeZone: globals.timezone().timeZone
-		? globals.timezone().timeZone
-		: date.FORMATS.TIMEZONE.string,
+	timeZone: globals.timezone().timeZone ? globals.timezone().timeZone : date.FORMATS.TIMEZONE.string,
 	showTimeZone: false,
 	isEditable: true,
 };
@@ -74,10 +72,7 @@ export const setInitialState = ( data ) => {
 	DEFAULT_STATE.startTimeInput = toTime( parseFormats( start ) );
 	DEFAULT_STATE.endTimeInput = toTime( parseFormats( end ) );
 	DEFAULT_STATE.naturalLanguageLabel = date.rangeToNaturalLanguage( start, end );
-	DEFAULT_STATE.multiDay = ! isSameDay(
-		toMoment( start ),
-		toMoment( end ),
-	);
+	DEFAULT_STATE.multiDay = ! isSameDay( toMoment( start ), toMoment( end ) );
 };
 
 export default ( state = DEFAULT_STATE, action ) => {

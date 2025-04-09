@@ -29,13 +29,10 @@ export default {
 		html: false,
 	},
 
-	attributes: {
-
-	},
+	attributes: {},
 
 	edit: FeaturedImage,
 	save() {
 		return null;
 	},
 };
-
