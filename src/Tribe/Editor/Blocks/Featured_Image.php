@@ -15,6 +15,17 @@ extends Tribe__Editor__Blocks__Abstract {
 	}
 
 	/**
+	 * Whether the block should register assets
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	public function should_register_assets(): bool {
+		return false;
+	}
+
+	/**
 	 * Since we are dealing with a Dynamic type of Block we need a PHP method to render it
 	 *
 	 * @since 4.7
