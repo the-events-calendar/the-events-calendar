@@ -126,6 +126,11 @@ class Service_Provider extends Provider_Contract {
 		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/(?:encode|render)$#', $route, $matches ) ) {
 			return $result;
 		}
+
+		// Bail if the widget type ID is not set.
+		if ( ! isset( $matches[1] ) ) {
+			return $result;
+		}
 	
 		// Get the widget type ID from the route.
 		$widget_type_id = $matches[1];
@@ -177,12 +182,22 @@ class Service_Provider extends Provider_Contract {
 			return $result;
 		}
 
+		// Bail if the widget type ID is not a string.
+		if ( ! is_string( $route ) ) {
+			return $result;
+		}
+		
 		// Check if this matches our target endpoint.
 		if ( ! str_starts_with( $route, '/wp/v2/widgets' ) ) {
 			return $result;
 		}
 		
 		$widget_type_id = $request->get_param( 'id_base' );
+
+		// Bail if the widget type ID is not a string.
+		if ( ! is_string( $widget_type_id ) ) {
+			return $result;
+		}
 	
 		// Bail if the widget is not a tribe widget.
 		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
