@@ -74,7 +74,7 @@ class Service_Provider extends Provider_Contract {
 
 		add_filter( 'rest_pre_dispatch', [ $this, 'enable_widget_copy_paste' ], 10, 3 );
 		add_filter( 'rest_dispatch_request', [ $this, 'enable_saving_widget_copied' ], 10, 3 );
-		add_filter( 'render_block_data', [ $this, 'enable_rendering_widget_copied' ], 10 );
+		add_filter( 'render_block_data', [ $this, 'enable_rendering_widget_copied' ] );
 	}
 
 	/**
