@@ -125,6 +125,7 @@ tribe.events.views.accordion = {};
 	 * Toggles accordion on header click and enter key.
 	 *
 	 * @since 4.9.4
+	 * @since TBD Add preventDefault to prevent form submission.
 	 *
 	 * @param {Event} event event object of click event
 	 *
@@ -209,6 +210,7 @@ tribe.events.views.accordion = {};
 		 * Initializes accordion
 		 *
 		 * @since 4.9.4
+		 * @since TBD Bind keydown event to trigger click event to improve accessibility.
 		 *
 		 * @param {integer} index jQuery.each index param
 		 * @param {HTMLElement} header header element from which to remove event
@@ -216,12 +218,12 @@ tribe.events.views.accordion = {};
 		 * @return {void}
 		 */
 		return function( index, header ) {
+			// Bind click event for header click handling.
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
 		
-			// Additionally bind keydown event for keyboard handling.
+			// When enter key is pressed, trigger click event.
 			$( header ).on( 'keydown', function( event ) {
 				if ( event.keyCode === 13 ) {
-					// Trigger the same click event handler.
 					$( header ).trigger( 'click' );
 				}
 			});
