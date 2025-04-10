@@ -103,10 +103,7 @@ tribe.events.views.accordion = {};
 	 */
 	obj.openAccordion = function( $header, $content ) {
 		obj.setOpenAccordionA11yAttrs( $header, $content );
-		$content.css({
-			'display': 'block',
-			'visibility': 'visible'
-		});
+		$content.css( 'display', 'block' );
 	};
 
 	/**
@@ -125,7 +122,7 @@ tribe.events.views.accordion = {};
 	};
 
 	/**
-	 * Toggles accordion on header click
+	 * Toggles accordion on header click and enter key.
 	 *
 	 * @since 4.9.4
 	 *
@@ -224,13 +221,8 @@ tribe.events.views.accordion = {};
 			// Additionally bind keydown event for keyboard handling.
 			$( header ).on( 'keydown', function( event ) {
 				if ( event.keyCode === 13 ) {
-					// Prevent the default action.
-					event.preventDefault();
-
-					obj.toggleAccordion( { 
-						data: { target: header, container: $container },
-						preventDefault: function() {} // Empty function since we already prevented default.
-					});
+					// Trigger the same click event handler.
+					$( header ).trigger( 'click' );
 				}
 			});
 		};
