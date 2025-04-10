@@ -103,7 +103,10 @@ tribe.events.views.accordion = {};
 	 */
 	obj.openAccordion = function( $header, $content ) {
 		obj.setOpenAccordionA11yAttrs( $header, $content );
-		$content.css( 'display', 'block' );
+		$content.css({
+			'display': 'block',
+			'visibility': 'visible'
+		});
 	};
 
 	/**
@@ -131,6 +134,9 @@ tribe.events.views.accordion = {};
 	 * @return {void}
 	 */
 	obj.toggleAccordion = function( event ) {
+		// Prevent default action (form submission) when triggered by keyboard events.
+		event.preventDefault();
+		
 		var $container = event.data.container;
 		var $header = $( event.data.target );
 		var contentId = $header.attr( 'aria-controls' );
@@ -214,6 +220,19 @@ tribe.events.views.accordion = {};
 		 */
 		return function( index, header ) {
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
+		
+			// Additionally bind keydown event for keyboard handling.
+			$( header ).on( 'keydown', function( event ) {
+				if ( event.keyCode === 13 ) {
+					// Prevent the default action.
+					event.preventDefault();
+
+					obj.toggleAccordion( { 
+						data: { target: header, container: $container },
+						preventDefault: function() {} // Empty function since we already prevented default.
+					});
+				}
+			});
 		};
 	};
 
