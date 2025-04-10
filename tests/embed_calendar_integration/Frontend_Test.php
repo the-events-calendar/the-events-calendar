@@ -207,7 +207,6 @@ class Frontend_Test extends Controller_Test_Case {
 	 * @dataProvider ece_data_provider
 	 */
 	public function it_should_overwrite_content( Closure $fixture ): void {
-		$date = date( 'Y-m-d' );
 		$this->freeze_time( Dates::immutable( '2025-03-03 10:00:00' ) );
 		remove_all_filters( 'the_content' );
 		$controller = $this->make_controller();
