@@ -1,5 +1,5 @@
 .tribe-editor__separator {
-	color: #B9BEC2;
+	color: #b9bec2;
 	font-size: 15px;
 	font-weight: 500;
 	margin-left: 5px;
@@ -8,10 +8,10 @@
 }
 
 .tribe-editor__subtitle__headline {
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 19px;
 	font-style: normal;
-	font-family: Helvetica, Arial, sans-serif;
-	font-weight: bold;
+	font-weight: 700;
 	line-height: normal;
 	margin-bottom: 0;
 	margin-top: 0;
@@ -33,8 +33,8 @@
 	display: flex;
 
 	> * {
-		flex: 0 1 auto;
 		align-self: center;
+		flex: 0 1 auto;
 	}
 }
 
@@ -46,6 +46,7 @@
 
 	.tribe-editor__event-cost {
 		margin-left: 15px;
+
 		textarea {
 			font-size: 18px;
 			width: 110px;
@@ -53,11 +54,11 @@
 	}
 
 	.tribe-editor__btn--label {
+		flex: 1 1 100%;
 		font-family: Helvetica, Arial, sans-serif;
 		font-size: 19px;
-		font-weight: bold;
+		font-weight: 700;
 		text-align: left;
-		flex: 1 1 100%;
 
 		&:disabled {
 			cursor: not-allowed;
@@ -66,8 +67,8 @@
 }
 
 .tribe-editor__subtitle__footer-date {
-	display: flex;
 	align-items: center;
+	display: flex;
 	justify-content: space-between;
 	margin: 0 22px 11px;
 }
@@ -89,8 +90,8 @@
 	}
 
 	.components-base-control__label {
-		margin-right: 8px;
 		margin-bottom: 0;
+		margin-right: 8px;
 	}
 
 	.components-form-toggle {
@@ -99,8 +100,8 @@
 }
 
 .tribe-editor__calendars {
-	background-color: #FFF;
-	border: 1px solid #E1E3E6;
+	background-color: #fff;
+	border: 1px solid #e1e3e6;
 	border-radius: 3px;
 	margin: 24px 22px 9px;
 	padding: 20px 18px;
@@ -110,8 +111,8 @@
 .tribe-editor__date-time__time-range-separator-setting {
 
 	.components-base-control__field {
-		display: flex;
 		align-items: center;
+		display: flex;
 	}
 
 	.components-base-control__label {
@@ -133,19 +134,21 @@
 }
 
 .tribe-editor__date-time {
+
 	.tribe-editor__dashboard {
-		&:before {
+
+		&::before {
 			display: none;
 		}
 	}
 }
 
 .tribe-editor__date-input__container {
-	display: flex;
 	align-items: center;
+	display: flex;
 }
 
 /* We need to enforce this rule to override the value set by the SelectControl component. [TEC-4029] */
-.components-select-control[class*="tribe-editor"] { 
+.components-select-control[class*="tribe-editor"] {
 	height: auto;
 }

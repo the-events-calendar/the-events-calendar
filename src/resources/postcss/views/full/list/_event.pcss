@@ -1,4 +1,5 @@
 .tribe-events {
+
 	/* -----------------------------------------------------------------------------
 	 * Event
 	 * ----------------------------------------------------------------------------- */
@@ -7,10 +8,10 @@
 
 		.tribe-events-calendar-list__event-date-tag-datetime {
 
-			&:after {
+			&::after {
 				background-color: var(--tec-color-accent-primary);
 				border-radius: var(--tec-border-radius-default);
-				content: '';
+				content: "";
 				height: 100%;
 				position: absolute;
 				right: calc(100% - 3px);
@@ -29,6 +30,7 @@
 	}
 
 	.tribe-events-calendar-list__event-date-tag-weekday {
+
 		@mixin mobile-body-3;
 
 		color: var(--tec-color-text-secondary);

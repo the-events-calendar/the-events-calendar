@@ -22,22 +22,22 @@ tribe.events.views.manager = {};
  *
  * @since  4.9.2
  *
- * @param  {Object} $   jQuery
- * @param  {Object} _   Underscore.js
- * @param  {Object} obj tribe.events.views.manager
+ * @param {Object} $   jQuery
+ * @param {Object} _   Underscore.js
+ * @param {Object} obj tribe.events.views.manager
  *
  * @return {void}
  */
-( function( $, _, obj ) {
+( function ( $, _, obj ) {
 	'use strict';
-	var $window = $( window );
+	const $window = $( window );
 
 	/**
 	 * If found, will store the nonce from view responses.
 	 *
 	 * @since 6.1.4
 	 *
-	 * @type {String|null}
+	 * @type {string | null}
 	 */
 	obj.nonces = null;
 
@@ -115,15 +115,15 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param  {jQuery} container Which element we are going to clean up
+	 * @param {jQuery} container Which element we are going to clean up
 	 *
 	 * @return {void}
 	 */
-	obj.cleanup = function( container ) {
-		var $container = $( container );
-		var $form = $container.find( obj.selectors.form );
-		var $data = $container.find( obj.selectors.dataScript );
-		var data  = {};
+	obj.cleanup = function ( container ) {
+		const $container = $( container );
+		const $form = $container.find( obj.selectors.form );
+		const $data = $container.find( obj.selectors.dataScript );
+		let data = {};
 
 		// If we have data element set it up.
 		if ( $data.length ) {
@@ -148,18 +148,18 @@ tribe.events.views.manager = {};
 	 *
 	 * @todo  Requirement to setup other JS modules after hijacking Click and Submit
 	 *
-	 * @param  {Integer}        index     jQuery.each index param
-	 * @param  {Element|jQuery} container Which element we are going to setup
+	 * @param {Integer}        index     jQuery.each index param
+	 * @param {Element|jQuery} container Which element we are going to setup
 	 *
 	 * @return {void}
 	 */
-	obj.setup = function( index, container ) {
+	obj.setup = function ( index, container ) {
 		// Get any potential nonces from page load.
-		var $nonces = $( $.find( obj.selectors.nonceScript ) );
-		var $container = $( container );
-		var $form = $container.find( obj.selectors.form );
-		var $data = $container.find( obj.selectors.dataScript );
-		var data = {};
+		const $nonces = $( $.find( obj.selectors.nonceScript ) );
+		const $container = $( container );
+		const $form = $container.find( obj.selectors.form );
+		const $data = $container.find( obj.selectors.dataScript );
+		let data = {};
 
 		// If we have nonces let's update our local nonce vars for future requests.
 		if ( $nonces.length ) {
@@ -188,12 +188,12 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {Element|jQuery} element Which element we getting the container from
+	 * @param {Element|jQuery} element Which element we getting the container from
 	 *
 	 * @return {jQuery}
 	 */
-	obj.getContainer = function( element ) {
-		var $element = $( element );
+	obj.getContainer = function ( element ) {
+		const $element = $( element );
 
 		if ( ! $element.is( obj.selectors.container ) ) {
 			return $element.parents( obj.selectors.container ).eq( 0 );
@@ -207,19 +207,19 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {jQuery} $container Which element we getting the data from.
+	 * @param {jQuery} $container Which element we getting the data from.
 	 *
 	 * @return {mixed}
 	 */
-	obj.getContainerData = function( $container ) {
-		var $data = $container.find( obj.selectors.dataScript );
+	obj.getContainerData = function ( $container ) {
+		const $data = $container.find( obj.selectors.dataScript );
 
 		// Bail in case we dont find data script.
 		if ( ! $data.length ) {
 			return;
 		}
 
-		var data = JSON.parse( $data.text().trim() );
+		const data = JSON.parse( $data.text().trim() );
 
 		return data;
 	};
@@ -229,13 +229,13 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {Element|jQuery} $container Which element we are using as the container.
+	 * @param {Element|jQuery} $container Which element we are using as the container.
 	 *
-	 * @return {Boolean}
+	 * @return {boolean}
 	 */
-	obj.shouldManageUrl = function( $container ) {
-		var shouldManageUrl = $container.data( 'view-manage-url' );
-		var tribeIsTruthy   = /^(true|1|on|yes)$/;
+	obj.shouldManageUrl = function ( $container ) {
+		let shouldManageUrl = $container.data( 'view-manage-url' );
+		const tribeIsTruthy = /^(true|1|on|yes)$/;
 
 		// When undefined we use true as the default.
 		if ( typeof shouldManageUrl === typeof undefined ) {
@@ -257,11 +257,11 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param  {jQuery} $container Which element we are updating the URL from.
+	 * @param {jQuery} $container Which element we are updating the URL from.
 	 *
 	 * @return {void}
 	 */
-	obj.updateUrl = function( $container ) {
+	obj.updateUrl = function ( $container ) {
 		// When handling popstate (browser back/next) it will not handle this part.
 		if ( obj.doingPopstate ) {
 			return;
@@ -272,14 +272,14 @@ tribe.events.views.manager = {};
 			return;
 		}
 
-		var $data = $container.find( obj.selectors.dataScript );
+		const $data = $container.find( obj.selectors.dataScript );
 
 		// Bail in case we dont find data script.
 		if ( ! $data.length ) {
 			return;
 		}
 
-		var data = JSON.parse( $data.text().trim() );
+		const data = JSON.parse( $data.text().trim() );
 
 		// Bail when the data is not a valid object
 		if ( ! _.isObject( data ) ) {
@@ -312,26 +312,26 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {Event} event DOM Event related to the Click action
+	 * @param {Event} event DOM Event related to the Click action
 	 *
 	 * @return {boolean}
 	 */
-	obj.onLinkClick = function( event ) {
-		var $container = obj.getContainer( this );
+	obj.onLinkClick = function ( event ) {
+		const $container = obj.getContainer( this );
 
 		$container.trigger( 'beforeOnLinkClick.tribeEvents', event );
 
 		event.preventDefault();
 
-		var containerData = obj.getContainerData( $container );
+		const containerData = obj.getContainerData( $container );
 
-		var $link = $( this );
-		var url = $link.attr( 'href' );
-		var prevUrl = containerData.prev_url;
-		var shouldManageUrl = obj.shouldManageUrl( $container );
-		var shortcodeId = $container.data( 'view-shortcode' );
+		const $link = $( this );
+		const url = $link.attr( 'href' );
+		const prevUrl = containerData.prev_url;
+		const shouldManageUrl = obj.shouldManageUrl( $container );
+		const shortcodeId = $container.data( 'view-shortcode' );
 
-		var data = {
+		const data = {
 			prev_url: encodeURI( decodeURI( prevUrl ) ),
 			url: encodeURI( decodeURI( url ) ),
 			should_manage_url: shouldManageUrl,
@@ -355,22 +355,22 @@ tribe.events.views.manager = {};
 	 *
 	 * @todo  make sure we are only capturing fields on our Namespace
 	 *
-	 * @param  {Event} event DOM Event related to the Click action
+	 * @param {Event} event DOM Event related to the Click action
 	 *
 	 * @return {boolean}
 	 */
-	obj.onSubmit = function( event ) {
-		var $container = obj.getContainer( this );
+	obj.onSubmit = function ( event ) {
+		const $container = obj.getContainer( this );
 		$container.trigger( 'beforeOnSubmit.tribeEvents', event );
 
 		event.preventDefault();
 
 		// The submit event is triggered on the form, not the container.
-		var $form = $( this );
+		const $form = $( this );
 
-		var formData = Qs.parse( $form.serialize() );
+		const formData = Qs.parse( $form.serialize() );
 
-		var data = {
+		const data = {
 			view_data: formData[ 'tribe-events-views' ],
 		};
 
@@ -389,20 +389,23 @@ tribe.events.views.manager = {};
 	 *
 	 * @since  4.9.12
 	 *
-	 * @param  {Event} event DOM Event related to the window popstate
+	 * @param {Event} event DOM Event related to the window popstate
 	 *
 	 * @return {boolean}     Will always return false on this one.
 	 */
-	obj.onPopState = function( event ) {
-		var target = event.originalEvent.target;
-		var url = target.location.href;
-		var $container = obj.getLastContainer();
+	obj.onPopState = function ( event ) {
+		const target = event.originalEvent.target;
+		const url = target.location.href;
+		const $container = obj.getLastContainer();
 
 		// We are at the same URL + path as before so not really a change on the
 		// actual URL happen, it might be just a hash change which shouldn't
 		// trigger and XHR request.
 		// eslint-disable-next-line max-len
-		if ( obj.lastLocation.origin === target.location.origin && obj.lastLocation.pathname === target.location.pathname ) {
+		if (
+			obj.lastLocation.origin === target.location.origin &&
+			obj.lastLocation.pathname === target.location.pathname
+		) {
 			return false;
 		}
 
@@ -422,8 +425,8 @@ tribe.events.views.manager = {};
 
 		$container.trigger( 'beforePopState.tribeEvents', event );
 
-		var data = {
-			url: url,
+		const data = {
+			url,
 		};
 
 		obj.request( data, $container );
@@ -436,14 +439,14 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 5.2.0
 	 *
-	 * @param  {object}         data       Data object to modify and setup.
-	 * @param  {Element|jQuery} $container Which container we are dealing with.
+	 * @param {Object}         data       Data object to modify and setup.
+	 * @param {Element|jQuery} $container Which container we are dealing with.
 	 *
 	 * @return {void}
 	 */
-	obj.setupRequestData = function( data, $container ) {
-		var shouldManageUrl = obj.shouldManageUrl( $container );
-		var containerData = obj.getContainerData( $container );
+	obj.setupRequestData = function ( data, $container ) {
+		const shouldManageUrl = obj.shouldManageUrl( $container );
+		const containerData = obj.getContainerData( $container );
 
 		if ( ! data.url ) {
 			data.url = containerData.url;
@@ -457,11 +460,11 @@ tribe.events.views.manager = {};
 
 		// Add our nonces if available.
 		if ( obj.nonces ) {
-			data = $.extend( data, obj.nonces )
+			data = $.extend( data, obj.nonces );
 		}
 
 		// Allow other values to be passed to request from container data.
-		var requestData = $container.data( 'tribeRequestData' );
+		const requestData = $container.data( 'tribeRequestData' );
 
 		if ( ! $.isPlainObject( requestData ) ) {
 			return data;
@@ -476,15 +479,15 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {object}         data       DOM Event related to the Click action
-	 * @param  {Element|jQuery} $container Which container we are dealing with
+	 * @param {Object}         data       DOM Event related to the Click action
+	 * @param {Element|jQuery} $container Which container we are dealing with
 	 *
 	 * @return {void}
 	 */
-	obj.request = function( data, $container ) {
+	obj.request = function ( data, $container ) {
 		$container.trigger( 'beforeRequest.tribeEvents', [ data, $container ] );
 
-		var settings = obj.getAjaxSettings( $container );
+		const settings = obj.getAjaxSettings( $container );
 
 		// Pass the data setup to the $.ajax settings
 		settings.data = obj.setupRequestData( data, $container );
@@ -499,15 +502,15 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {Element|jQuery} $container Which container we are dealing with
+	 * @param {Element|jQuery} $container Which container we are dealing with
 	 *
 	 * @return {Object}
 	 */
-	obj.getAjaxSettings = function( $container ) {
-		var ajaxSettings = {
+	obj.getAjaxSettings = function ( $container ) {
+		const ajaxSettings = {
 			url: $container.data( 'view-rest-url' ),
 			method: $container.data( 'view-rest-method' ) || 'POST',
-			'async': true, // async is keyword
+			async: true, // async is keyword
 			beforeSend: obj.ajaxBeforeSend,
 			complete: obj.ajaxComplete,
 			success: obj.ajaxSuccess,
@@ -527,20 +530,20 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {Object} settings Settings that this request will be made with
+	 * @param {jqXHR}  jqXHR    Request object
+	 * @param {Object} settings Settings that this request will be made with
 	 *
 	 * @return {void}
 	 */
-	obj.ajaxBeforeSend = function( jqXHR, settings ) {
-		var $container = this;
-		var $loader = $container.find( obj.selectors.loader );
+	obj.ajaxBeforeSend = function ( jqXHR, settings ) {
+		const $container = this;
+		const $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxBeforeSend.tribeEvents', [ jqXHR, settings ] );
 
 		if ( $loader.length ) {
 			$loader.removeClass( obj.selectors.hiddenElement.className() );
-			var $loaderText = $loader.find( obj.selectors.loaderText );
+			const $loaderText = $loader.find( obj.selectors.loaderText );
 			$loaderText.text( $loaderText.text() );
 		}
 		$container.attr( 'aria-busy', 'true' );
@@ -557,14 +560,15 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {jqXHR}  qXHR       Request object
-	 * @param  {String} textStatus Status for the request
+	 * @param {jqXHR}  qXHR       Request object
+	 * @param          jqXHR
+	 * @param {string} textStatus Status for the request
 	 *
 	 * @return {void}
 	 */
-	obj.ajaxComplete = function( jqXHR, textStatus ) {
-		var $container = this;
-		var $loader = $container.find( obj.selectors.loader );
+	obj.ajaxComplete = function ( jqXHR, textStatus ) {
+		const $container = this;
+		const $loader = $container.find( obj.selectors.loader );
 
 		$container.trigger( 'beforeAjaxComplete.tribeEvents', [ jqXHR, textStatus ] );
 
@@ -593,21 +597,23 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {String} html       HTML sent from the REST API
-	 * @param  {String} textStatus Status for the request
-	 * @param  {jqXHR}  qXHR       Request object
+	 * @param {string} html       HTML sent from the REST API
+	 * @param          data
+	 * @param {string} textStatus Status for the request
+	 * @param          jqXHR
+	 * @param {jqXHR}  qXHR       Request object
 	 *
 	 * @return {void}
 	 */
-	obj.ajaxSuccess = function( data, textStatus, jqXHR ) {
-		var $container = this;
+	obj.ajaxSuccess = function ( data, textStatus, jqXHR ) {
+		let $container = this;
 		$container.trigger( 'beforeAjaxSuccess.tribeEvents', [ data, textStatus, jqXHR ] );
 
-		var $html = $( data );
+		let $html = $( data );
 
 		// Let's pull out our nonce data.
-		var $nonces = $html.find( obj.selectors.nonceScript );
-		$html = $html.not( obj.selectors.nonceScript )
+		const $nonces = $html.find( obj.selectors.nonceScript );
+		$html = $html.not( obj.selectors.nonceScript );
 		if ( $nonces.length ) {
 			obj.nonces = JSON.parse( $( $nonces[ 0 ] ).text().trim() );
 		}
@@ -619,12 +625,7 @@ tribe.events.views.manager = {};
 		 * Dispatch an event before the container is replaced; bound events are
 		 * removed!
 		 */
-		document.dispatchEvent(
-				new CustomEvent(
-						'containerReplaceBefore.tribeEvents',
-						{ detail: $container }
-				)
-		);
+		document.dispatchEvent( new CustomEvent( 'containerReplaceBefore.tribeEvents', { detail: $container } ) );
 
 		// Replace the current container with the new Data.
 		$container.replaceWith( $html );
@@ -634,12 +635,7 @@ tribe.events.views.manager = {};
 		obj.setup( 0, $container );
 
 		// Dispatch an event after the container is replaced and set up.
-		document.dispatchEvent(
-				new CustomEvent(
-						'containerReplaceAfter.tribeEvents',
-						{ detail: $container }
-				)
-		);
+		document.dispatchEvent( new CustomEvent( 'containerReplaceAfter.tribeEvents', { detail: $container } ) );
 
 		// Update the global set of containers with all of the manager object.
 		obj.selectContainers();
@@ -664,13 +660,13 @@ tribe.events.views.manager = {};
 	 *
 	 * @since 4.9.2
 	 *
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {Object} settings Settings that this request was made with
+	 * @param {jqXHR}  jqXHR    Request object
+	 * @param {Object} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
-	obj.ajaxError = function( jqXHR, settings ) {
-		var $container = this;
+	obj.ajaxError = function ( jqXHR, settings ) {
+		const $container = this;
 
 		$container.trigger( 'beforeAjaxError.tribeEvents', [ jqXHR, settings ] );
 
@@ -688,7 +684,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {jQuery} Which containers were selected.
 	 */
-	obj.selectContainers = function() {
+	obj.selectContainers = function () {
 		obj.$containers = $( obj.selectors.container );
 		return obj.$containers;
 	};
@@ -700,7 +696,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {jQuery} Last container element.
 	 */
-	obj.getLastContainer = function() {
+	obj.getLastContainer = function () {
 		/**
 		 * @todo @bordoni @paul improve this when shortcodes are also managing the URL.
 		 */
@@ -718,7 +714,7 @@ tribe.events.views.manager = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
+	obj.ready = function () {
 		obj.selectContainers().each( obj.setup );
 		obj.lastLocation = {
 			origin: document.location.origin,

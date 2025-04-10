@@ -10,12 +10,7 @@ import { decode } from 'he';
 /**
  * WordPress dependencies
  */
-import {
-	Dropdown,
-	Dashicon,
-	Spinner,
-	Placeholder,
-} from '@wordpress/components';
+import { Dropdown, Dashicon, Spinner, Placeholder } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -72,10 +67,7 @@ class SearchPosts extends Component {
 		return (
 			<ul className="tribe-editor__search-posts__results-list">
 				{ results.map( ( item ) => (
-					<li
-						key={ `post-${ item.id }` }
-						className="tribe-editor__search-posts__results-list-item"
-					>
+					<li key={ `post-${ item.id }` } className="tribe-editor__search-posts__results-list-item">
 						<button
 							className="tribe-editor__search-posts__results-list-item-button"
 							onClick={ () => onItemClick( onClose )( item ) }
@@ -110,10 +102,7 @@ class SearchPosts extends Component {
 	}
 
 	renderDropdown = ( { isOpen, onClose } ) => (
-		<div
-			className={ classNames( 'tribe-editor__search-posts' ) }
-			aria-expanded={ isOpen }
-		>
+		<div className={ classNames( 'tribe-editor__search-posts' ) } aria-expanded={ isOpen }>
 			{ this.renderSearchInput() }
 			<div
 				className={ classNames( 'tribe-editor__search-posts__results' ) }

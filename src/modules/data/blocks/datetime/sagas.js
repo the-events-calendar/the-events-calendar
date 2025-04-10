@@ -10,18 +10,9 @@ import { applyFilters } from '@wordpress/hooks';
 import * as types from '@moderntribe/events/data/blocks/datetime/types';
 import * as actions from '@moderntribe/events/data/blocks/datetime/actions';
 import * as selectors from '@moderntribe/events/data/blocks/datetime/selectors';
-import {
-	date as dateUtil,
-	moment as momentUtil,
-	time as timeUtil,
-} from '@moderntribe/common/utils';
+import { date as dateUtil, moment as momentUtil, time as timeUtil } from '@moderntribe/common/utils';
 
-const {
-	HALF_HOUR_IN_SECONDS,
-	DAY_IN_SECONDS,
-	HOUR_IN_SECONDS,
-	MINUTE_IN_SECONDS,
-} = timeUtil;
+const { HALF_HOUR_IN_SECONDS, DAY_IN_SECONDS, HOUR_IN_SECONDS, MINUTE_IN_SECONDS } = timeUtil;
 
 //
 // ──────────────────────────────────────────────────── I ──────────
@@ -33,9 +24,9 @@ const {
  * Convert current start and end date into moments
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
- * @returns {Object} {start, end}
+ * @return {Object} {start, end}
  */
 export function* deriveMomentsFromDates() {
 	const dates = yield all( {
@@ -53,9 +44,9 @@ export function* deriveMomentsFromDates() {
  * Convert current start and end date into seconds
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
- * @returns {Object} {start, end}
+ * @return {Object} {start, end}
  */
 export function* deriveSecondsFromDates() {
 	const moments = yield call( deriveMomentsFromDates );
@@ -81,7 +72,7 @@ export function* deriveSecondsFromDates() {
  * Set the human readable label into the store, based on a start and end date to generate a new label based on those
  *
  * @export
- * @yields
+ * @yield
  * @since 0.3.1-alpha
  * @param {Object} dates An object that represents the start / end date
  */
@@ -105,7 +96,7 @@ export function* setHumanReadableLabel( dates = {} ) {
  * date to be replaced or the new date to be set before doing the conversion into text.
  *
  * @export
- * @yields
+ * @yield
  * @since 0.3.1-alpha
  * @param {Object} action Dispateched by the component and watched by this generator
  */
@@ -129,7 +120,7 @@ export function* setHumanReadableFromDate( action ) {
  * date based on the current values set into the dates of the event.
  *
  * @export
- * @yields
+ * @yield
  * @since 0.3.1-alpha
  */
 export function* resetNaturalLanguageLabel() {
@@ -145,7 +136,7 @@ export function* resetNaturalLanguageLabel() {
  * when the input is handling a new change() events
  *
  * @export
- * @yields
+ * @yield
  * @since 0.3.1-alpha
  * @param {Object} action Payload with meta to set attributes
  */
@@ -168,9 +159,8 @@ export function* onHumanReadableChange( action ) {
 		/**
 		 * @todo: move this to common utils in moment.js
 		 */
-		const isAllDay = ! isMultiDay &&
-			'00:00' === moments.start.format( 'HH:mm' ) &&
-			'23:59' === moments.end.format( 'HH:mm' );
+		const isAllDay =
+			! isMultiDay && '00:00' === moments.start.format( 'HH:mm' ) && '23:59' === moments.end.format( 'HH:mm' );
 
 		const dates = yield all( {
 			start: call( momentUtil.toDateTime, result.start ),
@@ -202,7 +192,7 @@ export function* onHumanReadableChange( action ) {
  * Handle date range changes on calendar
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
  * @param {Object} action Payload with to and from
  */
@@ -233,10 +223,7 @@ export function* handleDateRangeChange( action ) {
 		call( action.meta.setAttributes, { end: dates.end } ),
 	] );
 
-	yield all( [
-		put( actions.setStartDateTime( dates.start ) ),
-		put( actions.setEndDateTime( dates.end ) ),
-	] );
+	yield all( [ put( actions.setStartDateTime( dates.start ) ), put( actions.setEndDateTime( dates.end ) ) ] );
 }
 
 /**
@@ -244,7 +231,7 @@ export function* handleDateRangeChange( action ) {
  * Should only prevent when not a multi-day event.
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
  * @param {Object} action Payload with seconds in start or end key (when time change)
  */
@@ -290,10 +277,7 @@ export function* preventEndTimeBeforeStartTime( action ) {
 			call( action.meta.setAttributes, { end: dates.end } ),
 		] );
 
-		yield all( [
-			put( actions.setStartDateTime( dates.start ) ),
-			put( actions.setEndDateTime( dates.end ) ),
-		] );
+		yield all( [ put( actions.setStartDateTime( dates.start ) ), put( actions.setEndDateTime( dates.end ) ) ] );
 	}
 }
 
@@ -302,7 +286,7 @@ export function* preventEndTimeBeforeStartTime( action ) {
  * Should only prevent when not a multi-day event.
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
  * @param {Object} action Payload with seconds in start or end key (when time change)
  */
@@ -344,17 +328,14 @@ export function* preventStartTimeAfterEndTime( action ) {
 			call( action.meta.setAttributes, { end: dates.end } ),
 		] );
 
-		yield all( [
-			put( actions.setStartDateTime( dates.start ) ),
-			put( actions.setEndDateTime( dates.end ) ),
-		] );
+		yield all( [ put( actions.setStartDateTime( dates.start ) ), put( actions.setEndDateTime( dates.end ) ) ] );
 	}
 }
 /**
  * Handles all-day payloads. Set start and end time to be `00:00` and `23:59`
  *
  * @export
- * @yields
+ * @yield
  * @param {Object} action Payload with meta to set attributes.
  * @since 4.7
  */
@@ -389,7 +370,7 @@ export function* setAllDay( action ) {
  * Handles multi-day toggling
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
  * @param {Object} action Payload with multiDay
  */
@@ -419,10 +400,7 @@ export function* handleMultiDay( action ) {
 			call( action.meta.setAttributes, { end: dates.end } ),
 		] );
 
-		yield all( [
-			put( actions.setStartDateTime( dates.start ) ),
-			put( actions.setEndDateTime( dates.end ) ),
-		] );
+		yield all( [ put( actions.setStartDateTime( dates.start ) ), put( actions.setEndDateTime( dates.end ) ) ] );
 	}
 }
 
@@ -430,7 +408,7 @@ export function* handleMultiDay( action ) {
  * Handles event start time changes
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
  * @param {Object} action Payload with start of `all-day` or seconds
  */
@@ -456,7 +434,7 @@ export function* handleStartTimeChange( action ) {
  * Handles event end time changes
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
  * @param {Object} action Payload with end of `all-day` or seconds
  */
@@ -482,7 +460,7 @@ export function* handleEndTimeChange( action ) {
  * Sets start time input
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7.2
  */
 export function* setStartTimeInput() {
@@ -495,7 +473,7 @@ export function* setStartTimeInput() {
  * Sets end time input
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7.2
  */
 export function* setEndTimeInput() {
@@ -508,7 +486,7 @@ export function* setEndTimeInput() {
  * Handle flow changes based on action type
  *
  * @export
- * @yields
+ * @yield
  * @since 4.7
  * @param {Object} action Action taken
  */
@@ -573,7 +551,7 @@ export function* handler( action ) {
  * Watchers of actions and act accordingly to each.
  *
  * @export
- * @yields
+ * @yield
  * @since 0.3.1-alpha
  */
 export default function* watchers() {

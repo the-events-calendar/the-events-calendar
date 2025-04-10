@@ -19,9 +19,7 @@ const EventDateTime = ( props ) => {
 	return (
 		<Fragment>
 			<Controls { ...props } />
-			<section
-				className="tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook"
-			>
+			<section className="tribe-editor__subtitle tribe-editor__date-time tribe-common__plugin-block-hook">
 				<Content { ...props } />
 				<Dashboard { ...props } />
 			</section>

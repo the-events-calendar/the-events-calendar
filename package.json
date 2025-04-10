@@ -20,38 +20,17 @@
     "waiting_strings": false
   },
   "_filePath": {
-    "eslint": [
-      "src/modules/**/*.js",
-      "src/resources/js/**/*.js",
-      "!src/resources/js/**/__tests__/**/*.js",
-      "!src/resources/js/**/*.min.js",
-      "!src/resources/js/app/**/*.js",
-      "!src/resources/js/views/**/*.js",
-      "!src/resources/js/events-admin.js",
-      "!src/resources/js/tribe-events-bar.js",
-      "!src/resources/js/tec-update-6.0.0-notice.js",
-      "!src/resources/js/custom-tables-v1/ct1-upgrade.js",
-      "!src/resources/js/tribe-events.js",
-      "src/resources/js/views/**/*.js"
-    ],
-    "stylelint": [
-      "src/resources/postcss/**/*.pcss",
-      "!src/resources/postcss/aggregator-page.pcss",
-      "!src/resources/postcss/events-admin.pcss",
-      "!src/resources/postcss/freemius.pcss",
-      "!src/resources/postcss/tribe-events-full-mobile.pcss",
-      "!src/resources/postcss/tribe-events-full.pcss",
-      "!src/resources/postcss/tribe-events-skeleton.pcss",
-      "!src/resources/postcss/tribe-events-theme-mobile.pcss",
-      "!src/resources/postcss/tribe-events-theme.pcss",
-      "!src/resources/postcss/tribe-events-theme.pcss"
-    ],
     "jest": [
       "src/modules/**/__tests__/**/*.js",
       "!src/resources/js/custom-tables-v1/**/__tests__/**/*.js"
     ]
   },
   "scripts": {
+    "lint:js": "wp-scripts lint-js src/",
+    "lint:css": "wp-scripts lint-style",
+    "lint": "npm run lint:js && npm run lint:css",
+    "format:css": "wp-scripts lint-style --fix",
+    "format:js": "wp-scripts lint-js src/ --fix",
     "analyze": "wp-scripts build --webpack-bundle-analyzer",
     "build:common": "cd common && npm run build",
     "build": "wp-scripts build",
@@ -78,6 +57,7 @@
     "postcss-nested": "^7.0.2",
     "postcss-preset-env": "^10.1.5",
     "redux-mock-store": "^1.5.3",
+    "stylelint-order": "^6.0.4",
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {

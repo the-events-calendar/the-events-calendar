@@ -9,10 +9,7 @@ import { PropTypes } from 'prop-types';
  * WordPress dependencies
  */
 import { Component } from '@wordpress/element';
-import {
-	DatePicker as WPDatePicker,
-	Dropdown,
-} from '@wordpress/components';
+import { DatePicker as WPDatePicker, Dropdown } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -60,25 +57,14 @@ export default class DatePicker extends Component {
 		this.onClose = onClose.bind( this );
 		const { datetime } = this.state;
 
-		return (
-			<WPDatePicker
-				key="date-picker"
-				currentDate={ moment( datetime ) }
-				onChange={ this.onChange }
-			/>
-		);
+		return <WPDatePicker key="date-picker" currentDate={ moment( datetime ) } onChange={ this.onChange } />;
 	};
 
 	renderToggle = ( { onToggle, isOpen } ) => {
 		const { datetime } = this.state;
 
 		return (
-			<button
-				type="button"
-				className="button-link"
-				onClick={ onToggle }
-				aria-expanded={ isOpen }
-			>
+			<button type="button" className="button-link" onClick={ onToggle } aria-expanded={ isOpen }>
 				{ toDate( this.normalize( datetime ) ) }
 			</button>
 		);
