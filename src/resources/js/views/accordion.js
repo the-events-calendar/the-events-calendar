@@ -94,7 +94,7 @@ tribe.events.views.accordion = {};
 	/**
 	 * Opens accordion
 	 *
-	 * @since 4.9.7
+	 * @since 4.9.7 
 	 *
 	 * @param {jQuery} $header jQuery object of header
 	 * @param {jQuery} $content jQuery object of contents
@@ -134,6 +134,7 @@ tribe.events.views.accordion = {};
 	obj.toggleAccordion = function( event ) {
 		// Prevent default action (form submission) when triggered by keyboard events.
 		event.preventDefault();
+		event.stopPropagation();
 		
 		var $container = event.data.container;
 		var $header = $( event.data.target );
@@ -210,7 +211,7 @@ tribe.events.views.accordion = {};
 		 * Initializes accordion
 		 *
 		 * @since 4.9.4
-		 * @since TBD Bind keydown event to trigger click event to improve accessibility.
+		 * @since TBD Bind keydown event to handle both Enter and Space keys to improve accessibility.
 		 *
 		 * @param {integer} index jQuery.each index param
 		 * @param {HTMLElement} header header element from which to remove event
@@ -221,12 +222,20 @@ tribe.events.views.accordion = {};
 			// Bind click event for header click handling.
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
 		
-			// When enter key is pressed, trigger click event.
+			// Handle both Enter and Space keys for accessibility
 			$( header ).on( 'keydown', function( event ) {
-				if ( event.keyCode === 13 ) {
+				// 13 = Enter, 32 = Space
+				if ( event.keyCode === 13 || event.keyCode === 32 ) {
+					event.preventDefault();
+					event.stopPropagation();
 					$( header ).trigger( 'click' );
 				}
 			});
+			
+			// Ensure the header is focusable with keyboard
+			if (!$( header ).attr('tabindex')) {
+				$( header ).attr('tabindex', '0');
+			}
 		};
 	};
 
