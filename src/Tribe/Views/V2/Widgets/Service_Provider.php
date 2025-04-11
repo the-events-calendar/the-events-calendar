@@ -73,6 +73,8 @@ class Service_Provider extends Provider_Contract {
 		add_filter( 'option_sidebars_widgets', [ $compatibility, 'remap_list_widget_id_bases' ] );
 
 		add_filter( 'rest_pre_dispatch', [ $this, 'enable_widget_copy_paste' ], 10, 3 );
+		add_filter( 'rest_dispatch_request', [ $this, 'enable_saving_widget_copied' ], 10, 3 );
+		add_filter( 'render_block_data', [ $this, 'enable_rendering_widget_copied' ] );
 	}
 
 	/**
@@ -121,7 +123,12 @@ class Service_Provider extends Provider_Contract {
 		$route = $request->get_route();
 		
 		// Check if this matches our target endpoint.
-		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/encode$#', $route, $matches ) ) {
+		if ( ! preg_match( '#^/wp/v2/widget-types/([a-zA-Z0-9_-]+)/(?:encode|render)$#', $route, $matches ) ) {
+			return $result;
+		}
+
+		// Bail if the widget type ID is not set.
+		if ( ! isset( $matches[1] ) ) {
 			return $result;
 		}
 	
@@ -156,6 +163,104 @@ class Service_Provider extends Provider_Contract {
 		$request->set_param( 'instance', $new_instance );
 
 		return $result;
+	}
+
+	/**
+	 * Enable widget copy paste for the Legacy Widgets that we are registering.
+	 * 
+	 * @since 6.11.2
+	 * 
+	 * @param mixed           $result  The result of the rest request.
+	 * @param WP_REST_Request $request The REST request.
+	 * @param string          $route   The route of the request.
+	 * 
+	 * @return mixed The result of the rest request.
+	 */
+	public function enable_saving_widget_copied( $result, $request, $route ) {
+		// Bail if result is already set.
+		if ( null !== $result ) {
+			return $result;
+		}
+
+		// Bail if the widget type ID is not a string.
+		if ( ! is_string( $route ) ) {
+			return $result;
+		}
+		
+		// Check if this matches our target endpoint.
+		if ( ! str_starts_with( $route, '/wp/v2/widgets' ) ) {
+			return $result;
+		}
+		
+		$widget_type_id = $request->get_param( 'id_base' );
+
+		// Bail if the widget type ID is not a string.
+		if ( ! is_string( $widget_type_id ) ) {
+			return $result;
+		}
+	
+		// Bail if the widget is not a tribe widget.
+		if ( ! str_starts_with( $widget_type_id, 'tribe-widget-' ) ) {
+			return $result;
+		}
+
+		// Bail if the widget instance is not set.
+		if ( ! isset( $request['instance']['encoded'], $request['instance']['hash'] ) ) {
+			return $result;
+		}
+
+		global $wp_widget_factory;
+
+		$widget_object = $wp_widget_factory->get_widget_object( $widget_type_id );
+
+		// Bail if the widget object is not found.
+		if ( ! $widget_object ) {
+			return $result;
+		}
+
+		// Set the new instance.
+		$new_instance         = $request['instance'];
+		$serialized_instance  = base64_decode( $request['instance']['encoded'] );
+		$new_instance['hash'] = wp_hash( $serialized_instance );
+
+		// Override the instance.
+		$request->set_param( 'instance', $new_instance );
+
+		return $result;
+	}
+
+	/**
+	 * Enable widget copy paste for the Legacy Widgets that we are registering.
+	 * 
+	 * @since 6.11.2
+	 * 
+	 * @param array $parsed_block The parsed block.
+	 * 
+	 * @return array The parsed block.
+	 */
+	public function enable_rendering_widget_copied( $parsed_block ) {
+		if ( ! isset( $parsed_block['attrs']['idBase'] ) ) {
+			return $parsed_block;
+		}
+
+		$widget_id = $parsed_block['attrs']['idBase'];
+
+		if ( ! str_starts_with( $widget_id, 'tribe-widget-' ) ) {
+			return $parsed_block;
+		}
+
+		$instance = $parsed_block['attrs']['instance'] ?? [];
+		
+		if ( ! isset( $instance['encoded'], $instance['hash'] ) ) {
+			return $parsed_block;
+		}
+
+		$serialized_instance = base64_decode( $instance['encoded'] );
+		$instance['hash']    = wp_hash( $serialized_instance );
+		
+		$parsed_block['attrs']['instance'] = $instance;
+		
+		return $parsed_block;
 	}
 
 	/**
