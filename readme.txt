@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.11.1
+Stable tag: 6.11.2
 Requires at least: 6.5
 Tested up to: 6.7.2
 Requires PHP: 7.4
@@ -231,6 +231,12 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.11.2] 2025-04-09 =
+
+* Fix - Ensure that Copy and Render for our Legacy Widgets works for all Event related widgets [TEC-5447]
+* Fix - Prevent language notice when loading Aggregator cron interval too early. props @peter8nss
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.11.1] 2025-04-07 =
 
