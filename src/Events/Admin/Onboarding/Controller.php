@@ -17,6 +17,7 @@ use TEC\Events\Admin\Onboarding\Steps\Tickets;
 use TEC\Events\Admin\Onboarding\Data;
 use TEC\Events\Admin\Onboarding\Landing_Page;
 use TEC\Common\StellarWP\Assets\Config;
+use Tribe__Events__Main;
 
 /**
  * Class Controller
@@ -128,8 +129,17 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function redirect_tec_pages_to_guided_setup(): void {
-		$force = apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
-
+		/**
+		 * Allows bypassing the checks for if we've don't need to/have already visited the Guided Setup page.
+		 * Still respects the post type checks.
+		 *
+		 * @since TBD
+		 *
+		 * @param bool $force Whether to force the redirect to the Guided Setup page.
+		 *
+		 * @return bool
+		 */
+		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
 		// Do not redirect if they are already on the Guided Setup page.
 		$page = tec_get_request_var( 'page' );
 		if ( Landing_Page::$slug === $page ) {
@@ -146,13 +156,21 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param array $post_types An array of post type slugs associated with The Events Calendar admin.
 		 */
-		$post_types = apply_filters( 'tec_events_admin_post_types', [ 'tribe_events', 'tribe_event_series', 'tribe_venue', 'tribe_organizer' ] );
+		$post_types = apply_filters(
+			'tec_events_admin_post_types',
+			[
+				Tribe__Events__Main::POSTTYPE,
+				Tribe__Events__Main::VENUE_POST_TYPE,
+				Tribe__Events__Main::ORGANIZER_POST_TYPE,
+				'tribe_event_series', // @todo: Have ECP hook in and add this via the filter.
+			]
+		);
 
 		if ( ! in_array( $post_type, $post_types, true ) ) {
 			return;
 		}
 
-		if ( ! $force ) {
+		if ( $force ) {
 			// Do not redirect if they have been to the Guided Setup page already.
 			if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
 				return;
@@ -225,12 +243,16 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Hide telemetry on the onboarding page.
+	 * Hide telemetry on the onboarding page by returning false when the page is detected.
 	 *
 	 * @since TBD
+	 *
+	 * @param bool $is_tec_admin_page Whether the current page is a TEC admin page.
+	 *
+	 * @return bool
 	 */
 	public function hide_telemetry_on_onboarding_page( $is_tec_admin_page ): bool {
-		if ( $this->container->make( Landing_Page::class )->is_on_page() ) {
+		if ( Landing_Page::is_on_page() ) {
 			return false;
 		}
 
