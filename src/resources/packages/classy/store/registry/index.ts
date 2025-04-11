@@ -1,2 +1,2 @@
 export * from './registry';
-export {default as withRegistryProvider} from './with-registry-provider';
+export { default as withRegistryProvider } from './with-registry-provider';

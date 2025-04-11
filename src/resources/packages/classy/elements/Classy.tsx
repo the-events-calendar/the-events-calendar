@@ -4,7 +4,7 @@ import { doAction } from '@wordpress/hooks';
 import { _x } from '@wordpress/i18n';
 import { EventDetails, EventTitle } from './fields';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
-import {default as Provider} from './components/Provider';
+import { default as Provider } from './components/Provider';
 
 function ClassyApplication() {
 	return (

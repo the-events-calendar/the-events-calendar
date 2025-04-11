@@ -143,4 +143,3 @@ export function createRegistry(): WPDataRegistry {
 
 	return classyRegistry;
 }
-

@@ -1,16 +1,19 @@
-import {compose } from '@wordpress/compose';
-import {withRegistryProvider} from "../../store";
-import {Component} from '@wordpress/element';
-import {ReactNode} from 'react';
+import { compose } from '@wordpress/compose';
+import { withRegistryProvider } from '../../store';
+import { Component } from '@wordpress/element';
+import { ReactNode } from 'react';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
-class Provider extends Component<{registry: WPDataRegistry, children?: ReactNode}> {
-	private unsubscribe: Function|null;
+class Provider extends Component< {
+	registry: WPDataRegistry;
+	children?: ReactNode;
+} > {
+	private unsubscribe: Function | null;
 
-	attachChangeObserver(registry:WPDataRegistry){
+	attachChangeObserver( registry: WPDataRegistry ) {
 		// console.log('Provider.attachChangeObserver called');
 
-		if(this.unsubscribe)	{
+		if ( this.unsubscribe ) {
 			this.unsubscribe();
 		}
 
@@ -18,43 +21,41 @@ class Provider extends Component<{registry: WPDataRegistry, children?: ReactNode
 		// const {getFields}:{getFields: Function} = registry.select('tec/classy');
 		// let fields = getFields();
 
-		this.unsubscribe = registry.subscribe(()=>{
+		this.unsubscribe = registry.subscribe( () => {
 			// console.log('Provider.attachChangeObserver.listener called');
 			// @todo here fetch the fields and update the state.
-		});
+		} );
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		// console.log('Provider.componentDidMount called');
-		this.attachChangeObserver(this.props.registry)
+		this.attachChangeObserver( this.props.registry );
 	}
 
-	componentWillUnmount(){
+	componentWillUnmount() {
 		// console.log('Provider.componentWillUnmount called');
-		if(this.unsubscribe){
+		if ( this.unsubscribe ) {
 			this.unsubscribe();
 		}
 	}
 
-	componentDidUpdate(prevProps){
+	componentDidUpdate( prevProps ) {
 		// console.log('Provider.componentDidUpdate called');
-		const {registry} = this.props;
+		const { registry } = this.props;
 
-		if(registry!== prevProps.registry){
-			this.attachChangeObserver(registry);
+		if ( registry !== prevProps.registry ) {
+			this.attachChangeObserver( registry );
 		}
 
 		// @todo deal with in-flight requests here
 	}
 
-	render(){
+	render() {
 		// console.log('Provider.render called');
-		const {children} = this.props;
+		const { children } = this.props;
 
 		return children;
 	}
 }
 
-export default compose([
-	withRegistryProvider
-])(Provider);
+export default compose( [ withRegistryProvider ] )( Provider );
