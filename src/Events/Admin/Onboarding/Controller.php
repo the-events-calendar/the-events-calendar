@@ -76,7 +76,7 @@ class Controller extends Controller_Contract {
 		add_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
 		add_action( 'admin_init', [ $this, 'enqueue_assets' ] );
 		add_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
-		add_action( 'admin_post_' . Landing_Page::DISMISS_ONBOARDING_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
+		add_action( 'admin_post_' . Landing_Page::DISMISS_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		add_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 		add_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
 	}
@@ -106,6 +106,7 @@ class Controller extends Controller_Contract {
 		remove_action( 'admin_menu', [ $this, 'landing_page' ], 20 );
 		remove_action( 'admin_init', [ $this, 'enqueue_scripts' ] );
 		remove_action( 'rest_api_init', [ $this, 'register_rest_endpoints' ] );
+		remove_action( 'admin_post_' . Landing_Page::DISMISS_PAGE_ACTION, [ $this, 'handle_onboarding_page_dismiss' ] );
 		remove_action( 'admin_notices', [ $this, 'remove_all_admin_notices_in_onboarding_page' ], -1 * PHP_INT_MAX );
 		remove_action( 'tec_admin_headers_about_to_be_sent', [ $this, 'redirect_tec_pages_to_guided_setup' ] );
 	}

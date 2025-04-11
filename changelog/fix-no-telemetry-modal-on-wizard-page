@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Alter Telemetry to allow classes to hook in and supress the modal for specific pages.
