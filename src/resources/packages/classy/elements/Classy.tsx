@@ -2,9 +2,11 @@ import React from 'react';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';
 import { _x } from '@wordpress/i18n';
-import { EventTitle, EventDetails } from './fields';
+import { EventDetails, EventTitle } from './fields';
+import { WPDataRegistry } from '@wordpress/data/build-types/registry';
+import {default as Provider} from './components/Provider';
 
-export function Classy() {
+function ClassyApplication() {
 	return (
 		<SlotFillProvider>
 			{
@@ -40,5 +42,13 @@ export function Classy() {
 				<Slot name="classy.fields" />
 			</div>
 		</SlotFillProvider>
+	);
+}
+
+export function Classy( { registry }: { registry: WPDataRegistry } ) {
+	return (
+		<Provider value={ registry }>
+			<ClassyApplication />
+		</Provider>
 	);
 }
