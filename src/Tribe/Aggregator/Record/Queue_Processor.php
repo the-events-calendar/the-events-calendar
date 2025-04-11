@@ -62,7 +62,12 @@ class Tribe__Events__Aggregator__Record__Queue_Processor {
 		add_action( self::$scheduled_key, [ $this, 'process_queue' ], 20, 0 );
 		add_action( self::$scheduled_single_key, [ $this, 'process_queue' ], 20, 0 );
 
-		$this->register_scheduled_task();
+		// Prevents problems with text domain loading too early.
+		if ( did_action( 'init' ) || doing_action( 'init' ) ) {
+			$this->register_scheduled_task();
+		} else {
+			add_action( 'init', [ $this, 'register_scheduled_task' ] );
+		}
 	}
 
 	/**
