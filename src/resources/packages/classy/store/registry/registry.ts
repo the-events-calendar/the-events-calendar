@@ -52,10 +52,10 @@ function classyRegistrySelectAdapter(
 	const storeName =
 		typeof storeSelector === 'string' ? storeSelector : storeSelector.name;
 
-	console.log(
-		'classyRegistrySelectAdapter selecting store with name ',
-		storeName
-	);
+	// console.log(
+	// 	'classyRegistrySelectAdapter selecting store with name ',
+	// 	storeName
+	// );
 
 	if ( storeName === STORE_NAME ) {
 		return originalSelect( STORE_NAME );
@@ -92,10 +92,10 @@ function classyRegistryDispatchAdapter(
 	const storeName =
 		typeof storeSelector === 'string' ? storeSelector : storeSelector.name;
 
-	console.log(
-		'classyRegistryDispatchAdapter dispatching action to store with name ',
-		storeName
-	);
+	// console.log(
+	// 	'classyRegistryDispatchAdapter dispatching action to store with name ',
+	// 	storeName
+	// );
 
 	if ( storeName === STORE_NAME ) {
 		return originalDispatch( STORE_NAME );

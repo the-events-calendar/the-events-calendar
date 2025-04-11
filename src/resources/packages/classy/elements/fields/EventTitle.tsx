@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import {useSelect, useDispatch} from '@wordpress/data';
 
 export function EventTitle( props: EventTitleProps ) {
+	// @todo in a component like this one: dispatch to the `tec/classy` store directly or to the `core/editor` registry?
 	const postTitle = useSelect((select)=>{
 		const {getEditedPostAttribute}: { getEditedPostAttribute: Function } = select('tec/classy');
 		return getEditedPostAttribute('title');

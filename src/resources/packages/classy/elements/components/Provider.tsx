@@ -8,7 +8,7 @@ class Provider extends Component<{registry: WPDataRegistry, children?: ReactNode
 	private unsubscribe: Function|null;
 
 	attachChangeObserver(registry:WPDataRegistry){
-		console.log('Provider.attachChangeObserver called');
+		// console.log('Provider.attachChangeObserver called');
 
 		if(this.unsubscribe)	{
 			this.unsubscribe();
@@ -19,25 +19,25 @@ class Provider extends Component<{registry: WPDataRegistry, children?: ReactNode
 		// let fields = getFields();
 
 		this.unsubscribe = registry.subscribe(()=>{
-			console.log('Provider.attachChangeObserver.listener called');
+			// console.log('Provider.attachChangeObserver.listener called');
 			// @todo here fetch the fields and update the state.
 		});
 	}
 
 	componentDidMount(){
-		console.log('Provider.componentDidMount called');
+		// console.log('Provider.componentDidMount called');
 		this.attachChangeObserver(this.props.registry)
 	}
 
 	componentWillUnmount(){
-		console.log('Provider.componentWillUnmount called');
+		// console.log('Provider.componentWillUnmount called');
 		if(this.unsubscribe){
 			this.unsubscribe();
 		}
 	}
 
 	componentDidUpdate(prevProps){
-		console.log('Provider.componentDidUpdate called');
+		// console.log('Provider.componentDidUpdate called');
 		const {registry} = this.props;
 
 		if(registry!== prevProps.registry){
@@ -48,7 +48,7 @@ class Provider extends Component<{registry: WPDataRegistry, children?: ReactNode
 	}
 
 	render(){
-		console.log('Provider.render called');
+		// console.log('Provider.render called');
 		const {children} = this.props;
 
 		return children;
