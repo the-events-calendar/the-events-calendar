@@ -1,4 +1,4 @@
-import { STORE_NAME, storeConfig } from './store';
+import { STORE_NAME, storeConfig } from '../store';
 import { createRegistry as wpDataCreateRegistry } from '@wordpress/data';
 import {
 	StoreDescriptor,
@@ -66,6 +66,7 @@ function classyRegistrySelectAdapter(
 	 */
 	const wpDataSelect = window?.wp?.data.select( storeName );
 	if ( wpDataSelect ) {
+		// @todo reroute requests to the Classy store
 		return wpDataSelect;
 	}
 
@@ -107,6 +108,7 @@ function classyRegistryDispatchAdapter(
 	const wpDataDispatch = window?.wp?.data.dispatch( storeName );
 
 	if ( wpDataDispatch ) {
+		// @todo reroute requests to the Classy store.
 		return wpDataDispatch;
 	}
 
@@ -141,3 +143,4 @@ export function createRegistry(): WPDataRegistry {
 
 	return classyRegistry;
 }
+

@@ -3,8 +3,8 @@ import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';
 import { _x } from '@wordpress/i18n';
 import { EventDetails, EventTitle } from './fields';
-import { RegistryProvider } from '@wordpress/data';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
+import {default as Provider} from './components/Provider';
 
 function ClassyApplication() {
 	return (
@@ -46,12 +46,9 @@ function ClassyApplication() {
 }
 
 export function Classy( { registry }: { registry: WPDataRegistry } ) {
-	{
-		/* @ts-ignore */
-	}
 	return (
-		<RegistryProvider value={ registry }>
+		<Provider value={ registry }>
 			<ClassyApplication />
-		</RegistryProvider>
+		</Provider>
 	);
 }

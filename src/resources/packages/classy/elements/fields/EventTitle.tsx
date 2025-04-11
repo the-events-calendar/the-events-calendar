@@ -1,11 +1,14 @@
 import { EventTitleProps } from '../../types/FieldProps';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { useState, useEffect } from 'react';
-import { usePostEdits } from '../../hooks';
-import { UsePostEditsReturn } from '../../types/UsePostEditsReturn';
+import {useSelect, useDispatch} from '@wordpress/data';
 
 export function EventTitle( props: EventTitleProps ) {
-	const { postTitle, editPost } = usePostEdits() as UsePostEditsReturn;
+	const postTitle = useSelect((select)=>{
+		const {getEditedPostAttribute}: { getEditedPostAttribute: Function } = select('tec/classy');
+		return getEditedPostAttribute('title');
+	},[]);
+	const {editPost}:{editPost: Function}  = useDispatch('tec/classy');
 
 	const [ value, setValue ] = useState< string >( postTitle || '' );
 
