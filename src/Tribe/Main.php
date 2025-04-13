@@ -40,7 +40,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.10.2';
+		const VERSION             = '6.11.2';
 
 		/**
 		 * Min Pro Addon.
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.16.0-dev';
+		protected $min_et_version = '5.20.0-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -101,7 +101,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'author',
 				'thumbnail',
 				'custom-fields',
-				'comments',
 				'revisions',
 			],
 			'taxonomies'      => [ 'post_tag' ],
@@ -592,6 +591,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Classes that should be built at `plugins_loaded` time are also instantiated.
 		 *
 		 * @since  4.4
+		 * @since 6.11.0 Add Calendar Embed functionality.
 		 *
 		 * @return void
 		 */
@@ -697,7 +697,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Custom tables v1 implementation.
 			if ( class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' ) ) {
-				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
+				tribe()->register_on_action( 'tribe_common_loaded', '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
 
 			// Blocks.
@@ -738,6 +738,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Register the Help Hub system.
 			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
+
+			// Register the Calendar Embeds feature.
+			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
 
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
@@ -2135,6 +2138,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'view_item'                => sprintf(
 						esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'view_items'                => sprintf(
+						esc_html__( 'View %s', 'the-events-calendar' ), $this->plural_event_label
 					),
 					'search_items'             => sprintf(
 						esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label

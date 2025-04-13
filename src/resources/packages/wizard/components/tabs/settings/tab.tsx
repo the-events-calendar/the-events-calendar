@@ -26,34 +26,23 @@ const startDayOptions = [
 	{ label: __( 'Saturday', 'the-events-calendar' ), value: '6' },
 ];
 
-const SettingsContent = ( { moveToNextTab, skipToNextTab } ) => {
-	const visitedFields = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getVisitedFields() || {} );
-	const setVisitedField = useDispatch( SETTINGS_STORE_KEY ).setVisitedField;
-	const {
-		currency,
-		timezone_string,
-		date_format,
-		start_of_week,
-		timezones,
-		currencies,
-	}: {
-		currency: string;
-		timezone_string: string;
-		date_format: string;
-		start_of_week: number;
-		timezones: Record< string, Record< string, string > >;
-		currencies: Record< string, { symbol: string; name: string } >;
-	} = useSelect( ( select ) => {
-		const store = select( SETTINGS_STORE_KEY );
-		return {
-			currency: store.getSetting( 'currency' ),
-			timezone_string: store.getSetting( 'timezone_string' ),
-			date_format: store.getSetting( 'date_format' ),
-			start_of_week: store.getSetting( 'start_of_week' ),
-			timezones: store.getSetting( 'timezones' ),
-			currencies: store.getSetting( 'currencies' ),
-		};
-	}, [] );
+const SettingsContent = ({moveToNextTab, skipToNextTab}) => {
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
+	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
+	const { currency, timezone_string, date_format, start_of_week, timezones, currencies }: { currency: string, timezone_string: string, date_format: string, start_of_week: number, timezones: Record<string, Record<string, string>>, currencies: Record<string, { symbol: string, name: string }> } = useSelect(
+		(select) => {
+			const store = select(SETTINGS_STORE_KEY);
+			return {
+				currency: store.getSetting('currency'),
+				timezone_string: store.getSetting('timezone_string'),
+				date_format: store.getSetting('date_format'),
+				start_of_week: store.getSetting('start_of_week'),
+				timezones: store.getSetting('timezones'),
+				currencies: store.getSetting('currencies'),
+			};
+		},
+		[]
+	);
 	const [ currencyCode, setCurrency ] = useState( currency );
 	const [ timeZone, setTimeZone ] = useState( timezone_string );
 	const [ dateFormat, setDateFormat ] = useState( date_format || dateFormatOptions[ 0 ].value );

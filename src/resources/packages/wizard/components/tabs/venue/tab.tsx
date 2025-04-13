@@ -20,40 +20,27 @@ interface Venue {
 	website: string;
 }
 
-const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
-	const venue: Venue = useSelect(
-		( select ) =>
-			select( SETTINGS_STORE_KEY ).getSetting( 'venue' ) || {
-				id: 0,
-				name: '',
-				address: '',
-				city: '',
-				state: '',
-				zip: '',
-				country: '',
-				phone: '',
-				website: '',
-			},
-		[]
-	);
-	const countries = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getSetting( 'countries' ), [] );
-	const visitedFields = useSelect( ( select ) => select( SETTINGS_STORE_KEY ).getVisitedFields() || [], [] );
-	const setVisitedField = useDispatch( SETTINGS_STORE_KEY ).setVisitedField;
+const VenueContent = ({moveToNextTab, skipToNextTab}) => {
+	const venue: Venue = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('venue')
+		|| {id: 0,  name: '', address: '', city: '', state: '', zip: '', country: '', phone: '', website: '', }, []);
+	const countries = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('countries'), []);
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
+	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 
 	// Check if any fields are filled.
-	const disabled = !! venue.venueId;
-	const [ venueId, setId ] = useState( venue.venueId || false );
-	const [ name, setName ] = useState( venue.name || '' );
-	const [ address, setAddress ] = useState( venue.address || '' );
-	const [ city, setCity ] = useState( venue.city || '' );
-	const [ state, setState ] = useState( venue.state || '' );
-	const [ zip, setZip ] = useState( venue.zip || '' );
-	const [ country, setCountry ] = useState( venue.country || 'US' );
-	const [ phone, setPhone ] = useState( venue.phone || '' );
-	const [ website, setWebsite ] = useState( venue.website || '' );
-	const [ showWebsite, setShowWebsite ] = useState( !! venue.venueId || !! venue.website || false );
-	const [ showPhone, setShowPhone ] = useState( !! venue.venueId || !! venue.phone || false );
-	const [ canContinue, setCanContinue ] = useState( false );
+	const disabled = !!venue.venueId;
+	const [venueId, setId] = useState(venue.venueId || false);
+	const [name, setName] = useState(venue.name || '');
+	const [address, setAddress] = useState(venue.address || '');
+	const [city, setCity] = useState(venue.city || '');
+	const [state, setState] = useState(venue.state || '');
+	const [zip, setZip] = useState(venue.zip || '');
+	const [country, setCountry] = useState(venue.country || 'US');
+	const [phone, setPhone] = useState(venue.phone || '');
+	const [website, setWebsite] = useState(venue.website || '');
+	const [showWebsite, setShowWebsite] = useState(!!venue.venueId ||!!venue.website || false);
+	const [showPhone, setShowPhone] = useState(!!venue.venueId || !!venue.phone || false);
+	const [canContinue, setCanContinue] = useState(false);
 
 	// Compute whether the "Continue" button should be enabled
 	useEffect( () => {
@@ -116,14 +103,19 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 		const fieldEle = document.getElementById( inputId );
 		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
 
-		if ( isVisited ) {
-			toggleClasses( name, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(name, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
 	};
 
 	const isValidAddress = () => {
+		// Accept empty field as valid.
+		if (!address) {
+			return true;
+		}
+
 		const inputId = 'venue-address';
 		const isVisited = visitedFields.includes( inputId );
 
@@ -135,14 +127,19 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 		const fieldEle = document.getElementById( inputId );
 		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
 
-		if ( isVisited ) {
-			toggleClasses( address, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(address, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
 	};
 
 	const isValidCity = () => {
+		// Accept empty field as valid.
+		if (!city) {
+			return true;
+		}
+
 		const inputId = 'venue-city';
 		const isVisited = visitedFields.includes( inputId );
 
@@ -154,14 +151,19 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 		const fieldEle = document.getElementById( inputId );
 		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
 
-		if ( isVisited ) {
-			toggleClasses( city, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(city, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
 	};
 
 	const isValidState = () => {
+		// Accept empty field as valid.
+		if (!state) {
+			return true;
+		}
+
 		const inputId = 'venue-state';
 		const isVisited = visitedFields.includes( inputId );
 
@@ -173,14 +175,19 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 		const fieldEle = document.getElementById( inputId );
 		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
 
-		if ( isVisited ) {
-			toggleClasses( state, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(state, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
 	};
 
 	const isValidZip = () => {
+		// Accept empty field as valid.
+		if (!zip) {
+			return true;
+		}
+
 		const inputId = 'venue-zip';
 		const zipPattern = /^[a-z0-9][a-z0-9\- ]{0,10}[a-z0-9]$/i;
 		const isVisited = visitedFields.includes( inputId );
@@ -193,8 +200,8 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 		const fieldEle = document.getElementById( inputId );
 		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
 
-		if ( isVisited ) {
-			toggleClasses( zip, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(zip, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
@@ -212,34 +219,44 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 		const fieldEle = document.getElementById( inputId );
 		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
 
-		if ( isVisited ) {
-			toggleClasses( country, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(country, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
 	};
 
 	const isValidPhone = () => {
+		// Accept empty field as valid.
+		if (!phone) {
+			return true;
+		}
+
 		const inputId = 'venue-phone';
-		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
-		const isVisited = visitedFields.includes( inputId );
+		const phonePattern = /^\+?\d{1,3}[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{1,4}[\s.-]?\d{1,4}[\s.-]?\d{1,4}$/;
+		const isVisited = visitedFields.includes(inputId);
 
 		if ( ! isVisited ) {
 			return true;
 		}
 
-		const isValid = ! showPhone || ( !! phone && phonePattern.test( phone ) );
-		const fieldEle = document.getElementById( inputId );
-		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
+		const isValid = !showPhone || (!!phone && phonePattern.test(phone));
+		const fieldEle = document.getElementById(inputId);
+		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
-			toggleClasses( phone, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(phone, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
 	};
 
 	const isValidWebsite = () => {
+		// Accept empty field as valid.
+		if (!website) {
+			return true;
+		}
+
 		const inputId = 'venue-website';
 		const isVisited = visitedFields.includes( inputId );
 
@@ -247,8 +264,8 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 			return true;
 		}
 
-		const fieldEle = document.getElementById( 'venue-website' );
-		const parentEle = fieldEle?.closest( '.tec-events-onboarding__form-field' );
+		const fieldEle = document.getElementById('venue-website');
+		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
 		let isValid = false;
 
@@ -259,20 +276,20 @@ const VenueContent = ( { moveToNextTab, skipToNextTab } ) => {
 			isValid = false;
 		}
 
-		if ( isVisited ) {
-			toggleClasses( website, fieldEle, parentEle, isValid );
+		if (isVisited) {
+			toggleClasses(website, fieldEle, parentEle, isValid);
 		}
 
 		return isValid;
 	};
 
-	const toggleClasses = ( field, fieldEle, parentEle, isValid ) => {
-		if ( ! field ) {
-			parentEle.classList.add( 'invalid', 'empty' );
-			fieldEle.classList.add( 'invalid' );
-		} else if ( ! isValid ) {
-			parentEle.classList.add( 'invalid' );
-			fieldEle.classList.add( 'invalid' );
+	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
+		if (!field) {
+			parentEle.classList.add('invalid', 'empty');
+			fieldEle.classList.add('invalid');
+		} else if (!isValid) {
+			parentEle.classList.add('invalid');
+			fieldEle.classList.add('invalid');
 		} else {
 			parentEle.classList.remove( 'invalid', 'empty' );
 			fieldEle.classList.remove( 'invalid' );

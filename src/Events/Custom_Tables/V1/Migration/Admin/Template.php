@@ -2,7 +2,7 @@
 
 namespace TEC\Events\Custom_Tables\V1\Migration\Admin;
 
-use \Tribe__Template;
+use Tribe__Template;
 use Tribe__Events__Main as TEC;
 
 /**

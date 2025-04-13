@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.10.2
+Stable tag: 6.11.2
 Requires at least: 6.5
-Tested up to: 6.7.1
+Tested up to: 6.7.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,56 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.11.2] 2025-04-09 =
+
+* Fix - Ensure that Copy and Render for our Legacy Widgets works for all Event related widgets [TEC-5447]
+* Fix - Prevent language notice when loading Aggregator cron interval too early. props @peter8nss
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.11.1] 2025-04-07 =
+
+* Version - The Events Calendar 6.11.1 is only compatible with Event Tickets 5.20.0 and higher
+* Fix - Avoid running unbound queries, avoid too long queries being killed. [ECP-1898]
+* Fix - Correct some text-domains copied from common
+* Fix - Ensures the ajaxComplete callback is fired after AJAX has actually completed. [FBAR-344]
+* Fix - Ensures `delete_custom_tables_data` method is called only for events. [TEC-5445]
+* Fix - Ensures `events_per_page` is type casted to int before used. [TEC-5442]
+* Fix - Include Label for viewing post type archives. props @mikeritter
+* Fix - Makes sure that Custom Tables are loaded after our Common library is loaded. [TEC-5445]
+* Fix - Prevent invalid argument supplied for foreach() warning, props to @zosterops-lateralis
+* Tweak - Fixed typo in the First Time Setup page.  [TEC-5415]
+* Tweak - Improve our widgets to enable copying it in between different instances of the Block and Site editor.
+* Tweak - Make sure our settings for showing comments is respected as much as possible. props @zosterops-lateralis
+* Tweak - Modify the URL params for Views HTML REST Requests to enable usage of GET requests enabling caching
+* Tweak - Modify the visibility of tribe-ea- statuses to prevent them from slowing down WP_Query that are unrelated to Aggregator
+* Tweak - Prevent REST API notice from showing in certain cases of false positives.
+* Performance - Aggregator query for Authors on the import form has better boundaries props @dilipbheda
+* Performance - Avoid duplicate queries by caching model queries results. [ECP-1898]
+* Language - 2 new strings added, 192 updated, 2 fuzzied, and 0 obsoleted.
+
+= [6.11.0.1] 2025-04-01 =
+
+* Fix - Ensures `get_current_screen()` function is only called if it exists, avoiding fatal error if called too early. [TEC-5439]
+
+= [6.11.0] 2025-03-31 =
+
+* Feature - Added External Calendar Embeds functionality. [TEC-5359]
+* Tweak - Add auto-width to Subscribe to Calendar button to accommodate translations. Props to @huubl [TEC-5430]
+* Tweak - Adjust CSS to make sure that onboarding wizard form elements are properly aligned on all WordPress versions. [TEC-5402]
+* Tweak - Adjusted vertical spacing in the onboarding wizard to better fit the content on the screen. [TEC-5402]
+* Tweak - Changed some organizer and venue fields in the onboarding wizard to not be required. [TEC-5408]
+* Tweak - Make sure the Setup Guide page shows up only when asked for. [TEC-5411]
+* Fix - Add check for single venue and single organizer to the Template_Bootstrap class. Use those checks for SEO titles and enable SEO plugins to overwrite their respective titles. [ECP-1059]
+* Fix - Add notice that at least one view is required for Onboarding Wizard display tab. [TEC-5398]
+* Fix - Add one time redirect to the Guided Setup page. [TEC-5401]
+* Fix - Adjusted logic for when to reset isSaving state for Onboarding Wizard. [TEC-5409]
+* Language - 49 new strings added, 158 updated, 0 fuzzied, and 2 obsoleted.
+
+= [6.10.3] 2025-03-25 =
+
+* Fix - Improved user experience by ensuring Event Tickets installation and activation notices only appear on TEC-related admin pages.
+* Language - 0 new strings added, 5 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.10.2] 2025-03-04 =
 
