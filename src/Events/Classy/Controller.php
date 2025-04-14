@@ -363,6 +363,10 @@ class Controller extends ControllerContract {
 		foreach (
 			[
 				'_EventURL',
+				'_EventStartDate',
+				'_EventEndDate',
+				'_EventAllDay',
+				'_EventTimezone',
 			] as $meta_key
 		) {
 			register_post_meta(
