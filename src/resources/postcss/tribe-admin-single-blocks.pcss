@@ -23,7 +23,7 @@
 	h3.tribe-editor__organizer__title-heading {
 		color: var(--tec-color-link-accent);
 		font-size: var(--tec-font-size-4);
-		font-weight: normal;
+		font-weight: 400;
 		letter-spacing: normal;
 		line-height: 1.64;
 		margin-bottom: 0;
@@ -64,6 +64,7 @@
 		}
 
 		.tribe-block__venue__map {
+
 			@media screen and (min-width: 768px) {
 				width: 53%;
 			}
@@ -95,7 +96,7 @@
 			h3 {
 				color: var(--tec-color-link-accent);
 				font-size: var(--tec-font-size-4);
-				font-weight: normal;
+				font-weight: 400;
 				letter-spacing: normal;
 				line-height: 1.64;
 			}
@@ -123,7 +124,7 @@
 		.tribe-editor__venue__website {
 			color: var(--tec-color-text-primary);
 			font-size: var(--tec-font-size-4);
-			font-weight: normal;
+			font-weight: 400;
 			letter-spacing: normal;
 			line-height: 1.64;
 		}
@@ -148,14 +149,14 @@
 			color: var(--tec-color-link-accent);
 			display: block;
 			font-size: var(--tec-font-size-4);
-			font-weight: normal;
+			font-weight: 400;
 			margin: 10px 15px 10px 0;
 			min-height: revert;
 			padding: 0;
 
-			&:before {
+			&::before {
 				color: var(--tec-color-link-accent);
-				content: '+';
+				content: "+";
 				margin-right: 3px;
 			}
 
@@ -163,7 +164,7 @@
 				background: transparent;
 				color: var(--tec-color-link-accent);
 				font-size: var(--tec-font-size-4);
-				font-weight: normal;
+				font-weight: 400;
 			}
 		}
 
@@ -221,7 +222,7 @@
 		color: var(--tec-color-text-primary);
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: 17px;
-		font-weight: bold;
+		font-weight: 700;
 		letter-spacing: normal;
 		line-height: 1.64;
 	}
@@ -302,7 +303,7 @@
 		border-radius: 4px;
 		color: #fff;
 		font-size: var(--tec-font-size-4);
-		font-weight: bold;
+		font-weight: 700;
 		min-height: 40px;
 		padding: 0 20px;
 	}
@@ -312,8 +313,8 @@
 		opacity: 0.5;
 	}
 
-	.components-popover .block-editor-url-input input[type=text],
-	.block-editor-url-input input[type=text] {
+	.components-popover .block-editor-url-input input[type="text"],
+	.block-editor-url-input input[type="text"] {
 		color: var(--tec-color-accent-primary);
 		font-family: var(--tec-font-family-sans-serif);
 		font-size: var(--tec-font-size-4);
@@ -325,6 +326,7 @@
 /* = Generic fields
 ============================================= */
 .post-type-tribe_events {
+
 	.wp-block.wp-block-post-title {
 		color: var(--tec-color-text-event-title);
 		font-size: var(--tec-font-size-10);
@@ -358,9 +360,9 @@
 	padding: 0 20px 0 35px;
 	position: relative;
 
-	&:before {
-		background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.333 3.826c0 .065 0 .13-.02.174 0 .022-.02.065-.02.087a.9.9 0 0 1-.197.37L10.45 7.37a.797.797 0 0 1-.592.26.797.797 0 0 1-.593-.26c-.316-.348-.316-.935 0-1.305l1.225-1.348H6.3c-2.547 0-4.64 2.283-4.64 5.11 0 1.369.474 2.651 1.363 3.608.316.348.316.935 0 1.304A.797.797 0 0 1 2.43 15a.797.797 0 0 1-.593-.26C.652 13.434 0 11.695 0 9.847c0-3.826 2.825-6.935 6.301-6.935h4.208L9.284 1.565c-.316-.348-.316-.935 0-1.304.316-.348.85-.348 1.185 0l2.647 2.913a.952.952 0 0 1 .198.37c0 .021.02.065.02.086v.196zM20 10.152c0 3.826-2.825 6.935-6.301 6.935H9.49l1.225 1.348c.336.348.336.935 0 1.304a.797.797 0 0 1-.593.261.83.83 0 0 1-.592-.26l-2.627-2.936a.948.948 0 0 1-.198-.37c0-.021-.02-.064-.02-.086-.02-.065-.02-.109-.02-.174 0-.065 0-.13.02-.174 0-.022.02-.065.02-.087a.9.9 0 0 1 .198-.37L9.55 12.63c.316-.347.849-.347 1.185 0 .336.348.336.935 0 1.305L9.51 15.283h4.208c2.548 0 4.641-2.283 4.641-5.11 0-1.369-.474-2.651-1.362-3.608a.97.97 0 0 1 0-1.304c.316-.348.849-.348 1.185 0C19.348 6.543 20 8.283 20 10.152z'/%3E%3C/svg%3E") 0/12px no-repeat;
-		content: '';
+	&::before {
+		background: url(data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.333 3.826c0 .065 0 .13-.02.174 0 .022-.02.065-.02.087a.9.9 0 0 1-.197.37L10.45 7.37a.797.797 0 0 1-.592.26.797.797 0 0 1-.593-.26c-.316-.348-.316-.935 0-1.305l1.225-1.348H6.3c-2.547 0-4.64 2.283-4.64 5.11 0 1.369.474 2.651 1.363 3.608.316.348.316.935 0 1.304A.797.797 0 0 1 2.43 15a.797.797 0 0 1-.593-.26C.652 13.434 0 11.695 0 9.847c0-3.826 2.825-6.935 6.301-6.935h4.208L9.284 1.565c-.316-.348-.316-.935 0-1.304.316-.348.85-.348 1.185 0l2.647 2.913a.952.952 0 0 1 .198.37c0 .021.02.065.02.086v.196zM20 10.152c0 3.826-2.825 6.935-6.301 6.935H9.49l1.225 1.348c.336.348.336.935 0 1.304a.797.797 0 0 1-.593.261.83.83 0 0 1-.592-.26l-2.627-2.936a.948.948 0 0 1-.198-.37c0-.021-.02-.064-.02-.086-.02-.065-.02-.109-.02-.174 0-.065 0-.13.02-.174 0-.022.02-.065.02-.087a.9.9 0 0 1 .198-.37L9.55 12.63c.316-.347.849-.347 1.185 0 .336.348.336.935 0 1.305L9.51 15.283h4.208c2.548 0 4.641-2.283 4.641-5.11 0-1.369-.474-2.651-1.362-3.608a.97.97 0 0 1 0-1.304c.316-.348.849-.348 1.185 0C19.348 6.543 20 8.283 20 10.152z'/%3E%3C/svg%3E) 0/12px no-repeat;
+		content: "";
 		height: 20px;
 		left: 20px;
 		position: absolute;
@@ -425,6 +427,7 @@
 
 /* Twenty-twenty-one theme */
 .theme-twentytwentyone {
+
 	input,
 	textarea,
 	.tribe-editor__related-events .tribe-editor__related-events__title-text input {
@@ -434,7 +437,7 @@
 	.editor-styles-wrapper .wp-block.editor-post-title__block .editor-post-title__input {
 		color: var(--tec-color-text-primary);
 		font-size: 50px;
-		font-weight: bold;
+		font-weight: 700;
 		padding-left: 50px;
 	}
 }

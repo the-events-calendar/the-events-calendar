@@ -13,6 +13,7 @@ use TEC\Common\Contracts\Container;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe\Events\Views\V2\Assets as Event_Assets;
 use TEC\Common\StellarWP\Assets\Asset;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Controller
@@ -209,7 +210,7 @@ class Frontend extends Controller_Contract {
 			'tec-events-calendar-embeds-frontend-script',
 			'js/calendar-embeds/page.js'
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( TEC::class )
 			->enqueue_on( 'tec_events_calendar_embeds_enqueue_scripts' )
 			->set_dependencies( 'jquery', 'tribe-events-views-v2-manager', 'wp-hooks' )
 			->in_footer()
@@ -219,7 +220,7 @@ class Frontend extends Controller_Contract {
 			'tec-events-calendar-embeds-frontend-style',
 			'css/calendar-embeds/page.css'
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( TEC::class )
 			->enqueue_on( 'tec_events_calendar_embeds_enqueue_scripts' )
 			->register();
 	}

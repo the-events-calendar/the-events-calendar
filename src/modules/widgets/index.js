@@ -6,11 +6,9 @@ import './style.pcss';
 
 const { registerBlockType } = wp.blocks;
 
-const blocks = [
-	EventsList,
-];
+const blocks = [ EventsList ];
 
-blocks.forEach( block => {
+blocks.forEach( ( block ) => {
 	const blockName = `tribe/${ block.id }`;
 	registerBlockType( blockName, block );
 } );

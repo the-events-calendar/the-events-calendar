@@ -87,7 +87,7 @@ class Install_Event_Tickets {
 	public function assets() {
 		$plugin = tribe( 'tec.main' );
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-admin-notice-install-event-tickets-js',
 			'admin/notice-install-event-tickets.js',
@@ -104,7 +104,7 @@ class Install_Event_Tickets {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-admin-notice-install-event-tickets-css',
 			'admin/notice-install-event-tickets.css',

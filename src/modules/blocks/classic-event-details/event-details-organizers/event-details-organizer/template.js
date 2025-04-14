@@ -28,37 +28,28 @@ const EventDetailsOrganizer = ( props ) => {
 		return trim( unescape( rendered ) );
 	};
 
-	const getOrganizerRemoveButton = ( {
-		organizerId,
-		block,
-		volatile,
-		onRemoveClick,
-	} ) => (
-		! ( block || volatile ) &&
-		(
+	const getOrganizerRemoveButton = ( { organizerId, block, volatile, onRemoveClick } ) =>
+		! ( block || volatile ) && (
 			<IconButton
 				className="tribe-editor__btn tribe-editor__btn--action"
 				label={ __( 'Remove Organizer', 'the-events-calendar' ) }
 				onClick={ onRemoveClick( organizerId ) }
 				icon={ <Dashicon icon="no" /> }
 			/>
-		)
-	);
+		);
 
 	const { isLoading, details } = props;
 
 	return (
 		<li>
-			{
-				( isLoading || isEmpty( details ) )
-					? <Loading className="tribe-editor__spinner--item" />
-					: (
-						<Fragment>
-							{ getOrganizerName( props.details ) }
-							{ getOrganizerRemoveButton( props ) }
-						</Fragment>
-					)
-			}
+			{ isLoading || isEmpty( details ) ? (
+				<Loading className="tribe-editor__spinner--item" />
+			) : (
+				<Fragment>
+					{ getOrganizerName( props.details ) }
+					{ getOrganizerRemoveButton( props ) }
+				</Fragment>
+			) }
 		</li>
 	);
 };

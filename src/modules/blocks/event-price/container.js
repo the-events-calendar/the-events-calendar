@@ -62,11 +62,4 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	},
 } );
 
-export default compose(
-	withStore(),
-	connect(
-		mapStateToProps,
-		mapDispatchToProps,
-	),
-	withBlockCloser,
-)( EventPrice );
+export default compose( withStore(), connect( mapStateToProps, mapDispatchToProps ), withBlockCloser )( EventPrice );

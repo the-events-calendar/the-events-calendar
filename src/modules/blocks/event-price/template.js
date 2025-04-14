@@ -9,11 +9,7 @@ import classNames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	CheckboxControl,
-	TextControl,
-	PanelBody,
-} from '@wordpress/components';
+import { CheckboxControl, TextControl, PanelBody } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -28,24 +24,16 @@ const { InspectorControls } = wpEditor;
  * Module Code
  */
 
-const renderCurrency = ( { showCurrencySymbol, currencySymbol } ) => (
-	showCurrencySymbol && (
-		<span className="tribe-editor__event-price__currency">
-			{ currencySymbol }
-		</span>
-	)
-);
+const renderCurrency = ( { showCurrencySymbol, currencySymbol } ) =>
+	showCurrencySymbol && <span className="tribe-editor__event-price__currency">{ currencySymbol }</span>;
 
 const renderPlaceholder = ( { showCost, currencySymbol, currencyPosition } ) => {
 	let placeholder = __( 'Add Price', 'the-events-calendar' );
 
-	placeholder = ( 'prefix' === currencyPosition )
-		? currencySymbol + ' ' + placeholder
-		: placeholder + ' ' + currencySymbol;
+	placeholder =
+		'prefix' === currencyPosition ? currencySymbol + ' ' + placeholder : placeholder + ' ' + currencySymbol;
 
-	return ! showCost && (
-		<span className="tribe-editor__event-price__label">{ placeholder }</span>
-	);
+	return ! showCost && <span className="tribe-editor__event-price__label">{ placeholder }</span>;
 };
 
 const renderCost = ( { showCost, isFree, cost } ) => {
@@ -57,22 +45,19 @@ const renderCost = ( { showCost, isFree, cost } ) => {
 		value = __( 'Free', 'the-events-calendar' );
 	}
 
-	return showCost && (
-		<span className="tribe-editor__event-price__cost">{ value }</span>
-	);
+	return showCost && <span className="tribe-editor__event-price__cost">{ value }</span>;
 };
 
-const renderDescription = ( { showCostDescription, attributes } ) => (
+const renderDescription = ( { showCostDescription, attributes } ) =>
 	showCostDescription && (
 		<span className="tribe-editor__event-price__description">{ attributes.costDescription }</span>
-	)
-);
+	);
 
 const renderLabel = ( props ) => {
 	const { currencyPosition, open } = props;
 	const containerClass = classNames(
 		'tribe-editor__event-price__price',
-		`tribe-editor__event-price__price--${ currencyPosition }`,
+		`tribe-editor__event-price__price--${ currencyPosition }`
 	);
 
 	/**
@@ -91,14 +76,8 @@ const renderLabel = ( props ) => {
 	);
 };
 
-const renderDashboard = ( {
-	isOpen,
-	cost,
-	setCost,
-	attributes,
-	setAttributes,
-} ) => {
-	const setDescription = event => setAttributes( { costDescription: event.target.value } );
+const renderDashboard = ( { isOpen, cost, setCost, attributes, setAttributes } ) => {
+	const setDescription = ( event ) => setAttributes( { costDescription: event.target.value } );
 
 	return (
 		<Dashboard isOpen={ isOpen }>
@@ -107,7 +86,7 @@ const renderDashboard = ( {
 					<input
 						className={ classNames(
 							'tribe-editor__event-price__input',
-							'tribe-editor__event-price__input--price',
+							'tribe-editor__event-price__input--price'
 						) }
 						name="description"
 						type="text"
@@ -118,7 +97,7 @@ const renderDashboard = ( {
 					<input
 						className={ classNames(
 							'tribe-editor__event-price__input',
-							'tribe-editor__event-price__input--description',
+							'tribe-editor__event-price__input--description'
 						) }
 						name="description"
 						type="text"
@@ -152,13 +131,13 @@ const renderControls = ( {
 	setCurrencyPosition,
 	setCode,
 	setSymbol,
-} ) => (
+} ) =>
 	isSelected && (
 		<InspectorControls key="inspector">
 			<PanelBody title={ __( 'Price Settings', 'the-events-calendar' ) }>
 				<TextControl
 					className="tribe-editor__event-price__currency-symbol-setting"
-					label={ __( ' Currency Symbol', 'the-events-calendar' ) }
+					label={ __( 'Currency Symbol', 'the-events-calendar' ) }
 					value={ currencySymbol }
 					placeholder={ __( 'E.g.: $', 'the-events-calendar' ) }
 					onChange={ setSymbol }
@@ -166,7 +145,7 @@ const renderControls = ( {
 				/>
 				<TextControl
 					className="tribe-editor__event-price__currency-code-setting"
-					label={ __( ' Currency Code', 'the-events-calendar' ) }
+					label={ __( 'Currency Code', 'the-events-calendar' ) }
 					value={ currencyCode }
 					placeholder={ __( 'E.g.: USD', 'the-events-calendar' ) }
 					onChange={ setCode }
@@ -180,13 +159,9 @@ const renderControls = ( {
 				/>
 			</PanelBody>
 		</InspectorControls>
-	)
-);
+	);
 
-const EventPrice = ( props ) => ( [
-	renderUI( props ),
-	renderControls( props ),
-] );
+const EventPrice = ( props ) => [ renderUI( props ), renderControls( props ) ];
 
 EventPrice.propTypes = {
 	isOpen: PropTypes.bool,

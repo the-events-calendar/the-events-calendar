@@ -9,10 +9,7 @@ import { differenceBy } from 'lodash';
 import { globals } from '@moderntribe/common/utils';
 import { store } from '@moderntribe/common/store';
 import { actions as formActions } from '@moderntribe/common/data/forms';
-import {
-	actions as venueActions,
-	selectors as venueSelectors,
-} from '@moderntribe/events/data/blocks/venue';
+import { actions as venueActions, selectors as venueSelectors } from '@moderntribe/events/data/blocks/venue';
 import { syncVenuesWithPost } from '@moderntribe/events/blocks/event-venue/data/meta-sync';
 import { actions as requestActions } from '@moderntribe/common/store/middlewares/request';
 
@@ -23,16 +20,16 @@ const { getState, dispatch } = store;
  *
  * @exports
  * @param {Object} block Object with block attributes and data.
- * @returns {string} Client ID of the block.
+ * @return {string} Client ID of the block.
  */
-export const compareBlocks = block => block.clientId;
+export const compareBlocks = ( block ) => block.clientId;
 
 /**
  * Checks whether the block is the venue block.
  *
  * @exports
  * @param {Object} block Object with block attributes and data.
- * @returns {boolean} Whether the block is the venue block or not.
+ * @return {boolean} Whether the block is the venue block or not.
  */
 export const isVenueBlock = ( block ) => block.name === 'tribe/event-venue';
 
@@ -54,7 +51,7 @@ globals.wpHooks.addAction(
 			},
 		};
 		dispatch( requestActions.wpRequest( options ) );
-	},
+	}
 );
 
 /**
@@ -81,7 +78,7 @@ export const handleBlockAdded = ( block ) => {
  * Handles the block that was removed.
  *
  * @exports
- * @returns {Function} Function that handles the block that was removed.
+ * @return {Function} Function that handles the block that was removed.
  */
 export const handleBlockRemoved = () => ( block ) => {
 	// only handle event venue block removal
@@ -132,7 +129,7 @@ export const onBlocksChangeHandler = ( currBlocks, prevBlocks ) => {
  *
  * @exports
  * @param {Function} selector Selector function to get current blocks.
- * @returns {Function} Listener that subscribes to WP store.
+ * @return {Function} Listener that subscribes to WP store.
  */
 export const onBlocksChangeListener = ( selector ) => {
 	let holdBlocks = selector();
@@ -141,10 +138,7 @@ export const onBlocksChangeListener = ( selector ) => {
 		const currBlocks = selector();
 		holdBlocks = currBlocks;
 
-		if (
-			prevBlocks.length !== currBlocks.length ||
-			differenceBy( currBlocks, prevBlocks, compareBlocks ).length
-		) {
+		if ( prevBlocks.length !== currBlocks.length || differenceBy( currBlocks, prevBlocks, compareBlocks ).length ) {
 			onBlocksChangeHandler( currBlocks, prevBlocks );
 		}
 	};
@@ -159,11 +153,7 @@ export const onBlocksChangeListener = ( selector ) => {
  *              are handled in a global subscriber.
  */
 const subscribe = () => {
-	globals.wpData.subscribe(
-		onBlocksChangeListener(
-			globals.wpDataSelectCoreEditor().getBlocks,
-		),
-	);
+	globals.wpData.subscribe( onBlocksChangeListener( globals.wpDataSelectCoreEditor().getBlocks ) );
 };
 
 export default subscribe;

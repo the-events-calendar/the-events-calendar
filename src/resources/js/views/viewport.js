@@ -22,15 +22,15 @@ tribe.events.views.viewport = {};
  *
  * @since 4.9.7
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.viewport
+ * @param {PlainObject} $   jQuery
+ * @param {PlainObject} obj tribe.events.views.viewport
  *
  * @return {void}
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $window = $( window );
-	var $document = $( document );
+	const $window = $( window );
+	const $document = $( document );
 
 	/**
 	 * Object of options
@@ -52,8 +52,8 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.setViewport = function( $container ) {
-		var state = $container.data( 'tribeEventsState' );
+	obj.setViewport = function ( $container ) {
+		let state = $container.data( 'tribeEventsState' );
 
 		if ( ! state ) {
 			state = {};
@@ -72,8 +72,8 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleResize = function( event ) {
-		var $container = event.data.container;
+	obj.handleResize = function ( event ) {
+		const $container = event.data.container;
 		obj.setViewport( $container );
 		$container.trigger( 'resize.tribeEvents' );
 	};
@@ -87,7 +87,8 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = function( $container ) { // eslint-disable-line no-unused-vars
+	obj.unbindEvents = function ( $container ) {
+		// eslint-disable-line no-unused-vars
 		$window.off( 'resize', obj.handleResize );
 	};
 
@@ -100,7 +101,7 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = function( $container ) {
+	obj.bindEvents = function ( $container ) {
 		$window.on( 'resize', { container: $container }, obj.handleResize );
 	};
 
@@ -109,14 +110,15 @@ tribe.events.views.viewport = {};
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {jqXHR}       jqXHR    Request object
+	 * @param {PlainObject} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
-		var $container = event.data.container;
+	obj.deinit = function ( event, jqXHR, settings ) {
+		// eslint-disable-line no-unused-vars
+		const $container = event.data.container;
 		obj.unbindEvents( $container );
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
@@ -126,14 +128,15 @@ tribe.events.views.viewport = {};
 	 *
 	 * @since  4.9.7
 	 *
-	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param  {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param  {jQuery}  $container jQuery object of view container
-	 * @param  {object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
+	 * @param {jQuery}  $container jQuery object of view container
+	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
+	obj.init = function ( event, index, $container, data ) {
+		// eslint-disable-line no-unused-vars
 		obj.bindEvents( $container );
 		obj.setViewport( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
@@ -146,12 +149,8 @@ tribe.events.views.viewport = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
-		$document.on(
-			'afterSetup.tribeEvents',
-			tribe.events.views.manager.selectors.container,
-			obj.init
-		);
+	obj.ready = function () {
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready

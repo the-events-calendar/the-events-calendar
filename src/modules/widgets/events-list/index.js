@@ -27,4 +27,3 @@ export default {
 	edit: EventsList,
 	save: () => <InnerBlocks.Content />,
 };
-

@@ -36,111 +36,95 @@ const renderPlaceholder = ( label ) => (
 	</button>
 );
 
-const renderGoogleCalendarDropdown = ( {
-	attributes,
-	setGoogleCalendarLabel,
-} ) => {
-	const {
-		hasiCal,
-		hasGoogleCalendar,
-		hasOutlook365,
-		hasOutlookLive,
-		googleCalendarLabel,
-	} = attributes;
+const renderGoogleCalendarDropdown = ( { attributes, setGoogleCalendarLabel } ) => {
+	const { hasiCal, hasGoogleCalendar, hasOutlook365, hasOutlookLive, googleCalendarLabel } = attributes;
 
 	if ( ! hasGoogleCalendar && ! hasiCal && ! hasOutlook365 && ! hasOutlookLive ) {
 		return renderPlaceholder( googleCalendarPlaceholder );
 	}
 
-	return hasGoogleCalendar && (
-		<li className="tribe-events-c-subscribe-dropdown__list-item">
-			<AutosizeInput
-				id="tribe-event-gcal"
-				name="google-calendar-label"
-				className="tribe-editor__btn-input"
-				value={ googleCalendarLabel }
-				placeholder={ googleCalendarPlaceholder }
-				onChange={ setGoogleCalendarLabel }
-			/>
-		</li>
+	return (
+		hasGoogleCalendar && (
+			<li className="tribe-events-c-subscribe-dropdown__list-item">
+				<AutosizeInput
+					id="tribe-event-gcal"
+					name="google-calendar-label"
+					className="tribe-editor__btn-input"
+					value={ googleCalendarLabel }
+					placeholder={ googleCalendarPlaceholder }
+					onChange={ setGoogleCalendarLabel }
+				/>
+			</li>
+		)
 	);
 };
 
-const renderiCalDropdown = ( {
-	attributes,
-	setiCalLabel,
-} ) => {
+const renderiCalDropdown = ( { attributes, setiCalLabel } ) => {
 	const { hasiCal, hasGoogleCalendar, hasOutlook365, hasOutlookLive, iCalLabel } = attributes;
 
 	if ( ! hasGoogleCalendar && ! hasiCal && ! hasOutlook365 && ! hasOutlookLive ) {
 		return renderPlaceholder( iCalExportPlaceholder );
 	}
 
-	return hasiCal && (
-		<li className="tribe-events-c-subscribe-dropdown__list-item">
-			<AutosizeInput
-				id="tribe-event-ical"
-				name="tribe-event-ical"
-				className="tribe-editor__btn-input"
-				value={ iCalLabel }
-				placeholder={ iCalExportPlaceholder }
-				onChange={ setiCalLabel }
-			/>
-		</li>
+	return (
+		hasiCal && (
+			<li className="tribe-events-c-subscribe-dropdown__list-item">
+				<AutosizeInput
+					id="tribe-event-ical"
+					name="tribe-event-ical"
+					className="tribe-editor__btn-input"
+					value={ iCalLabel }
+					placeholder={ iCalExportPlaceholder }
+					onChange={ setiCalLabel }
+				/>
+			</li>
+		)
 	);
 };
 
-const renderOutlook365Dropdown = ( {
-	attributes,
-	setOutlook365Label,
-} ) => {
+const renderOutlook365Dropdown = ( { attributes, setOutlook365Label } ) => {
 	const { hasiCal, hasGoogleCalendar, hasOutlook365, hasOutlookLive, outlook365Label } = attributes;
 
 	if ( ! hasGoogleCalendar && ! hasiCal && ! hasOutlook365 && ! hasOutlookLive ) {
 		return renderPlaceholder( outlook365Placeholder );
 	}
 
-	return hasOutlook365 && (
-		<li className="tribe-events-c-subscribe-dropdown__list-item">
-			<AutosizeInput
-				id="tribe-event-outlook-365"
-				name="tribe-event-outlook-365"
-				className="tribe-editor__btn-input"
-				value={ outlook365Label }
-				placeholder={ outlook365Placeholder }
-				onChange={ setOutlook365Label }
-			/>
-		</li>
+	return (
+		hasOutlook365 && (
+			<li className="tribe-events-c-subscribe-dropdown__list-item">
+				<AutosizeInput
+					id="tribe-event-outlook-365"
+					name="tribe-event-outlook-365"
+					className="tribe-editor__btn-input"
+					value={ outlook365Label }
+					placeholder={ outlook365Placeholder }
+					onChange={ setOutlook365Label }
+				/>
+			</li>
+		)
 	);
 };
 
-const renderOutlookLiveDropdown = ( {
-	attributes,
-	setOutlookLiveLabel,
-} ) => {
-	const {
-		hasiCal,
-		hasGoogleCalendar,
-		hasOutlook365,
-		hasOutlookLive,
-		outlookLiveLabel,
-	} = attributes;
+const renderOutlookLiveDropdown = ( { attributes, setOutlookLiveLabel } ) => {
+	const { hasiCal, hasGoogleCalendar, hasOutlook365, hasOutlookLive, outlookLiveLabel } = attributes;
 
 	if ( ! hasGoogleCalendar && ! hasiCal && ! hasOutlook365 && ! hasOutlookLive ) {
 		return renderPlaceholder( outlookLivePlaceholder );
 	}
 
-	return hasOutlookLive && (
-		<li className="tribe-events-c-subscribe-dropdown__list-item">
-			<AutosizeInput
-				id="tribe-event-outlook-live"
-				name="tribe-event-outlook-live"
-				className="tribe-editor__btn-input"
-				value={ outlookLiveLabel }
-				placeholder={ outlookLivePlaceholder }
-				onChange={ setOutlookLiveLabel }
-			/>
-		</li>
+	return (
+		hasOutlookLive && (
+			<li className="tribe-events-c-subscribe-dropdown__list-item">
+				<AutosizeInput
+					id="tribe-event-outlook-live"
+					name="tribe-event-outlook-live"
+					className="tribe-editor__btn-input"
+					value={ outlookLiveLabel }
+					placeholder={ outlookLivePlaceholder }
+					onChange={ setOutlookLiveLabel }
+				/>
+			</li>
+		)
 	);
 };
 
@@ -217,14 +201,14 @@ const renderControls = ( {
 const EventLinks = ( props ) => {
 	const { setAttributes } = props;
 
-	const setiCalLabel = e => setAttributes( { iCalLabel: e.target.value } );
-	const setGoogleCalendarLabel = e => setAttributes( { googleCalendarLabel: e.target.value } );
-	const setOutlook365Label = e => setAttributes( { outlook365Label: e.target.value } );
-	const setOutlookLiveLabel = e => setAttributes( { outlookLiveLabel: e.target.value } );
-	const toggleIcalLabel = value => setAttributes( { hasiCal: value } );
-	const toggleGoogleCalendar = value => setAttributes( { hasGoogleCalendar: value } );
-	const toggleOutlook365Label = value => setAttributes( { hasOutlook365: value } );
-	const toggleOutlookLiveLabel = value => setAttributes( { hasOutlookLive: value } );
+	const setiCalLabel = ( e ) => setAttributes( { iCalLabel: e.target.value } );
+	const setGoogleCalendarLabel = ( e ) => setAttributes( { googleCalendarLabel: e.target.value } );
+	const setOutlook365Label = ( e ) => setAttributes( { outlook365Label: e.target.value } );
+	const setOutlookLiveLabel = ( e ) => setAttributes( { outlookLiveLabel: e.target.value } );
+	const toggleIcalLabel = ( value ) => setAttributes( { hasiCal: value } );
+	const toggleGoogleCalendar = ( value ) => setAttributes( { hasGoogleCalendar: value } );
+	const toggleOutlook365Label = ( value ) => setAttributes( { hasOutlook365: value } );
+	const toggleOutlookLiveLabel = ( value ) => setAttributes( { hasOutlookLive: value } );
 
 	const combinedProps = {
 		...props,
@@ -238,10 +222,7 @@ const EventLinks = ( props ) => {
 		toggleOutlookLiveLabel,
 	};
 
-	return [
-		renderButtons( combinedProps ),
-		renderControls( combinedProps ),
-	];
+	return [ renderButtons( combinedProps ), renderControls( combinedProps ) ];
 };
 
 EventLinks.propTypes = {

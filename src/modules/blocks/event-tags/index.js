@@ -29,12 +29,9 @@ export default {
 		html: false,
 	},
 
-	attributes: {
-
-	},
+	attributes: {},
 	edit: EventTags,
 	save() {
 		return null;
 	},
 };
-
