@@ -33,7 +33,16 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @var string
 	 */
-	const DISMISS_ONBOARDING_PAGE_ACTION = 'tec_dismiss_onboarding_page';
+	const DISMISS_PAGE_ACTION = 'tec_dismiss_onboarding_page';
+
+	/**
+	 * The option to dismiss the onboarding page.
+	 *
+	 * @since 6.8.4
+	 *
+	 * @var string
+	 */
+	const DISMISS_PAGE_OPTION = 'tec_events_onboarding_page_dismissed';
 
 	/**
 	 * The slug for the admin menu.
@@ -103,17 +112,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
-	 * Has the page been dismissed?
-	 *
-	 * @since 6.8.4
-	 *
-	 * @return bool
-	 */
-	public static function is_dismissed(): bool {
-		return (bool) tribe_get_option( 'tec_events_onboarding_page_dismissed', false );
-	}
-
-	/**
 	 * Get the admin menu title.
 	 *
 	 * @since 6.8.4
@@ -153,7 +151,7 @@ class Landing_Page extends Abstract_Admin_Page {
 
 		$action_url = add_query_arg(
 			// We do not need a nonce. This page can be seen only by admins. see `required_capability` method.
-			[ 'action' => self::DISMISS_ONBOARDING_PAGE_ACTION ],
+			[ 'action' => self::DISMISS_PAGE_ACTION ],
 			admin_url( '/admin-post.php' )
 		);
 		?>
