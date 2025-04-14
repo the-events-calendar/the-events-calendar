@@ -38,13 +38,13 @@ class Tribe__Events__Meta__Save {
 	}
 
 	/**
-	 * ensure only one venue or organizer is created during post preview
-	 * subsequent previews will reuse that same post
+	 * Ensure only one venue or organizer is created during post preview.
+	 * Subsequent previews will reuse that same post.
 	 *
-	 * ensure that preview post is the one that's used when the event is published,
-	 * unless we're publishing with a saved venue
+	 * Ensure that preview post is the one that's used when the event is published,
+	 * unless we're publishing with a saved venue.
 	 *
-	 * @param string $post_type Can be 'venue' or 'organizer'
+	 * @param string $post_type Can be 'venue' or 'organizer'.
 	 */
 	protected function manage_preview_metapost( $post_type, $event_id ) {
 
@@ -102,7 +102,15 @@ class Tribe__Events__Meta__Save {
 	public function save() {
 		// Save only the meta that does not have blocks when the Gutenberg editor is present.
 		if ( tribe( 'editor' )->should_load_blocks() && has_blocks( $this->post_id ) ) {
-			return $this->save_block_editor_metadata( $this->post_id, $_POST, $this->post );
+			// This is a rest editor save request, so we need to grab the post data from the request's body.
+			$request_body = json_decode( WP_REST_Server::get_raw_data(), true );
+			$request_body = isset( $request_body['meta'] ) && is_array( $request_body['meta'] ) ? $request_body['meta'] : [];
+
+			$complete_request = array_merge( $_POST, $request_body ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
+			Tribe__Events__API::saveEventMeta( $this->post_id, $complete_request, $this->post );
+
+			return $this->save_block_editor_metadata( $this->post_id, $complete_request, $this->post );
 		}
 
 		if ( ! $this->context->has_nonce() ) {
@@ -147,7 +155,7 @@ class Tribe__Events__Meta__Save {
 			return false;
 		}
 
-		// don't do anything on autosave or auto-draft either or massupdates
+		// Don't do anything on autosave or auto-draft either or massupdates.
 		if ( $this->is_autosave() || $this->is_auto_draft() || $this->context->is_bulk_editing() || $this->context->is_inline_save() ) {
 			return false;
 		}
