@@ -23,7 +23,6 @@ class Tribe__Events__Assets {
 		add_action( 'admin_enqueue_scripts', [ $this, 'dequeue_incompatible' ], 200 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'load_admin' ] );
 		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 10, 2 );
-		add_action( 'tribe_common_loaded', [ $this, 'configure_assets' ] );
 	}
 
 	/**
@@ -766,10 +765,11 @@ class Tribe__Events__Assets {
 	 * Configure the group path for the resources assets folder.
 	 *
 	 * @since 6.11.0
+	 * @deprecated TBD
 	 *
 	 * @return void
 	 */
 	public function configure_assets(): void {
-		Config::add_group_path( 'tec-events-resources', Tribe__Events__Main::instance()->plugin_path . 'src/', 'resources/' );
+		_deprecated_function( __METHOD__, 'TBD' );
 	}
 }
