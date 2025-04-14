@@ -222,7 +222,7 @@ tribe.events.views.accordion = {};
 			// Bind click event for header click handling.
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
 		
-			// Handle both Enter and Space keys for accessibility
+			// Handle both Enter and Space keys for accessibility.
 			$( header ).on( 'keydown', function( event ) {
 				// 13 = Enter, 32 = Space
 				if ( event.keyCode === 13 || event.keyCode === 32 ) {
@@ -232,7 +232,7 @@ tribe.events.views.accordion = {};
 				}
 			});
 			
-			// Ensure the header is focusable with keyboard
+			// Ensure the header is focusable with keyboard.
 			if (!$( header ).attr('tabindex')) {
 				$( header ).attr('tabindex', '0');
 			}
