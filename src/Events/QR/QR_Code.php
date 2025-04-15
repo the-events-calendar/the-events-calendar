@@ -2,7 +2,7 @@
 /**
  * The QR Code class for handling QR code generation and display.
  *
- * @since TBD
+ * @since 6.12.0
  */
 
 namespace TEC\Events\QR;
@@ -14,7 +14,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class QR_Code
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @package TEC\Events\QR
  */
@@ -22,7 +22,7 @@ class QR_Code {
 	/**
 	 * The QR code instance.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var QR
 	 */
 	private $qr_code;
@@ -30,7 +30,7 @@ class QR_Code {
 	/**
 	 * The routes instance.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var Routes
 	 */
 	private $routes;
@@ -38,7 +38,7 @@ class QR_Code {
 	/**
 	 * The QR codes upload directory path.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	private $qr_dir;
@@ -46,7 +46,7 @@ class QR_Code {
 	/**
 	 * The QR codes upload directory URL.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	private $qr_url;
@@ -54,7 +54,7 @@ class QR_Code {
 	/**
 	 * Constructor.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param QR     $qr      The QR code instance.
 	 * @param Routes $routes  The routes instance.
@@ -71,7 +71,7 @@ class QR_Code {
 	/**
 	 * Adds the QR code to the admin table.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param array  $actions An array of actions.
 	 * @param object $post The post object.
 	 * @return array
@@ -109,7 +109,7 @@ class QR_Code {
 	/**
 	 * Adds the QR code meta box.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function add_qr_code_meta_box(): void {
@@ -131,7 +131,7 @@ class QR_Code {
 	/**
 	 * Renders the QR code meta box.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function render_qr_code_meta_box(): void {
@@ -165,7 +165,7 @@ class QR_Code {
 	/**
 	 * Checks if QR code images exist for a given post ID.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param int $post_id The post ID to check.
 	 * @return bool Whether QR code images exist.
 	 */
@@ -178,7 +178,7 @@ class QR_Code {
 	/**
 	 * Deletes a QR code image for a given post ID and size.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param int $post_id The post ID.
 	 * @param int $size The size of the QR code image.
 	 * @return void
@@ -195,7 +195,7 @@ class QR_Code {
 	/**
 	 * Renders the QR code modal.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function render_modal(): void {
@@ -231,7 +231,7 @@ class QR_Code {
 		/**
 		 * Filters the template variables for the QR code modal.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param array $template_vars The template variables.
 		 * @param WP_Post $post The post object.
@@ -275,7 +275,7 @@ class QR_Code {
 		/**
 		 * Filters whether to regenerate the QR code image.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param bool $regenerate Whether to regenerate the QR code image.
 		 * @param int  $post_id    The post ID.

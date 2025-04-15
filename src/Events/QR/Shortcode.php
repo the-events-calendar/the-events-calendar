@@ -2,7 +2,7 @@
 /**
  * The Shortcode class for the QR module.
  *
- * @since TBD
+ * @since 6.12.0
  */
 
 namespace TEC\Events\QR;
@@ -16,7 +16,7 @@ use TEC\Events\QR\Settings;
 /**
  * Class Shortcode
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @package TEC\Events\QR
  */
@@ -24,7 +24,7 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * The shortcode tag.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	protected $slug;
@@ -32,7 +32,7 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * Default arguments to be merged into final arguments of the shortcode.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var array
 	 */
 	protected $default_arguments = [
@@ -44,7 +44,7 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * Array of callbacks for arguments validation.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var array
 	 */
 	public $validate_arguments_map = [
@@ -56,7 +56,7 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * Returns a shortcode's HTML.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return string
 	 */
 	public function get_html() {
@@ -85,7 +85,7 @@ class Shortcode extends Shortcode_Abstract {
 		/**
 		 * Filters the QR code image HTML attributes.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param array $attributes The HTML attributes for the QR code image.
 		 * @param array $args       The shortcode arguments.
@@ -111,7 +111,7 @@ class Shortcode extends Shortcode_Abstract {
 		/**
 		 * Filters the complete QR code HTML output.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $html    The complete HTML output for the QR code.
 		 * @param array  $args    The shortcode arguments.
@@ -128,7 +128,7 @@ class Shortcode extends Shortcode_Abstract {
 	/**
 	 * Get a descriptive text for the QR code based on its type and event.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param int    $post_id The post ID.
 	 * @param string $mode    The QR code mode.
 	 * @return string The descriptive text for the QR code.

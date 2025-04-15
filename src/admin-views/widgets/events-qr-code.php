@@ -2,7 +2,7 @@
 /**
  * Admin View: QR Code Widget Form
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @package Tribe\Events\Views\V2\Widgets
  */

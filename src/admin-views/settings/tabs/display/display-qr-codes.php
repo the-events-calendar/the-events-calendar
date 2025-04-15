@@ -3,7 +3,7 @@
  * QR Codes settings tab.
  * Subtab of the Display Tab.
  *
- * @since TBD
+ * @since 6.12.0
  */
 
 use TEC\Events\QR\Settings as QR_Settings;
@@ -144,7 +144,7 @@ $tec_events_display_qr_codes = [
 /**
  * Filters the QR codes settings section fields.
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @param array $tec_events_display_qr_codes Array of settings fields for the QR codes section.
  */
@@ -162,7 +162,7 @@ $display_qr_codes = new Tribe__Settings_Tab(
 /**
  * Fires after the QR Codes settings tab has been created.
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @param Tribe__Settings_Tab $display_qr_codes The QR Codes settings tab.
  */

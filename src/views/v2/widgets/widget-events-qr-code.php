@@ -9,9 +9,9 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @since TBD
+ * @since 6.12.0
  *
- * @version TBD
+ * @version 6.12.0
  *
  * @var array<string>        $compatibility_classes      Classes used for the compatibility container.
  * @var array<string>        $container_classes          Classes used for the container of the view.

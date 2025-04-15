@@ -2,7 +2,7 @@
 /**
  * The Routes class for the QR module.
  *
- * @since TBD
+ * @since 6.12.0
  */
 
 namespace TEC\Events\QR;
@@ -13,7 +13,7 @@ use Tribe__Events__Rewrite;
 /**
  * Class Routes.
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @package TEC\Events\QR
  */
@@ -21,7 +21,7 @@ class Routes extends Controller {
 	/**
 	 * The base for the routes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	private $route_base;
@@ -29,7 +29,7 @@ class Routes extends Controller {
 	/**
 	 * The route prefix for QR codes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	private $route_prefix;
@@ -37,7 +37,7 @@ class Routes extends Controller {
 	/**
 	 * The salt for QR code generation.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	private $salt;
@@ -45,7 +45,7 @@ class Routes extends Controller {
 	/**
 	 * The query variable name for QR code hash.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	const QR_HASH_VAR = 'tec_qr_hash';
@@ -53,14 +53,14 @@ class Routes extends Controller {
 	/**
 	 * Register the routes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function do_register(): void {
 		/**
 		 * Filter the base route for QR codes.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $base The base route for QR codes. Default: 'events'.
 		 */
@@ -69,7 +69,7 @@ class Routes extends Controller {
 		/**
 		 * Filter the route prefix for QR codes.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $prefix The route prefix for QR codes. Default: 'qr'.
 		 */
@@ -83,7 +83,7 @@ class Routes extends Controller {
 	/**
 	 * Unregister the routes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function unregister(): void {
@@ -93,7 +93,7 @@ class Routes extends Controller {
 	/**
 	 * Adds the actions required by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	protected function add_hooks(): void {
@@ -105,7 +105,7 @@ class Routes extends Controller {
 	/**
 	 * Removes the actions required by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	protected function remove_hooks(): void {
@@ -117,7 +117,7 @@ class Routes extends Controller {
 	/**
 	 * Get the route prefix.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return string The route prefix.
 	 */
 	public function get_route_prefix(): string {
@@ -127,7 +127,7 @@ class Routes extends Controller {
 	/**
 	 * Add QR code rewrite rules.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param Tribe__Events__Rewrite $rewrite The TEC rewrite instance.
 	 * @return void
 	 */
@@ -141,7 +141,7 @@ class Routes extends Controller {
 	/**
 	 * Adds the required Query Vars for QR code routes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param array $query_vars The array of query variables to add to.
 	 * @return array The modified query vars.
 	 */
@@ -154,7 +154,7 @@ class Routes extends Controller {
 	/**
 	 * Parse query vars for QR code routes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param array $query_vars The current query vars.
 	 *
@@ -171,7 +171,7 @@ class Routes extends Controller {
 	/**
 	 * Generate a unique hash for a QR code.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param int    $post_id The post ID (event or series).
 	 * @param string $qr_type The QR Redirection behavior.
@@ -189,7 +189,7 @@ class Routes extends Controller {
 	/**
 	 * Get the URL for a QR code.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param int    $post_id The post ID (event or series).
 	 * @param string $qr_type The QR Redirection behavior.
@@ -205,7 +205,7 @@ class Routes extends Controller {
 	/**
 	 * Decode a QR code hash and return its information.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param string $hash The QR code hash to decode.
 	 *
@@ -254,7 +254,7 @@ class Routes extends Controller {
 	/**
 	 * Decode a QR code URL and return its information.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param string $url The QR code URL to decode.
 	 *
