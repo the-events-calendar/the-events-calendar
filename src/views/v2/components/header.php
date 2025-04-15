@@ -22,7 +22,7 @@ if ( empty( $disable_event_search ) ) {
 }
 ?>
 
-<div <?php tribe_classes( $header_classes ); ?> role="region" aria-label="<?php echo esc_attr( sprintf(
+<header <?php tribe_classes( $header_classes ); ?> role="region" aria-label="<?php echo esc_attr( sprintf(
 	/* Translators: %s: Events plural label */
 	__( '%s Calendar', 'the-events-calendar' ),
 	tribe_get_event_label_plural()
