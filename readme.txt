@@ -243,6 +243,7 @@ Remember to always make a backup of your database and files before updating!
 * Tweak - Added actions: `tec_events_settings_tab_display_qr_codes`
 * Tweak - Added filters: `tec_events_qr_enabled`, `tec_events_qr_valid_screens`, `tec_events_qr_code_modal_vars`, `tec_events_qr_code_regenerate`, `tec_events_qr_current_event_url`, `tec_events_qr_upcoming_event_url`, `tec_events_qr_specific_event_url`, `tec_events_qr_next_series_event_url`, `tec_events_settings_display_qr_codes_section`
 * Tweak - Changed views: `v2/widgets/widget-events-qr-code`
+* Language - 61 new strings added, 145 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.11.1] 2025-04-07 =
 
