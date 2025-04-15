@@ -14,13 +14,18 @@ const { InnerBlocks } = wp.blockEditor;
 
 /**
  * QR Code Widget Edit Component
+ *
+ * @param {Object} props Component props
+ * @param {Object} props.attributes Block attributes
+ * @param {Function} props.setAttributes Function to update block attributes
+ * @returns {React.ReactElement} The QR Code edit component
  */
 const QRCodeEdit = ( props ) => {
 	// Handle dependent dropdown visibility
 	useEffect( () => {
 		const handleDependentDropdowns = () => {
 			const dependents = document.querySelectorAll(
-				'.tribe-widget-form-control--dropdown[data-depends]'
+				'.tribe-widget-form-control--dropdown[data-depends]',
 			);
 
 			dependents.forEach( ( dependent ) => {
@@ -60,11 +65,11 @@ const QRCodeEdit = ( props ) => {
 						( node ) => {
 							if ( node.querySelector ) {
 								return node.querySelector(
-									'.tribe-widget-form-control--dropdown[data-depends]'
+									'.tribe-widget-form-control--dropdown[data-depends]',
 								);
 							}
 							return false;
-						}
+						},
 					);
 
 					if ( hasDependentDropdowns ) {
