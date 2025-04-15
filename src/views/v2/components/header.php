@@ -22,7 +22,11 @@ if ( empty( $disable_event_search ) ) {
 }
 ?>
 
-<header <?php tribe_classes( $header_classes ); ?>>
+<div <?php tribe_classes( $header_classes ); ?> role="region" aria-label="<?php echo esc_attr( sprintf(
+	/* Translators: %s: Events plural label */
+	__( '%s Calendar', 'the-events-calendar' ),
+	tribe_get_event_label_plural()
+) ); ?>">
 	<?php $this->template( 'components/messages' ); ?>
 
 	<?php $this->template( 'components/messages', [ 'classes' => [ 'tribe-events-header__messages--mobile' ] ] ); ?>
