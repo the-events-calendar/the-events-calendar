@@ -1,0 +1,4 @@
+Significance: patch
+Type: tweak
+
+Added actions: `tec_events_settings_tab_display_qr_codes`
