@@ -35,6 +35,10 @@
 	>
 		<div class="tribe-events-widget-events-qr-code">
 
+			<?php $this->template( 'components/json-ld-data' ); ?>
+
+			<?php $this->template( 'components/data' ); ?>
+
 			<?php if ( ! empty( $widget_title ) ) : ?>
 				<header class="tribe-events-widget-events-qr-code__header">
 					<h2 class="tribe-events-widget-events-qr-code__header-title tribe-common-h6 tribe-common-h--alt">
