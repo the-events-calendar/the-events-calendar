@@ -1,4 +1,4 @@
 Significance: minor
 Type: accessibility
 
-Changed header to div to avoid duplicating banner landmarks. [TEC-3424]
+Added role to header to avoid duplicating banner landmarks. [TEC-3424]
