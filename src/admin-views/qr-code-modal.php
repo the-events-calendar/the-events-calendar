@@ -2,7 +2,7 @@
 /**
  * QR Code Modal Template
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @var string $title The title of the event.
  * @var string $placeholder The placeholder QR code image URL.

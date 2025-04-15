@@ -2,7 +2,7 @@
 /**
  * The Controller class for the QR module.
  *
- * @since TBD
+ * @since 6.12.0
  */
 
 namespace TEC\Events\QR;
@@ -14,7 +14,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Controller.
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @package TEC\Events\QR
  *
@@ -25,7 +25,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The shortcode tag.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string
 	 */
 	private $slug;
@@ -33,7 +33,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The QR code instance.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var QR_Code
 	 */
 	private $qr_code;
@@ -41,7 +41,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function do_register(): void {
@@ -61,7 +61,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function unregister(): void {
@@ -71,7 +71,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds the actions required by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	protected function add_hooks(): void {
@@ -85,7 +85,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Removes the actions required by the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	protected function remove_hooks(): void {
@@ -99,7 +99,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Adds the TEC pages to the list for the QR code notice.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param array $valid_pages An array of pages where notice will be displayed.
 	 * @return array
 	 */
@@ -116,7 +116,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Gets the shortcode slug.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return string The shortcode slug.
 	 */
 	public function get_slug(): string {
@@ -126,7 +126,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Checks if the QR module is active.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return bool Whether the QR module is active.
 	 */
 	public function is_active(): bool {
@@ -141,7 +141,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filter whether QR functionality is enabled.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param bool $enabled Whether QR functionality is enabled.
 		 */
@@ -151,7 +151,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Register the assets related to the QR module.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	protected function register_assets(): void {
@@ -168,7 +168,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * If we should enqueue assets.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return bool Whether we should enqueue assets.
 	 */
 	public function should_enqueue_assets(): bool {
@@ -181,7 +181,7 @@ class Controller extends Controller_Contract {
 		/**
 		 * Filters the list of valid screen IDs where QR code assets should be enqueued.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param array $valid_screens Array of screen IDs where QR code assets should be loaded.
 		 *                             Default: ['edit-tribe_events', 'tribe_events']
@@ -195,7 +195,7 @@ class Controller extends Controller_Contract {
 	 * Register shortcodes.
 	 *
 	 * @see   \Tribe\Shortcode\Manager::get_registered_shortcodes()
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param array $shortcodes An associative array of shortcodes in the shape `[ <slug> => <class> ]`.
 	 * @return array
 	 */

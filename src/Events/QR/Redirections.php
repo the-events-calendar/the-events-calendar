@@ -2,7 +2,7 @@
 /**
  * The Redirections class for the QR module.
  *
- * @since TBD
+ * @since 6.12.0
  */
 
 namespace TEC\Events\QR;
@@ -15,7 +15,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Class Redirections.
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @package TEC\Events\QR
  */
@@ -23,7 +23,7 @@ class Redirections extends Controller {
 	/**
 	 * Register the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function do_register(): void {
@@ -33,7 +33,7 @@ class Redirections extends Controller {
 	/**
 	 * Unregister the controller.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function unregister(): void {
@@ -43,7 +43,7 @@ class Redirections extends Controller {
 	/**
 	 * Get the fallback URL for redirections.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return string The fallback URL.
 	 */
 	public function get_fallback_url(): string {
@@ -53,7 +53,7 @@ class Redirections extends Controller {
 	/**
 	 * Get the URL for the current event or next upcoming event.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
 	public function get_current_event_url(): string {
@@ -81,7 +81,7 @@ class Redirections extends Controller {
 		/**
 		 * Filters the URL for the current event redirection.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $url     The URL to redirect to.
 		 * @param array  $events  The events found by the query.
@@ -93,7 +93,7 @@ class Redirections extends Controller {
 	/**
 	 * Get the URL for the next upcoming event that hasn't started yet.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
 	public function get_upcoming_event_url(): string {
@@ -121,7 +121,7 @@ class Redirections extends Controller {
 		/**
 		 * Filters the URL for the upcoming event redirection.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $url     The URL to redirect to.
 		 * @param array  $events  The events found by the query.
@@ -133,7 +133,7 @@ class Redirections extends Controller {
 	/**
 	 * Get the URL for a specific event.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param int $post_id The post ID of the event.
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
@@ -148,7 +148,7 @@ class Redirections extends Controller {
 		/**
 		 * Filters the URL for the specific event redirection.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $url     The URL to redirect to.
 		 * @param int    $post_id The post ID of the event.
@@ -160,7 +160,7 @@ class Redirections extends Controller {
 	/**
 	 * Get the URL for the next event in a series.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @param int $post_id The post ID of the series.
 	 * @return string The URL to redirect to, either an event permalink or fallback URL.
 	 */
@@ -178,7 +178,7 @@ class Redirections extends Controller {
 		/**
 		 * Filters the URL for the next event in a series redirection.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $url     The URL to redirect to.
 		 * @param array  $events  The events found by the query.
@@ -191,7 +191,7 @@ class Redirections extends Controller {
 	/**
 	 * Handle QR code redirections.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @return void
 	 */
 	public function handle_qr_redirect(): void {

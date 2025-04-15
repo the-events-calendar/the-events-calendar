@@ -2,7 +2,7 @@
 /**
  * QR Code Meta Box Template
  *
- * @since TBD
+ * @since 6.12.0
  *
  * @var string $url The URL of the QR code.
  * @var string $label The label of the QR code.

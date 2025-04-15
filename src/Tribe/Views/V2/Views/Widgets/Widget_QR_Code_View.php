@@ -3,7 +3,7 @@
  * The Front End QR Code Widget View.
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
- * @since TBD
+ * @since 6.12.0
  */
 
 namespace Tribe\Events\Views\V2\Views\Widgets;
@@ -14,7 +14,7 @@ use Tribe__Context as Context;
 /**
  * Class Widget_QR_Code_View
  *
- * @since   TBD
+ * @since   6.12.0
  *
  * @package Tribe\Events\Views\V2\Views\Widgets
  */
@@ -23,7 +23,7 @@ class Widget_QR_Code_View extends Widget_View {
 	/**
 	 * The slug for this view.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @var string
 	 */
@@ -32,7 +32,7 @@ class Widget_QR_Code_View extends Widget_View {
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param  ?Context $context A context to use to setup the args, or `null` to use the View Context.
 	 *
@@ -53,7 +53,7 @@ class Widget_QR_Code_View extends Widget_View {
 	/**
 	 * Overrides the base View method.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return array<string,mixed> The Widget QR Code View template vars, modified if required.
 	 */
@@ -72,7 +72,7 @@ class Widget_QR_Code_View extends Widget_View {
 	/**
 	 * Sets up the user-facing messages the View will print on the frontend.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param array $events An array of the View events, if any.
 	 *
@@ -101,7 +101,7 @@ class Widget_QR_Code_View extends Widget_View {
 	/**
 	 * Overrides the base method to return an empty array, since the widget will not use breadcrumbs.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return array An empty array, the widget will not use breadcrumbs.
 	 */

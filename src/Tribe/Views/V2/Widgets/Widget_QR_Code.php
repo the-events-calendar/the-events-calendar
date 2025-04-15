@@ -2,7 +2,7 @@
 /**
  * QR Code Widget
  *
- * @since   TBD
+ * @since   6.12.0
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -17,7 +17,7 @@ use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 /**
  * Class for the QR Code Widget.
  *
- * @since   TBD
+ * @since   6.12.0
  *
  * @package Tribe\Events\Views\V2\Widgets
  */
@@ -25,7 +25,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * If this Widget was rendered on the screen, often useful for Assets.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Slug of the current widget.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @var string
 	 */
@@ -43,7 +43,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * The slug of the widget view.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @var string
 	 */
@@ -52,7 +52,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Widget css group slug.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @var string
 	 */
@@ -61,7 +61,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Default arguments to be merged into final arguments of the widget.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -83,7 +83,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Gets the default widget name.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return string Returns the default widget name.
 	 */
@@ -94,7 +94,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Gets the default widget options.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return array Default widget options.
 	 */
@@ -107,7 +107,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Setup the view for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param array<string,mixed> $_deprecated The widget arguments, as set by the user in the widget string.
 	 */
@@ -120,7 +120,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Setup the widgets default arguments.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return array<string,mixed> The array of widget default arguments.
 	 */
@@ -137,7 +137,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Add hooks for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 */
 	protected function add_hooks() {
 		parent::add_hooks();
@@ -149,7 +149,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Remove hooks for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 */
 	protected function remove_hooks() {
 		parent::remove_hooks();
@@ -161,7 +161,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Add this widget's css group to the VE list of widget groups to load icon styles for.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param array<string> $groups The list of widget groups.
 	 *
@@ -176,7 +176,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Sanitizes the widget form values as they are saved.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param array $new_instance New settings for this instance as input by the user via WP_Widget::form().
 	 * @param array $old_instance Old settings for this instance.
@@ -198,7 +198,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Sets up the widgets default admin fields.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return array<string,mixed> The array of widget admin fields.
 	 */
@@ -352,7 +352,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Translates widget arguments to context.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param array<string, mixed> $arguments — Current set of arguments.
 	 * @param \Tribe__Context      $context — The request context.
@@ -380,7 +380,7 @@ class Widget_QR_Code extends Widget_Abstract {
 	/**
 	 * Gets the admin fields for the widget.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return array<string,mixed> The array of widget admin fields.
 	 */
