@@ -26,7 +26,11 @@
 
 		
 		
-<header  class="tribe-events-header tribe-events-header--has-event-search" >
+<header  class="tribe-events-header tribe-events-header--has-event-search"  
+	role="region" 
+	aria-label="
+		Events Calendar	">
+
 	<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">

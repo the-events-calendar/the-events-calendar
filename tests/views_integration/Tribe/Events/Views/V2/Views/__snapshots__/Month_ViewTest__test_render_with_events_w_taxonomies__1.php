@@ -28,7 +28,11 @@
 
 		
 		
-<header  class="tribe-events-header tribe-events-header--has-event-search" >
+<header  class="tribe-events-header tribe-events-header--has-event-search"  
+	role="region" 
+	aria-label="
+		Events Calendar	">
+
 	
 	
 	
