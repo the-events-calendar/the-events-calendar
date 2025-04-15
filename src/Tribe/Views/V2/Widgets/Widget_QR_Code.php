@@ -190,8 +190,8 @@ class Widget_QR_Code extends Widget_Abstract {
 		$updated_instance['widget_title'] = wp_strip_all_tags( $new_instance['widget_title'] );
 		$updated_instance['qr_code_size'] = sanitize_text_field( $new_instance['qr_code_size'] );
 		$updated_instance['redirection']  = sanitize_text_field( $new_instance['redirection'] );
-		$updated_instance['event_id']     = absint( $new_instance['event_id'] );
-		$updated_instance['series_id']    = absint( $new_instance['series_id'] );
+		$updated_instance['event_id']     = absint( $new_instance['event_id'] ?? 0 );
+		$updated_instance['series_id']    = absint( $new_instance['series_id'] ?? 0 );
 		return $this->filter_updated_instance( $updated_instance, $new_instance );
 	}
 
