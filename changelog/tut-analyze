@@ -1,4 +1,0 @@
-Significance: patch
-Type: tweak
-
-Added filters: `tec_events_qr_enabled`, `tec_events_qr_valid_screens`, `tec_events_qr_code_modal_vars`, `tec_events_qr_code_regenerate`, `tec_events_qr_current_event_url`, `tec_events_qr_upcoming_event_url`, `tec_events_qr_specific_event_url`, `tec_events_qr_next_series_event_url`, `tec_events_settings_display_qr_codes_section`
