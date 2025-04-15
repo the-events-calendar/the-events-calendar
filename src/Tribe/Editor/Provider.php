@@ -87,13 +87,4 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-website' ), 'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.featured-image' ), 'register' ] );
 	}
-
-	/**
-	 * Binds and sets up implementations at boot time.
-	 *
-	 * @since 4.7
-	 */
-	public function boot() {
-		// no ops
-	}
 }
