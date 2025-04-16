@@ -1,6 +1,25 @@
 <?php
-use TEC\Common\Contracts\Service_Provider;
 
+use TEC\Common\Contracts\Service_Provider;
+use Tribe\Events\Editor\Hooks;
+use Tribe__Events__Editor as Editor;
+use Tribe__Events__Editor__Blocks__Classic_Event_Details as Details;
+use Tribe__Events__Editor__Blocks__Event_Category as Category;
+use Tribe__Events__Editor__Blocks__Event_Datetime as Datetime;
+use Tribe__Events__Editor__Blocks__Event_Links as Links;
+use Tribe__Events__Editor__Blocks__Event_Organizer as Organizer;
+use Tribe__Events__Editor__Blocks__Event_Price as Price;
+use Tribe__Events__Editor__Blocks__Event_Tags as Tags;
+use Tribe__Events__Editor__Blocks__Event_Venue as Venue;
+use Tribe__Events__Editor__Blocks__Event_Website as Website;
+use Tribe__Events__Editor__Blocks__Featured_Image as Image;
+use Tribe__Events__Editor__Compatibility as Compatibility;
+use Tribe__Events__Editor__Configuration as Configuration;
+use Tribe__Events__Editor__I18n as I18n;
+use Tribe__Events__Editor__Meta as Meta;
+use Tribe__Events__Editor__Settings as Settings;
+use Tribe__Events__Editor__Template as Template;
+use Tribe__Events__Editor__Template__Overwrite as Template_Overwrite;
 
 class Tribe__Events__Editor__Provider extends Service_Provider {
 
@@ -17,10 +36,10 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 		}
 
 		// Setup to check if gutenberg is active
-		$this->container->singleton( 'events.editor', 'Tribe__Events__Editor' );
-		$this->container->singleton( 'events.editor.compatibility', 'Tribe__Events__Editor__Compatibility' );
-		tribe( 'events.editor.compatibility' )->hook();
+		$this->container->singleton( 'events.editor', Editor::class );
+		$this->container->singleton( 'events.editor.compatibility', Compatibility::class );
 
+		tribe( 'events.editor.compatibility' )->hook();
 		tribe( 'events.editor' )->hook();
 
 		if ( ! tribe( 'editor' )->should_load_blocks() && ! tec_is_full_site_editor() ) {
@@ -33,23 +52,22 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	}
 
 	public function register_singletons() {
-		$this->container->singleton( 'events.editor.meta', 'Tribe__Events__Editor__Meta' );
-		$this->container->singleton( 'events.editor.settings', 'Tribe__Events__Editor__Settings' );
-		$this->container->singleton( 'events.editor.i18n', 'Tribe__Events__Editor__I18n', [ 'hook' ] );
-		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
-		$this->container->singleton( 'events.editor.template.overwrite', 'Tribe__Events__Editor__Template__Overwrite', [ 'hook' ] );
-		$this->container->singleton( 'events.editor.configuration', 'Tribe__Events__Editor__Configuration', [ 'hook' ] );
-
-		$this->container->singleton( 'events.editor.blocks.classic-event-details', Tribe__Events__Editor__Blocks__Classic_Event_Details::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-datetime', Tribe__Events__Editor__Blocks__Event_Datetime::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-venue', Tribe__Events__Editor__Blocks__Event_Venue::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-organizer', Tribe__Events__Editor__Blocks__Event_Organizer::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-links', Tribe__Events__Editor__Blocks__Event_Links::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-price', Tribe__Events__Editor__Blocks__Event_Price::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-category', Tribe__Events__Editor__Blocks__Event_Category::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-tags', Tribe__Events__Editor__Blocks__Event_Tags::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.event-website', Tribe__Events__Editor__Blocks__Event_Website::class, [ 'load' ] );
-		$this->container->singleton( 'events.editor.blocks.featured-image', Tribe__Events__Editor__Blocks__Featured_Image::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.meta', Meta::class );
+		$this->container->singleton( 'events.editor.settings', Settings::class );
+		$this->container->singleton( 'events.editor.i18n', I18n::class, [ 'hook' ] );
+		$this->container->singleton( 'events.editor.template', Template::class );
+		$this->container->singleton( 'events.editor.template.overwrite', Template_Overwrite::class, [ 'hook' ] );
+		$this->container->singleton( 'events.editor.configuration', Configuration::class, [ 'hook' ] );
+		$this->container->singleton( 'events.editor.blocks.classic-event-details', Details::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-datetime', Datetime::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-venue', Venue::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-organizer', Organizer::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-links', Links::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-price', Price::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-category', Category::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-tags', Tags::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.event-website', Website::class, [ 'load' ] );
+		$this->container->singleton( 'events.editor.blocks.featured-image', Image::class, [ 'load' ] );
 	}
 
 	public function call_singletons() {
@@ -70,7 +88,7 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	 *
 	 */
 	protected function hook() {
-		$this->container->register( \Tribe\Events\Editor\Hooks::class );
+		$this->container->register( Hooks::class );
 
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
