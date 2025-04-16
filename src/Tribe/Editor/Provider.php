@@ -93,16 +93,16 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
 
-		// Register blocks to own own action
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.classic-event-details' ),  'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-datetime' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-venue' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-organizer' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-links' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-price' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-category' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-tags' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-website' ), 'register' ] );
-		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.featured-image' ), 'register' ] );
+		// Register blocks to our own action
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.classic-event-details', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-datetime', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-venue', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-organizer', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-links', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-price', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-category', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-tags', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-website', 'register' ) );
+		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.featured-image', 'register' ) );
 	}
 }
