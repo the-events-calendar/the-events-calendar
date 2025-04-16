@@ -11,9 +11,6 @@ namespace TEC\Events\Classy;
 
 use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
-use TEC\Events\Classy\Back_Compatibility\Editor;
-use TEC\Events\Classy\Back_Compatibility\Editor_Utils;
-use TEC\Events\Classy\Back_Compatibility\EditorProvider;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -148,9 +145,6 @@ class Controller extends ControllerContract {
 	 * @return void Bindings are registered, the controller is hooked to actions and filters.
 	 */
 	protected function do_register(): void {
-		// Register the `editor` binding replacement for back-compatibility purposes.
-		tribe_register_provider( EditorProvider::class );
-
 		// Remove our post types from the list of post types that should load blocks.
 		add_filter( 'tec_common_load_blocks_post_types', [ $this, 'filter_load_block_post_types' ], 100 );
 
@@ -221,8 +215,6 @@ class Controller extends ControllerContract {
 	 * @return void The hooked actions and filters are removed.
 	 */
 	public function unregister(): void {
-		$this->container->get( EditorProvider::class )->unregister();
-
 		// Remove filters and actions.
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
