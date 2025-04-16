@@ -151,7 +151,7 @@ class Controller extends ControllerContract {
 		// Register the `editor` binding replacement for back-compatibility purposes.
 		tribe_register_provider( EditorProvider::class );
 
-		// Tell Common, TEC, ET and so on NOT to load blocks.
+		// Remove our post types from the list of post types that should load blocks.
 		add_filter( 'tec_common_load_blocks_post_types', [ $this, 'filter_load_block_post_types' ], 100 );
 
 		// We're using TEC new editor.
