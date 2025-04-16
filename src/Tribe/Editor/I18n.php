@@ -25,7 +25,7 @@ class Tribe__Events__Editor__I18n {
 	 */
 	public function include_inline_script( $value ) {
 		if ( ! tribe( 'admin.helpers' )->is_post_type_screen( Tribe__Events__Main::POSTTYPE ) ) {
-			return false;
+			return;
 		}
 
 		$domain = 'the-events-calendar';
