@@ -42,7 +42,7 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 		},
 		removeOrganizer: ( id ) => () => {
 			const organizers = organizersSelectors.getOrganizersInClassic( state );
-			const newOrganizers = organizers.filter( organizerId => organizerId !== id );
+			const newOrganizers = organizers.filter( ( organizerId ) => organizerId !== id );
 
 			ownProps.setAttributes( { organizers: newOrganizers } );
 			dispatch( organizersActions.removeOrganizerInClassic( id ) );
@@ -50,7 +50,4 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => {
 	};
 };
 
-export default compose(
-	withStore(),
-	connect( mapStateToProps, null, mergeProps ),
-)( EventDetailsOrganizers );
+export default compose( withStore(), connect( mapStateToProps, null, mergeProps ) )( EventDetailsOrganizers );

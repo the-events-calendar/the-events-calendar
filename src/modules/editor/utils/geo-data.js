@@ -9,7 +9,7 @@ import { list } from '@moderntribe/common/utils/globals';
  * Convert data from an array with different keys and values into a unified shape of object.
  *
  * @param {Object} data An object with the data used to retrieve the data
- * @returns {{code: string, name: *}[]} Return an object with code, name values
+ * @return {{code: string, name: *}[]} Return an object with code, name values
  */
 function toObject( data = {} ) {
 	return Object.keys( data ).map( ( key ) => {
@@ -23,7 +23,7 @@ function toObject( data = {} ) {
 /**
  * Return the list of all the countries presented by the localized variable: tribe_data_countries
  *
- * @returns {{code: string, name: *}[]} An object with the list of countries
+ * @return {{code: string, name: *}[]} An object with the list of countries
  */
 export function getCountries() {
 	return toObject( list().countries );
@@ -50,7 +50,7 @@ export function getStateName( countryCode, code ) {
  * Return the list of al the states based on the country code
  *
  * @param {string} countryCode The code of the country from where the states are going to be returned
- * @returns {{code: string, name: *}[]} An object with the list of the States
+ * @return {{code: string, name: *}[]} An object with the list of the States
  */
 export function getStates( countryCode ) {
 	switch ( countryCode ) {
@@ -64,32 +64,15 @@ export function getStates( countryCode ) {
 export default list();
 
 export function addressToMapString( address = {} ) {
-	const {
-		city,
-		street,
-		province,
-		country,
-	} = address;
+	const { city, street, province, country } = address;
 	const components = [ city, street, province, country ];
-	return components
-		.filter( identity )
-		.map( trim )
-		.join( ', ' );
+	return components.filter( identity ).map( trim ).join( ', ' );
 }
 
 export function mapLink( address = {} ) {
-	const {
-		city,
-		street,
-		province,
-		zip,
-		country,
-	} = address;
+	const { city, street, province, zip, country } = address;
 
-	const query = [ city, street, province, zip, country ]
-		.filter( identity )
-		.map( trim )
-		.join( ', ' );
+	const query = [ city, street, province, zip, country ].filter( identity ).map( trim ).join( ', ' );
 
 	const args = {
 		f: 'q',

@@ -106,7 +106,7 @@ class Assets extends Service_Provider {
 	public function register() {
 		$plugin = Plugin::instance();
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-bootstrap-datepicker-styles',
 			'vendor/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css',
@@ -120,7 +120,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-skeleton',
 			'views-skeleton.css',
@@ -138,7 +138,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-full',
 			'views-full.css',
@@ -159,7 +159,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-print',
 			'views-print.css',
@@ -185,7 +185,7 @@ class Assets extends Service_Provider {
 			$bootstrap_datepicker_dependencies[] = 'jquery-ui-datepicker';
 		}
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-bootstrap-datepicker',
 			'vendor/bootstrap-datepicker/js/bootstrap-datepicker.js',
@@ -198,7 +198,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-manager',
 			'views/manager.js',
@@ -218,7 +218,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-viewport',
 			'views/viewport.js',
@@ -235,7 +235,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-accordion',
 			'views/accordion.js',
@@ -251,7 +251,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-view-selector',
 			'views/view-selector.js',
@@ -269,7 +269,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-ical-links',
 			'views/ical-links.js',
@@ -285,7 +285,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-navigation-scroll',
 			'views/navigation-scroll.js',
@@ -301,7 +301,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-multiday-events',
 			'views/multiday-events.js',
@@ -317,7 +317,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-month-mobile-events',
 			'views/month-mobile-events.js',
@@ -335,7 +335,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-month-grid',
 			'views/month-grid.js',
@@ -348,7 +348,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-tooltip',
 			'views/tooltip.js',
@@ -365,7 +365,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-events-bar',
 			'views/events-bar.js',
@@ -383,7 +383,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-events-bar-inputs',
 			'views/events-bar-inputs.js',
@@ -399,7 +399,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-datepicker',
 			'views/datepicker.js',
@@ -416,7 +416,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-views-v2-breakpoints',
 			'views/breakpoints.js',
@@ -436,7 +436,7 @@ class Assets extends Service_Provider {
 		$overrides_stylesheet = Tribe__Events__Templates::locate_stylesheet( 'tribe-events/tribe-events.css' );
 
 		if ( ! empty( $overrides_stylesheet ) ) {
-			tribe_asset(
+			tec_asset(
 				$plugin,
 				'tribe-events-views-v2-override-style',
 				$overrides_stylesheet,
@@ -454,7 +454,7 @@ class Assets extends Service_Provider {
 			);
 		}
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-v2-single-skeleton',
 			'tribe-events-single-skeleton.css',
@@ -469,7 +469,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-v2-single-skeleton-full',
 			'tribe-events-single-full.css',
@@ -488,7 +488,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-v2-single-blocks',
 			'tribe-events-single-blocks.css',
@@ -506,7 +506,7 @@ class Assets extends Service_Provider {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-admin-v2-single-blocks',
 			'tribe-admin-single-blocks.css',

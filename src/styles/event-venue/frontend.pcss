@@ -6,29 +6,31 @@
 .tribe-block__venue {
 	display: flex;
 	justify-content: space-between;
-	width: 100%;
 	position: relative;
+	width: 100%;
 
 	&__meta {
-		width: 100%;
 		flex-basis: 100%;
+		width: 100%;
 	}
 
 	&.tribe-block__venue--has-map {
 
 		.tribe-block__venue__meta,
 		.tribe-block__venue__map {
-			width: 49%;
 			flex-basis: 49%;
+			width: 49%;
 		}
 	}
 
 	.tribe-block__venue__meta {
+
 		.tribe-block__venue__name {
 			display: flex;
+
 			h3 {
 				font-size: 1.3125rem;
-				font-weight: bold;
+				font-weight: 700;
 				margin: 0 0 4px;
 				width: 100%;
 			}
@@ -59,19 +61,19 @@
 		.tribe-block__venue__address,
 		.tribe-block__venue__phone,
 		.tribe-block__venue__website {
-			color: #545D66;
+			color: #545d66;
 			font-size: 1rem;
-			line-height: 1.5;
 			letter-spacing: 0.13px;
+			line-height: 1.5;
 		}
 	}
 
 	.tribe-block__venue__map {
-		display: flex;
 		align-items: center;
+		display: flex;
 		justify-content: center;
-		text-align: center;
-		position: relative;
 		min-height: 220px;
+		position: relative;
+		text-align: center;
 	}
 }

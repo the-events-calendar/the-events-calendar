@@ -108,7 +108,7 @@ class Assets_Manager extends Controller {
 		}
 
 		// Register the base widget styles first.
-		tribe_asset(
+		tec_asset(
 			tribe( 'tec.main' ),
 			'tec-events-elementor-widgets-base-styles',
 			'integrations/plugins/elementor/widgets/widget-base.css',
@@ -120,7 +120,7 @@ class Assets_Manager extends Controller {
 		}
 
 		// setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
-		tribe_asset(
+		tec_asset(
 			tribe( 'tec.main' ),
 			'tec-events-elementor-icons',
 			'integrations/plugins/elementor/icons.css',
@@ -203,7 +203,7 @@ class Assets_Manager extends Controller {
 	 */
 	public function action_register_editor_styles(): void {
 		// setting this to enqueue on elementor/editor/after_enqueue_styles fails, so we run it separately, below.
-		tribe_asset(
+		tec_asset(
 			tribe( 'tec.main' ),
 			'tec-events-elementor-icons',
 			'integrations/plugins/elementor/icons.css',

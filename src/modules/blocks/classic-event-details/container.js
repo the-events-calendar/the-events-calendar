@@ -8,22 +8,14 @@ import { compose } from 'redux';
  * Internal dependencies
  */
 import { globals } from '@moderntribe/common/utils';
-import {
-	actions as dateTimeActions,
-	selectors as dateTimeSelectors,
-} from '@moderntribe/events/data/blocks/datetime';
+import { actions as dateTimeActions, selectors as dateTimeSelectors } from '@moderntribe/events/data/blocks/datetime';
 import {
 	actions as priceActions,
 	selectors as priceSelectors,
 	utils as priceUtils,
 } from '@moderntribe/events/data/blocks/price';
-import {
-	actions as websiteActions,
-	selectors as websiteSelectors,
-} from '@moderntribe/events/data/blocks/website';
-import {
-	selectors as organizerSelectors,
-} from '@moderntribe/events/data/blocks/organizers';
+import { actions as websiteActions, selectors as websiteSelectors } from '@moderntribe/events/data/blocks/website';
+import { selectors as organizerSelectors } from '@moderntribe/events/data/blocks/organizers';
 import { withStore } from '@moderntribe/common/hoc';
 import ClassicEventDetails from './template';
 import dateTimeBlock from '@moderntribe/events/blocks/event-datetime';
@@ -100,7 +92,4 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	},
 } );
 
-export default compose(
-	withStore(),
-	connect( mapStateToProps, mapDispatchToProps ),
-)( ClassicEventDetails );
+export default compose( withStore(), connect( mapStateToProps, mapDispatchToProps ) )( ClassicEventDetails );
