@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.11.2';
+		const VERSION             = '6.12.0';
 
 		/**
 		 * Min Pro Addon.
@@ -697,6 +697,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up IAN Client - In-App Notifications.
 			tribe_register_provider( TEC\Events\Notifications\Provider::class );
+
+			// Set up the QR Code system.
+			tribe()->register_on_action( 'tec_qr_code_loaded', TEC\Events\QR\Controller::class );
 
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
