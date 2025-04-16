@@ -31,10 +31,6 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	 *
 	 */
 	public function register() {
-		if ( tec_using_classy_editor() ) {
-			return;
-		}
-
 		// Setup to check if gutenberg is active
 		$this->container->singleton( 'events.editor', Editor::class );
 		$this->container->singleton( 'events.editor.compatibility', Compatibility::class );
