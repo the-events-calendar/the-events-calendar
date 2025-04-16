@@ -152,7 +152,6 @@ class Controller extends ControllerContract {
 		tribe_register_provider( EditorProvider::class );
 
 		// Tell Common, TEC, ET and so on NOT to load blocks.
-		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		add_filter( 'tec_common_load_blocks_post_types', [ $this, 'filter_load_block_post_types' ], 100 );
 
 		// We're using TEC new editor.
@@ -225,7 +224,6 @@ class Controller extends ControllerContract {
 		$this->container->get( EditorProvider::class )->unregister();
 
 		// Remove filters and actions.
-		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
