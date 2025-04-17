@@ -2354,8 +2354,29 @@ class View implements View_Interface {
 			$header_title = esc_html__( 'Featured', 'the-events-calendar' );
 		}
 
-		if ( $view_slug === 'day' ) {
-			$header_title = esc_html_x( 'Daily Events', 'Day View Page Title', 'the-events-calendar' );
+		/**
+		 * On the views only add header title when:
+		 * - Calendar is NOT displayed via shortcode
+		 * - Calendar IS using the event template
+		 */
+		$x = $context->get( 'start_date' );
+		if (
+			! $context->is( 'shortcode' )
+			&& tribe_get_option( 'tribeEventsTemplate', '' ) === ''
+		) {
+			if ( $view_slug === 'day' ) {
+				$header_title = sprintf(
+					esc_html_x( 'Daily Events for %s', 'Day View Page Title', 'the-events-calendar' ),
+					date_i18n( tribe_get_date_option( 'dayFormat', 'l, F j, Y' ), strtotime( $context->get( 'event_date' ) ) )
+				);
+			}
+
+			if ( $view_slug === 'month' ) {
+				$header_title = sprintf(
+					esc_html_x( 'Events for %s', 'Month View Page Title', 'the-events-calendar' ),
+				 	date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( $context->get( 'event_date' ) ) )
+				);
+			}
 		}
 
 		/**
