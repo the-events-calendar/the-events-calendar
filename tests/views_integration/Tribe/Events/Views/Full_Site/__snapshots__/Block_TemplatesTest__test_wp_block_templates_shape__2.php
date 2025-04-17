@@ -16,6 +16,7 @@
   'wp_id' => NULL,
   'is_custom' => true,
   'author' => NULL,
+  'slug' => 'archive-events',
   'id' => 'tec//archive-events',
   'type' => 'wp_template',
 );
