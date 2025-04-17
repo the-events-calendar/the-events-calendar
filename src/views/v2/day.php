@@ -42,7 +42,7 @@ if ( empty( $disable_event_search ) ) {
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
 	<?php endif; ?>
 >
-	<div class="tribe-common-l-container tribe-events-l-container">
+	<div class="tribe-common-l-container tribe-events-l-container" aria-labelledby="calendar-title">
 		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'the-events-calendar' ) ] ); ?>
 
 		<?php $this->template( 'components/json-ld-data' ); ?>

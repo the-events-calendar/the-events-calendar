@@ -1314,7 +1314,7 @@ class View implements View_Interface {
 		$template_vars = apply_filters( "tribe_events_views_v2_view_{$view_slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
-	} 
+	}
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
@@ -2329,6 +2329,8 @@ class View implements View_Interface {
 		$context      = $this->get_context();
 		$header_title = '';
 		$taxonomy     = TEC::TAXONOMY;
+		$view_slug = static::get_view_slug();
+		$view = $context->get( 'view' );
 		$context_tax  = $context->get( $taxonomy, false );
 		if ( empty( $context_tax ) ) {
 			$taxonomy    = 'post_tag';
@@ -2353,6 +2355,10 @@ class View implements View_Interface {
 			$header_title = esc_html__( 'Featured', 'the-events-calendar' );
 		}
 
+		if ( $view == 'day' ) {
+			$header_title = esc_html_x( 'Daily Events', 'Day View Page Title', 'the-events-calendar' );
+		}
+
 		/**
 		 * Filters the header title the View will print on the frontend.
 		 *
@@ -2362,8 +2368,6 @@ class View implements View_Interface {
 		 * @param View   $this         The current View instance being rendered.
 		 */
 		$header_title = (string) apply_filters( 'tec_events_views_v2_view_header_title', $header_title, $this );
-
-		$view_slug = static::get_view_slug();
 
 		/**
 		 * Filters the header title a specific View will print on the frontend.

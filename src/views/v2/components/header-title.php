@@ -21,10 +21,15 @@ if ( empty( $header_title ) ) {
 }
 
 $header_title_element = $header_title_element ?? 'h1';
-?>
 
+$header_title_classes = [ 'tribe-events-header__title-text' ];
+
+if ( $view_slug === 'day' ) {
+	$header_title_classes[] = 'tribe-common-a11y-visual-hide';
+}
+?>
 <div class="tribe-events-header__title">
-	<<?php echo esc_attr( $header_title_element ); ?> class="tribe-events-header__title-text">
+	<<?php echo esc_attr( $header_title_element ); ?> class="<?php echo esc_attr( implode( ' ', $header_title_classes ) ); ?>" id="calendar-title">
 		<?php echo esc_html( $header_title ); ?>
 	</<?php echo esc_attr( $header_title_element ); ?>>
 </div>
