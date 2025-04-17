@@ -1314,7 +1314,7 @@ class View implements View_Interface {
 		$template_vars = apply_filters( "tribe_events_views_v2_view_{$view_slug}_template_vars", $template_vars, $this );
 
 		return $template_vars;
-	} 
+	}
 
 	/**
 	 * Sets up the View repository arguments from the View context or a provided Context object.
@@ -2327,6 +2327,7 @@ class View implements View_Interface {
 	 */
 	protected function get_header_title(): string {
 		$context      = $this->get_context();
+		$view_slug    = static::get_view_slug();
 		$header_title = '';
 		$taxonomy     = TEC::TAXONOMY;
 		$context_tax  = $context->get( $taxonomy, false );
@@ -2354,6 +2355,31 @@ class View implements View_Interface {
 		}
 
 		/**
+		 * On the views only add header title when:
+		 * - Calendar is NOT displayed via shortcode
+		 * - Calendar IS using the event template
+		 */
+		$x = $context->get( 'start_date' );
+		if (
+			! $context->is( 'shortcode' )
+			&& tribe_get_option( 'tribeEventsTemplate', '' ) === ''
+		) {
+			if ( $view_slug === 'day' ) {
+				$header_title = sprintf(
+					esc_html_x( 'Daily Events for %s', 'Day View Page Title', 'the-events-calendar' ),
+					date_i18n( tribe_get_date_option( 'dayFormat', 'l, F j, Y' ), strtotime( $context->get( 'event_date' ) ) )
+				);
+			}
+
+			if ( $view_slug === 'month' ) {
+				$header_title = sprintf(
+					esc_html_x( 'Events for %s', 'Month View Page Title', 'the-events-calendar' ),
+				 	date_i18n( tribe_get_date_option( 'monthAndYearFormat', 'F Y' ), strtotime( $context->get( 'event_date' ) ) )
+				);
+			}
+		}
+
+		/**
 		 * Filters the header title the View will print on the frontend.
 		 *
 		 * @since 6.2.0
@@ -2362,8 +2388,6 @@ class View implements View_Interface {
 		 * @param View   $this         The current View instance being rendered.
 		 */
 		$header_title = (string) apply_filters( 'tec_events_views_v2_view_header_title', $header_title, $this );
-
-		$view_slug = static::get_view_slug();
 
 		/**
 		 * Filters the header title a specific View will print on the frontend.
