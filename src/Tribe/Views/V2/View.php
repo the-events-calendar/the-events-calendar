@@ -2327,10 +2327,9 @@ class View implements View_Interface {
 	 */
 	protected function get_header_title(): string {
 		$context      = $this->get_context();
+		$view_slug    = static::get_view_slug();
 		$header_title = '';
 		$taxonomy     = TEC::TAXONOMY;
-		$view_slug = static::get_view_slug();
-		$view = $context->get( 'view' );
 		$context_tax  = $context->get( $taxonomy, false );
 		if ( empty( $context_tax ) ) {
 			$taxonomy    = 'post_tag';
@@ -2355,7 +2354,7 @@ class View implements View_Interface {
 			$header_title = esc_html__( 'Featured', 'the-events-calendar' );
 		}
 
-		if ( $view == 'day' ) {
+		if ( $view_slug === 'day' ) {
 			$header_title = esc_html_x( 'Daily Events', 'Day View Page Title', 'the-events-calendar' );
 		}
 
