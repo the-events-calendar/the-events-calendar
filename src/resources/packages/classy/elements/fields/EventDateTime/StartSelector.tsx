@@ -10,6 +10,7 @@ export default function StartSelector(props: {
 	endDate: Date;
 	isAllDay: boolean;
 	isSelectingDate: 'start' | 'end' | false;
+	onChange: (selecting: 'start' | 'end', date: string) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
 	onFocusOutside: () => void;
@@ -22,6 +23,7 @@ export default function StartSelector(props: {
 		endDate,
 		isAllDay,
 		isSelectingDate,
+		onChange,
 		onClick,
 		onClose,
 		onFocusOutside,
@@ -42,6 +44,7 @@ export default function StartSelector(props: {
 					isSelectingDate={isSelectingDate}
 					onClick={onClick}
 					onClose={onClose}
+					onChange={onChange}
 					onFocusOutside={onFocusOutside}
 					show={isSelectingDate === 'start'}
 					startDate={startDate}

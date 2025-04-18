@@ -16,6 +16,7 @@ export default function DatePicker(props: {
 	dateWithYearFormat: string;
 	endDate: Date;
 	isSelectingDate: 'start' | 'end' | false;
+	onChange: (selecting: 'start' | 'end', newDate: string) => void;
 	onClick: MouseEventHandler<HTMLInputElement>;
 	onClose: () => void;
 	onFocusOutside: (event: SyntheticEvent) => void;
@@ -29,6 +30,7 @@ export default function DatePicker(props: {
 		dateWithYearFormat,
 		endDate,
 		isSelectingDate,
+		onChange,
 		onClick,
 		onClose,
 		onFocusOutside,
@@ -58,6 +60,7 @@ export default function DatePicker(props: {
 					isSelectingDate={isSelectingDate as 'start' | 'end'}
 					startDate={startDate}
 					startOfWeek={startOfWeek}
+					onChange={onChange}
 					onClose={onClose}
 					onFocusOutside={onFocusOutside}
 				/>

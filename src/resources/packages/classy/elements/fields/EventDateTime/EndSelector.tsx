@@ -12,6 +12,7 @@ export default function EndSelector(props: {
 	isAllDay: boolean;
 	isMultiday: boolean;
 	isSelectingDate: 'start' | 'end' | false;
+	onChange: (selecting: 'start' | 'end', date: string) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
 	onFocusOutside: () => void;
@@ -25,6 +26,7 @@ export default function EndSelector(props: {
 		isMultiday,
 		isAllDay,
 		isSelectingDate,
+		onChange,
 		onClick,
 		onClose,
 		onFocusOutside,
@@ -43,6 +45,7 @@ export default function EndSelector(props: {
 						anchor={ref.current}
 						dateWithYearFormat={dateWithYearFormat} endDate={endDate}
 						isSelectingDate={isSelectingDate}
+						onChange={onChange}
 						onClick={onClick}
 						onClose={onClose}
 						onFocusOutside={onFocusOutside}

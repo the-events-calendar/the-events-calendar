@@ -25,6 +25,7 @@ export default function CalendarPopover(props: {
 	startDate: Date;
 	endDate: Date;
 	onClose: ()=>void;
+	onChange: (selecting: 'start' | 'end', date: string) => void;
 	onFocusOutside: (event: SyntheticEvent) => void;
 }) {
 	const {
@@ -35,10 +36,16 @@ export default function CalendarPopover(props: {
 		startDate,
 		endDate,
 		onClose,
+		onChange,
 		onFocusOutside,
 	} = props;
 
 	const events = getDatePickerEventsBetweenDates(startDate, endDate);
+
+	// Do not allow picking any date before, or on, the start date.
+	const isInvalidDate = (date: Date): boolean => {
+		return startDate && date < startDate;
+	};
 
 	return (
 		<Popover
@@ -55,10 +62,10 @@ export default function CalendarPopover(props: {
 				startOfWeek={startOfWeek}
 				currentDate={date}
 				onChange={(newDate: string): void =>
-					// @ts-ignore If we're here, then `isSelectingDate` will either be `start` or `end`.
-					onDateChange(isSelectingDate, newDate)
+					onChange(isSelectingDate as 'start' | 'end', newDate)
 				}
 				events={events}
+				isInvalidDate={isInvalidDate}
 			/>
 		</Popover>
 	);

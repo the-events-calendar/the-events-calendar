@@ -244,6 +244,7 @@ export default function EventDateTime(props: EventDateTimeProps) {
 			isSelectingDate={isSelectingDate}
 			onClick={() => onDateInputClick('start')}
 			onClose={() => setIsSelectingDate(false)}
+			onChange={onDateChange}
 			onFocusOutside={() => setIsSelectingDate(false)}
 			startDate={startDate}
 			startOfWeek={startOfWeek}
@@ -261,6 +262,7 @@ export default function EventDateTime(props: EventDateTimeProps) {
 			isSelectingDate={isSelectingDate}
 			onClick={() => onDateInputClick('end')}
 			onClose={() => setIsSelectingDate(false)}
+			onChange={onDateChange}
 			onFocusOutside={() => setIsSelectingDate(false)}
 			startDate={startDate}
 			startOfWeek={startOfWeek}
