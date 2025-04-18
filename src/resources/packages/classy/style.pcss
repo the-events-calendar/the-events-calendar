@@ -59,6 +59,14 @@
 		align-self: stretch;
 	}
 
+	.classy-field__group {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		gap: var(--tec-spacer-2);
+		justify-content: flex-start;
+	}
+
 	.classy-field {
 		display: flex;
 		width: 100%;
@@ -94,7 +102,6 @@
 		}
 	}
 
-
 	.classy-field__input {
 		display: flex;
 		flex-direction: column;
@@ -112,10 +119,13 @@
 			font-size: var(--classy-font-size-13);
 			font-weight: var(--tec-font-weight-regular);
 		}
+
+		&.classy-field__input--grow {
+			flex-grow: 1;
+		}
 	}
 
 	.classy-field__control {
-		/* @todo This is not being respected by controller inputs */
 		font-size: var(--classy-font-size-15);
 
 		&.classy-field__control--input{

@@ -1,8 +1,10 @@
-import {select} from '@wordpress/data';
-import {StoreState} from '../types/StoreState';
-import {EventDateTimeDetails} from '../types/EventDateTimeDetails';
-import {EventMeta} from '../types/EventMeta';
-import {format, getDate, getSettings} from '@wordpress/date';
+import { select } from '@wordpress/data';
+import { StoreState } from '../types/StoreState';
+import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
+import { EventMeta } from '../types/EventMeta';
+import { getDate } from '@wordpress/date';
+import { localizedData } from '../localized-data';
+import { Settings } from '../types/LocalizedData';
 
 /**
  * Returns an attribute of the currently edited post.
@@ -78,7 +80,7 @@ export function getEventDateTimeDetails(
 	state: StoreState
 ): EventDateTimeDetails {
 	const coreEditor = select('core/editor');
-	let meta: EventMeta = null;
+	let meta: EventMeta;
 
 	if (coreEditor) {
 		// @ts-ignore
@@ -105,15 +107,13 @@ export function getEventDateTimeDetails(
 		eventEnd = getDate('');
 		eventEnd.setHours(17, 0, 0);
 	}
-	const settings = getSettings();
-	const dateFormat = settings.formats.date;
+	const settings: Settings = localizedData.settings;
 	const isMultiday =
 		eventStart.getDate() !== eventEnd.getDate() ||
 		eventStart.getMonth() !== eventEnd.getMonth() ||
 		eventStart.getFullYear() !== eventEnd.getFullYear();
 	const isAllDay = meta?._EventAllDay ?? false;
-	const eventTimezone = meta?._EventTimezone ?? settings.timezone.string;
-	const startOfWeek = settings?.l10n?.startOfWeek ?? 0;
+	const eventTimezone = meta?._EventTimezone ?? settings.timezoneString;
 
 	return {
 		eventStart,
@@ -121,7 +121,6 @@ export function getEventDateTimeDetails(
 		isMultiday,
 		isAllDay,
 		eventTimezone,
-		startOfWeek,
-		dateFormat
+		...settings
 	} as EventDateTimeDetails;
 }
