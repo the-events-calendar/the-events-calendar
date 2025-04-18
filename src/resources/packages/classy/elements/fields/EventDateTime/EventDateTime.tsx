@@ -3,7 +3,7 @@ import {useSelect} from '@wordpress/data';
 import {EventDateTimeDetails} from '../../../types/EventDateTimeDetails';
 import {ToggleControl} from '@wordpress/components';
 import {_x} from '@wordpress/i18n';
-import {METADATA_EVENT_END_DATE, METADATA_EVENT_START_DATE,} from '../../../constants';
+import {METADATA_EVENT_ALLDAY, METADATA_EVENT_END_DATE, METADATA_EVENT_START_DATE} from '../../../constants';
 import {format, getDate} from '@wordpress/date';
 import {usePostEdits} from '../../../hooks';
 import {UsePostEditsReturn} from '../../../types/UsePostEditsReturn';
@@ -300,6 +300,7 @@ export default function EventDateTime(props: EventDateTimeProps) {
 						phpDateMysqlFormat,
 						newEndDate
 					),
+					[METADATA_EVENT_ALLDAY]: newValue ? '1' : '0',
 				},
 			});
 
