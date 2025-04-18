@@ -5,7 +5,7 @@
 	data-view-manage-url="1"
 				data-view-breakpoint-pointer="random-id"
 	>
-	<div class="tribe-common-l-container tribe-events-l-container">
+	<section class="tribe-common-l-container tribe-events-l-container">
 		<div
 	class="tribe-events-view-loader tribe-common-a11y-hidden"
 	role="alert"
@@ -560,7 +560,7 @@ http://evnt.is/18wn
 -->
 </div>
 
-	</div>
+	</section>
 </div>
 
 <script class="tribe-events-breakpoints">
