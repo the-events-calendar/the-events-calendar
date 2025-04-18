@@ -40,7 +40,7 @@ const WelcomeContent = ( { moveToNextTab, skipToNextTab } ) => {
 				</h1>
 				<p className="tec-events-onboarding__tab-subheader">
 					{ __(
-						'Congratulations on installing the best event management solution for WordPress. Let’s tailor your experience to your needs.',
+						'Congratulations on installing the best event management solution for WordPress. Let\'s tailor your experience to your needs.',
 						'the-events-calendar'
 					) }
 				</p>

@@ -129,6 +129,12 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function redirect_tec_pages_to_guided_setup(): void {
+		// Do not redirect if they are already on the Guided Setup page. Also prevents an infinite loop if $force is true.
+		$page = tec_get_request_var( 'page' );
+		if ( Landing_Page::$slug === $page ) {
+			return;
+		}
+
 		/**
 		 * Allows bypassing the checks for if we've don't need to/have already visited the Guided Setup page.
 		 * Still respects the post type checks.
@@ -140,11 +146,6 @@ class Controller extends Controller_Contract {
 		 * @return bool
 		 */
 		$force = (bool) apply_filters( 'tec_events_onboarding_force_redirect_to_guided_setup', false );
-		// Do not redirect if they are already on the Guided Setup page.
-		$page = tec_get_request_var( 'page' );
-		if ( Landing_Page::$slug === $page ) {
-			return;
-		}
 
 		// Do not redirect if the target is not The Events Calendar-related admin pages.
 		$post_type = tec_get_request_var( 'post_type' );
@@ -170,7 +171,7 @@ class Controller extends Controller_Contract {
 			return;
 		}
 
-		if ( $force ) {
+		if ( ! $force ) {
 			// Do not redirect if they have been to the Guided Setup page already.
 			if ( (bool) tribe_get_option( 'tec_onboarding_wizard_visited_guided_setup', false ) ) {
 				return;
