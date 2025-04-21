@@ -89,7 +89,7 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 		// Setup the Meta registration
 		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
 
-		// Register blocks to our own action
+		// Register blocks to our own action.
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.classic-event-details', 'register' ) );
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-datetime', 'register' ) );
 		add_action( 'tribe_editor_register_blocks', tribe_callback( 'events.editor.blocks.event-venue', 'register' ) );

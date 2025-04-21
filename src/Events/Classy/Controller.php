@@ -328,7 +328,7 @@ class Controller extends ControllerContract {
 	 *
 	 * @since TBD
 	 *
-	 * @param string[] $post_types
+	 * @param string[] $post_types The list of post types that should load blocks.
 	 *
 	 * @return string[] The filtered list of post types that should load blocks.
 	 */
