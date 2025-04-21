@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Admin\Onboarding\Steps;
 
+use TEC\Common\Admin\Onboarding\Steps\Abstract_Step;
 use WP_REST_Response;
 use WP_REST_Request;
 use TEC\Events\Admin\Onboarding\Data;
@@ -40,7 +41,7 @@ class Settings extends Abstract_Step {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function process( $response, $request ): WP_REST_Response {
+	public function process( $response, $request ): WP_REST_Response {
 		$params        = $request->get_params();
 		$enabled_views = $params['tribeEnableViews'] ?? false;
 
