@@ -24,7 +24,8 @@
         
         // Find the events list container if it exists and has events.
         const $eventsContainer = $container.find('.tribe-events-calendar-list');
-        const hasEvents = $eventsContainer.find('.tribe-events-calendar-list__event-row').length > 0;
+        const eventRows = $eventsContainer.find('.tribe-events-calendar-list__event-row');
+        const hasEvents = eventRows.length > 0;
         
         // Find the messages container if it exists (which appears when no events are found).
         const $messagesContainer = $container.find('.tribe-events-c-messages__message-list');
