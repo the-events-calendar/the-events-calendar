@@ -2336,7 +2336,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2456,7 +2456,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2482,7 +2482,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2508,7 +2508,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2534,7 +2534,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2560,7 +2560,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2586,7 +2586,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2612,7 +2612,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2638,7 +2638,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2664,7 +2664,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2690,7 +2690,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2716,7 +2716,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2742,7 +2742,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2768,7 +2768,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2794,7 +2794,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2820,7 +2820,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2846,7 +2846,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2872,7 +2872,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2898,7 +2898,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2924,7 +2924,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2950,7 +2950,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2976,7 +2976,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3002,7 +3002,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3028,7 +3028,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3054,7 +3054,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3080,7 +3080,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3106,7 +3106,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3132,7 +3132,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3158,7 +3158,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3184,7 +3184,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3210,7 +3210,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3236,7 +3236,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3262,7 +3262,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3288,7 +3288,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>

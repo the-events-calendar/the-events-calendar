@@ -37,7 +37,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="0" 					>
@@ -56,7 +56,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="0" 					>
@@ -290,6 +290,7 @@
 		
 		<div 
 			class="tribe-events-calendar-list"
+			tabindex="-1"
 			aria-label="
 			List of Events			"
 		>

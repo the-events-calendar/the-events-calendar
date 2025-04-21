@@ -29,7 +29,7 @@
 <header  class="tribe-events-header tribe-events-header--has-event-search" >
 	<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-common-c-loader__dot tribe-common-c-loader__dot--third"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-						<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+						<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="0" 					>
@@ -40,7 +40,7 @@
 
 	<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile"  >
 			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
-						<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+						<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="0" 					>
