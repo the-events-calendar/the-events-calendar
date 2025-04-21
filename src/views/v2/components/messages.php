@@ -35,7 +35,7 @@ $attributes = isset( $attributes ) ? (array) $attributes : [];
 	<?php foreach ( $messages as $message_type => $message_group ) : ?>
 		<div class="tribe-events-c-messages__message tribe-events-c-messages__message--<?php echo esc_attr( $message_type ); ?>" role="alert">
 			<?php $this->template( 'components/messages/' . esc_attr( $message_type ) . '-icon' ); ?>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" role="alert" aria-live="polite">
+			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
 				<?php foreach ( $message_group as $key => $message ) : ?>
 					<div
 						class="tribe-events-c-messages__message-list-item"
