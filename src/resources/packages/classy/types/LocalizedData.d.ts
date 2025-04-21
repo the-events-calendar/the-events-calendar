@@ -1,6 +1,6 @@
 import { Hours } from './Hours';
 import { Minutes } from './Minutes';
-import {StartOfWeek} from "./StartOfWeek";
+import { StartOfWeek } from './StartOfWeek';
 
 export type Settings = {
 	timezoneString: string;

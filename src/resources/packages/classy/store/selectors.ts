@@ -20,14 +20,14 @@ export function getEditedPostAttribute(
 	state: StoreState,
 	attribute: string
 ): string {
-	const coreEditor = select('core/editor');
+	const coreEditor = select( 'core/editor' );
 
-	if (coreEditor) {
+	if ( coreEditor ) {
 		// @ts-ignore
-		return coreEditor.getEditedPostAttribute(attribute) ?? '';
+		return coreEditor.getEditedPostAttribute( attribute ) ?? '';
 	}
 
-	return state?.[attribute] ?? '';
+	return state?.[ attribute ] ?? '';
 }
 
 /**
@@ -39,10 +39,10 @@ export function getEditedPostAttribute(
  *
  * @returns {string} The content of the currently edited post.
  */
-export function getEditedPostContent(state: StoreState): string {
-	const coreEditor = select('core/editor');
+export function getEditedPostContent( state: StoreState ): string {
+	const coreEditor = select( 'core/editor' );
 
-	if (coreEditor) {
+	if ( coreEditor ) {
 		// @ts-ignore
 		return coreEditor.getEditedPostContent() ?? '';
 	} else return state?.content ?? '';
@@ -57,10 +57,10 @@ export function getEditedPostContent(state: StoreState): string {
  *
  * @returns {number} The ID of the currently edited post.
  */
-export function getCurrentPostId(state: StoreState): number {
-	const coreEditor = select('core/editor');
+export function getCurrentPostId( state: StoreState ): number {
+	const coreEditor = select( 'core/editor' );
 
-	if (coreEditor) {
+	if ( coreEditor ) {
 		// @ts-ignore
 		return coreEditor.getCurrentPostId() ?? 0;
 	} else return state?.currentPostId ?? 0;
@@ -79,12 +79,12 @@ export function getCurrentPostId(state: StoreState): number {
 export function getEventDateTimeDetails(
 	state: StoreState
 ): EventDateTimeDetails {
-	const coreEditor = select('core/editor');
+	const coreEditor = select( 'core/editor' );
 	let meta: EventMeta;
 
-	if (coreEditor) {
+	if ( coreEditor ) {
 		// @ts-ignore
-		meta = coreEditor.getEditedPostAttribute('meta') ?? {};
+		meta = coreEditor.getEditedPostAttribute( 'meta' ) ?? {};
 	} else {
 		meta = state?.meta || {};
 	}
@@ -93,19 +93,19 @@ export function getEventDateTimeDetails(
 	const eventEndDateString = meta?._EventEndDate ?? '';
 
 	let eventStart: Date;
-	if (eventStartDateString) {
-		eventStart = getDate(eventStartDateString);
+	if ( eventStartDateString ) {
+		eventStart = getDate( eventStartDateString );
 	} else {
-		eventStart = getDate('');
-		eventStart.setHours(8, 0, 0);
+		eventStart = getDate( '' );
+		eventStart.setHours( 8, 0, 0 );
 	}
 
 	let eventEnd: Date;
-	if (eventEndDateString) {
-		eventEnd = getDate(eventEndDateString);
+	if ( eventEndDateString ) {
+		eventEnd = getDate( eventEndDateString );
 	} else {
-		eventEnd = getDate('');
-		eventEnd.setHours(17, 0, 0);
+		eventEnd = getDate( '' );
+		eventEnd.setHours( 17, 0, 0 );
 	}
 	const settings: Settings = localizedData.settings;
 	const isMultiday =
@@ -121,6 +121,6 @@ export function getEventDateTimeDetails(
 		isMultiday,
 		isAllDay,
 		eventTimezone,
-		...settings
+		...settings,
 	} as EventDateTimeDetails;
 }

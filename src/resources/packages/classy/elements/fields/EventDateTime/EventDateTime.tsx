@@ -1,15 +1,25 @@
-import {RefObject, useCallback, useMemo, useRef, useState} from '@wordpress/element';
-import {useSelect} from '@wordpress/data';
-import {EventDateTimeDetails} from '../../../types/EventDateTimeDetails';
-import {ToggleControl} from '@wordpress/components';
-import {_x} from '@wordpress/i18n';
-import {METADATA_EVENT_ALLDAY, METADATA_EVENT_END_DATE, METADATA_EVENT_START_DATE} from '../../../constants';
-import {format, getDate} from '@wordpress/date';
-import {usePostEdits} from '../../../hooks';
-import {UsePostEditsReturn} from '../../../types/UsePostEditsReturn';
+import {
+	RefObject,
+	useCallback,
+	useMemo,
+	useRef,
+	useState,
+} from '@wordpress/element';
+import { useSelect } from '@wordpress/data';
+import { EventDateTimeDetails } from '../../../types/EventDateTimeDetails';
+import { ToggleControl } from '@wordpress/components';
+import { _x } from '@wordpress/i18n';
+import {
+	METADATA_EVENT_ALLDAY,
+	METADATA_EVENT_END_DATE,
+	METADATA_EVENT_START_DATE,
+} from '../../../constants';
+import { format, getDate } from '@wordpress/date';
+import { usePostEdits } from '../../../hooks';
+import { UsePostEditsReturn } from '../../../types/UsePostEditsReturn';
 import './style.pcss';
-import {Hours} from '../../../types/Hours';
-import {Minutes} from '../../../types/Minutes';
+import { Hours } from '../../../types/Hours';
+import { Minutes } from '../../../types/Minutes';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
 
@@ -40,12 +50,12 @@ function getNewStartEndDates(
 	let newStartDate: Date;
 	let newEndDate: Date;
 
-	if (updated === 'start') {
+	if ( updated === 'start' ) {
 		// The start date has been updated by the user.
-		newStartDate = getDate(newDate);
+		newStartDate = getDate( newDate );
 		newEndDate = endDate;
 
-		if (newStartDate.getTime() >= endDate.getTime()) {
+		if ( newStartDate.getTime() >= endDate.getTime() ) {
 			// The start date is after the current end date: push the end date forward.
 			newEndDate = new Date(
 				newStartDate.getTime() + previousDurationInMs
@@ -54,35 +64,35 @@ function getNewStartEndDates(
 	} else {
 		// The end date has been updated by the user.
 		newStartDate = startDate;
-		newEndDate = getDate(newDate);
+		newEndDate = getDate( newDate );
 
-		if (newEndDate.getTime() < startDate.getTime()) {
+		if ( newEndDate.getTime() < startDate.getTime() ) {
 			// The end date is before the current start date: push the start date back.
 			newStartDate = new Date(
 				newEndDate.getTime() - previousDurationInMs
 			);
 		}
 	}
-	return {newStartDate, newEndDate};
+	return { newStartDate, newEndDate };
 }
 
 function getMultiDayEndDate(
-	refs: RefObject<EventDateTimeRefs>,
+	refs: RefObject< EventDateTimeRefs >,
 	newValue: boolean,
 	startDate: Date
 ) {
 	let newEndDate: Date;
-	const {singleDayDuration, multiDayDuration} = refs.current;
+	const { singleDayDuration, multiDayDuration } = refs.current;
 	let duration;
 
-	if (newValue) {
+	if ( newValue ) {
 		// Move the end date forward by 24 hours plus the single day duration.
 		duration = multiDayDuration + singleDayDuration;
 	} else {
 		duration = singleDayDuration;
 	}
 
-	return new Date(startDate.getTime() + duration);
+	return new Date( startDate.getTime() + duration );
 }
 
 function getAllDayNewDates(
@@ -93,24 +103,24 @@ function getAllDayNewDates(
 		minutes: Minutes;
 	},
 	endDate: Date,
-	refs: RefObject<EventDateTimeRefs>
+	refs: RefObject< EventDateTimeRefs >
 ) {
 	let newStartDate: Date;
 	let newEndDate: Date;
 
-	if (newValue) {
+	if ( newValue ) {
 		// Move the start date to the current day end-of-day cutoff time.
-		newStartDate = new Date(startDate);
-		newStartDate.setHours(endOfDayCutoff.hours);
-		newStartDate.setMinutes(endOfDayCutoff.minutes);
+		newStartDate = new Date( startDate );
+		newStartDate.setHours( endOfDayCutoff.hours );
+		newStartDate.setMinutes( endOfDayCutoff.minutes );
 		// Round the current duration to the nearest day and remove one second.
 		const days = Math.ceil(
-			(endDate.getTime() - startDate.getTime()) /
-			(1000 * 60 * 60 * 24)
+			( endDate.getTime() - startDate.getTime() ) /
+				( 1000 * 60 * 60 * 24 )
 		);
 		const duration = days * 1000 * 60 * 60 * 24 - 1; // Subtract one second to avoid the next day.
 		// Move the end date to the next day's end-of-day cutoff time minus on second; e.g. 23:59:59
-		newEndDate = new Date(newStartDate.getTime() + duration);
+		newEndDate = new Date( newStartDate.getTime() + duration );
 		// Save the current start date and end times.
 		refs.current.startTimeHours = startDate.getHours();
 		refs.current.startTimeMinutes = startDate.getMinutes();
@@ -118,18 +128,18 @@ function getAllDayNewDates(
 		refs.current.endTimeMinutes = endDate.getMinutes();
 	} else {
 		// Restore the saved start and end times, but respect the days.
-		newStartDate = new Date(startDate);
-		newStartDate.setHours(refs.current.startTimeHours);
-		newStartDate.setMinutes(refs.current.startTimeMinutes);
-		newEndDate = new Date(endDate);
-		newEndDate.setHours(refs.current.endTimeHours);
-		newEndDate.setMinutes(refs.current.endTimeMinutes);
+		newStartDate = new Date( startDate );
+		newStartDate.setHours( refs.current.startTimeHours );
+		newStartDate.setMinutes( refs.current.startTimeMinutes );
+		newEndDate = new Date( endDate );
+		newEndDate.setHours( refs.current.endTimeHours );
+		newEndDate.setMinutes( refs.current.endTimeMinutes );
 	}
 
-	return {newStartDate, newEndDate};
+	return { newStartDate, newEndDate };
 }
 
-export default function EventDateTime(props: EventDateTimeProps) {
+export default function EventDateTime( props: EventDateTimeProps ) {
 	const {
 		eventStart,
 		eventEnd,
@@ -139,29 +149,29 @@ export default function EventDateTime(props: EventDateTimeProps) {
 		startOfWeek,
 		endOfDayCutoff,
 		dateWithYearFormat,
-		timeFormat
-	} = useSelect((select) => {
+		timeFormat,
+	} = useSelect( ( select ) => {
 		const {
 			getEventDateTimeDetails,
 		}: { getEventDateTimeDetails: () => EventDateTimeDetails } =
-			select('tec/classy');
+			select( 'tec/classy' );
 		return getEventDateTimeDetails();
-	}, []);
-	const {editPost} = usePostEdits() as UsePostEditsReturn;
+	}, [] );
+	const { editPost } = usePostEdits() as UsePostEditsReturn;
 
-	const [isSelectingDate, setIsSelectingDate] = useState<
+	const [ isSelectingDate, setIsSelectingDate ] = useState<
 		'start' | 'end' | false
-	>(false);
-	const [dates, setDates] = useState({
+	>( false );
+	const [ dates, setDates ] = useState( {
 		start: eventStart,
 		end: eventEnd,
-	});
-	const [isMultidayValue, setIsMultidayValue] = useState(isMultiday);
-	const [isAllDayValue, setIsAllDayValue] = useState(isAllDay);
-	const {start: startDate, end: endDate} = dates;
+	} );
+	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
+	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
+	const { start: startDate, end: endDate } = dates;
 
 	// Store a reference to some ground values to allow the toggle of multi-day and all-day correctly.
-	const refs = useRef({
+	const refs = useRef( {
 		startTimeHours: isAllDay ? 8 : startDate.getHours(),
 		startTimeMinutes: isAllDay ? 0 : startDate.getMinutes(),
 		endTimeHours: isAllDay ? 17 : endDate.getHours(),
@@ -174,36 +184,45 @@ export default function EventDateTime(props: EventDateTimeProps) {
 		multiDayDuration: isMultiday
 			? dates.end.getTime() - dates.start.getTime()
 			: 24 * 60 * 60 * 1000,
-	});
+	} );
 
 	// Used in dependencies.
 	const startDateIsoString = startDate.toISOString();
 	const endDateIsoString = endDate.toISOString();
 
 	const onDateChange = useCallback(
-		(updated: 'start' | 'end', newDate: string): void => {
-			const {newStartDate, newEndDate} = getNewStartEndDates(
+		( updated: 'start' | 'end', newDate: string ): void => {
+			const { newStartDate, newEndDate } = getNewStartEndDates(
 				endDate,
 				startDate,
 				updated,
 				newDate
 			);
 
-			editPost({
+			editPost( {
 				meta: {
-					[METADATA_EVENT_START_DATE]: format(
+					[ METADATA_EVENT_START_DATE ]: format(
 						phpDateMysqlFormat,
 						newStartDate
 					),
-					[METADATA_EVENT_END_DATE]: format(
+					[ METADATA_EVENT_END_DATE ]: format(
 						phpDateMysqlFormat,
 						newEndDate
 					),
 				},
-			});
+			} );
 
-			setDates({start: newStartDate, end: newEndDate});
-			setIsSelectingDate(false);
+			// If the start date and and end date are on the same year, month, day, then it's not multiday.
+			if (
+				newStartDate.getFullYear() === newEndDate.getFullYear() &&
+				newStartDate.getMonth() === newEndDate.getMonth() &&
+				newStartDate.getDate() === newEndDate.getDate()
+			) {
+				setIsMultidayValue( false );
+			}
+
+			setDates( { start: newStartDate, end: newEndDate } );
+			setIsSelectingDate( false );
 		},
 		[
 			endDateIsoString,
@@ -215,74 +234,99 @@ export default function EventDateTime(props: EventDateTimeProps) {
 	);
 
 	const onDateInputClick = useCallback(
-		(selecting: 'start' | 'end') => {
-			if (selecting === isSelectingDate) {
+		( selecting: 'start' | 'end' ) => {
+			if ( selecting === isSelectingDate ) {
 				// Do nothing.
 				return;
 			}
 
-			return setIsSelectingDate(selecting);
+			return setIsSelectingDate( selecting );
 		},
-		[isSelectingDate, setIsSelectingDate]
+		[ isSelectingDate, setIsSelectingDate ]
 	);
 
 	const onStartTimeChange = useCallback(
-		(newDate: string) => onDateChange('start', newDate),
-		[onDateChange]
+		( newDate: string ) => onDateChange( 'start', newDate ),
+		[ onDateChange ]
 	);
 
 	const onEndTimeChange = useCallback(
-		(newDate: string) => onDateChange('end', newDate),
-		[onDateChange]
+		( newDate: string ) => onDateChange( 'end', newDate ),
+		[ onDateChange ]
 	);
 
 	const startSelector = useMemo(
-		() => <StartSelector
-			dateWithYearFormat={dateWithYearFormat}
-			endDate={endDate}
-			isAllDay={isAllDayValue}
-			isSelectingDate={isSelectingDate}
-			onClick={() => onDateInputClick('start')}
-			onClose={() => setIsSelectingDate(false)}
-			onChange={onDateChange}
-			onFocusOutside={() => setIsSelectingDate(false)}
-			startDate={startDate}
-			startOfWeek={startOfWeek}
-			timeFormat={timeFormat}
-		/>,
-		[dateWithYearFormat, startDateIsoString, endDateIsoString, setIsSelectingDate, isSelectingDate, isAllDayValue, isMultidayValue, startOfWeek, timeFormat]
+		() => (
+			<StartSelector
+				dateWithYearFormat={ dateWithYearFormat }
+				endDate={ endDate }
+				isAllDay={ isAllDayValue }
+				isMultiday={ isMultidayValue }
+				isSelectingDate={ isSelectingDate }
+				onClick={ () => onDateInputClick( 'start' ) }
+				onClose={ () => setIsSelectingDate( false ) }
+				onChange={ onDateChange }
+				onFocusOutside={ () => setIsSelectingDate( false ) }
+				startDate={ startDate }
+				startOfWeek={ startOfWeek }
+				timeFormat={ timeFormat }
+			/>
+		),
+		[
+			dateWithYearFormat,
+			startDateIsoString,
+			endDateIsoString,
+			setIsSelectingDate,
+			isSelectingDate,
+			isAllDayValue,
+			isMultidayValue,
+			startOfWeek,
+			timeFormat,
+		]
 	);
 
 	const endSelector = useMemo(
-		() => <EndSelector
-			dateWithYearFormat={dateWithYearFormat}
-			endDate={endDate}
-			isAllDay={isAllDayValue}
-			isMultiday={isMultidayValue}
-			isSelectingDate={isSelectingDate}
-			onClick={() => onDateInputClick('end')}
-			onClose={() => setIsSelectingDate(false)}
-			onChange={onDateChange}
-			onFocusOutside={() => setIsSelectingDate(false)}
-			startDate={startDate}
-			startOfWeek={startOfWeek}
-			timeFormat={timeFormat}
-		/>,
-		[dateWithYearFormat, startDateIsoString, endDateIsoString, setIsSelectingDate, isSelectingDate, isAllDayValue, isMultidayValue, startOfWeek, timeFormat]
+		() => (
+			<EndSelector
+				dateWithYearFormat={ dateWithYearFormat }
+				endDate={ endDate }
+				isAllDay={ isAllDayValue }
+				isMultiday={ isMultidayValue }
+				isSelectingDate={ isSelectingDate }
+				onClick={ () => onDateInputClick( 'end' ) }
+				onClose={ () => setIsSelectingDate( false ) }
+				onChange={ onDateChange }
+				onFocusOutside={ () => setIsSelectingDate( false ) }
+				startDate={ startDate }
+				startOfWeek={ startOfWeek }
+				timeFormat={ timeFormat }
+			/>
+		),
+		[
+			dateWithYearFormat,
+			startDateIsoString,
+			endDateIsoString,
+			setIsSelectingDate,
+			isSelectingDate,
+			isAllDayValue,
+			isMultidayValue,
+			startOfWeek,
+			timeFormat,
+		]
 	);
 
 	const onMultiDayToggleChange = useCallback(
-		(newValue: boolean) => {
-			let newEndDate = getMultiDayEndDate(refs, newValue, startDate);
-			onDateChange('end', format(phpDateMysqlFormat, newEndDate));
-			setIsMultidayValue(newValue);
+		( newValue: boolean ) => {
+			let newEndDate = getMultiDayEndDate( refs, newValue, startDate );
+			onDateChange( 'end', format( phpDateMysqlFormat, newEndDate ) );
+			setIsMultidayValue( newValue );
 		},
-		[startDateIsoString]
+		[ startDateIsoString ]
 	);
 
 	const onAllDayToggleChange = useCallback(
-		(newValue: boolean) => {
-			let {newStartDate, newEndDate} = getAllDayNewDates(
+		( newValue: boolean ) => {
+			let { newStartDate, newEndDate } = getAllDayNewDates(
 				newValue,
 				startDate,
 				endOfDayCutoff,
@@ -290,22 +334,22 @@ export default function EventDateTime(props: EventDateTimeProps) {
 				refs
 			);
 
-			editPost({
+			editPost( {
 				meta: {
-					[METADATA_EVENT_START_DATE]: format(
+					[ METADATA_EVENT_START_DATE ]: format(
 						phpDateMysqlFormat,
 						newStartDate
 					),
-					[METADATA_EVENT_END_DATE]: format(
+					[ METADATA_EVENT_END_DATE ]: format(
 						phpDateMysqlFormat,
 						newEndDate
 					),
-					[METADATA_EVENT_ALLDAY]: newValue ? '1' : '0',
+					[ METADATA_EVENT_ALLDAY ]: newValue ? '1' : '0',
 				},
-			});
+			} );
 
-			setDates({start: newStartDate, end: newEndDate});
-			setIsAllDayValue(newValue);
+			setDates( { start: newStartDate, end: newEndDate } );
+			setIsAllDayValue( newValue );
 		},
 		[
 			startDateIsoString,
@@ -319,35 +363,35 @@ export default function EventDateTime(props: EventDateTimeProps) {
 	return (
 		<div className="classy-field classy-field--event-datetime">
 			<div className="classy-field__title">
-				<h3>{props.title}</h3>
+				<h3>{ props.title }</h3>
 			</div>
 
 			<div className="classy-field__inputs">
 				<div className="classy-field__group">
-					{startSelector}
-					{endSelector}
+					{ startSelector }
+					{ endSelector }
 				</div>
 				<div className="classy-field__group">
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={_x(
+						label={ _x(
 							'Multi-day event',
 							'Multi-day toggle label',
 							'the-events-calendar'
-						)}
-						checked={isMultidayValue}
-						onChange={onMultiDayToggleChange}
+						) }
+						checked={ isMultidayValue }
+						onChange={ onMultiDayToggleChange }
 					></ToggleControl>
 
 					<ToggleControl
 						__nextHasNoMarginBottom
-						label={_x(
+						label={ _x(
 							'All-day event',
 							'All-day toggle label',
 							'the-events-calendar'
-						)}
-						checked={isAllDayValue}
-						onChange={onAllDayToggleChange}
+						) }
+						checked={ isAllDayValue }
+						onChange={ onAllDayToggleChange }
 					/>
 				</div>
 			</div>

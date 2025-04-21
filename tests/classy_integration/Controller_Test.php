@@ -142,6 +142,24 @@ class Controller_Test extends Controller_Test_Case {
 
 		$data = $controller->get_data();
 
-		$this->assertEquals( [], $data );
+		$this->assertEquals( [
+			'settings' =>
+				[
+					'timezoneString'        => '',
+					'startOfWeek'           => '1',
+					'endOfDayCutoff'        =>
+						[
+							'hours'   => 0,
+							'minutes' => 0,
+						],
+					'dateWithYearFormat'    => 'F j, Y',
+					'dateWithoutYearFormat' => 'F j',
+					'monthAndYearFormat'    => 'F Y',
+					'compactDateFormat'     => 'n/j/Y',
+					'dataTimeSeparator'     => ' @ ',
+					'timeRangeSeparator'    => ' - ',
+					'timeFormat'            => 'g:i a',
+				],
+		], $data );
 	}
 }

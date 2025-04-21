@@ -1,4 +1,3 @@
-import {default as DatePicker} from './DatePicker';
+import { default as DatePicker } from './DatePicker';
 
 export default DatePicker;
-

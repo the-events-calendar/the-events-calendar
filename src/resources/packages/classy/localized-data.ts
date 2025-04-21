@@ -12,7 +12,8 @@ declare global {
 	}
 }
 
-export const localizedData: LocalizedData = window?.tec?.events?.classy?.data ?? {
+export const localizedData: LocalizedData = window?.tec?.events?.classy
+	?.data ?? {
 	timezoneString: 'UTC',
 	startOfweek: 0,
 	endOfDayCutoff: {

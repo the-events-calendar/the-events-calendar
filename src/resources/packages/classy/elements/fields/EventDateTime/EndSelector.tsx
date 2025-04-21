@@ -1,25 +1,25 @@
-import {Fragment, MouseEventHandler} from 'react';
-import DatePicker from "../../components/DatePicker";
-import {StartOfWeek} from "../../../types/StartOfWeek";
-import {RefObject, useRef} from '@wordpress/element';
-import {__experimentalInputControl as InputControl} from '@wordpress/components';
-import {format} from '@wordpress/date';
-import {_x} from '@wordpress/i18n';
+import { Fragment, MouseEventHandler } from 'react';
+import DatePicker from '../../components/DatePicker';
+import { StartOfWeek } from '../../../types/StartOfWeek';
+import { RefObject, useRef } from '@wordpress/element';
+import { __experimentalInputControl as InputControl } from '@wordpress/components';
+import { format } from '@wordpress/date';
+import { _x } from '@wordpress/i18n';
 
-export default function EndSelector(props: {
+export default function EndSelector( props: {
 	dateWithYearFormat: string;
 	endDate: Date;
 	isAllDay: boolean;
 	isMultiday: boolean;
 	isSelectingDate: 'start' | 'end' | false;
-	onChange: (selecting: 'start' | 'end', date: string) => void;
+	onChange: ( selecting: 'start' | 'end', date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
 	onFocusOutside: () => void;
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	timeFormat: string;
-}) {
+} ) {
 	const {
 		dateWithYearFormat,
 		endDate,
@@ -35,45 +35,49 @@ export default function EndSelector(props: {
 		timeFormat,
 	} = props;
 
-	const ref: RefObject<HTMLDivElement> = useRef(null);
+	const ref: RefObject< HTMLDivElement > = useRef( null );
 
 	return (
 		<Fragment>
-			{isMultiday && (
-				<div className="classy-field__input classy-field__input--grow" ref={ref}>
+			{ isMultiday && (
+				<div
+					className="classy-field__input classy-field__input--grow"
+					ref={ ref }
+				>
 					<DatePicker
-						anchor={ref.current}
-						dateWithYearFormat={dateWithYearFormat} endDate={endDate}
-						isSelectingDate={isSelectingDate}
-						onChange={onChange}
-						onClick={onClick}
-						onClose={onClose}
-						onFocusOutside={onFocusOutside}
-						show={isSelectingDate === 'end'}
-						startDate={startDate}
-						startOfWeek={startOfWeek}
-						currentDate={endDate}
+						anchor={ ref.current }
+						dateWithYearFormat={ dateWithYearFormat }
+						endDate={ endDate }
+						isSelectingDate={ isSelectingDate }
+						onChange={ onChange }
+						onClick={ onClick }
+						onClose={ onClose }
+						onFocusOutside={ onFocusOutside }
+						show={ isSelectingDate === 'end' }
+						startDate={ startDate }
+						startOfWeek={ startOfWeek }
+						currentDate={ endDate }
 					/>
 				</div>
-			)}
+			) }
 
-			{isAllDay ? (
+			{ isAllDay ? (
 				<p>
-					{_x(
+					{ _x(
 						'All Day',
 						'All day label in the date/time Classy selection field',
 						'the-events-calendar'
-					)}
+					) }
 				</p>
 			) : (
 				<div className="classy-field__input">
 					<InputControl
 						__next40pxDefaultSize
-						className='classy-field__control classy-field__control--input classy-field__control--time-picker'
-						value={format(timeFormat, endDate)}
+						className="classy-field__control classy-field__control--input classy-field__control--time-picker"
+						value={ format( timeFormat, endDate ) }
 					/>
 				</div>
-			)}
+			) }
 		</Fragment>
 	);
 }

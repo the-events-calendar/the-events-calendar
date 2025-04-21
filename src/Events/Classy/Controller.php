@@ -15,7 +15,6 @@ use TEC\Events\Classy\Back_Compatibility\Editor;
 use TEC\Events\Classy\Back_Compatibility\Editor_Utils;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
-use Tribe__Date_Utils;
 use Tribe__Events__Main as TEC;
 use WP_Block_Editor_Context;
 use WP_Post;
@@ -356,36 +355,36 @@ class Controller extends ControllerContract {
 	 * } The data that is localized on the page for the Classy app.
 	 */
 	public function get_data(): array {
-		$timezone_string = get_option( 'timezone_string' );
-		$start_of_week = get_option('start_of_week');
-		$multi_day_cutoff                                      = tribe_get_option( 'multiDayCutoff', '00:00' );
+		$timezone_string  = get_option( 'timezone_string' );
+		$start_of_week    = get_option( 'start_of_week' );
+		$multi_day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
 		[ $multi_day_cutoff_hours, $multi_day_cutoff_minutes ] = array_replace(
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
 		);
-		$date_with_year_format = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
-		$date_without_year_format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
-		$month_and_year_format = tribe_get_option( 'monthAndYearFormat', 'F Y' );
-		$compact_date_format = Date_Utils::datepicker_formats(tribe_get_option('datepickerFormat', 1));
-		$data_time_separator = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$date_with_year_format                                 = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
+		$date_without_year_format                              = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+		$month_and_year_format                                 = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$compact_date_format                                   = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
+		$data_time_separator                                   = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
 		$time_format = tribe_get_option( 'time_foratm', 'g:i a' );
 
 		return [
 			'settings' => [
-				'timezoneString' => $timezone_string,
-				'startOfWeek' => $start_of_week,
-				'endOfDayCutoff' => [
+				'timezoneString'        => $timezone_string,
+				'startOfWeek'           => $start_of_week,
+				'endOfDayCutoff'        => [
 					'hours'   => min( 23, (int) $multi_day_cutoff_hours ),
 					'minutes' => min( 59, (int) $multi_day_cutoff_minutes ),
 				],
-				'dateWithYearFormat' => $date_with_year_format,
+				'dateWithYearFormat'    => $date_with_year_format,
 				'dateWithoutYearFormat' => $date_without_year_format,
-				'monthAndYearFormat' => $month_and_year_format,
-				'compactDateFormat' => $compact_date_format,
-				'dataTimeSeparator' => $data_time_separator,
-				'timeRangeSeparator' => $time_range_separator,
-				'timeFormat' => $time_format,
+				'monthAndYearFormat'    => $month_and_year_format,
+				'compactDateFormat'     => $compact_date_format,
+				'dataTimeSeparator'     => $data_time_separator,
+				'timeRangeSeparator'    => $time_range_separator,
+				'timeFormat'            => $time_format,
 			],
 		];
 	}

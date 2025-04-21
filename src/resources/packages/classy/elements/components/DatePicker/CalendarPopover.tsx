@@ -1,37 +1,42 @@
-import {StartOfWeek} from "../../../types/StartOfWeek";
-import {DatePicker, Popover} from '@wordpress/components';
-import {DatePickerEvent} from '@wordpress/components/build-types/date-time/types';
-import { VirtualElement } from "@wordpress/components/build-types/popover/types";
-import { SyntheticEvent } from "@wordpress/element";
+import { StartOfWeek } from '../../../types/StartOfWeek';
+import { DatePicker, Popover } from '@wordpress/components';
+import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
+import { VirtualElement } from '@wordpress/components/build-types/popover/types';
+import { SyntheticEvent } from '@wordpress/element';
 
-function getDatePickerEventsBetweenDates(start: Date, end: Date): DatePickerEvent[] {
+function getDatePickerEventsBetweenDates(
+	start: Date,
+	end: Date
+): DatePickerEvent[] {
 	const dateArray: Date[] = [];
-	let currentDate = new Date(start);
-	while (currentDate <= end) {
-		dateArray.push(new Date(currentDate));
-		currentDate.setDate(currentDate.getDate() + 1);
+	let currentDate = new Date( start );
+	while ( currentDate <= end ) {
+		dateArray.push( new Date( currentDate ) );
+		currentDate.setDate( currentDate.getDate() + 1 );
 	}
 
-	return dateArray.map((date: Date): DatePickerEvent => {
-		return {date};
-	});
+	return dateArray.map( ( date: Date ): DatePickerEvent => {
+		return { date };
+	} );
 }
 
-export default function CalendarPopover(props: {
+export default function CalendarPopover( props: {
 	anchor: Element | VirtualElement;
 	startOfWeek: StartOfWeek;
 	isSelectingDate: 'start' | 'end';
+	isMultiday: boolean;
 	date: Date;
 	startDate: Date;
 	endDate: Date;
-	onClose: ()=>void;
-	onChange: (selecting: 'start' | 'end', date: string) => void;
-	onFocusOutside: (event: SyntheticEvent) => void;
-}) {
+	onClose: () => void;
+	onChange: ( selecting: 'start' | 'end', date: string ) => void;
+	onFocusOutside: ( event: SyntheticEvent ) => void;
+} ) {
 	const {
 		anchor,
 		startOfWeek,
 		isSelectingDate,
+		isMultiday,
 		date,
 		startDate,
 		endDate,
@@ -40,32 +45,45 @@ export default function CalendarPopover(props: {
 		onFocusOutside,
 	} = props;
 
-	const events = getDatePickerEventsBetweenDates(startDate, endDate);
+	const events = getDatePickerEventsBetweenDates( startDate, endDate );
 
-	// Do not allow picking any date before, or on, the start date.
-	const isInvalidDate = (date: Date): boolean => {
-		return startDate && date < startDate;
-	};
+	// By default all dates are valid.
+	let isInvalidDate: ( date: Date ) => boolean = () => false;
+
+	if ( isSelectingDate === 'end' ) {
+		// The end date cannot be before the start date.
+		isInvalidDate = ( date: Date ): boolean => {
+			return startDate && date < startDate;
+		};
+	} else {
+		// Selecting the start date.
+		if ( isMultiday ) {
+			// The start date cannot be after the end date in multiday mode.
+			isInvalidDate = ( date: Date ): boolean => {
+				return endDate && date > endDate;
+			};
+		}
+	}
 
 	return (
 		<Popover
-			anchor={anchor}
+			anchor={ anchor }
 			className="classy-component_popover classy-component_popover--calendar"
-			expandOnMobile={true}
+			expandOnMobile={ true }
 			placement="bottom"
-			noArrow={false}
-			offset={4}
-			onClose={onClose}
-			onFocusOutside={onFocusOutside}
+			noArrow={ false }
+			offset={ 4 }
+			onClose={ onClose }
+			onFocusOutside={ onFocusOutside }
 		>
 			<DatePicker
-				startOfWeek={startOfWeek}
-				currentDate={date}
-				onChange={(newDate: string): void =>
-					onChange(isSelectingDate as 'start' | 'end', newDate)
+				startOfWeek={ startOfWeek }
+				currentDate={ date }
+				onChange={ ( newDate: string ): void =>
+					onChange( isSelectingDate as 'start' | 'end', newDate )
 				}
-				events={events}
-				isInvalidDate={isInvalidDate}
+				events={ events }
+				isInvalidDate={ isInvalidDate }
 			/>
 		</Popover>
 	);
