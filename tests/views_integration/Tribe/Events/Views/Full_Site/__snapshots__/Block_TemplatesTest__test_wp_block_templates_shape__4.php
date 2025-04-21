@@ -3,7 +3,6 @@
   'post_types' => NULL,
   'origin' => NULL,
   'has_theme_file' => false,
-  'area' => NULL,
   'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentyfour"} /-->
 <!-- wp:tec/single-event /-->
 <!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentyfour"} /-->
