@@ -17,6 +17,6 @@ use Tribe\Events\Views\V2\Template_Bootstrap;
 
 tribe_asset_enqueue_group( Event_Assets::$group_key );
 ?>
-<div class="tribe-block tec-block__single-event" role="main">
+<main class="tribe-block tec-block__single-event">
 	<?php echo tribe( Template_Bootstrap::class )->get_view_html(); ?>
-</div>
+</main>
