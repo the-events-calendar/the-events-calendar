@@ -9,12 +9,11 @@
  *
  * @link    http://evnt.is/1aiy
  *
- * @since   6.1.4 Changing our nonce verification structures.
- * @since   TBD Add aria-label to events list for improved accessibility.
  *
- * @version 6.2.0
+ * @version TBD
+ * @since 6.1.4 Changing our nonce verification structures.
  * @since 6.2.0 Moved the header information into a new components/header.php template.
- * @since TBD Add tabindex to events list for improved accessibility.
+ * @since TBD Add tabindex and aria-label to events list for improved accessibility.
  *
  * @var array    $events               The array containing the events.
  * @var string   $rest_url             The REST URL.
