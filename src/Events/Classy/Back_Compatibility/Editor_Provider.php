@@ -20,7 +20,7 @@ use TEC\Common\Contracts\Provider\Controller;
  *
  * @package TEC\Events\Classy\Back_Compatibility
  */
-class EditorProvider extends Controller {
+class Editor_Provider extends Controller {
 
 	/**
 	 * Registers the filters and actions hooks added by the controller.
