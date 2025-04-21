@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Added <main> element to single event and archive templates to ensure proper landmark navigation.[TEC-3423]
