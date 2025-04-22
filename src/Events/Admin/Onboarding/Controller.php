@@ -26,6 +26,14 @@ use Tribe__Events__Main;
  * @package TEC\Events\Admin\Onboarding
  */
 class Controller extends Controller_Contract {
+	/**
+	 * The step instances.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $steps = [];
 
 	/**
 	 * Register the provider.
@@ -33,6 +41,16 @@ class Controller extends Controller_Contract {
 	 * @since 6.8.4
 	 */
 	public function do_register(): void {
+		Config::add_group_path( 'tec-onboarding', tribe( 'tec.main' )->plugin_path . 'build/', 'wizard' );
+
+		$this->steps = [
+			'optin'     => new Optin(),
+			'settings'  => new Settings(),
+			'organizer' => new Organizer(),
+			'venue'     => new Venue(),
+			'tickets'   => new Tickets(),
+		];
+
 		$this->add_filters();
 		$this->add_actions();
 
@@ -57,12 +75,11 @@ class Controller extends Controller_Contract {
 	 */
 	public function add_filters(): void {
 		// Add the step handlers.
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10, 2 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11, 2 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12, 2 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13, 2 );
-		add_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14, 2 );
-		add_filter( 'tec_telemetry_is_tec_admin_page', [ $this, 'hide_telemetry_on_onboarding_page' ] );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['optin'], 'handle' ], 10, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['settings'], 'handle' ], 11, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['organizer'], 'handle' ], 12, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['venue'], 'handle' ], 13, 2 );
+		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['tickets'], 'handle' ], 14, 2 );
 	}
 
 	/**
@@ -87,12 +104,11 @@ class Controller extends Controller_Contract {
 	 */
 	public function remove_filters(): void {
 		// Remove the step handlers.
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Optin::class, 'handle' ], 10 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Settings::class, 'handle' ], 11 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Organizer::class, 'handle' ], 12 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Venue::class, 'handle' ], 13 );
-		remove_filter( 'tec_events_onboarding_wizard_handle', [ Tickets::class, 'handle' ], 14 );
-		remove_filter( 'tec_telemetry_is_tec_admin_page', [ $this, 'hide_telemetry_on_onboarding_page' ] );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['optin'], 'handle' ], 10 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['settings'], 'handle' ], 11 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['organizer'], 'handle' ], 12 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['venue'], 'handle' ], 13 );
+		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['tickets'], 'handle' ], 14 );
 	}
 
 	/**
