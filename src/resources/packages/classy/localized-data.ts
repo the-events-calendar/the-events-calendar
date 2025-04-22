@@ -16,6 +16,7 @@ export const localizedData: LocalizedData = window?.tec?.events?.classy
 	?.data ?? {
 	settings: {
 		timezoneString: 'UTC',
+		timezoneChoice: '',
 		startOfWeek: 0,
 		endOfDayCutoff: {
 			hours: 0,

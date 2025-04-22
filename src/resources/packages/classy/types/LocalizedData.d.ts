@@ -4,6 +4,7 @@ import { StartOfWeek } from './StartOfWeek';
 
 export type Settings = {
 	timezoneString: string;
+	timezoneChoice: string;
 	startOfWeek: StartOfWeek;
 	endOfDayCutoff: {
 		hours: Hours;
