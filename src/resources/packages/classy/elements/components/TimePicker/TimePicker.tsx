@@ -19,9 +19,7 @@ export default function TimePicker( props: {
 		timeInterval,
 		onChange,
 	} = props;
-	const [, setSelectedTime] = useState(
-		format('H:i:s', currentDate)
-	);
+	const [ , setSelectedTime ] = useState( format( 'H:i:s', currentDate ) );
 
 	// Generate time options from `startDate` to `endDate`.
 	const timeOptions = useMemo( (): ComboboxControlOption[] => {
@@ -100,7 +98,7 @@ export default function TimePicker( props: {
 		<ComboboxControl
 			className="classy-field__control classy-field__control--input classy-field__control--time-picker"
 			allowReset={ false }
-			value={ format('H:i:s',currentDate) }
+			value={ format( 'H:i:s', currentDate ) }
 			options={ timeOptions }
 			onChange={ onChangeProxy }
 		/>
