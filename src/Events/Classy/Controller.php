@@ -9,7 +9,6 @@
 
 namespace TEC\Events\Classy;
 
-use Cassandra\Time;
 use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Classy\Back_Compatibility\Editor;
@@ -363,14 +362,14 @@ class Controller extends ControllerContract {
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
 		);
-		$date_with_year_format    = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
-		$date_without_year_format = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
-		$month_and_year_format    = tribe_get_option( 'monthAndYearFormat', 'F Y' );
-		$compact_date_format      = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
-		$data_time_separator      = tribe_get_option( 'dateTimeSeparator', ' @ ' );
-		$time_range_separator     = tribe_get_option( 'timeRangeSeparator', ' - ' );
-		$time_format              = tribe_get_option( 'time_format', 'g:i a' );
-		$timezone_choice          = wp_timezone_choice( $timezone_string );
+		$date_with_year_format                                 = tribe_get_option( 'dateWithYearFormat', 'F j, Y' );
+		$date_without_year_format                              = tribe_get_option( 'dateWithoutYearFormat', 'F j' );
+		$month_and_year_format                                 = tribe_get_option( 'monthAndYearFormat', 'F Y' );
+		$compact_date_format                                   = Date_Utils::datepicker_formats( tribe_get_option( 'datepickerFormat', 1 ) );
+		$data_time_separator                                   = tribe_get_option( 'dateTimeSeparator', ' @ ' );
+		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$time_format     = tribe_get_option( 'time_format', 'g:i a' );
+		$timezone_choice = wp_timezone_choice( $timezone_string );
 
 		/**
 		 * The time interval in minutes to use when populating the time picker options.
