@@ -370,6 +370,15 @@ class Controller extends ControllerContract {
 		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
 		$time_format = tribe_get_option( 'time_foratm', 'g:i a' );
 
+		/**
+		 * The time interval in minutes to use when populating the time picker options.
+		 *
+		 * @since TBD
+		 *
+		 * @param int $time_interval The time interval in minutes; defaults to 15 minutes.
+		 */
+		$time_interval = apply_filters( 'tec_events_time_picker_interval', 15 );
+
 		return [
 			'settings' => [
 				'timezoneString'        => $timezone_string,
@@ -385,6 +394,7 @@ class Controller extends ControllerContract {
 				'dataTimeSeparator'     => $data_time_separator,
 				'timeRangeSeparator'    => $time_range_separator,
 				'timeFormat'            => $time_format,
+				'timeInterval'          => $time_interval,
 			],
 		];
 	}

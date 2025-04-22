@@ -21,7 +21,7 @@ export default function DatePicker( props: {
 	onClick: MouseEventHandler< HTMLInputElement >;
 	onClose: () => void;
 	onFocusOutside: ( event: SyntheticEvent ) => void;
-	show: boolean;
+	showPopover: boolean;
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	currentDate: Date;
@@ -36,7 +36,7 @@ export default function DatePicker( props: {
 		onClick,
 		onClose,
 		onFocusOutside,
-		show,
+		showPopover,
 		startDate,
 		startOfWeek,
 		currentDate,
@@ -60,7 +60,7 @@ export default function DatePicker( props: {
 		<Fragment>
 			{ input }
 
-			{ show && (
+			{ showPopover && (
 				<CalendarPopover
 					anchor={ anchor }
 					date={ currentDate }

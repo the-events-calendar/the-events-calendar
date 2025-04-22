@@ -14,17 +14,20 @@ declare global {
 
 export const localizedData: LocalizedData = window?.tec?.events?.classy
 	?.data ?? {
-	timezoneString: 'UTC',
-	startOfweek: 0,
-	endOfDayCutoff: {
-		hours: 0,
-		minutes: 0,
+	settings: {
+		timezoneString: 'UTC',
+		startOfWeek: 0,
+		endOfDayCutoff: {
+			hours: 0,
+			minutes: 0,
+		},
+		dateWithYearFormat: 'F j, Y',
+		dateWithoutYearFormat: 'F j',
+		monthAndYearFormat: 'F Y',
+		compactDateFormat: 'n/j/Y',
+		dataTimeSeparator: ' @ ',
+		timeRangeSeparator: ' - ',
+		timeFormat: 'g:i A',
+		timeInterval: 15,
 	},
-	dateWithYearFormat: 'F j, Y',
-	dateWithoutYearFormat: 'F j',
-	monthAndYearFormat: 'F Y',
-	compactDateFormat: 'n/j/Y',
-	dataTimeSeparator: ' @ ',
-	timeRangeSeparator: ' - ',
-	timeFormat: 'g:i A',
 };

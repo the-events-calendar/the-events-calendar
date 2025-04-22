@@ -16,6 +16,7 @@ export type Settings = {
 	dataTimeSeparator: string;
 	timeRangeSeparator: string;
 	timeFormat: string;
+	timeInterval: number;
 };
 
 export type LocalizedData = {

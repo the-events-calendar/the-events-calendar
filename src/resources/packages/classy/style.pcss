@@ -86,6 +86,11 @@
 			font-size: var(--tec-font-size-5);
 			font-weight: var(--tec-font-weight-regular);
 		}
+
+		h4{
+			font-size: var(--classy-font-size-15);
+			font-weight: var(--tec-font-weight-regular);
+		}
 	}
 
 	.classy-field__inputs {
@@ -99,6 +104,15 @@
 		&:has(> *:nth-child(2)) {
 			padding: var(--tec-spacer-5) var(--tec-spacer-3);
 			border: 1px solid var(--tec-color-gutenberg-grey-600);
+		}
+	}
+
+	.classy-field__separator {
+		&.classy-field__separator--dates {
+			font-size: var(--classy-font-size-13);
+			font-weight: var(--tec-font-weight-regular);
+			text-transform: uppercase;
+			transform: translateY(60%);
 		}
 	}
 
@@ -137,14 +151,15 @@
 		&.classy-field__control--rich-text {
 			border-radius: 2px;
 			border: 1px solid var(--tec-color-gutenberg-grey-600);
-			padding: var(--tec-spacer-2);
+			padding: var(--tec-spacer-2) var(--tec-spacer-3);
 			font-size: var(--classy-font-size-15);
 			margin: 0;
 		}
 
 		&.classy-field__control--featured-image {
+			width: 192px;
+
 			.editor-post-featured-image__toggle {
-				width: 192px;
 				height: 108px;
 				/* This hides the button label to align with design without compromising accessibility. */
 				font-size: 0;
@@ -181,7 +196,7 @@
 				border-bottom: none;
 
 				.mce-container-body.mce-stack-layout {
-					padding: var(--tec-spacer-2);
+					padding: var(--tec-spacer-2) var(--tec-spacer-3);
 					background-color: var(--tec-color-gutenberg-white);
 				}
 			}

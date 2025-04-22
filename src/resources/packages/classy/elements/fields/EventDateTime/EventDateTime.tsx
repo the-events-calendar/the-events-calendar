@@ -212,7 +212,7 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 				},
 			} );
 
-			// If the start date and and end date are on the same year, month, day, then it's not multiday.
+			// If the start date and end date are on the same year, month, day, then it's not multiday.
 			if (
 				newStartDate.getFullYear() === newEndDate.getFullYear() &&
 				newStartDate.getMonth() === newEndDate.getMonth() &&
@@ -354,6 +354,7 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 		[
 			startDateIsoString,
 			endDateIsoString,
+			endOfDayCutoff,
 			editPost,
 			setDates,
 			setIsAllDayValue,

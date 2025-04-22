@@ -159,6 +159,7 @@ class Controller_Test extends Controller_Test_Case {
 					'dataTimeSeparator'     => ' @ ',
 					'timeRangeSeparator'    => ' - ',
 					'timeFormat'            => 'g:i a',
+					'timeInterval'          => 15,
 				],
 		], $data );
 	}

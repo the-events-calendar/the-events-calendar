@@ -112,7 +112,8 @@ export function getEventDateTimeDetails(
 		eventStart.getDate() !== eventEnd.getDate() ||
 		eventStart.getMonth() !== eventEnd.getMonth() ||
 		eventStart.getFullYear() !== eventEnd.getFullYear();
-	const isAllDay = meta?._EventAllDay ?? false;
+	const isAllDayStringValue = meta?._EventAllDay ?? '0';
+	const isAllDay = isAllDayStringValue === '1';
 	const eventTimezone = meta?._EventTimezone ?? settings.timezoneString;
 
 	return {
