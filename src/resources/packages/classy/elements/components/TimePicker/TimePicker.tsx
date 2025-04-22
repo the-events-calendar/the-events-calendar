@@ -19,25 +19,9 @@ export default function TimePicker( props: {
 		timeInterval,
 		onChange,
 	} = props;
-	const [ selectedTime, setSelectedTime ] = useState(
-		format( 'H:i:s', currentDate )
+	const [, setSelectedTime] = useState(
+		format('H:i:s', currentDate)
 	);
-
-	// Generate time options from 00:00 to 23:30 in 15-minute intervals.
-	// const timeOptions = useMemo(():ComboboxControlOption[] => {
-	// 	const times:ComboboxControlOption[] = [];
-	// 	for (let h = 0; h < 24; h++) {
-	// 		for (let m = 0; m < 60; m += timeInterval) {
-	// 			const date = new Date(currentDate);
-	// 			date.setHours(h, m, 0, 0);
-	// 			times.push({
-	// 				label:format(timeFormat, date),
-	// 				value: format('H:i:s', date)
-	// 			});
-	// 		}
-	// 	}
-	// 	return times;
-	// }, [currentDate, timeFormat, timeInterval]);
 
 	// Generate time options from `startDate` to `endDate`.
 	const timeOptions = useMemo( (): ComboboxControlOption[] => {
@@ -116,7 +100,7 @@ export default function TimePicker( props: {
 		<ComboboxControl
 			className="classy-field__control classy-field__control--input classy-field__control--time-picker"
 			allowReset={ false }
-			value={ selectedTime }
+			value={ format('H:i:s',currentDate) }
 			options={ timeOptions }
 			onChange={ onChangeProxy }
 		/>

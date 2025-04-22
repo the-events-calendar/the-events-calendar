@@ -47,7 +47,7 @@ export default function CalendarPopover( props: {
 
 	const events = getDatePickerEventsBetweenDates( startDate, endDate );
 
-	// By default all dates are valid.
+	// By default, all dates are valid.
 	let isInvalidDate: ( date: Date ) => boolean = () => false;
 
 	if ( isSelectingDate === 'end' ) {

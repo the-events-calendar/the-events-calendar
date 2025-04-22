@@ -65,6 +65,23 @@
 		flex-wrap: nowrap;
 		gap: var(--tec-spacer-2);
 		justify-content: flex-start;
+
+		&:has(.classy-field__subgroup){
+			justify-content: space-between;
+			gap: var(--tec-spacer-4);
+		}
+
+		.classy-field__subgroup{
+			display:flex;
+			flex-direction: row;
+			gap: var(--tec-spacer-4);
+
+			&.classy-field__subgroup--left{
+			}
+
+			&.classy-field__subgroup--right{
+			}
+		}
 	}
 
 	.classy-field {

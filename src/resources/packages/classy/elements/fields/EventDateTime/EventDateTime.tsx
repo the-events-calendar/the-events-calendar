@@ -13,6 +13,7 @@ import {
 	METADATA_EVENT_ALLDAY,
 	METADATA_EVENT_END_DATE,
 	METADATA_EVENT_START_DATE,
+	METADATA_EVENT_TIMEZONE,
 } from '../../../constants';
 import { format, getDate } from '@wordpress/date';
 import { usePostEdits } from '../../../hooks';
@@ -22,6 +23,7 @@ import { Hours } from '../../../types/Hours';
 import { Minutes } from '../../../types/Minutes';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
+import TimeZone from '../../components/TimeZone';
 
 type EventDateTimeProps = {
 	title: string;
@@ -129,11 +131,17 @@ function getAllDayNewDates(
 	} else {
 		// Restore the saved start and end times, but respect the days.
 		newStartDate = new Date( startDate );
-		newStartDate.setHours( refs.current.startTimeHours );
-		newStartDate.setMinutes( refs.current.startTimeMinutes );
+		newStartDate.setHours(
+			refs.current.startTimeHours,
+			refs.current.startTimeMinutes,
+			0
+		);
 		newEndDate = new Date( endDate );
-		newEndDate.setHours( refs.current.endTimeHours );
-		newEndDate.setMinutes( refs.current.endTimeMinutes );
+		newEndDate.setHours(
+			refs.current.endTimeHours,
+			refs.current.endTimeMinutes,
+			0
+		);
 	}
 
 	return { newStartDate, newEndDate };
@@ -169,6 +177,7 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 	const [ isMultidayValue, setIsMultidayValue ] = useState( isMultiday );
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
 	const { start: startDate, end: endDate } = dates;
+	const [ timezoneString, setTimezoneString ] = useState( eventTimezone );
 
 	// Store a reference to some ground values to allow the toggle of multi-day and all-day correctly.
 	const refs = useRef( {
@@ -243,16 +252,6 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 			return setIsSelectingDate( selecting );
 		},
 		[ isSelectingDate, setIsSelectingDate ]
-	);
-
-	const onStartTimeChange = useCallback(
-		( newDate: string ) => onDateChange( 'start', newDate ),
-		[ onDateChange ]
-	);
-
-	const onEndTimeChange = useCallback(
-		( newDate: string ) => onDateChange( 'end', newDate ),
-		[ onDateChange ]
 	);
 
 	const startSelector = useMemo(
@@ -361,6 +360,26 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 		]
 	);
 
+	const onTimezoneChange = useCallback(
+		( timezone: string ): void => {
+			editPost( {
+				meta: {
+					[ METADATA_EVENT_START_DATE ]: format(
+						phpDateMysqlFormat,
+						startDate
+					),
+					[ METADATA_EVENT_END_DATE ]: format(
+						phpDateMysqlFormat,
+						endDate
+					),
+					[ METADATA_EVENT_TIMEZONE ]: timezone,
+				},
+			} );
+			setTimezoneString( timezone );
+		},
+		[ startDateIsoString, endDateIsoString ]
+	);
+
 	return (
 		<div className="classy-field classy-field--event-datetime">
 			<div className="classy-field__title">
@@ -372,28 +391,38 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 					{ startSelector }
 					{ endSelector }
 				</div>
-				<div className="classy-field__group">
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ _x(
-							'Multi-day event',
-							'Multi-day toggle label',
-							'the-events-calendar'
-						) }
-						checked={ isMultidayValue }
-						onChange={ onMultiDayToggleChange }
-					></ToggleControl>
 
-					<ToggleControl
-						__nextHasNoMarginBottom
-						label={ _x(
-							'All-day event',
-							'All-day toggle label',
-							'the-events-calendar'
-						) }
-						checked={ isAllDayValue }
-						onChange={ onAllDayToggleChange }
-					/>
+				<div className="classy-field__group">
+					<div className="classy-field__subgroup classy-field__subgroup--left">
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ _x(
+								'Multi-day event',
+								'Multi-day toggle label',
+								'the-events-calendar'
+							) }
+							checked={ isMultidayValue }
+							onChange={ onMultiDayToggleChange }
+						></ToggleControl>
+
+						<ToggleControl
+							__nextHasNoMarginBottom
+							label={ _x(
+								'All-day event',
+								'All-day toggle label',
+								'the-events-calendar'
+							) }
+							checked={ isAllDayValue }
+							onChange={ onAllDayToggleChange }
+						/>
+					</div>
+
+					<div className="classy-field__subgroup classy-field__subgroup--right">
+						<TimeZone
+							timezone={ timezoneString }
+							onTimezoneChange={ onTimezoneChange }
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
