@@ -142,6 +142,11 @@ class Controller_Test extends Controller_Test_Case {
 
 		$data = $controller->get_data();
 
+		$this->assertArrayHasKey( 'settings', $data );
+		// Verify the `settings.timezoneChoice` entry, then remove it from the array to avoid noise.
+		$this->assertArrayHasKey( 'timezoneChoice', $data['settings'] );
+		$this->assertStringStartsWith( '<option', $data['settings']['timezoneChoice'] );
+		unset($data['settings']['timezoneChoice']);
 		$this->assertEquals( [
 			'settings' =>
 				[
