@@ -9,7 +9,9 @@
  *
  * @package TribeEventsCalendar
  *
- * @version 4.6.19
+ * @version TBD
+ * @since   4.6.19
+ * @since   TBD Added tec_events_capitalize_meridiem() function to capitalize meridiem strings in time strings.
  */
 
 
@@ -43,7 +45,7 @@ if ( $start_time == $end_time ) {
  * @var string Formatted time string
  * @var int Event post id
  */
-$time_formatted = apply_filters( 'tribe_events_single_event_time_formatted', $time_formatted, $event_id );
+$time_formatted = tec_events_capitalize_meridiem( apply_filters( 'tribe_events_single_event_time_formatted', $time_formatted, $event_id ) );
 
 /**
  * Returns the title of the "Time" section of event details
