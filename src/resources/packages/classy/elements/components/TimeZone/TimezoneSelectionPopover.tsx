@@ -1,11 +1,12 @@
-import {VirtualElement} from '@wordpress/components/build-types/popover/types';
-import {Popover, SelectControl} from '@wordpress/components';
-import {useMemo} from '@wordpress/element';
-import {_x} from '@wordpress/i18n';
+import { VirtualElement } from '@wordpress/components/build-types/popover/types';
+import { Popover, SelectControl } from '@wordpress/components';
+import { useMemo } from '@wordpress/element';
+import { _x } from '@wordpress/i18n';
 import CloseIcon from '../CloseIcon';
-import {localizedData} from "../../../localized-data";
-import {parse as hpqParse} from 'hpq';
+import { localizedData } from '../../../localized-data';
+import { parse as hpqParse } from 'hpq';
 
+// @see `wp_timezone_choice`.
 const timezoneChoice = localizedData.settings.timezoneChoice;
 
 export default function TimezoneSelectionPopover( props: {
@@ -16,19 +17,26 @@ export default function TimezoneSelectionPopover( props: {
 } ) {
 	const { anchor, onClose, onTimezoneChange, timezone } = props;
 
-	const timezoneOptions = useMemo(() => {
-		const parsedOptions: HTMLCollection = hpqParse(timezoneChoice, (h) => h).children;
+	const timezoneOptions = useMemo( () => {
+		const parsedOptions: HTMLCollection = hpqParse(
+			timezoneChoice,
+			( h ) => h
+		).children;
 
-		return Array.from(parsedOptions).map((optgroup: HTMLOptGroupElement, index) => (
-			<optgroup key={index} label={optgroup.label}>
-				{Array.from(optgroup.children).map((option: HTMLOptionElement, optionIndex) => (
-					<option key={optionIndex} value={option.value}>
-						{option.label}
-					</option>
-				))}
-			</optgroup>
-		));
-	}, [timezoneChoice])
+		return Array.from( parsedOptions ).map(
+			( optgroup: HTMLOptGroupElement, index ) => (
+				<optgroup key={ index } label={ optgroup.label }>
+					{ Array.from( optgroup.children ).map(
+						( option: HTMLOptionElement, optionIndex ) => (
+							<option key={ optionIndex } value={ option.value }>
+								{ option.label }
+							</option>
+						)
+					) }
+				</optgroup>
+			)
+		);
+	}, [ timezoneChoice ] );
 
 	return (
 		<Popover
@@ -66,9 +74,8 @@ export default function TimezoneSelectionPopover( props: {
 					value={ timezone }
 					onChange={ onTimezoneChange }
 				>
-					{timezoneOptions}
+					{ timezoneOptions }
 				</SelectControl>
-
 			</div>
 		</Popover>
 	);
