@@ -13,7 +13,7 @@ use TEC\Common\Admin\Onboarding\Steps\Abstract_Step;
 use Tribe__Events__API;
 use WP_REST_Response;
 use WP_REST_Request;
-use TEC\Events\Admin\Onboarding\Data;
+use TEC\Common\Lists\Country;
 
 /**
  * Class Venue
@@ -58,7 +58,7 @@ class Venue extends Abstract_Step {
 		}
 
 		$country = $venue['country'] ?? '';
-		$country = tribe( Data::class )->find_country_by_key( $country );
+		$country = tribe( Country::class )->find_country_by_key( $country );
 
 		// Massage the data a bit.
 		$new_venue['Origin']        = 'tec-onboarding';
