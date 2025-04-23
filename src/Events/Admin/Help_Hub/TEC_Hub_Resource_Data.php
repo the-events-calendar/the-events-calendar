@@ -102,6 +102,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * Each section can be filtered independently or as a complete set.
 	 *
 	 * @since 6.8.2
+	 * @since TBD Refactored using the Section_Builder class.
 	 *
 	 * @return array The filtered resource sections array.
 	 */
