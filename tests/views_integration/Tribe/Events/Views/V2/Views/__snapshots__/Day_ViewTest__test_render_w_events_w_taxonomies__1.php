@@ -285,7 +285,7 @@
 <span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
 	Featured</span>
 	<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:01 PM</span> - <span class="tribe-event-time">5:01 PM</span>	</time>
 	</div>
 				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
@@ -314,7 +314,7 @@
 			<header class="tribe-events-calendar-day__event-header">
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 PM</span> - <span class="tribe-event-time">5:04 PM</span>	</time>
 	</div>
 				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
@@ -343,7 +343,7 @@
 			<header class="tribe-events-calendar-day__event-header">
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 PM</span> - <span class="tribe-event-time">5:04 PM</span>	</time>
 	</div>
 				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
@@ -383,7 +383,7 @@
 <span class="tribe-events-calendar-day__event-datetime-featured-text tribe-common-a11y-visual-hide">
 	Featured</span>
 	<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:01 pm</span> - <span class="tribe-event-time">5:01 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:01 PM</span> - <span class="tribe-event-time">5:01 PM</span>	</time>
 	</div>
 				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
@@ -412,7 +412,7 @@
 			<header class="tribe-events-calendar-day__event-header">
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 PM</span> - <span class="tribe-event-time">5:04 PM</span>	</time>
 	</div>
 				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
@@ -441,7 +441,7 @@
 			<header class="tribe-events-calendar-day__event-header">
 				<div class="tribe-events-calendar-day__event-datetime-wrapper tribe-common-b2">
 		<time class="tribe-events-calendar-day__event-datetime" datetime="2019-06-20">
-		<span class="tribe-event-date-start">June 20 @ 1:04 pm</span> - <span class="tribe-event-time">5:04 pm</span>	</time>
+		<span class="tribe-event-date-start">June 20 @ 1:04 PM</span> - <span class="tribe-event-time">5:04 PM</span>	</time>
 	</div>
 				<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a

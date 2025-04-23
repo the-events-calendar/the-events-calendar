@@ -310,7 +310,7 @@
 				<header class="tribe-events-calendar-latest-past__event-header">
 					<div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
 		<time class="tribe-events-calendar-latest-past__event-datetime" datetime="2020-02-20">
-		<span class="tribe-event-date-start">February 20, 2020 @ 8:00 am</span> - <span class="tribe-event-time">5:00 pm</span>	</time>
+		<span class="tribe-event-date-start">February 20, 2020 @ 8:00 AM</span> - <span class="tribe-event-time">5:00 PM</span>	</time>
 	</div>
 					<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
@@ -355,7 +355,7 @@
 				<header class="tribe-events-calendar-latest-past__event-header">
 					<div class="tribe-events-calendar-latest-past__event-datetime-wrapper tribe-common-b2">
 		<time class="tribe-events-calendar-latest-past__event-datetime" datetime="2020-02-15">
-		<span class="tribe-event-date-start">February 15, 2020 @ 8:00 am</span> - <span class="tribe-event-time">5:00 pm</span>	</time>
+		<span class="tribe-event-date-start">February 15, 2020 @ 8:00 AM</span> - <span class="tribe-event-time">5:00 PM</span>	</time>
 	</div>
 					<h3 class="tribe-events-calendar-latest-past__event-title tribe-common-h6 tribe-common-h4--min-medium">
 	<a
