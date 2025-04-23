@@ -1,3 +1,4 @@
+import React from 'react';
 import { StartOfWeek } from '../../../types/StartOfWeek';
 import { DatePicker, Popover } from '@wordpress/components';
 import { DatePickerEvent } from '@wordpress/components/build-types/date-time/types';
@@ -68,7 +69,7 @@ export default function CalendarPopover( props: {
 	return (
 		<Popover
 			anchor={ anchor }
-			className="classy-component_popover classy-component_popover--calendar"
+			className="classy-component__popover classy-component__popover--calendar"
 			expandOnMobile={ true }
 			placement="bottom"
 			noArrow={ false }

@@ -18,12 +18,12 @@ import {
 import { format, getDate } from '@wordpress/date';
 import { usePostEdits } from '../../../hooks';
 import { UsePostEditsReturn } from '../../../types/UsePostEditsReturn';
-import './style.pcss';
 import { Hours } from '../../../types/Hours';
 import { Minutes } from '../../../types/Minutes';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
 import TimeZone from '../../components/TimeZone';
+import React from 'react';
 
 type EventDateTimeProps = {
 	title: string;
@@ -84,7 +84,8 @@ function getMultiDayEndDate(
 	startDate: Date
 ) {
 	let newEndDate: Date;
-	const { singleDayDuration, multiDayDuration } = refs.current;
+	const { singleDayDuration, multiDayDuration } =
+		refs.current as EventDateTimeRefs;
 	let duration;
 
 	if ( newValue ) {
@@ -123,6 +124,7 @@ function getAllDayNewDates(
 		const duration = days * 1000 * 60 * 60 * 24 - 1; // Subtract one second to avoid the next day.
 		// Move the end date to the next day's end-of-day cutoff time minus on second; e.g. 23:59:59
 		newEndDate = new Date( newStartDate.getTime() + duration );
+
 		// Save the current start date and end times.
 		refs.current.startTimeHours = startDate.getHours();
 		refs.current.startTimeMinutes = startDate.getMinutes();

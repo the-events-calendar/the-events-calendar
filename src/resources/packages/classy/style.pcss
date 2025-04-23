@@ -35,15 +35,18 @@
 
 .classy-root {
 	/* By default the root will cover the Block Editor by forcing it to a height of 0 */
-	//background-color: aliceblue;
 	height: 100%;
 	opacity: 1;
-	transition: opacity .75s ease, height .35s ease;
+	transition:
+		opacity 0.75s ease,
+		height 0.35s ease;
 
 	&.classy-root--hidden {
 		opacity: 0;
 		height: 0;
-		transition: opacity .35s ease, height .75s ease;
+		transition:
+			opacity 0.35s ease,
+			height 0.75s ease;
 	}
 
 	.classy-container {
@@ -66,20 +69,20 @@
 		gap: var(--tec-spacer-2);
 		justify-content: flex-start;
 
-		&:has(.classy-field__subgroup){
+		&:has(.classy-field__subgroup) {
 			justify-content: space-between;
 			gap: var(--tec-spacer-4);
 		}
 
-		.classy-field__subgroup{
-			display:flex;
+		.classy-field__subgroup {
+			display: flex;
 			flex-direction: row;
 			gap: var(--tec-spacer-4);
 
-			&.classy-field__subgroup--left{
+			&.classy-field__subgroup--left {
 			}
 
-			&.classy-field__subgroup--right{
+			&.classy-field__subgroup--right {
 			}
 		}
 	}
@@ -94,8 +97,11 @@
 		flex: 1 0 0;
 	}
 
-	.classy-field__title, .classy-field__input-title {
-		h2, h3, h4 {
+	.classy-field__title,
+	.classy-field__input-title {
+		h2,
+		h3,
+		h4 {
 			margin: 0;
 		}
 
@@ -104,7 +110,7 @@
 			font-weight: var(--tec-font-weight-regular);
 		}
 
-		h4{
+		h4 {
 			font-size: var(--classy-font-size-15);
 			font-weight: var(--tec-font-weight-regular);
 		}
@@ -145,7 +151,7 @@
 			margin: 0;
 		}
 
-		.classy-field__input-note{
+		.classy-field__input-note {
 			color: var(--tec-color-gutenberg-grey-600);
 			font-size: var(--classy-font-size-13);
 			font-weight: var(--tec-font-weight-regular);
@@ -159,9 +165,52 @@
 	.classy-field__control {
 		font-size: var(--classy-font-size-15);
 
-		&.classy-field__control--input{
-			input.components-input-control__input{
+		&.classy-field__control--input {
+			input.components-input-control__input {
 				font-size: var(--classy-font-size-15);
+			}
+
+			.components-input-control__suffix:has(
+					.classy-suffix-icon.classy-suffix-icon--calendar
+				) {
+				align-self: center;
+			}
+
+			&.classy-field__control--time-picker {
+				min-width: 95px;
+				max-width: 120px;
+
+				input.components-combobox-control__input[type="text"] {
+					min-width: 95px;
+					max-width: 120px;
+				}
+
+				.components-combobox-control__suggestions-container {
+					position: relative;
+
+					.components-flex {
+						height: 40px;
+						padding-left: var(--tec-spacer-2);
+						padding-right: var(--tec-spacer-2);
+					}
+
+					.components-combobox-control__input {
+						font-size: var(--classy-font-size-15);
+						padding: 0;
+					}
+
+					.components-form-token-field__suggestions-list {
+						position: absolute;
+						top: 40px;
+						background-color: var(--tec-color-gutenberg-white);
+						border: 1px solid var(--tec-color-gutenberg-grey-600);
+
+						.components-form-token-field__suggestion {
+							font-size: var(--classy-font-size-15);
+							max-width: 100%;
+						}
+					}
+				}
 			}
 		}
 
@@ -186,25 +235,25 @@
 				border: 1px solid var(--tec-color-gutenberg-grey-600);
 			}
 
-			.editor-post-featured-image__actions{
+			.editor-post-featured-image__actions {
 				box-sizing: border-box;
-				.editor-post-featured-image__action{
+				.editor-post-featured-image__action {
 					flex-grow: 1;
 				}
 			}
 		}
 
-		&.classy-field__control--tinymce-editor{
+		&.classy-field__control--tinymce-editor {
 			color: var(--tec-color-gutenberg-grey-600);
 
-			iframe{
+			iframe {
 				min-height: 200px;
 			}
-			.mce-top-part{
+			.mce-top-part {
 				border-top: 1px solid var(--tec-color-gutenberg-grey-400);
 				border-bottom: 1px solid var(--tec-color-gutenberg-grey-400);
 
-				&::before{
+				&::before {
 					box-shadow: none;
 				}
 			}
@@ -222,8 +271,59 @@
 				border-top: none;
 			}
 
-			.mce-btn-group:not(:first-of-type){
+			.mce-btn-group:not(:first-of-type) {
 				margin-left: var(--tec-spacer-1);
+			}
+		}
+
+		&.classy-field__control--timezone {
+			font-size: var(--classy-font-size-13);
+
+			.classy-field__timezone-label {
+				font-weight: var(--tec-font-weight-regular);
+				color: var(--tec-color-gutenberg-grey-700);
+			}
+
+			.classy-field__timezone-value {
+				font-weight: var(--tec-font-weight-regular);
+				text-decoration: underline;
+				color: var(--tec-color-gutenberg-grey-900);
+			}
+		}
+	}
+}
+
+.classy-component__popover {
+	&.classy-component__popover--calendar {
+		.components-popover__content {
+			/* @todo is this really different from the timezone selector one? */
+			padding: var(--tec-spacer-2);
+		}
+	}
+
+	&.classy-component__popover--timezone {
+		.components-popover__content {
+			/* @todo is this really different from the calendar selector one? */
+			padding: var(--tec-spacer-3);
+			min-width: 284px;
+
+			.classy-icon.classy-icon--close {
+				position: absolute;
+				top: var(--tec-spacer-3);
+				right: var(--tec-spacer-3);
+			}
+
+			.classy-component__popover-title {
+				margin-top: 0;
+				margin-bottom: var(--tec-spacer-3);
+				font-size: var(--tec-font-size-3);
+				line-height: 24px;
+				font-weight: 600;
+				color: var(--tec-color-gutenberg-grey-900);
+			}
+
+			.classy-component__popover-description {
+				margin-bottom: var(--tec-spacer-2);
 			}
 		}
 	}

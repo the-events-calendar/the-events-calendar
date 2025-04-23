@@ -1,3 +1,4 @@
+import React from 'react';
 import { format, getDate } from '@wordpress/date';
 import { useRef, useState, useMemo } from '@wordpress/element';
 import { ComboboxControl } from '@wordpress/components';
@@ -77,7 +78,11 @@ export default function TimePicker( props: {
 		return times;
 	}, [ currentDate, timeFormat, timeInterval, startDate, endDate ] );
 
-	const onChangeProxy = ( value: string ) => {
+	const onChangeProxy = ( value: string | null | undefined ) => {
+		if ( ! value ) {
+			return;
+		}
+
 		try {
 			const date = getDate(
 				format( 'Y-m-d', currentDate ) + ' ' + value

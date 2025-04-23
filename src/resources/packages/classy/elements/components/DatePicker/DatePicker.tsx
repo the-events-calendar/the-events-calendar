@@ -1,3 +1,4 @@
+import React from 'react';
 import CalendarPopover from './CalendarPopover';
 import {
 	__experimentalInputControl as InputControl,
@@ -7,7 +8,6 @@ import CalendarIcon from './CalendarIcon';
 import { format } from '@wordpress/date';
 import { StartOfWeek } from '../../../types/StartOfWeek';
 import { Fragment, MouseEventHandler, MutableRefObject } from 'react';
-import './style.pcss';
 import { SyntheticEvent, useRef } from '@wordpress/element';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 
