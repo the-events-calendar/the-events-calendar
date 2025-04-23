@@ -13,7 +13,8 @@
 namespace TEC\Events\Admin\Help_Hub;
 
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
-use TEC\Common\Admin\Help_Hub\Section_Builder;
+use TEC\Common\Admin\Help_Hub\Section_Builder\Link_Section_Builder;
+use TEC\Common\Admin\Help_Hub\Section_Builder\FAQ_Section_Builder;
 use TEC\Common\Telemetry\Telemetry;
 use Tribe__Main;
 use Tribe__PUE__Checker;
@@ -102,15 +103,40 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * Each section can be filtered independently or as a complete set.
 	 *
 	 * @since 6.8.2
-	 * @since TBD Refactored using the Section_Builder class.
+	 * @since TBD Refactored using the Link_Section_Builder and FAQ_Section_Builder classes.
 	 *
 	 * @return array The filtered resource sections array.
 	 */
 	public function create_resource_sections(): array {
-		/** @var Section_Builder $builder */
-		$builder = tribe( Section_Builder::class );
+		/** @var Link_Section_Builder $link_builder */
+		$link_builder = tribe( Link_Section_Builder::class );
 
-		// Build getting started section.
+		/** @var FAQ_Section_Builder $faq_builder */
+		$faq_builder = tribe( FAQ_Section_Builder::class );
+
+		// Build all sections.
+		$this->build_getting_started_section( $link_builder );
+		$this->build_customizations_section( $link_builder );
+		$this->build_common_issues_section( $link_builder );
+		$this->build_faq_section( $faq_builder );
+
+		// Get all built sections.
+		return array_merge(
+			$link_builder::get_all_sections(),
+			$faq_builder::get_all_sections()
+		);
+	}
+
+	/**
+	 * Builds the Getting Started section.
+	 *
+	 * @since TBD
+	 *
+	 * @param Link_Section_Builder $builder The section builder instance.
+	 *
+	 * @return void
+	 */
+	protected function build_getting_started_section( Link_Section_Builder $builder ): void {
 		$builder::make(
 			_x( 'Getting Started', 'Section title', 'the-events-calendar' ),
 			'getting_started'
@@ -132,8 +158,18 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 				$this->get_icon_url( 'fbar_icon' )
 			)
 			->build();
+	}
 
-		// Build customizations section.
+	/**
+	 * Builds the Customizations section.
+	 *
+	 * @since TBD
+	 *
+	 * @param Link_Section_Builder $builder The section builder instance.
+	 *
+	 * @return void
+	 */
+	protected function build_customizations_section( Link_Section_Builder $builder ): void {
 		$builder::make(
 			_x( 'Customizations', 'Section title', 'the-events-calendar' ),
 			'customizations'
@@ -160,8 +196,18 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 				$this->get_icon_url( 'article_icon' )
 			)
 			->build();
+	}
 
-		// Build common issues section.
+	/**
+	 * Builds the Common Issues section.
+	 *
+	 * @since TBD
+	 *
+	 * @param Link_Section_Builder $builder The section builder instance.
+	 *
+	 * @return void
+	 */
+	protected function build_common_issues_section( Link_Section_Builder $builder ): void {
 		$builder::make(
 			_x( 'Common Issues', 'Section title', 'the-events-calendar' ),
 			'common_issues'
@@ -194,9 +240,19 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 				$this->get_icon_url( 'article_icon' )
 			)
 			->build();
+	}
 
-		// Build FAQs section.
-		$builder::make( 'FAQ', 'faq', 'faq' )
+	/**
+	 * Builds the FAQ section.
+	 *
+	 * @since TBD
+	 *
+	 * @param FAQ_Section_Builder $builder The section builder instance.
+	 *
+	 * @return void
+	 */
+	protected function build_faq_section( FAQ_Section_Builder $builder ): void {
+		$builder::make( 'FAQ', 'faq' )
 			->set_description( _x( 'Frequently Asked Questions', 'FAQ section description', 'the-events-calendar' ) )
 			->add_faq(
 				_x( 'Can I have more than one calendar?', 'FAQ more than one calendar question', 'the-events-calendar' ),
@@ -223,9 +279,6 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 				'https://evnt.is/1arl'
 			)
 			->build();
-
-		// Get all built sections.
-		return $builder::get_all_sections();
 	}
 
 	/**
