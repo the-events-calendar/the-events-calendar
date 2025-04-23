@@ -143,7 +143,6 @@ const DisplayContent: React.FC = ( { moveToNextTab, skipToNextTab } ) => {
 						</div>
 					</div>
 				) }
-				<NextButton disabled={ ! isAnyChecked } moveToNextTab={ moveToNextTab } tabSettings={ tabSettings } />
 
 				{!isAnyChecked && (
 					<p className="tec-events-onboarding__view_required_notice">
