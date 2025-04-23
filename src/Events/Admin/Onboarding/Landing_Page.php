@@ -566,6 +566,27 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return void
 	 */
 	public function tec_onboarding_wizard_target(): void {
+		if ( ! $this->should_show_wizard() ) {
+			return;
+		}
+		?>
+		<span
+			id="tec-events-onboarding-wizard"
+			data-container-element="tec-events-onboarding-wizard-target"
+			data-wizard-boot-data="<?php echo esc_attr( wp_json_encode( $this->get_initial_data() ) ); ?>"
+		></span>
+		<div class="wrap" id="tec-events-onboarding-wizard-target"></div>
+		<?php
+	}
+
+	/**
+	 * Check if the wizard should be displayed.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool
+	 */
+	protected function should_show_wizard(): bool {
 		/**
 		 * Allow users to force-ignore the checks and display the wizard.
 		 *
@@ -577,26 +598,23 @@ class Landing_Page extends Abstract_Admin_Page {
 		 */
 		$force = apply_filters( 'tec_events_onboarding_wizard_force_display', false );
 
+		if ( $force ) {
+			return true;
+		}
 
 		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
 		// If there is more than one previous version, don't show the wizard.
-		if ( ! $force && count( $tec_versions ) > 1 ) {
-			return;
+		if ( count( $tec_versions ) > 1 ) {
+			return false;
 		}
 
 		$data = tribe( Data::class );
 		// Don't display if we've finished the wizard.
-		if ( ! $force && $data->get_wizard_setting( 'finished', false ) ) {
-			return;
+		if ( $data->get_wizard_setting( 'finished', false ) ) {
+			return false;
 		}
-		?>
-		<span
-			id="tec-events-onboarding-wizard"
-			data-container-element="tec-events-onboarding-wizard-target"
-			data-wizard-boot-data="<?php echo esc_attr( wp_json_encode( $this->get_initial_data() ) ); ?>"
-		></span>
-		<div class="wrap" id="tec-events-onboarding-wizard-target"></div>
-		<?php
+
+		return true;
 	}
 
 	/**
