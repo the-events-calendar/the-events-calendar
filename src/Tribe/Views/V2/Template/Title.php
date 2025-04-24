@@ -188,7 +188,7 @@ class Title {
 			$title = get_the_title( $context->get( 'post_id' ) );
 		} elseif ( count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
-			if ( 'past' === $event_display_mode ) {	
+			if ( 'past' === $event_display_mode ) {
 				/* translators: %1$s: Events plural %2$s: Event date range */
 				$past_events_title = sprintf( esc_html__( 'Past %1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
 				
