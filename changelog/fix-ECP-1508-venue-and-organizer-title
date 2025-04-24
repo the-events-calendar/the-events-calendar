@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Add logic to keep the venue or organizer name in the title of the page. [ECP-1508]

@@ -165,14 +165,14 @@ class Title {
 		if ( isset( $wp_query->meta_query ) && isset( $wp_query->meta_query->queries ) ) {
 			foreach ( $wp_query->meta_query->queries as $query ) {
 				if ( isset( $query['key'] ) && $query['key'] === '_EventVenueID' && isset( $query['value'] ) ) {
-					$venue_id = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
-					$is_venue = true;
+					$is_venue    = true;
+					$venue_id    = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
 					$venue_title = get_the_title( $venue_id );
 					break;
 				}
 				if ( isset( $query['key'] ) && $query['key'] === '_EventOrganizerID' && isset( $query['value'] ) ) {
-					$organizer_id = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
-					$is_organizer = true;
+					$is_organizer    = true;
+					$organizer_id    = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
 					$organizer_title = get_the_title( $organizer_id );
 					break;
 				}
@@ -188,7 +188,7 @@ class Title {
 			$title = get_the_title( $context->get( 'post_id' ) );
 		} elseif ( count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
-			if ( 'past' === $event_display_mode ) {							
+			if ( 'past' === $event_display_mode ) {	
 				/* translators: %1$s: Events plural %2$s: Event date range */
 				$past_events_title = sprintf( esc_html__( 'Past %1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
 				
@@ -232,7 +232,7 @@ class Title {
 
 			// Don't pass arrays to get_term_by()!
 			if ( is_array( $term_slug ) ) {
-			sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );	$term_slug = array_pop( $term_slug );
+				$term_slug = array_pop( $term_slug );
 			}
 
 			$term = get_term_by( 'slug', $term_slug, $taxonomy );
