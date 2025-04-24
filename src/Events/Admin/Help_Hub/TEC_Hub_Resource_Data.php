@@ -31,29 +31,62 @@ use Tribe__PUE__Checker;
 class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 
 	/**
+	 * The ID of the help hub page.
+	 *
+	 * @since TBD
+	 * @var string
+	 */
+	const HELP_HUB_PAGE_ID = 'tribe_events_page_tec-events-help-hub';
+
+	/**
 	 * Holds the URLs for the necessary icons.
 	 *
 	 * @since 6.8.2
-	 * @var array
+	 * @var array<string,string>
 	 */
 	protected array $icons = [];
 
 	/**
 	 * The body class array that styles the admin page.
 	 *
-	 * @var array
+	 * @since 6.8.2
+	 * @var array<string>
 	 */
 	protected array $admin_page_body_classes = [ 'tribe_events_page_tec-events-settings' ];
 
 	/**
+	 * Whether the class has been initialized.
+	 *
+	 * @since TBD
+	 * @var bool
+	 */
+	protected bool $initialized = false;
+
+	/**
 	 * Constructor.
 	 *
-	 * Initializes the icons array with URLs.
+	 * Sets up the initialization hooks.
 	 *
-	 * @since 6.8.2
+     * @since 6.8.2
+	 * @since TBD Moved logic into initialize() method.
 	 */
 	public function __construct() {
-		$origin ??= Tribe__Main::instance();
+		add_action( 'load-' . self::HELP_HUB_PAGE_ID, [ $this, 'initialize' ] );
+	}
+
+	/**
+	 * Initializes the Help Hub Resource Data.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	public function initialize(): void {
+		if ( $this->initialized ) {
+			return;
+		}
+
+		$origin = Tribe__Main::instance();
 
 		$this->icons = [
 			'tec_icon'     => tribe_resource_url( 'images/logo/the-events-calendar.svg', false, null, $origin ),
@@ -65,6 +98,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 		];
 
 		$this->add_hooks();
+		$this->initialized = true;
 	}
 
 	/**
