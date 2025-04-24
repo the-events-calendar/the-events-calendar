@@ -530,6 +530,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
+
+			/**
+			 * Fires when The Events Calendar is fully loaded.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_events_fully_loaded' );
 		}
 
 		/**
