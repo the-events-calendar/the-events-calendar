@@ -67,7 +67,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 *
 	 * Sets up the initialization hooks.
 	 *
-     * @since 6.8.2
+	 * @since 6.8.2
 	 * @since TBD Moved logic into initialize() method.
 	 */
 	public function __construct() {
