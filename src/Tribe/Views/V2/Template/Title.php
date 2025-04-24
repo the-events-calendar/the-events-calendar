@@ -155,6 +155,30 @@ class Title {
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events.
 		$event_date = $context->get( 'event_date', false );
 
+		// Check if we're in a venue or organizer context while querying events.
+		global $wp_query;
+		$is_venue = false;
+		$is_organizer = false;
+		$venue_id = 0;
+		$organizer_id = 0;
+		
+		if ( isset( $wp_query->meta_query ) && isset( $wp_query->meta_query->queries ) ) {
+			foreach ( $wp_query->meta_query->queries as $query ) {
+				if ( isset( $query['key'] ) && $query['key'] === '_EventVenueID' && isset( $query['value'] ) ) {
+					$venue_id = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
+					$is_venue = true;
+					$venue_title = get_the_title( $venue_id );
+					break;
+				}
+				if ( isset( $query['key'] ) && $query['key'] === '_EventOrganizerID' && isset( $query['value'] ) ) {
+					$organizer_id = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
+					$is_organizer = true;
+					$organizer_title = get_the_title( $organizer_id );
+					break;
+				}
+			}
+		}
+
 		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
 		} elseif ( Day_View::get_view_slug() === $event_display_mode ) {
@@ -164,12 +188,28 @@ class Title {
 			$title = get_the_title( $context->get( 'post_id' ) );
 		} elseif ( count( $posts ) ) {
 			$range = static::build_post_range_title( $context, $event_date, $posts );
-			if ( 'past' === $event_display_mode ) {
+			if ( 'past' === $event_display_mode ) {							
 				/* translators: %1$s: Events plural %2$s: Event date range */
-				$title = sprintf( esc_html__( 'Past %1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+				$past_events_title = sprintf( esc_html__( 'Past %1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+				
+				if ( $is_venue ) {
+					$title = $venue_title . ' - ' . $past_events_title;
+				} elseif ( $is_organizer ) {
+					$title = $organizer_title . ' - ' . $past_events_title;
+				} else {
+					$title = $past_events_title;
+				}
 			} else {
 				/* translators: %1$s: Events plural %2$s: Event date range */
-				$title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+				$current_events_title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
+			
+				if ( $is_venue ) {
+					$title = $venue_title . ' - ' . $current_events_title;
+				} elseif ( $is_organizer ) {
+					$title = $organizer_title . ' - ' . $current_events_title;
+				} else {
+					$title = $current_events_title;
+				}
 			}
 		} elseif ( 'past' === $event_display_mode ) {
 			/* translators: %s: Events plural */
@@ -192,7 +232,7 @@ class Title {
 
 			// Don't pass arrays to get_term_by()!
 			if ( is_array( $term_slug ) ) {
-				$term_slug = array_pop( $term_slug );
+			sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );	$term_slug = array_pop( $term_slug );
 			}
 
 			$term = get_term_by( 'slug', $term_slug, $taxonomy );
