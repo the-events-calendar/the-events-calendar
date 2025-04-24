@@ -256,8 +256,10 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 		[ isSelectingDate, setIsSelectingDate ]
 	);
 
-	const startSelector = useMemo(
-		() => (
+	const startSelector = useMemo( () => {
+		console.log( 'startSelector rerendering ...' );
+
+		return (
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
 				endDate={ endDate }
@@ -272,22 +274,23 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 				startOfWeek={ startOfWeek }
 				timeFormat={ timeFormat }
 			/>
-		),
-		[
-			dateWithYearFormat,
-			startDateIsoString,
-			endDateIsoString,
-			setIsSelectingDate,
-			isSelectingDate,
-			isAllDayValue,
-			isMultidayValue,
-			startOfWeek,
-			timeFormat,
-		]
-	);
+		);
+	}, [
+		dateWithYearFormat,
+		startDateIsoString,
+		endDateIsoString,
+		setIsSelectingDate,
+		isSelectingDate,
+		isAllDayValue,
+		isMultidayValue,
+		startOfWeek,
+		timeFormat,
+	] );
 
-	const endSelector = useMemo(
-		() => (
+	const endSelector = useMemo( () => {
+		console.log( 'endSelector rerendering ...' );
+
+		return (
 			<EndSelector
 				dateWithYearFormat={ dateWithYearFormat }
 				endDate={ endDate }
@@ -302,19 +305,18 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 				startOfWeek={ startOfWeek }
 				timeFormat={ timeFormat }
 			/>
-		),
-		[
-			dateWithYearFormat,
-			startDateIsoString,
-			endDateIsoString,
-			setIsSelectingDate,
-			isSelectingDate,
-			isAllDayValue,
-			isMultidayValue,
-			startOfWeek,
-			timeFormat,
-		]
-	);
+		);
+	}, [
+		dateWithYearFormat,
+		startDateIsoString,
+		endDateIsoString,
+		setIsSelectingDate,
+		isSelectingDate,
+		isAllDayValue,
+		isMultidayValue,
+		startOfWeek,
+		timeFormat,
+	] );
 
 	const onMultiDayToggleChange = useCallback(
 		( newValue: boolean ) => {
