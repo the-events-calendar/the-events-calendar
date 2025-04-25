@@ -1,7 +1,8 @@
+import React, { Fragment } from 'react';
 import { MouseEventHandler } from 'react';
 import DatePicker from '../../components/DatePicker';
 import { StartOfWeek } from '../../../types/StartOfWeek';
-import { Fragment, RefObject, useRef } from '@wordpress/element';
+import { RefObject, useRef } from '@wordpress/element';
 import { format } from '@wordpress/date';
 import { localizedData } from '../../../localized-data';
 import { _x } from '@wordpress/i18n';

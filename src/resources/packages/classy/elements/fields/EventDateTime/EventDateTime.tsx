@@ -67,14 +67,8 @@ function getNewStartEndDates(
 		// The end date has been updated by the user.
 		newStartDate = startDate;
 		newEndDate = getDate( newDate );
-
-		if ( newEndDate.getTime() < startDate.getTime() ) {
-			// The end date is before the current start date: push the start date back.
-			newStartDate = new Date(
-				newEndDate.getTime() - previousDurationInMs
-			);
-		}
 	}
+
 	return { newStartDate, newEndDate };
 }
 
@@ -108,6 +102,10 @@ function getAllDayNewDates(
 	endDate: Date,
 	refs: RefObject< EventDateTimeRefs >
 ) {
+	if ( refs.current === null ) {
+		return { newStartDate: startDate, newEndDate: endDate };
+	}
+
 	let newStartDate: Date;
 	let newEndDate: Date;
 
@@ -235,13 +233,7 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsSelectingDate( false );
 		},
-		[
-			endDateIsoString,
-			startDateIsoString,
-			editPost,
-			setDates,
-			setIsSelectingDate,
-		]
+		[ endDateIsoString, startDateIsoString, editPost ]
 	);
 
 	const onDateInputClick = useCallback(
@@ -253,12 +245,10 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 
 			return setIsSelectingDate( selecting );
 		},
-		[ isSelectingDate, setIsSelectingDate ]
+		[ isSelectingDate ]
 	);
 
 	const startSelector = useMemo( () => {
-		console.log( 'startSelector rerendering ...' );
-
 		return (
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
@@ -279,7 +269,6 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 		dateWithYearFormat,
 		startDateIsoString,
 		endDateIsoString,
-		setIsSelectingDate,
 		isSelectingDate,
 		isAllDayValue,
 		isMultidayValue,
@@ -288,8 +277,6 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 	] );
 
 	const endSelector = useMemo( () => {
-		console.log( 'endSelector rerendering ...' );
-
 		return (
 			<EndSelector
 				dateWithYearFormat={ dateWithYearFormat }
@@ -359,7 +346,6 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 			endDateIsoString,
 			endOfDayCutoff,
 			editPost,
-			setDates,
 			setIsAllDayValue,
 		]
 	);
