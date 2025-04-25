@@ -1,4 +1,4 @@
 Significance: patch
 Type: security
 
-Update Common Telemetry to a more secure version. [TBD]
+Added more safety checks to telemetry opt-ins/opt-outs. [TBD]
