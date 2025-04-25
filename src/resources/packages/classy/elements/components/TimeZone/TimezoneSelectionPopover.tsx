@@ -17,6 +17,7 @@ export default function TimezoneSelectionPopover( props: {
 	timezone: string;
 } ) {
 	const { anchor, onClose, onTimezoneChange, timezone } = props;
+	const eventUsesUtc = timezone.startsWith( 'UTC' );
 
 	const timezoneOptions = useMemo( () => {
 		const parsedOptions: HTMLCollection = hpqParse(
@@ -25,17 +26,38 @@ export default function TimezoneSelectionPopover( props: {
 		).children;
 
 		return ( Array.from( parsedOptions ) as HTMLOptGroupElement[] ).map(
-			( optgroup: HTMLOptGroupElement, index ) => (
-				<optgroup key={ index } label={ optgroup.label }>
-					{ (
-						Array.from( optgroup.children ) as HTMLOptionElement[]
-					 ).map( ( option: HTMLOptionElement, optionIndex ) => (
-						<option key={ optionIndex } value={ option.value }>
-							{ option.label }
-						</option>
-					) ) }
-				</optgroup>
-			)
+			( optgroup: HTMLOptGroupElement, index ) => {
+				const options = Array.from(
+					optgroup.children
+				) as HTMLOptionElement[];
+
+				if ( options.length === 0 ) {
+					return null;
+				}
+
+				if (
+					options[ 0 ].value.startsWith( 'UTC' ) &&
+					! eventUsesUtc
+				) {
+					// If the event does not use a UTC timezone, then do not show UTC timezone options.
+					return null;
+				}
+
+				return (
+					<optgroup key={ index } label={ optgroup.label }>
+						{ options.map(
+							( option: HTMLOptionElement, optionIndex ) => (
+								<option
+									key={ optionIndex }
+									value={ option.value }
+								>
+									{ option.label }
+								</option>
+							)
+						) }
+					</optgroup>
+				);
+			}
 		);
 	}, [ timezoneChoice ] );
 
