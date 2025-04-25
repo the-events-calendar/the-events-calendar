@@ -11,7 +11,7 @@
  *
  * @version TBD
  * @since 5.3.0
- * @since TBD Add aria-current attribute to the view selector button for accessibility.
+ * @since TBD Add aria-current and aria-label attributes to the view selector button for accessibility.
  *
  * @var string $view_slug            Slug of the current view.
  * @var string $view_label           Label of the current view.
@@ -35,6 +35,7 @@ $view_selector_classes = [
 			class="tribe-events-c-view-selector__button tribe-common-c-btn__clear"
 			data-js="tribe-events-view-selector-button"
 			aria-current="true"
+			aria-label="<?php echo esc_attr__( 'Select Calendar View', 'the-events-calendar' ); ?>"
 		>
 			<span class="tribe-events-c-view-selector__button-icon">
 				<?php $this->template( 'components/icons/' . esc_attr( $view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
