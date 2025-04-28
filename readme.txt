@@ -235,7 +235,7 @@ Remember to always make a backup of your database and files before updating!
 = [6.11.2.1] 2025-04-28 =
 
 * Fix - Amend various callbacks of the External Calendar Embeds feature to not be so strict on the expected arguments, as a result fixing fatal errors when the arguments are not of the expected type. [TEC-5484]
-* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TBD]
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TECENG-49]
 * Language - 0 new strings added, 186 updated, 0 fuzzied, and 61 obsoleted.
 
 = [6.11.2] 2025-04-09 =
