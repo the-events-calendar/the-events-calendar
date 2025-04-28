@@ -1,4 +1,0 @@
-Significance: patch
-Type: security
-
-Added more safety checks to telemetry opt-ins/opt-outs. [TBD]
