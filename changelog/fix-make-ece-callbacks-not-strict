@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Amend various callbacks of the External Calendar Embeds feature to not be so strict on the expected arguments, as a result fixing fatal errors when the arguments are not of the expected type. [TEC-5484]
