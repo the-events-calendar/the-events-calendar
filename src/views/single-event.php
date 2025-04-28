@@ -72,38 +72,46 @@ $cost  = tribe_get_formatted_cost( $event_id );
 
 ?>
 
-<div id="tribe-events-content" class="tribe-events-single">
-
-	<p class="tribe-events-back">
-		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
-	</p>
+<article id="tribe-events-content" class="tribe-events-single">
+	<div class="tribe-events-back">
+		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" aria-label="<?php printf( esc_html__( 'Back to all %s', 'the-events-calendar' ), $events_label_plural ); ?>">
+			<?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?>
+		</a>
+	</div>
 
 	<!-- Notices -->
-	<?php tribe_the_notices() ?>
-
-	<?php echo $title; ?>
-
-	<div class="tribe-events-schedule tribe-clearfix">
-		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
-		<?php if ( ! empty( $cost ) ) : ?>
-			<span class="tribe-events-cost"><?php echo esc_html( $cost ) ?></span>
-		<?php endif; ?>
+	<div class="tribe-events-notices" role="status">
+		<?php tribe_the_notices() ?>
 	</div>
 
-	<!-- Event header -->
-	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
-		<!-- Navigation -->
-		<nav class="tribe-events-nav-pagination" aria-label="<?php printf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular ); ?>">
-			<ul class="tribe-events-sub-nav">
-				<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
-				<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
-			</ul>
-			<!-- .tribe-events-sub-nav -->
-		</nav>
-	</div>
-	<!-- #tribe-events-header -->
+	<header class="tribe-events-header">
+		<?php echo $title; ?>
 
-	<?php while ( have_posts() ) :  the_post(); ?>
+		<div class="tribe-events-schedule tribe-clearfix">
+			<div class="tribe-events-dates">
+				<?php echo tribe_events_event_schedule_details( $event_id ); ?>
+			</div>
+			<?php if ( ! empty( $cost ) ) : ?>
+				<span class="tribe-events-cost"><?php echo esc_html( $cost ) ?></span>
+			<?php endif; ?>
+		</div>
+
+		<!-- Event header -->
+		<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+			<!-- Navigation -->
+			<nav class="tribe-events-nav-pagination"
+				 aria-label="<?php printf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular ); ?>">
+				<ul class="tribe-events-sub-nav">
+					<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
+					<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
+				</ul>
+				<!-- .tribe-events-sub-nav -->
+			</nav>
+		</div>
+		<!-- #tribe-events-header -->
+	</header>
+
+	<?php while ( have_posts() ) : the_post(); ?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<!-- Event featured image, but exclude link -->
 			<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
@@ -125,7 +133,7 @@ $cost  = tribe_get_formatted_cost( $event_id );
 	<?php endwhile; ?>
 
 	<!-- Event footer -->
-	<div id="tribe-events-footer">
+	<footer id="tribe-events-footer">
 		<!-- Navigation -->
 		<nav class="tribe-events-nav-pagination" aria-label="<?php printf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular ); ?>">
 			<ul class="tribe-events-sub-nav">
@@ -134,7 +142,7 @@ $cost  = tribe_get_formatted_cost( $event_id );
 			</ul>
 			<!-- .tribe-events-sub-nav -->
 		</nav>
-	</div>
+	</footer>
 	<!-- #tribe-events-footer -->
 
-</div><!-- #tribe-events-content -->
+</article><!-- #tribe-events-content -->
