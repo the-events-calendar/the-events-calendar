@@ -92,9 +92,7 @@ class Singular_Page extends Controller_Contract {
 	 * @return array
 	 */
 	public function modify_post_updated_messages( $messages ): array {
-		if ( ! is_array( $messages ) ) {
-			return $messages;
-		}
+		$messages = (array) $messages;
 
 		if ( ! self::is_on_page() ) {
 			return $messages;
