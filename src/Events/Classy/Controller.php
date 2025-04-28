@@ -11,8 +11,6 @@ namespace TEC\Events\Classy;
 
 use TEC\Common\Contracts\Provider\Controller as ControllerContract;
 use TEC\Common\StellarWP\Assets\Asset;
-use TEC\Events\Classy\Back_Compatibility\Editor;
-use TEC\Events\Classy\Back_Compatibility\Editor_Utils;
 use TEC\Events\Custom_Tables\V1\Models\Event;
 use TEC\Events\Custom_Tables\V1\Models\Occurrence;
 use Tribe__Events__Main as TEC;
@@ -147,15 +145,8 @@ class Controller extends ControllerContract {
 	 * @return void Bindings are registered, the controller is hooked to actions and filters.
 	 */
 	protected function do_register(): void {
-		// Register the `editor` binding replacement for back-compatibility purposes.
-		$back_compatible_editor = new Editor();
-		$this->container->singleton( 'editor', $back_compatible_editor );
-		$this->container->singleton( 'events.editor', $back_compatible_editor );
-		$this->container->singleton( 'events.editor.compatibility', $back_compatible_editor );
-		$this->container->singleton( 'editor.utils', new Editor_Utils() );
-
-		// Tell Common, TEC, ET and so on NOT to load blocks.
-		add_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
+		// Remove our post types from the list of post types that should load blocks.
+		add_filter( 'tec_common_load_blocks_post_types', [ $this, 'filter_load_block_post_types' ], 100 );
 
 		// We're using TEC new editor.
 		add_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
@@ -224,23 +215,12 @@ class Controller extends ControllerContract {
 	 * @return void The hooked actions and filters are removed.
 	 */
 	public function unregister(): void {
-		// Unregister the back-compat editor and utils.
-		if ( $this->container->has( 'editor' ) && $this->container->get( 'editor' ) instanceof Editor ) {
-			unset( $this->container['editor'] );
-			unset( $this->container['events.editor'] );
-			unset( $this->container['events.editor.compatibility'] );
-		}
-
-		if ( $this->container->has( 'editor.utils' ) && $this->container->get( 'editor.utils' ) instanceof Editor_Utils ) {
-			unset( $this->container['editor.utils'] );
-		}
-
 		// Remove filters and actions.
-		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'block_editor_settings_all', [ $this, 'filter_block_editor_settings' ], 100 );
 		remove_filter( 'tec_using_classy_editor', [ self::class, 'return_true' ] );
 		remove_filter( 'tribe_editor_should_load_blocks', [ self::class, 'return_false' ] );
+		remove_filter( 'tec_common_load_blocks_post_types', [ $this, 'filter_load_block_post_types' ], 100 );
 
 		remove_action( 'init', [ $this, 'register_post_meta' ] );
 
@@ -338,6 +318,22 @@ class Controller extends ControllerContract {
 		);
 
 		return (array) $supported_post_types;
+	}
+
+	/**
+	 * Filters the list of post types that should load blocks.
+	 *
+	 * This will remove the post types that ARE supported by the Classy editor
+	 * from the list of post types
+	 *
+	 * @since TBD
+	 *
+	 * @param string[] $post_types The list of post types that should load blocks.
+	 *
+	 * @return string[] The filtered list of post types that should load blocks.
+	 */
+	public function filter_load_block_post_types( array $post_types ): array {
+		return array_diff( $post_types, $this->get_supported_post_types() );
 	}
 
 	/**
