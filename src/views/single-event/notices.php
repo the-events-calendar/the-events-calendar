@@ -7,11 +7,12 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link http://evnt.is/1aiy
+ * @link    http://evnt.is/1aiy
  *
  * @version 4.7
  *
  */
 ?>
-
-<?php tribe_the_notices();
+<div class="tribe-events-notices" role="status">
+	<?php tribe_the_notices(); ?>
+</div>

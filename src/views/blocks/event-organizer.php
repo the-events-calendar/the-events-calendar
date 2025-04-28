@@ -30,7 +30,7 @@ $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ 
 ?>
 <div <?php tribe_classes( $classes ); ?>>
 	<div class="tribe-block__organizer__title">
-		<h3><?php echo tribe_get_organizer_link( $organizer ); ?></h3>
+		<span class="tribe-block__organizer__name"><?php echo tribe_get_organizer_link( $organizer ); ?></span>
 	</div>
 	<?php if ( ! empty( $phone ) ) : ?>
 		<p class="tribe-block__organizer__phone"><?php echo esc_html( $phone ); ?></p>
