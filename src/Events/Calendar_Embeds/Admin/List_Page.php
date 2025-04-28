@@ -196,7 +196,7 @@ class List_Page extends Controller_Contract {
 	 * Keep parent menu open when adding and editing calendar embeds.
 	 *
 	 * @since 6.11.0
-	 * @since TBD Made the parameters non-strict.
+	 * @since 6.11.2.1 Made the parameters non-strict.
 	 *
 	 * @param ?string $submenu_file The current submenu file.
 	 *

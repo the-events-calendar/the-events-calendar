@@ -96,7 +96,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @since 6.11.0
 	 * @since 6.11.0.1 Added check to ensure ABSPATH/wp-admin/includes/screen.php is loaded before running.
-	 * @since TBD Made the parameters non-strict.
+	 * @since 6.11.2.1 Made the parameters non-strict.
 	 *
 	 * @param array  $terms      The terms.
 	 * @param ?array $taxonomies The taxonomies.
@@ -156,7 +156,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 * Disables slug changes for the calendar embed post type.
 	 *
 	 * @since 6.11.0
-	 * @since TBD Made the parameters non-strict.
+	 * @since 6.11.2.1 Made the parameters non-strict.
 	 *
 	 * @param array $data              The post data.
 	 * @param array $post_array        The post array.
