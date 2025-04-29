@@ -92,7 +92,7 @@ $nav_aria_label = sprintf( esc_html__( '%s Navigation', 'the-events-calendar' ),
 	</div>
 
 	<header class="tribe-events-header">
-		<?php echo esc_html( $title ); ?>
+		<?php echo wp_kses_post( $title ); ?>
 
 		<div class="tribe-events-schedule tribe-clearfix">
 			<div class="tribe-events-dates">

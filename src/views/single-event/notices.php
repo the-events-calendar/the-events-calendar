@@ -13,6 +13,4 @@
  *
  */
 ?>
-<div class="tribe-events-notices" role="status">
-	<?php tribe_the_notices(); ?>
-</div>
+<?php tribe_the_notices(); ?>
