@@ -72,40 +72,44 @@ $cost  = tribe_get_formatted_cost( $event_id );
 
 /* translators: %s: The plural label for events (e.g. "Events", "Workshops") */
 $aria_label_back_to_events = sprintf( esc_html__( 'Back to all %s', 'the-events-calendar' ), $events_label_plural );
+/* translators: %s: The singular label for events (e.g. "Event", "Workshop") */
+$nav_aria_label = sprintf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular );
 ?>
 
 <article id="tribe-events-content" class="tribe-events-single">
 	<div class="tribe-events-back">
 		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" aria-label="<?php echo esc_attr( $aria_label_back_to_events ); ?>">
-			<?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?>
+			<?php
+			/* translators: %s: The plural label for events */
+			printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), esc_html( $events_label_plural ) );
+			?>
 		</a>
 	</div>
 
 	<!-- Notices -->
 	<div class="tribe-events-notices" role="status">
-		<?php tribe_the_notices() ?>
+		<?php tribe_the_notices(); ?>
 	</div>
 
 	<header class="tribe-events-header">
-		<?php echo $title; ?>
+		<?php echo esc_html( $title ); ?>
 
 		<div class="tribe-events-schedule tribe-clearfix">
 			<div class="tribe-events-dates">
-				<?php echo tribe_events_event_schedule_details( $event_id ); ?>
+				<?php echo wp_kses_post( tribe_events_event_schedule_details( $event_id ) ); ?>
 			</div>
 			<?php if ( ! empty( $cost ) ) : ?>
-				<span class="tribe-events-cost"><?php echo esc_html( $cost ) ?></span>
+				<span class="tribe-events-cost"><?php echo esc_html( $cost ); ?></span>
 			<?php endif; ?>
 		</div>
 
 		<!-- Event header -->
-		<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+		<div id="tribe-events-header" <?php tribe_events_the_header_attributes(); ?>>
 			<!-- Navigation -->
-			<nav class="tribe-events-nav-pagination"
-				 aria-label="<?php printf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular ); ?>">
+			<nav class="tribe-events-nav-pagination" aria-label="<?php echo esc_attr( $nav_aria_label ); ?>">
 				<ul class="tribe-events-sub-nav">
-					<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
-					<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
+					<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ); ?></li>
+					<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ); ?></li>
 				</ul>
 				<!-- .tribe-events-sub-nav -->
 			</nav>
@@ -113,34 +117,40 @@ $aria_label_back_to_events = sprintf( esc_html__( 'Back to all %s', 'the-events-
 		<!-- #tribe-events-header -->
 	</header>
 
-	<?php while ( have_posts() ) : the_post(); ?>
+	<?php
+	while ( have_posts() ) :
+		the_post();
+		?>
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 			<!-- Event featured image, but exclude link -->
-			<?php echo tribe_event_featured_image( $event_id, 'full', false ); ?>
+			<?php echo wp_kses_post( tribe_event_featured_image( $event_id, 'full', false ) ); ?>
 
 			<!-- Event content -->
-			<?php do_action( 'tribe_events_single_event_before_the_content' ) ?>
+			<?php do_action( 'tribe_events_single_event_before_the_content' ); ?>
 			<div class="tribe-events-single-event-description tribe-events-content">
 				<?php the_content(); ?>
 			</div>
 			<!-- .tribe-events-single-event-description -->
-			<?php do_action( 'tribe_events_single_event_after_the_content' ) ?>
+			<?php do_action( 'tribe_events_single_event_after_the_content' ); ?>
 
 			<!-- Event meta -->
-			<?php do_action( 'tribe_events_single_event_before_the_meta' ) ?>
+			<?php do_action( 'tribe_events_single_event_before_the_meta' ); ?>
 			<?php tribe_get_template_part( 'modules/meta' ); ?>
-			<?php do_action( 'tribe_events_single_event_after_the_meta' ) ?>
+			<?php do_action( 'tribe_events_single_event_after_the_meta' ); ?>
 		</div> <!-- #post-x -->
-		<?php if ( get_post_type() == Tribe__Events__Main::POSTTYPE && tribe_get_option( 'showComments', false ) ) comments_template() ?>
+		<?php
+		if ( get_post_type() == Tribe__Events__Main::POSTTYPE && tribe_get_option( 'showComments', false ) ) {
+			comments_template();}
+		?>
 	<?php endwhile; ?>
 
 	<!-- Event footer -->
 	<footer id="tribe-events-footer">
 		<!-- Navigation -->
-		<nav class="tribe-events-nav-pagination" aria-label="<?php printf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular ); ?>">
+		<nav class="tribe-events-nav-pagination" aria-label="<?php echo esc_attr( $nav_aria_label ); ?>">
 			<ul class="tribe-events-sub-nav">
-				<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ) ?></li>
-				<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ) ?></li>
+				<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link( '<span>&laquo;</span> %title%' ); ?></li>
+				<li class="tribe-events-nav-next"><?php tribe_the_next_event_link( '%title% <span>&raquo;</span>' ); ?></li>
 			</ul>
 			<!-- .tribe-events-sub-nav -->
 		</nav>
