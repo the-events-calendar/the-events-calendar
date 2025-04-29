@@ -13,4 +13,5 @@
  *
  */
 ?>
-<?php tribe_the_notices(); ?>
+<?php
+tribe_the_notices();
