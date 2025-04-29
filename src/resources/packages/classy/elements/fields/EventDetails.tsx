@@ -1,3 +1,4 @@
+import React from 'react';
 import { _x } from '@wordpress/i18n';
 import { EventDetailsProps } from '../../types/FieldProps';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
@@ -9,6 +10,7 @@ import { PostFeaturedImage } from '@wordpress/editor';
 import { TinyMceEditor } from '../components/TinyMceEditor';
 
 export function EventDetails( props: EventDetailsProps ) {
+	// @todo convert this to use non-wrapped selectors on the core stores. Let the Classy registry handle the redirection.
 	const { postContent, meta, editPost } =
 		usePostEdits() as UsePostEditsReturn;
 	const eventUrlMeta: string = meta[ METADATA_EVENT_URL ] || '';
@@ -32,7 +34,7 @@ export function EventDetails( props: EventDetailsProps ) {
 		editPost( { content: nextValue } );
 	};
 
-	const onUrlChange = ( nextValue: string ): void => {
+	const onUrlChange = ( nextValue: string | undefined ): void => {
 		setEventUrlValue( nextValue ?? '' );
 		editPost( { meta: { [ METADATA_EVENT_URL ]: nextValue } } );
 	};

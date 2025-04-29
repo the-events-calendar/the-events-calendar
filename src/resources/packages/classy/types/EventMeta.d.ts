@@ -3,4 +3,5 @@ export type EventMeta = {
 	_EventEndDate?: string;
 	_EventAllDay?: string;
 	_EventTimezone?: string;
+	_EventOrganizerId?: string[];
 };

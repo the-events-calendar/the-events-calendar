@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef, useState } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 import TimezoneSelectionPopover from './TimezoneSelectionPopover';

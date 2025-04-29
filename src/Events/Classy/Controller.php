@@ -431,5 +431,22 @@ class Controller extends ControllerContract {
 				]
 			);
 		}
+
+		foreach ( [
+			'_EventOrganizerID',
+		] as $meta_key ) {
+			register_post_meta(
+				TEC::POSTTYPE,
+				$meta_key,
+				[
+					'show_in_rest'  => true,
+					'single'        => false,
+					'type'          => 'integer',
+					'auth_callback' => static function () {
+						return current_user_can( 'edit_posts' );
+					},
+				]
+			);
+		}
 	}
 }

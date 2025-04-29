@@ -1,8 +1,8 @@
-export default function ( props: { onClick?: () => void } ) {
-	const { onClick = null } = props;
+import React from 'react';
 
+export default function () {
 	return (
-		<span className="classy-icon classy-icon--close" onClick={ onClick }>
+		<span className="classy-icon classy-icon--close">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="24"

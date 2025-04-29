@@ -3,7 +3,7 @@ import { VirtualElement } from '@wordpress/components/build-types/popover/types'
 import { Popover, SelectControl } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
-import CloseIcon from '../CloseIcon';
+import CloseIcon from '../Icons/Close';
 import { localizedData } from '../../../localized-data';
 import { parse as hpqParse } from 'hpq';
 
@@ -11,7 +11,7 @@ import { parse as hpqParse } from 'hpq';
 const timezoneChoice = localizedData.settings.timezoneChoice;
 
 export default function TimezoneSelectionPopover( props: {
-	anchor: Element | VirtualElement;
+	anchor: Element | VirtualElement | null;
 	onClose: () => void;
 	onTimezoneChange: ( timezone: string ) => void;
 	timezone: string;
@@ -72,7 +72,13 @@ export default function TimezoneSelectionPopover( props: {
 			onClose={ onClose }
 		>
 			<div className="classy-component__popover-content classy-component__popover-content--timezone">
-				<CloseIcon onClick={ onClose } />
+				<a
+					href="#"
+					onAbort={ onClose }
+					className="classy-component__popover-close"
+				>
+					<CloseIcon />
+				</a>
 
 				<h4 className="classy-component-popover__title">
 					{ _x(

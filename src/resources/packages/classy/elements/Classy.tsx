@@ -2,7 +2,12 @@ import React from 'react';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';
 import { _x } from '@wordpress/i18n';
-import { EventDetails, EventTitle, EventDateTime } from './fields';
+import {
+	EventDetails,
+	EventTitle,
+	EventDateTime,
+	EventOrganizer,
+} from './fields';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { default as Provider } from './components/Provider';
 
@@ -42,6 +47,14 @@ function ClassyApplication() {
 					title={ _x(
 						'Event Details',
 						'The title of the event details field.',
+						'the-events-calendar'
+					) }
+				/>
+
+				<EventOrganizer
+					title={ _x(
+						'Event Organizer',
+						'The title of the event organizer field.',
 						'the-events-calendar'
 					) }
 				/>
