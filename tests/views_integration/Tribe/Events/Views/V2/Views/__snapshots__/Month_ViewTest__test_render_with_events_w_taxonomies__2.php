@@ -2359,7 +2359,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2368,7 +2368,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2479,7 +2479,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2488,7 +2488,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2505,7 +2505,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2514,7 +2514,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2531,7 +2531,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2540,7 +2540,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2557,7 +2557,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2566,7 +2566,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2583,7 +2583,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2592,7 +2592,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2609,7 +2609,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2618,7 +2618,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2635,7 +2635,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2644,7 +2644,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2661,7 +2661,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2670,7 +2670,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2687,7 +2687,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2696,7 +2696,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2713,7 +2713,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2722,7 +2722,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2739,7 +2739,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2748,7 +2748,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2765,7 +2765,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2774,7 +2774,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2791,7 +2791,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2800,7 +2800,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2817,7 +2817,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2826,7 +2826,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2843,7 +2843,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2852,7 +2852,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2869,7 +2869,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2878,7 +2878,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2895,7 +2895,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2904,7 +2904,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2921,7 +2921,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2930,7 +2930,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2947,7 +2947,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2956,7 +2956,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2973,7 +2973,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -2982,7 +2982,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -2999,7 +2999,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3008,7 +3008,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3025,7 +3025,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3034,7 +3034,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3051,7 +3051,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3060,7 +3060,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3077,7 +3077,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3086,7 +3086,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3103,7 +3103,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3112,7 +3112,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3129,7 +3129,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3138,7 +3138,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3155,7 +3155,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3164,7 +3164,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3181,7 +3181,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3190,7 +3190,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3207,7 +3207,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3216,7 +3216,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3233,7 +3233,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3242,7 +3242,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3259,7 +3259,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3268,7 +3268,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3285,7 +3285,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3294,7 +3294,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
@@ -3311,7 +3311,7 @@
 
 	
 		<div  class="tribe-events-header__messages tribe-events-c-messages tribe-common-b2 tribe-events-header__messages--mobile tribe-events-header__messages--day"  >
-			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="alert">
+			<div class="tribe-events-c-messages__message tribe-events-c-messages__message--notice" role="status">
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--messages-not-found tribe-events-c-messages__message-icon-svg"  viewBox="0 0 21 23" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" tabindex="-1">
 	<g fill-rule="evenodd">
 		<path d="M.5 2.5h20v20H.5z"/>
@@ -3320,7 +3320,7 @@
 		<path stroke-linecap="square" d="M.5 7.5h20"/>
 	</g>
 </svg>
-			<div class="tribe-events-c-messages__message-list" tabindex="0" aria-live="assertive">
+			<div class="tribe-events-c-messages__message-list" tabindex="0">
 									<div
 						class="tribe-events-c-messages__message-list-item"
 						 data-key="no-events-in-day" 					>
