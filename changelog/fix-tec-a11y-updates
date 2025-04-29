@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Fix showing aria labels for calendar view button and links. [TEC-5088]
