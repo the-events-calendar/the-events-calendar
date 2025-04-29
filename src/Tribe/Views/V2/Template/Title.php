@@ -117,7 +117,10 @@ class Title {
 	 * injectable and controllable, in place of the global one.
 	 *
 	 * @since 4.9.10
-	 * @since 5.1.5 - Add filter for plural events label and move featured label to a method.
+	 * @since 5.1.5 Add filter for plural events label and move featured label to a method.
+	 * @since TBD Add logic to check if the current view is a venue or organizer view.
+	 * 
+	 * @version TBD
 	 *
 	 * @param string      $current_title Current Title used on the page.
 	 * @param boolean     $depth         Whether to display the taxonomy hierarchy as part of the title.
@@ -155,27 +158,27 @@ class Title {
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events.
 		$event_date = $context->get( 'event_date', false );
 
-		// Check if we're in a venue or organizer context while querying events.
-		global $wp_query;
+		// Some variables to store the venue and organizer.
 		$is_venue = false;
 		$is_organizer = false;
-		$venue_id = 0;
-		$organizer_id = 0;
 		
-		if ( isset( $wp_query->meta_query ) && isset( $wp_query->meta_query->queries ) ) {
-			foreach ( $wp_query->meta_query->queries as $query ) {
-				if ( isset( $query['key'] ) && $query['key'] === '_EventVenueID' && isset( $query['value'] ) ) {
-					$is_venue    = true;
-					$venue_id    = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
-					$venue_title = get_the_title( $venue_id );
-					break;
-				}
-				if ( isset( $query['key'] ) && $query['key'] === '_EventOrganizerID' && isset( $query['value'] ) ) {
-					$is_organizer    = true;
-					$organizer_id    = is_array( $query['value'] ) ? reset( $query['value'] ) : $query['value'];
-					$organizer_title = get_the_title( $organizer_id );
-					break;
-				}
+		// Check venue context.
+		if ( $context->is( 'venue_post_type' ) ) {
+			$is_venue = true;
+			$venue_id = get_the_ID();
+			$venue = tribe_venues()->where( 'post_id', $venue_id )->first();
+			if ( $venue ) {
+				$venue_title = $venue->post_title;
+			}
+		}
+		
+		// Check organizer context.
+		if ( $context->is( 'organizer_post_type' ) ) {
+			$is_organizer = true;
+			$organizer_id = get_the_ID();
+			$organizer = tribe_organizers()->where( 'post_id', $organizer_id )->first();
+			if ( $organizer ) {
+				$organizer_title = $organizer->post_title;
 			}
 		}
 
