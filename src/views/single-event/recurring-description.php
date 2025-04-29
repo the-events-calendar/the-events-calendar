@@ -18,7 +18,7 @@ $recurrence_description = $recurrence_data['description'] ? $recurrence_data['de
 ?>
 
 <div class="tribe-events-single-event-recurrence-description">
-	<img alt="<?php esc_attr_e( 'Recurring event icon', 'the-events-calendar' ); ?>" aria-hidden="true" src="<?php echo Tribe__Main::instance()->plugin_url  . 'src/modules/icons/recurrence.svg'; ?>" />
+	<img alt="<?php esc_attr_e( 'Recurring event icon', 'the-events-calendar' ); ?>" aria-hidden="true" src="<?php echo esc_url( Tribe__Main::instance()->plugin_url . 'src/modules/icons/recurrence.svg' ); ?>" />
 
 	<span><?php echo $recurrence_description ?></span>
 

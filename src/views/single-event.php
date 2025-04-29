@@ -70,11 +70,13 @@ $after = apply_filters( 'tribe_events_single_event_title_html_after', '</h1>', $
 $title = apply_filters( 'tribe_events_single_event_title_html', the_title( $before, $after, false ), $event_id );
 $cost  = tribe_get_formatted_cost( $event_id );
 
+/* translators: %s: The plural label for events (e.g. "Events", "Workshops") */
+$aria_label_back_to_events = sprintf( esc_html__( 'Back to all %s', 'the-events-calendar' ), $events_label_plural );
 ?>
 
 <article id="tribe-events-content" class="tribe-events-single">
 	<div class="tribe-events-back">
-		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" aria-label="<?php printf( esc_html__( 'Back to all %s', 'the-events-calendar' ), $events_label_plural ); ?>">
+		<a href="<?php echo esc_url( tribe_get_events_link() ); ?>" aria-label="<?php echo esc_attr( $aria_label_back_to_events ); ?>">
 			<?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?>
 		</a>
 	</div>

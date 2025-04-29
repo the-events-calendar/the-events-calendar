@@ -30,13 +30,13 @@ $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ 
 ?>
 <div <?php tribe_classes( $classes ); ?>>
 	<div class="tribe-block__organizer__title">
-		<span class="tribe-block__organizer__name"><?php echo tribe_get_organizer_link( $organizer ); ?></span>
+		<span class="tribe-block__organizer__name"><?php echo wp_kses_post( tribe_get_organizer_link( $organizer ) ); ?></span>
 	</div>
 	<?php if ( ! empty( $phone ) ) : ?>
 		<p class="tribe-block__organizer__phone"><?php echo esc_html( $phone ); ?></p>
 	<?php endif; ?>
 	<?php if ( ! empty( $website ) ) : ?>
-		<p class="tribe-block__organizer__website"><?php echo $website; ?></p>
+		<p class="tribe-block__organizer__website"><?php echo wp_kses_post( $website ); ?></p>
 	<?php endif; ?>
 	<?php if ( ! empty( $email ) ) : ?>
 		<p class="tribe-block__organizer__email"><?php echo esc_html( $email ); ?></p>
