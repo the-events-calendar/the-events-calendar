@@ -1,14 +1,7 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import { format } from '@wordpress/date';
-import {
-	useRef,
-	useState,
-	useMemo,
-	useCallback
-} from '@wordpress/element';
-import {
-	ComboboxControl
-} from '@wordpress/components';
+import { useRef, useState, useMemo, useCallback } from '@wordpress/element';
+import { ComboboxControl } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
 import { getValidDateOrNull } from '../../../functions/dateUtils';
 

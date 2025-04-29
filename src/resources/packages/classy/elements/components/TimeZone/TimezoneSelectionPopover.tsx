@@ -74,7 +74,7 @@ export default function TimezoneSelectionPopover( props: {
 			<div className="classy-component__popover-content classy-component__popover-content--timezone">
 				<a
 					href="#"
-					onAbort={ onClose }
+					onClick={ onClose }
 					className="classy-component__popover-close"
 				>
 					<CloseIcon />
