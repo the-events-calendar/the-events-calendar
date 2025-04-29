@@ -9,6 +9,7 @@
  *
  * @link http://evnt.is/1aiy
  *
+ * @since 5.16.0
  * @since TBD Added aria attributes to add to calendar button.
  *
  * @version TBD
