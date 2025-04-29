@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.11.2
+Stable tag: 6.12.0
 Requires at least: 6.5
 Tested up to: 6.7.2
 Requires PHP: 7.4
@@ -232,11 +232,18 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.11.2] 2025-04-09 =
+= [6.12.0] 2025-04-15 =
 
-* Fix - Ensure that Copy and Render for our Legacy Widgets works for all Event related widgets [TEC-5447]
-* Fix - Prevent language notice when loading Aggregator cron interval too early. props @peter8nss
-* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
+* Feature - Add an editor block to display an event QR code [TEC-5404]
+* Feature - Add a widget to display a QR code for an event [TEC-5405]
+* Feature - Add the [tec_event_qr] shortcode [TEC-5406]
+* Feature - Generate QR Code link in the Events Admin Table [TEC-5428]
+* Feature - QR Code metabox in Events Edit screen [TEC-5429]
+* Feature - Support QR Codes in TEC [TEC-5396]
+* Tweak - Added actions: `tec_events_settings_tab_display_qr_codes`
+* Tweak - Added filters: `tec_events_qr_enabled`, `tec_events_qr_valid_screens`, `tec_events_qr_code_modal_vars`, `tec_events_qr_code_regenerate`, `tec_events_qr_current_event_url`, `tec_events_qr_upcoming_event_url`, `tec_events_qr_specific_event_url`, `tec_events_qr_next_series_event_url`, `tec_events_settings_display_qr_codes_section`
+* Tweak - Changed views: `v2/widgets/widget-events-qr-code`
+* Language - 61 new strings added, 145 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.11.1] 2025-04-07 =
 
