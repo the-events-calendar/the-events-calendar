@@ -3143,7 +3143,7 @@
 				class="tribe-events-c-subscribe-dropdown__button-text tribe-common-c-btn--clear"
 				aria-expanded="false"
 				aria-controls="tribe-events-subscribe-dropdown-content"
-				aria-label=""
+				aria-label="View links to add events to your calendar"
 			>
 				Subscribe to calendar			</button>
 			<svg  class="tribe-common-c-svgicon tribe-common-c-svgicon--caret-down tribe-events-c-subscribe-dropdown__button-icon"  viewBox="0 0 10 7" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.008.609L5 4.6 8.992.61l.958.958L5 6.517.05 1.566l.958-.958z" class="tribe-common-c-svgicon__svg-fill"/></svg>
