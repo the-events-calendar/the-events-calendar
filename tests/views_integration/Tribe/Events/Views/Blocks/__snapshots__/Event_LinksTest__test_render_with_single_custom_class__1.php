@@ -24,6 +24,7 @@
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
 										target="_blank"
 										rel="noopener noreferrer nofollow noindex"
+										aria-label="Google Calendar"
 									>
 										Google Calendar									</a>
 								</li>
@@ -33,6 +34,7 @@
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
 										target="_blank"
 										rel="noopener noreferrer nofollow noindex"
+										aria-label="iCalendar"
 									>
 										iCalendar									</a>
 								</li>
@@ -42,6 +44,7 @@
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
 										target="_blank"
 										rel="noopener noreferrer nofollow noindex"
+										aria-label="Outlook 365"
 									>
 										Outlook 365									</a>
 								</li>
@@ -51,6 +54,7 @@
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
 										target="_blank"
 										rel="noopener noreferrer nofollow noindex"
+										aria-label="Outlook Live"
 									>
 										Outlook Live									</a>
 								</li>
