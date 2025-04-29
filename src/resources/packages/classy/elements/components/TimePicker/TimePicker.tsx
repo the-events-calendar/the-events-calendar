@@ -1,25 +1,16 @@
-import React, {
-	FocusEventHandler,
-	FormEventHandler,
-	HtmlHTMLAttributes,
-	KeyboardEventHandler,
-} from 'react';
-import { format, getDate } from '@wordpress/date';
+import React, {Fragment} from 'react';
+import { format } from '@wordpress/date';
 import {
 	useRef,
 	useState,
 	useMemo,
-	useCallback,
-	Fragment,
-	RefObject,
+	useCallback
 } from '@wordpress/element';
 import {
-	ComboboxControl,
-	__experimentalInputControl as InputControl,
+	ComboboxControl
 } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
 import { getValidDateOrNull } from '../../../functions/dateUtils';
-import { _x } from '@wordpress/i18n';
 
 function getTimeOptions(
 	currentDate: Date,
