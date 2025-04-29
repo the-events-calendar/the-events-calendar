@@ -173,9 +173,9 @@ class Title {
 				
 				if ( $context->is( 'venue_post_type' ) ) {
 					$venue_id = get_the_ID();
-					$venue    = tribe_venues()->where( 'post_id', $venue_id )->first();	
-					$title    = $venue->post_title. ' - ' . $past_events_title;
-				} elseif ( $context->is( 'organizer_post_type') ) {
+					$venue    = tribe_venues()->where( 'post_id', $venue_id )->first();
+					$title    = $venue->post_title . ' - ' . $past_events_title;
+				} elseif ( $context->is( 'organizer_post_type' ) ) {
 					$organizer_id = get_the_ID();
 					$organizer    = tribe_organizers()->where( 'post_id', $organizer_id )->first();
 					$title        = $organizer->post_title . ' - ' . $past_events_title;
@@ -188,9 +188,9 @@ class Title {
 			
 				if ( $context->is( 'venue_post_type' ) ) {
 					$venue_id = get_the_ID();
-					$venue    = tribe_venues()->where( 'post_id', $venue_id )->first();	
-					$title    = $venue->post_title. ' - ' . $current_events_title;
-				} elseif ( $context->is( 'organizer_post_type') ) {
+					$venue    = tribe_venues()->where( 'post_id', $venue_id )->first();
+					$title    = $venue->post_title . ' - ' . $current_events_title;
+				} elseif ( $context->is( 'organizer_post_type' ) ) {
 					$organizer_id = get_the_ID();
 					$organizer    = tribe_organizers()->where( 'post_id', $organizer_id )->first();
 					$title        = $organizer->post_title . ' - ' . $current_events_title;
