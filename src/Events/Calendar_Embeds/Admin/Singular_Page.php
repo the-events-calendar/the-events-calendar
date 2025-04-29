@@ -85,12 +85,15 @@ class Singular_Page extends Controller_Contract {
 	 * Modifies the post updated messages for the calendar embed post type.
 	 *
 	 * @since 6.11.0
+	 * @since 6.11.2.1 Made the parameters non-strict.
 	 *
 	 * @param array $messages The post updated messages.
 	 *
 	 * @return array
 	 */
-	public function modify_post_updated_messages( array $messages ): array {
+	public function modify_post_updated_messages( $messages ): array {
+		$messages = (array) $messages;
+
 		if ( ! self::is_on_page() ) {
 			return $messages;
 		}
@@ -249,12 +252,13 @@ class Singular_Page extends Controller_Contract {
 	 * Keep parent menu open when adding and editing calendar embeds.
 	 *
 	 * @since 6.11.0
+	 * @since 6.11.2.1 Made the parameters non-strict.
 	 *
-	 * @param string $submenu_file The current submenu file.
+	 * @param ?string $submenu_file The current submenu file.
 	 *
 	 * @return ?string
 	 */
-	public function keep_parent_menu_open( ?string $submenu_file ): ?string {
+	public function keep_parent_menu_open( $submenu_file ): ?string {
 		global $parent_file;
 
 		if ( 'edit.php?post_type=' . Calendar_Embeds::POSTTYPE !== $parent_file ) {
