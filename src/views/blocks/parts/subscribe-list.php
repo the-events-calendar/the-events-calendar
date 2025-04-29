@@ -43,15 +43,19 @@ $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ 
 					</div>
 					<div id="tribe-events-subscribe-dropdown-content" class="tribe-events-c-subscribe-dropdown__content">
 						<ul class="tribe-events-c-subscribe-dropdown__list">
-							<?php foreach ( $items as $item ) : ?>
+							<?php
+							foreach ( $items as $item ) :
+								$label = $item->get_label( null );
+								?>
 								<li class="tribe-events-c-subscribe-dropdown__list-item">
 									<a
 										href="<?php echo esc_url( $item->get_uri( null ) ); ?>"
 										class="tribe-events-c-subscribe-dropdown__list-item-link"
 										target="_blank"
 										rel="noopener noreferrer nofollow noindex"
+										aria-label="<?php echo esc_attr( $label ); ?>"
 									>
-										<?php echo esc_html( $item->get_label( null ) ); ?>
+										<?php echo esc_html( $label ); ?>
 									</a>
 								</li>
 							<?php endforeach; ?>
