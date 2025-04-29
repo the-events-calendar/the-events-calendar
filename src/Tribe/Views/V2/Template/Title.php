@@ -158,30 +158,6 @@ class Title {
 		// If there's a date selected in the tribe bar, show the date range of the currently showing events.
 		$event_date = $context->get( 'event_date', false );
 
-		// Some variables to store the venue and organizer.
-		$is_venue     = false;
-		$is_organizer = false;
-		
-		// Check venue context.
-		if ( $context->is( 'venue_post_type' ) ) {
-			$is_venue = true;
-			$venue_id = get_the_ID();
-			$venue    = tribe_venues()->where( 'post_id', $venue_id )->first();
-			if ( $venue ) {
-				$venue_title = $venue->post_title;
-			}
-		}
-		
-		// Check organizer context. 
-		if ( $context->is( 'organizer_post_type' ) ) {
-			$is_organizer = true;
-			$organizer_id = get_the_ID();
-			$organizer    = tribe_organizers()->where( 'post_id', $organizer_id )->first();
-			if ( $organizer ) {
-				$organizer_title = $organizer->post_title;
-			}
-		}
-
 		if ( Month_View::get_view_slug() === $event_display_mode ) {
 			$title = $this->build_month_title( $event_date );
 		} elseif ( Day_View::get_view_slug() === $event_display_mode ) {
@@ -195,10 +171,14 @@ class Title {
 				/* translators: %1$s: Events plural %2$s: Event date range */
 				$past_events_title = sprintf( esc_html__( 'Past %1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
 				
-				if ( $is_venue ) {
-					$title = $venue_title . ' - ' . $past_events_title;
-				} elseif ( $is_organizer ) {
-					$title = $organizer_title . ' - ' . $past_events_title;
+				if ( $context->is( 'venue_post_type' ) ) {
+					$venue_id = get_the_ID();
+					$venue    = tribe_venues()->where( 'post_id', $venue_id )->first();	
+					$title    = $venue->post_title. ' - ' . $past_events_title;
+				} elseif ( $context->is( 'organizer_post_type') ) {
+					$organizer_id = get_the_ID();
+					$organizer    = tribe_organizers()->where( 'post_id', $organizer_id )->first();
+					$title        = $organizer->post_title . ' - ' . $past_events_title;
 				} else {
 					$title = $past_events_title;
 				}
@@ -206,10 +186,14 @@ class Title {
 				/* translators: %1$s: Events plural %2$s: Event date range */
 				$current_events_title = sprintf( esc_html__( '%1$s from %2$s', 'the-events-calendar' ), $this->events_label_plural, $range );
 			
-				if ( $is_venue ) {
-					$title = $venue_title . ' - ' . $current_events_title;
-				} elseif ( $is_organizer ) {
-					$title = $organizer_title . ' - ' . $current_events_title;
+				if ( $context->is( 'venue_post_type' ) ) {
+					$venue_id = get_the_ID();
+					$venue    = tribe_venues()->where( 'post_id', $venue_id )->first();	
+					$title    = $venue->post_title. ' - ' . $current_events_title;
+				} elseif ( $context->is( 'organizer_post_type') ) {
+					$organizer_id = get_the_ID();
+					$organizer    = tribe_organizers()->where( 'post_id', $organizer_id )->first();
+					$title        = $organizer->post_title . ' - ' . $current_events_title;
 				} else {
 					$title = $current_events_title;
 				}
