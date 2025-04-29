@@ -7,13 +7,15 @@
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link    http://evnt.is/1aiy
+ * @link http://evnt.is/1aiy
  *
- * @version 5.16.0
+ * @since TBD Added aria attributes to add to calendar button and links.
+ *
+ * @version TBD
  *
  * @var array<Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract> $items Array containing subscribe/export objects.
- *
  */
+
 if ( empty( $items ) ) {
 	return;
 }
@@ -66,4 +68,5 @@ $classes = isset( $attributes['className'] ) ? array_merge( $default_classes, [ 
 		</div>
 	</div>
 
-<?php add_filter( 'the_content', 'do_blocks', 9 );
+<?php
+add_filter( 'the_content', 'do_blocks', 9 );
