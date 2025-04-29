@@ -159,24 +159,24 @@ class Title {
 		$event_date = $context->get( 'event_date', false );
 
 		// Some variables to store the venue and organizer.
-		$is_venue = false;
+		$is_venue     = false;
 		$is_organizer = false;
 		
 		// Check venue context.
 		if ( $context->is( 'venue_post_type' ) ) {
-			$is_venue = true;
-			$venue_id = get_the_ID();
-			$venue = tribe_venues()->where( 'post_id', $venue_id )->first();
+			$is_venue   = true;
+			$venue_id   = get_the_ID();
+			$venue      = tribe_venues()->where( 'post_id', $venue_id )->first();
 			if ( $venue ) {
 				$venue_title = $venue->post_title;
 			}
 		}
 		
-		// Check organizer context.
+		// Check organizer context. 
 		if ( $context->is( 'organizer_post_type' ) ) {
-			$is_organizer = true;
-			$organizer_id = get_the_ID();
-			$organizer = tribe_organizers()->where( 'post_id', $organizer_id )->first();
+			$is_organizer   = true;
+			$organizer_id   = get_the_ID();
+			$organizer      = tribe_organizers()->where( 'post_id', $organizer_id )->first();
 			if ( $organizer ) {
 				$organizer_title = $organizer->post_title;
 			}
