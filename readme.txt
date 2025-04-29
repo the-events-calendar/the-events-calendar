@@ -232,6 +232,13 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.11.2.1] 2025-04-28 =
+
+* Version - The Events Calendar 6.11.2.1 is only compatible with Event Tickets 5.21.1.1 or higher.
+* Fix - Amend various callbacks of the External Calendar Embeds feature to not be so strict on the expected arguments, as a result fixing fatal errors when the arguments are not of the expected type. [TEC-5484]
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TCMN-186]
+* Language - 0 new strings added, 186 updated, 0 fuzzied, and 61 obsoleted.
+
 = [6.11.2] 2025-04-09 =
 
 * Fix - Ensure that Copy and Render for our Legacy Widgets works for all Event related widgets [TEC-5447]
