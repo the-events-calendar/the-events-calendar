@@ -74,6 +74,8 @@ $cost  = tribe_get_formatted_cost( $event_id );
 $aria_label_back_to_events = sprintf( esc_html__( 'Back to all %s', 'the-events-calendar' ), $events_label_plural );
 /* translators: %s: The singular label for events (e.g. "Event", "Workshop") */
 $nav_aria_label = sprintf( esc_html__( '%s Navigation', 'the-events-calendar' ), $events_label_singular );
+
+$notices = tribe_the_notices( false );
 ?>
 
 <article id="tribe-events-content" class="tribe-events-single">
@@ -86,10 +88,12 @@ $nav_aria_label = sprintf( esc_html__( '%s Navigation', 'the-events-calendar' ),
 		</a>
 	</div>
 
-	<!-- Notices -->
-	<div class="tribe-events-notices" role="status">
-		<?php tribe_the_notices(); ?>
-	</div>
+	<?php if ( ! empty( $notices ) ) : ?>
+		<!-- Notices -->
+		<div class="tribe-events-notices" role="status">
+			<?php echo wp_kses_post( $notices ); ?>
+		</div>
+	<?php endif; ?>
 
 	<header class="tribe-events-header">
 		<?php echo wp_kses_post( $title ); ?>
