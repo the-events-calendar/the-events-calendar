@@ -155,7 +155,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			admin_url( '/admin-post.php' )
 		);
 		?>
-		<a class="tec-events-dismiss-onboarding-screen" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
+		<a class="tec-dismiss-admin-page" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
 		<?php
 	}
 
@@ -171,9 +171,9 @@ class Landing_Page extends Abstract_Admin_Page {
 			return;
 		}
 
-		tribe_update_option( 'tec_events_onboarding_page_dismissed', true );
+		tribe_update_option( self::DISMISS_PAGE_OPTION, true );
 
-		wp_safe_redirect( admin_url( $this->get_parent_page_slug() ) );
+		wp_safe_redirect( add_query_arg( array( 'post_type' => TEC::POSTTYPE ), admin_url( 'edit.php' ) ) );
 		exit;
 	}
 
