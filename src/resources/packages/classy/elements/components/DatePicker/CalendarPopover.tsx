@@ -22,7 +22,7 @@ function getDatePickerEventsBetweenDates(
 }
 
 export default function CalendarPopover( props: {
-	anchor: Element | VirtualElement;
+	anchor: Element | VirtualElement | null;
 	startOfWeek: StartOfWeek;
 	isSelectingDate: 'start' | 'end';
 	isMultiday: boolean;

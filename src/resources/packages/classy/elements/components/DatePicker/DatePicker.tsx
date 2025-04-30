@@ -12,7 +12,7 @@ import { SyntheticEvent, useRef } from '@wordpress/element';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
 
 export default function DatePicker( props: {
-	anchor: Element | VirtualElement;
+	anchor: Element | VirtualElement | null;
 	dateWithYearFormat: string;
 	endDate: Date;
 	isSelectingDate: 'start' | 'end' | false;

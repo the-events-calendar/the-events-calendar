@@ -1,3 +1,4 @@
+import React from 'react';
 import {
 	RefObject,
 	useCallback,
@@ -23,13 +24,12 @@ import { Minutes } from '../../../types/Minutes';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
 import TimeZone from '../../components/TimeZone';
-import React from 'react';
 
-type EventDateTimeProps = {
+type DateTimeProps = {
 	title: string;
 };
 
-type EventDateTimeRefs = {
+type DateTimeRefs = {
 	endTimeHours: number;
 	endTimeMinutes: number;
 	multiDayDuration: number;
@@ -40,46 +40,79 @@ type EventDateTimeRefs = {
 
 const phpDateMysqlFormat = 'Y-m-d H:i:s';
 
+type NewDatesReturn = {
+	newStartDate: Date;
+	newEndDate: Date;
+	notify: {
+		start: boolean;
+		end: boolean;
+	};
+};
+
+/**
+ * Calculates new start and end dates based on user updates.
+ *
+ * @since TBD
+ *
+ * @param {Date} endDate The current end date.
+ * @param {Date} startDate The current start date.
+ * @param {'start' | 'end'} updated Indicates whether the start or end date was updated.
+ * @param {string} newDate The new date string provided by the user.
+ * @return {NewDatesReturn} An object defining the new start and end dates, and whether the user needs to be notified of the implicit change of either.
+ */
 function getNewStartEndDates(
 	endDate: Date,
 	startDate: Date,
 	updated: 'start' | 'end',
 	newDate: string
 ) {
-	const previousDurationInMs = Math.abs(
-		endDate.getTime() - startDate.getTime()
-	);
 	let newStartDate: Date;
 	let newEndDate: Date;
+	let notify = { start: false, end: false };
 
 	if ( updated === 'start' ) {
-		// The start date has been updated by the user.
+		// The user has updated the start date.
 		newStartDate = getDate( newDate );
 		newEndDate = endDate;
 
 		if ( newStartDate.getTime() >= endDate.getTime() ) {
-			// The start date is after the current end date: push the end date forward.
-			newEndDate = new Date(
-				newStartDate.getTime() + previousDurationInMs
-			);
+			// The start date is after the current end date: set the end date to the start date.
+			newEndDate = new Date( newStartDate.getTime() );
+			notify.end = true;
 		}
 	} else {
-		// The end date has been updated by the user.
+		// The user has updated the end date.
 		newStartDate = startDate;
 		newEndDate = getDate( newDate );
+
+		if ( newEndDate.getTime() <= startDate.getTime() ) {
+			// The end date is before the current start date: set the start date to the end date.
+			newStartDate = new Date( newEndDate.getTime() );
+			notify.start = true;
+		}
 	}
 
-	return { newStartDate, newEndDate };
+	return { newStartDate, newEndDate, notify };
 }
 
+/**
+ * Calculates a new end date for multi-day events.
+ *
+ * @since TBD
+ *
+ * @param {RefObject<DateTimeRefs>} refs A reference object containing duration information.
+ * @param {boolean} newValue Indicates whether the event is now multi-day.
+ * @param {Date} startDate The current start date of the event.
+ * @return {Date} The new end date for the event.
+ */
 function getMultiDayEndDate(
-	refs: RefObject< EventDateTimeRefs >,
+	refs: RefObject< DateTimeRefs >,
 	newValue: boolean,
 	startDate: Date
 ) {
 	let newEndDate: Date;
 	const { singleDayDuration, multiDayDuration } =
-		refs.current as EventDateTimeRefs;
+		refs.current as DateTimeRefs;
 	let duration;
 
 	if ( newValue ) {
@@ -92,6 +125,18 @@ function getMultiDayEndDate(
 	return new Date( startDate.getTime() + duration );
 }
 
+/**
+ * Calculates new start and end dates when toggling all-day events.
+ *
+ * @since TBD
+ *
+ * @param {boolean} newValue Indicates whether the event is now an all-day event.
+ * @param {Date} startDate The current start date of the event.
+ * @param {{hours: Hours, minutes: Minutes}} endOfDayCutoff The time at which the day ends.
+ * @param {Date} endDate The current end date of the event.
+ * @param {RefObject<DateTimeRefs>} refs A reference object containing saved time information.
+ * @return {{newStartDate: Date, newEndDate: Date}} An object containing the new start and end dates.
+ */
 function getAllDayNewDates(
 	newValue: boolean,
 	startDate: Date,
@@ -100,7 +145,7 @@ function getAllDayNewDates(
 		minutes: Minutes;
 	},
 	endDate: Date,
-	refs: RefObject< EventDateTimeRefs >
+	refs: RefObject< DateTimeRefs >
 ) {
 	if ( refs.current === null ) {
 		return { newStartDate: startDate, newEndDate: endDate };
@@ -146,8 +191,15 @@ function getAllDayNewDates(
 
 	return { newStartDate, newEndDate };
 }
-
-export default function EventDateTime( props: EventDateTimeProps ) {
+/**
+ * React component for managing event date and time.
+ *
+ * @since TBD
+ *
+ * @param {DateTimeProps} props Component properties including title.
+ * @return {JSX.Element} The rendered EventDateTime component.
+ */
+export default function EventDateTime( props: DateTimeProps ) {
 	const {
 		eventStart,
 		eventEnd,
@@ -178,6 +230,8 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 	const [ isAllDayValue, setIsAllDayValue ] = useState( isAllDay );
 	const { start: startDate, end: endDate } = dates;
 	const [ timezoneString, setTimezoneString ] = useState( eventTimezone );
+	const [ higlightStartTime, setHighlightStartTime ] = useState( false );
+	const [ highlightEndTime, setHighlightEndTime ] = useState( false );
 
 	// Store a reference to some ground values to allow the toggle of multi-day and all-day correctly.
 	const refs = useRef( {
@@ -185,11 +239,11 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 		startTimeMinutes: isAllDay ? 0 : startDate.getMinutes(),
 		endTimeHours: isAllDay ? 17 : endDate.getHours(),
 		endTimeMinutes: isAllDay ? 0 : endDate.getMinutes(),
-		// Default single day duration is 9 hours.
+		// The default single-day duration is 9 hours.
 		singleDayDuration: isMultiday
 			? 9 * 60 * 60 * 1000
 			: dates.end.getTime() - dates.start.getTime(),
-		// Default multi day duration is 24 hours.
+		// The default multi-day duration is 24 hours.
 		multiDayDuration: isMultiday
 			? dates.end.getTime() - dates.start.getTime()
 			: 24 * 60 * 60 * 1000,
@@ -201,7 +255,7 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 
 	const onDateChange = useCallback(
 		( updated: 'start' | 'end', newDate: string ): void => {
-			const { newStartDate, newEndDate } = getNewStartEndDates(
+			const { newStartDate, newEndDate, notify } = getNewStartEndDates(
 				endDate,
 				startDate,
 				updated,
@@ -232,6 +286,8 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsSelectingDate( false );
+			setHighlightStartTime( notify.start );
+			setHighlightEndTime( notify.end );
 		},
 		[ endDateIsoString, startDateIsoString, editPost ]
 	);
@@ -253,12 +309,13 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 			<StartSelector
 				dateWithYearFormat={ dateWithYearFormat }
 				endDate={ endDate }
+				highightTime={ higlightStartTime }
 				isAllDay={ isAllDayValue }
 				isMultiday={ isMultidayValue }
 				isSelectingDate={ isSelectingDate }
+				onChange={ onDateChange }
 				onClick={ () => onDateInputClick( 'start' ) }
 				onClose={ () => setIsSelectingDate( false ) }
-				onChange={ onDateChange }
 				onFocusOutside={ () => setIsSelectingDate( false ) }
 				startDate={ startDate }
 				startOfWeek={ startOfWeek }
@@ -267,11 +324,11 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 		);
 	}, [
 		dateWithYearFormat,
-		startDateIsoString,
 		endDateIsoString,
-		isSelectingDate,
 		isAllDayValue,
 		isMultidayValue,
+		isSelectingDate,
+		startDateIsoString,
 		startOfWeek,
 		timeFormat,
 	] );
@@ -281,12 +338,13 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 			<EndSelector
 				dateWithYearFormat={ dateWithYearFormat }
 				endDate={ endDate }
+				highlightTime={ highlightEndTime }
 				isAllDay={ isAllDayValue }
 				isMultiday={ isMultidayValue }
 				isSelectingDate={ isSelectingDate }
+				onChange={ onDateChange }
 				onClick={ () => onDateInputClick( 'end' ) }
 				onClose={ () => setIsSelectingDate( false ) }
-				onChange={ onDateChange }
 				onFocusOutside={ () => setIsSelectingDate( false ) }
 				startDate={ startDate }
 				startOfWeek={ startOfWeek }
@@ -295,12 +353,11 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 		);
 	}, [
 		dateWithYearFormat,
-		startDateIsoString,
 		endDateIsoString,
-		setIsSelectingDate,
-		isSelectingDate,
 		isAllDayValue,
 		isMultidayValue,
+		isSelectingDate,
+		startDateIsoString,
 		startOfWeek,
 		timeFormat,
 	] );
@@ -341,13 +398,7 @@ export default function EventDateTime( props: EventDateTimeProps ) {
 			setDates( { start: newStartDate, end: newEndDate } );
 			setIsAllDayValue( newValue );
 		},
-		[
-			startDateIsoString,
-			endDateIsoString,
-			endOfDayCutoff,
-			editPost,
-			setIsAllDayValue,
-		]
+		[ startDateIsoString, endDateIsoString, endOfDayCutoff, editPost ]
 	);
 
 	const onTimezoneChange = useCallback(

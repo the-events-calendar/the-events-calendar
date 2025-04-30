@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { format } from '@wordpress/date';
-import { useRef, useState, useMemo, useCallback } from '@wordpress/element';
+import { useState, useMemo, useCallback, useRef } from '@wordpress/element';
 import { ComboboxControl } from '@wordpress/components';
 import { ComboboxControlOption } from '@wordpress/components/build-types/combobox-control/types';
 import { getValidDateOrNull } from '../../../functions/dateUtils';
@@ -65,71 +65,69 @@ function getTimeOptions(
 	return times;
 }
 
-function isDateBetweenLimits(
-	date: Date,
-	startDate: Date | null,
-	endDate: Date | null
-): boolean {
-	if ( startDate === null && endDate === null ) {
-		return true;
+function getOptions(
+	currentDate: Date,
+	timeFormat: string,
+	timeOptions: ComboboxControlOption[]
+) {
+	const formattedCurrentDate = format( 'H:i:s', currentDate );
+	const filteredtOptions = timeOptions.filter( ( option ) => {
+		return option.value === formattedCurrentDate;
+	} );
+
+	if ( filteredtOptions.length > 0 ) {
+		return timeOptions;
 	}
 
-	const isAfterStart = startDate === null || date >= startDate;
-	const isBeforeEnd = endDate === null || date <= endDate;
-
-	return isAfterStart && isBeforeEnd;
+	return [
+		{
+			label: format( timeFormat, currentDate ),
+			value: format( 'H:i:s', currentDate ),
+			isCustom: true,
+		},
+	];
 }
 
 export default function TimePicker( props: {
 	currentDate: Date;
-	startDate?: Date;
-	endDate?: Date;
+	endDate?: Date | null;
+	highlight: boolean;
+	onChange: ( date: Date ) => void;
+	startDate?: Date | null;
 	timeFormat: string;
 	timeInterval: number; // In minutes.
-	onChange: ( date: Date ) => void;
 } ) {
 	const {
 		currentDate,
-		startDate = null,
 		endDate = null,
+		highlight,
+		onChange,
+		startDate = null,
 		timeFormat,
 		timeInterval,
-		onChange,
 	} = props;
 
-	const currenDateIsValid = isDateBetweenLimits(
-		currentDate,
-		startDate,
-		endDate
-	);
+	// Keep a reference to the start and end date to spot changes coming from the parent component.
+	const dateRef = useRef( { startDate, endDate } );
+
+	// Did either date change?
+	const datesChanged =
+		dateRef.current.startDate !== startDate ||
+		dateRef.current.endDate !== endDate;
+
+	if ( datesChanged ) {
+		dateRef.current = { startDate, endDate };
+	}
+
 	const currenDateYearMonthDayPrefix = format( 'Y-m-d ', currentDate );
 
-	// Store a reference to start and end date to know if they changed.
-	// When either changes, then it's due to a user interaction with another control.
-	const dateRefs = useRef( { startDate, endDate } );
-
-	const [ selectedTime, setSelectedTime ] = useState(
+	let [ selectedTime, setSelectedTime ] = useState( () =>
 		format( 'H:i:s', currentDate )
 	);
 
-	// This is the internal to the component valid state: initially set to the current date
-	// validity, but then controlled by the user input on this control.
-	const [ isValid, setIsValid ] = useState( currenDateIsValid );
-
-	let isControlValueValid = isValid;
-
-	// If the current date does not match either start or end date, then it changed across
-	// re-renders due to the user interaction with another control: the validity of this
-	// control is the new current date validity.
-	const datesChanged =
-		currentDate != dateRefs.current.startDate &&
-		currentDate != dateRefs.current.endDate;
-
 	if ( datesChanged ) {
-		isControlValueValid = currenDateIsValid;
-
-		// Store the new start and end dates.
-		dateRefs.current = { startDate, endDate };
+		// Start or end date changed: use a new value.
+		selectedTime = format( 'H:i:s', currentDate );
 	}
 
 	// Calculate all the available time options.
@@ -144,26 +142,14 @@ export default function TimePicker( props: {
 	}, [ currentDate, timeFormat, timeInterval, startDate, endDate ] );
 
 	// Set the initial options to all available time options.
-	const [ options, setOptions ] = useState( () => {
-		const formattedCurrentDate = format( 'H:i:s', currentDate );
-		const filteredtOptions = timeOptions.filter( ( option ) => {
-			return option.value === formattedCurrentDate;
-		} );
+	let [ options, setOptions ] = useState( () =>
+		getOptions( currentDate, timeFormat, timeOptions )
+	);
 
-		if ( filteredtOptions.length > 0 ) {
-			// The initially selected date is among the options, provide all the options.
-			return timeOptions;
-		}
-
-		// The initially selected date is not among the options, provide only the custom option.
-		return [
-			{
-				label: format( timeFormat, currentDate ),
-				value: format( 'H:i:s', currentDate ),
-				isCustom: true,
-			},
-		];
-	} );
+	if ( datesChanged ) {
+		// Start or end date changed: use a new set of options.
+		options = getOptions( currentDate, timeFormat, timeOptions );
+	}
 
 	const onChangeProxy = useCallback(
 		( value: string | null | undefined ): void => {
@@ -176,11 +162,9 @@ export default function TimePicker( props: {
 			);
 
 			if ( date === null ) {
-				setIsValid( false );
 				return;
 			}
 
-			setIsValid( isDateBetweenLimits( date, startDate, endDate ) );
 			setSelectedTime( value );
 			onChange( date );
 		},
@@ -194,13 +178,13 @@ export default function TimePicker( props: {
 			}
 
 			// Reduce the options to only those whose label start with the value.
-			const filteredOptions = timeOptions.filter( ( option ) =>
+			const newOptions = timeOptions.filter( ( option ) =>
 				option.label.startsWith( value )
 			);
 
-			if ( filteredOptions.length > 0 ) {
-				// Render the remaining options.
-				setOptions( filteredOptions );
+			if ( newOptions.length > 0 ) {
+				// There are still matching options.
+				setOptions( newOptions );
 			} else {
 				// Render with only one option that indicates the user is inserting a custom time.
 				setOptions( [
@@ -212,14 +196,6 @@ export default function TimePicker( props: {
 				] );
 				setSelectedTime( value );
 			}
-
-			// Set whether the date is valid.
-			const date = getValidDateOrNull(
-				currenDateYearMonthDayPrefix + value
-			);
-			setIsValid(
-				date !== null && isDateBetweenLimits( date, startDate, endDate )
-			);
 		},
 		[ timeOptions, currenDateYearMonthDayPrefix, startDate, endDate ]
 	);
@@ -227,12 +203,18 @@ export default function TimePicker( props: {
 	let className =
 		'classy-field__control classy-field__control--input classy-field__control--time-picker';
 
-	if ( ! isControlValueValid ) {
-		className += ' classy-field__control--invalid';
+	// This is a hack to make the component highlight again on successive renders when the dates changed.
+	const highlightKey = useRef< number >( Math.random() );
+	if ( datesChanged && highlight ) {
+		className += ' classy-highlight';
+		highlightKey.current = Math.random();
 	}
+
+	console.log( 'timepicker value: ' + selectedTime );
 
 	return (
 		<ComboboxControl
+			key={ highlightKey.current }
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
 			className={ className }

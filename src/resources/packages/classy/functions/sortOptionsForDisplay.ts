@@ -1,6 +1,9 @@
-import { SelectOption } from "../types/SelectOption";
+import { SelectOption } from '../types/SelectOption';
 
-export function sortOptionsForDisplay( a: SelectOption, b: SelectOption ): number {
+export function sortOptionsForDisplay(
+	a: SelectOption,
+	b: SelectOption
+): number {
 	// Keep the placeholder at the top.
 	if ( a.value === '0' ) {
 		return -1;

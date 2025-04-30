@@ -2,6 +2,10 @@
 	--classy-font-size-13: calc(var(--tec-font-size-1) + 1px);
 	--classy-font-size-15: calc(var(--tec-font-size-2) + 1px);
 	--classy-input-width: 375px;
+	/* 50% ligter than the primary color */
+	--classy-highlight-color: rgb(
+		from var(--tec-color-accent-primary) r g b / 0.5
+	);
 }
 
 .block-editor__container {
@@ -130,7 +134,7 @@
 			border: 1px solid var(--tec-color-gutenberg-grey-600);
 		}
 
-		.classy_section-separator{
+		.classy_section-separator {
 			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
 			height: 0px;
 			transform: translateX(calc(var(--tec-spacer-3) * -1));
@@ -225,6 +229,7 @@
 					.components-combobox-control__input {
 						font-size: var(--classy-font-size-15);
 						padding: 0;
+						background-color: transparent;
 					}
 
 					.components-form-token-field__suggestions-list {
@@ -383,6 +388,23 @@
 				}
 			}
 		}
+	}
+
+	@keyframes highlightBg {
+		0% {
+			background: transparent;
+		}
+		50% {
+			background: var(--classy-highlight-color);
+		}
+		100% {
+			background: transparent;
+		}
+	}
+
+	.classy-highlight {
+		animation: highlightBg 1s linear;
+		animation-iteration-count: 3;
 	}
 }
 

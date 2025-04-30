@@ -14,6 +14,7 @@ const timeInterval = localizedData?.settings?.timeInterval ?? 15;
 export default function EndSelector( props: {
 	dateWithYearFormat: string;
 	endDate: Date;
+	highlightTime: boolean;
 	isAllDay: boolean;
 	isMultiday: boolean;
 	isSelectingDate: 'start' | 'end' | false;
@@ -28,8 +29,9 @@ export default function EndSelector( props: {
 	const {
 		dateWithYearFormat,
 		endDate,
-		isMultiday,
+		highlightTime,
 		isAllDay,
+		isMultiday,
 		isSelectingDate,
 		onChange,
 		onClick,
@@ -113,6 +115,7 @@ export default function EndSelector( props: {
 
 					<TimePicker
 						currentDate={ endDate }
+						highlight={ highlightTime }
 						startDate={ isMultiday ? null : startDate }
 						timeFormat={ timeFormat }
 						timeInterval={ timeInterval }
