@@ -11,31 +11,8 @@ import { METADATA_EVENT_ORGANIZER_ID } from '../../../constants';
 import { usePostEdits } from '../../../hooks';
 import { UsePostEditsReturn } from '../../../types/UsePostEditsReturn';
 import AddIcon from '../../../elements/components/Icons/Add';
-
-type SelectOption = {
-	value: string;
-	label: string;
-};
-
-function sortOptionsForDisplay( a: SelectOption, b: SelectOption ): number {
-	// Keep the placeholder at the top.
-	if ( a.value === '0' ) {
-		return -1;
-	}
-
-	// Keep the placeholder at the top.
-	if ( b.value === '0' ) {
-		return 1;
-	}
-
-	if ( a.label < b.label ) {
-		return -1;
-	}
-	if ( a.label > b.label ) {
-		return 1;
-	}
-	return 0;
-}
+import { SelectOption } from '../../../types/SelectOption';
+import { sortOptionsForDisplay } from '../../../functions/sortOptionsForDisplay';
 
 function buildOptionFromFetchedOrganizer(
 	organizer: FetchedOrganizer

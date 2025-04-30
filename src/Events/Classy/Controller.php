@@ -434,6 +434,7 @@ class Controller extends ControllerContract {
 
 		foreach ( [
 			'_EventOrganizerID',
+			'_EventVenueID',
 		] as $meta_key ) {
 			register_post_meta(
 				TEC::POSTTYPE,
