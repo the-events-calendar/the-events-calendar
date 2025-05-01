@@ -28,7 +28,7 @@ if ( $view_slug === $public_view_slug ) {
 		href="<?php echo esc_url( $public_view_data->view_url ); ?>"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		aria-label="<?php echo esc_attr__( 'View events in ', 'the-events-calendar' ) . esc_attr( $public_view_data->view_label ) . ' ' . esc_attr__( 'View', 'the-events-calendar' ); ?>"
+		aria-label="<?php echo esc_attr( $public_view_data->aria_label ); ?>"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
