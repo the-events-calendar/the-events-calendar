@@ -28,11 +28,15 @@ if ( $view_slug === $public_view_slug ) {
 		href="<?php echo esc_url( $public_view_data->view_url ); ?>"
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
-		<?php // phpcs:ignore Squiz.PHP.EmbeddedPhp ?>
-		aria-label="<?php
+		<?php
 		/* translators: %1$s: Events plural text, %2$s: View label */
-		printf( esc_attr__( 'Display %1$s in %2$s View', 'the-events-calendar' ), esc_html( tribe_get_event_label_plural() ), esc_html( $public_view_data->view_label ) ); 
-		?>"
+		$aria_label = sprintf(
+			esc_attr__( 'Display %1$s in %2$s View', 'the-events-calendar' ),
+			esc_html( tribe_get_event_label_plural() ),
+			esc_html( $public_view_data->view_label )
+		);
+		?>
+		aria-label="<?php echo esc_attr( $aria_label ); ?>"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
