@@ -248,8 +248,8 @@ class Manager {
 		array_walk(
 			$views,
 			function ( &$value, $view_slug ) use ( $url_args ) {
-				$url_args['eventDisplay'] = $view_slug;
-				$view_label = $this->get_view_label_by_slug( $view_slug );
+				$url_args['eventDisplay']  = $view_slug;
+				$view_label                = $this->get_view_label_by_slug( $view_slug );
 
 				$aria_label = sprintf(
 					/* translators: %1$s: Events plural text, %2$s: View label */
