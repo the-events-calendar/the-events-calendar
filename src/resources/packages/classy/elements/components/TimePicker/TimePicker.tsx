@@ -210,8 +210,6 @@ export default function TimePicker( props: {
 		highlightKey.current = Math.random();
 	}
 
-	console.log( 'timepicker value: ' + selectedTime );
-
 	return (
 		<ComboboxControl
 			key={ highlightKey.current }
