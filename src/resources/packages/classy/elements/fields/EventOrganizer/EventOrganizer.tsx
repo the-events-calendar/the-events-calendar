@@ -1,5 +1,5 @@
 import apiFetch from '@wordpress/api-fetch';
-import { Button, SelectControl } from '@wordpress/components';
+import { Button, CustomSelectControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { useCallback, useEffect, useState } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
@@ -10,40 +10,41 @@ import AddIcon from '../../../elements/components/Icons/Add';
 import { sortOptionsForDisplay } from '../../../functions/sortOptionsForDisplay';
 import { usePostEdits } from '../../../hooks';
 import { FetchedOrganizer } from '../../../types/FetchedOrganizer';
-import { SelectOption } from '../../../types/SelectOption';
+import { CustomSelectOption } from "@wordpress/components/build-types/custom-select-control/types";
 import { UsePostEditsReturn } from '../../../types/UsePostEditsReturn';
 import OrganizerCards from './OrganizerCards';
 
 function buildOptionFromFetchedOrganizer(
 	organizer: FetchedOrganizer
-): SelectOption {
+): CustomSelectOption {
 	return {
+		key: organizer.id.toString(),
+		name: organizer.organizer,
 		value: organizer.id.toString(),
 		label: organizer.organizer,
 	};
 }
 
-const placeholderOption: SelectOption = {
-	value: '0',
-	label: _x(
+const placeholderOption: CustomSelectOption = {
+	key: '0',
+	name: _x(
 		'Select organizer',
 		'Organizer selection placecholder option',
 		'the-events-calendar'
 	),
+	value: '0',
 };
 
 function getUpdatedOptions(
 	organizers: FetchedOrganizer[],
 	currentOrganizerIds: number[]
 ) {
-	const newOptions = organizers
+	return organizers
 		.filter(
 			( organizer ) => ! currentOrganizerIds.includes( organizer.id )
 		)
 		.map( buildOptionFromFetchedOrganizer )
 		.sort( sortOptionsForDisplay );
-	newOptions.unshift( placeholderOption );
-	return newOptions;
 }
 
 export function EventOrganizer( props: { title: string } ) {
@@ -159,11 +160,11 @@ export function EventOrganizer( props: { title: string } ) {
 	}
 
 	const onOrganizerSelect = useCallback(
-		( newValue: string ) => {
+		( newValue: {selectedItem: CustomSelectOption} ) => {
 			// Add the new organizer to the current organizer ids.
 			const organizerIds = [
 				...currentOrganizerIds,
-				parseInt( newValue ),
+				parseInt( newValue.selectedItem.key ),
 			];
 			setCurrentOrganizerIds( organizerIds );
 
@@ -230,13 +231,14 @@ export function EventOrganizer( props: { title: string } ) {
 					{ ( isAdding || currentOrganizerIds.length === 0 ) && (
 						<Fragment>
 							<div className="classy-field__input classy-field__input-full-width">
-								<SelectControl
-									className="classy-field__control classy-field__control--select"
+								<CustomSelectControl
 									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-									value={ 0 }
-									options={ options }
+									className="classy-field__control classy-field__control--select"
+									hideLabelFromVision={true}
+									label={_x('Organizer selection', 'Assistive technology label', 'the-events-calendar')}
 									onChange={ onOrganizerSelect }
+									options={ options }
+									value={ 0 }
 								/>
 							</div>
 

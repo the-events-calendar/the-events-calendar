@@ -1,8 +1,9 @@
+import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { SelectOption } from '../types/SelectOption';
 
 export function sortOptionsForDisplay(
-	a: SelectOption,
-	b: SelectOption
+	a: SelectOption| CustomSelectOption,
+	b: SelectOption | CustomSelectOption
 ): number {
 	// Keep the placeholder at the top.
 	if ( a.value === '0' ) {
