@@ -141,7 +141,7 @@ class RedirectionsTest extends Controller_Test_Case {
 		$url = $this->redirections->get_next_series_event_url( $parent_event_id );
 
 		// Since ECP is not active, it should return the fallback URL
-		$this->assertEquals( home_url(), $url );
+		$this->assertEquals( tribe_get_events_link(), $url );
 	}
 
 	/**
