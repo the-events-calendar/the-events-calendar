@@ -78,7 +78,7 @@ class QR_Code {
 	 * @return array
 	 */
 	public function add_admin_table_action( $actions, $post ) {
-		if ( ! in_array( $post->post_type, [ 'tribe_events', 'tribe_event_series' ] ) ) {
+		if ( ! in_array( $post->post_type, [ TEC::POSTTYPE, Series::POSTTYPE ] ) ) {
 			return $actions;
 		}
 
@@ -228,7 +228,15 @@ class QR_Code {
 			wp_die( esc_html__( 'Error generating QR code.', 'the-events-calendar' ) );
 		}
 
-		$qr_url = $this->routes->get_qr_url( $post->ID, 'tribe_event' === $post->post_type ? 'specific' : 'next' );
+		$redirection = 'specific';
+
+		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
+			if ( tribe_is_recurring_event( $post ) || Series::POSTTYPE === $post->post_type ) {
+				$redirection = 'next';
+			}
+		}
+
+		$qr_url = $this->routes->get_qr_url( $post->ID, $redirection );
 
 		$qr_images = [];
 		for ( $i = 4; $i <= 28; $i += 4 ) {
