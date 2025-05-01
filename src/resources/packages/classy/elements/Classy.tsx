@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';

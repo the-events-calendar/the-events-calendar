@@ -7,6 +7,8 @@
 		from var(--tec-color-accent-primary) r g b / 0.5
 	);
 	--classy-color-footer:rgba(30, 30, 30, 0.03);
+	--classy-padding-vertical: var(--tec-spacer-7);
+	--classy-padding-horizontal: var(--tec-spacer-6);
 }
 
 .block-editor__container {
@@ -66,7 +68,7 @@
 		justify-content: center;
 		margin: 0 auto;
 		max-width: 700px;
-		padding: var(--tec-spacer-9) 120px 106px 120px;
+		padding: 26px 74px 354px;
 	}
 
 	.classy-field__group {
@@ -131,7 +133,7 @@
 
 		&:has(> *:nth-child(2)),
 		&.classy-field__inputs--boxed {
-			padding: var(--tec-spacer-7) var(--tec-spacer-6);
+			padding: var(--classy-padding-vertical) var(--classy-padding-horizontal);
 			border: 1px solid var(--tec-color-gutenberg-grey-600);
 		}
 
@@ -142,8 +144,8 @@
 		.classy_section-separator {
 			border-top: 1px solid var(--tec-color-gutenberg-grey-300);
 			height: 0px;
-			transform: translateX(calc(var(--tec-spacer-3) * -1));
-			width: calc-size(auto, size + 2 * var(--tec-spacer-3));
+			transform: translateX(calc(var(--classy-padding-horizontal) * -1));
+			width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
 		}
 
 		.classy-field__inputs-section {
@@ -159,8 +161,8 @@
 
 			&.classy-field__inputs-section--footer {
 				background-color: var(--classy-color-footer);
-				transform: translateX(calc(var(--tec-spacer-6) * -1));
-				width: calc-size(auto, size + 2 * var(--tec-spacer-6));
+				transform: translateX(calc(var(--classy-padding-horizontal) * -1));
+				width: calc-size(auto, size + 2 * var(--classy-padding-horizontal));
 				padding: var(--tec-spacer-3) var(--tec-spacer-6);
 			}
 		}

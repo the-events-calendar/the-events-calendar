@@ -5,7 +5,10 @@ import { EventMeta } from '../types/EventMeta';
 import { getDate } from '@wordpress/date';
 import { localizedData } from '../localized-data';
 import { Settings } from '../types/LocalizedData';
-import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
+import {
+	METADATA_EVENT_ORGANIZER_ID,
+	METADATA_EVENT_VENUE_ID,
+} from '../constants';
 
 /**
  * Returns an attribute of the currently edited post.
