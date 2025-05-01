@@ -1,6 +1,6 @@
 import React from 'react';
 import { VirtualElement } from '@wordpress/components/build-types/popover/types';
-import { Popover, SelectControl } from '@wordpress/components';
+import { Popover, SelectControl, Button } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 import CloseIcon from '../Icons/Close';
@@ -72,13 +72,13 @@ export default function TimezoneSelectionPopover( props: {
 			onClose={ onClose }
 		>
 			<div className="classy-component__popover-content classy-component__popover-content--timezone">
-				<a
-					href="#"
+				<Button
+					variant="link"
 					onClick={ onClose }
 					className="classy-component__popover-close"
 				>
 					<CloseIcon />
-				</a>
+				</Button>
 
 				<h4 className="classy-component-popover__title">
 					{ _x(

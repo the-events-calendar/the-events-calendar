@@ -2,6 +2,7 @@ import React from 'react';
 import { FetchedOrganizer } from '../../../types/FetchedOrganizer';
 import EditIcon from '../../components/Icons/Edit';
 import TrashIcon from '../../components/Icons/Trash';
+import { Button } from '@wordpress/components';
 
 export default function OrganizerCard(
 	props: FetchedOrganizer & {
@@ -20,29 +21,29 @@ export default function OrganizerCard(
 			<h4 className="classy-linked-post-card__title">{ name }</h4>
 			<span className="classy-linked-post-card__detail">{ phone }</span>
 			<span className="classy-linked-post-card__detail">{ email }</span>
-			<a
-				href={ website }
+			<Button
+				variant="link"
 				className="classy-linked-post-card__detail"
 				target="_blank"
 			>
 				{ website }
-			</a>
+			</Button>
 
 			<div className="classy-linked-post-card__actions">
-				<a
-					href="#"
+				<Button
+					variant="link"
 					onClick={ () => props.onEdit( objectId ) }
 					className="classy-linked-post-card__action"
 				>
 					<EditIcon />
-				</a>
-				<a
-					href="#"
+				</Button>
+				<Button
+					variant="link"
 					onClick={ () => props.onRemove( objectId ) }
 					className="classy-linked-post-card__action"
 				>
 					<TrashIcon />
-				</a>
+				</Button>
 			</div>
 		</div>
 	);

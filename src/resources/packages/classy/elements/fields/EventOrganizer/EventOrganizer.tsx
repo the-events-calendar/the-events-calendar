@@ -1,6 +1,6 @@
 import React, { useRef, Fragment } from 'react';
 import { useState, useEffect, useCallback } from '@wordpress/element';
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, Button } from '@wordpress/components';
 import { _x } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -253,9 +253,9 @@ export function EventOrganizer( props: { title: string } ) {
 											'the-events-calendar'
 										) }
 									</span>{ ' ' }
-									<a
+									<Button
+										variant="link"
 										className="classy-field__organizer-value"
-										href="#"
 										onClick={ () => {
 											console.log(
 												'Organizer creation not implemented yet.'
@@ -267,7 +267,7 @@ export function EventOrganizer( props: { title: string } ) {
 											'Call to action to create a new organizer',
 											'the-events-calendar'
 										) }
-									</a>
+									</Button>
 								</div>
 							</div>
 						</Fragment>
@@ -275,8 +275,8 @@ export function EventOrganizer( props: { title: string } ) {
 
 					{ ! isAdding && (
 						<div className="classy-field__input">
-							<a
-								href="#"
+							<Button
+								variant="link"
 								className="classy-field__control classy-field__control--cta"
 								onClick={ () => setIsAdding( true ) }
 							>
@@ -286,15 +286,15 @@ export function EventOrganizer( props: { title: string } ) {
 									'Call-to-action to add another organizer',
 									'the-events-calendar'
 								) }
-							</a>
+							</Button>
 						</div>
 					) }
 				</div>
 
 				{ currentOrganizerIds.length > 0 && isAdding && (
 					<div className="classy-field__inputs-section classy-field__inputs-section--row">
-						<a
-							href="#"
+						<Button
+							variant="link"
 							className="classy-field__control classy-field__control--cancel"
 							onClick={ () => setIsAdding( false ) }
 						>
@@ -303,7 +303,7 @@ export function EventOrganizer( props: { title: string } ) {
 								'Cancel the organizer selection',
 								'the-events-calendar'
 							) }
-						</a>
+						</Button>
 					</div>
 				) }
 			</div>

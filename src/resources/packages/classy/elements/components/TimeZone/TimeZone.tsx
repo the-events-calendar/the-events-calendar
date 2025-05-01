@@ -2,6 +2,7 @@ import React from 'react';
 import { useRef, useState } from '@wordpress/element';
 import { _x } from '@wordpress/i18n';
 import TimezoneSelectionPopover from './TimezoneSelectionPopover';
+import { Button } from '@wordpress/components';
 
 export default function TimeZone( props: {
 	onTimezoneChange: ( timezone: string ) => void;
@@ -29,13 +30,13 @@ export default function TimeZone( props: {
 					'the-events-calendar'
 				) }
 			</span>{ ' ' }
-			<a
-				className="classy-field__timezone-value"
-				href="#"
+			<Button
+				variant="link"
+				className="is-link classy-field__timezone-value"
 				onClick={ () => setIsSelecting( true ) }
 			>
 				{ timezone }
-			</a>
+			</Button>
 			{ isSelecting && (
 				<TimezoneSelectionPopover
 					anchor={ ref.current }
