@@ -29,8 +29,8 @@ if ( $view_slug === $public_view_slug ) {
 		class="tribe-events-c-view-selector__list-item-link"
 		data-js="tribe-events-view-link"
 		<?php
-		/* translators: %1$s: Events plural text, %2$s: View label */
 		$aria_label = sprintf(
+			/* translators: %1$s: Events plural text, %2$s: View label */
 			esc_attr__( 'Display %1$s in %2$s View', 'the-events-calendar' ),
 			esc_html( tribe_get_event_label_plural() ),
 			esc_html( $public_view_data->view_label )
