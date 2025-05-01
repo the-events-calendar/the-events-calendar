@@ -247,7 +247,7 @@ export function EventOrganizer(props: { title: string }) {
 						</Fragment>
 					)}
 
-					{!isAdding && (
+					{!isAdding && currentOrganizerIds.length > 0 && (
 						<div className="classy-field__input">
 							<Button
 								variant="link"
