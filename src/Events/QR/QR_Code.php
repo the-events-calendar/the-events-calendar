@@ -77,7 +77,7 @@ class QR_Code {
 	 * @return array
 	 */
 	public function add_admin_table_action( $actions, $post ) {
-		if ( $post->post_type !== 'tribe_events' ) {
+		if ( ! in_array( $post->post_type, [ 'tribe_events', 'tribe_event_series' ] ) ) {
 			return $actions;
 		}
 
@@ -200,8 +200,16 @@ class QR_Code {
 	 */
 	public function render_modal(): void {
 		$post = get_post( tec_get_request_var( 'post_id' ) );
-		if ( ! $post || ! tribe_is_event( $post ) ) {
-			wp_die( esc_html__( 'Invalid event.', 'the-events-calendar' ) );
+		if ( ! $post ) {
+			wp_die( esc_html__( 'No post found.', 'the-events-calendar' ) );
+		}
+
+		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
+			if ( ! tribe_is_event( $post ) && ! tribe_is_event_series( $post ) ) {
+				wp_die( esc_html__( 'Not an Event or Series.', 'the-events-calendar' ) );
+			}
+		} elseif ( ! tribe_is_event( $post ) ) {
+			wp_die( esc_html__( 'Not an Event.', 'the-events-calendar' ) );
 		}
 
 		if ( is_wp_error( $this->qr_code ) ) {
