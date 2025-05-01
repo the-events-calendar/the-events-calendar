@@ -3,7 +3,6 @@
 namespace Tribe\Events\Integrations\QR;
 
 use Codeception\TestCase\WPTestCase;
-use TEC\Events\QR\Settings;
 use TEC\Events\QR\Controller;
 use TEC\Events\QR\Shortcode;
 
@@ -32,25 +31,12 @@ class ShortcodeTest extends WPTestCase {
 	protected $test_event_id;
 
 	/**
-	 * The option slugs.
-	 *
-	 * @var array
-	 */
-	protected $slugs;
-
-	/**
 	 * Set up the test.
 	 *
 	 * @return void
 	 */
 	function setUp() {
 		parent::setUp();
-
-		// Get option slugs once
-		$this->slugs = Settings::get_option_slugs();
-
-		// Enable QR
-		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller to ensure shortcode is available
 		$controller = tribe( Controller::class );
@@ -74,7 +60,7 @@ class ShortcodeTest extends WPTestCase {
 	 * @test
 	 */
 	public function test_shortcode_slug() {
-		$this->assertEquals( 'tec_event_qr', Settings::get_qr_slug() );
+		$this->assertEquals( 'tec_event_qr', Controller::QR_SLUG );
 	}
 
 	/**
@@ -92,11 +78,6 @@ class ShortcodeTest extends WPTestCase {
 		$this->assertEquals( '', $defaults['mode'] );
 		$this->assertEquals( '', $defaults['id'] );
 		$this->assertEquals( '', $defaults['size'] );
-
-		$this->assertEquals( tribe_get_option( $this->slugs['redirection'] ), '', 'Redirection should be empty' );
-		$this->assertEquals( tribe_get_option( $this->slugs['size'] ), '', 'Size should be empty' );
-		$this->assertEquals( tribe_get_option( $this->slugs['event_id'] ), '', 'Event ID should be empty' );
-		$this->assertEquals( tribe_get_option( $this->slugs['series_id'] ), '', 'Series ID should be empty' );
 	}
 
 	/**

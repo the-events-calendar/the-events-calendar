@@ -4,7 +4,6 @@ namespace Tribe\Events\Integrations\QR;
 
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\QR\Redirections;
-use TEC\Events\QR\Settings;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -39,25 +38,12 @@ class RedirectionsTest extends Controller_Test_Case {
 	protected $test_event_id;
 
 	/**
-	 * The option slugs.
-	 *
-	 * @var array
-	 */
-	protected $slugs;
-
-	/**
 	 * Set up the test.
 	 *
 	 * @return void
 	 */
 	function setUp() {
 		parent::setUp();
-
-		// Get option slugs once
-		$this->slugs = Settings::get_option_slugs();
-
-		// Enable QR
-		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the redirections
 		$this->redirections = tribe( Redirections::class );
@@ -156,25 +142,6 @@ class RedirectionsTest extends Controller_Test_Case {
 
 		// Since ECP is not active, it should return the fallback URL
 		$this->assertEquals( home_url(), $url );
-	}
-
-	/**
-	 * Test fallback URL generation
-	 *
-	 * @test
-	 */
-	public function test_fallback_url_generation() {
-		// Set a custom fallback URL
-		$fallback_url = 'https://example.com/fallback';
-		tribe_update_option( $this->slugs['fallback'], $fallback_url );
-
-		$url = $this->redirections->get_fallback_url();
-
-		// Should return the custom fallback URL
-		$this->assertEquals( $fallback_url, $url );
-
-		// Reset the fallback option
-		tribe_update_option( $this->slugs['fallback'], '' );
 	}
 
 	/**
