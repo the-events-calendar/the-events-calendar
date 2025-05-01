@@ -35,8 +35,8 @@ if ( $view_slug === $public_view_slug ) {
 			esc_html( tribe_get_event_label_plural() ),
 			esc_html( $public_view_data->view_label )
 		);
+		echo 'aria-label="' . esc_attr( $aria_label ) . '"';
 		?>
-		aria-label="<?php echo esc_attr( $aria_label ); ?>"
 	>
 		<span class="tribe-events-c-view-selector__list-item-icon">
 			<?php $this->template( 'components/icons/' . esc_attr( $public_view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__list-item-icon-svg' ] ] ); ?>
