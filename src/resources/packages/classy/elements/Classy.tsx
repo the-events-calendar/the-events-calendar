@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Slot, SlotFillProvider } from '@wordpress/components';
 import { doAction } from '@wordpress/hooks';
@@ -7,6 +8,7 @@ import {
 	EventTitle,
 	EventDateTime,
 	EventOrganizer,
+	EventLocation,
 } from './fields';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 import { default as Provider } from './components/Provider';
@@ -59,7 +61,14 @@ function ClassyApplication() {
 					) }
 				/>
 
-				{ /* @ts-ignore */ }
+				<EventLocation
+					title={ _x(
+						'Location',
+						'The title of the event location field.',
+						'the-events-calendar'
+					) }
+				/>
+
 				<Slot name="classy.fields" />
 			</div>
 		</SlotFillProvider>

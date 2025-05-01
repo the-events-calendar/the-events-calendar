@@ -5,7 +5,7 @@ import { EventMeta } from '../types/EventMeta';
 import { getDate } from '@wordpress/date';
 import { localizedData } from '../localized-data';
 import { Settings } from '../types/LocalizedData';
-import { METADATA_EVENT_ORGANIZER_ID } from '../constants';
+import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
 
 /**
  * Returns an attribute of the currently edited post.
@@ -141,6 +141,26 @@ export function getEditedPostOrganizerIds( state: StoreState ): number[] {
 	}
 
 	const ids = ( meta?.[ METADATA_EVENT_ORGANIZER_ID ] ?? [] ).map(
+		( id: string | number ) =>
+			typeof id === 'string' ? parseInt( id ) : id
+	);
+
+	return ids;
+}
+
+export function getEditedPostVenueIds( state: StoreState ): number[] {
+	// @todo update this to let the register handle the redirection.
+	const coreEditor = select( 'core/editor' );
+	let meta: EventMeta;
+
+	if ( coreEditor ) {
+		// @ts-ignore
+		meta = coreEditor.getEditedPostAttribute( 'meta' ) ?? {};
+	} else {
+		meta = state?.meta || {};
+	}
+
+	const ids = ( meta?.[ METADATA_EVENT_VENUE_ID ] ?? [] ).map(
 		( id: string | number ) =>
 			typeof id === 'string' ? parseInt( id ) : id
 	);
