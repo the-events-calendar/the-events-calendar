@@ -692,7 +692,7 @@ abstract class Abstract_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Wether to show the empty widget template in the editor.
+	 * Whether to show the empty widget template in the editor.
 	 *
 	 * @since 6.4.0
 	 */
