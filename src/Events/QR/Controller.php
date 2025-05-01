@@ -21,14 +21,13 @@ use Tribe__Events__Main as TEC;
  * @property \TEC\Common\Contracts\Provider\Container $container
  */
 class Controller extends Controller_Contract {
-
 	/**
-	 * The shortcode tag.
+	 * The QR code slug.
 	 *
 	 * @since TBD
 	 * @var string
 	 */
-	private $slug;
+	public const QR_SLUG = 'tec_event_qr';
 
 	/**
 	 * The QR code instance.
@@ -45,13 +44,10 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function do_register(): void {
-		$this->container->singleton( Settings::class );
 		$this->container->register( Routes::class );
 		$this->container->register( Redirections::class );
 
 		$this->qr_code = $this->container->make( QR_Code::class );
-
-		$this->slug = Settings::get_qr_slug();
 
 		$this->add_hooks();
 
@@ -114,30 +110,12 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Gets the shortcode slug.
-	 *
-	 * @since TBD
-	 * @return string The shortcode slug.
-	 */
-	public function get_slug(): string {
-		return $this->slug;
-	}
-
-	/**
 	 * Checks if the QR module is active.
 	 *
 	 * @since TBD
 	 * @return bool Whether the QR module is active.
 	 */
 	public function is_active(): bool {
-		$options = Settings::get_option_slugs();
-		$enabled = tribe_get_option( $options['enabled'], 'not-set' );
-
-		if ( 'not-set' === $enabled ) {
-			tribe_update_option( $options['enabled'], true );
-			$enabled = true;
-		}
-
 		/**
 		 * Filter whether QR functionality is enabled.
 		 *
@@ -145,7 +123,7 @@ class Controller extends Controller_Contract {
 		 *
 		 * @param bool $enabled Whether QR functionality is enabled.
 		 */
-		return (bool) apply_filters( 'tec_events_qr_enabled', $enabled );
+		return (bool) apply_filters( 'tec_events_qr_enabled', true );
 	}
 
 	/**
@@ -177,7 +155,7 @@ class Controller extends Controller_Contract {
 			return false;
 		}
 
-		$valid_screens = [ 'edit-tribe_events', 'tribe_events', 'tribe_events_page_tec-events-settings' ];
+		$valid_screens = [ 'edit-tribe_events', 'tribe_events', 'edit-tribe_event_series', 'tribe_event_series' ];
 		/**
 		 * Filters the list of valid screen IDs where QR code assets should be enqueued.
 		 *
@@ -205,7 +183,7 @@ class Controller extends Controller_Contract {
 			return $shortcodes;
 		}
 
-		$shortcodes[ Settings::get_qr_slug() ] = Shortcode::class;
+		$shortcodes[ static::QR_SLUG ] = Shortcode::class;
 
 		return $shortcodes;
 	}

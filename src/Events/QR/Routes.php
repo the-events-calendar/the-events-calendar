@@ -8,6 +8,7 @@
 namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller;
+use TEC\Events\QR\Controller as QR_Controller;
 use Tribe__Events__Rewrite;
 
 /**
@@ -75,7 +76,7 @@ class Routes extends Controller {
 		 */
 		$this->route_prefix = apply_filters( 'tec_events_qr_route_prefix', 'qr' );
 
-		$this->salt = substr( wp_salt( Settings::get_qr_slug() ), 0, 8 );
+		$this->salt = substr( wp_salt( QR_Controller::QR_SLUG ), 0, 8 );
 
 		$this->add_hooks();
 	}

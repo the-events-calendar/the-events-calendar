@@ -11,7 +11,6 @@ use Tribe\Shortcode\Shortcode_Abstract;
 use TEC\Common\QR\QR;
 use TEC\Events\QR\Routes;
 use Tribe\Utils\Element_Attributes;
-use TEC\Events\QR\Settings;
 
 /**
  * Class Shortcode
@@ -60,16 +59,10 @@ class Shortcode extends Shortcode_Abstract {
 	 * @return string
 	 */
 	public function get_html() {
-		$options = tribe( Settings::class )->get_option_slugs();
-		$args    = $this->get_arguments();
-		$mode    = $args['mode'] ?: tribe_get_option( $options['redirection'], 'current' );
-		$size    = $args['size'] ?: tribe_get_option( $options['size'], 4 );
-		$id      = 0;
-		if ( 'specific' === $mode ) {
-			$id = absint( $args['id'] ?: tribe_get_option( $options['event_id'], '' ) );
-		} elseif ( 'next' === $mode ) {
-			$id = absint( $args['id'] ?: tribe_get_option( $options['series_id'], '' ) );
-		}
+		$args = $this->get_arguments();
+		$id   = $args['id'] ?: 0;
+		$mode = $args['mode'] ?: 'current';
+		$size = $args['size'] ?: 4;
 
 		$routes  = tribe( Routes::class );
 		$qr_code = tribe( QR::class );

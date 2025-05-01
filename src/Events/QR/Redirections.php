@@ -9,7 +9,6 @@ namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller;
 use TEC\Events\QR\Routes;
-use TEC\Events\QR\Settings;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -47,7 +46,7 @@ class Redirections extends Controller {
 	 * @return string The fallback URL.
 	 */
 	public function get_fallback_url(): string {
-		return (string) ( tribe_get_option( Settings::get_option_slugs()['fallback'] ) ?: home_url() );
+		return (string) tribe_get_events_link();
 	}
 
 	/**
