@@ -50,7 +50,7 @@ class ControllerTest extends Controller_Test_Case {
 	 * @test
 	 */
 	public function test_controller_slug() {
-		$this->assertEquals( 'tec_event_qr', $this->controller->get_slug() );
+		$this->assertEquals( 'tec_event_qr', $this->controller::QR_SLUG );
 	}
 
 	/**

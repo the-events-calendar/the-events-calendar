@@ -78,7 +78,14 @@ class QR_Code {
 	 * @return array
 	 */
 	public function add_admin_table_action( $actions, $post ) {
-		if ( ! in_array( $post->post_type, [ TEC::POSTTYPE, Series::POSTTYPE ] ) ) {
+
+		$supported = [ TEC::POSTTYPE ];
+
+		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
+			$supported[] = Series::POSTTYPE;
+		}
+
+		if ( ! in_array( $post->post_type, $supported ) ) {
 			return $actions;
 		}
 
