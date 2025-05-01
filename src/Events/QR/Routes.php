@@ -23,25 +23,25 @@ class Routes extends Controller {
 	 * The base for the routes.
 	 *
 	 * @since TBD
-	 * @var string
+	 * @var string|null
 	 */
-	private $route_base;
+	private $route_base = null;
 
 	/**
 	 * The route prefix for QR codes.
 	 *
 	 * @since TBD
-	 * @var string
+	 * @var string|null
 	 */
-	private $route_prefix;
+	private $route_prefix = null;
 
 	/**
 	 * The salt for QR code generation.
 	 *
 	 * @since TBD
-	 * @var string
+	 * @var string|null
 	 */
-	private $salt;
+	private $salt = null;
 
 	/**
 	 * The query variable name for QR code hash.
@@ -58,26 +58,6 @@ class Routes extends Controller {
 	 * @return void
 	 */
 	public function do_register(): void {
-		/**
-		 * Filter the base route for QR codes.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $base The base route for QR codes. Default: 'events'.
-		 */
-		$this->route_base = apply_filters( 'tec_events_qr_route_base', 'events' );
-
-		/**
-		 * Filter the route prefix for QR codes.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $prefix The route prefix for QR codes. Default: 'qr'.
-		 */
-		$this->route_prefix = apply_filters( 'tec_events_qr_route_prefix', 'qr' );
-
-		$this->salt = substr( wp_salt( QR_Controller::QR_SLUG ), 0, 8 );
-
 		$this->add_hooks();
 	}
 
@@ -116,12 +96,50 @@ class Routes extends Controller {
 	}
 
 	/**
-	 * Get the route prefix.
+	 * Get the route base for QR codes.
 	 *
 	 * @since TBD
+	 *
+	 * @return string The route base.
+	 */
+	public function get_route_base(): string {
+		if ( $this->route_base === null ) {
+			$base = 'events';
+
+			/**
+			 * Filter the base route for QR codes.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $base The base route for QR codes.
+			 */
+			$this->route_base = apply_filters( 'tec_events_qr_route_base', $base );
+		}
+
+		return $this->route_base;
+	}
+
+	/**
+	 * Get the route prefix for QR codes.
+	 *
+	 * @since TBD
+	 *
 	 * @return string The route prefix.
 	 */
 	public function get_route_prefix(): string {
+		if ( $this->route_prefix === null ) {
+			$prefix = 'qr';
+
+			/**
+			 * Filter the route prefix for QR codes.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $prefix The route prefix for QR codes.
+			 */
+			$this->route_prefix = apply_filters( 'tec_events_qr_route_prefix', $prefix );
+		}
+
 		return $this->route_prefix;
 	}
 
@@ -134,7 +152,7 @@ class Routes extends Controller {
 	 */
 	public function add_qr_rules( Tribe__Events__Rewrite $rewrite ): void {
 		$rewrite->add(
-			[ $this->route_base, $this->route_prefix, '([^/]+)' ],
+			[ $this->get_route_base(), $this->get_route_prefix(), '([^/]+)' ],
 			[ self::QR_HASH_VAR => '%1' ]
 		);
 	}
@@ -170,6 +188,30 @@ class Routes extends Controller {
 	}
 
 	/**
+	 * Get the salt for QR code generation.
+	 *
+	 * @since TBD
+	 *
+	 * @return string The salt value.
+	 */
+	public function get_salt(): string {
+		if ( $this->salt === null ) {
+			$salt = substr( wp_salt( QR_Controller::QR_SLUG ), 0, 8 );
+
+			/**
+			 * Filter the salt used for QR code generation.
+			 *
+			 * @since TBD
+			 *
+			 * @param string $salt The salt value.
+			 */
+			$this->salt = apply_filters( 'tec_events_qr_salt', $salt );
+		}
+
+		return $this->salt;
+	}
+
+	/**
 	 * Generate a unique hash for a QR code.
 	 *
 	 * @since TBD
@@ -181,7 +223,7 @@ class Routes extends Controller {
 	 */
 	public function generate_hash( int $post_id, string $qr_type ): string {
 		// Create a simple string with the data and salt.
-		$data = $post_id . ':' . $qr_type . ':' . $this->salt;
+		$data = $post_id . ':' . $qr_type . ':' . $this->get_salt();
 
 		// Convert to base64url (URL-safe base64).
 		return rtrim( strtr( base64_encode( $data ), '+/', '-_' ), '=' );
@@ -200,7 +242,7 @@ class Routes extends Controller {
 	public function get_qr_url( int $post_id, string $qr_type ): string {
 		$hash = $this->generate_hash( $post_id, $qr_type );
 
-		return home_url( $this->route_base . "/{$this->route_prefix}/{$hash}/" );
+		return home_url( $this->get_route_base() . "/{$this->get_route_prefix()}/{$hash}/" );
 	}
 
 	/**
@@ -239,7 +281,7 @@ class Routes extends Controller {
 		}
 
 		// Verify the salt matches.
-		if ( $parts[2] !== $this->salt ) {
+		if ( $parts[2] !== $this->get_salt() ) {
 			throw new \InvalidArgumentException( 'Invalid QR code signature.' );
 		}
 
@@ -273,8 +315,8 @@ class Routes extends Controller {
 		}
 
 		$parts = explode( '/', trim( $path, '/' ) );
-		if ( count( $parts ) !== 3 || $parts[0] !== $this->route_base || $parts[1] !== $this->route_prefix ) {
-			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: ' . $this->route_base . '/' . $this->route_prefix . '/{hash}, Got: ' . $path );
+		if ( count( $parts ) !== 3 || $parts[0] !== $this->get_route_base() || $parts[1] !== $this->get_route_prefix() ) {
+			throw new \InvalidArgumentException( 'Invalid QR code URL structure. Expected: ' . $this->get_route_base() . '/' . $this->get_route_prefix() . '/{hash}, Got: ' . $path );
 		}
 
 		return $this->decode_qr_hash( $parts[2] );

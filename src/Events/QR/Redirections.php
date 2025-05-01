@@ -46,7 +46,7 @@ class Redirections extends Controller {
 	 * @return string The fallback URL.
 	 */
 	public function get_fallback_url(): string {
-		return (string) tribe_get_events_link();
+		return (string) tribe_events_get_url();
 	}
 
 	/**

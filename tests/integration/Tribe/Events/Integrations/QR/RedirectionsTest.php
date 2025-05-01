@@ -114,7 +114,7 @@ class RedirectionsTest extends Controller_Test_Case {
 		$url = $this->redirections->get_next_series_event_url( $this->test_event_id );
 
 		// Since this is not a series event, it should return the fallback URL
-		$this->assertEquals( tribe_get_events_link(), $url );
+		$this->assertEquals( tribe_events_get_url(), $url );
 
 		// Make the Event part of a series by adding a parent event
 		$parent_event_id = $this->factory->post->create(
@@ -141,7 +141,7 @@ class RedirectionsTest extends Controller_Test_Case {
 		$url = $this->redirections->get_next_series_event_url( $parent_event_id );
 
 		// Since ECP is not active, it should return the fallback URL
-		$this->assertEquals( tribe_get_events_link(), $url );
+		$this->assertEquals( tribe_events_get_url(), $url );
 	}
 
 	/**
@@ -161,6 +161,6 @@ class RedirectionsTest extends Controller_Test_Case {
 		$url = $this->redirections->get_specific_event_url( $post_id );
 
 		// Should return the fallback URL for non-event post types
-		$this->assertEquals( tribe_get_events_link(), $url );
+		$this->assertEquals( tribe_events_get_url(), $url );
 	}
 }
