@@ -10,6 +10,7 @@ namespace TEC\Events\QR;
 use TEC\Common\QR\QR;
 use TEC\Events\QR\Routes;
 use Tribe__Events__Main as TEC;
+use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 
 /**
  * Class QR_Code
@@ -126,6 +127,17 @@ class QR_Code {
 			'side',
 			'default'
 		);
+
+		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
+			add_meta_box(
+				'tec-events-qr-code',
+				esc_html__( 'QR Code', 'the-events-calendar' ),
+				[ $this, 'render_qr_code_meta_box' ],
+				Series::POSTTYPE,
+				'side',
+				'default'
+			);
+		}
 	}
 
 	/**
@@ -216,7 +228,7 @@ class QR_Code {
 			wp_die( esc_html__( 'Error generating QR code.', 'the-events-calendar' ) );
 		}
 
-		$qr_url = $this->routes->get_qr_url( $post->ID, 'specific' );
+		$qr_url = $this->routes->get_qr_url( $post->ID, 'tribe_event' === $post->post_type ? 'specific' : 'next' );
 
 		$qr_images = [];
 		for ( $i = 4; $i <= 28; $i += 4 ) {
