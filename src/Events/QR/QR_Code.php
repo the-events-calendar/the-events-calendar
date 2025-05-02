@@ -10,7 +10,6 @@ namespace TEC\Events\QR;
 use TEC\Common\QR\QR;
 use TEC\Events\QR\Routes;
 use Tribe__Events__Main as TEC;
-use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 
 /**
  * Class QR_Code
@@ -81,9 +80,14 @@ class QR_Code {
 
 		$supported = [ TEC::POSTTYPE ];
 
-		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			$supported[] = Series::POSTTYPE;
-		}
+		/**
+		 * Filter the post types that support QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $supported Array of supported post types.
+		 */
+		$supported = apply_filters( 'tec_events_qr_code_supported_post_types', $supported );
 
 		if ( ! in_array( $post->post_type, $supported ) ) {
 			return $actions;
@@ -134,17 +138,6 @@ class QR_Code {
 			'side',
 			'default'
 		);
-
-		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			add_meta_box(
-				'tec-events-qr-code',
-				esc_html__( 'QR Code', 'the-events-calendar' ),
-				[ $this, 'render_qr_code_meta_box' ],
-				Series::POSTTYPE,
-				'side',
-				'default'
-			);
-		}
 	}
 
 	/**
@@ -235,13 +228,15 @@ class QR_Code {
 			wp_die( esc_html__( 'Error generating QR code.', 'the-events-calendar' ) );
 		}
 
-		$redirection = 'specific';
-
-		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			if ( tribe_is_recurring_event( $post ) || Series::POSTTYPE === $post->post_type ) {
-				$redirection = 'next';
-			}
-		}
+		/**
+		 * Filters the redirection type for QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $redirection The redirection type ('specific' or 'next').
+		 * @param WP_Post $post The post object.
+		 */
+		$redirection = apply_filters( 'tec_events_qr_code_redirection_type', 'specific', $post );
 
 		$qr_url = $this->routes->get_qr_url( $post->ID, $redirection );
 
