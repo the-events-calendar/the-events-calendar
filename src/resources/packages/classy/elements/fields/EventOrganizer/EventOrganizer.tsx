@@ -10,7 +10,7 @@ import AddIcon from '../../../elements/components/Icons/Add';
 import { sortOptionsForDisplay } from '../../../functions/sortOptionsForDisplay';
 import { usePostEdits } from '../../../hooks';
 import { FetchedOrganizer } from '../../../types/FetchedOrganizer';
-import { CustomSelectOption } from "@wordpress/components/build-types/custom-select-control/types";
+import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { UsePostEditsReturn } from '../../../types/UsePostEditsReturn';
 import OrganizerCards from './OrganizerCards';
 
@@ -160,7 +160,7 @@ export function EventOrganizer( props: { title: string } ) {
 	}
 
 	const onOrganizerSelect = useCallback(
-		( newValue: {selectedItem: CustomSelectOption} ) => {
+		( newValue: { selectedItem: CustomSelectOption } ) => {
 			// Add the new organizer to the current organizer ids.
 			const organizerIds = [
 				...currentOrganizerIds,
@@ -234,8 +234,12 @@ export function EventOrganizer( props: { title: string } ) {
 								<CustomSelectControl
 									__next40pxDefaultSize
 									className="classy-field__control classy-field__control--select"
-									hideLabelFromVision={true}
-									label={_x('Organizer selection', 'Assistive technology label', 'the-events-calendar')}
+									hideLabelFromVision={ true }
+									label={ _x(
+										'Organizer selection',
+										'Assistive technology label',
+										'the-events-calendar'
+									) }
 									onChange={ onOrganizerSelect }
 									options={ options }
 									value={ 0 }

@@ -2,7 +2,7 @@ import { CustomSelectOption } from '@wordpress/components/build-types/custom-sel
 import { SelectOption } from '../types/SelectOption';
 
 export function sortOptionsForDisplay(
-	a: SelectOption| CustomSelectOption,
+	a: SelectOption | CustomSelectOption,
 	b: SelectOption | CustomSelectOption
 ): number {
 	// Keep the placeholder at the top.
