@@ -10,6 +10,7 @@ namespace TEC\Events\QR;
 use TEC\Common\Contracts\Provider\Controller;
 use TEC\Events\QR\Routes;
 use Tribe__Events__Main as TEC;
+use TEC\Events_Pro\Custom_Tables\V1\Models\Event;
 
 /**
  * Class Redirections.
@@ -169,10 +170,10 @@ class Redirections extends Controller {
 			return $this->get_fallback_url();
 		}
 
-		// Get the next event in the series using the Series_Relationship class.
-		$next_event = \TEC\Events_Pro\Custom_Tables\V1\Models\Series_Relationship::next( $post_id );
+		// Get the next event in the series using the Events model.
+		$next_event = Event::next_in_series( $post_id );
 
-		$url = $next_event ? get_permalink( $next_event->post_id ) : $this->get_fallback_url();
+		$url = $next_event ? get_permalink( $next_event ) : $this->get_fallback_url();
 
 		/**
 		 * Filters the URL for the next event in a series redirection.
