@@ -11,7 +11,6 @@ namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe__Context as Context;
 use Tribe__Events__Main as TEC;
-use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 
 
 /**
@@ -227,9 +226,18 @@ class Widget_QR_Code extends Widget_Abstract {
 				'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
 			];
 
+			/**
+			 * Filters the series post type.
+			 *
+			 * @since TBD
+			 *
+			 * @param string|null $series_post_type The series post type.
+			 */
+			$series_post_type = apply_filters( 'tec_series_post_type', null );
+
 			$args = [
 				'posts_per_page' => -1,
-				'post_type'      => Series::POSTTYPE,
+				'post_type'      => $series_post_type,
 				'post_status'    => 'publish',
 				'orderby'        => 'ID',
 				'order'          => 'DESC',

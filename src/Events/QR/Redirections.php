@@ -169,8 +169,16 @@ class Redirections extends Controller {
 			return $this->get_fallback_url();
 		}
 
-		// Get the next event in the series using the Events model.
-		$next_event = \TEC\Events_Pro\Custom_Tables\V1\Models\Event::next_in_series( $post_id );
+		/**
+		 * Filters the next event in a series.
+		 *
+		 * @since TBD
+		 *
+		 * @param int|null $next_event The next event in the series.
+		 * @param int      $post_id    The post ID of the series.
+		 * @param self     $context    The Redirections instance.
+		 */
+		$next_event = apply_filters( 'tec_next_event_in_series', null, $post_id, $this );
 
 		$url = $next_event ? get_permalink( $next_event ) : $this->get_fallback_url();
 
