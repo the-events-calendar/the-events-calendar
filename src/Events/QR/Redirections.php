@@ -182,22 +182,28 @@ class Redirections extends Controller {
 
 		switch ( $data['qr_type'] ) {
 			case 'current':
-				wp_redirect( esc_url( $this->get_current_event_url() ) );
-				tribe_exit();
+				$target = $this->get_current_event_url();
 			case 'upcoming':
-				wp_redirect( esc_url( $this->get_upcoming_event_url() ) );
-				tribe_exit();
+				$target = $this->get_upcoming_event_url();
 			case 'specific':
-				wp_redirect( esc_url( $this->get_specific_event_url( $data['post_id'] ) ) );
-				tribe_exit();
-			case 'next':
-				do_action( 'tec_events_qr_next_series_event_url_redirected', $data['post_id'] );
-				wp_redirect( esc_url( $this->get_fallback_url() ) );
-				tribe_exit();
+				$target = $this->get_specific_event_url( $data['post_id'] );
 			default:
-				wp_redirect( esc_url( $this->get_fallback_url() ) );
-				tribe_exit();
+				$target = $this->get_fallback_url();
 		}
+
+		/**
+		 * Filters the target URL for the QR code redirection.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $target The target URL.
+		 * @param int    $post_id The post ID of the event/series.
+		 * @param self   $context The Redirections instance.
+		 */
+		$target = apply_filters( 'tec_events_qr_redirection_url', $target, $data['post_id'], $this );
+
+		wp_redirect( esc_url( $target ) );
+		tribe_exit();
 
 		// phpcs:enable PSR2.ControlStructures.SwitchDeclaration.TerminatingComment, WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 	}
