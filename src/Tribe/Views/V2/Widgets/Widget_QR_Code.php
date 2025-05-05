@@ -310,7 +310,7 @@ class Widget_QR_Code extends Widget_Abstract {
 					'ID' => 'redirection',
 					'is' => 'specific',
 				],
-			]
+			],
 		];
 
 		return apply_filters( 'tec_events_qr_widget_fields', $fields );
