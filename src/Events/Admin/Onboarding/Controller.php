@@ -80,6 +80,7 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['organizer'], 'handle' ], 12, 2 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['venue'], 'handle' ], 13, 2 );
 		add_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['tickets'], 'handle' ], 14, 2 );
+		add_filter( 'tec_telemetry_is_tec_admin_page', [ $this, 'hide_telemetry_on_onboarding_page' ], 10, 1 );
 	}
 
 	/**
@@ -109,6 +110,7 @@ class Controller extends Controller_Contract {
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['organizer'], 'handle' ], 12 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['venue'], 'handle' ], 13 );
 		remove_filter( 'tec_events_onboarding_wizard_handle', [ $this->steps['tickets'], 'handle' ], 14 );
+		remove_filter( 'tec_telemetry_is_tec_admin_page', [ $this, 'hide_telemetry_on_onboarding_page' ], 10 );
 	}
 
 	/**
