@@ -116,7 +116,7 @@ function getMultiDayEndDate(
 	let duration;
 
 	if ( newValue ) {
-		// Move the end date forward by 24 hours plus the single day duration.
+		// Move the end date forward by 24 hours plus the single day ouration.
 		duration = multiDayDuration + singleDayDuration;
 	} else {
 		duration = singleDayDuration;

@@ -5,6 +5,7 @@ import {
 	Button,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
+import { useRef } from '@wordpress/element';
 
 const defaultValues = {
 	name: '',
@@ -22,20 +23,22 @@ export default function OrganizerUpsert( props: {
 	// States for name, phone, website and email.
 	const [ values, setValues ] = React.useState( defaultValues );
 
-	return (
+	const component = (
 		<div className="classy-root">
 			<header className="classy-modal__header classy-modal__header--organizer">
 				<NewIcon />
-				<h4>
+				<h4 className="classy-modal__header-title">
 					{ _x(
-						'New organizer',
+						'New Organizer',
 						'Upsert modal header title',
 						'the-events-calendar'
 					) }
 				</h4>
 			</header>
 
-			<section className="classy-modal__content classy-modal__content--organizer">
+			<span className="classy-section-separator"></span>
+
+			<section className="classy-modal__content classy-modal__content--organizer classy-field__inputs classy-field__inputs--unboxed">
 				<InputControl
 					className="classy-field__control classy-field__control--input"
 					label={ _x(
@@ -98,14 +101,14 @@ export default function OrganizerUpsert( props: {
 
 			<footer className="classy-modal__footer classy-modal__footer--organizer">
 				<div className="classy-modal__actions classy-modal__actions--organizer">
-					<Button>
+					<Button className="classy-button" variant="primary">
 						{ _x(
 							'Create Organizer',
 							'Create organizer button label',
 							'the-events-calendar'
 						) }
 					</Button>
-					<Button>
+					<Button className="classy-button" variant="link">
 						{ _x(
 							'Cancel',
 							'Cancel button label',
@@ -116,4 +119,6 @@ export default function OrganizerUpsert( props: {
 			</footer>
 		</div>
 	);
+
+	return component;
 }
