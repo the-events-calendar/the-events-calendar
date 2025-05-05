@@ -157,45 +157,6 @@ class Redirections extends Controller {
 	}
 
 	/**
-	 * Get the URL for the next event in a series.
-	 *
-	 * @since TBD
-	 * @param int $post_id The post ID of the series.
-	 * @return string The URL to redirect to, either an event permalink or fallback URL.
-	 */
-	public function get_next_series_event_url( int $post_id ): string {
-		// If we don't have the Pro version, return the fallback URL.
-		if ( ! has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			return $this->get_fallback_url();
-		}
-
-		/**
-		 * Filters the next event in a series.
-		 *
-		 * @since TBD
-		 *
-		 * @param int|null $next_event The next event in the series.
-		 * @param int      $post_id    The post ID of the series.
-		 * @param self     $context    The Redirections instance.
-		 */
-		$next_event = apply_filters( 'tec_next_event_in_series', null, $post_id, $this );
-
-		$url = $next_event ? get_permalink( $next_event ) : $this->get_fallback_url();
-
-		/**
-		 * Filters the URL for the next event in a series redirection.
-		 *
-		 * @since TBD
-		 *
-		 * @param string $url     The URL to redirect to.
-		 * @param array  $events  The events found by the query.
-		 * @param int    $post_id The post ID of the series.
-		 * @param self   $context The Redirections instance.
-		 */
-		return apply_filters( 'tec_events_qr_next_series_event_url', $url, [ $next_event ], $post_id, $this );
-	}
-
-	/**
 	 * Handle QR code redirections.
 	 *
 	 * @since TBD
@@ -230,7 +191,8 @@ class Redirections extends Controller {
 				wp_redirect( esc_url( $this->get_specific_event_url( $data['post_id'] ) ) );
 				tribe_exit();
 			case 'next':
-				wp_redirect( esc_url( $this->get_next_series_event_url( $data['post_id'] ) ) );
+				do_action( 'tec_events_qr_next_series_event_url_redirected', $data['post_id'] );
+				wp_redirect( esc_url( $this->get_fallback_url() ) );
 				tribe_exit();
 			default:
 				wp_redirect( esc_url( $this->get_fallback_url() ) );
