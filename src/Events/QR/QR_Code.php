@@ -77,7 +77,19 @@ class QR_Code {
 	 * @return array
 	 */
 	public function add_admin_table_action( $actions, $post ) {
-		if ( $post->post_type !== 'tribe_events' ) {
+
+		$supported = [ TEC::POSTTYPE ];
+
+		/**
+		 * Filter the post types that support QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $supported Array of supported post types.
+		 */
+		$supported = apply_filters( 'tec_events_qr_code_supported_post_types', $supported );
+
+		if ( ! in_array( $post->post_type, $supported ) ) {
 			return $actions;
 		}
 
@@ -200,15 +212,40 @@ class QR_Code {
 	 */
 	public function render_modal(): void {
 		$post = get_post( tec_get_request_var( 'post_id' ) );
-		if ( ! $post || ! tribe_is_event( $post ) ) {
-			wp_die( esc_html__( 'Invalid event.', 'the-events-calendar' ) );
+		if ( ! $post ) {
+			wp_die( esc_html__( 'No post found.', 'the-events-calendar' ) );
+		}
+
+		$allowed_types = [ TEC::POSTTYPE ];
+
+		/**
+		 * Filters the post types that support QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $allowed_types Array of allowed post types.
+		 */
+		$allowed_types = apply_filters( 'tec_events_qr_code_post_types', $allowed_types );
+
+		if ( ! in_array( $post->post_type, $allowed_types ) ) {
+			wp_die( esc_html__( 'Not a supported post type.', 'the-events-calendar' ) );
 		}
 
 		if ( is_wp_error( $this->qr_code ) ) {
 			wp_die( esc_html__( 'Error generating QR code.', 'the-events-calendar' ) );
 		}
 
-		$qr_url = $this->routes->get_qr_url( $post->ID, 'specific' );
+		/**
+		 * Filters the redirection type for QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $redirection The redirection type ('specific' or 'next').
+		 * @param WP_Post $post The post object.
+		 */
+		$redirection = apply_filters( 'tec_events_qr_code_redirection_type', 'specific', $post );
+
+		$qr_url = $this->routes->get_qr_url( $post->ID, $redirection );
 
 		$qr_images = [];
 		for ( $i = 4; $i <= 28; $i += 4 ) {

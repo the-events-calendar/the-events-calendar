@@ -54,9 +54,6 @@ $display_tab->add_child( $maps_tab );
 $additional_content_tab = require_once __DIR__ . '/settings/tabs/display/display-additional-content.php';
 $display_tab->add_child( $additional_content_tab );
 
-$qr_codes_tab = require_once __DIR__ . '/settings/tabs/display/display-qr-codes.php';
-$display_tab->add_child( $qr_codes_tab );
-
 /**
  * Fires after the display settings tab has been created.
  *

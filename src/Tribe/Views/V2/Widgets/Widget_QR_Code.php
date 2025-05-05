@@ -11,7 +11,6 @@ namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe__Context as Context;
 use Tribe__Events__Main as TEC;
-use TEC\Events_Pro\Custom_Tables\V1\Series\Post_Type as Series;
 
 
 /**
@@ -218,38 +217,16 @@ class Widget_QR_Code extends Widget_Abstract {
 			],
 		];
 
-		$series_options = [];
-		$event_options  = [];
+		/**
+		 * Filters the redirection options for the QR Code widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $options The array of redirection options.
+		 */
+		$options = apply_filters( 'tec_events_qr_widget_options', $options );
 
-		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			$options[] = [
-				'value' => 'next',
-				'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
-			];
-
-			$args = [
-				'posts_per_page' => -1,
-				'post_type'      => Series::POSTTYPE,
-				'post_status'    => 'publish',
-				'orderby'        => 'ID',
-				'order'          => 'DESC',
-			];
-
-			$series_query = get_posts( $args );
-			if ( ! empty( $series_query ) ) {
-				foreach ( $series_query as $series ) {
-					$series_options[] = [
-						'value' => $series->ID,
-						'text'  => "{$series->ID} - {$series->post_title}",
-					];
-				}
-			} else {
-				$series_options[] = [
-					'value' => '',
-					'text'  => esc_html__( 'No Series have been created yet.', 'the-events-calendar' ),
-				];
-			}
-		}
+		$event_options = [];
 
 		$args = [
 			'posts_per_page' => -1,
@@ -274,7 +251,7 @@ class Widget_QR_Code extends Widget_Abstract {
 			];
 		}
 
-		return [
+		$fields = [
 			'widget_title' => [
 				'id'    => 'widget_title',
 				'label' => _x( 'Title:', 'The label for the widget title setting.', 'the-events-calendar' ),
@@ -334,19 +311,9 @@ class Widget_QR_Code extends Widget_Abstract {
 					'is' => 'specific',
 				],
 			],
-			'series_id'    => [
-				'id'             => 'series_id',
-				'label'          => _x( 'Series ID:', 'The label for the series ID setting.', 'the-events-calendar' ),
-				'type'           => 'dropdown',
-				'parent_classes' => 'hidden',
-				'classes'        => 'tribe-dependent',
-				'options'        => $series_options,
-				'dependency'     => [
-					'ID' => 'redirection',
-					'is' => 'next',
-				],
-			],
 		];
+
+		return apply_filters( 'tec_events_qr_widget_fields', $fields );
 	}
 
 	/**

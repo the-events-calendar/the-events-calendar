@@ -4,7 +4,6 @@ namespace Tribe\Events\Integrations\QR;
 
 use Codeception\TestCase\WPTestCase;
 use TEC\Events\QR\QR_Code;
-use TEC\Events\QR\Settings;
 use TEC\Events\QR\Controller;
 use Tribe__Events__Main as TEC;
 
@@ -25,13 +24,6 @@ class QR_CodeTest extends WPTestCase {
 	 */
 	protected $qr_code;
 
-	/**
-	 * The option slugs.
-	 *
-	 * @var array
-	 */
-	protected $slugs;
-
   /**
    * The controller instance.
    *
@@ -44,9 +36,6 @@ class QR_CodeTest extends WPTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-
-		// Get option slugs once
-		$this->slugs = Settings::get_option_slugs();
 
 		// Create a mock controller
 		$mock_controller = $this->createMock( Controller::class );
@@ -62,19 +51,12 @@ class QR_CodeTest extends WPTestCase {
 
 		// Initialize QR Code
 		$this->qr_code = tribe( QR_Code::class );
-
-    // Enable QR option
-		tribe_update_option( $this->slugs['enabled'], true );
-
 	}
 
 	/**
 	 * Tear down the test.
 	 */
 	public function tearDown() {
-		// Disable QR
-		tribe_update_option( $this->slugs['enabled'], false );
-
 		parent::tearDown();
 	}
 
