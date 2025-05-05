@@ -226,17 +226,6 @@ class Widget_QR_Code extends Widget_Abstract {
 		 */
 		$options = apply_filters( 'tec_events_qr_widget_options', $options );
 
-		$series_options = [];
-
-		/**
-		 * Filters the series posts for the QR Code widget dropdown.
-		 *
-		 * @since TBD
-		 *
-		 * @param array $series_options The array of series posts.
-		 */
-		$series_options = apply_filters( 'tec_events_qr_widget_series_posts', $series_options );
-
 		$event_options = [];
 
 		$args = [
@@ -262,7 +251,7 @@ class Widget_QR_Code extends Widget_Abstract {
 			];
 		}
 
-		return [
+		$fields = [
 			'widget_title' => [
 				'id'    => 'widget_title',
 				'label' => _x( 'Title:', 'The label for the widget title setting.', 'the-events-calendar' ),
@@ -321,20 +310,10 @@ class Widget_QR_Code extends Widget_Abstract {
 					'ID' => 'redirection',
 					'is' => 'specific',
 				],
-			],
-			'series_id'    => [
-				'id'             => 'series_id',
-				'label'          => _x( 'Series ID:', 'The label for the series ID setting.', 'the-events-calendar' ),
-				'type'           => 'dropdown',
-				'parent_classes' => 'hidden',
-				'classes'        => 'tribe-dependent',
-				'options'        => $series_options,
-				'dependency'     => [
-					'ID' => 'redirection',
-					'is' => 'next',
-				],
-			],
+			]
 		];
+
+		return apply_filters( 'tec_events_qr_widget_fields', $fields );
 	}
 
 	/**
