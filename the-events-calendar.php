@@ -2,8 +2,8 @@
 /**
  * Plugin Name: The Events Calendar
  * Description: The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events. Beautiful. Solid. Awesome.
- * Version: 6.11.2.1
- * Requires at least: 6.5
+ * Version: 6.12.0
+ * Requires at least: 6.6
  * Requires PHP: 7.4
  * Author: The Events Calendar
  * Author URI: https://evnt.is/1x
@@ -33,6 +33,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 define( 'TRIBE_EVENTS_FILE', __FILE__ );
+
 
 // Load the required php min version functions.
 require_once dirname( TRIBE_EVENTS_FILE ) . '/src/functions/php-min-version.php';
