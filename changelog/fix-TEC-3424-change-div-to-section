@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Change wrapper div to a section tag to avoid multiple 'banner' landmarks. [TEC-3424]
