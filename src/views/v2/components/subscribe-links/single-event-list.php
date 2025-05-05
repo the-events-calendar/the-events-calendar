@@ -27,7 +27,7 @@ if ( empty( $items ) ) {
 					class="tribe-events-c-subscribe-dropdown__button-text"
 					aria-expanded="false"
 					aria-controls="tribe-events-subscribe-dropdown-content"
-					aria-label="<?php esc_attr__( 'View links to add events to your calendar', 'the-events-calendar' ); ?>"
+					aria-label="<?php echo esc_attr__( 'View links to add events to your calendar', 'the-events-calendar' ); ?>"
 				>
 					<?php echo esc_html__( 'Add to calendar', 'the-events-calendar' ); ?>
 				</button>
