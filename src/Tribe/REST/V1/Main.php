@@ -555,7 +555,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single organizer.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
@@ -615,7 +615,7 @@ class Tribe__Events__REST__V1__Main extends Tribe__REST__Main {
 	/**
 	 * Registers the endpoint that will handle requests for a single organizer slug.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 *
 	 * @param bool $register_routes Whether routes for the endpoint should be registered or not.
 	 *
