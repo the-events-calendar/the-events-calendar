@@ -1,13 +1,18 @@
 import React from 'react';
 import { Modal } from '@wordpress/components';
 import OrganizerUpsert from './OrganizerUpsert';
+import { OrganizerData } from '../../../types/OrganizerData';
 
 export default function OrganizerUpsertModal( props: {
+	isUpdate: boolean;
 	onCancel: () => void;
 	onClose: () => void;
-	onSave: () => void;
+	onSave: ( organizerData: OrganizerData ) => void;
+	values: OrganizerData;
 } ) {
-	const { onCancel, onClose, onSave } = props;
+	const { isUpdate, onCancel, onClose, onSave, values } = props;
+
+	console.log( 'isUpdate', isUpdate );
 
 	return (
 		<Modal
@@ -16,7 +21,12 @@ export default function OrganizerUpsertModal( props: {
 			onRequestClose={ onClose }
 			overlayClassName="classy-modal__overlay classy-modal__overlay--organizer"
 		>
-			<OrganizerUpsert onCancel={ onCancel } onSave={ onSave } />
+			<OrganizerUpsert
+				isUpdate={ isUpdate }
+				onCancel={ onCancel }
+				onSave={ onSave }
+				values={ values }
+			/>
 		</Modal>
 	);
 }

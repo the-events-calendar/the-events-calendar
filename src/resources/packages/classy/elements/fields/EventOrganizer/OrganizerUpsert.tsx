@@ -5,7 +5,8 @@ import {
 	Button,
 	__experimentalInputControl as InputControl,
 } from '@wordpress/components';
-import { useRef } from '@wordpress/element';
+import { useCallback, useRef, useState } from '@wordpress/element';
+import { OrganizerData } from '../../../types/OrganizerData';
 
 const defaultValues = {
 	name: '',
@@ -15,24 +16,52 @@ const defaultValues = {
 };
 
 export default function OrganizerUpsert( props: {
+	isUpdate: boolean;
 	onCancel: () => void;
-	onSave: () => void;
+	onSave: ( data: OrganizerData ) => void;
+	values: OrganizerData;
 } ) {
-	const { onCancel, onSave } = props;
+	const { isUpdate, onCancel, onSave, values } = props;
 
 	// States for name, phone, website and email.
-	const [ values, setValues ] = React.useState( defaultValues );
+	const [ currentValues, setValues ] = useState( {
+		...defaultValues,
+		...values,
+	} );
 
-	const component = (
+	// At a minimum an Organizers requires a name.
+	const [ confirmEnabled, setConfirmEnabled ] = useState(
+		currentValues.name !== ''
+	);
+
+	const invokeSaveWithData = useCallback( (): void => {
+		const data: OrganizerData = {
+			id: values.id,
+			name: currentValues.name,
+			phone: currentValues.phone,
+			website: currentValues.website,
+			email: currentValues.email,
+		};
+
+		onSave( data );
+	}, [ currentValues ] );
+
+	return (
 		<div className="classy-root">
 			<header className="classy-modal__header classy-modal__header--organizer">
 				<NewIcon />
 				<h4 className="classy-modal__header-title">
-					{ _x(
-						'New Organizer',
-						'Upsert modal header title',
-						'the-events-calendar'
-					) }
+					{ isUpdate
+						? _x(
+								'Update Organizer',
+								'Update organizer modal header title',
+								'the-events-calendar'
+						  )
+						: _x(
+								'New Organizer',
+								'Inserti orgnanizer modal header title',
+								'the-events-calendar'
+						  ) }
 				</h4>
 			</header>
 
@@ -46,10 +75,16 @@ export default function OrganizerUpsert( props: {
 						'Name input label',
 						'the-events-calendar'
 					) }
-					value={ values.name }
-					onChange={ ( value ) =>
-						setValues( { ...values, name: value || '' } )
-					}
+					value={ currentValues.name }
+					onChange={ ( value ) => {
+						const newValue = value || '';
+						setConfirmEnabled( newValue !== '' );
+
+						return setValues( {
+							...currentValues,
+							name: newValue,
+						} );
+					} }
 					required
 				/>
 
@@ -60,9 +95,9 @@ export default function OrganizerUpsert( props: {
 						'Phone input label',
 						'the-events-calendar'
 					) }
-					value={ values.phone }
+					value={ currentValues.phone }
 					onChange={ ( value ) =>
-						setValues( { ...values, phone: value || '' } )
+						setValues( { ...currentValues, phone: value || '' } )
 					}
 					type="tel"
 					placeholder=""
@@ -75,9 +110,9 @@ export default function OrganizerUpsert( props: {
 						'Website input label',
 						'the-events-calendar'
 					) }
-					value={ values.website }
+					value={ currentValues.website }
 					onChange={ ( value ) =>
-						setValues( { ...values, website: value || '' } )
+						setValues( { ...currentValues, website: value || '' } )
 					}
 					type="url"
 					placeholder=""
@@ -90,9 +125,9 @@ export default function OrganizerUpsert( props: {
 						'Email input label',
 						'the-events-calendar'
 					) }
-					value={ values.email }
+					value={ currentValues.email }
 					onChange={ ( value ) =>
-						setValues( { ...values, email: value || '' } )
+						setValues( { ...currentValues, email: value || '' } )
 					}
 					type="email"
 					placeholder=""
@@ -101,14 +136,29 @@ export default function OrganizerUpsert( props: {
 
 			<footer className="classy-modal__footer classy-modal__footer--organizer">
 				<div className="classy-modal__actions classy-modal__actions--organizer">
-					<Button className="classy-button" variant="primary">
-						{ _x(
-							'Create Organizer',
-							'Create organizer button label',
-							'the-events-calendar'
-						) }
+					<Button
+						aria-disabled={ ! confirmEnabled }
+						className="classy-button"
+						onClick={ invokeSaveWithData }
+						variant="primary"
+					>
+						{ values.id
+							? _x(
+									'Update Organizer',
+									'Update organizer button label',
+									'the-events-calendar'
+							  )
+							: _x(
+									'Create Organizer',
+									'Create organizer button label',
+									'the-events-calendar'
+							  ) }
 					</Button>
-					<Button className="classy-button" variant="link">
+					<Button
+						className="classy-button"
+						onClick={ onCancel }
+						variant="link"
+					>
 						{ _x(
 							'Cancel',
 							'Cancel button label',
@@ -119,6 +169,4 @@ export default function OrganizerUpsert( props: {
 			</footer>
 		</div>
 	);
-
-	return component;
 }
