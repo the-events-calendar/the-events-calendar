@@ -217,47 +217,27 @@ class Widget_QR_Code extends Widget_Abstract {
 			],
 		];
 
+		/**
+		 * Filters the redirection options for the QR Code widget.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $options The array of redirection options.
+		 */
+		$options = apply_filters( 'tec_events_qr_widget_options', $options );
+
 		$series_options = [];
+
+		/**
+		 * Filters the series posts for the QR Code widget dropdown.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $series_options The array of series posts.
+		 */
+		$series_options = apply_filters( 'tec_events_qr_widget_series_posts', $series_options );
+
 		$event_options  = [];
-
-		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			$options[] = [
-				'value' => 'next',
-				'text'  => _x( 'Redirect to the next event in a series', 'Next event in series redirection option', 'the-events-calendar' ),
-			];
-
-			/**
-			 * Filters the series post type.
-			 *
-			 * @since TBD
-			 *
-			 * @param string|null $series_post_type The series post type.
-			 */
-			$series_post_type = apply_filters( 'tec_series_post_type', null );
-
-			$args = [
-				'posts_per_page' => -1,
-				'post_type'      => $series_post_type,
-				'post_status'    => 'publish',
-				'orderby'        => 'ID',
-				'order'          => 'DESC',
-			];
-
-			$series_query = get_posts( $args );
-			if ( ! empty( $series_query ) ) {
-				foreach ( $series_query as $series ) {
-					$series_options[] = [
-						'value' => $series->ID,
-						'text'  => "{$series->ID} - {$series->post_title}",
-					];
-				}
-			} else {
-				$series_options[] = [
-					'value' => '',
-					'text'  => esc_html__( 'No Series have been created yet.', 'the-events-calendar' ),
-				];
-			}
-		}
 
 		$args = [
 			'posts_per_page' => -1,

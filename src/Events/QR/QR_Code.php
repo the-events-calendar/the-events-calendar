@@ -216,12 +216,19 @@ class QR_Code {
 			wp_die( esc_html__( 'No post found.', 'the-events-calendar' ) );
 		}
 
-		if ( has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			if ( ! tribe_is_event( $post ) && ! tribe_is_event_series( $post ) ) {
-				wp_die( esc_html__( 'Not an Event or Series.', 'the-events-calendar' ) );
-			}
-		} elseif ( ! tribe_is_event( $post ) ) {
-			wp_die( esc_html__( 'Not an Event.', 'the-events-calendar' ) );
+		$allowed_types = [ TEC::POSTTYPE ];
+
+		/**
+		 * Filters the post types that support QR codes.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $allowed_types Array of allowed post types.
+		 */
+		$allowed_types = apply_filters( 'tec_events_qr_code_post_types', $allowed_types );
+
+		if ( ! in_array( $post->post_type, $allowed_types ) ) {
+			wp_die( esc_html__( 'Not a supported post type.', 'the-events-calendar' ) );
 		}
 
 		if ( is_wp_error( $this->qr_code ) ) {
