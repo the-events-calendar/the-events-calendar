@@ -237,7 +237,7 @@ class Widget_QR_Code extends Widget_Abstract {
 		 */
 		$series_options = apply_filters( 'tec_events_qr_widget_series_posts', $series_options );
 
-		$event_options  = [];
+		$event_options = [];
 
 		$args = [
 			'posts_per_page' => -1,
