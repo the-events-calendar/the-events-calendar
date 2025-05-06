@@ -14,13 +14,18 @@
  * @version 5.3.0
  *
  */
+
+$events_label_plural = tribe_get_event_label_plural();
+
+// Translators: %s: Events label plural.
+$next_day_label = sprintf( __( 'Next day\'s %s', 'the-events-calendar' ), $events_label_plural );
+
 ?>
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<a
 		href="<?php echo esc_url( $next_url ); ?>"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="<?php esc_attr_e( 'Next day', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Next day', 'the-events-calendar' ); ?>"
+		aria-label="<?php echo esc_attr( $next_day_label ); ?>"
 		data-js="tribe-events-view-link"
 		rel="<?php echo esc_attr( $next_rel ); ?>"
 	>
