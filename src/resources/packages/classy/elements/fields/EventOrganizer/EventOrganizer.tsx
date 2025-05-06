@@ -217,7 +217,7 @@ export function EventOrganizer( props: { title: string } ) {
 		( id: number ): void => {
 			// Remove the organizer from the current organizer ids.
 			const organizerIds = currentOrganizerIds.filter(
-				( organizerId ) => organizerId !== id
+				( organizerId: number ) => organizerId !== id
 			);
 			setCurrentOrganizerIds( organizerIds );
 
@@ -241,7 +241,7 @@ export function EventOrganizer( props: { title: string } ) {
 		.map( ( id: number ) =>
 			fetched.current.find( ( organizer ) => organizer.id === id )
 		)
-		.filter( ( organizer ) => organizer !== undefined );
+		.filter( ( organizer: FetchedOrganizer ) => organizer !== undefined );
 
 	/**
 	 * Upserts an organizer by either updating an existing one or creating a new one based on the provided data.
@@ -253,7 +253,7 @@ export function EventOrganizer( props: { title: string } ) {
 	 * @return {Promise<void>} A promise that resolves when the REST API replies.
 	 */
 	const upsertOrganizer = useCallback( ( organizerData: OrganizerData ) => {
-		let fetchPromise;
+		let fetchPromise: Promise< FetchedOrganizer >;
 
 		if ( organizerData.id ) {
 			// Updating an existing organizer.

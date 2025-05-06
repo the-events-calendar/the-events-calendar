@@ -35,6 +35,10 @@ export default function OrganizerUpsert( props: {
 	);
 
 	const invokeSaveWithData = useCallback( (): void => {
+		if ( ! confirmEnabled ) {
+			return;
+		}
+
 		const data: OrganizerData = {
 			id: values.id,
 			name: currentValues.name,

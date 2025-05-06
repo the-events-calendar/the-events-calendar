@@ -1,7 +1,6 @@
+import React, { ReactNode, Component } from 'react';
 import { compose } from '@wordpress/compose';
 import { withRegistryProvider } from '../../store';
-import { Component } from '@wordpress/element';
-import { ReactNode } from 'react';
 import { WPDataRegistry } from '@wordpress/data/build-types/registry';
 
 class Provider extends Component< {
@@ -58,4 +57,4 @@ class Provider extends Component< {
 	}
 }
 
-export default compose( [ withRegistryProvider ] )( Provider );
+export default compose( withRegistryProvider )( Provider );
