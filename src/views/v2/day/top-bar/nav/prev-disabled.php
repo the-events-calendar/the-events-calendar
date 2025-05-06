@@ -21,7 +21,7 @@ $previous_day_label = sprintf( __( 'Previous day\'s %s', 'the-events-calendar' )
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<button
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="<?php echo esc_attr( $previous_day_label ) ?>"
+		aria-label="<?php echo esc_attr( $previous_day_label ); ?>"
 		disabled
 	>
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>

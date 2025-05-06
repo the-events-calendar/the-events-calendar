@@ -25,7 +25,7 @@ $previous_day_label = sprintf( __( 'Previous day\'s %s', 'the-events-calendar' )
 	<a
 		href="<?php echo esc_url( $prev_url ); ?>"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="<?php echo esc_attr( $previous_day_label ) ?>"
+		aria-label="<?php echo esc_attr( $previous_day_label ); ?>"
 		data-js="tribe-events-view-link"
 		rel="<?php echo esc_attr( $prev_rel ); ?>"
 	>
