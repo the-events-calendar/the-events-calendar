@@ -183,10 +183,13 @@ class Redirections extends Controller {
 		switch ( $data['qr_type'] ) {
 			case 'current':
 				$target = $this->get_current_event_url();
+				break;
 			case 'upcoming':
 				$target = $this->get_upcoming_event_url();
+				break;
 			case 'specific':
 				$target = $this->get_specific_event_url( $data['post_id'] );
+				break;
 			default:
 				$target = $this->get_fallback_url();
 		}
@@ -200,7 +203,7 @@ class Redirections extends Controller {
 		 * @param int    $post_id The post ID of the event/series.
 		 * @param self   $context The Redirections instance.
 		 */
-		$target = apply_filters( 'tec_events_qr_redirection_url', $target, $data['post_id'], $this );
+		$target = apply_filters( 'tec_events_qr_redirection_url', $target, $data, $this );
 
 		wp_redirect( esc_url( $target ) );
 		tribe_exit();
