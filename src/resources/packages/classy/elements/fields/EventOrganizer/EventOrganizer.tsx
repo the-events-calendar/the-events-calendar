@@ -162,7 +162,7 @@ export function EventOrganizer( props: { title: string } ) {
 				// Update the number of pages to fetch if the total is more than the number of fetched options.
 				if (
 					safeResults.total >
-					options.length + safeResults.organizers.length
+					fetched.current.length + safeResults.organizers.length
 				) {
 					setPageToFetch( pageToFetch + 1 );
 				}
@@ -181,7 +181,10 @@ export function EventOrganizer( props: { title: string } ) {
 				);
 			} )
 			.catch( ( e ) => {
-				console.error( 'Organizer fetch request failed: ' + e.message );
+				console.error(
+					`Organizer fetch request failed for page ${ pageToFetch }: ` +
+						e.message
+				);
 			} );
 	}, [ pageToFetch ] );
 

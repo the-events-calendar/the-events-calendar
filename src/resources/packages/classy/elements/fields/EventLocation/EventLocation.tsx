@@ -125,7 +125,7 @@ export function EventLocation( props: { title: string } ) {
 				// Update the number of pages to fetch if the total is more than the number of fetched options.
 				if (
 					safeResults.total >
-					options.length + safeResults.venues.length
+					fetched.current.length + safeResults.venues.length
 				) {
 					setPageToFetch( pageToFetch + 1 );
 				}
