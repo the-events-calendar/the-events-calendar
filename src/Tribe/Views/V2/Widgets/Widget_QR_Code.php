@@ -128,7 +128,7 @@ class Widget_QR_Code extends Widget_Abstract {
 		parent::setup_default_arguments();
 
 		// Setup default title.
-		$this->default_arguments['widget_title'] = _x( 'QR Code', 'The default title of the QR Code Widget.', 'the-events-calendar' );
+		$this->default_arguments['widget_title'] = _x( 'Events QR Code', 'The default title of the QR Code Widget.', 'the-events-calendar' );
 
 		return $this->default_arguments;
 	}
