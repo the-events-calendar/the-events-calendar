@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Improved day and month view calendar navigation accessibility with more descriptive labels and removed redundant ARIA attributes
