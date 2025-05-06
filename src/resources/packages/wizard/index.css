@@ -685,9 +685,14 @@
 }
 
 @media (min-width: 500px) {
-
 	.tec-events-onboarding__tab-footer {
 		margin-top: var(--tec-spacer-11);
+	}
+}
+
+@media(max-height: 900px) {
+	.tec-events-onboarding__tab-footer {
+		margin-top: 0;
 	}
 }
 
