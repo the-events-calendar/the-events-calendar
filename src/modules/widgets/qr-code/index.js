@@ -17,7 +17,7 @@ const { InnerBlocks } = wp.blockEditor;
  */
 export default {
 	id: 'qr-code',
-	title: __( 'QR Code', 'the-events-calendar' ),
+	title: __( 'Events QR Code', 'the-events-calendar' ),
 	description: __( 'Display a QR code for an event.', 'the-events-calendar' ),
 	icon: <QrCodeIcon />,
 	category: 'tribe-events',
