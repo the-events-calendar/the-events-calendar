@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Added a helper function to ensure that AM and PM are capitalized. [TEC-5024]

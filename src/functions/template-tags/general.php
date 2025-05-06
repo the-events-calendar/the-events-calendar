@@ -1202,7 +1202,24 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
 }
 
 /**
- * Return the details of the start/end date/time.
+ * Capitalizes meridiem strings (am/pm) in time strings.
+ *
+ * Takes a formatted time string and ensures that any meridiem indicators
+ * (am/pm or a.m./p.m.) are capitalized to AM/PM or A.M./P.M. respectively.
+ * This maintains consistency in time display across the plugin.
+ *
+ * @since TBD
+ *
+ * @param string $formatted_time The time string potentially containing am/pm indicators.
+ *
+ * @return string The time string with capitalized AM/PM if present.
+ */
+function tec_events_capitalize_meridiem( $formatted_time ) {
+	return str_replace( [ 'am', 'pm', 'a.m.', 'p.m.' ], [ 'AM', 'PM', 'A.M.', 'P.M.' ], $formatted_time );
+}
+
+/**
+ * Returns the details of the start/end date/time.
  *
  * The highest level means of customizing this function's output is simply to adjust the date format settings under
  * Events > Settings > Display, and WordPress time formats (via the General Settings admin screen).
@@ -1221,15 +1238,18 @@ function tribe_event_featured_image( $post_id = null, $size = 'full', $link = tr
  * The resulting string can also be caught and manipulated, or completely overridden, using the
  * 'tribe_events_event_schedule_details' filter, should none of the above settings be sufficient.
  *
- * @todo     [BTRIA-644]: Use tribe_get_datetime_format() and related functions if possible.
+ * @todo [BTRIA-644]: Use tribe_get_datetime_format() and related functions if possible.
+ * 
+ * @since TBD Shows AM/PM time indicators in uppercase format for improved readability.
  *
  * @param int|null $event  The event post ID, or `null` to use the global event.
  * @param string   $before A string to prepend before the schedule details.
  * @param string   $after  A string to append after the schedule details.
  * @param bool     $html   Whether to use HTML elements in the output string or not; defaults to `true`.
  *
- * @return string The human-readable event schedule details formatted according to the current settings.
  * @category Events
+ * 
+ * @return string The human-readable event schedule details formatted according to the current settings.
  */
 function tribe_events_event_schedule_details( $event = null, $before = '', $after = '', $html = true ) {
 	static $cache_var_name = __FUNCTION__;
@@ -1326,21 +1346,21 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
 
 				$inner .= $end_date;
 			} else {
-				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
+				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tec_events_capitalize_meridiem( tribe_get_start_date( $event, false, $time_format ) ) : '' );
 				$inner .= ( $html ? '</span>' : '' ) . $time_range_separator;
 				$inner .= $html ? '<span class="tribe-event-date-end">' : '';
-				$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tribe_get_end_date( $event, false, $time_format ) : '' );
+				$inner .= tribe_get_end_date( $event, false, $format2ndday ) . ( $time ? $datetime_separator . tec_events_capitalize_meridiem( tribe_get_end_date( $event, false, $time_format ) ) : '' );
 			}
 		} elseif ( tribe_event_is_all_day( $event ) ) { // all day event
 			$inner .= tribe_get_start_date( $event, true, $format );
 		} else { // single day event
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) { // Same start/end time
-				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
+				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tec_events_capitalize_meridiem( tribe_get_start_date( $event, false, $time_format ) ) : '' );
 			} else { // defined start/end time
-				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tribe_get_start_date( $event, false, $time_format ) : '' );
+				$inner .= tribe_get_start_date( $event, false, $format ) . ( $time ? $datetime_separator . tec_events_capitalize_meridiem( tribe_get_start_date( $event, false, $time_format ) ) : '' );
 				$inner .= ( $html ? '</span>' : '' ) . ( $show_end_time ? $time_range_separator : '' );
 				$inner .= $html ? '<span class="tribe-event-time">' : '';
-				$inner .= ( $show_end_time ? tribe_get_end_date( $event, false, $time_format ) : '' );
+				$inner .= ( $show_end_time ? tec_events_capitalize_meridiem( tribe_get_end_date( $event, false, $time_format ) ) : '' );
 			}
 		}
 
@@ -1378,6 +1398,8 @@ function tribe_events_event_schedule_details( $event = null, $before = '', $afte
  * Return the short details of the start/end date/time.
  *
  * @see tribe_events_event_schedule_details() for the format of the schedule details.
+ *
+ * @since TBD Shows AM/PM time indicators in uppercase format for improved readability.
  *
  * @param int|null $event  The event post ID, or `null` to use the global event.
  * @param string   $before A string to prepend before the schedule details.
@@ -1420,16 +1442,16 @@ function tribe_events_event_short_schedule_details( $event = null, $before = '',
 
 			if ( tribe_get_start_date( $event, false, 'g:i A' ) === tribe_get_end_date( $event, false, 'g:i A' ) ) {
 				// Same start/end time.
-				$inner .= tribe_get_start_date( $event, false, $time_format );
+				$inner .= tec_events_capitalize_meridiem( tribe_get_start_date( $event, false, $time_format ) );
 			} else {
 				// Different start/end time.
 				$time_range_separator = tec_events_get_time_range_separator();
 
-				$inner .= tribe_get_start_date( $event, false, $time_format );
+				$inner .= tec_events_capitalize_meridiem( tribe_get_start_date( $event, false, $time_format ) );
 				$inner .= $html ? '</span>' : '';
 				$inner .= $time_range_separator;
 				$inner .= $html ? '<span class="tribe-event-time">' : '';
-				$inner .= tribe_get_end_date( $event, false, $time_format );
+				$inner .= tec_events_capitalize_meridiem( tribe_get_end_date( $event, false, $time_format ) );
 			}
 
 			$inner .= $html ? '</span>' : '';
