@@ -4,8 +4,7 @@
 	<a
 		href="http://test.tri.be"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-left tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--prev"
-		aria-label="Previous day"
-		title="Previous day"
+		aria-label="Previous day&#039;s Events"
 		data-js="tribe-events-view-link"
 		rel="noindex"
 	>
@@ -17,8 +16,7 @@
 	<a
 		href="http://test.tri.be"
 		class="tribe-common-c-btn-icon tribe-common-c-btn-icon--caret-right tribe-events-c-top-bar__nav-link tribe-events-c-top-bar__nav-link--next"
-		aria-label="Next day"
-		title="Next day"
+		aria-label="Next day&#039;s Events"
 		data-js="tribe-events-view-link"
 		rel="noindex"
 	>
