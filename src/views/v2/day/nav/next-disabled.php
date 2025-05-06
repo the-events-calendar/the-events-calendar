@@ -10,14 +10,18 @@
  * @link http://evnt.is/1aiy
  *
  * @version 5.3.0
- *
  */
+
+$events_label_plural = tribe_get_event_label_plural();
+
+// Translators: %s: Events label plural.
+$next_day_text = sprintf( __( 'Next day\'s %s', 'the-events-calendar' ), $events_label_plural );
 ?>
+
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--next">
 	<button
 		class="tribe-events-c-nav__next tribe-common-b2 tribe-common-b1--min-medium"
-		aria-label="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Next Day', 'the-events-calendar' ); ?>"
+		aria-label="<?php echo esc_attr( $next_day_text ); ?>"
 		disabled
 	>
 		<?php esc_html_e( 'Next Day', 'the-events-calendar' ); ?>
