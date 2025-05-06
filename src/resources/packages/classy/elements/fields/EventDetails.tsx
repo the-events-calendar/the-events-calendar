@@ -9,7 +9,7 @@ import { TinyMceEditor } from '../components/TinyMceEditor';
 import { useDispatch, useSelect } from '@wordpress/data';
 
 export function EventDetails( props: EventDetailsProps ) {
-	const {postContent, meta} = useSelect( ( select ) => {
+	const { postContent, meta } = useSelect( ( select ) => {
 		const selector = select( 'core/editor' );
 		return {
 			// @ts-ignore
@@ -18,7 +18,7 @@ export function EventDetails( props: EventDetailsProps ) {
 			meta: selector.getEditedPostAttribute( 'meta' ) || {},
 		};
 	}, [] );
-	const {editPost} = useDispatch( 'core/editor' );
+	const { editPost } = useDispatch( 'core/editor' );
 	const eventUrlMeta: string = meta[ METADATA_EVENT_URL ] || '';
 
 	const [ description, setDescription ] = useState< string >(

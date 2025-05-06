@@ -63,7 +63,7 @@ function getNewStartEndDates(
 	startDate: Date,
 	updated: 'start' | 'end',
 	newDate: string
-):NewDatesReturn {
+): NewDatesReturn {
 	let newStartDate: Date;
 	let newEndDate: Date;
 	let notify = { start: false, end: false };
@@ -214,7 +214,7 @@ export default function EventDateTime( props: DateTimeProps ) {
 			select( 'tec/classy' );
 		return getEventDateTimeDetails();
 	}, [] );
-	const {editPost} = useDispatch( 'core/editor' );
+	const { editPost } = useDispatch( 'core/editor' );
 
 	const [ isSelectingDate, setIsSelectingDate ] = useState<
 		'start' | 'end' | false
