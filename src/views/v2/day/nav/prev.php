@@ -12,17 +12,21 @@
  * @var string $link The URL to the previous page.
  *
  * @version 5.3.0
- *
  */
+
+$events_label_plural = tribe_get_event_label_plural();
+
+// Translators: %s: Events label plural.
+$previous_day_text = sprintf( __( 'Previous day\'s %s', 'the-events-calendar' ), $events_label_plural );
 ?>
+
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
 	<a
 		href="<?php echo esc_url( $link ); ?>"
 		rel="prev"
 		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
 		data-js="tribe-events-view-link"
-		aria-label="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
+		aria-label="<?php echo esc_attr( $previous_day_text ); ?>"
 		rel="<?php echo esc_attr( $prev_rel ); ?>"
 	>
 		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
