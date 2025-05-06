@@ -14,11 +14,13 @@
  * @version 5.3.0
  *
  */
-$events_label_plural   = tribe_get_event_label_plural();
+
+$events_label_plural = tribe_get_event_label_plural();
 
 // Translators: %s: Events label plural.
 $previous_day_label = sprintf( __( 'Previous day\'s %s', 'the-events-calendar' ), $events_label_plural );
 ?>
+
 <li class="tribe-events-c-top-bar__nav-list-item">
 	<a
 		href="<?php echo esc_url( $prev_url ); ?>"

@@ -14,7 +14,8 @@
  * @version 5.3.0
  *
  */
-$events_label_plural   = tribe_get_event_label_plural();
+
+$events_label_plural = tribe_get_event_label_plural();
 
 // Translators: %s: Events label plural.
 $next_day_label = sprintf( __( 'Next day\'s %s', 'the-events-calendar' ), $events_label_plural );
