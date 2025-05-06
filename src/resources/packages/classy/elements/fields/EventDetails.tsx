@@ -2,17 +2,23 @@ import React from 'react';
 import { _x } from '@wordpress/i18n';
 import { EventDetailsProps } from '../../types/FieldProps';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
-import { usePostEdits } from '../../hooks';
-import { UsePostEditsReturn } from '../../types/UsePostEditsReturn';
 import { useEffect, useState } from 'react';
 import { METADATA_EVENT_URL } from '../../constants';
 import { PostFeaturedImage } from '@wordpress/editor';
 import { TinyMceEditor } from '../components/TinyMceEditor';
+import { useDispatch, useSelect } from '@wordpress/data';
 
 export function EventDetails( props: EventDetailsProps ) {
-	// @todo convert this to use non-wrapped selectors on the core stores. Let the Classy registry handle the redirection.
-	const { postContent, meta, editPost } =
-		usePostEdits() as UsePostEditsReturn;
+	const {postContent, meta} = useSelect( ( select ) => {
+		const selector = select( 'core/editor' );
+		return {
+			// @ts-ignore
+			postContent: selector.getEditedPostContent() || '',
+			// @ts-ignore
+			meta: selector.getEditedPostAttribute( 'meta' ) || {},
+		};
+	}, [] );
+	const {editPost} = useDispatch( 'core/editor' );
 	const eventUrlMeta: string = meta[ METADATA_EVENT_URL ] || '';
 
 	const [ description, setDescription ] = useState< string >(

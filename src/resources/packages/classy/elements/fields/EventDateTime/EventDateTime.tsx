@@ -6,7 +6,7 @@ import {
 	useRef,
 	useState,
 } from '@wordpress/element';
-import { useSelect } from '@wordpress/data';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { EventDateTimeDetails } from '../../../types/EventDateTimeDetails';
 import { ToggleControl } from '@wordpress/components';
 import { _x } from '@wordpress/i18n';
@@ -17,8 +17,6 @@ import {
 	METADATA_EVENT_TIMEZONE,
 } from '../../../constants';
 import { format, getDate } from '@wordpress/date';
-import { usePostEdits } from '../../../hooks';
-import { UsePostEditsReturn } from '../../../types/UsePostEditsReturn';
 import { Hours } from '../../../types/Hours';
 import { Minutes } from '../../../types/Minutes';
 import StartSelector from './StartSelector';
@@ -65,7 +63,7 @@ function getNewStartEndDates(
 	startDate: Date,
 	updated: 'start' | 'end',
 	newDate: string
-) {
+):NewDatesReturn {
 	let newStartDate: Date;
 	let newEndDate: Date;
 	let notify = { start: false, end: false };
@@ -110,7 +108,6 @@ function getMultiDayEndDate(
 	newValue: boolean,
 	startDate: Date
 ) {
-	let newEndDate: Date;
 	const { singleDayDuration, multiDayDuration } =
 		refs.current as DateTimeRefs;
 	let duration;
@@ -217,7 +214,7 @@ export default function EventDateTime( props: DateTimeProps ) {
 			select( 'tec/classy' );
 		return getEventDateTimeDetails();
 	}, [] );
-	const { editPost } = usePostEdits() as UsePostEditsReturn;
+	const {editPost} = useDispatch( 'core/editor' );
 
 	const [ isSelectingDate, setIsSelectingDate ] = useState<
 		'start' | 'end' | false
