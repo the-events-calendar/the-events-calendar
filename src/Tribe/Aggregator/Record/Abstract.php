@@ -1533,9 +1533,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 		 */
 		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
 
-		// sets the default user ID to that of the first user that can edit events.
-		$default_user_id = $this->get_default_user_id();
-
 		// Creates an Activity to log what Happened.
 		$activity                = new Tribe__Events__Aggregator__Record__Activity();
 		$initial_created_events  = $activity->count( Tribe__Events__Main::POSTTYPE );
@@ -2123,7 +2120,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 
 				// during cron runs the user will be set to 0; we assign the event to the first user that can edit events.
 				if ( ! isset( $event['post_author'] ) ) {
-					$event['post_author'] = $default_user_id;
+					$event['post_author'] = $this->get_default_user_id();
 				}
 
 				/**
