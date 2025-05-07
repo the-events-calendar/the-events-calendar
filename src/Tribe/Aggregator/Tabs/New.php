@@ -84,14 +84,17 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function handle_submit() {
+		// Set up the basic error object.
+		$base_error = new WP_Error( 'error:create-import-failed' );
+
 		if ( empty( $_POST['aggregator']['action'] ) || 'new' !== $_POST['aggregator']['action'] ) {
-			return;
+			return $base_error;
 		}
 
 		$submission = parent::handle_submit();
 
 		if ( empty( $submission['record'] ) || empty( $submission['post_data'] ) || empty( $submission['meta'] ) ) {
-			return;
+			return $base_error;
 		}
 
 		/** @var Tribe__Events__Aggregator__Record__Abstract $record */
@@ -104,7 +107,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 		if ( ! empty( $post_data['import_id'] ) ) {
 			$this->handle_import_finalize( $post_data );
-			return;
+			return true;
 		}
 
 		// Prevents Accidents
