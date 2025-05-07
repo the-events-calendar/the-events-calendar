@@ -9,7 +9,6 @@ namespace TEC\Events\QR;
 
 use TEC\Common\Contracts\Provider\Controller;
 use TEC\Events\QR\Routes;
-use TEC\Events\QR\Settings;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -47,7 +46,7 @@ class Redirections extends Controller {
 	 * @return string The fallback URL.
 	 */
 	public function get_fallback_url(): string {
-		return (string) ( tribe_get_option( Settings::get_option_slugs()['fallback'] ) ?: home_url() );
+		return (string) tribe_events_get_url();
 	}
 
 	/**
@@ -158,37 +157,6 @@ class Redirections extends Controller {
 	}
 
 	/**
-	 * Get the URL for the next event in a series.
-	 *
-	 * @since 6.12.0
-	 * @param int $post_id The post ID of the series.
-	 * @return string The URL to redirect to, either an event permalink or fallback URL.
-	 */
-	public function get_next_series_event_url( int $post_id ): string {
-		// If we don't have the Pro version, return the fallback URL.
-		if ( ! has_action( 'tribe_common_loaded', 'tribe_register_pro' ) ) {
-			return $this->get_fallback_url();
-		}
-
-		// Get the next event in the series using the Series_Relationship class.
-		$next_event = \TEC\Events_Pro\Custom_Tables\V1\Models\Series_Relationship::next( $post_id );
-
-		$url = $next_event ? get_permalink( $next_event->post_id ) : $this->get_fallback_url();
-
-		/**
-		 * Filters the URL for the next event in a series redirection.
-		 *
-		 * @since 6.12.0
-		 *
-		 * @param string $url     The URL to redirect to.
-		 * @param array  $events  The events found by the query.
-		 * @param int    $post_id The post ID of the series.
-		 * @param self   $context The Redirections instance.
-		 */
-		return apply_filters( 'tec_events_qr_next_series_event_url', $url, [ $next_event ], $post_id, $this );
-	}
-
-	/**
 	 * Handle QR code redirections.
 	 *
 	 * @since 6.12.0
@@ -214,21 +182,31 @@ class Redirections extends Controller {
 
 		switch ( $data['qr_type'] ) {
 			case 'current':
-				wp_redirect( esc_url( $this->get_current_event_url() ) );
-				tribe_exit();
+				$target = $this->get_current_event_url();
+				break;
 			case 'upcoming':
-				wp_redirect( esc_url( $this->get_upcoming_event_url() ) );
-				tribe_exit();
+				$target = $this->get_upcoming_event_url();
+				break;
 			case 'specific':
-				wp_redirect( esc_url( $this->get_specific_event_url( $data['post_id'] ) ) );
-				tribe_exit();
-			case 'next':
-				wp_redirect( esc_url( $this->get_next_series_event_url( $data['post_id'] ) ) );
-				tribe_exit();
+				$target = $this->get_specific_event_url( $data['post_id'] );
+				break;
 			default:
-				wp_redirect( esc_url( $this->get_fallback_url() ) );
-				tribe_exit();
+				$target = $this->get_fallback_url();
 		}
+
+		/**
+		 * Filters the target URL for the QR code redirection.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $target The target URL.
+		 * @param int    $post_id The post ID of the event/series.
+		 * @param self   $context The Redirections instance.
+		 */
+		$target = apply_filters( 'tec_events_qr_redirection_url', $target, $data, $this );
+
+		wp_redirect( esc_url( $target ) );
+		tribe_exit();
 
 		// phpcs:enable PSR2.ControlStructures.SwitchDeclaration.TerminatingComment, WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit, WordPress.Security.SafeRedirect.wp_redirect_wp_redirect
 	}

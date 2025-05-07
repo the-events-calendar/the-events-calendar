@@ -3,8 +3,9 @@
 namespace Tribe\Events\Integrations\QR;
 
 use TEC\Common\Tests\Provider\Controller_Test_Case;
-use TEC\Events\QR\Settings;
 use TEC\Events\QR\Controller;
+use TEC\Events\QR\Routes;
+use TEC\Events\QR\Redirections;
 use TEC\Events\QR\Shortcode;
 
 /**
@@ -30,14 +31,6 @@ class ControllerTest extends Controller_Test_Case {
 	 * @var \TEC\Events\QR\Controller
 	 */
 	protected $controller;
-
-	/**
-	 * The option slugs.
-	 *
-	 * @var array
-	 */
-	protected $slugs;
-
 	/**
 	 * Set up the test.
 	 *
@@ -46,12 +39,6 @@ class ControllerTest extends Controller_Test_Case {
 	function setUp() {
 		parent::setUp();
 		$this->controller = tribe( Controller::class );
-
-		// Get option slugs once
-		$this->slugs = Settings::get_option_slugs();
-
-		// Enable QR by default
-		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the controller by default
 		$this->controller->register();
@@ -63,7 +50,7 @@ class ControllerTest extends Controller_Test_Case {
 	 * @test
 	 */
 	public function test_controller_slug() {
-		$this->assertEquals( 'tec_event_qr', $this->controller->get_slug() );
+		$this->assertEquals( 'tec_event_qr', $this->controller::QR_SLUG );
 	}
 
 	/**
@@ -92,14 +79,16 @@ class ControllerTest extends Controller_Test_Case {
 	}
 
 	/**
-	 * Test that the controller registers settings
+	 * Test that the controller registers the needed classes
 	 *
 	 * @test
 	 */
-	public function test_controller_registers_settings() {
-		// Check that the settings are registered
-		$settings = tribe( Settings::class );
-		$this->assertInstanceOf( Settings::class, $settings );
+	public function test_controller_registers_classes() {
+		$routes = tribe( Routes::class );
+		$this->assertInstanceOf( Routes::class, $routes );
+
+		$redirections = tribe( Redirections::class );
+		$this->assertInstanceOf( Redirections::class, $redirections );
 	}
 
 	/**
@@ -120,32 +109,5 @@ class ControllerTest extends Controller_Test_Case {
 		$this->assertNotContains( 'tec-events-settings', $valid_pages );
 		$this->assertNotContains( 'tec-events-help-hub', $valid_pages );
 		$this->assertNotContains( 'tec-troubleshooting', $valid_pages );
-	}
-
-	/**
-	 * Test that the controller can be used when QR is enabled
-	 *
-	 * @test
-	 */
-	public function test_controller_can_use_when_qr_enabled() {
-		// Check that the shortcode is registered
-		$shortcodes = apply_filters( 'tribe_shortcodes', [] );
-		$this->assertArrayHasKey( 'tec_event_qr', $shortcodes );
-	}
-
-	/**
-	 * Test that the controller cannot be used when QR is disabled
-	 *
-	 * @test
-	 */
-	public function test_controller_cannot_use_when_qr_disabled() {
-		tribe_update_option( $this->slugs['enabled'], false );
-
-		// Re-register the controller to test disabled state
-		$this->controller->register();
-
-		// Check that the shortcode is not registered
-		$shortcodes = apply_filters( 'tribe_shortcodes', [] );
-		$this->assertArrayNotHasKey( 'tec_event_qr', $shortcodes );
 	}
 }

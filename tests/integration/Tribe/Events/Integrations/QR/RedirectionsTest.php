@@ -4,7 +4,6 @@ namespace Tribe\Events\Integrations\QR;
 
 use TEC\Common\Tests\Provider\Controller_Test_Case;
 use TEC\Events\QR\Redirections;
-use TEC\Events\QR\Settings;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -39,25 +38,12 @@ class RedirectionsTest extends Controller_Test_Case {
 	protected $test_event_id;
 
 	/**
-	 * The option slugs.
-	 *
-	 * @var array
-	 */
-	protected $slugs;
-
-	/**
 	 * Set up the test.
 	 *
 	 * @return void
 	 */
 	function setUp() {
 		parent::setUp();
-
-		// Get option slugs once
-		$this->slugs = Settings::get_option_slugs();
-
-		// Enable QR
-		tribe_update_option( $this->slugs['enabled'], true );
 
 		// Register the redirections
 		$this->redirections = tribe( Redirections::class );
@@ -120,64 +106,6 @@ class RedirectionsTest extends Controller_Test_Case {
 	}
 
 	/**
-	 * Test next series event URL generation
-	 *
-	 * @test
-	 */
-	public function test_next_series_event_url_generation() {
-		$url = $this->redirections->get_next_series_event_url( $this->test_event_id );
-
-		// Since this is not a series event, it should return the fallback URL
-		$this->assertEquals( home_url(), $url );
-
-		// Make the Event part of a series by adding a parent event
-		$parent_event_id = $this->factory->post->create(
-			[
-				'post_type'   => TEC::POSTTYPE,
-				'post_status' => 'publish',
-			]
-		);
-
-		// Set parent event dates
-		$now      = current_time( 'mysql' );
-		$tomorrow = date( 'Y-m-d H:i:s', strtotime( '+1 day' ) );
-		update_post_meta( $parent_event_id, '_EventStartDate', $now );
-		update_post_meta( $parent_event_id, '_EventEndDate', $tomorrow );
-
-		// Set the parent event
-		wp_update_post(
-			[
-				'ID'          => $this->test_event_id,
-				'post_parent' => $parent_event_id,
-			]
-		);
-
-		$url = $this->redirections->get_next_series_event_url( $parent_event_id );
-
-		// Since ECP is not active, it should return the fallback URL
-		$this->assertEquals( home_url(), $url );
-	}
-
-	/**
-	 * Test fallback URL generation
-	 *
-	 * @test
-	 */
-	public function test_fallback_url_generation() {
-		// Set a custom fallback URL
-		$fallback_url = 'https://example.com/fallback';
-		tribe_update_option( $this->slugs['fallback'], $fallback_url );
-
-		$url = $this->redirections->get_fallback_url();
-
-		// Should return the custom fallback URL
-		$this->assertEquals( $fallback_url, $url );
-
-		// Reset the fallback option
-		tribe_update_option( $this->slugs['fallback'], '' );
-	}
-
-	/**
 	 * Test non-event post type URL generation
 	 *
 	 * @test
@@ -194,6 +122,6 @@ class RedirectionsTest extends Controller_Test_Case {
 		$url = $this->redirections->get_specific_event_url( $post_id );
 
 		// Should return the fallback URL for non-event post types
-		$this->assertEquals( home_url(), $url );
+		$this->assertEquals( tribe_events_get_url(), $url );
 	}
 }
