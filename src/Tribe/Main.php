@@ -39,7 +39,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		const POSTTYPE            = 'tribe_events';
 		const VENUE_POST_TYPE     = 'tribe_venue';
 		const ORGANIZER_POST_TYPE = 'tribe_organizer';
-		const VERSION             = '6.11.2';
+		const VERSION             = '6.12.0';
 
 		/**
 		 * Min Pro Addon.
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.20.0-dev';
+		protected $min_et_version = '5.21.1.1-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -530,6 +530,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
+
+			/**
+			 * Fires when The Events Calendar is fully loaded.
+			 *
+			 * @since TBD
+			 */
+			do_action( 'tec_events_fully_loaded' );
 		}
 
 		/**
@@ -697,6 +704,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up IAN Client - In-App Notifications.
 			tribe_register_provider( TEC\Events\Notifications\Provider::class );
+
+			// Set up the QR Code system.
+			tribe()->register_on_action( 'tec_qr_code_loaded', TEC\Events\QR\Controller::class );
 
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );

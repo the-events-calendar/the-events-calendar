@@ -3,9 +3,9 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.11.2
+Stable tag: 6.12.0
 Requires at least: 6.5
-Tested up to: 6.7.2
+Tested up to: 6.8.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,26 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.12.0] 2025-04-15 =
+
+* Feature - Add an editor block to display an event QR code [TEC-5404]
+* Feature - Add a widget to display a QR code for an event [TEC-5405]
+* Feature - Add the [tec_event_qr] shortcode [TEC-5406]
+* Feature - Generate QR Code link in the Events Admin Table [TEC-5428]
+* Feature - QR Code metabox in Events Edit screen [TEC-5429]
+* Feature - Support QR Codes in TEC [TEC-5396]
+* Tweak - Added actions: `tec_events_settings_tab_display_qr_codes`
+* Tweak - Added filters: `tec_events_qr_enabled`, `tec_events_qr_valid_screens`, `tec_events_qr_code_modal_vars`, `tec_events_qr_code_regenerate`, `tec_events_qr_current_event_url`, `tec_events_qr_upcoming_event_url`, `tec_events_qr_specific_event_url`, `tec_events_qr_next_series_event_url`, `tec_events_settings_display_qr_codes_section`
+* Tweak - Changed views: `v2/widgets/widget-events-qr-code`
+* Language - 61 new strings added, 145 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.11.2.1] 2025-04-28 =
+
+* Version - The Events Calendar 6.11.2.1 is only compatible with Event Tickets 5.21.1.1 or higher.
+* Fix - Amend various callbacks of the External Calendar Embeds feature to not be so strict on the expected arguments, as a result fixing fatal errors when the arguments are not of the expected type. [TEC-5484]
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TCMN-186]
+* Language - 0 new strings added, 186 updated, 0 fuzzied, and 61 obsoleted.
 
 = [6.11.2] 2025-04-09 =
 
