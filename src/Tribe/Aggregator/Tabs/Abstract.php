@@ -68,7 +68,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		}
 
 		// validate nonce
-		$this->validate_nonce();
+		$this->validate_nonce( 'tribe-aggregator-save-import' );
 
 		$post_data = $_POST['aggregator'];
 
@@ -176,10 +176,13 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	 *
 	 * @since TBD
 	 *
+	 * @param string $action    The action name to verify the nonce against.
+	 * @param string $nonce_var The name of the nonce variable in the request.
+	 *
 	 * @return void
 	 */
-	protected function validate_nonce() {
-		if ( ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'] ?? '', 'tribe-aggregator-save-import' ) ) {
+	protected function validate_nonce( string $action, string $nonce_var = 'tribe_aggregator_nonce' ) {
+		if ( ! wp_verify_nonce( tec_get_request_var( $nonce_var, '' ), $action ) ) {
 			wp_send_json_error( $this->get_failure_data() );
 		}
 	}

@@ -452,7 +452,7 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function ajax_create_import() {
-		$this->validate_nonce();
+		$this->validate_nonce( 'tribe-aggregator-save-import' );
 
 		if ( ! $this->current_user_can_edit_events() ) {
 			wp_send_json_error(
