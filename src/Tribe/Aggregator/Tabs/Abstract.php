@@ -73,7 +73,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		$post_data = $_POST['aggregator'];
 
 		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
-			wp_send_json_error( $this->get_default_data() );
+			wp_send_json_error( $this->get_failure_data() );
 		}
 
 		$data = $post_data[ $post_data['origin'] ];
@@ -163,7 +163,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	 *
 	 * @return array The default data with an error message.
 	 */
-	protected function get_default_data(): array {
+	protected function get_failure_data(): array {
 		return [
 			'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
 		];
@@ -180,7 +180,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	 */
 	protected function validate_nonce() {
 		if ( ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'] ?? '', 'tribe-aggregator-save-import' ) ) {
-			wp_send_json_error( $this->get_default_data() );
+			wp_send_json_error( $this->get_failure_data() );
 		}
 	}
 
