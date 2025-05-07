@@ -5,6 +5,7 @@
  * Abstract for EA records.
  */
 
+use TEC\Events\Traits\Edit_Events;
 use Tribe\Events\Aggregator\Record\Batch_Queue;
 
 // Don't load directly.
@@ -19,6 +20,8 @@ use Tribe__Languages__Locations as Locations;
  * Abstract for EA records.
  */
 abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, Generic.Classes.OpeningBraceSameLine.ContentAfterBrace
+
+	use Edit_Events;
 
 	/**
 	 * Meta key prefix for ea-record data
@@ -2601,7 +2604,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 		// try the current user.
 		$current_user_id = get_current_user_id();
 
-		if ( ! empty( $current_user_id ) && current_user_can( $post_type_object->cap->edit_posts ) ) {
+		if ( ! empty( $current_user_id ) && $this->current_user_can_edit_events() ) {
 			return $current_user_id;
 		}
 
