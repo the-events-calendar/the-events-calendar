@@ -24,7 +24,8 @@ var tribe_aggregator = tribe_aggregator || {};
 				dataType: 'json',
 				method: 'POST',
 				data: {
-					action: action
+					action: action,
+					tribe_aggregator_nonce: data.nonce,
 				},
 				success: function ( response, status ) { // eslint-disable-line no-unused-vars
 					if ( response.status ) {
