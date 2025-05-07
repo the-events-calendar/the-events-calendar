@@ -73,7 +73,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		$post_data = $_POST['aggregator'];
 
 		if ( empty( $post_data['origin'] ) || empty( $post_data[ $post_data['origin'] ] ) ) {
-			wp_send_json_error( $this->get_failure_data() );
+			wp_send_json_error( $this->get_failure_data(), 400 );
 		}
 
 		$data = $post_data[ $post_data['origin'] ];
@@ -183,7 +183,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	 */
 	protected function validate_nonce( string $action, string $nonce_var = 'tribe_aggregator_nonce' ) {
 		if ( ! wp_verify_nonce( tec_get_request_var( $nonce_var, '' ), $action ) ) {
-			wp_send_json_error( $this->get_failure_data() );
+			wp_send_json_error( $this->get_failure_data(), 400 );
 		}
 	}
 
