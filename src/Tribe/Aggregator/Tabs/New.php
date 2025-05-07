@@ -445,6 +445,8 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 	}
 
 	public function ajax_create_import() {
+		$this->validate_nonce();
+
 		$result = $this->handle_submit();
 
 		if ( is_wp_error( $result ) ) {
