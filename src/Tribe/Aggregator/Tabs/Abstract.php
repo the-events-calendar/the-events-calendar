@@ -55,10 +55,6 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	}
 
 	public function handle_submit() {
-		$data = array(
-			'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
-		);
-
 		if ( ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) && ! $this->is_active() ) {
 			return;
 		}
@@ -72,9 +68,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		}
 
 		// validate nonce
-		if ( empty( $_POST['tribe_aggregator_nonce'] ) || ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'], 'tribe-aggregator-save-import' ) ) {
-			wp_send_json_error( $data );
-		}
+		$this->validate_nonce();
 
 		$post_data = $_POST['aggregator'];
 
@@ -173,6 +167,21 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 		return [
 			'message' => __( 'There was a problem processing your import. Please try again.', 'the-events-calendar' ),
 		];
+	}
+
+	/**
+	 * Validates the nonce for the AJAX request.
+	 *
+	 * If the nonce is invalid, this will send a JSON error response and end the request.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
+	protected function validate_nonce() {
+		if ( ! wp_verify_nonce( $_POST['tribe_aggregator_nonce'] ?? '', 'tribe-aggregator-save-import' ) ) {
+			wp_send_json_error( $this->get_default_data() );
+		}
 	}
 
 	/**
