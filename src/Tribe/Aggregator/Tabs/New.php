@@ -1,11 +1,15 @@
 <?php
 // Don't load directly
 
+use TEC\Events\Traits\Edit_Events;
 use Tribe\Events\Admin\Settings;
 
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Tabs__Abstract {
+
+	use Edit_Events;
+
 	/**
 	 * Static Singleton Holder
 	 *
@@ -449,6 +453,16 @@ class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Ta
 
 	public function ajax_create_import() {
 		$this->validate_nonce();
+
+		if ( ! $this->current_user_can_edit_events() ) {
+			wp_send_json_error(
+				[
+					'message_code' => 'error:create-import-failed',
+					'message'      => __( 'You do not have permission to create an import.', 'the-events-calendar' ),
+				],
+				403
+			);
+		}
 
 		$result = $this->handle_submit();
 
