@@ -4,7 +4,6 @@
  */
 
 use TEC\Common\StellarWP\Assets\Config as Assets_Config;
-use TEC\Events\Classy\Controller as New_Editor_Controller;
 use Tribe\DB_Lock;
 use Tribe\Events\Admin\Settings;
 use Tribe\Events\Views\V2;
@@ -503,12 +502,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			Tribe__Main::instance();
 
-			/*
-			 * Feature detection for the Classy editor; it needs to happen early in the loading process to prevent other
-			 * plugins and legacy Block Editor controllers from starting.
-			 */
-			New_Editor_Controller::early_register();
-
 			add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
 		}
 
@@ -604,9 +597,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		public function bind_implementations() {
 			tribe_singleton( 'tec.main', $this );
-
-			// New Editor.
-			tribe_register_provider( New_Editor_Controller::class );
 
 			// Admin provider.
 			tribe_register_provider( \Tribe\Events\Admin\Provider::class );
