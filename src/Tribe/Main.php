@@ -739,6 +739,11 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Register the Help Hub system.
 			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
 
+			if ( tec_using_classy_editor() ) {
+				// Register the Classy controller if the feature is active.
+				tribe_register_provider( TEC\Events\Classy\Controller::class );
+			}
+
 			/**
 			 * Allows other plugins and services to override/change the bound implementations.
 			 *
