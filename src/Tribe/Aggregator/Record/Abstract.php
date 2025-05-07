@@ -3027,4 +3027,17 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 	public function generate_next_batch_hash() {
 		return md5( uniqid( '', true ) );
 	}
+
+	/**
+	 * Whether the record is being previewed or not.
+	 *
+	 * @since TBD
+	 *
+	 * @return bool Whether the record is being previewed or not.
+	 */
+	protected function is_previewing(): bool {
+		$action = $_GET['action'] ?? null;
+
+		return 'tribe_aggregator_create_import' === $action || 'tribe_aggregator_preview_import' === $action;
+	}
 }
