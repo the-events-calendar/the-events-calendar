@@ -262,6 +262,7 @@
 		
 		<div 
 			class="tribe-events-calendar-list"
+			tabindex="-1"
 			aria-label="
 			List of Events			"
 		>

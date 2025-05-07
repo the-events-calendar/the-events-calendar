@@ -102,6 +102,7 @@ class Assets extends Service_Provider {
 	 * Binds and sets up implementations.
 	 *
 	 * @since 4.9.2
+	 * @since TBD Added search focus asset.
 	 */
 	public function register() {
 		$plugin = Plugin::instance();
@@ -390,6 +391,22 @@ class Assets extends Service_Provider {
 			[
 				'jquery',
 				'tribe-common',
+			],
+			'wp_enqueue_scripts',
+			[
+				'priority'     => 10,
+				'conditionals' => [ $this, 'should_enqueue_frontend' ],
+				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-views-v2-search-focus',
+			'tribe-events-search-focus.js',
+			[
+				'jquery',
+				'tribe-events-views-v2-manager',
 			],
 			'wp_enqueue_scripts',
 			[
