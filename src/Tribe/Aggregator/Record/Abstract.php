@@ -2604,7 +2604,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 		// try the current user.
 		$current_user_id = get_current_user_id();
 
-		if ( ! empty( $current_user_id ) && $this->current_user_can_edit_events() ) {
+		if ( $this->user_can_edit_events( $current_user_id ) ) {
 			return $current_user_id;
 		}
 

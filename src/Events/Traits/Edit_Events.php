@@ -33,7 +33,7 @@ trait Edit_Events {
 			return false;
 		}
 
-		return $this->user_can_edit_events( $current_user );
+		return $this->user_can_edit_events( $current_user->ID );
 	}
 
 	/**
@@ -41,16 +41,16 @@ trait Edit_Events {
 	 *
 	 * @since TBD
 	 *
-	 * @param WP_User $user The user to check.
+	 * @param int $user_id The user to check.
 	 *
 	 * @return bool
 	 */
-	protected function user_can_edit_events( WP_User $user ): bool {
+	protected function user_can_edit_events( int $user_id ): bool {
 		$event_post_type = get_post_type_object( Events::POSTTYPE );
 		if ( ! $event_post_type instanceof WP_Post_Type ) {
 			return false;
 		}
 
-		return user_can( $user, $event_post_type->cap->edit_posts );
+		return user_can( $user_id, $event_post_type->cap->edit_posts );
 	}
 }
