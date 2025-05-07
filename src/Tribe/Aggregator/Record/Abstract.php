@@ -3028,7 +3028,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 	 * @return bool Whether the record is being previewed or not.
 	 */
 	protected function is_previewing(): bool {
-		$action = $_GET['action'] ?? null;
+		$action = tec_get_request_var( 'action' );
 
 		return 'tribe_aggregator_create_import' === $action || 'tribe_aggregator_preview_import' === $action;
 	}
