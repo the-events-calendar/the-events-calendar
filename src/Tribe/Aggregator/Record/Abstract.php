@@ -735,19 +735,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 	 *                               limit.
 	 */
 	public function queue_import( $args = [] ) {
-		$aggregator = tribe( 'events-aggregator.main' );
-
-		$is_previewing = (
-			! empty( $_GET['action'] )
-			&& (
-				'tribe_aggregator_create_import' === $_GET['action']
-				|| 'tribe_aggregator_preview_import' === $_GET['action']
-			)
-		);
-
-		$error = null;
-
-		$defaults = [
+		/** @var Tribe__Events__Aggregator $aggregator */
+		$aggregator    = tribe( 'events-aggregator.main' );
+		$is_previewing = $this->is_previewing();
+		$error         = null;
+		$defaults      = [
 			'type'                => $this->meta['type'],
 			'origin'              => $this->meta['origin'],
 			'source'              => $this->meta['source'] ?? '',
@@ -2623,7 +2615,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 				'fields'     => 'ID',
 			]
 		);
-		
+
 		if ( ! empty( $authors ) ) {
 			return reset( $authors );
 		}
