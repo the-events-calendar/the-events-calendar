@@ -1,10 +1,10 @@
 <?php
 
-use TEC\Events\Traits\Edit_Events;
+use TEC\Events\Traits\Can_Edit_Events;
 
 class Tribe__Events__Aggregator__Tabs__Edit extends Tribe__Events__Aggregator__Tabs__Abstract {
 
-	use Edit_Events;
+	use Can_Edit_Events;
 
 	/**
 	 * Static Singleton Holder

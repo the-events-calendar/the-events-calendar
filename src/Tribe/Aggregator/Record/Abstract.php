@@ -5,7 +5,7 @@
  * Abstract for EA records.
  */
 
-use TEC\Events\Traits\Edit_Events;
+use TEC\Events\Traits\Can_Edit_Events;
 use Tribe\Events\Aggregator\Record\Batch_Queue;
 
 // Don't load directly.
@@ -21,7 +21,7 @@ use Tribe__Languages__Locations as Locations;
  */
 abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, Generic.Classes.OpeningBraceSameLine.ContentAfterBrace
 
-	use Edit_Events;
+	use Can_Edit_Events;
 
 	/**
 	 * Meta key prefix for ea-record data

@@ -18,7 +18,7 @@ use WP_User;
  *
  * @since TBD
  */
-trait Edit_Events {
+trait Can_Edit_Events {
 
 	/**
 	 * Check if the current user can edit events.

@@ -1,14 +1,14 @@
 <?php
 // Don't load directly
 
-use TEC\Events\Traits\Edit_Events;
+use TEC\Events\Traits\Can_Edit_Events;
 use Tribe\Events\Admin\Settings;
 
 defined( 'WPINC' ) or die;
 
 class Tribe__Events__Aggregator__Tabs__New extends Tribe__Events__Aggregator__Tabs__Abstract {
 
-	use Edit_Events;
+	use Can_Edit_Events;
 
 	/**
 	 * Static Singleton Holder
