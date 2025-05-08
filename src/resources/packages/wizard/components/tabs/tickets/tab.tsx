@@ -63,7 +63,7 @@ const TicketsContent = ( { moveToNextTab, skipToNextTab } ) => {
 					</div>
 				) }
 				<NextButton tabSettings={ tabSettings } moveToNextTab={ moveToNextTab } disabled={ false } />
-				<SkipButton skipToNextTab={ skipToNextTab } currentTab={ 5 } />
+				<SkipButton skipToNextTab={ skipToNextTab } currentTab={ 5 } buttonText={__("Skip and finish setup", "the-events-calendar")} />
 			</div>
 		</>
 	);
