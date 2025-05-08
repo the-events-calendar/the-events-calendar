@@ -1,6 +1,6 @@
 <?php
 /**
- * Edit_Events trait.
+ * Can_Edit_Events trait.
  *
  * @since TBD
  */
@@ -14,7 +14,7 @@ use WP_Post_Type;
 use WP_User;
 
 /**
- * Trait Edit_Events
+ * Trait Can_Edit_Events
  *
  * @since TBD
  */
