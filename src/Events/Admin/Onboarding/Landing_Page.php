@@ -201,7 +201,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
 					<a class="tec-dismiss-admin-page" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
 				</div>
-				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/5 ' . esc_html__( 'steps completed', 'event-tickets' ); ?></div>
+				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/5 ' . esc_html__( 'steps completed', 'the-events-calendar' ); ?></div>
 				<ul class="tec-admin-page__content-step-list">
 					<li
 						id="tec-events-onboarding-wizard-views-item"
