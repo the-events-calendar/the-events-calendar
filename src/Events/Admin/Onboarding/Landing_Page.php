@@ -15,7 +15,6 @@ use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
 use TEC\Common\Asset;
 use Tribe__Events__Main as TEC;
-use Tribe__Main;
 
 /**
  * Class Landing_Page
