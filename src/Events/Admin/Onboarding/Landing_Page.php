@@ -15,6 +15,7 @@ use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
 use TEC\Common\Asset;
 use Tribe__Events__Main as TEC;
+use Tribe__Main;
 
 /**
  * Class Landing_Page
@@ -139,27 +140,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
-	 * Render the admin page title.
-	 * In the header.
-	 *
-	 * @since 6.8.4
-	 *
-	 * @return void Renders the admin page title.
-	 */
-	public function admin_page_title(): void {
-		parent::admin_page_title();
-
-		$action_url = add_query_arg(
-			// We do not need a nonce. This page can be seen only by admins. see `required_capability` method.
-			[ 'action' => self::DISMISS_PAGE_ACTION ],
-			admin_url( '/admin-post.php' )
-		);
-		?>
-		<a class="tec-dismiss-admin-page" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
-		<?php
-	}
-
-	/**
 	 * Handle the dismissal of the onboarding page.
 	 *
 	 * @since 6.8.4
@@ -207,6 +187,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 */
 	public function admin_content_checklist_section(): void {
 		$settings_url   = 'edit.php?page=tec-events-settings&post_type=tribe_events';
+		$action_url     = add_query_arg( [ 'action' => self::DISMISS_PAGE_ACTION ], admin_url( '/admin-post.php' ) );
 		$data           = tribe( Data::class );
 		$completed_tabs = array_flip( (array) $data->get_wizard_setting( 'completed_tabs', [] ) );
 		$et_installed   = Installer::get()->is_installed( 'event-tickets' );
@@ -214,14 +195,19 @@ class Landing_Page extends Abstract_Admin_Page {
 		$organizer_data = $data->get_organizer_data();
 		$venue_data     = $data->get_venue_data();
 		$has_event      = $data->has_events();
+		$count_complete = 0;
 		?>
-			<div class="tec-admin-page__content-section tec-events-admin-page__content-section">
-				<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
+			<div class="tec-admin-page__content-section">
+				<div class="tec-admin-page__content-section-header">
+					<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
+					<a class="tec-dismiss-admin-page" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
+				</div>
+				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/5 ' . esc_html__( 'steps completed', 'event-tickets' ); ?></div>
 				<ul class="tec-admin-page__content-step-list">
 					<li
 						id="tec-events-onboarding-wizard-views-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-1' => true,
@@ -243,7 +229,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-currency-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
@@ -265,7 +251,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-date-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
@@ -287,7 +273,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-organizer-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-3' => true,
@@ -309,7 +295,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-venue-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-4' => true,
@@ -336,7 +322,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-event-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-admin-page__onboarding-step--completed' => $has_event,
@@ -376,7 +362,7 @@ class Landing_Page extends Abstract_Admin_Page {
 						<li
 							id="tec-events-onboarding-wizard-tickets-item"
 							<?php
-							tribe_classes(
+							tec_classes(
 								[
 									'step-list__item' => true,
 									'tec-events-onboarding-step-5' => true,
