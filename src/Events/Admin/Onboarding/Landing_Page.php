@@ -152,7 +152,7 @@ class Landing_Page extends Abstract_Admin_Page {
 
 		tribe_update_option( self::DISMISS_PAGE_OPTION, true );
 
-		wp_safe_redirect( add_query_arg( array( 'post_type' => TEC::POSTTYPE ), admin_url( 'edit.php' ) ) );
+		wp_safe_redirect( add_query_arg( [ 'post_type' => TEC::POSTTYPE ], admin_url( 'edit.php' ) ) );
 		exit;
 	}
 
@@ -194,7 +194,14 @@ class Landing_Page extends Abstract_Admin_Page {
 		$organizer_data = $data->get_organizer_data();
 		$venue_data     = $data->get_venue_data();
 		$has_event      = $data->has_events();
-		$count_complete = 0;
+		$condition      = [
+			'1' => isset( $completed_tabs[1] ) || ! empty( tribe_get_option( 'tribeEnableViews' ) ),
+			'2' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'defaultCurrencyCode' ) ),
+			'3' => isset( $completed_tabs[3] ) || ! empty( tribe_get_option( 'dateWithYearFormat' ) ),
+			'4' => isset( $completed_tabs[4] ) || ! empty( $organizer_data ),
+			'5' => isset( $completed_tabs[5] ) || ! empty( $venue_data ),
+		];
+		$count_complete = count( array_filter( $condition ) );
 		?>
 			<div class="tec-admin-page__content-section">
 				<div class="tec-admin-page__content-section-header">
@@ -210,7 +217,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-1' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[1] ) || ! empty( tribe_get_option( 'tribeEnableViews' ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[1],
 							]
 						);
 						?>
@@ -232,7 +239,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'defaultCurrencyCode' ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[2],
 							]
 						);
 						?>
@@ -254,7 +261,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'dateWithYearFormat' ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[3],
 							]
 						);
 						?>
@@ -276,7 +283,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-3' => true,
-								'tec-admin-page__onboarding-step--completed' => ( isset( $completed_tabs[3] ) || ! empty( $organizer_data ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[4],
 							]
 						);
 						?>
@@ -298,7 +305,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-4' => true,
-								'tec-admin-page__onboarding-step--completed' => ( isset( $completed_tabs[4] ) || ! empty( $venue_data ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[5],
 							]
 						);
 						?>
@@ -616,7 +623,7 @@ class Landing_Page extends Abstract_Admin_Page {
 			'tec-events-onboarding-wizard-script',
 			'wizard.js'
 		)
-			->add_to_group_path( TEC::class . '-packages')
+			->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
@@ -627,12 +634,12 @@ class Landing_Page extends Abstract_Admin_Page {
 			'tec-events-onboarding-wizard-style',
 			'wizard.css'
 		)
-			->add_to_group_path( TEC::class . '-packages')
+			->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
 			->set_dependencies( 'wp-components' )
-			->use_asset_file(false) // Do not use the asset file: it would use the JS file one.
+			->use_asset_file( false ) // Do not use the asset file: it would use the JS file one.
 			->register();
 	}
 }
