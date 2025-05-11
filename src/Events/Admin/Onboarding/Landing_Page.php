@@ -314,42 +314,44 @@ class Landing_Page extends Abstract_Admin_Page {
 						</div>
 					</li>
 				</ul>
-				<h2 class="tec-admin-page__content-header">
-					<?php esc_html_e( 'Create an event', 'the-events-calendar' ); ?>
-				</h2>
-				<ul class="tec-admin-page__content-step-list">
-					<li
-						id="tec-events-onboarding-wizard-event-item"
-						<?php
-						tec_classes(
-							[
-								'step-list__item' => true,
-								'tec-admin-page__onboarding-step--completed' => $has_event,
-							]
-						);
-						?>
-					>
-						<div class="step-list__item-left">
-							<span class="step-list__item-icon" role="presentation"></span>
-							<?php esc_html_e( 'Ready to publish your first event?', 'the-events-calendar' ); ?>
-					</div>
-						<div class="step-list__item-right">
-							<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=tribe_events' ) ); ?>" class="tec-admin-page__link">
-								<?php esc_html_e( 'Add new event', 'the-events-calendar' ); ?>
-							</a>
+				<div class="tec-admin-page__content-section-mid">
+					<h2 class="tec-admin-page__content-header">
+						<?php esc_html_e( 'Create an event', 'the-events-calendar' ); ?>
+					</h2>
+					<ul class="tec-admin-page__content-step-list">
+						<li
+							id="tec-events-onboarding-wizard-event-item"
+							<?php
+							tec_classes(
+								[
+									'step-list__item' => true,
+									'tec-admin-page__onboarding-step--completed' => $has_event,
+								]
+							);
+							?>
+						>
+							<div class="step-list__item-left">
+								<span class="step-list__item-icon" role="presentation"></span>
+								<?php esc_html_e( 'Ready to publish your first event?', 'the-events-calendar' ); ?>
 						</div>
-					</li>
-					<li id="tec-events-onboarding-wizard-import-item" class="step-list__item">
-						<div class="step-list__item-left">
-							<?php esc_html_e( 'Do you already have events you want to import?', 'the-events-calendar' ); ?>
-						</div>
-						<div class="step-list__item-right">
-							<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ); ?>" class="tec-admin-page__link">
-								<?php esc_html_e( 'Import events', 'the-events-calendar' ); ?>
-							</a>
-						</div>
-					</li>
-				</ul>
+							<div class="step-list__item-right">
+								<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=tribe_events' ) ); ?>" class="tec-admin-page__link">
+									<?php esc_html_e( 'Add new event', 'the-events-calendar' ); ?>
+								</a>
+							</div>
+						</li>
+						<li id="tec-events-onboarding-wizard-import-item" class="step-list__item">
+							<div class="step-list__item-left">
+								<?php esc_html_e( 'Do you already have events you want to import?', 'the-events-calendar' ); ?>
+							</div>
+							<div class="step-list__item-right">
+								<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ); ?>" class="tec-admin-page__link">
+									<?php esc_html_e( 'Import events', 'the-events-calendar' ); ?>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
 				<div id="tec-events-onboarding-wizard-tickets">
 					<h2 class="tec-admin-page__content-header">
 						<?php esc_html_e( 'Event Tickets', 'the-events-calendar' ); ?>
