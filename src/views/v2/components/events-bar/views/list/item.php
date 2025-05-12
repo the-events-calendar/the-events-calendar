@@ -13,9 +13,9 @@
  * @var string $public_view_slug Slug of the view currently being listed.
  * @var object $public_view_data Data of the view currently being listed.
  *
- * @version TBD
+ * @version 6.12.0
  * @since 5.3.0
- * @since TBD Add aria-label to the view selector list item link.
+ * @since 6.12.0 Add aria-label to the view selector list item link.
  */
 
 $list_item_classes = [ 'tribe-events-c-view-selector__list-item', "tribe-events-c-view-selector__list-item--$public_view_slug" ];

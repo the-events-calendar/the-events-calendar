@@ -10,9 +10,9 @@
  * @link http://evnt.is/1aiy
  *
  * @since 5.16.0
- * @since TBD Added aria attributes to add to calendar button.
+ * @since 6.12.0 Added aria attributes to add to calendar button.
  *
- * @version TBD
+ * @version 6.12.0
  *
  * @var array<Tribe\Events\Views\V2\iCalendar\Links\Link_Abstract> $items Array containing subscribe/export objects.
  */

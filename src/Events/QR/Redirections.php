@@ -197,7 +197,7 @@ class Redirections extends Controller {
 		/**
 		 * Filters the target URL for the QR code redirection.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $target The target URL.
 		 * @param int    $post_id The post ID of the event/series.

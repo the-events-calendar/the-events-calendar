@@ -220,7 +220,7 @@ class Widget_QR_Code extends Widget_Abstract {
 		/**
 		 * Filters the redirection options for the QR Code widget.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param array $options The array of redirection options.
 		 */

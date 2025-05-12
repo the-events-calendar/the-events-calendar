@@ -83,7 +83,7 @@ class QR_Code {
 		/**
 		 * Filter the post types that support QR codes.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param array $supported Array of supported post types.
 		 */
@@ -221,7 +221,7 @@ class QR_Code {
 		/**
 		 * Filters the post types that support QR codes.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param array $allowed_types Array of allowed post types.
 		 */
@@ -238,7 +238,7 @@ class QR_Code {
 		/**
 		 * Filters the redirection type for QR codes.
 		 *
-		 * @since TBD
+		 * @since 6.12.0
 		 *
 		 * @param string $redirection The redirection type ('specific' or 'next').
 		 * @param WP_Post $post The post object.

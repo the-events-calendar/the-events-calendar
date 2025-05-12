@@ -9,9 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version TBD
+ * @version 6.12.0
  * @since 5.3.0
- * @since TBD Add aria-current and aria-label attributes to the view selector button for accessibility.
+ * @since 6.12.0 Add aria-current and aria-label attributes to the view selector button for accessibility.
  *
  * @var string $view_slug            Slug of the current view.
  * @var string $view_label           Label of the current view.

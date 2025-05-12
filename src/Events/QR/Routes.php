@@ -22,7 +22,7 @@ class Routes extends Controller {
 	/**
 	 * The base for the routes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string|null
 	 */
 	private $route_base = null;
@@ -30,7 +30,7 @@ class Routes extends Controller {
 	/**
 	 * The route prefix for QR codes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string|null
 	 */
 	private $route_prefix = null;
@@ -38,7 +38,7 @@ class Routes extends Controller {
 	/**
 	 * The salt for QR code generation.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 * @var string|null
 	 */
 	private $salt = null;
@@ -98,7 +98,7 @@ class Routes extends Controller {
 	/**
 	 * Get the route base for QR codes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return string The route base.
 	 */
@@ -109,7 +109,7 @@ class Routes extends Controller {
 			/**
 			 * Filter the base route for QR codes.
 			 *
-			 * @since TBD
+			 * @since 6.12.0
 			 *
 			 * @param string $base The base route for QR codes.
 			 */
@@ -122,7 +122,7 @@ class Routes extends Controller {
 	/**
 	 * Get the route prefix for QR codes.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return string The route prefix.
 	 */
@@ -133,7 +133,7 @@ class Routes extends Controller {
 			/**
 			 * Filter the route prefix for QR codes.
 			 *
-			 * @since TBD
+			 * @since 6.12.0
 			 *
 			 * @param string $prefix The route prefix for QR codes.
 			 */
@@ -190,7 +190,7 @@ class Routes extends Controller {
 	/**
 	 * Get the salt for QR code generation.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return string The salt value.
 	 */
@@ -201,7 +201,7 @@ class Routes extends Controller {
 			/**
 			 * Filter the salt used for QR code generation.
 			 *
-			 * @since TBD
+			 * @since 6.12.0
 			 *
 			 * @param string $salt The salt value.
 			 */

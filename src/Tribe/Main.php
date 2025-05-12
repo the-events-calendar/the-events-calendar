@@ -534,7 +534,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			/**
 			 * Fires when The Events Calendar is fully loaded.
 			 *
-			 * @since TBD
+			 * @since 6.12.0
 			 */
 			do_action( 'tec_events_fully_loaded' );
 		}
