@@ -3023,7 +3023,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 	/**
 	 * Whether the record is being previewed or not.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return bool Whether the record is being previewed or not.
 	 */

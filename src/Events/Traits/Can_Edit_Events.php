@@ -2,7 +2,7 @@
 /**
  * Can_Edit_Events trait.
  *
- * @since TBD
+ * @since 6.12.0
  */
 
 declare( strict_types=1 );
@@ -16,14 +16,14 @@ use WP_User;
 /**
  * Trait Can_Edit_Events
  *
- * @since TBD
+ * @since 6.12.0
  */
 trait Can_Edit_Events {
 
 	/**
 	 * Check if the current user can edit events.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return bool
 	 */
@@ -39,7 +39,7 @@ trait Can_Edit_Events {
 	/**
 	 * Check if the user can edit events.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param int $user_id The user to check.
 	 *

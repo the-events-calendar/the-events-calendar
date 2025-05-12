@@ -159,7 +159,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	/**
 	 * Return the default data with an error message.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @return array The default data with an error message.
 	 */
@@ -174,7 +174,7 @@ abstract class Tribe__Events__Aggregator__Tabs__Abstract extends Tribe__Tabbed_V
 	 *
 	 * If the nonce is invalid, this will send a JSON error response and end the request.
 	 *
-	 * @since TBD
+	 * @since 6.12.0
 	 *
 	 * @param string $action    The action name to verify the nonce against.
 	 * @param string $nonce_var The name of the nonce variable in the request.
