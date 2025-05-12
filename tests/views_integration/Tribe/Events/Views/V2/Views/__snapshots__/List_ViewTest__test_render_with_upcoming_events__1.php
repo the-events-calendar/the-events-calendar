@@ -260,7 +260,7 @@
 </header>
 
 		
-		<div 
+		<div
 			class="tribe-events-calendar-list"
 			aria-label="
 			List of Events			"
