@@ -9,6 +9,7 @@
 * Feature - QR Code metabox in Events Edit screen [TEC-5429]
 * Feature - Support QR Codes in TEC [TEC-5396]
 * Fix - Ensure that postmeta is properly handled when saving an event using the block editor. [ECP-1899]
+* Security - Harden backend requests to enforce user capabilities. [SVUL-15]
 * Tweak - Added filters: `tec_events_qr_enabled`, `tec_events_qr_valid_screens`, `tec_events_qr_code_supported_post_types`, `tec_events_qr_code_post_types`, `tec_events_qr_code_redirection_type`, `tec_events_qr_code_modal_vars`, `tec_events_qr_code_regenerate`, `tec_events_qr_current_event_url`, `tec_events_qr_upcoming_event_url`, `tec_events_qr_specific_event_url`, `tec_events_qr_redirection_url`, `tec_events_qr_widget_options`, `tec_events_qr_widget_fields`, `tec_events_qr_next_series_event_url`,
 * Tweak - Added actions: `tec_events_fully_loaded`
 * Tweak - Changed views: `blocks/parts/subscribe-list`, `v2/components/events-bar/views`, `v2/components/events-bar/views/list/item`, `v2/components/messages`, `v2/components/subscribe-links/single-event-list`, `v2/day`, `v2/list`, `v2/month`, `v2/widgets/widget-events-qr-code`
