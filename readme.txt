@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.11.0.1
+Stable tag: 6.11.2.1
 Requires at least: 6.5
 Tested up to: 6.7.2
 Requires PHP: 7.4
@@ -231,6 +231,40 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.11.2.1] 2025-04-28 =
+
+* Version - The Events Calendar 6.11.2.1 is only compatible with Event Tickets 5.21.1.1 or higher.
+* Fix - Amend various callbacks of the External Calendar Embeds feature to not be so strict on the expected arguments, as a result fixing fatal errors when the arguments are not of the expected type. [TEC-5484]
+* Security - Added more safety checks to telemetry opt-ins/opt-outs. [TCMN-186]
+* Language - 0 new strings added, 186 updated, 0 fuzzied, and 61 obsoleted.
+
+= [6.11.2] 2025-04-09 =
+
+* Fix - Ensure that Copy and Render for our Legacy Widgets works for all Event related widgets [TEC-5447]
+* Fix - Prevent language notice when loading Aggregator cron interval too early. props @peter8nss
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
+
+= [6.11.1] 2025-04-07 =
+
+* Version - The Events Calendar 6.11.1 is only compatible with Event Tickets 5.20.0 and higher
+* Fix - Avoid running unbound queries, avoid too long queries being killed. [ECP-1898]
+* Fix - Correct some text-domains copied from common
+* Fix - Ensures the ajaxComplete callback is fired after AJAX has actually completed. [FBAR-344]
+* Fix - Ensures `delete_custom_tables_data` method is called only for events. [TEC-5445]
+* Fix - Ensures `events_per_page` is type casted to int before used. [TEC-5442]
+* Fix - Include Label for viewing post type archives. props @mikeritter
+* Fix - Makes sure that Custom Tables are loaded after our Common library is loaded. [TEC-5445]
+* Fix - Prevent invalid argument supplied for foreach() warning, props to @zosterops-lateralis
+* Tweak - Fixed typo in the First Time Setup page.  [TEC-5415]
+* Tweak - Improve our widgets to enable copying it in between different instances of the Block and Site editor.
+* Tweak - Make sure our settings for showing comments is respected as much as possible. props @zosterops-lateralis
+* Tweak - Modify the URL params for Views HTML REST Requests to enable usage of GET requests enabling caching
+* Tweak - Modify the visibility of tribe-ea- statuses to prevent them from slowing down WP_Query that are unrelated to Aggregator
+* Tweak - Prevent REST API notice from showing in certain cases of false positives.
+* Performance - Aggregator query for Authors on the import form has better boundaries props @dilipbheda
+* Performance - Avoid duplicate queries by caching model queries results. [ECP-1898]
+* Language - 2 new strings added, 192 updated, 2 fuzzied, and 0 obsoleted.
 
 = [6.11.0.1] 2025-04-01 =
 

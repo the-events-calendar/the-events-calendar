@@ -63,6 +63,8 @@ class Rest_Api {
 			],
 			[ $this, 'should_display' ]
 		);
+
+		add_action( 'tribe_events_views_v2_before_make_view_for_rest', [ $this, 'mark_as_unblocked' ] );
 	}
 
 	/**
@@ -77,7 +79,22 @@ class Rest_Api {
 			return false;
 		}
 
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return false;
+		}
+
 		return $this->is_rest_api_blocked();
+	}
+
+	/**
+	 * Marks the REST API as unblocked.
+	 *
+	 * @since 6.11.1
+	 *
+	 * @return void
+	 */
+	public function mark_as_unblocked(): void {
+		tec_timed_option()->set( 'events_is_rest_api_blocked', false, 48 * HOUR_IN_SECONDS );
 	}
 
 	/**
@@ -124,10 +141,6 @@ class Rest_Api {
 	 * @return false|string
 	 */
 	public function notice() {
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return false;
-		}
-
 		$output = sprintf(
 			/* translators: %1$s and %2$s - opening and closing strong tags, respectively. */
 			__( '%1$sWarning%2$s: The Events Calendar REST API endpoints are not accessible! This may be due to a server configuration or another plugin blocking access to the REST API.', 'the-events-calendar' ),

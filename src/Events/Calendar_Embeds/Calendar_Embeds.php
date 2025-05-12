@@ -96,16 +96,20 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @since 6.11.0
 	 * @since 6.11.0.1 Added check to ensure ABSPATH/wp-admin/includes/screen.php is loaded before running.
+	 * @since 6.11.2.1 Made the parameters non-strict.
 	 *
 	 * @param array  $terms      The terms.
 	 * @param ?array $taxonomies The taxonomies.
 	 *
 	 * @return array
 	 */
-	public function modify_term_count_on_term_list_table( array $terms, ?array $taxonomies = null ): array {
+	public function modify_term_count_on_term_list_table( $terms, $taxonomies = null ): array {
 		if ( null === $taxonomies ) {
 			return $terms;
 		}
+
+		$terms      = (array) $terms;
+		$taxonomies = (array) $taxonomies;
 
 		if ( ! in_array( TEC_Plugin::TAXONOMY, $taxonomies, true ) && ! in_array( 'post_tag', $taxonomies, true ) ) {
 			return $terms;
@@ -152,6 +156,7 @@ class Calendar_Embeds extends Controller_Contract {
 	 * Disables slug changes for the calendar embed post type.
 	 *
 	 * @since 6.11.0
+	 * @since 6.11.2.1 Made the parameters non-strict.
 	 *
 	 * @param array $data              The post data.
 	 * @param array $post_array        The post array.
@@ -160,10 +165,14 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @return array
 	 */
-	public function disable_slug_changes( array $data, array $post_array, array $unsafe_post_array, bool $update ): array {
+	public function disable_slug_changes( $data, $post_array, $unsafe_post_array, $update ): array {
 		if ( static::POSTTYPE !== $data['post_type'] ) {
 			return $data;
 		}
+
+		$update     = (bool) $update;
+		$data       = (array) $data;
+		$post_array = (array) $post_array;
 
 		if ( $update ) {
 			// Ensure the post name is not updated.
@@ -393,7 +402,10 @@ class Calendar_Embeds extends Controller_Contract {
 	 *
 	 * @return bool
 	 */
-	public function do_not_add_trashed_suffix_to_trashed_calendar_embeds( bool $add_trashed_suffix, string $post_name, int $post_id ): bool {
+	public function do_not_add_trashed_suffix_to_trashed_calendar_embeds( $add_trashed_suffix, $post_name, $post_id ): bool {
+		$add_trashed_suffix = (bool) $add_trashed_suffix;
+		$post_id            = (int) $post_id;
+
 		if ( static::POSTTYPE !== get_post_type( $post_id ) ) {
 			return $add_trashed_suffix;
 		}
