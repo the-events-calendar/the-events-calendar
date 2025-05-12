@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Add aria-labels to view options and aria-current to selected view. [TEC-5022]

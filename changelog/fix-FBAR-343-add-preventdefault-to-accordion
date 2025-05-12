@@ -1,4 +1,0 @@
-Significance: minor
-Type: accessibility
-
-Tweaked accordions so they will toggle and not submit when using keyboard navigation. [FBAR-343]
