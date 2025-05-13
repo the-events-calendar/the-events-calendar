@@ -195,11 +195,11 @@ class Landing_Page extends Abstract_Admin_Page {
 		$venue_data     = $data->get_venue_data();
 		$has_event      = $data->has_events();
 		$condition      = [
-			'1' => isset( $completed_tabs[1] ) || ! empty( tribe_get_option( 'tribeEnableViews' ) ),
-			'2' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'defaultCurrencyCode' ) ),
-			'3' => isset( $completed_tabs[3] ) || ! empty( tribe_get_option( 'dateWithYearFormat' ) ),
-			'4' => isset( $completed_tabs[4] ) || ! empty( $organizer_data ),
-			'5' => isset( $completed_tabs[5] ) || ! empty( $venue_data ),
+			isset( $completed_tabs[1] ) || ! empty( tribe_get_option( 'tribeEnableViews' ) ),
+			isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'defaultCurrencyCode' ) ),
+			isset( $completed_tabs[3] ) || ! empty( tribe_get_option( 'dateWithYearFormat' ) ),
+			isset( $completed_tabs[4] ) || ! empty( $organizer_data ),
+			isset( $completed_tabs[5] ) || ! empty( $venue_data ),
 		];
 		$count_complete = count( array_filter( $condition ) );
 		?>
@@ -208,7 +208,7 @@ class Landing_Page extends Abstract_Admin_Page {
 					<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
 					<a class="tec-dismiss-admin-page" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
 				</div>
-				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/5 ' . esc_html__( 'steps completed', 'the-events-calendar' ); ?></div>
+				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/' . esc_html( count( $condition ) ) . ' ' . esc_html__( 'steps completed', 'the-events-calendar' ); ?></div>
 				<ul class="tec-admin-page__content-step-list">
 					<li
 						id="tec-events-onboarding-wizard-views-item"
@@ -217,7 +217,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-1' => true,
-								'tec-admin-page__onboarding-step--completed' => $condition[1],
+								'tec-admin-page__onboarding-step--completed' => $condition[0],
 							]
 						);
 						?>
@@ -239,7 +239,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => $condition[2],
+								'tec-admin-page__onboarding-step--completed' => $condition[1],
 							]
 						);
 						?>
@@ -261,7 +261,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => $condition[3],
+								'tec-admin-page__onboarding-step--completed' => $condition[2],
 							]
 						);
 						?>
@@ -283,7 +283,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-3' => true,
-								'tec-admin-page__onboarding-step--completed' => $condition[4],
+								'tec-admin-page__onboarding-step--completed' => $condition[3],
 							]
 						);
 						?>
@@ -305,7 +305,7 @@ class Landing_Page extends Abstract_Admin_Page {
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-4' => true,
-								'tec-admin-page__onboarding-step--completed' => $condition[5],
+								'tec-admin-page__onboarding-step--completed' => $condition[4],
 							]
 						);
 						?>
