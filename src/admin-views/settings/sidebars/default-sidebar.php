@@ -44,7 +44,7 @@ $hero_section->set_header_image(
 		)
 	)
 );
-$hero_section->set_title( new Heading( __( 'Finding and extending your calendar', 'tribe-common' ), 2, new Classes( 'tec-settings-form__sidebar-header' ) ) );
+$hero_section->set_title( new Heading( __( 'Finding and extending your calendar', 'the-events-calendar' ), 2, new Classes( 'tec-settings-form__sidebar-header' ) ) );
 
 $hero_section->add_section(
 	( new Settings_Section() )
