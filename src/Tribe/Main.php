@@ -553,6 +553,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
+
+			/**
+			 * Fires when The Events Calendar is fully loaded.
+			 *
+			 * @since 6.12.0
+			 */
+			do_action( 'tec_events_fully_loaded' );
 		}
 
 		/**
@@ -720,6 +727,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Set up IAN Client - In-App Notifications.
 			tribe_register_provider( TEC\Events\Notifications\Provider::class );
+
+			// Set up the QR Code system.
+			tribe()->register_on_action( 'tec_qr_code_loaded', TEC\Events\QR\Controller::class );
 
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );

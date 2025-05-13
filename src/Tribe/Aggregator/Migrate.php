@@ -175,6 +175,17 @@ class Tribe__Events__Aggregator__Migrate {
 	 * @return void
 	 */
 	public function ajax_convert_ical_settings() {
+		$nonce = tec_get_request_var( 'tribe_aggregator_nonce' );
+		if ( ! wp_verify_nonce( $nonce, 'tribe-aggregator-ajax-nonce' ) ) {
+			wp_send_json_error(
+				[
+					'status' => false,
+					'text'   => esc_html__( 'Error: Nonce verification failed. Please try again.', 'the-events-calendar' ),
+				],
+				400
+			);
+		}
+
 		$response = (object) array(
 			'status' => false,
 			'text' => esc_html__( 'Error: we were not able to migrate your iCal Importer settings to Event Aggregator. Please try again later.', 'the-events-calendar' ),

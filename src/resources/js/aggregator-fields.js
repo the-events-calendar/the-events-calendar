@@ -469,9 +469,15 @@ tribe_aggregator.fields = {
 	obj.poll_for_results = function() {
 		obj.result_fetch_count++;
 
+		const urlParts = [
+			'action=tribe_aggregator_fetch_import',
+			`import_id=${ obj.import_id }`,
+			`tribe_aggregator_nonce=${ ea.nonce }`
+		];
+
 		var jqxhr = $.ajax( {
 			type: 'GET',
-			url: ajaxurl + '?action=tribe_aggregator_fetch_import&import_id=' + obj.import_id,
+			url: `${ ajaxurl }?` + urlParts.join( '&' ),
 			dataType: 'json'
 		} );
 
@@ -806,6 +812,7 @@ tribe_aggregator.fields = {
 	 */
 	obj.save_credentials = function( $credentials_form ) {
 		var data = $credentials_form.find( '.tribe-fieldset' ).find( 'input' ).serialize();
+		data += `&tribe_aggregator_nonce=${ ea.nonce }`;
 
 		var url = ajaxurl + '?action=tribe_aggregator_save_credentials';
 

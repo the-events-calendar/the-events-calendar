@@ -5,6 +5,7 @@
  * Abstract for EA records.
  */
 
+use TEC\Events\Traits\Can_Edit_Events;
 use Tribe\Events\Aggregator\Record\Batch_Queue;
 
 // Don't load directly.
@@ -19,6 +20,8 @@ use Tribe__Languages__Locations as Locations;
  * Abstract for EA records.
  */
 abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.Classes.ValidClassName.NotSnakeCase, PEAR.NamingConventions.ValidClassName.Invalid, Generic.Classes.OpeningBraceSameLine.ContentAfterBrace
+
+	use Can_Edit_Events;
 
 	/**
 	 * Meta key prefix for ea-record data
@@ -735,19 +738,11 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 	 *                               limit.
 	 */
 	public function queue_import( $args = [] ) {
-		$aggregator = tribe( 'events-aggregator.main' );
-
-		$is_previewing = (
-			! empty( $_GET['action'] )
-			&& (
-				'tribe_aggregator_create_import' === $_GET['action']
-				|| 'tribe_aggregator_preview_import' === $_GET['action']
-			)
-		);
-
-		$error = null;
-
-		$defaults = [
+		/** @var Tribe__Events__Aggregator $aggregator */
+		$aggregator    = tribe( 'events-aggregator.main' );
+		$is_previewing = $this->is_previewing();
+		$error         = null;
+		$defaults      = [
 			'type'                => $this->meta['type'],
 			'origin'              => $this->meta['origin'],
 			'source'              => $this->meta['source'] ?? '',
@@ -1541,9 +1536,6 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 		 */
 		do_action( 'tribe_aggregator_before_insert_posts', $items, $this->meta );
 
-		// sets the default user ID to that of the first user that can edit events.
-		$default_user_id = $this->get_default_user_id();
-
 		// Creates an Activity to log what Happened.
 		$activity                = new Tribe__Events__Aggregator__Record__Activity();
 		$initial_created_events  = $activity->count( Tribe__Events__Main::POSTTYPE );
@@ -2131,7 +2123,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 
 				// during cron runs the user will be set to 0; we assign the event to the first user that can edit events.
 				if ( ! isset( $event['post_author'] ) ) {
-					$event['post_author'] = $default_user_id;
+					$event['post_author'] = $this->get_default_user_id();
 				}
 
 				/**
@@ -2612,7 +2604,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 		// try the current user.
 		$current_user_id = get_current_user_id();
 
-		if ( ! empty( $current_user_id ) && current_user_can( $post_type_object->cap->edit_posts ) ) {
+		if ( $this->user_can_edit_events( $current_user_id ) ) {
 			return $current_user_id;
 		}
 
@@ -2623,7 +2615,7 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 				'fields'     => 'ID',
 			]
 		);
-		
+
 		if ( ! empty( $authors ) ) {
 			return reset( $authors );
 		}
@@ -3026,5 +3018,18 @@ abstract class Tribe__Events__Aggregator__Record__Abstract { //phpcs:ignore TEC.
 	 */
 	public function generate_next_batch_hash() {
 		return md5( uniqid( '', true ) );
+	}
+
+	/**
+	 * Whether the record is being previewed or not.
+	 *
+	 * @since 6.12.0
+	 *
+	 * @return bool Whether the record is being previewed or not.
+	 */
+	protected function is_previewing(): bool {
+		$action = tec_get_request_var( 'action' );
+
+		return 'tribe_aggregator_create_import' === $action || 'tribe_aggregator_preview_import' === $action;
 	}
 }
