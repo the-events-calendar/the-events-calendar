@@ -214,12 +214,8 @@ tribe.events.views.accordion = {};
 		 *
 		 * @return {void}
 		 */
-<<<<<<< HEAD
-		return function ( index, header ) {
-=======
 		return function( index, header ) {
 			// Bind click event for header click handling.
->>>>>>> master
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
 
 			// Handle both Enter and Space keys for accessibility.
