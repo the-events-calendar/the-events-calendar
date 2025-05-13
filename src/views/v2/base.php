@@ -1,6 +1,4 @@
 <?php
-use \Tribe\Events\Views\V2\Template;
-
 /**
  * View: Base View
  *
@@ -15,13 +13,14 @@ use \Tribe\Events\Views\V2\Template;
  * @since 6.2.0 Better debug output and formatting.
  *
  *
- * @var Template $this           Template Engine instance rendering.
- * @var string   $view_slug      This View slug.
- * @var string   $view_class     The fully-qualified name of the View.
- * @var array    $lookup_folders A list of the folders that have been searched to find the View template, including
- *                               type and priority.
- * @var array    $_context       The current context array dump.
+ * @var \Tribe\Events\Views\V2\Template $this           Template Engine instance rendering.
+ * @var string                          $view_slug      This View slug.
+ * @var string                          $view_class     The fully-qualified name of the View.
+ * @var array                           $lookup_folders A list of the folders that have been searched to find the View template, including
+ *                                                      type and priority.
+ * @var array                           $_context       The current context array dump.
  */
+
 ?>
 <div class="tribe-view tribe-view--base tribe-view--<?php echo esc_attr( $view_slug ) ?>">
 	<dl>

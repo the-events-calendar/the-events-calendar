@@ -4,6 +4,7 @@ modules:
     enabled:
         - \Helper\Ct1_integration
         - WPLoader
+        - WPQueries
     config:
       WPLoader:
         wpRootFolder: "%WP_ROOT_FOLDER%"

@@ -214,75 +214,85 @@ class Tribe__Events__Aggregator__Records {
 
 		// Register the Success post status.
 		$args   = [
-			'label'              => esc_html_x( 'Imported', 'event aggregator status', 'the-events-calendar' ),
-			'label_count'        => _nx_noop(
+			'label'               => esc_html_x( 'Imported', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of imported records.
+			'label_count'         => _nx_noop(
 				'Imported <span class="count">(%s)</span>',
 				'Imported <span class="count">(%s)</span>',
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'             => true,
-			'publicly_queryable' => true,
+			'public'              => true,
+			'publicly_queryable'  => false,
+			'exclude_from_search' => false,
 		];
 		$object = register_post_status( self::$status->success, $args );
 		$registered_by_key->success = $registered_by_name->{'tribe-aggregator-success'} = $object;
 
 		// Register the Failed post status.
 		$args   = [
-			'label'              => esc_html_x( 'Failed', 'event aggregator status', 'the-events-calendar' ),
-			'label_count'        => _nx_noop(
+			'label'               => esc_html_x( 'Failed', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of failed records.
+			'label_count'         => _nx_noop(
 				'Failed <span class="count">(%s)</span>',
 				'Failed <span class="count">(%s)</span>',
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'             => true,
-			'publicly_queryable' => true,
+			'public'              => true,
+			'publicly_queryable'  => false,
+			'exclude_from_search' => false,
 		];
 		$object = register_post_status( self::$status->failed, $args );
 		$registered_by_key->failed = $registered_by_name->{'tribe-aggregator-failed'} = $object;
 
 		// Register the Schedule post status.
 		$args   = [
-			'label'              => esc_html_x( 'Schedule', 'event aggregator status', 'the-events-calendar' ),
-			'label_count'        => _nx_noop(
+			'label'               => esc_html_x( 'Schedule', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of schedule records.
+			'label_count'         => _nx_noop(
 				'Schedule <span class="count">(%s)</span>',
 				'Schedule <span class="count">(%s)</span>',
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'             => true,
-			'publicly_queryable' => true,
+			'public'              => true,
+			'publicly_queryable'  => false,
+			'exclude_from_search' => false,
 		];
 		$object = register_post_status( self::$status->schedule, $args );
 		$registered_by_key->schedule = $registered_by_name->{'tribe-aggregator-schedule'} = $object;
 
 		// Register the Pending post status.
 		$args   = [
-			'label'              => esc_html_x( 'Pending', 'event aggregator status', 'the-events-calendar' ),
-			'label_count'        => _nx_noop(
+			'label'               => esc_html_x( 'Pending', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of pending records.
+			'label_count'         => _nx_noop(
 				'Pending <span class="count">(%s)</span>',
 				'Pending <span class="count">(%s)</span>',
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'             => true,
-			'publicly_queryable' => true,
+			'public'              => true,
+			'publicly_queryable'  => false,
+			'exclude_from_search' => false,
 		];
 		$object = register_post_status( self::$status->pending, $args );
 		$registered_by_key->pending = $registered_by_name->{'tribe-aggregator-pending'} = $object;
 
 		// Register the Pending post status.
 		$args   = [
-			'label'              => esc_html_x( 'Draft', 'event aggregator status', 'the-events-calendar' ),
-			'label_count'        => _nx_noop(
+			'label'               => esc_html_x( 'Draft', 'event aggregator status', 'the-events-calendar' ),
+			// translators: %s is the number of draft records.
+			'label_count'         => _nx_noop(
 				'Draft <span class="count">(%s)</span>',
 				'Draft <span class="count">(%s)</span>',
 				'event aggregator status',
 				'the-events-calendar'
 			),
-			'public'             => true,
-			'publicly_queryable' => true,
+			'public'              => true,
+			'publicly_queryable'  => false,
+			'exclude_from_search' => false,
 		];
 		$object = register_post_status( self::$status->draft, $args );
 		$registered_by_key->draft = $registered_by_name->{'tribe-aggregator-draft'} = $object;
