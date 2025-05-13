@@ -122,19 +122,24 @@ tribe.events.views.accordion = {};
 	};
 
 	/**
-	 * Toggles accordion on header click
+	 * Toggles accordion on header click and enter key.
 	 *
 	 * @since 4.9.4
+	 * @since 6.12.0 Add preventDefault to prevent form submission.
 	 *
 	 * @param {Event} event event object of click event
 	 *
 	 * @return {void}
 	 */
-	obj.toggleAccordion = function ( event ) {
-		const $container = event.data.container;
-		const $header = $( event.data.target );
-		const contentId = $header.attr( 'aria-controls' );
-		const $content = $container.find( '#' + contentId );
+	obj.toggleAccordion = function( event ) {
+		// Prevent default action (form submission) when triggered by keyboard events.
+		event.preventDefault();
+		event.stopPropagation();
+
+		var $container = event.data.container;
+		var $header = $( event.data.target );
+		var contentId = $header.attr( 'aria-controls' );
+		var $content = $container.find( '#' + contentId );
 
 		if ( 'true' === $header.attr( 'aria-expanded' ) ) {
 			obj.closeAccordion( $header, $content );
@@ -202,14 +207,35 @@ tribe.events.views.accordion = {};
 		 * Initializes accordion
 		 *
 		 * @since 4.9.4
+		 * @since 6.12.0 Bind keydown event to handle both Enter and Space keys to improve accessibility.
 		 *
 		 * @param {integer}     index  jQuery.each index param
 		 * @param {HTMLElement} header header element from which to remove event
 		 *
 		 * @return {void}
 		 */
+<<<<<<< HEAD
 		return function ( index, header ) {
+=======
+		return function( index, header ) {
+			// Bind click event for header click handling.
+>>>>>>> master
 			$( header ).on( 'click', { target: header, container: $container }, obj.toggleAccordion );
+
+			// Handle both Enter and Space keys for accessibility.
+			$( header ).on( 'keydown', function( event ) {
+				// 13 = Enter, 32 = Space
+				if ( event.keyCode === 13 || event.keyCode === 32 ) {
+					event.preventDefault();
+					event.stopPropagation();
+					$( header ).trigger( 'click' );
+				}
+			});
+
+			// Ensure the header is focusable with keyboard.
+			if (!$( header ).attr('tabindex')) {
+				$( header ).attr('tabindex', '0');
+			}
 		};
 	};
 

@@ -5,7 +5,7 @@ Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Stable tag: 6.12.1
 Requires at least: 6.5
-Tested up to: 6.7.2
+Tested up to: 6.8.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -231,6 +231,27 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.12.0] 2025-05-13 =
+
+* Feature - Add an editor block to display an event QR code [TEC-5404]
+* Feature - Add a widget to display a QR code for an event [TEC-5405]
+* Feature - Add the [tec_event_qr] shortcode [TEC-5406]
+* Feature - Generate QR Code link in the Events Admin Table [TEC-5428]
+* Feature - QR Code metabox in Events Edit screen [TEC-5429]
+* Feature - Support QR Codes in TEC [TEC-5396]
+* Security - Harden backend requests to enforce user capabilities. [SVUL-15]
+* Tweak - Added filters: `tec_events_qr_enabled`, `tec_events_qr_valid_screens`, `tec_events_qr_code_supported_post_types`, `tec_events_qr_code_post_types`, `tec_events_qr_code_redirection_type`, `tec_events_qr_code_modal_vars`, `tec_events_qr_code_regenerate`, `tec_events_qr_current_event_url`, `tec_events_qr_upcoming_event_url`, `tec_events_qr_specific_event_url`, `tec_events_qr_redirection_url`, `tec_events_qr_widget_options`, `tec_events_qr_widget_fields`, `tec_events_qr_next_series_event_url`,
+* Tweak - Added actions: `tec_events_fully_loaded`
+* Tweak - Changed views: `blocks/parts/subscribe-list`, `v2/components/events-bar/views`, `v2/components/events-bar/views/list/item`, `v2/components/messages`, `v2/components/subscribe-links/single-event-list`, `v2/day`, `v2/list`, `v2/month`, `v2/widgets/widget-events-qr-code`
+* Accessibility - Add aria-labels to view options and aria-current to selected view. [TEC-5022]
+* Accessibility - Add aria-label to view selector button. [TEC-5021]
+* Accessibility - Add aria label to Add to calendar button. [TEC-5088]
+* Accessibility - Change focus to results after filtering `events/`. [FBAR-332]
+* Accessibility - Change wrapper div to a section tag to avoid multiple 'banner' landmarks. [TEC-3424]
+* Accessibility - Small tweaks to improve accessibility of user-facing messages. [FBAR-333]
+* Accessibility - Tweaked accordions so they will toggle and not submit when using keyboard navigation. [FBAR-343]
+* Language - 61 new strings added, 145 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.11.2.1] 2025-04-28 =
 
