@@ -1,6 +1,6 @@
 # Changelog
 
-### [6.12.0] 2025-05-12
+### [6.12.0] 2025-05-13
 
 * Feature - Add an editor block to display an event QR code [TEC-5404]
 * Feature - Add a widget to display a QR code for an event [TEC-5405]
