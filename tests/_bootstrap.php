@@ -1,13 +1,12 @@
 <?php
 use Codeception\Util\Autoload;
 
-$common_support_dir = __DIR__ . '/../common/tests/_support';
-
-// This is global bootstrap for autoloading
 Autoload::addNamespace( 'Tribe\Tests', dirname(__DIR__) . '/common/tests/_support' );
 Autoload::addNamespace( 'Tribe\Events\Test', __DIR__ . '/_support' );
 Autoload::addNamespace( 'Tribe\Events\Test', __DIR__ . '/_support/classes' );
 Autoload::addNamespace( 'Tribe\Events\Test\Acceptance\Steps', __DIR__ . '/acceptance/_steps' );
+
+$common_support_dir = __DIR__ . '/../common/tests/_support';
 Autoload::addNamespace( '\\TEC\\Common\\Tests', $common_support_dir );
 
 /**

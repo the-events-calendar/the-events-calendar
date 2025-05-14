@@ -13,3 +13,4 @@ export { default as Sharing } from './sharing.svg';
 export { default as Venue } from './venue.svg';
 export { default as Website } from './website.svg';
 export { default as EventsList } from './events-list.svg';
+export { default as QrCode } from './qr-code.svg';

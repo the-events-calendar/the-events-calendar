@@ -20,6 +20,7 @@ class ItemTest extends HtmlPartialTestCase
 				'view_url'   => 'https://test.tri.be/events/month/',
 				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
 				'view_label' => 'Month',
+				'aria_label' => 'Display Events in Month View',
 			],
 		] ) );
 	}
@@ -35,6 +36,7 @@ class ItemTest extends HtmlPartialTestCase
 				'view_url'   => 'https://test.tri.be/events/month/',
 				'view_class' => 'Tribe\Events\Views\V2\Views\Month_View',
 				'view_label' => 'Month',
+				'aria_label' => 'Display Events in Month View',
 			],
 		] ) );
 	}
