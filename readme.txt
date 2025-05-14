@@ -4,7 +4,7 @@ Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguse
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Stable tag: 6.12.0.1
-Requires at least: 6.5
+Requires at least: 6.6
 Tested up to: 6.8.1
 Requires PHP: 7.4
 License: GPLv2 or later
