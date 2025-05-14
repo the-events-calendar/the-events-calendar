@@ -101,6 +101,7 @@ class Data {
 			'widget-events-list',
 			'widget-featured-venue',
 			'widget-week',
+			'widget-events-qr-code',
 		];
 
 		$cleaned_views = array_flip( array_diff_key( array_flip( $available_views ), array_flip( $remove ) ) );

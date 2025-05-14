@@ -77,7 +77,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 *
 		 * @since 4.8
 		 */
-		protected $min_et_version = '5.16.0-dev';
+		protected $min_et_version = '5.21.1.1-dev';
 
 		/**
 		 * Maybe display data wrapper
@@ -101,7 +101,6 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				'author',
 				'thumbnail',
 				'custom-fields',
-				'comments',
 				'revisions',
 			],
 			'taxonomies'      => [ 'post_tag' ],
@@ -554,6 +553,13 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->loadLibraries();
 			$this->addHooks();
 			$this->register_active_plugin();
+
+			/**
+			 * Fires when The Events Calendar is fully loaded.
+			 *
+			 * @since 6.12.0
+			 */
+			do_action( 'tec_events_fully_loaded' );
 		}
 
 		/**
@@ -592,6 +598,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Classes that should be built at `plugins_loaded` time are also instantiated.
 		 *
 		 * @since  4.4
+		 * @since 6.11.0 Add Calendar Embed functionality.
 		 *
 		 * @return void
 		 */
@@ -697,7 +704,7 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Custom tables v1 implementation.
 			if ( class_exists( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' ) ) {
-				tribe_register_provider( '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
+				tribe()->register_on_action( 'tribe_common_loaded', '\\TEC\\Events\\Custom_Tables\\V1\\Provider' );
 			}
 
 			// Blocks.
@@ -721,6 +728,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// Set up IAN Client - In-App Notifications.
 			tribe_register_provider( TEC\Events\Notifications\Provider::class );
 
+			// Set up the QR Code system.
+			tribe()->register_on_action( 'tec_qr_code_loaded', TEC\Events\QR\Controller::class );
+
 			// SEO support.
 			tribe_register_provider( TEC\Events\SEO\Controller::class );
 
@@ -738,6 +748,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 
 			// Register the Help Hub system.
 			tribe_register_provider( TEC\Events\Admin\Help_Hub\Provider::class );
+
+			// Register the Calendar Embeds feature.
+			tribe_register_provider( TEC\Events\Calendar_Embeds\Controller::class );
 
 			if ( tec_using_classy_editor() ) {
 				// Register the Classy controller if the feature is active.
@@ -2140,6 +2153,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 					),
 					'view_item'                => sprintf(
 						esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label
+					),
+					'view_items'                => sprintf(
+						esc_html__( 'View %s', 'the-events-calendar' ), $this->plural_event_label
 					),
 					'search_items'             => sprintf(
 						esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label

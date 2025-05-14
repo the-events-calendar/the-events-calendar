@@ -1,4 +1,11 @@
 <?php
+/**
+ * Controller for Events Blocks
+ *
+ * @since 6.2.7
+ *
+ * @package TEC\Events\Blocks
+ */
 
 namespace TEC\Events\Blocks;
 

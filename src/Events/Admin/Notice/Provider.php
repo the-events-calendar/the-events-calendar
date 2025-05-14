@@ -38,7 +38,7 @@ class Provider extends Service_Provider {
 	 * @since
 	 */
 	public function add_actions() {
-		add_action( 'admin_init', $this->container->callback( Rest_Api::class, 'hook' ) );
+		$this->container->make( Rest_Api::class )->hook();
 	}
 
 

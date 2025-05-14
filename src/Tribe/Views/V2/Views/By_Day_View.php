@@ -386,7 +386,7 @@ abstract class By_Day_View extends View {
 		 * @param int         $events_per_day The default number of events that will be fetched for each day.
 		 * @param By_Day_View $this           The current View instance.
 		 */
-		return apply_filters( "tribe_events_views_v2_{$view_slug}_events_per_day", $events_per_day, $this );
+		return (int) apply_filters( "tribe_events_views_v2_{$view_slug}_events_per_day", $events_per_day, $this );
 	}
 
 	/**

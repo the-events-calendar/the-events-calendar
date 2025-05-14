@@ -13,3 +13,4 @@ export { ReactComponent as Sharing } from './sharing.svg';
 export { ReactComponent as Venue } from './venue.svg';
 export { ReactComponent as Website } from './website.svg';
 export { ReactComponent as EventsList } from './events-list.svg';
+export { ReactComponent as QrCode } from './qr-code.svg';

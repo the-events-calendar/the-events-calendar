@@ -18,7 +18,7 @@ interface Organizer {
 
 const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	const organizer: Organizer = useSelect(select => select(SETTINGS_STORE_KEY).getSetting('organizer') || { id: 0, name: '', phone: '', website: '', email: '' }, []);
-	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields() || {} );
+	const visitedFields = useSelect(select => select(SETTINGS_STORE_KEY).getVisitedFields());
 	const setVisitedField = useDispatch(SETTINGS_STORE_KEY).setVisitedField;
 	const [organizerId, setId] = useState(organizer.organizerId || false);
 	const [name, setName] = useState(organizer.name || '');
@@ -51,10 +51,10 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}, []);
 
 	const toggleClasses = (field, fieldEle, parentEle, isValid) => {
-		if ( !field ) {
+		if (!field) {
 			parentEle.classList.add('invalid', 'empty');
 			fieldEle.classList.add('invalid');
-		} else if ( !isValid ) {
+		} else if (!isValid) {
 			parentEle.classList.add('invalid');
 			fieldEle.classList.add('invalid');
 		} else {
@@ -93,7 +93,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(name, fieldEle, parentEle, isValid);
 		}
 
@@ -101,18 +101,23 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const isValidEmail = () => {
+		// Accept empty field as valid.
+		if (!email) {
+			return true;
+		}
+
 		const inputId = 'organizer-email';
 		const isVisited = visitedFields.includes(inputId);
 		if (!isVisited) {
 			return true;
 		}
 
-		const emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		const isValid = emailPattern.test(email);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(email, fieldEle, parentEle, isValid);
 		}
 
@@ -120,18 +125,24 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const isValidPhone = () => {
+		// Accept empty field as valid.
+		if (!phone) {
+			return true;
+		}
+
 		const inputId = 'organizer-phone';
 		const isVisited = visitedFields.includes(inputId);
 		if (!isVisited) {
 			return true;
 		}
 
-		const phonePattern = /^\+?\d?[\s.-]?(?:\(\d{3}\)|\d{3})[\s.-]?\d{3}[\s.-]?\d{4}$/;
+		// Generic phone number regex to allow different groupings.
+		const phonePattern = /^\+?\d{1,3}[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{1,4}[\s.-]?\d{1,4}[\s.-]?\d{1,4}$/;
 		const isValid = phonePattern.test(phone);
 		const fieldEle = document.getElementById(inputId);
 		const parentEle = fieldEle?.closest('.tec-events-onboarding__form-field');
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(phone, fieldEle, parentEle, isValid);
 		}
 
@@ -139,6 +150,11 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 	}
 
 	const isValidWebsite = () => {
+		// Accept empty field as valid.
+		if (!website) {
+			return true;
+		}
+
 		const inputId = 'organizer-website';
 		const isVisited = visitedFields.includes(inputId);
 		if (!isVisited) {
@@ -157,7 +173,7 @@ const OrganizerContent = ({moveToNextTab, skipToNextTab}) => {
 			isValid = false
 		}
 
-		if ( isVisited ) {
+		if (isVisited) {
 			toggleClasses(website, fieldEle, parentEle, isValid);
 		}
 
