@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.12.0.1] 2025-05-14 =
+
+* Fix - Prevents fatal if QR library in common has not loaded. [TEC-5497]
+* Language - 10 new strings added, 247 updated, 1 fuzzied, and 0 obsoleted.
+
 = [6.12.0] 2025-05-13 =
 
 * Feature - Add an editor block to display an event QR code [TEC-5404]
