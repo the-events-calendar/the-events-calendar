@@ -40,7 +40,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @var array<string>
 	 */
-	const MULTIPLE_META = [
+	private const MULTIPLE_META = [
 		TEC::POSTTYPE => [
 			'_EventOrganizerID',
 			'_EventVenueID',
@@ -56,6 +56,8 @@ class Controller extends Controller_Contract {
 	 */
 	protected function do_register(): void {
 		$this->register_meta_fields();
+		add_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
+		add_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 	}
 
 	/**
@@ -67,6 +69,8 @@ class Controller extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->unregister_meta_fields();
+		remove_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
+		remove_filter( 'tec_classy_localized_data', [ $this, 'fitler_data' ] );
 	}
 
 	/**
@@ -120,7 +124,7 @@ class Controller extends Controller_Contract {
 	 *
 	 * @return void
 	 */
-	private function unregister_post_meta(): void {
+	private function unregister_meta_fields(): void {
 		foreach ( self::SINGLE_META as $post_type => $meta_keys ) {
 			foreach ( $meta_keys as $meta_key ) {
 				unregister_post_meta( $post_type, $meta_key );
@@ -132,5 +136,56 @@ class Controller extends Controller_Contract {
 				unregister_post_meta( $post_type, $meta_key );
 			}
 		}
+	}
+
+	/**
+	 * Filters the post types that Classy supports when The Events Calendar is active.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $supported_post_types
+	 *
+	 * @return array<string> The filtered list of supported post types.
+	 */
+	public function add_supported_post_types( array $supported_post_types ): array {
+		$supported_post_types[] = TEC::POSTTYPE;
+
+		return $supported_post_types;
+	}
+
+	/**
+	 * Filters the data passed to the Classy application.
+	 *
+	 * @since TBD
+	 *
+	 * @param array{settings?: array<string,mixed>} $data The data passed to the Classy application.
+	 *
+	 * @return array{
+	 *     settings:{
+	 *          timeRangeSeparator: string,
+	 *          endOfDayCutoff:{
+	 *              hours: int,
+	 *              minutes: int
+	 *          }
+	 *     }
+	 * } The filtered data passed to the Classy application.
+	 */
+	public function filter_data( array $data ): array {
+		$data['settings'] = $data['settings'] ?? [];
+
+		$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$multi_day_cutoff     = tribe_get_option( 'multiDayCutoff', '00:00' );
+		[ $multi_day_cutoff_hours, $multi_day_cutoff_minutes ] = array_replace(
+			[ 0, 0 ],
+			explode( ':', $multi_day_cutoff, 2 )
+		);
+
+		$data['settings']['timeRangeSeparator'] = $time_range_separator;
+		$data['endOfDayCutoff']                 = [
+			'hours'   => (int) $multi_day_cutoff_hours,
+			'minutes' => (int) $multi_day_cutoff_minutes,
+		];
+
+		return $data;
 	}
 }
