@@ -3,8 +3,8 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.12.1
-Requires at least: 6.5
+Stable tag: 6.12.0.1
+Requires at least: 6.6
 Tested up to: 6.8.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,11 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.12.0.1] 2025-05-14 =
+
+* Fix - Prevents fatal if QR library in common has not loaded. [TEC-5497]
+* Language - 10 new strings added, 247 updated, 1 fuzzied, and 0 obsoleted.
 
 = [6.12.0] 2025-05-13 =
 
