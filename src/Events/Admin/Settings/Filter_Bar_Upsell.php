@@ -82,8 +82,8 @@ class Filter_Bar_Upsell extends Service_Provider {
 	 *
 	 * @since 6.7.0
 	 *
-	 * @param array $classes The classes for the settings form.
-	 * @param string $admin_page The current admin page.
+	 * @param array               $classes    The classes for the settings form.
+	 * @param string              $admin_page The current admin page.
 	 * @param Tribe__Settings_Tab $tab_object The current tab object.
 	 *
 	 * @return array The modified classes for the settings form.
