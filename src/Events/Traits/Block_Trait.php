@@ -10,7 +10,7 @@ namespace Tribe\Events\Traits;
 use Tribe__Events__Main as TEC;
 
 /**
- * Trait Tribe__Events__Editor__Blocks__Block_Trait.
+ * Trait Block_Trait.
  *
  * @since TBD
  */
@@ -31,13 +31,13 @@ trait Block_Trait {
 
 		tec_asset(
 			tribe( 'tec.main' ),
-			'tribe-events-block-' . $this->slug(),
-			$this->slug() . '/frontend.css',
+			"tribe-events-block-{$this->slug()}",
+			"{$this->slug()}/frontend.css",
 			[],
 			'wp_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'has_block' ],
-				'group_path' => TEC::class . '-packages',
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 	}
