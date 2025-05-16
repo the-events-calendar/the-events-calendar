@@ -133,7 +133,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function register_assets(): void {
-		tribe_asset(
+		tec_asset(
 			TEC::instance(),
 			'tec-events-qr-code-styles',
 			'qr-code.css',

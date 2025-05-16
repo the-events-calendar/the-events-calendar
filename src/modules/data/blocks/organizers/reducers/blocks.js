@@ -36,7 +36,7 @@ export const allIds = ( state = [], action ) => {
 		case types.ADD_BLOCK_ORGANIZER:
 			return [ ...state, action.payload.organizer ];
 		case types.REMOVE_BLOCK_ORGANIZER:
-			return state.filter( organizer => organizer !== action.payload.organizer );
+			return state.filter( ( organizer ) => organizer !== action.payload.organizer );
 		default:
 			return state;
 	}

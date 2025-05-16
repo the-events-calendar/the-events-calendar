@@ -16,11 +16,7 @@ import { __ } from '@wordpress/i18n';
 import { globals } from '@moderntribe/common/utils';
 import './style.pcss';
 
-const EditLink = ( {
-	postId = 0,
-	label = __( 'Edit', 'the-events-calendar' ),
-	target = '_blank',
-} ) => {
+const EditLink = ( { postId = 0, label = __( 'Edit', 'the-events-calendar' ), target = '_blank' } ) => {
 	const admin = get( globals.common(), 'adminUrl', '' );
 	if ( ! admin || ! postId ) {
 		return null;

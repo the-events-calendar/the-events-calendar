@@ -7,13 +7,8 @@ import { compose } from 'redux';
 /**
  * Internal dependencies
  */
-import {
-	selectors as dateTimeSelectors,
-} from '@moderntribe/events/data/blocks/datetime';
-import {
-	selectors as priceSelectors,
-	actions as priceActions,
-} from '@moderntribe/events/data/blocks/price';
+import { selectors as dateTimeSelectors } from '@moderntribe/events/data/blocks/datetime';
+import { selectors as priceSelectors, actions as priceActions } from '@moderntribe/events/data/blocks/price';
 import { withStore } from '@moderntribe/common/hoc';
 import EventDateTimeContent from './template';
 
@@ -43,7 +38,4 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	},
 } );
 
-export default compose(
-	withStore(),
-	connect( mapStateToProps, mapDispatchToProps ),
-)( EventDateTimeContent );
+export default compose( withStore(), connect( mapStateToProps, mapDispatchToProps ) )( EventDateTimeContent );

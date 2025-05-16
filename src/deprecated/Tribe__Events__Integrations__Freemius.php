@@ -189,7 +189,7 @@ class Tribe__Events__Integrations__Freemius {
 
 		add_action( 'admin_init', [ $this, 'maybe_remove_activation_complete_notice' ] );
 
-		tribe_asset(
+		tec_asset(
 			Tribe__Events__Main::instance(),
 			"tribe-{$this->slug}-freemius",
 			'freemius.css',

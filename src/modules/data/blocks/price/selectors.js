@@ -5,22 +5,10 @@ import { createSelector } from 'reselect';
 
 export const getPriceBlock = ( state ) => state.events.blocks.price;
 
-export const getPrice = createSelector(
-	[ getPriceBlock ],
-	( block ) => block.cost,
-);
+export const getPrice = createSelector( [ getPriceBlock ], ( block ) => block.cost );
 
-export const getSymbol = createSelector(
-	[ getPriceBlock ],
-	( block ) => block.symbol,
-);
+export const getSymbol = createSelector( [ getPriceBlock ], ( block ) => block.symbol );
 
-export const getPosition = createSelector(
-	[ getPriceBlock ],
-	( block ) => block.position,
-);
+export const getPosition = createSelector( [ getPriceBlock ], ( block ) => block.position );
 
-export const getCode = createSelector(
-	[ getPriceBlock ],
-	( block ) => block.code,
-);
+export const getCode = createSelector( [ getPriceBlock ], ( block ) => block.code );

@@ -4,36 +4,36 @@
 	width: 100%;
 
 	&--current {
-		width: 100%;
 		flex-basis: 100%;
+		width: 100%;
 	}
 }
 
 .tribe-editor__venue--has-map {
 
 	.tribe-editor__venue--current {
-		width: 49%;
 		flex-basis: 49%;
+		width: 49%;
 	}
 }
 
 .tribe-editor__map {
-	display: flex;
 	align-items: center;
+	display: flex;
 	justify-content: center;
-	text-align: center;
 	position: relative;
+	text-align: center;
 
 	.trie-editor__spinner__container {
-		z-index: 1;
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
+		align-items: center;
 		bottom: 0;
 		display: flex;
-		align-items: center;
 		justify-content: center;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		z-index: 1;
 	}
 }
 
@@ -41,33 +41,35 @@
 	margin-top: 1.2em;
 
 	&--close {
+
 		svg {
-			width: 24px;
 			margin-right: 5px;
 			vertical-align: text-top;
+			width: 24px;
 		}
 	}
 
 	svg,
 	path {
-		fill: #8D949B;
+		fill: #8d949b;
 	}
 
 	button {
-		background-color: #FFF;
+		background-color: #fff;
 		border: none;
-		padding: 5px 7px 5px 0;
 		color: #b52727;
 		cursor: pointer;
+		padding: 5px 7px 5px 0;
 
 		.editor-styles-wrapper & {
 			font-size: 13px;
 		}
 
 		&:hover {
+
 			svg,
 			path {
-				fill: #009FD4;
+				fill: #009fd4;
 			}
 		}
 	}
@@ -83,13 +85,14 @@
 
 		svg,
 		path {
-			fill: #8D949B;
+			fill: #8d949b;
 		}
 
 		&:hover {
+
 			svg,
 			path {
-				fill: #009FD4;
+				fill: #009fd4;
 			}
 		}
 	}
@@ -99,12 +102,12 @@ h3.tribe-editor__venue__name-heading {
 
 	/* extra classes to override WP 5.0 styles */
 	.tribe-editor__venue .tribe-editor__venue__name & {
+		font-family: Helvetica, Arial, sans-serif;
 		font-size: 1.3125rem;
-		font-weight: bold;
-		padding: 0;
-		margin-top: 0;
+		font-weight: 700;
 		margin-bottom: 4px;
-		font-family: 'Helvetica', 'Arial', 'sans-serif';
+		margin-top: 0;
+		padding: 0;
 	}
 }
 
@@ -113,7 +116,7 @@ h3.tribe-editor__venue__name-heading {
 	margin-bottom: 20px;
 
 	a {
-		color: #009FD4;
+		color: #009fd4;
 
 		&:hover {
 			text-decoration: none;
@@ -133,11 +136,11 @@ h3.tribe-editor__venue__name-heading {
 .tribe-editor__venue__address,
 .tribe-editor__venue__phone,
 .tribe-editor__venue__website {
-	color: #545D66;
-	font-family: 'Helvetica', 'Arial', 'sans-serif';
+	color: #545d66;
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 1rem;
-	line-height: 1.5;
 	letter-spacing: 0.13px;
+	line-height: 1.5;
 }
 
 .tribe-editor__organizer__title {
@@ -150,13 +153,14 @@ h3.tribe-editor__venue__name-heading {
 
 		svg,
 		path {
-			fill: #8D949B;
+			fill: #8d949b;
 		}
 
 		&:hover {
+
 			svg,
 			path {
-				fill: #009FD4;
+				fill: #009fd4;
 			}
 		}
 	}

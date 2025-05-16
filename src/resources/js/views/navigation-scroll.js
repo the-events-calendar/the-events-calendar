@@ -16,33 +16,34 @@ tribe.events.views.navigationScroll = {};
  *
  * @since  4.9.8
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.navigationScroll
+ * @param {PlainObject} $   jQuery
+ * @param {PlainObject} obj tribe.events.views.navigationScroll
  *
  * @return {void}
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $document = $( document );
-	var $window = $( window );
+	const $document = $( document );
+	const $window = $( window );
 
 	/**
 	 * When we have an AJAX Success scroll up when the window is below 25% of the container position.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param  {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param  {String} html       HTML sent from the REST API
-	 * @param  {String} textStatus Status for the request
-	 * @param  {jqXHR}  qXHR       Request object
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
+	 * @param {string} html       HTML sent from the REST API
+	 * @param {string} textStatus Status for the request
+	 * @param {jqXHR}  qXHR       Request object
 	 *
 	 * @return {void}
 	 */
-	obj.scrollUp = function( event, html, textStatus, qXHR ) { // eslint-disable-line no-unused-vars
-		var $container = $( event.target );
-		var windowTop = $window.scrollTop();
-		var containerOffset = $container.offset();
-		var scrollTopRequirement = windowTop * 0.75;
+	obj.scrollUp = function ( event, html, textStatus, qXHR ) {
+		// eslint-disable-line no-unused-vars
+		const $container = $( event.target );
+		const windowTop = $window.scrollTop();
+		const containerOffset = $container.offset();
+		const scrollTopRequirement = windowTop * 0.75;
 
 		if ( scrollTopRequirement > containerOffset.top ) {
 			$window.scrollTop( containerOffset.top );
@@ -56,12 +57,8 @@ tribe.events.views.navigationScroll = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
-		$document.on(
-			'afterAjaxSuccess.tribeEvents',
-			tribe.events.views.manager.selectors.container,
-			obj.scrollUp
-		);
+	obj.ready = function () {
+		$document.on( 'afterAjaxSuccess.tribeEvents', tribe.events.views.manager.selectors.container, obj.scrollUp );
 	};
 
 	// Configure on document ready

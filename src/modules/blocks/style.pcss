@@ -20,27 +20,28 @@
  * PHP view
  */
 .tribe-editor-events-link {
+
 	.tribe-events-button {
 		background-color: #21759b;
 		background-image: none;
-		border-radius: 3px;
 		border: 0;
+		border-radius: 3px;
 		box-shadow: none;
 		cursor: pointer;
 		display: inline-block;
 		letter-spacing: 1px;
 		line-height: normal;
+		margin-right: 10px;
 		padding: 6px 9px;
 		text-align: center;
 		text-decoration: none;
 		vertical-align: middle;
-		margin-right: 10px;
 
 		.blocks-plain-text {
-			color: #fff;
 			background-color: transparent;
+			color: #fff;
 			font-size: 14px;
-			font-weight: bold;
+			font-weight: 700;
 			text-transform: uppercase;
 
 			&&::placeholder {
@@ -67,7 +68,7 @@
 	&::before,
 	&::after {
 		clear: both;
-		content: '';
+		content: "";
 		display: table;
 	}
 
@@ -85,23 +86,25 @@
 		&.column-1-3 {
 			width: 34%;
 		}
+
 		&.column-2-3 {
 			width: 66%;
 		}
+
 		&.column-full-width {
 			width: 100%;
 		}
 
 		.tribe-editor__events-section__headline {
+			border: none;
 			font-size: 17px;
-			font-weight: bold;
+			font-weight: 700;
 			padding: 0 0 10px;
 			word-wrap: break-word;
-			border: none;
 
 			input {
-				font-size: 17px;
 				border: none;
+				font-size: 17px;
 				padding: 0;
 			}
 		}
@@ -110,10 +113,10 @@
 			display: block;
 
 			.components-spinner {
-				position: absolute;
 				left: 50%;
-				right: 50%;
 				margin: 0;
+				position: absolute;
+				right: 50%;
 			}
 		}
 
@@ -128,10 +131,10 @@
 
 	.tribe-editor__terms__spinner {
 		height: 20px;
-		width: 100%;
-		position: relative;
 		margin: 5px 0;
 		padding: 0 11px;
+		position: relative;
+		width: 100%;
 	}
 
 	.blocks-plain-text {
@@ -143,6 +146,7 @@
 	}
 
 	.tribe-editor__event-cost {
+
 		span {
 			display: inline-block;
 			vertical-align: top;
@@ -180,6 +184,7 @@
 }
 
 .tribe-editor__meta-group {
+
 	ul.tribe-editor__organizer__list {
 		list-style: none;
 		margin-bottom: 15px;
@@ -191,6 +196,7 @@
 }
 
 .tribe-editor__organizer__form {
+
 	.components-placeholder {
 		background-color: transparent;
 	}

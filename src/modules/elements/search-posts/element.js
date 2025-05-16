@@ -20,10 +20,12 @@ const onMount = ( dispatch, ownProps ) => () => {
 
 	dispatch( actions.addBlock( name ) );
 	dispatch( actions.setSearchPostType( name, postType ) );
-	dispatch( thunks.search( name, {
-		term: '',
-		exclude,
-	} ) );
+	dispatch(
+		thunks.search( name, {
+			term: '',
+			exclude,
+		} )
+	);
 };
 
 const onInputChange = ( dispatch, ownProps ) => ( event ) => {
@@ -31,10 +33,12 @@ const onInputChange = ( dispatch, ownProps ) => ( event ) => {
 	const { value } = event.target;
 
 	dispatch( actions.setTerm( name, value ) );
-	dispatch( thunks.search( name, {
-		term: value,
-		exclude,
-	} ) );
+	dispatch(
+		thunks.search( name, {
+			term: value,
+			exclude,
+		} )
+	);
 };
 
 const onItemClick = ( dispatch, ownProps ) => ( onClose ) => ( item ) => {
@@ -56,12 +60,14 @@ const onDropdownScroll = ( stateProps, dispatchProps, ownProps ) => ( event ) =>
 	if ( scrollPercentage > 75 ) {
 		const { term, page } = stateProps;
 		const { name, exclude } = ownProps;
-		dispatchProps.dispatch( thunks.search( name, {
-			term,
-			exclude,
-			populated: true,
-			page: page + 1,
-		} ) );
+		dispatchProps.dispatch(
+			thunks.search( name, {
+				term,
+				exclude,
+				populated: true,
+				page: page + 1,
+			} )
+		);
 	}
 };
 
@@ -93,7 +99,4 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {
 	onDropdownToggle: onDropdownToggle( stateProps, dispatchProps, ownProps ),
 } );
 
-export default compose(
-	withStore(),
-	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
-)( SearchPosts );
+export default compose( withStore(), connect( mapStateToProps, mapDispatchToProps, mergeProps ) )( SearchPosts );

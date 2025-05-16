@@ -39,10 +39,7 @@ class MetaGroup extends Component {
 			className,
 		] );
 		return (
-			<div
-				className={ names }
-				key={ groupKey }
-			>
+			<div className={ names } key={ groupKey }>
 				{ children }
 			</div>
 		);

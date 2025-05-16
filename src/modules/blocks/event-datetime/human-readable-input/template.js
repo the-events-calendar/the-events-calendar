@@ -28,4 +28,3 @@ HumanReadableInput.propTypes = {
 };
 
 export default HumanReadableInput;
-

@@ -273,8 +273,8 @@ class Frontend_Test extends Controller_Test_Case {
 
 	public function asset_data_provider() {
 		$assets = [
-			'tec-events-calendar-embeds-frontend-script' => 'src/resources/js/calendar-embeds/page.js',
-			'tec-events-calendar-embeds-frontend-style'  => 'src/resources/css/calendar-embeds/page.css',
+			'tec-events-calendar-embeds-frontend-script' => 'build/js/calendar-embeds/page.js',
+			'tec-events-calendar-embeds-frontend-style'  => 'build/css/calendar-embeds/page.css',
 		];
 
 		foreach ( $assets as $slug => $path ) {

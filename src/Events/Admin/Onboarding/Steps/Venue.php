@@ -9,10 +9,11 @@
 
 namespace TEC\Events\Admin\Onboarding\Steps;
 
+use TEC\Common\Admin\Onboarding\Steps\Abstract_Step;
 use Tribe__Events__API;
 use WP_REST_Response;
 use WP_REST_Request;
-use TEC\Events\Admin\Onboarding\Data;
+use TEC\Common\Lists\Country;
 
 /**
  * Class Venue
@@ -42,22 +43,22 @@ class Venue extends Abstract_Step {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function process( $response, $request ): WP_REST_Response {
+	public function process( $response, $request ): WP_REST_Response {
 		$params = $request->get_params();
 		// No data to process, bail out.
 		if ( empty( $params['venue'] ) ) {
-			return self::add_message( $response, __( 'No venue to save. Step skipped', 'the-events-calendar' ) );
+			return $this->add_message( $response, __( 'No venue to save. Step skipped', 'the-events-calendar' ) );
 		}
 
 		$venue = $params['venue'];
 
 		// If we already have a venue, we're not editing it here.
 		if ( ! empty( $venue['venueId'] ) ) {
-			return self::add_message( $response, __( 'Existing venue. Step skipped.', 'the-events-calendar' ) );
+			return $this->add_message( $response, __( 'Existing venue. Step skipped.', 'the-events-calendar' ) );
 		}
 
 		$country = $venue['country'] ?? '';
-		$country = tribe( Data::class )->find_country_by_key( $country );
+		$country = tribe( Country::class )->find_country_by_key( $country );
 
 		// Massage the data a bit.
 		$new_venue['Origin']        = 'tec-onboarding';
@@ -75,11 +76,11 @@ class Venue extends Abstract_Step {
 		$post_id = Tribe__Events__API::createVenue( $new_venue );
 
 		if ( ! $post_id ) {
-			return self::add_fail_message( $response, __( 'Failed to create venue.', 'the-events-calendar' ) );
+			return $this->add_fail_message( $response, __( 'Failed to create venue.', 'the-events-calendar' ) );
 		} else {
 			$response->data['venue_id'] = $post_id;
 		}
 
-		return self::add_message( $response, __( 'Venue created.', 'the-events-calendar' ) );
+		return $this->add_message( $response, __( 'Venue created.', 'the-events-calendar' ) );
 	}
 }

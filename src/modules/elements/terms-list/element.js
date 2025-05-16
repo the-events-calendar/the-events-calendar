@@ -30,24 +30,18 @@ const getTerms = ( terms, parentId = null ) => {
 	return terms.filter( ( term ) => term.parent === parentId );
 };
 
-const getTermListClassName = ( level = 0 ) => (
-	`tribe-editor__terms__list tribe-editor__terms__list--level-${ level }`
-);
+const getTermListClassName = ( level = 0 ) => `tribe-editor__terms__list tribe-editor__terms__list--level-${ level }`;
 
-const getTermListItemClassName = ( level = 0 ) => (
-	`tribe-editor__terms__list-item tribe-editor__terms__list-item--level-${ level }`
-);
+const getTermListItemClassName = ( level = 0 ) =>
+	`tribe-editor__terms__list-item tribe-editor__terms__list-item--level-${ level }`;
 
 const termName = ( term = {} ) => {
-	return term.name
-		? unescape( term.name ).trim()
-		: __( '(Untitled)', 'the-events-calendar' );
+	return term.name ? unescape( term.name ).trim() : __( '(Untitled)', 'the-events-calendar' );
 };
 
 const Label = ( { text = '' } ) => (
 	<strong className="tribe-editor__terms__label" key="terms-label">
-		{ text }
-		{ ' ' }
+		{ text }{ ' ' }
 	</strong>
 );
 
@@ -55,14 +49,13 @@ Label.propTypes = {
 	text: PropTypes.string,
 };
 
-const Empty = ( { renderEmpty = null, id, label } ) => (
+const Empty = ( { renderEmpty = null, id, label } ) =>
 	renderEmpty && (
 		<div key={ id } className="tribe-editor__terms--empty">
 			<Label text={ label } />
 			{ renderEmpty }
 		</div>
-	)
-);
+	);
 
 Empty.propTypes = {
 	renderEmpty: PropTypes.node,
@@ -72,7 +65,7 @@ Empty.propTypes = {
 
 const List = ( {
 	terms = [],
-	termSeparator = __( ', ', 'the-events-calendar' ),
+	termSeparator = __( ',', 'the-events-calendar' ),
 	isLoading = false,
 	id = '',
 	className = '',
@@ -84,12 +77,7 @@ const List = ( {
 	return (
 		<ul className={ getTermListClassName() }>
 			{ terms.map( ( term, index ) => (
-				<Item
-					key={ index }
-					term={ term }
-					separator={ termSeparator }
-					isLast={ index + 1 === terms.length }
-				/>
+				<Item key={ index } term={ term } separator={ termSeparator } isLast={ index + 1 === terms.length } />
 			) ) }
 		</ul>
 	);
@@ -103,7 +91,7 @@ List.propTypes = {
 	className: PropTypes.string,
 };
 
-const Separator = ( { delimiter, isLast } ) => ! isLast ? <span>{ delimiter }</span> : '';
+const Separator = ( { delimiter, isLast } ) => ( ! isLast ? <span>{ delimiter }</span> : '' );
 
 Separator.propTypes = {
 	delimiter: PropTypes.string,
@@ -211,6 +199,4 @@ const applySelect = withSelect( ( select, props ) => {
 	};
 } );
 
-export default compose(
-	applySelect,
-)( TaxonomiesElement );
+export default compose( applySelect )( TaxonomiesElement );

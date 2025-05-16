@@ -28,24 +28,17 @@ export const directions = {
  * </Dashboard>
  */
 
-const Dashboard = ( {
-	className = '',
-	direction = directions.down,
-	isOpen = false,
-	children = null,
-} ) => {
+const Dashboard = ( { className = '', direction = directions.down, isOpen = false, children = null } ) => {
 	const containerClasses = classNames(
 		'tribe-editor__dashboard__container',
 		`tribe-editor__dashboard__container--${ direction }`,
 		{ 'tribe-editor__dashboard__container--open': isOpen },
-		className,
+		className
 	);
 
 	return (
 		<div className={ containerClasses }>
-			<div className="tribe-editor__dashboard">
-				{ children }
-			</div>
+			<div className="tribe-editor__dashboard">{ children }</div>
 		</div>
 	);
 };

@@ -65,70 +65,83 @@
 .tribe-events-calendar thead th {
 	padding: 7px 1em;
 }
+
 #tribe-events-content .tribe-events-calendar td {
 	-webkit-transition: none;
-	   -moz-transition: none;
-	    -ms-transition: none;
-	     -o-transition: none;
-	        transition: none;
+	-moz-transition: none;
+	-ms-transition: none;
+	-o-transition: none;
+	transition: none;
 }
+
 #tribe-events-content .tribe-events-calendar td:hover {
 	background: none;
 	-webkit-box-shadow: none;
-	        box-shadow: none;
+	box-shadow: none;
 }
+
 #tribe-events-content .tribe-events-calendar td.tribe-events-othermonth:hover {
 	background: #f9f9f9;
 }
-.tribe-events-calendar td.tribe-events-past div[id*='tribe-events-daynum-'],
-.tribe-events-calendar td.tribe-events-past div[id*='tribe-events-daynum-'] > a {
+
+.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"],
+.tribe-events-calendar td.tribe-events-past div[id*="tribe-events-daynum-"] > a {
 	background: none;
 	color: #999;
 }
-.tribe-events-calendar td div[id*='tribe-events-daynum-'],
-.tribe-events-calendar td div[id*='tribe-events-daynum-'] a {
+
+.tribe-events-calendar td div[id*="tribe-events-daynum-"],
+.tribe-events-calendar td div[id*="tribe-events-daynum-"] a {
 	background: none;
-	padding: 0;
 	color: #333;
+	padding: 0;
 }
+
 #tribe-mobile-container .tribe-events-viewmore {
 	border-top: 1px dotted #2f2f2f;
 }
+
 /* Specific Classes */
-.tribe-events-calendar div[id*='tribe-events-daynum-'] a:hover {
+.tribe-events-calendar div[id*="tribe-events-daynum-"] a:hover {
 	color: #333;
 }
-.tribe-events-calendar .mobile-active.tribe-events-past div[id*='tribe-events-daynum-'],
-.tribe-events-calendar .mobile-active.tribe-events-past div[id*='tribe-events-daynum-'] > a {
+
+.tribe-events-calendar .mobile-active.tribe-events-past div[id*="tribe-events-daynum-"],
+.tribe-events-calendar .mobile-active.tribe-events-past div[id*="tribe-events-daynum-"] > a {
 	color: #fff;
 }
+
 .tribe-events-calendar td.mobile-active,
-.tribe-events-calendar .mobile-active div[id*='tribe-events-daynum-'],
-.tribe-events-calendar .mobile-active div[id*='tribe-events-daynum-'] a,
+.tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"],
+.tribe-events-calendar .mobile-active div[id*="tribe-events-daynum-"] a,
 #tribe-events-content .tribe-events-calendar .mobile-active:hover,
 #tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active,
-#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*='tribe-events-daynum-'],
-#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*='tribe-events-daynum-'] a {
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*="tribe-events-daynum-"],
+#tribe-events-content .tribe-events-calendar td.tribe-events-othermonth.mobile-active div[id*="tribe-events-daynum-"] a {
 	background-color: #21759b;
 	color: #fff;
 }
-.tribe-events-calendar .tribe-events-present.tribe-events-has-events:after {
+
+.tribe-events-calendar .tribe-events-present.tribe-events-has-events::after {
 	background: #333;
 }
-.tribe-events-calendar .mobile-active.tribe-events-has-events:after {
+
+.tribe-events-calendar .mobile-active.tribe-events-has-events::after {
 	background-color: #fff;
 }
+
 .tribe-events-calendar td.tribe-events-present,
 #tribe-events-content .tribe-events-calendar td.tribe-events-present:hover,
-.tribe-events-calendar td.tribe-events-present div[id*='tribe-events-daynum-'],
-.tribe-events-calendar td.tribe-events-present div[id*='tribe-events-daynum-'] > a {
+.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"],
+.tribe-events-calendar td.tribe-events-present div[id*="tribe-events-daynum-"] > a {
 	background-color: #dedede;
 	color: #333;
 }
+
 .tribe-events-calendar td.tribe-events-present.mobile-active,
 #tribe-events-content .tribe-events-calendar td.tribe-events-present.mobile-active:hover,
-.tribe-events-calendar td.tribe-events-present.mobile-active div[id*='tribe-events-daynum-'],
-.tribe-events-calendar td.tribe-events-present.mobile-active div[id*='tribe-events-daynum-'] a {
+.tribe-events-calendar td.tribe-events-present.mobile-active div[id*="tribe-events-daynum-"],
+.tribe-events-calendar td.tribe-events-present.mobile-active div[id*="tribe-events-daynum-"] a {
 	background-color: #21759b;
 	color: #fff;
 }

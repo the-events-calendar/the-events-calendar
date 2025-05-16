@@ -29,12 +29,12 @@ const { getState } = store;
  *
  * Sets the attributes, updates state, updates details, and syncs with post meta.
  *
- * @param {Object} params - The parameters.
- * @param {Object} params.state - The state.
+ * @param {Object}   params          - The parameters.
+ * @param {Object}   params.state    - The state.
  * @param {Function} params.dispatch - The dispatch function.
- * @param {Object} params.ownProps - The ownProps.
- * @param {number} params.venueID - The venue ID.
- * @param {Object} params.details - The details.
+ * @param {Object}   params.ownProps - The ownProps.
+ * @param {number}   params.venueID  - The venue ID.
+ * @param {Object}   params.details  - The details.
  */
 const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
 	const venues = selectors.getVenuesInBlock( state );
@@ -52,10 +52,10 @@ const setVenue = ( { state, dispatch, ownProps, venueID, details } ) => {
 /**
  * One the venue form has been filled out, set the venue in the block.
  *
- * @param {Object} state - The state.
+ * @param {Object}   state    - The state.
  * @param {Function} dispatch - The dispatch function.
- * @param {Object} ownProps - The ownProps.
- * @returns {(function(*): void)|*} - The function to call when the form is complete.
+ * @param {Object}   ownProps - The ownProps.
+ * @return {(function(*): void)|*} - The function to call when the form is complete.
  */
 const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
 	setVenue( { state, dispatch, ownProps, venueID: body.id, details: body } );
@@ -65,8 +65,8 @@ const onFormComplete = ( state, dispatch, ownProps ) => ( body ) => {
  * Handles form submission.
  *
  * @param {Function} dispatch - The dispatch function.
- * @param {Object} ownProps - The ownProps.
- * @returns {(function(*): void)|*} - The function to call when the form is submitted.
+ * @param {Object}   ownProps - The ownProps.
+ * @return {(function(*): void)|*} - The function to call when the form is submitted.
  */
 const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => {
 	ownProps.sendForm( toVenue( fields ), onFormComplete( getState(), dispatch, ownProps ) );
@@ -76,13 +76,14 @@ const onFormSubmit = ( dispatch, ownProps ) => ( fields ) => {
  * Creates a draft venue.
  *
  * @param {Object} ownProps - The ownProps.
- * @returns {Function} - The function to call to create a draft venue.
+ * @return {Function} - The function to call to create a draft venue.
  */
-const onCreateNew = ( ownProps ) => ( title ) => ownProps.createDraft( {
-	title: {
-		rendered: title,
-	},
-} );
+const onCreateNew = ( ownProps ) => ( title ) =>
+	ownProps.createDraft( {
+		title: {
+			rendered: title,
+		},
+	} );
 
 /**
  * Triggers the editEntry operation.
@@ -106,14 +107,14 @@ const mapStateToProps = ( state, ownProps ) => {
 		showMap = ownProps.attributes.showMap;
 	}
 
-	return ( {
+	return {
 		venue: ownProps.attributes.venue,
 		venues: selectors.getVenuesInBlock( state ),
-		showMapLink: showMapLink,
-		showMap: showMap,
+		showMapLink,
+		showMap,
 		embedMap: selectors.getMapEmbed(),
 		state,
-	} );
+	};
 };
 
 const mapDispatchToProps = ( dispatch, ownProps ) => ( {
@@ -166,5 +167,5 @@ export default compose(
 	connect( mapStateToProps ),
 	withDetails( 'venue' ),
 	withForm( ( props ) => props.name ),
-	connect( mapStateToProps, mapDispatchToProps, mergeProps ),
+	connect( mapStateToProps, mapDispatchToProps, mergeProps )
 )( EventVenue );

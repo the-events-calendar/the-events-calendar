@@ -1,6 +1,8 @@
 <?php
 class Tribe__Events__Editor__Blocks__Event_Venue
 extends Tribe__Editor__Blocks__Abstract {
+	use TEC\Events\Traits\Block_Trait;
+
 	/**
 	 * The ID of the venue to display.
 	 *
@@ -41,26 +43,6 @@ extends Tribe__Editor__Blocks__Abstract {
 		tribe( 'events.editor.template' )->add_template_globals( $args );
 
 		return tribe( 'events.editor.template' )->template( [ 'blocks', $this->slug() ], $args, false );
-	}
-
-	/**
-	 * Register the Assets for when this block is active
-	 *
-	 * @since 4.7
-	 *
-	 * @return void
-	 */
-	public function assets() {
-		tribe_asset(
-			tribe( 'tec.main' ),
-			'tribe-events-block-' . $this->slug(),
-			'app/' . $this->slug() . '/frontend.css',
-			[],
-			'wp_enqueue_scripts',
-			[
-				'conditionals' => [ $this, 'should_enqueue_assets' ],
-			]
-		);
 	}
 
 	/**

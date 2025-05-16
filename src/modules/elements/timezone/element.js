@@ -12,12 +12,7 @@ import { noop } from 'lodash';
 import { input } from '@moderntribe/common/utils';
 import './style.pcss';
 
-const Timezone = ( {
-	value = '',
-	placeholder = '',
-	className = 'tribe-editor__timezone-input',
-	onChange = noop,
-} ) => (
+const Timezone = ( { value = '', placeholder = '', className = 'tribe-editor__timezone-input', onChange = noop } ) => (
 	<AutosizeInput
 		className={ className }
 		value={ value }
@@ -30,10 +25,7 @@ Timezone.propTypes = {
 	value: PropTypes.string,
 	placeholder: PropTypes.string,
 	onChange: PropTypes.func,
-	className: PropTypes.oneOfType( [
-		PropTypes.string,
-		PropTypes.arrayOf( PropTypes.string ),
-	] ),
+	className: PropTypes.oneOfType( [ PropTypes.string, PropTypes.arrayOf( PropTypes.string ) ] ),
 };
 
 export default Timezone;

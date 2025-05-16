@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent } from 'react';
 
 interface TabPanelProps {
 	id: string;
@@ -7,29 +7,25 @@ interface TabPanelProps {
 	activeTab: number;
 }
 
-const TabPanel: FunctionComponent<TabPanelProps> = ({
-	children,
-	id,
-	tabId,
-	tabIndex,
-	activeTab,
-}) => {
+const TabPanel: FunctionComponent< TabPanelProps > = ( { children, id, tabId, tabIndex, activeTab } ) => {
 	return (
 		<section
 			role="tabpanel"
-			id={id}
-			aria-labelledby={tabId}
-			aria-hidden={activeTab !== tabIndex}
-			hidden={activeTab !== tabIndex}
-			tabIndex={activeTab === tabIndex ? 0 : -1}
-			className={`tec-events-onboarding__tabpanel tec-events-onboarding__tabpanel-${tabId} ${activeTab === tabIndex ? "active" : ""}`}
+			id={ id }
+			aria-labelledby={ tabId }
+			aria-hidden={ activeTab !== tabIndex }
+			hidden={ activeTab !== tabIndex }
+			tabIndex={ activeTab === tabIndex ? 0 : -1 }
+			className={ `tec-events-onboarding__tabpanel tec-events-onboarding__tabpanel-${ tabId } ${
+				activeTab === tabIndex ? 'active' : ''
+			}` }
 		>
-			{children}
+			{ children }
 		</section>
 	);
 };
 
 // Explicitly type the memoized component
-const MemoizedTabPanel = React.memo(TabPanel) as React.FC<TabPanelProps>;
+const MemoizedTabPanel = React.memo( TabPanel ) as React.FC< TabPanelProps >;
 
 export default MemoizedTabPanel;

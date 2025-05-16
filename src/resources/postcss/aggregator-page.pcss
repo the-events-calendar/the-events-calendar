@@ -7,6 +7,7 @@
 		padding: 20px;
 
 		.form-table {
+
 			th[scope="row"] {
 				width: 140px;
 			}
@@ -16,6 +17,7 @@
 			}
 
 			.eb-url-row {
+
 				th[scope="row"] {
 					padding: 0;
 				}
@@ -27,16 +29,17 @@
 		}
 
 		.subsubsub {
+
 			li {
-				font-weight: bold;
+				font-weight: 700;
 			}
 
 			.count {
-				font-weight: normal;
+				font-weight: 400;
 			}
 
 			a {
-				font-weight: normal;
+				font-weight: 400;
 			}
 		}
 	}
@@ -174,6 +177,7 @@
 	}
 
 	.manage-column {
+
 		&.column-frequency {
 			width: 15%;
 		}
@@ -189,6 +193,7 @@
 	}
 
 	.tribe-ea-tab-scheduled {
+
 		td.column-source {
 			padding-left: 10px;
 
@@ -286,13 +291,14 @@
 		padding: 60px;
 
 		.tribe-notice-tribe-missing-aggregator-license__content {
+
 			@media screen and (min-width: 1260px) {
 				width: 50%;
 			}
 		}
 
 		.tribe-notice-tribe-missing-aggregator-license__image {
-			background-image: url('../images/aggregator/ea-intro-img-text.png');
+			background-image: url(../images/aggregator/ea-intro-img-text.png);
 			background-position: center right;
 			background-repeat: no-repeat;
 			background-size: contain;
@@ -306,7 +312,7 @@
 		}
 
 		.upsell-banner {
-			background: url('../images/aggregator/EventAggregator-icon.svg') transparent no-repeat;
+			background: url(../images/aggregator/EventAggregator-icon.svg) transparent no-repeat;
 			background-position: left;
 			background-size: contain;
 			font-family: apercu-mono-bold, monospace;
@@ -319,7 +325,7 @@
 		h3 {
 			color: #141827;
 			font-size: 40px;
-			font-weight: bold;
+			font-weight: 700;
 			letter-spacing: 1.5px;
 			line-height: 1.2;
 			margin: 28px 0 0;
@@ -377,7 +383,7 @@
 			h3 {
 				color: #fff;
 				font-size: 26px;
-				font-weight: normal;
+				font-weight: 400;
 				letter-spacing: 1px;
 				padding: 0 45px;
 			}
@@ -412,7 +418,7 @@
 		border-color: #334aff;
 		border-radius: 40px;
 		font-size: 16px;
-		font-weight: bold;
+		font-weight: 700;
 		margin-left: 0;
 		margin-top: 6px;
 		padding: 20px 50px;
@@ -446,7 +452,7 @@
 		dt {
 			clear: left;
 			display: inline-block;
-			font-weight: bold;
+			font-weight: 700;
 			margin-right: 0.25rem;
 		}
 
@@ -454,8 +460,8 @@
 			display: inline;
 			margin-left: 0;
 
-			&:after {
-				content: '';
+			&::after {
+				content: "";
 				display: block;
 				margin-bottom: 0.25rem;
 			}
@@ -502,6 +508,7 @@
 	}
 
 	&.tribe-fetch-error {
+
 		.tribe-fetch-error-message {
 			display: block;
 		}
@@ -511,6 +518,7 @@
 		display: none;
 
 		&.csv-data {
+
 			#tribe-csv-preview-message {
 				display: block;
 			}
@@ -558,6 +566,7 @@
 
 		.column-cb,
 		.check-column {
+
 			input {
 				display: none;
 			}
@@ -565,6 +574,7 @@
 
 		thead,
 		tfoot {
+
 			th {
 				padding-right: 20px;
 				white-space: nowrap;
@@ -572,11 +582,13 @@
 		}
 
 		thead {
+
 			tr + tr {
+
 				th {
 					background: #f3f3f3;
 					border-bottom: 0;
-					font-weight: bold;
+					font-weight: 700;
 				}
 			}
 		}
@@ -588,8 +600,10 @@
 	}
 
 	.display-checkboxes {
+
 		.column-cb,
 		.check-column {
+
 			input {
 				display: inline-block;
 			}
@@ -598,7 +612,7 @@
 
 	.tribe-preview-message {
 		display: none;
-		font-weight: bold;
+		font-weight: 700;
 		line-height: 26px;
 	}
 
@@ -620,6 +634,7 @@
 }
 
 .show-data {
+
 	.tribe-default-settings,
 	.data-container {
 		display: block;
@@ -631,6 +646,7 @@
 }
 
 .edit-form {
+
 	.tribe-default-settings,
 	.tribe-finalize-container {
 		display: block;
@@ -642,7 +658,9 @@
 }
 
 .tribe-ea-form {
+
 	&[data-origin="csv"] {
+
 		.dataTables_length,
 		.dataTables_info,
 		.dataTables_paginate,
@@ -657,12 +675,14 @@
 	}
 
 	&[data-type="manual"] {
+
 		.tribe-bumpdown-manual {
 			display: inline-block;
 		}
 	}
 
 	&[data-type="schedule"] {
+
 		.tribe-bumpdown-scheduled {
 			display: inline-block;
 		}
@@ -730,18 +750,21 @@
 		}
 
 		&.has-created {
+
 			.track-created {
 				display: block;
 			}
 		}
 
 		&.has-updated {
+
 			.track-updated {
 				display: block;
 			}
 		}
 
 		&.has-skipped {
+
 			.track-skipped {
 				display: block;
 			}
@@ -774,14 +797,16 @@
 }
 
 @media screen and (max-width: 782px) {
+
 	.tribe-ea {
+
 		/**
 		 * override default WordPress responsive styles so the helper icon has space
 		 */
 		.form-table td {
 			padding-right: 0;
 
-			input[type=text] {
+			input[type="text"] {
 				display: inline-block;
 				width: 92%;
 			}
@@ -804,8 +829,11 @@
 }
 
 .tribe-aggregator-inactive {
+
 	.tribe-ea-tab-scheduled {
+
 		.widefat {
+
 			p,
 			td,
 			ul {
@@ -825,6 +853,6 @@
 
 .tec-admin-ea-help-message__icon {
 	height: 20px;
-	width: auto;
 	margin: 0 7px -4px 7px;
+	width: auto;
 }

@@ -19,10 +19,7 @@ import { Venue } from '@moderntribe/events/icons';
 export const blockDefinition = {
 	id: 'event-venue',
 	title: __( 'Event Venue', 'the-events-calendar' ),
-	description: __(
-		'Where is this event happening? Select or create a location.',
-		'the-events-calendar',
-	),
+	description: __( 'Where is this event happening? Select or create a location.', 'the-events-calendar' ),
 	icon: <Venue />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],

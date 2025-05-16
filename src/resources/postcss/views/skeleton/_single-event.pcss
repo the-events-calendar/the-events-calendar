@@ -102,9 +102,9 @@
 	padding: 0 var(--tec-spacer-1);
 	position: relative;
 
-	&:before {
+	&::before {
 		background: svg-inline(recurring-active) 0 / 12px no-repeat;
-		content: '';
+		content: "";
 		height: 20px;
 		left: 8px;
 		position: absolute;
@@ -138,13 +138,15 @@
 		padding: var(--tec-spacer-1) var(--tec-spacer-3);
 	}
 
-	&:before {
+	&::before {
+
 		@media (--viewport-medium) {
 			left: 16px;
 		}
 	}
 
 	.event-is-recurring {
+
 		@media (--viewport-medium) {
 			visibility: visible;
 		}
@@ -319,8 +321,8 @@
 		}
 	}
 
-	&:before {
-		content: '';
+	&::before {
+		content: "";
 		left: 0;
 		position: absolute;
 		right: 0;
@@ -518,7 +520,7 @@
 	}
 }
 
-.tribe-events-nav-previous a:before {
+.tribe-events-nav-previous a::before {
 	margin-top: -2px;
 	width: 7px;
 
@@ -528,7 +530,7 @@
 	}
 }
 
-.tribe-events-nav-next a:after {
+.tribe-events-nav-next a::after {
 	margin-top: -2px;
 	width: 7px;
 
@@ -645,6 +647,7 @@
 	}
 
 	.tribe-events-venue-map {
+
 		@media (--viewport-medium) {
 			margin-top: var(--tec-spacer-7);
 			width: 211px;
@@ -654,6 +657,7 @@
 
 /* TODO: Move to ET in future. The update is too small to justify an ET release. */
 .event-tickets {
+
 	.tribe-tickets__tickets-item-quantity button,
 	.tribe-tickets__rsvp-form-button,
 	.tribe-tickets__rsvp-actions-button-not-going,

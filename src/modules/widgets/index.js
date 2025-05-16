@@ -12,7 +12,7 @@ const blocks = [
 	QrCode,
 ];
 
-blocks.forEach( block => {
+blocks.forEach( ( block ) => {
 	const blockName = `tribe/${ block.id }`;
 	registerBlockType( blockName, block );
 } );
