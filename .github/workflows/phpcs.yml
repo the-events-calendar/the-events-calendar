@@ -42,5 +42,6 @@ jobs:
     uses: stellarwp/github-actions/.github/workflows/phpcs.yml@task/permission-problems
     with:
       ref: ${{ github.event.inputs.ref }}
+      change_permissions: false
     secrets:
       access-token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
