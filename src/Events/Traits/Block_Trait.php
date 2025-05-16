@@ -5,6 +5,8 @@
  * @since TBD
  */
 
+namespace Tribe\Events\Traits;
+
 use Tribe__Events__Main as TEC;
 
 /**
@@ -12,7 +14,7 @@ use Tribe__Events__Main as TEC;
  *
  * @since TBD
  */
-trait Tribe__Events__Editor__Blocks__Block_Trait {
+trait Block_Trait {
 
 	/**
 	 * Register the Assets for when this block is active
