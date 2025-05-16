@@ -5,7 +5,7 @@
  * @since TBD
  */
 
-namespace Tribe\Events\Traits;
+namespace TEC\Events\Traits;
 
 use Tribe__Events__Main as TEC;
 
