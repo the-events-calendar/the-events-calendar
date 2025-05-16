@@ -9,9 +9,12 @@
 
 namespace Tribe\Events\Event_Status\Compatibility\Filter_Bar;
 
+use TEC\Common\StellarWP\Installer\Installer;
 use Tribe\Events\Event_Status\Status_Labels;
 use Tribe\Events\Filterbar\Views\V2\Filters\Context_Filter;
 use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
+use WP_Query;
+use wpdb;
 
 /**
  * Class Events_Status_Filter.
@@ -22,6 +25,15 @@ use Tribe\Events\Event_Status\Event_Meta as Event_Status_Meta;
  */
 class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	use Context_Filter;
+
+	/**
+	 * Transient key for caching sold-out event IDs.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $cache_key_soldout_event_ids = 'tribe_filterbar_soldout_event_ids';
 
 	/**
 	 * Value checked for canceled events.
@@ -36,6 +48,13 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	 * @since   5.12.1
 	 */
 	const POSTPONED = 'postponed';
+
+	/**
+	 * Value checked for soldout events.
+	 *
+	 * @since TBD
+	 */
+	const SOLDOUT = 'soldout';
 
 	/**
 	 * Event Status Table Alias.
@@ -128,6 +147,10 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	 * @param array<string|mixed> An array of values.
 	 */
 	protected function get_values() {
+		$events_label_plural = tribe_get_event_label_plural();
+
+		$et_activated = Installer::get()->is_active( 'event-tickets' );
+
 		$default_values = [
 			'canceled'  => [
 				'name'  => _x( 'Hide canceled events', 'Canceled label for filter bar to hide canceled events.', 'the-events-calendar' ),
@@ -136,15 +159,26 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 			'postponed' => [
 				'name'  => _x( 'Hide postponed events', 'Postponed label for filter bar to hide postponed events.', 'the-events-calendar' ),
 				'value' => self::POSTPONED,
-			],
+			]
 		];
+
+		if ( $et_activated ) {
+
+			// only included the sold out filter if ET activated.
+			$default_values['soldout'] = [
+				// Translators: %s: The plural Events label.
+				'name'  => sprintf( _x( 'Hide sold-out %s', 'Sold out label for filter bar to hide sold-out events.', 'the-events-calendar' ), $events_label_plural ),
+				'value' => self::SOLDOUT,
+			];
+		}
 
 		/**
 		 * Allow filtering of the event statuses values that show in Filter Bar.
 		 *
+		 * @param array<string|string> $default_values An array of filter values.
+		 *
 		 * @since 5.12.1
 		 *
-		 * @param array<string|string> $default_values An array of filter values.
 		 */
 		return (array) apply_filters( 'tec_event_status_filterbar_values', $default_values );
 	}
@@ -163,6 +197,53 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 			AND {$this->alias}.meta_key = %s )";
 
 		$this->joinClause = $wpdb->prepare( $clause, Event_Status_Meta::$key_status );
+	}
+
+	/**
+	 * Modify the query to handle sold-out events filtering.
+	 *
+	 * @param WP_Query $query The WP Query instance.
+	 *
+	 * @since TBD
+	 *
+	 */
+	protected function pre_get_posts( WP_Query $query ) {
+		// Only proceed if we're filtering for sold-out events
+		if ( ! is_array( $this->currentValue ) && $this->currentValue !== self::SOLDOUT ) {
+			return;
+		}
+
+		if ( is_array( $this->currentValue ) && ! in_array( self::SOLDOUT, $this->currentValue ) ) {
+			return;
+		}
+
+		/** @var wpdb $wpdb */
+		global $wpdb;
+
+		// Find events with sold-out tickets using the _stock_status meta key.
+		$soldout_events_sql = "
+                SELECT DISTINCT event_meta.meta_value as event_id
+                FROM {$wpdb->posts} tickets
+                INNER JOIN {$wpdb->postmeta} AS stock_status_meta
+                        ON tickets.ID = stock_status_meta.post_id
+                        AND stock_status_meta.meta_key = '_stock_status'
+                INNER JOIN {$wpdb->postmeta} as event_meta
+                        ON tickets.ID = event_meta.post_id
+                        AND event_meta.meta_key = '_tec_tickets_commerce_event'
+                WHERE
+                    tickets.post_type = 'tec_tc_ticket'
+                    AND tickets.post_status = 'publish'
+                    AND stock_status_meta.meta_value = 'outofstock'
+            ";
+
+		$soldout_events = $wpdb->get_col( $soldout_events_sql );
+
+		if ( ! empty( $soldout_events ) ) {
+			// If we have sold-out events, exclude them from the query
+			$post__not_in = $query->get( 'post__not_in', array() );
+			$post__not_in = array_merge( $post__not_in, $soldout_events );
+			$query->set( 'post__not_in', $post__not_in );
+		}
 	}
 
 	/**
@@ -194,13 +275,14 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		/**
 		 * Allow filtering of the event statuses where clause.
 		 *
-		 * @since 5.12.1
-		 *
 		 * @param string                      $where_clause  The empty where clause to filter.
 		 * @param string|array<string|string> $current_value A string or array of the current values selected for the filter.
 		 * @param string                      $alias         The table alias that will be used for the postmeta table.
 		 * @param array<string|string>        $hide_clauses  The hide clauses on whether to hide canceled and postponed events.
 		 * @param array<string|string>        $clauses       The standard clauses to get all events.
+		 *
+		 * @since 5.12.1
+		 *
 		 */
 		$where_clause = apply_filters( 'tec_event_status_filterbar_where_clause', '', $this->currentValue, $this->alias, $hide_clauses, $clauses );
 		if ( $where_clause ) {
@@ -218,7 +300,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		}
 
 		// merge arrays and use this where clause when only one hide value is selected.
-		$clauses = array_merge( $hide_clauses, $clauses );
+		$clauses           = array_merge( $hide_clauses, $clauses );
 		$this->whereClause = ' AND ( ' . implode( ' OR ', $clauses ) . ') ';
 	}
 }
