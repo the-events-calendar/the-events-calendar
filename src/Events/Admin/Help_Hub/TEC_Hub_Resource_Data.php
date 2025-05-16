@@ -12,6 +12,7 @@
 
 namespace TEC\Events\Admin\Help_Hub;
 
+use TEC\Common\Admin\Help_Hub\Hub;
 use TEC\Common\Admin\Help_Hub\Resource_Data\Help_Hub_Data_Interface;
 use TEC\Common\Admin\Help_Hub\Section_Builder\Link_Section_Builder;
 use TEC\Common\Admin\Help_Hub\Section_Builder\FAQ_Section_Builder;
@@ -73,11 +74,13 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 */
 	public function __construct() {
 		add_action( 'load-' . self::HELP_HUB_PAGE_ID, [ $this, 'initialize' ] );
+		add_action( 'load-' . Hub::IFRAME_PAGE_SLUG, [ $this, 'initialize' ] );
 	}
 
 	/**
 	 * Initializes the Help Hub Resource Data.
 	 *
+	 * @since TBD
 	 * @since TBD
 	 *
 	 * @return void
@@ -365,5 +368,23 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 		$page = tec_get_request_var( 'page' );
 
 		return Settings::$help_hub_slug === $page;
+	}
+
+	/**
+	 * Get the Help Hub id.
+	 *
+	 * @return string
+	 */
+	public function get_help_hub_id(): string {
+		return self::HELP_HUB_PAGE_ID;
+	}
+
+	/**
+	 * Retrieve the Help Hub slug.
+	 *
+	 * @return string The slug for the Help Hub.
+	 */
+	public function get_help_hub_slug(): string {
+		return Settings::$help_hub_slug;
 	}
 }
