@@ -5,14 +5,16 @@
  * @since TBD
  */
 
+namespace Tribe\Events\Editor\Blocks;
+
 use Tribe__Events__Main as TEC;
 
 /**
- * Trait Tribe__Events__Editor__Blocks__Block_Trait.
+ * Trait Block_Trait.
  *
  * @since TBD
  */
-trait Tribe__Events__Editor__Blocks__Block_Trait {
+trait Block_Trait {
 
 	/**
 	 * Register the Assets for when this block is active
@@ -35,7 +37,7 @@ trait Tribe__Events__Editor__Blocks__Block_Trait {
 			'wp_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'has_block' ],
-				'group_path' => TEC::class . '-packages',
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 	}

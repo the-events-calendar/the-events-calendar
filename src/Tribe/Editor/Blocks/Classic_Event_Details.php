@@ -1,7 +1,7 @@
 <?php
 class Tribe__Events__Editor__Blocks__Classic_Event_Details
 extends Tribe__Editor__Blocks__Abstract {
-	use Tribe__Events__Editor__Blocks__Block_Trait;
+	use Tribe\Events\Editor\Blocks\Block_Trait;
 
 	/**
 	 * Which is the name/slug of this block
