@@ -31,8 +31,8 @@ trait Block_Trait {
 
 		tec_asset(
 			tribe( 'tec.main' ),
-			'tribe-events-block-' . $this->slug(),
-			$this->slug() . '/frontend.css',
+			"tribe-events-block-{$this->slug()}",
+			"{$this->slug()}/frontend.css",
 			[],
 			'wp_enqueue_scripts',
 			[
