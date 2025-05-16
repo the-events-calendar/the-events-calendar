@@ -5,7 +5,7 @@
  * @since TBD
  */
 
-namespace Tribe\Events\Editor\Blocks;
+namespace Tribe\Events\Traits;
 
 use Tribe__Events__Main as TEC;
 
