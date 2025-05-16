@@ -12,6 +12,7 @@ namespace TEC\Events\Classy;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
 use Tribe__Events__Main as TEC;
+use TEC\Common\Classy\Controller as Common_Controller;
 
 /**
  * Class Controller.
@@ -61,10 +62,10 @@ class Controller extends Controller_Contract {
 		add_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 
 		// Register the main assets entry point.
-		if ( did_action( 'tec_classy_assets_registered' ) ) {
+		if ( did_action( 'tec_common_assets_loaded' ) ) {
 			$this->register_assets();
 		} else {
-			add_action( 'tec_classy_assets_registered', [ $this, 'register_assets' ] );
+			add_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		}
 	}
 
@@ -180,10 +181,10 @@ class Controller extends Controller_Contract {
 	 * } The filtered data passed to the Classy application.
 	 */
 	public function filter_data( array $data ): array {
-		$data['settings'] = $data['settings'] ?? [];
+		$data['settings'] ??= [];
 
-		$time_range_separator = tribe_get_option( 'timeRangeSeparator', ' - ' );
-		$multi_day_cutoff     = tribe_get_option( 'multiDayCutoff', '00:00' );
+		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
+		$multi_day_cutoff                                      = tribe_get_option( 'multiDayCutoff', '00:00' );
 		[ $multi_day_cutoff_hours, $multi_day_cutoff_minutes ] = array_replace(
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
@@ -206,20 +207,29 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function register_assets() {
+		$post_uses_classy = fn() => $this->container->get( Common_Controller::class )
+													->post_uses_classy( get_post_type() );
+
 		Asset::add(
 			'tec-classy-events',
 			'classy.js'
 		)->add_to_group_path( TEC::class . '-packages' )
-		     ->add_dependency( 'tec-classy' )
-		     ->add_to_group( 'tec-classy' )
-		     ->register();
+			// @todo this should be dynamic depending on the loading context.
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( $post_uses_classy )
+			->add_dependency( 'tec-classy' )
+			->add_to_group( 'tec-classy' )
+			->register();
 
 		Asset::add(
 			'tec-classy-events-style',
 			'style-classy.css'
 		)->add_to_group_path( TEC::class . '-packages' )
-		     ->add_dependency( 'tec-classy-style' )
-		     ->add_to_group( 'tec-classy' )
-		     ->register();
+			// @todo this should be dynamic depending on the loading context.
+			->enqueue_on( 'enqueue_block_editor_assets' )
+			->set_condition( $post_uses_classy )
+			->add_dependency( 'tec-classy-style' )
+			->add_to_group( 'tec-classy' )
+			->register();
 	}
 }
