@@ -17,7 +17,7 @@ extends Tribe__Editor__Blocks__Abstract {
 	/**
 	 * Whether the block should register assets
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 *
 	 * @return bool
 	 */
