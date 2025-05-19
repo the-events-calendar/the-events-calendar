@@ -74,7 +74,25 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 */
 	public function __construct() {
 		add_action( 'load-' . self::HELP_HUB_PAGE_ID, [ $this, 'initialize' ] );
-		add_action( 'load-' . Hub::IFRAME_PAGE_SLUG, [ $this, 'initialize' ] );
+		add_action( 'tec_help_hub_before_iframe_render', [ $this, 'register_with_hub' ] );
+	}
+
+	/**
+	 * Registers this data instance with the Help Hub.
+	 *
+	 * @since TBD
+	 *
+	 * @param Hub $help_hub The current Help Hub instance to register with.
+	 *
+	 * @return void
+	 */
+	public function register_with_hub( Hub $help_hub ): void {
+		$page = tec_get_request_var( 'page' );
+		if ( self::HELP_HUB_PAGE_ID !== $page ) {
+			return;
+		}
+		$this->initialize();
+		$help_hub->set_data( $this );
 	}
 
 	/**
@@ -86,9 +104,6 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * @return void
 	 */
 	public function initialize(): void {
-		if ( ! $this->is_help_hub_page() ) {
-			return;
-		}
 
 		if ( $this->initialized ) {
 			return;
