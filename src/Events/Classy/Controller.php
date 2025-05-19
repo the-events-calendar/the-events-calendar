@@ -79,7 +79,7 @@ class Controller extends Controller_Contract {
 	public function unregister(): void {
 		$this->unregister_meta_fields();
 		remove_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
-		remove_filter( 'tec_classy_localized_data', [ $this, 'fitler_data' ] );
+		remove_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 	}
 

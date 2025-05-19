@@ -1,7 +1,7 @@
-const {path} = require('path');
+const path = require('path');
 
 /**
- * The default configuration coming from the @wordpress/scripts package.
+ * The d@tec/common/classy/typesefault configuration coming from the @wordpress/scripts package.
  * Customized following the "Advanced Usage" section of the documentation:
  * See: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/#advanced-usage
  */
@@ -96,27 +96,31 @@ doNotPrefixSVGIdsClasses(defaultConfig);
  * Finally the customizations are merged with the default WebPack configuration.
  */
 module.exports = {
-  ...defaultConfig,
-  ...{
-    entry: (buildType) => {
-      const defaultEntryPoints = defaultConfig.entry(buildType);
-      return {
-        ...defaultEntryPoints, ...customEntryPoints,
-      };
-    },
-    output: {
-      ...defaultConfig.output,
-      ...{
-        enabledLibraryTypes: ['window'],
-      },
-    },
-    plugins: [
-      ...defaultConfig.plugins,
-      new WindowAssignPropertiesPlugin(),
-    ],
-		externals:[
-			...(defaultConfig?.externals || []),
-			resolveExternalToGlobal('@tec/common', 'window.tec.common'),
+	...defaultConfig,
+	...{
+		entry: (buildType) => {
+			const defaultEntryPoints = defaultConfig.entry(buildType);
+			return {
+				...defaultEntryPoints, ...customEntryPoints,
+			};
+		},
+		output: {
+			...defaultConfig.output,
+			...{
+				enabledLibraryTypes: ['window'],
+			},
+		},
+		plugins: [
+			...defaultConfig.plugins,
+			new WindowAssignPropertiesPlugin(),
 		],
-  },
+		resolve:{
+			...(defaultConfig?.resolve || {}),
+			alias:{
+				...(defaultConfig?.resolve?.alias || {}),
+				// Packages prefixed with `@tec/common` must be resolved to Common packages.
+				'@tec/common/*': path.resolve(__dirname, 'common/src/resources/packages/*'),
+			}
+		}
+	},
 };
