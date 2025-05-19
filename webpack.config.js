@@ -15,8 +15,7 @@ const {
   compileCustomEntryPoints,
   exposeEntry,
   doNotPrefixSVGIdsClasses,
-  WindowAssignPropertiesPlugin,
-	resolveExternalToGlobal,
+  WindowAssignPropertiesPlugin
 } = require('@stellarwp/tyson');
 
 /**
