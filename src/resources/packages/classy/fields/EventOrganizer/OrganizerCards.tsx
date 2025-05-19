@@ -1,6 +1,6 @@
 import React from 'react';
-import { FetchedOrganizer } from '../../../../../../common/src/resources/packages/classy/types/FetchedOrganizer';
 import OrganizerCard from './OrganizerCard';
+import {FetchedOrganizer} from "../../types/FetchedOrganizer";
 
 export default function OrganizerCards( props: {
 	organizers: FetchedOrganizer[];

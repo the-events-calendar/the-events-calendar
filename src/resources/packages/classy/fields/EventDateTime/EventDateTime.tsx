@@ -7,7 +7,6 @@ import {
 	useState,
 } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { EventDateTimeDetails } from '../../../../../../common/src/resources/packages/classy/types/EventDateTimeDetails';
 import { Hours } from '../../../../../../common/src/resources/packages/classy/types/Hours';
 import { Minutes } from '../../../../../../common/src/resources/packages/classy/types/Minutes';
 import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
@@ -18,11 +17,12 @@ import {
 	METADATA_EVENT_END_DATE,
 	METADATA_EVENT_START_DATE,
 	METADATA_EVENT_TIMEZONE,
-} from '@tec/common/classy/constants';
+} from '../../constants';
 import { format, getDate } from '@wordpress/date';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
 import { TimeZone } from '@tec/common/classy/components/TimeZone';
+import {EventDateTimeDetails} from "../../types/EventDateTimeDetails";
 
 type DateTimeRefs = {
 	endTimeHours: number;

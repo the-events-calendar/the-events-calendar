@@ -7,11 +7,11 @@ import * as React from 'react';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { METADATA_EVENT_VENUE_ID } from '@tec/common/classy/constants';
 import { IconAdd, IconVideoCamera } from '@tec/common/classy/components/Icons';
-import { FetchedVenue } from '../../../../../../common/src/resources/packages/classy/types/FetchedVenue';
 import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
 import VenueCards from './VenueCards';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
+import {FetchedVenue} from "../../types/FetchedVenue";
 
 function buildOptionFromFetchedVenue(
 	venue: FetchedVenue

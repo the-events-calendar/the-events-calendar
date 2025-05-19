@@ -1,7 +1,7 @@
 import React from 'react';
-import { FetchedOrganizer } from '../../../../../../common/src/resources/packages/classy/types/FetchedOrganizer';
 import { IconEdit, IconTrash } from '@tec/common/classy/components/Icons';
 import { Button } from '@wordpress/components';
+import {FetchedOrganizer} from "../../types/FetchedOrganizer";
 
 export default function OrganizerCard(
 	props: FetchedOrganizer & {

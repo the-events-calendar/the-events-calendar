@@ -12,9 +12,9 @@ import OrganizerCards from './OrganizerCards';
 import OrganizerUpsertModal from './OrganizerUpsertModal';
 import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
 import { OrganizerData } from '../../../../../../common/src/resources/packages/classy/types/OrganizerData';
-import { FetchedOrganizer } from '../../../../../../common/src/resources/packages/classy/types/FetchedOrganizer';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
 import apiFetch from '@wordpress/api-fetch';
+import {FetchedOrganizer} from "../../types/FetchedOrganizer";
 
 function buildOptionFromFetchedOrganizer(
 	organizer: FetchedOrganizer
