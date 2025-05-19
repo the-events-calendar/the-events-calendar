@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.13.0] 2025-05-19 =
+
+* Tweak - Alter Telemetry to allow classes to hook in and supress the modal for specific pages.
+* Language - 2 new strings added, 252 updated, 4 fuzzied, and 38 obsoleted.
+
 = [6.12.0.1] 2025-05-14 =
 
 * Fix - Prevents fatal if QR library in common has not loaded. [TEC-5497]
