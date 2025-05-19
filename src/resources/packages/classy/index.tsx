@@ -1,18 +1,23 @@
 import React, { Fragment } from 'react';
 import { addFilter } from '@wordpress/hooks';
 import { Fill } from '@wordpress/components';
+import {getDefaultRegistry} from "@tec/common/classy/functions";
 
 addFilter(
 	'tec.classy.render',
 	'tec.classy.events',
-	( fields: React.ReactNode | null ) => (
-		<Fragment>
-			{ fields }
-			<Fill name="tec.classy.before">
-				<p>TEC BEFORE CLASSY __1</p>
-			</Fill>
-		</Fragment>
-	)
+	( fields: React.ReactNode | null ) => {
+		const defaultRegistry = getDefaultRegistry();
+		const typeofDefaultRegistry = typeof defaultRegistry;
+		return (
+			<Fragment>
+				{fields}
+				<Fill name="tec.classy.before">
+					<p>{typeofDefaultRegistry}</p>
+				</Fill>
+			</Fragment>
+		);
+	}
 );
 
 addFilter(

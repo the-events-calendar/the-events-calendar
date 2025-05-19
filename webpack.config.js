@@ -1,5 +1,4 @@
-const {dirname, basename, extname} = require('path');
-const {readdirSync, statSync, existsSync} = require('fs');
+const {path} = require('path');
 
 /**
  * The default configuration coming from the @wordpress/scripts package.
@@ -17,6 +16,7 @@ const {
   exposeEntry,
   doNotPrefixSVGIdsClasses,
   WindowAssignPropertiesPlugin,
+	resolveExternalToGlobal,
 } = require('@stellarwp/tyson');
 
 /**
@@ -114,5 +114,9 @@ module.exports = {
       ...defaultConfig.plugins,
       new WindowAssignPropertiesPlugin(),
     ],
+		externals:[
+			...(defaultConfig?.externals || []),
+			resolveExternalToGlobal('@tec/common', 'window.tec.common'),
+		],
   },
 };
