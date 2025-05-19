@@ -765,11 +765,11 @@ class Tribe__Events__Assets {
 	 * Configure the group path for the resources assets folder.
 	 *
 	 * @since 6.11.0
-	 * @deprecated TBD
+	 * @deprecated 6.13.0
 	 *
 	 * @return void
 	 */
 	public function configure_assets(): void {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '6.13.0' );
 	}
 }

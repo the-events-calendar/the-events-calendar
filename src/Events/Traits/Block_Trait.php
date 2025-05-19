@@ -2,7 +2,7 @@
 /**
  * A trait to group the methods common to all The Events Calendar blocks.
  *
- * @since TBD
+ * @since 6.13.0
  */
 
 namespace TEC\Events\Traits;
@@ -12,7 +12,7 @@ use Tribe__Events__Main as TEC;
 /**
  * Trait Block_Trait.
  *
- * @since TBD
+ * @since 6.13.0
  */
 trait Block_Trait {
 
@@ -20,7 +20,7 @@ trait Block_Trait {
 	 * Register the Assets for when this block is active
 	 *
 	 * @since 4.7
-	 * @since TBD Moved to a trait to avoid code duplication.
+	 * @since 6.13.0 Moved to a trait to avoid code duplication.
 	 *
 	 * @return void
 	 */

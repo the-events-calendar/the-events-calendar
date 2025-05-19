@@ -29,7 +29,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * The step instances.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 *
 	 * @var array
 	 */
@@ -157,7 +157,7 @@ class Controller extends Controller_Contract {
 		 * Allows bypassing the checks for if we've don't need to/have already visited the Guided Setup page.
 		 * Still respects the post type checks.
 		 *
-		 * @since TBD
+		 * @since 6.13.0
 		 *
 		 * @param bool $force Whether to force the redirect to the Guided Setup page.
 		 *
@@ -264,7 +264,7 @@ class Controller extends Controller_Contract {
 	/**
 	 * Hide telemetry on the onboarding page by returning false when the page is detected.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 *
 	 * @param bool $is_tec_admin_page Whether the current page is a TEC admin page.
 	 *

@@ -209,7 +209,7 @@ class Telemetry {
 		 * Filter to determine if we are on a TEC admin page.
 		 * Allows other classes to hook in and modify the return value.
 		 *
-		 * @since TBD
+		 * @since 6.13.0
 		 *
 		 * @param bool $is_tec_admin_page Whether we are on a TEC admin page.
 		 */

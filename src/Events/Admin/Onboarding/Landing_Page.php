@@ -576,7 +576,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	/**
 	 * Check if the wizard should be displayed.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 *
 	 * @return bool
 	 */
@@ -584,7 +584,7 @@ class Landing_Page extends Abstract_Admin_Page {
 		/**
 		 * Allow users to force-ignore the checks and display the wizard.
 		 *
-		 * @since TBD
+		 * @since 6.13.0
 		 *
 		 * @param bool $force Whether to force the wizard to display.
 		 *
