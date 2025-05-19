@@ -138,7 +138,7 @@ class Hooks extends Service_Provider {
 	 * Enqueues Customizer controls styles specific to Views v2 components.
 	 *
 	 * @since 5.9.0
-	 * @since TBD Deprecated.
+	 * @since 6.13.0 Deprecated.
 	 *
 	 * @deprecated No longer needed.
 	 */
