@@ -35,6 +35,7 @@
     "build:common": "cd common && npm run build",
     "build": "wp-scripts build",
     "start": "wp-scripts start",
+    "dev": "WP_DEVTOOL=eval-source-map wp-scripts start",
     "changelog": "./vendor/bin/changelogger add",
     "test": "jest",
     "phpstan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --level=0 --memory-limit=1G"
