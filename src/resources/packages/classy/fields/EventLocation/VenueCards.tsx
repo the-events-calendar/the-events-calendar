@@ -1,7 +1,7 @@
 import React from 'react';
 import VenueCard from './VenueCard';
 import { _x } from '@wordpress/i18n';
-import {FetchedVenue} from "../../types/FetchedVenue";
+import { FetchedVenue } from '../../types/FetchedVenue';
 
 export default function VenueCards( props: {
 	venues: FetchedVenue[];

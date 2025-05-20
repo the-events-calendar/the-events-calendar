@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { IconEdit, IconTrash } from '@tec/common/classy/components/Icons';
+import { IconEdit, IconTrash } from '@tec/common/classy/components';
 import { Button } from '@wordpress/components';
-import {FetchedVenue} from "../../types/FetchedVenue";
+import { FetchedVenue } from '../../types/FetchedVenue';
 
 function buildFullAddress(
 	fetchedVenue: FetchedVenue,

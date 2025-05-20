@@ -5,13 +5,13 @@ import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import * as React from 'react';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
-import { METADATA_EVENT_VENUE_ID } from '@tec/common/classy/constants';
-import { IconAdd, IconVideoCamera } from '@tec/common/classy/components/Icons';
+import { IconAdd, IconVideoCamera } from '@tec/common/classy/components';
 import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
 import VenueCards from './VenueCards';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
-import {FetchedVenue} from "../../types/FetchedVenue";
+import { FetchedVenue } from '../../types/FetchedVenue';
+import { METADATA_EVENT_VENUE_ID } from '../../constants';
 
 function buildOptionFromFetchedVenue(
 	venue: FetchedVenue
@@ -49,12 +49,12 @@ export default function EventLocation( props: FieldProps ) {
 	const [ options, setOptions ] = useState( [ placeholderOption ] );
 
 	const venueIds = useSelect( ( select ): number[] => {
-		const selector = select( 'core/editor' );
-		// @ts-ignore
 		return (
-			( selector.getEditedPostAttribute( 'meta' ) || [] )?.[
-				METADATA_EVENT_VENUE_ID
-			]?.map( ( id: string ): number => parseInt( id, 10 ) ) || []
+			// @ts-ignore
+			( select( 'core/editor' ).getEditedPostAttribute( 'meta' ) ||
+				[] )?.[ METADATA_EVENT_VENUE_ID ]?.map(
+				( id: string ): number => parseInt( id, 10 )
+			) || []
 		);
 	}, [] );
 

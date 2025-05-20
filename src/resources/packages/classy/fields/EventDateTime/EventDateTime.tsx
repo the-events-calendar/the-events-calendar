@@ -21,8 +21,8 @@ import {
 import { format, getDate } from '@wordpress/date';
 import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
-import { TimeZone } from '@tec/common/classy/components/TimeZone';
-import {EventDateTimeDetails} from "../../types/EventDateTimeDetails";
+import { TimeZone } from '@tec/common/classy/components';
+import { EventDateTimeDetails } from '../../types/EventDateTimeDetails';
 
 type DateTimeRefs = {
 	endTimeHours: number;
@@ -210,7 +210,7 @@ export default function EventDateTime( props: FieldProps ) {
 		const {
 			getEventDateTimeDetails,
 		}: { getEventDateTimeDetails: () => EventDateTimeDetails } =
-			select( 'tec/classy' );
+			select( 'tec/classy/events' );
 		return getEventDateTimeDetails();
 	}, [] );
 	const { editPost } = useDispatch( 'core/editor' );

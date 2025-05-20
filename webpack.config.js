@@ -15,7 +15,8 @@ const {
   compileCustomEntryPoints,
   exposeEntry,
   doNotPrefixSVGIdsClasses,
-  WindowAssignPropertiesPlugin
+  WindowAssignPropertiesPlugin,
+	resolveExternalToGlobal
 } = require('@stellarwp/tyson');
 
 /**
@@ -113,13 +114,9 @@ module.exports = {
 			...defaultConfig.plugins,
 			new WindowAssignPropertiesPlugin(),
 		],
-		resolve:{
-			...(defaultConfig?.resolve || {}),
-			alias:{
-				...(defaultConfig?.resolve?.alias || {}),
-				// Packages prefixed with `@tec/common` must be resolved to Common packages.
-				'@tec/common/*': path.resolve(__dirname, 'common/src/resources/packages/*'),
-			}
-		}
+		externals: [
+			...(defaultConfig.externals || []),
+			resolveExternalToGlobal('@tec/common', 'window.tec.common')
+		]
 	},
 };

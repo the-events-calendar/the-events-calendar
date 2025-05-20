@@ -6,15 +6,15 @@ import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import * as React from 'react';
 import { Fragment, MouseEventHandler, useRef } from 'react';
-import { METADATA_EVENT_ORGANIZER_ID } from '@tec/common/classy/constants';
-import { IconAdd } from '@tec/common/classy/components/Icons';
+import { IconAdd } from '@tec/common/classy/components';
 import OrganizerCards from './OrganizerCards';
 import OrganizerUpsertModal from './OrganizerUpsertModal';
 import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
 import { OrganizerData } from '../../../../../../common/src/resources/packages/classy/types/OrganizerData';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
 import apiFetch from '@wordpress/api-fetch';
-import {FetchedOrganizer} from "../../types/FetchedOrganizer";
+import { FetchedOrganizer } from '../../types/FetchedOrganizer';
+import { METADATA_EVENT_ORGANIZER_ID } from '../../constants';
 
 function buildOptionFromFetchedOrganizer(
 	organizer: FetchedOrganizer
@@ -54,12 +54,12 @@ export default function EventOrganizer( props: FieldProps ) {
 	const [ options, setOptions ] = useState( [ placeholderOption ] );
 
 	const organizerIds = useSelect( ( select ): number[] => {
-		const selector = select( 'core/editor' );
 		return (
 			// @ts-ignore
-			( selector.getEditedPostAttribute( 'meta' ) || {} )?.[
-				METADATA_EVENT_ORGANIZER_ID
-			]?.map( ( id: string ): number => parseInt( id, 10 ) ) || []
+			( select( 'core/editor' ).getEditedPostAttribute( 'meta' ) ||
+				{} )?.[ METADATA_EVENT_ORGANIZER_ID ]?.map(
+				( id: string ): number => parseInt( id, 10 )
+			) || []
 		);
 	}, [] );
 
