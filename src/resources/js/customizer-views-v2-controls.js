@@ -8,9 +8,10 @@
  * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
  */
 
-var tribe_customizer_controls = tribe_customizer_controls || {};
+( function ( $ ) {
+	window.tribe_customizer_controls = window.tribe_customizer_controls || {};
+	const obj = window.tribe_customizer_controls;
 
-( function ( $, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
 
 	/* eslint-disable max-len */
@@ -231,4 +232,4 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 * @since 5.9.0
 	 */
 	wp.customize.bind( 'ready', obj.init );
-} )( jQuery, tribe_customizer_controls );
+} )( jQuery );
