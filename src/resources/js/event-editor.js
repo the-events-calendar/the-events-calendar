@@ -6,7 +6,8 @@
 ( function ( $ ) {
 	'use strict';
 
-	const obj = window.tribe_events_event_editor || {};
+	window.tribe_events_event_editor = window.tribe_events_event_editor || {};
+	const obj = window.tribe_events_event_editor;
 
 	/**
 	 * Setup our selectors.
