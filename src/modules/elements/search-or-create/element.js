@@ -15,11 +15,7 @@ import SearchOrCreate from './template';
  */
 
 const setFocus = ( isSelected ) => ( inputRef ) => {
-	if (
-		isSelected &&
-		inputRef.current &&
-		document.activeElement !== inputRef.current
-	) {
+	if ( isSelected && inputRef.current && document.activeElement !== inputRef.current ) {
 		inputRef.current.focus();
 	}
 };
@@ -66,8 +62,4 @@ const mergeProps = ( stateProps, dispatchProps, ownProps ) => ( {
 	onItemClick: onItemClick( dispatchProps, ownProps ),
 } );
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-	mergeProps,
-)( SearchOrCreate );
+export default connect( mapStateToProps, mapDispatchToProps, mergeProps )( SearchOrCreate );

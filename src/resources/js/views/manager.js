@@ -22,9 +22,9 @@ tribe.events.views.manager = {};
  *
  * @since  4.9.2
  *
- * @param  {Object} $   jQuery
- * @param  {Object} _   Underscore.js
- * @param  {Object} obj tribe.events.views.manager
+ * @param {Object} $   jQuery
+ * @param {Object} _   Underscore.js
+ * @param {Object} obj tribe.events.views.manager
  *
  * @return {void}
  */

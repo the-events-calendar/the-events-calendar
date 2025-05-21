@@ -607,7 +607,7 @@ abstract class Abstract_Widget extends Widget_Base {
 		$source = $this->get_asset_source();
 
 		// Register the styles for the widget.
-		tribe_asset(
+		tec_asset(
 			tribe( $source ),
 			static::$asset_prefix . $slug . '-styles',
 			'integrations/plugins/elementor/widgets/' . $slug . '.css',

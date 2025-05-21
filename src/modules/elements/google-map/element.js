@@ -14,9 +14,7 @@ import { __ } from '@wordpress/i18n';
 
 import { Component } from '@wordpress/element';
 
-import {
-	Spinner,
-} from '@wordpress/components';
+import { Spinner } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -76,9 +74,9 @@ export default class GoogleMap extends Component {
 	static RootStaticUrl = 'https://maps.googleapis.com/maps/api/staticmap';
 	static RootEmbedUrl = 'https://www.google.com/maps/embed/v1/place';
 
-	static ImageFormats = IMAGE_FORMATS
+	static ImageFormats = IMAGE_FORMATS;
 
-	static MapTypes = MAP_TYPES
+	static MapTypes = MAP_TYPES;
 
 	static propTypes = {
 		coordinates: PropTypes.object.isRequired,
@@ -120,7 +118,7 @@ export default class GoogleMap extends Component {
 		 */
 		hasCenterMarker: PropTypes.bool,
 		apiKey: PropTypes.string,
-	}
+	};
 
 	static defaultProps = {
 		format: IMAGE_FORMATS.JPG,
@@ -133,7 +131,7 @@ export default class GoogleMap extends Component {
 		zoom: DEFAULT_ZOOM,
 		coordinates: {},
 		address: {},
-	}
+	};
 
 	constructor( props ) {
 		super( ...arguments );
@@ -202,10 +200,7 @@ export default class GoogleMap extends Component {
 				this.setState( {
 					interactive: false,
 					isLoading: false,
-					error: __(
-						'The map does not have valid coordinates nor a valid address',
-						'the-events-calendar',
-					),
+					error: __( 'The map does not have valid coordinates nor a valid address', 'the-events-calendar' ),
 				} );
 				return;
 			}
@@ -217,23 +212,23 @@ export default class GoogleMap extends Component {
 			return;
 		}
 
-		this.setState( {
-			isLoading: false,
-			interactive: true,
-		}, this.attachInteractiveMap );
+		this.setState(
+			{
+				isLoading: false,
+				interactive: true,
+			},
+			this.attachInteractiveMap
+		);
 	}
 
 	getMapConfig() {
-		const {
-			zoom,
-			mapType,
-		} = this.props;
+		const { zoom, mapType } = this.props;
 
 		const type = isArray( mapType ) ? mapType : [ mapType ];
 
 		return {
 			center: this.getLocation(),
-			zoom: zoom,
+			zoom,
 			mapTypeControl: type.length > 1,
 			mapTypeControlOptions: {
 				mapTypeIds: type,
@@ -267,10 +262,7 @@ export default class GoogleMap extends Component {
 		if ( this.tries >= this.MAX_TRIES ) {
 			this.setState( {
 				isLoading: false,
-				error: __(
-					'Make sure Google Maps Library is included on this page.',
-					'the-events-calendar',
-				),
+				error: __( 'Make sure Google Maps Library is included on this page.', 'the-events-calendar' ),
 			} );
 			return;
 		}
@@ -280,7 +272,7 @@ export default class GoogleMap extends Component {
 		}, 500 );
 
 		this.tries += 1;
-	}
+	};
 
 	render() {
 		const { isLoading, rendered, loadingMap } = this.state;
@@ -290,18 +282,11 @@ export default class GoogleMap extends Component {
 
 		let renderMap = this.renderMap();
 
-		if (
-			true === rendered &&
-			true !== loadingMap
-		) {
+		if ( true === rendered && true !== loadingMap ) {
 			renderMap = this.renderMapUpdate();
 		}
 
-		return (
-			<div className={ containerClass }>
-				{ renderMap }
-			</div>
-		);
+		return <div className={ containerClass }>{ renderMap }</div>;
 	}
 
 	renderMapUpdate() {
@@ -318,15 +303,11 @@ export default class GoogleMap extends Component {
 		}
 
 		if ( error ) {
-			return ( <h4>{ error }</h4> );
+			return <h4>{ error }</h4>;
 		}
 
 		if ( ! apiKey ) {
-			return (
-				<h4>
-					{ __( 'A Google Map API KEY is required to view the map', 'the-events-calendar' ) }
-				</h4>
-			);
+			return <h4>{ __( 'A Google Map API KEY is required to view the map', 'the-events-calendar' ) }</h4>;
 		}
 
 		if ( rendered || interactive ) {
@@ -339,11 +320,7 @@ export default class GoogleMap extends Component {
 	renderImage() {
 		return (
 			<picture className="tribe-editor__map--static">
-				<img
-					className="tribe-element-map-object"
-					alt="map"
-					src={ this.mapUrl }
-				/>
+				<img className="tribe-element-map-object" alt="map" src={ this.mapUrl } />
 				<div className="trie-editor__spinner__container">
 					<Spinner />
 				</div>
@@ -354,8 +331,7 @@ export default class GoogleMap extends Component {
 	renderInteractive() {
 		return (
 			<section className="tribe-editor__map--interactive">
-				<div className="tribe-editor__map--dynamic" ref={ this.interactiveMapContainer }>
-				</div>
+				<div className="tribe-editor__map--dynamic" ref={ this.interactiveMapContainer }></div>
 				<div className="trie-editor__spinner__container">
 					<Spinner />
 				</div>
@@ -389,10 +365,7 @@ export default class GoogleMap extends Component {
 
 		const { maps } = google();
 
-		map.instance = new maps.Map(
-			interactiveMapContainer.current,
-			this.getMapConfig(),
-		);
+		map.instance = new maps.Map( interactiveMapContainer.current, this.getMapConfig() );
 
 		if ( map.instance ) {
 			map.marker = new maps.Marker( {
@@ -400,23 +373,15 @@ export default class GoogleMap extends Component {
 				map: map.instance,
 			} );
 		}
-	}
+	};
 
 	get mapUrl() {
-		const {
-			zoom,
-			size,
-			scale,
-			format,
-			mapType,
-			apiKey,
-			address,
-		} = this.props;
+		const { zoom, size, scale, format, mapType, apiKey, address } = this.props;
 
 		const { width, height } = size;
 
 		const queryArgs = {
-			zoom: zoom,
+			zoom,
 			maptype: mapType,
 			key: apiKey,
 		};

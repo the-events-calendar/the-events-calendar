@@ -190,22 +190,30 @@ class Telemetry {
 		$current_screen = get_current_screen();
 		$helper = \Tribe__Admin__Helpers::instance();
 
-		// Are we on a tec post-type admin screen?
+		// If we are not on a tec post-type admin screen, bail.
 		if ( ! $helper->is_post_type_screen( TEC::POSTTYPE ) ) {
 			return false;
 		}
 
-		// Are we on a post edit screen?
+		// If we are on a post edit screen, bail.
 		if ( $current_screen instanceof \WP_Screen && tribe_get_request_var( 'action' ) === 'edit' ) {
 			return false;
 		}
 
-		// Are we on a new post screen?
+		// If we are on a new post screen, bail.
 		if ( $current_screen instanceof \WP_Screen && $current_screen->action === 'add' ) {
 			return false;
 		}
 
-		return true;
+		/**
+		 * Filter to determine if we are on a TEC admin page.
+		 * Allows other classes to hook in and modify the return value.
+		 *
+		 * @since 6.13.0
+		 *
+		 * @param bool $is_tec_admin_page Whether we are on a TEC admin page.
+		 */
+		return (bool) apply_filters( 'tec_telemetry_is_tec_admin_page', true );
 	}
 
 	/**
