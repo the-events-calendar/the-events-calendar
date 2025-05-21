@@ -1,6 +1,7 @@
 /* eslint-disable */
 ( function( $ ) {
-	const ea = window.tribe_aggregator || {};
+	window.tribe_aggregator = window.tribe_aggregator || {};
+	const ea = window.tribe_aggregator;
 
 	const obj = {
 		progress: {},
@@ -16,7 +17,7 @@
 		},
 	};
 
-	window.tribe_aggregator_notice = obj;
+	window.tribe_aggregator.notice = obj;
 
 	obj.progress.init = function() {
 		obj.progress.data = {};

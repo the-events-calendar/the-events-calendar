@@ -1,8 +1,8 @@
 ( function ( $ ) {
 	// eslint-disable-line no-unused-vars
 	'use strict';
-
-	const data = window.tribe_aggregator || {};
+	window.tribe_aggregator = window.tribe_aggregator || {};
+	const data = window.tribe_aggregator;
 
 	/**
 	 * Migration for Legacy Ignored Event

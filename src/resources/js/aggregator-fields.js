@@ -2,6 +2,9 @@
 ( function( $, _ ) {
 	'use strict';
 
+	window.tribe_aggregator = window.tribe_aggregator || {};
+	const ea = window.tribe_aggregator;
+
 	const obj = {
 		// Store the Required Selectors
 		selector: {
@@ -96,10 +99,7 @@
 			}
 		}
 	};
-
-	window.tribe_aggregator_fields = obj;
-
-	const ea = window.tribe_aggregator || {};
+	window.tribe_aggregator.fields = obj;
 
 	/**
 	 * Sets up the fields for EA pages
