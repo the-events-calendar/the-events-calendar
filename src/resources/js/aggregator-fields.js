@@ -1,104 +1,106 @@
 /* eslint-disable */
-var tribe_aggregator = tribe_aggregator || {};
+( function( $, _ ) {
+	'use strict';
 
-// Setup the global Variable
-tribe_aggregator.fields = {
-	// Store the Required Selectors
-	selector: {
-		container               : '.tribe-ea',
-		form                    : '.tribe-ea-form',
-		help                    : '.tribe-ea-help',
-		fields                  : '.tribe-ea-field',
-		dropdown                : '.tribe-ea-dropdown',
-		origin_field            : '#tribe-ea-field-origin',
-		field_url_source        : '#tribe-ea-field-url_source',
-		eventbrite_url_source   : '#tribe-ea-field-eventbrite_source',
-		post_status             : '.tribe-ea-field-post_status',
-		import_type_field       : '.tribe-import-type',
-		media_button            : '.tribe-ea-media_button',
-		datepicker              : '.tribe-datepicker',
-		save_credentials_button : '.enter-credentials .tribe-save',
-		preview_container       : '.tribe-preview-container',
-		preview_button          : '.tribe-preview:visible',
-		refine_filters          : '.tribe-refine-filters',
-		clear_filters_button    : '.tribe-clear-filters',
-		finalize_button         : '.tribe-finalize',
-		cancel_button           : '.tribe-cancel',
-		schedule_delete_link    : '.tribe-ea-tab-scheduled a.submitdelete',
-		tab_new                 : '.tribe-ea-tab-new',
-		action                  : '#tribe-action',
-		view_filters            : '.tribe-view-filters'
-	},
-
-	media: {},
-
-	// Store the jQuery elements
-	$: {},
-
-	// Store the methods for creating the fields
-	construct: {},
-
-	// Store the methods that will act as event handlers
-	events: {},
-
-	// store the current import_id
-	import_id: null,
-
-	// track how many result fetches have been executed via polling
-	result_fetch_count: 0,
-
-	// the maximum number of result fetches that can be done per frequency before erroring out
-	max_result_fetch_count: 15,
-
-	// frequency at which we will poll for results
-	polling_frequency_index: 0,
-
-	polling_frequencies: [
-		500,
-		1000,
-		5000,
-		20000
-	],
-
-	// A "module" of sorts related to Eventbrite only imports.
-	eventbrite: {
-		refineControls: '.tribe-refine-filters.eventbrite, .tribe-refine-filters.eventbrite .tribe-refine',
-		refineControlsHideMap: {
-			'event': 'tr.tribe-refine-filters',
-			'organizer': ''
+	const obj = {
+		// Store the Required Selectors
+		selector: {
+			container               : '.tribe-ea',
+			form                    : '.tribe-ea-form',
+			help                    : '.tribe-ea-help',
+			fields                  : '.tribe-ea-field',
+			dropdown                : '.tribe-ea-dropdown',
+			origin_field            : '#tribe-ea-field-origin',
+			field_url_source        : '#tribe-ea-field-url_source',
+			eventbrite_url_source   : '#tribe-ea-field-eventbrite_source',
+			post_status             : '.tribe-ea-field-post_status',
+			import_type_field       : '.tribe-import-type',
+			media_button            : '.tribe-ea-media_button',
+			datepicker              : '.tribe-datepicker',
+			save_credentials_button : '.enter-credentials .tribe-save',
+			preview_container       : '.tribe-preview-container',
+			preview_button          : '.tribe-preview:visible',
+			refine_filters          : '.tribe-refine-filters',
+			clear_filters_button    : '.tribe-clear-filters',
+			finalize_button         : '.tribe-finalize',
+			cancel_button           : '.tribe-cancel',
+			schedule_delete_link    : '.tribe-ea-tab-scheduled a.submitdelete',
+			tab_new                 : '.tribe-ea-tab-new',
+			action                  : '#tribe-action',
+			view_filters            : '.tribe-view-filters'
 		},
-		detect_type: function ( url ) {
-			if ( ! tribe_aggregator.source_origin_regexp.eventbrite ) {
-				return null;
-			}
 
-			var baseRegex = tribe_aggregator.source_origin_regexp.eventbrite;
-			var type_regexps = {
-				// E.g. https://www.eventbrite.fr/e/some-event
-				'event': baseRegex + 'e\/[A-z0-9_-]+',
-				// E.g. https://www.eventbrite.fr/o/some-organizer
-				'organizer': baseRegex + 'o\/[A-z0-9_-]+'
-			};
-			var type = undefined;
+		media: {},
 
-			_.each( type_regexps, function ( regularExpression, key ) {
-				var exp = new RegExp( regularExpression, 'g' );
-				var match = exp.exec( url );
+		// Store the jQuery elements
+		$: {},
 
-				if ( null === match ) {
-					return;
+		// Store the methods for creating the fields
+		construct: {},
+
+		// Store the methods that will act as event handlers
+		events: {},
+
+		// store the current import_id
+		import_id: null,
+
+		// track how many result fetches have been executed via polling
+		result_fetch_count: 0,
+
+		// the maximum number of result fetches that can be done per frequency before erroring out
+		max_result_fetch_count: 15,
+
+		// frequency at which we will poll for results
+		polling_frequency_index: 0,
+
+		polling_frequencies: [
+			500,
+			1000,
+			5000,
+			20000
+		],
+
+		// A "module" of sorts related to Eventbrite only imports.
+		eventbrite: {
+			refineControls: '.tribe-refine-filters.eventbrite, .tribe-refine-filters.eventbrite .tribe-refine',
+			refineControlsHideMap: {
+				'event': 'tr.tribe-refine-filters',
+				'organizer': ''
+			},
+			detect_type: function ( url ) {
+				if ( ! tribe_aggregator.source_origin_regexp.eventbrite ) {
+					return null;
 				}
 
-				type = key;
-			} );
+				var baseRegex = tribe_aggregator.source_origin_regexp.eventbrite;
+				var type_regexps = {
+					// E.g. https://www.eventbrite.fr/e/some-event
+					'event': baseRegex + 'e\/[A-z0-9_-]+',
+					// E.g. https://www.eventbrite.fr/o/some-organizer
+					'organizer': baseRegex + 'o\/[A-z0-9_-]+'
+				};
+				var type = undefined;
 
-			return type;
+				_.each( type_regexps, function ( regularExpression, key ) {
+					var exp = new RegExp( regularExpression, 'g' );
+					var match = exp.exec( url );
+
+					if ( null === match ) {
+						return;
+					}
+
+					type = key;
+				} );
+
+				return type;
+			}
 		}
-	}
-};
+	};
 
-( function( $, _, obj, ea ) {
-	'use strict';
+	window.tribe_aggregator_fields = obj;
+
+	const ea = window.tribe_aggregator || {};
+
 	/**
 	 * Sets up the fields for EA pages
 	 *
@@ -1117,4 +1119,4 @@ tribe_aggregator.fields = {
 
 	// Run Init on Document Ready
 	$( obj.init );
-} )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );
+} )( jQuery, _ );

@@ -1,24 +1,23 @@
 /* eslint-disable */
-var tribe_aggregator = tribe_aggregator || {};
+( function( $ ) {
+	const ea = window.tribe_aggregator || {};
 
-// Setup the global Variable
-tribe_aggregator.notice = {
+	const obj = {
+		progress: {},
+		selector: {
+			notice: '.tribe-notice-aggregator-update-msg',
+			progress: '.progress',
+			tracker: '.tracker',
+			created: '.track-created .value',
+			updated: '.track-updated .value',
+			skipped: '.track-skipped .value',
+			remaining: '.track-remaining .value',
+			bar: '.bar',
+		},
+	};
 
-	selector: {
-		notice: '.tribe-notice-aggregator-update-msg',
-		progress: '.progress',
-		tracker: '.tracker',
-		created: '.track-created .value',
-		updated: '.track-updated .value',
-		skipped: '.track-skipped .value',
-		remaining: '.track-remaining .value',
-		bar: '.bar',
-	},
+	window.tribe_aggregator_notice = obj;
 
-	progress: {},
-};
-
-( function( $, obj, ea ) {
 	obj.progress.init = function() {
 		obj.progress.data = {};
 		obj.progress.$ = {};
@@ -171,4 +170,4 @@ tribe_aggregator.notice = {
 	);
 
 	obj.progress.init();
-} )( jQuery, tribe_aggregator.notice, tribe_aggregator );
+} )( jQuery );

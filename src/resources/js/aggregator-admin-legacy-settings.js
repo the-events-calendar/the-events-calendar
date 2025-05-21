@@ -1,8 +1,8 @@
-var tribe_aggregator = tribe_aggregator || {};
-
-( function ( $, data ) {
+( function ( $ ) {
 	// eslint-disable-line no-unused-vars
 	'use strict';
+
+	const data = window.tribe_aggregator || {};
 
 	/**
 	 * Migration for Legacy Ignored Event
@@ -44,4 +44,4 @@ var tribe_aggregator = tribe_aggregator || {};
 			} );
 		} );
 	} );
-} )( jQuery, tribe_aggregator );
+} )( jQuery );
