@@ -159,7 +159,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 			'postponed' => [
 				'name'  => _x( 'Hide postponed events', 'Postponed label for filter bar to hide postponed events.', 'the-events-calendar' ),
 				'value' => self::POSTPONED,
-			]
+			],
 		];
 
 		if ( $et_activated ) {
@@ -205,14 +205,15 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	 * @param WP_Query $query The WP Query instance.
 	 *
 	 * @since TBD
-	 *
 	 */
 	protected function pre_get_posts( WP_Query $query ) {
-		// Only proceed if we're filtering for sold-out events
+		// Only proceed if we're filtering for sold-out events.
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		if ( ! is_array( $this->currentValue ) && $this->currentValue !== self::SOLDOUT ) {
 			return;
 		}
 
+		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		if ( is_array( $this->currentValue ) && ! in_array( self::SOLDOUT, $this->currentValue ) ) {
 			return;
 		}
@@ -236,11 +237,13 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
                     AND stock_status_meta.meta_value = 'outofstock'
             ";
 
+		// We always want to get fresh data here, adding caching can create chances that data stale.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.NotPrepared
 		$soldout_events = $wpdb->get_col( $soldout_events_sql );
 
 		if ( ! empty( $soldout_events ) ) {
-			// If we have sold-out events, exclude them from the query
-			$post__not_in = $query->get( 'post__not_in', array() );
+			// If we have sold-out events, exclude them from the query.
+			$post__not_in = $query->get( 'post__not_in', [] );
 			$post__not_in = array_merge( $post__not_in, $soldout_events );
 			$query->set( 'post__not_in', $post__not_in );
 		}
