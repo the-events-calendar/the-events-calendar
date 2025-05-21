@@ -3,10 +3,11 @@
  *
  * @member object tribe_dynamic_helper_text
  */
-var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 
-( function ( $, obj ) {
+( function ( $ ) {
 	'use strict';
+
+	const obj = window.tribe_dynamic_helper_text || {};
 
 	obj.field_class = '.event-dynamic-helper-text';
 	obj.date_fmt_settings = {
@@ -172,4 +173,4 @@ var tribe_dynamic_helper_text = tribe_dynamic_helper_text || {};
 			obj.init();
 		}
 	} );
-} )( jQuery, tribe_dynamic_helper_text );
+} )( jQuery );
