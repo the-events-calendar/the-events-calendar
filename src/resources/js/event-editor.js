@@ -1,12 +1,12 @@
-var tribe_events_event_editor = tribe_events_event_editor || {};
-
 /**
  * Implements behaviours that are specific to the event editor.
  * @param $
  * @param obj
  */
-( function ( $, obj ) {
+( function ( $ ) {
 	'use strict';
+
+	const obj = window.tribe_events_event_editor || {};
 
 	/**
 	 * Setup our selectors.
@@ -57,4 +57,4 @@ var tribe_events_event_editor = tribe_events_event_editor || {};
 
 	// Init our main object.
 	$( obj.init );
-} )( jQuery, tribe_events_event_editor );
+} )( jQuery );
