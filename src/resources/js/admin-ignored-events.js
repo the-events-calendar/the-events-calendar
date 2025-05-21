@@ -1,7 +1,7 @@
-var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ignore_events : {};
-
-( function ( $, data ) {
+( function ( $ ) {
 	'use strict';
+
+	const tribe_ignore_events = window.tribe_ignore_events || {};
 
 	/**
 	 * Migration for Legacy Ignored Event
@@ -96,4 +96,4 @@ var tribe_ignore_events = 'undefined' !== typeof tribe_ignore_events ? tribe_ign
 			); // eslint-disable-line max-len
 		}
 	} );
-} )( jQuery, tribe_ignore_events );
+} )( jQuery );
