@@ -74,16 +74,16 @@ div.tribe-events-notices > ul > li {
 }
 
 /* Miscellaneous Helper Classes */
-.clearfix:before,
-.tribe-clearfix:before,
-.clearfix:after,
-.tribe-clearfix:after {
-	content: '';
+.clearfix::before,
+.tribe-clearfix::before,
+.clearfix::after,
+.tribe-clearfix::after {
+	content: "";
 	display: table;
 }
 
-.clearfix:after,
-.tribe-clearfix:after {
+.clearfix::after,
+.tribe-clearfix::after {
 	clear: both;
 }
 
@@ -303,7 +303,7 @@ select.tribe-events-dropdown {
 ============================================= */
 .tribe-events-day .tribe-events-day-time-slot .tribe-events-day-time-slot-heading {
 	font-size: 14px;
-	font-weight: bold;
+	font-weight: 700;
 	margin: 2.5em 0 0;
 	text-transform: uppercase;
 }
@@ -345,7 +345,7 @@ select.tribe-events-dropdown {
 	clear: both;
 	float: none;
 	font-size: 1.2em;
-	font-weight: normal;
+	font-weight: 400;
 	line-height: 1.5;
 	margin: 0 0 15px 0;
 	overflow: visible;
@@ -408,7 +408,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-loop .tribe-events-event-meta dt {
-	font-weight: bold;
+	font-weight: 700;
 	padding-right: 12px;
 	width: auto;
 }
@@ -507,7 +507,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-event-meta dt {
 	clear: left;
-	font-weight: bold;
+	font-weight: 700;
 }
 
 #tribe-events-content .tribe-events-event-meta dd span.adr {
@@ -538,10 +538,10 @@ select.tribe-events-dropdown {
 	border: 1px solid #bbb;
 }
 
-.tribe-events-calendar div[id*='tribe-events-daynum-'],
-.tribe-events-calendar div[id*='tribe-events-daynum-'] a {
+.tribe-events-calendar div[id*="tribe-events-daynum-"],
+.tribe-events-calendar div[id*="tribe-events-daynum-"] a {
 	font-size: 11px;
-	font-weight: bold;
+	font-weight: 700;
 }
 
 #tribe-events-content .tribe-events-calendar td {
@@ -571,7 +571,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-tooltip .tribe-events-arrow {
-	background-image: url('../images/tribe-tooltips.png');
+	background-image: url(../images/tribe-tooltips.png);
 	background-position: 0 0;
 	background-repeat: no-repeat;
 	-webkit-background-size: 44px 19px;
@@ -599,6 +599,7 @@ select.tribe-events-dropdown {
 
 /** For when a tooltip is near top edge of viewport, so displays below event title instead of above it. */
 .tribe-events-tooltip.tribe-events-tooltip-flipdown {
+
 	.tribe-events-arrow {
 		top: -11px;
 		transform: rotate(180deg);
@@ -635,7 +636,7 @@ select.tribe-events-dropdown {
 }
 
 .tribe-events-viewmore {
-	font-weight: bold;
+	font-weight: 700;
 	line-height: 1;
 	margin: 0 5%;
 	padding: 6px 8px;
@@ -650,7 +651,7 @@ select.tribe-events-dropdown {
 	width: 250px;
 }
 
-.tribe-events-calendar td div[id*='tribe-events-daynum-'] {
+.tribe-events-calendar td div[id*="tribe-events-daynum-"] {
 	line-height: 1.2;
 	padding: 6px 9px;
 }
@@ -660,15 +661,15 @@ select.tribe-events-dropdown {
 	word-wrap: break-word;
 }
 
-.tribe-events-calendar div[id*='tribe-events-event-'],
-.tribe-events-calendar div[id*='tribe-events-daynum-'] {
+.tribe-events-calendar div[id*="tribe-events-event-"],
+.tribe-events-calendar div[id*="tribe-events-daynum-"] {
 	margin: 0;
 	position: relative;
 }
 
-#tribe-events-content .tribe-events-calendar div[id*='tribe-events-event-'] h3.entry-title {
+#tribe-events-content .tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title {
 	font-size: 91.7%;
-	font-weight: normal;
+	font-weight: 400;
 	letter-spacing: 0;
 	line-height: 1.5;
 	margin: 0;
@@ -676,14 +677,14 @@ select.tribe-events-dropdown {
 	text-transform: none;
 }
 
-.tribe-events-calendar div[id*='tribe-events-event-'] h3.entry-title a {
+.tribe-events-calendar div[id*="tribe-events-event-"] h3.entry-title a {
 	font-size: 100%;
 }
 
 /* Large Calendar Tooltip Specifics */
 #tribe-events-content .tribe-events-tooltip h4.entry-title {
 	font-size: 12px;
-	font-weight: normal;
+	font-weight: 400;
 	letter-spacing: 1px;
 	line-height: 24px;
 	margin: 0;
@@ -693,7 +694,7 @@ select.tribe-events-dropdown {
 
 .tribe-events-tooltip .tribe-events-event-body {
 	font-size: 11px;
-	font-weight: normal;
+	font-weight: 400;
 	padding: 3px 6px 6px;
 }
 
@@ -779,7 +780,7 @@ select.tribe-events-dropdown {
 }
 
 #tribe-events-bar .tribe-bar-button-settings span {
-	background-image: url('../images/events-bar/icon-gear.png');
+	background-image: url(../images/events-bar/icon-gear.png);
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	-webkit-background-size: 14px 14px;

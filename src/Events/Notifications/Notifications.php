@@ -61,7 +61,7 @@ class Notifications extends Integration_Abstract {
 		$allowed[] = 'tribe_events_page_tec-events-settings';
 		$allowed[] = 'edit-tribe_events';
 		$allowed[] = 'tribe_events';
-
+		$allowed[] = 'tribe_events_page_first-time-setup';
 		return $allowed;
 	}
 

@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1000
-          token: ${{ secrets.GH_BOT_TOKEN }}
+          token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}
           submodules: recursive
       # ------------------------------------------------------------------------------
       # Check if any PHP files have changed
@@ -24,7 +24,7 @@ jobs:
         run: |
           php_files=$(git diff ${{ github.event.pull_request.base.sha }} HEAD --name-only | grep -E '\.php$' || true)
           num_php_files=$(echo "$php_files" | grep -c '^' || echo 0)
-      
+
           if [[ -z "$php_files" || "$num_php_files" -eq 0 ]]; then
             echo "has_no_php_changes=1" >> $GITHUB_OUTPUT
             echo "## No PHP files changed" >> $GITHUB_STEP_SUMMARY
@@ -42,5 +42,6 @@ jobs:
     uses: stellarwp/github-actions/.github/workflows/phpcs.yml@main
     with:
       ref: ${{ github.event.inputs.ref }}
+      change_permissions: false
     secrets:
-      access-token: ${{ secrets.GH_BOT_TOKEN }}
+      access-token: ${{ secrets.GHA_BOT_TOKEN_MANAGER }}

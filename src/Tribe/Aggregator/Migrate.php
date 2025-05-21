@@ -39,7 +39,7 @@ class Tribe__Events__Aggregator__Migrate {
 		tribe_notice( 'tribe-aggregator-migrate-legacy-settings', array( $this, 'notice' ), 'type=warning' );
 
 		// Register Assets
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-migrate-legacy-settings',
 			'aggregator-admin-legacy-settings.js',

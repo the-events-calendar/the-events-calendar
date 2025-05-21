@@ -769,7 +769,7 @@ class Settings {
 			return;
 		}
 
-		tribe_asset(
+		tec_asset(
 			Plugin::instance(),
 			'tribe-admin-upgrade-page',
 			'admin-upgrade-page.js',
