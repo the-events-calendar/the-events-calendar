@@ -10,7 +10,9 @@
 
 
 ( function ( $, api ) {
-	const obj = window.tribe_events_customizer_live_preview_js_config || {};
+	window.tribe_events_customizer_live_preview_js_config = window.tribe_events_customizer_live_preview_js_config || {};
+	const obj = window.tribe_events_customizer_live_preview_js_config;
+
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
 
 	/* eslint-disable max-len */
