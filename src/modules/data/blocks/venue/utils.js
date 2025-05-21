@@ -33,13 +33,13 @@ export const getCoordinates = ( details = {} ) => {
 	};
 };
 
-export const setDefault = ( value, defaultValue ) => value === '' ? defaultValue : value;
+export const setDefault = ( value, defaultValue ) => ( value === '' ? defaultValue : value );
 
 /**
  * Get Venue Country
  *
  * @param {Object} meta Object with event meta
- * @returns {string} Venue country
+ * @return {string} Venue country
  */
 export function getVenueCountry( meta ) {
 	let country = get( meta, '_VenueCountry', '' );
@@ -56,7 +56,7 @@ export function getVenueCountry( meta ) {
  * Get Venue State/Province
  *
  * @param {Object} meta Object of venue meta
- * @returns {string} The venue state or province
+ * @return {string} The venue state or province
  */
 export function getVenueStateProvince( meta ) {
 	let stateProvince = get( meta, '_VenueStateProvince', '' );
@@ -64,10 +64,7 @@ export function getVenueStateProvince( meta ) {
 	if ( '' === stateProvince ) {
 		const country = getVenueCountry( meta );
 
-		if (
-			'US' === country ||
-			'United States' === country
-		) {
+		if ( 'US' === country || 'United States' === country ) {
 			stateProvince = getStateName( 'US', editorDefaults().venueState );
 		} else {
 			stateProvince = editorDefaults().venueProvince;

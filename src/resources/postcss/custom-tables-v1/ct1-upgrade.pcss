@@ -52,7 +52,7 @@
 			font-family: "Helvetica Neue", serif;
 			font-size: 14px;
 			font-style: normal;
-			font-weight: bold;
+			font-weight: 700;
 			height: 19px;
 			line-height: 19px;
 			margin-right: 0.25rem;
@@ -129,7 +129,7 @@
 
 		/*  indeterminate  */
 
-		&:indeterminate:after {
+		&:indeterminate::after {
 			animation: var(--_indeterminate-track-animation);
 			background: var(--_indeterminate-track);
 			background-position: right;
@@ -162,8 +162,8 @@
 
 		/*  complete  */
 
-		&:not([max])[value="1"]:before,
-		&[max="100"][value="100"]:before {
+		&:not([max])[value="1"]::before,
+		&[max="100"][value="100"]::before {
 			align-items: center;
 			color: white;
 			content: "✓";
@@ -362,6 +362,7 @@
 }
 
 @keyframes tec-progress-loading {
+
 	50% {
 		background-position: left;
 	}

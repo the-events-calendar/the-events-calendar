@@ -22,14 +22,14 @@ tribe.events.views.tooltip = {};
  *
  * @since  4.9.4
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} obj tribe.events.views.tooltip
+ * @param {PlainObject} $   jQuery
+ * @param {PlainObject} obj tribe.events.views.tooltip
  *
  * @return {void}
  */
-( function( $, obj ) {
+( function ( $, obj ) {
 	'use strict';
-	var $document = $( document );
+	const $document = $( document );
 
 	/**
 	 * Config used for tooltip setup
@@ -68,8 +68,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleOriginFocus = function( event ) {
-		setTimeout( function() {
+	obj.handleOriginFocus = function ( event ) {
+		setTimeout( function () {
 			if (
 				event.data.target.is( ':focus' ) ||
 				event.data.target.hasClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() )
@@ -88,7 +88,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleOriginBlur = function( event ) {
+	obj.handleOriginBlur = function ( event ) {
 		event.data.target.tooltipster( 'close' );
 	};
 
@@ -101,7 +101,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleOriginHoverIn = function( event ) {
+	obj.handleOriginHoverIn = function ( event ) {
 		event.data.target.addClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() );
 	};
 
@@ -114,7 +114,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleOriginHoverOut = function( event ) {
+	obj.handleOriginHoverOut = function ( event ) {
 		event.data.target.removeClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() );
 	};
 
@@ -127,7 +127,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleTooltipHoverIn = function( event ) {
+	obj.handleTooltipHoverIn = function ( event ) {
 		event.data.target.addClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
 	};
 
@@ -140,7 +140,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleTooltipHoverOut = function( event ) {
+	obj.handleTooltipHoverOut = function ( event ) {
 		event.data.target.removeClass( obj.selectors.tribeEventsTooltipThemeHoverClass.className() );
 	};
 
@@ -153,9 +153,9 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleInstanceClose = function( event ) {
-		var $origin = event.data.origin;
-		var $tooltip = $( event.tooltip );
+	obj.handleInstanceClose = function ( event ) {
+		const $origin = event.data.origin;
+		const $tooltip = $( event.tooltip );
 
 		// if trigger is focused, hovered, or tooltip is hovered, do not close tooltip
 		if (
@@ -176,7 +176,7 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.handleInstanceClosing = function( event ) {
+	obj.handleInstanceClosing = function ( event ) {
 		$( event.tooltip )
 			.off( 'mouseenter touchstart', obj.handleTooltipHoverIn )
 			.off( 'mouseleave touchleave', obj.handleTooltipHoverOut );
@@ -193,8 +193,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.onFunctionInit = function( instance, helper ) {
-		var $origin = $( helper.origin );
+	obj.onFunctionInit = function ( instance, helper ) {
+		const $origin = $( helper.origin );
 		$origin
 			.on( 'focus', { target: $origin }, obj.handleOriginFocus )
 			.on( 'blur', { target: $origin }, obj.handleOriginBlur )
@@ -216,8 +216,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.onFunctionReady = function( instance, helper ) {
-		var $tooltip = $( helper.tooltip );
+	obj.onFunctionReady = function ( instance, helper ) {
+		const $tooltip = $( helper.tooltip );
 		$tooltip
 			.on( 'mouseenter touchstart', { target: $tooltip }, obj.handleTooltipHoverIn )
 			.on( 'mouseleave touchleave', { target: $tooltip }, obj.handleTooltipHoverOut );
@@ -232,15 +232,10 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.deinitTooltips = function( $container ) {
-		$container
-			.find( obj.selectors.tooltipTrigger )
-			.each( function( index, trigger ) {
-				$( trigger )
-					.off()
-					.tooltipster( 'instance' )
-					.off();
-			} );
+	obj.deinitTooltips = function ( $container ) {
+		$container.find( obj.selectors.tooltipTrigger ).each( function ( index, trigger ) {
+			$( trigger ).off().tooltipster( 'instance' ).off();
+		} );
 	};
 
 	/**
@@ -252,22 +247,20 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.initTooltips = function( $container ) {
-		var theme = $container.data( 'tribeEventsTooltipTheme' );
+	obj.initTooltips = function ( $container ) {
+		const theme = $container.data( 'tribeEventsTooltipTheme' );
 
-		$container
-			.find( obj.selectors.tooltipTrigger )
-			.each( function( index, trigger ) {
-				$( trigger ).tooltipster( {
-					animationDuration: 0,
-					interactive: true,
-					delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
-					delayTouch: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
-					theme: theme,
-					functionInit: obj.onFunctionInit,
-					functionReady: obj.onFunctionReady,
-				} );
+		$container.find( obj.selectors.tooltipTrigger ).each( function ( index, trigger ) {
+			$( trigger ).tooltipster( {
+				animationDuration: 0,
+				interactive: true,
+				delay: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
+				delayTouch: [ obj.config.delayHoverIn, obj.config.delayHoverOut ],
+				theme,
+				functionInit: obj.onFunctionInit,
+				functionReady: obj.onFunctionReady,
 			} );
+		} );
 	};
 
 	/**
@@ -279,10 +272,10 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.initTheme = function( $container ) {
+	obj.initTheme = function ( $container ) {
 		$container.trigger( 'beforeTooltipInitTheme.tribeEvents', [ $container ] );
 
-		var theme = [
+		const theme = [
 			obj.selectors.tribeEventsTooltipThemeClass.className(),
 			obj.selectors.tribeCommonClass.className(),
 			obj.selectors.tribeEventsClass.className(),
@@ -297,14 +290,15 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param  {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param  {jqXHR}       jqXHR    Request object
-	 * @param  {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
+	 * @param {jqXHR}       jqXHR    Request object
+	 * @param {PlainObject} settings Settings that this request was made with
 	 *
 	 * @return {void}
 	 */
-	obj.deinit = function( event, jqXHR, settings ) { // eslint-disable-line no-unused-vars
-		var $container = event.data.container;
+	obj.deinit = function ( event, jqXHR, settings ) {
+		// eslint-disable-line no-unused-vars
+		const $container = event.data.container;
 		obj.deinitTooltips( $container );
 		$container.off( 'beforeAjaxSuccess.tribeEvents', obj.deinit );
 	};
@@ -317,11 +311,12 @@ tribe.events.views.tooltip = {};
 	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
 	 * @param {jQuery}  $container jQuery object of view container.
-	 * @param {object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
-	obj.init = function( event, index, $container, data ) { // eslint-disable-line no-unused-vars
+	obj.init = function ( event, index, $container, data ) {
+		// eslint-disable-line no-unused-vars
 		obj.initTheme( $container );
 		obj.initTooltips( $container );
 		$container.on( 'beforeAjaxSuccess.tribeEvents', { container: $container }, obj.deinit );
@@ -334,12 +329,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
-		$document.on(
-			'afterSetup.tribeEvents',
-			tribe.events.views.manager.selectors.container,
-			obj.init
-		);
+	obj.ready = function () {
+		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
 	// Configure on document ready

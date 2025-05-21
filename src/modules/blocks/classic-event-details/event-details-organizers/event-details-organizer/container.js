@@ -14,7 +14,4 @@ import EventDetailsOrganizer from './template';
  * Module Code
  */
 
-export default compose(
-	withStore(),
-	withDetails( 'organizerId' ),
-)( EventDetailsOrganizer );
+export default compose( withStore(), withDetails( 'organizerId' ) )( EventDetailsOrganizer );

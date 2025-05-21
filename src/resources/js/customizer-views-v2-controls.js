@@ -10,7 +10,7 @@
 
 var tribe_customizer_controls = tribe_customizer_controls || {};
 
-( function( $, obj ) {
+( function ( $, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
 
 	/* eslint-disable max-len */
@@ -29,7 +29,8 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		eventsBarButtonColorChoice: 'tribe_customizer[tec_events_bar][find_events_button_color_choice]',
 		eventsBarButtonColor: 'tribe_customizer[tec_events_bar][find_events_button_color]',
 		// Pro-added Control
-		eventsBarViewSelectorBackgroundColorChoice: 'tribe_customizer[tec_events_bar][view_selector_background_color_choice]',
+		eventsBarViewSelectorBackgroundColorChoice:
+			'tribe_customizer[tec_events_bar][view_selector_background_color_choice]',
 		eventsBarViewSelectorBackgroundColor: 'tribe_customizer[tec_events_bar][view_selector_background_color]',
 
 		monthGridBackgroundColorChoice: 'tribe_customizer[month_view][grid_background_color_choice]',
@@ -39,7 +40,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		monthMultidayEventBarColor: 'tribe_customizer[month_view][multiday_event_bar_color]',
 
 		singleEventTitleColorChoice: 'tribe_customizer[single_event][post_title_color_choice]',
-		singleEventTitleColor: 'tribe_customizer[single_event][post_title_color]'
+		singleEventTitleColor: 'tribe_customizer[single_event][post_title_color]',
 	};
 	/* eslint-enable max-len */
 
@@ -53,21 +54,19 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 * @param {string} parent Parent selector.
 	 * @param {string} child  Child selector.
 	 */
-	obj.nestedColorControl = function( parent, child ) {
-		wp.customize( parent, function( setting ) {
-			wp.customize.control( child, function( control ) {
-				const slideFunction = function() {
-					'custom' === setting.get()
-						? control.container.slideDown( 180 )
-						: control.container.slideUp( 180 );
-				}
+	obj.nestedColorControl = function ( parent, child ) {
+		wp.customize( parent, function ( setting ) {
+			wp.customize.control( child, function ( control ) {
+				const slideFunction = function () {
+					'custom' === setting.get() ? control.container.slideDown( 180 ) : control.container.slideUp( 180 );
+				};
 
 				slideFunction();
 
 				setting.bind( slideFunction );
 			} );
 		} );
-	}
+	};
 
 	/**
 	 * Reusable function for when we have a color control that is dependent on a radio.
@@ -76,33 +75,30 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 * @param {string} parent Parent selector.
 	 * @param {string} child  Child selector.
 	 */
-	obj.invertedNestedColorControl = function( parent, child ) {
-		wp.customize( parent, function( setting ) {
-			wp.customize.control( child, function( control ) {
-				const slideFunction = function() {
-					'custom' !== setting.get()
-						? control.container.slideDown( 180 )
-						: control.container.slideUp( 180 );
-				}
+	obj.invertedNestedColorControl = function ( parent, child ) {
+		wp.customize( parent, function ( setting ) {
+			wp.customize.control( child, function ( control ) {
+				const slideFunction = function () {
+					'custom' !== setting.get() ? control.container.slideDown( 180 ) : control.container.slideUp( 180 );
+				};
 
 				slideFunction();
 
 				setting.bind( slideFunction );
 			} );
 		} );
-	}
-
+	};
 
 	/**
 	 * Trigger control functions for the Global Elements section.
 	 *
 	 * @since 5.9.0
 	 */
-	obj.handleGlobalElements = function() {
+	obj.handleGlobalElements = function () {
 		// Triggers on change of globalFontSizeBase to keep globalFontSize in sync.
-		wp.customize( obj.controls.globalFontSizeBase, function( setting ) {
-			wp.customize.control( obj.controls.globalFontSize, function( control ) {
-				const sync = function() {
+		wp.customize( obj.controls.globalFontSizeBase, function ( setting ) {
+			wp.customize.control( obj.controls.globalFontSize, function ( control ) {
+				const sync = function () {
 					if ( obj.globalFontSizeBaseChange ) {
 						return;
 					}
@@ -126,10 +122,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		} );
 
 		// Triggers on change of globalFontSize to keep globalFontSizeBase in sync.
-		wp.customize( obj.controls.globalFontSize, function( setting ) {
-			wp.customize.control( obj.controls.globalFontSizeBase, function( control ) {
-
-				const sync = function() {
+		wp.customize( obj.controls.globalFontSize, function ( setting ) {
+			wp.customize.control( obj.controls.globalFontSizeBase, function ( control ) {
+				const sync = function () {
 					if ( obj.globalFontSizeChange ) {
 						return;
 					}
@@ -153,10 +148,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 		} );
 
 		// Only show the background color control when the background color choice is set to custom.
-		obj.nestedColorControl(
-			obj.controls.globalBackgroundColorChoice,
-			obj.controls.globalBackgroundColor
-		);
+		obj.nestedColorControl( obj.controls.globalBackgroundColorChoice, obj.controls.globalBackgroundColor );
 	};
 
 	/**
@@ -164,12 +156,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 *
 	 * @since 5.9.0
 	 */
-	obj.handleEventsBar = function() {
+	obj.handleEventsBar = function () {
 		// Only show the icon color control when the icon color choice is set to custom.
-		obj.nestedColorControl(
-			obj.controls.eventsBarIconColorChoice,
-			obj.controls.eventsBarIconColor
-		);
+		obj.nestedColorControl( obj.controls.eventsBarIconColorChoice, obj.controls.eventsBarIconColor );
 
 		// Only show the events bar background color control
 		// when the events bar background color choice is set to custom.
@@ -180,22 +169,13 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 
 		// Only show the events bar view selector background color control
 		// when the events bar view selector background color choice is set to custom.
-		obj.nestedColorControl(
-			obj.controls.eventsBarBackgroundColorChoice,
-			obj.controls.eventsBarBackgroundColor
-		);
+		obj.nestedColorControl( obj.controls.eventsBarBackgroundColorChoice, obj.controls.eventsBarBackgroundColor );
 
 		// Only show the events bar border color control when the events bar border color choice is set to custom.
-		obj.nestedColorControl(
-			obj.controls.eventsBarBorderColorChoice,
-			obj.controls.eventsBarBorderColor
-		);
+		obj.nestedColorControl( obj.controls.eventsBarBorderColorChoice, obj.controls.eventsBarBorderColor );
 
 		// Only show the events bar button color control when the events bar button color choice is set to custom.
-		obj.nestedColorControl(
-			obj.controls.eventsBarButtonColorChoice,
-			obj.controls.eventsBarButtonColor
-		);
+		obj.nestedColorControl( obj.controls.eventsBarButtonColorChoice, obj.controls.eventsBarButtonColor );
 	};
 
 	/**
@@ -203,12 +183,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 *
 	 * @since 5.9.0
 	 */
-	obj.handleMonthView = function() {
+	obj.handleMonthView = function () {
 		// Only show the grid background color control when the grid background color choice is set to custom.
-		obj.nestedColorControl(
-			obj.controls.monthGridBackgroundColorChoice,
-			obj.controls.monthGridBackgroundColor
-		);
+		obj.nestedColorControl( obj.controls.monthGridBackgroundColorChoice, obj.controls.monthGridBackgroundColor );
 
 		// Only show the tooltip background color control when the grid background color choice is set to default.
 		obj.invertedNestedColorControl(
@@ -228,12 +205,9 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 *
 	 * @since 5.9.0
 	 */
-	obj.handleSingleEvent = function() {
+	obj.handleSingleEvent = function () {
 		// Only show the single event title color control when the single event title color choice is set to custom.
-		obj.nestedColorControl(
-			obj.controls.singleEventTitleColorChoice,
-			obj.controls.singleEventTitleColor
-		);
+		obj.nestedColorControl( obj.controls.singleEventTitleColorChoice, obj.controls.singleEventTitleColor );
 	};
 
 	/**
@@ -241,7 +215,7 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 *
 	 * @since 5.9.0
 	 */
-	obj.init = function() {
+	obj.init = function () {
 		obj.handleGlobalElements();
 
 		obj.handleEventsBar();
@@ -257,5 +231,4 @@ var tribe_customizer_controls = tribe_customizer_controls || {};
 	 * @since 5.9.0
 	 */
 	wp.customize.bind( 'ready', obj.init );
-
 } )( jQuery, tribe_customizer_controls );

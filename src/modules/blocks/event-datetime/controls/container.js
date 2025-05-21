@@ -7,10 +7,7 @@ import { compose } from 'redux';
 /**
  * Internal dependencies
  */
-import {
-	actions as dateTimeActions,
-	selectors as dateTimeSelectors,
-} from '@moderntribe/events/data/blocks/datetime';
+import { actions as dateTimeActions, selectors as dateTimeSelectors } from '@moderntribe/events/data/blocks/datetime';
 import { withStore } from '@moderntribe/common/hoc';
 import EventDateTimeControls from './template';
 
@@ -40,7 +37,4 @@ const mapDispatchToProps = ( dispatch, { setAttributes } ) => ( {
 	},
 } );
 
-export default compose(
-	withStore(),
-	connect( mapStateToProps, mapDispatchToProps ),
-)( EventDateTimeControls );
+export default compose( withStore(), connect( mapStateToProps, mapDispatchToProps ) )( EventDateTimeControls );

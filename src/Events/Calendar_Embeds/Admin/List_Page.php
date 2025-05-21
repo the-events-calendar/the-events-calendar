@@ -262,7 +262,7 @@ class List_Page extends Controller_Contract {
 			'tec-events-calendar-embeds-style',
 			'css/calendar-embeds/admin/page.css'
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( TEC::class )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( fn() => self::is_on_page() || Singular_Page::is_on_page() )
 			->set_dependencies( 'thickbox', 'tribe-common-admin' )
