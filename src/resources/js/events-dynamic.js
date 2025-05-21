@@ -7,7 +7,8 @@
 ( function ( $ ) {
 	'use strict';
 
-	const obj = window.tribe_dynamic_helper_text || {};
+	window.tribe_dynamic_helper_text = window.tribe_dynamic_helper_text || {};
+	const obj = window.tribe_dynamic_helper_text;
 
 	obj.field_class = '.event-dynamic-helper-text';
 	obj.date_fmt_settings = {

@@ -1,7 +1,8 @@
 ( function ( $ ) {
 	'use strict';
 
-	const tribe_ignore_events = window.tribe_ignore_events || {};
+	window.tribe_ignore_events = window.tribe_ignore_events || {};
+	const data = window.tribe_ignore_events;
 
 	/**
 	 * Migration for Legacy Ignored Event
