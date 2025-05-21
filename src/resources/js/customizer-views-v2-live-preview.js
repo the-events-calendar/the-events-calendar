@@ -8,9 +8,9 @@
  * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
  */
 
-var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_live_preview_js_config || {};
 
-( function ( $, api, obj ) {
+( function ( $, api ) {
+	const obj = window.tribe_events_customizer_live_preview_js_config || {};
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
 
 	/* eslint-disable max-len */
@@ -714,4 +714,4 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		const rgb = obj.hexToRGB( hex );
 		return rgb.r + ', ' + rgb.g + ', ' + rgb.b;
 	};
-} )( jQuery, wp.customize, tribe_events_customizer_live_preview_js_config );
+} )( jQuery, wp.customize );
