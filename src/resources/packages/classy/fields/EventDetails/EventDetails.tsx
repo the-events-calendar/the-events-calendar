@@ -4,9 +4,9 @@ import { __experimentalInputControl as InputControl } from '@wordpress/component
 import { useEffect, useState } from 'react';
 import { PostFeaturedImage } from '@wordpress/editor';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { TinyMceEditor } from '@tec/common/classy/components/TinyMceEditor';
-import { METADATA_EVENT_URL } from '@tec/common/classy/constants';
+import { TinyMceEditor } from '@tec/common/classy/components';
 import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
+import { METADATA_EVENT_URL } from '../../constants';
 
 export default function EventDetails( props: FieldProps ) {
 	const { postContent, meta } = useSelect( ( select ) => {
