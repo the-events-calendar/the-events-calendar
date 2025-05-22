@@ -27,7 +27,4 @@ const mapDispatchToProps = ( dispatch, ownProps ) => ( {
 	},
 } );
 
-export default compose(
-	withStore(),
-	connect( mapStateToProps, mapDispatchToProps ),
-)( EventWebsite );
+export default compose( withStore(), connect( mapStateToProps, mapDispatchToProps ) )( EventWebsite );

@@ -30,11 +30,7 @@ const EventDetailsOrganizers = ( props ) => {
 	);
 
 	const renderDropdownContent = ( { onClose, isOpen } ) => (
-		<OrganizerForm
-			addOrganizer={ props.addOrganizer }
-			onClose={ onClose }
-			aria-expanded={ isOpen }
-		/>
+		<OrganizerForm addOrganizer={ props.addOrganizer } onClose={ onClose } aria-expanded={ isOpen } />
 	);
 
 	const { addOrganizer, removeOrganizer, organizers } = props;

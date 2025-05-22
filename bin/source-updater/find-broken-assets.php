@@ -130,7 +130,7 @@ $visitor   = new class extends NodeVisitorAbstract {
 	/**
 	 * Return an array of unregistered CSS assets.
 	 *
-	 * @since TBD
+	 * @since 6.13.0
 	 *
 	 * @return array<string,array{jsAssetFile: string, file: string, line: int}>
 	 */

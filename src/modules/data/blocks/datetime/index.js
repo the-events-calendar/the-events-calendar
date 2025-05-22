@@ -8,10 +8,4 @@ import * as selectors from './selectors';
 import sagas from './sagas';
 
 export default reducer.default;
-export {
-	reducer,
-	types,
-	actions,
-	selectors,
-	sagas,
-};
+export { reducer, types, actions, selectors, sagas };

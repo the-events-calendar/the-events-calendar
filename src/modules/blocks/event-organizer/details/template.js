@@ -15,13 +15,7 @@ import { ReactComponent as CloseIcon } from '@moderntribe/common/icons/close.svg
 
 import './style.pcss';
 
-const OrganizerDetails = ( {
-	organizer = {},
-	edit = noop,
-	remove = noop,
-	selected = false,
-	volatile,
-} ) => {
+const OrganizerDetails = ( { organizer = {}, edit = noop, remove = noop, selected = false, volatile } ) => {
 	const maybeEdit = () => {
 		if ( ! volatile ) {
 			return;
@@ -70,10 +64,7 @@ const OrganizerDetails = ( {
 
 		return (
 			<div className="tribe-editor__organizer__actions">
-				<button
-					className="tribe-editor__organizer__actions--close"
-					onClick={ remove }
-				>
+				<button className="tribe-editor__organizer__actions--close" onClick={ remove }>
 					<CloseIcon />
 				</button>
 			</div>
