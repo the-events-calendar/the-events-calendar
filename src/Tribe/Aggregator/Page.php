@@ -180,7 +180,7 @@ class Tribe__Events__Aggregator__Page {
 					[ $this, 'is_screen' ],
 				],
 				'localize'     => (object) [
-					'name' => 'tribe_aggregator',
+					'name' => 'tribe_aggregator_data',
 					'data' => $localize_data_callback,
 				],
 			]
