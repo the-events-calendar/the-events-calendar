@@ -4,7 +4,7 @@ Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguse
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
 Stable tag: 7.0.0
-Requires at least: 6.5
+Requires at least: 6.6
 Tested up to: 6.8.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -231,6 +231,32 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.13.0] 2025-05-20 =
+
+* Version - The Events Calendar 6.13.0 is only compatible with Events Pro 7.6.0 and higher.
+* Version - The Events Calendar 6.13.0 is only compatible with Events Community 5.0.7 and higher.
+* Version - The Events Calendar 6.13.0 is only compatible with Event Tickets 5.23.0 and higher.
+* Version - The Events Calendar 6.13.0 is only compatible with Event Tickets Plus 6.5.0 and higher.
+* Feature - Add a `Block_Trait` to simplify block assets registration and avoid code duplication.
+* Fix - Improve Settings UX by preventing unstyled error state when tab object does not exist.
+* Fix - Update class steps to use namespaced class names consistently to improve class reusability.
+* Fix - In the onboarding API, improve data management by merging new params instead of overwriting existing ones.
+* Fix - Standardize asset loading by using a consistent function to load assets.
+* Tweak - Alter Telemetry to allow classes to hook in and supress the modal for specific pages.
+* Tweak - Hide Telemetry modal on the onboarding page.
+* Tweak - Improve the onboarding wizard by properly storing current tab completion and adding filter to force redirect.
+* Tweak - Replace `tribe_asset` with `tec_asset` function for proper asset pathing.
+* Tweak - Add `tec_events_onboarding_wizard_force_display` filter to allow bypassing Guided Setup display checks.
+* Tweak - Add `tec_events_onboarding_force_redirect_to_guided_setup` filter to bypass checks for redirecting to Guided Setup.
+* Tweak - Move Country and Currency lists to Common for better code reuse.
+* Tweak - Update asset handling to leverage group paths consistently.
+* Language - 2 new strings added, 252 updated, 4 fuzzied, and 38 obsoleted.
+
+= [6.12.0.1] 2025-05-14 =
+
+* Fix - Prevents fatal if QR library in common has not loaded. [TEC-5497]
+* Language - 10 new strings added, 247 updated, 1 fuzzied, and 0 obsoleted.
 
 = [6.12.0] 2025-05-13 =
 

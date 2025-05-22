@@ -15,17 +15,8 @@ import { Component } from '@wordpress/element';
  * Internal dependencies
  */
 import { Input } from '@moderntribe/events/elements';
-import list, {
-	getCountries,
-	getStates,
-	getCountryCode,
-	getStateCode,
-} from '@moderntribe/events/editor/utils/geo-data';
-import {
-	setDefault,
-	getVenueCountry,
-	getVenueStateProvince,
-} from '@moderntribe/events/data/blocks/venue/utils';
+import list, { getCountries, getStates, getCountryCode, getStateCode } from '@moderntribe/events/editor/utils/geo-data';
+import { setDefault, getVenueCountry, getVenueStateProvince } from '@moderntribe/events/data/blocks/venue/utils';
 import { editorDefaults, wpEditor } from '@moderntribe/common/utils/globals';
 import './style.pcss';
 
@@ -104,9 +95,7 @@ export default class VenueForm extends Component {
 	}
 
 	componentWillUnmount() {
-		const FIELDS = [
-			'title', 'address', 'city', 'country', 'zip', 'phone', 'url', 'stateProvince',
-		];
+		const FIELDS = [ 'title', 'address', 'city', 'country', 'zip', 'phone', 'url', 'stateProvince' ];
 		const fields = pick( this.state, FIELDS );
 		fields.country = get( list.countries, fields.country, '' ) || fields.country;
 		fields.stateProvince = get( list.us_states, fields.stateProvince, '' ) || fields.stateProvince;
@@ -192,20 +181,10 @@ export default class VenueForm extends Component {
 	}
 
 	render() {
-		const {
-			title = '',
-			address = '',
-			city = '',
-			zip = '',
-			phone = '',
-			url = '',
-		} = this.state;
+		const { title = '', address = '', city = '', zip = '', phone = '', url = '' } = this.state;
 
 		return (
-			<div
-				className="tribe-editor__venue__form"
-				key="tribe-venue-form"
-			>
+			<div className="tribe-editor__venue__form" key="tribe-venue-form">
 				<RichText
 					tagName="h3"
 					format="string"

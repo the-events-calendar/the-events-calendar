@@ -12,8 +12,8 @@
 		border-radius: var(--tec-border-radius-default);
 		box-shadow: var(--tec-box-shadow-tooltip);
 
-		&:before,
-		&:after {
+		&::before,
+		&::after {
 			content: none;
 		}
 
@@ -29,6 +29,7 @@
 		}
 
 		.datepicker-switch {
+
 			@mixin desktop-body-1;
 
 			&:hover,
@@ -59,15 +60,18 @@
 		}
 
 		.dow {
+
 			@mixin mobile-body-3;
 		}
 
 		.day {
+
 			@mixin desktop-body-1;
 		}
 
 		.month,
 		.year {
+
 			@mixin desktop-body-3;
 		}
 

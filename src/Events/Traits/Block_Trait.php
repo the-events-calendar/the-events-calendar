@@ -2,36 +2,42 @@
 /**
  * A trait to group the methods common to all The Events Calendar blocks.
  *
- * @since TBD
+ * @since 6.13.0
  */
+
+namespace TEC\Events\Traits;
 
 use Tribe__Events__Main as TEC;
 
 /**
- * Trait Tribe__Events__Editor__Blocks__Block_Trait.
+ * Trait Block_Trait.
  *
- * @since TBD
+ * @since 6.13.0
  */
-trait Tribe__Events__Editor__Blocks__Block_Trait {
+trait Block_Trait {
 
 	/**
 	 * Register the Assets for when this block is active
 	 *
 	 * @since 4.7
-	 * @since TBD Moved to a trait to avoid code duplication.
+	 * @since 6.13.0 Moved to a trait to avoid code duplication.
 	 *
 	 * @return void
 	 */
 	public function assets() {
+		if ( ! $this->should_register_assets() ) {
+			return;
+		}
+
 		tec_asset(
 			tribe( 'tec.main' ),
-			'tribe-events-block-' . $this->slug(),
-			'app/' . $this->slug() . '/frontend.css',
+			"tribe-events-block-{$this->slug()}",
+			"{$this->slug()}/frontend.css",
 			[],
 			'wp_enqueue_scripts',
 			[
 				'conditionals' => [ $this, 'has_block' ],
-				'group_path' => TEC::class . '-packages',
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 	}

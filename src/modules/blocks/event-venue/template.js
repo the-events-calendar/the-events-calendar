@@ -10,24 +10,12 @@ import classNames from 'classnames';
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n';
-import {
-	Spinner,
-	Placeholder,
-	ToggleControl,
-	PanelBody,
-	Dashicon,
-} from '@wordpress/components';
+import { Spinner, Placeholder, ToggleControl, PanelBody, Dashicon } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
-import {
-	SearchOrCreate,
-	VenueForm,
-	toFields,
-	GoogleMap,
-	EditLink,
-} from '@moderntribe/events/elements';
+import { SearchOrCreate, VenueForm, toFields, GoogleMap, EditLink } from '@moderntribe/events/elements';
 import { addressToMapString } from '@moderntribe/events/editor/utils/geo-data';
 import { editor } from '@moderntribe/common/data';
 import VenueDetails from './venue-details';
@@ -121,34 +109,17 @@ class EventVenue extends Component {
 	}
 
 	renderForm() {
-		const {
-			isSelected,
-			fields,
-			onFormSubmit,
-		} = this.props;
+		const { isSelected, fields, onFormSubmit } = this.props;
 
 		if ( ! isSelected ) {
 			return null;
 		}
 
-		return (
-			<VenueForm
-				{ ...toFields( fields ) }
-				onSubmit={ onFormSubmit }
-			/>
-		);
+		return <VenueForm { ...toFields( fields ) } onSubmit={ onFormSubmit } />;
 	}
 
 	renderEditAction() {
-		const {
-			isSelected,
-			edit,
-			create,
-			isLoading,
-			submit,
-			volatile,
-			onEdit,
-		} = this.props;
+		const { isSelected, edit, create, isLoading, submit, volatile, onEdit } = this.props;
 
 		const idle = edit || create || isLoading || submit;
 		if ( ! isSelected || ! volatile || idle ) {
@@ -241,14 +212,7 @@ class EventVenue extends Component {
 	}
 
 	renderRemoveAction() {
-		const {
-			isSelected,
-			edit,
-			create,
-			isLoading,
-			submit,
-			onRemove,
-		} = this.props;
+		const { isSelected, edit, create, isLoading, submit, onRemove } = this.props;
 
 		if ( ! this.hasVenue() || ! isSelected || edit || create || isLoading || submit ) {
 			return null;
@@ -260,10 +224,7 @@ class EventVenue extends Component {
 
 		return (
 			<div className="tribe-editor__venue__actions">
-				<button
-					className="tribe-editor__venue__actions--close"
-					onClick={ onRemove }
-				>
+				<button className="tribe-editor__venue__actions--close" onClick={ onRemove }>
 					{ __( 'Remove venue', 'the-events-calendar' ) }
 				</button>
 			</div>
@@ -291,14 +252,7 @@ class EventVenue extends Component {
 	}
 
 	renderControls() {
-		const {
-			venue,
-			showMapLink,
-			showMap,
-			embedMap,
-			toggleVenueMap,
-			toggleVenueMapLink,
-		} = this.props;
+		const { venue, showMapLink, showMap, embedMap, toggleVenueMap, toggleVenueMapLink } = this.props;
 
 		if ( ! this.hasVenue() ) {
 			return null;
@@ -321,10 +275,7 @@ class EventVenue extends Component {
 							__nextHasNoMarginBottom={ true }
 						/>
 					) }
-					<EditLink
-						postId={ venue }
-						label={ __( 'Edit Venue', 'the-events-calendar' ) }
-					/>
+					<EditLink postId={ venue } label={ __( 'Edit Venue', 'the-events-calendar' ) } />
 				</PanelBody>
 			</InspectorControls>
 		);
@@ -338,7 +289,7 @@ class EventVenue extends Component {
 	 * Gets the venue details for the block.
 	 *
 	 * @since 6.2.0
-	 * @returns {Object} Venue details.
+	 * @return {Object} Venue details.
 	 */
 	getVenueDetails() {
 		const venueId = this.getVenueId();
@@ -357,7 +308,7 @@ class EventVenue extends Component {
 	 *
 	 * @since 6.2.0
 	 * @since 6.3.1 This will now return the value of the `venue` prop.
-	 * @returns {number|null} Venue ID or null.
+	 * @return {number|null} Venue ID or null.
 	 */
 	getVenueId() {
 		const state = this.props.store.getState();
@@ -368,16 +319,11 @@ class EventVenue extends Component {
 		 *
 		 * @since 6.2.0
 		 * @param {number} venueId The venue ID.
-		 * @param {Object} props The block props.
-		 * @param {Object} state The tribe common state.
+		 * @param {Object} props   The block props.
+		 * @param {Object} state   The tribe common state.
 		 * @return {number} The venue ID.
 		 */
-		venueId = wpHooks.applyFilters(
-			'tec.events.blocks.tribe_event_venue.getVenueId',
-			venueId,
-			this.props,
-			state,
-		);
+		venueId = wpHooks.applyFilters( 'tec.events.blocks.tribe_event_venue.getVenueId', venueId, this.props, state );
 
 		if ( ! isInteger( venueId ) ) {
 			return null;
@@ -405,7 +351,7 @@ class EventVenue extends Component {
 	 * than a cloned representation of a venue from another block.
 	 *
 	 * @since 6.2.0
-	 * @returns {boolean} Whether the venue is authoritative.
+	 * @return {boolean} Whether the venue is authoritative.
 	 */
 	isAuthoritativeVenue = () => {
 		const { venue } = this.props;
@@ -432,7 +378,7 @@ class EventVenue extends Component {
 	 *
 	 * @todo  We need to save the data into Meta Fields to avoid redoing the Geocode
 	 * @todo  Move the Maps into Pro
-	 * @param  {string} address Address string for geocode query.
+	 * @param {string} address Address string for geocode query.
 	 * @return {void}
 	 */
 	setCoordinatesState = ( address ) => {
@@ -446,7 +392,7 @@ class EventVenue extends Component {
 		}
 
 		// Fetch coords.
-		geocoder.geocode( { address: address }, ( results, status ) => {
+		geocoder.geocode( { address }, ( results, status ) => {
 			if ( 'OK' !== status ) {
 				this.setState( ( state ) => ( { ...state, derivedAddressString: address } ) );
 				return;

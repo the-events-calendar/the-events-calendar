@@ -1,9 +1,7 @@
-
 /* Dispatch actions for the reducers to handle */
-import TYPES from "./action-types";
-import { API_ENDPOINT } from "./constants";
+import TYPES from './action-types';
+import { API_ENDPOINT } from './constants';
 import { apiFetch } from '@wordpress/data';
-
 
 const {
 	CREATE,
@@ -19,11 +17,11 @@ const {
 } = TYPES;
 
 interface Settings {
-	[key: string]: any;
+	[ key: string ]: any;
 }
 
 interface Setting {
-	[key: string]: any;
+	[ key: string ]: any;
 }
 
 interface Action {
@@ -34,51 +32,51 @@ interface Action {
 	error?: any;
 }
 
-export function initializeSettings(settings) {
+export function initializeSettings( settings ) {
 	return {
 		type: INITIALIZE,
-		settings
+		settings,
 	};
 }
 
-export function createSetting(setting) {
+export function createSetting( setting ) {
 	return {
 		type: CREATE,
-		setting
+		setting,
 	};
 }
 
-export const updateSettings = settings => {
-    return{
-      type: UPDATE,
-      settings,
-    };
+export const updateSettings = ( settings ) => {
+	return {
+		type: UPDATE,
+		settings,
+	};
 };
 
-export const setSaving = (isSaving) => {
+export const setSaving = ( isSaving ) => {
 	return {
 		type: IS_SAVING,
-		isSaving
+		isSaving,
 	};
 };
 
-export const setVisitedField = (visitedFieldId) => {
+export const setVisitedField = ( visitedFieldId ) => {
 	return {
 		type: SET_VISITED_FIELDS,
-		payload: visitedFieldId
+		payload: visitedFieldId,
 	};
-}
+};
 
-export const skipTab = (tabId) => {
+export const skipTab = ( tabId ) => {
 	return {
 		type: SKIP_TAB,
-		payload: tabId
+		payload: tabId,
 	};
-}
+};
 
-export const completeTab = (tabId) => {
+export const completeTab = ( tabId ) => {
 	return {
 		type: COMPLETE_TAB,
-		payload: tabId
+		payload: tabId,
 	};
-}
+};

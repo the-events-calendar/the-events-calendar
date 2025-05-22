@@ -107,7 +107,22 @@ module.exports = {
 			...defaultConfig.output,
 			...{
 				enabledLibraryTypes: ['window'],
+				publicPath: '/wp-content/plugins/the-events-calendar/build/',
 			},
+		},
+		module: {
+			...defaultConfig.module,
+			rules: [
+				...defaultConfig.module.rules,
+				{
+					test: /\.(png|jpg|jpeg|gif|svg)$/i,
+					include: /src\/resources\/packages/,
+					type: 'asset/resource',
+					generator: {
+						filename: 'images/[name].[contenthash][ext]'
+					}
+				}
+			]
 		},
 		plugins: [
 			...defaultConfig.plugins,

@@ -11,18 +11,16 @@
 		"composer install",
 		"npm ci --no-audit --no-fund",
 		"npm run build",
+		"npm run before-zip"
 	],
 	"workflows": {
-		"tec-zip": [
-			"git submodule update --recursive --init",
-			"pup build",
-			"pup check",
-			"pup i18n",
-			"cd common && pup i18n",
-			"pup package $(pup get-version)",
-			"pup clean"
+		"rebuild": [
+			"composer pup",
+			"composer install --no-dev",
+			"npm ci --no-audit --no-fund",
+			"npm run build"
 		],
-		"tec-zip-dev": [
+		"tec-zip": [
 			"git submodule update --recursive --init",
 			"pup build",
 			"pup package $(pup get-version)",

@@ -22,13 +22,13 @@ tribe.events.admin.noticeInstall = {};
  *
  * @since 6.0.9
  *
- * @param  {PlainObject} $   jQuery
- * @param  {PlainObject} _   Underscore.js
- * @param  {PlainObject} obj tribe.events.admin.noticeInstall
+ * @param {PlainObject} $   jQuery
+ * @param {PlainObject} _   Underscore.js
+ * @param {PlainObject} obj tribe.events.admin.noticeInstall
  *
  * @return {void}
  */
-( function( $, _, obj ) {
+( function ( $, _, obj ) {
 	'use strict';
 	const $document = $( document );
 
@@ -50,11 +50,11 @@ tribe.events.admin.noticeInstall = {};
 	 *
 	 * @return {void}
 	 */
-	obj.ready = function() {
+	obj.ready = function () {
 		wp.hooks.addAction(
 			'stellarwp_installer_tec_error',
 			'tec/eventTicketsInstallerError',
-			function( selector, slug, action, message ) {
+			function ( selector, slug, action, message ) {
 				const $button = $( selector );
 				const $description = $button.siblings( obj.selectors.noticeDescription );
 				$description.html( message );

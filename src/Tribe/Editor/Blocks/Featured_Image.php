@@ -1,7 +1,7 @@
 <?php
 class Tribe__Events__Editor__Blocks__Featured_Image
 extends Tribe__Editor__Blocks__Abstract {
-	use Tribe__Events__Editor__Blocks__Block_Trait;
+	use TEC\Events\Traits\Block_Trait;
 
 	/**
 	 * Which is the name/slug of this block
@@ -12,6 +12,17 @@ extends Tribe__Editor__Blocks__Abstract {
 	 */
 	public function slug() {
 		return 'featured-image';
+	}
+
+	/**
+	 * Whether the block should register assets
+	 *
+	 * @since 6.13.0
+	 *
+	 * @return bool
+	 */
+	public function should_register_assets(): bool {
+		return false;
 	}
 
 	/**
