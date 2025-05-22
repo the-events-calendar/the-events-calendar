@@ -1,8 +1,8 @@
 /* eslint-disable */
-var tribe_aggregator = tribe_aggregator || {};
+window.tribe_aggregator = window.tribe_aggregator || {};
 
 // Setup the global Variable
-tribe_aggregator.notice = {
+window.tribe_aggregator.notice = {
 
 	selector: {
 		notice: '.tribe-notice-aggregator-update-msg',
@@ -43,11 +43,11 @@ tribe_aggregator.notice = {
 	};
 
 	obj.progress.start = function () {
-		if ( 'object' !== typeof tribe_aggregator_save ) {
+		if ( 'object' !== typeof window.tribe_aggregator_save ) {
 			return;
 		}
 
-		obj.progress.update(tribe_aggregator_save.progress, tribe_aggregator_save.progressText);
+		obj.progress.update(window.tribe_aggregator_save.progress, window.tribe_aggregator_save.progressText);
 		if ( ! obj.progress.hasHeartBeat ) {
 			obj.progress.send_request();
 		}
@@ -55,12 +55,12 @@ tribe_aggregator.notice = {
 
 	obj.progress.continue = true;
 	$(document).on('heartbeat-send', function (event, data) {
-		if ( 'object' !== typeof tribe_aggregator_save ) {
+		if ( 'object' !== typeof window.tribe_aggregator_save ) {
 			return;
 		}
 
 		if ( obj.progress.continue ) {
-			data.ea_record = tribe_aggregator_save.record_id;
+			data.ea_record = window.tribe_aggregator_save.record_id;
 		}
 	});
 
@@ -104,8 +104,8 @@ tribe_aggregator.notice = {
 
 	obj.progress.send_request = function() {
 		var payload = {
-			record:  tribe_aggregator_save.record_id,
-			check:  tribe_aggregator_save.check,
+			record:  window.tribe_aggregator_save.record_id,
+			check:  window.tribe_aggregator_save.check,
 			action: 'tribe_aggregator_realtime_update'
 		};
 		$.post( ajaxurl, payload, obj.progress.handle_response, 'json' );
@@ -171,4 +171,4 @@ tribe_aggregator.notice = {
 	);
 
 	obj.progress.init();
-} )( jQuery, tribe_aggregator.notice, tribe_aggregator );
+} )( jQuery, tribe_aggregator.notice, window.tribe_aggregator );

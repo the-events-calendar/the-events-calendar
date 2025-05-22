@@ -1,8 +1,8 @@
 /* eslint-disable */
-var tribe_aggregator = tribe_aggregator || {};
+window.tribe_aggregator = window.tribe_aggregator || {};
 
 // Setup the global Variable
-tribe_aggregator.fields = {
+window.tribe_aggregator.fields = {
 	// Store the Required Selectors
 	selector: {
 		container               : '.tribe-ea',
@@ -68,11 +68,11 @@ tribe_aggregator.fields = {
 			'organizer': ''
 		},
 		detect_type: function ( url ) {
-			if ( ! tribe_aggregator.source_origin_regexp.eventbrite ) {
+			if ( ! ea.source_origin_regexp.eventbrite ) {
 				return null;
 			}
 
-			var baseRegex = tribe_aggregator.source_origin_regexp.eventbrite;
+			var baseRegex = ea.source_origin_regexp.eventbrite;
 			var type_regexps = {
 				// E.g. https://www.eventbrite.fr/e/some-event
 				'event': baseRegex + 'e\/[A-z0-9_-]+',
@@ -283,7 +283,7 @@ tribe_aggregator.fields = {
 			$( obj.selector.finalize_button ).html( ea.l10n.edit_save );
 		}
 
-		if ( 'object' === typeof tribe_aggregator_save ) {
+		if ( 'object' === typeof window.tribe_aggregator_save ) {
 			$(document).trigger( 'tribe_aggregator_init_notice' );
 		}
 	};
@@ -1117,4 +1117,4 @@ tribe_aggregator.fields = {
 
 	// Run Init on Document Ready
 	$( obj.init );
-} )( jQuery, _, tribe_aggregator.fields, tribe_aggregator );
+} )( jQuery, _, window.tribe_aggregator.fields, window.tribe_aggregator );
