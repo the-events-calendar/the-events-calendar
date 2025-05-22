@@ -4,9 +4,6 @@ window.tribe_aggregator.notice = window.tribe_aggregator.notice || {};
 
 
 ( function( $, ea ) {
-
-	ea.localized = window.tribe_aggregator_data || {};
-
 	// Setup the global Variable
 	ea.notice = {
 
