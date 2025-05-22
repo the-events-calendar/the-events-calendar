@@ -1,29 +1,29 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since  4.9.4
  *
  * @type   {PlainObject}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Views Tooltip Object in the Global Tribe variable
+ * Configures Views Tooltip Object in the Global Tribe variable.
  *
  * @since  4.9.4
  *
  * @type   {PlainObject}
  */
-tribe.events.views.tooltip = {};
+window.tribe.events.views.tooltip = window.tribe.events.views.tooltip || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since  4.9.4
  *
  * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.tooltip
+ * @param {PlainObject} obj window.tribe.events.views.tooltip
  *
  * @return {void}
  */
@@ -32,7 +32,7 @@ tribe.events.views.tooltip = {};
 	const $document = $( document );
 
 	/**
-	 * Config used for tooltip setup
+	 * Config used for tooltip setup.
 	 *
 	 * @since 4.9.10
 	 *
@@ -44,7 +44,7 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since 4.9.10
 	 *
@@ -60,11 +60,11 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle tooltip focus event
+	 * Handle tooltip focus event.
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Event} event event object
+	 * @param {Event} event Event object.
 	 *
 	 * @return {void}
 	 */
@@ -80,11 +80,11 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle tooltip blur event
+	 * Handle tooltip blur event.
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Event} event event object
+	 * @param {Event} event Event object.
 	 *
 	 * @return {void}
 	 */
@@ -93,7 +93,7 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle origin mouseenter and touchstart events
+	 * Handle origin mouseenter and touchstart events.
 	 *
 	 * @since 4.9.10
 	 *
@@ -106,11 +106,11 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle origin mouseleave and touchleave events
+	 * Handle origin mouseleave and touchleave events.
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Event} event event object
+	 * @param {Event} event Event object.
 	 *
 	 * @return {void}
 	 */
@@ -119,11 +119,11 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle tooltip mouseenter and touchstart event
+	 * Handle tooltip mouseenter and touchstart event.
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Event} event event object
+	 * @param {Event} event Event object.
 	 *
 	 * @return {void}
 	 */
@@ -132,11 +132,11 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle tooltip mouseleave and touchleave events
+	 * Handle tooltip mouseleave and touchleave events.
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Event} event event object
+	 * @param {Event} event Event object.
 	 *
 	 * @return {void}
 	 */
@@ -145,11 +145,11 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle tooltip instance closing event
+	 * Handle tooltip instance closing event.
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Event} event event object
+	 * @param {Event} event Event object.
 	 *
 	 * @return {void}
 	 */
@@ -157,7 +157,7 @@ tribe.events.views.tooltip = {};
 		const $origin = event.data.origin;
 		const $tooltip = $( event.tooltip );
 
-		// if trigger is focused, hovered, or tooltip is hovered, do not close tooltip
+		// If trigger is focused, hovered, or tooltip is hovered, do not close tooltip
 		if (
 			$origin.is( ':focus' ) ||
 			$origin.hasClass( obj.selectors.tribeEventsTooltipTriggerHoverClass.className() ) ||
@@ -168,11 +168,11 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handle tooltip instance close event
+	 * Handle tooltip instance close event.
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Event} event event object
+	* @param {Event} event Event object
 	 *
 	 * @return {void}
 	 */
@@ -188,8 +188,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Tooltipster} instance instance of Tooltipster
-	 * @param {PlainObject} helper   helper object with tooltip origin
+	 * @param {Tooltipster} instance Instance of Tooltipster.
+	 * @param {PlainObject} helper   Helper object with tooltip origin.
 	 *
 	 * @return {void}
 	 */
@@ -211,8 +211,8 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.10
 	 *
-	 * @param {Tooltipster} instance instance of Tooltipster
-	 * @param {PlainObject} helper   helper object with tooltip origin
+	 * @param {Tooltipster} instance Instance of Tooltipster.
+	 * @param {PlainObject} helper   Helper object with tooltip origin.
 	 *
 	 * @return {void}
 	 */
@@ -224,7 +224,7 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Deinitialize accessible tooltips via tooltipster
+	 * Deinitialize accessible tooltips via tooltipster.
 	 *
 	 * @since 4.9.10
 	 *
@@ -239,7 +239,7 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Initialize accessible tooltips via tooltipster
+	 * Initialize accessible tooltips via tooltipster.
 	 *
 	 * @since 4.9.10
 	 *
@@ -264,7 +264,7 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Initialize tooltip theme
+	 * Initialize tooltip theme.
 	 *
 	 * @since 4.9.10
 	 *
@@ -290,9 +290,9 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    Event object for 'beforeAjaxSuccess.tribeEvents' event.
+	 * @param {jqXHR}       jqXHR    Request object.
+	 * @param {PlainObject} settings Settings that this request was made with.
 	 *
 	 * @return {void}
 	 */
@@ -308,10 +308,10 @@ tribe.events.views.tooltip = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      Event object for 'afterSetup.tribeEvents' event.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
 	 * @param {jQuery}  $container jQuery object of view container.
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {Object}  data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -323,16 +323,16 @@ tribe.events.views.tooltip = {};
 	};
 
 	/**
-	 * Handles the initialization of the scripts when Document is ready
+	 * Handles the initialization of the scripts when Document is ready.
 	 *
 	 * @since  4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function () {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on( 'afterSetup.tribeEvents', window.tribe.events.views.manager.selectors.container, obj.init );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.tooltip );
+} )( jQuery, window.tribe.events.views.tooltip );

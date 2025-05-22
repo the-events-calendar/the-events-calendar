@@ -1,29 +1,29 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since 5.0.0
  *
  * @type   {Object}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Breakpoints Object in the Global Tribe variable
+ * Configures Breakpoints Object in the Global Tribe variable.
  *
  * @since 5.0.0
  *
  * @type   {Object}
  */
-tribe.events.views.breakpoints = {};
+window.tribe.events.views.breakpoints = window.tribe.events.views.breakpoints || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since  5.0.0
  *
  * @param {FunctionConstructor} $   jQuery
- * @param {Object}              obj tribe.events.views.breakpoints
+ * @param {Object}              obj window.tribe.events.views.breakpoints
  *
  * @return {void}
  */
@@ -32,7 +32,7 @@ tribe.events.views.breakpoints = {};
 	const $document = $( document );
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since 5.0.0
 	 *
@@ -45,7 +45,7 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Object of breakpoints
+	 * Object of breakpoints.
 	 *
 	 * @since 5.0.0
 	 *
@@ -54,7 +54,7 @@ tribe.events.views.breakpoints = {};
 	obj.breakpoints = {};
 
 	/**
-	 * Sets container classes based on breakpoint
+	 * Sets container classes based on breakpoint.
 	 *
 	 * @since  5.0.0
 	 *
@@ -79,11 +79,11 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Handles resize event for window
+	 * Handles resize event for window.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {Event} event event object for 'resize' event
+	 * @param {Event} event Event object for 'resize' event.
 	 *
 	 * @return {void}
 	 */
@@ -92,11 +92,11 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Unbinds events for container
+	 * Unbinds events for container.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -105,12 +105,12 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Binds events for container
+	 * Binds events for container.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {jQuery} $container jQuery object of view container.
-	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery View container object.
+	 * @param {Object} data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -121,13 +121,13 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * De-initialize breakpoints JS
+	 * De-initialize breakpoints JS.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {Event}  event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}  jqXHR    Request object
-	 * @param {Object} settings Settings that this request was made with
+	 * @param {Event}  event    Event object for 'beforeAjaxSuccess.tribeEvents' event.
+	 * @param {jqXHR}  jqXHR    Request object.
+	 * @param {Object} settings Settings that this request was made with.
 	 *
 	 * @return {void}
 	 */
@@ -137,12 +137,12 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Common initialization tasks
+	 * Common initialization tasks.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {jQuery} $container jQuery object of view container.
-	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery View container object.
+	 * @param {Object} data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -160,14 +160,14 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Initialize breakpoints JS
+	 * Initialize breakpoints JS.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}  event      Event object for 'afterSetup.tribeEvents' event.
 	 * @param {int}    index      jQuery.each index param from 'afterSetup.tribeEvents' event.
-	 * @param {jQuery} $container jQuery object of view container.
-	 * @param {Object} data       data object passed from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery} $container jQuery View container object.
+	 * @param {Object} data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -186,11 +186,11 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Setup breakpoints JS
+	 * Setup breakpoints JS.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {HTMLElement} container HTML element of the script tag calling setup
+	 * @param {HTMLElement} container HTML element of the script tag calling setup.
 	 *
 	 * @return {void}
 	 */
@@ -212,7 +212,7 @@ tribe.events.views.breakpoints = {};
 	};
 
 	/**
-	 * Handles the initialization of breakpoints when Document is ready
+	 * Handles the initialization of breakpoints when Document is ready.
 	 *
 	 * @since  5.0.0
 	 *
@@ -222,6 +222,6 @@ tribe.events.views.breakpoints = {};
 		$document.on( 'afterSetup.tribeEvents', obj.selectors.container, obj.init );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.breakpoints );
+} )( jQuery, window.tribe.events.views.breakpoints );

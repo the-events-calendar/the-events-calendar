@@ -1,30 +1,30 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since  4.9.2
  *
  * @type   {Object}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Views Object in the Global Tribe variable
+ * Configures Views Object in the Global Tribe variable.
  *
  * @since  4.9.2
  *
  * @type   {Object}
  */
-tribe.events.views.manager = {};
+window.tribe.events.views.manager = window.tribe.events.views.manager || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since  4.9.2
  *
  * @param {Object} $   jQuery
  * @param {Object} _   Underscore.js
- * @param {Object} obj tribe.events.views.manager
+ * @param {Object} obj window.tribe.events.views.manager
  *
  * @return {void}
  */
@@ -42,7 +42,7 @@ tribe.events.views.manager = {};
   obj.nonces = null;
 
   /**
-   * Selectors used for configuration and setup
+   * Selectors used for configuration and setup.
    *
    * @since 4.9.2
    *
@@ -92,7 +92,7 @@ tribe.events.views.manager = {};
   /**
    * Stores the last container that used PushState, which prevents fails.
    *
-   * @todo @bordoni @paul once shortcodes start managing URLs this will need
+   * @todo @bordoni @camwyn once shortcodes start managing URLs this will need
    *       to improve to a full tracker of history.
    *
    * @since 4.9.12
@@ -111,7 +111,7 @@ tribe.events.views.manager = {};
   obj.$containers = $();
 
   /**
-   * Clean up the container and event listeners
+   * Clean up the container and event listeners.
    *
    * @since 5.0.0
    *
@@ -144,7 +144,7 @@ tribe.events.views.manager = {};
   };
 
   /**
-   * Setup the container for views management
+   * Setup the container for views management.
    *
    * @since 4.9.2
    *
@@ -192,7 +192,7 @@ tribe.events.views.manager = {};
   };
 
   /**
-   * Given an Element determines it's view container
+   * Given an Element determines it's view container.
    *
    * @since 4.9.2
    *
@@ -222,7 +222,7 @@ tribe.events.views.manager = {};
   obj.getContainerData = function($container) {
     var $data = $container.find(obj.selectors.dataScript);
 
-    // Bail in case we dont find data script.
+    // Bail in case we don't find data script.
     if (!$data.length) {
       return;
     }
@@ -233,7 +233,7 @@ tribe.events.views.manager = {};
   };
 
   /**
-   * Given an container determines if it should manage URL.
+   * Given a container determines if it should manage URL.
    *
    * @since 4.9.4
    *
@@ -275,52 +275,52 @@ tribe.events.views.manager = {};
       return;
     }
 
-    // Bail when we dont manage URLs
+    // Bail when we don't manage URLs.
     if (!obj.shouldManageUrl($container)) {
       return;
     }
 
     var $data = $container.find(obj.selectors.dataScript);
 
-    // Bail in case we dont find data script.
+    // Bail in case we don't find data script.
     if (!$data.length) {
       return;
     }
 
     var data = JSON.parse($data.text().trim());
 
-    // Bail when the data is not a valid object
+    // Bail when the data is not a valid object.
     if (!_.isObject(data)) {
       return;
     }
 
-    // Bail when URL is not present
+    // Bail when URL is not present.
     if (_.isUndefined(data.url)) {
       return;
     }
 
-    // Bail when Title is not present
+    // Bail when Title is not present.
     if (_.isUndefined(data.title)) {
       return;
     }
 
     /**
-     * Compatibility for browsers updating title
+     * Compatibility for browsers updating title.
      */
     document.title = data.title;
 
-    // Push browser history
+    // Push browser history.
     window.history.pushState(null, data.title, data.url);
     obj.lastLocation.pathname = document.location.pathname;
     obj.lastLocation.origin = document.location.origin;
   };
 
   /**
-   * Hijacks the link click and passes the URL as param for REST API
+   * Hijacks the link click and passes the URL as param for REST API.
    *
    * @since 4.9.2
    *
-   * @param  {Event} event DOM Event related to the Click action
+   * @param  {Event} event DOM Event related to the Click action.
    *
    * @return {boolean}
    */
@@ -357,13 +357,13 @@ tribe.events.views.manager = {};
   };
 
   /**
-   * Hijacks the form submit passes all form details to the REST API
+   * Hijacks the form submit passes all form details to the REST API.
    *
    * @since 4.9.2
    *
-   * @todo  make sure we are only capturing fields on our Namespace
+   * @todo  make sure we are only capturing fields on our Namespace.
    *
-   * @param  {Event} event DOM Event related to the Click action
+   * @param  {Event} event DOM Event related to the Click action.
    *
    * @return {boolean}
    */
@@ -397,7 +397,7 @@ tribe.events.views.manager = {};
    *
    * @since  4.9.12
    *
-   * @param  {Event} event DOM Event related to the window popstate
+   * @param  {Event} event DOM Event related to the window popstate.
    *
    * @return {boolean}     Will always return false on this one.
    */
@@ -407,8 +407,8 @@ tribe.events.views.manager = {};
     var $container = obj.getLastContainer();
 
     // We are at the same URL + path as before so not really a change on the
-    // actual URL happen, it might be just a hash change which shouldn't
-    // trigger and XHR request.
+    // actual URL, it might be just a hash change which shouldn't trigger an XHR request.
+
     // eslint-disable-next-line max-len
     if (
       obj.lastLocation.origin === target.location.origin &&
@@ -487,9 +487,9 @@ tribe.events.views.manager = {};
    *
    * @since 4.9.2
    *
-   * @param  {object}         data              DOM Event related to the Click action
-   * @param  {Element|jQuery} $container        Which container we are dealing with
-   * @param  {object}         overwriteSettings Options for the request
+   * @param  {object}         data              Data object to modify and setup.
+   * @param  {Element|jQuery} $container        Which container we are dealing with.
+   * @param  {object}         overwriteSettings Options for the request.
    *
    * @return {void}
    */
@@ -507,7 +507,7 @@ tribe.events.views.manager = {};
 
     var settings = obj.getAjaxSettings($container);
 
-    // Pass the data setup to the $.ajax settings
+    // Pass the data setup to the $.ajax settings.
     settings.data = obj.setupRequestData(data, $container);
 
     // Shrink the URL components, to try to avoid the URL length limit.
@@ -549,7 +549,7 @@ tribe.events.views.manager = {};
    *
    * @since 6.11.1
    *
-   * @param {Element|jQuery} $container  Which container we are dealing with
+   * @param {Element|jQuery} $container  Which container we are dealing with.
    * @param {object}          components The components to shrink.
    *
    * @return {object} The shrunken components.
@@ -581,11 +581,11 @@ tribe.events.views.manager = {};
   };
 
   /**
-   * Gets the jQuery.ajax() settings provided a views container
+   * Gets the jQuery.ajax() settings provided a views container.
    *
    * @since 4.9.2
    *
-   * @param  {Element|jQuery} $container Which container we are dealing with
+   * @param  {Element|jQuery} $container Which container we are dealing with.
    *
    * @return {Object}
    */
@@ -608,12 +608,12 @@ tribe.events.views.manager = {};
    * setup a Loading Lock, as well as trigger a before and after hook, so
    * third-party developers can always extend all requests
    *
-   * Context with the View container used to fire this AJAX call
+   * Context with the View container used to fire this AJAX call.
    *
    * @since 4.9.2
    *
-   * @param  {jqXHR}       jqXHR    Request object
-   * @param  {Object} settings Settings that this request will be made with
+   * @param  {jqXHR}       jqXHR    Request object.
+   * @param  {Object} settings Settings that this request will be made with.
    *
    * @return {void}
    */
@@ -636,14 +636,14 @@ tribe.events.views.manager = {};
   /**
    * Triggered on jQuery.ajax() complete action, which we hook into to
    * removal of Loading Lock, as well as trigger a before and after hook,
-   * so third-party developers can always extend all requests
+   * so third-party developers can always extend all requests.
    *
-   * Context with the View container used to fire this AJAX call
+   * Context with the View container used to fire this AJAX call.
    *
    * @since 4.9.2
    * @since 6.11.1 Remove not needed parameters. Hook into the success event instead for those.
    *
-   * @param {Element|jQuery} $container The container we are dealing with
+   * @param {Element|jQuery} $container The container we are dealing with.
    *
    * @return {void}
    */
@@ -673,13 +673,13 @@ tribe.events.views.manager = {};
    * for the views manager, as well as trigger a before and after hook,
    * so third-party developers can always extend all requests
    *
-   * Context with the View container used to fire this AJAX call
+   * Context with the View container used to fire this AJAX call.
    *
    * @since 4.9.2
    *
-   * @param  {String} html       HTML sent from the REST API
-   * @param  {String} textStatus Status for the request
-   * @param  {jqXHR}  qXHR       Request object
+   * @param  {String} html       HTML sent from the REST API.
+   * @param  {String} textStatus Status for the request.
+   * @param  {jqXHR}  qXHR       Request object.
    *
    * @return {void}
    */
@@ -754,12 +754,12 @@ tribe.events.views.manager = {};
    * trigger a before and after hook, so third-party developers can
    * always extend all requests
    *
-   * Context with the View container used to fire this AJAX call
+   * Context with the View container used to fire this AJAX call.
    *
    * @since 4.9.2
    *
-   * @param  {jqXHR}       jqXHR    Request object
-   * @param  {Object} settings Settings that this request was made with
+   * @param  {jqXHR}       jqXHR    Request object.
+   * @param  {Object} settings Settings that this request was made with.
    *
    * @return {void}
    */
@@ -768,9 +768,7 @@ tribe.events.views.manager = {};
 
     $container.trigger("beforeAjaxError.tribeEvents", [jqXHR, settings]);
 
-    /**
-     * @todo  we need to handle errors here
-     */
+    // @todo  we need to handle errors here.
 
     $container.trigger("afterAjaxError.tribeEvents", [jqXHR, settings]);
   };
@@ -796,7 +794,7 @@ tribe.events.views.manager = {};
    */
   obj.getLastContainer = function() {
     /**
-     * @todo @bordoni @paul improve this when shortcodes are also managing the URL.
+     * @todo @bordoni @camwyn improve this when shortcodes are also managing the URL.
      */
     if (!obj.$lastContainer.length) {
       obj.$lastContainer = obj.$containers
@@ -827,4 +825,4 @@ tribe.events.views.manager = {};
 
   // Attaches the popstate method to the window object.
   $window.on("popstate", obj.onPopState);
-})(jQuery, window.underscore || window._, tribe.events.views.manager);
+})(jQuery, window.underscore || window._, window.tribe.events.views.manager);
