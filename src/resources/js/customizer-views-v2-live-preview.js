@@ -5,10 +5,10 @@
  *
  * Contains handlers to make TEC Customizer preview reload changes asynchronously.
  *
- * Please, for sanity's sake - try to keep controls organized by how they appear in the customizer!
+ * Please, for sanity's sake - try to keep controls organized by how they appear in the Customizer!
  */
 
-var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_live_preview_js_config || {};
+window.tribe_events_customizer_live_preview_js_config = window.tribe_events_customizer_live_preview_js_config || {};
 
 ( function ( $, api, obj ) {
 	// All of these are in the format 'tribe_customizer[section_name][control_name]'!
@@ -144,7 +144,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		singleEventTitleColor: [ '--tec-color-text-event-title' ],
 	};
 
-	obj.root = document.querySelectorAll( tribe_events_customizer_live_preview_js_config.selector );
+	obj.root = document.querySelectorAll( obj.selector );
 
 	/*--------- Global Elements ---------*/
 
@@ -152,7 +152,7 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 	api( obj.selectors.globalFontFamily, function ( value ) {
 		// Bind to the value change
 		value.bind( function ( to ) {
-			const fontFamily = 'theme' === to ? 'inherit' : tribe_events_customizer_live_preview_js_config.default_font;
+			const fontFamily = 'theme' === to ? 'inherit' : obj.default_font;
 
 			obj.customProps.globalFontFamily.forEach( function ( fontFamilySelector ) {
 				// Note: "inherit" won't work if we put it on 'tribe-events' - it needs to be on :root{}
@@ -714,4 +714,4 @@ var tribe_events_customizer_live_preview_js_config = tribe_events_customizer_liv
 		const rgb = obj.hexToRGB( hex );
 		return rgb.r + ', ' + rgb.g + ', ' + rgb.b;
 	};
-} )( jQuery, wp.customize, tribe_events_customizer_live_preview_js_config );
+} )( jQuery, wp.customize, window.tribe_events_customizer_live_preview_js_config );
