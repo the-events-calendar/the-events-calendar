@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Add Domain Path to the pluigin header to ensure isntalled files get read. [TEC-5520]
