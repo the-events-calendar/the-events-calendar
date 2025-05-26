@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Update aggregator scripts to ensure globals remain global. [TEC-5509]
