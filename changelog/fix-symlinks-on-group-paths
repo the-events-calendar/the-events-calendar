@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Ensures symbolic links are followed on Assets Group Paths. [TCMN-187]
