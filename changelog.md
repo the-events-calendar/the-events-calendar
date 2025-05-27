@@ -2,7 +2,7 @@
 
 ### [6.13.1] 2025-05-27
 
-* Fix - Add Domain Path to the pluigin header to ensure isntalled files get read. [TEC-5520]
+* Fix - Add Domain Path to the plugin header to ensure installed files get read. [TEC-5520]
 * Fix - Ensures symbolic links are followed on Assets Group Paths. [TCMN-187]
 * Fix - Update aggregator scripts to ensure globals remain global. [TEC-5509]
 * Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted.
