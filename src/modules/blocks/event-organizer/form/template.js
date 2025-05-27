@@ -63,12 +63,7 @@ export default class OrganizerForm extends Component {
 		return (
 			<section className="tribe-editor__organizer__form">
 				<div className="tribe-editor__organizer__fields">
-					<RichText
-						tagName="h3"
-						format="string"
-						value={ title }
-						onChange={ this.saveField( 'title' ) }
-					/>
+					<RichText tagName="h3" format="string" value={ title } onChange={ this.saveField( 'title' ) } />
 					<input
 						type="tel"
 						name="phone"

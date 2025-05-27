@@ -249,10 +249,20 @@ class Manager {
 			$views,
 			function ( &$value, $view_slug ) use ( $url_args ) {
 				$url_args['eventDisplay'] = $view_slug;
-				$value                    = (object) [
+				$view_label               = $this->get_view_label_by_slug( $view_slug );
+
+				$aria_label = sprintf(
+					/* translators: %1$s: Events plural text, %2$s: View label */
+					__( 'Display %1$s in %2$s View', 'the-events-calendar' ),
+					tribe_get_event_label_plural(),
+					$view_label
+				);
+
+				$value = (object) [
 					'view_class' => $value,
 					'view_url'   => tribe_events_get_url( array_filter( $url_args ) ),
-					'view_label' => $this->get_view_label_by_slug( $view_slug ),
+					'view_label' => $view_label,
+					'aria_label' => $aria_label,
 				];
 			}
 		);

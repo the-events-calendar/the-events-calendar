@@ -20,17 +20,14 @@ import './style.pcss';
 const Upsell = () => (
 	<div className="tribe-editor__subtitle__footer-upsell">
 		<p className="tribe-editor__subtitle__footer-upsell-text">
-			{ __(
-				'Turbocharge your events with our premium calendar and ticketing add-ons. ',
-				'the-events-calendar',
-			) }
+			{ __( 'Turbocharge your events with our premium calendar and ticketing add-ons.', 'the-events-calendar' ) }
 			<a
 				href="http://evnt.is/1a8q"
 				className="tribe-editor__subtitle__footer-upsell-link"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
-				{ _x( 'Check \'em out!', 'linked text for plugin add-ons', 'the-events-calendar' ) }
+				{ _x( "Check 'em out!", 'linked text for plugin add-ons', 'the-events-calendar' ) }
 			</a>
 		</p>
 	</div>

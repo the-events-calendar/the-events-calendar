@@ -91,9 +91,12 @@ class Community_Upsell extends Service_Provider {
 			return $classes;
 		}
 
+		if ( ! $tab_object ) {
+			return $classes;
+		}
+
 		if ( $tab_object->id !== $this->slug ) {
 			return $classes;
-
 		}
 
 		$classes[] = 'tec-events-settings__upsell-form';

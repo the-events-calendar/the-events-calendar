@@ -13,8 +13,8 @@ use TEC\Events\Telemetry\Telemetry;
 use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Common\Admin\Abstract_Admin_Page;
 use TEC\Common\Admin\Traits\Is_Events_Page;
-use TEC\Events\Admin\Onboarding\API;
 use TEC\Common\Asset;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Landing_Page
@@ -33,7 +33,16 @@ class Landing_Page extends Abstract_Admin_Page {
 	 *
 	 * @var string
 	 */
-	const DISMISS_ONBOARDING_PAGE_ACTION = 'tec_dismiss_onboarding_page';
+	const DISMISS_PAGE_ACTION = 'tec_dismiss_onboarding_page';
+
+	/**
+	 * The option to dismiss the onboarding page.
+	 *
+	 * @since 6.8.4
+	 *
+	 * @var string
+	 */
+	const DISMISS_PAGE_OPTION = 'tec_events_onboarding_page_dismissed';
 
 	/**
 	 * The slug for the admin menu.
@@ -103,17 +112,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
-	 * Has the page been dismissed?
-	 *
-	 * @since 6.8.4
-	 *
-	 * @return bool
-	 */
-	public static function is_dismissed(): bool {
-		return (bool) tribe_get_option( 'tec_events_onboarding_page_dismissed', false );
-	}
-
-	/**
 	 * Get the admin menu title.
 	 *
 	 * @since 6.8.4
@@ -141,27 +139,6 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
-	 * Render the admin page title.
-	 * In the header.
-	 *
-	 * @since 6.8.4
-	 *
-	 * @return void Renders the admin page title.
-	 */
-	public function admin_page_title(): void {
-		parent::admin_page_title();
-
-		$action_url = add_query_arg(
-			// We do not need a nonce. This page can be seen only by admins. see `required_capability` method.
-			[ 'action' => self::DISMISS_ONBOARDING_PAGE_ACTION ],
-			admin_url( '/admin-post.php' )
-		);
-		?>
-		<a class="tec-events-dismiss-onboarding-screen" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
-		<?php
-	}
-
-	/**
 	 * Handle the dismissal of the onboarding page.
 	 *
 	 * @since 6.8.4
@@ -173,9 +150,9 @@ class Landing_Page extends Abstract_Admin_Page {
 			return;
 		}
 
-		tribe_update_option( 'tec_events_onboarding_page_dismissed', true );
+		tribe_update_option( self::DISMISS_PAGE_OPTION, true );
 
-		wp_safe_redirect( admin_url( $this->get_parent_page_slug() ) );
+		wp_safe_redirect( add_query_arg( [ 'post_type' => TEC::POSTTYPE ], admin_url( 'edit.php' ) ) );
 		exit;
 	}
 
@@ -209,6 +186,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 */
 	public function admin_content_checklist_section(): void {
 		$settings_url   = 'edit.php?page=tec-events-settings&post_type=tribe_events';
+		$action_url     = add_query_arg( [ 'action' => self::DISMISS_PAGE_ACTION ], admin_url( '/admin-post.php' ) );
 		$data           = tribe( Data::class );
 		$completed_tabs = array_flip( (array) $data->get_wizard_setting( 'completed_tabs', [] ) );
 		$et_installed   = Installer::get()->is_installed( 'event-tickets' );
@@ -216,18 +194,30 @@ class Landing_Page extends Abstract_Admin_Page {
 		$organizer_data = $data->get_organizer_data();
 		$venue_data     = $data->get_venue_data();
 		$has_event      = $data->has_events();
+		$condition      = [
+			isset( $completed_tabs[1] ) || ! empty( tribe_get_option( 'tribeEnableViews' ) ),
+			isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'defaultCurrencyCode' ) ),
+			isset( $completed_tabs[3] ) || ! empty( tribe_get_option( 'dateWithYearFormat' ) ),
+			isset( $completed_tabs[4] ) || ! empty( $organizer_data ),
+			isset( $completed_tabs[5] ) || ! empty( $venue_data ),
+		];
+		$count_complete = count( array_filter( $condition ) );
 		?>
-			<div class="tec-admin-page__content-section tec-events-admin-page__content-section">
-				<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
+			<div class="tec-admin-page__content-section">
+				<div class="tec-admin-page__content-section-header">
+					<h2 class="tec-admin-page__content-header"><?php esc_html_e( 'First-time setup', 'the-events-calendar' ); ?></h2>
+					<a class="tec-dismiss-admin-page" href="<?php echo esc_url( $action_url ); ?>"><?php esc_html_e( 'Dismiss this screen', 'the-events-calendar' ); ?></a>
+				</div>
+				<div class="tec-admin-page__content-section-subheader"><?php echo esc_html( $count_complete ) . '/' . esc_html( count( $condition ) ) . ' ' . esc_html__( 'steps completed', 'the-events-calendar' ); ?></div>
 				<ul class="tec-admin-page__content-step-list">
 					<li
 						id="tec-events-onboarding-wizard-views-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-1' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[1] ) || ! empty( tribe_get_option( 'tribeEnableViews' ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[0],
 							]
 						);
 						?>
@@ -245,11 +235,11 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-currency-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'defaultCurrencyCode' ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[1],
 							]
 						);
 						?>
@@ -267,11 +257,11 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-date-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-2' => true,
-								'tec-admin-page__onboarding-step--completed' => isset( $completed_tabs[2] ) || ! empty( tribe_get_option( 'dateWithYearFormat' ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[2],
 							]
 						);
 						?>
@@ -289,11 +279,11 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-organizer-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-3' => true,
-								'tec-admin-page__onboarding-step--completed' => ( isset( $completed_tabs[3] ) || ! empty( $organizer_data ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[3],
 							]
 						);
 						?>
@@ -311,11 +301,11 @@ class Landing_Page extends Abstract_Admin_Page {
 					<li
 						id="tec-events-onboarding-wizard-venue-item"
 						<?php
-						tribe_classes(
+						tec_classes(
 							[
 								'step-list__item' => true,
 								'tec-events-onboarding-step-4' => true,
-								'tec-admin-page__onboarding-step--completed' => ( isset( $completed_tabs[4] ) || ! empty( $venue_data ) ),
+								'tec-admin-page__onboarding-step--completed' => $condition[4],
 							]
 						);
 						?>
@@ -331,42 +321,44 @@ class Landing_Page extends Abstract_Admin_Page {
 						</div>
 					</li>
 				</ul>
-				<h2 class="tec-admin-page__content-header">
-					<?php esc_html_e( 'Create an event', 'the-events-calendar' ); ?>
-				</h2>
-				<ul class="tec-admin-page__content-step-list">
-					<li
-						id="tec-events-onboarding-wizard-event-item"
-						<?php
-						tribe_classes(
-							[
-								'step-list__item' => true,
-								'tec-admin-page__onboarding-step--completed' => $has_event,
-							]
-						);
-						?>
-					>
-						<div class="step-list__item-left">
-							<span class="step-list__item-icon" role="presentation"></span>
-							<?php esc_html_e( 'Ready to publish your first event?', 'the-events-calendar' ); ?>
-					</div>
-						<div class="step-list__item-right">
-							<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=tribe_events' ) ); ?>" class="tec-admin-page__link">
-								<?php esc_html_e( 'Add new event', 'the-events-calendar' ); ?>
-							</a>
+				<div class="tec-admin-page__content-section-mid">
+					<h2 class="tec-admin-page__content-header">
+						<?php esc_html_e( 'Create an event', 'the-events-calendar' ); ?>
+					</h2>
+					<ul class="tec-admin-page__content-step-list">
+						<li
+							id="tec-events-onboarding-wizard-event-item"
+							<?php
+							tec_classes(
+								[
+									'step-list__item' => true,
+									'tec-admin-page__onboarding-step--completed' => $has_event,
+								]
+							);
+							?>
+						>
+							<div class="step-list__item-left">
+								<span class="step-list__item-icon" role="presentation"></span>
+								<?php esc_html_e( 'Ready to publish your first event?', 'the-events-calendar' ); ?>
 						</div>
-					</li>
-					<li id="tec-events-onboarding-wizard-import-item" class="step-list__item">
-						<div class="step-list__item-left">
-							<?php esc_html_e( 'Do you already have events you want to import?', 'the-events-calendar' ); ?>
-						</div>
-						<div class="step-list__item-right">
-							<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ); ?>" class="tec-admin-page__link">
-								<?php esc_html_e( 'Import events', 'the-events-calendar' ); ?>
-							</a>
-						</div>
-					</li>
-				</ul>
+							<div class="step-list__item-right">
+								<a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=tribe_events' ) ); ?>" class="tec-admin-page__link">
+									<?php esc_html_e( 'Add new event', 'the-events-calendar' ); ?>
+								</a>
+							</div>
+						</li>
+						<li id="tec-events-onboarding-wizard-import-item" class="step-list__item">
+							<div class="step-list__item-left">
+								<?php esc_html_e( 'Do you already have events you want to import?', 'the-events-calendar' ); ?>
+							</div>
+							<div class="step-list__item-right">
+								<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=tribe_events&page=aggregator' ) ); ?>" class="tec-admin-page__link">
+									<?php esc_html_e( 'Import events', 'the-events-calendar' ); ?>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
 				<div id="tec-events-onboarding-wizard-tickets">
 					<h2 class="tec-admin-page__content-header">
 						<?php esc_html_e( 'Event Tickets', 'the-events-calendar' ); ?>
@@ -378,7 +370,7 @@ class Landing_Page extends Abstract_Admin_Page {
 						<li
 							id="tec-events-onboarding-wizard-tickets-item"
 							<?php
-							tribe_classes(
+							tec_classes(
 								[
 									'step-list__item' => true,
 									'tec-events-onboarding-step-5' => true,
@@ -568,15 +560,7 @@ class Landing_Page extends Abstract_Admin_Page {
 	 * @return void
 	 */
 	public function tec_onboarding_wizard_target(): void {
-		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
-		// If there is more than one previous version, don't show the wizard.
-		if ( count( $tec_versions ) > 1 ) {
-			return;
-		}
-
-		$data = tribe( Data::class );
-		// Don't display if we've finished the wizard.
-		if ( $data->get_wizard_setting( 'finished', false ) ) {
+		if ( ! $this->should_show_wizard() ) {
 			return;
 		}
 		?>
@@ -590,6 +574,44 @@ class Landing_Page extends Abstract_Admin_Page {
 	}
 
 	/**
+	 * Check if the wizard should be displayed.
+	 *
+	 * @since 6.13.0
+	 *
+	 * @return bool
+	 */
+	protected function should_show_wizard(): bool {
+		/**
+		 * Allow users to force-ignore the checks and display the wizard.
+		 *
+		 * @since 6.13.0
+		 *
+		 * @param bool $force Whether to force the wizard to display.
+		 *
+		 * @return bool
+		 */
+		$force = apply_filters( 'tec_events_onboarding_wizard_force_display', false );
+
+		if ( $force ) {
+			return true;
+		}
+
+		$tec_versions = (array) tribe_get_option( 'previous_ecp_versions', [] );
+		// If there is more than one previous version, don't show the wizard.
+		if ( count( $tec_versions ) > 1 ) {
+			return false;
+		}
+
+		$data = tribe( Data::class );
+		// Don't display if we've finished the wizard.
+		if ( $data->get_wizard_setting( 'finished', false ) ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Register the assets for the landing page.
 	 *
 	 * @since 6.8.4
@@ -599,26 +621,25 @@ class Landing_Page extends Abstract_Admin_Page {
 	public function register_assets(): void {
 		Asset::add(
 			'tec-events-onboarding-wizard-script',
-			'index.js'
+			'wizard.js'
 		)
-			->add_to_group_path( 'tec-onboarding' )
+			->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
-			->use_asset_file( true )
 			->in_footer()
 			->register();
 
 		Asset::add(
 			'tec-events-onboarding-wizard-style',
-			'index.css'
+			'wizard.css'
 		)
-			->add_to_group_path( 'tec-onboarding' )
+			->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-onboarding' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ __CLASS__, 'is_on_page' ] )
-			->use_asset_file( false )
 			->set_dependencies( 'wp-components' )
+			->use_asset_file( false ) // Do not use the asset file: it would use the JS file one.
 			->register();
 	}
 }

@@ -1,14 +1,13 @@
-var tribe_aggregator = tribe_aggregator || {};
-
-( function( $, data ) { // eslint-disable-line no-unused-vars
-	"use strict";
+( function ( $ ) {
+	// eslint-disable-line no-unused-vars
+	'use strict';
 
 	/**
 	 * Migration for Legacy Ignored Event
 	 */
-	$( function() {
-		$( '#tribe-migrate-ical-settings' ).on( 'click', function() {
-			var $this = $( this ),
+	$( function () {
+		$( '#tribe-migrate-ical-settings' ).on( 'click', function () {
+			let $this = $( this ),
 				$spinner = $this.next( '.spinner' ),
 				$dismiss = $this.parents( '.notice' ).eq( 0 ).find( '.notice-dismiss' ),
 				$container = $this.parent(),
@@ -24,9 +23,10 @@ var tribe_aggregator = tribe_aggregator || {};
 				dataType: 'json',
 				method: 'POST',
 				data: {
-					action: action
+					action,
 				},
-				success: function ( response, status ) { // eslint-disable-line no-unused-vars
+				success( response, status ) {
+					// eslint-disable-line no-unused-vars
 					if ( response.status ) {
 						$container.html( response.text );
 						setTimeout( function () {
@@ -36,10 +36,10 @@ var tribe_aggregator = tribe_aggregator || {};
 						$container.before( $( '<p>' ).html( response.text ) );
 					}
 				},
-				complete: function () {
+				complete() {
 					$spinner.css( { visibility: 'hidden' } );
-				}
+				},
 			} );
 		} );
 	} );
-}( jQuery, tribe_aggregator ) );
+} )( jQuery );

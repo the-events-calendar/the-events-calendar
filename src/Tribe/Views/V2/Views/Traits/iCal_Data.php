@@ -36,7 +36,7 @@ trait iCal_Data {
 		/**
 		 * A filter to control whether the "iCal Import" link shows up or not.
 		 *
-		 * @since unknown
+		 * @since 5.14.0
 		 *
 		 * @deprecated 5.14.0 Changed to a more generic filter name and deprecated for the new subscribe to calendar links.
 		 *
@@ -71,7 +71,7 @@ trait iCal_Data {
 		/**
 		 * Allow for customization of the iCal export link "Export Events" text.
 		 *
-		 * @since unknown
+		 * @since 5.14.0
 		 *
 		 * @param string $text The default link text, which is "Export Events".
 		 */

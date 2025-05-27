@@ -10,6 +10,7 @@
 namespace Tribe\Events\Views\V2\Widgets;
 
 use Tribe\Events\Views\V2\Views\Widgets\Widget_List_View;
+use Tribe\Events\Views\V2\Views\Widgets\Widget_QR_Code_View;
 use TEC\Common\Contracts\Service_Provider as Provider_Contract;
 
 
@@ -97,7 +98,8 @@ class Service_Provider extends Provider_Contract {
 	 * @return array<string,string> An array of registered widget classes.
 	 */
 	public function register_widget( $widgets ) {
-		$widgets[ Widget_List::get_widget_slug() ] = Widget_List::class;
+		$widgets[ Widget_List::get_widget_slug() ]    = Widget_List::class;
+		$widgets[ Widget_QR_Code::get_widget_slug() ] = Widget_QR_Code::class;
 
 		return $widgets;
 	}
@@ -273,7 +275,8 @@ class Service_Provider extends Provider_Contract {
 	 * @return array<string,string> $views The modified array of views in the shape `[ <slug> => <class> ]`.
 	 */
 	public function add_views( $views ) {
-		$views[ Widget_List_View::get_view_slug() ] = Widget_List_View::class;
+		$views[ Widget_List_View::get_view_slug() ]    = Widget_List_View::class;
+		$views[ Widget_QR_Code_View::get_view_slug() ] = Widget_QR_Code_View::class;
 
 		return $views;
 	}
