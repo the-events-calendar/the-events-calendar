@@ -1,29 +1,29 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since 5.12.0
  *
  * @type  {PlainObject}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Views Object in the Global Tribe variable
+ * Configures Views Object in the Global Tribe variable.
  *
  * @since 5.12.0
  *
  * @type  {PlainObject}
  */
-tribe.events.views.icalLinks = {};
+window.tribe.events.views.icalLinks = window.tribe.events.views.icalLinks || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since 5.12.0
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.icalLinks
+ * @param {PlainObject} $   jQuery.
+ * @param {PlainObject} obj window.tribe.events.views.icalLinks.
  *
  * @return {void}
  */
@@ -31,7 +31,7 @@ tribe.events.views.icalLinks = {};
 	'use strict';
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since 5.12.0
 	 *
@@ -49,12 +49,12 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Toggles active class on view selector button
+	 * Toggles active class on view selector button.
 	 *
 	 * @since 5.12.0
 	 * @since 6.0.13 - Added logic to toggle dropdown content visibility and icon rotation.
 	 *
-	 * @param {Event} event event object for click event
+	 * @param {Event} event Event object for click event.
 	 *
 	 * @return {void}
 	 */
@@ -146,7 +146,7 @@ tribe.events.views.icalLinks = {};
 	 *
 	 * @since 6.0.13
 	 *
-	 * @param {Event} event event object for click event
+	 * @param {Event} event Event object for click event.
 	 *
 	 * @return {void}
 	 */
@@ -162,11 +162,11 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Binds events for container
+	 * Binds events for container.
 	 *
 	 * @since 5.12.0
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -178,11 +178,11 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Unbinds events for container
+	 * Unbinds events for container.
 	 *
 	 * @since  4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -193,13 +193,13 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Deinitialize ical links JS
+	 * Deinitialize ical links JS.
 	 *
 	 * @since 5.12.0
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    Event object for 'beforeAjaxSuccess.tribeEvents' event.
+	 * @param {jqXHR}       jqXHR    Request object.
+	 * @param {PlainObject} settings Settings that this request was made with.
 	 *
 	 * @return {void}
 	 */
@@ -211,14 +211,14 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Initialize view selector JS
+	 * Initialize view selector JS.
 	 *
 	 * @since 5.12.0
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of links container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      Event object for 'afterSetup.tribeEvents' event.
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery}  $container jQuery View container object.
+	 * @param {Object}  data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -235,7 +235,7 @@ tribe.events.views.icalLinks = {};
 	};
 
 	/**
-	 * Handles the initialization of the view selector when Document is ready
+	 * Handles the initialization of the view selector when Document is ready.
 	 *
 	 * @since 5.12.0
 	 * @since 6.0.13 - Added logic to ensure that the 'init' method of the 'obj' object is
@@ -247,6 +247,6 @@ tribe.events.views.icalLinks = {};
 		obj.init( null, 0, $( 'body' ), {} );
 	} );
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.icalLinks );
+} )( jQuery, window.tribe.events.views.icalLinks );

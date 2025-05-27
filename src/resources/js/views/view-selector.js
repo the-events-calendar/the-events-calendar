@@ -1,29 +1,29 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since 4.9.4
  *
  * @type   {PlainObject}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Views Object in the Global Tribe variable
+ * Configures Views Object in the Global Tribe variable.
  *
  * @since 4.9.4
  *
  * @type   {PlainObject}
  */
-tribe.events.views.viewSelector = {};
+window.tribe.events.views.viewSelector = window.tribe.events.views.viewSelector || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since 4.9.4
  *
  * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.viewSelector
+ * @param {PlainObject} obj window.tribe.events.views.viewSelector
  *
  * @return {void}
  */
@@ -32,7 +32,7 @@ tribe.events.views.viewSelector = {};
 	const $document = $( document );
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since 4.9.7
 	 *
@@ -47,43 +47,43 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Deinitialize accordion based on header and content
+	 * Deinitialize accordion based on header and content.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $header  jQuery object of header
-	 * @param {jQuery} $content jQuery object of contents
+	 * @param {jQuery} $header  jQuery Header object.
+	 * @param {jQuery} $content jQuery Contents object.
 	 *
 	 * @return {void}
 	 */
 	obj.deinitAccordion = function ( $header, $content ) {
-		tribe.events.views.accordion.deinitAccordion( 0, $header );
-		tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
+		window.tribe.events.views.accordion.deinitAccordion( 0, $header );
+		window.tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
 		$content.css( 'display', '' );
 	};
 
 	/**
-	 * Initialize accordion based on header and content
+	 * Initialize accordion based on header and content.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {jQuery} $header    jQuery object of header
-	 * @param {jQuery} $content   jQuery object of contents
+	 * @param {jQuery} $container jQuery View container object.
+	 * @param {jQuery} $header    jQuery Header object.
+	 * @param {jQuery} $content   jQuery Contents object.
 	 *
 	 * @return {void}
 	 */
 	obj.initAccordion = function ( $container, $header, $content ) {
-		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
-		tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
+		window.tribe.events.views.accordion.initAccordion( $container )( 0, $header );
+		window.tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
 	};
 
 	/**
-	 * Deinitialize view selector accordion
+	 * Deinitialize view selector accordion.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -95,11 +95,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Initialize view selector accordion
+	 * Initialize view selector accordion.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -110,11 +110,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Initializes view selector state
+	 * Initializes view selector state.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -129,11 +129,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Deinitializes view selector
+	 * Deinitializes view selector.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -142,11 +142,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Initializes view selector
+	 * Initializes view selector.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -192,11 +192,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Toggles active class on view selector button
+	 * Toggles active class on view selector button.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for click event
+	 * @param {Event} event Event object for click event.
 	 *
 	 * @return {void}
 	 */
@@ -205,11 +205,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Handles click event on document
+	 * Handles click event on document.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for click event
+	 * @param {Event} event Event object for click event.
 	 *
 	 * @return {void}
 	 */
@@ -225,18 +225,18 @@ tribe.events.views.viewSelector = {};
 			if ( $viewSelectorButton.hasClass( obj.selectors.viewSelectorButtonActiveClass.className() ) ) {
 				const $viewSelectorListContainer = $viewSelector.find( obj.selectors.viewSelectorListContainer );
 				$viewSelectorButton.removeClass( obj.selectors.viewSelectorButtonActiveClass.className() );
-				tribe.events.views.accordion.closeAccordion( $viewSelectorButton, $viewSelectorListContainer );
+				window.tribe.events.views.accordion.closeAccordion( $viewSelectorButton, $viewSelectorListContainer );
 			}
 			/* eslint-enable max-len */
 		}
 	};
 
 	/**
-	 * Handles resize event
+	 * Handles resize event.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for 'resize.tribeEvents' event
+	 * @param {Event} event Event object for 'resize.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -245,11 +245,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Unbinds events for container
+	 * Unbinds events for container.
 	 *
 	 * @since  4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -262,11 +262,11 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Binds events for container
+	 * Binds events for container.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -279,13 +279,13 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Deinitialize view selector JS
+	 * Deinitialize view selector JS.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    Event object for 'beforeAjaxSuccess.tribeEvents' event.
+	 * @param {jqXHR}       jqXHR    Request object.
+	 * @param {PlainObject} settings Settings that this request was made with.
 	 *
 	 * @return {void}
 	 */
@@ -298,14 +298,14 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Initialize view selector JS
+	 * Initialize view selector JS.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      Event object for 'afterSetup.tribeEvents' event.
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery}  $container jQuery View container object.
+	 * @param {Object}  data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -324,16 +324,16 @@ tribe.events.views.viewSelector = {};
 	};
 
 	/**
-	 * Handles the initialization of the view selector when Document is ready
+	 * Handles the initialization of the view selector when Document is ready.
 	 *
 	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function () {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on( 'afterSetup.tribeEvents', window.tribe.events.views.manager.selectors.container, obj.init );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.viewSelector );
+} )( jQuery, window.tribe.events.views.viewSelector );

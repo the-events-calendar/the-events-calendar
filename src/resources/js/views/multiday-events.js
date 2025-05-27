@@ -5,25 +5,25 @@
  *
  * @type   {PlainObject}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Multiday Events Object in the Global Tribe variable
+ * Configures Multiday Events Object in the Global Tribe variable.
  *
  * @since 4.9.4
  *
  * @type  {PlainObject}
  */
-tribe.events.views.multidayEvents = {};
+window.tribe.events.views.multidayEvents = window.tribe.events.views.multidayEvents || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since 4.9.4
  *
  * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.multidayEvents
+ * @param {PlainObject} obj window.tribe.events.views.multidayEvents
  *
  * @return {void}
  */
@@ -32,7 +32,7 @@ tribe.events.views.multidayEvents = {};
 	const $document = $( document );
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since 4.9.5
 	 *
@@ -41,7 +41,7 @@ tribe.events.views.multidayEvents = {};
 	obj.selectors = {};
 
 	/**
-	 * Selector prefixes used for creating selectors
+	 * Selector prefixes used for creating selectors.
 	 *
 	 * @since 4.9.5
 	 *
@@ -52,7 +52,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Selector suffixes used for creating selectors
+	 * Selector suffixes used for creating selectors.
 	 *
 	 * @since 4.9.5
 	 *
@@ -67,7 +67,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Find visible multiday event that relates to the hidden multiday event
+	 * Find visible multiday event that relates to the hidden multiday event.
 	 *
 	 * @since 4.9.5
 	 *
@@ -83,7 +83,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Toggle hover class on visible multiday event when hidden multiday triggers hover event
+	 * Toggle hover class on visible multiday event when hidden multiday triggers hover event.
 	 *
 	 * @since 4.9.4
 	 *
@@ -96,7 +96,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Toggle focus class on visible multiday event when hidden multiday triggers focus event
+	 * Toggle focus class on visible multiday event when hidden multiday triggers focus event.
 	 *
 	 * @since 4.9.4
 	 *
@@ -109,7 +109,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Unbinds events for hover and focus of hidden multiday events.
+	 * Unbind events for hover and focus of hidden multiday events.
 	 *
 	 * @since 4.9.5
 	 *
@@ -126,7 +126,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Binds events for hover and focus of hidden multiday events.
+	 * Bind events for hover and focus of hidden multiday events.
 	 *
 	 * @since 4.9.4
 	 *
@@ -153,7 +153,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Resets selectors to empty object
+	 * Reset selectors to empty object.
 	 *
 	 * @since 4.9.5
 	 *
@@ -164,11 +164,11 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Initializes selectors based on view slug
+	 * Initialize selectors based on view slug.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {string} viewSlug slug of view
+	 * @param {string} viewSlug slug of view.
 	 *
 	 * @return {void}
 	 */
@@ -181,13 +181,13 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Unbinds events for container.
+	 * Unbind events for container.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event.
+	 * @param {jqXHR}       jqXHR    Request object.
+	 * @param {PlainObject} settings Settings that this request was made with.
 	 *
 	 * @return {void}
 	 */
@@ -200,7 +200,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Binds events for container.
+	 * Bind events for container.
 	 *
 	 * @since 4.9.9
 	 *
@@ -223,7 +223,7 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Initialize allowed views
+	 * Initialize allowed views.
 	 *
 	 * @since 4.9.9
 	 *
@@ -245,7 +245,7 @@ tribe.events.views.multidayEvents = {};
 	 *
 	 * @since 4.9.9
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event.
 	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
 	 * @param {jQuery}  $container jQuery object of view container.
 	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event.
@@ -258,16 +258,16 @@ tribe.events.views.multidayEvents = {};
 	};
 
 	/**
-	 * Handles the initialization of multiday events when Document is ready
+	 * Handles the initialization of multiday events when Document is ready.
 	 *
 	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function () {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on( 'afterSetup.tribeEvents', window.tribe.events.views.manager.selectors.container, obj.init );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.multidayEvents );
+} )( jQuery, window.tribe.events.views.multidayEvents );
