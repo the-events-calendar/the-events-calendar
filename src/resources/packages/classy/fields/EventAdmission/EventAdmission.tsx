@@ -1,10 +1,9 @@
-import React from "react";
-import { Button, ButtonGroup } from "@wordpress/components";
-import { _x } from "@wordpress/i18n";
-import { FieldProps } from "@tec/common/classy/types/FieldProps.ts";
-import { IconTicket } from "@tec/common/classy/components";
-import { currencyDollar } from "@wordpress/icons";
-
+import React from 'react';
+import { Button, ButtonGroup } from '@wordpress/components';
+import { _x } from '@wordpress/i18n';
+import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
+import { IconTicket } from '@tec/common/classy/components';
+import { currencyDollar } from '@wordpress/icons';
 
 export default function EventAdmission( props: FieldProps ) {
 	return (
