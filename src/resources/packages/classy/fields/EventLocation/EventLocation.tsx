@@ -1,9 +1,9 @@
+import * as React from 'react';
 import apiFetch from '@wordpress/api-fetch';
 import { Button, CustomSelectControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
-import * as React from 'react';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { IconAdd, IconVideoCamera } from '@tec/common/classy/components';
 import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
@@ -13,9 +13,7 @@ import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsF
 import { FetchedVenue } from '../../types/FetchedVenue';
 import { METADATA_EVENT_VENUE_ID } from '../../constants';
 
-function buildOptionFromFetchedVenue(
-	venue: FetchedVenue
-): CustomSelectOption {
+function buildOptionFromFetchedVenue( venue: FetchedVenue ): CustomSelectOption {
 	return {
 		key: venue.id.toString(),
 		name: venue.venue,
@@ -26,18 +24,11 @@ function buildOptionFromFetchedVenue(
 
 const placeholderOption: CustomSelectOption = {
 	key: '0',
-	name: _x(
-		'Select venue',
-		'Venue selection placecholder option',
-		'the-events-calendar'
-	),
+	name: _x( 'Select venue', 'Venue selection placecholder option', 'the-events-calendar' ),
 	value: '0',
 };
 
-function getUpdatedOptions(
-	venues: FetchedVenue[],
-	currentVenueIds: number[]
-) {
+function getUpdatedOptions( venues: FetchedVenue[], currentVenueIds: number[] ) {
 	return venues
 		.filter( ( venue ) => ! currentVenueIds.includes( venue.id ) )
 		.map( buildOptionFromFetchedVenue )
@@ -51,8 +42,7 @@ export default function EventLocation( props: FieldProps ) {
 	const venueIds = useSelect( ( select ): number[] => {
 		return (
 			// @ts-ignore
-			( select( 'core/editor' ).getEditedPostAttribute( 'meta' ) ||
-				[] )?.[ METADATA_EVENT_VENUE_ID ]?.map(
+			( select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || [] )?.[ METADATA_EVENT_VENUE_ID ]?.map(
 				( id: string ): number => parseInt( id, 10 )
 			) || []
 		);
@@ -80,32 +70,19 @@ export default function EventLocation( props: FieldProps ) {
 			.then( ( results ) => {
 				// Check that results is an object, else log a console error.
 				if ( ! ( results && typeof results === 'object' ) ) {
-					console.error(
-						'Venues fetch request did not return an object.'
-					);
+					console.error( 'Venues fetch request did not return an object.' );
 					return;
 				}
 
 				// Check that the object has an `venues` property, else log a console error.
-				if (
-					! (
-						results.hasOwnProperty( 'venues' ) &&
-						results.hasOwnProperty( 'total' )
-					)
-				) {
-					console.error(
-						'Venues fetch request did not return an object with venues and total properties.'
-					);
+				if ( ! ( results.hasOwnProperty( 'venues' ) && results.hasOwnProperty( 'total' ) ) ) {
+					console.error( 'Venues fetch request did not return an object with venues and total properties.' );
 					return;
 				}
 
 				// Check that the `venues` property is an array, else log a console error.
-				if (
-					! Array.isArray( ( results as { venues: any } ).venues )
-				) {
-					console.error(
-						'Venues fetch request did not return an array.'
-					);
+				if ( ! Array.isArray( ( results as { venues: any } ).venues ) ) {
+					console.error( 'Venues fetch request did not return an array.' );
 					return;
 				}
 
@@ -120,35 +97,22 @@ export default function EventLocation( props: FieldProps ) {
 				};
 
 				// Update the number of pages to fetch if the total is more than the number of fetched options.
-				if (
-					safeResults.total >
-					fetched.current.length + safeResults.venues.length
-				) {
+				if ( safeResults.total > fetched.current.length + safeResults.venues.length ) {
 					setPageToFetch( pageToFetch + 1 );
 				}
 
-				const newVenues = safeResults.venues.map(
-					buildOptionFromFetchedVenue
-				);
-
 				// Update the fetched set of venues by making sure new version of venues will override the already
 				// fetched version.
-				const safeResultIds = new Set(
-					safeResults.venues.map( ( org ) => org.id )
-				);
+				const safeResultIds = new Set( safeResults.venues.map( ( org ) => org.id ) );
 				fetched.current = [
-					...fetched.current.filter(
-						( org ) => ! safeResultIds.has( org.id )
-					),
+					...fetched.current.filter( ( org ) => ! safeResultIds.has( org.id ) ),
 					...safeResults.venues,
 				];
 
 				// Update the options to all the so-far fetched options minus the current venue ids.
 				// Why not just add to the options? They might have been modified by a user removal or selection in the
 				// meanwhile. Since we're recalculating them anyway, just make sure they are up to date.
-				setOptions(
-					getUpdatedOptions( fetched.current, currentVenueIds )
-				);
+				setOptions( getUpdatedOptions( fetched.current, currentVenueIds ) );
 			} )
 			.catch( ( e ) => {
 				console.error( 'Venue fetch request failed: ' + e.message );
@@ -163,10 +127,7 @@ export default function EventLocation( props: FieldProps ) {
 
 	const onVenueSelect = useCallback(
 		( newValue: { selectedItem: CustomSelectOption } ) => {
-			const venueIds = [
-				...currentVenueIds,
-				parseInt( newValue.selectedItem.key ),
-			];
+			const venueIds = [ ...currentVenueIds, parseInt( newValue.selectedItem.key ) ];
 			setCurrentVenueIds( venueIds );
 			setOptions( getUpdatedOptions( fetched.current, venueIds ) );
 
@@ -181,9 +142,7 @@ export default function EventLocation( props: FieldProps ) {
 
 	const onVenueRemove = useCallback(
 		( id: number ): void => {
-			const venueIds = currentVenueIds.filter(
-				( venueId ) => venueId !== id
-			);
+			const venueIds = currentVenueIds.filter( ( venueId ) => venueId !== id );
 			setCurrentVenueIds( venueIds );
 
 			setOptions( getUpdatedOptions( fetched.current, venueIds ) );
@@ -208,17 +167,11 @@ export default function EventLocation( props: FieldProps ) {
 			<div className="classy-field__inputs classy-field__inputs--boxed">
 				{ currentVenueIds.length > 0 && (
 					<div className="classy-field__inputs-section">
-						<VenueCards
-							venues={ orderedVenues }
-							onEdit={ onVenueEdit }
-							onRemove={ onVenueRemove }
-						/>
+						<VenueCards venues={ orderedVenues } onEdit={ onVenueEdit } onRemove={ onVenueRemove } />
 					</div>
 				) }
 
-				{ isAdding && (
-					<span className="classy_section-separator"></span>
-				) }
+				{ isAdding && <span className="classy_section-separator"></span> }
 
 				<div className="classy-field__inputs-section classy-field__inputs-section--row">
 					{ ( isAdding || currentVenueIds.length === 0 ) && (
@@ -240,10 +193,7 @@ export default function EventLocation( props: FieldProps ) {
 							</div>
 
 							<div className="classy-field__input" ref={ ref }>
-								<div
-									className="classy-field__control classy-field__control--venue"
-									ref={ ref }
-								>
+								<div className="classy-field__control classy-field__control--venue" ref={ ref }>
 									<span className="classy-field__venue-label">
 										{ _x(
 											'or',
@@ -255,9 +205,7 @@ export default function EventLocation( props: FieldProps ) {
 										variant="link"
 										className="classy-field__venue-value"
 										onClick={ () => {
-											console.log(
-												'Venue creation not implemented yet.'
-											);
+											console.log( 'Venue creation not implemented yet.' );
 										} }
 									>
 										{ _x(
@@ -296,11 +244,7 @@ export default function EventLocation( props: FieldProps ) {
 							className="classy-field__control classy-field__control--cancel"
 							onClick={ () => setIsAdding( false ) }
 						>
-							{ _x(
-								'Cancel',
-								'Cancel the venue selection',
-								'the-events-calendar'
-							) }
+							{ _x( 'Cancel', 'Cancel the venue selection', 'the-events-calendar' ) }
 						</Button>
 					</div>
 				) }
@@ -309,18 +253,10 @@ export default function EventLocation( props: FieldProps ) {
 					<Button
 						variant="link"
 						className="classy-field__control classy-field__control--cta"
-						onClick={ () =>
-							console.log(
-								'Virtual event details not implemented yet'
-							)
-						}
+						onClick={ () => console.log( 'Virtual event details not implemented yet' ) }
 					>
 						<IconVideoCamera />
-						{ _x(
-							'Add virtual event details',
-							'Cancel the venue selection',
-							'the-events-calendar'
-						) }
+						{ _x( 'Add virtual event details', 'Cancel the venue selection', 'the-events-calendar' ) }
 					</Button>
 				</div>
 			</div>

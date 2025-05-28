@@ -1,4 +1,4 @@
-import *  as React from 'react';
+import * as React from 'react';
 import { Fragment, MouseEventHandler } from 'react';
 import { StartOfWeek } from '../../../../../../common/src/resources/packages/classy/types/StartOfWeek';
 import { RefObject, useRef } from '@wordpress/element';
@@ -48,18 +48,9 @@ export default function StartSelector( props: {
 
 	return (
 		<Fragment>
-			<div
-				className="classy-field__input classy-field__input--start-date classy-field__input--grow"
-				ref={ ref }
-			>
+			<div className="classy-field__input classy-field__input--start-date classy-field__input--grow" ref={ ref }>
 				<div className="classy-field__input-title">
-					<h4>
-						{ _x(
-							'Date',
-							'Event date selection input title',
-							'the-events-calendar'
-						) }
-					</h4>
+					<h4>{ _x( 'Date', 'Event date selection input title', 'the-events-calendar' ) }</h4>
 				</div>
 
 				<DatePicker
@@ -81,13 +72,7 @@ export default function StartSelector( props: {
 			{ ! isAllDay && (
 				<div className="classy-field__input classy-field__input--start-time">
 					<div className="classy-field__input-title">
-						<h4>
-							{ _x(
-								'Start Time',
-								'Event start time selection input title',
-								'the-events-calendar'
-							) }
-						</h4>
+						<h4>{ _x( 'Start Time', 'Event start time selection input title', 'the-events-calendar' ) }</h4>
 					</div>
 
 					<TimePicker

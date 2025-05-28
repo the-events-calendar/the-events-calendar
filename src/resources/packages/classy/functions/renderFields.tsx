@@ -1,12 +1,7 @@
 import React, { Fragment } from 'react';
 import { Fill } from '@wordpress/components';
 import { PostTitle } from '@tec/common/classy/fields';
-import {
-	EventDateTime,
-	EventDetails,
-	EventLocation,
-	EventOrganizer,
-} from '../fields';
+import { EventDateTime, EventDetails, EventLocation, EventOrganizer } from '../fields';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { POST_TYPE_EVENT } from '../constants';
@@ -26,11 +21,7 @@ export default function renderFields( fields: React.ReactNode | null ) {
 			{ fields }
 			<Fill name="tec.classy.fields">
 				<PostTitle
-					title={ _x(
-						'Event Title',
-						'The title of the event title field.',
-						'the-events-calendar'
-					) }
+					title={ _x( 'Event Title', 'The title of the event title field.', 'the-events-calendar' ) }
 				/>
 
 				<EventDateTime
@@ -42,27 +33,15 @@ export default function renderFields( fields: React.ReactNode | null ) {
 				/>
 
 				<EventDetails
-					title={ _x(
-						'Event Details',
-						'The title of the event details field.',
-						'the-events-calendar'
-					) }
+					title={ _x( 'Event Details', 'The title of the event details field.', 'the-events-calendar' ) }
 				/>
 
 				<EventLocation
-					title={ _x(
-						'Location',
-						'The title of the event location field.',
-						'the-events-calendar'
-					) }
+					title={ _x( 'Location', 'The title of the event location field.', 'the-events-calendar' ) }
 				/>
 
 				<EventOrganizer
-					title={ _x(
-						'Event Organizer',
-						'The title of the event organizer field.',
-						'the-events-calendar'
-					) }
+					title={ _x( 'Event Organizer', 'The title of the event organizer field.', 'the-events-calendar' ) }
 				/>
 			</Fill>
 		</Fragment>

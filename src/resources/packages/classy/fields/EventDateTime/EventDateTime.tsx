@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-	RefObject,
-	useCallback,
-	useMemo,
-	useRef,
-	useState,
-} from '@wordpress/element';
+import * as React from 'react';
+import { RefObject, useCallback, useMemo, useRef, useState } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { Hours } from '../../../../../../common/src/resources/packages/classy/types/Hours';
 import { Minutes } from '../../../../../../common/src/resources/packages/classy/types/Minutes';
@@ -101,13 +95,8 @@ function getNewStartEndDates(
  * @param {Date} startDate The current start date of the event.
  * @return {Date} The new end date for the event.
  */
-function getMultiDayEndDate(
-	refs: RefObject< DateTimeRefs >,
-	newValue: boolean,
-	startDate: Date
-) {
-	const { singleDayDuration, multiDayDuration } =
-		refs.current as DateTimeRefs;
+function getMultiDayEndDate( refs: RefObject< DateTimeRefs >, newValue: boolean, startDate: Date ) {
+	const { singleDayDuration, multiDayDuration } = refs.current as DateTimeRefs;
 	let duration;
 
 	if ( newValue ) {
@@ -155,10 +144,7 @@ function getAllDayNewDates(
 		newStartDate.setHours( endOfDayCutoff.hours );
 		newStartDate.setMinutes( endOfDayCutoff.minutes );
 		// Round the current duration to the nearest day and remove one second.
-		const days = Math.ceil(
-			( endDate.getTime() - startDate.getTime() ) /
-				( 1000 * 60 * 60 * 24 )
-		);
+		const days = Math.ceil( ( endDate.getTime() - startDate.getTime() ) / ( 1000 * 60 * 60 * 24 ) );
 		const duration = days * 1000 * 60 * 60 * 24 - 1; // Subtract one second to avoid the next day.
 		// Move the end date to the next day's end-of-day cutoff time minus on second; e.g. 23:59:59
 		newEndDate = new Date( newStartDate.getTime() + duration );
@@ -171,17 +157,9 @@ function getAllDayNewDates(
 	} else {
 		// Restore the saved start and end times, but respect the days.
 		newStartDate = new Date( startDate );
-		newStartDate.setHours(
-			refs.current.startTimeHours,
-			refs.current.startTimeMinutes,
-			0
-		);
+		newStartDate.setHours( refs.current.startTimeHours, refs.current.startTimeMinutes, 0 );
 		newEndDate = new Date( endDate );
-		newEndDate.setHours(
-			refs.current.endTimeHours,
-			refs.current.endTimeMinutes,
-			0
-		);
+		newEndDate.setHours( refs.current.endTimeHours, refs.current.endTimeMinutes, 0 );
 	}
 
 	return { newStartDate, newEndDate };
@@ -207,17 +185,13 @@ export default function EventDateTime( props: FieldProps ) {
 		dateWithYearFormat,
 		timeFormat,
 	} = useSelect( ( select ) => {
-		const {
-			getEventDateTimeDetails,
-		}: { getEventDateTimeDetails: () => EventDateTimeDetails } =
+		const { getEventDateTimeDetails }: { getEventDateTimeDetails: () => EventDateTimeDetails } =
 			select( 'tec/classy/events' );
 		return getEventDateTimeDetails();
 	}, [] );
 	const { editPost } = useDispatch( 'core/editor' );
 
-	const [ isSelectingDate, setIsSelectingDate ] = useState<
-		'start' | 'end' | false
-	>( false );
+	const [ isSelectingDate, setIsSelectingDate ] = useState< 'start' | 'end' | false >( false );
 	const [ dates, setDates ] = useState( {
 		start: eventStart,
 		end: eventEnd,
@@ -236,13 +210,9 @@ export default function EventDateTime( props: FieldProps ) {
 		endTimeHours: isAllDay ? 17 : endDate.getHours(),
 		endTimeMinutes: isAllDay ? 0 : endDate.getMinutes(),
 		// The default single-day duration is 9 hours.
-		singleDayDuration: isMultiday
-			? 9 * 60 * 60 * 1000
-			: dates.end.getTime() - dates.start.getTime(),
+		singleDayDuration: isMultiday ? 9 * 60 * 60 * 1000 : dates.end.getTime() - dates.start.getTime(),
 		// The default multi-day duration is 24 hours.
-		multiDayDuration: isMultiday
-			? dates.end.getTime() - dates.start.getTime()
-			: 24 * 60 * 60 * 1000,
+		multiDayDuration: isMultiday ? dates.end.getTime() - dates.start.getTime() : 24 * 60 * 60 * 1000,
 	} );
 
 	// Used in dependencies.
@@ -251,23 +221,12 @@ export default function EventDateTime( props: FieldProps ) {
 
 	const onDateChange = useCallback(
 		( updated: 'start' | 'end', newDate: string ): void => {
-			const { newStartDate, newEndDate, notify } = getNewStartEndDates(
-				endDate,
-				startDate,
-				updated,
-				newDate
-			);
+			const { newStartDate, newEndDate, notify } = getNewStartEndDates( endDate, startDate, updated, newDate );
 
 			editPost( {
 				meta: {
-					[ METADATA_EVENT_START_DATE ]: format(
-						phpDateMysqlFormat,
-						newStartDate
-					),
-					[ METADATA_EVENT_END_DATE ]: format(
-						phpDateMysqlFormat,
-						newEndDate
-					),
+					[ METADATA_EVENT_START_DATE ]: format( phpDateMysqlFormat, newStartDate ),
+					[ METADATA_EVENT_END_DATE ]: format( phpDateMysqlFormat, newEndDate ),
 				},
 			} );
 
@@ -367,24 +326,12 @@ export default function EventDateTime( props: FieldProps ) {
 
 	const onAllDayToggleChange = useCallback(
 		( newValue: boolean ) => {
-			let { newStartDate, newEndDate } = getAllDayNewDates(
-				newValue,
-				startDate,
-				endOfDayCutoff,
-				endDate,
-				refs
-			);
+			let { newStartDate, newEndDate } = getAllDayNewDates( newValue, startDate, endOfDayCutoff, endDate, refs );
 
 			editPost( {
 				meta: {
-					[ METADATA_EVENT_START_DATE ]: format(
-						phpDateMysqlFormat,
-						newStartDate
-					),
-					[ METADATA_EVENT_END_DATE ]: format(
-						phpDateMysqlFormat,
-						newEndDate
-					),
+					[ METADATA_EVENT_START_DATE ]: format( phpDateMysqlFormat, newStartDate ),
+					[ METADATA_EVENT_END_DATE ]: format( phpDateMysqlFormat, newEndDate ),
 					[ METADATA_EVENT_ALLDAY ]: newValue ? '1' : '0',
 				},
 			} );
@@ -399,14 +346,8 @@ export default function EventDateTime( props: FieldProps ) {
 		( timezone: string ): void => {
 			editPost( {
 				meta: {
-					[ METADATA_EVENT_START_DATE ]: format(
-						phpDateMysqlFormat,
-						startDate
-					),
-					[ METADATA_EVENT_END_DATE ]: format(
-						phpDateMysqlFormat,
-						endDate
-					),
+					[ METADATA_EVENT_START_DATE ]: format( phpDateMysqlFormat, startDate ),
+					[ METADATA_EVENT_END_DATE ]: format( phpDateMysqlFormat, endDate ),
 					[ METADATA_EVENT_TIMEZONE ]: timezone,
 				},
 			} );
@@ -431,32 +372,21 @@ export default function EventDateTime( props: FieldProps ) {
 					<div className="classy-field__subgroup classy-field__subgroup--left">
 						<ToggleControl
 							__nextHasNoMarginBottom
-							label={ _x(
-								'Multi-day event',
-								'Multi-day toggle label',
-								'the-events-calendar'
-							) }
+							label={ _x( 'Multi-day event', 'Multi-day toggle label', 'the-events-calendar' ) }
 							checked={ isMultidayValue }
 							onChange={ onMultiDayToggleChange }
 						></ToggleControl>
 
 						<ToggleControl
 							__nextHasNoMarginBottom
-							label={ _x(
-								'All-day event',
-								'All-day toggle label',
-								'the-events-calendar'
-							) }
+							label={ _x( 'All-day event', 'All-day toggle label', 'the-events-calendar' ) }
 							checked={ isAllDayValue }
 							onChange={ onAllDayToggleChange }
 						/>
 					</div>
 
 					<div className="classy-field__subgroup classy-field__subgroup--right">
-						<TimeZone
-							timezone={ timezoneString }
-							onTimezoneChange={ onTimezoneChange }
-						/>
+						<TimeZone timezone={ timezoneString } onTimezoneChange={ onTimezoneChange } />
 					</div>
 				</div>
 			</div>

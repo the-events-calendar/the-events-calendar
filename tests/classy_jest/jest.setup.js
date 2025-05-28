@@ -31,11 +31,7 @@ const originalWarn = console.warn;
 
 console.warn = ( msg ) => {
 	// From the `PostFeaturedImage` component of the `@wordpress/editor` package.
-	if (
-		msg
-			.toString()
-			.includes( 'motion() is deprecated. Use motion.create() instead' )
-	) {
+	if ( msg.toString().includes( 'motion() is deprecated. Use motion.create() instead' ) ) {
 		return;
 	}
 	originalWarn( msg );
