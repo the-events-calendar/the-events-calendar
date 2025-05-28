@@ -1,4 +1,5 @@
-import React, { Fragment, MouseEventHandler } from 'react';
+import *  as React from 'react';
+import { Fragment, MouseEventHandler } from 'react';
 import { StartOfWeek } from '../../../../../../common/src/resources/packages/classy/types/StartOfWeek';
 import { RefObject, useRef } from '@wordpress/element';
 import { DatePicker, TimePicker } from '@tec/common/classy/components';
@@ -16,10 +17,9 @@ export default function StartSelector( props: {
 	onChange: ( selecting: 'start' | 'end', date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
-	onFocusOutside: () => void;
 	startDate: Date;
 	startOfWeek: StartOfWeek;
-	timeFormat: striggng;
+	timeFormat: string;
 } ) {
 	const {
 		dateWithYearFormat,
@@ -31,7 +31,6 @@ export default function StartSelector( props: {
 		onChange,
 		onClick,
 		onClose,
-		onFocusOutside,
 		startDate,
 		startOfWeek,
 		timeFormat,
@@ -72,7 +71,6 @@ export default function StartSelector( props: {
 					onClick={ onClick }
 					onClose={ onClose }
 					onChange={ onChange }
-					onFocusOutside={ onFocusOutside }
 					showPopover={ isSelectingDate === 'start' }
 					startDate={ startDate }
 					startOfWeek={ startOfWeek }

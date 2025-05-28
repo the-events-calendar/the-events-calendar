@@ -312,7 +312,6 @@ export default function EventDateTime( props: FieldProps ) {
 				onChange={ onDateChange }
 				onClick={ () => onDateInputClick( 'start' ) }
 				onClose={ () => setIsSelectingDate( false ) }
-				onFocusOutside={ () => setIsSelectingDate( false ) }
 				startDate={ startDate }
 				startOfWeek={ startOfWeek }
 				timeFormat={ timeFormat }
@@ -341,7 +340,6 @@ export default function EventDateTime( props: FieldProps ) {
 				onChange={ onDateChange }
 				onClick={ () => onDateInputClick( 'end' ) }
 				onClose={ () => setIsSelectingDate( false ) }
-				onFocusOutside={ () => setIsSelectingDate( false ) }
 				startDate={ startDate }
 				startOfWeek={ startOfWeek }
 				timeFormat={ timeFormat }

@@ -17,7 +17,6 @@ export default function EndSelector( props: {
 	onChange: ( selecting: 'start' | 'end', date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
-	onFocusOutside: () => void;
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	timeFormat: string;
@@ -32,7 +31,6 @@ export default function EndSelector( props: {
 		onChange,
 		onClick,
 		onClose,
-		onFocusOutside,
 		startDate,
 		startOfWeek,
 		timeFormat,
@@ -83,7 +81,6 @@ export default function EndSelector( props: {
 							onChange={ onChange }
 							onClick={ onClick }
 							onClose={ onClose }
-							onFocusOutside={ onFocusOutside }
 							showPopover={ isSelectingDate === 'end' }
 							startDate={ startDate }
 							startOfWeek={ startOfWeek }
