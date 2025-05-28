@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Fragment } from 'react';
 import { MouseEventHandler } from 'react';
-import { StartOfWeek } from '../../../../../../common/src/resources/packages/classy/types/StartOfWeek';
+import { StartOfWeek } from '@tec/common/classy/types/StartOfWeek';
 import { RefObject, useRef } from '@wordpress/element';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';

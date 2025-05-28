@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Fragment, MouseEventHandler } from 'react';
-import { StartOfWeek } from '../../../../../../common/src/resources/packages/classy/types/StartOfWeek';
+import type { StartOfWeek } from '@tec/common/classy/types/StartOfWeek';
 import { RefObject, useRef } from '@wordpress/element';
 import { DatePicker, TimePicker } from '@tec/common/classy/components';
 import { format } from '@wordpress/date';

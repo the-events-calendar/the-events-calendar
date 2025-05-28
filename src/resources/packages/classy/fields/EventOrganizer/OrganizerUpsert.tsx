@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { _x } from '@wordpress/i18n';
-import { IconNew } from '@tec/common/classy/components/Icons';
 import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
-import { useCallback, useRef, useState } from '@wordpress/element';
-import { OrganizerData } from '../../../../../../common/src/resources/packages/classy/types/OrganizerData';
+import { useCallback, useRef, useState } from 'react';
+import type { OrganizerData } from '@tec/common/classy/types/OrganizerData';
+import { IconNew } from '@tec/common/classy/components';
 
 const defaultValues = {
 	name: '',
