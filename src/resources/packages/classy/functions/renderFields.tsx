@@ -6,6 +6,13 @@ import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { POST_TYPE_EVENT } from '../constants';
 
+/**
+ * Render fields for the Event post type.
+ *
+ * @since TBD
+ *
+ * @param {React.ReactNode | null} fields The fields that have been already rendered.
+ */
 export default function renderFields( fields: React.ReactNode | null ) {
 	const postType = useSelect( ( select ) => {
 		// @ts-ignore
@@ -18,7 +25,10 @@ export default function renderFields( fields: React.ReactNode | null ) {
 
 	return (
 		<Fragment>
+			{ /* Render the fields passed to this function first. */ }
 			{ fields }
+
+			{/* Portal-render the fields into the Classy form. */ }
 			<Fill name="tec.classy.fields">
 				<PostTitle
 					title={ _x( 'Event Title', 'The title of the event title field.', 'the-events-calendar' ) }
