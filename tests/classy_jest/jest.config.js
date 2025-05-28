@@ -11,15 +11,19 @@ module.exports = {
 			'ts-jest',
 			{
 				tsconfig: {
+					allowJs: true,
+					checkJs: true,
+					target: 'esnext',
+					allowSyntheticDefaultImports: true,
+					allowUmdGlobalAccess: true,
 					esModuleInterop: true,
 					jsx: 'react-jsx',
-					allowUmdGlobalAccess: true,
 					sourceMap: true,
-					allowJs: true,
 				},
 			},
 		],
 	},
 	preset: 'ts-jest',
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
+	snapshotSerializers: [ '@emotion/jest/serializer' ],
 };
