@@ -6,7 +6,7 @@ import { _x } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { IconAdd, IconVideoCamera } from '@tec/common/classy/components';
-import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
+import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import VenueCards from './VenueCards';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
