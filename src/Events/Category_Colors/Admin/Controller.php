@@ -55,7 +55,6 @@ class Controller extends Controller_Contract {
 		add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
 
-		// Regenerate CSS after category creation/update/deletion
 		add_action( "created_{$taxonomy}", [ $this, 'regenerate_css' ] );
 		add_action( "edited_{$taxonomy}", [ $this, 'regenerate_css' ] );
 		add_action( 'delete_term', [ $this, 'regenerate_css' ], 10, 4 );
@@ -79,7 +78,6 @@ class Controller extends Controller_Contract {
 		remove_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		remove_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ] );
 
-		// Remove CSS regeneration hooks
 		remove_action( "created_{$taxonomy}", [ $this, 'regenerate_css' ] );
 		remove_action( "edited_{$taxonomy}", [ $this, 'regenerate_css' ] );
 		remove_action( 'delete_term', [ $this, 'regenerate_css' ] );
@@ -218,7 +216,7 @@ class Controller extends Controller_Contract {
 	 * @param mixed  $deleted_term The deleted term object.
 	 */
 	public function regenerate_css( $term_id = 0, $tt_id = 0, $taxonomy = '', $deleted_term = null ): void {
-		// If this is a delete_term action, verify the taxonomy matches
+		// If this is a delete_term action, verify the taxonomy matches.
 		if ( ! empty( $taxonomy ) && $taxonomy !== Tribe__Events__Main::TAXONOMY ) {
 			return;
 		}
