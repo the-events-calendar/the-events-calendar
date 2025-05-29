@@ -272,12 +272,12 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		$clauses[] = " {$this->alias}.meta_value = '' ";
 		$clauses[] = " {$this->alias}.meta_value IS NULL ";
 
-		// Remove 'soldout' from currentValue since it's handled by pre_get_posts method
-		$current_value = $this->currentValue;
+		// Remove 'soldout' from currentValue since it's handled by pre_get_posts method.
+		$current_value = $this->currentValue; //phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		if ( is_array( $current_value ) ) {
 			$current_value = array_diff( $current_value, [ self::SOLDOUT ] );
-			$current_value = array_values( $current_value ); // Re-index array
+			$current_value = array_values( $current_value );
 		} elseif ( $current_value === self::SOLDOUT ) {
 			$current_value = null;
 		}
