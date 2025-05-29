@@ -251,6 +251,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		if ( ! empty( $soldout_events ) ) {
 			// If we have sold-out events, exclude them from the query.
 			$post__not_in = $query->get( 'post__not_in', [] );
+
 			$post__not_in = array_merge( $post__not_in, $soldout_events );
 			$query->set( 'post__not_in', $post__not_in );
 		}
@@ -271,10 +272,25 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		$clauses[] = " {$this->alias}.meta_value = '' ";
 		$clauses[] = " {$this->alias}.meta_value IS NULL ";
 
-		if ( is_array( $this->currentValue ) ) {
-			$event_status_ids = implode( ',', array_map( 'esc_sql', $this->currentValue ) );
+		// Remove 'soldout' from currentValue since it's handled by pre_get_posts method
+		$current_value = $this->currentValue;
+
+		if ( is_array( $current_value ) ) {
+			$current_value = array_diff( $current_value, [ self::SOLDOUT ] );
+			$current_value = array_values( $current_value ); // Re-index array
+		} elseif ( $current_value === self::SOLDOUT ) {
+			$current_value = null;
+		}
+
+		// If no values left after removing soldout, skip where clause setup.
+		if ( empty( $current_value ) ) {
+			return;
+		}
+
+		if ( is_array( $current_value ) ) {
+			$event_status_ids = implode( ',', array_map( 'esc_sql', $current_value ) );
 		} else {
-			$event_status_ids = "'" . esc_sql( (string) $this->currentValue ) . "'";
+			$event_status_ids = "'" . esc_sql( (string) $current_value ) . "'";
 		}
 
 		$hide_clauses[] = $wpdb->prepare(
@@ -294,7 +310,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 		 * @since 5.12.1
 		 *
 		 */
-		$where_clause = apply_filters( 'tec_event_status_filterbar_where_clause', '', $this->currentValue, $this->alias, $hide_clauses, $clauses );
+		$where_clause = apply_filters( 'tec_event_status_filterbar_where_clause', '', $current_value, $this->alias, $hide_clauses, $clauses );
 		if ( $where_clause ) {
 			$this->whereClause = $where_clause;
 
@@ -303,7 +319,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 
 
 		// If hiding multiple values, format the where clause and return.
-		if ( is_array( $this->currentValue ) && count( $this->currentValue ) > 1 ) {
+		if ( is_array( $current_value ) && count( $current_value ) > 1 ) {
 			$this->whereClause = ' AND ( ( ' . implode( ' AND ', $hide_clauses ) . '  ) AND ' . implode( ' OR ', $clauses ) . ') ';
 
 			return;

@@ -14,13 +14,19 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 	 */
 	protected $filter;
 
+	/**
+	 * @var \ReflectionClass
+	 */
+	protected $reflection_class;
+
 	public function setUp() {
 		parent::setUp();
 
 		require_once codecept_data_dir( 'classes/Tribe/Plugins/Filter_Bar/Context_Filter.php' );
 		require_once codecept_data_dir( 'classes/Tribe/Plugins/Filter_Bar/Tribe_Events_Filterbar_Filter.php' );
 
-		$this->filter = new Events_Status_Filter( new Status_Labels() );
+		$this->filter           = new Events_Status_Filter( new Status_Labels() );
+		$this->reflection_class = new \ReflectionClass( $this->filter );
 	}
 
 	/**
@@ -42,10 +48,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		$query = new WP_Query();
 
 		// Call pre_get_posts method.
-		$class  = new \ReflectionClass( $this->filter );
-		$method = $class->getMethod( 'pre_get_posts' );
-		$method->setAccessible( true );
-		$method->invoke( $this->filter, $query );
+		$this->call_private_method( 'pre_get_posts', [ $query ] );
 
 		// Check that the sold-out event is in post__not_in.
 		$post_not_in = $query->get( 'post__not_in', [] );
@@ -83,10 +86,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		$query = new WP_Query();
 
 		// Call pre_get_posts method.
-		$class  = new \ReflectionClass( $this->filter );
-		$method = $class->getMethod( 'pre_get_posts' );
-		$method->setAccessible( true );
-		$method->invoke( $this->filter, $query );
+		$this->call_private_method( 'pre_get_posts', [ $query ] );
 
 		// Check that the sold-out event is in post__not_in.
 		$post_not_in = $query->get( 'post__not_in', [] );
@@ -117,10 +117,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		$original_post_not_in = $query->get( 'post__not_in', [] );
 
 		// Call pre_get_posts method.
-		$class  = new \ReflectionClass( $this->filter );
-		$method = $class->getMethod( 'pre_get_posts' );
-		$method->setAccessible( true );
-		$method->invoke( $this->filter, $query );
+		$this->call_private_method( 'pre_get_posts', [ $query ] );
 
 		// Verify post__not_in was not modified.
 		$this->assertEquals(
@@ -148,10 +145,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		$query = new WP_Query();
 
 		// Call pre_get_posts method.
-		$class  = new \ReflectionClass( $this->filter );
-		$method = $class->getMethod( 'pre_get_posts' );
-		$method->setAccessible( true );
-		$method->invoke( $this->filter, $query );
+		$this->call_private_method( 'pre_get_posts', [ $query ] );
 
 		// Check that post__not_in is either unchanged or doesn't contain our regular event.
 		$post_not_in = $query->get( 'post__not_in', [] );
@@ -183,10 +177,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		$query = new WP_Query();
 
 		// Call pre_get_posts method.
-		$class  = new \ReflectionClass( $this->filter );
-		$method = $class->getMethod( 'pre_get_posts' );
-		$method->setAccessible( true );
-		$method->invoke( $this->filter, $query );
+		$this->call_private_method( 'pre_get_posts', [ $query ] );
 
 		// Check that unlimited capacity event is NOT filtered out.
 		$post_not_in = $query->get( 'post__not_in', [] );
@@ -216,10 +207,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		$query = new WP_Query();
 
 		// Call pre_get_posts method.
-		$class  = new \ReflectionClass( $this->filter );
-		$method = $class->getMethod( 'pre_get_posts' );
-		$method->setAccessible( true );
-		$method->invoke( $this->filter, $query );
+		$this->call_private_method( 'pre_get_posts', [ $query ] );
 
 		// Check that event without stock management is NOT filtered out.
 		$post_not_in = $query->get( 'post__not_in', [] );
@@ -231,6 +219,73 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 
 		// Cleanup.
 		wp_delete_post( $no_stock_event, true );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_remove_soldout_from_where_clause() {
+		// Set filter to multiple values including soldout.
+		$this->filter->currentValue = [ 'canceled', 'soldout', 'postponed' ];
+
+		// Call setup_where_clause method.
+		$this->call_private_method( 'setup_where_clause' );
+
+		// Get the where clause.
+		$where_clause = $this->get_private_property( 'whereClause' );
+
+		// Verify that soldout is NOT in the where clause.
+		$this->assertStringNotContainsString( 'soldout', $where_clause, 'Where clause should not contain soldout' );
+
+		// Verify that canceled and postponed ARE in the where clause.
+		$this->assertStringContainsString( 'canceled', $where_clause, 'Where clause should contain canceled' );
+		$this->assertStringContainsString( 'postponed', $where_clause, 'Where clause should contain postponed' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_skip_where_clause_when_only_soldout_selected() {
+		// Set filter to only soldout.
+		$this->filter->currentValue = 'soldout';
+
+		// Call setup_where_clause method.
+		$this->call_private_method( 'setup_where_clause' );
+
+		// Get the where clause.
+		$where_clause = $this->get_private_property( 'whereClause' );
+
+		// Verify that no where clause was set (should be null or empty).
+		$this->assertEmpty( $where_clause, 'Where clause should be empty when only soldout is selected' );
+	}
+
+	/**
+	 * Helper method to call private/protected methods on the filter
+	 *
+	 * @param string $method_name The method name to call
+	 * @param array  $args        Optional arguments to pass to the method
+	 *
+	 * @return mixed The method return value
+	 */
+	private function call_private_method( $method_name, $args = [] ) {
+		$method = $this->reflection_class->getMethod( $method_name );
+		$method->setAccessible( true );
+
+		return $method->invokeArgs( $this->filter, $args );
+	}
+
+	/**
+	 * Helper method to get private/protected property values
+	 *
+	 * @param string $property_name The property name to get
+	 *
+	 * @return mixed The property value
+	 */
+	private function get_private_property( $property_name ) {
+		$property = $this->reflection_class->getProperty( $property_name );
+		$property->setAccessible( true );
+
+		return $property->getValue( $this->filter );
 	}
 
 	/**
@@ -275,7 +330,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		// Set up unlimited capacity ticket (capacity = -1).
 		update_post_meta( $ticket_id, '_manage_stock', 'yes' );
 		update_post_meta( $ticket_id, '_stock', '0' );
-		update_post_meta( $ticket_id, '_tribe_ticket_capacity', '-1' ); // Unlimited capacity
+		update_post_meta( $ticket_id, '_tribe_ticket_capacity', '-1' ); // Unlimited capacity.
 		update_post_meta( $ticket_id, '_tec_tickets_commerce_event', $event_id );
 
 		return $ticket_id;
