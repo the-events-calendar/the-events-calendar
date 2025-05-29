@@ -1,5 +1,7 @@
 <?php
 
+use Tribe__Events__Main as TEC;
+
 /**
  * Initialize Gutenberg editor blocks and styles
  *
@@ -437,7 +439,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 		 */
 		$gmaps_api_url = apply_filters( 'tribe_events_google_maps_api', $gmaps_api_url );
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-events-editor-blocks-gmaps-api',
 			$gmaps_api_url,
@@ -452,20 +454,7 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
-			$plugin,
-			'tribe-the-events-calendar-vendor',
-			'app/vendor.js',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'localize'     => [],
-				'conditionals' => [ $this, 'is_events_post_type' ],
-				'priority'     => 100,
-			]
-		);
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-the-events-calendar-editor',
 			'app/main.js',
@@ -476,10 +465,11 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'localize'     => [],
 				'conditionals' => [ $this, 'is_events_post_type' ],
 				'priority'     => 101,
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-widget-blocks',
 			'app/widgets.js',
@@ -504,13 +494,14 @@ class Tribe__Events__Editor extends Tribe__Editor {
 				'localize'     => [],
 				'priority'     => 106,
 				'conditionals' => [ $this, 'is_edit_screen' ],
-			]
+				'group_path'   => TEC::class . '-packages',
+			],
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-widget-blocks-styles',
-			'app/widgets.css',
+			'app/style-widgets.css',
 			[
 				'wp-widgets',
 			],
@@ -518,10 +509,11 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			[
 				'in_footer'    => false,
 				'conditionals' => [ $this, 'is_edit_screen' ],
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tec-blocks-category-icon-styles',
 			'tribe-admin-block-category-icons.css',
@@ -533,27 +525,16 @@ class Tribe__Events__Editor extends Tribe__Editor {
 			]
 		);
 
-		tribe_asset(
-			Tribe__Main::instance(),
-			'tribe-block-editor-vendor',
-			'app/vendor.css',
-			[],
-			'enqueue_block_editor_assets',
-			[
-				'in_footer'    => false,
-				'conditionals' => [ $this, 'is_events_post_type' ],
-			]
-		);
-
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-block-editor-main',
-			'app/main.css',
+			'app/style-main.css',
 			[],
 			'enqueue_block_editor_assets',
 			[
 				'in_footer'    => false,
 				'conditionals' => [ $this, 'is_events_post_type' ],
+				'group_path'   => TEC::class . '-packages',
 			]
 		);
 	}

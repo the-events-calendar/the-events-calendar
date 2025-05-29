@@ -20,10 +20,7 @@ import { Website } from '@moderntribe/events/icons';
 export default {
 	id: 'event-website',
 	title: __( 'Event Website', 'the-events-calendar' ),
-	description: __(
-		'Is there another website for this event? Link to it with a button!',
-		'the-events-calendar',
-	),
+	description: __( 'Is there another website for this event? Link to it with a button!', 'the-events-calendar' ),
 	icon: <Website />,
 	category: 'tribe-events',
 	keywords: [ 'event', 'events-gutenberg', 'tribe' ],

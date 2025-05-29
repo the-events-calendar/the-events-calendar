@@ -3,7 +3,7 @@
 /**
  * Class Tribe__Events__REST__V1__Endpoints__Single_Venue
  *
- * @since bucket/full-rest-api
+ * @since 4.9.4
  */
 class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	extends Tribe__Events__REST__V1__Endpoints__Linked_Post_Base
@@ -21,7 +21,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @return WP_Error|WP_REST_Response An array containing the data on success or a WP_Error instance on failure.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function get( WP_REST_Request $request ) {
 		$venue = get_post( $request['id'] );
@@ -46,7 +46,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @return WP_Error|WP_REST_Response|int An array containing the data on success or a WP_Error instance on failure.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function create( WP_REST_Request $request, $return_id = false ) {
 		$postarr = $this->prepare_postarr( $request );
@@ -93,7 +93,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @return array An array description of a Swagger supported component.
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function get_documentation() {
 		$get_defaults  = $delete_defaults = [ 'in' => 'query', 'default' => '', 'type' => 'string' ];
@@ -213,7 +213,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @return array
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function READ_args() {
 		return [
@@ -233,7 +233,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @return array
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	public function CREATE_args() {
 		return [
@@ -422,7 +422,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @return string
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	protected function get_post_type() {
 		return Tribe__Events__Main::VENUE_POST_TYPE;
@@ -435,7 +435,7 @@ class Tribe__Events__REST__V1__Endpoints__Single_Venue
 	 *
 	 * @return bool
 	 *
-	 * @since bucket/full-rest-api
+	 * @since 4.9.4
 	 */
 	protected function is_post_type( $data ) {
 		return tribe_is_venue( $data );

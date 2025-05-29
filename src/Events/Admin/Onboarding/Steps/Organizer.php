@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Admin\Onboarding\Steps;
 
+use TEC\Common\Admin\Onboarding\Steps\Abstract_Step;
 use Tribe__Events__API;
 use WP_REST_Response;
 use WP_REST_Request;
@@ -41,18 +42,18 @@ class Organizer extends Abstract_Step {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function process( $response, $request ): WP_REST_Response {
+	public function process( $response, $request ): WP_REST_Response {
 		$params = $request->get_params();
 		// No data to process, bail out.
 		if ( empty( $params['organizer'] ) ) {
-			return self::add_message( $response, __( 'No organizer to save. Step skipped', 'the-events-calendar' ) );
+			return $this->add_message( $response, __( 'No organizer to save. Step skipped', 'the-events-calendar' ) );
 		}
 
 		$organizer = $params['organizer'];
 
 		// If we already have an organizer, we're not editing it here.
 		if ( ! empty( $organizer['organizerId'] ) ) {
-			return self::add_message( $response, __( 'Existing organizer. Step skipped.', 'the-events-calendar' ) );
+			return $this->add_message( $response, __( 'Existing organizer. Step skipped.', 'the-events-calendar' ) );
 		}
 
 		$new_organizer['Organizer'] = $organizer['name'];
@@ -63,11 +64,11 @@ class Organizer extends Abstract_Step {
 		$post_id = Tribe__Events__API::createOrganizer( $new_organizer );
 
 		if ( ! $post_id ) {
-			return self::add_fail_message( $response, __( 'Failed to create organizer.', 'the-events-calendar' ) );
+			return $this->add_fail_message( $response, __( 'Failed to create organizer.', 'the-events-calendar' ) );
 		} else {
 			$response->data['organizer_id'] = $post_id;
 		}
 
-		return self::add_message( $response, __( 'Organizer created.', 'the-events-calendar' ) );
+		return $this->add_message( $response, __( 'Organizer created.', 'the-events-calendar' ) );
 	}
 }

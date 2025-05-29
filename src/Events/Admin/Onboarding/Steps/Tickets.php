@@ -9,6 +9,7 @@
 
 namespace TEC\Events\Admin\Onboarding\Steps;
 
+use TEC\Common\Admin\Onboarding\Steps\Abstract_Step;
 use WP_REST_Response;
 use TEC\Common\StellarWP\Installer\Installer;
 use TEC\Common\StellarWP\Installer\Handler\Plugin;
@@ -40,8 +41,8 @@ class Tickets extends Abstract_Step {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function process( $response, $request ): WP_REST_Response {
-		return self::install_event_tickets_plugin( $response, $request );
+	public function process( $response, $request ): WP_REST_Response {
+		return $this->install_event_tickets_plugin( $response, $request );
 	}
 
 	/**
@@ -54,12 +55,12 @@ class Tickets extends Abstract_Step {
 	 *
 	 * @return WP_REST_Response
 	 */
-	public static function install_event_tickets_plugin( $response, $request ): WP_REST_Response {
+	public function install_event_tickets_plugin( $response, $request ): WP_REST_Response {
 		$plugin_slug = 'event-tickets';
 		$params      = $request->get_params();
 
 		if ( ! isset( $params['eventTickets'] ) || ! $params['eventTickets'] ) {
-			return self::add_message( $response, __( 'Event Tickets install not requested.', 'the-events-calendar' ) );
+			return $this->add_message( $response, __( 'Event Tickets install not requested.', 'the-events-calendar' ) );
 		}
 
 		// Installer and Plugin classes needs these to be loaded for them to work.
@@ -71,7 +72,7 @@ class Tickets extends Abstract_Step {
 
 		// Check if the plugin is already installed and active.
 		if ( $installed && $activated ) {
-			return self::add_message( $response, __( 'Event Tickets plugin already installed and activated.', 'the-events-calendar' ) );
+			return $this->add_message( $response, __( 'Event Tickets plugin already installed and activated.', 'the-events-calendar' ) );
 		}
 
 		$plugin = new Plugin( 'Event Tickets', 'event-tickets' );
@@ -80,7 +81,7 @@ class Tickets extends Abstract_Step {
 			$install = $plugin->install();
 
 			if ( ! $install ) {
-				return self::add_fail_message( $response, __( 'Failed to install plugin.', 'the-events-calendar' ) );
+				return $this->add_fail_message( $response, __( 'Failed to install plugin.', 'the-events-calendar' ) );
 			}
 		}
 
@@ -88,10 +89,10 @@ class Tickets extends Abstract_Step {
 			$active = $plugin->activate();
 
 			if ( ! $active ) {
-				return self::add_fail_message( $response, __( 'Failed to activate plugin.', 'the-events-calendar' ) );
+				return $this->add_fail_message( $response, __( 'Failed to activate plugin.', 'the-events-calendar' ) );
 			}
 		}
 
-		return self::add_message( $response, __( 'Event Tickets plugin installed and activated.', 'the-events-calendar' ) );
+		return $this->add_message( $response, __( 'Event Tickets plugin installed and activated.', 'the-events-calendar' ) );
 	}
 }

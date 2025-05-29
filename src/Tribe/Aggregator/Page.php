@@ -135,6 +135,7 @@ class Tribe__Events__Aggregator__Page {
 				],
 				'default_settings'     => tribe( 'events-aggregator.settings' )->get_all_default_settings(),
 				'source_origin_regexp' => tribe( 'events-aggregator.settings' )->get_source_origin_regexp(),
+				'nonce'                => wp_create_nonce( 'tribe-aggregator-ajax-nonce' ),
 			];
 
 			/**
@@ -155,7 +156,7 @@ class Tribe__Events__Aggregator__Page {
 		};
 
 		// Load these on all the pages
-		tribe_assets(
+		tec_assets(
 			$plugin,
 			[
 				[
@@ -179,13 +180,13 @@ class Tribe__Events__Aggregator__Page {
 					[ $this, 'is_screen' ],
 				],
 				'localize'     => (object) [
-					'name' => 'tribe_aggregator',
+					'name' => 'tribe_aggregator_data',
 					'data' => $localize_data_callback,
 				],
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-ea-styles',
 			'aggregator-page.css',
@@ -200,7 +201,7 @@ class Tribe__Events__Aggregator__Page {
 			]
 		);
 
-		tribe_asset(
+		tec_asset(
 			$plugin,
 			'tribe-ea-notice',
 			'aggregator-notice.js',

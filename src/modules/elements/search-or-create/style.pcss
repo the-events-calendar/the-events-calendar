@@ -1,16 +1,16 @@
 .tribe-editor__soc__input {
 	border: none;
-	padding: 16px 11px 16px 0;
-	font-size: 1.125rem;
-	font-family: 'Helvetica', 'Arial', 'sans-serif';
-	font-weight: bold;
-	color: #86909B;
+	color: #86909b;
 	flex: 1;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1.125rem;
+	font-weight: 700;
 	margin: 0;
+	padding: 16px 11px 16px 0;
 
 	&::placeholder {
-		font-weight: normal;
-		color: #86909B;
+		color: #86909b;
+		font-weight: 400;
 	}
 
 	&:focus {
@@ -19,52 +19,52 @@
 }
 
 .tribe-editor__soc__input__container {
-	border: 1px solid #E0E5E9;
-	border-radius: 4px;
-	width: 100%;
-	display: flex;
 	align-items: center;
+	border: 1px solid #e0e5e9;
+	border-radius: 4px;
+	display: flex;
 	flex-wrap: wrap;
+	width: 100%;
 
 	svg {
+		fill: #e2e4e7;
 		margin-left: 14px;
 		margin-right: 14px;
-		fill: #E2E4E7;
 		width: 22px;
 	}
 
 	path {
-		fill: #E2E4E7;
+		fill: #e2e4e7;
 	}
 }
 
 .tribe-editor__soc__input__container--active {
-	border: 1px solid #E0E5E9;
+	border: 1px solid #e0e5e9;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 	border-right: none;
 
 	svg,
 	path {
-		fill: #009FD4;
+		fill: #009fd4;
 	}
 
 	.tribe-editor__soc__input {
-		border-right: 1px solid #E0E5E9;
+		border-right: 1px solid #e0e5e9;
 		color: #000;
 	}
 }
 
 ul.tribe-editor__soc__results,
 .tribe-editor__soc__results--loading {
-	border: 1px solid #CDD3D8;
-	background-color: #FAFAFA;
-	box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.10);
+	background-color: #fafafa;
+	border: 1px solid #cdd3d8;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;
+	box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1);
+	margin: 0;
 	padding: 18px 28px;
 	width: 100%;
-	margin: 0;
 
 	.editor-styles-wrapper & {
 		margin: 0;
@@ -72,26 +72,27 @@ ul.tribe-editor__soc__results,
 }
 
 .tribe-editor__soc__results--loading {
-	display: flex;
 	align-items: center;
+	display: flex;
 	justify-content: center;
 }
 
 .tribe-editor__soc__results {
+
 	strong {
 		color: #000;
 	}
 
 	li {
-		list-style: none;
-		padding: 10px 15px;
-		margin-bottom: 0;
-		color: #67686C;
+		color: #67686c;
 		cursor: pointer;
-		font-family: 'Helvetica', 'Arial', 'sans-serif';
+		font-family: Helvetica, Arial, sans-serif;
+		list-style: none;
+		margin-bottom: 0;
+		padding: 10px 15px;
 
 		&:hover {
-			color: #009FD4;
+			color: #009fd4;
 		}
 
 		&:last-child {
