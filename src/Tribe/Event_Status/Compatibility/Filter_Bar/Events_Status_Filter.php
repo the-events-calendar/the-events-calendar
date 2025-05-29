@@ -143,10 +143,7 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Returns the value supported by this filter.
 	 *
-	 * @param array<string|mixed> An array of values.
-	 *
 	 * @since 5.12.1
-	 *
 	 */
 	protected function get_values() {
 		$events_label_plural = tribe_get_event_label_plural();
