@@ -475,4 +475,80 @@ class Quick_Edit_Test extends WPTestCase {
 
 		$this->assertMatchesSnapshot( $content );
 	}
+
+	/**
+	 * Test that the color preview returns 'transparent' when no color is assigned.
+	 *
+	 * @since TBD
+	 */
+	public function should_return_transparent_when_no_color_assigned() {
+		// Create a category without any color meta.
+		$term_id = $this->factory()->term->create(
+			[
+				'taxonomy' => Tribe__Events__Main::TAXONOMY,
+				'name'     => 'No Color Category',
+			]
+		);
+
+		// Get the color preview HTML.
+		$preview = $this->quick_edit->get_column_category_color_preview(
+			tribe( Event_Category_Meta::class )->set_term( $term_id ),
+			$term_id
+		);
+
+		// Verify 'transparent' is returned.
+		$this->assertEquals( 'transparent', $preview, 'Should return "transparent" when no colors are set' );
+	}
+
+	/**
+	 * @test
+	 * Ensures the column outputs 'transparent' (no <span>) when no color is set.
+	 *
+     * @test
+	 * @since TBD
+	 */
+	public function category_color_column_outputs_transparent_snapshot() {
+		$term_id = $this->factory()->term->create([
+			'taxonomy' => Tribe__Events__Main::TAXONOMY,
+			'name'     => 'No Color Category',
+		]);
+		$output = $this->call_protected_method(
+			$this->quick_edit,
+			'get_column_category_color_preview',
+			[tribe(Event_Category_Meta::class)->set_term($term_id), $term_id]
+		);
+		$this->assertMatchesSnapshot($output);
+	}
+
+	/**
+	 * @test
+	 * Ensures the column outputs a <span> when a color is set.
+	 *
+     * @test
+     * 
+	 * @since TBD
+	 */
+	public function category_color_column_outputs_span_snapshot() {
+		$term_id2 = $this->factory()->term->create([
+			'taxonomy' => Tribe__Events__Main::TAXONOMY,
+			'name'     => 'Colored Category',
+		]);
+		$meta = tribe(Event_Category_Meta::class)->set_term($term_id2);
+		$meta->set($this->get_key('primary'), '#ff0000');
+		$meta->set($this->get_key('secondary'), '#00ff00');
+		$meta->save();
+		$output2 = $this->call_protected_method(
+			$this->quick_edit,
+			'get_column_category_color_preview',
+			[$meta, $term_id2]
+		);
+		$this->assertMatchesSnapshot($output2);
+	}
+
+    protected function call_protected_method($object, $method, array $args = []) {
+		$reflection = new \ReflectionClass($object);
+		$refMethod = $reflection->getMethod($method);
+		$refMethod->setAccessible(true);
+		return $refMethod->invokeArgs($object, $args);
+	}
 }

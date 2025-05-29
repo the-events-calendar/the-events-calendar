@@ -1,3 +1,4 @@
+<?php
 /**
  * Tests for the Execution_Action class.
  *

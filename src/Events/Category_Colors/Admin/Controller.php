@@ -13,8 +13,10 @@
 namespace TEC\Events\Category_Colors\Admin;
 
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use TEC\Events\Category_Colors\CSS\Generator;
 use Tribe__Events__Main;
 use WP_Term;
+use TEC\Common\StellarWP\Assets\Config;
 
 /**
  * Class Controller
@@ -31,6 +33,7 @@ class Controller extends Controller_Contract {
 	 * @since TBD
 	 */
 	public function do_register(): void {
+		Config::add_group_path( 'tec-events-category-colors', tribe( 'tec.main' )->plugin_path . 'build/', 'category-colors' );
 		$this->add_filters();
 		$this->enqueue_assets();
 	}
@@ -51,6 +54,10 @@ class Controller extends Controller_Contract {
 
 		add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ], 10, 3 );
+
+		add_action( "created_{$taxonomy}", [ $this, 'regenerate_css' ] );
+		add_action( "edited_{$taxonomy}", [ $this, 'regenerate_css' ] );
+		add_action( 'delete_term', [ $this, 'regenerate_css' ], 10, 4 );
 	}
 
 	/**
@@ -70,6 +77,10 @@ class Controller extends Controller_Contract {
 
 		remove_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_columns' ] );
 		remove_filter( "manage_{$taxonomy}_custom_column", [ $this, 'add_column_data' ] );
+
+		remove_action( "created_{$taxonomy}", [ $this, 'regenerate_css' ] );
+		remove_action( "edited_{$taxonomy}", [ $this, 'regenerate_css' ] );
+		remove_action( 'delete_term', [ $this, 'regenerate_css' ] );
 	}
 
 	/**
@@ -192,5 +203,25 @@ class Controller extends Controller_Contract {
 		/** @var Category_Colors_Styles $instance */
 		$instance = $this->container->make( Category_Colors_Styles::class );
 		$instance->maybe_add_inline_styles();
+	}
+
+	/**
+	 * Regenerates the category colors CSS stylesheet.
+	 *
+	 * @since TBD
+	 *
+	 * @param int    $term_id     The term ID.
+	 * @param int    $tt_id       The term taxonomy ID.
+	 * @param string $taxonomy    The taxonomy slug.
+	 * @param mixed  $deleted_term The deleted term object.
+	 */
+	public function regenerate_css( $term_id = 0, $tt_id = 0, $taxonomy = '', $deleted_term = null ): void {
+		// If this is a delete_term action, verify the taxonomy matches.
+		if ( ! empty( $taxonomy ) && $taxonomy !== Tribe__Events__Main::TAXONOMY ) {
+			return;
+		}
+
+		$generator = tribe( Generator::class );
+		$generator->generate_and_save_css();
 	}
 }

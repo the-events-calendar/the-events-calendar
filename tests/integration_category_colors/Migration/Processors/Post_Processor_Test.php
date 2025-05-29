@@ -297,4 +297,84 @@ class Post_Processor_Test extends \Codeception\TestCase\WPTestCase {
 
 		$this->assertFalse( $this->processor->is_runnable() );
 	}
+
+	/**
+	 * Test that the CSS stylesheet is regenerated after successful migration.
+	 *
+     * @test
+     * 
+	 * @since TBD
+	 */
+	public function should_regenerate_css_after_successful_migration(): void {
+		// Set up test data
+		$migration_data = [
+			'categories' => [
+				(string) self::$test_categories[0] => [
+					'taxonomy_id'                     => self::$test_categories[0],
+					'tec-events-cat-colors-primary'   => '#ff0000',
+					'tec-events-cat-colors-secondary' => '#ffffff',
+					'tec-events-cat-colors-text'      => '#000000',
+				],
+				(string) self::$test_categories[1] => [
+					'taxonomy_id'                     => self::$test_categories[1],
+					'tec-events-cat-colors-primary'   => '#00ff00',
+					'tec-events-cat-colors-secondary' => '#ffffff',
+					'tec-events-cat-colors-text'      => '#000000',
+				],
+			],
+			'settings'   => [],
+		];
+
+		// Set up migration state
+		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		update_option(
+			Config::MIGRATION_PROCESSING_OPTION,
+			[
+				'settings'   => [],
+				'categories' => [],
+			]
+		);
+		Status::update_migration_status( Status::$execution_completed );
+
+		// Set up the actual meta values
+		foreach ( $migration_data['categories'] as $category_id => $meta_data ) {
+			$category_meta = tribe( Event_Category_Meta::class )->set_term( $category_id );
+			foreach ( $meta_data as $meta_key => $meta_value ) {
+				if ( $meta_key !== 'taxonomy_id' ) {
+					$category_meta->set( $meta_key, $meta_value );
+				}
+			}
+			$category_meta->save();
+		}
+
+		// Delete any existing CSS to ensure we're testing fresh generation
+		delete_option( 'tec_events_category_color_css' );
+
+		// Run the post-processing
+		$result = $this->processor->process();
+
+		// Verify the result
+		$this->assertTrue( $result, 'Post-processing should succeed' );
+		$this->assertEquals( Status::$postprocessing_completed, Status::get_migration_status()['status'], 'Migration should be marked as completed' );
+
+		// Verify the CSS was regenerated
+		$generated_css = get_option( 'tec_events_category_color_css' );
+		$this->assertNotEmpty( $generated_css, 'CSS should be regenerated' );
+
+		// Verify the CSS contains the expected rules
+		$taxonomy = Tribe__Events__Main::TAXONOMY;
+		$category1 = get_term( self::$test_categories[0], $taxonomy );
+		$category2 = get_term( self::$test_categories[1], $taxonomy );
+
+		$this->assertStringContainsString(
+			".{$taxonomy}-{$category1->slug}{--tec-color-category-primary:#ff0000;--tec-color-category-secondary:#ffffff;--tec-color-category-text:#000000}",
+			$generated_css,
+			'CSS should contain rule for first category'
+		);
+		$this->assertStringContainsString(
+			".{$taxonomy}-{$category2->slug}{--tec-color-category-primary:#00ff00;--tec-color-category-secondary:#ffffff;--tec-color-category-text:#000000}",
+			$generated_css,
+			'CSS should contain rule for second category'
+		);
+	}
 }

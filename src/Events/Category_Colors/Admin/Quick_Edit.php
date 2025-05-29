@@ -93,40 +93,24 @@ class Quick_Edit extends Abstract_Admin {
 	}
 
 	/**
-	 * Generates the category color preview for the taxonomy table.
+	 * Determines what to display in the color preview column.
 	 *
 	 * @since TBD
 	 *
 	 * @param Event_Category_Meta $meta    The metadata handler.
 	 * @param int                 $term_id The category term ID.
 	 *
-	 * @return string HTML for color preview square.
+	 * @return string Either 'transparent' or the HTML for the color preview.
 	 */
-	protected function get_column_category_color_preview( Event_Category_Meta $meta, int $term_id ): string {
-		static $color_fields = null;
-
-		static $meta_keys = null;
-
-		// Initialize static arrays only once.
-		if ( null === $color_fields ) {
-			$color_fields = [
-				'primary'   => true,
-				'secondary' => true,
-				'text'      => true,
-			];
-		}
-		if ( null === $meta_keys ) {
-			$meta_keys = $this->get_all_keys();
-		}
-
+	protected function determine_color_preview_display( Event_Category_Meta $meta, int $term_id ): string {
 		// Get values in a single pass.
 		$fields = [];
-		foreach ( $meta_keys as $key => $meta_key ) {
+		foreach ( $this->get_all_keys() as $key => $meta_key ) {
 			$value          = $meta->get( $meta_key );
 			$fields[ $key ] = $this->sanitize_value( $key, $value );
 		}
 
-		// Early return if no colors.
+		// If no colors are set, return transparent.
 		if ( empty( $fields['primary'] ) || empty( $fields['secondary'] ) ) {
 			return __( 'transparent', 'the-events-calendar' );
 		}
@@ -141,6 +125,20 @@ class Quick_Edit extends Abstract_Admin {
 		$fields['category_class'] = 'tribe_events_cat-' . $term->slug;
 
 		return $this->get_template()->template( 'category-color-preview', $fields, false );
+	}
+
+	/**
+	 * Generates the category color preview for the taxonomy table.
+	 *
+	 * @since TBD
+	 *
+	 * @param Event_Category_Meta $meta    The metadata handler.
+	 * @param int                 $term_id The category term ID.
+	 *
+	 * @return string HTML for color preview square.
+	 */
+	protected function get_column_category_color_preview( Event_Category_Meta $meta, int $term_id ): string {
+		return $this->determine_color_preview_display( $meta, $term_id );
 	}
 
 	/**
