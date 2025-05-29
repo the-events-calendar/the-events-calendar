@@ -135,6 +135,7 @@ class Config {
 		'border'     => 'primary',
 		'background' => 'secondary',
 		'text'       => 'text',
+		'hide'       => 'hidden',
 	];
 
 	/**
