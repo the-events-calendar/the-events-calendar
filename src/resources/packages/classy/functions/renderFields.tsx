@@ -20,7 +20,7 @@ export default function renderFields( fields: React.ReactNode | null ) {
 	}, [] );
 
 	if ( POST_TYPE_EVENT !== postType ) {
-		return null;
+		return fields;
 	}
 
 	return (
