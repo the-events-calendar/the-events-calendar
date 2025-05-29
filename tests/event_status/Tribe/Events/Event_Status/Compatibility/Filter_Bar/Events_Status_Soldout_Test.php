@@ -145,7 +145,7 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 		$regular_event = $event_factory->create( [ 'when' => 'tomorrow' ] );
 
 		// Create WP_Query instance.
-		$query                = new WP_Query();
+		$query = new WP_Query();
 
 		// Call pre_get_posts method.
 		$class  = new \ReflectionClass( $this->filter );
@@ -168,6 +168,72 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 	}
 
 	/**
+	 * @test
+	 */
+	public function it_should_not_filter_unlimited_capacity_tickets() {
+		// Set the filter to look for sold-out events.
+		$this->filter->currentValue = 'soldout';
+
+		// Create event with unlimited capacity ticket (capacity = -1).
+		$event_factory   = new Event();
+		$unlimited_event = $event_factory->create( [ 'when' => 'tomorrow' ] );
+		$this->create_unlimited_ticket_for_event( $unlimited_event );
+
+		// Create WP_Query instance.
+		$query = new WP_Query();
+
+		// Call pre_get_posts method.
+		$class  = new \ReflectionClass( $this->filter );
+		$method = $class->getMethod( 'pre_get_posts' );
+		$method->setAccessible( true );
+		$method->invoke( $this->filter, $query );
+
+		// Check that unlimited capacity event is NOT filtered out.
+		$post_not_in = $query->get( 'post__not_in', [] );
+		$this->assertNotContains(
+			$unlimited_event,
+			$post_not_in,
+			'Event with unlimited capacity ticket should not be filtered out'
+		);
+
+		// Cleanup.
+		wp_delete_post( $unlimited_event, true );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_filter_tickets_without_stock_management() {
+		// Set the filter to look for sold-out events.
+		$this->filter->currentValue = 'soldout';
+
+		// Create event with ticket that has no stock management.
+		$event_factory  = new Event();
+		$no_stock_event = $event_factory->create( [ 'when' => 'tomorrow' ] );
+		$this->create_ticket_without_stock_management( $no_stock_event );
+
+		// Create WP_Query instance.
+		$query = new WP_Query();
+
+		// Call pre_get_posts method.
+		$class  = new \ReflectionClass( $this->filter );
+		$method = $class->getMethod( 'pre_get_posts' );
+		$method->setAccessible( true );
+		$method->invoke( $this->filter, $query );
+
+		// Check that event without stock management is NOT filtered out.
+		$post_not_in = $query->get( 'post__not_in', [] );
+		$this->assertNotContains(
+			$no_stock_event,
+			$post_not_in,
+			'Event with ticket without stock management should not be filtered out'
+		);
+
+		// Cleanup.
+		wp_delete_post( $no_stock_event, true );
+	}
+
+	/**
 	 * Helper method to create a sold-out ticket for an event
 	 *
 	 * @param int $event_id The event ID to create a sold-out ticket for
@@ -182,10 +248,57 @@ class Events_Status_Soldout_Test extends HtmlTestCase {
 			'post_title'  => 'Test Ticket for Event ' . $event_id,
 		] );
 
-		// Mark the ticket as out of stock.
-		update_post_meta( $ticket_id, '_stock_status', 'outofstock' );
+		// Set up all required meta for sold-out detection.
+		update_post_meta( $ticket_id, '_manage_stock', 'yes' );
+		update_post_meta( $ticket_id, '_stock', '0' );
+		update_post_meta( $ticket_id, '_tribe_ticket_capacity', '10' ); // Set capacity > -1
+		update_post_meta( $ticket_id, '_tec_tickets_commerce_event', $event_id );
 
-		// Link the ticket to the event.
+		return $ticket_id;
+	}
+
+	/**
+	 * Helper method to create an unlimited capacity ticket for an event
+	 *
+	 * @param int $event_id The event ID to create an unlimited ticket for
+	 *
+	 * @return int The ticket ID
+	 */
+	private function create_unlimited_ticket_for_event( $event_id ) {
+		// Create a ticket.
+		$ticket_id = wp_insert_post( [
+			'post_type'   => 'tec_tc_ticket',
+			'post_status' => 'publish',
+			'post_title'  => 'Unlimited Test Ticket for Event ' . $event_id,
+		] );
+
+		// Set up unlimited capacity ticket (capacity = -1).
+		update_post_meta( $ticket_id, '_manage_stock', 'yes' );
+		update_post_meta( $ticket_id, '_stock', '0' );
+		update_post_meta( $ticket_id, '_tribe_ticket_capacity', '-1' ); // Unlimited capacity
+		update_post_meta( $ticket_id, '_tec_tickets_commerce_event', $event_id );
+
+		return $ticket_id;
+	}
+
+	/**
+	 * Helper method to create a ticket without stock management
+	 *
+	 * @param int $event_id The event ID to create a ticket for
+	 *
+	 * @return int The ticket ID
+	 */
+	private function create_ticket_without_stock_management( $event_id ) {
+		// Create a ticket.
+		$ticket_id = wp_insert_post( [
+			'post_type'   => 'tec_tc_ticket',
+			'post_status' => 'publish',
+			'post_title'  => 'No Stock Management Ticket for Event ' . $event_id,
+		] );
+
+		// Set up ticket without stock management.
+		update_post_meta( $ticket_id, '_manage_stock', 'no' );
+		update_post_meta( $ticket_id, '_tribe_ticket_capacity', '10' );
 		update_post_meta( $ticket_id, '_tec_tickets_commerce_event', $event_id );
 
 		return $ticket_id;

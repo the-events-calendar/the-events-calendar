@@ -104,13 +104,14 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Constructor.
 	 *
+	 * @param Status_Labels $status_labels An instance of the statuses handler.
+	 *
 	 * @since   5.12.1
 	 *
-	 * @param Status_Labels $status_labels An instance of the statuses handler.
 	 */
 	public function __construct( Status_Labels $status_labels ) {
 		$this->status_labels = $status_labels;
-		$name = $this->status_labels->get_event_status_label();
+		$name                = $this->status_labels->get_event_status_label();
 
 		parent::__construct( $name, $this->slug );
 	}
@@ -129,9 +130,9 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Get the name for the admin field.
 	 *
-	 * @since 5.12.1
-	 *
 	 * @param string $name The individual name for the individual control (ie radio button).
+	 *
+	 * @since 5.12.1
 	 *
 	 * @return string The admin field input name.
 	 */
@@ -142,9 +143,10 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
 	/**
 	 * Returns the value supported by this filter.
 	 *
+	 * @param array<string|mixed> An array of values.
+	 *
 	 * @since 5.12.1
 	 *
-	 * @param array<string|mixed> An array of values.
 	 */
 	protected function get_values() {
 		$events_label_plural = tribe_get_event_label_plural();
@@ -226,15 +228,23 @@ class Events_Status_Filter extends \Tribe__Events__Filterbar__Filter {
                 SELECT DISTINCT event_meta.meta_value as event_id
                 FROM {$wpdb->posts} tickets
                 INNER JOIN {$wpdb->postmeta} AS stock_status_meta
-                        ON tickets.ID = stock_status_meta.post_id
-                        AND stock_status_meta.meta_key = '_stock_status'
+                    ON tickets.ID = stock_status_meta.post_id
+                    AND stock_status_meta.meta_key = '_stock'
+                INNER JOIN {$wpdb->postmeta} AS manage_stock_meta
+            		ON tickets.ID = manage_stock_meta.post_id
+            		AND manage_stock_meta.meta_key = '_manage_stock'
+            	INNER JOIN {$wpdb->postmeta} AS capacity_meta
+            		ON tickets.ID = capacity_meta.post_id
+            		AND capacity_meta.meta_key = '_tribe_ticket_capacity'
                 INNER JOIN {$wpdb->postmeta} as event_meta
-                        ON tickets.ID = event_meta.post_id
-                        AND event_meta.meta_key = '_tec_tickets_commerce_event'
+                    ON tickets.ID = event_meta.post_id
+                    AND event_meta.meta_key = '_tec_tickets_commerce_event'
                 WHERE
                     tickets.post_type = 'tec_tc_ticket'
                     AND tickets.post_status = 'publish'
-                    AND stock_status_meta.meta_value = 'outofstock'
+                	AND manage_stock_meta.meta_value = 'yes'                   -- Only tickets with stock management enabled.
+					AND CAST(capacity_meta.meta_value as SIGNED) > -1          -- Only tickets with actual capacity set (not unlimited).
+					AND CAST(stock_status_meta.meta_value as INT) = 0          -- Only tickets with zero stock remaining.
             ";
 
 		// We always want to get fresh data here, adding caching can create chances that data stale.
