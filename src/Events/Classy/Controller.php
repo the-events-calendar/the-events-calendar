@@ -158,9 +158,12 @@ class Controller extends Controller_Contract {
 	 * @return array<string> The filtered list of supported post types.
 	 */
 	public function add_supported_post_types( array $supported_post_types ): array {
-		$supported_post_types[] = TEC::POSTTYPE;
-
-		return $supported_post_types;
+		return array_unique(
+			array_merge(
+				$supported_post_types,
+				$this->get_supported_post_types()
+			)
+		);
 	}
 
 	/**
