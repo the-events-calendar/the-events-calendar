@@ -23,29 +23,42 @@ use TEC\Common\Classy\Controller as Common_Controller;
  */
 class Controller extends Controller_Contract {
 	/**
-	 * The list of single event meta keys to be registered.
+	 * The list of event meta keys to be registered.
 	 *
-	 * @var array<string>
+	 * This list is used to register the post meta fields for the Classy application. The
+	 * key is the meta key, and the value is an array of arguments used in the `register_post_meta`
+	 * function. The `single` key indicates whether the meta field is a single value or an array,
+	 * and the `type` key indicates the type of the value. If no `single` or `type` is provided,
+	 * the default is `single` set to `true` and `type` set to `string`.
+	 *
+	 * In the JS application, these meta fields are defined in a single constants file.
+	 *
+	 * @see src/resources/packages/classy/constants.tsx
+	 * @see self::register_meta_fields()
+	 *
+	 * @todo Evaluate whether we should switch to using \Tribe__Events__Main::$metaTags
+	 *       instead of our own list?
+	 *
+	 * @var array<array-key, array<string, mixed>>
 	 */
-	private const SINGLE_META = [
-		TEC::POSTTYPE => [
-			'_EventURL',
-			'_EventStartDate',
-			'_EventEndDate',
-			'_EventAllDay',
-			'_EventTimezone',
+	private const META = [
+		'_EventAllDay'           => [],
+		'_EventCost'             => [],
+		'_EventCurrency'         => [],
+		'_EventCurrencyPosition' => [],
+		'_EventCurrencySymbol'   => [],
+		'_EventEndDate'          => [],
+		'_EventIsFree'           => [],
+		'_EventStartDate'        => [],
+		'_EventTimezone'         => [],
+		'_EventURL'              => [],
+		'_EventOrganizerID'      => [
+			'single' => false,
+			'type'   => 'integer',
 		],
-	];
-
-	/**
-	 * The list of multiple event meta keys to be registered.
-	 *
-	 * @var array<string>
-	 */
-	private const MULTIPLE_META = [
-		TEC::POSTTYPE => [
-			'_EventOrganizerID',
-			'_EventVenueID',
+		'_EventVenueID'          => [
+			'single' => false,
+			'type'   => 'integer',
 		],
 	];
 
@@ -84,45 +97,23 @@ class Controller extends Controller_Contract {
 	}
 
 	/**
-	 * Registers meta fields for events.
+	 * Registers meta fields for all supported post types.
 	 *
 	 * @since TBD
 	 *
 	 * @return void
 	 */
 	private function register_meta_fields(): void {
-		foreach ( self::SINGLE_META as $meta_keys ) {
-			foreach ( $meta_keys as $meta_key ) {
+		foreach ( self::META as $meta_key => $args ) {
+			$post_meta_args = [
+				'show_in_rest'  => true,
+				'single'        => $args['single'] ?? true,
+				'type'          => $args['type'] ?? 'string',
+				'auth_callback' => static fn() => current_user_can( 'edit_posts' ),
+			];
 
-				register_post_meta(
-					TEC::POSTTYPE,
-					$meta_key,
-					[
-						'show_in_rest'  => true,
-						'single'        => true,
-						'type'          => 'string',
-						'auth_callback' => static function () {
-							return current_user_can( 'edit_posts' );
-						},
-					]
-				);
-			}
-		}
-
-		foreach ( self::MULTIPLE_META as $post_type => $meta_keys ) {
-			foreach ( $meta_keys as $meta_key ) {
-				register_post_meta(
-					TEC::POSTTYPE,
-					$meta_key,
-					[
-						'show_in_rest'  => true,
-						'single'        => false,
-						'type'          => 'integer',
-						'auth_callback' => static function () {
-							return current_user_can( 'edit_posts' );
-						},
-					]
-				);
+			foreach ( $this->get_supported_post_types() as $post_type ) {
+				register_post_meta( $post_type, $meta_key, $post_meta_args );
 			}
 		}
 	}
@@ -135,14 +126,8 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	private function unregister_meta_fields(): void {
-		foreach ( self::SINGLE_META as $post_type => $meta_keys ) {
-			foreach ( $meta_keys as $meta_key ) {
-				unregister_post_meta( $post_type, $meta_key );
-			}
-		}
-
-		foreach ( self::MULTIPLE_META as $post_type => $meta_keys ) {
-			foreach ( $meta_keys as $meta_key ) {
+		foreach ( self::META as $meta_key => $args ) {
+			foreach ( $this->get_supported_post_types() as $post_type ) {
 				unregister_post_meta( $post_type, $meta_key );
 			}
 		}
