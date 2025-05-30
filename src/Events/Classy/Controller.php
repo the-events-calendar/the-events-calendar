@@ -232,4 +232,17 @@ class Controller extends Controller_Contract {
 			->add_to_group( 'tec-classy' )
 			->register();
 	}
+
+	/**
+	 * Returns the list of post types that this controller supports.
+	 *
+	 * @since TBD
+	 *
+	 * @return array<string> The list of supported post types.
+	 */
+	private function get_supported_post_types(): array {
+		return [
+			TEC::POSTTYPE,
+		];
+	}
 }
