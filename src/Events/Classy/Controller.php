@@ -52,7 +52,9 @@ class Controller extends Controller_Contract {
 		'_EventCurrencyPosition' => [],
 		'_EventCurrencySymbol'   => [],
 		'_EventEndDate'          => [],
-		'_EventIsFree'           => [],
+		'_EventIsFree'           => [
+			'type' => 'boolean',
+		],
 		'_EventStartDate'        => [],
 		'_EventTimezone'         => [],
 		'_EventURL'              => [],
