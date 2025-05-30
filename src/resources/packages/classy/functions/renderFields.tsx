@@ -28,7 +28,7 @@ export default function renderFields( fields: React.ReactNode | null ) {
 			{ /* Render the fields passed to this function first. */ }
 			{ fields }
 
-			{/* Portal-render the fields into the Classy form. */ }
+			{ /* Portal-render the fields into the Classy form. */ }
 			<Fill name="tec.classy.fields">
 				<PostTitle
 					title={ _x( 'Event Title', 'The title of the event title field.', 'the-events-calendar' ) }
