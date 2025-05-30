@@ -63,7 +63,7 @@ tribe.events.admin.categoryColors = {};
 	const updatePreviewTextImmediate = element => {
 		if (!element) return;
 		const $tagInput = $(element);
-		const $container = $tagInput.closest('form, .inline-edit-row');
+		const $container = $tagInput.closest('.tec-events-category-colors__wrap, form, .inline-edit-row');
 		const $previewText = $container.find(selectors.previewText);
 		const defaultText = $previewText.data('default-text') || '';
 		const tagValue = $tagInput.val().trim();
@@ -86,23 +86,27 @@ tribe.events.admin.categoryColors = {};
 		});
 	};
 
+	// === DRY: Centralized Color Picker Setup ===
+	const setupColorPicker = $input => {
+		if ($input.prop('disabled') || $input.prop('readonly')) return;
+		if (isColorPickerInitialized($input)) return;
+		$input.wpColorPicker({
+			change: function() { updateClosestPreview($input); },
+			clear: function() { updateClosestPreview($input); }
+		});
+	};
+
 	// === Initialization Methods ===
 	const initColorPicker = $scope => {
 		getColorInputs($scope).filter(':visible').each(function() {
-			const $input = $(this);
-			if ($input.prop('disabled') || $input.prop('readonly')) return;
-			if (isColorPickerInitialized($input)) return;
-			$input.wpColorPicker({
-				change: function() { updateClosestPreview($input); },
-				clear: function() { updateClosestPreview($input); }
-			});
+			setupColorPicker($(this));
 		});
 	};
 
 	const initializePreviews = $scope => {
 		$scope.find(selectors.tagName).each(function() {
 			if ($(this).prop('disabled') || $(this).prop('readonly')) return;
-			updatePreviewText(this);
+			updatePreviewTextImmediate(this);
 		});
 		getColorInputs($scope).each(function() {
 			const $input = $(this);
@@ -115,35 +119,34 @@ tribe.events.admin.categoryColors = {};
 	const reInitQuickEditColorPickers = $quickEditRow => {
 		['primary', 'secondary', 'text'].forEach(colorType => {
 			const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
-			if (!$input.length || $input.prop('disabled') || $input.prop('readonly')) return;
-			if (!isColorPickerInitialized($input)) {
-				$input.wpColorPicker({
-					change: function() { updateClosestPreview($input); },
-					clear: function() { updateClosestPreview($input); }
-				});
-			}
+			if (!$input.length) return;
+			setupColorPicker($input);
 			// Always update preview after setting value
 			updateClosestPreview($input);
 		});
-		// Hide all pickers except the currently focused one
+		// Hide all pickers except the currently focused one (scoped to this row)
 		const $focusedPicker = $quickEditRow.find(selectors.irisPicker+':visible');
 		$quickEditRow.find(selectors.irisPicker+':visible').not($focusedPicker).hide();
 	};
 
 	// === Event Bindings ===
 	const bindEvents = () => {
+		// Live update preview on color input
 		$document.on('input', selectors.colorInput, function() {
 			if ($(this).prop('disabled') || $(this).prop('readonly')) return;
 			updateClosestPreview($(this));
 		});
+		// Debounced update of preview text on tag name input
 		$document.on('input change', selectors.tagName, function(e) {
 			if ($(e.target).prop('disabled') || $(e.target).prop('readonly')) return;
 			updatePreviewText(e.target);
 		});
+		// Ensure only one picker is open at a time when clicking swatch or input
 		$document.on('mousedown', '.wp-color-result, .tec-events-category-colors__input.wp-color-picker', function (e) {
 			const $container = $(this).closest('.wp-picker-container');
 			$('.iris-picker:visible').not($container.find('.iris-picker')).hide();
 		});
+		// Quick Edit: re-initialize color pickers and update fields
 		$document.on('click', selectors.quickEditButton, function() {
 			const $quickEditRow = $(selectors.quickEditRow);
 			const $parentTr = $(this).closest('tr');
@@ -166,12 +169,13 @@ tribe.events.admin.categoryColors = {};
 				}
 			});
 			reInitQuickEditColorPickers($quickEditRow);
-			observeIrisPickers();
+			observeIrisPickers($quickEditRow); // Ensure new pickers in this row are observed
 			$quickEditRow.find(selectors.priorityField).val(data.priority);
 			$quickEditRow.find(selectors.hideFromLegendField).prop('checked', !!data.hide_from_legend);
 			const $tagInput = $quickEditRow.find(selectors.tagName);
 			if ($tagInput.length && !$tagInput.prop('disabled') && !$tagInput.prop('readonly')) updatePreviewText($tagInput[0]);
 		});
+		// Hide all pickers when clicking outside any picker/input/swatch
 		$document.on('mousedown', function(e) {
 			const $target = $(e.target);
 			const isInsidePicker = $target.closest('.iris-picker, .wp-color-result, .tec-events-category-colors__input.wp-color-picker, .wp-picker-container').length > 0;
@@ -193,16 +197,18 @@ tribe.events.admin.categoryColors = {};
 	$document.ready(ready);
 
 	// === Mutation Observer for Iris Pickers ===
-	const observeIrisPickers = () => {
+	const observeIrisPickers = ($scope = $('body')) => {
 		if (irisObserverInitialized) return;
 		irisObserverInitialized = true;
 		irisObserver = new MutationObserver(() => {
-			const $allVisible = $('.iris-picker:visible');
+			// Only target iris pickers within TEC color picker containers
+			const $allVisible = $scope.find('.tec-events-category-colors__wrap .iris-picker:visible, .inline-edit-row .iris-picker:visible');
 			if ($allVisible.length > 1) {
 				$allVisible.slice(0, -1).hide();
 			}
 		});
-		$('.iris-picker').each(function() {
+		// Only observe iris pickers within TEC containers
+		$scope.find('.tec-events-category-colors__wrap .iris-picker, .inline-edit-row .iris-picker').each(function() {
 			if (!$(this).data('tec-observed')) {
 				irisObserver.observe(this, { attributes: true, attributeFilter: ['style'] });
 				$(this).data('tec-observed', true);
