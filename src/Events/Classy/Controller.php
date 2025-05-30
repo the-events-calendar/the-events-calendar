@@ -9,10 +9,10 @@
 
 namespace TEC\Events\Classy;
 
+use TEC\Common\Classy\Controller as Common_Controller;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
 use Tribe__Events__Main as TEC;
-use TEC\Common\Classy\Controller as Common_Controller;
 
 /**
  * Class Controller.
