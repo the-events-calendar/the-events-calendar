@@ -46,8 +46,21 @@ tribe.events.admin.categoryColors = {};
 	const isColorPickerInitialized = $input => $input.hasClass('wp-color-picker-initialized');
 	const getColorInputs = $scope => $scope.find(selectors.colorInput);
 
+	// === Iris Picker Observer State ===
+	let irisObserverInitialized = false;
+	let irisObserver = null;
+
+	// === Debounce Helper ===
+	const debounce = (fn, delay) => {
+		let timer = null;
+		return function(...args) {
+			clearTimeout(timer);
+			timer = setTimeout(() => fn.apply(this, args), delay);
+		};
+	};
+
 	// === UI Rendering ===
-	const updatePreviewText = element => {
+	const updatePreviewTextImmediate = element => {
 		if (!element) return;
 		const $tagInput = $(element);
 		const $container = $tagInput.closest('form, .inline-edit-row');
@@ -56,23 +69,28 @@ tribe.events.admin.categoryColors = {};
 		const tagValue = $tagInput.val().trim();
 		$previewText.text(tagValue.length ? tagValue : defaultText);
 	};
+	const updatePreviewText = debounce(updatePreviewTextImmediate, 100);
 
 	const updateClosestPreview = $input => {
-		const $container = $input.closest(selectors.colorContainer);
-		const primaryColor = $container.find(selectors.primaryColor).val() || 'transparent';
-		const backgroundColor = $container.find(selectors.backgroundColor).val() || 'transparent';
-		const fontColor = $container.find(selectors.fontColor).val() || 'inherit';
-		$container.find(selectors.preview).css({
-			'border-left': `5px solid ${primaryColor}`,
-			'background-color': backgroundColor,
+		if (!$input || $input.prop('disabled') || $input.prop('readonly')) return;
+		requestAnimationFrame(() => {
+			const $container = $input.closest(selectors.colorContainer);
+			const primaryColor = $container.find(selectors.primaryColor).val() || 'transparent';
+			const backgroundColor = $container.find(selectors.backgroundColor).val() || 'transparent';
+			const fontColor = $container.find(selectors.fontColor).val() || 'inherit';
+			$container.find(selectors.preview).css({
+				'border-left': `5px solid ${primaryColor}`,
+				'background-color': backgroundColor,
+			});
+			$container.find(selectors.previewText).css({ color: fontColor });
 		});
-		$container.find(selectors.previewText).css({ color: fontColor });
 	};
 
 	// === Initialization Methods ===
 	const initColorPicker = $scope => {
 		getColorInputs($scope).filter(':visible').each(function() {
 			const $input = $(this);
+			if ($input.prop('disabled') || $input.prop('readonly')) return;
 			if (isColorPickerInitialized($input)) return;
 			$input.wpColorPicker({
 				change: function() { updateClosestPreview($input); },
@@ -82,15 +100,22 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	const initializePreviews = $scope => {
-		$scope.find(selectors.tagName).each(function() { updatePreviewText(this); });
-		getColorInputs($scope).each(function() { updateClosestPreview($(this)); });
+		$scope.find(selectors.tagName).each(function() {
+			if ($(this).prop('disabled') || $(this).prop('readonly')) return;
+			updatePreviewText(this);
+		});
+		getColorInputs($scope).each(function() {
+			const $input = $(this);
+			if ($input.prop('disabled') || $input.prop('readonly')) return;
+			updateClosestPreview($input);
+		});
 	};
 
 	// === Quick Edit Rehydration ===
 	const reInitQuickEditColorPickers = $quickEditRow => {
 		['primary', 'secondary', 'text'].forEach(colorType => {
 			const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
-			if (!$input.length) return;
+			if (!$input.length || $input.prop('disabled') || $input.prop('readonly')) return;
 			if (!isColorPickerInitialized($input)) {
 				$input.wpColorPicker({
 					change: function() { updateClosestPreview($input); },
@@ -107,9 +132,15 @@ tribe.events.admin.categoryColors = {};
 
 	// === Event Bindings ===
 	const bindEvents = () => {
-		$document.on('input', selectors.colorInput, function() { updateClosestPreview($(this)); });
-		$document.on('input change', selectors.tagName, e => { updatePreviewText(e.target); });
-		$document.on('click', '.wp-color-result, .tec-events-category-colors__input.wp-color-picker', function (e) {
+		$document.on('input', selectors.colorInput, function() {
+			if ($(this).prop('disabled') || $(this).prop('readonly')) return;
+			updateClosestPreview($(this));
+		});
+		$document.on('input change', selectors.tagName, function(e) {
+			if ($(e.target).prop('disabled') || $(e.target).prop('readonly')) return;
+			updatePreviewText(e.target);
+		});
+		$document.on('mousedown', '.wp-color-result, .tec-events-category-colors__input.wp-color-picker', function (e) {
 			const $container = $(this).closest('.wp-picker-container');
 			$('.iris-picker:visible').not($container.find('.iris-picker')).hide();
 		});
@@ -128,7 +159,7 @@ tribe.events.admin.categoryColors = {};
 			};
 			['primary', 'secondary', 'text'].forEach(colorType => {
 				const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
-				if ($input.length) {
+				if ($input.length && !$input.prop('disabled') && !$input.prop('readonly')) {
 					$input.val(colors[colorType]);
 					// Always update preview after setting value
 					updateClosestPreview($input);
@@ -139,7 +170,14 @@ tribe.events.admin.categoryColors = {};
 			$quickEditRow.find(selectors.priorityField).val(data.priority);
 			$quickEditRow.find(selectors.hideFromLegendField).prop('checked', !!data.hide_from_legend);
 			const $tagInput = $quickEditRow.find(selectors.tagName);
-			if ($tagInput.length) updatePreviewText($tagInput[0]);
+			if ($tagInput.length && !$tagInput.prop('disabled') && !$tagInput.prop('readonly')) updatePreviewText($tagInput[0]);
+		});
+		$document.on('mousedown', function(e) {
+			const $target = $(e.target);
+			const isInsidePicker = $target.closest('.iris-picker, .wp-color-result, .tec-events-category-colors__input.wp-color-picker, .wp-picker-container').length > 0;
+			if (!isInsidePicker) {
+				$('.iris-picker:visible').hide();
+			}
 		});
 	};
 
@@ -155,21 +193,18 @@ tribe.events.admin.categoryColors = {};
 	$document.ready(ready);
 
 	// === Mutation Observer for Iris Pickers ===
-	let irisObserverInitialized = false;
 	const observeIrisPickers = () => {
 		if (irisObserverInitialized) return;
 		irisObserverInitialized = true;
-		const observer = new MutationObserver(() => {
+		irisObserver = new MutationObserver(() => {
 			const $allVisible = $('.iris-picker:visible');
 			if ($allVisible.length > 1) {
-				// Only keep the last opened visible
 				$allVisible.slice(0, -1).hide();
 			}
 		});
 		$('.iris-picker').each(function() {
-			// Prevent double-observing
 			if (!$(this).data('tec-observed')) {
-				observer.observe(this, { attributes: true, attributeFilter: ['style'] });
+				irisObserver.observe(this, { attributes: true, attributeFilter: ['style'] });
 				$(this).data('tec-observed', true);
 			}
 		});
