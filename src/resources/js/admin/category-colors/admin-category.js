@@ -96,9 +96,6 @@ tribe.events.admin.categoryColors = {};
 					change: function() { updateClosestPreview($input); },
 					clear: function() { updateClosestPreview($input); }
 				});
-				if (window.__TEC_DEV_MODE__) {
-					console.debug('[TEC] Initialized color picker (Quick Edit):', $input.attr('name'));
-				}
 			}
 			// Always update preview after setting value
 			updateClosestPreview($input);
@@ -158,7 +155,10 @@ tribe.events.admin.categoryColors = {};
 	$document.ready(ready);
 
 	// === Mutation Observer for Iris Pickers ===
+	let irisObserverInitialized = false;
 	const observeIrisPickers = () => {
+		if (irisObserverInitialized) return;
+		irisObserverInitialized = true;
 		const observer = new MutationObserver(() => {
 			const $allVisible = $('.iris-picker:visible');
 			if ($allVisible.length > 1) {
