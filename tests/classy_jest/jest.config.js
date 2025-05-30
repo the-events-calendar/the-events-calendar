@@ -27,6 +27,6 @@ module.exports = {
 	moduleFileExtensions: [ 'ts', 'tsx', 'js', 'jsx' ],
 	snapshotSerializers: [ '@emotion/jest/serializer' ],
 	moduleNameMapper: {
-		"@tec/common/(.*)$": "../../../common/src/resources/packages/$1"
-	}
+		'@tec/common/(.*)$': '../../../common/src/resources/packages/$1',
+	},
 };
