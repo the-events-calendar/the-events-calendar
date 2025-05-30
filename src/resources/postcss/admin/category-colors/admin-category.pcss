@@ -1,3 +1,5 @@
+@import "../../utilities/_all.pcss";
+
 .table-view-list.tags {
 	.fixed .column-category_priority {
 		width: 75px;
@@ -11,8 +13,8 @@
 			border-radius: var(--tec-border-radius-default);
 			display: inline-block;
 			width: 20px;
-			background-color: var(--tec-color-category-primary);
-			border: 3px solid var(--tec-color-category-secondary);
+			background-color: var(--tec-color-category-secondary);
+			border: 3px solid var(--tec-color-category-primary);
 		}
 	}
 }
@@ -20,20 +22,25 @@
 /** Quick Edit section **/
 .inline-edit-row {
 	.tec-events-category-colors__wrap {
-		line-height: var(--tec-line-height-normal);
+		line-height: var(--tec-line-height-0);
 		padding-right: var(--tec-spacer-2);
 
 		label {
-			line-height: var(--tec-line-height-normal);
+			line-height: var(--tec-line-height-0);
 			margin: 0;
 			padding: var(--tec-spacer-0) 0;
 		}
 	}
 }
 
+.tec-events-category-colors__field {
+	margin-bottom: var(--tec-spacer-5);
+}
+
 .tec-events-category-colors {
+
 	&__wrap {
-		line-height: var(--tec-line-height-normal);
+		line-height: var(--tec-line-height-0);
 
 		.tec-events-category-colors__container {
 			container-type: inline-size;
@@ -45,7 +52,7 @@
 			display: grid;
 			grid-template-columns: 1fr;
 			grid-template-rows: repeat(4, auto);
-			gap: var(--tec-spacer-3);
+			gap: var(--tec-spacer-5);
 			grid-template-areas:
 				"color-picker-1"
 				"color-picker-2"
