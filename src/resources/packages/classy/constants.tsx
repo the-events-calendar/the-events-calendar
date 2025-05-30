@@ -1,7 +1,14 @@
 // Post types.
 export const POST_TYPE_EVENT = 'tribe_events';
 
-// Meta keys.
+/**
+ * Metadata keys for the Classy editor.
+ *
+ * These keys are used to store event-related metadata in the WordPress editor.
+ *
+ * Note that for these keys to be saved correctly, they must be ALSO be registered
+ * in the \TEC\Events\Classy\Controller::META array.
+ */
 export const METADATA_EVENT_ALLDAY = '_EventAllDay';
 export const METADATA_EVENT_COST = '_EventCost';
 export const METADATA_EVENT_CURRENCY_POSITION = '_EventCurrencyPosition';
