@@ -12,6 +12,7 @@ namespace TEC\Events\Classy;
 use TEC\Common\Classy\Controller as Common_Controller;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
+use TEC\Events\Traits\Can_Edit_Events;
 use Tribe__Events__Main as TEC;
 
 /**
@@ -22,6 +23,9 @@ use Tribe__Events__Main as TEC;
  * @package TEC\Events\Classy;
  */
 class Controller extends Controller_Contract {
+
+	use Can_Edit_Events;
+
 	/**
 	 * The list of event meta keys to be registered.
 	 *
@@ -109,7 +113,7 @@ class Controller extends Controller_Contract {
 				'show_in_rest'  => true,
 				'single'        => $args['single'] ?? true,
 				'type'          => $args['type'] ?? 'string',
-				'auth_callback' => static fn() => current_user_can( 'edit_posts' ),
+				'auth_callback' => fn() => $this->current_user_can_edit_events(),
 			];
 
 			foreach ( $this->get_supported_post_types() as $post_type ) {
