@@ -18,7 +18,9 @@ tribe.events.admin.categoryColors = {};
 (($, obj) => {
 	'use strict';
 
-	let $document = $(document);
+	const $document = $(document);
+	let activePicker = null;
+	let isOpening = false;
 
 	/**
 	 * Determines if the current page is the add or edit category page.
@@ -129,15 +131,47 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
+	 * Closes any open color picker.
+	 *
+	 * @since TBD
+	 */
+	obj.closeActivePicker = () => {
+		if (activePicker) {
+			activePicker.iris('hide');
+			activePicker = null;
+		}
+	};
+
+	/**
 	 * Initializes the WordPress Color Picker on visible inputs.
 	 *
 	 * @since TBD
 	 */
 	obj.initColorPicker = () => {
-		$(obj.selectors.colorInput).filter(':visible').wpColorPicker({
-												change: obj.colorPickerChange,
-												clear: obj.colorPickerChange,
-												});
+		$(obj.selectors.colorInput).filter(':visible').each(function() {
+			const $input = $(this);
+			
+			// Initialize wpColorPicker with custom options
+			$input.wpColorPicker({
+				change: function(event, ui) {
+					obj.colorPickerChange.call(this);
+					activePicker = $input;
+				},
+				clear: function() {
+					obj.colorPickerChange.call(this);
+					activePicker = null;
+				}
+			});
+
+			// Add click handler to close other pickers
+			$input.on('click', function(e) {
+				e.stopPropagation();
+				if (activePicker && activePicker[0] !== this) {
+					obj.closeActivePicker();
+				}
+				activePicker = $input;
+			});
+		});
 
 		obj.initializePreviews();
 	};
@@ -181,8 +215,9 @@ tribe.events.admin.categoryColors = {};
 	 * @since TBD
 	 */
 	obj.reInitColorPickerOnQuickEdit = () => {
-		$document.on('click', obj.selectors.quickEditButton, function () {
+		$document.on('click', obj.selectors.quickEditButton, function() {
 			obj.cleanupColorPickers();
+			obj.closeActivePicker();
 
 			const $quickEditRow = $(obj.selectors.quickEditRow);
 			if (!$quickEditRow.length) return;
@@ -196,40 +231,46 @@ tribe.events.admin.categoryColors = {};
 				text: $colorPreview.data('text') || '',
 			};
 
-			const data ={
+			const data = {
 				priority: $colorPreview.data('priority') || '',
 				hide_from_legend: $colorPreview.data('hidden') || '',
+			};
+
+			// Initialize color pickers immediately without setTimeout
+			['primary', 'secondary', 'text'].forEach(colorType => {
+				const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
+				if (!$input.length) return;
+
+				$input.val(colors[colorType]);
+				// Only initialize if not already initialized
+				if (!$input.hasClass('wp-color-picker-initialized')) {
+					$input.wpColorPicker({
+						change: obj.colorPickerChange,
+						clear: obj.colorPickerChange
+					});
+				}
+				obj.updateClosestPreview($input);
+			});
+
+			// After initializing, forcibly close all pickers in the row
+			$quickEditRow.find('.iris-picker').hide().removeClass('iris-visible');
+			activePicker = null;
+
+			// Populate other fields
+			const $priorityInput = $quickEditRow.find(obj.selectors.priorityField);
+			if ($priorityInput.length) {
+				$priorityInput.val(data.priority);
 			}
 
-			setTimeout(() => {
-				['primary', 'secondary', 'text'].forEach(colorType => {
-					const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
-					if (!$input.length) return;
+			const $hideLegendCheckbox = $quickEditRow.find(obj.selectors.hideFromLegendField);
+			if ($hideLegendCheckbox.length) {
+				$hideLegendCheckbox.prop('checked', !!data.hide_from_legend);
+			}
 
-					$input.val(colors[colorType]).wpColorPicker({
-												change: obj.colorPickerChange,
-												clear: obj.colorPickerChange,
-												});
-					obj.updateClosestPreview($input);
-				});
-
-				// Populate priority field
-				const $priorityInput = $quickEditRow.find(obj.selectors.priorityField);
-				if ($priorityInput.length) {
-					$priorityInput.val(data.priority);
-				}
-
-				// Populate "Hide from legend" checkbox
-				const $hideLegendCheckbox = $quickEditRow.find( obj.selectors.hideFromLegendField );
-				if ($hideLegendCheckbox.length) {
-					$hideLegendCheckbox.prop('checked', !!data.hide_from_legend);
-				}
-
-				const $tagInput = $quickEditRow.find(obj.selectors.tagName);
-				if ($tagInput.length) {
-					obj.updatePreviewText($tagInput[0]);
-				}
-			}, 25);
+			const $tagInput = $quickEditRow.find(obj.selectors.tagName);
+			if ($tagInput.length) {
+				obj.updatePreviewText($tagInput[0]);
+			}
 		});
 	};
 
@@ -474,19 +515,18 @@ tribe.events.admin.categoryColors = {};
 	 * @since TBD
 	 */
 	obj.closeColorPicker = () => {
-		$document.on(
-			'click',
-			( event ) => {
-				// If the click is NOT inside the color picker, input, or the color picker container, hide it.
-				if ( ! $( event.target ).closest(
-					`${ obj.selectors.colorInput },
-						${ obj.selectors.wpPickerContainer },
-						${ obj.selectors.irisPicker }` )
-					.length ) {
-					$( obj.selectors.irisPicker ).fadeOut();
-				}
+		$document.on('click', (event) => {
+			const $target = $(event.target);
+			const isPickerElement = $target.closest(
+				`${obj.selectors.colorInput}, 
+				${obj.selectors.wpPickerContainer}, 
+				${obj.selectors.irisPicker}`
+			).length > 0;
+
+			if (!isPickerElement) {
+				obj.closeActivePicker();
 			}
-		);
+		});
 	};
 
 	/**
@@ -505,5 +545,15 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	$document.ready(obj.ready);
+
+	// Only keep the single, minimal .wp-color-result click handler that closes all other pickers before letting WordPress open the clicked one
+	$(document).on('click', '.wp-color-result', function (e) {
+		const $currentInput = $(this).siblings('input.wp-color-picker');
+		// Close all other pickers except the one for this input
+		$('.iris-picker:visible').not(
+			$currentInput.closest('.wp-picker-container').find('.iris-picker')
+		).hide();
+		// Let WordPress handle opening the picker for this input
+	});
 
 })(jQuery, tribe.events.admin.categoryColors);
