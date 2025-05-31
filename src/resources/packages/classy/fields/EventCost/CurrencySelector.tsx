@@ -1,12 +1,69 @@
-import React from 'react';
-import { _x } from '@wordpress/i18n';
-import { __experimentalInputControl as InputControl } from '@wordpress/components';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { __, _x } from '@wordpress/i18n';
+import {
+	Button,
+	SelectControl,
+	ToggleControl
+} from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
-import { METADATA_EVENT_CURRENCY_SYMBOL } from '../../constants';
+import {
+	METADATA_EVENT_CURRENCY,
+	METADATA_EVENT_CURRENCY_POSITION,
+	METADATA_EVENT_CURRENCY_SYMBOL
+} from '../../constants';
 
-export default function CurrencySelector( props: FieldProps ) {
+type CurrencySelectorProps = {
+	/**
+	 * The title of the currency selector field.
+	 */
+	title?: string;
+};
+
+type CurrencyProps = {
+	symbol: string;
+	currency: string;
+	position: 'before' | 'after';
+};
+
+// todo: Replace with API call to fetch available currencies.
+const Currencies: CurrencyProps[] = [
+	{ symbol: '$', currency: 'USD', position: 'before' },
+	{ symbol: '€', currency: 'EUR', position: 'before' },
+	{ symbol: '£', currency: 'GBP', position: 'before' },
+	{ symbol: '¥', currency: 'JPY', position: 'before' },
+	{ symbol: '₹', currency: 'INR', position: 'before' },
+];
+
+type CurrencySelectOption = {
+	key: string;
+	value: string;
+	label: string;
+}
+
+const currencyDefaultOption: CurrencySelectOption = {
+	key: '0',
+	label: _x(
+		'Default site currency',
+		'Default option for the currency selector',
+		'the-events-calendar'
+	),
+	value: 'default',
+}
+
+const buildOptionFromCurrency = ( currency: CurrencyProps ): CurrencySelectOption => {
+	return {
+		key: currency.currency,
+		label: `${ currency.symbol } ${ currency.currency }`,
+		value: currency.currency,
+	};
+}
+
+const mapCurrenciesToOptions = ( currencies: CurrencyProps[] ): CurrencySelectOption[] => {
+	return currencies.map( buildOptionFromCurrency );
+}
+
+export default function CurrencySelector( props: CurrencySelectorProps ) {
+
 	const { meta } = useSelect( ( select ) => {
 		const selector = select( 'core/editor' );
 		return {
@@ -14,39 +71,158 @@ export default function CurrencySelector( props: FieldProps ) {
 			meta: selector.getEditedPostAttribute( 'meta' ) || {},
 		};
 	}, [] );
-	const { editPost } = useDispatch( 'core/editor' );
-	const eventCurrencyMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || '';
 
-	const [ currencyValue, setCurrencyValue ] = useState< string >( eventCurrencyMeta );
+	const { editPost } = useDispatch( 'core/editor' );
+
+	// todo: Replace with API call to fetch default currency.
+	const defaultCurrency: string = 'USD';
+	const defaultCurrencySymbol: string = '$';
+
+	const eventCurrencyMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency;
+	const [ eventCurrency, setEventCurrency ] = useState<string>( eventCurrencyMeta );
+
+	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrencySymbol;
+	const [ currencySymbol, setCurrencySymbol ] = useState<string>( eventCurrencySymbolMeta );
+
+	const eventCurrencyPosition: 'before' | 'after' = meta[ METADATA_EVENT_CURRENCY_POSITION ] || Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position || 'before';
+	const [ currencyPosition, setCurrencyPosition ] = useState<'before' | 'after'>( eventCurrencyPosition );
 
 	useEffect( () => {
-		setCurrencyValue( eventCurrencyMeta );
+		setEventCurrency( eventCurrencyMeta );
 	}, [ eventCurrencyMeta ] );
 
+	useEffect( () => {
+		setCurrencyPosition( eventCurrencyPosition );
+	}, [ eventCurrencyPosition ] );
+
+	useEffect( () => {
+		setCurrencySymbol( eventCurrencySymbolMeta );
+	}, [ eventCurrencySymbolMeta ] );
+
 	const onCurrencyChange = ( nextValue: string | undefined ): void => {
-		setCurrencyValue( nextValue ?? '' );
-		editPost( { meta: { [ METADATA_EVENT_CURRENCY_SYMBOL ]: nextValue } } );
+		const selectedCurrency: CurrencyProps = Currencies.find( ( currency ) => currency.currency === nextValue );
+		if ( ! selectedCurrency || nextValue === 'default' ) {
+			setEventCurrency( defaultCurrency );
+			setCurrencySymbol( defaultCurrencySymbol );
+			setCurrencyPosition( 'before' );
+			editPost( {
+				meta: {
+					[ METADATA_EVENT_CURRENCY ]: defaultCurrency,
+					[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrencySymbol,
+					[ METADATA_EVENT_CURRENCY_POSITION ]: 'before'
+				}
+			} );
+			return;
+		}
+
+		setEventCurrency( selectedCurrency.currency );
+		setCurrencySymbol( selectedCurrency.symbol );
+		setCurrencyPosition( selectedCurrency.position );
+		editPost( {
+			meta: {
+				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.currency,
+				[ METADATA_EVENT_CURRENCY_SYMBOL ]: selectedCurrency.symbol,
+				[ METADATA_EVENT_CURRENCY_POSITION ]: selectedCurrency.position
+			}
+		} );
 	};
 
-	return (
-		<div className="classy-field classy-field--event-cost">
-			<div className="classy-field__title">
-				<h3>{ props.title }</h3>
-			</div>
+	useEffect( () => {
+		setCurrencySymbol( eventCurrencySymbolMeta );
+	}, [ eventCurrencySymbolMeta ] );
 
-			<div className="classy-field__inputs">
+	const onCurrencyPositionChange = ( nextValue: boolean ): void => {
+		const newPosition = nextValue ? 'before' : 'after';
+		setCurrencyPosition( newPosition );
+		editPost( { meta: { [ METADATA_EVENT_CURRENCY_POSITION ]: newPosition } } );
+	}
+
+	const [ isSelectingCurrency, setIsSelectingCurrency ] = useState<boolean>( false );
+
+	const onCurrencyClick = (): void => {
+		setIsSelectingCurrency( ! isSelectingCurrency );
+	};
+
+	const renderCurrency = (): string => {
+		if ( ! currencySymbol || ! eventCurrency ) {
+			return '';
+		}
+
+		if ( currencyPosition === 'before' ) {
+			return `${ currencySymbol }${ eventCurrency }`;
+		}
+
+		return `${ eventCurrency }${ currencySymbol }`;
+	};
+
+	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( Currencies ) ];
+
+
+	return (
+		<div className="classy-field classy-field--currency-selector">
+
+			<Button
+				variant="link"
+				onClick={ onCurrencyClick }
+			>
+				{ renderCurrency() }
+			</Button>
+
+			{ isSelectingCurrency && (
 				<div className="classy-field__input">
-					<InputControl
-						label={ _x(
-							'Event Currency',
-							'Event currency input label',
+					<div className="classy-field__input-title">
+						<h4>
+							{ _x(
+								'Currency',
+								'Event currency selector title',
+								'the-events-calendar'
+							) }
+						</h4>
+					</div>
+					<div className="classy-field__input-close">
+						<Button
+							variant="link"
+							onClick={ onCurrencyClick }
+						>
+							{ _x(
+								'X',
+								'Close the currency selector',
+								'the-events-calendar'
+							) }
+						</Button>
+					</div>
+
+					<p>
+						{ __(
+							'Choose a different currency than your default for this event.',
 							'the-events-calendar'
 						) }
-						value={ currencyValue }
+					</p>
+
+					<SelectControl
+						label={ _x(
+							'Currency',
+							'Event currency selector label',
+							'the-events-calendar'
+						) }
+						value={ eventCurrency }
 						onChange={ onCurrencyChange }
+						options={ currencyOptions }
+						__nextHasNoMarginBottom={ true }
+						__next40pxDefaultSize={ true }
 					/>
+
+					<ToggleControl
+						label={ _x(
+							'Currency symbol precedes price',
+							'Event currency position toggle label',
+							'the-events-calendar'
+						) }
+						checked={ currencyPosition === 'before' }
+						onChange={ onCurrencyPositionChange }
+						/>
 				</div>
-			</div>
+			) }
 		</div>
 	);
 }
