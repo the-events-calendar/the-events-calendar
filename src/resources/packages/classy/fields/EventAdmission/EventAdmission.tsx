@@ -57,13 +57,7 @@ export default function EventAdmission( props: FieldProps ) {
 				</div>
 
 				<div className="classy-field__inputs-section classy-field__inputs-section--row">
-					<EventCost
-						title={ _x(
-							'Event Cost',
-							'Event admission cost field title',
-							'the-events-calendar'
-						) }
-					/>
+					<EventCost />
 				</div>
 			</div>
 		</div>
