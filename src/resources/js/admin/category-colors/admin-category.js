@@ -264,6 +264,27 @@ tribe.events.admin.categoryColors = {};
 			const $quickEditRow = $(this).closest(selectors.quickEditRow);
 			destroyColorPickers($quickEditRow);
 		});
+		// Ensure only one picker is open at a time when focusing or mousedown on color inputs or swatches
+		$document.on('focus mousedown', selectors.colorInput + ', .wp-color-result', function (e) {
+			// Find the input being interacted with
+			const $currentInput = $(this).is(selectors.colorInput)
+				? $(this)
+				: $(this).siblings(selectors.colorInput);
+
+			// Close all other color pickers
+			$(selectors.colorInput).not($currentInput).each(function () {
+				if ($(this).hasClass('wp-color-picker-initialized')) {
+					$(this).wpColorPicker('close');
+				}
+			});
+
+			// Hide all other visible Iris pickers
+			$('.iris-picker:visible').each(function () {
+				if (!$(this).closest('.wp-picker-container').find(selectors.colorInput).is($currentInput)) {
+					$(this).hide();
+				}
+			});
+		});
 	};
 
 	// === Initialization ===
