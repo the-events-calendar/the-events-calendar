@@ -52,16 +52,18 @@ export default function EventCost() {
 		<Fragment>
 			<div className="classy-field__group">
 				<div className="classy-field__input classy-field__input--unit">
-					<InputControl
-						label={
-							<span className="classy-field__input-title">
-								{ _x( 'Event cost', 'Event cost input title', 'the-events-calendar' ) }
-							</span>
-						}
-						value={ eventCostValue }
-						onChange={ onCostChange }
-						disabled={ isFree }
-					/>
+					<div className="classy-field__control classy-field__control--input">
+						<InputControl
+							label={
+								<span className="classy-field__input-title">
+									{ _x( 'Event cost', 'Event cost input title', 'the-events-calendar' ) }
+								</span>
+							}
+							value={ eventCostValue }
+							onChange={ onCostChange }
+							disabled={ isFree }
+						/>
+					</div>
 				</div>
 
 				<div className="classy-field__input classy-field__input--height-100">
