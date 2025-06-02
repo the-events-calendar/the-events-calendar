@@ -1,9 +1,10 @@
 import { select } from '@tec/common/classy/store';
 import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 import { EventMeta } from '../types/EventMeta';
-import { Settings } from '../../../../../common/src/resources/packages/classy/types/LocalizedData';
+import { Settings } from '@tec/common/classy/types/LocalizedData';
 import { getDate } from '@wordpress/date';
 import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
+import { StoreState } from '../types/StoreState';
 
 /**
  * Returns the event date and time details, read from its meta. If the meta is not set,
@@ -89,4 +90,17 @@ export function getEditedPostVenueIds(): number[] {
 	);
 
 	return ids;
+}
+
+/**
+ * Returns whether tickets are supported.
+ *
+ * The initial value is read from the localized setting.
+ *
+ * @param {StoreState} state The store state.
+ *
+ * @return {boolean} Whether tickets are supported.
+ */
+export function areTicketsSupported( state: StoreState ): boolean {
+	return state?.areTicketsSupported || false;
 }

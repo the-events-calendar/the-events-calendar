@@ -1,7 +1,7 @@
 const path = require('path');
 
 /**
- * The d@tec/common/classy/typesefault configuration coming from the @wordpress/scripts package.
+ * The default @tec/common/classy/types configuration is coming from the @wordpress/scripts package.
  * Customized following the "Advanced Usage" section of the documentation:
  * See: https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/#advanced-usage
  */

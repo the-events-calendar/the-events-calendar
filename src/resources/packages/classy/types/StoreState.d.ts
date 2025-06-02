@@ -1,1 +1,3 @@
-export type StoreState = {};
+export type StoreState = {
+	areTicketsSupported?: boolean;
+};
