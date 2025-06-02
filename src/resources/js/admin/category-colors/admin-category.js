@@ -217,7 +217,16 @@ tribe.events.admin.categoryColors = {};
 					if ($input.length) {
 						$input.val(colors[type]).attr('value', colors[type]);
 						console.log(`[TEC][QuickEdit] Set input for type ${type}: val=${$input.val()}, attr value=${$input[0].getAttribute('value')}`);
-						console.log('[TEC][QuickEdit] Input DOM:', $input[0].outerHTML);
+						// Initialize color picker if not already initialized
+						if (!$input.hasClass('wp-color-picker-initialized')) {
+							console.log(`[TEC][QuickEdit] Initializing color picker for type ${type}`);
+							setupColorPicker($input);
+						}
+						// Force Iris UI to match value
+						if ($input.iris) {
+							$input.iris('color', colors[type]);
+							console.log(`[TEC][QuickEdit] Forced iris color for type ${type} to`, colors[type]);
+						}
 						// Update preview for this input
 						const $container = $input.closest(selectors.colorContainer);
 						const primaryColor = $container.find(selectors.primaryColor).val() || 'transparent';
