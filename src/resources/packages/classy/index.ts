@@ -7,19 +7,12 @@ import { getRegistry } from '@tec/common/classy/store';
 // Hook on the Classy application initialization to add TEC store to the Classy registry.
 // @todo move this to a better place.
 const registerTecStore = () => {
-	( getRegistry() as WPDataRegistry ).registerStore(
-		STORE_NAME,
-		storeConfig
-	);
+	( getRegistry() as WPDataRegistry ).registerStore( STORE_NAME, storeConfig );
 };
 if ( didAction( 'tec.classy.initialized' ) ) {
 	registerTecStore();
 } else {
-	addAction(
-		'tec.classy.initialized',
-		'tec.classy.events',
-		registerTecStore
-	);
+	addAction( 'tec.classy.initialized', 'tec.classy.events', registerTecStore );
 }
 
 // Hook on the Classy fields rendering logic to render the fields.

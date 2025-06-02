@@ -12,20 +12,14 @@ const badBrowserPackages = new Set( [
 
 module.exports = ( path, options ) => {
 	const basedir = options.basedir;
-	const conditions = options.conditions
-		? new Set( options.conditions )
-		: options.conditions;
+	const conditions = options.conditions ? new Set( options.conditions ) : options.conditions;
 
 	// Adjust conditions for certain packages that assume "browser" is esm.
 	const pkg = path
 		.split( '/' )
 		.slice( 0, path.startsWith( '@' ) ? 2 : 1 )
 		.join( '/' );
-	if (
-		conditions &&
-		conditions.has( 'browser' ) &&
-		badBrowserPackages.has( pkg )
-	) {
+	if ( conditions && conditions.has( 'browser' ) && badBrowserPackages.has( pkg ) ) {
 		conditions.delete( 'browser' );
 		conditions.add( 'node' );
 	}

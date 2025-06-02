@@ -1,12 +1,9 @@
-import React from 'react';
+import * as React from 'react';
+import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
-import { IconNew } from '@tec/common/classy/components/Icons';
-import {
-	Button,
-	__experimentalInputControl as InputControl,
-} from '@wordpress/components';
-import { useCallback, useRef, useState } from '@wordpress/element';
-import { OrganizerData } from '../../../../../../common/src/resources/packages/classy/types/OrganizerData';
+import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
+import { IconNew } from '@tec/common/classy/components';
+import { OrganizerData } from '../../types/OrganizerData';
 
 const defaultValues = {
 	name: '',
@@ -30,9 +27,7 @@ export default function OrganizerUpsert( props: {
 	} );
 
 	// At a minimum an Organizers requires a name.
-	const [ confirmEnabled, setConfirmEnabled ] = useState(
-		currentValues.name !== ''
-	);
+	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
 
 	const invokeSaveWithData = useCallback( (): void => {
 		if ( ! confirmEnabled ) {
@@ -53,19 +48,11 @@ export default function OrganizerUpsert( props: {
 	return (
 		<div className="classy-root">
 			<header className="classy-modal__header classy-modal__header--organizer">
-				<NewIcon />
+				<IconNew />
 				<h4 className="classy-modal__header-title">
 					{ isUpdate
-						? _x(
-								'Update Organizer',
-								'Update organizer modal header title',
-								'the-events-calendar'
-						  )
-						: _x(
-								'New Organizer',
-								'Inserti orgnanizer modal header title',
-								'the-events-calendar'
-						  ) }
+						? _x( 'Update Organizer', 'Update organizer modal header title', 'the-events-calendar' )
+						: _x( 'New Organizer', 'Insert organizer modal header title', 'the-events-calendar' ) }
 				</h4>
 			</header>
 
@@ -74,11 +61,7 @@ export default function OrganizerUpsert( props: {
 			<section className="classy-modal__content classy-modal__content--organizer classy-field__inputs classy-field__inputs--unboxed">
 				<InputControl
 					className="classy-field__control classy-field__control--input"
-					label={ _x(
-						'Name',
-						'Name input label',
-						'the-events-calendar'
-					) }
+					label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
 					value={ currentValues.name }
 					onChange={ ( value ) => {
 						const newValue = value || '';
@@ -94,45 +77,27 @@ export default function OrganizerUpsert( props: {
 
 				<InputControl
 					className="classy-field__control classy-field__control--input"
-					label={ _x(
-						'Phone',
-						'Phone input label',
-						'the-events-calendar'
-					) }
+					label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
 					value={ currentValues.phone }
-					onChange={ ( value ) =>
-						setValues( { ...currentValues, phone: value || '' } )
-					}
+					onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
 					type="tel"
 					placeholder=""
 				/>
 
 				<InputControl
 					className="classy-field__control classy-field__control--input"
-					label={ _x(
-						'Website',
-						'Website input label',
-						'the-events-calendar'
-					) }
+					label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
 					value={ currentValues.website }
-					onChange={ ( value ) =>
-						setValues( { ...currentValues, website: value || '' } )
-					}
+					onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
 					type="url"
 					placeholder=""
 				/>
 
 				<InputControl
 					className="classy-field__control classy-field__control--input"
-					label={ _x(
-						'Email',
-						'Email input label',
-						'the-events-calendar'
-					) }
+					label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) }
 					value={ currentValues.email }
-					onChange={ ( value ) =>
-						setValues( { ...currentValues, email: value || '' } )
-					}
+					onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
 					type="email"
 					placeholder=""
 				/>
@@ -147,27 +112,11 @@ export default function OrganizerUpsert( props: {
 						variant="primary"
 					>
 						{ values.id
-							? _x(
-									'Update Organizer',
-									'Update organizer button label',
-									'the-events-calendar'
-							  )
-							: _x(
-									'Create Organizer',
-									'Create organizer button label',
-									'the-events-calendar'
-							  ) }
+							? _x( 'Update Organizer', 'Update organizer button label', 'the-events-calendar' )
+							: _x( 'Create Organizer', 'Create organizer button label', 'the-events-calendar' ) }
 					</Button>
-					<Button
-						className="classy-button"
-						onClick={ onCancel }
-						variant="link"
-					>
-						{ _x(
-							'Cancel',
-							'Cancel button label',
-							'the-events-calendar'
-						) }
+					<Button className="classy-button" onClick={ onCancel } variant="link">
+						{ _x( 'Cancel', 'Cancel button label', 'the-events-calendar' ) }
 					</Button>
 				</div>
 			</footer>

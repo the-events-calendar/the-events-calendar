@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { _x } from '@wordpress/i18n';
 import { __experimentalInputControl as InputControl } from '@wordpress/components';
 import { useEffect, useState } from 'react';
@@ -21,11 +21,8 @@ export default function EventDetails( props: FieldProps ) {
 	const { editPost } = useDispatch( 'core/editor' );
 	const eventUrlMeta: string = meta[ METADATA_EVENT_URL ] || '';
 
-	const [ description, setDescription ] = useState< string >(
-		postContent || ''
-	);
-	const [ eventUrlValue, setEventUrlValue ] =
-		useState< string >( eventUrlMeta );
+	const [ description, setDescription ] = useState< string >( postContent || '' );
+	const [ eventUrlValue, setEventUrlValue ] = useState< string >( eventUrlMeta );
 
 	useEffect( () => {
 		setDescription( postContent );
@@ -54,13 +51,7 @@ export default function EventDetails( props: FieldProps ) {
 			<div className="classy-field__inputs">
 				<div className="classy-field__input">
 					<div className="classy-field__input-title">
-						<h4>
-							{ _x(
-								'Description',
-								'Event details description input title',
-								'the-events-calendar'
-							) }
-						</h4>
+						<h4>{ _x( 'Description', 'Event details description input title', 'the-events-calendar' ) }</h4>
 					</div>
 
 					<div className="classy-field__control classy-field__control--tinymce-editor">
@@ -72,11 +63,7 @@ export default function EventDetails( props: FieldProps ) {
 					</div>
 
 					<div className="classy-field__input-note">
-						{ _x(
-							'Describe your event',
-							'Event description placeholder text',
-							'the-events-calendar'
-						) }
+						{ _x( 'Describe your event', 'Event description placeholder text', 'the-events-calendar' ) }
 					</div>
 				</div>
 
@@ -108,11 +95,7 @@ export default function EventDetails( props: FieldProps ) {
 				<div className="classy-field__input">
 					<div className="classy-field__input-title">
 						<h4>
-							{ _x(
-								'Event website',
-								'Event details website URL input title',
-								'the-events-calendar'
-							) }
+							{ _x( 'Event website', 'Event details website URL input title', 'the-events-calendar' ) }
 						</h4>
 					</div>
 

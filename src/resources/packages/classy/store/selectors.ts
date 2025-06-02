@@ -3,10 +3,7 @@ import { EventDateTimeDetails } from '../types/EventDateTimeDetails';
 import { EventMeta } from '../types/EventMeta';
 import { Settings } from '../../../../../common/src/resources/packages/classy/types/LocalizedData';
 import { getDate } from '@wordpress/date';
-import {
-	METADATA_EVENT_ORGANIZER_ID,
-	METADATA_EVENT_VENUE_ID,
-} from '../constants';
+import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
 
 /**
  * Returns the event date and time details, read from its meta. If the meta is not set,
@@ -18,8 +15,7 @@ import {
  */
 export function getEventDateTimeDetails(): EventDateTimeDetails {
 	// @ts-ignore
-	const meta: EventMeta =
-		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+	const meta: EventMeta = select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
 	// @ts-ignore
 	const settings: Settings = select( 'tec/classy' ).getSettings();
 
@@ -68,12 +64,10 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
  */
 export function getEditedPostOrganizerIds(): number[] {
 	// @ts-ignore
-	const meta: EventMeta =
-		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+	const meta: EventMeta = select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
 
-	const ids = ( meta?.[ METADATA_EVENT_ORGANIZER_ID ] ?? [] ).map(
-		( id: string | number ) =>
-			typeof id === 'string' ? parseInt( id ) : id
+	const ids = ( meta?.[ METADATA_EVENT_ORGANIZER_ID ] ?? [] ).map( ( id: string | number ) =>
+		typeof id === 'string' ? parseInt( id ) : id
 	);
 
 	return ids;
@@ -88,12 +82,10 @@ export function getEditedPostOrganizerIds(): number[] {
  */
 export function getEditedPostVenueIds(): number[] {
 	// @ts-ignore
-	const meta: EventMeta =
-		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+	const meta: EventMeta = select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
 
-	const ids = ( meta?.[ METADATA_EVENT_VENUE_ID ] ?? [] ).map(
-		( id: string | number ) =>
-			typeof id === 'string' ? parseInt( id ) : id
+	const ids = ( meta?.[ METADATA_EVENT_VENUE_ID ] ?? [] ).map( ( id: string | number ) =>
+		typeof id === 'string' ? parseInt( id ) : id
 	);
 
 	return ids;

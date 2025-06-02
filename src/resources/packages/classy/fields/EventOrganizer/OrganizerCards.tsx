@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import OrganizerCard from './OrganizerCard';
 import { FetchedOrganizer } from '../../types/FetchedOrganizer';
 
@@ -10,19 +10,8 @@ export default function OrganizerCards( props: {
 	const { organizers, onEdit, onRemove } = props;
 
 	const cards = organizers.map( ( organizer: FetchedOrganizer ) => {
-		return (
-			<OrganizerCard
-				key={ organizer.id }
-				{ ...organizer }
-				onEdit={ onEdit }
-				onRemove={ onRemove }
-			/>
-		);
+		return <OrganizerCard key={ organizer.id } { ...organizer } onEdit={ onEdit } onRemove={ onRemove } />;
 	} );
 
-	return (
-		<div className="classy__linked-post-cards classy__linked-post-cards--organizer">
-			{ cards }
-		</div>
-	);
+	return <div className="classy__linked-post-cards classy__linked-post-cards--organizer">{ cards }</div>;
 }

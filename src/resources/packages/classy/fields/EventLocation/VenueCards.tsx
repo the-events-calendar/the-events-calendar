@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import VenueCard from './VenueCard';
 import { _x } from '@wordpress/i18n';
 import { FetchedVenue } from '../../types/FetchedVenue';
@@ -17,11 +17,7 @@ export default function VenueCards( props: {
 	 *
 	 * @param {string} $addressSeparator The address separator.
 	 */
-	const addressSeparator = _x(
-		', ',
-		'Address separator',
-		'the-events-calendar'
-	);
+	const addressSeparator = _x( ', ', 'Address separator', 'the-events-calendar' );
 
 	return (
 		<div className="classy__linked-post-cards classy__linked-post-cards--venue">

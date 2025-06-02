@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import * as React from 'react';
+import { Fragment } from 'react';
 import { MouseEventHandler } from 'react';
-import { StartOfWeek } from '../../../../../../common/src/resources/packages/classy/types/StartOfWeek';
+import { StartOfWeek } from '@tec/common/classy/types/StartOfWeek';
 import { RefObject, useRef } from '@wordpress/element';
 import { format } from '@wordpress/date';
 import { _x } from '@wordpress/i18n';
@@ -17,7 +18,6 @@ export default function EndSelector( props: {
 	onChange: ( selecting: 'start' | 'end', date: string ) => void;
 	onClick: MouseEventHandler;
 	onClose: () => void;
-	onFocusOutside: () => void;
 	startDate: Date;
 	startOfWeek: StartOfWeek;
 	timeFormat: string;
@@ -32,7 +32,6 @@ export default function EndSelector( props: {
 		onChange,
 		onClick,
 		onClose,
-		onFocusOutside,
 		startDate,
 		startOfWeek,
 		timeFormat,
@@ -53,11 +52,7 @@ export default function EndSelector( props: {
 			{ isMultiday && (
 				<Fragment>
 					<span className="classy-field__separator classy-field__separator--dates">
-						{ _x(
-							'to',
-							'multi-day start and end date separator',
-							'the-events-calendar'
-						) }
+						{ _x( 'to', 'multi-day start and end date separator', 'the-events-calendar' ) }
 					</span>
 
 					<div
@@ -65,13 +60,7 @@ export default function EndSelector( props: {
 						ref={ ref }
 					>
 						<div className="classy-field__input-title">
-							<h4>
-								{ _x(
-									'Date',
-									'Event date selection input title',
-									'the-events-calendar'
-								) }
-							</h4>
+							<h4>{ _x( 'Date', 'Event date selection input title', 'the-events-calendar' ) }</h4>
 						</div>
 
 						<DatePicker
@@ -83,7 +72,6 @@ export default function EndSelector( props: {
 							onChange={ onChange }
 							onClick={ onClick }
 							onClose={ onClose }
-							onFocusOutside={ onFocusOutside }
 							showPopover={ isSelectingDate === 'end' }
 							startDate={ startDate }
 							startOfWeek={ startOfWeek }
@@ -95,22 +83,12 @@ export default function EndSelector( props: {
 
 			{ isAllDay ? (
 				<span className="classy-field__separator classy-field__separator--dates">
-					{ _x(
-						'All Day',
-						'All day label in the date/time Classy selection field',
-						'the-events-calendar'
-					) }
+					{ _x( 'All Day', 'All day label in the date/time Classy selection field', 'the-events-calendar' ) }
 				</span>
 			) : (
 				<div className="classy-field__input classy-field__input--end-time">
 					<div className="classy-field__input-title">
-						<h4>
-							{ _x(
-								'End Time',
-								'Event end time selection input title',
-								'the-events-calendar'
-							) }
-						</h4>
+						<h4>{ _x( 'End Time', 'Event end time selection input title', 'the-events-calendar' ) }</h4>
 					</div>
 
 					<TimePicker
