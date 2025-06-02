@@ -158,7 +158,14 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 			</Button>
 
 			{ isSelectingCurrency && (
-				<Popover>
+				<Popover
+					className="classy-component__popover classy-component__popover--choice"
+					expandOnMobile={ true }
+					placement="bottom-start"
+					noArrow={ true }
+					offset={ 4 }
+					onClose={ ()=> setIsSelectingCurrency( false ) }
+				>
 					<div className="classy-field__input">
 						<div className="classy-field__input-title">
 							<h4>{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }</h4>
