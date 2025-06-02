@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { __, _x } from '@wordpress/i18n';
-import { Button, SelectControl, ToggleControl } from '@wordpress/components';
+import { Button, Popover, SelectControl, ToggleControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	METADATA_EVENT_CURRENCY,
@@ -65,7 +65,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	// todo: Replace with API call to fetch default currency.
+	// todo: pull the default currency from the store using the settings.
 	const defaultCurrency: string = 'USD';
 	const defaultCurrencySymbol: string = '$';
 
@@ -153,44 +153,49 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 	return (
 		<div className="classy-field classy-field--currency-selector">
-			<Button variant="link" onClick={ onCurrencyClick }>
+			<Button className="is-link--dark" variant="link" onClick={ onCurrencyClick }>
 				{ renderCurrency() }
 			</Button>
 
 			{ isSelectingCurrency && (
-				<div className="classy-field__input">
-					<div className="classy-field__input-title">
-						<h4>{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }</h4>
+				<Popover>
+					<div className="classy-field__input">
+						<div className="classy-field__input-title">
+							<h4>{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }</h4>
+						</div>
+						<div className="classy-field__input-close">
+							<Button variant="link" onClick={ onCurrencyClick }>
+								{ _x( 'X', 'Close the currency selector', 'the-events-calendar' ) }
+							</Button>
+						</div>
+
+						<p>
+							{ __(
+								'Choose a different currency than your default for this event.',
+								'the-events-calendar'
+							) }
+						</p>
+
+						<SelectControl
+							label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
+							value={ eventCurrency }
+							onChange={ onCurrencyChange }
+							options={ currencyOptions }
+							__nextHasNoMarginBottom={ true }
+							__next40pxDefaultSize={ true }
+						/>
+
+						<ToggleControl
+							label={ _x(
+								'Currency symbol precedes price',
+								'Event currency position toggle label',
+								'the-events-calendar'
+							) }
+							checked={ currencyPosition === 'before' }
+							onChange={ onCurrencyPositionChange }
+						/>
 					</div>
-					<div className="classy-field__input-close">
-						<Button variant="link" onClick={ onCurrencyClick }>
-							{ _x( 'X', 'Close the currency selector', 'the-events-calendar' ) }
-						</Button>
-					</div>
-
-					<p>
-						{ __( 'Choose a different currency than your default for this event.', 'the-events-calendar' ) }
-					</p>
-
-					<SelectControl
-						label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
-						value={ eventCurrency }
-						onChange={ onCurrencyChange }
-						options={ currencyOptions }
-						__nextHasNoMarginBottom={ true }
-						__next40pxDefaultSize={ true }
-					/>
-
-					<ToggleControl
-						label={ _x(
-							'Currency symbol precedes price',
-							'Event currency position toggle label',
-							'the-events-calendar'
-						) }
-						checked={ currencyPosition === 'before' }
-						onChange={ onCurrencyPositionChange }
-					/>
-				</div>
+				</Popover>
 			) }
 		</div>
 	);
