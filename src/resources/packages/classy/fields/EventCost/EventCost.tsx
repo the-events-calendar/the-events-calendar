@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { __, _x } from '@wordpress/i18n';
 import { __experimentalInputControl as InputControl, ToggleControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import CurrencySelector from './CurrencySelector';
-import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { METADATA_EVENT_COST, METADATA_EVENT_IS_FREE } from '../../constants';
 
-
-export default function EventCost( props: FieldProps ) {
+export default function EventCost() {
 	const { meta } = useSelect( ( select ) => {
 		const selector = select( 'core/editor' );
 		return {
@@ -21,10 +20,10 @@ export default function EventCost( props: FieldProps ) {
 	const { editPost } = useDispatch( 'core/editor' );
 
 	const isFreeMeta: boolean = meta[ METADATA_EVENT_IS_FREE ] || false;
-	const [ isFree, setIsFree ] = useState<boolean>( isFreeMeta );
+	const [ isFree, setIsFree ] = useState< boolean >( isFreeMeta );
 
 	const eventCostMeta: string = meta[ METADATA_EVENT_COST ] || '';
-	const [ eventCostValue, setEventCostValue ] = useState<string>( isFree ? freeText : eventCostMeta );
+	const [ eventCostValue, setEventCostValue ] = useState< string >( isFree ? freeText : eventCostMeta );
 
 	// Track changes to the post content and update the state accordingly.
 	useEffect( () => {
@@ -50,53 +49,41 @@ export default function EventCost( props: FieldProps ) {
 	};
 
 	return (
-		<div className="classy-field classy-field--event-cost">
-			{ ( props.title && props.title.length > 0 ) && (
-				<div className="classy-field__title">
-					<h3>{ props.title }</h3>
-				</div>
-			) }
-
-			<div className="classy-field__inputs">
-				<div className="classy-field__inputs-section classy-field__inputs-section--row">
-					<div className="classy-field__input">
-						<InputControl
-							label={ _x(
-								'Event Cost',
-								'Event cost input label',
-								'the-events-calendar'
-							) }
-							value={ eventCostValue }
-							onChange={ onCostChange }
-							disabled={ isFree }
-						/>
-					</div>
-
-					<div className="classy-field__input">
-						<CurrencySelector />
-					</div>
-
-					<div className="classy-field__input">
-						<ToggleControl
-							label={ _x(
-								'Event is free',
-								'Event cost toggle label',
-								'the-events-calendar'
-							) }
-							checked={ isFree }
-							onChange={ onFreeChange }
-						/>
-					</div>
+		<Fragment>
+			<div className="classy-field__group">
+				<div className="classy-field__input classy-field__input--unit">
+					<InputControl
+						label={
+							<span className="classy-field__input-title">
+								{ _x( 'Event cost', 'Event cost input title', 'the-events-calendar' ) }
+							</span>
+						}
+						value={ eventCostValue }
+						onChange={ onCostChange }
+						disabled={ isFree }
+					/>
 				</div>
 
-				<div className="classy-field__input-note">
-					{ _x(
-						'If multiple entry prices are available, list each price separated by commas.',
-						'Event cost input note',
-						'the-events-calendar'
-					) }
+				<div className="classy-field__input classy-field__input--height-100">
+					<CurrencySelector />
+				</div>
+
+				<div className="classy-field__input classy-field__input--height-75">
+					<ToggleControl
+						label={ _x( 'Event is free', 'Event cost toggle label', 'the-events-calendar' ) }
+						checked={ isFree }
+						onChange={ onFreeChange }
+					/>
 				</div>
 			</div>
-		</div>
+
+			<div className="classy-field__input-note">
+				{ _x(
+					'If multiple entry prices are available, list each price separated by commas.',
+					'Event cost input note',
+					'the-events-calendar'
+				) }
+			</div>
+		</Fragment>
 	);
 }

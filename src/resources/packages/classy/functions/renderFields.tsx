@@ -1,13 +1,7 @@
 import React, { Fragment } from 'react';
 import { Fill } from '@wordpress/components';
 import { PostTitle } from '@tec/common/classy/fields';
-import {
-	EventAdmission,
-	EventDateTime,
-	EventDetails,
-	EventLocation,
-	EventOrganizer,
-} from '../fields';
+import { EventAdmission, EventDateTime, EventDetails, EventLocation, EventOrganizer } from '../fields';
 import { _x } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { POST_TYPE_EVENT } from '../constants';
@@ -57,11 +51,7 @@ export default function renderFields( fields: React.ReactNode | null ) {
 				/>
 
 				<EventAdmission
-					title={ _x(
-						'Admission',
-						'The title of the event admission field.',
-						'the-events-calendar'
-					) }
+					title={ _x( 'Admission', 'The title of the event admission field.', 'the-events-calendar' ) }
 				/>
 
 				<EventOrganizer

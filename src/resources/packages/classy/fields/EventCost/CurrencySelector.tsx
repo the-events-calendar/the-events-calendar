@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { __, _x } from '@wordpress/i18n';
-import {
-	Button,
-	SelectControl,
-	ToggleControl
-} from '@wordpress/components';
+import { Button, SelectControl, ToggleControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	METADATA_EVENT_CURRENCY,
 	METADATA_EVENT_CURRENCY_POSITION,
-	METADATA_EVENT_CURRENCY_SYMBOL
+	METADATA_EVENT_CURRENCY_SYMBOL,
 } from '../../constants';
 
 type CurrencySelectorProps = {
@@ -38,17 +34,13 @@ type CurrencySelectOption = {
 	key: string;
 	value: string;
 	label: string;
-}
+};
 
 const currencyDefaultOption: CurrencySelectOption = {
 	key: '0',
-	label: _x(
-		'Default site currency',
-		'Default option for the currency selector',
-		'the-events-calendar'
-	),
+	label: _x( 'Default site currency', 'Default option for the currency selector', 'the-events-calendar' ),
 	value: 'default',
-}
+};
 
 const buildOptionFromCurrency = ( currency: CurrencyProps ): CurrencySelectOption => {
 	return {
@@ -56,14 +48,13 @@ const buildOptionFromCurrency = ( currency: CurrencyProps ): CurrencySelectOptio
 		label: `${ currency.symbol } ${ currency.currency }`,
 		value: currency.currency,
 	};
-}
+};
 
 const mapCurrenciesToOptions = ( currencies: CurrencyProps[] ): CurrencySelectOption[] => {
 	return currencies.map( buildOptionFromCurrency );
-}
+};
 
 export default function CurrencySelector( props: CurrencySelectorProps ) {
-
 	const { meta } = useSelect( ( select ) => {
 		const selector = select( 'core/editor' );
 		return {
@@ -79,13 +70,16 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	const defaultCurrencySymbol: string = '$';
 
 	const eventCurrencyMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency;
-	const [ eventCurrency, setEventCurrency ] = useState<string>( eventCurrencyMeta );
+	const [ eventCurrency, setEventCurrency ] = useState< string >( eventCurrencyMeta );
 
 	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrencySymbol;
-	const [ currencySymbol, setCurrencySymbol ] = useState<string>( eventCurrencySymbolMeta );
+	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
-	const eventCurrencyPosition: 'before' | 'after' = meta[ METADATA_EVENT_CURRENCY_POSITION ] || Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position || 'before';
-	const [ currencyPosition, setCurrencyPosition ] = useState<'before' | 'after'>( eventCurrencyPosition );
+	const eventCurrencyPosition: 'before' | 'after' =
+		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
+		Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position ||
+		'before';
+	const [ currencyPosition, setCurrencyPosition ] = useState< 'before' | 'after' >( eventCurrencyPosition );
 
 	useEffect( () => {
 		setEventCurrency( eventCurrencyMeta );
@@ -109,8 +103,8 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 				meta: {
 					[ METADATA_EVENT_CURRENCY ]: defaultCurrency,
 					[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrencySymbol,
-					[ METADATA_EVENT_CURRENCY_POSITION ]: 'before'
-				}
+					[ METADATA_EVENT_CURRENCY_POSITION ]: 'before',
+				},
 			} );
 			return;
 		}
@@ -122,8 +116,8 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 			meta: {
 				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.currency,
 				[ METADATA_EVENT_CURRENCY_SYMBOL ]: selectedCurrency.symbol,
-				[ METADATA_EVENT_CURRENCY_POSITION ]: selectedCurrency.position
-			}
+				[ METADATA_EVENT_CURRENCY_POSITION ]: selectedCurrency.position,
+			},
 		} );
 	};
 
@@ -135,9 +129,9 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 		const newPosition = nextValue ? 'before' : 'after';
 		setCurrencyPosition( newPosition );
 		editPost( { meta: { [ METADATA_EVENT_CURRENCY_POSITION ]: newPosition } } );
-	}
+	};
 
-	const [ isSelectingCurrency, setIsSelectingCurrency ] = useState<boolean>( false );
+	const [ isSelectingCurrency, setIsSelectingCurrency ] = useState< boolean >( false );
 
 	const onCurrencyClick = (): void => {
 		setIsSelectingCurrency( ! isSelectingCurrency );
@@ -157,54 +151,29 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( Currencies ) ];
 
-
 	return (
 		<div className="classy-field classy-field--currency-selector">
-
-			<Button
-				variant="link"
-				onClick={ onCurrencyClick }
-			>
+			<Button variant="link" onClick={ onCurrencyClick }>
 				{ renderCurrency() }
 			</Button>
 
 			{ isSelectingCurrency && (
 				<div className="classy-field__input">
 					<div className="classy-field__input-title">
-						<h4>
-							{ _x(
-								'Currency',
-								'Event currency selector title',
-								'the-events-calendar'
-							) }
-						</h4>
+						<h4>{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }</h4>
 					</div>
 					<div className="classy-field__input-close">
-						<Button
-							variant="link"
-							onClick={ onCurrencyClick }
-						>
-							{ _x(
-								'X',
-								'Close the currency selector',
-								'the-events-calendar'
-							) }
+						<Button variant="link" onClick={ onCurrencyClick }>
+							{ _x( 'X', 'Close the currency selector', 'the-events-calendar' ) }
 						</Button>
 					</div>
 
 					<p>
-						{ __(
-							'Choose a different currency than your default for this event.',
-							'the-events-calendar'
-						) }
+						{ __( 'Choose a different currency than your default for this event.', 'the-events-calendar' ) }
 					</p>
 
 					<SelectControl
-						label={ _x(
-							'Currency',
-							'Event currency selector label',
-							'the-events-calendar'
-						) }
+						label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
 						value={ eventCurrency }
 						onChange={ onCurrencyChange }
 						options={ currencyOptions }
@@ -220,7 +189,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 						) }
 						checked={ currencyPosition === 'before' }
 						onChange={ onCurrencyPositionChange }
-						/>
+					/>
 				</div>
 			) }
 		</div>
