@@ -12,6 +12,8 @@ namespace TEC\Events\Category_Colors\Admin;
 use TEC\Common\StellarWP\Assets\Asset;
 use Tribe__Events__Main;
 use TEC\Events\Category_Colors\CSS\Generator;
+use Tribe__Events__Main as TEC;
+
 
 /**
  * Class Category_Colors_Styles
@@ -55,7 +57,7 @@ class Category_Colors_Styles {
 			'/js/admin/category-colors/admin-category.js',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ $this, 'is_category_page' ] )
@@ -67,7 +69,7 @@ class Category_Colors_Styles {
 			'/css/admin/category-colors/admin-category.css',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ $this, 'is_category_page' ] )
@@ -79,7 +81,7 @@ class Category_Colors_Styles {
 			'/css/admin/category-colors/wp-picker.css',
 			Tribe__Events__Main::VERSION
 		)
-			->add_to_group_path( 'tec-events-resources' )
+			->add_to_group_path( TEC::class . '-packages' )
 			->add_to_group( 'tec-events-category-colors' )
 			->enqueue_on( 'admin_enqueue_scripts' )
 			->set_condition( [ $this, 'is_category_page' ] )

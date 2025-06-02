@@ -14,6 +14,7 @@ namespace TEC\Events\Category_Colors\Migration\Processors;
 use TEC\Events\Category_Colors\Event_Category_Meta;
 use TEC\Events\Category_Colors\Migration\Config;
 use TEC\Events\Category_Colors\Migration\Status;
+use TEC\Events\Category_Colors\CSS\Generator;
 
 /**
  * Class Post_Processor
@@ -130,6 +131,13 @@ class Post_Processor extends Abstract_Migration_Step {
 
 		$validation_result = $this->validate_categories( $migration_data['categories'] );
 		$this->update_migration_status( $validation_result ? Status::$postprocessing_completed : Status::$postprocessing_failed );
+
+		// If validation passed, regenerate the CSS stylesheet.
+		if ( $validation_result ) {
+			$generator = tribe( Generator::class );
+			$generator->generate_and_save_css();
+			$this->log_message( 'info', 'Category Colors CSS stylesheet regenerated after successful migration.', [], 'Post Processor' );
+		}
 
 		// If validation passed and the plugin was previously active, deactivate it.
 		if ( $validation_result && isset( $migration_data['was_plugin_active'] ) && $migration_data['was_plugin_active'] ) {

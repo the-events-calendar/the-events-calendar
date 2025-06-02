@@ -1,3 +1,4 @@
+<?php
 /**
  * Tests for the Postprocessing_Action class.
  *

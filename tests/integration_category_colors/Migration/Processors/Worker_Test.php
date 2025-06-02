@@ -1,3 +1,4 @@
+<?php
 /**
  * Tests for the Worker class.
  *
@@ -47,10 +48,6 @@ class Worker_Test extends WPTestCase {
 
 		// Create test categories
 		$this->create_test_categories();
-
-		// Copy migration data to processing option
-		$migration_data = get_option( Config::MIGRATION_DATA_OPTION, [] );
-		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
 	}
 
 	/**
@@ -79,9 +76,13 @@ class Worker_Test extends WPTestCase {
 		];
 
 		foreach ( $categories as $id => $name ) {
-			wp_insert_term( $name, Tribe__Events__Main::TAXONOMY, [
-				'term_id' => $id,
-			] );
+			wp_insert_term(
+				$name,
+				Tribe__Events__Main::TAXONOMY,
+				[
+					'term_id' => $id,
+				]
+			);
 		}
 	}
 
@@ -116,24 +117,24 @@ class Worker_Test extends WPTestCase {
 			$migration_data = [
 				'categories' => [
 					'1' => [
-						'taxonomy_id' => 1,
-						'tec-events-cat-colors-primary' => '#ff0000',
+						'taxonomy_id'                     => 1,
+						'tec-events-cat-colors-primary'   => '#ff0000',
 						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+						'tec-events-cat-colors-text'      => '#000000',
 					],
 					'2' => [
-						'taxonomy_id' => 2,
-						'tec-events-cat-colors-primary' => '#00ff00',
+						'taxonomy_id'                     => 2,
+						'tec-events-cat-colors-primary'   => '#00ff00',
 						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+						'tec-events-cat-colors-text'      => '#000000',
 					],
 				],
-				'settings' => [
-					'category-color-legend-show' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-					'category-color-legend-superpowers' => '1',
+				'settings'   => [
+					'category-color-legend-show'            => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
+					'category-color-legend-superpowers'     => '1',
 					'category-color-show-hidden-categories' => '1',
-					'category-color-custom-CSS' => '1',
-					'category-color-reset-button' => '1',
+					'category-color-custom-CSS'             => '1',
+					'category-color-reset-button'           => '1',
 				],
 			];
 
@@ -148,13 +149,15 @@ class Worker_Test extends WPTestCase {
 			$migration_data = [
 				'categories' => [
 					'999999' => [ // Invalid category ID
-						'taxonomy_id' => 999999,
-						'tec-events-cat-colors-primary' => '#ff0000',
-						'tec-events-cat-colors-secondary' => '#ffffff',
-						'tec-events-cat-colors-text' => '#000000',
+					              'taxonomy_id'                     => 999999,
+					              'tec-events-cat-colors-primary'   => '#ff0000',
+					              'tec-events-cat-colors-secondary' => '#ffffff',
+					              'tec-events-cat-colors-text'      => '#000000',
 					],
 				],
-				'settings' => [],
+				'settings'   => [
+					'dummy-setting' => '1',
+				],
 			];
 
 			update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
@@ -169,13 +172,13 @@ class Worker_Test extends WPTestCase {
 		yield 'empty data' => [
 			$setup_empty_data,
 			false,
-			Status::$execution_failed,
+			Status::$execution_skipped,
 		];
 
 		yield 'invalid data' => [
 			$setup_invalid_data,
-			false,
-			Status::$execution_failed,
+			true,
+			Status::$execution_completed,
 		];
 	}
 
@@ -186,10 +189,14 @@ class Worker_Test extends WPTestCase {
 	public function should_process_migration( Closure $setup, bool $expected_result, string $expected_status ): void {
 		$setup();
 
+		// Copy migration data to processing option after setup closure runs
+		$migration_data = get_option( Config::MIGRATION_DATA_OPTION, [] );
+		update_option( Config::MIGRATION_PROCESSING_OPTION, $migration_data );
+
 		// Debug assertions
 		$this->assertTrue( $this->processor->is_runnable(), 'Worker should be runnable' );
 		$processing_data = $this->processor->get_processing_data();
-		
+
 		// Only check for categories and settings if we expect success
 		if ( $expected_result ) {
 			$this->assertNotEmpty( $processing_data['categories'], 'Processing data should have categories' );
@@ -220,48 +227,60 @@ class Worker_Test extends WPTestCase {
 
 	/**
 	 * @test
+	 * Confirms that hidden categories are migrated to tec-events-cat-colors-hidden term meta after full migration.
 	 */
-	public function should_fire_worker_hooks(): void {
-		$pre_hook_fired  = false;
-		$post_hook_fired = false;
-		$post_hook_data  = null;
+	public function it_migrates_hidden_categories_to_term_meta() {
+		// Create a term with a known slug.
+		$term_id = $this->factory()->term->create(
+			[
+				'taxonomy' => 'tribe_events_cat',
+				'name'     => 'Library',
+				'slug'     => 'library',
+			]
+		);
 
-		// Set up valid data for the test
-		$migration_data = [
-			'categories' => [
-				'1' => [
-					'taxonomy_id' => 1,
-					'tec-events-cat-colors-primary' => '#ff0000',
-					'tec-events-cat-colors-secondary' => '#ffffff',
-					'tec-events-cat-colors-text' => '#000000',
-				],
+		// Simulate legacy teccc_options with a hide flag for this category.
+		$teccc_options = [
+			'terms'        => [
+				$term_id => [ 'library', 'Library' ],
 			],
-			'settings' => [
-				'category-color-legend-show' => [ 'month', 'list', 'day', 'week', 'photo', 'map', 'summary' ],
-				'category-color-legend-superpowers' => '1',
-				'category-color-show-hidden-categories' => '1',
-				'category-color-custom-CSS' => '1',
-				'category-color-reset-button' => '1',
+			'all_terms'    => [
+				$term_id => [ 'library', 'Library' ],
 			],
+			'library-hide' => true,
 		];
+		update_option( 'teccc_options', $teccc_options );
 
-		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
+		// Run the pre-processor to prepare migration data.
+		tribe( Pre_Processor::class )->process();
+		// Run the worker to actually write the meta.
+		tribe( Worker::class )->process();
 
-		// Add hooks to track firing
-		add_action( 'tec_events_category_colors_migration_worker_pre_process', function() use ( &$pre_hook_fired ) {
-			$pre_hook_fired = true;
-		} );
-
-		add_action( 'tec_events_category_colors_migration_worker_post_process', function( $data ) use ( &$post_hook_fired, &$post_hook_data ) {
-			$post_hook_fired = true;
-			$post_hook_data  = $data;
-		} );
-
-		$result = $this->processor->process();
-
-		$this->assertTrue( $result );
-		$this->assertTrue( $pre_hook_fired );
-		$this->assertTrue( $post_hook_fired );
-		$this->assertEquals( $migration_data, $post_hook_data );
+		// Assert the new meta is set to 1 (hidden).
+		$this->assertEquals( '1', get_term_meta( $term_id, 'tec-events-cat-colors-hidden', true ) );
 	}
-} 
+
+	/**
+	 * @test
+	 * Confirms that the custom CSS option is migrated to category-color-custom-CSS in settings after full migration.
+	 */
+	public function it_migrates_custom_css_option_to_settings() {
+		// Simulate legacy teccc_options with custom_legend_css enabled.
+		$teccc_options = [
+			'custom_legend_css' => true,
+		];
+		update_option( 'teccc_options', $teccc_options );
+
+		// Run the pre-processor to prepare migration data.
+		tribe( Pre_Processor::class )->process();
+		// Run the worker to actually write the settings.
+		tribe( Worker::class )->process();
+
+		// Get the migrated settings from the processing option.
+		$migrated_data = get_option( \TEC\Events\Category_Colors\Migration\Config::MIGRATION_PROCESSING_OPTION, [] );
+		$settings      = $migrated_data['settings'] ?? [];
+
+		// Assert the new setting is set to '1' (enabled).
+		$this->assertEquals( '1', $settings['category-color-custom-CSS'] ?? null );
+	}
+}

@@ -16,10 +16,12 @@ use Spatie\Snapshots\MatchesSnapshots;
 use Closure;
 use Generator;
 use TEC\Events\Category_Colors\Meta_Keys_Trait;
+use Tribe\Tests\Traits\With_Uopz;
 
 class CSS_Generator_Test extends WPTestCase {
 	use MatchesSnapshots;
 	use Meta_Keys_Trait;
+	use With_Uopz;
 
 	/**
 	 * @var Generator
@@ -404,6 +406,9 @@ class CSS_Generator_Test extends WPTestCase {
 	 * @test
 	 */
 	public function should_refresh_css_when_categories_change() {
+		// Mock the nonce verification to always return true
+		$this->set_fn_return( 'wp_verify_nonce', true );
+
 		// Generate initial CSS
 		$this->css_generator->generate_css();
 		$initial_css = get_option( 'tec_events_category_color_css' );

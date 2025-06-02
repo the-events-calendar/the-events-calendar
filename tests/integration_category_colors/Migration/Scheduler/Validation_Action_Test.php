@@ -1,3 +1,4 @@
+<?php
 /**
  * Tests for the Validation_Action class.
  *
@@ -10,7 +11,6 @@ namespace TEC\Events\Category_Colors\Migration\Scheduler;
 
 use TEC\Events\Category_Colors\Migration\Status;
 use TEC\Events\Category_Colors\Migration\Config;
-use TEC\Events\Category_Colors\Migration\Scheduler\Abstract_Action;
 use Tribe\Tests\Traits\With_Uopz;
 use Codeception\TestCase\WPTestCase;
 
@@ -45,24 +45,36 @@ class Validation_Action_Test extends WPTestCase {
 		$this->set_class_fn_return( Validation_Action::class, 'can_schedule', true );
 
 		// Mock the update_migration_status method on the parent class to actually update the status
-		$this->set_class_fn_return( Abstract_Action::class, 'update_migration_status', function( $status ) {
-			Status::update_migration_status( $status );
-			return true;
-		}, true );
+		$this->set_class_fn_return(
+			Abstract_Action::class,
+			'update_migration_status',
+			function ( $status ) {
+				Status::update_migration_status( $status );
+
+				return true;
+			},
+			true
+		);
 
 		// Mock the schedule method on the parent class to update status
 		$action = $this->action;
-		$this->set_class_fn_return( Abstract_Action::class, 'schedule', function() use ( $action ) {
-			if ( ! $action->can_schedule() ) {
-				return new \WP_Error(
-					'tec_events_category_colors_migration_cannot_schedule',
-					'Cannot schedule the action.'
-				);
-			}
-			$status = $action->get_scheduled_status();
-			Status::update_migration_status( $status );
-			return 123;
-		}, true );
+		$this->set_class_fn_return(
+			Abstract_Action::class,
+			'schedule',
+			function () use ( $action ) {
+				if ( ! $action->can_schedule() ) {
+					return new \WP_Error(
+						'tec_events_category_colors_migration_cannot_schedule',
+						'Cannot schedule the action.'
+					);
+				}
+				$status = $action->get_scheduled_status();
+				Status::update_migration_status( $status );
+
+				return 123;
+			},
+			true
+		);
 	}
 
 	/**
@@ -93,7 +105,7 @@ class Validation_Action_Test extends WPTestCase {
 	public function should_not_schedule_when_validation_in_progress(): void {
 		Status::update_migration_status( Status::$validation_in_progress );
 		$this->set_class_fn_return( Validation_Action::class, 'can_schedule', false );
-		
+
 		$result = $this->action->schedule();
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
@@ -108,13 +120,13 @@ class Validation_Action_Test extends WPTestCase {
 		$migration_data = [
 			'categories' => [
 				'1' => [
-					'taxonomy_id' => 1,
-					'tec-events-cat-colors-primary' => '#ff0000',
+					'taxonomy_id'                     => 1,
+					'tec-events-cat-colors-primary'   => '#ff0000',
 					'tec-events-cat-colors-secondary' => '#ffffff',
-					'tec-events-cat-colors-text' => '#000000',
+					'tec-events-cat-colors-text'      => '#000000',
 				],
 			],
-			'settings' => [],
+			'settings'   => [],
 		];
 		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 
@@ -140,13 +152,13 @@ class Validation_Action_Test extends WPTestCase {
 		$migration_data = [
 			'categories' => [
 				'999999' => [ // Invalid category ID
-					'taxonomy_id' => 999999,
-					'tec-events-cat-colors-primary' => '#ff0000',
-					'tec-events-cat-colors-secondary' => '#ffffff',
-					'tec-events-cat-colors-text' => '#000000',
+				              'taxonomy_id'                     => 999999,
+				              'tec-events-cat-colors-primary'   => '#ff0000',
+				              'tec-events-cat-colors-secondary' => '#ffffff',
+				              'tec-events-cat-colors-text'      => '#000000',
 				],
 			],
-			'settings' => [],
+			'settings'   => [],
 		];
 		update_option( Config::MIGRATION_DATA_OPTION, $migration_data );
 
@@ -176,4 +188,4 @@ class Validation_Action_Test extends WPTestCase {
 		$this->assertInstanceOf( \WP_Error::class, $result );
 		$this->assertEquals( 'tec_events_category_colors_migration_cannot_schedule', $result->get_error_code() );
 	}
-} 
+}
