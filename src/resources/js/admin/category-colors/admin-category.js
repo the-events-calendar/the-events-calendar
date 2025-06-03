@@ -33,8 +33,7 @@ tribe.events.admin.categoryColors = {};
 		primaryColor: '[name="tec_events_category-color[primary]"]',
 		backgroundColor: '[name="tec_events_category-color[secondary]"]',
 		fontColor: '[name="tec_events_category-color[text]"]',
-		// Preview elements.
-		preview: '.tec-events-category-colors__preview-text',
+		// Preview element.
 		previewText: '.tec-events-category-colors__preview-text',
 		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
 		// Form elements.
@@ -52,8 +51,7 @@ tribe.events.admin.categoryColors = {};
 		wpPickerContainer: '.wp-picker-container',
 		irisPicker: '.iris-picker',
 		colorResult: '.wp-color-result',
-		initializedClass: 'wp-color-picker-initialized',
-		wrapContainer: '.tec-events-category-colors__wrap',
+		initializedClass: 'wp-color-picker-initialized'
 	};
 
 	// === Helper Functions ===
@@ -99,7 +97,7 @@ tribe.events.admin.categoryColors = {};
 	const updatePreviewTextImmediate = element => {
 		if (!element) return;
 		const $tagInput = $(element);
-		const $container = $tagInput.closest(`${selectors.wrapContainer}, form, ${selectors.quickEditRow}`);
+		const $container = $tagInput.closest('.tec-events-category-colors__wrap, form, .inline-edit-row');
 		const $previewText = $container.find(selectors.previewText);
 		const defaultText = $previewText.data('default-text') || '';
 		const tagValue = $tagInput.val().trim();
@@ -110,24 +108,22 @@ tribe.events.admin.categoryColors = {};
 	const updatePreviewText = debounce(updatePreviewTextImmediate, 100);
 
 	/**
-	 * Updates the color preview for an input.
+	 * Updates the color preview for an input by applying preview styles.
 	 *
 	 * @param {jQuery} $input The color input element.
 	 */
 	const updateClosestPreview = $input => {
 		if (!$input || $input.prop('disabled') || $input.prop('readonly')) return;
-		requestAnimationFrame(() => {
-			const $container = $input.closest(selectors.colorContainer);
-			const primaryColor = $container.find(selectors.primaryColor).val() || 'transparent';
-			const backgroundColor = $container.find(selectors.backgroundColor).val() || 'transparent';
-			const fontColor = $container.find(selectors.fontColor).val() || 'inherit';
-			// Update preview styles.
-			$container.find(selectors.preview).css({
-				'border-left': `5px solid ${primaryColor}`,
-				'background-color': backgroundColor,
-			});
-			$container.find(selectors.previewText).css({ color: fontColor });
+		const $container = $input.closest(selectors.colorContainer);
+		const primaryColor = $container.find(selectors.primaryColor).val() || 'transparent';
+		const backgroundColor = $container.find(selectors.backgroundColor).val() || 'transparent';
+		const fontColor = $container.find(selectors.fontColor).val() || 'inherit';
+		// Update preview styles.
+		$container.find(selectors.previewText).css({
+			'border-left': `5px solid ${primaryColor}`,
+			'background-color': backgroundColor,
 		});
+		$container.find(selectors.previewText).css({ color: fontColor });
 	};
 
 	// === Color Picker Management ===
@@ -265,7 +261,9 @@ tribe.events.admin.categoryColors = {};
 	// === Quick Edit Integration ===
 
 	/**
-	 * Destroys color pickers in a scope.
+	 * Destroys color pickers in a scope by cloning and replacing inputs.
+	 *
+	 * WordPress does not support native destruction of color pickers, so we clone and replace the input as a workaround.
 	 *
 	 * @param {jQuery} $scope The scope to clean up.
 	 */
@@ -273,6 +271,7 @@ tribe.events.admin.categoryColors = {};
 		$scope.find(selectors.colorInput).each(function () {
 			const $input = $(this);
 			if ($input.hasClass(selectors.initializedClass)) {
+				// Clone and replace input to remove color picker instance (WP has no destroy method).
 				const $clone = $input.clone();
 				$input.closest(selectors.wpPickerContainer).replaceWith($clone);
 			}
