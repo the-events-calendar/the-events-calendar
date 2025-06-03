@@ -218,8 +218,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 	 * @param             \stdClass     $post_data The post insertion/update payload.
 	 * @param \WP_REST_Request $request The current insertion or update request object.
 	 *
-	 * @return \stdClass The post insertion/update payload with an added `meta_input` entry if
-	 *                   the insertion/update of UTC dates is required.
+	 * @return void
 	 */
 	public function add_utc_dates( $post_data, WP_REST_Request $request ) {
 		$json_params = $request->get_json_params();
@@ -227,7 +226,7 @@ class Tribe__Events__Editor__Meta extends Tribe__Editor__Meta {
 
 		// No changes to start or end? No need to update UTC dates.
 		if ( ! ( isset( $meta['_EventStartDate'] ) || isset( $meta['_EventEndDate'] ) ) ) {
-			return $post_data;
+			return;
 		}
 
 		$post_id         = $request->get_param( 'id' );
