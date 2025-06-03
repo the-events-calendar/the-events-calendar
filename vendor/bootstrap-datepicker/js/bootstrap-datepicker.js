@@ -1,5 +1,5 @@
 /*!
- * Datepicker for Bootstrap v1.7.1 (https://github.com/uxsolutions/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.7.0 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
@@ -30,7 +30,7 @@
 	function alias(method, deprecationMsg){
 		return function(){
 			if (deprecationMsg !== undefined) {
-				$.fn.datepicker.deprecated(deprecationMsg);
+				$.fn.bootstrapDatepicker.deprecated(deprecationMsg);
 			}
 
 			return this[method].apply(this, arguments);
@@ -61,7 +61,7 @@
 			replace: function(new_array){
 				if (!new_array)
 					return;
-				if (!$.isArray(new_array))
+				if (!Array.isArray(new_array))
 					new_array = [new_array];
 				this.clear();
 				this.push.apply(this, new_array);
@@ -172,7 +172,7 @@
 		},
 
 		_resolveDaysOfWeek: function(daysOfWeek){
-			if (!$.isArray(daysOfWeek))
+			if (!Array.isArray(daysOfWeek))
 				daysOfWeek = daysOfWeek.split(/[,\s]*/);
 			return $.map(daysOfWeek, Number);
 		},
@@ -259,7 +259,7 @@
 			o.daysOfWeekHighlighted = this._resolveDaysOfWeek(o.daysOfWeekHighlighted||[]);
 
 			o.datesDisabled = o.datesDisabled||[];
-			if (!$.isArray(o.datesDisabled)) {
+			if (!Array.isArray(o.datesDisabled)) {
 				o.datesDisabled = o.datesDisabled.split(',');
 			}
 			o.datesDisabled = $.map(o.datesDisabled, function(d){
@@ -577,7 +577,7 @@
 		},
 
 		setDates: function(){
-			var args = $.isArray(arguments[0]) ? arguments[0] : arguments;
+			var args = Array.isArray(arguments[0]) ? arguments[0] : arguments;
 			this.update.apply(this, args);
 			this._trigger('changeDate');
 			this.setValue();
@@ -585,7 +585,7 @@
 		},
 
 		setUTCDates: function(){
-			var args = $.isArray(arguments[0]) ? arguments[0] : arguments;
+			var args = Array.isArray(arguments[0]) ? arguments[0] : arguments;
 			this.setDates.apply(this, $.map(args, this._utc_to_local));
 			return this;
 		},
@@ -792,18 +792,18 @@
 			if (fromArgs){
 				// setting date by clicking
 				this.setValue();
-				this.element.change();
+				this.element.trigger( 'change' );
 			}
 			else if (this.dates.length){
 				// setting date by typing
 				if (String(oldDates) !== String(this.dates) && fromArgs) {
 					this._trigger('changeDate');
-					this.element.change();
+					this.element.trigger( 'change' );
 				}
 			}
 			if (!this.dates.length && oldDates.length) {
 				this._trigger('clearDate');
-				this.element.change();
+				this.element.trigger( 'change' );
 			}
 
 			this.fill();
@@ -1035,7 +1035,7 @@
 
 				//Check if uniqueSort exists (supported by jquery >=1.12 and >=2.2)
 				//Fallback to unique function for older jquery versions
-				if ($.isFunction($.uniqueSort)) {
+				if (typeof $.uniqueSort === "function") {
 					clsName = $.uniqueSort(clsName);
 				} else {
 					clsName = $.unique(clsName);
@@ -1618,7 +1618,7 @@
 		return out;
 	}
 
-	var old = $.fn.datepicker;
+	var old = $.fn.bootstrapDatepicker;
 	var datepickerPlugin = function(option){
 		var args = Array.apply(null, arguments);
 		args.shift();
@@ -1662,9 +1662,9 @@
 		else
 			return internal_return;
 	};
-	$.fn.datepicker = datepickerPlugin;
+	$.fn.bootstrapDatepicker = datepickerPlugin;
 
-	var defaults = $.fn.datepicker.defaults = {
+	var defaults = $.fn.bootstrapDatepicker.defaults = {
 		assumeNearbyYear: false,
 		autoclose: false,
 		beforeShowDay: $.noop,
@@ -1709,13 +1709,13 @@
 		},
 		showWeekDays: true
 	};
-	var locale_opts = $.fn.datepicker.locale_opts = [
+	var locale_opts = $.fn.bootstrapDatepicker.locale_opts = [
 		'format',
 		'rtl',
 		'weekStart'
 	];
-	$.fn.datepicker.Constructor = Datepicker;
-	var dates = $.fn.datepicker.dates = {
+	$.fn.bootstrapDatepicker.Constructor = Datepicker;
+	var dates = $.fn.bootstrapDatepicker.dates = {
 		en: {
 			days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
 			daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -1985,22 +1985,22 @@
 		'</div>'+
 		'</div>';
 
-	$.fn.datepicker.DPGlobal = DPGlobal;
+	$.fn.bootstrapDatepicker.DPGlobal = DPGlobal;
 
 
 	/* DATEPICKER NO CONFLICT
 	* =================== */
 
-	$.fn.datepicker.noConflict = function(){
-		$.fn.datepicker = old;
+	$.fn.bootstrapDatepicker.noConflict = function(){
+		$.fn.bootstrapDatepicker = old;
 		return this;
 	};
 
 	/* DATEPICKER VERSION
 	 * =================== */
-	$.fn.datepicker.version = '1.7.1';
+	$.fn.bootstrapDatepicker.version = '1.7.0';
 
-	$.fn.datepicker.deprecated = function(msg){
+	$.fn.bootstrapDatepicker.deprecated = function(msg){
 		var console = window.console;
 		if (console && console.warn) {
 			console.warn('DEPRECATED: ' + msg);
