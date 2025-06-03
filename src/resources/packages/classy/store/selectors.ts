@@ -44,7 +44,7 @@ export function getEventDateTimeDetails(): EventDateTimeDetails {
 		eventStart.getFullYear() !== eventEnd.getFullYear();
 	const isAllDayStringValue = meta?._EventAllDay ?? '0';
 	const isAllDay = isAllDayStringValue === '1';
-	const eventTimezone = meta?._EventTimezone ?? settings.timezoneString;
+	const eventTimezone = meta?._EventTimezone || settings.timezoneString;
 
 	return {
 		eventStart,
