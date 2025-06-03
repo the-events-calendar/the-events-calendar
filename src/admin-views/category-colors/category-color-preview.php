@@ -4,8 +4,8 @@
  *
  * @since TBD
  *
- * @var string $primary          The primary color hex value.
- * @var string $secondary        The secondary color hex value.
+ * @var string $primary          The primary color hex value (border).
+ * @var string $secondary        The secondary color hex value (background).
  * @var string $text             The text color hex value.
  * @var string $priority         The priority of the category.
  * @var string $hide_from_legend Whether the category is hidden.

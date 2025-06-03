@@ -20,6 +20,7 @@
 					name="tec_events_category-color[primary]"
 					value="<?php echo esc_attr( $category_colors['primary'] ?? '' ); ?>"
 					class="tec-events-category-colors__input wp-color-picker"
+					placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
@@ -30,6 +31,7 @@
 					name="tec_events_category-color[secondary]"
 					value="<?php echo esc_attr( $category_colors['secondary'] ?? '' ); ?>"
 					class="tec-events-category-colors__input wp-color-picker"
+					placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
@@ -40,6 +42,7 @@
 					name="tec_events_category-color[text]"
 					value="<?php echo esc_attr( $category_colors['text'] ?? '' ); ?>"
 					class="tec-events-category-colors__input wp-color-picker"
+					placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
 				>
 			</div>
 			<div class="tec-events-category-colors__field--preview">

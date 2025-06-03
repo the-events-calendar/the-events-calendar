@@ -1,5 +1,12 @@
 /**
- * Ensures the Tribe object has the required levels.
+ * Category Colors Admin JavaScript.
+ *
+ * Handles the color picker functionality for event categories in the WordPress admin.
+ * This includes:
+ * - Color picker initialization and management.
+ * - Live preview updates.
+ * - Quick edit integration.
+ * - Color picker visibility control.
  *
  * @since TBD
  */
@@ -12,498 +19,336 @@ tribe.events.admin.categoryColors = {};
  *
  * @since TBD
  *
- * @param {PlainObject} $   jQuery instance.
- * @param {PlainObject} obj The category colors object.
+ * @param {jQuery} $   jQuery instance.
+ * @param {Object} obj The category colors object.
  */
 (($, obj) => {
 	'use strict';
 
-	let $document = $(document);
-
-	/**
-	 * Determines if the current page is the add or edit category page.
-	 *
-	 * @since TBD
-	 */
-	obj.isAddPage = Boolean($('#addtag').length);
-	obj.isEditPage = Boolean($('#edittag').length);
-
-	/**
-	 * Selectors for targeting elements.
-	 *
-	 * @since TBD
-	 */
-	obj.selectors = {
+	// === DOM Selectors ===
+	const $document = $(document);
+	const selectors = obj.selectors = {
+		// Color input fields.
 		colorInput: '.tec-events-category-colors__input.wp-color-picker',
-		preview: '.tec-events-category-colors__preview-text',
+		primaryColor: '[name="tec_events_category-color[primary]"]',
+		backgroundColor: '[name="tec_events_category-color[secondary]"]',
+		fontColor: '[name="tec_events_category-color[text]"]',
+		// Preview element.
 		previewText: '.tec-events-category-colors__preview-text',
+		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
+		// Form elements.
 		tagName: 'input[name="tag-name"], input[name="name"]',
 		priorityField: 'input[name="tec_events_category-color[priority]"]',
-		form: obj.isAddPage ? '#addtag' : '#edittag',
+		form: $('#addtag').length ? '#addtag' : '#edittag',
+		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]"]',
+		// Quick edit elements.
 		quickEditButton: '.editinline',
 		quickEditRow: '.inline-edit-row',
 		quickEditSave: '.inline-edit-save .save',
 		quickEditCancel: '.inline-edit-save .cancel',
+		// Color picker elements.
 		colorContainer: '.tec-events-category-colors__container',
-		primaryColor: '[name="tec_events_category-color[primary]"]',
-		backgroundColor: '[name="tec_events_category-color[secondary]"]',
-		fontColor: '[name="tec_events_category-color[text]"]',
-		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
 		wpPickerContainer: '.wp-picker-container',
 		irisPicker: '.iris-picker',
-		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]"]',
-		inlineAdminCssID: 'tec-events-category-colors-admin-style-inline-css'
+		colorResult: '.wp-color-result',
+		initializedClass: 'wp-color-picker-initialized'
 	};
 
+	// === Helper Functions ===
+	
 	/**
-	 * Updates the preview text based on the closest tag name input.
+	 * Checks if a color picker is already initialized.
 	 *
-	 * @since TBD
-	 *
-	 * @param {HTMLElement} element The tag input element.
+	 * @param {jQuery} $input The input element to check.
+	 * @returns {boolean} Whether the picker is initialized.
 	 */
-	obj.updatePreviewText = (element) => {
-		if (!element) return;
+	const isColorPickerInitialized = $input => $input.hasClass(selectors.initializedClass);
 
+	/**
+	 * Gets all color inputs within a scope.
+	 *
+	 * @param {jQuery} $scope The scope to search within.
+	 * @returns {jQuery} Collection of color inputs.
+	 */
+	const getColorInputs = $scope => $scope.find(selectors.colorInput);
+
+	/**
+	 * Debounces a function call.
+	 *
+	 * @param {Function} fn The function to debounce.
+	 * @param {number} delay The delay in milliseconds.
+	 * @returns {Function} Debounced function.
+	 */
+	const debounce = (fn, delay) => {
+		let timer = null;
+		return function(...args) {
+			clearTimeout(timer);
+			timer = setTimeout(() => fn.apply(this, args), delay);
+		};
+	};
+
+	// === Preview Update Functions ===
+
+	/**
+	 * Updates the preview text immediately.
+	 *
+	 * @param {HTMLElement} element The input element.
+	 */
+	const updatePreviewTextImmediate = element => {
+		if (!element) return;
 		const $tagInput = $(element);
-		const $container = $tagInput.closest('form, .inline-edit-row');
-		const $previewText = $container.find(obj.selectors.previewText);
+		const $container = $tagInput.closest('.tec-events-category-colors__wrap, form, .inline-edit-row');
+		const $previewText = $container.find(selectors.previewText);
 		const defaultText = $previewText.data('default-text') || '';
 		const tagValue = $tagInput.val().trim();
-
 		$previewText.text(tagValue.length ? tagValue : defaultText);
 	};
 
-	/**
-	 * Updates the closest preview based on the input values.
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $input The input field being modified.
-	 */
-	obj.updateClosestPreview = ($input) => {
-		const $container = $input.closest(obj.selectors.colorContainer);
-
-		const primaryColor = $container.find(obj.selectors.primaryColor).val() || 'transparent';
-		const backgroundColor = $container.find(obj.selectors.backgroundColor).val() || 'transparent';
-		const fontColor = $container.find(obj.selectors.fontColor).val() || 'inherit';
-
-		$container.find( obj.selectors.preview ).css( {
-												'border-left': `5px solid ${ primaryColor }`,
-												'background-color': backgroundColor,
-												} );
-
-		$container.find(obj.selectors.previewText).css({ 'color': fontColor });
-	};
+	// Debounced version of preview text update.
+	const updatePreviewText = debounce(updatePreviewTextImmediate, 100);
 
 	/**
-	 * Handles color picker changes.
+	 * Updates the color preview for an input by applying preview styles.
 	 *
-	 * @since TBD
+	 * @param {jQuery} $input The color input element.
 	 */
-	obj.colorPickerChange = function () {
-		obj.updateClosestPreview($(this));
-	};
-
-	/**
-	 * Monitors color input changes and updates the preview.
-	 *
-	 * @since TBD
-	 */
-	obj.monitorInputChange = () => {
-		let colorPickerTimer;
-
-		$document.on('input', obj.selectors.colorInput, function () {
-			const $input = $(this);
-			obj.updateClosestPreview($input);
-
-			clearTimeout(colorPickerTimer);
-			colorPickerTimer = setTimeout(() => {
-				const newColor = $input.val().trim();
-
-				if (/^#([0-9A-F]{3}){1,2}$/i.test(newColor)) {
-					$input.iris('color', newColor);
-				}
-			}, 200);
+	const updateClosestPreview = $input => {
+		if (!$input || $input.prop('disabled') || $input.prop('readonly')) return;
+		const $container = $input.closest(selectors.colorContainer);
+		const primaryColor = $container.find(selectors.primaryColor).val() || 'transparent';
+		const backgroundColor = $container.find(selectors.backgroundColor).val() || 'transparent';
+		const fontColor = $container.find(selectors.fontColor).val() || 'inherit';
+		// Update preview styles.
+		$container.find(selectors.previewText).css({
+			'border-left': `5px solid ${primaryColor}`,
+			'background-color': backgroundColor,
 		});
+		$container.find(selectors.previewText).css({ color: fontColor });
 	};
 
-	/**
-	 * Initializes the WordPress Color Picker on visible inputs.
-	 *
-	 * @since TBD
-	 */
-	obj.initColorPicker = () => {
-		$(obj.selectors.colorInput).filter(':visible').wpColorPicker({
-												change: obj.colorPickerChange,
-												clear: obj.colorPickerChange,
-												});
+	// === Color Picker Management ===
 
-		obj.initializePreviews();
+	/**
+	 * Sets up a color picker on an input.
+	 *
+	 * @param {jQuery} $input The input element to initialize.
+	 */
+	const setupColorPicker = $input => {
+		if ($input.prop('disabled') || $input.prop('readonly') || $input.hasClass(selectors.initializedClass)) {
+			return;
+		}
+		// Initialize the color picker.
+		$input.wpColorPicker({
+			change: function () { updateClosestPreview($input); },
+			clear: function () { updateClosestPreview($input); },
+		});
+		// Set initial color.
+		$input.iris('color', $input.val());
 	};
 
+	// === Event Handlers ===
+
 	/**
-	 * Initializes preview text and color previews on page load.
-	 *
-	 * @since TBD
+	 * Sets up all event handlers.
 	 */
-	obj.initializePreviews = () => {
-		$(obj.selectors.tagName).each(function () {
-			obj.updatePreviewText(this);
+	const bindEvents = () => {
+		// Live preview updates.
+		$document.on('input', selectors.colorInput, function() {
+			if ($(this).prop('disabled') || $(this).prop('readonly')) return;
+			updateClosestPreview($(this));
 		});
 
-		$(obj.selectors.colorInput).each(function () {
-			obj.updateClosestPreview($(this));
+		// Tag name preview updates.
+		$document.on('input change', selectors.tagName, function(e) {
+			if ($(e.target).prop('disabled') || $(e.target).prop('readonly')) return;
+			updatePreviewText(e.target);
 		});
-	};
 
-	/**
-	 * Cleans up and resets WP Color Pickers in Quick Edit.
-	 *
-	 * @since TBD
-	 */
-	obj.cleanupColorPickers = () => {
-		$(obj.selectors.quickEditRow).find(obj.selectors.colorInput).each(function () {
-			const $input = $(this);
-			const $wrapper = $input.closest(obj.selectors.wpPickerContainer);
-
-			if ($wrapper.length) {
-				const $clone = $input.clone().removeClass('wp-color-picker').removeAttr('style');
-				$wrapper.before($clone);
-				$wrapper.remove();
-			}
-		});
-	};
-
-	/**
-	 * Handles Quick Edit interactions and reinitializes the color picker.
-	 *
-	 * @since TBD
-	 */
-	obj.reInitColorPickerOnQuickEdit = () => {
-		$document.on('click', obj.selectors.quickEditButton, function () {
-			obj.cleanupColorPickers();
-
-			const $quickEditRow = $(obj.selectors.quickEditRow);
-			if (!$quickEditRow.length) return;
-
+		// Quick edit initialization.
+		$document.on('click', selectors.quickEditButton, function () {
 			const $parentTr = $(this).closest('tr');
-			const $colorPreview = $parentTr.find(obj.selectors.tableColorPreview);
-
-			const colors = {
-				primary: $colorPreview.data('primary') || '',
-				secondary: $colorPreview.data('secondary') || '',
-				text: $colorPreview.data('text') || '',
+			const $preview = $parentTr.find(selectors.tableColorPreview);
+			const colorValues = {
+				primary: $preview.data('primary') || '',
+				secondary: $preview.data('secondary') || '',
+				text: $preview.data('text') || '',
 			};
 
-			const data ={
-				priority: $colorPreview.data('priority') || '',
-				hide_from_legend: $colorPreview.data('hidden') || '',
-			}
-
+			// Initialize quick edit row after a short delay to ensure DOM is ready.
 			setTimeout(() => {
-				['primary', 'secondary', 'text'].forEach(colorType => {
-					const $input = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
-					if (!$input.length) return;
+				const $row = $(selectors.quickEditRow + ':visible');
 
-					$input.val(colors[colorType]).wpColorPicker({
-												change: obj.colorPickerChange,
-												clear: obj.colorPickerChange,
-												});
-					obj.updateClosestPreview($input);
+				// Initialize each color input.
+				['primary', 'secondary', 'text'].forEach(type => {
+					const $input = $row.find(`[name="tec_events_category-color[${type}]"]`);
+					if ($input.length) {
+						$input.val(colorValues[type]).attr('value', colorValues[type]);
+						// Initialize picker if needed.
+						if (!$input.hasClass(selectors.initializedClass)) {
+							setupColorPicker($input);
+						}
+						// Update Iris UI.
+						if ($input.iris) {
+							$input.iris('color', colorValues[type]);
+						}
+						// Update preview using helper.
+						updateClosestPreview($input);
+					}
 				});
 
-				// Populate priority field
-				const $priorityInput = $quickEditRow.find(obj.selectors.priorityField);
-				if ($priorityInput.length) {
-					$priorityInput.val(data.priority);
-				}
+				// Update other fields.
+				$row.find(selectors.priorityField).val($preview.data('priority') || '');
+				$row.find(selectors.hideFromLegendField).prop('checked', !!$preview.data('hidden'));
 
-				// Populate "Hide from legend" checkbox
-				const $hideLegendCheckbox = $quickEditRow.find( obj.selectors.hideFromLegendField );
-				if ($hideLegendCheckbox.length) {
-					$hideLegendCheckbox.prop('checked', !!data.hide_from_legend);
+				// Update tag name preview.
+				const $tagInput = $row.find(selectors.tagName);
+				if ($tagInput.length && !$tagInput.prop('disabled') && !$tagInput.prop('readonly')) {
+					updatePreviewText($tagInput[0]);
 				}
+			}, 10);
+		});
 
-				const $tagInput = $quickEditRow.find(obj.selectors.tagName);
-				if ($tagInput.length) {
-					obj.updatePreviewText($tagInput[0]);
-				}
-			}, 25);
+		// Clean up on quick edit cancel.
+		$document.on('click', selectors.quickEditCancel, function() {
+			const $quickEditRow = $(this).closest(selectors.quickEditRow);
+			destroyColorPickers($quickEditRow);
+		});
+	};
+
+	// === Initialization Methods ===
+
+	/**
+	 * Initializes color pickers in a scope.
+	 *
+	 * @param {jQuery} $scope The scope to initialize within.
+	 */
+	const initColorPicker = $scope => {
+		getColorInputs($scope).filter(':visible').each(function() {
+			setupColorPicker($(this));
 		});
 	};
 
 	/**
-	 * Initializes event listeners for Quick Edit interactions.
+	 * Initializes previews in a scope.
 	 *
-	 * @since TBD
+	 * @param {jQuery} $scope The scope to initialize within.
 	 */
-	obj.initQuickEditHandlers = () => {
-		$document.on(
-			'click',
-			obj.selectors.quickEditSave + ', ' +
-				obj.selectors.quickEditCancel
-			,
-			obj.cleanupColorPickers
-		);
-		$document.ajaxComplete(obj.handleQuickEditAjaxComplete);
-	};
-
-	/**
-	 * Updates the inline styles for a specific category.
-	 *
-	 * @since TBD
-	 *
-	 * @param {string} categoryClass The category class (e.g. tribe_events_cat-category-1).
-	 * @param {Object} colors The color values to update.
-	 */
-	obj.updateInlineStyles = (categoryClass, colors) => {
-		// Find the inline style element by its ID
-		const styleElement = document.getElementById( obj.selectors.inlineAdminCssID );
-		if (!styleElement) {
-			return;
-		}
-
-		// Get the current CSS content and trim any whitespace.
-		let css = styleElement.textContent.trim();
-
-		// Create the new CSS rule with consistent formatting.
-		const newRule = `${categoryClass}{` +
-			`--tec-color-category-primary:${colors.primary || 'inherit'};` +
-			`--tec-color-category-secondary:${colors.secondary || 'inherit'};` +
-			`--tec-color-category-text:${colors.text || 'inherit'}}`;
-
-		// Check if the category rule already exists.
-		const categoryRegex = new RegExp(`${categoryClass}\\s*{[^}]*}`, 'g');
-		const existingRule = css.match(categoryRegex);
-
-		if (existingRule) {
-			// Replace existing rule.
-			css = css.replace(categoryRegex, newRule);
-		} else {
-			// Add new rule without extra whitespace.
-			css += newRule;
-		}
-
-		// Update the style element.
-		styleElement.textContent = css;
-	};
-
-	/**
-	 * Checks if a WordPress AJAX response was successful.
-	 *
-	 * @since TBD
-	 *
-	 * @param {XMLHttpRequest} xhr The AJAX response object.
-	 * @return {boolean} True if the response was successful, false otherwise.
-	 */
-	obj.isAjaxSuccess = (xhr) => {
-		try {
-			// For inline-save-tax, a 200 status with HTML response means success.
-			if (xhr.status === 200 && xhr.responseText.includes('<tr id="tag-')) {
-				return true;
-			}
-
-			// Try to parse as JSON first.
-			const contentType = xhr.getResponseHeader('content-type');
-			if (contentType && contentType.includes('application/json')) {
-				const response = JSON.parse(xhr.responseText);
-				return response.success === true || response.success === 1;
-			}
-
-			// Fall back to XML parsing.
-			const responseXML = xhr.responseXML;
-			if (!responseXML) {
-				return false;
-			}
-
-			const wpError = responseXML.querySelector('wp_error');
-			if (wpError) {
-				return false;
-			}
-
-			// For inline-save-tax, we need to check for success in the response.
-			const successEl = responseXML.querySelector('success');
-			const success = successEl ? successEl.textContent : null;
-
-			return success === '1' || success === 'true';
-		} catch (error) {
-			return false;
-		}
-	};
-
-	/**
-	 * Handles Quick Edit AJAX completion.
-	 *
-	 * @since TBD
-	 */
-	obj.handleQuickEditAjaxComplete = (event, xhr, settings) => {
-		try {
-			// Only proceed if this is a taxonomy inline save.
-			if (!settings.data || !settings.data.includes("action=inline-save-tax")) {
-				return;
-			}
-
-			// Check if the AJAX request was successful.
-			if (!obj.isAjaxSuccess(xhr)) {
-				return;
-			}
-
-			// Clean up any existing color pickers.
-			obj.cleanupColorPickers();
-
-			// Safely create a temporary div for parsing the response.
-			const tempDiv = document.createElement('div');
-			if (!xhr.responseText) {
-				return;
-			}
-			tempDiv.innerHTML = xhr.responseText;
-
-			// Find the color preview span in the response.
-			const colorPreview = tempDiv.querySelector( obj.selectors.tableColorPreview );
-			if (!colorPreview) {
-				return;
-			}
-
-			// Safely get the category class.
-			const categoryClass = colorPreview.className
-				.split(' ')
-				.find(cls => cls && cls.startsWith('tribe_events_cat-'));
-
-			if (!categoryClass) {
-				return;
-			}
-
-			// Safely get color values with fallbacks.
-			const colors = {
-				primary: colorPreview.getAttribute('data-primary') || 'inherit',
-				secondary: colorPreview.getAttribute('data-secondary') || 'inherit',
-				text: colorPreview.getAttribute('data-text') || 'inherit',
-			};
-
-			// Validate color values are valid hex colors or 'inherit'.
-			const isValidHex = (color) => /^#([0-9A-F]{3}){1,2}$/i.test(color);
-			const sanitizedColors = {
-				primary: isValidHex(colors.primary) ? colors.primary : 'inherit',
-				secondary: isValidHex(colors.secondary) ? colors.secondary : 'inherit',
-				text: isValidHex(colors.text) ? colors.text : 'inherit',
-			};
-
-			obj.updateInlineStyles(categoryClass, sanitizedColors);
-
-		} catch (error) {
-			// Silently handle any errors.
-		}
-	};
-
-	/**
-	 * Resets the form fields to their default state.
-	 *
-	 * @since TBD
-	 *
-	 * @param {jQuery} $form The form element to reset.
-	 */
-	obj.resetForm = ($form) => {
-		if (!obj.isAddPage || !$form || !$form.length) {
-			return;
-		}
-
-		// Reset all color fields within the form.
-		$form.find(obj.selectors.colorInput).each(function () {
+	const initializePreviews = $scope => {
+		$scope.find(selectors.tagName).each(function() {
+			if ($(this).prop('disabled') || $(this).prop('readonly')) return;
+			updatePreviewTextImmediate(this);
+		});
+		getColorInputs($scope).each(function() {
 			const $input = $(this);
-			const $container = $input.closest(obj.selectors.wpPickerContainer);
-
-			// Reset input value.
-			$input.val('').change();
-
-			// Manually reset the Iris picker.
-			$input.wpColorPicker('color', false);
-
-			// Reset WP Color Picker button styles.
-			$container.find('.wp-color-result').css({
-									'background-color': '',
-									'border-color': '',
-									});
-			$container.find('.iris-picker').hide();
+			if ($input.prop('disabled') || $input.prop('readonly')) return;
+			updateClosestPreview($input);
 		});
-
-		// Reset priority field to 0.
-		$form.find(obj.selectors.priorityField).val(0);
-
-		// Reset preview text to default.
-		const $previewText = $form.find(obj.selectors.previewText);
-		const defaultText = $previewText.data('default-text') || 'Example';
-		$previewText.text(defaultText);
 	};
 
+    /**
+     * Main initialization function.
+     */
+    const ready = () => {
+        // Delay the first init slightly to allow DOM and Iris to fully hook in.
+        setTimeout(() => {
+            const $body = $('body');
+            initColorPicker($body);
+            initializePreviews($body);
+        }, 50);
+
+        bindEvents();
+    };
+
+	// Initialize on document ready.
+	$document.ready(ready);
+
+	// === Quick Edit Integration ===
+
 	/**
-	 * Initializes AJAX listeners.
+	 * Destroys color pickers in a scope by cloning and replacing inputs.
 	 *
-	 * @since TBD
+	 * WordPress does not support native destruction of color pickers, so we clone and replace the input as a workaround.
+	 *
+	 * @param {jQuery} $scope The scope to clean up.
 	 */
-	obj.initAjaxListeners = () => {
-		$document.ajaxComplete(function (event, xhr, settings) {
-			if (settings.data && settings.data.includes("action=add-tag")) {
-				const $form = $(obj.selectors.form);
-
-				if (!$form.length) {
-					return;
-				}
-
-				if (obj.isAjaxSuccess(xhr)) {
-					obj.resetForm($form);
-				}
+	const destroyColorPickers = $scope => {
+		$scope.find(selectors.colorInput).each(function () {
+			const $input = $(this);
+			if ($input.hasClass(selectors.initializedClass)) {
+				// Clone and replace input to remove color picker instance (WP has no destroy method).
+				const $clone = $input.clone();
+				$input.closest(selectors.wpPickerContainer).replaceWith($clone);
 			}
 		});
 	};
 
-	/**
-	 * Initializes event listeners.
-	 *
-	 * @since TBD
-	 */
-	obj.initEventListeners = () => {
-		$document.on('input change', obj.selectors.tagName, (event) => {
-			obj.updatePreviewText(event.target);
-		});
-	};
+	// Override inline edit functionality.
+	if (typeof inlineEditTax !== 'undefined') {
+		const originalOpen = inlineEditTax.open;
+		inlineEditTax.open = function(id) {
+			// Clean up existing quick edit.
+			destroyColorPickers(jQuery('#inline-edit'));
 
-	/**
-	 * Closes the color picker when clicking outside of it.
-	 *
-	 * @since TBD
-	 */
-	obj.closeColorPicker = () => {
-		$document.on(
-			'click',
-			( event ) => {
-				// If the click is NOT inside the color picker, input, or the color picker container, hide it.
-				if ( ! $( event.target ).closest(
-					`${ obj.selectors.colorInput },
-						${ obj.selectors.wpPickerContainer },
-						${ obj.selectors.irisPicker }` )
-					.length ) {
-					$( obj.selectors.irisPicker ).fadeOut();
+			// Call original open.
+			originalOpen.apply(this, arguments);
+
+			// Get the quick edit row reference once.
+			const $quickEditRow = jQuery(selectors.quickEditRow);
+
+			// Remove old quick edit rows.
+			const $allQuickEditRows = jQuery('.inline-edit-row');
+			const $currentQuickEditRow = $quickEditRow;
+			$allQuickEditRows.not($currentQuickEditRow).each(function() {
+				destroyColorPickers($(this));
+				$(this).remove();
+			});
+
+			// Get the current row's data.
+			const $parentTr = jQuery(`#tag-${id}`);
+			const $preview = $parentTr.find(selectors.tableColorPreview);
+			const colorValues = {
+				primary: $preview.data('primary') || '',
+				secondary: $preview.data('secondary') || '',
+				text: $preview.data('text') || '',
+			};
+
+			// Initialize color inputs.
+			['primary', 'secondary', 'text'].forEach(colorType => {
+				const $oldInput = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
+				const color = colorValues[colorType] || '';
+
+				if ($oldInput.length && !$oldInput.prop('disabled') && !$oldInput.prop('readonly')) {
+					// Replace with fresh input.
+					const $newInput = $oldInput.clone().val(color);
+					$oldInput.closest(selectors.wpPickerContainer).replaceWith($newInput);
+
+					setupColorPicker($newInput);
+					$newInput.iris('color', color);
+
+					// Explicitly clear the picker if color is empty.
+					if (!color) {
+						$newInput.wpColorPicker('clear');
+					}
+
+					// Update swatch.
+					const $swatch = $newInput.siblings(selectors.colorResult);
+					$swatch.css('background-color', color || 'transparent');
+
+					// Update preview using helper.
+					requestAnimationFrame(() => updateClosestPreview($newInput));
 				}
+			});
+
+			// Initialize other fields.
+			$quickEditRow.find(selectors.priorityField).val($preview.data('priority') || '');
+			$quickEditRow.find(selectors.hideFromLegendField).prop('checked', !!$preview.data('hidden'));
+
+			// Update tag name preview.
+			const $tagInput = $quickEditRow.find(selectors.tagName);
+			if ($tagInput.length && !$tagInput.prop('disabled') && !$tagInput.prop('readonly')) {
+				updatePreviewText($tagInput[0]);
 			}
-		);
-	};
-
-	/**
-	 * Handles initialization when the document is ready.
-	 *
-	 * @since TBD
-	 */
-	obj.ready = () => {
-		obj.initColorPicker();
-		obj.reInitColorPickerOnQuickEdit();
-		obj.monitorInputChange();
-		obj.initEventListeners();
-		obj.initAjaxListeners();
-		obj.initQuickEditHandlers();
-		obj.closeColorPicker();
-	};
-
-	$document.ready(obj.ready);
+		};
+	}
 
 })(jQuery, tribe.events.admin.categoryColors);
