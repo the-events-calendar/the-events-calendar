@@ -40,9 +40,6 @@ class Controller extends Controller_Contract {
 	 * @see src/resources/packages/classy/constants.tsx
 	 * @see self::register_meta_fields()
 	 *
-	 * @todo Evaluate whether we should switch to using \Tribe__Events__Main::$metaTags
-	 *       instead of our own list?
-	 *
 	 * @var array<array-key, array<string, mixed>>
 	 */
 	private const META = [
