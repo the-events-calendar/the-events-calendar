@@ -1,12 +1,12 @@
 /**
- * Category Colors Admin JavaScript
- * 
+ * Category Colors Admin JavaScript.
+ *
  * Handles the color picker functionality for event categories in the WordPress admin.
  * This includes:
- * - Color picker initialization and management
- * - Live preview updates
- * - Quick edit integration
- * - Color picker visibility control
+ * - Color picker initialization and management.
+ * - Live preview updates.
+ * - Quick edit integration.
+ * - Color picker visibility control.
  *
  * @since TBD
  */
@@ -28,64 +28,58 @@ tribe.events.admin.categoryColors = {};
 	// === DOM Selectors ===
 	const $document = $(document);
 	const selectors = obj.selectors = {
-		// Color input fields
+		// Color input fields.
 		colorInput: '.tec-events-category-colors__input.wp-color-picker',
 		primaryColor: '[name="tec_events_category-color[primary]"]',
 		backgroundColor: '[name="tec_events_category-color[secondary]"]',
 		fontColor: '[name="tec_events_category-color[text]"]',
-		
-		// Preview elements
+		// Preview elements.
 		preview: '.tec-events-category-colors__preview-text',
 		previewText: '.tec-events-category-colors__preview-text',
 		tableColorPreview: '.column-category_color .tec-events-taxonomy-table__category-color-preview',
-		
-		// Form elements
+		// Form elements.
 		tagName: 'input[name="tag-name"], input[name="name"]',
 		priorityField: 'input[name="tec_events_category-color[priority]"]',
 		form: $('#addtag').length ? '#addtag' : '#edittag',
 		hideFromLegendField: '[name="tec_events_category-color[hide_from_legend]"]',
-		
-		// Quick edit elements
+		// Quick edit elements.
 		quickEditButton: '.editinline',
 		quickEditRow: '.inline-edit-row',
 		quickEditSave: '.inline-edit-save .save',
 		quickEditCancel: '.inline-edit-save .cancel',
-		
-		// Color picker elements
+		// Color picker elements.
 		colorContainer: '.tec-events-category-colors__container',
 		wpPickerContainer: '.wp-picker-container',
 		irisPicker: '.iris-picker',
 		colorResult: '.wp-color-result',
 		initializedClass: 'wp-color-picker-initialized',
 		wrapContainer: '.tec-events-category-colors__wrap',
-		hiddenClass: 'tec-iris-hidden',
-		hiddenStyleId: 'tec-iris-hidden-style'
 	};
 
 	// === Helper Functions ===
 	
 	/**
-	 * Checks if a color picker is already initialized
+	 * Checks if a color picker is already initialized.
 	 *
-	 * @param {jQuery} $input The input element to check
-	 * @returns {boolean} Whether the picker is initialized
+	 * @param {jQuery} $input The input element to check.
+	 * @returns {boolean} Whether the picker is initialized.
 	 */
 	const isColorPickerInitialized = $input => $input.hasClass(selectors.initializedClass);
 
 	/**
-	 * Gets all color inputs within a scope
+	 * Gets all color inputs within a scope.
 	 *
-	 * @param {jQuery} $scope The scope to search within
-	 * @returns {jQuery} Collection of color inputs
+	 * @param {jQuery} $scope The scope to search within.
+	 * @returns {jQuery} Collection of color inputs.
 	 */
 	const getColorInputs = $scope => $scope.find(selectors.colorInput);
 
 	/**
-	 * Debounces a function call
+	 * Debounces a function call.
 	 *
-	 * @param {Function} fn The function to debounce
-	 * @param {number} delay The delay in milliseconds
-	 * @returns {Function} Debounced function
+	 * @param {Function} fn The function to debounce.
+	 * @param {number} delay The delay in milliseconds.
+	 * @returns {Function} Debounced function.
 	 */
 	const debounce = (fn, delay) => {
 		let timer = null;
@@ -98,9 +92,9 @@ tribe.events.admin.categoryColors = {};
 	// === Preview Update Functions ===
 
 	/**
-	 * Updates the preview text immediately
+	 * Updates the preview text immediately.
 	 *
-	 * @param {HTMLElement} element The input element
+	 * @param {HTMLElement} element The input element.
 	 */
 	const updatePreviewTextImmediate = element => {
 		if (!element) return;
@@ -112,13 +106,13 @@ tribe.events.admin.categoryColors = {};
 		$previewText.text(tagValue.length ? tagValue : defaultText);
 	};
 
-	// Debounced version of preview text update
+	// Debounced version of preview text update.
 	const updatePreviewText = debounce(updatePreviewTextImmediate, 100);
 
 	/**
-	 * Updates the color preview for an input
+	 * Updates the color preview for an input.
 	 *
-	 * @param {jQuery} $input The color input element
+	 * @param {jQuery} $input The color input element.
 	 */
 	const updateClosestPreview = $input => {
 		if (!$input || $input.prop('disabled') || $input.prop('readonly')) return;
@@ -127,8 +121,7 @@ tribe.events.admin.categoryColors = {};
 			const primaryColor = $container.find(selectors.primaryColor).val() || 'transparent';
 			const backgroundColor = $container.find(selectors.backgroundColor).val() || 'transparent';
 			const fontColor = $container.find(selectors.fontColor).val() || 'inherit';
-			
-			// Update preview styles
+			// Update preview styles.
 			$container.find(selectors.preview).css({
 				'border-left': `5px solid ${primaryColor}`,
 				'background-color': backgroundColor,
@@ -140,86 +133,78 @@ tribe.events.admin.categoryColors = {};
 	// === Color Picker Management ===
 
 	/**
-	 * Sets up a color picker on an input
+	 * Sets up a color picker on an input.
 	 *
-	 * @param {jQuery} $input The input element to initialize
+	 * @param {jQuery} $input The input element to initialize.
 	 */
 	const setupColorPicker = $input => {
 		if ($input.prop('disabled') || $input.prop('readonly') || $input.hasClass(selectors.initializedClass)) {
 			return;
 		}
-
-		
-		// Initialize the color picker
+		// Initialize the color picker.
 		$input.wpColorPicker({
 			change: function () { updateClosestPreview($input); },
-			clear: function () { updateClosestPreview($input); }
+			clear: function () { updateClosestPreview($input); },
 		});
-
-		// Set initial color
+		// Set initial color.
 		$input.iris('color', $input.val());
-
-		// Hide the picker initially
 	};
 
 	// === Event Handlers ===
 
 	/**
-	 * Sets up all event handlers
+	 * Sets up all event handlers.
 	 */
 	const bindEvents = () => {
-		// Live preview updates
+		// Live preview updates.
 		$document.on('input', selectors.colorInput, function() {
 			if ($(this).prop('disabled') || $(this).prop('readonly')) return;
 			updateClosestPreview($(this));
 		});
 
-		// Tag name preview updates
+		// Tag name preview updates.
 		$document.on('input change', selectors.tagName, function(e) {
 			if ($(e.target).prop('disabled') || $(e.target).prop('readonly')) return;
 			updatePreviewText(e.target);
 		});
 
-		// Quick edit initialization
+		// Quick edit initialization.
 		$document.on('click', selectors.quickEditButton, function () {
 			const $parentTr = $(this).closest('tr');
 			const $preview = $parentTr.find(selectors.tableColorPreview);
 			const colorValues = {
 				primary: $preview.data('primary') || '',
 				secondary: $preview.data('secondary') || '',
-				text: $preview.data('text') || ''
+				text: $preview.data('text') || '',
 			};
 
-			// Initialize quick edit row after a short delay to ensure DOM is ready
+			// Initialize quick edit row after a short delay to ensure DOM is ready.
 			setTimeout(() => {
 				const $row = $(selectors.quickEditRow + ':visible');
-				
-				// Initialize each color input
+
+				// Initialize each color input.
 				['primary', 'secondary', 'text'].forEach(type => {
 					const $input = $row.find(`[name="tec_events_category-color[${type}]"]`);
 					if ($input.length) {
 						$input.val(colorValues[type]).attr('value', colorValues[type]);
-						
-						// Initialize picker if needed
+						// Initialize picker if needed.
 						if (!$input.hasClass(selectors.initializedClass)) {
 							setupColorPicker($input);
 						}
-						
-						// Update Iris UI
+						// Update Iris UI.
 						if ($input.iris) {
 							$input.iris('color', colorValues[type]);
 						}
-						
-						// Update preview using helper
+						// Update preview using helper.
 						updateClosestPreview($input);
 					}
 				});
 
-				// Update other fields
+				// Update other fields.
 				$row.find(selectors.priorityField).val($preview.data('priority') || '');
 				$row.find(selectors.hideFromLegendField).prop('checked', !!$preview.data('hidden'));
-				
-				// Update tag name preview
+
+				// Update tag name preview.
 				const $tagInput = $row.find(selectors.tagName);
 				if ($tagInput.length && !$tagInput.prop('disabled') && !$tagInput.prop('readonly')) {
 					updatePreviewText($tagInput[0]);
@@ -227,19 +212,19 @@ tribe.events.admin.categoryColors = {};
 			}, 10);
 		});
 
-		// Clean up on quick edit cancel
+		// Clean up on quick edit cancel.
 		$document.on('click', selectors.quickEditCancel, function() {
 			const $quickEditRow = $(this).closest(selectors.quickEditRow);
 			destroyColorPickers($quickEditRow);
 		});
 	};
 
-	// === Initialization ===
+	// === Initialization Methods ===
 
 	/**
-	 * Initializes color pickers in a scope
+	 * Initializes color pickers in a scope.
 	 *
-	 * @param {jQuery} $scope The scope to initialize within
+	 * @param {jQuery} $scope The scope to initialize within.
 	 */
 	const initColorPicker = $scope => {
 		getColorInputs($scope).filter(':visible').each(function() {
@@ -248,9 +233,9 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
-	 * Initializes previews in a scope
+	 * Initializes previews in a scope.
 	 *
-	 * @param {jQuery} $scope The scope to initialize within
+	 * @param {jQuery} $scope The scope to initialize within.
 	 */
 	const initializePreviews = $scope => {
 		$scope.find(selectors.tagName).each(function() {
@@ -265,7 +250,7 @@ tribe.events.admin.categoryColors = {};
 	};
 
 	/**
-	 * Main initialization function
+	 * Main initialization function.
 	 */
 	const ready = () => {
 		const $body = $('body');
@@ -274,15 +259,15 @@ tribe.events.admin.categoryColors = {};
 		bindEvents();
 	};
 
-	// Initialize on document ready
+	// Initialize on document ready.
 	$document.ready(ready);
 
 	// === Quick Edit Integration ===
 
 	/**
-	 * Destroys color pickers in a scope
+	 * Destroys color pickers in a scope.
 	 *
-	 * @param {jQuery} $scope The scope to clean up
+	 * @param {jQuery} $scope The scope to clean up.
 	 */
 	const destroyColorPickers = $scope => {
 		$scope.find(selectors.colorInput).each(function () {
@@ -294,20 +279,20 @@ tribe.events.admin.categoryColors = {};
 		});
 	};
 
-	// Override inline edit functionality
+	// Override inline edit functionality.
 	if (typeof inlineEditTax !== 'undefined') {
 		const originalOpen = inlineEditTax.open;
 		inlineEditTax.open = function(id) {
-			// Clean up existing quick edit
+			// Clean up existing quick edit.
 			destroyColorPickers(jQuery('#inline-edit'));
-			
-			// Call original open
+
+			// Call original open.
 			originalOpen.apply(this, arguments);
 
-			// Get the quick edit row reference once
+			// Get the quick edit row reference once.
 			const $quickEditRow = jQuery(selectors.quickEditRow);
 
-			// Remove old quick edit rows
+			// Remove old quick edit rows.
 			const $allQuickEditRows = jQuery('.inline-edit-row');
 			const $currentQuickEditRow = $quickEditRow;
 			$allQuickEditRows.not($currentQuickEditRow).each(function() {
@@ -315,60 +300,52 @@ tribe.events.admin.categoryColors = {};
 				$(this).remove();
 			});
 
-			// Get the current row's data
+			// Get the current row's data.
 			const $parentTr = jQuery(`#tag-${id}`);
 			const $preview = $parentTr.find(selectors.tableColorPreview);
 			const colorValues = {
 				primary: $preview.data('primary') || '',
 				secondary: $preview.data('secondary') || '',
-				text: $preview.data('text') || ''
+				text: $preview.data('text') || '',
 			};
 
-			// Initialize color inputs
+			// Initialize color inputs.
 			['primary', 'secondary', 'text'].forEach(colorType => {
 				const $oldInput = $quickEditRow.find(`[name="tec_events_category-color[${colorType}]"]`);
 				const color = colorValues[colorType] || '';
 
 				if ($oldInput.length && !$oldInput.prop('disabled') && !$oldInput.prop('readonly')) {
-					// Replace with fresh input
+					// Replace with fresh input.
 					const $newInput = $oldInput.clone().val(color);
 					$oldInput.closest(selectors.wpPickerContainer).replaceWith($newInput);
 
 					setupColorPicker($newInput);
 					$newInput.iris('color', color);
 
-					// Explicitly clear the picker if color is empty
+					// Explicitly clear the picker if color is empty.
 					if (!color) {
 						$newInput.wpColorPicker('clear');
 					}
 
-					// Update swatch
+					// Update swatch.
 					const $swatch = $newInput.siblings(selectors.colorResult);
 					$swatch.css('background-color', color || 'transparent');
 
-					// Update preview using helper
+					// Update preview using helper.
 					requestAnimationFrame(() => updateClosestPreview($newInput));
 				}
 			});
 
-			// Initialize other fields
+			// Initialize other fields.
 			$quickEditRow.find(selectors.priorityField).val($preview.data('priority') || '');
 			$quickEditRow.find(selectors.hideFromLegendField).prop('checked', !!$preview.data('hidden'));
-			
-			// Update tag name preview
+
+			// Update tag name preview.
 			const $tagInput = $quickEditRow.find(selectors.tagName);
 			if ($tagInput.length && !$tagInput.prop('disabled') && !$tagInput.prop('readonly')) {
 				updatePreviewText($tagInput[0]);
 			}
 		};
-	}
-
-	// Inject CSS for picker visibility control
-	if (!document.getElementById(selectors.hiddenStyleId)) {
-		const style = document.createElement('style');
-		style.id = selectors.hiddenStyleId;
-		style.innerHTML = `.${selectors.hiddenClass.replace('.', '')} { display: none !important; }`;
-		document.head.appendChild(style);
 	}
 
 })(jQuery, tribe.events.admin.categoryColors);
