@@ -10,6 +10,7 @@
 					name="tec_events_category-color[primary]"
 					value=""
 					class="tec-events-category-colors__input wp-color-picker"
+					placeholder="None"
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
@@ -20,6 +21,7 @@
 					name="tec_events_category-color[secondary]"
 					value=""
 					class="tec-events-category-colors__input wp-color-picker"
+					placeholder="None"
 				>
 			</div>
 			<div class="tec-events-category-colors__field">
@@ -30,6 +32,7 @@
 					name="tec_events_category-color[text]"
 					value=""
 					class="tec-events-category-colors__input wp-color-picker"
+					placeholder="None"
 				>
 			</div>
 			<div class="tec-events-category-colors__field--preview">

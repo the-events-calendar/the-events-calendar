@@ -245,15 +245,19 @@ tribe.events.admin.categoryColors = {};
 		});
 	};
 
-	/**
-	 * Main initialization function.
-	 */
-	const ready = () => {
-		const $body = $('body');
-		initColorPicker($body);
-		initializePreviews($body);
-		bindEvents();
-	};
+    /**
+     * Main initialization function.
+     */
+    const ready = () => {
+        // Delay the first init slightly to allow DOM and Iris to fully hook in.
+        setTimeout(() => {
+            const $body = $('body');
+            initColorPicker($body);
+            initializePreviews($body);
+        }, 50);
+
+        bindEvents();
+    };
 
 	// Initialize on document ready.
 	$document.ready(ready);
