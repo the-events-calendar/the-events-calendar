@@ -104,3 +104,18 @@ export function getEditedPostVenueIds(): number[] {
 export function areTicketsSupported( state: StoreState ): boolean {
 	return state?.areTicketsSupported || false;
 }
+
+/**
+ * Returns whether an event is new (no start or end date meta) or not.
+ *
+ * @since TBD
+ *
+ * @return {boolean} Whether the current event post is a new one or not.
+ */
+export function isNewEvent(): boolean {
+	// @ts-ignore
+	const { _EventStartDate, _EventEndDate }: EventMeta =
+		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
+
+	return ! _EventStartDate || ! _EventEndDate;
+}

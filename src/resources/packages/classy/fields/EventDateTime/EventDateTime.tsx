@@ -17,6 +17,8 @@ import StartSelector from './StartSelector';
 import EndSelector from './EndSelector';
 import { TimeZone } from '@tec/common/classy/components';
 import { EventDateTimeDetails } from '../../types/EventDateTimeDetails';
+import { addFilter, removeFilter } from '@wordpress/hooks';
+import { useEffect } from 'react';
 
 type DateTimeRefs = {
 	endTimeHours: number;
@@ -175,20 +177,52 @@ function getAllDayNewDates(
  */
 export default function EventDateTime( props: FieldProps ) {
 	const {
-		eventStart,
-		eventEnd,
-		isMultiday,
-		isAllDay,
-		eventTimezone,
-		startOfWeek,
-		endOfDayCutoff,
 		dateWithYearFormat,
+		endOfDayCutoff,
+		eventEnd,
+		eventStart,
+		eventTimezone,
+		isAllDay,
+		isMultiday,
+		isNewEvent,
+		startOfWeek,
 		timeFormat,
 	} = useSelect( ( select ) => {
 		const { getEventDateTimeDetails }: { getEventDateTimeDetails: () => EventDateTimeDetails } =
 			select( 'tec/classy/events' );
-		return getEventDateTimeDetails();
+		const { isNewEvent }: { isNewEvent: () => boolean } = select( 'tec/classy/events' );
+
+		return { ...getEventDateTimeDetails(), isNewEvent: isNewEvent() };
 	}, [] );
+
+	useEffect( (): void => {
+		// The `isNewEvent` flag will always be `false` on existing events.
+		// The `isNewEvent` flag will be first `undefined` (while the selector is resolved), then `true` on new events.
+		// This is done with a filter and not by dispatching a change to the edited post to avoid the
+		// the "You have unsaved changes ..." alert for a user that changed nothing.
+		if ( isNewEvent === true ) {
+			const filterPreSavePost = ( edits: { meta?: Object } ): { meta?: Object } => {
+				if ( ! ( eventStart && eventEnd && eventTimezone ) ) {
+					// We're missing the information required.
+					return edits;
+				}
+
+				// Remove the function for this event, it will not be required anymore.
+				removeFilter( 'editor.preSavePost', 'tec.classy.events', filterPreSavePost );
+
+				// Add the start date, end date and timezone information to the payload sent to the backend.
+				edits.meta = edits?.meta || {};
+				edits.meta[ METADATA_EVENT_START_DATE ] = format( phpDateMysqlFormat, eventStart );
+				edits.meta[ METADATA_EVENT_END_DATE ] = format( phpDateMysqlFormat, eventEnd );
+				edits.meta[ METADATA_EVENT_TIMEZONE ] = eventTimezone;
+
+				return edits;
+			};
+
+			addFilter( 'editor.preSavePost', 'tec.classy.events', filterPreSavePost );
+		}
+	}, [ isNewEvent ] );
+
 	const { editPost } = useDispatch( 'core/editor' );
 
 	const [ isSelectingDate, setIsSelectingDate ] = useState< 'start' | 'end' | false >( false );

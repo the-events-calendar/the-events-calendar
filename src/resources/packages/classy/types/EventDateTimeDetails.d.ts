@@ -1,4 +1,4 @@
-import {Settings} from "@tec/common/classy/types/LocalizedData";
+import { Settings } from '@tec/common/classy/types/LocalizedData';
 
 export type EventDateTimeDetails = {
 	eventStart: Date;
