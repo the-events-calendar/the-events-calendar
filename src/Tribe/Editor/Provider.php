@@ -12,6 +12,8 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	 *
 	 */
 	public function register() {
+		$this->register_and_hook_meta();
+
 		if ( tec_using_classy_editor() ) {
 			return;
 		}
@@ -33,7 +35,6 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	}
 
 	public function register_singletons() {
-		$this->container->singleton( 'events.editor.meta', 'Tribe__Events__Editor__Meta' );
 		$this->container->singleton( 'events.editor.settings', 'Tribe__Events__Editor__Settings' );
 		$this->container->singleton( 'events.editor.i18n', 'Tribe__Events__Editor__I18n', [ 'hook' ] );
 		$this->container->singleton( 'events.editor.template', 'Tribe__Events__Editor__Template' );
@@ -72,9 +73,6 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	protected function hook() {
 		$this->container->register( \Tribe\Events\Editor\Hooks::class );
 
-		// Setup the Meta registration
-		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
-
 		// Register blocks to own own action
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.classic-event-details' ),  'register' ] );
 		add_action( 'tribe_editor_register_blocks', [ tribe( 'events.editor.blocks.event-datetime' ), 'register' ] );
@@ -89,11 +87,14 @@ class Tribe__Events__Editor__Provider extends Service_Provider {
 	}
 
 	/**
-	 * Binds and sets up implementations at boot time.
+	 * Register the Meta singleton and hook it to the init action.
 	 *
-	 * @since 4.7
+	 * @since TBD
+	 *
+	 * @return void
 	 */
-	public function boot() {
-		// no ops
+	private function register_and_hook_meta() {
+		$this->container->singleton( 'events.editor.meta', 'Tribe__Events__Editor__Meta' );
+		add_action( 'init', tribe_callback( 'events.editor.meta', 'register' ), 15 );
 	}
 }
