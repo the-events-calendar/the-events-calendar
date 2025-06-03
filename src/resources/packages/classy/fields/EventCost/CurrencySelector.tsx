@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {__, _x} from '@wordpress/i18n';
-import {Button, Popover, SelectControl, ToggleControl} from '@wordpress/components';
-import {useDispatch, useSelect} from '@wordpress/data';
+import React, { useEffect, useState } from 'react';
+import { __, _x } from '@wordpress/i18n';
+import { Button, Popover, SelectControl, ToggleControl } from '@wordpress/components';
+import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	METADATA_EVENT_CURRENCY,
 	METADATA_EVENT_CURRENCY_POSITION,
 	METADATA_EVENT_CURRENCY_SYMBOL,
 } from '../../constants';
-import {IconClose} from "@tec/common/classy/components";
+import { IconClose } from '@tec/common/classy/components';
 
 type CurrencySelectorProps = {
 	/**
@@ -152,7 +152,9 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( Currencies ) ];
 
-	const onClose = (): void => {setIsSelectingCurrency(false)};
+	const onClose = (): void => {
+		setIsSelectingCurrency( false );
+	};
 
 	return (
 		<div className="classy-field classy-field--currency-selector">
@@ -167,7 +169,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 					placement="bottom-start"
 					noArrow={ true }
 					offset={ 4 }
-					onClose={ ()=> setIsSelectingCurrency( false ) }
+					onClose={ () => setIsSelectingCurrency( false ) }
 				>
 					<div className="classy-component__popover-content">
 						<Button variant="link" onClick={ onClose } className="classy-component__popover-close">
@@ -175,7 +177,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 						</Button>
 
 						<h4 className="classy-component__popover-title">
-							{  _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }
+							{ _x( 'Currency', 'Event currency selector title', 'the-events-calendar' ) }
 						</h4>
 
 						<p className="classy-component__popover-description">
@@ -187,7 +189,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 						<SelectControl
 							label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
-							hideLabelFromVision={true}
+							hideLabelFromVision={ true }
 							value={ eventCurrency }
 							onChange={ onCurrencyChange }
 							options={ currencyOptions }

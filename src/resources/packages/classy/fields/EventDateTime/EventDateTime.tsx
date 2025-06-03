@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { RefObject, useCallback, useMemo, useRef, useState } from '@wordpress/element';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { Hours } from '../../../../../../common/src/resources/packages/classy/types/Hours';
-import { Minutes } from '../../../../../../common/src/resources/packages/classy/types/Minutes';
-import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
+import { Hours } from '@tec/common/classy/types/Hours';
+import { Minutes } from '@tec/common/classy/types/Minutes';
+import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { ToggleControl } from '@wordpress/components';
 import { _x } from '@wordpress/i18n';
 import {
