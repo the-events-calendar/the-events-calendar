@@ -13,6 +13,34 @@
 		factory(jQuery);
 	}
 }(function($, undefined){
+	// MODIFICATION START: Define a helper function for sanitizing template strings
+	// This function takes a string, and if it's potentially HTML, it returns
+	// an HTML-escaped version. HTML entities within the string are preserved as characters.
+	function _sanitizeTemplateString( templateString ) {
+		if ( typeof templateString !== 'string' || templateString === "" ) {
+			return ""; // Return empty for non-strings or empty strings
+		}
+		// Create a temporary div element to leverage the browser's text handling
+		var tempDiv = document.createElement( 'div' );
+
+		// Set the template string as textContent. This does two things:
+		// 1. If templateString is like "<img src=x>", textContent becomes the literal string "<img src=x>".
+		// 2. If templateString is like "&#x00AB;", textContent becomes the actual character '«'.
+		tempDiv.textContent = templateString;
+
+		// Retrieve innerHTML. This will be:
+		// - For case 1: "&lt;img src=x&gt;" (HTML escaped)
+		// - For case 2: "«" (the character itself)
+		var sanitizedHtml = tempDiv.innerHTML;
+
+		// It's good practice to clean up, though for a local var it's less critical.
+		tempDiv = null;
+
+		return sanitizedHtml;
+	}
+
+	// MODIFICATION END: Helper function for sanitizing template strings
+
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
@@ -211,6 +239,41 @@
 					lang = defaults.language;
 			}
 			o.language = lang;
+
+			// MODIFICATION START: Sanitize arrow templates
+			var defaultTemplates = $.fn.bootstrapDatepicker.defaults.templates;
+			if (!o.templates) {
+				// If the 'templates' option object itself is missing, initialize it
+				// with a copy of the defaults to ensure leftArrow/rightArrow properties exist.
+				o.templates = $.extend({}, defaultTemplates);
+			} else {
+				// If 'templates' object exists, ensure arrow properties are handled.
+
+				// Sanitize leftArrow
+				if (o.templates.hasOwnProperty('leftArrow')) {
+					// If leftArrow is explicitly provided, sanitize it.
+					o.templates.leftArrow = _sanitizeTemplateString(o.templates.leftArrow);
+					// If sanitization results in an empty string (e.g., malicious content was stripped or it was empty),
+					// and it was an explicitly provided property, revert to the default.
+					if (o.templates.leftArrow === "") {
+						o.templates.leftArrow = defaultTemplates.leftArrow;
+					}
+				} else {
+					// If leftArrow was not in user-provided options, ensure it takes the default.
+					o.templates.leftArrow = defaultTemplates.leftArrow;
+				}
+
+				// Sanitize rightArrow
+				if (o.templates.hasOwnProperty('rightArrow')) {
+					o.templates.rightArrow = _sanitizeTemplateString(o.templates.rightArrow);
+					if (o.templates.rightArrow === "") {
+						o.templates.rightArrow = defaultTemplates.rightArrow;
+					}
+				} else {
+					o.templates.rightArrow = defaultTemplates.rightArrow;
+				}
+			}
+			// MODIFICATION END: Sanitize arrow templates
 
 			// Retrieve view index from any aliases
 			o.startView = this._resolveViewName(o.startView);
