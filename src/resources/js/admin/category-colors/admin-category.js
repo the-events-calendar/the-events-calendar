@@ -149,8 +149,6 @@ tribe.events.admin.categoryColors = {};
 			return;
 		}
 
-		// Remove WP's default toggle behavior to prevent conflicts
-		$input.off('focus mousedown');
 		
 		// Initialize the color picker
 		$input.wpColorPicker({
@@ -162,7 +160,6 @@ tribe.events.admin.categoryColors = {};
 		$input.iris('color', $input.val());
 
 		// Hide the picker initially
-		$input.closest(selectors.wpPickerContainer).find(selectors.irisPicker).addClass(selectors.hiddenClass);
 	};
 
 	// === Event Handlers ===
@@ -181,30 +178,6 @@ tribe.events.admin.categoryColors = {};
 		$document.on('input change', selectors.tagName, function(e) {
 			if ($(e.target).prop('disabled') || $(e.target).prop('readonly')) return;
 			updatePreviewText(e.target);
-		});
-
-		// Manual color picker toggle
-		$document.on('mousedown', `${selectors.colorResult}, ${selectors.colorInput}`, function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			const $currentInput = $(this).is(selectors.colorInput)
-				? $(this)
-				: $(this).closest(selectors.wpPickerContainer).find(selectors.colorInput);
-
-			// Hide all pickers first
-			$(selectors.irisPicker).addClass(selectors.hiddenClass);
-
-			// Show only the current picker
-			$currentInput.closest(selectors.wpPickerContainer).find(selectors.irisPicker).removeClass(selectors.hiddenClass);
-		});
-
-		// Hide pickers when clicking outside
-		$document.on('mousedown', function(e) {
-			const $target = $(e.target);
-			if (!$target.closest(`${selectors.irisPicker}, ${selectors.colorResult}, ${selectors.colorInput}, ${selectors.wpPickerContainer}`).length) {
-				$(selectors.irisPicker).addClass(selectors.hiddenClass);
-			}
 		});
 
 		// Quick edit initialization
