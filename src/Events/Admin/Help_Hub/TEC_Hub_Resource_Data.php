@@ -35,7 +35,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * The ID of the help hub page.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 * @var string
 	 */
 	const HELP_HUB_PAGE_ID = 'tribe_events_page_tec-events-help-hub';
@@ -59,7 +59,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Whether the class has been initialized.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 * @var bool
 	 */
 	protected bool $initialized = false;
@@ -70,7 +70,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * Sets up the initialization hooks.
 	 *
 	 * @since 6.8.2
-	 * @since TBD Moved logic into initialize() method.
+	 * @since 6.13.2 Moved logic into initialize() method.
 	 */
 	public function __construct() {
 		add_action( 'load-' . self::HELP_HUB_PAGE_ID, [ $this, 'initialize' ] );
@@ -80,7 +80,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Registers this data instance with the Help Hub.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @param Hub $help_hub The current Help Hub instance to register with.
 	 *
@@ -98,7 +98,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Initializes the Help Hub Resource Data.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @return void
 	 */
@@ -159,7 +159,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * Each section can be filtered independently or as a complete set.
 	 *
 	 * @since 6.8.2
-	 * @since TBD Refactored using the Link_Section_Builder and FAQ_Section_Builder classes.
+	 * @since 6.13.2 Refactored using the Link_Section_Builder and FAQ_Section_Builder classes.
 	 *
 	 * @return array The filtered resource sections array.
 	 */
@@ -186,7 +186,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the Getting Started section.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @param Link_Section_Builder $builder The section builder instance.
 	 *
@@ -219,7 +219,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the Customizations section.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @param Link_Section_Builder $builder The section builder instance.
 	 *
@@ -257,7 +257,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the Common Issues section.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @param Link_Section_Builder $builder The section builder instance.
 	 *
@@ -301,7 +301,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	/**
 	 * Builds the FAQ section.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @param FAQ_Section_Builder $builder The section builder instance.
 	 *
@@ -374,7 +374,7 @@ class TEC_Hub_Resource_Data implements Help_Hub_Data_Interface {
 	 * Checks the 'page' request variable against the Help Hub settings slug to confirm
 	 * if the user is currently viewing the Help Hub admin page.
 	 *
-	 * @since TBD
+	 * @since 6.13.2
 	 *
 	 * @return bool True if the current page is the Help Hub, false otherwise.
 	 */
