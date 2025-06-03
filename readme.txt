@@ -234,6 +234,7 @@ Remember to always make a backup of your database and files before updating!
 
 = [6.13.2] 2025-06-03 =
 
+* Version - The Events Calendar 6.13.2 is only compatible with Event Tickets 5.24.0 and higher.
 * Tweak - Updated Help Hub functionality to follow new standards.
 * Language - 8 new strings added, 23 updated, 0 fuzzied, and 0 obsoleted.
 
