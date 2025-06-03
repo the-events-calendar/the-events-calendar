@@ -232,6 +232,11 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
+= [6.13.2] 2025-06-03 =
+
+* Tweak - Updated Help Hub functionality to follow new standards.
+* Language - 8 new strings added, 23 updated, 0 fuzzied, and 0 obsoleted.
+
 = [6.13.1] 2025-05-27 =
 
 * Fix - Add Domain Path to the plugin header to ensure installed files get read. [TEC-5520]
