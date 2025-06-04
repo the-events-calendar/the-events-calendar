@@ -3,9 +3,12 @@
 namespace Tribe\Events\Views\V2;
 
 use Tribe__Events__Main as Main;
+use Tribe__Context as Context;
+use Tribe\Tests\Traits\With_Uopz;
 require_once codecept_data_dir( 'Views/V2/classes/Test_Full_View.php' );
 
 class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
+	use With_Uopz;
 
 	public function setUp() {
 		parent::setUp();
@@ -540,5 +543,79 @@ class Template_BootstrapTest extends \Codeception\TestCase\WPTestCase {
 		$filtered_body_classes = $template_bootstrap->filter_add_body_classes( $initial_body_classes );
 
 		$this->assertEquals( $expected, in_array( 'archive', $filtered_body_classes, true ) );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_redirect_disabled_views_to_default() {
+		// Set up a disabled view
+		$view_slug = 'month';
+		tribe_update_option( 'tribeEnableViews', [ 'list' ] );
+
+		// Set up the context to request the disabled view
+		tribe_context()->alter( [
+			'event_display' => $view_slug
+		] )->dangerously_set_global_context();
+
+		// Run the template include filter
+		$bootstrap = $this->make_instance();
+		$bootstrap->filter_template_include( 'foo/bar.php' );
+
+		// Verify the redirect filter was set
+		$this->assertTrue( has_filter( 'tribe_events_views_v2_redirected' ), 'Should have added the redirect filter' );
+		$this->assertTrue( apply_filters( 'tribe_events_views_v2_redirected', false ), 'Redirect filter should return true' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_redirect_enabled_views() {
+		// Set up an enabled view
+		$view_slug = 'month';
+		tribe_update_option( 'tribeEnableViews', [ 'month', 'list' ] );
+
+		// Set up the context to request the enabled view
+		tribe_context()->alter( [
+			'event_display' => $view_slug
+		] )->dangerously_set_global_context();
+
+		// Mock the redirect
+		$redirect_attempted = false;
+		add_filter( 'wp_redirect', function() use ( &$redirect_attempted ) {
+			$redirect_attempted = true;
+			return false;
+		} );
+
+		// Run the template include filter
+		$bootstrap = $this->make_instance();
+		$bootstrap->filter_template_include( 'foo/bar.php' );
+
+		// Verify no redirect was attempted
+		$this->assertFalse( $redirect_attempted, 'Should not attempt redirect for enabled view' );
+	}
+
+	/**
+	 * @test
+	 */
+	public function it_should_not_redirect_default_view() {
+		// Set up context to request default view
+		tribe_context()->alter( [
+			'event_display' => 'default'
+		] )->dangerously_set_global_context();
+
+		// Mock the redirect
+		$redirect_attempted = false;
+		add_filter( 'wp_redirect', function() use ( &$redirect_attempted ) {
+			$redirect_attempted = true;
+			return false;
+		} );
+
+		// Run the template include filter
+		$bootstrap = $this->make_instance();
+		$bootstrap->filter_template_include( 'foo/bar.php' );
+
+		// Verify no redirect was attempted
+		$this->assertFalse( $redirect_attempted, 'Should not attempt redirect for default view' );
 	}
 }

@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Disabled Event Views should redirect to default view [TEC-5427]
