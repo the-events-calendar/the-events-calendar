@@ -12,6 +12,7 @@ namespace TEC\Events\Classy;
 use DateTimeZone;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use Tribe__Date_Utils as Date;
+use Tribe__Events__API as API;
 use Tribe__Timezones as Timezones;
 use WP_Post as Post;
 use WP_Post_Type;
@@ -120,6 +121,7 @@ class Meta extends Controller_Contract {
 		// Add actions for each supported post type.
 		foreach ( $this->get_supported_post_types() as $post_type ) {
 			add_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
+			add_action( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
 		}
 	}
 
@@ -138,6 +140,7 @@ class Meta extends Controller_Contract {
 		// Remove actions for each supported post type.
 		foreach ( $this->get_supported_post_types() as $post_type ) {
 			remove_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ] );
+			remove_action( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ] );
 		}
 	}
 
@@ -395,5 +398,31 @@ class Meta extends Controller_Contract {
 		}
 
 		return $timezone;
+	}
+
+	/**
+	 * Updates the cost of an event.
+	 *
+	 * This method is called when the cost of an event is updated via the REST API.
+	 * It retrieves the cost from the request and updates the post meta accordingly.
+	 *
+	 * @since TBD
+	 *
+	 * @param Post    $post    The post object being updated.
+	 * @param Request $request The request object containing the new cost data.
+	 *
+	 * @return void
+	 */
+	public function update_cost( $post, $request ): void {
+		// If for some reason we don't have the correct object types, return early.
+		if ( ! $post instanceof Post || ! $request instanceof Request ) {
+			return;
+		}
+
+		$meta    = $request->get_param( 'meta' ) ?? [];
+		$post_id = $post->ID;
+
+		$cost = (array) ( ! empty( $meta['_EventCost'] ) ? $meta['_EventCost'] : tribe_get_cost( $post_id ) );
+		API::update_event_cost( $post_id, $cost );
 	}
 }
