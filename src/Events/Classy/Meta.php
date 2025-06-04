@@ -9,8 +9,13 @@ declare( strict_types=1 );
 
 namespace TEC\Events\Classy;
 
+use DateTimeZone;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
+use Tribe__Date_Utils as Date;
+use Tribe__Timezones as Timezones;
+use WP_Post as Post;
 use WP_Post_Type;
+use WP_REST_Request as Request;
 
 /**
  * Class Meta
@@ -111,6 +116,11 @@ class Meta extends Controller_Contract {
 	 */
 	protected function do_register(): void {
 		$this->register_meta_fields();
+
+		// Add actions for each supported post type.
+		foreach ( $this->get_supported_post_types() as $post_type ) {
+			add_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
+		}
 	}
 
 	/**
@@ -124,6 +134,11 @@ class Meta extends Controller_Contract {
 	 */
 	public function unregister(): void {
 		$this->unregister_meta_fields();
+
+		// Remove actions for each supported post type.
+		foreach ( $this->get_supported_post_types() as $post_type ) {
+			remove_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ] );
+		}
 	}
 
 	/**
@@ -302,5 +317,83 @@ class Meta extends Controller_Contract {
 			case 'url':
 				return 'esc_url_raw';
 		}
+	}
+
+	/**
+	 * Adds UTC dates to the event post after it has been inserted.
+	 *
+	 * This method is called after an event post is created or updated, and it adds the UTC
+	 * versions of the start and end dates to the post meta.
+	 *
+	 * @since TBD
+	 *
+	 * @param Post    $post    Inserted or updated post object.
+	 * @param Request $request Request object.
+	 *
+	 * @return void
+	 */
+	public function add_utc_dates( $post, $request ): void {
+		// If for some reason we don't have the correct object types, return early.
+		if ( ! $post instanceof Post || ! $request instanceof Request ) {
+			return;
+		}
+
+		$meta    = $request->get_param( 'meta' ) ?? [];
+		$post_id = $post->ID;
+
+		// If there isn't a start or end date, return early.
+		if ( empty( $meta['_EventStartDate'] ) && empty( $meta['_EventEndDate'] ) ) {
+			return;
+		}
+
+		try {
+			$timezone_string = ( ! empty( $meta['_EventTimezone'] ) )
+				? $meta['_EventTimezone']
+				: $this->get_timezone_string( $post_id );
+
+			// Attempt to create a DateTimeZone object from the timezone string.
+			$timezone = new DateTimeZone( $timezone_string );
+			$utc      = new DateTimeZone( 'UTC' );
+		} catch ( \Exception $e ) {
+			// @todo: Decide how to handle the exception.
+			// for now, just return early.
+			return;
+		}
+
+		// Get the start and end dates from the meta or post meta.
+		$start_date = ( ! empty( $meta['_EventStartDate'] ) )
+			? $meta['_EventStartDate']
+			: get_post_meta( $post_id, '_EventStartDate', true );
+
+		$end_date = ( ! empty( $meta['_EventEndDate'] ) )
+			? $meta['_EventEndDate']
+			: get_post_meta( $post_id, '_EventEndDate', true );
+
+		$utc_start_date = Date::build_date_object( $start_date, $timezone )->setTimezone( $utc );
+		$utc_end_date   = Date::build_date_object( $end_date, $timezone )->setTimezone( $utc );
+
+		update_post_meta( $post_id, '_EventStartDateUTC', $utc_start_date->format( Date::DBDATETIMEFORMAT ) );
+		update_post_meta( $post_id, '_EventEndDateUTC', $utc_end_date->format( Date::DBDATETIMEFORMAT ) );
+	}
+
+	/**
+	 * Retrieves the timezone string for the event.
+	 *
+	 * This method checks the post meta for the `_EventTimezone` key and returns its value.
+	 * If it is not set, it defaults to the WordPress timezone string.
+	 *
+	 * @since TBD
+	 *
+	 * @param int $event_id The ID of the event post.
+	 *
+	 * @return string The timezone string for the event.
+	 */
+	private function get_timezone_string( int $event_id ): string {
+		$timezone = get_post_meta( $event_id, '_EventTimezone', true );
+		if ( empty( $timezone ) ) {
+			$timezone = Timezones::wp_timezone_string();
+		}
+
+		return $timezone;
 	}
 }
