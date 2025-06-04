@@ -14,49 +14,15 @@
 		<?php wp_nonce_field( 'save_category_colors', 'tec_category_colors_nonce' ); ?>
 		<div class="tec-events-category-colors__container">
 			<div class="tec-events-category-colors__grid">
-				<div class="tec-events-category-colors__field">
-					<label for="tec-events-category-colors-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
-					<input
-						type="text"
-						id="tec-events-category-colors-primary"
-						name="tec_events_category-color[primary]"
-						value="<?php echo esc_attr( $category_colors['primary'] ?? '' ); ?>"
-						class="tec-events-category-colors__input wp-color-picker"
-						placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
-					>
-				</div>
-				<div class="tec-events-category-colors__field">
-					<label for="tec-events-category-colors-background"><?php esc_html_e( 'Background Color', 'the-events-calendar' ); ?></label>
-					<input
-						type="text"
-						id="tec-events-category-colors-background"
-						name="tec_events_category-color[secondary]"
-						value="<?php echo esc_attr( $category_colors['secondary'] ?? '' ); ?>"
-						class="tec-events-category-colors__input wp-color-picker"
-						placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
-					>
-				</div>
-				<div class="tec-events-category-colors__field">
-					<label for="tec-events-category-colors-text"><?php esc_html_e( 'Text Color', 'the-events-calendar' ); ?></label>
-					<input
-						type="text"
-						id="tec-events-category-colors-text"
-						name="tec_events_category-color[text]"
-						value="<?php echo esc_attr( $category_colors['text'] ?? '' ); ?>"
-						class="tec-events-category-colors__input wp-color-picker"
-						placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
-					>
-				</div>
-				<div class="tec-events-category-colors__field--preview">
-					<label><?php esc_html_e( 'Preview', 'the-events-calendar' ); ?></label>
-					<div class="tec-events-category-colors__preview-box">
-						<span class="tec-events-category-colors__preview-text" data-default-text="<?php esc_attr_e( 'Example', 'the-events-calendar' ); ?>"></span>
-					</div>
-					<p class="tec-events-category-colors__description">
-						<?php esc_html_e( 'Select a primary color of your choice. You can further customize your color choices afterwards.', 'the-events-calendar' ); ?>
-						<a href="#"><?php esc_html_e( 'Learn more about color selection and accessibility', 'the-events-calendar' ); ?></a>
-					</p>
-				</div>
+				<?php
+				// Primary Color field.
+				$this->template( '/partials/primary-color', [ 'value' => $category_colors['primary'] ?? '' ] );
+				// Background Color field.
+				$this->template( '/partials/background-color', [ 'value' => $category_colors['secondary'] ?? '' ] );
+				// Text Color field.
+				$this->template( '/partials/text-color', [ 'value' => $category_colors['text'] ?? '' ] );
+				$this->template( '/partials/preview-area' );
+				?>
 			</div>
 		</div>
 	</td>

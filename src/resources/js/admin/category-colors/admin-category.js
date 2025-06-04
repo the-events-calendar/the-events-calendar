@@ -245,7 +245,7 @@ tribe.events.admin.categoryColors = {};
 		});
 	};
 
-    /**
+	/**
      * Main initialization function.
      */
     const ready = () => {

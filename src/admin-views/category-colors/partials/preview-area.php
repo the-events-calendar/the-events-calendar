@@ -1,0 +1,12 @@
+<div class="tec-events-category-colors__field--preview">
+    <label><?php esc_html_e( 'Preview', 'the-events-calendar' ); ?></label>
+    <div class="tec-events-category-colors__preview-box">
+        <span class="tec-events-category-colors__preview-text" data-default-text="<?php esc_attr_e( 'Example', 'the-events-calendar' ); ?>"></span>
+    </div>
+    <p class="tec-events-category-colors__description">
+        <?php esc_html_e( 'Select a primary color of your choice. You can further customize your color choices afterwards.', 'the-events-calendar' ); ?>
+        <a href="https://theeventscalendar.com/knowledgebase/k/accessibility-color-selection/">
+            <?php esc_html_e( 'Learn more about color selection and accessibility', 'the-events-calendar' ); ?>
+        </a>
+    </p>
+</div> 

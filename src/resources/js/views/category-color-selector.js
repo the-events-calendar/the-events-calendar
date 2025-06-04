@@ -1,5 +1,5 @@
 /**
- * Ensures the required levels exist in the Tribe Object
+ * Category Color Picker UI logic for The Events Calendar.
  *
  * @since TBD
  *
@@ -9,27 +9,18 @@ tribe.events = tribe.events || {};
 tribe.events.categoryColors = tribe.events.categoryColors || {};
 
 /**
- * Configures Category Color Picker Object in the Global Tribe variable
+ * Category Color Picker module.
  *
  * @since TBD
- *
  * @type {PlainObject}
- * @property {Set} selectedCategories - Set of selected category slugs
- * @property {boolean} ajaxHooked - Flag indicating if AJAX monitoring has been initialized
  */
-tribe.events.categoryColors.picker = ( function() {
+tribe.events.categoryColors.categoryPicker = ( function() {
 	'use strict';
 
-	const obj = {};
-
-	/**
-	 * Selectors used for configuration and setup
-	 *
-	 * @since TBD
-	 *
-	 * @type {PlainObject}
-	 */
-	obj.selectors = {
+	// =====================
+	// Constants & Selectors
+	// =====================
+	const SELECTORS = {
 		picker: '.tec-events-category-color-filter',
 		dropdown: '.tec-events-category-color-filter__dropdown',
 		checkbox: '.tec-events-category-color-filter__checkbox',
@@ -52,434 +43,397 @@ tribe.events.categoryColors.picker = ( function() {
 			'.tribe-events-calendar-month-mobile-events__mobile-event',
 			'.tribe-events-pro-week-mobile-events__event'
 		],
-		filteredHide: 'tec-category-filtered-hide'
+		filteredHide: 'tec-category-filtered-hide',
 	};
 
+	// =============
+	// State
+	// =============
+	let selectedCategories = new Set();
+	let ajaxHooked = false;
+	let observer = null;
+
+	// =============
+	// Utilities
+	// =============
+
 	/**
-	 * Toggles the dropdown visibility
-	 *
+	 * Returns the first element matching the selector.
 	 * @since TBD
-	 *
-	 * @param {Event} event - The click event
-	 *
+	 * @param {string} selector
+	 * @return {HTMLElement|null}
+	 */
+	const qs = selector => document.querySelector( selector );
+
+	/**
+	 * Returns all elements matching the selector.
+	 * @since TBD
+	 * @param {string} selector
+	 * @return {NodeListOf<HTMLElement>}
+	 */
+	const qsa = selector => document.querySelectorAll( selector );
+
+	/**
+	 * Returns all event elements.
+	 * @since TBD
+	 * @return {NodeListOf<HTMLElement>}
+	 */
+	const getEventElements = () => qsa( SELECTORS.events.join( ', ' ) );
+
+	// =====================
+	// Dropdown Handling
+	// =====================
+
+	/**
+	 * Toggles the dropdown visibility. If open, close it; if closed, open and adjust position.
+	 * @since TBD
+	 * @param {Event} event
 	 * @return {void}
 	 */
-	obj.toggleDropdown = event => {
+	const toggleDropdown = event => {
 		event.stopPropagation();
-
 		const picker = event.currentTarget;
-		const dropdown = document.querySelector( obj.selectors.dropdown );
-
-		if ( ! dropdown || obj.isDropdownOpen( dropdown ) ) {
-			return;
+		const dropdown = qs( SELECTORS.dropdown );
+		if ( !dropdown ) return;
+		if ( isDropdownOpen( dropdown ) ) {
+			closeDropdown( picker, dropdown );
+		} else {
+			openDropdown( picker, dropdown );
 		}
-
-		// Open dropdown.
-		dropdown.classList.add( obj.selectors.dropdownVisible );
-		picker.classList.add( obj.selectors.pickerOpen );
-
-		// Adjust positioning.
-		obj.adjustDropdownPosition(
-			picker,
-			dropdown
-		);
 	};
 
 	/**
-	 * Checks if the dropdown is already open.
-	 *
+	 * Opens the dropdown and adjusts its position.
 	 * @since TBD
-	 *
-	 * @param {HTMLElement} dropdown - The dropdown element
-	 *
+	 * @param {HTMLElement} picker
+	 * @param {HTMLElement} dropdown
+	 * @return {void}
+	 */
+	const openDropdown = ( picker, dropdown ) => {
+		dropdown.classList.add( SELECTORS.dropdownVisible );
+		picker.classList.add( SELECTORS.pickerOpen );
+		adjustDropdownPosition( picker, dropdown );
+	};
+
+	/**
+	 * Closes the dropdown.
+	 * @since TBD
+	 * @param {HTMLElement} picker
+	 * @param {HTMLElement} dropdown
+	 * @return {void}
+	 */
+	const closeDropdown = ( picker, dropdown ) => {
+		dropdown.classList.remove( SELECTORS.dropdownVisible );
+		picker.classList.remove( SELECTORS.pickerOpen );
+	};
+
+	/**
+	 * Checks if the dropdown is open.
+	 * @since TBD
+	 * @param {HTMLElement} dropdown
 	 * @return {boolean}
 	 */
-	obj.isDropdownOpen = dropdown => dropdown.classList.contains( obj.selectors.dropdownVisible );
+	const isDropdownOpen = dropdown => dropdown.classList.contains( SELECTORS.dropdownVisible );
 
 	/**
-	 * Closes the dropdown when the close button is clicked
-	 *
+	 * Handles closing the dropdown only if the click is outside the dropdown and picker.
 	 * @since TBD
-	 *
+	 * @param {Event} event
 	 * @return {void}
 	 */
-	obj.handleDropdownClose = () => {
-		const picker = document.querySelector( obj.selectors.picker );
-		const dropdown = document.querySelector( obj.selectors.dropdown );
-
-		if ( ! picker || ! dropdown ) {
+	const handleDropdownClose = event => {
+		const picker = qs( SELECTORS.picker );
+		const dropdown = qs( SELECTORS.dropdown );
+		if ( !picker || !dropdown ) return;
+		const target = event.target;
+		if (
+			target === picker || picker.contains( target ) ||
+			target === dropdown || dropdown.contains( target )
+		) {
 			return;
 		}
-
-		setTimeout( () => {
-			dropdown.classList.remove( obj.selectors.dropdownVisible );
-			picker.classList.remove( obj.selectors.pickerOpen );
-		}, 100 );
+		closeDropdown( picker, dropdown );
 	};
 
 	/**
 	 * Adjusts dropdown position to prevent overflow.
-	 *
 	 * @since TBD
-	 *
-	 * @param {HTMLElement} picker - The dropdown's parent container
-	 * @param {HTMLElement} dropdown - The dropdown element
-	 *
+	 * @param {HTMLElement} picker
+	 * @param {HTMLElement} dropdown
 	 * @return {void}
 	 */
-	obj.adjustDropdownPosition = ( picker, dropdown ) => {
+	const adjustDropdownPosition = ( picker, dropdown ) => {
 		const rect = dropdown.getBoundingClientRect();
-		const right = rect.right;
-		const isOffScreen = right > window.innerWidth;
+		const isOffScreen = rect.right > window.innerWidth;
+		picker.classList.toggle( SELECTORS.pickerAlignRight, isOffScreen );
+	};
 
-		picker.classList.toggle(
-			obj.selectors.pickerAlignRight,
-			isOffScreen
-		);
+	// =====================
+	// Checkbox Handling & Filter Persistence
+	// =====================
+
+	/**
+	 * Resets all checkboxes and clears selected categories.
+	 * @since TBD
+	 * @return {void}
+	 */
+	const resetSelection = () => {
+		qsa( SELECTORS.checkbox ).forEach( checkbox => {
+			checkbox.checked = false;
+		} );
+		selectedCategories.clear();
+		updateEventVisibility();
+		persistSelectedCategories();
 	};
 
 	/**
 	 * Handles checkbox value changes and updates event visibility.
-	 *
 	 * @since TBD
-	 *
-	 * @param {Event|null} event - The change event, or null when resetting.
-	 *
+	 * @param {Event} event
 	 * @return {void}
 	 */
-	obj.handleCheckboxChange = event => {
-		// If event is null (reset case), clear all selected categories.
-		if ( ! event || ! event.target ) {
-			obj.selectedCategories = obj.selectedCategories ?? new Set();
-			obj.selectedCategories.clear();
+	const handleCheckboxChange = event => {
+		const checkbox = event.target.closest( SELECTORS.checkbox );
+		if ( !checkbox ) return;
+		const categorySlug = checkbox.dataset.category;
+		if ( checkbox.checked ) {
+			selectedCategories.add( categorySlug );
 		} else {
-			const categorySlug = event.target.dataset.category;
-			obj.selectedCategories = obj.selectedCategories ?? new Set();
-
-			// Update the Set based on checkbox state.
-			event.target.checked
-				? obj.selectedCategories.add( categorySlug )
-				: obj.selectedCategories.delete( categorySlug );
+			selectedCategories.delete( categorySlug );
 		}
-
-		// Convert Set to an array for easier iteration.
-		const selectedCategoriesArray = [ ...obj.selectedCategories ];
-		const events = document.querySelectorAll( obj.selectors.events.join( ', ' ) );
-
-		events.forEach( event => {
-			const hasMatch = obj.eventHasMatchingCategory( event, selectedCategoriesArray );
-			
-
-			// Apply filtering classes.
-			event.classList.toggle(
-				obj.selectors.filteredHide,
-				selectedCategoriesArray.length > 0 && ! hasMatch
-			);
-		} );
+		updateEventVisibility();
+		persistSelectedCategories();
 	};
 
 	/**
-	 * Handles reset button click event.
-	 *
+	 * Updates event visibility based on selected categories.
 	 * @since TBD
-	 *
 	 * @return {void}
 	 */
-	obj.handleResetButtonClick = () => {
-		const checkboxes = document.querySelectorAll( obj.selectors.checkbox );
-
-		// Uncheck all checkboxes.
-		checkboxes.forEach( checkbox => {
-			checkbox.checked = false;
+	const updateEventVisibility = () => {
+		const selectedArray = [ ...selectedCategories ];
+		getEventElements().forEach( eventEl => {
+			const hasMatch = eventHasMatchingCategory( eventEl, selectedArray );
+			eventEl.classList.toggle( SELECTORS.filteredHide, selectedArray.length > 0 && !hasMatch );
 		} );
-
-		// Call handleCheckboxChange with no event to reset visibility.
-		obj.handleCheckboxChange( null );
 	};
 
 	/**
 	 * Checks if an event matches any selected categories.
-	 *
 	 * @since TBD
-	 *
-	 * @param {HTMLElement} event - The event element.
-	 * @param {Array} selectedCategories - Array of selected category slugs.
-	 *
-	 * @return {boolean} - True if the event matches a selected category.
+	 * @param {HTMLElement} eventEl
+	 * @param {Array} selectedCategoriesArr
+	 * @return {boolean}
 	 */
-	obj.eventHasMatchingCategory = ( event, selectedCategories ) => {
-		const eventCategories = [ ...event.classList ].filter( cls => cls.startsWith( 'tribe_events_cat-' ) );
-		return selectedCategories.some( cat => eventCategories.includes( `tribe_events_cat-${ cat }` ) );
+	const eventHasMatchingCategory = ( eventEl, selectedCategoriesArr ) => {
+		const eventCategories = [ ...eventEl.classList ].filter( cls => cls.startsWith( 'tribe_events_cat-' ) );
+		return selectedCategoriesArr.some( cat => eventCategories.includes( `tribe_events_cat-${ cat }` ) );
 	};
+
+	// =====================
+	// Filter Persistence Helpers
+	// =====================
+
+	/**
+	 * Persist selected categories in sessionStorage.
+	 * @since TBD
+	 */
+	const persistSelectedCategories = () => {
+		try {
+			sessionStorage.setItem( 'tec_category_color_selected', JSON.stringify( [ ...selectedCategories ] ) );
+		} catch ( e ) {}
+	};
+
+	/**
+	 * Restore selected categories from sessionStorage.
+	 * @since TBD
+	 */
+	const restoreSelectedCategories = () => {
+		try {
+			const stored = sessionStorage.getItem( 'tec_category_color_selected' );
+			if ( stored ) {
+				selectedCategories = new Set( JSON.parse( stored ) );
+			}
+		} catch ( e ) {}
+	};
+
+	/**
+	 * Re-check checkboxes and reapply filter classes after AJAX or DOM update.
+	 * @since TBD
+	 */
+	const reapplyFilters = () => {
+		// Re-check checkboxes
+		qsa( SELECTORS.checkbox ).forEach( checkbox => {
+			const cat = checkbox.dataset.category;
+			checkbox.checked = selectedCategories.has( cat );
+		} );
+		updateEventVisibility();
+	};
+
+	// =====================
+	// AJAX Monitoring
+	// =====================
 
 	/**
 	 * Hooks into XMLHttpRequest to detect AJAX completion.
-	 *
 	 * @since TBD
-	 *
 	 * @return {void}
 	 */
-	obj.monitorTECAjax = function() {
-		if ( obj.ajaxHooked ) {
-			return;
-		}
-		obj.ajaxHooked = true;
-
+	const monitorTECAjax = () => {
+		if ( ajaxHooked ) return;
+		ajaxHooked = true;
 		const originalOpen = XMLHttpRequest.prototype.open;
-
-		/**
-		 * Overrides the XMLHttpRequest open method to monitor TEC AJAX requests
-		 *
-		 * @param {string} method - The HTTP method to use
-		 * @param {string} url - The URL to send the request to
-		 * @param {...*} args - Additional arguments passed to the original open method
-		 *
-		 * @return {void}
-		 */
 		XMLHttpRequest.prototype.open = function( method, url, ...args ) {
-			// Check if this is a TEC-related AJAX request.
 			if ( url.includes( '/wp-json/tribe/views/v2/html' ) ) {
-				this.addEventListener(
-					'load',
-					function() {
-						if ( this.readyState === 4 && this.status === 200 ) {
-							obj.ensureBindings();
-						}
+				this.addEventListener( 'load', function() {
+					if ( this.readyState === 4 && this.status === 200 ) {
+						ensureBindings();
+						restoreSelectedCategories();
+						reapplyFilters();
 					}
-				);
+				} );
 			}
-
-			// Call the original open method.
-			return originalOpen.apply(
-				this,
-				[ method, url, ...args ]
-			);
+			return originalOpen.apply( this, [ method, url, ...args ] );
 		};
 	};
 
+	// =====================
+	// Event Binding
+	// =====================
+
 	/**
 	 * Ensures event bindings persist after AJAX updates.
-	 *
 	 * @since TBD
-	 *
-	 * @param {number} retryCount - Number of retries attempted
-	 *
+	 * @param {number} retryCount
 	 * @return {void}
 	 */
-	obj.ensureBindings = function( retryCount = 0 ) {
-		// Limit retries to avoid infinite loops.
-		if ( retryCount > 5 ) {
-			return;
-		}
-
+	const ensureBindings = ( retryCount = 0 ) => {
+		if ( retryCount > 5 ) return;
 		requestAnimationFrame( () => {
-			const picker = document.querySelector( obj.selectors.picker );
-
-			if ( ! picker ) {
-				setTimeout(
-					() => obj.ensureBindings( retryCount + 1 ),
-					50
-				);
+			const picker = qs( SELECTORS.picker );
+			if ( !picker ) {
+				setTimeout( () => ensureBindings( retryCount + 1 ), 50 );
 				return;
 			}
-
-			obj.cleanupBindings(); // Cleanup first to avoid duplicates.
-
-			if ( ! picker.hasAttribute( 'data-bound' ) ) {
-				obj.bindEvents();
-				// Prevent duplicate bindings.
-				picker.setAttribute(
-					'data-bound',
-					'true'
-				);
+			cleanupBindings();
+			if ( !isBound( picker ) ) {
+				bindEvents();
+				picker.setAttribute( SELECTORS.dataBound, 'true' );
 			}
 		} );
 	};
 
 	/**
 	 * Removes old event bindings to prevent duplicate listeners.
-	 *
 	 * @since TBD
-	 *
 	 * @return {void}
 	 */
-	obj.cleanupBindings = () => {
-		const picker = document.querySelector( obj.selectors.picker );
-
-		if ( ! picker || ! obj.isBound( picker ) ) {
-			return;
-		}
-
-		obj.unbindEvents();
-		picker.removeAttribute( obj.selectors.dataBound );
+	const cleanupBindings = () => {
+		const picker = qs( SELECTORS.picker );
+		if ( !picker || !isBound( picker ) ) return;
+		unbindEvents();
+		picker.removeAttribute( SELECTORS.dataBound );
 	};
 
 	/**
 	 * Checks if the picker has already been bound.
-	 *
 	 * @since TBD
-	 *
-	 * @param {HTMLElement} element - The picker element.
-	 *
-	 * @return {boolean} - True if the picker is already bound.
+	 * @param {HTMLElement} element
+	 * @return {boolean}
 	 */
-	obj.isBound = element => element.hasAttribute( obj.selectors.dataBound );
+	const isBound = element => element.hasAttribute( SELECTORS.dataBound );
 
 	/**
 	 * Binds events for the category color picker.
-	 *
 	 * @since TBD
-	 *
 	 * @return {void}
 	 */
-	obj.bindEvents = () => {
-		const picker = document.querySelector( obj.selectors.picker );
-		const closeButton = document.querySelector( obj.selectors.dropdownClose );
-		const resetButton = document.querySelector( obj.selectors.resetButton );
-
-		obj.addEventListeners(
-			picker,
-			[ {
-				event: 'click',
-				handler: obj.toggleDropdown
-			} ]
-		);
-
-		obj.addEventListeners(
-			document,
-			[ {
-				event: 'click',
-				handler: obj.handleDropdownClose
-			} ]
-		);
-
-		document.addEventListener( 'change', event => {
-			if ( event.target.matches( obj.selectors.checkbox ) ) {
-				obj.handleCheckboxChange( event );
-			}
-		} );
-
+	const bindEvents = () => {
+		const picker = qs( SELECTORS.picker );
+		const closeButton = qs( SELECTORS.dropdownClose );
+		const resetButton = qs( SELECTORS.resetButton );
+		if ( picker ) {
+			picker.addEventListener( 'click', toggleDropdown );
+		}
+		document.addEventListener( 'click', handleDropdownClose );
+		// Event delegation for checkboxes
+		const grid = qs( '.tec-events-category-color-filter__dropdown' );
+		if ( grid ) {
+			grid.addEventListener( 'change', handleCheckboxChange );
+		}
 		if ( closeButton ) {
-			closeButton.addEventListener( 'click', obj.handleDropdownClose );
+			closeButton.addEventListener( 'click', event => {
+				event.stopPropagation();
+				const picker = qs( SELECTORS.picker );
+				const dropdown = qs( SELECTORS.dropdown );
+				if ( picker && dropdown ) closeDropdown( picker, dropdown );
+			} );
 		}
-
 		if ( resetButton ) {
-			resetButton.addEventListener( 'click', obj.handleResetButtonClick );
+			resetButton.addEventListener( 'click', resetSelection );
 		}
-	};
-
-	/**
-	 * Adds multiple event listeners to an element.
-	 *
-	 * @since TBD
-	 *
-	 * @param {HTMLElement|Document} element - The target element.
-	 * @param {Array} events - An array of event-handler pairs.
-	 *
-	 * @return {void}
-	 */
-	obj.addEventListeners = ( element, events ) => {
-		if ( ! element ) {
-			return;
+		// MutationObserver to clean up bindings if DOM changes
+		if ( !observer ) {
+			observer = new MutationObserver( cleanupBindings );
+			observer.observe( document.body, { childList: true, subtree: true } );
 		}
-
-		events.forEach( ( { event, handler } ) =>
-			element.addEventListener(
-				event,
-				handler
-			)
-		);
+		window.addEventListener( 'beforeunload', cleanupBindings );
 	};
 
 	/**
 	 * Unbinds events for the category color picker.
-	 *
 	 * @since TBD
-	 *
 	 * @return {void}
 	 */
-	obj.unbindEvents = () => {
-		const picker = document.querySelector( obj.selectors.picker );
-		const checkboxes = document.querySelectorAll( obj.selectors.checkbox );
-		const closeButton = document.querySelector( obj.selectors.dropdownClose );
-
-		obj.removeEventListeners(
-			picker,
-			[ {
-				event: 'click',
-				handler: obj.toggleDropdown
-			} ]
-		);
-
-		obj.removeEventListeners(
-			document,
-			[ {
-				event: 'click',
-				handler: obj.handleDropdownClose
-			} ]
-		);
-
-		checkboxes.forEach( checkbox =>
-			obj.removeEventListeners(
-				checkbox,
-				[ {
-					event: 'change',
-					handler: obj.handleCheckboxChange
-				} ]
-			)
-		);
-
+	const unbindEvents = () => {
+		const picker = qs( SELECTORS.picker );
+		const closeButton = qs( SELECTORS.dropdownClose );
+		const resetButton = qs( SELECTORS.resetButton );
+		const grid = qs( '.tec-events-category-color-filter__dropdown' );
+		if ( picker ) {
+			picker.removeEventListener( 'click', toggleDropdown );
+		}
+		document.removeEventListener( 'click', handleDropdownClose );
+		if ( grid ) {
+			grid.removeEventListener( 'change', handleCheckboxChange );
+		}
 		if ( closeButton ) {
-			closeButton.removeEventListener( 'click', obj.handleDropdownClose );
+			closeButton.removeEventListener( 'click', closeDropdown );
 		}
-	};
-
-	/**
-	 * Removes multiple event listeners from an element.
-	 *
-	 * @since TBD
-	 *
-	 * @param {HTMLElement|Document} element - The target element.
-	 * @param {Array} events - An array of event-handler pairs.
-	 *
-	 * @return {void}
-	 */
-	obj.removeEventListeners = ( element, events ) => {
-		if ( ! element ) {
-			return;
+		if ( resetButton ) {
+			resetButton.removeEventListener( 'click', resetSelection );
 		}
-
-		events.forEach( ( { event, handler } ) =>
-			element.removeEventListener(
-				event,
-				handler
-			)
-		);
+		if ( observer ) {
+			observer.disconnect();
+			observer = null;
+		}
+		window.removeEventListener( 'beforeunload', cleanupBindings );
 	};
 
+	// =====================
+	// Initialization
+	// =====================
+
 	/**
-	 * Initializes the category color picker
-	 *
+	 * Initializes the category color picker.
 	 * @since TBD
-	 *
 	 * @return {void}
 	 */
-	obj.init = function() {
-		obj.monitorTECAjax();
-		obj.bindEvents();
+	const init = () => {
+		monitorTECAjax();
+		restoreSelectedCategories();
+		reapplyFilters();
+		bindEvents();
 	};
 
-	/**
-	 * Handles initialization when the document is ready
-	 *
-	 * @since TBD
-	 *
-	 * @return {void}
-	 */
-	document.addEventListener(
-		'DOMContentLoaded',
-		obj.init
-	);
+	document.addEventListener( 'DOMContentLoaded', init );
 
-	return obj;
+	// =============
+	// Export (public API only)
+	// =============
+
+	return {
+		init,
+		ensureBindings,
+	};
 } )();
