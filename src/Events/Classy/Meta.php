@@ -94,10 +94,11 @@ class Meta extends Controller_Contract {
 	private function register_meta_fields(): void {
 		foreach ( self::META as $meta_key => $args ) {
 			$post_meta_args = [
-				'show_in_rest'  => true,
-				'single'        => $args['single'] ?? true,
-				'type'          => $args['type'] ?? 'string',
-				'auth_callback' => fn() => $this->user_can_edit_meta( ...func_get_args() ),
+				'show_in_rest'      => true,
+				'single'            => $args['single'] ?? true,
+				'type'              => $this->get_register_meta_type( $args['type'] ?? 'text' ),
+				'auth_callback'     => fn() => $this->user_can_edit_meta( ...func_get_args() ),
+				'sanitize_callback' => fn() => $this->sanitize_meta_value( ...func_get_args() ),
 			];
 
 			foreach ( $this->get_supported_post_types() as $post_type ) {
@@ -155,5 +156,109 @@ class Meta extends Controller_Contract {
 
 		// Validate that the user can edit the post type.
 		return user_can( $user_id, $post_type_object->cap->edit_post, $object_id );
+	}
+
+	/**
+	 * Sanitizes the meta value based on the meta key and object type.
+	 *
+	 * @see sanitize_meta()
+	 *
+	 * @since TBD
+	 *
+	 * @param mixed  $meta_value     The value of the meta field to sanitize.
+	 * @param string $meta_key       The meta key for the value being sanitized.
+	 * @param string $object_type    The type of the object the meta is associated with (e.g., 'post').
+	 * @param string $object_subtype The subtype of the object (e.g., 'tribe_events').
+	 *
+	 * @return mixed The sanitized meta value, or the original value if no sanitization is needed.
+	 */
+	private function sanitize_meta_value( $meta_value, $meta_key, $object_type, $object_subtype ) {
+		// If this isn't a post type, return the value as-is.
+		if ( 'post' !== $object_type ) {
+			return $meta_value;
+		}
+
+		// If this isn't a supported post type, return the value as-is.
+		if ( ! in_array( $object_subtype, $this->get_supported_post_types(), true ) ) {
+			return $meta_value;
+		}
+
+		// If the meta key is not in our list, return the value as-is.
+		if ( ! array_key_exists( $meta_key, self::META ) ) {
+			return $meta_value;
+		}
+
+		$meta_args = self::META[ $meta_key ];
+		$type      = $meta_args['type'] ?? 'text';
+		$single    = $meta_args['single'] ?? true;
+		$callback  = $this->get_sanitize_callback_for_type( $type );
+
+		return $single
+			? call_user_func( $callback, $meta_value )
+			: array_map( $callback, (array) $meta_value );
+	}
+
+	/**
+	 * Convert our custom meta type to the type supported by `register_post_meta`.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $type The type of the value being registered.
+	 *
+	 * @return string The type to use when registering the meta field.
+	 */
+	private function get_register_meta_type( string $type ): string {
+		switch ( $type ) {
+			// These types are supported by the `register_post_meta` function.
+			case 'array':
+			case 'boolean':
+			case 'integer':
+			case 'number':
+			case 'object':
+			case 'string':
+				return $type;
+
+			// These are our custom types that we map to a string.
+			case 'separator':
+			case 'text':
+			case 'textarea':
+			case 'url':
+			default:
+				return 'string';
+		}
+	}
+
+	/**
+	 * Returns the appropriate sanitize callback for the given type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $type The type of the value to sanitize.
+	 *
+	 * @return callable The sanitize callback function.
+	 */
+	private function get_sanitize_callback_for_type( string $type ): callable {
+		switch ( $type ) {
+			case 'boolean':
+				return static fn( $value ) => filter_var( $value, FILTER_VALIDATE_BOOLEAN );
+
+			case 'integer':
+			case 'number':
+				return 'absint';
+
+			case 'separator':
+				return static fn( $value ) => tec_sanitize_string( $value );
+
+			case 'string':
+			case 'text':
+			default:
+				return 'sanitize_text_field';
+
+			case 'textarea':
+				return 'sanitize_textarea_field';
+
+			case 'url':
+				return 'esc_url_raw';
+		}
 	}
 }
