@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.13.1
+Stable tag: 6.13.2
 Requires at least: 6.6
 Tested up to: 6.8.1
 Requires PHP: 7.4
@@ -231,6 +231,12 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.13.2] 2025-06-03 =
+
+* Version - The Events Calendar 6.13.2 is only compatible with Event Tickets 5.24.0 and higher.
+* Tweak - Updated Help Hub functionality to follow new standards.
+* Language - 8 new strings added, 23 updated, 0 fuzzied, and 0 obsoleted.
 
 = [6.13.1] 2025-05-27 =
 
