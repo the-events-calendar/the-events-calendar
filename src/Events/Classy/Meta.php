@@ -38,26 +38,68 @@ class Meta extends Controller_Contract {
 	 * @var array<array-key, array<string, mixed>>
 	 */
 	private const META = [
-		'_EventAllDay'           => [],
-		'_EventCost'             => [],
-		'_EventCurrency'         => [],
-		'_EventCurrencyPosition' => [],
-		'_EventCurrencySymbol'   => [],
-		'_EventEndDate'          => [],
-		'_EventIsFree'           => [
+		// Meta keys for event details.
+		'_EventAllDay'             => [
 			'type' => 'boolean',
 		],
-		'_EventStartDate'        => [],
-		'_EventTimezone'         => [],
-		'_EventURL'              => [],
-		'_EventOrganizerID'      => [
+		'_EventCost'               => [],
+		'_EventCostDescription'    => [],
+		'_EventCurrencyCode'       => [],
+		'_EventCurrencyPosition'   => [],
+		'_EventCurrencySymbol'     => [],
+		'_EventDateTimeSeparator'  => [
+			'type' => 'separator',
+		],
+		'_EventEndDate'            => [],
+		'_EventEndDateUTC'         => [],
+		'_EventIsFree'             => [
+			'type' => 'boolean',
+		],
+		'_EventOrganizerID'        => [
 			'single' => false,
 			'type'   => 'integer',
 		],
-		'_EventVenueID'          => [
+		'_EventShowMap'            => [
+			'type' => 'boolean',
+		],
+		'_EventShowMapLink'        => [
+			'type' => 'boolean',
+		],
+		'_EventStartDate'          => [],
+		'_EventStartDateUTC'       => [],
+		'_EventTimeRangeSeparator' => [
+			'type' => 'separator',
+		],
+		'_EventTimezone'           => [],
+		'_EventURL'                => [],
+		'_EventVenueID'            => [
 			'single' => false,
 			'type'   => 'integer',
 		],
+
+		// Meta keys for event organizer details.
+		'_OrganizerEmail'   => [],
+		'_OrganizerPhone'   => [],
+		'_OrganizerWebsite' => [],
+
+		// Meta keys for event venue details.
+		'_VenueAddress'       => [],
+		'_VenueCity'          => [],
+		'_VenueCountry'       => [],
+		'_VenueLat'           => [],
+		'_VenueLng'           => [],
+		'_VenuePhone'         => [],
+		'_VenueProvince'      => [],
+		'_VenueShowMap'       => [
+			'type' => 'boolean',
+		],
+		'_VenueShowMapLink'   => [
+			'type' => 'boolean',
+		],
+		'_VenueState'         => [],
+		'_VenueStateProvince' => [],
+		'_VenueURL'           => [],
+		'_VenueZip'           => [],
 	];
 
 	/**
