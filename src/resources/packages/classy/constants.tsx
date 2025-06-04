@@ -7,7 +7,7 @@ export const POST_TYPE_EVENT = 'tribe_events';
  * These keys are used to store event-related metadata in the WordPress editor.
  *
  * Note that for these keys to be saved correctly, they must be ALSO be registered
- * in the \TEC\Events\Classy\Controller::META array.
+ * in the \TEC\Events\Classy\Meta::META array.
  */
 export const METADATA_EVENT_ALLDAY = '_EventAllDay';
 export const METADATA_EVENT_COST = '_EventCost';
