@@ -84,28 +84,28 @@ class Meta extends Controller_Contract {
 		],
 
 		// Meta keys for event organizer details.
-		'_OrganizerEmail'   => [],
-		'_OrganizerPhone'   => [],
-		'_OrganizerWebsite' => [],
+		'_OrganizerEmail'          => [],
+		'_OrganizerPhone'          => [],
+		'_OrganizerWebsite'        => [],
 
 		// Meta keys for event venue details.
-		'_VenueAddress'       => [],
-		'_VenueCity'          => [],
-		'_VenueCountry'       => [],
-		'_VenueLat'           => [],
-		'_VenueLng'           => [],
-		'_VenuePhone'         => [],
-		'_VenueProvince'      => [],
-		'_VenueShowMap'       => [
+		'_VenueAddress'            => [],
+		'_VenueCity'               => [],
+		'_VenueCountry'            => [],
+		'_VenueLat'                => [],
+		'_VenueLng'                => [],
+		'_VenuePhone'              => [],
+		'_VenueProvince'           => [],
+		'_VenueShowMap'            => [
 			'type' => 'boolean',
 		],
-		'_VenueShowMapLink'   => [
+		'_VenueShowMapLink'        => [
 			'type' => 'boolean',
 		],
-		'_VenueState'         => [],
-		'_VenueStateProvince' => [],
-		'_VenueURL'           => [],
-		'_VenueZip'           => [],
+		'_VenueState'              => [],
+		'_VenueStateProvince'      => [],
+		'_VenueURL'                => [],
+		'_VenueZip'                => [],
 	];
 
 	/**
