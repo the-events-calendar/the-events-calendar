@@ -11,7 +11,7 @@ export const POST_TYPE_EVENT = 'tribe_events';
  */
 export const METADATA_EVENT_ALLDAY = '_EventAllDay';
 export const METADATA_EVENT_COST = '_EventCost';
-export const METADATA_EVENT_CURRENCY = '_EventCurrency';
+export const METADATA_EVENT_CURRENCY = '_EventCurrencyCode';
 export const METADATA_EVENT_CURRENCY_POSITION = '_EventCurrencyPosition';
 export const METADATA_EVENT_CURRENCY_SYMBOL = '_EventCurrencySymbol';
 export const METADATA_EVENT_END_DATE = '_EventEndDate';
