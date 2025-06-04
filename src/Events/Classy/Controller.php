@@ -25,6 +25,7 @@ use Tribe__Events__Main as TEC;
 class Controller extends Controller_Contract {
 
 	use Can_Edit_Events;
+	use Supported_Post_Types;
 
 	/**
 	 * The list of event meta keys to be registered.
@@ -222,18 +223,5 @@ class Controller extends Controller_Contract {
 			->add_dependency( 'tec-classy-style' )
 			->add_to_group( 'tec-classy' )
 			->register();
-	}
-
-	/**
-	 * Returns the list of post types that this controller supports.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string> The list of supported post types.
-	 */
-	private function get_supported_post_types(): array {
-		return [
-			TEC::POSTTYPE,
-		];
 	}
 }
