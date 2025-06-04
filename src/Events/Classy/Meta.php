@@ -120,7 +120,7 @@ class Meta extends Controller_Contract {
 
 		// Add actions for each supported post type.
 		foreach ( $this->get_supported_post_types() as $post_type ) {
-			add_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 10, 2 );
+			add_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 5, 2 );
 			add_action( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ], 10, 2 );
 		}
 	}
@@ -139,7 +139,7 @@ class Meta extends Controller_Contract {
 
 		// Remove actions for each supported post type.
 		foreach ( $this->get_supported_post_types() as $post_type ) {
-			remove_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ] );
+			remove_action( "rest_after_insert_{$post_type}", [ $this, 'add_utc_dates' ], 5 );
 			remove_action( "rest_after_insert_{$post_type}", [ $this, 'update_cost' ] );
 		}
 	}
