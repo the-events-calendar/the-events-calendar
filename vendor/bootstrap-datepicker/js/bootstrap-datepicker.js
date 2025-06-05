@@ -1609,6 +1609,10 @@
 		for (var key in data)
 			if (prefix.test(key)){
 				inkey = key.replace(replace, re_lower);
+				// Skip parsing data-date-templates
+				if (inkey === 'templates') {
+					continue;
+				}
 				out[inkey] = data[key];
 			}
 		return out;
