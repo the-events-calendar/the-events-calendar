@@ -1,0 +1,4 @@
+Significance: patch
+Type: security
+
+Fixed an issue where some templates were not sanitized properly.
