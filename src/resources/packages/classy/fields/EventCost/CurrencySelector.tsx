@@ -16,10 +16,12 @@ type CurrencySelectorProps = {
 	title?: string;
 };
 
+type CurrencyPosition = 'before' | 'after';
+
 type CurrencyProps = {
 	symbol: string;
 	currency: string;
-	position: 'before' | 'after';
+	position: CurrencyPosition;
 };
 
 // todo: Replace with API call to fetch available currencies.
@@ -76,11 +78,11 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrencySymbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
-	const eventCurrencyPosition: 'before' | 'after' =
+	const eventCurrencyPosition: CurrencyPosition =
 		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
 		Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position ||
 		'before';
-	const [ currencyPosition, setCurrencyPosition ] = useState< 'before' | 'after' >( eventCurrencyPosition );
+	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	useEffect( () => {
 		setEventCurrency( eventCurrencyMeta );
