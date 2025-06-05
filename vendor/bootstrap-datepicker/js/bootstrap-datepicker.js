@@ -1,46 +1,18 @@
 /*!
- * Datepicker for Bootstrap v1.7.0 (https://github.com/uxsolutions/bootstrap-datepicker)
+ * Datepicker for Bootstrap v1.10.0 (https://github.com/uxsolutions/bootstrap-datepicker)
  *
- * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+ * Licensed under the Apache License v2.0 (https://www.apache.org/licenses/LICENSE-2.0)
  */
 
 (function(factory){
-	if (typeof define === "function" && define.amd) {
-		define(["jquery"], factory);
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], factory);
 	} else if (typeof exports === 'object') {
 		factory(require('jquery'));
 	} else {
 		factory(jQuery);
 	}
 }(function($, undefined){
-	// MODIFICATION START: Define a helper function for sanitizing template strings
-	// This function takes a string, and if it's potentially HTML, it returns
-	// an HTML-escaped version. HTML entities within the string are preserved as characters.
-	function _sanitizeTemplateString( templateString ) {
-		if ( typeof templateString !== 'string' || templateString === "" ) {
-			return ""; // Return empty for non-strings or empty strings
-		}
-		// Create a temporary div element to leverage the browser's text handling
-		var tempDiv = document.createElement( 'div' );
-
-		// Set the template string as textContent. This does two things:
-		// 1. If templateString is like "<img src=x>", textContent becomes the literal string "<img src=x>".
-		// 2. If templateString is like "&#x00AB;", textContent becomes the actual character '«'.
-		tempDiv.textContent = templateString;
-
-		// Retrieve innerHTML. This will be:
-		// - For case 1: "&lt;img src=x&gt;" (HTML escaped)
-		// - For case 2: "«" (the character itself)
-		var sanitizedHtml = tempDiv.innerHTML;
-
-		// It's good practice to clean up, though for a local var it's less critical.
-		tempDiv = null;
-
-		return sanitizedHtml;
-	}
-
-	// MODIFICATION END: Helper function for sanitizing template strings
-
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
@@ -117,6 +89,10 @@
 
 	var Datepicker = function(element, options){
 		$.data(element, 'datepicker', this);
+
+		this._events = [];
+		this._secondaryEvents = [];
+
 		this._process_options(options);
 
 		this.dates = new DateArray();
@@ -126,10 +102,16 @@
 		this.element = $(element);
 		this.isInput = this.element.is('input');
 		this.inputField = this.isInput ? this.element : this.element.find('input');
-		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .btn') : false;
-		if (this.component && this.component.length === 0)
+		this.component = this.element.hasClass('date') ? this.element.find('.add-on, .input-group-addon, .input-group-append, .input-group-prepend, .btn') : false;
+		if (this.component && this.component.length === 0){
 			this.component = false;
-		this.isInline = !this.component && this.element.is('div');
+		}
+
+		if (this.o.isInline === null){
+			this.isInline = !this.component && !this.isInput;
+		} else {
+			this.isInline = this.o.isInline;
+		}
 
 		this.picker = $(DPGlobal.template);
 
@@ -240,41 +222,6 @@
 			}
 			o.language = lang;
 
-			// MODIFICATION START: Sanitize arrow templates
-			var defaultTemplates = $.fn.bootstrapDatepicker.defaults.templates;
-			if (!o.templates) {
-				// If the 'templates' option object itself is missing, initialize it
-				// with a copy of the defaults to ensure leftArrow/rightArrow properties exist.
-				o.templates = $.extend({}, defaultTemplates);
-			} else {
-				// If 'templates' object exists, ensure arrow properties are handled.
-
-				// Sanitize leftArrow
-				if (o.templates.hasOwnProperty('leftArrow')) {
-					// If leftArrow is explicitly provided, sanitize it.
-					o.templates.leftArrow = _sanitizeTemplateString(o.templates.leftArrow);
-					// If sanitization results in an empty string (e.g., malicious content was stripped or it was empty),
-					// and it was an explicitly provided property, revert to the default.
-					if (o.templates.leftArrow === "") {
-						o.templates.leftArrow = defaultTemplates.leftArrow;
-					}
-				} else {
-					// If leftArrow was not in user-provided options, ensure it takes the default.
-					o.templates.leftArrow = defaultTemplates.leftArrow;
-				}
-
-				// Sanitize rightArrow
-				if (o.templates.hasOwnProperty('rightArrow')) {
-					o.templates.rightArrow = _sanitizeTemplateString(o.templates.rightArrow);
-					if (o.templates.rightArrow === "") {
-						o.templates.rightArrow = defaultTemplates.rightArrow;
-					}
-				} else {
-					o.templates.rightArrow = defaultTemplates.rightArrow;
-				}
-			}
-			// MODIFICATION END: Sanitize arrow templates
-
 			// Retrieve view index from any aliases
 			o.startView = this._resolveViewName(o.startView);
 			o.minViewMode = this._resolveViewName(o.minViewMode);
@@ -371,8 +318,6 @@
 				o.defaultViewDate = UTCToday();
 			}
 		},
-		_events: [],
-		_secondaryEvents: [],
 		_applyEvents: function(evs){
 			for (var i=0, el, ch, ev; i < evs.length; i++){
 				el = evs[i][0];
@@ -528,7 +473,7 @@
 		},
 
 		show: function(){
-			if (this.inputField.prop('disabled') || (this.inputField.prop('readonly') && this.o.enableOnReadonly === false))
+			if (this.inputField.is(':disabled') || (this.inputField.prop('readonly') && this.o.enableOnReadonly === false))
 				return;
 			if (!this.isInline)
 				this.picker.appendTo(this.o.container);
@@ -631,9 +576,8 @@
 
 		clearDates: function(){
 			this.inputField.val('');
-			this.update();
 			this._trigger('changeDate');
-
+			this.update();
 			if (this.o.autoclose) {
 				this.hide();
 			}
@@ -855,18 +799,18 @@
 			if (fromArgs){
 				// setting date by clicking
 				this.setValue();
-				this.element.trigger( 'change' );
+				this.element.change();
 			}
 			else if (this.dates.length){
 				// setting date by typing
 				if (String(oldDates) !== String(this.dates) && fromArgs) {
 					this._trigger('changeDate');
-					this.element.trigger( 'change' );
+					this.element.change();
 				}
 			}
 			if (!this.dates.length && oldDates.length) {
 				this._trigger('clearDate');
-				this.element.trigger( 'change' );
+				this.element.change();
 			}
 
 			this.fill();
@@ -1026,6 +970,8 @@
 				todaytxt = dates[this.o.language].today || dates['en'].today || '',
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
 				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
+				todayDate = UTCToday(),
+				titleBtnVisible = (this.o.todayBtn === true || this.o.todayBtn === 'linked') && todayDate >= this.o.startDate && todayDate <= this.o.endDate && !this.weekOfDateIsDisabled(todayDate),
 				tooltip,
 				before;
 			if (isNaN(year) || isNaN(month))
@@ -1034,7 +980,7 @@
 				.text(DPGlobal.formatDate(d, titleFormat, this.o.language));
 			this.picker.find('tfoot .today')
 				.text(todaytxt)
-				.css('display', this.o.todayBtn === true || this.o.todayBtn === 'linked' ? 'table-cell' : 'none');
+				.css('display', titleBtnVisible ? 'table-cell' : 'none');
 			this.picker.find('tfoot .clear')
 				.text(cleartxt)
 				.css('display', this.o.clearBtn === true ? 'table-cell' : 'none');
@@ -1204,10 +1150,6 @@
 				nextIsDisabled,
 				factor = 1;
 			switch (this.viewMode){
-				case 0:
-					prevIsDisabled = year <= startYear && month <= startMonth;
-					nextIsDisabled = year >= endYear && month >= endMonth;
-					break;
 				case 4:
 					factor *= 10;
 				/* falls through */
@@ -1219,7 +1161,11 @@
 				/* falls through */
 				case 1:
 					prevIsDisabled = Math.floor(year / factor) * factor <= startYear;
-					nextIsDisabled = Math.floor(year / factor) * factor + factor >= endYear;
+					nextIsDisabled = Math.floor(year / factor) * factor + factor > endYear;
+					break;
+				case 0:
+					prevIsDisabled = year <= startYear && month <= startMonth;
+					nextIsDisabled = year >= endYear && month >= endMonth;
 					break;
 			}
 
@@ -1595,6 +1541,11 @@
 				p.setRange(range);
 			});
 		},
+		clearDates: function(){
+			$.each(this.pickers, function(i, p){
+				p.clearDates();
+			});
+		},
 		dateUpdated: function(e){
 			// `this.updating` is a workaround for preventing infinite recursion
 			// between `changeDate` triggering and `setUTCDate` calling.  Until
@@ -1625,12 +1576,12 @@
 
 			if (new_date < this.dates[j]){
 				// Date being moved earlier/left
-				while (j >= 0 && new_date < this.dates[j]){
+				while (j >= 0 && new_date < this.dates[j] && (this.pickers[j].element.val() || "").length > 0) {
 					this.pickers[j--].setUTCDate(new_date);
 				}
 			} else if (new_date > this.dates[k]){
 				// Date being moved later/right
-				while (k < l && new_date > this.dates[k]){
+				while (k < l && new_date > this.dates[k] && (this.pickers[k].element.val() || "").length > 0) {
 					this.pickers[k++].setUTCDate(new_date);
 				}
 			}
@@ -1744,6 +1695,7 @@
 		endDate: Infinity,
 		forceParse: true,
 		format: 'mm/dd/yyyy',
+		isInline: null,
 		keepEmptyValues: false,
 		keyboardNavigation: true,
 		language: 'en',
