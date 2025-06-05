@@ -71,6 +71,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	// todo: pull the default currency from the store using the settings.
 	const defaultCurrency: string = 'USD';
 	const defaultCurrencySymbol: string = '$';
+	const defaultCurrencyPosition: CurrencyPosition = 'before';
 
 	const eventCurrencyMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency;
 	const [ eventCurrency, setEventCurrency ] = useState< string >( eventCurrencyMeta );
@@ -81,7 +82,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	const eventCurrencyPosition: CurrencyPosition =
 		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
 		Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position ||
-		'before';
+		defaultCurrencyPosition;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	useEffect( () => {
@@ -101,12 +102,12 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 		if ( ! selectedCurrency || nextValue === 'default' ) {
 			setEventCurrency( defaultCurrency );
 			setCurrencySymbol( defaultCurrencySymbol );
-			setCurrencyPosition( 'before' );
+			setCurrencyPosition( defaultCurrencyPosition );
 			editPost( {
 				meta: {
 					[ METADATA_EVENT_CURRENCY ]: defaultCurrency,
 					[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrencySymbol,
-					[ METADATA_EVENT_CURRENCY_POSITION ]: 'before',
+					[ METADATA_EVENT_CURRENCY_POSITION ]: defaultCurrencyPosition,
 				},
 			} );
 			return;
