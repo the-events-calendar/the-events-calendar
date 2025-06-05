@@ -9,14 +9,11 @@
 
 namespace TEC\Events\Classy;
 
-use DateTimeZone;
 use TEC\Common\Classy\Controller as Common_Controller;
 use TEC\Common\Contracts\Provider\Controller as Controller_Contract;
 use TEC\Common\StellarWP\Assets\Asset;
 use TEC\Events\Traits\Can_Edit_Events;
 use Tribe__Events__Main as TEC;
-use Tribe__Date_Utils as Dates;
-use WP_Post;
 
 /**
  * Class Controller.
@@ -28,45 +25,7 @@ use WP_Post;
 class Controller extends Controller_Contract {
 
 	use Can_Edit_Events;
-
-	/**
-	 * The list of event meta keys to be registered.
-	 *
-	 * This list is used to register the post meta fields for the Classy application. The
-	 * key is the meta key, and the value is an array of arguments used in the `register_post_meta`
-	 * function. The `single` key indicates whether the meta field is a single value or an array,
-	 * and the `type` key indicates the type of the value. If no `single` or `type` is provided,
-	 * the default is `single` set to `true` and `type` set to `string`.
-	 *
-	 * In the JS application, these meta fields are defined in a single constants file.
-	 *
-	 * @see src/resources/packages/classy/constants.tsx
-	 * @see self::register_meta_fields()
-	 *
-	 * @var array<array-key, array<string, mixed>>
-	 */
-	private const META = [
-		'_EventAllDay'           => [],
-		'_EventCost'             => [],
-		'_EventCurrency'         => [],
-		'_EventCurrencyPosition' => [],
-		'_EventCurrencySymbol'   => [],
-		'_EventEndDate'          => [],
-		'_EventIsFree'           => [
-			'type' => 'boolean',
-		],
-		'_EventStartDate'        => [],
-		'_EventTimezone'         => [],
-		'_EventURL'              => [],
-		'_EventOrganizerID'      => [
-			'single' => false,
-			'type'   => 'integer',
-		],
-		'_EventVenueID'          => [
-			'single' => false,
-			'type'   => 'integer',
-		],
-	];
+	use Supported_Post_Types;
 
 	/**
 	 * Registers the hooks and filters for this controller.
@@ -76,7 +35,7 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	protected function do_register(): void {
-		$this->register_meta_fields();
+		$this->container->register( Meta::class );
 		add_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
 		add_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 
@@ -86,8 +45,6 @@ class Controller extends Controller_Contract {
 		} else {
 			add_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
 		}
-
-		add_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'on_rest_insert_event' ], 5 );
 	}
 
 	/**
@@ -98,48 +55,10 @@ class Controller extends Controller_Contract {
 	 * @return void
 	 */
 	public function unregister(): void {
-		$this->unregister_meta_fields();
+		$this->container->get( Meta::class )->unregister();
 		remove_filter( 'tec_classy_post_types', [ $this, 'add_supported_post_types' ] );
 		remove_filter( 'tec_classy_localized_data', [ $this, 'filter_data' ] );
 		remove_action( 'tec_common_assets_loaded', [ $this, 'register_assets' ] );
-		remove_action( 'rest_after_insert_' . TEC::POSTTYPE, [ $this, 'on_rest_insert_event' ], 5 );
-	}
-
-	/**
-	 * Registers meta fields for all supported post types.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	private function register_meta_fields(): void {
-		foreach ( self::META as $meta_key => $args ) {
-			$post_meta_args = [
-				'show_in_rest'  => true,
-				'single'        => $args['single'] ?? true,
-				'type'          => $args['type'] ?? 'string',
-				'auth_callback' => fn() => $this->current_user_can_edit_events(),
-			];
-
-			foreach ( $this->get_supported_post_types() as $post_type ) {
-				register_post_meta( $post_type, $meta_key, $post_meta_args );
-			}
-		}
-	}
-
-	/**
-	 * Unregisters the post meta fields for the plugin.
-	 *
-	 * @since TBD
-	 *
-	 * @return void
-	 */
-	private function unregister_meta_fields(): void {
-		foreach ( self::META as $meta_key => $args ) {
-			foreach ( $this->get_supported_post_types() as $post_type ) {
-				unregister_post_meta( $post_type, $meta_key );
-			}
-		}
 	}
 
 	/**
@@ -228,57 +147,5 @@ class Controller extends Controller_Contract {
 			->add_dependency( 'tec-classy-style' )
 			->add_to_group( 'tec-classy' )
 			->register();
-	}
-
-	/**
-	 * Returns the list of post types that this controller supports.
-	 *
-	 * @since TBD
-	 *
-	 * @return array<string> The list of supported post types.
-	 */
-	private function get_supported_post_types(): array {
-		return [
-			TEC::POSTTYPE,
-		];
-	}
-
-	/**
-	 * Ensures information required to correclty save an Event is provided when saved through the REST API.
-	 *
-	 * This method "patches" the meta that is saved to the database via the REST API to make sure all the meta
-	 * required to correctly build and event and its occurrences will be in the database before the TEC API processes
-	 * it at priority 10.
-	 *
-	 * @since TBD
-	 *
-	 * @param WP_Post $post The post that has just been saved to the database via the REST API.
-	 *
-	 * @return void The post meta is updated, if required.
-	 */
-	public function on_rest_insert_event( $post ): void {
-		if ( ! $post instanceof WP_Post ) {
-			return;
-		}
-
-		$post_id = $post->ID;
-
-		$start_date_utc = get_post_meta( $post_id, '_EventStartDateUTC', true );
-		$start_date     = get_post_meta( $post_id, '_EventStartDate', true );
-		$end_date       = get_post_meta( $post_id, '_EventEndDate', true );
-		$timezone       = get_post_meta( $post_id, '_EventTimezone', true );
-
-		if ( ! $start_date_utc && $timezone && $start_date && $end_date ) {
-			// If the start date UTC meta is missing, then build it and the end date from the date/time and timezone.
-			$utc_timezone   = new DateTimeZone( 'UTC' );
-			$start_date_utc = Dates::immutable( $start_date, $timezone )
-									->setTimezone( $utc_timezone )
-									->format( 'Y-m-d H:i:s' );
-			update_post_meta( $post_id, '_EventStartDateUTC', $start_date_utc );
-			$end_date_utc = Dates::immutable( $end_date, $timezone )
-								->setTimezone( $utc_timezone )
-								->format( 'Y-m-d H:i:s' );
-			update_post_meta( $post_id, '_EventEndDateUTC', $end_date_utc );
-		}
 	}
 }
