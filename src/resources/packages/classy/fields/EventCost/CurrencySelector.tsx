@@ -115,12 +115,12 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 		setEventCurrency( selectedCurrency.currency );
 		setCurrencySymbol( selectedCurrency.symbol );
-		setCurrencyPosition( selectedCurrency.position );
+		setCurrencyPosition( eventCurrencyPosition );
 		editPost( {
 			meta: {
 				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.currency,
 				[ METADATA_EVENT_CURRENCY_SYMBOL ]: selectedCurrency.symbol,
-				[ METADATA_EVENT_CURRENCY_POSITION ]: selectedCurrency.position,
+				[ METADATA_EVENT_CURRENCY_POSITION ]: eventCurrencyPosition,
 			},
 		} );
 	};
