@@ -3,7 +3,7 @@
 Contributors: theeventscalendar, stellarwp, borkweb, bordoni, brianjessee, aguseo, camwynsp, jentheo, leahkoerper, lucatume, neillmcshea, vicskf, zbtirrell
 Tags: events, calendar, event, schedule, organizer
 Donate link: https://evnt.is/29
-Stable tag: 6.13.2
+Stable tag: 6.13.2.1
 Requires at least: 6.6
 Tested up to: 6.8.1
 Requires PHP: 7.4
@@ -231,6 +231,12 @@ Previous versions of The Events Calendar are not cross-compatible with 6.X add-o
 Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
+
+= [6.13.2.1] 2025-06-05 =
+
+* Fix - Fix some hardcoded asset paths. [TEC-5523]
+* Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
+* Security - Fixed an issue where some templates were not sanitized properly.
 
 = [6.13.2] 2025-06-03 =
 
