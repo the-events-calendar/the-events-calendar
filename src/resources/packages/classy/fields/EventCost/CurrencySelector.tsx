@@ -194,8 +194,8 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 							value={ eventCurrency }
 							onChange={ onCurrencyChange }
 							options={ currencyOptions }
-							__nextHasNoMarginBottom={ true }
-							__next40pxDefaultSize={ true }
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
 						/>
 
 						<ToggleControl
@@ -206,6 +206,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 							) }
 							checked={ currencyPosition === 'prefix' }
 							onChange={ onCurrencyPositionChange }
+							__nextHasNoMarginBottom
 						/>
 					</div>
 				</Popover>
