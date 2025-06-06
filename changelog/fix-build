@@ -1,4 +1,0 @@
-Significance: patch
-Type: fix
-
-Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
