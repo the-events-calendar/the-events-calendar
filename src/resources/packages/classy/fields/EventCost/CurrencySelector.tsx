@@ -28,13 +28,11 @@ const Currencies: Currency[] = [
 ];
 
 type CurrencySelectOption = {
-	key: string;
 	value: string;
 	label: string;
 };
 
 const currencyDefaultOption: CurrencySelectOption = {
-	key: '0',
 	label: _x( 'Default site currency', 'Default option for the currency selector', 'the-events-calendar' ),
 	value: 'default',
 };
@@ -55,7 +53,6 @@ const renderCurrency = ( currency: Currency ): string => {
 
 const buildOptionFromCurrency = ( currency: Currency ): CurrencySelectOption => {
 	return {
-		key: currency.code,
 		label: renderCurrency( currency ),
 		value: currency.code,
 	};
