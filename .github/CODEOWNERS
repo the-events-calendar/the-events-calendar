@@ -2,4 +2,4 @@
 /src/Tribe/Main.php the-events-calendar.php @bordoni
 
 # Changes to postcss files
-/src/resources/postcss/base/ /src/resources/postcss/components/ /src/resources/postcss/views/ @paulmskim
+/src/resources/postcss/base/ /src/resources/postcss/components/ /src/resources/postcss/views/ @camwyn

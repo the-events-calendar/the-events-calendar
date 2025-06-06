@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Fix usage of globals in our views scripts. [TEC-5509]

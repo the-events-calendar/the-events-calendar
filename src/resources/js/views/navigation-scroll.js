@@ -1,14 +1,14 @@
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Views navigation scroller Object in the Global Tribe variable
+ * Configures Views navigation scroller Object in the Global Tribe variable.
  *
  * @since  4.9.8
  *
  * @type   {PlainObject}
  */
-tribe.events.views.navigationScroll = {};
+window.tribe.events.views.navigationScroll = window.tribe.events.views.navigationScroll || {};
 
 /**
  * Initializes in a Strict env the code that scrolling when navigation happens
@@ -17,7 +17,7 @@ tribe.events.views.navigationScroll = {};
  * @since  4.9.8
  *
  * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.navigationScroll
+ * @param {PlainObject} obj window.tribe.events.views.navigationScroll
  *
  * @return {void}
  */
@@ -31,10 +31,10 @@ tribe.events.views.navigationScroll = {};
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event
-	 * @param {string} html       HTML sent from the REST API
-	 * @param {string} textStatus Status for the request
-	 * @param {jqXHR}  qXHR       Request object
+	 * @param {Event}  event      event object for 'afterSetup.tribeEvents' event.
+	 * @param {string} html       HTML sent from the REST API.
+	 * @param {string} textStatus Status for the request.
+	 * @param {jqXHR}  qXHR       Request object.
 	 *
 	 * @return {void}
 	 */
@@ -51,16 +51,16 @@ tribe.events.views.navigationScroll = {};
 	};
 
 	/**
-	 * Handles the initialization of the scripts when Document is ready
+	 * Handles the initialization of the scripts when Document is ready.
 	 *
 	 * @since  4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function () {
-		$document.on( 'afterAjaxSuccess.tribeEvents', tribe.events.views.manager.selectors.container, obj.scrollUp );
+		$document.on( 'afterAjaxSuccess.tribeEvents', window.tribe.events.views.manager.selectors.container, obj.scrollUp );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.navigationScroll );
+} )( jQuery, window.tribe.events.views.navigationScroll );

@@ -1,29 +1,29 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since 4.9.4
  *
  * @type   {PlainObject}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Events Bar Object in the Global Tribe variable
+ * Configures Events Bar Object in the Global Tribe variable.
  *
  * @since 4.9.4
  *
  * @type   {PlainObject}
  */
-tribe.events.views.eventsBar = {};
+window.tribe.events.views.eventsBar = window.tribe.events.views.eventsBar || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since 4.9.4
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.eventsBar
+ * @param {PlainObject} $   jQuery.
+ * @param {PlainObject} obj window.tribe.events.views.eventsBar.
  *
  * @return {void}
  */
@@ -32,7 +32,7 @@ tribe.events.views.eventsBar = {};
 	const $document = $( document );
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since 4.9.4
 	 *
@@ -46,7 +46,7 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Object of key codes
+	 * Object of key codes.
 	 *
 	 * @since 4.9.4
 	 *
@@ -60,43 +60,43 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Deinitialize accordion based on header and content
+	 * Deinitialize accordion based on header and content.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $header  jQuery object of header
-	 * @param {jQuery} $content jQuery object of contents
+	 * @param {jQuery} $header  jQuery Header object.
+	 * @param {jQuery} $content jQuery Contents object.
 	 *
 	 * @return {void}
 	 */
 	obj.deinitAccordion = function ( $header, $content ) {
-		tribe.events.views.accordion.deinitAccordion( 0, $header );
-		tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
+		window.tribe.events.views.accordion.deinitAccordion( 0, $header );
+		window.tribe.events.views.accordion.deinitAccordionA11yAttrs( $header, $content );
 		$content.css( 'display', '' );
 	};
 
 	/**
-	 * Initialize accordion based on header and content
+	 * Initialize accordion based on header and content.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {jQuery} $header    jQuery object of header
-	 * @param {jQuery} $content   jQuery object of contents
+	 * @param {jQuery} $container jQuery View container object.
+	 * @param {jQuery} $header    jQuery Header object.
+	 * @param {jQuery} $content   jQuery Contents object.
 	 *
 	 * @return {void}
 	 */
 	obj.initAccordion = function ( $container, $header, $content ) {
-		tribe.events.views.accordion.initAccordion( $container )( 0, $header );
-		tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
+		window.tribe.events.views.accordion.initAccordion( $container )( 0, $header );
+		window.tribe.events.views.accordion.initAccordionA11yAttrs( $header, $content );
 	};
 
 	/**
-	 * Toggles active class on search button
+	 * Toggles active class on search button.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for click event
+	 * @param {Event} event Event object for click event.
 	 *
 	 * @return {void}
 	 */
@@ -105,11 +105,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Deinitialize search button accordion
+	 * Deinitialize search button accordion.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -122,11 +122,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Initialize search button accordion
+	 * Initialize search button accordion.
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -138,11 +138,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Initializes events bar state
+	 * Initializes events bar state.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -157,11 +157,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Deinitializes events bar
+	 * Deinitialize events bar.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -170,11 +170,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Initializes events bar
+	 * Initializes events bar.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -204,11 +204,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Handles 'resize.tribeEvents' event
+	 * Handles 'resize.tribeEvents' event.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for 'resize.tribeEvents' event
+	 * @param {Event} event Event object for 'resize.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -217,11 +217,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Handles click event on document
+	 * Handles click event on document.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for click event
+	 * @param {Event} event Event object for click event.
 	 *
 	 * @return {void}
 	 */
@@ -238,17 +238,17 @@ tribe.events.views.eventsBar = {};
 			if ( $searchButton.hasClass( obj.selectors.searchButtonActiveClass.className() ) ) {
 				const $searchContainer = $eventsBar.find( obj.selectors.searchContainer );
 				$searchButton.removeClass( obj.selectors.searchButtonActiveClass.className() );
-				tribe.events.views.accordion.closeAccordion( $searchButton, $searchContainer );
+				window.tribe.events.views.accordion.closeAccordion( $searchButton, $searchContainer );
 			}
 		}
 	};
 
 	/**
-	 * Unbind events for events bar
+	 * Unbind events for events bar.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -258,11 +258,11 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Bind events for events bar
+	 * Bind events for events bar.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -272,13 +272,13 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Deinitialize events bar JS
+	 * Deinitialize events bar JS.
 	 *
 	 * @since 4.9.4
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    Event object for 'beforeAjaxSuccess.tribeEvents' event.
+	 * @param {jqXHR}       jqXHR    Request object.
+	 * @param {PlainObject} settings Settings that this request was made with.
 	 *
 	 * @return {void}
 	 */
@@ -291,14 +291,14 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Initialize events bar JS
+	 * Initialize events bar JS.
 	 *
 	 * @since  4.9.8
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      Event object for 'afterSetup.tribeEvents' event.
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery}  $container jQuery View container object.
+	 * @param {Object}  data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -317,16 +317,16 @@ tribe.events.views.eventsBar = {};
 	};
 
 	/**
-	 * Handles the initialization of events bar when Document is ready
+	 * Handles the initialization of events bar when Document is ready.
 	 *
 	 * @since 4.9.4
 	 *
 	 * @return {void}
 	 */
 	obj.ready = function () {
-		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+		$document.on( 'afterSetup.tribeEvents', window.tribe.events.views.manager.selectors.container, obj.init );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.eventsBar );
+} )( jQuery, window.tribe.events.views.eventsBar );

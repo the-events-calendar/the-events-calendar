@@ -1,29 +1,29 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since 4.9.5
  *
  * @type {Object}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Datepicker Object in the Global Tribe variable
+ * Configures Datepicker Object in the Global Tribe variable.
  *
  * @since 4.9.5
  *
  * @type {Object}
  */
-tribe.events.views.datepicker = {};
+window.tribe.events.views.datepicker = window.tribe.events.views.datepicker || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since 4.9.5
  *
  * @param {Object} $   jQuery
- * @param {Object} obj tribe.events.views.datepicker
+ * @param {Object} obj window.tribe.events.views.datepicker
  *
  * @return {void}
  */
@@ -32,7 +32,7 @@ tribe.events.views.datepicker = {};
 	const $document = $( document );
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since 4.9.5
 	 *
@@ -51,7 +51,7 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Object of state
+	 * Object of state.
 	 *
 	 * @since 4.9.5
 	 *
@@ -62,7 +62,7 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Object of datepicker options
+	 * Object of datepicker options.
 	 *
 	 * @since 4.9.10
 	 *
@@ -82,7 +82,7 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Object of key codes
+	 * Object of key codes.
 	 *
 	 * @since 5.0.0
 	 *
@@ -93,7 +93,7 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Date object representing today
+	 * Date object representing today.
 	 *
 	 * @since 4.9.13
 	 *
@@ -120,7 +120,7 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Mutation observer to watch for mutations
+	 * Mutation observer to watch for mutations.
 	 *
 	 * @since 4.9.10
 	 *
@@ -129,13 +129,13 @@ tribe.events.views.datepicker = {};
 	obj.observer = null;
 
 	/**
-	 * Pads number with extra 0 if needed to make it double digit
+	 * Pads number with extra 0 if needed to make it double digit.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {integer} number number to pad with extra 0
+	 * @param {integer} number number to pad with extra 0.
 	 *
-	 * @return {string} string representation of padded number
+	 * @return {string} String representation of padded number.
 	 */
 	obj.padNumber = function ( number ) {
 		const numStr = number + '';
@@ -144,12 +144,12 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Performs an AJAX request using manager.js request method
+	 * Performs an AJAX request using manager.js request method.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Object} viewData   object of view data
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {Object} viewData   Object of view data.
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -158,7 +158,7 @@ tribe.events.views.datepicker = {};
 			view_data: viewData,
 		};
 
-		tribe.events.views.manager.request( data, $container );
+		window.tribe.events.views.manager.request( data, $container );
 	};
 
 	/**
@@ -166,7 +166,7 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @since 4.9.11
 	 *
-	 * @param {string} value string representation of the date value
+	 * @param {string} value String representation of the date value.
 	 *
 	 * @return {jQuery}
 	 */
@@ -186,8 +186,8 @@ tribe.events.views.datepicker = {};
 	 *
 	 * @since 4.9.11
 	 *
-	 * @param {jQuery} $container jQuery object of view container
-	 * @param {string} value      string representation of the date value
+	 * @param {jQuery} $container jQuery View container object.
+	 * @param {string} value      string representation of the date value.
 	 *
 	 * @return {void}
 	 */
@@ -197,11 +197,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker changeDate event
+	 * Handle datepicker changeDate event.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event} event event object for 'changeDate' event
+	 * @param {Event} event Event object for 'changeDate' event.
 	 *
 	 * @return {void}
 	 */
@@ -220,11 +220,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker changeMonth event
+	 * Handle datepicker changeMonth event.
 	 *
 	 * @since 4.9.5
 	 *
-	 * @param {Event} event event object for 'changeMonth' event
+	 * @param {Event} event Event object for 'changeMonth' event.
 	 *
 	 * @return {void}
 	 */
@@ -249,11 +249,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker keydown event
+	 * Handle datepicker keydown event.
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param {Event} event event object for 'keydown' event
+	 * @param {Event} event Event object for 'keydown' event.
 	 *
 	 * @return {void}
 	 */
@@ -266,11 +266,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker show event
+	 * Handle datepicker show event.
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param {Event} event event object for 'show' event
+	 * @param {Event} event Event object for 'show' event.
 	 *
 	 * @return {void}
 	 */
@@ -279,11 +279,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker hide event
+	 * Handle datepicker hide event.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event} event event object for 'hide' event
+	 * @param {Event} event Event object for 'hide' event.
 	 *
 	 * @return {void}
 	 */
@@ -302,11 +302,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker button mousedown
+	 * Handle datepicker button mousedown.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event} event event object for 'mousedown' event
+	 * @param {Event} event Event object for 'mousedown' event.
 	 *
 	 * @return {void}
 	 */
@@ -332,11 +332,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Handle datepicker button click
+	 * Handle datepicker button click.
 	 *
 	 * @since 4.9.8
 	 *
-	 * @param {Event} event event object for 'click' event
+	 * @param {Event} event Event object for 'click' event.
 	 *
 	 * @return {void}
 	 */
@@ -362,12 +362,12 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Curry function to handle mutations
-	 * Used to pass in `data`
+	 * Curry function to handle mutations.
+	 * Used to pass in `data`.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Object} data data object to be passed for use in handler
+	 * @param {Object} data Data object to be passed for use in handler.
 	 *
 	 * @return {Function}
 	 */
@@ -375,12 +375,12 @@ tribe.events.views.datepicker = {};
 		const $container = data.container;
 
 		/**
-		 * Handle mutations from mutation observer
+		 * Handle mutations from mutation observer.
 		 *
 		 * @since 4.9.7
 		 *
-		 * @param {Array}            mutationsList list of mutations that have occurred
-		 * @param {MutationObserver} observer      mutation observer instance
+		 * @param {Array}            mutationsList List of mutations that have occurred.
+		 * @param {MutationObserver} observer      Mutation observer instance.
 		 *
 		 * @return {void}
 		 */
@@ -400,11 +400,11 @@ tribe.events.views.datepicker = {};
 	};
 
 	/**
-	 * Set today to date object representing today
+	 * Set today to date object representing today.
 	 *
 	 * @since 4.9.13
 	 *
-	 * @param {string} today string representation of today's date according to website time
+	 * @param {string} today String representation of today's date according to website time
 	 *
 	 * @return {void}
 	 */
@@ -714,10 +714,10 @@ tribe.events.views.datepicker = {};
 		obj.initDatepicker();
 
 		if ( obj.state.initialized ) {
-			$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
+			$document.on( 'afterSetup.tribeEvents', window.tribe.events.views.manager.selectors.container, obj.init );
 		}
 	};
 
 	// Configure on document ready
 	$( obj.ready );
-} )( jQuery, tribe.events.views.datepicker );
+} )( jQuery, window.tribe.events.views.datepicker );

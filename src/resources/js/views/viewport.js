@@ -1,29 +1,29 @@
 /**
- * Makes sure we have all the required levels on the Tribe Object
+ * Makes sure we have all the required levels on the Tribe Object.
  *
  * @since 4.9.7
  *
  * @type   {PlainObject}
  */
-tribe.events = tribe.events || {};
-tribe.events.views = tribe.events.views || {};
+window.tribe.events = window.tribe.events || {};
+window.tribe.events.views = window.tribe.events.views || {};
 
 /**
- * Configures Viewport Object in the Global Tribe variable
+ * Configures Viewport Object in the Global Tribe variable.
  *
  * @since 4.9.7
  *
  * @type   {PlainObject}
  */
-tribe.events.views.viewport = {};
+window.tribe.events.views.viewport = window.tribe.events.views.viewport || {};
 
 /**
- * Initializes in a Strict env the code that manages the Event Views
+ * Initializes in a Strict env the code that manages the Event Views.
  *
  * @since 4.9.7
  *
- * @param {PlainObject} $   jQuery
- * @param {PlainObject} obj tribe.events.views.viewport
+ * @param {PlainObject} $   jQuery.
+ * @param {PlainObject} obj tribe.events.views.viewport.
  *
  * @return {void}
  */
@@ -33,22 +33,22 @@ tribe.events.views.viewport = {};
 	const $document = $( document );
 
 	/**
-	 * Object of options
+	 * Object of options.
 	 *
 	 * @since 4.9.7
 	 *
 	 * @type {PlainObject}
 	 */
 	obj.options = {
-		MOBILE_BREAKPOINT: tribe.events.views.breakpoints.breakpoints.medium || 768,
+		MOBILE_BREAKPOINT: window.tribe.events.views.breakpoints.breakpoints.medium || 768,
 	};
 
 	/**
-	 * Set viewport state for container
+	 * Set viewport state for container.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -64,11 +64,11 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
-	 * Handles window resize event
+	 * Handles window resize event.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {Event} event event object for 'resize' event
+	 * @param {Event} event Event object for 'resize' event.
 	 *
 	 * @return {void}
 	 */
@@ -79,11 +79,11 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
-	 * Unbind events for window resize
+	 * Unbind events for window resize.
 	 *
 	 * @since 5.0.0
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -93,11 +93,11 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
-	 * Bind events for window resize
+	 * Bind events for window resize.
 	 *
 	 * @since 4.9.7
 	 *
-	 * @param {jQuery} $container jQuery object of view container
+	 * @param {jQuery} $container jQuery View container object.
 	 *
 	 * @return {void}
 	 */
@@ -106,13 +106,13 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
-	 * Deinitialize viewport JS
+	 * Deinitialize viewport JS.
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param {Event}       event    event object for 'beforeAjaxSuccess.tribeEvents' event
-	 * @param {jqXHR}       jqXHR    Request object
-	 * @param {PlainObject} settings Settings that this request was made with
+	 * @param {Event}       event    Event object for 'beforeAjaxSuccess.tribeEvents' event.
+	 * @param {jqXHR}       jqXHR    Request object.
+	 * @param {PlainObject} settings Settings that this request was made with.
 	 *
 	 * @return {void}
 	 */
@@ -124,14 +124,14 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
-	 * Initialize viewport JS
+	 * Initialize viewport JS.
 	 *
 	 * @since  4.9.7
 	 *
-	 * @param {Event}   event      event object for 'afterSetup.tribeEvents' event
-	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event
-	 * @param {jQuery}  $container jQuery object of view container
-	 * @param {Object}  data       data object passed from 'afterSetup.tribeEvents' event
+	 * @param {Event}   event      Event object for 'afterSetup.tribeEvents' event.
+	 * @param {integer} index      jQuery.each index param from 'afterSetup.tribeEvents' event.
+	 * @param {jQuery}  $container jQuery View container object.
+	 * @param {Object}  data       Data object passed from 'afterSetup.tribeEvents' event.
 	 *
 	 * @return {void}
 	 */
@@ -143,7 +143,7 @@ tribe.events.views.viewport = {};
 	};
 
 	/**
-	 * Handles the initialization of viewport when Document is ready
+	 * Handles the initialization of viewport when Document is ready.
 	 *
 	 * @since 4.9.7
 	 *
@@ -153,6 +153,6 @@ tribe.events.views.viewport = {};
 		$document.on( 'afterSetup.tribeEvents', tribe.events.views.manager.selectors.container, obj.init );
 	};
 
-	// Configure on document ready
+	// Configure on document ready.
 	$( obj.ready );
-} )( jQuery, tribe.events.views.viewport );
+} )( jQuery, window.tribe.events.views.viewport );
