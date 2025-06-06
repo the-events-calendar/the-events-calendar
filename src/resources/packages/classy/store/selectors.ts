@@ -113,8 +113,8 @@ export function areTicketsSupported( state: StoreState ): boolean {
  * @return {boolean} Whether the current event post is a new one or not.
  */
 export function isNewEvent(): boolean {
-	// @ts-ignore
 	const { _EventStartDate, _EventEndDate }: EventMeta =
+		// @ts-ignore
 		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
 
 	return ! _EventStartDate || ! _EventEndDate;
