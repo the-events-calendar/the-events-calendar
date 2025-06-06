@@ -8,6 +8,8 @@ import {
 	METADATA_EVENT_CURRENCY_SYMBOL,
 } from '../../constants';
 import { IconClose } from '@tec/common/classy/components';
+import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
+import { Currency } from '@tec/common/classy/types/Currency';
 
 type CurrencySelectorProps = {
 	/**
@@ -16,21 +18,13 @@ type CurrencySelectorProps = {
 	title?: string;
 };
 
-type CurrencyPosition = 'prefix' | 'postfix';
-
-type CurrencyProps = {
-	symbol: string;
-	currency: string;
-	position: CurrencyPosition;
-};
-
 // todo: Replace with API call to fetch available currencies.
-const Currencies: CurrencyProps[] = [
-	{ symbol: '$', currency: 'USD', position: 'prefix' },
-	{ symbol: '€', currency: 'EUR', position: 'prefix' },
-	{ symbol: '£', currency: 'GBP', position: 'prefix' },
-	{ symbol: '¥', currency: 'JPY', position: 'prefix' },
-	{ symbol: '₹', currency: 'INR', position: 'prefix' },
+const Currencies: Currency[] = [
+	{ symbol: '$', code: 'USD', position: 'prefix' },
+	{ symbol: '€', code: 'EUR', position: 'prefix' },
+	{ symbol: '£', code: 'GBP', position: 'prefix' },
+	{ symbol: '¥', code: 'JPY', position: 'prefix' },
+	{ symbol: '₹', code: 'INR', position: 'prefix' },
 ];
 
 type CurrencySelectOption = {
@@ -45,15 +39,15 @@ const currencyDefaultOption: CurrencySelectOption = {
 	value: 'default',
 };
 
-const buildOptionFromCurrency = ( currency: CurrencyProps ): CurrencySelectOption => {
+const buildOptionFromCurrency = ( currency: Currency ): CurrencySelectOption => {
 	return {
-		key: currency.currency,
-		label: `${ currency.symbol } ${ currency.currency }`,
-		value: currency.currency,
+		key: currency.code,
+		label: `${ currency.symbol } ${ currency.code }`,
+		value: currency.code,
 	};
 };
 
-const mapCurrenciesToOptions = ( currencies: CurrencyProps[] ): CurrencySelectOption[] => {
+const mapCurrenciesToOptions = ( currencies: Currency[] ): CurrencySelectOption[] => {
 	return currencies.map( buildOptionFromCurrency );
 };
 
@@ -81,7 +75,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 	const eventCurrencyPosition: CurrencyPosition =
 		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
-		Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position ||
+		Currencies.find( ( currency ) => currency.code === eventCurrency )?.position ||
 		defaultCurrencyPosition;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
@@ -98,7 +92,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	}, [ eventCurrencySymbolMeta ] );
 
 	const onCurrencyChange = ( nextValue: string | undefined ): void => {
-		const selectedCurrency: CurrencyProps = Currencies.find( ( currency ) => currency.currency === nextValue );
+		const selectedCurrency: Currency = Currencies.find( ( currency ) => currency.code === nextValue );
 		if ( ! selectedCurrency || nextValue === 'default' ) {
 			setEventCurrency( defaultCurrency );
 			setCurrencySymbol( defaultCurrencySymbol );
@@ -113,11 +107,11 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 			return;
 		}
 
-		setEventCurrency( selectedCurrency.currency );
+		setEventCurrency( selectedCurrency.code );
 		setCurrencySymbol( selectedCurrency.symbol );
 		editPost( {
 			meta: {
-				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.currency,
+				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.code,
 				[ METADATA_EVENT_CURRENCY_SYMBOL ]: selectedCurrency.symbol,
 			},
 		} );
