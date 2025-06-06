@@ -1,0 +1,4 @@
+Significance: minor
+Type: accessibility
+
+Improved accessibility of single event templates with semantic landmarks, proper aria labels, and better screen reader support.[TEC-3421]
