@@ -1,7 +1,7 @@
 <?php
 /**
  * View: Elementor empty widget - for display in the editor when a widget is empty.
- * It displays hte widget icon and a message to the user.
+ * It displays the widget icon and a message to the user.
  *
  * You can override this template in your own theme by creating a file at
  * [your-theme]/tribe/events/integrations/elementor/widgets/empty.php

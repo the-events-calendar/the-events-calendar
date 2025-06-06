@@ -101,7 +101,7 @@ class Rest_Api {
 	 * Checks if our endpoints are accessible.
 	 *
 	 * @since 6.5.0
-	 * @sicne 6.5.0.1 Introduce a force param.
+	 * @since 6.5.0.1 Introduce a force param.
 	 *
 	 * @param bool $force Force the check, skipping timed option cache.
 	 *
