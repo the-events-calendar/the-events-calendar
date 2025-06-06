@@ -5,6 +5,7 @@ import { Settings } from '@tec/common/classy/types/LocalizedData';
 import { getDate } from '@wordpress/date';
 import { METADATA_EVENT_ORGANIZER_ID, METADATA_EVENT_VENUE_ID } from '../constants';
 import { StoreState } from '../types/StoreState';
+import { Currency } from '@tec/common/classy/types/Currency';
 
 /**
  * Returns the event date and time details, read from its meta. If the meta is not set,
@@ -118,4 +119,17 @@ export function isNewEvent(): boolean {
 		select( 'core/editor' )?.getEditedPostAttribute( 'meta' ) ?? {};
 
 	return ! _EventStartDate || ! _EventEndDate;
+}
+
+/**
+ * Returns the default currency from the settings.
+ *
+ * @since TBD
+ *
+ * @return {Currency} The default currency.
+ */
+export function getDefaultCurrency(): Currency {
+	// @ts-ignore
+	const settings: Settings = select( 'tec/classy' ).getSettings();
+	return settings.defaultCurrency;
 }
