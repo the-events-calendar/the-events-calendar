@@ -39,10 +39,24 @@ const currencyDefaultOption: CurrencySelectOption = {
 	value: 'default',
 };
 
+/**
+ * Renders a currency in the format of "symbol code" or "code symbol" based on the currency position.
+ *
+ * @since TBD
+ *
+ * @param {Currency} currency The Currency object containing the code, symbol, and position.
+ * @returns {string} The formatted currency string.
+ */
+const renderCurrency = ( currency: Currency ): string => {
+	return currency.position === 'prefix'
+		? `${ currency.symbol }${ currency.code }`
+		: `${ currency.code }${ currency.symbol }`;
+};
+
 const buildOptionFromCurrency = ( currency: Currency ): CurrencySelectOption => {
 	return {
 		key: currency.code,
-		label: `${ currency.symbol } ${ currency.code }`,
+		label: renderCurrency( currency ),
 		value: currency.code,
 	};
 };
@@ -133,18 +147,6 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 		setIsSelectingCurrency( ! isSelectingCurrency );
 	};
 
-	const renderCurrency = (): string => {
-		if ( ! currencySymbol || ! eventCurrency ) {
-			return '';
-		}
-
-		if ( currencyPosition === 'prefix' ) {
-			return `${ currencySymbol }${ eventCurrency }`;
-		}
-
-		return `${ eventCurrency }${ currencySymbol }`;
-	};
-
 	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( Currencies ) ];
 
 	const onClose = (): void => {
@@ -154,7 +156,11 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	return (
 		<div className="classy-field classy-field--currency-selector">
 			<Button className="is-link--dark" variant="link" onClick={ onCurrencyClick }>
-				{ renderCurrency() }
+				{ renderCurrency( {
+					code: eventCurrencyCode,
+					symbol: currencySymbol,
+					position: currencyPosition,
+				} ) }
 			</Button>
 
 			{ isSelectingCurrency && (
