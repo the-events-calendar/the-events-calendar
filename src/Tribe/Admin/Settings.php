@@ -777,7 +777,7 @@ class Settings {
 			'admin_enqueue_scripts',
 			[
 				'localize' => [
-					'name' => 'tribe_upgrade',
+					'name' => 'tribe_upgrade_page',
 					'data' => [
 						'v2_is_enabled' => tribe_events_views_v2_is_enabled(),
 						'button_text' => __( 'Upgrade your calendar views', 'the-events-calendar' ),
