@@ -87,11 +87,15 @@ class Provider extends Integration_Abstract {
 	 * @return void
 	 */
 	private function register_assets() {
-		tec_asset( 'tec-yoast-events-replacevars' )
-			->set_path( 'js/yoastseo-events-replacevars.js' )
-			->set_dependencies( [ 'jquery' ] )
-			->set_condition( [ $this, 'should_enqueue_yoast_assets' ] )
+		Asset::add(
+			'tec-yoast-events-replacevars',
+			'js/yoastseo-events-replacevars.js'
+		)
+			->add_to_group_path( TEC::class . '-packages' )
+			->add_to_group( 'tec-yoast' )
 			->enqueue_on( 'admin_enqueue_scripts' )
+			->set_condition( [ $this, 'should_enqueue_yoast_assets' ] )
+			->set_dependencies( 'jquery' )
 			->in_footer()
 			->register();
 	}
