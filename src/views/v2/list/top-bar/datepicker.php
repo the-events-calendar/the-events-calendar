@@ -11,7 +11,7 @@
  *
  * @version TBD
  * @since   5.3.0
- * @since   TBD Added visible date text to the aria-label for WCAG compliance.
+ * @since   TBD Changeed aria-label to aria-description for WCAG compliance.
  *
  * @var bool   $is_now                     Whether the date selected in the datepicker is "now" or not.
  * @var bool   $show_now                   Whether to show the "Now" label as range start or not.
@@ -27,11 +27,7 @@
  * @var string $datepicker_date            The datepicker selected date, in the `Y-m-d` format.
  */
 
-// Build the visible text for accessibility.
-$visible_text = $show_now ? $now_label : $selected_start_date_label;
-if ( $show_end && ! $show_now ) {
-	$visible_text .= ' - ' . $selected_end_date_label;
-}
+
 
 ?>
 <div class="tribe-events-c-top-bar__datepicker">
@@ -39,7 +35,7 @@ if ( $show_end && ! $show_now ) {
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-label="<?php echo esc_attr( $visible_text . ' - ' . __( 'Click to toggle datepicker', 'the-events-calendar' ) ); ?>"
+		aria-description="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
