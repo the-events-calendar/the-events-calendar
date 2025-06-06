@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar 6.13.1\n"
+"Project-Id-Version: The Events Calendar 6.13.2\n"
 "Report-Msgid-Bugs-To: https://evnt.is/191x\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-26T17:13:38+00:00\n"
+"POT-Creation-Date: 2025-06-03T21:04:33+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: the-events-calendar\n"
@@ -2739,117 +2739,159 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:113
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:197
+msgctxt "Section title"
+msgid "Getting Started"
+msgstr ""
+
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:200
+msgctxt "Section description"
+msgid "Easy to follow step-by-step instructions to make the most out of your calendar."
+msgstr ""
+
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:202
 msgctxt "The Events Calendar title"
 msgid "The Events Calendar"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:118
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:207
 msgctxt "Event Aggregator title"
 msgid "Event Aggregator"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:123
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:212
 msgctxt "Filter Bar title"
 msgid "Filter Bar"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:129
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:230
+msgctxt "Section title"
+msgid "Customizations"
+msgstr ""
+
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:233
+msgctxt "Section description"
+msgid "Tips and tricks on making your calendar just the way you want it."
+msgstr ""
+
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:235
 msgctxt "Customization article"
 msgid "Getting started with customization"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:134
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:240
 msgctxt "Highlighting events article"
 msgid "Highlighting events"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:139
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:245
 msgctxt "Customizing templates article"
 msgid "Customizing template files"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:144
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:250
 msgctxt "Customizing CSS article"
 msgid "Customizing CSS"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:151
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:268
+msgctxt "Section title"
+msgid "Common Issues"
+msgstr ""
+
+#. translators: %s is the link to the AI Chatbot
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:274
+#, php-format
+msgctxt "Common issues section description"
+msgid "Having trouble? Find solutions to common issues or ask our %s."
+msgstr ""
+
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:275
+msgctxt "AI Chatbot link text"
+msgid "AI Chatbot"
+msgstr ""
+
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:279
 msgctxt "Known issues article"
 msgid "Known issues"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:156
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:284
 msgctxt "Release notes article"
 msgid "Release notes"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:161
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:289
 msgctxt "Integrations article"
 msgid "Integrations"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:166
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:294
 msgctxt "Shortcodes article"
 msgid "Shortcodes"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:173
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:312
+msgctxt "FAQ section description"
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:314
 msgctxt "FAQ more than one calendar question"
 msgid "Can I have more than one calendar?"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:174
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:315
 msgctxt "FAQ more than one calendar answer"
 msgid "No, but you can use event categories or tags to display certain events."
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:175
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:316
 msgctxt "Link to more than one calendar article"
 msgid "Learn More"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:179
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:320
 msgctxt "FAQ what is in Calendar Pro question"
 msgid "What do I get with Events Calendar Pro?"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:180
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:321
 msgctxt "FAQ what is in Calendar Pro answer"
 msgid "Events Calendar Pro enhances The Events Calendar with additional views, powerful shortcodes, and a host of premium features."
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:181
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:322
 msgctxt "Link to what is in Calendar Pro article"
 msgid "Learn More"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:185
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:326
 msgctxt "FAQ how to sell event tickets question"
 msgid "How do I sell event tickets?"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:186
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:327
 msgctxt "FAQ how to sell event tickets answer"
 msgid "Get started with tickets and RSVPs using our free Event Tickets plugin."
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:187
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:328
 msgctxt "Link to what is in Event Tickets article"
 msgid "Learn More"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:191
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:332
 msgctxt "FAQ where are the shortcodes question"
 msgid "Where can I find a list of available shortcodes?"
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:192
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:333
 msgctxt "FAQ where are the shortcodes answer"
 msgid "Our plugins offer a variety of shortcodes, allowing you to easily embed the calendar, display an event countdown clock, show attendee details, and much more."
 msgstr ""
 
-#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:193
+#: src/Events/Admin/Help_Hub/TEC_Hub_Resource_Data.php:334
 msgctxt "Link to the shortcodes article"
 msgid "Learn More"
 msgstr ""
