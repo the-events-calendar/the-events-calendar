@@ -232,7 +232,7 @@ Remember to always make a backup of your database and files before updating!
 
 == Changelog ==
 
-= [6.13.2.1] 2025-06-06 =
+= [6.13.2.1] 2025-06-05 =
 
 * Fix - Fix some hardcoded asset paths. [TEC-5523]
 * Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
