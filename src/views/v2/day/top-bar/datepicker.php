@@ -9,7 +9,9 @@
  *
  * @link http://evnt.is/1aiy
  *
- * @version 5.3.0
+ * @version TBD
+ * @since   5.3.0
+ * @since   TBD Added selected date label to the aria-label for WCAG compliance.
  *
  * @var string $now                    The current date and time in the `Y-m-d H:i:s` format.
  * @var object $date_formats           Object containing the date formats.
@@ -32,7 +34,7 @@ $datepicker_date = Dates::build_date_object( $selected_date_value )->format( $da
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-label="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
+		aria-label="<?php echo esc_attr( $selected_date_label . ' - ' ); esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
