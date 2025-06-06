@@ -27,7 +27,7 @@
  * @var string $datepicker_date            The datepicker selected date, in the `Y-m-d` format.
  */
 
-// Build the visible text for accessibility
+// Build the visible text for accessibility.
 $visible_text = $show_now ? $now_label : $selected_start_date_label;
 if ( $show_end && ! $show_now ) {
 	$visible_text .= ' - ' . $selected_end_date_label;
@@ -39,7 +39,7 @@ if ( $show_end && ! $show_now ) {
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-label="<?php echo esc_attr( $visible_text . ' - ' ); esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
+		aria-label="<?php echo esc_attr( $visible_text . ' - ' . __( 'Click to toggle datepicker', 'the-events-calendar' ) ); ?>"
 		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
