@@ -16,19 +16,21 @@ type CurrencySelectorProps = {
 	title?: string;
 };
 
+type CurrencyPosition = 'prefix' | 'postfix';
+
 type CurrencyProps = {
 	symbol: string;
 	currency: string;
-	position: 'before' | 'after';
+	position: CurrencyPosition;
 };
 
 // todo: Replace with API call to fetch available currencies.
 const Currencies: CurrencyProps[] = [
-	{ symbol: '$', currency: 'USD', position: 'before' },
-	{ symbol: '€', currency: 'EUR', position: 'before' },
-	{ symbol: '£', currency: 'GBP', position: 'before' },
-	{ symbol: '¥', currency: 'JPY', position: 'before' },
-	{ symbol: '₹', currency: 'INR', position: 'before' },
+	{ symbol: '$', currency: 'USD', position: 'prefix' },
+	{ symbol: '€', currency: 'EUR', position: 'prefix' },
+	{ symbol: '£', currency: 'GBP', position: 'prefix' },
+	{ symbol: '¥', currency: 'JPY', position: 'prefix' },
+	{ symbol: '₹', currency: 'INR', position: 'prefix' },
 ];
 
 type CurrencySelectOption = {
@@ -69,6 +71,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	// todo: pull the default currency from the store using the settings.
 	const defaultCurrency: string = 'USD';
 	const defaultCurrencySymbol: string = '$';
+	const defaultCurrencyPosition: CurrencyPosition = 'prefix';
 
 	const eventCurrencyMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency;
 	const [ eventCurrency, setEventCurrency ] = useState< string >( eventCurrencyMeta );
@@ -76,11 +79,11 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrencySymbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
-	const eventCurrencyPosition: 'before' | 'after' =
+	const eventCurrencyPosition: CurrencyPosition =
 		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
 		Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position ||
-		'before';
-	const [ currencyPosition, setCurrencyPosition ] = useState< 'before' | 'after' >( eventCurrencyPosition );
+		defaultCurrencyPosition;
+	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	useEffect( () => {
 		setEventCurrency( eventCurrencyMeta );
@@ -99,12 +102,12 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 		if ( ! selectedCurrency || nextValue === 'default' ) {
 			setEventCurrency( defaultCurrency );
 			setCurrencySymbol( defaultCurrencySymbol );
-			setCurrencyPosition( 'before' );
+			setCurrencyPosition( defaultCurrencyPosition );
 			editPost( {
 				meta: {
 					[ METADATA_EVENT_CURRENCY ]: defaultCurrency,
 					[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrencySymbol,
-					[ METADATA_EVENT_CURRENCY_POSITION ]: 'before',
+					[ METADATA_EVENT_CURRENCY_POSITION ]: defaultCurrencyPosition,
 				},
 			} );
 			return;
@@ -112,12 +115,10 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 		setEventCurrency( selectedCurrency.currency );
 		setCurrencySymbol( selectedCurrency.symbol );
-		setCurrencyPosition( selectedCurrency.position );
 		editPost( {
 			meta: {
 				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.currency,
 				[ METADATA_EVENT_CURRENCY_SYMBOL ]: selectedCurrency.symbol,
-				[ METADATA_EVENT_CURRENCY_POSITION ]: selectedCurrency.position,
 			},
 		} );
 	};
@@ -127,7 +128,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	}, [ eventCurrencySymbolMeta ] );
 
 	const onCurrencyPositionChange = ( nextValue: boolean ): void => {
-		const newPosition = nextValue ? 'before' : 'after';
+		const newPosition = nextValue ? 'prefix' : 'postfix';
 		setCurrencyPosition( newPosition );
 		editPost( { meta: { [ METADATA_EVENT_CURRENCY_POSITION ]: newPosition } } );
 	};
@@ -143,7 +144,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 			return '';
 		}
 
-		if ( currencyPosition === 'before' ) {
+		if ( currencyPosition === 'prefix' ) {
 			return `${ currencySymbol }${ eventCurrency }`;
 		}
 
@@ -203,7 +204,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 								'Event currency position toggle label',
 								'the-events-calendar'
 							) }
-							checked={ currencyPosition === 'before' }
+							checked={ currencyPosition === 'prefix' }
 							onChange={ onCurrencyPositionChange }
 						/>
 					</div>
