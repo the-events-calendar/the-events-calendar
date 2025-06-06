@@ -1,14 +1,22 @@
 <?php
+/**
+ * The Events Calendar Yoast SEO Integration Provider.
+ *
+ * @package The Events Calendar
+ * @since 6.0.4
+ */
 
 namespace TEC\Events\Integrations\Plugins\WordPress_SEO;
 
 use TEC\Events\Integrations\Integration_Abstract;
 use TEC\Common\Integrations\Traits\Plugin_Integration;
+use TEC\Common\Asset;
+use Tribe__Events__Main as TEC;
 
 /**
  * Class Provider
  *
- * @since   6.0.4
+ * @since 6.0.4
  *
  * @package TEC\Events\Integrations\Plugins\WordPress_SEO
  */
@@ -47,7 +55,9 @@ class Provider extends Integration_Abstract {
 	}
 
 	/**
-	 * @inheritDoc
+	 * Load the integration.
+	 *
+	 * @return void
 	 */
 	protected function load(): void {
 		add_filter( 'wpseo_schema_graph_pieces', [ $this, 'add_graph_pieces' ], 11, 2 );
@@ -56,6 +66,56 @@ class Provider extends Integration_Abstract {
 		if ( ! $this->version_compare( '19.2' ) ) {
 			add_action( 'init', [ $this, 'remove_yoast_legacy_integration' ], 20 );
 		}
+
+		$this->register_custom_variables();
+		$this->register_assets();
+	}
+
+	/**
+	 * Register custom variables for Yoast SEO.
+	 *
+	 * @return void
+	 */
+	private function register_custom_variables() {
+		$events_variables = new Events_Variables();
+		$events_variables->register();
+	}
+
+	/**
+	 * Register assets for Yoast SEO integration.
+	 *
+	 * @return void
+	 */
+	private function register_assets() {
+		tec_asset( 'tec-yoast-events-replacevars' )
+			->set_path( 'js/yoastseo-events-replacevars.js' )
+			->set_dependencies( [ 'jquery' ] )
+			->set_condition( [ $this, 'should_enqueue_yoast_assets' ] )
+			->enqueue_on( 'admin_enqueue_scripts' )
+			->in_footer()
+			->register();
+	}
+
+	/**
+	 * Check if Yoast SEO assets should be enqueued.
+	 *
+	 * @return bool
+	 */
+	public function should_enqueue_yoast_assets() {
+		if ( ! is_admin() ) {
+			return false;
+		}
+
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return false;
+		}
+
+		$screen = \get_current_screen();
+		if ( ! $screen ) {
+			return false;
+		}
+
+		return $screen->post_type === 'tribe_events' && $this->should_load();
 	}
 
 	/**
@@ -91,5 +151,14 @@ class Provider extends Integration_Abstract {
 
 		$pieces[] = new Events_Schema( $context );
 		return $pieces;
+	}
+
+	/**
+	 * Gets the type of integration.
+	 *
+	 * @return string
+	 */
+	public static function get_type(): string {
+		return 'plugin';
 	}
 }
