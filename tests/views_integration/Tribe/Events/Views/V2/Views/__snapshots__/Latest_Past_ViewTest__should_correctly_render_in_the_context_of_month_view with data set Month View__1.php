@@ -212,7 +212,7 @@
 	href="http://test.tri.be/events/month/"
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
-	aria-label="Click to select the current month"
+	aria-label="This Month - Click to select the current month"
 	title="Click to select the current month"
 >
 	This Month</a>
@@ -222,7 +222,7 @@
 		class="tribe-common-c-btn__clear tribe-common-h3 tribe-common-h--alt tribe-events-c-top-bar__datepicker-button"
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
-		aria-label="Click to toggle datepicker"
+		aria-label="March 2020 - Click to toggle datepicker"
 		title="Click to toggle datepicker"
 	>
 		<time
