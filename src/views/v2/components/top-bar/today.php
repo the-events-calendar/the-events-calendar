@@ -23,7 +23,6 @@
 	class="tribe-common-c-btn-border-small tribe-events-c-top-bar__today-button tribe-common-a11y-hidden"
 	data-js="tribe-events-view-link"
 	aria-description="<?php echo esc_attr( $today_title ); ?>"
-	title="<?php echo esc_attr( $today_title ); ?>"
 >
 	<?php echo esc_html( $today_label ); ?>
 </a>

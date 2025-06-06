@@ -11,7 +11,7 @@
  *
  * @version TBD
  * @since   5.3.0
- * @since   TBD Changeed aria-label to aria-description for WCAG compliance.
+ * @since   TBD Changed aria-label to aria-description for WCAG compliance.
  *
  * @var string    $now                        The current date and time in the `Y-m-d H:i:s` format.
  * @var string    $grid_date                  The current calendar grid date in the `Y-m-d` format.
@@ -35,7 +35,6 @@ $datepicker_date     = Dates::build_date_object( $selected_date_value )->format(
 		data-js="tribe-events-top-bar-datepicker-button"
 		type="button"
 		aria-description="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
-		title="<?php esc_attr_e( 'Click to toggle datepicker', 'the-events-calendar' ); ?>"
 	>
 		<time
 			datetime="<?php echo esc_attr( $the_date->format( 'Y-m' ) ); ?>"
