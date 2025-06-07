@@ -51,6 +51,14 @@ const renderCurrency = ( currency: Currency ): string => {
 		: `${ currency.code }${ currency.symbol }`;
 };
 
+/**
+ * Builds a CurrencySelectOption object from a Currency object.
+ *
+ * @since TBD
+ *
+ * @param {Currency} currency The Currency object to build the option from.
+ * @returns {CurrencySelectOption} The built CurrencySelectOption object.
+ */
 const buildOptionFromCurrency = ( currency: Currency ): CurrencySelectOption => {
 	return {
 		label: renderCurrency( currency ),
@@ -58,11 +66,24 @@ const buildOptionFromCurrency = ( currency: Currency ): CurrencySelectOption => 
 	};
 };
 
+/**
+ * Maps an array of Currency objects to an array of CurrencySelectOption objects.
+ *
+ * @param {Currency[]} currencies The array of Currency objects to map.
+ */
 const mapCurrenciesToOptions = ( currencies: Currency[] ): CurrencySelectOption[] => {
 	return currencies.map( buildOptionFromCurrency );
 };
 
-export default function CurrencySelector( props: CurrencySelectorProps ) {
+/**
+ * React component for selecting a currency for an event.
+ *
+ * @since TBD
+ *
+ * @param {CurrencySelectorProps} props Component properties.
+ * @return {JSX.Element} The rendered component.
+ */
+export default function CurrencySelector( props: CurrencySelectorProps ): JSX.Element {
 	const { meta, defaultCurrency } = useSelect( ( select ) => {
 		const { getDefaultCurrency }: { getDefaultCurrency: () => Currency } = select( 'tec/classy/events' );
 		const { getEditedPostAttribute }: { getEditedPostAttribute: ( attribute: string ) => any } = select( 'core/editor' );
