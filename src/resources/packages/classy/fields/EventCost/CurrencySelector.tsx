@@ -98,19 +98,32 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 		setCurrencySymbol( eventCurrencySymbolMeta );
 	}, [ eventCurrencySymbolMeta ] );
 
+	/**
+	 * Sets the event currency to the default currency.
+	 *
+	 * This function updates the event's currency code, symbol, and position to the default values,
+	 * and also updates the post metadata accordingly. The post metadata for the currency code is
+	 * set to an empty string, indicating that the default currency should be used for display.
+	 *
+	 * @since TBD
+	 */
+	const setToDefaultCurrency = (): void => {
+		seteventCurrencyCode( defaultCurrency.code );
+		setCurrencySymbol( defaultCurrency.symbol );
+		setCurrencyPosition( defaultCurrency.position );
+		editPost( {
+			meta: {
+				[ METADATA_EVENT_CURRENCY ]: '',
+				[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrency.symbol,
+				[ METADATA_EVENT_CURRENCY_POSITION ]: defaultCurrency.position,
+			},
+		} );
+	};
+
 	const onCurrencyChange = ( nextValue: string | undefined ): void => {
 		const selectedCurrency: Currency = Currencies.find( ( currency ) => currency.code === nextValue );
 		if ( ! selectedCurrency || nextValue === 'default' ) {
-			setEventCurrency( defaultCurrency );
-			setCurrencySymbol( defaultCurrencySymbol );
-			setCurrencyPosition( defaultCurrencyPosition );
-			editPost( {
-				meta: {
-					[ METADATA_EVENT_CURRENCY ]: defaultCurrency,
-					[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrencySymbol,
-					[ METADATA_EVENT_CURRENCY_POSITION ]: defaultCurrencyPosition,
-				},
-			} );
+			setToDefaultCurrency();
 			return;
 		}
 
