@@ -219,7 +219,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 						<SelectControl
 							label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
 							hideLabelFromVision={ true }
-							value={ eventCurrency }
+							value={ eventCurrencyCode === defaultCurrency.code ? 'default' : eventCurrencyCode }
 							onChange={ onCurrencyChange }
 							options={ currencyOptions }
 							__nextHasNoMarginBottom
