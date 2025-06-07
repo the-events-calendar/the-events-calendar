@@ -52,7 +52,7 @@ class Events_Variables {
 	 */
 	public function get_event_start_date() {
 		$event_id = get_the_ID();
-		if ( ! $event_id || get_post_type( $event_id ) !== TEC_Plugin::POSTTYPE ) {
+		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
 			return '';
 		}
 
@@ -68,7 +68,7 @@ class Events_Variables {
 	 */
 	public function get_event_end_date() {
 		$event_id = get_the_ID();
-		if ( ! $event_id || get_post_type( $event_id ) !== TEC_Plugin::POSTTYPE ) {
+		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
 			return '';
 		}
 
@@ -84,7 +84,7 @@ class Events_Variables {
 	 */
 	public function get_venue_title() {
 		$event_id = get_the_ID();
-		if ( ! $event_id || get_post_type( $event_id ) !== TEC_Plugin::POSTTYPE ) {
+		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
 			return '';
 		}
 
@@ -100,7 +100,7 @@ class Events_Variables {
 	 */
 	public function get_venue_city() {
 		$event_id = get_the_ID();
-		if ( ! $event_id || get_post_type( $event_id ) !== TEC_Plugin::POSTTYPE ) {
+		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
 			return '';
 		}
 
@@ -110,7 +110,11 @@ class Events_Variables {
 		}
 
 		$venue_object = tribe_get_venue_object( $venue_id );
-		return $venue_object->city ?: '';
+		if ( ! $venue_object || ! is_object( $venue_object ) ) {
+			return '';
+		}
+
+		return $venue_object->city ?? '';
 	}
 
 	/**
@@ -122,7 +126,7 @@ class Events_Variables {
 	 */
 	public function get_venue_state() {
 		$event_id = get_the_ID();
-		if ( ! $event_id || get_post_type( $event_id ) !== TEC_Plugin::POSTTYPE ) {
+		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
 			return '';
 		}
 
@@ -132,7 +136,11 @@ class Events_Variables {
 		}
 
 		$venue_object = tribe_get_venue_object( $venue_id );
-		return $venue_object->state ?: '';
+		if ( ! $venue_object || ! is_object( $venue_object ) ) {
+			return '';
+		}
+
+		return $venue_object->state ?? '';
 	}
 
 	/**
@@ -144,7 +152,7 @@ class Events_Variables {
 	 */
 	public function get_organizer_title() {
 		$event_id = get_the_ID();
-		if ( ! $event_id || get_post_type( $event_id ) !== TEC_Plugin::POSTTYPE ) {
+		if ( ! $event_id || TEC_Plugin::POSTTYPE !== get_post_type( $event_id ) ) {
 			return '';
 		}
 

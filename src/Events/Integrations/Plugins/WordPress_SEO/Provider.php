@@ -24,14 +24,22 @@ class Provider extends Integration_Abstract {
 	use Plugin_Integration;
 
 	/**
-	 * @inheritDoc
+	 * Get the slug for this integration.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @return string
 	 */
 	public static function get_slug(): string {
 		return 'wordpress-seo';
 	}
 
 	/**
-	 * @inheritDoc
+	 * Load conditionals for this integration.
+	 *
+	 * @since 6.0.4
+	 *
+	 * @return bool
 	 */
 	public function load_conditionals(): bool {
 		return function_exists( 'YoastSEO' ) && $this->version_compare( '19.0' );
@@ -40,12 +48,12 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Checks the version of Yoast SEO against a given Version.
 	 *
-	 * @uses version_compare()
-	 *
 	 * @since 6.0.8
 	 *
+	 * @uses version_compare()
+	 *
 	 * @param string $version  The version of Yoast we are comparing the installed version to.
-	 * @param string $operator The comparison operator. Defaults to >=
+	 * @param string $operator The comparison operator. Defaults to >=.
 	 *
 	 * @return bool
 	 */
@@ -56,6 +64,8 @@ class Provider extends Integration_Abstract {
 
 	/**
 	 * Load the integration.
+	 *
+	 * @since 6.0.4
 	 *
 	 * @return void
 	 */
@@ -74,6 +84,8 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Register custom variables for Yoast SEO.
 	 *
+	 * @since TBD
+	 *
 	 * @return void
 	 */
 	private function register_custom_variables() {
@@ -83,6 +95,8 @@ class Provider extends Integration_Abstract {
 
 	/**
 	 * Register assets for Yoast SEO integration.
+	 *
+	 * @since TBD
 	 *
 	 * @return void
 	 */
@@ -103,6 +117,8 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Check if Yoast SEO assets should be enqueued.
 	 *
+	 * @since TBD
+	 *
 	 * @return bool
 	 */
 	public function should_enqueue_yoast_assets() {
@@ -110,16 +126,12 @@ class Provider extends Integration_Abstract {
 			return false;
 		}
 
-		if ( ! function_exists( 'get_current_screen' ) ) {
+		$screen = get_current_screen();
+		if ( ! $screen || 'post' !== $screen->base || 'tribe_events' !== $screen->post_type ) {
 			return false;
 		}
 
-		$screen = \get_current_screen();
-		if ( ! $screen ) {
-			return false;
-		}
-
-		return $screen->post_type === 'tribe_events' && $this->should_load();
+		return $this->should_load();
 	}
 
 	/**
@@ -139,6 +151,8 @@ class Provider extends Integration_Abstract {
 	/**
 	 * Adds the events graph pieces to the schema collector.
 	 *
+	 * @since 6.0.4
+	 *
 	 * @param array  $pieces  The current graph pieces.
 	 * @param string $context The current context.
 	 *
@@ -155,14 +169,5 @@ class Provider extends Integration_Abstract {
 
 		$pieces[] = new Events_Schema( $context );
 		return $pieces;
-	}
-
-	/**
-	 * Gets the type of integration.
-	 *
-	 * @return string
-	 */
-	public static function get_type(): string {
-		return 'plugin';
 	}
 }
