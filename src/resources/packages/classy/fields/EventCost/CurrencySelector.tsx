@@ -63,36 +63,32 @@ const mapCurrenciesToOptions = ( currencies: Currency[] ): CurrencySelectOption[
 };
 
 export default function CurrencySelector( props: CurrencySelectorProps ) {
-	const { meta } = useSelect( ( select ) => {
-		const selector = select( 'core/editor' );
+	const { meta, defaultCurrency } = useSelect( ( select ) => {
+		const { getDefaultCurrency }: { getDefaultCurrency: () => Currency } = select( 'tec/classy/events' );
+		const { getEditedPostAttribute }: { getEditedPostAttribute: ( attribute: string ) => any } = select( 'core/editor' );
 		return {
-			// @ts-ignore
-			meta: selector.getEditedPostAttribute( 'meta' ) || {},
+			meta: getEditedPostAttribute( 'meta' ) || {},
+			defaultCurrency: getDefaultCurrency(),
 		};
 	}, [] );
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	// todo: pull the default currency from the store using the settings.
-	const defaultCurrency: string = 'USD';
-	const defaultCurrencySymbol: string = '$';
-	const defaultCurrencyPosition: CurrencyPosition = 'prefix';
+	const eventCurrencyCodeMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency.code;
+	const [ eventCurrencyCode, seteventCurrencyCode ] = useState< string >( eventCurrencyCodeMeta );
 
-	const eventCurrencyMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency;
-	const [ eventCurrency, setEventCurrency ] = useState< string >( eventCurrencyMeta );
-
-	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrencySymbol;
+	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
 	const eventCurrencyPosition: CurrencyPosition =
 		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
-		Currencies.find( ( currency ) => currency.code === eventCurrency )?.position ||
-		defaultCurrencyPosition;
+		Currencies.find( ( currency ) => currency.code === eventCurrencyCode )?.position ||
+		defaultCurrency.position;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	useEffect( () => {
-		setEventCurrency( eventCurrencyMeta );
-	}, [ eventCurrencyMeta ] );
+		seteventCurrencyCode( eventCurrencyCodeMeta );
+	}, [ eventCurrencyCodeMeta ] );
 
 	useEffect( () => {
 		setCurrencyPosition( eventCurrencyPosition );
@@ -118,7 +114,8 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 			return;
 		}
 
-		setEventCurrency( selectedCurrency.code );
+		// Set the selected currency code and symbol. Position is determined separately.
+		seteventCurrencyCode( selectedCurrency.code );
 		setCurrencySymbol( selectedCurrency.symbol );
 		editPost( {
 			meta: {
@@ -133,7 +130,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	}, [ eventCurrencySymbolMeta ] );
 
 	const onCurrencyPositionChange = ( nextValue: boolean ): void => {
-		const newPosition = nextValue ? 'prefix' : 'postfix';
+		const newPosition: CurrencyPosition = nextValue ? 'prefix' : 'postfix';
 		setCurrencyPosition( newPosition );
 		editPost( { meta: { [ METADATA_EVENT_CURRENCY_POSITION ]: newPosition } } );
 	};
