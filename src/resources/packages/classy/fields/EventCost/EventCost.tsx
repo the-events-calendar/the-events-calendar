@@ -75,6 +75,7 @@ export default function EventCost() {
 						label={ _x( 'Event is free', 'Event cost toggle label', 'the-events-calendar' ) }
 						checked={ isFree }
 						onChange={ onFreeChange }
+						__nextHasNoMarginBottom
 					/>
 				</div>
 			</div>

@@ -409,7 +409,7 @@ export default function EventDateTime( props: FieldProps ) {
 							label={ _x( 'Multi-day event', 'Multi-day toggle label', 'the-events-calendar' ) }
 							checked={ isMultidayValue }
 							onChange={ onMultiDayToggleChange }
-						></ToggleControl>
+						/>
 
 						<ToggleControl
 							__nextHasNoMarginBottom

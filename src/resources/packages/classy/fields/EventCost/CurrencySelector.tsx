@@ -8,6 +8,8 @@ import {
 	METADATA_EVENT_CURRENCY_SYMBOL,
 } from '../../constants';
 import { IconClose } from '@tec/common/classy/components';
+import { CurrencyPosition } from '@tec/common/classy/types/CurrencyPosition';
+import { Currency } from '@tec/common/classy/types/Currency';
 
 type CurrencySelectorProps = {
 	/**
@@ -16,78 +18,98 @@ type CurrencySelectorProps = {
 	title?: string;
 };
 
-type CurrencyPosition = 'prefix' | 'postfix';
-
-type CurrencyProps = {
-	symbol: string;
-	currency: string;
-	position: CurrencyPosition;
-};
-
 // todo: Replace with API call to fetch available currencies.
-const Currencies: CurrencyProps[] = [
-	{ symbol: '$', currency: 'USD', position: 'prefix' },
-	{ symbol: '€', currency: 'EUR', position: 'prefix' },
-	{ symbol: '£', currency: 'GBP', position: 'prefix' },
-	{ symbol: '¥', currency: 'JPY', position: 'prefix' },
-	{ symbol: '₹', currency: 'INR', position: 'prefix' },
+const Currencies: Currency[] = [
+	{ symbol: '$', code: 'USD', position: 'prefix' },
+	{ symbol: '€', code: 'EUR', position: 'prefix' },
+	{ symbol: '£', code: 'GBP', position: 'prefix' },
+	{ symbol: '¥', code: 'JPY', position: 'prefix' },
+	{ symbol: '₹', code: 'INR', position: 'prefix' },
 ];
 
 type CurrencySelectOption = {
-	key: string;
 	value: string;
 	label: string;
 };
 
 const currencyDefaultOption: CurrencySelectOption = {
-	key: '0',
 	label: _x( 'Default site currency', 'Default option for the currency selector', 'the-events-calendar' ),
 	value: 'default',
 };
 
-const buildOptionFromCurrency = ( currency: CurrencyProps ): CurrencySelectOption => {
+/**
+ * Renders a currency in the format of "symbol code" or "code symbol" based on the currency position.
+ *
+ * @since TBD
+ *
+ * @param {Currency} currency The Currency object containing the code, symbol, and position.
+ * @returns {string} The formatted currency string.
+ */
+const renderCurrency = ( currency: Currency ): string => {
+	return currency.position === 'prefix'
+		? `${ currency.symbol }${ currency.code }`
+		: `${ currency.code }${ currency.symbol }`;
+};
+
+/**
+ * Builds a CurrencySelectOption object from a Currency object.
+ *
+ * @since TBD
+ *
+ * @param {Currency} currency The Currency object to build the option from.
+ * @returns {CurrencySelectOption} The built CurrencySelectOption object.
+ */
+const buildOptionFromCurrency = ( currency: Currency ): CurrencySelectOption => {
 	return {
-		key: currency.currency,
-		label: `${ currency.symbol } ${ currency.currency }`,
-		value: currency.currency,
+		label: renderCurrency( currency ),
+		value: currency.code,
 	};
 };
 
-const mapCurrenciesToOptions = ( currencies: CurrencyProps[] ): CurrencySelectOption[] => {
+/**
+ * Maps an array of Currency objects to an array of CurrencySelectOption objects.
+ *
+ * @param {Currency[]} currencies The array of Currency objects to map.
+ */
+const mapCurrenciesToOptions = ( currencies: Currency[] ): CurrencySelectOption[] => {
 	return currencies.map( buildOptionFromCurrency );
 };
 
-export default function CurrencySelector( props: CurrencySelectorProps ) {
-	const { meta } = useSelect( ( select ) => {
-		const selector = select( 'core/editor' );
+/**
+ * React component for selecting a currency for an event.
+ *
+ * @since TBD
+ *
+ * @param {CurrencySelectorProps} props Component properties.
+ * @return {JSX.Element} The rendered component.
+ */
+export default function CurrencySelector( props: CurrencySelectorProps ): JSX.Element {
+	const { meta, defaultCurrency } = useSelect( ( select ) => {
+		const { getDefaultCurrency }: { getDefaultCurrency: () => Currency } = select( 'tec/classy/events' );
+		const { getEditedPostAttribute }: { getEditedPostAttribute: ( attribute: string ) => any } = select( 'core/editor' );
 		return {
-			// @ts-ignore
-			meta: selector.getEditedPostAttribute( 'meta' ) || {},
+			meta: getEditedPostAttribute( 'meta' ) || {},
+			defaultCurrency: getDefaultCurrency(),
 		};
 	}, [] );
 
 	const { editPost } = useDispatch( 'core/editor' );
 
-	// todo: pull the default currency from the store using the settings.
-	const defaultCurrency: string = 'USD';
-	const defaultCurrencySymbol: string = '$';
-	const defaultCurrencyPosition: CurrencyPosition = 'prefix';
+	const eventCurrencyCodeMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency.code;
+	const [ eventCurrencyCode, seteventCurrencyCode ] = useState< string >( eventCurrencyCodeMeta );
 
-	const eventCurrencyMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency;
-	const [ eventCurrency, setEventCurrency ] = useState< string >( eventCurrencyMeta );
-
-	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrencySymbol;
+	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
 	const eventCurrencyPosition: CurrencyPosition =
 		meta[ METADATA_EVENT_CURRENCY_POSITION ] ||
-		Currencies.find( ( currency ) => currency.currency === eventCurrency )?.position ||
-		defaultCurrencyPosition;
+		Currencies.find( ( currency ) => currency.code === eventCurrencyCode )?.position ||
+		defaultCurrency.position;
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	useEffect( () => {
-		setEventCurrency( eventCurrencyMeta );
-	}, [ eventCurrencyMeta ] );
+		seteventCurrencyCode( eventCurrencyCodeMeta );
+	}, [ eventCurrencyCodeMeta ] );
 
 	useEffect( () => {
 		setCurrencyPosition( eventCurrencyPosition );
@@ -97,27 +119,41 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 		setCurrencySymbol( eventCurrencySymbolMeta );
 	}, [ eventCurrencySymbolMeta ] );
 
+	/**
+	 * Sets the event currency to the default currency.
+	 *
+	 * This function updates the event's currency code, symbol, and position to the default values,
+	 * and also updates the post metadata accordingly. The post metadata for the currency code is
+	 * set to an empty string, indicating that the default currency should be used for display.
+	 *
+	 * @since TBD
+	 */
+	const setToDefaultCurrency = (): void => {
+		seteventCurrencyCode( defaultCurrency.code );
+		setCurrencySymbol( defaultCurrency.symbol );
+		setCurrencyPosition( defaultCurrency.position );
+		editPost( {
+			meta: {
+				[ METADATA_EVENT_CURRENCY ]: '',
+				[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrency.symbol,
+				[ METADATA_EVENT_CURRENCY_POSITION ]: defaultCurrency.position,
+			},
+		} );
+	};
+
 	const onCurrencyChange = ( nextValue: string | undefined ): void => {
-		const selectedCurrency: CurrencyProps = Currencies.find( ( currency ) => currency.currency === nextValue );
+		const selectedCurrency: Currency = Currencies.find( ( currency ) => currency.code === nextValue );
 		if ( ! selectedCurrency || nextValue === 'default' ) {
-			setEventCurrency( defaultCurrency );
-			setCurrencySymbol( defaultCurrencySymbol );
-			setCurrencyPosition( defaultCurrencyPosition );
-			editPost( {
-				meta: {
-					[ METADATA_EVENT_CURRENCY ]: defaultCurrency,
-					[ METADATA_EVENT_CURRENCY_SYMBOL ]: defaultCurrencySymbol,
-					[ METADATA_EVENT_CURRENCY_POSITION ]: defaultCurrencyPosition,
-				},
-			} );
+			setToDefaultCurrency();
 			return;
 		}
 
-		setEventCurrency( selectedCurrency.currency );
+		// Set the selected currency code and symbol. Position is determined separately.
+		seteventCurrencyCode( selectedCurrency.code );
 		setCurrencySymbol( selectedCurrency.symbol );
 		editPost( {
 			meta: {
-				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.currency,
+				[ METADATA_EVENT_CURRENCY ]: selectedCurrency.code,
 				[ METADATA_EVENT_CURRENCY_SYMBOL ]: selectedCurrency.symbol,
 			},
 		} );
@@ -128,7 +164,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	}, [ eventCurrencySymbolMeta ] );
 
 	const onCurrencyPositionChange = ( nextValue: boolean ): void => {
-		const newPosition = nextValue ? 'prefix' : 'postfix';
+		const newPosition: CurrencyPosition = nextValue ? 'prefix' : 'postfix';
 		setCurrencyPosition( newPosition );
 		editPost( { meta: { [ METADATA_EVENT_CURRENCY_POSITION ]: newPosition } } );
 	};
@@ -137,18 +173,6 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 
 	const onCurrencyClick = (): void => {
 		setIsSelectingCurrency( ! isSelectingCurrency );
-	};
-
-	const renderCurrency = (): string => {
-		if ( ! currencySymbol || ! eventCurrency ) {
-			return '';
-		}
-
-		if ( currencyPosition === 'prefix' ) {
-			return `${ currencySymbol }${ eventCurrency }`;
-		}
-
-		return `${ eventCurrency }${ currencySymbol }`;
 	};
 
 	const currencyOptions = [ currencyDefaultOption, ...mapCurrenciesToOptions( Currencies ) ];
@@ -160,7 +184,11 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 	return (
 		<div className="classy-field classy-field--currency-selector">
 			<Button className="is-link--dark" variant="link" onClick={ onCurrencyClick }>
-				{ renderCurrency() }
+				{ renderCurrency( {
+					code: eventCurrencyCode,
+					symbol: currencySymbol,
+					position: currencyPosition,
+				} ) }
 			</Button>
 
 			{ isSelectingCurrency && (
@@ -191,11 +219,11 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 						<SelectControl
 							label={ _x( 'Currency', 'Event currency selector label', 'the-events-calendar' ) }
 							hideLabelFromVision={ true }
-							value={ eventCurrency }
+							value={ eventCurrencyCode === defaultCurrency.code ? 'default' : eventCurrencyCode }
 							onChange={ onCurrencyChange }
 							options={ currencyOptions }
-							__nextHasNoMarginBottom={ true }
-							__next40pxDefaultSize={ true }
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
 						/>
 
 						<ToggleControl
@@ -206,6 +234,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ) {
 							) }
 							checked={ currencyPosition === 'prefix' }
 							onChange={ onCurrencyPositionChange }
+							__nextHasNoMarginBottom
 						/>
 					</div>
 				</Popover>
