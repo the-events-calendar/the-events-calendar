@@ -96,7 +96,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 	const { editPost } = useDispatch( 'core/editor' );
 
 	const eventCurrencyCodeMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency.code;
-	const [ eventCurrencyCode, seteventCurrencyCode ] = useState< string >( eventCurrencyCodeMeta );
+	const [ eventCurrencyCode, setEventCurrencyCode ] = useState< string >( eventCurrencyCodeMeta );
 
 	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
@@ -108,7 +108,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 	const [ currencyPosition, setCurrencyPosition ] = useState< CurrencyPosition >( eventCurrencyPosition );
 
 	useEffect( () => {
-		seteventCurrencyCode( eventCurrencyCodeMeta );
+		setEventCurrencyCode( eventCurrencyCodeMeta );
 	}, [ eventCurrencyCodeMeta ] );
 
 	useEffect( () => {
@@ -129,7 +129,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 	 * @since TBD
 	 */
 	const setToDefaultCurrency = (): void => {
-		seteventCurrencyCode( defaultCurrency.code );
+		setEventCurrencyCode( defaultCurrency.code );
 		setCurrencySymbol( defaultCurrency.symbol );
 		setCurrencyPosition( defaultCurrency.position );
 		editPost( {
@@ -149,7 +149,7 @@ export default function CurrencySelector( props: CurrencySelectorProps ): JSX.El
 		}
 
 		// Set the selected currency code and symbol. Position is determined separately.
-		seteventCurrencyCode( selectedCurrency.code );
+		setEventCurrencyCode( selectedCurrency.code );
 		setCurrencySymbol( selectedCurrency.symbol );
 		editPost( {
 			meta: {
