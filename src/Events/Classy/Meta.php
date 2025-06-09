@@ -358,8 +358,16 @@ class Meta extends Controller_Contract {
 			$timezone = new DateTimeZone( $timezone_string );
 			$utc      = new DateTimeZone( 'UTC' );
 		} catch ( \Exception $e ) {
-			// @todo: Decide how to handle the exception.
-			// for now, just return early.
+			do_action(
+				'tribe_log',
+				'error',
+				'Failed to save UTC dates for event.',
+				[
+					'post_id' => $post_id,
+					'error' => $e->getMessage(),
+				]
+			);
+
 			return;
 		}
 
