@@ -250,12 +250,9 @@ class Meta extends Controller_Contract {
 
 		$meta_args = self::META[ $meta_key ];
 		$type      = $meta_args['type'] ?? 'text';
-		$single    = $meta_args['single'] ?? true;
 		$callback  = $this->get_sanitize_callback_for_type( $type );
 
-		return $single
-			? call_user_func( $callback, $meta_value )
-			: array_map( $callback, (array) $meta_value );
+		return call_user_func( $callback, $meta_value );
 	}
 
 	/**
