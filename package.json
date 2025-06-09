@@ -133,6 +133,10 @@
   "overrides": {
     "babel-plugin-lodash": {
       "@babel/types": "~7.20.0"
+    },
+    "react-autosize-textarea": {
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0"
     }
   }
 }
