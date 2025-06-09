@@ -32,7 +32,7 @@ class EventsReplaceVarPlugin {
 		const ReplaceVar = window.YoastReplaceVarPlugin?.ReplaceVar;
 		if ( ! ReplaceVar ) {
 			if ( window.tecYoastEvents?.debug ) {
-				console.log( 'Events replace variables in the Snippet Window requires Yoast SEO >= 5.3.' );
+				console.log( 'Replacing Event variables in the Snippet Window requires Yoast SEO >= 5.3.' );
 			}
 			return false;
 		}
