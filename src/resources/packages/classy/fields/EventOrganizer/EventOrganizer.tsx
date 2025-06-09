@@ -9,12 +9,12 @@ import { Fragment, MouseEventHandler, useRef } from 'react';
 import { IconAdd } from '@tec/common/classy/components';
 import OrganizerCards from './OrganizerCards';
 import OrganizerUpsertModal from './OrganizerUpsertModal';
-import { FieldProps } from '../../../../../../common/src/resources/packages/classy/types/FieldProps';
-import { OrganizerData } from '../../../../../../common/src/resources/packages/classy/types/OrganizerData';
+import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
 import apiFetch from '@wordpress/api-fetch';
 import { FetchedOrganizer } from '../../types/FetchedOrganizer';
 import { METADATA_EVENT_ORGANIZER_ID } from '../../constants';
+import { OrganizerData } from '../../types/OrganizerData';
 
 function buildOptionFromFetchedOrganizer( organizer: FetchedOrganizer ): CustomSelectOption {
 	return {
@@ -67,8 +67,6 @@ export default function EventOrganizer( props: FieldProps ) {
 	const getOrganizerData = useCallback( (): OrganizerData => {
 		const id = isUpserting || null;
 		const organizer = id ? fetched.current.find( ( organizer: FetchedOrganizer ) => organizer.id === id ) : null;
-
-		console.log( 'organizer', organizer );
 
 		// Editing an existing organizer.
 		if ( organizer ) {

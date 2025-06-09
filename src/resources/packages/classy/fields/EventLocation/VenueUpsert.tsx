@@ -3,30 +3,33 @@ import { useCallback, useState } from 'react';
 import { _x } from '@wordpress/i18n';
 import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
 import { IconNew, InputLabel } from '@tec/common/classy/components';
-import { OrganizerData } from '../../types/OrganizerData';
+import { VenueData } from '../../types/VenueData';
 
 const defaultValues = {
 	name: '',
+	address: '',
+	city: '',
+	country: '',
+	zip: '',
 	phone: '',
 	website: '',
-	email: '',
 };
 
-export default function OrganizerUpsert( props: {
+export default function VenueUpsert( props: {
 	isUpdate: boolean;
 	onCancel: () => void;
-	onSave: ( data: OrganizerData ) => void;
-	values: OrganizerData;
+	onSave: ( data: VenueData ) => void;
+	values: VenueData;
 } ) {
 	const { isUpdate, onCancel, onSave, values } = props;
 
-	// States for name, phone, website and email.
+	// States for venue details.
 	const [ currentValues, setValues ] = useState( {
 		...defaultValues,
 		...values,
 	} );
 
-	// At a minimum an Organizers requires a name.
+	// At a minimum a Venue requires a name.
 	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
 
 	const invokeSaveWithData = useCallback( (): void => {
@@ -34,12 +37,17 @@ export default function OrganizerUpsert( props: {
 			return;
 		}
 
-		const data: OrganizerData = {
+		const data: VenueData = {
 			id: values.id,
 			name: currentValues.name,
+			address: currentValues.address,
+			city: currentValues.city,
+			country: currentValues.country,
+			province: currentValues.province,
+			state: currentValues.state,
+			zip: currentValues.zip,
 			phone: currentValues.phone,
 			website: currentValues.website,
-			email: currentValues.email,
 		};
 
 		onSave( data );
@@ -47,18 +55,18 @@ export default function OrganizerUpsert( props: {
 
 	return (
 		<div className="classy-root">
-			<header className="classy-modal__header classy-modal__header--organizer">
+			<header className="classy-modal__header classy-modal__header--venue">
 				<IconNew />
 				<h4 className="classy-modal__header-title">
 					{ isUpdate
-						? _x( 'Update Organizer', 'Update organizer modal header title', 'the-events-calendar' )
-						: _x( 'New Organizer', 'Insert organizer modal header title', 'the-events-calendar' ) }
+						? _x( 'Update Venue', 'Update venue modal header title', 'the-events-calendar' )
+						: _x( 'New Venue', 'Insert venue modal header title', 'the-events-calendar' ) }
 				</h4>
 			</header>
 
 			<span className="classy-section-separator"></span>
 
-			<section className="classy-modal__content classy-modal__content--organizer classy-field__inputs classy-field__inputs--unboxed">
+			<section className="classy-modal__content classy-modal__content--venue classy-field__inputs classy-field__inputs--unboxed">
 				<InputControl
 					className="classy-field__control classy-field__control--input"
 					label={ <InputLabel label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) } /> }
@@ -77,11 +85,40 @@ export default function OrganizerUpsert( props: {
 
 				<InputControl
 					className="classy-field__control classy-field__control--input"
+					label={ <InputLabel label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) } /> }
+					value={ currentValues.address }
+					onChange={ ( value ) => setValues( { ...currentValues, address: value || '' } ) }
+				/>
+
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ <InputLabel label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) } /> }
+					value={ currentValues.city }
+					onChange={ ( value ) => setValues( { ...currentValues, city: value || '' } ) }
+				/>
+
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={ <InputLabel label={ _x( 'Country', 'country input label', 'the-events-calendar' ) } /> }
+					value={ currentValues.country }
+					onChange={ ( value ) => setValues( { ...currentValues, country: value || '' } ) }
+				/>
+
+				<InputControl
+					className="classy-field__control classy-field__control--input"
+					label={
+						<InputLabel label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) } />
+					}
+					value={ currentValues.zip }
+					onChange={ ( value ) => setValues( { ...currentValues, zip: value || '' } ) }
+				/>
+
+				<InputControl
+					className="classy-field__control classy-field__control--input"
 					label={ <InputLabel label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) } /> }
 					value={ currentValues.phone }
 					onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
 					type="tel"
-					placeholder=""
 				/>
 
 				<InputControl
@@ -90,21 +127,11 @@ export default function OrganizerUpsert( props: {
 					value={ currentValues.website }
 					onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
 					type="url"
-					placeholder=""
-				/>
-
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Email', 'Email input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.email }
-					onChange={ ( value ) => setValues( { ...currentValues, email: value || '' } ) }
-					type="email"
-					placeholder=""
 				/>
 			</section>
 
-			<footer className="classy-modal__footer classy-modal__footer--organizer">
-				<div className="classy-modal__actions classy-modal__actions--organizer">
+			<footer className="classy-modal__footer classy-modal__footer--venue">
+				<div className="classy-modal__actions classy-modal__actions--venue">
 					<Button
 						aria-disabled={ ! confirmEnabled }
 						className="classy-button"
@@ -112,8 +139,8 @@ export default function OrganizerUpsert( props: {
 						variant="primary"
 					>
 						{ values.id
-							? _x( 'Update Organizer', 'Update organizer button label', 'the-events-calendar' )
-							: _x( 'Create Organizer', 'Create organizer button label', 'the-events-calendar' ) }
+							? _x( 'Update Venue', 'Update venue button label', 'the-events-calendar' )
+							: _x( 'Create Venue', 'Create venue button label', 'the-events-calendar' ) }
 					</Button>
 					<Button className="classy-button" onClick={ onCancel } variant="link">
 						{ _x( 'Cancel', 'Cancel button label', 'the-events-calendar' ) }

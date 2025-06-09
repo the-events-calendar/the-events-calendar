@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal } from '@wordpress/components';
 import OrganizerUpsert from './OrganizerUpsert';
-import { OrganizerData } from '../../../../../../common/src/resources/packages/classy/types/OrganizerData';
+import { OrganizerData } from '../../types/OrganizerData';
 
 export default function OrganizerUpsertModal( props: {
 	isUpdate: boolean;
