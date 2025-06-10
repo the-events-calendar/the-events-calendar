@@ -44,14 +44,46 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 			'.tribe-events-pro-week-mobile-events__event'
 		],
 		filteredHide: 'tec-category-filtered-hide',
+		colorCircle: 'tec-events-category-color-filter__color-circle',
+		colorCircleDefault: 'tec-events-category-color-filter__color-circle--default',
+		colorCircleDefaultN: n => `tec-events-category-color-filter__color-circle--default-${n}`,
+		pickerContainer: '.tec-events-category-color-filter',
 	};
 
 	// =============
 	// State
 	// =============
+	/**
+	 * Set of selected category slugs.
+	 * Maintains checkbox state during AJAX navigation.
+	 */
 	let selectedCategories = new Set();
 	let ajaxHooked = false;
 	let observer = null;
+
+	const DEFAULT_BUBBLE_COUNT = 5;
+
+	// =============
+	// Page Load Detection
+	// =============
+	/**
+	 * Detects if the current page load is a full reload (F5/Ctrl+R)
+	 * and clears sessionStorage if it is.
+	 * @since TBD
+	 */
+	const handlePageLoad = () => {
+		// Check for full page reload using Performance API
+		const navigationEntry = performance.getEntriesByType( 'navigation' )[0];
+		const isFullReload = navigationEntry?.type === 'reload' || 
+			( performance.navigation && performance.navigation.type === 1 );
+
+		if ( isFullReload ) {
+			sessionStorage.removeItem( 'tec_category_color_selected' );
+		}
+	};
+
+	// Run page load detection immediately
+	handlePageLoad();
 
 	// =============
 	// Utilities
@@ -91,14 +123,18 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const toggleDropdown = event => {
+		// Prevent toggling if the click is inside the dropdown (e.g., on a checkbox)
+		const dropdown = qs(SELECTORS.dropdown);
+		if (dropdown && dropdown.contains(event.target)) {
+			return;
+		}
 		event.stopPropagation();
 		const picker = event.currentTarget;
-		const dropdown = qs( SELECTORS.dropdown );
-		if ( !dropdown ) return;
-		if ( isDropdownOpen( dropdown ) ) {
-			closeDropdown( picker, dropdown );
+		if (!dropdown) return;
+		if (isDropdownOpen(dropdown)) {
+			closeDropdown(picker, dropdown);
 		} else {
-			openDropdown( picker, dropdown );
+			openDropdown(picker, dropdown);
 		}
 	};
 
@@ -136,23 +172,23 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const isDropdownOpen = dropdown => dropdown.classList.contains( SELECTORS.dropdownVisible );
 
 	/**
-	 * Handles closing the dropdown only if the click is outside the dropdown and picker.
+	 * Handles closing the dropdown only if the click is outside the picker container.
 	 * @since TBD
 	 * @param {Event} event
 	 * @return {void}
 	 */
 	const handleDropdownClose = event => {
-		const picker = qs( SELECTORS.picker );
-		const dropdown = qs( SELECTORS.dropdown );
-		if ( !picker || !dropdown ) return;
-		const target = event.target;
-		if (
-			target === picker || picker.contains( target ) ||
-			target === dropdown || dropdown.contains( target )
-		) {
+		const clickedInsideAnyPicker = event.target.closest(SELECTORS.pickerContainer);
+		if (clickedInsideAnyPicker) {
 			return;
 		}
-		closeDropdown( picker, dropdown );
+		// Close *all* dropdowns
+		qsa(SELECTORS.picker).forEach(picker => {
+			const dropdown = picker.querySelector(SELECTORS.dropdown);
+			if (dropdown && isDropdownOpen(dropdown)) {
+				closeDropdown(picker, dropdown);
+			}
+		});
 	};
 
 	/**
@@ -173,6 +209,40 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	// =====================
 
 	/**
+	 * Renders the selected category color legend bubbles.
+	 * @since TBD
+	 */
+	const renderLegend = () => {
+		const legendContainer = document.getElementById('tec-category-color-legend');
+		if (!legendContainer) return;
+		legendContainer.innerHTML = '';
+
+		const selected = Array.from(selectedCategories).slice(0, DEFAULT_BUBBLE_COUNT);
+		const catData = typeof tecCategoryColorData !== 'undefined' ? tecCategoryColorData : {};
+
+		// Render selected category bubbles first
+		selected.forEach(slug => {
+			const span = document.createElement('span');
+			span.classList.add(SELECTORS.colorCircle, `tribe_events_cat-${slug}`);
+			if (catData[slug] && !catData[slug].primary) {
+				span.classList.add(SELECTORS.colorCircleDefault);
+			}
+			legendContainer.appendChild(span);
+		});
+
+		// Render default bubbles for remaining slots
+		for (let i = selected.length; i < DEFAULT_BUBBLE_COUNT; i++) {
+			const span = document.createElement('span');
+			span.classList.add(
+				SELECTORS.colorCircle,
+				SELECTORS.colorCircleDefault,
+				SELECTORS.colorCircleDefaultN(i+1)
+			);
+			legendContainer.appendChild(span);
+		}
+	};
+
+	/**
 	 * Resets all checkboxes and clears selected categories.
 	 * @since TBD
 	 * @return {void}
@@ -183,7 +253,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 		} );
 		selectedCategories.clear();
 		updateEventVisibility();
-		persistSelectedCategories();
+		renderLegend();
 	};
 
 	/**
@@ -202,7 +272,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 			selectedCategories.delete( categorySlug );
 		}
 		updateEventVisibility();
-		persistSelectedCategories();
+		renderLegend();
 	};
 
 	/**
@@ -231,30 +301,40 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	};
 
 	// =====================
-	// Filter Persistence Helpers
+	// AJAX Monitoring
 	// =====================
 
 	/**
-	 * Persist selected categories in sessionStorage.
+	 * Hooks into XMLHttpRequest to detect AJAX completion.
+	 * Ensures category selections persist across AJAX navigation.
 	 * @since TBD
+	 * @return {void}
 	 */
-	const persistSelectedCategories = () => {
-		try {
-			sessionStorage.setItem( 'tec_category_color_selected', JSON.stringify( [ ...selectedCategories ] ) );
-		} catch ( e ) {}
-	};
-
-	/**
-	 * Restore selected categories from sessionStorage.
-	 * @since TBD
-	 */
-	const restoreSelectedCategories = () => {
-		try {
-			const stored = sessionStorage.getItem( 'tec_category_color_selected' );
-			if ( stored ) {
-				selectedCategories = new Set( JSON.parse( stored ) );
+	const monitorTECAjax = () => {
+		if ( ajaxHooked ) return;
+		ajaxHooked = true;
+		const originalOpen = XMLHttpRequest.prototype.open;
+		XMLHttpRequest.prototype.open = function( method, url, ...args ) {
+			if ( url.includes( '/wp-json/tribe/views/v2/html' ) ) {
+				this.addEventListener( 'load', function() {
+					if ( this.readyState === 4 && this.status === 200 ) {
+						try {
+							// Ensure DOM is ready before re-applying filters
+							setTimeout( () => {
+								ensureBindings();
+								reapplyFilters();
+								renderLegend();
+							}, 50 );
+						} catch ( error ) {
+							console.error( 'Error handling AJAX response:', error );
+							// Attempt recovery
+							ensureBindings();
+						}
+					}
+				} );
 			}
-		} catch ( e ) {}
+			return originalOpen.apply( this, [ method, url, ...args ] );
+		};
 	};
 
 	/**
@@ -268,33 +348,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 			checkbox.checked = selectedCategories.has( cat );
 		} );
 		updateEventVisibility();
-	};
-
-	// =====================
-	// AJAX Monitoring
-	// =====================
-
-	/**
-	 * Hooks into XMLHttpRequest to detect AJAX completion.
-	 * @since TBD
-	 * @return {void}
-	 */
-	const monitorTECAjax = () => {
-		if ( ajaxHooked ) return;
-		ajaxHooked = true;
-		const originalOpen = XMLHttpRequest.prototype.open;
-		XMLHttpRequest.prototype.open = function( method, url, ...args ) {
-			if ( url.includes( '/wp-json/tribe/views/v2/html' ) ) {
-				this.addEventListener( 'load', function() {
-					if ( this.readyState === 4 && this.status === 200 ) {
-						ensureBindings();
-						restoreSelectedCategories();
-						reapplyFilters();
-					}
-				} );
-			}
-			return originalOpen.apply( this, [ method, url, ...args ] );
-		};
+		renderLegend();
 	};
 
 	// =====================
@@ -349,35 +403,35 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const bindEvents = () => {
-		const picker = qs( SELECTORS.picker );
-		const closeButton = qs( SELECTORS.dropdownClose );
-		const resetButton = qs( SELECTORS.resetButton );
-		if ( picker ) {
-			picker.addEventListener( 'click', toggleDropdown );
+		const picker = qs(SELECTORS.picker);
+		const closeButton = qs(SELECTORS.dropdownClose);
+		const resetButton = qs(SELECTORS.resetButton);
+		if (picker) {
+			picker.addEventListener('click', toggleDropdown);
 		}
-		document.addEventListener( 'click', handleDropdownClose );
+		document.addEventListener('click', handleDropdownClose);
 		// Event delegation for checkboxes
-		const grid = qs( '.tec-events-category-color-filter__dropdown' );
-		if ( grid ) {
-			grid.addEventListener( 'change', handleCheckboxChange );
+		const grid = qs(SELECTORS.dropdown);
+		if (grid) {
+			grid.addEventListener('change', handleCheckboxChange);
 		}
-		if ( closeButton ) {
-			closeButton.addEventListener( 'click', event => {
+		if (closeButton) {
+			closeButton.addEventListener('click', event => {
 				event.stopPropagation();
-				const picker = qs( SELECTORS.picker );
-				const dropdown = qs( SELECTORS.dropdown );
-				if ( picker && dropdown ) closeDropdown( picker, dropdown );
-			} );
+				const picker = qs(SELECTORS.picker);
+				const dropdown = qs(SELECTORS.dropdown);
+				if (picker && dropdown) closeDropdown(picker, dropdown);
+			});
 		}
-		if ( resetButton ) {
-			resetButton.addEventListener( 'click', resetSelection );
+		if (resetButton) {
+			resetButton.addEventListener('click', resetSelection);
 		}
 		// MutationObserver to clean up bindings if DOM changes
-		if ( !observer ) {
-			observer = new MutationObserver( cleanupBindings );
-			observer.observe( document.body, { childList: true, subtree: true } );
+		if (!observer) {
+			observer = new MutationObserver(cleanupBindings);
+			observer.observe(document.body, { childList: true, subtree: true });
 		}
-		window.addEventListener( 'beforeunload', cleanupBindings );
+		window.addEventListener('beforeunload', cleanupBindings);
 	};
 
 	/**
@@ -386,28 +440,28 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 * @return {void}
 	 */
 	const unbindEvents = () => {
-		const picker = qs( SELECTORS.picker );
-		const closeButton = qs( SELECTORS.dropdownClose );
-		const resetButton = qs( SELECTORS.resetButton );
-		const grid = qs( '.tec-events-category-color-filter__dropdown' );
-		if ( picker ) {
-			picker.removeEventListener( 'click', toggleDropdown );
+		const picker = qs(SELECTORS.picker);
+		const closeButton = qs(SELECTORS.dropdownClose);
+		const resetButton = qs(SELECTORS.resetButton);
+		const grid = qs(SELECTORS.dropdown);
+		if (picker) {
+			picker.removeEventListener('click', toggleDropdown);
 		}
-		document.removeEventListener( 'click', handleDropdownClose );
-		if ( grid ) {
-			grid.removeEventListener( 'change', handleCheckboxChange );
+		document.removeEventListener('click', handleDropdownClose);
+		if (grid) {
+			grid.removeEventListener('change', handleCheckboxChange);
 		}
-		if ( closeButton ) {
-			closeButton.removeEventListener( 'click', closeDropdown );
+		if (closeButton) {
+			closeButton.removeEventListener('click', closeDropdown);
 		}
-		if ( resetButton ) {
-			resetButton.removeEventListener( 'click', resetSelection );
+		if (resetButton) {
+			resetButton.removeEventListener('click', resetSelection);
 		}
-		if ( observer ) {
+		if (observer) {
 			observer.disconnect();
 			observer = null;
 		}
-		window.removeEventListener( 'beforeunload', cleanupBindings );
+		window.removeEventListener('beforeunload', cleanupBindings);
 	};
 
 	// =====================
@@ -421,9 +475,8 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	 */
 	const init = () => {
 		monitorTECAjax();
-		restoreSelectedCategories();
-		reapplyFilters();
 		bindEvents();
+		renderLegend();
 	};
 
 	document.addEventListener( 'DOMContentLoaded', init );
