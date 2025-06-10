@@ -38,7 +38,7 @@ export default function EventCost(): JSX.Element {
 	const eventCostMeta: string = meta[ METADATA_EVENT_COST ] || '';
 	const [ eventCostValue, setEventCostValue ] = useState< string >( isFree ? freeText : eventCostMeta );
 
-	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY ] || defaultCurrency.symbol;
+	const eventCurrencySymbolMeta: string = meta[ METADATA_EVENT_CURRENCY_SYMBOL ] || defaultCurrency.symbol;
 	const [ currencySymbol, setCurrencySymbol ] = useState< string >( eventCurrencySymbolMeta );
 
 	const eventCurrencyPosition: CurrencyPosition =
