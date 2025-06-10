@@ -56,8 +56,8 @@ export default function EventCost(): JSX.Element {
 
 	return (
 		<Fragment>
-			<div className="classy-field__group">
-				<div className="classy-field__input classy-field__input--unit">
+			<div className="classy-field__group classy-field__event-cost">
+				<div className="classy-field__input classy-field__input-full-width">
 					<div className="classy-field__control classy-field__control--input">
 						<InputControl
 							label={
