@@ -3,10 +3,16 @@ import { Fragment, useEffect, useState } from 'react';
 import { __, _x } from '@wordpress/i18n';
 import { __experimentalInputControl as InputControl, ToggleControl } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
-import CurrencySelector from './CurrencySelector';
-import { METADATA_EVENT_COST, METADATA_EVENT_IS_FREE } from '../../constants';
+import { CurrencySelector } from '@tec/common/classy/components';
+import {
+	METADATA_EVENT_COST,
+	METADATA_EVENT_CURRENCY,
+	METADATA_EVENT_CURRENCY_POSITION,
+	METADATA_EVENT_CURRENCY_SYMBOL,
+	METADATA_EVENT_IS_FREE
+} from '../../constants';
 
-export default function EventCost() {
+export default function EventCost(): JSX.Element {
 	const { meta } = useSelect( ( select ) => {
 		const selector = select( 'core/editor' );
 		return {
@@ -67,7 +73,11 @@ export default function EventCost() {
 				</div>
 
 				<div className="classy-field__input classy-field__input--height-100">
-					<CurrencySelector />
+					<CurrencySelector
+						currencyCodeMeta={ METADATA_EVENT_CURRENCY }
+						currencyPositionMeta={ METADATA_EVENT_CURRENCY_POSITION }
+						currencySymbolMeta={ METADATA_EVENT_CURRENCY_SYMBOL }
+					/>
 				</div>
 
 				<div className="classy-field__input classy-field__input--height-75">
