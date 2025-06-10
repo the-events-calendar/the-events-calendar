@@ -110,7 +110,7 @@ class Controller extends Controller_Contract {
 
 		$data['settings'] = array_merge( $data['settings'], $additional_settings );
 
-		$multi_day_cutoff = tribe_get_option( 'multiDayCutoff', '00:00' );
+		$multi_day_cutoff                  = tribe_get_option( 'multiDayCutoff', '00:00' );
 		[ $cutoff_hours, $cutoff_minutes ] = array_replace(
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
