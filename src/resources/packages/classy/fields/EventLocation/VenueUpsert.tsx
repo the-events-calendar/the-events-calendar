@@ -1,9 +1,12 @@
 import * as React from 'react';
-import { useCallback, useState } from 'react';
-import { _x } from '@wordpress/i18n';
-import { Button, __experimentalInputControl as InputControl } from '@wordpress/components';
-import { IconNew, InputLabel } from '@tec/common/classy/components';
-import { VenueData } from '../../types/VenueData';
+import {useCallback, useState} from 'react';
+import {_x} from '@wordpress/i18n';
+import {__experimentalInputControl as InputControl, Button, CustomSelectControl} from '@wordpress/components';
+import {CenteredSpinner, IconNew, InputLabel} from '@tec/common/classy/components';
+import {VenueData} from '../../types/VenueData';
+import {CustomSelectOption} from '@wordpress/components/build-types/custom-select-control/types';
+import {useSelect} from "@wordpress/data";
+import {SelectFunction} from "@wordpress/data/build-types/types";
 
 const defaultValues = {
 	name: '',
@@ -15,12 +18,23 @@ const defaultValues = {
 	website: '',
 };
 
+const countryPlaceholderOption: CustomSelectOption = {
+	key: '0',
+	name: _x( 'Select a country', 'Country selection placeholder option', 'the-events-calendar' ),
+	value: '0',
+};
+
 export default function VenueUpsert( props: {
 	isUpdate: boolean;
 	onCancel: () => void;
 	onSave: ( data: VenueData ) => void;
 	values: VenueData;
 } ) {
+	const countryOptions:CustomSelectOption[] = useSelect(( select:SelectFunction)=>{
+		// @ts-ignore
+		return select('tec/classy').getCountryOptions();
+	}, []);
+
 	const { isUpdate, onCancel, onSave, values } = props;
 
 	// States for venue details.
@@ -29,8 +43,10 @@ export default function VenueUpsert( props: {
 		...values,
 	} );
 
-	// At a minimum a Venue requires a name.
+	// At a minimum, a Venue requires a name.
 	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
+
+	const [currentCountry, setCurrentCountry] = useState( countryPlaceholderOption );
 
 	const invokeSaveWithData = useCallback( (): void => {
 		if ( ! confirmEnabled ) {
@@ -52,6 +68,15 @@ export default function VenueUpsert( props: {
 
 		onSave( data );
 	}, [ currentValues ] );
+
+	const onCountryChange = useCallback(
+		(newValue: {selectedItem: CustomSelectOption}): void => {},
+		[]
+	);
+
+	if(countryOptions.length === 0){
+		return  <CenteredSpinner/>
+	}
 
 	return (
 		<div className="classy-root">
@@ -97,11 +122,13 @@ export default function VenueUpsert( props: {
 					onChange={ ( value ) => setValues( { ...currentValues, city: value || '' } ) }
 				/>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Country', 'country input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.country }
-					onChange={ ( value ) => setValues( { ...currentValues, country: value || '' } ) }
+				<CustomSelectControl
+					__next40pxDefaultSize
+					className="classy-field__control classy-field__control--select"
+					label={ _x( 'Country', 'country input label', 'the-events-calendar' ) }
+					onChange={ onCountryChange }
+					options={countryOptions}
+					value={ currentCountry }
 				/>
 
 				<InputControl
