@@ -4,8 +4,9 @@ export type VenueData = {
 	address: string;
 	city: string;
 	country: string;
+	countryCode: string;
 	province: string;
-	state: string;
+	stateprovince: string;
 	zip: string;
 	phone: string;
 	website: string;

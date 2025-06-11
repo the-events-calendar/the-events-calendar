@@ -1,18 +1,19 @@
 import * as React from 'react';
-import {useCallback, useState} from 'react';
-import {_x} from '@wordpress/i18n';
-import {__experimentalInputControl as InputControl, Button, CustomSelectControl} from '@wordpress/components';
-import {CenteredSpinner, IconNew, InputLabel} from '@tec/common/classy/components';
-import {VenueData} from '../../types/VenueData';
-import {CustomSelectOption} from '@wordpress/components/build-types/custom-select-control/types';
-import {useSelect} from "@wordpress/data";
-import {SelectFunction} from "@wordpress/data/build-types/types";
+import { useCallback, useState } from 'react';
+import { _x } from '@wordpress/i18n';
+import { __experimentalInputControl as InputControl, Button, CustomSelectControl } from '@wordpress/components';
+import { CenteredSpinner, IconNew, LabeledInput } from '@tec/common/classy/components';
+import { VenueData } from '../../types/VenueData';
+import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
+import { useSelect } from '@wordpress/data';
+import { SelectFunction } from '@wordpress/data/build-types/types';
 
 const defaultValues = {
 	name: '',
 	address: '',
 	city: '',
 	country: '',
+	countryCode: '',
 	zip: '',
 	phone: '',
 	website: '',
@@ -24,21 +25,43 @@ const countryPlaceholderOption: CustomSelectOption = {
 	value: '0',
 };
 
+const usStatePlaceholderOption: CustomSelectOption = {
+	key: '0',
+	name: _x( 'Select a state', 'US state selection placeholder option', 'the-events-calendar' ),
+	value: '0',
+};
+
 export default function VenueUpsert( props: {
 	isUpdate: boolean;
 	onCancel: () => void;
 	onSave: ( data: VenueData ) => void;
 	values: VenueData;
 } ) {
-	const countryOptions:CustomSelectOption[] = useSelect(( select:SelectFunction)=>{
-		// @ts-ignore
-		return select('tec/classy').getCountryOptions();
-	}, []);
+	const {
+		countryOptions,
+		usStatesOptions,
+	}: {
+		countryOptions: CustomSelectOption[];
+		usStatesOptions: CustomSelectOption[];
+	} = useSelect( ( select: SelectFunction ) => {
+		const selector: {
+			getCountryOptions: () => CustomSelectOption[];
+			getUsStatesOptions: () => CustomSelectOption[];
+		} = select( 'tec/classy' );
+
+		const countryOptions = selector.getCountryOptions();
+		const usStatesOptions = selector.getUsStatesOptions();
+
+		return {
+			countryOptions,
+			usStatesOptions,
+		};
+	}, [] );
 
 	const { isUpdate, onCancel, onSave, values } = props;
 
 	// States for venue details.
-	const [ currentValues, setValues ] = useState( {
+	const [ currentValues, setCurrentValues ] = useState( {
 		...defaultValues,
 		...values,
 	} );
@@ -46,7 +69,10 @@ export default function VenueUpsert( props: {
 	// At a minimum, a Venue requires a name.
 	const [ confirmEnabled, setConfirmEnabled ] = useState( currentValues.name !== '' );
 
-	const [currentCountry, setCurrentCountry] = useState( countryPlaceholderOption );
+	const [ countryOption, setCountryOption ] = useState( countryPlaceholderOption );
+	const [ usStateOption, setUsStateOption ] = useState( usStatePlaceholderOption );
+
+	const [ isUnitedStates, setIsUnitedStates ] = useState( values.countryCode === 'US' );
 
 	const invokeSaveWithData = useCallback( (): void => {
 		if ( ! confirmEnabled ) {
@@ -59,8 +85,9 @@ export default function VenueUpsert( props: {
 			address: currentValues.address,
 			city: currentValues.city,
 			country: currentValues.country,
+			countryCode: currentValues.countryCode,
 			province: currentValues.province,
-			state: currentValues.state,
+			stateprovince: currentValues.stateprovince,
 			zip: currentValues.zip,
 			phone: currentValues.phone,
 			website: currentValues.website,
@@ -70,12 +97,28 @@ export default function VenueUpsert( props: {
 	}, [ currentValues ] );
 
 	const onCountryChange = useCallback(
-		(newValue: {selectedItem: CustomSelectOption}): void => {},
-		[]
+		( newValue: { selectedItem: CustomSelectOption } ): void => {
+			setIsUnitedStates( newValue.selectedItem.key === 'US' );
+			setCurrentValues( {
+				...currentValues,
+				country: newValue.selectedItem.name,
+				countryCode: newValue.selectedItem.key,
+			} );
+			setCountryOption( newValue.selectedItem );
+		},
+		[ currentValues ]
 	);
 
-	if(countryOptions.length === 0){
-		return  <CenteredSpinner/>
+	const onUsStateChange = useCallback(
+		( newValue: { selectedItem: CustomSelectOption } ) => {
+			setCurrentValues( { ...currentValues, stateprovince: newValue.selectedItem.name } );
+			setUsStateOption( newValue.selectedItem );
+		},
+		[ currentValues ]
+	);
+
+	if ( countryOptions.length === 0 || usStatesOptions.length === 0 ) {
+		return <CenteredSpinner />;
 	}
 
 	return (
@@ -92,69 +135,123 @@ export default function VenueUpsert( props: {
 			<span className="classy-section-separator"></span>
 
 			<section className="classy-modal__content classy-modal__content--venue classy-field__inputs classy-field__inputs--unboxed">
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.name }
-					onChange={ ( value ) => {
-						const newValue = value || '';
-						setConfirmEnabled( newValue !== '' );
+				<LabeledInput label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ currentValues.name }
+						onChange={ ( value ) => {
+							const newValue = value || '';
+							setConfirmEnabled( newValue !== '' );
 
-						return setValues( {
-							...currentValues,
-							name: newValue,
-						} );
-					} }
-					required
-				/>
+							return setCurrentValues( {
+								...currentValues,
+								name: newValue,
+							} );
+						} }
+						required
+					/>
+				</LabeledInput>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.address }
-					onChange={ ( value ) => setValues( { ...currentValues, address: value || '' } ) }
-				/>
+				<LabeledInput label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ currentValues.address }
+						onChange={ ( value ) => setCurrentValues( { ...currentValues, address: value || '' } ) }
+					/>
+				</LabeledInput>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.city }
-					onChange={ ( value ) => setValues( { ...currentValues, city: value || '' } ) }
-				/>
+				<LabeledInput label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ currentValues.city }
+						onChange={ ( value ) => setCurrentValues( { ...currentValues, city: value || '' } ) }
+					/>
+				</LabeledInput>
 
-				<CustomSelectControl
-					__next40pxDefaultSize
-					className="classy-field__control classy-field__control--select"
-					label={ _x( 'Country', 'country input label', 'the-events-calendar' ) }
-					onChange={ onCountryChange }
-					options={countryOptions}
-					value={ currentCountry }
-				/>
+				<LabeledInput label={ _x( 'Country', 'country input label', 'the-events-calendar' ) }>
+					<CustomSelectControl
+						__next40pxDefaultSize
+						hideLabelFromVision={ true }
+						className="classy-field__control classy-field__control--select"
+						label={ _x( 'Country', 'country input label', 'the-events-calendar' ) }
+						onChange={ onCountryChange }
+						options={ countryOptions }
+						value={ countryOption }
+					/>
+				</LabeledInput>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={
-						<InputLabel label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) } />
-					}
-					value={ currentValues.zip }
-					onChange={ ( value ) => setValues( { ...currentValues, zip: value || '' } ) }
-				/>
+				{ isUnitedStates ? (
+					<LabeledInput label={ _x( 'State', 'United State state input label', 'the-events-calendar' ) }>
+						<CustomSelectControl
+							className="classy-field__control classy-field__control--input"
+							label={ _x( 'State', 'United State state input label', 'the-events-calendar' ) }
+							hideLabelFromVision={ true }
+							value={ usStateOption }
+							onChange={ onUsStateChange }
+							options={ usStatesOptions }
+						/>
+					</LabeledInput>
+				) : (
+					<LabeledInput
+						label={ _x(
+							'State or Province',
+							'State input label; used if the country is not the US',
+							'the-events-calendar'
+						) }
+					>
+						<InputControl
+							className="classy-field__control classy-field__control--input"
+							label={ _x(
+								'State or Province',
+								'State input label; used if the country is not the US',
+								'the-events-calendar'
+							) }
+							hideLabelFromVision={ true }
+							value={ currentValues.stateprovince }
+							onChange={ ( newValue ) => {
+								setCurrentValues( { ...currentValues, stateprovince: newValue } );
+							} }
+						/>
+					</LabeledInput>
+				) }
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.phone }
-					onChange={ ( value ) => setValues( { ...currentValues, phone: value || '' } ) }
-					type="tel"
-				/>
+				<LabeledInput label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ currentValues.zip }
+						onChange={ ( value ) => setCurrentValues( { ...currentValues, zip: value || '' } ) }
+					/>
+				</LabeledInput>
 
-				<InputControl
-					className="classy-field__control classy-field__control--input"
-					label={ <InputLabel label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) } /> }
-					value={ currentValues.website }
-					onChange={ ( value ) => setValues( { ...currentValues, website: value || '' } ) }
-					type="url"
-				/>
+				<LabeledInput label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ currentValues.phone }
+						onChange={ ( value ) => setCurrentValues( { ...currentValues, phone: value || '' } ) }
+						type="tel"
+					/>
+				</LabeledInput>
+
+				<LabeledInput label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }>
+					<InputControl
+						className="classy-field__control classy-field__control--input"
+						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
+						hideLabelFromVision={ true }
+						value={ currentValues.website }
+						onChange={ ( value ) => setCurrentValues( { ...currentValues, website: value || '' } ) }
+						type="url"
+					/>
+				</LabeledInput>
 			</section>
 
 			<footer className="classy-modal__footer classy-modal__footer--venue">

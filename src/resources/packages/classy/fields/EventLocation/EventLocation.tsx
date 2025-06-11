@@ -1,19 +1,19 @@
 import * as React from 'react';
-import {Fragment, MouseEventHandler, useCallback, useEffect, useRef, useState} from 'react';
+import { Fragment, MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import apiFetch from '@wordpress/api-fetch';
-import {Button, CustomSelectControl} from '@wordpress/components';
-import {useDispatch, useSelect} from '@wordpress/data';
-import {_x} from '@wordpress/i18n';
-import {addQueryArgs} from '@wordpress/url';
-import {IconAdd, IconVideoCamera} from '@tec/common/classy/components';
-import {FieldProps} from '@tec/common/classy/types/FieldProps.ts';
+import { Button, CustomSelectControl } from '@wordpress/components';
+import { useDispatch, useSelect } from '@wordpress/data';
+import { _x } from '@wordpress/i18n';
+import { addQueryArgs } from '@wordpress/url';
+import { IconAdd, IconVideoCamera } from '@tec/common/classy/components';
+import { FieldProps } from '@tec/common/classy/types/FieldProps.ts';
 import VenueCards from './VenueCards';
-import {CustomSelectOption} from '@wordpress/components/build-types/custom-select-control/types';
-import {sortOptionsForDisplay} from '@tec/common/classy/functions/sortOptionsForDisplay';
-import {FetchedVenue} from '../../types/FetchedVenue';
-import {METADATA_EVENT_VENUE_ID} from '../../constants';
-import {VenueData} from "../../types/VenueData";
-import VenueUpsertModal from "./VenueUpsertModal.tsx";
+import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
+import { sortOptionsForDisplay } from '@tec/common/classy/functions/sortOptionsForDisplay';
+import { FetchedVenue } from '../../types/FetchedVenue';
+import { METADATA_EVENT_VENUE_ID } from '../../constants';
+import { VenueData } from '../../types/VenueData';
+import VenueUpsertModal from './VenueUpsertModal.tsx';
 
 function buildOptionFromFetchedVenue( venue: FetchedVenue ): CustomSelectOption {
 	return {
@@ -76,7 +76,7 @@ export default function EventLocation( props: FieldProps ) {
 				city: venue.city,
 				country: venue.country,
 				province: venue.province,
-				state: venue.state,
+				stateprovince: venue.state,
 				zip: venue.zip,
 				phone: venue.phone,
 				website: venue.website,
@@ -91,7 +91,7 @@ export default function EventLocation( props: FieldProps ) {
 			city: '',
 			country: '',
 			province: '',
-			state: '',
+			stateprovince: '',
 			zip: '',
 			phone: '',
 			website: '',
@@ -194,10 +194,10 @@ export default function EventLocation( props: FieldProps ) {
 		[ currentVenueIds ]
 	);
 
-	const createNewVenue: MouseEventHandler = ()=>{
+	const createNewVenue: MouseEventHandler = () => {
 		// We're creating a new venue, the ID is 0.
 		setIsUpserting( 0 );
-	}
+	};
 
 	/**
 	 * Upserts a venue by either updating an existing one or creating a new one based on the provided data.
@@ -210,6 +210,7 @@ export default function EventLocation( props: FieldProps ) {
 	 */
 	const upsertVenue = useCallback( ( venueData: VenueData ) => {
 		let fetchPromise: Promise< FetchedVenue >;
+		const isCountryUs = venueData.countryCode === 'US';
 
 		if ( venueData.id ) {
 			// Updating an existing venue.
@@ -221,8 +222,8 @@ export default function EventLocation( props: FieldProps ) {
 					address: venueData.address,
 					city: venueData.city,
 					country: venueData.country,
-					province: venueData.province,
-					state: venueData.state,
+					province: isCountryUs ? '' : venueData.stateprovince,
+					state: isCountryUs ? venueData.stateprovince : '',
 					// stateprovince: venueData.stateprovince, -- required?
 					zip: venueData.zip,
 					phone: venueData.phone,
@@ -235,12 +236,13 @@ export default function EventLocation( props: FieldProps ) {
 				path: '/tribe/events/v1/venues',
 				method: 'POST',
 				data: {
+					status: 'publish',
 					venue: venueData.name,
 					address: venueData.address,
 					city: venueData.city,
 					country: venueData.country,
-					province: venueData.province,
-					state: venueData.state,
+					province: isCountryUs ? '' : venueData.stateprovince,
+					state: isCountryUs ? venueData.stateprovince : '',
 					// stateprovince: venueData.stateprovince, -- required?
 					zip: venueData.zip,
 					phone: venueData.phone,
