@@ -99,17 +99,26 @@ class Controller extends Controller_Contract {
 	public function filter_data( array $data ): array {
 		$data['settings'] ??= [];
 
-		$time_range_separator                                  = tribe_get_option( 'timeRangeSeparator', ' - ' );
-		$multi_day_cutoff                                      = tribe_get_option( 'multiDayCutoff', '00:00' );
-		[ $multi_day_cutoff_hours, $multi_day_cutoff_minutes ] = array_replace(
+		$additional_settings = [
+			'defaultCurrency'    => [
+				'code'     => tribe_get_option( 'defaultCurrencyCode', 'USD' ),
+				'symbol'   => tribe_get_option( 'defaultCurrencySymbol', '$' ),
+				'position' => tribe_get_option( 'reverseCurrencyPosition', false ) ? 'postfix' : 'prefix',
+			],
+			'timeRangeSeparator' => tribe_get_option( 'timeRangeSeparator', ' - ' ),
+		];
+
+		$data['settings'] = array_merge( $data['settings'], $additional_settings );
+
+		$multi_day_cutoff                  = tribe_get_option( 'multiDayCutoff', '00:00' );
+		[ $cutoff_hours, $cutoff_minutes ] = array_replace(
 			[ 0, 0 ],
 			explode( ':', $multi_day_cutoff, 2 )
 		);
 
-		$data['settings']['timeRangeSeparator'] = $time_range_separator;
-		$data['endOfDayCutoff']                 = [
-			'hours'   => (int) $multi_day_cutoff_hours,
-			'minutes' => (int) $multi_day_cutoff_minutes,
+		$data['endOfDayCutoff'] = [
+			'hours'   => (int) $cutoff_hours,
+			'minutes' => (int) $cutoff_minutes,
 		];
 
 		return $data;
