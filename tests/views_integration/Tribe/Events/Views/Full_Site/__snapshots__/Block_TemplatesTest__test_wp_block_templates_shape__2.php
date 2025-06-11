@@ -1,11 +1,11 @@
 <?php return array (
-  'modified' => NULL,
-  'post_types' => NULL,
-  'origin' => NULL,
+  'modified' => null,
+  'post_types' => null,
+  'origin' => null,
   'has_theme_file' => false,
-  'area' => NULL,
-  'plugin' => NULL,
-  'author' => NULL,
+  'area' => null,
+  'plugin' => null,
+  'author' => null,
   'content' => '<!-- wp:template-part {"slug":"header","tagName":"header","theme":"twentytwentyfour"} /-->
 <!-- wp:tec/archive-events /-->
 <!-- wp:template-part {"slug":"footer","tagName":"footer","theme":"twentytwentyfour"} /-->
@@ -19,5 +19,5 @@
   'id' => 'tec//archive-events',
   'type' => 'wp_template',
   'is_custom' => true,
-  'wp_id' => NULL,
+  'wp_id' => null,
 );
