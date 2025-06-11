@@ -1,5 +1,11 @@
 # Changelog
 
+### [6.13.2.1] 2025-06-06
+
+* Fix - Fix some hardcoded asset paths. [TEC-5523]
+* Fix - Utilize the newer version of our build process to ensure inline svgs are being handled properly. [TCMN-188]
+* Security - Fixed an issue where some templates were not sanitized properly.
+
 ### [6.13.2] 2025-06-03
 
 * Version - The Events Calendar 6.13.2 is only compatible with Event Tickets 5.24.0 and higher.
