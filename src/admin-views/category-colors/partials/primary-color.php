@@ -6,15 +6,16 @@
  *
  * @since TBD
  */
+
 ?>
 <div class="tec-events-category-colors__field">
-    <label for="tec-events-category-colors-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
-    <input
-        type="text"
-        id="tec-events-category-colors-primary"
-        name="tec_events_category-color[primary]"
-        value="<?php echo esc_attr( $value ); ?>"
-        class="tec-events-category-colors__input wp-color-picker"
-        placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
-    >
+	<label for="tec-events-category-colors-primary"><?php esc_html_e( 'Primary Color', 'the-events-calendar' ); ?></label>
+	<input
+		type="text"
+		id="tec-events-category-colors-primary"
+		name="tec_events_category-color[primary]"
+		value="<?php echo esc_attr( $value ); ?>"
+		class="tec-events-category-colors__input wp-color-picker"
+		placeholder="<?php esc_attr_e( 'None', 'the-events-calendar' ); ?>"
+	>
 </div>

@@ -80,10 +80,7 @@ $category_slug = Tribe__Events__Main::instance()->get_category_slug();
 									]
 								);
 								?>
-								<?php
-								/* translators: %s is the category name. */
-								?>
-								aria-label="<?php echo esc_attr( sprintf( __( 'View events in %s', 'the-events-calendar' ), $category['name'] ) ); ?>">
+								aria-label="<?php /* translators: %s is the category name. */ echo esc_attr( sprintf( __( 'View events in %s', 'the-events-calendar' ), $category['name'] ) ); ?>">
 								<?php echo esc_html( $category['name'] ); ?>
 							</a>
 						<?php endif; ?>

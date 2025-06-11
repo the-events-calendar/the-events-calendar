@@ -3,47 +3,48 @@
 	<input type="hidden" id="tec_category_colors_nonce" name="tec_category_colors_nonce" value="12345678" /><input type="hidden" name="_wp_http_referer" value="" />	<div class="tec-events-category-colors__container">
 		<div class="tec-events-category-colors__grid">
 			<div class="tec-events-category-colors__field">
-				<label for="tec-events-category-colors-primary">Primary Color</label>
-				<input
-					type="text"
-					id="tec-events-category-colors-primary"
-					name="tec_events_category-color[primary]"
-					value=""
-					class="tec-events-category-colors__input wp-color-picker"
-					placeholder="None"
-				>
-			</div>
-			<div class="tec-events-category-colors__field">
-				<label for="tec-events-category-colors-background">Background Color</label>
-				<input
-					type="text"
-					id="tec-events-category-colors-background"
-					name="tec_events_category-color[secondary]"
-					value=""
-					class="tec-events-category-colors__input wp-color-picker"
-					placeholder="None"
-				>
-			</div>
-			<div class="tec-events-category-colors__field">
-				<label for="tec-events-category-colors-text">Text Color</label>
-				<input
-					type="text"
-					id="tec-events-category-colors-text"
-					name="tec_events_category-color[text]"
-					value=""
-					class="tec-events-category-colors__input wp-color-picker"
-					placeholder="None"
-				>
-			</div>
-			<div class="tec-events-category-colors__field--preview">
-				<label>Preview</label>
-				<div class="tec-events-category-colors__preview-box">
-					<span class="tec-events-category-colors__preview-text" data-default-text="Example"></span>
-				</div>
-				<p class="tec-events-category-colors__description">
-					Select a primary color of your choice. You can further customize your color choices afterwards.					<a href="#">Learn more about color selection and accessibility</a>
-				</p>
-			</div>
+	<label for="tec-events-category-colors-primary">Primary Color</label>
+	<input
+		type="text"
+		id="tec-events-category-colors-primary"
+		name="tec_events_category-color[primary]"
+		value=""
+		class="tec-events-category-colors__input wp-color-picker"
+		placeholder="None"
+	>
+</div>
+<div class="tec-events-category-colors__field">
+	<label for="tec-events-category-colors-background">Background Color</label>
+	<input
+		type="text"
+		id="tec-events-category-colors-background"
+		name="tec_events_category-color[secondary]"
+		value=""
+		class="tec-events-category-colors__input wp-color-picker"
+		placeholder="None"
+	>
+</div>
+<div class="tec-events-category-colors__field">
+	<label for="tec-events-category-colors-text">Text Color</label>
+	<input
+		type="text"
+		id="tec-events-category-colors-text"
+		name="tec_events_category-color[text]"
+		value=""
+		class="tec-events-category-colors__input wp-color-picker"
+		placeholder="None"
+	>
+</div>
+<div class="tec-events-category-colors__field--preview">
+	<label>Preview</label>
+	<div class="tec-events-category-colors__preview-box">
+		<span class="tec-events-category-colors__preview-text" data-default-text="Example"></span>
+	</div>
+	<p class="tec-events-category-colors__description">
+		Select a primary color of your choice. You can further customize your color choices afterwards.		<a href="https://theeventscalendar.com/knowledgebase/k/accessibility-color-selection/">
+			Learn more about color selection and accessibility		</a>
+	</p>
+</div>
 		</div>
 	</div>
 </div>

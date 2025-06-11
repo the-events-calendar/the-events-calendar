@@ -103,7 +103,10 @@ class Controller extends Controller_Contract {
 	 * @return array<string,mixed> The modified template context with category data.
 	 */
 	public function add_category_data( $context ) {
-		$event                                        = tribe_get_event();
+		$event = tribe_get_event();
+		if ( empty( $event ) ) {
+			return $context;
+		}
 		$context['category_colors_priority_category'] = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $event );
 
 		return $context;
