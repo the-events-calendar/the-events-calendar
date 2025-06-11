@@ -7,6 +7,7 @@ import { VenueData } from '../../types/VenueData';
 import { CustomSelectOption } from '@wordpress/components/build-types/custom-select-control/types';
 import { useSelect } from '@wordpress/data';
 import { SelectFunction } from '@wordpress/data/build-types/types';
+import { decodeEntities } from '@wordpress/html-entities';
 
 const defaultValues = {
 	name: '',
@@ -140,7 +141,7 @@ export default function VenueUpsert( props: {
 						className="classy-field__control classy-field__control--input"
 						label={ _x( 'Name', 'Name input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
-						value={ currentValues.name }
+						value={ decodeEntities( currentValues.name ) }
 						onChange={ ( value ) => {
 							const newValue = value || '';
 							setConfirmEnabled( newValue !== '' );
@@ -159,7 +160,7 @@ export default function VenueUpsert( props: {
 						className="classy-field__control classy-field__control--input"
 						label={ _x( 'Address', 'Address input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
-						value={ currentValues.address }
+						value={ decodeEntities( currentValues.address ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, address: value || '' } ) }
 					/>
 				</LabeledInput>
@@ -169,7 +170,7 @@ export default function VenueUpsert( props: {
 						className="classy-field__control classy-field__control--input"
 						label={ _x( 'City ', 'City  input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
-						value={ currentValues.city }
+						value={ decodeEntities( currentValues.city ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, city: value || '' } ) }
 					/>
 				</LabeledInput>
@@ -213,7 +214,7 @@ export default function VenueUpsert( props: {
 								'the-events-calendar'
 							) }
 							hideLabelFromVision={ true }
-							value={ currentValues.stateprovince }
+							value={ decodeEntities( currentValues.stateprovince ) }
 							onChange={ ( newValue ) => {
 								setCurrentValues( { ...currentValues, stateprovince: newValue } );
 							} }
@@ -226,7 +227,7 @@ export default function VenueUpsert( props: {
 						className="classy-field__control classy-field__control--input"
 						label={ _x( 'Postal Code', 'Postal code input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
-						value={ currentValues.zip }
+						value={ decodeEntities( currentValues.zip ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, zip: value || '' } ) }
 					/>
 				</LabeledInput>
@@ -236,7 +237,7 @@ export default function VenueUpsert( props: {
 						className="classy-field__control classy-field__control--input"
 						label={ _x( 'Phone', 'Phone input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
-						value={ currentValues.phone }
+						value={ decodeEntities( currentValues.phone ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, phone: value || '' } ) }
 						type="tel"
 					/>
@@ -247,7 +248,7 @@ export default function VenueUpsert( props: {
 						className="classy-field__control classy-field__control--input"
 						label={ _x( 'Website', 'Website input label', 'the-events-calendar' ) }
 						hideLabelFromVision={ true }
-						value={ currentValues.website }
+						value={ decodeEntities( currentValues.website ) }
 						onChange={ ( value ) => setCurrentValues( { ...currentValues, website: value || '' } ) }
 						type="url"
 					/>
