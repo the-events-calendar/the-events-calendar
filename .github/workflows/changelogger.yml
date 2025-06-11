@@ -3,7 +3,7 @@ name: Check changelog
 on:
   pull_request:
     branches:
-      - master
+      - main
       - 'release/**'
     paths-ignore:
       - '.github/**'
