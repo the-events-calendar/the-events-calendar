@@ -126,7 +126,7 @@ class Assets {
 		 */
 		return (bool) apply_filters(
 			'tec_events_category_colors_should_enqueue_frontend_legend',
-			tribe_get_option( $this->generator->get_option_key(), true ),
+			! tribe_get_option( 'category-color-custom-css', false ),
 			$this
 		);
 	}

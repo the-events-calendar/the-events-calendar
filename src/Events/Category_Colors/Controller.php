@@ -29,12 +29,20 @@ use WP_Post;
  */
 class Controller extends Controller_Contract {
 
+	const CATEGORY_TEMPLATE_VIEWS = [
+		'events/v2/list/event/category',
+		'events/v2/day/event/category',
+		'events-pro/v2/map/event-cards/event-card/event/category',
+		'events-pro/v2/photo/event/category',
+	];
+
 	/**
 	 * Register the provider.
 	 *
 	 * @since TBD
 	 */
 	public function do_register(): void {
+		// Register admin, migration, and CSS controllers.
 		$this->container->register_on_action( 'tribe_plugins_loaded', Admin_Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', Migration\Controller::class );
 		$this->container->register_on_action( 'tribe_plugins_loaded', CSS\Controller::class );
@@ -43,7 +51,12 @@ class Controller extends Controller_Contract {
 		$instance = $this->container->make( Settings::class );
 		$instance->add_hooks();
 
+		// Add filters for template variables and category data.
 		add_filter( 'tec_events_views_v2_view_template_vars', [ $this, 'add_category_colors_vars' ], 10, 2 );
+
+		foreach ( self::CATEGORY_TEMPLATE_VIEWS as $template ) {
+			add_filter( "tribe_template_context:{$template}", [ $this, 'add_category_data' ] );
+		}
 	}
 
 	/**
@@ -72,17 +85,27 @@ class Controller extends Controller_Contract {
 	 * @return array<string,mixed> The modified template variables.
 	 */
 	public function add_category_colors_vars( array $template_vars, View $view ): array {
-		$event = tribe_get_event();
-
-		$template_vars['category_colors_priority_category'] = ( $event instanceof WP_Post )
-			? tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $event )
-			: [];
-
 		$template_vars['category_colors_enabled']           = tribe( Category_Color_Dropdown_Provider::class )->should_display_on_view( $view );
 		$template_vars['category_colors_category_dropdown'] = tribe( Category_Color_Dropdown_Provider::class )->get_dropdown_categories();
 		$template_vars['category_colors_super_power']       = tribe_get_option( 'category-color-legend-superpowers', false );
 		$template_vars['category_colors_show_reset_button'] = tribe_get_option( 'category-color-reset-button', false );
 
 		return $template_vars;
+	}
+
+	/**
+	 * Adds category data to the template context.
+	 *
+	 * @since TBD
+	 *
+	 * @param array<string,mixed> $context The template context.
+	 *
+	 * @return array<string,mixed> The modified template context with category data.
+	 */
+	public function add_category_data( $context ) {
+		$event                                        = tribe_get_event();
+		$context['category_colors_priority_category'] = tribe( Category_Color_Priority_Category_Provider::class )->get_highest_priority_category( $event );
+
+		return $context;
 	}
 }

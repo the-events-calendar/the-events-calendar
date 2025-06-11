@@ -41,7 +41,8 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 			'.tribe-events-pro-week-grid__multiday-event',
 			'.tribe-events-calendar-month__multiday-event',
 			'.tribe-events-calendar-month-mobile-events__mobile-event',
-			'.tribe-events-pro-week-mobile-events__event'
+			'.tribe-events-pro-week-mobile-events__event',
+			'.tribe-events-pro-map__event-card-wrapper',
 		],
 		filteredHide: 'tec-category-filtered-hide',
 		colorCircle: 'tec-events-category-color-filter__color-circle',
@@ -74,7 +75,7 @@ tribe.events.categoryColors.categoryPicker = ( function() {
 	const handlePageLoad = () => {
 		// Check for full page reload using Performance API
 		const navigationEntry = performance.getEntriesByType( 'navigation' )[0];
-		const isFullReload = navigationEntry?.type === 'reload' || 
+		const isFullReload = navigationEntry?.type === 'reload' ||
 			( performance.navigation && performance.navigation.type === 1 );
 
 		if ( isFullReload ) {
